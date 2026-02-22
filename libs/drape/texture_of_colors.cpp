@@ -181,7 +181,7 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     texture->UploadData(context, uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
                         make_ref(pointer));
 
-    SharedBufferManager::Instance().FreeSharedBuffer(byteCount, std::move(buffer));
+    SharedBufferManager::Instance().FreeSharedBuffer(std::move(buffer));
   }
 }
 

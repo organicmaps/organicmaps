@@ -25,10 +25,7 @@ struct GlyphImage
   void Destroy()
   {
     if (m_data)
-    {
-      auto const sz = m_data->size();
-      SharedBufferManager::Instance().FreeSharedBuffer(sz, std::move(m_data));
-    }
+      SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_data));
   }
 
   uint32_t m_width;

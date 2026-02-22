@@ -29,9 +29,8 @@ SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::ReserveSharedBuffe
   return result;
 }
 
-void SharedBufferManager::FreeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
+void SharedBufferManager::FreeSharedBuffer(shared_buffer_ptr_t buf)
 {
-  auto const normalized = std::bit_ceil(s);
   std::lock_guard g(m_mutex);
-  m_pool[normalized].push_back(std::move(buf));
+  m_pool[buf->size()].push_back(std::move(buf));
 }

@@ -1,26 +1,21 @@
 #include "drape/cpu_buffer.hpp"
 
 #include "base/assert.hpp"
-#include "base/math.hpp"
-#include "base/shared_buffer_manager.hpp"
 
 #include <cstring>
 
 namespace dp
 {
-CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity) : TBase(elementSize, capacity)
-{
-  uint32_t const memorySize = GetCapacity() * GetElementSize();
-  // Rounds up the requested size to the nearest power of 2.
-  m_memory = SharedBufferManager::Instance().ReserveSharedBuffer(memorySize);
-  m_memoryCursor = NonConstData();
-}
+CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
+  : TBase(elementSize, capacity)
+  , m_memoryCursor(NonConstData())
+  , m_memory(SharedBufferManager::Instance().ReserveSharedBuffer(GetCapacity() * GetElementSize()))
+{}
 
 CPUBuffer::~CPUBuffer()
 {
   m_memoryCursor = nullptr;
-  auto const sz = m_memory->size();
-  SharedBufferManager::Instance().FreeSharedBuffer(sz, std::move(m_memory));
+  SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_memory));
 }
 
 void CPUBuffer::UploadData(void const * data, uint32_t elementCount)

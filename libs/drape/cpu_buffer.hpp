@@ -2,8 +2,7 @@
 
 #include "drape/buffer_base.hpp"
 
-#include <memory>
-#include <vector>
+#include "base/shared_buffer_manager.hpp"
 
 namespace dp
 {
@@ -32,6 +31,6 @@ private:
   unsigned char * GetCursor() const;
 
   unsigned char * m_memoryCursor;
-  std::unique_ptr<std::vector<unsigned char>> m_memory;
+  SharedBufferManager::shared_buffer_ptr_t m_memory;
 };
 }  // namespace dp

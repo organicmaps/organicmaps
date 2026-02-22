@@ -5,11 +5,8 @@ namespace dp
 AttributeBufferMutator::~AttributeBufferMutator()
 {
   SharedBufferManager & mng = SharedBufferManager::Instance();
-  for (size_t i = 0; i < m_array.size(); ++i)
-  {
-    TBufferNode & node = m_array[i];
-    mng.FreeSharedBuffer(node.second, std::move(node.first));
-  }
+  for (auto & [buffer, _] : m_array)
+    mng.FreeSharedBuffer(std::move(buffer));
 }
 
 void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateRegion region, ref_ptr<void> data)
