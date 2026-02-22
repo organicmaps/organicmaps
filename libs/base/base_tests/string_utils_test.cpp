@@ -89,8 +89,8 @@ UNIT_TEST(LowerUniChar)
   }
   LOG(LINFO, ("Loaded", cCount, "common foldings and", fCount, "full foldings"));
 
-  // full range unicode table test
-  for (strings::UniChar c = 0; c < 0x11000; ++c)
+  // full range unicode table test (including SMP characters)
+  for (strings::UniChar c = 0; c < 0x1F000; ++c)
   {
     auto const found = m.find(c);
     if (found == m.end())
@@ -124,6 +124,86 @@ UNIT_TEST(MakeLowerCase)
   UniString const us(&arr[0], &arr[0] + ARRAY_SIZE(arr));
   UniString const cus(&carr[0], &carr[0] + ARRAY_SIZE(carr));
   TEST_EQUAL(cus, MakeLowerCase(us), ());
+
+  // New BMP mappings added in CaseFolding 18.0
+  // Greek Capital Letter Yot
+  TEST_EQUAL(LowerUniChar(0x037F), 0x03F3, ());
+  // Cyrillic Capital Letter En With Left Hook
+  TEST_EQUAL(LowerUniChar(0x0528), 0x0529, ());
+  // Georgian Capital Letter Yn / Aen
+  TEST_EQUAL(LowerUniChar(0x10C7), 0x2D27, ());
+  TEST_EQUAL(LowerUniChar(0x10CD), 0x2D2D, ());
+  // Cherokee Small Letter YE (maps to uppercase Cherokee)
+  TEST_EQUAL(LowerUniChar(0x13F8), 0x13F0, ());
+  // Cyrillic Small Letter Rounded VE -> common VE
+  TEST_EQUAL(LowerUniChar(0x1C80), 0x0432, ());
+  // Cyrillic Small Letter Unblended UK
+  TEST_EQUAL(LowerUniChar(0x1C88), 0xA64B, ());
+  // Cyrillic Capital Letter TJE
+  TEST_EQUAL(LowerUniChar(0x1C89), 0x1C8A, ());
+  // Georgian Mtavruli Capital Letter AN
+  TEST_EQUAL(LowerUniChar(0x1C90), 0x10D0, ());
+  // Glagolitic Capital Letter Caudate Chrivi
+  TEST_EQUAL(LowerUniChar(0x2C2F), 0x2C5F, ());
+  // Coptic Capital Letter Bohairic Khei
+  TEST_EQUAL(LowerUniChar(0x2CF2), 0x2CF3, ());
+  // Latin Capital Letter H With Hook
+  TEST_EQUAL(LowerUniChar(0xA7AA), 0x0266, ());
+  // Latin Capital Letter Chi
+  TEST_EQUAL(LowerUniChar(0xA7B3), 0xAB53, ());
+  // Latin Capital Letter C With Palatal Hook
+  TEST_EQUAL(LowerUniChar(0xA7C4), 0xA794, ());
+  // Latin Capital Letter Lambda With Stroke
+  TEST_EQUAL(LowerUniChar(0xA7DC), 0x019B, ());
+  // Cherokee Small Letter A (AB range)
+  TEST_EQUAL(LowerUniChar(0xAB70), 0x13A0, ());
+  TEST_EQUAL(LowerUniChar(0xABBF), 0x13EF, ());
+
+  // SMP (Supplementary Multilingual Plane) character tests
+  {
+    // Osage Capital Letter A
+    UniChar const osage[] = {0x104B0};
+    UniChar const osageLower[] = {0x104D8};
+    TEST_EQUAL(MakeLowerCase(UniString(osage, osage + 1)), UniString(osageLower, osageLower + 1), ());
+  }
+  {
+    // Vithkuqi Capital Letter A
+    UniChar const vithkuqi[] = {0x10570};
+    UniChar const vithkuqiLower[] = {0x10597};
+    TEST_EQUAL(MakeLowerCase(UniString(vithkuqi, vithkuqi + 1)), UniString(vithkuqiLower, vithkuqiLower + 1), ());
+    // Vithkuqi gap: 0x1057B should be unchanged
+    TEST_EQUAL(LowerUniChar(0x1057B), 0x1057B, ());
+  }
+  {
+    // Old Hungarian Capital Letter A
+    UniChar const oldHung[] = {0x10C80};
+    UniChar const oldHungLower[] = {0x10CC0};
+    TEST_EQUAL(MakeLowerCase(UniString(oldHung, oldHung + 1)), UniString(oldHungLower, oldHungLower + 1), ());
+  }
+  {
+    // Warang Citi Capital Letter NGAA
+    UniChar const warang[] = {0x118A0};
+    UniChar const warangLower[] = {0x118C0};
+    TEST_EQUAL(MakeLowerCase(UniString(warang, warang + 1)), UniString(warangLower, warangLower + 1), ());
+  }
+  {
+    // Medefaidrin Capital Letter M
+    UniChar const mede[] = {0x16E40};
+    UniChar const medeLower[] = {0x16E60};
+    TEST_EQUAL(MakeLowerCase(UniString(mede, mede + 1)), UniString(medeLower, medeLower + 1), ());
+  }
+  {
+    // Adlam Capital Letter ALIF
+    UniChar const adlam[] = {0x1E900};
+    UniChar const adlamLower[] = {0x1E922};
+    TEST_EQUAL(MakeLowerCase(UniString(adlam, adlam + 1)), UniString(adlamLower, adlamLower + 1), ());
+  }
+  {
+    // Latin Small Ligature Long S With Descender S -> "ss" (full case folding)
+    UniChar const ligature[] = {0x1DF95};
+    UniChar const expanded[] = {0x73, 0x73};
+    TEST_EQUAL(MakeLowerCase(UniString(ligature, ligature + 1)), UniString(expanded, expanded + 2), ());
+  }
 }
 
 UNIT_TEST(EqualNoCase)
