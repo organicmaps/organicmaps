@@ -148,18 +148,6 @@ T PrevModN(T x, T n)
   return x == 0 ? n - 1 : x - 1;
 }
 
-inline uint32_t NextPowOf2(uint32_t v)
-{
-  v = v - 1;
-  v |= (v >> 1);
-  v |= (v >> 2);
-  v |= (v >> 4);
-  v |= (v >> 8);
-  v |= (v >> 16);
-
-  return v + 1;
-}
-
 // Greatest Common Divisor.
 template <typename Number, typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
 Number constexpr GCD(Number const a, Number const b)
