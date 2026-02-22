@@ -12,14 +12,14 @@ AttributeBufferMutator::~AttributeBufferMutator()
   }
 }
 
-void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateNode const & node)
+void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateRegion region, ref_ptr<void> data)
 {
-  m_data[info].push_back(node);
+  m_data[info].emplace_back(region, data);
 }
 
 void * AttributeBufferMutator::AllocateMutationBuffer(size_t byteCount)
 {
-  m_array.push_back(make_pair(SharedBufferManager::instance().reserveSharedBuffer(byteCount), byteCount));
+  m_array.emplace_back(SharedBufferManager::instance().reserveSharedBuffer(byteCount), byteCount);
   return &((*m_array.back().first)[0]);
 }
 }  // namespace dp

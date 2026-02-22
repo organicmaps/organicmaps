@@ -82,10 +82,7 @@ void CirclesPackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator>
   void * buffer = mutator->AllocateMutationBuffer(bytesCount);
   memcpy(buffer, m_buffer.data(), bytesCount);
 
-  dp::MutateNode mutateNode;
-  mutateNode.m_region = node.second;
-  mutateNode.m_data = make_ref(buffer);
-  mutator->AddMutation(node.first, mutateNode);
+  mutator->AddMutation(node.first, node.second, make_ref(buffer));
 
   m_needUpdate = false;
 }
