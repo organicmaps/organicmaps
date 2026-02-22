@@ -18,7 +18,8 @@ CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity) : TBase(elementSize
 CPUBuffer::~CPUBuffer()
 {
   m_memoryCursor = nullptr;
-  SharedBufferManager::instance().freeSharedBuffer(m_memory->size(), m_memory);
+  auto const sz = m_memory->size();
+  SharedBufferManager::instance().freeSharedBuffer(sz, std::move(m_memory));
 }
 
 void CPUBuffer::UploadData(void const * data, uint32_t elementCount)
@@ -51,12 +52,12 @@ uint32_t CPUBuffer::GetCurrentElementNumber() const
 
 unsigned char const * CPUBuffer::Data() const
 {
-  return &((*m_memory)[0]);
+  return m_memory->data();
 }
 
 unsigned char * CPUBuffer::NonConstData()
 {
-  return &((*m_memory)[0]);
+  return m_memory->data();
 }
 
 unsigned char * CPUBuffer::GetCursor() const

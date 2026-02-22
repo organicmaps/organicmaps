@@ -207,7 +207,7 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
 
   texture->UploadData(context, 0, pendingNodes.front().first.minY(), kMaxStipplePenLength, height, make_ref(rawBuffer));
 
-  mng.freeSharedBuffer(reserveBufferSize, ptr);
+  mng.freeSharedBuffer(reserveBufferSize, std::move(ptr));
 }
 
 void StipplePenTexture::ReservePattern(PenPatternT const & pattern)

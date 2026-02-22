@@ -9,7 +9,7 @@ class SharedBufferManager
 {
 public:
   using shared_buffer_t = std::vector<uint8_t>;
-  using shared_buffer_ptr_t = std::shared_ptr<shared_buffer_t>;
+  using shared_buffer_ptr_t = std::unique_ptr<shared_buffer_t>;
 
 private:
   std::mutex m_mutex;

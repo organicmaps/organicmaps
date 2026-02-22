@@ -181,7 +181,7 @@ FreetypeError constexpr g_FT_Errors[] =
             ptr[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
         }
       }
-      return {bitmap.width, bitmap.rows, data};
+      return {bitmap.width, bitmap.rows, std::move(data)};
     }
 
     void GetCharcodes(std::vector<FT_ULong> & charcodes) const
