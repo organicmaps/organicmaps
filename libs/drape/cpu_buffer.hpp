@@ -30,7 +30,7 @@ private:
   unsigned char * NonConstData();
   unsigned char * GetCursor() const;
 
-  unsigned char * m_memoryCursor;
   SharedBufferManager::shared_buffer_ptr_t m_memory;
+  unsigned char * m_memoryCursor;
 };
 }  // namespace dp
