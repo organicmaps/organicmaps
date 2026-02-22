@@ -170,7 +170,7 @@ FreetypeError constexpr g_FT_Errors[] =
       if (bitmap.buffer != nullptr)
       {
         // Bitmap is stored without a padding.
-        data = SharedBufferManager::instance().reserveSharedBuffer(bitmap.width * bitmap.rows);
+        data = SharedBufferManager::Instance().ReserveSharedBuffer(bitmap.width * bitmap.rows);
         auto ptr = data->data();
 
         for (unsigned int row = 0; row < bitmap.rows; ++row)
@@ -181,7 +181,7 @@ FreetypeError constexpr g_FT_Errors[] =
             ptr[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
         }
       }
-      return {bitmap.width, bitmap.rows, data};
+      return {bitmap.width, bitmap.rows, std::move(data)};
     }
 
     void GetCharcodes(std::vector<FT_ULong> & charcodes) const

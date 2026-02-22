@@ -139,12 +139,11 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
     size_t const pixelStride = uploadRect.SizeX();
     size_t const byteCount = kBytesPerPixel * uploadRect.SizeX() * uploadRect.SizeY();
-    size_t const bufferSize = static_cast<size_t>(math::NextPowOf2(static_cast<uint32_t>(byteCount)));
-
-    SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+    // Scales up the buffer size to the nearest power of 2.
+    auto buffer = SharedBufferManager::Instance().ReserveSharedBuffer(byteCount);
     uint8_t * pointer = SharedBufferManager::GetRawPointer(buffer);
     if (m_isDebug)
-      memset(pointer, 0, bufferSize);
+      memset(pointer, 0, buffer->size());
 
     uint32_t currentY = startRect.minY();
     for (size_t j = startRange; j < endRange; ++j)
@@ -181,6 +180,8 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     pointer = SharedBufferManager::GetRawPointer(buffer);
     texture->UploadData(context, uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
                         make_ref(pointer));
+
+    SharedBufferManager::Instance().FreeSharedBuffer(byteCount, std::move(buffer));
   }
 }
 

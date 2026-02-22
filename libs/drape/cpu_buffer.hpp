@@ -14,6 +14,10 @@ class CPUBuffer : public BufferBase
 public:
   CPUBuffer(uint8_t elementSize, uint32_t capacity);
   ~CPUBuffer() override;
+  CPUBuffer(CPUBuffer const &) = delete;
+  CPUBuffer & operator=(CPUBuffer const &) = delete;
+  CPUBuffer(CPUBuffer &&) noexcept = default;
+  CPUBuffer & operator=(CPUBuffer &&) noexcept = default;
 
   void UploadData(void const * data, uint32_t elementCount);
   // Set memory cursor on element with number == "elementNumber"
@@ -28,6 +32,6 @@ private:
   unsigned char * GetCursor() const;
 
   unsigned char * m_memoryCursor;
-  std::shared_ptr<std::vector<unsigned char>> m_memory;
+  std::unique_ptr<std::vector<unsigned char>> m_memory;
 };
 }  // namespace dp

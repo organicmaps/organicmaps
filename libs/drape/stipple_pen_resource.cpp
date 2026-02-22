@@ -187,16 +187,16 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
   //    LOG(LERROR, ("Multiple stipple pen texture uploads are not supported"));
   m_uploadCalled = true;
 
-  uint32_t height = 0;
+  size_t height = 0;
   for (auto const & n : pendingNodes)
     height += n.second.GetSize().y;
 
-  uint32_t const reserveBufferSize = math::NextPowOf2(height * kMaxStipplePenLength);
-
-  SharedBufferManager & mng = SharedBufferManager::instance();
-  SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
+  auto const reserveBufferSize = height * kMaxStipplePenLength;
+  SharedBufferManager & mng = SharedBufferManager::Instance();
+  // Rounds up the requested size to the nearest power of 2.
+  auto ptr = mng.ReserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
-  memset(rawBuffer, 0, reserveBufferSize);
+  memset(rawBuffer, 0, ptr->size());
 
   uint8_t * pixels = rawBuffer;
   for (auto const & n : pendingNodes)
@@ -207,7 +207,7 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
 
   texture->UploadData(context, 0, pendingNodes.front().first.minY(), kMaxStipplePenLength, height, make_ref(rawBuffer));
 
-  mng.freeSharedBuffer(reserveBufferSize, ptr);
+  mng.FreeSharedBuffer(reserveBufferSize, std::move(ptr));
 }
 
 void StipplePenTexture::ReservePattern(PenPatternT const & pattern)

@@ -1,42 +1,37 @@
 #include "base/shared_buffer_manager.hpp"
 
-SharedBufferManager & SharedBufferManager::instance()
+#include <bit>
+
+SharedBufferManager & SharedBufferManager::Instance()
 {
   static SharedBufferManager i;
   return i;
 }
 
-void SharedBufferManager::clearReserved()
+void SharedBufferManager::ClearReserved()
 {
   std::lock_guard g(m_mutex);
-  m_sharedBuffers.clear();
+  m_pool.clear();
 }
 
-SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffer(size_t s)
+SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::ReserveSharedBuffer(size_t s)
 {
+  auto const normalized = std::bit_ceil(s);
   std::lock_guard g(m_mutex);
 
-  shared_buffer_ptr_list_t & l = m_sharedBuffers[s];
+  auto & bucket = m_pool[normalized];
 
-  if (l.empty())
-    l.push_back(std::make_shared<shared_buffer_t>(s));
+  if (bucket.empty())
+    return std::make_unique<shared_buffer_t>(normalized);
 
-  shared_buffer_ptr_t res = l.front();
-  l.pop_front();
-
-  return res;
+  auto result = std::move(bucket.back());
+  bucket.pop_back();
+  return result;
 }
 
-void SharedBufferManager::freeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
+void SharedBufferManager::FreeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
 {
+  auto const normalized = std::bit_ceil(s);
   std::lock_guard g(m_mutex);
-
-  shared_buffer_ptr_list_t & l = m_sharedBuffers[s];
-
-  l.push_back(buf);
-}
-
-uint8_t * SharedBufferManager::GetRawPointer(shared_buffer_ptr_t ptr)
-{
-  return &((*ptr)[0]);
+  m_pool[normalized].push_back(std::move(buf));
 }
