@@ -11,7 +11,7 @@ namespace dp
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity) : TBase(elementSize, capacity)
 {
   uint32_t memorySize = math::NextPowOf2(GetCapacity() * GetElementSize());
-  m_memory = SharedBufferManager::instance().reserveSharedBuffer(memorySize);
+  m_memory = SharedBufferManager::Instance().ReserveSharedBuffer(memorySize);
   m_memoryCursor = NonConstData();
 }
 
@@ -19,7 +19,7 @@ CPUBuffer::~CPUBuffer()
 {
   m_memoryCursor = nullptr;
   auto const sz = m_memory->size();
-  SharedBufferManager::instance().freeSharedBuffer(sz, std::move(m_memory));
+  SharedBufferManager::Instance().FreeSharedBuffer(sz, std::move(m_memory));
 }
 
 void CPUBuffer::UploadData(void const * data, uint32_t elementCount)

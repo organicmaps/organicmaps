@@ -2,19 +2,19 @@
 
 #include <bit>
 
-SharedBufferManager & SharedBufferManager::instance()
+SharedBufferManager & SharedBufferManager::Instance()
 {
   static SharedBufferManager i;
   return i;
 }
 
-void SharedBufferManager::clearReserved()
+void SharedBufferManager::ClearReserved()
 {
   std::lock_guard g(m_mutex);
   m_pool.clear();
 }
 
-SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffer(size_t s)
+SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::ReserveSharedBuffer(size_t s)
 {
   auto const normalized = std::bit_ceil(s);
   std::lock_guard g(m_mutex);
@@ -29,14 +29,9 @@ SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffe
   return result;
 }
 
-void SharedBufferManager::freeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
+void SharedBufferManager::FreeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
 {
   auto const normalized = std::bit_ceil(s);
   std::lock_guard g(m_mutex);
   m_pool[normalized].push_back(std::move(buf));
-}
-
-uint8_t * SharedBufferManager::GetRawPointer(shared_buffer_ptr_t const & ptr)
-{
-  return ptr->data();
 }
