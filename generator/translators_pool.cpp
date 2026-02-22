@@ -5,7 +5,7 @@
 namespace generator
 {
 TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original, size_t threadCount)
-  : m_threadPool(threadCount)
+  : m_threadPool(std::in_place, threadCount)
 {
   CHECK_GREATER_OR_EQUAL(threadCount, 1, ());
 
@@ -18,7 +18,7 @@ void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
 {
   std::shared_ptr<TranslatorInterface> translator;
   m_translators.WaitAndPop(translator);
-  m_threadPool.SubmitWork([&, translator, elements = std::move(elements)]() mutable
+  m_threadPool->SubmitWork([&, translator, elements = std::move(elements)]() mutable
   {
     for (auto const & element : elements)
       translator->Emit(element);
@@ -29,7 +29,7 @@ void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
 
 bool TranslatorsPool::Finish()
 {
-  m_threadPool.WaitingStop();
+  m_threadPool->WaitingStop();
   using TranslatorPtr = std::shared_ptr<TranslatorInterface>;
   threads::ThreadSafeQueue<std::future<TranslatorPtr>> queue;
   while (!m_translators.Empty())
@@ -41,8 +41,8 @@ bool TranslatorsPool::Finish()
     queue.Push(p.get_future());
   }
 
-  base::ComputationalThreadPool pool(queue.Size() / 2 + 1);
   CHECK_GREATER_OR_EQUAL(queue.Size(), 1, ());
+  m_threadPool.emplace(queue.Size() / 2 + 1);
   while (queue.Size() != 1)
   {
     std::future<TranslatorPtr> left;
@@ -61,7 +61,7 @@ bool TranslatorsPool::Finish()
     state->left = std::move(left);
     state->right = std::move(right);
 
-    queue.Push(pool.Submit([state = std::move(state)]() mutable
+    queue.Push(m_threadPool->Submit([state = std::move(state)]() mutable
     {
       auto leftTranslator = state->left.get();
       auto rigthTranslator = state->right.get();
