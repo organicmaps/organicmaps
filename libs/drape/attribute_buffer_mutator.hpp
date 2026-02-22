@@ -36,7 +36,7 @@ class AttributeBufferMutator
 
 public:
   ~AttributeBufferMutator();
-  void AddMutation(BindingInfo const & info, MutateNode const & node);
+  void AddMutation(BindingInfo const & info, MutateRegion region, ref_ptr<void> data);
   void * AllocateMutationBuffer(size_t byteCount);
 
 private:

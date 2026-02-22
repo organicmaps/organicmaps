@@ -460,10 +460,7 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   ASSERT_EQUAL(node.first.GetElementSize(), sizeof(MutableLabel::DynamicVertex), ());
   ASSERT_EQUAL(node.second.m_count, result.m_buffer.size(), ());
 
-  dp::MutateNode mutateNode;
-  mutateNode.m_data = make_ref(dataPointer);
-  mutateNode.m_region = node.second;
-  mutator->AddMutation(node.first, mutateNode);
+  mutator->AddMutation(node.first, node.second, make_ref(dataPointer));
 }
 
 bool MutableLabelHandle::Update(ScreenBase const & screen)

@@ -43,10 +43,7 @@ void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutato
   else
     memset(buffer, 0, byteCount);
 
-  dp::MutateNode mutateNode;
-  mutateNode.m_region = node.second;
-  mutateNode.m_data = make_ref(buffer);
-  mutator->AddMutation(node.first, mutateNode);
+  mutator->AddMutation(node.first, node.second, make_ref(buffer));
 
   m_isLastVisible = isVisible;
 }
