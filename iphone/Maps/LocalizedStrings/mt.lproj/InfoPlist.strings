@@ -1,31 +1,15 @@
 
-
-/********** Strings **********/
-
-
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Fittex";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Werrejja u Korsiji";
 
-
-/********** Other translations **********/
-
-
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Irrapporta problemi bl-app";
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "route" = "Rotta";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Id-detezzjoni tal-post fl-isfond hija meħtieġa biex wieħed igawdi bis-sħiħ il-funzjonalitajiet tal-applikazzjoni. Jintuża għan-navigazzjoni u l-issejvjar tal-korsija tiegħek ivvjaġġat riċentement.";

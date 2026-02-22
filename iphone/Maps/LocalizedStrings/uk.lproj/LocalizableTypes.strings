@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Адреса/блок";
 "type.addr_interpolation.even" = "Адреса/блок";
 "type.addr_interpolation.odd" = "Адреса/блок";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "В'язниця";
 "type.amenity.pub" = "Паб";
 "type.amenity.public_bookcase" = "Книгообмін";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Прийом вторсировини";
 "type.amenity.recycling" = "Контейнер для вторсировини";
 "type.amenity.recycling.container" = "Контейнер для вторсировини";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "Психотерапія";
 "type.healthcare.sample_collection" = "Збір аналізів";
 "type.healthcare.speech_therapist" = "Логопедія";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Дорога";
 "type.highway.bridleway" = "Кінна доріжка";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "Невелика дорога";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Історичний об'єкт";
 "type.historic.aircraft" = "Історичний літак";
 "type.historic.anchor" = "Історичний якір";

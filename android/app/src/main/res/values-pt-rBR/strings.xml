@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button which deletes downloaded country -->
     <string name="delete">Apagar</string>
@@ -70,7 +69,6 @@
     <string name="measurement_units">Unidades de medidas</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Escolha entre milhas e quilômetros</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Mercados</string>
@@ -88,7 +86,6 @@
     <string name="category_toilet">Banheiro</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Instalações para trailers</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Anotações</string>
@@ -235,7 +232,6 @@
     <string name="pref_appearance_dark">Escura</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de usuários!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se que:</string>
     <string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;</string>
@@ -264,7 +260,6 @@
     <string name="dialog_routing_try_again">Por favor, tente novamente</string>
     <string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.</string>
     <!-- «Hide» context menu -->
@@ -515,7 +510,6 @@
     <string name="moremonth_ago_sorttype">Há mais de um mês</string>
     <string name="moreyear_ago_sorttype">Há mais de um ano</string>
     <string name="near_me_sorttype">Próximo de mim</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Alimentos</string>
     <string name="tourist_places">Pontos turíticos</string>
@@ -647,10 +641,14 @@
     <string name="nav_auto">Automático na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Usar o padrão do sistema</string>
-
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Login com senha</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Fazer login usando o navegador</string>
+    <string name="back">Voltar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="miles">Milhas</string>
+    <string name="zoom_to_country">Mostrar no mapa</string>
+    <string name="limited_accuracy">Precisão limitada</string>
 </resources>

@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "ທີ່ຢູ່/ບລັອກ";
 "type.addr_interpolation.even" = "ທີ່ຢູ່/ບລັອກ";
 "type.addr_interpolation.odd" = "ທີ່ຢູ່/ບລັອກ";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "ຄຸກ";
 "type.amenity.pub" = "ຜັບ";
 "type.amenity.public_bookcase" = "ຈຸດແລກປ່ຽນປຶ້ມ";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "ສູນຂີ້ເຫຍື້ອໝູນວຽນ";
 "type.amenity.recycling" = "ຖັງຂີ້ເຫຍື້ອແຍກປະເພດ";
 "type.amenity.recycling.container" = "ຖັງຂີ້ເຫຍື້ອແຍກປະເພດ";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "ນັກຈິດຕະບຳບັດ";
 "type.healthcare.sample_collection" = "ສູນເກັບຕົວຢ່າງກວດ";
 "type.healthcare.speech_therapist" = "ການຝຶກເວົ້າ";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "ເສັ້ນທາງ";
 "type.highway.bridleway" = "ທາງມ້າ";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "ທາງທົ່ວໄປ";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "ວັດຖຸບູຮານ";
 "type.historic.aircraft" = "ເຮືອບິນປະຫວັດສາດ";
 "type.historic.anchor" = "ສະໝໍເຮືອເກົ່າ";

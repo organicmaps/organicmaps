@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Скасаваць";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Спісы закладак";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Дзе паесці";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для аўтадамоў";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай Organic Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "закладка";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Падчас руху па маршруце памятайце:";
 "dialog_routing_disclaimer_priority" = "— Дарожныя ўмовы, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;";
 "dialog_routing_disclaimer_precision" = "— Карта можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Спампаваць дадатковыя карты, каб пракласці лепшы маршрут, які перасякае межы гэтай карты.";
 "dialog_routing_download_files" = "Спампуйце неабходныя файлы";
 "dialog_routing_download_and_update_all" = "Спампуйце або абнавіце ўсе карты і даныя навігацыі на шляху руху, каб пракласці маршрут.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Паказаць";
@@ -859,10 +839,6 @@
 "sort_distance" = "Сартаваць па адлегласці";
 "sort_date" = "Сартаваць па даце";
 "sort_name" = "Сартаваць па імені";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ежа";
 "tourist_places" = "Славутасці";
 "museums" = "Музеі";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Абнавіць карту, каб унесьці ўклад";
 "contribute_to_osm_update_map_description" = "Перш чым унесці ўклад у даныя OpenStreetMap, неабходна абнавіць карту %@ да апошняй версіі";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Маё месцазнаходжанне";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Фіялетавыя спампаваныя рэгіёны";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Увайсці з паролем";

@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Отмена";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Списки меток";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Где поесть";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для автодомов";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "метка";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "При движении по маршруту помните:";
 "dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и дорожные знаки приоритетнее подсказок навигатора;";
 "dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
 "dialog_routing_download_files" = "Загрузите необходимые файлы";
 "dialog_routing_download_and_update_all" = "Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Показать";
@@ -859,10 +839,6 @@
 "sort_distance" = "Сортировать по расстоянию";
 "sort_date" = "Сортировать по дате";
 "sort_name" = "Сортировать по имени";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Еда";
 "tourist_places" = "Достопримечательности";
 "museums" = "Музеи";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Обновить карту, чтобы внести вклад";
 "contribute_to_osm_update_map_description" = "Чтобы внести изменения в данные OpenStreetMap, необходимо сначала обновить карту %@ до последней версии";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Мое местоположение";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Фиолетовые загруженные регионы";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Вход с паролем";

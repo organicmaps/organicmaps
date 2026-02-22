@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "취소하기";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "세트를 즐겨찾기에 추가";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "어디서 먹을까";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV용";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "안녕하세요!\n\n북마크가 첨부되어 있으니 오가닉 맵에서 열어주세요. 아직 설치하지 않았다면 여기에서 다운로드하세요: https://omaps.app/get?kmz\n\n오가닉 맵으로 여행을 즐겨보세요!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "북마크";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "경로를 따라갈 때는 다음 사항에 주의해 주세요:";
 "dialog_routing_disclaimer_priority" = "— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;";
 "dialog_routing_disclaimer_precision" = "— 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.";
 "dialog_routing_download_files" = "필수 파일 다운로드";
 "dialog_routing_download_and_update_all" = "경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "표시";
@@ -859,10 +839,6 @@
 "sort_distance" = "거리로 분류";
 "sort_date" = "날짜로 분류";
 "sort_name" = "이름별로 정렬";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "음식";
 "tourist_places" = "명소";
 "museums" = "박물관";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "기여하려면 지도를 업데이트하세요";
 "contribute_to_osm_update_map_description" = "OpenStreetMap 데이터에 기여하기 전에 %@ 지도를 최신 버전으로 업데이트해야 합니다";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "나의 위치";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "보라색 다운로드 지역";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "비밀번호로 로그인";

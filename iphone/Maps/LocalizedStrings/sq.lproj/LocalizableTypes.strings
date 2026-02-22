@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresë/Bllok";
 "type.addr_interpolation.even" = "Adresë/Bllok";
 "type.addr_interpolation.odd" = "Adresë/Bllok";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Burg";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Shkëmbim librash";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Qendër riciklimi";
 "type.amenity.recycling" = "Kontejner riciklimi";
 "type.amenity.recycling.container" = "Kontejner riciklimi";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "Psikoterapist";
 "type.healthcare.sample_collection" = "Qendër marrjeje mostrash";
 "type.healthcare.speech_therapist" = "Logoped";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Autostradë";
 "type.highway.bridleway" = "Shteg kuajsh";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "Rrugë e vogël";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objekt historik";
 "type.historic.aircraft" = "Avion historik";
 "type.historic.anchor" = "Spirancë historike";

@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "ຍົກເລີກ";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "ລາຍການບຸກມາກ";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Where to eat";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV Facilities";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ Organic Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get?kmz\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "ບຸກມາກ";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "ເມື່ອເດີນທາງຕາມເສັ້ນທາງ, ກະລຸນາຈື່ໄວ້ວ່າ:";
 "dialog_routing_disclaimer_priority" = "— ສະພາບຖະໜົນ, ກົດໝາຍຈະລາຈອນ, ແລະ ປ້າຍຈະລາຈອນ ມີຄວາມສຳຄັນກວ່າຄຳແນະນຳໃນການນຳທາງສະເໝີ;";
 "dialog_routing_disclaimer_precision" = "— ແຜນທີ່ອາດບໍ່ຊັດເຈນ, ແລະ ເສັ້ນທາງທີ່ແນະນຳອາດບໍ່ແມ່ນທາງທີ່ດີທີ່ສຸດສະເໝີໄປ;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.";
 "dialog_routing_download_files" = "ດາວໂຫຼດໄຟລ໌ທີ່ຈຳເປັນ";
 "dialog_routing_download_and_update_all" = "ດາວໂຫຼດ ຫຼື ອັບເດດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງເພື່ອຄິດໄລ່ເສັ້ນທາງ.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "ສະແດງ";
@@ -859,10 +839,6 @@
 "sort_distance" = "ຈັດລຽງຕາມໄລຍະທາງ";
 "sort_date" = "ຈັດລຽງຕາມວັນທີ";
 "sort_name" = "ຈັດລຽງຕາມຊື່";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "ອາຫານ";
 "tourist_places" = "ສະຖານທີ່ທ່ອງທ່ຽວ";
 "museums" = "ພິພິທະພັນ";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "ອັບເດດແຜນທີ່ເພື່ອຊ່ວຍເຫຼືອຂໍ້ມູນ";
 "contribute_to_osm_update_map_description" = "ທ່ານຕ້ອງອັບເດດແຜນທີ່ %@ ເປັນເວີຊັນຫຼ້າສຸດກ່ອນ ຈຶ່ງຈະສາມາດຊ່ວຍເພີ່ມຂໍ້ມູນ OpenStreetMap ໄດ້";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "ຕຳແໜ່ງຂອງຂ້ອຍ";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "ສະແດງພື້ນທີ່ທີ່ດາວໂຫລດແລ້ວເປັນສີມ່ວງ";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Login with password";

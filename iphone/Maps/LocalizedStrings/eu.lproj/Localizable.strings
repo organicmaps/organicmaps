@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Utzi";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Markagailuen zerrenda";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Non jan";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karabanak";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "Markagailua";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Arrastoa jarraitzean, kontuan izan:";
 "dialog_routing_disclaimer_priority" = "— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;";
 "dialog_routing_disclaimer_precision" = "— Zehaztasunik gabeko mapa izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.";
 "dialog_routing_download_files" = "Deskargatu beharrezko fitxategiak";
 "dialog_routing_download_and_update_all" = "Deskargatu eta eguneratu mapa eta ibilbideen informazio guztia aurreikusitako ibilbidearekin batera arrastoa kalkulatzeko.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Erakutsi";
@@ -859,10 +839,6 @@
 "sort_distance" = "Ordenatu distantziaren arabera";
 "sort_date" = "Ordenatu dataren arabera";
 "sort_name" = "Ordenatu izenaren arabera";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Janariak";
 "tourist_places" = "Toki interesgarriak";
 "museums" = "Museoak";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Eguneratu mapa laguntzeko";
 "contribute_to_osm_update_map_description" = "OpenStreetMap datuetan lagundu ahal izateko, %@ mapa azken bertsiora eguneratu behar duzu";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Nire kokapena";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Deskargatutako eskualde moreak";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Sartu pasahitzarekin";

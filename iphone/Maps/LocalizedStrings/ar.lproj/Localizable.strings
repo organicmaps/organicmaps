@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "إلغاء";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "قائمة الإشارات المرجعية";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "أمكان لتناول الطعام";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "منشآت للمنازل المتنقلة";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz \n\nاستمتع بالسفر مع Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "عند اتباع المسار، يُرجى الانتباه إلى ما يلي:";
 "dialog_routing_disclaimer_priority" = "— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;";
 "dialog_routing_disclaimer_precision" = "— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.";
 "dialog_routing_download_files" = "تنزيل الملفات المطلوبة";
 "dialog_routing_download_and_update_all" = "قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "عرض";
@@ -859,10 +839,6 @@
 "sort_distance" = "رتّب حسب المسافة";
 "sort_date" = "رتّب حسب التاريخ";
 "sort_name" = "الترتيب حسب الاسم";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "طعام";
 "tourist_places" = "أماكن سياحية";
 "museums" = "متاحف";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "قم بتحديث الخريطة للمساهمة";
 "contribute_to_osm_update_map_description" = "يجب عليك تحديث خريطة %@ إلى أحدث إصدار قبل أن تتمكن من المساهمة في بيانات OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "موقعي";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "المناطق المُنزّلة باللون الأرجواني";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "تسجيل الدخول باستخدام كلمة المرور";

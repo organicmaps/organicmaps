@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "取消";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "書籤列表";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "在哪裡吃";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "露營車設施";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "您好！\n\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "書籤";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "依照路線行進時，請牢記：";
 "dialog_routing_disclaimer_priority" = "— 路況、交通法規和路標始終優先於導航建議；";
 "dialog_routing_disclaimer_precision" = "— 地圖可能不準確，建議的路線可能並非總是前往目的地的最佳路線；";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "下載地圖，以規劃一條跨越邊界的更佳路線。";
 "dialog_routing_download_files" = "下載所需檔案";
 "dialog_routing_download_and_update_all" = "下載或更新沿預期路線的所有地圖，以規劃路線。";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "顯示";
@@ -859,10 +839,6 @@
 "sort_distance" = "按距離排序";
 "sort_date" = "按日期排序";
 "sort_name" = "按名稱分類";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "食物";
 "tourist_places" = "旅遊景點";
 "museums" = "博物館";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "更新地圖以貢獻";
 "contribute_to_osm_update_map_description" = "您需要先將 %@ 地圖更新至最新版本，才能貢獻 OpenStreetMap 資料";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "我的位置";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "紫色已下載區域";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "使用密碼登入";
