@@ -23350,6 +23350,57 @@ cont {
   }
 }
 cont {
+  name: "emergency-access_point"
+  element {
+    scale: 18
+    symbol {
+      name: "assembly_point-m"
+      priority: -9980
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "assembly_point-m"
+      priority: -9980
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "assembly_point-m"
+      priority: -9980
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+}
+cont {
   name: "emergency-assembly_point"
   element {
     scale: 18

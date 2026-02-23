@@ -1641,3 +1641,4 @@ amenity|recycling|container
 *xmas:feature|market
 *xmas:feature|tree
 *cuisine|uzbek
+*emergency|access_point
