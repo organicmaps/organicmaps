@@ -770,7 +770,7 @@
 "type.leisure.marina" = "Port de plaisance";
 "type.leisure.nature_reserve" = "Réserve naturelle";
 "type.leisure.outdoor_seating" = "Sièges extérieurs";
-"type.leisure.firepit" = "Cheminée";
+"type.leisure.firepit" = "Aire de pique-nique";
 "type.leisure.park" = "Parc";
 "type.leisure.park.no.access" = "Parc";
 "type.leisure.park.permissive" = "Parc";

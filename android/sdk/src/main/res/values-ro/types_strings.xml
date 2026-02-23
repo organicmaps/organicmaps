@@ -22,10 +22,11 @@
     <string name="type.amenity.bench">Banchetă</string>
     <string name="type.amenity.bicycle_parking">Parcare biciclete</string>
     <string name="type.amenity.bicycle_rental">Închiriere de biciclete</string>
+    <string name="type.amenity.bicycle_repair_station">Stație de reparat biciclete</string>
     <string name="type.amenity.biergarten">Berărie</string>
     <string name="type.amenity.brothel">Bordel</string>
     <string name="type.amenity.bureau_de_change">Schimb valutar</string>
-    <string name="type.amenity.bus_station">Gara de autobuz</string>
+    <string name="type.amenity.bus_station">Autogară</string>
     <string name="type.amenity.cafe">Cafenea</string>
     <string name="type.amenity.car_rental">Închiriere mașini</string>
     <string name="type.amenity.motorcycle_rental">Închiriere motociclete</string>
@@ -43,15 +44,15 @@
     <string name="type.amenity.college">Colegiu</string>
     <string name="type.amenity.community_centre">Centru comunitar</string>
     <string name="type.amenity.compressed_air">Aer comprimat</string>
-    <string name="type.amenity.conference_centre">Centru de conferinte</string>
+    <string name="type.amenity.conference_centre">Centru de conferințe</string>
     <string name="type.amenity.courthouse">Judecătorie</string>
     <string name="type.amenity.drinking_water">Apă de băut</string>
     <string name="type.drinking_water.yes">Apă de băut</string>
     <string name="type.amenity.driving_school">Școală de șoferi</string>
-    <string name="type.amenity.exhibition_centre">Centru de expozitie</string>
+    <string name="type.amenity.exhibition_centre">Centru de expoziție</string>
     <string name="type.amenity.money_transfer">Transfer de bani</string>
-    <string name="type.amenity.music_school">Scoala de Muzica</string>
-    <string name="type.amenity.language_school">Școala de limbi străine</string>
+    <string name="type.amenity.music_school">Școală de muzică</string>
+    <string name="type.amenity.language_school">Școală de limbi străine</string>
     <string name="type.office.diplomatic">Ambasadă</string>
     <string name="type.amenity.fast_food">Fast food</string>
     <string name="type.amenity.ferry_terminal">Feribot</string>
@@ -61,17 +62,17 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Cimitir</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-    <string name="type.amenity.grave_yard.christian">Cimitir</string>
+    <string name="type.amenity.grave_yard.christian">Cimitir creștin</string>
     <string name="type.amenity.hospital">Spital</string>
     <string name="type.amenity.hunting_stand">Stand de vânătoare</string>
-    <string name="type.amenity.ice_cream">Chioșc cu înghețată</string>
+    <string name="type.amenity.ice_cream">Chioșc de înghețată</string>
     <string name="type.amenity.kindergarten">Grădiniță</string>
     <string name="type.amenity.library">Bibliotecă</string>
     <string name="type.amenity.loading_dock">Încărcare doc</string>
     <string name="type.amenity.marketplace">Magazin</string>
     <string name="type.amenity.motorcycle_parking">Parcare de motociclete</string>
     <string name="type.amenity.nightclub">Club de noapte</string>
-    <string name="type.amenity.nursing_home">Centru de îngrijire</string>
+    <string name="type.amenity.nursing_home">Casă de bătrâni</string>
     <string name="type.amenity.parking">Parcare</string>
     <string name="type.amenity.parking.fee">Parcare</string>
     <string name="type.amenity.parking.multi.storey">Parcare cu mai multe etaje</string>
@@ -90,7 +91,7 @@
     <string name="type.amenity.parking.lane.fee">Parcare pe bandă</string>
     <string name="type.amenity.parking.lane.private">Parcare pe alee privată</string>
     <string name="type.amenity.parking_entrance">Intrare parcare</string>
-    <string name="type.amenity.parking_entrance.private">Intrare privată pentru parcare</string>
+    <string name="type.amenity.parking_entrance.private">Intrare de parcare privată</string>
     <string name="type.amenity.parking_entrance.permissive">Intrare parcare</string>
     <string name="type.amenity.parking_space">Loc de parcare</string>
     <string name="type.amenity.parking_space.permissive">Loc de parcare</string>
@@ -100,14 +101,14 @@
     <string name="type.amenity.payment_terminal">Terminal de plăți</string>
     <string name="type.amenity.pharmacy">Farmacie</string>
     <string name="type.amenity.place_of_worship">Loc de cult</string>
-    <string name="type.amenity.place_of_worship.buddhist">Templu</string>
+    <string name="type.amenity.place_of_worship.buddhist">Templu budist</string>
     <string name="type.amenity.place_of_worship.christian">Biserică</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Biserica lui Isus Hristos a Sfinților din Zilele din Urmă</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sala Împărăției Martorilor lui Iehova</string>
-    <string name="type.amenity.place_of_worship.hindu">Templu</string>
+    <string name="type.amenity.place_of_worship.hindu">Templu hindus</string>
     <string name="type.amenity.place_of_worship.jewish">Sinagogă</string>
     <string name="type.amenity.place_of_worship.muslim">Moschee</string>
-    <string name="type.amenity.place_of_worship.shinto">Sanctuar</string>
+    <string name="type.amenity.place_of_worship.shinto">Sanctuar șintoist</string>
     <string name="type.amenity.place_of_worship.taoist">Templu</string>
     <string name="type.amenity.police">Poliție</string>
     <string name="type.amenity.post_box">Cutie poștală</string>
@@ -127,16 +128,18 @@
     <string name="type.recycling.plastic_bottles">Sticle de plastic</string>
     <string name="type.recycling.scrap_metal">Resturi de metal</string>
     <string name="type.recycling.small_appliances">Deșeuri electrice</string>
+    <string name="type.recycling.shoes">Încălțăminte</string>
     <string name="type.amenity.school">Școală</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->
     <string name="type.amenity.shelter">Adăpost</string>
     <!-- A weather shelter by the public transport stop. -->
     <string name="type.amenity.shelter.public_transport">Adăpost</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-    <string name="type.amenity.shelter.basic_hut">Baracă de Bivuac</string>
+    <string name="type.amenity.shelter.basic_hut">Baracă de bivuac</string>
     <string name="type.amenity.public_bath">Baie publică</string>
     <string name="type.amenity.shower">Duș</string>
     <string name="type.amenity.stripclub">Stripclub</string>
+    <string name="type.amenity.taxi">Taxi</string>
     <string name="type.amenity.telephone">Telefon</string>
     <string name="type.amenity.theatre">Teatru</string>
     <string name="type.amenity.toilets">Toaletă</string>
@@ -153,10 +156,13 @@
     <string name="type.amenity.waste_disposal">Gunoi</string>
     <string name="type.amenity.water_point">Punct de alimentare cu apă</string>
     <string name="type.amenity.water_point.drinking_water_no">Punct de alimentare cu apă</string>
+    <string name="type.barrier">Barieră</string>
     <string name="type.barrier.block">Bloc</string>
     <string name="type.barrier.bollard">Stâlp</string>
     <string name="type.barrier.border_control">Control vamal</string>
+    <string name="type.barrier.chain">Lanț</string>
     <string name="type.barrier.city_wall">Zidurile orașului</string>
+    <string name="type.barrier.cycle_barrier">Barieră de biciclete</string>
     <string name="type.waterway.ditch">Șanț de drenaj</string>
     <string name="type.natural.water.moat">Şanţ</string>
     <string name="type.natural.water.wastewater">Ape uzate</string>
@@ -168,7 +174,8 @@
     <string name="type.barrier.turnstile">Turnichet</string>
     <string name="type.barrier.swing_gate">Barieră cu braț</string>
     <string name="type.barrier.toll_booth">Cabină de taxare</string>
-    <string name="type.boundary.national_park">Parcul național</string>
+    <string name="type.barrier.wall">Perete</string>
+    <string name="type.boundary.national_park">Parc național</string>
     <string name="type.boundary.aboriginal_lands">Terenuri indigene</string>
     <string name="type.boundary.protected_area">Zonă protejată</string>
     <string name="type.boundary.protected_area.1">Zonă protejată</string>
@@ -184,6 +191,7 @@
     <string name="type.building_part">Clădire</string>
     <string name="type.building.garage">Garaj</string>
     <string name="type.building.train_station">Clădirea gării</string>
+    <string name="type.building.warehouse">Depozit</string>
     <string name="type.cemetery.grave">Mormânt</string>
     <string name="type.craft">Meșteșuguri</string>
     <string name="type.craft.beekeeper">Apicultor</string>
@@ -195,11 +203,11 @@
     <string name="type.craft.electrician">Electrician</string>
     <string name="type.craft.electronics_repair">Reparații electronice</string>
     <string name="type.craft.gardener">Peisagist</string>
-    <string name="type.craft.grinding_mill">Moara de măcinat</string>
+    <string name="type.craft.grinding_mill">Moară de măcinat</string>
     <string name="type.craft.handicraft">Tehnici de lucru manual</string>
     <!-- Heating, Ventilation, and Air Conditioning -->
     <string name="type.craft.hvac">Încălzire, ventilație și aer condiționat</string>
-    <string name="type.craft.key_cutter">Tăierea cheilor</string>
+    <string name="type.craft.key_cutter">Copiere chei</string>
     <string name="type.craft.locksmith">Lăcătuș</string>
     <string name="type.craft.metal_construction">Metalurgist</string>
     <string name="type.craft.painter">Pictor</string>
@@ -281,7 +289,7 @@
     <string name="type.cuisine.ramen">Ramen</string>
     <string name="type.cuisine.regional">Bucătărie regională</string>
     <string name="type.cuisine.russian">Bucătărie rusă</string>
-    <string name="type.cuisine.sandwich">Sandwich</string>
+    <string name="type.cuisine.sandwich">Sendviș</string>
     <string name="type.cuisine.sausage">Cârnați</string>
     <string name="type.cuisine.savory_pancakes">Clătite sărate</string>
     <string name="type.cuisine.seafood">Fructe de mare</string>
@@ -310,12 +318,13 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Intrarea principala</string>
     <string name="type.entrance.exit">Ieșire</string>
+    <string name="type.fee.yes">€</string>
     <string name="type.fee.no">Gratuit</string>
     <string name="type.healthcare.laboratory">Laborator medical</string>
     <string name="type.healthcare.physiotherapist">Fizioterapeut</string>
     <string name="type.healthcare.alternative">Medicină alternativă</string>
     <string name="type.healthcare.audiologist">Audiologie</string>
-    <string name="type.healthcare.blood_donation">Centrul de donare de sânge</string>
+    <string name="type.healthcare.blood_donation">Centru de donare de sânge</string>
     <string name="type.healthcare.optometrist">Optometrie</string>
     <string name="type.healthcare.podiatrist">Podiatrie</string>
     <string name="type.healthcare.psychotherapist">Psihoterapie</string>
@@ -334,14 +343,16 @@
     <string name="type.highway.busway.tunnel">Tunel</string>
     <string name="type.highway.bus_stop">Stație de autobuz</string>
     <string name="type.highway.construction">Drum în construcție</string>
+    <string name="type.highway.cycleway">Pistă de biciclete</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Pod</string>
+    <string name="type.highway.cycleway.permissive">Pistă de biciclete</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">Tunel</string>
-    <string name="type.highway.footway">Cale</string>
+    <string name="type.highway.footway">Alee</string>
     <string name="type.highway.footway.sidewalk">Trotuar</string>
     <string name="type.highway.footway.crossing">Trecere de pietoni</string>
-    <string name="type.highway.footway.area">Cale</string>
+    <string name="type.highway.footway.area">Alee</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -352,13 +363,13 @@
     <string name="type.highway.living_street.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.living_street.tunnel">Tunel</string>
-    <string name="type.highway.motorway">Stradă</string>
+    <string name="type.highway.motorway">Autostradă</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Tunel</string>
     <string name="type.highway.motorway_junction">Ieșire</string>
-    <string name="type.highway.motorway_link">Stradă</string>
+    <string name="type.highway.motorway_link">Autostradă</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -375,8 +386,8 @@
     <string name="type.highway.path.horse">Cale</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">Tunel</string>
-    <string name="type.highway.pedestrian">Stradă</string>
-    <string name="type.highway.pedestrian.area">Stradă</string>
+    <string name="type.highway.pedestrian">Stradă pietonală</string>
+    <string name="type.highway.pedestrian.area">Stradă pietonală</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -425,11 +436,12 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Tunel</string>
     <string name="type.highway.speed_camera">Detector de viteză</string>
-    <string name="type.highway.steps">Cale</string>
+    <string name="type.highway.steps">Scări</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tunel</string>
+    <string name="type.highway.ladder">Scară</string>
     <string name="type.highway.tertiary">Stradă</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Pod</string>
@@ -449,12 +461,12 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.track.tunnel">Tunel</string>
     <string name="type.highway.traffic_signals">Semafoare</string>
-    <string name="type.highway.trunk">Stradă</string>
+    <string name="type.highway.trunk">Drum expres</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk.tunnel">Tunel</string>
-    <string name="type.highway.trunk_link">Stradă</string>
+    <string name="type.highway.trunk_link">Drum expres</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk_link.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -465,19 +477,20 @@
     <string name="type.highway.unclassified.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunel</string>
-    <string name="type.area_highway.footway">Cale</string>
+    <string name="type.area_highway.cycleway">Pistă de biciclete</string>
+    <string name="type.area_highway.footway">Alee</string>
     <string name="type.area_highway.living_street">Stradă</string>
-    <string name="type.area_highway.motorway">Stradă</string>
+    <string name="type.area_highway.motorway">Autostradă</string>
     <string name="type.area_highway.path">Cale</string>
-    <string name="type.area_highway.pedestrian">Stradă</string>
+    <string name="type.area_highway.pedestrian">Stradă pietonală</string>
     <string name="type.area_highway.primary">Stradă</string>
     <string name="type.area_highway.residential">Stradă</string>
     <string name="type.area_highway.secondary">Stradă</string>
     <string name="type.area_highway.service">Stradă</string>
     <string name="type.area_highway.tertiary">Stradă</string>
-    <string name="type.area_highway.steps">Cale</string>
+    <string name="type.area_highway.steps">Scări</string>
     <string name="type.area_highway.track">Stradă</string>
-    <string name="type.area_highway.trunk">Stradă</string>
+    <string name="type.area_highway.trunk">Drum expres</string>
     <string name="type.area_highway.unclassified">Stradă</string>
 
     <!-- SECTION: Types: Historic -->
@@ -545,11 +558,12 @@
     <string name="type.leisure.dog_park">Loc de plimbare a câinilor</string>
     <string name="type.leisure.fitness_centre">Centru fitness</string>
     <string name="type.leisure.fitness_station">Sală de fitness</string>
-    <string name="type.leisure.dance">Sala de dans</string>
-    <string name="type.leisure.garden">Sit arheologic</string>
-    <string name="type.leisure.garden.residential">Sit arheologic</string>
+    <string name="type.leisure.dance">Sală de dans</string>
+    <string name="type.leisure.garden">Grădină</string>
+    <string name="type.leisure.garden.residential">Grădină</string>
     <string name="type.leisure.golf_course">Teren de golf</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
+    <string name="type.leisure.ice_rink">Patinoar</string>
     <string name="type.leisure.nature_reserve">Rezervație naturală</string>
     <string name="type.leisure.outdoor_seating">Scaune în aer liber</string>
     <string name="type.leisure.park">Parc</string>
@@ -565,7 +579,7 @@
     <string name="type.sport.yoga">Studio yoga</string>
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Piscină</string>
-    <string name="type.leisure.swimming_pool.private">Piscină</string>
+    <string name="type.leisure.swimming_pool.private">Piscină privată</string>
     <string name="type.leisure.water_park">Parc acvatic</string>
     <string name="type.man_made.chimney">Coș de fabrică</string>
     <string name="type.man_made.lighthouse">Far</string>
@@ -586,6 +600,7 @@
     <string name="type.man_made.water_well.drinking_water_no">Puț de apă</string>
     <string name="type.man_made.windmill">Moară de vânt</string>
     <string name="type.military.bunker">Buncăr</string>
+    <string name="type.mountain_pass">Pas</string>
     <string name="type.natural">Natură</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Piatră goală</string>
@@ -687,22 +702,23 @@
     <string name="type.power.substation">Stație subterană</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Stâlp de electricitate</string>
+    <string name="type.railway">Cale ferată</string>
     <string name="type.railway.disused.tunnel">Tunel feroviar dezafectat</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.halt">Gară</string>
     <string name="type.railway.level_crossing">Trecere feroviară</string>
     <string name="type.railway.monorail">Cale ferată monoșină</string>
     <string name="type.railway.rail">Cale ferată</string>
-    <string name="type.railway.rail.highspeed">Calea ferată de mare viteză</string>
-    <string name="type.railway.rail.tourism">Calea ferată turistică</string>
-    <string name="type.railway.rail.main">Calea ferată</string>
+    <string name="type.railway.rail.highspeed">Cale ferată de mare viteză</string>
+    <string name="type.railway.rail.tourism">Cale ferată turistică</string>
+    <string name="type.railway.rail.main">Cale ferată</string>
     <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
-    <string name="type.railway.rail.branch">Calea ferată secundară</string>
+    <string name="type.railway.rail.branch">Cale ferată secundară</string>
     <!-- Non-passenger utility tracks: industrial, military, test. -->
-    <string name="type.railway.rail.utility">Calea ferată utilitară</string>
+    <string name="type.railway.rail.utility">Cale ferată utilitară</string>
     <string name="type.railway.rail.spur">Pinteni de cale ferată</string>
     <!-- Short service tracks: siding, yard, crossover. -->
-    <string name="type.railway.rail.service">Calea ferată auxiliară</string>
+    <string name="type.railway.rail.service">Cale ferată auxiliară</string>
     <string name="type.railway.rail.bridge">Podul de cale ferată</string>
     <string name="type.railway.rail.highspeed.bridge">Podul de cale ferată</string>
     <string name="type.railway.rail.tourism.bridge">Podul de cale ferată</string>
@@ -955,6 +971,7 @@
     <string name="type.railway.subway_entrance.yerevan">Intrare în metro</string>
     <string name="type.railway.subway_entrance.yokohama">Intrare în metro</string>
     <string name="type.railway.tram_stop">Stație de tramvai</string>
+    <string name="type.route">Traseu</string>
     <string name="type.shop">Magazin</string>
     <string name="type.shop.alcohol">Băuturi alcoolice</string>
     <string name="type.shop.bakery">Brutărie</string>
@@ -1133,7 +1150,7 @@
     <string name="type.tourism.information.guidepost">Postul de ghidare</string>
     <string name="type.tourism.information.map">Hartă turistică</string>
     <string name="type.tourism.information.office">Birou de informații turistice</string>
-    <string name="type.tourism.information.visitor_centre">Centrul pentru vizitatori</string>
+    <string name="type.tourism.information.visitor_centre">Centru pentru vizitatori</string>
     <string name="type.tourism.museum">Muzeu</string>
     <string name="type.tourism.picnic_site">Locații picnic</string>
     <string name="type.leisure.resort">Stațiuni</string>
@@ -1182,7 +1199,7 @@
     <string name="type.barrier.log">Barieră de bușteni</string>
     <string name="type.amenity.boat_rental">Închiriere bărci</string>
     <string name="type.shop.telecommunication">Magazin de telecomunicații</string>
-    <string name="type.leisure.indoor_play">Centrul de joacă</string>
+    <string name="type.leisure.indoor_play">Centru de joacă</string>
     <string name="type.tourism.camp_pitch">Loc de camping</string>
     <string name="type.railway.miniature">Cale ferată în miniatură</string>
     <string name="type.amenity.kneipp_water_cure">Cura cu apă Kneipp</string>
@@ -1192,6 +1209,6 @@
     <string name="type.man_made.monitoring_station.weather">Stație de monitorizare meteorologică</string>
     <string name="type.amenity.student_accommodation">Cazare pentru studenți</string>
     <string name="type.craft.watchmaker">Ceasornicar</string>
-    <string name="type.xmas_feature.market">Piața de Crăciun</string>
-    <string name="type.xmas_feature.tree">Pomul de Crăciun</string>
+    <string name="type.xmas_feature.market">Piață de Crăciun</string>
+    <string name="type.xmas_feature.tree">Pom de Crăciun</string>
 </resources>
