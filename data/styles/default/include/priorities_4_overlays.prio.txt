@@ -2272,6 +2272,7 @@ building-address                                    # caption z16-
 
 amenity-bench                                       # icon z18- (also has caption(optional) z19-)
 amenity-waste_disposal                              # icon z18- (also has caption(optional) z18-)
+emergency-access_point
 emergency-assembly_point                            # icon z18- (also has caption(optional) z18-)
 emergency-defibrillator                             # icon z18- (also has caption(optional) z18-)
 emergency-phone                                     # icon z17-
