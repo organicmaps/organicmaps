@@ -31,12 +31,12 @@
 "type.amenity.bicycle_parking" = "Parcare biciclete";
 "type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Închiriere de biciclete";
-"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+"type.amenity.bicycle_repair_station" = "Stație de reparat biciclete";
 "type.amenity.biergarten" = "Berărie";
 "type.amenity.brothel" = "Bordel";
 "type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Schimb valutar";
-"type.amenity.bus_station" = "Gara de autobuz";
+"type.amenity.bus_station" = "Autogară";
 "type.amenity.cafe" = "Cafenea";
 "type.amenity.car_rental" = "Închiriere mașini";
 "type.amenity.motorcycle_rental" = "Închiriere motociclete";
@@ -57,17 +57,17 @@
 "type.amenity.college" = "Colegiu";
 "type.amenity.community_centre" = "Centru comunitar";
 "type.amenity.compressed_air" = "Aer comprimat";
-"type.amenity.conference_centre" = "Centru de conferinte";
+"type.amenity.conference_centre" = "Centru de conferințe";
 "type.amenity.courthouse" = "Judecătorie";
 "type.amenity.dentist" = "Dentist";
 "type.amenity.doctors" = "Doctor";
 "type.amenity.drinking_water" = "Apă de băut";
 "type.drinking_water.yes" = "Apă de băut";
 "type.amenity.driving_school" = "Școală de șoferi";
-"type.amenity.exhibition_centre" = "Centru de expozitie";
+"type.amenity.exhibition_centre" = "Centru de expoziție";
 "type.amenity.money_transfer" = "Transfer de bani";
-"type.amenity.music_school" = "Scoala de Muzica";
-"type.amenity.language_school" = "Școala de limbi străine";
+"type.amenity.music_school" = "Școală de muzică";
+"type.amenity.language_school" = "Școală de limbi străine";
 "type.office.diplomatic" = "Ambasadă";
 "type.amenity.fast_food" = "Fast food";
 "type.amenity.ferry_terminal" = "Feribot";
@@ -80,10 +80,10 @@
 "type.amenity.grave_yard" = "Cimitir";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Cimitir";
+"type.amenity.grave_yard.christian" = "Cimitir creștin";
 "type.amenity.hospital" = "Spital";
 "type.amenity.hunting_stand" = "Stand de vânătoare";
-"type.amenity.ice_cream" = "Chioșc cu înghețată";
+"type.amenity.ice_cream" = "Chioșc de înghețată";
 "type.amenity.internet_cafe" = "Internet Cafe";
 "type.amenity.kindergarten" = "Grădiniță";
 "type.amenity.library" = "Bibliotecă";
@@ -92,7 +92,7 @@
 "type.amenity.marketplace" = "Magazin";
 "type.amenity.motorcycle_parking" = "Parcare de motociclete";
 "type.amenity.nightclub" = "Club de noapte";
-"type.amenity.nursing_home" = "Centru de îngrijire";
+"type.amenity.nursing_home" = "Casă de bătrâni";
 "type.amenity.parking" = "Parcare";
 "type.amenity.parking.fee" = "Parcare";
 "type.amenity.parking.multi.storey" = "Parcare cu mai multe etaje";
@@ -111,7 +111,7 @@
 "type.amenity.parking.lane.fee" = "Parcare pe bandă";
 "type.amenity.parking.lane.private" = "Parcare pe alee privată";
 "type.amenity.parking_entrance" = "Intrare parcare";
-"type.amenity.parking_entrance.private" = "Intrare privată pentru parcare";
+"type.amenity.parking_entrance.private" = "Intrare de parcare privată";
 "type.amenity.parking_entrance.permissive" = "Intrare parcare";
 "type.amenity.parking_space" = "Loc de parcare";
 "type.amenity.parking_space.permissive" = "Loc de parcare";
@@ -121,14 +121,14 @@
 "type.amenity.payment_terminal" = "Terminal de plăți";
 "type.amenity.pharmacy" = "Farmacie";
 "type.amenity.place_of_worship" = "Loc de cult";
-"type.amenity.place_of_worship.buddhist" = "Templu";
+"type.amenity.place_of_worship.buddhist" = "Templu budist";
 "type.amenity.place_of_worship.christian" = "Biserică";
 "type.amenity.place_of_worship.christian.mormon" = "Biserica lui Isus Hristos a Sfinților din Zilele din Urmă";
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Sala Împărăției Martorilor lui Iehova";
-"type.amenity.place_of_worship.hindu" = "Templu";
+"type.amenity.place_of_worship.hindu" = "Templu hindus";
 "type.amenity.place_of_worship.jewish" = "Sinagogă";
 "type.amenity.place_of_worship.muslim" = "Moschee";
-"type.amenity.place_of_worship.shinto" = "Sanctuar";
+"type.amenity.place_of_worship.shinto" = "Sanctuar șintoist";
 "type.amenity.place_of_worship.taoist" = "Templu";
 "type.amenity.police" = "Poliție";
 "type.amenity.post_box" = "Cutie poștală";
@@ -154,7 +154,7 @@
 "type.recycling.small_appliances" = "Deșeuri electrice";
 "type.recycling.cardboard" = "Cardboard";
 "type.recycling.cans" = "Cans";
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Încălțăminte";
 "type.recycling.green_waste" = "Green/Organic Waste";
 "type.recycling.cartons" = "Cartons";
 "type.amenity.restaurant" = "Restaurant";
@@ -168,14 +168,14 @@
 "type.amenity.shelter.public_transport" = "Adăpost";
 
 /* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
-"type.amenity.shelter.basic_hut" = "Baracă de Bivuac";
+"type.amenity.shelter.basic_hut" = "Baracă de bivuac";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Lean-to Shelter";
 "type.amenity.public_bath" = "Baie publică";
 "type.amenity.shower" = "Duș";
 "type.amenity.stripclub" = "Stripclub";
-"type.amenity.taxi" = "Taxi Stand";
+"type.amenity.taxi" = "Taxi";
 "type.amenity.telephone" = "Telefon";
 "type.amenity.theatre" = "Teatru";
 "type.amenity.toilets" = "Toaletă";
@@ -202,13 +202,13 @@
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
 "type.amenity.water_point" = "Punct de alimentare cu apă";
 "type.amenity.water_point.drinking_water_no" = "Punct de alimentare cu apă";
-"type.barrier" = "Barrier";
+"type.barrier" = "Barieră";
 "type.barrier.block" = "Bloc";
 "type.barrier.bollard" = "Stâlp";
 "type.barrier.border_control" = "Control vamal";
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Lanț";
 "type.barrier.city_wall" = "Zidurile orașului";
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Barieră de biciclete";
 "type.waterway.ditch" = "Șanț de drenaj";
 "type.natural.water.moat" = "Şanţ";
 "type.natural.water.wastewater" = "Ape uzate";
@@ -224,7 +224,7 @@
 "type.barrier.turnstile" = "Turnichet";
 "type.barrier.swing_gate" = "Barieră cu braț";
 "type.barrier.toll_booth" = "Cabină de taxare";
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "Perete";
 "type.boundary" = "Boundary";
 "type.boundary.administrative" = "Administrative Boundary";
 
@@ -236,7 +236,7 @@
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.4" = "Regional Boundary";
-"type.boundary.national_park" = "Parcul național";
+"type.boundary.national_park" = "Parc național";
 "type.boundary.aboriginal_lands" = "Terenuri indigene";
 "type.boundary.protected_area" = "Zonă protejată";
 "type.boundary.protected_area.1" = "Zonă protejată";
@@ -253,7 +253,7 @@
 "type.building_part" = "Clădire";
 "type.building.garage" = "Garaj";
 "type.building.train_station" = "Clădirea gării";
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Depozit";
 "type.cemetery.grave" = "Mormânt";
 "type.craft" = "Meșteșuguri";
 "type.craft.beekeeper" = "Apicultor";
@@ -265,12 +265,12 @@
 "type.craft.electrician" = "Electrician";
 "type.craft.electronics_repair" = "Reparații electronice";
 "type.craft.gardener" = "Peisagist";
-"type.craft.grinding_mill" = "Moara de măcinat";
+"type.craft.grinding_mill" = "Moară de măcinat";
 "type.craft.handicraft" = "Tehnici de lucru manual";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Încălzire, ventilație și aer condiționat";
-"type.craft.key_cutter" = "Tăierea cheilor";
+"type.craft.key_cutter" = "Copiere chei";
 "type.craft.locksmith" = "Lăcătuș";
 "type.craft.metal_construction" = "Metalurgist";
 "type.craft.painter" = "Pictor";
@@ -352,7 +352,7 @@
 "type.cuisine.ramen" = "Ramen";
 "type.cuisine.regional" = "Bucătărie regională";
 "type.cuisine.russian" = "Bucătărie rusă";
-"type.cuisine.sandwich" = "Sandwich";
+"type.cuisine.sandwich" = "Sendviș";
 "type.cuisine.sausage" = "Cârnați";
 "type.cuisine.savory_pancakes" = "Clătite sărate";
 "type.cuisine.seafood" = "Fructe de mare";
@@ -386,13 +386,13 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Intrarea principala";
 "type.entrance.exit" = "Ieșire";
-"type.fee.yes" = "$";
+"type.fee.yes" = "€";
 "type.fee.no" = "Gratuit";
 "type.healthcare.laboratory" = "Laborator medical";
 "type.healthcare.physiotherapist" = "Fizioterapeut";
 "type.healthcare.alternative" = "Medicină alternativă";
 "type.healthcare.audiologist" = "Audiologie";
-"type.healthcare.blood_donation" = "Centrul de donare de sânge";
+"type.healthcare.blood_donation" = "Centru de donare de sânge";
 "type.healthcare.optometrist" = "Optometrie";
 "type.healthcare.podiatrist" = "Podiatrie";
 "type.healthcare.psychotherapist" = "Psihoterapie";
@@ -420,19 +420,19 @@
 "type.highway.busway.tunnel" = "Tunel";
 "type.highway.bus_stop" = "Stație de autobuz";
 "type.highway.construction" = "Drum în construcție";
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Pistă de biciclete";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Pod";
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Pistă de biciclete";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunel";
 "type.highway.elevator" = "Elevator";
-"type.highway.footway" = "Cale";
+"type.highway.footway" = "Alee";
 "type.highway.footway.sidewalk" = "Trotuar";
 "type.highway.footway.crossing" = "Trecere de pietoni";
-"type.highway.footway.area" = "Cale";
+"type.highway.footway.area" = "Alee";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Pod";
@@ -447,7 +447,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunel";
-"type.highway.motorway" = "Stradă";
+"type.highway.motorway" = "Autostradă";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Pod";
@@ -455,7 +455,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Tunel";
 "type.highway.motorway_junction" = "Ieșire";
-"type.highway.motorway_link" = "Stradă";
+"type.highway.motorway_link" = "Autostradă";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Pod";
@@ -478,8 +478,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
-"type.highway.pedestrian" = "Stradă";
-"type.highway.pedestrian.area" = "Stradă";
+"type.highway.pedestrian" = "Stradă pietonală";
+"type.highway.pedestrian.area" = "Stradă pietonală";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Pod";
@@ -546,14 +546,14 @@
 "type.highway.service.tunnel" = "Tunel";
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Detector de viteză";
-"type.highway.steps" = "Cale";
+"type.highway.steps" = "Scări";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Pod";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunel";
-"type.highway.ladder" = "Ladder";
+"type.highway.ladder" = "Scară";
 "type.highway.tertiary" = "Stradă";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -579,14 +579,14 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
 "type.highway.traffic_signals" = "Semafoare";
-"type.highway.trunk" = "Stradă";
+"type.highway.trunk" = "Drum expres";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Pod";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Tunel";
-"type.highway.trunk_link" = "Stradă";
+"type.highway.trunk_link" = "Drum expres";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Pod";
@@ -601,20 +601,20 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunel";
-"type.area_highway.cycleway" = "Cycle Path";
-"type.area_highway.footway" = "Cale";
+"type.area_highway.cycleway" = "Pistă de biciclete";
+"type.area_highway.footway" = "Alee";
 "type.area_highway.living_street" = "Stradă";
-"type.area_highway.motorway" = "Stradă";
+"type.area_highway.motorway" = "Autostradă";
 "type.area_highway.path" = "Cale";
-"type.area_highway.pedestrian" = "Stradă";
+"type.area_highway.pedestrian" = "Stradă pietonală";
 "type.area_highway.primary" = "Stradă";
 "type.area_highway.residential" = "Stradă";
 "type.area_highway.secondary" = "Stradă";
 "type.area_highway.service" = "Stradă";
 "type.area_highway.tertiary" = "Stradă";
-"type.area_highway.steps" = "Cale";
+"type.area_highway.steps" = "Scări";
 "type.area_highway.track" = "Stradă";
-"type.area_highway.trunk" = "Stradă";
+"type.area_highway.trunk" = "Drum expres";
 "type.area_highway.unclassified" = "Stradă";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
@@ -760,13 +760,13 @@
 "type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Centru fitness";
 "type.leisure.fitness_station" = "Sală de fitness";
-"type.leisure.dance" = "Sala de dans";
-"type.leisure.garden" = "Sit arheologic";
-"type.leisure.garden.residential" = "Sit arheologic";
+"type.leisure.dance" = "Sală de dans";
+"type.leisure.garden" = "Grădină";
+"type.leisure.garden.residential" = "Grădină";
 "type.leisure.golf_course" = "Teren de golf";
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Hackerspace";
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "Patinoar";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Rezervație naturală";
 "type.leisure.outdoor_seating" = "Scaune în aer liber";
@@ -786,7 +786,7 @@
 "type.sport.yoga" = "Studio yoga";
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Piscină";
-"type.leisure.swimming_pool.private" = "Piscină";
+"type.leisure.swimming_pool.private" = "Piscină privată";
 "type.leisure.track" = "Track";
 "type.leisure.track.area" = "Track";
 "type.leisure.water_park" = "Parc acvatic";
@@ -835,7 +835,7 @@
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Buncăr";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Pas";
 "type.natural" = "Natură";
 
 /* A rocky land cover. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
 "type.public_transport.platform" = "Platform";
-"type.railway" = "Railway";
+"type.railway" = "Cale ferată";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 "type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
@@ -995,19 +995,19 @@
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 "type.railway.rail" = "Cale ferată";
-"type.railway.rail.highspeed" = "Calea ferată de mare viteză";
-"type.railway.rail.tourism" = "Calea ferată turistică";
-"type.railway.rail.main" = "Calea ferată";
+"type.railway.rail.highspeed" = "Cale ferată de mare viteză";
+"type.railway.rail.tourism" = "Cale ferată turistică";
+"type.railway.rail.main" = "Cale ferată";
 
 /* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
-"type.railway.rail.branch" = "Calea ferată secundară";
+"type.railway.rail.branch" = "Cale ferată secundară";
 
 /* Non-passenger utility tracks: industrial, military, test. */
-"type.railway.rail.utility" = "Calea ferată utilitară";
+"type.railway.rail.utility" = "Cale ferată utilitară";
 "type.railway.rail.spur" = "Pinteni de cale ferată";
 
 /* Short service tracks: siding, yard, crossover. */
-"type.railway.rail.service" = "Calea ferată auxiliară";
+"type.railway.rail.service" = "Cale ferată auxiliară";
 "type.railway.rail.bridge" = "Podul de cale ferată";
 "type.railway.rail.highspeed.bridge" = "Podul de cale ferată";
 "type.railway.rail.tourism.bridge" = "Podul de cale ferată";
@@ -1269,7 +1269,7 @@
 "type.railway.tram.bridge" = "Tram Line Bridge";
 "type.railway.tram.tunnel" = "Tram Line Tunnel";
 "type.railway.tram_stop" = "Stație de tramvai";
-"type.route" = "Route";
+"type.route" = "Traseu";
 "type.route.ferry" = "Ferry";
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Magazin";
@@ -1464,7 +1464,7 @@
 "type.tourism.information.guidepost" = "Postul de ghidare";
 "type.tourism.information.map" = "Hartă turistică";
 "type.tourism.information.office" = "Birou de informații turistice";
-"type.tourism.information.visitor_centre" = "Centrul pentru vizitatori";
+"type.tourism.information.visitor_centre" = "Centru pentru vizitatori";
 "type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Muzeu";
@@ -1562,7 +1562,7 @@
 "type.barrier.log" = "Barieră de bușteni";
 "type.amenity.boat_rental" = "Închiriere bărci";
 "type.shop.telecommunication" = "Magazin de telecomunicații";
-"type.leisure.indoor_play" = "Centrul de joacă";
+"type.leisure.indoor_play" = "Centru de joacă";
 "type.tourism.camp_pitch" = "Loc de camping";
 "type.railway.miniature" = "Cale ferată în miniatură";
 "type.amenity.kneipp_water_cure" = "Cura cu apă Kneipp";
@@ -1572,5 +1572,5 @@
 "type.man_made.monitoring_station.weather" = "Stație de monitorizare meteorologică";
 "type.amenity.student_accommodation" = "Cazare pentru studenți";
 "type.craft.watchmaker" = "Ceasornicar";
-"type.xmas_feature.market" = "Piața de Crăciun";
-"type.xmas_feature.tree" = "Pomul de Crăciun";
+"type.xmas_feature.market" = "Piață de Crăciun";
+"type.xmas_feature.tree" = "Pom de Crăciun";

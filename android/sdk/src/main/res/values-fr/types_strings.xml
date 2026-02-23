@@ -655,7 +655,7 @@
     <string name="type.leisure.marina">Port de plaisance</string>
     <string name="type.leisure.nature_reserve">Réserve naturelle</string>
     <string name="type.leisure.outdoor_seating">Sièges extérieurs</string>
-    <string name="type.leisure.firepit">Cheminée</string>
+    <string name="type.leisure.firepit">Aire de pique-nique</string>
     <string name="type.leisure.park">Parc</string>
     <string name="type.leisure.park.no.access">Parc</string>
     <string name="type.leisure.park.permissive">Parc</string>
