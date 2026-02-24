@@ -19,6 +19,7 @@
 #include <ft2build.h>
 #include <hb-ft.h>
 #include <unicode/unistr.h>
+#include <cstring>
 #include <limits>
 #include <sstream>
 #include <string>
@@ -173,13 +174,11 @@ FreetypeError constexpr g_FT_Errors[] =
         data = SharedBufferManager::Instance().ReserveSharedBuffer(bitmap.width * bitmap.rows);
         auto ptr = data->data();
 
-        for (unsigned int row = 0; row < bitmap.rows; ++row)
-        {
-          unsigned int const dstBaseIndex = row * bitmap.width;
-          int const srcBaseIndex = static_cast<int>(row) * bitmap.pitch;
-          for (unsigned int column = 0; column < bitmap.width; ++column)
-            ptr[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
-        }
+        if (bitmap.pitch == static_cast<int>(bitmap.width))
+          std::memcpy(ptr, bitmap.buffer, bitmap.width * bitmap.rows);
+        else
+          for (unsigned int row = 0; row < bitmap.rows; ++row)
+            std::memcpy(ptr + row * bitmap.width, bitmap.buffer + row * bitmap.pitch, bitmap.width);
       }
       return {bitmap.width, bitmap.rows, std::move(data)};
     }
@@ -647,9 +646,8 @@ FreetypeError constexpr g_FT_Errors[] =
       m_impl->m_textMetricsCache.clear();
     }
 
-    m_impl->m_textMetricsCache.emplace(utf8, allGlyphs);
-
-    return allGlyphs;
+    auto [it, _] = m_impl->m_textMetricsCache.emplace(utf8, std::move(allGlyphs));
+    return it->second;
   }
 
   text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHeight, char const * lang)

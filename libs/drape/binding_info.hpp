@@ -6,7 +6,7 @@
 
 #include <array>
 #include <cstdint>
-#include <string>
+#include <string_view>
 
 namespace dp
 {
@@ -15,7 +15,7 @@ size_t constexpr kMaxBindingInfo = 3;
 
 struct BindingDecl
 {
-  std::string m_attributeName;
+  std::string_view m_attributeName;
   uint8_t m_componentCount;
   glConst m_componentType;
   uint8_t m_stride;
@@ -49,7 +49,7 @@ protected:
 };
 
 template <typename TFieldType, typename TVertexType>
-uint8_t FillDecl(size_t index, std::string const & attrName, dp::BindingInfo & info, uint8_t offset)
+uint8_t FillDecl(size_t index, std::string_view attrName, dp::BindingInfo & info, uint8_t offset)
 {
   dp::BindingDecl & decl = info.GetBindingDecl(static_cast<uint16_t>(index));
   decl.m_attributeName = attrName;
@@ -70,7 +70,7 @@ public:
   explicit BindingFiller(uint8_t count, uint8_t id = 0) : m_info(count, id) {}
 
   template <typename TFieldType>
-  void FillDecl(std::string const & attrName)
+  void FillDecl(std::string_view attrName)
   {
     m_offset += dp::FillDecl<TFieldType, TVertex>(m_index, attrName, m_info, m_offset);
     ++m_index;

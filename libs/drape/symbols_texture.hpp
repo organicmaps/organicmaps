@@ -4,6 +4,7 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace dp
@@ -14,12 +15,12 @@ public:
   class SymbolKey : public Key
   {
   public:
-    explicit SymbolKey(std::string const & symbolName);
+    explicit SymbolKey(std::string_view symbolName);
     ResourceType GetType() const override;
-    std::string const & GetSymbolName() const;
+    std::string_view GetSymbolName() const;
 
   private:
-    std::string m_symbolName;
+    std::string_view m_symbolName;
   };
 
   class SymbolInfo : public ResourceInfo
@@ -48,7 +49,7 @@ private:
   void Load(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
             ref_ptr<HWTextureAllocator> allocator);
 
-  using TSymDefinition = std::map<std::string, SymbolInfo>;
+  using TSymDefinition = std::map<std::string, SymbolInfo, std::less<>>;
   std::string m_name;
   mutable TSymDefinition m_definition;
 };

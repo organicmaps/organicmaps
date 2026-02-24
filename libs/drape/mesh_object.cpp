@@ -5,7 +5,6 @@
 #include "drape/gl_gpu_program.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/texture_manager.hpp"
 
 #include "base/assert.hpp"
 
@@ -48,15 +47,6 @@ public:
                                   gl_const::GLStaticDraw);
       }
 
-      if (!m_mesh->m_indices.empty())
-      {
-        m_indexBuffer = GLFunctions::glGenBuffer();
-        GLFunctions::glBindBuffer(m_indexBuffer, gl_const::GLElementArrayBuffer);
-        GLFunctions::glBufferData(gl_const::GLElementArrayBuffer,
-                                  static_cast<uint32_t>(m_mesh->m_indices.size() * sizeof(uint16_t)),
-                                  m_mesh->m_indices.data(), gl_const::GLStaticDraw);
-      }
-
       ref_ptr<dp::GLGpuProgram> p = program;
       for (auto const & attribute : buffer->m_attributes)
       {
@@ -66,6 +56,15 @@ public:
         GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount, attribute.m_type, false,
                                               buffer->GetStrideInBytes(), attribute.m_offset);
       }
+    }
+
+    if (!m_mesh->m_indices.empty())
+    {
+      m_indexBuffer = GLFunctions::glGenBuffer();
+      GLFunctions::glBindBuffer(m_indexBuffer, gl_const::GLElementArrayBuffer);
+      GLFunctions::glBufferData(gl_const::GLElementArrayBuffer,
+                                static_cast<uint32_t>(m_mesh->m_indices.size() * sizeof(uint16_t)),
+                                m_mesh->m_indices.data(), gl_const::GLStaticDraw);
     }
 
     GLFunctions::glBindVertexArray(0);
@@ -182,7 +181,7 @@ void MeshObject::InitForOpenGL()
   m_impl = make_unique_dp<GLMeshObjectImpl>(make_ref(this));
 }
 
-void MeshObject::SetAttribute(std::string const & attributeName, uint32_t bufferInd, uint32_t offset,
+void MeshObject::SetAttribute(std::string_view attributeName, uint32_t bufferInd, uint32_t offset,
                               uint32_t componentsCount, glConst type)
 {
   CHECK_LESS(bufferInd, m_buffers.size(), ());
@@ -237,7 +236,8 @@ void MeshObject::UpdateIndexBuffer(ref_ptr<dp::GraphicsContext> context, std::ve
   m_impl->UpdateIndexBuffer(context);
 }
 
-void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex)
+void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount,
+                                      uint32_t startVertex) const
 {
   CHECK(m_impl != nullptr, ());
   CHECK(!m_buffers.empty(), ());
@@ -250,7 +250,7 @@ void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint
 }
 
 void MeshObject::DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount,
-                                             uint32_t startIndex)
+                                             uint32_t startIndex) const
 {
   CHECK(m_impl != nullptr, ());
   CHECK(!m_indices.empty(), ());

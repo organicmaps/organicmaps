@@ -74,7 +74,7 @@ private:
   template <typename TBatcher, typename... TArgs>
   IndicesRange InsertPrimitives(ref_ptr<GraphicsContext> context, RenderState const & state,
                                 ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && transferHandle,
-                                uint8_t vertexStride, TArgs... batcherArgs);
+                                uint8_t vertexStride, TArgs &&... batcherArgs);
 
   class CallbacksWrapper;
   void ChangeBuffer(ref_ptr<GraphicsContext> context, ref_ptr<CallbacksWrapper> wrapper);

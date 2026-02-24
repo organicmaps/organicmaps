@@ -16,38 +16,35 @@ ref_ptr<DataBufferBase> DataBuffer::GetBuffer() const
 
 void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target, uint64_t batcherHash)
 {
-  // If currentSize is 0 buffer hasn't been filled on preparation stage, let it be filled further.
+  // Cache values from m_impl before replacing it.
   uint32_t const currentSize = m_impl->GetCurrentSize();
+  void const * data = currentSize != 0 ? m_impl->Data() : nullptr;
+  uint8_t const elementSize = m_impl->GetElementSize();
+  uint32_t const availableSize = m_impl->GetAvailableSize();
 
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     if (currentSize != 0)
-    {
-      m_impl =
-          make_unique_dp<GpuBufferImpl>(target, m_impl->Data(), m_impl->GetElementSize(), currentSize, batcherHash);
-    }
+      m_impl = make_unique_dp<GpuBufferImpl>(target, data, elementSize, currentSize, batcherHash);
     else
-    {
-      m_impl = make_unique_dp<GpuBufferImpl>(target, nullptr, m_impl->GetElementSize(), m_impl->GetAvailableSize(),
-                                             batcherHash);
-    }
+      m_impl = make_unique_dp<GpuBufferImpl>(target, nullptr, elementSize, availableSize, batcherHash);
   }
   else if (apiVersion == dp::ApiVersion::Metal)
   {
 #if defined(OMIM_METAL_AVAILABLE)
     if (currentSize != 0)
-      m_impl = CreateImplForMetal(context, m_impl->Data(), m_impl->GetElementSize(), currentSize);
+      m_impl = CreateImplForMetal(context, data, elementSize, currentSize);
     else
-      m_impl = CreateImplForMetal(context, nullptr, m_impl->GetElementSize(), m_impl->GetAvailableSize());
+      m_impl = CreateImplForMetal(context, nullptr, elementSize, availableSize);
 #endif
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
     if (currentSize != 0)
-      m_impl = CreateImplForVulkan(context, m_impl->Data(), m_impl->GetElementSize(), currentSize, batcherHash);
+      m_impl = CreateImplForVulkan(context, data, elementSize, currentSize, batcherHash);
     else
-      m_impl = CreateImplForVulkan(context, nullptr, m_impl->GetElementSize(), m_impl->GetAvailableSize(), batcherHash);
+      m_impl = CreateImplForVulkan(context, nullptr, elementSize, availableSize, batcherHash);
   }
   else
   {

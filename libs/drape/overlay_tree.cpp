@@ -13,7 +13,7 @@ int const kMaxFrameUpdatePeriod = 15;
 uint32_t const kMinHandlesCount = 100;
 uint32_t const kMaxHandlesCount = 1000;
 
-size_t const kAverageHandlesCount[dp::OverlayRanksCount] = {300, 200, 50};
+size_t constexpr kAverageHandlesCount[dp::OverlayRanksCount] = {300, 200, 50, 20};
 int const kInvalidFrame = -1;
 
 namespace
@@ -479,7 +479,7 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
 
 void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const
 {
-  ScreenBase screen = GetModelView();
+  ScreenBase const & screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
     ASSERT(h->GetOverlayID().IsValid(), ());

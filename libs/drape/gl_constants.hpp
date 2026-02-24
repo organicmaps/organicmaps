@@ -152,7 +152,6 @@ extern glConst const GLDebugOutput;
 extern glConst const GLDebugOutputSynchronous;
 
 extern glConst const GLDontCare;
-extern glConst const GLDontCare;
 extern glConst const GLTrue;
 extern glConst const GLFalse;
 

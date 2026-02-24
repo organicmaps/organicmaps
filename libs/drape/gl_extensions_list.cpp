@@ -20,21 +20,19 @@ void GLExtensionsList::Init()
 
 bool GLExtensionsList::IsSupported(ExtensionName extName) const
 {
-  auto const it = m_supportedMap.find(extName);
-  if (it != m_supportedMap.end())
-    return it->second;
-
-  ASSERT(false, ("Not all used extensions are checked"));
-  return false;
+  ASSERT_LESS(extName, ExtensionCount, ("Not all used extensions are checked"));
+  return m_supportedMap[extName];
 }
 
 void GLExtensionsList::CheckExtension(ExtensionName enumName, std::string const & extName)
 {
+  ASSERT_LESS(enumName, ExtensionCount, ());
   m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
 }
 
 void GLExtensionsList::SetExtension(ExtensionName enumName, bool isSupported)
 {
+  ASSERT_LESS(enumName, ExtensionCount, ());
   m_supportedMap[enumName] = isSupported;
 }
 }  // namespace dp

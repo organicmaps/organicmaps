@@ -4,7 +4,7 @@
 
 #include "base/macros.hpp"
 
-#include <map>
+#include <array>
 #include <string>
 
 namespace dp
@@ -15,6 +15,7 @@ public:
   enum ExtensionName
   {
     MapBuffer,
+    ExtensionCount
   };
 
   GLExtensionsList() = default;
@@ -25,7 +26,7 @@ private:
   void CheckExtension(ExtensionName enumName, std::string const & extName);
   void SetExtension(ExtensionName enumName, bool isSupported);
 
-  std::map<ExtensionName, bool> m_supportedMap;
+  std::array<bool, ExtensionCount> m_supportedMap{};
 
   DISALLOW_COPY_AND_MOVE(GLExtensionsList);
 };

@@ -32,9 +32,7 @@ size_t RenderBucket::GetOverlayHandlesCount() const
 drape_ptr<OverlayHandle> RenderBucket::PopOverlayHandle()
 {
   ASSERT(!m_overlay.empty(), ());
-  size_t const lastElement = m_overlay.size() - 1;
-  swap(m_overlay[0], m_overlay[lastElement]);
-  drape_ptr<OverlayHandle> h = std::move(m_overlay[lastElement]);
+  auto h = std::move(m_overlay.back());
   m_overlay.pop_back();
   return h;
 }

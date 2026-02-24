@@ -652,7 +652,6 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
                                                       TGlyphsBuffer * glyphRegions)  // TODO(AB): Better name?
 {
   ASSERT(!utf8.empty(), ());
-  std::vector<ref_ptr<Texture::ResourceInfo>> resourcesInfo;
   bool hasNewResources = false;
 
   // TODO(AB): Is this mutex too slow?
@@ -675,7 +674,7 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
     group.m_texture = AllocateGlyphTexture();
 
   if (glyphRegions)
-    resourcesInfo.reserve(glyphs.size());
+    glyphRegions->reserve(glyphs.size());
 
   for (auto const & glyph : glyphs)
   {
@@ -684,19 +683,11 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
     hasNewResources |= newResource;
 
     if (glyphRegions)
-      resourcesInfo.emplace_back(fontTexture);
-  }
-
-  if (glyphRegions)
-  {
-    glyphRegions->reserve(resourcesInfo.size());
-    for (auto const & info : resourcesInfo)
     {
       GlyphRegion reg;
-      reg.SetResourceInfo(info);
+      reg.SetResourceInfo(fontTexture);
       reg.SetTexture(group.m_texture);
       ASSERT(reg.IsValid(), ());
-
       glyphRegions->push_back(std::move(reg));
     }
   }

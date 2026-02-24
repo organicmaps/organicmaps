@@ -185,8 +185,6 @@ private:
     bool operator()(TOffsetNode const & node1, uint8_t node2) const { return node1.first.GetID() < node2; }
   };
 
-  struct OffsetNodeFinder;
-
   std::set<TOffsetNode, LessOffsetNode> m_offsets;
 
   mutable Rects m_extendedShapeCache;

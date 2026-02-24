@@ -177,43 +177,6 @@ private:
 
   static uint32_t GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs, GlyphGroup const & group);
 
-  template <typename TGlyphGroup>
-  void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
-  {
-    if (group.m_texture == nullptr)
-      group.m_texture = AllocateGlyphTexture();
-
-    GetGlyphsRegions(group.m_texture, text, regions);
-  }
-
-  template <typename TGlyphGroup>
-  void FillResults(strings::UniString const & text, TGlyphsBuffer & buffers, TGlyphGroup & group)
-  {
-    FillResultBuffer<TGlyphGroup>(text, group, buffers);
-  }
-
-  template <typename TGlyphGroup>
-  void FillResults(TMultilineText const & text, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
-  {
-    buffers.resize(text.size());
-    for (size_t i = 0; i < text.size(); ++i)
-    {
-      strings::UniString const & str = text[i];
-      TGlyphsBuffer & buffer = buffers[i];
-      FillResults<TGlyphGroup>(str, buffer, group);
-    }
-  }
-
-  template <typename TText, typename TBuffer>
-  void CalcGlyphRegions(TText const & text, TBuffer & buffers)
-  {
-    CHECK(m_isInitialized, ());
-    size_t const hybridGroupIndex = FindHybridGlyphsGroup(text);
-    ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
-    GlyphGroup & group = m_glyphGroups[hybridGroupIndex];
-    FillResults<GlyphGroup>(text, buffers, group);
-  }
-
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
 
   static constexpr size_t GetInvalidGlyphGroup();

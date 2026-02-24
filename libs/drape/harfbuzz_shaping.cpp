@@ -142,9 +142,9 @@ void GetSingleTextLineRuns(TextSegments & segments)
   auto const textLength = static_cast<int32_t>(text.length());
 
   // Deliberately not checking for nullptr.
-  thread_local UBiDi * const bidi = ubidi_open();
+  thread_local std::unique_ptr<UBiDi, decltype(&ubidi_close)> bidi{ubidi_open(), ubidi_close};
   UErrorCode error = U_ZERO_ERROR;
-  ::ubidi_setPara(bidi, text.data(), textLength, UBIDI_DEFAULT_LTR, nullptr, &error);
+  ::ubidi_setPara(bidi.get(), text.data(), textLength, UBIDI_DEFAULT_LTR, nullptr, &error);
   if (U_FAILURE(error))
   {
     LOG(LERROR, ("ubidi_setPara failed with code", error));
@@ -160,7 +160,7 @@ void GetSingleTextLineRuns(TextSegments & segments)
     // Determine the longest logical run (e.g. same bidi direction) from this point.
     int32_t bidiRunBreak = 0;
     UBiDiLevel bidiLevel = 0;
-    ::ubidi_getLogicalRun(bidi, bidiRunStart, &bidiRunBreak, &bidiLevel);
+    ::ubidi_getLogicalRun(bidi.get(), bidiRunStart, &bidiRunBreak, &bidiLevel);
     int32_t const bidiRunEnd = bidiRunBreak;
     ASSERT_LESS(bidiRunStart, bidiRunEnd, ());
 
