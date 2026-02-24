@@ -32,8 +32,8 @@ namespace df
 
 struct FrameValues
 {
-  glsl::mat4 m_projection;
-  glsl::mat4 m_pivotTransform;
+  glsl::mat4 m_projection{1.0f};
+  glsl::mat4 m_pivotTransform{1.0f};
   float m_zScale = 1.0f;
 
   template <typename ParamsType>

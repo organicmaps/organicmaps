@@ -241,8 +241,8 @@ void TextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     }
   }
 
-  glsl::vec2 primaryOffset;
-  glsl::vec2 secondaryOffset;
+  glsl::vec2 primaryOffset{};
+  glsl::vec2 secondaryOffset{};
   if (titleDecl.m_secondaryText.empty())
   {
     CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(), m2::PointF{0.f, 0.f}, primaryOffset, secondaryOffset);

@@ -24,7 +24,7 @@ bool Handle::Update(ScreenBase const & screen)
 
   if (IsVisible())
   {
-    m_params.m_modelView = transpose(translate(mat4(), vec3(m_pivot, 0.0)));
+    m_params.m_modelView = transpose(translate(mat4(1.0f), vec3(m_pivot, 0.0)));
     auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
     m_params.m_contrastGamma = glsl::vec2(params.m_guiContrast, params.m_guiGamma);
     m_params.m_isOutlinePass = 0.0f;
