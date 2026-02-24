@@ -698,7 +698,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
+*highway|platform
 *office|diplomatic
 *railway|station|subway
 *amenity|police
