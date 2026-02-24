@@ -255,7 +255,7 @@ void Batcher::Flush(ref_ptr<GraphicsContext> context)
 template <typename TBatcher, typename... TArgs>
 IndicesRange Batcher::InsertPrimitives(ref_ptr<GraphicsContext> context, RenderState const & state,
                                        ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && transferHandle,
-                                       uint8_t vertexStride, TArgs... batcherArgs)
+                                       uint8_t vertexStride, TArgs &&... batcherArgs)
 {
   ref_ptr<VertexArrayBuffer> vao = GetBucket(state)->GetBuffer();
   IndicesRange range;
@@ -266,7 +266,7 @@ IndicesRange Batcher::InsertPrimitives(ref_ptr<GraphicsContext> context, RenderS
     Batcher::CallbacksWrapper wrapper(state, make_ref(handle), make_ref(this));
     wrapper.SetVAO(vao);
 
-    TBatcher batch(wrapper, batcherArgs...);
+    TBatcher batch(wrapper, std::forward<TArgs>(batcherArgs)...);
     batch.SetCanDivideStreams(handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(context, params);

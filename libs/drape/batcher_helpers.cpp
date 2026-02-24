@@ -430,6 +430,7 @@ bool FanStripHelper::IsFullUploaded() const
 
 uint32_t FanStripHelper::VtoICount(uint32_t vCount) const
 {
+  ASSERT(vCount >= 2, ());
   return 3 * (vCount - 2);
 }
 

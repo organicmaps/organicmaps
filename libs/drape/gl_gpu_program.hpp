@@ -5,9 +5,8 @@
 #include "drape/pointers.hpp"
 #include "drape/shader.hpp"
 
-#include <map>
 #include <string>
-#include <vector>
+#include <unordered_map>
 
 namespace dp
 {
@@ -20,7 +19,7 @@ public:
   void Bind() override;
   void Unbind() override;
 
-  int8_t GetAttributeLocation(std::string const & attributeName) const;
+  int8_t GetAttributeLocation(std::string_view attributeName) const;
   int GetUniformLocation(std::string const & uniformName) const;
   glConst GetUniformType(std::string const & uniformName) const;
 
@@ -44,6 +43,7 @@ private:
   ref_ptr<Shader> m_fragmentShader;
 
   UniformsInfo m_uniforms;
+  mutable std::unordered_map<std::string_view, int8_t> m_attributes;
   uint8_t m_textureSlotsCount = 0;
   uint32_t m_numericUniformsCount = 0;
 };

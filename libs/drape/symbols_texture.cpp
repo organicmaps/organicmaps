@@ -170,14 +170,14 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
 }
 }  // namespace
 
-SymbolsTexture::SymbolKey::SymbolKey(std::string const & symbolName) : m_symbolName(symbolName) {}
+SymbolsTexture::SymbolKey::SymbolKey(std::string_view symbolName) : m_symbolName(symbolName) {}
 
 Texture::ResourceType SymbolsTexture::SymbolKey::GetType() const
 {
   return Texture::ResourceType::Symbol;
 }
 
-std::string const & SymbolsTexture::SymbolKey::GetSymbolName() const
+std::string_view SymbolsTexture::SymbolKey::GetSymbolName() const
 {
   return m_symbolName;
 }
@@ -237,7 +237,7 @@ ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const &
   if (key.GetType() != Texture::ResourceType::Symbol)
     return nullptr;
 
-  std::string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
+  auto const symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
   auto it = m_definition.find(symbolName);
   ASSERT(it != m_definition.end(), (symbolName));

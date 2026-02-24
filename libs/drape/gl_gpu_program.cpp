@@ -51,9 +51,15 @@ void GLGpuProgram::Unbind()
   GLFunctions::glUseProgram(0);
 }
 
-int8_t GLGpuProgram::GetAttributeLocation(std::string const & attributeName) const
+int8_t GLGpuProgram::GetAttributeLocation(std::string_view attributeName) const
 {
-  return GLFunctions::glGetAttribLocation(m_programID, attributeName);
+  auto const it = m_attributes.find(attributeName);
+  if (it != m_attributes.end())
+    return it->second;
+
+  auto const location = GLFunctions::glGetAttribLocation(m_programID, std::string(attributeName));
+  m_attributes.emplace(attributeName, location);
+  return location;
 }
 
 int GLGpuProgram::GetUniformLocation(std::string const & uniformName) const

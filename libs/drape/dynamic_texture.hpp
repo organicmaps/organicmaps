@@ -3,7 +3,6 @@
 #include "drape/texture.hpp"
 
 #include <atomic>
-#include <vector>
 
 namespace dp
 {
@@ -41,8 +40,8 @@ public:
     // Create texture before first uploading.
     if (!m_isInitialized)
     {
-      std::vector<uint8_t> initData(m_params.m_width * m_params.m_height * GetBytesPerPixel(m_params.m_format), 0);
-      Create(context, m_params, initData.data());
+      // Passing nullptr allocates GPU memory without uploading data (no large zero-fill buffer needed).
+      Create(context, m_params, nullptr);
       m_isInitialized = true;
     }
 

@@ -1,9 +1,18 @@
 #include "drape/color.hpp"
 
 #include <algorithm>
-
+#include <sstream>
 namespace dp
 {
+
+std::string DebugPrint(Color const & c)
+{
+  // std::format uses std::to_chars that requires iOS 16.3.
+  std::ostringstream oss;
+  oss << "[R = " << static_cast<uint32_t>(c.GetRed()) << ", G = " << static_cast<uint32_t>(c.GetGreen())
+      << ", B = " << static_cast<uint32_t>(c.GetBlue()) << ", A = " << static_cast<uint32_t>(c.GetAlpha()) << "]";
+  return oss.str();
+}
 
 bool HSL::AdjustLightness(bool isLightTheme)
 {

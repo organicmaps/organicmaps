@@ -397,8 +397,8 @@ bool GLFunctions::glHasExtension(std::string const & name)
   glGetIntegerv(GL_NUM_EXTENSIONS, &n);
   for (GLint i = 0; i < n; i++)
   {
-    std::string const extension = std::string(reinterpret_cast<char const *>(glGetStringiFn(GL_EXTENSIONS, i)));
-    if (extension == name)
+    char const * extension = reinterpret_cast<char const *>(glGetStringiFn(GL_EXTENSIONS, i));
+    if (extension && name == extension)
       return true;
   }
   return false;
@@ -752,7 +752,7 @@ void GLFunctions::glDeleteShader(uint32_t shaderID)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   ASSERT(glDeleteShaderFn != nullptr, ());
-  GLCHECK(glDeleteBuffersFn(1, &shaderID));
+  GLCHECK(glDeleteShaderFn(shaderID));
 }
 
 uint32_t GLFunctions::glCreateProgram()

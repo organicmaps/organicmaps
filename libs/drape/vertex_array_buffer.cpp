@@ -298,7 +298,7 @@ uint32_t VertexArrayBuffer::GetAvailableVertexCount() const
 #ifdef DEBUG
   auto it = m_staticBuffers.begin();
   uint32_t const prev = it->second->GetBuffer()->GetAvailableSize();
-  for (; it != m_staticBuffers.end(); ++it)
+  for (++it; it != m_staticBuffers.end(); ++it)
     ASSERT_EQUAL(prev, it->second->GetBuffer()->GetAvailableSize(), ());
 #endif
 
@@ -313,7 +313,7 @@ uint32_t VertexArrayBuffer::GetStartIndexValue() const
 #ifdef DEBUG
   auto it = m_staticBuffers.begin();
   uint32_t const prev = it->second->GetBuffer()->GetCurrentSize();
-  for (; it != m_staticBuffers.end(); ++it)
+  for (++it; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetBuffer()->GetCurrentSize(), ());
 #endif
 

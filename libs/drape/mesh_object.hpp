@@ -59,7 +59,7 @@ public:
     Reset();
   }
 
-  void SetAttribute(std::string const & attributeName, uint32_t bufferInd, uint32_t offset, uint32_t componentsCount,
+  void SetAttribute(std::string_view attributeName, uint32_t bufferInd, uint32_t offset, uint32_t componentsCount,
                     glConst type = gl_const::GLFloatType);
 
   template <typename T>
@@ -115,17 +115,16 @@ public:
   void Reset();
 
   // Should be called inside draw callback in Render() method
-  void DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex);
-  void DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, uint32_t startIndex);
+  void DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex) const;
+  void DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount,
+                                   uint32_t startIndex) const;
 
   static std::vector<float> GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount);
 
 private:
   struct AttributeMapping
   {
-    AttributeMapping() = default;
-
-    AttributeMapping(std::string const & attributeName, uint32_t offset, uint32_t componentsCount,
+    AttributeMapping(std::string_view attributeName, uint32_t offset, uint32_t componentsCount,
                      glConst type = gl_const::GLFloatType)
       : m_attributeName(attributeName)
       , m_offset(offset)
@@ -133,7 +132,7 @@ private:
       , m_type(type)
     {}
 
-    std::string m_attributeName;
+    std::string_view m_attributeName;
     uint32_t m_offset = 0;
     uint32_t m_componentsCount = 0;
     glConst m_type = gl_const::GLFloatType;

@@ -43,7 +43,7 @@ glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, floa
   return {xOffset, yOffset};
 }
 
-void FillCommonDecl(dp::BindingDecl & decl, std::string const & name, uint8_t compCount, uint8_t stride, uint8_t offset)
+void FillCommonDecl(dp::BindingDecl & decl, std::string_view name, uint8_t compCount, uint8_t stride, uint8_t offset)
 {
   decl.m_attributeName = name;
   decl.m_componentCount = compCount;

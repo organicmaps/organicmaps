@@ -3,7 +3,6 @@
 #include "base/math.hpp"
 
 #include <cstdint>
-#include <sstream>
 #include <string>
 
 namespace dp
@@ -80,13 +79,7 @@ private:
   uint32_t m_rgba;
 };
 
-inline std::string DebugPrint(Color const & c)
-{
-  std::ostringstream out;
-  out << "[R = " << static_cast<uint32_t>(c.GetRed()) << ", G = " << static_cast<uint32_t>(c.GetGreen())
-      << ", B = " << static_cast<uint32_t>(c.GetBlue()) << ", A = " << static_cast<uint32_t>(c.GetAlpha()) << "]";
-  return out.str();
-}
+std::string DebugPrint(Color const & c);
 
 // Hue, Saturation, Lightness
 struct HSL

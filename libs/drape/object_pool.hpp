@@ -3,10 +3,10 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <list>
 #include <mutex>
 #include <set>
 #include <string>
+#include <vector>
 
 #define LOG_OBJECT_POOL
 
@@ -64,8 +64,8 @@ public:
     }
     else
     {
-      T * pt = m_pool.front();
-      m_pool.pop_front();
+      T * pt = m_pool.back();
+      m_pool.pop_back();
       return pt;
     }
   }
@@ -80,7 +80,7 @@ private:
 #if defined(DEBUG) || defined(LOG_OBJECT_POOL)
   std::set<T *> m_checkerSet;
 #endif
-  std::list<T *> m_pool;
+  std::vector<T *> m_pool;
   Factory m_factory;
   std::mutex m_lock;
 };

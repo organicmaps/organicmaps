@@ -10,17 +10,6 @@
 
 namespace dp
 {
-struct OverlayHandle::OffsetNodeFinder
-{
-public:
-  explicit OffsetNodeFinder(uint8_t bufferID) : m_bufferID(bufferID) {}
-
-  bool operator()(OverlayHandle::TOffsetNode const & node) const { return node.first.GetID() == m_bufferID; }
-
-private:
-  uint8_t m_bufferID;
-};
-
 OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor, uint64_t priority, uint8_t minVisibleScale,
                              bool isBillboard)
   : m_id(id)

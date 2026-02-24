@@ -52,8 +52,8 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     auto const & props = vulkanContext->GetGpuProperties();
     m_maxLineWidth = std::max(props.limits.lineWidthRange[0], props.limits.lineWidthRange[1]);
-    m_maxTextureSize = vulkanContext->GetGpuProperties().limits.maxImageDimension2D;
-    m_maxTextureArrayLayers = vulkanContext->GetGpuProperties().limits.maxImageArrayLayers;
+    m_maxTextureSize = props.limits.maxImageDimension2D;
+    m_maxTextureArrayLayers = props.limits.maxImageArrayLayers;
   }
   LOG(LINFO, ("Max line width =", m_maxLineWidth, "| Max texture size =", m_maxTextureSize,
               "| Max texture array layers =", m_maxTextureArrayLayers));
