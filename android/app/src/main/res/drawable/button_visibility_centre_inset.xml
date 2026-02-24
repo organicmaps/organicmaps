@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/visibility_selector"
-    android:insetLeft="12dp" />
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="12dp"
+        android:drawable="@drawable/visibility_selector" />
+</layer-list>
