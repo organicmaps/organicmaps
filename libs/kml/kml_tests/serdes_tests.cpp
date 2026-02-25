@@ -81,7 +81,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData1.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData1.m_icon = kml::BookmarkIcon::None;
   bookmarkData1.m_viewportScale = 15;
-  bookmarkData1.m_timestamp = kml::TimestampClock::from_time_t(800);
+  bookmarkData1.m_createdTimestamp = kml::TimestampClock::from_time_t(800);
   bookmarkData1.m_point = m2::PointD(45.9242, 56.8679);
   bookmarkData1.m_boundTracks = {0};
   bookmarkData1.m_visible = false;
@@ -102,8 +102,8 @@ kml::FileData GenerateKmlFileData()
   bookmarkData2.m_color = {kml::PredefinedColor::Red, 0};
   bookmarkData2.m_icon = kml::BookmarkIcon::None;
   bookmarkData2.m_viewportScale = 15;
-  bookmarkData2.m_timestamp = kml::TimestampClock::from_time_t(1600);
-  bookmarkData2.m_editTimestamp = kml::TimestampClock::from_time_t(2400);
+  bookmarkData2.m_createdTimestamp = kml::TimestampClock::from_time_t(1600);
+  bookmarkData2.m_modifiedTimestamp = kml::TimestampClock::from_time_t(2400);
   bookmarkData2.m_point = m2::PointD(-80.12702, 26.709375);
   bookmarkData2.m_boundTracks = {0};
   bookmarkData2.m_visible = true;
@@ -121,8 +121,8 @@ kml::FileData GenerateKmlFileData()
   trackData.m_description[kRuLang] = "Тестовое описание трека";
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
-  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
-  trackData.m_editTimestamp = kml::TimestampClock::from_time_t(1200);
+  trackData.m_createdTimestamp = kml::TimestampClock::from_time_t(900);
+  trackData.m_modifiedTimestamp = kml::TimestampClock::from_time_t(1200);
 
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
 
@@ -374,9 +374,9 @@ UNIT_TEST(Kml_Serialization_Bin_File)
   auto data = GenerateKmlFileData();
   // KMB format doesn't have 'editTimestamp' field. Let's erase this field.
   for (auto & bookmark : data.m_bookmarksData)
-    bookmark.m_editTimestamp = kml::Timestamp();
+    bookmark.m_modifiedTimestamp = kml::Timestamp();
   for (auto & track : data.m_tracksData)
-    track.m_editTimestamp = kml::Timestamp();
+    track.m_modifiedTimestamp = kml::Timestamp();
 
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));

@@ -174,15 +174,15 @@ float Track::GetDepth(size_t layerIndex) const
   return layerIndex * 10;
 }
 
-kml::Timestamp Track::GetEditTimestamp() const
+kml::Timestamp Track::GetModifiedTimestamp() const
 {
-  return m_data.m_editTimestamp;
+  return m_data.m_modifiedTimestamp;
 }
 
-void Track::SetEditTimestamp(kml::Timestamp ts)
+void Track::SetModifiedTimestamp(kml::Timestamp ts)
 {
   m_isDirty = true;
-  m_data.m_editTimestamp = ts;
+  m_data.m_modifiedTimestamp = ts;
 }
 
 void Track::ForEachGeometry(GeometryFnT && fn) const

@@ -48,7 +48,7 @@ struct TrackDataV6
     data.m_name = m_name;
     data.m_description = m_description;
     data.m_layers = m_layers;
-    data.m_timestamp = m_timestamp;
+    data.m_createdTimestamp = m_timestamp;
     data.m_geometry.FromPoints(m_points);
     data.m_visible = m_visible;
     data.m_nearestToponyms = m_nearestToponyms;

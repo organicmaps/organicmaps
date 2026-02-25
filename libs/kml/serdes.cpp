@@ -417,11 +417,11 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
     writer << "</description>\n";
   }
 
-  if (bookmarkData.m_timestamp != Timestamp())
+  if (bookmarkData.m_createdTimestamp != Timestamp())
   {
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp) << "</when>";
-    if (bookmarkData.m_editTimestamp != Timestamp())
-      writer << "<modified>" << TimestampToString(bookmarkData.m_editTimestamp) << "</modified>";
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_createdTimestamp) << "</when>";
+    if (bookmarkData.m_modifiedTimestamp != Timestamp())
+      writer << "<modified>" << TimestampToString(bookmarkData.m_modifiedTimestamp) << "</modified>";
     writer << "</TimeStamp>\n";
   }
 
@@ -589,11 +589,11 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   SaveTrackLayer(writer, layer, kIndent6);
   writer << kIndent4 << "</LineStyle></Style>\n";
 
-  if (trackData.m_timestamp != Timestamp())
+  if (trackData.m_createdTimestamp != Timestamp())
   {
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_timestamp) << "</when>";
-    if (trackData.m_editTimestamp != Timestamp())
-      writer << kIndent4 << "<modified>" << TimestampToString(trackData.m_editTimestamp) << "</modified>";
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_createdTimestamp) << "</when>";
+    if (trackData.m_modifiedTimestamp != Timestamp())
+      writer << kIndent4 << "<modified>" << TimestampToString(trackData.m_modifiedTimestamp) << "</modified>";
     writer << "</TimeStamp>\n";
   }
 
@@ -949,8 +949,8 @@ void KmlParser::Pop(std::string_view tag)
         data.m_color.m_rgba = m_color;
         data.m_icon = m_icon;
         data.m_viewportScale = m_viewportScale;
-        data.m_timestamp = m_timestamp;
-        data.m_editTimestamp = m_editTimestamp;
+        data.m_createdTimestamp = m_timestamp;
+        data.m_modifiedTimestamp = m_editTimestamp;
         data.m_point = m_org;
         data.m_featureTypes = std::move(m_featureTypes);
         data.m_customName = std::move(m_customName);
@@ -979,7 +979,7 @@ void KmlParser::Pop(std::string_view tag)
           trackData.m_name = bookmarkData.m_name;
           trackData.m_description = bookmarkData.m_description;
           trackData.m_layers = std::move(m_trackLayers);
-          trackData.m_timestamp = m_timestamp;
+          trackData.m_createdTimestamp = m_timestamp;
           trackData.m_geometry = std::move(m_geometry);
           trackData.m_visible = m_visible;
           trackData.m_nearestToponyms = std::move(m_nearestToponyms);
@@ -994,8 +994,8 @@ void KmlParser::Pop(std::string_view tag)
         data.m_name = std::move(m_name);
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
-        data.m_timestamp = m_timestamp;
-        data.m_editTimestamp = m_editTimestamp;
+        data.m_createdTimestamp = m_timestamp;
+        data.m_modifiedTimestamp = m_editTimestamp;
         data.m_geometry = std::move(m_geometry);
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);

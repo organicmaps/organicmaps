@@ -311,7 +311,7 @@ struct BookmarkData
                                   visitor(m_description, "description"), visitor(m_featureTypes, "featureTypes"),
                                   visitor(m_customName, "customName"), visitor(m_color, "color"),
                                   visitor(m_icon, "icon"), visitor(m_viewportScale, "viewportScale"),
-                                  visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
+                                  visitor(m_createdTimestamp, "timestamp"), visitor(m_point, "point"),
                                   visitor(m_boundTracks, "boundTracks"), visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"), visitor(m_minZoom, "minZoom"),
                                   visitor(m_compilations, "compilations"), visitor(m_properties, "properties"),
@@ -323,7 +323,7 @@ struct BookmarkData
   {
     return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
            m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_editTimestamp, data.m_editTimestamp) &&
+           IsEqual(m_createdTimestamp, data.m_createdTimestamp) && IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) &&
            m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) && m_featureTypes == data.m_featureTypes &&
            m_customName == data.m_customName && m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym && m_minZoom == data.m_minZoom &&
@@ -350,9 +350,9 @@ struct BookmarkData
   // Viewport scale. 0 is a default value (no scale set).
   uint8_t m_viewportScale = 0;
   // Creation timestamp.
-  Timestamp m_timestamp = {};
+  Timestamp m_createdTimestamp = {};
   // Modification timestamp.
-  Timestamp m_editTimestamp = {};
+  Timestamp m_modifiedTimestamp = {};
   // Coordinates in mercator.
   m2::PointD m_point;
   // Bound tracks (vector contains local track ids).
@@ -432,7 +432,7 @@ struct TrackData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(TrackData, visitor(m_id, "id"), visitor(m_localId, "localId"),
                                   visitor(m_name, "name"), visitor(m_description, "description"),
-                                  visitor(m_layers, "layers"), visitor(m_timestamp, "timestamp"),
+                                  visitor(m_layers, "layers"), visitor(m_createdTimestamp, "timestamp"),
                                   visitor(m_geometry, "geometry"), visitor(m_visible, "visible"),
                                   visitor(m_nearestToponyms, "nearestToponyms"), visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
@@ -442,8 +442,8 @@ struct TrackData
   bool operator==(TrackData const & data) const
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
-           m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_timestamp, data.m_timestamp) &&
-           IsEqual(m_editTimestamp, data.m_editTimestamp) && m_geometry == data.m_geometry &&
+           m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_createdTimestamp, data.m_createdTimestamp) &&
+           IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) && m_geometry == data.m_geometry &&
            m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
            m_properties == data.m_properties;
   }
@@ -461,9 +461,9 @@ struct TrackData
   // Layers.
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
-  Timestamp m_timestamp = {};
+  Timestamp m_createdTimestamp = {};
   // Last modification timestamp.
-  Timestamp m_editTimestamp = {};
+  Timestamp m_modifiedTimestamp = {};
   MultiGeometry m_geometry;
   // Visibility.
   bool m_visible = true;

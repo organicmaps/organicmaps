@@ -278,26 +278,26 @@ void Bookmark::SetDescription(std::string const & description)
   kml::SetDefaultStr(m_data.m_description, description);
 }
 
-kml::Timestamp Bookmark::GetTimeStamp() const
+kml::Timestamp Bookmark::GetCreatedTimeStamp() const
 {
-  return m_data.m_timestamp;
+  return m_data.m_createdTimestamp;
 }
 
-void Bookmark::SetTimeStamp(kml::Timestamp timeStamp)
+void Bookmark::SetCreatedTimeStamp(kml::Timestamp timeStamp)
 {
   SetDirty();
-  m_data.m_timestamp = timeStamp;
+  m_data.m_createdTimestamp = timeStamp;
 }
 
-kml::Timestamp Bookmark::GetEditTimeStamp() const
+kml::Timestamp Bookmark::GetModifiedTimeStamp() const
 {
-  return m_data.m_editTimestamp;
+  return m_data.m_modifiedTimestamp;
 }
 
-void Bookmark::SetEditTimeStamp(kml::Timestamp timeStamp)
+void Bookmark::SetModifiedTimeStamp(kml::Timestamp timeStamp)
 {
   SetDirty();
-  m_data.m_editTimestamp = timeStamp;
+  m_data.m_modifiedTimestamp = timeStamp;
 }
 
 uint8_t Bookmark::GetScale() const

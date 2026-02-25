@@ -659,7 +659,7 @@ private:
       , m_name(GetPreferredBookmarkName(bmData))
       , m_point(bmData.m_point)
       , m_type(GetBookmarkBaseType(bmData.m_featureTypes))
-      , m_timestamp(bmData.m_timestamp)
+      , m_createdTimestamp(bmData.m_createdTimestamp)
       , m_address(address)
     {}
 
@@ -667,7 +667,7 @@ private:
     std::string m_name;
     m2::PointD m_point;
     BookmarkBaseType m_type;
-    kml::Timestamp m_timestamp;
+    kml::Timestamp m_createdTimestamp;
     search::ReverseGeocoder::RegionAddress m_address;
   };
 
@@ -676,12 +676,12 @@ private:
     explicit SortTrackData(kml::TrackData const & trackData)
       : m_id(trackData.m_id)
       , m_name(GetPreferredBookmarkStr(trackData.m_name))
-      , m_timestamp(trackData.m_timestamp)
+      , m_createdTimestamp(trackData.m_createdTimestamp)
     {}
 
     kml::TrackId m_id;
     std::string m_name;
-    kml::Timestamp m_timestamp;
+    kml::Timestamp m_createdTimestamp;
   };
 
   void GetSortedCategoryImpl(SortParams const & params, std::vector<SortBookmarkData> const & bookmarksForSort,

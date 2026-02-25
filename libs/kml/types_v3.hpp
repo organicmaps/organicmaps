@@ -49,7 +49,7 @@ struct BookmarkDataV3
     data.m_color = m_color;
     data.m_icon = m_icon;
     data.m_viewportScale = m_viewportScale;
-    data.m_timestamp = m_timestamp;
+    data.m_createdTimestamp = m_timestamp;
     data.m_point = m_point;
     data.m_boundTracks = m_boundTracks;
     return data;
@@ -105,7 +105,7 @@ struct TrackDataV3
     data.m_name = m_name;
     data.m_description = m_description;
     data.m_layers = m_layers;
-    data.m_timestamp = m_timestamp;
+    data.m_createdTimestamp = m_timestamp;
     data.m_geometry.FromPoints(m_points);
     return data;
   }
