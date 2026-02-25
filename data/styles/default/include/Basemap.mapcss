@@ -213,7 +213,7 @@ area|z12-[landuse=military]
 
 area|z12-[amenity=prison]
 {fill-opacity: 0.5; fill-color: @prison;}
-/* End of hardcoded */
+/* End of hardcoded hatching */
 
 area|z11-[natural=scree],
 area|z12-[natural=shingle],
@@ -221,6 +221,15 @@ area|z12-[natural=shingle],
 
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
+
+/* Select width ~ highway=primary */
+line|z17-[natural=tree_row],
+{width: 6; color: @forest}
+line|z18[natural=tree_row],
+{width: 8;}
+line|z19-[natural=tree_row],
+{width: 10;}
+
 
 /* 5.BEACH, GLACIER, DESERT, etc. */
 
