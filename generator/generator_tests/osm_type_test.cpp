@@ -2078,7 +2078,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       // {"natural", "meadow"},
       // {"natural", "orchard"},
       // {"natural", "tree"},
-      // {"natural", "tree_row"},
+      {"natural", "tree_row"},
       // {"natural", "vineyard"},
       // {"noexit"},
       // {"place", "county"},
