@@ -1,17 +1,16 @@
 #pragma once
 
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
 #include "indexer/edit_journal.hpp"
 #include "indexer/feature_decl.hpp"
+
+#include "geometry/latlon.hpp"
+#include "geometry/point2d.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <ctime>
-#include <iostream>
 #include <vector>
 
 #include <pugixml.hpp>
@@ -57,8 +56,8 @@ public:
 
   /// Creates empty node or way.
   XMLFeature(Type const type);
-  XMLFeature(std::string const & xml);
-  XMLFeature(pugi::xml_document const & xml);
+  /// Used in tests only.
+  XMLFeature(std::string_view xml);
   XMLFeature(pugi::xml_node const & xml);
   XMLFeature(XMLFeature const & feature);
 
@@ -72,9 +71,6 @@ public:
 
   void Save(std::ostream & ost) const;
   std::string ToOSMString() const;
-
-  /// Tags from featureWithChanges are applied to this(osm) feature.
-  void ApplyPatch(XMLFeature const & featureWithChanges);
 
   Type GetType() const;
   std::string GetTypeString() const;
@@ -174,13 +170,6 @@ public:
   bool HasAttribute(std::string_view key) const;
   bool HasKey(std::string_view key) const;
 
-  template <typename Fn>
-  void ForEachTag(Fn && func) const
-  {
-    for (auto const & tag : GetRootNode().select_nodes("tag"))
-      func(tag.node().attribute("k").value(), tag.node().attribute("v").value());
-  }
-
   std::string GetTagValue(std::string_view key) const;
   void SetTagValue(std::string_view key, std::string_view value);
   void RemoveTag(std::string_view key);
@@ -203,10 +192,6 @@ private:
   pugi::xml_document m_document;
 };
 
-/// Rewrites all but geometry and types.
-/// Should be applied to existing features only (in mwm files).
-void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object);
-
 /// @param serializeType if false, types are not serialized.
 /// Useful for applying modifications to existing OSM features, to avoid issues when someone
 /// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
@@ -214,10 +199,6 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType);
 
 /// Used to generate XML for created objects in the new editor
 XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator);
-
-/// Creates new feature, including geometry and types.
-/// @Note: only nodes (points) are supported at the moment.
-bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object);
 
 std::string DebugPrint(XMLFeature const & feature);
 std::string DebugPrint(XMLFeature::Type const type);

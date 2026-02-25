@@ -118,9 +118,6 @@ public:
   void SetCuisines(std::vector<std::string_view> const & cuisines);
   void SetCuisines(std::vector<std::string> const & cuisines);
 
-  /// Special mark that it's a point feature, not area or line.
-  void SetPointType();
-
   static bool ValidateBuildingLevels(std::string const & buildingLevels);
   static bool ValidateHouseNumber(std::string const & houseNumber);
   static bool ValidateFlats(std::string const & flats);

@@ -391,7 +391,6 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   emo.SetMetadata(feature::Metadata::FMD_WEBSITE, "https://some.thing.org");
   emo.SetInternet(feature::Internet::Wlan);
 
-  emo.SetPointType();
   emo.SetMercator(m2::PointD(1.0, 1.0));
 
   auto ft = FeatureType::CreateFromMapObject(emo);
