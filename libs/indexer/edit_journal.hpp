@@ -12,7 +12,7 @@ enum class JournalEntryType
 {
   TagModification,
   ObjectCreated,
-  LegacyObject,  // object without full journal history, used for transition to new editor
+  LegacyObject,  /// @todo Remove after testing period
   // Possible future values: ObjectDeleted, ObjectDisused, ObjectNotDisused, LocationChanged, FeatureTypeChanged
 };
 

@@ -189,6 +189,7 @@ bool EditableMapObject::CanUseAsDefaultName(int8_t const lang, LangsBufferT cons
 
 void EditableMapObject::SetMercator(m2::PointD const & center)
 {
+  m_geomType = feature::GeomType::Point;
   m_mercator = center;
 }
 
@@ -355,11 +356,6 @@ void EditableMapObject::SetCuisines(std::vector<std::string_view> const & cuisin
 void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
 {
   SetCuisinesImpl(cuisines);
-}
-
-void EditableMapObject::SetPointType()
-{
-  m_geomType = feature::GeomType::Point;
 }
 
 // static
@@ -603,8 +599,6 @@ void EditableMapObject::ApplyEditsFromJournal(EditJournal const & editJournal)
 
 void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
 {
-  LOG(LDEBUG, ("Applying Journal Entry: ", osm::EditJournal::ToString(entry)));
-  // Todo
   switch (entry.journalEntryType)
   {
   case JournalEntryType::TagModification:
@@ -681,14 +675,13 @@ void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
     ObjCreateData const & objCreatedData = std::get<ObjCreateData>(entry.data);
     ASSERT_EQUAL(feature::GeomType::Point, objCreatedData.geomType,
                  ("At the moment only new nodes (points) can be created."));
-    SetPointType();
     SetMercator(objCreatedData.mercator);
     m_types.Add(objCreatedData.type);
     break;
   }
   case JournalEntryType::LegacyObject:
   {
-    ASSERT_FAIL(("Legacy Objects can not be loaded from Journal"));
+    ASSERT_FAIL(("Legacy Objects are not editable"));
     break;
   }
   }

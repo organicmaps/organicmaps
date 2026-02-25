@@ -40,10 +40,6 @@ public:
 
   void SetConfig(pugi::xml_document const & doc);
 
-  // TODO(mgsergio): Implement this getter to avoid hard-code in XMLFeature::ApplyPatch.
-  // It should return [[phone, contact:phone, contact:mobile], [website, contact:website, url], ...].
-  // vector<vector<string>> GetAlternativeFields() const;
-
 private:
   pugi::xml_document m_document;
 };

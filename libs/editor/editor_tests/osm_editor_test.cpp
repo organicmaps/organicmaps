@@ -157,6 +157,7 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId, osm::EditableMapObject
   pugi::xml_node created = mwmNode.append_child("create");
 
   editor::XMLFeature xf = editor::ToXML(emo, true);
+  xf.SetEditJournal(emo.GetJournal());
   xf.SetMWMFeatureIndex(emo.GetID().m_index);
   xf.SetModificationTime(time(nullptr));
   xf.SetUploadTime(time(nullptr));
@@ -1264,6 +1265,11 @@ void EditorTest::LoadExistingEditsXml()
           <node lat="54.0446163" lon="27.6597626" mwm_file_index="4293918720" timestamp="2022-12-09T18:58:28Z">
             <tag k="name:ru" v="xxx" />
             <tag k="amenity" v="bar" />
+            <journal version="1.0">
+              <entry type="ObjectCreated" timestamp="2022-12-09T18:58:28Z">
+                <data type="amenity-bar" geomType="Point" lat="54.0446163" lon="27.6597626" />
+              </entry>
+            </journal>
           </node>
         </create>
         <obsolete />
