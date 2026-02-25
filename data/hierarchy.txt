@@ -993,6 +993,13 @@ Syria;Q858;sy;ar
 Sao Tome and Principe;Q1039;st;pt
 Tajikistan;Q863;tj;ru,tg
 Tanzania;Q924;tz;en,sw
+ Tanzania_Southern_Highlands_Zone;Q924-Southeast
+ Tanzania_Offshore_Islands;Q924-East
+ Tanzania_Lake_Zone;Q924-Northwest
+ Tanzania_Coastal_Zone;Q924-Southeast
+ Tanzania_Central_Zone;Q924-Centre
+ Tanzania_Northern_Zone;Q924-Northeast
+ Tanzania_Western_Zone;Q924-West
 Thailand;Q869;th;th
  Thailand_North;Q869-North
  Thailand_Central;Q869-Centre
