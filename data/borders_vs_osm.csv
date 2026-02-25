@@ -181,7 +181,7 @@ Equatorial Guinea	4	Annobón
 Turkey_Mediterranean Region	4	Antalya
 Antigua and Barbuda	2	Antigua and Barbuda
 Colombia_North	4	Antioquia
-Tanzania	4	Arusha
+Tanzania_Northern	4	Arusha
 Papua New Guinea	4	Border Central-NCD
 Uruguay	4	Cerro Largo
 Philippines_Visayas	4	Antique
@@ -975,7 +975,7 @@ Denmark_North Denmark Region	2	Danmark
 Denmark_Region of Southern Denmark	2	Danmark
 Sweden_Vastra Gotaland	2	Danmark
 Sweden_Sodra Gotaland	2	Danmark
-Tanzania	4	Dar es Salaam
+Tanzania_Coastal	4	Dar es Salaam
 Syria	4	Daraa
 Panama	4	Darién
 Philippines_Mindanao	4	Davao City
@@ -1087,7 +1087,7 @@ Turkey_Southeastern Anatolia Region	4	Diyarbakır
 Algeria_Central	4	Djelfa - الجلفة
 Djibouti	2	Djibouti
 Djibouti	4	Djibouti
-Tanzania	4	Dodoma
+Tanzania_Central	4	Dodoma
 Uganda	4	Dokolo
 Romania_South_West	4	Dolj
 Czech_Jihovychod_Kraj Vysocina	4	Jihovýchod
@@ -1458,6 +1458,7 @@ Ecuador_West	4	Galápagos
 Ethiopia	4	Gambela
 The Gambia	2	Gambia
 India_Maharashtra	4	Ganjiramannapeta
+Tanzania_Lake	4	Geita
 Gibraltar	2	Gibraltar
 Mali	4	Gao
 Turkey_Black Sea Region	4	Giresun
@@ -1729,7 +1730,7 @@ Ireland_Northern Counties	2	Ireland
 Ireland_Leinster	2	Ireland
 Ireland_Munster	2	Ireland
 Ireland_Connacht	2	Ireland
-Tanzania	4	Iringa
+Tanzania_Southern Highlands	4	Iringa
 Solomon Islands	4	Isabel Province
 Philippines_Luzon_North	4	Isabela
 Uganda	4	Isingiro
@@ -2088,7 +2089,7 @@ Afghanistan	4	Kabul
 Myanmar	4	Kachin
 Nigeria_South	4	Kaduna
 India_Tamil Nadu	4	Kaduvanur (Puducherry)
-Tanzania	4	Kagera
+Tanzania_Lake	4	Kagera
 Turkey_Mediterranean Region	4	Kahramanmaraş
 Kenya	4	Kajiado
 Kenya	4	Kakamega
@@ -2123,7 +2124,10 @@ Uganda	4	Kanungu District
 Uganda	4	Kapchorwa
 Afghanistan	4	Logar
 Afghanistan	4	Kapisa
-Tanzania	4	Kilimanjaro
+Tanzania_Offshore Islands	4	Kaskazini Pemba
+Tanzania_Western	4	Katavi
+Tanzania_Western	4	Kigoma
+Tanzania_Northern	4	Kilimanjaro
 Turkey_Southeastern Anatolia Region	4	Kilis
 Jersey	4	King's Rock
 Congo-Kinshasa_West	4	Kinshasa
@@ -2155,8 +2159,7 @@ Burundi	4	Karuzi
 Congo-Kinshasa_West	4	Kasaï
 Congo-Kinshasa_West	4	Kasaï Central
 Congo-Kinshasa_West	4	Kasaï Oriental
-Tanzania	4	Kaskazini Pemba
-Tanzania	4	Kusini Pemba
+Tanzania_Offshore Islands	4	Kusini Pemba
 South Africa_KwaZulu-Natal	4	KwaZulu-Natal
 Indonesia_West	4	Lampung
 Kenya	4	Lamu
@@ -2164,7 +2167,6 @@ Sudan_East	4	Kassala
 Turkey_Black Sea Region	4	Kastamonu
 Uganda	4	Katakwi
 Mauritius	4	Île Hermitage
-Tanzania	4	Katavi
 Namibia	4	Katima Mulilo
 Nigeria_North	4	Katsina
 Lithuania_East	4	Kauno apskritis
@@ -2221,7 +2223,6 @@ Afghanistan	4	Khost
 Kenya	4	Kiambu
 Uganda	4	Kibaale
 Mali	4	Kidal
-Tanzania	4	Kigoma
 Kenya	4	Kilifi
 Panama	4	Los Santos
 US_Louisiana_New Orleans	4	Louisiana
@@ -2285,7 +2286,7 @@ Azerbaijan	4	Kürdəmir rayonu
 Turkey_Aegean Region	4	Kütahya
 South Africa_Limpopo	4	Limpopo
 Costa Rica	4	Limón
-Tanzania	4	Lindi
+Tanzania_Coastal	4	Lindi
 Dominican Republic	4	La Altagracia
 Italy_Campania	4	La Castelluccia
 Colombia_North	4	La Guajira
@@ -2375,7 +2376,7 @@ Eritrea	4	Maekel
 Indonesia_East	4	Maluku
 Indonesia_East	4	Maluku Utara
 US_Washington_Coast	4	Puyallup Tribe Reservation
-Tanzania	4	Pwani
+Tanzania_Coastal	4	Pwani
 Uzbekistan	4	Qaraqalpaqstan Respublikasi
 Jordan	4	Mafraq
 Colombia_North	4	Magdalena
@@ -2425,9 +2426,9 @@ India_Tamil Nadu	4	Manamedu (Puducherry)
 The Gambia	4	Mansakonko
 Senegal	4	Mansakonko
 East Timor	4	Manufahi
-Tanzania	4	Manyara
+Tanzania_Northern	4	Manyara
 Mozambique	4	Maputo
-Tanzania	4	Mara
+Tanzania_Lake	4	Mara
 Niger	4	Maradi
 Romania_North_West	4	Maramureș
 Brazil_Northeast Region_West	4	Maranhão
@@ -2507,7 +2508,7 @@ Chad	4	Mayo-Kebbi Est
 Chad	4	Mayo-Kebbi Ouest
 France_Southern Islands	4	Mayotte
 Uganda	4	Mayuge
-Tanzania	4	Mbeya
+Tanzania_Southern Highlands	4	Mbeya
 Central African Republic	4	Mbomou
 Germany_Mecklenburg-Vorpommern	4	Mecklenburg-Vorpommern
 Maldives	4	Medhu Province
@@ -2609,7 +2610,7 @@ Uruguay	4	Montevideo
 Papua New Guinea	4	Morobe
 Sudan_West	4	Nahr an-Nil
 Sudan_East	4	Nahr an-Nil
-Tanzania	4	Morogoro
+Tanzania_Coastal	4	Morogoro
 Ecuador_East	4	Morona Santiago
 Algeria_Coast	4	Mostaganem - مستغانم
 Guernsey	4	Mouliere
@@ -2644,7 +2645,7 @@ Mozambique	2	Moçambique
 Malawi	2	Moçambique
 Uganda	4	Mpigi
 South Africa_Mpumalanga	4	Mpumalanga
-Tanzania	4	Mtwara
+Tanzania_Coastal	4	Mtwara
 Zambia	4	Muchinga
 Somalia	4	Mudug
 Congo-Brazzaville	2	République du Congo
@@ -2662,6 +2663,7 @@ Burundi	4	Muyinga
 Turkey_Eastern Anatolia Region	4	Muş
 Turkey_Aegean Region	4	Muğla
 Comoros	4	Mwali
+Tanzania_Lake	4	Mwanza
 Burundi	4	Mwaro
 Algeria_Coast	4	Médéa - المدية
 Venezuela_South	4	Mérida
@@ -2783,7 +2785,7 @@ Nigeria_South	2	Nigeria
 Nigeria_North	2	Nigeria
 Saint Helena Ascension and Tristan da Cunha	4	Nightingale Island
 Turkey_Central Anatolia Region_Kayseri	4	Niğde
-Tanzania	4	Njombe
+Tanzania_Southern Highlands	4	Njombe
 Netherlands_North Brabant_Uden	4	Noord-Brabant
 Netherlands_North Brabant_Tiburg	4	Noord-Brabant
 Netherlands_North Brabant_Roosendaal	4	Noord-Brabant
@@ -3180,6 +3182,14 @@ Italy_Sicily	2	Territorial waters of Italy - Ustica
 Armenia	4	Qazax rayonu
 Azerbaijan	4	Qazax rayonu
 Azerbaijan	4	Qobustan rayonu
+Tanzania_Central	4	Tabora
+Tanzania_Coastal	2	Tanzania
+Tanzania_Northern	2	Tanzania
+Tanzania_Southern Highlands	2	Tanzania
+Tanzania_Offshore Islands	2	Tanzania
+Tanzania_Lake	2	Tanzania
+Tanzania_Central	2	Tanzania
+Tanzania_Western	2	Tanzania
 Italy_Sicily	4	Testa di Monaco
 Mozambique	4	Tete
 US_Texas_Amarillo	4	Texas
@@ -3296,9 +3306,9 @@ Romania_West	2	România
 Brazil_North Region_West	4	Rondônia
 Brazil_North Region_West	4	Roraima
 Uganda	4	Rubirizi
-Tanzania	4	Rukwa
+Tanzania_Southern Highlands	4	Rukwa
 Burundi	4	Rutana
-Tanzania	4	Ruvuma
+Tanzania_Southern Highlands	4	Ruvuma
 Burundi	4	Ruyigi
 Yemen	4	Sa'dah
 Germany_Saarland	4	Saarland
@@ -3455,6 +3465,7 @@ Italy_Sicily	4	Scoglio Palumbo
 Sudan_West	4	Sharq Darfur
 Yemen	4	Shawah
 Vanuatu	4	Shefa
+Tanzania_Lake	4	Shinyanga
 Albania	2	Shqipëria
 Greece_Decentralized Administration of West Greece	2	Shqipëria
 Kenya	4	Siaya
@@ -3472,13 +3483,14 @@ Mali	4	Sikasso
 India_Sikkim	4	Sikkim
 Chad	4	Sila
 Papua New Guinea	4	Simbu
+Tanzania_Lake	4	Simiyu
 Mexico_Central_West	4	Sinaloa
 Mexico_Chihuahua	4	Sinaloa
 Mexico_Sonora	4	Sinaloa
 Singapore	2	Singapura
 Indonesia_West	2	Singapura
 Malaysia	2	Singapura
-Tanzania	4	Singida
+Tanzania_Central	4	Singida
 Liberia	4	Sinoe County
 Turkey_Black Sea Region	4	Sinop
 Suriname	4	Sipaliwini
@@ -3513,6 +3525,7 @@ Guatemala	4	Sololá
 Solomon Islands	2	Solomon Islands
 Switzerland_Espace Mittelland_Bern	4	Solothurn
 Ethiopia	4	Somali
+Tanzania_Southern Highlands	4	Songwe
 Mexico_Sonora	4	Sonora
 Somalia	4	Sool
 Somalia	2	Soomaaliya
@@ -3645,7 +3658,7 @@ Mexico_Central_East	4	Tamaulipas
 India_Tamil Nadu	4	Tamil Nadu
 Kenya	4	Tana River
 Chad	4	Tandjilé
-Tanzania	4	Tanga
+Tanzania_Northern	4	Tanga
 Congo-Kinshasa_West	4	Tanganyika
 Philippines_Luzon_North	4	Tarlac
 Syria	4	Tartus
@@ -3772,9 +3785,9 @@ Uganda	2	Uganda
 Italy_Umbria	4	Umbria
 Qatar	4	Umm Salal
 Rwanda	4	Umujyi wa Kigali
-Tanzania	4	Unguja Kaskazini
-Tanzania	4	Unguja Kusini
-Tanzania	4	Unguja Mjini Magharibi
+Tanzania_Offshore Islands	4	Unguja Kaskazini
+Tanzania_Offshore Islands	4	Unguja Kusini
+Tanzania_Offshore Islands	4	Unguja Mjini Magharibi
 India_Chandigarh	4	Union Territory of Chandīgarh
 East Timor	4	Viqueque
 US_Virginia_Alexandria	4	Virginia
