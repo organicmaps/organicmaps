@@ -1291,8 +1291,8 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
   if (!hasTimestamp)
     return;
 
-  std::sort(tracks.begin(), tracks.end(),
-            [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_createdTimestamp > rbm.m_createdTimestamp; });
+  std::sort(tracks.begin(), tracks.end(), [](SortTrackData const & lbm, SortTrackData const & rbm)
+  { return lbm.m_createdTimestamp > rbm.m_createdTimestamp; });
 }
 
 // static

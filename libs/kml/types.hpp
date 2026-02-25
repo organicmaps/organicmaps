@@ -323,7 +323,8 @@ struct BookmarkData
   {
     return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
            m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_createdTimestamp, data.m_createdTimestamp) && IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) &&
+           IsEqual(m_createdTimestamp, data.m_createdTimestamp) &&
+           IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) &&
            m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) && m_featureTypes == data.m_featureTypes &&
            m_customName == data.m_customName && m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym && m_minZoom == data.m_minZoom &&
@@ -442,7 +443,8 @@ struct TrackData
   bool operator==(TrackData const & data) const
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
-           m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_createdTimestamp, data.m_createdTimestamp) &&
+           m_description == data.m_description && m_layers == data.m_layers &&
+           IsEqual(m_createdTimestamp, data.m_createdTimestamp) &&
            IsEqual(m_modifiedTimestamp, data.m_modifiedTimestamp) && m_geometry == data.m_geometry &&
            m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
            m_properties == data.m_properties;
