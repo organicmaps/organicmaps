@@ -368,6 +368,10 @@ vi = Trạm Cáp Treo
 zh-Hans = 缆车车站
 zh-Hant = 纜車站
 
+[type.aerialway.zip_line]
+en = Zip Line
+ru = Зиплайн
+
 [type.aeroway]
 en = Airspace Infrastructure
 af = Lugvaartinfrastruktuur
@@ -15009,6 +15013,10 @@ tr = Acil
 uk = Швидка
 zh-Hans = 紧急服务
 zh-Hant = 緊急服務
+
+[type.emergency.access_point]
+en = Emergency Access Point
+ru = Точка Экстренной Помощи
 
 [type.emergency.assembly_point]
 en = Emergency Assembly Point

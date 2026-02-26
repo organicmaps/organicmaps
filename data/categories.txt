@@ -16812,8 +16812,12 @@ vi:Nhà tắm
 zh-Hans:淋浴
 zh-Hant:淋浴間
 
+emergency-access_point
+en:4Emergency Access Point
+ru:Точка Экстренной Помощи
+
 emergency-assembly_point
-en:Emergency Assembly Point
+en:4Emergency Assembly Point
 ar:نقطة التجمع في حالات الطوارئ
 be:Аварыйны зборны пункт
 bg:Авариен сборен пункт
@@ -16942,7 +16946,7 @@ zh-Hans:消防栓
 zh-Hant:消防栓
 
 emergency-lifeguard
-en:Lifeguard|Lifesaver
+en:4Lifeguard|Lifesaver
 ar: منقذ الطوارئ
 be: Ратавальнік
 bg: Спасител при извънредни ситуации | Спасител
@@ -16971,7 +16975,7 @@ pl: Ratownik awaryjny
 pt: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
 pt-BR: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
 ro: Salvamar de urgență
-ru: Спасатель-экстренщик | Спасатель
+ru: Спасатель-экстренщик | 4Спасатель
 sk: Záchranár v núdzi
 sl:5Reševalec|Reševanje
 sr: Хитан спасиоц | Спасиоц

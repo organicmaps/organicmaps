@@ -407,6 +407,7 @@ world  +
         spontaneous_camp  -
         {}
     emergency  +
+        access_point  -
         assembly_point  -
         defibrillator  -
         emergency_ward_entrance  -

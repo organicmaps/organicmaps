@@ -2305,6 +2305,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"cuisine", "vegan"},
       {"cuisine", "vegetarian"},
       {"cuisine", "vietnamese"},
+      {"emergency", "access_point"},
+      {"emergency", "assembly_point"},
       {"emergency", "defibrillator"},
       {"emergency", "fire_hydrant"},
       {"emergency", "lifeguard"},
