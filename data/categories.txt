@@ -18591,6 +18591,10 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
+shop-leather|@shop
+en:4Leather
+ru:4Кожаные изделия|Кожа
+
 shop-lighting|@shop
 en:4Lighting|4Lamps
 ar:مصابيح
@@ -18851,6 +18855,10 @@ uk:Парфумерія
 vi:Nước hoa
 zh-Hans:香水
 zh-Hant:香水
+
+shop-religion|@shop
+en:5Religion Shop
+ru:5Религиозный Магазин
 
 shop-sewing|@shop
 en:3Sewing Supplies|4Haberdashery

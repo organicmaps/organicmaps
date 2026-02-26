@@ -36170,6 +36170,10 @@ vi = Giặt là
 zh-Hans = 洗衣店
 zh-Hant = 洗衣店
 
+[type.shop.leather]
+en = Leather Shop
+ru = Магазин Кожаных изделий
+
 [type.shop.mall]
 en = Mall
 af = Winkelsentrum
@@ -37049,6 +37053,10 @@ uk = Фототовари
 vi = Hiệu Ảnh
 zh-Hans = 照片店
 zh-Hant = 照片店
+
+[type.shop.religion]
+en = Religion Shop
+ru = Религиозный Магазин
 
 [type.shop.rental]
 en = Rental Shop
