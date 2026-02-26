@@ -60299,6 +60299,41 @@ cont {
   }
 }
 cont {
+  name: "natural-tree_row"
+  element {
+    scale: 17
+    lines {
+      width: 6.0
+      color: 3554585
+      priority: -995
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.0
+      color: 3554585
+      priority: -995
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 10.0
+      color: 3554585
+      priority: -995
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 10.0
+      color: 3554585
+      priority: -995
+    }
+  }
+}
+cont {
   name: "natural-volcano"
   element {
     scale: 12
@@ -119365,6 +119400,60 @@ cont {
   }
 }
 cont {
+  name: "shop-leather"
+  element {
+    scale: 18
+    symbol {
+      name: "shop-m"
+      priority: 1600
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 1600
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "shop-m"
+      priority: 1600
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+}
+cont {
   name: "shop-lighting"
   element {
     scale: 16
@@ -121165,6 +121254,60 @@ cont {
         is_optional: true
       }
       priority: -8400
+    }
+  }
+}
+cont {
+  name: "shop-religion"
+  element {
+    scale: 18
+    symbol {
+      name: "shop-m"
+      priority: 500
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 500
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "shop-m"
+      priority: 500
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
     }
   }
 }
