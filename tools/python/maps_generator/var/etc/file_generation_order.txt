@@ -1149,3 +1149,10 @@ Pitcairn Islands	73.89714
 Niue	73.79342100000001
 Norway_Bouvet Island	70.10699500000001
 Willis Island	69.078746
+Tanzania_Coastal	50000.0
+Tanzania_Central	50000.0
+Tanzania_Northern	50000.0
+Tanzania_Southern Highlands	50000.0
+Tanzania_Offshore Islands	50000.0
+Tanzania_Lake	50000.0
+Tanzania_Western	50000.0
