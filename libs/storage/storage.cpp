@@ -559,6 +559,7 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 
 void Storage::DeleteCountry(CountryId const & countryId, MapFileType type)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_willDelete != nullptr, ("Storage::Init wasn't called"));
 
   LocalFilePtr localFile = GetLatestLocalFile(countryId);
@@ -731,8 +732,8 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
 
       if (coding::SHA1::CalculateBase64(path) != sha1)
       {
-        LOG(LERROR, ("SHA check error for", path));
         base::DeleteFileX(path);
+        LOG(LERROR, ("SHA check error for", path));
         status = DownloadStatus::FailedSHA;
       }
 
