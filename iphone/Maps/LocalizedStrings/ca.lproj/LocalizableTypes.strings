@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel de vianants";
+"type.highway.platform" = "Andana";
 "type.highway.primary" = "Carretera primària";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Quiosc";
 "type.shop.kitchen" = "Botiga de cuina";
 "type.shop.laundry" = "Bugaderia";
+"type.shop.leather" = "Botiga d'articles de pell";
 "type.shop.mall" = "Centre comercial";
 "type.shop.massage" = "Saló de massatges";
 "type.shop.mobile_phone" = "Botiga de telèfons mòbils";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Botiga d’animals";
 "type.shop.pet_grooming" = "Peluca de mascotes";
 "type.shop.photo" = "Botiga de fotografia";
+"type.shop.religion" = "Botiga d'articles religiosos";
 "type.shop.rental" = "Botiga de lloguer";
 "type.shop.rental.bicycle" = "Botiga de lloguer de bicicletes";
 "type.amenity.bicycle_rental.shop" = "Botiga de lloguer de bicicletes";

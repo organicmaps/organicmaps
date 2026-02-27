@@ -446,6 +446,7 @@
     <string name="type.highway.pedestrian.bridge">Հետիոտնային կամուրջ</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Հետիոտնային թունել</string>
+    <string name="type.highway.platform">Հարթակ</string>
     <string name="type.highway.primary">Առաջնային ճանապարհ</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Կամուրջ</string>
@@ -1187,6 +1188,7 @@
     <string name="type.shop.kiosk">Կրպակ</string>
     <string name="type.shop.kitchen">Խոհանոցային պարագաների խանութ</string>
     <string name="type.shop.laundry">Լվացքատուն</string>
+    <string name="type.shop.leather">Կաշվե իրերի խանութ</string>
     <string name="type.shop.mall">Առևտրի կենտրոն</string>
     <string name="type.shop.massage">Մերսման սրահ</string>
     <string name="type.shop.mobile_phone">Բջջային հեռախոսների խանութ</string>
@@ -1205,6 +1207,7 @@
     <string name="type.shop.pet">Կենդանիների խանութ</string>
     <string name="type.shop.pet_grooming">Կենդանիների խնամք</string>
     <string name="type.shop.photo">Լուսանկարչական խանութ</string>
+    <string name="type.shop.religion">Կրոնական պարագաների խանութ</string>
     <string name="type.shop.rental">Վարձույթի կետ</string>
     <string name="type.shop.rental.bicycle">Հեծանիվների վարձույթ</string>
     <string name="type.amenity.bicycle_rental.shop">Հեծանիվների վարձույթ</string>

@@ -1023,6 +1023,7 @@
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.shop.kitchen">Kjøkkenbutikk</string>
     <string name="type.shop.laundry">Vaskeri</string>
+    <string name="type.shop.leather">Lærbutikk</string>
     <string name="type.shop.mall">Kjøpesenter</string>
     <string name="type.shop.massage">Massasjesalong</string>
     <string name="type.shop.mobile_phone">Mobiltelefonbutikk</string>
@@ -1041,6 +1042,7 @@
     <string name="type.shop.pet">Dyrebutikk</string>
     <string name="type.shop.pet_grooming">Kjæledyrpleie</string>
     <string name="type.shop.photo">Fotobutikk</string>
+    <string name="type.shop.religion">Butikk for religiøse artikler</string>
     <string name="type.shop.rental">Utleiebutikk</string>
     <string name="type.shop.rental.bicycle">Sykkelutleiebutikk</string>
     <string name="type.amenity.bicycle_rental.shop">Sykkelutleiebutikk</string>

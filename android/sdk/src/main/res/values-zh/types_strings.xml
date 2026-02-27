@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">人行天桥</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">人行隧道</string>
+    <string name="type.highway.platform">公共交通站台</string>
     <string name="type.highway.primary">主要道路</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">桥</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">售货亭</string>
     <string name="type.shop.kitchen">厨房用品店</string>
     <string name="type.shop.laundry">洗衣店</string>
+    <string name="type.shop.leather">皮具店</string>
     <string name="type.shop.mall">商场</string>
     <string name="type.shop.massage">按摩院</string>
     <string name="type.shop.mobile_phone">手机专卖店</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">宠物店</string>
     <string name="type.shop.pet_grooming">宠物美容</string>
     <string name="type.shop.photo">照片店</string>
+    <string name="type.shop.religion">宗教用品店</string>
     <string name="type.shop.rental">租赁店</string>
     <string name="type.shop.rental.bicycle">自行车租赁店</string>
     <string name="type.amenity.bicycle_rental.shop">自行车租赁店</string>

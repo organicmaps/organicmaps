@@ -1026,6 +1026,7 @@
     <string name="type.shop.kiosk">Chioșc</string>
     <string name="type.shop.kitchen">Magazin de bucatarie</string>
     <string name="type.shop.laundry">Spălătorie</string>
+    <string name="type.shop.leather">Magazin de articole din piele</string>
     <string name="type.shop.mall">Mall</string>
     <string name="type.shop.massage">Salon de masaj</string>
     <string name="type.shop.mobile_phone">Magazin de telefoane mobile</string>
@@ -1044,6 +1045,7 @@
     <string name="type.shop.pet">Pet shop</string>
     <string name="type.shop.pet_grooming">Îngrijirea animalelor de companie</string>
     <string name="type.shop.photo">Centru fotografii</string>
+    <string name="type.shop.religion">Magazin de obiecte religioase</string>
     <string name="type.shop.rental">Magazin de închiriere</string>
     <string name="type.shop.rental.bicycle">Magazin de închiriere de biciclete</string>
     <string name="type.amenity.bicycle_rental.shop">Magazin de închiriere de biciclete</string>

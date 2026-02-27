@@ -381,6 +381,7 @@
     <string name="type.highway.pedestrian.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">تونل</string>
+    <string name="type.highway.platform">سکو</string>
     <string name="type.highway.primary">جاده</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">پل</string>
@@ -1077,6 +1078,7 @@
     <string name="type.shop.kiosk">دَکهِ</string>
     <string name="type.shop.kitchen">ﻪﻧﺎﺧﺰﭙﺷﺁ ﻩﺎﮕﺷﻭﺮﻓ</string>
     <string name="type.shop.laundry">لباس شویی</string>
+    <string name="type.shop.leather">فروشگاه محصولات چرمی</string>
     <string name="type.shop.mall">فروشگاه</string>
     <string name="type.shop.massage">سالن ماساژ</string>
     <string name="type.shop.mobile_phone">فروشگاه</string>
@@ -1095,6 +1097,7 @@
     <string name="type.shop.pet">فروشگاه</string>
     <string name="type.shop.pet_grooming">نظافت حیوانات خانگی</string>
     <string name="type.shop.photo">فروشگاه</string>
+    <string name="type.shop.religion">فروشگاه لوازم مذهبی</string>
     <string name="type.shop.rental">مغازه اجاره ای</string>
     <string name="type.shop.rental.bicycle">مغازه اجاره دوچرخه</string>
     <string name="type.amenity.bicycle_rental.shop">مغازه اجاره دوچرخه</string>

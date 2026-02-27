@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Fußgängertunnel";
+"type.highway.platform" = "Plattform";
 "type.highway.primary" = "Hauptstraße";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kiosk";
 "type.shop.kitchen" = "Küchengeschäft";
 "type.shop.laundry" = "Wäscherei";
+"type.shop.leather" = "Lederwarengeschäft";
 "type.shop.mall" = "Einkaufszentrum";
 "type.shop.massage" = "Massagesalon";
 "type.shop.mobile_phone" = "Handyladen";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Tierhandlung";
 "type.shop.pet_grooming" = "Tiersalon";
 "type.shop.photo" = "Fotofachgeschäft";
+"type.shop.religion" = "Geschäft für religiöse Artikel";
 "type.shop.rental" = "Verleih";
 "type.shop.rental.bicycle" = "Fahrradverleih";
 "type.amenity.bicycle_rental.shop" = "Fahrradverleih";

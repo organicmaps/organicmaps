@@ -6,4 +6,6 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.railway.disused.tunnel">Mina tal-ferrovija mitluqa</string>
+    <string name="type.shop.leather">Ħanut tal-oġġetti tal-ġilda</string>
+    <string name="type.shop.religion">Ħanut tal-oġġetti reliġjużi</string>
 </resources>

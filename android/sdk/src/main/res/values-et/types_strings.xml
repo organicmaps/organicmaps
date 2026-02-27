@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Jalakäijate sild</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Jalakäijate tunnel</string>
+    <string name="type.highway.platform">Ooteplatvorm</string>
     <string name="type.highway.primary">Põhimaantee</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Põhimaantee sild</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.shop.kitchen">Köögimööblikauplus</string>
     <string name="type.shop.laundry">Pesumaja</string>
+    <string name="type.shop.leather">Nahktoodete pood</string>
     <string name="type.shop.mall">Kaubanduskeskus</string>
     <string name="type.shop.massage">Massaažisalong</string>
     <string name="type.shop.mobile_phone">Mobiiltelefonipood</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Lemmikloomapood</string>
     <string name="type.shop.pet_grooming">Ilusalong lemmikloomadele</string>
     <string name="type.shop.photo">Fotopood</string>
+    <string name="type.shop.religion">Religioossete tarvete pood</string>
     <string name="type.shop.rental">Renditeenuse büroo</string>
     <string name="type.shop.rental.bicycle">Jalgrattalaenutus</string>
     <string name="type.amenity.bicycle_rental.shop">Jalgrattalaenutus</string>

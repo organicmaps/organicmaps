@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Most dla pieszych</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel dla pieszych</string>
+    <string name="type.highway.platform">Przystanek transportu publicznego</string>
     <string name="type.highway.primary">Ulica</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.shop.kitchen">Sklep kuchenny</string>
     <string name="type.shop.laundry">Pralnia</string>
+    <string name="type.shop.leather">Sklep z wyrobami skórzanymi</string>
     <string name="type.shop.mall">Centrum handlowe</string>
     <string name="type.shop.massage">Salon masażu</string>
     <string name="type.shop.mobile_phone">Sklep z telefonami komórkowymi</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Sklep zoologiczny</string>
     <string name="type.shop.pet_grooming">Pielęgnacja zwierząt</string>
     <string name="type.shop.photo">Fotograf</string>
+    <string name="type.shop.religion">Sklep z dewocjonaliami</string>
     <string name="type.shop.rental">Wypożyczalnia</string>
     <string name="type.shop.rental.bicycle">Wypożyczalnia rowerów</string>
     <string name="type.amenity.bicycle_rental.shop">Wypożyczalnia rowerów</string>

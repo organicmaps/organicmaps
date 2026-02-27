@@ -59,7 +59,9 @@
     <string name="type.place.suburb">Pilsētas apgabals</string>
     <string name="type.railway.disused.tunnel">Slēgts dzelzceļa tunelis</string>
     <string name="type.shop.hearing_aids">Dzirdes aparātu veikals</string>
+    <string name="type.shop.leather">Ādas izstrādājumu veikals</string>
     <string name="type.shop.pasta">Makaronu veikals</string>
+    <string name="type.shop.religion">Reliģisko piederumu veikals</string>
     <string name="type.attraction.amusement_ride">Atrakciju brauciens</string>
     <string name="type.attraction.carousel">Karuselis</string>
     <string name="type.attraction.historic">Vēsturiska atrakcija</string>

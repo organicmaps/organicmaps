@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel";
+"type.highway.platform" = "Platforma";
 "type.highway.primary" = "Əsas yol";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Bufet";
 "type.shop.kitchen" = "Mətbəx Dükanı";
 "type.shop.laundry" = "Camaşırxana";
+"type.shop.leather" = "Dəri məmulatları mağazası";
 "type.shop.mall" = "Ticarət mərkəzi";
 "type.shop.massage" = "Masaj salonu";
 "type.shop.mobile_phone" = "Mobil Telefon Mağazası";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Heyvan mağazası";
 "type.shop.pet_grooming" = "Heyvan baxıcısı";
 "type.shop.photo" = "Fotoqraf";
+"type.shop.religion" = "Dini Əşyalar Mağazası";
 "type.shop.rental" = "Mağaza İcarəyə verilir";
 "type.shop.rental.bicycle" = "Velosiped İcarəsi Dükanı";
 "type.amenity.bicycle_rental.shop" = "Velosiped İcarəsi Dükanı";

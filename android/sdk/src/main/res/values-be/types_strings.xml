@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Тунэль</string>
+    <string name="type.highway.platform">Платформа</string>
     <string name="type.highway.primary">Галоўная дарога</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>
@@ -1188,6 +1189,7 @@
     <string name="type.shop.kiosk">Кіёск</string>
     <string name="type.shop.kitchen">Крама для кухні</string>
     <string name="type.shop.laundry">Пральня</string>
+    <string name="type.shop.leather">Крама скураных вырабаў</string>
     <string name="type.shop.mall">Гандлёвы цэнтр</string>
     <string name="type.shop.massage">Масажны салон</string>
     <string name="type.shop.mobile_phone">Крама мабільных тэлефонаў</string>
@@ -1206,6 +1208,7 @@
     <string name="type.shop.pet">Зоамагазін</string>
     <string name="type.shop.pet_grooming">Грумінг</string>
     <string name="type.shop.photo">Фотамагазін</string>
+    <string name="type.shop.religion">Крама рэлігійных тавараў</string>
     <string name="type.shop.rental">Пракат</string>
     <string name="type.shop.rental.bicycle">Пракат ровараў</string>
     <string name="type.amenity.bicycle_rental.shop">Пракат ровараў</string>

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Tiltas</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunelis</string>
+    <string name="type.highway.platform">Platforma</string>
     <string name="type.highway.primary">Pagrindinis kelias</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Tiltas</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Kioskas</string>
     <string name="type.shop.kitchen">Virtuvės reikmenys</string>
     <string name="type.shop.laundry">Skalbykla</string>
+    <string name="type.shop.leather">Odos gaminių parduotuvė</string>
     <string name="type.shop.mall">Prekybos centras</string>
     <string name="type.shop.massage">Masažo salonas</string>
     <string name="type.shop.mobile_phone">Mobiliųjų telefonų salonas</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Gyvūnų prekės</string>
     <string name="type.shop.pet_grooming">Gyvūnų kirpykla</string>
     <string name="type.shop.photo">Foto prekės</string>
+    <string name="type.shop.religion">Religinių reikmenų parduotuvė</string>
     <string name="type.shop.rental">Nuomos parduotuvė</string>
     <string name="type.shop.rental.bicycle">Dviračių nuomos parduotuvė</string>
     <string name="type.amenity.bicycle_rental.shop">Dviračių nuomos parduotuvė</string>

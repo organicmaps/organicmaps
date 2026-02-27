@@ -1105,6 +1105,7 @@
     <string name="type.shop.kiosk">كشك</string>
     <string name="type.shop.kitchen">متجر مطابخ</string>
     <string name="type.shop.laundry">مغسلة ملابس</string>
+    <string name="type.shop.leather">متجر السلع الجلدية</string>
     <string name="type.shop.mall">مركز تسوق</string>
     <string name="type.shop.massage">قاعة تدليك</string>
     <string name="type.shop.mobile_phone">متجر هواتف محمولة</string>
@@ -1123,6 +1124,7 @@
     <string name="type.shop.pet">متجر للحيوانات الأليفة</string>
     <string name="type.shop.pet_grooming">العناية بالحيوانات الأليفة</string>
     <string name="type.shop.photo">محل تصوير</string>
+    <string name="type.shop.religion">متجر أدوات دينية</string>
     <string name="type.shop.rental">محل تأجير</string>
     <string name="type.shop.rental.bicycle">محل تأجير الدراجات</string>
     <string name="type.amenity.bicycle_rental.shop">محل تأجير الدراجات</string>

@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "מנהרה להולכי רגל";
+"type.highway.platform" = "רציף תחבורה";
 "type.highway.primary" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "קיוסק";
 "type.shop.kitchen" = "חנות מטבחים";
 "type.shop.laundry" = "מכבסה";
+"type.shop.leather" = "חנות מוצרי עור";
 "type.shop.mall" = "קניון";
 "type.shop.massage" = "מכון עיסוי";
 "type.shop.mobile_phone" = "חנות מכשירי סלולר";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "חנות בעלי חיים";
 "type.shop.pet_grooming" = "טיפוח חיות מחמד";
 "type.shop.photo" = "חנות צילום";
+"type.shop.religion" = "חנות תשמישי קדושה";
 "type.shop.rental" = "חנות להשכרה";
 "type.shop.rental.bicycle" = "חנות להשכרת אופניים";
 "type.amenity.bicycle_rental.shop" = "חנות להשכרת אופניים";

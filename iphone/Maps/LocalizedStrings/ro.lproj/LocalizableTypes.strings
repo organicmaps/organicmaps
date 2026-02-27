@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "Stradă";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Chioșc";
 "type.shop.kitchen" = "Magazin de bucatarie";
 "type.shop.laundry" = "Spălătorie";
+"type.shop.leather" = "Magazin de articole din piele";
 "type.shop.mall" = "Mall";
 "type.shop.massage" = "Salon de masaj";
 "type.shop.mobile_phone" = "Magazin de telefoane mobile";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Pet shop";
 "type.shop.pet_grooming" = "Îngrijirea animalelor de companie";
 "type.shop.photo" = "Centru fotografii";
+"type.shop.religion" = "Magazin de obiecte religioase";
 "type.shop.rental" = "Magazin de închiriere";
 "type.shop.rental.bicycle" = "Magazin de închiriere de biciclete";
 "type.amenity.bicycle_rental.shop" = "Magazin de închiriere de biciclete";

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Brücke</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Fußgängertunnel</string>
+    <string name="type.highway.platform">Plattform</string>
     <string name="type.highway.primary">Hauptstraße</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brücke</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.shop.kitchen">Küchengeschäft</string>
     <string name="type.shop.laundry">Wäscherei</string>
+    <string name="type.shop.leather">Lederwarengeschäft</string>
     <string name="type.shop.mall">Einkaufszentrum</string>
     <string name="type.shop.massage">Massagesalon</string>
     <string name="type.shop.mobile_phone">Handyladen</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Tierhandlung</string>
     <string name="type.shop.pet_grooming">Tiersalon</string>
     <string name="type.shop.photo">Fotofachgeschäft</string>
+    <string name="type.shop.religion">Geschäft für religiöse Artikel</string>
     <string name="type.shop.rental">Verleih</string>
     <string name="type.shop.rental.bicycle">Fahrradverleih</string>
     <string name="type.amenity.bicycle_rental.shop">Fahrradverleih</string>

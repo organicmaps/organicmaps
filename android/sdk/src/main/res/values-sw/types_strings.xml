@@ -554,11 +554,13 @@
     <string name="type.shop.hifi">Sauti ya HiFi</string>
     <string name="type.shop.houseware">Duka la Vifaa vya Nyumbani</string>
     <string name="type.shop.kitchen">Duka la Jikoni</string>
+    <string name="type.shop.leather">Duka la bidhaa za ngozi</string>
     <string name="type.shop.motorcycle_repair">Ukarabati wa Pikipiki</string>
     <string name="type.shop.outpost">Sehemu ya kuchukua</string>
     <string name="type.shop.pasta">Duka la Pasta</string>
     <string name="type.shop.pastry">Keki</string>
     <string name="type.shop.pet_grooming">Utunzaji wa Kipenzi</string>
+    <string name="type.shop.religion">Duka la Vifaa vya Dini</string>
     <string name="type.shop.rental">Duka la Kukodisha</string>
     <string name="type.shop.rental.bicycle">Duka la Kukodisha Baiskeli</string>
     <string name="type.amenity.bicycle_rental.shop">Duka la Kukodisha Baiskeli</string>

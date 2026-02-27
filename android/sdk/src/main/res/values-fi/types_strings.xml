@@ -1095,6 +1095,7 @@
     <string name="type.shop.kiosk">Kioski</string>
     <string name="type.shop.kitchen">Keittiökauppa</string>
     <string name="type.shop.laundry">Pesula</string>
+    <string name="type.shop.leather">Nahkatuotteiden kauppa</string>
     <string name="type.shop.mall">Ostoskeskus</string>
     <string name="type.shop.massage">Hierontahuone</string>
     <string name="type.shop.mobile_phone">Elektroniikkakauppa</string>
@@ -1113,6 +1114,7 @@
     <string name="type.shop.pet">Eläinkauppa</string>
     <string name="type.shop.pet_grooming">Lemmikkieläinten hoito</string>
     <string name="type.shop.photo">Valokuvakauppa</string>
+    <string name="type.shop.religion">Uskonnollisten esineiden kauppa</string>
     <string name="type.shop.rental">Vuokrakauppa</string>
     <string name="type.shop.rental.bicycle">Polkupyörävuokraamo</string>
     <string name="type.amenity.bicycle_rental.shop">Polkupyörävuokraamo</string>

@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Alagút";
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Utca";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Trafik";
 "type.shop.kitchen" = "Konyhafelszerelés-bolt";
 "type.shop.laundry" = "Mosoda";
+"type.shop.leather" = "Bőráruüzlet";
 "type.shop.mall" = "Bevásárlóközpont";
 "type.shop.massage" = "Masszázsszalon";
 "type.shop.mobile_phone" = "Mobiltelefon-üzlet";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Házikedvenc-üzlet";
 "type.shop.pet_grooming" = "Kisállatápolás";
 "type.shop.photo" = "Fotóüzlet";
+"type.shop.religion" = "Vallási kegytárgyak boltja";
 "type.shop.rental" = "Kölcsönző";
 "type.shop.rental.bicycle" = "Kerékpárkölcsönző";
 "type.amenity.bicycle_rental.shop" = "Kerékpárkölcsönző";

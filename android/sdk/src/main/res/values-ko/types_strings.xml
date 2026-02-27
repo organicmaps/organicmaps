@@ -1014,6 +1014,7 @@
     <string name="type.shop.kiosk">정자</string>
     <string name="type.shop.kitchen">\"주방용품점\"</string>
     <string name="type.shop.laundry">세탁소</string>
+    <string name="type.shop.leather">가죽 제품점</string>
     <string name="type.shop.mall">몰</string>
     <string name="type.shop.massage">마사지샵</string>
     <string name="type.shop.mobile_phone">휴대폰 대리점</string>
@@ -1032,6 +1033,7 @@
     <string name="type.shop.pet">펫샵</string>
     <string name="type.shop.pet_grooming">애완동물 미용</string>
     <string name="type.shop.photo">사진 가게</string>
+    <string name="type.shop.religion">종교 용품점</string>
     <string name="type.shop.rental">렌탈샵</string>
     <string name="type.shop.rental.bicycle">자전거 대여점</string>
     <string name="type.amenity.bicycle_rental.shop">자전거 대여점</string>

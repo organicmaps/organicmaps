@@ -6,4 +6,6 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.railway.disused.tunnel">অব্যবহৃত রেল সুড়ঙ্গ</string>
+    <string name="type.shop.leather">চামড়াজাত পণ্যের দোকান</string>
+    <string name="type.shop.religion">ধর্মীয় সামগ্রীর দোকান</string>
 </resources>

@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Հետիոտնային թունել";
+"type.highway.platform" = "Հարթակ";
 "type.highway.primary" = "Առաջնային ճանապարհ";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Կրպակ";
 "type.shop.kitchen" = "Խոհանոցային պարագաների խանութ";
 "type.shop.laundry" = "Լվացքատուն";
+"type.shop.leather" = "Կաշվե իրերի խանութ";
 "type.shop.mall" = "Առևտրի կենտրոն";
 "type.shop.massage" = "Մերսման սրահ";
 "type.shop.mobile_phone" = "Բջջային հեռախոսների խանութ";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Կենդանիների խանութ";
 "type.shop.pet_grooming" = "Կենդանիների խնամք";
 "type.shop.photo" = "Լուսանկարչական խանութ";
+"type.shop.religion" = "Կրոնական պարագաների խանութ";
 "type.shop.rental" = "Վարձույթի կետ";
 "type.shop.rental.bicycle" = "Հեծանիվների վարձույթ";
 "type.amenity.bicycle_rental.shop" = "Հեծանիվների վարձույթ";

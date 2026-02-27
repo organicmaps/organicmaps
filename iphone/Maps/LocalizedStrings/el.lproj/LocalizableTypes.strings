@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Σήραγγα πεζών";
+"type.highway.platform" = "Πλατφόρμα";
 "type.highway.primary" = "Πρωτεύων δρόμος";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Περίπτερο";
 "type.shop.kitchen" = "Κατάστημα κουζίνας";
 "type.shop.laundry" = "Άπλυτα";
+"type.shop.leather" = "Κατάστημα δερμάτινων ειδών";
 "type.shop.mall" = "Εμπορικό κέντρο";
 "type.shop.massage" = "Αίθουσα μασάζ";
 "type.shop.mobile_phone" = "Κινητή Τηλεφωνία";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Κατάστημα για κατοικίδια";
 "type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
 "type.shop.photo" = "Φωτογραφείο";
+"type.shop.religion" = "Κατάστημα θρησκευτικών ειδών";
 "type.shop.rental" = "Κατάστημα ενοικίασης";
 "type.shop.rental.bicycle" = "Κατάστημα ενοικίασης ποδηλάτων";
 "type.amenity.bicycle_rental.shop" = "Κατάστημα ενοικίασης ποδηλάτων";

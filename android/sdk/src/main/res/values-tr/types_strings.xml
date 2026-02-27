@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Yaya Köprüsü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Yaya Tüneli</string>
+    <string name="type.highway.platform">Platform</string>
     <string name="type.highway.primary">Ana Yol</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Köprü</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Büfe</string>
     <string name="type.shop.kitchen">Mutfak Mağazası</string>
     <string name="type.shop.laundry">Çamaşırhane</string>
+    <string name="type.shop.leather">Deri ürünleri mağazası</string>
     <string name="type.shop.mall">Alışveriş Merkezi</string>
     <string name="type.shop.massage">Masaj Salonu</string>
     <string name="type.shop.mobile_phone">Cep Telefonu Mağazası</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Evcil Hayvan Mağazası</string>
     <string name="type.shop.pet_grooming">Evcil Hayvan Bakıcısı</string>
     <string name="type.shop.photo">Fotoğrafçı</string>
+    <string name="type.shop.religion">Dini Eşya Mağazası</string>
     <string name="type.shop.rental">Kiralık Mağaza</string>
     <string name="type.shop.rental.bicycle">Bisiklet Kiralama Mağazası</string>
     <string name="type.amenity.bicycle_rental.shop">Bisiklet Kiralama Mağazası</string>

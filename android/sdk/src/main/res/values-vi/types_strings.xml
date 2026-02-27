@@ -1010,6 +1010,7 @@
     <string name="type.shop.kiosk">Cửa hàng</string>
     <string name="type.shop.kitchen">Cửa hàng nhà bếp</string>
     <string name="type.shop.laundry">Giặt là</string>
+    <string name="type.shop.leather">Cửa hàng đồ da</string>
     <string name="type.shop.mall">Khu mua sắm</string>
     <string name="type.shop.massage">Quán massage</string>
     <string name="type.shop.mobile_phone">Cửa hàng điện thoại di động</string>
@@ -1028,6 +1029,7 @@
     <string name="type.shop.pet">Cửa Hàng Vật Nuôi</string>
     <string name="type.shop.pet_grooming">Chải lông thú cưng</string>
     <string name="type.shop.photo">Hiệu Ảnh</string>
+    <string name="type.shop.religion">Cửa hàng vật phẩm tôn giáo</string>
     <string name="type.shop.rental">Cửa hàng cho thuê</string>
     <string name="type.shop.rental.bicycle">Cửa hàng cho thuê xe đạp</string>
     <string name="type.amenity.bicycle_rental.shop">Cửa hàng cho thuê xe đạp</string>

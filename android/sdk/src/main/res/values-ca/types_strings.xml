@@ -445,6 +445,7 @@
     <string name="type.highway.pedestrian.bridge">Pont de vianants</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel de vianants</string>
+    <string name="type.highway.platform">Andana</string>
     <string name="type.highway.primary">Carretera primària</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Pont</string>
@@ -1186,6 +1187,7 @@
     <string name="type.shop.kiosk">Quiosc</string>
     <string name="type.shop.kitchen">Botiga de cuina</string>
     <string name="type.shop.laundry">Bugaderia</string>
+    <string name="type.shop.leather">Botiga d\'articles de pell</string>
     <string name="type.shop.mall">Centre comercial</string>
     <string name="type.shop.massage">Saló de massatges</string>
     <string name="type.shop.mobile_phone">Botiga de telèfons mòbils</string>
@@ -1204,6 +1206,7 @@
     <string name="type.shop.pet">Botiga d’animals</string>
     <string name="type.shop.pet_grooming">Peluca de mascotes</string>
     <string name="type.shop.photo">Botiga de fotografia</string>
+    <string name="type.shop.religion">Botiga d\'articles religiosos</string>
     <string name="type.shop.rental">Botiga de lloguer</string>
     <string name="type.shop.rental.bicycle">Botiga de lloguer de bicicletes</string>
     <string name="type.amenity.bicycle_rental.shop">Botiga de lloguer de bicicletes</string>

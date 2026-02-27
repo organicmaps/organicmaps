@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel pre chodcov";
+"type.highway.platform" = "Nástupište";
 "type.highway.primary" = "Cesta I. triedy";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Stánok";
 "type.shop.kitchen" = "Obchod s kuchynským vybavením";
 "type.shop.laundry" = "Práčovňa";
+"type.shop.leather" = "Obchod s koženým tovarom";
 "type.shop.mall" = "Nákupné centrum";
 "type.shop.massage" = "Masážny salón";
 "type.shop.mobile_phone" = "Mobilné telefóny";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Chovateľské potreby";
 "type.shop.pet_grooming" = "Zvierací salón";
 "type.shop.photo" = "Fotografické služby";
+"type.shop.religion" = "Obchod s náboženskými predmetmi";
 "type.shop.rental" = "Požičovňa";
 "type.shop.rental.bicycle" = "Požičovňa bicyklov";
 "type.amenity.bicycle_rental.shop" = "Požičovňa bicyklov";

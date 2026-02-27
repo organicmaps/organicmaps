@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel pro pěší</string>
+    <string name="type.highway.platform">Nástupiště</string>
     <string name="type.highway.primary">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Kiosek</string>
     <string name="type.shop.kitchen">Prodejna kuchyní</string>
     <string name="type.shop.laundry">Prádelna</string>
+    <string name="type.shop.leather">Obchod s koženým zbožím</string>
     <string name="type.shop.mall">Obchoďák</string>
     <string name="type.shop.massage">Masážní salon</string>
     <string name="type.shop.mobile_phone">Mobily</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Zverimex</string>
     <string name="type.shop.pet_grooming">Péče o domácí mazlíčky</string>
     <string name="type.shop.photo">Fotografický obchod</string>
+    <string name="type.shop.religion">Obchod s náboženskými předměty</string>
     <string name="type.shop.rental">Půjčovna</string>
     <string name="type.shop.rental.bicycle">Půjčovna kol</string>
     <string name="type.amenity.bicycle_rental.shop">Půjčovna kol</string>

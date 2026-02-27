@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Oinezkoen tunela";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "Errepide nagusia";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kioskoa";
 "type.shop.kitchen" = "Sukalde-denda";
 "type.shop.laundry" = "Garbitegia";
+"type.shop.leather" = "Larruzko produktuen denda";
 "type.shop.mall" = "Merkataritza-gune";
 "type.shop.massage" = "Masaje gela";
 "type.shop.mobile_phone" = "Mugikorra";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Animali denda";
 "type.shop.pet_grooming" = "Animalien apainketa";
 "type.shop.photo" = "Argazkilaritza artikuluak";
+"type.shop.religion" = "Erlijio-artikuluen denda";
 "type.shop.rental" = "Alokairu-denda";
 "type.shop.rental.bicycle" = "Bizikletak alokatzeko denda";
 "type.amenity.bicycle_rental.shop" = "Bizikletak alokatzeko denda";

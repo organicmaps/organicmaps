@@ -415,6 +415,7 @@
     <string name="type.highway.pedestrian.bridge">Voetgangerbrug</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Voetgangertonnel</string>
+    <string name="type.highway.platform">Platform</string>
     <string name="type.highway.primary">Primêre pad</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brug</string>
@@ -1123,6 +1124,7 @@
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.shop.kitchen">Kombuiswinkel</string>
     <string name="type.shop.laundry">Kitswassery</string>
+    <string name="type.shop.leather">Leerwinkel</string>
     <string name="type.shop.mall">Winkelsentrum</string>
     <string name="type.shop.massage">Masseersalon</string>
     <string name="type.shop.mobile_phone">Selfoonwinkel</string>
@@ -1141,6 +1143,7 @@
     <string name="type.shop.pet">Troeteldierwinkel</string>
     <string name="type.shop.pet_grooming">Troeteldierversorging</string>
     <string name="type.shop.photo">Fotowinkel</string>
+    <string name="type.shop.religion">Godsdienswinkel</string>
     <string name="type.shop.seafood">Vishandelaar</string>
     <string name="type.shop.second_hand">Tweedehandsewinkel</string>
     <string name="type.shop.shoes">Skoenwinkel</string>

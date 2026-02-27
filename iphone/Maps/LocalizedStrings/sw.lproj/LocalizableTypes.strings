@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Mtaro";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "Primary Road";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kiosk";
 "type.shop.kitchen" = "Duka la Jikoni";
 "type.shop.laundry" = "Laundry";
+"type.shop.leather" = "Duka la bidhaa za ngozi";
 "type.shop.mall" = "Mall";
 "type.shop.massage" = "Massage Salon";
 "type.shop.mobile_phone" = "Cell Phone Store";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Pet Store";
 "type.shop.pet_grooming" = "Utunzaji wa Kipenzi";
 "type.shop.photo" = "Photo Shop";
+"type.shop.religion" = "Duka la Vifaa vya Dini";
 "type.shop.rental" = "Duka la Kukodisha";
 "type.shop.rental.bicycle" = "Duka la Kukodisha Baiskeli";
 "type.amenity.bicycle_rental.shop" = "Duka la Kukodisha Baiskeli";
