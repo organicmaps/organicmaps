@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel këmbësorësh";
+"type.highway.platform" = "Platformë";
 "type.highway.primary" = "Rrugë kryesore";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kioskë";
 "type.shop.kitchen" = "Pajisje kuzhine";
 "type.shop.laundry" = "Lavanderi";
+"type.shop.leather" = "Dyqan artikujsh lëkure";
 "type.shop.mall" = "Qendër tregtare";
 "type.shop.massage" = "Sallon masazhi";
 "type.shop.mobile_phone" = "Dyqan celularësh";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Dyqan kafshësh";
 "type.shop.pet_grooming" = "Kujdes për kafshët";
 "type.shop.photo" = "Foto studio";
+"type.shop.religion" = "Dyqan i artikujve fetarë";
 "type.shop.rental" = "Dyqan me qira";
 "type.shop.rental.bicycle" = "Qira biçikletash";
 "type.amenity.bicycle_rental.shop" = "Qira biçikletash";

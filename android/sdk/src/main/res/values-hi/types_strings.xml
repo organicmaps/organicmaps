@@ -290,6 +290,7 @@
     <string name="type.highway.path.horse">पथ</string>
     <string name="type.highway.pedestrian">पैदल यात्रीयों की सड़क</string>
     <string name="type.highway.pedestrian.area">पैदल यात्रीयों की सड़क</string>
+    <string name="type.highway.platform">रेलवे प्लेटफार्म</string>
     <string name="type.highway.primary">प्राथमिक सड़क</string>
     <string name="type.highway.primary_link">प्राथमिक सड़क</string>
     <string name="type.highway.raceway">दौड़ का मैदान</string>
@@ -542,6 +543,7 @@
     <string name="type.shop.kiosk">गुमटी</string>
     <string name="type.shop.kitchen">रसोई की दुकान</string>
     <string name="type.shop.laundry">धोबी की दुकान</string>
+    <string name="type.shop.leather">चमड़े के सामान की दुकान</string>
     <string name="type.shop.mall">शॉपिंग मॉल</string>
     <string name="type.shop.massage">मालिश घर</string>
     <string name="type.shop.mobile_phone">सेल फोन की दुकान</string>
@@ -557,6 +559,7 @@
     <string name="type.shop.pawnbroker">महाजन</string>
     <string name="type.shop.pet">पालतू जानवर की दुकान</string>
     <string name="type.shop.photo">छायाचित्रण की दुकान</string>
+    <string name="type.shop.religion">धार्मिक सामग्री की दुकान</string>
     <string name="type.shop.seafood">समुद्री भोजन की दुकान</string>
     <string name="type.shop.second_hand">पुराने सामान की दुकान</string>
     <string name="type.shop.shoes">जूते की दुकान</string>

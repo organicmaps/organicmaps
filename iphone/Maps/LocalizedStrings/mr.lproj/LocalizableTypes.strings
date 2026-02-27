@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "पादचारी बोगदा";
+"type.highway.platform" = "फलाट";
 "type.highway.primary" = "प्राथमिक मार्ग";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "टपरी";
 "type.shop.kitchen" = "Kitchen Store";
 "type.shop.laundry" = "धुलाईघर";
+"type.shop.leather" = "चामड्याच्या वस्तूंचे दुकान";
 "type.shop.mall" = "मॉल";
 "type.shop.massage" = "मालिश गृह";
 "type.shop.mobile_phone" = "मोबाईल";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "पाळीव प्राण्यांचे दुकान";
 "type.shop.pet_grooming" = "पाळीव प्राणी ग्रूमिंग";
 "type.shop.photo" = "फोटोचे दुकान";
+"type.shop.religion" = "धार्मिक वस्तूंचे दुकान";
 "type.shop.rental" = "भाड्याचे दुकान";
 "type.shop.rental.bicycle" = "सायकल भाड्याचे दुकान";
 "type.amenity.bicycle_rental.shop" = "सायकल भाड्याचे दुकान";

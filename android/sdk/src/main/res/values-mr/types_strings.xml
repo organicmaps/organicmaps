@@ -345,6 +345,7 @@
     <string name="type.highway.pedestrian.bridge">पादचारी पूल</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">पादचारी बोगदा</string>
+    <string name="type.highway.platform">फलाट</string>
     <string name="type.highway.primary">प्राथमिक मार्ग</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">पूल</string>
@@ -1036,6 +1037,7 @@
     <string name="type.shop.jewelry">दागिने</string>
     <string name="type.shop.kiosk">टपरी</string>
     <string name="type.shop.laundry">धुलाईघर</string>
+    <string name="type.shop.leather">चामड्याच्या वस्तूंचे दुकान</string>
     <string name="type.shop.mall">मॉल</string>
     <string name="type.shop.massage">मालिश गृह</string>
     <string name="type.shop.mobile_phone">मोबाईल</string>
@@ -1053,6 +1055,7 @@
     <string name="type.shop.pet">पाळीव प्राण्यांचे दुकान</string>
     <string name="type.shop.pet_grooming">पाळीव प्राणी ग्रूमिंग</string>
     <string name="type.shop.photo">फोटोचे दुकान</string>
+    <string name="type.shop.religion">धार्मिक वस्तूंचे दुकान</string>
     <string name="type.shop.rental">भाड्याचे दुकान</string>
     <string name="type.shop.rental.bicycle">सायकल भाड्याचे दुकान</string>
     <string name="type.amenity.bicycle_rental.shop">सायकल भाड्याचे दुकान</string>

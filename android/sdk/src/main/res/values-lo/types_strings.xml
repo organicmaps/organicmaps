@@ -446,6 +446,7 @@
     <string name="type.highway.pedestrian.bridge">ຂົວຄົນຍ່າງ</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">ອຸມົງຄົນຍ່າງ</string>
+    <string name="type.highway.platform">ຊານຊາລາ</string>
     <string name="type.highway.primary">ທາງຫຼັກ</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">ຂົວ</string>
@@ -1187,6 +1188,7 @@
     <string name="type.shop.kiosk">ຮ້ານຂາຍເຄື່ອງນ້ອຍ</string>
     <string name="type.shop.kitchen">ຮ້ານຂາຍອຸປະກອນເຮືອນຄົວ</string>
     <string name="type.shop.laundry">ຮ້ານຊັກລີດ</string>
+    <string name="type.shop.leather">ຮ້ານຂາຍເຄື່ອງໜັງ</string>
     <string name="type.shop.mall">ສູນການຄ້າ</string>
     <string name="type.shop.massage">ຮ້ານນວດ</string>
     <string name="type.shop.mobile_phone">ຮ້ານຂາຍໂທລະສັບ</string>
@@ -1205,6 +1207,7 @@
     <string name="type.shop.pet">ຮ້ານຂາຍສັດລ້ຽງ</string>
     <string name="type.shop.pet_grooming">ຮ້ານຕັດແຕ່ງຂົນສັດລ້ຽງ</string>
     <string name="type.shop.photo">ຮ້ານຖ່າຍຮູບ</string>
+    <string name="type.shop.religion">ຮ້ານຂາຍເຄື່ອງສາດສະໜາ</string>
     <string name="type.shop.rental">ຮ້ານໃຫ້ເຊົ່າ</string>
     <string name="type.shop.rental.bicycle">ຮ້ານໃຫ້ເຊົ່າລົດຖີບ</string>
     <string name="type.amenity.bicycle_rental.shop">ຮ້ານໃຫ້ເຊົ່າລົດຖີບ</string>

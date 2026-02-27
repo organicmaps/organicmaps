@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Пешачки тунел";
+"type.highway.platform" = "Стајалиште јавног превоза";
 "type.highway.primary" = "Пут прве класе";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Киоск";
 "type.shop.kitchen" = "Кухињска опрема";
 "type.shop.laundry" = "Перионица веша";
+"type.shop.leather" = "Продавница кожне галантерије";
 "type.shop.mall" = "Тржни центар";
 "type.shop.massage" = "Масажа";
 "type.shop.mobile_phone" = "Мобилни телефони";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Пет шоп";
 "type.shop.pet_grooming" = "Грумер";
 "type.shop.photo" = "Фотограф";
+"type.shop.religion" = "Продавница верских предмета";
 "type.shop.rental" = "Центар за изнајмљивање";
 "type.shop.rental.bicycle" = "Изнајмљивање бицикала";
 "type.amenity.bicycle_rental.shop" = "Изнајмљивање бицикала";

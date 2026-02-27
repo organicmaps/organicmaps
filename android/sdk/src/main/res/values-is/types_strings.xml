@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Göngubrú</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Göng fyrir fótgangandi</string>
+    <string name="type.highway.platform">Pallur</string>
     <string name="type.highway.primary">Stofnvegur</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brú</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Söluturn</string>
     <string name="type.shop.kitchen">Eldhúsvörur</string>
     <string name="type.shop.laundry">Þvottahús</string>
+    <string name="type.shop.leather">Leðurverslun</string>
     <string name="type.shop.mall">Verslunarkjarni</string>
     <string name="type.shop.massage">Nuddstofa</string>
     <string name="type.shop.mobile_phone">Farsímaverslun</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Gæludýraverslun</string>
     <string name="type.shop.pet_grooming">Snyrting fyrir gæludýr</string>
     <string name="type.shop.photo">Ljósmyndavöruverslun</string>
+    <string name="type.shop.religion">Trúarvöruverslun</string>
     <string name="type.shop.rental">Leiga</string>
     <string name="type.shop.rental.bicycle">Reiðhjólaleiga</string>
     <string name="type.amenity.bicycle_rental.shop">Hjólaleiga</string>

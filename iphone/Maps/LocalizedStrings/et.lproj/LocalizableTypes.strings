@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Jalakäijate tunnel";
+"type.highway.platform" = "Ooteplatvorm";
 "type.highway.primary" = "Põhimaantee";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kiosk";
 "type.shop.kitchen" = "Köögimööblikauplus";
 "type.shop.laundry" = "Pesumaja";
+"type.shop.leather" = "Nahktoodete pood";
 "type.shop.mall" = "Kaubanduskeskus";
 "type.shop.massage" = "Massaažisalong";
 "type.shop.mobile_phone" = "Mobiiltelefonipood";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Lemmikloomapood";
 "type.shop.pet_grooming" = "Ilusalong lemmikloomadele";
 "type.shop.photo" = "Fotopood";
+"type.shop.religion" = "Religioossete tarvete pood";
 "type.shop.rental" = "Renditeenuse büroo";
 "type.shop.rental.bicycle" = "Jalgrattalaenutus";
 "type.amenity.bicycle_rental.shop" = "Jalgrattalaenutus";

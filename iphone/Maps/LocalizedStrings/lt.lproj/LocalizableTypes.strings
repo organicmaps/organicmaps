@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunelis";
+"type.highway.platform" = "Platforma";
 "type.highway.primary" = "Pagrindinis kelias";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kioskas";
 "type.shop.kitchen" = "Virtuvės reikmenys";
 "type.shop.laundry" = "Skalbykla";
+"type.shop.leather" = "Odos gaminių parduotuvė";
 "type.shop.mall" = "Prekybos centras";
 "type.shop.massage" = "Masažo salonas";
 "type.shop.mobile_phone" = "Mobiliųjų telefonų salonas";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Gyvūnų prekės";
 "type.shop.pet_grooming" = "Gyvūnų kirpykla";
 "type.shop.photo" = "Foto prekės";
+"type.shop.religion" = "Religinių reikmenų parduotuvė";
 "type.shop.rental" = "Nuomos parduotuvė";
 "type.shop.rental.bicycle" = "Dviračių nuomos parduotuvė";
 "type.amenity.bicycle_rental.shop" = "Dviračių nuomos parduotuvė";

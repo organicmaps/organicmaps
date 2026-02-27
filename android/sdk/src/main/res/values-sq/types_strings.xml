@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Urë këmbësorësh</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel këmbësorësh</string>
+    <string name="type.highway.platform">Platformë</string>
     <string name="type.highway.primary">Rrugë kryesore</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Urë</string>
@@ -1183,6 +1184,7 @@
     <string name="type.shop.kiosk">Kioskë</string>
     <string name="type.shop.kitchen">Pajisje kuzhine</string>
     <string name="type.shop.laundry">Lavanderi</string>
+    <string name="type.shop.leather">Dyqan artikujsh lëkure</string>
     <string name="type.shop.mall">Qendër tregtare</string>
     <string name="type.shop.massage">Sallon masazhi</string>
     <string name="type.shop.mobile_phone">Dyqan celularësh</string>
@@ -1201,6 +1203,7 @@
     <string name="type.shop.pet">Dyqan kafshësh</string>
     <string name="type.shop.pet_grooming">Kujdes për kafshët</string>
     <string name="type.shop.photo">Foto studio</string>
+    <string name="type.shop.religion">Dyqan i artikujve fetarë</string>
     <string name="type.shop.rental">Dyqan me qira</string>
     <string name="type.shop.rental.bicycle">Qira biçikletash</string>
     <string name="type.amenity.bicycle_rental.shop">Qira biçikletash</string>

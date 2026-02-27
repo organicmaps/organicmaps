@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "トンネル";
+"type.highway.platform" = "公共交通機関のプラットホーム";
 "type.highway.primary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "キオスク";
 "type.shop.kitchen" = "キッチンストア";
 "type.shop.laundry" = "ランドリー";
+"type.shop.leather" = "レザーショップ";
 "type.shop.mall" = "モール";
 "type.shop.massage" = "マッサージ店";
 "type.shop.mobile_phone" = "携帯ショップ";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "ペットショップ";
 "type.shop.pet_grooming" = "ペットグルーミング";
 "type.shop.photo" = "写真屋";
+"type.shop.religion" = "宗教用品店";
 "type.shop.rental" = "レンタルショップ";
 "type.shop.rental.bicycle" = "レンタサイクルショップ";
 "type.amenity.bicycle_rental.shop" = "レンタサイクルショップ";

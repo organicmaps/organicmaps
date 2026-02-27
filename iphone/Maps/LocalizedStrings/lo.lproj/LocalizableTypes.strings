@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "ອຸມົງຄົນຍ່າງ";
+"type.highway.platform" = "ຊານຊາລາ";
 "type.highway.primary" = "ທາງຫຼັກ";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "ຮ້ານຂາຍເຄື່ອງນ້ອຍ";
 "type.shop.kitchen" = "ຮ້ານຂາຍອຸປະກອນເຮືອນຄົວ";
 "type.shop.laundry" = "ຮ້ານຊັກລີດ";
+"type.shop.leather" = "ຮ້ານຂາຍເຄື່ອງໜັງ";
 "type.shop.mall" = "ສູນການຄ້າ";
 "type.shop.massage" = "ຮ້ານນວດ";
 "type.shop.mobile_phone" = "ຮ້ານຂາຍໂທລະສັບ";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "ຮ້ານຂາຍສັດລ້ຽງ";
 "type.shop.pet_grooming" = "ຮ້ານຕັດແຕ່ງຂົນສັດລ້ຽງ";
 "type.shop.photo" = "ຮ້ານຖ່າຍຮູບ";
+"type.shop.religion" = "ຮ້ານຂາຍເຄື່ອງສາດສະໜາ";
 "type.shop.rental" = "ຮ້ານໃຫ້ເຊົ່າ";
 "type.shop.rental.bicycle" = "ຮ້ານໃຫ້ເຊົ່າລົດຖີບ";
 "type.amenity.bicycle_rental.shop" = "ຮ້ານໃຫ້ເຊົ່າລົດຖີບ";

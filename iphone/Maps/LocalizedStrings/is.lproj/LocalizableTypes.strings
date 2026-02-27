@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Göng fyrir fótgangandi";
+"type.highway.platform" = "Pallur";
 "type.highway.primary" = "Stofnvegur";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Söluturn";
 "type.shop.kitchen" = "Eldhúsvörur";
 "type.shop.laundry" = "Þvottahús";
+"type.shop.leather" = "Leðurverslun";
 "type.shop.mall" = "Verslunarkjarni";
 "type.shop.massage" = "Nuddstofa";
 "type.shop.mobile_phone" = "Farsímaverslun";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Gæludýraverslun";
 "type.shop.pet_grooming" = "Snyrting fyrir gæludýr";
 "type.shop.photo" = "Ljósmyndavöruverslun";
+"type.shop.religion" = "Trúarvöruverslun";
 "type.shop.rental" = "Leiga";
 "type.shop.rental.bicycle" = "Reiðhjólaleiga";
 "type.amenity.bicycle_rental.shop" = "Hjólaleiga";

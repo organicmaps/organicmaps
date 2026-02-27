@@ -6,4 +6,6 @@
 
     <!-- SECTION: Types: Historic -->
     <string name="type.railway.disused.tunnel">ਬੰਦ ਪਈ ਰੇਲਵੇ ਸੁਰੰਗ</string>
+    <string name="type.shop.leather">ਚਮੜੇ ਦੇ ਸਮਾਨ ਦੀ ਦੁਕਾਨ</string>
+    <string name="type.shop.religion">ਧਾਰਮਿਕ ਸਮਾਨ ਦੀ ਦੁਕਾਨ</string>
 </resources>

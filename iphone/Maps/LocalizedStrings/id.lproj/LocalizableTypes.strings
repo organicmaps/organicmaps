@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Terowongan";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "Jalan";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Kios";
 "type.shop.kitchen" = "Toko Dapur";
 "type.shop.laundry" = "Londri";
+"type.shop.leather" = "Toko Produk Kulit";
 "type.shop.mall" = "Mall";
 "type.shop.massage" = "Tempat Pijat";
 "type.shop.mobile_phone" = "Toko telepon";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Toko hewan";
 "type.shop.pet_grooming" = "Perawatan Hewan Peliharaan";
 "type.shop.photo" = "Studio Foto";
+"type.shop.religion" = "Toko Perlengkapan Agama";
 "type.shop.rental" = "Toko Sewa";
 "type.shop.rental.bicycle" = "Toko Penyewaan Sepeda";
 "type.amenity.bicycle_rental.shop" = "Toko Penyewaan Sepeda";

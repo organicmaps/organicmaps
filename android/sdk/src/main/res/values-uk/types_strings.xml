@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Міст</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Тунель</string>
+    <string name="type.highway.platform">Платформа</string>
     <string name="type.highway.primary">Шосе</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Міст</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Кіоск</string>
     <string name="type.shop.kitchen">Магазин кухні</string>
     <string name="type.shop.laundry">Пральня</string>
+    <string name="type.shop.leather">Магазин шкіряних виробів</string>
     <string name="type.shop.mall">Торговий центр</string>
     <string name="type.shop.massage">Масажний кабінет</string>
     <string name="type.shop.mobile_phone">Мобільні телефони</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Зоотовари</string>
     <string name="type.shop.pet_grooming">Грумінг</string>
     <string name="type.shop.photo">Фототовари</string>
+    <string name="type.shop.religion">Крамниця релігійних товарів</string>
     <string name="type.shop.rental">Прокат</string>
     <string name="type.shop.rental.bicycle">Прокат велосипедів</string>
     <string name="type.amenity.bicycle_rental.shop">Прокат велосипедів</string>

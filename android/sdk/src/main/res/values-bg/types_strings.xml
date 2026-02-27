@@ -682,12 +682,14 @@
     <string name="type.shop.hifi">HiFi аудио</string>
     <string name="type.shop.houseware">Магазин за домакински принадлежности</string>
     <string name="type.shop.kitchen">Магазин за кухня</string>
+    <string name="type.shop.leather">Магазин за кожени изделия</string>
     <string name="type.shop.motorcycle_repair">Ремонт на мотоциклети</string>
     <string name="type.shop.outpost">Точка на вземане</string>
     <string name="type.shop.pasta">Магазин за паста</string>
     <string name="type.shop.pastry">Тестени изделия</string>
     <string name="type.shop.pet">Магазин за животни</string>
     <string name="type.shop.pet_grooming">Грижа за домашни любимци</string>
+    <string name="type.shop.religion">Магазин за религиозни стоки</string>
     <string name="type.shop.rental">Магазин под наем</string>
     <string name="type.shop.rental.bicycle">Магазин за велосипеди под наем</string>
     <string name="type.amenity.bicycle_rental.shop">Магазин за велосипеди под наем</string>

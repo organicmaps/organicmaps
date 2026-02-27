@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Πεζογέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Σήραγγα πεζών</string>
+    <string name="type.highway.platform">Πλατφόρμα</string>
     <string name="type.highway.primary">Πρωτεύων δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Γέφυρα</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Περίπτερο</string>
     <string name="type.shop.kitchen">Κατάστημα κουζίνας</string>
     <string name="type.shop.laundry">Άπλυτα</string>
+    <string name="type.shop.leather">Κατάστημα δερμάτινων ειδών</string>
     <string name="type.shop.mall">Εμπορικό κέντρο</string>
     <string name="type.shop.massage">Αίθουσα μασάζ</string>
     <string name="type.shop.mobile_phone">Κινητή Τηλεφωνία</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Κατάστημα για κατοικίδια</string>
     <string name="type.shop.pet_grooming">Περιποίηση κατοικίδιων ζώων</string>
     <string name="type.shop.photo">Φωτογραφείο</string>
+    <string name="type.shop.religion">Κατάστημα θρησκευτικών ειδών</string>
     <string name="type.shop.rental">Κατάστημα ενοικίασης</string>
     <string name="type.shop.rental.bicycle">Κατάστημα ενοικίασης ποδηλάτων</string>
     <string name="type.amenity.bicycle_rental.shop">Κατάστημα ενοικίασης ποδηλάτων</string>

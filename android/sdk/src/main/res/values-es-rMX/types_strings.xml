@@ -66,6 +66,8 @@
     <string name="type.shop.department_store">Tienda departamental</string>
     <string name="type.shop.garden_centre">Vivero</string>
     <string name="type.shop.grocery">Tienda de abarrotes</string>
+    <string name="type.shop.leather">Tienda de artículos de cuero</string>
+    <string name="type.shop.religion">Tienda de artículos religiosos</string>
     <string name="type.shop.tobacco">Tabaco</string>
     <string name="type.sport.archery">Tiro al arco</string>
     <string name="type.traffic_calming.bump">Topes</string>

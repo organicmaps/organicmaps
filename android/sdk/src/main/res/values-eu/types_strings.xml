@@ -1113,6 +1113,7 @@
     <string name="type.shop.kiosk">Kioskoa</string>
     <string name="type.shop.kitchen">Sukalde-denda</string>
     <string name="type.shop.laundry">Garbitegia</string>
+    <string name="type.shop.leather">Larruzko produktuen denda</string>
     <string name="type.shop.mall">Merkataritza-gune</string>
     <string name="type.shop.massage">Masaje gela</string>
     <string name="type.shop.mobile_phone">Mugikorra</string>
@@ -1131,6 +1132,7 @@
     <string name="type.shop.pet">Animali denda</string>
     <string name="type.shop.pet_grooming">Animalien apainketa</string>
     <string name="type.shop.photo">Argazkilaritza artikuluak</string>
+    <string name="type.shop.religion">Erlijio-artikuluen denda</string>
     <string name="type.shop.rental">Alokairu-denda</string>
     <string name="type.shop.rental.bicycle">Bizikletak alokatzeko denda</string>
     <string name="type.amenity.bicycle_rental.shop">Bizikletak alokatzeko denda</string>

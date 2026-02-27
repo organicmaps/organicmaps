@@ -438,6 +438,7 @@
     <string name="type.highway.pedestrian.bridge">גשר הולכי רגל</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">מנהרה להולכי רגל</string>
+    <string name="type.highway.platform">רציף תחבורה</string>
     <string name="type.highway.primary">כביש ראשי</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">גשר</string>
@@ -910,6 +911,7 @@
     <string name="type.shop.kiosk">קיוסק</string>
     <string name="type.shop.kitchen">חנות מטבחים</string>
     <string name="type.shop.laundry">מכבסה</string>
+    <string name="type.shop.leather">חנות מוצרי עור</string>
     <string name="type.shop.mall">קניון</string>
     <string name="type.shop.massage">מכון עיסוי</string>
     <string name="type.shop.mobile_phone">חנות מכשירי סלולר</string>
@@ -928,6 +930,7 @@
     <string name="type.shop.pet">חנות בעלי חיים</string>
     <string name="type.shop.pet_grooming">טיפוח חיות מחמד</string>
     <string name="type.shop.photo">חנות צילום</string>
+    <string name="type.shop.religion">חנות תשמישי קדושה</string>
     <string name="type.shop.rental">חנות להשכרה</string>
     <string name="type.shop.rental.bicycle">חנות להשכרת אופניים</string>
     <string name="type.amenity.bicycle_rental.shop">חנות להשכרת אופניים</string>

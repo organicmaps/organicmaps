@@ -427,6 +427,7 @@
     <string name="type.highway.pedestrian.bridge">Most za pešce</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Predor za pešce</string>
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Glavna cesta</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -1151,6 +1152,7 @@
     <string name="type.shop.jewelry">Zlatarna</string>
     <string name="type.shop.kitchen">Kuhinjska trgovina</string>
     <string name="type.shop.laundry">Pralnica</string>
+    <string name="type.shop.leather">Trgovina z usnjenimi izdelki</string>
     <string name="type.shop.mall">Nakupovalni center</string>
     <string name="type.shop.massage">Masažni salon</string>
     <string name="type.shop.mobile_phone">Trgovina z mobilnimi telefoni</string>
@@ -1169,6 +1171,7 @@
     <string name="type.shop.pet">Trgovina za male živali</string>
     <string name="type.shop.pet_grooming">Nega malih živali</string>
     <string name="type.shop.photo">Foto studio</string>
+    <string name="type.shop.religion">Trgovina z verskimi predmeti</string>
     <string name="type.shop.rental">Izposojevalnica</string>
     <string name="type.amenity.bicycle_rental.shop">Izposojevalnica koles</string>
     <string name="type.shop.seafood">Ribarnica</string>

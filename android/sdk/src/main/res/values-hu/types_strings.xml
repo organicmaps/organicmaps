@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Híd</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Alagút</string>
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Utca</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Híd</string>
@@ -1189,6 +1190,7 @@
     <string name="type.shop.kiosk">Trafik</string>
     <string name="type.shop.kitchen">Konyhafelszerelés-bolt</string>
     <string name="type.shop.laundry">Mosoda</string>
+    <string name="type.shop.leather">Bőráruüzlet</string>
     <string name="type.shop.mall">Bevásárlóközpont</string>
     <string name="type.shop.massage">Masszázsszalon</string>
     <string name="type.shop.mobile_phone">Mobiltelefon-üzlet</string>
@@ -1207,6 +1209,7 @@
     <string name="type.shop.pet">Házikedvenc-üzlet</string>
     <string name="type.shop.pet_grooming">Kisállatápolás</string>
     <string name="type.shop.photo">Fotóüzlet</string>
+    <string name="type.shop.religion">Vallási kegytárgyak boltja</string>
     <string name="type.shop.rental">Kölcsönző</string>
     <string name="type.shop.rental.bicycle">Kerékpárkölcsönző</string>
     <string name="type.amenity.bicycle_rental.shop">Kerékpárkölcsönző</string>

@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Đường hầm";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "Phố";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "Cửa hàng";
 "type.shop.kitchen" = "Cửa hàng nhà bếp";
 "type.shop.laundry" = "Giặt là";
+"type.shop.leather" = "Cửa hàng đồ da";
 "type.shop.mall" = "Khu mua sắm";
 "type.shop.massage" = "Quán massage";
 "type.shop.mobile_phone" = "Cửa hàng điện thoại di động";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "Cửa Hàng Vật Nuôi";
 "type.shop.pet_grooming" = "Chải lông thú cưng";
 "type.shop.photo" = "Hiệu Ảnh";
+"type.shop.religion" = "Cửa hàng vật phẩm tôn giáo";
 "type.shop.rental" = "Cửa hàng cho thuê";
 "type.shop.rental.bicycle" = "Cửa hàng cho thuê xe đạp";
 "type.amenity.bicycle_rental.shop" = "Cửa hàng cho thuê xe đạp";

@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "نفق";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "شارع رئيسي";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1327,6 +1328,7 @@
 "type.shop.kiosk" = "كشك";
 "type.shop.kitchen" = "متجر مطابخ";
 "type.shop.laundry" = "مغسلة ملابس";
+"type.shop.leather" = "متجر السلع الجلدية";
 "type.shop.mall" = "مركز تسوق";
 "type.shop.massage" = "قاعة تدليك";
 "type.shop.mobile_phone" = "متجر هواتف محمولة";
@@ -1345,6 +1347,7 @@
 "type.shop.pet" = "متجر للحيوانات الأليفة";
 "type.shop.pet_grooming" = "العناية بالحيوانات الأليفة";
 "type.shop.photo" = "محل تصوير";
+"type.shop.religion" = "متجر أدوات دينية";
 "type.shop.rental" = "محل تأجير";
 "type.shop.rental.bicycle" = "محل تأجير الدراجات";
 "type.amenity.bicycle_rental.shop" = "محل تأجير الدراجات";

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
+    <string name="type.highway.platform">Stoppested</string>
     <string name="type.highway.primary">Hovedvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bro</string>
@@ -1182,6 +1183,7 @@
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.shop.kitchen">Køkkenforretning</string>
     <string name="type.shop.laundry">Vaskeri</string>
+    <string name="type.shop.leather">Læderbutik</string>
     <string name="type.shop.mall">Indkøbscenter</string>
     <string name="type.shop.massage">Massageklinik</string>
     <string name="type.shop.mobile_phone">Mobiltelefonbutik</string>
@@ -1200,6 +1202,7 @@
     <string name="type.shop.pet">Dyrehandel</string>
     <string name="type.shop.pet_grooming">Kæledyrspleje</string>
     <string name="type.shop.photo">Fotobutik</string>
+    <string name="type.shop.religion">Religionsbutik</string>
     <string name="type.shop.rental">Udlejningsbutik</string>
     <string name="type.shop.rental.bicycle">Cykeludlejningsbutik</string>
     <string name="type.amenity.bicycle_rental.shop">Cykeludlejningsbutik</string>
