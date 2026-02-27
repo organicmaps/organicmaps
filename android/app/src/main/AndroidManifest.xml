@@ -71,6 +71,7 @@
 
   <!-- "android:resizeableActivity" allows free-form and split-screen modes -->
   <application
+      android:appCategory="maps"
       android:name=".MwmApplication"
       android:allowBackup="true"
       android:backupInForeground="true"
