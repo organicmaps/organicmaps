@@ -118,11 +118,34 @@ private:
   std::multimap<CountryId, Node *> m_countryTreeMap;
 };
 
+struct CountriesInfo
+{
+  /**
+   * @brief Mapping from countryId to the list of names of
+   * geographical objects (such as countries) that encompass this countryId.
+   * @note Affiliations are inherited from ancestors of the countryId in country tree.
+   * Initialized with data of countries.txt (field "affiliations").
+   * Once filled, they are not changed.
+   */
+  Affiliations m_affiliations;
+  CountryNameSynonyms m_countryNameSynonyms;
+
+  /// @todo This containers are empty for now, but probably will be used in future.
+  /// @{
+  MwmTopCityGeoIds m_mwmTopCityGeoIds;
+  MwmTopCountryGeoIds m_mwmTopCountryGeoIds;
+  /// @}
+
+  void Clear()
+  {
+    m_affiliations.clear();
+    m_countryNameSynonyms.clear();
+    m_mwmTopCityGeoIds.clear();
+    m_mwmTopCountryGeoIds.clear();
+  }
+};
+
 /// @return version of country file or -1 if error was encountered
-int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries, Affiliations & affiliations,
-                                CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
-                                MwmTopCountryGeoIds & mwmTopCountryGeoIds);
-int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries, Affiliations & affiliations,
-                              CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
-                              MwmTopCountryGeoIds & mwmTopCountryGeoIds);
+int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries, CountriesInfo & countriesInfo);
+int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries, CountriesInfo & countriesInfo);
 }  // namespace storage
