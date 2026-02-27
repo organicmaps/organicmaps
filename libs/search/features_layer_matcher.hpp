@@ -20,7 +20,6 @@
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
@@ -262,24 +261,23 @@ private:
       streetFt->ParseGeometry(FeatureType::WORST_GEOMETRY);
 
       m2::RectD inflationRect;
+      size_t const ptsCount = streetFt->GetPointsCount();
+      auto & projector = streetProjectors.emplace_back(ptsCount);
+
       // Any point is good enough here, and feature::GetCenter would re-read the geometry.
-      if (streetFt->GetPointsCount() > 0)
+      if (ptsCount > 0)
         inflationRect = mercator::RectByCenterXYAndSizeInMeters(streetFt->GetPoint(0), 0.5 * kStreetRadiusMeters);
 
-      for (size_t j = 0; j + 1 < streetFt->GetPointsCount(); ++j)
+      for (size_t j = 1; j < ptsCount; ++j)
       {
-        auto const & p1 = streetFt->GetPoint(j);
-        auto const & p2 = streetFt->GetPoint(j + 1);
+        auto const & p1 = streetFt->GetPoint(j - 1);
+        auto const & p2 = streetFt->GetPoint(j);
+        projector.Add(p1, p2);
+
         m2::RectD rect(p1, p2);
         rect.Inflate(inflationRect.SizeX(), inflationRect.SizeY());
         streetRects.emplace_back(rect, i /* id */);
       }
-
-      std::vector<m2::PointD> streetPoints;
-      streetPoints.reserve(streetFt->GetPointsCount());
-      for (size_t j = 0; j < streetFt->GetPointsCount(); ++j)
-        streetPoints.emplace_back(streetFt->GetPoint(j));
-      streetProjectors.emplace_back(streetPoints);
     }
 
     BailIfCancelled();

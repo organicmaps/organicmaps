@@ -30,7 +30,10 @@ struct ProjectionOnStreet
 class ProjectionOnStreetCalculator
 {
 public:
+  explicit ProjectionOnStreetCalculator(size_t reserve) { m_segments.reserve(reserve); }
   explicit ProjectionOnStreetCalculator(std::vector<m2::PointD> const & points);
+
+  void Add(m2::PointD const & p1, m2::PointD const & p2) { m_segments.emplace_back(p1, p2); }
 
   // Finds nearest point on the street to the |point|. If such point
   // is located within |m_maxDistMeters|, stores projection in |proj|

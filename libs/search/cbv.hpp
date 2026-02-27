@@ -38,7 +38,7 @@ public:
   {
     ASSERT(!m_isFull, ());
     if (!IsEmpty())
-      coding::CompressedBitVectorEnumerator::ForEach(*m_p, std::forward<Fn>(fn));
+      coding::CompressedBitVectorEnumerator::ForEach(*m_p, fn);
   }
 
   CBV Union(CBV const & rhs) const;

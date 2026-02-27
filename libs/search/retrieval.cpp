@@ -16,6 +16,7 @@
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_reader.hpp"
 
+#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
 
 #include "coding/compressed_bit_vector.hpp"
