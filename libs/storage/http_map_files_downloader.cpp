@@ -3,14 +3,11 @@
 #include "storage/downloader.hpp"
 
 #include "platform/downloader_defines.hpp"
-#include "platform/servers_list.hpp"
 
-#include "base/assert.hpp"
-#include "base/string_utils.hpp"
-
-#include <algorithm>
 #include <functional>
 
+namespace storage
+{
 namespace
 {
 class ErrorHttpRequest : public downloader::HttpRequest
@@ -28,8 +25,6 @@ private:
 };
 }  // anonymous namespace
 
-namespace storage
-{
 HttpMapFilesDownloader::~HttpMapFilesDownloader()
 {
   CHECK_THREAD_CHECKER(m_checker, ());

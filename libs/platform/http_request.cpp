@@ -12,7 +12,6 @@
 #include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include <list>
 #include <memory>
@@ -174,6 +173,12 @@ class FileHttpRequest
     {
       m_writer->Seek(offset);
       m_writer->Write(buffer, size);
+
+      /// @DebugNote Uncomment to debug broken files downloading.
+      // m_writer->Seek(offset + size / 2);
+      // uint8_t zero = 0;
+      // m_writer->Write(&zero, 1);
+
       return true;
     }
     catch (Writer::Exception const & e)
