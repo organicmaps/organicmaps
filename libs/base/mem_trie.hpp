@@ -219,7 +219,7 @@ public:
       m_node.m_values.ForEach(toDo);
     }
 
-    String GetLabel() const { return m_node.m_edge.template As<String>(); }
+    String GetLabel() const { return {m_node.m_edge.BeginI(), m_node.m_edge.EndI()}; }
     ValuesHolder const & GetValues() const { return m_node.m_values; }
 
   private:
@@ -289,15 +289,15 @@ public:
   // Calls |toDo| for each key-value pair in the node that is reachable
   // by |prefix| from the trie root. Does nothing if such node does
   // not exist.
-  template <typename ToDo>
-  void ForEachInNode(String const & prefix, ToDo && toDo) const
+  template <class StringViewT, typename ToDo>
+  void ForEachInNode(StringViewT const & prefix, ToDo && toDo) const
   {
     MoveTo(prefix, true /* fullMatch */,
            [&](Node const & node, Edge const & /* edge */, size_t /* offset */) { node.m_values.ForEach(toDo); });
   }
 
-  template <typename ToDo>
-  void WithValuesHolder(String const & prefix, ToDo && toDo) const
+  template <class StringViewT, typename ToDo>
+  void WithValuesHolder(StringViewT const & prefix, ToDo && toDo) const
   {
     MoveTo(prefix, true /* fullMatch */,
            [&toDo](Node const & node, Edge const & /* edge */, size_t /* offset */) { toDo(node.m_values); });
@@ -306,19 +306,19 @@ public:
   // Calls |toDo| for each key-value pair in a subtree that is
   // reachable by |prefix| from the trie root. Does nothing if such
   // subtree does not exist.
-  template <typename ToDo>
-  void ForEachInSubtree(String const & prefix, ToDo && toDo) const
+  template <class StringViewT, typename ToDo>
+  void ForEachInSubtree(StringViewT const & prefix, ToDo && toDo) const
   {
     MoveTo(prefix, false /* fullMatch */, [&](Node const & node, Edge const & edge, size_t offset)
     {
       String p = prefix;
-      for (; offset < edge.Size(); ++offset)
-        p.push_back(edge[offset]);
+      p.insert(p.end(), edge.BeginI(offset), edge.EndI());
       ForEachInSubtree(node, p, toDo);
     });
   }
 
-  bool HasKey(String const & key) const
+  template <class StringViewT>
+  bool HasKey(StringViewT const & key) const
   {
     bool exists = false;
     MoveTo(key, true /* fullMatch */,
@@ -326,7 +326,8 @@ public:
     return exists;
   }
 
-  bool HasPrefix(String const & prefix) const
+  template <class StringViewT>
+  bool HasPrefix(StringViewT const & prefix) const
   {
     bool exists = false;
     MoveTo(prefix, false /* fullMatch */,
@@ -392,19 +393,18 @@ private:
       return *(m_label.rbegin() + i);
     }
 
+    auto BeginI(size_t offset = 0) const
+    {
+      ASSERT_LESS_OR_EQUAL(offset, Size(), ());
+      return m_label.rbegin() + offset;
+    }
+    auto EndI() const { return m_label.rend(); }
     size_t Size() const { return m_label.size(); }
-
     bool Empty() const { return Size() == 0; }
 
     void Swap(Edge & rhs) { m_label.swap(rhs.m_label); }
 
-    template <typename Sequence>
-    Sequence As() const
-    {
-      return {m_label.rbegin(), m_label.rend()};
-    }
-
-    friend std::string DebugPrint(Edge const & edge) { return edge.template As<std::string>(); }
+    friend std::string DebugPrint(Edge const & edge) { return {edge.BeginI(), edge.EndI()}; }
 
   private:
     std::vector<Char> m_label;
@@ -462,8 +462,8 @@ private:
     DISALLOW_COPY(Node);
   };
 
-  template <typename Fn>
-  void MoveTo(String const & prefix, bool fullMatch, Fn && fn) const
+  template <class StringViewT, class FnT>
+  void MoveTo(StringViewT const & prefix, bool fullMatch, FnT && fn) const
   {
     auto const * cur = &m_root;
 
@@ -558,10 +558,10 @@ private:
 
     node.m_moves.ForEach([&](Char const & c, Node const & node)
     {
+      // Expect that push + resize recursively of existing prefix buffer is better than allocate a new one.
       auto const size = prefix.size();
-      auto const edge = node.m_edge.template As<String>();
       prefix.push_back(c);
-      prefix.insert(prefix.end(), edge.begin(), edge.end());
+      prefix.insert(prefix.end(), node.m_edge.BeginI(), node.m_edge.EndI());
       ForEachInSubtree(node, prefix, toDo);
       prefix.resize(size);
     });
