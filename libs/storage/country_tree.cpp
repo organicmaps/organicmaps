@@ -36,7 +36,6 @@ public:
       base::SortUnique(entry.second);
   }
 
-  // StoreInterface overrides:
   Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, string const & mapSha1, size_t depth,
                                 CountryId const & parent)
   {
@@ -48,31 +47,25 @@ public:
 
   void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) { m_idsMapping[oldId].insert(newId); }
 
-  void InsertAffiliation(CountryId const & countryId, string const & affilation)
+  void InsertAffiliation(CountryId const & countryId, string affiliation)
   {
-    ASSERT(!affilation.empty(), ());
+    ASSERT(!affiliation.empty(), ());
     ASSERT(!countryId.empty(), ());
-
-    m_info.m_affiliations[affilation].push_back(countryId);
+    m_info.m_affiliations.emplace(std::move(affiliation), CountriesVec()).first->second.push_back(countryId);
   }
 
-  void InsertCountryNameSynonym(CountryId const & countryId, string const & synonym)
+  void InsertCountryNameSynonym(CountryId const & countryId, string synonym)
   {
     ASSERT(!synonym.empty(), ());
     ASSERT(!countryId.empty(), ());
-    ASSERT(m_info.m_countryNameSynonyms.find(synonym) == m_info.m_countryNameSynonyms.end(),
-           ("Synonym must identify CountryTree node where the country is located. Country cannot be "
-            "located at multiple nodes."));
-
-    m_info.m_countryNameSynonyms[synonym] = countryId;
+    VERIFY(m_info.m_countryNameSynonyms.emplace(std::move(synonym), countryId).second, (countryId));
   }
 
   void InsertMwmTopCityGeoId(CountryId const & countryId, uint64_t const & geoObjectId)
   {
     ASSERT(!countryId.empty(), ());
     ASSERT_NOT_EQUAL(geoObjectId, 0, ());
-    base::GeoObjectId id(geoObjectId);
-    m_info.m_mwmTopCityGeoIds.emplace(countryId, std::move(id));
+    VERIFY(m_info.m_mwmTopCityGeoIds.emplace(countryId, base::GeoObjectId(geoObjectId)).second, (countryId));
   }
 
   void InsertTopCountryGeoIds(CountryId const & countryId, vector<uint64_t> const & geoObjectIds)
@@ -80,7 +73,17 @@ public:
     ASSERT(!countryId.empty(), ());
     ASSERT(!geoObjectIds.empty(), ());
     vector<base::GeoObjectId> ids(geoObjectIds.cbegin(), geoObjectIds.cend());
-    m_info.m_mwmTopCountryGeoIds.emplace(countryId, std::move(ids));
+    VERIFY(m_info.m_mwmTopCountryGeoIds.emplace(countryId, std::move(ids)).second, (countryId));
+  }
+
+  void InsertOldCountry(CountryId const & countryId, string oldId)
+  {
+    ASSERT(!oldId.empty(), ());
+    ASSERT(!countryId.empty(), ());
+
+    /// @todo Possible 1 -> many entries in case if we unite regions.
+    /// Current countries.txt example is "Caribisch Nederland".
+    m_info.m_mwmToOld.emplace(countryId, std::move(oldId));
   }
 
   OldMwmMapping GetMapping() const { return m_idsMapping; }
@@ -256,25 +259,32 @@ MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & par
   CountryId id;
   FromJSONObject(node, "id", id);
 
-  vector<string> countryNameSynonyms;
-  FromJSONObjectOptionalField(node, "country_name_synonyms", countryNameSynonyms);
-  for (auto const & synonym : countryNameSynonyms)
-    store.InsertCountryNameSynonym(id, synonym);
+  {
+    vector<string> strings;
+    FromJSONObjectOptionalField(node, "old", strings);
+    for (auto & v : strings)
+      store.InsertOldCountry(id, std::move(v));
 
-  vector<string> affiliations;
-  FromJSONObjectOptionalField(node, "affiliations", affiliations);
-  for (auto const & affilationValue : affiliations)
-    store.InsertAffiliation(id, affilationValue);
+    strings.clear();
+    FromJSONObjectOptionalField(node, "country_name_synonyms", strings);
+    for (auto & v : strings)
+      store.InsertCountryNameSynonym(id, std::move(v));
 
-  uint64_t geoObjectId = 0;
-  FromJSONObjectOptionalField(node, "top_city_geo_id", geoObjectId);
-  if (geoObjectId != 0)
-    store.InsertMwmTopCityGeoId(id, geoObjectId);
+    strings.clear();
+    FromJSONObjectOptionalField(node, "affiliations", strings);
+    for (auto & v : strings)
+      store.InsertAffiliation(id, std::move(v));
 
-  vector<uint64_t> topCountryIds;
-  FromJSONObjectOptionalField(node, "top_countries_geo_ids", topCountryIds);
-  if (!topCountryIds.empty())
-    store.InsertTopCountryGeoIds(id, topCountryIds);
+    uint64_t geoObjectId = 0;
+    FromJSONObjectOptionalField(node, "top_city_geo_id", geoObjectId);
+    if (geoObjectId != 0)
+      store.InsertMwmTopCityGeoId(id, geoObjectId);
+
+    vector<uint64_t> topCountryIds;
+    FromJSONObjectOptionalField(node, "top_countries_geo_ids", topCountryIds);
+    if (!topCountryIds.empty())
+      store.InsertTopCountryGeoIds(id, topCountryIds);
+  }
 
   int nodeSize;
   FromJSONObjectOptionalField(node, "s", nodeSize);
