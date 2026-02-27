@@ -2,6 +2,8 @@
 
 #include "storage/map_files_downloader_with_ping.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/logging.hpp"
 
 #include "private.h"
