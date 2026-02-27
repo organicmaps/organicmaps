@@ -2,9 +2,6 @@
 
 #include "search/cbv.hpp"
 #include "search/feature_offset_match.hpp"
-#include "search/query_params.hpp"
-
-#include "platform/mwm_traits.hpp"
 
 #include "coding/reader.hpp"
 
@@ -15,10 +12,7 @@
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 
-#include <cstdint>
-#include <functional>
 #include <memory>
-#include <utility>
 
 class MwmValue;
 
@@ -72,10 +66,11 @@ public:
       m_exactMatchingFeatures.SetFull();
     }
 
-    void ForEach(std::function<void(uint32_t, bool)> const & f) const
+    template <class FnT>
+    void ForEach(FnT && fn) const
     {
       m_features.ForEach([&](uint64_t id)
-      { f(base::asserted_cast<uint32_t>(id), m_exactMatchingFeatures.HasBit(id)); });
+      { fn(base::asserted_cast<uint32_t>(id), m_exactMatchingFeatures.HasBit(id)); });
     }
 
     Features m_features;

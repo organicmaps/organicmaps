@@ -86,8 +86,8 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 
 void TrimLeadingSpaces(string & s)
 {
-  while (!s.empty() && strings::IsASCIISpace(s.front()))
-    s = s.substr(1);
+  auto const it = std::find_if(s.cbegin(), s.cend(), [](auto c) { return !strings::IsASCIISpace(c); });
+  s.erase(s.begin(), it);
 }
 
 bool EatFid(string & s, uint32_t & fid)
@@ -104,7 +104,7 @@ bool EatFid(string & s, uint32_t & fid)
   auto const prefix = s.substr(0, i);
   if (strings::to_uint(prefix, fid))
   {
-    s = s.substr(prefix.size());
+    s.erase(0, prefix.size());
     return true;
   }
   return false;
@@ -117,17 +117,18 @@ bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> cons
 
   // Greedily eat as much as possible because some country names are prefixes of others.
   optional<size_t> lastPos;
+  std::string_view sv(s);
   for (size_t i = 0; i < s.size(); ++i)
   {
     // todo(@m) This must be much faster but MemTrie's iterators do not expose nodes.
-    if (countriesTrie.HasKey(s.substr(0, i)))
+    if (countriesTrie.HasKey(sv.substr(0, i)))
       lastPos = i;
   }
   if (!lastPos)
     return false;
 
   mwmName = s.substr(0, *lastPos);
-  s = s.substr(*lastPos);
+  s.erase(0, *lastPos);
   strings::EatPrefix(s, ".mwm");
   return true;
 }
@@ -139,16 +140,16 @@ bool EatVersion(string & s, uint32_t & version)
   if (!s.empty() && s.front() == '0' && (s.size() == 1 || !isdigit(s[1])))
   {
     version = 0;
-    s = s.substr(1);
+    s.erase(0, 1);
     return true;
   }
 
-  size_t const kVersionLength = 6;
+  size_t constexpr kVersionLength = 6;
   if (s.size() >= kVersionLength && all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
-      (s.size() == kVersionLength || !isdigit(s[kVersionLength + 1])))
+      (s.size() == kVersionLength || !isdigit(s[kVersionLength])))
   {
     VERIFY(strings::to_uint(s.substr(0, kVersionLength), version), ());
-    s = s.substr(kVersionLength);
+    s.erase(0, kVersionLength);
     return true;
   }
 
