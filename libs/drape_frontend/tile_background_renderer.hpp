@@ -31,6 +31,7 @@ public:
                          MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn,
                          dp::BackgroundMode currentMode);
 
+  // NOT THREAD SAFE!
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
               int zoomLevel, FrameValues const & frameValues);
 

@@ -27,11 +27,6 @@ RenderGroup::RenderGroup(dp::RenderState const & state, df::TileKey const & tile
   , m_canBeDeleted(false)
 {}
 
-RenderGroup::~RenderGroup()
-{
-  m_renderBuckets.clear();
-}
-
 void RenderGroup::Update(ScreenBase const & modelView)
 {
   for (auto & renderBucket : m_renderBuckets)

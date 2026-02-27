@@ -421,7 +421,7 @@ void TransitSchemeBuilder::GenerateLinesSubway(MwmSchemeData const & scheme, dp:
   {
     size_t const linesCount = shape.second.m_forwardLines.size() + shape.second.m_backwardLines.size();
     float shapeOffset = -static_cast<float>(linesCount / 2) * 2.0f - static_cast<float>(linesCount % 2) + 1.0f;
-    size_t constexpr shapeOffsetIncrement = 2.0f;
+    float constexpr shapeOffsetIncrement = 2.0f;
 
     std::vector<std::pair<dp::Color, routing::transit::LineId>> coloredLines;
 

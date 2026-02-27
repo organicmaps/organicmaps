@@ -192,6 +192,7 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
   float depth = baseDepth;
   float const depthStep = rs::kRouteDepth / (1 + segments.size());
   int const lastIndex = static_cast<int>(segments.size() - 1);
+
   for (int i = lastIndex; i >= 0; i--)
   {
     auto & geomBufferData = geometryBufferData.back();

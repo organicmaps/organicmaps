@@ -84,14 +84,12 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context, ref_
   state.SetMaskTexture(layout->GetMaskTexture());
 
   gpu::TTextStaticVertexBuffer staticBuffer;
+  layout->CacheStaticGeometry(color, staticBuffer);
   gpu::TTextDynamicVertexBuffer dynBuffer;
 
   for (uint32_t textIndex = 0; textIndex < m_context->GetOffsets().size(); ++textIndex)
   {
-    staticBuffer.clear();
     dynBuffer.clear();
-
-    layout->CacheStaticGeometry(color, staticBuffer);
     dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));

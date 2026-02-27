@@ -455,8 +455,8 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
   m2::PointD gOffset;
   ScreenBase screen;
 
-  auto const hasOffset =
-      m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport, !m_needTrackCenter, gOffset);
+  auto const hasOffset = m_listener && m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport,
+                                                                        !m_needTrackCenter, gOffset);
 
   if (m_needTrackCenter)
   {
