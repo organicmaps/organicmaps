@@ -416,39 +416,32 @@ CountryFile const & Storage::GetCountryFile(CountryId const & countryId) const
   return CountryLeafByCountryId(countryId).GetFile();
 }
 
-LocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFile) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  CountryId const & countryId = FindCountryIdByFile(countryFile.GetName());
-  if (IsLeaf(countryId))
-  {
-    LocalFilePtr localFile = GetLatestLocalFile(countryId);
-    if (localFile)
-      return localFile;
-  }
-
-  auto const it = m_localFilesForFakeCountries.find(countryFile);
-  if (it != m_localFilesForFakeCountries.end())
-    return it->second;
-
-  return LocalFilePtr();
-}
-
 LocalFilePtr Storage::GetLatestLocalFile(CountryId const & countryId) const
 {
   // CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto const it = m_localFiles.find(countryId);
-  if (it == m_localFiles.end() || it->second.empty())
-    return LocalFilePtr();
+  if (it != m_localFiles.end())
+  {
+    // 2 is possible in the moment of updating the map (old and new are both present).
+    auto const & files = it->second;
+    size_t const sz = files.size();
+    ASSERT(sz > 0 && sz < 3, (sz));
 
-  list<LocalFilePtr> const & files = it->second;
-  LocalFilePtr latest = files.front();
-  for (LocalFilePtr const & file : files)
-    if (file->GetVersion() > latest->GetVersion())
-      latest = file;
-  return latest;
+    LocalFilePtr latest = files.front();
+    for (LocalFilePtr const & file : files)
+      if (file->GetVersion() > latest->GetVersion())
+        latest = file;
+
+    return latest;
+  }
+  else
+  {
+    auto const it = m_localFilesForFakeCountries.find(CountryFile(countryId));
+    if (it != m_localFilesForFakeCountries.end())
+      return it->second;
+  }
+  return {};
 }
 
 Status Storage::CountryStatus(CountryId const & countryId) const
@@ -480,9 +473,25 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
   if (status != Status::UnknownError)
     return status;
 
-  auto localFile = GetLatestLocalFile(countryId);
+  auto const localFile = GetLatestLocalFile(countryId);
   if (!localFile || !(localFile->OnDisk(MapFileType::Map) || localFile->IsInBundle()))
+  {
+    auto it = m_countriesInfo.m_mwmToOld.find(countryId);
+    if (it != m_countriesInfo.m_mwmToOld.end())
+    {
+      auto const lf = GetLatestLocalFile(it->second);
+      if (lf && lf->OnDisk(MapFileType::Map))
+        return Status::OnDiskOutOfDate;
+    }
     return Status::NotDownloaded;
+  }
+  else
+  {
+    // Check if it is an "old" (outdated) country.
+    for (auto const & [_, oldCountry] : m_countriesInfo.m_mwmToOld)
+      if (oldCountry == countryId)
+        return Status::OnDiskOutOfDate;
+  }
 
   auto const & countryFile = GetCountryFile(countryId);
   if (GetRemoteSize(countryFile) == 0)
@@ -813,6 +822,25 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
     return;
   }
 
+  // Delete "old" (outdated) country, if any.
+  auto const it = m_countriesInfo.m_mwmToOld.find(countryId);
+  if (it != m_countriesInfo.m_mwmToOld.end())
+  {
+    auto const iFile = m_localFilesForFakeCountries.find(CountryFile(it->second));
+    if (iFile != m_localFilesForFakeCountries.end())
+    {
+      auto lf = iFile->second;
+      if (!m_willDelete(it->second, lf))
+      {
+        DeleteCountryIndexes(*lf);
+        lf->DeleteFromDisk(MapFileType::Map);
+
+        m_localFilesForFakeCountries.erase(iFile);
+      }
+    }
+  }
+
+  // Register new file.
   RegisterCountryFiles(localFile);
   fn(true);
 }
@@ -1261,7 +1289,10 @@ bool Storage::IsAllowedToEditVersion(CountryId const & countryId) const
   case Status::OnDiskOutOfDate:
   {
     auto const localFile = GetLatestLocalFile(countryId);
-    ASSERT(localFile, ("Local file shouldn't be nullptr."));
+    // Under "old" (outdated) countries.
+    if (!localFile)
+      return false;
+
     auto const currentVersionTime = base::YYMMDDToSecondsSinceEpoch(static_cast<uint32_t>(m_currentVersion));
     auto const localVersionTime = base::YYMMDDToSecondsSinceEpoch(static_cast<uint32_t>(localFile->GetVersion()));
     return currentVersionTime - localVersionTime < kMaxSecondsTillLastVersionUpdate &&
@@ -1751,7 +1782,18 @@ void Storage::UpdateNode(CountryId const & countryId)
 {
   ForEachInSubtree(countryId, [this](CountryId const & descendantId, bool groupNode)
   {
-    if (!groupNode && m_localFiles.find(descendantId) != m_localFiles.end())
+    if (groupNode)
+      return;
+
+    bool isDownload = m_localFiles.count(descendantId) > 0;
+    if (!isDownload)
+    {
+      auto it = m_countriesInfo.m_mwmToOld.find(descendantId);
+      if (it != m_countriesInfo.m_mwmToOld.end())
+        isDownload = m_localFilesForFakeCountries.count(CountryFile(it->second)) > 0;
+    }
+
+    if (isDownload)
       DownloadNode(descendantId, true /* isUpdate */);
   });
 }
