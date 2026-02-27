@@ -53,7 +53,7 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId, pla
   : m_mwmId(mwmId)
   , m_vehicleModel(CarModelFactory({}).GetVehicleModelForCountry(countryFile.GetName()))
 {
-  auto localCountryFile = storage.GetLatestLocalFile(countryFile);
+  auto localCountryFile = storage.GetLatestLocalFile(countryFile.GetName());
   CHECK(localCountryFile, ("Can't find latest country file for", countryFile.GetName()));
   auto registerResult = m_dataSource.Register(*localCountryFile);
   CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success, ("Can't register mwm", countryFile.GetName()));

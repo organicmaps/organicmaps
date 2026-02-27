@@ -387,13 +387,14 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     auto indexGraphLoader =
         IndexGraphLoader::Create(vehicleType, false /* loadAltitudes */, carModelFactory, edgeEstimator, routingSource);
 
+    auto localCountryFile = storage.GetLatestLocalFile(mwmName);
+    CHECK(localCountryFile, ("Can't find latest country file for", mwmName));
+
     platform::CountryFile const countryFile(mwmName);
-    auto localCountryFile = storage.GetLatestLocalFile(countryFile);
-    CHECK(localCountryFile, ("Can't find latest country file for", countryFile.GetName()));
     if (!dataSource.IsLoaded(countryFile))
     {
       auto registerResult = dataSource.Register(*localCountryFile);
-      CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success, ("Can't register mwm", countryFile.GetName()));
+      CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success, ("Can't register mwm", mwmName));
     }
 
     auto const mwmId = numMwmIds->GetId(countryFile);
