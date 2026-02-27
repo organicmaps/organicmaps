@@ -24,7 +24,7 @@ public:
                 uint32_t baseTextIndex);
   bool CalculateLayout(ref_ptr<dp::TextureManager> textures);
 
-  std::vector<double> GetOffsets() const { return m_context->GetOffsets(); }
+  std::vector<double> const & GetOffsets() const { return m_context->GetOffsets(); }
 
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
             ref_ptr<dp::TextureManager> textures) const override;

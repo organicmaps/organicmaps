@@ -4,7 +4,7 @@
 
 namespace df
 {
-std::string DebugPrint(Message::Type msgType)
+std::string_view DebugPrint(Message::Type msgType)
 {
   switch (msgType)
   {

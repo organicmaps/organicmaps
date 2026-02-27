@@ -47,7 +47,7 @@ ScreenQuadRenderer::ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context)
 void ScreenQuadRenderer::Rebuild(ref_ptr<dp::GraphicsContext> context)
 {
   std::vector<float> vertices;
-  vertices.reserve(4);
+  vertices.reserve(16);
   if (context->GetApiVersion() == dp::ApiVersion::Vulkan)
   {
     vertices = {-1.0f, -1.0f, m_textureRect.minX(), m_textureRect.minY(),

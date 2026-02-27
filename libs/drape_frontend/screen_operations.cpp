@@ -75,7 +75,7 @@ bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
   return (boundRect.SizeX() >= clipRect.SizeX()) && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
-ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
+ScreenBase ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
 
@@ -96,7 +96,7 @@ ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRe
   return res;
 }
 
-ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+ScreenBase ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
 
@@ -138,7 +138,7 @@ ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRec
   return res;
 }
 
-ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
 

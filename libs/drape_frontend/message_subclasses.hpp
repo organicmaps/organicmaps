@@ -522,6 +522,7 @@ public:
     , m_isDismiss(false)
     , m_isGeometrySelectionAllowed(isGeometrySelectionAllowed)
     , m_isSelectionShapeVisible(isSelectionShapeVisible)
+    , m_restoreViewport(false)
   {}
 
   Type GetType() const override { return Type::SelectObject; }

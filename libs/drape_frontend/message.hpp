@@ -132,5 +132,5 @@ enum class MessagePriority
   Low
 };
 
-std::string DebugPrint(Message::Type msgType);
+std::string_view DebugPrint(Message::Type msgType);
 }  // namespace df

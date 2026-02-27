@@ -9,7 +9,7 @@ MessageQueue::MessageQueue() : m_isWaiting(false) {}
 
 MessageQueue::~MessageQueue()
 {
-  CancelWaitImpl();
+  CancelWait();
   ClearQuery();
 }
 

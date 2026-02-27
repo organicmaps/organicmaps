@@ -167,10 +167,10 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> && animation)
 #ifdef DEBUG_ANIMATIONS
   LOG(LINFO, ("Combine animation", animation->GetType()));
 #endif
-  TAnimationList interruptedAnimations;
   bool startImmediately = true;
   for (auto & pList : m_animationChain)
   {
+    TAnimationList interruptedAnimations;
     auto & lst = *pList;
     bool couldBeBlended = animation->CouldBeBlended();
 

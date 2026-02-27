@@ -69,6 +69,7 @@ bool ScenarioManager::IsRunning()
 
 void ScenarioManager::ThreadRoutine()
 {
+  // TODO(AB): protect with m_mutex?
   std::string const scenarioName = m_scenarioData.m_name;
   if (m_onStartHandler != nullptr)
     m_onStartHandler(scenarioName);

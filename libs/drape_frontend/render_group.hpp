@@ -58,7 +58,6 @@ class RenderGroup : public BaseRenderGroup
 
 public:
   RenderGroup(dp::RenderState const & state, TileKey const & tileKey);
-  ~RenderGroup() override;
 
   void Update(ScreenBase const & modelView);
   void CollectOverlay(ref_ptr<dp::OverlayTree> tree);

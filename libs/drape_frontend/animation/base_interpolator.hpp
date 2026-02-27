@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/macros.hpp"
+
 namespace df
 {
 class BaseInterpolator
@@ -7,6 +9,8 @@ class BaseInterpolator
 public:
   explicit BaseInterpolator(double duration, double delay = 0);
   virtual ~BaseInterpolator();
+
+  DISALLOW_COPY_AND_MOVE(BaseInterpolator);
 
   bool IsFinished() const;
   virtual void Advance(double elapsedSeconds);
