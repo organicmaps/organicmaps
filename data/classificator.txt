@@ -1352,6 +1352,7 @@ world  +
         kiosk  -
         kitchen  -
         laundry  -
+        leather  -
         lighting  -
         lottery  -
         mall  -
@@ -1376,6 +1377,7 @@ world  +
         pet  -
         pet_grooming  -
         photo  -
+        religion  -
         rental  -
         seafood  -
         second_hand  -
