@@ -136,12 +136,15 @@ struct CountriesInfo
   MwmTopCountryGeoIds m_mwmTopCountryGeoIds;
   /// @}
 
+  std::unordered_map<CountryId, std::string> m_mwmToOld;
+
   void Clear()
   {
     m_affiliations.clear();
     m_countryNameSynonyms.clear();
     m_mwmTopCityGeoIds.clear();
     m_mwmTopCountryGeoIds.clear();
+    m_mwmToOld.clear();
   }
 };
 
