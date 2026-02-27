@@ -38,17 +38,13 @@ CountryId GetTopmostParentFor(CountryTree const & countries, CountryId const & c
 
 std::optional<CountryTree> LoadCountriesFromFile(std::string const & path)
 {
-  Affiliations affiliations;
-  CountryNameSynonyms countryNameSynonyms;
-  MwmTopCityGeoIds mwmTopCityGeoIds;
-  MwmTopCountryGeoIds mwmTopCountryGeoIds;
   CountryTree countries;
-  auto const res =
-      LoadCountriesFromFile(path, countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  CountriesInfo countriesInfo;
+  auto const res = LoadCountriesFromFile(path, countries, countriesInfo);
 
   if (res == -1)
     return {};
 
-  return std::optional<CountryTree>(std::move(countries));
+  return std::move(countries);
 }
 }  // namespace storage
