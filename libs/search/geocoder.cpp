@@ -425,6 +425,8 @@ void Geocoder::Finish(bool cancelled)
 void Geocoder::ClearCaches()
 {
   m_pivotRectsCache.Clear();
+  m_postcodesRectsCache.Clear();
+  m_suburbsRectsCache.Clear();
   m_localityRectsCache.Clear();
 
   m_matchersCache.clear();
@@ -600,9 +602,9 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
 
     ctx.m_villages = m_localitiesCaches.m_villages.Get(*m_context);
 
-    auto const citiesFromWorld = m_cities;
+    auto citiesFromWorld = m_cities;
     FillVillageLocalities(ctx);
-    SCOPE_GUARD(remove_villages, [&]() { m_cities = citiesFromWorld; });
+    SCOPE_GUARD(remove_villages, [&]() { m_cities = std::move(citiesFromWorld); });
 
     if (m_params.IsCategorialRequest())
     {
@@ -1909,7 +1911,7 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
   case RectId::Pivot: return m_pivotRectsCache.Get(context, rect, m_params.m_scale);
   case RectId::Postcode: return m_postcodesRectsCache.Get(context, rect, m_params.m_scale);
   case RectId::Locality: return m_localityRectsCache.Get(context, rect, m_params.m_scale);
-  case RectId::Suburb: return m_localityRectsCache.Get(context, rect, m_params.m_scale);
+  case RectId::Suburb: return m_suburbsRectsCache.Get(context, rect, m_params.m_scale);
   case RectId::Count: ASSERT(false, ("Invalid RectId.")); return CBV();
   }
   UNREACHABLE();
