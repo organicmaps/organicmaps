@@ -508,9 +508,9 @@ def main(text_to_translate: str, context: str):
         print(lang + ":" + translations[lang])
 
     print("\n============ strings.txt format ============")
-    print("    en =", en)
+    print("en =", en)
     for lang in langs:
-        print("   ", lang, "=", translations[lang])
+        print(lang, "=", translations[lang])
 
 
 if __name__ == "__main__":
