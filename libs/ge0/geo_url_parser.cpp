@@ -21,6 +21,11 @@ double constexpr kEps = 1e-10;
 //    maximal zoom levels.
 double constexpr kMaxZoom = 20.0;
 
+std::string_view ToView(std::ssub_match const & sm)
+{
+  return {&*sm.first, static_cast<size_t>(sm.length())};
+}
+
 bool MatchLatLonZoom(string const & s, regex const & re, size_t lati, size_t loni, size_t zoomi, GeoURLInfo & info)
 {
   std::smatch m;
@@ -28,9 +33,9 @@ bool MatchLatLonZoom(string const & s, regex const & re, size_t lati, size_t lon
     return false;
 
   double lat, lon, zoom;
-  VERIFY(strings::to_double(m[lati].str(), lat), ());
-  VERIFY(strings::to_double(m[loni].str(), lon), ());
-  VERIFY(strings::to_double(m[zoomi].str(), zoom), ());
+  VERIFY(strings::to_double(ToView(m[lati]), lat), ());
+  VERIFY(strings::to_double(ToView(m[loni]), lon), ());
+  VERIFY(strings::to_double(ToView(m[zoomi]), zoom), ());
   if (info.SetLat(lat) && info.SetLon(lon))
   {
     info.SetZoom(zoom);
@@ -91,8 +96,8 @@ void LatLonParser::operator()(std::string name, std::string const & value)
     if (std::regex_search(value, m, m_regexp) && m.size() == 3)
     {
       double lat, lon;
-      VERIFY(strings::to_double(m[1].str(), lat), ());
-      VERIFY(strings::to_double(m[2].str(), lon), ());
+      VERIFY(strings::to_double(ToView(m[1]), lat), ());
+      VERIFY(strings::to_double(ToView(m[2]), lon), ());
 
       if (m_swapLatLon)
         std::swap(lat, lon);
@@ -146,7 +151,7 @@ int LatLonParser::GetCoordinatesPriority(string const & token)
   return -1;
 }
 
-std::string const kLatLon = R"(([+-]?\d+(?:\.\d+)?), *([+-]?\d+(?:\.\d+)?)(:?, *([+-]?\d+(?:\.\d+)?))?)";
+std::string const kLatLon = R"(([+-]?\d+(?:\.\d+)?), *([+-]?\d+(?:\.\d+)?)(?:, *([+-]?\d+(?:\.\d+)?))?)";
 
 GeoParser::GeoParser() : m_latlonRe(kLatLon), m_zoomRe(kFloatIntScale) {}
 
@@ -215,8 +220,8 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
     }
 
     double lat, lon;
-    VERIFY(strings::to_double(m[1].str(), lat), ());
-    VERIFY(strings::to_double(m[2].str(), lon), ());
+    VERIFY(strings::to_double(ToView(m[1]), lat), ());
+    VERIFY(strings::to_double(ToView(m[2]), lon), ());
     if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
     {
       LOG(LWARNING, ("Invalid lat,lon in", raw));
@@ -234,11 +239,11 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
   {
     // Try to extract lat,lon from q=
     std::smatch m;
-    if (std::regex_match(*q, m, m_latlonRe) && m.size() != 3)
+    if (std::regex_match(*q, m, m_latlonRe))
     {
       double lat, lon;
-      VERIFY(strings::to_double(m[1].str(), lat), ());
-      VERIFY(strings::to_double(m[2].str(), lon), ());
+      VERIFY(strings::to_double(ToView(m[1]), lat), ());
+      VERIFY(strings::to_double(ToView(m[2]), lon), ());
       if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
       {
         LOG(LWARNING, ("Invalid lat,lon after q=", raw));
@@ -275,7 +280,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
     if (std::regex_match(*z, m, m_zoomRe) && m.size() == 2)
     {
       double zoom;
-      VERIFY(strings::to_double(m[0].str(), zoom), ());
+      VERIFY(strings::to_double(ToView(m[0]), zoom), ());
       info.SetZoom(zoom);
     }
     else
@@ -330,8 +335,8 @@ void GeoURLInfo::Reset()
   m_lat = ms::LatLon::kInvalid;
   m_lon = ms::LatLon::kInvalid;
   m_zoom = 0.0;
-  m_query = "";
-  m_label = "";
+  m_query.clear();
+  m_label.clear();
 }
 
 void GeoURLInfo::SetZoom(double x)

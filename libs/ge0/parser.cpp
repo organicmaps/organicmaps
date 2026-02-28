@@ -15,17 +15,6 @@
 
 namespace ge0
 {
-Ge0Parser::Ge0Parser()
-{
-  for (size_t i = 0; i < 256; ++i)
-    m_base64ReverseCharTable[i] = 255;
-  for (uint8_t i = 0; i < 64; ++i)
-  {
-    char c = Base64Char(i);
-    m_base64ReverseCharTable[static_cast<uint8_t>(c)] = i;
-  }
-}
-
 bool Ge0Parser::Parse(std::string const & url, Result & result)
 {
   // Original URL format:
@@ -64,7 +53,7 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
     return false;
   result.m_zoomLevel = DecodeZoom(zoomI);
 
-  if (!DecodeLatLon(url.substr(posLatLon, lengthLatLon), result.m_lat, result.m_lon))
+  if (!DecodeLatLon(std::string_view{url}.substr(posLatLon, lengthLatLon), result.m_lat, result.m_lon))
     return false;
 
   ASSERT(mercator::ValidLat(result.m_lat), (result.m_lat));
@@ -83,7 +72,7 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
 
 uint8_t Ge0Parser::DecodeBase64Char(char const c)
 {
-  return m_base64ReverseCharTable[static_cast<uint8_t>(c)];
+  return kBase64ReverseCharTable[static_cast<uint8_t>(c)];
 }
 
 double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
@@ -92,7 +81,7 @@ double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
   return static_cast<double>(zoomByte) / 4 + 4;
 }
 
-bool Ge0Parser::DecodeLatLon(std::string const & s, double & lat, double & lon)
+bool Ge0Parser::DecodeLatLon(std::string_view s, double & lat, double & lon)
 {
   int latInt = 0;
   int lonInt = 0;
@@ -104,8 +93,11 @@ bool Ge0Parser::DecodeLatLon(std::string const & s, double & lat, double & lon)
   return true;
 }
 
-bool Ge0Parser::DecodeLatLonToInt(std::string const & s, int & lat, int & lon)
+bool Ge0Parser::DecodeLatLonToInt(std::string_view s, int & lat, int & lon)
 {
+  if (s.size() > static_cast<size_t>(kMaxPointBytes))
+    return false;
+
   int shift = kMaxCoordBits - 3;
   for (size_t i = 0; i < s.size(); ++i, shift -= 3)
   {
@@ -118,9 +110,13 @@ bool Ge0Parser::DecodeLatLonToInt(std::string const & s, int & lat, int & lon)
     lat |= lat1 << shift;
     lon |= lon1 << shift;
   }
-  double const middleOfSquare = 1 << (3 * (kMaxPointBytes - s.size()) - 1);
-  lat += middleOfSquare;
-  lon += middleOfSquare;
+  int const remainingBits = 3 * (kMaxPointBytes - static_cast<int>(s.size())) - 1;
+  if (remainingBits >= 0)
+  {
+    int const middleOfSquare = 1 << remainingBits;
+    lat += middleOfSquare;
+    lon += middleOfSquare;
+  }
   return true;
 }
 
