@@ -64,8 +64,6 @@ void GuidesConnections::UpdateOsmConnections(size_t checkpointIdx, std::vector<C
     m_connectionsToOsm.erase(it);
 }
 
-GuidesConnections::GuidesConnections(GuidesTracks const & guides) : m_allTracks(guides) {}
-
 void GuidesConnections::PullCheckpointsToTracks(std::vector<m2::PointD> const & checkpoints)
 {
   for (size_t checkpointIdx = 0; checkpointIdx < checkpoints.size(); ++checkpointIdx)

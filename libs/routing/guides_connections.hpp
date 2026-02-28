@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/edge_estimator.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/fake_vertex.hpp"
 #include "routing/guides_graph.hpp"
@@ -12,9 +11,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
-#include <cstdint>
 #include <map>
-#include <utility>
 #include <vector>
 
 namespace routing
@@ -64,7 +61,7 @@ class GuidesConnections
 {
 public:
   GuidesConnections() = default;
-  GuidesConnections(GuidesTracks const & guides);
+  GuidesConnections(GuidesTracks && guides) : m_allTracks(std::move(guides)) {}
 
   // Sets mwm id and speed values for guides graph.
   void SetGuidesGraphParams(NumMwmId mwmId, double maxSpeed);

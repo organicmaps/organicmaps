@@ -91,6 +91,7 @@ double Route::GetTotalTimeSec() const
 
 double Route::GetCurrentTimeToEndSec() const
 {
+  ASSERT(!m_routeSegments.empty(), ());
   return GetCurrentTimeToSegmentSec(m_routeSegments.size() - 1);
 }
 

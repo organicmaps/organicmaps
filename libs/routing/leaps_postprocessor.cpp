@@ -1,19 +1,15 @@
 #include "routing/leaps_postprocessor.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 #include "base/non_intersecting_intervals.hpp"
-#include "base/scope_guard.hpp"
 
 #include <algorithm>
-#include <iterator>
 #include <sstream>
-#include <utility>
 
+namespace routing
+{
 namespace
 {
-using namespace routing;
-
 class NonIntersectingSegmentPaths
 {
 public:
@@ -32,11 +28,6 @@ private:
   std::vector<LeapsPostProcessor::PathInterval> m_intervals;
 };
 }  // namespace
-
-namespace routing
-{
-// static
-size_t const LeapsPostProcessor::kMaxStep = 5;
 
 /// \brief It is assumed that there in no cycles in path.
 /// But sometimes it's wrong (because of heuristic searching of intermediate
@@ -135,9 +126,12 @@ std::vector<Segment> LeapsPostProcessor::GetProcessedPath()
 auto LeapsPostProcessor::CalculateIntervalsToRelax() -> std::set<PathInterval, PathInterval::GreaterByWeight>
 {
   std::set<PathInterval, PathInterval::GreaterByWeight> result;
+  std::map<Segment, SegmentData> segmentsData;
+
   for (size_t right = kMaxStep; right < m_path.size(); ++right)
   {
-    std::map<Segment, SegmentData> segmentsData;
+    segmentsData.clear();
+
     auto const & segment = m_path[right];
     segmentsData.emplace(segment, SegmentData(0, m_starter.CalculateETAWithoutPenalty(segment)));
 

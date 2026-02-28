@@ -7,18 +7,13 @@
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 
-#include "platform/platform.hpp"
-
 #include "base/thread.hpp"
 
 #include <condition_variable>
-#include <cstdint>
-#include <map>
 #include <memory>
 #include <mutex>
 #include <set>
 #include <string>
-#include <utility>
 
 namespace routing
 {

@@ -5,9 +5,6 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/segment.hpp"
 
-#include "base/math.hpp"
-
-#include <cstdint>
 #include <map>
 #include <set>
 #include <string>
@@ -59,7 +56,7 @@ public:
   std::vector<Segment> GetProcessedPath();
 
 private:
-  static size_t const kMaxStep;
+  static size_t constexpr kMaxStep = 5;
 
   struct SegmentData
   {

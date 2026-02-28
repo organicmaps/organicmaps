@@ -6,7 +6,6 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
-#include <sstream>
 
 namespace routing
 {
@@ -53,7 +52,7 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
     ASSERT_GREATER(speedFactor.m_eta, 0.0, ());
     m_surfaceFactors.Insert(classif.GetTypeByPath(v.m_type), speedFactor);
 
-    if (v.m_type[1] == "paved_bad")
+    if (*(v.m_type.begin() + 1) == std::string_view("paved_bad"))
       m_minSurfaceFactorForMaxspeed = speedFactor;
   }
 }
@@ -71,7 +70,7 @@ void VehicleModel::AddAdditionalRoadTypes(Classificator const & classif, Additio
   }
 }
 
-std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureTypes const & types) const
+optional<HighwayType> VehicleModel::GetHighwayType(FeatureTypes const & types) const
 {
   for (uint32_t t : types)
   {
@@ -310,38 +309,24 @@ HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel()
 
 string DebugPrint(SpeedKMpH const & speed)
 {
-  ostringstream oss;
-  oss << "SpeedKMpH [ ";
-  oss << "weight:" << speed.m_weight << ", ";
-  oss << "eta:" << speed.m_eta << " ]";
-  return oss.str();
+  return "SpeedKMpH [ weight:" + to_string(speed.m_weight) + ", eta:" + to_string(speed.m_eta) + " ]";
 }
 
-std::string DebugPrint(SpeedFactor const & speedFactor)
+string DebugPrint(SpeedFactor const & speedFactor)
 {
-  ostringstream oss;
-  oss << "SpeedFactor [ ";
-  oss << "weight:" << speedFactor.m_weight << ", ";
-  oss << "eta:" << speedFactor.m_eta << " ]";
-  return oss.str();
+  return "SpeedFactor [ weight:" + to_string(speedFactor.m_weight) + ", eta:" + to_string(speedFactor.m_eta) + " ]";
 }
 
 string DebugPrint(InOutCitySpeedKMpH const & speed)
 {
-  ostringstream oss;
-  oss << "InOutCitySpeedKMpH [ ";
-  oss << "inCity:" << DebugPrint(speed.m_inCity) << ", ";
-  oss << "outCity:" << DebugPrint(speed.m_outCity) << " ]";
-  return oss.str();
+  return "InOutCitySpeedKMpH [ inCity:" + DebugPrint(speed.m_inCity) + ", outCity:" + DebugPrint(speed.m_outCity) +
+         " ]";
 }
 
 string DebugPrint(InOutCityFactor const & speedFactor)
 {
-  ostringstream oss;
-  oss << "InOutCityFactor [ ";
-  oss << "inCity:" << DebugPrint(speedFactor.m_inCity) << ", ";
-  oss << "outCity:" << DebugPrint(speedFactor.m_outCity) << " ]";
-  return oss.str();
+  return "InOutCityFactor [ inCity:" + DebugPrint(speedFactor.m_inCity) +
+         ", outCity:" + DebugPrint(speedFactor.m_outCity) + " ]";
 }
 
 string DebugPrint(HighwayType type)
