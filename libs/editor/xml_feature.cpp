@@ -47,9 +47,10 @@ string_view constexpr kColon = ":";
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string_view k)
 {
-  string key = "//tag[@k='";
-  key.append(k).append("']");
-  return document.select_node(key.data()).node();
+  for (auto tag = document.first_child().child("tag"); tag; tag = tag.next_sibling("tag"))
+    if (tag.attribute("k").value() == k)
+      return tag;
+  return {};
 }
 
 ms::LatLon GetLatLonFromNode(pugi::xml_node const & node)

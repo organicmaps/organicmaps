@@ -85,7 +85,7 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
   if (openingTime.HasExtendedHours())
     openingTime.GetEnd().GetHourMinutes().AddDuration(24_h);
 
-  if (!DoesIncludeAll(openingTime, spans))
+  if (!DoesIncludeAll(openingTime, result))
     return false;
 
   for (auto & span : result)

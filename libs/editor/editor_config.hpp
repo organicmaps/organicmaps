@@ -16,11 +16,6 @@ struct TypeAggregatedDescription
   using EType = feature::Metadata::EType;
   using FeatureFields = std::vector<EType>;
 
-  bool IsEmpty() const
-  {
-    return IsNameEditable() || IsAddressEditable() || IsCuisineEditable() || !m_editableFields.empty();
-  }
-
   FeatureFields const & GetEditableFields() const { return m_editableFields; }
 
   bool IsNameEditable() const { return m_name; }

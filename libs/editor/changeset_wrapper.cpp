@@ -69,7 +69,7 @@ std::vector<m2::PointD> NaiveSample(std::vector<m2::PointD> const & source, size
 
   std::random_device r;
   std::minstd_rand engine(r());
-  std::uniform_int_distribution<size_t> distrib(0, source.size());
+  std::uniform_int_distribution<size_t> distrib(0, source.size() - 1);
 
   while (count--)
   {

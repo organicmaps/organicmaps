@@ -1,6 +1,8 @@
 #pragma once
 
-#include <string>
+#include <string_view>
+
+#include "base/assert.hpp"
 
 /// Used to store and edit 3-state OSM information, for example,
 /// "This place has internet", "does not have", or "it's not specified yet".
@@ -14,7 +16,7 @@ enum YesNoUnknown
   No = 2
 };
 
-inline std::string DebugPrint(YesNoUnknown value)
+inline std::string_view DebugPrint(YesNoUnknown value)
 {
   switch (value)
   {
@@ -22,5 +24,6 @@ inline std::string DebugPrint(YesNoUnknown value)
   case Yes: return "Yes";
   case No: return "No";
   }
+  UNREACHABLE();
 }
 }  // namespace osm
