@@ -1,0 +1,19 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace 'app.organicmaps.sdk.car'
+}
+
+dependencies {
+  // We can't use 1.8.0-alpha03 version of car app library because it requires minSdk 23, but we want to support minSdk 21.
+  implementation 'androidx.car.app:app:1.8.0-alpha02'
+  implementation 'androidx.car.app:app-projected:1.8.0-alpha02'
+
+  implementation project(':sdk')
+  implementation project(':sdk:widgets:speedlimit')
+  implementation project(':sdk:widgets:lanes')
+}

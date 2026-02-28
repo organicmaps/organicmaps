@@ -10,7 +10,7 @@ import androidx.car.app.model.DistanceSpan;
 import androidx.car.app.model.ForegroundCarColorSpan;
 import app.organicmaps.R;
 import app.organicmaps.car.util.Colors;
-import app.organicmaps.car.util.RoutingHelpers;
+import app.organicmaps.sdk.car.RoutingHelpers;
 import app.organicmaps.sdk.search.SearchResult;
 import java.util.ArrayList;
 import java.util.List;

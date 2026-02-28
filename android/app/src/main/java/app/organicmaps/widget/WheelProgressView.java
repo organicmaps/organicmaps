@@ -17,7 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import app.organicmaps.R;
-import app.organicmaps.util.Graphics;
+import app.organicmaps.sdk.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 
 /**

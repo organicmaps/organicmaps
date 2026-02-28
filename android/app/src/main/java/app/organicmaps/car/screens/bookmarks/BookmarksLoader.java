@@ -17,12 +17,12 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.util.Colors;
-import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
+import app.organicmaps.sdk.car.RoutingHelpers;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -164,7 +164,9 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
         final Drawable drawable = Graphics.drawCircleAndImage(icon.argb(), R.dimen.track_circle_size, icon.getResId(),
                                                               R.dimen.bookmark_icon_size, mCarContext);
         final CarIcon carIcon =
-            new CarIcon.Builder(IconCompat.createWithBitmap(Graphics.drawableToBitmap(drawable))).build();
+            new CarIcon
+                .Builder(IconCompat.createWithBitmap(app.organicmaps.sdk.util.Graphics.drawableToBitmap(drawable)))
+                .build();
         iconsCache.put(icon, carIcon);
       }
       itemBuilder.setImage(Objects.requireNonNull(iconsCache.get(icon)));

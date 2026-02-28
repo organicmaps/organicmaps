@@ -14,13 +14,13 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
-import app.organicmaps.car.renderer.Renderer;
-import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.bookmarks.BookmarkCategoriesScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
 import app.organicmaps.car.util.SuggestionsHelpers;
 import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.sdk.car.renderer.Renderer;
+import app.organicmaps.sdk.car.screens.BaseMapScreen;
 
 public class MapScreen extends BaseMapScreen
 {

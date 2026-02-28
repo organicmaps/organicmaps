@@ -12,19 +12,14 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.car.renderer.Renderer;
-import app.organicmaps.car.renderer.RendererFactory;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
-import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
-import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
-import app.organicmaps.car.util.CarSensorsManager;
 import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
@@ -32,6 +27,10 @@ import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.car.CarSensorsManager;
+import app.organicmaps.sdk.car.renderer.Renderer;
+import app.organicmaps.sdk.car.renderer.RendererFactory;
+import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayChangedListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.display.DisplayType;
@@ -114,7 +113,8 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mSensorsManager = new CarSensorsManager(getCarContext());
+    mSensorsManager = new CarSensorsManager(getCarContext(), MwmApplication.from(getCarContext()).getSensorHelper(),
+                                            MwmApplication.from(getCarContext()).getLocationHelper());
     mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Car, this);
     mSurfaceRenderer = RendererFactory.create(getCarContext(), mDisplayManager,
@@ -188,7 +188,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       return new ErrorScreen.Builder(getCarContext()).setErrorMessage(R.string.dialog_error_storage_message).build();
 
     final List<Screen> screensStack = new ArrayList<>();
-    screensStack.add(new MapScreen(getCarContext(), mSurfaceRenderer));
+    screensStack.add(new app.organicmaps.car.screens.MapScreen(getCarContext(), mSurfaceRenderer));
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
       screensStack.add(RequestPermissionsScreenBuilder.build(getCarContext(), mSensorsManager::onStart));
