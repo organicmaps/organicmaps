@@ -56,13 +56,6 @@ bool SegmentEdge::operator==(SegmentEdge const & edge) const
   return m_target == edge.m_target && m_weight == edge.m_weight;
 }
 
-bool SegmentEdge::operator<(SegmentEdge const & edge) const
-{
-  if (m_target != edge.m_target)
-    return m_target < edge.m_target;
-  return m_weight < edge.m_weight;
-}
-
 std::string DebugPrint(Segment const & segment)
 {
   std::ostringstream out;

@@ -39,7 +39,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
   {
     JointSegment const & target = jointEdges[i].GetTarget();
 
-    vector<Segment> twins;
+    TwinSegmentsListT twins;
     m_crossMwmGraph->GetTwinFeature(target.GetSegment(true /* start */), isOutgoing, twins);
     if (twins.empty())
     {
@@ -194,7 +194,7 @@ RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, ui
   return m_loader->GetGeometry(mwmId).GetRoad(featureId);
 }
 
-void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, vector<Segment> & twins)
+void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
 {
   m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
 }

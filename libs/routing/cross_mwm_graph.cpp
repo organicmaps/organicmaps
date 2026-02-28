@@ -5,7 +5,6 @@
 #include "routing/transit_graph.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 
 #include "defines.hpp"
 
@@ -76,7 +75,7 @@ void CrossMwmGraph::DeserializeTransitTransitions(vector<NumMwmId> const & mwmId
   }
 }
 
-void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment> & twins)
+void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins)
 {
   ASSERT(IsTransition(s, isOutgoing), (s, isOutgoing));
   // Note. There's an extremely rare case when a segment is ingoing and outgoing at the same time.
@@ -178,7 +177,7 @@ void CrossMwmGraph::Purge()
   m_crossMwmTransitGraph.Purge();
 }
 
-void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, vector<Segment> & twins)
+void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
 {
   m_crossMwmIndexGraph.ForEachTransitSegmentId(segment.GetMwmId(), segment.GetFeatureId(),
                                                [&](uint32_t transitSegmentId)

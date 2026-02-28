@@ -12,10 +12,8 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace routing
@@ -202,38 +200,25 @@ private:
   }
 
   template <class Source>
-  static bool DeserializeNotUTurn(RestrictionHeader const & header, uint32_t count, RestrictionVec & result,
+  static void DeserializeNotUTurn(RestrictionHeader const & header, uint32_t count, RestrictionVec & result,
                                   Source & src)
   {
     uint32_t prevFirstLinkFeatureId = 0;
     BitReader<Source> bits(src);
     for (size_t i = 0; i < count; ++i)
     {
-      auto const biasedLinkNumber = coding::DeltaCoder::Decode(bits);
-      if (biasedLinkNumber == 0)
-      {
-        LOG(LERROR, ("Decoded link restriction number is zero."));
-        return false;
-      }
-      auto const numLinks = static_cast<size_t>(biasedLinkNumber + 1 /* number of link is two or more */);
+      auto const numLinks = coding::DeltaCoder::Decode(bits) + 1;  // number of link is two or more
+      ASSERT(numLinks > 1, ());
 
       std::vector<uint32_t> restriction(numLinks);
       auto const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
-      if (biasedFirstFeatureId == 0)
-      {
-        LOG(LERROR, ("Decoded first link restriction feature id delta is zero."));
-        return false;
-      }
+      ASSERT(biasedFirstFeatureId > 0, ());
 
-      restriction[0] = prevFirstLinkFeatureId + base::checked_cast<uint32_t>(biasedFirstFeatureId) - 1;
+      restriction[0] = prevFirstLinkFeatureId + biasedFirstFeatureId - 1;
       for (size_t j = 1; j < numLinks; ++j)
       {
         auto const biasedDelta = coding::DeltaCoder::Decode(bits);
-        if (biasedDelta == 0)
-        {
-          LOG(LERROR, ("Decoded link restriction feature id delta is zero."));
-          return false;
-        }
+        ASSERT(biasedDelta > 0, ());
 
         uint32_t const delta = base::asserted_cast<uint32_t>(biasedDelta - 1);
         restriction[j] = static_cast<uint32_t>(bits::ZigZagDecode(delta) + restriction[j - 1]);
@@ -250,8 +235,6 @@ private:
 
       result.emplace_back(std::move(restriction));
     }
-
-    return true;
   }
 
   /// \brief Serializes a range of restrictions form |begin| to |end| to |sink|.
@@ -299,19 +282,14 @@ private:
   }
 
   template <class Source>
-  static bool DeserializeUTurn(uint32_t count, std::vector<RestrictionUTurn> & result, Source & src)
+  static void DeserializeUTurn(uint32_t count, std::vector<RestrictionUTurn> & result, Source & src)
   {
     uint32_t prevFeatureId = 0;
-    BitReader<Source> bits(src);
     for (size_t i = 0; i < count; ++i)
     {
       uint32_t currentFeatureId = 0;
       auto const biasedFirstFeatureId = ReadVarUint<uint32_t>(src);
-      if (biasedFirstFeatureId == 0)
-      {
-        LOG(LERROR, ("Decoded first link restriction feature id delta is zero."));
-        return false;
-      }
+      ASSERT(biasedFirstFeatureId > 0, ());  // have CHECK in serialization
 
       currentFeatureId = prevFeatureId + biasedFirstFeatureId;
       prevFeatureId = currentFeatureId;
@@ -322,8 +300,6 @@ private:
       featureIdAfterZigZag ^= featureIdAfterZigZag & kUTurnAtTheBeginMask;
       result.emplace_back(featureIdAfterZigZag, viaNodeIsFirstFeturePoint);
     }
-
-    return true;
   }
 };
 

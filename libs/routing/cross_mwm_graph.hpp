@@ -7,7 +7,6 @@
 #include "routing/vehicle_mask.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-#include "routing_common/vehicle_model.hpp"
 
 #include "geometry/tree4d.hpp"
 
@@ -62,6 +61,9 @@ public:
   /// transition segment.
   bool IsTransition(Segment const & s, bool isOutgoing);
 
+  using TwinSegmentsListT = CrossMwmIndexGraph<base::GeoObjectId>::TwinSegmentsListT;
+  using EdgeListT = CrossMwmIndexGraph<base::GeoObjectId>::EdgeListT;
+
   /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
   /// If |isOutgoing| == true |s| should be an exit transition segment and
@@ -73,9 +75,7 @@ public:
   /// \note GetTwins(s, isOutgoing, twins) fills |twins| only if mwm contained |twins| has been
   /// downloaded.
   /// If not, |twins| could be emply after a GetTwins(...) call.
-  void GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins);
-
-  using EdgeListT = CrossMwmIndexGraph<base::GeoObjectId>::EdgeListT;
+  void GetTwins(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins);
 
   /// \brief Fills |edges| with edges outgoing from |s|.
   /// |s| should be an enter transition segment, |edges| is filled with all edges starting from |s|
@@ -100,7 +100,7 @@ public:
 
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.
   ///        If yes twin-segments are saved to |twins|.
-  void GetTwinFeature(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins);
+  void GetTwinFeature(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins);
 
 private:
   MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;

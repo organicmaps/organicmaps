@@ -195,7 +195,7 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
   return {};
 }
 
-void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, vector<Segment> & twins)
+void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing, TwinSegmentsListT & twins)
 {
   if (m_mode == WorldGraphMode::SingleMwm || !m_crossMwmGraph || !m_crossMwmGraph->IsTransition(segment, isOutgoing))
     return;

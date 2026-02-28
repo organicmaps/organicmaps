@@ -37,9 +37,10 @@ SpeedCameraManager::Interval SpeedCameraManager::GetIntervalByDistToCam(double d
 void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & info)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(!m_route.expired(), ());
+  auto route = m_route.lock();
+  CHECK(route, ());
 
-  auto const passedDistanceMeters = m_route.lock()->GetCurrentDistanceFromBeginMeters();
+  auto const passedDistanceMeters = route->GetCurrentDistanceFromBeginMeters();
 
   // Step 1. Find new cameras and cache them.
   FindCamerasOnRouteAndCache(passedDistanceMeters);
@@ -166,9 +167,10 @@ std::string SpeedCameraManagerModeForStat(SpeedCameraManagerMode mode)
 
 void SpeedCameraManager::FindCamerasOnRouteAndCache(double passedDistanceMeters)
 {
-  CHECK(!m_route.expired(), ());
+  auto route = m_route.lock();
+  CHECK(route, ());
 
-  auto const & segments = m_route.lock()->GetRouteSegments();
+  auto const & segments = route->GetRouteSegments();
   size_t firstNotChecked = m_firstNotCheckedSpeedCameraIndex;
   if (firstNotChecked == segments.size())
     return;
@@ -188,16 +190,11 @@ void SpeedCameraManager::FindCamerasOnRouteAndCache(double passedDistanceMeters)
     auto const & endPoint = lastSegment.GetJunction().GetPoint();
     auto const & startPoint = prevSegment.GetJunction().GetPoint();
     auto const direction = endPoint - startPoint;
+    double const segmentLength = route->GetSegLenMeters(firstNotChecked);
 
-    auto const & speedCamsVector = lastSegment.GetSpeedCams();
-    double segmentLength = m_route.lock()->GetSegLenMeters(firstNotChecked);
-
-    for (auto const & speedCam : speedCamsVector)
-    {
-      segmentLength *= speedCam.m_coef;
-      m_cachedSpeedCameras.emplace(distToPrevSegment + segmentLength, speedCam.m_maxSpeedKmPH,
+    for (auto const & speedCam : lastSegment.GetSpeedCams())
+      m_cachedSpeedCameras.emplace(distToPrevSegment + segmentLength * speedCam.m_coef, speedCam.m_maxSpeedKmPH,
                                    startPoint + direction * speedCam.m_coef);
-    }
 
     distToPrevSegment = lastSegment.GetDistFromBeginningMeters();
     distFromCurPosToLatestCheckedSegmentM = distToPrevSegment - passedDistanceMeters;

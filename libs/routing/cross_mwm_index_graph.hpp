@@ -14,11 +14,8 @@
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 
-#include "indexer/data_source.hpp"
-
 #include "base/logging.hpp"
 
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <type_traits>
@@ -74,11 +71,13 @@ public:
     GetCrossMwmConnectorWithTransitions(numMwmId).ForEachTransitSegmentId(featureId, fn);
   }
 
+  using TwinSegmentsListT = SmallList<Segment>;
+
   /// \brief Fills |twins| based on transitions defined in cross_mwm section.
   /// \note In cross_mwm section transitions are defined by osm ids of theirs features.
   /// This method fills |twins| with all available twins iff all neighbor MWMs of |s| have cross_mwm section.
   void GetTwinsByCrossMwmId(Segment const & s, bool isOutgoing, std::vector<NumMwmId> const & neighbors,
-                            std::vector<Segment> & twins)
+                            TwinSegmentsListT & twins)
   {
     auto const & crossMwmId = GetCrossMwmConnectorWithTransitions(s.GetMwmId()).GetCrossMwmId(s);
 

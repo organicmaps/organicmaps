@@ -2,20 +2,16 @@
 
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera.hpp"
 #include "routing/turns_notification_manager.hpp"
 
 #include "platform/location.hpp"
 
-#include "base/assert.hpp"
 #include "base/thread_checker.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <queue>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace routing

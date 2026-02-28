@@ -5,9 +5,6 @@
 
 #include "base/assert.hpp"
 
-#include <set>
-#include <utility>
-
 namespace routing
 {
 LeapsGraph::LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hierarchyHandler)
@@ -65,7 +62,7 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing, EdgeList
   {
     auto const segMwmId = segment.GetMwmId();
 
-    std::vector<Segment> twins;
+    WorldGraph::TwinSegmentsListT twins;
     m_starter.GetGraph().GetTwinsInner(segment, isOutgoing, twins);
     for (auto const & twin : twins)
       edges.emplace_back(twin, m_hierarchyHandler.GetCrossBorderPenalty(segMwmId, twin.GetMwmId()));

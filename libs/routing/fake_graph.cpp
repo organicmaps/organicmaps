@@ -31,10 +31,21 @@ void FakeGraph::AddVertex(Segment const & existentSegment, Segment const & newSe
   }
 }
 
+namespace
+{
+template <class MapT, class KeyT>
+auto const & AtChecked(MapT const & m, KeyT const & k)
+{
+  auto it = m.find(k);
+  CHECK(it != m.end(), (k));
+  return it->second;
+}
+}  // namespace
+
 void FakeGraph::AddConnection(Segment const & from, Segment const & to)
 {
-  ASSERT(m_segmentToVertex.find(from) != m_segmentToVertex.end(), ("Segment", from, "does not exist in fake graph."));
-  ASSERT(m_segmentToVertex.find(to) != m_segmentToVertex.end(), ("Segment", to, "does not exist in fake graph."));
+  ASSERT(m_segmentToVertex.find(from) != m_segmentToVertex.end(), (from));
+  ASSERT(m_segmentToVertex.find(to) != m_segmentToVertex.end(), (to));
   m_outgoing[from].insert(to);
   m_ingoing[to].insert(from);
 }
@@ -75,9 +86,7 @@ void FakeGraph::Append(FakeGraph const & rhs)
 
 FakeVertex const & FakeGraph::GetVertex(Segment const & segment) const
 {
-  auto const it = m_segmentToVertex.find(segment);
-  CHECK(it != m_segmentToVertex.end(), ("Vertex for invalid fake segment requested."));
-  return it->second;
+  return AtChecked(m_segmentToVertex, segment);
 }
 
 std::set<Segment> const & FakeGraph::GetEdges(Segment const & segment, bool isOutgoing) const
@@ -130,10 +139,7 @@ void FakeGraph::ConnectLoopToGuideSegments(FakeVertex const & loop, Segment cons
                                            LatLonWithAltitude const & guidesSegmentTo,
                                            std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal)
 {
-  auto itLoop = m_vertexToSegment.find(loop);
-  CHECK(itLoop != m_vertexToSegment.end(), (loop));
-
-  auto const & loopSegment = itLoop->second;
+  auto const & loopSegment = AtChecked(m_vertexToSegment, loop);
   auto const & loopPoint = loop.GetPointTo();
 
   auto const backwardReal = Segment(guidesSegment.GetMwmId(), guidesSegment.GetFeatureId(),
@@ -173,14 +179,14 @@ void FakeGraph::ConnectLoopToGuideSegments(FakeVertex const & loop, Segment cons
 void FakeGraph::ConnectLoopToExistentPartsOfReal(FakeVertex const & loop, Segment const & guidesSegment,
                                                  Segment const & directedGuidesSegment)
 {
-  auto const & loopSegment = m_vertexToSegment[loop];
+  auto const & loopSegment = AtChecked(m_vertexToSegment, loop);
   auto const & loopPoint = loop.GetPointTo();
 
   for (auto const & real : {guidesSegment, directedGuidesSegment})
   {
     for (auto const & partOfReal : GetFake(real))
     {
-      auto const & partOfRealVertex = m_segmentToVertex[partOfReal];
+      auto const & partOfRealVertex = AtChecked(m_segmentToVertex, partOfReal);
       if (partOfRealVertex.GetPointTo() == loopPoint)
       {
         m_outgoing[partOfReal].insert(loopSegment);

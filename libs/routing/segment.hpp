@@ -74,8 +74,8 @@ public:
   Segment const & GetTarget() const { return m_target; }
   RouteWeight const & GetWeight() const { return m_weight; }
   RouteWeight & GetWeight() { return m_weight; }
+  /// @note Used in tests only!
   bool operator==(SegmentEdge const & edge) const;
-  bool operator<(SegmentEdge const & edge) const;
 
 private:
   // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
