@@ -70,8 +70,8 @@ public:
     {
       TBase::Update(screen);
 
-      glsl::mat4 r = glsl::rotate(glsl::mat4(), angle, glsl::vec3(0.0, 0.0, 1.0));
-      glsl::mat4 m = glsl::translate(glsl::mat4(), glsl::vec3(m_pivot, 0.0));
+      glsl::mat4 r = glsl::rotate(glsl::mat4(1.f), angle, glsl::vec3(0.0, 0.0, 1.0));
+      glsl::mat4 m = glsl::translate(glsl::mat4(1.f), glsl::vec3(m_pivot, 0.0));
       m_params.m_modelView = glsl::transpose(m * r);
       m_params.m_opacity = static_cast<float>(m_animation.GetT());
     }
