@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -142,48 +143,26 @@ class Deserializer
 public:
   using LangPriorities = LangsBufferT;
 
-  template <typename Reader>
-  std::string Deserialize(Reader & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)
-  {
-    NonOwningReaderSource source(reader);
-    auto const version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
-
-    auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
-    CHECK(subReader, ());
-    CHECK(version == Version::V0, ());
-    return DeserializeV0(*subReader, featureIndex, langPriority);
-  }
-
-  template <typename Reader>
-  std::string DeserializeV0(Reader & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)
+  template <typename ReaderT>
+  std::string Deserialize(ReaderT & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)
   {
     InitializeIfNeeded(reader);
 
-    LangMetaOffset startOffset = 0;
-    LangMetaOffset endOffset = 0;
-    {
-      ReaderPtr<Reader> idsSubReader(CreateFeatureIndicesSubReader(reader));
-      DDVector<FeatureIndex, ReaderPtr<Reader>> ids(idsSubReader);
-      auto const it = std::lower_bound(ids.begin(), ids.end(), featureIndex);
-      if (it == ids.end() || *it != featureIndex)
-        return {};
+    auto const it = std::lower_bound(m_featureIds->begin(), m_featureIds->end(), featureIndex);
+    if (it == m_featureIds->end() || *it != featureIndex)
+      return {};
 
-      auto const d = static_cast<uint32_t>(std::distance(ids.begin(), it));
+    auto const d = static_cast<uint32_t>(std::distance(m_featureIds->begin(), it));
+    ASSERT_LESS(d, m_langMetaOffsets->size(), ());
+    ASSERT_LESS(d + 1, m_langMetaOffsets->size(), ());
 
-      ReaderPtr<Reader> ofsSubReader(CreateLangMetaOffsetsSubReader(reader));
-      DDVector<LangMetaOffset, ReaderPtr<Reader>> ofs(ofsSubReader);
-      CHECK_LESS(d, ofs.size(), ());
-      CHECK_LESS(d + 1, ofs.size(), ());
-
-      startOffset = ofs[d];
-      endOffset = ofs[d + 1];
-    }
+    auto const startOffset = (*m_langMetaOffsets)[d];
+    auto const endOffset = (*m_langMetaOffsets)[d + 1];
 
     LangMeta langMeta;
     {
-      auto langMetaSubReader = CreateLangMetaSubReader(reader, startOffset, endOffset);
-      NonOwningReaderSource source(*langMetaSubReader);
-
+      auto const pos = m_header.m_langMetaOffset + startOffset;
+      NonOwningReaderSource source(*m_dataReader, pos, pos + endOffset - startOffset);
       while (source.Size() > 0)
       {
         auto const lang = ReadPrimitiveFromSource<LangCode>(source);
@@ -192,79 +171,53 @@ public:
       }
     }
 
-    auto stringsSubReader = CreateStringsSubReader(reader);
     for (LangCode const lang : langPriority)
     {
       for (auto const & meta : langMeta)
         if (lang == meta.first)
-          return m_stringsReader.ExtractString(*stringsSubReader, meta.second);
+          return m_stringsReader.ExtractString(*m_stringsSubReader, meta.second);
     }
 
     return {};
   }
 
-  template <typename Reader>
-  std::unique_ptr<Reader> CreateFeatureIndicesSubReader(Reader & reader)
-  {
-    CHECK(m_initialized, ());
-
-    auto const pos = m_header.m_featuresOffset;
-    CHECK_GREATER_OR_EQUAL(m_header.m_langMetaOffset, pos, ());
-    auto const size = m_header.m_langMetaOffset - pos;
-    return reader.CreateSubReader(pos, size);
-  }
-
-  template <typename Reader>
-  std::unique_ptr<Reader> CreateLangMetaOffsetsSubReader(Reader & reader)
-  {
-    CHECK(m_initialized, ());
-
-    auto const pos = m_header.m_indexOffset;
-    CHECK_GREATER_OR_EQUAL(m_header.m_stringsOffset, pos, ());
-    auto const size = m_header.m_stringsOffset - pos;
-    return reader.CreateSubReader(pos, size);
-  }
-
-  template <typename Reader>
-  std::unique_ptr<Reader> CreateLangMetaSubReader(Reader & reader, LangMetaOffset startOffset, LangMetaOffset endOffset)
-  {
-    CHECK(m_initialized, ());
-
-    auto const pos = m_header.m_langMetaOffset + startOffset;
-    CHECK_GREATER_OR_EQUAL(m_header.m_indexOffset, pos, ());
-    auto const size = endOffset - startOffset;
-    CHECK_GREATER_OR_EQUAL(m_header.m_indexOffset, pos + size, ());
-    return reader.CreateSubReader(pos, size);
-  }
-
-  template <typename Reader>
-  std::unique_ptr<Reader> CreateStringsSubReader(Reader & reader)
-  {
-    CHECK(m_initialized, ());
-
-    auto const pos = m_header.m_stringsOffset;
-    CHECK_GREATER_OR_EQUAL(m_header.m_eosOffset, pos, ());
-    auto const size = m_header.m_eosOffset - pos;
-    return reader.CreateSubReader(pos, size);
-  }
-
 private:
-  template <typename Reader>
-  void InitializeIfNeeded(Reader & reader)
+  template <typename ReaderT>
+  void InitializeIfNeeded(ReaderT & reader)
   {
     if (m_initialized)
       return;
 
     {
       NonOwningReaderSource source(reader);
+      auto const version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
+      CHECK(version == Version::V0, ());
+      m_dataReader = reader.CreateSubReader(source.Pos(), source.Size());
+    }
+
+    {
+      NonOwningReaderSource source(*m_dataReader);
       m_header.Deserialize(source);
     }
+
+    m_featureIds.emplace(ReaderPtr<Reader>(m_dataReader->CreateSubReader(
+        m_header.m_featuresOffset, m_header.m_langMetaOffset - m_header.m_featuresOffset)));
+
+    m_langMetaOffsets.emplace(ReaderPtr<Reader>(
+        m_dataReader->CreateSubReader(m_header.m_indexOffset, m_header.m_stringsOffset - m_header.m_indexOffset)));
+
+    m_stringsSubReader =
+        m_dataReader->CreateSubReader(m_header.m_stringsOffset, m_header.m_eosOffset - m_header.m_stringsOffset);
 
     m_initialized = true;
   }
 
   bool m_initialized = false;
   HeaderV0 m_header;
+  std::unique_ptr<Reader> m_dataReader;
+  std::optional<DDVector<FeatureIndex, ReaderPtr<Reader>>> m_featureIds;
+  std::optional<DDVector<LangMetaOffset, ReaderPtr<Reader>>> m_langMetaOffsets;
+  std::unique_ptr<Reader> m_stringsSubReader;
   coding::BlockedTextStorageReader m_stringsReader;
 };
 }  // namespace descriptions

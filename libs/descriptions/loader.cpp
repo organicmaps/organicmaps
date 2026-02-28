@@ -44,6 +44,7 @@ void Loader::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
 
 void Loader::Clear()
 {
+  std::lock_guard lock(m_mutex);
   m_deserializers.clear();
 }
 
