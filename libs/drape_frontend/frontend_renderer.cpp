@@ -1025,6 +1025,8 @@ void FrontendRenderer::UpdateAll()
     layer.m_isDirty = false;
   }
 
+  m_overlayTree->Clear();
+
   // Must be recreated on map style changing.
   CHECK(m_context != nullptr, ());
   m_transitBackground = make_unique_dp<ScreenQuadRenderer>(m_context);
