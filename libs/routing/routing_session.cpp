@@ -8,10 +8,6 @@
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
-#include "indexer/road_shields_parser.hpp"
-
-#include <utility>
-
 namespace
 {
 int constexpr kOnRouteMissedCount = 10;

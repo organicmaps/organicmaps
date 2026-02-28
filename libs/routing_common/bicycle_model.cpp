@@ -198,7 +198,7 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
   // No bridleway in default.
   ASSERT_EQUAL(kDefaultOptions.size(), kDefaultSpeeds.size() - 1, ());
 
-  std::vector<std::string> hwtagYesBicycle = {"hwtag", "yesbicycle"};
+  base::StringIL hwtagYesBicycle = {"hwtag", "yesbicycle"};
 
   auto const & cl = classif();
   m_noType = cl.GetTypeByPath({"hwtag", "nobicycle"});
@@ -208,7 +208,7 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
 
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
   auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
-  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed)}});
+  AddAdditionalRoadTypes(cl, {{hwtagYesBicycle, InOutCitySpeedKMpH(yesSpeed)}});
 
   // Update max speed with possible ferry transfer and bicycle speed downhill.
   // See EdgeEstimator::CalcHeuristic, GetBicycleClimbPenalty.

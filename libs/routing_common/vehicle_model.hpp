@@ -96,7 +96,11 @@ struct SpeedKMpH
   bool operator==(SpeedKMpH const & rhs) const { return m_weight == rhs.m_weight && m_eta == rhs.m_eta; }
   bool operator!=(SpeedKMpH const & rhs) const { return !(*this == rhs); }
 
-  bool operator<(SpeedKMpH const & rhs) const { return m_weight < rhs.m_weight && m_eta < rhs.m_eta; }
+  bool operator<(SpeedKMpH const & rhs) const
+  {
+    ASSERT((m_weight <= rhs.m_weight) == (m_eta <= rhs.m_eta), ());
+    return m_weight < rhs.m_weight;
+  }
 
   bool IsValid() const { return m_weight > 0 && m_eta > 0; }
 
@@ -250,13 +254,13 @@ public:
 
   struct FeatureTypeSurface
   {
-    std::vector<std::string> m_type;  // road surface type 'psurface=*'
+    base::StringIL m_type;  // road surface type 'psurface=*'
     SpeedFactor m_factor;
   };
 
   struct AdditionalRoad
   {
-    std::vector<std::string> m_type;
+    base::StringIL m_type;
     InOutCitySpeedKMpH m_speed;
   };
 

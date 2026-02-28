@@ -1,18 +1,16 @@
 #include "routing/async_router.hpp"
 
-#include "geometry/mercator.hpp"
+#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/timer.hpp"
 
 #include <functional>
-#include <mutex>
-#include <utility>
 
 namespace routing
 {
-using std::lock_guard, std::unique_lock;
+using std::lock_guard;
 // ----------------------------------------------------------------------------------------------------------------------------
 
 AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
@@ -77,6 +75,7 @@ void AsyncRouter::RouterDelegateProxy::Cancel()
 bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
+  /// @todo No need to put a lock_guard at first glance. May be wrong ..
   return m_router->FindClosestProjectionToRoad(point, direction, radius, proj);
 }
 
@@ -133,7 +132,7 @@ AsyncRouter::AsyncRouter(PointCheckCallback const & pointCheckCallback)
 AsyncRouter::~AsyncRouter()
 {
   {
-    unique_lock ul(m_guard);
+    lock_guard ul(m_guard);
 
     ResetDelegate();
 
@@ -146,7 +145,7 @@ AsyncRouter::~AsyncRouter()
 
 void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder)
 {
-  unique_lock ul(m_guard);
+  lock_guard ul(m_guard);
 
   ResetDelegate();
 
@@ -160,7 +159,7 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
                                  RemoveRouteCallback const & removeRouteCallback,
                                  ProgressCallback const & progressCallback, uint32_t timeoutSec)
 {
-  unique_lock ul(m_guard);
+  lock_guard ul(m_guard);
 
   m_checkpoints = checkpoints;
   m_startDirection = direction;
@@ -177,13 +176,13 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
 void AsyncRouter::SetGuidesTracks(GuidesTracks && guides)
 {
-  unique_lock ul(m_guard);
+  lock_guard ul(m_guard);
   m_guides = std::move(guides);
 }
 
 void AsyncRouter::ClearState()
 {
-  unique_lock ul(m_guard);
+  lock_guard ul(m_guard);
 
   m_clearState = true;
   m_threadCondVar.notify_one();
@@ -239,7 +238,7 @@ void AsyncRouter::ThreadFunc()
   while (true)
   {
     {
-      unique_lock ul(m_guard);
+      std::unique_lock ul(m_guard);
       m_threadCondVar.wait(ul, [this]() { return m_threadExit || m_hasRequest || m_clearState; });
 
       if (m_clearState && m_router)
@@ -271,7 +270,7 @@ void AsyncRouter::CalculateRoute()
   std::string routerName;
 
   {
-    unique_lock ul(m_guard);
+    lock_guard ul(m_guard);
 
     bool hasRequest = m_hasRequest;
     m_hasRequest = false;

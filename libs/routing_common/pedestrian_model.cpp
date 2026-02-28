@@ -159,13 +159,13 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits, Hi
   // No bridleway and cycleway in default.
   ASSERT_EQUAL(kDefaultOptions.size(), kDefaultSpeeds.size() - 2, ());
 
-  std::vector<std::string> hwtagYesFoot = {"hwtag", "yesfoot"};
+  base::StringIL hwtagYesFoot = {"hwtag", "yesfoot"};
   auto const & cl = classif();
 
   m_noType = cl.GetTypeByPath({"hwtag", "nofoot"});
   m_yesType = cl.GetTypeByPath(hwtagYesFoot);
 
-  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet)}});
+  AddAdditionalRoadTypes(cl, {{hwtagYesFoot, kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet)}});
 
   // Update max pedestrian speed with possible ferry transfer. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(60.0);

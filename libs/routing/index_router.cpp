@@ -316,7 +316,7 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::Poin
 
 void IndexRouter::SetGuides(GuidesTracks && guides)
 {
-  m_guides = GuidesConnections(guides);
+  m_guides = GuidesConnections(std::move(guides));
 }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
@@ -748,6 +748,7 @@ namespace
 {
 void CollapseForward_ReverseLoops(std::vector<Segment> & path)
 {
+  ASSERT_GREATER(path.size(), 1, ());  // was checked on empty beforehand
   for (size_t i = 1; i < path.size() - 2;)
   {
     auto const beg = path.begin() + i;

@@ -2,6 +2,7 @@
 
 #include "routing/city_roads.hpp"
 #include "routing/cross_mwm_index_graph.hpp"
+#include "routing/routing_helpers.hpp"
 
 namespace
 {
