@@ -5,6 +5,8 @@ android {
   compileSdk = propCompileSdkVersion.toInteger()
   ndkVersion = propNdkVersion
 
+  enableKotlin = false
+
   defaultConfig {
     minSdk = propMinSdkVersion.toInteger()
     targetSdk = propTargetSdkVersion.toInteger()

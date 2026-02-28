@@ -91,7 +91,7 @@
     </FrameLayout>
   </RelativeLayout>
 
-  <app.organicmaps.widget.LanesView
+  <app.organicmaps.sdk.widgets.lanes.LanesView
       android:id="@+id/lanes"
       android:layout_width="0dp"
       android:layout_height="68dp"
@@ -109,7 +109,7 @@
       app:lanesEditModeLanesCount="5"
       tools:visibility="visible" />
 
-  <app.organicmaps.widget.SpeedLimitView
+  <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
     android:id="@+id/nav_speed_limit"
     style="@style/MwmWidget.SpeedLimit"
     android:layout_width="60dp"

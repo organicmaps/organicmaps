@@ -9,9 +9,9 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import app.organicmaps.R;
-import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UserActionRequired;
+import app.organicmaps.sdk.car.screens.BaseScreen;
 
 public class ErrorScreen extends BaseScreen implements UserActionRequired
 {

@@ -15,10 +15,10 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
-import app.organicmaps.car.renderer.Renderer;
-import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.search.SearchOnMapScreen;
 import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.sdk.car.renderer.Renderer;
+import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import java.util.Arrays;
 import java.util.List;
 

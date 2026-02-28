@@ -4,21 +4,15 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 import androidx.annotation.AttrRes;
-import androidx.annotation.ColorInt;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
 import app.organicmaps.R;
 import java.util.Objects;
 
@@ -88,7 +82,6 @@ public final class Graphics
 
   public static Drawable tint(Context context, @DrawableRes int resId, @AttrRes int tintAttr)
   {
-    // noinspection deprecation
     return tint(context, AppCompatResources.getDrawable(context, resId), tintAttr);
   }
 
@@ -99,53 +92,7 @@ public final class Graphics
 
   public static Drawable tint(Context context, Drawable drawable, @AttrRes int tintAttr)
   {
-    return tint(drawable, ThemeUtils.getColor(context, tintAttr));
-  }
-
-  public static Drawable tint(Drawable src, @ColorInt int color)
-  {
-    if (src == null)
-      return null;
-
-    if (color == Color.TRANSPARENT)
-      return src;
-
-    final Rect tmp = src.getBounds();
-    final Drawable res = DrawableCompat.wrap(src);
-    DrawableCompat.setTint(res.mutate(), color);
-    res.setBounds(tmp);
-    return res;
-  }
-
-  @NonNull
-  public static Bitmap drawableToBitmap(@NonNull Drawable drawable)
-  {
-    if (drawable instanceof BitmapDrawable bitmapDrawable)
-    {
-      if (bitmapDrawable.getBitmap() != null)
-        return bitmapDrawable.getBitmap();
-    }
-
-    final int drawableWidth = Math.max(drawable.getIntrinsicWidth(), 1);
-    final int drawableHeight = Math.max(drawable.getIntrinsicHeight(), 1);
-    final Bitmap bitmap = Bitmap.createBitmap(drawableWidth, drawableHeight, Bitmap.Config.ARGB_8888);
-    final Canvas canvas = new Canvas(bitmap);
-    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-    drawable.draw(canvas);
-    return bitmap;
-  }
-
-  public static Bitmap drawableToBitmapWithTint(Drawable drawable, @ColorInt int color)
-  {
-    final int drawableWidth = Math.max(drawable.getIntrinsicWidth(), 1);
-    final int drawableHeight = Math.max(drawable.getIntrinsicHeight(), 1);
-    final Bitmap bitmap = Bitmap.createBitmap(drawableWidth, drawableHeight, Bitmap.Config.ARGB_8888);
-    final Canvas canvas = new Canvas(bitmap);
-    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-    final ColorFilter filter = new LightingColorFilter(color, 1);
-    drawable.setColorFilter(filter);
-    drawable.draw(canvas);
-    return bitmap;
+    return app.organicmaps.sdk.util.Graphics.tint(drawable, ThemeUtils.getColor(context, tintAttr));
   }
 
   private Graphics() {}

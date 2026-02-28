@@ -1,0 +1,141 @@
+package app.organicmaps.sdk.car.renderer;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.car.app.AppManager;
+import androidx.car.app.CarContext;
+import androidx.car.app.SurfaceCallback;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapRenderingListener;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.settings.UnitLocale;
+import app.organicmaps.sdk.util.log.Logger;
+
+abstract class RendererImpl implements Renderer, DefaultLifecycleObserver
+{
+  @NonNull
+  private final String TAG;
+
+  private SurfaceCallback mSurfaceCallback;
+
+  private boolean mIsRunning;
+
+  @NonNull
+  protected final CarContext mCarContext;
+
+  @NonNull
+  protected final DisplayManager mDisplayManager;
+
+  @NonNull
+  protected final LocationHelper mLocationHelper;
+
+  @NonNull
+  protected final LifecycleOwner mLifecycleOwner;
+
+  @NonNull
+  private final MapRenderingListener mMapRenderingListener = new MapRenderingListener() {
+    @Override
+    public void onRenderingCreated()
+    {
+      UnitLocale.initializeCurrentUnits();
+    }
+  };
+
+  public RendererImpl(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
+                      @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
+  {
+    TAG = getClass().getSimpleName();
+    Logger.d(TAG, "SurfaceRenderer()");
+    mIsRunning = true;
+    mCarContext = carContext;
+    mDisplayManager = displayManager;
+    mLocationHelper = locationHelper;
+    mLifecycleOwner = lifecycleOwner;
+    mLifecycleOwner.getLifecycle().addObserver(this);
+  }
+
+  protected void setSurfaceCallback(@NonNull SurfaceCallback surfaceCallback)
+  {
+    mSurfaceCallback = surfaceCallback;
+  }
+
+  @Override
+  public boolean isRenderingActive()
+  {
+    return mIsRunning;
+  }
+
+  protected MapRenderingListener getMapRenderingListener()
+  {
+    return mMapRenderingListener;
+  }
+
+  @CallSuper
+  @Override
+  public void onCreate(@NonNull LifecycleOwner owner)
+  {
+    Logger.d(TAG);
+    if (mSurfaceCallback == null)
+      throw new IllegalStateException("SurfaceCallback must be set before onCreate()");
+    mCarContext.getCarService(AppManager.class).setSurfaceCallback(mSurfaceCallback);
+  }
+
+  @CallSuper
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner)
+  {
+    Logger.d(TAG);
+    mCarContext.getCarService(AppManager.class).setSurfaceCallback(null);
+  }
+
+  @CallSuper
+  @Override
+  public void enable()
+  {
+    if (isRenderingActive())
+    {
+      Logger.d(TAG, "Already enabled");
+      return;
+    }
+
+    if (mSurfaceCallback == null)
+      throw new IllegalStateException("SurfaceCallback must be set before enable()");
+    mCarContext.getCarService(AppManager.class).setSurfaceCallback(mSurfaceCallback);
+    mIsRunning = true;
+  }
+
+  @CallSuper
+  @Override
+  public void disable()
+  {
+    if (!isRenderingActive())
+    {
+      Logger.d(TAG, "Already disabled");
+      return;
+    }
+
+    mCarContext.getCarService(AppManager.class).setSurfaceCallback(null);
+    mIsRunning = false;
+  }
+
+  @Override
+  public void onZoomIn()
+  {
+    Map.zoomIn();
+  }
+
+  @Override
+  public void onZoomOut()
+  {
+    Map.zoomOut();
+  }
+
+  @Override
+  public void hideSpeedLimit()
+  {
+    setSpeedLimit(0, false);
+  }
+}

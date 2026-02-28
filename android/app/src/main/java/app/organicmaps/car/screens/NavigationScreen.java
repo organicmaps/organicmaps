@@ -23,15 +23,15 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
-import app.organicmaps.car.renderer.Renderer;
-import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
-import app.organicmaps.car.util.RoutingUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.car.RoutingUtils;
+import app.organicmaps.sdk.car.renderer.Renderer;
+import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.JunctionInfo;
@@ -287,7 +287,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private void updateTrip(@Nullable Location location)
   {
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
+    mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);
     if (info != null)
       updateSpeedLimit(info, location);

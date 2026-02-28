@@ -10,7 +10,7 @@ import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.car.screens.base.BaseScreen;
+import app.organicmaps.sdk.car.screens.BaseScreen;
 import app.organicmaps.sdk.display.DisplayType;
 
 public class MapPlaceholderScreen extends BaseScreen
