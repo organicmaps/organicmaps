@@ -19,7 +19,7 @@
     android:orientation="horizontal"
     android:baselineAligned="false"
     android:gravity="center_vertical"
-    android:background="@drawable/bg_rounded_rect"
+    android:background="@drawable/bg_search_rounded_rect"
     android:paddingHorizontal="@dimen/margin_half"
     android:layout_marginHorizontal="@dimen/margin_base"
     android:layout_marginVertical="@dimen/margin_base"
@@ -99,4 +99,3 @@
     android:visibility="gone"
     tools:visibility="visible" />
 </LinearLayout>
-
