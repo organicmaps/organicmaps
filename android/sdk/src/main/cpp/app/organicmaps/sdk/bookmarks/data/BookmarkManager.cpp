@@ -363,8 +363,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   auto title = jni::ToJavaString(env, bookmark->GetPreferredName());
   auto description = jni::ToJavaString(env, bookmark->GetDescription());
   auto featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark->GetData().m_featureTypes));
-  auto color = static_cast<jint>(
-      kml::kColorIndexMap[base::E2I(bookmark != nullptr ? bookmark->GetColor() : frm()->LastEditedBMColor())]);
+  auto color = static_cast<jint>(kml::kColorIndexMap[base::E2I(bookmark->GetColor())]);
   auto iconType = static_cast<jint>(bookmark->GetData().m_icon);
   auto coords = jni::GetNewParcelablePointD(env, bookmark->GetPivot());
   auto scale = static_cast<jdouble>(bookmark->GetScale());

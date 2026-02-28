@@ -17,7 +17,7 @@ import app.organicmaps.sdk.util.Constants;
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
-  private Icon mIcon; // Icon should not be 'final' because it's color could be changed.
+  private Icon mIcon; // Icon should not be 'final' because its color could be changed.
   private long mCategoryId;
   private final long mBookmarkId;
   private final BookmarkInfo mBookmarkInfo;
@@ -173,7 +173,7 @@ public class Bookmark extends MapObject
   }
 
   @NonNull
-  protected BookmarkInfo loadBookmarkInfo()
+  private BookmarkInfo loadBookmarkInfo()
   {
     BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mBookmarkId);
     if (info == null)
