@@ -36,16 +36,10 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @NonNull
   private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
-  @NonNull
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
-      if (mSkipNextTextChange)
-      {
-        mSkipNextTextChange = false;
-        return;
-      }
       // Reset category flag when user manually types/edits the query
       mFromCategory = false;
       final boolean isEmpty = TextUtils.isEmpty(s);
@@ -54,8 +48,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
       SearchToolbarController.this.onTextChanged(s.toString());
     }
   };
-
-  private boolean mSkipNextTextChange = false;
 
   private final OnBackPressedCallback mBackPressedCallback = new OnBackPressedCallback(false) {
     @Override
@@ -235,11 +227,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public OnBackPressedCallback getBackPressedCallback()
   {
     return mBackPressedCallback;
-  }
-
-  public void skipNextTextChange()
-  {
-    mSkipNextTextChange = true;
   }
 
   public void setQuerySilently(CharSequence query, boolean fromCategory)

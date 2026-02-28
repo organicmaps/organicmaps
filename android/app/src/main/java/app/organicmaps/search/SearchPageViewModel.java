@@ -21,6 +21,12 @@ public class SearchPageViewModel extends ViewModel
   @Nullable
   private SearchResult[] mLastResults = null;
 
+  @Nullable
+  private String mInitialLocale = null;
+  private boolean mInitialSearchOnMap = true;
+
+  private boolean mHiddenByPlacePage = false;
+
   public MutableLiveData<Integer> getSearchPageDistanceToTop()
   {
     return mSearchPageDistanceToTop;
@@ -94,5 +100,36 @@ public class SearchPageViewModel extends ViewModel
   public void setKeyboardVisible(boolean visible)
   {
     mKeyboardVisible = visible;
+  }
+
+  @Nullable
+  public String getInitialLocale()
+  {
+    return mInitialLocale;
+  }
+
+  public void setInitialLocale(@Nullable String locale)
+  {
+    mInitialLocale = locale;
+  }
+
+  public boolean isInitialSearchOnMap()
+  {
+    return mInitialSearchOnMap;
+  }
+
+  public void setInitialSearchOnMap(boolean isSearchOnMap)
+  {
+    mInitialSearchOnMap = isSearchOnMap;
+  }
+
+  public boolean isHiddenByPlacePage()
+  {
+    return mHiddenByPlacePage;
+  }
+
+  public void setHiddenByPlacePage(boolean hidden)
+  {
+    mHiddenByPlacePage = hidden;
   }
 }

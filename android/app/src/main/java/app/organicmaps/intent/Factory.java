@@ -107,7 +107,7 @@ public class Factory
           if (!request.mIsSearchOnMap)
             Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
         }
-        target.showSearch(request.mQuery);
+        target.showSearch(request.mQuery, request.mLocale, request.mIsSearchOnMap);
         return true;
       }
       case RequestType.CROSSHAIR:
@@ -148,7 +148,7 @@ public class Factory
     @Override
     public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
-      return handleIntent(intent, (query, searchOnMap) -> activity.showSearch(query));
+      return handleIntent(intent, (query, searchOnMap) -> activity.showSearch(query, null, searchOnMap));
     }
   }
 }
