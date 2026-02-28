@@ -265,3 +265,176 @@ UNIT_TEST(TestAppendTimeTable)
     TEST(!tt.Commit(), ());
   }
 }
+
+UNIT_TEST(TestFixTimeSpans)
+{
+  using osmoh::operator""_h;
+  using osmoh::operator""_min;
+
+  // 1. Empty exclude time list is always valid.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 18_h});
+    TEST(tt.IsValid(), ());
+    TEST(tt.GetExcludeTime().empty(), ());
+  }
+
+  // 2. Spans are sorted by start time after FixTimeSpans.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({15_h, 16_h}), ());
+    TEST(tt.AddExcludeTime({10_h, 11_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 2, ());
+    // After fixing, the 10-11 span should come first.
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetStart().GetHourMinutes().GetHoursCount(), 15, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetEnd().GetHourMinutes().GetHoursCount(), 16, ());
+  }
+
+  // 3. Overlapping spans are merged.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 13_h}), ());
+    TEST(tt.AddExcludeTime({12_h, 15_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 15, ());
+  }
+
+  // 4. One span fully contains another — the larger span is kept.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 17_h}), ());
+    TEST(tt.AddExcludeTime({12_h, 14_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
+  }
+
+  // 5. Adjacent spans (end == start) are merged.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 12_h}), ());
+    TEST(tt.AddExcludeTime({12_h, 14_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+  }
+
+  // 6. Non-overlapping spans stay separate.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 11_h}), ());
+    TEST(tt.AddExcludeTime({14_h, 15_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 2, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetStart().GetHourMinutes().GetHoursCount(), 14, ());
+    TEST_EQUAL(tt.GetExcludeTime()[1].GetEnd().GetHourMinutes().GetHoursCount(), 15, ());
+  }
+
+  // 7. Exclude span starting before opening time is rejected.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({10_h, 18_h});
+
+    TEST(!tt.AddExcludeTime({9_h, 12_h}), ());
+    TEST(tt.GetExcludeTime().empty(), ());
+  }
+
+  // 8. Exclude span ending after opening time is rejected.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({10_h, 18_h});
+
+    TEST(!tt.AddExcludeTime({16_h, 19_h}), ());
+    TEST(tt.GetExcludeTime().empty(), ());
+  }
+
+  // 9. Extended hours (opening past midnight) with valid exclude spans.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({20_h, 3_h});
+
+    TEST(tt.AddExcludeTime({22_h, 23_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 22, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 23, ());
+  }
+
+  // 10. Extended hours with exclude span crossing midnight.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({20_h, 4_h});
+
+    TEST(tt.AddExcludeTime({23_h, 2_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 23, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 2, ());
+  }
+
+  // 11. Multiple overlapping spans merged into one, with minutes precision.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 12_h + 30_min}), ());
+    TEST(tt.AddExcludeTime({11_h + 45_min, 14_h}), ());
+    TEST(tt.AddExcludeTime({13_h + 30_min, 16_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 16, ());
+  }
+
+  // 12. Replace merges with existing spans correctly.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 12_h}), ());
+    TEST(tt.AddExcludeTime({14_h, 16_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 2, ());
+
+    // Replace second span so it overlaps with the first.
+    TEST(tt.ReplaceExcludeTime({11_h, 15_h}, 1), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 15, ());
+  }
+
+  // 13. Same start time — longer span wins.
+  {
+    auto tt = TimeTable::GetPredefinedTimeTable();
+    tt.SetTwentyFourHours(false);
+    tt.SetOpeningTime({8_h, 20_h});
+
+    TEST(tt.AddExcludeTime({10_h, 12_h}), ());
+    TEST(tt.AddExcludeTime({10_h, 14_h}), ());
+    TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 10, ());
+    TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
+  }
+}

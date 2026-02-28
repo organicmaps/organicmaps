@@ -1159,7 +1159,6 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid, featur
   for (auto const & poiType : holder.ToObjectNames())
     sstr << ' ' << poiType;
   sstr << "\n";
-  std::cout << "***TEXT*** " << sstr.str();
   m_notes->CreateNote(latLon, sstr.str());
 }
 

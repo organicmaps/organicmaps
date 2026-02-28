@@ -71,8 +71,8 @@ string BuildPostRequest(std::initializer_list<std::pair<string, string>> const &
   for (auto it = params.begin(); it != params.end(); ++it)
   {
     if (it != params.begin())
-      result += "&";
-    result += it->first + "=" + url::UrlEncode(it->second);
+      result += '&';
+    result.append(it->first).append("=").append(url::UrlEncode(it->second));
   }
   return result;
 }
