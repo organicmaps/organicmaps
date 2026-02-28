@@ -440,6 +440,9 @@ void OverlayTree::DeleteHandleWithParents(ref_ptr<OverlayHandle> handle, int cur
 
 bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & featureRect)
 {
+  if (IsNeedUpdate())
+    return false;
+
   if (!m_selectedFeatureID.IsValid())
     return false;
 
@@ -463,6 +466,9 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
 
 void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
 {
+  if (IsNeedUpdate())
+    return;
+
   ScreenBase const & screen = GetModelView();
   m2::PointD const pxPoint = screen.GtoP(glbPoint);
 
@@ -479,6 +485,9 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
 
 void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const
 {
+  if (IsNeedUpdate())
+    return;
+
   ScreenBase const & screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
