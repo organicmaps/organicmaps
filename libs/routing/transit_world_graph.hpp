@@ -70,7 +70,7 @@ public:
 
 private:
   // WorldGraph overrides:
-  void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;
+  void GetTwinsInner(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins) override;
 
   static double MaxPedestrianTimeSec(double startToFinishDistanceM)
   {

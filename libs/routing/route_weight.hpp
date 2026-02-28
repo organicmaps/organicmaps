@@ -36,15 +36,19 @@ public:
   double GetIntegratedWeight() const;
   bool operator<(RouteWeight const & rhs) const;
 
-  bool operator==(RouteWeight const & rhs) const { return !((*this) < rhs) && !(rhs < (*this)); }
-
-  bool operator!=(RouteWeight const & rhs) const { return !((*this) == rhs); }
+  /// @note Used in SegmentEdge -> in tests only!
+  /// Thats why we compare by all members (not by GetIntegratedWeight).
+  bool operator==(RouteWeight const & rhs) const
+  {
+    return (m_weight == rhs.m_weight && m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
+            m_numAccessChanges == rhs.m_numAccessChanges &&
+            m_numAccessConditionalPenalties == rhs.m_numAccessConditionalPenalties &&
+            m_transitTime == rhs.m_transitTime);
+  }
 
   bool operator>(RouteWeight const & rhs) const { return rhs < (*this); }
-
-  bool operator>=(RouteWeight const & rhs) const { return !((*this) < rhs); }
-
-  bool operator<=(RouteWeight const & rhs) const { return rhs >= (*this); }
+  bool operator>=(RouteWeight const & rhs) const { return !(*this < rhs); }
+  bool operator<=(RouteWeight const & rhs) const { return !(rhs < *this); }
 
   RouteWeight operator+(RouteWeight const & rhs) const;
 

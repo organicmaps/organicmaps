@@ -9,7 +9,7 @@ void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRo
 
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges)
 {
-  std::vector<Segment> twins;
+  TwinSegmentsListT twins;
   GetTwinsInner(segment, isOutgoing, twins);
 
   CHECK_NOT_EQUAL(GetMode(), WorldGraphMode::LeapsOnly, ());

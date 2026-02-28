@@ -102,7 +102,7 @@ private:
                                       bool isOutgoing);
   /// @name WorldGraph overrides.
   /// @{
-  void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;
+  void GetTwinsInner(Segment const & s, bool isOutgoing, TwinSegmentsListT & twins) override;
   RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2) override;
   /// @}
 

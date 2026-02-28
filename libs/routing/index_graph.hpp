@@ -230,7 +230,7 @@ bool IndexGraph::IsRestricted(ParentVertex const & parent, uint32_t parentFeatur
   if (it == restrictions.cend())
     return false;
 
-  std::vector<ParentVertex> parentsFromCurrent;
+  buffer_vector<ParentVertex, 4> parentsFromCurrent;
   // Finds the first featureId from parents, that differ from |p.GetFeatureId()|.
   auto const appendNextParent = [&parents](ParentVertex const & p, auto & parentsVector)
   {

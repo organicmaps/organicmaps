@@ -15,8 +15,6 @@
 #include <map>
 #include <optional>
 #include <queue>
-#include <type_traits>
-#include <utility>
 #include <vector>
 
 #include "3party/skarupke/bytell_hash_map.hpp"
@@ -700,7 +698,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
   result.Clear();
 
   bool wasCancelled = false;
-  auto minDistance = kInfiniteDistance;
+  std::optional<Weight> minDistance;
   Vertex returnVertex;
 
   std::map<Vertex, Weight> remainingDistances;
@@ -729,7 +727,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
     if (it != remainingDistances.cend())
     {
       auto const fullDistance = context.GetDistance(vertex) + it->second;
-      if (fullDistance < minDistance)
+      if (!minDistance || fullDistance < *minDistance)
       {
         minDistance = fullDistance;
         returnVertex = vertex;
@@ -749,7 +747,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result AStarAlgorithm<Vertex, Edg
   if (wasCancelled)
     return Result::Cancelled;
 
-  if (minDistance == kInfiniteDistance)
+  if (!minDistance)
     return Result::NoPath;
 
   context.ReconstructPath(returnVertex, result.m_path);
