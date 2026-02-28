@@ -30,7 +30,7 @@
     <attr name="accentButtonBackground" format="reference" />
     <attr name="accentButtonTextColor" format="color" />
     <attr name="accentButtonTextColorDisabled" format="color" />
-    <attr name="colorAccentTransparent" format="color" />
+    <attr name="colorAccentTransparent" format="reference|color" />
     <attr name="redButtonBackground" format="reference" />
     <attr name="redButtonTextColor" format="color" />
     <attr name="redButtonTextColorDisabled" format="color" />

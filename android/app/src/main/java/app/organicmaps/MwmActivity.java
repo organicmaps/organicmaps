@@ -112,9 +112,7 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.FloatingSearchToolbarController;
-import app.organicmaps.search.SearchActivity;
 import app.organicmaps.search.SearchFragment;
-import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.SettingsActivity;
@@ -418,20 +416,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void showSearch(String query)
   {
     closeSearchToolbar(false, true);
-    // currently mIsTabletLayout is always set to false,
-    // whenever we decide to support search on tablets differently,
-    // we should consider refactoring this check and use search fragment instead of activity
-    // because SearchActivity will not work as intended
-    if (mIsTabletLayout)
-    {
-      final Bundle args = new Bundle();
-      args.putString(SearchActivity.EXTRA_QUERY, query);
-      replaceFragment(SearchFragment.class, args, null);
-    }
-    else
-    {
-      mSearchPageViewModel.setSearchEnabled(true, query);
-    }
+    mSearchPageViewModel.setSearchEnabled(true, query);
+  }
+
+  // used by deep links, e.g. from the search widget
+  public void showSearch(String query, @Nullable String locale, boolean isSearchOnMap)
+  {
+    mSearchPageViewModel.setInitialLocale(locale);
+    mSearchPageViewModel.setInitialSearchOnMap(isSearchOnMap);
+    showSearch(query);
   }
 
   public void showEditor()

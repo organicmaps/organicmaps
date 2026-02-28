@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
@@ -31,25 +32,65 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SearchFragmentController extends Fragment implements SearchFragment.SearchFragmentListener
 {
+  private static final String KEY_MAP_TOUCH_LISTENER_TAG = "app.organicmaps.MAP_TOUCH_LISTENER_TAG_v1";
+
+  private static final String SEARCH_FRAGMENT_TAG = SearchFragment.class.getName();
+
   BottomSheetBehavior<FrameLayout> mFrameLayoutBottomSheetBehavior;
-  private ViewGroup mCoordinator;
-  private WindowInsetsCompat mCurrentWindowInsets;
-  @Nullable
-  private View mRoutingPlanFrame;
+  private final Observer<MapObject> mPlacePageMapObjectObserver = new Observer<>() {
+    @Override
+    public void onChanged(MapObject mapObject)
+    {
+      if (mapObject != null)
+      {
+        // Hide search when place page is opened
+        if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
+        {
+          mViewModel.setHiddenByPlacePage(true);
+          mViewModel.setSearchPageLastState(mFrameLayoutBottomSheetBehavior.getState());
+          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        }
+      }
+      else
+      {
+        // Only restore search page if search is actually enabled
+        Boolean searchEnabled = mViewModel.getSearchEnabled().getValue();
+        Integer lastState = mViewModel.getSearchPageLastState().getValue();
+        if (searchEnabled != null && searchEnabled && lastState != null
+            && lastState != BottomSheetBehavior.STATE_HIDDEN)
+          mFrameLayoutBottomSheetBehavior.setState(lastState);
+      }
+    }
+  };
   FrameLayout mSearchPageContainer;
   int mDistanceToTop;
   int mViewportMinHeight;
   SearchPageViewModel mViewModel;
+  private final Observer<Boolean> mSearchPageEnabledObserver = new Observer<>() {
+    @Override
+    public void onChanged(Boolean enabled)
+    {
+      if (enabled != null && enabled)
+      {
+        // Don't show search if place page is currently visible
+        if (mPlacePageViewModel.getMapObject().getValue() != null)
+          return;
+        if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+        {
+          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+          mSearchPageContainer.post(SearchFragmentController.this::activateSearchToolbar);
+        }
+      }
+    }
+  };
   PlacePageViewModel mPlacePageViewModel;
-  // These variables are used to determine if the touch event is a tap or a drag
-  static AtomicReference<Float> mInitialX = new AtomicReference<>((float) 0);
-  static AtomicReference<Float> mInitialY = new AtomicReference<>((float) 0);
-  private boolean mHiddenByPlacePage = false;
-
+  private ViewGroup mCoordinator;
+  private WindowInsetsCompat mCurrentWindowInsets;
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
         @Override
@@ -62,9 +103,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
           if (PlacePageUtils.isHiddenState(newState))
           {
-            if (mHiddenByPlacePage)
+            if (mViewModel.isHiddenByPlacePage())
             {
-              mHiddenByPlacePage = false;
+              mViewModel.setHiddenByPlacePage(false);
             }
             else if (mPlacePageViewModel.getMapObject().getValue() == null)
             {
@@ -88,66 +129,34 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           mViewModel.setSearchPageDistanceToTop(mDistanceToTop);
         }
       };
+  @Nullable
+  private View mRoutingPlanFrame;
+  // These variables are used to determine if the touch event is a tap or a drag
+  private float mInitialX = 0f;
+  private float mInitialY = 0f;
+  private int mTouchSlop = 0;
 
-  private final Observer<Boolean> mSearchPageEnabledObserver = new Observer<>() {
-    @Override
-    public void onChanged(Boolean enabled)
-    {
-      if (enabled != null && enabled)
-      {
-        // Don't show search if place page is currently visible
-        if (mPlacePageViewModel.getMapObject().getValue() != null)
-          return;
-        if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
-        {
-          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-          mSearchPageContainer.post(SearchFragmentController.this::activateSearchToolbar);
-        }
-      }
-    }
-  };
-
-  private final Observer<MapObject> mPlacePageMapObjectObserver = new Observer<>() {
-    @Override
-    public void onChanged(MapObject mapObject)
-    {
-      if (mapObject != null)
-      {
-        // Hide search when place page is opened
-        if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
-        {
-          mHiddenByPlacePage = true;
-          mViewModel.setSearchPageLastState(mFrameLayoutBottomSheetBehavior.getState());
-          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        }
-      }
-      else
-      {
-        // Only restore search page if search is actually enabled
-        Boolean searchEnabled = mViewModel.getSearchEnabled().getValue();
-        Integer lastState = mViewModel.getSearchPageLastState().getValue();
-        if (searchEnabled != null && searchEnabled && lastState != null
-            && lastState != BottomSheetBehavior.STATE_HIDDEN)
-          mFrameLayoutBottomSheetBehavior.setState(lastState);
-      }
-    }
-  };
-
+  private int mMinCollapsedPeekHeight = 0;
   private final Observer<Integer> mToolbarHeightObserver = new Observer<>() {
     @Override
     public void onChanged(Integer height)
     {
       if (height != null && height > 0)
-        mFrameLayoutBottomSheetBehavior.setPeekHeight(height);
+        mFrameLayoutBottomSheetBehavior.setPeekHeight(Math.max(height, mMinCollapsedPeekHeight));
     }
   };
-
   private final View.OnTouchListener mMapTouchListener = new View.OnTouchListener() {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
-      if (!isDrag(event))
+      boolean drag = isDrag(event);
+      if (event.getAction() == MotionEvent.ACTION_UP && !drag)
+      {
+        v.performClick();
+        return false;
+      }
+      if (!drag)
         return false;
       if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_SETTLING)
         return false;
@@ -179,6 +188,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mViewportMinHeight = requireActivity().getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
 
     mSearchPageContainer = view.findViewById(R.id.search_page_container);
+    mTouchSlop = ViewConfiguration.get(requireContext()).getScaledTouchSlop();
+
+    mMinCollapsedPeekHeight =
+        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
 
     float topRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
     ShapeAppearanceModel shape = ShapeAppearanceModel.builder()
@@ -244,16 +257,62 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
     // Set touch listener on map view to handle drag events
     SurfaceView mapView = requireActivity().findViewById(R.id.map);
-    mapView.setOnTouchListener(mMapTouchListener);
+    if (mapView != null)
+    {
+      mapView.setOnTouchListener(mMapTouchListener);
+      mapView.setClickable(true);
+      Object existingTag = mapView.getTag();
+      if (existingTag instanceof Map)
+      {
+        @SuppressWarnings("unchecked")
+        Map<String, Object> tagMap = (Map<String, Object>) existingTag;
+        tagMap.put(KEY_MAP_TOUCH_LISTENER_TAG, mMapTouchListener);
+        mapView.setTag(tagMap);
+      }
+      else
+      {
+        Map<String, Object> tagMap = new HashMap<>();
+        tagMap.put(KEY_MAP_TOUCH_LISTENER_TAG, mMapTouchListener);
+        mapView.setTag(tagMap);
+      }
+    }
 
     final FragmentManager fm = getChildFragmentManager();
-    if (savedInstanceState == null && fm.findFragmentByTag("SearchPageFragment") == null)
+    if (savedInstanceState == null && fm.findFragmentByTag(SEARCH_FRAGMENT_TAG) == null)
     {
       fm.beginTransaction()
           .setReorderingAllowed(true)
           .addToBackStack(null)
-          .replace(R.id.search_fragment, SearchFragment.class, null, "SearchPageFragment")
+          .replace(R.id.search_fragment, SearchFragment.class, null, SEARCH_FRAGMENT_TAG)
           .commit();
+    }
+  }
+
+  @SuppressLint("ClickableViewAccessibility")
+  @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+    SurfaceView mapView = requireActivity().findViewById(R.id.map);
+    if (mapView != null)
+    {
+      Object currentTag = mapView.getTag();
+      if (currentTag instanceof Map)
+      {
+        @SuppressWarnings("unchecked")
+        Map<String, Object> tagMap = (Map<String, Object>) currentTag;
+        Object listenerObj = tagMap.get(KEY_MAP_TOUCH_LISTENER_TAG);
+        if (listenerObj == mMapTouchListener)
+        {
+          mapView.setOnTouchListener(null);
+          mapView.setClickable(false);
+          tagMap.remove(KEY_MAP_TOUCH_LISTENER_TAG);
+          if (tagMap.isEmpty())
+            mapView.setTag(null);
+          else
+            mapView.setTag(tagMap);
+        }
+      }
     }
   }
 
@@ -272,12 +331,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   {
     super.onStop();
     mFrameLayoutBottomSheetBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    super.onDestroy();
   }
 
   private void updateExpandedOffset()
@@ -323,16 +376,17 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     {
       case MotionEvent.ACTION_DOWN ->
       {
-        mInitialX.set(event.getX());
-        mInitialY.set(event.getY());
+        mInitialX = event.getX();
+        mInitialY = event.getY();
         yield false;
       }
       case MotionEvent.ACTION_UP -> false;
       case MotionEvent.ACTION_MOVE ->
       {
-        float dx = Math.abs(event.getX() - mInitialX.get());
-        float dy = Math.abs(event.getY() - mInitialY.get());
-        yield !(dx < 50) || !(dy < 50);
+        float dx = Math.abs(event.getX() - mInitialX);
+        float dy = Math.abs(event.getY() - mInitialY);
+        // Consider it a drag if movement exceeds the platform-scaled touch slop in either axis.
+        yield dx >= mTouchSlop || dy >= mTouchSlop;
       }
       default -> false;
     };
@@ -363,7 +417,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
    */
   private void activateSearchToolbar()
   {
-    Fragment fragment = getChildFragmentManager().findFragmentByTag("SearchPageFragment");
+    Fragment fragment = getChildFragmentManager().findFragmentByTag(SEARCH_FRAGMENT_TAG);
     if (fragment instanceof SearchFragment searchFragment)
     {
       // Use postDelayed to ensure the fragment and its views are fully ready
