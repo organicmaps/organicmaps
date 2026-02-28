@@ -33,6 +33,7 @@ public class ShimmerBarView extends View
   private final Paint mShimmerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
   private final RectF mRect = new RectF();
   private final Matrix mShaderMatrix = new Matrix();
+  private final Path mRoundRectPath = new Path();
 
   private float mCornerRadius;
   private int mShimmerWidth;
@@ -69,6 +70,8 @@ public class ShimmerBarView extends View
   {
     super.onSizeChanged(w, h, oldw, oldh);
     mRect.set(0, 0, w, h);
+    mRoundRectPath.reset();
+    mRoundRectPath.addRoundRect(mRect, mCornerRadius, mCornerRadius, Path.Direction.CW);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && w > 0)
     {
       // Shimmer gradient spans roughly 40% of the bar width for a nice subtle sweep
@@ -111,9 +114,7 @@ public class ShimmerBarView extends View
   @NonNull
   private Path getRoundRectPath()
   {
-    Path path = new Path();
-    path.addRoundRect(mRect, mCornerRadius, mCornerRadius, Path.Direction.CW);
-    return path;
+    return mRoundRectPath;
   }
 
   /**
