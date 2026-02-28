@@ -1025,6 +1025,7 @@ void FrontendRenderer::UpdateAll()
     layer.m_isDirty = false;
   }
 
+  /// @todo Not empty when switching dark->light theme in app Settings.
   m_overlayTree->Clear();
 
   // Must be recreated on map style changing.
