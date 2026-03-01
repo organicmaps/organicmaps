@@ -54,12 +54,26 @@ struct TimeZone
   constexpr auto operator<=>(TimeZone const & rhs) const = default;
 };
 
-struct TimeZoneDb
+/// @warning Only for generator and testing.
+class TimeZoneDb
 {
-  std::string tzdb_version;
-  uint8_t tzdb_format_version;
-  uint16_t tzdb_generation_year_offset;
-  std::unordered_map<std::string, TimeZone> timezones;
+public:
+  static TimeZoneDb const & Instance();
+
+  TimeZone const & GetTZ(std::string const & tzName) const;
+  bool IsEmpty() const { return m_impl.timezones.empty(); }
+
+private:
+  TimeZoneDb();
+
+private:
+  struct Impl
+  {
+    std::string tzdb_version;
+    uint8_t tzdb_format_version;
+    uint16_t tzdb_generation_year_offset;
+    std::unordered_map<std::string, TimeZone> timezones;
+  } m_impl;
 };
 
 /**
@@ -100,7 +114,4 @@ ZonedTime Convert(ZonedTime time, TimeZone const & srcTimeZone, TimeZone const &
  * @return Time in the ZonedTime format for the specified time zone.
  */
 ZonedTime Convert(time_t time, TimeZone const & timeZone);
-
-/// @warning Do not call in runtime. Only for generator and testing.
-TimeZoneDb const & GetTimeZoneDb();
 }  // namespace om::tz

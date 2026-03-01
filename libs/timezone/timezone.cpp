@@ -106,25 +106,32 @@ ZonedTime Convert(time_t const time, TimeZone const & timeZone)
   return time + dstOffset * kSecondsPerMinute;
 }
 
-TimeZoneDb const & GetTimeZoneDb()
+TimeZoneDb::TimeZoneDb()
 {
-  static std::optional<TimeZoneDb> tzdb;
-  if (tzdb)
-    return *tzdb;
-
-  tzdb.emplace();
   std::string buffer;
   GetPlatform().GetReader(TIMEZONE_INFO_FILE)->ReadAsString(buffer);
-  if (auto const ec = glz::read_json(*tzdb, buffer); ec.ec != glz::error_code::none)
+  if (auto const ec = glz::read_json(m_impl, buffer); ec.ec != glz::error_code::none)
     LOG(LERROR, ("Failed to load timezone database. ec:", glz::format_error(ec.ec),
                  "custom_error_message:", ec.custom_error_message));
 
-  for (auto & tz : tzdb->timezones | std::views::values)
+  for (auto & tz : m_impl.timezones | std::views::values)
   {
-    tz.format_version = static_cast<TimeZoneFormatVersion>(tzdb->tzdb_format_version);
-    tz.generation_year_offset = tzdb->tzdb_generation_year_offset;
+    tz.format_version = static_cast<TimeZoneFormatVersion>(m_impl.tzdb_format_version);
+    tz.generation_year_offset = m_impl.tzdb_generation_year_offset;
   }
-
-  return *tzdb;
 }
+
+TimeZoneDb const & TimeZoneDb::Instance()
+{
+  static TimeZoneDb inst;
+  return inst;
+}
+
+TimeZone const & TimeZoneDb::GetTZ(std::string const & tzName) const
+{
+  auto it = m_impl.timezones.find(tzName);
+  CHECK(it != m_impl.timezones.end(), (tzName));
+  return it->second;
+}
+
 }  // namespace om::tz

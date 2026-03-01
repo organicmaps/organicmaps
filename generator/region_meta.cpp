@@ -28,9 +28,9 @@ int8_t ParseHolidayReference(std::string const & ref)
   return 0;
 }
 
-om::tz::TimeZone GetTimeZone(std::string const & tzName)
+om::tz::TimeZone const & GetTimeZone(std::string const & tzName)
 {
-  return om::tz::GetTimeZoneDb().timezones.at(tzName);
+  return om::tz::TimeZoneDb::Instance().GetTZ(tzName);
 }
 
 void ReadEntryImpl(std::string_view keyName, json_t const * jsonData, RegionData & data);
@@ -86,9 +86,9 @@ void ReadEntryImpl(std::string_view keyName, json_t const * jsonData, RegionData
   FromJSONObjectOptionalField(jsonData, "timezone", timezone);
   if (!timezone.empty())
   {
-    auto const & res = om::tz::Serialize(GetTimeZone(timezone));
+    auto res = om::tz::Serialize(GetTimeZone(timezone));
     CHECK(res, (timezone));
-    data.Set(RegionData::Type::RD_TIMEZONE, res.value());
+    data.Set(RegionData::Type::RD_TIMEZONE, std::move(res.value()));
   }
 
   bool allow_housenames;
