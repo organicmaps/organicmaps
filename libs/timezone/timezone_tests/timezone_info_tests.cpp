@@ -7,7 +7,6 @@ using namespace om::tz;
 
 TEST(TimeZoneImport, ShouldSuccessfullyImportTimeZoneDb)
 {
-  TimeZoneDb const & db = GetTimeZoneDb();
-
-  EXPECT_THAT(db.timezones, testing::Not(testing::IsEmpty()));
+  TimeZoneDb const & db = TimeZoneDb::Instance();
+  EXPECT_FALSE(db.IsEmpty());
 }
