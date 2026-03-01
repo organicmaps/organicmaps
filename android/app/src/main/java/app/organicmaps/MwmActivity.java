@@ -126,6 +126,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -418,6 +419,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeSearchToolbar(false, true);
     mSearchPageViewModel.setSearchEnabled(true, query);
+  }
+
+  public void closeSearchPage()
+  {
+    closeSearchToolbar(true, true);
+    mSearchPageViewModel.setHiddenByPlacePage(false);
+    mSearchPageViewModel.setSearchPageLastState(BottomSheetBehavior.STATE_HIDDEN);
+    mSearchPageViewModel.setSearchEnabled(false, null);
   }
 
   // used by deep links, e.g. from the search widget
@@ -853,6 +862,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     closePlacePage();
+    closeSearchPage();
     removeCurrentFragment(true);
   }
 
@@ -869,11 +879,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  /**
-   * @param clearText True to clear the search query
-   * @param stopSearch True to stop the search engine
-   * @return False if the search toolbar was already closed and the search query was empty, true otherwise
-   */
   private boolean closeSearchToolbar(boolean clearText, boolean stopSearch)
   {
     if (UiUtils.isVisible(mSearchController.getToolbar()) || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
@@ -895,7 +900,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     return false;
   }
-
   private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
   {
     closeFloatingPanels();
@@ -906,6 +910,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeBottomSheet(LAYERS_MENU_ID);
     closeBottomSheet(MAIN_MENU_ID);
+    closeSearchPage();
     closePlacePage();
   }
 
@@ -931,6 +936,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().prepare(startPoint, endPoint);
 
     // TODO: check for tablet.
+    closeSearchPage();
     closePlacePage();
   }
 
@@ -1613,12 +1619,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onAddedStop()
   {
+    closeSearchPage();
     closePlacePage();
   }
 
   @Override
   public void onRemovedStop()
   {
+    closeSearchPage();
     closePlacePage();
   }
 
@@ -2367,6 +2375,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType)
   {
+    closeSearchPage();
     closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
