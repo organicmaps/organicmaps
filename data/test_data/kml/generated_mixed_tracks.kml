@@ -272,10 +272,7 @@
   <Placemark>
     <name>Хочу побывать</name>
     <description>Test bookmark description</description>
-    <TimeStamp>
-        <when>1970-01-01T00:26:40Z</when>
-        <modified>1970-01-01T00:40:00Z</modified>
-    </TimeStamp>
+    <TimeStamp><when>1970-01-01T00:26:40Z</when></TimeStamp>
     <styleUrl>#placemark-red</styleUrl>
     <Point><coordinates>-80.12702,25.79145</coordinates></Point>
     <ExtendedData xmlns:mwm="https://omaps.app">
@@ -300,6 +297,7 @@
         <mwm:value>0</mwm:value>
       </mwm:boundTracks>
       <mwm:visibility>1</mwm:visibility>
+      <mwm:modifiedTimestamp>1970-01-01T00:40:00Z</mwm:modifiedTimestamp>
       <mwm:nearestToponym>Miami</mwm:nearestToponym>
       <mwm:minZoom>10</mwm:minZoom>
       <mwm:properties>
@@ -317,7 +315,7 @@
       <color>FF0000FF</color>
       <width>6</width>
     </LineStyle></Style>
-    <TimeStamp><when>1970-01-01T00:15:00Z</when><modified>1970-01-01T00:20:00Z</modified></TimeStamp>
+    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
     <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
     <gx:MultiTrack>
       <gx:Track>
@@ -352,6 +350,7 @@
         </mwm:additionalLineStyle>
       </mwm:additionalStyle>
       <mwm:visibility>0</mwm:visibility>
+      <mwm:modifiedTimestamp>1970-01-01T00:20:00Z</mwm:modifiedTimestamp>
       <mwm:nearestToponyms>
         <mwm:value>12345</mwm:value>
         <mwm:value>54321</mwm:value>
