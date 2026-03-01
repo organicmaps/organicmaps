@@ -56,7 +56,7 @@ public:
   {
     double tempX = x;
     x = tempX * m_GtoP(0, 0) + y * m_GtoP(1, 0) + m_GtoP(2, 0);
-    y = tempX * m_GtoP(1, 0) + y * m_GtoP(1, 1) + m_GtoP(2, 1);
+    y = tempX * m_GtoP(0, 1) + y * m_GtoP(1, 1) + m_GtoP(2, 1);
   }
 
   void PtoG(double & x, double & y) const

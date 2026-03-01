@@ -44,8 +44,8 @@ PointD GetRandomPointInsideTriangle(TriangleD const & t)
 {
   size_t constexpr kDistribMax = 1000;
 
-  auto const seed = static_cast<uint32_t>(std::chrono::system_clock::now().time_since_epoch().count());
-  std::default_random_engine engine{seed};
+  thread_local std::default_random_engine engine{
+      static_cast<uint32_t>(std::chrono::system_clock::now().time_since_epoch().count())};
   std::uniform_int_distribution<size_t> distrib{0, kDistribMax};
   double const r1 = sqrt(static_cast<double>(distrib(engine)) / kDistribMax);
   double const r2 = static_cast<double>(distrib(engine)) / kDistribMax;
@@ -57,8 +57,8 @@ PointD GetRandomPointInsideTriangles(std::vector<TriangleD> const & v)
   if (v.empty())
     return {};
 
-  auto const seed = static_cast<uint32_t>(std::chrono::system_clock::now().time_since_epoch().count());
-  std::default_random_engine engine(seed);
+  thread_local std::default_random_engine engine{
+      static_cast<uint32_t>(std::chrono::system_clock::now().time_since_epoch().count())};
   std::uniform_int_distribution<size_t> distrib(0, v.size() - 1);
   return GetRandomPointInsideTriangle(v[distrib(engine)]);
 }

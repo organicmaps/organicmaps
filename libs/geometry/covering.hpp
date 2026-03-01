@@ -187,13 +187,13 @@ private:
 
   void RemoveDuplicateChildrenImpl()
   {
+    std::vector<CellId> subtracted;
     for (int parentLevel = 0; parentLevel < static_cast<int>(m_Covering.size()) - 1; ++parentLevel)
     {
       if (m_Covering[parentLevel].empty())
         continue;
       for (int childLevel = parentLevel + 1; childLevel < static_cast<int>(m_Covering.size()); ++childLevel)
       {
-        std::vector<CellId> subtracted;
         CompareCellsAtLevel<LessLevelOrder> comparator(parentLevel);
         ASSERT(std::is_sorted(m_Covering[childLevel].begin(), m_Covering[childLevel].end(), comparator),
                (m_Covering[childLevel]));
@@ -203,6 +203,7 @@ private:
                                m_Covering[parentLevel].begin(), m_Covering[parentLevel].end(),
                                std::back_inserter(subtracted), comparator);
         m_Covering[childLevel].swap(subtracted);
+        subtracted.clear();
       }
     }
   }

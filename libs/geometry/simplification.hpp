@@ -31,21 +31,31 @@ std::pair<double, Iter> MaxDistance(Iter first, Iter last, DistanceFn & distFn)
   return res;
 }
 
-// Actual SimplifyDP implementation.
+// Iterative SimplifyDP implementation using explicit stack to avoid stack overflow on large polylines.
 template <typename DistanceFn, typename Iter, typename Out>
 void SimplifyDP(Iter first, Iter last, double epsilon, DistanceFn & distFn, Out & out)
 {
-  if (first != last)
+  std::vector<std::pair<Iter, Iter>> stack;
+  stack.emplace_back(first, last);
+
+  while (!stack.empty())
   {
-    auto const maxDist = MaxDistance(first, last, distFn);
-    if (maxDist.first >= epsilon)
+    auto const [f, l] = stack.back();
+    stack.pop_back();
+
+    if (f != l)
     {
-      simpl::SimplifyDP(first, maxDist.second, epsilon, distFn, out);
-      simpl::SimplifyDP(maxDist.second, last, epsilon, distFn, out);
-      return;
+      auto const maxDist = MaxDistance(f, l, distFn);
+      if (maxDist.first >= epsilon)
+      {
+        // Push right first (LIFO) so left is processed first.
+        stack.emplace_back(maxDist.second, l);
+        stack.emplace_back(f, maxDist.second);
+        continue;
+      }
     }
+    out(*l);
   }
-  out(*last);
 }
 //@}
 

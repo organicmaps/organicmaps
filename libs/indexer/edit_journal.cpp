@@ -1,4 +1,5 @@
 #include "indexer/edit_journal.hpp"
+#include "base/assert.hpp"
 #include "indexer/classificator.hpp"
 
 #include <algorithm>
@@ -97,6 +98,7 @@ std::string EditJournal::ToString(osm::JournalEntry const & journalEntry)
     return ToString(journalEntry.journalEntryType).append(": version=\"").append(legacyObjData.version).append("\"");
   }
   }
+  UNREACHABLE();
 }
 
 std::string EditJournal::ToString(osm::JournalEntryType journalEntryType)
@@ -107,6 +109,7 @@ std::string EditJournal::ToString(osm::JournalEntryType journalEntryType)
   case osm::JournalEntryType::ObjectCreated: return "ObjectCreated";
   case osm::JournalEntryType::LegacyObject: return "LegacyObject";
   }
+  UNREACHABLE();
 }
 
 std::optional<JournalEntryType> EditJournal::TypeFromString(std::string const & entryType)
@@ -117,7 +120,7 @@ std::optional<JournalEntryType> EditJournal::TypeFromString(std::string const & 
     return JournalEntryType::ObjectCreated;
   else if (entryType == "LegacyObject")
     return JournalEntryType::LegacyObject;
-  else
-    return {};
+
+  return {};
 }
 }  // namespace osm
