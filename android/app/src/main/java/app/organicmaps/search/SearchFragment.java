@@ -103,6 +103,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
           mToolbarController.clear();
         mSearchViewModel.setSearchQuery(null);
         mSearchViewModel.setLastResults(null);
+        SearchEngine.INSTANCE.cancel();
+        SearchEngine.INSTANCE.setQuery("");
         return;
       }
 
@@ -342,7 +344,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private String getQuery()
   {
-    Logger.d("kavi", "getQuery: " + mToolbarController.getQuery());
     return mToolbarController.getQuery();
   }
 
