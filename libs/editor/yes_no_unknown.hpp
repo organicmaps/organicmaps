@@ -16,7 +16,7 @@ enum YesNoUnknown
   No = 2
 };
 
-inline std::string_view DebugPrint(YesNoUnknown value)
+inline consteval std::string_view DebugPrint(YesNoUnknown value)
 {
   switch (value)
   {

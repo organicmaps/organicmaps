@@ -18,7 +18,7 @@ namespace kml
 {
 enum class PredefinedColor : uint8_t
 {
-  None = 0,
+  None = 0,  // GetRandomPredefinedColor() relies on this enum.
   Red,
   Blue,
   Purple,
@@ -41,7 +41,7 @@ enum class PredefinedColor : uint8_t
   Count
 };
 
-static std::array constexpr kOrderedPredefinedColors = {
+inline std::array constexpr kOrderedPredefinedColors = {
     // clang-format off
     PredefinedColor::None,
     PredefinedColor::Red,
@@ -73,7 +73,7 @@ static_assert(base::HasUniqueElements(kOrderedPredefinedColors), "All values mus
  * kOrderedPredefinedColors[kColorIndexMap[base::E2I(PredefinedColor::Red)]] == PredefinedColor::Red
  * @endcode
  */
-static std::array constexpr kColorIndexMap = [] consteval
+inline std::array constexpr kColorIndexMap = [] consteval
 {
   std::array<int, static_cast<std::size_t>(PredefinedColor::Count)> map{};
   for (std::size_t i = 0; i < kOrderedPredefinedColors.size(); ++i)

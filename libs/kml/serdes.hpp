@@ -83,8 +83,8 @@ private:
 
   bool MakeValid();
   void ParseColor(std::string const & value);
-  bool GetColorForStyle(std::string const & styleUrl, uint32_t & color) const;
-  double GetTrackWidthForStyle(std::string const & styleUrl) const;
+  bool GetColorForStyle(std::string_view styleUrl, uint32_t & color) const;
+  double GetTrackWidthForStyle(std::string_view styleUrl) const;
 
   FileData & m_data;
   CategoryData m_compilationData;
@@ -102,8 +102,8 @@ private:
   std::string m_styleId;
   std::string m_mapStyleId;
   std::string m_styleUrlKey;
-  std::map<std::string, uint32_t> m_styleUrl2Color;
-  std::map<std::string, double> m_styleUrl2Width;
+  std::map<std::string, uint32_t, std::less<>> m_styleUrl2Color;
+  std::map<std::string, double, std::less<>> m_styleUrl2Width;
   std::map<std::string, std::string> m_mapStyle2Style;
 
   int8_t m_attrCode;

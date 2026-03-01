@@ -1,21 +1,22 @@
 #include "kml/serdes_common.hpp"
-#include <sstream>
+#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 #include "geometry/mercator.hpp"
+
+#include <cstdio>  // snprintf
 
 namespace kml
 {
 
-std::string PointToString(m2::PointD const & org, char const separator)
+static std::string PointToString(m2::PointD const & org, char const separator)
 {
   double const lon = mercator::XToLon(org.x);
   double const lat = mercator::YToLat(org.y);
-
-  std::ostringstream ss;
-  ss.precision(8);
-
-  ss << lon << separator << lat;
-  return ss.str();
+  // TODO(AB): Migrate to faster std::format when min iOS target will be 16.3+.
+  char buf[2 * 11 + 1 + 1];  // 11 for lat/lon, 1 for separator, 1 for null terminator.
+  [[maybe_unused]] int res = std::snprintf(buf, sizeof(buf), "%.6lf%c%.6lf", lon, separator, lat);
+  ASSERT(res > 0 && res < static_cast<int>(sizeof(buf)), ("Unexpected error while converting point to string"));
+  return std::string(buf, static_cast<size_t>(res));
 }
 
 std::string PointToLineString(geometry::PointWithAltitude const & pt)
@@ -34,7 +35,7 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt)
   return PointToString(pt.GetPoint(), kSeparator);
 }
 
-void SaveStringWithCDATA(Writer & writer, std::string s)
+void SaveStringWithCDATA(Writer & writer, std::string const & s)
 {
   if (s.empty())
     return;
@@ -49,23 +50,25 @@ void SaveStringWithCDATA(Writer & writer, std::string s)
   // This solution is a simple ASCII-range check that does not check symbols from other unicode ranges
   // (they will require a more complex and slower approach of converting UTF-8 string to unicode first).
   // It should be enough for many cases, according to user reports and wrong characters in their data.
-  s.erase(std::remove_if(s.begin(), s.end(),
-                         [](unsigned char c)
-  {
-    if (c >= 0x20 || c == 0x09 || c == 0x0a || c == 0x0d)
-      return false;
-    return true;
-  }),
-          s.end());
+  auto const isInvalidXmlChar = [](unsigned char c) { return c < 0x20 && c != 0x09 && c != 0x0a && c != 0x0d; };
 
-  if (s.empty())
-    return;
+  // Only copy and modify the string if invalid chars are actually found (rare case).
+  std::string filtered;
+  std::string const * clean = &s;
+  if (std::any_of(s.begin(), s.end(), isInvalidXmlChar))
+  {
+    filtered = s;
+    std::erase_if(filtered, isInvalidXmlChar);
+    if (filtered.empty())
+      return;
+    clean = &filtered;
+  }
 
   // According to kml/xml spec, we need to escape special symbols with CDATA.
-  if (s.find_first_of("<&") != std::string::npos)
-    writer << "<![CDATA[" << s << "]]>";
+  if (clean->find_first_of("<&") != std::string::npos)
+    writer << "<![CDATA[" << *clean << "]]>";
   else
-    writer << s;
+    writer << *clean;
 }
 
 std::string const * GetDefaultLanguage(LocalizableString const & lstr)
