@@ -39,7 +39,7 @@ protected:
   static bool IsHexChar(char const a);
 
 private:
-  static constexpr std::array<uint8_t, 256> kBase64ReverseCharTable = []
+  static constexpr std::array<uint8_t, 256> kBase64ReverseCharTable = [] consteval
   {
     std::array<uint8_t, 256> t;
     t.fill(255);

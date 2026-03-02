@@ -173,11 +173,11 @@ private:
   {
     if (str.empty())
     {
-      subIndex.insert(std::make_pair(code, kEmptyStringId));
+      subIndex.emplace(code, kEmptyStringId);
     }
     else
     {
-      subIndex.insert(std::make_pair(code, m_counter));
+      subIndex.emplace(code, m_counter);
       m_counter++;
       m_collection.push_back(str);
     }
@@ -658,7 +658,7 @@ public:
     if (!SwitchSubIndexIfNeeded(index))
       return;
 
-    auto subIndex = index[m_counter];
+    auto const & subIndex = index[m_counter];
     for (auto const & p : subIndex)
       str[p.first] = ExtractString(p.second);
 
@@ -672,7 +672,7 @@ public:
     if (!SwitchSubIndexIfNeeded(index))
       return;
 
-    auto subIndex = index[m_counter];
+    auto const & subIndex = index[m_counter];
     if (!subIndex.empty())
       str = ExtractString(subIndex.begin()->second);
     else
@@ -688,7 +688,7 @@ public:
     if (!SwitchSubIndexIfNeeded(index))
       return;
 
-    auto subIndex = index[m_counter];
+    auto const & subIndex = index[m_counter];
     stringsArray.reserve(subIndex.size());
     for (auto const & p : subIndex)
       stringsArray.emplace_back(ExtractString(p.second));
@@ -703,10 +703,11 @@ public:
     if (!SwitchSubIndexIfNeeded(index))
       return;
 
+    // TODO(AB): A copy of map is created, is it really necessary?
     auto subIndex = index[m_counter];
     auto const sz = static_cast<int8_t>(subIndex.size() / 2);
     for (int8_t i = 0; i < sz; i++)
-      properties.insert(std::make_pair(ExtractString(subIndex[2 * i]), ExtractString(subIndex[2 * i + 1])));
+      properties.emplace(ExtractString(subIndex[2 * i]), ExtractString(subIndex[2 * i + 1]));
 
     m_counter++;
     Collect(index, args...);

@@ -4,6 +4,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_common.hpp"
 
 #include "map/bookmark_helpers.hpp"
 
@@ -423,13 +424,13 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
 
   std::string dataFromFileBuffer;
   {
-    MemWriter<decltype(dataFromFileBuffer)> sink(dataFromFileBuffer);
+    MemWriter sink(dataFromFileBuffer);
     kml::SerializerKml ser(dataFromFile);
     ser.Serialize(sink);
   }
   std::string dataFromGeneratedFileBuffer;
   {
-    MemWriter<decltype(dataFromGeneratedFileBuffer)> sink(dataFromGeneratedFileBuffer);
+    MemWriter sink(dataFromGeneratedFileBuffer);
     kml::SerializerKml ser(dataFromGeneratedFile);
     ser.Serialize(sink);
   }
@@ -914,4 +915,67 @@ UNIT_TEST(Kml_BadTracks)
     TEST_EQUAL(geom.m_lines[0].size(), 2, ());
     TEST_EQUAL(geom.m_lines[0].size(), geom.m_timestamps[0].size(), ());
   }
+}
+
+namespace
+{
+std::string WriteCDATA(std::string const & input)
+{
+  std::string buf;
+  MemWriter<std::string> writer(buf);
+  kml::SaveStringWithCDATA(writer, input);
+  return buf;
+}
+}  // namespace
+
+UNIT_TEST(SaveStringWithCDATA_EmptyString)
+{
+  TEST_EQUAL(WriteCDATA(""), "", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_PlainText)
+{
+  TEST_EQUAL(WriteCDATA("Hello World"), "Hello World", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_SpecialCharsWrappedInCDATA)
+{
+  TEST_EQUAL(WriteCDATA("a < b"), "<![CDATA[a < b]]>", ());
+  TEST_EQUAL(WriteCDATA("Tom & Jerry"), "<![CDATA[Tom & Jerry]]>", ());
+  TEST_EQUAL(WriteCDATA("<tag>"), "<![CDATA[<tag>]]>", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_InvalidXmlCharsStripped)
+{
+  // Control characters below 0x20 (except \t, \n, \r) should be removed.
+  TEST_EQUAL(WriteCDATA(std::string("ab\x01\x02"
+                                    "cd")),
+             "abcd", ());
+  TEST_EQUAL(WriteCDATA(std::string("\x03\x04\x05")), "", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_AllowedControlChars)
+{
+  // Tab (0x09), newline (0x0a), carriage return (0x0d) are valid XML 1.0 characters.
+  TEST_EQUAL(WriteCDATA("a\tb\nc\rd"), "a\tb\nc\rd", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_MixedInvalidAndSpecial)
+{
+  // Invalid XML chars stripped, then <& triggers CDATA wrapping.
+  TEST_EQUAL(WriteCDATA(std::string("\x01"
+                                    "a < b")),
+             "<![CDATA[a < b]]>", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_Utf8Preserved)
+{
+  TEST_EQUAL(WriteCDATA("Тестовая категория"), "Тестовая категория", ());
+  TEST_EQUAL(WriteCDATA("日本語テスト"), "日本語テスト", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_AllInvalidBecomesEmpty)
+{
+  // String of only invalid chars becomes empty after stripping.
+  TEST_EQUAL(WriteCDATA(std::string("\x01\x02\x03\x1F")), "", ());
 }
