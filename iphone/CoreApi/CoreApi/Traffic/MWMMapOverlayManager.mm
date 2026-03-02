@@ -29,23 +29,26 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
   if (self)
   {
     _observers = [NSHashTable weakObjectsHashTable];
-    GetFramework().GetTrafficManager().SetStateListener([self](TrafficManager::TrafficState state)
+    __weak __typeof(self) weakTrafficSelf = self;
+    GetFramework().GetTrafficManager().SetStateListener([weakTrafficSelf](TrafficManager::TrafficState state)
     {
-      for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-        if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
-          [observer onMapOverlayUpdated];
+      __strong __typeof(weakTrafficSelf) self = weakTrafficSelf;
+      if (self)
+        [self notifyObservers];
     });
-    GetFramework().GetTransitManager().SetStateListener([self](TransitReadManager::TransitSchemeState state)
+    __weak __typeof(self) weakTransitSelf = self;
+    GetFramework().GetTransitManager().SetStateListener([weakTransitSelf](TransitReadManager::TransitSchemeState state)
     {
-      for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-        if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
-          [observer onMapOverlayUpdated];
+      __strong __typeof(weakTransitSelf) self = weakTransitSelf;
+      if (self)
+        [self notifyObservers];
     });
-    GetFramework().GetIsolinesManager().SetStateListener([self](IsolinesManager::IsolinesState state)
+    __weak __typeof(self) weakIsolinesSelf = self;
+    GetFramework().GetIsolinesManager().SetStateListener([weakIsolinesSelf](IsolinesManager::IsolinesState state)
     {
-      for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-        if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
-          [observer onMapOverlayUpdated];
+      __strong __typeof(weakIsolinesSelf) self = weakIsolinesSelf;
+      if (self)
+        [self notifyObservers];
     });
     [NSNotificationCenter.defaultCenter addObserverForName:didChangeMapOverlay
                                                     object:nil
@@ -57,6 +60,23 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
                                                 }];
   }
   return self;
+}
+
+- (void)dealloc
+{
+  GetFramework().GetTrafficManager().SetStateListener({});
+  GetFramework().GetTransitManager().SetStateListener({});
+  GetFramework().GetIsolinesManager().SetStateListener({});
+}
+
+- (void)notifyObservers
+{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSArray<id<MWMMapOverlayManagerObserver>> * observers = self.observers.allObjects;
+    for (id<MWMMapOverlayManagerObserver> observer in observers)
+      if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
+        [observer onMapOverlayUpdated];
+  });
 }
 
 #pragma mark - Add/Remove Observers
