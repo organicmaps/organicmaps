@@ -20,9 +20,8 @@ public class Bookmark extends MapObject
   private Icon mIcon; // Icon should not be 'final' because its color could be changed.
   private long mCategoryId;
   private final long mBookmarkId;
-  private final BookmarkInfo mBookmarkInfo;
-  private final double mMerX;
-  private final double mMerY;
+  private final String mDescription;
+  private final double mScale;
 
   // Used by JNI.
   @Keep
@@ -37,17 +36,14 @@ public class Bookmark extends MapObject
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mBookmarkInfo = loadBookmarkInfo();
-    mIcon = mBookmarkInfo.getIcon();
-    mMerX = mBookmarkInfo.getMerX();
-    mMerY = mBookmarkInfo.getMerY();
-    initXY();
-  }
+    BookmarkInfo bookmarkInfo = loadBookmarkInfo();
+    mDescription = bookmarkInfo.getDescription();
+    mIcon = bookmarkInfo.getIcon();
+    mScale = bookmarkInfo.getScale();
 
-  private void initXY()
-  {
-    setLat(mBookmarkInfo.getLat());
-    setLon(mBookmarkInfo.getLon());
+    setLat(bookmarkInfo.getLat());
+    setLon(bookmarkInfo.getLon());
+    setTitle(bookmarkInfo.getName());
   }
 
   @Override
@@ -56,6 +52,9 @@ public class Bookmark extends MapObject
     super.writeToParcel(dest, flags);
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
+    dest.writeString(mDescription);
+    dest.writeParcelable(mIcon, flags);
+    dest.writeDouble(mScale);
   }
 
   // Do not use Core while restoring from Parcel! In some cases this constructor is called before
@@ -66,11 +65,9 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mBookmarkInfo = loadBookmarkInfo();
-    mIcon = mBookmarkInfo.getIcon();
-    mMerX = mBookmarkInfo.getMerX();
-    mMerY = mBookmarkInfo.getMerY();
-    initXY();
+    mDescription = source.readString();
+    mIcon = ParcelCompat.readParcelable(source, Icon.class.getClassLoader(), Icon.class);
+    mScale = source.readDouble();
   }
 
   public long getBookmarkId()
@@ -81,25 +78,13 @@ public class Bookmark extends MapObject
   @Override
   public double getScale()
   {
-    return mBookmarkInfo.getScale();
-  }
-
-  @NonNull
-  public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
-  {
-    return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
+    return mScale;
   }
 
   @Nullable
   public Icon getIcon()
   {
     return mIcon;
-  }
-
-  @NonNull
-  public String getCategoryName()
-  {
-    return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
   }
 
   public long getCategoryId()
@@ -122,12 +107,6 @@ public class Bookmark extends MapObject
     nativeSetColor(mBookmarkId, colorIndex);
   }
 
-  @NonNull
-  public String getBookmarkFeatureType()
-  {
-    return mBookmarkInfo.getFeatureType();
-  }
-
   @PredefinedColors.Color
   public int getColor()
   {
@@ -135,39 +114,9 @@ public class Bookmark extends MapObject
   }
 
   @NonNull
-  public String getName()
-  {
-    return mBookmarkInfo.getName();
-  }
-
-  @NonNull
   public String getDescription()
   {
-    return mBookmarkInfo.getDescription();
-  }
-
-  @NonNull
-  public String getBookmarkAddress()
-  {
-    return mBookmarkInfo.getAddress();
-  }
-
-  @NonNull
-  public String getGe0Url(boolean addName)
-  {
-    return nativeEncode2Ge0Url(mBookmarkId, addName);
-  }
-
-  @NonNull
-  public String getHttpGe0Url(boolean addName)
-  {
-    return getGe0Url(addName).replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
-  }
-
-  @NonNull
-  public BookmarkInfo getBookmarkInfo()
-  {
-    return mBookmarkInfo;
+    return mDescription;
   }
 
   @NonNull
