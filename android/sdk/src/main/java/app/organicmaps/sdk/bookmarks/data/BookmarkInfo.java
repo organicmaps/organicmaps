@@ -90,6 +90,14 @@ public class BookmarkInfo
     return getDistanceAndAzimuth(latitude, longitude, v).getDistance();
   }
 
+  public double getMerX() {
+    return mMerX;
+  }
+
+  public double getMerY() {
+    return mMerY;
+  }
+
   public double getLat()
   {
     return mLatLonPoint.x;

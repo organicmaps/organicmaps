@@ -39,15 +39,15 @@ public class Bookmark extends MapObject
     mBookmarkId = bookmarkId;
     mBookmarkInfo = loadBookmarkInfo();
     mIcon = mBookmarkInfo.getIcon();
-    mMerX = mBookmarkInfo.getLat();
-    mMerY = mBookmarkInfo.getLon();
+    mMerX = mBookmarkInfo.getMerX();
+    mMerY = mBookmarkInfo.getMerY();
     initXY();
   }
 
   private void initXY()
   {
-    setLat(Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(mMerY))) - Math.PI / 2.0));
-    setLon(mMerX);
+    setLat(mBookmarkInfo.getLat());
+    setLon(mBookmarkInfo.getLon());
   }
 
   @Override
@@ -56,8 +56,6 @@ public class Bookmark extends MapObject
     super.writeToParcel(dest, flags);
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
-    dest.writeDouble(mMerX);
-    dest.writeDouble(mMerY);
   }
 
   // Do not use Core while restoring from Parcel! In some cases this constructor is called before
@@ -70,8 +68,8 @@ public class Bookmark extends MapObject
     mBookmarkId = source.readLong();
     mBookmarkInfo = loadBookmarkInfo();
     mIcon = mBookmarkInfo.getIcon();
-    mMerX = source.readDouble();
-    mMerY = source.readDouble();
+    mMerX = mBookmarkInfo.getMerX();
+    mMerY = mBookmarkInfo.getMerY();
     initXY();
   }
 
