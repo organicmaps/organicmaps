@@ -14,7 +14,17 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = 'Organic Maps'
+
 include ':app'
+
+include ':libs:api'
+include ':libs:branding'
+include ':libs:car'
+include ':libs:downloader'
+include ':libs:googleassistant'
+include ':libs:routing'
+include ':libs:utils'
+
 include ':sdk'
 include ':sdk:car'
 include ':sdk:maps:world'

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">경로는 하나의 지도에 완전히 포함되도록만 생성할 수 있습니다.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">지도 업데이트</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">경로를 따라 지도 다운로드</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">GPS 신호 확인</string>
+    <string name="dialog_routing_error_location_not_found">경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.</string>
+    <string name="dialog_routing_location_turn_wifi">GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.</string>
+    <string name="dialog_routing_location_turn_on">위치 서비스 활성화</string>
+    <string name="dialog_routing_location_unknown_turn_on">현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.</string>
+    <string name="dialog_routing_unable_locate_route">경로를 찾을 수 없습니다</string>
+    <string name="dialog_routing_cant_build_route">경로를 찾을 수 없습니다.</string>
+    <string name="dialog_routing_change_start_or_end">출발지나 목적지를 조정하세요.</string>
+    <string name="dialog_routing_change_start">출발지 조정</string>
+    <string name="dialog_routing_start_not_determined">경로가 설정되지 않았습니다. 출발지를 찾을 수 없습니다.</string>
+    <string name="dialog_routing_select_closer_start">도로와 가까운 출발지를 지정해주세요.</string>
+    <string name="dialog_routing_change_end">목적지 조정</string>
+    <string name="dialog_routing_end_not_determined">경로가 설정되지 않았습니다. 목적지를 찾을 수 없습니다.</string>
+    <string name="dialog_routing_select_closer_end">도로와 가까운 목적지를 지정해주세요.</string>
+    <string name="dialog_routing_change_intermediate">중간 지점을 찾을 수 없습니다.</string>
+    <string name="dialog_routing_intermediate_not_determined">중간 지점을 조정하세요.</string>
+    <string name="dialog_routing_system_error">시스템 오류</string>
+    <string name="dialog_routing_application_error">애플리케이션 오류로 인해 경로를 설정하지 못했습니다.</string>
+    <string name="dialog_routing_try_again">다시 시도해주세요.</string>
+    <string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
+    <string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">지도 업데이트</string>
+    <string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
+    <string name="ok">확인</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">이 지역의 지하철 노선 기능이 아직 없습니다</string>
+    <string name="dialog_pedestrian_route_is_long_header">지하철 루트가 발견되지 않았습니다</string>
+    <string name="dialog_pedestrian_route_is_long_message">지하철역에서 가까운 출발점 또는 종점을 선택하세요</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Avbryt</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Søk</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Laster ned mislyktes</string>
+    <string name="download">Last ned</string>
+    <string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Bokmerker</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Innstillinger</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Spisesteder</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Dagligvarer</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Drivstoff</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkering</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotell</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toalett</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Bobilanlegg</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap-data: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Nattmodus</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Av</string>
+    <!-- Generic «On» string -->
+    <string name="on">På</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Auto</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Bygninger i 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Hjelp</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Kart</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Last ned kartet</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Gjenta</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategorier</string>
+    <string name="search_not_found">Beklager, jeg fant ingenting.</string>
+    <string name="search_history_text">Vis de siste søkene raskt.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Hele dagen (24 timer)</string>
+    <string name="editor_time_open">Åpen</string>
+    <string name="twentyfour_seven">Dag og natt</string>
+    <string name="day_off_today">Fridag i dag</string>
+    <string name="opens_in">Åpner om %s</string>
+    <string name="closes_in">Stenger om %s</string>
+    <string name="closed">Stengt</string>
+    <string name="minute">min</string>
+    <string name="big_font">Forstørr skriften på kartet</string>
+    <string name="transliteration_title">Omskrivning til latin</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Nedlast kart</string>
+    <string name="driving_options_title">Kjørealternativer</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Unngå bompenger</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Unngå uasfalterte veier</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Unngå fergeoverganger</string>
+    <string name="avoid_motorways">Unngå motorveien</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Sortere merker</string>
+    <!-- Android -->
+    <string name="by_default">Som standard</string>
+    <!-- Android -->
+    <string name="by_type">Etter type</string>
+    <!-- Android -->
+    <string name="by_distance">Etter avstand</string>
+    <!-- Android -->
+    <string name="by_date">Etter dato</string>
+    <!-- Android -->
+    <string name="by_name">Etter navn</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Nedlasting</string>
+    <string name="download_map_title">Last ned verdenskart</string>
+</resources>

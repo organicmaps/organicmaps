@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Slegs die roetes wat in hul geheel in ’n kaart is van ’n enkele streek is, kan geskep word.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Werk kaart by</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Laai al die kaarte langs u roete af</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Om ’n roete te skep moet ons al die kaarte van u ligging na u bestemming aflaai en bywerk.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Gaan GPS-sein na</string>
+    <string name="dialog_routing_error_location_not_found">Kan nie roete bereken nie. Huidige GPD-koördinate kon nie geïdentifiseer word nie.</string>
+    <string name="dialog_routing_location_turn_wifi">Kaan asb. u GPS-sein na. Met Wi-Fi sal u liggingakkuraatheid verbeter.</string>
+    <string name="dialog_routing_location_turn_on">Aktiveer liggingdienste</string>
+    <string name="dialog_routing_location_unknown_turn_on">Kan nie huidige GPD-koördinate opspoor nie. Aktiveer liggingdienste om roete te bereken.</string>
+    <string name="dialog_routing_unable_locate_route">Kan nie roete opspoor nie</string>
+    <string name="dialog_routing_cant_build_route">Kan nie roete bereken nie.</string>
+    <string name="dialog_routing_change_start_or_end">Pas asb. u beginpunt of bestemming aan.</string>
+    <string name="dialog_routing_change_start">Pas beginpunt aan</string>
+    <string name="dialog_routing_start_not_determined">Roete is nie bereken nie. Kan nie beginpunt opspoor nie.</string>
+    <string name="dialog_routing_select_closer_start">Kies asb. ’n beginpunt nader aan ’n pad.</string>
+    <string name="dialog_routing_change_end">Pas bestemming aan</string>
+    <string name="dialog_routing_end_not_determined">Roete is nie bereken nie. Kan nie die bestemming ospoor nie.</string>
+    <string name="dialog_routing_select_closer_end">Kies asb. ’n bestemmingspunt wat nader aan ’n pad is.</string>
+    <string name="dialog_routing_change_intermediate">Kan nie die tussenstop opspoor nie.</string>
+    <string name="dialog_routing_intermediate_not_determined">Werk asb. u tussenstop by.</string>
+    <string name="dialog_routing_system_error">Stelselfout</string>
+    <string name="dialog_routing_application_error">Kan weens ’n toepassingfout nie ’n roete berkeen nie.</string>
+    <string name="dialog_routing_try_again">Probeer asb. weer</string>
+    <string name="dialog_routing_download_and_build_cross_route">Wil u die kaart aflaai en ’n meer optimale roete bereken wat oor meer as een kaart loop?</string>
+    <string name="dialog_routing_download_cross_route">Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Werk kaarte by</string>
+    <string name="downloader_mwm_migration_dialog">Om ’n roete te skep moet u alle kaarte bywerk en die roete dan weer beplan.</string>
+    <string name="ok">Goed</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Moltreinnavigasie is nog nie in hierdie streek beskikbaar nie</string>
+    <string name="dialog_pedestrian_route_is_long_header">Moltreinroete nie gevind</string>
+    <string name="dialog_pedestrian_route_is_long_message">Kies asb. ’n begin- of eindpunt nader aan die moltreinstasie</string>
+</resources>

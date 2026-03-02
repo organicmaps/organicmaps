@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Маршрут бути прокладений всередині мапи тільки одного регіону.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Оновити мапу</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Завантажити мапи вздовж маршруту</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Перевірте сигнал GPS</string>
+    <string name="dialog_routing_error_location_not_found">Маршрут не побудовано. Поточну геопозицію не визначено.</string>
+    <string name="dialog_routing_location_turn_wifi">Будь ласка, перевірте сигнал GPS. Для покращання точності геопозиції увімкніть Wi-Fi.</string>
+    <string name="dialog_routing_location_turn_on">Увімкніть режим визначення геопозиції</string>
+    <string name="dialog_routing_location_unknown_turn_on">Поточну геопозицію не визначено. Для побудови маршруту увімкніть режим визначення геопозиції.</string>
+    <string name="dialog_routing_unable_locate_route">Маршрут не знайдено</string>
+    <string name="dialog_routing_cant_build_route">Не вдалося побудувати маршрут.</string>
+    <string name="dialog_routing_change_start_or_end">Будь ласка, змініть початкову або кінцеву точку маршруту.</string>
+    <string name="dialog_routing_change_start">Змініть початкову точку маршруту</string>
+    <string name="dialog_routing_start_not_determined">Маршрут не побудовано. Не визначено початкову точку маршруту.</string>
+    <string name="dialog_routing_select_closer_start">Будь ласка, виберіть початкову точку маршруту ближче до дороги.</string>
+    <string name="dialog_routing_change_end">Змініть кінцеву точку маршруту</string>
+    <string name="dialog_routing_end_not_determined">Маршрут не побудовано. Не визначено кінцеву точку маршруту.</string>
+    <string name="dialog_routing_select_closer_end">Будь ласка, виберіть кінцеву точку маршруту ближче до дороги.</string>
+    <string name="dialog_routing_change_intermediate">Не вдалося знайти місцерозташування проміжної точки.</string>
+    <string name="dialog_routing_intermediate_not_determined">Будь ласка, вкажіть місцерозташування проміжної точки вручну.</string>
+    <string name="dialog_routing_system_error">Системна помилка</string>
+    <string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
+    <string name="dialog_routing_try_again">Спробуйте знову</string>
+    <string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
+    <string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Оновити мапи</string>
+    <string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>
+    <string name="ok">Ок</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Навігація на метро ще недоступна в цьому регіоні</string>
+    <string name="dialog_pedestrian_route_is_long_header">Жодного маршруту метро не знайдено</string>
+    <string name="dialog_pedestrian_route_is_long_message">Виберіть початкову чи кінцеву точку маршруту ближче до станції метро</string>
+</resources>

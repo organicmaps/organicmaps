@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Buscar</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">O download falhou</string>
+    <string name="download">Baixar</string>
+    <string name="download_resources">Antes de começar, vamos baixar a visão geral mundial para o seu dispositivo.\nÉ necessário %s de armazenamento.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Marcadores</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Mercados</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Gás</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Banheiro</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Instalações para trailers</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Modo Noturno</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Desligar</string>
+    <!-- Generic «On» string -->
+    <string name="on">Em</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automotivo</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Prédios em 3D</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Baixar o mapa</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Tentar novamente</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
+    <string name="search_history_text">Visualizar as buscas recentes.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">O dia todo (24 horas)</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="big_font">Aumentar o tamanho dos rótulos dos mapas</string>
+    <string name="transliteration_title">Transliterar para alfabeto latino</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Downloader do mapa</string>
+    <string name="driving_options_title">Opções de trajeto</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Evitar pedágios</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Evite estradas não pavimentadas</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Evitar balsas</string>
+    <string name="avoid_motorways">Evitar rodovias</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Classificar marcadores</string>
+    <!-- Android -->
+    <string name="by_default">Por padrão</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Baixando</string>
+    <string name="download_map_title">Baixar a visão geral mundial</string>
+</resources>

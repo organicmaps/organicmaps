@@ -20,7 +20,6 @@ import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
@@ -29,10 +28,10 @@ import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.RoutingUtils;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
-import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -44,7 +43,8 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.util.List;
 import java.util.Objects;
 
-public class NavigationScreen extends BaseMapScreen implements RoutingController.Container, NavigationManagerCallback
+public class NavigationScreen
+    extends BaseMapScreen implements INavigationScreen, RoutingController.Container, NavigationManagerCallback
 {
   private static final String TAG = NavigationScreen.class.getSimpleName();
 
@@ -56,8 +56,6 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private final NavigationManager mNavigationManager;
   @NonNull
   private final LocationListener mLocationListener = this::updateTrip;
-  @NonNull
-  private final LocationHelper mLocationHelper;
 
   @NonNull
   private Trip mTrip = new Trip.Builder().setLoading(true).build();
@@ -72,10 +70,9 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   private NavigationScreen(@NonNull Builder builder)
   {
-    super(builder.mCarContext, builder.mSurfaceRenderer);
+    super(builder.mCarContext, builder.mOrganicMapsContext, builder.mSurfaceRenderer);
     mRoutingController = RoutingController.get();
     mNavigationManager = builder.mCarContext.getCarService(NavigationManager.class);
-    mLocationHelper = MwmApplication.from(builder.mCarContext).getLocationHelper();
   }
 
   @NonNull
@@ -85,7 +82,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     final NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
     builder.setBackgroundColor(Colors.NAVIGATION_TEMPLATE_BACKGROUND);
     builder.setActionStrip(createActionStrip());
-    builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
+    builder.setMapActionStrip(
+        UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer(), getLocationHelper()));
 
     final TravelEstimate destinationTravelEstimate = getDestinationTravelEstimate();
     if (destinationTravelEstimate != null)
@@ -98,7 +96,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onStopNavigation()
   {
-    mLocationHelper.removeListener(mLocationListener);
+    getLocationHelper().removeListener(mLocationListener);
     mNavigationCancelled = true;
     mRoutingController.cancel(false);
   }
@@ -125,14 +123,14 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
       return;
     }
 
-    mLocationHelper.startNavigationSimulation(points);
+    getLocationHelper().startNavigationSimulation(points);
     mRouteSimulationEnabled = true;
   }
 
   private void onAutodriveDisabled()
   {
     Logger.i(TAG);
-    mLocationHelper.stopNavigationSimulation();
+    getLocationHelper().stopNavigationSimulation();
     mRouteSimulationEnabled = false;
   }
 
@@ -154,7 +152,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
 
-    mLocationHelper.addListener(mLocationListener);
+    getLocationHelper().addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext(),
                                                CarAppService.getCarNotificationExtender(getCarContext()));
@@ -175,7 +173,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     if (mRouteSimulationEnabled)
       onAutodriveDisabled();
     NavigationService.stopService(getCarContext());
-    mLocationHelper.removeListener(mLocationListener);
+    getLocationHelper().removeListener(mLocationListener);
 
     if (mRoutingController.isNavigating())
       mRoutingController.onSaveState();
@@ -308,11 +306,15 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     @NonNull
     private final CarContext mCarContext;
     @NonNull
+    private final OrganicMaps mOrganicMapsContext;
+    @NonNull
     private final Renderer mSurfaceRenderer;
 
-    public Builder(@NonNull final CarContext carContext, @NonNull final Renderer surfaceRenderer)
+    public Builder(@NonNull final CarContext carContext, @NonNull OrganicMaps organicMapsContext,
+                   @NonNull final Renderer surfaceRenderer)
     {
       mCarContext = carContext;
+      mOrganicMapsContext = organicMapsContext;
       mSurfaceRenderer = surfaceRenderer;
     }
 

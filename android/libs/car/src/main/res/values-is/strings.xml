@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Hætta við</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Leita</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Mistókst að sækja</string>
+    <string name="download">Sækja</string>
+    <string name="download_resources">Áður en þú byrjar skaltu sækja heims-yfirlitskortið yfir á tækið þitt.\nÞað mun nota %s af tiltæku minni.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Bókamerki</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Stillingar</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Út að borða</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Matvörur</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Gas</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Bílastæði</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hótel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Salerni</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Aðstaða fyrir húsbíla</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap-gögn: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Næturhamur</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Slökkt</string>
+    <!-- Generic «On» string -->
+    <string name="on">Kveikt</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Sjálfvirkt</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D-byggingar</string>
+    <!-- Text in menu -->
+    <string name="help">Hjálp</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Landakort</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Sækja kort</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Reyna aftur</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Flokkar</string>
+    <string name="search_not_found">Úbbs, engar niðurstöður fundust.</string>
+    <string name="search_history_text">Skoðaðu nýlegar leitir þínar.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Allan sólarhringinn (24 klst)</string>
+    <string name="editor_time_open">Opið</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Lokað í dag</string>
+    <string name="opens_in">Opnar eftir %s</string>
+    <string name="closes_in">Lokar eftir %s</string>
+    <string name="closed">Lokað</string>
+    <string name="minute">mín</string>
+    <string name="big_font">Auka stærð á skýringum</string>
+    <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Niðurhal landakorta</string>
+    <string name="driving_options_title">Valkostir leiðagerðar</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Forðast gjaldskyldu</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Forðast vegi með óbundnu slitlagi</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Forðast ferjur</string>
+    <string name="avoid_motorways">Forðast hraðbrautir</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Raða bókamerkjum</string>
+    <!-- Android -->
+    <string name="by_default">Sjálfgefið</string>
+    <!-- Android -->
+    <string name="by_type">Eftir gerð</string>
+    <!-- Android -->
+    <string name="by_distance">Eftir vegalengd</string>
+    <!-- Android -->
+    <string name="by_date">Eftir dagsetningu</string>
+    <!-- Android -->
+    <string name="by_name">Eftir nafni</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Sæki</string>
+    <string name="download_map_title">Sækja heims-yfirlitskortið</string>
+</resources>

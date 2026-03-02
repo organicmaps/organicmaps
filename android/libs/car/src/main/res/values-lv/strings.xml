@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Atcelt</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Meklēt</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Lejupielāde neizdevās</string>
+    <string name="download">Lejupielādēt</string>
+    <string name="download_resources">Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.\nTā ierīces krātuvē aizņems %s vietas.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Grāmatzīmes</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Iestatījumi</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Kur paēst</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Pārtikas preces</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Degvielas uzpildes stacija</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Autostāvvieta</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Viesnīca</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Tualete</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Treileru laukumi</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">„OpenStreetMap“ dati: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Tumšais motīvs</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Izslēgts</string>
+    <!-- Generic «On» string -->
+    <string name="on">Ieslēgts</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automātisks</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D ēkas</string>
+    <!-- Text in menu -->
+    <string name="help">Palīdzība</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Kartes</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Lejupielādēt karti</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Mēģināt vēlreiz</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategorijas</string>
+    <string name="search_not_found">Nekas nav atrasts.</string>
+    <string name="search_history_text">Apskatiet meklēšanas vēsturi.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Visu dienu (24 stundas)</string>
+    <string name="editor_time_open">Atvērts</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Šodien slēgts</string>
+    <string name="opens_in">Atveras pēc %s</string>
+    <string name="closes_in">Slēgts pēc %s</string>
+    <string name="closed">Slēgts</string>
+    <string name="minute">min.</string>
+    <string name="big_font">Palielināt fonta lielumu kartē</string>
+    <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Karšu lejupielādētājs</string>
+    <string name="driving_options_title">Maršruta opcijas</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Izvairīties no maksas ceļiem</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Izvairīties no zemes ceļiem</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Izvairīties no prāmjiem</string>
+    <string name="avoid_motorways">Izvairīties no automaģistrālēm</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Kārtot grāmatzīmes</string>
+    <!-- Android -->
+    <string name="by_default">Pēc noklusējuma</string>
+    <!-- Android -->
+    <string name="by_type">Pēc tipa</string>
+    <!-- Android -->
+    <string name="by_distance">Pēc attāluma</string>
+    <!-- Android -->
+    <string name="by_date">Pēc datuma</string>
+    <!-- Android -->
+    <string name="by_name">Pēc nosaukuma</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Lejupielādē</string>
+    <string name="download_map_title">Lejupielādēt pasaules pārskata karti</string>
+</resources>

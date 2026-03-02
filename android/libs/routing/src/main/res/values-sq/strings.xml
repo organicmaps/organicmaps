@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Rrugët mund të krijohen vetëm nëse përfshihen plotësisht brenda hartës së një rajoni të vetëm.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Përditëso Hartën</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Shkarkoni të gjitha hartat përgjatë rrugës suaj</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Për të krijuar një rrugë, duhet të shkarkojmë dhe përditësojmë të gjitha hartat nga vendndodhja juaj deri në destinacion.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Kontrollo sinjalin GPS</string>
+    <string name="dialog_routing_error_location_not_found">Nuk mund të krijohet rruga. Koordinatat aktuale GPS nuk mund të identifikoheshin.</string>
+    <string name="dialog_routing_location_turn_wifi">Ju lutemi kontrolloni sinjalin tuaj GPS. Aktivizimi i Wi-Fi do të përmirësojë saktësinë e vendndodhjes suaj.</string>
+    <string name="dialog_routing_location_turn_on">Aktivizo shërbimet e vendndodhjes</string>
+    <string name="dialog_routing_location_unknown_turn_on">Nuk mund të gjenden koordinatat aktuale GPS. Aktivizoni shërbimet e vendndodhjes për të llogaritur rrugën.</string>
+    <string name="dialog_routing_unable_locate_route">Nuk mund të gjendet rruga</string>
+    <string name="dialog_routing_cant_build_route">Nuk mund të krijohet rruga.</string>
+    <string name="dialog_routing_change_start_or_end">Ju lutemi rregulloni pikën e nisjes ose destinacionin.</string>
+    <string name="dialog_routing_change_start">Rregullo pikën e nisjes</string>
+    <string name="dialog_routing_start_not_determined">Rruga nuk u krijua. Nuk mund të gjendet pika e nisjes.</string>
+    <string name="dialog_routing_select_closer_start">Ju lutemi zgjidhni një pikë nisjeje më afër një rruge.</string>
+    <string name="dialog_routing_change_end">Rregullo destinacionin</string>
+    <string name="dialog_routing_end_not_determined">Rruga nuk u krijua. Nuk mund të gjendet destinacioni.</string>
+    <string name="dialog_routing_select_closer_end">Ju lutemi zgjidhni një pikë destinacioni të vendosur më afër një rruge.</string>
+    <string name="dialog_routing_change_intermediate">Nuk mund të gjendet pika e ndërmjetme.</string>
+    <string name="dialog_routing_intermediate_not_determined">Ju lutemi rregulloni pikën tuaj të ndërmjetme.</string>
+    <string name="dialog_routing_system_error">Gabim sistemi</string>
+    <string name="dialog_routing_application_error">Nuk mund të krijohet rruga për shkak të një gabimi në aplikacion.</string>
+    <string name="dialog_routing_try_again">Ju lutemi provoni përsëri</string>
+    <string name="dialog_routing_download_and_build_cross_route">A dëshironi të shkarkoni hartën dhe të krijoni një rrugë më optimale që përfshin më shumë se një hartë?</string>
+    <string name="dialog_routing_download_cross_route">Shkarkoni harta shtesë për të krijuar një rrugë më të mirë që kalon kufijtë e kësaj harte.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Përditëso Hartat</string>
+    <string name="downloader_mwm_migration_dialog">Për të krijuar një rrugë, duhet të përditësoni të gjitha hartat dhe më pas të planifikoni rrugën përsëri.</string>
+    <string name="ok">OK</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Lundrimi me metro në këtë rajon nuk është ende i disponueshëm</string>
+    <string name="dialog_pedestrian_route_is_long_header">Nuk u gjet asnjë rrugë metroje</string>
+    <string name="dialog_pedestrian_route_is_long_message">Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje</string>
+</resources>

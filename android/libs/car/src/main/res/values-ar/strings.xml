@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">إلغاء</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">البحث</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">فشلت عملية تنزيل</string>
+    <string name="download">تنزيل</string>
+    <string name="download_resources">قبل البدء في استخدام التطبيق، يرجى تنزيل خريطة نظرة عامة على العالم على جهازك.\nسيستخدم %s من مساحة التخزين.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">الإشارات المرجعية</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">الإعدادات</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">أمكان لتناول الطعام</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">بقالية</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">وقود الحافلات</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">مرافق ركن السيارات</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">فندق</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">مرحاض</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">منشآت للمنازل المتنقلة</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">بيانات خريطة الشارع المفتوحة: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">الوضع الليلي</string>
+    <!-- Generic «Off» string -->
+    <string name="off">تعطيل</string>
+    <!-- Generic «On» string -->
+    <string name="on">تشغيل</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">تلقائي</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">مباني ثلاثية الأبعاد</string>
+    <!-- Text in menu -->
+    <string name="help">مساعدة</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">الخرائط</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">تنزيل الخريطة</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">المحاولة مجدداً</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">التصنيفات</string>
+    <string name="search_not_found">المعذرة، لم أعثر على أية نتائج.</string>
+    <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">طوال اليوم (٢٤ ساعة)</string>
+    <string name="editor_time_open">مفتوح</string>
+    <string name="twentyfour_seven">٢٤/٧(ليلاً ونهاراً)</string>
+    <string name="day_off_today">مغلق اليوم</string>
+    <string name="opens_in">يفتح بعد %s</string>
+    <string name="closes_in">يغلق في غضون %s</string>
+    <string name="closed">مغلق</string>
+    <string name="minute">د</string>
+    <string name="big_font">زيادة حجم الخط على الخريطة</string>
+    <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">مُنزّل الخريطة</string>
+    <string name="driving_options_title">خيارات رسم المسار</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">تجنب الطرق ذات الرسوم</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">تجنب الطرق الغير معبدة</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">تجنب استخدام العبّارات</string>
+    <string name="avoid_motorways">تجنب الطريق السريع</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">رتّب العلامات المرجعية</string>
+    <!-- Android -->
+    <string name="by_default">بشكل افتراضي</string>
+    <!-- Android -->
+    <string name="by_type">حسب النوع</string>
+    <!-- Android -->
+    <string name="by_distance">حسب المسافة</string>
+    <!-- Android -->
+    <string name="by_date">حسب التاريخ</string>
+    <!-- Android -->
+    <string name="by_name">بالاسم</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">جاري التنزيل</string>
+    <string name="download_map_title">تنزيل الخريطة العامة للعالم</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Metro navigation in this region is not available yet</string>
+    <string name="dialog_pedestrian_route_is_long_header">No metro route found</string>
+    <string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a metro station</string>
+</resources>

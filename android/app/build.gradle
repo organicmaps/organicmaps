@@ -183,13 +183,15 @@ android {
       applicationIdSuffix '.debug'   // Allows to install debug and release builds together
       versionNameSuffix '-debug'
       signingConfig = signingConfigs.debug
-      resValue 'string', 'app_name', 'Debug Organic Maps'
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
         }
       }
+
+      // Enable jni debug build
+      jniDebuggable true
     }
 
     release {
@@ -199,7 +201,6 @@ android {
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      resValue 'string', 'app_name', project.ext.appName
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -217,8 +218,6 @@ android {
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      matchingFallbacks = ['debug', 'release']
-      resValue 'string', 'app_name', 'Beta Organic Maps'
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -248,6 +247,14 @@ android {
 }
 
 dependencies {
+  implementation project(':libs:api')
+  implementation project(':libs:branding')
+  implementation project(':libs:downloader')
+  implementation project(':libs:car')
+  implementation project(':libs:googleassistant')
+  implementation project(':libs:routing')
+  implementation project(':libs:utils')
+
   implementation project(':sdk')
   implementation project(':sdk:car')
   implementation project(':sdk:widgets:lanes')

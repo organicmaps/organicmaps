@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Maršrutus var izveidot, ja atrodas vienas reģiona kartes robežās.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Atjaunināt karti</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Lejupielādēt visas maršruta kartes</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Lai izveidotu maršrutu, lejupielādējiet un atjauniniet visas kartes no jūsu atrašanās vietas līdz galamērķim.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Pārbaudīt GPS signālu</string>
+    <string name="dialog_routing_error_location_not_found">Neizdevās izveidot maršrutu. Neizdevās noteikt pašreizējās GPS koordinātes.</string>
+    <string name="dialog_routing_location_turn_wifi">Pārbaudiet GPS signālu. „Wi-Fi“ ieslēgšana uzlabos atrašanās vietas precizitāti.</string>
+    <string name="dialog_routing_location_turn_on">Ieslēgt vietas noteikšanas servisus</string>
+    <string name="dialog_routing_location_unknown_turn_on">Neizdodas noteikt pašreizējās GPS koordinātes. Ieslēdziet atrašanās vietas servisus, lai aprēķināt maršrutu.</string>
+    <string name="dialog_routing_unable_locate_route">Neizdevās noteikt maršrutu</string>
+    <string name="dialog_routing_cant_build_route">Neizdevās izveidot maršrutu.</string>
+    <string name="dialog_routing_change_start_or_end">Precizējiet savu sākuma punktu vai galamērķi.</string>
+    <string name="dialog_routing_change_start">Precizēt sākumpunktu</string>
+    <string name="dialog_routing_start_not_determined">Maršruts nav izveidots. Neizdodas noteikt sākuma punktu.</string>
+    <string name="dialog_routing_select_closer_start">Atlasiet sākuma punktu tuvāk pie ceļa.</string>
+    <string name="dialog_routing_change_end">Precizēt galamērķi</string>
+    <string name="dialog_routing_end_not_determined">Maršruts nav izveidots. Neizdodas noteikt galamērķi.</string>
+    <string name="dialog_routing_select_closer_end">Atlasiet galamērķa punktu pēc iespējas tuvāk ceļam.</string>
+    <string name="dialog_routing_change_intermediate">Neizdevās noteikt starppunktu.</string>
+    <string name="dialog_routing_intermediate_not_determined">Labojiet starppunktu.</string>
+    <string name="dialog_routing_system_error">Sistēmas kļūda</string>
+    <string name="dialog_routing_application_error">Kļūdas dēļ neizdevās izveidot maršrutu.</string>
+    <string name="dialog_routing_try_again">Mēģiniet vēlreiz</string>
+    <string name="dialog_routing_download_and_build_cross_route">Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?</string>
+    <string name="dialog_routing_download_cross_route">Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Atjaunināt kartes</string>
+    <string name="downloader_mwm_migration_dialog">Lai izveidotu maršrutu, atjauniniet visas kartes un plānojiet maršrutu no jauna.</string>
+    <string name="ok">Labi</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Metro navigācija šajā reģionā nav pieejama</string>
+    <string name="dialog_pedestrian_route_is_long_header">Metro maršruts nav atrasts</string>
+    <string name="dialog_pedestrian_route_is_long_message">Izvēlieties sākuma un beigu punktu tuvāk metro stacijai</string>
+</resources>

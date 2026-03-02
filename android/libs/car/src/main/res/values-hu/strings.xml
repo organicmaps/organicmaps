@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Mégse</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Keresés</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Sikertelen letöltés</string>
+    <string name="download">Letöltés</string>
+    <string name="download_resources">Mielőtt elkezdené használni az alkalmazást, töltse le az áttekintő világtérképet az eszközére. \nEz %s tárhelyet fog igénybe venni.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Könyvjelzők</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Beállítások</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Hol lehet enni valamit</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Élelmiszerek</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Benzinkút</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkoló</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Szálloda</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">WC</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Lakókocsis létesítmények</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap adatok: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Éjszakai mód</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Ki</string>
+    <!-- Generic «On» string -->
+    <string name="on">Be</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automatikus</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D épületek</string>
+    <!-- Text in menu -->
+    <string name="help">Súgó</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Térképek</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Térkép letöltése</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Újra</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategóriák</string>
+    <string name="search_not_found">Nincs eredmény.</string>
+    <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Egész nap (24 óra)</string>
+    <string name="editor_time_open">Nyitva</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Ma zárva</string>
+    <string name="opens_in">Kinyit %s múlva</string>
+    <string name="closes_in">Bezár %s múlva</string>
+    <string name="closed">Zárva</string>
+    <string name="minute">p</string>
+    <string name="big_font">Betűméret növelése a térképen</string>
+    <string name="transliteration_title">Átírás latin betűkre</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Térképletöltő</string>
+    <string name="driving_options_title">Útvonaltervezési beállítások</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Díjköteles utak elkerülése</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Burkolatlan utak elkerülése</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Kompátkelők elkerülése</string>
+    <string name="avoid_motorways">Autópályák elkerülése</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Könyvjelzők rendezése</string>
+    <!-- Android -->
+    <string name="by_default">Alapértelmezés szerint</string>
+    <!-- Android -->
+    <string name="by_type">Típus szerint</string>
+    <!-- Android -->
+    <string name="by_distance">Távolság szerint</string>
+    <!-- Android -->
+    <string name="by_date">Dátum szerint</string>
+    <!-- Android -->
+    <string name="by_name">Név szerint</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Letöltés</string>
+    <string name="download_map_title">Áttekintő világtérkép letöltése</string>
+</resources>

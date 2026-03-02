@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Ներբեռնվում է՝</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Քարտեզը ջնջելու համար խնդրում ենք դադարեցնել նավիգացիան:</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Երթուղիները կարող են ստեղծվել միայն մեկ տարածաշրջանի քարտեզի սահմաններում:</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Ներբեռնել քարտեզը</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play Տեղորոշման ծառայություններ</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Արագ որոշեք ձեր մոտավոր տեղորոշումը Bluetooth-ի, WiFi-ի կամ բջջային ցանցի միջոցով</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Ներբեռնել ձեր երթուղու երկայնքով բոլոր քարտեզները</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Երթուղի ստեղծելու համար մենք պետք է ներբեռնենք և թարմացնենք բոլոր քարտեզները՝ ձեր գտնվելու վայրից մինչև նպատակակետ:</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Բավարար տեղ չկա</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Առաջարկվող երթուղիները պետք է ընկալել միայն որպես խորհուրդ;</string>
     <string name="dialog_routing_disclaimer_borders">— Զգույշ եղեք սահմանամերձ գոտիներում երթուղիների հետ. հավելվածի կողմից ստեղծված երթուղիները երբեմն կարող են հատել պետական սահմանները չթույլատրված վայրերում:</string>
     <string name="dialog_routing_disclaimer_beware">Խնդրում ենք լինել ուշադիր և զգույշ ճանապարհներին:</string>
-    <string name="dialog_routing_check_gps">Ստուգեք GPS ազդանշանը</string>
-    <string name="dialog_routing_error_location_not_found">Հնարավոր չէ կառուցել երթուղին։ Ընթացիկ GPS կոորդինատները չեն որոշվել:</string>
     <string name="dialog_routing_location_turn_wifi">Խնդրում ենք ստուգել GPS ազդանշանը: Wi-Fi-ի միացումը կբարելավի տեղորոշման ճշգրտությունը:</string>
-    <string name="dialog_routing_location_turn_on">Միացնել տեղորոշման ծառայությունները</string>
-    <string name="dialog_routing_location_unknown_turn_on">Հնարավոր չէ որոշել ընթացիկ GPS կոորդինատները։ Միացրեք տեղորոշման ծառայությունները՝ երթուղին հաշվարկելու համար:</string>
-    <string name="dialog_routing_unable_locate_route">Երթուղին չի գտնվել</string>
-    <string name="dialog_routing_cant_build_route">Հնարավոր չէ կառուցել երթուղին:</string>
-    <string name="dialog_routing_change_start_or_end">Խնդրում ենք փոխել մեկնարկային կետը կամ նպատակակետը:</string>
-    <string name="dialog_routing_change_start">Փոխել մեկնարկային կետը</string>
-    <string name="dialog_routing_start_not_determined">Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել մեկնարկային կետը:</string>
-    <string name="dialog_routing_select_closer_start">Խնդրում ենք ընտրել ճանապարհին ավելի մոտ մեկնարկային կետ:</string>
-    <string name="dialog_routing_change_end">Փոխել նպատակակետը</string>
-    <string name="dialog_routing_end_not_determined">Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել նպատակակետը:</string>
-    <string name="dialog_routing_select_closer_end">Խնդրում ենք ընտրել ճանապարհին ավելի մոտ նպատակակետ:</string>
-    <string name="dialog_routing_change_intermediate">Հնարավոր չէ գտնել միջանկյալ կետը:</string>
-    <string name="dialog_routing_intermediate_not_determined">Խնդրում ենք փոխել միջանկյալ կետը:</string>
     <string name="dialog_routing_system_error">Համակարգային սխալ</string>
-    <string name="dialog_routing_application_error">Հնարավոր չէ կառուցել երթուղին ծրագրային սխալի պատճառով:</string>
-    <string name="dialog_routing_try_again">Խնդրում ենք փորձել կրկին</string>
     <string name="not_now">Ոչ հիմա</string>
-    <string name="dialog_routing_download_and_build_cross_route">Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:</string>
-    <string name="dialog_routing_download_cross_route">Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Որոնման և երթուղիների կառուցման համար խնդրում ենք ներբեռնել քարտեզը: Դրանից հետո ինտերնետ կապ այլևս չի պահանջվի:</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Հարկ՝ %s</string>
     <string name="downloader_delete_map_dialog">Քարտեզի հետ կջնջվեն նաև ձեր բոլոր խմբագրումները:</string>
     <string name="downloader_update_maps">Թարմացնել քարտեզները</string>
-    <string name="downloader_mwm_migration_dialog">Երթուղի կառուցելու համար անհրաժեշտ է թարմացնել բոլոր քարտեզները, իսկ հետո կրկին պլանավորել երթուղին:</string>
     <string name="downloader_search_field_hint">Գտնել քարտեզ</string>
     <string name="common_check_internet_connection_dialog">Համոզվեք, որ ձեր սարքը միացված է ինտերնետին:</string>
     <string name="downloader_no_space_title">Բավականաչափ հիշողություն չկա</string>
@@ -745,9 +719,6 @@
     <string name="search_in_the_list">Փնտրել ցուցակում</string>
     <string name="religious_places">Կրոնական վայրեր</string>
     <string name="select_list">Ընտրել ցուցակը</string>
-    <string name="transit_not_found">Մետրոյով երթևեկությունը այս տարածաշրջանում դեռ հասանելի չէ</string>
-    <string name="dialog_pedestrian_route_is_long_header">Մետրոյի երթուղի չի գտնվել</string>
-    <string name="dialog_pedestrian_route_is_long_message">Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ</string>
     <string name="button_layer_isolines">Հորիզոնականներ</string>
     <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
     <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>

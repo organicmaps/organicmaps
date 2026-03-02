@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Sehemu ya kula</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Migahawani</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Kwa RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Data ya OpenStreetMap: %s</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Auto</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Kipakua Ramani</string>
+    <string name="driving_options_title">Machaguo ya njia</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Epuka barabara za ushuru</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Epuka barabara za vumbi</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Epuka vivuko vya feri</string>
+    <string name="avoid_motorways">Epuka barabara</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Ainisha alamisho</string>
+    <!-- Android -->
+    <string name="by_default">Kwa chaguo-msingi</string>
+    <!-- Android -->
+    <string name="by_type">Kwa aina</string>
+    <!-- Android -->
+    <string name="by_distance">Kwa umbali</string>
+    <!-- Android -->
+    <string name="by_date">Kwa tarehe</string>
+    <!-- Android -->
+    <string name="by_name">Kwa Jina</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Inapakua</string>
+</resources>

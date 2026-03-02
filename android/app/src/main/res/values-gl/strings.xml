@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Descargando:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Para eliminar o mapa, deteña a navegación.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Só se poden crear rutas que estean totalmente contidas nun mapa dunha soa rexión.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Descargar mapa</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Servizos de localización de Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determine rapidamente a súa localización aproximada mediante Bluetooth, Wifi ou rede móbil</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Descargue todos os mapas do seu roteiro</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Para crear unha ruta é necesario descargar e actualizar todos os mapas desde a súa localización ao seu destino.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Non hai suficiente espazo</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— As rutas suxeridas deben entenderse só como recomendacións;</string>
     <string name="dialog_routing_disclaimer_borders">— Actúe con cautela nas rutas con zonas fronteirizas: as rutas creadas pola nosa aplicación en ocasións poden atravesar as fronteiras de países en lugares non autorizados.</string>
     <string name="dialog_routing_disclaimer_beware">Mantéñase alerta e a salvo durante a viaxe!</string>
-    <string name="dialog_routing_check_gps">Verificar o sinal do GPS</string>
-    <string name="dialog_routing_error_location_not_found">Non se pode crear a ruta. Non se puideron identificar as coordenadas actuais do GPS.</string>
     <string name="dialog_routing_location_turn_wifi">Verifique o sinal do GPS. Activar a Wi-fi mellorará a precisión da súa localización.</string>
-    <string name="dialog_routing_location_turn_on">Activar servizos de localización</string>
-    <string name="dialog_routing_location_unknown_turn_on">Non se poden atopar as coordenadas do GPS. Active os servizos de localización para calcular a ruta.</string>
-    <string name="dialog_routing_unable_locate_route">Imposible de atopar unha ruta</string>
-    <string name="dialog_routing_cant_build_route">Non se pode crear unha ruta.</string>
-    <string name="dialog_routing_change_start_or_end">Axuste o seu punto de inicio ou o seu destino.</string>
-    <string name="dialog_routing_change_start">Axustar o punto de inicio</string>
-    <string name="dialog_routing_start_not_determined">A ruta non se creou. Non se puido atopar o punto de inicio.</string>
-    <string name="dialog_routing_select_closer_start">Seleccione un punto de inicio próximo a unha estrada.</string>
-    <string name="dialog_routing_change_end">Axustar destino</string>
-    <string name="dialog_routing_end_not_determined">A ruta non se creou. Non se puido atopar o destino.</string>
-    <string name="dialog_routing_select_closer_end">Seleccione un punto de destino próximo a unha estrada.</string>
-    <string name="dialog_routing_change_intermediate">Non se puido situar a parada intermedia.</string>
-    <string name="dialog_routing_intermediate_not_determined">Por favor, axuste a parada intermedia.</string>
     <string name="dialog_routing_system_error">Erro do sistema</string>
-    <string name="dialog_routing_application_error">Non se puido crear a ruta debido a un erro na aplicación.</string>
-    <string name="dialog_routing_try_again">Tentar novamente</string>
     <string name="not_now">Non agora</string>
-    <string name="dialog_routing_download_and_build_cross_route">Desexa descargar o mapa e crear unha ruta mellor que abarque máis dun mapa?</string>
-    <string name="dialog_routing_download_cross_route">Descargue mapas adicionais para crear unha ruta mellor que cruce os límites deste mapa.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para empezar a buscar e crear rutas, descargue o mapa. Despois diso, xa non necesitará unha conexión a Internet.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_delete_map_dialog">Todas as edicións feitas ao mapa eliminaranse xunto con leste.</string>
     <string name="downloader_update_maps">Actualizar mapas</string>
-    <string name="downloader_mwm_migration_dialog">Para crear unha ruta, é necesario actualizar todos os mapas e volver planificar a ruta.</string>
     <string name="downloader_search_field_hint">Buscar o mapa</string>
     <string name="common_check_internet_connection_dialog">Revise a configuración e asegúrese de que o seu dispositivo estea conectado a Internet.</string>
     <string name="downloader_no_space_title">Non hai suficiente espazo</string>
@@ -738,9 +712,6 @@
     <string name="search_in_the_list">Buscar nos lista</string>
     <string name="religious_places">Lugares sacros</string>
     <string name="select_list">Seleccionar lista</string>
-    <string name="transit_not_found">Navegación en metro aínda non dispoñible nesta rexión</string>
-    <string name="dialog_pedestrian_route_is_long_header">Non se atopou ningún roteiro de metro</string>
-    <string name="dialog_pedestrian_route_is_long_message">Elixa un punto de inicio ou fin de roteiro máis próximo a unha estación de metro</string>
     <string name="button_layer_isolines">Alturas</string>
     <string name="isolines_activation_error_dialog">Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada</string>
     <string name="isolines_location_error_dialog">A altitude de relevo aínda non está dispoñible nesta rexión</string>

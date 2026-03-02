@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.</string>
+    <string name="downloader_no_space_title">충분하지 않은 여유 공간</string>
+</resources>

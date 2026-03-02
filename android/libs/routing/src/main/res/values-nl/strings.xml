@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Enkel routes die volledig in één kaart passen, kunnen gecreëerd worden.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Update kaart</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Download kaarten op de route</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Controleer gps-signaal</string>
+    <string name="dialog_routing_error_location_not_found">Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.</string>
+    <string name="dialog_routing_location_turn_wifi">Controleer uw gps-signaal. Schakel wifi in voor een betere locatiebepaling.</string>
+    <string name="dialog_routing_location_turn_on">Schakel locatiediensten in</string>
+    <string name="dialog_routing_location_unknown_turn_on">De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.</string>
+    <string name="dialog_routing_unable_locate_route">Route vinden mislukt</string>
+    <string name="dialog_routing_cant_build_route">Route samenstellen mislukt.</string>
+    <string name="dialog_routing_change_start_or_end">Kies een ander startpunt of een andere bestemming.</string>
+    <string name="dialog_routing_change_start">Kies ander startpunt</string>
+    <string name="dialog_routing_start_not_determined">Route samenstellen mislukt. Startpunt kan niet worden gevonden.</string>
+    <string name="dialog_routing_select_closer_start">Kies een startpunt dat dichter bij een weg ligt.</string>
+    <string name="dialog_routing_change_end">Kies andere bestemming</string>
+    <string name="dialog_routing_end_not_determined">Route samenstellen mislukt. Bestemming kan niet worden gevonden.</string>
+    <string name="dialog_routing_select_closer_end">Kies een bestemming die dichter bij een weg ligt.</string>
+    <string name="dialog_routing_change_intermediate">Kan de tussenstop niet vinden.</string>
+    <string name="dialog_routing_intermediate_not_determined">Gelieve uw tussenstop aan te passen.</string>
+    <string name="dialog_routing_system_error">Systeemfout</string>
+    <string name="dialog_routing_application_error">Route samenstellen mislukt door een applicatiefout.</string>
+    <string name="dialog_routing_try_again">Probeer het opnieuw</string>
+    <string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
+    <string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Update kaarten</string>
+    <string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>
+    <string name="ok">Oké</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Metro-navigatie is nog niet beschikbaar in deze regio</string>
+    <string name="dialog_pedestrian_route_is_long_header">Geen metroroute gevonden</string>
+    <string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
+</resources>

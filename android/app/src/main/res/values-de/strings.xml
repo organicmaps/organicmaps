@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Wird heruntergeladen:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Zum Löschen der Karte bitte die Navigation unterbrechen.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Karte herunterladen</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play Standortdienste</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Ermittel schnell deinen ungefähren Standort über Bluetooth, WLAN oder das Mobilfunknetz</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Karten entlang der Route herunterladen</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Zum Erstellen einer Route müssen alle Karten von deinem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Nicht genügend Speicherplatz</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
     <string name="dialog_routing_disclaimer_borders">— Bitte sei vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.</string>
     <string name="dialog_routing_disclaimer_beware">Bitte fahre aufmerksam und sicher!</string>
-    <string name="dialog_routing_check_gps">GPS-Signal prüfen</string>
-    <string name="dialog_routing_error_location_not_found">Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.</string>
     <string name="dialog_routing_location_turn_wifi">Bitte prüfe dein GPS-Signal. Das Aktivieren von WLAN verbessert die Genauigkeit deiner Standortbestimmung.</string>
-    <string name="dialog_routing_location_turn_on">Standortdienste aktivieren</string>
-    <string name="dialog_routing_location_unknown_turn_on">Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktiviere Standortdienste, um die Route zu berechnen.</string>
-    <string name="dialog_routing_unable_locate_route">Route kann nicht ermittelt werden</string>
-    <string name="dialog_routing_cant_build_route">Route kann nicht erstellt werden.</string>
-    <string name="dialog_routing_change_start_or_end">Bitte passe deinen Startpunkt oder dein Ziel an.</string>
-    <string name="dialog_routing_change_start">Startpunkt anpassen</string>
-    <string name="dialog_routing_start_not_determined">Route wurde nicht erstellt. Startpunkt kann nicht gefunden werden.</string>
-    <string name="dialog_routing_select_closer_start">Bitte wähle einen Startpunkt, der näher an einer Straße liegt.</string>
-    <string name="dialog_routing_change_end">Ziel anpassen</string>
-    <string name="dialog_routing_end_not_determined">Route wurde nicht erstellt. Ziel kann nicht gefunden werden.</string>
-    <string name="dialog_routing_select_closer_end">Bitte wähle einen Zielort, der näher an einer Straße liegt.</string>
-    <string name="dialog_routing_change_intermediate">Zwischenstopp kann nicht gefunden werden.</string>
-    <string name="dialog_routing_intermediate_not_determined">Bitte passe deinen Zwischenstopp an.</string>
     <string name="dialog_routing_system_error">Systemfehler</string>
-    <string name="dialog_routing_application_error">Route kann wegen eines Anwendungsfehlers nicht erstellt werden.</string>
-    <string name="dialog_routing_try_again">Bitte versuche es erneut</string>
     <string name="not_now">Nicht jetzt</string>
-    <string name="dialog_routing_download_and_build_cross_route">Möchtest du die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
-    <string name="dialog_routing_download_cross_route">Lade zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, lade bitte die Karte herunter. Du benötigst danach keine Internetverbindung mehr.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Stock: %s</string>
     <string name="downloader_delete_map_dialog">Alle Kartenänderungen werden zusammen mit der Karte gelöscht.</string>
     <string name="downloader_update_maps">Karten aktualisieren</string>
-    <string name="downloader_mwm_migration_dialog">Um eine Route zu erstellen, musst du alle Karten aktualisieren und dann die Route erneut planen.</string>
     <string name="downloader_search_field_hint">Karte finden</string>
     <string name="common_check_internet_connection_dialog">Bitte überprüfe deine Einstellungen und stelle sicher, dass dein Gerät mit dem Internet verbunden ist.</string>
     <string name="downloader_no_space_title">Nicht genug Speicherplatz</string>
@@ -747,9 +721,6 @@
     <string name="search_in_the_list">In der Liste suchen</string>
     <string name="religious_places">Religiöse Orte</string>
     <string name="select_list">Liste auswählen</string>
-    <string name="transit_not_found">Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar</string>
-    <string name="dialog_pedestrian_route_is_long_header">Keine U-Bahn-Route gefunden</string>
-    <string name="dialog_pedestrian_route_is_long_message">Bitte wähle einen Start- oder Zielpunkt, der näher an einer U-Bahn-Station liegt</string>
     <string name="button_layer_isolines">Höhenlinien</string>
     <string name="isolines_activation_error_dialog">Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter</string>
     <string name="isolines_location_error_dialog">Höhenlinien sind für dieses Gebiet noch nicht verfügbar</string>

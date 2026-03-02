@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Koostada saad ainult täielikult ühe regiooni kaardi piiridesse jäävaid teekondi.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Uuenda kaarti</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Laadi alla kõik kaardid oma teekonnal</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Teekonna koostamiseks on meil vaja alla laadida ja värskendada kõiki sinu lähte- ja sihtkoha vahele jäävaid kaarte.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Kontrolli GPSi signaali</string>
+    <string name="dialog_routing_error_location_not_found">Teekonda ei õnnestu koostada. GPSi koordinaate ei õnnestu tuvastada.</string>
+    <string name="dialog_routing_location_turn_wifi">Palun kontrolli GPSi signaali. WiFi lubamine parandab asukoha täpsust.</string>
+    <string name="dialog_routing_location_turn_on">Luba asukohateenused</string>
+    <string name="dialog_routing_location_unknown_turn_on">Ei suuda praeguseid GPS-koordinaate määrata. Teekonna koostamiseks luba asukohateenused.</string>
+    <string name="dialog_routing_unable_locate_route">Teekonda ei õnnestu leida</string>
+    <string name="dialog_routing_cant_build_route">Teekonda ei õnnestu luua.</string>
+    <string name="dialog_routing_change_start_or_end">Palun kohenda oma algpunkti või sihtkohta.</string>
+    <string name="dialog_routing_change_start">Kohenda algpunkti</string>
+    <string name="dialog_routing_start_not_determined">Teekond jäi koostamata. Ei suuda tuvastada algpunkti.</string>
+    <string name="dialog_routing_select_closer_start">Palun vali algpunkt teele lähemal.</string>
+    <string name="dialog_routing_change_end">Kohenda sihtkohta</string>
+    <string name="dialog_routing_end_not_determined">Teekond jäi koostamata. Ei suuda tuvastada sihtkohta.</string>
+    <string name="dialog_routing_select_closer_end">Palun vali sihtkoht teele lähemal.</string>
+    <string name="dialog_routing_change_intermediate">Ei suuda määrata teekonna vahepunkti.</string>
+    <string name="dialog_routing_intermediate_not_determined">Palun kohanda vahepunkti.</string>
+    <string name="dialog_routing_system_error">Süsteemi viga</string>
+    <string name="dialog_routing_application_error">Teekonda ei saa koostada rakenduse vea tõttu.</string>
+    <string name="dialog_routing_try_again">Palun proovi uuesti</string>
+    <string name="dialog_routing_download_and_build_cross_route">Kas sooviksid kaardi alla laadida ja luua optimaalse rohkem kui ühte kaarti hõlmava teekonna?</string>
+    <string name="dialog_routing_download_cross_route">Laadi alla täiendavad kaardid, et luua parem, selle kaardi piire ületav teekond.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Uuenda kaarte</string>
+    <string name="downloader_mwm_migration_dialog">Teekonna loomiseks uuenda kõiki kaarte ja seejärel proovi teekond uuesti luua.</string>
+    <string name="ok">Sobib</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Tee juhatamine metroos ei ole selles piirkonnas veel saadaval</string>
+    <string name="dialog_pedestrian_route_is_long_header">Metroo marsruuti ei leidu</string>
+    <string name="dialog_pedestrian_route_is_long_message">Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt</string>
+</resources>

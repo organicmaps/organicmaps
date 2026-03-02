@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Si possono creare solo percorsi che siano completamente contenuti nella mappa di una singola regione.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Aggiorna mappa</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Scarica le mappe lungo il percorso</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Per creare un percorso è necessario scaricare e aggiornare tutte le mappe dalla tua posizione alla tua destinazione.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Controlla il segnale GPS</string>
+    <string name="dialog_routing_error_location_not_found">Impossibile creare il percorso. Coordinate GPS attuali non disponibili.</string>
+    <string name="dialog_routing_location_turn_wifi">Controlla il segnale GPS. Se abiliti il WiFi, migliorerà la precisione della posizione.</string>
+    <string name="dialog_routing_location_turn_on">Abilita i servizi di localizzazione</string>
+    <string name="dialog_routing_location_unknown_turn_on">Impossibile individuare le coordinate GPS attuali. Per calcolare il percorso, abilita i servizi di localizzazione.</string>
+    <string name="dialog_routing_unable_locate_route">Impossibile individuare il percorso</string>
+    <string name="dialog_routing_cant_build_route">Impossibile creare il percorso.</string>
+    <string name="dialog_routing_change_start_or_end">Modifica il punto di partenza o la destinazione.</string>
+    <string name="dialog_routing_change_start">Modifica il punto di partenza</string>
+    <string name="dialog_routing_start_not_determined">Percorso non creato. Impossibile individuare il punto di partenza.</string>
+    <string name="dialog_routing_select_closer_start">Seleziona un punto di partenza più vicino a una strada.</string>
+    <string name="dialog_routing_change_end">Modifica la destinazione</string>
+    <string name="dialog_routing_end_not_determined">Percorso non creato. Impossibile individuare la destinazione.</string>
+    <string name="dialog_routing_select_closer_end">Seleziona una destinazione più vicina a una strada.</string>
+    <string name="dialog_routing_change_intermediate">Impossibile individuare il punto intermedio.</string>
+    <string name="dialog_routing_intermediate_not_determined">Modifica il punto intermedio.</string>
+    <string name="dialog_routing_system_error">Errore di sistema</string>
+    <string name="dialog_routing_application_error">Impossibile creare il percorso a causa di un errore dell\'applicazione.</string>
+    <string name="dialog_routing_try_again">Riprova</string>
+    <string name="dialog_routing_download_and_build_cross_route">Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?</string>
+    <string name="dialog_routing_download_cross_route">Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Aggiorna mappe</string>
+    <string name="downloader_mwm_migration_dialog">Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.</string>
+    <string name="ok">Ok</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">La navigazione in metropolitana in questa regione non è ancora disponibile</string>
+    <string name="dialog_pedestrian_route_is_long_header">Percorso della metro non trovato</string>
+    <string name="dialog_pedestrian_route_is_long_message">Scegli un punto di partenza o di arrivo più vicino a una stazione della metropolitana</string>
+</resources>

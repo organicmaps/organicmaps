@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
-import app.organicmaps.util.Graphics;
+import app.organicmaps.utils.Graphics;
 import java.util.List;
 import java.util.Objects;
 

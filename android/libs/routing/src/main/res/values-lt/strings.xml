@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Maršrutai gali būti sukurti tik tuomet, kai jie yra vieno regiono žemėlapio ribose.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Naujinti žemėlapį</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Atsiųsti visus žemėlapius, į kuriuos patenka jūsų maršrutas</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Kad galėtume pasiūlyti maršrutą, turime atsiųsti ir atnaujinti visus žemėlapius nuo jūsų dabartinės vietos iki paskirties taško.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Tikrinti GPS signalą</string>
+    <string name="dialog_routing_error_location_not_found">Nepavyko apskaičiuoti maršruto. Nepavyko nustatyti dabartinių GPS koordinačių.</string>
+    <string name="dialog_routing_location_turn_wifi">Patikrinkite GPS signalą. Vietos nustatymo tikslumą pagerintų belaidžio tinklo įgalinimas.</string>
+    <string name="dialog_routing_location_turn_on">Įjunkite vietovės tarnybas</string>
+    <string name="dialog_routing_location_unknown_turn_on">Nepavyko nustatyti dabartinių GPS koordinačių. Maršrutui apskaičiuoti, įjunkite vietovės tarnybas.</string>
+    <string name="dialog_routing_unable_locate_route">Nepavyko nustatyti maršruto</string>
+    <string name="dialog_routing_cant_build_route">Nepavyko apskaičiuoti maršruto.</string>
+    <string name="dialog_routing_change_start_or_end">Pakoreguokite pradžios tašką arba paskirties vietą.</string>
+    <string name="dialog_routing_change_start">Keisti pradžios tašką</string>
+    <string name="dialog_routing_start_not_determined">Maršruto nepavyko apskaičiuoti. Nepavyko nustatyti pradžios taško.</string>
+    <string name="dialog_routing_select_closer_start">Pasirinkite pradžios tašką, esantį arčiau kelio.</string>
+    <string name="dialog_routing_change_end">Keisti paskirties vietą</string>
+    <string name="dialog_routing_end_not_determined">Maršruto nepavyko apskaičiuoti. Nepavyko nustatyti paskirties vietos.</string>
+    <string name="dialog_routing_select_closer_end">Pasirinkite paskirties vietą, esančią arčiau kelio.</string>
+    <string name="dialog_routing_change_intermediate">Nepavyko nustatyti tarpinio taško.</string>
+    <string name="dialog_routing_intermediate_not_determined">Pakoreguokite tarpinį tašką.</string>
+    <string name="dialog_routing_system_error">Sistemos klaida</string>
+    <string name="dialog_routing_application_error">Maršruto nepavyko apskaičiuoti dėl programinės klaidos.</string>
+    <string name="dialog_routing_try_again">Bandykite dar kartą</string>
+    <string name="dialog_routing_download_and_build_cross_route">Ar atsiųsti žemėlapį, kad būtų apskaičiuotas geresnis maršrutas, apimantis daugiau nei vieną žemėlapį?</string>
+    <string name="dialog_routing_download_cross_route">Atsiųskite papildomus žemėlapius, kad būtų apskaičiuotas geresnis maršrutas, išeinantis už šio žemėlapio ribų.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Naujinti žemėlapius</string>
+    <string name="downloader_mwm_migration_dialog">Maršrutui apskaičiuoti reikia atnaujinti visus žemėlapius ir suplanuoti maršrutą iš naujo.</string>
+    <string name="ok">Gerai</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Metro navigacija šiame regione dar negalima</string>
+    <string name="dialog_pedestrian_route_is_long_header">Metro maršrutas nerastas</string>
+    <string name="dialog_pedestrian_route_is_long_message">Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės</string>
+</resources>

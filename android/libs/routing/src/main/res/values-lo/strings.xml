@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">ເສັ້ນທາງສາມາດສ້າງໄດ້ສະເພາະພາຍໃນແຜນທີ່ຂອງພາກພື້ນດຽວກັນເທົ່ານັ້ນ.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">ອັບເດດແຜນທີ່</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">ດາວໂຫລດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງຂອງທ່ານ</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">ເພື່ອສ້າງເສັ້ນທາງ, ພວກເຮົາຕ້ອງດາວໂຫລດ ແລະ ອັບເດດແຜນທີ່ທັງໝົດຕັ້ງແຕ່ຕຳແໜ່ງຂອງທ່ານໄປຈົນຮອດປາຍທາງ.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">ກວດເບິ່ງສັນຍານ GPS</string>
+    <string name="dialog_routing_error_location_not_found">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້. ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້.</string>
+    <string name="dialog_routing_location_turn_wifi">ກະລຸນາກວດເບິ່ງສັນຍານ GPS ຂອງທ່ານ. ການເປີດ Wi-Fi ຈະຊ່ວຍໃຫ້ຕຳແໜ່ງທີ່ຕັ້ງຊັດເຈນຂຶ້ນ.</string>
+    <string name="dialog_routing_location_turn_on">ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງ</string>
+    <string name="dialog_routing_location_unknown_turn_on">ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້. ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງເພື່ອຄິດໄລ່ເສັ້ນທາງ.</string>
+    <string name="dialog_routing_unable_locate_route">ບໍ່ສາມາດຊອກຫາເສັ້ນທາງໄດ້</string>
+    <string name="dialog_routing_cant_build_route">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້.</string>
+    <string name="dialog_routing_change_start_or_end">ກະລຸນາປັບປຸງຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງຂອງທ່ານ.</string>
+    <string name="dialog_routing_change_start">ປັບປຸງຈຸດເລີ່ມຕົ້ນ</string>
+    <string name="dialog_routing_start_not_determined">ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸຈຸດເລີ່ມຕົ້ນໄດ້.</string>
+    <string name="dialog_routing_select_closer_start">ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນໃຫ້ໃກ້ກັບຖະໜົນ.</string>
+    <string name="dialog_routing_change_end">ປັບປຸງປາຍທາງ</string>
+    <string name="dialog_routing_end_not_determined">ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸປາຍທາງໄດ້.</string>
+    <string name="dialog_routing_select_closer_end">ກະລຸນາເລືອກຈຸດປາຍທາງໃຫ້ໃກ້ກັບຖະໜົນ.</string>
+    <string name="dialog_routing_change_intermediate">ບໍ່ສາມາດລະບຸຈຸດແວ່ພັກໄດ້.</string>
+    <string name="dialog_routing_intermediate_not_determined">ກະລຸນາປັບປຸງຈຸດແວ່ພັກຂອງທ່ານ.</string>
+    <string name="dialog_routing_system_error">ຂໍ້ຜິດພາດຂອງລະບົບ</string>
+    <string name="dialog_routing_application_error">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ.</string>
+    <string name="dialog_routing_try_again">ກະລຸນາລອງໃໝ່</string>
+    <string name="dialog_routing_download_and_build_cross_route">ທ່ານຕ້ອງການດາວໂຫລດແຜນທີ່ ແລະ ສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງກວມເອົາຫຼາຍກວ່າໜຶ່ງແຜນທີ່ບໍ່?</string>
+    <string name="dialog_routing_download_cross_route">ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">ອັບເດດແຜນທີ່</string>
+    <string name="downloader_mwm_migration_dialog">ເພື່ອສ້າງເສັ້ນທາງ, ທ່ານຕ້ອງອັບເດດແຜນທີ່ທັງໝົດ ແລ້ວຈຶ່ງວາງແຜນເສັ້ນທາງໃໝ່ອີກຄັ້ງ.</string>
+    <string name="ok">ຕົກລົງ</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">ການນຳທາງດ້ວຍລົດໄຟໃຕ້ດິນໃນພາກພື້ນນີ້ຍັງບໍ່ທັນມີເທື່ອ</string>
+    <string name="dialog_pedestrian_route_is_long_header">ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ</string>
+    <string name="dialog_pedestrian_route_is_long_message">ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ</string>
+</resources>

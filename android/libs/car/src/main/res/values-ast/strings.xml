@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Cancelar</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Guetar</string>
+    <string name="download">Baxar</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Marcadores</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Configuración</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Aparcaderu</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Edificaciones 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Ayuda</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Mapes</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Baxar mapa</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Categoríes</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Tol día (24 hores)</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="minute">min</string>
+    <string name="driving_options_title">Opciones d’encaminamientu</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Baxando</string>
+</resources>

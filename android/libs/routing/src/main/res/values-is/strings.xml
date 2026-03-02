@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Leiðir er aðeins hægt að útbúa þar sem þær eru að fullu innan landakorts af stöku héraði.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Uppfæra kort</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Sækja öll landakort meðfram leiðinni þinni</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Til þess að geta útbúið leiðina, þá þarf að sækja og uppfæra öll landakortin frá staðsetningunni þinni og að ákvörðunarstað.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Athuga GPS-merki</string>
+    <string name="dialog_routing_error_location_not_found">Tókst ekki að útbúa leið. Fyrirliggjandi GPS-hnit var ekki hægt að auðkenna.</string>
+    <string name="dialog_routing_location_turn_wifi">Athugaðu GPS-merkið þitt. Ef þú virkjar Wi-Fi verður staðsetningin þín nákvæmari.</string>
+    <string name="dialog_routing_location_turn_on">Virkjaðu staðsetningarþjónustur</string>
+    <string name="dialog_routing_location_unknown_turn_on">Tókst ekki að staðsetja fyrirliggjandi GPS-hnit. Virkjaðu staðsetningarþjónustur til að reikna leiðina.</string>
+    <string name="dialog_routing_unable_locate_route">Tókst ekki að staðsetja leið</string>
+    <string name="dialog_routing_cant_build_route">Tókst ekki að útbúa leið.</string>
+    <string name="dialog_routing_change_start_or_end">Aðlagaðu upphafsstaðinn eða ákvörðunarstað.</string>
+    <string name="dialog_routing_change_start">Aðlaga upphafsstað</string>
+    <string name="dialog_routing_start_not_determined">Leið var ekki útbúin. Tókst ekki að staðsetja upphafsstaðinn.</string>
+    <string name="dialog_routing_select_closer_start">Veldu upphafsstað sem er nær vegi.</string>
+    <string name="dialog_routing_change_end">Aðlaga ákvörðunarstað</string>
+    <string name="dialog_routing_end_not_determined">Leið var ekki útbúin. Tókst ekki að staðsetja ákvörðunarstaðinn.</string>
+    <string name="dialog_routing_select_closer_end">Veldu ákvörðunarstað sem er nær vegi.</string>
+    <string name="dialog_routing_change_intermediate">Tókst ekki að staðsetja milliáfangann.</string>
+    <string name="dialog_routing_intermediate_not_determined">Aðlagaðu milliáfangann þinn.</string>
+    <string name="dialog_routing_system_error">Kerfisvilla</string>
+    <string name="dialog_routing_application_error">Tókst ekki að útbúa leið vegna villu í forriti.</string>
+    <string name="dialog_routing_try_again">Endilega reyndu aftur</string>
+    <string name="dialog_routing_download_and_build_cross_route">Myndirðu vilja sækja landakortið og útbúa þægilegri leið sem spannar fleiri en eitt landakort?</string>
+    <string name="dialog_routing_download_cross_route">Sækja viðbótar-landakort til að útbúa þægilegri leið sem fer út fyrir mörk þessa landakorts.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Uppfæra kort</string>
+    <string name="downloader_mwm_migration_dialog">Til að búa til leið þarftu að uppfæra öll kort og síðan skipuleggja leiðina aftur.</string>
+    <string name="ok">Í lagi</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Leiðsögn í neðanjarðarlestum er ekki tiltæk í augnablikinu á þessu svæði</string>
+    <string name="dialog_pedestrian_route_is_long_header">Engin neðanjarðarlestarleið fannst</string>
+    <string name="dialog_pedestrian_route_is_long_message">Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð</string>
+</resources>

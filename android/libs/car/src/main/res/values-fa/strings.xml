@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">لغو</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">جست‌وجو</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
+    <string name="download">دانلود</string>
+    <string name="download_resources">قبل از استفاده از برنامه، اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم. \nمقدار %s از حافظه شما اشغال می‌شود.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">نشانک‌ها</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">تنظیمات</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">کجا غذا بخوریم</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">عطاری</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">سوخت</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">پارکینگ</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">هتل</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">توالت</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">امکانات ماشین کاروان</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">داده‌های OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">حالت شب</string>
+    <!-- Generic «Off» string -->
+    <string name="off">خاموش</string>
+    <!-- Generic «On» string -->
+    <string name="on">روشن</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">خودکار</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">ساختمان‌های سه بعدی</string>
+    <!-- Text in menu -->
+    <string name="help">کمک</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">نقشه‌ها</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">دانلود نقشه</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">تلاش مجدد</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">دسته‌بندی‌ها</string>
+    <string name="search_not_found">اوه، نتیجه‌ای یافت نشد.</string>
+    <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">شبانه روزی (24 ساعته)</string>
+    <string name="editor_time_open">باز</string>
+    <string name="twentyfour_seven">شبانه روزی</string>
+    <string name="day_off_today">امروز تعطیل است</string>
+    <string name="opens_in">در %s باز می‌شود</string>
+    <string name="closes_in">در %s بسته می‌شود</string>
+    <string name="closed">تعطیل</string>
+    <string name="minute">دقیقه</string>
+    <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
+    <string name="transliteration_title">ترجمه به الفبای لاتین</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">دانلود کننده نقشه</string>
+    <string name="driving_options_title">گزینه‌های رانندگی</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">اجتناب از جاده‌های آسفالت نشده</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">اجتناب از گذرگاه‌های کشتی</string>
+    <string name="avoid_motorways">از بزرگراه دوری کنید</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">مرتب‌سازی نشانک‌ها</string>
+    <!-- Android -->
+    <string name="by_default">به صورت پیش فرض</string>
+    <!-- Android -->
+    <string name="by_type">بر اساس تاریخ</string>
+    <!-- Android -->
+    <string name="by_distance">بر اساس فاصله</string>
+    <!-- Android -->
+    <string name="by_date">بر اساس تاریخ</string>
+    <!-- Android -->
+    <string name="by_name">بر اساس اسم</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">در حال دانلود</string>
+    <string name="download_map_title">نقشه نمای کلی جهان را دانلود کنید</string>
+</resources>

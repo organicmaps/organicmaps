@@ -192,8 +192,6 @@
     <string name="downloader_downloading">Baixando:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Favor parar a navegação para apagar o mapa.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam totalmente contidas em um mapa de uma única região.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Baixar o mapa</string>
     <!-- Item status in downloader. -->
@@ -204,10 +202,6 @@
     <string name="downloader_update_map">Mapa de atualização</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determine rapidamente sua localização aproximada via Bluetooth, WiFi ou rede móvel</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Baixar todos os mapas ao longo do trajeto</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Não há espaço suficiente</string>
     <!-- location service disabled -->
@@ -243,27 +237,8 @@
     <string name="dialog_routing_disclaimer_recommendations">— As rotas indicadas devem ser consideradas apenas como sugestões;</string>
     <string name="dialog_routing_disclaimer_borders">— Tenha cautela com rotas em zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.</string>
     <string name="dialog_routing_disclaimer_beware">Fique sempre alerta nas estradas!</string>
-    <string name="dialog_routing_check_gps">Verificar o sinal de GPS</string>
-    <string name="dialog_routing_error_location_not_found">A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.</string>
     <string name="dialog_routing_location_turn_wifi">Verifique seu sinal de GPS. A ativação do Wi-Fi melhorará a precisão da localização.</string>
-    <string name="dialog_routing_location_turn_on">Ativar serviços de localização</string>
-    <string name="dialog_routing_location_unknown_turn_on">Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja traçada.</string>
-    <string name="dialog_routing_unable_locate_route">Não é possível localizar a rota</string>
-    <string name="dialog_routing_cant_build_route">Não foi possível gerar uma rota.</string>
-    <string name="dialog_routing_change_start_or_end">Ajuste seu ponto de partida ou destino.</string>
-    <string name="dialog_routing_change_start">Ajustar o ponto de partida</string>
-    <string name="dialog_routing_start_not_determined">A rota não foi traçada, pois não foi possível localizar o ponto de partida.</string>
-    <string name="dialog_routing_select_closer_start">Selecione um ponto de partida mais próximo de uma estrada.</string>
-    <string name="dialog_routing_change_end">Ajustar o destino</string>
-    <string name="dialog_routing_end_not_determined">A rota não foi traçada, pois não foi possível localizar o ponto de chegada.</string>
-    <string name="dialog_routing_select_closer_end">Selecione um ponto de destino localizado mais perto de uma estrada.</string>
-    <string name="dialog_routing_change_intermediate">Incapaz de localizar o ponto intermediário.</string>
-    <string name="dialog_routing_intermediate_not_determined">Por favor, ajuste seu ponto intermediário.</string>
     <string name="dialog_routing_system_error">Erro do sistema</string>
-    <string name="dialog_routing_application_error">Não foi possível traçar uma rota devido a um erro no aplicativo.</string>
-    <string name="dialog_routing_try_again">Por favor, tente novamente</string>
-    <string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
-    <string name="dialog_routing_download_cross_route">Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.</string>
@@ -331,7 +306,6 @@
     <!-- Building level -->
     <string name="level_value_generic">Andar: %s</string>
     <string name="downloader_delete_map_dialog">Todas as edições no mapa serão excluídas juntamente com o mapa.</string>
-    <string name="downloader_mwm_migration_dialog">Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planejá-lo novamente.</string>
     <string name="downloader_search_field_hint">Localizar mapa</string>
     <string name="common_check_internet_connection_dialog">Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à internet.</string>
     <string name="downloader_no_space_title">Não há espaço suficiente</string>
@@ -527,9 +501,6 @@
     <string name="search_in_the_list">Buscar na lista</string>
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
-    <string name="transit_not_found">A navegação por metrô ainda não está disponível nesta região</string>
-    <string name="dialog_pedestrian_route_is_long_header">Não foi encontrada nenhuma rota de metrô</string>
-    <string name="dialog_pedestrian_route_is_long_message">Escolha outro ponto de início ou fim perto da estação de metrô</string>
     <string name="button_layer_isolines">Relevo</string>
     <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
     <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>

@@ -107,10 +107,6 @@
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Zawadia mamilioni ya watumiaji ramani za bure bila matangazo!</string>
 
-    <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
-    <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
@@ -298,9 +294,6 @@
     <string name="search_in_the_list">Tafuta kwenye orodha</string>
     <string name="religious_places">Sehemu za ibada</string>
     <string name="select_list">Chagua orodha</string>
-    <string name="transit_not_found">Uabiri wa njia ya chini kwa chini katika mkoa huu haupatikani bado</string>
-    <string name="dialog_pedestrian_route_is_long_header">Njia ya chini kwa chini haipatikani</string>
-    <string name="dialog_pedestrian_route_is_long_message">Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini</string>
     <string name="button_layer_isolines">Topografia</string>
     <string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
     <string name="isolines_location_error_dialog">Tabaka la sura ya nchi bado haipatikani katika eneo hili</string>

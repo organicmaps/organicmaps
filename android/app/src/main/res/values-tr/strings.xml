@@ -282,8 +282,6 @@
     <string name="downloader_downloading">İndiriliyor:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Haritayı silmek için lütfen navigasyonu durdurun.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Rotalar yalnızca tümüyle tek bir bölgenin haritası içinde oluşturulabilir.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Haritayı indir</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play Konum Hizmetleri</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, WiFi veya mobil ağ üzerinden yaklaşık konumunuzu hızlıca belirleyin</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Rota üzerindeki tüm haritaları indir</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize dek tüm haritaları indirmemiz ve güncellememiz gerekiyor.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Yeterli alan yok</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Önerilen rotalar yalnızca öneri olarak kabul edilmelidir;</string>
     <string name="dialog_routing_disclaimer_borders">— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamızca oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarından geçebilir.</string>
     <string name="dialog_routing_disclaimer_beware">Lütfen yolda özenli ve güvenli olun!</string>
-    <string name="dialog_routing_check_gps">GPS sinyalini denetle</string>
-    <string name="dialog_routing_error_location_not_found">Rota oluşturulamıyor. Şu anki GPS koordinatları tanımlanamadı.</string>
     <string name="dialog_routing_location_turn_wifi">Lütfen GPS sinyalinizi denetleyin. Wi-Fi\'ı etkinleştirmek konum doğruluğunu artırır.</string>
-    <string name="dialog_routing_location_turn_on">Konum hizmetlerini etkinleştir</string>
-    <string name="dialog_routing_location_unknown_turn_on">Şu anki GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.</string>
-    <string name="dialog_routing_unable_locate_route">Rota belirlenemiyor</string>
-    <string name="dialog_routing_cant_build_route">Rota oluşturulamıyor.</string>
-    <string name="dialog_routing_change_start_or_end">Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.</string>
-    <string name="dialog_routing_change_start">Başlangıç noktasını ayarla</string>
-    <string name="dialog_routing_start_not_determined">Rota oluşturulamadı. Başlangıç noktası belirlenemiyor.</string>
-    <string name="dialog_routing_select_closer_start">Lütfen yola daha yakın bir başlangıç noktası seçin.</string>
-    <string name="dialog_routing_change_end">Hedefinizi ayarlayın</string>
-    <string name="dialog_routing_end_not_determined">Rota oluşturulamadı. Hedef belirlenemiyor.</string>
-    <string name="dialog_routing_select_closer_end">Lütfen yola daha yakın hedef noktası seçin.</string>
-    <string name="dialog_routing_change_intermediate">Ara nokta bulunamadı.</string>
-    <string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
     <string name="dialog_routing_system_error">Sistem hatası</string>
-    <string name="dialog_routing_application_error">Uygulama hatası nedeniyle rota oluşturulamadı.</string>
-    <string name="dialog_routing_try_again">Lütfen yeniden deneyin</string>
     <string name="not_now">Şimdi Değil</string>
-    <string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden çok haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
-    <string name="dialog_routing_download_cross_route">Bu haritanın bir bölümünden geçen daha uygun rota oluşturmak için harita indir.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra internet bağlantısına gerek kalmayacak.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Kat sayısı: %s</string>
     <string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
     <string name="downloader_update_maps">Haritaları güncelle</string>
-    <string name="downloader_mwm_migration_dialog">Rota oluşturmak için tüm haritaları güncellemeli ve rotayı yeniden planlamalısınız.</string>
     <string name="downloader_search_field_hint">Harita bul</string>
     <string name="common_check_internet_connection_dialog">Lütfen aygıtınızın internete bağlandığından emin olun.</string>
     <string name="downloader_no_space_title">Yeterli alan yok</string>
@@ -747,9 +721,6 @@
     <string name="search_in_the_list">Listede ara</string>
     <string name="religious_places">Dini yerler</string>
     <string name="select_list">Liste seç</string>
-    <string name="transit_not_found">Metro navigasyonu henüz bu bölgede kullanılamaz</string>
-    <string name="dialog_pedestrian_route_is_long_header">Metro rotası bulunamadı</string>
-    <string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
     <string name="button_layer_isolines">Arazi</string>
     <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
     <string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede kullanılamaz</string>

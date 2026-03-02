@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Eskualde bakarreko mapa batean guztiz bilduta dauden arrastoak soilik sor daitezke.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Eguneratu mapa</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Deskargatu zure arrastoaren mapa guztiak</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Arrasto bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatzea eta eguneratzea.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Egiaztatu GPS seinalea</string>
+    <string name="dialog_routing_error_location_not_found">Ezin da ibilbidea sortu. Ezin izan dira uneko GPS koordenatuak identifikatu.</string>
+    <string name="dialog_routing_location_turn_wifi">Egiaztatu GPS seinalea. WiFi konexioa aktibatuz gero, zure kokapenaren zehaztasuna hobetuko da.</string>
+    <string name="dialog_routing_location_turn_on">Aktibatu kokapen zerbitzuak</string>
+    <string name="dialog_routing_location_unknown_turn_on">Ezin dira GPS koordenatuak aurkitu. Aktibatu kokapen zerbitzuak arrastoa kalkulatzeko.</string>
+    <string name="dialog_routing_unable_locate_route">Ezin da ibilbiderik aurkitu</string>
+    <string name="dialog_routing_cant_build_route">Ezin da ibilbidea sortu.</string>
+    <string name="dialog_routing_change_start_or_end">Ezarri zure abiapuntua edo helmuga.</string>
+    <string name="dialog_routing_change_start">Ezarri abiapuntua</string>
+    <string name="dialog_routing_start_not_determined">Ibilbidea ez da sortu. Abiapuntua ezin izan da aurkitu.</string>
+    <string name="dialog_routing_select_closer_start">Hautatu errepide batetik gertuko abiapuntua.</string>
+    <string name="dialog_routing_change_end">Zehaztu norakoa</string>
+    <string name="dialog_routing_end_not_determined">Ibilbidea ez da sortu. Ezin izan da helmuga aurkitu.</string>
+    <string name="dialog_routing_select_closer_end">Hautatu helmuga puntu bat errepide batetik gertu.</string>
+    <string name="dialog_routing_change_intermediate">Ezin izan da tarteko puntua kokatu.</string>
+    <string name="dialog_routing_intermediate_not_determined">Mesedez, zehaztu tarteko puntua.</string>
+    <string name="dialog_routing_system_error">Sistemaren errorea</string>
+    <string name="dialog_routing_application_error">Ibilbidea ezin izan da sortu aplikazioaren errore baten ondorioz.</string>
+    <string name="dialog_routing_try_again">Saiatu berriro</string>
+    <string name="dialog_routing_download_and_build_cross_route">Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?</string>
+    <string name="dialog_routing_download_cross_route">Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Eguneratu mapak</string>
+    <string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>
+    <string name="ok">Ados</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Metroko nabigazioa oraindik ez dago erabilgarri eskualde honetan</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ez da aurkitu metroko ibilbiderik</string>
+    <string name="dialog_pedestrian_route_is_long_message">Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua</string>
+</resources>

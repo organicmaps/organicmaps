@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Peruuta</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Haku</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Lataus epäonnistui</string>
+    <string name="download">Lataa</string>
+    <string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s tilaa.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Kirjanmerkit</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Asetukset</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Missä syödä</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Elintarvikkeet</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Huoltoasema</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkkipaikka</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotelli</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">WC</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Karavaanaritilat</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap-tiedot: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Yötila</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Pois päältä</string>
+    <!-- Generic «On» string -->
+    <string name="on">Päällä</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automaattinen</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D-rakennukset</string>
+    <!-- Text in menu -->
+    <string name="help">Ohje</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Kartat</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Lataa kartta</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Yritä uudelleen</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Luokat</string>
+    <string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
+    <string name="search_history_text">Näytä viimeaikaiset hakusi.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Koko päivän (24 tuntia)</string>
+    <string name="editor_time_open">Avoinna</string>
+    <string name="twentyfour_seven">Päivin ja öin</string>
+    <string name="day_off_today">Suljettu tänään</string>
+    <string name="opens_in">Avautuu %s kuluttua</string>
+    <string name="closes_in">Sulkeutuu %s kuluttua</string>
+    <string name="closed">Suljettu</string>
+    <string name="minute">min</string>
+    <string name="big_font">Suurenna fonttikokoa kartalla</string>
+    <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Karttojen lataaminen</string>
+    <string name="driving_options_title">Reititysvalinnat</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Vältä maksullisia teitä</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Vältä päällystämättömiä teitä</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Vältä lautan käyttöä</string>
+    <string name="avoid_motorways">Vältä moottoritietä</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Järjestä kirjanmerkit</string>
+    <!-- Android -->
+    <string name="by_default">Oletuksena</string>
+    <!-- Android -->
+    <string name="by_type">Tyyppi</string>
+    <!-- Android -->
+    <string name="by_distance">Etäisyys</string>
+    <!-- Android -->
+    <string name="by_date">Päivämäärä</string>
+    <!-- Android -->
+    <string name="by_name">Nimen mukaan</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Ladataan</string>
+    <string name="download_map_title">Lataa maailmankartta</string>
+</resources>

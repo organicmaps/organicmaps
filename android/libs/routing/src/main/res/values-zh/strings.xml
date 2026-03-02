@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">路线只能完全处在同一地图里时才能被规划。</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">更新地图</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">下载路线上的所有地图</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">规划路线需要下载并更新好所有从您的位置到目的地的地图。</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">检查 GPS 信号</string>
+    <string name="dialog_routing_error_location_not_found">无法规划路线。无法识别当前 GPS 坐标。</string>
+    <string name="dialog_routing_location_turn_wifi">请检查您的 GPS 信号。启用无线网络将改善定位精度。</string>
+    <string name="dialog_routing_location_turn_on">启用定位服务</string>
+    <string name="dialog_routing_location_unknown_turn_on">无法定位当前 GPS 坐标。请启用定位服务以规划路线。</string>
+    <string name="dialog_routing_unable_locate_route">无法定位路线</string>
+    <string name="dialog_routing_cant_build_route">无法规划路线。</string>
+    <string name="dialog_routing_change_start_or_end">请调整您的起点或目的地。</string>
+    <string name="dialog_routing_change_start">调整出发点</string>
+    <string name="dialog_routing_start_not_determined">路线未规划。无法定位起点。</string>
+    <string name="dialog_routing_select_closer_start">请选择更靠近公路的起点。</string>
+    <string name="dialog_routing_change_end">调整目的地</string>
+    <string name="dialog_routing_end_not_determined">路线未规划。无法定位目的地。</string>
+    <string name="dialog_routing_select_closer_end">请选择更靠近公路的目的地位置。</string>
+    <string name="dialog_routing_change_intermediate">无法定位途径点。</string>
+    <string name="dialog_routing_intermediate_not_determined">请调整您的途径点。</string>
+    <string name="dialog_routing_system_error">系统错误</string>
+    <string name="dialog_routing_application_error">由于应用程序出错，因此无法规划路线。</string>
+    <string name="dialog_routing_try_again">请再试一次</string>
+    <string name="dialog_routing_download_and_build_cross_route">您是否要下载地图，以规划跨越边界的更佳路线？</string>
+    <string name="dialog_routing_download_cross_route">下载地图，以规划一条跨越边界的更佳路线。</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">更新地图</string>
+    <string name="downloader_mwm_migration_dialog">为了规划路线，您需要更新全部地图并重新规划路线。</string>
+    <string name="ok">好的</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">本区域的地铁导航目前不可用</string>
+    <string name="dialog_pedestrian_route_is_long_header">未找到地铁路线图</string>
+    <string name="dialog_pedestrian_route_is_long_message">选择地铁站附近的起点和终点</string>
+</resources>

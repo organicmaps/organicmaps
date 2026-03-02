@@ -282,8 +282,6 @@
     <string name="downloader_downloading">正在下载：</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">要删除地图，请停止导航。</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">路线只能完全处在同一地图里时才能被规划。</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">下载地图</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play 定位服务</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">通过蓝牙、WiFi 或移动网络快速确定您的大致位置</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">下载路线上的所有地图</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">规划路线需要下载并更新好所有从您的位置到目的地的地图。</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">空间不足</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— 建议的路线仅作为推荐路线供您采纳；</string>
     <string name="dialog_routing_disclaimer_borders">— 小心对待国界区的路线：我们的应用生成的路线有时会在未经授权的地方跨越国界。</string>
     <string name="dialog_routing_disclaimer_beware">上路时请当心，祝您一路平安！</string>
-    <string name="dialog_routing_check_gps">检查 GPS 信号</string>
-    <string name="dialog_routing_error_location_not_found">无法规划路线。无法识别当前 GPS 坐标。</string>
     <string name="dialog_routing_location_turn_wifi">请检查您的 GPS 信号。启用无线网络将改善定位精度。</string>
-    <string name="dialog_routing_location_turn_on">启用定位服务</string>
-    <string name="dialog_routing_location_unknown_turn_on">无法定位当前 GPS 坐标。请启用定位服务以规划路线。</string>
-    <string name="dialog_routing_unable_locate_route">无法定位路线</string>
-    <string name="dialog_routing_cant_build_route">无法规划路线。</string>
-    <string name="dialog_routing_change_start_or_end">请调整您的起点或目的地。</string>
-    <string name="dialog_routing_change_start">调整出发点</string>
-    <string name="dialog_routing_start_not_determined">路线未规划。无法定位起点。</string>
-    <string name="dialog_routing_select_closer_start">请选择更靠近公路的起点。</string>
-    <string name="dialog_routing_change_end">调整目的地</string>
-    <string name="dialog_routing_end_not_determined">路线未规划。无法定位目的地。</string>
-    <string name="dialog_routing_select_closer_end">请选择更靠近公路的目的地位置。</string>
-    <string name="dialog_routing_change_intermediate">无法定位途径点。</string>
-    <string name="dialog_routing_intermediate_not_determined">请调整您的途径点。</string>
     <string name="dialog_routing_system_error">系统错误</string>
-    <string name="dialog_routing_application_error">由于应用程序出错，因此无法规划路线。</string>
-    <string name="dialog_routing_try_again">请再试一次</string>
     <string name="not_now">以后再说</string>
-    <string name="dialog_routing_download_and_build_cross_route">您是否要下载地图，以规划跨越边界的更佳路线？</string>
-    <string name="dialog_routing_download_cross_route">下载地图，以规划一条跨越边界的更佳路线。</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">要开始搜索和规划路线，请下载地图，然后您就不再需要网络连接了。</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">楼层：%s</string>
     <string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
     <string name="downloader_update_maps">更新地图</string>
-    <string name="downloader_mwm_migration_dialog">为了规划路线，您需要更新全部地图并重新规划路线。</string>
     <string name="downloader_search_field_hint">搜索地图</string>
     <string name="common_check_internet_connection_dialog">请检查您的设置并确保您的设备已连接至网络。</string>
     <string name="downloader_no_space_title">没有足够的空间</string>
@@ -746,9 +720,6 @@
     <string name="search_in_the_list">在列表中搜索</string>
     <string name="religious_places">宗教场所</string>
     <string name="select_list">选择列表</string>
-    <string name="transit_not_found">本区域的地铁导航目前不可用</string>
-    <string name="dialog_pedestrian_route_is_long_header">未找到地铁路线图</string>
-    <string name="dialog_pedestrian_route_is_long_message">选择地铁站附近的起点和终点</string>
     <string name="button_layer_isolines">等高线</string>
     <string name="isolines_activation_error_dialog">如需使用等高线，请更新或下载所需区域的地图</string>
     <string name="isolines_location_error_dialog">暂时无法获取该地区的等高线</string>

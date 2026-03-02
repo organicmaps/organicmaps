@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">निरस्त करना</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">खोज</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">डाउनलोड विफल हो गया है</string>
+    <string name="download">डाउन लोड करना</string>
+    <string name="download_resources">ऐप का उपयोग शुरू करने से पहले, कृपया अपने डिवाइस पर सामान्य विश्व मानचित्र डाउनलोड करें।\nयह %s स्टोरेज का उपयोग करेगा।</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">बुकमार्क</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">समायोजन</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">कहाँ खाना है</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">किराने का सामान</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">गैस स्टेशन</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">पार्किंग</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">होटल</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">शौचालय</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">आरवी सुविधाएं</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap डेटा: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">रात का मोड</string>
+    <!-- Generic «Off» string -->
+    <string name="off">बंद</string>
+    <!-- Generic «On» string -->
+    <string name="on">चालू</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">स्वचालित</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3डी इमारतें</string>
+    <!-- Text in menu -->
+    <string name="help">सहायता</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">श्रेणियाँ</string>
+    <string name="search_not_found">उफ़, कोई परिणाम नहीं मिला.</string>
+    <string name="editor_time_open">खुला</string>
+    <string name="opens_in">%s में खुल जाएगा</string>
+    <string name="closes_in">%s में बंद हो जाता है</string>
+    <string name="closed">बंद</string>
+    <string name="minute">मिनट</string>
+    <string name="big_font">मानचित्र लेबल के लिए आकार बढ़ाएँ</string>
+    <string name="transliteration_title">लैटिन में लिप्यंतरण</string>
+    <string name="driving_options_title">रूटिंग विकल्प</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">पथकर को टालना</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">कच्ची सड़कों से बचें</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">नौकाओं से बचें</string>
+    <string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
+    <!-- Android -->
+    <string name="by_name">नाम द्वारा</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
+</resources>

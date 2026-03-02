@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">請檢查您的設定並確保您的裝置已連接至網路。</string>
+    <string name="downloader_no_space_title">沒有足夠的空間</string>
+</resources>

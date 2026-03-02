@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">ਰੱਦ ਕਰੋ</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">ਲੱਭੋ</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">ਡਾਊਨਲੋਡ ਅਸਫਲ</string>
+    <string name="download">ਡਾਊਨਲੋਡ</string>
+    <string name="download_resources">ਐਪ ਦੀ ਵਰਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਡਿਵਾਈਸ \'ਤੇ ਵਿਸ਼ਵ ਸੰਖੇਪ ਨਕਸ਼ਾ ਡਾਊਨਲੋਡ ਕਰੋ।\nਇਹ %s ਸਟੋਰੇਜ ਦੀ ਵਰਤੋਂ ਕਰੇਗਾ।</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">ਬੁੱਕਮਾਰਕ</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+</resources>

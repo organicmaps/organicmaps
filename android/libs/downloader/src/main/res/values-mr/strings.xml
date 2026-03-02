@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.</string>
+    <string name="downloader_no_space_title">पुरेशी जागा नाही</string>
+</resources>

@@ -33,6 +33,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
   @NonNull
   private final String mFlavor;
+  @NonNull
+  private final String mVersionName;
 
   @NonNull
   private final Context mContext;
@@ -77,11 +79,24 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     return mIsolinesManager;
   }
 
+  @NonNull
+  public String getFlavor()
+  {
+    return mFlavor;
+  }
+
+  @NonNull
+  public String getVersionName()
+  {
+    return mVersionName;
+  }
+
   public OrganicMaps(@NonNull Context context, @NonNull String flavor, @NonNull String applicationId, int versionCode,
                      @NonNull String versionName, @NonNull String fileProviderAuthority,
                      @NonNull LocationProviderFactory locationProviderFactory)
   {
     mFlavor = flavor;
+    mVersionName = versionName;
     mContext = context.getApplicationContext();
     mPreferences = mContext.getSharedPreferences(context.getString(R.string.pref_file_name), Context.MODE_PRIVATE);
 
@@ -93,7 +108,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     Logger.d(TAG, "Settings path = " + settingsPath);
     nativeSetSettingsDir(settingsPath);
 
-    Config.init(mContext, mPreferences, flavor, applicationId, versionCode, versionName, fileProviderAuthority);
+    Config.init(mContext, mPreferences, mFlavor, applicationId, versionCode, mVersionName, fileProviderAuthority);
     OsmOAuth.init(mPreferences);
     SharedPropertiesUtils.init(mPreferences);
     LogsManager.INSTANCE.initFileLogging(mContext, mPreferences);

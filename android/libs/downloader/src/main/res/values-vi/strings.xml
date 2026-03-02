@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Xin kiểm tra các thiết lập và đảm bảo thiết bị của bạn có kết nối Internet.</string>
+    <string name="downloader_no_space_title">Không đủ dung lượng</string>
+</resources>

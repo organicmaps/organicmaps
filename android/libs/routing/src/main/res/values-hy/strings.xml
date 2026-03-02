@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Երթուղիները կարող են ստեղծվել միայն մեկ տարածաշրջանի քարտեզի սահմաններում:</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Թարմացնել քարտեզը</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Ներբեռնել ձեր երթուղու երկայնքով բոլոր քարտեզները</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Երթուղի ստեղծելու համար մենք պետք է ներբեռնենք և թարմացնենք բոլոր քարտեզները՝ ձեր գտնվելու վայրից մինչև նպատակակետ:</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Ստուգեք GPS ազդանշանը</string>
+    <string name="dialog_routing_error_location_not_found">Հնարավոր չէ կառուցել երթուղին։ Ընթացիկ GPS կոորդինատները չեն որոշվել:</string>
+    <string name="dialog_routing_location_turn_wifi">Խնդրում ենք ստուգել GPS ազդանշանը: Wi-Fi-ի միացումը կբարելավի տեղորոշման ճշգրտությունը:</string>
+    <string name="dialog_routing_location_turn_on">Միացնել տեղորոշման ծառայությունները</string>
+    <string name="dialog_routing_location_unknown_turn_on">Հնարավոր չէ որոշել ընթացիկ GPS կոորդինատները։ Միացրեք տեղորոշման ծառայությունները՝ երթուղին հաշվարկելու համար:</string>
+    <string name="dialog_routing_unable_locate_route">Երթուղին չի գտնվել</string>
+    <string name="dialog_routing_cant_build_route">Հնարավոր չէ կառուցել երթուղին:</string>
+    <string name="dialog_routing_change_start_or_end">Խնդրում ենք փոխել մեկնարկային կետը կամ նպատակակետը:</string>
+    <string name="dialog_routing_change_start">Փոխել մեկնարկային կետը</string>
+    <string name="dialog_routing_start_not_determined">Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել մեկնարկային կետը:</string>
+    <string name="dialog_routing_select_closer_start">Խնդրում ենք ընտրել ճանապարհին ավելի մոտ մեկնարկային կետ:</string>
+    <string name="dialog_routing_change_end">Փոխել նպատակակետը</string>
+    <string name="dialog_routing_end_not_determined">Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել նպատակակետը:</string>
+    <string name="dialog_routing_select_closer_end">Խնդրում ենք ընտրել ճանապարհին ավելի մոտ նպատակակետ:</string>
+    <string name="dialog_routing_change_intermediate">Հնարավոր չէ գտնել միջանկյալ կետը:</string>
+    <string name="dialog_routing_intermediate_not_determined">Խնդրում ենք փոխել միջանկյալ կետը:</string>
+    <string name="dialog_routing_system_error">Համակարգային սխալ</string>
+    <string name="dialog_routing_application_error">Հնարավոր չէ կառուցել երթուղին ծրագրային սխալի պատճառով:</string>
+    <string name="dialog_routing_try_again">Խնդրում ենք փորձել կրկին</string>
+    <string name="dialog_routing_download_and_build_cross_route">Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:</string>
+    <string name="dialog_routing_download_cross_route">Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Թարմացնել քարտեզները</string>
+    <string name="downloader_mwm_migration_dialog">Երթուղի կառուցելու համար անհրաժեշտ է թարմացնել բոլոր քարտեզները, իսկ հետո կրկին պլանավորել երթուղին:</string>
+    <string name="ok">Լավ</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Մետրոյով երթևեկությունը այս տարածաշրջանում դեռ հասանելի չէ</string>
+    <string name="dialog_pedestrian_route_is_long_header">Մետրոյի երթուղի չի գտնվել</string>
+    <string name="dialog_pedestrian_route_is_long_message">Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ</string>
+</resources>

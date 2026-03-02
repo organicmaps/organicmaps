@@ -17,6 +17,7 @@ import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UserActionRequired;
+import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.screens.BaseScreen;
 import app.organicmaps.sdk.util.LocationUtils;
 import java.util.Arrays;
@@ -29,9 +30,10 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
   @NonNull
   private final Runnable mPermissionsGrantedCallback;
 
-  public RequestPermissionsScreenWithApi(@NonNull CarContext carContext, @NonNull Runnable permissionsGrantedCallback)
+  public RequestPermissionsScreenWithApi(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
+                                         @NonNull Runnable permissionsGrantedCallback)
   {
-    super(carContext);
+    super(carContext, organicMapsContext);
     mPermissionsGrantedCallback = permissionsGrantedCallback;
   }
 
@@ -51,7 +53,7 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
 
     final Header.Builder headerBuilder = new Header.Builder();
     headerBuilder.setStartHeaderAction(Action.APP_ICON);
-    headerBuilder.setTitle(getCarContext().getString(R.string.app_name));
+    headerBuilder.setTitle(getCarContext().getString(app.organicmaps.branding.R.string.app_name));
 
     builder.setHeader(headerBuilder.build());
     builder.setIcon(
@@ -78,7 +80,7 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
   {
     if (grantedPermissions.isEmpty())
     {
-      getScreenManager().push(new ErrorScreen.Builder(getCarContext())
+      getScreenManager().push(new ErrorScreen.Builder(getCarContext(), getOrganicMapsContext())
                                   .setErrorMessage(R.string.location_is_disabled_long_text)
                                   .setNegativeButton(R.string.close, null)
                                   .build());

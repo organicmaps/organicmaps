@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Żgura li t-tagħmir tiegħek huwa mqabbad mal-Internet.</string>
+    <string name="downloader_no_space_title">Mhux biżżejjed spazju</string>
+</resources>

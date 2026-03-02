@@ -56,8 +56,6 @@
   <color name="icon_tint_light">#FFBDBDBD</color>
 
   <color name="divider">#1E000000</color>
-  
-  <color name="logo">#006C35</color>
 
   <!-- Backgrounds -->
   <color name="bg_window">#FFEEEEEE</color>

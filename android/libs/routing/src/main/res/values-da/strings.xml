@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Der kan kun oprettes ruter, der er fuldt ud indeholdt i et kort over en enkelt region.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Opdater kort</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Download alle kort langs din rute</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">For at kunne oprette en rute skal vi downloade og opdatere alle kort fra din placering til din destination.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Tjek GPS-signalet</string>
+    <string name="dialog_routing_error_location_not_found">Det lykkedes ikke at oprette rute. GPS-koordinaterne kunne ikke identificeres korrekt.</string>
+    <string name="dialog_routing_location_turn_wifi">Tjek dit GPS-signal. Din placering registreres mere præcist, hvis wi-fi er slået til.</string>
+    <string name="dialog_routing_location_turn_on">Aktiver placeringstjenester</string>
+    <string name="dialog_routing_location_unknown_turn_on">Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå placeringstjenester til for at beregne rute.</string>
+    <string name="dialog_routing_unable_locate_route">Kan ikke finde rute</string>
+    <string name="dialog_routing_cant_build_route">Kan ikke oprette rute.</string>
+    <string name="dialog_routing_change_start_or_end">Prøv at angive et andet startpunkt eller en anden destination.</string>
+    <string name="dialog_routing_change_start">Vælg et andet startpunkt</string>
+    <string name="dialog_routing_start_not_determined">Rute blev ikke oprettet. Kunne ikke finde startpunktet.</string>
+    <string name="dialog_routing_select_closer_start">Angiv et startpunkt, der ligger tættere på en vej.</string>
+    <string name="dialog_routing_change_end">Vælg en anden destination</string>
+    <string name="dialog_routing_end_not_determined">Rute blev ikke oprettet. Kunne ikke finde destinationen.</string>
+    <string name="dialog_routing_select_closer_end">Angiv en destination, der ligger tættere på en vej.</string>
+    <string name="dialog_routing_change_intermediate">Kunne ikke lokalisere mellemliggende punkt.</string>
+    <string name="dialog_routing_intermediate_not_determined">Rediger det mellemliggende punkt.</string>
+    <string name="dialog_routing_system_error">Systemfejl</string>
+    <string name="dialog_routing_application_error">Kan ikke oprette rute på grund af en applikationsfejl.</string>
+    <string name="dialog_routing_try_again">Prøv venligst igen</string>
+    <string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
+    <string name="dialog_routing_download_cross_route">Download yderligere kort for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Opdatér kort</string>
+    <string name="downloader_mwm_migration_dialog">For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.</string>
+    <string name="ok">Ok</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Metro-navigation er endnu ikke tilgængelig i denne region</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ingen undergrundsrute fundet</string>
+    <string name="dialog_pedestrian_route_is_long_message">Vælg venligst et start- eller stoppunkt tættere på en metrostation</string>
+</resources>

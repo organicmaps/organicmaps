@@ -115,7 +115,7 @@ public class MapButtonsController extends Fragment
       }
       else
       {
-        helpButton.setImageResource(R.drawable.logo);
+        helpButton.setImageResource(app.organicmaps.branding.R.drawable.logo);
         // Keep this button colorful in normal theme.
         if (!ThemeUtils.isDarkTheme(requireContext()))
           helpButton.getDrawable().setTintList(null);

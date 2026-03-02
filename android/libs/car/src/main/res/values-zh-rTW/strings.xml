@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">取消</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">搜尋</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">下載失敗</string>
+    <string name="download">下載</string>
+    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。\n它將使用 %s 的儲存空間。</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">書籤</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">設定</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">在哪裡吃</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">食品</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">加油站</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">停車場</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">旅館</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">廁所</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">露營車設施</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap 數據：%s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">夜間模式</string>
+    <!-- Generic «Off» string -->
+    <string name="off">關閉</string>
+    <!-- Generic «On» string -->
+    <string name="on">開啟</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">自動</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D 建築</string>
+    <!-- Text in menu -->
+    <string name="help">幫助</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">地圖</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">下載地圖</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">重新下載</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">類別</string>
+    <string name="search_not_found">很抱歉，沒有搜尋到任何地點。</string>
+    <string name="search_history_text">查看您最近的搜尋記錄。</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">全天 (24 小時)</string>
+    <string name="editor_time_open">營業中</string>
+    <string name="twentyfour_seven">24/7 全天候營業</string>
+    <string name="day_off_today">今天不營業</string>
+    <string name="opens_in">將於 %s 後開業</string>
+    <string name="closes_in">將於 %s 後歇業</string>
+    <string name="closed">已停止營業</string>
+    <string name="minute">分鐘</string>
+    <string name="big_font">增加地圖上的字體大小</string>
+    <string name="transliteration_title">拉丁字母音譯</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">載入地圖</string>
+    <string name="driving_options_title">繞行設定</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">避開收費公路</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">避開無鋪面道路</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">避開渡輪</string>
+    <string name="avoid_motorways">避開高速公路</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">分類排序</string>
+    <!-- Android -->
+    <string name="by_default">使用默認值</string>
+    <!-- Android -->
+    <string name="by_type">按類型</string>
+    <!-- Android -->
+    <string name="by_distance">按距離</string>
+    <!-- Android -->
+    <string name="by_date">按時間</string>
+    <!-- Android -->
+    <string name="by_name">按名字</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">正在下載</string>
+    <string name="download_map_title">下載世界總覽地圖</string>
+</resources>

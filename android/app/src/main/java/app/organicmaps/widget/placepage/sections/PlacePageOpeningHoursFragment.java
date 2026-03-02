@@ -25,7 +25,7 @@ import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
+import app.organicmaps.utils.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import java.util.Calendar;

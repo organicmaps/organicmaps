@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Deskargatzen:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Mapa ezabatzeko, gelditu nabigazioa.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Eskualde bakarreko mapa batean guztiz bilduta dauden arrastoak soilik sor daitezke.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Deskargatu mapa</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play Kokapen Zerbitzuak</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Zehaztu azkar zure gutxi gorabeherako kokapena Bluetooth, WiFi edo sare mugikorra erabiliz</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Deskargatu zure arrastoaren mapa guztiak</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Arrasto bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatzea eta eguneratzea.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Leku nahikorik ez</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Iradokitako ibilbideak gomendio gisa soilik hartu behar dira;</string>
     <string name="dialog_routing_disclaimer_borders">— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan.</string>
     <string name="dialog_routing_disclaimer_beware">Egon adi eta seguru errepideetan!</string>
-    <string name="dialog_routing_check_gps">Egiaztatu GPS seinalea</string>
-    <string name="dialog_routing_error_location_not_found">Ezin da ibilbidea sortu. Ezin izan dira uneko GPS koordenatuak identifikatu.</string>
     <string name="dialog_routing_location_turn_wifi">Egiaztatu GPS seinalea. WiFi konexioa aktibatuz gero, zure kokapenaren zehaztasuna hobetuko da.</string>
-    <string name="dialog_routing_location_turn_on">Aktibatu kokapen zerbitzuak</string>
-    <string name="dialog_routing_location_unknown_turn_on">Ezin dira GPS koordenatuak aurkitu. Aktibatu kokapen zerbitzuak arrastoa kalkulatzeko.</string>
-    <string name="dialog_routing_unable_locate_route">Ezin da ibilbiderik aurkitu</string>
-    <string name="dialog_routing_cant_build_route">Ezin da ibilbidea sortu.</string>
-    <string name="dialog_routing_change_start_or_end">Ezarri zure abiapuntua edo helmuga.</string>
-    <string name="dialog_routing_change_start">Ezarri abiapuntua</string>
-    <string name="dialog_routing_start_not_determined">Ibilbidea ez da sortu. Abiapuntua ezin izan da aurkitu.</string>
-    <string name="dialog_routing_select_closer_start">Hautatu errepide batetik gertuko abiapuntua.</string>
-    <string name="dialog_routing_change_end">Zehaztu norakoa</string>
-    <string name="dialog_routing_end_not_determined">Ibilbidea ez da sortu. Ezin izan da helmuga aurkitu.</string>
-    <string name="dialog_routing_select_closer_end">Hautatu helmuga puntu bat errepide batetik gertu.</string>
-    <string name="dialog_routing_change_intermediate">Ezin izan da tarteko puntua kokatu.</string>
-    <string name="dialog_routing_intermediate_not_determined">Mesedez, zehaztu tarteko puntua.</string>
     <string name="dialog_routing_system_error">Sistemaren errorea</string>
-    <string name="dialog_routing_application_error">Ibilbidea ezin izan da sortu aplikazioaren errore baten ondorioz.</string>
-    <string name="dialog_routing_try_again">Saiatu berriro</string>
     <string name="not_now">Orain ez</string>
-    <string name="dialog_routing_download_and_build_cross_route">Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?</string>
-    <string name="dialog_routing_download_cross_route">Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Ibilbideak bilatzen eta sortzen hasteko, deskargatu mapa. Horren ondoren, ez duzu Interneterako konexiorik beharko.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Maila: %s</string>
     <string name="downloader_delete_map_dialog">Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.</string>
     <string name="downloader_update_maps">Eguneratu mapak</string>
-    <string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>
     <string name="downloader_search_field_hint">Bilatu mapa</string>
     <string name="common_check_internet_connection_dialog">Mesedez, egiaztatu ezarpenak eta ziurtatu zure gailua Internetera konektatuta dagoela.</string>
     <string name="downloader_no_space_title">Leku nahikorik ez</string>
@@ -745,9 +719,6 @@
     <string name="search_in_the_list">Bilatu zerrendan</string>
     <string name="religious_places">Erlijio guneak</string>
     <string name="select_list">Hautatu zerrenda</string>
-    <string name="transit_not_found">Metroko nabigazioa oraindik ez dago erabilgarri eskualde honetan</string>
-    <string name="dialog_pedestrian_route_is_long_header">Ez da aurkitu metroko ibilbiderik</string>
-    <string name="dialog_pedestrian_route_is_long_message">Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua</string>
     <string name="button_layer_isolines">Sestra kurbak</string>
     <string name="isolines_activation_error_dialog">Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa</string>
     <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>

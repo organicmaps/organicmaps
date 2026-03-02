@@ -256,9 +256,6 @@
     <string name="dialog_routing_disclaimer_recommendations">– Predložene rute treba shvatiti samo kao preporuke;</string>
     <string name="dialog_routing_disclaimer_borders">– Budite oprezni s rutama u pograničnim zonama: rute koje je kreirala naša aplikacija ponekad mogu prelaziti državne granice na nedozvoljenim mjestima.</string>
     <string name="dialog_routing_disclaimer_beware">Budite oprezni i sigurni na cestama!</string>
-    <string name="dialog_routing_check_gps">Provjeri GPS signal</string>
-    <string name="dialog_routing_location_turn_on">Aktiviraj usluge lokacija</string>
-    <string name="dialog_routing_try_again">Pokušaj ponovo</string>
     <string name="not_now">Ne sada</string>
 
     <!-- SECTION: Strings for downloading map from search -->

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Aktualizuj mapę</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Pobierz mapy wzdłuż trasy</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Sprawdź sygnał GPS</string>
+    <string name="dialog_routing_error_location_not_found">Nie można wyznaczyć trasy. Nie można ustalić współrzędnych GPS.</string>
+    <string name="dialog_routing_location_turn_wifi">Sprawdź sygnał GPS. Aktywacja Wi-Fi pomoże w precyzyjnym określeniu położenia.</string>
+    <string name="dialog_routing_location_turn_on">Włącz usługi określania lokalizacji</string>
+    <string name="dialog_routing_location_unknown_turn_on">Nie można ustalić współrzędnych GPS. Włącz usługi określania lokalizacji, aby wyznaczyć trasę.</string>
+    <string name="dialog_routing_unable_locate_route">Nie można zlokalizować trasy</string>
+    <string name="dialog_routing_cant_build_route">Nie można wyznaczyć trasy.</string>
+    <string name="dialog_routing_change_start_or_end">Zmień punkt początkowy lub docelowy.</string>
+    <string name="dialog_routing_change_start">Zmień punkt początkowy</string>
+    <string name="dialog_routing_start_not_determined">Nie wyznaczono trasy. Nie można zlokalizować punktu początkowego.</string>
+    <string name="dialog_routing_select_closer_start">Wybierz punkt początkowy położony bliżej drogi.</string>
+    <string name="dialog_routing_change_end">Zmień punkt docelowy</string>
+    <string name="dialog_routing_end_not_determined">Nie wyznaczono trasy. Nie można zlokalizować punktu docelowego.</string>
+    <string name="dialog_routing_select_closer_end">Wybierz punkt docelowy położony bliżej drogi.</string>
+    <string name="dialog_routing_change_intermediate">Nie można zlokalizować punktu postoju.</string>
+    <string name="dialog_routing_intermediate_not_determined">Dokonaj korekty punktu postoju.</string>
+    <string name="dialog_routing_system_error">Błąd systemowy</string>
+    <string name="dialog_routing_application_error">Nie można wyznaczyć trasy z powodu błędu aplikacji.</string>
+    <string name="dialog_routing_try_again">Spróbuj ponownie</string>
+    <string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
+    <string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Aktualizuj mapy</string>
+    <string name="downloader_mwm_migration_dialog">Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.</string>
+    <string name="ok">Ok</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Nawigacja metrem nie jest jeszcze tutaj dostępna</string>
+    <string name="dialog_pedestrian_route_is_long_header">Nie znaleziono trasy metra</string>
+    <string name="dialog_pedestrian_route_is_long_message">Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra</string>
+</resources>

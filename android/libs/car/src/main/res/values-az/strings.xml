@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Ləğv et</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Axtar</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Yükləmə uğursuz oldu</string>
+    <string name="download">Yüklə</string>
+    <string name="download_resources">Başlamazdan əvvəl gəlin ümumi dünya xəritəsini cihazınıza endirək.\n%s yer tələb olunur.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Əlfəcinlər</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Parametrlər</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Harada yemək</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Ərzaq mağazası</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Yanacaq doldurma məntəqəsi</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Avtomobil dayanacağı</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Otel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Ayaqyolu</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Karvan qurğuları</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap datası: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Gecə rejimi</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Bağlı</string>
+    <!-- Generic «On» string -->
+    <string name="on">Açıq</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Avtomatik</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D strukturları</string>
+    <!-- Text in menu -->
+    <string name="help">Yardım</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Xəritələr</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Xəritəni yükləyin</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Yenidən cəhd et</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kateqoriyalar</string>
+    <string name="search_not_found">Üzr istəyirik, heç bir nəticə tapılmadı.</string>
+    <string name="search_history_text">Son axtarışlara baxın.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Bütün gün (24 saat)</string>
+    <string name="editor_time_open">Açıq</string>
+    <string name="twentyfour_seven">7/24</string>
+    <string name="day_off_today">Bu gün bağlıdır</string>
+    <string name="opens_in">%s sonra açılır</string>
+    <string name="closes_in">%s sonra bağlanır</string>
+    <string name="closed">Bağlı</string>
+    <string name="minute">dəq</string>
+    <string name="big_font">Xəritədə şrift ölçüsünü artırın</string>
+    <string name="transliteration_title">Latın transliterasiyası</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Xəritə yükləyicisi</string>
+    <string name="driving_options_title">Marşrutlaşdırma seçimləri</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Rüsumlardan çəkinin</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Asfaltsız yollardan çəkinin</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Bərə keçidlərindən çəkinin</string>
+    <string name="avoid_motorways">Magistral yoldan çəkinin</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Əlfəcinləri çeşidləyin</string>
+    <!-- Android -->
+    <string name="by_default">Defoltolaraq</string>
+    <!-- Android -->
+    <string name="by_type">Növünə görə</string>
+    <!-- Android -->
+    <string name="by_distance">Məsafəyə görə</string>
+    <!-- Android -->
+    <string name="by_date">Tarixə görə</string>
+    <!-- Android -->
+    <string name="by_name">Ada görə</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Endirilir</string>
+    <string name="download_map_title">Dünya xəritəsini yükləyin</string>
+</resources>

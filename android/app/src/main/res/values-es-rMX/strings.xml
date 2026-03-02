@@ -140,8 +140,6 @@
     <string name="downloader_downloading">Descargar:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Para eliminar el mapa, por favor, detenga la navegación.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Sólo se pueden crear rutas que estén totalmente contenidas en el mapa de una única región.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Descargar el mapa</string>
     <!-- Item in context menu. -->
@@ -152,10 +150,6 @@
     <string name="google_play_services">Servicios de ubicación de Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determine rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Descarga todos los mapas de tu ruta</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Para crear una ruta, necesitamos descargar y actualizar todos los mapas desde tu ubicación hasta tu destino.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Espacio insuficiente</string>
     <!-- location service disabled -->
@@ -181,25 +175,8 @@
     <string name="dialog_routing_disclaimer_recommendations">- Las rutas sugeridas sólo deben entenderse como recomendaciones;</string>
     <string name="dialog_routing_disclaimer_borders">— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;</string>
     <string name="dialog_routing_disclaimer_beware">¡Manténgase alerta y seguro en las rutas!</string>
-    <string name="dialog_routing_check_gps">Comprobar la señal GPS</string>
-    <string name="dialog_routing_error_location_not_found">No se ha podido crear la ruta. No se han podido identificar las coordenadas GPS actuales.</string>
     <string name="dialog_routing_location_turn_wifi">Verifique la señal del GPS. Activar la Wi-Fi mejorará la precisión de su ubicación.</string>
-    <string name="dialog_routing_location_turn_on">Activar los servicios de localización</string>
-    <string name="dialog_routing_location_unknown_turn_on">No se pueden localizar las coordenadas GPS actuales. Activa los servicios de localización para calcular la ruta.</string>
-    <string name="dialog_routing_unable_locate_route">No se puede localizar la ruta</string>
-    <string name="dialog_routing_cant_build_route">No se ha podido crear la ruta.</string>
-    <string name="dialog_routing_change_start_or_end">Por favor, ajuste su punto de partida o destino.</string>
-    <string name="dialog_routing_change_start">Ajustar el punto de partida</string>
-    <string name="dialog_routing_start_not_determined">No se ha creado la ruta. No se ha podido localizar el punto de partida.</string>
-    <string name="dialog_routing_select_closer_start">Por favor, seleccione un punto de partida más cercano a una carretera.</string>
-    <string name="dialog_routing_end_not_determined">No se ha creado la ruta. No se ha podido localizar el destino.</string>
-    <string name="dialog_routing_select_closer_end">Seleccione un punto de destino situado más cerca de una carretera.</string>
-    <string name="dialog_routing_change_intermediate">No se ha podido localizar el punto intermedio.</string>
-    <string name="dialog_routing_intermediate_not_determined">Por favor, ajuste su punto intermedio.</string>
-    <string name="dialog_routing_application_error">No se ha podido crear la ruta debido a un error de la aplicación.</string>
-    <string name="dialog_routing_try_again">Por favor, inténtelo de nuevo</string>
     <string name="not_now">Ahora no</string>
-    <string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta más óptima que abarque más de un mapa?</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para empezar a buscar y crear rutas, descárgate el mapa. Después ya no necesitarás conexión a Internet.</string>
@@ -409,9 +386,6 @@
     <string name="parkings">Aparcamientos</string>
     <string name="fuel_places">Gasolinería</string>
     <string name="religious_places">Sitios religiosos</string>
-    <string name="transit_not_found">Navegación por metro aún no disponible en esta región</string>
-    <string name="dialog_pedestrian_route_is_long_header">No se ha encontrado ninguna ruta de metro</string>
-    <string name="dialog_pedestrian_route_is_long_message">Por favor, elija un punto de inicio o final más cercano a una estación de metro</string>
     <string name="button_layer_isolines">Líneas de contorno</string>
     <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
     <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>

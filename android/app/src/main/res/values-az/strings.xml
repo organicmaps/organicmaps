@@ -280,8 +280,6 @@
     <string name="downloader_downloading">Endirilir:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Xəritəni təmizləmək üçün naviqasiyanı dayandırın.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Marşrutlar yalnız bir bölgənin xəritəsində tamamilə yaradıla bilər.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Xəritəni yükləyin</string>
     <!-- Item status in downloader. -->
@@ -294,10 +292,6 @@
     <string name="google_play_services">Google Play Məkan Xidmətləri</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, WiFi və ya mobil şəbəkə vasitəsilə təxmini yerinizi tez müəyyənləşdirin</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Marşrut boyunca bütün xəritələri endirin</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Marşrut yaratmaq üçün yerinizdən təyinat yerinə qədər bütün xəritələri endirməli və güncəlləşdirməliyik.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Kifayət qədər yer yoxdur</string>
     <!-- location service disabled -->
@@ -352,28 +346,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Təklif olunan marşrutlar yalnız tövsiyə kimi hesab edilməlidir;</string>
     <string name="dialog_routing_disclaimer_borders">— Sərhəd bölgələrində marşrutlarla diqqətli olun: tətbiqimiz yaradılan marşrutlar bəzən icazə verilməyən yerlərdə ölkə sərhədlərini keçə bilər.</string>
     <string name="dialog_routing_disclaimer_beware">Xahiş edirəm, yolda diqqətli və təhlükəsiz olun!</string>
-    <string name="dialog_routing_check_gps">GPS siqnalını yoxlayın</string>
-    <string name="dialog_routing_error_location_not_found">Marşrut yaratmaq mümkün deyil. Cari GPS koordinatlarını müəyyən etmək mümkün olmadı.</string>
     <string name="dialog_routing_location_turn_wifi">Zəhmət olmasa GPS siqnalınızı yoxlayın. Wi-Fi-ı aktivləşdirmək məkan dəqiqliyini artırır.</string>
-    <string name="dialog_routing_location_turn_on">Məkan xidmətlərini aktivləşdirin</string>
-    <string name="dialog_routing_location_unknown_turn_on">Cari GPS koordinatlarını müəyyən etmək mümkün deyil. Marşrutları hesablamaq üçün məkan xidmətlərini aktivləşdirin.</string>
-    <string name="dialog_routing_unable_locate_route">Marşrut müəyyənləşdirmək mümkün deyil</string>
-    <string name="dialog_routing_cant_build_route">Marşrut yaratmaq mümkün deyil.</string>
-    <string name="dialog_routing_change_start_or_end">Zəhmət olmasa başlanğıc nöqtənizi və ya təyinat yerinizi müəyyənləşdirin.</string>
-    <string name="dialog_routing_change_start">Başlanğıc nöqtəsini təyin edin</string>
-    <string name="dialog_routing_start_not_determined">Marşrut yaratmaq mümkün olmadı. Başlanğıc nöqtəsini təyin etmək mümkün deyil.</string>
-    <string name="dialog_routing_select_closer_start">Zəhmət olmasa yola daha yaxın bir başlanğıc nöqtəsi seçin.</string>
-    <string name="dialog_routing_change_end">Hədəfinizi təyin edin</string>
-    <string name="dialog_routing_end_not_determined">Marşrut yaradılmadı. Təyinatı tapmaq mümkün deyil.</string>
-    <string name="dialog_routing_select_closer_end">Zəhmət olmasa yola yaxın bir təyinat yeri seçin.</string>
-    <string name="dialog_routing_change_intermediate">Aralıq nöqtəni tapmaq mümkün deyil.</string>
-    <string name="dialog_routing_intermediate_not_determined">Zəhmət olmasa aralıq nöqtənizi təyin edin.</string>
     <string name="dialog_routing_system_error">Sistem xətası</string>
-    <string name="dialog_routing_application_error">Tətbiq xətası səbəbindən marşrut yaratmaq mümkün olmadı.</string>
-    <string name="dialog_routing_try_again">Zəhmət olmasa bir daha cəhd edin</string>
     <string name="not_now">İndi yox</string>
-    <string name="dialog_routing_download_and_build_cross_route">Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?</string>
-    <string name="dialog_routing_download_cross_route">Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Axtarmaq və marşrut yaratmağa başlamaq üçün xəritəni endirin. Yüklədikdən sonra artıq internet bağlantısına ehtiyacınız olmayacaq.</string>
@@ -467,7 +442,6 @@
     <string name="level">Mərtəbə</string>
     <string name="downloader_delete_map_dialog">Bütün xəritə dəyişiklikləri xəritə ilə birlikdə silinəcək.</string>
     <string name="downloader_update_maps">Xəritələri yeniləyin</string>
-    <string name="downloader_mwm_migration_dialog">Marşrut yaratmaq üçün bütün xəritələri yeniləməli və sonra marşrutu yenidən planlaşdırmalısınız.</string>
     <string name="downloader_search_field_hint">Xəritəni tapın</string>
     <string name="common_check_internet_connection_dialog">Zəhmət olmasa cihazınızın internetə qoşulduğundan əmin olun.</string>
     <string name="downloader_no_space_title">Kifayət qədər yer yoxdur</string>
@@ -729,9 +703,6 @@
     <string name="search_in_the_list">Siyahıda axtarın</string>
     <string name="religious_places">Dini yerlər</string>
     <string name="select_list">Siyahı seçin</string>
-    <string name="transit_not_found">Metro naviqasiyası bu ərazidə hələ mövcud deyil</string>
-    <string name="dialog_pedestrian_route_is_long_header">Metro marşrutu tapılmadı</string>
-    <string name="dialog_pedestrian_route_is_long_message">Metro stansiyasına ən yaxın marşrutun başlanğıc və ya bitmə nöqtəsini seçin</string>
     <string name="button_layer_isolines">Ərazi</string>
     <string name="isolines_activation_error_dialog">Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin</string>
     <string name="isolines_location_error_dialog">Bu bölgədə relyef təbəqəsi hələ mövcud deyil</string>

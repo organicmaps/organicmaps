@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Άκυρο</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Αναζήτηση</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Η λήψη απέτυχε</string>
+    <string name="download">Λήψη</string>
+    <string name="download_resources">Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.\nΘα χρησιμοποιήσει %s αποθηκευτικού χώρου.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Αγαπημένα</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Ρυθμίσεις</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Μέρη για φαγητό</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Παντοπωλεία</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Βενζινάδικο</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Χώρος στάθμευσης</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Ξενοδοχείο</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Τουαλέτα</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Για RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Δεδομένα OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Νυχτερινή λειτουργία</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Απενεργ.</string>
+    <!-- Generic «On» string -->
+    <string name="on">Ενεργ.</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Αυτόματα</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Τρισδιάστατα κτίρια</string>
+    <!-- Text in menu -->
+    <string name="help">Βοήθεια</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Χάρτες</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Λήψη χάρτη</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Επανάληψη</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Κατηγορίες</string>
+    <string name="search_not_found">Ωχ, δε βρέθηκαν αποτελέσματα.</string>
+    <string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Όλη την ημέρα (24 ώρες)</string>
+    <string name="editor_time_open">Ανοικτό</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Κλειστό σήμερα</string>
+    <string name="opens_in">Ανοίγει σε %s</string>
+    <string name="closes_in">Κλείνει σε %s</string>
+    <string name="closed">Κλειστό</string>
+    <string name="minute">λπτ</string>
+    <string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
+    <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
+    <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Αποφυγή διοδίων</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Αποφυγή χωματόδρομων</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Αποφυγή πορθμείων</string>
+    <string name="avoid_motorways">Αποφυγή αυτοκινητόδρομων</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Ταξινόμηση σελιδ/κτών</string>
+    <!-- Android -->
+    <string name="by_default">Προεπιλογή</string>
+    <!-- Android -->
+    <string name="by_type">Κατά τύπο</string>
+    <!-- Android -->
+    <string name="by_distance">Κατά απόσταση</string>
+    <!-- Android -->
+    <string name="by_date">Κατά ημερομηνία</string>
+    <!-- Android -->
+    <string name="by_name">Με όνομα</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Κατέβασμα</string>
+    <string name="download_map_title">Κατεβάστε τον παγκόσμιο χάρτη επισκόπησης</string>
+</resources>

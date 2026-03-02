@@ -10,14 +10,15 @@ import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.screens.BaseScreen;
 import app.organicmaps.sdk.display.DisplayType;
 
 public class MapPlaceholderScreen extends BaseScreen
 {
-  public MapPlaceholderScreen(@NonNull CarContext carContext)
+  public MapPlaceholderScreen(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext)
   {
-    super(carContext);
+    super(carContext, organicMapsContext);
   }
 
   @NonNull
@@ -29,7 +30,7 @@ public class MapPlaceholderScreen extends BaseScreen
 
     final Header.Builder headerBuilder = new Header.Builder();
     headerBuilder.setStartHeaderAction(Action.APP_ICON);
-    headerBuilder.setTitle(getCarContext().getString(R.string.app_name));
+    headerBuilder.setTitle(getCarContext().getString(app.organicmaps.branding.R.string.app_name));
     builder.setHeader(headerBuilder.build());
     builder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_phone_android)).build());

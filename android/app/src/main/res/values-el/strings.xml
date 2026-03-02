@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Γίνεται λήψη:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Για να διαγράψετε το χάρτη, σταματήστε την πλοήγηση.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Μπορούν να δημιουργηθούν μόνο διαδρομές που περιέχονται πλήρως μέσα σε ένα χάρτη σε μια ενιαία περιοχή.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Λήψη χάρτη</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Υπηρεσίες τοποθεσίας Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Προσδιορίστε γρήγορα την κατά προσέγγιση τοποθεσία σας μέσω Bluetooth, WiFi ή δικτύου κινητής τηλεφωνίας</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Κατέβασμα όλων των χαρτών για ολόκληρο το μήκος της διαδρομής σας</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Για να φτιάξετε μια διαδρομή, πρέπει πρώτα να γίνει λήψη και ενημέρωση όλων των χαρτών από τη θέση σας μέχρι τον προορισμό σας.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Δεν υπάρχει αρκετός χώρος</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις;</string>
     <string name="dialog_routing_disclaimer_borders">— Προσέξτε τις διαδρομές στις παραμεθόριες περιοχές: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.</string>
     <string name="dialog_routing_disclaimer_beware">Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!</string>
-    <string name="dialog_routing_check_gps">Ελέγξτε το σήμα GPS</string>
-    <string name="dialog_routing_error_location_not_found">Δεν είναι δυνατή η δημιουργία της διαδρομής. Δεν μπορούν να προσδιοριστούν οι τρέχουσες συντεταγμένες GPS.</string>
     <string name="dialog_routing_location_turn_wifi">Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.</string>
-    <string name="dialog_routing_location_turn_on">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
-    <string name="dialog_routing_location_unknown_turn_on">Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.</string>
-    <string name="dialog_routing_unable_locate_route">Δε μπορεί να εντοπιστεί η διαδρομή</string>
-    <string name="dialog_routing_cant_build_route">Δε μπορεί να δημιουργηθεί η διαδρομή.</string>
-    <string name="dialog_routing_change_start_or_end">Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.</string>
-    <string name="dialog_routing_change_start">Ρυθμίστε το σημείο εκκίνησης</string>
-    <string name="dialog_routing_start_not_determined">Η διαδρομή δεν δημιουργήθηκε. Δεν είναι δυνατός ο εντοπισμός του σημείου εκκίνησης.</string>
-    <string name="dialog_routing_select_closer_start">Επιλέξτε σημείο εκκίνησης πιο κοντά σε κάποιο δρόμο.</string>
-    <string name="dialog_routing_change_end">Ρύθμιση προορισμού</string>
-    <string name="dialog_routing_end_not_determined">Η διαδρομή δεν δημιουργήθηκε. Δεν είναι δυνατός ο εντοπισμός του προορισμού.</string>
-    <string name="dialog_routing_select_closer_end">Επιλέξτε ένα σημείο προορισμού πιο κοντά σε κάποιο δρόμο.</string>
-    <string name="dialog_routing_change_intermediate">Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.</string>
-    <string name="dialog_routing_intermediate_not_determined">Ρυθμίστε το ενδιάμεσο σημείο.</string>
     <string name="dialog_routing_system_error">Σφάλμα συστήματος</string>
-    <string name="dialog_routing_application_error">Δεν είναι δυνατή η δημιουργία διαδρομής λόγω σφάλματος της εφαρμογής.</string>
-    <string name="dialog_routing_try_again">Προσπαθήστε ξανά</string>
     <string name="not_now">Όχι τώρα</string>
-    <string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;</string>
-    <string name="dialog_routing_download_cross_route">Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Όροφος: %s</string>
     <string name="downloader_delete_map_dialog">Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.</string>
     <string name="downloader_update_maps">Ενημέρωση χαρτών</string>
-    <string name="downloader_mwm_migration_dialog">Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.</string>
     <string name="downloader_search_field_hint">Εύρεση χάρτη</string>
     <string name="common_check_internet_connection_dialog">Βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.</string>
     <string name="downloader_no_space_title">Δεν υπάρχει αρκετός χώρος</string>
@@ -746,9 +720,6 @@
     <string name="search_in_the_list">Αναζήτηση στη λίστα</string>
     <string name="religious_places">Χώροι Λατρείας</string>
     <string name="select_list">Επιλογή λίστας</string>
-    <string name="transit_not_found">Η πλοήγηση με μετρό γι\' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη</string>
-    <string name="dialog_pedestrian_route_is_long_header">Δεν βρέθηκε διαδρομή του μετρό</string>
-    <string name="dialog_pedestrian_route_is_long_message">Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
     <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
     <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>

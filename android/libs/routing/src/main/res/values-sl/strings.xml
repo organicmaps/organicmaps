@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Posodobi zemljevid</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Prenesi vse zemljevide vzdolž poti</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Za ustvarjanje poti je treba prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Preverite signal GPS</string>
+    <string name="dialog_routing_error_location_not_found">Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.</string>
+    <string name="dialog_routing_location_turn_wifi">Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.</string>
+    <string name="dialog_routing_location_turn_on">Omogočite lokacijske storitve</string>
+    <string name="dialog_routing_location_unknown_turn_on">Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.</string>
+    <string name="dialog_routing_unable_locate_route">Poti ni mogoče najti</string>
+    <string name="dialog_routing_cant_build_route">Poti ni mogoče ustvariti.</string>
+    <string name="dialog_routing_change_start_or_end">Prilagodite svojo začetno točko ali cilj.</string>
+    <string name="dialog_routing_change_start">Prilagodite začetno točko</string>
+    <string name="dialog_routing_start_not_determined">Pot ni bila ustvarjena. Začetne točke ni mogoče najti.</string>
+    <string name="dialog_routing_select_closer_start">Izberite začetno točko bližje cesti.</string>
+    <string name="dialog_routing_change_end">Prilagodite cilj</string>
+    <string name="dialog_routing_end_not_determined">Pot ni bila ustvarjena. Cilja ni mogoče najti.</string>
+    <string name="dialog_routing_select_closer_end">Izberite ciljno točko, ki se nahaja bližje cesti.</string>
+    <string name="dialog_routing_change_intermediate">Vmesne točke ni mogoče najti.</string>
+    <string name="dialog_routing_intermediate_not_determined">Prilagodite svojo vmesno točko.</string>
+    <string name="dialog_routing_system_error">Sistemska napaka</string>
+    <string name="dialog_routing_application_error">Poti ni mogoče ustvariti zaradi napake v aplikaciji.</string>
+    <string name="dialog_routing_try_again">Poskusite znova</string>
+    <string name="dialog_routing_download_and_build_cross_route">Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?</string>
+    <string name="dialog_routing_download_cross_route">Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Posodobi zemljevide</string>
+    <string name="downloader_mwm_migration_dialog">Za ustvarjanje poti morate posodobiti vse zemljevide in nato ponovno načrtovati pot.</string>
+    <string name="ok">V redu</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Navigacija s podzemno železnico v tej regiji še ni na voljo</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ni najdene poti s podzemno železnico</string>
+    <string name="dialog_pedestrian_route_is_long_message">Izberite začetno ali končno točko bližje postaji podzemne železnice</string>
+</resources>

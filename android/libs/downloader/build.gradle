@@ -1,0 +1,15 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace 'app.organicmaps.downloader'
+}
+
+dependencies {
+  implementation project(':sdk')
+
+  implementation('androidx.annotation:annotation:1.9.1')
+}

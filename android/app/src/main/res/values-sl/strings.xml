@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Prenašanje:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Za brisanje zemljevida ustavite navigacijo.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Prenesi zemljevid</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Lokacijske storitve Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Hitro določite svojo približno lokacijo z uporabo Bluetooth, WiFi ali mobilnega omrežja</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Prenesi vse zemljevide vzdolž poti</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Za ustvarjanje poti je treba prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Ni dovolj prostora</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Predlagane poti je treba razumeti le kot priporočila;</string>
     <string name="dialog_routing_disclaimer_borders">— Bodite previdni pri poteh v obmejnih območjih: poti, ki jih ustvari naša aplikacija, lahko včasih prečkajo državne meje na nepooblaščenih mestih.</string>
     <string name="dialog_routing_disclaimer_beware">Prosimo, bodite pozorni in varni na cestah!</string>
-    <string name="dialog_routing_check_gps">Preverite signal GPS</string>
-    <string name="dialog_routing_error_location_not_found">Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.</string>
     <string name="dialog_routing_location_turn_wifi">Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.</string>
-    <string name="dialog_routing_location_turn_on">Omogočite lokacijske storitve</string>
-    <string name="dialog_routing_location_unknown_turn_on">Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.</string>
-    <string name="dialog_routing_unable_locate_route">Poti ni mogoče najti</string>
-    <string name="dialog_routing_cant_build_route">Poti ni mogoče ustvariti.</string>
-    <string name="dialog_routing_change_start_or_end">Prilagodite svojo začetno točko ali cilj.</string>
-    <string name="dialog_routing_change_start">Prilagodite začetno točko</string>
-    <string name="dialog_routing_start_not_determined">Pot ni bila ustvarjena. Začetne točke ni mogoče najti.</string>
-    <string name="dialog_routing_select_closer_start">Izberite začetno točko bližje cesti.</string>
-    <string name="dialog_routing_change_end">Prilagodite cilj</string>
-    <string name="dialog_routing_end_not_determined">Pot ni bila ustvarjena. Cilja ni mogoče najti.</string>
-    <string name="dialog_routing_select_closer_end">Izberite ciljno točko, ki se nahaja bližje cesti.</string>
-    <string name="dialog_routing_change_intermediate">Vmesne točke ni mogoče najti.</string>
-    <string name="dialog_routing_intermediate_not_determined">Prilagodite svojo vmesno točko.</string>
     <string name="dialog_routing_system_error">Sistemska napaka</string>
-    <string name="dialog_routing_application_error">Poti ni mogoče ustvariti zaradi napake v aplikaciji.</string>
-    <string name="dialog_routing_try_again">Poskusite znova</string>
     <string name="not_now">Ne zdaj</string>
-    <string name="dialog_routing_download_and_build_cross_route">Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?</string>
-    <string name="dialog_routing_download_cross_route">Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Za začetek iskanja in ustvarjanja poti prenesite zemljevid. Po tem ne boste več potrebovali internetne povezave.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Nadstropje: %s</string>
     <string name="downloader_delete_map_dialog">Vsa vaša urejanja zemljevida bodo izbrisana skupaj z zemljevidom.</string>
     <string name="downloader_update_maps">Posodobi zemljevide</string>
-    <string name="downloader_mwm_migration_dialog">Za ustvarjanje poti morate posodobiti vse zemljevide in nato ponovno načrtovati pot.</string>
     <string name="downloader_search_field_hint">Najdi zemljevid</string>
     <string name="common_check_internet_connection_dialog">Prepričajte se, da je vaša naprava povezana z internetom.</string>
     <string name="downloader_no_space_title">Ni dovolj prostora</string>
@@ -751,9 +725,6 @@
     <string name="search_in_the_list">Išči na seznamu</string>
     <string name="religious_places">Verski kraji</string>
     <string name="select_list">Izberite seznam</string>
-    <string name="transit_not_found">Navigacija s podzemno železnico v tej regiji še ni na voljo</string>
-    <string name="dialog_pedestrian_route_is_long_header">Ni najdene poti s podzemno železnico</string>
-    <string name="dialog_pedestrian_route_is_long_message">Izberite začetno ali končno točko bližje postaji podzemne železnice</string>
     <string name="button_layer_isolines">Plastnice</string>
     <string name="isolines_activation_error_dialog">Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje</string>
     <string name="isolines_location_error_dialog">Plastnice na tem območju še niso na voljo</string>
