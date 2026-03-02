@@ -3,6 +3,7 @@
 #include "geometry/rect_intersect.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -85,7 +86,7 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
   }
 
   static constexpr double kEps = 1e-8;
-  std::vector<m2::PointD> polygon;
+  buffer_vector<m2::PointD, 8> polygon;
   auto const addPolygonPoint = [&polygon](m2::PointD const & pt)
   {
     if (polygon.empty() || !polygon.back().EqualDxDy(pt, kEps))

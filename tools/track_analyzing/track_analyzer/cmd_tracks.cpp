@@ -88,7 +88,7 @@ private:
   double m_count = 0.0;
   double m_squares = 0.0;
   double m_min = numeric_limits<double>::max();
-  double m_max = numeric_limits<double>::min();
+  double m_max = numeric_limits<double>::lowest();
 };
 
 bool TrackHasTrafficPoints(MatchedTrack const & track)

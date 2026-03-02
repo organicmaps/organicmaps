@@ -78,7 +78,7 @@ bool IsPolygonCCW(IterT beg, IterT end)
     return (cp > 0.0);
 
   // find the most up (left) point
-  double maxY = std::numeric_limits<double>::min();
+  double maxY = std::numeric_limits<double>::lowest();
   for (IterT i = beg; i != end; ++i)
   {
     if ((*i).y > maxY || ((*i).y == maxY && (*i).x < (*iRes).x))

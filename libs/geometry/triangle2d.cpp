@@ -1,5 +1,6 @@
 #include "triangle2d.hpp"
 
+#include "base/random.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/robust_orientation.hpp"
 #include "geometry/segment2d.hpp"
@@ -44,11 +45,9 @@ PointD GetRandomPointInsideTriangle(TriangleD const & t)
 {
   size_t constexpr kDistribMax = 1000;
 
-  auto const seed = static_cast<uint32_t>(std::chrono::system_clock::now().time_since_epoch().count());
-  std::default_random_engine engine{seed};
-  std::uniform_int_distribution<size_t> distrib{0, kDistribMax};
-  double const r1 = sqrt(static_cast<double>(distrib(engine)) / kDistribMax);
-  double const r2 = static_cast<double>(distrib(engine)) / kDistribMax;
+  thread_local base::UniformRandom<size_t> random(0, kDistribMax);
+  double const r1 = sqrt(static_cast<double>(random()) / kDistribMax);
+  double const r2 = static_cast<double>(random()) / kDistribMax;
   return t.m_points[0] * (1.0 - r1) + t.m_points[1] * r1 * (1.0 - r2) + t.m_points[2] * r2 * r1;
 }
 
@@ -57,10 +56,8 @@ PointD GetRandomPointInsideTriangles(std::vector<TriangleD> const & v)
   if (v.empty())
     return {};
 
-  auto const seed = static_cast<uint32_t>(std::chrono::system_clock::now().time_since_epoch().count());
-  std::default_random_engine engine(seed);
-  std::uniform_int_distribution<size_t> distrib(0, v.size() - 1);
-  return GetRandomPointInsideTriangle(v[distrib(engine)]);
+  thread_local base::UniformRandom<size_t> random(0, v.size() - 1);
+  return GetRandomPointInsideTriangle(v[random()]);
 }
 
 PointD ProjectPointToTriangles(PointD const & pt, std::vector<TriangleD> const & v)

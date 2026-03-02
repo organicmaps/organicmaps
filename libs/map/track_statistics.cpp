@@ -7,7 +7,7 @@
 
 namespace
 {
-double constexpr kInvalidTimestamp = std::numeric_limits<double>::min();
+double constexpr kInvalidTimestamp = std::numeric_limits<double>::lowest();
 geometry::PointWithAltitude const kInvalidPoint = {m2::PointD::Zero(), geometry::kInvalidAltitude};
 }  // namespace
 

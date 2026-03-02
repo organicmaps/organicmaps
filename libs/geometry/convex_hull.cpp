@@ -40,11 +40,12 @@ std::vector<PointD> BuildConvexHull(std::vector<PointD> points, double eps)
 
   auto const pivot = points[0];
 
-  std::sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs)
+  std::sort(points.begin() + 1, points.end(), [&pivot](PointD const & lhs, PointD const & rhs)
   {
-    if (IsCCW(lhs, rhs, pivot, eps))
+    double const orient = robust::OrientedS(lhs, rhs, pivot);
+    if (orient > 0.0)
       return true;
-    if (IsCCW(rhs, lhs, pivot, eps))
+    if (orient < 0.0)
       return false;
     return lhs.SquaredLength(pivot) < rhs.SquaredLength(pivot);
   });

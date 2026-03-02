@@ -207,7 +207,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
       continue;
     }
 
-    auto maxSimilarity = std::numeric_limits<Similarity>::min();
+    auto maxSimilarity = std::numeric_limits<Similarity>::lowest();
     double etaDiff = kBadETADiffPercent;
     auto const & mapsmeRoute = mapsmeResult.GetRoutes().back();
     for (auto const & route : anotherResult.GetRoutes())

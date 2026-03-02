@@ -7,6 +7,7 @@
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 
 #include <algorithm>
 #include <array>
@@ -55,7 +56,7 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
     auto const oab = Ort(ab);
     std::array<Line2D, 4> const lines = {Line2D(hull.PointAt(i), ab), Line2D(hull.PointAt(j), oab),
                                          Line2D(hull.PointAt(k), ab), Line2D(hull.PointAt(l), oab)};
-    std::vector<PointD> corners;
+    buffer_vector<PointD, 4> corners;
     for (size_t i = 0; i < lines.size(); ++i)
     {
       auto const j = (i + 1) % lines.size();
@@ -87,14 +88,14 @@ CalipersBox::CalipersBox(std::vector<PointD> const & points) : m_points({})
 
   double bestArea = std::numeric_limits<double>::max();
   std::vector<PointD> bestPoints;
-  ForEachRect(hull, [&](std::vector<PointD> && points)
+  ForEachRect(hull, [&](buffer_vector<PointD, 4> && points)
   {
     ASSERT_EQUAL(points.size(), 4, ());
     double const area = GetPolygonArea(points.begin(), points.end());
     if (area < bestArea)
     {
       bestArea = area;
-      bestPoints = std::move(points);
+      bestPoints.assign(points.begin(), points.end());
     }
   });
 

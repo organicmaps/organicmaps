@@ -27,7 +27,7 @@ struct min_max_value<T, true>
 template <typename T>
 struct min_max_value<T, false>
 {
-  T get_min() { return std::numeric_limits<T>::min(); }
+  T get_min() { return std::numeric_limits<T>::lowest(); }
   T get_max() { return std::numeric_limits<T>::max(); }
 };
 }  // namespace impl

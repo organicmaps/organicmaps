@@ -52,20 +52,6 @@ public:
 
   m2::PointD PtoG(m2::PointD const & pt) const { return pt * m_PtoG; }
 
-  void GtoP(double & x, double & y) const
-  {
-    double tempX = x;
-    x = tempX * m_GtoP(0, 0) + y * m_GtoP(1, 0) + m_GtoP(2, 0);
-    y = tempX * m_GtoP(1, 0) + y * m_GtoP(1, 1) + m_GtoP(2, 1);
-  }
-
-  void PtoG(double & x, double & y) const
-  {
-    double const tempX = x;
-    x = tempX * m_PtoG(0, 0) + y * m_PtoG(1, 0) + m_PtoG(2, 0);
-    y = tempX * m_PtoG(0, 1) + y * m_PtoG(1, 1) + m_PtoG(2, 1);
-  }
-
   void GtoP(m2::RectD const & gr, m2::RectD & sr) const;
   void PtoG(m2::RectD const & pr, m2::RectD & gr) const;
 
