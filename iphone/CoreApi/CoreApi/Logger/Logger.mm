@@ -16,6 +16,7 @@
 + (Logger *)logger;
 + (void)enableFileLogging;
 + (void)disableFileLogging;
++ (void)runSyncOnFileLoggingQueue:(dispatch_block_t)block;
 + (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message;
 + (void)tryWriteToFile:(std::string const &)logString;
 + (NSURL *)getZippedLogFile:(NSString *)logFilePath;
@@ -37,6 +38,7 @@ NSUInteger const kMaxLogFileSize = 1024 * 1024 * 100;  // 100 MB;
 @implementation Logger
 
 static BOOL _fileLoggingEnabled = NO;
+static void * kFileLoggingQueueKey = &kFileLoggingQueueKey;
 
 + (void)initialize
 {
@@ -63,6 +65,7 @@ static BOOL _fileLoggingEnabled = NO;
     dispatch_queue_attr_t attributes =
         dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
     fileLoggingQueue = dispatch_queue_create("app.organicmaps.fileLoggingQueue", attributes);
+    dispatch_queue_set_specific(fileLoggingQueue, kFileLoggingQueueKey, kFileLoggingQueueKey, nullptr);
   });
   return fileLoggingQueue;
 }
@@ -85,12 +88,14 @@ static BOOL _fileLoggingEnabled = NO;
     LOG_SHORT(LINFO, ("Local time:", NSDate.date.description.UTF8String,
                       ", Time Zone:", NSTimeZone.defaultTimeZone.abbreviation.UTF8String));
   });
-  LOG(LINFO, ("File logging is enabled:", _fileLoggingEnabled ? "YES" : "NO"));
+  LOG(LINFO, ("File logging is enabled:", [self fileLoggingEnabled] ? "YES" : "NO"));
 }
 
 + (BOOL)fileLoggingEnabled
 {
-  return _fileLoggingEnabled;
+  __block BOOL fileLoggingEnabled = NO;
+  [self runSyncOnFileLoggingQueue:^{ fileLoggingEnabled = _fileLoggingEnabled; }];
+  return fileLoggingEnabled;
 }
 
 + (void)log:(LogLevel)level message:(NSString *)message
@@ -173,8 +178,12 @@ static BOOL _fileLoggingEnabled = NO;
 
 + (uint64_t)getLogFileSize
 {
-  Logger * logger = [self logger];
-  return logger.fileHandle != nil ? [logger.fileHandle offsetInFile] : 0;
+  __block uint64_t fileSize = 0;
+  [self runSyncOnFileLoggingQueue:^{
+    NSFileHandle * fileHandle = [self logger].fileHandle;
+    fileSize = fileHandle != nil ? [fileHandle offsetInFile] : 0;
+  }];
+  return fileSize;
 }
 
 // MARK: - C++ injection
@@ -195,37 +204,41 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 
 + (void)enableFileLogging
 {
-  Logger * logger = [self logger];
-  NSFileManager * fileManager = [NSFileManager defaultManager];
+  [self runSyncOnFileLoggingQueue:^{
+    Logger * logger = [self logger];
+    NSFileManager * fileManager = [NSFileManager defaultManager];
 
-  // Create a log file if it doesn't exist and setup file handle for writing.
-  if (![fileManager fileExistsAtPath:kLogFilePath])
-    [fileManager createFileAtPath:kLogFilePath contents:nil attributes:nil];
-  NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:kLogFilePath];
-  if (fileHandle == nil)
-  {
-    LOG(LERROR, ("Failed to open log file for writing", kLogFilePath.UTF8String));
-    [self disableFileLogging];
-    return;
-  }
-  // Clean up the file if it exceeds the maximum size.
-  if ([fileManager contentsAtPath:kLogFilePath].length > kMaxLogFileSize)
-    [fileHandle truncateFileAtOffset:0];
+    // Create a log file if it doesn't exist and setup file handle for writing.
+    if (![fileManager fileExistsAtPath:kLogFilePath])
+      [fileManager createFileAtPath:kLogFilePath contents:nil attributes:nil];
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:kLogFilePath];
+    if (fileHandle == nil)
+    {
+      LOG(LERROR, ("Failed to open log file for writing", kLogFilePath.UTF8String));
+      [self disableFileLogging];
+      return;
+    }
+    // Clean up the file if it exceeds the maximum size.
+    if ([fileManager contentsAtPath:kLogFilePath].length > kMaxLogFileSize)
+      [fileHandle truncateFileAtOffset:0];
 
-  logger.fileHandle = fileHandle;
+    logger.fileHandle = fileHandle;
 
-  _fileLoggingEnabled = YES;
+    _fileLoggingEnabled = YES;
+  }];
 }
 
 + (void)disableFileLogging
 {
-  Logger * logger = [self logger];
+  [self runSyncOnFileLoggingQueue:^{
+    Logger * logger = [self logger];
 
-  [logger.fileHandle closeFile];
-  logger.fileHandle = nil;
-  [self removeFileAtPath:kLogFilePath];
+    [logger.fileHandle closeFile];
+    logger.fileHandle = nil;
+    [self removeFileAtPath:kLogFilePath];
 
-  _fileLoggingEnabled = NO;
+    _fileLoggingEnabled = NO;
+  }];
 }
 
 + (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message
@@ -245,17 +258,26 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   if (level < LINFO)
     dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:logString]; });
   else
-    [self tryWriteToFile:logString];
+    [self runSyncOnFileLoggingQueue:^{ [self tryWriteToFile:logString]; }];
 }
 
 + (void)tryWriteToFile:(std::string const &)logString
 {
+  dispatch_assert_queue([self fileLoggingQueue]);
   NSFileHandle * fileHandle = [self logger].fileHandle;
   if (fileHandle != nil)
   {
     [fileHandle seekToEndOfFile];
     [fileHandle writeData:[NSData dataWithBytes:logString.c_str() length:logString.length()]];
   }
+}
+
++ (void)runSyncOnFileLoggingQueue:(dispatch_block_t)block
+{
+  if (dispatch_get_specific(kFileLoggingQueueKey) != nullptr)
+    block();
+  else
+    dispatch_sync([self fileLoggingQueue], block);
 }
 
 + (NSURL *)getZippedLogFile:(NSString *)logFilePath
