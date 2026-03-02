@@ -282,8 +282,6 @@
     <string name="downloader_downloading">يتم التنزيل:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">لحذف الخريطة يرجى إيقاف الملاحة.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة دولة واحدة.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">تنزيل الخريطة</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">خدمات الموقع في جوجل بلاي</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">حدد موقعك التقريبي بسرعة باستخدام Bluetooth أو WiFi أو شبكة الهاتف المحمول</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">تنزيل الخرائط على طول طريقك</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">لا يوجد مساحة كافية</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— يجب التعامل مع المسارات المقترحة كتوصيات فقط;</string>
     <string name="dialog_routing_disclaimer_borders">— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها.</string>
     <string name="dialog_routing_disclaimer_beware">يجب أن تظل يقظًا وآمنًا على الطريق!</string>
-    <string name="dialog_routing_check_gps">تحقق من إشارة نظام تحديد الموقع الجغرافي</string>
-    <string name="dialog_routing_error_location_not_found">تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.</string>
     <string name="dialog_routing_location_turn_wifi">الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.</string>
-    <string name="dialog_routing_location_turn_on">تفعيل خدمات الموقع الجغرافي</string>
-    <string name="dialog_routing_location_unknown_turn_on">لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب.</string>
-    <string name="dialog_routing_unable_locate_route">تعذر إيجاد المسار</string>
-    <string name="dialog_routing_cant_build_route">تعذر إنشاء مسار.</string>
-    <string name="dialog_routing_change_start_or_end">الرجاء تعديل نقطة بدء أو تعديل وجهتك.</string>
-    <string name="dialog_routing_change_start">تعديل نقطة البدء</string>
-    <string name="dialog_routing_start_not_determined">لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.</string>
-    <string name="dialog_routing_select_closer_start">يُرجى تحديد نقطة بدء أكثر قربًا للطريق.</string>
-    <string name="dialog_routing_change_end">تعديل الوجهة</string>
-    <string name="dialog_routing_end_not_determined">لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.</string>
-    <string name="dialog_routing_select_closer_end">يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.</string>
-    <string name="dialog_routing_change_intermediate">تعذر تحديد مكان النقطة الوسيطة.</string>
-    <string name="dialog_routing_intermediate_not_determined">الرجاء ضبط النقطة الوسيطة الخاصة بك.</string>
     <string name="dialog_routing_system_error">خطأ في النظام</string>
-    <string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
-    <string name="dialog_routing_try_again">الرجاء إعادة المحاولة</string>
     <string name="not_now">ليس الآن</string>
-    <string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
-    <string name="dialog_routing_download_cross_route">تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">المستوى: %s</string>
     <string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
     <string name="downloader_update_maps">تحديث الخرائط</string>
-    <string name="downloader_mwm_migration_dialog">لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.</string>
     <string name="downloader_search_field_hint">ابحث عن خريطة</string>
     <string name="common_check_internet_connection_dialog">يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.</string>
     <string name="downloader_no_space_title">لا تتوفر مساحة كافية</string>
@@ -757,9 +731,6 @@
     <string name="search_in_the_list">ابحث في القائمة</string>
     <string name="religious_places">أماكن دينية</string>
     <string name="select_list">اختر القائمة</string>
-    <string name="transit_not_found">التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن</string>
-    <string name="dialog_pedestrian_route_is_long_header">لم يتم العثور على مسار مترو الأنفاق</string>
-    <string name="dialog_pedestrian_route_is_long_message">يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق</string>
     <string name="button_layer_isolines">تضاريس</string>
     <string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة</string>
     <string name="isolines_location_error_dialog">الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة</string>

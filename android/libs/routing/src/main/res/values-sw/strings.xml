@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
+    <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="ok">Sawa</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Uabiri wa njia ya chini kwa chini katika mkoa huu haupatikani bado</string>
+    <string name="dialog_pedestrian_route_is_long_header">Njia ya chini kwa chini haipatikani</string>
+    <string name="dialog_pedestrian_route_is_long_message">Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini</string>
+</resources>

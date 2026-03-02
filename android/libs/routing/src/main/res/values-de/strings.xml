@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Karte aktualisieren</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Karten entlang der Route herunterladen</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Zum Erstellen einer Route müssen alle Karten von deinem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">GPS-Signal prüfen</string>
+    <string name="dialog_routing_error_location_not_found">Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.</string>
+    <string name="dialog_routing_location_turn_wifi">Bitte prüfe dein GPS-Signal. Das Aktivieren von WLAN verbessert die Genauigkeit deiner Standortbestimmung.</string>
+    <string name="dialog_routing_location_turn_on">Standortdienste aktivieren</string>
+    <string name="dialog_routing_location_unknown_turn_on">Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktiviere Standortdienste, um die Route zu berechnen.</string>
+    <string name="dialog_routing_unable_locate_route">Route kann nicht ermittelt werden</string>
+    <string name="dialog_routing_cant_build_route">Route kann nicht erstellt werden.</string>
+    <string name="dialog_routing_change_start_or_end">Bitte passe deinen Startpunkt oder dein Ziel an.</string>
+    <string name="dialog_routing_change_start">Startpunkt anpassen</string>
+    <string name="dialog_routing_start_not_determined">Route wurde nicht erstellt. Startpunkt kann nicht gefunden werden.</string>
+    <string name="dialog_routing_select_closer_start">Bitte wähle einen Startpunkt, der näher an einer Straße liegt.</string>
+    <string name="dialog_routing_change_end">Ziel anpassen</string>
+    <string name="dialog_routing_end_not_determined">Route wurde nicht erstellt. Ziel kann nicht gefunden werden.</string>
+    <string name="dialog_routing_select_closer_end">Bitte wähle einen Zielort, der näher an einer Straße liegt.</string>
+    <string name="dialog_routing_change_intermediate">Zwischenstopp kann nicht gefunden werden.</string>
+    <string name="dialog_routing_intermediate_not_determined">Bitte passe deinen Zwischenstopp an.</string>
+    <string name="dialog_routing_system_error">Systemfehler</string>
+    <string name="dialog_routing_application_error">Route kann wegen eines Anwendungsfehlers nicht erstellt werden.</string>
+    <string name="dialog_routing_try_again">Bitte versuche es erneut</string>
+    <string name="dialog_routing_download_and_build_cross_route">Möchtest du die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
+    <string name="dialog_routing_download_cross_route">Lade zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Karten aktualisieren</string>
+    <string name="downloader_mwm_migration_dialog">Um eine Route zu erstellen, musst du alle Karten aktualisieren und dann die Route erneut planen.</string>
+    <string name="ok">Ok</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar</string>
+    <string name="dialog_pedestrian_route_is_long_header">Keine U-Bahn-Route gefunden</string>
+    <string name="dialog_pedestrian_route_is_long_message">Bitte wähle einen Start- oder Zielpunkt, der näher an einer U-Bahn-Station liegt</string>
+</resources>

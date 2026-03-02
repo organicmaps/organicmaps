@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Sólo se pueden crear rutas que estén totalmente contenidas en un mapa de una sola región.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Actualizar mapa</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Descargue todos los mapas de su ruta</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Para crear una ruta es necesario descargar y actualizar todos los mapas desde su ubicación a su destino.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Verificar la señal del GPS</string>
+    <string name="dialog_routing_error_location_not_found">No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.</string>
+    <string name="dialog_routing_location_turn_wifi">Verifique la señal del GPS. Activar la wifi mejorará la precisión de su ubicación.</string>
+    <string name="dialog_routing_location_turn_on">Activar servicios de ubicación</string>
+    <string name="dialog_routing_location_unknown_turn_on">No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.</string>
+    <string name="dialog_routing_unable_locate_route">Imposible de encontrar una ruta</string>
+    <string name="dialog_routing_cant_build_route">No se puede crear la ruta.</string>
+    <string name="dialog_routing_change_start_or_end">Ajuste su punto de inicio o su destino.</string>
+    <string name="dialog_routing_change_start">Ajustar el punto de inicio</string>
+    <string name="dialog_routing_start_not_determined">La ruta no se creó. No se pudo encontrar el punto de inicio.</string>
+    <string name="dialog_routing_select_closer_start">Seleccione un punto de inicio cercano a una carretera.</string>
+    <string name="dialog_routing_change_end">Ajustar destino</string>
+    <string name="dialog_routing_end_not_determined">La ruta no se creó. No se pudo encontrar el destino.</string>
+    <string name="dialog_routing_select_closer_end">Seleccione un punto de destino cercano a una carretera.</string>
+    <string name="dialog_routing_change_intermediate">No se ha podido ubicar la parada intermedia.</string>
+    <string name="dialog_routing_intermediate_not_determined">Ajuste la parada intermedia.</string>
+    <string name="dialog_routing_system_error">Error del sistema</string>
+    <string name="dialog_routing_application_error">No se pudo crear la ruta debido a un error en la aplicación.</string>
+    <string name="dialog_routing_try_again">Intentar nuevamente</string>
+    <string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?</string>
+    <string name="dialog_routing_download_cross_route">Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Actualizar mapas</string>
+    <string name="downloader_mwm_migration_dialog">Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.</string>
+    <string name="ok">Aceptar</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">La navegación en metro aún no está disponible en esta región</string>
+    <string name="dialog_pedestrian_route_is_long_header">No se encontró ninguna ruta de metro</string>
+    <string name="dialog_pedestrian_route_is_long_message">Elija un punto de inicio o fin de ruta más cercano a una estación de metro</string>
+</resources>

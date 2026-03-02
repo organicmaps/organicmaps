@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Ikkanċella</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Fittex</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">It-tniżżil falla</string>
+    <string name="download">Niżżel</string>
+    <string name="download_resources">Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. \nDan ser juża %s ta\' storage.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Werrejja</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Settings</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Għażel fejn tiekol</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Tal-Merċa</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Gass</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkeġġ</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Lukanda</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Loki</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Faċilitajiet tal-RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Dejta tal-OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Il-mod ta’ bil-lejl</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Itfi</string>
+    <!-- Generic «On» string -->
+    <string name="on">Ixgħel</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Auto</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Bini 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Għajnuna</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Mappep</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Niżżel il-mappa</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Erġa ’pprova</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategoriji</string>
+    <string name="search_not_found">Oops, ma nstab l-ebda riżultat.</string>
+    <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Il-Ġurnata Kollha (24 siegħa)</string>
+    <string name="editor_time_open">Miftuħ</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Magħluq illum</string>
+    <string name="opens_in">Jiftaħ f’ %s</string>
+    <string name="closes_in">Jagħlaq f’ %s</string>
+    <string name="closed">Magħluq</string>
+    <string name="big_font">Żid id-daqs għat-tikketti tal-mapep</string>
+    <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Tniżżil ta’ mapep</string>
+    <string name="driving_options_title">Għażliet tar-rotta</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Evita ħlasijiet għall-użu tat-triq</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Evita toroq mhux pavimentati</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Evita l-laneċ</string>
+    <string name="avoid_motorways">Evita l-passaġġi ħielsa</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Issortja l-bookmarks</string>
+    <!-- Android -->
+    <string name="by_default">B’ mod awtomatiku</string>
+    <!-- Android -->
+    <string name="by_type">Skont it-tip</string>
+    <!-- Android -->
+    <string name="by_distance">Skont id-distanza</string>
+    <!-- Android -->
+    <string name="by_date">Skont id-data</string>
+    <!-- Android -->
+    <string name="by_name">Skont l-isem</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Tniżżil</string>
+    <string name="download_map_title">Niżżel il-mappa ġenerali tad-dinja</string>
+</resources>

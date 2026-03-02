@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Aktualiziraj kartu</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Provjeri GPS signal</string>
+    <string name="dialog_routing_location_turn_on">Aktiviraj usluge lokacija</string>
+    <string name="dialog_routing_try_again">Pokušaj ponovo</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="ok">U redu</string>
+</resources>

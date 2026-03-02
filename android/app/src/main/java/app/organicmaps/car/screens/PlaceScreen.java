@@ -24,7 +24,6 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
@@ -32,6 +31,7 @@ import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.ResultCodesHelper;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
@@ -60,7 +60,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   private PlaceScreen(@NonNull Builder builder)
   {
-    super(builder.mCarContext, builder.mSurfaceRenderer);
+    super(builder.mCarContext, builder.mOrganicMapsContext, builder.mSurfaceRenderer);
     mMapObject = builder.mMapObject;
     mRoutingController = RoutingController.get();
     mOnBackPressedCallback = new OnBackPressedCallback(getCarContext(), this);
@@ -71,7 +71,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   protected Template onGetTemplateImpl()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
-    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer(), getLocationHelper()));
     builder.setActionStrip(UiHelpers.createSettingsActionStrip(this, getSurfaceRenderer()));
     builder.setContentTemplate(createPaneTemplate());
     return builder.build();
@@ -103,13 +103,11 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
         if (isPlanningMode)
           mRoutingController.rebuildLastRoute();
         else
-          mRoutingController.prepare(MwmApplication.from(getCarContext()).getLocationHelper().getMyPosition(),
-                                     mMapObject);
+          mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
       }
       else if (hasIncorrectEndPoint || !isPlanningMode)
       {
-        mRoutingController.prepare(MwmApplication.from(getCarContext()).getLocationHelper().getMyPosition(),
-                                   mMapObject);
+        mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
       }
     }
   }
@@ -251,8 +249,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
         .setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_settings)).build())
         .setOnClickListener(
             ()
-                -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()),
-                                                    this::onDrivingOptionsResult))
+                -> getScreenManager().pushForResult(
+                    new DrivingOptionsScreen(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer()),
+                    this::onDrivingOptionsResult))
         .build();
   }
 
@@ -287,7 +286,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     if (show)
     {
       getScreenManager().popToRoot();
-      getScreenManager().push(new NavigationScreen.Builder(getCarContext(), getSurfaceRenderer()).build());
+      getScreenManager().push(
+          new NavigationScreen.Builder(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer()).build());
     }
   }
 
@@ -310,7 +310,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     if (ResultCodesHelper.isDownloadable(lastResultCode, lastMissingMaps.length))
       getScreenManager().pushForResult(
-          new DownloadMapsScreenBuilder(getCarContext())
+          new DownloadMapsScreenBuilder(getCarContext(), getOrganicMapsContext())
               .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.BuildRoute)
               .setMissingMaps(lastMissingMaps)
               .setResultCode(lastResultCode)
@@ -347,13 +347,17 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     @NonNull
     private final CarContext mCarContext;
     @NonNull
+    private final OrganicMaps mOrganicMapsContext;
+    @NonNull
     private final Renderer mSurfaceRenderer;
     @Nullable
     private MapObject mMapObject;
 
-    public Builder(@NonNull final CarContext carContext, @NonNull final Renderer surfaceRenderer)
+    public Builder(@NonNull final CarContext carContext, @NonNull OrganicMaps organicMapsContext,
+                   @NonNull final Renderer surfaceRenderer)
     {
       mCarContext = carContext;
+      mOrganicMapsContext = organicMapsContext;
       mSurfaceRenderer = surfaceRenderer;
     }
 

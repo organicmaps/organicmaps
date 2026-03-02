@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Μπορούν να δημιουργηθούν μόνο διαδρομές που περιέχονται πλήρως μέσα σε ένα χάρτη σε μια ενιαία περιοχή.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Ενημέρωση χάρτη</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Κατέβασμα όλων των χαρτών για ολόκληρο το μήκος της διαδρομής σας</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Για να φτιάξετε μια διαδρομή, πρέπει πρώτα να γίνει λήψη και ενημέρωση όλων των χαρτών από τη θέση σας μέχρι τον προορισμό σας.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Ελέγξτε το σήμα GPS</string>
+    <string name="dialog_routing_error_location_not_found">Δεν είναι δυνατή η δημιουργία της διαδρομής. Δεν μπορούν να προσδιοριστούν οι τρέχουσες συντεταγμένες GPS.</string>
+    <string name="dialog_routing_location_turn_wifi">Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.</string>
+    <string name="dialog_routing_location_turn_on">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
+    <string name="dialog_routing_location_unknown_turn_on">Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.</string>
+    <string name="dialog_routing_unable_locate_route">Δε μπορεί να εντοπιστεί η διαδρομή</string>
+    <string name="dialog_routing_cant_build_route">Δε μπορεί να δημιουργηθεί η διαδρομή.</string>
+    <string name="dialog_routing_change_start_or_end">Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.</string>
+    <string name="dialog_routing_change_start">Ρυθμίστε το σημείο εκκίνησης</string>
+    <string name="dialog_routing_start_not_determined">Η διαδρομή δεν δημιουργήθηκε. Δεν είναι δυνατός ο εντοπισμός του σημείου εκκίνησης.</string>
+    <string name="dialog_routing_select_closer_start">Επιλέξτε σημείο εκκίνησης πιο κοντά σε κάποιο δρόμο.</string>
+    <string name="dialog_routing_change_end">Ρύθμιση προορισμού</string>
+    <string name="dialog_routing_end_not_determined">Η διαδρομή δεν δημιουργήθηκε. Δεν είναι δυνατός ο εντοπισμός του προορισμού.</string>
+    <string name="dialog_routing_select_closer_end">Επιλέξτε ένα σημείο προορισμού πιο κοντά σε κάποιο δρόμο.</string>
+    <string name="dialog_routing_change_intermediate">Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.</string>
+    <string name="dialog_routing_intermediate_not_determined">Ρυθμίστε το ενδιάμεσο σημείο.</string>
+    <string name="dialog_routing_system_error">Σφάλμα συστήματος</string>
+    <string name="dialog_routing_application_error">Δεν είναι δυνατή η δημιουργία διαδρομής λόγω σφάλματος της εφαρμογής.</string>
+    <string name="dialog_routing_try_again">Προσπαθήστε ξανά</string>
+    <string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;</string>
+    <string name="dialog_routing_download_cross_route">Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Ενημέρωση χαρτών</string>
+    <string name="downloader_mwm_migration_dialog">Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.</string>
+    <string name="ok">Οκ</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Η πλοήγηση με μετρό γι\' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη</string>
+    <string name="dialog_pedestrian_route_is_long_header">Δεν βρέθηκε διαδρομή του μετρό</string>
+    <string name="dialog_pedestrian_route_is_long_message">Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό</string>
+</resources>

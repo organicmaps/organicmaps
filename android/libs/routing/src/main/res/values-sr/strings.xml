@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Могу се креирати само руте које се комплетно налазе у оквиру мапе једног региона.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Ажурирај мапу</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Преузми све мапе које се налазе на рути</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Да би рута могла да се креира, потребно је да преузимање и ажурирање свих мапа између ваше локације и вашег одредишта.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Провери GPS сигнал</string>
+    <string name="dialog_routing_error_location_not_found">Не могу да направим руту. Тренутне GPS координате не могу да се одреде.</string>
+    <string name="dialog_routing_location_turn_wifi">Молим Вас да проверите ваш GPS сигнал. Укључивање Wi-Fi-а ће поправити прецизност ваше локације.</string>
+    <string name="dialog_routing_location_turn_on">Укључи Локацијске сервисе</string>
+    <string name="dialog_routing_location_unknown_turn_on">Није могуће одредити тренутне GPS координате. Укључи локацијске сервисе ради проналажења руте.</string>
+    <string name="dialog_routing_unable_locate_route">Не могу да пронађем руту</string>
+    <string name="dialog_routing_cant_build_route">Не могу да направим руту.</string>
+    <string name="dialog_routing_change_start_or_end">Молим Вас да подесите почетну или одредишну тачку.</string>
+    <string name="dialog_routing_change_start">Подеси почетну тачку</string>
+    <string name="dialog_routing_start_not_determined">Рута није креирана. Не могу да одредим почетну тачку.</string>
+    <string name="dialog_routing_select_closer_start">Молим вас да изаберете почетну тачку ближе путу.</string>
+    <string name="dialog_routing_change_end">Подеси одредишну тачку</string>
+    <string name="dialog_routing_end_not_determined">Рута није направљена. Не могу да пронађем одредиште.</string>
+    <string name="dialog_routing_select_closer_end">Молим Вас да изаберете одредишну тачну ближе путу.</string>
+    <string name="dialog_routing_change_intermediate">Не могу да пронађем успутну тачку.</string>
+    <string name="dialog_routing_intermediate_not_determined">Молим Вас да подесите успутну тачку.</string>
+    <string name="dialog_routing_system_error">Системска грешка</string>
+    <string name="dialog_routing_application_error">Не могу да направим руту због грешке у апликацији.</string>
+    <string name="dialog_routing_try_again">Молим Вас, покушајте поново</string>
+    <string name="dialog_routing_download_and_build_cross_route">Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?</string>
+    <string name="dialog_routing_download_cross_route">Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Ажурирај мапе</string>
+    <string name="downloader_mwm_migration_dialog">Да бисте направили руту, потребно је да ажурирате све мапе, а затим да поново планирате руту.</string>
+    <string name="ok">ОК</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Навигација у метроу у овом региону још није доступна</string>
+    <string name="dialog_pedestrian_route_is_long_header">Није пронађена метро рута</string>
+    <string name="dialog_pedestrian_route_is_long_message">Молим вас изаберите почетну и крајњу тачку ближе метро станицама</string>
+</resources>

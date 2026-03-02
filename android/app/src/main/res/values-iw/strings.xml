@@ -282,8 +282,6 @@
     <string name="downloader_downloading">מוריד:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">למחיקת המפה, יש לעצור את הניווט.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">הורידו את המפה</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">שירותי מיקום של Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">קבע במהירות את המיקום המשוער שלך באמצעות Bluetooth, WiFi או רשת סלולרית</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">הורד את כל המפות במסלול שלך</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">כדי ליצור מסלול, יש להוריד ולעדכן את כל המפות מהמיקום שלך ועד ליעד.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">אין מספיק מקום</string>
     <!-- location service disabled -->
@@ -348,28 +342,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— יש לראות במסלולים המוצעים המלצה בלבד;</string>
     <string name="dialog_routing_disclaimer_borders">— יש להיות זהירים בשימוש במסלולים סביב גבולות: המסלולים המוצעים באפליקציה עשויים לחצות גבולות מדינה במקומות אסורים.</string>
     <string name="dialog_routing_disclaimer_beware">שמור על ערנות ועל הבטיחות בכביש!</string>
-    <string name="dialog_routing_check_gps">בדוק אות GPS</string>
-    <string name="dialog_routing_error_location_not_found">לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.</string>
     <string name="dialog_routing_location_turn_wifi">בדוק את אות ה-GPS שלך. הפעלת Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.</string>
-    <string name="dialog_routing_location_turn_on">הפעל שירותי מיקום</string>
-    <string name="dialog_routing_location_unknown_turn_on">לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.</string>
-    <string name="dialog_routing_unable_locate_route">לא ניתן לאתר מסלול</string>
-    <string name="dialog_routing_cant_build_route">לא ניתן ליצור מסלול.</string>
-    <string name="dialog_routing_change_start_or_end">כוונן את נקודת ההתחלה או היעד שלך.</string>
-    <string name="dialog_routing_change_start">כוונן נקודת התחלה</string>
-    <string name="dialog_routing_start_not_determined">לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.</string>
-    <string name="dialog_routing_select_closer_start">בחר נקודת התחלה הקרובה יותר לכביש כלשהו.</string>
-    <string name="dialog_routing_change_end">כוונן יעד</string>
-    <string name="dialog_routing_end_not_determined">לא נוצר מסלול. לא ניתן לאתר את היעד.</string>
-    <string name="dialog_routing_select_closer_end">בחר נקודת יעד הקרובה יותר לכביש כלשהו.</string>
-    <string name="dialog_routing_change_intermediate">לא ניתן לאתר את נקודת הביניים.</string>
-    <string name="dialog_routing_intermediate_not_determined">כוונן את נקודת הביניים.</string>
     <string name="dialog_routing_system_error">שגיאת מערכת</string>
-    <string name="dialog_routing_application_error">לא ניתן ליצור מסלול עקב שגיאת אפליקציה.</string>
-    <string name="dialog_routing_try_again">נסה שוב</string>
     <string name="not_now">לא עכשיו</string>
-    <string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
-    <string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה. לאחר מכן לא תזדקקו יותר לחיבור לאינטרנט.</string>
@@ -463,7 +438,6 @@
     <string name="level">קומה</string>
     <string name="downloader_delete_map_dialog">כל העריכות שלך במפה יימחקו יחד עם המפה.</string>
     <string name="downloader_update_maps">עדכן מפות</string>
-    <string name="downloader_mwm_migration_dialog">ליצירת מסלול, יש לעדכן את כל המפות ולתכנן מסלול שנית.</string>
     <string name="downloader_search_field_hint">חפש מפה</string>
     <string name="common_check_internet_connection_dialog">נא לוודא כי המכשיר מחובר לאינטרנט.</string>
     <string name="downloader_no_space_title">אין מספיק מקום</string>
@@ -722,9 +696,6 @@
     <string name="search_in_the_list">חפש ברשימה</string>
     <string name="religious_places">מקומות דת</string>
     <string name="select_list">בחר רשימה</string>
-    <string name="transit_not_found">ניווט ברכבת תחתית עוד לא זמין באזור זה</string>
-    <string name="dialog_pedestrian_route_is_long_header">מסלול רכבת תחתית לא נמצא</string>
-    <string name="dialog_pedestrian_route_is_long_message">נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית</string>
     <string name="button_layer_isolines">קווי מתאר</string>
     <string name="isolines_activation_error_dialog">כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה</string>
     <string name="isolines_location_error_dialog">קווי מתאר עוד לא זמינים לאזור זה</string>

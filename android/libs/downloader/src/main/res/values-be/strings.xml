@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.</string>
+    <string name="downloader_no_space_title">Не хапае месца</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">キャンセル</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">検索</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">ダウンロードに失敗しました</string>
+    <string name="download">ダウンロード</string>
+    <string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。\nこれには%sの空き容量が必要です。</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">ブックマーク</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">設定</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">食事場所</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">食料雑貨</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">ガソリンスタンド</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">駐車場</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">ホテル</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">トイレ</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">RV用</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMapデータ：%s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">夜間モード</string>
+    <!-- Generic «Off» string -->
+    <string name="off">オフ</string>
+    <!-- Generic «On» string -->
+    <string name="on">オン</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">自動</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3Dビル</string>
+    <!-- Text in menu -->
+    <string name="help">ヘルプ</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">地図</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">地図をダウンロード</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">再試行</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">カテゴリー</string>
+    <string name="search_not_found">該当するものは見つかりませんでした。</string>
+    <string name="search_history_text">最近の検索を表示します。</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">終日 (24時間)</string>
+    <string name="editor_time_open">営業中</string>
+    <string name="twentyfour_seven">昼と夜</string>
+    <string name="day_off_today">本日終業</string>
+    <string name="opens_in">あと %s に営業</string>
+    <string name="closes_in">あと %s に閉店</string>
+    <string name="closed">閉店</string>
+    <string name="minute">分</string>
+    <string name="big_font">地図上のフォントサイズを大きくする</string>
+    <string name="transliteration_title">ラテン文字への翻字</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">マップダウンローダー</string>
+    <string name="driving_options_title">経路オプション</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">有料道路を避ける</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">未舗装道路を使わない</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">フェリーを利用しない</string>
+    <string name="avoid_motorways">高速道路を避ける</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">ブックマークの並べ替え</string>
+    <!-- Android -->
+    <string name="by_default">デフォルトで</string>
+    <!-- Android -->
+    <string name="by_type">タイプで</string>
+    <!-- Android -->
+    <string name="by_distance">距離で</string>
+    <!-- Android -->
+    <string name="by_date">日付で</string>
+    <!-- Android -->
+    <string name="by_name">名前で</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">ダウンロード中</string>
+    <string name="download_map_title">おおまかな世界地図をダウンロード</string>
+</resources>

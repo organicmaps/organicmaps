@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Kanselleer</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Soek</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Aflaai het misluk</string>
+    <string name="download">Laai af</string>
+    <string name="download_resources">Voordat u die toep begin gebruik, moet u asb. die algemene wêreldkaart na u toestel aflaai.\nDit sal %s se spasie opneem.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Boekmerke</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Instellings</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Waar om te eet</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Kruideniersware</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Brandstof</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkering</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toilet</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Karavaanfasiliteite</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap-data: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Nagmodus</string>
+    <!-- Generic «On» string -->
+    <string name="on">Aan</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Outomaties</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D-geboue</string>
+    <!-- Text in menu -->
+    <string name="help">Help</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Kaarte</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Laai kaart af</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Probeer weer</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategorieë</string>
+    <string name="search_not_found">Oeps, geen resultate gevind.</string>
+    <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Heeldag (24 uur)</string>
+    <string name="editor_time_open">Oop</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Vandag gesluit</string>
+    <string name="opens_in">Open oor %s</string>
+    <string name="closes_in">Sluit oor %s</string>
+    <string name="closed">Gesluit</string>
+    <string name="minute">min</string>
+    <string name="big_font">Vergroot lettergrootte op kaart</string>
+    <string name="transliteration_title">Transliterasie in Latynse alfabet</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Kaartaflaaier</string>
+    <string name="driving_options_title">Ompadopsies</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Vermy grondpaaie</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Vermy veerbootkruisings</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Sorteer boekmerke</string>
+    <!-- Android -->
+    <string name="by_default">Verstek</string>
+    <!-- Android -->
+    <string name="by_type">Volgens tipe</string>
+    <!-- Android -->
+    <string name="by_distance">Volgens afstand</string>
+    <!-- Android -->
+    <string name="by_date">Volgens datum</string>
+    <!-- Android -->
+    <string name="by_name">Op Naam</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Laai tans af</string>
+    <string name="download_map_title">Laai die wêreldkaart af</string>
+</resources>

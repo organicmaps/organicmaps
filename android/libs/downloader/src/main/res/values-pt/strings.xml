@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Por favor, verifique as suas opções e certifique-se que o dispositivo está ligado à Internet.</string>
+    <string name="downloader_no_space_title">Não tem espaço suficiente</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Anulo</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Kërko</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Shkarkimi dështoi</string>
+    <string name="download">Shkarko</string>
+    <string name="download_resources">Para se të filloni të përdorni aplikacionin, ju lutemi shkarkoni hartën e përgjithshme të botës në pajisjen tuaj.\nAjo do të përdorë %s të hapësirës.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Faqeshënuesit</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Cilësimet</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Ku të hani</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Ushqimore</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Karburant</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkim</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Tualet</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Objekte për RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Të dhënat OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Modaliteti i Natës</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Jo</string>
+    <!-- Generic «On» string -->
+    <string name="on">Po</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automatike</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Ndërtesat 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Ndihmë</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Hartat</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Shkarko hartën</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Riprovo</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategoritë</string>
+    <string name="search_not_found">Ups, nuk u gjetën rezultate.</string>
+    <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Gjithë Ditën (24 orë)</string>
+    <string name="editor_time_open">Hapur</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Mbyllur sot</string>
+    <string name="opens_in">Hapet në %s</string>
+    <string name="closes_in">Mbyllet në %s</string>
+    <string name="closed">Mbyllur</string>
+    <string name="minute">min</string>
+    <string name="big_font">Rrit madhësinë për etiketat e hartës</string>
+    <string name="transliteration_title">Translitero në alfabetin latin</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Shkarkuesi i hartave</string>
+    <string name="driving_options_title">Mundësitë e rrugëtimit</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Shmang pagesat</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Shmang rrugët e paasfaltuara</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Shmang tragetet</string>
+    <string name="avoid_motorways">Shmang autostradat</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Rendit faqeshënuesit</string>
+    <!-- Android -->
+    <string name="by_default">Sipas parazgjedhjes</string>
+    <!-- Android -->
+    <string name="by_type">Sipas llojit</string>
+    <!-- Android -->
+    <string name="by_distance">Sipas distancës</string>
+    <!-- Android -->
+    <string name="by_date">Sipas datës</string>
+    <!-- Android -->
+    <string name="by_name">Sipas emrit</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Duke shkarkuar</string>
+    <string name="download_map_title">Shkarko hartën e përgjithshme të botës</string>
+</resources>

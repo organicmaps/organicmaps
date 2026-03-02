@@ -12,12 +12,9 @@ android {
     targetSdk = propTargetSdkVersion.toInteger()
 
     buildTypes {
-      debug {
-        // Enable jni debug build
-        jniDebuggable true
-      }
+      debug {}
       beta {
-        matchingFallbacks = ['debug', 'release']
+        matchingFallbacks = ['release', 'debug']
       }
       release {}
     }

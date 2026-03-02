@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Reviseu els paràmetres i assegureu-vos que l’aparell està connectat a Internet.</string>
+    <string name="downloader_no_space_title">No hi ha prou espai</string>
+</resources>

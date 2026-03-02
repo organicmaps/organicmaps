@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Jistgħu jinħolqu rotot biss li jinsabu kompletament f’ mappa ta’ reġjun wieħed.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Aġġorna l-Mappa</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Niżżel il-mapep kollha tul ir-rotta tiegħek</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Niżżel il-mapep kollha tul ir-rotta tiegħek.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Iċċekkja s-sinjal tal-GPS</string>
+    <string name="dialog_routing_error_location_not_found">Ma jistax joħloq rotta. Il-koordinati attwali tal-GPS ma setgħux jiġu identifikati.</string>
+    <string name="dialog_routing_location_turn_wifi">Jekk jogħġbok iċċekkja s-sinjal tal-GPS tiegħek. L-attivazzjoni tal-Wi-Fi ttejjeb il-preċiżjoni tal-post tiegħek.</string>
+    <string name="dialog_routing_location_turn_on">Attiva s-servizzi tal-post</string>
+    <string name="dialog_routing_location_unknown_turn_on">Ma jistax isib il-koordinati GPS attwali. Attiva s-servizzi tal-post biex tikkalkula r-rotta.</string>
+    <string name="dialog_routing_unable_locate_route">Ir-rotta ma\' tistax tinsab</string>
+    <string name="dialog_routing_cant_build_route">Ir-rotta ma\' tistax tinħoloq.</string>
+    <string name="dialog_routing_change_start_or_end">Irranġa l-punt tal-bidu jew id-destinazzjoni tiegħek.</string>
+    <string name="dialog_routing_change_start">Irranġa l-punt tat-tluq</string>
+    <string name="dialog_routing_start_not_determined">Ir-rotta ma\' nħolqitx. Il-punt tal-bidu ma\' jistax jinsab.</string>
+    <string name="dialog_routing_select_closer_start">Jekk jogħġbok agħżel punt tat-tluq eqreb lejn triq.</string>
+    <string name="dialog_routing_change_end">Irranġa d-destinazzjoni</string>
+    <string name="dialog_routing_end_not_determined">Ir-rotta ma nħolqitx. Id-destinazzjoni ma\' tistax tinsab.</string>
+    <string name="dialog_routing_select_closer_end">Agħżel punt ta’ destinazzjoni li jinsab eqreb ta’ triq.</string>
+    <string name="dialog_routing_change_intermediate">Il-punt intermedju ma\' jistax jinsab.</string>
+    <string name="dialog_routing_intermediate_not_determined">Jekk jogħġbok irranġa l-punt intermedju tiegħek.</string>
+    <string name="dialog_routing_system_error">Żball fis-sistema</string>
+    <string name="dialog_routing_application_error">Ir-rotta ma\' tistax tinħoloq minħabba żball fl-applikazzjoni.</string>
+    <string name="dialog_routing_try_again">Jekk jogħġbok erġa ’pprova</string>
+    <string name="dialog_routing_download_and_build_cross_route">Tixtieq tniżżel il-mappa u toħloq rotta aktar ottimali li tkopri aktar minn mappa waħda?</string>
+    <string name="dialog_routing_download_cross_route">Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Aġġorna l-Mapep</string>
+    <string name="downloader_mwm_migration_dialog">Biex toħloq rotta, trid taġġorna l-mapep kollha u mbagħad terġa ’tippjana r-rotta.</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">In-navigazzjoni tas-subway f’ dan ir-reġjun għadha mhix disponibbli</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ma nstabet l-ebda rotta tas-subway</string>
+    <string name="dialog_pedestrian_route_is_long_message">Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway</string>
+</resources>

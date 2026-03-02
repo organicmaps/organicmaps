@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Gakktu úr skugga um að tækið sé tengt við internetið.</string>
+    <string name="downloader_no_space_title">Ekki nægilegt pláss</string>
+</resources>

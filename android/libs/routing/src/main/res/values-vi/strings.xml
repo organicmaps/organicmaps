@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Tuyến đường chỉ có thể được tạo hoàn toàn được chứa trong một bản đồ.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Cập nhật Bản đồ</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Tải xuống bản đồ theo tuyến đường</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Kiểm tra tín hiệu GPS</string>
+    <string name="dialog_routing_error_location_not_found">Không thể tạo tuyến đường. Không xác định được tọa độ GPS hiện tại.</string>
+    <string name="dialog_routing_location_turn_wifi">Hãy kiểm tra tín hiệu GPS của bạn. Việc kích hoạt Wi-Fi sẽ cải thiện độ chính xác vị trí của bạn.</string>
+    <string name="dialog_routing_location_turn_on">Bật các dịch vụ định vị</string>
+    <string name="dialog_routing_location_unknown_turn_on">Không thể xác định vị trí tọa độ GPS hiện tại. Bật các dịch vụ định vị để tính toán tuyến đường.</string>
+    <string name="dialog_routing_unable_locate_route">Không thể xác định tuyến đường</string>
+    <string name="dialog_routing_cant_build_route">Không thể tạo tuyến đường.</string>
+    <string name="dialog_routing_change_start_or_end">Hãy điều chỉnh điểm bắt đầu hoặc điểm đến của bạn.</string>
+    <string name="dialog_routing_change_start">Điều chỉnh điểm bắt đầu</string>
+    <string name="dialog_routing_start_not_determined">Tuyến đường chưa được tạo. Không thể xác định vị trí điểm bắt đầu.</string>
+    <string name="dialog_routing_select_closer_start">Hãy chọn điểm bắt đầu gần với một con đường hơn.</string>
+    <string name="dialog_routing_change_end">Điều chỉnh điểm đến</string>
+    <string name="dialog_routing_end_not_determined">Tuyến đường chưa được tạo. Không thể xác định vị trí điểm đến.</string>
+    <string name="dialog_routing_select_closer_end">Hãy chọn điểm đến gần với một con đường hơn.</string>
+    <string name="dialog_routing_change_intermediate">Không thể định vị điểm trung gian.</string>
+    <string name="dialog_routing_intermediate_not_determined">Vui lòng điều chỉnh điểm trung gian của bạn.</string>
+    <string name="dialog_routing_system_error">Lỗi hệ thống</string>
+    <string name="dialog_routing_application_error">Không thể tạo tuyến đường do lỗi ứng dụng.</string>
+    <string name="dialog_routing_try_again">Vui lòng thử lại</string>
+    <string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
+    <string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Cập nhật các bản đồ</string>
+    <string name="downloader_mwm_migration_dialog">Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.</string>
+    <string name="ok">Ok</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Điều hướng đến Metro hiện chưa khả dụng cho khu vực này</string>
+    <string name="dialog_pedestrian_route_is_long_header">Không tìm thấy tuyến Metro</string>
+    <string name="dialog_pedestrian_route_is_long_message">Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro</string>
+</resources>

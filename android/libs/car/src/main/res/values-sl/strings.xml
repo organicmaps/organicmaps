@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Prekliči</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Iskanje</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Prenos ni uspel</string>
+    <string name="download">Prenesi</string>
+    <string name="download_resources">Preden začnete uporabljati aplikacijo, prenesite na svojo napravo pregledni zemljevid sveta.\nUporabil bo %s prostora.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Zaznamki</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Nastavitve</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Kje jesti</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Živila</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Bencin</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkirišče</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Stranišče</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Oprema za avtodome</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Podatki OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Nočni način</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Izklopljeno</string>
+    <!-- Generic «On» string -->
+    <string name="on">Vklopljeno</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Samodejno</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D zgradbe</string>
+    <!-- Text in menu -->
+    <string name="help">Pomoč</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Zemljevidi</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Prenesi zemljevid</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Poskusi znova</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategorije</string>
+    <string name="search_not_found">Ups, ni bilo najdenih rezultatov.</string>
+    <string name="search_history_text">Oglejte si svoja nedavna iskanja.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Ves dan (24 ur)</string>
+    <string name="editor_time_open">Odprto</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Danes zaprto</string>
+    <string name="opens_in">Odpira se čez %s</string>
+    <string name="closes_in">Zapira se čez %s</string>
+    <string name="closed">Zaprto</string>
+    <string name="minute">min</string>
+    <string name="big_font">Povečaj velikost oznak na zemljevidu</string>
+    <string name="transliteration_title">Transliteriraj v latinico</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Prenosnik zemljevidov</string>
+    <string name="driving_options_title">Možnosti načrtovanja poti</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Izogibaj se cestninam</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Izogibaj se makadamu</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Izogibaj se trajektom</string>
+    <string name="avoid_motorways">Izogibaj se avtocestam</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Razvrsti zaznamke</string>
+    <!-- Android -->
+    <string name="by_default">Privzeto</string>
+    <!-- Android -->
+    <string name="by_type">Po vrsti</string>
+    <!-- Android -->
+    <string name="by_distance">Po razdalji</string>
+    <!-- Android -->
+    <string name="by_date">Po datumu</string>
+    <!-- Android -->
+    <string name="by_name">Po imenu</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Prenašanje</string>
+    <string name="download_map_title">Prenesite pregledni zemljevid sveta</string>
+</resources>

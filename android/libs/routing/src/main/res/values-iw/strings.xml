@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">עדכן מפה</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">הורד את כל המפות במסלול שלך</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">כדי ליצור מסלול, יש להוריד ולעדכן את כל המפות מהמיקום שלך ועד ליעד.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">בדוק אות GPS</string>
+    <string name="dialog_routing_error_location_not_found">לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.</string>
+    <string name="dialog_routing_location_turn_wifi">בדוק את אות ה-GPS שלך. הפעלת Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.</string>
+    <string name="dialog_routing_location_turn_on">הפעל שירותי מיקום</string>
+    <string name="dialog_routing_location_unknown_turn_on">לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.</string>
+    <string name="dialog_routing_unable_locate_route">לא ניתן לאתר מסלול</string>
+    <string name="dialog_routing_cant_build_route">לא ניתן ליצור מסלול.</string>
+    <string name="dialog_routing_change_start_or_end">כוונן את נקודת ההתחלה או היעד שלך.</string>
+    <string name="dialog_routing_change_start">כוונן נקודת התחלה</string>
+    <string name="dialog_routing_start_not_determined">לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.</string>
+    <string name="dialog_routing_select_closer_start">בחר נקודת התחלה הקרובה יותר לכביש כלשהו.</string>
+    <string name="dialog_routing_change_end">כוונן יעד</string>
+    <string name="dialog_routing_end_not_determined">לא נוצר מסלול. לא ניתן לאתר את היעד.</string>
+    <string name="dialog_routing_select_closer_end">בחר נקודת יעד הקרובה יותר לכביש כלשהו.</string>
+    <string name="dialog_routing_change_intermediate">לא ניתן לאתר את נקודת הביניים.</string>
+    <string name="dialog_routing_intermediate_not_determined">כוונן את נקודת הביניים.</string>
+    <string name="dialog_routing_system_error">שגיאת מערכת</string>
+    <string name="dialog_routing_application_error">לא ניתן ליצור מסלול עקב שגיאת אפליקציה.</string>
+    <string name="dialog_routing_try_again">נסה שוב</string>
+    <string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
+    <string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">עדכן מפות</string>
+    <string name="downloader_mwm_migration_dialog">ליצירת מסלול, יש לעדכן את כל המפות ולתכנן מסלול שנית.</string>
+    <string name="ok">אוקיי</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">ניווט ברכבת תחתית עוד לא זמין באזור זה</string>
+    <string name="dialog_pedestrian_route_is_long_header">מסלול רכבת תחתית לא נמצא</string>
+    <string name="dialog_pedestrian_route_is_long_message">נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית</string>
+</resources>

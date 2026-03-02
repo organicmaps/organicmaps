@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="bookmark_icon_size">24dp</dimen>
+  <dimen name="bookmark_circle_size">40dp</dimen>
+</resources>

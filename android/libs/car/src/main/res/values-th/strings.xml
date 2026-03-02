@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">ยกเลิก</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">ค้นหา</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
+    <string name="download">ดาวน์โหลด</string>
+    <string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">บุ๊กมาร์ก</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">การตั้งค่า</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">กินร้านไหนดี</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">ซื้อของกินของใช้</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">ก๊าซ</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">ที่จอดรถ</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">โรงแรม</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">ห้องน้ำ</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">สำหรับ RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">ข้อมูล OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">โหมดกลางคืน</string>
+    <!-- Generic «Off» string -->
+    <string name="off">ปิด</string>
+    <!-- Generic «On» string -->
+    <string name="on">เปิด</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">อัตโนมัติ</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">ตึก 3D</string>
+    <!-- Text in menu -->
+    <string name="help">ความช่วยเหลือ</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">แผนที่</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">ดาวน์โหลดแผนที่</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">ทำซ้ำ</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">หมวดหมู่</string>
+    <string name="search_not_found">ขออภัย ฉันไม่พบสิ่งใด</string>
+    <string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">ตลอดวัน (24 ชั่วโมง)</string>
+    <string name="editor_time_open">เปิด</string>
+    <string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
+    <string name="day_off_today">วันนี้ปิด</string>
+    <string name="closed">ปิด</string>
+    <string name="minute">น.</string>
+    <string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
+    <string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
+    <string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">เลี่ยงถนนดินทั้งหมด</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">เลี่ยงการข้ามฟากด้วยเรือ</string>
+    <string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">เรียงบุ๊กมาร์ก</string>
+    <!-- Android -->
+    <string name="by_default">ตามค่าเริ่มต้น</string>
+    <!-- Android -->
+    <string name="by_type">ตามประเภท</string>
+    <!-- Android -->
+    <string name="by_distance">ตามระยะทาง</string>
+    <!-- Android -->
+    <string name="by_date">ตามวันที่</string>
+    <!-- Android -->
+    <string name="by_name">ตามชื่อ</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">การดาวน์โหลด</string>
+</resources>

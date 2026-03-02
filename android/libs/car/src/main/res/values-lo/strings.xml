@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">ຍົກເລີກ</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">ຄົ້ນຫາ</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">ການດາວໂຫລດລົ້ມເຫຼວ</string>
+    <string name="download">ດາວໂຫລດ</string>
+    <string name="download_resources">ກ່ອນຈະເລີ່ມໃຊ້ແອັບ, ກະລຸນາດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກລົງໃນອຸປະກອນຂອງທ່ານ.\nມັນຈະໃຊ້ພື້ນທີ່ %s.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">ບຸກມາກ</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">ການຕັ້ງຄ່າ</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">ຂໍ້ມູນ OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">ໂໝດກາງຄືນ</string>
+    <!-- Generic «Off» string -->
+    <string name="off">ປິດ</string>
+    <!-- Generic «On» string -->
+    <string name="on">ເປີດ</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">ອັດຕະໂນມັດ</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">ອາຄານ 3D</string>
+    <!-- Text in menu -->
+    <string name="help">ຊ່ວຍເຫຼືອ</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">ແຜນທີ່</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">ດາວໂຫລດແຜນທີ່</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">ລອງໃໝ່</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">ໝວດໝູ່</string>
+    <string name="search_not_found">ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.</string>
+    <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">ທັງໝົດມື້ (24 ຊົ່ວໂມງ)</string>
+    <string name="editor_time_open">ເປີດ</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">ປິດມື້ນີ້</string>
+    <string name="opens_in">ຈະເປີດໃນອີກ %s</string>
+    <string name="closes_in">ຈະປິດໃນອີກ %s</string>
+    <string name="closed">ປິດ</string>
+    <string name="minute">ນາທີ</string>
+    <string name="big_font">ເພີ່ມຂະໜາດສຳລັບປ້າຍຊື່ໃນແຜນທີ່</string>
+    <string name="transliteration_title">ຖອດອັກສອນເປັນພາສາລາແຕັງ</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">ຕົວດາວໂຫລດແຜນທີ່</string>
+    <string name="driving_options_title">ຕົວເລືອກການສ້າງເສັ້ນທາງ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">ເລ່ຽງທາງເສຍຄ່າທຳນຽມ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">ເລ່ຽງທາງບໍ່ປູຢາງ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">ເລ່ຽງເຮືອຂ້າມຟາກ</string>
+    <string name="avoid_motorways">ເລ່ຽງທາງດ່ວນ</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">ຈັດລຽງບຸກມາກ</string>
+    <!-- Android -->
+    <string name="by_default">ຕາມຄ່າເລີ່ມຕົ້ນ</string>
+    <!-- Android -->
+    <string name="by_type">ຕາມປະເພດ</string>
+    <!-- Android -->
+    <string name="by_distance">ຕາມໄລຍະທາງ</string>
+    <!-- Android -->
+    <string name="by_date">ຕາມວັນທີ</string>
+    <!-- Android -->
+    <string name="by_name">ຕາມຊື່</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">ກຳລັງດາວໂຫລດ</string>
+    <string name="download_map_title">ດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກ</string>
+</resources>

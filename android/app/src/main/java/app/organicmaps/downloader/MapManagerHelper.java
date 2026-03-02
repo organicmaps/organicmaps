@@ -8,7 +8,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Consumer;
 import app.organicmaps.R;
-import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.ExpandRetryConfirmationListener;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.ConnectionState;
@@ -18,17 +17,6 @@ import java.lang.ref.WeakReference;
 public class MapManagerHelper
 {
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
-
-  @StringRes
-  public static int getErrorCodeStrRes(final int errorCode)
-  {
-    return switch (errorCode)
-    {
-      case CountryItem.ERROR_NO_INTERNET -> R.string.common_check_internet_connection_dialog;
-      case CountryItem.ERROR_OOM -> R.string.downloader_no_space_title;
-      default -> throw new IllegalArgumentException("Given error can not be displayed: " + errorCode);
-    };
-  }
 
   public static void showError(final Context context, final MapManager.StorageCallbackData errorData,
                                @Nullable final Consumer<Boolean> dialogClickListener)
@@ -51,7 +39,7 @@ public class MapManagerHelper
 
     final AlertDialog dlg = new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
                                 .setTitle(R.string.country_status_download_failed)
-                                .setMessage(getErrorCodeStrRes(errorData.errorCode))
+                                .setMessage(ErrorCodeHelper.getErrorCodeStrRes(errorData.errorCode))
                                 .setNegativeButton(R.string.cancel,
                                                    (dialog, which) -> {
                                                      sCurrentErrorDialog = null;

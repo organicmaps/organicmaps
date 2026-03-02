@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Otkaži</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Pretraživaj</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Preuzimanje nije uspjelo</string>
+    <string name="download">Preuzmi</string>
+    <string name="download_resources">Prije nego što počnete koristiti aplikaciju, preuzmite svjetsku preglednu kartu na vaš uređaj.\nIskoristit će %s memorije.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Zabilješke</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Postavke</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap podaci: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Noćni modus</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Isključeno</string>
+    <!-- Generic «On» string -->
+    <string name="on">Uključeno</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automatski</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D zgrade</string>
+    <!-- Text in menu -->
+    <string name="help">Pomoć</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Karte</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Preuzmi kartu</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Pokušaj ponovo</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Kategorije</string>
+    <string name="search_not_found">Ups, nema rezultata.</string>
+    <string name="search_history_text">Pogledaj svoje nedavne pretrage.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Cijeli dan (24 sata)</string>
+    <string name="editor_time_open">Otvoreno</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Danas zatvoreno</string>
+    <string name="opens_in">Otvara za %s</string>
+    <string name="closes_in">Zatvara za %s</string>
+    <string name="closed">Zatvoreno</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Preuzimač karti</string>
+    <string name="driving_options_title">Opcije za određivanje rute</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Izbjegni cestarine</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Izbjegni neasfaltirane ceste</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Izbjegni trajekte</string>
+    <string name="avoid_motorways">Izbjegni autoputeve</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Razvrstaj zabilješke</string>
+    <!-- Android -->
+    <string name="by_default">Po zadanim postavkama</string>
+    <!-- Android -->
+    <string name="by_type">Po vrsti</string>
+    <!-- Android -->
+    <string name="by_distance">Po udaljenosti</string>
+    <!-- Android -->
+    <string name="by_date">Po datumu</string>
+    <!-- Android -->
+    <string name="by_name">Po imenu</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Preuzimanje</string>
+    <string name="download_map_title">Preuzmi preglednu kartu svijeta</string>
+</resources>

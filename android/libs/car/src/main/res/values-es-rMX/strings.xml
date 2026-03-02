@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Buscar en</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">La descarga ha fallado</string>
+    <string name="download_resources">Antes de empezar a utilizar la aplicación, descarga el mapa general del mundo en tu dispositivo. \nUsará %s de almacenamiento.</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Ajustes</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Comestibles</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Aseo</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Instalaciones para autocaravanas</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Edificios 3D</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Descargar el mapa</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_not_found">Lo siento, no se han encontrado resultados.</string>
+    <string name="search_history_text">Ver tus búsquedas recientes.</string>
+    <string name="editor_time_open">Abrir</string>
+    <string name="big_font">Aumentar el tamaño de las etiquetas de los mapas</string>
+    <string name="transliteration_title">Transliterar al alfabeto latino</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Descargador de mapas</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Evite los peajes</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Evitar vías sin pavimentar</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Evite los transbordadores</string>
+    <string name="avoid_motorways">Evite las autopistas</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Ordenar favoritos</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Cargando</string>
+    <string name="download_map_title">Descargar el mapamundi</string>
+</resources>

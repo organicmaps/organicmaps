@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Rute hanya dapat dibuat dengan yang seluruhnya ada di dalam peta tunggal.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Perbarui Peta</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Unduh peta bersama rute</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Membuat rute memerlukan semua peta dari lokasi Anda ke tujuan yang diunduh dan diperbarui.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Periksa sinyal GPS</string>
+    <string name="dialog_routing_error_location_not_found">Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.</string>
+    <string name="dialog_routing_location_turn_wifi">Mohon periksa sinyal GPS Anda. Mengaktifkan Wi-Fi akan meningkatkan akurasi lokasi Anda.</string>
+    <string name="dialog_routing_location_turn_on">Aktifkan layanan lokasi</string>
+    <string name="dialog_routing_location_unknown_turn_on">TIdak dapat menemukan koordinat GPS saat ini. Aktifkan layanan lokasi untuk mengalkulasi rute.</string>
+    <string name="dialog_routing_unable_locate_route">Tidak dapat menemukan rute</string>
+    <string name="dialog_routing_cant_build_route">Tidak dapat membuat rute.</string>
+    <string name="dialog_routing_change_start_or_end">Sesuaikan titik mula atau tujuan Anda.</string>
+    <string name="dialog_routing_change_start">Sesuaikan titik mula</string>
+    <string name="dialog_routing_start_not_determined">Rute tidak dibuat. Tidak dapat menemukan titik mula.</string>
+    <string name="dialog_routing_select_closer_start">Pilih titik mula yang lebih dekat dengan jalan.</string>
+    <string name="dialog_routing_change_end">Sesuaikan tujuan</string>
+    <string name="dialog_routing_end_not_determined">Rute tidak dibuat. Tidak dapat menemukan tujuan.</string>
+    <string name="dialog_routing_select_closer_end">Pilih titik tujuan yang lebih dekat dengan jalan.</string>
+    <string name="dialog_routing_change_intermediate">Tidak dapat menemukan titik antara.</string>
+    <string name="dialog_routing_intermediate_not_determined">Harap sesuaikan titik antara Anda.</string>
+    <string name="dialog_routing_system_error">Kesalahan sistem</string>
+    <string name="dialog_routing_application_error">Tidak dapat membuat rute karena kesalahan aplikasi.</string>
+    <string name="dialog_routing_try_again">Mohon coba lagi</string>
+    <string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
+    <string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Perbarui peta</string>
+    <string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>
+    <string name="ok">Oke</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Navigasi kereta bawah tanah di wilayah ini belum tersedia</string>
+    <string name="dialog_pedestrian_route_is_long_header">Jalur kereta bawah tanah tidak ditemukan</string>
+    <string name="dialog_pedestrian_route_is_long_message">Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah</string>
+</resources>

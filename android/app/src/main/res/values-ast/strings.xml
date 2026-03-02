@@ -318,7 +318,6 @@
     <string name="fuel_places">Gasolineres</string>
     <string name="search_in_the_list">Guetar na llista</string>
     <string name="religious_places">Llugares relixosos</string>
-    <string name="transit_not_found">La navegación per metro nesta rexón tovía nun ta disponible</string>
     <string name="button_layer_isolines">Curves de nivel</string>
     <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
     <string name="elevation_profile_ascent">Ascensu</string>

@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Теглене:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">За да изтриете карта, моля спрете навигирането.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Изтегляне на карта</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Услуги за местоположение в Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Бързо определяне на приблизителното ви местоположение чрез Bluetooth, WiFi или мобилна мрежа</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Изтегляне на всички карти по вашия маршрут</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Недостатъчно място</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">- Предложените маршрути са само препоръки;</string>
     <string name="dialog_routing_disclaimer_borders">- Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.</string>
     <string name="dialog_routing_disclaimer_beware">Моля, бъдете бдителни и безопасни по пътищата!</string>
-    <string name="dialog_routing_check_gps">Приверете GPS сигнала</string>
-    <string name="dialog_routing_error_location_not_found">Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.</string>
     <string name="dialog_routing_location_turn_wifi">Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.</string>
-    <string name="dialog_routing_location_turn_on">Активиране на услугите за местоположение</string>
-    <string name="dialog_routing_location_unknown_turn_on">Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.</string>
-    <string name="dialog_routing_unable_locate_route">Не е намерен маршрут</string>
-    <string name="dialog_routing_cant_build_route">Не е възможно да се създаде маршрут.</string>
-    <string name="dialog_routing_change_start_or_end">Моля, коригирайте началната точка или дестинацията си.</string>
-    <string name="dialog_routing_change_start">Регулиране на началната точка</string>
-    <string name="dialog_routing_start_not_determined">Маршрутът не е създаден. Не може да се намери начална точка.</string>
-    <string name="dialog_routing_select_closer_start">Моля, изберете начална точка, която е по-близо до път.</string>
-    <string name="dialog_routing_change_end">Регулиране на дестинацията</string>
-    <string name="dialog_routing_end_not_determined">Маршрутът не е създаден. Не е възможно да се открие дестинацията.</string>
-    <string name="dialog_routing_select_closer_end">Моля, изберете крайна точка, разположена по-близо до път.</string>
-    <string name="dialog_routing_change_intermediate">Не може да се открие междинната точка на маршрута.</string>
-    <string name="dialog_routing_intermediate_not_determined">Моля, коригирайте междинната си точка на маршрута.</string>
     <string name="dialog_routing_system_error">Грешка в системата</string>
-    <string name="dialog_routing_application_error">Не е възможно да се създаде маршрут поради грешка в приложението.</string>
-    <string name="dialog_routing_try_again">Моля, опитайте отново</string>
     <string name="not_now">Не сега</string>
-    <string name="dialog_routing_download_and_build_cross_route">Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?</string>
-    <string name="dialog_routing_download_cross_route">За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.</string>
@@ -471,7 +446,6 @@
     <string name="level_value_generic">Ниво: %s</string>
     <string name="downloader_delete_map_dialog">Всички ваши редакции на картата ще бъдат изтрити заедно с нея.</string>
     <string name="downloader_update_maps">Обновяване на карти</string>
-    <string name="downloader_mwm_migration_dialog">За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.</string>
     <string name="downloader_search_field_hint">Намиране на карта</string>
     <string name="common_check_internet_connection_dialog">Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.</string>
     <string name="downloader_no_space_title">Няма достатъчно място</string>
@@ -742,9 +716,6 @@
     <string name="search_in_the_list">Търсене в списъка</string>
     <string name="religious_places">Храмове</string>
     <string name="select_list">Избор на списък</string>
-    <string name="transit_not_found">Навигацията за метро все още не е налична в региона</string>
-    <string name="dialog_pedestrian_route_is_long_header">Не е открит маршрут за метро</string>
-    <string name="dialog_pedestrian_route_is_long_message">Моля, изберете начална или крайна точка по-близо до метростанция</string>
     <string name="button_layer_isolines">Терен</string>
     <string name="isolines_activation_error_dialog">За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района</string>
     <string name="isolines_location_error_dialog">Топографският слой все още не е наличен в тази област</string>

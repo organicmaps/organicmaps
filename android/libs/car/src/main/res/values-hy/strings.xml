@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Չեղարկել</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Որոնում</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Ներբեռնումը ձախողվեց</string>
+    <string name="download">Ներբեռնել</string>
+    <string name="download_resources">Նախքան հավելվածից օգտվելը, խնդրում ենք ներբեռնել աշխարհի ընդհանուր քարտեզը.\nԱյն կզբաղեցնի %s հիշողություն:</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Էջանիշներ</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Կարգավորումներ</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Որտեղ սնվել</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Մթերային</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Վառելիք</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Կայանատեղի</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Հյուրանոց</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Զուգարան</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Քեմփինգներ</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap տվյալներ՝ %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Գիշերային ռեժիմ</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Անջատված</string>
+    <!-- Generic «On» string -->
+    <string name="on">Միացված</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Ավտոմատ</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D շենքեր</string>
+    <!-- Text in menu -->
+    <string name="help">Օգնություն</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Քարտեզներ</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Ներբեռնել քարտեզը</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Կրկնել</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Կատեգորիաներ</string>
+    <string name="search_not_found">Ոչինչ չգտնվեց:</string>
+    <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Շուրջօրյա (24 ժամ)</string>
+    <string name="editor_time_open">Բաց է</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Այսօր փակ է</string>
+    <string name="opens_in">Բացվում է %s</string>
+    <string name="closes_in">Փակվում է %s</string>
+    <string name="closed">Փակ է</string>
+    <string name="minute">ր</string>
+    <string name="big_font">Մեծացնել քարտեզի գրությունների չափսը</string>
+    <string name="transliteration_title">Տառադարձել լատինատառի</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Քարտեզի ներբեռնիչ</string>
+    <string name="driving_options_title">Երթուղու ընտրանքներ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Խուսափել վճարովի ճանապարհներից</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Խուսափել գրունտային ճանապարհներից</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Խուսափել լաստանավերից</string>
+    <string name="avoid_motorways">Խուսափել մայրուղիներից</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Դասավորել էջանիշները</string>
+    <!-- Android -->
+    <string name="by_default">Լռելյայն</string>
+    <!-- Android -->
+    <string name="by_type">Ըստ տեսակի</string>
+    <!-- Android -->
+    <string name="by_distance">Ըստ հեռավորության</string>
+    <!-- Android -->
+    <string name="by_date">Ըստ ամսաթվի</string>
+    <!-- Android -->
+    <string name="by_name">Ըստ անվան</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Ներբեռնում</string>
+    <string name="download_map_title">Ներբեռնել աշխարհի ընդհանուր քարտեզը</string>
+</resources>

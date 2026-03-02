@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Загружается:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Чтобы удалить карту, пожалуйста, остановите навигацию.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Маршрут может быть проложен только внутри карты одного региона.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Загрузить карту</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Службы определения местоположения в Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Быстрое определение приблизительного местоположения с помощью Bluetooth, WiFi или мобильной сети</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Недостаточно места</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Предлагаемые маршруты — лишь рекомендации;</string>
     <string name="dialog_routing_disclaimer_borders">— Будьте внимательны с маршрутами в приграничных зонах: маршруты, построенные нашей программой иногда могут пересекать границы в неположенных местах.</string>
     <string name="dialog_routing_disclaimer_beware">Будьте внимательны на дорогах и берегите себя!</string>
-    <string name="dialog_routing_check_gps">Проверьте сигнал GPS</string>
-    <string name="dialog_routing_error_location_not_found">Маршрут не построен. Текущая геопозиция не определена.</string>
     <string name="dialog_routing_location_turn_wifi">Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.</string>
-    <string name="dialog_routing_location_turn_on">Включите режим определения геопозиции</string>
-    <string name="dialog_routing_location_unknown_turn_on">Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.</string>
-    <string name="dialog_routing_unable_locate_route">Маршрут не найден</string>
-    <string name="dialog_routing_cant_build_route">Не получилось построить маршрут.</string>
-    <string name="dialog_routing_change_start_or_end">Пожалуйста, измените начальную или конечную точку маршрута.</string>
-    <string name="dialog_routing_change_start">Измените начальную точку маршрута</string>
-    <string name="dialog_routing_start_not_determined">Маршрут не построен. Не определена начальная точка маршрута.</string>
-    <string name="dialog_routing_select_closer_start">Пожалуйста, выберите начальную точку маршрута ближе к дороге.</string>
-    <string name="dialog_routing_change_end">Измените конечную точку маршрута</string>
-    <string name="dialog_routing_end_not_determined">Маршрут не построен. Не определена конечная точка маршрута.</string>
-    <string name="dialog_routing_select_closer_end">Пожалуйста, выберите конечную точку маршрута ближе к дороге.</string>
-    <string name="dialog_routing_change_intermediate">Не определена промежуточная точка маршрута.</string>
-    <string name="dialog_routing_intermediate_not_determined">Пожалуйста, измените промежуточную точку маршрута.</string>
     <string name="dialog_routing_system_error">Системная ошибка</string>
-    <string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
-    <string name="dialog_routing_try_again">Попробуйте снова</string>
     <string name="not_now">Не сейчас</string>
-    <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
-    <string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Этаж: %s</string>
     <string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесённые вами правки на этой карте.</string>
     <string name="downloader_update_maps">Обновите карты</string>
-    <string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
     <string name="downloader_search_field_hint">Найти карту</string>
     <string name="common_check_internet_connection_dialog">Проверьте настройки и убедитесь, что устройство подключено к интернету.</string>
     <string name="downloader_no_space_title">Недостаточно места</string>
@@ -752,9 +726,6 @@
     <string name="search_in_the_list">Искать в списке</string>
     <string name="religious_places">Святые места</string>
     <string name="select_list">Выбрать список</string>
-    <string name="transit_not_found">Навигация на метро ещё недоступна в данном регионе</string>
-    <string name="dialog_pedestrian_route_is_long_header">Маршрут метро не найден</string>
-    <string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
     <string name="button_layer_isolines">Высоты</string>
     <string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
     <string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>

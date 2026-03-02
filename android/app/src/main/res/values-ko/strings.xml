@@ -282,8 +282,6 @@
     <string name="downloader_downloading">다운로드 중:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">지도를 삭제하시려면 길 찾기를 멈추세요.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">경로는 하나의 지도에 완전히 포함되도록만 생성할 수 있습니다.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">지도 다운로드</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play 위치 서비스</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">블루투스, WiFi 또는 모바일 네트워크를 통해 대략적인 위치를 빠르게 파악할 수 있습니다</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">경로를 따라 지도 다운로드</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">여유 공간 부족</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— 제안된 경로는 권장 사항으로만 참고하세요;</string>
     <string name="dialog_routing_disclaimer_borders">— 국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다;</string>
     <string name="dialog_routing_disclaimer_beware">항상 안전에 주의하세요!</string>
-    <string name="dialog_routing_check_gps">GPS 신호 확인</string>
-    <string name="dialog_routing_error_location_not_found">경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.</string>
     <string name="dialog_routing_location_turn_wifi">GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.</string>
-    <string name="dialog_routing_location_turn_on">위치 서비스 활성화</string>
-    <string name="dialog_routing_location_unknown_turn_on">현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.</string>
-    <string name="dialog_routing_unable_locate_route">경로를 찾을 수 없습니다</string>
-    <string name="dialog_routing_cant_build_route">경로를 찾을 수 없습니다.</string>
-    <string name="dialog_routing_change_start_or_end">출발지나 목적지를 조정하세요.</string>
-    <string name="dialog_routing_change_start">출발지 조정</string>
-    <string name="dialog_routing_start_not_determined">경로가 설정되지 않았습니다. 출발지를 찾을 수 없습니다.</string>
-    <string name="dialog_routing_select_closer_start">도로와 가까운 출발지를 지정해주세요.</string>
-    <string name="dialog_routing_change_end">목적지 조정</string>
-    <string name="dialog_routing_end_not_determined">경로가 설정되지 않았습니다. 목적지를 찾을 수 없습니다.</string>
-    <string name="dialog_routing_select_closer_end">도로와 가까운 목적지를 지정해주세요.</string>
-    <string name="dialog_routing_change_intermediate">중간 지점을 찾을 수 없습니다.</string>
-    <string name="dialog_routing_intermediate_not_determined">중간 지점을 조정하세요.</string>
     <string name="dialog_routing_system_error">시스템 오류</string>
-    <string name="dialog_routing_application_error">애플리케이션 오류로 인해 경로를 설정하지 못했습니다.</string>
-    <string name="dialog_routing_try_again">다시 시도해주세요.</string>
     <string name="not_now">나중에</string>
-    <string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
-    <string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
@@ -469,7 +444,6 @@
     <string name="level_value_generic">레벨: %s</string>
     <string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
     <string name="downloader_update_maps">지도 업데이트</string>
-    <string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
     <string name="downloader_search_field_hint">지도 찾기</string>
     <string name="common_check_internet_connection_dialog">설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.</string>
     <string name="downloader_no_space_title">충분하지 않은 여유 공간</string>
@@ -739,9 +713,6 @@
     <string name="search_in_the_list">리스트에서 검색</string>
     <string name="religious_places">종교적 장소</string>
     <string name="select_list">목록 선택</string>
-    <string name="transit_not_found">이 지역의 지하철 노선 기능이 아직 없습니다</string>
-    <string name="dialog_pedestrian_route_is_long_header">지하철 루트가 발견되지 않았습니다</string>
-    <string name="dialog_pedestrian_route_is_long_message">지하철역에서 가까운 출발점 또는 종점을 선택하세요</string>
     <string name="button_layer_isolines">지형</string>
     <string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
     <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>

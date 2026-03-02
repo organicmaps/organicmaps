@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Преузимање:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Да бисте обрисали мапу, зауставите навигацију.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Могу се креирати само руте које се комплетно налазе у оквиру мапе једног региона.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Преузми мапу</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play прецизност локације</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Брзо одређивање ваше локације коришћењем Bluetooth-а, WiFi-а, или мобилне мреже</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Преузми све мапе које се налазе на рути</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Да би рута могла да се креира, потребно је да преузимање и ажурирање свих мапа између ваше локације и вашег одредишта.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Нема довољно простора</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Предложену руту треба да схватите само као предлог;</string>
     <string name="dialog_routing_disclaimer_borders">— Будите пажљиви са рутама које пролазе и близини граница: руте које креира наша апликација могу понекад прелазити границе дражава на недозвољеним местима.</string>
     <string name="dialog_routing_disclaimer_beware">Молимо Вас да будете опрезни и безбедни на путу!</string>
-    <string name="dialog_routing_check_gps">Провери GPS сигнал</string>
-    <string name="dialog_routing_error_location_not_found">Не могу да направим руту. Тренутне GPS координате не могу да се одреде.</string>
     <string name="dialog_routing_location_turn_wifi">Молим Вас да проверите ваш GPS сигнал. Укључивање Wi-Fi-а ће поправити прецизност ваше локације.</string>
-    <string name="dialog_routing_location_turn_on">Укључи Локацијске сервисе</string>
-    <string name="dialog_routing_location_unknown_turn_on">Није могуће одредити тренутне GPS координате. Укључи локацијске сервисе ради проналажења руте.</string>
-    <string name="dialog_routing_unable_locate_route">Не могу да пронађем руту</string>
-    <string name="dialog_routing_cant_build_route">Не могу да направим руту.</string>
-    <string name="dialog_routing_change_start_or_end">Молим Вас да подесите почетну или одредишну тачку.</string>
-    <string name="dialog_routing_change_start">Подеси почетну тачку</string>
-    <string name="dialog_routing_start_not_determined">Рута није креирана. Не могу да одредим почетну тачку.</string>
-    <string name="dialog_routing_select_closer_start">Молим вас да изаберете почетну тачку ближе путу.</string>
-    <string name="dialog_routing_change_end">Подеси одредишну тачку</string>
-    <string name="dialog_routing_end_not_determined">Рута није направљена. Не могу да пронађем одредиште.</string>
-    <string name="dialog_routing_select_closer_end">Молим Вас да изаберете одредишну тачну ближе путу.</string>
-    <string name="dialog_routing_change_intermediate">Не могу да пронађем успутну тачку.</string>
-    <string name="dialog_routing_intermediate_not_determined">Молим Вас да подесите успутну тачку.</string>
     <string name="dialog_routing_system_error">Системска грешка</string>
-    <string name="dialog_routing_application_error">Не могу да направим руту због грешке у апликацији.</string>
-    <string name="dialog_routing_try_again">Молим Вас, покушајте поново</string>
     <string name="not_now">Не сада</string>
-    <string name="dialog_routing_download_and_build_cross_route">Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?</string>
-    <string name="dialog_routing_download_cross_route">Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Да бисте почели да претражујете и правите руте, молим Вас да преузмете мапу. Након тога веза са интернетом Вам више неће бити потребна.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Спрат: %s</string>
     <string name="downloader_delete_map_dialog">Све ваше промене на мапи ће бити обрисане заједно са мапом.</string>
     <string name="downloader_update_maps">Ажурирај мапе</string>
-    <string name="downloader_mwm_migration_dialog">Да бисте направили руту, потребно је да ажурирате све мапе, а затим да поново планирате руту.</string>
     <string name="downloader_search_field_hint">Пронађи мапу</string>
     <string name="common_check_internet_connection_dialog">Молим Вас да проверите да ли је Ваш уређај повезан на интернет.</string>
     <string name="downloader_no_space_title">Нема довољно простора</string>
@@ -736,9 +710,6 @@
     <string name="search_in_the_list">Претражи листу</string>
     <string name="religious_places">Верска места</string>
     <string name="select_list">Изаберите листу</string>
-    <string name="transit_not_found">Навигација у метроу у овом региону још није доступна</string>
-    <string name="dialog_pedestrian_route_is_long_header">Није пронађена метро рута</string>
-    <string name="dialog_pedestrian_route_is_long_message">Молим вас изаберите почетну и крајњу тачку ближе метро станицама</string>
     <string name="button_layer_isolines">Изолиније</string>
     <string name="isolines_activation_error_dialog">Приказивање изолинија захтева преузмање података са мапе за ову област</string>
     <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>

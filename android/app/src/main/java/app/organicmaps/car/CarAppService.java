@@ -18,12 +18,9 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
 
-public final class CarAppService extends androidx.car.app.CarAppService
+public final class CarAppService extends CarAppServiceBase
 {
   public static final String ANDROID_AUTO_NOTIFICATION_CHANNEL_ID = "ANDROID_AUTO";
-
-  public static final String API_CAR_HOST = Const.AUTHORITY + ".car";
-  public static final String ACTION_SHOW_NAVIGATION_SCREEN = Const.ACTION_PREFIX + ".SHOW_NAVIGATION_SCREEN";
 
   @Nullable
   private static NotificationCompat.Extender mCarNotificationExtender;

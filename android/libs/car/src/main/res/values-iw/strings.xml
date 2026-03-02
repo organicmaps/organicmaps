@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">בטל</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">חיפוש</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">ההורדה נכשלה</string>
+    <string name="download">הורדה</string>
+    <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.\nמפה זו דורשת נפח אחסון של %s.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">סימניות</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">הגדרות</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">איפה לאכול</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">מצרכים</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">דלק</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">חניה</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">בית מלון</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">שירותים</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">עבור קרוואנים</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">נתוני OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">מצב לילה</string>
+    <!-- Generic «Off» string -->
+    <string name="off">כבוי</string>
+    <!-- Generic «On» string -->
+    <string name="on">מופעל</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">אוטומטי</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">מבנים בתלת-מימד</string>
+    <!-- Text in menu -->
+    <string name="help">עזרה</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">מפות</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">הורידו את המפה</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">נסה שוב</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">קטגוריות</string>
+    <string name="search_not_found">אופס, לא נמצאו תוצאות.</string>
+    <string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">כל היום (24 שעות)</string>
+    <string name="editor_time_open">פתוח</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">סגור היום</string>
+    <string name="opens_in">נפתח עוד %s</string>
+    <string name="closes_in">נסגר עוד %s</string>
+    <string name="closed">סגור</string>
+    <string name="minute">ד׳</string>
+    <string name="big_font">הגדל תגיות במפה</string>
+    <string name="transliteration_title">תעתיק לאותיות לטיניות</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">מוריד המפות</string>
+    <string name="driving_options_title">אפשרויות מסלול</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">הימנע מכבישי אגרה</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">הימנע מדרכי עפר</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">הימנע ממעבורות</string>
+    <string name="avoid_motorways">הימנע מכבישים מהירים</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">מיון סימניות</string>
+    <!-- Android -->
+    <string name="by_default">לפי ברירת מחדל</string>
+    <!-- Android -->
+    <string name="by_type">לפי סוג</string>
+    <!-- Android -->
+    <string name="by_distance">לפי מרחק</string>
+    <!-- Android -->
+    <string name="by_date">לפי תאריך</string>
+    <!-- Android -->
+    <string name="by_name">לפי שם</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">מוריד</string>
+    <string name="download_map_title">הורד את מפת העולם</string>
+</resources>

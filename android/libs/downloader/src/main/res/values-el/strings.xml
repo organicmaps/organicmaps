@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.</string>
+    <string name="downloader_no_space_title">Δεν υπάρχει αρκετός χώρος</string>
+</resources>

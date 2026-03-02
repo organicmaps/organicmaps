@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Pot fi create numai trasee cuprinse de harta unei singure regiuni.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Actualizează harta</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Descarcă hărțile de pe traseu</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Verifică semnalul GPS</string>
+    <string name="dialog_routing_error_location_not_found">Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.</string>
+    <string name="dialog_routing_location_turn_wifi">Verifică semnalul GPS. Pentru a îmbunătăți precizia localizării, activează Wi-Fi.</string>
+    <string name="dialog_routing_location_turn_on">Activează serviciile de localizare</string>
+    <string name="dialog_routing_location_unknown_turn_on">Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.</string>
+    <string name="dialog_routing_unable_locate_route">Localizarea traseului a eșuat</string>
+    <string name="dialog_routing_cant_build_route">Crearea traseului a eșuat.</string>
+    <string name="dialog_routing_change_start_or_end">Modifică punctul de pornire sau destinația.</string>
+    <string name="dialog_routing_change_start">Modifică punctul de pornire</string>
+    <string name="dialog_routing_start_not_determined">Traseul nu a fost creat. Localizarea punctului de pornire a eșuat.</string>
+    <string name="dialog_routing_select_closer_start">Alege un punct de pornire mai aproape de un drum.</string>
+    <string name="dialog_routing_change_end">Schimbă destinația</string>
+    <string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinației a eșuat.</string>
+    <string name="dialog_routing_select_closer_end">Alege un punct de destinație mai aproape de un drum.</string>
+    <string name="dialog_routing_change_intermediate">Punctul intermediar nu poate fi localizat.</string>
+    <string name="dialog_routing_intermediate_not_determined">Schimbă punctul intermediar.</string>
+    <string name="dialog_routing_system_error">Eroare de sistem</string>
+    <string name="dialog_routing_application_error">Crearea traseului a eșuat din cauza unei erori a aplicației.</string>
+    <string name="dialog_routing_try_again">Încearcă din nou</string>
+    <string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?</string>
+    <string name="dialog_routing_download_cross_route">Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Actualizează hărțile</string>
+    <string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.</string>
+    <string name="ok">Bine</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Navigarea pentru metrou nu este încă disponibilă în această regiune</string>
+    <string name="dialog_pedestrian_route_is_long_header">Traseul metroului nu a fost găsit</string>
+    <string name="dialog_pedestrian_route_is_long_message">Alege un punct de plecare sau de sosire mai aproape de o stație de metrou</string>
+</resources>

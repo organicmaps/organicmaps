@@ -236,8 +236,6 @@
     <string name="downloader_downloading">ກຳລັງດາວໂຫລດ:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">ເພື່ອລຶບແຜນທີ່, ກະລຸນາຢຸດການນຳທາງ.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">ເສັ້ນທາງສາມາດສ້າງໄດ້ສະເພາະພາຍໃນແຜນທີ່ຂອງພາກພື້ນດຽວກັນເທົ່ານັ້ນ.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">ດາວໂຫລດແຜນທີ່</string>
     <!-- Item status in downloader. -->
@@ -250,10 +248,6 @@
     <string name="google_play_services">ບໍລິການຕຳແໜ່ງທີ່ຕັ້ງຂອງ Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">ລະບຸຕຳແໜ່ງໂດຍປະມານຂອງທ່ານຢ່າງວ່ອງໄວໂດຍໃຊ້ Bluetooth, WiFi, ຫຼື ເຄືອຂ່າຍມືຖື</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">ດາວໂຫລດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງຂອງທ່ານ</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">ເພື່ອສ້າງເສັ້ນທາງ, ພວກເຮົາຕ້ອງດາວໂຫລດ ແລະ ອັບເດດແຜນທີ່ທັງໝົດຕັ້ງແຕ່ຕຳແໜ່ງຂອງທ່ານໄປຈົນຮອດປາຍທາງ.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">ພື້ນທີ່ບໍ່ພໍ</string>
     <!-- location service disabled -->
@@ -308,28 +302,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— ເສັ້ນທາງທີ່ແນະນຳຄວນຖືວ່າເປັນພຽງຄຳແນະນຳເທົ່ານັ້ນ;</string>
     <string name="dialog_routing_disclaimer_borders">— ລະມັດລະວັງກັບເສັ້ນທາງໃນເຂດຊາຍແດນ: ເສັ້ນທາງທີ່ສ້າງໂດຍແອັບຂອງພວກເຮົາອາດຂ້າມຊາຍແດນປະເທດໃນຈຸດທີ່ບໍ່ໄດ້ຮັບອະນຸຍາດ.</string>
     <string name="dialog_routing_disclaimer_beware">ກະລຸນາມີສະຕິ ແລະ ປອດໄພໃນການເດີນທາງ!</string>
-    <string name="dialog_routing_check_gps">ກວດເບິ່ງສັນຍານ GPS</string>
-    <string name="dialog_routing_error_location_not_found">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້. ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້.</string>
     <string name="dialog_routing_location_turn_wifi">ກະລຸນາກວດເບິ່ງສັນຍານ GPS ຂອງທ່ານ. ການເປີດ Wi-Fi ຈະຊ່ວຍໃຫ້ຕຳແໜ່ງທີ່ຕັ້ງຊັດເຈນຂຶ້ນ.</string>
-    <string name="dialog_routing_location_turn_on">ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງ</string>
-    <string name="dialog_routing_location_unknown_turn_on">ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້. ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງເພື່ອຄິດໄລ່ເສັ້ນທາງ.</string>
-    <string name="dialog_routing_unable_locate_route">ບໍ່ສາມາດຊອກຫາເສັ້ນທາງໄດ້</string>
-    <string name="dialog_routing_cant_build_route">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້.</string>
-    <string name="dialog_routing_change_start_or_end">ກະລຸນາປັບປຸງຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງຂອງທ່ານ.</string>
-    <string name="dialog_routing_change_start">ປັບປຸງຈຸດເລີ່ມຕົ້ນ</string>
-    <string name="dialog_routing_start_not_determined">ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸຈຸດເລີ່ມຕົ້ນໄດ້.</string>
-    <string name="dialog_routing_select_closer_start">ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນໃຫ້ໃກ້ກັບຖະໜົນ.</string>
-    <string name="dialog_routing_change_end">ປັບປຸງປາຍທາງ</string>
-    <string name="dialog_routing_end_not_determined">ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸປາຍທາງໄດ້.</string>
-    <string name="dialog_routing_select_closer_end">ກະລຸນາເລືອກຈຸດປາຍທາງໃຫ້ໃກ້ກັບຖະໜົນ.</string>
-    <string name="dialog_routing_change_intermediate">ບໍ່ສາມາດລະບຸຈຸດແວ່ພັກໄດ້.</string>
-    <string name="dialog_routing_intermediate_not_determined">ກະລຸນາປັບປຸງຈຸດແວ່ພັກຂອງທ່ານ.</string>
     <string name="dialog_routing_system_error">ຂໍ້ຜິດພາດຂອງລະບົບ</string>
-    <string name="dialog_routing_application_error">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ.</string>
-    <string name="dialog_routing_try_again">ກະລຸນາລອງໃໝ່</string>
     <string name="not_now">ບໍ່ແມ່ນຕອນນີ້</string>
-    <string name="dialog_routing_download_and_build_cross_route">ທ່ານຕ້ອງການດາວໂຫລດແຜນທີ່ ແລະ ສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງກວມເອົາຫຼາຍກວ່າໜຶ່ງແຜນທີ່ບໍ່?</string>
-    <string name="dialog_routing_download_cross_route">ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">ເພື່ອເລີ່ມການຄົ້ນຫາ ແລະ ສ້າງເສັ້ນທາງ, ກະລຸນາດາວໂຫລດແຜນທີ່. ຫຼັງຈາກນັ້ນ, ທ່ານຈະບໍ່ຈຳເປັນຕ້ອງໃຊ້ການເຊື່ອມຕໍ່ອິນເຕີເນັດອີກ.</string>
@@ -427,7 +402,6 @@
     <string name="level_value_generic">ຊັ້ນ: %s</string>
     <string name="downloader_delete_map_dialog">ການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານຈະຖືກລຶບໄປພ້ອມກັບແຜນທີ່.</string>
     <string name="downloader_update_maps">ອັບເດດແຜນທີ່</string>
-    <string name="downloader_mwm_migration_dialog">ເພື່ອສ້າງເສັ້ນທາງ, ທ່ານຕ້ອງອັບເດດແຜນທີ່ທັງໝົດ ແລ້ວຈຶ່ງວາງແຜນເສັ້ນທາງໃໝ່ອີກຄັ້ງ.</string>
     <string name="downloader_search_field_hint">ຊອກຫາແຜນທີ່</string>
     <string name="common_check_internet_connection_dialog">ກະລຸນາໃຫ້ແນ່ໃຈວ່າອຸປະກອນຂອງທ່ານໄດ້ເຊື່ອມຕໍ່ອິນເຕີເນັດແລ້ວ.</string>
     <string name="downloader_no_space_title">ພື້ນທີ່ບໍ່ພໍ</string>
@@ -699,9 +673,6 @@
     <string name="search_in_the_list">ຄົ້ນຫາໃນລາຍການ</string>
     <string name="religious_places">ສະຖານທີ່ທາງສາດສະໜາ</string>
     <string name="select_list">ເລືອກລາຍການ</string>
-    <string name="transit_not_found">ການນຳທາງດ້ວຍລົດໄຟໃຕ້ດິນໃນພາກພື້ນນີ້ຍັງບໍ່ທັນມີເທື່ອ</string>
-    <string name="dialog_pedestrian_route_is_long_header">ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ</string>
-    <string name="dialog_pedestrian_route_is_long_message">ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ</string>
     <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
     <string name="isolines_activation_error_dialog">ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້</string>
     <string name="isolines_location_error_dialog">ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້</string>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">रद्द करा</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">शोधा</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
+    <string name="download">डाउनलोड करा</string>
+    <string name="download_resources">ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.\nते %s जागा वापरेल.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">खूणपत्रे</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">सेटिंग</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">जेवायचे ठिकाण</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">किराणा</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">इंधन</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">वाहनतळ</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">मुक्कामगृह</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">शौचालय</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">कँपिंग वाहन सोयी</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap डेटा: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">रात्र मोड</string>
+    <!-- Generic «Off» string -->
+    <string name="off">बंद</string>
+    <!-- Generic «On» string -->
+    <string name="on">चालू</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">स्वयं</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">त्रिमिती (3D) इमारती</string>
+    <!-- Text in menu -->
+    <string name="help">मदत</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">नकाशे</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">नकाशा डाउनलोड करा</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">पुनर्प्रयत्न</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">प्रवर्ग</string>
+    <string name="search_not_found">अरेच्चा, काहीच सापडले नाही.</string>
+    <string name="search_history_text">अलीकडील शोध पहा.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">दिवसभर (२४ तास)</string>
+    <string name="editor_time_open">उघडे</string>
+    <string name="twentyfour_seven">२४/७</string>
+    <string name="day_off_today">आज बंद</string>
+    <string name="opens_in">आणखी %s मध्ये उघडेल</string>
+    <string name="closes_in">आणखी %s मध्ये बंद होईल</string>
+    <string name="closed">बंद</string>
+    <string name="minute">मिनिट</string>
+    <string name="big_font">नकाशावर अक्षरांचा आकार वाढवा</string>
+    <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">नकाशा डाउनलोडक</string>
+    <string name="driving_options_title">मार्गशोधी पर्याय</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">टोल रस्ते टाळा</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">कच्चे मार्ग टाळा</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">जल मार्ग टाळा</string>
+    <string name="avoid_motorways">मोटरवे टाळा</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">खूणपत्रे क्रमाने लावा</string>
+    <!-- Android -->
+    <string name="by_default">डिफॉल्ट</string>
+    <!-- Android -->
+    <string name="by_type">प्रकारानुसार</string>
+    <!-- Android -->
+    <string name="by_distance">अंतरानुसार</string>
+    <!-- Android -->
+    <string name="by_date">दिनांकानुसार</string>
+    <!-- Android -->
+    <string name="by_name">नावाने</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">डाउनलोड करत आहे</string>
+    <string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
+</resources>

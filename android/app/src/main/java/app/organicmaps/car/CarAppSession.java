@@ -25,6 +25,7 @@ import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.car.CarSensorsManager;
@@ -61,6 +62,9 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   private CarSensorsManager mSensorsManager;
   @NonNull
   private final CurrentCountryChangedListener mCurrentCountryChangedListener;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private OrganicMaps mOrganicMapsContext;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
@@ -106,13 +110,14 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   public void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
-    IntentUtils.processIntent(getCarContext(), mSurfaceRenderer, intent);
+    IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
   }
 
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    mOrganicMapsContext = MwmApplication.from(getCarContext()).getOrganicMaps();
     mSensorsManager = new CarSensorsManager(getCarContext(), MwmApplication.from(getCarContext()).getSensorHelper(),
                                             MwmApplication.from(getCarContext()).getLocationHelper());
     mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
@@ -130,7 +135,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     {
       LocationState.nativeSetListener(this);
       Framework.nativePlacePageActivationListener(this);
-      mCurrentCountryChangedListener.onStart(getCarContext());
+      mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
     }
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       mSensorsManager.onStart();
@@ -168,8 +173,8 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     {
       MwmApplication.from(getCarContext()).initOrganicMaps(() -> {
         Config.setFirstStartDialogSeen(getCarContext());
-        if (DownloaderHelpers.isWorldMapsDownloadNeeded())
-          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext())
+        if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
+          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
                                   .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
                                   .build());
       });
@@ -185,19 +190,22 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   private Screen prepareScreens()
   {
     if (mInitFailed)
-      return new ErrorScreen.Builder(getCarContext()).setErrorMessage(R.string.dialog_error_storage_message).build();
+      return new ErrorScreen.Builder(getCarContext(), mOrganicMapsContext)
+          .setErrorMessage(R.string.dialog_error_storage_message)
+          .build();
 
     final List<Screen> screensStack = new ArrayList<>();
-    screensStack.add(new app.organicmaps.car.screens.MapScreen(getCarContext(), mSurfaceRenderer));
+    screensStack.add(new app.organicmaps.car.screens.MapScreen(getCarContext(), mOrganicMapsContext, mSurfaceRenderer));
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
-      screensStack.add(RequestPermissionsScreenBuilder.build(getCarContext(), mSensorsManager::onStart));
+      screensStack.add(
+          RequestPermissionsScreenBuilder.build(getCarContext(), mOrganicMapsContext, mSensorsManager::onStart));
 
     if (mDisplayManager.isDeviceDisplayUsed())
     {
       mSurfaceRenderer.disable();
       onStop(this);
-      screensStack.add(new MapPlaceholderScreen(getCarContext()));
+      screensStack.add(new MapPlaceholderScreen(getCarContext(), mOrganicMapsContext));
     }
 
     for (int i = 0; i < screensStack.size() - 1; i++)
@@ -222,7 +230,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     onStop(this);
     mSurfaceRenderer.disable();
 
-    final MapPlaceholderScreen mapPlaceholderScreen = new MapPlaceholderScreen(getCarContext());
+    final MapPlaceholderScreen mapPlaceholderScreen = new MapPlaceholderScreen(getCarContext(), mOrganicMapsContext);
     if (topScreen instanceof UserActionRequired)
       mScreenManager.popToRoot();
 
@@ -260,7 +268,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       return;
     }
     final PlaceScreen placeScreen =
-        new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
+        new PlaceScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer).setMapObject(mapObject).build();
     mScreenManager.popToRoot();
     mScreenManager.push(placeScreen);
   }
@@ -294,7 +302,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
 
     if (routingController.isPlanning() || isNavigating || routingController.hasSavedRoute())
     {
-      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer)
+      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer)
                                           .setMapObject(routingController.getEndPoint())
                                           .build();
       mScreenManager.popToRoot();

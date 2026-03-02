@@ -15,6 +15,9 @@ XARGS_COMMAND="xargs -n1 -0 -P0 $CLANG_FORMAT -i"
 
 # Android
 find android/{app,sdk}/src -type f -name '*.java' -print0 | $XARGS_COMMAND
+
+find android/libs/{api,branding,car,downloader,googleassistant,routing,utils}/src -type f -name '*.java' -print0 | $XARGS_COMMAND
+
 find android/sdk/car/src -type f -name '*.java' -print0 | $XARGS_COMMAND
 find android/sdk/widgets/{lanes,speedlimit}/src -type f -name '*.java' -print0 | $XARGS_COMMAND
 find android/sdk/src/main/cpp -type f -name '*.[hc]pp' -print0 | $XARGS_COMMAND

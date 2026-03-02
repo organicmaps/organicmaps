@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Отмена</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Поиск</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Ошибка загрузки</string>
+    <string name="download">Загрузить</string>
+    <string name="download_resources">Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.\nПотребуется %s данных.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Метки</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Настройки</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Где поесть</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Продукты</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Заправка</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Парковка</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Гостиница</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Туалет</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Для автодомов</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Данные OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Ночной режим</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Выключен</string>
+    <!-- Generic «On» string -->
+    <string name="on">Включен</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Автоматически</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D здания</string>
+    <!-- Text in menu -->
+    <string name="help">Справка</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Карт</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Загрузить карту</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Повторить</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Категории</string>
+    <string name="search_not_found">К сожалению, мы ничего не нашли.</string>
+    <string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Весь день (24 часа)</string>
+    <string name="editor_time_open">Открыто</string>
+    <string name="twentyfour_seven">Круглосуточно</string>
+    <string name="day_off_today">Сегодня закрыто</string>
+    <string name="opens_in">Открывается через %s</string>
+    <string name="closes_in">Закроется через %s</string>
+    <string name="closed">Закрыто</string>
+    <string name="minute">мин</string>
+    <string name="big_font">Увеличить шрифт на карте</string>
+    <string name="transliteration_title">Транслитерировать в Латинский алфавит</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Загрузка карт</string>
+    <string name="driving_options_title">Настройки объезда</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Избегать платных дорог</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Избегать грунтовые дороги</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Избегать паромы</string>
+    <string name="avoid_motorways">Избегать автомагистрали</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Сортировать метки</string>
+    <!-- Android -->
+    <string name="by_default">По умолчанию</string>
+    <!-- Android -->
+    <string name="by_type">По типу</string>
+    <!-- Android -->
+    <string name="by_distance">По расстоянию</string>
+    <!-- Android -->
+    <string name="by_date">По дате</string>
+    <!-- Android -->
+    <string name="by_name">По имени</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Загрузка</string>
+    <string name="download_map_title">Скачать обзорную карту мира</string>
+</resources>

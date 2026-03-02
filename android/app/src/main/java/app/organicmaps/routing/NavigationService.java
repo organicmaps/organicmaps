@@ -154,7 +154,7 @@ public class NavigationService extends Service implements LocationListener
                                .setOngoing(true)
                                .setShowWhen(false)
                                .setOnlyAlertOnce(true)
-                               .setSmallIcon(R.drawable.ic_splash)
+                               .setSmallIcon(app.organicmaps.branding.R.drawable.ic_splash)
                                .setContentIntent(pendingIntent)
                                .addAction(0, context.getString(R.string.navigation_stop_button), exitPendingIntent)
                                .setColorized(isColorizedSupported())

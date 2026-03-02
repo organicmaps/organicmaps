@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Cancel·la</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Cerca</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">La baixada ha fallat</string>
+    <string name="download">Baixa</string>
+    <string name="download_resources">Abans d’usar l’aplicació, cal que baixeu el mapa del món general al vostre aparell. \nUsarà %s d’emmagatzematge.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Marcadors</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Paràmetres</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">On menjar</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Queviures</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Benzinera</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Aparcament</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Lavabos</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Caravanes</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Dades de l\'OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Mode nocturn</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Desactivat</string>
+    <!-- Generic «On» string -->
+    <string name="on">Activat</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automàtic</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Edificis en 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Ajuda</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Mapes</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Baixeu el mapa</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Torna-hi</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Categories</string>
+    <string name="search_not_found">No s’ha trobat cap resultat.</string>
+    <string name="search_history_text">Mostra les cerques recents.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Tot el dia (24 hores)</string>
+    <string name="editor_time_open">Obert</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Avui és tancat</string>
+    <string name="opens_in">Obre en %s</string>
+    <string name="closes_in">Tanca en %s</string>
+    <string name="closed">Tancat</string>
+    <string name="minute">min</string>
+    <string name="big_font">Augmenta la mida de lletra del mapa</string>
+    <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Baixada de mapes</string>
+    <string name="driving_options_title">Opcions d’encaminament</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Evita peatges</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Evita vies sense pavimentar</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Evita ferris</string>
+    <string name="avoid_motorways">Evita autopistes</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Ordena els marcadors</string>
+    <!-- Android -->
+    <string name="by_default">Per defecte</string>
+    <!-- Android -->
+    <string name="by_type">Per tipus</string>
+    <!-- Android -->
+    <string name="by_distance">Per distància</string>
+    <!-- Android -->
+    <string name="by_date">Per data</string>
+    <!-- Android -->
+    <string name="by_name">Per nom</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">S’està baixant</string>
+    <string name="download_map_title">Baixa el mapa general del món</string>
+</resources>

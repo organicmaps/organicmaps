@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Anovar mapa</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_location_turn_wifi">Comprueba la to señal GPS. Activar la wifi va ameyorar la exautitú del allugamientu.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Anovar mapes</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">La navegación per metro nesta rexón tovía nun ta disponible</string>
+</resources>

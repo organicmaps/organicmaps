@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.downloader.CountryItem;
@@ -33,8 +34,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   {
     super.beforeDialogCreated(builder);
 
-    ResultCodesHelper.ResourcesHolder resHolder =
-        ResultCodesHelper.getDialogTitleSubtitle(requireContext(), mResultCode, mMissingMaps.size());
+    ResultCodesHelper.ResourcesHolder resHolder = ResultCodesHelper.getDialogTitleSubtitle(
+        requireContext(), MwmApplication.from(requireContext()).getLocationHelper(), mResultCode, mMissingMaps.size());
     Pair<String, String> titleMessage = resHolder.getTitleMessage();
 
     TextView titleView = new TextView(requireContext());

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Обнояване на карта</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Изтегляне на всички карти по вашия маршрут</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Приверете GPS сигнала</string>
+    <string name="dialog_routing_error_location_not_found">Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.</string>
+    <string name="dialog_routing_location_turn_wifi">Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.</string>
+    <string name="dialog_routing_location_turn_on">Активиране на услугите за местоположение</string>
+    <string name="dialog_routing_location_unknown_turn_on">Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.</string>
+    <string name="dialog_routing_unable_locate_route">Не е намерен маршрут</string>
+    <string name="dialog_routing_cant_build_route">Не е възможно да се създаде маршрут.</string>
+    <string name="dialog_routing_change_start_or_end">Моля, коригирайте началната точка или дестинацията си.</string>
+    <string name="dialog_routing_change_start">Регулиране на началната точка</string>
+    <string name="dialog_routing_start_not_determined">Маршрутът не е създаден. Не може да се намери начална точка.</string>
+    <string name="dialog_routing_select_closer_start">Моля, изберете начална точка, която е по-близо до път.</string>
+    <string name="dialog_routing_change_end">Регулиране на дестинацията</string>
+    <string name="dialog_routing_end_not_determined">Маршрутът не е създаден. Не е възможно да се открие дестинацията.</string>
+    <string name="dialog_routing_select_closer_end">Моля, изберете крайна точка, разположена по-близо до път.</string>
+    <string name="dialog_routing_change_intermediate">Не може да се открие междинната точка на маршрута.</string>
+    <string name="dialog_routing_intermediate_not_determined">Моля, коригирайте междинната си точка на маршрута.</string>
+    <string name="dialog_routing_system_error">Грешка в системата</string>
+    <string name="dialog_routing_application_error">Не е възможно да се създаде маршрут поради грешка в приложението.</string>
+    <string name="dialog_routing_try_again">Моля, опитайте отново</string>
+    <string name="dialog_routing_download_and_build_cross_route">Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?</string>
+    <string name="dialog_routing_download_cross_route">За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Обновяване на карти</string>
+    <string name="downloader_mwm_migration_dialog">За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.</string>
+    <string name="ok">Ок</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Навигацията за метро все още не е налична в региона</string>
+    <string name="dialog_pedestrian_route_is_long_header">Не е открит маршрут за метро</string>
+    <string name="dialog_pedestrian_route_is_long_message">Моля, изберете начална или крайна точка по-близо до метростанция</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Les itinéraires ne peuvent être créés que s\'ils sont entièrement contenus dans la carte d\'une seule région.</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Mise à jour carte</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Téléchargez toutes les cartes le long de votre itinéraire</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">La création d\'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">Vérifiez le signal GPS</string>
+    <string name="dialog_routing_error_location_not_found">Impossible de créer l\'itinéraire. Les coordonnées GPS actuelles n\'ont pas pu être identifiées.</string>
+    <string name="dialog_routing_location_turn_wifi">Vérifiez le signal GPS. Activez le Wi-Fi pour améliorer la précision de votre localisation.</string>
+    <string name="dialog_routing_location_turn_on">Activez les services de localisation</string>
+    <string name="dialog_routing_location_unknown_turn_on">Impossible d\'identifier les coordonnées GPS actuelles. Activez les services de localisation pour calculer l\'itinéraire.</string>
+    <string name="dialog_routing_unable_locate_route">Impossible de localiser l\'itinéraire</string>
+    <string name="dialog_routing_cant_build_route">Impossible de créer l\'itinéraire.</string>
+    <string name="dialog_routing_change_start_or_end">Modifiez votre point de départ ou votre destination.</string>
+    <string name="dialog_routing_change_start">Modifiez votre point de départ</string>
+    <string name="dialog_routing_start_not_determined">Impossible de localiser le point de départ. L\'itinéraire n\'a pas pu être créé.</string>
+    <string name="dialog_routing_select_closer_start">Choisissez un point de départ à proximité d\'une route.</string>
+    <string name="dialog_routing_change_end">Ajustez la destination</string>
+    <string name="dialog_routing_end_not_determined">Impossible de localiser la destination. L\'itinéraire n\'a pas pu être créé.</string>
+    <string name="dialog_routing_select_closer_end">Choisissez un lieu de destination à proximité d\'une route.</string>
+    <string name="dialog_routing_change_intermediate">Impossible de localiser le point intermédiaire.</string>
+    <string name="dialog_routing_intermediate_not_determined">Veuillez modifier votre point intermédiaire.</string>
+    <string name="dialog_routing_system_error">Erreur système</string>
+    <string name="dialog_routing_application_error">Impossible de créer l\'itinéraire à cause d\'une erreur dans l\'application.</string>
+    <string name="dialog_routing_try_again">Veuillez réessayer</string>
+    <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte ?</string>
+    <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Mettre à jour les cartes</string>
+    <string name="downloader_mwm_migration_dialog">Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l\'itinéraire.</string>
+    <string name="ok">Ok</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">La navigation en métro n\'est pas encore disponible dans la région</string>
+    <string name="dialog_pedestrian_route_is_long_header">Itinéraire de métro non trouvé</string>
+    <string name="dialog_pedestrian_route_is_long_message">Choisissez un point de départ ou d\'arrivée plus proche d\'une station de métro</string>
+</resources>

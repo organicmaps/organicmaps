@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Annuler</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Recherche</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Échec lors du téléchargement</string>
+    <string name="download">Télécharger</string>
+    <string name="download_resources">Avant d\'utiliser l\'application, veuillez télécharger la carte du monde sur votre appareil.\nElle utilisera %s d\'espace de stockage.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Signets</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Paramètres</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Un endroit pour manger</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Epiceries</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Stations-service</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Stationnement</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hôtel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toilettes</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Aménagements pour camping-car</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Données OpenStreetMap : %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Mode nuit</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Désactivé</string>
+    <!-- Generic «On» string -->
+    <string name="on">Activé</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automatique</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Bâtiments en 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Aide</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Cartes</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Télécharger la carte</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Réessayer</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Catégories</string>
+    <string name="search_not_found">Désolé, je n\'ai rien trouvé.</string>
+    <string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Toute la journée (24 heures)</string>
+    <string name="editor_time_open">Ouvert</string>
+    <string name="twentyfour_seven">24/24 et 7/7</string>
+    <string name="day_off_today">Fermé aujourd\'hui</string>
+    <string name="opens_in">Ouvert dans %s</string>
+    <string name="closes_in">Fermé dans %s</string>
+    <string name="closed">Fermé</string>
+    <string name="minute">min</string>
+    <string name="big_font">Augmenter la taille de police sur la carte</string>
+    <string name="transliteration_title">Translittéré en alphabet latin</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Téléchargeur carte</string>
+    <string name="driving_options_title">Paramètres des itinéraires</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Éviter les routes à péage</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Éviter les routes non pavées</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Éviter les ferries</string>
+    <string name="avoid_motorways">Éviter les autoroutes</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Trier les signets</string>
+    <!-- Android -->
+    <string name="by_default">Par défaut</string>
+    <!-- Android -->
+    <string name="by_type">Par type</string>
+    <!-- Android -->
+    <string name="by_distance">Par distance</string>
+    <!-- Android -->
+    <string name="by_date">Par date</string>
+    <!-- Android -->
+    <string name="by_name">Par nom</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">Téléchargement</string>
+    <string name="download_map_title">Télécharger la carte générale du monde</string>
+</resources>

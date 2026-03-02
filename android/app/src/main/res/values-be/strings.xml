@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Спампоўванне:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Каб выдаліць карту, спыніце навігацыю.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Маршруты можна пракладваць толькі ў межах карты аднаго рэгіёна.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Спампаваць карту</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Службы месцазнаходжання Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Хуткае вызначэнне прыблізнага месцазнаходжання з дапамогай Bluetooth, WiFi або мабільнай сеткі</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Спампаваць усе карты на вашым маршруце</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Каб пракласці маршрут, трэба спампаваць і абнавіць усе карты на шляху руху.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Не хапае месца</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">— Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;</string>
     <string name="dialog_routing_disclaimer_borders">— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часам могуць перасякаць мяжу ў недазволеных месцах.</string>
     <string name="dialog_routing_disclaimer_beware">Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!</string>
-    <string name="dialog_routing_check_gps">Праверце сігнал GPS</string>
-    <string name="dialog_routing_error_location_not_found">Не ўдалося пракласці маршрут. Каардынаты GPS не вызначаны.</string>
     <string name="dialog_routing_location_turn_wifi">Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання ўключыце Wi-Fi.</string>
-    <string name="dialog_routing_location_turn_on">Уключыць геалакацыю</string>
-    <string name="dialog_routing_location_unknown_turn_on">Немагчыма вызначыць каардынаты GPS. Каб пракласці маршрут, уключыце геалакацыю.</string>
-    <string name="dialog_routing_unable_locate_route">Не ўдалося знайсці маршрут</string>
-    <string name="dialog_routing_cant_build_route">Не ўдалося пракласці маршрут.</string>
-    <string name="dialog_routing_change_start_or_end">Калі ласка, змяніце пункт адпраўлення або прызначэння.</string>
-    <string name="dialog_routing_change_start">Змяніце пункт адпраўлення</string>
-    <string name="dialog_routing_start_not_determined">Маршрут не пракладзены. Не знойдзены пункт адпраўлення.</string>
-    <string name="dialog_routing_select_closer_start">Выберыце пункт адпраўлення бліжэй да дарогі.</string>
-    <string name="dialog_routing_change_end">Змяніце пункт прызначэння</string>
-    <string name="dialog_routing_end_not_determined">Маршрут не пракладзены. Не знойдзены пункт прызначэння.</string>
-    <string name="dialog_routing_select_closer_end">Выберыце пункт прызначэння бліжэй да дарогі.</string>
-    <string name="dialog_routing_change_intermediate">Не знойдзены прамежкавы пункт маршруту.</string>
-    <string name="dialog_routing_intermediate_not_determined">Змяніце прамежкавы пункт.</string>
     <string name="dialog_routing_system_error">Памылка сістэмы</string>
-    <string name="dialog_routing_application_error">Не ўдалося пракласці маршрут з-за памылкі праграмы.</string>
-    <string name="dialog_routing_try_again">Паспрабуйце зноў</string>
     <string name="not_now">Не зараз</string>
-    <string name="dialog_routing_download_and_build_cross_route">Спампаваць карту і пракласці лепшы маршрут праз некалькі карт?</string>
-    <string name="dialog_routing_download_cross_route">Спампаваць дадатковыя карты, каб пракласці лепшы маршрут, які перасякае межы гэтай карты.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да інтэрнэту вам больш не спатрэбіцца.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Узровень: %s</string>
     <string name="downloader_delete_map_dialog">Разам з картай будуць выдалены і ўсе вашы праўкі карты.</string>
     <string name="downloader_update_maps">Абнавіць карты</string>
-    <string name="downloader_mwm_migration_dialog">Каб стварыць маршрут, вам трэба абнавіць усе карты і потым пракласці маршрут зноў.</string>
     <string name="downloader_search_field_hint">Пошук карты</string>
     <string name="common_check_internet_connection_dialog">Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.</string>
     <string name="downloader_no_space_title">Не хапае месца</string>
@@ -754,9 +728,6 @@
     <string name="search_in_the_list">Шукаць у спісе</string>
     <string name="religious_places">Святыя месцы</string>
     <string name="select_list">Выбраць спіс</string>
-    <string name="transit_not_found">Для гэтага рэгіёна навігацыя па метро яшчэ недаступна</string>
-    <string name="dialog_pedestrian_route_is_long_header">Маршрут на метро не знойдзены</string>
-    <string name="dialog_pedestrian_route_is_long_message">Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро</string>
     <string name="button_layer_isolines">Рэльеф</string>
     <string name="isolines_activation_error_dialog">Каб задзейнічаць лініі рэльефу, трэба абнавіць карту гэтага рэгіёна</string>
     <string name="isolines_location_error_dialog">Для гэтага рэгіёна карты рэльефу яшчэ недаступны</string>

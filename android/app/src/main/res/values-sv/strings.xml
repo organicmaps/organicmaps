@@ -282,8 +282,6 @@
     <string name="downloader_downloading">Ladda ner:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Avsluta navigering för att radera kartan.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Rutter kan endast skapas om de finns inom en enda kart-region.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Ladda ner kartan</string>
     <!-- Item status in downloader. -->
@@ -296,10 +294,6 @@
     <string name="google_play_services">Google Play platstjänster</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Fastställ snabbt din ungefärliga position via Bluetooth, WiFi eller mobilnät</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Ladda ned kartor längs vägen</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Navigering kräver att alla kartor från din position till destinationen är nerladdade och uppdaterade.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">För lite utrymme kvar</string>
     <!-- location service disabled -->
@@ -354,28 +348,9 @@
     <string name="dialog_routing_disclaimer_recommendations">– Föreslagna vägar endast är rekommendationer;</string>
     <string name="dialog_routing_disclaimer_borders">– Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser.</string>
     <string name="dialog_routing_disclaimer_beware">Var uppmärksam och kör säkert på vägarna!</string>
-    <string name="dialog_routing_check_gps">Kontrollera GPS-signal</string>
-    <string name="dialog_routing_error_location_not_found">Kan inte skapa rutt. Nuvarande GPS-koordinater går inte att läsa.</string>
     <string name="dialog_routing_location_turn_wifi">Kontrollera din GPS-signal. Aktivera Wi-Fi-anslutning för att förbättra platsprecisionen.</string>
-    <string name="dialog_routing_location_turn_on">Aktivera platstjänster</string>
-    <string name="dialog_routing_location_unknown_turn_on">Kan inte läsa nuvarande GPS-koordinater. Aktivera platstjänster för att hitta en rutt.</string>
-    <string name="dialog_routing_unable_locate_route">Kan inte hitta rutt</string>
-    <string name="dialog_routing_cant_build_route">Kan inte hitta rutt.</string>
-    <string name="dialog_routing_change_start_or_end">Justera din startpunkt eller destination.</string>
-    <string name="dialog_routing_change_start">Justera startpunkt</string>
-    <string name="dialog_routing_start_not_determined">Ingen rutt hittades. Hittar inte startpunkt.</string>
-    <string name="dialog_routing_select_closer_start">Välj en startpunkt närmare en väg.</string>
-    <string name="dialog_routing_change_end">Justera destination</string>
-    <string name="dialog_routing_end_not_determined">Ingen rutt hittades. Kan inte hitta destinationen.</string>
-    <string name="dialog_routing_select_closer_end">Välj en destination närmare en väg.</string>
-    <string name="dialog_routing_change_intermediate">Det går inte att hitta mellanliggande punkt.</string>
-    <string name="dialog_routing_intermediate_not_determined">Justera din mellanliggande punkt.</string>
     <string name="dialog_routing_system_error">Systemfel</string>
-    <string name="dialog_routing_application_error">Kan inte hitta rutt pga ett programfel.</string>
-    <string name="dialog_routing_try_again">Försök igen</string>
     <string name="not_now">Inte nu</string>
-    <string name="dialog_routing_download_and_build_cross_route">Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?</string>
-    <string name="dialog_routing_download_cross_route">Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">För att börja söka och hitta rutter, ladda ner kartan. Efter det behöver du ingen internetanslutning längre.</string>
@@ -473,7 +448,6 @@
     <string name="level_value_generic">Nivå: %s</string>
     <string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
     <string name="downloader_update_maps">Uppdatera kartor</string>
-    <string name="downloader_mwm_migration_dialog">För att hitta en rutt måste du uppdatera alla kartor och sedan försöka igen.</string>
     <string name="downloader_search_field_hint">Hitta kartan</string>
     <string name="common_check_internet_connection_dialog">Kontrollera dina inställningar och se till att din enhet är ansluten till internet.</string>
     <string name="downloader_no_space_title">Otillräckligt minne</string>
@@ -745,9 +719,6 @@
     <string name="search_in_the_list">Sök i listan</string>
     <string name="religious_places">Heliga platser</string>
     <string name="select_list">Välj lista</string>
-    <string name="transit_not_found">Tunnelbanenavigering är ännu inte tillgängligt i denna region</string>
-    <string name="dialog_pedestrian_route_is_long_header">Tunnelbanerutt hittades inte</string>
-    <string name="dialog_pedestrian_route_is_long_message">Välj ruttens start- eller mål närmare en tunnelbanestation</string>
     <string name="button_layer_isolines">Terräng</string>
     <string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
     <string name="isolines_location_error_dialog">Höjningslinjer är ännu inte tillgängligt i den här regionen</string>
