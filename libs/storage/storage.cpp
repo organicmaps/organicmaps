@@ -714,12 +714,11 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  m_downloadingCountries.erase(queuedCountry.GetCountryId());
-
   auto const & countryId = queuedCountry.GetCountryId();
   auto const fileType = queuedCountry.GetFileType();
   auto const finishFn = [this, countryId, fileType](DownloadStatus status)
   {
+    m_downloadingCountries.erase(countryId);
     OnMapDownloadFinished(countryId, status, fileType);
     OnFinishDownloading();
   };
