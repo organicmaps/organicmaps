@@ -192,6 +192,12 @@ android {
 
       // Enable jni debug build
       jniDebuggable true
+
+      packagingOptions {
+        jniLibs {
+          keepDebugSymbols += ['**/liborganicmaps.so']
+        }
+      }
     }
 
     release {
