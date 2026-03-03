@@ -64,6 +64,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private PlaceholderView mResultsPlaceholder;
   private SearchShimmerView mShimmerView;
   private SearchPageViewModel mSearchViewModel;
+  @Nullable
+  private TabAdapter mTabAdapter;
+  @Nullable
+  private ViewPager mPager;
 
   @NonNull
   private SearchToolbarController mToolbarController;
@@ -123,6 +127,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
     public void onChanged(Integer state)
     {
+      if (state == null)
+        return;
+
       if (state != BottomSheetBehavior.STATE_EXPANDED)
         mToolbarController.deactivate();
     }
@@ -237,6 +244,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     ViewGroup root = (ViewGroup) view;
     ViewPager pager = root.findViewById(R.id.pages);
     mPages = pager;
+    mPager = pager;
 
     mToolbarController = new ToolbarController(view);
     TabLayout tabLayout = root.findViewById(R.id.tabs);
@@ -283,9 +291,17 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mAppBar = root.findViewById(R.id.app_bar);
 
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
+    mTabAdapter = tabAdapter;
+    pager.setOffscreenPageLimit(tabAdapter.getCount());
+    pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+      @Override
+      public void onPageSelected(int position)
+      {
+        updateNestedScrollingForTab(tabAdapter, position);
+      }
+    });
 
     updateFrames();
-    updateResultsPlaceholder();
 
     mToolbarController.activate();
 
@@ -296,7 +312,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (SearchRecents.getSize() == 0 && Config.isSearchHistoryEnabled())
       pager.setCurrentItem(lastSelectedTabPosition);
 
-    tabAdapter.setTabSelectedListener(tab -> mToolbarController.deactivate());
+    tabAdapter.setTabSelectedListener(tab -> {
+      mToolbarController.deactivate();
+      refreshHistoryFragment();
+    });
+    pager.post(() -> updateNestedScrollingForTab(tabAdapter, pager.getCurrentItem()));
   }
 
   @Override
@@ -381,11 +401,23 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     return mHiddenCommands;
   }
 
+  private void refreshHistoryFragment()
+  {
+    if (mTabAdapter == null)
+      return;
+    Fragment f = mTabAdapter.getFragmentForTab(TabAdapter.Tab.HISTORY);
+    if (f instanceof SearchHistoryFragment)
+      ((SearchHistoryFragment) f).refreshHistory();
+  }
+
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
     if (Config.isSearchHistoryEnabled())
+    {
       SearchRecents.add(query, requireContext());
+      refreshHistoryFragment();
+    }
     SearchEngine.INSTANCE.setQuery(query);
 
     if (RoutingController.get().isWaitingPoiPick())
@@ -490,6 +522,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onSearchCategorySelected(@Nullable String category)
   {
+    if (Config.isSearchHistoryEnabled() && category != null)
+    {
+      SearchRecents.add(category.trim(), requireContext());
+      refreshHistoryFragment();
+    }
     mToolbarController.setQuery(category, true);
   }
 
@@ -526,6 +563,49 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     recycler.addOnScrollListener(mRecyclerListener);
     mAttachedRecyclers.add(recycler);
+    if (mTabAdapter != null && mPager != null)
+      updateNestedScrollingForTab(mTabAdapter, mPager.getCurrentItem());
+  }
+
+  private void updateNestedScrollingForTab(@NonNull TabAdapter tabAdapter, int selectedPosition)
+  {
+    for (int i = 0; i < tabAdapter.getCount(); i++)
+    {
+      Fragment fragment = tabAdapter.getItem(i);
+      if (fragment == null || fragment.getView() == null)
+        continue;
+
+      RecyclerView rv = fragment.getView().findViewById(R.id.recycler);
+      if (rv != null)
+        ViewCompat.setNestedScrollingEnabled(rv, i == selectedPosition);
+    }
+
+    View bottomSheet = getBottomSheetContainer();
+    if (bottomSheet != null)
+      bottomSheet.requestLayout();
+  }
+
+  /**
+   * Returns the BottomSheet container view (search_page_container) that has
+   * the BottomSheetBehavior attached, or null if not found.
+   */
+  @Nullable
+  private View getBottomSheetContainer()
+  {
+    View view = getView();
+    if (view == null)
+      return null;
+    ViewGroup parent = (ViewGroup) view.getParent();
+    while (parent != null)
+    {
+      if (parent.getId() == R.id.search_page_container)
+        return parent;
+      if (parent.getParent() instanceof ViewGroup)
+        parent = (ViewGroup) parent.getParent();
+      else
+        break;
+    }
+    return null;
   }
 
   @NonNull
@@ -662,6 +742,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     @Override
     protected boolean onStartSearchClick()
     {
+      if (Config.isSearchHistoryEnabled())
+      {
+        SearchRecents.add(getQuery(), requireContext());
+        refreshHistoryFragment();
+      }
       deactivate();
       mSearchFragmentListener.onSearchClicked();
       return true;
