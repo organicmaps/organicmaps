@@ -11,12 +11,6 @@ android {
     buildConfig = true
   }
 
-  packagingOptions {
-    jniLibs {
-      keepDebugSymbols += ['**/liborganicmaps.so']
-    }
-  }
-
   defaultConfig {
     externalNativeBuild {
       def pchFlag = 'OFF'
