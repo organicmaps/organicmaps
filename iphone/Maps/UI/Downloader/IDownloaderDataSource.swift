@@ -12,7 +12,8 @@ protocol IDownloaderDataSource {
   func title(for section: Int) -> String
   func indexTitles() -> [String]?
   func dataSourceFor(_ childId: String) -> IDownloaderDataSource
-  func reload(_ completion: () -> Void)
+  @discardableResult
+  func reload() -> Bool
   func search(_ query: String, locale: String, update: @escaping (_ completed: Bool) -> Void)
   func cancelSearch()
 }
