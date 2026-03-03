@@ -83,6 +83,10 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     else
       _totalUpdateSizeBytes = 0;
 
+    auto const total = attributes.m_downloadingProgress.m_bytesTotal;
+    if (total > 0)
+      _downloadingProgress = static_cast<float>(attributes.m_downloadingProgress.m_bytesDownloaded) / total;
+
     NSMutableArray * parentInfoArray = [NSMutableArray arrayWithCapacity:attributes.m_parentInfo.size()];
     for (auto const & pi : attributes.m_parentInfo)
     {
