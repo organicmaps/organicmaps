@@ -8,7 +8,6 @@
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
 
@@ -23,30 +22,25 @@
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
-#include "platform/socket.hpp"
 
 #include "geometry/mercator.hpp"  // kPointEqualityEps
 #include "geometry/simplification.hpp"
 
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include <ios>
 #include <map>
-
-#include "cppjansson/cppjansson.hpp"
 
 using namespace routing;
 using namespace std;
 
 namespace
 {
-char const kRouterTypeKey[] = "router";
+std::string_view constexpr kRouterTypeKey = "router";
 
-double const kRouteScaleMultiplier = 1.5;
+double constexpr kRouteScaleMultiplier = 1.5;
 
 string const kRoutePointsFile = "route_points.dat";
 
@@ -490,49 +484,58 @@ RouterType RoutingManager::GetLastUsedRouter() const
   }
 }
 
+void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
+{
+  m_numMwmIDs = std::move(ptr);
+  m_numMwmTree = MakeNumMwmTree(*m_numMwmIDs, m_callbacks.m_countryInfoGetter());
+
+  SetRouterImpl(GetLastUsedRouter());
+}
+
 void RoutingManager::SetRouterImpl(RouterType type)
 {
-  auto const dataSourceGetterFn = m_callbacks.m_dataSourceGetter;
-  CHECK(dataSourceGetterFn, ("Type:", type));
-
   VehicleType const vehicleType = GetVehicleType(type);
 
   m_loadAltitudes = vehicleType != VehicleType::Car;
 
-  auto const countryFileGetter = [this](m2::PointD const & p) -> string
-  {
-    // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
-    // instances instead of plain strings.
-    return m_callbacks.m_countryInfoGetter().GetRegionCountryId(p);
-  };
-
-  auto numMwmIds = make_shared<NumMwmIds>();
-  m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
-
-  auto & dataSource = m_callbacks.m_dataSourceGetter();
-
-  auto localFileChecker = [this](string const & countryFile) -> bool
-  {
-    MwmSet::MwmId const mwmId =
-        m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(platform::CountryFile(countryFile));
-    return mwmId.IsAlive();
-  };
-
-  auto const getMwmRectByName = [this](string const & countryId) -> m2::RectD
-  { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
-
-  auto regionsFinder = make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, numMwmIds, dataSource);
-
   std::unique_ptr<IRouter> router;
+  std::unique_ptr<AbsentRegionsFinder> absentFinder;
+
   if (type == RouterType::Ruler)
     router = make_unique<RulerRouter>();
   else
-    router = make_unique<IndexRouter>(
-        vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn, countryFileGetter, getMwmRectByName,
-        numMwmIds, MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()), m_routingSession, dataSource);
+  {
+    auto & dataSource = m_callbacks.m_dataSourceGetter();
+
+    auto const countryFileGetter = [this](m2::PointD const & p)
+    { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(p); };
+
+    auto const localFileChecker = [this, &dataSource](string const & countryFile)
+    {
+      MwmSet::MwmId mwmId = dataSource.GetMwmIdByCountryFile(platform::CountryFile(countryFile));
+      if (!mwmId.IsAlive())
+      {
+        /// @todo Temporary hack, works only for splitted regions.
+        /// Should delegate "old" (outdated) countries check to the Framework.
+        platform::CountryFile parent(m_callbacks.m_countryParentNameGetterFn(countryFile));
+        if (!parent.IsEmpty())
+          mwmId = dataSource.GetMwmIdByCountryFile(parent);
+      }
+
+      return mwmId.IsAlive();
+    };
+
+    auto const getMwmRectByName = [this](string const & countryId)
+    { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
+
+    router = make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
+                                      countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree, m_routingSession,
+                                      dataSource);
+    absentFinder = make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
+  }
 
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
-  m_routingSession.SetRouter(std::move(router), std::move(regionsFinder));
+  m_routingSession.SetRouter(std::move(router), std::move(absentFinder));
   m_currentRouterType = type;
 }
 
@@ -649,10 +652,8 @@ bool RoutingManager::InsertRoute(Route const & route)
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
-  auto numMwmIds = make_shared<NumMwmIds>();
-  m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
-  auto const getMwmId = [this, numMwmIds](routing::NumMwmId numMwmId)
-  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(numMwmIds->GetFile(numMwmId)); };
+  auto const getMwmId = [this](routing::NumMwmId numMwmId)
+  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
 
   RoadWarningsCollection roadWarnings;
 

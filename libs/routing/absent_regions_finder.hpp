@@ -19,21 +19,24 @@ using LocalFileCheckerFn = std::function<bool(std::string const &)>;
 class AbsentRegionsFinder
 {
 public:
-  AbsentRegionsFinder(CountryFileGetterFn const & countryFileGetter, LocalFileCheckerFn const & localFileChecker,
+  AbsentRegionsFinder(CountryFileGetterFn countryFileGetter, LocalFileCheckerFn localFileChecker,
                       std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource);
 
   // Creates new thread |m_routerThread| and starts routing in it.
-  void GenerateAbsentRegions(Checkpoints const & checkpoints, RouterDelegate const & delegate);
+  RouterResultCode GenerateAbsentRegions(Checkpoints const & checkpoints, RouterDelegate const & delegate);
+
+  using RegionsSetT = std::set<std::string>;
+
   // Waits for the routing thread |m_routerThread| to finish and returns results from it.
-  void GetAllRegions(std::set<std::string> & countries);
+  RegionsSetT GetAllRegions();
   // Waits for the results from GetAllRegions() and returns only regions absent on the device.
-  void GetAbsentRegions(std::set<std::string> & absentCountries);
+  RegionsSetT GetAbsentRegions();
 
 private:
-  bool AreCheckpointsInSameMwm(Checkpoints const & checkpoints) const;
-
   CountryFileGetterFn const m_countryFileGetterFn;
   LocalFileCheckerFn const m_localFileCheckerFn;
+
+  RegionsSetT m_absentRegions;
 
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   DataSource & m_dataSource;

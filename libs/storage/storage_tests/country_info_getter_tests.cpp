@@ -235,7 +235,7 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 
   // Set is used here because disputed territories may occur as leaves several times.
   set<CountryId> storageLeaves;
-  storage.ForEachCountry([&](Country const & country) { storageLeaves.insert(country.Name()); });
+  storage.ForEachCountry([&](platform::CountryFile const & country) { storageLeaves.insert(country.GetName()); });
 
   TEST_EQUAL(countries.size(), storageLeaves.size(), ());
 
