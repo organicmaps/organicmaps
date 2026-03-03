@@ -18,11 +18,7 @@ namespace
 {
 std::string RandomString(size_t length)
 {
-  /// @todo Used for temp file name, so lower-upper case is strange here, no?
-  static std::string_view constexpr kCharset =
-      "0123456789"
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      "abcdefghijklmnopqrstuvwxyz";
+  static std::string_view constexpr kCharset = "0123456789abcdefghijklmnopqrstuvwxyz";
 
   base::UniformRandom<size_t> rand(0, kCharset.size() - 1);
   std::string str(length, 0);
@@ -165,14 +161,12 @@ bool Platform::RemoveFileIfExists(std::string const & filePath)
 
 std::string Platform::TmpPathForFile() const
 {
-  size_t constexpr kNameLen = 32;
-  return base::JoinPath(TmpDir(), RandomString(kNameLen));
+  return base::JoinPath(TmpDir(), RandomString(32 /* length */));
 }
 
 std::string Platform::TmpPathForFile(std::string const & prefix, std::string const & suffix) const
 {
-  size_t constexpr kRandomLen = 8;
-  return base::JoinPath(TmpDir(), prefix + RandomString(kRandomLen) + suffix);
+  return base::JoinPath(TmpDir(), prefix + RandomString(8 /* length */) + suffix);
 }
 
 void Platform::GetFontNames(FilesList & res) const
