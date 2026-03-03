@@ -137,12 +137,11 @@ extension AvailableMapsDataSource: IDownloaderDataSource {
     searching ? searchDataSource.dataSourceFor(childId) : AvailableMapsDataSource(childId)
   }
 
-  func reload(_ completion: () -> Void) {
+  func reload() -> Bool {
     if searching {
-      searchDataSource.reload(completion)
+      return searchDataSource.reload()
     }
-    // do nothing.
-    completion()
+    return false
   }
 
   func search(_ query: String, locale: String, update: @escaping (Bool) -> Void) {

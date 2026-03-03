@@ -59,8 +59,8 @@ extension SearchMapsDataSource: IDownloaderDataSource {
     AvailableMapsDataSource(childId)
   }
 
-  func reload(_ completion: () -> Void) {
-    completion()
+  func reload() -> Bool {
+    false
   }
 
   func search(_ query: String, locale: String, update: @escaping SearchCallback) {
