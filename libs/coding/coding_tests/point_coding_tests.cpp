@@ -4,17 +4,13 @@
 
 #include "coding/point_coding.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"
-#include "base/math.hpp"
+#include "base/random.hpp"
 
 #include <cmath>
-#include <random>
-
-using namespace std;
 
 namespace
 {
@@ -76,7 +72,7 @@ UNIT_TEST(PointDToPointU_Epsilons)
 
 UNIT_TEST(PointDToPointU_WithLimitRect)
 {
-  mt19937 rng(0);
+  base::UniformRandom<double> distX, distY;
 
   m2::PointD const limitRectOrigin[] = {{0.0, 0.0}, {10.0, 10.0}, {90.0, 90.0}, {160.0, 160.0}};
   double const limitRectSize[] = {0.1, 1.0, 5.0, 10.0, 20.0};
@@ -89,15 +85,16 @@ UNIT_TEST(PointDToPointU_WithLimitRect)
       for (auto const sizeY : limitRectSize)
       {
         m2::RectD const limitRect(origin.x, origin.y, origin.x + sizeX, origin.y + sizeY);
-        auto distX = uniform_real_distribution<double>(limitRect.minX(), limitRect.maxX());
-        auto distY = uniform_real_distribution<double>(limitRect.minY(), limitRect.maxY());
+        distX.SetLimits(limitRect.minX(), limitRect.maxX());
+        distY.SetLimits(limitRect.minY(), limitRect.maxY());
+
         auto const coordBits = GetCoordBits(limitRect, kEps);
         TEST_NOT_EQUAL(coordBits, 0, ());
         // All rects in this test are more than 2 times smaller than mercator range.
         TEST_LESS(coordBits, kCoordBits, (limitRect));
         for (size_t i = 0; i < pointsPerRect; ++i)
         {
-          auto const pt = m2::PointD(distX(rng), distY(rng));
+          auto const pt = m2::PointD(distX(), distY());
           auto const pointU = PointDToPointU(pt, coordBits, limitRect);
           auto const pointD = PointUToPointD(pointU, coordBits, limitRect);
           TEST(AlmostEqualAbs(pt, pointD, kEps), (limitRect, pt, pointD, coordBits, kEps));

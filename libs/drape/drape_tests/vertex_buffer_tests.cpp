@@ -3,10 +3,10 @@
 #include "drape/utils/vertex_decl.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/random.hpp"
 
 #include <boost/container/small_vector.hpp>
 
-#include <random>
 #include <vector>
 
 namespace vertex_buffer_tests
@@ -16,12 +16,9 @@ std::vector<uint32_t> GenerateSizes(uint32_t min, uint32_t max)
 {
   std::vector<uint32_t> res;
 
-  std::uniform_int_distribution<uint64_t> randDist(min, max);
-  std::random_device randDevice;
-  std::mt19937 randEngine(randDevice());
-
+  base::UniformRandom<uint32_t> randDist(min, max);
   for (size_t i = 0; i < 1000000; ++i)
-    res.push_back(randDist(randEngine));
+    res.push_back(randDist());
 
   return res;
 }

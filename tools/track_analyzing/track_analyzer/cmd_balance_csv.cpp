@@ -12,9 +12,7 @@
 
 #include <algorithm>
 #include <fstream>
-#include <ostream>
 #include <random>
-#include <utility>
 
 namespace
 {

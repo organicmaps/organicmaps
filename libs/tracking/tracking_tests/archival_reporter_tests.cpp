@@ -11,13 +11,12 @@
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include <chrono>
-#include <random>
 
 using namespace tracking;
 
@@ -38,26 +37,22 @@ location::GpsInfo GetStartingPoint()
 
 void UpdateSpeedGroup(traffic::SpeedGroup & sg)
 {
-  static std::random_device randomDevice;
-  static std::mt19937 gen(randomDevice());
-  static std::uniform_int_distribution<> dis(0, base::Underlying(traffic::SpeedGroup::Count));
-  sg = static_cast<traffic::SpeedGroup>(dis(gen));
+  thread_local base::UniformRandom<uint8_t> dis(0, base::Underlying(traffic::SpeedGroup::Count) - 1);
+  sg = static_cast<traffic::SpeedGroup>(dis());
 }
 
 void UpdateLocation(location::GpsInfo & loc)
 {
-  static std::random_device randomDevice;
-  static std::mt19937 gen(randomDevice());
-  static std::uniform_int_distribution<> dis(0, 50);
-  loc.m_latitude += dis(gen) * 0.0001;
-  loc.m_longitude += dis(gen) * 0.0001;
+  thread_local base::UniformRandom<int> dis(0, 50);
+  loc.m_latitude += dis() * 0.0001;
+  loc.m_longitude += dis() * 0.0001;
   CHECK_GREATER_OR_EQUAL(loc.m_latitude, ms::LatLon::kMinLat, ());
   CHECK_LESS_OR_EQUAL(loc.m_latitude, ms::LatLon::kMaxLat, ());
   CHECK_GREATER_OR_EQUAL(loc.m_longitude, ms::LatLon::kMinLon, ());
   CHECK_LESS_OR_EQUAL(loc.m_longitude, ms::LatLon::kMaxLon, ());
 
   double constexpr kMinIntervalBetweenLocationsS = 3.0;
-  loc.m_timestamp += kMinIntervalBetweenLocationsS + dis(gen);
+  loc.m_timestamp += kMinIntervalBetweenLocationsS + dis();
 }
 
 UNIT_TEST(PacketCar_OperationsConsistency)

@@ -2,12 +2,9 @@
 
 #include "editor/server_api.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <random>
 #include <string>
 
