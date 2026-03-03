@@ -35,7 +35,7 @@ bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
 
   bool allUppercaseNum = true;
   strings::UniString lowerStr = strings::MakeLowerCase(myUniStr);
-  for (long i = myUniStr.size() - 1; i > 0; i--)
+  for (long i = myUniStr.size() - 1; i >= 0; i--)
   {
     // if we've reached a space, we're done here
     if (myUniStr[i] == ' ')
@@ -145,7 +145,7 @@ uint8_t CategorizeHungarianLastWordVowels(std::string const & hungarianString)
   std::u32string_view constexpr indeterminate{U"ií"};
 
   // find last vowel in last word
-  for (size_t i = myUniStr.size() - 1; i > 0; i--)
+  for (size_t i = myUniStr.size(); i-- > 0;)
   {
     if (front.find(myUniStr[i]) != std::string::npos)
       return 1;

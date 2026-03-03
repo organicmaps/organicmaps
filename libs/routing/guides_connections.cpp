@@ -46,7 +46,7 @@ bool GuidesConnections::IsActive() const
 
 std::vector<ConnectionToOsm> GuidesConnections::GetOsmConnections(size_t checkpointIdx) const
 {
-  auto it = m_connectionsToOsm.find(checkpointIdx);
+  auto const it = m_connectionsToOsm.find(checkpointIdx);
   if (it == m_connectionsToOsm.end())
     return {};
   return it->second;

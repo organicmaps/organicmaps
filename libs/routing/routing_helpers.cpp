@@ -115,10 +115,11 @@ bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::
   return false;
 }
 
+// TODO(AB): Consider using std::unordered_set instead of std::set for better performance.
 bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRoutingOptions, size_t limit,
-                            WorldGraph & graph, set<Segment> & marked)
+                            WorldGraph & graph, std::set<Segment> & marked)
 {
-  queue<Segment> q;
+  std::queue<Segment> q;
   q.push(start);
 
   marked.insert(start);

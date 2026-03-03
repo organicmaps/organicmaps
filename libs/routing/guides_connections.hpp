@@ -81,7 +81,7 @@ public:
   // Returns guides graph |m_graph| for index graph starter.
   GuidesGraph const & GetGuidesGraph() const;
 
-  // Returns all connections to the OSM graph relevant to checkpoint with |checkpointIdx| index.
+  // Returns all connections to the OSM graph relevant to checkpoint with |checkpointIdx| index or nullptr if none.
   std::vector<ConnectionToOsm> GetOsmConnections(size_t checkpointIdx) const;
 
   // Checks if checkpoint is close enough to some track.

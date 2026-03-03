@@ -50,6 +50,7 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
   FakeEnding ending;
   double averageAltitude = 0.0;
 
+  ending.m_projections.reserve(segments.size());
   for (size_t i = 0; i < segments.size(); ++i)
   {
     auto const & segment = segments[i];

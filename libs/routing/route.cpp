@@ -418,13 +418,14 @@ size_t Route::GetSubrouteCount() const
   return m_subrouteAttrs.size();
 }
 
-void Route::GetSubrouteInfo(size_t subrouteIdx, vector<RouteSegment> & segments) const
+void Route::GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const
 {
   segments.clear();
   SubrouteAttrs const & attrs = GetSubrouteAttrs(subrouteIdx);
 
   CHECK_LESS_OR_EQUAL(attrs.GetEndSegmentIdx(), m_routeSegments.size(), ());
 
+  segments.reserve(attrs.GetSize());
   for (size_t i = attrs.GetBeginSegmentIdx(); i < attrs.GetEndSegmentIdx(); ++i)
     segments.push_back(m_routeSegments[i]);
 }
@@ -469,6 +470,8 @@ void Route::GetAltitudes(geometry::Altitudes & altitudes) const
   altitudes.clear();
 
   CHECK(!m_subrouteAttrs.empty(), ());
+
+  altitudes.reserve(m_routeSegments.size() + 1);
   altitudes.push_back(m_subrouteAttrs.front().GetStart().GetAltitude());
 
   for (auto const & s : m_routeSegments)

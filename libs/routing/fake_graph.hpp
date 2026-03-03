@@ -46,6 +46,7 @@ private:
                                         Segment const & directedGuidesSegment);
 
   // Key is fake segment, value is set of outgoing fake segments.
+  // TODO(AB): Consider using unordered_map/unordered_set for 5x lower memory footprint.
   std::map<Segment, std::set<Segment>> m_outgoing;
   // Key is fake segment, value is set of ingoing fake segments.
   std::map<Segment, std::set<Segment>> m_ingoing;
