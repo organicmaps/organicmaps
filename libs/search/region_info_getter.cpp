@@ -5,6 +5,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "defines.hpp"
+
 namespace search
 {
 using namespace std;

@@ -16,6 +16,8 @@
 #include "base/thread_checker.hpp"
 #include "base/thread_pool_delayed.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
 #include <functional>
 #include <list>
@@ -725,7 +727,10 @@ void Storage::ForEachCountry(ToDo && toDo) const
   m_countries.GetRoot().ForEachInSubtree([&](CountryTree::Node const & node)
   {
     if (IsCountryLeaf(node))
-      toDo(node.Value());
+      toDo(node.Value().GetFile());
   });
+
+  for (auto const & [country, _] : m_localFilesForFakeCountries)
+    toDo(country);
 }
 }  // namespace storage

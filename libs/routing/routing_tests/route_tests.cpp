@@ -4,8 +4,6 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/turns.hpp"
 
-#include "routing/base/followed_polyline.hpp"
-
 #include "routing/routing_tests/tools.hpp"
 
 #include "platform/location.hpp"
@@ -14,7 +12,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
-#include <set>
 #include <string>
 #include <vector>
 
@@ -68,20 +65,6 @@ vector<vector<Segment>> const GetSegments()
   vector<Segment> const segmentsFakeHeadAndTail = {
       {kFakeNumMwmId, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {0, 0, 3, true}, {kFakeNumMwmId, 0, 4, true}};
   return {segmentsAllReal, segmentsFakeHeadAndTail, segmentsAllFake};
-}
-
-UNIT_TEST(AddAbsentCountryToRouteTest)
-{
-  Route route("TestRouter", 0 /* route id */);
-  route.AddAbsentCountry("A");
-  route.AddAbsentCountry("A");
-  route.AddAbsentCountry("B");
-  route.AddAbsentCountry("C");
-  route.AddAbsentCountry("B");
-  set<string> const & absent = route.GetAbsentCountries();
-  TEST(absent.find("A") != absent.end(), ());
-  TEST(absent.find("B") != absent.end(), ());
-  TEST(absent.find("C") != absent.end(), ());
 }
 
 UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
