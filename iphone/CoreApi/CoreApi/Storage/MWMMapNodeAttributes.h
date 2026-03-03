@@ -42,6 +42,7 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) BOOL hasParent;
 @property(nonatomic, readonly) NSArray<MWMCountryIdAndName *> * parentInfo;
 @property(nonatomic, readonly, nullable) NSArray<MWMCountryIdAndName *> * topmostParentInfo;
+@property(nonatomic, readonly) float downloadingProgress;
 
 @end
 
