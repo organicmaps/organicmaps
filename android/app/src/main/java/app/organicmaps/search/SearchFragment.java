@@ -16,6 +16,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -267,6 +268,18 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
+
+    pager.setClipToPadding(false);
+    ViewCompat.setOnApplyWindowInsetsListener(mResults, (v, insets) -> {
+      int bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
+      return insets;
+    });
+    ViewCompat.setOnApplyWindowInsetsListener(pager, (v, insets) -> {
+      int bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
+      return insets;
+    });
 
     // Restore cached results (query is restored by view state; we only need to repopulate the list).
     final SearchResult[] cachedResults = mSearchViewModel.getLastResults();
