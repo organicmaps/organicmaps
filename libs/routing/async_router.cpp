@@ -294,7 +294,7 @@ void AsyncRouter::CalculateRoute()
   }
 
   auto route = std::make_shared<Route>(router->GetName(), routeId);
-  RouterResultCode code;
+  RouterResultCode code = RouterResultCode::NoError;
 
   base::Timer timer;
   double elapsedSec = 0.0;
@@ -304,13 +304,16 @@ void AsyncRouter::CalculateRoute()
     LOG(LINFO, ("Calculating the route of direct length", checkpoints.GetSummaryLengthBetweenPointsMeters(),
                 "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", router->GetName()));
 
+    // Can be nullptr for the Ruler router.
     if (absentRegionsFinder)
-      absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
+      code = absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
 
-    // Run basic request.
-    code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *route);
+    if (code == RouterResultCode::NoError)
+      code =
+          router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *route);
+
     router->SetGuides({});
-    elapsedSec = timer.ElapsedSeconds();  // routing time
+    elapsedSec = timer.ElapsedSeconds();  // routing build time
     LogCode(code, elapsedSec);
     LOG(LINFO, ("ETA:", route->GetTotalTimeSec(), "sec."));
   }
@@ -334,15 +337,10 @@ void AsyncRouter::CalculateRoute()
                           [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
   }
 
-  bool const needAbsentRegions = (code != RouterResultCode::Cancelled && route->GetRouterId() != "ruler-router");
-
-  std::set<std::string> absent;
-  if (needAbsentRegions)
+  AbsentRegionsFinder::RegionsSetT absent;
+  if (absentRegionsFinder && code != RouterResultCode::Cancelled)
   {
-    if (absentRegionsFinder)
-      absentRegionsFinder->GetAbsentRegions(absent);
-
-    absent.insert(route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
+    absent = absentRegionsFinder->GetAbsentRegions();
     if (!absent.empty())
     {
       code = RouterResultCode::NeedMoreMaps;
@@ -358,6 +356,7 @@ void AsyncRouter::CalculateRoute()
   {
     if (code == RouterResultCode::NeedMoreMaps)
     {
+      /// @todo Move 'absent' regions.
       GetPlatform().RunTask(Platform::Thread::Gui,
                             [delegateProxy, routeId, absent]() { delegateProxy->OnNeedMoreMaps(routeId, absent); });
     }

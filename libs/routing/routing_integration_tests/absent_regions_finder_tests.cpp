@@ -4,7 +4,6 @@
 #include "map/routing_manager.hpp"
 
 #include "storage/routing_helpers.hpp"
-#include "storage/storage.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
@@ -26,7 +25,7 @@ public:
   void TestRegions(Checkpoints const & checkpoints, std::set<std::string> const & planRegions);
 
 protected:
-  std::set<std::string> GetRegions(Checkpoints const & checkpoints);
+  AbsentRegionsFinder::RegionsSetT GetRegions(Checkpoints const & checkpoints);
 
   FrameworkParams m_frameworkParams;
   Framework m_framework;
@@ -57,21 +56,16 @@ TestAbsentRegionsFinder::TestAbsentRegionsFinder()
 
 void TestAbsentRegionsFinder::TestRegions(Checkpoints const & checkpoints, std::set<std::string> const & planRegions)
 {
-  std::set<std::string> const & factRegions = GetRegions(checkpoints);
-  TEST_EQUAL(planRegions, factRegions, ());
+  TEST_EQUAL(planRegions, GetRegions(checkpoints), ());
 }
 
-std::set<std::string> TestAbsentRegionsFinder::GetRegions(Checkpoints const & checkpoints)
+AbsentRegionsFinder::RegionsSetT TestAbsentRegionsFinder::GetRegions(Checkpoints const & checkpoints)
 {
   AbsentRegionsFinder finder(m_countryFileGetter, m_localFileChecker, m_numMwmIds, m_callbacks.m_dataSourceGetter());
   RouterDelegate delegate;
 
   finder.GenerateAbsentRegions(checkpoints, delegate);
-
-  std::set<std::string> regions;
-  finder.GetAllRegions(regions);
-
-  return regions;
+  return finder.GetAllRegions();
 }
 
 // From "Russia_Republic of Karelia_South" to "Russia_Krasnodar Krai".
@@ -288,8 +282,8 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Cologne_Croatia_Zagreb)
   Checkpoints const checkpoints{mercator::FromLatLon(50.924, 6.943), mercator::FromLatLon(45.806, 15.963)};
 
   /// @todo Optimal route should include Graz-Maribor-Zagreb.
-  auto const & rgns = GetRegions(checkpoints);
-  TEST(rgns.count("Austria_Styria_Graz") > 0, ());
+  auto const rgns = GetRegions(checkpoints);
+  TEST(rgns.count("Austria_Styria_Graz") > 0, (rgns));
 }
 
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Russia_SPB_Pechory)

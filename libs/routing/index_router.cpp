@@ -232,7 +232,7 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
-                         shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
+                         shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, DataSource & dataSource)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
@@ -492,40 +492,22 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
                                                RouterDelegate const & delegate, Route & route)
 {
   m_lastRoute.reset();
-  // MwmId used for guides segments in RedressRoute().
-  NumMwmId guidesMwmId = kFakeNumMwmId;
-
-  for (auto const & checkpoint : checkpoints.GetPoints())
-  {
-    auto const country = platform::CountryFile(m_countryFileFn(checkpoint));
-
-    if (country.IsEmpty())
-    {
-      /// @todo Can we pass an error into \a route instance with final message like:
-      /// "Please, try to move start/end point a bit .."
-
-      LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
-                     "CountryInfoGetter returns an empty CountryFile(). It happens when checkpoint "
-                     "is put at gaps between mwm."));
-      return RouterResultCode::InternalError;
-    }
-
-    if (!m_dataSource.IsLoaded(country))
-      route.AddAbsentCountry(country.GetName());
-    else if (guidesMwmId == kFakeNumMwmId)
-      guidesMwmId = m_numMwmIds->GetId(country);
-  }
-
-  if (!route.GetAbsentCountries().empty())
-    return RouterResultCode::NeedMoreMaps;
 
   TrafficStash::Guard guard(m_trafficStash);
   unique_ptr<WorldGraph> graph = MakeWorldGraph();
 
   vector<Segment> segments;
 
-  m_guides.SetGuidesGraphParams(guidesMwmId, m_estimator->GetMaxWeightSpeedMpS());
-  m_guides.ConnectToGuidesGraph(checkpoints.GetPoints());
+  // MwmId used for guides segments in RedressRoute().
+  {
+    NumMwmId guidesMwmId = kFakeNumMwmId;
+    platform::CountryFile const country(m_countryFileFn(checkpoints.GetStart()));
+    if (!country.IsEmpty())
+      guidesMwmId = m_numMwmIds->GetId(country);
+
+    m_guides.SetGuidesGraphParams(guidesMwmId, m_estimator->GetMaxWeightSpeedMpS());
+    m_guides.ConnectToGuidesGraph(checkpoints.GetPoints());
+  }
 
   uint32_t const startIdx = ConnectTracksOnGuidesToOsm(checkpoints.GetPoints(), *graph);
   ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);

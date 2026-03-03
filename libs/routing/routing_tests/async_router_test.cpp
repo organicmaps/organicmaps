@@ -13,7 +13,6 @@
 #include "base/timer.hpp"
 
 #include <condition_variable>
-#include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -28,10 +27,9 @@ using namespace std;
 class DummyRouter : public IRouter
 {
   RouterResultCode m_result;
-  set<string> m_absent;
 
 public:
-  DummyRouter(RouterResultCode code, set<string> const & absent) : m_result(code), m_absent(absent) {}
+  DummyRouter(RouterResultCode code, set<string> const & absent) : m_result(code) {}
 
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
@@ -40,10 +38,6 @@ public:
                                   bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route) override
   {
     route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend(), 0 /* route id */);
-
-    for (auto const & absent : m_absent)
-      route.AddAbsentCountry(absent);
-
     return m_result;
   }
 
@@ -70,7 +64,6 @@ struct DummyRoutingCallbacks
   {
     CHECK(route, ());
     m_codes.push_back(code);
-    m_absent.emplace_back(route->GetAbsentCountries());
     TestAndNotifyReadyCallbacks();
   }
 

@@ -406,12 +406,6 @@ public:
   /// fields accordingly.
   bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  /// Add country name if we have no country filename to make route.
-  void AddAbsentCountry(std::string const & name);
-
-  /// Get absent file list of a routing files for shortest path finding.
-  std::set<std::string> const & GetAbsentCountries() const { return m_absentCountries; }
-
   inline void SetRoutingSettings(RoutingSettings const & routingSettings) { m_routingSettings = routingSettings; }
 
   // Subroute interface.
@@ -481,7 +475,6 @@ private:
 
   FollowedPolyline m_poly;
 
-  std::set<std::string> m_absentCountries;
   std::vector<RouteSegment> m_routeSegments;
   // |m_haveAltitudes| is true if and only if all route points have altitude information.
   bool m_haveAltitudes = false;

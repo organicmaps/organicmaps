@@ -4,9 +4,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/logging.hpp"
 
-#include <cstdint>
 #include <limits>
 #include <map>
 #include <vector>
