@@ -264,9 +264,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeRestoreDownloadQueue();
 
     if (RoutingController.get().isPlanning())
-      onPlanningStarted();
+      restoreRoutingUI(MapButtonsController.LayoutMode.planning);
     else if (RoutingController.get().isNavigating())
-      onNavigationStarted();
+      restoreRoutingUI(MapButtonsController.LayoutMode.navigation);
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
 
@@ -857,8 +857,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsTabletLayout)
       return;
 
-    closePlacePage();
     closeSearchPage();
+    closePlacePage();
     removeCurrentFragment(true);
   }
 
@@ -1559,6 +1559,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
+  }
+
+  private void restoreRoutingUI(@NonNull MapButtonsController.LayoutMode layoutMode)
+  {
+    if (layoutMode == MapButtonsController.LayoutMode.navigation)
+    {
+      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+      ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
+      Utils.keepScreenOn(true, getWindow());
+    }
+    mMapButtonsViewModel.setLayoutMode(layoutMode);
+    refreshLightStatusBar();
   }
 
   @Override

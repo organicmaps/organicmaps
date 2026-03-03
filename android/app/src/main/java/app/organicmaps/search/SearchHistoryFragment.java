@@ -11,6 +11,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
@@ -22,6 +23,14 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
   private void updatePlaceholder()
   {
     UiUtils.showIf(getAdapter().getItemCount() == 0, mPlaceHolder);
+  }
+
+  public void refreshHistory()
+  {
+    SearchRecents.refresh();
+    if (getAdapter() != null)
+      getAdapter().notifyDataSetChanged();
+    updatePlaceholder();
   }
 
   @NonNull
