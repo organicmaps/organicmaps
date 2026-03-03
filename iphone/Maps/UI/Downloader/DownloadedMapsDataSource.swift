@@ -25,8 +25,12 @@ class DownloadedMapsDataSource {
     }.map(\.countryId)
   }
 
-  private func reloadData() {
-    countryIds = DownloadedMapsDataSource.loadData(parentCountryId)
+  @discardableResult
+  private func reloadData() -> Bool {
+    let updatedCountryIds = DownloadedMapsDataSource.loadData(parentCountryId)
+    let changed = updatedCountryIds != countryIds
+    countryIds = updatedCountryIds
+    return changed
   }
 }
 
@@ -105,13 +109,11 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
     searching ? searchDataSource.dataSourceFor(childId) : DownloadedMapsDataSource(childId)
   }
 
-  func reload(_ completion: () -> Void) {
+  func reload() -> Bool {
     if searching {
-      searchDataSource.reload(completion)
-      return
+      return searchDataSource.reload()
     }
-    reloadData()
-    completion()
+    return reloadData()
   }
 
   func search(_ query: String, locale: String, update: @escaping (Bool) -> Void) {
