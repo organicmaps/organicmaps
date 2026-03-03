@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -77,8 +78,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     {
       if (enabled != null && enabled)
       {
-        // Don't show search if place page is currently visible
-        if (mPlacePageViewModel.getMapObject().getValue() != null)
+        if (mPlacePageViewModel.getMapObject().getValue() != null || mViewModel.isHiddenByPlacePage())
           return;
         if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
         {
@@ -150,6 +150,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
+      InputUtils.hideKeyboard(v);
       boolean drag = isDrag(event);
       if (event.getAction() == MotionEvent.ACTION_UP && !drag)
       {
@@ -190,8 +191,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mSearchPageContainer = view.findViewById(R.id.search_page_container);
     mTouchSlop = ViewConfiguration.get(requireContext()).getScaledTouchSlop();
 
-    mMinCollapsedPeekHeight =
-        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+    int actionBarSize = (int) getResources().getDimension(
+        ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
+    int tabsHeight = getResources().getDimensionPixelSize(R.dimen.tabs_height);
+    mMinCollapsedPeekHeight = actionBarSize + tabsHeight;
 
     float topRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
     ShapeAppearanceModel shape = ShapeAppearanceModel.builder()
