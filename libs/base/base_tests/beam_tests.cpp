@@ -3,19 +3,16 @@
 #include "base/assert.hpp"
 #include "base/beam.hpp"
 
+#include "base/random.hpp"
 #include "base/scope_guard.hpp"
 #include "base/timer.hpp"
 
-#include <cstddef>
-#include <cstdint>
-#include <random>
 #include <string>
 #include <vector>
 
 namespace beam_tests
 {
 using namespace base;
-using namespace std;
 
 template <template <typename, typename> class Beam>
 void Smoke()
@@ -30,11 +27,11 @@ void Smoke()
   for (uint32_t i = 0; i < kTotal; ++i)
     beam.Add(i, static_cast<double>(i));
 
-  vector<double> expected;
+  std::vector<double> expected;
   for (size_t i = 0; i < kCapacity; ++i)
     expected.emplace_back(kTotal - 1 - i);
 
-  vector<double> actual;
+  std::vector<double> actual;
   actual.reserve(kCapacity);
   for (auto const & e : beam.GetEntries())
     actual.emplace_back(e.m_value);
@@ -44,15 +41,14 @@ void Smoke()
 }
 
 template <template <typename, typename> class Beam>
-void Benchmark(string const & beamType, uint64_t const numResets, size_t const capacity, uint64_t const numEvents)
+void Benchmark(std::string const & beamType, uint64_t const numResets, size_t const capacity, uint64_t const numEvents)
 {
   base::Timer timer;
   SCOPE_GUARD(timerGuard, [&] { LOG(LINFO, ("type:", beamType, "\ttime passed:", timer.ElapsedSeconds())); });
 
   CHECK_LESS_OR_EQUAL(capacity, numEvents, ());
 
-  mt19937 rng(0);
-  uniform_real_distribution<double> dis(0.0, 1.0);
+  UniformRandom<double> dis(0.0, 1.0);
   for (uint64_t wave = 0; wave <= numResets; ++wave)
   {
     Beam<uint64_t, double> beam(capacity);
@@ -60,7 +56,7 @@ void Benchmark(string const & beamType, uint64_t const numResets, size_t const c
     uint64_t const begin = wave * numEvents / (numResets + 1);
     uint64_t const end = (wave + 1) * numEvents / (numResets + 1);
     for (uint64_t i = begin; i < end; ++i)
-      beam.Add(i, dis(rng));
+      beam.Add(i, dis());
   }
 }
 

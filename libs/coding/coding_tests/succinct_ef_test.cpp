@@ -3,9 +3,10 @@
 #include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
 
+#include "base/random.hpp"
+
 #include "3party/succinct/elias_fano_compressed_list.hpp"
 
-#include <random>
 #include <vector>
 
 namespace succinct_ef_test
@@ -16,13 +17,11 @@ template <class T>
 vector<T> GetUniformValues(size_t count)
 {
   // Use max - 1 because succinct makes val + 1 encoding internals.
-  uniform_int_distribution<T> randDist(0, numeric_limits<T>::max() - 1);
-  random_device randDevice;
-  mt19937 randEngine(randDevice());
+  base::UniformRandom<T> randDist(0, numeric_limits<T>::max() - 1);
 
   vector<T> data(count);
   for (size_t i = 0; i < count; ++i)
-    data[i] = randDist(randEngine);
+    data[i] = randDist();
   return data;
 }
 

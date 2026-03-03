@@ -5,12 +5,11 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/random.hpp"
 
 #include <algorithm>
 #include <exception>
-#include <random>
 #include <sstream>
-#include <utility>
 
 namespace
 {
@@ -67,16 +66,14 @@ std::vector<m2::PointD> NaiveSample(std::vector<m2::PointD> const & source, size
   std::vector<size_t> indexes;
   indexes.reserve(count);
 
-  std::random_device r;
-  std::minstd_rand engine(r());
-  std::uniform_int_distribution<size_t> distrib(0, source.size() - 1);
+  base::UniformRandom<size_t> distrib(0, source.size() - 1);
 
   while (count--)
   {
     size_t index;
     do
     {
-      index = distrib(engine);
+      index = distrib();
     }
     while (find(begin(indexes), end(indexes), index) != end(indexes));
     result.push_back(source[index]);
