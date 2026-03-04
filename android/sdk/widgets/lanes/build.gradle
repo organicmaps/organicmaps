@@ -11,6 +11,6 @@ android {
 dependencies {
   implementation project(':sdk')
 
-  implementation 'androidx.annotation:annotation:1.9.1'
-  implementation 'androidx.appcompat:appcompat:1.7.1'
+  implementation libs.androidx.annotation
+  implementation libs.androidx.appcompat
 }
