@@ -23,19 +23,19 @@ buildscript {
       googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:9.1.0'
+    classpath libs.android.tools.gradle
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
-      classpath 'com.google.gms:google-services:4.4.4'
-      classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.6'
-      classpath 'com.google.firebase:firebase-appdistribution-gradle:5.2.0'
+      classpath libs.google.gms.services
+      classpath libs.google.firebase.crashlytics.gradle
+      classpath libs.google.firebase.appdistribution.gradle
     } else {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:4.0.0')
-    classpath('ru.cian.huawei-plugin:plugin:1.5.0')
+    classpath libs.triplet.play.publisher
+    classpath libs.huawei.plugin
   }
 }
 
@@ -269,55 +269,48 @@ dependencies {
   googleImplementation project(':sdk:maps:world')
   huaweiImplementation project(':sdk:maps:world')
 
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+  coreLibraryDesugaring libs.android.tools.desugaring
 
   // Google Play Location Services
-  webImplementation 'com.google.android.gms:play-services-location:21.3.0'
-  googleImplementation 'com.google.android.gms:play-services-location:21.3.0'
-  huaweiImplementation 'com.google.android.gms:play-services-location:21.3.0'
+  webImplementation libs.google.gms.location
+  googleImplementation libs.google.gms.location
+  huaweiImplementation libs.google.gms.location
   // This is the microG project's re-implementation which is permissible on
   // F-droid because it's Apache-2.0.
-  fdroidImplementation 'org.microg.gms:play-services-location:0.3.6.244735'
+  fdroidImplementation libs.microg.gms.location
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
-    // Import the BoM for the Firebase platform.
-    // firebase-crashlytics-ndk requires minSdkVersion 23 since 34.0.0
-    // See https://firebase.google.com/support/release-notes/android#crashlytics-ndk_v20-0-0
-    // Use 33.11.0 instead of 33.16.0 because of the https://github.com/firebase/firebase-android-sdk/issues/6993
-    implementation platform('com.google.firebase:firebase-bom:33.11.0')
-    // Add the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk'
+    Dependency firebaseBom = platform(libs.google.firebase)
+    implementation firebaseBom
+    implementation libs.google.firebase.crashlytics
+    implementation libs.google.firebase.crashlytics.ndk
   }
 
   // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // We don't use Kotlin, but some dependencies are actively using it.
   // See https://stackoverflow.com/a/75719642
-  implementation 'androidx.core:core:1.17.0'
-  implementation(platform('org.jetbrains.kotlin:kotlin-bom:2.3.0'))
-  implementation 'androidx.annotation:annotation:1.9.1'
-  implementation 'androidx.appcompat:appcompat:1.7.1'
-  implementation 'androidx.car.app:app:1.8.0-alpha02'
-  implementation 'androidx.car.app:app-projected:1.8.0-alpha02'
-  implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-  implementation 'androidx.fragment:fragment:1.8.9'
-  implementation 'androidx.preference:preference:1.2.1'
-  implementation 'androidx.recyclerview:recyclerview:1.4.0'
-  implementation 'androidx.work:work-runtime:2.10.5'
-  implementation 'androidx.lifecycle:lifecycle-process:2.9.4'
-  implementation 'com.google.android.material:material:1.13.0'
+  implementation libs.androidx.core
+  implementation libs.androidx.annotation
+  implementation libs.androidx.appcompat
+  implementation libs.androidx.car.app
+  implementation libs.androidx.constraintlayout
+  implementation libs.androidx.fragment
+  implementation libs.androidx.preference
+  implementation libs.androidx.recyclerview
+  implementation libs.androidx.work
+  implementation libs.androidx.lifecycle
+  implementation libs.google.material
   // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
   // https://github.com/organicmaps/organicmaps/issues/6106
-  implementation 'com.google.guava:guava:33.5.0-android'
-  implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
+  implementation libs.google.guava
+  implementation libs.devnullorthrow.mpandroidchart
 
   // Test Dependencies
-  testImplementation 'androidx.test.ext:junit:1.3.0'
-  testImplementation 'org.mockito:mockito-core:5.21.0'
-  testImplementation 'org.mockito:mockito-inline:5.2.0'
+  testImplementation libs.androidx.junit
+  testImplementation libs.mockito.core
+  testImplementation libs.mockito.inline
 }
 
 def allowedPermissions = [

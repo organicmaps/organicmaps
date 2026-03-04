@@ -23,8 +23,7 @@ dependencies {
   implementation project(':sdk')
   implementation project(':sdk:car')
 
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+  coreLibraryDesugaring libs.android.tools.desugaring
 
-  implementation 'androidx.car.app:app:1.8.0-alpha02'
-  implementation 'androidx.car.app:app-projected:1.8.0-alpha02'
+  implementation libs.androidx.car.app
 }

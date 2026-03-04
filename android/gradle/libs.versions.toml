@@ -1,0 +1,83 @@
+[versions]
+agp = "9.1.0"
+
+android-tools-desugaring = "2.1.5"
+
+androidx-annotation = "1.9.1"
+androidx-appcompat = "1.7.1"
+# We can't use 1.8.0-alpha03 version of car app library because it requires minSdk 23, but we want to support minSdk 21.
+# noinspection GradleDependency
+androidx-car = "1.8.0-alpha02"
+androidx-constraintlayout = "2.2.1"
+androidx-core = "1.17.0"
+androidx-fragment = "1.8.9"
+androidx-junit = "1.3.0"
+androidx-lifecycle = "2.9.4"
+androidx-preference = "1.2.1"
+androidx-recyclerview = "1.4.0"
+androidx-work = "2.10.5"
+
+devnullorthrow-mpandroidchart = "3.2.0-alpha"
+
+# firebase-crashlytics-ndk requires minSdkVersion 23 since 34.0.0
+# See https://firebase.google.com/support/release-notes/android#crashlytics-ndk_v20-0-0
+# Use 33.11.0 instead of 33.16.0 because of the https://github.com/firebase/firebase-android-sdk/issues/6993
+# noinspection GradleDependency
+google-firebase = "33.11.0"
+google-firebase-crashlytics-gradle = "3.0.6"
+google-firebase-appdistribution-gradle = "5.2.0"
+google-gms-location = "21.3.0"
+google-gms-services = "4.4.4"
+google-guava = "33.5.0-android"
+google-material = "1.13.0"
+
+huawei-plugin = "1.5.0"
+
+microg-gms-location = "0.3.6.244735"
+
+mockito-core = "5.21.0"
+mockito-inline = "5.2.0"
+
+triplet-play-publisher = "4.0.0"
+
+[libraries]
+android-tools-desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "android-tools-desugaring" }
+android-tools-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-car-app = { group = "androidx.car.app", name = "app", version.ref = "androidx-car" }
+androidx-car-app-projected = { group = "androidx.car.app", name = "app-projected", version.ref = "androidx-car" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "androidx-core" }
+androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx-fragment" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
+androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidx-lifecycle" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "androidx-preference" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidx-recyclerview" }
+androidx-work = { group = "androidx.work", name = "work-runtime", version.ref = "androidx-work" }
+
+devnullorthrow-mpandroidchart = { group = "com.github.devnullorthrow", name = "MPAndroidChart", version.ref = "devnullorthrow-mpandroidchart" }
+
+google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
+google-firebase-appdistribution-gradle = { group = "com.google.firebase", name = "appdistribution-gradle", version.ref = "google-firebase-appdistribution-gradle" }
+google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+google-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradle" }
+google-firebase-crashlytics-ndk = { group = "com.google.firebase", name = "firebase-crashlytics-ndk" }
+google-gms-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "google-gms-location" }
+google-gms-services = { group = "com.google.gms", name = "google-services", version.ref = "google-gms-services" }
+google-guava = { group = "com.google.guava", name = "guava", version.ref = "google-guava" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
+
+huawei-plugin = { module = "ru.cian.huawei-plugin:plugin", version.ref = "huawei-plugin" }
+
+microg-gms-location = { group = "org.microg.gms", name = "play-services-location", version.ref = "microg-gms-location" }
+
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
+mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito-inline" }
+
+triplet-play-publisher = { group = "com.github.triplet.gradle", name = "play-publisher", version.ref = "triplet-play-publisher" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
