@@ -38,34 +38,44 @@ class AvailableArea: UIView {
   }
 
   private var affectingViews = Set<UIView>()
+  private weak var observedLayer: CALayer?
+  private var orientationObserver: NSObjectProtocol?
 
   override func didMoveToSuperview() {
     super.didMoveToSuperview()
-    subscribe()
+    subscribeOnOrientationNotifications()
     update()
   }
 
   deinit {
-    unsubscribe()
+    unsubscribeFromOrientationNotifications()
   }
 
-  private func subscribe() {
-    guard let ol = superview?.layer else { return }
-    ol.addObserver(self, forKeyPath: Const.observeKeyPath, options: .new, context: nil)
+  private func subscribeOnOrientationNotifications() {
+    unsubscribeFromOrientationNotifications()
+    guard let layer = superview?.layer else { return }
+    observedLayer = layer
+    layer.addObserver(self, forKeyPath: Const.observeKeyPath, options: .new, context: nil)
     UIDevice.current.beginGeneratingDeviceOrientationNotifications()
 
-    let nc = NotificationCenter.default
-    nc.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { _ in
+    orientationObserver = NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { [weak self] _ in
+      guard let self else { return }
       let orientation = UIDevice.current.orientation
       guard !orientation.isFlat, orientation != .portraitUpsideDown else { return }
       self.orientation = orientation
     }
   }
 
-  private func unsubscribe() {
-    guard let ol = superview?.layer else { return }
-    ol.removeObserver(self, forKeyPath: Const.observeKeyPath)
-    UIDevice.current.endGeneratingDeviceOrientationNotifications()
+  private func unsubscribeFromOrientationNotifications() {
+    if let layer = observedLayer {
+      layer.removeObserver(self, forKeyPath: Const.observeKeyPath)
+      observedLayer = nil
+    }
+    if let observer = orientationObserver {
+      UIDevice.current.endGeneratingDeviceOrientationNotifications()
+      NotificationCenter.default.removeObserver(observer)
+      orientationObserver = nil
+    }
   }
 
   override func observeValue(forKeyPath keyPath: String?, of _: Any?, change _: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
