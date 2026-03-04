@@ -3,7 +3,7 @@ protocol BookmarksListDelegate: AnyObject {
 }
 
 final class BookmarksListPresenter {
-  private unowned let view: IBookmarksListView
+  private weak var view: IBookmarksListView?
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
   private weak var delegate: BookmarksListDelegate?
@@ -54,7 +54,7 @@ final class BookmarksListPresenter {
     var sections: [IBookmarksListSectionViewModel] = []
     let tracks = bookmarkGroup.tracks.map { track in
       TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
-        self.view.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
+        self.view?.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
           BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
           self.reload()
         }
@@ -78,7 +78,7 @@ final class BookmarksListPresenter {
     if !bookmarks.isEmpty {
       sections.append(BookmarksSectionViewModel(title: L("bookmarks"), bookmarks: bookmarks))
     }
-    view.setSections(sections)
+    view?.setSections(sections)
   }
 
   private func mapBookmarks(_ bookmarks: [Bookmark]) -> [BookmarkViewModel] {
@@ -93,7 +93,7 @@ final class BookmarksListPresenter {
         formattedDistance = nil
       }
       return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] in
-        self?.view.showColorPicker(with: .bookmarkColorPicker(bookmark.bookmarkColor)) { color in
+        self?.view?.showColorPicker(with: .bookmarkColorPicker(bookmark.bookmarkColor)) { color in
           guard let bookmarkColor = BookmarkColor.bookmarkColor(from: color) else { return }
           BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: bookmarkColor)
           self?.reload()
@@ -131,7 +131,7 @@ final class BookmarksListPresenter {
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
       self?.setDefaultSections()
     }))
-    view.showMenu(sortItems, from: .sort)
+    view?.showMenu(sortItems, from: .sort)
   }
 
   private func showMoreMenu() {
@@ -161,15 +161,15 @@ final class BookmarksListPresenter {
           switch status {
           case .success:
             guard let url = url else { fatalError() }
-            self?.view.share(url) {
+            self?.view?.share(url) {
               self?.interactor.finishExportFile()
             }
           case .emptyCategory:
-            self?.view.showError(title: L("bookmarks_error_title_share_empty"),
-                                 message: L("bookmarks_error_message_share_empty"))
+            self?.view?.showError(title: L("bookmarks_error_title_share_empty"),
+                                  message: L("bookmarks_error_message_share_empty"))
           case .archiveError, .fileError:
-            self?.view.showError(title: L("dialog_routing_system_error"),
-                                 message: L("bookmarks_error_message_share_general"))
+            self?.view?.showError(title: L("dialog_routing_system_error"),
+                                  message: L("bookmarks_error_message_share_general"))
           }
         }
       })
@@ -183,7 +183,7 @@ final class BookmarksListPresenter {
                                            action: { [weak self] in
                                              self?.interactor.deleteBookmarksGroup()
                                            }))
-    view.showMenu(moreItems, from: .more)
+    view?.showMenu(moreItems, from: .more)
   }
 
   private func viewOnMap() {
@@ -200,7 +200,7 @@ final class BookmarksListPresenter {
         if let tracks = bookmarksSection.tracks, let self = self {
           return TracksSectionViewModel(tracks: tracks.map { track in
             TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
-              self.view.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
+              self.view?.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
                 BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
                 self.reload()
               }
@@ -209,7 +209,7 @@ final class BookmarksListPresenter {
         }
         fatalError()
       }
-      self?.view.setSections(sections)
+      self?.view?.setSections(sections)
     }
   }
 }
@@ -217,8 +217,8 @@ final class BookmarksListPresenter {
 extension BookmarksListPresenter: IBookmarksListPresenter {
   func viewDidLoad() {
     reload()
-    view.setTitle(bookmarkGroup.title)
-    view.enableEditing(true)
+    view?.setTitle(bookmarkGroup.title)
+    view?.enableEditing(true)
 
     let info = BookmarksListInfo(title: bookmarkGroup.title,
                                  description: bookmarkGroup.detailedAnnotation,
@@ -226,7 +226,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
                                  isHtmlDescription: bookmarkGroup.isHtmlDescription,
                                  imageUrl: bookmarkGroup.imageUrl,
                                  hasLogo: false)
-    view.setInfo(info)
+    view?.setInfo(info)
   }
 
   func viewDidAppear() {
@@ -247,8 +247,8 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     interactor.search(text) { [weak self] in
       guard let self = self else { return }
       let bookmarks = self.mapBookmarks($0)
-      self.view.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
-                                                                                bookmarks: bookmarks)])
+      self.view?.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
+                                                                                 bookmarks: bookmarks)])
     }
   }
 
@@ -377,7 +377,7 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
                                  isHtmlDescription: bookmarkGroup.isHtmlDescription,
                                  imageUrl: bookmarkGroup.imageUrl,
                                  hasLogo: false)
-    view.setInfo(info)
+    view?.setInfo(info)
     viewController.goBack()
   }
 
