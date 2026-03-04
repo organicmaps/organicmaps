@@ -137,14 +137,13 @@ UNIT_TEST(GetTtsTextTest)
 
 UNIT_TEST(EndsInAcronymOrNumTest)
 {
-  // actual JSON doesn't matter for this test
-  string const huShortJson =
-      R"({
-      "in_300_meters":"Háromszáz méter után"
-      })";
-
-  GetTtsText getTtsText;
-  getTtsText.ForTestingSetLocaleWithJson(huShortJson, "hu");
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("")), false, ());
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString(" ")), false, ());
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("Main ")), false, ());
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("MAIN ")), false, ());
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("5")), true, ());
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("M")), true, ());
+  TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("m")), false, ());
   TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("Main Street")), false, ());
   TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("Main STREET")), true, ());
   TEST_EQUAL(EndsInAcronymOrNum(strings::MakeUniString("Highway A")), true, ());

@@ -1473,7 +1473,6 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input, 
   for (size_t startLeapEnd : arrBeg)
     for (size_t finishLeapStart : arrEnd)
     {
-      dropFirstSegment = false;
       size_t maxStart = 0;
 
       auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode)
