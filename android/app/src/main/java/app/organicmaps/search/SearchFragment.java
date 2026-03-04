@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -83,19 +82,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                                 activityResult -> { mToolbarController.onVoiceRecognitionResult(activityResult); });
-  private final OnBackPressedCallback mOnBackPressedCallback = new OnBackPressedCallback(true) {
-    @Override
-    public void handleOnBackPressed()
-    {
-      if (!onBackPressed())
-      {
-        // Temporarily disable this callback and re-dispatch the back press to let activity handle it
-        setEnabled(false);
-        requireActivity().getOnBackPressedDispatcher().onBackPressed();
-        setEnabled(true);
-      }
-    }
-  };
   private final Observer<Boolean> mSearchEnabledObserver = new Observer<>() {
     public void onChanged(Boolean enabled)
     {
@@ -238,7 +224,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
     mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
-    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), mOnBackPressedCallback);
 
     mSearchFragmentListener = (SearchFragmentListener) getParentFragment();
 
@@ -566,10 +551,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
-      return true;
     }
 
-    return mSearchFragmentListener.getBackPressedCallback();
+    return false;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
@@ -635,7 +619,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   interface SearchFragmentListener
   {
-    boolean getBackPressedCallback();
     void onSearchClicked();
   }
 
@@ -786,8 +769,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     @Override
     public void onUpClick()
     {
-      if (!onBackPressed())
-        super.onUpClick();
+      requireActivity().onBackPressed();
     }
 
     @Override

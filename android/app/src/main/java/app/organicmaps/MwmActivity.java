@@ -113,6 +113,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.FloatingSearchToolbarController;
 import app.organicmaps.search.SearchFragment;
+import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.SettingsActivity;
@@ -199,6 +200,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private WindowInsetsCompat mCurrentWindowInsets;
+
+  @Nullable
+  private SearchFragmentController mSearchFragmentController;
 
   @Nullable
   private Dialog mLocationErrorDialog;
@@ -389,6 +393,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.replaceFragment(fragmentClass, args, null);
   }
 
+  public boolean closeSearchFragment()
+  {
+    if (mSearchFragmentController != null)
+      return mSearchFragmentController.onBackPressed();
+
+    Fragment f = getSupportFragmentManager().findFragmentById(R.id.search_container_fragment);
+    if (f instanceof SearchFragmentController controller)
+    {
+      mSearchFragmentController = controller;
+      return controller.onBackPressed();
+    }
+
+    return false;
+  }
+
   @Override
   public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args,
                               @Nullable Runnable completionListener)
@@ -418,14 +437,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeSearchToolbar(false, true);
     mSearchPageViewModel.setSearchEnabled(true, query);
-  }
-
-  public void closeSearchPage()
-  {
-    closeSearchToolbar(true, true);
-    mSearchPageViewModel.setHiddenByPlacePage(false);
-    mSearchPageViewModel.setSearchPageLastState(BottomSheetBehavior.STATE_HIDDEN);
-    mSearchPageViewModel.setSearchEnabled(false, null);
   }
 
   // used by deep links, e.g. from the search widget
@@ -523,6 +534,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
+
+    Fragment f = getSupportFragmentManager().findFragmentById(R.id.search_container_fragment);
+    if (f instanceof SearchFragmentController)
+      mSearchFragmentController = (SearchFragmentController) f;
+
     makeNavigationBarTransparentInLightMode();
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
@@ -857,7 +873,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsTabletLayout)
       return;
 
-    closeSearchPage();
+    closeSearchFragment();
     closePlacePage();
     removeCurrentFragment(true);
   }
@@ -906,7 +922,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeBottomSheet(LAYERS_MENU_ID);
     closeBottomSheet(MAIN_MENU_ID);
-    closeSearchPage();
+    closeSearchFragment();
     closePlacePage();
   }
 
@@ -932,7 +948,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().prepare(startPoint, endPoint);
 
     // TODO: check for tablet.
-    closeSearchPage();
+    closeSearchFragment();
     closePlacePage();
   }
 
@@ -1157,7 +1173,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController routingController = RoutingController.get();
     if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !collapseNavMenu() && !closePlacePage()
-        && !closeSearchToolbar(true, true) && !closeSidePanel() && !closePositionChooser()
+        && !closeSearchToolbar(true, true) && !closeSidePanel() && !closePositionChooser() && !closeSearchFragment()
         && !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
     {
       try
@@ -1625,14 +1641,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onAddedStop()
   {
-    closeSearchPage();
+    closeSearchFragment();
     closePlacePage();
   }
 
   @Override
   public void onRemovedStop()
   {
-    closeSearchPage();
+    closeSearchFragment();
     closePlacePage();
   }
 
@@ -2381,7 +2397,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType)
   {
-    closeSearchPage();
+    closeSearchFragment();
     closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();

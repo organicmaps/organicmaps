@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
@@ -106,6 +107,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
             if (mViewModel.isHiddenByPlacePage())
             {
               mViewModel.setHiddenByPlacePage(false);
+              mViewModel.setSearchEnabled(false, null);
             }
             else if (mPlacePageViewModel.getMapObject().getValue() == null)
             {
@@ -285,7 +287,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     {
       fm.beginTransaction()
           .setReorderingAllowed(true)
-          .addToBackStack(null)
           .replace(R.id.search_fragment, SearchFragment.class, null, SEARCH_FRAGMENT_TAG)
           .commit();
     }
@@ -395,16 +396,17 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     };
   }
 
-  @Override
-  public boolean getBackPressedCallback()
+  public boolean onBackPressed()
   {
-    // If search page is visible, hide it and consume the back press
+    Fragment fragment = getChildFragmentManager().findFragmentByTag(SEARCH_FRAGMENT_TAG);
+    if (fragment instanceof SearchFragment searchFragment && searchFragment.onBackPressed())
+      return true;
+
     if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
     {
       mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
       return true;
     }
-    // Search page is already hidden, let activity handle the back press
     return false;
   }
 
