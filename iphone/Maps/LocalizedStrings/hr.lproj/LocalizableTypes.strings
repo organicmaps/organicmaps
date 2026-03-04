@@ -66,15 +66,15 @@
 "type.amenity.driving_school" = "Driving School";
 "type.amenity.exhibition_centre" = "Exhibition Center";
 "type.amenity.money_transfer" = "Money Transfer";
-"type.amenity.music_school" = "Music School";
-"type.amenity.language_school" = "Language School";
-"type.office.diplomatic" = "Embassy";
-"type.amenity.fast_food" = "Fast Food";
-"type.amenity.ferry_terminal" = "Ferry";
-"type.amenity.fire_station" = "Fire Station";
+"type.amenity.music_school" = "Muzička škola";
+"type.amenity.language_school" = "Jezična škola";
+"type.office.diplomatic" = "Ambasada";
+"type.amenity.fast_food" = "Fast food";
+"type.amenity.ferry_terminal" = "Trajekt";
+"type.amenity.fire_station" = "Vatrogasna stanica";
 "type.amenity.food_court" = "Food Court";
-"type.amenity.fountain" = "Fountain";
-"type.amenity.fuel" = "Gas Station";
+"type.amenity.fountain" = "Fontana";
+"type.amenity.fuel" = "Benzinska stanica";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Groblje";
@@ -1270,8 +1270,8 @@
 "type.railway.tram.bridge" = "Tram Line Bridge";
 "type.railway.tram.tunnel" = "Tram Line Tunnel";
 "type.railway.tram_stop" = "Tram Stop";
-"type.route" = "Route";
-"type.route.ferry" = "Ferry";
+"type.route" = "Ruta";
+"type.route.ferry" = "Trajekt";
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Shop";
 "type.shop.alcohol" = "Liquor Shop";

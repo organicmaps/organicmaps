@@ -595,7 +595,7 @@
     <string name="type.historic.wayside_cross">路旁十字架</string>
     <string name="type.historic.wayside_shrine">路旁神龕</string>
     <string name="type.historic.wreck">沉船</string>
-    <string name="type.internet_access">互聯網</string>
+    <string name="type.internet_access">網際網路</string>
     <string name="type.internet_access.wlan">無線網路</string>
     <string name="type.junction">交叉口</string>
     <string name="type.junction.circular">環形交叉口</string>
