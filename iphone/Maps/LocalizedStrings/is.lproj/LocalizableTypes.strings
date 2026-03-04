@@ -1030,7 +1030,7 @@
 "type.railway.station.light_rail" = "Léttlestarstöð";
 "type.railway.station.light_rail.berlin" = "S-Bahn stöð";
 "type.railway.station.light_rail.london" = "Lestarstöð (DLR)";
-"type.railway.station.light_rail.porto" = "Neðanjarðarlestarstöð (PM)";
+"type.railway.station.light_rail.porto" = "Lestarstöð (PM)";
 "type.railway.station.monorail" = "Einteinungslestarstöð";
 "type.railway.station.subway" = "Neðanjarðarlestarstöð";
 "type.railway.station.subway.adana" = "Neðanjarðarlestarstöð";

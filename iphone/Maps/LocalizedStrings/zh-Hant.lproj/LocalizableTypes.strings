@@ -708,7 +708,7 @@
 
 /* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-"type.internet_access" = "互聯網";
+"type.internet_access" = "網際網路";
 "type.internet_access.wlan" = "無線網路";
 "type.junction" = "交叉口";
 "type.junction.circular" = "環形交叉口";
