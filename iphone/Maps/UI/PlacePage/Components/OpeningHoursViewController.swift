@@ -73,9 +73,11 @@ class OpeningHoursViewController: UIViewController {
       addToStack(vc)
     }
 
-    todayView.onExpand = { [unowned self] in
-      expanded = !expanded
-      UIView.animate(withDuration: kDefaultAnimationDuration) {
+    todayView.onExpand = { [weak self] in
+      guard let self else { return }
+      self.expanded.toggle()
+      UIView.animate(withDuration: kDefaultAnimationDuration) { [weak self] in
+        guard let self else { return }
         for vc in self.otherDaysViews {
           vc.view.isHidden = !self.expanded
         }
