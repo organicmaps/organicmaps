@@ -57,7 +57,9 @@
     auto const color = track.GetColor(0);
     _color = [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:1.f];
 
-    _trackDescription = [NSString stringWithCString:track.GetDescription().c_str() encoding:NSUTF8StringEncoding];
+    auto trackDesc = track.GetDescription();
+    _trackDescription = [NSString stringWithCString:trackDesc.c_str() encoding:NSUTF8StringEncoding];
+    _isHtmlDescription = strings::IsHTML(trackDesc);
     _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track.GetStatistics()];
     _activePointDistance = bm.GetElevationActivePoint(_trackId);
     _myPositionDistance = bm.GetElevationMyPosition(_trackId);
