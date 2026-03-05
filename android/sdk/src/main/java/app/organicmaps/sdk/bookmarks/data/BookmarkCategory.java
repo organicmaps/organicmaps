@@ -255,7 +255,7 @@ public final class BookmarkCategory implements Parcelable
 
   private static native void nativeSetCategoryBookmarksColor(long catId, @PredefinedColors.Color int colorIndex);
   private static native void nativeSetCategoryDefaultColor(long catId, @PredefinedColors.Color int colorIndex);
-  private static native int nativeGetCategoryDefaultColor(long catId);  // returns -1 if not set
+  private static native int nativeGetCategoryDefaultColor(long catId); // returns -1 if not set
   private static native long nativeGetBookmarkIdByPosition(long catId, int position);
   private static native long nativeGetTrackIdByPosition(long catId, int position);
 

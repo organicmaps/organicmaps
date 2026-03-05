@@ -213,24 +213,25 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nat
   return jTypes;
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryBookmarksColor(JNIEnv *, jclass,
-                                                                                                    jlong catId,
-                                                                                                    jint colorIndex)
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryBookmarksColor(JNIEnv *,
+                                                                                                        jclass,
+                                                                                                        jlong catId,
+                                                                                                        jint colorIndex)
 {
   auto const color = kml::kOrderedPredefinedColors[colorIndex];
   frm()->GetBookmarkManager().GetEditSession().SetCategoryBookmarksColor(static_cast<kml::MarkGroupId>(catId), color);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryDefaultColor(JNIEnv *, jclass,
-                                                                                                       jlong catId,
-                                                                                                       jint colorIndex)
+                                                                                                      jlong catId,
+                                                                                                      jint colorIndex)
 {
-  frm()->GetBookmarkManager().GetEditSession().SetCategoryCustomProperty(
-      static_cast<kml::MarkGroupId>(catId), "default_color", std::to_string(colorIndex));
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryCustomProperty(static_cast<kml::MarkGroupId>(catId),
+                                                                         "default_color", std::to_string(colorIndex));
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeGetCategoryDefaultColor(JNIEnv *, jclass,
-                                                                                                       jlong catId)
+                                                                                                      jlong catId)
 {
   auto const colorIndex = GetCategoryDefaultColorIndex(static_cast<kml::MarkGroupId>(catId));
   return colorIndex ? static_cast<jint>(*colorIndex) : -1;

@@ -3657,10 +3657,8 @@ void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId gr
 {
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
   for (auto const markId : markIds)
-  {
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
       bm->SetColor(color);
-  }
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
