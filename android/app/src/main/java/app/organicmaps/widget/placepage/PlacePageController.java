@@ -113,16 +113,20 @@ public class PlacePageController
     private void onScreenFilled()
     {
       UiUtils.show(mPlacePageStatusBarBackground);
-      MaterialShapeDrawable bg = (MaterialShapeDrawable) mPlacePage.getBackground();
-      mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
-      bg.setCornerSize(0);
+      // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
+      if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
+      {
+        mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
+        bg.setCornerSize(0);
+      }
     }
 
     private void onScreenUnfilled()
     {
       UiUtils.hide(mPlacePageStatusBarBackground);
-      MaterialShapeDrawable bg = (MaterialShapeDrawable) mPlacePage.getBackground();
-      bg.setCornerSize(mPlacePageCornerRadius);
+      // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
+      if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
+        bg.setCornerSize(mPlacePageCornerRadius);
     }
   };
 
