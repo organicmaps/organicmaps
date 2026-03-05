@@ -265,7 +265,7 @@ private:
   std::string m_address;
 
   /// Routing
-  RouteMarkType m_routeMarkType;
+  RouteMarkType m_routeMarkType = RouteMarkType::Start;
   size_t m_intermediateIndex = 0;
   bool m_isRoutePoint = false;
 

@@ -116,8 +116,7 @@ public:
 
   InAppFeatureHighlightRequest const & GetInAppFeatureHighlightRequest() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Menu, ("Expected Menu API"));
-    ASSERT_EQUAL(m_requestType, UrlType::Settings, ("Expected Settings API"));
+    ASSERT(m_requestType == UrlType::Menu || m_requestType == UrlType::Settings, ("Expected Menu or Settings API"));
     return m_inAppFeatureHighlightRequest;
   }
 
@@ -128,7 +127,7 @@ private:
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);
 
-  UrlType m_requestType;
+  UrlType m_requestType = UrlType::Incorrect;
   std::vector<MapPoint> m_mapPoints;
   std::vector<RoutePoint> m_routePoints;
   SearchRequest m_searchRequest;

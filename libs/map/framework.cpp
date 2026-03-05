@@ -579,7 +579,7 @@ void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info 
 {
   // Convert indices to sorted classifier types.
   Classificator const & cl = classif();
-  buffer_vector<uint8_t, 8> types;
+  buffer_vector<uint32_t, 8> types;
   for (uint32_t i : bmk.GetData().m_featureTypes)
     types.push_back(cl.GetTypeForIndex(i));
   std::sort(types.begin(), types.end());

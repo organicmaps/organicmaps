@@ -31,8 +31,8 @@ public:
   void AddPoints(std::vector<location::GpsInfo> const & points);
 
   /// Returns track statistics
-  TrackStatistics GetTrackStatistics();
-  ElevationInfo const & GetElevationInfo();
+  TrackStatistics GetTrackStatistics() const;
+  ElevationInfo const & GetElevationInfo() const;
 
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.
@@ -94,7 +94,7 @@ private:
   std::unique_ptr<GpsTrackCollection> m_collection;  // used in the worker thread
   std::unique_ptr<IGpsTrackFilter> m_filter;         // used in the worker thread
 
-  std::mutex m_threadGuard;
+  mutable std::mutex m_threadGuard;
   threads::SimpleThread m_thread;
   bool m_threadExit;    // need exit thread
   bool m_threadWakeup;  // need wakeup thread
