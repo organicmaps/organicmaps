@@ -8,8 +8,6 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "coding/string_utf8_multilang.hpp"
-
 #include "geometry/point2d.hpp"
 
 namespace routing
@@ -22,7 +20,7 @@ namespace
 {
 bool IsFakeFeature(uint32_t featureId)
 {
-  return routing::FakeFeatureIds::IsGuidesFeature(featureId) || routing::FakeFeatureIds::IsTransitFeature(featureId);
+  return FakeFeatureIds::IsGuidesFeature(featureId) || FakeFeatureIds::IsTransitFeature(featureId);
 }
 
 feature::Metadata::EType GetLanesMetadataTag(FeatureType & ft, bool isForward)
@@ -213,7 +211,7 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const 
 
     if (!segmentRange.IsEmpty())
     {
-      /// @todo By VNG: Here was mostly investigational CHECK.
+      /// @todo Controversial CHECK here.
       /// Entry already exists, when start-end points are on the same fake segments.
 
       // bool const isEmpty = adjacentEdges.m_outgoingTurns.candidates.empty();
@@ -334,13 +332,14 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     CHECK_EQUAL(loadedSegment.m_segments.size() + 1, loadedSegment.m_path.size(), ());
 
     auto rni = loadedSegment.m_roadNameInfo;
+    ASSERT_EQUAL(rni.m_isLink, loadedSegment.m_isLink, ());
 
     for (size_t i = 0; i < loadedSegment.m_segments.size() - 1; ++i)
     {
       auto const & junction = loadedSegment.m_path[i + 1];
       routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, rni);
       if (i == 0)
-        rni = {"", "", "", "", "", loadedSegment.m_isLink};
+        rni.ClearUselessStringsForTailSegments();
     }
 
     // For the last segment of current loadedSegment put info about turn

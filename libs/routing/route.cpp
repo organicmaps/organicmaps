@@ -37,6 +37,31 @@ std::string DebugPrint(RouteSegment::SpeedCamera const & rhs)
   return "SpeedCamera{ " + std::to_string(rhs.m_coef) + ", " + std::to_string(int(rhs.m_maxSpeedKmPH)) + " }";
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+// RouteSegment implementation
+
+bool RouteSegment::IsSegregatedTurn(RouteSegment const & from) const
+{
+  // Treat 'from' -> this turn is segregated candidate when (distance is checked by a caller):
+  // - "st A" -> "st A" or
+  // - Any -> unnamed link
+
+  if (!m_roadNameInfo.m_name.empty())
+    return m_roadNameInfo.m_name == from.m_roadNameInfo.m_name;
+  else
+    return m_roadNameInfo.m_isLink;
+}
+
+void RouteSegment::MergeLanes(RouteSegment & from)
+{
+  /// @todo Keep 'from' lanes now. Probably, can move and clear.
+  if (m_turn.m_lanes.empty())
+    m_turn.m_lanes = from.m_turn.m_lanes;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+// Route implementation
+
 Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId, string const & name)
   : m_router(router)
   , m_routingSettings(GetRoutingSettings(VehicleType::Car))

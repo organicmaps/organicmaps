@@ -13,6 +13,7 @@ namespace turn_test
 {
 using namespace routing;
 using namespace routing::turns;
+using mercator::FromLatLon;
 
 // Secondary should be preferred against residential.
 UNIT_TEST(StPetersburg_SideRoadPenalty_TurnTest)
@@ -213,9 +214,6 @@ UNIT_TEST(Russia_Moscow_PankratevskiPerBolshaySuharedskazPloschad_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-
-  std::vector<turns::TurnItem> t;
-  route.GetTurnsForTesting(t);
 
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
@@ -1332,6 +1330,59 @@ UNIT_TEST(Integrated_TurnTest_IncludeServiceRoads)
         .TestValid()
         .TestDirection(CarDirection::EnterRoundAbout)
         .TestRoundAboutExitNum(s.expectedTurns);
+  }
+}
+
+// https://github.com/organicmaps/organicmaps/issues/4995
+// https://github.com/organicmaps/organicmaps/issues/5550
+// https://github.com/organicmaps/organicmaps/issues/12157
+UNIT_TEST(Segregated_MergeLeftRightTurns)
+{
+  using namespace integration;
+
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(53.1479261, 17.9194564),
+                                            {0., 0.}, FromLatLon(53.1476234, 17.9195743));
+
+    Route const & route = *res.first;
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+    TestRouteLength(route, 45.7564);
+
+    /// @todo Test lanes not empty.
+    TestTurns(route, {CarDirection::TurnLeft});
+  }
+
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(37.8091116, -25.5111863),
+                                            {0., 0.}, FromLatLon(37.8090523, -25.5139834));
+
+    Route const & route = *res.first;
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+    TestRouteLength(route, 280);
+
+    TestTurns(route, {CarDirection::TurnLeft});
+  }
+
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(51.5018933, -0.1598251),
+                                            {0., 0.}, FromLatLon(51.5016967, -0.1620895));
+
+    Route const & route = *res.first;
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+    TestRouteLength(route, 163.263);
+
+    TestTurns(route, {CarDirection::TurnSlightRight});
+  }
+
+  {
+    TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car), FromLatLon(51.5018933, -0.1598251),
+                                            {0., 0.}, FromLatLon(51.5011827, -0.1615441));
+
+    Route const & route = *res.first;
+    TEST_EQUAL(res.second, RouterResultCode::NoError, ());
+    TestRouteLength(route, 146.44);
+
+    TestTurns(route, {CarDirection::TurnSlightLeft});
   }
 }
 
