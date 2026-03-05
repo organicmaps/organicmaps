@@ -1,95 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:orientation="vertical"
-  android:layout_height="wrap_content">
-
-  <include layout="@layout/place_page_shadow_gap" />
-
-  <RelativeLayout
-    android:id="@+id/oh_container"
-    android:visibility="visible"
-    style="@style/PlacePageItemFrame">
-
-    <ImageView
-      android:id="@+id/icon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/margin_base"
-      android:layout_marginTop="@dimen/margin_quarter"
-      app:srcCompat="@drawable/ic_operating_hours"
-      app:tint="?iconTint" />
-
-    <TextView
-      android:id="@+id/oh_today_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
-      android:layout_marginBottom="0dp"
-      android:layout_toEndOf="@id/icon"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage"
-      tools:text="@string/today"
-      android:text="@string/today"
-      tools:visibility="visible" />
-
-    <TextView
-      android:id="@+id/oh_today_open_time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
-      android:layout_marginEnd="4dp"
-      android:layout_toStartOf="@+id/dropdown_icon"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage"
-      android:layout_toEndOf="@id/oh_today_label"
-      tools:text="@string/twentyfour_seven"
-      android:text="@string/twentyfour_seven"
-      android:textAlignment="viewEnd"
-      tools:visibility="visible" />
-
-    <ImageView
-      android:id="@+id/dropdown_icon"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:layout_alignParentEnd="true"
-      android:layout_marginTop="1dp"
-      android:layout_marginEnd="@dimen/neg_margin_quarter"
-      app:srcCompat="@drawable/ic_down"
-      app:tint="?iconTint"
-      tools:visibility="visible" />
-
-    <TextView
-      android:id="@+id/oh_nonbusiness_time"
-      android:layout_height="wrap_content"
-      android:layout_width="wrap_content"
-      android:layout_below="@id/oh_today_label"
-      android:layout_alignStart="@id/oh_today_label"
-      android:layout_alignEnd="@id/oh_today_open_time"
-      android:layout_alignParentEnd="false"
-      android:textAlignment="viewEnd"
-      android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:visibility="gone"
-      tools:visibility="visible" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rw__full_opening_hours"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignStart="@id/oh_nonbusiness_time"
-      android:layout_below="@id/oh_nonbusiness_time"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      android:layout_marginTop="8dp"/>
-
-  </RelativeLayout>
-
-  <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-  </LinearLayout>
+    <include layout="@layout/place_page_shadow_gap" />
 
+    <RelativeLayout
+        android:id="@+id/oh_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:minHeight="0dp"
+        android:paddingBottom="0dp"
+        style="@style/PlacePageItemFrame">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:layout_marginTop="@dimen/margin_quarter"
+            app:srcCompat="@drawable/ic_operating_hours"
+            app:tint="?iconTint" />
+
+        <ImageView
+            android:id="@+id/dropdown_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="@dimen/neg_margin_quarter"
+            app:srcCompat="@drawable/ic_down"
+            app:tint="?iconTint"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/header_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/icon"
+            android:layout_toStartOf="@id/dropdown_icon"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <TextView
+                android:id="@+id/oh_today_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="start|top"
+                android:textAppearance="@style/MwmTextAppearance.PlacePage"
+                android:text="@string/today"
+                tools:text="@string/today"
+                tools:visibility="visible"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight ="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/oh_today_open_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|top"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/MwmTextAppearance.PlacePage"
+                    android:text="@string/twentyfour_seven"
+                    tools:text="11:00 AM - 02:00 PM"
+                    tools:visibility="visible"/>
+                <TextView
+                    android:id="@+id/oh_nonbusiness_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|top"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/MwmTextAppearance.Body4"
+                    tools:text="05:30 PM - 10:00 PM"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rw__full_opening_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_container"
+            android:layout_alignStart="@id/header_container"
+            android:layout_toStartOf="@id/dropdown_icon"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="0dp"
+            android:layout_marginBottom="-50dp" />
+    </RelativeLayout>
 </LinearLayout>
