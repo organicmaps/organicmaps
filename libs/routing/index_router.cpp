@@ -423,9 +423,8 @@ uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const &
       continue;
 
     bool foundSegmentsForProjection = false;
-    for (size_t i = 0; i < osmConnections.size(); ++i)
+    for (auto & link : osmConnections)
     {
-      auto & link = osmConnections[i];
       geometry::PointWithAltitude const & proj = link.m_projectedPoint;
 
       auto const & segmentsProj = GetBestOutgoingSegments(proj.GetPoint(), graph);
@@ -1131,7 +1130,7 @@ void IndexRouter::PointsOnEdgesSnapping::FillDeadEndsCache(m2::PointD const & po
   m_deadEnds[0].clear();
   EraseIfDeadEnd(point, closestRoads, m_deadEnds[0]);
 
-  vector<EdgeProjectionT> candidates;
+  std::vector<EdgeProjectionT> candidates;
   m_deadEnds[1].clear();
   RoadsToNearestEdges(point, closestRoads, [this](EdgeProjectionT const & proj)
   {

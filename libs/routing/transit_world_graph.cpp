@@ -15,7 +15,7 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, un
   : m_crossMwmGraph(std::move(crossMwmGraph))
   , m_indexLoader(std::move(indexLoader))
   , m_transitLoader(std::move(transitLoader))
-  , m_estimator(estimator)
+  , m_estimator(std::move(estimator))
 {
   CHECK(m_indexLoader, ());
   CHECK(m_transitLoader, ());

@@ -2,7 +2,6 @@
 #include "base/string_utils.hpp"
 #include "unicode/uchar.h"
 
-#include <regex>
 #include <string>
 
 namespace routing::turns::sound
@@ -33,22 +32,16 @@ bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
   if (myUniStr.empty())
     return false;
 
-  bool allUppercaseNum = true;
-  strings::UniString lowerStr = strings::MakeLowerCase(myUniStr);
-  for (long i = myUniStr.size() - 1; i > 0; i--)
+  size_t capitalCharsCount = 0;
+  for (size_t i = myUniStr.size(); i-- > 0;)
   {
-    // if we've reached a space, we're done here
-    if (myUniStr[i] == ' ')
+    if (strings::IsASCIISpace(myUniStr[i]))
       break;
-    // we've found a char that is already lowercase and not a number,
-    // therefore the string is not exclusively uppercase/numeric
-    else if (myUniStr[i] == lowerStr[i] && !u_isdigit(myUniStr[i]))
-    {
-      allUppercaseNum = false;
-      break;
-    }
+    if (!u_isupper(myUniStr[i]) && !u_isdigit(myUniStr[i]))
+      return false;
+    capitalCharsCount++;
   }
-  return allUppercaseNum;
+  return capitalCharsCount > 0;
 }
 
 uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianString)
@@ -137,32 +130,28 @@ uint8_t CategorizeHungarianLastWordVowels(std::string const & hungarianString)
   if (EndsInAcronymOrNum(myUniStr))
     return CategorizeHungarianAcronymsAndNumbers(hungarianString);
 
-  bool foundIndeterminate = false;
   strings::MakeLowerCaseInplace(myUniStr);  // this isn't an acronym, so match based on lowercase
 
-  std::u32string_view constexpr front{U"eéöőüű"};
-  std::u32string_view constexpr back{U"aáoóuú"};
-  std::u32string_view constexpr indeterminate{U"ií"};
+  std::u32string_view constexpr kFront{U"eéöőüű"};
+  std::u32string_view constexpr kBack{U"aáoóuú"};
+  std::u32string_view constexpr kIndeterminate{U"ií"};
 
-  // find last vowel in last word
-  for (size_t i = myUniStr.size() - 1; i > 0; i--)
+  bool foundIndeterminate = false;
+  for (size_t i = myUniStr.size(); i-- > 0;)
   {
-    if (front.find(myUniStr[i]) != std::string::npos)
+    auto const ch = myUniStr[i];
+    if (kFront.find(ch) != std::u32string_view::npos)
       return 1;
-    if (back.find(myUniStr[i]) != std::string::npos)
+    if (kBack.find(ch) != std::u32string_view::npos)
       return 2;
-    if (indeterminate.find(myUniStr[i]) != std::string::npos)
+    if (kIndeterminate.find(ch) != std::u32string_view::npos)
       foundIndeterminate = true;
-    // if we've hit a space with only indeterminates, it's back
-    if (myUniStr[i] == U' ' && foundIndeterminate == true)
-      return 2;
-    // if we've hit a space with no vowels at all, check for numbers and acronyms
-    if (myUniStr[i] == U' ' && foundIndeterminate == false)
-      return CategorizeHungarianAcronymsAndNumbers(hungarianString);
+    if (ch == U' ')
+      return foundIndeterminate ? 2 : CategorizeHungarianAcronymsAndNumbers(hungarianString);
   }
-  // if we got here, are we even reading Hungarian words?
+
   LOG(LWARNING, ("Hungarian word not found:", hungarianString));
-  return 2;  // default
+  return 2;
 }
 
 }  // namespace routing::turns::sound

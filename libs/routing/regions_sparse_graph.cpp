@@ -97,7 +97,7 @@ void RegionsSparseGraph::GetEdgeList(Segment const & segment, bool isOutgoing, E
 
   for (auto const & id : it->second)
   {
-    auto const outData = GetDataById(id);
+    auto const & outData = GetDataById(id);
     if (id == segment.GetFeatureId())
       continue;
     LatLonWithAltitude const segFront = segment.IsForward() ? outData.m_end.m_point : outData.m_start.m_point;

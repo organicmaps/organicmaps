@@ -1,6 +1,7 @@
 #pragma once
 
 #include "coding/bit_streams.hpp"
+#include "coding/writer.hpp"
 
 #include "base/checked_cast.hpp"
 #include "base/stl_helpers.hpp"
@@ -118,10 +119,13 @@ private:
 
   bool IsTwentyFourHourRule(osmoh::RuleSequence const & rule) const;
 
+  /// Writes pre-decomposed and validated rules. Extracted from SerializeImpl to avoid
+  /// calling the expensive DecomposeOh twice (once for trial serialization, once for real).
   template <typename Writer>
-  bool SerializeImpl(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours);
+  bool WriteDecomposedRules(BitWriter<Writer> & writer, std::vector<osmoh::RuleSequence> const & decomposedRules);
 
-  bool IsSerializable(osmoh::OpeningHours const & openingHours);
+  /// Decomposes and validates opening hours rules. Returns empty vector on failure.
+  std::vector<osmoh::RuleSequence> DecomposeAndValidate(osmoh::OpeningHours const & openingHours);
 
   std::vector<osmoh::RuleSequence> DecomposeOh(osmoh::OpeningHours const & oh);
   Header CreateHeader(osmoh::RuleSequence const & rule) const;
@@ -168,10 +172,20 @@ OpeningHoursSerDes::Header OpeningHoursSerDes::Header::Deserialize(BitReader<Rea
 template <typename Writer>
 bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
 {
-  if (!IsSerializable(openingHours))
+  auto decomposedRules = DecomposeAndValidate(openingHours);
+  if (decomposedRules.empty())
     return false;
 
-  return SerializeImpl(writer, openingHours);
+  // Trial serialize to catch per-rule failures without corrupting the real writer.
+  {
+    std::vector<uint8_t> buffer;
+    MemWriter memWriter(buffer);
+    BitWriter tmpWriter(memWriter);
+    if (!WriteDecomposedRules(tmpWriter, decomposedRules))
+      return false;
+  }
+
+  return WriteDecomposedRules(writer, decomposedRules);
 }
 
 template <typename Writer>
@@ -185,20 +199,9 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, std::string const
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::SerializeImpl(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
+bool OpeningHoursSerDes::WriteDecomposedRules(BitWriter<Writer> & writer,
+                                              std::vector<osmoh::RuleSequence> const & decomposedRules)
 {
-  CheckSupportedFeatures();
-
-  std::vector<osmoh::RuleSequence> decomposedRules = DecomposeOh(openingHours);
-  if (decomposedRules.empty())
-    return false;
-
-  if (!m_serializeEverything && !HaveSameHeaders(decomposedRules))
-    return false;
-
-  if (decomposedRules.size() > kMaxRulesCount)
-    return false;
-
   auto const rulesCount = base::checked_cast<uint8_t>(decomposedRules.size());
   writer.Write(rulesCount /* bits */, 8 /* bitsNumber */);
 

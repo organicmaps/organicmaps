@@ -121,6 +121,7 @@ struct RestrictionHeader
 
   uint16_t m_version;
   uint16_t m_reserved;
+  // TODO(AB): Use std::array for 4 types of restrictions.
   std::unordered_map<Restriction::Type, uint32_t> m_restrictionCount;
 };
 
@@ -285,6 +286,7 @@ private:
   static void DeserializeUTurn(uint32_t count, std::vector<RestrictionUTurn> & result, Source & src)
   {
     uint32_t prevFeatureId = 0;
+    result.reserve(count);
     for (size_t i = 0; i < count; ++i)
     {
       uint32_t currentFeatureId = 0;

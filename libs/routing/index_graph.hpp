@@ -15,7 +15,7 @@
 #include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 
-#include "geometry/point2d.hpp"
+#include "base/buffer_vector.hpp"
 
 #include <memory>
 #include <optional>
