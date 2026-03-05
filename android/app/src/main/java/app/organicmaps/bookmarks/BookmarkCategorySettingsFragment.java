@@ -21,12 +21,14 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
-public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
+public class BookmarkCategorySettingsFragment
+    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
 
@@ -108,6 +110,9 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     });
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
+
+    View colorRow = root.findViewById(R.id.color_row);
+    colorRow.setOnClickListener(v -> showColorPicker());
   }
 
   private void onEditDoneClicked()
@@ -178,5 +183,20 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     textView.getEditableText().clear();
     textView.requestFocus();
     InputUtils.showKeyboard(textView);
+  }
+
+  private void showColorPicker()
+  {
+    final Bundle args = new Bundle();
+    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
+    dialogFragment.setArguments(args);
+    dialogFragment.show(getChildFragmentManager(), BookmarkColorDialogFragment.class.getName());
+  }
+
+  @Override
+  public void onBookmarkColorSet(int color)
+  {
+    mCategory.setCategoryColor(color);
   }
 }

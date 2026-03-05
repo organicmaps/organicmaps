@@ -537,6 +537,24 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return mSearchResults != null;
   }
 
+  int getPositionById(long id, int type)
+  {
+    final int itemCount = getItemCount();
+    for (int position = 0; position < itemCount; position++)
+    {
+      final int itemType = getItemViewType(position);
+      if (itemType != type)
+        continue;
+
+      final SectionPosition pos = getSectionPosition(position);
+      if (type == TYPE_BOOKMARK && mSectionsDataSource.getBookmarkId(pos) == id)
+        return position;
+      if (type == TYPE_TRACK && mSectionsDataSource.getTrackId(pos) == id)
+        return position;
+    }
+    return -1;
+  }
+
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_DESC)

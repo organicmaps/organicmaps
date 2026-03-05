@@ -368,7 +368,7 @@ public class Holders
 
     public void setBookmarkIconClickListener(IconClickListener listener)
     {
-      mIcon.setOnClickListener(v -> listener.onItemClick((ImageView) v, getBindingAdapterPosition()));
+      mIcon.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
     }
   }
 
@@ -414,7 +414,7 @@ public class Holders
 
     public void setTrackIconClickListener(IconClickListener listener)
     {
-      mIcon.setOnClickListener(v -> listener.onItemClick((ImageView) v, getBindingAdapterPosition()));
+      mIcon.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
     }
   }
 

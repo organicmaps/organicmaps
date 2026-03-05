@@ -86,7 +86,8 @@ import java.util.List;
 public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
                ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener
+               MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener,
+               BookmarkColorDialogFragment.OnBookmarkColorChangeListener
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
@@ -544,45 +545,53 @@ public class PlacePageView extends Fragment
   {
     final Bundle args = new Bundle();
     final FragmentManager manager = getChildFragmentManager();
-    String className = BookmarkColorDialogFragment.class.getName();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    final BookmarkColorDialogFragment dialogFragment =
-        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
-    dialogFragment.setArguments(args);
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
 
     if (mMapObject.isTrack())
     {
       final Track track = (Track) mMapObject;
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(track.getColor()));
-      dialogFragment.setOnColorSetListener((colorPos) -> {
-        int from = track.getColor();
-        int to = PredefinedColors.getColor(colorPos);
-        if (from == to)
-          return;
-        track.setColor(to);
-        Drawable circle =
-            Graphics.drawCircle(to, R.dimen.place_page_icon_background_size, requireContext().getResources());
-        mColorIcon.setImageDrawable(circle);
-      });
-      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
     }
     else if (mMapObject.isBookmark())
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
-      dialogFragment.setOnColorSetListener((colorPos) -> {
-        int from = bookmark.getIcon().argb();
-        int to = PredefinedColors.getColor(colorPos);
-        if (from == to)
-          return;
-        bookmark.setIconColor(to);
-        Drawable circle =
-            Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
-                                        R.dimen.place_page_icon_size, requireContext());
-        mColorIcon.setImageDrawable(circle);
-      });
-      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
+    }
+
+    dialogFragment.setArguments(args);
+    dialogFragment.show(manager, null);
+  }
+
+  @Override
+  public void onBookmarkColorSet(int colorPos)
+  {
+    if (mMapObject == null)
+      return;
+    if (mMapObject.isTrack())
+    {
+      final Track track = (Track) mMapObject;
+      int from = track.getColor();
+      int to = PredefinedColors.getColor(colorPos);
+      if (from == to)
+        return;
+      track.setColor(to);
+      Drawable circle =
+          Graphics.drawCircle(to, R.dimen.place_page_icon_background_size, requireContext().getResources());
+      mColorIcon.setImageDrawable(circle);
+    }
+    else if (mMapObject.isBookmark())
+    {
+      final Bookmark bookmark = (Bookmark) mMapObject;
+      int from = bookmark.getIcon().argb();
+      int to = PredefinedColors.getColor(colorPos);
+      if (from == to)
+        return;
+      bookmark.setIconColor(to);
+      Drawable circle =
+          Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
+                                      R.dimen.place_page_icon_size, requireContext());
+      mColorIcon.setImageDrawable(circle);
     }
   }
 
