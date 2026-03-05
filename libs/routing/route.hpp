@@ -84,24 +84,20 @@ public:
 
     RoadNameInfo() = default;
     RoadNameInfo(std::string name) : m_name(std::move(name)) {}
-    RoadNameInfo(std::string name, std::string destination_ref)
-      : m_name(std::move(name))
-      , m_destination_ref(std::move(destination_ref))
-    {}
     RoadNameInfo(std::string name, std::string destination_ref, std::string junction_ref)
       : m_name(std::move(name))
       , m_destination_ref(std::move(destination_ref))
       , m_junction_ref(std::move(junction_ref))
     {}
-    RoadNameInfo(std::string name, std::string ref, std::string junction_ref, std::string destination_ref,
-                 std::string destination, bool isLink)
-      : m_name(std::move(name))
-      , m_destination_ref(std::move(destination_ref))
-      , m_junction_ref(std::move(junction_ref))
-      , m_destination(std::move(destination))
-      , m_ref(std::move(ref))
-      , m_isLink(std::move(isLink))
-    {}
+
+    void ClearUselessStringsForTailSegments()
+    {
+      // Keep 'name' since it is used in turns comparison.
+      m_destination_ref.clear();
+      m_junction_ref.clear();
+      m_destination.clear();
+      m_ref.clear();
+    }
 
     bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
     bool HasExitInfo() const { return m_isLink || HasExitTextInfo(); }
@@ -181,6 +177,11 @@ public:
     return m_speedLimit.GetCurrentSpeed(time, m_segment.IsForward());
   }
   void SetSpeedLimit(Maxspeed speed) { m_speedLimit = std::move(speed); }
+
+  /// Is 'from' a segregated turn before this turn.
+  bool IsSegregatedTurn(RouteSegment const & from) const;
+  /// Merge lanes info from segregated 'from' into this if needed.
+  void MergeLanes(RouteSegment & from);
 
 private:
   Segment m_segment;

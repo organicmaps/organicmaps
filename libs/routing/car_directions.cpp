@@ -24,7 +24,9 @@ void CarDirectionsEngine::FixupTurns(vector<RouteSegment> & routeSegments)
 
 void FixupCarTurns(vector<RouteSegment> & routeSegments)
 {
-  double constexpr kMergeDistMeters = 15.0;
+  double constexpr kMergeStayOnRoadAndTurnDistM = 15.0;
+  double constexpr kMergeSegregatedTurnsDistM = 20.0;
+
   // For turns that are not EnterRoundAbout/ExitRoundAbout exitNum is always equal to zero.
   // If a turn is EnterRoundAbout exitNum is a number of turns between two junctions:
   // (1) the route enters to the roundabout;
@@ -32,6 +34,14 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
   uint32_t exitNum = 0;
   size_t const kInvalidEnter = numeric_limits<size_t>::max();
   size_t enterRoundAbout = kInvalidEnter;
+
+  auto const getDistance = [&routeSegments](size_t idx)
+  {
+    // Keep 'dist' var to debug thresholds above.
+    double const dist = mercator::DistanceOnEarth(routeSegments[idx - 1].GetJunction().GetPoint(),
+                                                  routeSegments[idx].GetJunction().GetPoint());
+    return dist;
+  };
 
   for (size_t idx = 0; idx < routeSegments.size(); ++idx)
   {
@@ -73,15 +83,24 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     }
 
     // Merging turns which are closed to each other under some circumstance.
-    // distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters
-    // means the distance in meters between the former turn (idx - 1)
-    // and the current turn (idx).
-    if (idx > 0 && IsStayOnRoad(routeSegments[idx - 1].GetTurn().m_turn) && IsLeftOrRightTurn(t.m_turn))
+    if (idx > 0 && IsLeftOrRightTurn(t.m_turn))
     {
-      auto const & junction = routeSegments[idx].GetJunction();
-      auto const & prevJunction = routeSegments[idx - 1].GetJunction();
-      if (mercator::DistanceOnEarth(junction.GetPoint(), prevJunction.GetPoint()) < kMergeDistMeters)
+      auto const prevTurn = routeSegments[idx - 1].GetTurn().m_turn;
+
+      bool removeTurn = false;
+      if (IsStayOnRoad(prevTurn))
+        removeTurn = getDistance(idx) < kMergeStayOnRoadAndTurnDistM;
+      else if (IsLeftOrRightTurn(prevTurn))
+      {
+        if (routeSegments[idx].IsSegregatedTurn(routeSegments[idx - 1]))
+          removeTurn = getDistance(idx) < kMergeSegregatedTurnsDistM;
+      }
+
+      if (removeTurn)
+      {
+        routeSegments[idx].MergeLanes(routeSegments[idx - 1]);
         routeSegments[idx - 1].ClearTurn();
+      }
     }
   }
   turns::lanes::SelectRecommendedLanes(routeSegments);

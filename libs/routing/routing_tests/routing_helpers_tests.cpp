@@ -47,8 +47,7 @@ UNIT_TEST(FillSegmentInfoTest)
   vector<turns::TurnItem> const & turnDirs = {{1 /* point index */, CarDirection::None},
                                               {2 /* point index */, CarDirection::TurnRight},
                                               {3 /* point index */, CarDirection::ReachedYourDestination}};
-  vector<RouteSegment::RoadNameInfo> const streets = {
-      {"zero", "", "", "", "", false}, {"first", "", "", "", "", false}, {"second", "", "", "", "", false}};
+  vector<RouteSegment::RoadNameInfo> const streets = {{"zero"}, {"first"}, {"second"}};
   vector<double> const times = {1.0, 2.0, 3.0};
 
   vector<RouteSegment> segmentInfo;

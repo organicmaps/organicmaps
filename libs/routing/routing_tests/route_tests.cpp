@@ -18,7 +18,6 @@
 namespace route_tests
 {
 using namespace routing;
-using namespace routing::turns;
 using namespace std;
 
 // For all test geometry: geometry[0] == geometry[1], since info about 1st point will be lost.
@@ -31,11 +30,7 @@ static vector<turns::TurnItem> const kTestTurns({turns::TurnItem(1, turns::CarDi
                                                  turns::TurnItem(4, turns::CarDirection::None),
                                                  turns::TurnItem(5, turns::CarDirection::ReachedYourDestination)});
 static vector<double> const kTestTimes = {0.0, 7.0, 10.0, 19.0, 20.0};
-static vector<RouteSegment::RoadNameInfo> const kTestNames = {{"Street0", "", "", "", "", false},
-                                                              {"Street1", "", "", "", "", false},
-                                                              {"Street2", "", "", "", "", false},
-                                                              {"", "", "", "", "", false},
-                                                              {"Street3", "", "", "", "", false}};
+static vector<RouteSegment::RoadNameInfo> const kTestNames = {{"Street0"}, {"Street1"}, {"Street2"}, {""}, {"Street3"}};
 
 void GetTestRouteSegments(vector<m2::PointD> const & routePoints, vector<turns::TurnItem> const & turns,
                           vector<RouteSegment::RoadNameInfo> const & streets, vector<double> const & times,
