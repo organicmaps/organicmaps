@@ -55,6 +55,30 @@
       android:layout_height="wrap_content"
       android:inputType="textMultiLine"/>
     </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+      android:id="@+id/color_row"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?selectableItemBackground"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_half_plus"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingBottom="@dimen/margin_half_plus">
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/change_all_bookmarks_color"
+        android:textAppearance="?android:textAppearanceListItem" />
+      <ImageView
+        android:id="@+id/color_preview"
+        android:layout_width="@dimen/track_circle_size"
+        android:layout_height="@dimen/track_circle_size"
+        android:layout_marginStart="@dimen/margin_base"
+        android:contentDescription="@string/choose_color" />
+    </LinearLayout>
     <View
       android:background="?android:attr/windowBackground"
       android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package app.organicmaps.bookmarks;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -11,16 +12,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
+import app.organicmaps.utils.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -41,6 +48,10 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private TextInputEditText mEditCategoryNameView;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ImageView mColorPreview;
 
   @NonNull
   private final MenuProvider mMenuProvider = new MenuProvider() {
@@ -108,6 +119,12 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     });
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
+
+    View colorRow = root.findViewById(R.id.color_row);
+    mColorPreview = root.findViewById(R.id.color_preview);
+    final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
+    updateColorPreview(mCategory.getCategoryDefaultColor(lastColor));
+    colorRow.setOnClickListener(v -> showColorPicker());
   }
 
   private void onEditDoneClicked()
@@ -178,5 +195,30 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     textView.getEditableText().clear();
     textView.requestFocus();
     InputUtils.showKeyboard(textView);
+  }
+
+  private void updateColorPreview(@PredefinedColors.Color int colorIndex)
+  {
+    Drawable circle =
+        Graphics.drawCircle(PredefinedColors.getColor(colorIndex), R.dimen.track_circle_size, getResources());
+    mColorPreview.setImageDrawable(circle);
+  }
+
+  private void showColorPicker()
+  {
+    final Bundle args = new Bundle();
+    final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
+    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mCategory.getCategoryDefaultColor(lastColor));
+    final FragmentManager manager = getChildFragmentManager();
+    final String className = BookmarkColorDialogFragment.class.getName();
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final BookmarkColorDialogFragment dialogFragment =
+        (BookmarkColorDialogFragment) factory.instantiate(requireContext().getClassLoader(), className);
+    dialogFragment.setArguments(args);
+    dialogFragment.setOnColorSetListener(color -> {
+      mCategory.setCategoryColor(color);
+      updateColorPreview(color);
+    });
+    dialogFragment.show(manager, className);
   }
 }

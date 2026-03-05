@@ -398,6 +398,13 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     mBookmarkCategory = newCategory;
     refreshCategory();
+    if (mType == TYPE_BOOKMARK && mIcon != null)
+    {
+      final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
+      final int newColor = newCategory.getCategoryDefaultColor(lastColor);
+      mIcon = new Icon(newColor, mIcon.getType());
+      refreshColorMarker();
+    }
   }
 
   public void setEditBookmarkListener(@Nullable EditBookmarkListener listener)
