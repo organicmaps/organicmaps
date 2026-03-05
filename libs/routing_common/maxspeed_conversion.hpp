@@ -218,6 +218,8 @@ public:
   void SetForward(MaxspeedType forward) { m_forward = forward; }
   void SetConditional(MaxspeedType speed, osmoh::OpeningHours condition);
 
+  SpeedInUnits GetCurrentSpeed(time_t time, bool forward) const;
+
   MaxspeedType GetForward() const { return m_forward; }
   MaxspeedType GetBackward() const { return m_backward; }
   MaxspeedType GetConditional() const { return m_conditionalSpeed; }

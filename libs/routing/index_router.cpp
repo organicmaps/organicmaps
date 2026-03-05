@@ -1673,7 +1673,6 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
         if (m_trafficStash)
           routeSegment.SetTraffic(m_trafficStash->GetSpeedGroup(segment));
 
-        // No need conditional speed -> time here, since it is needed for showing mapped speed limit sign.
         routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment));
       }
     }

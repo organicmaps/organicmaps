@@ -46,6 +46,20 @@ void Maxspeed::SetConditional(MaxspeedType speed, osmoh::OpeningHours condition)
   m_conditionalTime = std::move(condition);
 }
 
+SpeedInUnits Maxspeed::GetCurrentSpeed(time_t time, bool forward) const
+{
+  MaxspeedType speed = kInvalidSpeed;
+
+  if (time != 0 && HasConditional() && GetConditionalTime().IsOpen(time))
+    speed = m_conditionalSpeed;
+  else if (!forward && m_backward != kInvalidSpeed)
+    speed = m_backward;
+  else
+    speed = m_forward;
+
+  return {speed, m_units};
+}
+
 MaxspeedType Maxspeed::ToKmPH(MaxspeedType speedInUnits) const
 {
   switch (speedInUnits)

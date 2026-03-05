@@ -175,8 +175,12 @@ public:
   traffic::SpeedGroup GetTraffic() const { return m_traffic; }
   void SetTraffic(traffic::SpeedGroup group) { m_traffic = group; }
 
-  SpeedInUnits const & GetSpeedLimit() const { return m_speedLimit; }
-  void SetSpeedLimit(SpeedInUnits const & speed) { m_speedLimit = speed; }
+  SpeedInUnits GetSpeedLimit(time_t time) const
+  {
+    ASSERT(time > 0, ());
+    return m_speedLimit.GetCurrentSpeed(time, m_segment.IsForward());
+  }
+  void SetSpeedLimit(Maxspeed speed) { m_speedLimit = std::move(speed); }
 
 private:
   Segment m_segment;
@@ -193,7 +197,7 @@ private:
   RoadNameInfo m_roadNameInfo;
 
   /// Speed limit of |m_segment| if any.
-  SpeedInUnits m_speedLimit;
+  Maxspeed m_speedLimit;
 
   /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in meters.
   double m_distFromBeginningMeters = 0.0;
@@ -382,7 +386,7 @@ public:
   void GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
   /// \brief Returns current speed limit
-  void GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const;
+  SpeedInUnits GetCurrentSpeedLimit() const;
 
   /// \brief Return name info of a street according to the next turn.
   void GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;

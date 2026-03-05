@@ -1,4 +1,5 @@
 #include "routing/route.hpp"
+#include "routing/road_access.hpp"
 
 #include "traffic/speed_groups.hpp"
 
@@ -148,17 +149,15 @@ double Route::GetCurrentTimeToSegmentSec(size_t segIdx) const
   return endTimeSec - passedTimeSec;
 }
 
-void Route::GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const
+SpeedInUnits Route::GetCurrentSpeedLimit() const
 {
-  if (!IsValid())
+  if (IsValid())
   {
-    speedLimit = {};
-    return;
+    auto const idx = m_poly.GetCurrentIter().m_ind;
+    if (idx < m_routeSegments.size())
+      return m_routeSegments[idx].GetSpeedLimit(GetCurrentTimestamp());
   }
-
-  auto const idx = m_poly.GetCurrentIter().m_ind;
-  if (idx < m_routeSegments.size())
-    speedLimit = m_routeSegments[idx].GetSpeedLimit();
+  return {};
 }
 
 void Route::GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const

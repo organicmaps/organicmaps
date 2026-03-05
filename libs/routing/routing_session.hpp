@@ -90,6 +90,7 @@ public:
   bool GetRouteJunctionPoints(std::vector<geometry::PointWithAltitude> & routeJunctionPoints) const;
 
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
+  /// @pre Function is called exactly while moving the route. Depends on current time, no pre-caching.
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
   bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo);
