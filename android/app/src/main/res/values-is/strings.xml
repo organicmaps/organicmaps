@@ -625,6 +625,7 @@
     <string name="layers_title">Stílar landakorta og þekjur</string>
     <string name="bookmarks_empty_list_title">Þessi listi er tómur</string>
     <string name="bookmarks_empty_list_message">Til að bæta við bókamerki, skaltu ýta á stað á kortinu og ýta síðan á stjörnutáknið</string>
+    <string name="change_all_bookmarks_color">Breyta lit allra bókamerkja</string>
     <string name="category_desc_more">…meira</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Flytja út KMZ</string>

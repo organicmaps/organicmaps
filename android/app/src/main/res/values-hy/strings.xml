@@ -622,6 +622,7 @@
     <string name="layers_title">Քարտեզի ոճեր և շերտեր</string>
     <string name="bookmarks_empty_list_title">Այս ցուցակը դատարկ է</string>
     <string name="bookmarks_empty_list_message">Էջանիշ ավելացնելու համար հպեք քարտեզի որևէ կետի, ապա՝ աստղիկի պատկերակին</string>
+    <string name="change_all_bookmarks_color">Փոխել բոլոր էջանիշների գույնը</string>
     <string name="category_desc_more">…ավելին</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Արտահանել KMZ</string>

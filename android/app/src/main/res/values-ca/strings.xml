@@ -628,6 +628,7 @@
     <string name="layers_title">Estils i capes del mapa</string>
     <string name="bookmarks_empty_list_title">Aquesta llista és buida</string>
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
+    <string name="change_all_bookmarks_color">Canvia el color de tots els marcadors</string>
     <string name="category_desc_more">…més</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exporta KMZ</string>

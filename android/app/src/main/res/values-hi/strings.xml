@@ -431,6 +431,7 @@
     <string name="terms_of_use">उपयोग की शर्तें</string>
     <string name="button_layer_subway">भूमिगत मार्ग</string>
     <string name="layers_title">मानचित्र शैलियाँ और परतें</string>
+    <string name="change_all_bookmarks_color">सभी बुकमार्क का रंग बदलें</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">निर्यात KMZ</string>
     <!-- Menu title for exporting a file in GPX format -->

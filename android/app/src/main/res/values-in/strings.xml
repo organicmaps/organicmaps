@@ -612,6 +612,7 @@
     <string name="layers_title">Gaya dan Lapisan Peta</string>
     <string name="bookmarks_empty_list_title">Daftar ini kosong</string>
     <string name="bookmarks_empty_list_message">Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang</string>
+    <string name="change_all_bookmarks_color">Ubah warna semua bookmark</string>
     <string name="category_desc_more">…selengkapnya</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Ekspor KMZ</string>

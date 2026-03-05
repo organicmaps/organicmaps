@@ -634,6 +634,7 @@
     <string name="layers_title">أنماط الخريطة وطبقاتها</string>
     <string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
     <string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
+    <string name="change_all_bookmarks_color">تغيير لون جميع الإشارات المرجعية</string>
     <string name="category_desc_more">…المزيد</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">تصدير KMZ</string>

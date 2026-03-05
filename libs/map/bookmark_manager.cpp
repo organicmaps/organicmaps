@@ -1667,6 +1667,14 @@ void BookmarkManager::SetCategoryCustomProperty(kml::MarkGroupId categoryId, std
   GetBmCategory(categoryId)->SetCustomProperty(key, value);
 }
 
+std::string BookmarkManager::GetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const & properties = GetCategoryData(categoryId).m_properties;
+  auto const it = properties.find(key);
+  return (it != properties.end()) ? it->second : std::string();
+}
+
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -3641,6 +3649,16 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
                                                              std::string const & value)
 {
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
+}
+
+void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
+{
+  auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
+  for (auto const markId : markIds)
+  {
+    if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
+      bm->SetColor(color);
+  }
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
