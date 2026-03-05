@@ -104,7 +104,7 @@ public:
   virtual void Load(uint32_t featureId, RoadGeometry & road) = 0;
 
   /// Used in client-app only for the final route preparation.
-  virtual SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward);
+  virtual Maxspeed GetSavedMaxspeed(uint32_t featureId);
 
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
@@ -142,10 +142,7 @@ public:
   /// of GetPoint() methods.
   ms::LatLon const & GetPoint(RoadPoint const & rp) { return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId()); }
 
-  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward)
-  {
-    return m_loader->GetSavedMaxspeed(featureId, forward);
-  }
+  Maxspeed GetSavedMaxspeed(uint32_t featureId) { return m_loader->GetSavedMaxspeed(featureId); }
 
 private:
   /// @todo Use LRU cache?

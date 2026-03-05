@@ -111,7 +111,7 @@ public:
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment);
 
   virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment);
-  virtual SpeedInUnits GetSpeedLimit(Segment const & segment);
+  virtual Maxspeed GetSpeedLimit(Segment const & segment);
 
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
   virtual CrossMwmGraph & GetCrossMwmGraph();

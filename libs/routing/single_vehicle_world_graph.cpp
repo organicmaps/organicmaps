@@ -183,10 +183,10 @@ vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segme
   return m_loader->GetSpeedCameraInfo(segment);
 }
 
-SpeedInUnits SingleVehicleWorldGraph::GetSpeedLimit(Segment const & segment)
+Maxspeed SingleVehicleWorldGraph::GetSpeedLimit(Segment const & segment)
 {
   ASSERT(segment.IsRealSegment(), ());
-  return GetIndexGraph(segment.GetMwmId()).GetGeometry().GetSavedMaxspeed(segment.GetFeatureId(), segment.IsForward());
+  return GetIndexGraph(segment.GetMwmId()).GetGeometry().GetSavedMaxspeed(segment.GetFeatureId());
 }
 
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)

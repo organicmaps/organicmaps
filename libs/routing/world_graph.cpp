@@ -23,6 +23,8 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
   SetMode(prevMode);
 }
 
+/// @todo Check if we can put UNREACHABLE here and below?
+/// @{
 RoutingOptions WorldGraph::GetRoutingOptions(Segment const & /* segment */)
 {
   return {};
@@ -43,7 +45,7 @@ std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const
   return {};
 }
 
-SpeedInUnits WorldGraph::GetSpeedLimit(Segment const &)
+Maxspeed WorldGraph::GetSpeedLimit(Segment const &)
 {
   return {};
 }
@@ -78,6 +80,7 @@ RouteWeight WorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
 {
   return RouteWeight(0);
 }
+/// @}
 
 std::string DebugPrint(WorldGraphMode mode)
 {
