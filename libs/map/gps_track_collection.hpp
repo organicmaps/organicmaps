@@ -39,7 +39,7 @@ public:
   size_t GetSize() const;
 
   /// Returns track statistics.
-  TrackStatistics const GetTrackStatistics() const { return m_statistics; }
+  TrackStatistics const & GetTrackStatistics() const { return m_statistics; }
   /// Updates the elevation info with the missed points and returns a reference.
   ElevationInfo const & UpdateAndGetElevationInfo();
 

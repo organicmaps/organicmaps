@@ -263,7 +263,7 @@ public:
 
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
-  void UpdateBookmarkCategory(kml::MarkGroupId & groupId, kml::CategoryData && data, bool autoSave);
+  void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data, bool autoSave);
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 

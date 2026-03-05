@@ -2511,7 +2511,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   return groupId;
 }
 
-void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId & groupId, kml::CategoryData && data,
+void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data,
                                              bool autoSave /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2904,13 +2904,11 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarksFor
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto collection = std::make_shared<KMLDataCollection>();
   auto const & track = GetTrack(trackId);
-  auto const & categoryData = new kml::CategoryData();
   auto name = kml::LocalizableString();
   kml::SetDefaultStr(name, track->GetName());
-  categoryData->m_name = name;
   auto const & trackData = track->GetData();
   auto const & fileData = new kml::FileData();
-  fileData->m_categoryData = *categoryData;
+  fileData->m_categoryData = kml::CategoryData{.m_name = name};
   fileData->m_tracksData.push_back(trackData);
   collection->emplace_back("", fileData);
   return collection;
