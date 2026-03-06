@@ -1868,8 +1868,11 @@ void FrontendRenderer::RenderFrame()
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] BuildOverlayTree");
+
+  /// @todo We can't skip overlay tree building call. Set valid 0 zoom here.
+  /// @see IsValidCurrentZoom, should realize how do we get here with invalid zoom.
   if (!IsValidCurrentZoom())
-    return;
+    m_currentZoomLevel = 0;
 
   BeginUpdateOverlayTree(modelView);
   for (auto const layerId :
