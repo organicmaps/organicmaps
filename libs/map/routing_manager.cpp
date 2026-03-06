@@ -857,6 +857,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 
   // Finish point is now Intermediate point
   RouteMarkPoint * finishMarkData = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
+  CHECK(finishMarkData, ());
   finishMarkData->SetRoutePointType(RouteMarkType::Intermediate);
   finishMarkData->SetIntermediateIndex(routePoints.GetRoutePointsCount() - 2);
 
@@ -1127,6 +1128,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
 
 void RoutingManager::CallRouteBuilded(RouterResultCode code, storage::CountriesSet const & absentCountries)
 {
+  CHECK(m_routingBuildingCallback, ());
   m_routingBuildingCallback(code, absentCountries);
 }
 
