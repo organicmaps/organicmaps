@@ -124,7 +124,7 @@ public class MapObject implements PlacePageData
     mWikiArticle = Objects.requireNonNull(source.readString());
     mOsmDescription = source.readString();
     mRoadWarningMarkType = RoadWarningMarkType.values()[source.readInt()];
-    source.readStringList(mRawTypes);
+    mRawTypes = source.createStringArrayList();
   }
 
   @NonNull
