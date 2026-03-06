@@ -149,7 +149,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       else
       {
         // Show whole week time table.
-        int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
+        int firstDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         final View iconView = mFrame.findViewById(R.id.dropdown_icon);
         UiUtils.show(iconView);
