@@ -151,7 +151,7 @@ public class MapObject implements PlacePageData
     if (getClass() != other.getClass())
       return false;
 
-    return mMapObjectType == other.mMapObjectType && mTitle.equals(other.mTitle) && mSubtitle.equals(other.mTitle)
+    return mMapObjectType == other.mMapObjectType && mTitle.equals(other.mTitle) && mSubtitle.equals(other.mSubtitle)
  && Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon)
  && Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat);
   }
