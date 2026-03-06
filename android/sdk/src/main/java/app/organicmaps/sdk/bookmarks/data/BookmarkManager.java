@@ -292,7 +292,7 @@ public enum BookmarkManager {
   {
     String filename = null;
     final String scheme = uri.getScheme();
-    if (scheme.equals("content"))
+    if (scheme != null && scheme.equals("content"))
     {
       try (Cursor cursor = resolver.query(uri, null, null, null, null))
       {
@@ -355,7 +355,8 @@ public enum BookmarkManager {
       return filename + extension;
 
     // WhatsApp doesn't provide correct mime type and extension for GPX and GeoJson files.
-    if (uri.getHost().contains("com.whatsapp.provider.media"))
+    final String authority = uri.getAuthority();
+    if (authority != null && authority.contains("com.whatsapp.provider.media"))
       return filename + ".gpx";
 
     return null;
