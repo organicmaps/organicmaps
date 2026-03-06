@@ -59,8 +59,8 @@ androidx-work = { group = "androidx.work", name = "work-runtime", version.ref = 
 
 devnullorthrow-mpandroidchart = { group = "com.github.devnullorthrow", name = "MPAndroidChart", version.ref = "devnullorthrow-mpandroidchart" }
 
-google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
-google-firebase-appdistribution-gradle = { group = "com.google.firebase", name = "appdistribution-gradle", version.ref = "google-firebase-appdistribution-gradle" }
+google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
+google-firebase-appdistribution-gradle = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version.ref = "google-firebase-appdistribution-gradle" }
 google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 google-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "google-firebase-crashlytics-gradle" }
 google-firebase-crashlytics-ndk = { group = "com.google.firebase", name = "firebase-crashlytics-ndk" }
