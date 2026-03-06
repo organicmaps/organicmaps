@@ -68,9 +68,9 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetDescrip
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevationInfo(JNIEnv * env, jclass, jlong id)
 {
-  auto const & track = frm()->GetBookmarkManager().GetTrack(id);
-  auto const & elevationInfo = track->GetElevationInfo();
-  return track->GetElevationInfo().has_value() ? ToJavaElevationInfo(env, elevationInfo.value()) : nullptr;
+  auto const * track = frm()->GetBookmarkManager().GetTrack(id);
+  auto const * info = track->GetElevationInfo();
+  return (info ? ToJavaElevationInfo(env, *info) : nullptr);
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetStatistics(JNIEnv * env, jclass, jlong id)

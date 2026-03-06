@@ -431,13 +431,10 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams, SearchParams 
     return false;
 
   if (prevParams.m_position && currParams.m_position &&
-      mercator::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) > kDistEqualQueryMercator)
+      mercator::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) > kDistEqualQueryMeters)
   {
     return false;
   }
-
-  if (static_cast<bool>(prevParams.m_position) != static_cast<bool>(currParams.m_position))
-    return false;
 
   return true;
 }

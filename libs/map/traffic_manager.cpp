@@ -409,7 +409,8 @@ void TrafficManager::ShrinkCacheToAllowableSize()
       seenTimings.insert(std::make_pair(mwmInfo.second.m_lastActiveTime, mwmInfo.first));
 
     auto itSeen = seenTimings.begin();
-    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > numActiveMwms)
+    while (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > numActiveMwms &&
+           itSeen != seenTimings.end())
     {
       ClearCache(itSeen->second);
       ++itSeen;

@@ -84,10 +84,14 @@ std::string Track::GetDescription() const
   return GetPreferredBookmarkStr(m_data.m_description);
 }
 
-void Track::setData(kml::TrackData const & data)
+void Track::SetData(kml::TrackData const & data)
 {
   m_isDirty = true;
   m_data = data;
+
+  m_trackStatistics.reset();
+  m_elevationInfo.reset();
+  m_interactionData.reset();
 }
 
 m2::RectD Track::GetLimitRect() const
@@ -207,20 +211,20 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
-TrackStatistics Track::GetStatistics() const
+TrackStatistics const & Track::GetStatistics() const
 {
-  if (!m_trackStatistics.has_value())
+  if (!m_trackStatistics)
     m_trackStatistics = TrackStatistics(m_data.m_geometry);
-  return m_trackStatistics.value();
+  return *m_trackStatistics;
 }
 
-std::optional<ElevationInfo> Track::GetElevationInfo() const
+ElevationInfo const * Track::GetElevationInfo() const
 {
   if (!HasAltitudes())
-    return std::nullopt;
+    return nullptr;
   if (!m_elevationInfo)
     m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
-  return m_elevationInfo;
+  return &(*m_elevationInfo);
 }
 
 double Track::GetDurationInSeconds() const

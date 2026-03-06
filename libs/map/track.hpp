@@ -23,7 +23,7 @@ public:
   void ResetChanges() const override { m_isDirty = false; }
 
   kml::TrackData const & GetData() const { return m_data; }
-  void setData(kml::TrackData const & data);
+  void SetData(kml::TrackData const & data);
 
   std::string GetName() const;
   void SetName(std::string const & name);
@@ -32,8 +32,10 @@ public:
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
   double GetDurationInSeconds() const;
-  TrackStatistics GetStatistics() const;
-  std::optional<ElevationInfo> GetElevationInfo() const;
+
+  TrackStatistics const & GetStatistics() const;
+  ElevationInfo const * GetElevationInfo() const;
+
   std::pair<m2::PointD, double> GetCenterPoint() const;
 
   struct TrackSelectionInfo

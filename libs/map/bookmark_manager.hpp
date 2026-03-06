@@ -139,6 +139,7 @@ public:
     void SetIsVisible(kml::MarkGroupId groupId, bool visible);
 
     void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
+    /// @todo Get data by value and make moves by call-chain.
     void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
 
     void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
@@ -150,6 +151,7 @@ public:
     void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
     void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
     void ChangeTrackColor(kml::TrackId trackId, dp::Color color);
+    /// @todo Get data by value and make moves by call-chain.
     void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
     void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);

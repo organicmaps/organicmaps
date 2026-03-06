@@ -63,12 +63,9 @@
     _myPositionDistance = bm.GetElevationMyPosition(_trackId);
     _onActivePointChangedHandler = onActivePointChangedHandler;
 
-    auto const & elevationInfo = track.GetElevationInfo();
-    if (track.HasAltitudes() && elevationInfo.has_value())
-    {
-      _elevationProfileData = [[ElevationProfileData alloc] initWithTrackId:_trackId
-                                                              elevationInfo:elevationInfo.value()];
-    }
+    auto const * elevationInfo = track.GetElevationInfo();
+    if (elevationInfo)
+      _elevationProfileData = [[ElevationProfileData alloc] initWithTrackId:_trackId elevationInfo:*elevationInfo];
   }
   return self;
 }

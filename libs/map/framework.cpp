@@ -1,4 +1,5 @@
 #include "map/framework.hpp"
+#include "base/assert.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/place_page_info.hpp"
@@ -1093,8 +1094,15 @@ namespace
 
 double ScaleModeToFactor(Framework::EScaleMode mode)
 {
-  double factors[] = {2.0, 1.5, 0.5, 0.67};
-  return factors[mode];
+  switch (mode)
+  {
+    using enum Framework::EScaleMode;
+  case SCALE_MAG: return 2.0;
+  case SCALE_MAG_LIGHT: return 1.5;
+  case SCALE_MIN: return 0.5;
+  case SCALE_MIN_LIGHT: return 0.67;
+  }
+  UNREACHABLE();
 }
 
 }  // namespace
