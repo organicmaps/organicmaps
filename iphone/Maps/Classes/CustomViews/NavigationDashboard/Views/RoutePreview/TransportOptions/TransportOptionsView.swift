@@ -4,8 +4,10 @@ final class TransportOptionsView: UIView {
   private var segmentedControl = UISegmentedControl()
   private var routerTypes: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
+  private let panelPanGestureRecognizer = UIPanGestureRecognizer()
 
   weak var interactor: NavigationDashboard.Interactor?
+  var onPanGesture: ((UIPanGestureRecognizer) -> Void)?
 
   init() {
     super.init(frame: .zero)
@@ -35,6 +37,13 @@ final class TransportOptionsView: UIView {
   private func setupSegmentedControlView() {
     segmentedControl.translatesAutoresizingMaskIntoConstraints = false
     segmentedControl.addTarget(self, action: #selector(didChangeSegment(_:)), for: .valueChanged)
+
+    panelPanGestureRecognizer.addTarget(self, action: #selector(handlePanGesture(_:)))
+    panelPanGestureRecognizer.delegate = self
+    panelPanGestureRecognizer.cancelsTouchesInView = false
+    panelPanGestureRecognizer.delaysTouchesBegan = true
+    addGestureRecognizer(panelPanGestureRecognizer)
+
     addSubview(segmentedControl)
     NSLayoutConstraint.activate([
       segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -72,5 +81,20 @@ final class TransportOptionsView: UIView {
     guard selectedRouterType != routerType else { return }
     selectedRouterType = routerType
     interactor?.process(.selectRouterType(routerType))
+  }
+
+  @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+    onPanGesture?(gesture)
+  }
+}
+
+extension TransportOptionsView: UIGestureRecognizerDelegate {
+  private enum Constants {
+    static let velocityThreshold: CGFloat = 5
+  }
+
+  override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    let velocity = panelPanGestureRecognizer.velocity(in: self)
+    return abs(velocity.y) > abs(velocity.x) + Constants.velocityThreshold
   }
 }
