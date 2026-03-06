@@ -219,6 +219,9 @@ final class NavigationDashboardViewController: UIViewController {
 
   private func setupTransportOptionsView() {
     transportOptionsView.interactor = interactor
+    transportOptionsView.onPanGesture = { [weak self] gesture in
+      self?.handlePan(gesture)
+    }
   }
 
   private func setupBottomMenuActions() {
