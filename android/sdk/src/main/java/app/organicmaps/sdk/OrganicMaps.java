@@ -21,6 +21,7 @@ import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.StoragePathManager;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.ConnectionState;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
@@ -121,6 +122,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     mLocationHelper = new LocationHelper(mContext, mSensorHelper, locationProviderFactory);
     mIsolinesManager = new IsolinesManager();
     mSubwayManager = new SubwayManager(mContext);
+
+    ConnectionState.INSTANCE.initialize(mContext);
   }
 
   /**

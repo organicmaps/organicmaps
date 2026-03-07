@@ -13,7 +13,7 @@ import androidx.car.app.model.ParkedOnlyOnClickListener;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.R;
+import app.organicmaps.car.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UserActionRequired;

@@ -6,8 +6,11 @@
     <string name="cancel">Avbryt</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Søk</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Laster ned mislyktes</string>
+    <string name="close">Lukk</string>
     <string name="download">Last ned</string>
     <string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Nedlasting</string>
     <string name="download_map_title">Last ned verdenskart</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps i Android Auto trenger en posisjonstillatelse for å fungere effektivt</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Gi tillatelser</string>
 </resources>

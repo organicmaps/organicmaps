@@ -6,8 +6,11 @@
     <string name="cancel">Kanselleer</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Soek</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Alle liggingsdienste vir hierdie toestel of toepassing is tans gedeaktiveer. Aktiveer dit asb. in Instellings.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Aflaai het misluk</string>
+    <string name="close">Sluit</string>
     <string name="download">Laai af</string>
     <string name="download_resources">Voordat u die toep begin gebruik, moet u asb. die algemene wêreldkaart na u toestel aflaai.\nDit sal %s se spasie opneem.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -89,4 +92,6 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Laai tans af</string>
     <string name="download_map_title">Laai die wêreldkaart af</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto het \'n liggingtoestemming nodig om effektief te werk</string>
 </resources>

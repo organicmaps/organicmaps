@@ -6,8 +6,11 @@
     <string name="cancel">لغو</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">جست‌وجو</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
+    <string name="close">بستن</string>
     <string name="download">دانلود</string>
     <string name="download_resources">قبل از استفاده از برنامه، اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم. \nمقدار %s از حافظه شما اشغال می‌شود.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">در حال دانلود</string>
     <string name="download_map_title">نقشه نمای کلی جهان را دانلود کنید</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps در Android Auto برای عملکرد بهتر به مجوزهای مکان نیاز دارد</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">اعطای مجوزها</string>
 </resources>

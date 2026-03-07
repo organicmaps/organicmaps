@@ -37,9 +37,6 @@ def getCommitMessage() {
   return run(['git', '--no-pager', 'show', '-s', '--format=%s%n%n%b', 'HEAD']).trim()
 }
 
-project.ext.appId = 'app.organicmaps'
-project.ext.appName = 'Organic Maps'
-
 android {
   namespace = 'app.organicmaps'
 
@@ -67,13 +64,13 @@ android {
     versionName = rootProject.ext.versionName
     println('Version: ' + versionName)
     println('VersionCode: ' + versionCode)
-    applicationId project.ext.appId
+    applicationId rootProject.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
     resourceConfigurations += [project.ext.supportedLocalizations]
 
-    base.archivesName = appName.replaceAll('\\s', '') + '-' + defaultConfig.versionCode
+    base.archivesName = rootProject.name.replaceAll('\\s', '') + '-' + defaultConfig.versionCode
 
     ndk.debugSymbolLevel = 'full'
   }
@@ -270,6 +267,7 @@ dependencies {
   implementation libs.androidx.annotation
   implementation libs.androidx.appcompat
   implementation libs.androidx.car.app
+  implementation libs.androidx.car.app.projected
   implementation libs.androidx.constraintlayout
   implementation libs.androidx.fragment
   implementation libs.androidx.preference

@@ -6,8 +6,11 @@
     <string name="cancel">Скасувати</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Пошук</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Помилка завантаження</string>
+    <string name="close">Закрити</string>
     <string name="download">Завантажити</string>
     <string name="download_resources">Перш ніж почати користуватися додатком, завантажте оглядову карту світу на свій пристрій.\nВона використовуватиме %s пам’яті.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Завантаження</string>
     <string name="download_map_title">Завантажити оглядову мапу світу</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Для ефективної роботи Organic Maps в Android Auto потрібні дозвіли на розташування</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Надавати дозволи</string>
 </resources>
