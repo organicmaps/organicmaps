@@ -45,7 +45,7 @@ struct BookmarkDataV8
     m_color = src.m_color;
     m_icon = src.m_icon;
     m_viewportScale = src.m_viewportScale;
-    m_timestamp = src.m_timestamp;
+    m_timestamp = src.m_createdTimestamp;
     m_point = src.m_point;
     m_boundTracks = src.m_boundTracks;
     m_visible = src.m_visible;
@@ -66,7 +66,7 @@ struct BookmarkDataV8
     data.m_color = m_color;
     data.m_icon = m_icon;
     data.m_viewportScale = m_viewportScale;
-    data.m_timestamp = m_timestamp;
+    data.m_createdTimestamp = m_timestamp;
     data.m_point = m_point;
     data.m_boundTracks = m_boundTracks;
     data.m_visible = m_visible;

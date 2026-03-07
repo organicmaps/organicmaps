@@ -692,7 +692,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_customName[kEnLang] = "My favorite place";
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData.m_icon = kml::BookmarkIcon::None;
-  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
+  bookmarkData.m_createdTimestamp = kml::TimestampClock::from_time_t(800);
   bookmarkData.m_point = mercator::FromLatLon(52.48982, 13.39712);
   bookmarkData.m_visible = false;
   bookmarkData.m_minZoom = 10;
@@ -717,7 +717,7 @@ kml::FileData GenerateKmlFileDataWithTrack()
   trackData.m_description[kEsLang] = "Descripción de prueba de la pista.";
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
-  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+  trackData.m_createdTimestamp = kml::TimestampClock::from_time_t(900);
 
   trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
                                 {mercator::FromLatLon(48, 45.5), 2},
@@ -730,7 +730,7 @@ kml::FileData GenerateKmlFileDataWithTrack()
   trackData2.m_localId = 1;
   trackData2.m_name[kDefaultLang] = "Another track";
   trackData2.m_layers = {{6.0, {kml::PredefinedColor::None, 0x93bf39ff}}};
-  trackData2.m_timestamp = kml::TimestampClock::from_time_t(960);
+  trackData2.m_createdTimestamp = kml::TimestampClock::from_time_t(960);
 
   trackData2.m_geometry.AddLine(
       {{mercator::FromLatLon(22, 30.1), 1}, {mercator::FromLatLon(23, 30.2), 2}, {mercator::FromLatLon(24, 30.3), 3}});
@@ -755,7 +755,7 @@ kml::FileData GenerateKmlFileDataWithMultiTrack()
   trackData.m_description[kEsLang] = "Descripción de prueba de la pista.";
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0x00ff00ff}},
                         {7.0, {kml::PredefinedColor::None, 0x0000ffff}}};
-  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+  trackData.m_createdTimestamp = kml::TimestampClock::from_time_t(900);
 
   trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
                                 {mercator::FromLatLon(48, 45.5), 2},
