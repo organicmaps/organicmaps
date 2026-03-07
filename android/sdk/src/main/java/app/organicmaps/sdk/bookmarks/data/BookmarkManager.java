@@ -292,7 +292,7 @@ public enum BookmarkManager {
   {
     String filename = null;
     final String scheme = uri.getScheme();
-    if (scheme != null && scheme.equals("content"))
+    if ("content".equals(scheme))
     {
       try (Cursor cursor = resolver.query(uri, null, null, null, null))
       {
