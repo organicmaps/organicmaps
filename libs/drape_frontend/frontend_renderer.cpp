@@ -1435,7 +1435,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
-    if (m_selectionShape && IsValidCurrentZoom())
+    if (m_selectionShape)
     {
       SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
       if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
@@ -1455,16 +1455,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderOverlayLayer(modelView);
     }
 
-    if (IsValidCurrentZoom())
-    {
-      m_gpsTrackRenderer->RenderTrack(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
-                                      m_frameValues);
+    m_gpsTrackRenderer->RenderTrack(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
+                                    m_frameValues);
 
-      if (m_selectionShape && (m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK ||
-                               m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_TRACK))
-      {
-        m_selectionShape->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues);
-      }
+    if (m_selectionShape && (m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK ||
+                             m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_TRACK))
+    {
+      m_selectionShape->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues);
     }
 
     if (hasTransitRouteData)
@@ -1490,7 +1487,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (!m_postprocessRenderer->EndFrame(m_context, make_ref(m_gpuProgramManager), m_viewport))
     return;
 
-  if (IsValidCurrentZoom())
   {
     uint32_t clearBits = dp::ClearBits::DepthBit;
     if (m_apiVersion == dp::ApiVersion::OpenGLES3)
@@ -1514,11 +1510,8 @@ void FrontendRenderer::RenderTileBackgroundLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] RenderTileBackgroundLayer");
   DEBUG_LABEL(m_context, "Tile Background");
-  if (IsValidCurrentZoom())
-  {
-    m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
-                                     m_frameValues);
-  }
+  m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
+                                   m_frameValues);
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -1748,6 +1741,10 @@ void FrontendRenderer::RenderFrame()
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
 
+  bool const zoomChanged = ResolveZoomLevel(modelView);
+  /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
+  ASSERT(!zoomChanged || modelViewChanged, ());
+
   if (!m_context->BeginRendering())
     return;
 
@@ -1783,14 +1780,18 @@ void FrontendRenderer::RenderFrame()
 
   m_context->EndRendering();
 
-  auto const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
+  bool const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
   isActiveFrame |= hasForceUpdate;
 #if defined(SCENARIO_ENABLE)
   isActiveFrame = true;
 #endif
 
   if (modelViewChanged || hasForceUpdate)
+  {
+    if (zoomChanged)
+      UpdateCanBeDeletedStatus();
     UpdateScene(modelView);
+  }
 
   InterpolationHolder::Instance().Advance(m_frameData.m_frameTime);
   AnimationSystem::Instance().Advance(m_frameData.m_frameTime);
@@ -1868,9 +1869,6 @@ void FrontendRenderer::RenderFrame()
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] BuildOverlayTree");
-  if (!IsValidCurrentZoom())
-    return;
-
   BeginUpdateOverlayTree(modelView);
   for (auto const layerId :
        {DepthLayer::OverlayLayer, DepthLayer::RoutingBottomMarkLayer, DepthLayer::RoutingMarkLayer})
@@ -1966,17 +1964,16 @@ void FrontendRenderer::CheckIsometryMinScale(ScreenBase const & screen)
   }
 }
 
-void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
+bool FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   int const prevZoomLevel = m_currentZoomLevel;
   m_currentZoomLevel = GetDrawTileScale(screen);
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetScale(m_currentZoomLevel);
 
-  if (prevZoomLevel != m_currentZoomLevel)
-    UpdateCanBeDeletedStatus();
-
   CheckIsometryMinScale(screen);
   UpdateDisplacementEnabled();
+
+  return prevZoomLevel != m_currentZoomLevel;
 }
 
 void FrontendRenderer::UpdateDisplacementEnabled()
@@ -2536,6 +2533,11 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
 
+  // modelViewChanged == false and m_currentZoomLevel == -1 is possible on the first render ..
+  // Set modelViewChanged flag is logical here ATM.
+  if (!IsValidCurrentZoom())
+    modelViewChanged = true;
+
   // Location- or compass-update could have changed model view on the previous frame.
   // So we have to check it here.
   if (m_lastReadedModelView != modelView)
@@ -2557,8 +2559,6 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] UpdateScene");
-  ResolveZoomLevel(modelView);
-
   m_gpsTrackRenderer->Update();
 
   auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
