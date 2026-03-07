@@ -29,7 +29,6 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class PlacePageOpeningHoursFragment extends Fragment implements Observer<MapObject>
 {
