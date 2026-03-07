@@ -10,31 +10,37 @@ import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.car.app.notification.CarAppExtender;
 import androidx.car.app.notification.CarPendingIntent;
-import androidx.car.app.validation.HostValidator;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import app.organicmaps.BuildConfig;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
+import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.log.Logger;
+import java.io.IOException;
 
-public final class CarAppService extends CarAppServiceBase
+public final class AndroidAutoService extends CarAppServiceBase
 {
+  @NonNull
+  private static final String TAG = AndroidAutoService.class.getSimpleName();
+
+  @NonNull
   public static final String ANDROID_AUTO_NOTIFICATION_CHANNEL_ID = "ANDROID_AUTO";
 
   @Nullable
   private static NotificationCompat.Extender mCarNotificationExtender;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  @Override
-  public HostValidator createHostValidator()
-  {
-    if (BuildConfig.DEBUG)
-      return HostValidator.ALLOW_ALL_HOSTS_VALIDATOR;
+  private OrganicMaps mOrganicMapsContext;
+  private boolean mInitFailed = false;
 
-    return new HostValidator.Builder(getApplicationContext())
-        .addAllowedHosts(androidx.car.app.R.array.hosts_allowlist_sample)
-        .build();
+  public AndroidAutoService()
+  {
+    super(/* isDebug */ BuildConfig.DEBUG);
   }
 
   @NonNull
@@ -42,7 +48,7 @@ public final class CarAppService extends CarAppServiceBase
   public Session onCreateSession(@Nullable SessionInfo sessionInfo)
   {
     createNotificationChannel();
-    return new CarAppSession(sessionInfo);
+    return new AndroidAutoSession(mOrganicMapsContext, sessionInfo, mInitFailed);
   }
 
   @NonNull
@@ -52,6 +58,28 @@ public final class CarAppService extends CarAppServiceBase
     return onCreateSession(null);
   }
 
+  @Override
+  public void onCreate()
+  {
+    final MwmApplication app = MwmApplication.from(getApplicationContext());
+    mOrganicMapsContext = app.getOrganicMaps();
+    if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
+    {
+      try
+      {
+        app.initOrganicMaps(null);
+      }
+      catch (IOException e)
+      {
+        Logger.e(TAG, "Failed to initialize the app: " + e.getMessage());
+        mInitFailed = true;
+      }
+    }
+
+    // TODO: Show dialog to the user
+    Config.setFirstStartDialogSeen(getApplicationContext());
+  }
+
   @NonNull
   public static NotificationCompat.Extender getCarNotificationExtender(@NonNull CarContext context)
   {
@@ -59,9 +87,9 @@ public final class CarAppService extends CarAppServiceBase
       return mCarNotificationExtender;
 
     final Intent intent = new Intent(Intent.ACTION_VIEW)
-                              .setComponent(new ComponentName(context, CarAppService.class))
-                              .setData(Uri.fromParts(Const.API_SCHEME, CarAppService.API_CAR_HOST,
-                                                     CarAppService.ACTION_SHOW_NAVIGATION_SCREEN));
+                              .setComponent(new ComponentName(context, AndroidAutoService.class))
+                              .setData(Uri.fromParts(Const.API_SCHEME, CarAppServiceBase.API_CAR_HOST,
+                                                     CarAppServiceBase.ACTION_SHOW_NAVIGATION_SCREEN));
     mCarNotificationExtender = new CarAppExtender.Builder()
                                    .setImportance(NotificationManagerCompat.IMPORTANCE_MIN)
                                    .setContentIntent(CarPendingIntent.getCarApp(context, intent.hashCode(), intent, 0))

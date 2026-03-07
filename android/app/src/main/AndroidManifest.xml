@@ -539,7 +539,7 @@
     <activity
         android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
     <service
-        android:name="app.organicmaps.car.CarAppService"
+        android:name="app.organicmaps.car.AndroidAutoService"
         android:exported="true"
         tools:ignore="ExportedService">
       <intent-filter>
@@ -594,5 +594,13 @@
     <!-- Version >= 3.0. Dex Dual Mode support for compatible Samsung devices.
          See the documentation: https://developer.samsung.com/samsung-dex/modify-optimizing.html //-->
     <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true" />
+
+    <meta-data
+        android:name="com.google.android.gms.car.application"
+        android:resource="@xml/automotive_app_desc" />
+
+    <meta-data
+        android:name="androidx.car.app.minCarApiLevel"
+        android:value="5" />
   </application>
 </manifest>

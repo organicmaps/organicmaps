@@ -1,193 +1,76 @@
 package app.organicmaps.car;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.Screen;
-import androidx.car.app.ScreenManager;
-import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
-import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
+import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
-import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.IntentUtils;
-import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.car.CarSensorsManager;
-import app.organicmaps.sdk.car.renderer.Renderer;
-import app.organicmaps.sdk.car.renderer.RendererFactory;
-import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayChangedListener;
-import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.display.DisplayType;
-import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CarAppSession extends Session implements DefaultLifecycleObserver, LocationState.ModeChangeListener,
-                                                            DisplayChangedListener, PlacePageActivationListener
+public final class AndroidAutoSession extends CarAppSessionBase implements DisplayChangedListener
 {
-  private static final String TAG = CarAppSession.class.getSimpleName();
+  private static final String TAG = AndroidAutoSession.class.getSimpleName();
 
-  @Nullable
-  private final SessionInfo mSessionInfo;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Renderer mSurfaceRenderer;
-  @NonNull
-  private final ScreenManager mScreenManager;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private CarSensorsManager mSensorsManager;
-  @NonNull
-  private final CurrentCountryChangedListener mCurrentCountryChangedListener;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private OrganicMaps mOrganicMapsContext;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private DisplayManager mDisplayManager;
-  private boolean mInitFailed = false;
+  private final boolean mInitFailed;
 
-  public CarAppSession(@Nullable SessionInfo sessionInfo)
+  public AndroidAutoSession(@NonNull OrganicMaps organicMapsContext, @Nullable SessionInfo sessionInfo,
+                            boolean initFailed)
   {
-    getLifecycle().addObserver(this);
-    mSessionInfo = sessionInfo;
-    mScreenManager = getCarContext().getCarService(ScreenManager.class);
-    mCurrentCountryChangedListener = new CurrentCountryChangedListener();
-  }
-
-  @Override
-  public void onCarConfigurationChanged(@NonNull Configuration newConfiguration)
-  {
-    Logger.d(TAG, "New configuration: " + newConfiguration);
-
-    if (mSurfaceRenderer.isRenderingActive())
-    {
-      ThemeUtils.update(getCarContext());
-      mScreenManager.getTop().invalidate();
-    }
-  }
-
-  @NonNull
-  @Override
-  public Screen onCreateScreen(@NonNull Intent intent)
-  {
-    Logger.d(TAG);
-
-    Logger.i(TAG, "Session info: " + mSessionInfo);
-    Logger.i(TAG, "API Level: " + getCarContext().getCarAppApiLevel());
-    if (mSessionInfo != null)
-      Logger.i(TAG, "Supported templates: " + mSessionInfo.getSupportedTemplates(getCarContext().getCarAppApiLevel()));
-    Logger.i(TAG, "Host info: " + getCarContext().getHostInfo());
-    Logger.i(TAG, "Car configuration: " + getCarContext().getResources().getConfiguration());
-
-    return prepareScreens();
+    super(organicMapsContext, sessionInfo);
+    mInitFailed = initFailed;
   }
 
   @Override
   public void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
+    Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
   }
 
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG);
-    mOrganicMapsContext = MwmApplication.from(getCarContext()).getOrganicMaps();
-    mSensorsManager = new CarSensorsManager(getCarContext(), MwmApplication.from(getCarContext()).getSensorHelper(),
-                                            MwmApplication.from(getCarContext()).getLocationHelper());
+    super.onCreate(owner);
     mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Car, this);
-    mSurfaceRenderer = RendererFactory.create(getCarContext(), mDisplayManager,
-                                              MwmApplication.from(getCarContext()).getLocationHelper(), this);
-    init();
-  }
-
-  @Override
-  public void onStart(@NonNull LifecycleOwner owner)
-  {
-    Logger.d(TAG);
-    if (mDisplayManager.isCarDisplayUsed())
-    {
-      LocationState.nativeSetListener(this);
-      Framework.nativePlacePageActivationListener(this);
-      mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
-    }
-    if (LocationUtils.checkFineLocationPermission(getCarContext()))
-      mSensorsManager.onStart();
-
-    if (mDisplayManager.isCarDisplayUsed())
-    {
-      ThemeUtils.update(getCarContext());
-      restoreRoute();
-    }
-  }
-
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
-  {
-    Logger.d(TAG);
-    mSensorsManager.onStop();
-    if (mDisplayManager.isCarDisplayUsed())
-    {
-      LocationState.nativeRemoveListener();
-      Framework.nativeRemovePlacePageActivationListener(this);
-    }
-    mCurrentCountryChangedListener.onStop();
   }
 
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
+    super.onCreate(owner);
+    Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     mDisplayManager.removeListener(DisplayType.Car);
   }
 
-  private void init()
-  {
-    mInitFailed = false;
-    try
-    {
-      MwmApplication.from(getCarContext()).initOrganicMaps(() -> {
-        Config.setFirstStartDialogSeen(getCarContext());
-        if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
-          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
-                                  .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
-                                  .build());
-      });
-    }
-    catch (IOException e)
-    {
-      mInitFailed = true;
-      Logger.e(TAG, "Failed to initialize the app.");
-    }
-  }
-
   @NonNull
-  private Screen prepareScreens()
+  protected Screen prepareScreens()
   {
     if (mInitFailed)
       return new ErrorScreen.Builder(getCarContext(), mOrganicMapsContext)
@@ -195,12 +78,20 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
           .build();
 
     final List<Screen> screensStack = new ArrayList<>();
-    screensStack.add(new app.organicmaps.car.screens.MapScreen(getCarContext(), mOrganicMapsContext, mSurfaceRenderer));
+    screensStack.add(new MapScreen(getCarContext(), mOrganicMapsContext, mSurfaceRenderer));
+
+    if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
+    {
+      mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+                              .build());
+    }
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
       screensStack.add(
           RequestPermissionsScreenBuilder.build(getCarContext(), mOrganicMapsContext, mSensorsManager::onStart));
 
+    Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     if (mDisplayManager.isDeviceDisplayUsed())
     {
       mSurfaceRenderer.disable();
@@ -212,14 +103,6 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       mScreenManager.push(screensStack.get(i));
 
     return screensStack.get(screensStack.size() - 1);
-  }
-
-  @Override
-  public void onMyPositionModeChanged(int newMode)
-  {
-    final Screen screen = mScreenManager.getTop();
-    if (screen instanceof BaseMapScreen)
-      screen.invalidate();
   }
 
   @Override
@@ -285,7 +168,8 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mScreenManager.popToRoot();
   }
 
-  private void restoreRoute()
+  @Override
+  protected void onRestoreRoute()
   {
     final RoutingController routingController = RoutingController.get();
     final boolean isNavigating = routingController.isNavigating();
@@ -318,5 +202,12 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
         return true;
     }
     return false;
+  }
+
+  @Override
+  protected boolean isCarScreenUsed()
+  {
+    Assert.debug(mDisplayManager != null, "mDisplayManager is null");
+    return mDisplayManager.isCarDisplayUsed();
   }
 }

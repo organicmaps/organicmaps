@@ -641,7 +641,7 @@ zh-Hant = 搜尋地圖
 
 [location_is_disabled_long_text]
 comment = Location services are disabled by user alert - message
-tags = android-app
+tags = android-app,android-libs-car
 en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
 af = Alle liggingsdienste vir hierdie toestel of toepassing is tans gedeaktiveer. Aktiveer dit asb. in Instellings.
 ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
@@ -1380,7 +1380,7 @@ zh-Hans = 位置设置
 zh-Hant = 位置設定
 
 [close]
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Close
 af = Sluit
 ar = إغلاق
@@ -36311,7 +36311,7 @@ zh-Hant = 此應用程式需要您的許可
 
 [aa_request_permission_activity_text]
 comment = The text in the activity for location permission request.
-tags = android-app
+tags = android-libs-car
 en = Organic Maps in Android Auto needs location permissions to work effectively
 af = Organic Maps in Android Auto het 'n liggingtoestemming nodig om effektief te werk
 ar = تحتاج الخرائط العضوية في أندرويد أوتو إلى أذونات الموقع للعمل بفعالية
@@ -36367,7 +36367,7 @@ zh-Hant = Android Auto 中的 Organic Maps 需要位置權限才能有效運作
 
 [aa_grant_permissions]
 comment = Grant Permissions button.
-tags = android-app
+tags = android-app,android-libs-car
 en = Grant Permissions
 ar = أذونات المنح
 az = İcazələr verin

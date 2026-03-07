@@ -21,7 +21,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
-import app.organicmaps.car.CarAppService;
+import app.organicmaps.car.AndroidAutoService;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.ThemeUtils;
@@ -155,7 +155,7 @@ public class NavigationScreen
     getLocationHelper().addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext(),
-                                               CarAppService.getCarNotificationExtender(getCarContext()));
+                                               AndroidAutoService.getCarNotificationExtender(getCarContext()));
     updateTrip(/* location */ null);
   }
 

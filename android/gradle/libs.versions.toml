@@ -45,6 +45,7 @@ android-tools-desugaring = { group = "com.android.tools", name = "desugar_jdk_li
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 androidx-car-app = { group = "androidx.car.app", name = "app", version.ref = "androidx-car" }
+androidx-car-app-automotive = { group = "androidx.car.app", name = "app-automotive", version.ref = "androidx-car" }
 androidx-car-app-projected = { group = "androidx.car.app", name = "app-projected", version.ref = "androidx-car" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { group = "androidx.core", name = "core", version.ref = "androidx-core" }
