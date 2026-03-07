@@ -220,7 +220,8 @@ private:
 #endif
 
   TTilesCollection ResolveTileKeys(ScreenBase const & screen);
-  void ResolveZoomLevel(ScreenBase const & screen);
+  /// @return true If zoom level was changed.
+  bool ResolveZoomLevel(ScreenBase const & screen);
   void UpdateDisplacementEnabled();
   void CheckIsometryMinScale(ScreenBase const & screen);
 
@@ -359,15 +360,10 @@ private:
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
 
-  bool IsValidCurrentZoom() const
-  {
-    /// @todo Well, this function was introduced to ASSERT m_currentZoomLevel != -1.
-    /// Can't say for sure is it right or wrong, but also can't garantee with post-messages order.
-
-    // In some cases RenderScene, UpdateContextDependentResources can be called before the rendering of
-    // the first frame. m_currentZoomLevel will be equal to -1, before ResolveZoomLevel call.
-    return m_currentZoomLevel >= 0;
-  }
+  // ResolveZoomLevel is called early in RenderFrame, so zoom is always valid during rendering.
+  // This check is only needed for UpdateContextDependentResources, which can be triggered
+  // by messages processed before the first RenderFrame.
+  bool IsValidCurrentZoom() const { return m_currentZoomLevel >= 0; }
 
   int GetCurrentZoom() const
   {
