@@ -31,7 +31,6 @@ import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
-import app.organicmaps.sdk.util.ConnectionState;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
@@ -135,8 +134,6 @@ public class MwmApplication extends Application implements Application.ActivityL
                                    BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME,
                                    BuildConfig.FILE_PROVIDER_AUTHORITY, mLocationProviderFactory);
 
-    ConnectionState.INSTANCE.initialize(this);
-
     DownloaderNotifier.createNotificationChannel(this);
     NavigationService.createNotificationChannel(this);
     TrackRecordingService.createNotificationChannel(this);
@@ -145,13 +142,14 @@ public class MwmApplication extends Application implements Application.ActivityL
     mDisplayManager = new DisplayManager();
   }
 
-  public boolean initOrganicMaps(@NonNull Runnable onComplete) throws IOException
+  public boolean initOrganicMaps(@Nullable Runnable onComplete) throws IOException
   {
     ThemeSwitcher.INSTANCE.initialize(this);
     return mOrganicMaps.init(() -> {
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
-      onComplete.run();
+      if (onComplete != null)
+        onComplete.run();
     });
   }
 

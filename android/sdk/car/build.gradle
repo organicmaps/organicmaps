@@ -14,5 +14,4 @@ dependencies {
   implementation project(':sdk:widgets:lanes')
 
   implementation libs.androidx.car.app
-  implementation libs.androidx.car.app.projected
 }

@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.R;
-import app.organicmaps.car.CarAppService;
+import app.organicmaps.car.AndroidAutoService;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.screens.BaseScreen;
@@ -113,7 +113,7 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
                                                                   PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
 
     final NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(getCarContext(), CarAppService.ANDROID_AUTO_NOTIFICATION_CHANNEL_ID);
+        new NotificationCompat.Builder(getCarContext(), AndroidAutoService.ANDROID_AUTO_NOTIFICATION_CHANNEL_ID);
     builder.setCategory(NotificationCompat.CATEGORY_NAVIGATION)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .setOngoing(true)
