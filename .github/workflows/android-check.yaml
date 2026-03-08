@@ -67,6 +67,7 @@ jobs:
         with:
           name: android-lint-report
           path: android/build/reports/lint/lint.xml
+          retention-days: 30
 
   android-check:
     name: Build Android Debug
@@ -162,3 +163,4 @@ jobs:
           name: android-${{ matrix.flavor }}
           path: android/app/build/outputs/apk/**/OrganicMaps-*.apk
           if-no-files-found: error
+          retention-days: 30
