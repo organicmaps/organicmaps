@@ -277,9 +277,6 @@ dependencies {
   implementation libs.androidx.work
   implementation libs.androidx.lifecycle
   implementation libs.google.material
-  // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
-  // https://github.com/organicmaps/organicmaps/issues/6106
-  implementation libs.google.guava
   implementation libs.devnullorthrow.mpandroidchart
 
   // Test Dependencies
