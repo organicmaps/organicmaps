@@ -28,7 +28,6 @@ google-firebase-crashlytics = "3.0.6"
 google-firebase-appdistribution = "5.2.0"
 google-gms-location = "21.3.0"
 google-gms-services = "4.4.4"
-google-guava = "33.5.0-android"
 google-material = "1.13.0"
 
 huawei-plugin = "1.5.0"
@@ -62,8 +61,6 @@ google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", ve
 google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 google-firebase-crashlytics-ndk = { group = "com.google.firebase", name = "firebase-crashlytics-ndk" }
 google-gms-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "google-gms-location" }
-
-google-guava = { group = "com.google.guava", name = "guava", version.ref = "google-guava" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
 
 microg-gms-location = { group = "org.microg.gms", name = "play-services-location", version.ref = "microg-gms-location" }
