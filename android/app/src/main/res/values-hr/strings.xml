@@ -246,6 +246,8 @@
     <string name="gray">Siva</string>
     <!-- blue gray color -->
     <string name="blue_gray">Plavo siva</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Svijetlo od zore do sumraka</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Poklonite besplatne karte bez oglasa milijunima korisnika!</string>
 

@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">라이트</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">다크</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">새벽부터 해질녘까지 라이트</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">수백만 명의 사용자에게 광고 없는 무료 지도를 선물하세요!</string>
 
