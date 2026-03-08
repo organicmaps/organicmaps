@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard_altitude"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_shadow"
+    android:drawablePadding="4dp"
+    android:gravity="center_vertical"
+    android:paddingStart="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="8dp"
+    android:text="---"
+    android:textAppearance="@style/MwmTextAppearance.Body2"
+    android:textColor="@color/black_primary"
+    android:visibility="gone"
+    android:layout_marginBottom="@dimen/margin_base" />
