@@ -244,9 +244,10 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
 
-  /// \brief Builds ElevationInfo (simplified) from current route altitude data.
+  /// \brief Builds ElevationInfo from current route altitude data.
+  /// \param[in] simplify When true, applies line simplification to reduce point count.
   /// \return False if current route is invalid or doesn't have altitudes.
-  bool GetRouteElevationInfo(ElevationInfo & ei) const;
+  bool GetRouteElevationInfo(ElevationInfo & ei, bool simplify = true) const;
 
   uint32_t OpenRoutePointsTransaction();
   void ApplyRoutePointsTransaction(uint32_t transactionId);

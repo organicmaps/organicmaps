@@ -2,6 +2,7 @@
 
 #include "kml/types.hpp"
 
+#include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "platform/location.hpp"
@@ -17,6 +18,7 @@ public:
   {
     double m_distance;
     geometry::Altitude m_altitude;
+    m2::PointD m_point;  // Geographic coordinate (Mercator). Zero when unavailable.
   };
 
   using Points = std::vector<Point>;
@@ -37,6 +39,10 @@ public:
   /// @param[in] segDistances N-1 cumulative distances between consecutive points.
   /// @param[in] altitudes N altitude values (one per point).
   void Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes);
+
+  /// Assigns from route segment data with geographic coordinates.
+  void Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes,
+              std::vector<m2::PointD> const & points);
 
   /// Each inner vector corresponds to a geometry line.
   /// Distances are independent per line (each starts from 0).
@@ -81,7 +87,7 @@ public:
   AltitudesInfo CalculateAltitudesInfo(Altitude threshold) const;
 
   /// Iterates all points with cumulative distances across all lines.
-  /// @param[in] fn Called with (double cumulativeDistance, geometry::Altitude altitude) for each point.
+  /// @param[in] fn Called with (double cumulativeDistance, geometry::Altitude altitude, m2::PointD const & point).
   template <typename Fn>
   void ForEachPoint(Fn && fn) const
   {
@@ -90,7 +96,7 @@ public:
     {
       ASSERT(!line.empty(), ());
       for (auto const & point : line)
-        fn(cumulativeOffset + point.m_distance, point.m_altitude);
+        fn(cumulativeOffset + point.m_distance, point.m_altitude, point.m_point);
 
       cumulativeOffset += line.back().m_distance;
     }

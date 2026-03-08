@@ -22,7 +22,7 @@ jobject CreateElevationPoint(JNIEnv * env, double distance, int altitude)
 jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo const & info)
 {
   std::vector<std::pair<double, int>> allPoints;
-  info.ForEachPoint([&](double d, geometry::Altitude a) { allPoints.emplace_back(d, a); });
+  info.ForEachPoint([&](double d, geometry::Altitude a, m2::PointD const &) { allPoints.emplace_back(d, a); });
 
   CHECK(!allPoints.empty(), ("Elevation points must be non empty!"));
   return jni::ToJavaArray(env, GetElevationPointClass(env), allPoints,

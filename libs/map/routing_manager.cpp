@@ -1220,7 +1220,7 @@ bool RoutingManager::HasRouteAltitude() const
   return m_loadAltitudes && m_routingSession.HasRouteAltitude();
 }
 
-bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
+bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei, bool simplify) const
 {
   auto const * route = m_routingSession.GetRoute();
   if (!route || !route->IsValid() || !route->HaveAltitudes())
@@ -1229,8 +1229,9 @@ bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
   geometry::Altitudes altitudes;
   route->GetAltitudes(altitudes);
 
-  ei.Assign(route->GetSegDistanceMeters(), altitudes);
-  ei.Simplify();
+  ei.Assign(route->GetSegDistanceMeters(), altitudes, route->GetPoly().GetPoints());
+  if (simplify)
+    ei.Simplify();
   return true;
 }
 

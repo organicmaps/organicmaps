@@ -1263,6 +1263,70 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
   return CreateJunctionInfoArray(env, result);
 }
 
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
+{
+  ElevationInfo ei;
+  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei, false /* simplify */))
+  {
+    LOG(LWARNING, ("Can't get distance to route points and altitude."));
+    return nullptr;
+  }
+
+  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+
+  ei.Simplify();
+
+  static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[I[D[D)V");
+
+  // Collect simplified data from ElevationInfo.
+  std::vector<double> distances;
+  std::vector<jint> elevations;
+  std::vector<jdouble> lats;
+  std::vector<jdouble> lons;
+
+  ei.ForEachPoint([&](double dist, geometry::Altitude alt, m2::PointD const & pt)
+  {
+    distances.push_back(dist);
+    elevations.push_back(static_cast<jint>(alt));
+    ms::LatLon const ll = mercator::ToLatLon(pt);
+    lats.push_back(ll.m_lat);
+    lons.push_back(ll.m_lon);
+  });
+
+  jsize const size = static_cast<jsize>(distances.size());
+
+  jdoubleArray jDistances = env->NewDoubleArray(size);
+  env->SetDoubleArrayRegion(jDistances, 0, size, distances.data());
+
+  jintArray jElevs = env->NewIntArray(size);
+  env->SetIntArrayRegion(jElevs, 0, size, elevations.data());
+
+  jdoubleArray jLats = env->NewDoubleArray(size);
+  env->SetDoubleArrayRegion(jLats, 0, size, lats.data());
+
+  jdoubleArray jLons = env->NewDoubleArray(size);
+  env->SetDoubleArrayRegion(jLons, 0, size, lons.data());
+
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, jLats, jLons);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass, jdouble lat,
+                                                                                     jdouble lon)
+{
+  if (frm()->GetDrapeEngine() != nullptr)
+  {
+    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
+                                          mercator::FromLatLon(lat, lon), FeatureID(), false, false, true);
+  }
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)
+{
+  if (frm()->GetDrapeEngine() != nullptr)
+    frm()->GetDrapeEngine()->DeselectObject(false);
+}
+
 JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass,
                                                                                             jint width, jint height,
                                                                                             jobject routeAltitudeLimits)
@@ -1825,6 +1889,8 @@ namespace
 JNINativeMethod const frameworkMethods[] = {
     {"nativeGetRouteFollowingInfo", "()Lapp/organicmaps/sdk/routing/RoutingInfo;",
      reinterpret_cast<void *>(&Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo)},
+    {"nativeGetRouteAltitudeData", "()Lapp/organicmaps/sdk/routing/RouteAltitudeData;",
+     reinterpret_cast<void *>(&Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData)},
 };
 }
 
