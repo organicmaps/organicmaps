@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Lys</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Mørk</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Lys fra daggry til skumring</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Giv gratis kort uden reklamer til millioner af brugere!</string>
 

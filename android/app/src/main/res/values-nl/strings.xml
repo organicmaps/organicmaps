@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Licht</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Donker</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Licht van zonsopgang tot zonsondergang</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Geef gratis kaarten zonder advertenties aan miljoenen gebruikers!</string>
 

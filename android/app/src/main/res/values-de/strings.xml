@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Hell</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Dunkel</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Hell von der Morgendämmerung bis zur Abenddämmerung</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Schenke Millionen von Nutzern kostenlose und werbefreie Karten!</string>
 

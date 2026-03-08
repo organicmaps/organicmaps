@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">浅色</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">深色</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">从黎明到黄昏使用浅色</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">向数百万用户赠送无广告的免费地图！</string>
 

@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">فاتح</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">داكن</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">فاتح من الفجر حتى الغسق</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">اهْدِ خرائط مجانية بدون إعلانات لملايين المستخدمين!</string>
 

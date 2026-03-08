@@ -28,6 +28,7 @@
     <item>@string/follow_system</item>
     <item>@string/pref_appearance_light</item>
     <item>@string/pref_appearance_dark</item>
+    <item>@string/pref_appearance_scheduled</item>
   </string-array>
 
   <string-array name="speed_cameras">

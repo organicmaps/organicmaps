@@ -336,6 +336,8 @@
     <string name="pref_appearance_light">Parlaq</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tünd</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Şəfəqdən gün batana qədər açıq</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Milyonlarla istifadəçiyə reklamsız, pulsuz xəritələr hədiyyə edin!</string>
 

@@ -241,6 +241,18 @@ DayTimeType GetDayTime(time_t timeUtc, double latitude, double longitude)
   return DayTimeType::Day;
 }
 
+time_t GetSunriseTime(time_t timeUtc, double latitude, double longitude)
+{
+  auto const [type, t] = CalculateDayEventTime(timeUtc, latitude, longitude, true /* sunrise */);
+  return (type == DayEventType::PolarDay || type == DayEventType::PolarNight) ? -1 : t;
+}
+
+time_t GetSunsetTime(time_t timeUtc, double latitude, double longitude)
+{
+  auto const [type, t] = CalculateDayEventTime(timeUtc, latitude, longitude, false /* sunrise */);
+  return (type == DayEventType::PolarDay || type == DayEventType::PolarNight) ? -1 : t;
+}
+
 std::string DebugPrint(DayTimeType type)
 {
   switch (type)

@@ -327,6 +327,8 @@
     <string name="pref_appearance_light">สว่าง</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">มืด</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">สว่างตั้งแต่เช้าจรดค่ำ</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">มอบแผนที่ฟรีไม่มีโฆษณาให้แก่ผู้ใช้นับล้าน!</string>
 

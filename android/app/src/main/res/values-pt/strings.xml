@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Tons claros</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tons escuros</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Claro desde o amanhecer até ao anoitecer</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de utilizadores!</string>
 
