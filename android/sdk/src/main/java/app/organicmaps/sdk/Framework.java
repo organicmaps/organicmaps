@@ -214,6 +214,10 @@ public class Framework
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();
 
+  public static native void nativeRouteSetElevationActivePoint(double lat, double lon);
+
+  public static native void nativeRouteRemoveElevationActivePoint();
+
   // When an end user is going to a turn he gets sound turn instructions.
   // If C++ part wants the client to pronounce an instruction nativeGenerateTurnNotifications returns
   // an array of one of more strings. C++ part assumes that all these strings shall be pronounced by the client's TTS.

@@ -56,10 +56,10 @@
           android:layout_height="wrap_content"
           android:orientation="vertical"
           android:layout_weight="1">
-            <ImageView
+            <include layout="@layout/elevation_profile"
               android:id="@+id/altitude_chart"
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent" />
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/elevation_profile_content_height" />
             <TextView
               android:id="@+id/time_vehicle"
               android:layout_height="wrap_content"
