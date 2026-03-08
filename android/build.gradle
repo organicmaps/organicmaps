@@ -4,13 +4,6 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
     alias libs.plugins.android.application apply false
     alias libs.plugins.android.library apply false
-
-    alias libs.plugins.google.gms.services apply false
-    alias libs.plugins.google.firebase.crashlytics apply false
-    alias libs.plugins.google.firebase.appdistribution apply false
-
-    alias libs.plugins.triplet.play apply false
-    alias libs.plugins.huawei.plugin apply false
 }
 
 def run(cmd) {

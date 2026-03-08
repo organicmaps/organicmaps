@@ -1,28 +1,52 @@
-// Detect flavors from the task name.
-def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
-def isFdroid = taskName.contains('fdroid')
-def isBeta = taskName.contains('beta')
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()  // For ru.cian.huawei-plugin
+  }
+  //
+  // The magic below is needed to disable Google Firebase Services during the build time.
+  // Unfortunately, the only way to disable Gradle plugins is to add these hardcore switches to buildscript().
+  //
 
-// Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
-def googleFirebaseServicesFlag = findProperty('firebase')
-// Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
-def googleFirebaseServicesDefault = isBeta && !isFdroid && file("$projectDir/google-services.json").exists()
-ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag != null ?
-    googleFirebaseServicesFlag == '' || googleFirebaseServicesFlag.toBoolean() :
-    googleFirebaseServicesDefault
+  // Detect flavors from the task name.
+  def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
+  def isFdroid = taskName.contains('fdroid')
+  def isBeta = taskName.contains('beta')
+
+  // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
+  def googleFirebaseServicesFlag = findProperty('firebase')
+  // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
+  def googleFirebaseServicesDefault = isBeta && !isFdroid && file("$projectDir/google-services.json").exists()
+  ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag != null ?
+      googleFirebaseServicesFlag == '' || googleFirebaseServicesFlag.toBoolean() :
+      googleFirebaseServicesDefault
+
+  dependencies {
+    classpath libs.android.tools.gradle
+
+    if (googleFirebaseServicesEnabled) {
+      println('Building with Google Firebase Services')
+      classpath libs.google.gms.services
+      classpath libs.google.firebase.crashlytics.gradle
+      classpath libs.google.firebase.appdistribution.gradle
+    } else {
+      println('Building without Google Firebase Services')
+    }
+
+    classpath libs.triplet.play.publisher
+    classpath libs.huawei.plugin
+  }
+}
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.github.triplet.play'
-apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
-
 if (googleFirebaseServicesEnabled) {
-  println('Building with Google Firebase Services')
   apply plugin: 'com.google.gms.google-services'
   apply plugin: 'com.google.firebase.crashlytics'
   apply plugin: 'com.google.firebase.appdistribution'
-} else {
-  println('Building without Google Firebase Services')
 }
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 apply from: "${rootProject.rootDir}/groovy/permission-checker.gradle"
