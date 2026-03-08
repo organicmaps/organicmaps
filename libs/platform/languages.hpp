@@ -22,12 +22,21 @@ namespace routing::turns::sound
  * - `internal_code`: optional internal language code used by the TTS core.
  *                    If not specified, `language` is used as the default.
  *
- * @note Special handling for Chinese:
- * - `zh_TW`, `zh_MO`, and `zh_HK` are treated as `zh-Hant` (Traditional Chinese).
- * - All other variants default to `zh-Hans` (Simplified Chinese).
+ * @note Special handling for Chinese voice/sound assets:
+ * - `zh-Hans` = Mandarin in Simplified script (Mainland China / Singapore).
+ * - `zh-Hant` = Mandarin in Traditional script (Taiwan; also fallback for HK/MO).
+ * - `yue-HK` = Cantonese (Hong Kong).
+ * - `yue-MO` = Cantonese (Macau).
+ * - `yue` = Cantonese (generic; not auto-selected, user picks manually).
  *
+ * Auto-selection from Android device locale (see `LanguageData.matchesLocale`):
+ * - Country `HK` → `yue-HK`, `MO` → `yue-MO`, `TW` → `zh-Hant`, else `zh-Hans`.
+ *
+ * The Android list uses `bcp47:internal` form so `LanguageData` can map a
+ * Locale to the internal twine code; iOS does the equivalent mapping in
+ * `LocaleTranslator.mm` and stores only the internal code here.
  */
-std::array<std::pair<std::string_view, std::string_view>, 46> constexpr kLanguageList = {{
+std::array<std::pair<std::string_view, std::string_view>, 49> constexpr kLanguageList = {{
     {"en", "English"},
     {"id", "Bahasa Indonesia"},
     {"ca", "Català"},
@@ -38,7 +47,8 @@ std::array<std::pair<std::string_view, std::string_view>, 46> constexpr kLanguag
     {"es-ES:es", "Español"},
     {"es-MX:es-MX", "Español (México)"},
 #else
-    {"es", "Español"},       {"es-MX", "Español (México)"},
+    {"es", "Español"},
+    {"es-MX", "Español (México)"},
 #endif
     {"eu", "Euskara"},
     {"fr", "Français"},
@@ -55,7 +65,8 @@ std::array<std::pair<std::string_view, std::string_view>, 46> constexpr kLanguag
     {"pt-PT:pt", "Português"},
     {"pt-BR:pt-BR", "Português (Brasil)"},
 #else
-    {"pt", "Português"},     {"pt-BR", "Português (Brasil)"},
+    {"pt", "Português"},
+    {"pt-BR", "Português (Brasil)"},
 #endif
     {"ro", "Română"},
     {"sk", "Slovenčina"},
@@ -79,10 +90,17 @@ std::array<std::pair<std::string_view, std::string_view>, 46> constexpr kLanguag
     {"hi", "हिंदी"},
     {"th", "ไทย"},
 #ifdef OMIM_OS_ANDROID
-    {"zh-CN:zh-Hans", "中文简体"},
-    {"zh-TW:zh-Hant", "中文繁體"},
+    {"zh-CN:zh-Hans", "中文（普通话）"},
+    {"zh-TW:zh-Hant", "中文（國語）"},
+    {"zh-HK:yue-HK", "粵語（香港）"},
+    {"zh-MO:yue-MO", "粵語（澳門）"},
+    {"yue:yue", "粵語"},
 #else
-    {"zh-Hans", "中文简体"}, {"zh-Hant", "中文繁體"},
+    {"zh-Hans", "中文（普通话）"},
+    {"zh-Hant", "中文（國語）"},
+    {"yue-HK", "粵語（香港）"},
+    {"yue-MO", "粵語（澳門）"},
+    {"yue", "粵語"},
 #endif
     {"ja", "日本語"},
     {"ko", "한국어"},

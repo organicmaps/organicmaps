@@ -50,11 +50,19 @@ public class LanguageData
     if (!lang.equals(this.locale.getLanguage()))
       return false;
 
-    if ("zh".equals(lang) && "zh-Hant".equals(internalCode))
+    if ("zh".equals(lang))
     {
-      // Chinese is a special case
-      String country = locale.getCountry();
-      return "TW".equals(country) || "MO".equals(country) || "HK".equals(country);
+      // Auto-pick one Chinese variant per region: Cantonese for HK/MO,
+      // Traditional script for TW, Simplified script everywhere else.
+      // Generic "yue" is intentionally never auto-selected (user picks it manually).
+      String expectedCode = switch (locale.getCountry())
+      {
+        case "HK" -> "yue-HK";
+        case "MO" -> "yue-MO";
+        case "TW" -> "zh-Hant";
+        default -> "zh-Hans";
+      };
+      return expectedCode.equals(internalCode);
     }
 
     return true;
