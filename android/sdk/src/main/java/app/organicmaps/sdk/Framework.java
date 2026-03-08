@@ -1,6 +1,7 @@
 package app.organicmaps.sdk;
 
 import android.graphics.Bitmap;
+import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,8 @@ import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.settings.SpeedCameraMode;
 import app.organicmaps.sdk.util.Constants;
 import dalvik.annotation.optimization.FastNative;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +37,16 @@ import java.util.Locale;
  */
 public class Framework
 {
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({DAY_TIME_TYPE_DAY, DAY_TIME_TYPE_NIGHT, DAY_TIME_TYPE_POLAR_DAY, DAY_TIME_TYPE_POLAR_NIGHT})
+  public @interface DayTimeType
+  {}
+
+  public static final int DAY_TIME_TYPE_DAY = 0;
+  public static final int DAY_TIME_TYPE_NIGHT = 1;
+  public static final int DAY_TIME_TYPE_POLAR_DAY = 2;
+  public static final int DAY_TIME_TYPE_POLAR_NIGHT = 3;
+
   // Used by JNI.
   @Keep
   @SuppressWarnings("unused")
@@ -274,6 +287,23 @@ public class Framework
    * @return {@code true} if it is day now or {@code false} otherwise.
    */
   public static native boolean nativeIsDayTime(long utcTimeSeconds, double lat, double lon);
+
+  /**
+   * Returns the current astronomical day state at the given location.
+   */
+  public static native @DayTimeType int nativeGetDayTimeType(long utcTimeSeconds, double lat, double lon);
+
+  /**
+   * Returns the UTC time in seconds of sunrise for the local day represented by {@code utcTimeSeconds}.
+   * Returns -1 for polar day/night.
+   */
+  public static native long nativeGetSunriseTime(long utcTimeSeconds, double lat, double lon);
+
+  /**
+   * Returns the UTC time in seconds of sunset for the local day represented by {@code utcTimeSeconds}.
+   * Returns -1 for polar day/night.
+   */
+  public static native long nativeGetSunsetTime(long utcTimeSeconds, double lat, double lon);
 
   public static native void nativeGet3dMode(Params3dMode result);
   public static native void nativeSet3dMode(boolean allow3d, boolean allow3dBuildings);

@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">روشن</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">تیره</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">روشن از سپیده‌دم تا غروب</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">نقشه‌های رایگان و بدون تبلیغات را به میلیون‌ها کاربر هدیه دهید!</string>
 

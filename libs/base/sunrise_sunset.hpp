@@ -20,3 +20,11 @@ std::string DebugPrint(DayTimeType type);
 /// @returns day time type for a specified date for a specified location
 /// @note throws RootException if gmtime returns nullptr
 DayTimeType GetDayTime(time_t timeUtc, double latitude, double longitude);
+
+/// Returns the UTC time of sunrise for the local day represented by timeUtc.
+/// Returns -1 if in polar day or polar night.
+time_t GetSunriseTime(time_t timeUtc, double latitude, double longitude);
+
+/// Returns the UTC time of sunset for the local day represented by timeUtc.
+/// Returns -1 if in polar day or polar night.
+time_t GetSunsetTime(time_t timeUtc, double latitude, double longitude);

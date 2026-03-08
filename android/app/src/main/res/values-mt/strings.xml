@@ -330,6 +330,8 @@
     <string name="blue_gray">Blu Griż</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Dehra</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Ċar mill-għodwa sal-għaxija</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Agħti mapep b\'xejn u bla reklami lil miljuni ta\' utenti!</string>
 

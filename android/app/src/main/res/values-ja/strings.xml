@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">ライト</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">ダーク</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">夜明けから夕暮れまでライト</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">何百万人ものユーザーに広告なしの無料地図を贈ろう！</string>
 

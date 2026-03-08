@@ -330,6 +330,8 @@
     <string name="pref_appearance_light">प्रकाश</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">अंधार</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">फिकट पहाटेपासून संध्याकाळपर्यंत</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">लाखो वापरकर्त्यांना जाहिरातीशिवाय विनामूल्य नकाशे भेट द्या!</string>
 

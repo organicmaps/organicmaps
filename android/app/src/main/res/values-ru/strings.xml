@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Светлое</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Темное</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Светлая с рассвета до заката</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Подарите миллионам пользователей бесплатные карты без рекламы!</string>
 

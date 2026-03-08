@@ -3,7 +3,6 @@ package app.organicmaps.util;
 import android.annotation.SuppressLint;
 import android.app.UiModeManager;
 import android.content.Context;
-import android.location.Location;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,41 +14,13 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapStyle;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
-import app.organicmaps.sdk.util.concurrency.UiThread;
-import java.util.Calendar;
 
 public enum ThemeSwitcher
 {
   @SuppressLint("StaticFieldLeak")
   INSTANCE;
 
-  private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
-
-  private final Runnable mAutoDarkNavigationChecker = new Runnable() {
-    @Override
-    public void run()
-    {
-      // Cancel old checker
-      UiThread.cancelDelayedTasks(mAutoDarkNavigationChecker);
-
-      final var themePreference = Config.UiTheme.getUiThemePreference();
-      final var isNavigating = RoutingController.get().isNavigating();
-      final var isAutoTheme = Config.UiTheme.isAutoDarkNavigationEnabled();
-      final Config.UiTheme newTheme;
-      if (isNavigating && isAutoTheme)
-      {
-        UiThread.runLater(mAutoDarkNavigationChecker, CHECK_INTERVAL_MS);
-        newTheme = isDarkOutside() ? Config.UiTheme.DARK : themePreference;
-      }
-      else
-      {
-        // Happens when exiting the Navigation mode. Should restore the preferred theme.
-        newTheme = themePreference;
-      }
-
-      setTheme(newTheme);
-    }
-  };
+  private SynchronizedThemeController mSynchronizedThemeController;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -61,6 +32,8 @@ public enum ThemeSwitcher
   public void initialize(@NonNull Context context)
   {
     mContext = context;
+    mSynchronizedThemeController =
+        new SynchronizedThemeController(MwmApplication.from(context).getLocationHelper(), this::setTheme);
   }
 
   /**
@@ -75,15 +48,20 @@ public enum ThemeSwitcher
   @androidx.annotation.UiThread
   public void synchronizeApplicationTheme()
   {
-    if (RoutingController.get().isNavigating())
+    final Config.UiTheme themePreference = Config.UiTheme.getUiThemePreference();
+    final boolean isScheduledTheme = themePreference == Config.UiTheme.SCHEDULED;
+    final boolean isNavigationAutoDark =
+        RoutingController.get().isNavigating() && Config.UiTheme.isAutoDarkNavigationEnabled();
+
+    if (isScheduledTheme || isNavigationAutoDark)
     {
-      mAutoDarkNavigationChecker.run();
+      final var dayTheme = isScheduledTheme ? Config.UiTheme.LIGHT : themePreference;
+      mSynchronizedThemeController.synchronizeTimeDependentTheme(dayTheme);
     }
     else
     {
-      UiThread.cancelDelayedTasks(mAutoDarkNavigationChecker);
-      var theme = Config.UiTheme.getUiThemePreference();
-      setTheme(theme);
+      mSynchronizedThemeController.stop();
+      setTheme(themePreference);
     }
   }
 
@@ -138,6 +116,9 @@ public enum ThemeSwitcher
         uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO);
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
       break;
+    case SCHEDULED:
+      throw new IllegalArgumentException("Special case, should be handled differently "
+                                         + "and converted to either dark or light");
     }
 
     if (mLatestTheme != null && mLatestTheme != theme)
@@ -169,30 +150,5 @@ public enum ThemeSwitcher
       MapStyle.set(style);
     else
       MapStyle.mark(style);
-  }
-
-  /**
-   * Determine light/dark theme based on time and location,
-   * or fall back to time-based (06:00-18:00) when there's no location fix
-   *
-   * @return true if it is dark outside, false if it is daytime
-   */
-  private boolean isDarkOutside()
-  {
-    final Location last = MwmApplication.from(mContext).getLocationHelper().getSavedLocation();
-    boolean day;
-
-    if (last != null)
-    {
-      long currentTime = System.currentTimeMillis() / 1000;
-      day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
-    }
-    else
-    {
-      int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-      day = (currentHour < 18 && currentHour > 6);
-    }
-
-    return !day;
   }
 }

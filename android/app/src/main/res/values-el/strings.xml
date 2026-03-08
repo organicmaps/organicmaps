@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Ανοιχτόχρωμη</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Σκουρόχρωμη</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Ανοιχτόχρωμο από την αυγή μέχρι το σούρουπο</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Χαρίστε δωρεάν χάρτες χωρίς διαφημίσεις σε εκατομμύρια χρήστες!</string>
 

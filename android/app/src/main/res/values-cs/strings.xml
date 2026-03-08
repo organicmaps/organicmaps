@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Světlý</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tmavý</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Světlý od svítání do soumraku</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Darujte bezplatné mapy bez reklam milionům uživatelů!</string>
 
