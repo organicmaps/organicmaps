@@ -169,9 +169,11 @@ android {
       // Enable jni debug build
       jniDebuggable true
 
-      packagingOptions {
-        jniLibs {
-          keepDebugSymbols += ['**/liborganicmaps.so']
+      if (!rootProject.ext.CI) {
+        packagingOptions {
+          jniLibs {
+            keepDebugSymbols += ['**/liborganicmaps.so']
+          }
         }
       }
     }
