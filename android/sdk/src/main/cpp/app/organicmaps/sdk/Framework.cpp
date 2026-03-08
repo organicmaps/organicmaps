@@ -1300,7 +1300,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   altitudes.Simplify();
 
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
-  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[I)V");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[I[D[D)V");
 
   size_t const size = altitudes.m_distances.size();
   jdoubleArray distances = env->NewDoubleArray(static_cast<jsize>(size));
@@ -1313,7 +1313,21 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
     elevElements[i] = static_cast<jint>(altitudes.m_altitudes[i]);
   env->ReleaseIntArrayElements(elevs, elevElements, 0);
 
-  return env->NewObject(dataClass, constructor, distances, elevs);
+  jdoubleArray lats = env->NewDoubleArray(static_cast<jsize>(size));
+  jdoubleArray lons = env->NewDoubleArray(static_cast<jsize>(size));
+  jdouble * latsElements = env->GetDoubleArrayElements(lats, 0);
+  jdouble * lonsElements = env->GetDoubleArrayElements(lons, 0);
+
+  for (size_t i = 0; i < size; ++i)
+  {
+    ms::LatLon const ll = mercator::ToLatLon(altitudes.m_points[i]);
+    latsElements[i] = ll.m_lat;
+    lonsElements[i] = ll.m_lon;
+  }
+  env->ReleaseDoubleArrayElements(lats, latsElements, 0);
+  env->ReleaseDoubleArrayElements(lons, lonsElements, 0);
+
+  return env->NewObject(dataClass, constructor, distances, elevs, lats, lons);
 }
 
 JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass,
