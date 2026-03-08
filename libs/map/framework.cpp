@@ -760,10 +760,10 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   bool const isState = ftypes::IsStateChecker::Instance()(types);
   if (isState || ftypes::IsCountryChecker::Instance()(types))
   {
-    size_t const level = isState ? 1 : 0;
-    CountriesVec countries;
+    // countryId may be empty after all
     CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-    GetStorage().GetTopmostNodesFor(countryId, countries, level);
+    CountriesVec countries;
+    GetStorage().GetTopmostNodesFor(countryId, countries, isState ? 1 : 0 /* level */);
     if (countries.size() == 1)
       countryId = countries.front();
 
@@ -3377,12 +3377,13 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
 {
   ASSERT(m_infoGetter, ());
 
+  // countryId may be empty after all
   if (info.GetCountryId().empty())
     info.SetCountryId(m_infoGetter->GetRegionCountryId(info.GetMercator()));
 
-  CountriesVec countries;
   if (info.GetTopmostCountryIds().empty())
   {
+    CountriesVec countries;
     GetStorage().GetTopmostNodesFor(info.GetCountryId(), countries);
     info.SetTopmostCountryIds(std::move(countries));
   }

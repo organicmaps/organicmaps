@@ -107,6 +107,7 @@ void Stats::AddTracksStats(MwmToTracks const & mwmToTracks, NumMwmIds const & nu
 
 void Stats::AddDataPoints(string const & mwmName, string const & countryName, uint64_t dataPointNum)
 {
+  CHECK(!mwmName.empty() && !countryName.empty(), ());
   m_mwmToTotalDataPoints[mwmName] += dataPointNum;
   m_countryToTotalDataPoints[countryName] += dataPointNum;
 }
@@ -114,7 +115,6 @@ void Stats::AddDataPoints(string const & mwmName, string const & countryName, ui
 void Stats::AddDataPoints(string const & mwmName, storage::Storage const & storage, uint64_t dataPointNum)
 {
   auto const countryName = storage.GetTopmostParentFor(mwmName);
-  // Note. In case of disputed mwms |countryName| will be empty.
   AddDataPoints(mwmName, countryName, dataPointNum);
 }
 
