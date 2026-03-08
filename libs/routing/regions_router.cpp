@@ -127,7 +127,8 @@ void RegionsRouter::Do()
         if (name.empty() && !IndexGraphStarter::IsFakeSegment(s))
           name = m_numMwmIds->GetFile(s.GetMwmId()).GetName();
 
-        m_mwmNames.emplace(name);
+        if (!name.empty())
+          m_mwmNames.insert(std::move(name));
       }
     }
   }
