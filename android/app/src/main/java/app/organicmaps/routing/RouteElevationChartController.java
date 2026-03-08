@@ -22,6 +22,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,17 @@ public class RouteElevationChartController
   @NonNull
   private final TextView mMinAltitude;
 
+  @Nullable
+  private ElevationSelectionListener mListener;
+  @Nullable
+  private RouteAltitudeData mData;
+
+  public interface ElevationSelectionListener
+  {
+    void onElevationPointSelected(double lat, double lon);
+    void onElevationPointDeselected();
+  }
+
   public RouteElevationChartController(@NonNull View view)
   {
     mContext = view.getContext();
@@ -53,12 +66,42 @@ public class RouteElevationChartController
     mMinAltitude = view.findViewById(R.id.lowest_altitude);
 
     setupChart(resources);
+    mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
+    {
+      @Override
+      public void onValueSelected(Entry e, Highlight h)
+      {
+        if (mListener != null && mData != null)
+        {
+          Object dataObj = e.getData();
+          if (dataObj instanceof Integer)
+          {
+            int index = (Integer) dataObj;
+            if (index >= 0 && index < mData.lats.length)
+            {
+              mListener.onElevationPointSelected(mData.lats[index], mData.lons[index]);
+            }
+          }
+        }
+      }
+
+      @Override
+      public void onNothingSelected()
+      {
+        if (mListener != null)
+        {
+          mListener.onElevationPointDeselected();
+        }
+      }
+    });
   }
 
   private void setupChart(@NonNull Resources resources)
   {
     mChart.setBackgroundColor(ThemeUtils.getColor(mContext, R.attr.cardBackground));
-    mChart.setTouchEnabled(false); // Disable touch for now, just display
+    mChart.setTouchEnabled(true);
+    mChart.setDragEnabled(true);
+    mChart.setScaleEnabled(true);
     mChart.setDrawGridBackground(false);
     mChart.setScaleXEnabled(true);
     mChart.setScaleYEnabled(false);
@@ -72,6 +115,11 @@ public class RouteElevationChartController
     Legend l = mChart.getLegend();
     l.setEnabled(false);
     initAxes();
+  }
+
+  public void setListener(@Nullable ElevationSelectionListener listener)
+  {
+    mListener = listener;
   }
 
   private void initAxes()
@@ -104,11 +152,13 @@ public class RouteElevationChartController
 
   public void setData(@Nullable RouteAltitudeData data)
   {
+    mData = data;
     if (data == null || data.distances.length == 0)
     {
       mChart.clear();
       mMaxAltitude.setText("");
       mMinAltitude.setText("");
+      if (mListener != null) mListener.onElevationPointDeselected();
       return;
     }
 
@@ -120,7 +170,7 @@ public class RouteElevationChartController
     {
       float distance = (float) data.distances[i];
       int altitude = data.altitudes[i];
-      values.add(new Entry(distance, altitude));
+      values.add(new Entry(distance, altitude, i));
 
       if (altitude < minAlt) minAlt = altitude;
       if (altitude > maxAlt) maxAlt = altitude;

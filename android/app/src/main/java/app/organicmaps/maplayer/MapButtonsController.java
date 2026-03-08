@@ -89,7 +89,7 @@ public class MapButtonsController extends Fragment
     public void onLocationUpdateTimeout() {}
 
     @Override
-    public void onLocationResolutionRequired(@android.app.PendingIntent pendingIntent) {}
+    public void onLocationResolutionRequired(android.app.PendingIntent pendingIntent) {}
 
     @Override
     public void onLocationDisabled() {}
