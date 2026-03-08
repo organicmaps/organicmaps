@@ -50,11 +50,21 @@ public class LanguageData
     if (!lang.equals(this.locale.getLanguage()))
       return false;
 
-    if ("zh".equals(lang) && "zh-Hant".equals(internalCode))
+    if ("zh".equals(lang))
     {
-      // Chinese is a special case
+      // Chinese spoken languages: Cantonese for HK/MO/Guangdong,
+      // Mandarin Traditional (zh-Hant) for TW,
+      // Mandarin Simplified (zh-Hans) for everything else.
       String country = locale.getCountry();
-      return "TW".equals(country) || "MO".equals(country) || "HK".equals(country);
+      if ("yue-HK".equals(internalCode))
+        return "HK".equals(country);
+      if ("yue-MO".equals(internalCode))
+        return "MO".equals(country);
+      if ("yue".equals(internalCode))
+        return false; // Generic Cantonese fallback; not auto-selected.
+      if ("zh-Hant".equals(internalCode))
+        return "TW".equals(country);
+      return "zh-Hans".equals(internalCode);
     }
 
     return true;
