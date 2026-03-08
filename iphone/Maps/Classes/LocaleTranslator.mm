@@ -11,11 +11,17 @@ std::string bcp47ToTwineLanguage(NSString const * bcp47)
   if ([@[@"pt-BR", @"es-MX"] containsObject:bcp47])
     return bcp47.UTF8String;  // Unchanged original bcp47 string
 
+  if ([bcp47 isEqualToString:@"zh-HK"])
+    return "yue-HK";  // Cantonese (Hong Kong)
+
+  if ([bcp47 isEqualToString:@"zh-MO"])
+    return "yue-MO";  // Cantonese (Macau)
+
   if ([@[@"zh-CN", @"zh-CHS", @"zh-SG"] containsObject:bcp47])
-    return "zh-Hans";  // Chinese simplified
+    return "zh-Hans";  // Mandarin (Simplified)
 
   if ([bcp47 hasPrefix:@"zh"])
-    return "zh-Hant";  // Chinese traditional
+    return "zh-Hant";  // Mandarin (Traditional / Taiwan)
 
   // Taking two first symbols of a language name. For example ru-RU -> ru
   return [bcp47 substringToIndex:2].UTF8String;
