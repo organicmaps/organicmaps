@@ -6,8 +6,11 @@
     <string name="cancel">ຍົກເລີກ</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">ຄົ້ນຫາ</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">ໃນປັດຈຸບັນທ່ານໄດ້ປິດການບໍລິການຕຳແໜ່ງທີ່ຕັ້ງທັງໝົດສຳລັບອຸປະກອນ ຫຼື ແອັບພລິເຄຊັນນີ້. ກະລຸນາເປີດການໃຊ້ງານໃນການຕັ້ງຄ່າ.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">ການດາວໂຫລດລົ້ມເຫຼວ</string>
+    <string name="close">ປິດ</string>
     <string name="download">ດາວໂຫລດ</string>
     <string name="download_resources">ກ່ອນຈະເລີ່ມໃຊ້ແອັບ, ກະລຸນາດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກລົງໃນອຸປະກອນຂອງທ່ານ.\nມັນຈະໃຊ້ພື້ນທີ່ %s.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -78,4 +81,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">ກຳລັງດາວໂຫລດ</string>
     <string name="download_map_title">ດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກ</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps ໃນ Android Auto ຕ້ອງການການອະນຸຍາດຕຳແໜ່ງທີ່ຕັ້ງເພື່ອໃຫ້ເຮັດວຽກໄດ້ຢ່າງມີປະສິດທິພາບ</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">ໃຫ້ການອະນຸຍາດ</string>
 </resources>

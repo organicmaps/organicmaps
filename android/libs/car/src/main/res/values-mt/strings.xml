@@ -6,8 +6,11 @@
     <string name="cancel">Ikkanċella</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Fittex</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">It-tniżżil falla</string>
+    <string name="close">Ġħalaq</string>
     <string name="download">Niżżel</string>
     <string name="download_resources">Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. \nDan ser juża %s ta\' storage.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -93,4 +96,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Tniżżil</string>
     <string name="download_map_title">Niżżel il-mappa ġenerali tad-dinja</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">organic Maps ġo\' Android Auto jeħtieġ permessi tal-post biex jaħdem b ’mod effettiv</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Għati Permess</string>
 </resources>

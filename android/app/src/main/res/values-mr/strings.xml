@@ -759,8 +759,6 @@
     <string name="aa_location_permissions_request">ऑर्गेनिक नकाशेला स्थान प्रवेश आवश्यक आहे. ते सुरक्षित असताना, तुमच्या फोनवरील सूचना तपासा.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">या अॅपला तुमची परवानगी आवश्यक आहे</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto मधील ऑरगॅनिक नकाशे प्रभावीपणे कार्य करण्यासाठी स्थान परवानगी आवश्यक आहे</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">परवानग्या द्या</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

@@ -762,8 +762,6 @@
     <string name="aa_location_permissions_request">מפות אורגניות זקוקות לגישה למיקום. כשזה בטוח, בדוק את ההתראה בטלפון שלך.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">אפליקציה זו זקוקה לאישור שלך</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">מפות אורגניות ב-Android Auto זקוקות להרשאת מיקום כדי לעבוד ביעילות</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">הענק הרשאות</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

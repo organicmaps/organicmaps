@@ -763,8 +763,6 @@
     <string name="aa_location_permissions_request">Organic Maps teħtieġ aċċess għall-post. Meta jkun sigur, iċċekkja n-notifika fuq il-mowbajl tiegħek.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Din l-applikazzjoni teħtieġ il-permess tiegħek</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">organic Maps ġo\' Android Auto jeħtieġ permessi tal-post biex jaħdem b ’mod effettiv</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Għati Permess</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

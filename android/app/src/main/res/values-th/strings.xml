@@ -728,8 +728,6 @@
     <string name="aa_location_permissions_request">แผนที่ทั่วไปจำเป็นต้องเข้าถึงตำแหน่ง เมื่อปลอดภัยแล้ว ให้ตรวจสอบการแจ้งเตือนบนโทรศัพท์ของคุณ</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">แอพนี้ต้องได้รับอนุญาตจากคุณ</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">แผนที่ทั่วไปใน Android Auto ต้องได้รับอนุญาตจากตำแหน่งจึงจะทำงานได้อย่างมีประสิทธิภาพ</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">ให้สิทธิ์</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

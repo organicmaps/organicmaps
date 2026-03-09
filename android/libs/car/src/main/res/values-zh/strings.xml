@@ -6,8 +6,11 @@
     <string name="cancel">取消</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">搜索</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">您当前已禁用此设备或应用程序的所有位置服务，请在设置中启用。</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">下载失败</string>
+    <string name="close">关闭</string>
     <string name="download">下载</string>
     <string name="download_resources">在您开始使用此应用程序之前，请下载全球地图到您的设备。\n它将使用 %s 的存储空间。</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">正在下载</string>
     <string name="download_map_title">下载世界地图</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Android Auto 中的 Organic Maps 需要位置权限才能有效工作</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">授予权限</string>
 </resources>

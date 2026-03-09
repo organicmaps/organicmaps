@@ -800,8 +800,6 @@
     <string name="aa_location_permissions_request">„Organic Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Šiai programėlei reikia jūsų leidimo</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „Organic Maps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Suteikti leidimą</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

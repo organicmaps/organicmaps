@@ -6,8 +6,11 @@
     <string name="cancel">Huỷ bỏ</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Tìm kiếm</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Tải xuống đã thất bại</string>
+    <string name="close">Đóng</string>
     <string name="download">Tải xuống</string>
     <string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -91,4 +94,8 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Tải xuống</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Bản đồ không phải trả tiền trong Android Auto cần có quyền truy cập vị trí để hoạt động hiệu quả</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Cấp quyền</string>
 </resources>

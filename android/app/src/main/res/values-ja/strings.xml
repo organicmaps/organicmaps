@@ -794,8 +794,6 @@
     <string name="aa_location_permissions_request">オーガニック・マップは位置情報へのアクセスを必要とする。安全になったら、携帯電話の通知をチェックしよう。</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">このアプリはあなたの許可を必要とする</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android AutoのOrganic Mapsを有効に機能させるには、位置情報の許可が必要です</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">許可を与える</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

@@ -803,8 +803,6 @@
     <string name="aa_location_permissions_request">Služba Organic Maps potřebuje přístup k poloze. Když je to bezpečné, zkontrolujte oznámení v telefonu.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Tato aplikace potřebuje vaše povolení</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps v systému Android Auto potřebují k efektivní práci povolení k poloze</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Udělení oprávnění</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

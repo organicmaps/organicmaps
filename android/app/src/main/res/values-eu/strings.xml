@@ -797,8 +797,6 @@
     <string name="aa_location_permissions_request">Organic Maps-ek kokapenerako sarbidea behar du. Seguru dagoenean, egiaztatu zure telefonoko jakinarazpena.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Aplikazio honek zure baimena behar du</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto-ko Organic Maps-ek kokapen-baimena behar du eraginkortasunez funtzionatzeko</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Eman baimenak</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

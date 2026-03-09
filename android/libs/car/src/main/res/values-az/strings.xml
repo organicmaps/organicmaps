@@ -6,8 +6,11 @@
     <string name="cancel">Ləğv et</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Axtar</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Bütün Məkan Xidmətləri hazırda bu cihaz və ya tətbiq üçün deaktiv edilib. Zəhmət olmasa bunu parametrlərdən aktiv edin.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Yükləmə uğursuz oldu</string>
+    <string name="close">Yaxın</string>
     <string name="download">Yüklə</string>
     <string name="download_resources">Başlamazdan əvvəl gəlin ümumi dünya xəritəsini cihazınıza endirək.\n%s yer tələb olunur.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,6 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Endirilir</string>
     <string name="download_map_title">Dünya xəritəsini yükləyin</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">İcazələr verin</string>
 </resources>

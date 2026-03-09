@@ -6,8 +6,11 @@
     <string name="cancel">Prekliči</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Iskanje</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Trenutno imate onemogočene vse lokacijske storitve za to napravo ali aplikacijo. Omogočite jih v nastavitvah.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Prenos ni uspel</string>
+    <string name="close">Zapri</string>
     <string name="download">Prenesi</string>
     <string name="download_resources">Preden začnete uporabljati aplikacijo, prenesite na svojo napravo pregledni zemljevid sveta.\nUporabil bo %s prostora.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Prenašanje</string>
     <string name="download_map_title">Prenesite pregledni zemljevid sveta</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps v Android Auto potrebuje dovoljenja za lokacijo za učinkovito delovanje</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Podeli dovoljenja</string>
 </resources>
