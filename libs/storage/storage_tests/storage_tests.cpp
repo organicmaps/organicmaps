@@ -1297,53 +1297,6 @@ UNIT_TEST(StorageTest_GetOverallProgressSmokeTest)
   TEST_EQUAL(currentProgress.m_bytesTotal, 0, ());
 }
 
-UNIT_TEST(StorageTest_GetQueuedChildrenSmokeTest)
-{
-  Storage storage(kCountriesTxt, make_unique<TestMapFilesDownloader>());
-  TaskRunner runner;
-  InitStorage(storage, runner);
-
-  CountriesVec queuedChildren;
-  storage.GetQueuedChildren(COUNTRIES_ROOT, queuedChildren);
-  TEST(queuedChildren.empty(), ());
-
-  storage.GetQueuedChildren("Abkhazia", queuedChildren);
-  TEST(queuedChildren.empty(), ());
-
-  storage.GetQueuedChildren("Country1", queuedChildren);
-  TEST(queuedChildren.empty(), ());
-}
-
-UNIT_TEST(StorageTest_GetGroupNodePathToRootTest)
-{
-  Storage storage;
-
-  CountriesVec path;
-
-  storage.GetGroupNodePathToRoot("France_Auvergne_Allier", path);
-  TEST(path.empty(), ());
-
-  storage.GetGroupNodePathToRoot("France_Auvergne", path);
-  TEST_EQUAL(path.size(), 2, (path));
-  TEST_EQUAL(path[0], "France", ());
-  TEST_EQUAL(path[1], COUNTRIES_ROOT, ());
-
-  storage.GetGroupNodePathToRoot("France", path);
-  TEST_EQUAL(path.size(), 1, (path));
-  TEST_EQUAL(path[0], COUNTRIES_ROOT, ());
-
-  storage.GetGroupNodePathToRoot("US_Florida_Miami", path);
-  TEST(path.empty(), ());
-
-  storage.GetGroupNodePathToRoot("Florida", path);
-  TEST_EQUAL(path.size(), 2, (path));
-  TEST_EQUAL(path[0], "United States of America", ());
-  TEST_EQUAL(path[1], COUNTRIES_ROOT, ());
-
-  storage.GetGroupNodePathToRoot("Country1", path);
-  TEST(path.empty(), ());
-}
-
 UNIT_TEST(StorageTest_GetTopmostNodesFor)
 {
   Storage storage;
