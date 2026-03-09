@@ -798,8 +798,6 @@
     <string name="aa_location_permissions_request">有機地圖需要位置存取權限。當安全時，請查看手機上的通知。</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">此應用程式需要您的許可</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto 中的 Organic Maps 需要位置權限才能有效運作</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">授予權限</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

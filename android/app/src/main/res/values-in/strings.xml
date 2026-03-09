@@ -777,8 +777,6 @@
     <string name="aa_location_permissions_request">Organic Maps membutuhkan akses lokasi. Jika sudah aman, periksa notifikasi di ponsel Anda.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Aplikasi ini membutuhkan izin Anda</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps di Android Auto membutuhkan izin lokasi agar dapat bekerja secara efektif</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Memberikan Izin</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

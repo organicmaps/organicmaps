@@ -809,8 +809,6 @@
     <string name="aa_location_permissions_request">تحتاج الخرائط العضوية إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعارات الموجودة على هاتفك.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">هذا التطبيق يحتاج إلى إذنك</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">تحتاج الخرائط العضوية في أندرويد أوتو إلى أذونات الموقع للعمل بفعالية</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

@@ -800,8 +800,6 @@
     <string name="aa_location_permissions_request">Az Organic Maps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést az eszközén.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ennek az alkalmazásnak szüksége van az Ön engedélyére</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Az Organic Maps az Android Autoban helymeghatározási engedélyeket igényel a hatékony működéshez</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Engedélyek megadása</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

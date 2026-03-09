@@ -6,8 +6,11 @@
     <string name="cancel">Cancelar</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Pesquisar</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Atualmente tem todos os serviços de localização para este dispositivo ou aplicação desativados. Por favor ative-os nas definições do sistema.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">O descarregamento falhou</string>
+    <string name="close">Fechar</string>
     <string name="download">Descarregar</string>
     <string name="download_resources">Antes de começar, é recomendável descarregar a visão geral mundial para o seu dispositivo.\nÉ necessário %s de espaço disponível.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">A descarregar</string>
     <string name="download_map_title">Descarregar a visão geral mundial</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Os Organic Maps no Android Auto precisam de uma permissão de localização para funcionarem eficazmente</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Conceder permissão</string>
 </resources>

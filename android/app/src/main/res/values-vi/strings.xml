@@ -727,8 +727,6 @@
     <string name="aa_location_permissions_request">Bản đồ không phải trả tiền cần quyền truy cập vị trí. Khi an toàn, hãy kiểm tra thông báo trên điện thoại của bạn.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ứng dụng này cần sự cho phép của bạn</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Bản đồ không phải trả tiền trong Android Auto cần có quyền truy cập vị trí để hoạt động hiệu quả</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Cấp quyền</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

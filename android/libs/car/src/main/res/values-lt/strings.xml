@@ -6,8 +6,11 @@
     <string name="cancel">Atsisakyti</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Ieškoti</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Šiuo metu jūsų įrenginyje arba šiai programėlei visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Atsiuntimas nepavyko</string>
+    <string name="close">Užverti</string>
     <string name="download">Atsiųsti</string>
     <string name="download_resources">Prieš pradėdami naudotis programėle, leiskite atsiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį. \nJis užims %s vietos saugykloje.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -94,4 +97,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Atsiunčiama</string>
     <string name="download_map_title">Atsisiųsti bendrą pasaulio žemėlapį</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „Organic Maps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Suteikti leidimą</string>
 </resources>

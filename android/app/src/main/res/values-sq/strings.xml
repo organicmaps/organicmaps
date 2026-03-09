@@ -785,8 +785,6 @@
     <string name="aa_location_permissions_request">Organic Maps ka nevojë për qasje në vendndodhje. Kur të jetë e sigurt, kontrolloni njoftimin në telefonin tuaj.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ky aplikacion ka nevojë për lejen tuaj</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps në Android Auto ka nevojë për leje vendndodhjeje për të punuar me efikasitet</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Jepni Lejet</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

@@ -798,8 +798,6 @@
     <string name="aa_location_permissions_request">Η εφαρμογή Organic Maps χρειάζεται πρόσβαση στην τοποθεσία. Όταν είναι ασφαλές, ελέγξτε την ειδοποίηση στο τηλέφωνό σας.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Αυτή η εφαρμογή χρειάζεται την άδειά σας</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Οι οργανικοί χάρτες στο Android Auto χρειάζονται δικαιώματα τοποθεσίας για να λειτουργούν αποτελεσματικά</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Να επιτραπεί</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

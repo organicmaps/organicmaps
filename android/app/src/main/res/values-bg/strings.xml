@@ -790,8 +790,6 @@
     <string name="aa_location_permissions_request">Organic Maps се нуждае от достъп до местоположението. Когато е безопасно, проверете известието на телефона си.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Това приложение се нуждае от вашето разрешение</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps в Android Auto се нуждае от разрешение за местоположение, за да работи ефективно</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Предоставяне на разрешения</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

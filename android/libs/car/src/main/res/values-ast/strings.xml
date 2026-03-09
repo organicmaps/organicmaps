@@ -6,6 +6,7 @@
     <string name="cancel">Cancelar</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Guetar</string>
+    <string name="close">Zarrar</string>
     <string name="download">Baxar</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Marcadores</string>

@@ -749,8 +749,6 @@
     <string name="aa_location_permissions_request">Organic Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">ແອັບນີ້ຕ້ອງການການອະນຸຍາດຈາກທ່ານ</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps ໃນ Android Auto ຕ້ອງການການອະນຸຍາດຕຳແໜ່ງທີ່ຕັ້ງເພື່ອໃຫ້ເຮັດວຽກໄດ້ຢ່າງມີປະສິດທິພາບ</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">ໃຫ້ການອະນຸຍາດ</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

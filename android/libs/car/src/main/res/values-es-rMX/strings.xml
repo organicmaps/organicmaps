@@ -4,6 +4,8 @@
     <!-- SECTION: Strings -->
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar en</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Actualmente tienes desactivados todos los servicios de localización para este dispositivo o aplicación. Actívalos en Ajustes.</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">La descarga ha fallado</string>
     <string name="download_resources">Antes de empezar a utilizar la aplicación, descarga el mapa general del mundo en tu dispositivo. \nUsará %s de almacenamiento.</string>
@@ -45,4 +47,6 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Cargando</string>
     <string name="download_map_title">Descargar el mapamundi</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita un permiso de ubicación para funcionar de manera eficaz</string>
 </resources>

@@ -6,8 +6,11 @@
     <string name="cancel">निरस्त करना</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">खोज</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">वर्तमान में आपके पास इस डिवाइस या एप्लिकेशन के लिए सभी स्थान सेवाएँ अक्षम हैं। कृपया उन्हें सेटिंग्स में सक्षम करें।</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">डाउनलोड विफल हो गया है</string>
+    <string name="close">बंद करना</string>
     <string name="download">डाउन लोड करना</string>
     <string name="download_resources">ऐप का उपयोग शुरू करने से पहले, कृपया अपने डिवाइस पर सामान्य विश्व मानचित्र डाउनलोड करें।\nयह %s स्टोरेज का उपयोग करेगा।</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -70,4 +73,8 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">एंड्रॉइड ऑटो में ऑर्गेनिक मैप्स को प्रभावी ढंग से काम करने के लिए स्थान अनुमति की आवश्यकता होती है</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">अनुमतियाँ प्रदान करें</string>
 </resources>

@@ -781,8 +781,6 @@
     <string name="aa_location_permissions_request">오가닉 지도에는 위치 액세스 권한이 필요합니다. 안전해지면 휴대폰에서 알림을 확인합니다.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">이 앱은 사용자의 승인이 필요합니다.</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">안드로이드 오토의 오가닉 맵이 효과적으로 작동하려면 위치 권한이 필요합니다.</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">권한 부여</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

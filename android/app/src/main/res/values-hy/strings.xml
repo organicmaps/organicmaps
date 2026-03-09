@@ -797,8 +797,6 @@
     <string name="aa_location_permissions_request">Organic Maps-ին անհրաժեշտ է տեղադիրքի հասանելիություն։ Երբ անվտանգ լինի, ստուգեք ծանուցումը ձեր հեռախոսում։</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Այս հավելվածին անհրաժեշտ է ձեր թույլտվությունը</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto-ում Organic Maps-ի արդյունավետ աշխատանքի համար անհրաժեշտ է տեղադիրքի թույլտվություն</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Տալ թույլտվություններ</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

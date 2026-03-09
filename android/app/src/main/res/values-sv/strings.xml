@@ -797,8 +797,6 @@
     <string name="aa_location_permissions_request">Organic Maps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Denna app behöver ditt tillstånd</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps i Android Auto behöver tillgång till platsinformation för att fungera effektivt</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Tilldela behörigheter</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

@@ -795,8 +795,6 @@
     <string name="aa_location_permissions_request">Organic Maps tarvitsee sijaintitietoja. Kun se on turvallista, tarkista puhelimesi ilmoitus.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Tämä sovellus tarvitsee lupasi</string>
-    <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps tarvitsee luvan käyttää sijantia toimiakseen tehokkaasti Android Autossa</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Lupien myöntäminen</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
