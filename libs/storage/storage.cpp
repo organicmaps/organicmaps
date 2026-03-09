@@ -1848,74 +1848,7 @@ CountryNameSynonyms const & Storage::GetCountryNameSynonyms() const
 {
   return m_countryNameSynonyms;
 }
-
-MwmTopCityGeoIds const & Storage::GetMwmTopCityGeoIds() const
-{
-  return m_mwmTopCityGeoIds;
-}
-
-std::vector<base::GeoObjectId> Storage::GetTopCountryGeoIds(CountryId const & countryId) const
-{
-  std::vector<base::GeoObjectId> result;
-
-  ForEachAncestorExceptForTheRoot(countryId, [this, &result](CountryId const & id, CountryTree::Node const &)
-  {
-    auto const it = m_mwmTopCountryGeoIds.find(id);
-    if (it != m_mwmTopCountryGeoIds.cend())
-      result.insert(result.end(), it->second.cbegin(), it->second.cend());
-  });
-
-  return result;
-}
 /// @}
-
-void Storage::GetQueuedChildren(CountryId const & parent, CountriesVec & queuedChildren) const
-{
-  CountryTree::Node const * const node = m_countries.FindFirst(parent);
-  if (!node)
-  {
-    ASSERT(false, ());
-    return;
-  }
-
-  queuedChildren.clear();
-  node->ForEachChild([&queuedChildren, this](CountryTree::Node const & child)
-  {
-    NodeStatus status = GetNodeStatus(child).status;
-    ASSERT_NOT_EQUAL(status, NodeStatus::Undefined, ());
-    if (status == NodeStatus::Downloading || status == NodeStatus::InQueue)
-      queuedChildren.push_back(child.Value().Name());
-  });
-}
-
-void Storage::GetGroupNodePathToRoot(CountryId const & groupNode, CountriesVec & path) const
-{
-  path.clear();
-
-  CountryTree::NodesBufferT nodes;
-  m_countries.Find(groupNode, nodes);
-  if (nodes.empty())
-  {
-    LOG(LWARNING, ("CountryId =", groupNode, "not found in m_countries."));
-    return;
-  }
-
-  if (nodes.size() != 1)
-  {
-    LOG(LWARNING, (groupNode, "Group node can't have more than one parent."));
-    return;
-  }
-
-  if (nodes[0]->ChildrenCount() == 0)
-  {
-    LOG(LWARNING, (nodes[0]->Value().Name(), "is a leaf node."));
-    return;
-  }
-
-  ForEachAncestorExceptForTheRoot(nodes,
-                                  [&path](CountryId const & id, CountryTree::Node const &) { path.push_back(id); });
-  path.push_back(m_countries.GetRoot().Value().Name());
-}
 
 void Storage::GetTopmostNodesFor(CountryId const & countryId, CountriesVec & nodes, size_t level) const
 {

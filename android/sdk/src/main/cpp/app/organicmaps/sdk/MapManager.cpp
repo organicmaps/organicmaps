@@ -506,18 +506,6 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsav
   return frm()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
-// static void nativeGetPathTo(String root, List<String> result);
-JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jclass clazz, jstring root,
-                                                                              jobject result)
-{
-  auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
-
-  storage::CountriesVec path;
-  GetStorage().GetGroupNodePathToRoot(jni::ToNativeString(env, root), path);
-  for (storage::CountryId const & node : path)
-    env->CallBooleanMethod(result, listAddMethod, jni::TScopedLocalRef(env, jni::ToJavaString(env, node)).get());
-}
-
 // static int nativeGetOverallProgress(String[] countries);
 JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgress(JNIEnv * env, jclass clazz,
                                                                                        jobjectArray jcountries)
