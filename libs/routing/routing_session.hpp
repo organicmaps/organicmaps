@@ -82,8 +82,7 @@ public:
   /// \brief copies distance from route beginning to ends of route segments in meters and
   /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
   /// \returns true if there is valid route information. If the route is not valid returns false.
-  bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
-                                      geometry::Altitudes & routeAltitudesM,
+  bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM, geometry::Altitudes & routeAltitudesM,
                                       std::vector<m2::PointD> & routePoints) const;
 
   /// \brief returns points of route junctions.
