@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
@@ -66,8 +65,7 @@ public class RouteElevationChartController
     mMinAltitude = view.findViewById(R.id.lowest_altitude);
 
     setupChart(resources);
-    mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
-    {
+    mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
       @Override
       public void onValueSelected(Entry e, Highlight h)
       {
@@ -158,7 +156,8 @@ public class RouteElevationChartController
       mChart.clear();
       mMaxAltitude.setText("");
       mMinAltitude.setText("");
-      if (mListener != null) mListener.onElevationPointDeselected();
+      if (mListener != null)
+        mListener.onElevationPointDeselected();
       return;
     }
 
@@ -172,8 +171,10 @@ public class RouteElevationChartController
       int altitude = data.altitudes[i];
       values.add(new Entry(distance, altitude, i));
 
-      if (altitude < minAlt) minAlt = altitude;
-      if (altitude > maxAlt) maxAlt = altitude;
+      if (altitude < minAlt)
+        minAlt = altitude;
+      if (altitude > maxAlt)
+        maxAlt = altitude;
     }
 
     LineDataSet set = new LineDataSet(values, ELEVATION_PROFILE_POINTS);

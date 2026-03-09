@@ -134,8 +134,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mStart = start;
     mAltitudeChart = altitudeChart;
     mRouteElevationChartController = new RouteElevationChartController(mAltitudeChart);
-    mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener()
-    {
+    mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener() {
       @Override
       public void onElevationPointSelected(double lat, double lon)
       {
@@ -366,7 +365,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     int chartWidth = dimen(mContext, R.dimen.altitude_chart_image_width);
     int chartHeight = dimen(mContext, R.dimen.altitude_chart_image_height);
     Framework.generateRouteAltitudeChart(chartWidth, chartHeight, limits);
-    
+
     app.organicmaps.sdk.routing.RouteAltitudeData data = Framework.nativeGetRouteAltitudeData();
     mRouteElevationChartController.setData(data);
     UiUtils.show(mAltitudeChart);

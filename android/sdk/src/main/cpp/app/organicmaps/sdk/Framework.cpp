@@ -1303,22 +1303,20 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   return env->NewObject(dataClass, constructor, distances, elevs, lats, lons);
 }
 
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass, jdouble lat, jdouble lon)
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass, jdouble lat,
+                                                                                     jdouble lon)
 {
   if (frm()->GetDrapeEngine() != nullptr)
   {
-    frm()->GetDrapeEngine()->SelectObject( df::SelectionShape::ESelectedObject::OBJECT_TRACK,
-                                     mercator::FromLatLon(lat, lon), FeatureID(), false, false, true);
+    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
+                                          mercator::FromLatLon(lat, lon), FeatureID(), false, false, true);
   }
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)
 {
   if (frm()->GetDrapeEngine() != nullptr)
-  {
     frm()->GetDrapeEngine()->DeselectObject(false);
-  }
 }
 
 JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass,

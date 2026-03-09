@@ -75,24 +75,27 @@ public class MapButtonsController extends Fragment
   private PlacePageViewModel mPlacePageViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
 
-  private final LocationListener mLocationListener = new LocationListener()
-  {
+  private final LocationListener mLocationListener = new LocationListener() {
     @Override
     public void onLocationUpdated(@NonNull Location location)
     {
-      if (mAltitudeView == null) return;
+      if (mAltitudeView == null)
+        return;
       mAltitudeView.setText(Framework.nativeFormatAltitude(location.getAltitude()));
       UiUtils.show(mAltitudeView);
     }
 
     @Override
-    public void onLocationUpdateTimeout() {}
+    public void onLocationUpdateTimeout()
+    {}
 
     @Override
-    public void onLocationResolutionRequired(android.app.PendingIntent pendingIntent) {}
+    public void onLocationResolutionRequired(android.app.PendingIntent pendingIntent)
+    {}
 
     @Override
-    public void onLocationDisabled() {}
+    public void onLocationDisabled()
+    {}
   };
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;

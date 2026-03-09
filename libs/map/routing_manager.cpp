@@ -1239,10 +1239,7 @@ void RoutingManager::DistanceAltitude::Simplify(double altitudeDeviation)
     }
     int64_t operator-(IterT const & rhs) const { return int64_t(m_ind) - int64_t(rhs.m_ind); }
 
-    PointWithIndex operator*() const
-    {
-      return {{m_da.m_distances[m_ind], double(m_da.m_altitudes[m_ind])}, m_ind};
-    }
+    PointWithIndex operator*() const { return {{m_da.m_distances[m_ind], double(m_da.m_altitudes[m_ind])}, m_ind}; }
   };
 
   struct DistFn
@@ -1257,8 +1254,8 @@ void RoutingManager::DistanceAltitude::Simplify(double altitudeDeviation)
   double const squareEps = math::Pow2(altitudeDeviation);
   DistFn distFn;
 
-  SimplifyNearOptimal(20 /* maxFalseLookAhead */, IterT(*this, true), IterT(*this, false),
-                      squareEps, distFn, AccumulateSkipSmallTrg(distFn, out, squareEps));
+  SimplifyNearOptimal(20 /* maxFalseLookAhead */, IterT(*this, true), IterT(*this, false), squareEps, distFn,
+                      AccumulateSkipSmallTrg(distFn, out, squareEps));
 
   size_t const count = out.size();
   std::vector<double> distances(count);
