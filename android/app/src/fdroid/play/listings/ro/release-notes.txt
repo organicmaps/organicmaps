@@ -1,9 +1,9 @@
-• Date OSM din 16 februarie, Wikipedia din 1 februarie
-• Traseele negre de drumeții și ciclism sunt acum vizibile în tema întunecată
-• S-au adăugat tiroliene și mai multe servicii auto: reparații, service și piese
-• S-a remediat rutarea bicicletelor și calculul vitezei medii
-• Căutare categorii îmbunătățită
-• Bucătărie uzbecă
-• Ore de deschidere extensibile
-• Afișează și utilizează altitudinea MSL pentru traseele înregistrate pe Android 14+
-…mai mult la omaps.org/news
+• Date de hărți OSM din 10 martie, Wikipedia din 1 martie
+• Izolinii de altitudine mai detaliate pentru provinciile chineze
+• S-au adăugat șiruri de copaci, magazine de piele și magazine care vând bunuri religioase
+• S-a adăugat suport pentru limitele de viteză condiționate
+• Împărțirea Tanzaniei în regiuni mai mici
+• Afișare îmbunătățită a programului de lucru
+• S-au remediat mai multe blocări
+• Traduceri îmbunătățite pentru aplicații și nume de țări
+omaps.org/news

@@ -1,27 +1,23 @@
-• Dados do mapa OSM de 16 de fevereiro
-• Dados da Wikipedia de 1º de fevereiro
-• Rotas de caminhada e ciclismo pretas agora são visíveis no tema escuro
-• Adicionados mais serviços automotivos: reparo, serviço e peças
-• Adicionada autenticação do navegador OSM
-• Corrigido o acesso de bicicletas em alguns tipos de estradas
-• Corrigido o cálculo da velocidade média
-• Melhor classificação de pesquisa para categorias
-• Adicionada culinária uzbeque
-• Adicionadas tirolesas no mapa
-• Corrigidos links da Wikimedia com "?" no título
-• Corrigida a análise de arquivos GPX com "+" nas coordenadas
+• Dados do mapa OSM em 10 de março
+• Dados da Wikipedia em 1º de março
+• Adicionado suporte para limites de velocidade condicionais
+• Isolinha de elevação mais detalhada para províncias chinesas
+• Adicionadas lojas de couro e lojas que vendem artigos religiosos
+• Adicionadas fileiras de árvores
+• Adicionadas plataformas de transporte público sem pontos de ônibus próximos
+• Corrigido o cálculo do progresso do download do país
+• Dividida a Tanzânia em regiões menores
+• Adicionado histórico de categorias usadas recentemente no Editor
+• Melhoria no deslizar para cima na tela de planejamento de rota
+• Correção da posição da régua para CarPlay
+• Correção de várias falhas, melhoria da estabilidade e do desempenho
 
 ### Traduções
 
-• Removidos nomes de cidades duplicados em algumas regiões do mapa
-• Corrigidas as instruções de voz em hebraico
-• Corrigidos erros de digitação em coreano
-• Adicionados sinônimos de pesquisa em russo
-• Melhoradas as instruções de voz em alemão
-• Corrigida tradução ausente para túnel ferroviário desativado
-• Corrigida tradução do país em romeno
-• Adicionadas traduções em laociano e armênio
-• Adicionadas traduções armênias ausentes
-• Traduções atualizadas dos colaboradores do Weblate
+• Melhoria nas descrições dos países
+• Aplicação das correções em romeno de Eugen Dedu
+• Atualização dos nomes dos países
+• Atualização das traduções dos colaboradores do Weblate
+• Correção da tradução em ucraniano
 
-Obrigado a todos que contribuem, doam e apoiam o Organic Maps! Vamos construir os melhores mapas juntos!
+Agradecemos a todos que estão contribuindo, doando e apoiando o Organic Maps! Vamos construir os melhores mapas juntos!

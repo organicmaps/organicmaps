@@ -1,10 +1,10 @@
-• OSM-tiedot 16. helmikuuta, Wikipedia 1. helmikuuta
-• Mustat vaellus- ja pyöräilyreitit näkyvät nyt tummassa teemassa
-• Lisätty köysiradat ja lisää autopalveluita: korjaus, huolto ja varaosat
-• Korjattu pyöräilyreititys ja keskinopeuden laskenta
-• Parannettu kategoriahaku
-• Uzbekistanilainen keittiö
-• Laajennettavat aukioloajat
-• Näytä ja käytä MSL-korkeutta tallennetuille reiteille Android 14+ -laitteissa
-• Korjattu KML, KMZ, GPX, GeoJSON -tuonti WhatsAppista
-…lisää osoitteessa omaps.org/news
+• OSM-karttatiedot 10. maaliskuuta, Wikipedia 1. maaliskuuta
+• Tarkemmat korkeuskäyrät Kiinan provinsseille
+• Lisätty rivejä puita, nahkakauppoja ja uskonnollisia tavaroita myyviä liikkeitä
+• Lisätty tuki ehdollisille nopeusrajoituksille
+• Tansania jaettu pienempiin alueisiin
+• Parannettu aukioloaikojen näyttö
+• Korjattu useita kaatumisia
+• Parannetut sovellusten ja maiden nimien käännökset
+• Lisätty joukkoliikenteen pysäkkitasoja ilman lähellä olevia bussipysäkkejä
+omaps.org/news

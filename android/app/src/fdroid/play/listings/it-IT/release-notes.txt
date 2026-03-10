@@ -1,9 +1,8 @@
-• Dati OSM al 16 febbraio, Wikipedia al 1 febbraio
-• I percorsi escursionistici e ciclabili neri sono ora visibili nel tema scuro
-• Aggiunte teleferiche e più servizi auto: riparazione, assistenza e ricambi
-• Corretto il calcolo del percorso per biciclette e della velocità media
-• Ricerca per categoria migliorata
-• Cucina uzbeka
-• Orari di apertura espandibili
-• Mostra e usa l'altitudine MSL per le tracce registrate su Android 14+
-…altro su omaps.org/news
+• Dati cartografici OSM al 10 marzo, Wikipedia al 1 marzo
+• Isolinee di elevazione più dettagliate per le province cinesi
+• Aggiunti filari di alberi, negozi di pelletteria e negozi che vendono articoli religiosi
+• Aggiunto il supporto per i limiti di velocità condizionali
+• La Tanzania è stata suddivisa in regioni più piccole
+• Migliorata la visualizzazione degli orari di apertura delle attività
+• Risolti diversi arresti anomali
+omaps.org/it/news

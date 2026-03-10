@@ -1,10 +1,10 @@
-• OSM podaci od 16. februara, Wikipedia od 1. februara
-• Crne planinarske i biciklističke rute su sada vidljive u tamnoj temi
-• Dodate zip linije i više auto servisa: popravka, servis i delovi
-• Ispravljeno rutiranje bicikla i proračun prosečne brzine
-• Poboljšana pretraga kategorija
-• Uzbekistanska kuhinja
-• Proširivo radno vreme
-• Prikaži i koristi MSL nadmorsku visinu za snimljene tragove na Android 14+
-• Popravljen uvoz KML, KMZ, GPX, GeoJSON iz WhatsApp-a
-…više na omaps.org/news
+• Подаци ОСМ карте од 10. марта, Википедија од 1. марта
+• Детаљније висинске изолиније за кинеске провинције
+• Додати су дрвореди, продавнице коже и продавнице верске робе
+• Додата подршка за условна ограничења брзине
+• Танзанија подељена на мање регионе
+• Побољшан приказ радног времена пословања
+• Поправљено неколико падова
+• Побољшани преводи имена апликација и земаља
+• Додате платформе за заустављање јавног превоза без оближњих аутобуских стајалишта
+omaps.org/news

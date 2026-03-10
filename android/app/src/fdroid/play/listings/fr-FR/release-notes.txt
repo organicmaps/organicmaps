@@ -1,9 +1,8 @@
-• Données OSM au 16 février, Wikipédia au 1er février
-• Les itinéraires de randonnée et cyclistes noirs sont désormais visibles dans le thème sombre
-• Ajout de tyroliennes et de plus de services automobiles : réparation, entretien et pièces
-• Correction du routage vélo et du calcul de la vitesse moyenne
-• Recherche par catégorie améliorée
-• Cuisine ouzbèke
-• Heures d'ouverture extensibles
-• Afficher et utiliser l'altitude MSL pour les traces enregistrées sur Android 14+
-…plus sur omaps.org/news
+• Données cartographiques OSM au 10 mars, Wikipédia au 1er mars
+• Des isolignes d'élévation plus détaillées pour les provinces chinoises
+• Ajout de rangées d'arbres, de maroquineries et de magasins vendant des articles religieux
+• Ajout de la prise en charge des limites de vitesse conditionnelles
+• La Tanzanie a été divisée en régions plus petites
+• Affichage amélioré des heures d'ouverture des entreprises
+• Correction de plusieurs crashs
+omaps.org/fr/news

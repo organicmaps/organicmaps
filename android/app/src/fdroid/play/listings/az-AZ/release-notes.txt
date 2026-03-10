@@ -1,8 +1,9 @@
-• 16 fevral tarixli OSM məlumatları, 1 fevral tarixli Vikipediya
-• Qara yürüyüş və velosiped marşrutları indi qaranlıq rejimdə görünür
-• Kanat yolları və daha çox avtomobil xidmətləri əlavə edildi: təmir, xidmət və ehtiyat hissələri
-• Velosiped marşrutlaşdırılması və orta sürət hesablanması düzəldildi
-• Kateqoriya axtarışı təkmilləşdirildi
-• Özbək mətbəxi
-• Genişləndirilə bilən iş saatları
-…daha ətraflı omaps.org/news
+• 10 mart tarixinə OSM xəritəsi məlumatları, 1 mart tarixinə Wikipedia
+• Çin əyalətləri üçün daha ətraflı yüksəklik izolələri
+• Ağac cərgələri, dəri dükanları və dini mallar satan mağazalar əlavə edildi
+• Şərti sürət məhdudiyyətləri üçün əlavə dəstək
+• Tanzaniya daha kiçik bölgələrə bölündü
+• Biznesin iş saatlarının təkmilləşdirilmiş nümayişi
+• Bir neçə qəza düzəldildi
+• Təkmilləşdirilmiş proqram və ölkə adlarının tərcümələri
+omaps.org/news

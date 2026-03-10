@@ -1,10 +1,9 @@
-• OSM-data per 16 februari, Wikipedia per 1 februari
-• Zwarte wandel- en fietsroutes zijn nu zichtbaar in het donkere thema
-• Tokkelbanen en meer autodiensten toegevoegd: reparatie, onderhoud en onderdelen
-• Fietsroutering en berekening gemiddelde snelheid opgelost
-• Verbeterde categoriezoekfunctie
-• Oezbeekse keuken
-• Uitbreidbare openingstijden
-• Toon en gebruik MSL-hoogte voor tracks opgenomen op Android 14+
-• Import van KML, KMZ, GPX, GeoJSON vanuit WhatsApp opgelost
-…meer op omaps.org/news
+• OSM-kaartgegevens vanaf 10 maart, Wikipedia vanaf 1 maart
+• Meer gedetailleerde hoogte-isolijnen voor Chinese provincies
+• Rijen bomen, leerwinkels en winkels die religieuze goederen verkopen toegevoegd
+• Ondersteuning toegevoegd voor voorwaardelijke snelheidslimieten
+• Tanzania opgesplitst in kleinere regio's
+• Verbeterde weergave van openingstijden van bedrijven
+• Verschillende crashes opgelost
+• Verbeterde vertalingen van app- en landnamen
+omaps.org/nl/news

@@ -1,9 +1,10 @@
-• Podatki OSM z dne 16. februarja, Wikipedija z dne 1. februarja
-• Črne pohodniške in kolesarske poti so zdaj vidne v temni temi
-• Dodane so zip linije in več avtomobilskih storitev: popravilo, servis in deli
-• Popravljeno usmerjanje koles in izračun povprečne hitrosti
-• Izboljšano iskanje kategorij
-• Uzbekistanska kuhinja
-• Razširljiv odpiralni čas
-• Prikaz in uporaba nadmorske višine MSL za posnete sledi v sistemu Android 14+
-…več na omaps.org/news
+• Podatki zemljevidov OSM od 10. marca, Wikipedia od 1. marca
+• Podrobnejše višinske izolinije za kitajske province
+• Dodane so vrste dreves, trgovine z usnjem in trgovine z verskimi izdelki
+• Dodana podpora za pogojne omejitve hitrosti
+• Tanzanija razdeljena na manjše regije
+• Izboljšan prikaz obratovalnega časa podjetja
+• Odpravljenih več zrušitev
+• Izboljšani prevodi imen aplikacij in držav
+• Dodana postajališča javnega prevoza brez bližnjih avtobusnih postajališč
+omaps.org/news

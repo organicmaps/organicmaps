@@ -1,27 +1,23 @@
-• Údaje mapy OSM k 16. februáru
-• Údaje Wikipédie k 1. februáru
-• Čierne turistické a cyklistické trasy sú teraz viditeľné v tmavom režime
-• Pridané ďalšie služby pre autá: opravy, servis a diely
-• Pridané overovanie prehliadača OSM
-• Opravený prístup bicyklov na niektorých typoch ciest
-• Opravený výpočet priemernej rýchlosti
-• Vylepšené hodnotenie vyhľadávania pre kategórie
-• Pridaná uzbecká kuchyňa
-• Pridané lanové dráhy (zip lines) na mapu
-• Opravené odkazy Wikimedia s „?“ v názve
-• Opravené parsovanie súborov GPX s „+“ v súradniciach
+• Mapové údaje OSM k 10. marcu
+• Údaje z Wikipédie k 1. marcu
+• Pridaná podpora podmienených rýchlostných obmedzení
+• Podrobnejšie izolinie nadmorskej výšky pre čínske provincie
+• Pridané kožiarne a obchody s náboženskými predmetmi
+• Pridané rady stromov
+• Pridané nástupišťa verejnej dopravy bez blízkych autobusových zastávok
+• Opravené výpočty priebehu sťahovania krajín
+• Rozdelenie Tanzánie na menšie regióny
+• Pridaná história nedávno použitých kategórií v editore
+• Vylepšené potiahnutie nahor na obrazovke plánovania trasy
+• Opravená poloha pravítka pre CarPlay
+• Opravených niekoľko zlyhaní, vylepšená stabilita a výkon
 
 ### Preklady
 
-• Odstránené duplicitné názvy miest v niektorých regiónoch mapy
-• Opravené hebrejské hlasové pokyny
-• Opravené kórejské preklepy
-• Pridané ruské synonymá vyhľadávania
-• Vylepšené nemecké hlasové pokyny
-• Opravený chýbajúci preklad pre nepoužívaný železničný tunel
-• Opravený preklad krajiny v rumunčine
-• Pridané laoské a arménske preklady
-• Pridané chýbajúce arménske preklady
+• Vylepšené popisy krajín
+• Použité rumunské opravy od Eugena Dedu
+• Aktualizované názvy krajín
 • Aktualizované preklady od prispievateľov Weblate
+• Opravený ukrajinský preklad
 
-Ďakujeme všetkým, ktorí prispievajú, darujú a podporujú Organic Maps! Poďme spoločne vytvoriť tie najlepšie mapy!
+Ďakujeme všetkým, ktorí prispievajú, darujú a podporujú Organic Maps! Spoločne vytvoríme najlepšie mapy!

@@ -1,27 +1,23 @@
-• OSM-karttatiedot 16. helmikuuta alkaen
-• Wikipedia-tiedot 1. helmikuuta alkaen
-• Mustat vaellus- ja pyöräilyreitit näkyvät nyt tummassa teemassa
-• Lisätty enemmän autopalveluita: korjaus, huolto ja varaosat
-• Lisätty OSM-selainautentikointi
-• Korjattu polkupyörien pääsy joillakin tietyypeillä
-• Korjattu keskinopeuden laskenta
-• Parannettu hakusijoitusta kategorioille
-• Lisätty uzbekistanilainen keittiö
-• Lisätty köysiradat kartalle
-• Korjattu Wikimedia-linkit, joiden otsikossa on "?"
-• Korjattu GPX-tiedostojen jäsennys, joiden koordinaateissa on "+"
+• OSM-karttatiedot 10. maaliskuuta
+• Wikipedia-tiedot 1. maaliskuuta
+• Lisätty tuki ehdollisille nopeusrajoituksille
+• Yksityiskohtaisemmat korkeuskäyrät Kiinan maakunnille
+• Lisätty nahkakaupat ja uskonnollisia tuotteita myyvät kaupat
+• Lisätty puurivit
+• Lisätty julkisen liikenteen pysäkkialustat ilman lähellä olevia bussipysäkkejä
+• Korjattu maiden lataamisen edistymisen laskeminen
+• Jaettu Tansania pienempiin alueisiin
+• Lisätty äskettäin käytettyjen luokkien historia editoriin
+• Parannettu pyyhkäisy ylöspäin reitin suunnittelunäytöllä
+• Korjattu viivaimen sijainti CarPlayssa
+• Korjattu useita kaatumisia, parannettu vakautta ja suorituskykyä
 
 ### Käännökset
 
-• Poistettu kaksoiskappaleet kaupunkien nimistä joillakin kartta-alueilla
-• Korjattu hepreankieliset ääniopasteet
-• Korjattu korealaisia kirjoitusvirheitä
-• Lisätty venäjänkielisiä hakusynonyymejä
-• Parannettu saksankielisiä ääniopasteita
-• Korjattu puuttuva käännös käytöstä poistetulle rautatietunnelille
-• Korjattu maan käännös romaniaksi
-• Lisätty laosin ja armenian käännökset
-• Lisätty puuttuvia armeniankielisiä käännöksiä
-• Päivitetty käännöksiä Weblate-avustajilta
+• Parannettu maiden kuvaukset
+• Sovellettu Eugen Dedu:n romaniankielisiä korjauksia
+• Päivitetty maiden nimet
+• Päivitetty Weblate-avustajien käännökset
+• Korjattu ukrainankielinen käännös
 
-Kiitos kaikille, jotka osallistuvat, lahjoittavat ja tukevat Organic Mapsia! Rakennetaan parhaat kartat yhdessä!
+Kiitos kaikille, jotka avustavat, lahjoittavat ja tukevat Organic Mapsia! Rakennetaan yhdessä parhaat kartat!

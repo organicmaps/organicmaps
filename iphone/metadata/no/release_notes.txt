@@ -1,27 +1,23 @@
-• OSM-kartdata per 16. februar
-• Wikipedia-data per 1. februar
-• Svarte tur- og sykkelruter er nå synlige i det mørke temaet
-• La til flere bil-tjenester: reparasjon, service og deler
-• La til OSM-nettleserautentisering
-• Fikset sykkeltilgang på noen veityper
-• Fikset beregning av gjennomsnittshastighet
-• Forbedret søkerangering for kategorier
-• La til usbekisk kjøkken
-• La til ziplines på kartet
-• Fikset Wikimedia-lenker med "?" i tittelen
-• Fikset tolkning av GPX-filer med "+" i koordinater
+• OSM-kartdata per 10. mars
+• Wikipedia-data per 1. mars
+• Støtte for betingede fartsgrenser lagt til
+• Mer detaljerte høydekurver for kinesiske provinser
+• Lærbutikker og butikker som selger religiøse varer lagt til
+• Trerekker lagt til
+• Plattformer for offentlig transport uten nærliggende bussholdeplasser lagt til
+• Beregning av nedlastingsfremdrift for land fikset
+• Tanzania delt inn i mindre regioner
+• Historikk over nylig brukte kategorier lagt til i redigeringsprogrammet
+• Forbedret sveiping oppover på ruteplanleggingsskjermen
+• Rettet linjalposisjon for CarPlay
+• Rettet flere krasj, forbedret stabilitet og ytelse
 
 ### Oversettelser
 
-• Fjernet dupliserte bynavn i noen kartregioner
-• Fikset hebraisk stemmeveiledning
-• Fikset koreanske skrivefeil
-• La til russiske søkesynonymer
-• Forbedret tysk stemmeveiledning
-• Fikset manglende oversettelse for nedlagt jernbanetunnel
-• Fikset landsoversettelse på rumensk
-• La til laotiske og armenske oversettelser
-• La til manglende armenske oversettelser
+• Forbedrede landbeskrivelser
+• Brukt rumenske rettelser fra Eugen Dedu
+• Oppdaterte landnavn
 • Oppdaterte oversettelser fra Weblate-bidragsytere
+• Rettet ukrainsk oversettelse
 
-Takk til alle som bidrar, donerar og støtter Organic Maps! La oss bygge de beste kartene sammen!
+Takk til alle som bidrar, donerer og støtter Organic Maps! La oss lage de beste kartene sammen!
