@@ -331,13 +331,22 @@ public class PlacePageController
     // Prevent the place page from showing under the status bar
     // If we are in planning mode, prevent going above the header
     final int topInsets = insets.top + (RoutingController.get().isPlanning() ? mRoutingHeaderHeight : 0);
-    final int maxHeight = Math.min(minHeight + insets.bottom, mCoordinator.getHeight() - topInsets);
+    final int availableHeight = mCoordinator.getHeight() - topInsets;
+    final int maxHeight = Math.min(minHeight + insets.bottom, availableHeight);
     // Set the minimum height of the place page to prevent jumps when new data results in SMALLER content
     // This cannot be set on the place page itself as it has the fitToContent property set
     mPlacePageContainer.setMinimumHeight(minHeight);
     // Set the maximum height of the place page to prevent jumps when new data results in BIGGER content
     // It does not take into account the navigation bar height so we need to add it manually
     mPlacePageBehavior.setMaxHeight(maxHeight);
+
+    // Add bottom padding when content requires scrolling in landscape to prevent
+    // the last elements from being cut off by the navigation bar
+    final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    final boolean needsBottomInset = isLandscape && (minHeight + insets.bottom > availableHeight);
+    final int bottomPadding = needsBottomInset ? insets.bottom : 0;
+    if (mPlacePageContainer.getPaddingBottom() != bottomPadding)
+      mPlacePageContainer.setPadding(0, 0, 0, bottomPadding);
   }
 
   /**
