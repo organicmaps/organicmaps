@@ -1,27 +1,23 @@
-• Datele hărții OSM din 16 februarie
-• Datele Wikipedia din 1 februarie
-• Traseele de drumeție și ciclism negre sunt acum vizibile în tema întunecată
-• S-au adăugat mai multe servicii auto: reparații, service și piese
-• S-a adăugat autentificarea browser-ului OSM
-• S-a corectat accesul bicicletelor pe unele tipuri de drumuri
-• S-a corectat calculul vitezei medii
-• S-a îmbunătățit clasamentul de căutare pentru categorii
-• S-a adăugat bucătăria uzbecă
-• S-au adăugat tiroliene pe hartă
-• S-au corectat legăturile Wikimedia cu „?” în titlu
-• S-a corectat analiza fișierelor GPX cu „+” în coordonate
+• Date cartografice OSM la data de 10 martie
+• Date Wikipedia la data de 1 martie
+• S-a adăugat suport pentru limite de viteză condiționate
+• Izolinii de altitudine mai detaliate pentru provinciile chineze
+• S-au adăugat magazine de pielărie și magazine care vând articole religioase
+• S-au adăugat rânduri de copaci
+• S-au adăugat platforme de transport public fără stații de autobuz în apropiere
+• S-a remediat calculul progresului descărcării țării
+• S-a împărțit Tanzania în regiuni mai mici
+• S-a adăugat istoricul categoriilor utilizate recent în Editor
+• Îmbunătățit glisarea în sus pe ecranul de planificare a traseului
+• Remediat poziția riglei pentru CarPlay
+• Remediate mai multe blocări, îmbunătățită stabilitatea și performanța
 
 ### Traduceri
 
-• S-au eliminat numele de orașe duplicate în unele regiuni ale hărții
-• S-au corectat indicațiile vocale în ebraică
-• S-au corectat greșelile de tipar în coreeană
-• S-au adăugat sinonime de căutare în rusă
-• S-au îmbunătățit indicațiile vocale în germană
-• S-a corectat traducerea lipsă pentru tunelul feroviar dezafectat
-• S-a corectat traducerea țării în română
-• S-au adăugat traduceri în laoțiană și armeană
-• S-au adăugat traduceri lipsă în armeană
-• S-au actualizat traducerile de la colaboratorii Weblate
+• Îmbunătățite descrierile țărilor
+• Aplicate remedieri în limba română de la Eugen Dedu
+• Actualizate numele țărilor
+• Actualizate traducerile de la colaboratorii Weblate
+• Remediată traducerea în limba ucraineană
 
-Mulțumim tuturor celor care contribuie, donează și susțin Organic Maps! Să construim împreună cele mai bune hărți!
+Mulțumim tuturor celor care contribuie, donează și susțin Organic Maps! Haideți să construim împreună cele mai bune hărți!

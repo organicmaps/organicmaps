@@ -1,10 +1,10 @@
-• Data OSM k 16. únoru, Wikipedia k 1. únoru
-• Černé turistické a cyklistické trasy jsou nyní viditelné v tmavém motivu
-• Přidány lanové dráhy a další autoservisy: opravy, servis a díly
-• Opraveno routování pro kola a výpočet průměrné rychlosti
-• Vylepšené vyhledávání kategorií
-• Uzbecká kuchyně
-• Rozbalitelná otevírací doba
-• Zobrazení a použití nadmořské výšky MSL pro zaznamenané trasy na Android 14+
-• Opraven import KML, KMZ, GPX, GeoJSON z WhatsApp
-…více na omaps.org/news
+• Mapová data OSM k 10. březnu, Wikipedie k 1. březnu
+• Podrobnější výškové izočáry pro čínské provincie
+• Přidány řady stromů, kožené obchody a obchody prodávající náboženské zboží
+• Přidána podpora pro podmíněné omezení rychlosti
+• Tanzánie rozdělena na menší regiony
+• Vylepšené zobrazení otevírací doby podniků
+• Opraveno několik pádů
+• Vylepšené překlady názvů aplikací a zemí
+• Přidána nástupiště MHD bez blízkých autobusových zastávek
+omaps.org/cs/news

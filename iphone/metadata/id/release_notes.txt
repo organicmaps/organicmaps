@@ -1,27 +1,23 @@
-• Data peta OSM per 16 Februari
-• Data Wikipedia per 1 Februari
-• Rute pendakian dan bersepeda warna hitam kini terlihat dalam tema gelap
-• Menambahkan lebih banyak layanan mobil: perbaikan, servis, dan suku cadang
-• Menambahkan autentikasi browser OSM
-• Memperbaiki akses sepeda pada beberapa jenis jalan
-• Memperbaiki perhitungan kecepatan rata-rata
-• Meningkatkan peringkat pencarian untuk kategori
-• Menambahkan masakan Uzbekistan
-• Menambahkan flying fox (zip line) di peta
-• Memperbaiki tautan Wikimedia dengan tanda "?" pada judul
-• Memperbaiki parsing file GPX dengan tanda "+" pada koordinat
+• Data peta OSM per 10 Maret
+• Data Wikipedia per 1 Maret
+• Ditambahkan dukungan untuk batas kecepatan kondisional
+• Garis kontur ketinggian yang lebih detail untuk provinsi-provinsi Tiongkok
+• Ditambahkan toko kulit dan toko yang menjual barang-barang keagamaan
+• Ditambahkan barisan pohon
+• Ditambahkan platform halte transportasi umum tanpa halte bus terdekat
+• Perbaikan perhitungan kemajuan unduhan negara
+• Membagi Tanzania menjadi wilayah-wilayah yang lebih kecil
+• Ditambahkan riwayat kategori yang baru digunakan di Editor
+• Peningkatan geser ke atas di layar perencanaan rute
+• Perbaikan posisi penggaris untuk CarPlay
+• Perbaikan beberapa crash, peningkatan stabilitas dan kinerja
 
 ### Terjemahan
 
-• Menghapus nama kota ganda di beberapa wilayah peta
-• Memperbaiki panduan suara bahasa Ibrani
-• Memperbaiki kesalahan ketik bahasa Korea
-• Menambahkan sinonim pencarian bahasa Rusia
-• Meningkatkan panduan suara bahasa Jerman
-• Memperbaiki terjemahan yang hilang untuk terowongan kereta api yang tidak digunakan
-• Memperbaiki terjemahan negara dalam bahasa Rumania
-• Menambahkan terjemahan bahasa Lao dan Armenia
-• Menambahkan terjemahan bahasa Armenia yang hilang
-• Memperbarui terjemahan dari kontributor Weblate
+• Peningkatan deskripsi negara
+• Penerapan perbaikan Romania dari Eugen Dedu
+• Pembaruan nama negara
+• Pembaruan terjemahan dari kontributor Weblate
+• Perbaikan terjemahan Ukraina
 
-Terima kasih kepada semua yang berkontribusi, mendonasikan, dan mendukung Organic Maps! Mari kita bangun peta terbaik bersama!
+Terima kasih kepada semua yang berkontribusi, berdonasi, dan mendukung Organic Maps! Mari kita bangun peta terbaik bersama-sama!

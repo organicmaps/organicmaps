@@ -1,27 +1,23 @@
-• 16 Şubat itibarıyla OSM harita verileri
-• 1 Şubat itibarıyla Wikipedia verileri
-• Siyah yürüyüş ve bisiklet rotaları artık karanlık temada görülebiliyor
-• Daha fazla araç hizmeti eklendi: onarım, servis ve parça
-• OSM tarayıcı kimlik doğrulaması eklendi
-• Bazı yol türlerinde bisiklet erişimi düzeltildi
-• Ortalama hız hesaplaması düzeltildi
-• Kategoriler için arama sıralaması iyileştirildi
-• Özbek mutfağı eklendi
-• Haritaya teleferikler (zip lines) eklendi
-• Başlığında "?" bulunan Wikimedia bağlantıları düzeltildi
-• Koordinatlarda "+" bulunan GPX dosyalarının ayrıştırılması düzeltildi
+• 10 Mart itibarıyla OSM harita verileri
+• 1 Mart itibarıyla Wikipedia verileri
+• Koşullu hız sınırları için destek eklendi
+• Çin eyaletleri için daha ayrıntılı yükseklik izolinerleri
+• Deri mağazaları ve dini ürünler satan mağazalar eklendi
+• Ağaç sıraları eklendi
+• Yakınında otobüs durağı olmayan toplu taşıma durağı platformları eklendi
+• Ülke indirme ilerleme hesaplaması düzeltildi
+• Tanzanya daha küçük bölgelere ayrıldı
+• Editörde son kullanılan kategoriler geçmişi eklendi
+• Rota planlama ekranında yukarı kaydırma iyileştirildi
+• CarPlay için cetvel konumu düzeltildi
+• Birkaç çökme düzeltildi, kararlılık ve performans iyileştirildi
 
 ### Çeviriler
 
-• Bazı harita bölgelerinde yinelenen şehir adları kaldırıldı
-• İbranice sesli yönlendirmeler düzeltildi
-• Korece yazım hataları düzeltildi
-• Rusça arama eşanlamlıları eklendi
-• Almanca sesli yönlendirmeler iyileştirildi
-• Kullanılmayan demiryolu tüneli için eksik çeviri düzeltildi
-• Rumence ülke çevirisi düzeltildi
-• Laosca ve Ermenice çeviriler eklendi
-• Eksik Ermenice çeviriler eklendi
-• Weblate katkıda bulunanlardan çeviriler güncellendi
+• Ülke açıklamaları iyileştirildi
+• Eugen Dedu'dan Romence düzeltmeler uygulandı
+• Ülke isimleri güncellendi
+• Weblate katkıcılarından gelen çeviriler güncellendi
+• Ukraynaca çeviri düzeltildi
 
-Organic Maps'e katkıda bulunan, bağış yapan ve destekleyen herkese teşekkürler! En iyi haritaları birlikte oluşturalım!
+Organic Maps'e katkıda bulunan, bağış yapan ve destekleyen herkese teşekkür ederiz! Gelin birlikte en iyi haritaları oluşturalım!

@@ -1,9 +1,9 @@
-• OSM adatok: február 16., Wikipédia: február 1.
-• A fekete túra- és kerékpárutak mostantól láthatók a sötét témában
-• Kötélpályák és több autószerviz hozzáadva: javítás, szerviz és alkatrészek
-• Kerékpáros útvonaltervezés és átlagsebesség-számítás javítva
-• Javított kategóriakeresés
-• Üzbég konyha
-• Kibővíthető nyitvatartási idők
-• MSL magasság megjelenítése és használata rögzített nyomvonalakhoz Android 14+ rendszeren
-…több az omaps.org/news oldalon
+• OSM térképadatok március 10-én, Wikipédia március 1-jén
+• Részletesebb magassági izolációk a kínai tartományokhoz
+• Fasorok, bőrüzletek és vallási árukat árusító üzletek hozzáadása
+• Hozzáadott támogatás a feltételes sebességkorlátozásokhoz
+• Tanzánia felosztása kisebb régiókra
+• A nyitvatartási idő jobb megjelenítése
+• Több összeomlást javítottunk
+• Továbbfejlesztett alkalmazás- és országnevek fordítása
+omaps.org/hu/news
