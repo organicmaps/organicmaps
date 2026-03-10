@@ -1,9 +1,9 @@
-• Dades d'OSM a 16 de febrer, Viquipèdia a 1 de febrer
-• Les rutes de senderisme i ciclisme negres ara són visibles en el tema fosc
-• S'han afegit tirolines i més serveis per a automòbils: reparació, manteniment i peces
-• S'ha corregit l'encaminament de bicicletes i el càlcul de la velocitat mitjana
-• Cerca de categories millorada
-• Cuina uzbeka
-• Horaris d'obertura desplegables
-• Mostra i utilitza l'altitud MSL per a rutes enregistrades a Android 14+
-…més a omaps.org/news
+• Dades del mapa OSM a partir del 10 de març, Viquipèdia a partir de l'1 de març
+• Isolínies d'elevació més detallades per a les províncies xineses
+• S'han afegit fileres d'arbres, cuireries i botigues de venda d'articles religiosos
+• S'ha afegit suport per a límits de velocitat condicionals
+• Tanzània dividida en regions més petites
+• Millora de la visualització de l'horari comercial
+• Arreglats diversos bloquejos
+• Traduccions millorades de noms d'aplicacions i països
+omaps.org/ca/news

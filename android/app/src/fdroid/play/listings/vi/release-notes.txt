@@ -1,9 +1,9 @@
-• Dữ liệu OSM tính đến ngày 16 tháng 2, Wikipedia tính đến ngày 1 tháng 2
-• Các tuyến đường đi bộ và đi xe đạp màu đen hiện có thể nhìn thấy trong giao diện tối
-• Đã thêm đường trượt zip và nhiều dịch vụ ô tô hơn: sửa chữa, bảo dưỡng và phụ tùng
-• Đã sửa lỗi định tuyến xe đạp và tính toán tốc độ trung bình
-• Cải thiện tìm kiếm danh mục
-• Ẩm thực Uzbekistan
-• Giờ mở cửa có thể mở rộng
-• Hiển thị và sử dụng độ cao MSL cho các bản ghi trên Android 14+
-…xem thêm tại omaps.org/news
+• Dữ liệu bản đồ OSM tính đến ngày 10 tháng 3, Wikipedia tính đến ngày 1 tháng 3
+• Các ranh giới độ cao chi tiết hơn cho các tỉnh của Trung Quốc
+• Thêm hàng cây, cửa hàng đồ da và cửa hàng bán đồ tôn giáo
+• Đã thêm hỗ trợ cho giới hạn tốc độ có điều kiện
+• Tanzania được chia thành các vùng nhỏ hơn
+• Cải thiện hiển thị giờ mở cửa kinh doanh
+• Đã khắc phục một số sự cố
+• Cải thiện bản dịch tên quốc gia và ứng dụng
+omaps.org/news

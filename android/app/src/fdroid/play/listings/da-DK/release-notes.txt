@@ -1,10 +1,9 @@
-• OSM-data pr. 16. februar, Wikipedia pr. 1. februar
-• Sorte vandre- og cykelruter er nu synlige i mørkt tema
-• Tilføjet svævebaner og flere biltjenester: reparation, service og reservedele
-• Rettet cykelruteplanlægning og beregning af gennemsnitshastighed
-• Forbedret kategorisøgning
-• Usbekisk køkken
-• Udvidelige åbningstider
-• Vis og brug MSL-højde for optagede spor på Android 14+
-• Rettet import af KML, KMZ, GPX, GeoJSON fra WhatsApp
-…mere på omaps.org/news
+• OSM-kortdata pr. 10. marts, Wikipedia pr. 1. marts
+• Mere detaljerede højde-isoliner for kinesiske provinser
+• Tilføjet rækker af træer, læderbutikker og butikker, der sælger religiøse varer
+• Tilføjet understøttelse af betingede hastighedsbegrænsninger
+• Tanzania opdelt i mindre regioner
+• Forbedret visning af virksomhedens åbningstider
+• Rettede flere nedbrud
+• Forbedrede oversættelser af app- og landenavne
+omaps.org/news

@@ -1,9 +1,9 @@
-• OSM dati uz 16. februāri, Wikipedia uz 1. februāri
-• Melnie pārgājienu un riteņbraukšanas maršruti tagad ir redzami tumšajā tēmā
-• Pievienotas trošu trases un vairāk auto pakalpojumu: remonts, apkope un rezerves daļas
-• Izlabota velosipēdu maršrutēšana un vidējā ātruma aprēķināšana
-• Uzlabota kategoriju meklēšana
-• Uzbeku virtuve
-• Paplašināms darba laiks
-• Rādīt un izmantot MSL augstumu ierakstītajiem maršrutiem operētājsistēmā Android 14+
-…vairāk omaps.org/news
+• OSM kartes dati uz 10. martu, Vikipēdija uz 1. martu
+• Detalizētākas pacēluma izolīnas Ķīnas provincēm
+• Pievienotas koku rindas, ādas veikali un veikali, kas pārdod reliģiskas preces
+• Pievienots atbalsts nosacītajiem ātruma ierobežojumiem
+• Tanzānija sadalīta mazākos reģionos
+• Uzlabota uzņēmuma darba laika attēlošana
+• Novērstas vairākas avārijas
+• Uzlaboti lietotņu un valstu nosaukumu tulkojumi
+omaps.org/news

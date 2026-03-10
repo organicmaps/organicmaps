@@ -1,27 +1,23 @@
-• Data peta OSM per 16 Februari
-• Data Wikipedia per 1 Februari
-• Laluan mendaki dan berbasikal hitam kini kelihatan dalam tema gelap
-• Menambah lebih banyak perkhidmatan kereta: pembaikan, servis dan alat ganti
-• Menambah pengesahan penyemak imbas OSM
-• Memperbaiki akses basikal pada beberapa jenis jalan
-• Memperbaiki pengiraan kelajuan purata
-• Meningkatkan kedudukan carian untuk kategori
-• Menambah masakan Uzbekistan
-• Menambah zip line pada peta
-• Memperbaiki pautan Wikimedia dengan "?" dalam tajuk
-• Memperbaiki penghuraian fail GPX dengan "+" dalam koordinat
+• Data peta OSM setakat 10 Mac
+• Data Wikipedia setakat 1 Mac
+• Ditambah sokongan untuk had laju bersyarat
+• Garis isolin ketinggian yang lebih terperinci untuk wilayah China
+• Ditambah kedai kulit dan kedai yang menjual barangan keagamaan
+• Ditambah barisan pokok
+• Ditambah platform hentian pengangkutan awam tanpa hentian bas berhampiran
+• Dibaiki pengiraan kemajuan memuat turun negara
+• Dipecahkan Tanzania kepada wilayah yang lebih kecil
+• Ditambah sejarah kategori yang baru-baru ini digunakan dalam Penyunting
+• Peningkatan sapuan ke atas pada skrin perancangan laluan
+• Dibaiki kedudukan pembaris untuk CarPlay
+• Dibaiki beberapa kerosakan, meningkatkan kestabilan dan prestasi
 
 ### Terjemahan
 
-• Mengalih keluar nama bandar pendua di beberapa kawasan peta
-• Memperbaiki arahan suara Ibrani
-• Memperbaiki kesilapan taip Korea
-• Menambah sinonim carian Rusia
-• Meningkatkan arahan suara Jerman
-• Memperbaiki terjemahan yang hilang untuk terowong kereta api yang tidak digunakan
-• Memperbaiki terjemahan negara dalam bahasa Romania
-• Menambah terjemahan Laos dan Armenia
-• Menambah terjemahan Armenia yang hilang
-• Mengemas kini terjemahan daripada penyumbang Weblate
+• Peningkatan keterangan negara
+• Terapan pembetulan Romania daripada Eugen Dedu
+• Dikemas kini nama negara
+• Dikemas kini terjemahan daripada penyumbang Weblate
+• Dibaiki terjemahan Ukraine
 
-Terima kasih kepada semua yang menyumbang, menderma dan menyokong Organic Maps! Mari bina peta terbaik bersama-sama!
+Terima kasih kepada semua yang menyumbang, menderma dan menyokong Organic Maps! Mari kita bina peta terbaik bersama-sama!

@@ -1,9 +1,9 @@
-• Datos de OSM a 16 de febreiro, Wikipedia a 1 de febreiro
-• As rutas de sendeirismo e ciclismo negras agora son visibles no tema escuro
-• Engadíronse tirolinas e máis servizos para automóbiles: reparación, servizo e pezas
-• Corrixiuse o enrutamento de bicicletas e o cálculo da velocidade media
-• Busca de categorías mellorada
-• Cociña uzbeka
-• Horarios de apertura expandibles
-• Mostrar e usar a altitude MSL para rutas gravadas en Android 14+
-…máis en omaps.org/news
+• Datos do mapa OSM a partir do 10 de marzo, Wikipedia a partir do 1 de marzo
+• Isolíneas de elevación máis detalladas para as provincias chinesas
+• Engadíronse filas de árbores, tendas de coiro e tendas de artigos relixiosos
+• Engadido soporte para límites de velocidade condicionais
+• Tanzania dividida en rexións máis pequenas
+• Mellora da visualización do horario de apertura comercial
+• Arranxáronse varios fallos
+• Mellora das traducións de nomes de países e aplicacións
+omaps.org/gl/news

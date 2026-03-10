@@ -1,9 +1,9 @@
-• OSM duomenys nuo vasario 16 d., Vikipedija nuo vasario 1 d.
-• Juodi pėsčiųjų ir dviračių maršrutai dabar matomi tamsioje temoje
-• Pridėtos lynų trasos ir daugiau automobilių paslaugų: remontas, aptarnavimas ir dalys
-• Pataisytas dviračių maršruto parinkimas ir vidutinio greičio skaičiavimas
-• Patobulinta kategorijų paieška
-• Uzbekų virtuvė
-• Išplečiamos darbo valandos
-• Rodyti ir naudoti MSL aukštį įrašytiems maršrutams „Android 14+“
-…daugiau omaps.org/news
+• OSM žemėlapio duomenys kovo 10 d., Vikipedija – kovo 1 d.
+• Detalesnės Kinijos provincijų aukščio izoliacijos
+• Pridėtos medžių eilės, odos parduotuvės ir parduotuvės, prekiaujančios religinėmis prekėmis
+• Pridėtas sąlyginių greičio apribojimų palaikymas
+• Tanzanija padalinta į mažesnius regionus
+• Patobulintas įmonės darbo valandų rodymas
+• Ištaisyta keletas gedimų
+• Patobulinti programų ir šalių pavadinimų vertimai
+omaps.org/lt/news

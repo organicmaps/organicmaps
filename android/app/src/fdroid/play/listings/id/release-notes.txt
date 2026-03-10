@@ -1,9 +1,9 @@
-• Data OSM per 16 Februari, Wikipedia per 1 Februari
-• Rute pendakian dan bersepeda hitam kini terlihat dalam tema gelap
-• Menambahkan flying fox dan lebih banyak layanan mobil: perbaikan, servis, dan suku cadang
-• Perutean sepeda dan perhitungan kecepatan rata-rata diperbaiki
-• Pencarian kategori ditingkatkan
-• Masakan Uzbekistan
-• Jam buka yang dapat diperluas
-• Tampilkan dan gunakan ketinggian MSL untuk trek yang direkam di Android 14+
-…selengkapnya di omaps.org/news
+• Data peta OSM per 10 Maret, Wikipedia per 1 Maret
+• Isoline elevasi yang lebih rinci untuk provinsi-provinsi di Tiongkok
+• Menambah deretan pepohonan, toko kulit, dan toko yang menjual barang keagamaan
+• Menambahkan dukungan untuk batas kecepatan bersyarat
+• Tanzania dibagi menjadi beberapa wilayah yang lebih kecil
+• Peningkatan tampilan jam buka bisnis
+• Memperbaiki beberapa kerusakan
+• Peningkatan terjemahan nama aplikasi dan negara
+omaps.org/id/news

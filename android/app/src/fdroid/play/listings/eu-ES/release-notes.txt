@@ -1,9 +1,9 @@
-• OSM datuak otsailaren 16koak, Wikipedia otsailaren 1ekoak
-• Ibilbide beltzak eta bizikleta ibilbideak orain ikusgai daude gai ilunean
-• Tirolinak eta auto zerbitzu gehiago gehitu dira: konponketa, zerbitzua eta piezak
-• Bizikleta bideratzea eta batez besteko abiaduraren kalkulua konpondu dira
-• Kategoria bilaketa hobetua
-• Uzbekistango sukaldaritza
-• Ordutegi zabalgarriak
-• Erakutsi eta erabili MSL altitudea Android 14+ gailuetan grabatutako ibilbideetarako
-…gehiago omaps.org/news helbidean
+• OSM maparen datuak martxoaren 10etik aurrera, Wikipedia martxoaren 1etik aurrera
+• Txinako probintzietarako kota-isolinea zehatzagoak
+• Zuhaitz lerroak, larru-dendak eta erlijio-ondasunak saltzen dituzten dendak gehitu dira
+• Baldintzapeko abiadura-mugetarako laguntza gehitu da
+• Tanzania eskualde txikiagotan banatu da
+• Negozioen ordutegiaren bistaratzea hobetu
+• Hainbat hutsegite konpondu dira
+• Aplikazioen eta herrialdeen izenen itzulpenak hobetu dira
+omaps.org/eu/news

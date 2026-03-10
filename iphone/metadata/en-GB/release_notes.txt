@@ -1,27 +1,23 @@
-• OSM map data as of February 16
-• Wikipedia data as of February 1
-• Black hiking and cycling routes are now visible in the dark theme
-• Added more car services: repair, service, and parts
-• Added OSM browser authentication
-• Fixed bicycle access on some road types
-• Fixed average speed calculation
-• Improved search ranking for categories
-• Added Uzbek cuisine
-• Added zip lines on the map
-• Fixed Wikimedia links with "?" in the title
-• Fixed parsing of GPX files with "+" in coordinates
+• OSM map data as of March 10
+• Wikipedia data as of March 1
+• Added support for conditional speed limits
+• More detailed elevation isolines for Chinese provinces
+• Added leather shops and shops selling religious goods
+• Added rows of trees
+• Added public transport stop platforms without nearby bus stops
+• Fixed country downloading progress calculation
+• Split Tanzania into smaller regions
+• Added recently used categories history in the Editor
+• Improved swiping up on the route planning screen
+• Fixed ruler position for CarPlay
+• Fixed several crashes, improved stability and performance
 
 ### Translations
 
-• Removed duplicate city names in some map regions
-• Fixed Hebrew voice directions
-• Fixed Korean typos
-• Added Russian search synonyms
-• Improved German voice directions
-• Fixed missing translation for disused railway tunnel
-• Fixed country translation in Romanian
-• Added Lao and Armenian translations
-• Added missing Armenian translations
+• Improved country descriptions
+• Applied Romanian fixes from Eugen Dedu
+• Updated country names
 • Updated translations from Weblate contributors
+• Fixed Ukrainian translation
 
 Thanks to everyone who is contributing, donating and supporting Organic Maps! Let's build the best maps together!

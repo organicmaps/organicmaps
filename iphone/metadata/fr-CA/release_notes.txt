@@ -1,27 +1,23 @@
-• Données cartographiques OSM en date du 16 février
-• Données Wikipédia en date du 1er février
-• Les itinéraires de randonnée et de vélo noirs sont désormais visibles dans le thème sombre
-• Ajout de plus de services automobiles : réparation, entretien et pièces
-• Ajout de l'authentification par navigateur OSM
-• Correction de l'accès aux vélos sur certains types de routes
-• Correction du calcul de la vitesse moyenne
-• Amélioration du classement de recherche pour les catégories
-• Ajout de la cuisine ouzbèke
-• Ajout des tyroliennes sur la carte
-• Correction des liens Wikimedia avec "?" dans le titre
-• Correction de l'analyse des fichiers GPX avec "+" dans les coordonnées
+• Données cartographiques OSM au 10 mars
+• Données Wikipédia au 1er mars
+• Ajout de la prise en charge des limitations de vitesse conditionnelles
+• Isolignes d'altitude plus détaillées pour les provinces chinoises
+• Ajout des magasins de cuir et des magasins vendant des articles religieux
+• Ajout de rangées d'arbres
+• Ajout des quais de transport public sans arrêts de bus à proximité
+• Correction du calcul de la progression du téléchargement des pays
+• Division de la Tanzanie en régions plus petites
+• Ajout de l'historique des catégories récemment utilisées dans l'éditeur
+• Amélioration du balayage vers le haut sur l'écran de planification d'itinéraire
+• Correction de la position de la règle pour CarPlay
+• Correction de plusieurs plantages, amélioration de la stabilité et des performances
 
 ### Traductions
 
-• Suppression des noms de villes en double dans certaines régions de la carte
-• Correction des instructions vocales en hébreu
-• Correction de coquilles en coréen
-• Ajout de synonymes de recherche en russe
-• Amélioration des instructions vocales en allemand
-• Correction de la traduction manquante pour le tunnel ferroviaire désaffecté
-• Correction de la traduction du pays en roumain
-• Ajout des traductions en lao et arménien
-• Ajout de traductions arméniennes manquantes
+• Amélioration des descriptions des pays
+• Application des corrections roumaines d'Eugen Dedu
+• Mise à jour des noms de pays
 • Mise à jour des traductions des contributeurs Weblate
+• Correction de la traduction ukrainienne
 
 Merci à tous ceux qui contribuent, font des dons et soutiennent Organic Maps ! Construisons ensemble les meilleures cartes !
