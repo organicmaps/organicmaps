@@ -97,9 +97,15 @@ final class SurfaceCallback extends SurfaceCallbackBase
   {
     Logger.d(TAG, "Surface destroyed");
     if (mPresentation != null)
+    {
       mPresentation.dismiss();
+      mPresentation = null;
+    }
     if (mVirtualDisplay != null)
+    {
       mVirtualDisplay.release();
+      mVirtualDisplay = null;
+    }
   }
 
   @NonNull
