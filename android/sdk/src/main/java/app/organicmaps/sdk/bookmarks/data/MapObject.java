@@ -294,6 +294,13 @@ public class MapObject implements PlacePageData
     return mRawTypes.contains("amenity-atm");
   }
 
+  public boolean isTramStop()
+  {
+    if (mRawTypes == null)
+      return false;
+    return mRawTypes.contains("railway-tram_stop");
+  }
+
   public final boolean isMyPosition()
   {
     return mMapObjectType == MY_POSITION;

@@ -141,6 +141,7 @@ public class PlacePageView extends Fragment
   private TextView mTvEntrance;
   private View mRouteRef;
   private TextView mTvRouteRef;
+  private ImageView mIvRouteRef;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -316,6 +317,7 @@ public class PlacePageView extends Fragment
     mRouteRef = mFrame.findViewById(R.id.ll__place_route_ref);
     mRouteRef.setOnClickListener(this);
     mTvRouteRef = mFrame.findViewById(R.id.tv__place_route_ref);
+    mIvRouteRef = mFrame.findViewById(R.id.iv__place_route_ref);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
@@ -708,6 +710,13 @@ public class PlacePageView extends Fragment
 
     // showTaxiOffer(mapObject);
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedRouteRefs(), mRouteRef, mTvRouteRef);
+    if (mRouteRef.getVisibility() == VISIBLE)
+    {
+      if (mMapObject.isTramStop())
+        mIvRouteRef.setImageResource(R.drawable.ic_category_tram);
+      else
+        mIvRouteRef.setImageResource(R.drawable.ic_category_bus);
+    }
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
