@@ -8,6 +8,11 @@
 
 namespace utm_mgrs_utils
 {
+double NormalizeAngle(double value)
+{
+  return std::remainder(value, 2.0 * math::pi);
+}
+
 namespace
 {
 struct UTMPoint
@@ -48,17 +53,6 @@ std::string_view constexpr kZoneLetters = "CDEFGHJKLMNPQRSTUVWXX";
 
 std::string_view constexpr kSetOriginColumnLetters = "SAJSAJ";
 std::string_view constexpr kSetOriginRowLetters = "FAFAFA";
-
-// Returns angle in radians to be between -π and π.
-double NormalizeAngle(double value)
-{
-  using math::pi;
-  if (value < -pi)
-    value += -2 * pi * (static_cast<int>(value - pi) / (2 * pi));
-  else if (value > pi)
-    value -= 2 * pi * (static_cast<int>(value + pi) / (2 * pi));
-  return value;
-}
 
 int LatLonToZoneNumber(double lat, double lon)
 {

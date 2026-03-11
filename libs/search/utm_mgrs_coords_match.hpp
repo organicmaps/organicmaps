@@ -1,8 +1,8 @@
 #pragma once
-
-#include <string>
-
 #include "geometry/latlon.hpp"
+
+#include <optional>
+#include <string>
 
 namespace search
 {

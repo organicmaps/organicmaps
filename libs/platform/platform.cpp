@@ -200,8 +200,7 @@ void Platform::GetFontNames(FilesList & res) const
 void Platform::GetFilesByExt(std::string const & directory, std::string_view ext, FilesList & outFiles)
 {
   // Transform extension mask to regexp (.mwm -> \.mwm$)
-  ASSERT(!ext.empty(), ());
-  ASSERT_EQUAL(ext[0], '.', ());
+  ASSERT(!ext.empty() && ext[0] == '.', (ext));
   std::string regexp = "\\";
   GetFilesByRegExp(directory, regexp.append(ext).append("$"), outFiles);
 }

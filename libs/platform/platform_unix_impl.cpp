@@ -1,12 +1,8 @@
 #include "platform/platform_unix_impl.hpp"
 #include "platform/platform.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 
-#include <algorithm>
-#include <cstring>
 #include <memory>
 #include <regex>
 

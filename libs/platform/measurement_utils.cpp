@@ -27,7 +27,7 @@ std::string ToStringPrecision(double d, int pr)
 
 std::string ToStringPrecisionLocale(platform::Locale const & loc, double d, int pr)
 {
-  std::string formatBuf("%0.0f");
+  char formatBuf[] = "%0.0f";
   if (pr > 0)
   {
     if (pr < 10)
@@ -37,7 +37,7 @@ std::string ToStringPrecisionLocale(platform::Locale const & loc, double d, int 
   }
 
   char textBuf[50];
-  int const n = std::snprintf(textBuf, sizeof(textBuf), formatBuf.c_str(), d);
+  int const n = std::snprintf(textBuf, sizeof(textBuf), formatBuf, d);
   if (n < 0 || n >= static_cast<int>(sizeof(textBuf)))
   {
     LOG(LERROR, ("snprintf", pr, d, "failed with", n));

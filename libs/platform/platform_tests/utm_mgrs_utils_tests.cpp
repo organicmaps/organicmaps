@@ -2,9 +2,22 @@
 
 #include "platform/utm_mgrs_utils.hpp"
 
-#include <string>
-
 using namespace utm_mgrs_utils;
+
+UNIT_TEST(NormalizeAngle)
+{
+  using math::pi;
+
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(0.0), 0.0, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(2 * pi - pi / 4), -pi / 4, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(2 * pi + pi / 4), pi / 4, ());
+
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(-pi), -pi, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(pi), pi, ());
+
+  double constexpr eps = 0.01;
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(pi + eps), -pi + eps, ());
+}
 
 UNIT_TEST(FormatUTM)
 {
