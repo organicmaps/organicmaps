@@ -7,15 +7,14 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
 import androidx.car.app.model.ListTemplate;
-import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
+import androidx.car.app.model.Toggle;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.car.Toggle;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -91,7 +90,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @NonNull
   private Row createDrivingOptionsToggle(RoadType roadType, @StringRes int title)
   {
-    final OnClickListener listener = () ->
+    final Toggle.OnCheckedChangeListener listener = (unused) ->
     {
       if (RoutingOptions.hasOption(roadType))
         RoutingOptions.removeOption(roadType);
@@ -99,7 +98,10 @@ public class DrivingOptionsScreen extends BaseMapScreen
         RoutingOptions.addOption(roadType);
       invalidate();
     };
-    return Toggle.create(getCarContext(), title, listener, RoutingOptions.hasOption(roadType));
+    final Row.Builder toggle = new Row.Builder();
+    toggle.setTitle(getCarContext().getString(title));
+    toggle.setToggle(new Toggle.Builder(listener).setChecked(RoutingOptions.hasOption(roadType)).build());
+    return toggle.build();
   }
 
   private void initDrivingOptionsState()
