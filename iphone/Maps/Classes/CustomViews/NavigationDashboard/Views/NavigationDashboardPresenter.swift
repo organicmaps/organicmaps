@@ -2,7 +2,6 @@ extension NavigationDashboard {
   final class Presenter: NSObject {
     private weak var view: NavigationDashboardViewController?
     private var viewModel: ViewModel = .initial
-    private var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep = isiPad ? .regular : .compact
     private var isSearchOpened: Bool = false
     private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 
@@ -17,9 +16,6 @@ extension NavigationDashboard {
       guard viewModel.dashboardState != .closed else { return }
       let newViewModel = resolve(action: response, with: viewModel)
       if viewModel != newViewModel {
-        if newViewModel.presentationStep != .hidden {
-          latestVisiblePresentationStep = newViewModel.presentationStep
-        }
         viewModel = newViewModel
         view?.render(newViewModel)
       }
@@ -49,7 +45,7 @@ extension NavigationDashboard {
         case false:
           // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
-            let step: NavigationDashboardModalPresentationStep = (hidden ? .hidden : latestVisiblePresentationStep).forNavigationState(viewModel.dashboardState)
+            let step: NavigationDashboardModalPresentationStep = (hidden ? .hidden : viewModel.latestVisiblePresentationStep).forNavigationState(viewModel.dashboardState)
             viewModel.presentationStep = step
           }
           // Show side buttons if it is not in navigation state
@@ -114,7 +110,7 @@ extension NavigationDashboard {
         viewModel.routerType = routerType
         viewModel.canSaveRouteAsTrack = canSaveRouteAsTrack
         if !isSearchOpened, viewModel.presentationStep == .hidden {
-          let step = latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
+          let step = viewModel.latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
           viewModel.presentationStep = step
         }
 

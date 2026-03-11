@@ -97,7 +97,7 @@ final class SearchOnMapPresenter {
       viewModel.presentationStep = .expanded
     case .setSearchScreenHidden(let isHidden):
       viewModel.isTyping = false
-      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .expanded : .halfScreen)
+      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .expanded : viewModel.latestVisiblePresentationStep)
     case .setSearchScreenCompact:
       viewModel.isTyping = false
       viewModel.presentationStep = .compact

@@ -23,6 +23,7 @@ final class SearchOnMapTests: XCTestCase {
     interactor = nil
     view = nil
     searchManager.results = .empty
+    searchManager.setSearchMode(.everywhere)
     searchManager = nil
     super.tearDown()
   }
@@ -102,6 +103,20 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(view.viewModel.isTyping, false)
   }
 
+  func test_GivenCompactSearch_WhenTapSearch_ThenShowMapInHalfScreen() {
+    interactor.handle(.openSearch)
+    interactor.handle(.didStartDraggingMap)
+    XCTAssertEqual(view.viewModel.presentationStep, .compact)
+
+    let query = SearchQuery("text", source: .typedText)
+    interactor.handle(.searchButtonDidTap(query))
+    interactor.handle(.didUpdatePresentationStep(view.viewModel.presentationStep))
+
+    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
+    XCTAssertEqual(view.viewModel.isTyping, false)
+    XCTAssertEqual(searchManager.searchMode(), .everywhereAndViewport)
+  }
+
   func test_GivenSearchIsOpened_WhenMapIsDragged_ThenCollapseSearchScreen() {
     interactor.handle(.openSearch)
     XCTAssertEqual(view.viewModel.presentationStep, .expanded)
@@ -172,7 +187,7 @@ final class SearchOnMapTests: XCTestCase {
 
     interactor.handle(.didDeselectPlaceOnMap)
     XCTAssertEqual(currentState, .searching)
-    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
+    XCTAssertEqual(view.viewModel.presentationStep, .expanded)
   }
 
   func test_GivenSearchIsOpen_WhenCloseSearch_ThenHideSearch() {
@@ -275,7 +290,7 @@ private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
   static var results = SearchOnMap.SearchResults.empty {
     didSet {
-      for observer in observers {
+      observers.forEach { observer in
         observer.onSearchCompleted?()
       }
     }

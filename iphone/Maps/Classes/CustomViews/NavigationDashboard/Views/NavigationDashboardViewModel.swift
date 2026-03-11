@@ -9,7 +9,14 @@ enum NavigationDashboard {
     var navigationInfo: NavigationInfo
     var estimates: NSAttributedString
     var dashboardState: MWMNavigationDashboardState
-    var presentationStep: NavigationDashboardModalPresentationStep
+    var presentationStep: NavigationDashboardModalPresentationStep {
+      didSet {
+        if presentationStep != .hidden {
+          latestVisiblePresentationStep = presentationStep
+        }
+      }
+    }
+    var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep
     var progress: CGFloat
     var navigationSearchState: NavigationSearchState?
     var canSaveRouteAsTrack: Bool
@@ -40,6 +47,7 @@ extension NavigationDashboard.ViewModel {
       estimates: NSAttributedString(),
       dashboardState: .hidden,
       presentationStep: .hidden,
+      latestVisiblePresentationStep: isiPad ? .regular : .compact,
       progress: 0,
       navigationSearchState: nil,
       canSaveRouteAsTrack: false,
