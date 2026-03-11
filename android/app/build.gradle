@@ -394,7 +394,7 @@ huaweiPublish {
     huaweiRelease {
       credentialsPath = "$projectDir/huawei-appgallery.json"
       buildFormat = 'aab'
-      deployType = 'draft' // confirm manually
+      deployType = 'draft' // Requires manual confirmation in Huawei AppGallery Connect.
       def releaseDescriptions = []
       def localeOverride = [
           'am'   : 'am-ET',
@@ -410,8 +410,11 @@ huaweiPublish {
       def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
           include: '**/release-notes.txt')
       files.each { File file ->
-        def path = file.getPath()
         def locale = file.parentFile.getName()
+        if (locale == 'hy-AM') {
+          return // Armenian locale is not supported by Huawei AppGallery, skip it.
+        }
+        def path = file.getPath()
         locale = localeOverride.get(locale, locale)
         releaseDescriptions.add(new ReleaseNote(locale, path))
       }
