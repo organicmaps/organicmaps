@@ -8,16 +8,15 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.Item;
 import androidx.car.app.model.ItemList;
 import androidx.car.app.model.ListTemplate;
-import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
+import androidx.car.app.model.Toggle;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import app.organicmaps.car.R;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.car.Toggle;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.util.Config;
@@ -105,12 +104,15 @@ public class SettingsScreen extends BaseMapScreen
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
-    final OnClickListener listener = () ->
+    final Toggle.OnCheckedChangeListener listener = (unused) ->
     {
       Framework.nativeSet3dMode(_3d.enabled, !_3d.buildings);
       invalidate();
     };
-    return Toggle.create(getCarContext(), R.string.pref_map_3d_buildings_title, listener, _3d.buildings);
+    final Row.Builder toggle = new Row.Builder();
+    toggle.setTitle(getCarContext().getString(R.string.pref_map_3d_buildings_title));
+    toggle.setToggle(new Toggle.Builder(listener).setChecked(_3d.buildings).build());
+    return toggle.build();
   }
 
   @NonNull
@@ -128,11 +130,14 @@ public class SettingsScreen extends BaseMapScreen
   private Row createSharedPrefsToggle(@StringRes int titleRes, @NonNull PrefsGetter getter, @NonNull PrefsSetter setter)
   {
     final boolean enabled = getter.get();
-    final OnClickListener listener = () ->
+    final Toggle.OnCheckedChangeListener listener = (unused) ->
     {
       setter.set(!enabled);
       invalidate();
     };
-    return Toggle.create(getCarContext(), titleRes, listener, enabled);
+    final Row.Builder toggle = new Row.Builder();
+    toggle.setTitle(getCarContext().getString(titleRes));
+    toggle.setToggle(new Toggle.Builder(listener).setChecked(enabled).build());
+    return toggle.build();
   }
 }
