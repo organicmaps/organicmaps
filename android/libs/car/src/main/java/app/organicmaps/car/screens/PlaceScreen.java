@@ -24,7 +24,7 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.R;
+import app.organicmaps.car.R;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
@@ -46,6 +46,14 @@ import java.util.Objects;
 
 public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback, RoutingController.Container
 {
+  // TODO: Should be removed when NavigationScreen is moved to the lib
+  public interface NavigationScreenBuilder
+  {
+    @NonNull
+    BaseMapScreen build(@NonNull CarContext context, @NonNull OrganicMaps organicMapsContext,
+                        @NonNull Renderer surfaceRenderer);
+  }
+
   public static final Router ROUTER = Router.Vehicle;
 
   @Nullable
@@ -58,12 +66,16 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @NonNull
   private final OnBackPressedCallback mOnBackPressedCallback;
 
+  @NonNull
+  private final NavigationScreenBuilder mNavigationScreenBuilder;
+
   private PlaceScreen(@NonNull Builder builder)
   {
     super(builder.mCarContext, builder.mOrganicMapsContext, builder.mSurfaceRenderer);
     mMapObject = builder.mMapObject;
     mRoutingController = RoutingController.get();
     mOnBackPressedCallback = new OnBackPressedCallback(getCarContext(), this);
+    mNavigationScreenBuilder = builder.mNavigationScreenBuilder;
   }
 
   @NonNull
@@ -287,7 +299,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     {
       getScreenManager().popToRoot();
       getScreenManager().push(
-          new NavigationScreen.Builder(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer()).build());
+          mNavigationScreenBuilder.build(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer()));
     }
   }
 
@@ -350,15 +362,18 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     private final OrganicMaps mOrganicMapsContext;
     @NonNull
     private final Renderer mSurfaceRenderer;
+    @NonNull
+    private final NavigationScreenBuilder mNavigationScreenBuilder;
     @Nullable
     private MapObject mMapObject;
 
     public Builder(@NonNull final CarContext carContext, @NonNull OrganicMaps organicMapsContext,
-                   @NonNull final Renderer surfaceRenderer)
+                   @NonNull final Renderer surfaceRenderer, @NonNull NavigationScreenBuilder navigationScreenBuilder)
     {
       mCarContext = carContext;
       mOrganicMapsContext = organicMapsContext;
       mSurfaceRenderer = surfaceRenderer;
+      mNavigationScreenBuilder = navigationScreenBuilder;
     }
 
     public Builder setMapObject(@Nullable MapObject mapObject)
