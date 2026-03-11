@@ -10,7 +10,6 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,21 +73,14 @@ final class SurfaceCallback extends SurfaceCallbackBase
   {
     Logger.d(TAG, "Surface available " + surfaceContainer);
 
-    releaseVirtualDisplay();
-
     mVirtualDisplay =
         mCarContext.getSystemService(DisplayManager.class)
             .createVirtualDisplay(VIRTUAL_DISPLAY_NAME, surfaceContainer.getWidth(), surfaceContainer.getHeight(),
                                   surfaceContainer.getDpi(), surfaceContainer.getSurface(), 0);
-    if (mVirtualDisplay == null)
-    {
-      Logger.e(TAG, "Failed to create virtual display");
-      return;
-    }
-
     mPresentation = new Presentation(mCarContext, mVirtualDisplay.getDisplay());
+
     mPresentation.setContentView(prepareViewForPresentation(mMapController.getView()));
-    startPresenting();
+    mPresentation.show();
   }
 
   @Override
@@ -104,7 +96,16 @@ final class SurfaceCallback extends SurfaceCallbackBase
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface destroyed");
-    releaseVirtualDisplay();
+    if (mPresentation != null)
+    {
+      mPresentation.dismiss();
+      mPresentation = null;
+    }
+    if (mVirtualDisplay != null)
+    {
+      mVirtualDisplay.release();
+      mVirtualDisplay = null;
+    }
   }
 
   @NonNull
@@ -122,22 +123,8 @@ final class SurfaceCallback extends SurfaceCallbackBase
 
   void startPresenting()
   {
-    if (mPresentation != null && mVirtualDisplay != null && mVirtualDisplay.getDisplay() != null)
-    {
-      try
-      {
-        mPresentation.show();
-      }
-      catch (WindowManager.InvalidDisplayException e)
-      {
-        Logger.e(TAG, "Failed to show presentation: " + e.getMessage());
-        releaseVirtualDisplay();
-      }
-    }
-    else
-    {
-      Logger.w(TAG, "Cannot start presentation: virtual display is not ready");
-    }
+    if (mPresentation != null)
+      mPresentation.show();
   }
 
   @NonNull
@@ -186,20 +173,5 @@ final class SurfaceCallback extends SurfaceCallbackBase
     layoutParams.topMargin = mVisibleArea.top;
     layoutParams.gravity = Gravity.NO_GRAVITY;
     return layoutParams;
-  }
-
-  private void releaseVirtualDisplay()
-  {
-    Logger.d(TAG);
-    if (mPresentation != null)
-    {
-      mPresentation.dismiss();
-      mPresentation = null;
-    }
-    if (mVirtualDisplay != null)
-    {
-      mVirtualDisplay.release();
-      mVirtualDisplay = null;
-    }
   }
 }
