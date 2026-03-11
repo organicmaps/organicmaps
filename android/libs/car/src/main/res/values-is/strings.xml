@@ -60,6 +60,7 @@
     <string name="categories">Flokkar</string>
     <string name="search_not_found">Úbbs, engar niðurstöður fundust.</string>
     <string name="search_history_text">Skoðaðu nýlegar leitir þínar.</string>
+    <string name="p2p_start">Upphaf</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Allan sólarhringinn (24 klst)</string>
     <string name="editor_time_open">Opið</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Forðast ferjur</string>
     <string name="avoid_motorways">Forðast hraðbrautir</string>
+    <string name="unable_to_calc_alert_title">Tókst ekki að reikna leið</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Raða bókamerkjum</string>
     <!-- Android -->

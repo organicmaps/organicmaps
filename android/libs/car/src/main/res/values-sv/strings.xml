@@ -60,6 +60,7 @@
     <string name="categories">Kategorier</string>
     <string name="search_not_found">Ledsen, jag hittade ingenting.</string>
     <string name="search_history_text">Se senaste sökningar.</string>
+    <string name="p2p_start">Start</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Hela dagen (24 timmar)</string>
     <string name="editor_time_open">Öppet</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Undvik färjetrafik</string>
     <string name="avoid_motorways">Undvik motorvägen</string>
+    <string name="unable_to_calc_alert_title">Det går inte att hitta rutt</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sortera bokmärken</string>
     <!-- Android -->

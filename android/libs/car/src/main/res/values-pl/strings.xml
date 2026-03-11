@@ -60,6 +60,7 @@
     <string name="categories">Kategorie</string>
     <string name="search_not_found">Przepraszamy, nic nie znaleziono.</string>
     <string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
+    <string name="p2p_start">Start</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Całą dobę (24 godziny)</string>
     <string name="editor_time_open">Otwarte</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Unikaj przepraw promowych</string>
     <string name="avoid_motorways">Unikaj autostrad</string>
+    <string name="unable_to_calc_alert_title">Brak możliwości zbudowania trasy</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sortuj znaczniki</string>
     <!-- Android -->

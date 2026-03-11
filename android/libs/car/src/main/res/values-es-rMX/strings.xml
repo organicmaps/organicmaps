@@ -29,6 +29,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_not_found">Lo siento, no se han encontrado resultados.</string>
     <string name="search_history_text">Ver tus búsquedas recientes.</string>
+    <string name="p2p_start">Inicio</string>
     <string name="editor_time_open">Abrir</string>
     <string name="big_font">Aumentar el tamaño de las etiquetas de los mapas</string>
     <string name="transliteration_title">Transliterar al alfabeto latino</string>
@@ -41,6 +42,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evite los transbordadores</string>
     <string name="avoid_motorways">Evite las autopistas</string>
+    <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenar favoritos</string>
 

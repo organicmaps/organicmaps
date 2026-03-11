@@ -60,6 +60,7 @@
     <string name="categories">Κατηγορίες</string>
     <string name="search_not_found">Ωχ, δε βρέθηκαν αποτελέσματα.</string>
     <string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
+    <string name="p2p_start">Έναρξη</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Όλη την ημέρα (24 ώρες)</string>
     <string name="editor_time_open">Ανοικτό</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Αποφυγή πορθμείων</string>
     <string name="avoid_motorways">Αποφυγή αυτοκινητόδρομων</string>
+    <string name="unable_to_calc_alert_title">Δεν ήταν δυνατός ο υπολογισμός διαδρομής</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ταξινόμηση σελιδ/κτών</string>
     <!-- Android -->

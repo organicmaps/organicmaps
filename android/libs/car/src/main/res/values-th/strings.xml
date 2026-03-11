@@ -60,6 +60,7 @@
     <string name="categories">หมวดหมู่</string>
     <string name="search_not_found">ขออภัย ฉันไม่พบสิ่งใด</string>
     <string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
+    <string name="p2p_start">เริ่มต้น</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">ตลอดวัน (24 ชั่วโมง)</string>
     <string name="editor_time_open">เปิด</string>
@@ -79,6 +80,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">เลี่ยงการข้ามฟากด้วยเรือ</string>
     <string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
+    <string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">เรียงบุ๊กมาร์ก</string>
     <!-- Android -->

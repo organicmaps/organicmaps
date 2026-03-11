@@ -44,6 +44,7 @@
     <string name="categories">ໝວດໝູ່</string>
     <string name="search_not_found">ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
+    <string name="p2p_start">ເລີ່ມ</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">ທັງໝົດມື້ (24 ຊົ່ວໂມງ)</string>
     <string name="editor_time_open">ເປີດ</string>
@@ -65,6 +66,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">ເລ່ຽງເຮືອຂ້າມຟາກ</string>
     <string name="avoid_motorways">ເລ່ຽງທາງດ່ວນ</string>
+    <string name="unable_to_calc_alert_title">ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">ຈັດລຽງບຸກມາກ</string>
     <!-- Android -->
