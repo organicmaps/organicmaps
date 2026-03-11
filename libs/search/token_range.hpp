@@ -5,8 +5,6 @@
 #include "base/assert.hpp"
 #include "base/range_iterator.hpp"
 
-#include <cstdint>
-#include <sstream>
 #include <string>
 
 namespace search
@@ -61,9 +59,6 @@ public:
   inline base::RangeIterator<size_t> begin() const { return base::RangeIterator<size_t>(m_begin); }
   inline base::RangeIterator<size_t> end() const { return base::RangeIterator<size_t>(m_end); }
 
-  inline base::RangeIterator<size_t> cbegin() const { return base::RangeIterator<size_t>(m_begin); }
-  inline base::RangeIterator<size_t> cend() const { return base::RangeIterator<size_t>(m_end); }
-
 private:
   friend std::string DebugPrint(TokenRange const & tokenRange);
 
@@ -71,10 +66,8 @@ private:
   uint8_t m_end = 0;
 };
 
-inline std::string DebugPrint(TokenRange const & tokenRange)
+inline std::string DebugPrint(TokenRange const & r)
 {
-  std::ostringstream os;
-  os << "TokenRange [" << tokenRange.Begin() << ", " << tokenRange.End() << ")";
-  return os.str();
+  return "TokenRange [" + std::to_string(r.Begin()) + ", " + std::to_string(r.End()) + ")";
 }
 }  // namespace search

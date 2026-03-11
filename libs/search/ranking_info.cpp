@@ -304,6 +304,8 @@ string DebugPrint(RankingInfo const & info)
 
   PrintParse(os, info.m_tokenRanges, info.m_numTokens);
 
+  os << ", " << DebugPrint(info.m_geoParts);
+
   os << ", m_rank: " << static_cast<int>(info.m_rank) << ", m_popularity: " << static_cast<int>(info.m_popularity)
      << ", m_nameScore: " << DebugPrint(info.m_nameScore) << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
      << ", m_isAltOrOldName: " << info.m_isAltOrOldName << ", m_numTokens: " << info.m_numTokens

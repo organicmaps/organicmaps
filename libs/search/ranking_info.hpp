@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/intersection_result.hpp"
 #include "search/model.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/token_range.hpp"
@@ -102,6 +103,9 @@ struct RankingInfo : public StoredRankingInfo
   // todo(@m) Using TokenType instead of ModelType here would
   //          allow to distinguish postcodes too.
   std::array<TokenRange, Model::TYPE_COUNT> m_tokenRanges;
+
+  // Different geo-parts extracted from query.
+  IntersectionResult m_geoParts;
 
   // Fraction of characters from original query matched to feature.
   float m_matchedFraction = 0.0;
