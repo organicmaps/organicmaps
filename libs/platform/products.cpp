@@ -95,7 +95,7 @@ void ProductsSettings::Update(std::optional<ProductsConfig> && productsConfig)
   else
   {
     m_productsConfig = std::move(productsConfig);
-    if (auto const error = glz::write_file_json(productsConfig, outFilePath, std::string{}); error)
+    if (auto const error = glz::write_file_json(m_productsConfig, outFilePath, std::string{}); error)
       LOG(LERROR, ("Error writing ProductsConfig file", outFilePath, glz::format_error(error)));
   }
 }
