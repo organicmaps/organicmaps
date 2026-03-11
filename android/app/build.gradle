@@ -153,8 +153,8 @@ android {
 
   buildTypes {
     debug {
-      applicationIdSuffix '.debug'   // Allows to install debug and release builds together
-      versionNameSuffix '-debug'
+      applicationIdSuffix '.zane'   // Allows to install debug and release builds together
+      versionNameSuffix '-zane'
       signingConfig = signingConfigs.debug
 
       if (googleFirebaseServicesEnabled) {
