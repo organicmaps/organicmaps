@@ -134,7 +134,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   }
 
   private func nearestStep(for positionY: CGFloat) -> Step {
-    let visibleSteps = stepStrategy.steps.filter { $0 != .hidden }
+    let visibleSteps = stepStrategy.steps
     guard !visibleSteps.isEmpty else { return currentStep }
 
     var bestStep = visibleSteps.contains(currentStep) ? currentStep : visibleSteps[0]
