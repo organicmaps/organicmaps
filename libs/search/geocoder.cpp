@@ -63,7 +63,7 @@ size_t constexpr kMaxNumCountries = 10;
 
 double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 double constexpr kMaxPostcodeRadiusM = 1000;
-double constexpr kMaxSuburbRadiusM = 2000;
+double constexpr kMaxSuburbRadiusM = 1000;
 double constexpr kMaxNeighbourhoodRadiusM = 500;
 double constexpr kMaxResidentialRadiusM = 500;
 

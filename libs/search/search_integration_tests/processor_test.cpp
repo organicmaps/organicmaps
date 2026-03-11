@@ -175,7 +175,7 @@ UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
 UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
 {
   string const lang = "default";
-  m2::PointD const sm(0.005, 0.005);
+  m2::PointD const sm(0.004, 0.004);  // ~ 0.5km
 
   // 1.
   TestVillage village1({0, 0}, "Баравая", lang, 0 /* rank */);
