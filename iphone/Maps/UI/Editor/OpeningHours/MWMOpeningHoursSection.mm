@@ -108,7 +108,7 @@ using namespace osmoh;
   if (cachedTime && [self isRowSelected:row])
     return cachedTime;
 
-  BOOL const isClosed = [self cellKeyForRow:row] != MWMOpeningHoursEditorTimeSpanCell;
+  BOOL const isClosed = [self cellKeyForRow:row] == MWMOpeningHoursEditorClosedSpanCell;
   auto tt = [self timeTableProxy];
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
   Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
