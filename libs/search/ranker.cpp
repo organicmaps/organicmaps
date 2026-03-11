@@ -594,6 +594,8 @@ private:
         }
       }
 
+      info.m_geoParts = preInfo.m_geoParts;
+
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
