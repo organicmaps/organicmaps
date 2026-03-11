@@ -24,7 +24,14 @@ enum SearchOnMap {
     var skipSuggestions: Bool
     var searchingText: String?
     var contentState: Content
-    var presentationStep: SearchOnMapModalPresentationStep
+    var presentationStep: SearchOnMapModalPresentationStep {
+      didSet {
+        if presentationStep != .hidden {
+          latestVisiblePresentationStep = presentationStep
+        }
+      }
+    }
+    var latestVisiblePresentationStep: SearchOnMapModalPresentationStep
   }
 
   struct SearchResults: Equatable {
@@ -94,5 +101,6 @@ extension SearchOnMap.ViewModel {
                                              skipSuggestions: false,
                                              searchingText: nil,
                                              contentState: .historyAndCategory,
-                                             presentationStep: .expanded)
+                                             presentationStep: .expanded,
+                                             latestVisiblePresentationStep: .expanded)
 }

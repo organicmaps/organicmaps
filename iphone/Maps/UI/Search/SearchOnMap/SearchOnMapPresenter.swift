@@ -56,7 +56,7 @@ final class SearchOnMapPresenter {
     case .showOnTheMap:
       viewModel.isTyping = false
       viewModel.skipSuggestions = true
-      viewModel.presentationStep = isRouting ? .hidden : .halfScreen
+      viewModel.presentationStep = isRouting ? .hidden : viewModel.latestVisiblePresentationStep
       if case .results(var results) = viewModel.contentState, !results.isEmpty {
         results.skipSuggestions()
         viewModel.contentState = .results(results)
@@ -97,7 +97,7 @@ final class SearchOnMapPresenter {
       viewModel.presentationStep = .expanded
     case .setSearchScreenHidden(let isHidden):
       viewModel.isTyping = false
-      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .expanded : .halfScreen)
+      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .expanded : viewModel.latestVisiblePresentationStep)
     case .setSearchScreenCompact:
       viewModel.isTyping = false
       viewModel.presentationStep = .compact
