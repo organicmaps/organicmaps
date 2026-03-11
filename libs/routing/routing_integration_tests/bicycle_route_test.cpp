@@ -342,15 +342,15 @@ UNIT_TEST(Spain_Madrid_DedicatedCycleway)
                                    mercator::FromLatLon(40.4403523, -3.69267444), 2283.89 /* expectedRouteMeters */);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/7047
 UNIT_TEST(Seoul_ElevationDetour)
 {
   // The longer 664m route has less uphill Ascent: 25 Descent: 17
-  // vs Ascent: 37 Descent: 29n of the shorter 545m route.
-  // Valhalla and GraphHopper prefer a longer route also.
-  // https://github.com/organicmaps/organicmaps/issues/7047
+  // The shorter 545m route has bigger Ascent: 37 Descent: 29n.
+  // OM prefers a shorter one (like Graphhopper). Valhalla prefers the longer one.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(37.510519, 127.101251), {0.0, 0.0},
-                                   mercator::FromLatLon(37.513874, 127.099234), 663.547 /* expectedRouteMeters */);
+                                   mercator::FromLatLon(37.513874, 127.099234), 544.063 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Spain_Zaragoza_Fancy_NoBicycle_Crossings)
