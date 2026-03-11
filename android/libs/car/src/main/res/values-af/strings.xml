@@ -58,6 +58,7 @@
     <string name="categories">Kategorieë</string>
     <string name="search_not_found">Oeps, geen resultate gevind.</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
+    <string name="p2p_start">Begin</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Heeldag (24 uur)</string>
     <string name="editor_time_open">Oop</string>
@@ -76,6 +77,7 @@
     <string name="avoid_unpaved">Vermy grondpaaie</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vermy veerbootkruisings</string>
+    <string name="unable_to_calc_alert_title">Kan nie ’n roete bereken nie</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sorteer boekmerke</string>
     <!-- Android -->

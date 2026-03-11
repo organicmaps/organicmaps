@@ -42,6 +42,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
     <string name="search_history_text">Visualizar as buscas recentes.</string>
+    <string name="p2p_start">Início</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">O dia todo (24 horas)</string>
     <string name="twentyfour_seven">24/7</string>
@@ -57,6 +58,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evitar balsas</string>
     <string name="avoid_motorways">Evitar rodovias</string>
+    <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Classificar marcadores</string>
     <!-- Android -->

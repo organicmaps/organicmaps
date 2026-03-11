@@ -60,6 +60,7 @@
     <string name="categories">カテゴリー</string>
     <string name="search_not_found">該当するものは見つかりませんでした。</string>
     <string name="search_history_text">最近の検索を表示します。</string>
+    <string name="p2p_start">開始</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">終日 (24時間)</string>
     <string name="editor_time_open">営業中</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">フェリーを利用しない</string>
     <string name="avoid_motorways">高速道路を避ける</string>
+    <string name="unable_to_calc_alert_title">ルートを計算できません</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">ブックマークの並べ替え</string>
     <!-- Android -->

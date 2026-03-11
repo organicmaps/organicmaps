@@ -60,6 +60,7 @@
     <string name="categories">دسته‌بندی‌ها</string>
     <string name="search_not_found">اوه، نتیجه‌ای یافت نشد.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
+    <string name="p2p_start">شروع</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">شبانه روزی (24 ساعته)</string>
     <string name="editor_time_open">باز</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">اجتناب از گذرگاه‌های کشتی</string>
     <string name="avoid_motorways">از بزرگراه دوری کنید</string>
+    <string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">مرتب‌سازی نشانک‌ها</string>
     <!-- Android -->

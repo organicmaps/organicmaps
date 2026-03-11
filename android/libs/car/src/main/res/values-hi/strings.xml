@@ -53,6 +53,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="categories">श्रेणियाँ</string>
     <string name="search_not_found">उफ़, कोई परिणाम नहीं मिला.</string>
+    <string name="p2p_start">जाएँ</string>
     <string name="editor_time_open">खुला</string>
     <string name="opens_in">%s में खुल जाएगा</string>
     <string name="closes_in">%s में बंद हो जाता है</string>
@@ -68,6 +69,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">नौकाओं से बचें</string>
     <string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
+    <string name="unable_to_calc_alert_title">मार्ग की गणना करने में असमर्थ</string>
     <!-- Android -->
     <string name="by_name">नाम द्वारा</string>
 

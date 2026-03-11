@@ -60,6 +60,7 @@
     <string name="categories">Катэгорыі</string>
     <string name="search_not_found">Нічога не знойдзена.</string>
     <string name="search_history_text">Прагляд апошніх выкарыстаных пошукавых запытаў.</string>
+    <string name="p2p_start">Пачаць</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Цэлы дзень (24 гадзіны)</string>
     <string name="editor_time_open">Адкрыта</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Пазбягаць паромаў</string>
     <string name="avoid_motorways">Пазбягаць аўтамагістраляў</string>
+    <string name="unable_to_calc_alert_title">Немагчыма пракласці маршрут</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сартаваць закладкі</string>
     <!-- Android -->

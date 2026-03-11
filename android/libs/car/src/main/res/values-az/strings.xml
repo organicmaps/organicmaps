@@ -60,6 +60,7 @@
     <string name="categories">Kateqoriyalar</string>
     <string name="search_not_found">Üzr istəyirik, heç bir nəticə tapılmadı.</string>
     <string name="search_history_text">Son axtarışlara baxın.</string>
+    <string name="p2p_start">Başla</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Bütün gün (24 saat)</string>
     <string name="editor_time_open">Açıq</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Bərə keçidlərindən çəkinin</string>
     <string name="avoid_motorways">Magistral yoldan çəkinin</string>
+    <string name="unable_to_calc_alert_title">Marşrutu hesablamaq mümkün deyil</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Əlfəcinləri çeşidləyin</string>
     <!-- Android -->

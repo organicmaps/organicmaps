@@ -60,6 +60,7 @@
     <string name="categories">Kategórie</string>
     <string name="search_not_found">Ľutujeme, ale nič sme nenašli.</string>
     <string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
+    <string name="p2p_start">Štart</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Nepretržite (24 hodín)</string>
     <string name="editor_time_open">Otvorené</string>
@@ -81,6 +82,7 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vyhnúť sa prechodom na trajekte</string>
     <string name="avoid_motorways">Vyhnúť sa diaľniciam</string>
+    <string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Zoradiť záložky</string>
     <!-- Android -->
