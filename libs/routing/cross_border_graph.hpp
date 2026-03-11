@@ -14,8 +14,6 @@
 
 #include "base/assert.hpp"
 
-#include <cmath>
-#include <cstdint>
 #include <limits>
 #include <memory>
 #include <set>
@@ -115,8 +113,6 @@ void CrossBorderGraphSerializer::Serialize(CrossBorderGraph const & graph, Sink 
     CHECK(mwmNameHashes.emplace(hash).second, (mwmId, mwmName, hash));
   }
 
-  CHECK_LESS(mwmNameHashes.size(), std::numeric_limits<NumMwmId>::max(), ());
-
   for (auto hash : mwmNameHashes)
     WriteToSink(sink, hash);
 
@@ -162,10 +158,8 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
   {
     std::string const & region = numMwmIds->GetFile(id).GetName();
     uint32_t const mwmNameHash = Hash(region);
-    // Triggering of this check in runtime means that the latest built mwm set differs from
-    // the previous one ("classic" mwm set which is constant for many years). The solution is to
-    // replace current hash function Hash() and rebuild World.mwm.
-    CHECK(hashToMwmId.emplace(mwmNameHash, id).second, (id, region, mwmNameHash));
+    // Triggering of this check in runtime means that we have 2 regions with equal Hash.
+    CHECK(hashToMwmId.emplace(mwmNameHash, id).second, (region, mwmNameHash));
   });
 
   std::set<uint32_t> mwmNameHashes;
@@ -192,9 +186,20 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
 
     auto const & mwmHash = *it;
     auto itHash = hashToMwmId.find(mwmHash);
-    CHECK(itHash != hashToMwmId.end(), (mwmHash));
 
-    ending.m_numMwmId = itHash->second;
+    if (itHash != hashToMwmId.end())
+    {
+      ending.m_numMwmId = itHash->second;
+      return true;
+    }
+    else
+    {
+      // Triggering of this check in runtime means that the latest built mwm set differs from
+      // the previous one ("classic" mwm set which is constant for many years). The solution is to
+      // download the latest World.mwm.
+      LOG(LERROR, ("World.mwm is outdated. Mwm hash:", mwmHash));
+      return false;
+    }
   };
 
   for (size_t i = 0; i < header.m_numRoads; ++i)
@@ -214,10 +219,12 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
       seg.m_weight /= kDouble2Int;
     }
 
-    readSegEnding(seg.m_start);
-    readSegEnding(seg.m_end);
+    // Read both ends even in case of error.
+    bool const res1 = readSegEnding(seg.m_start);
+    bool const res2 = readSegEnding(seg.m_end);
 
-    graph.AddCrossBorderSegment(segId, seg);
+    if (res1 && res2)
+      graph.AddCrossBorderSegment(segId, seg);
   }
 }
 
