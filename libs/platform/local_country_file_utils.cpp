@@ -3,7 +3,6 @@
 #include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
@@ -14,12 +13,8 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <algorithm>
 #include <cctype>
 #include <memory>
-#include <regex>
-#include <sstream>
-#include <unordered_set>
 
 #include "defines.hpp"
 
@@ -40,11 +35,6 @@ string GetAdditionalWorldScope()
 /*
 bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
 */
-bool IsDownloaderFile(string const & name)
-{
-  static std::regex const filter(".*\\.(downloading|resume|ready)[0-9]?$");
-  return std::regex_match(name.begin(), name.end(), filter);
-}
 
 bool IsDiffFile(string const & name)
 {
@@ -74,7 +64,7 @@ bool DirectoryHasIndexesOnly(string const & directory)
 }
 */
 
-inline string GetDataDirFullPath(string const & dataDir)
+string GetDataDirFullPath(string const & dataDir)
 {
   Platform & platform = GetPlatform();
   return dataDir.empty() ? platform.WritableDir() : base::JoinPath(platform.WritableDir(), dataDir);
@@ -105,6 +95,25 @@ void FindAllDiffsInDirectory(string const & dir, std::vector<LocalCountryFile> &
   }
 }
 }  // namespace
+
+bool IsDownloaderFile(string const & name)
+{
+  static constexpr std::string_view kExts[] = {".downloading", ".resume", ".ready"};
+  for (auto ext : kExts)
+  {
+    size_t i = name.rfind(ext);
+    if (i != std::string::npos)
+    {
+      i += ext.size();
+      while (i < name.size())
+        if (!strings::IsASCIIDigit(name[i++]))
+          return false;
+
+      return true;
+    }
+  }
+  return false;
+}
 
 string GetFilePath(int64_t version, string const & dataDir, string const & countryName, MapFileType type)
 {

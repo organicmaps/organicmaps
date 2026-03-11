@@ -3,7 +3,6 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
-#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
@@ -14,12 +13,10 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 
 #include "defines.hpp"
 
 #include <algorithm>
-#include <functional>
 #include <set>
 #include <string>
 
@@ -346,4 +343,19 @@ UNIT_TEST(LocalCountryFile_MakeTemporary)
   TEST_EQUAL(file.GetPath(MapFileType::Map), path, ());
 }
 
+UNIT_TEST(LocalCountryFile_IsDownloaderFile)
+{
+  using namespace platform;
+
+  TEST(IsDownloaderFile("bar.ready1"), ());
+
+  TEST(IsDownloaderFile("foo.downloading15"), ());
+  TEST(!IsDownloaderFile("foo.downloading.tmp"), ());
+
+  TEST(IsDownloaderFile("bar.resume"), ());
+  TEST(!IsDownloaderFile("foo.resumeX"), ());
+
+  TEST(!IsDownloaderFile("bar.tmp"), ());
+  TEST(!IsDownloaderFile(""), ());
+}
 }  // namespace local_country_file_tests

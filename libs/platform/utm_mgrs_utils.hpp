@@ -1,12 +1,14 @@
 #pragma once
+#include "geometry/latlon.hpp"
 
 #include <optional>
 #include <string>
 
-#include "geometry/latlon.hpp"
-
 namespace utm_mgrs_utils
 {
+/// @return angle in radians to be between -π and π.
+double NormalizeAngle(double value);
+
 /* Convert from Lat and Lon coordinates in WGS 84 projection to UTM string.
  * Preconditions:
  *   -180 < lon <= 180

@@ -48,7 +48,8 @@ HttpClient & HttpClient::SetBodyFile(string const & body_file, string const & co
   m_bodyData.clear();
   m_headers.emplace("Content-Type", content_type);
   m_httpMethod = http_method;
-  m_headers.emplace("Content-Encoding", content_encoding);
+  if (!content_encoding.empty())
+    m_headers.emplace("Content-Encoding", content_encoding);
   return *this;
 }
 

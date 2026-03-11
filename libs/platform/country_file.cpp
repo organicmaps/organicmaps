@@ -2,8 +2,6 @@
 
 #include "base/assert.hpp"
 
-#include <sstream>
-
 #include "defines.hpp"
 
 namespace platform
@@ -34,8 +32,6 @@ CountryFile::CountryFile(std::string name, MwmSize size, std::string sha1)
 
 std::string DebugPrint(CountryFile const & file)
 {
-  std::ostringstream os;
-  os << "CountryFile [" << file.m_name << "]";
-  return os.str();
+  return "CountryFile [" + file.m_name + "]";
 }
 }  // namespace platform

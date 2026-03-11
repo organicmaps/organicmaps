@@ -60,7 +60,7 @@ Duration::Duration(unsigned long seconds) : m_seconds(seconds) {}
 
 std::string Duration::GetLocalizedString(std::initializer_list<Units> units, Locale const & locale) const
 {
-  return GetString(std::move(units), GetUnitSeparator(locale), GetUnitsGroupingSeparator(locale));
+  return GetString(units, GetUnitSeparator(locale), GetUnitsGroupingSeparator(locale));
 }
 
 std::string Duration::GetPlatformLocalizedString() const

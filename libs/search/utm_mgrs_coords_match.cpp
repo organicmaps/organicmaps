@@ -4,8 +4,6 @@
 
 #include "platform/utm_mgrs_utils.hpp"
 
-#include <string>
-
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
