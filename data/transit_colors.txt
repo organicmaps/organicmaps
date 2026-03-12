@@ -138,6 +138,24 @@
       "text": "004D40",
       "text_night": "34524F"
     },
+    "cyan_dark": {
+      "clear": "00838F",
+      "night": "004248",
+      "text": "006064",
+      "text_night": "3B6A6E"
+    },
+    "cyan": {
+      "clear": "00BCD4",
+      "night": "005F6B",
+      "text": "006064",
+      "text_night": "3B6A6E"
+    },
+    "cyan_light": {
+      "clear": "80DEEA",
+      "night": "406F75",
+      "text": "006064",
+      "text_night": "3B6A6E"
+    },
     "blue_dark": {
       "clear": "02729C",
       "night": "023A4F",

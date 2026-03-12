@@ -70,8 +70,8 @@ def cie94(ref_color, src_color):
     deltaL = lab_ref[0] - lab_src[0]
     deltaA = lab_ref[1] - lab_src[1]
     deltaB = lab_ref[2] - lab_src[2]
-    c1 = math.sqrt(lab_ref[0] * lab_ref[0] + lab_ref[1] * lab_ref[1])
-    c2 = math.sqrt(lab_src[0] * lab_src[0] + lab_src[1] * lab_src[1])
+    c1 = math.sqrt(lab_ref[1] * lab_ref[1] + lab_ref[2] * lab_ref[2])
+    c2 = math.sqrt(lab_src[1] * lab_src[1] + lab_src[2] * lab_src[2])
     deltaC = c1 - c2
     deltaH = deltaA * deltaA + deltaB * deltaB - deltaC * deltaC
     if deltaH < 0.0:
@@ -110,19 +110,9 @@ class Palette:
             color = blend_colors(color, to_rgb(casing_color_str), 0.5)
         min_diff = None
 
-        bluish = is_bluish(color)
         for name, palette_color in self.colors.items():
-            # Uncomment if you want to exclude duplicates.
-            #if name in excluded_names:
-            #    continue
-            if bluish:
-                diff = lum_distance(palette_color, color)
-            else:
-                diff = cie94(palette_color, color)
+            diff = cie94(palette_color, color)
             if min_diff is None or diff < min_diff:
                 min_diff = diff
                 nearest_color_name = name
-        # Left here for debug purposes. 
-        #print("Result: " + color_str + "," + str(casing_color_str) +
-        #      " - " + nearest_color_name + ": bluish = " + str(bluish))
         return nearest_color_name
