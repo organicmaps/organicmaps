@@ -188,7 +188,8 @@ public class TrackRecordingService extends Service implements LocationListener
     {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
         ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                      getNotificationBuilder(this).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
+                                      getNotificationBuilder(this).build(),
+                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
       else
         ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
                                       getNotificationBuilder(this).build(), 0);
