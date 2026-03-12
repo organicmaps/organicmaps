@@ -403,6 +403,11 @@ UNIT_TEST(Transit_ColorPicker)
 
   // We check that we really find nearest colors. This input is really close to pink light.
   TEST_EQUAL(colorPicker.GetNearestColor("d18aa2"), "pink_light", ());
+
+  // Sydney Metro: #168388 (teal-cyan) must not collide with #0072CE (blue).
+  // https://github.com/organicmaps/organicmaps/issues/12329
+  TEST_EQUAL(colorPicker.GetNearestColor("168388"), "cyan_dark", ());
+  TEST(colorPicker.GetNearestColor("168388") != colorPicker.GetNearestColor("0072CE"), ());
 }
 
 UNIT_TEST(Transit_BuildHash1Arg)

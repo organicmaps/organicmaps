@@ -7,26 +7,21 @@
 #include "base/string_utils.hpp"
 
 #include <limits>
-#include <tuple>
 
 namespace
 {
-std::tuple<double, double, double> GetColors(dp::Color const & color)
-{
-  return {color.GetRedF(), color.GetGreenF(), color.GetBlueF()};
-}
-
 double GetDistance(dp::Color const & color1, dp::Color const & color2)
 {
-  auto [r1, g1, b1] = GetColors(color1);
-  auto [r2, g2, b2] = GetColors(color2);
-
   // We use the cmetric (Color metric) for calculating the distance between two colors.
   // https://en.wikipedia.org/wiki/Color_difference
   // It reflects human perception of closest match for a specific colour. The formula weights RGB
   // values to better fit eye perception and performs well at proper determinations of colors
   // contributions, brightness of these colors, and degree to which human vision has less tolerance
   // for these colors.
+  // Note: the formula expects values in 0-255 range for the constants (256, 255) to work correctly.
+  double const r1 = color1.GetRed(), g1 = color1.GetGreen(), b1 = color1.GetBlue();
+  double const r2 = color2.GetRed(), g2 = color2.GetGreen(), b2 = color2.GetBlue();
+
   double const redMean = (r1 + r2) / 2.0;
 
   double const redDelta = r1 - r2;
