@@ -781,6 +781,12 @@
     <string name="nav_auto">Tự động điều hướng</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Theo hệ thống</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Thay đổi màu sắc</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ẩn bản nhạc</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Hiển thị bản nhạc</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

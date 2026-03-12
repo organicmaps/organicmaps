@@ -858,6 +858,10 @@
     <string name="share_track">Deila ferli</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eyða %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Eyða ferliDelete Track</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Breyta lit</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

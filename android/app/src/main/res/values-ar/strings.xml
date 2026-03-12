@@ -867,6 +867,14 @@
     <string name="share_track">شارك المسار</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">احذف %s؟</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">حذف المسار</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">غير اللون</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">إخفاء المسار</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">عرض المسار</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

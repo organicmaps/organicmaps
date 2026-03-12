@@ -853,6 +853,14 @@
     <string name="share_track">Jaa rata</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Poista %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Poista reitti</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Vaihda väri</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Piilota jälki</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Näytä kappale</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

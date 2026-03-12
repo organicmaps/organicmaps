@@ -855,4 +855,8 @@
     <string name="share_track">Կիսվել հետագծով</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ջնջե՞լ %s</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Ջնջել հետագիծը</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Փոխել գույնը</string>
 </resources>

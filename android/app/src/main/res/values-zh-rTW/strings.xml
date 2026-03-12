@@ -856,6 +856,14 @@
     <string name="share_track">分享軌跡</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">刪除 %s？</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">刪除軌跡</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">更改顏色</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">隱藏曲目</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">顯示曲目</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

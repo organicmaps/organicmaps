@@ -474,6 +474,8 @@
     <string name="edit_track">Editar pista</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Compartir pista</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Borrar ruta</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

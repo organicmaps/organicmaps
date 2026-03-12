@@ -843,6 +843,10 @@
     <string name="share_track">Ndaj Gjurmën</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Fshi %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Fshi Gjurmën</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Ndrysho Ngjyrën</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
