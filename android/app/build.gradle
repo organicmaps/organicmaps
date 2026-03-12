@@ -165,14 +165,6 @@ android {
 
       // Enable jni debug build
       jniDebuggable true
-
-      if (!rootProject.ext.CI) {
-        packagingOptions {
-          jniLibs {
-            keepDebugSymbols += ['**/liborganicmaps.so']
-          }
-        }
-      }
     }
 
     release {
@@ -320,8 +312,16 @@ def allowedPermissions = [
 ]
 registerCheckApkPermissionsTasks(project, allowedPermissions)
 
+
 androidComponents {
   def adb = sdkComponents.adb
+
+  // Keep debug symbols in local debug builds for native debugging.
+  if (!rootProject.ext.CI) {
+    onVariants(selector().withBuildType("debug")) { variant ->
+      variant.packaging.jniLibs.keepDebugSymbols.add("**/liborganicmaps.so")
+    }
+  }
 
   onVariants(selector().all()) { variant ->
     variant.buildConfigFields.put('FILE_PROVIDER_AUTHORITY',
