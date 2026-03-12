@@ -7,8 +7,6 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "geometry/point_with_altitude.hpp"
-
 #include <vector>
 
 namespace routing
@@ -20,7 +18,7 @@ namespace routing
  */
 struct LoadedPathSegment
 {
-  std::vector<geometry::PointWithAltitude> m_path;
+  RouteJunctions m_path;
   turns::lanes::LanesInfo m_lanes;
   RouteSegment::RoadNameInfo m_roadNameInfo;
   // double m_weight = 0.0; /*!< Time in seconds to pass the segment. */

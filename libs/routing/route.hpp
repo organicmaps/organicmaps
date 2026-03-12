@@ -24,7 +24,6 @@
 #include <limits>
 #include <memory>
 #include <optional>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -38,6 +37,8 @@ namespace routing
 {
 using SubrouteUid = uint64_t;
 SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
+
+using RouteJunctions = std::vector<geometry::PointWithAltitude>;
 
 /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
 /// For every Segment is kept some attributes in the structure SegmentInfo.

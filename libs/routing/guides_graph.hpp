@@ -8,12 +8,11 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include "kml/type_utils.hpp"
+
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <map>
-#include <utility>
-#include <vector>
 
 namespace routing
 {
@@ -42,7 +41,7 @@ public:
   GuidesGraph() = default;
   explicit GuidesGraph(double maxSpeedMpS, NumMwmId mwmId);
 
-  Segment AddTrack(std::vector<geometry::PointWithAltitude> const & guideTrack, size_t requiredSegmentIdx);
+  Segment AddTrack(kml::TrackGeometry const & guideTrack, size_t requiredSegmentIdx);
 
   FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
                             geometry::PointWithAltitude const & projection) const;

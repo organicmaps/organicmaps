@@ -75,10 +75,10 @@ PedestrianDirection IntermediateDirectionPedestrian(double const angle);
 double CalcEstimatedTimeToPass(double const distanceMeters, ftypes::HighwayClass const highwayClass);
 
 /// \returns true if |path| is loop connected to the PartOfReal segments.
-bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path);
+bool PathIsFakeLoop(RouteJunctions const & path);
 
 // Returns distance in meters between |junctions[start]| and |junctions[end]|.
-double CalcRouteDistanceM(std::vector<geometry::PointWithAltitude> const & junctions, uint32_t start, uint32_t end);
+double CalcRouteDistanceM(RouteJunctions const & junctions, uint32_t start, uint32_t end);
 
 /*!
  * \brief Index of point in TUnpackedPathSegments. |m_segmentIndex| is a zero based index in vector

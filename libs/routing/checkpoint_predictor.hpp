@@ -2,8 +2,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
-#include <iterator>
 #include <vector>
 
 namespace routing

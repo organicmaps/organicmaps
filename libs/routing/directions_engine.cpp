@@ -143,8 +143,7 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT con
     std::sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), base::LessBy(&TurnCandidate::m_angle));
 }
 
-void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph,
-                                                           std::vector<geometry::PointWithAltitude> const & path,
+void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph, RouteJunctions const & path,
                                                            IRoadGraph::EdgeVector const & routeEdges,
                                                            base::Cancellable const & cancellable)
 {
@@ -157,7 +156,7 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const 
   // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.
   uint32_t startSegId = kInvalidSegId;
 
-  std::vector<geometry::PointWithAltitude> prevJunctions;
+  RouteJunctions prevJunctions;
   std::vector<Segment> prevSegments;
   for (size_t i = 1; i < pathSize; ++i)
   {
@@ -225,7 +224,7 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const 
   }
 }
 
-bool DirectionsEngine::Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,
+bool DirectionsEngine::Generate(IndexRoadGraph const & graph, RouteJunctions const & path,
                                 base::Cancellable const & cancellable, std::vector<RouteSegment> & routeSegments)
 {
   CHECK(m_numMwmIds, ());

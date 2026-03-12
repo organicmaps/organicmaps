@@ -115,12 +115,12 @@ double CalcEstimatedTimeToPass(double const distanceMeters, HighwayClass const h
   return distanceMeters / measurement_utils::KmphToMps(speedKmph);
 }
 
-bool PathIsFakeLoop(std::vector<geometry::PointWithAltitude> const & path)
+bool PathIsFakeLoop(RouteJunctions const & path)
 {
   return path.size() == 2 && path[0] == path[1];
 }
 
-double CalcRouteDistanceM(std::vector<geometry::PointWithAltitude> const & junctions, uint32_t start, uint32_t end)
+double CalcRouteDistanceM(RouteJunctions const & junctions, uint32_t start, uint32_t end)
 {
   double res = 0.0;
 

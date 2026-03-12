@@ -432,8 +432,7 @@ public:
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
-  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> points, std::string const & from,
-                         std::string const & to);
+  kml::TrackId SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to);
 
   void UpdateBookmarksTextPlacement();
 

@@ -64,8 +64,8 @@ UNIT_TEST(Guides_TooFarCheckpointsAreNotAttached)
   TEST(!guides.IsAttached(), ());
 
   // Checkpoints located further from guides than |kMaxDistToTrackPointM|.
-  std::vector<m2::PointD> const & checkpoints{mercator::FromLatLon(48.13902, 11.57113),
-                                              mercator::FromLatLon(48.14589, 11.56911)};
+  CheckpointsGeometry const checkpoints{mercator::FromLatLon(48.13902, 11.57113),
+                                        mercator::FromLatLon(48.14589, 11.56911)};
 
   guides.ConnectToGuidesGraph(checkpoints);
   TEST(!guides.IsAttached(), ());
@@ -83,8 +83,8 @@ UNIT_TEST(Guides_FinishAndStartAttached)
 
   // Start checkpoint should be with fake ending to OSM and finish - with fake ending to the guide
   // segment.
-  std::vector<m2::PointD> const & checkpoints{mercator::FromLatLon(48.13998, 11.56982),
-                                              mercator::FromLatLon(48.14448, 11.57259)};
+  CheckpointsGeometry const checkpoints{mercator::FromLatLon(48.13998, 11.56982),
+                                        mercator::FromLatLon(48.14448, 11.57259)};
 
   guides.ConnectToGuidesGraph(checkpoints);
   TEST(guides.IsAttached(), ());
@@ -116,9 +116,9 @@ UNIT_TEST(Guides_NotAttachIntermediatePoint)
 
   // Intermediate checkpoints should not be attached to the guides if they are far enough even
   // if their neighbours are attached.
-  std::vector<m2::PointD> const & checkpoints{mercator::FromLatLon(48.14349, 11.56712),
-                                              mercator::FromLatLon(48.14493, 11.56820),
-                                              mercator::FromLatLon(48.14311, 11.58063)};
+  CheckpointsGeometry const checkpoints{mercator::FromLatLon(48.14349, 11.56712),
+                                        mercator::FromLatLon(48.14493, 11.56820),
+                                        mercator::FromLatLon(48.14311, 11.58063)};
 
   guides.ConnectToGuidesGraph(checkpoints);
   TEST(guides.IsAttached(), ());

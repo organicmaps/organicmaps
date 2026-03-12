@@ -2,7 +2,6 @@
 
 #include "transit/experimental/transit_data.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <string>
 

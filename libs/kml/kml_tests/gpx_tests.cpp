@@ -135,13 +135,12 @@ UNIT_TEST(Gpx_With_Plus_In_Coordinates)
 
   auto const point = mercator::FromLatLon(42.81025, 2.65727);
 
-  std::vector<geometry::PointWithAltitude> const line = {
-      {geometry::PointWithAltitude(mercator::FromLatLon(1, 1), 1.0),
-       geometry::PointWithAltitude(mercator::FromLatLon(2, 2), 2.0),
-       geometry::PointWithAltitude(mercator::FromLatLon(3, 3), 3.0),
-       geometry::PointWithAltitude(mercator::FromLatLon(4, 4), 4.0),
-       geometry::PointWithAltitude(mercator::FromLatLon(5, 5), 5.0),
-       geometry::PointWithAltitude(mercator::FromLatLon(6.999, 7.001), 6.0)}};
+  kml::TrackGeometry const line = {{{mercator::FromLatLon(1, 1), 1},
+                                    {mercator::FromLatLon(2, 2), 2},
+                                    {mercator::FromLatLon(3, 3), 3},
+                                    {mercator::FromLatLon(4, 4), 4},
+                                    {mercator::FromLatLon(5, 5), 5},
+                                    {mercator::FromLatLon(6.999, 7.001), 6}}};
 
   kml::FileData const dataFromText = LoadGpxFromString(input);
 

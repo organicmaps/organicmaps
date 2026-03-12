@@ -7,11 +7,6 @@
 
 #include "kml/type_utils.hpp"
 
-#include "geometry/point_with_altitude.hpp"
-#include "geometry/rect2d.hpp"
-
-#include "base/cancellable.hpp"
-
 #include <functional>
 #include <map>
 #include <string>
@@ -20,11 +15,10 @@
 namespace routing
 {
 
-using TCountryFileFn = std::function<std::string(m2::PointD const &)>;
 using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 
 // Guides with integer ids containing multiple tracks. One track consists of its points.
-using GuidesTracks = std::map<kml::MarkGroupId, std::vector<std::vector<geometry::PointWithAltitude>>>;
+using GuidesTracks = std::map<kml::MarkGroupId, std::vector<kml::TrackGeometry>>;
 
 class Route;
 
@@ -53,13 +47,13 @@ std::string DebugPrint(RouterType type);
 class IRouter
 {
 public:
-  virtual ~IRouter() {}
+  virtual ~IRouter() = default;
 
   /// Return unique name of a router implementation.
   virtual std::string GetName() const = 0;
 
   /// Clear all temporary buffers.
-  virtual void ClearState() {}
+  virtual void ClearState() = 0;
 
   virtual void SetGuides(GuidesTracks && guides) = 0;
 

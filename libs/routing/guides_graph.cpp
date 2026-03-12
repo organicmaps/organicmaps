@@ -5,10 +5,6 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
-#include <algorithm>
-#include <limits>
-#include <tuple>
-
 namespace
 {
 double constexpr kZeroAltitude = 0.0;
@@ -86,7 +82,7 @@ NumMwmId GuidesGraph::GetMwmId() const
   return m_mwmId;
 }
 
-Segment GuidesGraph::AddTrack(std::vector<geometry::PointWithAltitude> const & guideTrack, size_t requiredSegmentIdx)
+Segment GuidesGraph::AddTrack(kml::TrackGeometry const & guideTrack, size_t requiredSegmentIdx)
 {
   uint32_t segmentIdx = 0;
   Segment segment;

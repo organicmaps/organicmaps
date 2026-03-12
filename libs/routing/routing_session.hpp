@@ -87,7 +87,7 @@ public:
 
   /// \brief returns points of route junctions.
   /// \returns true if there is valid route information. If the route is not valid returns false.
-  bool GetRouteJunctionPoints(std::vector<geometry::PointWithAltitude> & routeJunctionPoints) const;
+  bool GetRouteJunctionPoints(RouteJunctions & routeJunctionPoints) const;
 
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   /// @pre Function is called exactly while moving the route. Depends on current time, no pre-caching.

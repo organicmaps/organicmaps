@@ -173,9 +173,9 @@ PredefinedColor FindPredefinedColor(std::string colorName)
 
 }  // namespace geojson
 
-std::vector<geometry::PointWithAltitude> CoordsToPoints(std::vector<std::vector<double>> const & coords)
+kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coords)
 {
-  std::vector<geometry::PointWithAltitude> points;
+  kml::TrackGeometry points;
   points.reserve(coords.size());
   for (auto const & c : coords)
   {
@@ -388,7 +388,7 @@ void GeoJsonReader::Deserialize(std::string_view content)
   }
 }
 
-std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> const & points,
+std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(kml::TrackGeometry const & points,
                                                              bool addAltitude = false)
 {
   std::vector<std::vector<double>> coordinates;

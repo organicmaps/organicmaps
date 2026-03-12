@@ -3,12 +3,9 @@
 #include "routing/road_graph.hpp"
 #include "routing/segment.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
 #include "geometry/point_with_altitude.hpp"
 
 #include <map>
-#include <memory>
 #include <vector>
 
 namespace routing
@@ -18,9 +15,11 @@ class IndexGraphStarter;
 
 class IndexRoadGraph : public RoadGraphBase
 {
+  using RouteJunctions = std::vector<geometry::PointWithAltitude>;
+
 public:
-  IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
-                 std::vector<geometry::PointWithAltitude> const & junctions, MwmDataSource & dataSource);
+  IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments, RouteJunctions const & junctions,
+                 MwmDataSource & dataSource);
 
   // IRoadGraphBase overrides:
   virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const override;

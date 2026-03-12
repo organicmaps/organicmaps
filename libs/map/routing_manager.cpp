@@ -1085,7 +1085,7 @@ static std::string GetNameFromPoint(RouteMarkData const & rmd)
 
 kml::TrackId RoutingManager::SaveRoute()
 {
-  std::vector<geometry::PointWithAltitude> junctions;
+  RouteJunctions junctions;
   if (!RoutingSession().GetRouteJunctionPoints(junctions))
     return kml::kInvalidTrackId;
 

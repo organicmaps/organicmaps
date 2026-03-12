@@ -109,6 +109,7 @@ set(SRC
   pedestrian_directions.hpp
   position_accumulator.cpp
   position_accumulator.hpp
+  regions_decl.hpp
   regions_router.cpp
   regions_router.hpp
   regions_sparse_graph.cpp

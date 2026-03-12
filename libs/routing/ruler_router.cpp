@@ -4,12 +4,6 @@
 
 namespace routing
 {
-void RulerRouter::ClearState() {}
-
-void RulerRouter::SetGuides(GuidesTracks && guides)
-{ /*m_guides = GuidesConnections(guides);*/
-}
-
 /* Ruler router doesn't read roads graph and uses only checkpoints to build a route.
 
       1-----------2
@@ -45,7 +39,7 @@ void RulerRouter::SetGuides(GuidesTracks && guides)
 RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                              bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route)
 {
-  std::vector<m2::PointD> const & points = checkpoints.GetPoints();
+  auto const & points = checkpoints.GetPoints();
   size_t const count = points.size();
   ASSERT(count > 0, ());
 

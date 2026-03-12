@@ -6,7 +6,6 @@
 #include "routing/index_router.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "traffic/traffic_cache.hpp"
@@ -56,7 +55,7 @@ public:
 
     Params() = default;
     Params(VehicleType type, ms::LatLon const & start, ms::LatLon const & finish);
-    Params(VehicleType type, std::vector<m2::PointD> && checkpoints);
+    Params(VehicleType type, CheckpointsGeometry && checkpoints);
 
     VehicleType m_type = VehicleType::Car;
     Checkpoints m_checkpoints;

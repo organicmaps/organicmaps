@@ -67,7 +67,7 @@ public:
   void SetGuidesGraphParams(NumMwmId mwmId, double maxSpeed);
 
   // Finds closest guides tracks for checkpoints, fills guides graph.
-  void ConnectToGuidesGraph(std::vector<m2::PointD> const & checkpoints);
+  void ConnectToGuidesGraph(CheckpointsGeometry const & checkpoints);
 
   // Overwrites osm connections for checkpoint by its index |checkpointIdx|.
   void UpdateOsmConnections(size_t checkpointIdx, std::vector<ConnectionToOsm> const & links);
@@ -108,14 +108,14 @@ private:
                           bool fromCheckpoint);
 
   // Attaches checkpoints to the nearest guides tracks if possible.
-  void PullCheckpointsToTracks(std::vector<m2::PointD> const & checkpoints);
+  void PullCheckpointsToTracks(CheckpointsGeometry const & checkpoints);
 
   // Attaches terminal point on the track to the terminal checkpoint: start to start;
   // finish - to finish.
   void AddTerminalGuidePoint(size_t checkpointIdx, size_t neighbourIdx, m2::PointD const & curPoint);
 
   // Attaches neighbour terminal checkpoints for those which are already attached.
-  void PullAdditionalCheckpointsToTracks(std::vector<m2::PointD> const & checkpoints);
+  void PullAdditionalCheckpointsToTracks(CheckpointsGeometry const & checkpoints);
 
   GuidesTracks m_allTracks;
   Projections m_checkpointsOnTracks;

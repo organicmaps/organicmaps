@@ -19,6 +19,7 @@ namespace kml
 {
 using TimestampClock = std::chrono::system_clock;
 using Timestamp = std::chrono::time_point<TimestampClock>;
+
 class TimestampMillis : public Timestamp
 {
 public:
@@ -31,6 +32,8 @@ public:
     return *this;
   }
 };
+
+using TrackGeometry = std::vector<geometry::PointWithAltitude>;
 
 using LocalizableString = std::unordered_map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;

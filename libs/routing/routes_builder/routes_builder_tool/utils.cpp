@@ -105,7 +105,7 @@ void BuildRoutes(std::string const & routesPath, std::string const & dumpPath, u
       auto const startPoint = mercator::FromLatLon(start);
       auto const finishPoint = mercator::FromLatLon(finish);
 
-      params.m_checkpoints = Checkpoints(std::vector<m2::PointD>({startPoint, finishPoint}));
+      params.m_checkpoints = Checkpoints(CheckpointsGeometry{startPoint, finishPoint});
       tasks.emplace_back(routesBuilder.ProcessTaskAsync(params));
     }
 

@@ -389,7 +389,7 @@ struct TrackLayer
 
 struct MultiGeometry
 {
-  using LineT = std::vector<geometry::PointWithAltitude>;
+  using LineT = TrackGeometry;
   using TimeInt = time_t;
   using TimeT = std::vector<TimeInt>;
 

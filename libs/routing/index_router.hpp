@@ -67,6 +67,7 @@ public:
     m2::PointD const m_direction;
   };
 
+  using TCountryFileFn = std::function<std::string(m2::PointD const &)>;
   IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
               std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
@@ -253,9 +254,9 @@ private:
   }
 
   void SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive = false) const;
-  uint32_t ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints, WorldGraph & graph);
+  uint32_t ConnectTracksOnGuidesToOsm(CheckpointsGeometry const & checkpoints, WorldGraph & graph);
 
-  void ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints, WorldGraph & graph);
+  void ConnectCheckpointsOnGuidesToOsm(CheckpointsGeometry const & checkpoints, WorldGraph & graph);
 
   void AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom, size_t checkpointIdxTo,
                                              IndexGraphStarter & starter);

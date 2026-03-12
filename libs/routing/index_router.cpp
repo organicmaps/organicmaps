@@ -386,7 +386,7 @@ void IndexRouter::AppendPartsOfReal(LatLonWithAltitude const & point1, LatLonWit
                                   Segment(kFakeNumMwmId, fakeFeatureId, startIdx++, true /* forward */));
 }
 
-void IndexRouter::ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints, WorldGraph & graph)
+void IndexRouter::ConnectCheckpointsOnGuidesToOsm(CheckpointsGeometry const & checkpoints, WorldGraph & graph)
 {
   for (size_t checkpointIdx = 0; checkpointIdx < checkpoints.size(); ++checkpointIdx)
   {
@@ -409,7 +409,7 @@ void IndexRouter::ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const 
   }
 }
 
-uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints, WorldGraph & graph)
+uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(CheckpointsGeometry const & checkpoints, WorldGraph & graph)
 {
   uint32_t segmentIdx = 0;
 
@@ -1594,7 +1594,7 @@ RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments
   IndexGraphStarter::CheckValidRoute(segments);
 
   size_t const segsCount = segments.size();
-  std::vector<geometry::PointWithAltitude> junctions;
+  RouteJunctions junctions;
   junctions.reserve(segsCount + 1);
 
   for (size_t i = 0; i <= segsCount; ++i)

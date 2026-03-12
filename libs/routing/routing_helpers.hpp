@@ -10,7 +10,6 @@
 
 #include "indexer/classificator.hpp"
 
-#include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/segment2d.hpp"
 
@@ -60,8 +59,7 @@ bool IsRoad(Types const & types)
 void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment> & routeSegments);
 
 void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, base::Cancellable const & cancellable,
-                      std::vector<geometry::PointWithAltitude> const & path, std::vector<double> const & times,
-                      Route & route);
+                      RouteJunctions const & path, std::vector<double> const & times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
 /// \returns Segment() if mwm of |edge| is not alive.

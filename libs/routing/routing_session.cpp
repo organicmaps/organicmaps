@@ -805,7 +805,7 @@ bool RoutingSession::IsRouteValid() const
   return m_route && m_route->IsValid();
 }
 
-bool RoutingSession::GetRouteJunctionPoints(std::vector<geometry::PointWithAltitude> & routeJunctionPoints) const
+bool RoutingSession::GetRouteJunctionPoints(RouteJunctions & routeJunctionPoints) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_route, ());

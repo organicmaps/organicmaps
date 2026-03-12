@@ -4,8 +4,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
-#include <utility>
 #include <vector>
 
 namespace checkpoint_predictor_test

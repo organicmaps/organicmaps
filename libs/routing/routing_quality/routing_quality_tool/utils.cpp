@@ -30,9 +30,9 @@ void PrintWithSpaces(std::string const & str, size_t maxN)
     std::cout << " ";
 }
 
-std::vector<geometry::PointWithAltitude> ConvertToPointsWithAltitudes(std::vector<ms::LatLon> const & latlons)
+routing::RouteJunctions ConvertToPointsWithAltitudes(std::vector<ms::LatLon> const & latlons)
 {
-  std::vector<geometry::PointWithAltitude> result;
+  routing::RouteJunctions result;
   result.reserve(latlons.size());
   for (size_t i = 0; i < latlons.size(); ++i)
     result.emplace_back(mercator::FromLatLon(latlons[i]), geometry::kDefaultAltitudeMeters);

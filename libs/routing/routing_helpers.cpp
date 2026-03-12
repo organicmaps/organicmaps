@@ -41,8 +41,7 @@ void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment
 }
 
 void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, base::Cancellable const & cancellable,
-                      std::vector<geometry::PointWithAltitude> const & path, std::vector<double> const & times,
-                      Route & route)
+                      RouteJunctions const & path, std::vector<double> const & times, Route & route)
 {
   if (path.empty())
   {

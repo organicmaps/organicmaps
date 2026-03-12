@@ -4,16 +4,12 @@
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/latlon_with_altitude.hpp"
-#include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
-
-#include <cstdint>
-#include <utility>
 
 namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
-                               std::vector<geometry::PointWithAltitude> const & junctions, MwmDataSource & dataSource)
+                               RouteJunctions const & junctions, MwmDataSource & dataSource)
   : m_dataSource(dataSource)
   , m_starter(starter)
   , m_segments(segments)

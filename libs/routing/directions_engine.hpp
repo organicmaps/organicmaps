@@ -7,8 +7,6 @@
 
 #include "indexer/feature.hpp"
 
-#include "geometry/point_with_altitude.hpp"
-
 #include "base/cancellable.hpp"
 
 #include <memory>
@@ -36,8 +34,8 @@ public:
   /// \brief Generates all args which are passed by reference.
   /// \param path is points of the route. It should not be empty.
   /// \returns true if fields passed by reference are filled correctly and false otherwise.
-  bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,
-                base::Cancellable const & cancellable, std::vector<RouteSegment> & routeSegments);
+  bool Generate(IndexRoadGraph const & graph, RouteJunctions const & path, base::Cancellable const & cancellable,
+                std::vector<RouteSegment> & routeSegments);
   void Clear();
 
   void SetVehicleType(VehicleType const & vehicleType) { m_vehicleType = vehicleType; }
@@ -59,8 +57,7 @@ protected:
                                        turns::TurnCandidates & outgoingTurns);
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
-  void FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph,
-                                           std::vector<geometry::PointWithAltitude> const & path,
+  void FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph, RouteJunctions const & path,
                                            IRoadGraph::EdgeVector const & routeEdges,
                                            base::Cancellable const & cancellable);
 
