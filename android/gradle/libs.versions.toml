@@ -15,6 +15,7 @@ androidx-junit = "1.3.0"
 androidx-lifecycle = "2.9.4"
 androidx-preference = "1.2.1"
 androidx-recyclerview = "1.4.0"
+androidx-test-runner = "1.7.0"
 androidx-work = "2.10.5"
 
 devnullorthrow-mpandroidchart = "3.2.0-alpha"
@@ -54,6 +55,7 @@ androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-j
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidx-lifecycle" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "androidx-preference" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidx-recyclerview" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 androidx-work = { group = "androidx.work", name = "work-runtime", version.ref = "androidx-work" }
 
 devnullorthrow-mpandroidchart = { group = "com.github.devnullorthrow", name = "MPAndroidChart", version.ref = "devnullorthrow-mpandroidchart" }

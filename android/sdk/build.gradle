@@ -86,15 +86,15 @@ android {
 dependencies {
   coreLibraryDesugaring libs.android.tools.desugaring
 
-  implementation 'androidx.annotation:annotation:1.9.1'
-  implementation 'androidx.core:core:1.17.0'
-  implementation 'androidx.recyclerview:recyclerview:1.4.0'
-  implementation 'androidx.fragment:fragment:1.8.9'
-  implementation 'androidx.lifecycle:lifecycle-process:2.9.4'
+  implementation libs.androidx.annotation
+  implementation libs.androidx.core
+  implementation libs.androidx.recyclerview
+  implementation libs.androidx.fragment
+  implementation libs.androidx.lifecycle
 
-  testImplementation 'androidx.test.ext:junit:1.3.0'
-  androidTestImplementation 'androidx.test.ext:junit:1.3.0'
-  androidTestImplementation 'androidx.test:runner:1.7.0'
+  testImplementation libs.androidx.junit
+  androidTestImplementation libs.androidx.junit
+  androidTestImplementation libs.androidx.test.runner
 }
 
 // TODO: Running lint task triggers native build. Find a better solution.
