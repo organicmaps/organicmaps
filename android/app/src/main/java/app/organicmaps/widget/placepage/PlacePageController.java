@@ -636,13 +636,14 @@ public class PlacePageController
     final Fragment placePageButtonsFragment = fm.findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
     final Fragment placePageFragment = fm.findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG);
 
-    if (placePageButtonsFragment != null)
+    if (placePageButtonsFragment != null || placePageFragment != null)
     {
-      fm.beginTransaction().setReorderingAllowed(true).remove(placePageButtonsFragment).commit();
-    }
-    if (placePageFragment != null)
-    {
-      fm.beginTransaction().setReorderingAllowed(true).remove(placePageFragment).commit();
+      final var transaction = fm.beginTransaction().setReorderingAllowed(true);
+      if (placePageButtonsFragment != null)
+        transaction.remove(placePageButtonsFragment);
+      if (placePageFragment != null)
+        transaction.remove(placePageFragment);
+      transaction.commit();
     }
     mViewModel.setMapObject(null);
   }
@@ -650,19 +651,17 @@ public class PlacePageController
   private void createPlacePageFragments()
   {
     final FragmentManager fm = getChildFragmentManager();
-    if (fm.findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
+    final boolean needPlacePage = fm.findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null;
+    final boolean needButtons = fm.findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null;
+
+    if (needPlacePage || needButtons)
     {
-      fm.beginTransaction()
-          .setReorderingAllowed(true)
-          .add(R.id.placepage_fragment, PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
-          .commit();
-    }
-    if (fm.findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null)
-    {
-      fm.beginTransaction()
-          .setReorderingAllowed(true)
-          .add(R.id.pp_buttons_fragment, PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
-          .commit();
+      final var transaction = fm.beginTransaction().setReorderingAllowed(true);
+      if (needPlacePage)
+        transaction.add(R.id.placepage_fragment, PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG);
+      if (needButtons)
+        transaction.add(R.id.pp_buttons_fragment, PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG);
+      transaction.commit();
     }
   }
 
