@@ -30,23 +30,26 @@ enum Version
 
 bool MakeDiffVersion0(FileReader & oldReader, FileReader & newReader, FileWriter & diffFileWriter)
 {
-  std::vector<uint8_t> diffBuf;
-  MemWriter<std::vector<uint8_t>> diffMemWriter(diffBuf);
-
-  auto const status = bsdiff::CreateBinaryPatch(oldReader, newReader, diffMemWriter);
-
-  if (status != bsdiff::BSDiffStatus::OK)
-  {
-    LOG(LERROR, ("Could not create patch with bsdiff:", status));
-    return false;
-  }
-
-  using Deflate = coding::ZLib::Deflate;
-  Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
-
   std::vector<uint8_t> deflatedDiffBuf;
-  deflate(diffBuf.data(), diffBuf.size(), back_inserter(deflatedDiffBuf));
+  {
+    std::vector<uint8_t> diffBuf;
+    MemWriter<std::vector<uint8_t>> diffMemWriter(diffBuf);
 
+    auto const status = bsdiff::CreateBinaryPatch(oldReader, newReader, diffMemWriter);
+
+    if (status != bsdiff::BSDiffStatus::OK)
+    {
+      LOG(LERROR, ("Could not create patch with bsdiff:", status));
+      return false;
+    }
+
+    using Deflate = coding::ZLib::Deflate;
+    Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
+
+    // Compression: output ≤ input
+    deflatedDiffBuf.reserve(diffBuf.size());
+    deflate(diffBuf.data(), diffBuf.size(), std::back_inserter(deflatedDiffBuf));
+  }
   // A basic header that holds only version.
   WriteToSink(diffFileWriter, static_cast<uint32_t>(VERSION_V0));
   diffFileWriter.Write(deflatedDiffBuf.data(), deflatedDiffBuf.size());
@@ -60,14 +63,22 @@ generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(FileReader & oldRea
 {
   using generator::mwm_diff::DiffApplicationResult;
 
-  std::vector<uint8_t> deflatedDiff(base::checked_cast<size_t>(diffFileSource.Size()));
-  diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
-
-  using Inflate = coding::ZLib::Inflate;
-  Inflate inflate(Inflate::Format::ZLib);
   std::vector<uint8_t> diffBuf;
-  inflate(deflatedDiff.data(), deflatedDiff.size(), back_inserter(diffBuf));
+  {
+    std::string deflatedDiff;
+    deflatedDiff.resize_and_overwrite(base::checked_cast<size_t>(diffFileSource.Size()),
+                                      [&](std::string::value_type * p, size_t n)
+    {
+      diffFileSource.Read(p, n);
+      return n;
+    });
 
+    using Inflate = coding::ZLib::Inflate;
+    Inflate inflate(Inflate::Format::ZLib);
+    // Decompression: typical ratio ~3-5x
+    diffBuf.reserve(deflatedDiff.size() * 4);
+    inflate(deflatedDiff.data(), deflatedDiff.size(), std::back_inserter(diffBuf));
+  }
   // Our bsdiff assumes that both the old mwm and the diff files are correct and
   // does no checks when using its readers.
   // Yet sometimes we observe corrupted files in the logs, and to avoid
@@ -155,7 +166,7 @@ DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string cons
   return cancellable.IsCancelled() ? DiffApplicationResult::Cancelled : DiffApplicationResult::Failed;
 }
 
-std::string DebugPrint(DiffApplicationResult const & result)
+std::string DebugPrint(DiffApplicationResult result)
 {
   switch (result)
   {
