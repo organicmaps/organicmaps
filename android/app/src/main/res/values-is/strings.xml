@@ -864,4 +864,6 @@
     <string name="login_osm_credentials">Innskráning með lykilorði</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Innskráning með vafrara</string>
+    <string name="transport_schedule">Áætlun</string>
+    <string name="schedule_coming_soon">Gögn um áætlun koma bráðlega</string>
 </resources>

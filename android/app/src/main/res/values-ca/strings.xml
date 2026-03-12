@@ -858,4 +858,6 @@
     <string name="login_osm_credentials">Inicieu la sessió amb contrasenya</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Inicieu la sessió mitjançant el navegador</string>
+    <string name="transport_schedule">Horari</string>
+    <string name="schedule_coming_soon">Les dades de l\'horari estaran disponibles aviat</string>
 </resources>

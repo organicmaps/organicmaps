@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PlacePageItemFrame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:visibility="visible">
+
+    <!-- Transport icon placeholder -->
+    <View
+        android:id="@+id/shimmer_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="@drawable/shimmer_gradient" />
+
+    <!-- Route badge placeholder -->
+    <View
+        android:id="@+id/shimmer_badge"
+        android:layout_width="36dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/shimmer_gradient" />
+
+    <!-- Destination placeholder -->
+    <View
+        android:id="@+id/shimmer_destination"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:background="@drawable/shimmer_gradient" />
+
+    <!-- Time placeholder -->
+    <View
+        android:id="@+id/shimmer_time"
+        android:layout_width="48dp"
+        android:layout_height="16dp"
+        android:background="@drawable/shimmer_gradient" />
+
+</LinearLayout>

@@ -855,4 +855,6 @@
     <string name="share_track">Կիսվել հետագծով</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ջնջե՞լ %s</string>
+    <string name="transport_schedule">Delays</string>
+    <string name="schedule_coming_soon">Delays data coming soon</string>
 </resources>

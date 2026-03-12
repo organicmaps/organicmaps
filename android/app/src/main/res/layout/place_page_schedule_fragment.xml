@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?panel">
+
+    <include layout="@layout/place_page_fat_shadow" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?ppBackground"
+        android:orientation="vertical">
+
+        <!-- Shimmer loading placeholder -->
+        <LinearLayout
+            android:id="@+id/shimmer_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <include layout="@layout/item_schedule_shimmer" />
+
+            <include layout="@layout/item_schedule_shimmer" />
+
+            <include layout="@layout/item_schedule_shimmer" />
+
+            <include layout="@layout/item_schedule_shimmer" />
+
+        </LinearLayout>
+
+        <!-- Error state -->
+        <LinearLayout
+            android:id="@+id/error_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/margin_base"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/schedule_error_loading"
+                android:textAppearance="@style/MwmTextAppearance.Body2"
+                android:textColor="?android:textColorSecondary"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btn_retry"
+                style="@style/MwmWidget.Button"
+                android:layout_marginTop="@dimen/margin_base"
+                android:minWidth="120dp"
+                android:text="@string/retry" />
+
+        </LinearLayout>
+
+        <!-- Actual content -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/margin_half"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <android.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/place_page_buttons_height" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -822,4 +822,6 @@
     <string name="login_osm_credentials">התחבר עם סיסמה</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">כניסה באמצעות דפדפן</string>
+    <string name="transport_schedule">לוח זמנים</string>
+    <string name="schedule_coming_soon">נתוני לוח הזמנים יהיו זמינים בקרוב</string>
 </resources>

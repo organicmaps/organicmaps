@@ -861,4 +861,10 @@
     <string name="login_osm_credentials">Login with password</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Login using Browser</string>
+    <string name="transport_schedule">Schedule</string>
+    <string name="schedule_coming_soon">Schedule data coming soon</string>
+    <string name="schedule_delayed">Delayed</string>
+    <string name="schedule_early">Early</string>
+    <string name="schedule_error_loading">Failed to load schedule</string>
+    <string name="retry">Retry</string>
 </resources>

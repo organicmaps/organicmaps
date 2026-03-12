@@ -844,4 +844,6 @@
     <string name="login_osm_credentials">Пријава са лозинком</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Пријава преко прегледача</string>
+    <string name="transport_schedule">Распоред</string>
+    <string name="schedule_coming_soon">Подаци о распореду ће ускоро бити доступни</string>
 </resources>

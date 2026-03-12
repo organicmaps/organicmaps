@@ -852,4 +852,6 @@
     <string name="login_osm_credentials">ورود با رمز عبور</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">ورود با استفاده از مرورگر</string>
+    <string name="transport_schedule">برنامه زمانی</string>
+    <string name="schedule_coming_soon">داده‌های برنامه زمانی به زودی در دسترس خواهد بود</string>
 </resources>

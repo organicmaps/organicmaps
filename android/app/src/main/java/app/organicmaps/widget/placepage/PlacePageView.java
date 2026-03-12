@@ -60,6 +60,7 @@ import app.organicmaps.sdk.location.LocationCompatExtractor;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
@@ -75,10 +76,12 @@ import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageScheduleFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackRecordingFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,6 +101,7 @@ public class PlacePageView extends Fragment
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
   private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
+  private static final String SCHEDULE_FRAGMENT_TAG = "SCHEDULE_FRAGMENT_TAG";
   private static final String TRACK_SHARE_MENU_ID = "TRACK_SHARE_MENU_ID";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
@@ -142,6 +146,8 @@ public class PlacePageView extends Fragment
   private View mRouteRef;
   private TextView mTvRouteRef;
   private ImageView mIvRouteRef;
+  private View mWalkTime;
+  private TextView mTvWalkTime;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -153,6 +159,10 @@ public class PlacePageView extends Fragment
   private TextView mTvOsmDescription;
   private MaterialButton mShareButton;
   private MaterialButton closeButton;
+  // Tabs
+  private TabLayout mTabLayout;
+  private View mDetailsFrame;
+  private View mScheduleContainer;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
@@ -318,6 +328,8 @@ public class PlacePageView extends Fragment
     mRouteRef.setOnClickListener(this);
     mTvRouteRef = mFrame.findViewById(R.id.tv__place_route_ref);
     mIvRouteRef = mFrame.findViewById(R.id.iv__place_route_ref);
+    mWalkTime = mFrame.findViewById(R.id.ll__walk_time);
+    mTvWalkTime = mFrame.findViewById(R.id.tv__walk_time);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
@@ -340,6 +352,35 @@ public class PlacePageView extends Fragment
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
+
+    // Initialize tabs
+    mTabLayout = mFrame.findViewById(R.id.pp_tabs);
+    mDetailsFrame = mFrame.findViewById(R.id.pp__details_frame);
+    mScheduleContainer = mFrame.findViewById(R.id.place_page_schedule_fragment);
+    setupTabs();
+  }
+
+  private void setupTabs()
+  {
+    mTabLayout.addTab(mTabLayout.newTab().setText(R.string.transport_schedule));
+    mTabLayout.addTab(mTabLayout.newTab().setText(R.string.details));
+    mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      @Override
+      public void onTabSelected(TabLayout.Tab tab)
+      {
+        PlacePageViewModel.PlacePageTab selectedTab =
+            tab.getPosition() == 0 ? PlacePageViewModel.PlacePageTab.SCHEDULE : PlacePageViewModel.PlacePageTab.DETAILS;
+        mViewModel.setSelectedTab(selectedTab);
+      }
+
+      @Override
+      public void onTabUnselected(TabLayout.Tab tab)
+      {}
+
+      @Override
+      public void onTabReselected(TabLayout.Tab tab)
+      {}
+    });
   }
 
   @Override
@@ -347,6 +388,8 @@ public class PlacePageView extends Fragment
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
+    mViewModel.getSelectedTab().observe(requireActivity(), this::updateTabContent);
+    mViewModel.getShowTabs().observe(requireActivity(), this::updateTabsVisibility);
     BookmarkManager.INSTANCE.addSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().addListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().addListener(this);
@@ -357,6 +400,8 @@ public class PlacePageView extends Fragment
   {
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
+    mViewModel.getSelectedTab().removeObservers(requireActivity());
+    mViewModel.getShowTabs().removeObservers(requireActivity());
     BookmarkManager.INSTANCE.removeSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
@@ -376,11 +421,63 @@ public class PlacePageView extends Fragment
   {
     refreshPreview();
     refreshDetails();
+    updateTabsForMapObject();
     final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     if (mMapObject.isMyPosition())
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
+  }
+
+  private void updateTabsForMapObject()
+  {
+    boolean showTabs = mMapObject.isTransportStop() && mMapObject.hasScheduleData();
+    mViewModel.setShowTabs(showTabs);
+    if (showTabs)
+    {
+      mViewModel.setSelectedTab(PlacePageViewModel.PlacePageTab.SCHEDULE);
+      mTabLayout.selectTab(mTabLayout.getTabAt(0));
+    }
+    else
+    {
+      mViewModel.setSelectedTab(PlacePageViewModel.PlacePageTab.DETAILS);
+    }
+  }
+
+  private void updateTabsVisibility(Boolean show)
+  {
+    if (show == null)
+      return;
+    mTabLayout.setVisibility(show ? VISIBLE : GONE);
+    if (!show)
+    {
+      mDetailsFrame.setVisibility(VISIBLE);
+      mScheduleContainer.setVisibility(GONE);
+    }
+  }
+
+  private void updateTabContent(PlacePageViewModel.PlacePageTab tab)
+  {
+    if (tab == null)
+      return;
+    boolean isSchedule = tab == PlacePageViewModel.PlacePageTab.SCHEDULE;
+    mScheduleContainer.setVisibility(isSchedule ? VISIBLE : GONE);
+    mDetailsFrame.setVisibility(isSchedule ? GONE : VISIBLE);
+    if (isSchedule)
+      updateScheduleView();
+  }
+
+  private void updateScheduleView()
+  {
+    final FragmentManager fm = getChildFragmentManager();
+    Fragment fragment = fm.findFragmentByTag(SCHEDULE_FRAGMENT_TAG);
+    if (fragment == null)
+    {
+      fm.beginTransaction()
+          .setReorderingAllowed(true)
+          .add(R.id.place_page_schedule_fragment, PlacePageScheduleFragment.class, null, SCHEDULE_FRAGMENT_TAG)
+          .commitNow();
+    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -502,7 +599,7 @@ public class PlacePageView extends Fragment
     }
     if (mMapObject.isTrack())
     {
-      UiUtils.hide(mAvDirection, mTvDistance);
+      UiUtils.hide(mAvDirection, mTvDistance, mWalkTime);
     }
     else if (mMapObject.isTrackRecording())
     {
@@ -510,7 +607,7 @@ public class PlacePageView extends Fragment
       trackRecording.getTrackRecordingPPDescription().observe(requireActivity(), s -> {
         UiUtils.setTextAndHideIfEmpty(mTvTitle, trackRecording.getTrackRecordingPPDescription().getValue());
       });
-      UiUtils.hide(mAvDirection, mTvDistance);
+      UiUtils.hide(mAvDirection, mTvDistance, mWalkTime);
     }
   }
 
@@ -709,7 +806,8 @@ public class PlacePageView extends Fragment
                           mTvOutdoorSeating);
 
     // showTaxiOffer(mapObject);
-    refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedRouteRefs(), mRouteRef, mTvRouteRef);
+    String routeRefs = Framework.nativeGetActiveObjectFormattedRouteRefs();
+    refreshMetadataOrHide(routeRefs, mRouteRef, mTvRouteRef);
     if (mRouteRef.getVisibility() == VISIBLE)
     {
       if (mMapObject.isTramStop())
@@ -775,7 +873,7 @@ public class PlacePageView extends Fragment
     if (mMapObject.isTrack() || mMapObject.isTrackRecording())
       return;
 
-    UiUtils.hide(mTvDistance);
+    UiUtils.hide(mTvDistance, mWalkTime);
     UiUtils.hide(mAvDirection);
 
     if (l == null)
@@ -801,13 +899,47 @@ public class PlacePageView extends Fragment
       return;
     UiUtils.showIf(l != null, mTvDistance);
     if (l == null)
+    {
+      UiUtils.hide(mWalkTime);
       return;
+    }
 
     double lat = mMapObject.getLat();
     double lon = mMapObject.getLon();
     DistanceAndAzimut distanceAndAzimuth =
         Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
     mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
+
+    // Update walk time for transit stops
+    updateWalkTime(distanceAndAzimuth.getDistance());
+  }
+
+  private void updateWalkTime(Distance distance)
+  {
+    if (mRouteRef.getVisibility() != VISIBLE)
+    {
+      UiUtils.hide(mWalkTime);
+      return;
+    }
+
+    // Convert distance to meters
+    double meters;
+    switch (distance.mUnits)
+    {
+    case Kilometers: meters = distance.mDistance * 1000; break;
+    case Feet: meters = distance.mDistance * 0.3048; break;
+    case Miles: meters = distance.mDistance * 1609.34; break;
+    default: // Meters
+      meters = distance.mDistance;
+    }
+
+    // Calculate walk time (average walking speed ~5 km/h = ~83 m/min)
+    int walkMinutes = (int) Math.ceil(meters / 83.0);
+    if (walkMinutes < 1)
+      walkMinutes = 1;
+
+    mTvWalkTime.setText(walkMinutes + " " + getString(R.string.minute));
+    UiUtils.show(mWalkTime);
   }
 
   private void refreshLatLon()

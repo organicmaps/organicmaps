@@ -848,4 +848,6 @@
     <string name="login_osm_credentials">Prihlásenie pomocou hesla</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Prihlásenie pomocou prehliadača</string>
+    <string name="transport_schedule">Cestovný poriadok</string>
+    <string name="schedule_coming_soon">Údaje o cestovnom poriadku budú čoskoro dostupné</string>
 </resources>

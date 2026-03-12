@@ -861,4 +861,6 @@
     <string name="login_osm_credentials">Logga in med lösenord</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Logga in med hjälp av webbläsare</string>
+    <string name="transport_schedule">Tidtabell</string>
+    <string name="schedule_coming_soon">Tidtabelldata kommer snart</string>
 </resources>

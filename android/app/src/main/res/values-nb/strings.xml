@@ -845,4 +845,6 @@
     <string name="login_osm_credentials">Logg inn med passord</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Innlogging ved hjelp av nettleser</string>
+    <string name="transport_schedule">Rutetabell</string>
+    <string name="schedule_coming_soon">Rutedata kommer snart</string>
 </resources>

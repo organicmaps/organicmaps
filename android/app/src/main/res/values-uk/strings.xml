@@ -868,4 +868,6 @@
     <string name="login_osm_credentials">Вхід за допомогою пароля</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Вхід через браузер</string>
+    <string name="transport_schedule">Розклад</string>
+    <string name="schedule_coming_soon">Дані розкладу незабаром з\'являться</string>
 </resources>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PlacePageItemFrame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:visibility="visible">
+
+    <!-- Transport type icon -->
+    <ImageView
+        android:id="@+id/iv_transport_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@null"
+        tools:src="@drawable/ic_category_bus" />
+
+    <!-- Route number badge -->
+    <TextView
+        android:id="@+id/tv_route_number"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:paddingVertical="2dp"
+        android:textSize="12sp"
+        tools:text="25"
+        tools:background="@color/base_accent" />
+
+    <!-- Destination -->
+    <TextView
+        android:id="@+id/tv_destination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:text="Центральный вокзал" />
+
+    <!-- Arrival info -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <!-- Status label (Delayed/Early) -->
+        <TextView
+            android:id="@+id/tv_status_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:textAppearance="@style/MwmTextAppearance.Body4"
+            android:visibility="gone"
+            tools:text="Delayed"
+            tools:visibility="visible" />
+
+        <!-- Arrival time row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Scheduled time (strikethrough when delayed/early) -->
+            <TextView
+                android:id="@+id/tv_scheduled_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_quarter"
+                android:textAppearance="@style/MwmTextAppearance.Body4"
+                android:textColor="?android:textColorSecondary"
+                android:visibility="gone"
+                tools:text="5 min"
+                tools:visibility="visible" />
+
+            <!-- Actual arrival time -->
+            <TextView
+                android:id="@+id/tv_arrival_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/MwmTextAppearance.Body2"
+                android:textStyle="bold"
+                tools:text="3 min" />
+
+            <!-- Dynamic indicator (green dot for real-time data) -->
+            <ImageView
+                android:id="@+id/iv_dynamic_indicator"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_dynamic_indicator"
+                android:contentDescription="@null"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

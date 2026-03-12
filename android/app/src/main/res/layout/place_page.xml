@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:descendantFocusability="blocksDescendants"
@@ -10,6 +11,21 @@
     layout="@layout/place_page_preview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
+
+  <com.google.android.material.tabs.TabLayout
+      android:id="@+id/pp_tabs"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      android:background="?ppBackground"
+      app:tabMode="fixed"
+      app:tabGravity="fill" />
+
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_schedule_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone" />
   <include
     android:id="@+id/pp__details_frame"
     layout="@layout/place_page_details"

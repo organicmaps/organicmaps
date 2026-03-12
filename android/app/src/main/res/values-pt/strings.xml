@@ -865,4 +865,6 @@
     <string name="login_osm_credentials">Iniciar sessão com palavra-passe</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Inicie sessão utilizando o browser</string>
+    <string name="transport_schedule">Horário</string>
+    <string name="schedule_coming_soon">Os dados do horário estarão disponíveis em breve</string>
 </resources>

@@ -845,4 +845,6 @@
     <string name="login_osm_credentials">비밀번호로 로그인</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">브라우저를 사용하여 로그인</string>
+    <string name="transport_schedule">시간표</string>
+    <string name="schedule_coming_soon">시간표 데이터가 곧 제공될 예정입니다</string>
 </resources>
