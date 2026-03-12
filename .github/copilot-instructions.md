@@ -1,24 +1,30 @@
 # Agent Instructions for Organic Maps
 
-Organic Maps is a privacy-focused offline maps & GPS app built on OpenStreetMap data. 
+Organic Maps is a privacy-focused offline maps & GPS app built on OpenStreetMap data.
 This is a C++23 cross-platform project with iOS (Swift 5, ObjectiveC), Android (Java 17), and desktop (Qt 6) frontends.
 
 ## Code Style (C++)
-- Format rules described in `.clang-format` 
+- Format rules described in `.clang-format`
 - C++23 standard, `.hpp/.cpp` files (not `.h/.cc`)
 - `#pragma once` for headers
 - 2-space indent, 120 char line width
 - Member variables: `m_` prefix (e.g., `m_countryFile`)
-- `const` after the type: `auto const & ref = f();` 
+- `const` after the type: `auto const & ref = f();`
 - Namespaces: `lower_case` with underscores
 - `using` instead of `typedef`
 - Compile-time constants: `kCamelCase` and `constexpr`
 - Auto-format: `clang-format -i file.cpp`
 
 ## Main focus
-- On performance
+- On performance and code quality
 - Unit tests covering most/all corner cases or changes
 - Less code/cleaner code/less changes
+
+## Review guidelines
+- Review code for bugs, correctness, maintainability, performance, and other issues
+- Review related changes and places where the code is used
+- Review documentation and comments for clarity and accuracy
+- Propose unit tests if needed/relevant
 
 ## When translating content from English:
 - "bookmark" or "bookmarks" (favorite place, saved by user) , use word "метка" or "метки" for Russian, use word "мітка" or "міткі" for Ukrainian
