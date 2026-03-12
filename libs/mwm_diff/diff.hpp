@@ -33,6 +33,6 @@ bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath, st
 DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string const & newMwmPath,
                                 std::string const & diffPath, base::Cancellable const & cancellable);
 
-std::string DebugPrint(DiffApplicationResult const & result);
+std::string DebugPrint(DiffApplicationResult result);
 }  // namespace mwm_diff
 }  // namespace generator
