@@ -31,6 +31,6 @@ public class ElevationProfileChart extends LineChart
 
   private boolean hasZoom()
   {
-    return getScaleX() < 1 || getScaleY() < 1;
+    return getViewPortHandler().getScaleX() < 1 || getViewPortHandler().getScaleY() < 1;
   }
 }

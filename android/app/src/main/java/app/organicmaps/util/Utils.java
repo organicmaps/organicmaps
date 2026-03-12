@@ -463,7 +463,7 @@ public class Utils
     String hour = context.getString(R.string.hour);
     SpannableStringBuilder displayedH = Utils.formatTime(context, textSize, unitsSize, String.valueOf(hours), hour);
     SpannableStringBuilder displayedM = Utils.formatTime(context, textSize, unitsSize, String.valueOf(minutes), min);
-    return hours == 0 ? displayedM : TextUtils.concat(displayedH + "\u00A0", displayedM);
+    return hours == 0 ? displayedM : TextUtils.concat(displayedH, "\u00A0", displayedM);
   }
 
   @NonNull

@@ -474,7 +474,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     else if (id == R.id.btn__save)
     {
       Framework.nativeSaveRoute();
-      Button saveButton = v.findViewById(R.id.btn__save);
+      Button saveButton = (Button) v;
       saveButton.setEnabled(false);
       saveButton.setText(R.string.saved);
     }

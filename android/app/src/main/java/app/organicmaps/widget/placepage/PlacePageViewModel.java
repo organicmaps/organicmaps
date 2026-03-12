@@ -27,7 +27,7 @@ public class PlacePageViewModel extends ViewModel
     mCurrentButtons.setValue(buttons);
   }
 
-  public MutableLiveData<MapObject> getMapObject()
+  public LiveData<MapObject> getMapObject()
   {
     return mMapObject;
   }
@@ -37,7 +37,7 @@ public class PlacePageViewModel extends ViewModel
     mMapObject.setValue(mapObject);
   }
 
-  public MutableLiveData<Integer> getPlacePageWidth()
+  public LiveData<Integer> getPlacePageWidth()
   {
     return mPlacePageWidth;
   }
@@ -47,7 +47,7 @@ public class PlacePageViewModel extends ViewModel
     mPlacePageWidth.setValue(width);
   }
 
-  public MutableLiveData<Integer> getPlacePageDistanceToTop()
+  public LiveData<Integer> getPlacePageDistanceToTop()
   {
     return mPlacePageDistanceToTop;
   }

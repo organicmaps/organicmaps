@@ -681,7 +681,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     int offset;
 
     if (position > -1)
-      offset = lm.findViewByPosition(position).getTop();
+    {
+      final View v = lm.findViewByPosition(position);
+      offset = v != null ? v.getTop() : 0;
+    }
     else
     {
       position = 0;

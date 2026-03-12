@@ -164,14 +164,15 @@ public class ChartController implements OnChartValueSelectedListener
   public void onValueSelected(Entry e, Highlight h)
   {
     mFloatingMarkerView.updateOffsets(e, h);
+    if (mTrack == null)
+      return;
+
     Highlight curPos = getCurrentPosHighlight();
 
     if (mCurrentPositionOutOfTrack)
       mChart.highlightValues(Collections.singletonList(h), Collections.singletonList(mFloatingMarkerView));
     else
       mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
-    if (mTrack == null)
-      return;
 
     if (mInformSelectedActivePointToCore)
       BookmarkManager.INSTANCE.setElevationActivePoint(mTrack.getTrackId(), e.getX(),
