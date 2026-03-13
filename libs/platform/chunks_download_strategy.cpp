@@ -103,18 +103,25 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(std::string const & fName, int6
         auto const count = static_cast<size_t>(size / stSize);
         ASSERT_EQUAL(size, stSize * count, ());
 
-        m_chunks.resize(count);
-        src.Read(&m_chunks[0], stSize * count);
+        if (count == 0)
+        {
+          LOG(LWARNING, ("Corrupted resume file: zero chunks in", fName));
+        }
+        else
+        {
+          m_chunks.resize(count);
+          src.Read(&m_chunks[0], stSize * count);
 
-        // Reset status "downloading" to "free".
-        int64_t downloadedSize = 0;
-        for (size_t i = 0; i < count - 1; ++i)
-          if (m_chunks[i].m_status != CHUNK_COMPLETE)
-            m_chunks[i].m_status = CHUNK_FREE;
-          else
-            downloadedSize += (m_chunks[i + 1].m_pos - m_chunks[i].m_pos);
+          // Reset status "downloading" to "free".
+          int64_t downloadedSize = 0;
+          for (size_t i = 0; i < count - 1; ++i)
+            if (m_chunks[i].m_status != CHUNK_COMPLETE)
+              m_chunks[i].m_status = CHUNK_FREE;
+            else
+              downloadedSize += (m_chunks[i + 1].m_pos - m_chunks[i].m_pos);
 
-        return downloadedSize;
+          return downloadedSize;
+        }
       }
     }
     catch (FileReader::Exception const & e)
