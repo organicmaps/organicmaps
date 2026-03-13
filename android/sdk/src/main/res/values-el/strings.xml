@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">Χρήση του προφίλ Bluetooth Hands-Free (HFP) αντί του A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">Ενεργοποιήστε εάν οι φωνητικές οδηγίες TTS δεν λειτουργούν με το στερεοφωνικό του αυτοκινήτου σας ή με άλλη συσκευή Bluetooth.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>

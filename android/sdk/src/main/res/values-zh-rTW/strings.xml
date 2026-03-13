@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">使用藍牙免持規範 (HFP) 取代 A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">如果 TTS 語音指示無法與汽車音響或其他藍牙裝置搭配使用，請啟動。</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>

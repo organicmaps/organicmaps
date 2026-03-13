@@ -198,7 +198,7 @@ public enum TtsPlayer
       }
       refreshLanguages();
       mTts.setSpeechRate(SPEECH_RATE);
-      mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
+      mTts.setAudioAttributes(AudioFocusManager.getAudioAttributes());
       mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
       mAudioFocusManager = AudioFocusManager.create(context, this::stop);
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
