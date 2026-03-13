@@ -112,6 +112,9 @@ std::expected<TimeZone, SerializationError> Deserialize(std::string_view const d
   tz.dst_delta = static_cast<uint8_t>(br.ReadAtMost32Bits(TimeZone::kDstDeltaBitSize));
   tz.transitions_length = br.Read(TimeZone::kTransitionsLengthBitSize);
 
+  if (tz.transitions_length % 2 != 0)
+    return std::unexpected{SerializationError::IncorrectTransitionsAmount};
+
   size_t const expectedTimeZoneSizeInBytes =
       (TimeZone::kTotalSizeInBits + tz.transitions_length * Transition::kTotalSizeInBits + CHAR_BIT - 1) / CHAR_BIT;
   if (data.size() < expectedTimeZoneSizeInBytes)
