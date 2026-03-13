@@ -477,4 +477,296 @@ UNIT_TEST(BufferVector_Swap_DynamicMode)
   TEST_EQUAL(v2[0], 0, ());
 }
 
+UNIT_TEST(BufferVector_InitializerList)
+{
+  buffer_vector<int, 5> v = {10, 20, 30};
+  TEST_EQUAL(v.size(), 3, ());
+  TEST_EQUAL(v[0], 10, ());
+  TEST_EQUAL(v[1], 20, ());
+  TEST_EQUAL(v[2], 30, ());
+
+  // Initializer list that exceeds static capacity.
+  buffer_vector<int, 2> v2 = {1, 2, 3, 4};
+  TEST_EQUAL(v2.size(), 4, ());
+  TEST_EQUAL(v2[3], 4, ());
+}
+
+UNIT_TEST(BufferVector_ComparisonOperators)
+{
+  buffer_vector<int, 4> a = {1, 2, 3};
+  buffer_vector<int, 4> b = {1, 2, 4};
+  buffer_vector<int, 4> c = {1, 2, 3};
+
+  TEST(a < b, ());
+  TEST(b > a, ());
+  TEST(a >= c, ());
+  TEST(c >= a, ());
+  TEST(!(a < c), ());
+  TEST(!(a > c), ());
+
+  // Different N but same content.
+  buffer_vector<int, 8> d = {1, 2, 3};
+  TEST_EQUAL(a, d, ());
+  TEST(a >= d, ());
+
+  // Empty vectors.
+  buffer_vector<int, 4> e1, e2;
+  TEST_EQUAL(e1, e2, ());
+  TEST(e1 >= e2, ());
+  TEST(!(e1 < e2), ());
+}
+
+UNIT_TEST(BufferVector_Reserve)
+{
+  buffer_vector<int, 4> v;
+
+  // Reserve within static capacity — should be a no-op.
+  v.reserve(3);
+  v.push_back(1);
+  v.push_back(2);
+  v.push_back(3);
+  TEST_EQUAL(v.size(), 3, ());
+  TEST_EQUAL(v[2], 3, ());
+
+  // Reserve beyond static — pre-allocates dynamic storage.
+  v.reserve(100);
+  // Still in static mode until we exceed N.
+  v.push_back(4);
+  TEST_EQUAL(v.size(), 4, ());
+
+  // Now switch to dynamic.
+  v.push_back(5);
+  TEST_EQUAL(v.size(), 5, ());
+  TEST_EQUAL(v[0], 1, ());
+  TEST_EQUAL(v[4], 5, ());
+}
+
+UNIT_TEST(BufferVector_CopyConstruction)
+{
+  buffer_vector<int, 4> v1 = {10, 20, 30};
+  buffer_vector<int, 4> v2(v1);
+  TEST_EQUAL(v1, v2, ());
+
+  // Mutating copy doesn't affect original.
+  v2.push_back(40);
+  TEST_EQUAL(v1.size(), 3, ());
+  TEST_EQUAL(v2.size(), 4, ());
+
+  // Copy in dynamic mode.
+  buffer_vector<int, 2> v3 = {1, 2, 3, 4, 5};
+  buffer_vector<int, 2> v4(v3);
+  TEST_EQUAL(v3, v4, ());
+  v4[0] = 99;
+  TEST_EQUAL(v3[0], 1, ());
+}
+
+UNIT_TEST(BufferVector_CopyAssignment)
+{
+  buffer_vector<int, 4> v1 = {1, 2, 3};
+  buffer_vector<int, 4> v2;
+  v2 = v1;
+  TEST_EQUAL(v1, v2, ());
+
+  // Assign dynamic to empty.
+  buffer_vector<int, 2> v3 = {1, 2, 3, 4, 5};
+  buffer_vector<int, 2> v4;
+  v4 = v3;
+  TEST_EQUAL(v3, v4, ());
+}
+
+UNIT_TEST(BufferVector_AssignDynamic)
+{
+  buffer_vector<int, 3> v;
+  // Force dynamic mode.
+  for (int i = 0; i < 10; ++i)
+    v.push_back(i);
+  TEST_EQUAL(v.size(), 10, ());
+
+  // Assign a small range while in dynamic mode.
+  int const arr[] = {100, 200};
+  v.assign(std::begin(arr), std::end(arr));
+  TEST_EQUAL(v.size(), 2, ());
+  TEST_EQUAL(v[0], 100, ());
+  TEST_EQUAL(v[1], 200, ());
+
+  // Assign a large range while in dynamic mode.
+  std::vector<int> big(20, 42);
+  v.assign(big.begin(), big.end());
+  TEST_EQUAL(v.size(), 20, ());
+  TEST_EQUAL(v[19], 42, ());
+}
+
+UNIT_TEST(BufferVector_SwapStaticDynamic)
+{
+  buffer_vector<int, 4> vStatic = {1, 2, 3};
+  buffer_vector<int, 4> vDynamic;
+  for (int i = 10; i < 20; ++i)
+    vDynamic.push_back(i);
+
+  swap(vStatic, vDynamic);
+
+  // vStatic should now have the dynamic data.
+  TEST_EQUAL(vStatic.size(), 10, ());
+  TEST_EQUAL(vStatic[0], 10, ());
+  TEST_EQUAL(vStatic[9], 19, ());
+
+  // vDynamic should now have the static data.
+  TEST_EQUAL(vDynamic.size(), 3, ());
+  TEST_EQUAL(vDynamic[0], 1, ());
+  TEST_EQUAL(vDynamic[2], 3, ());
+}
+
+UNIT_TEST(BufferVector_ResizeZeroDynamic)
+{
+  buffer_vector<int, 3> v;
+  for (int i = 0; i < 10; ++i)
+    v.push_back(i);
+
+  v.resize(0);
+  TEST(v.empty(), ());
+  TEST_EQUAL(v.size(), 0, ());
+
+  // Should still be usable after resize(0).
+  v.push_back(42);
+  TEST_EQUAL(v.size(), 1, ());
+  TEST_EQUAL(v[0], 42, ());
+}
+
+UNIT_TEST(BufferVector_StaticDynamicBoundary)
+{
+  size_t constexpr N = 4;
+  buffer_vector<int, N> v;
+
+  // Fill to exactly N (static).
+  for (size_t i = 0; i < N; ++i)
+    v.push_back(static_cast<int>(i));
+  TEST_EQUAL(v.size(), N, ());
+
+  // One more triggers dynamic.
+  v.push_back(static_cast<int>(N));
+  TEST_EQUAL(v.size(), N + 1, ());
+  for (size_t i = 0; i <= N; ++i)
+    TEST_EQUAL(v[i], static_cast<int>(i), ());
+
+  // Pop back to N elements (stays dynamic).
+  v.pop_back();
+  TEST_EQUAL(v.size(), N, ());
+  for (size_t i = 0; i < N; ++i)
+    TEST_EQUAL(v[i], static_cast<int>(i), ());
+}
+
+UNIT_TEST(BufferVector_EraseDynamic)
+{
+  buffer_vector<int, 3> v;
+  for (int i = 0; i < 10; ++i)
+    v.push_back(i);
+
+  // Erase middle range.
+  v.erase(v.begin() + 3, v.begin() + 7);
+  TEST_EQUAL(v.size(), 6, ());
+  // Expected: 0, 1, 2, 7, 8, 9
+  TEST_EQUAL(v[0], 0, ());
+  TEST_EQUAL(v[2], 2, ());
+  TEST_EQUAL(v[3], 7, ());
+  TEST_EQUAL(v[5], 9, ());
+
+  // Erase single element.
+  v.erase(v.begin());
+  TEST_EQUAL(v.size(), 5, ());
+  TEST_EQUAL(v[0], 1, ());
+
+  // Erase all.
+  v.erase(v.begin(), v.end());
+  TEST(v.empty(), ());
+}
+
+UNIT_TEST(BufferVector_EraseDynamic_UniquePtr)
+{
+  buffer_vector<std::unique_ptr<int>, 2> v;
+  for (int i = 0; i < 5; ++i)
+    v.emplace_back(std::make_unique<int>(i * 10));
+
+  // Erase elements 1..3, should properly destroy them.
+  v.erase(v.begin() + 1, v.begin() + 4);
+  TEST_EQUAL(v.size(), 2, ());
+  TEST_EQUAL(*v[0], 0, ());
+  TEST_EQUAL(*v[1], 40, ());
+}
+
+UNIT_TEST(BufferVector_FrontBack)
+{
+  buffer_vector<int, 4> v;
+  v.push_back(42);
+  TEST_EQUAL(v.front(), 42, ());
+  TEST_EQUAL(v.back(), 42, ());
+
+  v.push_back(99);
+  TEST_EQUAL(v.front(), 42, ());
+  TEST_EQUAL(v.back(), 99, ());
+
+  // In dynamic mode.
+  for (int i = 0; i < 10; ++i)
+    v.push_back(i);
+  TEST_EQUAL(v.front(), 42, ());
+  TEST_EQUAL(v.back(), 9, ());
+}
+
+UNIT_TEST(BufferVector_DebugPrint)
+{
+  buffer_vector<int, 4> v = {1, 2, 3};
+  std::string const s = DebugPrint(v);
+  TEST_EQUAL(s, "[3: 1 2 3 ]", ());
+
+  buffer_vector<int, 2> empty;
+  TEST_EQUAL(DebugPrint(empty), "[0: ]", ());
+}
+
+UNIT_TEST(BufferVector_IteratorRange)
+{
+  std::vector<int> src = {5, 10, 15, 20};
+  buffer_vector<int, 3> v(src.begin(), src.end());
+  TEST_EQUAL(v.size(), 4, ());
+  TEST_EQUAL(v[0], 5, ());
+  TEST_EQUAL(v[3], 20, ());
+
+  // From array.
+  int arr[] = {1, 2};
+  buffer_vector<int, 4> v2(std::begin(arr), std::end(arr));
+  TEST_EQUAL(v2.size(), 2, ());
+}
+
+UNIT_TEST(BufferVector_ResizeWithValue)
+{
+  buffer_vector<int, 4> v;
+  v.resize(3, 7);
+  TEST_EQUAL(v.size(), 3, ());
+  for (size_t i = 0; i < 3; ++i)
+    TEST_EQUAL(v[i], 7, ());
+
+  // Grow with value, crossing static/dynamic boundary.
+  v.resize(6, 42);
+  TEST_EQUAL(v.size(), 6, ());
+  for (size_t i = 0; i < 3; ++i)
+    TEST_EQUAL(v[i], 7, ());
+  for (size_t i = 3; i < 6; ++i)
+    TEST_EQUAL(v[i], 42, ());
+
+  // Shrink.
+  v.resize(2, 0);
+  TEST_EQUAL(v.size(), 2, ());
+  TEST_EQUAL(v[0], 7, ());
+  TEST_EQUAL(v[1], 7, ());
+}
+
+UNIT_TEST(BufferVector_AppendBufferVector)
+{
+  buffer_vector<int, 4> v1 = {1, 2};
+  buffer_vector<int, 8> v2 = {3, 4, 5};
+
+  v1.append(v2);
+  TEST_EQUAL(v1.size(), 5, ());
+  TEST_EQUAL(v1[0], 1, ());
+  TEST_EQUAL(v1[4], 5, ());
+}
+
 }  // namespace buffer_vector_test
