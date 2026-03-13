@@ -56,6 +56,12 @@ GpsTrackFilter::GpsTrackFilter()
   settings::TryGet(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
 
+void GpsTrackFilter::Reset()
+{
+  m_countLastInfo = 0;
+  m_countAcceptedInfo = 0;
+}
+
 void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints)
 {
   outPoints.reserve(inPoints.size());
