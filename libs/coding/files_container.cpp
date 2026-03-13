@@ -369,22 +369,28 @@ std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag
 {
   ASSERT(!m_finished, ());
 
-  InfoContainer::const_iterator it = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
+  // Stabilize the previous section's metadata.  When !m_needRewrite, the file
+  // has been modified by a prior GetWriter call and the last entry's m_size is
+  // still 0 (not yet computed).  SaveCurrentSize reads the current file size
+  // and fills it in.  We must NOT call it when m_needRewrite is true (right
+  // after Open), because the file still contains the service-info trailer and
+  // the sizes loaded from that trailer are already correct.
+  if (!m_needRewrite)
+    SaveCurrentSize();
+
+  auto it = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
   if (it != m_info.end())
   {
-    if (it + 1 == m_info.end())
-    {
-      m_info.pop_back();
+    // Erase the old entry regardless of position.  The old section data stays
+    // in the file as a harmless gap that is never referenced after Finish()
+    // writes new service info.  This avoids calling DeleteSection, which would
+    // need a valid on-disk service-info block (unavailable during a write session).
+    m_info.erase(it);
 
-      if (m_info.empty())
-        StartNew();
-      else
-        m_needRewrite = true;
-    }
+    if (m_info.empty())
+      StartNew();
     else
-    {
-      DeleteSection(it->m_tag);
-    }
+      m_needRewrite = true;
   }
 
   if (m_needRewrite)
@@ -404,8 +410,6 @@ std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag
   }
   else
   {
-    SaveCurrentSize();
-
     auto writer = std::make_unique<FilesContainerWriter>(m_name, FileWriter::OP_APPEND);
     writer->WritePaddingByPos(kSectionAlignment);
 
