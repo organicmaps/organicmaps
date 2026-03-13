@@ -14,6 +14,7 @@ using namespace locale_translator;
 namespace
 {
 NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
+NSString * const kUserDefaultsTTSVoiceIdentifier = @"UserDefaultsTTSVoiceIdentifier";
 NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
 NSString * const kIsStreetNamesTTSEnabled = @"UserDefaultsNeedToEnableStreetNamesTTS";
 NSString * const kDefaultLanguage = @"en-US";
@@ -45,6 +46,50 @@ std::vector<std::pair<std::string, std::string>> availableLanguages()
 using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
+
+NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * language)
+{
+  if (!language || language.length == 0)
+    return @[];
+  
+  NSArray<AVSpeechSynthesisVoice *> * allVoices = [AVSpeechSynthesisVoice speechVoices];
+  if (!allVoices || allVoices.count == 0)
+    return @[];
+  
+  NSMutableArray<AVSpeechSynthesisVoice *> * filteredVoices = [NSMutableArray array];
+
+  // Extract base language (e.g., "en" from "en-US")
+  NSString * baseLanguage = language;
+  NSRange dashRange = [language rangeOfString:@"-"];
+  if (dashRange.location != NSNotFound)
+    baseLanguage = [language substringToIndex:dashRange.location];
+
+  for (AVSpeechSynthesisVoice * voice in allVoices)
+  {
+    // Match exact language or base language
+    if ([voice.language isEqualToString:language])
+    {
+      [filteredVoices addObject:voice];
+    }
+    else if (dashRange.location != NSNotFound)
+    {
+      // Also match voices with the same base language (e.g., "en-GB", "en-AU" for "en-US")
+      NSString * voiceBaseLanguage = voice.language;
+      NSRange voiceDashRange = [voice.language rangeOfString:@"-"];
+      if (voiceDashRange.location != NSNotFound)
+        voiceBaseLanguage = [voice.language substringToIndex:voiceDashRange.location];
+      if ([voiceBaseLanguage isEqualToString:baseLanguage])
+        [filteredVoices addObject:voice];
+    }
+  }
+
+  // Sort by name for better UX
+  [filteredVoices sortUsingComparator:^NSComparisonResult(AVSpeechSynthesisVoice * v1, AVSpeechSynthesisVoice * v2) {
+    return [v1.name compare:v2.name];
+  }];
+
+  return [filteredVoices copy];
+}
 
 @interface MWMTextToSpeech () <AVSpeechSynthesizerDelegate>
 {
@@ -137,6 +182,26 @@ using Observers = NSHashTable<Observer>;
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
+
+  // If language changed, verify the saved voice is still valid for this language
+  NSString * savedVoiceIdentifier = [[self class] savedVoiceIdentifier];
+  if (savedVoiceIdentifier.length > 0)
+  {
+    AVSpeechSynthesisVoice * savedVoice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    if (!savedVoice || (locale && ![savedVoice.language isEqualToString:locale]))
+    {
+      // Voice is no longer valid for this language, clear it
+      [ud removeObjectForKey:kUserDefaultsTTSVoiceIdentifier];
+    }
+  }
+
+  [self createVoice:locale];
+}
+
+- (void)setVoiceIdentifier:(NSString *)voiceIdentifier
+{
+  [[self class] setSavedVoiceIdentifier:voiceIdentifier];
+  NSString * locale = [[self class] savedLanguage];
   [self createVoice:locale];
 }
 
@@ -194,6 +259,26 @@ using Observers = NSHashTable<Observer>;
   return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
 
++ (NSString *)savedVoiceIdentifier
+{
+  return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSVoiceIdentifier];
+}
+
++ (void)setSavedVoiceIdentifier:(NSString *)voiceIdentifier
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  if (voiceIdentifier.length > 0)
+    [ud setObject:voiceIdentifier forKey:kUserDefaultsTTSVoiceIdentifier];
+  else
+    [ud removeObjectForKey:kUserDefaultsTTSVoiceIdentifier];
+  [ud synchronize];
+}
+
++ (NSArray<AVSpeechSynthesisVoice *> *)availableVoicesForLanguage:(NSString *)language
+{
+  return availableVoicesForLanguage(language);
+}
+
 - (void)createVoice:(NSString *)locale
 {
   if (!self.speechSynthesizer)
@@ -202,19 +287,37 @@ using Observers = NSHashTable<Observer>;
     self.speechSynthesizer.delegate = self;
   }
 
-  NSMutableArray<NSString *> * candidateLocales = [@[kDefaultLanguage, @"en-GB"] mutableCopy];
-
-  if (locale)
-    [candidateLocales insertObject:locale atIndex:0];
-  else
-    LOG(LWARNING, ("locale is nil. Trying default locale."));
-
+  // First, try to use saved voice identifier if available
+  NSString * savedVoiceIdentifier = [[self class] savedVoiceIdentifier];
   AVSpeechSynthesisVoice * voice = nil;
-  for (NSString * loc in candidateLocales)
+
+  if (savedVoiceIdentifier.length > 0)
   {
-    voice = [AVSpeechSynthesisVoice voiceWithLanguage:loc];
-    if (voice)
-      break;
+    voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    // Verify the voice is still available and matches the current language
+    if (voice && locale && ![voice.language isEqualToString:locale])
+    {
+      // Voice identifier saved but language changed, fall back to language-based selection
+      voice = nil;
+    }
+  }
+
+  // If no saved voice or saved voice doesn't match, fall back to language-based selection
+  if (!voice)
+  {
+    NSMutableArray<NSString *> * candidateLocales = [@[kDefaultLanguage, @"en-GB"] mutableCopy];
+
+    if (locale)
+      [candidateLocales insertObject:locale atIndex:0];
+    else
+      LOG(LWARNING, ("locale is nil. Trying default locale."));
+
+    for (NSString * loc in candidateLocales)
+    {
+      voice = [AVSpeechSynthesisVoice voiceWithLanguage:loc];
+      if (voice)
+        break;
+    }
   }
 
   self.speechVoice = voice;
