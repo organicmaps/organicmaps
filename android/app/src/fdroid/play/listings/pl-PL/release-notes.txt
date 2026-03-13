@@ -1,10 +1,9 @@
-• Dane OSM z 16 lutego, Wikipedia z 1 lutego
-• Czarne szlaki piesze i rowerowe są teraz widoczne w ciemnym motywie
-• Dodano tyrolki i więcej usług samochodowych: naprawa, serwis i części
-• Poprawiono wyznaczanie tras rowerowych i obliczanie średniej prędkości
-• Ulepszone wyszukiwanie kategorii
-• Kuchnia uzbecka
-• Rozwijane godziny otwarcia
-• Pokaż i używaj wysokości MSL dla nagranych śladów na Androidzie 14+
-• Naprawiono import KML, KMZ, GPX, GeoJSON z WhatsAppa
-…więcej na omaps.org/news
+• Dane mapy OSM na dzień 10 marca, Wikipedia na dzień 1 marca
+• Bardziej szczegółowe izolinie wysokości dla chińskich prowincji
+• Dodano rzędy drzew, sklepy skórzane i sklepy sprzedające towary religijne
+• Dodano obsługę warunkowych ograniczeń prędkości
+• Podział Tanzanii na mniejsze regiony
+• Poprawione wyświetlanie godzin otwarcia firmy
+• Naprawiono kilka awarii
+• Ulepszone tłumaczenia nazw aplikacji i krajów
+omaps.org/pl/news

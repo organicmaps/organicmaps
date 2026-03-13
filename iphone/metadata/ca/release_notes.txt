@@ -1,27 +1,23 @@
-• Dades del mapa OSM del 16 de febrer
-• Dades de la Viquipèdia de l'1 de febrer
-• Les rutes de senderisme i ciclisme negres ara són visibles al tema fosc
-• S'han afegit més serveis per a cotxes: reparació, servei i recanvis
-• S'ha afegit l'autenticació del navegador OSM
-• S'ha corregit l'accés de bicicletes en alguns tipus de carreteres
-• S'ha corregit el càlcul de la velocitat mitjana
-• Millora del rànquing de cerca per categories
-• S'ha afegit cuina uzbeka
-• S'han afegit tirolines al mapa
-• S'han corregit els enllaços de Wikimedia amb "?" al títol
-• S'ha corregit l'anàlisi de fitxers GPX amb "+" a les coordenades
+• Dades del mapa OSM a data de 10 de març
+• Dades de la Viquipèdia a data de 1 de març
+• S'ha afegit suport per a límits de velocitat condicionals
+• Isòlines d'altitud més detallades per a les províncies xineses
+• S'han afegit botigues de cuir i botigues que venen articles religiosos
+• S'han afegit fileres d'arbres
+• S'han afegit plataformes d'aturada de transport públic sense aturades d'autobús a prop
+• S'ha corregit el càlcul del progrés de la descàrrega de països
+• S'ha dividit Tanzània en regions més petites
+• S'ha afegit un historial de les categories utilitzades recentment a l'Editor
+• Millorada la gestió de l'esllavetada cap amunt a la pantalla de planificació d'itineraris
+• Corregida la posició de la regla per a CarPlay
+• Corregits diversos bloquejos, i millorada l'estabilitat i el rendiment
 
 ### Traduccions
 
-• S'han eliminat noms de ciutats duplicats en algunes regions del mapa
-• S'han corregit les indicacions de veu en hebreu
-• S'han corregit errors tipogràfics en coreà
-• S'han afegit sinònims de cerca en rus
-• Millora de les indicacions de veu en alemany
-• S'ha corregit la traducció que faltava per al túnel ferroviari en desús
-• S'ha corregit la traducció del país en romanès
-• S'han afegit traduccions al laosià i a l'armeni
-• S'han afegit traduccions armènies que faltaven
-• S'han actualitzat les traduccions dels col·laboradors de Weblate
+• Millorades les descripcions dels països
+• Aplicades les correccions romaneses d'Eugen Dedu
+• Actualitzats els noms dels països
+• Actualitzades les traduccions dels col·laboradors de Weblate
+• Corregida la traducció a l'ucraïnès
 
-Gràcies a tothom que contribueix, fa donacions i dóna suport a Organic Maps! Construïm els millors mapes junts!
+Gràcies a tothom qui col·labora, fa donacions i dona suport a Organic Maps! Creem junts els millors mapes!

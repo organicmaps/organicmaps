@@ -1,11 +1,10 @@
-• OSM data as of February 16, Wikipedia as of February 1
-• Black hiking and cycling routes are now visible in the dark theme
-• Added zip lines and more car services: repair, service, and parts
-• Fixed bicycle routing and average speed calculation
-• Improved category search
-• Uzbek cuisine
-• Expandable opening hours
-• Show and use MSL altitude for recorded tracks on Android 14+
-• Fixed KML, KMZ, GPX, GeoJSON import from WhatsApp
-• Added Lao and Armenian translations
+• OSM map data as of March 10, Wikipedia as of March 1
+• More detailed elevation isolines for Chinese provinces
+• Added rows of trees, leather shops and shops selling religious goods
+• Added support for conditional speed limits
+• Split Tanzania into smaller regions
+• Improved display of business opening hours
+• Fixed several crashes
+• Improved app and country names translations
+• Added public transport stop platforms without nearby bus stops
 …more at omaps.org/news

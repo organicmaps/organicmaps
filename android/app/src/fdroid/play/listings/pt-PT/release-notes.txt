@@ -1,9 +1,9 @@
-• Dados OSM de 16 de fevereiro, Wikipédia de 1 de fevereiro
-• Percursos pedestres e de bicicleta pretos agora visíveis no tema escuro
-• Adicionados slide e mais serviços automóveis: reparação, serviço e peças
-• Corrigido o encaminhamento de bicicletas e cálculo da velocidade média
-• Pesquisa de categorias melhorada
-• Cozinha uzbeque
-• Horários de funcionamento expansíveis
-• Mostrar e usar a altitude MSL para trilhos gravados no Android 14+
-…mais em omaps.org/news
+• Dados do mapa OSM a 10 de março, Wikipédia a 1 de março
+• Isolinhas de elevação mais detalhadas para as províncias chinesas
+• Adicionadas fileiras de árvores, lojas de couro e lojas que vendem produtos religiosos
+• Adicionado suporte para limites de velocidade condicionais
+• Tanzânia dividida em regiões mais pequenas
+• Melhor exibição do horário de funcionamento comercial
+• Várias falhas corrigidas
+• Traduções melhoradas de nomes de aplicações e países
+omaps.org/pt/news

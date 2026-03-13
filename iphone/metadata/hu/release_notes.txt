@@ -1,27 +1,23 @@
-• OSM térképadatok február 16-i állapota
-• Wikipédia adatok február 1-i állapota
-• A fekete túra- és kerékpárútvonalak mostantól láthatók sötét módban
-• További autós szolgáltatások hozzáadva: javítás, szerviz és alkatrészek
-• OSM böngésző hitelesítés hozzáadva
-• Kerékpáros hozzáférés javítva egyes úttípusokon
-• Átlagsebesség-számítás javítva
-• Kategóriák keresési rangsorolásának javítása
-• Üzbég konyha hozzáadva
-• Drótkötélpályák (zip lines) hozzáadva a térképhez
-• Wikimedia linkek javítása, amelyek címében „?” szerepel
-• GPX fájlok elemzésének javítása, amelyek koordinátáiban „+” szerepel
+• OSM térképadatok március 10-i állapot szerint
+• Wikipedia-adatok március 1-i állapot szerint
+• Hozzáadott támogatás a feltételes sebességkorlátozásokhoz
+• Részletesebb magassági izolinák a kínai tartományokhoz
+• Hozzáadott bőrdíszműves üzletek és vallási cikkeket árusító üzletek
+• Hozzáadott fasorok
+• Hozzáadott tömegközlekedési megállóperonok a közeli buszmegállók nélkül
+• Javított országletöltési előrehaladás számítás
+• Tanzánia kisebb régiókra bontása
+• Hozzáadott a szerkesztőben a legutóbb használt kategóriák előzményei
+• Javítva az útvonaltervező képernyőn felfelé csúsztatás
+• Javítva a CarPlay vonalzó pozíciója
+• Javítva több összeomlás, javítva a stabilitás és a teljesítmény
 
 ### Fordítások
 
-• Dupla városnevek eltávolítása egyes térképrégiókban
-• Héber hangutasítások javítása
-• Koreai elírások javítása
-• Orosz keresési szinonimák hozzáadva
-• Német hangutasítások javítása
-• Hiányzó fordítás javítása a használaton kívüli vasúti alagúthoz
-• Országnév fordításának javítása román nyelven
-• Laoszi és örmény fordítások hozzáadva
-• Hiányzó örmény fordítások hozzáadva
-• Fordítások frissítése a Weblate közreműködőitől
+• Javítva az országleírások
+• Alkalmazva Eugen Dedu román javításai
+• Frissítve az országnevek
+• Frissítve a Weblate közreműködők fordításai
+• Javítva az ukrán fordítás
 
-Köszönjük mindenkinek, aki hozzájárul, adományoz és támogatja az Organic Maps-et! Építsük együtt a legjobb térképeket!
+Köszönet mindenkinek, aki közreműködik, adományoz és támogatja az Organic Maps-et! Építsük együtt a legjobb térképeket!

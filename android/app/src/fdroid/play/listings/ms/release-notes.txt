@@ -1,9 +1,9 @@
-• Data OSM setakat 16 Februari, Wikipedia setakat 1 Februari
-• Laluan mendaki dan berbasikal hitam kini kelihatan dalam tema gelap
-• Menambah flying fox dan lebih banyak perkhidmatan kereta: pembaikan, servis dan alat ganti
-• Memperbaiki laluan basikal dan pengiraan kelajuan purata
-• Carian kategori yang dipertingkatkan
-• Masakan Uzbekistan
-• Waktu operasi boleh dikembangkan
-• Tunjukkan dan gunakan ketinggian MSL untuk trek yang dirakam pada Android 14+
-…lagi di omaps.org/news
+• Data peta OSM pada 10 Mac, Wikipedia pada 1 Mac
+• Pengasingan ketinggian yang lebih terperinci untuk wilayah China
+• Menambah deretan pokok, kedai kulit dan kedai menjual barangan keagamaan
+• Menambah sokongan untuk had laju bersyarat
+• Tanzania dibahagikan kepada kawasan yang lebih kecil
+• Paparan waktu buka perniagaan yang lebih baik
+• Memperbaiki beberapa ranap sistem
+• Terjemahan apl dan nama negara yang dipertingkatkan
+omaps.org/news

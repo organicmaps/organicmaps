@@ -1,27 +1,23 @@
-• Podaci OSM karte od 16. veljače
-• Podaci Wikipedije od 1. veljače
-• Crne pješačke i biciklističke rute sada su vidljive u tamnoj temi
-• Dodano više usluga za automobile: popravak, servis i dijelovi
-• Dodana autentifikacija preglednika OSM
-• Ispravljen pristup biciklima na nekim vrstama cesta
-• Ispravljen izračun prosječne brzine
-• Poboljšano rangiranje pretraživanja za kategorije
-• Dodana uzbečka kuhinja
-• Dodane zip linije na kartu
-• Ispravljene Wikimedia poveznice s "?" u naslovu
-• Ispravljeno parsiranje GPX datoteka s "+" u koordinatama
+• OSM podaci o karti od 10. ožujka
+• Podaci s Wikipedije od 1. ožujka
+• Dodana podrška za uvjetna ograničenja brzine
+• Detaljnije izohipse za kineske pokrajine
+• Dodane trgovine kožom i trgovine koje prodaju vjerske predmete
+• Dodani redovi stabala
+• Dodana stajališta javnog prijevoza bez obližnjih autobusnih stajališta
+• Ispravljen izračun napretka preuzimanja zemalja
+• Tanzanija podijeljena na manje regije
+• Dodana povijest nedavno korištenih kategorija u Uređivaču
+• Poboljšano klizanje prema gore na zaslonu za planiranje rute
+• Popravljena pozicija ravnala za CarPlay
+• Popravljeno nekoliko pada, poboljšana stabilnost i performanse
 
 ### Prijevodi
 
-• Uklonjeni dupli nazivi gradova u nekim regijama karte
-• Ispravljene glasovne upute na hebrejskom
-• Ispravljene korejske tipfeleri
-• Dodani ruski sinonimi za pretraživanje
-• Poboljšane njemačke glasovne upute
-• Ispravljen nedostajući prijevod za napušteni željeznički tunel
-• Ispravljen prijevod zemlje na rumunjskom
-• Dodani prijevodi na laoski i armenski
-• Dodani nedostajući armenski prijevodi
-• Ažurirani prijevodi suradnika Weblate-a
+• Poboljšani opisi zemalja
+• Primijenjene rumunske ispravke Eugena Dedu
+• Ažurirana imena zemalja
+• Ažurirani prijevodi suradnika s Weblatea
+• Popravljen ukrajinski prijevod
 
-Hvala svima koji doprinose, doniraju i podržavaju Organic Maps! Izgradimo najbolje karte zajedno!
+Hvala svima koji doprinose, doniraju i podržavaju Organic Maps! Zajedno stvorimo najbolje karte!
