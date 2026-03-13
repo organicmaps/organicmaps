@@ -215,15 +215,13 @@ UNIT_TEST(FilesContainer_RewriteExisting)
   FileWriter::DeleteFileX(fName);
 }
 
-/// @todo To make this test work, need to review FilesContainerW::GetWriter logic.
-/*
 UNIT_TEST(FilesContainer_ConsecutiveRewriteExisting)
 {
   string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
 
-  char const * key[] = { "3", "2", "1" };
-  char const * value[] = { "prolog", "data", "epilog" };
+  char const * key[] = {"3", "2", "1"};
+  char const * value[] = {"prolog", "data", "epilog"};
 
   // fill container
   {
@@ -252,10 +250,11 @@ UNIT_TEST(FilesContainer_ConsecutiveRewriteExisting)
     }
   }
 
-  char const * values[] = { buf0, buf1, value[2] };
+  char const * values[] = {buf0, buf1, value[2]};
   CheckContainer(fName, key, values, 3);
+
+  FileWriter::DeleteFileX(fName);
 }
-*/
 
 UNIT_TEST(FilesMappingContainer_Handle)
 {
