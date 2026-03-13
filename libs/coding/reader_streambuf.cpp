@@ -47,7 +47,7 @@ WriterStreamBuf::int_type WriterStreamBuf::overflow(int_type c)
     char_type const t = traits_type::to_char_type(c);
     xsputn(&t, 1);
   }
-  return !traits_type::eof();
+  return traits_type::not_eof(c);
 }
 
 int WriterStreamBuf::sync()
