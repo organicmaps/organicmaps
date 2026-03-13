@@ -38,7 +38,6 @@ if(NOT PLATFORM_WIN)
 endif ()
 
 target_compile_options(${PROJECT_NAME} PRIVATE
-  $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
-  $<$<CXX_COMPILER_ID:AppleClang,Clang,GNU>:-Wno-deprecated-declarations>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-sign-compare>
+  $<$<CXX_COMPILER_ID:AppleClang,Clang,GNU>:-w>
+  $<$<CXX_COMPILER_ID:MSVC>:/W0>
 )
