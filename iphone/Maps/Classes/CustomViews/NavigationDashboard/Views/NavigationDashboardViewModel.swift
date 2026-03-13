@@ -34,7 +34,7 @@ extension NavigationDashboard.ViewModel {
       routePoints: .empty,
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
-      routingOptions: RoutingOptions(),
+      routingOptions: RoutingOptions(routerType: MWMRouter.type()),
       elevationInfo: nil,
       navigationInfo: .hidden,
       estimates: NSAttributedString(),

@@ -14,12 +14,24 @@ using RoadType = RoutingOptions::RoadType;
 class RoutingOptionsTests
 {
 public:
-  RoutingOptionsTests() { m_savedOptions = RoutingOptions::LoadCarOptionsFromSettings(); }
+  RoutingOptionsTests()
+  {
+    m_savedCarOptions = RoutingOptions::LoadCarOptionsFromSettings();
+    m_savedPedestrianOptions = RoutingOptions::LoadPedestrianOptionsFromSettings();
+    m_savedBicycleOptions = RoutingOptions::LoadBicycleOptionsFromSettings();
+  }
 
-  ~RoutingOptionsTests() { RoutingOptions::SaveCarOptionsToSettings(m_savedOptions); }
+  ~RoutingOptionsTests()
+  {
+    RoutingOptions::SaveCarOptionsToSettings(m_savedCarOptions);
+    RoutingOptions::SavePedestrianOptionsToSettings(m_savedPedestrianOptions);
+    RoutingOptions::SaveBicycleOptionsToSettings(m_savedBicycleOptions);
+  }
 
 private:
-  RoutingOptions m_savedOptions;
+  RoutingOptions m_savedCarOptions;
+  RoutingOptions m_savedPedestrianOptions;
+  RoutingOptions m_savedBicycleOptions;
 };
 
 RoutingOptions CreateOptions(std::vector<RoutingOptions::Road> const & include)
@@ -74,5 +86,52 @@ UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
   RoutingOptions fromSettings = RoutingOptions::LoadCarOptionsFromSettings();
 
   TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
+}
+
+UNIT_CLASS_TEST(RoutingOptionsTests, GetSetPedestrianTest)
+{
+  RoutingOptions options =
+      CreateOptions({RoutingOptions::Road::Ferry, RoutingOptions::Road::Dirty});
+
+  RoutingOptions::SavePedestrianOptionsToSettings(options);
+  RoutingOptions fromSettings = RoutingOptions::LoadPedestrianOptionsFromSettings();
+
+  TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
+}
+
+UNIT_CLASS_TEST(RoutingOptionsTests, GetSetBicycleTest)
+{
+  RoutingOptions options =
+      CreateOptions({RoutingOptions::Road::Ferry, RoutingOptions::Road::Toll});
+
+  RoutingOptions::SaveBicycleOptionsToSettings(options);
+  RoutingOptions fromSettings = RoutingOptions::LoadBicycleOptionsFromSettings();
+
+  TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
+}
+
+UNIT_CLASS_TEST(RoutingOptionsTests, ModeIsolationTest)
+{
+  // different options saved for each mode.
+  RoutingOptions carOptions = CreateOptions({RoutingOptions::Road::Toll});
+  RoutingOptions pedestrianOptions = CreateOptions({RoutingOptions::Road::Ferry});
+  RoutingOptions bicycleOptions = CreateOptions({RoutingOptions::Road::Dirty});
+
+  RoutingOptions::SaveCarOptionsToSettings(carOptions);
+  RoutingOptions::SavePedestrianOptionsToSettings(pedestrianOptions);
+  RoutingOptions::SaveBicycleOptionsToSettings(bicycleOptions);
+
+  // Verify each mode loads its own settings independently.
+  TEST_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(),
+             carOptions.GetOptions(), ());
+  TEST_EQUAL(RoutingOptions::LoadPedestrianOptionsFromSettings().GetOptions(),
+             pedestrianOptions.GetOptions(), ());
+  TEST_EQUAL(RoutingOptions::LoadBicycleOptionsFromSettings().GetOptions(),
+             bicycleOptions.GetOptions(), ());
+
+  TEST_NOT_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(),
+                 RoutingOptions::LoadPedestrianOptionsFromSettings().GetOptions(), ());
+  TEST_NOT_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(),
+                 RoutingOptions::LoadBicycleOptionsFromSettings().GetOptions(), ());
 }
 }  // namespace
