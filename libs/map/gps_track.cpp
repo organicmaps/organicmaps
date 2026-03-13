@@ -212,7 +212,9 @@ void GpsTrack::ProcessPoints()
   if (!m_collection)
     return;
 
-  /// @todo Clear filter if needClear == true.
+  if (needClear)
+    m_filter->Reset();
+
   std::vector<location::GpsInfo> points;
   m_filter->Process(originPoints, points);
 
