@@ -81,7 +81,6 @@ import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackRecordingFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -160,7 +159,9 @@ public class PlacePageView extends Fragment
   private MaterialButton mShareButton;
   private MaterialButton closeButton;
   // Tabs
-  private TabLayout mTabLayout;
+  private View mTabsContainer;
+  private TextView mTabSchedule;
+  private TextView mTabDetails;
   private View mDetailsFrame;
   private View mScheduleContainer;
 
@@ -354,7 +355,9 @@ public class PlacePageView extends Fragment
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
 
     // Initialize tabs
-    mTabLayout = mFrame.findViewById(R.id.pp_tabs);
+    mTabsContainer = mFrame.findViewById(R.id.pp_tabs);
+    mTabSchedule = mFrame.findViewById(R.id.tab_schedule);
+    mTabDetails = mFrame.findViewById(R.id.tab_details);
     mDetailsFrame = mFrame.findViewById(R.id.pp__details_frame);
     mScheduleContainer = mFrame.findViewById(R.id.place_page_schedule_fragment);
     setupTabs();
@@ -362,25 +365,16 @@ public class PlacePageView extends Fragment
 
   private void setupTabs()
   {
-    mTabLayout.addTab(mTabLayout.newTab().setText(R.string.transport_schedule));
-    mTabLayout.addTab(mTabLayout.newTab().setText(R.string.details));
-    mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-      @Override
-      public void onTabSelected(TabLayout.Tab tab)
-      {
-        PlacePageViewModel.PlacePageTab selectedTab =
-            tab.getPosition() == 0 ? PlacePageViewModel.PlacePageTab.SCHEDULE : PlacePageViewModel.PlacePageTab.DETAILS;
-        mViewModel.setSelectedTab(selectedTab);
-      }
+    mTabSchedule.setOnClickListener(v -> selectTab(PlacePageViewModel.PlacePageTab.SCHEDULE));
+    mTabDetails.setOnClickListener(v -> selectTab(PlacePageViewModel.PlacePageTab.DETAILS));
+  }
 
-      @Override
-      public void onTabUnselected(TabLayout.Tab tab)
-      {}
-
-      @Override
-      public void onTabReselected(TabLayout.Tab tab)
-      {}
-    });
+  private void selectTab(PlacePageViewModel.PlacePageTab tab)
+  {
+    boolean isSchedule = tab == PlacePageViewModel.PlacePageTab.SCHEDULE;
+    mTabSchedule.setSelected(isSchedule);
+    mTabDetails.setSelected(!isSchedule);
+    mViewModel.setSelectedTab(tab);
   }
 
   @Override
@@ -435,8 +429,7 @@ public class PlacePageView extends Fragment
     mViewModel.setShowTabs(showTabs);
     if (showTabs)
     {
-      mViewModel.setSelectedTab(PlacePageViewModel.PlacePageTab.SCHEDULE);
-      mTabLayout.selectTab(mTabLayout.getTabAt(0));
+      selectTab(PlacePageViewModel.PlacePageTab.SCHEDULE);
     }
     else
     {
@@ -448,7 +441,7 @@ public class PlacePageView extends Fragment
   {
     if (show == null)
       return;
-    mTabLayout.setVisibility(show ? VISIBLE : GONE);
+    mTabsContainer.setVisibility(show ? VISIBLE : GONE);
     if (!show)
     {
       mDetailsFrame.setVisibility(VISIBLE);
@@ -807,7 +800,11 @@ public class PlacePageView extends Fragment
 
     // showTaxiOffer(mapObject);
     String routeRefs = Framework.nativeGetActiveObjectFormattedRouteRefs();
-    refreshMetadataOrHide(routeRefs, mRouteRef, mTvRouteRef);
+    // Hide route refs if schedule data is available (shown in Schedule tab)
+    if (mMapObject.hasScheduleData())
+      mRouteRef.setVisibility(GONE);
+    else
+      refreshMetadataOrHide(routeRefs, mRouteRef, mTvRouteRef);
     if (mRouteRef.getVisibility() == VISIBLE)
     {
       if (mMapObject.isTramStop())
@@ -908,10 +905,24 @@ public class PlacePageView extends Fragment
     double lon = mMapObject.getLon();
     DistanceAndAzimut distanceAndAzimuth =
         Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
-    mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
+    Distance distance = distanceAndAzimuth.getDistance();
 
-    // Update walk time for transit stops
-    updateWalkTime(distanceAndAzimuth.getDistance());
+    // For transport stops with schedule data, show walk time inline with distance
+    if (mMapObject.hasScheduleData())
+    {
+      String walkTime = calculateWalkTime(distance);
+      if (walkTime != null)
+        mTvDistance.setText(distance.toString(requireContext()) + " • " + walkTime);
+      else
+        mTvDistance.setText(distance.toString(requireContext()));
+      UiUtils.hide(mWalkTime);
+    }
+    else
+    {
+      mTvDistance.setText(distance.toString(requireContext()));
+      // Update walk time for transit stops (shown separately when no schedule data)
+      updateWalkTime(distance);
+    }
   }
 
   private void updateWalkTime(Distance distance)
@@ -940,6 +951,32 @@ public class PlacePageView extends Fragment
 
     mTvWalkTime.setText(walkMinutes + " " + getString(R.string.minute));
     UiUtils.show(mWalkTime);
+  }
+
+  @Nullable
+  private String calculateWalkTime(Distance distance)
+  {
+    // Convert distance to meters
+    double meters;
+    switch (distance.mUnits)
+    {
+    case Kilometers: meters = distance.mDistance * 1000; break;
+    case Feet: meters = distance.mDistance * 0.3048; break;
+    case Miles: meters = distance.mDistance * 1609.34; break;
+    default: // Meters
+      meters = distance.mDistance;
+    }
+
+    // Calculate walk time (average walking speed ~5 km/h = ~83 m/min)
+    int walkMinutes = (int) Math.ceil(meters / 83.0);
+    if (walkMinutes < 1)
+      walkMinutes = 1;
+
+    // Don't show walk time if more than 1 hour
+    if (walkMinutes > 60)
+      return null;
+
+    return walkMinutes + " " + getString(R.string.minute);
   }
 
   private void refreshLatLon()

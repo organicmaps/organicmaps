@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:descendantFocusability="blocksDescendants"
@@ -12,14 +11,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 
-  <com.google.android.material.tabs.TabLayout
+  <LinearLayout
       android:id="@+id/pp_tabs"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="gone"
-      android:background="?ppBackground"
-      app:tabMode="fixed"
-      app:tabGravity="fill" />
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:background="@drawable/segmented_control_container"
+      android:padding="4dp"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tab_schedule"
+        style="@style/PlacePageSegmentedTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="@string/transport_schedule" />
+
+    <TextView
+        android:id="@+id/tab_details"
+        style="@style/PlacePageSegmentedTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details" />
+
+  </LinearLayout>
 
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/place_page_schedule_fragment"
