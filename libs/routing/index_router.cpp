@@ -1674,6 +1674,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
           routeSegment.SetTraffic(m_trafficStash->GetSpeedGroup(segment));
 
         routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment));
+        routeSegment.SetIsTunnel(worldGraph.IsTunnel(segment));
       }
     }
 
