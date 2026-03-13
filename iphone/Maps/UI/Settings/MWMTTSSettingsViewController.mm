@@ -14,6 +14,7 @@ using namespace std;
 namespace
 {
 NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
+NSString * kSelectTTSVoiceSegueName = @"TTSVoice";
 
 enum class Section
 {
@@ -84,12 +85,10 @@ struct LanguageCellStrategy : BaseCellStategy
     // "Test TTS" cell
     if (row == controller.languages.size() + 1)
     {
-      Class cls = [SettingsTableViewSelectableCell class];
-      auto cell =
-          static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
-                                                                                           indexPath:indexPath]);
-      [cell configWithTitle:L(@"pref_tts_test_voice_title")];
-      cell.accessoryType = UITableViewCellAccessoryNone;
+      Class cls = [SettingsTableViewLinkCell class];
+      auto cell = static_cast<SettingsTableViewLinkCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                             indexPath:indexPath]);
+      [cell configWithTitle:L(@"pref_tts_test_voice_title") info:[[MWMTextToSpeech tts] getDefaultVoice]];
       return cell;
     }
 
@@ -130,7 +129,7 @@ struct LanguageCellStrategy : BaseCellStategy
 
     if (row == controller.languages.size() + 1)
     {
-      [ttsTester playRandomTestString];
+      [controller performSegueWithIdentifier:kSelectTTSVoiceSegueName sender:nil];
       return;
     }
 
@@ -255,7 +254,11 @@ struct StreetNamesCellStrategy : BaseCellStategy
 
   return self;
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  [self.tableView reloadData];
+}
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -364,7 +367,8 @@ struct StreetNamesCellStrategy : BaseCellStategy
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   auto const & strategy = m_strategies[static_cast<SectionType>(indexPath.section)];
   CHECK(strategy, ());
-  return strategy->SelectCell(tableView, indexPath, self);
+  strategy->SelectCell(tableView, indexPath, self);
+  [tableView reloadData];
 }
 
 #pragma mark - SettingsTableViewSwitchCellDelegate
