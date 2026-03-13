@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
@@ -134,8 +133,8 @@ public final class BookmarkCategory implements Parcelable
 
   public void setCategoryColor(@PredefinedColors.Color int colorIndex)
   {
-    nativeSetCategoryBookmarksColor(mId, colorIndex);
     nativeSetCategoryDefaultColor(mId, colorIndex);
+    nativeSetCategoryBookmarksColor(mId, colorIndex);
   }
 
   @PredefinedColors.Color
