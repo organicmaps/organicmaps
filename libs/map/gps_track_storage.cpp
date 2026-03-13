@@ -150,7 +150,9 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath) : m_filePath(filePath)
     }
     else
     {
+      LOG(LWARNING, ("Unsupported version", version, "in", m_filePath, ", recreating."));
       m_stream.close();
+      createNewFile();
       // TODO: migration for file m_filePath from version 'version' to version 'kCurrentVersion'
       // TODO: For now we support only one version, but in future migration may be needed.
     }

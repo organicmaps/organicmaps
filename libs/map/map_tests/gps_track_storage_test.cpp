@@ -106,4 +106,47 @@ UNIT_TEST(GpsTrackStorage_WriteRead)
     TEST_EQUAL(i, 0, ());
   }
 }
+
+UNIT_TEST(GpsTrackStorage_UnsupportedVersion)
+{
+  string const filePath = GetGpsTrackFilePath();
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  FileWriter::DeleteFileX(filePath);
+
+  // Write a file with an unsupported version (version = 0).
+  {
+    std::ofstream f(filePath, std::ios::binary | std::ios::trunc);
+    uint32_t const badVersion = 0;
+    f.write(reinterpret_cast<char const *>(&badVersion), sizeof(badVersion));
+    TEST(f.good(), ());
+  }
+
+  // Opening storage with unsupported version must not crash;
+  // it should recreate the file and be usable.
+  {
+    GpsTrackStorage stg(filePath);
+
+    size_t i = 0;
+    stg.ForEach([&](location::GpsInfo const &) -> bool
+    {
+      ++i;
+      return true;
+    });
+    TEST_EQUAL(i, 0, ());
+
+    // Appending after recreation must work.
+    vector<location::GpsInfo> points;
+    points.emplace_back(Make(1000, ms::LatLon(10, 20), 5));
+    stg.Append(points);
+
+    i = 0;
+    stg.ForEach([&](location::GpsInfo const & point) -> bool
+    {
+      TEST_EQUAL(point.m_latitude, 10, ());
+      ++i;
+      return true;
+    });
+    TEST_EQUAL(i, 1, ());
+  }
+}
 }  // namespace gps_track_storage_test
