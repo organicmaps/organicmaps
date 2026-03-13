@@ -102,7 +102,13 @@ extern "C" char * strptime(char const * s, char const * f, std::tm * tm)
 bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
   auto const rc = strptime(strTime.data(), fmt.data(), &tm);
-  return rc != nullptr;
+  if (rc == nullptr)
+    return false;
+  // strptime doesn't set tm_isdst. Set to -1 so mktime auto-detects DST,
+  // otherwise mktime assumes standard time (tm_isdst=0) and shifts the
+  // timestamp by 1 hour during DST periods, potentially crossing midnight.
+  tm.tm_isdst = -1;
+  return true;
 }
 
 struct GetTimeError: std::exception
