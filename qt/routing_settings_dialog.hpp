@@ -1,5 +1,7 @@
 #pragma once
 
+#include "kml/type_utils.hpp"
+
 #include "geometry/latlon.hpp"
 
 #include <QtWidgets/QCheckBox>
@@ -23,7 +25,7 @@ public:
   static bool UseDebugGuideTrack();
   static std::optional<ms::LatLon> GetCoords(bool start);
 
-  RoutingSettings(QWidget * parent, Framework & framework);
+  RoutingSettings(QWidget * parent, Framework & framework, kml::TrackId guideTrack);
   void ShowModal();
 
 private:

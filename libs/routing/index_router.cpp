@@ -1633,6 +1633,7 @@ RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments
   /// @todo I suspect that we can avoid calculating segments inside ReconstructRoute
   /// and use original |segments| (IndexRoadGraph::GetRouteSegments).
 #ifdef DEBUG
+  if (!m_guides.IsActive())
   {
     auto const isPassThroughAllowed = [&worldGraph](Segment const & s)
     { return worldGraph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId()); };

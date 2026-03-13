@@ -56,6 +56,10 @@ public:
   void PrepareShutdown();
 
   Framework & GetFramework() { return m_framework; }
+  kml::TrackId GetGuideTrackID() const
+  {
+    return m_guideTracks.empty() ? kml::kInvalidTrackId : m_guideTracks.begin()->first;
+  }
 
   void SetMapStyle(MapStyle mapStyle);
 
@@ -120,6 +124,8 @@ public:
 private:
   void ProcessSelectionMode();
   std::optional<SelectionMode> m_selectionMode;
+
+  routing::GuidesTracks m_guideTracks;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 
   std::unique_ptr<Screenshoter> m_screenshoter;

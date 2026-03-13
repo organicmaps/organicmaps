@@ -11,6 +11,7 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMessageBox>
 
 namespace qt
@@ -96,7 +97,9 @@ void RoutingSettings::LoadSession(Framework & framework)
   }
 }
 
-RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework) : QDialog(parent), m_framework(framework)
+RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::TrackId guideTrack)
+  : QDialog(parent)
+  , m_framework(framework)
 {
   setWindowTitle("Routing settings");
   QVBoxLayout * layout = new QVBoxLayout(this);
@@ -137,6 +140,12 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework) : QDia
 
     m_useDebugGuideCheckbox = new QCheckBox({}, frame);
     form->addRow("Use debug guide track:", m_useDebugGuideCheckbox);
+
+    if (guideTrack != kml::kInvalidTrackId)
+    {
+      auto const name = m_framework.GetBookmarkManager().GetTrack(guideTrack)->GetName();
+      form->addRow(new QLabel(QString::fromStdString(name), frame));
+    }
 
     layout->addWidget(frame);
   }

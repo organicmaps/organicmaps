@@ -11,6 +11,7 @@ enum PressedButton : int
   RouteFrom,
   AddStop,
   RouteTo,
+  RouteAlong,
   EditPlace
 };
 

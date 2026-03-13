@@ -917,7 +917,7 @@ void MainWindow::OnClearRoute()
 
 void MainWindow::OnRoutingSettings()
 {
-  RoutingSettings dlg(this, m_pDrawWidget->GetFramework());
+  RoutingSettings dlg(this, m_pDrawWidget->GetFramework(), m_pDrawWidget->GetGuideTrackID());
   dlg.ShowModal();
 }
 

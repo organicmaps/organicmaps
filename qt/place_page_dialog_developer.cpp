@@ -109,6 +109,14 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     dbb->addButton(wikiButton, QDialogButtonBox::ActionRole);
   }
 
+  if (info.IsTrack())
+  {
+    QPushButton * fromButton = new QPushButton("Route Along Track");
+    fromButton->setAutoDefault(false);
+    connect(fromButton, &QAbstractButton::clicked, this, [this] { done(place_page_dialog::RouteAlong); });
+    dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
+  }
+
   info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
   {
     bool isLink = false;
@@ -132,6 +140,10 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   layout->addWidget(dbb);
   setLayout(layout);
 
-  auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
-  setWindowTitle(ppTitle.c_str());
+  std::string ppTitle("Place Page");
+  if (info.IsBookmark())
+    ppTitle.append(" (Bookmark)");
+  else if (info.IsTrack())
+    ppTitle.append(" (Track)");
+  setWindowTitle(QString::fromStdString(ppTitle));
 }

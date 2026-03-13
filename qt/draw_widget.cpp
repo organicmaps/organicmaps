@@ -561,20 +561,20 @@ void DrawWidget::SubmitRulerPoint(m2::PointD const & pt)
 
 void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
 {
-  auto & routingManager = m_framework.GetRoutingManager();
+  auto & rm = m_framework.GetRoutingManager();
 
   // Check if limit of intermediate points is reached.
   bool const isIntermediate = m_routePointAddMode == RouteMarkType::Intermediate;
-  if (isIntermediate && !routingManager.CouldAddIntermediatePoint())
-    routingManager.RemoveRoutePoint(RouteMarkType::Intermediate, 0);
+  if (isIntermediate && !rm.CouldAddIntermediatePoint())
+    rm.RemoveRoutePoint(RouteMarkType::Intermediate, 0);
 
   // Insert implicit start point.
-  if (m_routePointAddMode == RouteMarkType::Finish && routingManager.GetRoutePoints().empty())
+  if (m_routePointAddMode == RouteMarkType::Finish && rm.GetRoutePoints().empty())
   {
     RouteMarkData startPoint;
     startPoint.m_pointType = RouteMarkType::Start;
     startPoint.m_isMyPosition = true;
-    routingManager.AddRoutePoint(std::move(startPoint));
+    rm.AddRoutePoint(std::move(startPoint));
   }
 
   RouteMarkData point;
@@ -585,23 +585,16 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
   else
     point.m_position = pointIsMercator ? pt : P2G(pt);
 
-  routingManager.AddRoutePoint(std::move(point));
+  rm.AddRoutePoint(std::move(point));
 
-  if (routingManager.GetRoutePoints().size() >= 2)
+  if (rm.GetRoutePoints().size() >= 2)
   {
-    if (RoutingSettings::UseDebugGuideTrack())
-    {
-      // Like in guides_tests.cpp, GetTestGuides().
-      routing::GuidesTracks guides;
-      guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 10},
-                     {mercator::FromLatLon(48.14096, 11.57246), 10},
-                     {mercator::FromLatLon(48.14487, 11.57259), 10}}};
-      routingManager.RoutingSession().SetGuidesForTests(std::move(guides));
-    }
+    if (RoutingSettings::UseDebugGuideTrack() && !m_guideTracks.empty())
+      rm.RoutingSession().SetGuidesForTests(m_guideTracks);
     else
-      routingManager.RoutingSession().SetGuidesForTests({});
+      rm.RoutingSession().SetGuidesForTests({});
 
-    routingManager.BuildRoute();
+    rm.BuildRoute();
   }
 }
 
@@ -713,6 +706,14 @@ void DrawWidget::ShowPlacePage()
     SetRoutePointAddMode(RouteMarkType::Finish);
     SubmitRoutingPoint(info.GetMercator(), true);
     break;
+  case place_page_dialog::RouteAlong:
+  {
+    ASSERT(info.IsTrack(), ());
+    m_guideTracks.clear();
+    auto const trackID = info.GetTrackId();
+    m_guideTracks[trackID].push_back(m_framework.GetBookmarkManager().GetTrack(trackID)->GetGeometry());
+    break;
+  }
   default: break;
   }
 
