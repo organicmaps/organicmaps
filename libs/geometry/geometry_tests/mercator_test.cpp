@@ -2,9 +2,7 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/math.hpp"
 
 UNIT_TEST(Mercator_Grid)
 {
@@ -75,7 +73,11 @@ UNIT_TEST(Mercator_ErrorToRadius)
   }
 }
 
-UNIT_TEST(Mercator_Sample1)
+UNIT_TEST(Mercator_LatPrecisionWithFastMath)
 {
-  LOG(LINFO, (mercator::XToLon(27.531491200000001385), mercator::YToLat(64.392864299248202542)));
+  double constexpr originalLat = 46;
+  double const mercatorLat = mercator::LatToY(originalLat);
+  double const lat = mercator::YToLat(mercatorLat);
+  // -ffast-math + O3 loses precision here.
+  TEST_ALMOST_EQUAL_ABS(originalLat, lat, mercator::kPointEqualityEps, ());
 }
