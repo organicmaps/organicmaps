@@ -204,7 +204,7 @@ std::ostream & operator<<(std::ostream & ost, TimeEvent const te)
 
     auto const & offset = te.GetOffset();
 
-    if (offset.GetHoursCount() < 0)
+    if (offset.GetDurationCount() < 0)
       ost << '-';
     else
       ost << '+';
