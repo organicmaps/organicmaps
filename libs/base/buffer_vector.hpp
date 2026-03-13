@@ -406,10 +406,8 @@ public:
     if (first == last)
       return;
 
-    auto const numToErase = std::distance(first, last);
-    for (; first != end() - numToErase; ++first)
-      Swap(*first, *(first + numToErase));
-    resize(std::distance(begin(), first));
+    last = std::move(last, end(), first);
+    resize(std::distance(begin(), last));
   }
   void erase(iterator it) { erase(it, it + 1); }
 
@@ -437,7 +435,7 @@ private:
 };
 
 template <class T, size_t N>
-void swap(buffer_vector<T, N> & r1, buffer_vector<T, N> & r2)
+void swap(buffer_vector<T, N> & r1, buffer_vector<T, N> & r2) noexcept
 {
   r1.swap(r2);
 }
