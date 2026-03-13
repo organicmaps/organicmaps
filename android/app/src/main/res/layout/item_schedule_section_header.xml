@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_base"
+    android:paddingBottom="@dimen/margin_half">
+
+    <!-- Section title (e.g., "Bus Lines") -->
+    <TextView
+        android:id="@+id/tv_section_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        android:textColor="?android:textColorSecondary"
+        android:textAllCaps="true"
+        tools:text="BUS LINES" />
+
+    <!-- Walk time badge (e.g., "1 min") -->
+    <TextView
+        android:id="@+id/tv_walk_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textColor="?android:textColorSecondary"
+        android:visibility="gone"
+        tools:text="1 min"
+        tools:visibility="visible" />
+
+</LinearLayout>

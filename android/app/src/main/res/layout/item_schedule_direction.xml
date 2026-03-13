@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="56dp"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingVertical="@dimen/margin_quarter"
+    android:background="?clickableBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Destination (e.g., "To Klusplatz") -->
+    <TextView
+        android:id="@+id/tv_destination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:text="To Klusplatz" />
+
+    <!-- Arrival times (e.g., "16, 46 min") -->
+    <TextView
+        android:id="@+id/tv_arrival_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+        android:textStyle="bold"
+        tools:text="16, 46 min" />
+
+    <!-- Dynamic indicator (green dot for real-time data) -->
+    <ImageView
+        android:id="@+id/iv_dynamic_indicator"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_dynamic_indicator"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>

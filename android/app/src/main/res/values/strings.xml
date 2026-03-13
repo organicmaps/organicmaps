@@ -867,4 +867,6 @@
     <string name="schedule_early">Early</string>
     <string name="schedule_error_loading">Failed to load schedule</string>
     <string name="retry">Retry</string>
+    <string name="schedule_today">Today</string>
+    <string name="schedule_tomorrow">Tomorrow</string>
 </resources>
