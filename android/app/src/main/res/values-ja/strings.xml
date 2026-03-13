@@ -23,6 +23,8 @@
     <string name="search">検索</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">マップを検索</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">ダウンロードした地図の検索</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">位置情報サービスが無効になっているか、このアプリからの位置情報利用が制限されています。端末の設定を有効化してください。</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
