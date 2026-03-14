@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 import app.organicmaps.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +63,24 @@ public class ScheduleDetailBottomSheet extends BottomSheetDialogFragment
                            @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_schedule_detail, container, false);
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    View view = getView();
+    if (view == null)
+      return;
+
+    View parent = (View) view.getParent();
+    BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(parent);
+    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    behavior.setSkipCollapsed(true);
+
+    ViewGroup.LayoutParams layoutParams = parent.getLayoutParams();
+    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+    parent.setLayoutParams(layoutParams);
   }
 
   @Override

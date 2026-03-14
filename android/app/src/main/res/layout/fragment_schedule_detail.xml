@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/margin_base">
 
@@ -115,8 +115,8 @@
     <!-- Schedule times container -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="300dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <GridLayout
             android:id="@+id/grid_schedule_times"
