@@ -168,7 +168,7 @@ jobs:
           # shaders_tests - https://github.com/organicmaps/organicmaps/issues/223
           # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
           CTEST_EXCLUDE_REGEX: "drape_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
-        run: ctest -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+        run: ctest -j$(nproc --all) -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
 
       # Run drape tests separately. They require offscreen rendering support.
       # Setting QT_QPA_PLATFORM to "offscreen" breaks network tests on macOS.
