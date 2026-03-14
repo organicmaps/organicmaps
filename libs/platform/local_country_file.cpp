@@ -115,8 +115,19 @@ bool LocalCountryFile::ValidateIntegrity() const
 // static
 LocalCountryFile LocalCountryFile::MakeForTesting(std::string countryFileName, int64_t version)
 {
-  LocalCountryFile localFile(GetPlatform().WritableDir(), CountryFile(std::move(countryFileName)), version);
+  auto const & pl = GetPlatform();
+  // Try ResourcesDir first (where test data files like minsk-pass.mwm reside),
+  // fall back to WritableDir (per-test temp directory for parallel execution).
+  std::string dir = pl.ResourcesDir();
+  LocalCountryFile localFile(dir, CountryFile(countryFileName), version);
   localFile.SyncWithDisk();
+
+  if (!localFile.HasFiles())
+  {
+    dir = pl.WritableDir();
+    localFile = LocalCountryFile(dir, CountryFile(std::move(countryFileName)), version);
+    localFile.SyncWithDisk();
+  }
   return localFile;
 }
 

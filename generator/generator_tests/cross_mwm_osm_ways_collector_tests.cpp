@@ -43,11 +43,11 @@ public:
   CrossMwmWayCollectorTest()
   {
     classificator::Load();
-    auto const targetDir = GetPlatform().WritableDir();
 
-    m_affiliation = std::make_shared<feature::CountriesFilesAffiliation>(targetDir, true /*haveBordersForWholeWorld*/);
+    m_affiliation = std::make_shared<feature::CountriesFilesAffiliation>(GetPlatform().ResourcesDir(),
+                                                                         true /*haveBordersForWholeWorld*/);
 
-    auto const intermediateDir = base::JoinPath(targetDir, kTmpDirName);
+    auto const intermediateDir = base::JoinPath(GetPlatform().WritableDir(), kTmpDirName);
     if (!Platform::MkDirChecked(intermediateDir))
       MYTHROW(FileSystemException, ("Can't create intermediateDir", intermediateDir));
     m_intermediateDir = intermediateDir;

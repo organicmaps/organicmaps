@@ -24,6 +24,7 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -97,6 +98,7 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource, storage::Co
 void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
 {
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
+  platform::FindAllLocalMapsInResourcesDir(localFiles);
 
   // Leave only real country files for routing test.
   localFiles.erase(std::remove_if(localFiles.begin(), localFiles.end(),

@@ -27,9 +27,9 @@ using namespace std;
 
 UNIT_TEST(CheckMWM_LoadAll)
 {
-  // Parse root WritableDir folder. Expect at least World, WorldCoasts, minsk-pass.
+  // Parse root ResourcesDir folder. Expect at least World, WorldCoasts, minsk-pass.
   vector<LocalCountryFile> localFiles;
-  size_t const count = FindAllLocalMapsInDirectoryAndCleanup(GetPlatform().WritableDir(), 0 /* version */,
+  size_t const count = FindAllLocalMapsInDirectoryAndCleanup(GetPlatform().ResourcesDir(), 0 /* version */,
                                                              -1 /* latestVersion */, localFiles);
   TEST_EQUAL(count, localFiles.size(), ());
   TEST_GREATER_OR_EQUAL(count, 3, ());

@@ -163,7 +163,7 @@ UNIT_TEST(CitiesBoundaries_Moscow)
 
 UNIT_TEST(CitiesBoundaries_Compression)
 {
-  FilesContainerR cont(base::JoinPath(GetPlatform().WritableDir(), WORLD_FILE_NAME) + DATA_FILE_EXTENSION);
+  FilesContainerR cont(base::JoinPath(GetPlatform().ResourcesDir(), WORLD_FILE_NAME) + DATA_FILE_EXTENSION);
 
   vector<vector<CityBoundary>> all1;
   double precision;

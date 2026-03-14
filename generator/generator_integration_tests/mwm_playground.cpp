@@ -18,7 +18,7 @@ namespace
 {
 platform::LocalCountryFile MakeFile(std::string name, int64_t version)
 {
-  return {GetPlatform().WritableDir() + std::to_string(version), platform::CountryFile(std::move(name)), version};
+  return {GetPlatform().ResourcesDir() + std::to_string(version), platform::CountryFile(std::move(name)), version};
 }
 }  // namespace
 

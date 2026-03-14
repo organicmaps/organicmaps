@@ -20,6 +20,7 @@
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/polyline2d.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/timer.hpp"
@@ -53,6 +54,7 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType ty
   m_cig = storage::CountryInfoReader::CreateCountryInfoGetter(platform);
 
   platform::FindAllLocalMapsAndCleanup(std::numeric_limits<int64_t>::max(), m_localFiles);
+  platform::FindAllLocalMapsInResourcesDir(m_localFiles);
 
   std::set<std::string> registeredMaps;
   for (auto const & localFile : m_localFiles)

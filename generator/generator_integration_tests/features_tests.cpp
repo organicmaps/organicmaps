@@ -425,7 +425,7 @@ private:
     m_genInfo.m_osmFileName = base::JoinPath(m_testPath, "planet.o5m");
     m_genInfo.m_popularPlacesFilename = m_genInfo.GetIntermediateFileName("popular_places.csv");
     m_genInfo.m_idToWikidataFilename = m_genInfo.GetIntermediateFileName("wiki_urls.csv");
-    DecompressZipArchive(base::JoinPath(platform.WritableDir(), archiveName + ".zip"), m_testPath);
+    DecompressZipArchive(base::JoinPath(platform.ResourcesDir(), archiveName + ".zip"), m_testPath);
 
     m_mixedNodesFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE);
     m_mixedNodesFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE "_");

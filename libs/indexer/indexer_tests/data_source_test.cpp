@@ -89,7 +89,7 @@ UNIT_CLASS_TEST(DataSourceTest, Parse)
 
 UNIT_CLASS_TEST(DataSourceTest, StatusNotifications)
 {
-  std::string const mapsDir = GetPlatform().WritableDir();
+  std::string const mapsDir = GetPlatform().ResourcesDir();
   CountryFile const country("minsk-pass");
 
   // These two classes point to the same file, but will be considered

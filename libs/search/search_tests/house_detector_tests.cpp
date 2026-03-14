@@ -379,7 +379,7 @@ UNIT_TEST(HS_MWMSearch)
   // "Minsk", "Belarus", "Lithuania", "USA_New York", "USA_California"
   string const country = "minsk-pass";
 
-  string const path = base::JoinPath(GetPlatform().WritableDir(), country + ".addr");
+  string const path = base::JoinPath(GetPlatform().ResourcesDir(), country + ".addr");
   ifstream file(path.c_str());
   if (!file.good())
   {
