@@ -35,7 +35,7 @@ struct CentersTableTest
 
 UNIT_CLASS_TEST(CentersTableTest, Smoke)
 {
-  string const kMap = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
 
   FeaturesVectorTest fv(kMap);
 
@@ -71,7 +71,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
 
 UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 {
-  string const kMap = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
 
   FeaturesVectorTest fv(kMap);
 

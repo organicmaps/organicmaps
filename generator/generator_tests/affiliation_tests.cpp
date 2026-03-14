@@ -185,7 +185,7 @@ UNIT_CLASS_TEST(AffiliationTests, CountriesFilesIndexAffiliationTests)
 UNIT_TEST(Lithuania_Belarus_Border)
 {
   using namespace borders;
-  auto const bordersDir = base::JoinPath(GetPlatform().WritableDir(), BORDERS_DIR);
+  auto const bordersDir = base::JoinPath(GetPlatform().ResourcesDir(), BORDERS_DIR);
 
   // https://www.openstreetmap.org/node/3951697639 should belong to both countries.
   auto const point = mercator::FromLatLon({54.5443346, 25.6997363});

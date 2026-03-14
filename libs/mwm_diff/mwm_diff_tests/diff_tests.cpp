@@ -22,7 +22,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 {
   base::ScopedLogAbortLevelChanger ignoreLogError(base::LogLevel::LCRITICAL);
 
-  string const oldMwmPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const oldMwmPath = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
   string const newMwmPath1 = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-new1.mwm");
   string const newMwmPath2 = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
   string const diffPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");

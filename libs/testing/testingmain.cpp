@@ -84,6 +84,7 @@ char const kSuppressOption[] = "--suppress=";
 char const kHelpOption[] = "--help";
 char const kDataPathOptions[] = "--data_path=";
 char const kResourcePathOptions[] = "--user_resource_path=";
+char const kWritablePathOptions[] = "--writable_path=";
 char const kListAllTestsOption[] = "--list_tests";
 
 enum Status
@@ -111,6 +112,8 @@ void Usage(char const * name)
   DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>", "Do not run tests with names corresponding to regexp.");
   DisplayOption(cerr, kDataPathOptions, "<Path>", "Path to data files.");
   DisplayOption(cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
+  DisplayOption(cerr, kWritablePathOptions, "<Path>",
+                "Path to writable directory for test output (enables parallel test execution).");
   DisplayOption(cerr, kListAllTestsOption, "List all the tests in the test suite and exit.");
   DisplayOption(cerr, kHelpOption, "Print this help message and exit.");
 }
@@ -128,6 +131,8 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
       options.m_dataPath = argv[i] + sizeof(kDataPathOptions) - 1;
     if (arg.starts_with(kResourcePathOptions))
       options.m_resourcePath = argv[i] + sizeof(kResourcePathOptions) - 1;
+    if (arg.starts_with(kWritablePathOptions))
+      options.m_writablePath = argv[i] + sizeof(kWritablePathOptions) - 1;
     if (arg == kHelpOption)
       options.m_help = true;
     if (arg == kListAllTestsOption)
@@ -142,6 +147,13 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
   {
     pl.SetResourceDir(options.m_resourcePath);
     pl.SetSettingsDir(options.m_resourcePath);
+  }
+  // Separate writable directory for test output, enables parallel test execution.
+  if (options.m_writablePath)
+  {
+    CHECK(Platform::MkDirRecursively(options.m_writablePath),
+          ("Failed to create writable dir:", options.m_writablePath));
+    pl.SetWritableDirForTests(options.m_writablePath);
   }
 #endif
 }

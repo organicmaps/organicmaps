@@ -213,6 +213,22 @@ void FindAllDiffs(std::string const & dataDir, std::vector<LocalCountryFile> & d
     FindAllDiffsInDirectory(base::JoinPath(dir, fwt.first /* subdir */), diffs);
 }
 
+void FindAllLocalMapsInResourcesDir(std::vector<LocalCountryFile> & localFiles)
+{
+  auto const & pl = GetPlatform();
+  if (pl.WritableDir() == pl.ResourcesDir())
+    return;
+
+  Platform::TFilesWithType fwts;
+  Platform::GetFilesByType(pl.ResourcesDir(), Platform::EFileType::Directory, fwts);
+  for (auto const & [subdir, type] : fwts)
+  {
+    int64_t version;
+    if (ParseVersion(subdir, version))
+      FindAllLocalMapsInDirectoryAndCleanup(base::JoinPath(pl.ResourcesDir(), subdir), version, version, localFiles);
+  }
+}
+
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::vector<LocalCountryFile> & localFiles)
 {
   FindAllLocalMapsAndCleanup(latestVersion, string(), localFiles);

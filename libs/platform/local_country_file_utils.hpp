@@ -45,6 +45,10 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::vector<LocalCountryF
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::string const & dataDir,
                                 std::vector<LocalCountryFile> & localFiles);
 
+// Scans ResourcesDir for versioned subdirectories with map files.
+// Useful when --writable_path differs from ResourcesDir (e.g., in tests).
+void FindAllLocalMapsInResourcesDir(std::vector<LocalCountryFile> & localFiles);
+
 void FindAllDiffs(std::string const & dataDir, std::vector<LocalCountryFile> & diffs);
 
 // This method removes:

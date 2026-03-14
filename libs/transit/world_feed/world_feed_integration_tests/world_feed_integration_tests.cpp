@@ -28,7 +28,7 @@ public:
     : m_mwmMatcher(GetPlatform().ResourcesDir(), false /* haveBordersForWholeWorld */)
     , m_globalFeed(m_generator, m_generatorEdges, m_colorPicker, m_mwmMatcher)
   {
-    m_testPath = base::JoinPath(GetPlatform().WritableDir(), kFeedsSubdir);
+    m_testPath = base::JoinPath(GetPlatform().ResourcesDir(), kFeedsSubdir);
     CHECK(GetPlatform().IsFileExistsByFullPath(m_testPath), ());
 
     m_generator = IdGenerator(base::JoinPath(m_testPath, "mapping.txt"));

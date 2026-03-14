@@ -80,7 +80,11 @@ endfunction()
 
 function(omim_add_ctest name require_server boost_test gtest)
   if (NOT boost_test AND NOT gtest)
-    set(test_command ${name} --data_path=${OMIM_DATA_DIR} --user_resource_path=${OMIM_USER_RESOURCES_DIR})
+    set(test_command ${name}
+      --data_path=${OMIM_DATA_DIR}
+      --user_resource_path=${OMIM_USER_RESOURCES_DIR}
+      --writable_path=${CMAKE_BINARY_DIR}/test_writable/${name}
+    )
   else()
     set(test_command ${name})
   endif()
