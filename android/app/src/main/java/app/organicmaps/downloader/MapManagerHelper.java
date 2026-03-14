@@ -174,8 +174,9 @@ public class MapManagerHelper
    */
   public static void retryDownload(Context context, @NonNull String countryId)
   {
-    DownloaderService.startForegroundService(context);
+    final boolean wasDownloading = MapManager.nativeIsDownloading();
     MapManager.retryDownload(countryId);
+    startForegroundServiceIfNeeded(context, wasDownloading);
   }
 
   /**
@@ -183,8 +184,9 @@ public class MapManagerHelper
    */
   public static void startUpdate(Context context, @NonNull String root)
   {
-    DownloaderService.startForegroundService(context);
+    final boolean wasDownloading = MapManager.nativeIsDownloading();
     MapManager.startUpdate(root);
+    startForegroundServiceIfNeeded(context, wasDownloading);
   }
 
   /**
@@ -192,11 +194,10 @@ public class MapManagerHelper
    */
   public static void startDownload(Context context, String... countries)
   {
-    DownloaderService.startForegroundService(context);
+    final boolean wasDownloading = MapManager.nativeIsDownloading();
     for (var countryId : countries)
-    {
       MapManager.startDownload(countryId);
-    }
+    startForegroundServiceIfNeeded(context, wasDownloading);
   }
 
   /**
@@ -204,7 +205,17 @@ public class MapManagerHelper
    */
   public static void startDownload(Context context, @NonNull String countryId)
   {
-    DownloaderService.startForegroundService(context);
+    final boolean wasDownloading = MapManager.nativeIsDownloading();
     MapManager.startDownload(countryId);
+    startForegroundServiceIfNeeded(context, wasDownloading);
+  }
+
+  /**
+   * Only start foreground service when needed.
+   */
+  private static void startForegroundServiceIfNeeded(Context context, boolean wasDownloading)
+  {
+    if (!wasDownloading && MapManager.nativeIsDownloading())
+      DownloaderService.startForegroundService(context);
   }
 }

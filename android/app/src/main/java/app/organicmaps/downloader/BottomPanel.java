@@ -39,11 +39,8 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManagerHelper.warnOn3gUpdate(mFragment.getContext(), country, () -> {
-        final Context context = mFragment.getContext();
-        DownloaderService.startForegroundService(context);
-        MapManagerHelper.startUpdate(context, country);
-      });
+      MapManagerHelper.warnOn3gUpdate(mFragment.getContext(), country,
+                                      () -> { MapManagerHelper.startUpdate(mFragment.getContext(), country); });
     }
   };
 
