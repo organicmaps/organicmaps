@@ -91,6 +91,7 @@ public class PlacePageController
       // This callback may be called before insets are updated when resuming the app
       if (mCurrentWindowInsets == null)
         return;
+
       final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
       // Only animate the status bar background if the place page can reach it
       if (mCoordinator.getHeight() - mPlacePageContainer.getHeight() < topInset)
@@ -226,11 +227,14 @@ public class PlacePageController
       });
     }
     mPlacePage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      // This callback may be called before insets are updated when resuming the app
+      if (mCurrentWindowInsets == null)
+        return;
+
       final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
       if (mPlacePage.getHeight() >= mCoordinator.getHeight() - topInset)
-      {
         mPlacePageDistanceToTopObserver.onChanged(oldTop);
-      }
+
       if (top != oldTop)
       {
         mDistanceToTop = oldTop;
@@ -383,10 +387,10 @@ public class PlacePageController
    */
   private void animatePeekHeight(int peekHeight)
   {
+    // This callback may be called before insets are updated when resuming the app
     if (mCurrentWindowInsets == null)
-    {
       return;
-    }
+
     final int bottomInsets = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
     // Make sure to start from the current height of the place page
     final int parentHeight = ((View) mPlacePage.getParent()).getHeight();
