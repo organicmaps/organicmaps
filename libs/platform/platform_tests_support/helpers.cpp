@@ -14,6 +14,7 @@ time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t h
   t.tm_mday = monthDay;
   t.tm_hour = hours;
   t.tm_min = minutes;
+  t.tm_isdst = -1;  // Let mktime auto-detect DST.
   return std::mktime(&t);
 }
 
@@ -29,6 +30,7 @@ time_t GetUnixtimeByWeekday(uint16_t year, Month month, Weekday weekday, uint8_t
     t.tm_wday = static_cast<int>(weekday) - 1;
     t.tm_hour = hours;
     t.tm_min = minutes;
+    t.tm_isdst = -1;  // Let mktime auto-detect DST.
     return std::mktime(&t);
   };
 
