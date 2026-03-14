@@ -58,6 +58,9 @@
          location = "container:jansson/jansson.xcodeproj">
       </FileRef>
       <FileRef
+         location = "container:lunasvg.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:minizip/minizip.xcodeproj">
       </FileRef>
       <FileRef

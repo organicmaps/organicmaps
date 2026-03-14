@@ -83,6 +83,10 @@
   path = 3party/glaze
   url = https://github.com/organicmaps/glaze
   branch = organicmaps
+[submodule "3party/lunasvg"]
+  path = 3party/lunasvg
+  url = https://github.com/sammycage/lunasvg
+  branch = master
 [submodule "3party/fast_float"]
   path = 3party/fast_float
   url = https://github.com/fastfloat/fast_float.git
