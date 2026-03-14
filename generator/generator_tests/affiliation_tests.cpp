@@ -18,8 +18,6 @@
 #include <string>
 #include <vector>
 
-namespace
-{
 class AffiliationTests
 {
 public:
@@ -92,6 +90,8 @@ private:
 std::string const AffiliationTests::kOne = "One";
 std::string const AffiliationTests::kTwo = "Two";
 
+namespace
+{
 bool Test(std::vector<std::string> && res, std::set<std::string> const & answ)
 {
   if (res.size() != answ.size())
