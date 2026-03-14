@@ -57,6 +57,12 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     }
 
     Logger.i(TAG, "Downloading: " + MapManager.nativeIsDownloading());
+    if (!MapManager.nativeIsDownloading())
+    {
+      Logger.i(TAG, "No active downloads, stopping DownloaderService");
+      stopSelf(startId);
+      return START_NOT_STICKY;
+    }
 
     var notification = mNotifier.buildProgressNotification();
     Logger.i(TAG, "Starting Downloader Foreground Service");
@@ -79,8 +85,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   @Override
   public void onStatusChanged(List<MapManager.StorageCallbackData> data)
   {
-    var isDownloading = MapManager.nativeIsDownloading();
-    var hasFailed = hasDownloadFailed(data);
+    final boolean isDownloading = MapManager.nativeIsDownloading();
+    final boolean hasFailed = hasDownloadFailed(data);
 
     Logger.i(TAG, "Downloading: " + isDownloading + " failure: " + hasFailed);
 
@@ -123,6 +129,25 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     Logger.i(TAG, "onDestroy");
 
     MapManager.nativeUnsubscribe(mSubscriptionSlot);
+  }
+
+  @Override
+  public void onTimeout(int startId)
+  {
+    onTimeout(startId, 0);
+  }
+
+  @Override
+  public void onTimeout(int startId, int fgsType)
+  {
+    Logger.w(TAG, "Foreground service timed out, cancelling downloads and stopping the service"
+                      + " startId: " + startId + " fgsType: " + fgsType);
+    MapManager.nativeCancel(MapManager.nativeGetRoot());
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+      stopForeground(Service.STOP_FOREGROUND_REMOVE);
+    else
+      stopForeground(true);
+    stopSelf(startId);
   }
 
   /**
