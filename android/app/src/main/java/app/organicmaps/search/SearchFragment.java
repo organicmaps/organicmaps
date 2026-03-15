@@ -118,7 +118,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         return;
 
       if (state != BottomSheetBehavior.STATE_EXPANDED)
+      {
         mToolbarController.deactivate();
+      }
+      else if (mSearchViewModel.isKeyboardVisible())
+        activateToolbar();
     }
   };
   @SuppressWarnings("NullableProblems")
@@ -300,9 +304,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     });
 
     updateFrames();
-
-    mToolbarController.activate();
-
     SearchEngine.INSTANCE.addListener(this);
 
     SharedPreferences preferences = MwmApplication.prefs(requireContext());
@@ -613,8 +614,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   public void activateToolbar()
   {
-    if (mToolbarController != null)
-      mToolbarController.activate();
+    mToolbarController.activate();
   }
 
   interface SearchFragmentListener
