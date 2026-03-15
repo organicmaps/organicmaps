@@ -336,6 +336,8 @@
     <string name="pref_appearance_light">Terang</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Gelap</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Terang dari fajar hingga senja</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Hadiahkan peta gratis tanpa iklan untuk jutaan pengguna!</string>
 

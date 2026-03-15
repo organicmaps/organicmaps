@@ -1470,6 +1470,33 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsDayTime(JNIEnv * e
   return (dt == DayTimeType::Day || dt == DayTimeType::PolarDay);
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDayTimeType(JNIEnv * env, jclass, jlong utcTimeSeconds,
+                                                                       jdouble lat, jdouble lon)
+{
+  switch (GetDayTime(static_cast<time_t>(utcTimeSeconds), lat, lon))
+  {
+  case DayTimeType::Day: return 0;
+  case DayTimeType::Night: return 1;
+  case DayTimeType::PolarDay: return 2;
+  case DayTimeType::PolarNight: return 3;
+  }
+
+  ASSERT(false, ());
+  return 1;
+}
+
+JNIEXPORT jlong Java_app_organicmaps_sdk_Framework_nativeGetSunriseTime(JNIEnv * env, jclass, jlong utcTimeSeconds,
+                                                                        jdouble lat, jdouble lon)
+{
+  return static_cast<jlong>(GetSunriseTime(static_cast<time_t>(utcTimeSeconds), lat, lon));
+}
+
+JNIEXPORT jlong Java_app_organicmaps_sdk_Framework_nativeGetSunsetTime(JNIEnv * env, jclass, jlong utcTimeSeconds,
+                                                                       jdouble lat, jdouble lon)
+{
+  return static_cast<jlong>(GetSunsetTime(static_cast<time_t>(utcTimeSeconds), lat, lon));
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSet3dMode(JNIEnv * env, jclass, jboolean allow,
                                                                   jboolean allowBuildings)
 {

@@ -332,6 +332,8 @@
     <string name="pref_appearance_light">בהיר</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">כהה</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">בהיר משחר עד שקיעה</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">העניקו במתנה מפות חינמיות וללא פרסומות למיליוני משתמשים!</string>
 

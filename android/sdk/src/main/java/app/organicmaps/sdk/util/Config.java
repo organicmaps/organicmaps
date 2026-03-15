@@ -269,9 +269,22 @@ public final class Config
 
   public enum UiTheme
   {
+    /**
+     * Follows the device's system-wide light/dark setting.
+     */
     SYSTEM("auto"),
+    /**
+     * Always uses the light theme regardless of time or device settings.
+     */
     LIGHT("default"),
-    DARK("night");
+    /**
+     * Always uses the dark theme regardless of time or device settings.
+     */
+    DARK("night"),
+    /**
+     * Automatically switches between dark and light based on sunrise/sunset at the current location.
+     */
+    SCHEDULED("scheduled");
 
     UiTheme(@NonNull String value)
     {
@@ -305,13 +318,18 @@ public final class Config
     @NonNull
     public static UiTheme getUiThemePreference()
     {
-      var value = getString(KEY_UI_THEME_PREFERENCE);
-      boolean isLegacyNavAuto = LEGACY_NAV_AUTO_THEME.equalsIgnoreCase(value);
+      final String value = getString(KEY_UI_THEME_PREFERENCE);
+      final boolean isLegacyNavAuto = LEGACY_NAV_AUTO_THEME.equalsIgnoreCase(value);
       if (isLegacyNavAuto && !nativeHasConfigValue(KEY_AUTO_DARK_NAVIGATION_PREFERENCE))
       {
         setAutoDarkNavigationEnabled(true);
       }
-      return UiTheme.ofValue(value);
+
+      final var isSystemThemeAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
+      final var defaultTheme = isSystemThemeAvailable ? UiTheme.SYSTEM : UiTheme.SCHEDULED;
+      final var savedTheme = value.isEmpty() ? defaultTheme : UiTheme.ofValue(value);
+      final var shouldReplaceSystemTheme = savedTheme == UiTheme.SYSTEM && !isSystemThemeAvailable;
+      return shouldReplaceSystemTheme ? UiTheme.SCHEDULED : savedTheme;
     }
 
     public static boolean setUiThemePreference(@NonNull UiTheme theme)

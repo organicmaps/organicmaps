@@ -227,6 +227,8 @@
     <string name="pref_appearance_light">Clara</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Escura</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Claro do amanhecer ao anoitecer</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de usuários!</string>
 

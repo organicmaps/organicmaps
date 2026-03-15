@@ -327,6 +327,8 @@
     <string name="pref_appearance_light">Sáng</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tối</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Sáng từ bình minh đến hoàng hôn</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Tặng bản đồ miễn phí không có quảng cáo cho hàng triệu người dùng!</string>
 

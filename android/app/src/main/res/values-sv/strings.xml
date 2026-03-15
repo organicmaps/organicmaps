@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Ljust</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Mörkt</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Ljus från gryning till skymning</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ge bort gratis kartor utan annonser till miljontals användare!</string>
 
