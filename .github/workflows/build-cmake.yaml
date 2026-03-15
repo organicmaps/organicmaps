@@ -111,11 +111,10 @@ jobs:
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
         env:
-          HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
           HOMEBREW_NO_ANALYTICS: 1
           HOMEBREW_NO_INSTALL_CLEANUP: 1
         run: |
-          brew install ninja qt@6
+          brew install qt@6
           pip3 install tornado --break-system-packages
 
       - name: Configure repository
