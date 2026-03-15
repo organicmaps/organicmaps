@@ -18,7 +18,7 @@ public:
     m_status = downloader::DownloadStatus::Failed;
   }
 
-  virtual std::string const & GetData() const { return m_filePath; }
+  virtual std::string const & GetFilePath() const { return m_filePath; }
 
 private:
   std::string m_filePath;

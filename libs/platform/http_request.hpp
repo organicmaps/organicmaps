@@ -38,15 +38,8 @@ public:
 
   DownloadStatus GetStatus() const { return m_status; }
   Progress const & GetProgress() const { return m_progress; }
-  /// Either file path (for chunks) or downloaded data
-  virtual std::string const & GetData() const = 0;
-
-  /// Response saved to memory buffer and retrieved with Data()
-  static HttpRequest * Get(std::string const & url, Callback && onFinish, Callback && onProgress = Callback());
-
-  /// Content-type for request is always "application/json"
-  static HttpRequest * PostJson(std::string const & url, std::string const & postData, Callback && onFinish,
-                                Callback && onProgress = Callback());
+  /// File path where downloaded data is written.
+  virtual std::string const & GetFilePath() const = 0;
 
   /// Download file to filePath.
   /// @param[in]  fileSize  Correct file size (needed for resuming and reserving).

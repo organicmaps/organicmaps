@@ -38,6 +38,8 @@ microg-gms-location = "0.3.6.244735"
 mockito-core = "5.21.0"
 mockito-inline = "5.2.0"
 
+okhttp = "5.3.2"
+
 triplet-play-publisher = "4.0.0"
 
 [libraries]
@@ -70,6 +72,8 @@ microg-gms-location = { group = "org.microg.gms", name = "play-services-location
 
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
 mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito-inline" }
+
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

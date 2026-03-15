@@ -1,24 +1,22 @@
 #include "platform/http_request.hpp"
 
 #include "platform/chunks_download_strategy.hpp"
-#include "platform/http_thread_callback.hpp"
+#include "platform/gui_thread.hpp"
+#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
-
-#ifdef DEBUG
-#include "base/thread.hpp"
-#endif
 
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/thread.hpp"
 
+#include <atomic>
 #include <list>
 #include <memory>
 
 #include "defines.hpp"
-
-class HttpThread;
 
 namespace downloader
 {
@@ -41,88 +39,24 @@ string DebugPrint(long errorCode)
 }
 }  // namespace non_http_error_code
 
-/// @return 0 if creation failed
-HttpThread * CreateNativeHttpThread(string const & url, IHttpThreadCallback & callback, int64_t begRange = 0,
-                                    int64_t endRange = -1, int64_t expectedSize = -1,
-                                    string const & postBody = string());
-void DeleteNativeHttpThread(HttpThread * thread);
-
-//////////////////////////////////////////////////////////////////////////////////////////
-/// Stores server response into the memory
-class MemoryHttpRequest
-  : public HttpRequest
-  , public IHttpThreadCallback
-{
-  HttpThread * m_thread;
-
-  string m_requestUrl;
-  string m_downloadedData;
-  MemWriter<string> m_writer;
-
-  virtual bool OnWrite(int64_t, void const * buffer, size_t size)
-  {
-    m_writer.Write(buffer, size);
-    m_progress.m_bytesDownloaded += size;
-    if (m_onProgress)
-      m_onProgress(*this);
-    return true;
-  }
-
-  virtual void OnFinish(long httpOrErrorCode, int64_t, int64_t)
-  {
-    if (httpOrErrorCode == 200)
-    {
-      m_status = DownloadStatus::Completed;
-    }
-    else
-    {
-      auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
-      LOG(LWARNING, ("HttpRequest error:", message));
-      if (httpOrErrorCode == 404)
-        m_status = DownloadStatus::FileNotFound;
-      else
-        m_status = DownloadStatus::Failed;
-    }
-
-    m_onFinish(*this);
-  }
-
-public:
-  MemoryHttpRequest(string const & url, Callback && onFinish, Callback && onProgress)
-    : HttpRequest(std::move(onFinish), std::move(onProgress))
-    , m_requestUrl(url)
-    , m_writer(m_downloadedData)
-  {
-    m_thread = CreateNativeHttpThread(url, *this);
-    ASSERT(m_thread, ());
-  }
-
-  MemoryHttpRequest(string const & url, string const & postData, Callback && onFinish, Callback && onProgress)
-    : HttpRequest(std::move(onFinish), std::move(onProgress))
-    , m_writer(m_downloadedData)
-  {
-    m_thread = CreateNativeHttpThread(url, *this, 0, -1, -1, postData);
-    ASSERT(m_thread, ());
-  }
-
-  virtual ~MemoryHttpRequest() { DeleteNativeHttpThread(m_thread); }
-
-  virtual string const & GetData() const { return m_downloadedData; }
-};
+using AliveFlag = std::shared_ptr<std::atomic<bool>>;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-class FileHttpRequest
-  : public HttpRequest
-  , public IHttpThreadCallback
+/// Downloads file using chunked strategy, backed by HttpClient async API.
+class FileHttpRequest : public HttpRequest
 {
   ChunksDownloadStrategy m_strategy;
-  typedef std::pair<HttpThread *, int64_t> ThreadHandleT;
-  typedef std::list<ThreadHandleT> ThreadsContainerT;
-  ThreadsContainerT m_threads;
 
-  std::string m_filePath;
+  struct ChunkInfo
+  {
+    platform::HttpClient::RequestHandle m_handle;
+    int64_t m_begRange;
+  };
+  std::list<ChunkInfo> m_chunks;
+
+  AliveFlag m_alive;
+  string m_filePath;
   std::unique_ptr<FileWriter> m_writer;
-
   size_t m_goodChunksCount;
   bool m_doCleanProgressFiles;
 
@@ -136,92 +70,111 @@ class FileHttpRequest
   }
 #endif
 
-  ChunksDownloadStrategy::ResultT StartThreads()
+  ChunksDownloadStrategy::ResultT StartChunks()
   {
     string url;
     std::pair<int64_t, int64_t> range;
     ChunksDownloadStrategy::ResultT result;
     while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
     {
-      HttpThread * p = CreateNativeHttpThread(url, *this, range.first, range.second, m_progress.m_bytesTotal);
-      ASSERT(p, ());
-      m_threads.push_back(std::make_pair(p, range.first));
+      platform::HttpClient client(url);
+      client.SetRange(range.first, range.second);
+      client.LoadHeaders(true);
+
+      auto alive = m_alive;
+      int64_t const begRange = range.first;
+      int64_t const endRange = range.second;
+      int64_t const expectedSize = m_progress.m_bytesTotal;
+
+      auto handle = client.RunHttpRequestAsync(
+          [this, alive, begRange, endRange, expectedSize](platform::HttpClient::Result result)
+      {
+        if (!alive->load(std::memory_order_acquire))
+          return;
+        platform::GuiThread().Push([this, alive, begRange, endRange, expectedSize, result = std::move(result)]() mutable
+        {
+          if (!alive->load(std::memory_order_acquire))
+            return;
+          OnChunkFinished(std::move(result), begRange, endRange, expectedSize);
+        });
+      });
+
+      m_chunks.push_back({std::move(handle), range.first});
     }
     return result;
   }
 
-  class ThreadByPos
+  void RemoveChunkByKey(int64_t begRange)
   {
-    int64_t m_pos;
-
-  public:
-    explicit ThreadByPos(int64_t pos) : m_pos(pos) {}
-    inline bool operator()(ThreadHandleT const & p) const { return (p.second == m_pos); }
-  };
-
-  void RemoveHttpThreadByKey(int64_t begRange)
-  {
-    ThreadsContainerT::iterator it = find_if(m_threads.begin(), m_threads.end(), ThreadByPos(begRange));
-    if (it != m_threads.end())
-    {
-      HttpThread * p = it->first;
-      m_threads.erase(it);
-      DeleteNativeHttpThread(p);
-    }
-    else
-      LOG(LERROR, ("Tried to remove invalid thread for position", begRange));
+    auto it = std::find_if(m_chunks.begin(), m_chunks.end(),
+                           [begRange](ChunkInfo const & c) { return c.m_begRange == begRange; });
+    if (it != m_chunks.end())
+      m_chunks.erase(it);
   }
 
-  virtual bool OnWrite(int64_t offset, void const * buffer, size_t size)
+  void OnChunkFinished(platform::HttpClient::Result && result, int64_t begRange, int64_t endRange, int64_t expectedSize)
   {
     ASSERT(IsCalledOnOriginalThread(), ());
 
-    try
+    // A ranged chunk request must get 206 Partial Content.
+    // 200 OK means the server ignored the Range header and returned the full file.
+    bool const isRangeRequest = !(begRange == 0 && endRange < 0);
+    bool isChunkOk = result.m_success && (isRangeRequest ? result.m_errorCode == 206 : result.m_errorCode == 200);
+
+    // Validate server file size against expected using Content-Range header.
+    // Content-Range is required in a 206 response (RFC 7233) and contains the total
+    // file size after the slash (e.g., "bytes 0-999/50000"). Content-Length is NOT
+    // used as a fallback because for ranged responses it contains the chunk size,
+    // not the total file size.
+    if (isChunkOk && expectedSize > 0 && isRangeRequest)
     {
-      m_writer->Seek(offset);
-      m_writer->Write(buffer, size);
+      int64_t serverSize = -1;
+      auto const crIt = result.m_headers.find("content-range");
+      if (crIt != result.m_headers.end())
+      {
+        auto const slashPos = crIt->second.find('/');
+        if (slashPos != string::npos)
+          (void)strings::to_int(crIt->second.substr(slashPos + 1), serverSize);
+      }
 
-      /// @DebugNote Uncomment to debug broken files downloading.
-      // m_writer->Seek(offset + size / 2);
-      // uint8_t zero = 0;
-      // m_writer->Write(&zero, 1);
-
-      return true;
+      if (serverSize >= 0 && serverSize != expectedSize)
+      {
+        LOG(LWARNING, ("Server file size", serverSize, "!= expected", expectedSize, "for range", begRange, endRange));
+        isChunkOk = false;
+      }
+      else if (serverSize < 0)
+      {
+        LOG(LWARNING, ("Server didn't send Content-Range for range", begRange, endRange));
+        isChunkOk = false;
+      }
     }
-    catch (Writer::Exception const & e)
+
+    // Write chunk data from memory to the download file at the correct offset.
+    if (isChunkOk)
     {
-      LOG(LWARNING, ("Can't write buffer for size", size, e.Msg()));
-      return false;
+      try
+      {
+        if (result.m_serverResponse.empty())
+        {
+          LOG(LWARNING, ("Empty chunk response for range", begRange, endRange));
+          isChunkOk = false;
+        }
+        else
+        {
+          m_writer->Seek(begRange);
+          m_writer->Write(result.m_serverResponse.data(), result.m_serverResponse.size());
+        }
+      }
+      catch (Writer::Exception const & e)
+      {
+        LOG(LWARNING, ("Can't write chunk at", begRange, e.Msg()));
+        isChunkOk = false;
+      }
     }
-  }
 
-  void SaveResumeChunks()
-  {
-    try
-    {
-      // Flush writer before saving downloaded chunks.
-      m_writer->Flush();
+    string const urlError = m_strategy.ChunkFinished(isChunkOk, {begRange, endRange});
+    RemoveChunkByKey(begRange);
 
-      m_strategy.SaveChunks(m_progress.m_bytesTotal, m_filePath + RESUME_FILE_EXTENSION);
-    }
-    catch (Writer::Exception const & e)
-    {
-      LOG(LWARNING, ("Can't flush writer", e.Msg()));
-    }
-  }
-
-  /// Called for each chunk by one main (GUI) thread.
-  virtual void OnFinish(long httpOrErrorCode, int64_t begRange, int64_t endRange)
-  {
-    ASSERT(IsCalledOnOriginalThread(), ());
-
-    bool const isChunkOk = (httpOrErrorCode == 200);
-    string const urlError = m_strategy.ChunkFinished(isChunkOk, std::make_pair(begRange, endRange));
-
-    // remove completed chunk from the list, beg is the key
-    RemoveHttpThreadByKey(begRange);
-
-    // report progress
     if (isChunkOk)
     {
       m_progress.m_bytesDownloaded += (endRange - begRange) + 1;
@@ -230,19 +183,18 @@ class FileHttpRequest
     }
     else
     {
-      auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
+      auto const message = non_http_error_code::DebugPrint(result.m_errorCode);
       LOG(LWARNING, (m_filePath, "HttpRequest error:", message));
     }
 
-    ChunksDownloadStrategy::ResultT const result = StartThreads();
-    if (result == ChunksDownloadStrategy::EDownloadFailed)
-      m_status = httpOrErrorCode == 404 ? DownloadStatus::FileNotFound : DownloadStatus::Failed;
-    else if (result == ChunksDownloadStrategy::EDownloadSucceeded)
+    ChunksDownloadStrategy::ResultT const nextResult = StartChunks();
+    if (nextResult == ChunksDownloadStrategy::EDownloadFailed)
+      m_status = result.m_errorCode == 404 ? DownloadStatus::FileNotFound : DownloadStatus::Failed;
+    else if (nextResult == ChunksDownloadStrategy::EDownloadSucceeded)
       m_status = DownloadStatus::Completed;
 
     if (isChunkOk)
     {
-      // save information for download resume
       ++m_goodChunksCount;
       if (m_status != DownloadStatus::Completed && m_goodChunksCount % 10 == 0)
         SaveResumeChunks();
@@ -251,25 +203,36 @@ class FileHttpRequest
     if (m_status == DownloadStatus::InProgress)
       return;
 
-    // 1. Save downloaded chunks if some error occured.
+    // 1. Save downloaded chunks if some error occurred.
     if (m_status == DownloadStatus::Failed || m_status == DownloadStatus::FileNotFound)
       SaveResumeChunks();
 
     // 2. Free file handle.
     CloseWriter();
 
-    // 3. Clean up resume file with chunks range on success
+    // 3. Clean up resume file with chunks range on success.
     if (m_status == DownloadStatus::Completed)
     {
       Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
-
-      // Rename finished file to it's original name.
       Platform::RemoveFileIfExists(m_filePath);
       base::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath);
     }
 
     // 4. Finish downloading.
     m_onFinish(*this);
+  }
+
+  void SaveResumeChunks()
+  {
+    try
+    {
+      m_writer->Flush();
+      m_strategy.SaveChunks(m_progress.m_bytesTotal, m_filePath + RESUME_FILE_EXTENSION);
+    }
+    catch (Writer::Exception const & e)
+    {
+      LOG(LWARNING, ("Can't flush writer", e.Msg()));
+    }
   }
 
   void CloseWriter()
@@ -281,16 +244,16 @@ class FileHttpRequest
     catch (Writer::Exception const & e)
     {
       LOG(LWARNING, ("Can't close file correctly", e.Msg()));
-
       m_status = DownloadStatus::Failed;
     }
   }
 
 public:
-  FileHttpRequest(std::vector<std::string> const & urls, std::string const & filePath, int64_t fileSize,
-                  Callback && onFinish, Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
+  FileHttpRequest(std::vector<string> const & urls, string const & filePath, int64_t fileSize, Callback && onFinish,
+                  Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
     : HttpRequest(std::move(onFinish), std::move(onProgress))
     , m_strategy(urls)
+    , m_alive(std::make_shared<std::atomic<bool>>(true))
     , m_filePath(filePath)
     , m_goodChunksCount(0)
     , m_doCleanProgressFiles(doCleanProgressFiles)
@@ -304,39 +267,39 @@ public:
     FileWriter::Op openMode = FileWriter::OP_WRITE_TRUNCATE;
     if (m_progress.m_bytesDownloaded != 0)
     {
-      // Check that resume information is correct with existing file.
-      uint64_t size;
-      if (base::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= static_cast<uint64_t>(fileSize))
+      uint64_t size = 0;
+      // The file must exist and be large enough to cover all completed chunks.
+      if (base::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= static_cast<uint64_t>(fileSize) &&
+          static_cast<int64_t>(size) >= m_strategy.RequiredFileSize())
+      {
         openMode = FileWriter::OP_WRITE_EXISTING;
+      }
       else
+      {
+        LOG(LWARNING, ("Restarting download: file size", size,
+                       "doesn't match resume state, required >=", m_strategy.RequiredFileSize()));
+        m_progress.m_bytesDownloaded = 0;
         m_strategy.InitChunks(fileSize, chunkSize);
+      }
     }
 
-    // Create file and reserve needed size.
     std::unique_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
-
-    // Assign here, because previous functions can throw an exception.
     m_writer.swap(writer);
     Platform::DisableBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
-    StartThreads();
+    StartChunks();
   }
 
-  virtual ~FileHttpRequest()
+  ~FileHttpRequest() override
   {
-    // Do safe delete with removing from list in case if DeleteNativeHttpThread
-    // can produce final notifications to this->OnFinish().
-    while (!m_threads.empty())
-    {
-      HttpThread * p = m_threads.back().first;
-      m_threads.pop_back();
-      DeleteNativeHttpThread(p);
-    }
+    m_alive->store(false, std::memory_order_release);
+
+    for (auto & chunk : m_chunks)
+      chunk.m_handle.Cancel();
+    m_chunks.clear();
 
     if (m_status == DownloadStatus::InProgress)
     {
-      // means that client canceled download process, so delete all temporary files
       CloseWriter();
-
       if (m_doCleanProgressFiles)
       {
         Platform::RemoveFileIfExists(m_filePath + DOWNLOADING_FILE_EXTENSION);
@@ -345,7 +308,7 @@ public:
     }
   }
 
-  virtual string const & GetData() const { return m_filePath; }
+  string const & GetFilePath() const override { return m_filePath; }
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,17 +321,6 @@ HttpRequest::HttpRequest(Callback && onFinish, Callback && onProgress)
 
 HttpRequest::~HttpRequest() {}
 
-HttpRequest * HttpRequest::Get(string const & url, Callback && onFinish, Callback && onProgress)
-{
-  return new MemoryHttpRequest(url, std::move(onFinish), std::move(onProgress));
-}
-
-HttpRequest * HttpRequest::PostJson(string const & url, string const & postData, Callback && onFinish,
-                                    Callback && onProgress)
-{
-  return new MemoryHttpRequest(url, postData, std::move(onFinish), std::move(onProgress));
-}
-
 HttpRequest * HttpRequest::GetFile(std::vector<string> const & urls, string const & filePath, int64_t fileSize,
                                    Callback && onFinish, Callback && onProgress, int64_t chunkSize,
                                    bool doCleanOnCancel)
@@ -380,7 +332,6 @@ HttpRequest * HttpRequest::GetFile(std::vector<string> const & urls, string cons
   }
   catch (FileWriter::Exception const & e)
   {
-    // Can't create or open file for writing.
     LOG(LWARNING, ("Can't create file", filePath, "with size", fileSize, e.Msg()));
   }
   return nullptr;

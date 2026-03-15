@@ -16,6 +16,15 @@
 
 namespace storage
 {
+MapFilesDownloader::~MapFilesDownloader()
+{
+  m_alive->store(false, std::memory_order_release);
+  ++m_generation;
+  m_metaConfigWaiters.clear();
+  if (m_downloadHandle)
+    m_downloadHandle->Cancel();
+}
+
 void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
 {
   if (!m_serversList.empty())
@@ -26,34 +35,39 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
 
   m_pendingRequests.Append(std::move(queuedCountry));
 
-  if (!m_isMetaConfigRequested)
+  EnsureMetaConfigReady([this, alive = m_alive]()
   {
-    RunMetaConfigAsync([this]()
-    {
-      m_pendingRequests.ForEachCountry([this](QueuedCountry & country) { Download(std::move(country)); });
-
-      m_pendingRequests.Clear();
-    });
-  }
+    if (!alive->load(std::memory_order_acquire))
+      return;
+    m_pendingRequests.ForEachCountry([this](QueuedCountry & country) { Download(std::move(country)); });
+    m_pendingRequests.Clear();
+  });
 }
 
-void MapFilesDownloader::RunMetaConfigAsync(std::function<void()> && callback)
+void MapFilesDownloader::RunMetaConfigAsync()
 {
   m_isMetaConfigRequested = true;
 
-  GetPlatform().RunTask(Platform::Thread::Network, [this, callback = std::move(callback)]()
+  GetPlatform().RunTask(Platform::Thread::Network, [this, alive = m_alive]()
   {
+    if (!alive->load(std::memory_order_acquire))
+      return;
     auto metaConfig = GetMetaConfig();
 
     // Thread-safe.
     settings::Update(metaConfig.settings);
     products::ProductsSettings::Instance().Update(std::move(metaConfig.productsConfig));
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, servers = metaConfig.servers, callback = std::move(callback)]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, alive, servers = metaConfig.servers]()
     {
+      if (!alive->load(std::memory_order_acquire))
+        return;
       m_serversList = std::move(servers);
 
-      callback();
+      // Drain all queued waiters (from DownloadMapFile and DownloadAsString).
+      auto waiters = std::move(m_metaConfigWaiters);
+      for (auto & w : waiters)
+        w();
 
       // Reset flag to invoke servers list downloading next time if current request has failed.
       m_isMetaConfigRequested = false;
@@ -80,27 +94,38 @@ QueueInterface const & MapFilesDownloader::GetQueue() const
 void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool(std::string const &)> && callback,
                                           bool forceReset /* = false */)
 {
-  EnsureMetaConfigReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
+  EnsureMetaConfigReady([this, alive = m_alive, forceReset, url = std::move(url), callback = std::move(callback)]()
   {
-    if ((m_fileRequest && !forceReset) || m_serversList.empty())
+    if (!alive->load(std::memory_order_acquire))
       return;
 
+    if ((m_downloadHandle && !forceReset) || m_serversList.empty())
+      return;
+
+    if (m_downloadHandle)
+      m_downloadHandle->Cancel();
+
+    ++m_generation;
+
     // Servers are sorted from best to worst.
-    m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.front(), url),
-                                      [this, callback = std::move(callback)](RequestT & request)
+    platform::HttpClient client(url::Join(m_serversList.front(), url));
+    m_downloadHandle = client.RunHttpRequestAsync(
+        [this, alive, gen = m_generation, callback = std::move(callback)](platform::HttpClient::Result result)
     {
-      bool deleteRequest = true;
-
-      auto const & buffer = request.GetData();
-      if (!buffer.empty())
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [this, alive, gen, callback = std::move(callback), result = std::move(result)]()
       {
-        // Update deleteRequest flag if new download was requested in callback.
-        deleteRequest = !callback(buffer);
-      }
+        if (!alive->load(std::memory_order_acquire) || gen != m_generation)
+          return;
 
-      if (deleteRequest)
-        m_fileRequest.reset();
-    }));
+        bool keepHandle = false;
+        if (result.m_success && result.m_errorCode == 200 && !result.m_serverResponse.empty())
+          keepHandle = callback(result.m_serverResponse);
+
+        if (!keepHandle)
+          m_downloadHandle.reset();
+      });
+    });
   });
 }
 
@@ -111,15 +136,13 @@ void MapFilesDownloader::EnsureMetaConfigReady(std::function<void()> && callback
   if (!m_serversList.empty())
   {
     callback();
+    return;
   }
-  else if (!m_isMetaConfigRequested)
-  {
-    RunMetaConfigAsync(std::move(callback));
-  }
-  else
-  {
-    // skip this request without callback call
-  }
+
+  m_metaConfigWaiters.push_back(std::move(callback));
+
+  if (!m_isMetaConfigRequested)
+    RunMetaConfigAsync();
 }
 
 std::vector<std::string> MapFilesDownloader::MakeUrlListLegacy(std::string const & fileName) const
