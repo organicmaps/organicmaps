@@ -66,7 +66,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @NonNull
   private final Button mStart;
   @NonNull
-  private final ImageView mAltitudeChart;
+  private final View mAltitudeChart;
+  @NonNull
+  private final RouteElevationChartController mRouteElevationChartController;
   @NonNull
   private final TextView mTime;
   @NonNull
@@ -98,7 +100,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View transitFrame = getViewById(activity, frame, R.id.transit_panel);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
-    ImageView altitudeChart = (ImageView) getViewById(activity, frame, R.id.altitude_chart);
+    View altitudeChart = getViewById(activity, frame, R.id.altitude_chart);
     TextView time = (TextView) getViewById(activity, frame, R.id.time);
     TextView timeVehicle = (TextView) getViewById(activity, frame, R.id.time_vehicle);
     TextView altitudeDifference = (TextView) getViewById(activity, frame, R.id.altitude_difference);
@@ -119,7 +121,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
                                       @NonNull View timeElevationLine, @NonNull View transitFrame,
-                                      @NonNull TextView error, @NonNull Button start, @NonNull ImageView altitudeChart,
+                                      @NonNull TextView error, @NonNull Button start, @NonNull View altitudeChart,
                                       @NonNull TextView time, @NonNull TextView altitudeDifference,
                                       @NonNull TextView timeVehicle, @Nullable TextView arrival,
                                       @NonNull View actionFrame, @Nullable RoutingBottomMenuListener listener)
@@ -131,6 +133,20 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mError = error;
     mStart = start;
     mAltitudeChart = altitudeChart;
+    mRouteElevationChartController = new RouteElevationChartController(mAltitudeChart);
+    mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener() {
+      @Override
+      public void onElevationPointSelected(double lat, double lon)
+      {
+        Framework.nativeRouteSetElevationActivePoint(lat, lon);
+      }
+
+      @Override
+      public void onElevationPointDeselected()
+      {
+        Framework.nativeRouteRemoveElevationActivePoint();
+      }
+    });
     mTime = time;
     mAltitudeDifference = altitudeDifference;
     mTimeVehicle = timeVehicle;
@@ -344,21 +360,22 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
     UiUtils.hide(mTimeVehicle);
 
+    Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
+    // Getting limits to display asc/desc text
     int chartWidth = dimen(mContext, R.dimen.altitude_chart_image_width);
     int chartHeight = dimen(mContext, R.dimen.altitude_chart_image_height);
-    Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
-    Bitmap bm = Framework.generateRouteAltitudeChart(chartWidth, chartHeight, limits);
-    if (bm != null)
-    {
-      mAltitudeChart.setImageBitmap(bm);
-      UiUtils.show(mAltitudeChart);
-      final String unit = limits.isMetricUnits
-                            ? mAltitudeDifference.getResources().getString(app.organicmaps.sdk.R.string.m)
-                            : mAltitudeDifference.getResources().getString(app.organicmaps.sdk.R.string.ft);
-      mAltitudeDifference.setText("↗ " + limits.totalAscentString + " " + unit + " ↘ " + limits.totalDescentString + " "
-                                  + unit);
-      UiUtils.show(mAltitudeDifference);
-    }
+    Framework.generateRouteAltitudeChart(chartWidth, chartHeight, limits);
+
+    app.organicmaps.sdk.routing.RouteAltitudeData data = Framework.nativeGetRouteAltitudeData();
+    mRouteElevationChartController.setData(data);
+    UiUtils.show(mAltitudeChart);
+
+    final String unit = limits.isMetricUnits
+                          ? mAltitudeDifference.getResources().getString(app.organicmaps.sdk.R.string.m)
+                          : mAltitudeDifference.getResources().getString(app.organicmaps.sdk.R.string.ft);
+    mAltitudeDifference.setText("↗ " + limits.totalAscentString + " " + unit + " ↘ " + limits.totalDescentString + " "
+                                + unit);
+    UiUtils.show(mAltitudeDifference);
   }
 
   private void showRoutingDetails()

@@ -824,7 +824,8 @@ bool RoutingSession::GetRouteJunctionPoints(std::vector<geometry::PointWithAltit
 }
 
 bool RoutingSession::GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
-                                                    geometry::Altitudes & routeAltitudesM) const
+                                                    geometry::Altitudes & routeAltitudesM,
+                                                    std::vector<m2::PointD> & routePoints) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_route, ());
@@ -838,8 +839,10 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(std::vector<double> & routeS
   routeSegDistanceM.insert(routeSegDistanceM.end(), distances.begin(), distances.end());
 
   m_route->GetAltitudes(routeAltitudesM);
+  routePoints = m_route->GetPoly().GetPoints();
 
   ASSERT_EQUAL(routeSegDistanceM.size(), routeAltitudesM.size(), ());
+  ASSERT_EQUAL(routeSegDistanceM.size(), routePoints.size(), ());
   return true;
 }
 

@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
@@ -21,10 +23,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
@@ -56,6 +61,8 @@ public class MapButtonsController extends Fragment
   private LayersButton mToggleMapLayerButton;
   @Nullable
   FloatingActionButton mTrackRecordingStatusButton;
+  @Nullable
+  private TextView mAltitudeView;
 
   @Nullable
   private MyPositionButton mNavMyPosition;
@@ -67,6 +74,29 @@ public class MapButtonsController extends Fragment
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
+
+  private final LocationListener mLocationListener = new LocationListener() {
+    @Override
+    public void onLocationUpdated(@NonNull Location location)
+    {
+      if (mAltitudeView == null)
+        return;
+      mAltitudeView.setText(Framework.nativeFormatAltitude(location.getAltitude()));
+      UiUtils.show(mAltitudeView);
+    }
+
+    @Override
+    public void onLocationUpdateTimeout()
+    {}
+
+    @Override
+    public void onLocationResolutionRequired(android.app.PendingIntent pendingIntent)
+    {}
+
+    @Override
+    public void onLocationDisabled()
+    {}
+  };
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
@@ -99,6 +129,7 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+    mAltitudeView = mFrame.findViewById(R.id.dashboard_altitude);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
@@ -413,6 +444,7 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getSearchOption().observe(activity, mSearchOptionObserver);
     mMapButtonsViewModel.getTrackRecorderState().observe(activity, mTrackRecorderObserver);
     mMapButtonsViewModel.getTopButtonsMarginTop().observe(activity, mTopButtonMarginObserver);
+    MwmApplication.from(activity).getLocationHelper().addListener(mLocationListener);
   }
 
   public void onResume()
@@ -448,6 +480,7 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getButtonsHidden().removeObserver(mButtonHiddenObserver);
     mMapButtonsViewModel.getMyPositionMode().removeObserver(mMyPositionModeObserver);
     mMapButtonsViewModel.getSearchOption().removeObserver(mSearchOptionObserver);
+    MwmApplication.from(requireActivity()).getLocationHelper().removeListener(mLocationListener);
   }
 
   public void onSearchOptionChange(@Nullable SearchWheel.SearchOption searchOption)

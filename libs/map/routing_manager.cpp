@@ -1200,11 +1200,17 @@ bool RoutingManager::HasRouteAltitude() const
 
 bool RoutingManager::GetRouteAltitudesAndDistancesM(DistanceAltitude & da) const
 {
-  return m_routingSession.GetRouteAltitudesAndDistancesM(da.m_distances, da.m_altitudes);
+  return m_routingSession.GetRouteAltitudesAndDistancesM(da.m_distances, da.m_altitudes, da.m_points);
 }
 
 void RoutingManager::DistanceAltitude::Simplify(double altitudeDeviation)
 {
+  struct PointWithIndex
+  {
+    m2::PointD m_p;
+    size_t m_index;
+  };
+
   class IterT
   {
     DistanceAltitude const & m_da;
@@ -1235,37 +1241,40 @@ void RoutingManager::DistanceAltitude::Simplify(double altitudeDeviation)
     }
     int64_t operator-(IterT const & rhs) const { return int64_t(m_ind) - int64_t(rhs.m_ind); }
 
-    m2::PointD operator*() const { return {m_da.m_distances[m_ind], double(m_da.m_altitudes[m_ind])}; }
+    PointWithIndex operator*() const { return {{m_da.m_distances[m_ind], double(m_da.m_altitudes[m_ind])}, m_ind}; }
   };
 
-  std::vector<m2::PointD> out;
+  struct DistFn
+  {
+    double operator()(PointWithIndex const & a, PointWithIndex const & b, PointWithIndex const & p) const
+    {
+      return m2::SquaredDistanceFromSegmentToPoint()(a.m_p, b.m_p, p.m_p);
+    }
+  };
 
-  // 1. Deviation from approximated altitude.
-  //  double constexpr eps = 1.415; // ~sqrt(2)
-  //  struct DeviationFromApproxY
-  //  {
-  //    double operator()(m2::PointD const & a, m2::PointD const & b, m2::PointD const & x) const
-  //    {
-  //      double f = (x.x - a.x) / (b.x - a.x);
-  //      ASSERT(0 <= f && f <= 1, (f));  // distance is an icreasing function
-  //      double const approxY = (1 - f) * a.y + f * b.y;
-  //      return fabs(approxY - x.y);
-  //    }
-  //  } distFn;
-  //  SimplifyNearOptimal(20 /* maxFalseLookAhead */, IterT(*this, true), IterT(*this, false),
-  //                      eps, distFn, AccumulateSkipSmallTrg(distFn, out, eps));
+  std::vector<PointWithIndex> out;
+  double const squareEps = math::Pow2(altitudeDeviation);
+  DistFn distFn;
 
-  // 2. Default square distance from segment.
-  SimplifyDefault(IterT(*this, true), IterT(*this, false), math::Pow2(altitudeDeviation), out);
+  SimplifyNearOptimal(20 /* maxFalseLookAhead */, IterT(*this, true), IterT(*this, false), squareEps, distFn,
+                      AccumulateSkipSmallTrg(distFn, out, squareEps));
 
   size_t const count = out.size();
-  m_distances.resize(count);
-  m_altitudes.resize(count);
+  std::vector<double> distances(count);
+  geometry::Altitudes altitudes(count);
+  std::vector<m2::PointD> points(count);
+
   for (size_t i = 0; i < count; ++i)
   {
-    m_distances[i] = out[i].x;
-    m_altitudes[i] = geometry::Altitude(out[i].y);
+    distances[i] = out[i].m_p.x;
+    altitudes[i] = geometry::Altitude(out[i].m_p.y);
+    // Map original points. Note: out[i].m_index corresponds to original index.
+    if (m_points.size() > out[i].m_index)
+      points[i] = m_points[out[i].m_index];
   }
+  m_distances = std::move(distances);
+  m_altitudes = std::move(altitudes);
+  m_points = std::move(points);
 }
 
 bool RoutingManager::DistanceAltitude::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,

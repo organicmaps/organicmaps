@@ -250,10 +250,12 @@ public:
   {
     std::vector<double> m_distances;
     geometry::Altitudes m_altitudes;
+    std::vector<m2::PointD> m_points;
 
     size_t GetSize() const
     {
       ASSERT_EQUAL(m_distances.size(), m_altitudes.size(), ());
+      ASSERT_EQUAL(m_distances.size(), m_points.size(), ());
       return m_distances.size();
     }
 
