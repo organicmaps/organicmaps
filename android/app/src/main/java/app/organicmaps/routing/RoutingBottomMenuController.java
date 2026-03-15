@@ -85,6 +85,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final ImageView mActionIcon;
   @NonNull
   private final DotDividerItemDecoration mTransitViewDecorator;
+  @NonNull
+  private final TransitStepAdapter mTransitAdapter;
+  @NonNull
+  private final RecyclerView mTransitRecyclerView;
 
   @Nullable
   private final RoutingBottomMenuListener mListener;
@@ -150,6 +154,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTransitViewDecorator =
         new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
                                      res.getDimensionPixelSize(R.dimen.margin_half));
+    mTransitRecyclerView = transitFrame.findViewById(R.id.transit_recycler_view);
+    mTransitAdapter = new TransitStepAdapter();
+    mTransitRecyclerView.setLayoutManager(new MultilineLayoutManager(transitFrame.getLayoutDirection()));
+    mTransitRecyclerView.setNestedScrollingEnabled(false);
+    mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
+    mTransitRecyclerView.setAdapter(mTransitAdapter);
     Button manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
     manageRouteButton.setOnClickListener(this);
 
@@ -181,16 +191,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
     showStartButton(false);
     UiUtils.show(mTransitFrame);
-    RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
-    TransitStepAdapter adapter = new TransitStepAdapter();
-    rv.setLayoutManager(new MultilineLayoutManager(mTransitFrame.getLayoutDirection()));
-    rv.setNestedScrollingEnabled(false);
-    rv.removeItemDecoration(mTransitViewDecorator);
-    rv.addItemDecoration(mTransitViewDecorator);
-    rv.setAdapter(adapter);
-    adapter.setItems(info.getTransitSteps());
+    UiUtils.show(mTransitRecyclerView);
+    mTransitAdapter.setItems(info.getTransitSteps());
 
-    scrollToBottom(rv);
+    scrollToBottom(mTransitRecyclerView);
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
@@ -204,25 +208,18 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @SuppressLint("SetTextI18n")
   void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
-    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame);
+    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
     showStartButton(false);
     UiUtils.show(mTransitFrame);
-    final RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
     if (points.length > 2)
     {
-      UiUtils.show(rv);
-      final TransitStepAdapter adapter = new TransitStepAdapter();
-      rv.setLayoutManager(new MultilineLayoutManager(mTransitFrame.getLayoutDirection()));
-      rv.setNestedScrollingEnabled(false);
-      rv.removeItemDecoration(mTransitViewDecorator);
-      rv.addItemDecoration(mTransitViewDecorator);
-      rv.setAdapter(adapter);
-      adapter.setItems(pointsToRulerSteps(points));
+      UiUtils.show(mTransitRecyclerView);
+      mTransitAdapter.setItems(pointsToRulerSteps(points));
 
-      scrollToBottom(rv);
+      scrollToBottom(mTransitRecyclerView);
     }
     else
-      UiUtils.hide(rv); // Show only distance between start and finish
+      UiUtils.hide(mTransitRecyclerView); // Show only distance between start and finish
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
     totalTimeView.setText(mContext.getString(R.string.placepage_distance) + ": " + totalLength.mDistanceStr + " "
@@ -474,7 +471,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     else if (id == R.id.btn__save)
     {
       Framework.nativeSaveRoute();
-      Button saveButton = v.findViewById(R.id.btn__save);
+      Button saveButton = (Button) v;
       saveButton.setEnabled(false);
       saveButton.setText(R.string.saved);
     }

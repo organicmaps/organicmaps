@@ -294,7 +294,8 @@ public class NavigationScreen
 
   private void updateSpeedLimit(@NonNull final RoutingInfo info, @Nullable Location location)
   {
-    final boolean speedLimitExceeded = location != null && info.speedLimitMps < location.getSpeed();
+    final boolean speedLimitExceeded =
+        location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.getSpeed();
     getSurfaceRenderer().setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
   }
 

@@ -184,12 +184,22 @@ public class TrackRecordingService extends Service implements LocationListener
     }
 
     Logger.i(TAG, "Starting Track Recording Foreground service");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                    getNotificationBuilder(this).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
-    else
-      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                    getNotificationBuilder(this).build(), 0);
+    try
+    {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
+                                      getNotificationBuilder(this).build(),
+                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
+      else
+        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
+                                      getNotificationBuilder(this).build(), 0);
+    }
+    catch (SecurityException e)
+    {
+      Logger.e(TAG, "Failed to start foreground service, stopping the service", e);
+      stopSelf();
+      return START_NOT_STICKY;
+    }
 
     final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
 

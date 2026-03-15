@@ -205,22 +205,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Dialog mAlertDialog;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
   private boolean mLocationPermissionRequestedForRecording = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
   private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
   @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
   private ActivityResultLauncher<Intent> mPowerSaveSettings;
   private boolean mPowerSaveDisclaimerShown = false;
 
@@ -1113,10 +1109,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     MwmApplication.from(this).getLocationHelper().removeListener(this);
     if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
-    {
       LocationState.nativeRemoveListener();
-      RoutingController.get().detach();
-    }
+    // Attached unconditionally in onStart()
+    RoutingController.get().detach();
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());

@@ -154,6 +154,9 @@ public class PlacePageView extends Fragment
   private MaterialButton mShareButton;
   private MaterialButton closeButton;
 
+  @Nullable
+  private Observer<String> mTrackRecordingObserver;
+
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
   // Downloader`s stuff
@@ -507,9 +510,11 @@ public class PlacePageView extends Fragment
     else if (mMapObject.isTrackRecording())
     {
       TrackRecording trackRecording = (TrackRecording) mMapObject;
-      trackRecording.getTrackRecordingPPDescription().observe(requireActivity(), s -> {
-        UiUtils.setTextAndHideIfEmpty(mTvTitle, trackRecording.getTrackRecordingPPDescription().getValue());
-      });
+      final var liveData = trackRecording.getTrackRecordingPPDescription();
+      if (mTrackRecordingObserver != null)
+        liveData.removeObserver(mTrackRecordingObserver);
+      mTrackRecordingObserver = s -> UiUtils.setTextAndHideIfEmpty(mTvTitle, s);
+      liveData.observe(requireActivity(), mTrackRecordingObserver);
       UiUtils.hide(mAvDirection, mTvDistance);
     }
   }

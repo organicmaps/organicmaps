@@ -73,17 +73,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
-  private final ActivityResultLauncher<Intent> startBookmarkListForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        System.out.println("resultCode: " + activityResult.getResultCode());
-        handleActivityResult();
-      });
+  private final ActivityResultLauncher<Intent> startBookmarkListForResult = registerForActivityResult(
+      new ActivityResultContracts.StartActivityForResult(), activityResult -> { handleActivityResult(); });
 
-  private final ActivityResultLauncher<Intent> startBookmarkSettingsForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        System.out.println("resultCode: " + activityResult.getResultCode());
-        handleActivityResult();
-      });
+  private final ActivityResultLauncher<Intent> startBookmarkSettingsForResult = registerForActivityResult(
+      new ActivityResultContracts.StartActivityForResult(), activityResult -> { handleActivityResult(); });
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
