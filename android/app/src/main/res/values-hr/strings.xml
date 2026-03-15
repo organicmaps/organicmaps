@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Nazad</string>
@@ -84,7 +83,6 @@
     <string name="settings">Postavke</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Mjerne jedinice</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Bilješke</string>
@@ -248,7 +246,6 @@
     <string name="blue_gray">Plavo siva</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Poklonite besplatne karte bez oglasa milijunima korisnika!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Prilikom praćenja rute, imajte sljedeće na umu:</string>
     <string name="dialog_routing_disclaimer_priority">– Uvjeti na cesti, prometni propisi i prometni znakovi uvijek imaju prednost pred navigacijskim savjetima;</string>
@@ -257,7 +254,6 @@
     <string name="dialog_routing_disclaimer_borders">– Budite oprezni s rutama u pograničnim zonama: rute koje je kreirala naša aplikacija ponekad mogu prelaziti državne granice na nedozvoljenim mjestima.</string>
     <string name="dialog_routing_disclaimer_beware">Budite oprezni i sigurni na cestama!</string>
     <string name="not_now">Ne sada</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_select_map">Odaberi kartu</string>
     <!-- «Show» context menu -->
@@ -475,7 +471,6 @@
     <string name="moreyear_ago_sorttype">Više od godinu dana</string>
     <string name="near_me_sorttype">U mojoj blizini</string>
     <string name="others_sorttype">Drugo</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Hrana</string>
     <string name="tourist_places">Atrakcije</string>
@@ -579,10 +574,12 @@
     <string name="follow_system">Prati sustav</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Izbrisati %s?</string>
-
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Prijava s lozinkom</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Prijava putem preglednika</string>
+    <string name="pref_appearance_dark">Tamna</string>
+    <string name="pref_appearance_title">Izgled</string>
+    <string name="pref_appearance_light">Svijetla</string>
 </resources>

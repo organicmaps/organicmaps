@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Hætta við";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bókamerkjalisti";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Út að borða";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Aðstaða fyrir húsbíla";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í Organic Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://omaps.app/get?kmz \n\nNjóttu ferðarinnar með Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "bókamerki";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:";
 "dialog_routing_disclaimer_priority" = "— Ástand vega, umferðarreglur og vegmerkingar hafa alltaf forgang fram yfir ábendingar í leiðsögn;";
 "dialog_routing_disclaimer_precision" = "— Landakortið getur verið ónákvæmt og leiðin sem stungið er upp á þarf ekki að vera besta leiðin til að ná á ákvörðunarstað;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Sækja viðbótar-landakort til að útbúa þægilegri leið sem fer út fyrir mörk þessa landakorts.";
 "dialog_routing_download_files" = "Sækja nauðsynlegar skrár";
 "dialog_routing_download_and_update_all" = "Sæktu eða uppfærðu öll landakort meðfram áætluðum ferli til að reikna leið.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Sýna";
@@ -859,10 +839,6 @@
 "sort_distance" = "Raða eftir vegalengd";
 "sort_date" = "Raða eftir dagsetningu";
 "sort_name" = "Raða eftir nafni";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Matur";
 "tourist_places" = "Skoðunarverðir staðir";
 "museums" = "Söfn";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Uppfærðu kortið til að leggja af mörkum";
 "contribute_to_osm_update_map_description" = "Þú þarft að uppfæra %@ kortið í nýjustu útgáfuna áður en þú getur lagt af mörkum til gagna í OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Staðsetning mín";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Fjólublá niðurhluð svæði";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Innskráning með lykilorði";

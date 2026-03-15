@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Types -->
     <string name="type.amenity.arts_centre">Arts Centre</string>
     <string name="type.amenity.conference_centre">Conference Centre</string>
@@ -8,7 +7,6 @@
     <string name="type.amenity.fuel">Petrol Station</string>
     <string name="type.amenity.loading_dock">Loading Bay</string>
     <string name="type.amenity.post_box">Postbox</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recycling Centre</string>
     <string name="type.amenity.taxi">Taxi Rank</string>
@@ -16,13 +14,11 @@
     <string name="type.cuisine.donut">Doughnut</string>
     <string name="type.cuisine.savory_pancakes">Savoury Pancakes</string>
     <string name="type.healthcare.blood_donation">Blood Donation Centre</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.elevator">Lift</string>
     <string name="type.highway.footway.sidewalk">Pavement</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.residential.tunnel">Tunnel</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.leisure.common">Common Land</string>
     <string name="type.leisure.sports_centre">Sports Centre</string>
@@ -294,4 +290,14 @@
     <string name="type.tourism.camp_site">Campsite</string>
     <string name="type.tourism.caravan_site">Caravan Park</string>
     <string name="type.shop.telecommunication">Telecommunications shop</string>
+    <string name="type.amenity.parking.lane.private">Private Lane Parking</string>
+    <string name="type.craft.photographer">Photographer</string>
+    <string name="type.cuisine.noodles">Noodles</string>
+    <string name="type.healthcare.laboratory">Medical Laboratory</string>
+    <string name="type.man_made.silo">Silo</string>
+    <string name="type.railway.narrow_gauge.bridge">Narrow Gauge Rail Bridge</string>
+    <string name="type.shop.chemist">Chemist</string>
+    <string name="type.tourism.information.visitor_centre">Visitor Centre</string>
+    <string name="type.tourism.viewpoint">Viewpoint</string>
+    <string name="type.sport.padel">Padel</string>
 </resources>

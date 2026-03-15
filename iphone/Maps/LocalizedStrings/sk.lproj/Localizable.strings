@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Zrušiť";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Skupiny záložiek";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Kde sa najesť";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Pre RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "záložka";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Pri sledovaní trasy majte na pamäti nasledujúce:";
 "dialog_routing_disclaimer_priority" = "— Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;";
 "dialog_routing_disclaimer_precision" = "— Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.";
 "dialog_routing_download_files" = "Prevezmite si požadované súbory";
 "dialog_routing_download_and_update_all" = "Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Ukázať";
@@ -859,10 +839,6 @@
 "sort_distance" = "Zoradiť podľa vzdialenosti";
 "sort_date" = "Zoradiť podľa dátumu";
 "sort_name" = "Zoradiť podľa názvu";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Jedlo";
 "tourist_places" = "Pamiatky";
 "museums" = "Múzeá";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Aktualizovať mapu na prispievanie";
 "contribute_to_osm_update_map_description" = "Musíte aktualizovať mapu %@ na najnovšiu verziu, aby ste mohli prispievať do údajov OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moja poloha";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Fialové stiahnuté regióny";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Prihlásenie pomocou hesla";

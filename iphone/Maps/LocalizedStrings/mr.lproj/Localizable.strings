@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "रद्द करा";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "खूणपत्र याद्या";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "जेवायचे ठिकाण";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "कँपिंग वाहन सोयी";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "खूणपत्र";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "प्रवास करताना, कृपात लक्षात ठेवा:";
 "dialog_routing_disclaimer_priority" = "— मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;";
 "dialog_routing_disclaimer_precision" = "— नकाशा चुकीचा असू शकतो, आणि सुचवलेला मार्ग हा गंतव्यस्थानापर्यंत पोहोचण्यासाठी नेहमी सर्वोत्तम मार्ग असेलच असे नाही;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.";
 "dialog_routing_download_files" = "आवश्यक फाईली डाउनलोड करा";
 "dialog_routing_download_and_update_all" = "मार्ग शोधण्यासाठी प्रक्षेपित वाटेभोवतीचे सर्व नकाशे व मार्गनिर्देशक माहिती डाउनलोड करा.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "दाखवा";
@@ -859,10 +839,6 @@
 "sort_distance" = "अंतरानुसार क्रमाने लावा";
 "sort_date" = "दिनांकानुसार क्रमाने लावा";
 "sort_name" = "नावानुसार क्रमवारी लावा";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "अन्न";
 "tourist_places" = "पर्यटन स्थळ";
 "museums" = "संग्रहालय";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "योगदान देण्यासाठी नकाशा अद्यतनित करा";
 "contribute_to_osm_update_map_description" = "OpenStreetMap डेटामध्ये योगदान देण्यापूर्वी तुम्हाला %@ नकाशा नवीनतम आवृत्तीत अद्यतनित करणे आवश्यक आहे";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "माझे स्थान";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "जांभळे डाउनलोड केलेले प्रदेश";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "पासवर्डने लॉगिन करा";

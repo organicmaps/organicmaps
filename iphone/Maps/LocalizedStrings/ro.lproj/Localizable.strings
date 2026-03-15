@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Anulare";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Liste cu locuri preferate";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Unde să mănânci";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Pentru rulote";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "preferat";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Când parcurgi traseul, ai în vedere următoarele:";
 "dialog_routing_disclaimer_priority" = "— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;";
 "dialog_routing_disclaimer_precision" = "— Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.";
 "dialog_routing_download_files" = "Descarcă fișierele necesare";
 "dialog_routing_download_and_update_all" = "Pentru calcularea traseului, descarcă și actualizează toate hărțile și informațiile traseului pentru calea estimată.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Arată";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sortează după distanță";
 "sort_date" = "Sortează după dată";
 "sort_name" = "Sortează după nume";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mâncare";
 "tourist_places" = "Obiective turistice";
 "museums" = "Muzee";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Actualizează harta pentru a contribui";
 "contribute_to_osm_update_map_description" = "Trebuie să actualizați harta %@ la cea mai recentă versiune înainte de a putea contribui la datele OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Poziția mea";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Regiuni descărcate violete";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Autentificare cu parolă";

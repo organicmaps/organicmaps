@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Mégse";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Könyvjelzőlisták";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Hol lehet enni valamit";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Lakókocsis létesítmények";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "könyvjelző";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Az útvonal követése során vegye figyelembe az alábbiakat:";
 "dialog_routing_disclaimer_priority" = "– Az útviszonyok, a közlekedési szabályok és a jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatással szemben;";
 "dialog_routing_disclaimer_precision" = "– A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja az úti cél elérésének;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Töltsön le további térképeket, hogy egy jobb útvonalat hozzon létre, amely keresztezi ennek a térképnek a határait.";
 "dialog_routing_download_files" = "Töltse le a szükséges fájlokat";
 "dialog_routing_download_and_update_all" = "Az útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Megjelenítés";
@@ -859,10 +839,6 @@
 "sort_distance" = "Távolság szerint";
 "sort_date" = "Dátum szerint";
 "sort_name" = "Név szerint";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Étel";
 "tourist_places" = "Látnivalók";
 "museums" = "Múzeumok";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Frissítse a térképet a hozzájáruláshoz";
 "contribute_to_osm_update_map_description" = "A hozzájáruláshoz frissítenie kell a %@ térképet a legújabb verzióra az OpenStreetMap adataihoz";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Saját tartózkodási helyszín";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Lila letöltött régiók";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Bejelentkezés jelszóval";

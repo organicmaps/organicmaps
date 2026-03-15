@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Cancel·la";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Llistes de marcadors";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "On menjar";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanes";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l’Organic Maps. Obriu-los si teniu l’Organic Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l’Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "marcador";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Quan seguiu la ruta, tingueu present:";
 "dialog_routing_disclaimer_priority" = "— Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;";
 "dialog_routing_disclaimer_precision" = "— El mapa pot ser imprecís, i la ruta suggerida potser no sempre és la via més òptima per a arribar a la destinació;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.";
 "dialog_routing_download_files" = "Baixa els fitxers necessaris";
 "dialog_routing_download_and_update_all" = "Baixeu i actualitzeu tots els mapes i informació de rutes del trajecte per a calcular-ne la ruta.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mostra";
@@ -859,10 +839,6 @@
 "sort_distance" = "Ordena per distància";
 "sort_date" = "Ordena per data";
 "sort_name" = "Ordena per nom";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Menjar";
 "tourist_places" = "Llocs d'interès";
 "museums" = "Museus";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Actualitza el mapa per contribuir";
 "contribute_to_osm_update_map_description" = "Heu d’actualitzar el mapa de %@ a l’última versió abans de poder contribuir a les dades d’OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "La meva posició";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Regions descarregades liles";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Inicieu la sessió amb contrasenya";

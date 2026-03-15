@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Άκυρο";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Λίστα αγαπημένων";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Μέρη για φαγητό";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Για RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Γειa!\n\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το Organic Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://omaps.app/get?kmz\n\nΚαλή διασκέδαση ταξιδεύοντας με το Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "αγαπημένο";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Όταν ακολουθείτε την διαδρομή, να θυμάστε:";
 "dialog_routing_disclaimer_priority" = "- Οι οδικές συνθήκες, οι κανόνες οδικής κυκλοφορίας και οι πινακίδες έχουν πάντα προτεραιότητα έναντι των συμβουλών πλοήγησης;";
 "dialog_routing_disclaimer_precision" = "— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.";
 "dialog_routing_download_files" = "Κατεβάστε τα απαιτούμενα αρχεία";
 "dialog_routing_download_and_update_all" = "Κατεβάσετε ή ενημερώστε όλους τους χάρτες για όλο το μήκος της προβαλλόμενης διαδρομής ώστε να γίνει ο υπολογισμός της.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Εμφάνιση";
@@ -859,10 +839,6 @@
 "sort_distance" = "Ταξινόμηση κατά απόσταση";
 "sort_date" = "Ταξινόμηση κατά ημερομηνία";
 "sort_name" = "Ταξινόμηση με βάση το όνομα";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Φαγητό";
 "tourist_places" = "Αξιοθέατα";
 "museums" = "Μουσεία";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Ενημερώστε τον χάρτη για να συνεισφέρετε";
 "contribute_to_osm_update_map_description" = "Πρέπει να ενημερώσετε τον χάρτη %@ στην πιο πρόσφατη έκδοση πριν μπορέσετε να συνεισφέρετε στα δεδομένα του OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Η θέση μου";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Μωβ ληφθείσες περιοχές";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Σύνδεση με κωδικό πρόσβασης";

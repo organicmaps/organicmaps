@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Zrušit";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Skupiny záložek";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Kde se najíst";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Pro RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Ahoj!\n\nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz \n\nUžij si cestování s Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "uložit";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Při navigaci podle trasy mějte na paměti následující:";
 "dialog_routing_disclaimer_priority" = "— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;";
 "dialog_routing_disclaimer_precision" = "— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.";
 "dialog_routing_download_files" = "Stáhnout požadované soubory";
 "dialog_routing_download_and_update_all" = "Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Ukázat";
@@ -859,10 +839,6 @@
 "sort_distance" = "Třídit dle vzdálenosti";
 "sort_date" = "Třídit dle data";
 "sort_name" = "Řazení podle názvu";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Jídlo";
 "tourist_places" = "Památky";
 "museums" = "Muzea";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Aktualizujte mapu pro příspěvek";
 "contribute_to_osm_update_map_description" = "Musíte aktualizovat mapu %@ na nejnovější verzi, než budete moci přispět do dat OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moje poloha";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Fialové stažené regiony";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Přihlášení pomocí hesla";
