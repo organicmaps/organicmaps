@@ -45,12 +45,12 @@ jobs:
         shell: bash
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost
@@ -87,7 +87,7 @@ jobs:
         working-directory: xcode
 
       - name: Upload ipa and DSYMs artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ipa and DSYM archive ${{ env.IOS_VERSION }}
           path: xcode/build/*

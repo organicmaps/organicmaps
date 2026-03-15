@@ -13,7 +13,7 @@ jobs:
     name: Check preconditions
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1000 # fetch month or so
 
@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
-          if [ '${{ github.event_name }}' != 'schedule' ] || 
+          if [ '${{ github.event_name }}' != 'schedule' ] ||
              [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
             echo "updated=true" >> $GITHUB_OUTPUT
           else
@@ -45,15 +45,15 @@ jobs:
           sudo apt-get install -y ninja-build
 
       - name: Install Google SDK
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@v3
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost

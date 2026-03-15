@@ -77,10 +77,10 @@ jobs:
         run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost

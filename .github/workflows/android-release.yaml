@@ -14,7 +14,7 @@ jobs:
     environment: production
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100  # Enough to get all commits for the last day.
           ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
@@ -79,13 +79,13 @@ jobs:
           sudo apt-get install -y ninja-build
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100 # enough to get all commits for the current day
           ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost
@@ -104,7 +104,7 @@ jobs:
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout screenshots
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
@@ -157,21 +157,21 @@ jobs:
 
       - name: Upload web debug symbols to GitHub artifacts # Google and Huawei include debug symbols inside the aab.
         if: ${{ matrix.flavor == 'web' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-debug-symbols-web.zip
           path: android/app/build/outputs/native-debug-symbols/webRelease/native-debug-symbols.zip
 
       - name: Upload Google aab to GitHub artifacts
         if: ${{ matrix.flavor == 'google' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
           path: ./android/app/build/outputs/bundle/googleRelease/OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
 
       - name: Upload Huawei aab to GitHub artifacts
         if: ${{ matrix.flavor == 'huawei' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: OrganicMaps-${{ needs.tag.outputs.code }}-huawei-release.aab
           path: ./android/app/build/outputs/bundle/huaweiRelease/OrganicMaps-${{ needs.tag.outputs.code }}-huawei-release.aab
@@ -196,7 +196,7 @@ jobs:
 
       - name: Upload web release apk and its sha256sum to GitHub artifacts
         if: ${{ matrix.flavor == 'web' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
           path: ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.*
