@@ -159,6 +159,7 @@ public:
     void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
+    void SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
 
     /// Removes the category from the list of categories and deletes the related file.
     /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted
@@ -274,6 +275,7 @@ public:
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
+  std::string GetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key) const;
 
   kml::MarkGroupId GetCategoryId(std::string const & name) const;
 

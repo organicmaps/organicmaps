@@ -290,9 +290,13 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
 
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
-  bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
   bmData.m_point = mercator::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
+
+  if (auto const colorIndex = GetCategoryDefaultColorIndex(lastEditedCategory))
+    bmData.m_color.m_predefinedColor = kml::kOrderedPredefinedColors[*colorIndex];
+  else
+    bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
 
   if (info.IsFeature())
     SaveFeatureTypes(info.GetTypes(), bmData);

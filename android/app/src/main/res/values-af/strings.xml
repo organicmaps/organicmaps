@@ -591,6 +591,7 @@
     <string name="layers_title">Kaartstyle en -lae</string>
     <string name="bookmarks_empty_list_title">Hierdie lys is leeg</string>
     <string name="bookmarks_empty_list_message">Tik op ’n plek op die kaart en dan op die sterikoon om ’n boekmerk toe te voeg</string>
+    <string name="change_all_bookmarks_color">Verander kleur van alle boekmerke</string>
     <string name="category_desc_more">…nog</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Voer KMZ uit</string>

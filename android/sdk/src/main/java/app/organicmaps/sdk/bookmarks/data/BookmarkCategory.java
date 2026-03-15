@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
@@ -131,6 +132,19 @@ public final class BookmarkCategory implements Parcelable
     nativeSetDescription(mId, mDescription);
   }
 
+  public void setCategoryColor(@PredefinedColors.Color int colorIndex)
+  {
+    nativeSetCategoryBookmarksColor(mId, colorIndex);
+    nativeSetCategoryDefaultColor(mId, colorIndex);
+  }
+
+  @PredefinedColors.Color
+  public int getCategoryDefaultColor(@PredefinedColors.Color int defaultValue)
+  {
+    int color = nativeGetCategoryDefaultColor(mId);
+    return color >= 0 ? color : defaultValue;
+  }
+
   public long getBookmarkIdByPosition(int positionInCategory)
   {
     return nativeGetBookmarkIdByPosition(mId, positionInCategory);
@@ -239,6 +253,9 @@ public final class BookmarkCategory implements Parcelable
   private static native void nativeSetCustomProperty(long catId, String key, String value);
   private static native boolean nativeIsEmpty(long catId);
 
+  private static native void nativeSetCategoryBookmarksColor(long catId, @PredefinedColors.Color int colorIndex);
+  private static native void nativeSetCategoryDefaultColor(long catId, @PredefinedColors.Color int colorIndex);
+  private static native int nativeGetCategoryDefaultColor(long catId); // returns -1 if not set
   private static native long nativeGetBookmarkIdByPosition(long catId, int position);
   private static native long nativeGetTrackIdByPosition(long catId, int position);
 

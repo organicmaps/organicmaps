@@ -202,6 +202,7 @@
     <string name="layers_title">Mitindo ya Ramani na Tabaka</string>
     <string name="bookmarks_empty_list_title">Orodha hii ni tupu</string>
     <string name="bookmarks_empty_list_message">Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota</string>
+    <string name="change_all_bookmarks_color">Badilisha rangi ya alamisho zote</string>
     <string name="category_desc_more">…zaidi</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Hamisha KMZ</string>

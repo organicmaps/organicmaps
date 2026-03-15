@@ -3,6 +3,10 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
+#include "base/string_utils.hpp"
+
+#include "kml/types.hpp"
+
 namespace
 {
 inline jclass getBookmarkCategoryClass(JNIEnv * env)
@@ -12,6 +16,17 @@ inline jclass getBookmarkCategoryClass(JNIEnv * env)
   return g_bookmarkCategoryClass;
 }
 }  // namespace
+
+std::optional<size_t> GetCategoryDefaultColorIndex(kml::MarkGroupId catId)
+{
+  auto const value = frm()->GetBookmarkManager().GetCategoryCustomProperty(catId, "default_color");
+  if (value.empty())
+    return std::nullopt;
+  size_t colorIndex = 0;
+  if (strings::to_size_t(value, colorIndex) && colorIndex < kml::kOrderedPredefinedColors.size())
+    return colorIndex;
+  return std::nullopt;
+}
 
 jobject ToJavaBookmarkCategory(JNIEnv * env, kml::MarkGroupId id)
 {
@@ -196,5 +211,29 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nat
   env->ReleaseIntArrayElements(jTypes, arr, 0);
 
   return jTypes;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryBookmarksColor(JNIEnv *,
+                                                                                                        jclass,
+                                                                                                        jlong catId,
+                                                                                                        jint colorIndex)
+{
+  auto const color = kml::kOrderedPredefinedColors[colorIndex];
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryBookmarksColor(static_cast<kml::MarkGroupId>(catId), color);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSetCategoryDefaultColor(JNIEnv *, jclass,
+                                                                                                      jlong catId,
+                                                                                                      jint colorIndex)
+{
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryCustomProperty(static_cast<kml::MarkGroupId>(catId),
+                                                                         "default_color", std::to_string(colorIndex));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeGetCategoryDefaultColor(JNIEnv *, jclass,
+                                                                                                      jlong catId)
+{
+  auto const colorIndex = GetCategoryDefaultColorIndex(static_cast<kml::MarkGroupId>(catId));
+  return colorIndex ? static_cast<jint>(*colorIndex) : -1;
 }
 }  // extern "C"

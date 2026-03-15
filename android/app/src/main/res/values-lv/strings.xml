@@ -625,6 +625,7 @@
     <string name="layers_title">Kartes stili un slāņi</string>
     <string name="bookmarks_empty_list_title">Saraksts ir tukšs</string>
     <string name="bookmarks_empty_list_message">Lai pievienotu grāmatzīmi, sākumā spiediet uz vietas kartē, bet tad uz zvaigznītes ikonas</string>
+    <string name="change_all_bookmarks_color">Mainīt visu grāmatzīmju krāsu</string>
     <string name="category_desc_more">…vairāk</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Izgūt KMZ formātā</string>

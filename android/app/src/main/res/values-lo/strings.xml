@@ -576,6 +576,7 @@
     <string name="layers_title">ຮູບແບບແຜນທີ່ ແລະ ເລເຢີ້</string>
     <string name="bookmarks_empty_list_title">ລາຍການນີ້ວ່າງເປົ່າ</string>
     <string name="bookmarks_empty_list_message">ເພື່ອເພີ່ມບຸກມາກ, ໃຫ້ແຕະໃສ່ສະຖານທີ່ໃນແຜນທີ່ ແລ້ວແຕະທີ່ໄອຄອນຮູບດາວ</string>
+    <string name="change_all_bookmarks_color">ປ່ຽນສີຂອງບຸກມາກທັງໝົດ</string>
     <string name="category_desc_more">…ເພີ່ມເຕີມ</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">ສົ່ງອອກ KMZ</string>

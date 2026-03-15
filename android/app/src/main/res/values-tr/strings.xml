@@ -624,6 +624,7 @@
     <string name="layers_title">Harita Stilleri ve Katmanlar</string>
     <string name="bookmarks_empty_list_title">Bu liste boş</string>
     <string name="bookmarks_empty_list_message">Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun</string>
+    <string name="change_all_bookmarks_color">Tüm yer imlerinin rengini değiştir</string>
     <string name="category_desc_more">…daha fazla</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ Olarak Dışa Aktar</string>

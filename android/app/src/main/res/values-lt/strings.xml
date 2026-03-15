@@ -625,6 +625,7 @@
     <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
     <string name="bookmarks_empty_list_title">Sąrašas tuščias</string>
     <string name="bookmarks_empty_list_message">Jeigu norite pridėti žymę, bakstelėkite vietą žemėlapyje, o tada – žvaigždutės piktogramą</string>
+    <string name="change_all_bookmarks_color">Keisti visų žymų spalvą</string>
     <string name="category_desc_more">…daugiau</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksportuoti KMZ</string>

@@ -631,6 +631,7 @@
     <string name="layers_title">Стылі і слаі карты</string>
     <string name="bookmarks_empty_list_title">Гэты спіс пусты</string>
     <string name="bookmarks_empty_list_message">Каб дадаць закладку, дакраніцеся да месца на карце, а затым націсніце значок зорачкі</string>
+    <string name="change_all_bookmarks_color">Змяніць колер усіх закладак</string>
     <string name="category_desc_more">…яшчэ</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Экспарт KMZ</string>

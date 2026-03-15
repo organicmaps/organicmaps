@@ -621,6 +621,7 @@
     <string name="layers_title">Štýly a vrstvy mapy</string>
     <string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
     <string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdičky</string>
+    <string name="change_all_bookmarks_color">Zmeniť farbu všetkých záložiek</string>
     <string name="category_desc_more">…viac</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportovať KMZ</string>

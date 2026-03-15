@@ -342,6 +342,7 @@
     <string name="terms_of_use">Términos de uso</string>
     <string name="layers_title">Estilos de mapa y capas</string>
     <string name="bookmarks_empty_list_message">Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella</string>
+    <string name="change_all_bookmarks_color">Cambiar el color de todos los marcadores</string>
     <string name="delete_list">Borrar lista</string>
     <string name="speedcams_alert_title">Radares de tráfico</string>
     <string name="place_description_title">Descripción de lugares</string>

@@ -622,6 +622,7 @@
     <string name="layers_title">Map Styles and Layers</string>
     <string name="bookmarks_empty_list_title">This list is empty</string>
     <string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
+    <string name="change_all_bookmarks_color">Change all bookmarks color</string>
     <string name="category_desc_more">…more</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Export KMZ</string>

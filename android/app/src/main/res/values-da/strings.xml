@@ -622,6 +622,7 @@
     <string name="layers_title">Kortstile og -lag</string>
     <string name="bookmarks_empty_list_title">Listen er tom</string>
     <string name="bookmarks_empty_list_message">For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet</string>
+    <string name="change_all_bookmarks_color">Skift farve på alle bogmærker</string>
     <string name="category_desc_more">…mere</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksporter KMZ</string>
