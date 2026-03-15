@@ -14,15 +14,18 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -232,6 +235,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
+
+  private final ServiceConnection mNavigationServiceConnection = new ServiceConnection() {
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder)
+    {
+      final NavigationService.Binder binder = (NavigationService.Binder) iBinder;
+      binder.setOrganicMapsContext(MwmApplication.from(MwmActivity.this).getOrganicMaps());
+
+      final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
+      final Intent contentIntent = new Intent(MwmActivity.this, MwmActivity.class);
+      final PendingIntent pendingIntent = PendingIntent.getActivity(MwmActivity.this, 0, contentIntent,
+                                                                    PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+      binder.setContentIntent(pendingIntent);
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName)
+    {
+      // No-op
+    }
+  };
 
   public interface LeftAnimationTrackListener
   {
@@ -1545,7 +1569,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
-    NavigationService.stopService(this);
+    NavigationService.stopService(this, mNavigationServiceConnection);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
@@ -1569,7 +1593,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     requestPostNotificationsPermission();
-    NavigationService.startForegroundService(this);
+    NavigationService.startService(this, mNavigationServiceConnection);
     Utils.keepScreenOn(true, getWindow());
   }
 
@@ -1595,7 +1619,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
-    NavigationService.stopService(this);
+    NavigationService.stopService(this, mNavigationServiceConnection);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();

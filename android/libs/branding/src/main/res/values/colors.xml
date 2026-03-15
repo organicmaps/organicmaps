@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="logo">#006C35</color>
+
+  <color name="base_accent">#FF249CF2</color>
 </resources>

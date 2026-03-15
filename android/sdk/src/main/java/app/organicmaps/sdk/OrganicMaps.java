@@ -57,6 +57,11 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   private volatile boolean mPlatformInitialized;
 
   @NonNull
+  public Context getApplicationContext()
+  {
+    return mContext;
+  }
+  @NonNull
   public LocationHelper getLocationHelper()
   {
     return mLocationHelper;
