@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Lint
         shell: bash
@@ -63,7 +63,7 @@ jobs:
           level: warning
 
       - name: Upload Android Lint Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: android-lint-report
           path: android/build/reports/lint/lint.xml
@@ -95,13 +95,13 @@ jobs:
           sudo apt-get install -y ninja-build
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Needed for versioning script
           fetch-depth: 200 # enough to get all commits for the current day
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost
@@ -158,7 +158,7 @@ jobs:
             cd android && ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug sdk:connectedDebugAndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: android-${{ matrix.flavor }}
           path: android/app/build/outputs/apk/**/OrganicMaps-*.apk

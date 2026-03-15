@@ -48,12 +48,12 @@ jobs:
           sudo apt-get install -y ninja-build
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Restore Boost submodule from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             3party/boost
@@ -99,14 +99,14 @@ jobs:
           ./gradlew appDistributionUploadGoogleBeta
 
       - name: Upload beta apk to GitHub artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: OrganicMaps-${{ env.ANDROID_CODE }}-google-beta.apk
           path: android/app/build/outputs/apk/google/beta/OrganicMaps-${{ env.ANDROID_CODE }}-google-beta.apk
           if-no-files-found: error
 
       - name: Upload beta debug symbols to GitHub artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-debug-symbols.zip
           path: android/app/build/outputs/native-debug-symbols/googleBeta/native-debug-symbols.zip
