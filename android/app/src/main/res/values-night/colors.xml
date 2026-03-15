@@ -37,4 +37,7 @@
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>
   <color name="elevation_profile">#4BB9E6</color>
+  <!-- Shimmer -->
+  <color name="shimmer_bar">#29FFFFFF</color>
+  <color name="shimmer_highlight">#33FFFFFF</color>
 </resources>

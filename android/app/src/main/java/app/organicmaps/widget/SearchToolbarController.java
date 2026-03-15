@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
@@ -36,11 +37,12 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @NonNull
   private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
-  @NonNull
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
+      // Reset category flag when user manually types/edits the query
+      mFromCategory = false;
       final boolean isEmpty = TextUtils.isEmpty(s);
       mBackPressedCallback.setEnabled(!isEmpty);
       updateViewsVisibility(isEmpty);
@@ -75,7 +77,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
     mProgress = mSearchContainer.findViewById(R.id.progress);
-    mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
+    mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
 
     showProgress(false);
@@ -172,7 +174,22 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void activate()
   {
     mQuery.requestFocus();
-    InputUtils.showKeyboard(mQuery);
+    if (mQuery.hasWindowFocus())
+    {
+      InputUtils.showKeyboard(mQuery);
+      return;
+    }
+    mQuery.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
+      @Override
+      public void onWindowFocusChanged(boolean hasFocus)
+      {
+        if (hasFocus)
+        {
+          mQuery.getViewTreeObserver().removeOnWindowFocusChangeListener(this);
+          InputUtils.showKeyboard(mQuery);
+        }
+      }
+    });
   }
 
   public void deactivate()
@@ -226,5 +243,19 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public OnBackPressedCallback getBackPressedCallback()
   {
     return mBackPressedCallback;
+  }
+
+  public void setQuerySilently(CharSequence query, boolean fromCategory)
+  {
+    mFromCategory = fromCategory;
+    mQuery.removeTextChangedListener(mTextWatcher);
+    mQuery.setText(query);
+    if (!TextUtils.isEmpty(query))
+      mQuery.setSelection(query.length());
+    mQuery.addTextChangedListener(mTextWatcher);
+  }
+  public void setQuerySilently(CharSequence query)
+  {
+    setQuerySilently(query, false);
   }
 }

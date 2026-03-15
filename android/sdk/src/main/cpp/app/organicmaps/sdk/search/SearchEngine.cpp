@@ -335,6 +335,15 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNI
   g_framework->NativeFramework()->ShowSearchResult(g_results[index]);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResult(JNIEnv * env, jclass clazz, jint index)
+{
+  // Ideally this location mode change should happen in core automatically, without specifically changing the mode.
+  auto const mode = g_framework->GetMyPositionMode();
+  if (mode == location::Follow || mode == location::FollowAndRotate)
+    g_framework->NativeFramework()->StopLocationFollow();
+  g_framework->NativeFramework()->SelectSearchResult(g_results[index], true /* animation */);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);
