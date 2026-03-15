@@ -2,4 +2,7 @@
 <resources>
   <!-- Altitude chart -->
   <dimen name="altitude_chart_image_width">600dp</dimen>
+
+  <item type="dimen" name="bottom_sheet_widths">380dp</item>
+
 </resources>

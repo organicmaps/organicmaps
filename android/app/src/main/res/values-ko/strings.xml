@@ -694,6 +694,7 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+    <string name="placepage_replace_stop">교체 중지</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">음식</string>

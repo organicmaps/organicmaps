@@ -699,6 +699,7 @@
     <string name="moreyear_ago_sorttype">1年以上前</string>
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
+    <string name="placepage_replace_stop">リプレースストップ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食べ物</string>

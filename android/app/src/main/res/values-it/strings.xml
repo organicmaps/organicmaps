@@ -705,6 +705,7 @@
     <string name="moreyear_ago_sorttype">Più di un anno fa</string>
     <string name="near_me_sorttype">Vicino a me</string>
     <string name="others_sorttype">Altri</string>
+    <string name="placepage_replace_stop">Sostituire l\'arresto</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Cibo</string>

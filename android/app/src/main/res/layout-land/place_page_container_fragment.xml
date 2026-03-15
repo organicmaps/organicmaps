@@ -4,7 +4,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/coordinatorLayout3"
+  android:id="@+id/pp_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <View
@@ -16,18 +16,20 @@
     app:layout_constraintEnd_toStartOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
+
   <FrameLayout
     android:id="@+id/pp_bottom_container"
-    android:layout_width="0dp"
+    android:layout_width="@dimen/bottom_sheet_widths"
     android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintWidth_percent="@fraction/place_page_bottom_sheet_width_ratio"
     tools:layout_constraintWidth_percent="0.55 ">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_gravity="bottom">
+
       <androidx.core.widget.NestedScrollView
         android:id="@+id/placepage"
         style="@style/MwmWidget.BottomSheet.Rounded"
@@ -36,10 +38,12 @@
         android:elevation="0dp"
         android:fillViewport="true"
         app:layout_behavior="@string/placepage_behavior">
+
         <RelativeLayout
           android:id="@+id/placepage_container"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
+
           <androidx.fragment.app.FragmentContainerView
             android:id="@+id/placepage_fragment"
             android:layout_width="match_parent"
@@ -47,6 +51,7 @@
         </RelativeLayout>
       </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <androidx.fragment.app.FragmentContainerView
       android:id="@+id/pp_buttons_fragment"
       android:layout_width="wrap_content"

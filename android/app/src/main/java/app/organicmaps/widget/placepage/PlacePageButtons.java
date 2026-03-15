@@ -141,6 +141,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     TRACK_DELETE,
     ROUTE_FROM,
     ROUTE_TO,
+    ROUTE_REPLACE,
     ROUTE_ADD,
     ROUTE_REMOVE,
     ROUTE_AVOID_TOLL,

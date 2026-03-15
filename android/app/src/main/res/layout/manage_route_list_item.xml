@@ -1,10 +1,10 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="60dp"
-  android:gravity="center_vertical">
+  android:layout_height="50dp"
+  android:gravity="center_vertical"
+  android:background="@color/routing_bottom_manage_route_background">
 
   <ImageView
     android:id="@+id/type_icon"
@@ -13,53 +13,67 @@
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:srcCompat="@drawable/route_point_finish"/>
+    app:srcCompat="@drawable/route_point_finish"
+    android:layout_marginStart="8dp" />
 
   <TextView
     android:id="@+id/title"
-    android:layout_width="match_parent"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="6dp"
-    android:layout_marginEnd="6dp"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
     android:ellipsize="end"
     android:inputType="none"
     android:maxLines="1"
+    android:textAlignment="viewStart"
     android:textAppearance="@style/MwmTextAppearance.Body1"
     android:textStyle="bold"
-    android:textAlignment="viewStart"
-    app:layout_constraintStart_toEndOf="@id/type_icon"
-    app:layout_constraintEnd_toStartOf="@id/delete_icon"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/subtitle"
     app:layout_constrainedWidth="true"
-    tools:text="Title"/>
-
-  <TextView
-    android:id="@+id/subtitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="6dp"
-    android:layout_marginEnd="6dp"
-    android:ellipsize="end"
-    android:inputType="none"
-    android:maxLines="2"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
-    android:textAlignment="viewStart"
-    app:layout_constraintStart_toEndOf="@id/type_icon"
-    app:layout_constraintEnd_toStartOf="@id/delete_icon"
-    app:layout_constraintTop_toBottomOf="@id/title"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constrainedWidth="true"
-    tools:text="Subtitle"/>
+    app:layout_constraintEnd_toStartOf="@id/delete_icon"
+    app:layout_constraintStart_toEndOf="@id/type_icon"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Title" />
+
+  <!--  <TextView-->
+  <!--    android:id="@+id/subtitle"-->
+  <!--    android:layout_width="0dp"-->
+  <!--    android:layout_height="wrap_content"-->
+  <!--    android:layout_marginStart="6dp"-->
+  <!--    android:layout_marginEnd="6dp"-->
+  <!--    android:ellipsize="end"-->
+  <!--    android:inputType="none"-->
+  <!--    android:maxLines="2"-->
+  <!--    android:textAppearance="@style/MwmTextAppearance.Body1"-->
+  <!--    android:textAlignment="viewStart"-->
+  <!--    app:layout_constraintStart_toEndOf="@id/type_icon"-->
+  <!--    app:layout_constraintEnd_toStartOf="@id/delete_icon"-->
+  <!--    app:layout_constraintTop_toBottomOf="@id/title"-->
+  <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+  <!--    app:layout_constrainedWidth="true"-->
+  <!--    tools:text="Subtitle"/>-->
 
   <ImageView
     android:id="@+id/delete_icon"
     android:layout_width="24dp"
     android:layout_height="24dp"
     style="@style/MwmWidget.Editor.MetadataIcon"
-    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/drag_icon"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:srcCompat="@drawable/ic_delete"/>
+    app:srcCompat="@drawable/ic_cancel" />
+
+  <ImageView
+    android:id="@+id/drag_icon"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:padding="12dp"
+    app:tint="?iconTint"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.583"
+    app:srcCompat="@drawable/ic_menu_open" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

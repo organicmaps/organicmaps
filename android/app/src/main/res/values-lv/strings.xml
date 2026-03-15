@@ -703,6 +703,7 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+    <string name="placepage_replace_stop">Aizstāt Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ēdiens</string>

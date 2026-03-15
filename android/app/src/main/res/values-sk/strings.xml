@@ -699,6 +699,7 @@
     <string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
     <string name="near_me_sorttype">Blízko mňa</string>
     <string name="others_sorttype">Iné</string>
+    <string name="placepage_replace_stop">Nahradiť zastávku</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedlo</string>

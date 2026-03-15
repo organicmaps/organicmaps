@@ -35,40 +35,41 @@ public final class Config
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
-  private static final String KEY_PREF_USE_GS = "UseGoogleServices";
+    private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
-  private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
+    private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
 
-  private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
-  private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
-  private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
-  private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
-  private static final String KEY_MISC_KEEP_SCREEN_ON = "KeepScreenOn";
+    private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
+    private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
+    private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
+    private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
+    private static final String KEY_MISC_KEEP_SCREEN_ON = "KeepScreenOn";
 
-  private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
-  private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
-  private static final String KEY_DONATE_URL = "DonateUrl";
-  private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
+    private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
+    private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
+    private static final String KEY_DONATE_URL = "DonateUrl";
+    private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
 
-  public static final String KEY_PREF_LAST_SEARCHED_TAB = "LastSearchTab";
+    public static final String HAS_DRIVING_OPTIONS_COUNT = "HasDrivingOptionsCount";
+    public static final String KEY_PREF_LAST_SEARCHED_TAB = "LastSearchTab";
 
-  /**
+    /**
    * The total number of app launches.
    */
   private static final String KEY_APP_LAUNCH_NUMBER = "LaunchNumber";
-  /**
+    /**
    * The timestamp for the most recent app launch.
    */
   private static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
-  /**
+    /**
    * The version code of the first installed version of the app.
    */
   private static final String KEY_APP_FIRST_INSTALL_VERSION_CODE = "FirstInstallVersion";
-  /**
+    /**
    * The version code of the last launched version of the app.
    */
   private static final String KEY_APP_LAST_INSTALL_VERSION_CODE = "LastInstallVersion";
-  /**
+    /**
    * True if the first start animation has been seen.
    */
   private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";

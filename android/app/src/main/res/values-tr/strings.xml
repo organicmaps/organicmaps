@@ -702,6 +702,7 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
+    <string name="placepage_replace_stop">Durağı Değiştir</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Yiyecek</string>
