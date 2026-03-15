@@ -25,7 +25,6 @@
 #include "map/gps_tracker.hpp"
 
 #include "platform/background_downloader_ios.h"
-#include "platform/http_thread_apple.h"
 #include "platform/local_country_file_utils.hpp"
 
 #include "base/assert.hpp"
@@ -64,6 +63,7 @@ using namespace osm_auth_ios;
 @interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
+@property(nonatomic) BOOL standbyDisabledForDownloads;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
 
 @end
@@ -100,7 +100,6 @@ using namespace osm_auth_ios;
 
 - (void)commonInit
 {
-  [HttpThreadImpl setDownloadIndicatorProtocol:self];
   InitLocalizedStrings();
   GetFramework().SetupMeasurementSystem();
   [[MWMStorage sharedStorage] addObserver:self];
@@ -116,8 +115,6 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
-
-  [HttpThreadImpl setDownloadIndicatorProtocol:self];
 
   InitLocalizedStrings();
   [MWMThemeManager invalidate];
@@ -168,7 +165,7 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
   [DeepLinkHandler.shared reset];
-  if (m_activeDownloadsCounter)
+  if ([MWMStorage sharedStorage].downloadInProgress)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
       [application endBackgroundTask:self->m_backgroundTask];
@@ -375,6 +372,20 @@ using namespace osm_auth_ios;
   SEL const updateBadge = @selector(updateApplicationIconBadgeNumber);
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:updateBadge object:nil];
   [self performSelector:updateBadge withObject:nil afterDelay:1.0];
+
+  // Prevent screen auto-lock while any map download is active.
+  // Only call disable/enable on transitions to avoid counter drift.
+  BOOL const downloading = [MWMStorage sharedStorage].downloadInProgress;
+  if (downloading && !self.standbyDisabledForDownloads)
+  {
+    self.standbyDisabledForDownloads = YES;
+    [self disableStandby];
+  }
+  else if (!downloading && self.standbyDisabledForDownloads)
+  {
+    self.standbyDisabledForDownloads = NO;
+    [self enableStandby];
+  }
 }
 
 #pragma mark - Properties

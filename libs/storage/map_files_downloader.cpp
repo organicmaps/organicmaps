@@ -82,25 +82,27 @@ void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool(st
 {
   EnsureMetaConfigReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
   {
-    if ((m_fileRequest && !forceReset) || m_serversList.empty())
+    if ((m_downloadHandle && !forceReset) || m_serversList.empty())
       return;
 
+    if (m_downloadHandle)
+      m_downloadHandle->Cancel();
+
     // Servers are sorted from best to worst.
-    m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.front(), url),
-                                      [this, callback = std::move(callback)](RequestT & request)
+    platform::HttpClient client(url::Join(m_serversList.front(), url));
+    m_downloadHandle =
+        client.RunHttpRequestAsync([this, callback = std::move(callback)](platform::HttpClient::Result result)
     {
-      bool deleteRequest = true;
-
-      auto const & buffer = request.GetData();
-      if (!buffer.empty())
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, callback, result = std::move(result)]()
       {
-        // Update deleteRequest flag if new download was requested in callback.
-        deleteRequest = !callback(buffer);
-      }
+        bool keepHandle = false;
+        if (result.m_success && result.m_errorCode == 200 && !result.m_serverResponse.empty())
+          keepHandle = callback(result.m_serverResponse);
 
-      if (deleteRequest)
-        m_fileRequest.reset();
-    }));
+        if (!keepHandle)
+          m_downloadHandle.reset();
+      });
+    });
   });
 }
 

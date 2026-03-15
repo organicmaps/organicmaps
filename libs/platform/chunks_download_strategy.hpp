@@ -55,6 +55,8 @@ private:
   };
 
   std::vector<ChunkT> m_chunks;
+  /// End position of the highest completed chunk, or 0 if none.
+  int64_t m_requiredFileSize = 0;
 
   std::vector<ServerT> m_servers;
 
@@ -73,6 +75,9 @@ public:
   void SaveChunks(int64_t fileSize, std::string const & fName);
   /// @return Already downloaded size.
   int64_t LoadOrInitChunks(std::string const & fName, int64_t fileSize, int64_t chunkSize);
+
+  /// Minimum file size required to cover all completed chunks.
+  int64_t RequiredFileSize() const { return m_requiredFileSize; }
 
   /// Should be called for every completed chunk (no matter successful or not).
   /// @returns url of the chunk

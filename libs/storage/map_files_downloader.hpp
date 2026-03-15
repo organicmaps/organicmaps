@@ -4,11 +4,11 @@
 #include "storage/downloading_policy.hpp"
 #include "storage/queued_country.hpp"
 
-#include "platform/http_request.hpp"
+#include "platform/http_client.hpp"
 #include "platform/servers_list.hpp"
 
 #include <functional>
-#include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -82,9 +82,8 @@ private:
   /// @param[in]  callback  Called in main thread (@see GetMetaConfig).
   void RunMetaConfigAsync(std::function<void()> && callback);
 
-  /// Current file downloading request for DownloadAsString.
-  using RequestT = downloader::HttpRequest;
-  std::unique_ptr<RequestT> m_fileRequest;
+  /// Current file downloading handle for DownloadAsString.
+  std::optional<platform::HttpClient::RequestHandle> m_downloadHandle;
 
   ServersList m_serversList;
   int64_t m_dataVersion = 0;

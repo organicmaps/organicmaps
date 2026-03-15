@@ -23,9 +23,11 @@ SOFTWARE.
 *******************************************************************************/
 #pragma once
 
-#include "base/macros.hpp"
-
+#include <atomic>
+#include <cstdint>
 #include <functional>
+#include <memory>
+#include <mutex>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -36,6 +38,8 @@ class HttpClient
 {
 public:
   static auto constexpr kNoError = -1;
+  static auto constexpr kWriteException = -2;
+  static auto constexpr kCancelled = -6;
 
   struct Header
   {
@@ -45,15 +49,61 @@ public:
 
   using Headers = std::unordered_map<std::string, std::string>;
 
+  // Self-contained result delivered asynchronously. Copyable and moveable.
+  struct Result
+  {
+    bool m_success = false;
+    int m_errorCode = kNoError;
+    std::string m_urlReceived;
+    std::string m_serverResponse;
+    Headers m_headers;
+  };
+
+  using CompletionHandler = std::function<void(Result)>;
+  using ProgressHandler = std::function<void(int64_t bytesTransferred, int64_t totalBytes)>;
+  // Streaming data handler. Returns false to abort the request.
+  using DataHandler = std::function<bool(void const * buffer, size_t size)>;
+  using SuccessChecker = std::function<bool(HttpClient const & request)>;
+
+  // Cancellation handle. Copyable, thread-safe.
+  class RequestHandle
+  {
+  public:
+    RequestHandle() = default;
+    void Cancel();
+    bool IsCancelled() const;
+
+  private:
+    friend class HttpClient;
+
+    struct Impl
+    {
+      std::atomic<bool> m_cancelled{false};
+      std::function<void()> m_platformCancel;
+      std::mutex m_mu;
+    };
+
+    std::shared_ptr<Impl> m_impl;
+  };
+
   HttpClient() = default;
   explicit HttpClient(std::string const & url);
 
-  // Synchronous (blocking) call, should be implemented for each platform
-  // @returns true if connection was made and server returned something (200, 404, etc.).
-  // @note Implementations should transparently support all needed HTTP redirects.
+  HttpClient(HttpClient const &) = delete;
+  HttpClient & operator=(HttpClient const &) = delete;
+  HttpClient(HttpClient &&) = default;
+  HttpClient & operator=(HttpClient &&) = default;
+
+  // Asynchronous (non-blocking) request. Copies all config internally, so HttpClient
+  // can be destroyed immediately after this call returns.
+  // CompletionHandler is called on a transport-owned callback thread/queue.
+  // Callers that need GUI/main-thread affinity should dispatch explicitly.
   // Implemented for each platform.
+  RequestHandle RunHttpRequestAsync(CompletionHandler handler);
+
+  // Synchronous (blocking) wrapper over RunHttpRequestAsync.
+  // @returns true if connection was made and server returned something (200, 404, etc.).
   bool RunHttpRequest();
-  using SuccessChecker = std::function<bool(HttpClient const & request)>;
   // Returns true and copy of server response into [response] in case when RunHttpRequest() and
   // [checker] return true. When [checker] is equal to nullptr then default checker will be used.
   // Check by default: ErrorCode() == 200
@@ -61,12 +111,12 @@ public:
 
   HttpClient & SetUrlRequested(std::string const & url);
   HttpClient & SetHttpMethod(std::string const & method);
-  // This method is mutually exclusive with set_body_data().
+  // This method is mutually exclusive with SetBodyData().
   HttpClient & SetBodyFile(std::string const & body_file, std::string const & content_type,
                            std::string const & http_method = "POST", std::string const & content_encoding = "");
   // If set, stores server reply in file specified.
   HttpClient & SetReceivedFile(std::string const & received_file);
-  // This method is mutually exclusive with set_body_file().
+  // This method is mutually exclusive with SetBodyFile().
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, std::string const & content_type,
                            std::string const & http_method = "POST", std::string const & content_encoding = {})
@@ -87,7 +137,15 @@ public:
   HttpClient & SetFollowRedirects(bool follow_redirects);
   HttpClient & SetRawHeader(std::string const & key, std::string const & value);
   HttpClient & SetRawHeaders(Headers const & headers);
-  void SetTimeout(double timeoutSec);
+  HttpClient & SetTimeout(double timeoutSec);
+  HttpClient & SetProgressHandler(ProgressHandler handler);
+  // Streaming data callback. When set, response data is delivered through this callback
+  // instead of being accumulated in Result::m_serverResponse.
+  HttpClient & SetDataHandler(DataHandler handler);
+  // HTTP Range header for partial downloads (e.g., "bytes=begin-end").
+  // If end is -1, requests from begin to the end of the resource.
+  HttpClient & SetRange(int64_t begin, int64_t end = -1);
+  void LoadHeaders(bool loadHeaders);
 
   std::string const & UrlRequested() const;
   // @returns empty string in the case of error
@@ -98,41 +156,56 @@ public:
   int ErrorCode() const;
   std::string const & ServerResponse() const;
   std::string const & HttpMethod() const;
-  // Pass this getter's value to the set_cookies() method for easier cookies support in the next request.
+  // Pass this getter's value to the SetCookies() method for easier cookies support in the next request.
   std::string CombinedCookies() const;
   // Returns cookie value or empty string if it's not present.
   std::string CookieByName(std::string name) const;
-  void LoadHeaders(bool loadHeaders);
   Headers const & GetHeaders() const;
 
-private:
-  // Internal helper to convert cookies like this:
-  // "first=value1; expires=Mon, 26-Dec-2016 12:12:32 GMT; path=/, second=value2; path=/, third=value3; "
-  // into this:
-  // "first=value1; second=value2; third=value3"
+  // Internal helper, used by platform implementations.
   static std::string NormalizeServerCookies(std::string && cookies);
 
+  // Accessors for platform implementations to read config.
+  std::string const & BodyData() const { return m_bodyData; }
+  std::string const & InputFile() const { return m_inputFile; }
+  std::string const & OutputFile() const { return m_outputFile; }
+  std::string const & Cookies() const { return m_cookies; }
+  bool FollowRedirects() const { return m_followRedirects; }
+  bool ShouldLoadHeaders() const { return m_loadHeaders; }
+  double TimeoutSec() const { return m_timeoutSec; }
+  ProgressHandler const & GetProgressHandler() const { return m_progressHandler; }
+  DataHandler const & GetDataHandler() const { return m_dataHandler; }
+  int64_t RangeBegin() const { return m_rangeBegin; }
+  int64_t RangeEnd() const { return m_rangeEnd; }
+
+  // Setters for platform implementations to write results.
+  void SetErrorCode(int code) { m_errorCode = code; }
+  void SetUrlReceived(std::string url) { m_urlReceived = std::move(url); }
+  void SetServerResponse(std::string response) { m_serverResponse = std::move(response); }
+  void SetHeaders(Headers headers) { m_headers = std::move(headers); }
+
+private:
   std::string m_urlRequested;
   // Contains final content's url taking redirects (if any) into an account.
   std::string m_urlReceived;
   int m_errorCode = kNoError;
   std::string m_inputFile;
-  // Used instead of server_reply_ if set.
+  // Used instead of m_serverResponse if set.
   std::string m_outputFile;
-  // Data we received from the server if output_file_ wasn't initialized.
+  // Data we received from the server if m_outputFile wasn't initialized.
   std::string m_serverResponse;
   std::string m_bodyData;
   std::string m_httpMethod = "GET";
   // Cookies set by the client before request is run.
   std::string m_cookies;
   Headers m_headers;
-  bool m_followRedirects =
-      false;  // If true then in case of HTTP response 3XX make another request to follow redirected URL
+  bool m_followRedirects = false;
   bool m_loadHeaders = false;
-  // Use 30 seconds timeout by default.
   double m_timeoutSec = 30.0;
-
-  DISALLOW_COPY_AND_MOVE(HttpClient);
+  ProgressHandler m_progressHandler;
+  DataHandler m_dataHandler;
+  int64_t m_rangeBegin = -1;
+  int64_t m_rangeEnd = -1;
 };
 
 std::string DebugPrint(HttpClient const & request);
