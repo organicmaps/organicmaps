@@ -1,4 +1,4 @@
-enum NavigationDashboardModalPresentationStep: Int, ModalPresentationStep {
+enum NavigationDashboardModalPresentationStep: Int, CaseIterable, ModalPresentationStep {
   case expanded
   case regular
   case compact
@@ -6,6 +6,7 @@ enum NavigationDashboardModalPresentationStep: Int, ModalPresentationStep {
 }
 
 final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepStrategy {
+
   private enum Constants {
     static let iPadWidth: CGFloat = 350
     static let iPadLeadingOffset: CGFloat = 20
