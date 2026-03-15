@@ -1206,9 +1206,9 @@ zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
 shop-bakery|shop-pastry|@category_eat|@category_food|@shop
-en:3Bakery|3Pastry|Cake|3Cakes|U+1F35E
+en:3Bakery|3Pastry|Cake|3Cakes|Bread|U+1F35E
 ar:مخبز|متجر
-be:3Булачная|3Пякарня|Торт|3Тарты
+be:3Булачная|3Пякарня|Торт|3Тарты|Хлеб
 bg:3Пекарна
 ca:Fleca
 cs:3Pekárna|Pekařství
@@ -1236,7 +1236,7 @@ pl:4Piekarnia
 pt:3Padaria
 pt-BR:3Padaria|3panificadora
 ro:3Brutărie
-ru:3Булочная|3пекарня|Торт|3Торты|Пирожные
+ru:3Булочная|3пекарня|Торт|3Торты|Пирожные|Хлеб
 sk:3Pekáreň
 sl:3Pekarna
 sr:5Пекара|5Pekara
@@ -1244,7 +1244,7 @@ sv:3Bageri
 sw:Kituo cha kuwoka mikate
 th:3เบเกอรี่
 tr:3Fırın
-uk:3Пекарня|Торт|3Торти
+uk:3Пекарня|Торт|3Торти|Хлiб
 vi:Hiệu bánh
 zh-Hans:1面包店|商店
 zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
@@ -2523,7 +2523,7 @@ pl:Sklep ze słodyczami|słodycze
 pt:4Confeitaria|loja de doces|bolos|doces|guloseimas
 pt-BR:4Confeitaria|loja de doces
 ro:Cofetărie|dulciuri
-ru:4Кондитерская|кондитерские изделия|сладости
+ru:4Кондитерская|Сладости|Конфеты
 sk:Cukrovinky
 sl:4Slaščičarna|sladice|bonboni
 sr:Слаткиши|Slatkiši
@@ -5377,7 +5377,7 @@ pl:Wynajem łodzi
 pt:Aluguer de barcos
 pt-BR:Aluguel de barcos
 ro:Închiriere bărci
-ru:Аренда лодок
+ru:Аренда лодок|Прокат лодок
 sk:Prenájom lodí
 sl:5Izposoja čolnov|Najem čolnov|Čolni
 sv:Båtuthyrning
@@ -5933,7 +5933,7 @@ pl:Szkoła wyższa|4college
 pt:Escola técnica|3Cursos técnicos
 pt-BR:Escola técnica
 ro:4Colegiu
-ru:4Колледж
+ru:4Колледж|Техникум|Училище
 sk:Vysoká škola
 sl:4Višja šola|Fakulteta
 sr:Колеџ|Koledž
@@ -6301,7 +6301,7 @@ pl:4Dentysta
 pt:4Dentista
 pt-BR:4Dentista|cirurgião dentista|centro odontológico
 ro:4Dentist
-ru:4Стоматолог|Дантист|Стоматология
+ru:4Стоматолог|Дантист|Стоматология|Зубной
 sk:Zubár
 sl:4Zobozdravnik|4zobna ambulanta
 sr:Стоматолог|Зубар|Stomatolog|Zubar
