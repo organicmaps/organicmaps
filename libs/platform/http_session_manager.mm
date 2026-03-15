@@ -2,22 +2,28 @@
 
 @interface DataTaskInfo : NSObject
 
-@property(nonatomic, weak) id<NSURLSessionDataDelegate> delegate;
+@property(nonatomic, strong) id<NSURLSessionDataDelegate> delegate;
 @property(nonatomic) NSURLSessionDataTask * task;
+@property(nonatomic) dispatch_queue_t callbackQueue;
 
-- (instancetype)initWithTask:(NSURLSessionDataTask *)task delegate:(id<NSURLSessionDataDelegate>)delegate;
+- (instancetype)initWithTask:(NSURLSessionDataTask *)task
+                    delegate:(id<NSURLSessionDataDelegate>)delegate
+               callbackQueue:(dispatch_queue_t)callbackQueue;
 
 @end
 
 @implementation DataTaskInfo
 
-- (instancetype)initWithTask:(NSURLSessionDataTask *)task delegate:(id<NSURLSessionDataDelegate>)delegate
+- (instancetype)initWithTask:(NSURLSessionDataTask *)task
+                    delegate:(id<NSURLSessionDataDelegate>)delegate
+               callbackQueue:(dispatch_queue_t)callbackQueue
 {
   self = [super init];
   if (self)
   {
     _task = task;
     _delegate = delegate;
+    _callbackQueue = callbackQueue;
   }
 
   return self;
@@ -30,7 +36,6 @@
 @property(nonatomic) NSURLSession * session;
 @property(nonatomic) NSMutableDictionary * taskInfoByTaskID;
 @property(nonatomic) dispatch_queue_t taskInfoQueue;
-@property(nonatomic) dispatch_queue_t delegateQueue;
 
 @end
 
@@ -55,13 +60,6 @@
                                         delegateQueue:nil];
     _taskInfoByTaskID = [NSMutableDictionary dictionary];
     _taskInfoQueue = dispatch_queue_create("http_session_manager.queue", DISPATCH_QUEUE_CONCURRENT);
-    // TODO(AB): As the main thread in tests that are using synchronous HTTP calls is blocked
-    // by dispatch_group_wait(group, DISPATCH_TIME_FOREVER) in http_client_apple.mm,
-    // and delegate should not strictly use only one (main) thread and can be run on
-    // any thread, this workaround is needed.
-    // Refactor out the whole sync HTTP implementation to use async + lambdas/callbacks.
-    BOOL const isSyncHttpTest = [NSBundle.mainBundle.executableURL.lastPathComponent hasSuffix:@"osm_auth_tests"];
-    _delegateQueue = isSyncHttpTest ? _taskInfoQueue : dispatch_get_main_queue();
   }
 
   return self;
@@ -72,9 +70,37 @@
                             completionHandler:
                                 (void (^)(NSData * data, NSURLResponse * response, NSError * error))completionHandler
 {
-  NSURLSessionDataTask * task = [self.session dataTaskWithRequest:request completionHandler:completionHandler];
+  NSURLSessionDataTask * task;
+  if (completionHandler)
+  {
+    // Wrap the completion handler to clean up the DataTaskInfo entry.
+    // NSURLSession does not call didCompleteWithError: for completion-handler tasks,
+    // so removeTaskInfoForTask: would never be called otherwise.
+    __weak HttpSessionManager * weakSelf = self;
+    __block NSURLSessionDataTask * blockTask = nil;
+    task = [self.session dataTaskWithRequest:request
+                           completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+                             HttpSessionManager * strongSelf = weakSelf;
+                             DataTaskInfo * taskInfo = [strongSelf taskInfoForTask:blockTask];
+                             dispatch_queue_t callbackQueue = taskInfo.callbackQueue;
+                             dispatch_block_t callback = ^{
+                               completionHandler(data, response, error);
+                               [strongSelf removeTaskInfoForTask:blockTask];
+                             };
+                             if (callbackQueue)
+                               dispatch_async(callbackQueue, callback);
+                             else
+                               callback();
+                           }];
+    blockTask = task;
+  }
+  else
+  {
+    task = [self.session dataTaskWithRequest:request];
+  }
 
-  DataTaskInfo * taskInfo = [[DataTaskInfo alloc] initWithTask:task delegate:delegate];
+  dispatch_queue_t callbackQueue = dispatch_queue_create("http_session_manager.callback", DISPATCH_QUEUE_SERIAL);
+  DataTaskInfo * taskInfo = [[DataTaskInfo alloc] initWithTask:task delegate:delegate callbackQueue:callbackQueue];
   [self setDataTaskInfo:taskInfo forTask:task];
 
   return task;
@@ -108,7 +134,7 @@
   if ([taskInfo.delegate
           respondsToSelector:@selector(URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:)])
   {
-    dispatch_async(self.delegateQueue, ^{
+    dispatch_async(taskInfo.callbackQueue, ^{
       [taskInfo.delegate URLSession:session
                                 task:task
           willPerformHTTPRedirection:response
@@ -129,7 +155,7 @@
 
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:task:didCompleteWithError:)])
   {
-    dispatch_async(self.delegateQueue,
+    dispatch_async(taskInfo.callbackQueue,
                    ^{ [taskInfo.delegate URLSession:session task:task didCompleteWithError:error]; });
   }
 }
@@ -142,7 +168,7 @@
   DataTaskInfo * taskInfo = [self taskInfoForTask:dataTask];
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:dataTask:didReceiveResponse:completionHandler:)])
   {
-    dispatch_async(self.delegateQueue, ^{
+    dispatch_async(taskInfo.callbackQueue, ^{
       [taskInfo.delegate URLSession:session
                            dataTask:dataTask
                  didReceiveResponse:response
@@ -160,7 +186,7 @@
   DataTaskInfo * taskInfo = [self taskInfoForTask:dataTask];
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:dataTask:didReceiveData:)])
   {
-    dispatch_async(self.delegateQueue,
+    dispatch_async(taskInfo.callbackQueue,
                    ^{ [taskInfo.delegate URLSession:session dataTask:dataTask didReceiveData:data]; });
   }
 }

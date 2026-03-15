@@ -13,6 +13,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 // Fix missing root certificates for HTTPS connections on Android 7 and below:
 // https://community.letsencrypt.org/t/letsencrypt-certificates-fails-on-android-phones-running-android-7-or-older/205686
@@ -23,6 +24,18 @@ public class Android7RootCertificateWorkaround
 
   @TargetApi(24)
   private static SSLSocketFactory mSslSocketFactory;
+  @TargetApi(24)
+  private static X509TrustManager mTrustManager;
+
+  public static SSLSocketFactory getSslSocketFactory()
+  {
+    return mSslSocketFactory;
+  }
+
+  public static X509TrustManager getTrustManager()
+  {
+    return mTrustManager;
+  }
 
   public static void applyFixIfNeeded(HttpURLConnection connection)
   {
@@ -58,6 +71,8 @@ public class Android7RootCertificateWorkaround
 
       final TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
       tmf.init(keyStore);
+
+      mTrustManager = (X509TrustManager) tmf.getTrustManagers()[0];
 
       final SSLContext sslContext = SSLContext.getInstance("TLS");
       sslContext.init(null, tmf.getTrustManagers(), null);

@@ -4,6 +4,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <condition_variable>
 #include <sstream>
 
 namespace platform
@@ -11,6 +12,52 @@ namespace platform
 using std::string;
 
 HttpClient::HttpClient(string const & url) : m_urlRequested(url) {}
+
+void HttpClient::RequestHandle::Cancel()
+{
+  if (auto impl = m_impl)
+  {
+    impl->m_cancelled.store(true, std::memory_order_release);
+    std::lock_guard lock(impl->m_mu);
+    if (impl->m_platformCancel)
+    {
+      impl->m_platformCancel();
+      impl->m_platformCancel = nullptr;
+    }
+  }
+}
+
+bool HttpClient::RequestHandle::IsCancelled() const
+{
+  if (auto impl = m_impl)
+    return impl->m_cancelled.load(std::memory_order_acquire);
+  return false;
+}
+
+bool HttpClient::RunHttpRequest()
+{
+  std::mutex mu;
+  std::condition_variable cv;
+  bool done = false;
+  Result result;
+
+  RunHttpRequestAsync([&](Result r)
+  {
+    std::lock_guard lock(mu);
+    result = std::move(r);
+    done = true;
+    cv.notify_one();
+  });
+
+  std::unique_lock lock(mu);
+  cv.wait(lock, [&] { return done; });
+
+  m_errorCode = result.m_errorCode;
+  m_urlReceived = std::move(result.m_urlReceived);
+  m_serverResponse = std::move(result.m_serverResponse);
+  m_headers = std::move(result.m_headers);
+  return result.m_success;
+}
 
 bool HttpClient::RunHttpRequest(string & response, SuccessChecker checker /* = nullptr */)
 {
@@ -89,9 +136,29 @@ HttpClient & HttpClient::SetRawHeaders(Headers const & headers)
   return *this;
 }
 
-void HttpClient::SetTimeout(double timeoutSec)
+HttpClient & HttpClient::SetTimeout(double timeoutSec)
 {
   m_timeoutSec = timeoutSec;
+  return *this;
+}
+
+HttpClient & HttpClient::SetProgressHandler(ProgressHandler handler)
+{
+  m_progressHandler = std::move(handler);
+  return *this;
+}
+
+HttpClient & HttpClient::SetDataHandler(DataHandler handler)
+{
+  m_dataHandler = std::move(handler);
+  return *this;
+}
+
+HttpClient & HttpClient::SetRange(int64_t begin, int64_t end)
+{
+  m_rangeBegin = begin;
+  m_rangeEnd = end;
+  return *this;
 }
 
 string const & HttpClient::UrlRequested() const

@@ -6,6 +6,7 @@ set(SRC
   duration_tests.cpp
   downloader_tests/downloader_test.cpp
   downloader_utils_tests.cpp
+  http_client_test.cpp
   get_text_by_id_tests.cpp
   glaze_test.cpp
   jansson_test.cpp
