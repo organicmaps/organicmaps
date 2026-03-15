@@ -1,10 +1,10 @@
 #pragma once
 
-#include <array>
 #include <climits>
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace om::tz
 {
@@ -37,7 +37,6 @@ struct TimeZone
   static constexpr size_t kBaseOffsetBitSize = 7;
   static constexpr size_t kDstDeltaBitSize = 8;
   static constexpr size_t kTransitionsLengthBitSize = 4;
-  static constexpr size_t kMaxTransitionsElementsPerTZ = 1 << kTransitionsLengthBitSize;
   static constexpr size_t kTotalSizeInBits = kFormatVersionBitSize + kGenerationYearBitSize + kBaseOffsetBitSize +
                                              kDstDeltaBitSize + kTransitionsLengthBitSize;
   static constexpr size_t kTotalSizeInBytes = (kTotalSizeInBits + CHAR_BIT - 1) / CHAR_BIT;
@@ -46,8 +45,7 @@ struct TimeZone
   uint16_t generation_year_offset{};
   uint8_t base_offset{};
   uint8_t dst_delta{};
-  uint8_t transitions_length{};
-  std::array<Transition, kMaxTransitionsElementsPerTZ> transitions{};
+  std::vector<Transition> transitions{};
 
   int32_t GetBaseOffset() const { return (static_cast<int32_t>(base_offset) - 64) * 15; }
 
@@ -62,6 +60,8 @@ public:
 
   TimeZone const & GetTZ(std::string const & tzName) const;
   bool IsEmpty() const { return m_impl.timezones.empty(); }
+
+  std::unordered_map<std::string, TimeZone> const & GetTimeZones() const { return m_impl.timezones; }
 
 private:
   TimeZoneDb();

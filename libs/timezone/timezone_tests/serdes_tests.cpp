@@ -11,8 +11,7 @@ using namespace om::tz;
 
 TEST(TimeZoneSerDes, EmptyTimeZone)
 {
-  constexpr TimeZone tz{
-      .generation_year_offset = 0, .base_offset = 0, .dst_delta = 0, .transitions_length = 0, .transitions = {}};
+  constexpr TimeZone tz{.generation_year_offset = 0, .base_offset = 0, .dst_delta = 0, .transitions = {}};
 
   auto const result = Serialize(tz);
   EXPECT_TRUE(result.has_value());
@@ -27,16 +26,15 @@ TEST(TimeZoneSerDes, EmptyTimeZone)
 
 TEST(TimeZoneSerDes, TimeZoneWithTransitions)
 {
-  constexpr TimeZone tz{.generation_year_offset = 0,
-                        .base_offset = 68,  // UTC+1
-                        .dst_delta = 60,    // DST +1h
-                        .transitions_length = 4,
-                        .transitions = {
-                            Transition{.day_delta = 88, .minute_of_day = 60},
-                            Transition{.day_delta = 154, .minute_of_day = 60},
-                            Transition{.day_delta = 210, .minute_of_day = 120},
-                            Transition{.day_delta = 234, .minute_of_day = 120},
-                        }};
+  TimeZone const tz{.generation_year_offset = 0,
+                    .base_offset = 68,  // UTC+1
+                    .dst_delta = 60,    // DST +1h
+                    .transitions = {
+                        Transition{.day_delta = 88, .minute_of_day = 60},
+                        Transition{.day_delta = 154, .minute_of_day = 60},
+                        Transition{.day_delta = 210, .minute_of_day = 120},
+                        Transition{.day_delta = 234, .minute_of_day = 120},
+                    }};
 
   auto const result = Serialize(tz);
   EXPECT_TRUE(result.has_value());
@@ -53,16 +51,15 @@ TEST(TimeZoneSerDes, TimeZoneWithTransitions)
 
 TEST(TimeZoneSerDes, StringView)
 {
-  constexpr TimeZone tz{.generation_year_offset = 0,
-                        .base_offset = 68,  // UTC+1
-                        .dst_delta = 60,    // DST +1h
-                        .transitions_length = 4,
-                        .transitions = {
-                            Transition{.day_delta = 88, .minute_of_day = 60},
-                            Transition{.day_delta = 154, .minute_of_day = 60},
-                            Transition{.day_delta = 210, .minute_of_day = 120},
-                            Transition{.day_delta = 234, .minute_of_day = 120},
-                        }};
+  TimeZone const tz{.generation_year_offset = 0,
+                    .base_offset = 68,  // UTC+1
+                    .dst_delta = 60,    // DST +1h
+                    .transitions = {
+                        Transition{.day_delta = 88, .minute_of_day = 60},
+                        Transition{.day_delta = 154, .minute_of_day = 60},
+                        Transition{.day_delta = 210, .minute_of_day = 120},
+                        Transition{.day_delta = 234, .minute_of_day = 120},
+                    }};
 
   auto const result = Serialize(tz);
   EXPECT_TRUE(result.has_value());
@@ -77,15 +74,14 @@ TEST(TimeZoneSerDes, StringView)
 
 TEST(TimeZoneSerDes, SerializeRejectsOddTransitions)
 {
-  constexpr TimeZone tz{.generation_year_offset = 0,
-                        .base_offset = 68,
-                        .dst_delta = 60,
-                        .transitions_length = 3,
-                        .transitions = {
-                            Transition{.day_delta = 88, .minute_of_day = 60},
-                            Transition{.day_delta = 154, .minute_of_day = 60},
-                            Transition{.day_delta = 210, .minute_of_day = 120},
-                        }};
+  TimeZone const tz{.generation_year_offset = 0,
+                    .base_offset = 68,
+                    .dst_delta = 60,
+                    .transitions = {
+                        Transition{.day_delta = 88, .minute_of_day = 60},
+                        Transition{.day_delta = 154, .minute_of_day = 60},
+                        Transition{.day_delta = 210, .minute_of_day = 120},
+                    }};
 
   auto const result = Serialize(tz);
   EXPECT_FALSE(result.has_value());
@@ -115,4 +111,19 @@ TEST(TimeZoneSerDes, DeserializeRejectsOddTransitions)
   auto const result = Deserialize(buf);
   EXPECT_FALSE(result.has_value());
   EXPECT_EQ(result.error(), SerializationError::IncorrectTransitionsAmount);
+}
+
+TEST(TimeZoneSerDes, SerDesRealData)
+{
+  TimeZoneDb const & db = TimeZoneDb::Instance();
+  for (auto const & [tzName, tz] : db.GetTimeZones())
+  {
+    auto const result = Serialize(tz);
+    EXPECT_TRUE(result.has_value());
+    std::string const & serialized = result.value();
+    auto const result2 = Deserialize(serialized);
+    EXPECT_TRUE(result2.has_value());
+    TimeZone const & deserialized = result2.value();
+    EXPECT_EQ(tz, deserialized) << "Error in " << tzName << " ser/des";
+  }
 }
