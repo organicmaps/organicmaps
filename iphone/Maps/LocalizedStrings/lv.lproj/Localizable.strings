@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Atcelt";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Grāmatzīmju saraksti";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Kur paēst";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Treileru laukumi";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "grāmatzīme";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Sekojot maršrutam, ievērojiet:";
 "dialog_routing_disclaimer_priority" = "— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;";
 "dialog_routing_disclaimer_precision" = "— Karte var būt kļūdaina, kā arī ieteiktais maršruts ne vienmēr būs optimālākais galamērķa sasniegšanai;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.";
 "dialog_routing_download_files" = "Lejupielādēt nepieciešamās datnes";
 "dialog_routing_download_and_update_all" = "Lejupielādēt un atjaunināt visas kartes, kas varētu būt plānotajā maršrutā.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Rādīt";
@@ -498,7 +478,7 @@
 "login_osm" = "Ierakstīties OpenStreetMap";
 "forgot_password" = "Vai aizmirsāt paroli?";
 "logout" = "Izrakstīties";
-"edit_place" = "Rediģēt vietu";
+"edit_place" = "Labot vietu";
 "add_language" = "Pievienot valodu";
 
 /* Editable House Number text field (in address block). */
@@ -525,7 +505,7 @@
 "downloader_no_space_message" = "Dzēsiet liekos datus";
 "editor_profile_changes" = "Apstiprinātas izmaiņas";
 "editor_focus_map_on_location" = "Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.";
-"editor_edit_place_title" = "Rediģēšana";
+"editor_edit_place_title" = "Vietas labošana";
 "editor_add_place_title" = "Pievienošana";
 "editor_edit_place_name_hint" = "Vietas nosaukums";
 
@@ -573,7 +553,7 @@
 "placepage_more_button" = "Vairāk";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Rediģēt grāmatzīmi";
+"placepage_edit_bookmark_button" = "Grāmatzīmes labošana";
 "placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
 "editor_comment_hint" = "Komentārs…";
 "editor_reset_edits_message" = "Vai izmest visas lokāli saglabātās izmaiņas?";
@@ -859,10 +839,6 @@
 "sort_distance" = "Kārtot pēc attāluma";
 "sort_date" = "Kārtot pēc datuma";
 "sort_name" = "Kārtot pēc nosaukuma";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ēdiens";
 "tourist_places" = "Apskates objekti";
 "museums" = "Muzeji";
@@ -969,11 +945,11 @@
 "start_track_recording" = "Ierakstīt pēdojumu";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Apstādināt ierakstīšanu";
+"stop_track_recording" = "Apstādināt pēdojuma ierakstīšanu";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Pēdojums ir tukšs – nav ko saglabāt";
-"edit_track" = "Labot pēdojumu";
+"track_recording_toast_nothing_to_save" = "Pēdojums ir tukšs – nav nekā saglabājama";
+"edit_track" = "Pēdojuma labošana";
 "elevation_profile_diff_level" = "Sarežģītības līmenis";
 "elevation_profile_diff_level_easy" = "Viegls";
 "elevation_profile_diff_level_moderate" = "Normāls";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Atjauniniet karti, lai piedalītos";
 "contribute_to_osm_update_map_description" = "Jums ir jāatjaunina %@ karte uz jaunāko versiju, pirms varat piedalīties OpenStreetMap datos";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mana atrašanās vieta";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Violeti lejupielādētie reģioni";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Pieteikšanās ar paroli";

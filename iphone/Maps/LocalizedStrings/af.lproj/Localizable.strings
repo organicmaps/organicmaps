@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Kanselleer";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Boekmerklyste";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Waar om te eet";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karavaanfasiliteite";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in Organic Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://omaps.app/get?kmz\n\nGeniet dit om met Organic Maps te reis!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "boekmerk";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Wanneer u die roete volg, hou asb. die volgende in gedagte:";
 "dialog_routing_disclaimer_priority" = "– Padtoestande, verkeersreëls en padtekens neem kry voorkeur bo die navigasiewenke;";
 "dialog_routing_disclaimer_precision" = "– Die kaart kan onakkuraat wees en die voorgestelde roete is dalk nie die mees optimale manier om die bestemming te bereik nie;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.";
 "dialog_routing_download_files" = "Laai vereiste lêers af";
 "dialog_routing_download_and_update_all" = "Laai af of werk alle kaarte langs die berekende pad by om ’n roete te bereken.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Toon";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sorteer volgens afstand";
 "sort_date" = "Sorteer volgens datum";
 "sort_name" = "Sorteer volgens naam";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Kos";
 "tourist_places" = "Besienswaardighede";
 "museums" = "Museums";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Werk die Kaart By om By te Dra";
 "contribute_to_osm_update_map_description" = "Jy moet die %@ kaart na die nuutste weergawe bywerk voordat jy tot die OpenStreetMap-data kan bydra";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "My posisie";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Pers afgelaaide streke";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Aanmelding met wagwoord";

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Назад</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Одиниці виміру</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Використовувати милі чи кілометри</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Де поїсти</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Для автобудинків</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примітка</string>
@@ -340,7 +337,6 @@
     <string name="pref_appearance_dark">Темний</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Подаруйте мільйонам користувачів безкоштовні мапи без реклами!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>
     <string name="dialog_routing_disclaimer_priority">— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;</string>
@@ -351,7 +347,6 @@
     <string name="dialog_routing_location_turn_wifi">Будь ласка, перевірте сигнал GPS. Для покращання точності геопозиції увімкніть Wi-Fi.</string>
     <string name="dialog_routing_system_error">Системна помилка</string>
     <string name="not_now">Не зараз</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
     <string name="search_select_map">Вибрати мапу</string>
@@ -707,7 +702,6 @@
     <string name="moreyear_ago_sorttype">Понад рік тому</string>
     <string name="near_me_sorttype">Поруч зі мною</string>
     <string name="others_sorttype">Інші</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Їжа</string>
     <string name="tourist_places">Пам’ятки</string>
@@ -740,7 +734,7 @@
     <string name="downloader_loading_ios">Завантаження</string>
     <string name="download_map_title">Завантажити оглядову мапу світу</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти</string>
+    <string name="disk_error">Неможливо створити теку та перемістити файли до внутрішньої памʼяті або SD-карти</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error_title">Помилка диска</string>
     <!-- Used in DownloadResources startup screen -->
@@ -862,7 +856,6 @@
     <string name="share_track">Поділитися треком</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Видалити %s?</string>
-
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Вхід за допомогою пароля</string>

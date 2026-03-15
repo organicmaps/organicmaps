@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresa/Blok</string>
     <string name="type.addr_interpolation.even">Adresa/Blok</string>
@@ -71,14 +70,12 @@
     <string name="type.amenity.parking.street_side">Parkiralište uz cestu</string>
     <string name="type.amenity.parking.street_side.fee">Parkiralište uz cestu</string>
     <string name="type.amenity.parking.street_side.private">Privatno parkiralište uz cestu</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.barrier.block">Blok</string>
     <string name="type.craft.photographer">Fotograf</string>
     <string name="type.cuisine.noodles">Rezanci</string>
     <string name="type.cuisine.uzbek">Uzbečka</string>
     <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
-
     <!-- SECTION: Types: Historic -->
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Groblje</string>
@@ -101,4 +98,9 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>
     <string name="type.amenity.boat_rental">Iznajmljivanje čamaca</string>
+    <string name="type.highway.platform">Platforma</string>
+    <string name="type.railway">Željeznica</string>
+    <string name="type.public_transport.platform">Platforma</string>
+    <string name="type.railway.rail">Željeznica</string>
+    <string name="type.railway.rail.main">Željeznica</string>
 </resources>

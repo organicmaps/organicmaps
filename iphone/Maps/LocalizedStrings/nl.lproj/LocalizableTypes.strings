@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/blok";
 "type.addr_interpolation.even" = "Adres/blok";
 "type.addr_interpolation.odd" = "Adres/blok";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Gevangenis";
 "type.amenity.pub" = "Kroeg";
 "type.amenity.public_bookcase" = "Boekenkast";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Milieustraat";
 "type.amenity.recycling" = "Recycling container";
 "type.amenity.recycling.container" = "Recycling container";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "Psychotherapie";
 "type.healthcare.sample_collection" = "Bemonstering";
 "type.healthcare.speech_therapist" = "Logopedie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Straat";
 "type.highway.bridleway" = "Ruiterpad";
 
@@ -619,10 +607,6 @@
 "type.area_highway.unclassified" = "Straat";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historisch object";
 "type.historic.aircraft" = "Historische vliegtuigen";
 "type.historic.anchor" = "Historisch anker";
@@ -810,10 +794,10 @@
 "type.man_made.tower" = "Toren";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
-"type.man_made.communications_tower" = "Communicatie Toren";
+"type.man_made.communications_tower" = "Communicatietoren";
 
 /* A regular telecommunications tower / mast. */
-"type.man_made.tower.communication" = "Communicatie Toren";
+"type.man_made.tower.communication" = "Communicatietoren";
 
 /* A deep hole drilled into the earth to extract oil or gas. */
 "type.man_made.petroleum_well" = "Olie- of gasput";
@@ -1426,7 +1410,7 @@
 "type.sport.10pin" = "Bowlen";
 "type.sport.9pin" = "Bowlen";
 "type.sport.padel" = "Padel";
-"type.sport.futsal" = "Futsal";
+"type.sport.futsal" = "Zaalvoetbal";
 "type.sport.ice_hockey" = "IJshockey";
 "type.sport.field_hockey" = "Veldhockey";
 "type.sport.badminton" = "Badminton";
@@ -1558,7 +1542,7 @@
 "type.barrier.yes" = "Barrière";
 "type.building.guardhouse" = "Wacht";
 "type.office.security" = "Beveiligingsbureau";
-"type.power.portal" = "Kracht Toren (Portaal)";
+"type.power.portal" = "Krachttoren (Portaal)";
 "type.shop.lighting" = "Verlichtingswinkel";
 "type.barrier.jersey_barrier" = "Blok";
 "type.barrier.debris" = "Puin";

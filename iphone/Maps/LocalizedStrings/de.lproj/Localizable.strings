@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Abbrechen";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Lesezeichenliste";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Essmöglichkeiten";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Einrichtungen für Wohnmobile";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Du kannst sie mit Organic Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://omaps.app/get?kmz herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "Lesezeichen";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Wenn du der Route folgst, beachte bitte:";
 "dialog_routing_disclaimer_priority" = "— Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;";
 "dialog_routing_disclaimer_precision" = "— Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Lade zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.";
 "dialog_routing_download_files" = "Erforderliche Dateien herunterladen";
 "dialog_routing_download_and_update_all" = "Lade alle Karten entlang der geplanten Route herunter oder aktualisiere sie, um eine Route zu berechnen.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Anzeigen";
@@ -859,10 +839,6 @@
 "sort_distance" = "Nach Entfernung sortieren";
 "sort_date" = "Nach Datum sortieren";
 "sort_name" = "Nach Name sortieren";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Essen";
 "tourist_places" = "Sehenswürdigkeiten";
 "museums" = "Museen";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Aktualisiere die Karte, um beizutragen";
 "contribute_to_osm_update_map_description" = "Du musst die %@-Karte auf die neueste Version aktualisieren, bevor du zu OpenStreetMap-Daten beitragen kannst";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mein Standort";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Heruntergeladene Regionen farblich markieren";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Anmeldung mit Passwort";

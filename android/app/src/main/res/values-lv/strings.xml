@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Atpakaļ</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Mērvienības</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Izvēlieties starp jūdzēm un kilometriem</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kur paēst</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Ūdens</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Treileru laukumi</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Piezīmes</string>
@@ -340,7 +337,6 @@
     <string name="pref_appearance_dark">Tumšs</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Dāviniet bezmaksas kartes bez reklāmām miljoniem lietotāju!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Sekojot maršrutam, ievērojiet:</string>
     <string name="dialog_routing_disclaimer_priority">— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;</string>
@@ -351,7 +347,6 @@
     <string name="dialog_routing_location_turn_wifi">Pārbaudiet GPS signālu. „Wi-Fi“ ieslēgšana uzlabos atrašanās vietas precizitāti.</string>
     <string name="dialog_routing_system_error">Sistēmas kļūda</string>
     <string name="not_now">Ne tagad</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Lejupielādējiet karti, lai sāktu meklēt un veidot maršrutus. Pēc tam tīkla pieslēgumu vairs nevajadzēs.</string>
     <string name="search_select_map">Atlasīt karti</string>
@@ -411,10 +406,10 @@
     <string name="day_off_today">Šodien slēgts</string>
     <string name="day_off">Slēgts</string>
     <string name="today">Šodien</string>
-    <string name="opens_in">Atveras pēc %s</string>
-    <string name="closes_in">Slēgts pēc %s</string>
+    <string name="opens_in">Atvērsies pēc %s</string>
+    <string name="closes_in">Slēgsies pēc %s</string>
     <string name="closed">Slēgts</string>
-    <string name="edit_opening_hours">Rediģēt darba laiku</string>
+    <string name="edit_opening_hours">Labot darba laiku</string>
     <string name="no_osm_account">Vai jums nav „OpenStreetMap“ konta?</string>
     <string name="register_at_openstreetmap">Reģistrējieties „OpenStreetMap“</string>
     <string name="login">Ierakstīties</string>
@@ -424,7 +419,7 @@
     <string name="password">Parole</string>
     <string name="forgot_password">Vai aizmirsāt paroli?</string>
     <string name="logout">Izrakstīties</string>
-    <string name="edit_place">Rediģēt vietu</string>
+    <string name="edit_place">Labot vietu</string>
     <string name="add_language">Pievienot valodu</string>
     <string name="street">Iela</string>
     <!-- Editable House Number text field (in address block). -->
@@ -456,7 +451,7 @@
     <string name="editor_login_error_dialog">Ierakstīšanās kļūda.</string>
     <string name="editor_profile_changes">Apstiprinātas izmaiņas</string>
     <string name="editor_focus_map_on_location">Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.</string>
-    <string name="editor_edit_place_title">Rediģēšana</string>
+    <string name="editor_edit_place_title">Vietas labošana</string>
     <string name="editor_add_place_title">Pievienošana</string>
     <string name="editor_edit_place_name_hint">Vietas nosaukums</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
@@ -507,7 +502,7 @@
     <string name="second">s</string>
     <string name="placepage_more_button">Vairāk</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="placepage_edit_bookmark_button">Rediģēt grāmatzīmi</string>
+    <string name="placepage_edit_bookmark_button">Grāmatzīmes labošana</string>
     <string name="placepage_personal_notes_hint">Personīgi pieraksti (teksts vai HTML)</string>
     <string name="editor_comment_hint">Komentārs…</string>
     <string name="editor_reset_edits_message">Vai izmest visas lokāli saglabātās izmaiņas?</string>
@@ -703,7 +698,6 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ēdiens</string>
     <string name="tourist_places">Apskates objekti</string>
@@ -830,9 +824,9 @@
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Ierakstīt pēdojumu</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Apstādināt ierakstīšanu</string>
+    <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="track_recording_title">Maršruta ierakstīšana</string>
+    <string name="track_recording_title">Pēdojuma ierakstīšana</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -840,21 +834,20 @@
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">Saglabāt pēdojumu grāmatzīmju sadaļā?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav ko saglabāt</string>
+    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav nekā saglabājama</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
-    <string name="edit_track">Labot pēdojumu</string>
+    <string name="edit_track">Pēdojuma labošana</string>
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automātisks navigācijas laikā</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sekot sistēmai</string>
     <!-- Title of the bottom sheet when sharing the track -->
-    <string name="share_track">Koplietošanas trase</string>
+    <string name="share_track">Kopīgot pēdojumu</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Dzēst %s?</string>
-
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Pieteikšanās ar paroli</string>

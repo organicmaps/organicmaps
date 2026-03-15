@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "ยกเลิก";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "ชุดของบุ๊กมาร์ก";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "กินร้านไหนดี";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "สำหรับ RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "บุ๊กมาร์ก";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:";
 "dialog_routing_disclaimer_priority" = "— สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;";
 "dialog_routing_disclaimer_precision" = "— แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
 "dialog_routing_download_files" = "ดาวน์โหลดไฟล์ที่จำเป็น";
 "dialog_routing_download_and_update_all" = "ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "แสดง";
@@ -859,10 +839,6 @@
 "sort_distance" = "เรียงตามระยะทาง";
 "sort_date" = "เรียงตามวันที่";
 "sort_name" = "เรียงตามชื่อ";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "อาหาร";
 "tourist_places" = "ที่ท่องเที่ยว";
 "museums" = "พิพิธภัณฑ์";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "อัปเดตแผนที่เพื่อมีส่วนร่วม";
 "contribute_to_osm_update_map_description" = "คุณต้องอัปเดตแผนที่ %@ เป็นเวอร์ชันล่าสุดก่อนจึงจะสามารถมีส่วนร่วมกับข้อมูล OpenStreetMap ได้";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "ตำแหน่งของฉัน";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "พื้นที่ดาวน์โหลดสีม่วง";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "เข้าสู่ระบบด้วยรหัสผ่าน";

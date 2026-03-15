@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Terug</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Afstandseenheid</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Waar iets gaan eten</string>
@@ -146,13 +144,12 @@
     <string name="category_water">Water</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Caravan Faciliteiten</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notities</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Bladwijzers van Organic Maps zijn met u gedeeld</string>
-    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Bladwijzers worden geladen</string>
     <!-- Kmz file successful loading -->
@@ -202,7 +199,7 @@
     <string name="prefs_group_information">Informatie</string>
     <string name="prefs_group_route">Navigatie</string>
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
-    <string name="pref_zoom_title">‘+’ en ‘-’ knoppen op de kaart</string>
+    <string name="pref_zoom_title">Zoomknoppen op de kaart</string>
     <string name="pref_zoom_summary">Toon op de kaart</string>
     <string name="pref_auto_night_in_navigation_title">Nachtstijl bij navigeren in het donker</string>
     <!-- Settings «Map» category: «Night style» title -->
@@ -340,7 +337,6 @@
     <string name="pref_appearance_dark">Donker</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Geef gratis kaarten zonder advertenties aan miljoenen gebruikers!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Belangrijk bij het volgen van een route:</string>
     <string name="dialog_routing_disclaimer_priority">— De toestand van het wegdek, de verkeersregels en -borden hebben altijd voorrang op het advies van het navigatiesysteem;</string>
@@ -351,7 +347,6 @@
     <string name="dialog_routing_location_turn_wifi">Controleer uw gps-signaal. Schakel wifi in voor een betere locatiebepaling.</string>
     <string name="dialog_routing_system_error">Systeemfout</string>
     <string name="not_now">Niet nu</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.</string>
     <string name="search_select_map">Selecteer de kaart</string>
@@ -703,7 +698,6 @@
     <string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
     <string name="near_me_sorttype">Dicht bij mij</string>
     <string name="others_sorttype">Andere</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Voedsel</string>
     <string name="tourist_places">Bezienswaardigheden</string>
@@ -858,7 +852,6 @@
     <string name="share_track">Titel van het onderste blad bij delen van het spoor</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Verwijder %s?</string>
-
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Inloggen met wachtwoord</string>

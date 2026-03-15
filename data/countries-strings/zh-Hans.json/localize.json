@@ -1284,7 +1284,7 @@
 "Sweden_Stockholm": "斯德哥尔摩",
 "Switzerland_Espace Mittelland_Bern": "中央地带 - 伯恩",
 "Switzerland_Espace Mittelland_East": "中央地带 - 东",
-"Taiwan_North": "台湾 — 北部‌",
+"Taiwan_North": "台湾 — 北部",
 "Taiwan_South": "台湾 — 南部",
 "Thailand_Central": "泰国 - 中心",
 "Turkey_Central Anatolia Region_Ankara": "中部安那托利亚地区 — 安卡拉",
@@ -2550,5 +2550,10 @@
 "Spain_Castile and Leon_West Short": "卡斯蒂利亚和莱昂",
 "Spain_Galicia_North Short": "加利西亚",
 "Spain_Galicia_South Short": "加利西亚",
-"Switzerland_Espace Mittelland_East Short": "中央地带"
+"Switzerland_Espace Mittelland_East Short": "中央地带",
+"Tanzania_Central": "坦桑尼亚 — 中部地区",
+"Tanzania_Coastal": "坦桑尼亚 — 沿海地区",
+"Tanzania_Northern": "坦桑尼亚 — 北部地区",
+"Tanzania_Southern Highlands": "坦桑尼亚 — 南部高地地区",
+"Tanzania_Western": "坦桑尼亚 — 西部地区"
 }

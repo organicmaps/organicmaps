@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
@@ -38,7 +37,6 @@
     <string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Paarse gedownloade regio\'s</string>
-
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Inloggen met wachtwoord</string>

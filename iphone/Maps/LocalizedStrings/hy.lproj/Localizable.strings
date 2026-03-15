@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Չեղարկել";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Էջանիշների ցուցակներ";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Որտեղ սնվել";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Քեմփինգներ";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք Organic Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://omaps.app/get?kmz\nՎայելեք ճանապարհորդությունը Organic Maps-ի հետ:";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "էջանիշ";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Երթուղով շարժվելիս հիշեք՝";
 "dialog_routing_disclaimer_priority" = "— Ճանապարհային պայմանները, երթևեկության կանոնները և նշանները միշտ ավելի կարևոր են, քան նավիգացիայի հուշումները;";
 "dialog_routing_disclaimer_precision" = "— Քարտեզը կարող է անճիշտ լինել, իսկ առաջարկվող երթուղին միշտ չէ, որ նպատակակետ հասնելու լավագույն տարբերակն է;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:";
 "dialog_routing_download_files" = "Ներբեռնել պահանջվող ֆայլերը";
 "dialog_routing_download_and_update_all" = "Ներբեռնեք կամ թարմացրեք երթուղու երկայնքով բոլոր քարտեզները՝ երթուղին հաշվարկելու համար:";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Ցուցադրել";
@@ -859,10 +839,6 @@
 "sort_distance" = "Դասավորել ըստ հեռավորության";
 "sort_date" = "Դասավորել ըստ ամսաթվի";
 "sort_name" = "Դասավորել ըստ անվան";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Սնունդ";
 "tourist_places" = "Տեսարժան վայրեր";
 "museums" = "Թանգարաններ";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Թարմացնել քարտեզը աջակցելու համար";
 "contribute_to_osm_update_map_description" = "OpenStreetMap-ի տվյալներում ներդրում կատարելու համար անհրաժեշտ է թարմացնել %@ քարտեզը մինչև վերջին տարբերակը";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Իմ դիրքը";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Ներբեռնված մանուշակագույն տարածքներ";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Login with password";
