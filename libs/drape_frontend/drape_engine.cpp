@@ -908,6 +908,11 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
     renderInfo->m_layers.emplace_back(mark->GetColor(layerIndex), mark->GetWidth(layerIndex),
                                       mark->GetDepth(layerIndex));
   }
+ renderInfo->m_hasTitle = mark->HasTitle();
+ renderInfo->m_title = mark->GetTitle();
+ renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
+ renderInfo->m_markId = mark->GetId();  
+
   return renderInfo;
 }
 
