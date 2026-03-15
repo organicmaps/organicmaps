@@ -32,8 +32,11 @@ SOFTWARE.
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 
 #include <iterator>
+#include <memory>
 #include <string>
 #include <unordered_map>
 
@@ -56,7 +59,6 @@ jfieldID GetHttpParamsFieldId(ScopedEnv & env, char const * name, char const * s
   return env->GetFieldID(g_httpParamsClazz, name, signature);
 }
 
-// Set string value to HttpClient.Params object, throws JniException and
 void SetString(ScopedEnv & env, jobject params, jfieldID const fieldId, std::string const & value)
 {
   if (value.empty())
@@ -81,7 +83,6 @@ void SetInt(ScopedEnv & env, jobject params, jfieldID const fieldId, int const v
   RethrowOnJniException(env);
 }
 
-// Get string value from HttpClient.Params object, throws JniException.
 void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, std::string & result)
 {
   jni::ScopedLocalRef<jstring> const wrappedValue(env.get(),
@@ -153,26 +154,182 @@ public:
 private:
   std::unordered_map<std::string, jfieldID> m_fieldIds;
 };
+
+using CancelChecker = platform::HttpClient::CancelChecker;
+
+// Context passed to Java as a native pointer, delivered back in nativeOnComplete.
+struct AsyncContext
+{
+  platform::HttpClient::CompletionHandler m_handler;
+  platform::HttpClient::ProgressHandler m_progressHandler;
+  platform::HttpClient::DataHandler m_dataHandler;
+  CancelChecker m_cancelChecker;
+  // Global ref to the Params object so we can read results on the callback thread.
+  jobject m_paramsGlobalRef = nullptr;
+  std::atomic<bool> m_dataAborted{false};
+};
+
+// Extract Result from a Java Params object.
+platform::HttpClient::Result ExtractResult(JNIEnv * env, jobject params)
+{
+  platform::HttpClient::Result result;
+  ScopedEnv scopedEnv(jni::GetJVM());
+  static Ids ids(scopedEnv);
+  static jfieldID const responseDataField = env->GetFieldID(g_httpParamsClazz, "responseData", "[B");
+
+  try
+  {
+    GetInt(scopedEnv, params, ids.GetId("httpResponseCode"), result.m_errorCode);
+    GetString(scopedEnv, params, ids.GetId("receivedUrl"), result.m_urlReceived);
+
+    platform::HttpClient::Headers headers;
+    ::LoadHeaders(scopedEnv, params, headers);
+    result.m_headers = std::move(headers);
+  }
+  catch (JniException const &)
+  {
+    return result;
+  }
+
+  jni::ScopedLocalRef<jbyteArray> const jniData(
+      env, static_cast<jbyteArray>(env->GetObjectField(params, responseDataField)));
+  if (!jni::HandleJavaException(env) && jniData)
+  {
+    jbyte * buffer = env->GetByteArrayElements(jniData.get(), nullptr);
+    if (buffer)
+    {
+      result.m_serverResponse.assign(reinterpret_cast<char const *>(buffer), env->GetArrayLength(jniData.get()));
+      env->ReleaseByteArrayElements(jniData.get(), buffer, JNI_ABORT);
+    }
+  }
+
+  return result;
+}
 }  // namespace
+
+// JNI streaming callbacks — called from Java during response body reading.
+
+extern "C" JNIEXPORT jboolean Java_app_organicmaps_sdk_util_HttpClient_nativeOnData(JNIEnv * env, jclass /*clazz*/,
+                                                                                    jlong nativeCtxPtr,
+                                                                                    jbyteArray dataBuffer,
+                                                                                    jint dataSize)
+{
+  auto * ctx = reinterpret_cast<AsyncContext *>(nativeCtxPtr);
+  ASSERT(ctx && ctx->m_dataHandler, ());
+
+  if (ctx->m_cancelChecker && ctx->m_cancelChecker())
+    return JNI_FALSE;
+
+  jbyte * buffer = env->GetByteArrayElements(dataBuffer, nullptr);
+  if (!buffer)
+    return JNI_FALSE;
+
+  bool const shouldContinue = ctx->m_dataHandler(buffer, static_cast<size_t>(dataSize));
+  env->ReleaseByteArrayElements(dataBuffer, buffer, JNI_ABORT);
+
+  if (!shouldContinue)
+    ctx->m_dataAborted.store(true, std::memory_order_release);
+
+  return shouldContinue ? JNI_TRUE : JNI_FALSE;
+}
+
+extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnProgress(JNIEnv * /*env*/, jclass /*clazz*/,
+                                                                                    jlong nativeCtxPtr,
+                                                                                    jlong bytesTransferred,
+                                                                                    jlong totalBytes)
+{
+  auto * ctx = reinterpret_cast<AsyncContext *>(nativeCtxPtr);
+  ASSERT(ctx && ctx->m_progressHandler, ());
+  ctx->m_progressHandler(bytesTransferred, totalBytes);
+}
+
+extern "C" JNIEXPORT jboolean Java_app_organicmaps_sdk_util_HttpClient_hasNativeDataHandler(JNIEnv * /*env*/,
+                                                                                            jclass /*clazz*/,
+                                                                                            jlong nativeCtxPtr)
+{
+  auto * ctx = reinterpret_cast<AsyncContext *>(nativeCtxPtr);
+  return (ctx && ctx->m_dataHandler) ? JNI_TRUE : JNI_FALSE;
+}
+
+extern "C" JNIEXPORT jboolean Java_app_organicmaps_sdk_util_HttpClient_hasNativeProgressHandler(JNIEnv * /*env*/,
+                                                                                                jclass /*clazz*/,
+                                                                                                jlong nativeCtxPtr)
+{
+  auto * ctx = reinterpret_cast<AsyncContext *>(nativeCtxPtr);
+  return (ctx && ctx->m_progressHandler) ? JNI_TRUE : JNI_FALSE;
+}
+
+// JNI callback from OkHttp's thread — called by HttpClient.java after enqueue() completes.
+extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnComplete(JNIEnv * env, jclass /*clazz*/,
+                                                                                    jlong nativeCtxPtr,
+                                                                                    jboolean success)
+{
+  std::unique_ptr<AsyncContext> ctx(reinterpret_cast<AsyncContext *>(nativeCtxPtr));
+
+  platform::HttpClient::Result result;
+
+  // Check cancellation or data-handler abort.
+  if ((ctx->m_cancelChecker && ctx->m_cancelChecker()) || ctx->m_dataAborted.load(std::memory_order_acquire))
+  {
+    result.m_errorCode = platform::HttpClient::kCancelled;
+  }
+  else if (success && ctx->m_paramsGlobalRef)
+  {
+    result = ExtractResult(env, ctx->m_paramsGlobalRef);
+    result.m_success = true;
+  }
+  else if (ctx->m_paramsGlobalRef)
+  {
+    // Failure — extract error code from params.
+    ScopedEnv scopedEnv(jni::GetJVM());
+    static Ids ids(scopedEnv);
+    try
+    {
+      GetInt(scopedEnv, ctx->m_paramsGlobalRef, ids.GetId("httpResponseCode"), result.m_errorCode);
+    }
+    catch (...)
+    {}
+  }
+
+  // Clean up the global ref.
+  if (ctx->m_paramsGlobalRef)
+  {
+    env->DeleteGlobalRef(ctx->m_paramsGlobalRef);
+    ctx->m_paramsGlobalRef = nullptr;
+  }
+
+  if (ctx->m_handler)
+    ctx->m_handler(std::move(result));
+}
 
 //***********************************************************************
 // Exported functions implementation
 //***********************************************************************
 namespace platform
 {
-bool HttpClient::RunHttpRequest()
+HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler handler)
 {
-  ScopedEnv env(jni::GetJVM());
+  RequestHandle handle;
+  handle.m_impl = std::make_shared<RequestHandle::Impl>();
 
+  // Invoke handler with empty Result on any early return.
+  // Released after handler ownership transfers to AsyncContext.
+  SCOPE_GUARD(onError, [&handler]
+  {
+    if (handler)
+      handler(Result{});
+  });
+
+  ScopedEnv env(jni::GetJVM());
   if (!env)
-    return false;
+    return handle;
 
   static Ids ids(env);
 
   // Create and fill request params.
   jni::ScopedLocalRef<jstring> const jniUrl(env.get(), jni::ToJavaString(env.get(), m_urlRequested));
   if (jni::HandleJavaException(env.get()))
-    return false;
+    return handle;
 
   static jmethodID const httpParamsConstructor =
       jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
@@ -180,26 +337,24 @@ bool HttpClient::RunHttpRequest()
   jni::ScopedLocalRef<jobject> const httpParamsObject(
       env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
   if (jni::HandleJavaException(env.get()))
-    return false;
+    return handle;
 
-  // Cache it on the first call.
-  static jfieldID const dataField = env->GetFieldID(g_httpParamsClazz, "data", "[B");
+  static jfieldID const requestDataField = env->GetFieldID(g_httpParamsClazz, "requestData", "[B");
   if (!m_bodyData.empty())
   {
     jni::ScopedLocalRef<jbyteArray> const jniPostData(env.get(),
                                                       env->NewByteArray(static_cast<jsize>(m_bodyData.size())));
-
     if (jni::HandleJavaException(env.get()))
-      return false;
+      return handle;
 
     env->SetByteArrayRegion(jniPostData.get(), 0, static_cast<jsize>(m_bodyData.size()),
                             reinterpret_cast<jbyte const *>(m_bodyData.data()));
     if (jni::HandleJavaException(env.get()))
-      return false;
+      return handle;
 
-    env->SetObjectField(httpParamsObject.get(), dataField, jniPostData.get());
+    env->SetObjectField(httpParamsObject.get(), requestDataField, jniPostData.get());
     if (jni::HandleJavaException(env.get()))
-      return false;
+      return handle;
   }
 
   ASSERT(!m_httpMethod.empty(), ("Http method type can not be empty."));
@@ -214,47 +369,70 @@ bool HttpClient::RunHttpRequest()
     SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
     SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"), static_cast<int>(m_timeoutSec * 1000));
 
-    SetHeaders(env, httpParamsObject.get(), m_headers);
+    ::SetHeaders(env, httpParamsObject.get(), m_headers);
   }
-  catch (JniException const & ex)
+  catch (JniException const &)
   {
-    return false;
+    return handle;
   }
 
-  static jmethodID const httpClientClassRun = env->GetStaticMethodID(
-      g_httpClientClazz, "run",
-      "(Lapp/organicmaps/sdk/util/HttpClient$Params;)Lapp/organicmaps/sdk/util/HttpClient$Params;");
+  // Allocate async context on the heap — will be freed in nativeOnComplete.
+  auto ctx = std::make_unique<AsyncContext>();
+  ctx->m_handler = std::move(handler);
+  onError.release();
+  ctx->m_progressHandler = m_progressHandler;
+  ctx->m_dataHandler = m_dataHandler;
+  ctx->m_cancelChecker = handle.MakeCancelChecker();
+  ctx->m_paramsGlobalRef = env->NewGlobalRef(httpParamsObject.get());
 
-  jni::ScopedLocalRef<jobject> const response(
-      env.get(), env->CallStaticObjectMethod(g_httpClientClazz, httpClientClassRun, httpParamsObject.get()));
+  // Call Java HttpClient.runAsync(Params, long nativeCtxPtr) — returns a Call object.
+  static jmethodID const runAsyncMethod = env->GetStaticMethodID(
+      g_httpClientClazz, "runAsync", "(Lapp/organicmaps/sdk/util/HttpClient$Params;J)Lokhttp3/Call;");
+
+  jlong const ctxPtr = reinterpret_cast<jlong>(ctx.get());
+  jni::ScopedLocalRef<jobject> const jCall(
+      env.get(), env->CallStaticObjectMethod(g_httpClientClazz, runAsyncMethod, httpParamsObject.get(), ctxPtr));
+
   if (jni::HandleJavaException(env.get()))
-    return false;
-
-  try
   {
-    GetInt(env, response.get(), ids.GetId("httpResponseCode"), m_errorCode);
-    GetString(env, response.get(), ids.GetId("receivedUrl"), m_urlReceived);
-    ::LoadHeaders(env, httpParamsObject.get(), m_headers);
-  }
-  catch (JniException const & ex)
-  {
-    return false;
+    // nativeOnComplete was NOT called (uncaught Java exception) — ctx is still
+    // owned by unique_ptr. Clean up and invoke handler to avoid deadlock in sync wrapper.
+    env->DeleteGlobalRef(ctx->m_paramsGlobalRef);
+    ctx->m_paramsGlobalRef = nullptr;
+    if (ctx->m_handler)
+      ctx->m_handler(Result{});
+    return handle;
   }
 
-  // dataField is already cached above.
-  jni::ScopedLocalRef<jbyteArray> const jniData(env.get(),
-                                                static_cast<jbyteArray>(env->GetObjectField(response, dataField)));
-  if (jni::HandleJavaException(env.get()))
-    return false;
-  if (jniData)
+  // Context ownership transferred to Java callback — release from unique_ptr.
+  ctx.release();
+
+  // Store OkHttp Call for cancellation.
+  // Use shared_ptr with custom deleter to ensure the global ref is freed exactly once,
+  // whether the request completes normally (Impl destroyed) or is cancelled.
+  if (jCall)
   {
-    jbyte * buffer = env->GetByteArrayElements(jniData.get(), nullptr);
-    if (buffer)
+    auto callRef = std::shared_ptr<_jobject>(env->NewGlobalRef(jCall.get()), [](jobject ref)
     {
-      m_serverResponse.assign(reinterpret_cast<char const *>(buffer), env->GetArrayLength(jniData.get()));
-      env->ReleaseByteArrayElements(jniData.get(), buffer, JNI_ABORT);
-    }
+      ScopedEnv scopedEnv(jni::GetJVM());
+      scopedEnv.get()->DeleteGlobalRef(ref);
+    });
+
+    // Use GetObjectClass instead of FindClass to avoid class loader issues:
+    // native threads attached via ScopedEnv use the system class loader,
+    // which can't find app/library classes like okhttp3.Call.
+    jclass const callClass = env->GetObjectClass(jCall.get());
+    jmethodID const cancelMethodId = env->GetMethodID(callClass, "cancel", "()V");
+    env->DeleteLocalRef(callClass);
+
+    std::lock_guard lock(handle.m_impl->m_mu);
+    handle.m_impl->m_platformCancel = [callRef, cancelMethodId]
+    {
+      ScopedEnv scopedEnv(jni::GetJVM());
+      scopedEnv.get()->CallVoidMethod(callRef.get(), cancelMethodId);
+    };
   }
-  return true;
+
+  return handle;
 }
 }  // namespace platform

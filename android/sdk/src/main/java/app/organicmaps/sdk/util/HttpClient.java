@@ -27,25 +27,26 @@ package app.organicmaps.sdk.util;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.util.log.Logger;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.InflaterInputStream;
+import java.util.concurrent.TimeUnit;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import okio.Okio;
 
 // Used by JNI.
 @Keep
@@ -54,176 +55,280 @@ public final class HttpClient
 {
   private static final String TAG = HttpClient.class.getSimpleName();
 
-  // TODO(AlexZ): tune for larger files
-  private final static int STREAM_BUFFER_SIZE = 1024 * 64;
+  // These constants must match the C++ HttpClient error codes in http_client.hpp.
+  private static final int kNoError = -1;
+  private static final int kWriteException = -2;
+  private static final int kCancelled = -6;
 
-  public static Params run(@NonNull final Params p) throws IOException, NullPointerException
+  private static volatile OkHttpClient sBaseClient;
+
+  private static OkHttpClient getBaseClient()
+  {
+    if (sBaseClient == null)
+    {
+      synchronized (HttpClient.class)
+      {
+        if (sBaseClient == null)
+        {
+          OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                                             .connectTimeout(Constants.READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)
+                                             .readTimeout(Constants.READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)
+                                             .writeTimeout(Constants.READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)
+                                             .followRedirects(true)
+                                             .followSslRedirects(true);
+
+          // Apply custom root certificates for Android 7 and below.
+          if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.N)
+          {
+            javax.net.ssl.SSLSocketFactory factory = Android7RootCertificateWorkaround.getSslSocketFactory();
+            javax.net.ssl.X509TrustManager trustManager = Android7RootCertificateWorkaround.getTrustManager();
+            if (factory != null && trustManager != null)
+              builder.sslSocketFactory(factory, trustManager);
+          }
+
+          sBaseClient = builder.build();
+        }
+      }
+    }
+    return sBaseClient;
+  }
+
+  // Asynchronous HTTP request using OkHttp's enqueue(). Called from C++ RunHttpRequestAsync.
+  // Returns the Call object so C++ can cancel it via JNI.
+  public static Call runAsync(@NonNull final Params p, final long nativeCtxPtr)
+  {
+    Request request;
+    try
+    {
+      request = buildRequest(p);
+    }
+    catch (Exception e)
+    {
+      Logger.e(TAG, "Failed to build request for " + Utils.makeUrlSafe(p.url), e);
+      nativeOnComplete(nativeCtxPtr, false);
+      return null;
+    }
+
+    OkHttpClient client = buildClient(p);
+    Call call = client.newCall(request);
+
+    call.enqueue(new Callback() {
+      @Override
+      public void onResponse(@NonNull Call call, @NonNull Response response)
+      {
+        try
+        {
+          processResponse(p, response, nativeCtxPtr);
+          nativeOnComplete(nativeCtxPtr, true);
+        }
+        catch (Exception e)
+        {
+          Logger.e(TAG, "Error processing response for " + Utils.makeUrlSafe(p.url), e);
+          nativeOnComplete(nativeCtxPtr, false);
+        }
+        finally
+        {
+          response.close();
+        }
+      }
+
+      @Override
+      public void onFailure(@NonNull Call call, @NonNull IOException e)
+      {
+        if (call.isCanceled())
+        {
+          p.httpResponseCode = kCancelled;
+        }
+        else
+        {
+          Logger.d(TAG, "Request failed for " + Utils.makeUrlSafe(p.url) + ": " + e.getMessage());
+          p.httpResponseCode = kNoError;
+        }
+        nativeOnComplete(nativeCtxPtr, false);
+      }
+    });
+
+    return call;
+  }
+
+  private static OkHttpClient buildClient(@NonNull final Params p)
+  {
+    return getBaseClient()
+        .newBuilder()
+        .connectTimeout(p.timeoutMillisec, TimeUnit.MILLISECONDS)
+        .readTimeout(p.timeoutMillisec, TimeUnit.MILLISECONDS)
+        .writeTimeout(p.timeoutMillisec, TimeUnit.MILLISECONDS)
+        .followRedirects(p.followRedirects)
+        .followSslRedirects(p.followRedirects)
+        .build();
+  }
+
+  private static Request buildRequest(@NonNull final Params p)
   {
     if (TextUtils.isEmpty(p.httpMethod))
       throw new IllegalArgumentException("Please set valid HTTP method for request at Params.httpMethod field.");
 
-    HttpURLConnection connection = null;
-
     Logger.d(TAG, "Connecting to " + Utils.makeUrlSafe(p.url));
 
-    try
+    Request.Builder requestBuilder = new Request.Builder().url(p.url);
+
+    if (!TextUtils.isEmpty(p.cookies))
+      requestBuilder.header("Cookie", p.cookies);
+
+    for (KeyValue header : p.headers)
+      requestBuilder.header(header.getKey(), header.getValue());
+
+    RequestBody body = null;
+    String contentType = getHeaderValue(p.headers, "Content-Type");
+    MediaType mediaType = contentType != null ? MediaType.parse(contentType) : null;
+    if (p.requestData != null)
     {
-      connection = (HttpURLConnection) new URL(p.url).openConnection();
-      Android7RootCertificateWorkaround.applyFixIfNeeded(connection);
-
-      // NullPointerException, MalformedUrlException, IOException
-      // Redirects from http to https or vice versa are not supported by Android implementation.
-      // There is also a nasty bug on Androids before 4.4:
-      // if you send any request with Content-Length set, and it is redirected, and your instance is set to
-      // automatically follow redirects, then next (internal) GET request to redirected location will incorrectly have
-      // have all headers set from the previous request, including Content-Length, Content-Type etc. This leads to
-      // unexpected hangs and timeout errors, because some servers are correctly trying to wait for the body if
-      // Content-Length is set. It shows in logs like this:
-      //
-      // java.net.SocketTimeoutException: Read timed out
-      //   at org.apache.harmony.xnet.provider.jsse.NativeCrypto.SSL_read(Native Method)
-      //   at org.apache.harmony.xnet.provider.jsse.OpenSSLSocketImpl$SSLInputStream.read(OpenSSLSocketImpl.java:687)
-      //   ...
-      //
-      // Looks like this bug was fixed by switching to OkHttp implementation in this commit:
-      // https://android.googlesource.com/platform/libcore/+/2503556d17b28c7b4e6e514540a77df1627857d0
-      connection.setInstanceFollowRedirects(p.followRedirects);
-      connection.setConnectTimeout(p.timeoutMillisec);
-      connection.setReadTimeout(p.timeoutMillisec);
-      connection.setUseCaches(false);
-      connection.setRequestMethod(p.httpMethod);
-
-      if (!TextUtils.isEmpty(p.cookies))
-        connection.setRequestProperty("Cookie", p.cookies);
-
-      for (KeyValue header : p.headers)
-        connection.setRequestProperty(header.getKey(), header.getValue());
-
-      if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
-      {
-        // Send (POST, PUT...) data to the server.
-        if (TextUtils.isEmpty(connection.getRequestProperty("Content-Type")))
-          throw new NullPointerException("Please set Content-Type for request.");
-
-        // Work-around for situation when more than one consequent POST requests can lead to stable
-        // "java.net.ProtocolException: Unexpected status line:" on a client and Nginx HTTP 499 errors.
-        // The only found reference to this bug is http://stackoverflow.com/a/24303115/1209392
-        connection.setRequestProperty("Connection", "close");
-        connection.setDoOutput(true);
-        if (p.data != null)
-        {
-          connection.setFixedLengthStreamingMode(p.data.length);
-          try (OutputStream os = connection.getOutputStream())
-          {
-            os.write(p.data);
-          }
-          Logger.d(TAG, "Sent " + p.httpMethod + " with content of size " + p.data.length);
-        }
-        else
-        {
-          final File file = new File(p.inputFilePath);
-          connection.setFixedLengthStreamingMode((int) file.length());
-          final BufferedInputStream istream = new BufferedInputStream(new FileInputStream(file), STREAM_BUFFER_SIZE);
-          final BufferedOutputStream ostream =
-              new BufferedOutputStream(connection.getOutputStream(), STREAM_BUFFER_SIZE);
-          final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
-          int bytesRead;
-          while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
-          {
-            ostream.write(buffer, 0, bytesRead);
-          }
-          istream.close(); // IOException
-          ostream.close(); // IOException
-          Logger.d(TAG, "Sent " + p.httpMethod + " with file of size " + file.length());
-        }
-      }
-      // GET data from the server or receive response body
-      p.httpResponseCode = connection.getResponseCode();
-      Logger.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = "
-                        + connection.getContentEncoding() + ", for request = " + Utils.makeUrlSafe(p.url));
-
-      if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
-        p.receivedUrl = connection.getHeaderField("Location");
-      else
-        p.receivedUrl = connection.getURL().toString();
-
-      p.headers.clear();
-      if (p.loadHeaders)
-      {
-        for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet())
-        {
-          // Some implementations include a mapping for the null key.
-          if (header.getKey() == null || header.getValue() == null)
-            continue;
-
-          p.headers.add(
-              new KeyValue(StringUtils.toLowerCase(header.getKey()), TextUtils.join(", ", header.getValue())));
-        }
-      }
-      else
-      {
-        List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
-        if (cookies != null)
-          p.headers.add(new KeyValue("Set-Cookie", TextUtils.join(", ", cookies)));
-      }
-
-      try
-      {
-        OutputStream ostream;
-        if (!TextUtils.isEmpty(p.outputFilePath))
-          ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
-        else
-          ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
-        // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
-        final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
-        final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
-        // gzip encoding is transparently enabled and we can't use Content-Length for
-        // body reading if server has gzipped it.
-        int bytesRead;
-        while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
-        {
-          // Read everything if Content-Length is not known in advance.
-          ostream.write(buffer, 0, bytesRead);
-        }
-        istream.close(); // IOException
-        ostream.close(); // IOException
-        if (ostream instanceof ByteArrayOutputStream)
-          p.data = ((ByteArrayOutputStream) ostream).toByteArray();
-      }
-      catch (IOException ex)
-      {
-        // Exception here means that there is no body in the response.
-      }
+      body = RequestBody.create(p.requestData, mediaType);
+      Logger.d(TAG, "Sending " + p.httpMethod + " with content of size " + p.requestData.length);
     }
-    finally
+    else if (!TextUtils.isEmpty(p.inputFilePath))
     {
-      if (connection != null)
-        connection.disconnect();
+      File file = new File(p.inputFilePath);
+      body = RequestBody.create(file, mediaType);
+      Logger.d(TAG, "Sending " + p.httpMethod + " with file of size " + file.length());
     }
-    return p;
+
+    // OkHttp requires a non-null RequestBody for PUT/POST/PATCH (even if empty).
+    if (body == null && requiresRequestBody(p.httpMethod))
+      body = RequestBody.create(new byte[0], null);
+
+    requestBuilder.method(p.httpMethod, body);
+    return requestBuilder.build();
   }
 
-  @NonNull
-  private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
+  private static void processResponse(@NonNull final Params p, @NonNull Response response, final long nativeCtxPtr)
+      throws IOException
   {
-    InputStream in;
-    try
+    p.httpResponseCode = response.code();
+    Logger.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, for request = " + Utils.makeUrlSafe(p.url));
+
+    if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
+      p.receivedUrl = response.header("Location", p.url);
+    else
+      p.receivedUrl = response.request().url().toString();
+
+    p.headers.clear();
+    if (p.loadHeaders)
     {
-      if ("gzip".equals(connection.getContentEncoding()))
-        in = new GZIPInputStream(connection.getInputStream());
-      else if ("deflate".equals(connection.getContentEncoding()))
-        in = new InflaterInputStream(connection.getInputStream());
-      else
-        in = connection.getInputStream();
+      for (String name : response.headers().names())
+      {
+        // Use headers(name) to collect all values for multi-valued headers
+        // (e.g., Set-Cookie), then join them with ", ".
+        List<String> values = response.headers(name);
+        p.headers.add(new KeyValue(StringUtils.toLowerCase(name), TextUtils.join(", ", values)));
+      }
     }
-    catch (IOException e)
+    else
     {
-      in = connection.getErrorStream();
-      if (in == null)
+      List<String> cookies = response.headers("Set-Cookie");
+      if (!cookies.isEmpty())
+        p.headers.add(new KeyValue("set-cookie", TextUtils.join(", ", cookies)));
+    }
+
+    ResponseBody responseBody = response.body();
+    if (responseBody == null)
+    {
+      p.responseData = null;
+      return;
+    }
+
+    final boolean hasDataHandler = hasNativeDataHandler(nativeCtxPtr);
+    final boolean hasProgressHandler = hasNativeProgressHandler(nativeCtxPtr);
+    final boolean useStreaming = hasDataHandler || hasProgressHandler;
+
+    if (!TextUtils.isEmpty(p.outputFilePath))
+    {
+      try (BufferedSink sink = Okio.buffer(Okio.sink(new File(p.outputFilePath))))
+      {
+        if (useStreaming)
+          readBodyStreaming(responseBody, nativeCtxPtr, sink, hasDataHandler, hasProgressHandler);
+        else
+          sink.writeAll(responseBody.source());
+      }
+      catch (IOException e)
+      {
+        Logger.e(TAG, "File write error for " + p.outputFilePath, e);
+        p.httpResponseCode = kWriteException;
         throw e;
+      }
     }
-    return in;
+    else if (useStreaming)
+    {
+      byte[] accumulated = readBodyStreaming(responseBody, nativeCtxPtr, null, hasDataHandler, hasProgressHandler);
+      if (accumulated != null)
+        p.responseData = accumulated;
+    }
+    else
+    {
+      p.responseData = responseBody.bytes();
+    }
   }
+
+  @Nullable
+  private static byte[] readBodyStreaming(@NonNull ResponseBody body, long nativeCtxPtr,
+                                          @Nullable BufferedSink outputSink, boolean hasDataHandler,
+                                          boolean hasProgressHandler) throws IOException
+  {
+    final long contentLength = body.contentLength();
+    // Accumulate body in memory when no DataHandler consumes it and no file sink exists.
+    final boolean accumulate = !hasDataHandler && outputSink == null;
+    ByteArrayOutputStream baos = accumulate ? new ByteArrayOutputStream() : null;
+    byte[] buffer = new byte[8192];
+    long totalRead = 0;
+
+    try (okio.BufferedSource source = body.source())
+    {
+      int bytesRead;
+      while ((bytesRead = source.read(buffer)) != -1)
+      {
+        totalRead += bytesRead;
+
+        if (hasDataHandler)
+        {
+          if (!nativeOnData(nativeCtxPtr, buffer, bytesRead))
+            break;
+        }
+
+        if (outputSink != null)
+          outputSink.write(buffer, 0, bytesRead);
+
+        if (accumulate)
+          baos.write(buffer, 0, bytesRead);
+
+        if (hasProgressHandler)
+          nativeOnProgress(nativeCtxPtr, totalRead, contentLength);
+      }
+    }
+    return accumulate ? baos.toByteArray() : null;
+  }
+
+  private static boolean requiresRequestBody(@NonNull String method)
+  {
+    return "POST".equals(method) || "PUT".equals(method) || "PATCH".equals(method);
+  }
+
+  private static String getHeaderValue(@NonNull List<KeyValue> headers, @NonNull String name)
+  {
+    for (KeyValue kv : headers)
+    {
+      if (name.equalsIgnoreCase(kv.getKey()))
+        return kv.getValue();
+    }
+    return null;
+  }
+
+  // Called from OkHttp's callback thread to deliver results to C++.
+  private static native void nativeOnComplete(long nativeCtxPtr, boolean success);
+  // Streaming callbacks — called during response body reading.
+  private static native boolean nativeOnData(long nativeCtxPtr, byte[] buffer, int size);
+  private static native void nativeOnProgress(long nativeCtxPtr, long bytesTransferred, long totalBytes);
+  private static native boolean hasNativeDataHandler(long nativeCtxPtr);
+  private static native boolean hasNativeProgressHandler(long nativeCtxPtr);
 
   // Used by JNI.
   @Keep
@@ -241,17 +346,11 @@ public final class HttpClient
     }
 
     public String url;
-    // Can be different from url in case of redirects.
     String receivedUrl;
     String httpMethod;
-    // Should be specified for any request whose method allows non-empty body.
-    // On return, contains received Content-Type or null.
-    // Can be specified for any request whose method allows non-empty body.
-    // On return, contains received Content-Encoding or null.
-    public byte[] data;
-    // Send from input file if specified instead of data.
+    public byte[] requestData;
+    public byte[] responseData;
     String inputFilePath;
-    // Received data is stored here if not null or in data otherwise.
     String outputFilePath;
     String cookies;
     ArrayList<KeyValue> headers = new ArrayList<>();
@@ -260,7 +359,6 @@ public final class HttpClient
     boolean loadHeaders;
     int timeoutMillisec = Constants.READ_TIMEOUT_MS;
 
-    // Simple GET request constructor.
     public Params(String url)
     {
       this.url = url;

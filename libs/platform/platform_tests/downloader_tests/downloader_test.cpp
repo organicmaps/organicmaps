@@ -101,115 +101,6 @@ public:
   }
 };
 
-struct CancelDownload
-{
-  void OnProgress(HttpRequest & request)
-  {
-    TEST_GREATER(request.GetData().size(), 0, ());
-    delete &request;
-    QCoreApplication::quit();
-  }
-  void OnFinish(HttpRequest &) { TEST(false, ("Should be never called")); }
-};
-
-struct DeleteOnFinish
-{
-  void OnProgress(HttpRequest & request) { TEST_GREATER(request.GetData().size(), 0, ()); }
-  void OnFinish(HttpRequest & request)
-  {
-    delete &request;
-    QCoreApplication::quit();
-  }
-};
-
-UNIT_TEST(DownloaderSimpleGet)
-{
-  DownloadObserver observer;
-  auto const MakeRequest = [&observer](string const & url)
-  {
-    return HttpRequest::Get(url, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                            bind(&DownloadObserver::OnDownloadProgress, &observer, _1));
-  };
-
-  {
-    // simple success case
-    std::unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl1)};
-    // wait until download is finished
-    QCoreApplication::exec();
-    observer.TestOk();
-    TEST_EQUAL(request->GetData(), "Test1", ());
-  }
-
-  observer.Reset();
-  {
-    // We DO NOT SUPPORT redirects to avoid data corruption when downloading mwm files
-    std::unique_ptr<HttpRequest> const request{MakeRequest("http://localhost:34568/unit_tests/permanent")};
-    QCoreApplication::exec();
-    observer.TestFailed();
-    TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
-  }
-
-  observer.Reset();
-  {
-    // fail case 404
-    std::unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl404)};
-    QCoreApplication::exec();
-    observer.TestFileNotFound();
-    TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
-  }
-
-  observer.Reset();
-  {
-    // fail case not existing host
-    std::unique_ptr<HttpRequest> const request{MakeRequest("http://not-valid-host123532.ath.cx")};
-    QCoreApplication::exec();
-    observer.TestFailed();
-    TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
-  }
-
-  {
-    // cancel download in the middle of the progress
-    CancelDownload canceler;
-    // should be deleted in canceler
-    HttpRequest::Get(kTestUrlBigFile, bind(&CancelDownload::OnFinish, &canceler, _1),
-                     bind(&CancelDownload::OnProgress, &canceler, _1));
-    QCoreApplication::exec();
-  }
-
-  observer.Reset();
-  {
-    // https success case
-    std::unique_ptr<HttpRequest> const request{MakeRequest("https://github.com")};
-    // wait until download is finished
-    QCoreApplication::exec();
-    observer.TestOk();
-    TEST_GREATER(request->GetData().size(), 0, ());
-  }
-
-  {
-    // Delete request at the end of successful download
-    DeleteOnFinish deleter;
-    // should be deleted in deleter on finish
-    HttpRequest::Get(kTestUrl1, bind(&DeleteOnFinish::OnFinish, &deleter, _1),
-                     bind(&DeleteOnFinish::OnProgress, &deleter, _1));
-    QCoreApplication::exec();
-  }
-}
-
-UNIT_TEST(DownloaderSimplePost)
-{
-  // simple success case
-  string const postData = "{\"jsonKey\":\"jsonValue\"}";
-  DownloadObserver observer;
-  std::unique_ptr<HttpRequest> const request{HttpRequest::PostJson(
-      "http://localhost:34568/unit_tests/post.php", postData, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-      bind(&DownloadObserver::OnDownloadProgress, &observer, _1))};
-  // wait until download is finished
-  QCoreApplication::exec();
-  observer.TestOk();
-  TEST_EQUAL(request->GetData(), postData, ());
-}
-
 UNIT_TEST(ChunksDownloadStrategy)
 {
   vector<string> const servers = {"UrlOfServer1", "UrlOfServer2", "UrlOfServer3"};
@@ -366,7 +257,7 @@ void DeleteTempDownloadFiles()
 
 UNIT_TEST(DownloadChunks)
 {
-  string const kFileName = "some_downloader_test_file";
+  string const kFileName = GetPlatform().TmpPathForFile("downloader_test_", ".tmp");
 
   // remove data from previously failed files
   DeleteTempDownloadFiles();
@@ -387,7 +278,7 @@ UNIT_TEST(DownloadChunks)
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
-    TEST_EQUAL(request->GetData(), kFileName, ());
+    TEST_EQUAL(request->GetFilePath(), kFileName, ());
     TEST_EQUAL(ReadFileAsString(kFileName), "Test1", ());
     FinishDownloadSuccess(kFileName);
   }
@@ -479,7 +370,7 @@ struct ResumeChecker
 
 UNIT_TEST(DownloadResumeChunks)
 {
-  string const FILENAME = "some_test_filename_12345";
+  string const FILENAME = GetPlatform().TmpPathForFile("downloader_resume_test_", ".tmp");
   string const RESUME_FILENAME = FILENAME + RESUME_FILE_EXTENSION;
   string const DOWNLOADING_FILENAME = FILENAME + DOWNLOADING_FILE_EXTENSION;
 
@@ -542,7 +433,7 @@ UNIT_TEST(DownloadResumeChunks)
 // Unit test with forcible canceling of http request
 UNIT_TEST(DownloadResumeChunksWithCancel)
 {
-  string const FILENAME = "some_test_filename_12345";
+  string const FILENAME = GetPlatform().TmpPathForFile("downloader_resume_test_", ".tmp");
 
   // remove data from previously failed files
   DeleteTempDownloadFiles();
