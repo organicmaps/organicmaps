@@ -10,16 +10,15 @@ using namespace om::tz;
 
 TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
 {
-  constexpr TimeZone tz{.generation_year_offset = 0,
-                        .base_offset = 68,  // UTC+1
-                        .dst_delta = 60,    // DST +1h
-                        .transitions_length = 4,
-                        .transitions = {
-                            Transition{.day_delta = 88, .minute_of_day = 60},
-                            Transition{.day_delta = 154, .minute_of_day = 60},
-                            Transition{.day_delta = 210, .minute_of_day = 120},
-                            Transition{.day_delta = 234, .minute_of_day = 120},
-                        }};
+  TimeZone const tz{.generation_year_offset = 0,
+                    .base_offset = 68,  // UTC+1
+                    .dst_delta = 60,    // DST +1h
+                    .transitions = {
+                        Transition{.day_delta = 88, .minute_of_day = 60},
+                        Transition{.day_delta = 154, .minute_of_day = 60},
+                        Transition{.day_delta = 210, .minute_of_day = 120},
+                        Transition{.day_delta = 234, .minute_of_day = 120},
+                    }};
 
   feature::RegionData rd;
   auto const result = Serialize(tz);
