@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -25,7 +24,6 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
@@ -67,7 +65,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         if (searchEnabled != null && searchEnabled && lastState != null && lastState != BottomSheetBehavior.STATE_HIDDEN
             && mViewModel.isHiddenByPlacePage())
         {
-          Logger.d("kavi", "Restoring search page state: " + lastState);
           mFrameLayoutBottomSheetBehavior.setState(lastState);
           mViewModel.setHiddenByPlacePage(false);
         }
@@ -86,10 +83,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         return;
       if (enabled)
       {
-        // show toast message is pp is open or search is already enabled
-        if (mPlacePageViewModel.getMapObject().getValue() != null || mViewModel.isHiddenByPlacePage())
+        if (mPlacePageViewModel.getMapObject().getValue() != null && !mViewModel.isHiddenByPlacePage())
         {
-          Toast.makeText(requireContext(), "Place page is open", Toast.LENGTH_SHORT).show();
+          mPlacePageViewModel.setMapObject(null);
         }
         Integer lastState = mViewModel.getSearchPageLastState().getValue();
         if (lastState != null && lastState != BottomSheetBehavior.STATE_HIDDEN)
@@ -135,7 +131,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
               || newState == BottomSheetBehavior.STATE_COLLAPSED)
           {
             mViewModel.setSearchPageLastState(newState);
-            Logger.d("kavi", "Search page state changed: " + newState);
           }
           else if (newState != BottomSheetBehavior.STATE_HIDDEN)
           {

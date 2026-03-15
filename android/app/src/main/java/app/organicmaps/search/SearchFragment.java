@@ -93,7 +93,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         if (mToolbarController.hasQuery())
           mToolbarController.clear();
         mSearchViewModel.setSearchQuery(null);
-        mSearchViewModel.setLastResults(null);
         SearchEngine.INSTANCE.cancel();
         SearchEngine.INSTANCE.setQuery("");
         return;
@@ -102,12 +101,18 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       final String query = mSearchViewModel.getSearchQuery();
       if (query == null || query.isEmpty())
         return;
+
+      mSearchAdapter.clear();
+      stopSearch();
+
       if (query.equals(getQuery()))
       {
-        mSearchViewModel.setSearchQuery(null);
-        return;
+        runSearch();
       }
-      setQuery(query, false);
+      else
+      {
+        setQuery(query, false); // onTextChanged → runSearch()
+      }
       mSearchViewModel.setSearchQuery(null);
     }
   };
@@ -270,11 +275,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       return insets;
     });
 
-    // Restore cached results (query is restored by view state; we only need to repopulate the list).
-    final SearchResult[] cachedResults = mSearchViewModel.getLastResults();
+    final SearchResult[] cachedResults = SearchEngine.INSTANCE.getCachedResults();
     if (cachedResults != null)
     {
-      final String cachedQuery = mSearchViewModel.getSearchQuery();
+      final String cachedQuery = SearchEngine.INSTANCE.getCachedSearchBarQuery();
       if (!TextUtils.isEmpty(cachedQuery))
         mToolbarController.setQuerySilently(cachedQuery, false);
       mSearchAdapter.refreshData(cachedResults);
@@ -313,7 +317,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     tabAdapter.setTabSelectedListener(tab -> {
       mToolbarController.deactivate();
-      refreshHistoryFragment();
+      mSearchViewModel.notifyHistoryChanged();
     });
     pager.post(() -> updateNestedScrollingForTab(tabAdapter, pager.getCurrentItem()));
   }
@@ -344,8 +348,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onStop()
   {
     super.onStop();
-    mSearchViewModel.setLastResults(mSearchAdapter.getResults());
-    mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
     mToolbarController.detach();
     mSearchViewModel.getSearchEnabled().removeObserver(mSearchEnabledObserver);
   }
@@ -400,22 +402,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     return mHiddenCommands;
   }
 
-  private void refreshHistoryFragment()
-  {
-    if (mTabAdapter == null)
-      return;
-    Fragment f = mTabAdapter.getFragmentForTab(TabAdapter.Tab.HISTORY);
-    if (f instanceof SearchHistoryFragment)
-      ((SearchHistoryFragment) f).refreshHistory();
-  }
-
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
     if (Config.isSearchHistoryEnabled())
     {
       SearchRecents.add(query, requireContext());
-      refreshHistoryFragment();
+      mSearchViewModel.notifyHistoryChanged();
     }
     SearchEngine.INSTANCE.setQuery(query);
 
@@ -483,10 +476,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     String locale = mSearchViewModel.getInitialLocale();
     if (locale == null)
       locale = Language.getKeyboardLocale(requireContext());
-    boolean isMapAndTable = mSearchViewModel.isInitialSearchOnMap();
 
-    SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, mLastQueryTimestamp, isMapAndTable,
-                                            hasLocation, lat, lon);
+    SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, mLastQueryTimestamp,
+                                            true /* isMapAndTable */, hasLocation, lat, lon);
 
     mSearchViewModel.setInitialLocale(null);
     mSearchViewModel.setInitialSearchOnMap(true);
@@ -524,7 +516,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     if (Config.isSearchHistoryEnabled() && category != null)
     {
       SearchRecents.add(category.trim(), requireContext());
-      refreshHistoryFragment();
+      mSearchViewModel.notifyHistoryChanged();
     }
     mToolbarController.setQuery(category, true);
   }
@@ -535,8 +527,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     hideShimmer();
     updateFrames();
     mSearchAdapter.refreshData(results);
-    mSearchViewModel.setLastResults(results);
-    mSearchViewModel.setSearchQuery(getQuery());
     mToolbarController.showProgress(true);
   }
 
@@ -719,7 +709,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
-        mSearchViewModel.setLastResults(null);
         stopSearch();
         return;
       }
@@ -741,7 +730,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       if (Config.isSearchHistoryEnabled())
       {
         SearchRecents.add(getQuery(), requireContext());
-        refreshHistoryFragment();
+        mSearchViewModel.notifyHistoryChanged();
       }
       deactivate();
       mSearchFragmentListener.onSearchClicked();
