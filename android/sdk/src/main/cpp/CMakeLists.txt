@@ -91,7 +91,7 @@ set(SRC
   app/organicmaps/sdk/opengl/androidoglcontextfactory.cpp
   app/organicmaps/sdk/opengl/gl3stub.cpp
   app/organicmaps/sdk/platform/GuiThread.cpp
-  app/organicmaps/sdk/platform/HttpThread.cpp
+  app/organicmaps/sdk/platform/PlatformGuiThread.cpp
   app/organicmaps/sdk/platform/Language.cpp
   app/organicmaps/sdk/platform/Localization.cpp
   app/organicmaps/sdk/platform/AndroidPlatform.cpp

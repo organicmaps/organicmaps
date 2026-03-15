@@ -27,7 +27,6 @@ set(SRC
   http_payload.hpp
   http_request.cpp
   http_request.hpp
-  http_thread_callback.hpp
   http_uploader.hpp
   http_uploader_background.hpp
   local_country_file.cpp
@@ -73,8 +72,6 @@ if (PLATFORM_IPHONE)
     background_downloader_ios.h
     background_downloader_ios.mm
     gui_thread_apple.mm
-    http_thread_apple.h
-    http_thread_apple.mm
     http_client_apple.mm
     http_uploader_apple.mm
     http_user_agent_ios.mm
@@ -125,9 +122,8 @@ else() # neither iPhone nor Android
   if (${PLATFORM_WIN})
     append(SRC
       gui_thread_qt.cpp
-      http_client_curl.cpp
-      http_thread_qt.cpp
-      http_thread_qt.hpp
+      http_client_qt.cpp
+      http_client_qt.hpp
       http_uploader_background_dummy.cpp
       http_uploader_dummy.cpp
       locale_std.cpp
@@ -138,8 +134,6 @@ else() # neither iPhone nor Android
     append(SRC
       gui_thread_apple.mm
       http_client_apple.mm
-      http_thread_apple.h
-      http_thread_apple.mm
       http_uploader_apple.mm
       http_uploader_background_dummy.cpp
       locale.mm
@@ -153,9 +147,8 @@ else() # neither iPhone nor Android
   elseif(${PLATFORM_LINUX})
     append(SRC
       gui_thread_qt.cpp
-      http_client_curl.cpp
-      http_thread_qt.cpp
-      http_thread_qt.hpp
+      http_client_qt.cpp
+      http_client_qt.hpp
       http_uploader_dummy.cpp
       http_uploader_background_dummy.cpp
       locale_std.cpp

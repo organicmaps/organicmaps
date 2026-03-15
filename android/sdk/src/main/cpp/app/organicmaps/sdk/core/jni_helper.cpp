@@ -29,6 +29,7 @@ jclass g_loggerClazz;
 jclass g_keyValueClazz;
 jclass g_networkPolicyClazz;
 jclass g_elevationInfoClazz;
+jclass g_uiThreadClazz;
 
 extern "C"
 {
@@ -67,6 +68,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM * jvm, void *)
   g_keyValueClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/KeyValue");
   g_networkPolicyClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/NetworkPolicy");
   g_elevationInfoClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo");
+  g_uiThreadClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/concurrency/UiThread");
 
   if (g_isAndroidLowerThan12)
   {
@@ -97,6 +99,7 @@ JNIEXPORT void JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_keyValueClazz);
   env->DeleteGlobalRef(g_networkPolicyClazz);
   env->DeleteGlobalRef(g_elevationInfoClazz);
+  env->DeleteGlobalRef(g_uiThreadClazz);
 }
 }  // extern "C"
 

@@ -31,6 +31,7 @@ from __future__ import print_function
 
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
+from socketserver import ThreadingMixIn
 from ResponseProvider import Payload
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
@@ -56,7 +57,8 @@ except:
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
 
 
-class InternalServer(HTTPServer):
+class InternalServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
 
     def kill_me(self):
         self.shutdown()
@@ -184,6 +186,17 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
         else:
             self.dispatch_response(payload)
 
+    do_PUT = do_POST
+
+    def do_HEAD(self):
+        headers = self.prepare_headers()
+        self.init_vars()
+        payload = self.response_provider.response_for_url_and_headers(self.path, headers)
+        self.send_response(payload.response_code())
+        for h in payload.headers():
+            self.send_header(h, payload.headers()[h])
+        self.send_header("Content-Length", payload.length())
+        self.end_headers()
 
     def do_GET(self):
         headers = self.prepare_headers()
