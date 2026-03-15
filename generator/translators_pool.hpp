@@ -8,6 +8,7 @@
 #include "base/thread_safe_queue.hpp"
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace generator
@@ -21,7 +22,7 @@ public:
   bool Finish();
 
 private:
-  base::ComputationalThreadPool m_threadPool;
+  std::optional<base::ComputationalThreadPool> m_threadPool;
   threads::ThreadSafeQueue<std::shared_ptr<TranslatorInterface>> m_translators;
 };
 }  // namespace generator
