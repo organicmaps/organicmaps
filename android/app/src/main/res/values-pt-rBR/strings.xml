@@ -489,6 +489,7 @@
     <string name="moremonth_ago_sorttype">Há mais de um mês</string>
     <string name="moreyear_ago_sorttype">Há mais de um ano</string>
     <string name="near_me_sorttype">Próximo de mim</string>
+    <string name="placepage_replace_stop">Substituir a parada</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Alimentos</string>

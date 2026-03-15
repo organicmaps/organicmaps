@@ -703,6 +703,7 @@
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
     <string name="near_me_sorttype">A közelben</string>
     <string name="others_sorttype">Egyebek</string>
+    <string name="placepage_replace_stop">Megálló lecserélése</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Étel</string>

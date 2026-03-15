@@ -29,7 +29,7 @@
         android:paddingStart="@dimen/margin_half"
         android:paddingTop="@dimen/margin_half_plus"
         android:textColorHint="?android:textColorSecondary"
-        app:endIconDrawable="@drawable/ic_clear_rounded"
+        app:endIconDrawable="@drawable/ic_close_rounded"
         app:endIconMode="custom"
         app:endIconTint="?android:textColorSecondary"
         app:hintAnimationEnabled="false">

@@ -700,6 +700,7 @@
     <string name="moreyear_ago_sorttype">Över ett år sedan</string>
     <string name="near_me_sorttype">Nära mig</string>
     <string name="others_sorttype">Andra</string>
+    <string name="placepage_replace_stop">Byt ut stopp</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>

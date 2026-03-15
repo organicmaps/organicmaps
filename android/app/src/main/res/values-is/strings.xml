@@ -703,6 +703,7 @@
     <string name="moreyear_ago_sorttype">Fyrir meira en ári síðan</string>
     <string name="near_me_sorttype">Nálægt mér</string>
     <string name="others_sorttype">Annað</string>
+    <string name="placepage_replace_stop">Skipta út stoppi</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Matur</string>

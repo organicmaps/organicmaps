@@ -9,5 +9,4 @@
 
   <!--About Fragment -->
   <dimen name="about_max_button_width">550dp</dimen>
-  <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.50</item>
 </resources>

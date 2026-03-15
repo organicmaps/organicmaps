@@ -703,6 +703,7 @@
     <string name="moreyear_ago_sorttype">Virš metų senumo</string>
     <string name="near_me_sorttype">Netoliese</string>
     <string name="others_sorttype">Kitkas</string>
+    <string name="placepage_replace_stop">Pakeisti Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Maistas</string>

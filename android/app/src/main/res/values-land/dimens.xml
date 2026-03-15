@@ -16,5 +16,9 @@
 
   <!--About Fragment -->
   <dimen name="about_max_button_width">310dp</dimen>
-  <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.65</item>
+
+  <!-- routing layout -->
+  <dimen name="progress_frame_margin_start">240dp</dimen>
+
+  <item type="dimen" name="bottom_sheet_widths">380dp</item>
 </resources>

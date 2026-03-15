@@ -701,6 +701,7 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
+    <string name="placepage_replace_stop">Αντικατάσταση Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Φαγητό</string>

@@ -35,6 +35,12 @@
     <item name="android:padding">@dimen/nav_frame_padding</item>
   </style>
 
+  <style name="MwmWidget.MapButton.Square.bottom">
+    <item name="android:backgroundTint">@color/routing_bottom_button_tint</item>
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">10dp</item>
+  </style>
+
   <style name="MwmWidget.MapButton.Square">
     <item name="android:backgroundTint">?menuBackground</item>
     <item name="cornerFamily">rounded</item>
@@ -96,6 +102,20 @@
     <item name="textAllCaps">true</item>
     <item name="android:gravity">center</item>
   </style>
+
+    <style name="MwmWidget.Button.Primary.Rounded">
+        <item name="android:background">?primaryButtonBackground</item>
+        <item name="android:minWidth">@dimen/primary_button_min_width</item>
+        <item name="android:minHeight">@dimen/primary_button_min_height</item>
+        <item name="android:textColor">?accentButtonTextColor</item>
+        <item name="android:textSize">@dimen/text_size_body_3</item>
+        <item name="android:paddingStart">@dimen/margin_base</item>
+        <item name="android:paddingEnd">@dimen/margin_base</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+    </style>
 
   <style name="MwmWidget.ProgressWheel.RoutingPlan">
     <item name="android:layout_width">@dimen/routing_selector_wheel_size</item>
@@ -347,6 +367,8 @@
 
   <style name="MwmWidget.BottomSheet.Rounded" parent="">
     <item name="backgroundTint">?cardBackground</item>
+    <item name="paddingBottomSystemWindowInsets">true</item>
+    <item name="paddingTopSystemWindowInsets">true</item>
     <item name="shapeAppearance">@style/ShapeAppearance.Material3.LargeComponent</item>
   </style>
 

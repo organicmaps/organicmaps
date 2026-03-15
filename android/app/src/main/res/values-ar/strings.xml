@@ -712,6 +712,7 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
+    <string name="placepage_replace_stop">استبدال التوقف</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">طعام</string>

@@ -5,4 +5,5 @@
   <dimen name="margin_direction_side">40dp</dimen>
   <dimen name="margin_direction_mid">36dp</dimen>
   <dimen name="margin_direction_around_center">80dp</dimen>
+  <item type="dimen" name="bottom_sheet_widths">380dp</item>
 </resources>

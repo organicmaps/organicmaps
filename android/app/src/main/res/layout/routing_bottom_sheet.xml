@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:id="@+id/routing_root">
+
+  <FrameLayout
+    android:layout_width="@dimen/bottom_sheet_widths"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:id="@+id/routing_sheet_container">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/routing_coordinator"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:showIn="@layout/activity_map"
+
+      >
+
+      <!--    <View-->
+      <!--      android:id="@+id/place_page_status_bar_background2"-->
+      <!--      android:layout_width="match_parent"-->
+      <!--      android:layout_height="wrap_content"-->
+      <!--      android:layout_gravity="center_horizontal|top"-->
+      <!--      android:background="@drawable/bg_transparent"-->
+      <!--      android:elevation="0dp" />-->
+
+      <FrameLayout
+        android:id="@+id/routing_sheet_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/placepage_behavior"
+        tools:visibility="visible"
+        android:visibility="gone"
+        style="@style/MwmWidget.BottomSheet.Rounded">
+
+        <include
+          android:id="@+id/routing_plan_frame2"
+          layout="@layout/route_plan_line"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+      </FrameLayout>
+
+      <!-- This is the main container for your bottom action bar -->
+      <FrameLayout
+        android:id="@+id/routing_bottom_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_anchor="@+id/routing_sheet_frame"
+        app:layout_anchorGravity="bottom"
+        android:background="?cardBackground">
+
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginBottom="@dimen/margin_eighth"
+          android:background="?dividerHorizontal" />
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="horizontal"
+          android:padding="@dimen/routing_bottom_buttons_padding">
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/routing_bottom_buttons_padding"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+              android:id="@+id/routing_btn_search"
+              style="@style/MwmWidget.MapButton.Square.bottom"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_weight="1"
+              android:contentDescription="@string/search"
+              app:fabCustomSize="40dp"
+              app:maxImageSize="28dp"
+              app:srcCompat="@drawable/ic_search"
+              app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square.bottom" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+              android:id="@+id/routing_btn_bookmarks"
+              style="@style/MwmWidget.MapButton.Square.bottom"
+              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_weight="1"
+              android:contentDescription="@string/bookmarks"
+              app:fabCustomSize="40dp"
+              app:maxImageSize="28dp"
+              app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
+              app:srcCompat="@drawable/ic_bookmarks_and_tracks" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+              android:id="@+id/btn__save"
+              style="@style/MwmWidget.MapButton.Square.bottom"
+              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_weight="1"
+              android:contentDescription="@string/save"
+              app:fabCustomSize="40dp"
+              app:maxImageSize="28dp"
+              app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square.bottom"
+              app:srcCompat="@drawable/icon_save" />
+          </LinearLayout>
+
+          <Button
+            android:id="@+id/start"
+            style="@style/MwmWidget.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_eighth"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:layout_weight="1"
+            android:text="@string/p2p_start" />
+        </LinearLayout>
+
+      </FrameLayout>
+
+
+      <include
+        android:id="@+id/routing_action_frame"
+        layout="@layout/routing_action_panel"
+        android:layout_height="wrap_content"
+        tools:layout_marginTop="@dimen/menu_line_height"
+        tools:layout_width="match_parent"
+        tools:visibility="invisible" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+  </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

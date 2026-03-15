@@ -31,6 +31,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.search.SearchListener;
@@ -409,11 +410,17 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
     if (RoutingController.get().isWaitingPoiPick())
     {
-      final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
-      final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
+      if (RoutingController.get().isPoiPickReplaceStop()
+          || RoutingController.get().getWaitingPoiPickType() == RouteMarkType.Intermediate)
+        SearchEngine.INSTANCE.showResult(resultIndex);
+      else
+      {
+        final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
+        final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
 
-      final MapObject point = MapObject.createMapObject(MapObject.SEARCH, title, subtitle, result.lat, result.lon);
-      RoutingController.get().onPoiSelected(point);
+        final MapObject point = MapObject.createMapObject(MapObject.SEARCH, title, subtitle, result.lat, result.lon);
+        RoutingController.get().onPoiSelected(point);
+      }
     }
     else
     {

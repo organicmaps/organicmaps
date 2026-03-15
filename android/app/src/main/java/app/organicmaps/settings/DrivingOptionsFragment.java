@@ -1,6 +1,7 @@
 package app.organicmaps.settings;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,14 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
+import app.organicmaps.sdk.util.SharedPropertiesUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,8 +28,10 @@ import java.util.Set;
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
   public static final String BUNDLE_ROAD_TYPES = "road_types";
+  public static final String DRIVING_OPTIONS_COUNT ="Driving_Options_Count";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
+  private int CheckedCount = 0;
 
   @Nullable
   @Override
@@ -37,7 +43,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                    ? makeRouteTypes(savedInstanceState)
                    : RoutingOptions.getActiveRoadTypes();
-    return root;
+      return root;
   }
 
   @NonNull
@@ -73,14 +79,29 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   @Override
   public boolean onBackPressed()
   {
-    if (areSettingsNotChanged())
+      if (areSettingsNotChanged())
     {
-      requireActivity().setResult(Activity.RESULT_CANCELED);
+        requireActivity().setResult(Activity.RESULT_CANCELED);
     }
     else
     {
-      requireActivity().setResult(Activity.RESULT_OK);
-      RoutingController.get().rebuildLastRoute();
+        if (RoutingOptions.hasOption(RoadType.Toll)) {
+            CheckedCount++;
+        }
+        if (RoutingOptions.hasOption(RoadType.Motorway)) {
+            CheckedCount++;
+        }
+        if (RoutingOptions.hasOption(RoadType.Ferry)) {
+            CheckedCount++;
+        }
+        if (RoutingOptions.hasOption(RoadType.Dirty)) {
+            CheckedCount++;
+        }
+        SharedPropertiesUtils.setDrivingOptionsCount(CheckedCount);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(DRIVING_OPTIONS_COUNT, CheckedCount);
+        requireActivity().setResult(Activity.RESULT_OK,resultIntent);
+        RoutingController.get().rebuildLastRoute();
     }
 
     return super.onBackPressed();

@@ -8,5 +8,4 @@ public interface RoutingBottomMenuListener
   void onUseMyPositionAsStart();
   void onSearchRoutePoint(@NonNull RouteMarkType type);
   void onRoutingStart();
-  void onManageRouteOpen();
 }

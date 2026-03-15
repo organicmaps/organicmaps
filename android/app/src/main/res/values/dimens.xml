@@ -50,7 +50,7 @@
   <dimen name="place_page_top_button">40dp</dimen>
   <dimen name="place_page_icon_background_size">56dp</dimen>
   <dimen name="place_page_icon_size">40dp</dimen>
-  <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.0</item>
+  <item type="dimen" name="bottom_sheet_widths">-1px</item>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
@@ -63,7 +63,7 @@
   <dimen name="width_dialog_base">300dp</dimen>
 
   <dimen name="start_button_width">96dp</dimen>
-  <dimen name="scrollbar_size">6dp</dimen>
+  <dimen name="scrollbar_size">4dp</dimen>
 
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
@@ -91,11 +91,13 @@
 
   <!-- routing layout -->
   <dimen name="routing_selector_wheel_size">40dp</dimen>
-  <dimen name="routing_selector_wheel_margin">4dp</dimen>
+  <dimen name="routing_selector_wheel_margin">1dp</dimen>
   <dimen name="routing_transit_step_corner_radius">4dp</dimen>
   <dimen name="routing_transit_step_min_height">20dp</dimen>
   <dimen name="routing_transit_setp_min_acceptable_with">104dp</dimen>
   <dimen name="track_recorder_status_top_margin">64dp</dimen>
+  <dimen name="progress_frame_margin_start">0dp</dimen>
+  <dimen name="routing_margin_peek_height">35dp</dimen>
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>
@@ -156,6 +158,11 @@
 
   <!-- Routing action panel -->
   <dimen name="routing_action_panel_margin_vert">14dp</dimen>
+
+  <!--   Routing Bottom Buttons -->
+  <dimen name="routing_bottom_buttons_padding">10dp</dimen>
+  <dimen name="routing_bottom_buttons_max_height">70dp</dimen>
+
 
   <!-- Placeholder-->
   <dimen name="placeholder_margin_top">20dp</dimen>

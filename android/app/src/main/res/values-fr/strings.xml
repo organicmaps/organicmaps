@@ -704,6 +704,7 @@
     <string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
     <string name="near_me_sorttype">Près de moi</string>
     <string name="others_sorttype">Autres</string>
+    <string name="placepage_replace_stop">Remplacer l\'arrêt</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Aliments</string>

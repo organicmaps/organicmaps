@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.50</item>
+    <item type="dimen" name="bottom_sheet_widths">380dp</item>
 </resources>

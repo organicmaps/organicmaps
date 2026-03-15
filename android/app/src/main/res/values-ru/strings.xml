@@ -707,6 +707,7 @@
     <string name="moreyear_ago_sorttype">Больше года назад</string>
     <string name="near_me_sorttype">Рядом со мной</string>
     <string name="others_sorttype">Другие</string>
+    <string name="placepage_replace_stop">Заменить остановку</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Еда</string>

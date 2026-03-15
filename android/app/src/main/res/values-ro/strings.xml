@@ -697,6 +697,7 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+    <string name="placepage_replace_stop">Înlocuiți oprirea</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mâncare</string>
