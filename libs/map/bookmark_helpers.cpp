@@ -209,6 +209,256 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
 
     {"shop-funeral_directors", {kml::BookmarkIcon::None, BookmarkBaseType::None}}};
 
+// Maki icons to Organic Maps BookmarkIcon mapping
+// Reference: https://labs.mapbox.com/maki-icons/
+// Maps Maki symbol names (from GeoJSON marker-symbol property) to BookmarkIcon and BookmarkBaseType values
+std::map<std::string, BookmarkMatchInfo> const kMakiSymbolToBookmarkIcon = {
+    // Aerialway & Transport
+    {"aerialway", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"airfield", {kml::BookmarkIcon::Airport, BookmarkBaseType::None}},
+    {"airport", {kml::BookmarkIcon::Airport, BookmarkBaseType::None}},
+    {"bus", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"car", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"car-rental", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"car-repair", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"ferry", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"ferry-JP", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"heliport", {kml::BookmarkIcon::Airport, BookmarkBaseType::None}},
+    {"scooter", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"taxi", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"terminal", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+
+    // Rail & Transit
+    {"rail", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"rail-light", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"rail-metro", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+
+    // Commerce & Shopping
+    {"alcohol-shop", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"bakery", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"bank", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+    {"bank-JP", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+    {"bar", {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
+    {"bbq", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"beer", {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
+    {"bicycle", {kml::BookmarkIcon::BicycleParking, BookmarkBaseType::Parking}},
+    {"bicycle-share", {kml::BookmarkIcon::BicycleParking, BookmarkBaseType::Parking}},
+    {"blood-bank", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"cafe", {kml::BookmarkIcon::Cafe, BookmarkBaseType::Food}},
+    {"casino", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"clothing-store", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"commercial", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"confectionery", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"convenience", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"dentist", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"doctor", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"fast-food", {kml::BookmarkIcon::FastFood, BookmarkBaseType::Food}},
+    {"florist", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"fuel", {kml::BookmarkIcon::Gas, BookmarkBaseType::Gas}},
+    {"furniture", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"gaming", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"garden-centre", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"gift", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"grocery", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"hairdresser", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"hardware", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"ice-cream", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"jewelry-store", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"karaoke", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"laundry", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"mobile-phone", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"optician", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"paint", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"pharmacy", {kml::BookmarkIcon::Pharmacy, BookmarkBaseType::Medicine}},
+    {"post", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"post-JP", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"restaurant", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"restaurant-bbq", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"restaurant-noodle", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"restaurant-pizza", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"restaurant-seafood", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"restaurant-sushi", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"shoe", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"shop", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {"suitcase", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {"teahouse", {kml::BookmarkIcon::Cafe, BookmarkBaseType::Food}},
+    {"telephone", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+
+    // Sports & Recreation
+    {"american-football", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"amusement-park", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"animal-shelter", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+    {"aquarium", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+    {"baseball", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"basketball", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"beach", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {"bowling-alley", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"campsite", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {"cinema", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"cricket", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"dog-park", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+    {"fitness-centre", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"garden", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"golf", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"horse-riding", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"observation-tower", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"park", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"park-alt1", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"picnic-site", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {"pitch", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"playground", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"racetrack", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"racetrack-boat", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"racetrack-cycling", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"racetrack-horse", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"skateboard", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"skiing", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"soccer", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"stadium", {kml::BookmarkIcon::Stadium, BookmarkBaseType::Entertainment}},
+    {"swimming", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {"table-tennis", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"tennis", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"theatre", {kml::BookmarkIcon::Theatre, BookmarkBaseType::Entertainment}},
+    {"volleyball", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+
+    // Education & Information
+    {"college", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"college-JP", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"information", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"library", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"museum", {kml::BookmarkIcon::Museum, BookmarkBaseType::Museum}},
+    {"school", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"school-JP", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+
+    // Health & Emergency
+    {"charging-station", {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
+    {"defibrillator", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"emergency-phone", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"hospital", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"hospital-JP", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {"police", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"police-JP", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"veterinary", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+
+    // Accommodation
+    {"embassy", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"hotel", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {"lodging", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+
+    // Landmarks & Sights
+    {"art-gallery", {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
+    {"attraction", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"castle", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"castle-JP", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"historic", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"landmark", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"landmark-JP", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"monument", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"monument-JP", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"place-of-worship", {kml::BookmarkIcon::Sights, BookmarkBaseType::ReligiousPlace}},
+    {"viewpoint", {kml::BookmarkIcon::Viewpoint, BookmarkBaseType::Sights}},
+
+    // Religious Sites
+    {"religious-buddhist", {kml::BookmarkIcon::Buddhism, BookmarkBaseType::ReligiousPlace}},
+    {"religious-christian", {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
+    {"religious-jewish", {kml::BookmarkIcon::Judaism, BookmarkBaseType::ReligiousPlace}},
+    {"religious-muslim", {kml::BookmarkIcon::Islam, BookmarkBaseType::ReligiousPlace}},
+    {"religious-shinto", {kml::BookmarkIcon::Sights, BookmarkBaseType::ReligiousPlace}},
+
+    // Natural Features
+    {"cave_entrance", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {"dam", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {"drinking-water", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {"farm", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"forest", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"hot-spring", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {"hot_spring", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {"landuse", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"mountain", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {"music", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"natural", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {"peak", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {"spring", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {"volcano", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {"waterfall", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"wetland", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+
+    // Infrastructure & Utilities
+    {"barrier", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"bridge", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"building", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"building-alt1", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"caution", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"cemetery", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"cemetery-JP", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"communications-tower", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"construction", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"city", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"cross", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"danger", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"diamond", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"elevator", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"entrance", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"entrance-alt1", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"fence", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"fire-station", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"fire-station-JP", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"gate", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"globe", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"harbor", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {"highway-rest-area", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {"home", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"industry", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"lift-gate", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"lighthouse", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"lighthouse-JP", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"logging", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"marae", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"marker", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"marker-stroked", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"nightclub", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {"parking", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {"parking-garage", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {"parking-paid", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {"prison", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"ranger-station", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"recycling", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"residential-community", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"road-accident", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"roadblock", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"rocket", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"shelter", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"slaughterhouse", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"slipway", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"snowmobile", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {"square", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"square-stroked", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"star", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"star-stroked", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {"town", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"town-hall", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {"triangle", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"triangle-stroked", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"tunnel", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"toilet", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"toll", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"village", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"warehouse", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"waste-basket", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"watch", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"water", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {"watermill", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"wheelchair", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {"windmill", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"zoo", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+
+    // Shape markers (generic)
+    {"circle", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"circle-stroked", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"arrow", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+    {"heart", {kml::BookmarkIcon::None, BookmarkBaseType::None}},
+};
+
 void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
 {
   if (!data)
@@ -713,7 +963,6 @@ BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes)
 kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type)
 {
   auto typeStr = classif().GetReadableObjectName(type);
-
   do
   {
     auto const itIcon = kFeatureTypeToBookmarkMatchInfo.find(typeStr);
@@ -721,6 +970,20 @@ kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type)
       return itIcon->second.m_icon;
   }
   while (TruncType(typeStr));
+
+  return kml::BookmarkIcon::None;
+}
+
+kml::BookmarkIcon GetBookmarkIconByMakiSymbol(std::string const & makiSymbol)
+{
+  std::string symbol = makiSymbol;
+  do
+  {
+    auto const itIcon = kMakiSymbolToBookmarkIcon.find(symbol);
+    if (itIcon != kMakiSymbolToBookmarkIcon.cend())
+      return itIcon->second.m_icon;
+  }
+  while (TruncType(symbol));
 
   return kml::BookmarkIcon::None;
 }

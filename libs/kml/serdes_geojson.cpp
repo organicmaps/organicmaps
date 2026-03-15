@@ -3,6 +3,7 @@
 
 #include "base/string_utils.hpp"
 #include "coding/hex.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "ge0/geo_url_parser.hpp"
 #include "geometry/mercator.hpp"
 
@@ -283,9 +284,8 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
           bookmark.m_color = *colorData;
 
       // Parse icon
-      // if (auto const markerSymbol = getStringFromJsonMap(propsJson, "marker-symbol"))
-      //    bookmark.m_icon = ???;
-      //}
+      if (auto const markerSymbol = getStringFromJsonMap(propsJson, "marker-symbol"))
+        bookmark.m_icon = GetBookmarkIconByMakiSymbol(*markerSymbol);
 
       // UMap custom properties
       if (auto const umapOptions = propsJson.find("_umap_options");
