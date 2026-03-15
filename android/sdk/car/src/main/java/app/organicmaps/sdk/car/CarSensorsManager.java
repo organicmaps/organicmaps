@@ -77,6 +77,7 @@ public final class CarSensorsManager
 
   private void onCarCompassDataAvailable(@NonNull final Compass compass)
   {
+    Map.onCompassUpdated(0, true);
     final CarValue<List<Float>> data = compass.getOrientations();
     if (data.getStatus() == CarValue.STATUS_UNIMPLEMENTED)
       onCarCompassUnsupported();

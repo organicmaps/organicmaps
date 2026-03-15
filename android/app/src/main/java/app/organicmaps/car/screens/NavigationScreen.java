@@ -1,6 +1,12 @@
 package app.organicmaps.car.screens;
 
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.location.Location;
+import android.os.Build;
+import android.os.IBinder;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +26,7 @@ import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.BuildConfig;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.car.AndroidAutoService;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
@@ -57,12 +64,35 @@ public class NavigationScreen
   @NonNull
   private final LocationListener mLocationListener = this::updateTrip;
 
+  private final ServiceConnection mNavigationServiceConnection = new ServiceConnection() {
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder)
+    {
+      final NavigationService.Binder binder = (NavigationService.Binder) iBinder;
+      binder.setOrganicMapsContext(getOrganicMapsContext());
+
+      final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
+      final Intent contentIntent = new Intent(getCarContext(), MwmActivity.class);
+      final PendingIntent pendingIntent = PendingIntent.getActivity(getCarContext(), 0, contentIntent,
+                                                                    PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+      binder.setContentIntent(pendingIntent);
+
+      binder.setCarNotificationExtender(AndroidAutoService.getCarNotificationExtender(getCarContext()));
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName)
+    {
+      // No-op
+    }
+  };
+
   @NonNull
   private Trip mTrip = new Trip.Builder().setLoading(true).build();
 
   // This value is used to decide whether to display the "trip finished" toast or not
   // False: trip is finished -> show toast
-  // True: navigation is cancelled by the user or host -> don't show toast
+  // True: navigation is canceled by the user or host -> don't show toast
   private boolean mNavigationCancelled = false;
 
   // Used only in debug builds to simulate route following
@@ -154,8 +184,7 @@ public class NavigationScreen
 
     getLocationHelper().addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
-      NavigationService.startForegroundService(getCarContext(),
-                                               AndroidAutoService.getCarNotificationExtender(getCarContext()));
+      NavigationService.startService(getCarContext(), mNavigationServiceConnection);
     updateTrip(/* location */ null);
   }
 
@@ -172,7 +201,7 @@ public class NavigationScreen
     super.onDestroy(owner);
     if (mRouteSimulationEnabled)
       onAutodriveDisabled();
-    NavigationService.stopService(getCarContext());
+    NavigationService.stopService(getCarContext(), mNavigationServiceConnection);
     getLocationHelper().removeListener(mLocationListener);
 
     if (mRoutingController.isNavigating())

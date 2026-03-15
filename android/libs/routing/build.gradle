@@ -9,7 +9,11 @@ android {
 }
 
 dependencies {
+  implementation project(':libs:branding')
   implementation project(':sdk')
 
   implementation libs.androidx.annotation
+  implementation libs.androidx.appcompat.resources
+  implementation libs.androidx.core
+  implementation libs.androidx.lifecycle
 }
