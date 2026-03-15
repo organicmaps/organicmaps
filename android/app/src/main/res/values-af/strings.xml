@@ -773,4 +773,6 @@
     <string name="login_osm_credentials">Aanmelding met wagwoord</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Teken aan met blaaier</string>
+    <string name="transport_schedule">Skedule</string>
+    <string name="schedule_coming_soon">Skeduledata kom binnekort</string>
 </resources>

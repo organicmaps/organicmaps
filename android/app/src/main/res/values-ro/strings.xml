@@ -844,4 +844,6 @@
     <string name="login_osm_credentials">Autentificare cu parolă</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Conectare folosind browserul</string>
+    <string name="transport_schedule">Orar</string>
+    <string name="schedule_coming_soon">Datele orarului vor fi disponibile în curând</string>
 </resources>

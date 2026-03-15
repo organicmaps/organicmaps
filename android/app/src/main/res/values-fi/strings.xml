@@ -859,4 +859,6 @@
     <string name="login_osm_credentials">Kirjaudu sisään salasanalla</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Sisäänkirjautuminen selaimella</string>
+    <string name="transport_schedule">Aikataulu</string>
+    <string name="schedule_coming_soon">Aikataulutiedot tulossa pian</string>
 </resources>

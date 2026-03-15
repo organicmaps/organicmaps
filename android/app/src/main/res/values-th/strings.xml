@@ -788,4 +788,6 @@
     <string name="login_osm_credentials">เข้าสู่ระบบด้วยรหัสผ่าน</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">เข้าสู่ระบบโดยใช้เบราว์เซอร์</string>
+    <string name="transport_schedule">ตารางเวลา</string>
+    <string name="schedule_coming_soon">ข้อมูลตารางเวลาจะมาเร็วๆ นี้</string>
 </resources>

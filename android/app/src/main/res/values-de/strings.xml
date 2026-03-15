@@ -863,4 +863,6 @@
     <string name="login_osm_credentials">Anmeldung mit Passwort</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Anmeldung über den Browser</string>
+    <string name="transport_schedule">Fahrplan</string>
+    <string name="schedule_coming_soon">Fahrplandaten werden bald verfügbar sein</string>
 </resources>

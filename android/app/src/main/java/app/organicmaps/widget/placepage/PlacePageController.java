@@ -438,6 +438,14 @@ public class PlacePageController
     {
       peekHeight += plusDetailsContainer.getHeight();
     }
+    // Add tabs and schedule preview height for transport stops
+    View tabLayout = mPlacePage.findViewById(R.id.pp_tabs);
+    if (tabLayout != null && tabLayout.getVisibility() == View.VISIBLE)
+    {
+      peekHeight += tabLayout.getHeight();
+      // Add 3 schedule items height (48dp each)
+      peekHeight += getResources().getDimensionPixelSize(R.dimen.height_block_base) * 3;
+    }
     return Math.min(peekHeight + (isLandscape ? bottomInsets : 0),
                     (mCoordinator.getHeight() - (mPlacePageStatusBarBackground.getHeight())));
   }

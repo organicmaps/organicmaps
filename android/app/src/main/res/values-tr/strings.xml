@@ -863,4 +863,6 @@
     <string name="login_osm_credentials">Şifre ile giriş yapın</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Tarayıcı kullanarak giriş yapın</string>
+    <string name="transport_schedule">Tarife</string>
+    <string name="schedule_coming_soon">Tarife verileri yakında eklenecek</string>
 </resources>

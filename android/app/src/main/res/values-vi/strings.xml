@@ -787,4 +787,6 @@
     <string name="login_osm_credentials">Đăng nhập bằng mật khẩu</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Đăng nhập bằng trình duyệt</string>
+    <string name="transport_schedule">Lịch trình</string>
+    <string name="schedule_coming_soon">Dữ liệu lịch trình sẽ sớm có</string>
 </resources>

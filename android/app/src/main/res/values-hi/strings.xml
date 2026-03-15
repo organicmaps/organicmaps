@@ -584,4 +584,6 @@
     <string name="login_osm_credentials">पासवर्ड से लॉगिन करें</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">ब्राउज़र का उपयोग करके लॉगिन करें</string>
+    <string name="transport_schedule">समय सारणी</string>
+    <string name="schedule_coming_soon">समय सारणी डेटा जल्द ही उपलब्ध होगा</string>
 </resources>

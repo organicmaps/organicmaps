@@ -82,4 +82,15 @@
     <item name="android:paddingBottom">@dimen/margin_half</item>
     <item name="android:orientation">horizontal</item>
   </style>
+
+  <style name="PlacePageSegmentedTab">
+    <item name="android:minHeight">36dp</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:background">@drawable/segmented_tab_background</item>
+    <item name="android:textColor">@color/segmented_button_text_color</item>
+  </style>
 </resources>

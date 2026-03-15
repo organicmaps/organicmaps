@@ -864,4 +864,6 @@
     <string name="login_osm_credentials">Sisselogimine parooliga</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Sisselogimine brauseri abil</string>
+    <string name="transport_schedule">Sõiduplaan</string>
+    <string name="schedule_coming_soon">Sõiduplaani andmed on peagi saadaval</string>
 </resources>

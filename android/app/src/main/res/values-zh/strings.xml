@@ -862,4 +862,6 @@
     <string name="login_osm_credentials">使用密码登录</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">使用浏览器登录</string>
+    <string name="transport_schedule">时刻表</string>
+    <string name="schedule_coming_soon">时刻表数据即将推出</string>
 </resources>

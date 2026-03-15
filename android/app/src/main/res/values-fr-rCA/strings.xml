@@ -3,4 +3,6 @@
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
+    <string name="transport_schedule">Horaires</string>
+    <string name="schedule_coming_soon">Les données d\'horaires seront bientôt disponibles</string>
 </resources>

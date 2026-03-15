@@ -809,4 +809,6 @@
     <string name="login_osm_credentials">Şifrə ilə giriş</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Brauzerdən istifadə edərək giriş</string>
+    <string name="transport_schedule">Cədvəl</string>
+    <string name="schedule_coming_soon">Cədvəl məlumatları tezliklə əlavə olunacaq</string>
 </resources>

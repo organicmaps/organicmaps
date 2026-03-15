@@ -873,4 +873,6 @@
     <string name="login_osm_credentials">تسجيل الدخول باستخدام كلمة المرور</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">تسجيل الدخول باستخدام المتصفح</string>
+    <string name="transport_schedule">الجدول الزمني</string>
+    <string name="schedule_coming_soon">بيانات الجدول الزمني ستتوفر قريباً</string>
 </resources>

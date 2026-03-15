@@ -865,4 +865,6 @@
     <string name="login_osm_credentials">Prijava z geslom</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Prijava z uporabo brskalnika</string>
+    <string name="transport_schedule">Vozni red</string>
+    <string name="schedule_coming_soon">Podatki o voznem redu bodo kmalu na voljo</string>
 </resources>

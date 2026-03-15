@@ -862,4 +862,6 @@
     <string name="login_osm_credentials">Σύνδεση με κωδικό πρόσβασης</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Σύνδεση μέσω προγράμματος περιήγησης</string>
+    <string name="transport_schedule">Πρόγραμμα</string>
+    <string name="schedule_coming_soon">Τα δεδομένα του προγράμματος θα είναι σύντομα διαθέσιμα</string>
 </resources>

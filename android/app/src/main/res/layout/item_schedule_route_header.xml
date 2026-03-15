@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half"
+    android:paddingBottom="@dimen/margin_quarter"
+    android:background="?clickableBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Transport type icon -->
+    <ImageView
+        android:id="@+id/iv_transport_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@null"
+        tools:src="@drawable/ic_category_bus" />
+
+    <!-- Route number badge -->
+    <TextView
+        android:id="@+id/tv_route_number"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_quarter"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:paddingVertical="2dp"
+        android:textSize="12sp"
+        tools:text="704"
+        tools:background="@color/base_accent" />
+
+    <!-- Spacer to push pin to the right -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Pin button -->
+    <ImageView
+        android:id="@+id/iv_pin"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="@dimen/margin_quarter"
+        android:src="@drawable/ic_pin_outline"
+        android:contentDescription="@null"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Details arrow -->
+    <ImageView
+        android:id="@+id/iv_details"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="@dimen/margin_quarter"
+        android:src="@drawable/ic_clock"
+        android:contentDescription="@null"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true" />
+
+</LinearLayout>

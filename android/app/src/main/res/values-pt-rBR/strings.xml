@@ -622,4 +622,6 @@
     <string name="login_osm_credentials">Login com senha</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Fazer login usando o navegador</string>
+    <string name="transport_schedule">Horário</string>
+    <string name="schedule_coming_soon">Os dados do horário estarão disponíveis em breve</string>
 </resources>

@@ -807,4 +807,6 @@
     <string name="share_track">ແບ່ງປັນເສັ້ນທາງ</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">ລຶບ %s ບໍ່?</string>
+    <string name="transport_schedule">ຕາຕະລາງ</string>
+    <string name="schedule_coming_soon">ຂໍ້ມູນຕາຕະລາງຈະມາໃນໄວໆນີ້</string>
 </resources>
