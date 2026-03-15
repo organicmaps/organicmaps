@@ -404,8 +404,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mSearchFragmentController = controller;
       return controller.onBackPressed();
     }
-
     return false;
+  }
+
+  public void forceCloseSearchFragment()
+  {
+    mSearchPageViewModel.setSearchEnabled(false, null);
   }
 
   @Override
@@ -873,7 +877,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsTabletLayout)
       return;
 
-    closeSearchFragment();
+    forceCloseSearchFragment();
     closePlacePage();
     removeCurrentFragment(true);
   }
@@ -922,7 +926,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeBottomSheet(LAYERS_MENU_ID);
     closeBottomSheet(MAIN_MENU_ID);
-    closeSearchFragment();
+    forceCloseSearchFragment();
     closePlacePage();
   }
 
@@ -948,7 +952,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().prepare(startPoint, endPoint);
 
     // TODO: check for tablet.
-    closeSearchFragment();
+    forceCloseSearchFragment();
     closePlacePage();
   }
 
@@ -1641,14 +1645,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onAddedStop()
   {
-    closeSearchFragment();
+    forceCloseSearchFragment();
     closePlacePage();
   }
 
   @Override
   public void onRemovedStop()
   {
-    closeSearchFragment();
+    forceCloseSearchFragment();
     closePlacePage();
   }
 
@@ -2397,7 +2401,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType)
   {
-    closeSearchFragment();
+    forceCloseSearchFragment();
     closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
