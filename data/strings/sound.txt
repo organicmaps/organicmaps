@@ -47,6 +47,9 @@ uk = Тримайтеся правіше.
 vi = Đi về phía phải.
 zh-Hans = 向右前方行驶。
 zh-Hant = 向右前方行駛。
+yue-HK = 靠右。
+yue-MO = 靠右。
+yue = 靠右。
 
 [make_a_slight_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -105,6 +108,9 @@ uk = Поверніть праворуч.
 vi = Rẽ phải.
 zh-Hans = 右转。
 zh-Hant = 右轉。
+yue-HK = 轉右。
+yue-MO = 轉右。
+yue = 轉右。
 
 [make_a_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -159,6 +165,9 @@ uk = Різко вправо.
 vi = Rẽ ngoặt bên phải.
 zh-Hans = 向右急转。
 zh-Hant = 向右急轉。
+yue-HK = 急轉右。
+yue-MO = 急轉右。
+yue = 急轉右。
 
 [make_a_sharp_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -214,6 +223,9 @@ uk = В'їзд на кільцеву транспортну розв'язку.
 vi = Đi vào vòng xoay.
 zh-Hans = 驶入环岛。
 zh-Hant = 駛入環狀交叉路口。
+yue-HK = 入迴旋處。
+yue-MO = 入迴旋處。
+yue = 入迴旋處。
 
 [enter_the_roundabout_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -276,6 +288,9 @@ uk = З'їзд з кільцевої транспортної розв'язки.
 vi = Ra khỏi vòng xoay.
 zh-Hans = 驶出环岛。
 zh-Hant = 駛出環狀交叉路口。
+yue-HK = 出迴旋處。
+yue-MO = 出迴旋處。
+yue = 出迴旋處。
 
 [leave_the_roundabout_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -336,6 +351,9 @@ uk = Тримайтеся лівіше.
 vi = Đi về phía trái.
 zh-Hans = 向左前方行驶。
 zh-Hant = 向左前方行駛。
+yue-HK = 靠左。
+yue-MO = 靠左。
+yue = 靠左。
 
 [make_a_slight_left_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -394,6 +412,9 @@ uk = Поверніть ліворуч.
 vi = Rẽ trái.
 zh-Hans = 左转。
 zh-Hant = 左轉。
+yue-HK = 轉左。
+yue-MO = 轉左。
+yue = 轉左。
 
 [make_a_left_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -448,6 +469,9 @@ uk = Різкий поворот наліво.
 vi = Rẽ ngoặt bên trái.
 zh-Hans = 向左急转。
 zh-Hant = 向左急轉。
+yue-HK = 急轉左。
+yue-MO = 急轉左。
+yue = 急轉左。
 
 [make_a_sharp_left_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -502,6 +526,9 @@ uk = Зробіть розворот.
 vi = Quay đầu.
 zh-Hans = 掉头。
 zh-Hant = 掉頭。
+yue-HK = 掉頭。
+yue-MO = 掉頭。
+yue = 掉頭。
 
 [make_a_u_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_u_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -560,6 +587,9 @@ uk = Їдьте прямо.
 vi = Đi thẳng.
 zh-Hans = 继续直行。
 zh-Hant = 繼續直行。
+yue-HK = 直去。
+yue-MO = 直去。
+yue = 直去。
 
 [exit]
 en = Exit.
@@ -610,6 +640,9 @@ uk = З'їзд.
 vi = Đi theo lối ra
 zh-Hans = 驶出当前路段。
 zh-Hant = 駛出當前路段。
+yue-HK = 駛出。
+yue-MO = 駛出。
+yue = 駛出。
 
 [onto]
 comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, (e.g. eu, ja, ko), the value should be the word NULL
@@ -659,6 +692,9 @@ uk = на
 vi = vào
 zh-Hans = 驶入到
 zh-Hant = 駛入到
+yue-HK = 入
+yue-MO = 入
+yue = 入
 
 [take_exit_number]
 comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces the "onto" string as well. (There is no take_exit_number_street since this string is only used when announcing street names anyway.)
@@ -709,6 +745,9 @@ uk = З'їзд на
 vi = Đi theo lối ra số
 zh-Hans = 驶出 上
 zh-Hant = 出口 上
+yue-HK = 出口
+yue-MO = 出口
+yue = 出口
 
 [take_exit_number_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as the word NULL
@@ -765,6 +804,9 @@ uk = Перерахунок маршруту
 vi = Tính toán lại lộ trình
 zh-Hans = 重新计算路线
 zh-Hant = 重新計算路
+yue-HK = 重新計算路線
+yue-MO = 重新計算路線
+yue = 重新計算路線
 
 [destination]
 en = You’ll arrive.
@@ -814,6 +856,9 @@ uk = Ви прибудете.
 vi = Bạn sẽ đến.
 zh-Hans = 即将到达目的地。
 zh-Hant = 即將到達目的地。
+yue-HK = 就嚟到目的地。
+yue-MO = 就嚟到目的地。
+yue = 就嚟到目的地。
 
 [you_have_reached_the_destination]
 en = You have arrived.
@@ -864,6 +909,9 @@ uk = Ви прибули.
 vi = Bạn đã đến.
 zh-Hans = 您已到达目的地。
 zh-Hant = 你已到達目的地。
+yue-HK = 你已經到咗目的地。
+yue-MO = 你已經到咗目的地。
+yue = 你已經到咗目的地。
 
 [in_50_meters]
 en = In fifty meters
@@ -913,6 +961,9 @@ uk = Через п'ятдесят метрів
 vi = Trong năm mươi mét nữa
 zh-Hans = 在五十米后
 zh-Hant = 在五十公尺後
+yue-HK = 喺五十米之後
+yue-MO = 喺五十米之後
+yue = 喺五十米之後
 
 [in_100_meters]
 en = In one hundred meters
@@ -962,6 +1013,9 @@ uk = Через сто метрів
 vi = Trong một trăm mét nữa
 zh-Hans = 在一百米后
 zh-Hant = 在一百公尺後
+yue-HK = 喺一百米之後
+yue-MO = 喺一百米之後
+yue = 喺一百米之後
 
 [in_200_meters]
 en = In two hundred meters
@@ -1011,6 +1065,9 @@ uk = Через двісті метрів
 vi = Trong hai trăm mét nữa
 zh-Hans = 在两百米后
 zh-Hant = 在兩百公尺後
+yue-HK = 喺兩百米之後
+yue-MO = 喺兩百米之後
+yue = 喺兩百米之後
 
 [in_250_meters]
 en = In two hundred and fifty meters
@@ -1060,6 +1117,9 @@ uk = Через двісті п'ятдесят метрів
 vi = Trong hai trăm năm mươi mét
 zh-Hans = 在两百五十米后
 zh-Hant = 在兩百五十公尺後
+yue-HK = 喺兩百五十米之後
+yue-MO = 喺兩百五十米之後
+yue = 喺兩百五十米之後
 
 [in_300_meters]
 en = In three hundred meters
@@ -1109,6 +1169,9 @@ uk = Через триста метрів
 vi = Trong ba trăm mét nữa
 zh-Hans = 在三百米后
 zh-Hant = 在三百公尺後
+yue-HK = 喺三百米之後
+yue-MO = 喺三百米之後
+yue = 喺三百米之後
 
 [in_400_meters]
 en = In four hundred meters
@@ -1158,6 +1221,9 @@ uk = Через чотириста метрів
 vi = Trong bốn trăm mét nữa
 zh-Hans = 在四百米后
 zh-Hant = 在四百公尺後
+yue-HK = 喺四百米之後
+yue-MO = 喺四百米之後
+yue = 喺四百米之後
 
 [in_500_meters]
 en = In five hundred meters
@@ -1207,6 +1273,9 @@ uk = Через п’ятсот метрів
 vi = Trong năm trăm mét nữa
 zh-Hans = 在五百米后
 zh-Hant = 在五百公尺後
+yue-HK = 喺五百米之後
+yue-MO = 喺五百米之後
+yue = 喺五百米之後
 
 [in_600_meters]
 en = In six hundred meters
@@ -1256,6 +1325,9 @@ uk = Через шістсот метрів
 vi = Trong sáu trăm mét nữa
 zh-Hans = 在六百米后
 zh-Hant = 在六百公尺後
+yue-HK = 喺六百米之後
+yue-MO = 喺六百米之後
+yue = 喺六百米之後
 
 [in_700_meters]
 en = In seven hundred meters
@@ -1305,6 +1377,9 @@ uk = Через сімсот метрів
 vi = Trong bảy trăm mét nữa
 zh-Hans = 在七百米后
 zh-Hant = 在七百公尺後
+yue-HK = 喺七百米之後
+yue-MO = 喺七百米之後
+yue = 喺七百米之後
 
 [in_750_meters]
 en = In seven hundred and fifty meters
@@ -1354,6 +1429,9 @@ uk = Через сімсот п'ятьдесят метрів
 vi = Trong bảy trăm năm mươi mét nữa
 zh-Hans = 在七百五十米后
 zh-Hant = 在七百五十公尺後
+yue-HK = 喺七百五十米之後
+yue-MO = 喺七百五十米之後
+yue = 喺七百五十米之後
 
 [in_800_meters]
 en = In eight hundred meters
@@ -1403,6 +1481,9 @@ uk = Через вісімсот метрів
 vi = Trong tám trăm mét nữa
 zh-Hans = 在八百米后
 zh-Hant = 在八百公尺後
+yue-HK = 喺八百米之後
+yue-MO = 喺八百米之後
+yue = 喺八百米之後
 
 [in_900_meters]
 en = In nine hundred meters
@@ -1452,6 +1533,9 @@ uk = Через дев'ятсот метрів
 vi = Trong chín trăm mét nữa
 zh-Hans = 在九百米后
 zh-Hant = 在九百公尺後
+yue-HK = 喺九百米之後
+yue-MO = 喺九百米之後
+yue = 喺九百米之後
 
 [in_1_kilometer]
 en = In one kilometer
@@ -1501,6 +1585,9 @@ uk = Через однин кілометр
 vi = Trong một kilômét nữa
 zh-Hans = 在一公里后
 zh-Hant = 在一公里後
+yue-HK = 喺一公里之後
+yue-MO = 喺一公里之後
+yue = 喺一公里之後
 
 [in_1_5_kilometers]
 en = In one and a half kilometers
@@ -1550,6 +1637,9 @@ uk = Через півтора кілометра
 vi = Trong một kilômét rưỡi nữa
 zh-Hans = 在一点五公里后
 zh-Hant = 在一點五公里後
+yue-HK = 喺一點五公里之後
+yue-MO = 喺一點五公里之後
+yue = 喺一點五公里之後
 
 [in_2_kilometers]
 en = In two kilometers
@@ -1599,6 +1689,9 @@ uk = Через два кілометри
 vi = Trong hai kilômét nữa
 zh-Hans = 在两公里后
 zh-Hant = 在兩公里后
+yue-HK = 喺兩公里之後
+yue-MO = 喺兩公里之後
+yue = 喺兩公里之後
 
 [in_2_5_kilometers]
 en = In two and a half kilometers
@@ -1648,6 +1741,9 @@ uk = Через два з половиною кілометра
 vi = Trong hai kilômét rưỡi nữa
 zh-Hans = 在两点五公里后
 zh-Hant = 在兩點五公里后
+yue-HK = 喺兩點五公里之後
+yue-MO = 喺兩點五公里之後
+yue = 喺兩點五公里之後
 
 [in_3_kilometers]
 en = In three kilometers
@@ -1697,6 +1793,9 @@ uk = Через три кілометри
 vi = Trong ba kilômét nữa
 zh-Hans = 在三公里后
 zh-Hant = 在三公里後
+yue-HK = 喺三公里之後
+yue-MO = 喺三公里之後
+yue = 喺三公里之後
 
 [then]
 en = Then
@@ -1745,6 +1844,9 @@ uk = Потім
 vi = Sau đó
 zh-Hans = 然后
 zh-Hant = 然後
+yue-HK = 跟住
+yue-MO = 跟住
+yue = 跟住
 
 [dist_direction_onto_street]
 comment = %1$s is the distance like in_500_meters, %2$s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3$s is "onto" unless the turn is an exit number, %4$s is the name/number of the street/exit, and %5$s is an optional turn verb particle. All languages inherit from the English default unless specified.
@@ -1806,6 +1908,9 @@ uk = Рухайтесь через перший з'їзд.
 vi = Đi theo lối ra đầu tiên.
 zh-Hans = 从第一个出口驶出。
 zh-Hant = 從第一個出口駛出。
+yue-HK = 喺第一個出口出。
+yue-MO = 喺第一個出口出。
+yue = 喺第一個出口出。
 
 [take_the_1_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1867,6 +1972,9 @@ uk = Рухайтесь через другий з'їзд.
 vi = Đi theo lối ra thứ hai.
 zh-Hans = 从第二个出口驶出。
 zh-Hant = 從第二個出口駛出。
+yue-HK = 喺第二個出口出。
+yue-MO = 喺第二個出口出。
+yue = 喺第二個出口出。
 
 [take_the_2_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1928,6 +2036,9 @@ uk = Рухайтесь через третій з'їзд.
 vi = Đi theo lối ra thứ ba.
 zh-Hans = 从第三个出口驶出。
 zh-Hant = 從第三個出口駛出。
+yue-HK = 喺第三個出口出。
+yue-MO = 喺第三個出口出。
+yue = 喺第三個出口出。
 
 [take_the_3_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1989,6 +2100,9 @@ uk = Рухайтесь через четвертий з'їзд.
 vi = Đi theo lối ra thứ tư.
 zh-Hans = 从第四个出口驶出。
 zh-Hant = 從第四個出口駛出。
+yue-HK = 喺第四個出口出。
+yue-MO = 喺第四個出口出。
+yue = 喺第四個出口出。
 
 [take_the_4_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2050,6 +2164,9 @@ uk = Рухайтесь через п'ятий з'їзд.
 vi = Đi theo lối ra thứ năm.
 zh-Hans = 从第五个出口驶出。
 zh-Hant = 從第五個出口駛出。
+yue-HK = 喺第五個出口出。
+yue-MO = 喺第五個出口出。
+yue = 喺第五個出口出。
 
 [take_the_5_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2111,6 +2228,9 @@ uk = Рухайтесь через шостий з'їзд.
 vi = Đi theo lối ra thứ sáu.
 zh-Hans = 从第六个出口驶出。
 zh-Hant = 從第六個出口駛出。
+yue-HK = 喺第六個出口出。
+yue-MO = 喺第六個出口出。
+yue = 喺第六個出口出。
 
 [take_the_6_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2172,6 +2292,9 @@ uk = Рухайтесь через сьомий з'їзд.
 vi = Đi theo lối ra thứ bảy.
 zh-Hans = 从第七个出口驶出。
 zh-Hant = 從第七個出口駛出。
+yue-HK = 喺第七個出口出。
+yue-MO = 喺第七個出口出。
+yue = 喺第七個出口出。
 
 [take_the_7_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2233,6 +2356,9 @@ uk = Рухайтесь через восьмий з'їзд.
 vi = Đi theo lối ra thứ tám.
 zh-Hans = 从第八个出口驶出。
 zh-Hant = 從第八個出口駛出。
+yue-HK = 喺第八個出口出。
+yue-MO = 喺第八個出口出。
+yue = 喺第八個出口出。
 
 [take_the_8_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2294,6 +2420,9 @@ uk = Рухайтесь через дев'ятий з'їзд.
 vi = Đi theo lối ra thứ chín.
 zh-Hans = 从第九个出口驶出。
 zh-Hant = 從第九個出口駛出。
+yue-HK = 喺第九個出口出。
+yue-MO = 喺第九個出口出。
+yue = 喺第九個出口出。
 
 [take_the_9_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2355,6 +2484,9 @@ uk = Рухайтесь через десятий з'їзд.
 vi = Đi theo lối ra thứ mười.
 zh-Hans = 从第十个出口驶出。
 zh-Hant = 從第十個出口駛出。
+yue-HK = 喺第十個出口出。
+yue-MO = 喺第十個出口出。
+yue = 喺第十個出口出。
 
 [take_the_10_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2416,6 +2548,9 @@ uk = Рухайтесь через одинадцятий з'їзд.
 vi = Đi theo lối ra thứ mười một.
 zh-Hans = 从第十一个出口驶出。
 zh-Hant = 從第十一個出口駛出。
+yue-HK = 喺第十一個出口出。
+yue-MO = 喺第十一個出口出。
+yue = 喺第十一個出口出。
 
 [take_the_11_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2477,6 +2612,9 @@ uk = Через п'ятдесят футів
 vi = Trong năm mươi feet nữa
 zh-Hans = 在五十英尺后
 zh-Hant = 在五十英尺後
+yue-HK = 喺五十英尺之後
+yue-MO = 喺五十英尺之後
+yue = 喺五十英尺之後
 
 [in_100_feet]
 en = In one hundred feet
@@ -2526,6 +2664,9 @@ uk = Через сто футів
 vi = Trong một trăm feet nữa
 zh-Hans = 在一百英尺后
 zh-Hant = 在一百英尺後
+yue-HK = 喺一百英尺之後
+yue-MO = 喺一百英尺之後
+yue = 喺一百英尺之後
 
 [in_200_feet]
 en = In two hundred feet
@@ -2575,6 +2716,9 @@ uk = Через двісті футів
 vi = Trong hai trăm feet nữa
 zh-Hans = 在两百英尺后
 zh-Hant = 在兩百英尺後
+yue-HK = 喺兩百英尺之後
+yue-MO = 喺兩百英尺之後
+yue = 喺兩百英尺之後
 
 [in_300_feet]
 en = In three hundred feet
@@ -2624,6 +2768,9 @@ uk = Через триста футів
 vi = Trong ba trăm feet nữa
 zh-Hans = 在三百英尺后
 zh-Hant = 在三百英尺後
+yue-HK = 喺三百英尺之後
+yue-MO = 喺三百英尺之後
+yue = 喺三百英尺之後
 
 [in_400_feet]
 en = In four hundred feet
@@ -2673,6 +2820,9 @@ uk = Через чотириста футів
 vi = Trong bốn trăm feet nữa
 zh-Hans = 在四百英尺后
 zh-Hant = 在四百英尺後
+yue-HK = 喺四百英尺之後
+yue-MO = 喺四百英尺之後
+yue = 喺四百英尺之後
 
 [in_500_feet]
 en = In five hundred feet
@@ -2722,6 +2872,9 @@ uk = Через п'ятсот футів
 vi = Trong năm trăm feet nữa
 zh-Hans = 在五百英尺后
 zh-Hant = 在五百英尺後
+yue-HK = 喺五百英尺之後
+yue-MO = 喺五百英尺之後
+yue = 喺五百英尺之後
 
 [in_600_feet]
 en = In six hundred feet
@@ -2771,6 +2924,9 @@ uk = Через шістсот футів
 vi = Trong sáu trăm feet nữa
 zh-Hans = 在六百英尺后
 zh-Hant = 在六百英尺後
+yue-HK = 喺六百英尺之後
+yue-MO = 喺六百英尺之後
+yue = 喺六百英尺之後
 
 [in_700_feet]
 en = In seven hundred feet
@@ -2820,6 +2976,9 @@ uk = Через сімсот футів
 vi = Trong bảy trăm feet nữa
 zh-Hans = 在七百英尺后
 zh-Hant = 在七百英尺後
+yue-HK = 喺七百英尺之後
+yue-MO = 喺七百英尺之後
+yue = 喺七百英尺之後
 
 [in_800_feet]
 en = In eight hundred feet
@@ -2869,6 +3028,9 @@ uk = Через вісімсот футів
 vi = Trong tám trăm feet nữa
 zh-Hans = 在八百英尺后
 zh-Hant = 在八百英尺後
+yue-HK = 喺八百英尺之後
+yue-MO = 喺八百英尺之後
+yue = 喺八百英尺之後
 
 [in_900_feet]
 en = In nine hundred feet
@@ -2918,6 +3080,9 @@ uk = Через дев'ятсот футів
 vi = Trong chín trăm feet nữa
 zh-Hans = 在九百英尺后
 zh-Hant = 在九百英尺後
+yue-HK = 喺九百英尺之後
+yue-MO = 喺九百英尺之後
+yue = 喺九百英尺之後
 
 [in_1000_feet]
 en = In one thousand feet
@@ -2967,6 +3132,9 @@ uk = Через тисячу футів
 vi = Trong một ngàn feet nữa
 zh-Hans = 在一千英尺后
 zh-Hant = 在一千英尺後
+yue-HK = 喺一千英尺之後
+yue-MO = 喺一千英尺之後
+yue = 喺一千英尺之後
 
 [in_1500_feet]
 en = In fifteen hundred feet
@@ -3016,6 +3184,9 @@ uk = Через півтори тисячі футів
 vi = Trong một ngàn năm trăm feet nữa
 zh-Hans = 在一千五百英尺后
 zh-Hant = 在一千五百英尺後
+yue-HK = 喺一千五百英尺之後
+yue-MO = 喺一千五百英尺之後
+yue = 喺一千五百英尺之後
 
 [in_2000_feet]
 en = In two thousand feet
@@ -3065,6 +3236,9 @@ uk = Через дві тисячі футів
 vi = Trong hai ngàn feet nữa
 zh-Hans = 在两千英尺后
 zh-Hant = 在兩千英尺後
+yue-HK = 喺兩千英尺之後
+yue-MO = 喺兩千英尺之後
+yue = 喺兩千英尺之後
 
 [in_2500_feet]
 en = In twenty five hundred feet
@@ -3114,6 +3288,9 @@ uk = Через дві з половиною тисячі футів
 vi = Trong hai ngàn năm trăm feet nữa
 zh-Hans = 在两千五百英尺后
 zh-Hant = 在兩千五百英尺後
+yue-HK = 喺兩千五百英尺之後
+yue-MO = 喺兩千五百英尺之後
+yue = 喺兩千五百英尺之後
 
 [in_3000_feet]
 en = In three thousand feet
@@ -3163,6 +3340,9 @@ uk = Через три тисячі футів
 vi = Trong ba ngàn feet nữa
 zh-Hans = 在三千英尺后
 zh-Hant = 在三千英尺後
+yue-HK = 喺三千英尺之後
+yue-MO = 喺三千英尺之後
+yue = 喺三千英尺之後
 
 [in_3500_feet]
 en = In thirty five hundred feet
@@ -3212,6 +3392,9 @@ uk = Через три з половиною тисячі футів
 vi = Trong ba ngàn năm trăm feet nữa
 zh-Hans = 在三千五百英尺后
 zh-Hant = 在三千五百英尺後
+yue-HK = 喺三千五百英尺之後
+yue-MO = 喺三千五百英尺之後
+yue = 喺三千五百英尺之後
 
 [in_4000_feet]
 en = In four thousand feet
@@ -3261,6 +3444,9 @@ uk = Через чотири тисячі футів
 vi = Trong bốn ngàn feet nữa
 zh-Hans = 在四千英尺后
 zh-Hant = 在四千英尺後
+yue-HK = 喺四千英尺之後
+yue-MO = 喺四千英尺之後
+yue = 喺四千英尺之後
 
 [in_4500_feet]
 en = In forty five hundred feet
@@ -3310,6 +3496,9 @@ uk = Через чотири з половиною тисячі футів
 vi = Trong bốn ngàn năm trăm feet nữa
 zh-Hans = 在四千五百英尺后
 zh-Hant = 在四千五百英尺後
+yue-HK = 喺四千五百英尺之後
+yue-MO = 喺四千五百英尺之後
+yue = 喺四千五百英尺之後
 
 [in_5000_feet]
 en = In five thousand feet
@@ -3359,6 +3548,9 @@ uk = Через п'ять тисяч футів
 vi = Trong năm ngàn feet nữa
 zh-Hans = 在五千英尺后
 zh-Hant = 在五千英尺後
+yue-HK = 喺五千英尺之後
+yue-MO = 喺五千英尺之後
+yue = 喺五千英尺之後
 
 [in_1_mile]
 en = In one mile
@@ -3408,6 +3600,9 @@ uk = Через одну милю
 vi = Trong một dặm nữa
 zh-Hans = 在一英里后
 zh-Hant = 在一英里後
+yue-HK = 喺一英里之後
+yue-MO = 喺一英里之後
+yue = 喺一英里之後
 
 [in_1_5_miles]
 en = In one and a half miles
@@ -3457,6 +3652,9 @@ uk = Через півтори милі
 vi = Trong một dặm rưỡi nữa
 zh-Hans = 在一点五英里后
 zh-Hant = 在一點五英里後
+yue-HK = 喺一點五英里之後
+yue-MO = 喺一點五英里之後
+yue = 喺一點五英里之後
 
 [in_2_miles]
 en = In two miles
@@ -3506,6 +3704,9 @@ uk = Через дві милі
 vi = Trong hai dặm nữa
 zh-Hans = 在两英里后
 zh-Hant = 在兩英里後
+yue-HK = 喺兩英里之後
+yue-MO = 喺兩英里之後
+yue = 喺兩英里之後
 
 [unknown_camera]
 en = Camera ahead
@@ -3556,3 +3757,6 @@ uk = Попереду камера
 vi = Máy ảnh phía trước
 zh-Hans = 前方有摄像头
 zh-Hant = 前方有攝影機
+yue-HK = 前面有快相機
+yue-MO = 前面有快相機
+yue = 前面有快相機
