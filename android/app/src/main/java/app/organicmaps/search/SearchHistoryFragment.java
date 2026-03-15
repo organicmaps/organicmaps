@@ -5,6 +5,7 @@ import android.view.View;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmApplication;
@@ -25,7 +26,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
     UiUtils.showIf(getAdapter().getItemCount() == 0, mPlaceHolder);
   }
 
-  public void refreshHistory()
+  private void refreshHistory()
   {
     SearchRecents.refresh();
     if (getAdapter() != null)
@@ -68,5 +69,10 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
     updatePlaceholder();
 
     ((SearchFragment) getParentFragment()).setRecyclerScrollListener(getRecyclerView());
+
+    new ViewModelProvider(requireActivity())
+        .get(SearchPageViewModel.class)
+        .getHistoryRefreshRequest()
+        .observe(getViewLifecycleOwner(), ignored -> refreshHistory());
   }
 }
