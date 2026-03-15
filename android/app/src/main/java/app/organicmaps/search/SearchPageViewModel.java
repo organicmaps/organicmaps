@@ -11,11 +11,9 @@ public class SearchPageViewModel extends ViewModel
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
   // This `mSearchPageLastState` mutable variable stores the current state of the BottomSheet when it is not hidden.
   // When its hidden it contains the last state before hiding.
-  private final MutableLiveData<Integer> mSearchPageLastState =
-      new MutableLiveData<>(BottomSheetBehavior.STATE_COLLAPSED);
+  private final MutableLiveData<Integer> mSearchPageLastState = new MutableLiveData<>(BottomSheetBehavior.STATE_HIDDEN);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
   private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
-  // Tracks whether the keyboard was visible before rotation
   private boolean mKeyboardVisible = false;
   private String mSearchQuery = null;
   @Nullable
@@ -45,7 +43,10 @@ public class SearchPageViewModel extends ViewModel
 
   public void setSearchPageLastState(@BottomSheetBehavior.State int state)
   {
-    mSearchPageLastState.setValue(state);
+    if (state == BottomSheetBehavior.STATE_DRAGGING || state == BottomSheetBehavior.STATE_SETTLING)
+      mSearchPageLastState.setValue(BottomSheetBehavior.STATE_HALF_EXPANDED);
+    else
+      mSearchPageLastState.setValue(state);
   }
 
   public MutableLiveData<Boolean> getSearchEnabled()
@@ -68,6 +69,12 @@ public class SearchPageViewModel extends ViewModel
     // Set query before firing LiveData so observers read the correct value synchronously.
     mSearchQuery = query;
     mSearchEnabled.setValue(enabled);
+    if (!enabled)
+    {
+      mHiddenByPlacePage = false;
+      mSearchPageLastState.setValue(BottomSheetBehavior.STATE_HIDDEN);
+      mKeyboardVisible = false;
+    }
   }
 
   @Nullable
@@ -130,6 +137,8 @@ public class SearchPageViewModel extends ViewModel
 
   public void setHiddenByPlacePage(boolean hidden)
   {
+    if (mSearchEnabled.getValue() != null && !mSearchEnabled.getValue())
+      return;
     mHiddenByPlacePage = hidden;
   }
 }

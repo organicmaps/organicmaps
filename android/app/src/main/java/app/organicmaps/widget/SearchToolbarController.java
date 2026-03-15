@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
@@ -173,7 +174,22 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void activate()
   {
     mQuery.requestFocus();
-    InputUtils.showKeyboard(mQuery);
+    if (mQuery.hasWindowFocus())
+    {
+      InputUtils.showKeyboard(mQuery);
+      return;
+    }
+    mQuery.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
+      @Override
+      public void onWindowFocusChanged(boolean hasFocus)
+      {
+        if (hasFocus)
+        {
+          mQuery.getViewTreeObserver().removeOnWindowFocusChangeListener(this);
+          InputUtils.showKeyboard(mQuery);
+        }
+      }
+    });
   }
 
   public void deactivate()

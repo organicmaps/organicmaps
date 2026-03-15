@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -63,9 +64,13 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         // Only restore search page if search is actually enabled
         Boolean searchEnabled = mViewModel.getSearchEnabled().getValue();
         Integer lastState = mViewModel.getSearchPageLastState().getValue();
-        if (searchEnabled != null && searchEnabled && lastState != null
-            && lastState != BottomSheetBehavior.STATE_HIDDEN)
+        if (searchEnabled != null && searchEnabled && lastState != null && lastState != BottomSheetBehavior.STATE_HIDDEN
+            && mViewModel.isHiddenByPlacePage())
+        {
+          Logger.d("kavi", "Restoring search page state: " + lastState);
           mFrameLayoutBottomSheetBehavior.setState(lastState);
+          mViewModel.setHiddenByPlacePage(false);
+        }
       }
     }
   };
@@ -77,15 +82,30 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     @Override
     public void onChanged(Boolean enabled)
     {
-      if (enabled != null && enabled)
+      if (enabled == null)
+        return;
+      if (enabled)
       {
+        // show toast message is pp is open or search is already enabled
         if (mPlacePageViewModel.getMapObject().getValue() != null || mViewModel.isHiddenByPlacePage())
-          return;
-        if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+        {
+          Toast.makeText(requireContext(), "Place page is open", Toast.LENGTH_SHORT).show();
+        }
+        Integer lastState = mViewModel.getSearchPageLastState().getValue();
+        if (lastState != null && lastState != BottomSheetBehavior.STATE_HIDDEN)
+        {
+          mFrameLayoutBottomSheetBehavior.setState(mViewModel.getSearchPageLastState().getValue());
+        }
+        else if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
         {
           mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-          mSearchPageContainer.post(SearchFragmentController.this::activateSearchToolbar);
+          mViewModel.setKeyboardVisible(true);
         }
+      }
+      else
+      {
+        if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
+          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
       }
     }
   };
@@ -104,12 +124,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
           if (PlacePageUtils.isHiddenState(newState))
           {
-            if (mViewModel.isHiddenByPlacePage())
-            {
-              mViewModel.setHiddenByPlacePage(false);
-              mViewModel.setSearchEnabled(false, null);
-            }
-            else if (mPlacePageViewModel.getMapObject().getValue() == null)
+            if (!mViewModel.isHiddenByPlacePage() && mViewModel.getSearchEnabled().getValue() != null
+                && mViewModel.getSearchEnabled().getValue())
             {
               mViewModel.setSearchEnabled(false, null);
             }
@@ -117,7 +133,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           // we do not save the state if search page is hiding
           if (newState == BottomSheetBehavior.STATE_EXPANDED || newState == BottomSheetBehavior.STATE_HALF_EXPANDED
               || newState == BottomSheetBehavior.STATE_COLLAPSED)
+          {
             mViewModel.setSearchPageLastState(newState);
+            Logger.d("kavi", "Search page state changed: " + newState);
+          }
           else if (newState != BottomSheetBehavior.STATE_HIDDEN)
           {
             mViewModel.setSearchPageLastState(BottomSheetBehavior.STATE_HALF_EXPANDED);
@@ -222,27 +241,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.setHalfExpandedRatio(0.5f); // mid
     mFrameLayoutBottomSheetBehavior.setHideable(true);
     mFrameLayoutBottomSheetBehavior.setDraggable(true);
-
-    // Restore search page state after configuration change (e.g., rotation)
-    // Only restore if search is enabled AND place page is not visible
-    if (savedInstanceState != null)
-    {
-      Boolean searchEnabled = mViewModel.getSearchEnabled().getValue();
-      MapObject mapObject = mPlacePageViewModel.getMapObject().getValue();
-      Integer lastState = mViewModel.getSearchPageLastState().getValue();
-      if (searchEnabled != null && searchEnabled && mapObject == null && lastState != null
-          && lastState != BottomSheetBehavior.STATE_HIDDEN)
-      {
-        mFrameLayoutBottomSheetBehavior.setState(lastState);
-        // Only activate the search toolbar if keyboard was visible before rotation
-        if (mViewModel.isKeyboardVisible())
-          mSearchPageContainer.post(this::activateSearchToolbar);
-      }
-      else
-        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    }
-    else
-      mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
     mSearchPageContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
     mSearchPageContainer.post(this::updateExpandedOffset);
@@ -252,11 +251,11 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
-      // Track keyboard visibility in ViewModel for persistence across rotation
       mViewModel.setKeyboardVisible(imeVisible);
-      if (imeVisible && mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED)
-        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       updateExpandedOffset();
+      if (imeVisible && mViewModel.getSearchEnabled().getValue() != null && mViewModel.getSearchEnabled().getValue()
+          && !mViewModel.isHiddenByPlacePage())
+        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       return insets;
     });
 
@@ -414,19 +413,5 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onSearchClicked()
   {
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-  }
-
-  /**
-   * Activates the search toolbar to request focus and show the keyboard.
-   * This is called after the search page is shown or restored after rotation.
-   */
-  private void activateSearchToolbar()
-  {
-    Fragment fragment = getChildFragmentManager().findFragmentByTag(SEARCH_FRAGMENT_TAG);
-    if (fragment instanceof SearchFragment searchFragment)
-    {
-      // Use postDelayed to ensure the fragment and its views are fully ready
-      mSearchPageContainer.postDelayed(searchFragment::activateToolbar, 100);
-    }
   }
 }
