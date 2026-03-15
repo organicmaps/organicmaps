@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import app.organicmaps.sdk.search.SearchResult;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class SearchPageViewModel extends ViewModel
 {
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mHistoryRefreshRequest = new MutableLiveData<>(0);
   // This `mSearchPageLastState` mutable variable stores the current state of the BottomSheet when it is not hidden.
   // When its hidden it contains the last state before hiding.
   private final MutableLiveData<Integer> mSearchPageLastState = new MutableLiveData<>(BottomSheetBehavior.STATE_HIDDEN);
@@ -16,8 +16,6 @@ public class SearchPageViewModel extends ViewModel
   private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
   private boolean mKeyboardVisible = false;
   private String mSearchQuery = null;
-  @Nullable
-  private SearchResult[] mLastResults = null;
 
   @Nullable
   private String mInitialLocale = null;
@@ -28,6 +26,18 @@ public class SearchPageViewModel extends ViewModel
   public MutableLiveData<Integer> getSearchPageDistanceToTop()
   {
     return mSearchPageDistanceToTop;
+  }
+
+  @NonNull
+  public MutableLiveData<Integer> getHistoryRefreshRequest()
+  {
+    return mHistoryRefreshRequest;
+  }
+
+  public void notifyHistoryChanged()
+  {
+    Integer current = mHistoryRefreshRequest.getValue();
+    mHistoryRefreshRequest.setValue(current == null ? 1 : current + 1);
   }
 
   public void setSearchPageDistanceToTop(int top)
@@ -68,24 +78,17 @@ public class SearchPageViewModel extends ViewModel
   {
     // Set query before firing LiveData so observers read the correct value synchronously.
     mSearchQuery = query;
-    mSearchEnabled.setValue(enabled);
     if (!enabled)
     {
       mHiddenByPlacePage = false;
       mSearchPageLastState.setValue(BottomSheetBehavior.STATE_HIDDEN);
       mKeyboardVisible = false;
     }
-  }
-
-  @Nullable
-  public SearchResult[] getLastResults()
-  {
-    return mLastResults;
-  }
-
-  public void setLastResults(@Nullable SearchResult[] results)
-  {
-    mLastResults = results;
+    else
+    {
+      mHiddenByPlacePage = false;
+    }
+    mSearchEnabled.setValue(enabled);
   }
 
   @NonNull

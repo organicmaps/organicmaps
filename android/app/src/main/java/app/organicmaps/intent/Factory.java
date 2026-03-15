@@ -80,11 +80,13 @@ public class Factory
 
       case RequestType.MAP:
         SearchEngine.INSTANCE.cancelInteractiveSearch();
+        target.forceCloseSearchFragment();
         Map.executeMapApiRequest();
         return true;
 
       case RequestType.ROUTE:
         SearchEngine.INSTANCE.cancelInteractiveSearch();
+        target.forceCloseSearchFragment();
         final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
         RoutingController.get().setRouterType(data.mRouterType);
         final RoutePoint from = data.mPoints[0];
@@ -113,6 +115,7 @@ public class Factory
       case RequestType.CROSSHAIR:
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();
+        target.forceCloseSearchFragment();
         target.showPositionChooserForAPI(Framework.nativeGetParsedAppName());
 
         final double[] latlon = Framework.nativeGetParsedCenterLatLon();
@@ -127,6 +130,7 @@ public class Factory
       case RequestType.OAUTH2:
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();
+        target.forceCloseSearchFragment();
 
         final String oauth2code = Framework.nativeGetParsedOAuth2Code();
         OsmLoginActivity.OAuth2Callback(target, oauth2code);
