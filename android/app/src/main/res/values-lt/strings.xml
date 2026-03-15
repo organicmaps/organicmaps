@@ -858,6 +858,14 @@
     <string name="share_track">Dalintis trasa</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Šalinti %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Šalinti trasą</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Keisti spalvą</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Paslėpti takelį</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Rodyti takelį</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

@@ -855,6 +855,14 @@
     <string name="share_track">Dela spår</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Radera %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Radera spår</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Ändra färg</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Dölj spår</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Visa spår</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

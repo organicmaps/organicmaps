@@ -767,6 +767,14 @@
     <string name="nav_auto">Outo in navigasie</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Volg die stelsel</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Skrap trajek</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Verander kleur</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Versteek spoor</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Wys snit</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

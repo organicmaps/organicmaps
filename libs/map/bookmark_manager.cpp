@@ -840,7 +840,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
     auto const snapRect =
         mercator::RectByCenterXYAndSizeInMeters(m_myPositionMark->GetPivot(), kMyPositionTrackSnapInMeters);
     auto const selectionInfo =
-        FindNearestTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
+        FindNearestVisibleTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
     if (selectionInfo.m_trackId == trackId)
       myPositionDistance = selectionInfo.m_distFromBegM;
   }
@@ -915,8 +915,8 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   m_elevationActivePointChanged = cb;
 }
 
-Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect,
-                                                            TracksFilter const & tracksFilter) const
+Track::TrackSelectionInfo BookmarkManager::FindNearestVisibleTrack(m2::RectD const & touchRect,
+                                                                   TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   Track::TrackSelectionInfo selectionInfo;
@@ -930,6 +930,8 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (!track->IsVisible())
+        continue;
       if (tracksFilter && !tracksFilter(track))
         continue;
 
@@ -2290,6 +2292,11 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
   track->SetData(trackData);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(track->IsVisible());
+  m_changesTracker.OnUpdateLine(trackId);
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()

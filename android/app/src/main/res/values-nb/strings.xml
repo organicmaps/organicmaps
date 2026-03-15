@@ -839,6 +839,14 @@
     <string name="share_track">Del spor</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Slett %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Slett rute</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Endre farge</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Skjul spor</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Vis spor</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

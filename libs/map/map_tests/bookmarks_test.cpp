@@ -1625,4 +1625,54 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   TEST_EQUAL(line, expectedLine, ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_TrackVisibilityPersistence)
+{
+  string const dir = GetBookmarksDirectory();
+  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
+  SCOPE_GUARD(dirDeleter, [&]()
+  {
+    if (delDirOnExit)
+      (void)Platform::RmDir(dir);
+  });
+  string const fileName = base::JoinPath(dir, "UnitTestBookmarks.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  // Import file with a single visible track
+
+  string const kmlFile = GetPlatform().TestsDataPathForFile("test_data/kml/single_track.kml");
+  BookmarkManager::KMLDataCollection kmlDataCollection1;
+  kmlDataCollection1.emplace_back("", LoadKmlData(FileReader(kmlFile), GetActiveFileType()));
+  bmManager.CreateCategories(std::move(kmlDataCollection1));
+
+  auto const groupId1 = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId1 = *bmManager.GetTrackIds(groupId1).begin();
+
+  TEST_EQUAL(true, bmManager.GetTrack(trackId1)->IsVisible(), ());
+
+  // Change visibility and save
+  kml::TrackData trackData = bmManager.GetTrack(trackId1)->GetData();
+  trackData.m_visible = false;
+  bmManager.GetEditSession().UpdateTrack(trackId1, trackData);
+
+  {
+    FileWriter writer(fileName);
+    bmManager.SaveBookmarkCategory(groupId1, writer, GetActiveFileType());
+  }
+
+  // Reload file and verify track visibility
+  bmManager.GetEditSession().DeleteBmCategory(groupId1, true);
+
+  BookmarkManager::KMLDataCollection kmlDataCollection2;
+  kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), GetActiveFileType()));
+
+  bmManager.CreateCategories(std::move(kmlDataCollection2));
+
+  auto const groupId2 = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId2 = *bmManager.GetTrackIds(groupId2).begin();
+  TEST_EQUAL(false, bmManager.GetTrack(trackId2)->IsVisible(), ());
+}
+
 }  // namespace bookmarks_test

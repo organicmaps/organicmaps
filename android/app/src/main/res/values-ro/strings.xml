@@ -838,6 +838,14 @@
     <string name="follow_system">Urmează sistemul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Elimină traseul</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Schimbă culoarea</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ascundeți pista</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Afișează pista</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

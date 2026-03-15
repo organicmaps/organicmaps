@@ -813,6 +813,14 @@
     <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">प्रणालीचे अनुसरण करा</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">ट्रॅक पुसून टाका</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">रंग बदला</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">ट्रॅक लपवा</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">ट्रॅक दाखवा</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

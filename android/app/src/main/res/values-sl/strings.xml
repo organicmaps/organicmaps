@@ -859,6 +859,10 @@
     <string name="share_track">Deli sled</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Izbrišem %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Izbriši sled</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Spremeni barvo</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

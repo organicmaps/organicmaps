@@ -861,6 +861,14 @@
     <string name="share_track">Udostępnij trasę</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Usunąć %s?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Usuń trasę</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Zmień kolor</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ukryj ścieżkę</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Proszę pokazać ścieżkę</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
