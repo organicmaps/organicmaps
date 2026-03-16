@@ -254,8 +254,4 @@ public class SearchToolbarController extends ToolbarController implements View.O
       mQuery.setSelection(query.length());
     mQuery.addTextChangedListener(mTextWatcher);
   }
-  public void setQuerySilently(CharSequence query)
-  {
-    setQuerySilently(query, false);
-  }
 }

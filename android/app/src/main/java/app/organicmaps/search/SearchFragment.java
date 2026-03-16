@@ -106,13 +106,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       stopSearch();
 
       if (query.equals(getQuery()))
-      {
         runSearch();
-      }
       else
-      {
-        setQuery(query, false); // onTextChanged → runSearch()
-      }
+        setQuery(query, false);
       mSearchViewModel.setSearchQuery(null);
     }
   };
@@ -476,7 +472,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     String locale = mSearchViewModel.getInitialLocale();
     if (locale == null)
       locale = Language.getKeyboardLocale(requireContext());
-
+    SearchEngine.INSTANCE.setQuery(getQuery());
     SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, mLastQueryTimestamp,
                                             true /* isMapAndTable */, hasLocation, lat, lon);
 
