@@ -605,15 +605,18 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
 
   if (m_bookmarksChangesTracker.HasBookmarksChanges())
   {
-    kml::GroupIdCollection categoriesToSave;
-    for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
-      if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
-        categoriesToSave.push_back(groupId);
-
     // During the category reloading/updating the file saving should be skipped
     // because of the file is already up to date.
     if (saveChangesOnDisk)
+    {
+      kml::GroupIdCollection categoriesToSave;
+      for (auto groupId : m_bookmarksChangesTracker.GetUpdatedGroupIds())
+        if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
+          categoriesToSave.push_back(groupId);
+
+      LOG(LINFO, ("Save changes, see files below (SaveKmlFileSafe)"));
       SaveBookmarks(categoriesToSave);
+    }
 
     SendBookmarksChanges(m_bookmarksChangesTracker);
   }
@@ -2250,6 +2253,10 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
     }
     else if (!m_loadBookmarksFinished)
     {
+      // Create an empty default category if nothing was loaded. Called on the first launch after async LoadBookmarks.
+      /// @todo We don't have any valid category in a timeframe between starting the app and finishing async
+      /// LoadBookmarks.
+
       CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
     }
@@ -2258,13 +2265,15 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
 
     if (!m_bookmarkLoadingQueue.empty())
     {
-      ASSERT(m_asyncLoadingInProgress, ());
-      if (m_bookmarkLoadingQueue.front().m_isReloading)
-        ReloadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename);
-      else
-        LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
-                            m_bookmarkLoadingQueue.front().m_isTemporaryFile);
+      // Pop from the queue first, load bookmarks next. Avoid possible races if this thread will stuck.
+      auto info = std::move(m_bookmarkLoadingQueue.front());
       m_bookmarkLoadingQueue.pop_front();
+
+      ASSERT(m_asyncLoadingInProgress, ());
+      if (info.m_isReloading)
+        ReloadBookmarkRoutine(info.m_filename);
+      else
+        LoadBookmarkRoutine(info.m_filename, info.m_isTemporaryFile);
     }
     else
     {
