@@ -139,6 +139,11 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(mainGuard);
 
   QApplication app(argc, argv);
+  // QApplication constructor may change locale, so set it again after creating the app.
+  // TODO: Refactor our doubles parsing code to use locale-independent delimiters.
+  // For example, https://github.com/google/double-conversion can be used.
+  // See http://dbaron.org/log/20121222-locale for more details.
+  std::setlocale(LC_NUMERIC, "C");
   app.setDesktopFileName("app.organicmaps.desktop");
 
 #ifdef BUILD_DESIGNER
