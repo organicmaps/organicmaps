@@ -756,6 +756,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchCanceled()
   {
+    mMapButtonsViewModel.setSearchOption(null);
     forceCloseSearchFragment();
   }
 
