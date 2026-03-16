@@ -54,6 +54,9 @@ public class BookmarkCategorySettingsFragment
   @NonNull
   private ImageView mColorPreview;
 
+  @PredefinedColors.Color
+  private int mLastEditedColor;
+
   @NonNull
   private final MenuProvider mMenuProvider = new MenuProvider() {
     @Override
@@ -123,8 +126,8 @@ public class BookmarkCategorySettingsFragment
 
     View colorRow = root.findViewById(R.id.color_row);
     mColorPreview = root.findViewById(R.id.color_preview);
-    final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
-    updateColorPreview(mCategory.getCategoryDefaultColor(lastColor));
+    mLastEditedColor = BookmarkManager.INSTANCE.getLastEditedColor();
+    updateColorPreview(mCategory.getCategoryDefaultColor(mLastEditedColor));
     colorRow.setOnClickListener(v -> showColorPicker());
   }
 
@@ -208,8 +211,7 @@ public class BookmarkCategorySettingsFragment
   private void showColorPicker()
   {
     final Bundle args = new Bundle();
-    final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
-    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mCategory.getCategoryDefaultColor(lastColor));
+    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mCategory.getCategoryDefaultColor(mLastEditedColor));
     final FragmentManager manager = getChildFragmentManager();
     final String className = BookmarkColorDialogFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
