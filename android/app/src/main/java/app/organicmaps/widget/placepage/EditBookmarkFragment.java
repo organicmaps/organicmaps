@@ -37,7 +37,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
-public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener
+public class EditBookmarkFragment extends BaseMwmDialogFragment
+    implements View.OnClickListener, Listener, BookmarkColorDialogFragment.OnBookmarkColorChangeListener
 {
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
@@ -162,7 +163,12 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       if (savedInstanceState != null && savedInstanceState.getParcelable(STATE_ICON) != null)
         mIcon = savedInstanceState.getParcelable(STATE_ICON);
       else if (mBookmark != null)
+      {
         mIcon = mBookmark.getIcon();
+        final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
+        final int newColor = mBookmarkCategory.getCategoryDefaultColor(lastColor);
+        mIcon = new Icon(newColor, mIcon.getType());
+      }
       refreshBookmark();
     }
     case TYPE_TRACK ->
@@ -316,28 +322,31 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     final BookmarkColorDialogFragment dialogFragment =
         (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
     dialogFragment.setArguments(args);
+    dialogFragment.show(manager, null);
+  }
+
+  @Override
+  public void onBookmarkColorSet(int colorPos)
+  {
     switch (mType)
     {
     case TYPE_BOOKMARK ->
-      dialogFragment.setOnColorSetListener(colorPos -> {
-        if (mIcon != null && mIcon.getColor() == colorPos)
-          return;
-
-        mIcon = new Icon(colorPos, mIcon.getType());
-        refreshColorMarker();
-      });
-    case TYPE_TRACK ->
-      dialogFragment.setOnColorSetListener(colorPos -> {
-        int from = mTrack.getColor();
-        int to = PredefinedColors.getColor(colorPos);
-        if (from == to)
-          return;
-        mColor = to;
-        refreshTrackColor();
-      });
+    {
+      if (mIcon == null || mIcon.getColor() == colorPos)
+        return;
+      mIcon = new Icon(colorPos, mIcon.getType());
+      refreshColorMarker();
     }
-
-    dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
+    case TYPE_TRACK ->
+    {
+      int from = mTrack.getColor();
+      int to = PredefinedColors.getColor(colorPos);
+      if (from == to)
+        return;
+      mColor = to;
+      refreshTrackColor();
+    }
+    }
   }
 
   private void refreshColorMarker()

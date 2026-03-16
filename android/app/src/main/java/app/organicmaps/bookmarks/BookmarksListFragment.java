@@ -2,7 +2,6 @@ package app.organicmaps.bookmarks;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -48,7 +46,6 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
@@ -62,7 +59,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     implements BookmarkManager.BookmarksSharingListener, BookmarkManager.BookmarksSortingListener,
                BookmarkManager.BookmarksLoadingListener, BookmarkSearchListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterface
+               MenuBottomSheetFragment.MenuBottomSheetInterface,
+               BookmarkColorDialogFragment.OnBookmarkColorChangeListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
@@ -94,6 +92,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @NonNull
   private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
+  private int mSelectedItemType;
   private boolean mSearchMode = false;
   private boolean mNeedUpdateSorting = true;
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -624,7 +623,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     i.putExtra(MwmActivity.EXTRA_BOOKMARK_ID, bookmark.getBookmarkId());
   }
 
-  private void showColorDialog(ImageView v, int position)
+  private void showColorDialog(int position)
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
 
@@ -638,46 +637,56 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final FragmentFactory factory = manager.getFragmentFactory();
     final BookmarkColorDialogFragment dialogFragment =
         (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
-    final int type = adapter.getItemViewType(position);
+    mSelectedItemType = adapter.getItemViewType(position);
 
-    if (type == BookmarkListAdapter.TYPE_TRACK)
+    if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)
     {
-      final Track mTrack = (Track) adapter.getItem(mSelectedPosition);
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
-      dialogFragment.setArguments(args);
-      dialogFragment.setOnColorSetListener((colorPos) -> {
-        final int from = mTrack.getColor();
-        final int to = PredefinedColors.getColor(colorPos);
-        if (from == to)
-          return;
-        mTrack.setColor(to);
-        final Drawable circle = Graphics.drawCircle(to, R.dimen.track_circle_size, requireContext().getResources());
-        v.setImageDrawable(circle);
-      });
+      final Track track = (Track) item;
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(track.getColor()));
     }
-    else if (type == BookmarkListAdapter.TYPE_BOOKMARK)
+    else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
-      dialogFragment.setArguments(args);
-      dialogFragment.setOnColorSetListener((colorPos) -> {
-        final int from = bookmark.getIcon().getColor();
-        final int to = PredefinedColors.getColor(colorPos);
-        if (from == to)
-          return;
-        final int colorIndex = PredefinedColors.getPredefinedColorIndex(to);
-        if (colorIndex == -1)
-          return;
-        final Icon newIcon = new Icon(colorIndex, bookmark.getIcon().getType());
-        bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
-        final Drawable icon = Graphics.drawCircleAndImage(to, R.dimen.track_circle_size, bookmark.getIcon().getResId(),
-                                                          R.dimen.bookmark_icon_size, requireContext());
-        v.setImageDrawable(icon);
-      });
     }
 
-    dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
+    dialogFragment.setArguments(args);
+    dialogFragment.show(manager, null);
+  }
+
+  @Override
+  public void onBookmarkColorSet(int colorPos)
+  {
+    BookmarkListAdapter adapter = getBookmarkListAdapter();
+    final Object item = adapter.getItem(mSelectedPosition);
+    if (item == null)
+      return;
+
+    if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)
+    {
+      final Track track = (Track) item;
+      final int from = track.getColor();
+      final int to = PredefinedColors.getColor(colorPos);
+      if (from == to)
+        return;
+      track.setColor(to);
+    }
+    else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
+    {
+      final BookmarkInfo bookmark = (BookmarkInfo) item;
+      final int from = bookmark.getIcon().getColor();
+      final int to = PredefinedColors.getColor(colorPos);
+      if (from == to)
+        return;
+      final int colorIndex = PredefinedColors.getPredefinedColorIndex(to);
+      if (colorIndex == -1)
+        return;
+      final Icon newIcon = new Icon(colorIndex, bookmark.getIcon().getType());
+      bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
+    }
+
+    adapter.notifyItemChanged(mSelectedPosition);
   }
 
   public void onItemMore(int position)

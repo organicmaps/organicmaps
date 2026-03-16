@@ -33,7 +33,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
-public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
+public class BookmarkCategorySettingsFragment
+    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
 
@@ -215,10 +216,13 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     final BookmarkColorDialogFragment dialogFragment =
         (BookmarkColorDialogFragment) factory.instantiate(requireContext().getClassLoader(), className);
     dialogFragment.setArguments(args);
-    dialogFragment.setOnColorSetListener(color -> {
-      mCategory.setCategoryColor(color);
-      updateColorPreview(color);
-    });
     dialogFragment.show(manager, className);
+  }
+
+  @Override
+  public void onBookmarkColorSet(int color)
+  {
+    mCategory.setCategoryColor(color);
+    updateColorPreview(color);
   }
 }

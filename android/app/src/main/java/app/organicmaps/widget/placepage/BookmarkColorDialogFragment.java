@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.GridView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.ColorsAdapter;
@@ -47,16 +48,18 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
         mIconResId = getArguments().getInt(ICON_RES);
     }
 
+    if (mColorSetListener == null)
+    {
+      final Fragment parent = getParentFragment();
+      if (parent instanceof OnBookmarkColorChangeListener)
+        mColorSetListener = (OnBookmarkColorChangeListener) parent;
+    }
+
     return new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setView(buildView())
         .setTitle(R.string.choose_color)
         .setNegativeButton(R.string.cancel, null)
         .create();
-  }
-
-  public void setOnColorSetListener(OnBookmarkColorChangeListener listener)
-  {
-    mColorSetListener = listener;
   }
 
   @NonNull
