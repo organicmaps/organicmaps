@@ -1,22 +1,24 @@
 #include "kml/serdes_common.hpp"
-#include "base/assert.hpp"
-#include "base/string_utils.hpp"
+
 #include "geometry/mercator.hpp"
 
-#include <cstdio>  // snprintf
+#include "base/string_utils.hpp"
+
+#include <sstream>
 
 namespace kml
 {
 
-static std::string PointToString(m2::PointD const & org, char const separator)
+std::string PointToString(m2::PointD const & org, char const separator)
 {
   double const lon = mercator::XToLon(org.x);
   double const lat = mercator::YToLat(org.y);
-  // TODO(AB): Migrate to faster std::format when min iOS target will be 16.3+.
-  char buf[2 * 11 + 1 + 1];  // 11 for lat/lon, 1 for separator, 1 for null terminator.
-  [[maybe_unused]] int res = std::snprintf(buf, sizeof(buf), "%.6lf%c%.6lf", lon, separator, lat);
-  ASSERT(res > 0 && res < static_cast<int>(sizeof(buf)), ("Unexpected error while converting point to string"));
-  return std::string(buf, static_cast<size_t>(res));
+
+  std::ostringstream ss;
+  ss.precision(8);
+
+  ss << lon << separator << lat;
+  return ss.str();
 }
 
 std::string PointToLineString(geometry::PointWithAltitude const & pt)
