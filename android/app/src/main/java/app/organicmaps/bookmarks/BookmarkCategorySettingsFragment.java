@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
-import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
@@ -211,10 +210,9 @@ public class BookmarkCategorySettingsFragment
   {
     final Bundle args = new Bundle();
     args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mCategory.getCategoryDefaultColor(mLastEditedColor));
-    final FragmentManager manager = getChildFragmentManager();
     final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     dialogFragment.setArguments(args);
-    dialogFragment.show(manager, BookmarkColorDialogFragment.class.getName());
+    dialogFragment.show(getChildFragmentManager(), BookmarkColorDialogFragment.class.getName());
   }
 
   @Override

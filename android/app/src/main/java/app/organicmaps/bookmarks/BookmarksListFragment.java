@@ -19,7 +19,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -68,6 +67,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String BOOKMARKS_MENU_ID = "BOOKMARKS_MENU_BOTTOM_SHEET";
   private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
+  private static final String EXTRA_SELECTED_POSITION = "selected_position";
+  private static final String EXTRA_SELECTED_ITEM_TYPE = "selected_item_type";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
   private final ActivityResultLauncher<Intent> startBookmarkListForResult =
@@ -162,7 +163,21 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
 
+    if (savedInstanceState != null)
+    {
+      mSelectedPosition = savedInstanceState.getInt(EXTRA_SELECTED_POSITION);
+      mSelectedItemType = savedInstanceState.getInt(EXTRA_SELECTED_ITEM_TYPE);
+    }
+
     shareLauncher = SharingUtils.RegisterLauncher(this);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putInt(EXTRA_SELECTED_POSITION, mSelectedPosition);
+    outState.putInt(EXTRA_SELECTED_ITEM_TYPE, mSelectedItemType);
   }
 
   @NonNull
@@ -630,11 +645,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final Object item = adapter.getItem(mSelectedPosition);
     if (item == null)
       return;
-    final Bundle args = new Bundle();
-    final FragmentManager manager = getChildFragmentManager();
-    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     mSelectedItemType = adapter.getItemViewType(position);
 
+    final Bundle args = new Bundle();
     if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)
     {
       final Track track = (Track) item;
@@ -647,8 +660,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
     }
 
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     dialogFragment.setArguments(args);
-    dialogFragment.show(manager, null);
+    dialogFragment.show(getChildFragmentManager(), null);
   }
 
   @Override
