@@ -545,10 +545,7 @@ public class PlacePageView extends Fragment
   {
     final Bundle args = new Bundle();
     final FragmentManager manager = getChildFragmentManager();
-    String className = BookmarkColorDialogFragment.class.getName();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    final BookmarkColorDialogFragment dialogFragment =
-        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
 
     if (mMapObject.isTrack())
     {

@@ -312,10 +312,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment
       args.putInt(BookmarkColorDialogFragment.ICON_RES, mIcon.getResId());
     }
     final FragmentManager manager = getChildFragmentManager();
-    String className = BookmarkColorDialogFragment.class.getName();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    final BookmarkColorDialogFragment dialogFragment =
-        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     dialogFragment.setArguments(args);
     dialogFragment.show(manager, null);
   }

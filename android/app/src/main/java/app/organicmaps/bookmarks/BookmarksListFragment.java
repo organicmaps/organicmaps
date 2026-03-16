@@ -19,7 +19,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -633,10 +632,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return;
     final Bundle args = new Bundle();
     final FragmentManager manager = getChildFragmentManager();
-    final String className = BookmarkColorDialogFragment.class.getName();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    final BookmarkColorDialogFragment dialogFragment =
-        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     mSelectedItemType = adapter.getItemViewType(position);
 
     if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)

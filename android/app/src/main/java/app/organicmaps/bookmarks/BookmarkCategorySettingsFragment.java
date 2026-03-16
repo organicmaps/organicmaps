@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
@@ -213,12 +212,9 @@ public class BookmarkCategorySettingsFragment
     final Bundle args = new Bundle();
     args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mCategory.getCategoryDefaultColor(mLastEditedColor));
     final FragmentManager manager = getChildFragmentManager();
-    final String className = BookmarkColorDialogFragment.class.getName();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    final BookmarkColorDialogFragment dialogFragment =
-        (BookmarkColorDialogFragment) factory.instantiate(requireContext().getClassLoader(), className);
+    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     dialogFragment.setArguments(args);
-    dialogFragment.show(manager, className);
+    dialogFragment.show(manager, BookmarkColorDialogFragment.class.getName());
   }
 
   @Override
