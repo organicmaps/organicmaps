@@ -704,7 +704,7 @@ UNIT_TEST(to_string_dac)
   TEST_EQUAL(strings::to_string_dac(-0.333333, 4), "-0.3333", ());
   TEST_EQUAL(strings::to_string_dac(2.33, 2), "2.33", ());
 
-  TEST_EQUAL(strings::to_string_dac(-0.0039, 2), "-0", ());
+  TEST_EQUAL(strings::to_string_dac(-0.0039, 2), "0", ());  // negative zero suppressed
   TEST_EQUAL(strings::to_string_dac(0.0039, 2), "0", ());
   TEST_EQUAL(strings::to_string_dac(-1.0039, 2), "-1", ());
   TEST_EQUAL(strings::to_string_dac(1.0039, 2), "1", ());
@@ -717,7 +717,12 @@ UNIT_TEST(to_string_dac)
   TEST_EQUAL(strings::to_string_dac(-1.0, 30), "-1", ());
   TEST_EQUAL(strings::to_string_dac(-0.99, 30), "-0.99", ());
 
-  TEST_EQUAL(strings::to_string_dac(1.0E30, 6), "1e+30", ());
+  // 1e30 is now formatted as fixed-point decimal (no scientific notation).
+  {
+    std::string const s = strings::to_string_dac(1.0E30, 6);
+    TEST(s.size() >= 30 && s.size() <= 31, (s));
+    TEST(s.find('e') == std::string::npos, (s));
+  }
   TEST_EQUAL(strings::to_string_dac(1.0E-15, 15), "0.000000000000001", ());
   TEST_EQUAL(strings::to_string_dac(1.0 + 1.0E-14, 15), "1.00000000000001", ());
 }

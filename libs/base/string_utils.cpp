@@ -1,12 +1,10 @@
 #include "base/string_utils.hpp"
 
 #include "base/assert.hpp"
-#include "base/math.hpp"
+#include "base/float_to_string.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <cmath>
-#include <iomanip>
 #include <iterator>
 #include <string>
 
@@ -335,40 +333,9 @@ bool EatSuffix(std::string & s, std::string const & suffix)
   return true;
 }
 
-std::string to_string_dac(double d, int dac)
+std::string to_string_dac(double d, uint8_t dac)
 {
-  dac = std::min(std::numeric_limits<double>::digits10, dac);
-
-  std::ostringstream ss;
-
-  if (d < 1. && d > -1.)
-  {
-    std::string res;
-    if (d >= 0.)
-    {
-      ss << std::setprecision(dac + 1) << d + 1;
-      res = ss.str();
-      res[0] = '0';
-    }
-    else
-    {
-      ss << std::setprecision(dac + 1) << d - 1;
-      res = ss.str();
-      res[1] = '0';
-    }
-    return res;
-  }
-
-  // Calc digits before comma (log10).
-  double fD = fabs(d);
-  while (fD >= 1.0 && dac < std::numeric_limits<double>::digits10)
-  {
-    fD /= 10.0;
-    ++dac;
-  }
-
-  ss << std::setprecision(dac) << d;
-  return ss.str();
+  return base::FloatToString(d, dac);
 }
 
 bool IsHTML(std::string const & utf8)

@@ -34,6 +34,7 @@ set(SRC
   fifo_cache.hpp
   file_name_utils.cpp
   file_name_utils.hpp
+  float_to_string.hpp
   geo_object_id.cpp
   geo_object_id.hpp
   gmtime.cpp

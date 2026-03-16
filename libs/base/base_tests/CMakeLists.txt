@@ -15,6 +15,7 @@ set(SRC
   exception_tests.cpp
   fifo_cache_test.cpp
   file_name_utils_tests.cpp
+  float_to_string_test.cpp
   geo_object_id_tests.cpp
   levenshtein_dfa_test.cpp
   linked_map_tests.cpp

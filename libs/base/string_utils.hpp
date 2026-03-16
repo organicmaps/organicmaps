@@ -528,9 +528,13 @@ inline std::string to_string(uint64_t i)
 {
   return std::to_string(i);
 }
-/// Use this function to get string with fixed count of
-/// "Digits after comma".
-std::string to_string_dac(double d, int dac);
+// @returns string with fixed count of "digits after comma"
+std::string to_string_dac(double d, uint8_t dac);
+// @returns string with fixed count of "digits after comma"
+inline std::string to_string_dac(float d, uint8_t dac)
+{
+  return to_string_dac(static_cast<double>(d), dac);
+}
 //@}
 
 // Get string with fixed width. Extra '0' are added at the begining to fit size.
