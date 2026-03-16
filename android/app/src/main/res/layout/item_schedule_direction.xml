@@ -44,4 +44,13 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
+    <!-- Chevron arrow for details -->
+    <ImageView
+        android:id="@+id/iv_chevron"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin_quarter"
+        android:src="@drawable/ic_arrow_next"
+        android:contentDescription="@null" />
+
 </LinearLayout>

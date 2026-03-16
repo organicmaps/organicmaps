@@ -52,16 +52,4 @@
         android:clickable="true"
         android:focusable="true" />
 
-    <!-- Details arrow -->
-    <ImageView
-        android:id="@+id/iv_details"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:padding="@dimen/margin_quarter"
-        android:src="@drawable/ic_clock"
-        android:contentDescription="@null"
-        android:background="?selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true" />
-
 </LinearLayout>

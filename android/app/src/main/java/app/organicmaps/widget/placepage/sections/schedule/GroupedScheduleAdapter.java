@@ -145,9 +145,9 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     if (holder instanceof SectionHeaderViewHolder && item instanceof ScheduleSection)
       ((SectionHeaderViewHolder) holder).bind((ScheduleSection) item);
     else if (holder instanceof RouteHeaderViewHolder && item instanceof ScheduleRoute)
-      ((RouteHeaderViewHolder) holder).bind((ScheduleRoute) item, mPinClickListener, mDetailsClickListener);
+      ((RouteHeaderViewHolder) holder).bind((ScheduleRoute) item, mPinClickListener);
     else if (holder instanceof DirectionViewHolder && item instanceof DirectionItem)
-      ((DirectionViewHolder) holder).bind((DirectionItem) item);
+      ((DirectionViewHolder) holder).bind((DirectionItem) item, mDetailsClickListener);
   }
 
   @Override
@@ -203,7 +203,6 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final ImageView mTransportIcon;
     private final TextView mRouteNumber;
     private final ImageView mPinIcon;
-    private final ImageView mDetailsIcon;
 
     RouteHeaderViewHolder(@NonNull View itemView)
     {
@@ -211,11 +210,9 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       mTransportIcon = itemView.findViewById(R.id.iv_transport_icon);
       mRouteNumber = itemView.findViewById(R.id.tv_route_number);
       mPinIcon = itemView.findViewById(R.id.iv_pin);
-      mDetailsIcon = itemView.findViewById(R.id.iv_details);
     }
 
-    void bind(ScheduleRoute route, @Nullable OnPinClickListener pinListener,
-              @Nullable OnRouteDetailsClickListener detailsListener)
+    void bind(ScheduleRoute route, @Nullable OnPinClickListener pinListener)
     {
       // Set transport icon based on type
       int iconRes = getTransportIconRes(route.transportType);
@@ -245,13 +242,6 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (pinListener != null)
           pinListener.onPinClick(route);
       });
-
-      // Details arrow
-      ImageViewCompat.setImageTintList(mDetailsIcon, ColorStateList.valueOf(color));
-      mDetailsIcon.setOnClickListener(v -> {
-        if (detailsListener != null && !route.directions.isEmpty())
-          detailsListener.onDetailsClick(route, route.directions.get(0));
-      });
     }
 
     private int getTransportIconRes(TransportType type)
@@ -274,6 +264,7 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final TextView mDestination;
     private final TextView mArrivalTimes;
     private final ImageView mDynamicIndicator;
+    private final ImageView mChevron;
 
     DirectionViewHolder(@NonNull View itemView)
     {
@@ -281,9 +272,10 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       mDestination = itemView.findViewById(R.id.tv_destination);
       mArrivalTimes = itemView.findViewById(R.id.tv_arrival_times);
       mDynamicIndicator = itemView.findViewById(R.id.iv_dynamic_indicator);
+      mChevron = itemView.findViewById(R.id.iv_chevron);
     }
 
-    void bind(DirectionItem item)
+    void bind(DirectionItem item, @Nullable OnRouteDetailsClickListener detailsListener)
     {
       ScheduleDirection direction = item.direction;
       mDestination.setText(direction.destination);
@@ -304,6 +296,18 @@ public class GroupedScheduleAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
       // Show dynamic indicator if any arrival has real-time data
       mDynamicIndicator.setVisibility(direction.hasDynamicData() ? View.VISIBLE : View.INVISIBLE);
+
+      // Apply theme-aware tint to chevron
+      TypedValue typedValue = new TypedValue();
+      itemView.getContext().getTheme().resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
+      int color = ContextCompat.getColor(itemView.getContext(), typedValue.resourceId);
+      ImageViewCompat.setImageTintList(mChevron, ColorStateList.valueOf(color));
+
+      // Click on direction row opens schedule details
+      itemView.setOnClickListener(v -> {
+        if (detailsListener != null)
+          detailsListener.onDetailsClick(item.route, item.direction);
+      });
     }
   }
 
