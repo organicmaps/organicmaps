@@ -204,12 +204,27 @@ public:
   DECLARE_CHECKER_INSTANCE(IsStreetOrSquareChecker);
 };
 
-class IsAddressObjectChecker : public BaseChecker
+class IsAddressObjectChecker
 {
-  IsAddressObjectChecker();
-
 public:
+  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
+  template <class T>
+  bool operator()(T const & t) const
+  {
+    return m_oneLevel(t) || m_twoLevel(t);
+  }
+
   DECLARE_CHECKER_INSTANCE(IsAddressObjectChecker);
+
+private:
+  struct AddressOneLevel : BaseChecker
+  {
+    AddressOneLevel();
+  } m_oneLevel;
+  struct AddressTwoLevel : BaseChecker
+  {
+    AddressTwoLevel();
+  } m_twoLevel;
 };
 
 class IsAddressChecker : public BaseChecker

@@ -338,14 +338,27 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 
 // Used to determine for which features to display address in PP and in search results.
 // If such a feature has a housenumber and a name then its enriched with a postcode (at the generation stage).
-IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
+IsAddressObjectChecker::AddressOneLevel::AddressOneLevel() : BaseChecker(1 /* level */)
 {
-  /// @todo(pastk): some objects in TwoLevelPOIChecker can have addresses also.
   m_types = OneLevelPOIChecker().GetTypes();
 
   Classificator const & c = classif();
-  for (auto const * p : {"addr:interpolation", "building", "entrance"})
+  for (auto const * p : {"addr:interpolation", "building", "entrance", "landuse"})
     m_types.push_back(c.GetTypeByPath({p}));
+}
+
+IsAddressObjectChecker::AddressTwoLevel::AddressTwoLevel() : BaseChecker(2 /* level */)
+{
+  // Introduced 2-level checker to avoid types like barrier=fence.
+  base::StringIL const arr[] = {
+      {"aeroway", "aerodrome"}, {"barrier", "gate"},   {"barrier", "wicket_gate"},
+      {"man_made", "mast"},     {"man_made", "works"}, {"man_made", "tower"},
+      {"power", "generator"},   {"power", "plant"},    {"power", "substation"},
+  };
+
+  Classificator const & c = classif();
+  for (auto const & path : arr)
+    m_types.push_back(c.GetTypeByPath(path));
 }
 
 // Used to insert exact address (street and house number) instead of
@@ -437,33 +450,20 @@ OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
-  base::StringIL arr[] = {{"aeroway", "terminal"},
-                          {"aeroway", "gate"},
-                          {"building", "guardhouse"},
-                          {"building", "train_station"},
-                          {"emergency", "defibrillator"},
-                          {"emergency", "fire_hydrant"},
-                          {"emergency", "phone"},
-                          {"highway", "bus_stop"},
-                          {"highway", "elevator"},
-                          {"highway", "ford"},
-                          {"highway", "raceway"},
-                          {"highway", "rest_area"},
-                          {"highway", "services"},
-                          {"highway", "speed_camera"},
-                          {"man_made", "cross"},
-                          {"man_made", "lighthouse"},
-                          {"man_made", "water_tap"},
-                          {"man_made", "water_well"},
-                          {"natural", "beach"},
-                          {"natural", "cave_entrance"},
-                          {"natural", "geyser"},
-                          {"natural", "hot_spring"},
-                          {"natural", "peak"},
-                          {"natural", "saddle"},
-                          {"natural", "spring"},
-                          {"natural", "volcano"},
-                          {"waterway", "waterfall"}};
+  base::StringIL arr[] = {{"aeroway", "terminal"},        {"aeroway", "gate"},
+                          {"building", "guardhouse"},     {"building", "train_station"},
+                          {"emergency", "defibrillator"}, {"emergency", "fire_hydrant"},
+                          {"emergency", "phone"},         {"highway", "bus_stop"},
+                          {"highway", "elevator"},        {"highway", "ford"},
+                          {"highway", "raceway"},         {"highway", "rest_area"},
+                          {"highway", "services"},        {"highway", "speed_camera"},
+                          {"man_made", "cross"},          {"man_made", "lighthouse"},
+                          {"man_made", "water_tap"},      {"man_made", "water_well"},
+                          {"man_made", "windmill"},       {"natural", "beach"},
+                          {"natural", "cave_entrance"},   {"natural", "geyser"},
+                          {"natural", "hot_spring"},      {"natural", "peak"},
+                          {"natural", "saddle"},          {"natural", "spring"},
+                          {"natural", "volcano"},         {"waterway", "waterfall"}};
 
   for (auto const & path : arr)
     m_types.push_back(c.GetTypeByPath(path));
