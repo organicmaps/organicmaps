@@ -250,7 +250,8 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   private func findNearestStop(_ offset: CGFloat) -> PlacePageState {
-    var result = scrollSteps[0]
+    guard let firstStop = scrollSteps.first else { return .closed(-scrollView.height) }
+    var result = firstStop
     for ppState in scrollSteps.suffix(from: 1) {
       if abs(result.offset - offset) > abs(ppState.offset - offset) {
         result = ppState
@@ -359,30 +360,17 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func updatePreviewOffset() {
     updateSteps()
     guard !beginDragging, isVisible else { return }
-
-    // ✅ Prevent "index out of range" crashes
-    guard scrollSteps.count > (isPreviewPlus ? 2 : 1) else { return }
-
-    let estimatedYOffset = isPreviewPlus
-      ? scrollSteps[2].offset
-      : scrollSteps[1].offset + Constants.additionalPreviewOffset
-
+    let estimatedYOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
     var offset = CGPoint(x: 0, y: estimatedYOffset)
-
     if let userDefinedStep {
       // Respect user defined offset if possible.
       switch userDefinedStep {
       case .preview:
-        // ✅ Also protect this [1] access
-        guard scrollSteps.count > 1 else { return }
         offset.y = scrollSteps[1].offset
-
       case .previewPlus(let yOffset):
         offset.y = yOffset
-
       case .full:
         offset.y = currentScrollContentOffset?.y ?? scrollSteps.last?.offset ?? 0
-
       case .closed:
         break
       }
@@ -390,7 +378,6 @@ extension PlacePageViewController: PlacePageViewProtocol {
       // Keep previous offset during layout update if possible.
       offset.y = max(estimatedYOffset, currentScrollContentOffset.y)
     }
-
     scrollTo(offset)
   }
 
