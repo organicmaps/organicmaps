@@ -44,7 +44,7 @@ TestRawGenerator::TestRawGenerator()
   GetStyleReader().SetCurrentStyle(MapStyleMerged);
   classificator::Load();
 
-  SetupTmpFolder("./raw_generator");
+  SetupTmpFolder(GetPlatform().TmpPathForFile("raw_generator_", ""));
 }
 
 TestRawGenerator::~TestRawGenerator()
