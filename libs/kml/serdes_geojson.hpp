@@ -72,7 +72,7 @@ struct GeoJsonData
 {
   std::string type = "FeatureCollection";
   std::vector<GeoJsonFeature> features;
-  std::optional<std::map<std::string, std::string>> properties;
+  std::optional<GenericJsonMap> properties;
 };
 
 // Color convertion functions
