@@ -84,9 +84,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       if (enabled)
       {
         if (mPlacePageViewModel.getMapObject().getValue() != null && !mViewModel.isHiddenByPlacePage())
-        {
           mPlacePageViewModel.setMapObject(null);
-        }
         Integer lastState = mViewModel.getSearchPageLastState().getValue();
         if (lastState != null && lastState != BottomSheetBehavior.STATE_HIDDEN)
         {
@@ -100,8 +98,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       }
       else
       {
-        if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
-          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
       }
     }
   };
@@ -116,7 +113,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
             return;
 
-          PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
+          if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
+            PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
           if (PlacePageUtils.isHiddenState(newState))
           {
@@ -147,6 +145,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       };
   @Nullable
   private View mRoutingPlanFrame;
+  private View mNavigationFrame;
   // These variables are used to determine if the touch event is a tap or a drag
   private float mInitialX = 0f;
   private float mInitialY = 0f;
@@ -202,6 +201,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
     mCoordinator = requireActivity().findViewById(R.id.coordinator);
     mRoutingPlanFrame = requireActivity().findViewById(R.id.routing_plan_frame);
+    mNavigationFrame = requireActivity().findViewById(R.id.nav_top_frame);
     mViewportMinHeight = requireActivity().getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
 
     mSearchPageContainer = view.findViewById(R.id.search_page_container);
@@ -242,6 +242,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mSearchPageContainer.post(this::updateExpandedOffset);
     if (mRoutingPlanFrame != null)
       mRoutingPlanFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
+    if (mNavigationFrame != null)
+      mNavigationFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
 
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
@@ -339,13 +341,33 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     int topInset =
         mCurrentWindowInsets != null ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
     int routingHeaderHeight = 0;
-    if (mRoutingPlanFrame != null && mRoutingPlanFrame.getVisibility() == View.VISIBLE)
-      routingHeaderHeight = mRoutingPlanFrame.getHeight();
-    if (routingHeaderHeight == 0 && RoutingController.get().isPlanning())
-      routingHeaderHeight = (int) getResources().getDimension(
-          ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
+    int navigationHeaderHeight = 0;
 
-    int expandedOffset = topInset + routingHeaderHeight;
+    if (mRoutingPlanFrame != null && RoutingController.get().isPlanning())
+    {
+      if (mRoutingPlanFrame.getVisibility() == View.VISIBLE)
+        routingHeaderHeight = mRoutingPlanFrame.getHeight();
+      if (routingHeaderHeight == 0)
+        routingHeaderHeight = (int) getResources().getDimension(
+            ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
+    }
+    else if (mNavigationFrame != null && mNavigationFrame.getVisibility() == View.VISIBLE)
+    {
+      navigationHeaderHeight = mNavigationFrame.findViewById(R.id.street_frame).getHeight();
+      int a = 0, b = 0;
+      if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+      {
+        if (mNavigationFrame.findViewById(R.id.nav_next_turn_container).getVisibility() == View.VISIBLE)
+          a += mNavigationFrame.findViewById(R.id.nav_next_turn_container).getHeight();
+        if (mNavigationFrame.findViewById(R.id.nav_speed_limit).getVisibility() == View.VISIBLE)
+          a += mNavigationFrame.findViewById(R.id.nav_speed_limit).getHeight();
+      }
+      if (mNavigationFrame.findViewById(R.id.lanes).getVisibility() == View.VISIBLE)
+        b += mNavigationFrame.findViewById(R.id.lanes).getHeight();
+      navigationHeaderHeight += Math.max(a, b);
+    }
+
+    int expandedOffset = topInset + routingHeaderHeight + navigationHeaderHeight;
     mFrameLayoutBottomSheetBehavior.setExpandedOffset(Math.max(expandedOffset, 0));
   }
 
