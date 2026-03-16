@@ -145,6 +145,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private boolean mIntentConsumed = false;
   private boolean mPreciseLocationDialogShown = false;
 
   private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloaderFragment.class.getName(),
@@ -288,9 +289,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       throw new AssertionError("Must be called with initialized Drape");
 
     final Intent intent = getIntent();
-    if (intent == null || intent.getBooleanExtra(EXTRA_CONSUMED, false))
+    if (intent == null || mIntentConsumed)
       return;
-    intent.putExtra(EXTRA_CONSUMED, true);
+    mIntentConsumed = true;
 
     final long categoryId = intent.getLongExtra(EXTRA_CATEGORY_ID, -1);
     final long bookmarkId = intent.getLongExtra(EXTRA_BOOKMARK_ID, -1);
@@ -523,6 +524,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
+
+    if (savedInstanceState != null)
+      mIntentConsumed = savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
 
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
@@ -937,6 +941,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingController.get().deleteSavedRoute();
 
     outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
+    outState.putBoolean(EXTRA_CONSUMED, mIntentConsumed);
     super.onSaveInstanceState(outState);
   }
 
@@ -1003,6 +1008,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onNewIntent(Intent intent)
   {
     setIntent(intent);
+    mIntentConsumed = false;
     super.onNewIntent(intent);
     if (mMapController.isRenderingActive())
       processIntent();
