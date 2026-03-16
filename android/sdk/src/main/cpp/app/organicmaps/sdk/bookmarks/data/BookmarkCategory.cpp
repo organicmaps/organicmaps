@@ -218,6 +218,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkCategory_nativeSe
                                                                                                         jlong catId,
                                                                                                         jint colorIndex)
 {
+  CHECK_LESS(static_cast<size_t>(colorIndex), kml::kOrderedPredefinedColors.size(), ());
+
   auto const color = kml::kOrderedPredefinedColors[colorIndex];
   frm()->GetBookmarkManager().GetEditSession().SetCategoryBookmarksColor(static_cast<kml::MarkGroupId>(catId), color);
 }
