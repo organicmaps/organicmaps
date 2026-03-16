@@ -163,12 +163,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment
       if (savedInstanceState != null && savedInstanceState.getParcelable(STATE_ICON) != null)
         mIcon = savedInstanceState.getParcelable(STATE_ICON);
       else if (mBookmark != null)
-      {
         mIcon = mBookmark.getIcon();
-        final int lastColor = BookmarkManager.INSTANCE.getLastEditedColor();
-        final int newColor = mBookmarkCategory.getCategoryDefaultColor(lastColor);
-        mIcon = new Icon(newColor, mIcon.getType());
-      }
       refreshBookmark();
     }
     case TYPE_TRACK ->
