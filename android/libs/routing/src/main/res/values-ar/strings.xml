@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">تحديث الخرائط</string>
     <string name="downloader_mwm_migration_dialog">لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.</string>
+    <string name="navigation_stop_button">توقف</string>
     <string name="ok">موافق</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

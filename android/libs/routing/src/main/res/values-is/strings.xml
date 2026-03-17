@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Uppfæra kort</string>
     <string name="downloader_mwm_migration_dialog">Til að búa til leið þarftu að uppfæra öll kort og síðan skipuleggja leiðina aftur.</string>
+    <string name="navigation_stop_button">Stöðva</string>
     <string name="ok">Í lagi</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">עדכן מפות</string>
     <string name="downloader_mwm_migration_dialog">ליצירת מסלול, יש לעדכן את כל המפות ולתכנן מסלול שנית.</string>
+    <string name="navigation_stop_button">עצור</string>
     <string name="ok">אוקיי</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

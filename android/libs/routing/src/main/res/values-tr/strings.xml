@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Haritaları güncelle</string>
     <string name="downloader_mwm_migration_dialog">Rota oluşturmak için tüm haritaları güncellemeli ve rotayı yeniden planlamalısınız.</string>
+    <string name="navigation_stop_button">Dur</string>
     <string name="ok">Tamam</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

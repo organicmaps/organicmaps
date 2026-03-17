@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">อัปเดตแผนที่</string>
     <string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>
+    <string name="navigation_stop_button">หยุด</string>
     <string name="ok">โอเค</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

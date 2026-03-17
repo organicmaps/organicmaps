@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Ажурирај мапе</string>
     <string name="downloader_mwm_migration_dialog">Да бисте направили руту, потребно је да ажурирате све мапе, а затим да поново планирате руту.</string>
+    <string name="navigation_stop_button">Стоп</string>
     <string name="ok">ОК</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
