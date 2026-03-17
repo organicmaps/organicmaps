@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Naujinti žemėlapius</string>
     <string name="downloader_mwm_migration_dialog">Maršrutui apskaičiuoti reikia atnaujinti visus žemėlapius ir suplanuoti maršrutą iš naujo.</string>
+    <string name="navigation_stop_button">Stabdyti</string>
     <string name="ok">Gerai</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

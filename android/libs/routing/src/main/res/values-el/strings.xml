@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Ενημέρωση χαρτών</string>
     <string name="downloader_mwm_migration_dialog">Για να δημιουργήσετε μια διαδρομή, πρέπει να ενημερώσετε όλους τους χάρτες και στη συνέχεια να σχεδιάσετε τη διαδρομή ξανά.</string>
+    <string name="navigation_stop_button">τέλος</string>
     <string name="ok">Οκ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

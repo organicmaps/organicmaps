@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Térképek frissítése</string>
     <string name="downloader_mwm_migration_dialog">Az útvonal létrehozásához frissítenie kell az összes térképet, majd újra meg kell terveznie az útvonalat.</string>
+    <string name="navigation_stop_button">Megállítás</string>
     <string name="ok">OK</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

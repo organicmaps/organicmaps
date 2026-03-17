@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Posodobi zemljevide</string>
     <string name="downloader_mwm_migration_dialog">Za ustvarjanje poti morate posodobiti vse zemljevide in nato ponovno načrtovati pot.</string>
+    <string name="navigation_stop_button">Ustavi</string>
     <string name="ok">V redu</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

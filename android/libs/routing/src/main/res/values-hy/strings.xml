@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Թարմացնել քարտեզները</string>
     <string name="downloader_mwm_migration_dialog">Երթուղի կառուցելու համար անհրաժեշտ է թարմացնել բոլոր քարտեզները, իսկ հետո կրկին պլանավորել երթուղին:</string>
+    <string name="navigation_stop_button">Դադար</string>
     <string name="ok">Լավ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

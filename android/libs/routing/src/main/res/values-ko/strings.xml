@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">지도 업데이트</string>
     <string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
+    <string name="navigation_stop_button">중지</string>
     <string name="ok">확인</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

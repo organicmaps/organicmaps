@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Atjaunināt kartes</string>
     <string name="downloader_mwm_migration_dialog">Lai izveidotu maršrutu, atjauniniet visas kartes un plānojiet maršrutu no jauna.</string>
+    <string name="navigation_stop_button">Apturēt</string>
     <string name="ok">Labi</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

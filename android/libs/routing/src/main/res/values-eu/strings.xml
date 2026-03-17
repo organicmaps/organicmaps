@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Eguneratu mapak</string>
     <string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>
+    <string name="navigation_stop_button">Gelditu</string>
     <string name="ok">Ados</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
