@@ -625,6 +625,7 @@
     <string name="layers_title">Kaartstijlen en -lagen</string>
     <string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
     <string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
+    <string name="change_all_bookmarks_color">Kleur van alle bladwijzers wijzigen</string>
     <string name="category_desc_more">…meer</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exporteer KMZ</string>

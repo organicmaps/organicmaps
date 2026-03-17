@@ -625,6 +625,7 @@
     <string name="layers_title">Térképstílusok és rétegek</string>
     <string name="bookmarks_empty_list_title">Ez a lista üres</string>
     <string name="bookmarks_empty_list_message">Egy könyvjelző hozzáadásához érintsen meg a térképen egy helyet, majd érintse meg a csillag ikont</string>
+    <string name="change_all_bookmarks_color">Összes könyvjelző színének módosítása</string>
     <string name="category_desc_more">…több</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportálás KMZ-fájlba</string>

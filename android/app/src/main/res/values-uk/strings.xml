@@ -629,6 +629,7 @@
     <string name="layers_title">Стилі та шари мапи</string>
     <string name="bookmarks_empty_list_title">Список порожній</string>
     <string name="bookmarks_empty_list_message">Щоб додати нову мітку, натисніть на значок зірочки в картці об’єкта</string>
+    <string name="change_all_bookmarks_color">Змінити колір усіх міток</string>
     <string name="category_desc_more">…ще</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Експорт KMZ</string>

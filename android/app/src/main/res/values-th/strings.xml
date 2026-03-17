@@ -585,6 +585,7 @@
     <string name="layers_title">รูปแบบและเลเยอร์ของแผนที่</string>
     <string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
     <string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
+    <string name="change_all_bookmarks_color">เปลี่ยนสีที่คั่นหน้าทั้งหมด</string>
     <string name="category_desc_more">…เพิ่มเติม</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">ส่งออก KMZ</string>

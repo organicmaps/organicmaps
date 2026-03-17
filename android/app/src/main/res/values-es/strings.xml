@@ -628,6 +628,7 @@
     <string name="layers_title">Estilos y capas del mapa</string>
     <string name="bookmarks_empty_list_title">Esta lista está vacía</string>
     <string name="bookmarks_empty_list_message">Para agregar un marcador, toque un lugar en el mapa y después toque el icono de la estrella</string>
+    <string name="change_all_bookmarks_color">Cambiar el color de todos los marcadores</string>
     <string name="category_desc_more">…más</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportar KMZ</string>

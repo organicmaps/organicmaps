@@ -623,6 +623,7 @@
     <string name="layers_title">Στυλ χάρτη και επίπεδα</string>
     <string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
     <string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
+    <string name="change_all_bookmarks_color">Αλλαγή χρώματος όλων των σελιδοδεικτών</string>
     <string name="category_desc_more">…περισσότερα</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Εξαγωγή KMZ</string>

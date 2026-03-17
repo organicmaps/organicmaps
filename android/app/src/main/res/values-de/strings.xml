@@ -624,6 +624,7 @@
     <string name="layers_title">Kartenstile und Ebenen</string>
     <string name="bookmarks_empty_list_title">Die Liste ist leer</string>
     <string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippe in der Karte auf den Ort und dann unten auf das Sternchen</string>
+    <string name="change_all_bookmarks_color">Farbe aller Lesezeichen ändern</string>
     <string name="category_desc_more">…mehr</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ exportieren</string>

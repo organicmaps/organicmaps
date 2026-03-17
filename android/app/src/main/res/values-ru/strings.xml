@@ -629,6 +629,7 @@
     <string name="layers_title">Стили и слои карты</string>
     <string name="bookmarks_empty_list_title">Список пустой</string>
     <string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
+    <string name="change_all_bookmarks_color">Изменить цвет всех меток</string>
     <string name="category_desc_more">…ещё</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Экспорт KMZ</string>

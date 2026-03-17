@@ -604,6 +604,7 @@
     <string name="layers_title">סגנונות ושכבות מפה</string>
     <string name="bookmarks_empty_list_title">רשימה זו ריקה</string>
     <string name="bookmarks_empty_list_message">כדי להוסיף סימניה, לחץ על מקום במפה ואז לחץ על סימן הכוכב</string>
+    <string name="change_all_bookmarks_color">שנה צבע של כל הסימניות</string>
     <string name="category_desc_more">…עוד</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">ייצא KMZ</string>

@@ -628,6 +628,7 @@
     <string name="layers_title">Slogi in plasti zemljevida</string>
     <string name="bookmarks_empty_list_title">Ta seznam je prazen</string>
     <string name="bookmarks_empty_list_message">Če želite dodati zaznamek, se dotaknite mesta na zemljevidu in nato ikone zvezdice</string>
+    <string name="change_all_bookmarks_color">Spremeni barvo vseh zaznamkov</string>
     <string name="category_desc_more">…več</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Izvozi KMZ</string>

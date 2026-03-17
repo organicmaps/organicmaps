@@ -401,6 +401,7 @@
     <string name="layers_title">Stilovi karta i slojevi</string>
     <string name="bookmarks_empty_list_title">Ovaj je popis prazan</string>
     <string name="bookmarks_empty_list_message">Za dodavanje zabilješke dodirni mjesto na karti, a zatim dodirni ikonu zvjezdice</string>
+    <string name="change_all_bookmarks_color">Promijeni boju svih zabilješki</string>
     <string name="category_desc_more">… više</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Izvezi KMZ</string>

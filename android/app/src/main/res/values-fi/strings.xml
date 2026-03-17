@@ -622,6 +622,7 @@
     <string name="layers_title">Karttatyylit ja tasot</string>
     <string name="bookmarks_empty_list_title">Luettelo on tyhjä</string>
     <string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
+    <string name="change_all_bookmarks_color">Vaihda kaikkien kirjanmerkkien väri</string>
     <string name="category_desc_more">…lisää</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Vie KMZ</string>

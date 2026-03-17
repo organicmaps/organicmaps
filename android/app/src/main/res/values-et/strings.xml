@@ -625,6 +625,7 @@
     <string name="layers_title">Kaardi stiilid ja kihid</string>
     <string name="bookmarks_empty_list_title">See loend on tühi</string>
     <string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
+    <string name="change_all_bookmarks_color">Muuda kõikide järjehoidjate värvi</string>
     <string name="category_desc_more">…veel</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Ekspordi KMZ-failina</string>

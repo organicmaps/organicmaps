@@ -623,6 +623,7 @@
     <string name="layers_title">地图样式和图层</string>
     <string name="bookmarks_empty_list_title">该列表为空</string>
     <string name="bookmarks_empty_list_message">要添加新书签，请点击对象卡片中的星形图标</string>
+    <string name="change_all_bookmarks_color">更改所有书签颜色</string>
     <string name="category_desc_more">…更多</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">导出为 KMZ</string>

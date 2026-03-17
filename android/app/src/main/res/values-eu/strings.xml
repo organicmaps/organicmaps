@@ -622,6 +622,7 @@
     <string name="layers_title">Maparen estiloak eta geruzak</string>
     <string name="bookmarks_empty_list_title">Zerrenda hau hutsik dago</string>
     <string name="bookmarks_empty_list_message">Markagailu bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
+    <string name="change_all_bookmarks_color">Aldatu markagailu guztien kolorea</string>
     <string name="category_desc_more">…gehiago</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esportatu KMZ</string>

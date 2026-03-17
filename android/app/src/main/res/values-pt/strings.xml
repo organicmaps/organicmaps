@@ -626,6 +626,7 @@
     <string name="layers_title">Estilos e camadas de mapas</string>
     <string name="bookmarks_empty_list_title">Esta lista está vazia</string>
     <string name="bookmarks_empty_list_message">Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela</string>
+    <string name="change_all_bookmarks_color">Alterar a cor de todos os favoritos</string>
     <string name="category_desc_more">…mais</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportar KMZ</string>

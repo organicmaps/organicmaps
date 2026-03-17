@@ -619,6 +619,7 @@
     <string name="layers_title">Stiluri și straturi de hartă</string>
     <string name="bookmarks_empty_list_title">Lista este goală</string>
     <string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
+    <string name="change_all_bookmarks_color">Schimbă culoarea tuturor marcajelor</string>
     <string name="category_desc_more">…mai mult</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Export KMZ</string>

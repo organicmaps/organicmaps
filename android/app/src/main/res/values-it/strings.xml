@@ -627,6 +627,7 @@
     <string name="layers_title">Stili e livelli della mappa</string>
     <string name="bookmarks_empty_list_title">Questa lista è vuota</string>
     <string name="bookmarks_empty_list_message">Per aggiungere un preferito, tocca un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
+    <string name="change_all_bookmarks_color">Cambia colore di tutti i preferiti</string>
     <string name="category_desc_more">…altro</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esporta KMZ</string>

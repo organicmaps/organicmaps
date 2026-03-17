@@ -621,6 +621,7 @@
     <string name="layers_title">マップのスタイルとレイヤー</string>
     <string name="bookmarks_empty_list_title">このリストは空です</string>
     <string name="bookmarks_empty_list_message">ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。</string>
+    <string name="change_all_bookmarks_color">すべてのブックマークの色を変更</string>
     <string name="category_desc_more">詳細</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZをエクスポートする</string>
