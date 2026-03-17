@@ -3653,8 +3653,15 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
+void BookmarkManager::EditSession::SetCategoryColorWithBookmarks(kml::MarkGroupId groupId, size_t colorIndex)
 {
+  CHECK_LESS(colorIndex, kml::kOrderedPredefinedColors.size(), ());
+
+  // Set default color as custom property
+  m_bmManager.SetCategoryCustomProperty(groupId, "default_color", std::to_string(colorIndex));
+
+  // Change all bookmarks to this color
+  auto const color = kml::kOrderedPredefinedColors[colorIndex];
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
   for (auto const markId : markIds)
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
