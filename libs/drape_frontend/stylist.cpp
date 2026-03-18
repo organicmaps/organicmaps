@@ -13,42 +13,35 @@
 
 namespace df
 {
-IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
+IsHatchingTerritoryChecker::TwoLevel45::TwoLevel45()
 {
-  Classificator const & c = classif();
-
-  base::StringIL const arr3[] = {
-      {"boundary", "protected_area", "1"},
-  };
-  for (auto const & sl : arr3)
-    m_types.push_back(c.GetTypeByPath(sl));
-  m_type3end = m_types.size();
-
-  base::StringIL const arr2[] = {
+  base::StringIL const arr[] = {
       {"boundary", "aboriginal_lands"}, {"leisure", "nature_reserve"}, {"boundary", "national_park"},
       {"landuse", "military"},          {"amenity", "prison"},
   };
-  for (auto const & sl : arr2)
-    m_types.push_back(c.GetTypeByPath(sl));
 
-  base::StringIL const arrDash[] = {
-      {"natural", "wetland"},
-  };
-  for (auto const & sl : arrDash)
-    m_dashTypes.push_back(c.GetTypeByPath(sl));
+  Classificator const & c = classif();
+  for (auto const & e : arr)
+    m_types.push_back(c.GetTypeByPath(e));
+}
+
+IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
+{
+  Classificator const & c = classif();
+  m_3level45 = c.GetTypeByPath({"boundary", "protected_area", "1"});
+  m_2levelDash = c.GetTypeByPath({"natural", "wetland"});
 }
 
 std::string_view IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
 {
   // Matching with subtypes (see Stylist_IsHatching test).
 
-  auto const iEnd3 = m_types.begin() + m_type3end;
-  if (std::find(m_types.begin(), iEnd3, PrepareToMatch(type, 3)) != iEnd3)
+  if (m_3level45 == ftype::Trunc(type, 3))
     return dp::k45dHatching;
-  if (std::find(iEnd3, m_types.end(), PrepareToMatch(type, 2)) != m_types.end())
+  if (m_2level45(type))
     return dp::k45dHatching;
 
-  if (base::IsExist(m_dashTypes, PrepareToMatch(type, 2)))
+  if (m_2levelDash == ftype::Trunc(type, 2))
     return dp::kDashHatching;
 
   return {};

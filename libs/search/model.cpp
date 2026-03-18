@@ -2,98 +2,76 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/ftypes_matcher.hpp"
-
-#include "base/stl_helpers.hpp"
-
-#include <vector>
 
 namespace search
 {
-using namespace ftypes;
-using namespace std;
 
-namespace
+Model::IsComplexPoiChecker::IsComplexPoiChecker()
 {
+  // For MatchPOIsWithParent matching. Some entries may be controversial here, but keep as-is for now.
+  // POI near "Complex POI" matching.
+  base::StringIL const paths[] = {{"aeroway", "aerodrome"},
+                                  {"amenity", "hospital"},
+                                  {"amenity", "university"},
+                                  {"building", "train_station"},
+                                  {"historic", "archaeological_site"},
+                                  {"historic", "castle"},
+                                  {"historic", "fort"},
+                                  {"landuse", "cemetery"},
+                                  {"landuse", "religious"},
+                                  {"landuse", "commercial"},
+                                  {"landuse", "forest"},
+                                  {"landuse", "industrial"},
+                                  {"landuse", "retail"},
+                                  {"leisure", "garden"},
+                                  {"leisure", "nature_reserve"},
+                                  {"leisure", "park"},
+                                  {"leisure", "stadium"},
+                                  {"leisure", "water_park"},
+                                  {"natural", "beach"},
+                                  {"office", "company"},
+                                  {"railway", "station"},
+                                  {"shop", "mall"},
+                                  {"tourism", "museum"},
+                                  {"tourism", "gallery"}};
 
-class IsComplexPoiChecker : public ftypes::BaseChecker
+  Classificator const & c = classif();
+  for (auto const & path : paths)
+    m_types.push_back(c.GetTypeByPath(path));
+}
+
+bool Model::CustomIsBuildingChecker::operator()(FeatureType & ft) const
 {
-  IsComplexPoiChecker() : ftypes::BaseChecker()
-  {
-    // For MatchPOIsWithParent matching. Some entries may be controversial here, but keep as-is for now.
-    // POI near "Complex POI" matching.
-    base::StringIL const paths[] = {{"aeroway", "aerodrome"},
-                                    {"amenity", "hospital"},
-                                    {"amenity", "university"},
-                                    {"building", "train_station"},
-                                    {"historic", "archaeological_site"},
-                                    {"historic", "castle"},
-                                    {"historic", "fort"},
-                                    {"landuse", "cemetery"},
-                                    {"landuse", "religious"},
-                                    {"landuse", "commercial"},
-                                    {"landuse", "forest"},
-                                    {"landuse", "industrial"},
-                                    {"landuse", "retail"},
-                                    {"leisure", "garden"},
-                                    {"leisure", "nature_reserve"},
-                                    {"leisure", "park"},
-                                    {"leisure", "stadium"},
-                                    {"leisure", "water_park"},
-                                    {"natural", "beach"},
-                                    {"office", "company"},
-                                    {"railway", "station"},
-                                    {"shop", "mall"},
-                                    {"tourism", "museum"},
-                                    {"tourism", "gallery"}};
+  if (!ft.GetHouseNumber().empty())
+    return true;
 
-    Classificator const & c = classif();
-    for (auto const & path : paths)
-      m_types.push_back(c.GetTypeByPath(path));
-  }
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsComplexPoiChecker);
-};
-
-class CustomIsBuildingChecker
-{
-public:
-  DECLARE_CHECKER_INSTANCE(CustomIsBuildingChecker);
-
-  bool operator()(FeatureType & ft) const
-  {
-    if (!ft.GetHouseNumber().empty())
-      return true;
-
-    if (ft.GetGeomType() == feature::GeomType::Line)
-      return IsAddressInterpolChecker::Instance()(ft);
-    else
-      return IsBuildingChecker::Instance()(ft);
-  }
-};
-}  // namespace
+  if (ft.GetGeomType() == feature::GeomType::Line)
+    return m_interpol(ft);
+  else
+    return m_building(ft);
+}
 
 Model::Type Model::GetType(FeatureType & feature) const
 {
   // Check whether object is POI first to mark POIs with address tags as POI.
-  if (IsComplexPoiChecker::Instance()(feature))
+  if (m_isComplexPoi(feature))
     return TYPE_COMPLEX_POI;
-  if (IsPoiChecker::Instance()(feature))
+  if (m_isPoi(feature))
     return TYPE_SUBPOI;
 
-  if (CustomIsBuildingChecker::Instance()(feature))
+  if (m_isCustomBuilding(feature))
     return TYPE_BUILDING;
 
-  if (IsStreetOrSquareChecker::Instance()(feature))
+  if (m_isStreetOrSquare(feature))
     return TYPE_STREET;
 
-  if (IsSuburbChecker::Instance()(feature))
+  if (m_isSuburb(feature))
     return TYPE_SUBURB;
 
-  auto const type = IsLocalityChecker::Instance().GetType(feature);
+  auto const type = m_isLocality.GetType(feature);
   switch (type)
   {
+    using ftypes::LocalityType;
   case LocalityType::State: return TYPE_STATE;
   case LocalityType::Country: return TYPE_COUNTRY;
   case LocalityType::City:
@@ -107,7 +85,7 @@ Model::Type Model::GetType(FeatureType & feature) const
   return TYPE_UNCLASSIFIED;
 }
 
-string DebugPrint(Model::Type type)
+std::string DebugPrint(Model::Type type)
 {
   switch (type)
   {

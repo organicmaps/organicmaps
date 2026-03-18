@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <functional>
 #include <iterator>
 #include <unordered_map>
 
@@ -125,44 +124,28 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
   return HighwayClass::Undefined;
 }
 
+void BaseChecker::PostInitialize()
+{
+  ASSERT(!m_types.empty(), ());
+
+  // I don't think that binary_search is better for _almost_ always small vectors here.
+  // std::sort(m_types.begin(), m_types.end());
+}
+
 uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
 {
-  ftype::TruncValue(type, level);
-  return type;
+  return ftype::Trunc(type, level);
 }
 
 bool BaseChecker::IsMatched(uint32_t type) const
 {
+  // return std::binary_search(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level));
   return base::IsExist(m_types, PrepareToMatch(type, m_level));
-}
-
-void BaseChecker::ForEachType(function<void(uint32_t)> const & fn) const
-{
-  for (auto const & t : m_types)
-    fn(t);
-}
-
-bool BaseChecker::operator()(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-    if (IsMatched(t))
-      return true;
-
-  return false;
 }
 
 bool BaseChecker::operator()(FeatureType & ft) const
 {
   return this->operator()(feature::TypesHolder(ft));
-}
-
-bool BaseChecker::operator()(vector<uint32_t> const & types) const
-{
-  for (uint32_t t : types)
-    if (IsMatched(t))
-      return true;
-
-  return false;
 }
 
 IsPeakChecker::IsPeakChecker()
@@ -263,10 +246,10 @@ IsSuburbChecker::IsSuburbChecker()
     m_types.push_back(c.GetTypeByPath(e));
 
   // `types` order should match next indices.
-  static_assert(static_cast<size_t>(SuburbType::Residential) == 0, "");
-  static_assert(static_cast<size_t>(SuburbType::Neighbourhood) == 1, "");
-  static_assert(static_cast<size_t>(SuburbType::Quarter) == 2, "");
-  static_assert(static_cast<size_t>(SuburbType::Suburb) == 3, "");
+  static_assert(static_cast<size_t>(SuburbType::Residential) == 0);
+  static_assert(static_cast<size_t>(SuburbType::Neighbourhood) == 1);
+  static_assert(static_cast<size_t>(SuburbType::Quarter) == 2);
+  static_assert(static_cast<size_t>(SuburbType::Suburb) == 3);
 }
 
 SuburbType IsSuburbChecker::GetType(uint32_t t) const
@@ -318,6 +301,7 @@ IsWayChecker::IsWayChecker()
     m_types.push_back(type);
     m_ranks.Insert(type, e.second);
   }
+  m_ranks.FinishBuilding();
 }
 
 IsWayChecker::SearchRank IsWayChecker::GetSearchRank(uint32_t type) const
@@ -330,10 +314,9 @@ IsWayChecker::SearchRank IsWayChecker::GetSearchRank(uint32_t type) const
 
 IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 {
-  for (auto const t : IsWayChecker::Instance().GetTypes())
-    m_types.push_back(t);
-  for (auto const t : IsSquareChecker::Instance().GetTypes())
-    m_types.push_back(t);
+  // This is suitable for equal-level checkers only!
+  IsWayChecker::Instance().ForEachType([this](uint32_t t) { m_types.push_back(t); });
+  IsSquareChecker::Instance().ForEachType([this](uint32_t t) { m_types.push_back(t); });
 }
 
 // Used to determine for which features to display address in PP and in search results.
@@ -450,20 +433,15 @@ OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
-  base::StringIL arr[] = {{"aeroway", "terminal"},        {"aeroway", "gate"},
-                          {"building", "guardhouse"},     {"building", "train_station"},
-                          {"emergency", "defibrillator"}, {"emergency", "fire_hydrant"},
-                          {"emergency", "phone"},         {"highway", "bus_stop"},
-                          {"highway", "elevator"},        {"highway", "ford"},
-                          {"highway", "raceway"},         {"highway", "rest_area"},
-                          {"highway", "services"},        {"highway", "speed_camera"},
-                          {"man_made", "cross"},          {"man_made", "lighthouse"},
-                          {"man_made", "water_tap"},      {"man_made", "water_well"},
-                          {"man_made", "windmill"},       {"natural", "beach"},
-                          {"natural", "cave_entrance"},   {"natural", "geyser"},
-                          {"natural", "hot_spring"},      {"natural", "peak"},
-                          {"natural", "saddle"},          {"natural", "spring"},
-                          {"natural", "volcano"},         {"waterway", "waterfall"}};
+  base::StringIL arr[] = {{"aeroway", "terminal"},       {"aeroway", "gate"},         {"building", "guardhouse"},
+                          {"building", "train_station"}, {"highway", "bus_stop"},     {"highway", "elevator"},
+                          {"highway", "ford"},           {"highway", "raceway"},      {"highway", "rest_area"},
+                          {"highway", "services"},       {"highway", "speed_camera"}, {"man_made", "cross"},
+                          {"man_made", "lighthouse"},    {"man_made", "water_tap"},   {"man_made", "water_well"},
+                          {"man_made", "windmill"},      {"natural", "beach"},        {"natural", "cave_entrance"},
+                          {"natural", "geyser"},         {"natural", "hot_spring"},   {"natural", "peak"},
+                          {"natural", "saddle"},         {"natural", "spring"},       {"natural", "volcano"},
+                          {"waterway", "waterfall"}};
 
   for (auto const & path : arr)
     m_types.push_back(c.GetTypeByPath(path));

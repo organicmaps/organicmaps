@@ -145,121 +145,82 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   }
   oss << "]";
 }
-
-class BaseTypesChecker
-{
-protected:
-  std::vector<uint32_t> m_types;
-
-public:
-  bool operator()(feature::TypesHolder const & th) const
-  {
-    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
-  }
-};
-
-class IsAttraction
-{
-  std::vector<uint32_t> m_types;
-
-public:
-  bool operator()(feature::TypesHolder const & th) const
-  {
-    // Strict check (unlike in BaseTypesChecker) to avoid matching:
-    // - historic-memorial-plaque
-    // - leisure-garden-residential
-    return base::AnyOf(m_types, [&th](uint32_t t) { return th.Has(t); });
-  }
-
-public:
-  IsAttraction()
-  {
-    // We have several lists for attractions: short list in search categories for @tourism and long
-    // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
-    // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
-    // has high popularity and/or wiki description probably it is attraction". It's better to use
-    // short list here.
-    m_types = search::GetCategoryTypes("sights", "en", GetDefaultCategories());
-
-    // Add _attraction_ leisures too!
-    base::StringIL const types[] = {
-        {"leisure", "beach_resort"},   {"leisure", "garden"}, {"leisure", "marina"},
-        {"leisure", "nature_reserve"}, {"leisure", "park"},
-    };
-
-    Classificator const & c = classif();
-    for (auto const & e : types)
-      m_types.push_back(c.GetTypeByPath(e));
-  }
-};
-
-class IsShopOrAmenity : public BaseTypesChecker
-{
-public:
-  IsShopOrAmenity()
-  {
-    base::StringIL const types[] = {
-        {"shop"},
-
-        // Amenity types are very fragmented, so take only most _interesting_ here.
-        {"amenity", "bank"},
-        {"amenity", "brothel"},
-        {"amenity", "casino"},
-        {"amenity", "cinema"},
-        {"amenity", "clinic"},
-        {"amenity", "hospital"},
-        {"amenity", "ice_cream"},
-        {"amenity", "library"},
-        {"amenity", "marketplace"},
-        {"amenity", "nightclub"},
-        {"amenity", "pharmacy"},
-        {"amenity", "police"},
-        {"amenity", "post_office"},
-        {"amenity", "stripclub"},
-        {"amenity", "theatre"},
-    };
-
-    Classificator const & c = classif();
-    for (auto const & e : types)
-      m_types.push_back(c.GetTypeByPath(e));
-  }
-};
-
-class IsCarInfra : public BaseTypesChecker
-{
-public:
-  IsCarInfra()
-  {
-    base::StringIL const types[] = {
-        {"amenity", "car_rental"},
-        {"amenity", "car_sharing"},
-        {"amenity", "car_wash"},
-        {"amenity", "charging_station"},
-        {"amenity", "fuel"},
-        // Do not add parking here, no need to rank them by name.
-        //{"amenity", "parking"},
-
-        {"highway", "rest_area"},
-        {"highway", "services"},
-    };
-
-    Classificator const & c = classif();
-    for (auto const & e : types)
-      m_types.push_back(c.GetTypeByPath(e));
-  }
-};
-
-class IsServiceTypeChecker : public BaseTypesChecker
-{
-public:
-  IsServiceTypeChecker()
-  {
-    Classificator const & c = classif();
-    for (char const * e : {"barrier", "power", "traffic_calming"})
-      m_types.push_back(c.GetTypeByPath({e}));
-  }
-};
 }  // namespace
+
+PoiTypeResolver::IsAttractionChecker::IsAttractionChecker()
+{
+  // We have several lists for attractions: short list in search categories for @tourism and long
+  // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
+  // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
+  // has high popularity and/or wiki description probably it is attraction". It's better to use
+  // short list here.
+  m_types = search::GetCategoryTypes("sights", "en", GetDefaultCategories());
+
+  // Add _attraction_ leisures too!
+  base::StringIL const types[] = {
+      {"leisure", "beach_resort"},   {"leisure", "garden"}, {"leisure", "marina"},
+      {"leisure", "nature_reserve"}, {"leisure", "park"},
+  };
+
+  Classificator const & c = classif();
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
+}
+
+PoiTypeResolver::IsShopOrAmenityChecker::IsShopOrAmenityChecker()
+{
+  base::StringIL const types[] = {
+      {"shop"},
+
+      // Amenity types are very fragmented, so take only most _interesting_ here.
+      {"amenity", "bank"},
+      {"amenity", "brothel"},
+      {"amenity", "casino"},
+      {"amenity", "cinema"},
+      {"amenity", "clinic"},
+      {"amenity", "hospital"},
+      {"amenity", "ice_cream"},
+      {"amenity", "library"},
+      {"amenity", "marketplace"},
+      {"amenity", "nightclub"},
+      {"amenity", "pharmacy"},
+      {"amenity", "police"},
+      {"amenity", "post_office"},
+      {"amenity", "stripclub"},
+      {"amenity", "theatre"},
+  };
+
+  Classificator const & c = classif();
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
+}
+
+PoiTypeResolver::IsCarInfraChecker::IsCarInfraChecker()
+{
+  base::StringIL const types[] = {
+      {"amenity", "car_rental"},
+      {"amenity", "car_sharing"},
+      {"amenity", "car_wash"},
+      {"amenity", "charging_station"},
+      {"amenity", "fuel"},
+      // Do not add parking here, no need to rank them by name.
+      //{"amenity", "parking"},
+
+      {"highway", "rest_area"},
+      {"highway", "services"},
+  };
+
+  Classificator const & c = classif();
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
+}
+
+PoiTypeResolver::IsServiceTypeChecker::IsServiceTypeChecker()
+{
+  Classificator const & c = classif();
+  for (char const * e : {"barrier", "power", "traffic_calming"})
+    m_types.push_back(c.GetTypeByPath({e}));
+}
 
 // static
 void RankingInfo::PrintCSVHeader(ostream & os)
@@ -468,37 +429,31 @@ PoiType RankingInfo::GetPoiTypeScore() const
   return (m_pureCats ? PoiType::PureCategory : m_classifType.poi);
 }
 
-PoiType GetPoiType(feature::TypesHolder const & th)
+PoiType PoiTypeResolver::Get(feature::TypesHolder const & th) const
 {
   using namespace ftypes;
 
-  if (IsEatChecker::Instance()(th))
+  if (m_isEat(th))
     return PoiType::Eat;
-  if (IsHotelChecker::Instance()(th))
+  if (m_isHotel(th))
     return PoiType::Hotel;
 
-  if (IsRailwayStationChecker::Instance()(th) || IsSubwayStationChecker::Instance()(th) ||
-      IsAirportChecker::Instance()(th))
-  {
+  if (m_isRwStation(th) || m_isSbStation(th) || m_isAirport(th))
     return PoiType::TransportMajor;
-  }
-  if (IsPublicTransportStopChecker::Instance()(th) || IsTaxiChecker::Instance()(th))
+
+  if (m_isPtStop(th) || m_isTaxi(th))
     return PoiType::TransportLocal;
 
-  static IsAttraction const attractionCheck;
-  if (attractionCheck(th))
+  if (m_isAttraction(th))
     return PoiType::Attraction;
 
-  static IsShopOrAmenity const shopOrAmenityCheck;
-  if (shopOrAmenityCheck(th))
+  if (m_isShopOrAmenity(th))
     return PoiType::ShopOrAmenity;
 
-  static IsCarInfra const carInfra;
-  if (carInfra(th))
+  if (m_isCarInfra(th))
     return PoiType::CarInfra;
 
-  static IsServiceTypeChecker const serviceCheck;
-  if (serviceCheck(th))
+  if (m_isServiceType(th))
     return PoiType::Service;
 
   return PoiType::General;
