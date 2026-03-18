@@ -58,13 +58,14 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   }
 
   func handlePan(_ gesture: UIPanGestureRecognizer) {
-    guard let presentedView else { return }
+    guard let presentedView, let containerViewController else { return }
     let translation = gesture.translation(in: presentedView)
     let velocity = gesture.velocity(in: presentedView)
     var currentFrame = presentedView.frame
 
     switch gesture.state {
     case .began:
+      maxAvailableFrame = stepStrategy.frame(.expanded, for: presentedView, in: containerViewController)
       initialTranslationY = presentedView.frame.origin.y
       isPanning = true
     case .changed:
@@ -129,18 +130,17 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
   private func frame(for step: Step) -> CGRect {
     guard let presentedView, let containerViewController else { return .zero }
-    maxAvailableFrame = stepStrategy.frame(.expanded, for: presentedView, in: containerViewController)
     return stepStrategy.frame(step, for: presentedView, in: containerViewController)
   }
 
   private func nearestStep(for positionY: CGFloat) -> Step {
-    let visibleSteps = stepStrategy.steps
-    guard !visibleSteps.isEmpty else { return currentStep }
+    let steps = stepStrategy.steps
+    guard !steps.isEmpty else { return currentStep }
 
-    var bestStep = visibleSteps.contains(currentStep) ? currentStep : visibleSteps[0]
+    var bestStep = steps.contains(currentStep) ? currentStep : steps[0]
     var bestDistance = abs(frame(for: bestStep).origin.y - positionY)
 
-    for step in visibleSteps where step != bestStep {
+    for step in steps where step != bestStep {
       let distance = abs(frame(for: step).origin.y - positionY)
       if distance < bestDistance {
         bestStep = step

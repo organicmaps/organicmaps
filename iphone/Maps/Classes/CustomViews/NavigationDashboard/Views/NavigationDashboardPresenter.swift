@@ -45,7 +45,7 @@ extension NavigationDashboard {
         case false:
           // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
-            let step: NavigationDashboardModalPresentationStep = (hidden ? .hidden : viewModel.latestVisiblePresentationStep).forNavigationState(viewModel.dashboardState)
+            let step: NavigationDashboardModalPresentationStep = viewModel.latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
             viewModel.presentationStep = step
           }
           // Show side buttons if it is not in navigation state
