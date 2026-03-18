@@ -34,7 +34,7 @@ public:
 
 private:
   // 45d hatch.
-  struct TwoLevel45 : ftypes::BaseChecker
+  struct TwoLevel45 : ftypes::BaseCheckerEx
   {
     TwoLevel45();
   } m_2level45;

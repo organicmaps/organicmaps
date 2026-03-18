@@ -138,7 +138,7 @@ void GetReadableNameImpl(NameParamsIn const & in, bool preferDefault, NameParams
 // Filters types with |checker|, returns vector of raw type second components.
 // For example for types {"cuisine-sushi", "cuisine-pizza", "cuisine-seafood"} vector
 // of second components is {"sushi", "pizza", "seafood"}.
-vector<string> GetRawTypeSecond(ftypes::BaseChecker const & checker, TypesHolder const & types)
+vector<string> GetRawTypeSecond(ftypes::BaseCheckerEx const & checker, TypesHolder const & types)
 {
   auto const & c = classif();
   vector<string> res;
@@ -153,7 +153,7 @@ vector<string> GetRawTypeSecond(ftypes::BaseChecker const & checker, TypesHolder
   return res;
 }
 
-vector<string> GetLocalizedTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
+vector<string> GetLocalizedTypes(ftypes::BaseCheckerEx const & checker, TypesHolder const & types)
 {
   auto const & c = classif();
   vector<string> localized;

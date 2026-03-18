@@ -161,4 +161,22 @@ UNIT_TEST(IsRecyclingContainerChecker)
   TEST(!checker(c.GetTypeByPath({"amenity", "recycling", "centre"})), ());
 }
 
+UNIT_TEST(BaseCheckerEx_Smoke)
+{
+  classificator::Load();
+  auto const & c = classif();
+
+  ftypes::BaseCheckerEx checker({{"shop"}, {"amenity", "parking"}, {"boundary", "protected_area", "1"}});
+  TEST(checker(c.GetTypeByPath({"shop"})), ());
+  TEST(checker(c.GetTypeByPath({"shop", "clothes"})), ());
+  TEST(checker(c.GetTypeByPath({"amenity", "parking"})), ());
+  TEST(checker(c.GetTypeByPath({"amenity", "parking", "fee"})), ());
+  TEST(checker(c.GetTypeByPath({"boundary", "protected_area", "1"})), ());
+
+  TEST(!checker(c.GetTypeByPath({"amenity"})), ());
+  TEST(!checker(c.GetTypeByPath({"amenity", "cafe"})), ());
+  TEST(!checker(c.GetTypeByPath({"boundary", "protected_area"})), ());
+  TEST(!checker(c.GetTypeByPath({"boundary", "protected_area", "2"})), ());
+}
+
 }  // namespace checker_test

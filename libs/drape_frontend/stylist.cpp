@@ -14,16 +14,12 @@
 namespace df
 {
 IsHatchingTerritoryChecker::TwoLevel45::TwoLevel45()
-{
-  base::StringIL const arr[] = {
-      {"boundary", "aboriginal_lands"}, {"leisure", "nature_reserve"}, {"boundary", "national_park"},
-      {"landuse", "military"},          {"amenity", "prison"},
-  };
-
-  Classificator const & c = classif();
-  for (auto const & e : arr)
-    m_types.push_back(c.GetTypeByPath(e));
-}
+  : ftypes::BaseCheckerEx({{"amenity", "prison"},
+                           {"boundary", "aboriginal_lands"},
+                           {"boundary", "national_park"},
+                           {"landuse", "military"},
+                           {"leisure", "nature_reserve"}})
+{}
 
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 {

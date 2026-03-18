@@ -1,44 +1,38 @@
 #include "search/model.hpp"
 
-#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
 namespace search
 {
 
+// For MatchPOIsWithParent matching. Some entries may be controversial here, but keep as-is for now.
+// POI near "Complex POI" matching.
 Model::IsComplexPoiChecker::IsComplexPoiChecker()
-{
-  // For MatchPOIsWithParent matching. Some entries may be controversial here, but keep as-is for now.
-  // POI near "Complex POI" matching.
-  base::StringIL const paths[] = {{"aeroway", "aerodrome"},
-                                  {"amenity", "hospital"},
-                                  {"amenity", "university"},
-                                  {"building", "train_station"},
-                                  {"historic", "archaeological_site"},
-                                  {"historic", "castle"},
-                                  {"historic", "fort"},
-                                  {"landuse", "cemetery"},
-                                  {"landuse", "religious"},
-                                  {"landuse", "commercial"},
-                                  {"landuse", "forest"},
-                                  {"landuse", "industrial"},
-                                  {"landuse", "retail"},
-                                  {"leisure", "garden"},
-                                  {"leisure", "nature_reserve"},
-                                  {"leisure", "park"},
-                                  {"leisure", "stadium"},
-                                  {"leisure", "water_park"},
-                                  {"natural", "beach"},
-                                  {"office", "company"},
-                                  {"railway", "station"},
-                                  {"shop", "mall"},
-                                  {"tourism", "museum"},
-                                  {"tourism", "gallery"}};
-
-  Classificator const & c = classif();
-  for (auto const & path : paths)
-    m_types.push_back(c.GetTypeByPath(path));
-}
+  : ftypes::BaseCheckerEx({{"aeroway", "aerodrome"},
+                           {"amenity", "hospital"},
+                           {"amenity", "university"},
+                           {"building", "train_station"},
+                           {"historic", "archaeological_site"},
+                           {"historic", "castle"},
+                           {"historic", "fort"},
+                           {"landuse", "cemetery"},
+                           {"landuse", "religious"},
+                           {"landuse", "commercial"},
+                           {"landuse", "forest"},
+                           {"landuse", "industrial"},
+                           {"landuse", "retail"},
+                           {"leisure", "garden"},
+                           {"leisure", "nature_reserve"},
+                           {"leisure", "park"},
+                           {"leisure", "stadium"},
+                           {"leisure", "water_park"},
+                           {"natural", "beach"},
+                           {"office", "company"},
+                           {"railway", "station"},
+                           {"shop", "mall"},
+                           {"tourism", "museum"},
+                           {"tourism", "gallery"}})
+{}
 
 bool Model::CustomIsBuildingChecker::operator()(FeatureType & ft) const
 {

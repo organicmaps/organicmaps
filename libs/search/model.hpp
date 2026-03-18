@@ -51,7 +51,7 @@ public:
   Type GetType(FeatureType & feature) const;
 
 private:
-  struct IsComplexPoiChecker : public ftypes::BaseChecker
+  struct IsComplexPoiChecker : public ftypes::BaseCheckerEx
   {
     DECLARE_CHECKER_INSTANCE(IsComplexPoiChecker);
     IsComplexPoiChecker();

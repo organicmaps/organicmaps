@@ -421,7 +421,7 @@ int main(int argc, char * argv[])
     base::Cancellable const cancellable;
     FeaturesLoaderGuard g(dataSource, mwmId);
 
-    auto generate = [&](ftypes::BaseChecker const & checker, RequestType type, ofstream & out)
+    auto generate = [&](auto const & checker, RequestType type, ofstream & out)
     {
       CategoriesCache cache(checker, cancellable);
       auto features = cache.Get(mwmContext);
