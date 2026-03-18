@@ -319,30 +319,26 @@ private:
   // Keep only *very-common-used* (by OSM stats) "streets" here. Can increase search index, otherwise.
   // Too many "streets" increases entropy only and produces messy results ..
   // Note! If "street" is present here, it should contain all possible synonyms (avenue -> av, ave).
+  // clang-format off
   StreetsSynonymsHolder()
   {
     char const * affics[] = {
         // Russian - Русский
-        "улица",
-        "ул",
+        "улица", "ул",
         "проспект",
 
         // English - English
-        "street",
-        "st",
-        "road",
-        "rd",
-        "drive",
-        "dr",
-        "lane",
-        "ln",
-        "avenue",
-        "av",
-        "ave",
+        "street", "st",
+        "road", "rd",
+        "drive", "dr",
+        "lane", "ln",
+        "avenue", "av", "ave",
+        "highway", "hwy",
+        "freeway", "fwy",
+        "blvd", // don't put "boulevard" intentionally
 
         // Belarusian - Беларуская мова
-        "вуліца",
-        "вул",
+        "вуліца", "вул",
         "праспект",
 
         // Arabic
@@ -366,14 +362,11 @@ private:
         "ქუჩა",
 
         // German - Deutsch
-        "straße",
-        "str",
-        "platz",
-        "pl",
+        "straße", "str",
+        "platz", "pl",
 
         // Hungarian - Magyar
-        "utca",
-        "út",
+        "utca", "út",
 
         // Indonesia
         "jalan",
@@ -388,13 +381,11 @@ private:
         // Latvian - Latviešu
         "iela",
         // Lithuanian - Lietuvių
-        "gatvė",
-        "g.",
+        "gatvė", "g.",
         ///@}
 
         // Polish
-        "ul",
-        "ulica",
+        "ulica", "ul",
 
         // Portuguese - Português
         "rua",
@@ -409,17 +400,16 @@ private:
 
         // Turkish - Türkçe
         "sokağı",
-        "sokak",
-        "sk",
+        "sokak", "sk",
 
         // Ukrainian - Українська
-        "вулиця",
-        "вул",
+        "вулиця", "вул",
         "проспект",
 
         // Vietnamese - Tiếng Việt
         "đường",
     };
+    // clang-format on
 
     for (auto const * s : affics)
       m_strings.Add(NormalizeAndSimplifyString(s), true /* end of string */);
