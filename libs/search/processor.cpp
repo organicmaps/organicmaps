@@ -894,15 +894,9 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams, SearchPar
 
 namespace
 {
-class NotInPreffered : public ftypes::BaseChecker
+class NotInPreffered : public ftypes::BaseCheckerEx
 {
-  NotInPreffered() : ftypes::BaseChecker(1)
-  {
-    base::StringIL const types[] = {{"organic"}, {"internet_access"}};
-    auto const & c = classif();
-    for (auto const & e : types)
-      m_types.push_back(c.GetTypeByPath(e));
-  }
+  NotInPreffered() : ftypes::BaseCheckerEx({{"organic"}, {"internet_access"}}) {}
 
 public:
   DECLARE_CHECKER_INSTANCE(NotInPreffered);

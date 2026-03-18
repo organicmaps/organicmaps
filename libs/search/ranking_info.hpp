@@ -163,18 +163,6 @@ std::string DebugPrint(RankingInfo const & info);
 std::string DebugPrint(PoiType type);
 std::string DebugPrint(StreetType type);
 
-class BaseTypesChecker
-{
-protected:
-  std::vector<uint32_t> m_types;
-
-public:
-  bool operator()(feature::TypesHolder const & th) const
-  {
-    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
-  }
-};
-
 class PoiTypeResolver
 {
   ftypes::IsEatChecker const & m_isEat = ftypes::IsEatChecker::Instance();
@@ -195,7 +183,7 @@ class PoiTypeResolver
 
     bool operator()(feature::TypesHolder const & th) const
     {
-      // Strict check (unlike in BaseTypesChecker) to avoid matching:
+      // Strict check (unlike in ftypes::BaseCheckerEx) to avoid matching:
       // - historic-memorial-plaque
       // - leisure-garden-residential
       return base::AnyOf(m_types, [&th](uint32_t t) { return th.Has(t); });
@@ -203,29 +191,23 @@ class PoiTypeResolver
   };
   IsAttractionChecker const & m_isAttraction = IsAttractionChecker::Instance();
 
-  class IsShopOrAmenityChecker : public BaseTypesChecker
+  struct IsShopOrAmenityChecker : public ftypes::BaseCheckerEx
   {
     IsShopOrAmenityChecker();
-
-  public:
     DECLARE_CHECKER_INSTANCE(IsShopOrAmenityChecker);
   };
   IsShopOrAmenityChecker const & m_isShopOrAmenity = IsShopOrAmenityChecker::Instance();
 
-  class IsCarInfraChecker : public BaseTypesChecker
+  struct IsCarInfraChecker : public ftypes::BaseCheckerEx
   {
     IsCarInfraChecker();
-
-  public:
     DECLARE_CHECKER_INSTANCE(IsCarInfraChecker);
   };
   IsCarInfraChecker const & m_isCarInfra = IsCarInfraChecker::Instance();
 
-  class IsServiceTypeChecker : public BaseTypesChecker
+  struct IsServiceTypeChecker : public ftypes::BaseCheckerEx
   {
     IsServiceTypeChecker();
-
-  public:
     DECLARE_CHECKER_INSTANCE(IsServiceTypeChecker);
   };
   IsServiceTypeChecker const & m_isServiceType = IsServiceTypeChecker::Instance();

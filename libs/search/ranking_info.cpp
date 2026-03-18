@@ -168,59 +168,50 @@ PoiTypeResolver::IsAttractionChecker::IsAttractionChecker()
 }
 
 PoiTypeResolver::IsShopOrAmenityChecker::IsShopOrAmenityChecker()
-{
-  base::StringIL const types[] = {
-      {"shop"},
+  : ftypes::BaseCheckerEx({
+        {"shop"},
 
-      // Amenity types are very fragmented, so take only most _interesting_ here.
-      {"amenity", "bank"},
-      {"amenity", "brothel"},
-      {"amenity", "casino"},
-      {"amenity", "cinema"},
-      {"amenity", "clinic"},
-      {"amenity", "hospital"},
-      {"amenity", "ice_cream"},
-      {"amenity", "library"},
-      {"amenity", "marketplace"},
-      {"amenity", "nightclub"},
-      {"amenity", "pharmacy"},
-      {"amenity", "police"},
-      {"amenity", "post_office"},
-      {"amenity", "stripclub"},
-      {"amenity", "theatre"},
-  };
-
-  Classificator const & c = classif();
-  for (auto const & e : types)
-    m_types.push_back(c.GetTypeByPath(e));
-}
+        // Amenity types are very fragmented, so take only most _interesting_ here.
+        {"amenity", "bank"},
+        {"amenity", "brothel"},
+        {"amenity", "casino"},
+        {"amenity", "cinema"},
+        {"amenity", "clinic"},
+        {"amenity", "hospital"},
+        {"amenity", "ice_cream"},
+        {"amenity", "library"},
+        {"amenity", "marketplace"},
+        {"amenity", "nightclub"},
+        {"amenity", "pharmacy"},
+        {"amenity", "police"},
+        {"amenity", "post_office"},
+        {"amenity", "stripclub"},
+        {"amenity", "theatre"},
+    })
+{}
 
 PoiTypeResolver::IsCarInfraChecker::IsCarInfraChecker()
-{
-  base::StringIL const types[] = {
-      {"amenity", "car_rental"},
-      {"amenity", "car_sharing"},
-      {"amenity", "car_wash"},
-      {"amenity", "charging_station"},
-      {"amenity", "fuel"},
-      // Do not add parking here, no need to rank them by name.
-      //{"amenity", "parking"},
+  : ftypes::BaseCheckerEx({
+        {"amenity", "car_rental"},
+        {"amenity", "car_sharing"},
+        {"amenity", "car_wash"},
+        {"amenity", "charging_station"},
+        {"amenity", "fuel"},
+        // Do not add parking here, no need to rank them by name.
+        //{"amenity", "parking"},
 
-      {"highway", "rest_area"},
-      {"highway", "services"},
-  };
-
-  Classificator const & c = classif();
-  for (auto const & e : types)
-    m_types.push_back(c.GetTypeByPath(e));
-}
+        {"highway", "rest_area"},
+        {"highway", "services"},
+    })
+{}
 
 PoiTypeResolver::IsServiceTypeChecker::IsServiceTypeChecker()
-{
-  Classificator const & c = classif();
-  for (char const * e : {"barrier", "power", "traffic_calming"})
-    m_types.push_back(c.GetTypeByPath({e}));
-}
+  : ftypes::BaseCheckerEx({{"barrier"}, {"power"}, {"traffic_calming"}})
+{}
+
+PoiTypeResolver::IsSkipRegionInfo::IsSkipRegionInfo()
+  : ftypes::BaseCheckerEx({{"place", "continent"}, {"place", "country"}})
+{}
 
 // static
 void RankingInfo::PrintCSVHeader(ostream & os)

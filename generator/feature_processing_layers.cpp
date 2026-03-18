@@ -1,8 +1,6 @@
 #include "generator/feature_processing_layers.hpp"
 #include "generator/feature_maker_base.hpp"
 #include "generator/feature_merger.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/place_processor.hpp"
 
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -24,12 +22,12 @@ void FixLandType(FeatureBuilder & fb)
   auto const & isCoastlineChecker = ftypes::IsCoastlineChecker::Instance();
   if (isCoastlineChecker(types))
   {
-    fb.PopExactType(isLandChecker.GetLandType());
-    fb.PopExactType(isCoastlineChecker.GetCoastlineType());
+    fb.PopExactType(isLandChecker.GetType());
+    fb.PopExactType(isCoastlineChecker.GetType());
   }
   else if (isIslandChecker(types) && fb.IsArea())
   {
-    fb.AddType(isLandChecker.GetLandType());
+    fb.AddType(isLandChecker.GetType());
   }
 }
 }  // namespace
@@ -197,7 +195,7 @@ void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & fb)
 
   fb.PreSerializeAndRemoveUselessNamesForIntermediate();
   auto const & isCoastlineChecker = ftypes::IsCoastlineChecker::Instance();
-  auto const kCoastType = isCoastlineChecker.GetCoastlineType();
+  auto const kCoastType = isCoastlineChecker.GetType();
   fb.SetType(kCoastType);
   LayerBase::Handle(fb);
 }

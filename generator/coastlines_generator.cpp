@@ -281,7 +281,7 @@ public:
 
 std::vector<feature::FeatureBuilder> CoastlineFeaturesGenerator::GetFeatures(size_t maxThreads)
 {
-  uint32_t const coastType = ftypes::IsCoastlineChecker::Instance().GetCoastlineType();
+  uint32_t const coastType = ftypes::IsCoastlineChecker::Instance().GetType();
 
   std::vector<feature::FeatureBuilder> features;
   std::mutex featuresMutex;

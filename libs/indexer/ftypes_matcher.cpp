@@ -124,6 +124,9 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
   return HighwayClass::Undefined;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// BaseChecker implementation
+
 void BaseChecker::PostInitialize()
 {
   ASSERT(!m_types.empty(), ());
@@ -148,29 +151,33 @@ bool BaseChecker::operator()(FeatureType & ft) const
   return this->operator()(feature::TypesHolder(ft));
 }
 
-IsPeakChecker::IsPeakChecker()
+/////////////////////////////////////////////////////////////////////////////////////////
+// BaseCheckerEx implementation
+
+BaseCheckerEx::BaseCheckerEx(std::initializer_list<base::StringIL> const & lst)
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"natural", "peak"}));
+  m_types.reserve(lst.size());
+  for (auto const & e : lst)
+  {
+    uint32_t const t = c.GetTypeByPath(e);
+    m_types.emplace_back(t, e.size());
+    ASSERT_EQUAL(ftype::GetLevel(t), e.size(), ());
+  }
 }
 
-IsATMChecker::IsATMChecker()
+bool BaseCheckerEx::operator()(FeatureType & ft) const
 {
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "atm"}));
+  return this->operator()(feature::TypesHolder(ft));
 }
 
-IsSpeedCamChecker::IsSpeedCamChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"highway", "speed_camera"}));
-}
+/////////////////////////////////////////////////////////////////////////////////////////
+// Checkers implementation
 
-IsPostBoxChecker::IsPostBoxChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "post_box"}));
-}
+IsPeakChecker::IsPeakChecker() : BaseCheckerEx({{"natural", "peak"}}) {}
+IsATMChecker::IsATMChecker() : BaseCheckerEx({{"amenity", "atm"}}) {}
+IsSpeedCamChecker::IsSpeedCamChecker() : BaseCheckerEx({{"highway", "speed_camera"}}) {}
+IsPostBoxChecker::IsPostBoxChecker() : BaseCheckerEx({{"amenity", "post_box"}}) {}
 
 IsPostPoiChecker::IsPostPoiChecker()
 {
@@ -188,16 +195,7 @@ IsOperatorOthersPoiChecker::IsOperatorOthersPoiChecker()
     m_types.push_back(c.GetTypeByPath({"amenity", val}));
 }
 
-IsRecyclingCentreChecker::IsRecyclingCentreChecker() : BaseChecker(3 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "recycling", "centre"}));
-}
-
-uint32_t IsRecyclingCentreChecker::GetType() const
-{
-  return m_types[0];
-}
+IsRecyclingCentreChecker::IsRecyclingCentreChecker() : BaseCheckerEx({{"amenity", "recycling", "centre"}}) {}
 
 IsRecyclingContainerChecker::IsRecyclingContainerChecker() : BaseChecker(3 /* level */)
 {
@@ -207,11 +205,6 @@ IsRecyclingContainerChecker::IsRecyclingContainerChecker() : BaseChecker(3 /* le
   m_types.push_back(c.GetTypeByPath({"amenity", "recycling"}));
 }
 
-uint32_t IsRecyclingContainerChecker::GetType() const
-{
-  return m_types[0];
-}
-
 IsRailwayStationChecker::IsRailwayStationChecker()
 {
   Classificator const & c = classif();
@@ -219,23 +212,9 @@ IsRailwayStationChecker::IsRailwayStationChecker()
   m_types.push_back(c.GetTypeByPath({"building", "train_station"}));
 }
 
-IsSubwayStationChecker::IsSubwayStationChecker() : BaseChecker(3 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"railway", "station", "subway"}));
-}
-
-IsAirportChecker::IsAirportChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"aeroway", "aerodrome"}));
-}
-
-IsSquareChecker::IsSquareChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"place", "square"}));
-}
+IsSubwayStationChecker::IsSubwayStationChecker() : BaseCheckerEx({{"railway", "station", "subway"}}) {}
+IsAirportChecker::IsAirportChecker() : BaseCheckerEx({{"aeroway", "aerodrome"}}) {}
+IsSquareChecker::IsSquareChecker() : BaseCheckerEx({{"place", "square"}}) {}
 
 IsSuburbChecker::IsSuburbChecker()
 {
@@ -363,11 +342,7 @@ IsVillageChecker::IsVillageChecker()
   m_types.push_back(c.GetTypeByPath({"place", "hamlet"}));
 }
 
-IsOneWayChecker::IsOneWayChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"hwtag", "oneway"}));
-}
+IsOneWayChecker::IsOneWayChecker() : BaseCheckerEx({{"hwtag", "oneway"}}) {}
 
 IsRoundAboutChecker::IsRoundAboutChecker()
 {
@@ -389,35 +364,12 @@ IsLinkChecker::IsLinkChecker()
     m_types.push_back(c.GetTypeByPath(e));
 }
 
-IsBuildingChecker::IsBuildingChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"building"}));
-}
-
-IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"building:part"}));
-}
-
-IsBuildingHasPartsChecker::IsBuildingHasPartsChecker() : BaseChecker(2 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
-}
-
-IsIsolineChecker::IsIsolineChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"isoline"}));
-}
-
-IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"piste:type"}));
-}
-
-IsMwmBorderChecker::IsMwmBorderChecker() : BaseChecker(2 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"organicapp", "mwm_border"}));
-}
+IsBuildingChecker::IsBuildingChecker() : BaseCheckerEx({{"building"}}) {}
+IsBuildingPartChecker::IsBuildingPartChecker() : BaseCheckerEx({{"building:part"}}) {}
+IsBuildingHasPartsChecker::IsBuildingHasPartsChecker() : BaseCheckerEx({{"building", "has_parts"}}) {}
+IsIsolineChecker::IsIsolineChecker() : BaseCheckerEx({{"isoline"}}) {}
+IsPisteChecker::IsPisteChecker() : BaseCheckerEx({{"piste:type"}}) {}
+IsMwmBorderChecker::IsMwmBorderChecker() : BaseCheckerEx({{"organicapp", "mwm_border"}}) {}
 
 // Used in IsPoiChecker and in IsAddressObjectChecker.
 OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
@@ -447,10 +399,7 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
     m_types.push_back(c.GetTypeByPath(path));
 }
 
-IsAmenityChecker::IsAmenityChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"amenity"}));
-}
+IsAmenityChecker::IsAmenityChecker() : BaseCheckerEx({{"amenity"}}) {}
 
 AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
@@ -545,10 +494,7 @@ uint32_t AttractionsChecker::GetBestType(FeatureParams::Types const & types) con
   return additionalType;
 }
 
-IsPlaceChecker::IsPlaceChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"place"}));
-}
+IsPlaceChecker::IsPlaceChecker() : BaseCheckerEx({{"place"}}) {}
 
 IsBridgeOrTunnelChecker::IsBridgeOrTunnelChecker() : BaseChecker(3 /* level */) {}
 
@@ -581,11 +527,7 @@ IsHotelChecker::IsHotelChecker()
     m_types.push_back(c.GetTypeByPath(e));
 }
 
-IsCampPitchChecker::IsCampPitchChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"tourism", "camp_pitch"}));
-}
+IsCampPitchChecker::IsCampPitchChecker() : BaseCheckerEx({{"tourism", "camp_pitch"}}) {}
 
 IsIslandChecker::IsIslandChecker()
 {
@@ -594,34 +536,9 @@ IsIslandChecker::IsIslandChecker()
   m_types.push_back(c.GetTypeByPath({"place", "islet"}));
 }
 
-IsLandChecker::IsLandChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"natural", "land"}));
-}
-
-uint32_t IsLandChecker::GetLandType() const
-{
-  CHECK_EQUAL(m_types.size(), 1, ());
-  return m_types[0];
-}
-
-IsCoastlineChecker::IsCoastlineChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"natural", "coastline"}));
-}
-
-uint32_t IsCoastlineChecker::GetCoastlineType() const
-{
-  CHECK_EQUAL(m_types.size(), 1, ());
-  return m_types[0];
-}
-
-IsWifiChecker::IsWifiChecker()
-{
-  m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
-}
+IsLandChecker::IsLandChecker() : BaseCheckerEx({{"natural", "land"}}) {}
+IsCoastlineChecker::IsCoastlineChecker() : BaseCheckerEx({{"natural", "coastline"}}) {}
+IsWifiChecker::IsWifiChecker() : BaseCheckerEx({{"internet_access", "wlan"}}) {}
 
 IsEatChecker::IsEatChecker()
 {
@@ -652,23 +569,9 @@ IsEatChecker::IsEatChecker()
 //   return IsEatChecker::Type::Count;
 // }
 
-IsCuisineChecker::IsCuisineChecker() : BaseChecker(1 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"cuisine"}));
-}
-
-IsRecyclingTypeChecker::IsRecyclingTypeChecker() : BaseChecker(1 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"recycling"}));
-}
-
-IsFeeTypeChecker::IsFeeTypeChecker() : BaseChecker(1 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"fee"}));
-}
+IsCuisineChecker::IsCuisineChecker() : BaseCheckerEx({{"cuisine"}}) {}
+IsRecyclingTypeChecker::IsRecyclingTypeChecker() : BaseCheckerEx({{"recycling"}}) {}
+IsFeeTypeChecker::IsFeeTypeChecker() : BaseCheckerEx({{"fee"}}) {}
 
 IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
 {
@@ -677,22 +580,9 @@ IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
   m_types.push_back(c.GetTypeByPath({"toilets", "yes"}));
 }
 
-IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"place", "city", "capital"}));
-}
-
-IsParkingChecker::IsParkingChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "parking"}));
-}
-
-IsCarChargingChecker::IsCarChargingChecker() : BaseChecker(3 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "charging_station", "motorcar"}));
-}
+IsCapitalChecker::IsCapitalChecker() : BaseCheckerEx({{"place", "city", "capital"}}) {}
+IsParkingChecker::IsParkingChecker() : BaseCheckerEx({{"amenity", "parking"}}) {}
+IsCarChargingChecker::IsCarChargingChecker() : BaseCheckerEx({{"amenity", "charging_station", "motorcar"}}) {}
 
 IsBicycleParkingChecker::IsBicycleParkingChecker()
 {
@@ -701,17 +591,8 @@ IsBicycleParkingChecker::IsBicycleParkingChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_rental"}));
 }
 
-IsBicycleChargingChecker::IsBicycleChargingChecker() : BaseChecker(3 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "charging_station", "bicycle"}));
-}
-
-IsMotorcycleParkingChecker::IsMotorcycleParkingChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "motorcycle_parking"}));
-}
+IsBicycleChargingChecker::IsBicycleChargingChecker() : BaseCheckerEx({{"amenity", "charging_station", "bicycle"}}) {}
+IsMotorcycleParkingChecker::IsMotorcycleParkingChecker() : BaseCheckerEx({{"amenity", "motorcycle_parking"}}) {}
 
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
@@ -725,16 +606,8 @@ IsPublicTransportStopChecker::IsPublicTransportStopChecker()
   m_types.push_back(c.GetTypeByPath({"railway", "tram_stop"}));
 }
 
-IsTaxiChecker::IsTaxiChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "taxi"}));
-}
-
-IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
-{
-  m_types.push_back(classif().GetTypeByPath({"highway", "motorway_junction"}));
-}
+IsTaxiChecker::IsTaxiChecker() : BaseCheckerEx({{"amenity", "taxi"}}) {}
+IsMotorwayJunctionChecker::IsMotorwayJunctionChecker() : BaseCheckerEx({{"highway", "motorway_junction"}}) {}
 
 IsWayWithDurationChecker::IsWayWithDurationChecker()
 {
@@ -793,17 +666,8 @@ LocalityType IsLocalityChecker::GetType(FeatureType & f) const
   return GetType(types);
 }
 
-IsCountryChecker::IsCountryChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"place", "country"}));
-}
-
-IsStateChecker::IsStateChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"place", "state"}));
-}
+IsCountryChecker::IsCountryChecker() : BaseCheckerEx({{"place", "country"}}) {}
+IsStateChecker::IsStateChecker() : BaseCheckerEx({{"place", "state"}}) {}
 
 IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
 {
@@ -814,23 +678,9 @@ IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
     m_types.push_back(c.GetTypeByPath(e));
 }
 
-IsEntranceChecker::IsEntranceChecker() : BaseChecker(1 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"entrance"}));
-}
-
-IsAerowayGateChecker::IsAerowayGateChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"aeroway", "gate"}));
-}
-
-IsSubwayEntranceChecker::IsSubwayEntranceChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"railway", "subway_entrance"}));
-}
+IsEntranceChecker::IsEntranceChecker() : BaseCheckerEx({{"entrance"}}) {}
+IsAerowayGateChecker::IsAerowayGateChecker() : BaseCheckerEx({{"aeroway", "gate"}}) {}
+IsSubwayEntranceChecker::IsSubwayEntranceChecker() : BaseCheckerEx({{"railway", "subway_entrance"}}) {}
 
 IsPlatformChecker::IsPlatformChecker()
 {
