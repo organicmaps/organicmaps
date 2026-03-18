@@ -264,4 +264,23 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   return GetFileTime(path, FileTimeType::Modification);
 }
 
+// static
+bool Platform::SetFileModificationTime(std::string const & path, time_t modTime)
+{
+  HANDLE hFile = CreateFileA(path.c_str(), FILE_WRITE_ATTRIBUTES, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+  if (hFile == INVALID_HANDLE_VALUE)
+    return false;
+
+  SCOPE_GUARD(autoClose, std::bind_front(&CloseHandle, hFile));
+
+  ULARGE_INTEGER ull;
+  ull.QuadPart = (static_cast<uint64_t>(modTime) + 11644473600ULL) * 10000000ULL;
+
+  FILETIME ft;
+  ft.dwLowDateTime = ull.LowPart;
+  ft.dwHighDateTime = ull.HighPart;
+
+  return ::SetFileTime(hFile, nullptr, nullptr, &ft) != 0;
+}
+
 void Platform::GetSystemFontNames(FilesList & res) const {}

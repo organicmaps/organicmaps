@@ -299,3 +299,12 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }
+
+// static
+bool Platform::SetFileModificationTime(std::string const & path, time_t modTime)
+{
+  struct timespec times[2] = {};
+  times[0].tv_nsec = UTIME_OMIT;  // access time: unchanged
+  times[1].tv_sec = modTime;      // modification time
+  return utimensat(AT_FDCWD, path.c_str(), times, 0) == 0;
+}
