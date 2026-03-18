@@ -568,9 +568,16 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   {
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;
   case routing::RouterResultCode::HasWarnings: [self onRouteReady:YES]; break;
+  case routing::RouterResultCode::NeedMoreMaps:
+    self.routingOptions = [MWMRoutingOptions new];
+    [self presentDownloaderAlert:code countries:absentCountries];
+    // NeedMoreMaps can arrive after a valid route is already built. In that case
+    // the user may decline extra maps and still navigate along the current route.
+    if (![MWMRouter IsRouteValid])
+      [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
+    break;
   case routing::RouterResultCode::RouteFileNotExist:
   case routing::RouterResultCode::InconsistentMWMandRoute:
-  case routing::RouterResultCode::NeedMoreMaps:
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
     self.routingOptions = [MWMRoutingOptions new];
