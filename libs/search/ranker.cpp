@@ -341,7 +341,7 @@ public:
         uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
         feature::TypesHolder typesHolder;
         typesHolder.Assign(bestType);
-        info.m_classifType.poi = GetPoiType(typesHolder);
+        info.m_classifType.poi = m_ranker.m_poiType.Get(typesHolder);
 
         // We do not compare result name and request for categorial requests, but we prefer named features
         // for Eat, Hotel or Shop categories. Toilets, stops, defibrillators, ... are equal w/wo names.
@@ -497,7 +497,7 @@ private:
     info.m_popularity = preInfo.m_popularity;
     info.m_type = preInfo.m_type;
     if (Model::IsPoi(info.m_type))
-      info.m_classifType.poi = GetPoiType(featureTypes);
+      info.m_classifType.poi = m_ranker.m_poiType.Get(featureTypes);
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_numTokens = m_params.GetNumTokens();
     info.m_exactMatch = preInfo.m_exactMatch;

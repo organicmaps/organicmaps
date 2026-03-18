@@ -157,11 +157,81 @@ struct RankingInfo : public StoredRankingInfo
   bool m_nearbyMatch : 1;
 };
 
-PoiType GetPoiType(feature::TypesHolder const & th);
-
 std::string DebugPrint(StoredRankingInfo const & info);
 std::string DebugPrint(RankingInfo const & info);
 
 std::string DebugPrint(PoiType type);
 std::string DebugPrint(StreetType type);
+
+class BaseTypesChecker
+{
+protected:
+  std::vector<uint32_t> m_types;
+
+public:
+  bool operator()(feature::TypesHolder const & th) const
+  {
+    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
+  }
+};
+
+class PoiTypeResolver
+{
+  ftypes::IsEatChecker const & m_isEat = ftypes::IsEatChecker::Instance();
+  ftypes::IsHotelChecker const & m_isHotel = ftypes::IsHotelChecker::Instance();
+  ftypes::IsRailwayStationChecker const & m_isRwStation = ftypes::IsRailwayStationChecker::Instance();
+  ftypes::IsSubwayStationChecker const & m_isSbStation = ftypes::IsSubwayStationChecker::Instance();
+  ftypes::IsAirportChecker const & m_isAirport = ftypes::IsAirportChecker::Instance();
+  ftypes::IsPublicTransportStopChecker const & m_isPtStop = ftypes::IsPublicTransportStopChecker::Instance();
+  ftypes::IsTaxiChecker const & m_isTaxi = ftypes::IsTaxiChecker::Instance();
+
+  class IsAttractionChecker
+  {
+    std::vector<uint32_t> m_types;
+    IsAttractionChecker();
+
+  public:
+    DECLARE_CHECKER_INSTANCE(IsAttractionChecker);
+
+    bool operator()(feature::TypesHolder const & th) const
+    {
+      // Strict check (unlike in BaseTypesChecker) to avoid matching:
+      // - historic-memorial-plaque
+      // - leisure-garden-residential
+      return base::AnyOf(m_types, [&th](uint32_t t) { return th.Has(t); });
+    }
+  };
+  IsAttractionChecker const & m_isAttraction = IsAttractionChecker::Instance();
+
+  class IsShopOrAmenityChecker : public BaseTypesChecker
+  {
+    IsShopOrAmenityChecker();
+
+  public:
+    DECLARE_CHECKER_INSTANCE(IsShopOrAmenityChecker);
+  };
+  IsShopOrAmenityChecker const & m_isShopOrAmenity = IsShopOrAmenityChecker::Instance();
+
+  class IsCarInfraChecker : public BaseTypesChecker
+  {
+    IsCarInfraChecker();
+
+  public:
+    DECLARE_CHECKER_INSTANCE(IsCarInfraChecker);
+  };
+  IsCarInfraChecker const & m_isCarInfra = IsCarInfraChecker::Instance();
+
+  class IsServiceTypeChecker : public BaseTypesChecker
+  {
+    IsServiceTypeChecker();
+
+  public:
+    DECLARE_CHECKER_INSTANCE(IsServiceTypeChecker);
+  };
+  IsServiceTypeChecker const & m_isServiceType = IsServiceTypeChecker::Instance();
+
+public:
+  PoiType Get(feature::TypesHolder const & th) const;
+};
+
 }  // namespace search

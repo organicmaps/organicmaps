@@ -6,7 +6,6 @@
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <functional>
 #include <string>
 #include <vector>
 
@@ -16,6 +15,19 @@
     static CheckerType const inst;            \
     return inst;                              \
   }
+
+/* If fancy post-initialization needed.
+#define DECLARE_CHECKER_INSTANCE(CheckerType) \
+  static CheckerType const & Instance()       \
+  {                                           \
+    struct Initializer : public CheckerType   \
+    {                                         \
+      Initializer() { PostInitialize(); }     \
+    };                                        \
+    static Initializer const inst;            \
+    return inst;                              \
+  }
+*/
 
 namespace ftypes
 {
@@ -29,15 +41,29 @@ protected:
   virtual ~BaseChecker() = default;
 
 public:
+  void PostInitialize();
+
   virtual bool IsMatched(uint32_t type) const;
-  virtual void ForEachType(std::function<void(uint32_t)> const & fn) const;
+
+  template <class FnT>
+  void ForEachType(FnT && fn) const
+  {
+    for (auto const & t : m_types)
+      fn(t);
+  }
 
   std::vector<uint32_t> const & GetTypes() const { return m_types; }
 
-  bool operator()(feature::TypesHolder const & types) const;
   bool operator()(FeatureType & ft) const;
-  bool operator()(std::vector<uint32_t> const & types) const;
   bool operator()(uint32_t type) const { return IsMatched(type); }
+  template <class T>
+  bool operator()(T && types) const
+  {
+    for (uint32_t t : types)
+      if (IsMatched(t))
+        return true;
+    return false;
+  }
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 };
@@ -207,14 +233,20 @@ public:
 class IsAddressObjectChecker
 {
 public:
-  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
   template <class T>
-  bool operator()(T const & t) const
+  bool operator()(T && t) const
   {
     return m_oneLevel(t) || m_twoLevel(t);
   }
 
   DECLARE_CHECKER_INSTANCE(IsAddressObjectChecker);
+
+protected:
+  void PostInitialize()
+  {
+    m_oneLevel.PostInitialize();
+    m_twoLevel.PostInitialize();
+  }
 
 private:
   struct AddressOneLevel : BaseChecker
@@ -271,9 +303,9 @@ public:
 
 class IsBuildingChecker : public BaseChecker
 {
+public:
   IsBuildingChecker();
 
-public:
   DECLARE_CHECKER_INSTANCE(IsBuildingChecker);
 };
 
@@ -342,16 +374,22 @@ class IsPoiChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 
-  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
   template <class T>
-  bool operator()(T const & t) const
+  bool operator()(T && t) const
   {
     return m_oneLevel(t) || m_twoLevel(t);
   }
 
+protected:
+  void PostInitialize()
+  {
+    m_oneLevel.PostInitialize();
+    m_twoLevel.PostInitialize();
+  }
+
 private:
-  OneLevelPOIChecker const m_oneLevel;
-  TwoLevelPOIChecker const m_twoLevel;
+  OneLevelPOIChecker m_oneLevel;
+  TwoLevelPOIChecker m_twoLevel;
 };
 
 class IsAmenityChecker : public BaseChecker
@@ -389,10 +427,8 @@ class IsBridgeOrTunnelChecker : public BaseChecker
 {
   virtual bool IsMatched(uint32_t type) const override;
 
-  IsBridgeOrTunnelChecker();
-
 public:
-  DECLARE_CHECKER_INSTANCE(IsBridgeOrTunnelChecker);
+  IsBridgeOrTunnelChecker();
 };
 
 class IsIslandChecker : public BaseChecker
@@ -692,11 +728,11 @@ public:
 
 class IsAddressInterpolChecker : public BaseChecker
 {
-  IsAddressInterpolChecker();
-
   uint32_t m_odd, m_even;
 
 public:
+  IsAddressInterpolChecker();
+
   DECLARE_CHECKER_INSTANCE(IsAddressInterpolChecker);
 
   template <class Range>

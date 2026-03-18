@@ -83,7 +83,7 @@ private:
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();
   ftypes::IsBuildingChecker const & m_isBuilding = ftypes::IsBuildingChecker::Instance();
-  ftypes::IsBridgeOrTunnelChecker const & m_isBridgeOrTunnel = ftypes::IsBridgeOrTunnelChecker::Instance();
+  ftypes::IsBridgeOrTunnelChecker m_isBridgeOrTunnel;
   ftypes::IsMwmBorderChecker const & m_isMwmBorder = ftypes::IsMwmBorderChecker::Instance();
   IsHatchingTerritoryChecker const & m_isHatching = IsHatchingTerritoryChecker::Instance();
   ftypes::IsOneWayChecker const & m_isOneWay = ftypes::IsOneWayChecker::Instance();

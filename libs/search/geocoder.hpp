@@ -322,8 +322,7 @@ private:
   // Geocoder params.
   Params m_params;
 
-  // This field is used to map features to a limited number of search
-  // classes.
+  // This field is used to map features to a limited number of search classes.
   Model m_model;
 
   // Following fields are set up by Search() method and can be

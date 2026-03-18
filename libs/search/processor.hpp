@@ -45,10 +45,7 @@ class CountryInfoGetter;
 
 namespace search
 {
-class Geocoder;
 class QueryParams;
-class Ranker;
-class ReverseGeocoder;
 
 class Processor : public base::Cancellable
 {

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cstdint>
+#include "indexer/ftypes_matcher.hpp"
+
 #include <string>
 
 class FeatureType;
@@ -48,6 +49,39 @@ public:
   static bool IsPoiOrBuilding(Type const type) { return IsPoi(type) || type == TYPE_BUILDING; }
 
   Type GetType(FeatureType & feature) const;
+
+private:
+  struct IsComplexPoiChecker : public ftypes::BaseChecker
+  {
+    DECLARE_CHECKER_INSTANCE(IsComplexPoiChecker);
+    IsComplexPoiChecker();
+  };
+  IsComplexPoiChecker const & m_isComplexPoi = IsComplexPoiChecker::Instance();
+
+  ftypes::IsPoiChecker const & m_isPoi = ftypes::IsPoiChecker::Instance();
+
+  class CustomIsBuildingChecker
+  {
+    ftypes::IsAddressInterpolChecker m_interpol;
+    ftypes::IsBuildingChecker m_building;
+
+  protected:
+    void PostInitialize()
+    {
+      m_interpol.PostInitialize();
+      m_building.PostInitialize();
+    }
+
+  public:
+    DECLARE_CHECKER_INSTANCE(CustomIsBuildingChecker);
+
+    bool operator()(FeatureType & ft) const;
+  };
+  CustomIsBuildingChecker const & m_isCustomBuilding = CustomIsBuildingChecker::Instance();
+
+  ftypes::IsStreetOrSquareChecker const & m_isStreetOrSquare = ftypes::IsStreetOrSquareChecker::Instance();
+  ftypes::IsSuburbChecker const & m_isSuburb = ftypes::IsSuburbChecker::Instance();
+  ftypes::IsLocalityChecker const & m_isLocality = ftypes::IsLocalityChecker::Instance();
 };
 
 std::string DebugPrint(Model::Type type);
