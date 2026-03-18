@@ -24,10 +24,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKD-Be-eMp">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-MX-bIe">
-                            <rect key="frame" x="258" y="12" width="54" height="19"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-MX-bIe" customClass="MWMNavBarButton">
+                            <rect key="frame" x="250" y="4" width="70" height="35"/>
+                            <inset key="contentEdgeInsets" minX="8" minY="0" maxX="8" maxY="0"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="19" id="psK-YU-lUF"/>
+                                <constraint firstAttribute="height" constant="35" id="psK-YU-lUF"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Готово"/>
@@ -53,10 +54,11 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_add_select_location"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boX-sU-7DW">
-                            <rect key="frame" x="8" y="12" width="62" height="19"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boX-sU-7DW" customClass="MWMNavBarButton">
+                            <rect key="frame" x="0" y="4" width="78" height="35"/>
+                            <inset key="contentEdgeInsets" minX="8" minY="0" maxX="8" maxY="0"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="19" id="KDz-RG-UH2"/>
+                                <constraint firstAttribute="height" constant="35" id="KDz-RG-UH2"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Отмена"/>
@@ -72,11 +74,11 @@
                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="5VI-KR-aXh"/>
-                        <constraint firstItem="zs9-MX-bIe" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="12" id="BNr-Gr-o3j"/>
+                        <constraint firstItem="zs9-MX-bIe" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="4" id="BNr-Gr-o3j"/>
                         <constraint firstItem="8So-22-JS1" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="12" id="CCm-fM-FcD"/>
-                        <constraint firstItem="boX-sU-7DW" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="12" id="Ofu-8n-bBo"/>
-                        <constraint firstItem="boX-sU-7DW" firstAttribute="leading" secondItem="ZKD-Be-eMp" secondAttribute="leading" constant="8" id="Sbg-dn-iro"/>
-                        <constraint firstAttribute="trailing" secondItem="zs9-MX-bIe" secondAttribute="trailing" constant="8" id="jiJ-gk-0bx"/>
+                        <constraint firstItem="boX-sU-7DW" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="4" id="Ofu-8n-bBo"/>
+                        <constraint firstItem="boX-sU-7DW" firstAttribute="leading" secondItem="ZKD-Be-eMp" secondAttribute="leading" constant="0" id="Sbg-dn-iro"/>
+                        <constraint firstAttribute="trailing" secondItem="zs9-MX-bIe" secondAttribute="trailing" constant="0" id="jiJ-gk-0bx"/>
                         <constraint firstItem="8So-22-JS1" firstAttribute="centerX" secondItem="ZKD-Be-eMp" secondAttribute="centerX" id="m6T-st-PPz"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
