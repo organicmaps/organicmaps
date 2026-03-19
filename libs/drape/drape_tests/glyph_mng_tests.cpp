@@ -322,4 +322,32 @@ UNIT_TEST(GlyphLoadingTest)
   RunTestLoop("Polish", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 }
 
+UNIT_TEST(ShapeText_MixedLatinExtendedFontRun)
+{
+  dp::GlyphManager::Params args;
+  args.m_uniBlocks = base::JoinPath("fonts", "unicode_blocks.txt");
+  args.m_whitelist = base::JoinPath("fonts", "whitelist.txt");
+  args.m_blacklist = base::JoinPath("fonts", "blacklist.txt");
+  GetPlatform().GetFontNames(args.m_fonts);
+
+  dp::GlyphManager mng(args);
+
+  auto const shapedText = mng.ShapeText("Uluṟu-Kata Tjuṯa", 27 /* fontPixelHeight */, "en");
+
+  TEST(!shapedText.m_glyphs.empty(), ());
+
+  int const firstFontIndex = shapedText.m_glyphs.front().m_key.m_fontIndex;
+  bool hasDifferentFontIndex = false;
+  for (auto const & glyph : shapedText.m_glyphs)
+  {
+    if (glyph.m_key.m_fontIndex != firstFontIndex)
+    {
+      hasDifferentFontIndex = true;
+      break;
+    }
+  }
+
+  TEST(hasDifferentFontIndex, ());
+}
+
 }  // namespace glyph_mng_tests

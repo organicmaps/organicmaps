@@ -602,34 +602,69 @@ FreetypeError constexpr g_FT_Errors[] =
     // TODO(AB): Check if it's slower or faster.
     allGlyphs.m_glyphs.reserve(icu::UnicodeString{false, text.data(), static_cast<int32_t>(text.size())}.countChar32());
 
+    struct FontRun
+    {
+      int m_start = 0;
+      int m_length = 0;
+      int m_fontIndex = kInvalidFont;
+    };
+
+    auto const splitTextSegmentByFont = [this](std::u16string_view text,
+                                               harfbuzz_shaping::TextSegment const & segment)
+    {
+      std::vector<FontRun> runs;
+
+      auto it = text.begin() + segment.m_start;
+      auto const end = it + segment.m_length;
+
+      while (it != end)
+      {
+        auto const runStart = static_cast<int>(it - text.begin());
+
+        auto tmp = it;
+        auto const u32Character = utf8::unchecked::next16(tmp);
+        int const fontIndex = GetFontIndexImmutable(u32Character);
+        it = tmp;
+
+        while (it != end)
+        {
+          auto probe = it;
+          auto const nextChar = utf8::unchecked::next16(probe);
+          if (GetFontIndexImmutable(nextChar) != fontIndex)
+            break;
+          it = probe;
+        }
+
+        runs.push_back({runStart, static_cast<int>(it - (text.begin() + runStart)), fontIndex});
+      }
+
+      return runs;
+    };
+
     for (auto const & substring : segments)
     {
-      hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
-
-      // TODO(AB): Some substrings use different fonts.
-      hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
-                          static_cast<int>(text.size()), substring.m_start, substring.m_length);
-      hb_buffer_set_direction(m_impl->m_harfbuzzBuffer, substring.m_direction);
-      hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
-      hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
-
-      auto u32CharacterIter{text.begin() + substring.m_start};
-      auto const end{u32CharacterIter + substring.m_length};
-      do
+      for (auto const & run : splitTextSegmentByFont(text, substring))
       {
-        auto const u32Character = utf8::unchecked::next16(u32CharacterIter);
-        // TODO(AB): Mapping characters to fonts can be optimized.
-        int const fontIndex = GetFontIndex(u32Character);
-        if (fontIndex < 0)
+        hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
+
+        hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
+                            static_cast<int>(text.size()), run.m_start, run.m_length);
+        hb_buffer_set_direction(m_impl->m_harfbuzzBuffer, substring.m_direction);
+        hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
+        hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
+
+        if (run.m_fontIndex < 0)
+        {
+          auto u32CharacterIter{text.begin() + run.m_start};
+          auto const u32Character = utf8::unchecked::next16(u32CharacterIter);
           LOG(LWARNING, ("No font was found for character", NumToHex(u32Character)));
+        }
         else
         {
-          // TODO(AB): Mapping font only by the first character in a string may fail in theory in some cases.
-          m_impl->m_fonts[fontIndex]->Shape(m_impl->m_harfbuzzBuffer, fontPixelHeight, fontIndex, allGlyphs);
-          break;
+          m_impl->m_fonts[run.m_fontIndex]->Shape(m_impl->m_harfbuzzBuffer, fontPixelHeight, run.m_fontIndex,
+                                                  allGlyphs);
         }
       }
-      while (u32CharacterIter != end);
     }
 
     // Uncomment utf8 printing for debugging if necessary. It crashes JNI with non-modified UTF-8 strings on Android 5
