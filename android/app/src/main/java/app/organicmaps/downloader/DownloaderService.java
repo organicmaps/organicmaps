@@ -30,10 +30,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   public void onCreate()
   {
     super.onCreate();
-
     Logger.i(TAG);
-
-    mSubscriptionSlot = MapManager.nativeSubscribe(this);
   }
 
   static PendingIntent buildCancelPendingIntent(Context context)
@@ -71,6 +68,10 @@ public class DownloaderService extends Service implements MapManager.StorageCall
                                     ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
     else
       ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
+
+    // Subscribe after startForeground to avoid callbacks firing before the service is in foreground state.
+    if (mSubscriptionSlot == 0)
+      mSubscriptionSlot = MapManager.nativeSubscribe(this);
 
     return START_NOT_STICKY;
   }
