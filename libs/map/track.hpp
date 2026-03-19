@@ -102,6 +102,9 @@ public:
   kml::MultiGeometry::LineT GetGeometry() const;
   bool HasAltitudes() const;
 
+protected:
+  void SetDirty() { m_isDirty = true; }
+
 private:
   std::vector<Lengths> GetLengthsImpl() const;
   m2::RectD GetLimitRectImpl() const;
