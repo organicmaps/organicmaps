@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.IBinder;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
@@ -22,6 +23,10 @@ public class DownloaderService extends Service implements MapManager.StorageCall
 {
   private static final String TAG = DownloaderService.class.getSimpleName();
   private static final String ACTION_CANCEL_DOWNLOAD = "ACTION_CANCEL_DOWNLOAD";
+  private static final String ACTION_START_DOWNLOAD = "ACTION_START_DOWNLOAD";
+  private static final String ACTION_RETRY_DOWNLOAD = "ACTION_RETRY_DOWNLOAD";
+  private static final String ACTION_START_UPDATE = "ACTION_START_UPDATE";
+  private static final String EXTRA_COUNTRY_IDS = "EXTRA_COUNTRY_IDS";
 
   private final DownloaderNotifier mNotifier = new DownloaderNotifier(this);
   private int mSubscriptionSlot;
@@ -48,6 +53,9 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   public int onStartCommand(Intent intent, int flags, int startId)
   {
     final String action = intent != null ? intent.getAction() : null;
+
+    // Cancel is sent via PendingIntent.getService() (not startForegroundService()),
+    // so no foreground promotion is needed.
     if (ACTION_CANCEL_DOWNLOAD.equals(action))
     {
       Logger.d(TAG, "Cancel action received, aborting all downloads");
@@ -56,22 +64,52 @@ public class DownloaderService extends Service implements MapManager.StorageCall
       return START_NOT_STICKY;
     }
 
+    // Download/retry/update actions are sent via startForegroundService().
+    // Call startForeground() immediately to satisfy the contract, then enqueue work.
+    // The download is deferred to here (instead of being started by MapManagerHelper) to
+    // eliminate the race where a fast download completes before onStartCommand() runs.
+    if (ACTION_START_DOWNLOAD.equals(action) || ACTION_RETRY_DOWNLOAD.equals(action)
+        || ACTION_START_UPDATE.equals(action))
+    {
+      var notification = mNotifier.buildProgressNotification();
+      Logger.i(TAG, "Starting Downloader Foreground Service");
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
+                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+      else
+        ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
+
+      final String[] countryIds = intent.getStringArrayExtra(EXTRA_COUNTRY_IDS);
+      if (countryIds != null)
+      {
+        if (ACTION_START_DOWNLOAD.equals(action))
+        {
+          for (String countryId : countryIds)
+            MapManager.startDownload(countryId);
+        }
+        else if (ACTION_RETRY_DOWNLOAD.equals(action))
+          MapManager.retryDownload(countryIds[0]);
+        else
+          MapManager.startUpdate(countryIds[0]);
+      }
+
+      // The enqueue may be a no-op (already downloaded, stale retry, empty batch, etc.).
+      // Re-check to avoid leaving a foreground service with no work and no callback to stop it.
+      if (!MapManager.nativeIsDownloading())
+      {
+        Logger.i(TAG, "No active downloads after enqueue, stopping DownloaderService");
+        stopSelf(startId);
+      }
+      return START_NOT_STICKY;
+    }
+
+    // No recognized action — stop if nothing to do.
     Logger.i(TAG, "Downloading: " + MapManager.nativeIsDownloading());
     if (!MapManager.nativeIsDownloading())
     {
       Logger.i(TAG, "No active downloads, stopping DownloaderService");
       stopSelf(startId);
-      return START_NOT_STICKY;
     }
-
-    var notification = mNotifier.buildProgressNotification();
-    Logger.i(TAG, "Starting Downloader Foreground Service");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
-                                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
-    else
-      ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
-
     return START_NOT_STICKY;
   }
 
@@ -151,12 +189,39 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   }
 
   /**
-   * Start the foreground service to keep the user informed about the status of region downloads.
+   * Start the foreground service and enqueue downloads for the given countries.
    */
-  public static void startForegroundService(Context context)
+  static void startDownload(Context context, String... countryIds)
   {
     Logger.i(TAG);
-    ContextCompat.startForegroundService(context, new Intent(context, DownloaderService.class));
+    Intent intent = new Intent(context, DownloaderService.class);
+    intent.setAction(ACTION_START_DOWNLOAD);
+    intent.putExtra(EXTRA_COUNTRY_IDS, countryIds);
+    ContextCompat.startForegroundService(context, intent);
+  }
+
+  /**
+   * Start the foreground service and retry a failed download.
+   */
+  static void startRetryDownload(Context context, @NonNull String countryId)
+  {
+    Logger.i(TAG);
+    Intent intent = new Intent(context, DownloaderService.class);
+    intent.setAction(ACTION_RETRY_DOWNLOAD);
+    intent.putExtra(EXTRA_COUNTRY_IDS, new String[] {countryId});
+    ContextCompat.startForegroundService(context, intent);
+  }
+
+  /**
+   * Start the foreground service and enqueue an update for the given root.
+   */
+  static void startUpdate(Context context, @NonNull String root)
+  {
+    Logger.i(TAG);
+    Intent intent = new Intent(context, DownloaderService.class);
+    intent.setAction(ACTION_START_UPDATE);
+    intent.putExtra(EXTRA_COUNTRY_IDS, new String[] {root});
+    ContextCompat.startForegroundService(context, intent);
   }
 
   private boolean hasDownloadFailed(List<MapManager.StorageCallbackData> data)

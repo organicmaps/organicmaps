@@ -171,51 +171,52 @@ public class MapManagerHelper
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.
+   * If the service is already running, enqueues directly; otherwise starts the service first.
    */
   public static void retryDownload(Context context, @NonNull String countryId)
   {
-    final boolean wasDownloading = MapManager.nativeIsDownloading();
-    MapManager.retryDownload(countryId);
-    startForegroundServiceIfNeeded(context, wasDownloading);
+    if (MapManager.nativeIsDownloading())
+      MapManager.retryDownload(countryId);
+    else
+      DownloaderService.startRetryDownload(context, countryId);
   }
 
   /**
    * Enqueues given {@code root} node with its children in downloader.
+   * If the service is already running, enqueues directly; otherwise starts the service first.
    */
   public static void startUpdate(Context context, @NonNull String root)
   {
-    final boolean wasDownloading = MapManager.nativeIsDownloading();
-    MapManager.startUpdate(root);
-    startForegroundServiceIfNeeded(context, wasDownloading);
+    if (MapManager.nativeIsDownloading())
+      MapManager.startUpdate(root);
+    else
+      DownloaderService.startUpdate(context, root);
   }
 
   /**
    * Enqueues the given list of nodes and its children in downloader.
+   * If the service is already running, enqueues directly; otherwise starts the service first.
    */
   public static void startDownload(Context context, String... countries)
   {
-    final boolean wasDownloading = MapManager.nativeIsDownloading();
-    for (var countryId : countries)
-      MapManager.startDownload(countryId);
-    startForegroundServiceIfNeeded(context, wasDownloading);
+    if (MapManager.nativeIsDownloading())
+    {
+      for (var countryId : countries)
+        MapManager.startDownload(countryId);
+    }
+    else
+      DownloaderService.startDownload(context, countries);
   }
 
   /**
    * Enqueues given {@code root} node and its children in downloader.
+   * If the service is already running, enqueues directly; otherwise starts the service first.
    */
   public static void startDownload(Context context, @NonNull String countryId)
   {
-    final boolean wasDownloading = MapManager.nativeIsDownloading();
-    MapManager.startDownload(countryId);
-    startForegroundServiceIfNeeded(context, wasDownloading);
-  }
-
-  /**
-   * Only start foreground service when needed.
-   */
-  private static void startForegroundServiceIfNeeded(Context context, boolean wasDownloading)
-  {
-    if (!wasDownloading && MapManager.nativeIsDownloading())
-      DownloaderService.startForegroundService(context);
+    if (MapManager.nativeIsDownloading())
+      MapManager.startDownload(countryId);
+    else
+      DownloaderService.startDownload(context, countryId);
   }
 }
