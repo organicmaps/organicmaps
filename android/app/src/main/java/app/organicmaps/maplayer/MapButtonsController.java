@@ -44,6 +44,7 @@ import com.google.android.material.badge.ExperimentalBadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapButtonsController extends Fragment
 {
@@ -62,6 +63,8 @@ public class MapButtonsController extends Fragment
   private MyPositionButton mNavMyPosition;
   private SearchWheel mSearchWheel;
   private BadgeDrawable mBadgeDrawable;
+  @Nullable
+  private ObjectAnimator mBlinkingAnimator;
   private float mContentHeight;
   private float mContentWidth;
 
@@ -198,10 +201,7 @@ public class MapButtonsController extends Fragment
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
   {
-    // TODO(AB): Why do we need this check? Isn't it better to crash and fix the wrong logic ASAP?
-    final View buttonView = mButtonsMap.get(button);
-    if (buttonView == null)
-      return;
+    final View buttonView = Objects.requireNonNull(mButtonsMap.get(button));
     switch (button)
     {
     case zoom: UiUtils.showIf(show && Config.showZoomButtons(), buttonView); break;
@@ -224,15 +224,20 @@ public class MapButtonsController extends Fragment
 
   void animateIconBlinking(boolean show, @NonNull FloatingActionButton button)
   {
+    if (mBlinkingAnimator != null)
+    {
+      mBlinkingAnimator.cancel();
+      mBlinkingAnimator = null;
+    }
     if (show)
     {
       Drawable drawable = button.getDrawable();
-      ObjectAnimator colorAnimator = ObjectAnimator.ofArgb(drawable, "tint", 0xFF757575, 0xFFFF0000);
-      colorAnimator.setDuration(2500);
-      colorAnimator.setEvaluator(new ArgbEvaluator());
-      colorAnimator.setRepeatCount(ObjectAnimator.INFINITE);
-      colorAnimator.setRepeatMode(ObjectAnimator.REVERSE);
-      colorAnimator.start();
+      mBlinkingAnimator = ObjectAnimator.ofArgb(drawable, "tint", 0xFF757575, 0xFFFF0000);
+      mBlinkingAnimator.setDuration(2500);
+      mBlinkingAnimator.setEvaluator(new ArgbEvaluator());
+      mBlinkingAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+      mBlinkingAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+      mBlinkingAnimator.start();
     }
   }
 
@@ -411,14 +416,14 @@ public class MapButtonsController extends Fragment
   public void onStart()
   {
     super.onStart();
-    final FragmentActivity activity = requireActivity();
-    mPlacePageViewModel.getPlacePageDistanceToTop().observe(activity, mPlacePageDistanceToTopObserver);
-    mSearchPageViewModel.getSearchPageDistanceToTop().observe(activity, mSearchPageDistanceToTopObserver);
-    mMapButtonsViewModel.getButtonsHidden().observe(activity, mButtonHiddenObserver);
-    mMapButtonsViewModel.getMyPositionMode().observe(activity, mMyPositionModeObserver);
-    mMapButtonsViewModel.getSearchOption().observe(activity, mSearchOptionObserver);
-    mMapButtonsViewModel.getTrackRecorderState().observe(activity, mTrackRecorderObserver);
-    mMapButtonsViewModel.getTopButtonsMarginTop().observe(activity, mTopButtonMarginObserver);
+    final var viewLifecycleOwner = getViewLifecycleOwner();
+    mPlacePageViewModel.getPlacePageDistanceToTop().observe(viewLifecycleOwner, mPlacePageDistanceToTopObserver);
+    mSearchPageViewModel.getSearchPageDistanceToTop().observe(viewLifecycleOwner, mSearchPageDistanceToTopObserver);
+    mMapButtonsViewModel.getButtonsHidden().observe(viewLifecycleOwner, mButtonHiddenObserver);
+    mMapButtonsViewModel.getMyPositionMode().observe(viewLifecycleOwner, mMyPositionModeObserver);
+    mMapButtonsViewModel.getSearchOption().observe(viewLifecycleOwner, mSearchOptionObserver);
+    mMapButtonsViewModel.getTrackRecorderState().observe(viewLifecycleOwner, mTrackRecorderObserver);
+    mMapButtonsViewModel.getTopButtonsMarginTop().observe(viewLifecycleOwner, mTopButtonMarginObserver);
   }
 
   public void onResume()
@@ -451,7 +456,6 @@ public class MapButtonsController extends Fragment
     super.onStop();
     mMapButtonsViewModel.getTopButtonsMarginTop().removeObserver(mTopButtonMarginObserver);
     mPlacePageViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
-    mSearchPageViewModel.getSearchPageDistanceToTop().removeObserver(mSearchPageDistanceToTopObserver);
     mMapButtonsViewModel.getButtonsHidden().removeObserver(mButtonHiddenObserver);
     mMapButtonsViewModel.getMyPositionMode().removeObserver(mMyPositionModeObserver);
     mMapButtonsViewModel.getSearchOption().removeObserver(mSearchOptionObserver);

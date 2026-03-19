@@ -55,13 +55,17 @@ public class NavigationService extends Service implements LocationListener
   @NonNull
   private MediaPlayerWrapper mPlayer;
 
-  // Destroyed in onDestroy()
-  @SuppressLint("StaticFieldLeak")
+  // Destroyed in onDestroy(). Uses application context to avoid leaking Activity.
   @Nullable
   private static NotificationCompat.Builder mNotificationBuilder;
 
   @Nullable
   private static NotificationCompat.Extender mCarNotificationExtender;
+
+  // Cached turn direction bitmap to avoid re-creating on every location update.
+  private int mLastTurnResId;
+  @Nullable
+  private Bitmap mLastTurnBitmap;
 
   /**
    * Start the foreground service for turn-by-turn voice-guided navigation.
@@ -137,17 +141,18 @@ public class NavigationService extends Service implements LocationListener
     if (mNotificationBuilder != null)
       return mNotificationBuilder;
 
+    final Context appContext = context.getApplicationContext();
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
-    final Intent contentIntent = new Intent(context, MwmActivity.class);
+    final Intent contentIntent = new Intent(appContext, MwmActivity.class);
     final PendingIntent pendingIntent =
-        PendingIntent.getActivity(context, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+        PendingIntent.getActivity(appContext, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
 
-    final Intent exitIntent = new Intent(context, NavigationService.class);
+    final Intent exitIntent = new Intent(appContext, NavigationService.class);
     exitIntent.setAction(STOP_NAVIGATION);
     final PendingIntent exitPendingIntent =
-        PendingIntent.getService(context, 0, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+        PendingIntent.getService(appContext, 0, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
 
-    mNotificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+    mNotificationBuilder = new NotificationCompat.Builder(appContext, CHANNEL_ID)
                                .setCategory(NotificationCompat.CATEGORY_NAVIGATION)
                                .setPriority(NotificationManager.IMPORTANCE_LOW)
                                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -303,15 +308,20 @@ public class NavigationService extends Service implements LocationListener
                                                                .setContentTitle(routingInfo.distToTurn.toString(this))
                                                                .setContentText(routingInfo.nextStreet);
 
-    final Drawable drawable =
-        AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes(routingInfo.exitNum));
-    if (drawable != null)
+    final int turnResId = routingInfo.carDirection.getTurnRes(routingInfo.exitNum);
+    if (turnResId != mLastTurnResId || mLastTurnBitmap == null)
     {
-      final Bitmap bitmap = isColorizedSupported() ? Graphics.drawableToBitmap(drawable)
-                                                   : Graphics.drawableToBitmapWithTint(
-                                                         drawable, ContextCompat.getColor(this, R.color.base_accent));
-      notificationBuilder.setLargeIcon(bitmap);
+      final Drawable drawable = AppCompatResources.getDrawable(this, turnResId);
+      if (drawable != null)
+      {
+        mLastTurnBitmap = isColorizedSupported() ? Graphics.drawableToBitmap(drawable)
+                                                 : Graphics.drawableToBitmapWithTint(
+                                                       drawable, ContextCompat.getColor(this, R.color.base_accent));
+        mLastTurnResId = turnResId;
+      }
     }
+    if (mLastTurnBitmap != null)
+      notificationBuilder.setLargeIcon(mLastTurnBitmap);
 
     if (mCarNotificationExtender != null)
       notificationBuilder.extend(mCarNotificationExtender);
