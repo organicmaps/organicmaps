@@ -113,7 +113,7 @@ private:
   mutable LocalityFinder m_localities;
   RegionInfoGetter m_regionInfoGetter;
 
-  PoiTypeResolver m_poiType;
+  ResultTypeResolver m_typeResolver;
 
   DataSource const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;

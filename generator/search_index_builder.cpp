@@ -454,6 +454,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
     mwmId = regResult.first;
   }
 
+  search::ReverseGeocoder reverseGeocoder(dataSource, true /* findPlaces */);
   std::vector<std::unique_ptr<search::MwmContext>> contexts(threadsCount);
 
   std::atomic<uint32_t> address = 0;
@@ -503,7 +504,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 
       if (!place.empty())
       {
-        auto const places = search::ReverseGeocoder::GetNearbyPlaces(*contexts[threadIdx], center, kPlaceRadiusM);
+        auto const places = reverseGeocoder.GetNearbyPlaces(*contexts[threadIdx], center, kPlaceRadiusM);
         placeId = MatchObjectByName(place, places, [](std::string_view name) { return strings::MakeUniString(name); });
       }
 

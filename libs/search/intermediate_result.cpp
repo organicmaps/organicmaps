@@ -24,20 +24,6 @@ namespace search
 {
 using namespace std;
 
-namespace
-{
-class SkipRegionInfo : public ftypes::BaseChecker
-{
-public:
-  SkipRegionInfo() : ftypes::BaseChecker(2)
-  {
-    Classificator const & c = classif();
-    m_types.push_back(c.GetTypeByPath({"place", "continent"}));
-    m_types.push_back(c.GetTypeByPath({"place", "country"}));
-  }
-};
-}  // namespace
-
 // PreRankerResult ---------------------------------------------------------------------------------
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                                  vector<ResultTracer::Branch> const & provenance)
@@ -171,9 +157,6 @@ RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
 
 bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, storage::CountryId & countryId) const
 {
-  static SkipRegionInfo checker;
-  if (checker(GetBestType()))
-    return false;
   return m_region.GetCountryId(infoGetter, countryId);
 }
 

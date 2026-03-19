@@ -24,6 +24,13 @@ namespace osm
 class Editor;
 }  // namespace osm
 
+namespace ftypes
+{
+class IsAddressInterpolChecker;
+class IsLocalityChecker;
+class IsSuburbChecker;
+}  // namespace ftypes
+
 namespace search
 {
 class MwmContext;
@@ -34,6 +41,10 @@ class ReverseGeocoder
 {
   DataSource const & m_dataSource;
   osm::Editor const & m_editor;
+
+  ftypes::IsAddressInterpolChecker const & m_isAddInterpol;
+  ftypes::IsLocalityChecker const * m_isLocality = nullptr;
+  ftypes::IsSuburbChecker const * m_isSuburb = nullptr;
 
   struct Object
   {
@@ -54,7 +65,7 @@ public:
   /// All "Nearby" functions work in this lookup radius.
   static int constexpr kLookupRadiusM = 500;
 
-  explicit ReverseGeocoder(DataSource const & dataSource);
+  explicit ReverseGeocoder(DataSource const & dataSource, bool findPlaces = false);
 
   struct Street : public Object
   {
@@ -149,7 +160,7 @@ public:
   std::vector<Street> GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center) const;
   std::vector<Street> GetNearbyStreets(FeatureType & ft) const;
 
-  static std::vector<Place> GetNearbyPlaces(search::MwmContext & context, m2::PointD const & center, double radiusM);
+  std::vector<Place> GetNearbyPlaces(search::MwmContext & context, m2::PointD const & center, double radiusM) const;
 
   /// @return Default (NOT localized) Feature's street name.
   /// @{
@@ -204,6 +215,8 @@ private:
 
   /// Ignores changes from editor if |ignoreEdits| is true.
   bool GetSavedAddress(HouseTable & table, Building const & bld, bool ignoreEdits, Address & addr) const;
+
+  std::string const & GetHouseNumber(FeatureType & ft) const;
 
   /// @return Sorted by distance houses vector with valid house number.
   void GetNearbyBuildings(m2::PointD const & center, double maxDistanceM, std::vector<Building> & buildings) const;
