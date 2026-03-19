@@ -156,7 +156,10 @@ public class DownloaderService extends Service implements MapManager.StorageCall
       return;
     }
 
-    mNotifier.notifyProgress(countryId, (int) bytesTotal, (int) bytesDownloaded);
+    // Clamp to int range to avoid overflow for files > 2GB.
+    final int total = (int) Math.min(bytesTotal, Integer.MAX_VALUE);
+    final int downloaded = (int) Math.min(bytesDownloaded, Integer.MAX_VALUE);
+    mNotifier.notifyProgress(countryId, total, downloaded);
   }
 
   @Override
