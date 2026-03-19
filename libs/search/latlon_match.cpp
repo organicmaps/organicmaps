@@ -11,17 +11,15 @@
 #include <string>
 #include <utility>
 
-using namespace std;
-
 namespace
 {
-string const kSpaces = " \t";
-string const kCharsToSkip = " \n\t,;:.()";
-string const kDecimalMarks = ".,";
+std::string const kSpaces = " \t";
+std::string const kCharsToSkip = " \n\t,;:.()/";  // Slash is used in the OpenStreetMap.org url.
+std::string const kDecimalMarks = ".,";
 
 bool IsDecimalMark(char c)
 {
-  return kDecimalMarks.find(c) != string::npos;
+  return kDecimalMarks.find(c) != std::string::npos;
 }
 
 bool IsNegativeSymbol(char c)
@@ -32,14 +30,14 @@ bool IsNegativeSymbol(char c)
 template <typename Char>
 void SkipSpaces(Char *& s)
 {
-  while (kSpaces.find(*s) != string::npos)
+  while (kSpaces.find(*s) != std::string::npos)
     ++s;
 }
 
 template <typename Char>
 void Skip(Char *& s)
 {
-  while (kCharsToSkip.find(*s) != string::npos)
+  while (kCharsToSkip.find(*s) != std::string::npos)
     ++s;
 }
 
@@ -138,8 +136,8 @@ double EatDouble(char const * str, char ** strEnd)
 
   if (gotDigitBeforeMark && gotMark && gotDigitAfterMark)
   {
-    string const part1(str, markPos);
-    string const part2(markPos + 1, p);
+    std::string const part1(str, markPos);
+    std::string const part2(markPos + 1, p);
     *strEnd = const_cast<char *>(p);
     auto const x1 = atof(part1.c_str());
     auto const x2 = atof(part2.c_str());
@@ -152,10 +150,10 @@ double EatDouble(char const * str, char ** strEnd)
 
 namespace search
 {
-bool MatchLatLonDegree(string const & query, double & lat, double & lon)
+bool MatchLatLonDegree(std::string const & query, double & lat, double & lon)
 {
   // should be default initialization (0, false)
-  array<pair<double, bool>, 6> v;
+  std::array<std::pair<double, bool>, 6> v;
 
   int base = 0;
 
@@ -199,7 +197,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
         break;
       }
     }
-    else if (x < 0 && s == s1 && !(s == startQuery || kSpaces.find(*(s - 1)) != string::npos))
+    else if (x < 0 && s == s1 && !(s == startQuery || kSpaces.find(*(s - 1)) != std::string::npos))
     {
       // Skip input like "3-8"
       return false;
@@ -277,8 +275,8 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
   if (v[3].first < 0.0)
     lon = -lon;
 
-  if (max(arrPos[0], arrPos[1]) > max(arrPos[2], arrPos[3]))
-    swap(lat, lon);
+  if (std::max(arrPos[0], arrPos[1]) > std::max(arrPos[2], arrPos[3]))
+    std::swap(lat, lon);
 
   if (arrPos[1] != nullptr)
     lat = -lat;

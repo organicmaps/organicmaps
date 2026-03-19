@@ -181,6 +181,12 @@ UNIT_TEST(LatLon_Match_Smoke)
   TEST(!MatchLatLonDegree("N 51* -33.217 E 11* 10.113", lat, lon), ());
   TEST(!MatchLatLonDegree("N 33.217\' E 11* 10.113", lat, lon), ());
   TEST(!MatchLatLonDegree("N 51* 33.217 E 11* 10.113\"", lat, lon), ());
+
+  TEST(MatchLatLonDegree("10.431/20.431", lat, lon), ());
+  TestAlmostEqual(lat, 10.431);
+  TestAlmostEqual(lon, 20.431);
+  // TODO(AB): fix the code to support _any_ delimiter between valid coordinates.
+  // TEST(MatchLatLonDegree("10.0%2C20.0", lat, lon), ());
 }
 
 UNIT_TEST(LatLon_Match_False)
