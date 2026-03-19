@@ -164,6 +164,8 @@ void DrapeEngine::Invalidate()
 
 void DrapeEngine::AddTouchEvent(TouchEvent const & event)
 {
+  //if (event.GetType() == TouchEvent::ETouchType::TOUCH_MOVE)
+
   AddUserEvent(make_unique_dp<TouchEvent>(event));
 }
 

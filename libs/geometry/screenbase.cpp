@@ -75,6 +75,8 @@ void ScreenBase::UpdateDependentParameters()
 
   m_GlobalRect = m2::AnyRectD(m_Org, m_Angle, m2::RectD(-szX, -szY, szX, szY));
   m_ClipRect = m_GlobalRect.GetGlobalRect();
+  //m_ClipRect.setMinX(m_ClipRect.minX() - 25);
+  //m_ClipRect.setMaxX(m_ClipRect.maxX() + 25);
 
   double constexpr kEps = 1.0E-5;
   double const angle = CalculatePerspectiveAngle(m_Scale);

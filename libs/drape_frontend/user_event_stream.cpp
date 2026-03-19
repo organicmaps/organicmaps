@@ -225,6 +225,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     break;
     case UserEvent::EventType::Touch:
     {
+//      e->GetType() == TOUCH_MOVE;
       m_needTrackCenter = false;
       ref_ptr<TouchEvent> touchEvent = make_ref(e);
       breakAnim = ProcessTouch(*touchEvent.get());
@@ -738,6 +739,10 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
   TouchEvent touchEvent = touch;
   touchEvent.PrepareTouches(m_touches);
   bool isMapTouch = false;
+  if (touch.GetTouchType() == TouchEvent::TOUCH_MOVE)
+  {
+    isMapTouch = false;
+  }
 
   switch (touchEvent.GetTouchType())
   {

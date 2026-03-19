@@ -78,16 +78,25 @@ bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 ScreenBase ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
-
   m2::RectD clipRect = res.ClipRect();
-  if (clipRect.minX() < boundRect.minX())
-    clipRect.Offset(boundRect.minX() - clipRect.minX(), 0);
-  if (clipRect.maxX() > boundRect.maxX())
-    clipRect.Offset(boundRect.maxX() - clipRect.maxX(), 0);
-  if (clipRect.minY() < boundRect.minY())
-    clipRect.Offset(0, boundRect.minY() - clipRect.minY());
-  if (clipRect.maxY() > boundRect.maxY())
-    clipRect.Offset(0, boundRect.maxY() - clipRect.maxY());
+
+  double overscrollWidth = clipRect.SizeX() / 2;
+  if (clipRect.maxX() > 180)
+  {
+    overscrollWidth = clipRect.SizeX() / 2;
+  }
+
+  m2::RectD boundWithOverscroll = m2::RectD(boundRect.minX()-overscrollWidth,
+    boundRect.minY(), boundRect.maxX() + overscrollWidth, boundRect.maxY());
+
+  if (clipRect.minX() < boundWithOverscroll.minX())
+    clipRect.Offset(boundWithOverscroll.minX() - clipRect.minX(), 0);
+  if (clipRect.maxX() > boundWithOverscroll.maxX())
+    clipRect.Offset(boundWithOverscroll.maxX() - clipRect.maxX(), 0);
+  if (clipRect.minY() < boundWithOverscroll.minY())
+    clipRect.Offset(0, boundWithOverscroll.minY() - clipRect.minY());
+  if (clipRect.maxY() > boundWithOverscroll.maxY())
+    clipRect.Offset(0, boundWithOverscroll.maxY() - clipRect.maxY());
 
   res.SetOrg(clipRect.Center());
 
@@ -141,72 +150,77 @@ ScreenBase ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
-
   m2::RectD globalRect = res.ClipRect();
+
+  //double maxOverscrollRight = boundRect.maxX() + (screen.GetWidth() / 2);
+  //double maxOverscrollLeft = boundRect.minX() - (screen.GetWidth() / 2);
+
+  m2::RectD boundRectWOverscroll = m2::RectD(boundRect.minX() - (globalRect.SizeX() / 2),
+  boundRect.minY(), boundRect.maxX() + (globalRect.SizeX() / 2), boundRect.maxY());
 
   m2::PointD newOrg = res.GetOrg();
   double scale = 1;
   double offs = 0;
 
-  if (globalRect.minX() < boundRect.minX())
+  if (globalRect.minX() < boundRectWOverscroll.minX())
   {
-    offs = boundRect.minX() - globalRect.minX();
+    offs = boundRectWOverscroll.minX() - globalRect.minX();
     globalRect.Offset(offs, 0);
     newOrg.x += offs;
 
-    if (globalRect.maxX() > boundRect.maxX())
+    if (globalRect.maxX() > boundRectWOverscroll.maxX())
     {
-      double k = boundRect.SizeX() / globalRect.SizeX();
+      double k = boundRectWOverscroll.SizeX() / globalRect.SizeX();
       scale /= k;
       /// scaling always occur pinpointed to the rect center...
       globalRect.Scale(k);
       /// ...so we should shift a rect after scale
-      globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
+      globalRect.Offset(boundRectWOverscroll.minX() - globalRect.minX(), 0);
     }
   }
 
-  if (globalRect.maxX() > boundRect.maxX())
+  if (globalRect.maxX() > boundRectWOverscroll.maxX())
   {
-    offs = boundRect.maxX() - globalRect.maxX();
+    offs = boundRectWOverscroll.maxX() - globalRect.maxX();
     globalRect.Offset(offs, 0);
     newOrg.x += offs;
 
-    if (globalRect.minX() < boundRect.minX())
+    if (globalRect.minX() < boundRectWOverscroll.minX())
     {
-      double k = boundRect.SizeX() / globalRect.SizeX();
+      double k = boundRectWOverscroll.SizeX() / globalRect.SizeX();
       scale /= k;
       globalRect.Scale(k);
-      globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
+      globalRect.Offset(boundRectWOverscroll.maxX() - globalRect.maxX(), 0);
     }
   }
 
-  if (globalRect.minY() < boundRect.minY())
+  if (globalRect.minY() < boundRectWOverscroll.minY())
   {
-    offs = boundRect.minY() - globalRect.minY();
+    offs = boundRectWOverscroll.minY() - globalRect.minY();
     globalRect.Offset(0, offs);
     newOrg.y += offs;
 
-    if (globalRect.maxY() > boundRect.maxY())
+    if (globalRect.maxY() > boundRectWOverscroll.maxY())
     {
-      double k = boundRect.SizeY() / globalRect.SizeY();
+      double k = boundRectWOverscroll.SizeY() / globalRect.SizeY();
       scale /= k;
       globalRect.Scale(k);
-      globalRect.Offset(0, boundRect.minY() - globalRect.minY());
+      globalRect.Offset(0, boundRectWOverscroll.minY() - globalRect.minY());
     }
   }
 
-  if (globalRect.maxY() > boundRect.maxY())
+  if (globalRect.maxY() > boundRectWOverscroll.maxY())
   {
-    offs = boundRect.maxY() - globalRect.maxY();
+    offs = boundRectWOverscroll.maxY() - globalRect.maxY();
     globalRect.Offset(0, offs);
     newOrg.y += offs;
 
-    if (globalRect.minY() < boundRect.minY())
+    if (globalRect.minY() < boundRectWOverscroll.minY())
     {
-      double k = boundRect.SizeY() / globalRect.SizeY();
+      double k = boundRectWOverscroll.SizeY() / globalRect.SizeY();
       scale /= k;
       globalRect.Scale(k);
-      globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
+      globalRect.Offset(0, boundRectWOverscroll.maxY() - globalRect.maxY());
     }
   }
 
