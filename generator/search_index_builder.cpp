@@ -454,6 +454,8 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
     mwmId = regResult.first;
   }
 
+  // Thread-safe, because GetNearbyStreets/Places use only constant checkers from the ReverseGeocoder.
+  search::ReverseGeocoder reverseGeocoder(dataSource);
   std::vector<std::unique_ptr<search::MwmContext>> contexts(threadsCount);
 
   std::atomic<uint32_t> address = 0;
@@ -490,7 +492,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 
       if (!street.empty())
       {
-        auto const streets = search::ReverseGeocoder::GetNearbyStreets(*contexts[threadIdx], center, kStreetRadiusM);
+        auto const streets = reverseGeocoder.GetNearbyStreets(*contexts[threadIdx], center, kStreetRadiusM);
         streetId = MatchObjectByName(street, streets, [](std::string_view name)
         { return search::GetStreetNameAsKey(name, false /* ignoreStreetSynonyms */); });
 
@@ -503,7 +505,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 
       if (!place.empty())
       {
-        auto const places = search::ReverseGeocoder::GetNearbyPlaces(*contexts[threadIdx], center, kPlaceRadiusM);
+        auto const places = reverseGeocoder.GetNearbyPlaces(*contexts[threadIdx], center, kPlaceRadiusM);
         placeId = MatchObjectByName(place, places, [](std::string_view name) { return strings::MakeUniString(name); });
       }
 

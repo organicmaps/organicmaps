@@ -17,9 +17,6 @@ class IsHatchingTerritoryChecker
 {
   IsHatchingTerritoryChecker();
 
-protected:
-  void PostInitialize() { m_2level45.PostInitialize(); }
-
 public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
 

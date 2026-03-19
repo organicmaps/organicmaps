@@ -65,13 +65,6 @@ private:
     ftypes::IsAddressInterpolChecker m_interpol;
     ftypes::IsBuildingChecker m_building;
 
-  protected:
-    void PostInitialize()
-    {
-      m_interpol.PostInitialize();
-      m_building.PostInitialize();
-    }
-
   public:
     DECLARE_CHECKER_INSTANCE(CustomIsBuildingChecker);
 
@@ -80,8 +73,10 @@ private:
   CustomIsBuildingChecker const & m_isCustomBuilding = CustomIsBuildingChecker::Instance();
 
   ftypes::IsStreetOrSquareChecker const & m_isStreetOrSquare = ftypes::IsStreetOrSquareChecker::Instance();
-  ftypes::IsSuburbChecker const & m_isSuburb = ftypes::IsSuburbChecker::Instance();
   ftypes::IsLocalityChecker const & m_isLocality = ftypes::IsLocalityChecker::Instance();
+
+public:
+  ftypes::IsSuburbChecker const & m_isSuburb = ftypes::IsSuburbChecker::Instance();
 };
 
 std::string DebugPrint(Model::Type type);

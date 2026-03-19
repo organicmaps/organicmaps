@@ -51,8 +51,6 @@ public:
     uint16_t m_minutesUntilClosed = 0;
 
     std::string m_description;
-
-    bool m_isInitialized = false;
   };
 
   // Min distance to search result when popularity label has a higher priority (in meters).

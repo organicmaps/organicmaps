@@ -99,101 +99,6 @@ vector<strings::UniString> RemoveStreetSynonyms(vector<strings::UniString> const
   return res;
 }
 
-NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params, TokenRange const & range, Model::Type type)
-{
-  NameScores bestScores;
-
-  TokenSlice const slice(params, range);
-  TokenSliceNoCategories const sliceNoCategories(params, range);
-
-  for (auto const lang : params.GetLangs())
-  {
-    string_view const name = ft.GetName(lang);
-    if (name.empty())
-      continue;
-
-    auto const updateScore = [&](string_view name)
-    {
-      TokensVector vec(name);
-      // Name consists of stop words only.
-      if (vec.Size() == 0)
-        return;
-
-      UpdateNameScores(vec, lang, slice, bestScores);
-      UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
-
-      /// @todo
-      /// 1. Make sure that this conversion also happens for Address and POI results,
-      /// where street is only one component.
-      /// 2. Make an optimization: If there are no synonyms or "strasse", skip this step.
-      /// 3. Short street synonym should be scored like full synonym ("AV.SAENZ 459" -> "Avenida SAENZ 459")
-      if (type == Model::TYPE_STREET)
-      {
-        // Searching for "Santa Fe" should rank "Avenida Santa Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.
-        {
-          TokensVector cleaned(RemoveStreetSynonyms(vec.GetTokens()));
-          UpdateNameScores(cleaned, lang, slice, bestScores);
-          UpdateNameScores(cleaned, lang, sliceNoCategories, bestScores);
-        }
-
-        for (auto & variant : ModifyDACHStreet(vec.GetTokens()))
-        {
-          TokensVector modified(std::move(variant));
-          UpdateNameScores(modified, lang, slice, bestScores);
-          UpdateNameScores(modified, lang, sliceNoCategories, bestScores);
-        }
-      }
-    };
-
-    if (StringUtf8Multilang::IsAltOrOldName(lang))
-      strings::Tokenize(name, ";", [&updateScore](string_view n) { updateScore(n); });
-    else
-      updateScore(name);
-  }
-
-  if (type == Model::TYPE_BUILDING)
-  {
-    if (ft.GetGeomType() == feature::GeomType::Line)
-    {
-      // Sometimes we can get linear matches with postcode (instead of house number) here.
-      // Because of _fake_ TYPE_BUILDING layer in MatchPOIsAndBuildings.
-      if (ftypes::IsAddressInterpolChecker::Instance()(ft))
-      {
-        // Separate case for addr:interpolation (Building + Line).
-        ASSERT(!ft.GetRef().empty(), ());
-        // Just assign SUBSTRING with no errors (was checked in HouseNumbersMatch).
-        bestScores.UpdateIfBetter(NameScores(NameScore::SUBSTRING, ErrorsMade(0), false, 4));
-      }
-    }
-    else
-      UpdateNameScores(ft.GetHouseNumber(), StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
-  }
-
-  if (ftypes::IsAirportChecker::Instance()(ft))
-  {
-    auto const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
-    if (!iata.empty())
-      UpdateNameScores(iata, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
-  }
-
-  auto const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
-  if (!op.empty())
-    UpdateNameScores(op, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
-
-  auto const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
-  if (!brand.empty())
-  {
-    indexer::ForEachLocalizedBrands(brand, [&](indexer::BrandsHolder::Brand::Name const & name)
-    { UpdateNameScores(name.m_name, name.m_locale, sliceNoCategories, bestScores); });
-  }
-
-  if (type == Model::TYPE_STREET)
-    for (auto const & shield : ftypes::GetRoadShieldsNames(ft))
-      UpdateNameScores(shield, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
-
-  return bestScores;
-}
-
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
   // "Молодечно первомайская ул"; "Тюрли первомайская ул" should remain both :)
@@ -261,46 +166,128 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
   base::SortUnique(results, lessCmp, equalCmp);
 }
 
-ftypes::LocalityType GetLocalityIndex(feature::TypesHolder const & types)
+bool IsCountryOrCity(ftypes::LocalityType type)
 {
   using namespace ftypes;
 
-  // Inner logic of SearchAddress expects COUNTRY, STATE and CITY only.
-  LocalityType const type = IsLocalityChecker::Instance().GetType(types);
   switch (type)
   {
-  case LocalityType::None:
   case LocalityType::Country:
-  case LocalityType::State:
-  case LocalityType::City: return type;
-  case LocalityType::Town: return LocalityType::City;
-  case LocalityType::Village: return LocalityType::None;
-  case LocalityType::Count: return type;
+  case LocalityType::City:
+  case LocalityType::Town: return true;
   }
-  UNREACHABLE();
+  return false;
 }
 
 }  // namespace
 
 class RankerResultMaker
 {
-  ftypes::IsWayChecker const & m_wayChecker;
-  ftypes::IsCapitalChecker const & m_capitalChecker;
-  ftypes::IsCountryChecker const & m_countryChecker;
-
 public:
   RankerResultMaker(Ranker & ranker, DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
                     ReverseGeocoder const & reverseGeocoder, Geocoder::Params const & params)
-    : m_wayChecker(ftypes::IsWayChecker::Instance())
-    , m_capitalChecker(ftypes::IsCapitalChecker::Instance())
-    , m_countryChecker(ftypes::IsCountryChecker::Instance())
-    , m_ranker(ranker)
+    : m_ranker(ranker)
     , m_dataSource(dataSource)
     , m_infoGetter(infoGetter)
     , m_reverseGeocoder(reverseGeocoder)
     , m_params(params)
     , m_isViewportMode(m_params.m_mode == Mode::Viewport)
   {}
+
+  NameScores GetNameScores(FeatureType & ft, TokenRange const & range, Model::Type type) const
+  {
+    NameScores bestScores;
+
+    TokenSlice const slice(m_params, range);
+    TokenSliceNoCategories const sliceNoCategories(m_params, range);
+
+    for (auto const lang : m_params.GetLangs())
+    {
+      string_view const name = ft.GetName(lang);
+      if (name.empty())
+        continue;
+
+      auto const updateScore = [&](string_view name)
+      {
+        TokensVector vec(name);
+        // Name consists of stop words only.
+        if (vec.Size() == 0)
+          return;
+
+        UpdateNameScores(vec, lang, slice, bestScores);
+        UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
+
+        /// @todo
+        /// 1. Make sure that this conversion also happens for Address and POI results,
+        /// where street is only one component.
+        /// 2. Make an optimization: If there are no synonyms or "strasse", skip this step.
+        /// 3. Short street synonym should be scored like full synonym ("AV.SAENZ 459" -> "Avenida SAENZ 459")
+        if (type == Model::TYPE_STREET)
+        {
+          // Searching for "Santa Fe" should rank "Avenida Santa Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.
+          {
+            TokensVector cleaned(RemoveStreetSynonyms(vec.GetTokens()));
+            UpdateNameScores(cleaned, lang, slice, bestScores);
+            UpdateNameScores(cleaned, lang, sliceNoCategories, bestScores);
+          }
+
+          for (auto & variant : ModifyDACHStreet(vec.GetTokens()))
+          {
+            TokensVector modified(std::move(variant));
+            UpdateNameScores(modified, lang, slice, bestScores);
+            UpdateNameScores(modified, lang, sliceNoCategories, bestScores);
+          }
+        }
+      };
+
+      if (StringUtf8Multilang::IsAltOrOldName(lang))
+        strings::Tokenize(name, ";", [&updateScore](string_view n) { updateScore(n); });
+      else
+        updateScore(name);
+    }
+
+    if (type == Model::TYPE_BUILDING)
+    {
+      if (ft.GetGeomType() == feature::GeomType::Line)
+      {
+        // Sometimes we can get linear matches with postcode (instead of house number) here.
+        // Because of _fake_ TYPE_BUILDING layer in MatchPOIsAndBuildings.
+        if (m_ranker.m_reverseGeocoder.m_isAddressInterpol(ft))
+        {
+          // Separate case for addr:interpolation (Building + Line).
+          ASSERT(!ft.GetRef().empty(), ());
+          // Just assign SUBSTRING with no errors (was checked in HouseNumbersMatch).
+          bestScores.UpdateIfBetter(NameScores(NameScore::SUBSTRING, ErrorsMade(0), false, 4));
+        }
+      }
+      else
+        UpdateNameScores(ft.GetHouseNumber(), StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
+    }
+
+    if (m_ranker.m_typeResolver.m_isAirport(ft))
+    {
+      auto const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+      if (!iata.empty())
+        UpdateNameScores(iata, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
+    }
+
+    auto const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
+    if (!op.empty())
+      UpdateNameScores(op, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
+
+    auto const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
+    if (!brand.empty())
+    {
+      indexer::ForEachLocalizedBrands(brand, [&](indexer::BrandsHolder::Brand::Name const & name)
+      { UpdateNameScores(name.m_name, name.m_locale, sliceNoCategories, bestScores); });
+    }
+
+    if (type == Model::TYPE_STREET)
+      for (auto const & shield : ftypes::GetRoadShieldsNames(ft))
+        UpdateNameScores(shield, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
+
+    return bestScores;
+  }
 
   optional<RankerResult> operator()(PreRankerResult const & preResult)
   {
@@ -313,6 +300,8 @@ public:
       return {};
 
     RankerResult res(*ft, center, std::move(name), country);
+    res.FillDetails(*ft, m_ranker.m_typeResolver.m_isBuilding(res.GetTypes()),
+                    m_ranker.m_typeResolver.m_isHotel(res.GetTypes()));
 
     RankingInfo info;
     InitRankingInfo(*ft, center, preResult, info);
@@ -320,7 +309,7 @@ public:
     if (info.m_type == Model::TYPE_STREET)
     {
       uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
-      info.m_classifType.street = m_wayChecker.GetSearchRank(bestType);
+      info.m_classifType.street = m_reverseGeocoder.m_isStreetOrSquare.GetSearchRank(bestType);
 
       /// @see Arbat_Address test.
       // "2" is a NameScore::FULL_PREFIX for "2-й Обыденский переулок", which is *very* high,
@@ -341,7 +330,7 @@ public:
         uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
         feature::TypesHolder typesHolder;
         typesHolder.Assign(bestType);
-        info.m_classifType.poi = m_ranker.m_poiType.Get(typesHolder);
+        info.m_classifType.poi = m_ranker.m_typeResolver.GetPoiType(typesHolder);
 
         // We do not compare result name and request for categorial requests, but we prefer named features
         // for Eat, Hotel or Shop categories. Toilets, stops, defibrillators, ... are equal w/wo names.
@@ -360,8 +349,8 @@ public:
       }
     }
 
-    info.m_rank =
-        NormalizeRank(info.m_rank, info.m_type, center, country, m_capitalChecker(*ft), !info.m_allTokensUsed);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country, m_ranker.m_typeResolver.m_isCapital(*ft),
+                                !info.m_allTokensUsed);
 
     if (preResult.GetInfo().m_isCommonMatchOnly)
     {
@@ -451,10 +440,8 @@ private:
     {
       feature::TypesHolder featureTypes(*ft);
       featureTypes.SortBySpec();
-      auto const bestType = featureTypes.GetBestType();
-      auto const addressChecker = ftypes::IsAddressChecker::Instance();
 
-      if (!addressChecker.IsMatched(bestType))
+      if (!m_ranker.m_typeResolver.m_isAddress(featureTypes.GetBestType()))
         return ft;
 
       ReverseGeocoder::Address addr;
@@ -497,7 +484,7 @@ private:
     info.m_popularity = preInfo.m_popularity;
     info.m_type = preInfo.m_type;
     if (Model::IsPoi(info.m_type))
-      info.m_classifType.poi = m_ranker.m_poiType.Get(featureTypes);
+      info.m_classifType.poi = m_ranker.m_typeResolver.GetPoiType(featureTypes);
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_numTokens = m_params.GetNumTokens();
     info.m_exactMatch = preInfo.m_exactMatch;
@@ -522,7 +509,7 @@ private:
     }
     else
     {
-      auto const scores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
+      auto const scores = GetNameScores(ft, preInfo.InnermostTokenRange(), info.m_type);
 
       auto nameScore = scores.m_nameScore;
       auto errorsMade = scores.m_errorsMade;
@@ -533,7 +520,7 @@ private:
       {
         auto const & range = preInfo.m_tokenRanges[type];
         ASSERT(!range.Empty(), ());
-        auto const scores = GetNameScores(ft, m_params, range, type);
+        auto const scores = GetNameScores(ft, range, type);
 
         nameScore = std::min(nameScore, scores.m_nameScore);
         errorsMade += scores.m_errorsMade;
@@ -578,7 +565,7 @@ private:
                 !(preInfo.m_tokenRanges[Model::TYPE_STATE].Empty() &&
                   preInfo.m_tokenRanges[Model::TYPE_COUNTRY].Empty()))
             {
-              cityNameScore = GetNameScores(ft, m_params, preInfo.m_tokenRanges[type], type).m_nameScore;
+              cityNameScore = GetNameScores(ft, preInfo.m_tokenRanges[type], type).m_nameScore;
             }
           }
           else
@@ -708,11 +695,11 @@ std::string Ranker::ResolveAddress(RankerResult const & res) const
   std::string region, st_hn_post;
 
   storage::CountryId countryID;
-  if (res.GetCountryId(m_infoGetter, countryID))
+  if (!m_typeResolver.IsSkipRegionInfo(res.GetBestType()) && res.GetCountryId(m_infoGetter, countryID))
     region = m_regionInfoGetter.GetLocalizedFullName(countryID);
 
   // Format full address only for suitable results.
-  if (ftypes::IsAddressObjectChecker::Instance()(res.GetTypes()))
+  if (m_typeResolver.m_isAddressObject(res.GetTypes()))
   {
     ReverseGeocoder::Address addr;
     if (!(res.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(res.GetID(), addr)))
@@ -732,7 +719,7 @@ std::string Ranker::ResolveAddress(RankerResult const & res) const
         (cityDefName.contains("Macau") || cityDefName.contains("Hong Kong")))
       region.clear();
 
-    if (ftypes::IsLocalityChecker::Instance().GetType(res.GetTypes()) == ftypes::LocalityType::None)
+    if (m_reverseGeocoder.m_isLocality.GetType(res.GetTypes()) == ftypes::LocalityType::None)
     {
       std::string city;
       if (pLoc->GetReadableName(city))
@@ -1008,8 +995,9 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec)
     if (added >= kMaxNumSuggests)
       break;
 
-    ftypes::LocalityType const type = GetLocalityIndex(r.GetTypes());
-    if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::City || r.IsStreet())
+    /// @todo Add suburb to suggestions?
+    auto const types = r.GetTypes();
+    if (IsCountryOrCity(m_reverseGeocoder.m_isLocality.GetType(types)) || m_reverseGeocoder.m_isStreetOrSquare(types))
     {
       string suggestion = GetSuggestion(r.GetName(), m_params.m_query);
       if (!suggestion.empty())

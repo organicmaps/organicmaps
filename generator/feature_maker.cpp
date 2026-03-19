@@ -171,7 +171,10 @@ bool FeatureMaker::BuildFromRelation(OsmElement & p, FeatureBuilderParams const 
       // Patch to avoid multiple instances from Node and Relation. Node should inherit all needed tags (population).
       // This is ok, because "canonical" OSM assumes that country/state place tag presents in Nodes only.
       /// @todo Store boundaries like for cities?
-      if (ftypes::IsCountryChecker::Instance()(placeType) || ftypes::IsStateChecker::Instance()(placeType))
+
+      using namespace ftypes;
+      auto const locType = IsLocalityChecker::Instance().GetType(placeType);
+      if (locType == LocalityType::State || locType == LocalityType::Country)
         return false;
 
       // admin_centre will be the first

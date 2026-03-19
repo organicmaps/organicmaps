@@ -1205,7 +1205,6 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter 
   vector<StreetsMatcher::Prediction> suburbs;
   StreetsMatcher::Go(ctx, ctx.m_suburbs, *m_filter, m_params, suburbs);
 
-  auto const & suburbChecker = ftypes::IsSuburbChecker::Instance();
   for (auto const & suburb : suburbs)
   {
     ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_SUBURB, suburb.m_tokenRange);
@@ -1226,7 +1225,7 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter 
       vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
       layer.m_sortedFeatures = &suburbFeatures;
 
-      auto const suburbType = suburbChecker.GetType(*ft);
+      auto const suburbType = m_model.m_isSuburb.GetType(*ft);
       double radius = 0.0;
       switch (suburbType)
       {

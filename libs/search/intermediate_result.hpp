@@ -112,13 +112,13 @@ public:
   RankerResult(FeatureType & ft, m2::PointD const & center, std::string displayName, std::string const & fileName);
   RankerResult(FeatureType & ft, std::string const & fileName);
 
+  void FillDetails(FeatureType & ft, bool isBuilding, bool isHotel);
+
   /// For Type::LatLon.
   RankerResult(double lat, double lon);
 
   /// For Type::Postcode.
   RankerResult(m2::PointD const & coord, std::string_view postcode);
-
-  bool IsStreet() const;
 
   StoredRankingInfo const & GetRankingInfo() const { return m_info; }
   void SetRankingInfo(RankingInfo const & info, bool viewportMode)
@@ -193,5 +193,4 @@ private:
 #endif
 };
 
-void FillDetails(FeatureType & ft, std::string const & name, Result::Details & details);
 }  // namespace search

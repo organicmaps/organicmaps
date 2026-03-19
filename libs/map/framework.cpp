@@ -739,11 +739,13 @@ void Framework::FillPostcodeInfo(string const & postcode, m2::PointD const & mer
 
 void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const
 {
+  using namespace ftypes;
+
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Deleted features cannot be selected from UI."));
   info.SetFeatureStatus(featureStatus);
 
-  if (ftypes::IsAddressObjectChecker::Instance()(ft))
+  if (IsAddressObjectChecker::Instance()(ft))
     info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
 
   info.SetFromFeatureType(ft);
@@ -756,14 +758,13 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   info.SetCanEditOrAdd(canEditOrAdd);
 
   // Fill countryId for place page info
-  auto const & types = info.GetTypes();
-  bool const isState = ftypes::IsStateChecker::Instance()(types);
-  if (isState || ftypes::IsCountryChecker::Instance()(types))
+  auto const locType = IsLocalityChecker::Instance().GetType(info.GetTypes());
+  if (locType == LocalityType::State || locType == LocalityType::Country)
   {
     // countryId may be empty after all
     CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
     CountriesVec countries;
-    GetStorage().GetTopmostNodesFor(countryId, countries, isState ? 1 : 0 /* level */);
+    GetStorage().GetTopmostNodesFor(countryId, countries, locType == LocalityType::State ? 1 : 0 /* level */);
     if (countries.size() == 1)
       countryId = countries.front();
 

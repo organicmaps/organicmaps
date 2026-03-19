@@ -4,7 +4,6 @@
 #include "search/house_to_street_table.hpp"
 #include "search/mwm_context.hpp"
 #include "search/region_info_getter.hpp"
-#include "search/street_vicinity_loader.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -45,19 +44,15 @@ ReverseGeocoder::Building FromFeatureImpl(FeatureType & ft, std::string const & 
   return {ft.GetID(), distMeters, hn, feature::GetCenter(ft), ft.GetMetadata(feature::Metadata::FMD_POSTCODE)};
 }
 
-std::string const & GetHouseNumber(FeatureType & ft)
-{
-  std::string const & hn = ft.GetHouseNumber();
-  if (hn.empty() && ftypes::IsAddressInterpolChecker::Instance()(ft))
-    return ft.GetRef();
-  return hn;
-}
-
 }  // namespace
 
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource)
   : m_dataSource(dataSource)
   , m_editor(osm::Editor::Instance())
+  , m_isAddressInterpol(ftypes::IsAddressInterpolChecker::Instance())
+  , m_isStreetOrSquare(ftypes::IsStreetOrSquareChecker::Instance())
+  , m_isLocality(ftypes::IsLocalityChecker::Instance())
+  , m_isSuburb(ftypes::IsSuburbChecker::Instance())
 {}
 
 template <class ObjT, class FilterT>
@@ -82,10 +77,10 @@ vector<ObjT> GetNearbyObjects(search::MwmContext & context, m2::PointD const & c
 }
 
 vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(search::MwmContext & context,
-                                                                  m2::PointD const & center, double radiusM)
+                                                                  m2::PointD const & center, double radiusM) const
 {
   return GetNearbyObjects<Street>(context, center, radiusM,
-                                  [](FeatureType & ft) { return StreetVicinityLoader::IsStreet(ft); });
+                                  [this](FeatureType & ft) { return m_isStreetOrSquare(ft); });
 }
 
 vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id,
@@ -107,13 +102,10 @@ vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(FeatureType & 
 }
 
 std::vector<ReverseGeocoder::Place> ReverseGeocoder::GetNearbyPlaces(search::MwmContext & context,
-                                                                     m2::PointD const & center, double radiusM)
+                                                                     m2::PointD const & center, double radiusM) const
 {
-  return GetNearbyObjects<Place>(context, center, radiusM, [](FeatureType & ft)
-  {
-    return (ftypes::IsLocalityChecker::Instance().GetType(ft) >= ftypes::LocalityType::City ||
-            ftypes::IsSuburbChecker::Instance()(ft));
-  });
+  return GetNearbyObjects<Place>(context, center, radiusM, [this](FeatureType & ft)
+  { return (m_isLocality.GetType(ft) >= ftypes::LocalityType::City || m_isSuburb(ft)); });
 }
 
 string ReverseGeocoder::GetFeatureStreetName(FeatureType & ft) const
@@ -238,6 +230,14 @@ bool ReverseGeocoder::GetSavedAddress(HouseTable & table, Building const & bld, 
     UNREACHABLE();
   }
   }
+}
+
+std::string const & ReverseGeocoder::GetHouseNumber(FeatureType & ft) const
+{
+  std::string const & hn = ft.GetHouseNumber();
+  if (hn.empty() && m_isAddressInterpol(ft))
+    return ft.GetRef();
+  return hn;
 }
 
 void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radius, vector<Building> & buildings) const

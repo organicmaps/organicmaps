@@ -291,11 +291,22 @@ IsWayChecker::SearchRank IsWayChecker::GetSearchRank(uint32_t type) const
   return Default;
 }
 
-IsStreetOrSquareChecker::IsStreetOrSquareChecker()
+bool IsStreetOrSquareChecker::operator()(FeatureType & ft) const
 {
-  // This is suitable for equal-level checkers only!
-  IsWayChecker::Instance().ForEachType([this](uint32_t t) { m_types.push_back(t); });
-  IsSquareChecker::Instance().ForEachType([this](uint32_t t) { m_types.push_back(t); });
+  auto const geomType = ft.GetGeomType();
+  // Highway should be line or area.
+  bool const isLineOrArea = (geomType == feature::GeomType::Line || geomType == feature::GeomType::Area);
+  // Square also maybe a point (besides line or area).
+  feature::TypesHolder types(ft);
+  return ((isLineOrArea && m_street(types)) || m_square(types));
+}
+
+IsWayChecker::SearchRank IsStreetOrSquareChecker::GetSearchRank(uint32_t type) const
+{
+  auto rank = m_street.GetSearchRank(type);
+  if (rank == IsWayChecker::Default && m_square(type))
+    rank = IsWayChecker::Square;
+  return rank;
 }
 
 // Used to determine for which features to display address in PP and in search results.

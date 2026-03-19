@@ -163,13 +163,11 @@ std::string DebugPrint(RankingInfo const & info);
 std::string DebugPrint(PoiType type);
 std::string DebugPrint(StreetType type);
 
-class PoiTypeResolver
+class ResultTypeResolver
 {
   ftypes::IsEatChecker const & m_isEat = ftypes::IsEatChecker::Instance();
-  ftypes::IsHotelChecker const & m_isHotel = ftypes::IsHotelChecker::Instance();
   ftypes::IsRailwayStationChecker const & m_isRwStation = ftypes::IsRailwayStationChecker::Instance();
   ftypes::IsSubwayStationChecker const & m_isSbStation = ftypes::IsSubwayStationChecker::Instance();
-  ftypes::IsAirportChecker const & m_isAirport = ftypes::IsAirportChecker::Instance();
   ftypes::IsPublicTransportStopChecker const & m_isPtStop = ftypes::IsPublicTransportStopChecker::Instance();
   ftypes::IsTaxiChecker const & m_isTaxi = ftypes::IsTaxiChecker::Instance();
 
@@ -212,8 +210,23 @@ class PoiTypeResolver
   };
   IsServiceTypeChecker const & m_isServiceType = IsServiceTypeChecker::Instance();
 
+  struct IsSkipRegionInfo : public ftypes::BaseCheckerEx
+  {
+    IsSkipRegionInfo();
+    DECLARE_CHECKER_INSTANCE(IsSkipRegionInfo);
+  };
+  IsSkipRegionInfo const & m_isSkipRegion = IsSkipRegionInfo::Instance();
+
 public:
-  PoiType Get(feature::TypesHolder const & th) const;
+  PoiType GetPoiType(feature::TypesHolder const & th) const;
+  bool IsSkipRegionInfo(uint32_t t) const { return m_isSkipRegion(t); }
+
+  ftypes::IsAddressChecker const & m_isAddress = ftypes::IsAddressChecker::Instance();
+  ftypes::IsAddressObjectChecker const & m_isAddressObject = ftypes::IsAddressObjectChecker::Instance();
+  ftypes::IsCapitalChecker const & m_isCapital = ftypes::IsCapitalChecker::Instance();
+  ftypes::IsAirportChecker const & m_isAirport = ftypes::IsAirportChecker::Instance();
+  ftypes::IsHotelChecker const & m_isHotel = ftypes::IsHotelChecker::Instance();
+  ftypes::IsBuildingChecker const & m_isBuilding = ftypes::IsBuildingChecker::Instance();
 };
 
 }  // namespace search

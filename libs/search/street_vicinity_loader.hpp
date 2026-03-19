@@ -9,18 +9,22 @@
 
 #include <vector>
 
+namespace ftypes
+{
+class IsStreetOrSquareChecker;
+}  // namespace ftypes
+
 namespace search
 {
 class MwmContext;
 
-// This class is able to load features in a street's vicinity.
-//
-// NOTE: this class *IS NOT* thread-safe.
+/// This class is able to load features in a street's vicinity.
+/// @note Not thread-safe!
 class StreetVicinityLoader
 {
-public:
-  static bool IsStreet(FeatureType & ft);
+  ftypes::IsStreetOrSquareChecker const & m_isStreetOrSquare;
 
+public:
   struct Street
   {
     inline bool IsEmpty() const { return m_rect.IsEmptyInterior(); }

@@ -106,14 +106,14 @@ private:
 
   Params m_params;
   Geocoder::Params m_geocoderParams;
-  ReverseGeocoder const m_reverseGeocoder;
+  ReverseGeocoder m_reverseGeocoder;
   base::Cancellable const & m_cancellable;
   KeywordLangMatcher & m_keywordsScorer;
 
   mutable LocalityFinder m_localities;
   RegionInfoGetter m_regionInfoGetter;
 
-  PoiTypeResolver m_poiType;
+  ResultTypeResolver m_typeResolver;
 
   DataSource const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;

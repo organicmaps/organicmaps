@@ -199,11 +199,9 @@ public:
   DECLARE_CHECKER_INSTANCE(IsAirportChecker);
 };
 
-class IsSquareChecker : public BaseCheckerEx
+struct IsSquareChecker : public BaseCheckerEx
 {
   IsSquareChecker();
-
-public:
   DECLARE_CHECKER_INSTANCE(IsSquareChecker);
 };
 
@@ -234,9 +232,8 @@ public:
 /// @todo Better to rename like IsStreetChecker, as it is used in search context only?
 class IsWayChecker : public BaseChecker
 {
-  IsWayChecker();
-
 public:
+  IsWayChecker();
   DECLARE_CHECKER_INSTANCE(IsWayChecker);
 
   enum SearchRank : uint8_t
@@ -250,6 +247,7 @@ public:
     Minors,
     Residential,
     Regular,
+    Square,  /// @see IsStreetOrSquareChecker
     Motorway,
 
     Count
@@ -261,12 +259,32 @@ private:
   base::SmallMap<uint32_t, SearchRank> m_ranks;
 };
 
-class IsStreetOrSquareChecker : public BaseChecker
+class IsStreetOrSquareChecker
 {
-  IsStreetOrSquareChecker();
-
 public:
+  template <class T>
+  bool operator()(T && t) const
+  {
+    return m_street(t) || m_square(t);
+  }
+
+  // Additional checks for the appropriate geometry type.
+  bool operator()(FeatureType & ft) const;
+
+  template <class FnT>
+  void ForEachType(FnT && fn) const
+  {
+    m_street.ForEachType(fn);
+    m_square.ForEachType(fn);
+  }
+
   DECLARE_CHECKER_INSTANCE(IsStreetOrSquareChecker);
+
+  IsWayChecker::SearchRank GetSearchRank(uint32_t type) const;
+
+private:
+  IsWayChecker m_street;
+  IsSquareChecker m_square;
 };
 
 class IsAddressObjectChecker
@@ -279,13 +297,6 @@ public:
   }
 
   DECLARE_CHECKER_INSTANCE(IsAddressObjectChecker);
-
-protected:
-  void PostInitialize()
-  {
-    m_oneLevel.PostInitialize();
-    m_twoLevel.PostInitialize();
-  }
 
 private:
   struct AddressOneLevel : BaseChecker
@@ -417,13 +428,6 @@ public:
   bool operator()(T && t) const
   {
     return m_oneLevel(t) || m_twoLevel(t);
-  }
-
-protected:
-  void PostInitialize()
-  {
-    m_oneLevel.PostInitialize();
-    m_twoLevel.PostInitialize();
   }
 
 private:

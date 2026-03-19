@@ -104,6 +104,7 @@ double constexpr kStreetType[] = {
     0.004,  // Minors
     0.004,  // Residential
     0.005,  // Regular
+    0.005,  // Square
     0.006,  // Motorway
 };
 static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
@@ -147,7 +148,7 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
 }
 }  // namespace
 
-PoiTypeResolver::IsAttractionChecker::IsAttractionChecker()
+ResultTypeResolver::IsAttractionChecker::IsAttractionChecker()
 {
   // We have several lists for attractions: short list in search categories for @tourism and long
   // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
@@ -167,7 +168,7 @@ PoiTypeResolver::IsAttractionChecker::IsAttractionChecker()
     m_types.push_back(c.GetTypeByPath(e));
 }
 
-PoiTypeResolver::IsShopOrAmenityChecker::IsShopOrAmenityChecker()
+ResultTypeResolver::IsShopOrAmenityChecker::IsShopOrAmenityChecker()
   : ftypes::BaseCheckerEx({
         {"shop"},
 
@@ -190,7 +191,7 @@ PoiTypeResolver::IsShopOrAmenityChecker::IsShopOrAmenityChecker()
     })
 {}
 
-PoiTypeResolver::IsCarInfraChecker::IsCarInfraChecker()
+ResultTypeResolver::IsCarInfraChecker::IsCarInfraChecker()
   : ftypes::BaseCheckerEx({
         {"amenity", "car_rental"},
         {"amenity", "car_sharing"},
@@ -205,11 +206,11 @@ PoiTypeResolver::IsCarInfraChecker::IsCarInfraChecker()
     })
 {}
 
-PoiTypeResolver::IsServiceTypeChecker::IsServiceTypeChecker()
+ResultTypeResolver::IsServiceTypeChecker::IsServiceTypeChecker()
   : ftypes::BaseCheckerEx({{"barrier"}, {"power"}, {"traffic_calming"}})
 {}
 
-PoiTypeResolver::IsSkipRegionInfo::IsSkipRegionInfo()
+ResultTypeResolver::IsSkipRegionInfo::IsSkipRegionInfo()
   : ftypes::BaseCheckerEx({{"place", "continent"}, {"place", "country"}})
 {}
 
@@ -420,10 +421,8 @@ PoiType RankingInfo::GetPoiTypeScore() const
   return (m_pureCats ? PoiType::PureCategory : m_classifType.poi);
 }
 
-PoiType PoiTypeResolver::Get(feature::TypesHolder const & th) const
+PoiType ResultTypeResolver::GetPoiType(feature::TypesHolder const & th) const
 {
-  using namespace ftypes;
-
   if (m_isEat(th))
     return PoiType::Eat;
   if (m_isHotel(th))
@@ -480,6 +479,7 @@ std::string DebugPrint(StreetType type)
   case StreetType::Minors: return "Minors";
   case StreetType::Residential: return "Residential";
   case StreetType::Regular: return "Regular";
+  case StreetType::Square: return "Square";
   case StreetType::Motorway: return "Motorway";
   case StreetType::Count: return "Count";
   }
