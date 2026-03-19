@@ -43,6 +43,7 @@ import com.google.android.material.badge.ExperimentalBadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapButtonsController extends Fragment
 {
@@ -195,10 +196,7 @@ public class MapButtonsController extends Fragment
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
   {
-    // TODO(AB): Why do we need this check? Isn't it better to crash and fix the wrong logic ASAP?
-    final View buttonView = mButtonsMap.get(button);
-    if (buttonView == null)
-      return;
+    final View buttonView = Objects.requireNonNull(mButtonsMap.get(button));
     switch (button)
     {
     case zoom: UiUtils.showIf(show && Config.showZoomButtons(), buttonView); break;
@@ -210,7 +208,7 @@ public class MapButtonsController extends Fragment
       if (mNavMyPosition != null)
         mNavMyPosition.showButton(show);
       break;
-    case search: mSearchWheel.show(show);
+    case search: mSearchWheel.show(show); break;
     case bookmarks:
     case menu: UiUtils.showIf(show, buttonView); break;
     case trackRecordingStatus:
