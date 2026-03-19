@@ -772,7 +772,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           zoom = scales::GetAddNewPlaceScale();
         AddUserEvent(make_unique_dp<SetCenterEvent>(
             pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(), zoom, true /* isAnim */,
-            true /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+            !pt /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
       }
       else
       {
