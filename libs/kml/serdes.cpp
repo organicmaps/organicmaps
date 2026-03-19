@@ -971,6 +971,7 @@ void KmlParser::Pop(std::string_view tag)
           trackData.m_description = bookmarkData.m_description;
           trackData.m_layers = std::move(m_trackLayers);
           trackData.m_createdTimestamp = m_createdTimestamp;
+          trackData.m_modifiedTimestamp = m_modifiedTimestamp;
           trackData.m_geometry = std::move(m_geometry);
           trackData.m_visible = m_visible;
           trackData.m_nearestToponyms = std::move(m_nearestToponyms);
