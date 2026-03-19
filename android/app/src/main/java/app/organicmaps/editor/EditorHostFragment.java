@@ -58,7 +58,7 @@ public class EditorHostFragment
   /**
    * A list of localized names added by a user and those that were in metadata.
    */
-  private static final List<LocalizedName> sNames = new ArrayList<>();
+  private final List<LocalizedName> mNames = new ArrayList<>();
   /**
    * Count of names which should always be shown.
    */
@@ -71,17 +71,17 @@ public class EditorHostFragment
    */
   List<LocalizedName> getNames()
   {
-    return sNames;
+    return mNames;
   }
 
   public LocalizedName[] getNamesAsArray()
   {
-    return sNames.toArray(new LocalizedName[sNames.size()]);
+    return mNames.toArray(new LocalizedName[mNames.size()]);
   }
 
   void setNames(LocalizedName[] names)
   {
-    sNames.clear();
+    mNames.clear();
     for (LocalizedName name : names)
     {
       addName(name);
@@ -90,7 +90,7 @@ public class EditorHostFragment
 
   void addName(LocalizedName name)
   {
-    sNames.add(name);
+    mNames.add(name);
   }
 
   public int getMandatoryNamesCount()
@@ -191,7 +191,7 @@ public class EditorHostFragment
     UiUtils.show(getToolbarController().getToolbar().findViewById(R.id.save));
     Bundle args = new Bundle();
     if (focusToLastName)
-      args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
+      args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, mNames.size() - 1);
     FragmentManager fragmentManager = getChildFragmentManager();
     final Fragment editorFragment = fragmentManager.getFragmentFactory().instantiate(requireActivity().getClassLoader(),
                                                                                      EditorFragment.class.getName());
@@ -233,8 +233,8 @@ public class EditorHostFragment
   protected void addLanguage()
   {
     Bundle args = new Bundle();
-    ArrayList<String> languages = new ArrayList<>(sNames.size());
-    for (LocalizedName name : sNames)
+    ArrayList<String> languages = new ArrayList<>(mNames.size());
+    for (LocalizedName name : mNames)
       languages.add(name.lang);
     args.putStringArrayList(LanguagesFragment.EXISTING_LOCALIZED_NAMES, languages);
     editWithFragment(Mode.LANGUAGE, R.string.choose_language, args, LanguagesFragment.class, false);

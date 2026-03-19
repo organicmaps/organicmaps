@@ -71,17 +71,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String EXTRA_SELECTED_ITEM_TYPE = "selected_item_type";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
-  private final ActivityResultLauncher<Intent> startBookmarkListForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        System.out.println("resultCode: " + activityResult.getResultCode());
-        handleActivityResult();
-      });
+  private final ActivityResultLauncher<Intent> startBookmarkListForResult = registerForActivityResult(
+      new ActivityResultContracts.StartActivityForResult(), activityResult -> { handleActivityResult(); });
 
-  private final ActivityResultLauncher<Intent> startBookmarkSettingsForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        System.out.println("resultCode: " + activityResult.getResultCode());
-        handleActivityResult();
-      });
+  private final ActivityResultLauncher<Intent> startBookmarkSettingsForResult = registerForActivityResult(
+      new ActivityResultContracts.StartActivityForResult(), activityResult -> { handleActivityResult(); });
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
