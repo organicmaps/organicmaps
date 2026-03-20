@@ -5,7 +5,6 @@ set(SRC
   bookmarks_processor_tests.cpp
   feature_offset_match_tests.cpp
   highlighting_tests.cpp
-  house_detector_tests.cpp
   house_numbers_matcher_test.cpp
   interval_set_test.cpp
   keyword_lang_matcher_test.cpp

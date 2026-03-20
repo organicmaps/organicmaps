@@ -76,8 +76,6 @@ set(SRC
   geometry_utils.hpp
   highlighting.cpp
   highlighting.hpp
-  house_detector.cpp
-  house_detector.hpp
   house_numbers_matcher.cpp
   house_numbers_matcher.hpp
   house_to_street_table.cpp
