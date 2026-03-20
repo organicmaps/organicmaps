@@ -217,21 +217,52 @@ After extraction, BookmarkManager retains:
   - OnTrackSelected/Deselected toggle visibility
   - UpdateElevationMyPosition with position on/off track
 
-## Implementation Steps
+## Implementation Progress
 
-1. Create `BookmarkSorter` class with all sorting methods
-2. Add `BookmarkSorter` as member of `BookmarkManager`
-3. Replace sorting method bodies in BookmarkManager with delegation
-4. Verify all tests pass
-5. Repeat for `BookmarkFileManager`
-6. Repeat for `TrackSelectionManager`
-7. Clean up BookmarkManager (remove dead includes, reorder members)
+### Step 1: BookmarkSorter extraction -- DONE
+- Created `bookmark_sorter.hpp` and `bookmark_sorter.cpp`
+- BookmarkSorter takes `BookmarkManager &` for read-only data access
+- Moved: 4 sort algorithms, metadata persistence, region address getter, static block name helpers
+- BookmarkManager delegates via `m_sorter` member with backward-compatible type aliases
+- Removed ~800 lines from BookmarkManager (header + impl)
+- All existing tests pass
+
+### Step 2: BookmarkFileManager extraction -- DEFERRED
+**Reason**: File I/O code is deeply coupled to BookmarkManager internals:
+- `NotifyAboutFinishAsyncLoading()` calls `CreateCategories()`, `CheckAndResetLastIds()`, `CheckAndCreateDefaultCategory()`
+- `CollectBmGroupKMLData()` iterates bookmarks/tracks via private collections
+- `PrepareToSaveBookmarks()` accesses `m_categories` directly and generates filenames
+- `SaveBookmarks()` checks per-category auto-save flags
+
+**Prerequisite**: Define a `BookmarkDataProvider` interface that BookmarkManager implements, so FileManager depends on the interface rather than the full BookmarkManager class. This avoids exposing private members or using friend declarations.
+
+### Step 3: TrackSelectionManager extraction -- DEFERRED
+**Reason**: Track selection code uses many BookmarkManager private APIs:
+- `m_myPositionMark` (raw pointer member), `m_drapeEngine` (for SelectObject calls)
+- Template methods `GetMarkForEdit<TrackSelectionMark>()`, `GetMark<TrackSelectionMark>()`
+- Direct iteration of `m_categories` in `FindNearestTrack()`
+- Creates/destroys UserMarks via private `CreateUserMark<>`/`DeleteUserMark()`
+
+**Prerequisite**: Extract a `UserMarkAccessor` interface that provides type-safe mark creation/editing/deletion, so TrackSelectionManager can operate without accessing BookmarkManager's internal collections directly.
+
+### Step 4: Clean up BookmarkManager -- DEFERRED
+Depends on steps 2-3 completing first.
+
+## Revised Approach for Steps 2-3
+
+Instead of direct extraction with `BookmarkManager &` reference (which worked for the Sorter's read-only data access but doesn't scale to write-heavy components), the remaining extractions need:
+
+1. **Define internal interfaces** (`BookmarkDataProvider`, `UserMarkAccessor`) that BookmarkManager implements
+2. **Extracted components depend on interfaces**, not on BookmarkManager directly
+3. This enables independent testing and avoids circular coupling
+
+This is a larger architectural change that should be planned separately.
 
 ## Risks & Mitigations
 
 - **EditSession interactions**: Session close triggers `NotifyChanges()` which triggers auto-save via FileManager. Mitigation: FileManager exposes `SaveDirtyCategories()` called from `NotifyChanges()`.
-- **Circular dependencies**: Components need BookmarkManager for data access, BookmarkManager owns components. Mitigation: Components take `BookmarkManager &` in constructor, no header-level circular includes (forward declarations suffice).
+- **Circular dependencies**: Components need BookmarkManager for data access, BookmarkManager owns components. Mitigation: Components take `BookmarkManager &` in constructor, no header-level circular includes (forward declarations suffice). **Updated**: This works for read-only access (BookmarkSorter) but not for write access (FileManager, TrackSelection). Interface extraction needed.
 - **Test mode**: Multiple components have `m_testModeEnabled`. Mitigation: Single flag on BookmarkManager, components query it via reference.
 
 ## Priority
-Phase 2 (after dead code cleanup and EditSession simplification). Start with BookmarkSorter extraction.
+Phase 2. BookmarkSorter is done. FileManager and TrackSelectionManager need interface extraction first (see revised approach above).
