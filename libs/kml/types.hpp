@@ -402,9 +402,11 @@ struct BookmarkData
   BookmarkIcon m_icon = BookmarkIcon::None;
   // Viewport scale. 0 is a default value (no scale set).
   uint8_t m_viewportScale = 0;
-  // Creation timestamp.
+  // Creation timestamp in UTC.
   Timestamp m_createdTimestamp = {};
-  // Modification timestamp.
+  // Modification timestamp in UTC.
+  // TODO: This field is not serialized to/from KMB for backward compatibility.
+  //       Add it to `DECLARE_VISITOR_AND_DEBUG_PRINT` block to save/load in KMB format.
   Timestamp m_modifiedTimestamp = {};
   // Coordinates in mercator.
   m2::PointD m_point;
@@ -514,9 +516,11 @@ struct TrackData
   LocalizableString m_description;
   // Layers.
   std::vector<TrackLayer> m_layers;
-  // Creation timestamp.
+  // Creation timestamp in UTC.
   Timestamp m_createdTimestamp = {};
-  // Last modification timestamp.
+  // Last modification timestamp in UTC.
+  // TODO: This field is not serialized to/from KMB for backward compatibility.
+  //       Add it to `DECLARE_VISITOR_AND_DEBUG_PRINT` block to save/load in KMB format.
   Timestamp m_modifiedTimestamp = {};
   MultiGeometry m_geometry;
   // Visibility.
