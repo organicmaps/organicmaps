@@ -367,7 +367,7 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
 
   writer << kIndent6 << "<mwm:visibility>" << (bookmarkData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
   if (bookmarkData.m_modifiedTimestamp != Timestamp())
-    writer << "<mwm:modifiedTimestamp>" << TimestampToString(bookmarkData.m_modifiedTimestamp)
+    writer << kIndent6 << "<mwm:modifiedTimestamp>" << TimestampToString(bookmarkData.m_modifiedTimestamp)
            << "</mwm:modifiedTimestamp>";
 
   if (!bookmarkData.m_nearestToponym.empty())
@@ -548,7 +548,7 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
 
   writer << kIndent6 << "<mwm:visibility>" << (trackData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
   if (trackData.m_modifiedTimestamp != Timestamp())
-    writer << "<mwm:modifiedTimestamp>" << TimestampToString(trackData.m_modifiedTimestamp)
+    writer << kIndent6 << "<mwm:modifiedTimestamp>" << TimestampToString(trackData.m_modifiedTimestamp)
            << "</mwm:modifiedTimestamp>";
 
   SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
