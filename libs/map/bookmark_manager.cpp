@@ -3662,6 +3662,19 @@ void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId gr
   for (auto const markId : markIds)
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
       bm->SetColor(color);
+  m_bmManager.SetLastEditedBmColor(color);
+}
+
+void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, size_t colorIndex)
+{
+  CHECK_LESS(colorIndex, kml::kOrderedPredefinedColors.size(), ());
+
+  // Change all tracks to this color
+  auto const color = kml::ColorFromPredefinedColor(kml::kOrderedPredefinedColors[colorIndex]);
+  auto const & trackIds = m_bmManager.GetTrackIds(groupId);
+  for (auto const trackId : trackIds)
+    if (auto * track = m_bmManager.GetTrackForEdit(trackId))
+      track->SetColor(color);
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)

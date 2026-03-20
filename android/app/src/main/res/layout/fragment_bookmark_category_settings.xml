@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical"
-  android:background="?cardBackground"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="?cardBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
   <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
@@ -40,6 +39,22 @@
           android:layout_height="wrap_content"
           android:hint="@string/list" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <include
+        android:id="@+id/color_section_divider"
+        layout="@layout/bookmarks_category_shadow_divider" />
+    <TextView
+        android:id="@+id/color_bookmarks_btn"
+        style="@style/BookmarkSettingsButton"
+        android:text="@string/change_all_bookmarks_color" />
+    <TextView
+        android:id="@+id/color_tracks_btn"
+        style="@style/BookmarkSettingsButton"
+        android:text="@string/change_all_tracks_color" />
+
+    <include
+        android:id="@+id/color_section_spacer"
+        layout="@layout/bookmarks_category_spacer" />
     <com.google.android.material.textfield.TextInputLayout
       app:hintAnimationEnabled="false"
       style="@style/MwmWidget.Editor.CustomTextInput"
@@ -55,24 +70,6 @@
       android:layout_height="wrap_content"
       android:inputType="textMultiLine"/>
     </com.google.android.material.textfield.TextInputLayout>
-    <LinearLayout
-      android:id="@+id/color_row"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="?selectableItemBackground"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingTop="@dimen/margin_half_plus"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingBottom="@dimen/margin_half_plus">
-      <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/change_all_bookmarks_color"
-        android:textAppearance="?android:textAppearanceListItem" />
-    </LinearLayout>
     <View
       android:background="?android:attr/windowBackground"
       android:layout_width="match_parent"
