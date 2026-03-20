@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BookmarkSettingsButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/height_block_base</item>
+        <item name="android:paddingBottom">@dimen/margin_half</item>
+        <item name="android:paddingStart">@dimen/margin_base</item>
+        <item name="android:paddingEnd">@dimen/margin_base</item>
+        <item name="android:paddingTop">@dimen/margin_half</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">?panel</item>
+        <item name="android:foreground">?clickableBackground</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/MwmTextAppearance.BookmarkSettings.Accent</item>
+    </style>
+</resources>

@@ -224,6 +224,9 @@ void Bookmark::InvalidateRGBAColor()
 
 void Bookmark::SetColor(kml::PredefinedColor color)
 {
+  if (m_data.m_color.m_predefinedColor == color)
+    return;
+
   SetDirty();
   m_data.m_color.m_predefinedColor = color;
   InvalidateRGBAColor();

@@ -624,8 +624,9 @@
     <string name="layers_title">Map Styles and Layers</string>
     <string name="bookmarks_empty_list_title">This list is empty</string>
     <string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
-    <!-- Button to change the color of all bookmarks in the current list -->
+    <!-- Button to change the color of all bookmarks/tracks in the current list -->
     <string name="change_all_bookmarks_color">Change all bookmarks color</string>
+    <string name="change_all_tracks_color">Change all tracks color</string>
     <string name="category_desc_more">…more</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Export KMZ</string>
@@ -868,4 +869,8 @@
     <string name="login_osm_browser">Login using Browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Bookmarks color changed</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Tracks color changed</string>
 </resources>
