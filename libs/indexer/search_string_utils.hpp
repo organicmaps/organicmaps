@@ -11,7 +11,7 @@
 
 namespace search
 {
-inline constexpr size_t GetMaxErrorsForTokenLength(size_t length)
+inline constexpr uint8_t GetMaxErrorsForTokenLength(size_t length)
 {
   if (length < 4)
     return 0;
@@ -20,7 +20,7 @@ inline constexpr size_t GetMaxErrorsForTokenLength(size_t length)
   return 2;
 }
 
-inline constexpr size_t GetMaxErrorsForToken_Category(size_t length)
+inline constexpr uint8_t GetMaxErrorsForToken_Category(size_t length)
 {
   if (length < 7)
     return 0;
@@ -29,7 +29,7 @@ inline constexpr size_t GetMaxErrorsForToken_Category(size_t length)
   return 2;
 }
 
-size_t GetMaxErrorsForToken(strings::UniString const & token);
+uint8_t GetMaxErrorsForToken(strings::UniString const & token);
 
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s);
 strings::LevenshteinDFA BuildLevenshteinDFA_Category(strings::UniString const & s);

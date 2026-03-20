@@ -3,6 +3,7 @@
 #include "base/string_utils.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -31,39 +32,6 @@ class LevenshteinDFA
 public:
   static size_t constexpr kStartingState = 0;
   static size_t constexpr kRejectingState = 1;
-
-  struct Position
-  {
-    Position() = default;
-    Position(size_t offset, size_t errorsLeft, bool transposed);
-
-    // SubsumedBy is a relation on two positions, which allows to
-    // efficiently remove unnecessary positions in a state. When the
-    // function returns true, it means that |rhs| is more powerful
-    // than the current position and it is safe to remove the current
-    // position from the state, if the state contains |rhs|.
-    bool SubsumedBy(Position const & rhs) const;
-
-    bool operator<(Position const & rhs) const;
-    bool operator==(Position const & rhs) const;
-
-    bool IsStandard() const { return !m_transposed; }
-    bool IsTransposed() const { return m_transposed; }
-
-    size_t m_offset = 0;
-    size_t m_errorsLeft = 0;
-    bool m_transposed = false;
-  };
-
-  struct State
-  {
-    void Normalize();
-    void Clear() { m_positions.clear(); }
-
-    bool operator<(State const & rhs) const { return m_positions < rhs.m_positions; }
-
-    std::vector<Position> m_positions;
-  };
 
   // An iterator to the current state in the DFA.
   //
@@ -99,55 +67,34 @@ public:
   LevenshteinDFA & operator=(LevenshteinDFA &&) = default;
 
   LevenshteinDFA(UniString const & s, size_t prefixSize, std::vector<UniString> const & prefixMisprints,
-                 size_t maxErrors);
-  LevenshteinDFA(std::string const & s, size_t prefixSize, size_t maxErrors);
-  LevenshteinDFA(UniString const & s, size_t maxErrors);
-  LevenshteinDFA(std::string const & s, size_t maxErrors);
+                 uint8_t maxErrors);
+  LevenshteinDFA(std::string const & s, size_t prefixSize, uint8_t maxErrors);
+  LevenshteinDFA(UniString const & s, uint8_t maxErrors);
+  LevenshteinDFA(std::string const & s, uint8_t maxErrors);
 
   bool IsEmpty() const { return m_alphabet.empty(); }
 
   Iterator Begin() const { return Iterator(*this); }
 
-  size_t GetNumStates() const { return m_transitions.size(); }
+  size_t GetNumStates() const { return m_alphabet.empty() ? 0 : m_transitions.size() / m_alphabet.size(); }
   size_t GetAlphabetSize() const { return m_alphabet.size(); }
 
 private:
   friend class Iterator;
 
-  State MakeStart();
-  State MakeRejecting();
-
-  bool IsValid(Position const & p) const;
-  bool IsValid(State const & s) const;
-
-  bool IsAccepting(Position const & p) const;
-  bool IsAccepting(State const & s) const;
   bool IsAccepting(size_t s) const { return m_accepting[s]; }
-
-  bool IsRejecting(State const & s) const { return s.m_positions.empty(); }
   bool IsRejecting(size_t s) const { return s == kRejectingState; }
-
-  // Returns minimum number of made errors among accepting positions in |s|.
-  size_t ErrorsMade(State const & s) const;
   size_t ErrorsMade(size_t s) const { return m_errorsMade[s]; }
-
-  // Returns minimum number of errors already made. This number cannot decrease.
-  size_t PrefixErrorsMade(State const & s) const;
   size_t PrefixErrorsMade(size_t s) const { return m_prefixErrorsMade[s]; }
 
   size_t Move(size_t s, UniChar c) const;
 
-  size_t m_size;
-  size_t m_maxErrors;
-
   std::vector<UniChar> m_alphabet;
 
-  std::vector<std::vector<size_t>> m_transitions;
+  // Flat transition table: m_transitions[state * alphabetSize + charIndex] = nextState.
+  std::vector<uint32_t> m_transitions;
   std::vector<bool> m_accepting;
-  std::vector<size_t> m_errorsMade;
-  std::vector<size_t> m_prefixErrorsMade;
+  std::vector<uint8_t> m_errorsMade;
+  std::vector<uint8_t> m_prefixErrorsMade;
 };
-
-std::string DebugPrint(LevenshteinDFA::Position const & p);
-std::string DebugPrint(LevenshteinDFA::State const & s);
 }  // namespace strings

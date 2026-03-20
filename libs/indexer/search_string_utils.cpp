@@ -58,7 +58,7 @@ void TransliterateHiraganaToKatakana(UniString & s)
 }
 }  // namespace
 
-size_t GetMaxErrorsForToken(UniString const & token)
+uint8_t GetMaxErrorsForToken(UniString const & token)
 {
   bool const digitsOnly = std::all_of(token.begin(), token.end(), strings::IsASCIIDigit<UniChar>);
   if (digitsOnly)
