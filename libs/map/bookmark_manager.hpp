@@ -2,10 +2,9 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
+#include "map/bookmark_sorter.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
-
-#include "search/region_address_getter.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
@@ -17,14 +16,12 @@
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
-#include "base/visitor.hpp"
 
 #include <atomic>
 #include <functional>
 #include <list>
 #include <map>
 #include <memory>
-#include <mutex>
 #include <string>
 #include <vector>
 
@@ -217,41 +214,14 @@ public:
   kml::MarkIdSet const & GetUserMarkIds(kml::MarkGroupId groupId) const;
   kml::TrackIdSet const & GetTrackIds(kml::MarkGroupId groupId) const;
 
-  // Do not change the order.
-  enum class SortingType
-  {
-    ByType,
-    ByDistance,
-    ByTime,
-    ByName
-  };
+  // Sorting types - delegated to BookmarkSorter.
+  using SortingType = BookmarkSorter::SortingType;
+  using SortedBlock = BookmarkSorter::SortedBlock;
+  using SortedBlocksCollection = BookmarkSorter::SortedBlocksCollection;
+  using SortParams = BookmarkSorter::SortParams;
 
-  struct SortedBlock
-  {
-    bool operator==(SortedBlock const & other) const;
-
-    std::string m_blockName;
-    kml::MarkIdCollection m_markIds;
-    kml::MarkIdCollection m_trackIds;
-  };
-  using SortedBlocksCollection = std::vector<SortedBlock>;
-
-  struct SortParams
-  {
-    enum class Status
-    {
-      Completed,
-      Cancelled
-    };
-
-    using OnResults = std::function<void(SortedBlocksCollection && sortedBlocks, Status status)>;
-
-    kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
-    SortingType m_sortingType = SortingType::ByType;
-    bool m_hasMyPosition = false;
-    m2::PointD m_myPosition = {0.0, 0.0};
-    OnResults m_onResults;
-  };
+  BookmarkSorter & GetBookmarkSorter() { return m_sorter; }
+  BookmarkSorter const & GetBookmarkSorter() const { return m_sorter; }
 
   std::vector<SortingType> GetAvailableSortingTypes(kml::MarkGroupId groupId, bool hasMyPosition) const;
   void GetSortedCategory(SortParams const & params);
@@ -369,6 +339,8 @@ public:
   void FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const;
   void FilterInvalidTracks(kml::TrackIdCollection & tracks) const;
 
+  UserMarkLayer * GetGroup(kml::MarkGroupId groupId) const;
+
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, FileType fileType) const;
@@ -386,19 +358,16 @@ public:
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
-  static std::string GetTracksSortedBlockName();
-  static std::string GetBookmarksSortedBlockName();
-  static std::string GetOthersSortedBlockName();
-  static std::string GetNearMeSortedBlockName();
-  enum class SortedByTimeBlockType : uint32_t
+  using SortedByTimeBlockType = BookmarkSorter::SortedByTimeBlockType;
+
+  static std::string GetTracksSortedBlockName() { return BookmarkSorter::GetTracksSortedBlockName(); }
+  static std::string GetBookmarksSortedBlockName() { return BookmarkSorter::GetBookmarksSortedBlockName(); }
+  static std::string GetOthersSortedBlockName() { return BookmarkSorter::GetOthersSortedBlockName(); }
+  static std::string GetNearMeSortedBlockName() { return BookmarkSorter::GetNearMeSortedBlockName(); }
+  static std::string GetSortedByTimeBlockName(SortedByTimeBlockType blockType)
   {
-    WeekAgo,
-    MonthAgo,
-    MoreThanMonthAgo,
-    MoreThanYearAgo,
-    Others
-  };
-  static std::string GetSortedByTimeBlockName(SortedByTimeBlockType blockType);
+    return BookmarkSorter::GetSortedByTimeBlockName(blockType);
+  }
   std::string GetLocalizedRegionAddress(m2::PointD const & pt);
 
   void SetElevationActivePoint(kml::TrackId const & trackId, m2::PointD pt, double distanceInMeters);
@@ -598,7 +567,6 @@ private:
 
   UserMark const * GetMark(kml::MarkId markId) const;
 
-  UserMarkLayer * GetGroup(kml::MarkGroupId groupId) const;
   BookmarkCategory * GetBmCategorySafe(kml::MarkGroupId categoryId) const;
   BookmarkCategory * GetBmCategory(kml::MarkGroupId categoryId) const
   {
@@ -616,11 +584,6 @@ private:
 
   void SaveState() const;
   void LoadState();
-
-  void SaveMetadata();
-  void LoadMetadata();
-  void CleanupInvalidMetadata();
-  std::string GetMetadataEntryName(kml::MarkGroupId groupId) const;
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
   void NotifyAboutStartAsyncLoading();
@@ -656,60 +619,6 @@ private:
   void SetUniqueName(kml::CategoryData & data, UniquityChecker checker);
   bool CheckVisibility(bool isVisible) const;
 
-  struct SortBookmarkData
-  {
-    SortBookmarkData(kml::BookmarkData const & bmData, search::ReverseGeocoder::RegionAddress const & address)
-      : m_id(bmData.m_id)
-      , m_name(GetPreferredBookmarkName(bmData))
-      , m_point(bmData.m_point)
-      , m_type(GetBookmarkBaseType(bmData.m_featureTypes))
-      , m_timestamp(bmData.m_timestamp)
-      , m_address(address)
-    {}
-
-    kml::MarkId m_id;
-    std::string m_name;
-    m2::PointD m_point;
-    BookmarkBaseType m_type;
-    kml::Timestamp m_timestamp;
-    search::ReverseGeocoder::RegionAddress m_address;
-  };
-
-  struct SortTrackData
-  {
-    explicit SortTrackData(kml::TrackData const & trackData)
-      : m_id(trackData.m_id)
-      , m_name(GetPreferredBookmarkStr(trackData.m_name))
-      , m_timestamp(trackData.m_timestamp)
-    {}
-
-    kml::TrackId m_id;
-    std::string m_name;
-    kml::Timestamp m_timestamp;
-  };
-
-  void GetSortedCategoryImpl(SortParams const & params, std::vector<SortBookmarkData> const & bookmarksForSort,
-                             std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
-
-  void SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
-                      std::vector<SortTrackData> const & tracksForSort, m2::PointD const & myPosition,
-                      SortedBlocksCollection & sortedBlocks);
-  static void SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
-  static void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
-  static void SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
-
-  using AddressesCollection = std::vector<std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress>>;
-  void PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort, AddressesCollection & newAddresses);
-  void FilterInvalidData(SortedBlocksCollection & sortedBlocks, AddressesCollection & newAddresses) const;
-  void SetBookmarksAddresses(AddressesCollection const & addresses);
-  static void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
-                                   SortedBlocksCollection & sortedBlocks);
-  static void SortTracksByTime(std::vector<SortTrackData> & tracks);
-  static void SortTracksByName(std::vector<SortTrackData> & tracks);
-
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;
   void SetTrackSelectionMark(kml::TrackId trackId, m2::PointD const & pt, double distance);
@@ -725,13 +634,11 @@ private:
   ThreadChecker m_threadChecker;
 
   Callbacks m_callbacks;
+  BookmarkSorter m_sorter;
   MarksChangesTracker m_changesTracker;
   MarksChangesTracker m_bookmarksChangesTracker;
   MarksChangesTracker m_drapeChangesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
-
-  std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
-  std::mutex m_regionAddressMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
   CategoriesChangedCallback m_categoriesChangedCallback;
@@ -803,28 +710,6 @@ private:
     std::string m_serverId;
   };
   std::vector<ExpiredCategory> m_expiredCategories;
-
-  struct Properties
-  {
-    DECLARE_VISITOR_AND_DEBUG_PRINT(Properties, visitor(m_values, "values"))
-
-    bool GetProperty(std::string const & propertyName, std::string & value) const;
-
-    std::map<std::string, std::string> m_values;
-  };
-
-  struct Metadata
-  {
-    DECLARE_VISITOR_AND_DEBUG_PRINT(Metadata, visitor(m_entriesProperties, "entriesProperties"),
-                                    visitor(m_commonProperties, "commonProperties"))
-
-    bool GetEntryProperty(std::string const & entryName, std::string const & propertyName, std::string & value) const;
-
-    std::map<std::string, Properties> m_entriesProperties;
-    Properties m_commonProperties;
-  };
-
-  Metadata m_metadata;
 
   // Switch some operations in bookmark manager to synchronous mode to simplify unit-testing.
   bool m_testModeEnabled = false;

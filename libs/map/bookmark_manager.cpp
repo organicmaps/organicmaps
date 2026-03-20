@@ -37,11 +37,7 @@ namespace
 {
 std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
 std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
-std::string const kMetadataFileName = "bm.json";
-std::string const kSortingTypeProperty = "sortingType";
 std::string const kLargestBookmarkSymbolName = "bookmark-default-m";
-size_t const kMinCommonTypesCount = 3;
-double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
 std::string_view const kKMZMimeType = "application/vnd.google-earth.kmz";
@@ -217,33 +213,6 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   }
 }
 
-std::string ToString(BookmarkManager::SortingType type)
-{
-  switch (type)
-  {
-  case BookmarkManager::SortingType::ByTime: return "ByTime";
-  case BookmarkManager::SortingType::ByType: return "ByType";
-  case BookmarkManager::SortingType::ByDistance: return "ByDistance";
-  case BookmarkManager::SortingType::ByName: return "ByName";
-  }
-  UNREACHABLE();
-}
-
-bool GetSortingType(std::string const & typeStr, BookmarkManager::SortingType & type)
-{
-  if (typeStr == ToString(BookmarkManager::SortingType::ByTime))
-    type = BookmarkManager::SortingType::ByTime;
-  else if (typeStr == ToString(BookmarkManager::SortingType::ByType))
-    type = BookmarkManager::SortingType::ByType;
-  else if (typeStr == ToString(BookmarkManager::SortingType::ByDistance))
-    type = BookmarkManager::SortingType::ByDistance;
-  else if (typeStr == ToString(BookmarkManager::SortingType::ByName))
-    type = BookmarkManager::SortingType::ByName;
-  else
-    return false;
-  return true;
-}
-
 kml::Timestamp FileModificationTimestamp(std::string const & fullFilePath)
 {
   return kml::TimestampClock::from_time_t(Platform::GetFileModificationTime(fullFilePath));
@@ -252,6 +221,7 @@ kml::Timestamp FileModificationTimestamp(std::string const & fullFilePath)
 
 BookmarkManager::BookmarkManager(Callbacks && callbacks)
   : m_callbacks(std::move(callbacks))
+  , m_sorter(*this)
   , m_changesTracker(this)
   , m_bookmarksChangesTracker(this)
   , m_drapeChangesTracker(this)
@@ -663,165 +633,31 @@ kml::TrackIdSet const & BookmarkManager::GetTrackIds(kml::MarkGroupId groupId) c
 bool BookmarkManager::GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const entryName = GetMetadataEntryName(groupId);
-  if (entryName.empty())
-    return false;
-
-  std::string sortingTypeStr;
-  if (m_metadata.GetEntryProperty(entryName, kSortingTypeProperty, sortingTypeStr))
-    return GetSortingType(sortingTypeStr, sortingType);
-  return false;
+  return m_sorter.GetLastSortingType(groupId, sortingType);
 }
 
 void BookmarkManager::SetLastSortingType(kml::MarkGroupId groupId, SortingType sortingType)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const entryName = GetMetadataEntryName(groupId);
-  if (entryName.empty())
-    return;
-
-  m_metadata.m_entriesProperties[entryName].m_values[kSortingTypeProperty] = ToString(sortingType);
-  SaveMetadata();
+  m_sorter.SetLastSortingType(groupId, sortingType);
 }
 
 void BookmarkManager::ResetLastSortingType(kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const entryName = GetMetadataEntryName(groupId);
-  if (entryName.empty())
-    return;
-
-  m_metadata.m_entriesProperties[entryName].m_values.erase(kSortingTypeProperty);
-  SaveMetadata();
+  m_sorter.ResetLastSortingType(groupId);
 }
 
 std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTypes(kml::MarkGroupId groupId,
                                                                                     bool hasMyPosition) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(IsBookmarkCategory(groupId), ());
-
-  auto const * group = GetGroup(groupId);
-
-  bool byTypeChecked = false;
-  bool byTimeChecked = false;
-
-  std::map<BookmarkBaseType, size_t> typesCount;
-  for (auto markId : group->GetUserMarks())
-  {
-    auto const & bookmarkData = GetBookmark(markId)->GetData();
-
-    if (!byTypeChecked && !bookmarkData.m_featureTypes.empty())
-    {
-      auto const type = GetBookmarkBaseType(bookmarkData.m_featureTypes);
-      if (type == BookmarkBaseType::Hotel)
-      {
-        byTypeChecked = true;
-      }
-      else if (type != BookmarkBaseType::None)
-      {
-        auto const count = ++typesCount[type];
-        byTypeChecked = (count == kMinCommonTypesCount);
-      }
-    }
-
-    if (!byTimeChecked)
-      byTimeChecked = !kml::IsEqual(bookmarkData.m_timestamp, kml::Timestamp{});
-
-    if (byTypeChecked && byTimeChecked)
-      break;
-  }
-
-  if (!byTimeChecked)
-  {
-    for (auto trackId : group->GetUserLines())
-    {
-      if (!kml::IsEqual(GetTrack(trackId)->GetData().m_timestamp, kml::Timestamp{}))
-      {
-        byTimeChecked = true;
-        break;
-      }
-    }
-  }
-
-  std::vector<SortingType> sortingTypes;
-  if (byTypeChecked)
-    sortingTypes.push_back(SortingType::ByType);
-  if (hasMyPosition && !group->GetUserMarks().empty())
-    sortingTypes.push_back(SortingType::ByDistance);
-  if (byTimeChecked)
-    sortingTypes.push_back(SortingType::ByTime);
-  // Sorting by name should always be possible.
-  sortingTypes.push_back(SortingType::ByName);
-  return sortingTypes;
-}
-
-template <typename T, typename R>
-BookmarkManager::SortedByTimeBlockType GetSortedByTimeBlockType(std::chrono::duration<T, R> const & timePeriod)
-{
-  auto constexpr kDay = std::chrono::hours(24);
-  auto constexpr kWeek = 7 * kDay;
-  auto constexpr kMonth = 31 * kDay;
-  auto constexpr kYear = 365 * kDay;
-
-  if (timePeriod < kWeek)
-    return BookmarkManager::SortedByTimeBlockType::WeekAgo;
-  if (timePeriod < kMonth)
-    return BookmarkManager::SortedByTimeBlockType::MonthAgo;
-  if (timePeriod < kYear)
-    return BookmarkManager::SortedByTimeBlockType::MoreThanMonthAgo;
-  return BookmarkManager::SortedByTimeBlockType::MoreThanYearAgo;
-}
-
-// static
-std::string BookmarkManager::GetSortedByTimeBlockName(SortedByTimeBlockType blockType)
-{
-  switch (blockType)
-  {
-  case SortedByTimeBlockType::WeekAgo: return platform::GetLocalizedString("week_ago_sorttype");
-  case SortedByTimeBlockType::MonthAgo: return platform::GetLocalizedString("month_ago_sorttype");
-  case SortedByTimeBlockType::MoreThanMonthAgo: return platform::GetLocalizedString("moremonth_ago_sorttype");
-  case SortedByTimeBlockType::MoreThanYearAgo: return platform::GetLocalizedString("moreyear_ago_sorttype");
-  case SortedByTimeBlockType::Others: return GetOthersSortedBlockName();
-  }
-  UNREACHABLE();
-}
-
-// static
-std::string BookmarkManager::GetTracksSortedBlockName()
-{
-  return platform::GetLocalizedString("tracks_title");
-}
-
-// static
-std::string BookmarkManager::GetBookmarksSortedBlockName()
-{
-  return platform::GetLocalizedString("bookmarks");
-}
-
-// static
-std::string BookmarkManager::GetOthersSortedBlockName()
-{
-  return platform::GetLocalizedString("others_sorttype");
-}
-
-// static
-std::string BookmarkManager::GetNearMeSortedBlockName()
-{
-  return platform::GetLocalizedString("near_me_sorttype");
+  return m_sorter.GetAvailableSortingTypes(groupId, hasMyPosition);
 }
 
 std::string BookmarkManager::GetLocalizedRegionAddress(m2::PointD const & pt)
 {
-  CHECK(m_testModeEnabled, ());
-
-  std::unique_lock const lock(m_regionAddressMutex);
-  if (m_regionAddressGetter == nullptr)
-  {
-    LOG(LWARNING, ("Region address getter is not set. Address getting failed."));
-    return {};
-  }
-  return m_regionAddressGetter->GetLocalizedRegionAddress(pt);
+  return m_sorter.GetLocalizedRegionAddress(pt);
 }
 
 void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
@@ -1219,391 +1055,10 @@ kml::TrackId BookmarkManager::SaveRoute(std::vector<geometry::PointWithAltitude>
   return trackId;
 }
 
-void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
-                                                AddressesCollection & newAddresses)
-{
-  CHECK(m_regionAddressGetter != nullptr, ());
-
-  for (auto & markData : bookmarksForSort)
-  {
-    if (!markData.m_address.IsValid())
-    {
-      markData.m_address = m_regionAddressGetter->GetNearbyRegionAddress(markData.m_point);
-      if (markData.m_address.IsValid())
-        newAddresses.emplace_back(markData.m_id, markData.m_address);
-    }
-  }
-}
-
-void BookmarkManager::FilterInvalidData(SortedBlocksCollection & sortedBlocks, AddressesCollection & newAddresses) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  for (auto & block : sortedBlocks)
-  {
-    FilterInvalidBookmarks(block.m_markIds);
-    FilterInvalidTracks(block.m_trackIds);
-  }
-
-  base::EraseIf(sortedBlocks,
-                [](SortedBlock const & block) { return block.m_trackIds.empty() && block.m_markIds.empty(); });
-
-  base::EraseIf(newAddresses, [this](std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress> const & item)
-  { return GetBookmark(item.first) == nullptr; });
-}
-
-void BookmarkManager::SetBookmarksAddresses(AddressesCollection const & addresses)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto session = GetEditSession();
-  for (auto const & item : addresses)
-  {
-    // Use inner method GetBookmarkForEdit to save address even if the bookmarks is not editable.
-    auto bm = GetBookmarkForEdit(item.first);
-    bm->SetAddress(item.second);
-  }
-}
-
-// static
-void BookmarkManager::AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
-                                           SortedBlocksCollection & sortedBlocks)
-{
-  if (!sortedTracks.empty())
-  {
-    SortedBlock tracksBlock;
-    tracksBlock.m_blockName = GetTracksSortedBlockName();
-    tracksBlock.m_trackIds.reserve(sortedTracks.size());
-    for (auto const & track : sortedTracks)
-      tracksBlock.m_trackIds.push_back(track.m_id);
-    sortedBlocks.emplace_back(std::move(tracksBlock));
-  }
-}
-
-// static
-void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
-{
-  bool hasTimestamp = false;
-  for (auto const & track : tracks)
-  {
-    if (!kml::IsEqual(track.m_timestamp, kml::Timestamp{}))
-    {
-      hasTimestamp = true;
-      break;
-    }
-  }
-
-  if (!hasTimestamp)
-    return;
-
-  std::sort(tracks.begin(), tracks.end(),
-            [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_timestamp > rbm.m_timestamp; });
-}
-
-// static
-void BookmarkManager::SortTracksByName(std::vector<SortTrackData> & tracks)
-{
-  std::sort(tracks.begin(), tracks.end(),
-            [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_name < rbm.m_name; });
-}
-
-void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
-                                     std::vector<SortTrackData> const & tracksForSort, m2::PointD const & myPosition,
-                                     SortedBlocksCollection & sortedBlocks)
-{
-  CHECK(m_regionAddressGetter != nullptr, ());
-
-  AddTracksSortedBlock(tracksForSort, sortedBlocks);
-
-  std::vector<std::pair<SortBookmarkData const *, double>> sortedMarks;
-  sortedMarks.reserve(bookmarksForSort.size());
-  for (auto const & mark : bookmarksForSort)
-  {
-    auto const distance = mercator::DistanceOnEarth(mark.m_point, myPosition);
-    sortedMarks.emplace_back(&mark, distance);
-  }
-
-  std::sort(sortedMarks.begin(), sortedMarks.end(),
-            [](std::pair<SortBookmarkData const *, double> const & lbm,
-               std::pair<SortBookmarkData const *, double> const & rbm) { return lbm.second < rbm.second; });
-
-  std::map<search::ReverseGeocoder::RegionAddress, size_t> regionBlockIndices;
-  SortedBlock othersBlock;
-  for (auto markItem : sortedMarks)
-  {
-    auto const & mark = *markItem.first;
-    auto const distance = markItem.second;
-
-    if (!mark.m_address.IsValid())
-    {
-      othersBlock.m_markIds.push_back(mark.m_id);
-      continue;
-    }
-
-    auto const currentRegion =
-        distance < kNearDistanceInMeters ? search::ReverseGeocoder::RegionAddress() : mark.m_address;
-
-    size_t blockIndex;
-    auto const it = regionBlockIndices.find(currentRegion);
-    if (it == regionBlockIndices.end())
-    {
-      SortedBlock regionBlock;
-      if (currentRegion.IsValid())
-        regionBlock.m_blockName = m_regionAddressGetter->GetLocalizedRegionAddress(currentRegion);
-      else
-        regionBlock.m_blockName = GetNearMeSortedBlockName();
-
-      blockIndex = sortedBlocks.size();
-      regionBlockIndices[currentRegion] = blockIndex;
-      sortedBlocks.push_back(regionBlock);
-    }
-    else
-    {
-      blockIndex = it->second;
-    }
-
-    sortedBlocks[blockIndex].m_markIds.push_back(mark.m_id);
-  }
-
-  if (!othersBlock.m_markIds.empty())
-  {
-    othersBlock.m_blockName = GetOthersSortedBlockName();
-    sortedBlocks.emplace_back(std::move(othersBlock));
-  }
-}
-
-void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort,
-                                 std::vector<SortTrackData> const & tracksForSort,
-                                 SortedBlocksCollection & sortedBlocks)
-{
-  std::vector<SortTrackData> sortedTracks = tracksForSort;
-  SortTracksByTime(sortedTracks);
-  AddTracksSortedBlock(sortedTracks, sortedBlocks);
-
-  std::vector<SortBookmarkData const *> sortedMarks;
-  sortedMarks.reserve(bookmarksForSort.size());
-  for (auto const & mark : bookmarksForSort)
-    sortedMarks.push_back(&mark);
-
-  std::sort(sortedMarks.begin(), sortedMarks.end(), [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
-  { return lbm->m_timestamp > rbm->m_timestamp; });
-
-  auto const currentTime = kml::TimestampClock::now();
-
-  std::optional<SortedByTimeBlockType> lastBlockType;
-  SortedBlock currentBlock;
-  for (auto mark : sortedMarks)
-  {
-    auto currentBlockType = SortedByTimeBlockType::Others;
-    if (mark->m_timestamp != kml::Timestamp{})
-      currentBlockType = GetSortedByTimeBlockType(currentTime - mark->m_timestamp);
-
-    if (!lastBlockType)
-    {
-      lastBlockType = currentBlockType;
-      currentBlock.m_blockName = GetSortedByTimeBlockName(currentBlockType);
-    }
-
-    if (currentBlockType != *lastBlockType)
-    {
-      sortedBlocks.push_back(currentBlock);
-      currentBlock = SortedBlock();
-      currentBlock.m_blockName = GetSortedByTimeBlockName(currentBlockType);
-    }
-    lastBlockType = currentBlockType;
-    currentBlock.m_markIds.push_back(mark->m_id);
-  }
-  if (!currentBlock.m_markIds.empty())
-    sortedBlocks.push_back(currentBlock);
-}
-
-void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
-                                 std::vector<SortTrackData> const & tracksForSort,
-                                 SortedBlocksCollection & sortedBlocks)
-{
-  AddTracksSortedBlock(tracksForSort, sortedBlocks);
-
-  std::vector<SortBookmarkData const *> sortedMarks;
-  sortedMarks.reserve(bookmarksForSort.size());
-  for (auto const & mark : bookmarksForSort)
-    sortedMarks.push_back(&mark);
-
-  std::sort(sortedMarks.begin(), sortedMarks.end(), [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
-  { return lbm->m_timestamp > rbm->m_timestamp; });
-
-  std::map<BookmarkBaseType, size_t> typesCount;
-  size_t othersTypeMarksCount = 0;
-  for (auto mark : sortedMarks)
-  {
-    auto const type = mark->m_type;
-    if (type == BookmarkBaseType::None)
-    {
-      ++othersTypeMarksCount;
-      continue;
-    }
-
-    ++typesCount[type];
-  }
-
-  std::vector<std::pair<BookmarkBaseType, size_t>> sortedTypes;
-  for (auto const & typeCount : typesCount)
-    if (typeCount.second < kMinCommonTypesCount && typeCount.first != BookmarkBaseType::Hotel)
-      othersTypeMarksCount += typeCount.second;
-    else
-      sortedTypes.emplace_back(typeCount);
-
-  std::sort(sortedTypes.begin(), sortedTypes.end(),
-            [](std::pair<BookmarkBaseType, size_t> const & l, std::pair<BookmarkBaseType, size_t> const & r)
-  { return l.second > r.second; });
-
-  std::map<BookmarkBaseType, size_t> blockIndices;
-  sortedBlocks.reserve(sortedBlocks.size() + sortedTypes.size() + (othersTypeMarksCount > 0 ? 1 : 0));
-  for (auto const & sortedType : sortedTypes)
-  {
-    auto const type = sortedType.first;
-    SortedBlock typeBlock;
-    typeBlock.m_blockName = GetLocalizedBookmarkBaseType(type);
-    typeBlock.m_markIds.reserve(sortedType.second);
-    blockIndices[type] = sortedBlocks.size();
-    sortedBlocks.emplace_back(std::move(typeBlock));
-  }
-
-  if (othersTypeMarksCount > 0)
-  {
-    SortedBlock othersBlock;
-    othersBlock.m_blockName = GetOthersSortedBlockName();
-    othersBlock.m_markIds.reserve(othersTypeMarksCount);
-    sortedBlocks.emplace_back(std::move(othersBlock));
-  }
-
-  for (auto mark : sortedMarks)
-  {
-    auto const type = mark->m_type;
-    if (type == BookmarkBaseType::None || (type != BookmarkBaseType::Hotel && typesCount[type] < kMinCommonTypesCount))
-      sortedBlocks.back().m_markIds.push_back(mark->m_id);
-    else
-      sortedBlocks[blockIndices[type]].m_markIds.push_back(mark->m_id);
-  }
-}
-
-void BookmarkManager::SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                                 std::vector<SortTrackData> const & tracksForSort,
-                                 SortedBlocksCollection & sortedBlocks)
-{
-  std::vector<SortTrackData> sortedTracks = tracksForSort;
-  SortTracksByName(sortedTracks);
-  AddTracksSortedBlock(sortedTracks, sortedBlocks);
-
-  std::vector<SortBookmarkData const *> sortedMarks;
-  sortedMarks.reserve(bookmarksForSort.size());
-  for (auto const & mark : bookmarksForSort)
-    sortedMarks.push_back(&mark);
-
-  std::sort(sortedMarks.begin(), sortedMarks.end(),
-            [](SortBookmarkData const * lbm, SortBookmarkData const * rbm) { return lbm->m_name < rbm->m_name; });
-
-  // Put all bookmarks into one block
-  SortedBlock bookmarkBlock;
-  bookmarkBlock.m_blockName = GetBookmarksSortedBlockName();
-  for (auto mark : sortedMarks)
-    bookmarkBlock.m_markIds.push_back(mark->m_id);
-  sortedBlocks.push_back(bookmarkBlock);
-}
-
-void BookmarkManager::GetSortedCategoryImpl(SortParams const & params,
-                                            std::vector<SortBookmarkData> const & bookmarksForSort,
-                                            std::vector<SortTrackData> const & tracksForSort,
-                                            SortedBlocksCollection & sortedBlocks)
-{
-  switch (params.m_sortingType)
-  {
-  case SortingType::ByDistance:
-    CHECK(params.m_hasMyPosition, ());
-    SortByDistance(bookmarksForSort, tracksForSort, params.m_myPosition, sortedBlocks);
-    return;
-  case SortingType::ByTime: SortByTime(bookmarksForSort, tracksForSort, sortedBlocks); return;
-  case SortingType::ByType: SortByType(bookmarksForSort, tracksForSort, sortedBlocks); return;
-  case SortingType::ByName: SortByName(bookmarksForSort, tracksForSort, sortedBlocks); return;
-  }
-  UNREACHABLE();
-}
-
 void BookmarkManager::GetSortedCategory(SortParams const & params)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(params.m_onResults != nullptr, ());
-
-  auto const * group = GetGroup(params.m_groupId);
-
-  std::vector<SortBookmarkData> bookmarksForSort;
-  bookmarksForSort.reserve(group->GetUserMarks().size());
-  for (auto markId : group->GetUserMarks())
-  {
-    auto const * bm = GetBookmark(markId);
-    bookmarksForSort.emplace_back(bm->GetData(), bm->GetAddress());
-  }
-
-  std::vector<SortTrackData> tracksForSort;
-  tracksForSort.reserve(group->GetUserLines().size());
-  for (auto trackId : group->GetUserLines())
-  {
-    auto const * track = GetTrack(trackId);
-    tracksForSort.emplace_back(track->GetData());
-  }
-
-  if (m_testModeEnabled)
-  {
-    // Sort bookmarks synchronously.
-    std::unique_lock const lock(m_regionAddressMutex);
-    if (m_regionAddressGetter == nullptr)
-    {
-      LOG(LWARNING, ("Region address getter is not set, bookmarks sorting failed."));
-      params.m_onResults({} /* sortedBlocks */, SortParams::Status::Cancelled);
-      return;
-    }
-    AddressesCollection newAddresses;
-    if (params.m_sortingType == SortingType::ByDistance)
-      PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
-
-    SortedBlocksCollection sortedBlocks;
-    GetSortedCategoryImpl(params, bookmarksForSort, tracksForSort, sortedBlocks);
-    params.m_onResults(std::move(sortedBlocks), SortParams::Status::Completed);
-    return;
-  }
-
-  GetPlatform().RunTask(Platform::Thread::Background, [this, params, bookmarksForSort = std::move(bookmarksForSort),
-                                                       tracksForSort = std::move(tracksForSort)]() mutable
-  {
-    std::unique_lock const lock(m_regionAddressMutex);
-    if (m_regionAddressGetter == nullptr)
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui, [params]
-      {
-        LOG(LWARNING, ("Region address getter is not set, bookmarks sorting failed."));
-        params.m_onResults({} /* sortedBlocks */, SortParams::Status::Cancelled);
-      });
-      return;
-    }
-
-    AddressesCollection newAddresses;
-    if (params.m_sortingType == SortingType::ByDistance)
-      PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
-
-    SortedBlocksCollection sortedBlocks;
-    GetSortedCategoryImpl(params, bookmarksForSort, tracksForSort, sortedBlocks);
-
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, params, newAddresses = std::move(newAddresses),
-                                                  sortedBlocks = std::move(sortedBlocks)]() mutable
-    {
-      FilterInvalidData(sortedBlocks, newAddresses);
-      if (sortedBlocks.empty())
-      {
-        params.m_onResults({} /* sortedBlocks */, SortParams::Status::Cancelled);
-        return;
-      }
-      SetBookmarksAddresses(newAddresses);
-      params.m_onResults(std::move(sortedBlocks), SortParams::Status::Completed);
-    });
-  });
+  m_sorter.GetSortedCategory(params);
 }
 
 void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
@@ -1857,8 +1312,7 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
                                               storage::CountryInfoGetter const & infoGetter)
 {
-  std::unique_lock const lock(m_regionAddressMutex);
-  m_regionAddressGetter = std::make_unique<search::RegionAddressGetter>(dataSource, infoGetter);
+  m_sorter.InitRegionAddressGetter(dataSource, infoGetter);
 }
 
 void BookmarkManager::UpdateViewport(ScreenBase const & screen)
@@ -1939,93 +1393,6 @@ void BookmarkManager::LoadState()
   }
 }
 
-std::string BookmarkManager::GetMetadataEntryName(kml::MarkGroupId groupId) const
-{
-  CHECK(IsBookmarkCategory(groupId), ());
-  return GetCategoryFileName(groupId);
-}
-
-void BookmarkManager::CleanupInvalidMetadata()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  std::set<std::string> activeEntries;
-  for (auto const & cat : m_categories)
-  {
-    auto const entryName = GetMetadataEntryName(cat.first);
-    if (!entryName.empty())
-      activeEntries.insert(entryName);
-  }
-
-  auto it = m_metadata.m_entriesProperties.begin();
-  while (it != m_metadata.m_entriesProperties.end())
-    if (activeEntries.find(it->first) == activeEntries.end() || it->second.m_values.empty())
-      it = m_metadata.m_entriesProperties.erase(it);
-    else
-      ++it;
-}
-
-void BookmarkManager::SaveMetadata()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  CleanupInvalidMetadata();
-
-  auto const metadataFilePath = base::JoinPath(GetPlatform().WritableDir(), kMetadataFileName);
-  std::string jsonStr;
-  {
-    using Sink = MemWriter<std::string>;
-    Sink sink(jsonStr);
-    coding::SerializerJson<Sink> ser(sink);
-    ser(m_metadata);
-  }
-
-  try
-  {
-    FileWriter w(metadataFilePath);
-    w.Write(jsonStr.c_str(), jsonStr.length());
-  }
-  catch (FileWriter::Exception const & exception)
-  {
-    LOG(LWARNING, ("Exception while writing file:", metadataFilePath, "reason:", exception.what()));
-  }
-}
-
-void BookmarkManager::LoadMetadata()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  auto const metadataFilePath = base::JoinPath(GetPlatform().WritableDir(), kMetadataFileName);
-  if (!Platform::IsFileExistsByFullPath(metadataFilePath))
-    return;
-
-  Metadata metadata;
-  std::string json;
-
-  try
-  {
-    FileReader(metadataFilePath).ReadAsString(json);
-
-    if (json.empty())
-      return;
-
-    coding::DeserializerJson des(json);
-    des(metadata);
-  }
-  catch (FileReader::Exception const & exception)
-  {
-    LOG(LWARNING, ("Exception while reading file:", metadataFilePath, "reason:", exception.what()));
-    return;
-  }
-  catch (base::Json::Exception const & exception)
-  {
-    LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(), "json:", json));
-    return;
-  }
-
-  m_metadata = metadata;
-}
-
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(std::string const & dir, std::string_view ext,
                                                                      FileType fileType,
                                                                      BookmarksChecker const & checker)
@@ -2056,7 +1423,7 @@ void BookmarkManager::LoadBookmarks()
   CHECK(!m_loadBookmarksCalled, ("LoadBookmarks should be called only once."));
   m_loadBookmarksCalled = true;
 
-  LoadMetadata();
+  m_sorter.LoadMetadata();
 
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
@@ -3137,6 +2504,7 @@ void BookmarkManager::EnableTestMode(bool enable)
 {
   UserMarkIdStorage::Instance().EnableSaving(!enable);
   m_testModeEnabled = enable;
+  m_sorter.EnableTestMode(enable);
 }
 
 void BookmarkManager::FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const
@@ -3494,30 +2862,6 @@ void BookmarkManager::MarksChangesTracker::AddChanges(MarksChangesTracker const 
   for (auto const & detachedInfo : changes.m_detachedBookmarks)
     for (auto const markId : detachedInfo.second)
       OnDetachBookmark(markId, detachedInfo.first);
-}
-
-bool BookmarkManager::SortedBlock::operator==(SortedBlock const & other) const
-{
-  return m_blockName == other.m_blockName && m_markIds == other.m_markIds && m_trackIds == other.m_trackIds;
-}
-
-bool BookmarkManager::Properties::GetProperty(std::string const & propertyName, std::string & value) const
-{
-  auto const it = m_values.find(propertyName);
-  if (it == m_values.end())
-    return false;
-  value = it->second;
-  return true;
-}
-
-bool BookmarkManager::Metadata::GetEntryProperty(std::string const & entryName, std::string const & propertyName,
-                                                 std::string & value) const
-{
-  auto const it = m_entriesProperties.find(entryName);
-  if (it == m_entriesProperties.end())
-    return false;
-
-  return it->second.GetProperty(propertyName, value);
 }
 
 BookmarkManager::EditSession::EditSession(BookmarkManager & manager) : m_bmManager(manager)

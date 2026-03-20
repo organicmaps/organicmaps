@@ -11,6 +11,8 @@ set(SRC
   bookmark_helpers.hpp
   bookmark_manager.cpp
   bookmark_manager.hpp
+  bookmark_sorter.cpp
+  bookmark_sorter.hpp
   bookmarks_search_params.hpp
   chart_generator.cpp
   chart_generator.hpp
