@@ -121,7 +121,6 @@ kml::FileData GenerateKmlFileData()
   result.m_bookmarksData.emplace_back(std::move(bookmarkData2));
 
 
-/////////////////////
   kml::TrackData trackData;
   trackData.m_localId = 0;
   trackData.m_name[kDefaultLang] = "Test track";
@@ -387,7 +386,7 @@ UNIT_TEST(Kml_Serialization_Bin_File)
 {
   classificator::Load();
   auto const data = GenerateKmlFileData();
-  // KMB format doesn't have 'editTimestamp' field. Let's erase this field.
+  // KMB format doesn't have 'm_modifiedTimestamp' field. Let's erase this field.
   for (auto & bookmark : data.m_bookmarksData)
     bookmark.m_modifiedTimestamp = kml::Timestamp();
   for (auto & track : data.m_tracksData)
