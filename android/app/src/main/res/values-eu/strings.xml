@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Argi</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Iluna</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Argi egunsentitik iluntzerarte</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Oparitu doako mapak iragarkirik gabe milioika erabiltzaileri!</string>
 
@@ -622,6 +624,7 @@
     <string name="layers_title">Maparen estiloak eta geruzak</string>
     <string name="bookmarks_empty_list_title">Zerrenda hau hutsik dago</string>
     <string name="bookmarks_empty_list_message">Markagailu bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Aldatu markagailu guztien kolorea</string>
     <string name="category_desc_more">…gehiago</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

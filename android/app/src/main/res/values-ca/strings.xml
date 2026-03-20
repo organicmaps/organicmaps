@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Clar</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Fosc</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Clar de l\'alba fins al capvespre</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Regala mapes gratuïts sense anuncis a milions d\'usuaris!</string>
 
@@ -628,6 +630,7 @@
     <string name="layers_title">Estils i capes del mapa</string>
     <string name="bookmarks_empty_list_title">Aquesta llista és buida</string>
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Canvia el color de tots els marcadors</string>
     <string name="category_desc_more">…més</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Licht</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Donker</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Licht van zonsopgang tot zonsondergang</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Geef gratis kaarten zonder advertenties aan miljoenen gebruikers!</string>
 
@@ -625,6 +627,7 @@
     <string name="layers_title">Kaartstijlen en -lagen</string>
     <string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
     <string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Kleur van alle bladwijzers wijzigen</string>
     <string name="category_desc_more">…meer</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

@@ -227,6 +227,8 @@
     <string name="pref_appearance_light">Clara</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Escura</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Claro do amanhecer ao anoitecer</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de usuários!</string>
 
@@ -445,7 +447,6 @@
     <string name="button_layer_hiking">Caminhadas</string>
     <string name="button_layer_subway">Metrô</string>
     <string name="bookmarks_empty_list_message">Para adicionar um favorito, toque no mapa e então toque no ícone de estrela</string>
-    <string name="change_all_bookmarks_color">Alterar a cor de todos os favoritos</string>
     <string name="delete_list">Deletar lista</string>
     <string name="speedcams_alert_title">Câmeras de trânsito</string>
     <string name="place_description_title">Descrição do lugar</string>

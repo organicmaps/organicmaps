@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Claire</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Sombre</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Clair de l\'aube au crépuscule</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Offrez des cartes gratuites et sans pub à des millions d\'utilisateurs !</string>
 
@@ -626,6 +628,7 @@
     <string name="layers_title">Styles et couches de cartes</string>
     <string name="bookmarks_empty_list_title">Cette liste est vide</string>
     <string name="bookmarks_empty_list_message">Pour ajouter un signet, appuyez sur un lieu sur la carte, puis appuyez sur l\'icône étoile</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Changer la couleur de tous les signets</string>
     <string name="category_desc_more">…plus</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

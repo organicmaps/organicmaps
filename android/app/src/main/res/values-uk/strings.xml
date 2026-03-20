@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Світлий</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Темний</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Світла від світанку до заходу сонця</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Подаруйте мільйонам користувачів безкоштовні мапи без реклами!</string>
 
@@ -629,6 +631,7 @@
     <string name="layers_title">Стилі та шари мапи</string>
     <string name="bookmarks_empty_list_title">Список порожній</string>
     <string name="bookmarks_empty_list_message">Щоб додати нову мітку, натисніть на значок зірочки в картці об’єкта</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Змінити колір усіх міток</string>
     <string name="category_desc_more">…ще</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

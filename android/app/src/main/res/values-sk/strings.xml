@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Svetlý</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tmavý</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Svetlý od úsvitu do súmraku</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Darujte bezplatné mapy bez reklám miliónom používateľov!</string>
 
@@ -621,6 +623,7 @@
     <string name="layers_title">Štýly a vrstvy mapy</string>
     <string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
     <string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdičky</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Zmeniť farbu všetkých záložiek</string>
     <string name="category_desc_more">…viac</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

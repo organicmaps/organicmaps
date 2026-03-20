@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Svetla</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Temna</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Svetla od zore do mraka</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Podarite brezplačne zemljevide brez oglasov milijonom uporabnikov!</string>
 
@@ -628,6 +630,7 @@
     <string name="layers_title">Slogi in plasti zemljevida</string>
     <string name="bookmarks_empty_list_title">Ta seznam je prazen</string>
     <string name="bookmarks_empty_list_message">Če želite dodati zaznamek, se dotaknite mesta na zemljevidu in nato ikone zvezdice</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Spremeni barvo vseh zaznamkov</string>
     <string name="category_desc_more">…več</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

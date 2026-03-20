@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Lys</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Mørke</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Lys fra daggry til skumring</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Gi gratis kart uten reklame til millioner av brukere!</string>
 
@@ -618,6 +620,7 @@
     <string name="layers_title">Kartstiler og -lag</string>
     <string name="bookmarks_empty_list_title">Denne listen er tom</string>
     <string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Endre farge på alle bokmerker</string>
     <string name="category_desc_more">…mer</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

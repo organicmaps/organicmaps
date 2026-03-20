@@ -330,6 +330,8 @@
     <string name="blue_gray">Blu Griż</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Dehra</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Ċar mill-għodwa sal-għaxija</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Agħti mapep b\'xejn u bla reklami lil miljuni ta\' utenti!</string>
 
@@ -607,6 +609,7 @@
     <string name="layers_title">Stili u Saffi tal-Mapep</string>
     <string name="bookmarks_empty_list_title">Din il-lista hija vojta</string>
     <string name="bookmarks_empty_list_message">Biex iżżid bookmark, għafas post fuq il-mappa u mbagħad għafas is-simbolu tal-istilla</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Ibdel il-kulur tal-bookmarks kollha</string>
     <string name="category_desc_more">…aktar</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

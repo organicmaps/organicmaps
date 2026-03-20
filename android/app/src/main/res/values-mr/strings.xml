@@ -330,6 +330,8 @@
     <string name="pref_appearance_light">प्रकाश</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">अंधार</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">फिकट पहाटेपासून संध्याकाळपर्यंत</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">लाखो वापरकर्त्यांना जाहिरातीशिवाय विनामूल्य नकाशे भेट द्या!</string>
 
@@ -601,6 +603,7 @@
     <string name="layers_title">नकाशा शैली आणि स्तर</string>
     <string name="bookmarks_empty_list_title">ही यादी रिकामी आहे</string>
     <string name="bookmarks_empty_list_message">खूणपत्र जोडण्यासाठी, नकाशातील ठिकाणाला स्पर्श करा आणि नंतर तारा चिन्हाला स्पर्श करा</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">सर्व बुकमार्कचा रंग बदला</string>
     <string name="category_desc_more">…अधिक</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

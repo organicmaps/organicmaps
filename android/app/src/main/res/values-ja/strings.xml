@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">ライト</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">ダーク</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">夜明けから夕暮れまでライト</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">何百万人ものユーザーに広告なしの無料地図を贈ろう！</string>
 
@@ -621,6 +623,7 @@
     <string name="layers_title">マップのスタイルとレイヤー</string>
     <string name="bookmarks_empty_list_title">このリストは空です</string>
     <string name="bookmarks_empty_list_message">ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">すべてのブックマークの色を変更</string>
     <string name="category_desc_more">詳細</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

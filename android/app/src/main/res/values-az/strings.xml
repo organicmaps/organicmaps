@@ -336,6 +336,8 @@
     <string name="pref_appearance_light">Parlaq</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tünd</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Şəfəqdən gün batana qədər açıq</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Milyonlarla istifadəçiyə reklamsız, pulsuz xəritələr hədiyyə edin!</string>
 
@@ -613,6 +615,7 @@
     <string name="layers_title">Xəritə Üslubları və Qatları</string>
     <string name="bookmarks_empty_list_title">Bu siyahı boşdur</string>
     <string name="bookmarks_empty_list_message">Əlfəcin əlavə etmək üçün xəritədə yerə və sonra ulduz işarəsinə toxunun</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Bütün əlfəcinlərin rəngini dəyişdir</string>
     <string name="category_desc_more">…daha çox</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

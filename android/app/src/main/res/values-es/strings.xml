@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Claro</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Oscuro</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Claro desde el amanecer hasta el anochecer</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">¡Regala mapas gratis y sin anuncios a millones de usuarios!</string>
 
@@ -628,6 +630,7 @@
     <string name="layers_title">Estilos y capas del mapa</string>
     <string name="bookmarks_empty_list_title">Esta lista está vacía</string>
     <string name="bookmarks_empty_list_message">Para agregar un marcador, toque un lugar en el mapa y después toque el icono de la estrella</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Cambiar el color de todos los marcadores</string>
     <string name="category_desc_more">…más</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

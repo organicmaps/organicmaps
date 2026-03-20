@@ -327,6 +327,8 @@
     <string name="pref_appearance_light">Sáng</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tối</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Sáng từ bình minh đến hoàng hôn</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Tặng bản đồ miễn phí không có quảng cáo cho hàng triệu người dùng!</string>
 
@@ -584,6 +586,7 @@
     <string name="layers_title">Kiểu và lớp bản đồ</string>
     <string name="bookmarks_empty_list_title">Danh sách trống</string>
     <string name="bookmarks_empty_list_message">Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Thay đổi màu tất cả dấu trang</string>
     <string name="category_desc_more">…thêm</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

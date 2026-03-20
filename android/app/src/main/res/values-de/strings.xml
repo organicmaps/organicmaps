@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Hell</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Dunkel</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Hell von der Morgendämmerung bis zur Abenddämmerung</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Schenke Millionen von Nutzern kostenlose und werbefreie Karten!</string>
 
@@ -624,6 +626,7 @@
     <string name="layers_title">Kartenstile und Ebenen</string>
     <string name="bookmarks_empty_list_title">Die Liste ist leer</string>
     <string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippe in der Karte auf den Ort und dann unten auf das Sternchen</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Farbe aller Lesezeichen ändern</string>
     <string name="category_desc_more">…mehr</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

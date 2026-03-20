@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Gaišs</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tumšs</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Gaišs no rītausmas līdz krēslai</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Dāviniet bezmaksas kartes bez reklāmām miljoniem lietotāju!</string>
 
@@ -625,6 +627,7 @@
     <string name="layers_title">Kartes stili un slāņi</string>
     <string name="bookmarks_empty_list_title">Saraksts ir tukšs</string>
     <string name="bookmarks_empty_list_message">Lai pievienotu grāmatzīmi, sākumā spiediet uz vietas kartē, bet tad uz zvaigznītes ikonas</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Mainīt visu grāmatzīmju krāsu</string>
     <string name="category_desc_more">…vairāk</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

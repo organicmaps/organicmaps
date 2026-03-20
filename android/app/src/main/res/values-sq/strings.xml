@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Dritë</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Errësirë</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">E çelët nga agimi deri në perëndim</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Dhuroni harta falas pa reklama për miliona përdorues!</string>
 
@@ -610,6 +612,7 @@
     <string name="layers_title">Stilet e Hartave dhe Shtresat</string>
     <string name="bookmarks_empty_list_title">Kjo listë është boshe</string>
     <string name="bookmarks_empty_list_message">Për të shtuar një faqeshënues, prekni një vend në hartë dhe më pas prekni ikonën e yllit</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Ndrysho ngjyrën e të gjithë faqeshënuesve</string>
     <string name="category_desc_more">…më shumë</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

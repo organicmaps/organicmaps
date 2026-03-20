@@ -246,6 +246,8 @@
     <string name="gray">Siva</string>
     <!-- blue gray color -->
     <string name="blue_gray">Plavo siva</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Svijetlo od zore do sumraka</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Poklonite besplatne karte bez oglasa milijunima korisnika!</string>
 
@@ -401,6 +403,7 @@
     <string name="layers_title">Stilovi karta i slojevi</string>
     <string name="bookmarks_empty_list_title">Ovaj je popis prazan</string>
     <string name="bookmarks_empty_list_message">Za dodavanje zabilješke dodirni mjesto na karti, a zatim dodirni ikonu zvjezdice</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Promijeni boju svih zabilješki</string>
     <string name="category_desc_more">… više</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

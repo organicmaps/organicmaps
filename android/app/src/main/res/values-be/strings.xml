@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Светлы</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Цёмны</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Светлая ад світання да змяркання</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Падарыце бясплатныя мапы без рэкламы мільёнам карыстальнікаў!</string>
 
@@ -631,6 +633,7 @@
     <string name="layers_title">Стылі і слаі карты</string>
     <string name="bookmarks_empty_list_title">Гэты спіс пусты</string>
     <string name="bookmarks_empty_list_message">Каб дадаць закладку, дакраніцеся да месца на карце, а затым націсніце значок зорачкі</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Змяніць колер усіх закладак</string>
     <string name="category_desc_more">…яшчэ</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

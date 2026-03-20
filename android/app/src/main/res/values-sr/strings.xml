@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Светло</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Тамно</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Светла од зоре до сумрака</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Поклоните бесплатне мапе без огласа милионима корисника!</string>
 
@@ -618,6 +620,7 @@
     <string name="layers_title">Стилови мапе и слојеви</string>
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
     <string name="bookmarks_empty_list_message">Да бисте додали маркер, кратко додирните место на мапи, а онда додирните иконицу са звездом</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Промени боју свих обележивача</string>
     <string name="category_desc_more">…више</string>
     <!-- Menu title for exporting a file in the default KMZ format -->

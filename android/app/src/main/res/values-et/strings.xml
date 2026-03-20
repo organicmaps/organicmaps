@@ -338,6 +338,8 @@
     <string name="pref_appearance_light">Hele kujundus</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tume kujundus</string>
+    <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_scheduled">Hele hommikust kuni õhtuhämaruni</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Kingi miljonitele kasutajatele tasuta ja reklaamideta kaardid!</string>
 
@@ -625,6 +627,7 @@
     <string name="layers_title">Kaardi stiilid ja kihid</string>
     <string name="bookmarks_empty_list_title">See loend on tühi</string>
     <string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Muuda kõikide järjehoidjate värvi</string>
     <string name="category_desc_more">…veel</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
