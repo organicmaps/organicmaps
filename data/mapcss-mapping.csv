@@ -875,15 +875,15 @@ barrier|jersey_barrier;755;
 # Can be added in replace_tags, but keep different types for the UI strings.
 barrier|log;756;
 barrier|debris;757;
-deprecated|deprecated;758;x
-deprecated|deprecated;759;x
-deprecated|deprecated;760;x
-deprecated|deprecated;761;x
-deprecated|deprecated;762;x
-deprecated|deprecated;763;x
-deprecated|deprecated;764;x
-deprecated|deprecated;765;x
-deprecated|deprecated;766;x
+shop|clothes|women;[shop=clothes][clothes=women];;name;int_name;758;
+shop|clothes|underwear;[shop=clothes][clothes=underwear];;name;int_name;759;
+shop|clothes|men;[shop=clothes][clothes=men];;name;int_name;760;
+shop|clothes|children;[shop=clothes][clothes=children],[shop=clothes][clothes=babies];;name;int_name;761;
+shop|clothes|wedding;[shop=clothes][clothes=wedding];;name;int_name;762;
+shop|clothes|sports;[shop=clothes][clothes=sports];;name;int_name;763;
+shop|clothes|suits;[shop=clothes][clothes=suits];;name;int_name;764;
+shop|clothes|hats;[shop=clothes][clothes=hats];;name;int_name;765;
+shop|clothes|fashion;[shop=clothes][clothes=fashion];;name;int_name;766;
 deprecated|deprecated;767;x
 deprecated|deprecated;768;x
 deprecated|deprecated;769;x
@@ -1019,9 +1019,9 @@ historic|pillory;[historic=pillory];;name;int_name;897;
 amenity|money_transfer;898;
 man_made|crane;899;
 railway|subway|darkgreen;[railway=subway][colour=darkgreen];x;name;int_name;900;railway|subway|tunnel
-deprecated|deprecated;901;x
+office|educational_institution;901;
 railway|subway|gray;[railway=subway][colour=gray];x;name;int_name;902;railway|subway|tunnel
-deprecated|deprecated;903;x
+office|architect;903;
 railway|subway|lightblue;[railway=subway][colour=lightblue];x;name;int_name;904;railway|subway|tunnel
 amenity|motorcycle_rental;[amenity=motorcycle_rental],[shop=motorcycle][motorcycle:rental=yes],[shop=motorcycle][rental=yes],[amenity=scooter_rental];;;;905;
 railway|subway|lightgreen;[railway=subway][colour=lightgreen];x;name;int_name;906;railway|subway|tunnel
@@ -1765,3 +1765,4 @@ xmas:feature|tree;1642;
 cuisine|uzbek;1643;
 shop|leather;1644;
 shop|religion;1645;
+shop|games;1646;

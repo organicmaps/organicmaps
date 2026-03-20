@@ -2702,7 +2702,8 @@ vi:Chuyển tiền
 zh-Hans:汇款
 zh-Hant:匯款
 
-shop-clothes|@category_shopping|@shop
+# ToDo: Make it possible when a group inherits other groups (@clothes|@category_shopping|@shop).
+@clothes
 en:3Clothes|clothing|wear|U+1F45A|U+1F457|U+1F456|U+1F455
 ar:متجر ملابس|ملابس|متجر
 bg:3Дрехи|магазин за дрехи
@@ -2744,6 +2745,112 @@ uk:3одяг|одягу|речі
 vi:Cửa hàng quần áo
 zh-Hans:服装店|商店
 zh-Hant:1買衣服|衣服|購物
+
+# Add at least one lang not to be skipped.
+shop-clothes|@clothes|@category_shopping|@shop
+en:Clothes
+
+shop-clothes-women|@clothes|@category_shopping|@shop
+en:3Women Clothes|Women fashion
+de:Damenbekleidung|Damenmode
+es:Ropa de mujer|Moda femenina
+fr:Vêtements femme|Mode femme
+it:Abbigliamento donna
+pl:Odzież damska
+ru:3Женская одежда
+tr:Kadın giyim|Bayan giyim
+uk:Жіночий одяг
+zh-Hans:女装
+
+shop-clothes-underwear|@clothes|@category_shopping|@shop
+en:4Underwear|Lingerie
+de:Unterwäsche|Lingerie
+es:Ropa interior|Lencería
+fr:Sous-vêtements|Lingerie
+it:Biancheria intima
+pl:Bielizna
+ru:4Нижнее бельё|Трусы
+tr:İç çamaşırı|Lingeri
+uk:Нижня білизна
+
+shop-clothes-men|@clothes|@category_shopping|@shop
+en:3Men Clothes|Men fashion
+de:Herrenbekleidung|Herrenmode
+es:Ropa de hombre|Moda masculina
+fr:Vêtements homme|Mode homme
+it:Abbigliamento uomo
+pl:Odzież męska
+ru:3Мужская одежда
+tr:Erkek giyim
+uk:Чоловічий одяг
+zh-Hans:男装
+
+shop-clothes-children|@clothes|@category_shopping|@shop
+en:4Children Clothes|Baby clothes|Kids clothes
+de:Kinderbekleidung|Kindermode|Babykleidung
+es:Ropa infantil|Ropa de niños|Ropa bebé
+fr:Vêtements enfants|Vêtements bébé
+it:Abbigliamento bambini
+pl:Odzież dziecięca
+ru:4Детская одежда|Для новорожденных
+tr:Çocuk giyim|Bebek giyim
+uk:Дитячий одяг
+zh-Hans:童装
+
+shop-clothes-wedding|@clothes|@category_shopping|@shop
+en:4Wedding Clothes|Bridal shop|Wedding dress
+de:Hochzeitsbekleidung|Brautmode
+es:Ropa de boda|Vestidos de novia
+fr:Vêtements de mariée|Robe de mariée
+it:Abiti da sposa
+pl:Suknie ślubne
+ru:4Свадебная одежда|Свадебный салон
+tr:Gelinlik|Düğün kıyafeti
+uk:Весільний одяг|Весільний салон
+
+shop-clothes-sports|@clothes|@category_shopping|@shop
+en:4Sports Clothes|Sportswear
+de:Sportbekleidung
+es:Ropa deportiva
+fr:Vêtements de sport
+it:Abbigliamento sportivo
+pl:Odzież sportowa
+ru:4Спортивная одежда
+tr:Spor giyim
+uk:Спортивний одяг
+
+shop-clothes-suits|@clothes|@category_shopping|@shop
+en:4Suits|Suit shop
+de:Anzüge|Anzuggeschäft
+es:Trajes|Sastrería
+fr:Costumes|Tailleurs
+it:Abiti|Vestiti
+pl:Garnitury
+ru:4Костюмы|Деловая одежда
+tr:Takım elbise
+uk:Костюми|Діловий одяг
+
+shop-clothes-hats|@clothes|@category_shopping|@shop
+en:Hats|Hat shop|Caps
+de:Hüte|Mützen|Kopfbedeckungen
+es:Sombreros|Gorras
+fr:Chapeaux|Casquettes
+it:Cappelli
+pl:Czapki|Kapelusze
+ru:Шапки|Головные уборы
+tr:Şapka|Bere
+uk:Капелюхи|Головні убори
+
+shop-clothes-fashion|@clothes|@category_shopping|@shop
+en:4Fashion|Fashion boutique
+de:Mode|Modeboutique
+es:Moda|Boutique de moda
+fr:Mode|Boutique de mode
+it:Moda|Boutique
+pl:Moda
+ru:Мода|Бутик
+tr:Moda|Butik
+uk:Мода|Бутик
 
 shop-caravan|@category_rv|@shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
@@ -8839,7 +8946,6 @@ zh-Hant:1山峰|1山脈|山|峰
 # Add at least one lang not to be skipped.
 natural-peak|@mountain
 en:Peak
-sl:Vrh
 
 natural-saddle|mountain_pass
 en:4Saddle|Pass
@@ -11782,6 +11888,17 @@ uk:Офіс
 vi:Văn phòng
 zh-Hans:办公室|公司
 zh-Hant:辦公室|1辦事處
+
+office-architect
+en:4Architect|Architecture office
+de:Architekt|Architekturbüro
+es:Arquitecto|Estudio de arquitectura
+fr:Architecte|Cabinet d'architecte
+it:Architetto|Studio di architettura
+pl:Architekt|Pracownia architektoniczna
+ru:4Архитектор|Архитектурное бюро
+tr:Mimar|Mimarlık bürosu
+uk:Архітектор|Архітектурне бюро
 
 office-company
 en:Company Office
@@ -15945,6 +16062,18 @@ vi:Núi lửa
 zh-Hans:火山
 zh-Hant:火山
 
+# Do not mix with school, college, university.
+office-educational_institution
+en:Educational Institution
+de:Bildungseinrichtung
+es:Institución educativa|Centro educativo
+fr:Établissement d'enseignement
+it:Istituto scolastico
+pl:Placówka oświatowa
+ru:Образовательное учреждение|Учебное заведение
+tr:Eğitim kurumu
+uk:Навчальний заклад
+
 office-estate_agent
 en:4Estate Agent|Realtor|4Real Estate
 ar:وكيل عقاري
@@ -18549,9 +18678,9 @@ zh-Hans:钓鱼店
 zh-Hant:釣魚店
 
 shop-interior_decoration|@shop
-en:Interior Decorations
+en:Interior Decorations|Decor
 ar:محل ديكورات داخلية
-be:Ўпрыгажэнні інтэр'еру
+be:Ўпрыгажэнні інтэр'еру|Дэкор
 bg:Вътрешни декорации|Интериор
 cs:Interiérové dekorace
 da:Indvendige dekorationer
@@ -18578,7 +18707,7 @@ pl:Dekoracje wnętrz
 pt:Decorações de Interiores
 pt-BR:Decorações de Interiores
 ro:Decoratiuni interioare
-ru:Украшения для интерьера
+ru:Украшения для интерьера|Декор
 sk:Interiérové dekorácie
 sl:Notranja oprema|Dekoracija
 sr:Уређење ентеријера|Uređenje enterijera
@@ -18586,7 +18715,7 @@ sv:Inredningsdekorationer
 sw:Mapambo ya Ndani
 th:ตกแต่งภายใน
 tr:İç Dekorasyon
-uk:Внутрішнє оздоблення
+uk:Внутрішнє оздоблення|Декор
 vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
@@ -19644,7 +19773,7 @@ zh-Hans:卫浴摆设
 zh-Hant:衛浴擺設
 
 shop-bed|@shop
-en:Bed Shop
+en:Beds|Mattresses|Pillows|Duvets|Covers
 ar:متجر الأسِرّة
 be:Крама ложкаў
 bg:Магазин за легла|легло
@@ -19674,7 +19803,7 @@ pl:Sklep z łóżkami
 pt:Loja de camas
 pt-BR:Loja de camas
 ro:Magazin de paturi
-ru:Магазин кроватей
+ru:Кровати|Постельное бельё|Матрасы|Подушки|Одеяла|Покрывала
 sk:Predajňa postelí
 sl:4Postelja|Trgovina s posteljami|Vzmetnice
 sr:Продавница кревета|Prodavnica kreveta
@@ -19843,6 +19972,17 @@ uk:Газовий магазин
 vi:Cửa hàng gas
 zh-Hans:燃气站
 zh-Hant:煤氣庫
+
+shop-games|@shop
+en:Games Shop|Board games|Tabletop games
+de:Spielegeschäft|Brettspiele
+es:Tienda de juegos|Juegos de mesa
+fr:Boutique de jeux|Jeux de société
+it:Negozio di giochi|Giochi da tavolo
+pl:Sklep z grami|Gry planszowe
+ru:Магазин игр|Настольные игры
+tr:Oyun mağazası|Masa oyunları
+uk:Магазин ігор|Настільні ігри
 
 shop-pet_grooming
 en:Pet Grooming
