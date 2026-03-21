@@ -6,7 +6,16 @@ Read the code, and follow the existing style as much as possible.
 
 For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.org/docs/ClangFormat.html).
 
-Install `clang-format` 21.0+ and make sure it's in your PATH.
+Install `clang-format` 22 or later and make sure it's in your PATH:
+- For macOS you can install it with Homebrew: `brew install clang-format`
+- For Linux you can install it with your package manager: `sudo apt install clang-format-22` and use as `clang-format-22` instead of `clang-format`
+   Ubuntu 24:
+   ```bash
+   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+   echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-22 main' | sudo tee /etc/apt/sources.list.d/ llvm-toolchain-noble-22.list
+   sudo apt-get update
+   sudo apt-get install -y clang-format-22
+   ```
 
 - To manually format a file run `clang-format -i file`.
 - To format all files in the repository run `tools/unix/clang-format.sh`

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-for binary in clang-format clang-format-21; do
+for binary in clang-format clang-format-22; do
   if command -v "$binary" >/dev/null 2>&1; then
     CLANG_FORMAT="$binary"
   fi
