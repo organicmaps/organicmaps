@@ -7,7 +7,12 @@
 
 #include "platform/location.hpp"
 
-void MoveRoute(routing::Route & route, ms::LatLon const & coords)
+namespace street_names_test
+{
+using namespace routing;
+using namespace routing::turns;
+
+void MoveRoute(Route & route, ms::LatLon const & coords)
 {
   location::GpsInfo info;
   info.m_horizontalAccuracy = 0.01;
@@ -19,13 +24,13 @@ void MoveRoute(routing::Route & route, ms::LatLon const & coords)
 
 UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 {
-  TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetVehicleComponents(routing::VehicleType::Car), mercator::FromLatLon(55.70839, 37.62145), {0., 0.},
-      mercator::FromLatLon(55.73198, 37.63945));
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(55.70839, 37.62145), {0., 0.},
+                                                               mercator::FromLatLon(55.73198, 37.63945));
 
-  routing::Route & route = *routeResult.first;
-  routing::RouterResultCode const result = routeResult.second;
-  TEST_EQUAL(result, routing::RouterResultCode::NoError, ());
+  Route & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   /// @todo https://github.com/organicmaps/organicmaps/issues/1668
   integration::TestCurrentStreetName(route, "Большая Тульская улица");
@@ -59,3 +64,4 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 
   integration::TestRouteLength(route, 3390.);
 }
+}  // namespace street_names_test

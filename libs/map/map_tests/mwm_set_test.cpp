@@ -9,7 +9,13 @@
 
 #ifndef OMIM_OS_WINDOWS
 #include <sys/stat.h>
+
+namespace mwm_set_test
+{
 #endif
+
+using namespace base;
+using namespace platform;
 
 /*
  * This test is useless because of we don't build offsets index from now.
@@ -55,3 +61,4 @@ UNIT_TEST(MwmSet_FileSystemErrors)
 }
 #endif
 */
+}  // namespace mwm_set_test

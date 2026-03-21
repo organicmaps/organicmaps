@@ -4,58 +4,62 @@
 #include "base/string_utils.hpp"
 #include "base/uni_string_dfa.hpp"
 
+namespace uni_string_dfa_test
+{
+using namespace strings;
+
 namespace
 {
 UNIT_TEST(UniStringDFA_Smoke)
 {
   {
-    strings::UniStringDFA dfa("");
+    UniStringDFA dfa("");
 
     auto it = dfa.Begin();
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "a");
+    DFAMove(it, "a");
     TEST(!it.Accepts(), ());
     TEST(it.Rejects(), ());
   }
 
   {
-    strings::UniStringDFA dfa("абв");
+    UniStringDFA dfa("абв");
 
     auto it = dfa.Begin();
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "а");
+    DFAMove(it, "а");
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "б");
+    DFAMove(it, "б");
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "в");
+    DFAMove(it, "в");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "г");
+    DFAMove(it, "г");
     TEST(!it.Accepts(), ());
     TEST(it.Rejects(), ());
   }
 
   {
-    strings::UniStringDFA dfa("абв");
+    UniStringDFA dfa("абв");
 
     auto it = dfa.Begin();
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "а");
+    DFAMove(it, "а");
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "г");
+    DFAMove(it, "г");
     TEST(!it.Accepts(), ());
     TEST(it.Rejects(), ());
   }
@@ -64,25 +68,26 @@ UNIT_TEST(UniStringDFA_Smoke)
 UNIT_TEST(UniStringDFA_Prefix)
 {
   {
-    strings::PrefixDFAModifier<strings::UniStringDFA> dfa(strings::UniStringDFA("abc"));
+    PrefixDFAModifier<UniStringDFA> dfa(UniStringDFA("abc"));
 
     auto it = dfa.Begin();
-    strings::DFAMove(it, "ab");
+    DFAMove(it, "ab");
 
     TEST(!it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "c");
+    DFAMove(it, "c");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "d");
+    DFAMove(it, "d");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
 
-    strings::DFAMove(it, "efghijk");
+    DFAMove(it, "efghijk");
     TEST(it.Accepts(), ());
     TEST(!it.Rejects(), ());
   }
 }
 }  // namespace
+}  // namespace uni_string_dfa_test

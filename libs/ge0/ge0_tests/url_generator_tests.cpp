@@ -5,19 +5,22 @@
 
 #include <string>
 
+namespace url_generator_tests
+{
+using namespace ge0;
+using namespace std;
+
 namespace
 {
 int const kTestCoordBytes = 9;
 double const kEps = 1e-10;
 }  // namespace
 
-namespace ge0
-{
-std::string TestLatLonToStr(double lat, double lon)
+string TestLatLonToStr(double lat, double lon)
 {
   static char s[kTestCoordBytes + 1] = {0};
   LatLonToString(lat, lon, s, kTestCoordBytes);
-  return std::string(s);
+  return string(s);
 }
 
 UNIT_TEST(Base64Char)
@@ -196,7 +199,7 @@ UNIT_TEST(LatLonToString_PrefixIsTheSame)
         char s[kMaxPointBytes] = {0};
         LatLonToString(lat, lon, s, len);
         prevStepS[len] = 0;
-        TEST_EQUAL(s, std::string(prevStepS), ());
+        TEST_EQUAL(s, string(prevStepS), ());
       }
     }
   }
@@ -252,97 +255,97 @@ UNIT_TEST(LatLonToString_StringDensity)
 
 UNIT_TEST(GenerateShortShowMapUrl_SmokeTest)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Name");
   TEST_EQUAL("om://8wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_NameIsEmpty)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "");
   TEST_EQUAL("om://8wAAAAAAAA", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVerySmall)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 2, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 2, "Name");
   TEST_EQUAL("om://AwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomNegative)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, -5, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, -5, "Name");
   TEST_EQUAL("om://AwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomLarge)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 20, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 20, "Name");
   TEST_EQUAL("om://_wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVeryLarge)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 2000000000, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 2000000000, "Name");
   TEST_EQUAL("om://_wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoom)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 8.25, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 8.25, "Name");
   TEST_EQUAL("om://RwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomRoundsDown)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 8.499, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 8.499, "Name");
   TEST_EQUAL("om://RwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomNextStep)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 8.5, "Name");
+  string res = GenerateShortShowMapUrl(0, 0, 8.5, "Name");
   TEST_EQUAL("om://SwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_SpaceIsReplacedWithUnderscore)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "Hello World");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Hello World");
   TEST_EQUAL("om://8wAAAAAAAA/Hello_World", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_NamesAreEscaped)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "'Hello,World!%$");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "'Hello,World!%$");
   TEST_EQUAL("om://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_UnderscoreIsReplacedWith_Percent_20)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "Hello_World");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Hello_World");
   TEST_EQUAL("om://8wAAAAAAAA/Hello%20World", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ControlCharsAreEscaped)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "Hello\tWorld\n");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Hello\tWorld\n");
   TEST_EQUAL("om://8wAAAAAAAA/Hello%09World%0A", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_Unicode)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "\xe2\x98\x84");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "\xe2\x98\x84");
   TEST_EQUAL("om://8wAAAAAAAA/\xe2\x98\x84", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
 {
-  std::string res = GenerateShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc");
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc");
   TEST_EQUAL("om://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
 }
 
 UNIT_TEST(GenerateGeoUri_SmokeTest)
 {
-  std::string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
+  string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
   TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5&q=33.8904075,35.5066454(Falafel%20M.%20Sahyoun)", res, ());
 
   // geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)
@@ -357,4 +360,4 @@ UNIT_TEST(GenerateGeoUri_SmokeTest)
   TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
 }
 
-}  // namespace ge0
+}  // namespace url_generator_tests

@@ -7,10 +7,14 @@
 #include <random>
 #include <string>
 
+namespace hex_test
+{
+using namespace std;
+
 UNIT_TEST(GoldenRecode)
 {
-  std::string data("\x01\x23\x45\x67\x89\xAB\xCD\xEF");
-  std::string hexData("0123456789ABCDEF");
+  string data("\x01\x23\x45\x67\x89\xAB\xCD\xEF");
+  string hexData("0123456789ABCDEF");
 
   TEST_EQUAL(ToHex(data), hexData, ());
   TEST_EQUAL(data, FromHex(hexData), ());
@@ -18,10 +22,10 @@ UNIT_TEST(GoldenRecode)
 
 UNIT_TEST(RandomRecode)
 {
-  std::mt19937 rng(0);
+  mt19937 rng(0);
   for (size_t i = 0; i < 256; ++i)
   {
-    std::string data(1 + (rng() % 20), 0);
+    string data(1 + (rng() % 20), 0);
     for (size_t j = 0; j < data.size(); ++j)
       data[j] = static_cast<char>(rng() % 26) + 'A';
     TEST_EQUAL(data, FromHex(ToHex(data)), ());
@@ -40,7 +44,7 @@ UNIT_TEST(DecodeLowerCaseHex)
 
 UNIT_TEST(EncodeEmptyString)
 {
-  TEST_EQUAL(ToHex(std::string()), "", ());
+  TEST_EQUAL(ToHex(string()), "", ());
 }
 
 UNIT_TEST(DecodeEmptyString)
@@ -58,3 +62,4 @@ UNIT_TEST(FromHex_InvalidInput)
   TEST_EQUAL(FromHex("0"), "", ());
   TEST_EQUAL(FromHex("012"), "", ());
 }
+}  // namespace hex_test

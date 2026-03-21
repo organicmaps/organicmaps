@@ -18,6 +18,10 @@
 #include <memory>
 #include <vector>
 
+namespace reporter_test
+{
+using namespace std;
+using namespace std::chrono;
 using namespace tracking;
 using namespace platform::tests_support;
 
@@ -34,7 +38,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   reporter.AddLocation(gpsInfo, traffic::SpeedGroup::Unknown);
 
   using Packet = tracking::Protocol::PacketType;
-  std::vector<uint8_t> buffer;
+  vector<uint8_t> buffer;
   size_t readSize = 0;
   size_t attempts = 3;
   do
@@ -62,7 +66,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   while (readSize);
 
   TEST(!buffer.empty(), ());
-  std::vector<coding::TrafficGPSEncoder::DataPoint> points;
+  vector<coding::TrafficGPSEncoder::DataPoint> points;
   MemReader memReader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(memReader);
   src.Skip(sizeof(uint32_t /* header */));
@@ -79,26 +83,27 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
 UNIT_TEST(Reporter_Smoke)
 {
   {
-    std::unique_ptr<platform::Socket> socket;
-    Reporter reporter(std::move(socket), "localhost", 0, std::chrono::milliseconds(10) /* pushDelay */);
+    unique_ptr<platform::Socket> socket;
+    Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   }
   {
-    auto socket = std::make_unique<TestSocket>();
-    Reporter reporter(std::move(socket), "localhost", 0, std::chrono::milliseconds(10) /* pushDelay */);
+    auto socket = make_unique<TestSocket>();
+    Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   }
   {
     auto socket = platform::CreateSocket();
-    Reporter reporter(std::move(socket), "localhost", 0, std::chrono::milliseconds(10) /* pushDelay */);
+    Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   }
 }
 
 UNIT_TEST(Reporter_TransferLocations)
 {
-  auto socket = std::make_unique<TestSocket>();
+  auto socket = make_unique<TestSocket>();
   TestSocket & testSocket = *socket.get();
 
-  Reporter reporter(std::move(socket), "localhost", 0, std::chrono::milliseconds(10) /* pushDelay */);
+  Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   TransferLocation(reporter, testSocket, 1.0, 2.0, 3.0);
   TransferLocation(reporter, testSocket, 4.0, 5.0, 6.0);
   TransferLocation(reporter, testSocket, 7.0, 8.0, 9.0);
 }
+}  // namespace reporter_test

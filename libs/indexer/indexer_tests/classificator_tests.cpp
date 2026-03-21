@@ -9,7 +9,10 @@
 #include <string>
 #include <vector>
 
-using generator::tests_support::TestWithClassificator;
+namespace classificator_tests
+{
+using namespace generator::tests_support;
+using namespace std;
 
 UNIT_CLASS_TEST(TestWithClassificator, Classificator_GetType)
 {
@@ -55,7 +58,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_Subtree)
 
   uint32_t const cityType = c.GetTypeByPath({"place", "city"});
 
-  std::vector<std::vector<std::string>> const expectedPaths = {
+  vector<vector<string>> const expectedPaths = {
       {"place", "city"},
       {"place", "city", "capital"},
       {"place", "city", "capital", "2"},
@@ -70,14 +73,14 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_Subtree)
       {"place", "city", "capital", "11"},
   };
 
-  std::vector<uint32_t> expectedTypes;
+  vector<uint32_t> expectedTypes;
   for (auto const & path : expectedPaths)
     expectedTypes.push_back(classif().GetTypeByPath(path));
-  std::sort(expectedTypes.begin(), expectedTypes.end());
+  sort(expectedTypes.begin(), expectedTypes.end());
 
-  std::vector<uint32_t> subtreeTypes;
+  vector<uint32_t> subtreeTypes;
   c.ForEachInSubtree([&subtreeTypes](uint32_t type) { subtreeTypes.push_back(type); }, cityType);
-  std::sort(subtreeTypes.begin(), subtreeTypes.end());
+  sort(subtreeTypes.begin(), subtreeTypes.end());
 
   TEST_EQUAL(expectedTypes, subtreeTypes, ());
 }
@@ -101,3 +104,4 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
   TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ());  // Restored underground-fee
   TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
 }
+}  // namespace classificator_tests

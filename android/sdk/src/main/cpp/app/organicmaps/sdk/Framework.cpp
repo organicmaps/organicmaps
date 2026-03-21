@@ -115,13 +115,14 @@ enum MultiTouchAction
 
 Framework::Framework(std::function<void()> && afterMapsLoaded) : m_work({} /* params */, false /* loadMaps */)
 {
+  using std::placeholders::_1;
   m_work.LoadMapsAsync(std::move(afterMapsLoaded));
 
-  m_work.GetTrafficManager().SetStateListener(std::bind(&Framework::TrafficStateChanged, this, std::placeholders::_1));
+  m_work.GetTrafficManager().SetStateListener(std::bind(&Framework::TrafficStateChanged, this, _1));
   m_work.GetTransitManager().SetStateListener(
-      std::bind(&Framework::TransitSchemeStateChanged, this, std::placeholders::_1));
+      std::bind(&Framework::TransitSchemeStateChanged, this, _1));
   m_work.GetIsolinesManager().SetStateListener(
-      std::bind(&Framework::IsolinesSchemeStateChanged, this, std::placeholders::_1));
+      std::bind(&Framework::IsolinesSchemeStateChanged, this, _1));
   m_work.GetPowerManager().Subscribe(this);
 }
 
@@ -182,6 +183,8 @@ bool Framework::DestroySurfaceOnDetach()
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                                   bool launchByDeepLink, uint32_t appVersionCode, bool isCustomROM)
 {
+  using std::placeholders::_1;
+  using std::placeholders::_2;
   // Vulkan is supported only since Android 8.0, because some Android devices with Android 7.x
   // have fatal driver issue, which can lead to process termination and whole OS destabilization.
   int constexpr kMinSdkVersionForVulkan = 26;
@@ -245,7 +248,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_widgetsInitInfo = m_guiPositions;
 
   m_work.SetMyPositionModeListener(
-      std::bind(&Framework::MyPositionModeChanged, this, std::placeholders::_1, std::placeholders::_2));
+      std::bind(&Framework::MyPositionModeChanged, this, _1, _2));
 
   if (m_vulkanContextFactory)
     m_work.CreateDrapeEngine(make_ref(m_vulkanContextFactory), std::move(p));

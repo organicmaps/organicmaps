@@ -10,12 +10,16 @@
 #include <random>
 #include <vector>
 
+namespace file_sort_test
+{
+using namespace std;
+
 namespace
 {
-void TestFileSorter(std::vector<uint32_t> & data, char const * tmpFileName, size_t bufferSize)
+void TestFileSorter(vector<uint32_t> & data, char const * tmpFileName, size_t bufferSize)
 {
-  std::vector<char> serial;
-  typedef MemWriter<std::vector<char>> MemWriterType;
+  vector<char> serial;
+  typedef MemWriter<vector<char>> MemWriterType;
   MemWriterType writer(serial);
   typedef WriterFunctor<MemWriterType> OutT;
   OutT out(writer);
@@ -25,10 +29,10 @@ void TestFileSorter(std::vector<uint32_t> & data, char const * tmpFileName, size
   sorter.SortAndFinish();
 
   TEST_EQUAL(serial.size(), data.size() * sizeof(data[0]), ());
-  std::sort(data.begin(), data.end());
+  sort(data.begin(), data.end());
   MemReader reader(&serial[0], serial.size());
   TEST_EQUAL(reader.Size(), data.size() * sizeof(data[0]), ());
-  std::vector<uint32_t> result(data.size());
+  vector<uint32_t> result(data.size());
   reader.Read(0, &result[0], reader.Size());
   TEST_EQUAL(result, data, ());
 }
@@ -36,7 +40,7 @@ void TestFileSorter(std::vector<uint32_t> & data, char const * tmpFileName, size
 
 UNIT_TEST(FileSorter_Smoke)
 {
-  std::vector<uint32_t> data;
+  vector<uint32_t> data;
   data.push_back(2);
   data.push_back(3);
   data.push_back(1);
@@ -46,10 +50,11 @@ UNIT_TEST(FileSorter_Smoke)
 
 UNIT_TEST(FileSorter_Random)
 {
-  std::mt19937 rng(0);
-  std::vector<uint32_t> data(1000);
+  mt19937 rng(0);
+  vector<uint32_t> data(1000);
   for (size_t i = 0; i < data.size(); ++i)
     data[i] = ((i + 1 % 100) ? rng() : data[i - 20]);
 
   TestFileSorter(data, "file_sorter_test_random.tmp", data.size() / 10);
 }
+}  // namespace file_sort_test

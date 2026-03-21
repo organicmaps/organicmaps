@@ -21,9 +21,14 @@
 #include <utility>
 #include <vector>
 
+namespace centers_table_test
+{
+using namespace search;
+using namespace std;
+
 namespace
 {
-using TBuffer = std::vector<uint8_t>;
+using TBuffer = vector<uint8_t>;
 
 struct CentersTableTest
 {
@@ -32,14 +37,14 @@ struct CentersTableTest
 
 UNIT_CLASS_TEST(CentersTableTest, Smoke)
 {
-  std::string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
+  string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
 
   FeaturesVectorTest fv(kMap);
 
   TBuffer buffer;
 
   {
-    search::CentersTableBuilder builder;
+    CentersTableBuilder builder;
     feature::DataHeader header(kMap);
 
     builder.SetGeometryParams(header.GetBounds());
@@ -51,7 +56,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
 
   {
     MemReader reader(buffer.data(), buffer.size());
-    auto table = search::CentersTable::LoadV1(reader);
+    auto table = CentersTable::LoadV1(reader);
     TEST(table.get(), ());
 
     fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id)
@@ -68,7 +73,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
 
 UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 {
-  std::string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
+  string const kMap = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
 
   FeaturesVectorTest fv(kMap);
 
@@ -78,7 +83,7 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
   TBuffer buffer;
 
   {
-    search::CentersTableBuilder builder;
+    CentersTableBuilder builder;
 
     builder.SetGeometryCodingParamsV0ForTests(codingParams);
     fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id) { builder.PutV0ForTests(id, feature::GetCenter(ft)); });
@@ -89,7 +94,7 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 
   {
     MemReader reader(buffer.data(), buffer.size());
-    auto table = search::CentersTable::LoadV0(reader, codingParams);
+    auto table = CentersTable::LoadV0(reader, codingParams);
     TEST(table.get(), ());
 
     fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id)
@@ -106,12 +111,12 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 
 UNIT_CLASS_TEST(CentersTableTest, Subset)
 {
-  std::vector<std::pair<uint32_t, m2::PointD>> const features = {
+  vector<pair<uint32_t, m2::PointD>> const features = {
       {1, m2::PointD(0.0, 0.0)}, {5, m2::PointD(1.0, 1.0)}, {10, m2::PointD(2.0, 2.0)}};
 
   TBuffer buffer;
   {
-    search::CentersTableBuilder builder;
+    CentersTableBuilder builder;
 
     builder.SetGeometryParams({{0.0, 0.0}, {2.0, 2.0}});
     for (auto const & feature : features)
@@ -123,11 +128,11 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
 
   {
     MemReader reader(buffer.data(), buffer.size());
-    auto table = search::CentersTable::LoadV1(reader);
+    auto table = CentersTable::LoadV1(reader);
     TEST(table.get(), ());
 
     uint32_t i = 0;
-    std::size_t j = 0;
+    size_t j = 0;
 
     while (i < 100)
     {
@@ -151,3 +156,4 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
   }
 }
 }  // namespace
+}  // namespace centers_table_test

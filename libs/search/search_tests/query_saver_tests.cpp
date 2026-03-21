@@ -5,20 +5,23 @@
 #include <list>
 #include <string>
 
+namespace query_saver_tests
+{
+using namespace search;
+using namespace std;
+
 namespace
 {
-search::QuerySaver::SearchRequest const record1("RU_ru", "test record1");
-search::QuerySaver::SearchRequest const record2("En_us", "sometext");
+QuerySaver::SearchRequest const record1("RU_ru", "test record1");
+QuerySaver::SearchRequest const record2("En_us", "sometext");
 }  // namespace
 
-namespace search
-{
 UNIT_TEST(QuerySaverFogTest)
 {
   QuerySaver saver;
   saver.Clear();
   saver.Add(record1);
-  std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+  list<QuerySaver::SearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 1, ());
   TEST_EQUAL(result.front(), record1, ());
   saver.Clear();
@@ -41,14 +44,14 @@ UNIT_TEST(QuerySaverOrderingTest)
   saver.Add(record1);
   saver.Add(record2);
   {
-    std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+    list<QuerySaver::SearchRequest> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.back(), record1, ());
     TEST_EQUAL(result.front(), record2, ());
   }
   saver.Add(record1);
   {
-    std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+    list<QuerySaver::SearchRequest> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.front(), record1, ());
     TEST_EQUAL(result.back(), record2, ());
@@ -62,14 +65,14 @@ UNIT_TEST(QuerySaverSerializerTest)
   saver.Clear();
   saver.Add(record1);
   saver.Add(record2);
-  std::string data;
+  string data;
   saver.Serialize(data);
   TEST_GREATER(data.size(), 0, ());
   saver.Clear();
   TEST_EQUAL(saver.Get().size(), 0, ());
   saver.Deserialize(data);
 
-  std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+  list<QuerySaver::SearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 2, ());
   TEST_EQUAL(result.back(), record1, ());
   TEST_EQUAL(result.front(), record2, ());
@@ -78,7 +81,7 @@ UNIT_TEST(QuerySaverSerializerTest)
 UNIT_TEST(QuerySaverCorruptedStringTest)
 {
   QuerySaver saver;
-  std::string corrupted("DEADBEEF");
+  string corrupted("DEADBEEF");
   bool exceptionThrown = false;
   try
   {
@@ -88,7 +91,7 @@ UNIT_TEST(QuerySaverCorruptedStringTest)
   {
     exceptionThrown = true;
   }
-  std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+  list<QuerySaver::SearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 0, ());
   TEST(exceptionThrown, ());
 }
@@ -103,7 +106,7 @@ UNIT_TEST(QuerySaverPersistanceStore)
   }
   {
     QuerySaver saver;
-    std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+    list<QuerySaver::SearchRequest> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.back(), record1, ());
     TEST_EQUAL(result.front(), record2, ());
@@ -116,13 +119,13 @@ UNIT_TEST(QuerySaverTrimRequestTest)
   QuerySaver saver;
   saver.Clear();
 
-  search::QuerySaver::SearchRequest const rec1("RU_ru", "test record1");
-  search::QuerySaver::SearchRequest const rec2("RU_ru", "test record1 ");
+  QuerySaver::SearchRequest const rec1("RU_ru", "test record1");
+  QuerySaver::SearchRequest const rec2("RU_ru", "test record1 ");
 
   saver.Add(rec1);
   saver.Add(rec2);
 
-  std::list<QuerySaver::SearchRequest> const & result = saver.Get();
+  list<QuerySaver::SearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 1, ());
   TEST_EQUAL(result.front(), rec2, ());
   saver.Clear();
@@ -134,4 +137,4 @@ UNIT_TEST(QuerySaverTrimRequestTest)
   TEST_EQUAL(result.front(), rec1, ());
   saver.Clear();
 }
-}  // namespace search
+}  // namespace query_saver_tests

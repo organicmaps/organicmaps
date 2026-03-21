@@ -9,43 +9,48 @@
 #include <random>
 #include <string>
 
+namespace bwt_coder_tests
+{
+using namespace coding;
+using namespace std;
+
 namespace
 {
-std::string EncodeDecode(coding::BWTCoder::Params const & params, std::string const & s)
+string EncodeDecode(BWTCoder::Params const & params, string const & s)
 {
-  std::vector<uint8_t> data;
+  vector<uint8_t> data;
 
   {
     MemWriter<decltype(data)> sink(data);
-    coding::BWTCoder::EncodeAndWrite(params, sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
+    BWTCoder::EncodeAndWrite(params, sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
   }
 
-  std::string result;
+  string result;
   {
     MemReader reader(data.data(), data.size());
     ReaderSource<MemReader> source(reader);
 
-    coding::BWTCoder::ReadAndDecode(source, std::back_inserter(result));
+    BWTCoder::ReadAndDecode(source, back_inserter(result));
   }
 
   return result;
 }
 
-std::string EncodeDecodeBlock(std::string const & s)
+string EncodeDecodeBlock(string const & s)
 {
-  std::vector<uint8_t> data;
+  vector<uint8_t> data;
 
   {
     MemWriter<decltype(data)> sink(data);
-    coding::BWTCoder::EncodeAndWriteBlock(sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
+    BWTCoder::EncodeAndWriteBlock(sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
   }
 
-  std::string result;
+  string result;
   {
     MemReader reader(data.data(), data.size());
     ReaderSource<MemReader> source(reader);
 
-    auto const buffer = coding::BWTCoder::ReadAndDecodeBlock(source);
+    auto const buffer = BWTCoder::ReadAndDecodeBlock(source);
     result.assign(buffer.begin(), buffer.end());
   }
 
@@ -56,28 +61,28 @@ UNIT_TEST(BWTEncoder_Smoke)
 {
   for (size_t blockSize = 1; blockSize < 100; ++blockSize)
   {
-    coding::BWTCoder::Params params;
+    BWTCoder::Params params;
 
     params.m_blockSize = blockSize;
-    std::string const s = "abracadabra";
+    string const s = "abracadabra";
     TEST_EQUAL(s, EncodeDecodeBlock(s), ());
     TEST_EQUAL(s, EncodeDecode(params, s), (blockSize));
   }
 
-  std::string const strings[] = {"", "mississippi", "again and again and again"};
+  string const strings[] = {"", "mississippi", "again and again and again"};
   for (auto const & s : strings)
   {
     TEST_EQUAL(s, EncodeDecodeBlock(s), ());
-    TEST_EQUAL(s, EncodeDecode(coding::BWTCoder::Params{}, s), ());
+    TEST_EQUAL(s, EncodeDecode(BWTCoder::Params{}, s), ());
   }
 }
 
 UNIT_TEST(BWT_Large)
 {
-  std::string s;
+  string s;
   for (size_t i = 0; i < 10000; ++i)
     s += "mississippi";
-  TEST_EQUAL(s, EncodeDecode(coding::BWTCoder::Params{}, s), ());
+  TEST_EQUAL(s, EncodeDecode(BWTCoder::Params{}, s), ());
 }
 
 UNIT_TEST(BWT_AllBytes)
@@ -86,10 +91,10 @@ UNIT_TEST(BWT_AllBytes)
   int kMin = 1;
   int kMax = 1000;
 
-  std::mt19937 engine(kSeed);
-  std::uniform_int_distribution<int> uid(kMin, kMax);
+  mt19937 engine(kSeed);
+  uniform_int_distribution<int> uid(kMin, kMax);
 
-  std::string s;
+  string s;
   for (size_t i = 0; i < 256; ++i)
   {
     auto const count = uid(engine);
@@ -98,7 +103,8 @@ UNIT_TEST(BWT_AllBytes)
     for (int j = 0; j < count; ++j)
       s.push_back(static_cast<uint8_t>(i));
   }
-  std::shuffle(s.begin(), s.end(), engine);
-  TEST_EQUAL(s, EncodeDecode(coding::BWTCoder::Params{}, s), ());
+  shuffle(s.begin(), s.end(), engine);
+  TEST_EQUAL(s, EncodeDecode(BWTCoder::Params{}, s), ());
 }
 }  // namespace
+}  // namespace bwt_coder_tests

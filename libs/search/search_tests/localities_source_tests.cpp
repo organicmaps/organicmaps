@@ -11,13 +11,16 @@
 #include <string>
 #include <vector>
 
+namespace localities_source_tests
+{
+using namespace std;
 using generator::tests_support::TestWithClassificator;
 
 UNIT_CLASS_TEST(TestWithClassificator, Smoke)
 {
   search::LocalitiesSource ls;
 
-  std::vector<std::vector<std::string>> const expectedPaths = {
+  vector<vector<string>> const expectedPaths = {
       {"place", "town"},
       {"place", "city"},
       {"place", "city", "capital"},
@@ -33,14 +36,15 @@ UNIT_CLASS_TEST(TestWithClassificator, Smoke)
       {"place", "city", "capital", "11"},
   };
 
-  std::vector<uint32_t> expectedTypes;
+  vector<uint32_t> expectedTypes;
   for (auto const & path : expectedPaths)
     expectedTypes.push_back(classif().GetTypeByPath(path));
-  std::sort(expectedTypes.begin(), expectedTypes.end());
+  sort(expectedTypes.begin(), expectedTypes.end());
 
-  std::vector<uint32_t> localitiesSourceTypes;
+  vector<uint32_t> localitiesSourceTypes;
   ls.ForEachType([&localitiesSourceTypes](uint32_t type) { localitiesSourceTypes.push_back(type); });
-  std::sort(localitiesSourceTypes.begin(), localitiesSourceTypes.end());
+  sort(localitiesSourceTypes.begin(), localitiesSourceTypes.end());
 
   TEST_EQUAL(expectedTypes, localitiesSourceTypes, ());
 }
+}  // namespace localities_source_tests

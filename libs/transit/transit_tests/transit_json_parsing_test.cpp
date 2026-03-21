@@ -12,50 +12,53 @@
 #include <utility>
 #include <vector>
 
+namespace transit_json_parsing_test
+{
+using namespace routing;
+using namespace routing::transit;
+using namespace std;
+
 namespace
 {
 template <typename Obj>
-void TestDeserializerFromJson(std::string const & jsonBuffer,
-                              routing::transit::OsmIdToFeatureIdsMap const & osmIdToFeatureIds,
-                              std::string const & name, std::vector<Obj> const & expected)
+void TestDeserializerFromJson(string const & jsonBuffer, OsmIdToFeatureIdsMap const & osmIdToFeatureIds,
+                              string const & name, vector<Obj> const & expected)
 {
   base::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));
 
-  routing::transit::DeserializerFromJson deserializer(root.get(), osmIdToFeatureIds);
+  DeserializerFromJson deserializer(root.get(), osmIdToFeatureIds);
 
-  std::vector<Obj> objects;
+  vector<Obj> objects;
   deserializer(objects, name.c_str());
 
   TEST_EQUAL(objects.size(), expected.size(), ());
-  routing::transit::TestForEquivalence(objects, expected);
+  TestForEquivalence(objects, expected);
 }
 
 template <typename Obj>
-void TestDeserializerFromJson(std::string const & jsonBuffer, std::string const & name,
-                              std::vector<Obj> const & expected)
+void TestDeserializerFromJson(string const & jsonBuffer, string const & name, vector<Obj> const & expected)
 {
-  return TestDeserializerFromJson(jsonBuffer, routing::transit::OsmIdToFeatureIdsMap(), name, expected);
+  return TestDeserializerFromJson(jsonBuffer, OsmIdToFeatureIdsMap(), name, expected);
 }
 
 UNIT_TEST(DeserializerFromJson_TitleAnchors)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "title_anchors": [
     { "min_zoom": 11, "anchor": 4 },
     { "min_zoom": 14, "anchor": 6 }
   ]})";
 
-  std::vector<routing::transit::TitleAnchor> expected = {
-      routing::transit::TitleAnchor(11 /* min zoom */, 4 /* anchor */),
-      routing::transit::TitleAnchor(14 /* min zoom */, 6 /* anchor */)};
+  vector<TitleAnchor> expected = {TitleAnchor(11 /* min zoom */, 4 /* anchor */),
+                                  TitleAnchor(14 /* min zoom */, 6 /* anchor */)};
   TestDeserializerFromJson(jsonBuffer, "title_anchors", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Stops)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "stops": [{
       "id": 343259523,
@@ -88,24 +91,22 @@ UNIT_TEST(DeserializerFromJson_Stops)
     }
   ]})";
 
-  std::vector<routing::transit::Stop> const expected = {
-      routing::transit::Stop(343259523 /* id */, 1234 /* osm id */, 1 /* feature id */,
-                             routing::transit::kInvalidTransferId /* transfer id */, {19207936, 19207937} /* lineIds */,
-                             {27.4970954, 64.20146835878187} /* point */, {} /* anchors */),
-      routing::transit::Stop(
-          266680843 /* id */, 2345 /* osm id */, 2 /* feature id */, 5 /* transfer id */,
-          {19213568, 19213569} /* line ids */, {27.5227942, 64.25206634443111} /* point */,
-          {routing::transit::TitleAnchor(12 /* min zoom */, 0 /* anchor */), routing::transit::TitleAnchor(15, 9)})};
+  vector<Stop> const expected = {
+      Stop(343259523 /* id */, 1234 /* osm id */, 1 /* feature id */, kInvalidTransferId /* transfer id */,
+           {19207936, 19207937} /* lineIds */, {27.4970954, 64.20146835878187} /* point */, {} /* anchors */),
+      Stop(266680843 /* id */, 2345 /* osm id */, 2 /* feature id */, 5 /* transfer id */,
+           {19213568, 19213569} /* line ids */, {27.5227942, 64.25206634443111} /* point */,
+           {TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 9)})};
 
-  routing::transit::OsmIdToFeatureIdsMap mapping;
-  mapping[base::GeoObjectId(1234)] = std::vector<routing::transit::FeatureId>({1});
-  mapping[base::GeoObjectId(2345)] = std::vector<routing::transit::FeatureId>({2});
+  OsmIdToFeatureIdsMap mapping;
+  mapping[base::GeoObjectId(1234)] = vector<FeatureId>({1});
+  mapping[base::GeoObjectId(2345)] = vector<FeatureId>({2});
   TestDeserializerFromJson(jsonBuffer, mapping, "stops", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Gates)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "gates": [
     {
@@ -132,23 +133,22 @@ UNIT_TEST(DeserializerFromJson_Gates)
     }
   ]})";
 
-  std::vector<routing::transit::Gate> const expected = {
-      routing::transit::Gate(46116860 /* osm id */, 0 /* feature id */, true /* entrance */, true /* exit */,
-                             60 /* weight */, {442018474} /* stop ids */, {43.8594864, 68.33320554776377} /* point */),
-      routing::transit::Gate(18446744073709551615ULL /* osm id */, 2 /* feature id */, true /* entrance */,
-                             true /* exit */, 60 /* weight */, {442018465} /* stop ids */,
-                             {43.9290544, 68.41120791512581} /* point */)};
+  vector<Gate> const expected = {
+      Gate(46116860 /* osm id */, 0 /* feature id */, true /* entrance */, true /* exit */, 60 /* weight */,
+           {442018474} /* stop ids */, {43.8594864, 68.33320554776377} /* point */),
+      Gate(18446744073709551615ULL /* osm id */, 2 /* feature id */, true /* entrance */, true /* exit */,
+           60 /* weight */, {442018465} /* stop ids */, {43.9290544, 68.41120791512581} /* point */)};
 
-  routing::transit::OsmIdToFeatureIdsMap mapping;
-  mapping[base::GeoObjectId(46116860)] = std::vector<routing::transit::FeatureId>({0});
+  OsmIdToFeatureIdsMap mapping;
+  mapping[base::GeoObjectId(46116860)] = vector<FeatureId>({0});
   // Note. std::numeric_limits<uint64_t>::max() == 18446744073709551615
-  mapping[base::GeoObjectId(18446744073709551615ULL)] = std::vector<routing::transit::FeatureId>({2});
+  mapping[base::GeoObjectId(18446744073709551615ULL)] = vector<FeatureId>({2});
   TestDeserializerFromJson(jsonBuffer, mapping, "gates", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Edges)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "edges": [
     {
@@ -177,20 +177,18 @@ UNIT_TEST(DeserializerFromJson_Edges)
     }
   ]})";
 
-  std::vector<routing::transit::Edge> const expected = {
-      routing::transit::Edge(
-          442018444 /* stop 1 id */, 442018445 /* stop 2 id */, routing::transit::kInvalidWeight /* weight */,
-          72551680 /* line id */, false /* transfer */,
-          {routing::transit::ShapeId(209186407, 209186410), routing::transit::ShapeId(209186408, 209186411)}),
-      routing::transit::Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345 /* weight */,
-                             72551680 /* line id */, false /* transfer */, {} /* shape ids */)};
+  vector<Edge> const expected = {
+      Edge(442018444 /* stop 1 id */, 442018445 /* stop 2 id */, kInvalidWeight /* weight */, 72551680 /* line id */,
+           false /* transfer */, {ShapeId(209186407, 209186410), ShapeId(209186408, 209186411)}),
+      Edge(442018445 /* stop 1 id */, 442018446 /* stop 2 id */, 345 /* weight */, 72551680 /* line id */,
+           false /* transfer */, {} /* shape ids */)};
 
   TestDeserializerFromJson(jsonBuffer, "edges", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Transfers)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "transfers": [
     {
@@ -206,16 +204,15 @@ UNIT_TEST(DeserializerFromJson_Transfers)
     }
   ]})";
 
-  std::vector<routing::transit::Transfer> const expected = {
-      routing::transit::Transfer(922337203 /* stop id */, {27.5619844, 64.24325959173672} /* point */,
-                                 {209186416, 277039518} /* stopIds */, {} /* anchors */)};
+  vector<Transfer> const expected = {Transfer(922337203 /* stop id */, {27.5619844, 64.24325959173672} /* point */,
+                                              {209186416, 277039518} /* stopIds */, {} /* anchors */)};
 
   TestDeserializerFromJson(jsonBuffer, "transfers", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Lines)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "lines": [
     {
@@ -254,23 +251,21 @@ UNIT_TEST(DeserializerFromJson_Lines)
     }
   ]})";
 
-  std::vector<routing::transit::Line> const expected = {
-      routing::transit::Line(19207936 /* line id */, "1" /* number */, "Московская линия" /* title */,
-                             "subway" /* type */, "green" /* color */, 2 /* network id */,
-                             {{343262691, 343259523, 343252898, 209191847, 2947858576}} /* stop ids */,
-                             150 /* interval */),
-      routing::transit::Line(
-          19207937 /* line id */, "2" /* number */, "Московская линия" /* title */, "subway" /* type */,
-          "red" /* color */, 2 /* network id */,
-          {{246659391, 246659390, 209191855, 209191854, 209191853, 209191852, 209191851}} /* stop ids */,
-          150 /* interval */)};
+  vector<Line> const expected = {
+      Line(19207936 /* line id */, "1" /* number */, "Московская линия" /* title */, "subway" /* type */,
+           "green" /* color */, 2 /* network id */,
+           {{343262691, 343259523, 343252898, 209191847, 2947858576}} /* stop ids */, 150 /* interval */),
+      Line(19207937 /* line id */, "2" /* number */, "Московская линия" /* title */, "subway" /* type */,
+           "red" /* color */, 2 /* network id */,
+           {{246659391, 246659390, 209191855, 209191854, 209191853, 209191852, 209191851}} /* stop ids */,
+           150 /* interval */)};
 
   TestDeserializerFromJson(jsonBuffer, "lines", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Shapes)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "shapes": [
     {
@@ -315,22 +310,21 @@ UNIT_TEST(DeserializerFromJson_Shapes)
     }
   ]})";
 
-  std::vector<routing::transit::Shape> const expected = {
-      routing::transit::Shape(
-          routing::transit::ShapeId(209186424 /* stop 1 id */, 248520179 /* stop 2 id */),
-          {m2::PointD(27.5762295, 64.256768574044699), m2::PointD(27.576325736220355, 64.256879325696005),
-           m2::PointD(27.576420780761875, 64.256990221238539),
-           m2::PointD(27.576514659541523, 64.257101255242176)} /* polyline */),
-      routing::transit::Shape(routing::transit::ShapeId(209191850 /* stop 1 id */, 209191851 /* stop 2 id */),
-                              {m2::PointD(27.554025800000002, 64.250591911669844),
-                               m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
+  vector<Shape> const expected = {
+      Shape(ShapeId(209186424 /* stop 1 id */, 248520179 /* stop 2 id */),
+            {m2::PointD(27.5762295, 64.256768574044699), m2::PointD(27.576325736220355, 64.256879325696005),
+             m2::PointD(27.576420780761875, 64.256990221238539),
+             m2::PointD(27.576514659541523, 64.257101255242176)} /* polyline */),
+      Shape(ShapeId(209191850 /* stop 1 id */, 209191851 /* stop 2 id */),
+            {m2::PointD(27.554025800000002, 64.250591911669844),
+             m2::PointD(27.553906184631536, 64.250633404586054)} /* polyline */)};
 
   TestDeserializerFromJson(jsonBuffer, "shapes", expected);
 }
 
 UNIT_TEST(DeserializerFromJson_Networks)
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "networks": [
     {
@@ -339,8 +333,8 @@ UNIT_TEST(DeserializerFromJson_Networks)
     }
   ]})";
 
-  std::vector<routing::transit::Network> const expected = {
-      routing::transit::Network(2 /* network id */, "Минский метрополитен" /* title */)};
+  vector<Network> const expected = {Network(2 /* network id */, "Минский метрополитен" /* title */)};
   TestDeserializerFromJson(jsonBuffer, "networks", expected);
 }
 }  // namespace
+}  // namespace transit_json_parsing_test

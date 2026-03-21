@@ -15,11 +15,16 @@
 
 #ifndef OMIM_OS_WINDOWS
 #include <unistd.h>  // _SC_PAGESIZE
+
+namespace files_container_tests
+{
 #endif
+
+using namespace std;
 
 UNIT_TEST(FilesContainer_Smoke)
 {
-  std::string const fName = "files_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
   size_t const count = 10;
 
@@ -80,7 +85,7 @@ UNIT_TEST(FilesContainer_Smoke)
 
 namespace
 {
-void CheckInvariant(FilesContainerR & reader, std::string const & tag, int64_t test)
+void CheckInvariant(FilesContainerR & reader, string const & tag, int64_t test)
 {
   FilesContainerR::TReader r = reader.GetReader(tag);
   TEST_EQUAL(test, ReadPrimitiveFromPos<int64_t>(r, 0), ());
@@ -89,7 +94,7 @@ void CheckInvariant(FilesContainerR & reader, std::string const & tag, int64_t t
 
 UNIT_TEST(FilesContainer_Shared)
 {
-  std::string const fName = "files_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
 
   uint32_t const count = 10;
@@ -145,14 +150,14 @@ UNIT_TEST(FilesContainer_Shared)
 
 namespace
 {
-void ReplaceInContainer(std::string const & fName, char const * key, char const * value)
+void ReplaceInContainer(string const & fName, char const * key, char const * value)
 {
   FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
   auto w = writer.GetWriter(key);
   w->Write(value, strlen(value));
 }
 
-void CheckContainer(std::string const & fName, char const * key[], char const * value[], size_t count)
+void CheckContainer(string const & fName, char const * key[], char const * value[], size_t count)
 {
   FilesContainerR reader(fName);
   LOG(LINFO, ("Size=", reader.GetFileSize()));
@@ -175,7 +180,7 @@ void CheckContainer(std::string const & fName, char const * key[], char const * 
 
 UNIT_TEST(FilesContainer_RewriteExisting)
 {
-  std::string const fName = "files_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
 
   char const * key[] = {"3", "2", "1"};
@@ -215,7 +220,7 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
 UNIT_TEST(FilesContainer_ConsecutiveRewriteExisting)
 {
-  std::string const fName = "files_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
 
   char const * key[] = {"3", "2", "1"};
@@ -256,8 +261,8 @@ UNIT_TEST(FilesContainer_ConsecutiveRewriteExisting)
 
 UNIT_TEST(FilesMappingContainer_Handle)
 {
-  std::string const fName = "files_container.tmp";
-  std::string const tag = "dummy";
+  string const fName = "files_container.tmp";
+  string const tag = "dummy";
 
   {
     FilesContainerW writer(fName);
@@ -297,8 +302,8 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
     FilesMappingContainer::Handle m_handle;
   };
 
-  std::string const containerPath = "files_container.tmp";
-  std::string const tagName = "dummy";
+  string const containerPath = "files_container.tmp";
+  string const tagName = "dummy";
 
   SCOPE_GUARD(deleteContainerFileGuard, bind(&FileWriter::DeleteFileX, cref(containerPath)));
 
@@ -328,7 +333,7 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
 
 UNIT_TEST(FilesMappingContainer_Smoke)
 {
-  std::string const fName = "files_container.tmp";
+  string const fName = "files_container.tmp";
   char const * key[] = {"3", "2", "1"};
   uint32_t const count = 1000000;
 
@@ -370,7 +375,7 @@ UNIT_TEST(FilesMappingContainer_Smoke)
 
 UNIT_TEST(FilesMappingContainer_PageSize)
 {
-  std::string const fName = "files_container.tmp";
+  string const fName = "files_container.tmp";
 
   size_t const pageSize =
 #ifndef OMIM_OS_WINDOWS
@@ -416,3 +421,4 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 
   FileWriter::DeleteFileX(fName);
 }
+}  // namespace files_container_tests

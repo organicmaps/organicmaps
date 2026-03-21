@@ -14,27 +14,27 @@
 #include <string>
 #include <vector>
 
-namespace traffic
+namespace traffic_info_test
 {
+using namespace traffic;
+using namespace std;
+
 namespace
 {
-std::string const & kMapTestDir = "traffic-test";
+string const & kMapTestDir = "traffic-test";
 
 class TestMwmSet : public MwmSet
 {
 protected:
   // MwmSet overrides:
-  std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
+  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
   {
-    std::unique_ptr<MwmInfo> info(new MwmInfo());
+    unique_ptr<MwmInfo> info(new MwmInfo());
     info->m_version.SetFormat(version::Format::lastFormat);
     return info;
   }
 
-  std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
-  {
-    return std::make_unique<MwmValue>(info.GetLocalFile());
-  }
+  unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override { return make_unique<MwmValue>(info.GetLocalFile()); }
 };
 }  // namespace
 
@@ -48,7 +48,7 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test"));
     TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
-    std::string etag;
+    string etag;
     TEST(trafficInfo.ReceiveTrafficData(etag), ());
   }
   {
@@ -56,7 +56,7 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test2"));
     TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
-    std::string etag;
+    string etag;
     TEST(!trafficInfo.ReceiveTrafficData(etag), ());
   }
   {
@@ -64,7 +64,7 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     auto const & r =
         mwmSet.Register(platform::LocalCountryFile::MakeForTesting("traffic_data_test", 101010));
     TrafficInfo trafficInfo(r.first, r.first.GetInfo()->GetVersion());
-    std::string etag;
+    string etag;
     TEST(trafficInfo.ReceiveTrafficData(etag), ());
   }
 }
@@ -86,8 +86,8 @@ UNIT_TEST(TrafficInfo_Serialization)
       {TrafficInfo::RoadSegmentId(4294967295, 0, 0), SpeedGroup::TempBlock},
   };
 
-  std::vector<TrafficInfo::RoadSegmentId> keys;
-  std::vector<SpeedGroup> values;
+  vector<TrafficInfo::RoadSegmentId> keys;
+  vector<SpeedGroup> values;
   for (auto const & kv : coloring)
   {
     keys.push_back(kv.first);
@@ -95,22 +95,22 @@ UNIT_TEST(TrafficInfo_Serialization)
   }
 
   {
-    std::vector<uint8_t> buf;
+    vector<uint8_t> buf;
     TrafficInfo::SerializeTrafficKeys(keys, buf);
 
-    std::vector<TrafficInfo::RoadSegmentId> deserializedKeys;
+    vector<TrafficInfo::RoadSegmentId> deserializedKeys;
     TrafficInfo::DeserializeTrafficKeys(buf, deserializedKeys);
 
-    TEST(std::is_sorted(keys.begin(), keys.end()), ());
-    TEST(std::is_sorted(deserializedKeys.begin(), deserializedKeys.end()), ());
+    TEST(is_sorted(keys.begin(), keys.end()), ());
+    TEST(is_sorted(deserializedKeys.begin(), deserializedKeys.end()), ());
     TEST_EQUAL(keys, deserializedKeys, ());
   }
 
   {
-    std::vector<uint8_t> buf;
+    vector<uint8_t> buf;
     TrafficInfo::SerializeTrafficValues(values, buf);
 
-    std::vector<SpeedGroup> deserializedValues;
+    vector<SpeedGroup> deserializedValues;
     TrafficInfo::DeserializeTrafficValues(buf, deserializedValues);
     TEST_EQUAL(values, deserializedValues, ());
   }
@@ -118,20 +118,20 @@ UNIT_TEST(TrafficInfo_Serialization)
 
 UNIT_TEST(TrafficInfo_UpdateTrafficData)
 {
-  std::vector<TrafficInfo::RoadSegmentId> const keys = {
+  vector<TrafficInfo::RoadSegmentId> const keys = {
       TrafficInfo::RoadSegmentId(0, 0, 0),
 
       TrafficInfo::RoadSegmentId(1, 0, 0),
       TrafficInfo::RoadSegmentId(1, 0, 1),
   };
 
-  std::vector<SpeedGroup> const values1 = {
+  vector<SpeedGroup> const values1 = {
       SpeedGroup::G1,
       SpeedGroup::G2,
       SpeedGroup::G3,
   };
 
-  std::vector<SpeedGroup> const values2 = {
+  vector<SpeedGroup> const values2 = {
       SpeedGroup::G4,
       SpeedGroup::G5,
       SpeedGroup::Unknown,
@@ -148,4 +148,4 @@ UNIT_TEST(TrafficInfo_UpdateTrafficData)
   for (size_t i = 0; i < keys.size(); ++i)
     TEST_EQUAL(info.GetSpeedGroup(keys[i]), values2[i], ());
 }
-}  // namespace traffic
+}  // namespace traffic_info_test

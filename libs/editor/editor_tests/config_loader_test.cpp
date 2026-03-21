@@ -9,8 +9,11 @@
 
 #include <pugixml.hpp>
 
+namespace config_loader_test
+{
 namespace
 {
+using namespace editor;
 using platform::tests_support::ScopedFile;
 
 void CheckGeneralTags(pugi::xml_document const & doc)
@@ -23,8 +26,8 @@ void CheckGeneralTags(pugi::xml_document const & doc)
 
 UNIT_TEST(ConfigLoader_Base)
 {
-  base::AtomicSharedPtr<editor::EditorConfig> config;
-  editor::ConfigLoader loader(config);
+  base::AtomicSharedPtr<EditorConfig> config;
+  ConfigLoader loader(config);
 
   TEST(!config.Get()->GetTypesThatCanBeAdded().empty(), ());
 }
@@ -48,7 +51,8 @@ UNIT_TEST(ConfigLoader_Base)
 UNIT_TEST(ConfigLoader_LoadFromLocal)
 {
   pugi::xml_document doc;
-  editor::ConfigLoader::LoadFromLocal(doc);
+  ConfigLoader::LoadFromLocal(doc);
   CheckGeneralTags(doc);
 }
 }  // namespace
+}  // namespace config_loader_test

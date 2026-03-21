@@ -8,11 +8,15 @@
 
 #include "3party/succinct/mapper.hpp"
 
+namespace succinct_mapper_test
+{
+using namespace coding;
+
 UNIT_TEST(ReverseMapper_Smoke)
 {
   uint64_t data = 0x0123456789abcdef;
   uint64_t rdata = 0x0;
-  TEST_EQUAL(8, coding::ReverseMap(rdata, reinterpret_cast<uint8_t *>(&data), "uint64_t"), ());
+  TEST_EQUAL(8, ReverseMap(rdata, reinterpret_cast<uint8_t *>(&data), "uint64_t"), ());
 
   // Test that reversed uint64_t was read.
   TEST_EQUAL(0xefcdab8967452301, rdata, ());
@@ -27,12 +31,12 @@ UNIT_TEST(Freeze_Smoke)
   {
     MemWriter<decltype(data)> writer(data);
     uint64_t const data = 0x0123456789abcdef;
-    coding::Freeze(data, writer, "uint64_t");
+    Freeze(data, writer, "uint64_t");
   }
   TEST_EQUAL(8, data.size(), ());
 
   uint64_t value = 0x0;
-  TEST_EQUAL(8, coding::Map(value, reinterpret_cast<uint8_t const *>(data.data()), "uint64_t"), ());
+  TEST_EQUAL(8, Map(value, reinterpret_cast<uint8_t const *>(data.data()), "uint64_t"), ());
   TEST_EQUAL(0x0123456789abcdef, value, ());
 }
 
@@ -42,12 +46,13 @@ UNIT_TEST(ReverseFreeze_Smoke)
   {
     MemWriter<decltype(data)> writer(data);
     uint64_t const data = 0x0123456789abcdef;
-    coding::ReverseFreeze(data, writer, "uint64_t");
+    ReverseFreeze(data, writer, "uint64_t");
   }
 
   TEST_EQUAL(8, data.size(), ());
 
   uint64_t value = 0x0;
-  TEST_EQUAL(8, coding::Map(value, reinterpret_cast<uint8_t const *>(data.data()), "uint64_t"), ());
+  TEST_EQUAL(8, Map(value, reinterpret_cast<uint8_t const *>(data.data()), "uint64_t"), ());
   TEST_EQUAL(0xefcdab8967452301, value, ());
 }
+}  // namespace succinct_mapper_test

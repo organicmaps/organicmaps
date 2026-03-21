@@ -15,6 +15,9 @@
 
 #include "defines.hpp"
 
+namespace storage_3levels_tests
+{
+using namespace platform;
 using namespace storage;
 
 namespace
@@ -92,3 +95,4 @@ UNIT_TEST(SmallMwms_3levels_Test)
   platform.GetFilesByExt(mapDir, DATA_FILE_EXTENSION, files);
   TEST_EQUAL(0, files.size(), ());
 }
+}  // namespace storage_3levels_tests

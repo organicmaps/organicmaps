@@ -2,6 +2,10 @@
 
 #include "coding/base64.hpp"
 
+namespace base64_test
+{
+using namespace base64;
+
 UNIT_TEST(Base64_Smoke)
 {
   char const * bytes[] = {"H", "He", "Hel", "Hell", "Hello", "Hello,", "Hello, ", "Hello, World!"};
@@ -12,15 +16,16 @@ UNIT_TEST(Base64_Smoke)
 
   for (size_t i = 0; i < ARRAY_SIZE(bytes); ++i)
   {
-    TEST_EQUAL(base64::Encode(bytes[i]), encoded[i], ());
-    TEST_EQUAL(base64::Decode(encoded[i]), bytes[i], ());
-    TEST_EQUAL(base64::Decode(base64::Encode(bytes[i])), bytes[i], ());
-    TEST_EQUAL(base64::Encode(base64::Decode(encoded[i])), encoded[i], ());
+    TEST_EQUAL(Encode(bytes[i]), encoded[i], ());
+    TEST_EQUAL(Decode(encoded[i]), bytes[i], ());
+    TEST_EQUAL(Decode(Encode(bytes[i])), bytes[i], ());
+    TEST_EQUAL(Encode(Decode(encoded[i])), encoded[i], ());
   }
 
   char const * str = "MapsWithMe is the offline maps application for any device in the world.";
   char const * encStr =
       "TWFwc1dpdGhNZSBpcyB0aGUgb2ZmbGluZSBtYXBzIGFwcGxpY2F0aW9uIGZvciBhbnkgZGV2aWNlIGluIHRoZSB3b3JsZC4=";
-  TEST_EQUAL(base64::Encode(str), encStr, ());
-  TEST_EQUAL(base64::Decode(encStr), str, ());
+  TEST_EQUAL(Encode(str), encStr, ());
+  TEST_EQUAL(Decode(encStr), str, ());
 }
+}  // namespace base64_test

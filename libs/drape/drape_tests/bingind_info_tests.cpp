@@ -2,15 +2,19 @@
 
 #include "drape/binding_info.hpp"
 
+namespace bingind_info_tests
+{
+using namespace dp;
+
 UNIT_TEST(BindingInfoIDTest)
 {
   {
-    dp::BindingInfo info(1, 1);
+    BindingInfo info(1, 1);
     TEST_EQUAL(info.GetID(), 1, ());
   }
 
   {
-    dp::BindingInfo info(1);
+    BindingInfo info(1);
     TEST_EQUAL(info.GetID(), 0, ());
   }
 }
@@ -18,12 +22,13 @@ UNIT_TEST(BindingInfoIDTest)
 UNIT_TEST(DynamicHandlingTest)
 {
   {
-    dp::BindingInfo info(1);
+    BindingInfo info(1);
     TEST_EQUAL(info.IsDynamic(), false, ());
   }
 
   {
-    dp::BindingInfo info(1, 1);
+    BindingInfo info(1, 1);
     TEST_EQUAL(info.IsDynamic(), true, ());
   }
 }
+}  // namespace bingind_info_tests

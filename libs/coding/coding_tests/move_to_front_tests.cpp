@@ -4,11 +4,15 @@
 
 #include <cstdint>
 
+namespace move_to_front_tests
+{
+using namespace coding;
+
 namespace
 {
 UNIT_TEST(MoveToFront_Smoke)
 {
-  coding::MoveToFront mtf;
+  MoveToFront mtf;
   for (size_t i = 0; i < 256; ++i)
     TEST_EQUAL(mtf[i], i, ());
 
@@ -28,3 +32,4 @@ UNIT_TEST(MoveToFront_Smoke)
     TEST_EQUAL(mtf[i], i, ());
 }
 }  // namespace
+}  // namespace move_to_front_tests

@@ -2,81 +2,84 @@
 
 #include "platform/utm_mgrs_utils.hpp"
 
+namespace utm_mgrs_utils_tests
+{
+using namespace utm_mgrs_utils;
+
 UNIT_TEST(NormalizeAngle)
 {
   using math::pi;
 
-  TEST_ALMOST_EQUAL_ULPS(utm_mgrs_utils::NormalizeAngle(0.0), 0.0, ());
-  TEST_ALMOST_EQUAL_ULPS(utm_mgrs_utils::NormalizeAngle(2 * pi - pi / 4), -pi / 4, ());
-  TEST_ALMOST_EQUAL_ULPS(utm_mgrs_utils::NormalizeAngle(2 * pi + pi / 4), pi / 4, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(0.0), 0.0, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(2 * pi - pi / 4), -pi / 4, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(2 * pi + pi / 4), pi / 4, ());
 
-  TEST_ALMOST_EQUAL_ULPS(utm_mgrs_utils::NormalizeAngle(-pi), -pi, ());
-  TEST_ALMOST_EQUAL_ULPS(utm_mgrs_utils::NormalizeAngle(pi), pi, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(-pi), -pi, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(pi), pi, ());
 
   double constexpr eps = 0.01;
-  TEST_ALMOST_EQUAL_ULPS(utm_mgrs_utils::NormalizeAngle(pi + eps), -pi + eps, ());
+  TEST_ALMOST_EQUAL_ULPS(NormalizeAngle(pi + eps), -pi + eps, ());
 }
 
 UNIT_TEST(FormatUTM)
 {
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(42.0, -93.0), "15T 500000 4649776", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(31.77597, 35.23406), "36R 711554 3517777", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(-34.81449, -58.54016), "21H 359135 6146448", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(36.2361322, -115.0820944), "11S 672349 4011845", ());
+  TEST_EQUAL(FormatUTM(42.0, -93.0), "15T 500000 4649776", ());
+  TEST_EQUAL(FormatUTM(31.77597, 35.23406), "36R 711554 3517777", ());
+  TEST_EQUAL(FormatUTM(-34.81449, -58.54016), "21H 359135 6146448", ());
+  TEST_EQUAL(FormatUTM(36.2361322, -115.0820944), "11S 672349 4011845", ());
 
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(50.77535, 6.08389), "32U 294409 5628898", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(40.71435, -74.00597), "18T 583960 4507523", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(-41.28646, 174.77624), "60G 313784 5427057", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(-33.92487, 18.42406), "34H 261878 6243186", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(-32.89018, -68.84405), "19H 514586 6360877", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(64.83778, -147.71639), "6W 466013 7190568", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(56.79680, -5.00601), "30V 377486 6296562", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(84, -5.00601), "30X 476594 9328501", ());
+  TEST_EQUAL(FormatUTM(50.77535, 6.08389), "32U 294409 5628898", ());
+  TEST_EQUAL(FormatUTM(40.71435, -74.00597), "18T 583960 4507523", ());
+  TEST_EQUAL(FormatUTM(-41.28646, 174.77624), "60G 313784 5427057", ());
+  TEST_EQUAL(FormatUTM(-33.92487, 18.42406), "34H 261878 6243186", ());
+  TEST_EQUAL(FormatUTM(-32.89018, -68.84405), "19H 514586 6360877", ());
+  TEST_EQUAL(FormatUTM(64.83778, -147.71639), "6W 466013 7190568", ());
+  TEST_EQUAL(FormatUTM(56.79680, -5.00601), "30V 377486 6296562", ());
+  TEST_EQUAL(FormatUTM(84, -5.00601), "30X 476594 9328501", ());
 
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(84.644103, 3.000009), "", ());  // Latitude limit exceeded.
-  TEST_EQUAL(utm_mgrs_utils::FormatUTM(12.016469, 188.0), "", ());
+  TEST_EQUAL(FormatUTM(84.644103, 3.000009), "", ());  // Latitude limit exceeded.
+  TEST_EQUAL(FormatUTM(12.016469, 188.0), "", ());
 }
 
 UNIT_TEST(FormatMGRS)
 {
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(42.0, -93.0, 5), "15T WG 00000 49776", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(31.77597, 35.23406, 5), "36R YA 11554 17776", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-34.81449, -58.54016, 5), "21H UB 59135 46447", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(36.2361322, -115.0820944, 5), "11S PA 72349 11844", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(36.2361322, -115.0820944, 4), "11S PA 7234 1184", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(36.2361322, -115.0820944, 3), "11S PA 723 118", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(36.2361322, -115.0820944, 2), "11S PA 72 11", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(36.2361322, -115.0820944, 1), "11S PA 7 1", ());
+  TEST_EQUAL(FormatMGRS(42.0, -93.0, 5), "15T WG 00000 49776", ());
+  TEST_EQUAL(FormatMGRS(31.77597, 35.23406, 5), "36R YA 11554 17776", ());
+  TEST_EQUAL(FormatMGRS(-34.81449, -58.54016, 5), "21H UB 59135 46447", ());
+  TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 5), "11S PA 72349 11844", ());
+  TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 4), "11S PA 7234 1184", ());
+  TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 3), "11S PA 723 118", ());
+  TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 2), "11S PA 72 11", ());
+  TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 1), "11S PA 7 1", ());
 
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(84.644103, 3.000009, 5), "",
-             ());  // Some converters generate string "Z AB 31142 05767"
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-81.016469, 8.745519, 5), "",
-             ());  // Some converters generate string "B BX 51947 87732"
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(12.016469, 188.0, 2), "", ());
+  TEST_EQUAL(FormatMGRS(84.644103, 3.000009, 5), "", ());   // Some converters generate string "Z AB 31142 05767"
+  TEST_EQUAL(FormatMGRS(-81.016469, 8.745519, 5), "", ());  // Some converters generate string "B BX 51947 87732"
+  TEST_EQUAL(FormatMGRS(12.016469, 188.0, 2), "", ());
 
   // Test data from https://s3.amazonaws.com/mgrs.io/mgrsToGeo_WE.txt
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(0.000005, 0.304981, 5), "31N BA 00000 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(4.518520, 48.296629, 5), "39N TF 00000 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(9.045438, 50.090125, 5), "39P VL 00000 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(63.115494, 91.017708, 5), "46V DR 00000 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(40.626644, 137.364687, 5), "53T QF 00000 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(0.000005, -4.797048, 5), "30N UF 00000 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(0.000005, -0.592324, 5), "30N YF 67993 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(0.000005, 6.592333, 5), "32N KF 32007 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(0.000005, 54.592333, 5), "40N BF 32007 00000", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(76.463950, 58.675211, 5), "40X EK 43763 87577", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-49.578078, 85.150396, 5), "45F UF 66291 06635", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-45.089793, 132.812340, 5), "53G LL 27848 04746", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(4.514602, 138.603457, 5), "54N TK 34069 99447", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-67.547521, -142.303616, 5), "07D DF 44443 06997", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-62.908852, -154.887008, 5), "05E ML 04130 23160", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(4.514602, -144.603447, 5), "06N YK 65931 99447", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(4.514602, -137.396543, 5), "08N KK 34069 99447", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(9.028532, -144.637149, 5), "06P YQ 59760 98847", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(54.109208, -60.059588, 5), "20U PE 92211 99669", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(54.109208, -53.940397, 5), "22U CE 07789 99669", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-45.089793, -53.187660, 5), "22G CR 27848 04746", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-31.596034, -18.161583, 5), "27J YF 69322 00842", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(-22.559756, -11.111475, 5), "29K KR 82882 03678", ());
-  TEST_EQUAL(utm_mgrs_utils::FormatMGRS(0.000005, 0.592333, 5), "31N BA 32007 00000", ());
+  TEST_EQUAL(FormatMGRS(0.000005, 0.304981, 5), "31N BA 00000 00000", ());
+  TEST_EQUAL(FormatMGRS(4.518520, 48.296629, 5), "39N TF 00000 00000", ());
+  TEST_EQUAL(FormatMGRS(9.045438, 50.090125, 5), "39P VL 00000 00000", ());
+  TEST_EQUAL(FormatMGRS(63.115494, 91.017708, 5), "46V DR 00000 00000", ());
+  TEST_EQUAL(FormatMGRS(40.626644, 137.364687, 5), "53T QF 00000 00000", ());
+  TEST_EQUAL(FormatMGRS(0.000005, -4.797048, 5), "30N UF 00000 00000", ());
+  TEST_EQUAL(FormatMGRS(0.000005, -0.592324, 5), "30N YF 67993 00000", ());
+  TEST_EQUAL(FormatMGRS(0.000005, 6.592333, 5), "32N KF 32007 00000", ());
+  TEST_EQUAL(FormatMGRS(0.000005, 54.592333, 5), "40N BF 32007 00000", ());
+  TEST_EQUAL(FormatMGRS(76.463950, 58.675211, 5), "40X EK 43763 87577", ());
+  TEST_EQUAL(FormatMGRS(-49.578078, 85.150396, 5), "45F UF 66291 06635", ());
+  TEST_EQUAL(FormatMGRS(-45.089793, 132.812340, 5), "53G LL 27848 04746", ());
+  TEST_EQUAL(FormatMGRS(4.514602, 138.603457, 5), "54N TK 34069 99447", ());
+  TEST_EQUAL(FormatMGRS(-67.547521, -142.303616, 5), "07D DF 44443 06997", ());
+  TEST_EQUAL(FormatMGRS(-62.908852, -154.887008, 5), "05E ML 04130 23160", ());
+  TEST_EQUAL(FormatMGRS(4.514602, -144.603447, 5), "06N YK 65931 99447", ());
+  TEST_EQUAL(FormatMGRS(4.514602, -137.396543, 5), "08N KK 34069 99447", ());
+  TEST_EQUAL(FormatMGRS(9.028532, -144.637149, 5), "06P YQ 59760 98847", ());
+  TEST_EQUAL(FormatMGRS(54.109208, -60.059588, 5), "20U PE 92211 99669", ());
+  TEST_EQUAL(FormatMGRS(54.109208, -53.940397, 5), "22U CE 07789 99669", ());
+  TEST_EQUAL(FormatMGRS(-45.089793, -53.187660, 5), "22G CR 27848 04746", ());
+  TEST_EQUAL(FormatMGRS(-31.596034, -18.161583, 5), "27J YF 69322 00842", ());
+  TEST_EQUAL(FormatMGRS(-22.559756, -11.111475, 5), "29K KR 82882 03678", ());
+  TEST_EQUAL(FormatMGRS(0.000005, 0.592333, 5), "31N BA 32007 00000", ());
 }
+}  // namespace utm_mgrs_utils_tests

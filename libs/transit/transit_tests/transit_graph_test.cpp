@@ -10,22 +10,28 @@
 #include <utility>
 #include <vector>
 
+namespace transit_graph_test
+{
+using namespace routing;
+using namespace routing::transit;
+using namespace std;
+
 namespace
 {
 struct Graph
 {
-  std::vector<routing::transit::Stop> m_stops;
-  std::vector<routing::transit::Gate> m_gates;
-  std::vector<routing::transit::Edge> m_edges;
-  std::vector<routing::transit::Transfer> m_transfers;
-  std::vector<routing::transit::Line> m_lines;
-  std::vector<routing::transit::Shape> m_shapes;
-  std::vector<routing::transit::Network> m_networks;
+  vector<Stop> m_stops;
+  vector<Gate> m_gates;
+  vector<Edge> m_edges;
+  vector<Transfer> m_transfers;
+  vector<Line> m_lines;
+  vector<Shape> m_shapes;
+  vector<Network> m_networks;
 };
 
-std::unique_ptr<routing::transit::GraphData> CreateGraphFromJson()
+unique_ptr<GraphData> CreateGraphFromJson()
 {
-  std::string const jsonBuffer = R"(
+  string const jsonBuffer = R"(
   {
   "stops": [{
       "id": 0,
@@ -260,16 +266,16 @@ std::unique_ptr<routing::transit::GraphData> CreateGraphFromJson()
     }
   ]})";
 
-  auto graph = std::make_unique<routing::transit::GraphData>();
+  auto graph = make_unique<GraphData>();
 
-  routing::transit::OsmIdToFeatureIdsMap mapping;
-  mapping[base::GeoObjectId(100)] = std::vector<routing::transit::FeatureId>({10});
-  mapping[base::GeoObjectId(101)] = std::vector<routing::transit::FeatureId>({11});
-  mapping[base::GeoObjectId(102)] = std::vector<routing::transit::FeatureId>({12});
-  mapping[base::GeoObjectId(103)] = std::vector<routing::transit::FeatureId>({13});
-  mapping[base::GeoObjectId(104)] = std::vector<routing::transit::FeatureId>({14});
-  mapping[base::GeoObjectId(105)] = std::vector<routing::transit::FeatureId>({15});
-  mapping[base::GeoObjectId(106)] = std::vector<routing::transit::FeatureId>({16});
+  OsmIdToFeatureIdsMap mapping;
+  mapping[base::GeoObjectId(100)] = vector<FeatureId>({10});
+  mapping[base::GeoObjectId(101)] = vector<FeatureId>({11});
+  mapping[base::GeoObjectId(102)] = vector<FeatureId>({12});
+  mapping[base::GeoObjectId(103)] = vector<FeatureId>({13});
+  mapping[base::GeoObjectId(104)] = vector<FeatureId>({14});
+  mapping[base::GeoObjectId(105)] = vector<FeatureId>({15});
+  mapping[base::GeoObjectId(106)] = vector<FeatureId>({16});
 
   base::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));
@@ -277,55 +283,55 @@ std::unique_ptr<routing::transit::GraphData> CreateGraphFromJson()
   return graph;
 }
 
-std::unique_ptr<Graph> MakeFullGraph()
+unique_ptr<Graph> MakeFullGraph()
 {
-  auto graph = std::make_unique<Graph>();
+  auto graph = make_unique<Graph>();
   graph->m_stops = {{0 /* stop id */,
                      100 /* osm id */,
                      10 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(-2.0, 1.0),
                      {}},
                     {1 /* stop id */,
                      101 /* osm id */,
                      11 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(0.0, 1.0),
                      {}},
                     {2 /* stop id */,
                      102 /* osm id */,
                      12 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(2.0, 1.0),
                      {}},
                     {3 /* stop id */,
                      103 /* osm id */,
                      13 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(4.0, 1.0),
                      {}},
                     {4 /* stop id */,
                      104 /* osm id */,
                      14 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(5.0, 1.0),
                      {}},
                     {5 /* stop id */,
                      105 /* osm id */,
                      15 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {2} /* line ids */,
                      m2::PointD(-1.0, -1.0),
                      {}},
                     {6 /* stop id */,
                      106 /* osm id */,
                      16 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {2} /* line ids */,
                      m2::PointD(1.0, -1.0),
                      {}}};
@@ -443,35 +449,35 @@ std::unique_ptr<Graph> MakeFullGraph()
   return graph;
 }
 
-std::unique_ptr<Graph> MakeOneLineGraph()
+unique_ptr<Graph> MakeOneLineGraph()
 {
-  auto graph = std::make_unique<Graph>();
+  auto graph = make_unique<Graph>();
 
   graph->m_stops = {{0 /* stop id */,
                      100 /* osm id */,
                      10 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(-2.0, 1.0),
                      {}},
                     {1 /* stop id */,
                      101 /* osm id */,
                      11 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(0.0, 1.0),
                      {}},
                     {2 /* stop id */,
                      102 /* osm id */,
                      12 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(2.0, 1.0),
                      {}},
                     {3 /* stop id */,
                      103 /* osm id */,
                      13 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(4.0, 1.0),
                      {}}};
@@ -544,42 +550,42 @@ std::unique_ptr<Graph> MakeOneLineGraph()
   return graph;
 }
 
-std::unique_ptr<Graph> MakeTwoLinesGraph()
+unique_ptr<Graph> MakeTwoLinesGraph()
 {
-  auto graph = std::make_unique<Graph>();
+  auto graph = make_unique<Graph>();
 
   graph->m_stops = {{1 /* stop id */,
                      101 /* osm id */,
                      11 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(0.0, 1.0),
                      {}},
                     {2 /* stop id */,
                      102 /* osm id */,
                      12 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(2.0, 1.0),
                      {}},
                     {3 /* stop id */,
                      103 /* osm id */,
                      13 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {1} /* line ids */,
                      m2::PointD(4.0, 1.0),
                      {}},
                     {5 /* stop id */,
                      105 /* osm id */,
                      15 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {2} /* line ids */,
                      m2::PointD(-1.0, -1.0),
                      {}},
                     {6 /* stop id */,
                      106 /* osm id */,
                      16 /* feature id */,
-                     routing::transit::kInvalidTransferId,
+                     kInvalidTransferId,
                      {2} /* line ids */,
                      m2::PointD(1.0, -1.0),
                      {}}};
@@ -669,20 +675,20 @@ std::unique_ptr<Graph> MakeTwoLinesGraph()
   return graph;
 }
 
-void TestGraph(routing::transit::GraphData const & actualGraph, Graph const & expectedGraph)
+void TestGraph(GraphData const & actualGraph, Graph const & expectedGraph)
 {
-  routing::transit::TestForEquivalence(actualGraph.GetStops(), expectedGraph.m_stops);
-  routing::transit::TestForEquivalence(actualGraph.GetGates(), expectedGraph.m_gates);
-  routing::transit::TestForEquivalence(actualGraph.GetEdges(), expectedGraph.m_edges);
-  routing::transit::TestForEquivalence(actualGraph.GetTransfers(), expectedGraph.m_transfers);
-  routing::transit::TestForEquivalence(actualGraph.GetLines(), expectedGraph.m_lines);
-  routing::transit::TestForEquivalence(actualGraph.GetShapes(), expectedGraph.m_shapes);
-  routing::transit::TestForEquivalence(actualGraph.GetNetworks(), expectedGraph.m_networks);
+  TestForEquivalence(actualGraph.GetStops(), expectedGraph.m_stops);
+  TestForEquivalence(actualGraph.GetGates(), expectedGraph.m_gates);
+  TestForEquivalence(actualGraph.GetEdges(), expectedGraph.m_edges);
+  TestForEquivalence(actualGraph.GetTransfers(), expectedGraph.m_transfers);
+  TestForEquivalence(actualGraph.GetLines(), expectedGraph.m_lines);
+  TestForEquivalence(actualGraph.GetShapes(), expectedGraph.m_shapes);
+  TestForEquivalence(actualGraph.GetNetworks(), expectedGraph.m_networks);
 }
 
-void SerializeAndDeserializeGraph(routing::transit::GraphData & src, routing::transit::GraphData & dst)
+void SerializeAndDeserializeGraph(GraphData & src, GraphData & dst)
 {
-  std::vector<uint8_t> buffer;
+  vector<uint8_t> buffer;
   MemWriter<decltype(buffer)> writer(buffer);
   src.Serialize(writer);
 
@@ -709,7 +715,7 @@ UNIT_TEST(ClipGraph_SmokeTest)
   auto expectedGraph = MakeFullGraph();
   TestGraph(*graph, *expectedGraph);
 
-  routing::transit::GraphData readedGraph;
+  GraphData readedGraph;
   SerializeAndDeserializeGraph(*graph, readedGraph);
   TestGraph(*graph, *expectedGraph);
 }
@@ -731,12 +737,12 @@ UNIT_TEST(ClipGraph_SmokeTest)
 UNIT_TEST(ClipGraph_OneLineTest)
 {
   auto graph = CreateGraphFromJson();
-  std::vector<m2::PointD> points = {{3.0, 3.0}, {3.0, 0.0}, {-3.0, 0.0}, {-3.0, 3.0}, {3.0, 3.0}};
+  vector<m2::PointD> points = {{3.0, 3.0}, {3.0, 0.0}, {-3.0, 0.0}, {-3.0, 3.0}, {3.0, 3.0}};
   graph->ClipGraph({m2::RegionD(points)});
   auto expectedGraph = MakeOneLineGraph();
   TestGraph(*graph, *expectedGraph);
 
-  routing::transit::GraphData readedGraph;
+  GraphData readedGraph;
   SerializeAndDeserializeGraph(*graph, readedGraph);
   TestGraph(*graph, *expectedGraph);
 }
@@ -758,14 +764,15 @@ UNIT_TEST(ClipGraph_OneLineTest)
 UNIT_TEST(ClipGraph_TwoLinesTest)
 {
   auto graph = CreateGraphFromJson();
-  std::vector<m2::PointD> points = {{2.5, 2.0}, {2.5, -2.0}, {0.5, -2.0}, {0.5, 2.0}, {2.5, 2.0}};
+  vector<m2::PointD> points = {{2.5, 2.0}, {2.5, -2.0}, {0.5, -2.0}, {0.5, 2.0}, {2.5, 2.0}};
   graph->ClipGraph({m2::RegionD(points)});
 
   auto expectedGraph = MakeTwoLinesGraph();
   TestGraph(*graph, *expectedGraph);
 
-  routing::transit::GraphData readedGraph;
+  GraphData readedGraph;
   SerializeAndDeserializeGraph(*graph, readedGraph);
   TestGraph(*graph, *expectedGraph);
 }
 }  // namespace
+}  // namespace transit_graph_test

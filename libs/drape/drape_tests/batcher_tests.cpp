@@ -17,23 +17,27 @@
 
 #include <gmock/gmock.h>
 
+namespace batcher_tests
+{
 using testing::_;
 using testing::AnyOf;
 using testing::IgnoreResult;
 using testing::InSequence;
 using testing::Invoke;
 using testing::Return;
+using namespace dp;
+using namespace std::placeholders;
 
 namespace
 {
 struct VAOAcceptor
 {
-  virtual void FlushFullBucket(dp::RenderState const & /* state */, drape_ptr<dp::RenderBucket> && bucket)
+  virtual void FlushFullBucket(RenderState const & /* state */, drape_ptr<RenderBucket> && bucket)
   {
     m_vao.push_back(std::move(bucket));
   }
 
-  std::vector<drape_ptr<dp::RenderBucket>> m_vao;
+  std::vector<drape_ptr<RenderBucket>> m_vao;
 };
 
 class TestExtension : public dp::BaseRenderStateExtension
@@ -53,30 +57,29 @@ public:
                uint32_t indexCount, TBatcherCall const & fn)
   {
     uint32_t const vertexSize = vertexCount * vertexComponentCount;
-    dp::MemoryComparer const dataCmp(vertexes, vertexSize * sizeof(float));
-    dp::MemoryComparer const indexCmp(indexes, indexCount * dp::IndexStorage::SizeOfIndex());
+    MemoryComparer const dataCmp(vertexes, vertexSize * sizeof(float));
+    MemoryComparer const indexCmp(indexes, indexCount * dp::IndexStorage::SizeOfIndex());
 
     ExpectBufferCreation(vertexSize, indexCount, indexCmp, dataCmp);
 
     auto renderState = make_unique_dp<TestExtension>();
-    auto state = dp::RenderState(0, make_ref(renderState));
+    auto state = RenderState(0, make_ref(renderState));
 
-    dp::BindingInfo binding(1);
-    dp::BindingDecl & decl = binding.GetBindingDecl(0);
+    BindingInfo binding(1);
+    BindingDecl & decl = binding.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = vertexComponentCount;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    dp::AttributeProvider provider(1, vertexCount);
+    AttributeProvider provider(1, vertexCount);
     provider.InitStream(0, binding, make_ref(vertexes));
 
     TestingGraphicsContext context;
     VAOAcceptor vaoAcceptor;
-    dp::Batcher batcher(65000, 65000);
-    batcher.StartSession(
-        std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, std::placeholders::_1, std::placeholders::_2));
+    Batcher batcher(65000, 65000);
+    batcher.StartSession(std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
     fn(&batcher, state, make_ref(&provider));
     batcher.EndSession(make_ref(&context));
 
@@ -86,8 +89,8 @@ public:
       vaoAcceptor.m_vao[i].reset();
   }
 
-  void ExpectBufferCreation(uint32_t vertexCount, uint32_t indexCount, dp::MemoryComparer const & indexCmp,
-                            dp::MemoryComparer const & vertexCmp)
+  void ExpectBufferCreation(uint32_t vertexCount, uint32_t indexCount, MemoryComparer const & indexCmp,
+                            MemoryComparer const & vertexCmp)
   {
     InSequence seq;
 
@@ -95,14 +98,14 @@ public:
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_dataBufferID));
     EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
     EXPECTGL(glBufferData(gl_const::GLArrayBuffer, vertexCount * sizeof(float), _, gl_const::GLDynamicDraw))
-        .WillOnce(Invoke(&vertexCmp, &dp::MemoryComparer::cmpSubBuffer));
+        .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmpSubBuffer));
 
     // Index buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_indexBufferID));
     EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
     EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, indexCount * dp::IndexStorage::SizeOfIndex(), _,
                           gl_const::GLDynamicDraw))
-        .WillOnce(Invoke(&indexCmp, &dp::MemoryComparer::cmpSubBuffer));
+        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
 
     EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
     EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
@@ -139,7 +142,7 @@ UNIT_TEST(BatchLists_Test)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [&context](dp::Batcher * batcher, dp::RenderState const & state, ref_ptr<dp::AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   { batcher->InsertTriangleList(make_ref(&context), state, p); };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kVerticesCount, fn);
 }
@@ -158,7 +161,7 @@ UNIT_TEST(BatchListOfStript_4stride)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [&context](dp::Batcher * batcher, dp::RenderState const & state, ref_ptr<dp::AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   { batcher->InsertListOfStrip(make_ref(&context), state, p, dp::Batcher::VertexPerQuad); };
 
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
@@ -179,7 +182,7 @@ UNIT_TEST(BatchListOfStript_5stride)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [&context](dp::Batcher * batcher, dp::RenderState const & state, ref_ptr<dp::AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   { batcher->InsertListOfStrip(make_ref(&context), state, p, 5); };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
@@ -199,7 +202,7 @@ UNIT_TEST(BatchListOfStript_6stride)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [&context](dp::Batcher * batcher, dp::RenderState const & state, ref_ptr<dp::AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   { batcher->InsertListOfStrip(make_ref(&context), state, p, 6); };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
@@ -243,21 +246,21 @@ public:
     EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_vertexBufferID));
     EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
 
-    m_comparators.push_back(new dp::MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
-    dp::MemoryComparer * vertexComparer = m_comparators.back();
+    m_comparators.push_back(new MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
+    MemoryComparer * vertexComparer = m_comparators.back();
 
     EXPECTGL(glBufferData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, gl_const::GLDynamicDraw))
-        .WillOnce(Invoke(vertexComparer, &dp::MemoryComparer::cmpSubBuffer));
+        .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmpSubBuffer));
 
     // Index buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
     EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
 
-    m_comparators.push_back(new dp::MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
-    dp::MemoryComparer * indexComparer = m_comparators.back();
+    m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
+    MemoryComparer * indexComparer = m_comparators.back();
 
     EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, gl_const::GLDynamicDraw))
-        .WillOnce(Invoke(indexComparer, &dp::MemoryComparer::cmpSubBuffer));
+        .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
 
     EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
     EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
@@ -278,7 +281,7 @@ private:
   uint32_t m_bufferIDCounter = 1;
 
   std::vector<BufferNode> m_nodes;
-  std::vector<dp::MemoryComparer *> m_comparators;
+  std::vector<MemoryComparer *> m_comparators;
 };
 }  // namespace
 
@@ -329,23 +332,22 @@ UNIT_TEST(BatchListOfStript_partial)
     test.CloseExpection();
 
     auto renderState = make_unique_dp<TestExtension>();
-    auto state = dp::RenderState(0, make_ref(renderState));
+    auto state = RenderState(0, make_ref(renderState));
 
-    dp::BindingInfo binding(1);
-    dp::BindingDecl & decl = binding.GetBindingDecl(0);
+    BindingInfo binding(1);
+    BindingDecl & decl = binding.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = ComponentCount;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    dp::AttributeProvider provider(1, VertexCount);
+    AttributeProvider provider(1, VertexCount);
     provider.InitStream(0, binding, make_ref(vertexData));
 
     VAOAcceptor vaoAcceptor;
-    dp::Batcher batcher(srcData[i].first, srcData[i].second);
-    batcher.StartSession(
-        std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, std::placeholders::_1, std::placeholders::_2));
+    Batcher batcher(srcData[i].first, srcData[i].second);
+    batcher.StartSession(std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
     batcher.InsertListOfStrip(make_ref(&context), state, make_ref(&provider), 4);
     batcher.EndSession(make_ref(&context));
 
@@ -353,3 +355,4 @@ UNIT_TEST(BatchListOfStript_partial)
       vaoAcceptor.m_vao[i].reset();
   }
 }
+}  // namespace batcher_tests

@@ -10,76 +10,82 @@
 #include <memory>
 #include <vector>
 
+namespace tracer_tests
+{
+using namespace generator::tests_support;
+using namespace search::tests_support;
+using namespace search;
+using namespace std;
+
 namespace
 {
-class TracerTest : public search::tests_support::SearchTest
+class TracerTest : public SearchTest
 {};
 
 UNIT_CLASS_TEST(TracerTest, Smoke)
 {
-  using TokenType = search::BaseContext::TokenType;
+  using TokenType = BaseContext::TokenType;
 
-  generator::tests_support::TestCity moscow(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
-  search::tests_support::TestCafe regularCafe(m2::PointD(0, 0));
-  search::tests_support::TestCafe moscowCafe(m2::PointD(0, 0), "Moscow", "en");
-  generator::tests_support::TestStreet tverskaya(std::vector<m2::PointD>{m2::PointD(0, 0), m2::PointD(0, 1)},
-                                                 "Tverskaya street", "en");
+  TestCity moscow(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
+  TestCafe regularCafe(m2::PointD(0, 0));
+  TestCafe moscowCafe(m2::PointD(0, 0), "Moscow", "en");
+  TestStreet tverskaya(vector<m2::PointD>{m2::PointD(0, 0), m2::PointD(0, 1)}, "Tverskaya street", "en");
 
-  BuildWorld([&](generator::tests_support::TestMwmBuilder & builder) { builder.Add(moscow); });
+  BuildWorld([&](TestMwmBuilder & builder) { builder.Add(moscow); });
 
-  auto const id = BuildCountry("Wonderland", [&](generator::tests_support::TestMwmBuilder & builder)
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(regularCafe);
     builder.Add(moscowCafe);
     builder.Add(tverskaya);
   });
 
-  search::SearchParams params;
+  SearchParams params;
   params.m_inputLocale = "en";
   params.m_viewport = m2::RectD(-1, -1, 1, 1);
-  params.m_mode = search::Mode::Everywhere;
+  params.m_mode = Mode::Everywhere;
 
   {
     params.m_query = "moscow cafe";
-    auto tracer = std::make_shared<search::Tracer>();
+    auto tracer = make_shared<Tracer>();
     params.m_tracer = tracer;
 
-    search::tests_support::TestSearchRequest request(m_engine, params);
+    TestSearchRequest request(m_engine, params);
     request.Run();
-    Rules rules = {search::tests_support::ExactMatch(id, regularCafe),
-                   search::tests_support::ExactMatch(id, moscowCafe)};
+    Rules rules = {ExactMatch(id, regularCafe), ExactMatch(id, moscowCafe)};
     TEST(ResultsMatch(request.Results(), rules), ());
 
     auto const actual = tracer->GetUniqueParses();
 
-    std::vector<search::Tracer::Parse> const expected{
-        search::Tracer::Parse{{{TokenType::TOKEN_TYPE_SUBPOI, search::TokenRange(0, 2)}}, false /* category */},
-        search::Tracer::Parse{{{TokenType::TOKEN_TYPE_CITY, search::TokenRange(0, 1)},
-                               {TokenType::TOKEN_TYPE_SUBPOI, search::TokenRange(1, 2)}},
-                              true /* category */}};
+    vector<Tracer::Parse> const expected{
+        Tracer::Parse{{{TokenType::TOKEN_TYPE_SUBPOI, TokenRange(0, 2)}}, false /* category */},
+        Tracer::Parse{
+            {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_SUBPOI, TokenRange(1, 2)}},
+            true /* category */}};
 
     TEST_EQUAL(expected, actual, ());
   }
 
   {
     params.m_query = "moscow tverskaya 1 or 2";
-    auto tracer = std::make_shared<search::Tracer>();
+    auto tracer = make_shared<Tracer>();
     params.m_tracer = tracer;
 
-    search::tests_support::TestSearchRequest request(m_engine, params);
+    TestSearchRequest request(m_engine, params);
     request.Run();
-    TEST(ResultsMatch(request.Results(), {search::tests_support::ExactMatch(id, tverskaya)}), ());
+    TEST(ResultsMatch(request.Results(), {ExactMatch(id, tverskaya)}), ());
 
     auto const actual = tracer->GetUniqueParses();
     // Unrecognized tokens are not included into the parses.
-    std::vector<search::Tracer::Parse> const expected{
-        search::Tracer::Parse{{{TokenType::TOKEN_TYPE_STREET, search::TokenRange(1, 2)}}, false /* category */},
-        search::Tracer::Parse{{{TokenType::TOKEN_TYPE_CITY, search::TokenRange(0, 1)},
-                               {TokenType::TOKEN_TYPE_STREET, search::TokenRange(1, 2)}},
-                              false /* category */},
+    vector<Tracer::Parse> const expected{
+        Tracer::Parse{{{TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}}, false /* category */},
+        Tracer::Parse{
+            {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},
+            false /* category */},
     };
 
     TEST_EQUAL(expected, actual, ());
   }
 }
 }  // namespace
+}  // namespace tracer_tests

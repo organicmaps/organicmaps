@@ -89,6 +89,7 @@ private:
 drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex,
                                        TTapHandler const & tapHandler) const
 {
+  using namespace std::placeholders;
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("compass", region);
   auto const halfSize = glsl::ToVec2(region.GetPixelSize() * 0.5f);
@@ -132,7 +133,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref
   batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
   dp::SessionGuard guard(
       context, batcher,
-      std::bind(&ShapeRenderer::AddShape, renderer.get(), std::placeholders::_1, std::placeholders::_2));
+      std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 
   return renderer;

@@ -24,9 +24,13 @@
 #include <string>
 #include <vector>
 
+namespace rank_table_test
+{
+using namespace std;
+
 namespace
 {
-void TestTable(std::vector<uint8_t> const & ranks, search::RankTable const & table)
+void TestTable(vector<uint8_t> const & ranks, search::RankTable const & table)
 {
   TEST_EQUAL(ranks.size(), table.Size(), ());
   TEST_EQUAL(table.GetVersion(), search::RankTable::V0, ());
@@ -34,7 +38,7 @@ void TestTable(std::vector<uint8_t> const & ranks, search::RankTable const & tab
     TEST_EQUAL(ranks[i], table.Get(i), ());
 }
 
-void TestTable(std::vector<uint8_t> const & ranks, std::string const & path)
+void TestTable(vector<uint8_t> const & ranks, string const & path)
 {
   // Tries to load table via file read.
   {
@@ -60,9 +64,9 @@ UNIT_TEST(RankTableBuilder_Smoke)
   size_t const kNumRanks = 256;
 
   FileWriter::DeleteFileX(kTestCont);
-  SCOPE_GUARD(cleanup, std::bind(&FileWriter::DeleteFileX, kTestCont));
+  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestCont));
 
-  std::vector<uint8_t> ranks;
+  vector<uint8_t> ranks;
   for (size_t i = 0; i < kNumRanks; ++i)
     ranks.push_back(i);
 
@@ -78,15 +82,15 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 {
   classificator::Load();
 
-  std::string const originalMapPath = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
-  std::string const mapPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-copy.mwm");
+  string const originalMapPath = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
+  string const mapPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-copy.mwm");
   base::CopyFileX(originalMapPath, mapPath);
-  SCOPE_GUARD(cleanup, std::bind(&FileWriter::DeleteFileX, mapPath));
+  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, mapPath));
 
   auto const localFile = platform::LocalCountryFile::MakeForTesting("minsk-pass-copy");
   TEST(localFile.OnDisk(MapFileType::Map), ());
 
-  std::vector<uint8_t> ranks;
+  vector<uint8_t> ranks;
   {
     FilesContainerR rcont(mapPath);
     search::SearchRankTableBuilder::CalcSearchRanks(rcont, ranks);
@@ -103,3 +107,4 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 
   TestTable(ranks, mapPath);
 }
+}  // namespace rank_table_test

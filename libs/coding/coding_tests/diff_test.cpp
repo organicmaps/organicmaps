@@ -13,16 +13,20 @@
 #include <string>
 #include <vector>
 
+namespace diff_test
+{
+using namespace std;
+
 UNIT_TEST(MyersSimpleDiff)
 {
-  std::vector<char> tmp;
-  PushBackByteSink<std::vector<char>> sink(tmp);
-  TEST_EQUAL(4, diff::DiffMyersSimple(std::string("axxxb"), std::string("cxxxd"), 5, sink), ());
-  TEST_EQUAL(5, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 10, sink), ());
-  TEST_EQUAL(5, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 5, sink), ());
-  TEST_EQUAL(-1, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 4, sink), ());
-  TEST_EQUAL(-1, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 2, sink), ());
-  TEST_EQUAL(-1, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 1, sink), ());
+  vector<char> tmp;
+  PushBackByteSink<vector<char>> sink(tmp);
+  TEST_EQUAL(4, diff::DiffMyersSimple(string("axxxb"), string("cxxxd"), 5, sink), ());
+  TEST_EQUAL(5, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 10, sink), ());
+  TEST_EQUAL(5, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 5, sink), ());
+  TEST_EQUAL(-1, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 4, sink), ());
+  TEST_EQUAL(-1, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 2, sink), ());
+  TEST_EQUAL(-1, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 1, sink), ());
 }
 
 class TestPatchWriter
@@ -37,10 +41,10 @@ public:
 
   void WriteOperation(uint64_t op) { m_Stream << op << "."; }
 
-  std::string Str() { return m_Stream.str(); }
+  string Str() { return m_Stream.str(); }
 
 private:
-  std::ostringstream m_Stream;
+  ostringstream m_Stream;
 };
 
 UNIT_TEST(PatchCoderCopyFirst)
@@ -117,10 +121,10 @@ public:
     m_Stream << ".";
   }
   void Finalize() {}
-  std::string Str() { return m_Stream.str(); }
+  string Str() { return m_Stream.str(); }
 
 private:
-  std::ostringstream m_Stream;
+  ostringstream m_Stream;
 };
 
 UNIT_TEST(DiffSimpleReplace)
@@ -274,3 +278,4 @@ UNIT_TEST(DiffWithRollingHash2)
   differ.Diff(srcV.begin(), srcV.end(), dstV.begin(), dstV.end(), testPatchCoder);
   TEST_EQUAL(testPatchCoder.Str(), "=2.-1.+x.=3.-5.=1.=3.=1.", ());
 }
+}  // namespace diff_test

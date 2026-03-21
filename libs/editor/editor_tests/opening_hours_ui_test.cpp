@@ -4,14 +4,18 @@
 
 #include <set>
 
+namespace opening_hours_ui_test
+{
+using namespace editor::ui;
+
 UNIT_TEST(TestTimeTable)
 {
   {
-    editor::ui::TimeTable tt = editor::ui::TimeTable::GetUninitializedTimeTable();
+    TimeTable tt = TimeTable::GetUninitializedTimeTable();
     TEST(!tt.IsValid(), ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     TEST(tt.IsValid(), ());
     TEST(tt.IsTwentyFourHours(), ());
 
@@ -34,7 +38,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
   using osmoh::HourMinutes;
 
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 18_h + 30_min});
@@ -47,7 +51,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 18_h + 30_min});
@@ -57,7 +61,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST_EQUAL(tt.GetExcludeTime().size(), 2, ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 18_h + 30_min});
@@ -69,7 +73,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({11_h + 15_min, 18_h + 30_min});
@@ -79,7 +83,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 2_h + 30_min});
@@ -93,7 +97,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST_EQUAL(tt.GetExcludeTime()[1].GetEnd().GetHourMinutes().GetHoursCount(), 2, ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 15_h + 30_min});
@@ -101,7 +105,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST(!tt.AddExcludeTime({7_h, 14_h}), ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 18_h + 30_min});
@@ -117,7 +121,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST_EQUAL(tt.GetExcludeTime()[1].GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h + 15_min, 23_h + 30_min});
@@ -138,7 +142,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST(predefinedEnd.GetMinutes() == HourMinutes::TMinutes::zero(), ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({8_h, 7_h});
@@ -150,14 +154,14 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
     TEST(predefinedEnd.GetMinutes() == HourMinutes::TMinutes::zero(), ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({7_h, 8_h + 45_min});
     TEST(!tt.CanAddExcludeTime(), ());
   }
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
 
     tt.SetOpeningTime({19_h, 18_h});
@@ -173,7 +177,7 @@ UNIT_TEST(TestTimeTable_ExcludeTime)
 UNIT_TEST(TestAppendTimeTable)
 {
   {
-    editor::ui::TimeTableSet tts;
+    TimeTableSet tts;
     TEST(!tts.Empty(), ());
 
     {
@@ -212,7 +216,7 @@ UNIT_TEST(TestAppendTimeTable)
                ());
   }
   {
-    editor::ui::TimeTableSet tts;
+    TimeTableSet tts;
     auto tt = tts.GetComplementTimeTable();
     tt.AddWorkingDay(osmoh::Weekday::Friday);
     tt.AddWorkingDay(osmoh::Weekday::Saturday);
@@ -227,7 +231,7 @@ UNIT_TEST(TestAppendTimeTable)
     TEST(!tts.GetComplementTimeTable().IsValid(), ());
   }
   {
-    editor::ui::TimeTableSet tts;
+    TimeTableSet tts;
     auto tt = tts.GetComplementTimeTable();
     tt.AddWorkingDay(osmoh::Weekday::Friday);
 
@@ -246,7 +250,7 @@ UNIT_TEST(TestAppendTimeTable)
     TEST_EQUAL(tts.Back().GetOpeningDays().size(), 1, ());
   }
   {
-    editor::ui::TimeTableSet tts;
+    TimeTableSet tts;
 
     {
       auto tt = tts.GetComplementTimeTable();
@@ -271,7 +275,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 1. Empty exclude time list is always valid.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 18_h});
     TEST(tt.IsValid(), ());
@@ -280,7 +284,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 2. Spans are sorted by start time after FixTimeSpans.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -296,7 +300,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 3. Overlapping spans are merged.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -309,7 +313,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 4. One span fully contains another — the larger span is kept.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -322,7 +326,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 5. Adjacent spans (end == start) are merged.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -335,7 +339,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 6. Non-overlapping spans stay separate.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -350,7 +354,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 7. Exclude span starting before opening time is rejected.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({10_h, 18_h});
 
@@ -360,7 +364,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 8. Exclude span ending after opening time is rejected.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({10_h, 18_h});
 
@@ -370,7 +374,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 9. Extended hours (opening past midnight) with valid exclude spans.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({20_h, 3_h});
 
@@ -382,7 +386,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 10. Extended hours with exclude span crossing midnight.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({20_h, 4_h});
 
@@ -394,7 +398,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 11. Multiple overlapping spans merged into one, with minutes precision.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -408,7 +412,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 12. Replace merges with existing spans correctly.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -425,7 +429,7 @@ UNIT_TEST(TestFixTimeSpans)
 
   // 13. Same start time — longer span wins.
   {
-    auto tt = editor::ui::TimeTable::GetPredefinedTimeTable();
+    auto tt = TimeTable::GetPredefinedTimeTable();
     tt.SetTwentyFourHours(false);
     tt.SetOpeningTime({8_h, 20_h});
 
@@ -436,3 +440,4 @@ UNIT_TEST(TestFixTimeSpans)
     TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 14, ());
   }
 }
+}  // namespace opening_hours_ui_test

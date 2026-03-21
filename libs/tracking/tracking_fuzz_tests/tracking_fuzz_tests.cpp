@@ -11,6 +11,9 @@
 #include <iterator>
 #include <vector>
 
+namespace tracking_fuzz_tests
+{
+using namespace coding;
 using namespace tracking;
 
 namespace
@@ -33,13 +36,13 @@ T PopType(std::vector<uint8_t> & data)
   return t;
 }
 
-coding::TrafficGPSEncoder::DataPoint PopDataPoint(std::vector<uint8_t> & data)
+TrafficGPSEncoder::DataPoint PopDataPoint(std::vector<uint8_t> & data)
 {
   auto const timestamp = PopType<uint64_t>(data);
   auto const lat = PopType<double>(data);
   auto const lon = PopType<double>(data);
   auto const traffic = PopType<uint8_t>(data);
-  return coding::TrafficGPSEncoder::DataPoint(timestamp, ms::LatLon(lat, lon), traffic);
+  return TrafficGPSEncoder::DataPoint(timestamp, ms::LatLon(lat, lon), traffic);
 }
 }  // namespace
 
@@ -66,3 +69,4 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const * data, size_t size)
   }
   return 0;
 }
+}  // namespace tracking_fuzz_tests

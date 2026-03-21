@@ -9,6 +9,10 @@
 
 #include <vector>
 
+namespace roundabouts_tests
+{
+using namespace routing;
+
 namespace
 {
 struct RouteData
@@ -27,13 +31,14 @@ UNIT_TEST(MiniRoundabout_CalculateRoute)
 
   for (auto const & route : routesWithMiniRoundabouts)
   {
-    TRouteResult const routeResult = integration::CalculateRoute(
-        integration::GetVehicleComponents(routing::VehicleType::Car), mercator::FromLatLon(route.m_start), {0.0, 0.0},
-        mercator::FromLatLon(route.m_finish));
+    TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                                 mercator::FromLatLon(route.m_start), {0.0, 0.0},
+                                                                 mercator::FromLatLon(route.m_finish));
 
-    TEST_EQUAL(routeResult.second, routing::RouterResultCode::NoError, ());
+    TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
     integration::TestRouteLength(*routeResult.first, route.m_routeLengthM);
   }
 }
 }  // namespace
+}  // namespace roundabouts_tests

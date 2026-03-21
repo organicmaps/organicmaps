@@ -17,6 +17,13 @@
 #include <string>
 #include <vector>
 
+namespace mem_search_index_tests
+{
+using namespace search_base;
+using namespace search;
+using namespace std;
+using namespace strings;
+
 namespace
 {
 using Id = uint64_t;
@@ -24,9 +31,9 @@ using Id = uint64_t;
 class Doc
 {
 public:
-  Doc(std::string const & text, std::string const & lang) : m_lang(StringUtf8Multilang::GetLangIndex(lang))
+  Doc(string const & text, string const & lang) : m_lang(StringUtf8Multilang::GetLangIndex(lang))
   {
-    m_tokens = search::NormalizeAndTokenizeString(text);
+    m_tokens = NormalizeAndTokenizeString(text);
   }
 
   template <typename ToDo>
@@ -37,37 +44,37 @@ public:
   }
 
 private:
-  std::vector<strings::UniString> m_tokens;
+  vector<strings::UniString> m_tokens;
   int8_t m_lang;
 };
 
 class MemSearchIndexTest
 {
 public:
-  using Index = search_base::MemSearchIndex<Id>;
+  using Index = MemSearchIndex<Id>;
 
   void Add(Id const & id, Doc const & doc) { m_index.Add(id, doc); }
 
   void Erase(Id const & id, Doc const & doc) { m_index.Erase(id, doc); }
 
-  std::vector<Id> StrictQuery(std::string const & query, std::string const & lang) const
+  vector<Id> StrictQuery(string const & query, string const & lang) const
   {
     auto prev = m_index.GetAllIds();
     TEST(base::IsSortedAndUnique(prev), ());
 
-    search::ForEachNormalizedToken(query, [&](strings::UniString const & token)
+    ForEachNormalizedToken(query, [&](strings::UniString const & token)
     {
-      search::SearchTrieRequest<strings::UniStringDFA> request;
+      SearchTrieRequest<UniStringDFA> request;
       request.m_names.emplace_back(token);
       request.m_langs.insert(StringUtf8Multilang::GetLangIndex(lang));
 
-      std::vector<Id> curr;
-      search::MatchFeaturesInTrie(request, m_index.GetRootIterator(), [](Id const & /* id */)
-      { return true; } /* filter */, [&curr](Id const & id, bool /* exactMatch */) { curr.push_back(id); } /* toDo */);
+      vector<Id> curr;
+      MatchFeaturesInTrie(request, m_index.GetRootIterator(), [](Id const & /* id */) { return true; } /* filter */,
+                          [&curr](Id const & id, bool /* exactMatch */) { curr.push_back(id); } /* toDo */);
       base::SortUnique(curr);
 
-      std::vector<Id> intersection;
-      std::set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(), std::back_inserter(intersection));
+      vector<Id> intersection;
+      set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(), back_inserter(intersection));
       prev = intersection;
     });
 
@@ -88,17 +95,18 @@ UNIT_CLASS_TEST(MemSearchIndexTest, Smoke)
   Add(kHamlet, hamlet);
   Add(kMacbeth, macbeth);
 
-  TEST_EQUAL(StrictQuery("Thunder", "en"), std::vector<Id>({kMacbeth}), ());
-  TEST_EQUAL(StrictQuery("Question", "en"), std::vector<Id>({kHamlet}), ());
-  TEST_EQUAL(StrictQuery("or", "en"), std::vector<Id>({kHamlet, kMacbeth}), ());
-  TEST_EQUAL(StrictQuery("thunder lightning rain", "en"), std::vector<Id>({kMacbeth}), ());
+  TEST_EQUAL(StrictQuery("Thunder", "en"), vector<Id>({kMacbeth}), ());
+  TEST_EQUAL(StrictQuery("Question", "en"), vector<Id>({kHamlet}), ());
+  TEST_EQUAL(StrictQuery("or", "en"), vector<Id>({kHamlet, kMacbeth}), ());
+  TEST_EQUAL(StrictQuery("thunder lightning rain", "en"), vector<Id>({kMacbeth}), ());
 
   Erase(kMacbeth, macbeth);
 
-  TEST_EQUAL(StrictQuery("Thunder", "en"), std::vector<Id>{}, ());
-  TEST_EQUAL(StrictQuery("to be or not to be", "en"), std::vector<Id>({kHamlet}), ());
+  TEST_EQUAL(StrictQuery("Thunder", "en"), vector<Id>{}, ());
+  TEST_EQUAL(StrictQuery("to be or not to be", "en"), vector<Id>({kHamlet}), ());
 
   Erase(kHamlet, hamlet);
-  TEST_EQUAL(StrictQuery("question", "en"), std::vector<Id>{}, ());
+  TEST_EQUAL(StrictQuery("question", "en"), vector<Id>{}, ());
 }
 }  // namespace
+}  // namespace mem_search_index_tests

@@ -31,14 +31,18 @@
 
 class DataSource;
 
-namespace search
+namespace downloader_search_test
 {
+using namespace generator::tests_support;
+using namespace search::tests_support;
+using namespace std;
+
 namespace
 {
-std::string const kCountriesTxt = R"({
+string const kCountriesTxt = R"({
   "id": "Countries",
   "v": )" + strings::to_string(0 /* version */) +
-                                  R"(,
+                             R"(,
   "g": [
       {
        "id": "Flatland",
@@ -95,25 +99,25 @@ private:
   storage::Queue m_queue;
 };
 
-class TestDelegate : public DownloaderSearchCallback::Delegate
+class TestDelegate : public search::DownloaderSearchCallback::Delegate
 {
 public:
   // DownloaderSearchCallback::Delegate overrides:
-  void RunUITask(std::function<void()> fn) override { fn(); }
+  void RunUITask(function<void()> fn) override { fn(); }
 };
 
 class DownloaderSearchRequest
-  : public tests_support::TestSearchRequest
+  : public TestSearchRequest
   , public TestDelegate
 {
 public:
-  DownloaderSearchRequest(DataSource & dataSource, tests_support::TestSearchEngine & engine, std::string const & query)
-    : tests_support::TestSearchRequest(engine, MakeSearchParams(query))
-    , m_storage(kCountriesTxt, std::make_unique<TestMapFilesDownloader>())
-    , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this), dataSource,
+  DownloaderSearchRequest(DataSource & dataSource, TestSearchEngine & engine, string const & query)
+    : TestSearchRequest(engine, MakeSearchParams(query))
+    , m_storage(kCountriesTxt, make_unique<TestMapFilesDownloader>())
+    , m_downloaderCallback(static_cast<search::DownloaderSearchCallback::Delegate &>(*this), dataSource,
                            m_engine.GetCountryInfoGetter(), m_storage, MakeDownloaderParams(query))
   {
-    SetCustomOnResults(std::bind(&DownloaderSearchRequest::OnResultsDownloader, this, std::placeholders::_1));
+    SetCustomOnResults(bind(&DownloaderSearchRequest::OnResultsDownloader, this, placeholders::_1));
   }
 
   void OnResultsDownloader(search::Results const & results)
@@ -122,10 +126,10 @@ public:
     OnResults(results);
   }
 
-  std::vector<storage::DownloaderSearchResult> const & GetResults() const { return m_downloaderResults; }
+  vector<storage::DownloaderSearchResult> const & GetResults() const { return m_downloaderResults; }
 
 private:
-  search::SearchParams MakeSearchParams(std::string const & query)
+  search::SearchParams MakeSearchParams(string const & query)
   {
     search::SearchParams p;
     p.m_query = query;
@@ -136,7 +140,7 @@ private:
     return p;
   }
 
-  storage::DownloaderSearchParams MakeDownloaderParams(std::string const & query)
+  storage::DownloaderSearchParams MakeDownloaderParams(string const & query)
   {
     storage::DownloaderSearchParams p;
     p.m_query = query;
@@ -147,7 +151,7 @@ private:
 
       auto const & results = r.m_results;
       CHECK_GREATER_OR_EQUAL(results.size(), m_downloaderResults.size(), ());
-      CHECK(std::equal(m_downloaderResults.begin(), m_downloaderResults.end(), results.begin()), ());
+      CHECK(equal(m_downloaderResults.begin(), m_downloaderResults.end(), results.begin()), ());
 
       m_downloaderResults = r.m_results;
       if (r.m_endMarker)
@@ -156,25 +160,24 @@ private:
     return p;
   }
 
-  std::vector<storage::DownloaderSearchResult> m_downloaderResults;
+  vector<storage::DownloaderSearchResult> m_downloaderResults;
   bool m_endMarker = false;
 
   storage::Storage m_storage;
 
-  DownloaderSearchCallback m_downloaderCallback;
+  search::DownloaderSearchCallback m_downloaderCallback;
 };
 
-class DownloaderSearchTest : public tests_support::SearchTest
+class DownloaderSearchTest : public SearchTest
 {
 public:
-  void AddRegion(std::string const & countryName, std::string const & regionName, m2::PointD const & p1,
-                 m2::PointD const & p2)
+  void AddRegion(string const & countryName, string const & regionName, m2::PointD const & p1, m2::PointD const & p2)
   {
-    generator::tests_support::TestPOI cornerPost1(p1, regionName + " corner post 1", "en");
-    generator::tests_support::TestPOI cornerPost2(p2, regionName + " corner post 2", "en");
-    generator::tests_support::TestCity capital((p1 + p2) * 0.5, regionName + " capital", "en", 0 /* rank */);
-    generator::tests_support::TestCountry country(p1 * 0.3 + p2 * 0.7, countryName, "en");
-    BuildCountry(regionName, [&](generator::tests_support::TestMwmBuilder & builder)
+    TestPOI cornerPost1(p1, regionName + " corner post 1", "en");
+    TestPOI cornerPost2(p2, regionName + " corner post 2", "en");
+    TestCity capital((p1 + p2) * 0.5, regionName + " capital", "en", 0 /* rank */);
+    TestCountry country(p1 * 0.3 + p2 * 0.7, countryName, "en");
+    BuildCountry(regionName, [&](TestMwmBuilder & builder)
     {
       builder.Add(cornerPost1);
       builder.Add(cornerPost2);
@@ -191,7 +194,7 @@ public:
 
   void BuildWorld()
   {
-    tests_support::SearchTest::BuildWorld([&](generator::tests_support::TestMwmBuilder & builder)
+    SearchTest::BuildWorld([&](TestMwmBuilder & builder)
     {
       for (auto const & ft : m_worldCountries)
         builder.Add(ft);
@@ -201,15 +204,15 @@ public:
   }
 
 private:
-  std::vector<generator::tests_support::TestCountry> m_worldCountries;
-  std::vector<generator::tests_support::TestCity> m_worldCities;
+  vector<TestCountry> m_worldCountries;
+  vector<TestCity> m_worldCities;
 };
 
 template <typename T>
-void TestResults(std::vector<T> received, std::vector<T> expected)
+void TestResults(vector<T> received, vector<T> expected)
 {
-  std::sort(received.begin(), received.end());
-  std::sort(expected.begin(), expected.end());
+  sort(received.begin(), received.end());
+  sort(expected.begin(), expected.end());
   TEST_EQUAL(expected, received, ());
 }
 
@@ -251,4 +254,4 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
   }
 }
 }  // namespace
-}  // namespace search
+}  // namespace downloader_search_test

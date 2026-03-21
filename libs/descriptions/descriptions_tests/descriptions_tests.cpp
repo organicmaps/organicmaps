@@ -9,26 +9,30 @@
 #include <string>
 #include <vector>
 
+namespace descriptions_tests
+{
+using namespace descriptions;
+
 struct RawDescription
 {
-  descriptions::FeatureIndex m_idx;
-  std::vector<std::pair<descriptions::LangCode, std::string>> m_strings;
+  FeatureIndex m_idx;
+  std::vector<std::pair<LangCode, std::string>> m_strings;
 };
 
 template <typename Reader>
-std::string GetDescription(Reader & reader, descriptions::FeatureIndex fid, LangsBufferT const & langPriority)
+std::string GetDescription(Reader & reader, FeatureIndex fid, LangsBufferT const & langPriority)
 {
-  descriptions::Deserializer des;
+  Deserializer des;
   return des.Deserialize(reader, fid, langPriority);
 }
 
-descriptions::DescriptionsCollection Convert(std::vector<RawDescription> const & rawDescriptions)
+DescriptionsCollection Convert(std::vector<RawDescription> const & rawDescriptions)
 {
-  descriptions::DescriptionsCollection descriptions;
+  DescriptionsCollection descriptions;
   for (auto const & desc : rawDescriptions)
   {
     descriptions.m_features.push_back({});
-    descriptions::FeatureDescription & ftDesc = descriptions.m_features.back();
+    FeatureDescription & ftDesc = descriptions.m_features.back();
     ftDesc.m_ftIndex = desc.m_idx;
 
     for (auto const & translation : desc.m_strings)
@@ -60,7 +64,7 @@ UNIT_TEST(Descriptions_SerDes)
     std::vector<uint8_t> buffer;
     {
       auto descriptionsCollection = Convert(data);
-      descriptions::Serializer ser(std::move(descriptionsCollection));
+      Serializer ser(std::move(descriptionsCollection));
       MemWriter<decltype(buffer)> writer(buffer);
       ser.Serialize(writer);
     }
@@ -75,7 +79,7 @@ UNIT_TEST(Descriptions_SerDes)
     std::vector<uint8_t> buffer(kDummyBytesCount);
     {
       auto descriptionsCollection = Convert(data);
-      descriptions::Serializer ser(std::move(descriptionsCollection));
+      Serializer ser(std::move(descriptionsCollection));
       MemWriter<decltype(buffer)> writer(buffer);
       writer.Seek(kDummyBytesCount);
       ser.Serialize(writer);
@@ -284,7 +288,7 @@ UNIT_TEST(Descriptions_Html)
     std::vector<uint8_t> buffer;
     {
       auto descriptionsCollection = Convert(data);
-      descriptions::Serializer ser(std::move(descriptionsCollection));
+      Serializer ser(std::move(descriptionsCollection));
       MemWriter<decltype(buffer)> writer(buffer);
       ser.Serialize(writer);
     }
@@ -296,3 +300,4 @@ UNIT_TEST(Descriptions_Html)
         TEST_EQUAL(GetDescription(reader, rawDesc.m_idx, {translation.first}), translation.second, ());
   }
 }
+}  // namespace descriptions_tests

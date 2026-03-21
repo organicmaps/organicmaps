@@ -16,11 +16,13 @@
 #pragma clang diagnostic pop
 #endif
 
+namespace fifo_cache_test { template <typename, typename> class FifoCacheTest; }
+
 template <class Key, class Value, class HashContainer = std::unordered_map<Key, Value>>
 class FifoCache
 {
   template <typename K, typename V>
-  friend class FifoCacheTest;
+  friend class fifo_cache_test::FifoCacheTest;
 
 public:
   using Loader = std::function<void(Key const & key, Value & value)>;

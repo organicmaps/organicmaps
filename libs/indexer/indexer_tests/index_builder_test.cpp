@@ -18,6 +18,10 @@
 #include <string>
 #include <vector>
 
+namespace index_builder_test
+{
+using namespace std;
+
 UNIT_TEST(BuildIndexTest)
 {
   Platform & p = GetPlatform();
@@ -26,23 +30,23 @@ UNIT_TEST(BuildIndexTest)
   FilesContainerR originalContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 
   // Build index.
-  std::vector<char> serialIndex;
+  vector<char> serialIndex;
   {
     FeaturesVectorTest features(originalContainer);
 
-    MemWriter<std::vector<char>> serialWriter(serialIndex);
+    MemWriter<vector<char>> serialWriter(serialIndex);
     indexer::BuildIndex(features.GetHeader(), features.GetVector(), serialWriter, "build_index_test");
   }
 
   // Create a new mwm file.
-  std::string const fileName = "build_index_test" DATA_FILE_EXTENSION;
-  std::string const filePath = p.WritablePathForFile(fileName);
+  string const fileName = "build_index_test" DATA_FILE_EXTENSION;
+  string const filePath = p.WritablePathForFile(fileName);
   FileWriter::DeleteFileX(filePath);
 
   // Copy original mwm file and replace index in it.
   {
     FilesContainerW containerWriter(filePath);
-    std::vector<std::string> tags;
+    vector<string> tags;
     originalContainer.ForEachTag(base::MakeBackInsertFunctor(tags));
     for (size_t i = 0; i < tags.size(); ++i)
       if (tags[i] != INDEX_FILE_TAG)
@@ -62,3 +66,4 @@ UNIT_TEST(BuildIndexTest)
   // Clean after the test.
   FileWriter::DeleteFileX(filePath);
 }
+}  // namespace index_builder_test

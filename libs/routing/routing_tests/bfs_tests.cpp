@@ -8,13 +8,18 @@
 #include <set>
 #include <vector>
 
+namespace bfs_tests
+{
+using namespace routing;
+using namespace routing_test;
+
 namespace
 {
 double constexpr kWeight = 1.0;
 
-routing_test::UndirectedGraph BuildUndirectedGraph()
+UndirectedGraph BuildUndirectedGraph()
 {
-  routing_test::UndirectedGraph graph;
+  UndirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 4, kWeight);
@@ -31,9 +36,9 @@ routing_test::UndirectedGraph BuildUndirectedGraph()
   return graph;
 }
 
-routing_test::DirectedGraph BuildDirectedGraph()
+DirectedGraph BuildDirectedGraph()
 {
-  routing_test::DirectedGraph graph;
+  DirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 4, kWeight);
@@ -50,9 +55,9 @@ routing_test::DirectedGraph BuildDirectedGraph()
   return graph;
 }
 
-routing_test::DirectedGraph BuildDirectedCyclicGraph()
+DirectedGraph BuildDirectedCyclicGraph()
 {
-  routing_test::DirectedGraph graph;
+  DirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 1, kWeight);
@@ -64,9 +69,9 @@ routing_test::DirectedGraph BuildDirectedCyclicGraph()
   return graph;
 }
 
-routing_test::DirectedGraph BuildSmallDirectedCyclicGraph()
+DirectedGraph BuildSmallDirectedCyclicGraph()
 {
-  routing_test::DirectedGraph graph;
+  DirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 1, kWeight);
@@ -76,10 +81,6 @@ routing_test::DirectedGraph BuildSmallDirectedCyclicGraph()
   return graph;
 }
 }  // namespace
-
-namespace routing_test
-{
-using namespace routing;
 
 UNIT_TEST(BFS_AllVisit_Undirected)
 {
@@ -168,4 +169,4 @@ UNIT_TEST(BFS_ReconstructPathTest)
   expected = {2, 1, 0};
   TEST_EQUAL(path, expected, ());
 }
-}  //  namespace routing_test
+}  // namespace bfs_tests

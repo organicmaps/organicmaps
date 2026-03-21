@@ -4,6 +4,10 @@
 
 #include <string>
 
+namespace region_info_getter_tests
+{
+using namespace search;
+
 namespace
 {
 class RegionInfoGetterTest
@@ -28,7 +32,7 @@ public:
   }
 
 protected:
-  search::RegionInfoGetter m_regionInfoGetter;
+  RegionInfoGetter m_regionInfoGetter;
 };
 
 UNIT_CLASS_TEST(RegionInfoGetterTest, CountryName)
@@ -63,3 +67,4 @@ UNIT_CLASS_TEST(RegionInfoGetterTest, FullName)
   TEST_EQUAL(GetLocalizedFullName("Crimea"), "Крым", ());
 }
 }  // namespace
+}  // namespace region_info_getter_tests

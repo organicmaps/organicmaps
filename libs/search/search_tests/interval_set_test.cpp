@@ -6,6 +6,10 @@
 #include <set>
 #include <vector>
 
+namespace interval_set_test
+{
+using namespace base;
+
 namespace
 {
 template <typename Elem>
@@ -122,3 +126,4 @@ UNIT_TEST(IntervalSet_SubtractFrom)
     TEST_EQUAL(difference, expected, ());
   }
 }
+}  // namespace interval_set_test

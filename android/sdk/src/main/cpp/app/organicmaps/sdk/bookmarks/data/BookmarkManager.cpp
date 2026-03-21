@@ -234,12 +234,14 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeShowBookmarkCatego
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv * env, jclass)
 {
+  using std::placeholders::_1;
+  using std::placeholders::_2;
   PrepareClassRefs(env);
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&OnAsyncLoadingStarted, env);
   callbacks.m_onFinished = std::bind(&OnAsyncLoadingFinished, env);
-  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, std::placeholders::_1, std::placeholders::_2);
-  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, std::placeholders::_1, std::placeholders::_2);
+  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, _1, _2);
+  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, _1, _2);
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
@@ -495,6 +497,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGet
     JNIEnv * env, jobject, jlong catId, jint sortingType, jboolean hasMyPosition, jdouble lat, jdouble lon,
     jlong timestamp)
 {
+  using std::placeholders::_1;
+  using std::placeholders::_2;
   auto & bm = frm()->GetBookmarkManager();
   BookmarkManager::SortParams sortParams;
   sortParams.m_groupId = static_cast<kml::MarkGroupId>(catId);
@@ -502,7 +506,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGet
   sortParams.m_hasMyPosition = static_cast<bool>(hasMyPosition);
   sortParams.m_myPosition = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   sortParams.m_onResults =
-      std::bind(&OnCategorySortingResults, env, timestamp, std::placeholders::_1, std::placeholders::_2);
+      std::bind(&OnCategorySortingResults, env, timestamp, _1, _2);
 
   bm.GetSortedCategory(sortParams);
 }

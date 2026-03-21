@@ -12,6 +12,10 @@
 #include <utility>
 #include <vector>
 
+namespace interval_index_test
+{
+using namespace std;
+
 namespace
 {
 struct CellIdFeaturePairForTest
@@ -27,7 +31,7 @@ struct CellIdFeaturePairForTest
   uint32_t m_value;
 };
 
-auto IndexValueInserter(std::vector<uint32_t> & values)
+auto IndexValueInserter(vector<uint32_t> & values)
 {
   return [inserter = base::MakeBackInsertFunctor(values)](uint64_t, auto value) { inserter(value); };
 }
@@ -54,10 +58,10 @@ UNIT_TEST(IntervalIndex_SerializedNodeBitmap)
       "\x0A"      // 10 - childSizes[3] encoded as varuint.
       "\xE8\x07"  // 1000 = 0x3E8 - childSizes[6] encoded as varuint.
       "";
-  std::vector<uint8_t> serializedNode;
-  MemWriter<std::vector<uint8_t>> writer(serializedNode);
+  vector<uint8_t> serializedNode;
+  MemWriter<vector<uint8_t>> writer(serializedNode);
   IntervalIndexBuilder(11, 1, 3).WriteNode(writer, offset, childSizes);
-  TEST_EQUAL(serializedNode, std::vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
+  TEST_EQUAL(serializedNode, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
 }
 
 UNIT_TEST(IntervalIndex_SerializedNodeList)
@@ -69,57 +73,57 @@ UNIT_TEST(IntervalIndex_SerializedNodeList)
       "\x06"
       "\xE8\x07"  // 6, 1000
       "";
-  std::vector<uint8_t> serializedNode;
-  MemWriter<std::vector<uint8_t>> writer(serializedNode);
+  vector<uint8_t> serializedNode;
+  MemWriter<vector<uint8_t>> writer(serializedNode);
   IntervalIndexBuilder(11, 1, 4).WriteNode(writer, offset, childSizes);
-  TEST_EQUAL(serializedNode, std::vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
+  TEST_EQUAL(serializedNode, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
 }
 
 UNIT_TEST(IntervalIndex_SerializedLeaves)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0x1537U, 0));
   data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
   data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
-  std::vector<uint8_t> serialLeaves;
-  MemWriter<std::vector<uint8_t>> writer(serialLeaves);
-  std::vector<uint32_t> sizes;
+  vector<uint8_t> serialLeaves;
+  MemWriter<vector<uint8_t>> writer(serialLeaves);
+  vector<uint32_t> sizes;
   IntervalIndexBuilder(16, 1, 4).BuildLeaves(writer, data.begin(), data.end(), sizes);
   char const expSerial[] =
       "\x37\x00"
       "\x38\x02"
       "\x37\x04";  // 0x1537 0x1538 0x1637
   uint32_t const expSizes[] = {4, 2};
-  TEST_EQUAL(serialLeaves, std::vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-  TEST_EQUAL(sizes, std::vector<uint32_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
+  TEST_EQUAL(serialLeaves, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
+  TEST_EQUAL(sizes, vector<uint32_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
 }
 
 UNIT_TEST(IntervalIndex_SerializedNodes)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0x1537U, 0));
   data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
   data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
   uint32_t const leavesSizes[] = {4, 2};
-  std::vector<uint8_t> serialNodes;
-  MemWriter<std::vector<uint8_t>> writer(serialNodes);
-  std::vector<uint32_t> sizes;
+  vector<uint8_t> serialNodes;
+  MemWriter<vector<uint8_t>> writer(serialNodes);
+  vector<uint32_t> sizes;
   IntervalIndexBuilder(16, 1, 4).BuildLevel(writer, data.begin(), data.end(), 1, leavesSizes,
                                             leavesSizes + ARRAY_SIZE(leavesSizes), sizes);
   char const expSerial[] = "\x01\x60\x00\x04\x02";
   uint32_t const expSizes[] = {ARRAY_SIZE(expSerial) - 1};
-  TEST_EQUAL(serialNodes, std::vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-  TEST_EQUAL(sizes, std::vector<uint32_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
+  TEST_EQUAL(serialNodes, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
+  TEST_EQUAL(sizes, vector<uint32_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
 }
 
 UNIT_TEST(IntervalIndex_Serialized)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0x1537U, 0));
   data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
   data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
-  std::vector<uint8_t> serialIndex;
-  MemWriter<std::vector<uint8_t>> writer(serialIndex);
+  vector<uint8_t> serialIndex;
+  MemWriter<vector<uint8_t>> writer(serialIndex);
   IntervalIndexBuilder(16, 1, 4).BuildIndex(writer, data.begin(), data.end());
 
   char const expSerial[] =
@@ -135,162 +139,163 @@ UNIT_TEST(IntervalIndex_Serialized)
       "\x00\x01\x05"          // Root
       "";
 
-  TEST_EQUAL(serialIndex, std::vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
+  TEST_EQUAL(serialIndex, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
 
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   uint32_t expected[] = {0, 1, 2};
-  std::vector<uint32_t> values;
+  vector<uint32_t> values;
   TEST_EQUAL(index.KeyEnd(), 0x10000, ());
   index.ForEach(IndexValueInserter(values), 0, 0x10000);
-  TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+  TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
 }
 
 UNIT_TEST(IntervalIndex_Simple)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D100ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D100ULL, 2));
-  std::vector<char> serialIndex;
-  MemWriter<std::vector<char>> writer(serialIndex);
+  vector<char> serialIndex;
+  MemWriter<vector<char>> writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   TEST_EQUAL(index.KeyEnd(), 0x10000000000ULL, ());
   {
     uint32_t expected[] = {0, 1, 2};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0ULL, index.KeyEnd());
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected[] = {0, 1};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0xA0B1C2D100ULL, 0xA0B1C2D201ULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected[] = {0, 1};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0x0ULL, 0xA0B1C30000ULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected[] = {0};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0xA0B1C2D100ULL, 0xA0B1C2D101ULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected[] = {0};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0xA0B1C2D100ULL, 0xA0B1C2D200ULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0xA0B1C2D100ULL, 0xA0B1C2D100ULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(), ());
+    TEST_EQUAL(values, vector<uint32_t>(), ());
   }
   {
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0xA0B1000000ULL, 0xA0B1B20000ULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(), ());
+    TEST_EQUAL(values, vector<uint32_t>(), ());
   }
 }
 
 UNIT_TEST(IntervalIndex_Empty)
 {
-  std::vector<CellIdFeaturePairForTest> data;
-  std::vector<char> serialIndex;
-  MemWriter<std::vector<char>> writer(serialIndex);
+  vector<CellIdFeaturePairForTest> data;
+  vector<char> serialIndex;
+  MemWriter<vector<char>> writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   {
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0ULL, 0xFFFFFFFFFFULL);
-    TEST_EQUAL(values, std::vector<uint32_t>(), ());
+    TEST_EQUAL(values, vector<uint32_t>(), ());
   }
 }
 
 UNIT_TEST(IntervalIndex_Simple2)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 3));
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
-  std::vector<char> serialIndex;
-  MemWriter<std::vector<char>> writer(serialIndex);
+  vector<char> serialIndex;
+  MemWriter<vector<char>> writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   {
     uint32_t expected[] = {0, 1, 2, 3};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0, 0xFFFFFFFFFFULL);
-    std::sort(values.begin(), values.end());
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    sort(values.begin(), values.end());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
 }
 
 UNIT_TEST(IntervalIndex_Simple3)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0x0100ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0x0200ULL, 1));
-  std::vector<char> serialIndex;
-  MemWriter<std::vector<char>> writer(serialIndex);
+  vector<char> serialIndex;
+  MemWriter<vector<char>> writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   {
     uint32_t expected[] = {0, 1};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0, 0xFFFFULL);
-    std::sort(values.begin(), values.end());
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    sort(values.begin(), values.end());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
 }
 
 UNIT_TEST(IntervalIndex_Simple4)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0x01030400ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0x02030400ULL, 1));
-  std::vector<char> serialIndex;
-  MemWriter<std::vector<char>> writer(serialIndex);
+  vector<char> serialIndex;
+  MemWriter<vector<char>> writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   {
     uint32_t expected[] = {0, 1};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0, 0xFFFFFFFFULL);
-    std::sort(values.begin(), values.end());
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    sort(values.begin(), values.end());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
 }
 
 UNIT_TEST(IntervalIndex_Simple5)
 {
-  std::vector<CellIdFeaturePairForTest> data;
+  vector<CellIdFeaturePairForTest> data;
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 3));
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
-  std::vector<char> serialIndex;
-  MemWriter<std::vector<char>> writer(serialIndex);
+  vector<char> serialIndex;
+  MemWriter<vector<char>> writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
   {
     uint32_t expected[] = {0, 1, 2, 3};
-    std::vector<uint32_t> values;
+    vector<uint32_t> values;
     index.ForEach(IndexValueInserter(values), 0, 0xFFFFFFFFFFULL);
-    std::sort(values.begin(), values.end());
-    TEST_EQUAL(values, std::vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+    sort(values.begin(), values.end());
+    TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
 }
+}  // namespace interval_index_test

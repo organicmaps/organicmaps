@@ -3,6 +3,12 @@
 #include <list>
 #include <string>
 
+namespace query_saver_tests
+{
+void UnitTest_QuerySaverSerializerTest();
+void UnitTest_QuerySaverCorruptedStringTest();
+}  // namespace query_saver_tests
+
 namespace search
 {
 /// Saves last search queries for search suggestion.
@@ -25,8 +31,8 @@ public:
   void Clear();
 
 private:
-  friend void UnitTest_QuerySaverSerializerTest();
-  friend void UnitTest_QuerySaverCorruptedStringTest();
+  friend void query_saver_tests::UnitTest_QuerySaverSerializerTest();
+  friend void query_saver_tests::UnitTest_QuerySaverCorruptedStringTest();
   void Serialize(std::string & data) const;
   void Deserialize(std::string const & data);
 

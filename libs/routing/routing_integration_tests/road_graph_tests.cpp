@@ -22,6 +22,11 @@
 #include <utility>
 #include <vector>
 
+namespace road_graph_tests
+{
+using namespace routing;
+using namespace integration;
+
 // The test on combinatorial explosion of number of fake edges at FeaturesRoadGraph.
 // It might happen when a lot of roads intersect at one point. For example,
 // https://www.openstreetmap.org/#map=19/50.73197/-1.21295
@@ -29,24 +34,24 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
 {
   classificator::Load();
 
-  std::vector<platform::LocalCountryFile> localFiles;
-  integration::GetAllLocalFiles(localFiles);
+  std::vector<LocalCountryFile> localFiles;
+  GetAllLocalFiles(localFiles);
   TEST(!localFiles.empty(), ());
 
   FrozenDataSource dataSource;
   for (auto const & file : localFiles)
     dataSource.Register(file);
 
-  routing::MwmDataSource routingSource(dataSource, nullptr /* numMwmIDs */);
-  routing::FeaturesRoadGraph graph(routingSource, routing::IRoadGraph::Mode::ObeyOnewayTag,
-                                   std::make_shared<routing::CarModelFactory>(routing::CountryParentNameGetterFn()));
+  MwmDataSource routingSource(dataSource, nullptr /* numMwmIDs */);
+  FeaturesRoadGraph graph(routingSource, IRoadGraph::Mode::ObeyOnewayTag,
+                          std::make_shared<CarModelFactory>(CountryParentNameGetterFn()));
   geometry::PointWithAltitude const j(m2::PointD(mercator::FromLatLon(50.73208, -1.21279)),
                                       geometry::kDefaultAltitudeMeters);
   std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> sourceVicinity;
-  graph.FindClosestEdges(
-      mercator::RectByCenterXYAndSizeInMeters(j.GetPoint(), routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
-      20 /* count */, sourceVicinity);
+  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
+                         20 /* count */, sourceVicinity);
   // In case of the combinatorial explosion mentioned above all the memory was consumed for
   // FeaturesRoadGraph::m_fakeIngoingEdges and FeaturesRoadGraph::m_fakeOutgoingEdges fields.
   graph.AddFakeEdges(j, sourceVicinity);
 }
+}  // namespace road_graph_tests

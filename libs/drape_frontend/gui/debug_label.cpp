@@ -75,6 +75,7 @@ void DebugInfoLabels::AddLabel(ref_ptr<dp::TextureManager> tex, std::string cons
 
 drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex)
 {
+  using namespace std::placeholders;
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
 
   m2::PointF pos = m_position.m_pixelPivot;
@@ -84,7 +85,7 @@ drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::GraphicsContext> cont
     params.m_pivot.y = pos.y;
     m2::PointF textSize = MutableLabelDrawer::Draw(
         context, params, tex,
-        std::bind(&ShapeRenderer::AddShape, renderer.get(), std::placeholders::_1, std::placeholders::_2));
+        std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
     pos.y += 2 * textSize.y;
   }
 

@@ -13,6 +13,11 @@ namespace platform
 class HttpClient;
 }
 
+namespace traffic_info_test
+{
+void UnitTest_TrafficInfo_UpdateTrafficData();
+}  // namespace traffic_info_test
+
 namespace traffic
 {
 // This class is responsible for providing the real-time
@@ -123,7 +128,7 @@ private:
     Error,
   };
 
-  friend void UnitTest_TrafficInfo_UpdateTrafficData();
+  friend void traffic_info_test::UnitTest_TrafficInfo_UpdateTrafficData();
 
   // todo(@m) A temporary method. Remove it once the keys are added
   // to the generator and the data is regenerated.

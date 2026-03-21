@@ -67,17 +67,17 @@ void AnimationSystem::UpdateLastScreen(ScreenBase const & currentScreen)
 
 bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
+  using namespace std::placeholders;
   return GetScreen(currentScreen,
-                   std::bind(&AnimationSystem::GetProperty, this, std::placeholders::_1, std::placeholders::_2,
-                             std::placeholders::_3),
+                   std::bind(&AnimationSystem::GetProperty, this, _1, _2, _3),
                    screen);
 }
 
 void AnimationSystem::GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
+  using namespace std::placeholders;
   GetScreen(currentScreen,
-            std::bind(&AnimationSystem::GetTargetProperty, this, std::placeholders::_1, std::placeholders::_2,
-                      std::placeholders::_3),
+            std::bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3),
             screen);
 }
 

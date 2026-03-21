@@ -12,6 +12,10 @@
 
 #include <vector>
 
+namespace geometry_serialization_test
+{
+using namespace std;
+
 // Copy-Paste from generator/feature_builder.cpp
 namespace
 {
@@ -36,15 +40,15 @@ UNIT_TEST(SaveLoadPolyline_DataSet1)
 {
   using namespace geometry_coding_tests;
 
-  std::vector<m2::PointD> data1(arr1, arr1 + ARRAY_SIZE(arr1));
+  vector<m2::PointD> data1(arr1, arr1 + ARRAY_SIZE(arr1));
 
-  std::vector<char> buffer;
-  PushBackByteSink<std::vector<char>> w(buffer);
+  vector<char> buffer;
+  PushBackByteSink<vector<char>> w(buffer);
 
   serial::GeometryCodingParams cp;
   serial::SaveOuterPath(data1, cp, w);
 
-  std::vector<m2::PointD> data2;
+  vector<m2::PointD> data2;
   ArrayByteSource r(&buffer[0]);
   serial::LoadOuterPath(r, cp, data2);
 
@@ -61,3 +65,4 @@ UNIT_TEST(SaveLoadPolyline_DataSet1)
 
   TEST(IsEqual(r1, r2), (r1, r2));
 }
+}  // namespace geometry_serialization_test

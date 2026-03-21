@@ -14,15 +14,19 @@
 #include <utility>
 #include <vector>
 
+namespace visibility_test
+{
+using namespace std;
+
 namespace
 {
 class DoGetMaxLowMinHighZoom
 {
   Classificator const & m_classif;
-  std::pair<int, int> m_res;
-  std::string m_low;
+  pair<int, int> m_res;
+  string m_low;
 
-  std::set<uint32_t> m_skip;
+  set<uint32_t> m_skip;
   bool IsSkip(uint32_t t) const
   {
     ftype::TruncValue(t, 2);
@@ -40,7 +44,7 @@ public:
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-      m_skip.insert(c.GetTypeByPath(std::vector<std::string>(arr[i], arr[i] + 2)));
+      m_skip.insert(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
   }
 
   void operator()(ClassifObject const * p, uint32_t type)
@@ -48,7 +52,7 @@ public:
     if (IsSkip(type))
       return;
 
-    std::pair<int, int> const r = feature::GetDrawableScaleRange(type);
+    pair<int, int> const r = feature::GetDrawableScaleRange(type);
     if (r.first == -1 || r.second == -1)
     {
       LOG(LINFO, (r, m_classif.GetFullObjectName(type)));
@@ -78,7 +82,7 @@ UNIT_TEST(VisibleScales_Highway)
   Classificator const & c = classif();
 
   char const * arr[] = {"highway"};
-  uint32_t const type = c.GetTypeByPath(std::vector<std::string>(arr, arr + 1));
+  uint32_t const type = c.GetTypeByPath(vector<string>(arr, arr + 1));
 
   ClassifObject const * pObj = c.GetObject(type);
 
@@ -87,3 +91,4 @@ UNIT_TEST(VisibleScales_Highway)
 
   doGet.Print();
 }
+}  // namespace visibility_test

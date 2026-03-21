@@ -13,6 +13,11 @@
 
 #include <gmock/gmock.h>
 
+namespace buffer_tests
+{
+using namespace emul;
+using namespace dp;
+
 using ::testing::_;
 using ::testing::InSequence;
 using ::testing::Return;
@@ -27,8 +32,8 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  std::unique_ptr<dp::DataBuffer> buffer(new dp::DataBuffer(3 * sizeof(float), 100));
-  buffer->MoveToGPU(make_ref(&context), dp::GPUBuffer::ElementBuffer, 0);
+  std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }
 
 UNIT_TEST(CreateDestroyIndexBufferTest)
@@ -42,8 +47,8 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  std::unique_ptr<dp::IndexBuffer> buffer(new dp::IndexBuffer(100));
-  buffer->MoveToGPU(make_ref(&context), dp::GPUBuffer::IndexBuffer, 0);
+  std::unique_ptr<IndexBuffer> buffer(new IndexBuffer(100));
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::IndexBuffer, 0);
 }
 
 UNIT_TEST(UploadDataTest)
@@ -52,7 +57,7 @@ UNIT_TEST(UploadDataTest)
   for (int i = 0; i < 3 * 100; ++i)
     data[i] = (float)i;
 
-  std::unique_ptr<dp::DataBuffer> buffer(new dp::DataBuffer(3 * sizeof(float), 100));
+  std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
   TestingGraphicsContext context;
   InSequence s;
@@ -64,7 +69,7 @@ UNIT_TEST(UploadDataTest)
   EXPECTGL(glDeleteBuffer(1));
 
   buffer->GetBuffer()->UploadData(make_ref(&context), data, 100);
-  buffer->MoveToGPU(make_ref(&context), dp::GPUBuffer::ElementBuffer, 0);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }
 
 UNIT_TEST(ParticalUploadDataTest)
@@ -79,7 +84,7 @@ UNIT_TEST(ParticalUploadDataTest)
   for (size_t i = 0; i < kPart2Size; ++i)
     part2Data[i] = (float)i;
 
-  std::unique_ptr<dp::DataBuffer> buffer(new dp::DataBuffer(3 * sizeof(float), 100));
+  std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
   TestingGraphicsContext context;
   InSequence s;
@@ -104,5 +109,6 @@ UNIT_TEST(ParticalUploadDataTest)
   TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 0, ());
   TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 100, ());
 
-  buffer->MoveToGPU(make_ref(&context), dp::GPUBuffer::ElementBuffer, 0);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }
+}  // namespace buffer_tests

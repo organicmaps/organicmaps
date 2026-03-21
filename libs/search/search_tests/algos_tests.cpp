@@ -6,6 +6,10 @@
 #include <iterator>
 #include <vector>
 
+namespace algos_tests
+{
+using namespace std;
+
 namespace
 {
 struct CompWithEqual
@@ -16,10 +20,10 @@ struct CompWithEqual
 
 void TestLongestSequence(int in[], size_t inSz, int eta[])
 {
-  std::vector<int> res;
-  search::LongestSubsequence(std::vector<int>(in, in + inSz), std::back_inserter(res), CompWithEqual());
-  std::reverse(res.begin(), res.end());
-  TEST(std::equal(res.begin(), res.end(), eta), (res));
+  vector<int> res;
+  search::LongestSubsequence(vector<int>(in, in + inSz), back_inserter(res), CompWithEqual());
+  reverse(res.begin(), res.end());
+  TEST(equal(res.begin(), res.end(), eta), (res));
 }
 }  // namespace
 
@@ -46,3 +50,4 @@ UNIT_TEST(LS_Smoke)
     TestLongestSequence(arr, ARRAY_SIZE(arr), res);
   }
 }
+}  // namespace algos_tests

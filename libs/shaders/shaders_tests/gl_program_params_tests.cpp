@@ -12,6 +12,10 @@
 
 #include <functional>
 
+namespace gl_program_params_tests
+{
+using namespace std::placeholders;
+
 template <typename ProgramParams>
 void TestProgramParams()
 {
@@ -96,3 +100,4 @@ UNIT_TEST(SMAAProgramParams_Test)
   RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", std::bind(&TestProgramParams<gpu::SMAAProgramParams>));
 }
 #endif
+}  // namespace gl_program_params_tests

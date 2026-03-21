@@ -9,6 +9,10 @@
 #include <memory>
 #include <vector>
 
+namespace read_features_tests
+{
+using namespace std;
+
 UNIT_TEST(ReadFeatures_Smoke)
 {
   classificator::Load();
@@ -16,7 +20,7 @@ UNIT_TEST(ReadFeatures_Smoke)
   FrozenDataSource dataSource;
   dataSource.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 
-  std::vector<std::shared_ptr<MwmInfo>> infos;
+  vector<shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
   CHECK_EQUAL(infos.size(), 1, ());
 
@@ -33,3 +37,4 @@ UNIT_TEST(ReadFeatures_Smoke)
     ft1->ForEachType([](auto const /* t */) {});
   }
 }
+}  // namespace read_features_tests

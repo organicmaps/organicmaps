@@ -179,6 +179,7 @@ drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::GraphicsContext> context, ref_p
 void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                       bool isAppearing) const
 {
+  using namespace std::placeholders;
   buffer_vector<RulerVertex, 4> data;
 
   dp::TextureManager::ColorRegion reg;
@@ -214,7 +215,7 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & contr
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher,
-                           std::bind(&ShapeControl::AddShape, &control, std::placeholders::_1, std::placeholders::_2));
+                           std::bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertTriangleStrip(context, state, make_ref(&provider),
                                 make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler, m_position.m_anchor,
                                                             m_position.m_pixelPivot, isAppearing));
@@ -224,6 +225,7 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & contr
 void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                      bool isAppearing) const
 {
+  using namespace std::placeholders;
   std::string alphabet;
   uint32_t maxTextLength;
   RulerHelper::GetTextInitInfo(alphabet, maxTextLength);
@@ -238,6 +240,6 @@ void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & contro
   { return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot, isAppearing, tex); };
 
   MutableLabelDrawer::Draw(context, params, tex,
-                           std::bind(&ShapeControl::AddShape, &control, std::placeholders::_1, std::placeholders::_2));
+                           std::bind(&ShapeControl::AddShape, &control, _1, _2));
 }
 }  // namespace gui

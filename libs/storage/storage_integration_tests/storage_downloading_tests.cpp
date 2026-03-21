@@ -23,6 +23,9 @@
 #include <functional>
 #include <string>
 
+namespace storage_downloading_tests
+{
+using namespace platform;
 using namespace storage;
 using namespace std;
 using namespace std::placeholders;
@@ -227,3 +230,4 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
   }
 }
 #endif
+}  // namespace storage_downloading_tests

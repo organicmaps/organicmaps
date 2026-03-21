@@ -111,12 +111,12 @@ bool TrafficGenerator::m_simplifiedColorScheme = true;
 
 void TrafficGenerator::Init()
 {
+  using namespace std::placeholders;
   uint32_t constexpr kBatchersCount = 3;
   uint32_t constexpr kBatchSize = 5000;
   m_batchersPool = make_unique_dp<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>>(
       kBatchersCount,
-      std::bind(&TrafficGenerator::FlushGeometry, this, std::placeholders::_1, std::placeholders::_2,
-                std::placeholders::_3),
+      std::bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3),
       kBatchSize, kBatchSize);
 
   uint32_t constexpr kCirclesBatchSize = 1000;

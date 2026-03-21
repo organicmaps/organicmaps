@@ -2,11 +2,15 @@
 
 #include "base/non_intersecting_intervals.hpp"
 
+namespace non_intersecting_intervals_tests
+{
 namespace
 {
+using namespace base;
+
 UNIT_TEST(NonIntersectingIntervals_1)
 {
-  base::NonIntersectingIntervals<int> intervals;
+  NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
   TEST(intervals.AddInterval(11, 15), ());
@@ -27,7 +31,7 @@ UNIT_TEST(NonIntersectingIntervals_1)
 
 UNIT_TEST(NonIntersectingIntervals_2)
 {
-  base::NonIntersectingIntervals<int> intervals;
+  NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
   // Overlap with [1, 10].
@@ -36,7 +40,7 @@ UNIT_TEST(NonIntersectingIntervals_2)
 
 UNIT_TEST(NonIntersectingIntervals_3)
 {
-  base::NonIntersectingIntervals<int> intervals;
+  NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
   // Overlap with [1, 10].
@@ -45,7 +49,7 @@ UNIT_TEST(NonIntersectingIntervals_3)
 
 UNIT_TEST(NonIntersectingIntervals_4)
 {
-  base::NonIntersectingIntervals<int> intervals;
+  NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(1, 10), ());
   // Overlap with [1, 10].
@@ -55,7 +59,7 @@ UNIT_TEST(NonIntersectingIntervals_4)
 
 UNIT_TEST(NonIntersectingIntervals_5)
 {
-  base::NonIntersectingIntervals<int> intervals;
+  NonIntersectingIntervals<int> intervals;
 
   TEST(intervals.AddInterval(0, 1), ());
 
@@ -75,3 +79,4 @@ UNIT_TEST(NonIntersectingIntervals_5)
   TEST(!intervals.AddInterval(2, 5), ());
 }
 }  // namespace
+}  // namespace non_intersecting_intervals_tests

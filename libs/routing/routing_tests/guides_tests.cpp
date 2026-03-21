@@ -4,8 +4,12 @@
 
 #include "geometry/mercator.hpp"
 
+namespace guides_tests
+{
 namespace
 {
+using namespace routing;
+
 //  10 guide, track 0        10 guide, track 1     11 guide, track 0
 //  4 points                 3 points              3 points
 //
@@ -23,10 +27,10 @@ namespace
 //                          XX
 //                        XX 0
 
-routing::GuidesTracks GetTestGuides()
+GuidesTracks GetTestGuides()
 {
   // Two guides. First with 2 tracks, second - with 1 track.
-  routing::GuidesTracks guides;
+  GuidesTracks guides;
   guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 5},
                  {mercator::FromLatLon(48.14096, 11.57246), 5},
                  {mercator::FromLatLon(48.14487, 11.57259), 6}},
@@ -42,7 +46,7 @@ routing::GuidesTracks GetTestGuides()
 
 UNIT_TEST(Guides_SafeInit)
 {
-  routing::GuidesConnections guides;
+  GuidesConnections guides;
   TEST(!guides.IsActive(), ());
   TEST(!guides.IsAttached(), ());
   TEST(!guides.IsCheckpointAttached(0 /* checkpointIdx */), ());
@@ -50,14 +54,14 @@ UNIT_TEST(Guides_SafeInit)
 
 UNIT_TEST(Guides_InitWithGuides)
 {
-  routing::GuidesConnections guides(GetTestGuides());
+  GuidesConnections guides(GetTestGuides());
   TEST(guides.IsActive(), ());
   TEST(!guides.IsAttached(), ());
 }
 
 UNIT_TEST(Guides_TooFarCheckpointsAreNotAttached)
 {
-  routing::GuidesConnections guides(GetTestGuides());
+  GuidesConnections guides(GetTestGuides());
   TEST(guides.IsActive(), ());
   TEST(!guides.IsAttached(), ());
 
@@ -77,7 +81,7 @@ UNIT_TEST(Guides_TooFarCheckpointsAreNotAttached)
 
 UNIT_TEST(Guides_FinishAndStartAttached)
 {
-  routing::GuidesConnections guides(GetTestGuides());
+  GuidesConnections guides(GetTestGuides());
 
   // Start checkpoint should be with fake ending to OSM and finish - with fake ending to the guide
   // segment.
@@ -110,7 +114,7 @@ UNIT_TEST(Guides_FinishAndStartAttached)
 
 UNIT_TEST(Guides_NotAttachIntermediatePoint)
 {
-  routing::GuidesConnections guides(GetTestGuides());
+  GuidesConnections guides(GetTestGuides());
 
   // Intermediate checkpoints should not be attached to the guides if they are far enough even
   // if their neighbours are attached.
@@ -131,3 +135,4 @@ UNIT_TEST(Guides_NotAttachIntermediatePoint)
   }
 }
 }  // namespace
+}  // namespace guides_tests

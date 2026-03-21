@@ -4,6 +4,9 @@
 
 #include <string>
 
+namespace protocol_test
+{
+using namespace std;
 using namespace tracking;
 
 UNIT_TEST(Protocol_CreateAuthPacket)
@@ -21,7 +24,7 @@ UNIT_TEST(Protocol_CreateAuthPacket)
 
 UNIT_TEST(Protocol_DecodeHeader)
 {
-  std::string id_str("ABC");
+  string id_str("ABC");
   auto packet = Protocol::CreateAuthPacket(id_str);
   TEST_EQUAL(packet.size(), 7, ());
   TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentAuth, ());
@@ -81,7 +84,7 @@ UNIT_TEST(Protocol_DecodeAuthPacket)
   TEST_EQUAL(packet.size(), 7, ());
   TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentAuth, ());
 
-  auto payload = std::vector<uint8_t>(std::begin(packet) + sizeof(uint32_t /* header */), std::end(packet));
+  auto payload = vector<uint8_t>(begin(packet) + sizeof(uint32_t /* header */), end(packet));
   auto result = Protocol::DecodeAuthPacket(Protocol::PacketType::CurrentAuth, payload);
   TEST_EQUAL(result, "ABC", ());
 }
@@ -95,7 +98,7 @@ void DecodeDataPacketVersionTest(Container const & points, Protocol::PacketType 
   TEST_GREATER(packet.size(), 0, ());
   TEST_EQUAL(Protocol::PacketType(packet[0]), version, ());
 
-  auto payload = std::vector<uint8_t>(std::begin(packet) + sizeof(uint32_t /* header */), std::end(packet));
+  auto payload = vector<uint8_t>(begin(packet) + sizeof(uint32_t /* header */), end(packet));
   Container result = Protocol::DecodeDataPacket(version, payload);
 
   TEST_EQUAL(points.size(), result.size(), ());
@@ -123,12 +126,12 @@ UNIT_TEST(Protocol_DecodeDataPacket)
 
 UNIT_TEST(Protocol_DecodeWrongDataPacket)
 {
-  std::vector<std::vector<uint8_t>> payloads = {
-      std::vector<uint8_t>{},
-      std::vector<uint8_t>{0x25},
-      std::vector<uint8_t>{0x0},
-      std::vector<uint8_t>{0x0, 0x0, 0x23, 0xFF},
-      std::vector<uint8_t>{0xFF, 0x1, 0x23, 0xFF, 0x1, 0x0, 0x27, 0x63, 0x32, 0x9, 0xFF},
+  vector<vector<uint8_t>> payloads = {
+      vector<uint8_t>{},
+      vector<uint8_t>{0x25},
+      vector<uint8_t>{0x0},
+      vector<uint8_t>{0x0, 0x0, 0x23, 0xFF},
+      vector<uint8_t>{0xFF, 0x1, 0x23, 0xFF, 0x1, 0x0, 0x27, 0x63, 0x32, 0x9, 0xFF},
   };
   for (auto const packetType : {Protocol::PacketType::DataV0, Protocol::PacketType::DataV1})
   {
@@ -139,3 +142,4 @@ UNIT_TEST(Protocol_DecodeWrongDataPacket)
     }
   }
 }
+}  // namespace protocol_test

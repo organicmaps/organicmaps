@@ -2,9 +2,13 @@
 
 #include "base/limited_priority_queue.hpp"
 
+namespace containers_test
+{
+using namespace base;
+
 UNIT_TEST(LPQueue_Smoke)
 {
-  base::limited_priority_queue<int> q(3);
+  limited_priority_queue<int> q(3);
   TEST(q.empty(), ());
 
   q.push(5);
@@ -31,3 +35,4 @@ UNIT_TEST(LPQueue_Smoke)
 
   TEST(q.empty(), ());
 }
+}  // namespace containers_test

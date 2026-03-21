@@ -4,16 +4,20 @@
 #include <string>
 #include <vector>
 
-void loadFile(std::vector<unsigned char> & buffer,
-              std::string const & filename)  // designed for loading files from hard disk in an std::vector
+namespace png_decoder_test
 {
-  std::ifstream file(filename.c_str(), std::ios::in | std::ios::binary | std::ios::ate);
+using namespace std;
+
+void loadFile(vector<unsigned char> & buffer,
+              string const & filename)  // designed for loading files from hard disk in an std::vector
+{
+  ifstream file(filename.c_str(), ios::in | ios::binary | ios::ate);
 
   // get filesize
-  std::streamsize size = 0;
-  if (file.seekg(0, std::ios::end).good())
+  streamsize size = 0;
+  if (file.seekg(0, ios::end).good())
     size = file.tellg();
-  if (file.seekg(0, std::ios::beg).good())
+  if (file.seekg(0, ios::beg).good())
     size -= file.tellg();
 
   // read contents of the file into the vector
@@ -41,3 +45,4 @@ UNIT_TEST(PngDecode)
   //  TEST_EQUAL(w, 1024, ());
   //  TEST_EQUAL(h, 1024, ());
 }
+}  // namespace png_decoder_test

@@ -4,6 +4,10 @@
 
 #include <cstdint>
 
+namespace control_flow_tests
+{
+using namespace base;
+
 namespace
 {
 struct Repeater
@@ -13,11 +17,11 @@ struct Repeater
   template <typename Fn>
   void ForEach(Fn && fn)
   {
-    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
+    ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
     for (uint32_t i = 0; i < m_repetitions; ++i)
     {
       ++m_calls;
-      if (wrapper() == base::ControlFlow::Break)
+      if (wrapper() == ControlFlow::Break)
         return;
     }
   }
@@ -46,11 +50,12 @@ UNIT_TEST(ControlFlow_Smoke)
     {
       ++c;
       if (c == 5)
-        return base::ControlFlow::Break;
-      return base::ControlFlow::Continue;
+        return ControlFlow::Break;
+      return ControlFlow::Continue;
     });
 
     TEST_EQUAL(c, 5, ());
     TEST_EQUAL(c, repeater.m_calls, ());
   }
 }
+}  // namespace control_flow_tests

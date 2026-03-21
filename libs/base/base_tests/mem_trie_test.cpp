@@ -8,18 +8,23 @@
 #include <utility>
 #include <vector>
 
+namespace mem_trie_test
+{
+using namespace base;
+using namespace std;
+
 namespace
 {
-using Key = std::string;
+using Key = string;
 using Value = int;
-using Trie = base::MemTrie<Key, base::VectorValues<Value>>;
-using Data = std::vector<std::pair<Key, Value>>;
+using Trie = MemTrie<Key, VectorValues<Value>>;
+using Data = vector<pair<Key, Value>>;
 
 Data GetTrieContents(Trie const & trie)
 {
   Data data;
-  trie.ForEachInTrie([&data](std::string const & k, int v) { data.emplace_back(k, v); });
-  std::sort(data.begin(), data.end());
+  trie.ForEachInTrie([&data](string const & k, int v) { data.emplace_back(k, v); });
+  sort(data.begin(), data.end());
   return data;
 }
 
@@ -30,17 +35,17 @@ public:
   {
     Data data;
     m_trie.ForEachInTrie([&data](Key const & k, Value const & v) { data.emplace_back(k, v); });
-    std::sort(data.begin(), data.end());
+    sort(data.begin(), data.end());
     return data;
   }
 
   Data GetExpectedContents() const { return {m_data.cbegin(), m_data.cend()}; }
 
-  std::vector<Value> GetValuesByKey(Key const & key) const
+  vector<Value> GetValuesByKey(Key const & key) const
   {
-    std::vector<Value> values;
+    vector<Value> values;
     m_trie.ForEachInNode(key, [&](Value const & value) { values.push_back(value); });
-    std::sort(values.begin(), values.end());
+    sort(values.begin(), values.end());
     return values;
   }
 
@@ -48,7 +53,7 @@ public:
   {
     Data data;
     m_trie.ForEachInSubtree(prefix, [&data](Key const & k, Value const & v) { data.emplace_back(k, v); });
-    std::sort(data.begin(), data.end());
+    sort(data.begin(), data.end());
     return data;
   }
 
@@ -60,18 +65,18 @@ public:
   void Add(Key const & key, Value const & value)
   {
     m_trie.Add(key, value);
-    m_data.insert(std::make_pair(key, value));
+    m_data.insert(make_pair(key, value));
   }
 
   void Erase(Key const & key, Value const & value)
   {
     m_trie.Erase(key, value);
-    m_data.erase(std::make_pair(key, value));
+    m_data.erase(make_pair(key, value));
   }
 
 protected:
   Trie m_trie;
-  std::multiset<std::pair<Key, Value>> m_data;
+  multiset<pair<Key, Value>> m_data;
 };
 
 UNIT_CLASS_TEST(MemTrieTest, Basic)
@@ -156,14 +161,14 @@ UNIT_CLASS_TEST(MemTrieTest, ForEachInNode)
   Add("abra", 2);
   Add("abrau", 3);
 
-  TEST_EQUAL(GetValuesByKey("a"), std::vector<Value>{}, ());
-  TEST_EQUAL(GetValuesByKey("abrac"), std::vector<Value>{}, ());
-  TEST_EQUAL(GetValuesByKey("abracadabr"), std::vector<Value>{}, ());
-  TEST_EQUAL(GetValuesByKey("void"), std::vector<Value>{}, ());
+  TEST_EQUAL(GetValuesByKey("a"), vector<Value>{}, ());
+  TEST_EQUAL(GetValuesByKey("abrac"), vector<Value>{}, ());
+  TEST_EQUAL(GetValuesByKey("abracadabr"), vector<Value>{}, ());
+  TEST_EQUAL(GetValuesByKey("void"), vector<Value>{}, ());
 
-  TEST_EQUAL(GetValuesByKey("abra"), std::vector<Value>({1, 2}), ());
-  TEST_EQUAL(GetValuesByKey("abracadabra"), std::vector<Value>({0}), ());
-  TEST_EQUAL(GetValuesByKey("abrau"), std::vector<Value>({3}), ());
+  TEST_EQUAL(GetValuesByKey("abra"), vector<Value>({1, 2}), ());
+  TEST_EQUAL(GetValuesByKey("abracadabra"), vector<Value>({0}), ());
+  TEST_EQUAL(GetValuesByKey("abrau"), vector<Value>({3}), ());
 }
 
 UNIT_CLASS_TEST(MemTrieTest, ForEachInSubtree)
@@ -185,3 +190,4 @@ UNIT_CLASS_TEST(MemTrieTest, ForEachInSubtree)
   TEST_EQUAL(GetContentsByPrefix("abrau"), Data({{"abrau", 3}}), ());
 }
 }  // namespace
+}  // namespace mem_trie_test

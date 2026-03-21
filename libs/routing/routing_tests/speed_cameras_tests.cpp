@@ -15,6 +15,12 @@
 
 #include <vector>
 
+namespace speed_cameras_tests
+{
+using namespace platform::tests_support;
+using namespace platform;
+using namespace routing;
+
 namespace
 {
 static auto const kTestDir = "ser_des_test_camera";
@@ -24,50 +30,50 @@ static auto const kErrorMessageOneWay = "Serialize method works only with camera
 UNIT_TEST(SegmentCoord_LessOperator)
 {
   {
-    routing::SegmentCoord a(10, 5);
-    routing::SegmentCoord b(11, 0);
+    SegmentCoord a(10, 5);
+    SegmentCoord b(11, 0);
 
     TEST_LESS(a, b, ());
   }
 
   {
-    routing::SegmentCoord a(10, 0);
-    routing::SegmentCoord b(11, 5);
+    SegmentCoord a(10, 0);
+    SegmentCoord b(11, 5);
 
     TEST_LESS(a, b, ());
   }
 
   {
-    routing::SegmentCoord a(5, 0);
-    routing::SegmentCoord b(11, 5);
+    SegmentCoord a(5, 0);
+    SegmentCoord b(11, 5);
 
     TEST_LESS(a, b, ());
   }
 
   {
-    routing::SegmentCoord a(5, 0);
-    routing::SegmentCoord b(0, 5);
+    SegmentCoord a(5, 0);
+    SegmentCoord b(0, 5);
 
     TEST_LESS(b, a, ());
   }
 
   {
-    routing::SegmentCoord a(5, 0);
-    routing::SegmentCoord b(5, 5);
+    SegmentCoord a(5, 0);
+    SegmentCoord b(5, 5);
 
     TEST_LESS(a, b, ());
   }
 
   {
-    routing::SegmentCoord a(5, 6);
-    routing::SegmentCoord b(5, 5);
+    SegmentCoord a(5, 6);
+    SegmentCoord b(5, 5);
 
     TEST_LESS(b, a, ());
   }
 
   {
-    routing::SegmentCoord a(4, 6);
-    routing::SegmentCoord b(5, 6);
+    SegmentCoord a(4, 6);
+    SegmentCoord b(5, 6);
 
     TEST_LESS(a, b, ());
   }
@@ -75,7 +81,7 @@ UNIT_TEST(SegmentCoord_LessOperator)
 
 // Test for serialize/deserialize of speed cameras.
 
-bool TestSerDesSpeedCamera(std::vector<routing::SpeedCameraMetadata> const & speedCamerasMetadata)
+bool TestSerDesSpeedCamera(std::vector<SpeedCameraMetadata> const & speedCamerasMetadata)
 {
   if (speedCamerasMetadata.empty())
     return true;
@@ -89,9 +95,9 @@ bool TestSerDesSpeedCamera(std::vector<routing::SpeedCameraMetadata> const & spe
                         ("Ways of cameras should be sorted by featureId for delta coding"));
   }
 
-  platform::tests_support::ScopedDir scopedDir(kTestDir);
+  ScopedDir scopedDir(kTestDir);
   auto const testFile = base::JoinPath(kTestDir, kTestFileForCamera);
-  platform::tests_support::ScopedFile scopedFile(testFile, "");
+  ScopedFile scopedFile(testFile, "");
   auto const & writableDir = GetPlatform().WritableDir();
   auto const & filePath = base::JoinPath(writableDir, testFile);
 
@@ -99,7 +105,7 @@ bool TestSerDesSpeedCamera(std::vector<routing::SpeedCameraMetadata> const & spe
     FileWriter writer(filePath);
     uint32_t prevFeatureId = 0;
     for (auto const & metadata : speedCamerasMetadata)
-      routing::SerializeSpeedCamera(writer, metadata, prevFeatureId);
+      SerializeSpeedCamera(writer, metadata, prevFeatureId);
   }
 
   {
@@ -109,8 +115,8 @@ bool TestSerDesSpeedCamera(std::vector<routing::SpeedCameraMetadata> const & spe
     for (auto const & metadata : speedCamerasMetadata)
     {
       auto const & way = metadata.m_ways.back();
-      auto const res = routing::DeserializeSpeedCamera(src, prevFeatureId);
-      TEST_EQUAL(res.first, routing::SegmentCoord(way.m_featureId, way.m_segmentId), ());
+      auto const res = DeserializeSpeedCamera(src, prevFeatureId);
+      TEST_EQUAL(res.first, SegmentCoord(way.m_featureId, way.m_segmentId), ());
       TEST(AlmostEqualAbs(res.second.m_coef, way.m_coef, 1e-5), ());
       TEST_EQUAL(res.second.m_maxSpeedKmPH, metadata.m_maxSpeedKmPH, ());
     }
@@ -122,22 +128,22 @@ bool TestSerDesSpeedCamera(std::vector<routing::SpeedCameraMetadata> const & spe
 UNIT_TEST(SpeedCamera_SerDes_1)
 {
   std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0 /* coef */}};
-  routing::SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
+  SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
 
   TEST(TestSerDesSpeedCamera({metadata}), ());
 }
 
 UNIT_TEST(SpeedCamera_SerDes_2)
 {
-  std::vector<routing::SpeedCameraMetadata> speedCamerasMetadata;
+  std::vector<SpeedCameraMetadata> speedCamerasMetadata;
   {
     std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0 /* coef */}};
-    routing::SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
+    SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
   {
     std::vector<routing::SpeedCameraMwmPosition> ways = {{2 /* featureId */, 1 /* segmentId */, 0.5 /* coef */}};
-    routing::SpeedCameraMetadata metadata({15, 10} /* m_center */, 90 /* m_maxSpeedKmPH */, std::move(ways));
+    SpeedCameraMetadata metadata({15, 10} /* m_center */, 90 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
 
@@ -146,23 +152,24 @@ UNIT_TEST(SpeedCamera_SerDes_2)
 
 UNIT_TEST(SpeedCamera_SerDes_3)
 {
-  std::vector<routing::SpeedCameraMetadata> speedCamerasMetadata;
+  std::vector<SpeedCameraMetadata> speedCamerasMetadata;
   {
     std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0 /* coef */}};
-    routing::SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
+    SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
   {
     std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0.5 /* coef */}};
-    routing::SpeedCameraMetadata metadata({10, 10} /* m_center */, 90 /* m_maxSpeedKmPH */, std::move(ways));
+    SpeedCameraMetadata metadata({10, 10} /* m_center */, 90 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
   {
     std::vector<routing::SpeedCameraMwmPosition> ways = {{10 /* featureId */, 1 /* segmentId */, 1 /* coef */}};
-    routing::SpeedCameraMetadata metadata({20, 20} /* m_center */, 40 /* m_maxSpeedKmPH */, std::move(ways));
+    SpeedCameraMetadata metadata({20, 20} /* m_center */, 40 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
 
   TEST(TestSerDesSpeedCamera(speedCamerasMetadata), ());
 }
 }  // namespace
+}  // namespace speed_cameras_tests

@@ -10,6 +10,10 @@
 #include <string>
 #include <vector>
 
+namespace writer_test
+{
+using namespace std;
+
 namespace
 {
 static char const kTestWriteStr[] = "01234567";
@@ -40,10 +44,10 @@ void TestWrite(WriterT & writer)
 
 UNIT_TEST(MemWriter_Smoke)
 {
-  std::vector<char> s;
-  MemWriter<std::vector<char>> writer(s);
+  vector<char> s;
+  MemWriter<vector<char>> writer(s);
   TestWrite(writer);
-  TEST_EQUAL(std::string(s.begin(), s.end()), kTestWriteStr, ());
+  TEST_EQUAL(string(s.begin(), s.end()), kTestWriteStr, ());
 }
 
 UNIT_TEST(FileWriter_Smoke)
@@ -53,27 +57,27 @@ UNIT_TEST(FileWriter_Smoke)
     FileWriter writer(fileName);
     TestWrite(writer);
   }
-  std::vector<char> s;
+  vector<char> s;
   {
     FileReader reader(fileName);
     s.resize(reader.Size());
     reader.Read(0, &s[0], reader.Size());
   }
-  TEST_EQUAL(std::string(s.begin(), s.end()), kTestWriteStr, ());
+  TEST_EQUAL(string(s.begin(), s.end()), kTestWriteStr, ());
   FileWriter::DeleteFileX(fileName);
 }
 
 UNIT_TEST(SubWriter_MemWriter_Smoke)
 {
-  std::vector<char> s;
-  MemWriter<std::vector<char>> writer(s);
+  vector<char> s;
+  MemWriter<vector<char>> writer(s);
   writer.Write("aa", 2);
   {
-    SubWriter<MemWriter<std::vector<char>>> subWriter(writer);
+    SubWriter<MemWriter<vector<char>>> subWriter(writer);
     TestWrite(subWriter);
   }
   writer.Write("bb", 2);
-  TEST_EQUAL(std::string(s.begin(), s.end()), "aa" + std::string(kTestWriteStr) + "bb", ());
+  TEST_EQUAL(string(s.begin(), s.end()), "aa" + string(kTestWriteStr) + "bb", ());
 }
 
 UNIT_TEST(SubWriter_FileWriter_Smoke)
@@ -88,13 +92,13 @@ UNIT_TEST(SubWriter_FileWriter_Smoke)
     }
     writer.Write("bb", 2);
   }
-  std::vector<char> s;
+  vector<char> s;
   {
     FileReader reader(fileName);
     s.resize(reader.Size());
     reader.Read(0, &s[0], reader.Size());
   }
-  TEST_EQUAL(std::string(s.begin(), s.end()), "aa" + std::string(kTestWriteStr) + "bb", ());
+  TEST_EQUAL(string(s.begin(), s.end()), "aa" + string(kTestWriteStr) + "bb", ());
   FileWriter::DeleteFileX(fileName);
 }
 
@@ -133,7 +137,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
   {
     FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 4, ());
-    std::string s(static_cast<uint32_t>(reader.Size()), 0);
+    string s(static_cast<uint32_t>(reader.Size()), 0);
     reader.Read(0, &s[0], s.size());
     TEST_EQUAL(s, "abcd", ());
   }
@@ -152,7 +156,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
   {
     FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 4, ());
-    std::string s(static_cast<uint32_t>(reader.Size()), 0);
+    string s(static_cast<uint32_t>(reader.Size()), 0);
     reader.Read(0, &s[0], s.size());
     TEST_EQUAL(s, "1234", ());
   }
@@ -164,7 +168,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
   {
     FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 4, ());
-    std::string s(static_cast<uint32_t>(reader.Size()), 0);
+    string s(static_cast<uint32_t>(reader.Size()), 0);
     reader.Read(0, &s[0], 4);
     TEST_EQUAL(s, "5634", ());
   }
@@ -173,7 +177,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
 
 size_t const CHUNK_SIZE = 1024;
 size_t const CHUNKS_COUNT = 21;
-std::string const TEST_STRING = "Some Test String";
+string const TEST_STRING = "Some Test String";
 
 void WriteTestData1(Writer & w)
 {
@@ -202,18 +206,18 @@ void WriteTestData2(Writer & w)
 
 void ReadTestData(Reader & r)
 {
-  std::string s;
+  string s;
   r.ReadAsString(s);
   for (size_t i = 0; i < CHUNKS_COUNT; ++i)
     for (size_t j = 0; j < CHUNK_SIZE; ++j)
       TEST_EQUAL(s[i * CHUNK_SIZE + j], static_cast<char>(i), (i, j));
-  std::string const sub = s.substr(CHUNKS_COUNT * CHUNK_SIZE);
+  string const sub = s.substr(CHUNKS_COUNT * CHUNK_SIZE);
   TEST_EQUAL(sub, TEST_STRING, (sub, TEST_STRING));
 }
 template <typename WriterType>
 void WriteToFileAndTest()
 {
-  std::string const TEST_FILE = "FileWriter_Chunks.test";
+  string const TEST_FILE = "FileWriter_Chunks.test";
   {
     WriterType fileWriter(TEST_FILE, FileWriter::OP_WRITE_TRUNCATE);
     WriteTestData1(fileWriter);
@@ -241,13 +245,13 @@ UNIT_TEST(BufferedFileWriter_Smoke)
 
 UNIT_TEST(MemWriter_Chunks)
 {
-  std::string buffer;
+  string buffer;
   {
-    MemWriter<std::string> memWriter(buffer);
+    MemWriter<string> memWriter(buffer);
     WriteTestData1(memWriter);
   }
   {
-    MemWriter<std::string> memWriter(buffer);
+    MemWriter<string> memWriter(buffer);
     WriteTestData2(memWriter);
   }
   {
@@ -255,3 +259,4 @@ UNIT_TEST(MemWriter_Chunks)
     ReadTestData(r);
   }
 }
+}  // namespace writer_test

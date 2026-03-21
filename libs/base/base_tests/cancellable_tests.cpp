@@ -8,13 +8,16 @@
 #include <cmath>
 #include <future>
 
-namespace base
+namespace cancellable_tests
 {
+using namespace base;
+using namespace std;
+
 UNIT_TEST(Cancellable_Smoke)
 {
   Cancellable cancellable;
 
-  std::promise<void> syncPromise;
+  promise<void> syncPromise;
   auto syncFuture = syncPromise.get_future();
 
   double x = 0.123;
@@ -45,10 +48,10 @@ UNIT_TEST(Cancellable_Smoke)
 UNIT_TEST(Cancellable_Deadline)
 {
   Cancellable cancellable;
-  std::chrono::steady_clock::duration kTimeout = std::chrono::milliseconds(20);
-  cancellable.SetDeadline(std::chrono::steady_clock::now() + kTimeout);
+  chrono::steady_clock::duration kTimeout = chrono::milliseconds(20);
+  cancellable.SetDeadline(chrono::steady_clock::now() + kTimeout);
 
-  std::promise<void> syncPromise;
+  promise<void> syncPromise;
   auto syncFuture = syncPromise.get_future();
 
   double x = 0.123;
@@ -78,4 +81,4 @@ UNIT_TEST(Cancellable_Deadline)
   TEST(cancellable.IsCancelled(), ());
   TEST_EQUAL(cancellable.CancellationStatus(), Cancellable::Status::CancelCalled, ());
 }
-}  // namespace base
+}  // namespace cancellable_tests

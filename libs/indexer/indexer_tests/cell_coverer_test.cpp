@@ -11,6 +11,10 @@
 
 #include <vector>
 
+namespace cell_coverer_test
+{
+using namespace std;
+
 // Unit test uses m2::CellId<30> for historical reasons, the actual production code uses RectId.
 using CellId = m2::CellId<30>;
 
@@ -22,7 +26,7 @@ UNIT_TEST(CellIdToStringRecode)
 
 UNIT_TEST(GoldenCoverRect)
 {
-  std::vector<CellId> cells;
+  vector<CellId> cells;
   CoverRect<OrthoBounds>({27.43, 53.83, 27.70, 53.96}, 4, RectId::DEPTH_LEVELS - 1, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
@@ -37,7 +41,7 @@ UNIT_TEST(ArtificialCoverRect)
 {
   typedef Bounds<0, 0, 16, 16> TestBounds;
 
-  std::vector<CellId> cells;
+  vector<CellId> cells;
   CoverRect<TestBounds>({5, 5, 11, 11}, 4, RectId::DEPTH_LEVELS - 1, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
@@ -54,7 +58,7 @@ UNIT_TEST(MaxDepthCoverSpiral)
 
   for (auto levelMax = 0; levelMax <= 2; ++levelMax)
   {
-    auto cells = std::vector<m2::CellId<3>>{};
+    auto cells = vector<m2::CellId<3>>{};
 
     CoverSpiral<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, levelMax, cells);
 
@@ -62,3 +66,4 @@ UNIT_TEST(MaxDepthCoverSpiral)
     TEST_EQUAL(cells[0].Level(), levelMax, ());
   }
 }
+}  // namespace cell_coverer_test

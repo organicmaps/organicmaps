@@ -8,12 +8,16 @@
 #include <string>
 #include <vector>
 
+namespace mwm_index_test
+{
+using namespace std;
+
 namespace
 {
 class CheckNonEmptyGeometry
 {
 public:
-  std::vector<FeatureID> m_ids;
+  vector<FeatureID> m_ids;
 
   void operator()(FeatureID const & id) { m_ids.push_back(id); }
 
@@ -36,7 +40,7 @@ private:
   int m_scale;
 };
 
-bool RunTest(std::string const & countryFileName, int lowS, int highS)
+bool RunTest(string const & countryFileName, int lowS, int highS)
 {
   FeaturesFetcher src;
   auto p = src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));
@@ -71,3 +75,4 @@ UNIT_TEST(ForEachFeatureID_Test)
   // TEST(RunTest("Belarus", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
   TEST(RunTest("minsk-pass", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
 }
+}  // namespace mwm_index_test
