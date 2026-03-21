@@ -46290,7 +46290,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "remains-m"
+      name: "city_gate-m"
       priority: 5200
       min_distance: 24
     }
@@ -46307,7 +46307,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "remains-m"
+      name: "city_gate-m"
       priority: 5200
       min_distance: 12
     }
@@ -46324,7 +46324,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "remains-m"
+      name: "city_gate-m"
       priority: 5200
       min_distance: 12
     }
@@ -46341,7 +46341,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "remains-m"
+      name: "city_gate-m"
       priority: 5200
       min_distance: 12
     }
@@ -46358,7 +46358,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "remains-m"
+      name: "city_gate-m"
       priority: 5200
       min_distance: 12
     }
@@ -46375,7 +46375,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "remains-m"
+      name: "city_gate-m"
       priority: 5200
       min_distance: 12
     }
