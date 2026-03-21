@@ -298,6 +298,19 @@ DEEPL_TARGET_LANGUAGES = [
 ]
 GOOGLE_TARGET_LANGUAGES = sorted(set(GOOGLE_TARGET_LANGUAGES))  # Remove duplicates
 
+# Map Google language codes to their DeepL equivalents for overlap detection.
+GOOGLE_TO_DEEPL_CODE = {
+    "zh-CN": "zh-Hans",
+    "zh-TW": "zh-Hant",
+}
+
+# Only translate via Google the languages that DeepL doesn't support.
+_deepl_lower = {lang.lower() for lang in DEEPL_TARGET_LANGUAGES}
+GOOGLE_ONLY_LANGUAGES = sorted(
+    lang for lang in GOOGLE_TARGET_LANGUAGES
+    if GOOGLE_TO_DEEPL_CODE.get(lang, lang).lower() not in _deepl_lower
+)
+
 
 def get_api_key() -> str:
     key = os.environ.get("DEEPL_FREE_API_KEY")
@@ -310,8 +323,8 @@ def get_api_key() -> str:
 
 
 def google_translate(text: str, source_language: str) -> Dict[str, str]:
-    # Translate all languages with Google to replace failed DeepL translations.
-    fromTo = source_language.lower() + ":" + ("+".join(GOOGLE_TARGET_LANGUAGES))
+    # Only translate languages not supported by DeepL.
+    fromTo = source_language.lower() + ":" + ("+".join(GOOGLE_ONLY_LANGUAGES))
     res = subprocess.run([TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True)
     if res.returncode != 0:
         print(f"Error running {TRANS_CMD} program:")
@@ -320,7 +333,7 @@ def google_translate(text: str, source_language: str) -> Dict[str, str]:
 
     print("\nGoogle translations:")
     translations = {}
-    for line, lang in zip(res.stdout.splitlines(), GOOGLE_TARGET_LANGUAGES):
+    for line, lang in zip(res.stdout.splitlines(), GOOGLE_ONLY_LANGUAGES):
         # Map Google language codes to OM language codes
         om_lang = lang
         if lang == "zh-TW":
@@ -471,16 +484,9 @@ def main(text_to_translate: str, context: str):
         text_to_translate = text_to_translate[3:].lstrip()
 
     translations = deepl_translate(text_to_translate, source_language, context=context)
-    google_translations = google_translate(text_to_translate, source_language)
-    # Check if DeepL did not translate the string (it is the same as the original string),
-    # and fall back to Google in this case.
-    original_input = translations.get(source_language) or translations.get("en")
-    for lang, value in google_translations.items():
-        if lang in translations:
-            if original_input and translations[lang] == original_input:
-                translations[lang] = value
-        else:
-            translations[lang] = value
+    if GOOGLE_ONLY_LANGUAGES:
+        google_translations = google_translate(text_to_translate, source_language)
+        translations.update(google_translations)
 
     # Remove duplicates for regional variations.
     for regional in ["en-GB", "pt-BR", "es-419"]:
