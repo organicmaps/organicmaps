@@ -106,7 +106,8 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 
   bool on = true, _ = true;
   frm.Load3dMode(_, on);
-  if (frm.GetPowerManager().GetScheme() == power_management::Scheme::EconomyMaximum)
+  using enum power_management::Scheme;
+  if (frm.GetPowerManager().GetScheme() == EconomyMaximum)
   {
     self.is3dCell.isEnabled = false;
     [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:false];
@@ -142,11 +143,11 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   NSString * powerManagement = nil;
   switch (frm.GetPowerManager().GetScheme())
   {
-  case power_management::Scheme::None: break;
-  case power_management::Scheme::Normal: powerManagement = L(@"power_managment_setting_never"); break;
-  case power_management::Scheme::EconomyMedium: break;
-  case power_management::Scheme::EconomyMaximum: powerManagement = L(@"power_managment_setting_manual_max"); break;
-  case power_management::Scheme::Auto: powerManagement = L(@"power_managment_setting_auto"); break;
+  case None: break;
+  case Normal: powerManagement = L(@"power_managment_setting_never"); break;
+  case EconomyMedium: break;
+  case EconomyMaximum: powerManagement = L(@"power_managment_setting_manual_max"); break;
+  case Auto: powerManagement = L(@"power_managment_setting_auto"); break;
   }
   [self.powerManagementCell configWithTitle:L(@"power_managment_title") info:powerManagement];
 

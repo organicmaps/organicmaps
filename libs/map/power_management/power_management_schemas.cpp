@@ -104,16 +104,17 @@ std::string DebugPrint(Facility const facility)
 {
   switch (facility)
   {
-  case Facility::Buildings3d: return "Buildings3d";
-  case Facility::PerspectiveView: return "PerspectiveView";
-  case Facility::TrackRecording: return "TrackRecording";
-  case Facility::TrafficJams: return "TrafficJams";
-  case Facility::GpsTrackingForTraffic: return "GpsTrackingForTraffic";
-  case Facility::OsmEditsUploading: return "OsmEditsUploading";
-  case Facility::UgcUploading: return "UgcUploading";
-  case Facility::BookmarkCloudUploading: return "BookmarkCloudUploading";
-  case Facility::MapDownloader: return "MapDownloader";
-  case Facility::Count: return "Count";
+    using enum Facility;
+  case Buildings3d: return "Buildings3d";
+  case PerspectiveView: return "PerspectiveView";
+  case TrackRecording: return "TrackRecording";
+  case TrafficJams: return "TrafficJams";
+  case GpsTrackingForTraffic: return "GpsTrackingForTraffic";
+  case OsmEditsUploading: return "OsmEditsUploading";
+  case UgcUploading: return "UgcUploading";
+  case BookmarkCloudUploading: return "BookmarkCloudUploading";
+  case MapDownloader: return "MapDownloader";
+  case Count: return "Count";
   }
   UNREACHABLE();
 }
@@ -122,11 +123,12 @@ std::string DebugPrint(Scheme const scheme)
 {
   switch (scheme)
   {
-  case Scheme::None: return "None";
-  case Scheme::Normal: return "Normal";
-  case Scheme::EconomyMedium: return "EconomyMedium";
-  case Scheme::EconomyMaximum: return "EconomyMaximum";
-  case Scheme::Auto: return "Auto";
+    using enum Scheme;
+  case None: return "None";
+  case Normal: return "Normal";
+  case EconomyMedium: return "EconomyMedium";
+  case EconomyMaximum: return "EconomyMaximum";
+  case Auto: return "Auto";
   }
   UNREACHABLE();
 }

@@ -7,6 +7,11 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/storage_helpers.hpp"
 
+namespace
+{
+using storage::CountryId;
+}  // namespace
+
 NSErrorDomain const kStorageErrorDomain = @"com.mapswithme.storage";
 
 NSInteger const kStorageNotEnoughSpace = 1;
@@ -40,14 +45,14 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
     NSHashTable * observers = _observers;
 
     GetFramework().GetStorage().Subscribe(
-        [observers](storage::CountryId const & countryId)
+        [observers](CountryId const & countryId)
     {
       // A copy is created, because MWMMapDownloadDialog is unsubscribed inside this notification with
       // NSGenericException', reason: '*** Collection <NSConcreteHashTable> was mutated while being enumerated.'
       NSHashTable * observersCopy = [observers copy];
       for (id<MWMStorageObserver> observer in observersCopy)
         [observer processCountryEvent:@(countryId.c_str())];
-    }, [observers](storage::CountryId const & countryId, downloader::Progress const & progress)
+    }, [observers](CountryId const & countryId, downloader::Progress const & progress)
     {
       for (id<MWMStorageObserver> observer in observers)
       {
@@ -165,12 +170,13 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
 
 - (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error
 {
+  using storage::NodeAttrs;
   auto & s = GetFramework().GetStorage();
 
   MwmSize requiredSize = 0;
   for (NSString * countryId in countryIds)
   {
-    storage::NodeAttrs nodeAttrs;
+    NodeAttrs nodeAttrs;
     GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
     requiredSize += nodeAttrs.m_mwmSize;
   }
@@ -255,8 +261,9 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
 
 - (NSArray<NSString *> *)allCountriesWithParent:(NSString *)countryId
 {
-  storage::CountriesVec downloadedChildren;
-  storage::CountriesVec availableChildren;
+  using storage::CountriesVec;
+  CountriesVec downloadedChildren;
+  CountriesVec availableChildren;
   GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String, downloadedChildren, availableChildren,
                                                   true /* keepAvailableChildren */);
 
@@ -274,8 +281,9 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
 
 - (NSArray<NSString *> *)downloadedCountriesWithParent:(NSString *)countryId
 {
-  storage::CountriesVec downloadedChildren;
-  storage::CountriesVec availableChildren;
+  using storage::CountriesVec;
+  CountriesVec downloadedChildren;
+  CountriesVec availableChildren;
   GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String, downloadedChildren, availableChildren);
 
   NSMutableArray * result = [NSMutableArray arrayWithCapacity:downloadedChildren.size()];
@@ -286,10 +294,12 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
 
 - (MWMMapNodeAttributes *)attributesForCountry:(NSString *)countryId
 {
+  using storage::CountriesVec;
+  using storage::NodeAttrs;
   auto const & s = GetFramework().GetStorage();
-  storage::NodeAttrs nodeAttrs;
+  NodeAttrs nodeAttrs;
   s.GetNodeAttrs(countryId.UTF8String, nodeAttrs);
-  storage::CountriesVec children;
+  CountriesVec children;
   s.GetChildren(countryId.UTF8String, children);
   BOOL isParentRoot = nodeAttrs.m_parentInfo.size() == 1 && nodeAttrs.m_parentInfo[0].m_id == s.GetRootId();
   return [[MWMMapNodeAttributes alloc] initWithCoreAttributes:nodeAttrs
@@ -315,6 +325,7 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
 
 - (NSArray<NSString *> *)nearbyAvailableCountries:(CLLocationCoordinate2D)location
 {
+  using enum storage::NodeStatus;
   auto & f = GetFramework();
   storage::CountriesVec closestCoutryIds;
   f.GetCountryInfoGetter().GetRegionsCountryId(mercator::FromLatLon(location.latitude, location.longitude),
@@ -324,7 +335,7 @@ NSInteger const kStorageHaveUnsavedEdits = 5;
   {
     storage::NodeStatuses nodeStatuses;
     f.GetStorage().GetNodeStatuses(countryId, nodeStatuses);
-    if (nodeStatuses.m_status != storage::NodeStatus::OnDisk)
+    if (nodeStatuses.m_status != OnDisk)
       [nearmeCountries addObject:@(countryId.c_str())];
   }
 

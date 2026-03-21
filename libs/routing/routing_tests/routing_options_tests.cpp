@@ -12,6 +12,8 @@ using namespace routing;
 namespace
 {
 using RoadType = RoutingOptions::RoadType;
+using Road = RoutingOptions::Road;
+using enum RoutingOptions::Road;
 
 class RoutingOptionsTests
 {
@@ -24,7 +26,7 @@ private:
   RoutingOptions m_savedOptions;
 };
 
-RoutingOptions CreateOptions(std::vector<RoutingOptions::Road> const & include)
+RoutingOptions CreateOptions(std::vector<Road> const & include)
 {
   RoutingOptions options;
 
@@ -34,43 +36,42 @@ RoutingOptions CreateOptions(std::vector<RoutingOptions::Road> const & include)
   return options;
 }
 
-void Checker(std::vector<RoutingOptions::Road> const & include)
+void Checker(std::vector<Road> const & include)
 {
   RoutingOptions options = CreateOptions(include);
 
   for (auto type : include)
     TEST(options.Has(type), ());
 
-  auto max = static_cast<RoadType>(RoutingOptions::Road::Max);
+  auto max = static_cast<RoadType>(Max);
   for (uint8_t i = 1; i < max; i <<= 1)
   {
     bool hasInclude = false;
-    auto type = static_cast<RoutingOptions::Road>(i);
+    auto type = static_cast<Road>(i);
     for (auto has : include)
       hasInclude |= (type == has);
 
     if (!hasInclude)
-      TEST(!options.Has(static_cast<RoutingOptions::Road>(i)), ());
+      TEST(!options.Has(static_cast<Road>(i)), ());
   }
 }
 
 UNIT_TEST(RoutingOptionTest)
 {
-  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway, RoutingOptions::Road::Dirty});
-  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Dirty});
+  Checker({Toll, Motorway, Dirty});
+  Checker({Toll, Dirty});
 
-  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Ferry, RoutingOptions::Road::Dirty});
+  Checker({Toll, Ferry, Dirty});
 
-  Checker({RoutingOptions::Road::Dirty});
-  Checker({RoutingOptions::Road::Toll});
-  Checker({RoutingOptions::Road::Dirty, RoutingOptions::Road::Motorway});
+  Checker({Dirty});
+  Checker({Toll});
+  Checker({Dirty, Motorway});
   Checker({});
 }
 
 UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
 {
-  RoutingOptions options =
-      CreateOptions({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway, RoutingOptions::Road::Dirty});
+  RoutingOptions options = CreateOptions({Toll, Motorway, Dirty});
 
   RoutingOptions::SaveCarOptionsToSettings(options);
   RoutingOptions fromSettings = RoutingOptions::LoadCarOptionsFromSettings();

@@ -19,8 +19,10 @@
 
 namespace
 {
+using storage::CountryId;
+using storage::kInvalidCountryId;
 
-BOOL canAutoDownload(storage::CountryId const & countryId)
+BOOL canAutoDownload(CountryId const & countryId)
 {
   if (![MWMSettings autoDownloadEnabled])
     return NO;
@@ -53,8 +55,8 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
 
 @implementation MWMMapDownloadDialog
 {
-  storage::CountryId m_countryId;
-  storage::CountryId m_autoDownloadCountryId;
+  CountryId m_countryId;
+  CountryId m_autoDownloadCountryId;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller
@@ -94,8 +96,9 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
 
     switch (nodeAttrs.m_status)
     {
-    case storage::NodeStatus::NotDownloaded:
-    case storage::NodeStatus::Partly:
+      using enum storage::NodeStatus;
+    case NotDownloaded:
+    case Partly:
     {
       MapViewController * controller = self.controller;
       BOOL const isMapVisible = [controller.navigationController.topViewController isEqual:controller];
@@ -106,28 +109,28 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
       }
       else
       {
-        m_autoDownloadCountryId = storage::kInvalidCountryId;
+        m_autoDownloadCountryId = kInvalidCountryId;
         [self showDownloadRequest];
       }
       [[MWMCarPlayService shared] showNoMapAlert];
       break;
     }
-    case storage::NodeStatus::Downloading:
+    case Downloading:
       if (nodeAttrs.m_downloadingProgress.m_bytesTotal != 0)
         [self showDownloading:(CGFloat)nodeAttrs.m_downloadingProgress.m_bytesDownloaded /
                               nodeAttrs.m_downloadingProgress.m_bytesTotal];
       break;
-    case storage::NodeStatus::Applying:
-    case storage::NodeStatus::InQueue: [self showInQueue]; break;
-    case storage::NodeStatus::Undefined:
-    case storage::NodeStatus::Error:
+    case Applying:
+    case InQueue: [self showInQueue]; break;
+    case Undefined:
+    case Error:
       if (p.IsAutoRetryDownloadFailed())
         [self showError:nodeAttrs.m_error];
       else
         [self showInQueue];
       break;
-    case storage::NodeStatus::OnDisk:
-    case storage::NodeStatus::OnDiskOutOfDate: [self removeFromSuperview]; break;
+    case OnDisk:
+    case OnDiskOutOfDate: [self removeFromSuperview]; break;
     }
   }
   else
@@ -162,7 +165,8 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
 
 - (void)showError:(storage::NodeErrorCode)errorCode
 {
-  if (errorCode == storage::NodeErrorCode::NoError)
+  using enum storage::NodeErrorCode;
+  if (errorCode == NoError)
     return;
   self.nodeSize.textColor = [UIColor red];
   self.nodeSize.text = L(@"country_status_download_failed");
@@ -178,12 +182,12 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
   auto const cancelBlock = ^{ [[MWMStorage sharedStorage] cancelDownloadNode:@(self->m_countryId.c_str())]; };
   switch (errorCode)
   {
-  case storage::NodeErrorCode::NoError: break;
-  case storage::NodeErrorCode::UnknownError:
+  case NoError: break;
+  case UnknownError:
     [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
     break;
-  case storage::NodeErrorCode::OutOfMemFailed: [avc presentDownloaderNotEnoughSpaceAlert]; break;
-  case storage::NodeErrorCode::NoInetConnection:
+  case OutOfMemFailed: [avc presentDownloaderNotEnoughSpaceAlert]; break;
+  case NoInetConnection:
     [avc presentDownloaderNoConnectionAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
     break;
   }
@@ -216,10 +220,10 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
   [self addToSuperview];
 }
 
-- (void)processViewportCountryEvent:(storage::CountryId const &)countryId
+- (void)processViewportCountryEvent:(CountryId const &)countryId
 {
   m_countryId = countryId;
-  if (countryId == storage::kInvalidCountryId)
+  if (countryId == kInvalidCountryId)
     [self removeFromSuperview];
   else
     [self configDialog];

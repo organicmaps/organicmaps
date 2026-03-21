@@ -186,14 +186,15 @@ std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
 
 routing::VehicleType GetVehicleType(routing::RouterType routerType)
 {
+  using enum routing::RouterType;
   switch (routerType)
   {
-  case routing::RouterType::Pedestrian: return routing::VehicleType::Pedestrian;
-  case routing::RouterType::Bicycle: return routing::VehicleType::Bicycle;
-  case routing::RouterType::Vehicle: return routing::VehicleType::Car;
-  case routing::RouterType::Transit: return routing::VehicleType::Transit;
-  case routing::RouterType::Ruler: return routing::VehicleType::Transit;
-  case routing::RouterType::Count: CHECK(false, ("Invalid type", routerType)); return routing::VehicleType::Count;
+  case Pedestrian: return routing::VehicleType::Pedestrian;
+  case Bicycle: return routing::VehicleType::Bicycle;
+  case Vehicle: return routing::VehicleType::Car;
+  case Transit: return routing::VehicleType::Transit;
+  case Ruler: return routing::VehicleType::Transit;
+  case Count: CHECK(false, ("Invalid type", routerType)); return routing::VehicleType::Count;
   }
   UNREACHABLE();
 }
@@ -215,13 +216,14 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<routing::RouteSegment> c
                                             m2::PointD const & startPt, double baseDistance, double baseDepth,
                                             routing::RouterType routerType)
 {
+  using enum routing::RouterType;
   auto subroute = make_unique_dp<df::Subroute>();
   subroute->m_baseDistance = baseDistance;
   subroute->m_baseDepthIndex = baseDepth;
 
   auto constexpr kBias = 1.0;
 
-  if (routerType == routing::RouterType::Transit)
+  if (routerType == Transit)
   {
     subroute->m_headFakeDistance = -kBias;
     subroute->m_tailFakeDistance = kBias;
@@ -241,7 +243,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<routing::RouteSegment> c
     return nullptr;
   }
 
-  if (routerType == routing::RouterType::Ruler)
+  if (routerType == Ruler)
   {
     auto const subrouteLen = segments.back().GetDistFromBeginningMerc() - baseDistance;
     subroute->m_headFakeDistance = -kBias;
@@ -468,19 +470,20 @@ routing::RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
 
 routing::RouterType RoutingManager::GetLastUsedRouter() const
 {
+  using enum routing::RouterType;
   std::string routerTypeStr;
   if (!settings::Get(kRouterTypeKey, routerTypeStr))
-    return routing::RouterType::Vehicle;
+    return Vehicle;
 
   auto const routerType = routing::FromString(routerTypeStr);
 
   switch (routerType)
   {
-  case routing::RouterType::Pedestrian:
-  case routing::RouterType::Bicycle:
-  case routing::RouterType::Transit:
-  case routing::RouterType::Ruler: return routerType;
-  default: return routing::RouterType::Vehicle;
+  case Pedestrian:
+  case Bicycle:
+  case Transit:
+  case Ruler: return routerType;
+  default: return Vehicle;
   }
 }
 
@@ -658,7 +661,8 @@ bool RoutingManager::InsertRoute(Route const & route)
 
   RoadWarningsCollection roadWarnings;
 
-  bool const isTransitRoute = (m_currentRouterType == routing::RouterType::Transit);
+  using enum routing::RouterType;
+  bool const isTransitRoute = (m_currentRouterType == Transit);
   std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   if (isTransitRoute)
   {
@@ -681,7 +685,7 @@ bool RoutingManager::InsertRoute(Route const & route)
     distance = segments.back().GetDistFromBeginningMerc();
     switch (m_currentRouterType)
     {
-    case routing::RouterType::Vehicle:
+    case Vehicle:
     {
       subroute->m_routeType = df::RouteType::Car;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
@@ -689,27 +693,27 @@ bool RoutingManager::InsertRoute(Route const & route)
       FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
     }
-    case routing::RouterType::Transit:
+    case Transit:
     {
       subroute->m_routeType = df::RouteType::Transit;
       if (!transitRouteDisplay->ProcessSubroute(segments, *subroute.get()))
         continue;
       break;
     }
-    case routing::RouterType::Pedestrian:
+    case Pedestrian:
     {
       subroute->m_routeType = df::RouteType::Pedestrian;
       subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
       break;
     }
-    case routing::RouterType::Bicycle:
+    case Bicycle:
     {
       subroute->m_routeType = df::RouteType::Bicycle;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
       FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
     }
-    case routing::RouterType::Ruler:
+    case Ruler:
     {
       subroute->m_routeType = df::RouteType::Ruler;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteRuler, df::RoutePattern(16.0, 2.0)));
@@ -741,7 +745,7 @@ bool RoutingManager::InsertRoute(Route const & route)
   }
 
   bool const hasWarnings = !roadWarnings.empty();
-  if (hasWarnings && m_currentRouterType == routing::RouterType::Vehicle)
+  if (hasWarnings && m_currentRouterType == Vehicle)
     CreateRoadWarningMarks(std::move(roadWarnings));
 
   return hasWarnings;

@@ -22,11 +22,12 @@
   SettingsTableViewSelectableCell * selectedCell;
   switch (GetFramework().GetPowerManager().GetScheme())
   {
-  case power_management::Scheme::None: break;
-  case power_management::Scheme::Normal: selectedCell = self.never; break;
-  case power_management::Scheme::EconomyMedium: break;
-  case power_management::Scheme::EconomyMaximum: selectedCell = self.manualMax; break;
-  case power_management::Scheme::Auto: selectedCell = self.automatic; break;
+    using enum power_management::Scheme;
+  case None: break;
+  case Normal: selectedCell = self.never; break;
+  case EconomyMedium: break;
+  case EconomyMaximum: selectedCell = self.manualMax; break;
+  case Auto: selectedCell = self.automatic; break;
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selectedCell = selectedCell;
@@ -41,11 +42,12 @@
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 
   _selectedCell = selectedCell;
-  power_management::Scheme scheme = power_management::Scheme::Auto;
+  using power_management::Scheme;
+  Scheme scheme = Scheme::Auto;
   if ([selectedCell isEqual:self.never])
-    scheme = power_management::Scheme::Normal;
+    scheme = Scheme::Normal;
   else if ([selectedCell isEqual:self.manualMax])
-    scheme = power_management::Scheme::EconomyMaximum;
+    scheme = Scheme::EconomyMaximum;
 
   GetFramework().GetPowerManager().SetScheme(scheme);
 }

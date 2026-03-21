@@ -11,10 +11,11 @@ namespace edge_estimator_tests
 namespace
 {
 using namespace routing;
+using enum EdgeEstimator::Purpose;
 
 double const kTan = 0.1;
 geometry::Altitude const kAlt = 100.0;
-auto const kPurposes = {EdgeEstimator::Purpose::Weight, EdgeEstimator::Purpose::ETA};
+auto const kPurposes = {Weight, ETA};
 constexpr double kAccuracyEps = 1e-5;
 
 // Climb penalty on plain surface (tangent = 0) must be 1.0 for ETA and Weight estimations.

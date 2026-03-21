@@ -271,16 +271,16 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)swapStartAndFinish
 {
+  using enum routing::RouteMarkType;
   auto const points = GetFramework().GetRoutingManager().GetRoutePoints();
   CHECK(!points.empty(), ("Should never be empty"));
   auto & rm = GetFramework().GetRoutingManager();
   if (points.size() == 1)
   {
     routing::RouteMarkType currentType = points[0].m_pointType;
-    ASSERT(currentType != routing::RouteMarkType::Intermediate,
+    ASSERT(currentType != Intermediate,
            ("There should be no intermediate points if points count is 1"));
-    routing::RouteMarkType targetType =
-        currentType == routing::RouteMarkType::Start ? routing::RouteMarkType::Finish : routing::RouteMarkType::Start;
+    routing::RouteMarkType targetType = currentType == Start ? Finish : Start;
     rm.MoveRoutePoint(currentType, 0, targetType, 0);
   }
   else
@@ -563,12 +563,13 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
 {
+  using enum routing::RouterResultCode;
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
   {
-  case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;
-  case routing::RouterResultCode::HasWarnings: [self onRouteReady:YES]; break;
-  case routing::RouterResultCode::NeedMoreMaps:
+  case NoError: [self onRouteReady:NO]; break;
+  case HasWarnings: [self onRouteReady:YES]; break;
+  case NeedMoreMaps:
     self.routingOptions = [MWMRoutingOptions new];
     [self presentDownloaderAlert:code countries:absentCountries];
     // NeedMoreMaps can arrive after a valid route is already built. In that case
@@ -576,24 +577,24 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     if (![MWMRouter IsRouteValid])
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
-  case routing::RouterResultCode::RouteFileNotExist:
-  case routing::RouterResultCode::InconsistentMWMandRoute:
-  case routing::RouterResultCode::FileTooOld:
-  case routing::RouterResultCode::RouteNotFound:
+  case RouteFileNotExist:
+  case InconsistentMWMandRoute:
+  case FileTooOld:
+  case RouteNotFound:
     self.routingOptions = [MWMRoutingOptions new];
     [self presentDownloaderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
-  case routing::RouterResultCode::Cancelled: [mapViewControlsManager onRoutePrepare]; break;
-  case routing::RouterResultCode::StartPointNotFound:
-  case routing::RouterResultCode::EndPointNotFound:
-  case routing::RouterResultCode::NoCurrentPosition:
-  case routing::RouterResultCode::PointsInDifferentMWM:
-  case routing::RouterResultCode::InternalError:
-  case routing::RouterResultCode::IntermediatePointNotFound:
-  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
-  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
-  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+  case Cancelled: [mapViewControlsManager onRoutePrepare]; break;
+  case StartPointNotFound:
+  case EndPointNotFound:
+  case NoCurrentPosition:
+  case PointsInDifferentMWM:
+  case InternalError:
+  case IntermediatePointNotFound:
+  case TransitRouteNotFoundNoNetwork:
+  case TransitRouteNotFoundTooLongPedestrian:
+  case RouteNotFoundRedressRouteError:
     [[MWMAlertViewController activeAlertController] presentAlert:code];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
