@@ -9,9 +9,6 @@
 #include <set>
 #include <string>
 
-using namespace std;
-using namespace indexer;
-
 char const g_testBrandsTxt[] =
     "brand.mcdonalds\n"
     "en:McDonald's|Mc Donalds\n"
@@ -24,20 +21,20 @@ char const g_testBrandsTxt[] =
 
 UNIT_TEST(LoadDefaultBrands)
 {
-  auto const & brands = GetDefaultBrands();
+  auto const & brands = indexer::GetDefaultBrands();
 
   TEST(!brands.GetKeys().empty(), ());
 }
 
 UNIT_TEST(LoadBrands)
 {
-  BrandsHolder const holder(make_unique<MemReader>(g_testBrandsTxt, sizeof(g_testBrandsTxt) - 1));
+  indexer::BrandsHolder const holder(std::make_unique<MemReader>(g_testBrandsTxt, sizeof(g_testBrandsTxt) - 1));
 
-  set<string> expectedKeys = {"mcdonalds", "subway"};
+  std::set<std::string> expectedKeys = {"mcdonalds", "subway"};
   auto const keys = holder.GetKeys();
   TEST_EQUAL(keys, expectedKeys, ());
 
-  using Names = set<BrandsHolder::Brand::Name>;
+  using Names = std::set<indexer::BrandsHolder::Brand::Name>;
 
   {
     Names expectedNames;
@@ -48,7 +45,8 @@ UNIT_TEST(LoadBrands)
     expectedNames.emplace("Макдональдз", StringUtf8Multilang::GetLangIndex("uk"));
 
     Names names;
-    holder.ForEachNameByKey("mcdonalds", [&names](BrandsHolder::Brand::Name const & name) { names.insert(name); });
+    holder.ForEachNameByKey("mcdonalds",
+                            [&names](indexer::BrandsHolder::Brand::Name const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
@@ -59,31 +57,32 @@ UNIT_TEST(LoadBrands)
     expectedNames.emplace("Сабвей", StringUtf8Multilang::GetLangIndex("ru"));
 
     Names names;
-    holder.ForEachNameByKey("subway", [&names](BrandsHolder::Brand::Name const & name) { names.insert(name); });
+    holder.ForEachNameByKey("subway",
+                            [&names](indexer::BrandsHolder::Brand::Name const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
   {
-    set<string> expectedNames = {"McDonald's", "Mc Donalds"};
+    std::set<std::string> expectedNames = {"McDonald's", "Mc Donalds"};
 
-    set<string> names;
-    holder.ForEachNameByKeyAndLang("mcdonalds", "en", [&names](string const & name) { names.insert(name); });
+    std::set<std::string> names;
+    holder.ForEachNameByKeyAndLang("mcdonalds", "en", [&names](std::string const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
   {
-    set<string> expectedNames = {"МакДональд'с", "Мак Доналдс"};
+    std::set<std::string> expectedNames = {"МакДональд'с", "Мак Доналдс"};
 
-    set<string> names;
-    holder.ForEachNameByKeyAndLang("mcdonalds", "ru", [&names](string const & name) { names.insert(name); });
+    std::set<std::string> names;
+    holder.ForEachNameByKeyAndLang("mcdonalds", "ru", [&names](std::string const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
   {
-    set<string> expectedNames = {"Макдональдз"};
+    std::set<std::string> expectedNames = {"Макдональдз"};
 
-    set<string> names;
-    holder.ForEachNameByKeyAndLang("mcdonalds", "uk", [&names](string const & name) { names.insert(name); });
+    std::set<std::string> names;
+    holder.ForEachNameByKeyAndLang("mcdonalds", "uk", [&names](std::string const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 }

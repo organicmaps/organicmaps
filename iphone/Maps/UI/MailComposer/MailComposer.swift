@@ -1,7 +1,9 @@
 @objcMembers
 final class MailComposer: NSObject {
   private static let mailComposer = MailComposer()
-  private static var topViewController: UIViewController { .topViewController() }
+  private static var topViewController: UIViewController {
+    .topViewController()
+  }
 
   override private init() {}
 

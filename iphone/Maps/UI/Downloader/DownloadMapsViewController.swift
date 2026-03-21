@@ -31,7 +31,10 @@ class DownloadMapsViewController: MWMViewController {
   var dataSource: IDownloaderDataSource!
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
-  private var hasAddMapSection: Bool { dataSource.isRoot && mode == .downloaded }
+  private var hasAddMapSection: Bool {
+    dataSource.isRoot && mode == .downloaded
+  }
+
   private let allMapsViewBottomOffsetConstant: CGFloat = 64
 
   lazy var noSerchResultViewController: SearchNoResultsViewController = {
@@ -274,8 +277,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if hasAddMapSection, indexPath.section == dataSource.numberOfSections() {
       let cellType = MWMMapDownloaderButtonTableViewCell.self
-      let buttonCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
-      return buttonCell
+      return tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
     }
 
     let nodeAttrs = dataSource.item(at: indexPath)

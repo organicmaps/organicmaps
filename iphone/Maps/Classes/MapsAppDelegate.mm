@@ -59,8 +59,6 @@ void InitLocalizedStrings()
 }
 }  // namespace
 
-using namespace osm_auth_ios;
-
 @interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
@@ -77,7 +75,7 @@ using namespace osm_auth_ios;
 
 - (void)completeOAuth2Authorization
 {
-  AuthorizationStoreCredentialsWithOauth2Code(GetFramework().GetParsedOAuth2Code());
+  osm_auth_ios::AuthorizationStoreCredentialsWithOauth2Code(GetFramework().GetParsedOAuth2Code());
 }
 
 - (BOOL)isDrapeEngineCreated

@@ -24,8 +24,6 @@
 #include <sstream>
 #include <utility>
 
-using namespace std::placeholders;
-
 namespace gui
 {
 LayerRenderer::~LayerRenderer()
@@ -203,10 +201,14 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
   using TCacheShape = std::function<void(ref_ptr<dp::GraphicsContext>, Position anchor, ref_ptr<LayerRenderer> renderer,
                                          ref_ptr<dp::TextureManager> textures)>;
   static std::map<EWidget, TCacheShape> cacheFunctions{
-      {WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3, _4)},
-      {WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)},
-      {WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)},
-      {WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)},
+      {WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, std::placeholders::_1, std::placeholders::_2,
+                                 std::placeholders::_3, std::placeholders::_4)},
+      {WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, std::placeholders::_1, std::placeholders::_2,
+                               std::placeholders::_3, std::placeholders::_4)},
+      {WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, std::placeholders::_1, std::placeholders::_2,
+                                   std::placeholders::_3, std::placeholders::_4)},
+      {WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, std::placeholders::_1,
+                                         std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)},
   };
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
@@ -371,7 +373,9 @@ void LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Posit
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
-  MutableLabelDrawer::Draw(context, params, textures, std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
+  MutableLabelDrawer::Draw(
+      context, params, textures,
+      std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), std::placeholders::_1, std::placeholders::_2));
 
   renderer->AddShapeRenderer(WIDGET_SCALE_FPS_LABEL, std::move(scaleRenderer));
 }

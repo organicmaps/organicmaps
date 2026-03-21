@@ -68,7 +68,9 @@ class Style: ExpressibleByDictionaryLiteral {
     }
   }
 
-  subscript(keyname: Key) -> Value { params[keyname] ?? nil }
+  subscript(keyname: Key) -> Value {
+    params[keyname] ?? nil
+  }
 
   func append(_ style: Style) {
     params.merge(style.params) { a, _ -> Style.Value in

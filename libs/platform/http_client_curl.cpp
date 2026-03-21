@@ -51,8 +51,6 @@
 #include <unistd.h>  // close
 #endif
 
-using namespace coding;
-
 namespace
 {
 DECLARE_EXCEPTION(PipeCallError, RootException);
@@ -155,14 +153,14 @@ std::string Decompress(std::string const & compressed, std::string const & encod
 
   if (encoding == "deflate")
   {
-    ZLib::Inflate inflate(ZLib::Inflate::Format::ZLib);
+    coding::ZLib::Inflate inflate(coding::ZLib::Inflate::Format::ZLib);
 
     // We do not check return value of inflate here.
     // It may return false if compressed data is broken or if there is some unconsumed data
     // at the end of buffer. The second case considered as ok by some http clients.
     // For example, server we use for AsyncGuiThread_GetHotelInfo test adds '\n' to the end of the buffer
     // and MacOS client and some versions of curl return no error.
-    UNUSED_VALUE(inflate(compressed, back_inserter(decompressed)));
+    UNUSED_VALUE(inflate(compressed, std::back_inserter(decompressed)));
   }
   else
   {

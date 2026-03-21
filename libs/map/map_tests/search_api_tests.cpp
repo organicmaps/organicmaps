@@ -26,20 +26,14 @@
 #include <memory>
 #include <string>
 
-using namespace search::tests_support;
-using namespace generator::tests_support;
-using namespace search;
-using namespace std;
-using namespace storage;
-
 namespace
 {
-using Rules = vector<shared_ptr<MatchingRule>>;
+using Rules = std::vector<std::shared_ptr<search::tests_support::MatchingRule>>;
 
-struct TestCafe : public TestPOI
+struct TestCafe : public generator::tests_support::TestPOI
 {
 public:
-  TestCafe(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
+  TestCafe(m2::PointD const & center, std::string const & name, std::string const & lang) : TestPOI(center, name, lang)
   {
     SetTypes({{"amenity", "cafe"}});
   }
@@ -53,20 +47,20 @@ public:
   ~Delegate() override = default;
 
   // SearchAPI::Delegate overrides:
-  void RunUITask(function<void()> fn) override { fn(); }
+  void RunUITask(std::function<void()> fn) override { fn(); }
 };
 
 class SearchAPITest : public generator::tests_support::TestWithCustomMwms
 {
 public:
   SearchAPITest()
-    : m_infoGetter(CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
+    : m_infoGetter(storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
     , m_api(m_dataSource, m_storage, *m_infoGetter, 1 /* numThreads */, m_delegate)
   {}
 
 protected:
-  Storage m_storage;
-  unique_ptr<CountryInfoGetter> m_infoGetter;
+  storage::Storage m_storage;
+  std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
   Delegate m_delegate;
   SearchAPI m_api;
 };
@@ -78,7 +72,7 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
   TestCafe cafe3(m2::PointD(10, 10), "cafe 3", "en");
   TestCafe cafe4(m2::PointD(10.5, 10.5), "cafe 4", "en");
 
-  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  auto const id = BuildCountry("Wonderland", [&](generator::tests_support::TestMwmBuilder & builder)
   {
     builder.Add(cafe1);
     builder.Add(cafe2);
@@ -86,19 +80,19 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
     builder.Add(cafe4);
   });
 
-  atomic<int> stage{0};
+  std::atomic<int> stage{0};
 
-  promise<void> promise0;
+  std::promise<void> promise0;
   auto future0 = promise0.get_future();
 
-  promise<void> promise1;
+  std::promise<void> promise1;
   auto future1 = promise1.get_future();
 
-  ViewportSearchParams params;
+  search::ViewportSearchParams params;
   params.m_query = "cafe ";
   params.m_inputLocale = "en";
 
-  params.m_onCompleted = [&](Results const & results)
+  params.m_onCompleted = [&](search::Results const & results)
   {
     TEST(!results.IsEndedCancelled(), ());
 
@@ -107,16 +101,16 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 
     if (stage == 0)
     {
-      Rules const rules = {ExactMatch(id, cafe1), ExactMatch(id, cafe2)};
-      TEST(MatchResults(m_dataSource, rules, results), ());
+      Rules const rules = {search::tests_support::ExactMatch(id, cafe1), search::tests_support::ExactMatch(id, cafe2)};
+      TEST(search::tests_support::MatchResults(m_dataSource, rules, results), ());
 
       promise0.set_value();
     }
     else
     {
       TEST_EQUAL(stage, 1, ());
-      Rules const rules = {ExactMatch(id, cafe3), ExactMatch(id, cafe4)};
-      TEST(MatchResults(m_dataSource, rules, results), ());
+      Rules const rules = {search::tests_support::ExactMatch(id, cafe3), search::tests_support::ExactMatch(id, cafe4)};
+      TEST(search::tests_support::MatchResults(m_dataSource, rules, results), ());
 
       promise1.set_value();
     }
@@ -135,27 +129,28 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 {
   TestCafe cafe(m2::PointD(0, 0), "cafe", "en");
 
-  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  auto const id =
+      BuildCountry("Wonderland", [&](generator::tests_support::TestMwmBuilder & builder) { builder.Add(cafe); });
 
-  EverywhereSearchParams commonParams;
+  search::EverywhereSearchParams commonParams;
   commonParams.m_query = "cafe ";
   commonParams.m_inputLocale = "en";
 
   {
     auto params = commonParams;
 
-    promise<void> promise;
+    std::promise<void> promise;
     auto future = promise.get_future();
 
-    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &)
+    params.m_onResults = [&](search::Results const & results, std::vector<search::ProductInfo> const &)
     {
       TEST(!results.IsEndedCancelled(), ());
 
       if (!results.IsEndMarker())
         return;
 
-      Rules const rules = {ExactMatch(id, cafe)};
-      TEST(MatchResults(m_dataSource, rules, results), ());
+      Rules const rules = {search::tests_support::ExactMatch(id, cafe)};
+      TEST(search::tests_support::MatchResults(m_dataSource, rules, results), ());
 
       promise.set_value();
     };
@@ -168,12 +163,12 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
   {
     auto params = commonParams;
 
-    promise<void> promise;
+    std::promise<void> promise;
     auto future = promise.get_future();
 
-    params.m_timeout = chrono::seconds(-1);
+    params.m_timeout = std::chrono::seconds(-1);
 
-    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &)
+    params.m_onResults = [&](search::Results const & results, std::vector<search::ProductInfo> const &)
     {
       // The deadline has fired but Search API does not expose it.
       TEST(!results.IsEndedCancelled(), ());
@@ -181,8 +176,8 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
       if (!results.IsEndMarker())
         return;
 
-      Rules const rules = {ExactMatch(id, cafe)};
-      TEST(MatchResults(m_dataSource, rules, results), ());
+      Rules const rules = {search::tests_support::ExactMatch(id, cafe)};
+      TEST(search::tests_support::MatchResults(m_dataSource, rules, results), ());
 
       promise.set_value();
     };
@@ -196,7 +191,7 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 
 UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
 {
-  vector<BookmarkInfo> marks;
+  std::vector<BookmarkInfo> marks;
 
   kml::BookmarkData data;
   kml::SetDefaultStr(data.m_name, "R&R dinner");
@@ -213,16 +208,17 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   m_api.OnBookmarksCreated(marks);
   m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
 
-  auto runTest = [&](string const & query, kml::MarkGroupId const & groupId, vector<kml::MarkId> const & expected)
+  auto runTest =
+      [&](std::string const & query, kml::MarkGroupId const & groupId, std::vector<kml::MarkId> const & expected)
   {
-    promise<vector<kml::MarkId>> idsPromise;
+    std::promise<std::vector<kml::MarkId>> idsPromise;
     auto idsFuture = idsPromise.get_future();
 
-    BookmarksSearchParams params;
+    search::BookmarksSearchParams params;
     params.m_query = query;
-    params.m_onResults = [&](vector<kml::MarkId> const & results, BookmarksSearchParams::Status status)
+    params.m_onResults = [&](std::vector<kml::MarkId> const & results, search::BookmarksSearchParams::Status status)
     {
-      if (status != BookmarksSearchParams::Status::Completed)
+      if (status != search::BookmarksSearchParams::Status::Completed)
         return;
       idsPromise.set_value(results);
     };
@@ -234,37 +230,37 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
     TEST_EQUAL(ids, expected, ());
   };
 
-  string const query = "gread silver hotel";
-  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>());
+  std::string const query = "gread silver hotel";
+  runTest(query, kml::kInvalidMarkGroupId, std::vector<kml::MarkId>());
 
   {
-    vector<BookmarkGroupInfo> groupInfos;
-    groupInfos.emplace_back(kml::MarkGroupId(10), vector<kml::MarkId>({0, 1}));
-    groupInfos.emplace_back(kml::MarkGroupId(11), vector<kml::MarkId>({2}));
+    std::vector<BookmarkGroupInfo> groupInfos;
+    groupInfos.emplace_back(kml::MarkGroupId(10), std::vector<kml::MarkId>({0, 1}));
+    groupInfos.emplace_back(kml::MarkGroupId(11), std::vector<kml::MarkId>({2}));
     m_api.OnBookmarksAttached(groupInfos);
   }
 
-  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({1}));
+  runTest(query, kml::kInvalidMarkGroupId, std::vector<kml::MarkId>({1}));
   runTest(query, kml::MarkGroupId(11), {});
   m_api.EnableIndexingOfBookmarkGroup(11, true /* enable */);
-  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({2, 1}));
-  runTest(query, kml::MarkGroupId(11), vector<kml::MarkId>({2}));
+  runTest(query, kml::kInvalidMarkGroupId, std::vector<kml::MarkId>({2, 1}));
+  runTest(query, kml::MarkGroupId(11), std::vector<kml::MarkId>({2}));
   m_api.EnableIndexingOfBookmarkGroup(11, false /* enable */);
-  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({1}));
+  runTest(query, kml::kInvalidMarkGroupId, std::vector<kml::MarkId>({1}));
   runTest(query, kml::MarkGroupId(11), {});
   m_api.EnableIndexingOfBookmarkGroup(11, true /* enable */);
 
   {
-    vector<BookmarkGroupInfo> groupInfos;
-    groupInfos.emplace_back(kml::MarkGroupId(10), vector<kml::MarkId>({1}));
+    std::vector<BookmarkGroupInfo> groupInfos;
+    groupInfos.emplace_back(kml::MarkGroupId(10), std::vector<kml::MarkId>({1}));
     m_api.OnBookmarksDetached(groupInfos);
   }
   {
-    vector<BookmarkGroupInfo> groupInfos;
-    groupInfos.emplace_back(kml::MarkGroupId(11), vector<kml::MarkId>({1}));
+    std::vector<BookmarkGroupInfo> groupInfos;
+    groupInfos.emplace_back(kml::MarkGroupId(11), std::vector<kml::MarkId>({1}));
     m_api.OnBookmarksAttached(groupInfos);
   }
-  runTest(query, kml::MarkGroupId(11), vector<kml::MarkId>({2, 1}));
+  runTest(query, kml::MarkGroupId(11), std::vector<kml::MarkId>({2, 1}));
 
   m_api.ResetBookmarksEngine();
   runTest(query, kml::MarkGroupId(11), {});

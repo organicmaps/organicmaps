@@ -17,8 +17,13 @@ extension NavigationDashboard {
 extension NavigationDashboard.RoutePoints {
   static let empty = NavigationDashboard.RoutePoints(points: [])
 
-  var count: Int { 2 + intermediate.count }
-  var hasStartAndFinish: Bool { start != nil && finish != nil }
+  var count: Int {
+    2 + intermediate.count
+  }
+
+  var hasStartAndFinish: Bool {
+    start != nil && finish != nil
+  }
 
   subscript(index: Int) -> MWMRoutePoint? {
     switch index {

@@ -20,8 +20,6 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 
-using namespace routing;
-
 @interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
 
 @property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
@@ -124,7 +122,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (routePoints.empty())
     return nil;
   auto const & routePoint = routePoints.front();
-  if (routePoint.m_pointType == RouteMarkType::Start)
+  if (routePoint.m_pointType == routing::RouteMarkType::Start)
     return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
   return nil;
 }
@@ -135,7 +133,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (routePoints.empty())
     return nil;
   auto const & routePoint = routePoints.back();
-  if (routePoint.m_pointType == RouteMarkType::Finish)
+  if (routePoint.m_pointType == routing::RouteMarkType::Finish)
     return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
   return nil;
 }
@@ -157,7 +155,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   {
     self.altitudeImagesData = [@{} mutableCopy];
     self.renderAltitudeImagesQueue = dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
-    self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+    self.routeManagerTransactionId = routing::RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
@@ -231,7 +229,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)removePoint:(MWMRoutePoint *)point
 {
-  RouteMarkData pt = point.routeMarkData;
+  routing::RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
@@ -261,10 +259,10 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   case MWMRoutePointTypeStart: [self buildFromPoint:newPoint bestRouter:NO]; break;
   case MWMRoutePointTypeFinish: [self buildToPoint:newPoint bestRouter:NO]; break;
   case MWMRoutePointTypeIntermediate:
-    RouteMarkData pt = point.routeMarkData;
+    routing::RouteMarkData pt = point.routeMarkData;
     auto & routingManager = GetFramework().GetRoutingManager();
     routingManager.RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
-    RouteMarkData newPt = newPoint.routeMarkData;
+    routing::RouteMarkData newPt = newPoint.routeMarkData;
     routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
     [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
     [self rebuildWithBestRouter:NO];
@@ -278,9 +276,11 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   auto & rm = GetFramework().GetRoutingManager();
   if (points.size() == 1)
   {
-    RouteMarkType currentType = points[0].m_pointType;
-    ASSERT(currentType != RouteMarkType::Intermediate, ("There should be no intermediate points if points count is 1"));
-    RouteMarkType targetType = currentType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start;
+    routing::RouteMarkType currentType = points[0].m_pointType;
+    ASSERT(currentType != routing::RouteMarkType::Intermediate,
+           ("There should be no intermediate points if points count is 1"));
+    routing::RouteMarkType targetType =
+        currentType == routing::RouteMarkType::Start ? routing::RouteMarkType::Finish : routing::RouteMarkType::Start;
     rm.MoveRoutePoint(currentType, 0, targetType, 0);
   }
   else
@@ -305,7 +305,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     return;
   }
 
-  RouteMarkData pt = point.routeMarkData;
+  routing::RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
@@ -318,7 +318,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     return;
   }
 
-  RouteMarkData pt = point.routeMarkData;
+  routing::RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().ContinueRouteToPoint(std::move(pt));
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
   [self rebuildWithBestRouter:NO];
@@ -472,7 +472,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (![self hasRouteAltitude])
     return;
 
-  auto altitudes = std::make_shared<RoutingManager::DistanceAltitude>();
+  auto altitudes = std::make_shared<routing::RoutingManager::DistanceAltitude>();
   if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*altitudes))
     return;
 

@@ -8,14 +8,12 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
 class CheckNonEmptyGeometry
 {
 public:
-  vector<FeatureID> m_ids;
+  std::vector<FeatureID> m_ids;
 
   void operator()(FeatureID const & id) { m_ids.push_back(id); }
 
@@ -38,7 +36,7 @@ private:
   int m_scale;
 };
 
-bool RunTest(string const & countryFileName, int lowS, int highS)
+bool RunTest(std::string const & countryFileName, int lowS, int highS)
 {
   FeaturesFetcher src;
   auto p = src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));

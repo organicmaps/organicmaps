@@ -11,8 +11,6 @@
 
 @end
 
-using namespace osmoh;
-
 @implementation MWMOpeningHoursDaysSelectorTableViewCell
 
 + (CGFloat)heightForWidth:(CGFloat)width
@@ -40,16 +38,16 @@ using namespace osmoh;
   return idx;
 }
 
-- (Weekday)tag2Weekday:(NSUInteger)tag
+- (osmoh::Weekday)tag2Weekday:(NSUInteger)tag
 {
-  return static_cast<Weekday>([self tag2SymbolIndex:tag] + 1);
+  return static_cast<osmoh::Weekday>([self tag2SymbolIndex:tag] + 1);
 }
 
 - (void)makeDay:(NSUInteger)tag selected:(BOOL)selected refresh:(BOOL)refresh
 {
   if (refresh)
   {
-    Weekday const wd = [self tag2Weekday:tag];
+    osmoh::Weekday const wd = [self tag2Weekday:tag];
     MWMOpeningHoursSection * section = self.section;
     if (selected)
       [section addSelectedDay:wd];

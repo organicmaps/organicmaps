@@ -18,8 +18,6 @@
 
 #include <chrono>
 
-using namespace tracking;
-
 namespace
 {
 constexpr size_t kItemsForDump = 2 * 60 * 60;  // 2 hours of travelling
@@ -57,7 +55,7 @@ void UpdateLocation(location::GpsInfo & loc)
 
 UNIT_TEST(PacketCar_OperationsConsistency)
 {
-  BasicArchive<PacketCar> archive(kItemsForDump, 1.0 /* m_minDelaySeconds */);
+  tracking::BasicArchive<tracking::PacketCar> archive(kItemsForDump, 1.0 /* m_minDelaySeconds */);
   location::GpsInfo point = GetStartingPoint();
   traffic::SpeedGroup sg = traffic::SpeedGroup::G0;
 
@@ -104,7 +102,7 @@ UNIT_TEST(PacketCar_OperationsConsistency)
 
 UNIT_TEST(PacketPedestrianBicycle_OperationsConsistency)
 {
-  BasicArchive<Packet> archive(kItemsForDump, 3.0 /* m_minDelaySeconds */);
+  tracking::BasicArchive<tracking::Packet> archive(kItemsForDump, 3.0 /* m_minDelaySeconds */);
   location::GpsInfo point = GetStartingPoint();
 
   for (size_t i = 0; i < kItemsForDump; ++i)

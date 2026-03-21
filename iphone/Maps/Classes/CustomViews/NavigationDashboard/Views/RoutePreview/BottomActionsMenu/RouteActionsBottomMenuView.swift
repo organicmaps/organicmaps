@@ -19,7 +19,7 @@ final class RouteActionsBottomMenuView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // Prevent touches from being passed to the touch transparent view
+  /// Prevent touches from being passed to the touch transparent view
   override func touchesBegan(_: Set<UITouch>, with _: UIEvent?) {}
 
   private func setupView() {

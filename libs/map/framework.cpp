@@ -76,7 +76,6 @@
 
 #include <algorithm>
 
-using namespace location;
 using namespace routing;
 using namespace storage;
 using namespace std::placeholders;
@@ -170,17 +169,17 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile c
   return res;
 }
 
-void Framework::OnLocationError(TLocationError /*error*/)
+void Framework::OnLocationError(location::TLocationError /*error*/)
 {
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
   if (m_drapeEngine != nullptr)
     m_drapeEngine->LoseLocation();
 }
 
-void Framework::OnLocationUpdate(GpsInfo const & info)
+void Framework::OnLocationUpdate(location::GpsInfo const & info)
 {
 #ifdef FIXED_LOCATION
-  GpsInfo rInfo(info);
+  location::GpsInfo rInfo(info);
 
   // get fixed coordinates
   m_fixedPos.GetLon(rInfo.m_longitude);
@@ -192,25 +191,25 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   if (m_fixedPos.HasNorth())
   {
     // pass compass value (for devices without compass)
-    CompassInfo compass;
+    location::CompassInfo compass;
     m_fixedPos.GetNorth(compass.m_bearing);
     OnCompassUpdate(compass);
   }
 
 #else
-  GpsInfo const & rInfo = info;
+  location::GpsInfo const & rInfo = info;
 #endif
 
   m_routingManager.OnLocationUpdate(rInfo);
 }
 
-void Framework::OnCompassUpdate(CompassInfo const & info)
+void Framework::OnCompassUpdate(location::CompassInfo const & info)
 {
 #ifdef FIXED_LOCATION
-  CompassInfo rInfo(info);
+  location::CompassInfo rInfo(info);
   m_fixedPos.GetNorth(rInfo.m_bearing);
 #else
-  CompassInfo const & rInfo = info;
+  location::CompassInfo const & rInfo = info;
 #endif
 
   if (m_drapeEngine != nullptr)
@@ -223,14 +222,14 @@ void Framework::SwitchMyPositionNextMode()
     m_drapeEngine->SwitchMyPositionNextMode();
 }
 
-void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
+void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged && fn)
 {
   m_myPositionListener = std::move(fn);
 }
 
-EMyPositionMode Framework::GetMyPositionMode() const
+location::EMyPositionMode Framework::GetMyPositionMode() const
 {
-  return m_drapeEngine ? m_drapeEngine->GetMyPositionMode() : PendingPosition;
+  return m_drapeEngine ? m_drapeEngine->GetMyPositionMode() : location::PendingPosition;
 }
 
 TrafficManager & Framework::GetTrafficManager()

@@ -8,8 +8,6 @@
 
 #include <CoreApi/Framework.h>
 
-using namespace osm;
-
 namespace
 {
 NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
@@ -203,9 +201,9 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 #pragma mark - Create object
 
-- (EditableMapObject)createdObject
+- (osm::EditableMapObject)createdObject
 {
-  EditableMapObject emo;
+  osm::EditableMapObject emo;
   auto & f = GetFramework();
   auto const type = classif().GetTypeByReadableObjectName(self.selectedType.UTF8String);
   if (!f.CreateMapObject(f.GetViewportCenter(), type, emo))

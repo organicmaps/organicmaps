@@ -13,17 +13,15 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
-using TestResult = pair<uint16_t, uint16_t>;
-using TokensVector = vector<strings::UniString>;
-using TestResultVector = vector<TestResult>;
+using TestResult = std::pair<uint16_t, uint16_t>;
+using TokensVector = std::vector<strings::UniString>;
+using TestResultVector = std::vector<TestResult>;
 
 struct TestData
 {
-  string m_input;
+  std::string m_input;
   TokensVector m_lowTokens;
   TestResultVector m_results;
 
@@ -57,7 +55,7 @@ public:
 
   ~CheckRange() { TEST_EQUAL(m_idx, m_results.size(), ()); }
 
-  void operator()(pair<uint16_t, uint16_t> const & range)
+  void operator()(std::pair<uint16_t, uint16_t> const & range)
   {
     ASSERT(m_idx < m_results.size(), ());
     TEST_EQUAL(range, m_results[m_idx], ());
@@ -92,7 +90,7 @@ UNIT_TEST(SearchStringTokensIntersectionRange)
   char const * lowTokens8[] = {"ул", "кар"};
   char const * lowTokens9[] = {"ул", "бог"};
 
-  vector<TestData> tests;
+  std::vector<TestData> tests;
   // fill test data
   tests.push_back(TestData(str0, lowTokens0, 2, 2, 6, 5, 12, 6));
   tests.push_back(TestData(str1, lowTokens0, 2, 2, 4, 5, 10, 6));

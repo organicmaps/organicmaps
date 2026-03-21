@@ -25,7 +25,8 @@ import java.util.List;
 
 public class CategoriesScreen extends BaseMapScreen
 {
-  private record CategoryData(@StringRes int nameResId, @DrawableRes int iconResId) {}
+  private record CategoryData(@StringRes int nameResId, @DrawableRes int iconResId)
+  {}
 
   private static final List<CategoryData> CATEGORIES =
       Arrays.asList(new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel),

@@ -4,8 +4,6 @@
 
 #include <string>
 
-using namespace search;
-
 namespace
 {
 class RegionInfoGetterTest
@@ -30,7 +28,7 @@ public:
   }
 
 protected:
-  RegionInfoGetter m_regionInfoGetter;
+  search::RegionInfoGetter m_regionInfoGetter;
 };
 
 UNIT_CLASS_TEST(RegionInfoGetterTest, CountryName)

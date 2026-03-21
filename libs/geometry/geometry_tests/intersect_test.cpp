@@ -5,8 +5,6 @@
 #include "geometry/angles.hpp"
 #include "geometry/rect_intersect.hpp"
 
-using namespace test;
-
 namespace
 {
 typedef m2::PointD P;
@@ -73,7 +71,7 @@ void check_intersect_boundaries(m2::RectD const & r)
 {
   for (int i = 0; i < 4; ++i)
   {
-    check_full_equal(r, get_point(r, i), get_point(r, i + 1), strict_equal());
+    check_full_equal(r, get_point(r, i), get_point(r, i + 1), test::strict_equal());
     check_inside(r, get_point(r, i), get_point(r, i + 1));
   }
 }
@@ -82,7 +80,7 @@ void check_intersect_diagonal(m2::RectD const & r)
 {
   for (int i = 0; i < 4; ++i)
   {
-    check_full_equal(r, get_point(r, i), get_point(r, i + 2), epsilon_equal());
+    check_full_equal(r, get_point(r, i), get_point(r, i + 2), test::epsilon_equal());
     check_inside(r, get_point(r, i), get_point(r, i + 2));
   }
 }
@@ -93,7 +91,7 @@ void check_sides(m2::RectD const & r)
   {
     m2::PointD p1 = (get_point(r, i) + get_point(r, i + 1)) / 2.0;
     m2::PointD p2 = (get_point(r, i + 2) + get_point(r, i + 3)) / 2.0;
-    check_full_equal(r, p1, p2, strict_equal());
+    check_full_equal(r, p1, p2, test::strict_equal());
     check_inside(r, p1, p2);
   }
 }

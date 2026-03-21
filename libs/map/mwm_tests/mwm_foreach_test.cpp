@@ -21,11 +21,9 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace mwm_for_each_test
 {
-using Cont = vector<uint32_t>;
+using Cont = std::vector<uint32_t>;
 
 bool IsDrawable(FeatureType & f, int scale)
 {
@@ -120,7 +118,7 @@ public:
 
     // make right-oriented triangle
     if (m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]) < 0.0)
-      swap(arrP[1], arrP[2]);
+      std::swap(arrP[1], arrP[2]);
 
     bool isInside = true;
     m2::PointD const pt = m_rect.LeftTop();
@@ -208,7 +206,7 @@ bool compare_sequence(TCont const & etalon, TCont const & test, TCompare comp, s
       break;
     case -1:  // present in etalon, but missing in test - error
     {
-      errInd = distance(etalon.begin(), i1);
+      errInd = std::distance(etalon.begin(), i1);
       return false;
     }
     case 1:  // present in test, but missing in etalon - actually it may be ok
@@ -246,7 +244,7 @@ public:
   }
 };
 
-void RunTest(string const & countryFileName)
+void RunTest(std::string const & countryFileName)
 {
   FeaturesFetcher src1;
   src1.InitClassificator();
@@ -256,7 +254,7 @@ void RunTest(string const & countryFileName)
   platform::CountryIndexes::DeleteFromDisk(localFile);
   UNUSED_VALUE(src1.RegisterMap(localFile));
 
-  vector<m2::RectD> rects;
+  std::vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());
 
   ModelReaderPtr reader = platform::GetCountryReader(localFile, MapFileType::Map);
@@ -266,21 +264,21 @@ void RunTest(string const & countryFileName)
     m2::RectD const r = rects.back();
     rects.pop_back();
 
-    int const scale = max(scales::GetUpperCountryScale(), scales::GetScaleLevel(r));
+    int const scale = std::max(scales::GetUpperCountryScale(), scales::GetScaleLevel(r));
 
     Cont v1, v2;
     {
       AccumulatorBase acc(scale, v1);
       src1.ForEachFeature(r, acc, scale);
-      sort(v1.begin(), v1.end(), FeatureIDCmp());
+      std::sort(v1.begin(), v1.end(), FeatureIDCmp());
     }
     {
       AccumulatorEtalon acc(r, scale, v2);
       feature::ForEachFeature(reader, acc);
-      sort(v2.begin(), v2.end(), FeatureIDCmp());
+      std::sort(v2.begin(), v2.end(), FeatureIDCmp());
     }
 
-    size_t const emptyInd = size_t(-1);
+    size_t const emptyInd = std::size_t(-1);
     size_t errInd = emptyInd;
     if (!compare_sequence(v2, v1, FeatureIDCmp(), errInd))
     {

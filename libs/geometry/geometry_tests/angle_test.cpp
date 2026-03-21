@@ -6,24 +6,23 @@
 
 #include "geometry/angles.hpp"
 
-using namespace test;
 using math::pi;
 
 UNIT_TEST(Atan)
 {
   double const h4 = math::pi / 4.0;
 
-  TEST(is_equal_atan(1, 1, h4), ());
-  TEST(is_equal_atan(-1, 1, math::pi - h4), ());
-  TEST(is_equal_atan(-1, -1, h4 - math::pi), ());
-  TEST(is_equal_atan(1, -1, -h4), ());
+  TEST(test::is_equal_atan(1, 1, h4), ());
+  TEST(test::is_equal_atan(-1, 1, math::pi - h4), ());
+  TEST(test::is_equal_atan(-1, -1, h4 - math::pi), ());
+  TEST(test::is_equal_atan(1, -1, -h4), ());
 
   double const hh = atan(1.0 / 2.0);
 
-  TEST(is_equal_atan(2, 1, hh), ());
-  TEST(is_equal_atan(-2, 1, math::pi - hh), ());
-  TEST(is_equal_atan(-2, -1, hh - math::pi), ());
-  TEST(is_equal_atan(2, -1, -hh), ());
+  TEST(test::is_equal_atan(2, 1, hh), ());
+  TEST(test::is_equal_atan(-2, 1, math::pi - hh), ());
+  TEST(test::is_equal_atan(-2, -1, hh - math::pi), ());
+  TEST(test::is_equal_atan(2, -1, -hh), ());
 }
 
 UNIT_TEST(Atan2)
@@ -45,7 +44,7 @@ void check_avg(double arr[], size_t n, double v)
     calc.Add(arr[i]);
 
   double const avg = calc.GetAverage();
-  TEST(is_equal_angle(avg, v), (avg, v));
+  TEST(test::is_equal_angle(avg, v), (avg, v));
 }
 }  // namespace
 
@@ -54,11 +53,11 @@ UNIT_TEST(Average)
   double constexpr eps = 1.0E-3;
 
   double arr1[] = {math::pi - eps, -math::pi + eps};
-  TEST(is_equal_angle(ang::GetMiddleAngle(arr1[0], arr1[1]), math::pi), ());
+  TEST(test::is_equal_angle(ang::GetMiddleAngle(arr1[0], arr1[1]), math::pi), ());
   check_avg(arr1, ARRAY_SIZE(arr1), math::pi);
 
   double arr2[] = {eps, -eps};
-  TEST(is_equal_angle(ang::GetMiddleAngle(arr2[0], arr2[1]), 0.0), ());
+  TEST(test::is_equal_angle(ang::GetMiddleAngle(arr2[0], arr2[1]), 0.0), ());
   check_avg(arr2, ARRAY_SIZE(arr2), 0.0);
 }
 
@@ -94,16 +93,20 @@ UNIT_TEST(TwoVectorsAngle)
 
 UNIT_TEST(Azimuth)
 {
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 0), m2::Point<double>(0, 1), math::pi2), -math::pi4), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 0), m2::Point<double>(0, 1), 0.0), math::pi4), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 1), m2::Point<double>(1, -1), 0.0), 3 * math::pi4), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(1, 1), m2::Point<double>(0, 1), -math::pi2), 0.0), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(1, -1), m2::Point<double>(-1, -1), math::pi), math::pi2), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0, 0), m2::Point<double>(-1, -1), math::pi4), math::pi), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.5, -0.5), m2::Point<double>(-0.5, 0.5), math::pi4), -math::pi2),
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 0), m2::Point<double>(0, 1), math::pi2), -math::pi4),
        ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.1, 0.1), m2::Point<double>(0.2, 0.2), math::pi4), 0.0), ());
-  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.7, 0.7), m2::Point<double>(-0.2, -0.2), math::pi2),
-                      3 * math::pi4),
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 0), m2::Point<double>(0, 1), 0.0), math::pi4), ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 1), m2::Point<double>(1, -1), 0.0), 3 * math::pi4), ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(1, 1), m2::Point<double>(0, 1), -math::pi2), 0.0), ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(1, -1), m2::Point<double>(-1, -1), math::pi), math::pi2),
+       ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(0, 0), m2::Point<double>(-1, -1), math::pi4), math::pi), ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(0.5, -0.5), m2::Point<double>(-0.5, 0.5), math::pi4),
+                            -math::pi2),
+       ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(0.1, 0.1), m2::Point<double>(0.2, 0.2), math::pi4), 0.0),
+       ());
+  TEST(test::is_equal_angle(ang::Azimuth(m2::Point<double>(0.7, 0.7), m2::Point<double>(-0.2, -0.2), math::pi2),
+                            3 * math::pi4),
        ());
 }

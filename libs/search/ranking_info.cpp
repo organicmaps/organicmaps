@@ -45,7 +45,7 @@ double constexpr kAltOldName = -0.3;  // Some reasonable penalty like kErrorsMad
 // - should be greater than fabs(kErrorsMade) / 2
 // - shoulbe be comparable with kRank to keep cities/towns
 double constexpr kViewportDiffThreshold = 0.29;
-static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
+static_assert(kViewportDiffThreshold<-kAltOldName && kViewportDiffThreshold> - kErrorsMade / 2);
 static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
 double constexpr kNameScore[] = {

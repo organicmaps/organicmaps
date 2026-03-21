@@ -24,11 +24,6 @@
 #include <string>
 #include <vector>
 
-using namespace downloader;
-using namespace storage;
-
-using namespace std::placeholders;
-
 /// Special error codes to notify GUI about free space
 //@{
 #define ERR_DOWNLOAD_SUCCESS      0
@@ -46,13 +41,13 @@ namespace
 static std::vector<platform::CountryFile> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
-static std::shared_ptr<HttpRequest> g_currentRequest;
+static std::shared_ptr<downloader::HttpRequest> g_currentRequest;
 
 }  // namespace
 
 extern "C"
 {
-using Callback = HttpRequest::Callback;
+using Callback = downloader::HttpRequest::Callback;
 
 static int HasSpaceForFiles(Platform & pl, std::string const & sdcardPath, size_t fileSize)
 {
@@ -108,13 +103,13 @@ JNIEXPORT jint Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeGe
   return res;
 }
 
-static void DownloadFileFinished(std::shared_ptr<jobject> obj, HttpRequest const & req)
+static void DownloadFileFinished(std::shared_ptr<jobject> obj, downloader::HttpRequest const & req)
 {
   auto const status = req.GetStatus();
-  ASSERT_NOT_EQUAL(status, DownloadStatus::InProgress, ());
+  ASSERT_NOT_EQUAL(status, downloader::DownloadStatus::InProgress, ());
 
   int errorCode = ERR_DOWNLOAD_ERROR;
-  if (status == DownloadStatus::Completed)
+  if (status == downloader::DownloadStatus::Completed)
     errorCode = ERR_DOWNLOAD_SUCCESS;
 
   g_currentRequest.reset();
@@ -137,7 +132,7 @@ static void DownloadFileFinished(std::shared_ptr<jobject> obj, HttpRequest const
   env->CallVoidMethod(*obj, methodID, errorCode);
 }
 
-static void DownloadFileProgress(std::shared_ptr<jobject> listener, HttpRequest const & req)
+static void DownloadFileProgress(std::shared_ptr<jobject> listener, downloader::HttpRequest const & req)
 {
   JNIEnv * env = jni::GetEnv();
   static jmethodID methodID = jni::GetMethodID(env, *listener, "onProgress", "(I)V");
@@ -163,10 +158,10 @@ JNIEXPORT jint Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeSt
     auto const fileName = curFile.GetFileName(MapFileType::Map);
     LOG(LINFO, ("Downloading file", fileName));
 
-    g_currentRequest.reset(HttpRequest::GetFile(downloader->MakeUrlListLegacy(fileName),
-                                                storage.GetFilePath(curFile.GetName(), MapFileType::Map),
-                                                curFile.GetRemoteSize(), std::bind(&DownloadFileFinished, ptr, _1),
-                                                std::bind(&DownloadFileProgress, ptr, _1), 512 * 1024, false));
+    g_currentRequest.reset(downloader::HttpRequest::GetFile(
+        downloader->MakeUrlListLegacy(fileName), storage.GetFilePath(curFile.GetName(), MapFileType::Map),
+        curFile.GetRemoteSize(), std::bind(&DownloadFileFinished, ptr, std::placeholders::_1),
+        std::bind(&DownloadFileProgress, ptr, std::placeholders::_1), 512 * 1024, false));
   });
 
   return ERR_FILE_IN_PROGRESS;

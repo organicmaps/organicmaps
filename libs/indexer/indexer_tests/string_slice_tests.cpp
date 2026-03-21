@@ -7,32 +7,28 @@
 #include <iterator>
 #include <vector>
 
-using namespace search;
-using namespace std;
-using namespace strings;
-
 namespace
 {
-UniString ToString(vector<UniString> const & v)
+strings::UniString ToString(std::vector<strings::UniString> const & v)
 {
-  StringSlice slice(v);
-  UniString r;
-  copy(JoinIterator::Begin(slice), JoinIterator::End(slice), back_inserter(r));
+  search::StringSlice slice(v);
+  strings::UniString r;
+  std::copy(search::JoinIterator::Begin(slice), search::JoinIterator::End(slice), std::back_inserter(r));
   return r;
 }
 
 UNIT_TEST(JoinIterator_Smoke)
 {
   {
-    vector<UniString> v;
+    std::vector<strings::UniString> v;
 
-    StringSlice slice1(v);
-    auto begin1 = JoinIterator::Begin(slice1);
-    auto end1 = JoinIterator::End(slice1);
+    search::StringSlice slice1(v);
+    auto begin1 = search::JoinIterator::Begin(slice1);
+    auto end1 = search::JoinIterator::End(slice1);
 
-    StringSlice slice2(v);
-    auto begin2 = JoinIterator::Begin(slice2);
-    auto end2 = JoinIterator::End(slice2);
+    search::StringSlice slice2(v);
+    auto begin2 = search::JoinIterator::Begin(slice2);
+    auto end2 = search::JoinIterator::End(slice2);
 
     TEST(begin1 == end1, ());
 
@@ -46,33 +42,34 @@ UNIT_TEST(JoinIterator_Smoke)
   }
 
   {
-    vector<UniString> const v;
-    TEST_EQUAL(MakeUniString(""), ToString(v), ());
+    std::vector<strings::UniString> const v;
+    TEST_EQUAL(strings::MakeUniString(""), ToString(v), ());
   }
 
   {
-    vector<UniString> const v = {MakeUniString("")};
-    TEST_EQUAL(MakeUniString(""), ToString(v), ());
+    std::vector<strings::UniString> const v = {strings::MakeUniString("")};
+    TEST_EQUAL(strings::MakeUniString(""), ToString(v), ());
   }
 
   {
-    vector<UniString> const v = {MakeUniString(""), MakeUniString("")};
-    TEST_EQUAL(MakeUniString(" "), ToString(v), ());
+    std::vector<strings::UniString> const v = {strings::MakeUniString(""), strings::MakeUniString("")};
+    TEST_EQUAL(strings::MakeUniString(" "), ToString(v), ());
   }
 
   {
-    vector<UniString> const v = {MakeUniString(""), MakeUniString("b"), MakeUniString("")};
-    TEST_EQUAL(MakeUniString(" b "), ToString(v), ());
+    std::vector<strings::UniString> const v = {strings::MakeUniString(""), strings::MakeUniString("b"),
+                                               strings::MakeUniString("")};
+    TEST_EQUAL(strings::MakeUniString(" b "), ToString(v), ());
   }
 
   {
-    vector<UniString> const v = {MakeUniString("Hello")};
-    TEST_EQUAL(MakeUniString("Hello"), ToString(v), ());
+    std::vector<strings::UniString> const v = {strings::MakeUniString("Hello")};
+    TEST_EQUAL(strings::MakeUniString("Hello"), ToString(v), ());
   }
 
   {
-    vector<UniString> const v = {MakeUniString("Hello"), MakeUniString("World!")};
-    TEST_EQUAL(MakeUniString("Hello World!"), ToString(v), ());
+    std::vector<strings::UniString> const v = {strings::MakeUniString("Hello"), strings::MakeUniString("World!")};
+    TEST_EQUAL(strings::MakeUniString("Hello World!"), ToString(v), ());
   }
 }
 }  // namespace

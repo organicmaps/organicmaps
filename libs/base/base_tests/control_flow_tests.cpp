@@ -4,8 +4,6 @@
 
 #include <cstdint>
 
-using namespace base;
-
 namespace
 {
 struct Repeater
@@ -15,11 +13,11 @@ struct Repeater
   template <typename Fn>
   void ForEach(Fn && fn)
   {
-    ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
+    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
     for (uint32_t i = 0; i < m_repetitions; ++i)
     {
       ++m_calls;
-      if (wrapper() == ControlFlow::Break)
+      if (wrapper() == base::ControlFlow::Break)
         return;
     }
   }
@@ -48,8 +46,8 @@ UNIT_TEST(ControlFlow_Smoke)
     {
       ++c;
       if (c == 5)
-        return ControlFlow::Break;
-      return ControlFlow::Continue;
+        return base::ControlFlow::Break;
+      return base::ControlFlow::Continue;
     });
 
     TEST_EQUAL(c, 5, ());

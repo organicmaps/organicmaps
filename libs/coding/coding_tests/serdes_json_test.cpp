@@ -15,8 +15,6 @@
 #include <unordered_set>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
 template <typename Ptr>
@@ -28,9 +26,9 @@ bool SamePtrValue(Ptr const & lhs, Ptr const & rhs)
 template <typename T>
 bool TestSerDes(T const & value)
 {
-  string jsonStr;
+  std::string jsonStr;
   {
-    using Sink = MemWriter<string>;
+    using Sink = MemWriter<std::string>;
     Sink sink(jsonStr);
     coding::SerializerJson<Sink> ser(sink);
     ser(value);
@@ -70,16 +68,16 @@ struct ValueTypes
   ValueTypes() = default;
   ValueTypes(uint32_t testCounter)
     : m_boolValue(static_cast<bool>(testCounter % 2))
-    , m_uint8Value(numeric_limits<uint8_t>::max() - static_cast<uint8_t>(testCounter))
-    , m_uint32Value(numeric_limits<uint32_t>::max() - testCounter)
-    , m_uint64Value(numeric_limits<uint64_t>::max() - testCounter)
-    , m_int8Value(numeric_limits<int8_t>::min() + static_cast<int8_t>(testCounter))
-    , m_int32Value(numeric_limits<int32_t>::min() + static_cast<int32_t>(testCounter))
-    , m_int64Value(numeric_limits<int64_t>::min() + static_cast<int64_t>(testCounter))
-    , m_doubleValue(numeric_limits<double>::max() - testCounter)
+    , m_uint8Value(std::numeric_limits<uint8_t>::max() - static_cast<uint8_t>(testCounter))
+    , m_uint32Value(std::numeric_limits<uint32_t>::max() - testCounter)
+    , m_uint64Value(std::numeric_limits<uint64_t>::max() - testCounter)
+    , m_int8Value(std::numeric_limits<int8_t>::min() + static_cast<int8_t>(testCounter))
+    , m_int32Value(std::numeric_limits<int32_t>::min() + static_cast<int32_t>(testCounter))
+    , m_int64Value(std::numeric_limits<int64_t>::min() + static_cast<int64_t>(testCounter))
+    , m_doubleValue(std::numeric_limits<double>::max() - testCounter)
     , m_stringValue(strings::to_string(testCounter))
     , m_enumValue(static_cast<TestEnum>(testCounter % static_cast<uint32_t>(TestEnum::Count)))
-    , m_timePointValue(chrono::system_clock::now())
+    , m_timePointValue(std::chrono::system_clock::now())
   {}
 
   bool operator==(ValueTypes const & rhs) const
@@ -99,9 +97,9 @@ struct ValueTypes
   int32_t m_int32Value;
   int64_t m_int64Value;
   double m_doubleValue;
-  string m_stringValue;
+  std::string m_stringValue;
   TestEnum m_enumValue;
-  chrono::system_clock::time_point m_timePointValue;
+  std::chrono::system_clock::time_point m_timePointValue;
 };
 
 struct ObjectTypes
@@ -123,7 +121,7 @@ struct ObjectTypes
 
   m2::PointD m_pointValue;
   ms::LatLon m_latLonValue;
-  pair<uint32_t, string> m_pairValue;
+  std::pair<uint32_t, std::string> m_pairValue;
 };
 
 struct PointerTypes
@@ -133,8 +131,8 @@ struct PointerTypes
   PointerTypes() = default;
   PointerTypes(uint32_t testCounter)
   {
-    m_uniquePtrValue = make_unique<ValueTypes>(testCounter);
-    m_sharedPtrValue = make_shared<ValueTypes>(testCounter);
+    m_uniquePtrValue = std::make_unique<ValueTypes>(testCounter);
+    m_sharedPtrValue = std::make_shared<ValueTypes>(testCounter);
   }
 
   bool operator==(PointerTypes const & rhs) const
@@ -142,8 +140,8 @@ struct PointerTypes
     return SamePtrValue(m_uniquePtrValue, rhs.m_uniquePtrValue) && SamePtrValue(m_sharedPtrValue, rhs.m_sharedPtrValue);
   }
 
-  unique_ptr<ValueTypes> m_uniquePtrValue;
-  shared_ptr<ValueTypes> m_sharedPtrValue;
+  std::unique_ptr<ValueTypes> m_uniquePtrValue;
+  std::shared_ptr<ValueTypes> m_sharedPtrValue;
 };
 
 struct ArrayTypes
@@ -167,11 +165,11 @@ struct ArrayTypes
            m_mapValue == rhs.m_mapValue && m_unorderedSetValue == rhs.m_unorderedSetValue;
   }
 
-  array<uint32_t, 3> m_arrayValue;
-  deque<uint32_t> m_dequeValue;
-  vector<uint32_t> m_vectorValue;
-  map<uint32_t, uint32_t> m_mapValue;
-  unordered_set<uint32_t> m_unorderedSetValue;
+  std::array<uint32_t, 3> m_arrayValue;
+  std::deque<uint32_t> m_dequeValue;
+  std::vector<uint32_t> m_vectorValue;
+  std::map<uint32_t, uint32_t> m_mapValue;
+  std::unordered_set<uint32_t> m_unorderedSetValue;
 };
 }  // namespace
 
@@ -192,74 +190,78 @@ UNIT_TEST(SerdesJsonTest)
   }
 
   {
-    pair<string, m2::PointD> testValue = {"test", m2::PointD(1.0, 2.0)};
+    std::pair<std::string, m2::PointD> testValue = {"test", m2::PointD(1.0, 2.0)};
     TEST(TestSerDes(testValue), ());
   }
 
   {
-    pair<m2::PointD, m2::PointD> testValue = {m2::PointD(1.0, 2.0), m2::PointD(2.0, 3.0)};
+    std::pair<m2::PointD, m2::PointD> testValue = {m2::PointD(1.0, 2.0), m2::PointD(2.0, 3.0)};
     TEST(TestSerDes(testValue), ());
   }
 
   {
-    pair<string, pair<string, string>> testValue = {"test", {"test1", "test2"}};
+    std::pair<std::string, std::pair<std::string, std::string>> testValue = {"test", {"test1", "test2"}};
     TEST(TestSerDes(testValue), ());
   }
 
   {
-    pair<string, ValueTypes> testValue = {"test", ValueTypes(0)};
+    std::pair<std::string, ValueTypes> testValue = {"test", ValueTypes(0)};
     TEST(TestSerDes(testValue), ());
   }
 
   {
-    array<ObjectTypes, 2> testValue = {{ObjectTypes(0), ObjectTypes(1)}};
+    std::array<ObjectTypes, 2> testValue = {{ObjectTypes(0), ObjectTypes(1)}};
     TEST(TestSerDes(testValue), ());
   }
 
   {
     struct Hasher
     {
-      size_t operator()(pair<string, string> const & item) const { return m_hasher(item.first + item.second); }
+      size_t operator()(std::pair<std::string, std::string> const & item) const
+      {
+        return m_hasher(item.first + item.second);
+      }
 
-      hash<string> m_hasher;
+      std::hash<std::string> m_hasher;
     };
 
-    unordered_set<pair<string, string>, Hasher> testValue = {{"ab", "ab"}, {"ef", "ef"}, {"cd", "cd"}};
+    std::unordered_set<std::pair<std::string, std::string>, Hasher> testValue = {
+        {"ab", "ab"}, {"ef", "ef"}, {"cd", "cd"}};
     TEST(TestSerDes(testValue), ());
   }
 
   {
-    vector<vector<uint32_t>> testValue;
+    std::vector<std::vector<uint32_t>> testValue;
     for (uint32_t i = 0; i < 5; ++i)
       testValue.push_back({i, i, i});
     TEST(TestSerDes(testValue), ());
   }
 
   {
-    vector<ValueTypes> valuesVector;
+    std::vector<ValueTypes> valuesVector;
     for (uint32_t i = 0; i < 5; ++i)
       valuesVector.push_back(ValueTypes(i));
     TEST(TestSerDes(valuesVector), ());
   }
 
   {
-    map<uint32_t, ValueTypes> valuesMap;
+    std::map<uint32_t, ValueTypes> valuesMap;
     for (uint32_t i = 0; i < 5; ++i)
-      valuesMap.insert(make_pair(i, ValueTypes(i)));
+      valuesMap.insert(std::make_pair(i, ValueTypes(i)));
     TEST(TestSerDes(valuesMap), ());
   }
 
   {
-    vector<ObjectTypes> objectsVector;
+    std::vector<ObjectTypes> objectsVector;
     for (uint32_t i = 0; i < 5; ++i)
       objectsVector.push_back(ObjectTypes(i));
     TEST(TestSerDes(objectsVector), ());
   }
 
   {
-    map<uint32_t, ObjectTypes> objectsMap;
+    std::map<uint32_t, ObjectTypes> objectsMap;
     for (uint32_t i = 0; i < 5; ++i)
-      objectsMap.insert(make_pair(i, ObjectTypes(i)));
+      objectsMap.insert(std::make_pair(i, ObjectTypes(i)));
     TEST(TestSerDes(objectsMap), ());
   }
 }

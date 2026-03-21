@@ -1,8 +1,14 @@
 import UIKit
 
 class ChartMyPositionView: UIView {
-  override class var layerClass: AnyClass { CAShapeLayer.self }
-  var shapeLayer: CAShapeLayer { layer as! CAShapeLayer }
+  override class var layerClass: AnyClass {
+    CAShapeLayer.self
+  }
+
+  var shapeLayer: CAShapeLayer {
+    layer as! CAShapeLayer
+  }
+
   var pinY: CGFloat = 0 {
     didSet {
       updatePin()
@@ -43,8 +49,13 @@ class ChartMyPositionView: UIView {
 }
 
 private class MyPositionPinView: UIView {
-  override class var layerClass: AnyClass { CAShapeLayer.self }
-  var shapeLayer: CAShapeLayer { layer as! CAShapeLayer }
+  override class var layerClass: AnyClass {
+    CAShapeLayer.self
+  }
+
+  var shapeLayer: CAShapeLayer {
+    layer as! CAShapeLayer
+  }
 
   var path: UIBezierPath = {
     let p = UIBezierPath()

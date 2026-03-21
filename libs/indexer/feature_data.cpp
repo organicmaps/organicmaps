@@ -13,70 +13,6 @@
 #include <sstream>
 #include <vector>
 
-using namespace feature;
-
-////////////////////////////////////////////////////////////////////////////////////
-// TypesHolder implementation
-////////////////////////////////////////////////////////////////////////////////////
-
-namespace feature
-{
-using namespace std;
-
-template <class ContT>
-string TypesToString(ContT const & holder)
-{
-  Classificator const & c = classif();
-  string s;
-  for (uint32_t const type : holder)
-    s += c.GetReadableObjectName(type) + " ";
-  if (!s.empty())
-    s.pop_back();
-  return s;
-}
-
-std::string DebugPrint(TypesHolder const & holder)
-{
-  return TypesToString(holder);
-}
-
-TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType())
-{
-  f.ForEachType([this](uint32_t type) { Add(type); });
-}
-
-bool TypesHolder::HasWithSubclass(uint32_t type) const
-{
-  uint8_t const level = ftype::GetLevel(type);
-  for (uint32_t t : *this)
-  {
-    ftype::TruncValue(t, level);
-    if (t == type)
-      return true;
-  }
-  return false;
-}
-
-void TypesHolder::Remove(uint32_t type)
-{
-  UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));
-}
-
-bool TypesHolder::Equals(TypesHolder const & other) const
-{
-  if (m_size != other.m_size)
-    return false;
-
-  // Dynamic vector + sort for kMaxTypesCount array is a huge overhead.
-
-  auto const b = begin();
-  auto const e = end();
-  for (auto t : other)
-    if (std::find(b, e, t) == e)
-      return false;
-  return true;
-}
-
 namespace
 {
 class UselessTypesChecker
@@ -141,9 +77,71 @@ private:
 
   bool IsIn(uint8_t idx, uint32_t t) const { return std::binary_search(m_types[idx].begin(), m_types[idx].end(), t); }
 
-  vector<uint32_t> m_types[3];
+  std::vector<uint32_t> m_types[3];
 };
 }  // namespace
+
+////////////////////////////////////////////////////////////////////////////////////
+// TypesHolder implementation
+////////////////////////////////////////////////////////////////////////////////////
+
+namespace feature
+{
+using namespace std;
+
+template <class ContT>
+string TypesToString(ContT const & holder)
+{
+  Classificator const & c = classif();
+  string s;
+  for (uint32_t const type : holder)
+    s += c.GetReadableObjectName(type) + " ";
+  if (!s.empty())
+    s.pop_back();
+  return s;
+}
+
+std::string DebugPrint(TypesHolder const & holder)
+{
+  return TypesToString(holder);
+}
+
+TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType())
+{
+  f.ForEachType([this](uint32_t type) { Add(type); });
+}
+
+bool TypesHolder::HasWithSubclass(uint32_t type) const
+{
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint32_t t : *this)
+  {
+    ftype::TruncValue(t, level);
+    if (t == type)
+      return true;
+  }
+  return false;
+}
+
+void TypesHolder::Remove(uint32_t type)
+{
+  UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));
+}
+
+bool TypesHolder::Equals(TypesHolder const & other) const
+{
+  if (m_size != other.m_size)
+    return false;
+
+  // Dynamic vector + sort for kMaxTypesCount array is a huge overhead.
+
+  auto const b = begin();
+  auto const e = end();
+  for (auto t : other)
+    if (std::find(b, e, t) == e)
+      return false;
+  return true;
+}
 
 uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType, FeatureParamsBase const & params)
 {
@@ -243,14 +241,14 @@ bool FeatureParamsBase::operator==(FeatureParamsBase const & rhs) const
 
 bool FeatureParamsBase::IsValid() const
 {
-  return layer >= LAYER_LOW && layer <= LAYER_HIGH;
+  return layer >= feature::LAYER_LOW && layer <= feature::LAYER_HIGH;
 }
 
-string FeatureParamsBase::DebugString() const
+std::string FeatureParamsBase::DebugString() const
 {
-  string const utf8name = DebugPrint(name);
+  std::string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
-          (layer != LAYER_EMPTY ? " Layer:" + DebugPrint((int)layer) : "") +
+          (layer != feature::LAYER_EMPTY ? " Layer:" + DebugPrint((int)layer) : "") +
           (rank != 0 ? " Rank:" + DebugPrint((int)rank) : "") + (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));
 }
@@ -263,7 +261,7 @@ bool FeatureParamsBase::IsEmptyNames() const
 namespace
 {
 
-bool IsDummyName(string_view s)
+bool IsDummyName(std::string_view s)
 {
   return s.empty();
 }
@@ -279,7 +277,7 @@ void FeatureParams::ClearName()
   name.Clear();
 }
 
-bool FeatureParams::AddName(string_view lang, string_view s)
+bool FeatureParams::AddName(std::string_view lang, std::string_view s)
 {
   if (IsDummyName(s))
     return false;
@@ -327,7 +325,7 @@ void FeatureParams::SetHouseNumberAndHouseName(std::string houseNumber, std::str
   }
 }
 
-bool FeatureParams::AddHouseNumber(string houseNumber)
+bool FeatureParams::AddHouseNumber(std::string houseNumber)
 {
   ASSERT(!houseNumber.empty(), ());
 
@@ -351,19 +349,19 @@ void FeatureParams::SetGeomType(feature::GeomType t)
 {
   switch (t)
   {
-  case GeomType::Point: m_geomType = HeaderGeomType::Point; break;
-  case GeomType::Line: m_geomType = HeaderGeomType::Line; break;
-  case GeomType::Area: m_geomType = HeaderGeomType::Area; break;
+  case feature::GeomType::Point: m_geomType = feature::HeaderGeomType::Point; break;
+  case feature::GeomType::Line: m_geomType = feature::HeaderGeomType::Line; break;
+  case feature::GeomType::Area: m_geomType = feature::HeaderGeomType::Area; break;
   default: ASSERT(false, ());
   }
 }
 
 void FeatureParams::SetGeomTypePointEx()
 {
-  ASSERT(m_geomType == HeaderGeomType::Point || m_geomType == HeaderGeomType::PointEx, ());
+  ASSERT(m_geomType == feature::HeaderGeomType::Point || m_geomType == feature::HeaderGeomType::PointEx, ());
   ASSERT(!house.IsEmpty(), ());
 
-  m_geomType = HeaderGeomType::PointEx;
+  m_geomType = feature::HeaderGeomType::PointEx;
 }
 
 feature::GeomType FeatureParams::GetGeomType() const
@@ -371,13 +369,13 @@ feature::GeomType FeatureParams::GetGeomType() const
   CHECK(IsValid(), ());
   switch (*m_geomType)
   {
-  case HeaderGeomType::Line: return GeomType::Line;
-  case HeaderGeomType::Area: return GeomType::Area;
-  default: return GeomType::Point;
+  case feature::HeaderGeomType::Line: return feature::GeomType::Line;
+  case feature::HeaderGeomType::Area: return feature::GeomType::Area;
+  default: return feature::GeomType::Point;
   }
 }
 
-HeaderGeomType FeatureParams::GetHeaderGeomType() const
+feature::HeaderGeomType FeatureParams::GetHeaderGeomType() const
 {
   CHECK(IsValid(), ());
   return *m_geomType;
@@ -406,12 +404,12 @@ FeatureParams::TypesResult FeatureParams::FinishAddingTypesEx()
 
   TypesResult res = TYPES_GOOD;
 
-  if (m_types.size() > kMaxTypesCount)
+  if (m_types.size() > feature::kMaxTypesCount)
   {
     UselessTypesChecker::Instance().SortUselessToEnd(m_types);
 
-    m_types.resize(kMaxTypesCount);
-    sort(m_types.begin(), m_types.end());
+    m_types.resize(feature::kMaxTypesCount);
+    std::sort(m_types.begin(), m_types.end());
 
     res = TYPES_EXCEED_MAX;
   }
@@ -428,7 +426,7 @@ std::string FeatureParams::PrintTypes()
 {
   base::SortUnique(m_types);
   UselessTypesChecker::Instance().SortUselessToEnd(m_types);
-  return TypesToString(m_types);
+  return feature::TypesToString(m_types);
 }
 
 void FeatureParams::SetType(uint32_t t)
@@ -447,7 +445,7 @@ bool FeatureParams::PopAnyType(uint32_t & t)
 
 bool FeatureParams::PopExactType(uint32_t t)
 {
-  m_types.erase(remove(m_types.begin(), m_types.end(), t), m_types.end());
+  m_types.erase(std::remove(m_types.begin(), m_types.end(), t), m_types.end());
   return m_types.empty();
 }
 
@@ -471,7 +469,7 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 
 bool FeatureParams::IsValid() const
 {
-  if (m_types.empty() || m_types.size() > kMaxTypesCount || !m_geomType)
+  if (m_types.empty() || m_types.size() > feature::kMaxTypesCount || !m_geomType)
     return false;
 
   return FeatureParamsBase::IsValid();
@@ -479,7 +477,7 @@ bool FeatureParams::IsValid() const
 
 uint8_t FeatureParams::GetHeader() const
 {
-  return CalculateHeader(m_types.size(), GetHeaderGeomType(), *this);
+  return feature::CalculateHeader(m_types.size(), GetHeaderGeomType(), *this);
 }
 
 uint32_t FeatureParams::GetIndexForType(uint32_t t)
@@ -492,25 +490,25 @@ uint32_t FeatureParams::GetTypeForIndex(uint32_t i)
   return classif().GetTypeForIndex(i);
 }
 
-void FeatureBuilderParams::SetStreet(string s)
+void FeatureBuilderParams::SetStreet(std::string s)
 {
-  m_addrTags.Set(AddressData::Type::Street, std::move(s));
+  m_addrTags.Set(feature::AddressData::Type::Street, std::move(s));
 }
 
 std::string_view FeatureBuilderParams::GetStreet() const
 {
-  return m_addrTags.Get(AddressData::Type::Street);
+  return m_addrTags.Get(feature::AddressData::Type::Street);
 }
 
-void FeatureBuilderParams::SetPostcode(string s)
+void FeatureBuilderParams::SetPostcode(std::string s)
 {
   if (!s.empty())
-    m_metadata.Set(Metadata::FMD_POSTCODE, std::move(s));
+    m_metadata.Set(feature::Metadata::FMD_POSTCODE, std::move(s));
 }
 
 std::string_view FeatureBuilderParams::GetPostcode() const
 {
-  return m_metadata.Get(Metadata::FMD_POSTCODE);
+  return m_metadata.Get(feature::Metadata::FMD_POSTCODE);
 }
 
 namespace
@@ -580,15 +578,15 @@ void FeatureBuilderParams::ClearPOIAttribs()
   m_metadata.ClearPOIAttribs();
 }
 
-string DebugPrint(FeatureParams const & p)
+std::string DebugPrint(FeatureParams const & p)
 {
-  string res = "Types: " + TypesToString(p.m_types) + "; ";
+  std::string res = "Types: " + feature::TypesToString(p.m_types) + "; ";
   return (res + p.DebugString());
 }
 
-string DebugPrint(FeatureBuilderParams const & p)
+std::string DebugPrint(FeatureBuilderParams const & p)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "ReversedGeometry: " << (p.GetReversedGeometry() ? "true" : "false") << "; ";
   oss << DebugPrint(p.m_metadata) << "; ";
   oss << DebugPrint(p.m_addrTags) << "; ";

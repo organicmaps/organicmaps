@@ -15,8 +15,6 @@ NSInteger const kStorageCellularForbidden = 3;
 NSInteger const kStorageRoutingActive = 4;
 NSInteger const kStorageHaveUnsavedEdits = 5;
 
-using namespace storage;
-
 @interface MWMStorage ()
 
 @property(nonatomic, strong) NSHashTable<id<MWMStorageObserver>> * observers;
@@ -42,14 +40,14 @@ using namespace storage;
     NSHashTable * observers = _observers;
 
     GetFramework().GetStorage().Subscribe(
-        [observers](CountryId const & countryId)
+        [observers](storage::CountryId const & countryId)
     {
       // A copy is created, because MWMMapDownloadDialog is unsubscribed inside this notification with
       // NSGenericException', reason: '*** Collection <NSConcreteHashTable> was mutated while being enumerated.'
       NSHashTable * observersCopy = [observers copy];
       for (id<MWMStorageObserver> observer in observersCopy)
         [observer processCountryEvent:@(countryId.c_str())];
-    }, [observers](CountryId const & countryId, downloader::Progress const & progress)
+    }, [observers](storage::CountryId const & countryId, downloader::Progress const & progress)
     {
       for (id<MWMStorageObserver> observer in observers)
       {
@@ -79,7 +77,7 @@ using namespace storage;
 
 - (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
 {
-  if (IsEnoughSpaceForDownload(countryId.UTF8String, GetFramework().GetStorage()))
+  if (storage::IsEnoughSpaceForDownload(countryId.UTF8String, GetFramework().GetStorage()))
   {
     NSError * connectionError;
     if ([self checkConnection:&connectionError])
@@ -108,7 +106,7 @@ using namespace storage;
 
 - (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error
 {
-  if (IsEnoughSpaceForUpdate(countryId.UTF8String, GetFramework().GetStorage()))
+  if (storage::IsEnoughSpaceForUpdate(countryId.UTF8String, GetFramework().GetStorage()))
   {
     NSError * connectionError;
     if ([self checkConnection:&connectionError])
@@ -172,7 +170,7 @@ using namespace storage;
   MwmSize requiredSize = 0;
   for (NSString * countryId in countryIds)
   {
-    NodeAttrs nodeAttrs;
+    storage::NodeAttrs nodeAttrs;
     GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
     requiredSize += nodeAttrs.m_mwmSize;
   }
@@ -337,7 +335,7 @@ using namespace storage;
 {
   auto & f = GetFramework();
   auto const country = f.GetCountryInfoGetter().GetRegionCountryId(f.GetViewportCenter());
-  if (!IsCountryIdValid(country))
+  if (!storage::IsCountryIdValid(country))
     return nil;
   return [NSString stringWithCString:country.c_str() encoding:NSUTF8StringEncoding];
 }
@@ -345,7 +343,7 @@ using namespace storage;
 - (MWMMapUpdateInfo *)updateInfoWithParent:(nullable NSString *)countryId
 {
   auto const & s = GetFramework().GetStorage();
-  Storage::UpdateInfo updateInfo;
+  storage::Storage::UpdateInfo updateInfo;
   if (countryId.length > 0)
     s.GetUpdateInfo(countryId.UTF8String, updateInfo);
   else

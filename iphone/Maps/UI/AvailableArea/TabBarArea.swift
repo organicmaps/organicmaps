@@ -23,7 +23,11 @@ final class TabBarArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var tabBarAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var tabBarAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    []
+  }
 
-  var tabBarAreaAffectView: UIView { self }
+  var tabBarAreaAffectView: UIView {
+    self
+  }
 }

@@ -7,16 +7,13 @@
 #include <string>
 #include <unordered_map>
 
-using namespace base;
-using namespace std;
-
 UNIT_TEST(BidirectionalMap_Smoke)
 {
-  BidirectionalMap<int, string> m;
+  base::BidirectionalMap<int, std::string> m;
   m.Add(1, "a");
 
   {
-    string value;
+    std::string value;
     TEST(m.GetValue(1, value), ());
     TEST_EQUAL(value, "a", ());
   }
@@ -35,7 +32,7 @@ UNIT_TEST(BidirectionalMap_Smoke)
 UNIT_TEST(BidirectionalMap_Remove)
 {
   {
-    BidirectionalMap<int, string> m;
+    base::BidirectionalMap<int, std::string> m;
     TEST(m.Add(1, "a"), ());
     TEST(m.Add(2, "b"), ());
 
@@ -55,7 +52,7 @@ UNIT_TEST(BidirectionalMap_Remove)
   }
 
   {
-    BidirectionalMap<int, int> m;
+    base::BidirectionalMap<int, int> m;
     TEST(m.Add(1, 1), ());
     TEST(m.Add(2, 2), ());
 
@@ -75,7 +72,7 @@ UNIT_TEST(BidirectionalMap_Remove)
   }
 
   {
-    BidirectionalMap<int, int> m;
+    base::BidirectionalMap<int, int> m;
     TEST(m.Add(1, 2), ());
     TEST(m.Add(2, 1), ());
 

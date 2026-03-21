@@ -10,13 +10,11 @@
 
 namespace
 {
-using namespace routing_test;
-
 double constexpr kWeight = 1.0;
 
-UndirectedGraph BuildUndirectedGraph()
+routing_test::UndirectedGraph BuildUndirectedGraph()
 {
-  UndirectedGraph graph;
+  routing_test::UndirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 4, kWeight);
@@ -33,9 +31,9 @@ UndirectedGraph BuildUndirectedGraph()
   return graph;
 }
 
-DirectedGraph BuildDirectedGraph()
+routing_test::DirectedGraph BuildDirectedGraph()
 {
-  DirectedGraph graph;
+  routing_test::DirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 4, kWeight);
@@ -52,9 +50,9 @@ DirectedGraph BuildDirectedGraph()
   return graph;
 }
 
-DirectedGraph BuildDirectedCyclicGraph()
+routing_test::DirectedGraph BuildDirectedCyclicGraph()
 {
-  DirectedGraph graph;
+  routing_test::DirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 1, kWeight);
@@ -66,9 +64,9 @@ DirectedGraph BuildDirectedCyclicGraph()
   return graph;
 }
 
-DirectedGraph BuildSmallDirectedCyclicGraph()
+routing_test::DirectedGraph BuildSmallDirectedCyclicGraph()
 {
-  DirectedGraph graph;
+  routing_test::DirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
   graph.AddEdge(0, 1, kWeight);

@@ -6,8 +6,7 @@ final class PromoBookingPresentationController: DimmedModalPresentationControlle
     let f = super.frameOfPresentedViewInContainerView
     let estimatedWidth = min(maxWidth, f.width - (sideMargin * 2.0))
     let s = presentedViewController.view.systemLayoutSizeFitting(CGSize(width: estimatedWidth, height: f.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
-    let r = CGRect(x: (f.width - s.width) / 2, y: (f.height - s.height) / 2, width: s.width, height: s.height)
-    return r
+    return CGRect(x: (f.width - s.width) / 2, y: (f.height - s.height) / 2, width: s.width, height: s.height)
   }
 
   override func containerViewWillLayoutSubviews() {

@@ -2,8 +2,6 @@
 
 #include "base/stl_helpers.hpp"
 
-using namespace std;
-
 namespace search_base
 {
 void MemTextIndex::AddPosting(Token const & token, Posting const & posting)
@@ -25,7 +23,7 @@ void MemTextIndex::SortPostings()
 
 void MemTextIndex::BuildDictionary()
 {
-  vector<Token> tokens;
+  std::vector<Token> tokens;
   tokens.reserve(m_postingsByToken.size());
   for (auto const & entry : m_postingsByToken)
     tokens.emplace_back(entry.first);

@@ -12,11 +12,8 @@
 
 #include "map/place_page_info.hpp"
 
-using namespace place_page;
-using namespace osm;
-
 /// Get localized metadata value string when string format is "type.feature.value".
-NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::string const & value)
+NSString * GetLocalizedMetadataValueString(osm::MapObject::MetadataID metaID, std::string const & value)
 {
   return ToNSString(platform::GetLocalizedTypeName(feature::ToString(metaID) + "." + value));
 }
@@ -27,7 +24,8 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
 
 @implementation PlacePageInfoData (Core)
 
-- (instancetype)initWithRawData:(Info const &)rawData ohLocalization:(id<IOpeningHoursLocalization>)localization
+- (instancetype)initWithRawData:(place_page::Info const &)rawData
+                 ohLocalization:(id<IOpeningHoursLocalization>)localization
 {
   self = [super init];
   if (self)
@@ -41,7 +39,7 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
       _routeRefs = ToNSString(routeRefs);
 
     /// @todo Refactor PlacePageInfoData to have a map of simple string properties.
-    using MetadataID = MapObject::MetadataID;
+    using MetadataID = osm::MapObject::MetadataID;
     rawData.ForEachMetadataReadable([&](MetadataID metaID, std::string const & value)
     {
       switch (metaID)

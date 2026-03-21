@@ -8,8 +8,6 @@
 #include <algorithm>
 #include <string>
 
-using namespace std;
-
 namespace
 {
 double const kZoomEps = 1e-10;
@@ -49,7 +47,7 @@ void TestSuccess(char const * s, double lat, double lon, double zoom, char const
 
   TEST(success, (s, parseResult));
 
-  TEST_EQUAL(parseResult.m_name, string(name), (s));
+  TEST_EQUAL(parseResult.m_name, std::string(name), (s));
   double const latEps = GetLatEpsilon(9);
   double const lonEps = GetLonEpsilon(9);
   TEST_ALMOST_EQUAL_ABS(parseResult.m_lat, lat, latEps, (s, parseResult));
@@ -105,11 +103,11 @@ UNIT_TEST(Base64DecodingDoesNotCrashForAllChars)
 
 UNIT_TEST(Base64DecodingCharFrequency)
 {
-  vector<int> charCounts(256, 0);
+  std::vector<int> charCounts(256, 0);
   Ge0ParserForTest parser;
   for (size_t i = 0; i < 256; ++i)
     ++charCounts[parser.DecodeBase64Char(static_cast<char>(i))];
-  sort(charCounts.begin(), charCounts.end());
+  std::sort(charCounts.begin(), charCounts.end());
   TEST_EQUAL(charCounts[255], 256 - 64, ());
   TEST_EQUAL(charCounts[254], 1, ());
   TEST_EQUAL(charCounts[254 - 63], 1, ());
@@ -208,7 +206,7 @@ UNIT_TEST(NameDecoding)
     double lat = 0;
     double lon = 0;
     double zoom = 4;
-    string const url =
+    std::string const url =
         "ge0://AwAAAAAAAA/"
         "%d0%9a%d0%b0%d0%ba_%d0%b2%d1%8b_%d1%81%d1%87%d0%b8%d1%82%d0%b0%d0%b5%d1%82%d0%b5%2C_%d0%"
         "bd%d0%b0%d0%b4%d0%be_%d0%bb%d0%b8_%d0%bf%d0%b8%d1%81%d0%b0%d1%82%d1%8c_const_%d0%b4%d0%bb%"
@@ -224,7 +222,7 @@ UNIT_TEST(NameDecoding)
     TEST(success, (url, parseResult));
 
     // Name would be valid but is too long.
-    TEST_NOT_EQUAL(parseResult.m_name, string(name), (url));
+    TEST_NOT_EQUAL(parseResult.m_name, std::string(name), (url));
     double const latEps = GetLatEpsilon(9);
     double const lonEps = GetLonEpsilon(9);
     TEST_ALMOST_EQUAL_ABS(parseResult.m_lat, lat, latEps, (url, parseResult));
@@ -241,23 +239,23 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
   {
     for (double lon = -180; lon < 180; lon += 0.7)
     {
-      string const buf = ge0::GenerateShortShowMapUrl(lat, lon, 4, "");
+      std::string const buf = ge0::GenerateShortShowMapUrl(lat, lon, 4, "");
       size_t const coordInd = buf.find("://") + 4;
       for (int i = 9; i >= 1; --i)
       {
-        string const str = buf.substr(coordInd, i);
+        std::string const str = buf.substr(coordInd, i);
         size_t const coordSize = str.size();
         Ge0ParserForTest parser;
         double latTmp, lonTmp;
         parser.DecodeLatLon(str, latTmp, lonTmp);
         double const epsLat = GetLatEpsilon(coordSize);
         double const epsLon = GetLonEpsilon(coordSize);
-        double const difLat = fabs(lat - latTmp);
-        double const difLon = fabs(lon - lonTmp);
+        double const difLat = std::fabs(lat - latTmp);
+        double const difLon = std::fabs(lon - lonTmp);
         TEST(difLat <= epsLat, (str, lat, latTmp, lon, lonTmp, difLat, epsLat));
         TEST(difLon <= epsLon, (str, lat, latTmp, lon, lonTmp, difLon, epsLon));
-        maxLatDiffForCoordSize[coordSize] = max(maxLatDiffForCoordSize[coordSize], difLat);
-        maxLonDiffForCoordSize[coordSize] = max(maxLonDiffForCoordSize[coordSize], difLon);
+        maxLatDiffForCoordSize[coordSize] = std::max(maxLatDiffForCoordSize[coordSize], difLat);
+        maxLonDiffForCoordSize[coordSize] = std::max(maxLonDiffForCoordSize[coordSize], difLon);
       }
     }
   }

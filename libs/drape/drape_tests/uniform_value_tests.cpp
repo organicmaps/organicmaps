@@ -18,7 +18,6 @@ using ::testing::IgnoreResult;
 using ::testing::InSequence;
 using ::testing::Invoke;
 using ::testing::Return;
-using namespace dp;
 
 namespace uniform_value_tests
 {
@@ -120,33 +119,33 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDeleteShader(AnyOf(VertexShaderID, FragmentShaderID))).Times(2);
   }
 
-  drape_ptr<Shader> vs = make_unique_dp<Shader>("", "void main() { gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }", "",
-                                                Shader::Type::VertexShader);
+  drape_ptr<dp::Shader> vs = make_unique_dp<dp::Shader>("", "void main() { gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }",
+                                                        "", dp::Shader::Type::VertexShader);
 
-  drape_ptr<Shader> fs = make_unique_dp<Shader>("", "void main() { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); }", "",
-                                                Shader::Type::FragmentShader);
+  drape_ptr<dp::Shader> fs = make_unique_dp<dp::Shader>("", "void main() { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); }",
+                                                        "", dp::Shader::Type::FragmentShader);
 
-  drape_ptr<GLGpuProgram> program = make_unique_dp<GLGpuProgram>("", make_ref(vs), make_ref(fs));
+  drape_ptr<dp::GLGpuProgram> program = make_unique_dp<dp::GLGpuProgram>("", make_ref(vs), make_ref(fs));
 
   program->Bind();
 
-  UniformValue::ApplyRaw(positionLoc, 1);
+  dp::UniformValue::ApplyRaw(positionLoc, 1);
 
-  UniformValue::ApplyRaw(positionLoc, glsl::ivec2(1, 2));
+  dp::UniformValue::ApplyRaw(positionLoc, glsl::ivec2(1, 2));
 
-  UniformValue::ApplyRaw(positionLoc, glsl::ivec3(1, 2, 3));
+  dp::UniformValue::ApplyRaw(positionLoc, glsl::ivec3(1, 2, 3));
 
-  UniformValue::ApplyRaw(positionLoc, glsl::ivec4(1, 2, 3, 4));
+  dp::UniformValue::ApplyRaw(positionLoc, glsl::ivec4(1, 2, 3, 4));
 
-  UniformValue::ApplyRaw(positionLoc, 1.0f);
+  dp::UniformValue::ApplyRaw(positionLoc, 1.0f);
 
-  UniformValue::ApplyRaw(positionLoc, glsl::vec2(1.0f, 2.0f));
+  dp::UniformValue::ApplyRaw(positionLoc, glsl::vec2(1.0f, 2.0f));
 
-  UniformValue::ApplyRaw(positionLoc, glsl::vec3(1.0f, 2.0f, 3.0f));
+  dp::UniformValue::ApplyRaw(positionLoc, glsl::vec3(1.0f, 2.0f, 3.0f));
 
-  UniformValue::ApplyRaw(positionLoc, glsl::vec4(1.0f, 2.0f, 3.0f, 4.0f));
+  dp::UniformValue::ApplyRaw(positionLoc, glsl::vec4(1.0f, 2.0f, 3.0f, 4.0f));
 
-  UniformValue::ApplyRaw(modelViewLoc, glsl::make_mat4(matrix));
+  dp::UniformValue::ApplyRaw(modelViewLoc, glsl::make_mat4(matrix));
 
   program->Unbind();
 

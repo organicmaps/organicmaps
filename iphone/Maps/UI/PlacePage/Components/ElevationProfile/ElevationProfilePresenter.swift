@@ -185,7 +185,15 @@ private struct ElevationProfileChartData {
 }
 
 extension ElevationProfileChartData: ChartData {
-  public var xAxisValues: [Double] { distances }
-  public var lines: [ChartLine] { chartLines }
-  public var type: ChartType { .regular }
+  public var xAxisValues: [Double] {
+    distances
+  }
+
+  public var lines: [ChartLine] {
+    chartLines
+  }
+
+  public var type: ChartType {
+    .regular
+  }
 }

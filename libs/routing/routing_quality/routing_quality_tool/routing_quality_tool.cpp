@@ -95,12 +95,8 @@ bool HasHelpFlags(int argc, char ** argv)
 }
 }  // namespace
 
-using namespace routing;
-using namespace routes_builder;
-using namespace routing_quality;
-using namespace routing_quality_tool;
-
-void PrintResults(std::vector<Result> && results, RoutesSaver & routesSaver)
+void PrintResults(std::vector<routing_quality::routing_quality_tool::Result> && results,
+                  routing_quality::routing_quality_tool::RoutesSaver & routesSaver)
 {
   double sumSimilarity = 0.0;
   double sumETADiffPercent = 0.0;
@@ -126,9 +122,10 @@ void PrintResults(std::vector<Result> && results, RoutesSaver & routesSaver)
   for (auto const & result : results)
     values.emplace_back(result.m_similarity);
 
-  CreatePythonScriptForDistribution(pythonScriptPath, "Simularity distribution", values);
+  routing_quality::routing_quality_tool::CreatePythonScriptForDistribution(pythonScriptPath, "Simularity distribution",
+                                                                           values);
 
-  SimilarityCounter similarityCounter(routesSaver);
+  routing_quality::routing_quality_tool::SimilarityCounter similarityCounter(routesSaver);
 
   std::sort(results.begin(), results.end());
   for (auto const & result : results)
@@ -163,14 +160,16 @@ void CheckDirExistence(std::string const & dir)
 }
 
 template <typename AnotherResult>
-void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeResults,
+void RunComparison(std::vector<std::pair<routing::routes_builder::RoutesBuilder::Result, std::string>> && mapsmeResults,
                    std::vector<std::pair<AnotherResult, std::string>> && anotherResults)
 {
-  ErrorTypeCounter mapsmeErrorCounter;
-  ErrorTypeCounter anotherErrorCounter;
-  ComparisonType type = IsMapsmeVsApi() ? ComparisonType::MapsmeVsApi : ComparisonType::MapsmeVsMapsme;
-  RoutesSaver routesSaver(FLAGS_save_results, type);
-  std::vector<Result> results;
+  routing_quality::routing_quality_tool::ErrorTypeCounter mapsmeErrorCounter;
+  routing_quality::routing_quality_tool::ErrorTypeCounter anotherErrorCounter;
+  routing_quality::routing_quality_tool::ComparisonType type =
+      IsMapsmeVsApi() ? routing_quality::routing_quality_tool::ComparisonType::MapsmeVsApi
+                      : routing_quality::routing_quality_tool::ComparisonType::MapsmeVsMapsme;
+  routing_quality::routing_quality_tool::RoutesSaver routesSaver(FLAGS_save_results, type);
+  std::vector<routing_quality::routing_quality_tool::Result> results;
   size_t apiErrors = 0;
 
   for (size_t i = 0; i < mapsmeResults.size(); ++i)
@@ -179,7 +178,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
     auto const & mapsmeFile = mapsmeResults[i].second;
 
     std::pair<AnotherResult, std::string> anotherResultPair;
-    if (!FindAnotherResponse(mapsmeResult, anotherResults, anotherResultPair))
+    if (!routing_quality::routing_quality_tool::FindAnotherResponse(mapsmeResult, anotherResults, anotherResultPair))
     {
       LOG(LDEBUG, ("Can not find pair for:", i));
       continue;
@@ -207,13 +206,13 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
       continue;
     }
 
-    auto maxSimilarity = std::numeric_limits<Similarity>::lowest();
+    auto maxSimilarity = std::numeric_limits<routing_quality::Similarity>::lowest();
     double etaDiff = kBadETADiffPercent;
     auto const & mapsmeRoute = mapsmeResult.GetRoutes().back();
     for (auto const & route : anotherResult.GetRoutes())
     {
-      auto const similarity =
-          metrics::CompareByNumberOfMatchedWaypoints(mapsmeRoute.m_followedPolyline, route.GetWaypoints());
+      auto const similarity = routing_quality::metrics::CompareByNumberOfMatchedWaypoints(
+          mapsmeRoute.m_followedPolyline, route.GetWaypoints());
 
       if (maxSimilarity < similarity)
       {
@@ -236,12 +235,13 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
 
   std::vector<std::string> errorLabels;
   std::vector<std::vector<double>> errorsCount;
-  FillLabelsAndErrorTypeDistribution(errorLabels, errorsCount, mapsmeErrorCounter, anotherErrorCounter);
+  routing_quality::routing_quality_tool::FillLabelsAndErrorTypeDistribution(errorLabels, errorsCount,
+                                                                            mapsmeErrorCounter, anotherErrorCounter);
 
   auto const pythonScriptPath = base::JoinPath(FLAGS_save_results, kPythonBarDistributionError);
-  CreatePythonBarByMap(pythonScriptPath, errorLabels, errorsCount,
-                       {"mapsme", IsMapsmeVsMapsme() ? "old mapsme" : "api"} /* legends */,
-                       "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);
+  routing_quality::routing_quality_tool::CreatePythonBarByMap(
+      pythonScriptPath, errorLabels, errorsCount, {"mapsme", IsMapsmeVsMapsme() ? "old mapsme" : "api"} /* legends */,
+      "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);
 }
 
 void CheckArgs()
@@ -274,34 +274,42 @@ int Main(int argc, char ** argv)
   CHECK(0.0 <= FLAGS_kml_percent && FLAGS_kml_percent <= 100.0, ("--kml_percent should be in interval: [0.0, 100.0]."));
 
   LOG(LINFO, ("Start loading mapsme results."));
-  auto mapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_results);
+  auto mapsmeResults =
+      routing_quality::routing_quality_tool::LoadResults<routing::routes_builder::RoutesBuilder::Result>(
+          FLAGS_mapsme_results);
   LOG(LINFO, ("Receive:", mapsmeResults.size(), "routes from --mapsme_results."));
 
   if (IsMapsmeVsApi())
   {
     LOG(LINFO, ("Start loading api results."));
-    auto apiResults = LoadResults<api::Response>(FLAGS_api_results);
+    auto apiResults =
+        routing_quality::routing_quality_tool::LoadResults<routing_quality::api::Response>(FLAGS_api_results);
     LOG(LINFO, ("Receive:", apiResults.size(), "routes from --api_results."));
     RunComparison(std::move(mapsmeResults), std::move(apiResults));
   }
   else if (IsMapsmeVsMapsmeBenchmarkStat())
   {
     LOG(LINFO, ("Benchmark different mapsme versions. Start loading old mapsme results."));
-    auto oldMapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_old_results);
+    auto oldMapsmeResults =
+        routing_quality::routing_quality_tool::LoadResults<routing::routes_builder::RoutesBuilder::Result>(
+            FLAGS_mapsme_old_results);
     LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
-    RunBenchmarkComparison(std::move(mapsmeResults), std::move(oldMapsmeResults), FLAGS_save_results);
+    routing_quality::routing_quality_tool::RunBenchmarkComparison(std::move(mapsmeResults), std::move(oldMapsmeResults),
+                                                                  FLAGS_save_results);
   }
   else if (IsMapsmeVsMapsme())
   {
     LOG(LINFO, ("Start loading another mapsme results."));
-    auto oldMapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_old_results);
+    auto oldMapsmeResults =
+        routing_quality::routing_quality_tool::LoadResults<routing::routes_builder::RoutesBuilder::Result>(
+            FLAGS_mapsme_old_results);
     LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
     RunComparison(std::move(mapsmeResults), std::move(oldMapsmeResults));
   }
   else if (IsMapsmeBenchmarkStat())
   {
     LOG(LINFO, ("Running in benchmark stat mode."));
-    RunBenchmarkStat(mapsmeResults, FLAGS_save_results);
+    routing_quality::routing_quality_tool::RunBenchmarkStat(mapsmeResults, FLAGS_save_results);
   }
   else
   {

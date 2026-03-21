@@ -12,11 +12,9 @@
 #include <memory>
 #include <string>
 
-using namespace std;
-
 namespace
 {
-string const kData("Quick brown fox jumps over a lazy dog...");
+std::string const kData("Quick brown fox jumps over a lazy dog...");
 }
 
 UNIT_TEST(MemReaderSmokeTest)
@@ -45,7 +43,7 @@ UNIT_TEST(BufferReaderSmokeTest)
   TestReader(r1);
 
   {
-    string const data("BlaBla " + kData);
+    std::string const data("BlaBla " + kData);
     FileWriter writer("reader_test_tmp.dat");
     writer.Write(&data[0], data.size());
   }
@@ -82,7 +80,7 @@ UNIT_TEST(FileReaderReadAsText)
   }
 
   {
-    string text;
+    std::string text;
     FileReader(fName).ReadAsString(text);
     TEST_EQUAL(text, fName, ());
   }
@@ -92,20 +90,20 @@ UNIT_TEST(FileReaderReadAsText)
 
 UNIT_TEST(ReaderStreamBuf)
 {
-  string const name = "test.txt";
+  std::string const name = "test.txt";
 
   {
     FileWriter writer(name);
     WriterStreamBuf buffer(writer);
-    ostream s(&buffer);
-    s << "hey!" << '\n' << 1 << '\n' << 3.14 << '\n' << 0x0102030405060708ull << endl;
+    std::ostream s(&buffer);
+    s << "hey!" << '\n' << 1 << '\n' << 3.14 << '\n' << 0x0102030405060708ull << std::endl;
   }
 
   {
-    ReaderStreamBuf buffer(make_unique<FileReader>(name));
-    istream s(&buffer);
+    ReaderStreamBuf buffer(std::make_unique<FileReader>(name));
+    std::istream s(&buffer);
 
-    string str;
+    std::string str;
     int i;
     double d;
     unsigned long long ull;

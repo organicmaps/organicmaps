@@ -7,7 +7,9 @@ var isiPad: Bool {
   return UIDevice.current.userInterfaceIdiom == .pad
 }
 
-func L(_ key: String) -> String { NSLocalizedString(key, comment: "") }
+func L(_ key: String) -> String {
+  NSLocalizedString(key, comment: "")
+}
 
 func L(_ key: String, languageCode: String) -> String {
   guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
@@ -19,7 +21,9 @@ func L(_ key: String, languageCode: String) -> String {
   return NSLocalizedString(key, bundle: bundle, comment: "")
 }
 
-func alternative<T>(iPhone: T, iPad: T) -> T { isiPad ? iPad : iPhone }
+func alternative<T>(iPhone: T, iPad: T) -> T {
+  isiPad ? iPad : iPhone
+}
 
 func iPadSpecific(_ f: () -> Void) {
   if isiPad {
@@ -54,6 +58,6 @@ func LOG(_ level: LogLevel,
   }
 }
 
-struct Weak<T> where T: AnyObject {
+struct Weak<T: AnyObject> {
   weak var value: T?
 }

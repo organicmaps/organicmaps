@@ -46,7 +46,9 @@ class PlacePageHeaderPresenter {
 }
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
-  var canEditTitle: Bool { objectType == .bookmark || objectType == .track }
+  var canEditTitle: Bool {
+    objectType == .bookmark || objectType == .track
+  }
 
   func configure() {
     view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)

@@ -9,8 +9,6 @@
 #include <memory>
 #include <vector>
 
-using namespace std;
-
 UNIT_TEST(ReadFeatures_Smoke)
 {
   classificator::Load();
@@ -18,7 +16,7 @@ UNIT_TEST(ReadFeatures_Smoke)
   FrozenDataSource dataSource;
   dataSource.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 
-  vector<shared_ptr<MwmInfo>> infos;
+  std::vector<std::shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
   CHECK_EQUAL(infos.size(), 1, ());
 

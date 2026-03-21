@@ -25,8 +25,6 @@
 
 namespace
 {
-using namespace boost::python;
-
 struct SegmentSpeeds
 {
   SegmentSpeeds() = default;
@@ -108,12 +106,12 @@ std::vector<uint8_t> GenerateTrafficValues(std::vector<traffic::TrafficInfo::Roa
 {
   SegmentMapping segmentMapping;
   boost::python::list mappingKeys = segmentMappingDict.keys();
-  for (size_t i = 0; i < len(mappingKeys); ++i)
+  for (size_t i = 0; i < boost::python::len(mappingKeys); ++i)
   {
-    object curArg = segmentMappingDict[mappingKeys[i]];
+    boost::python::object curArg = segmentMappingDict[mappingKeys[i]];
     if (curArg)
-      segmentMapping[extract<traffic::TrafficInfo::RoadSegmentId>(mappingKeys[i])] =
-          extract<SegmentSpeeds>(segmentMappingDict[mappingKeys[i]]);
+      segmentMapping[boost::python::extract<traffic::TrafficInfo::RoadSegmentId>(mappingKeys[i])] =
+          boost::python::extract<SegmentSpeeds>(segmentMappingDict[mappingKeys[i]]);
   }
 
   traffic::TrafficInfo::Coloring const knownColors = TransformToSpeedGroups(segmentMapping);
@@ -167,29 +165,29 @@ void LoadClassificator(std::string const & classifPath)
 
 BOOST_PYTHON_MODULE(pytraffic)
 {
-  using namespace boost::python;
-  scope().attr("__version__") = PYBINDINGS_VERSION;
+  boost::python::scope().attr("__version__") = PYBINDINGS_VERSION;
 
   // Register the to-python converters.
-  to_python_converter<std::vector<uint8_t>, vector_uint8t_to_str>();
+  boost::python::to_python_converter<std::vector<uint8_t>, vector_uint8t_to_str>();
   vector_uint8t_from_python_str();
 
-  class_<SegmentSpeeds>("SegmentSpeeds", init<double, double, double>())
+  boost::python::class_<SegmentSpeeds>("SegmentSpeeds", boost::python::init<double, double, double>())
       .def("__repr__", &SegmentSpeedsRepr)
       .def_readwrite("weighted_speed", &SegmentSpeeds::m_weightedSpeed)
       .def_readwrite("weighted_ref_speed", &SegmentSpeeds::m_weightedRefSpeed)
       .def_readwrite("weight", &SegmentSpeeds::m_weight);
 
-  class_<traffic::TrafficInfo::RoadSegmentId>("RoadSegmentId", init<uint32_t, uint16_t, uint8_t>())
+  boost::python::class_<traffic::TrafficInfo::RoadSegmentId>("RoadSegmentId",
+                                                             boost::python::init<uint32_t, uint16_t, uint8_t>())
       .def("__repr__", &RoadSegmentIdRepr)
       .add_property("fid", &traffic::TrafficInfo::RoadSegmentId::GetFid)
       .add_property("idx", &traffic::TrafficInfo::RoadSegmentId::GetIdx)
       .add_property("dir", &traffic::TrafficInfo::RoadSegmentId::GetDir);
 
-  class_<std::vector<traffic::TrafficInfo::RoadSegmentId>>("RoadSegmentIdVec")
-      .def(vector_indexing_suite<std::vector<traffic::TrafficInfo::RoadSegmentId>>());
+  boost::python::class_<std::vector<traffic::TrafficInfo::RoadSegmentId>>("RoadSegmentIdVec")
+      .def(boost::python::vector_indexing_suite<std::vector<traffic::TrafficInfo::RoadSegmentId>>());
 
-  enum_<traffic::SpeedGroup>("SpeedGroup")
+  boost::python::enum_<traffic::SpeedGroup>("SpeedGroup")
       .value("G0", traffic::SpeedGroup::G0)
       .value("G1", traffic::SpeedGroup::G1)
       .value("G2", traffic::SpeedGroup::G2)
@@ -199,9 +197,10 @@ BOOST_PYTHON_MODULE(pytraffic)
       .value("TempBlock", traffic::SpeedGroup::TempBlock)
       .value("Unknown", traffic::SpeedGroup::Unknown);
 
-  def("load_classificator", LoadClassificator);
-  def("generate_traffic_keys", GenerateTrafficKeys);
-  def("generate_traffic_values_from_list", GenerateTrafficValuesFromList);
-  def("generate_traffic_values_from_binary", GenerateTrafficValuesFromBinary,
-      (arg("keysBlob"), arg("segmentMappingDict"), arg("useTempBlock") = 1));
+  boost::python::def("load_classificator", LoadClassificator);
+  boost::python::def("generate_traffic_keys", GenerateTrafficKeys);
+  boost::python::def("generate_traffic_values_from_list", GenerateTrafficValuesFromList);
+  boost::python::def("generate_traffic_values_from_binary", GenerateTrafficValuesFromBinary,
+                     (boost::python::arg("keysBlob"), boost::python::arg("segmentMappingDict"),
+                      boost::python::arg("useTempBlock") = 1));
 }

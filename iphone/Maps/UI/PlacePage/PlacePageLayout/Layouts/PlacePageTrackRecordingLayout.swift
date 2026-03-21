@@ -42,7 +42,9 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     return vc
   }()
 
-  var sectionSpacing: CGFloat { 0.0 }
+  var sectionSpacing: CGFloat {
+    0.0
+  }
 
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
     self.interactor = interactor

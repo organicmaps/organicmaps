@@ -15,7 +15,6 @@
 
 #include "defines.hpp"
 
-using namespace platform;
 using namespace storage;
 
 namespace

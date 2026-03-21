@@ -4,12 +4,10 @@
 
 #include <gmock/gmock.h>
 
-using namespace dp;
-
 UNIT_TEST(InitStreamsTest)
 {
   int const VERTEX_COUNT = 10;
-  AttributeProvider provider(3, VERTEX_COUNT);
+  dp::AttributeProvider provider(3, VERTEX_COUNT);
   float positions[2 * VERTEX_COUNT];
   float depth[VERTEX_COUNT];
   float normals[2 * VERTEX_COUNT];
@@ -24,8 +22,8 @@ UNIT_TEST(InitStreamsTest)
   }
 
   {
-    BindingInfo zeroStreamBinding(1);
-    BindingDecl & decl = zeroStreamBinding.GetBindingDecl(0);
+    dp::BindingInfo zeroStreamBinding(1);
+    dp::BindingDecl & decl = zeroStreamBinding.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
@@ -35,8 +33,8 @@ UNIT_TEST(InitStreamsTest)
   }
 
   {
-    BindingInfo firstStreamBinding(1);
-    BindingDecl & decl = firstStreamBinding.GetBindingDecl(0);
+    dp::BindingInfo firstStreamBinding(1);
+    dp::BindingDecl & decl = firstStreamBinding.GetBindingDecl(0);
     decl.m_attributeName = "depth";
     decl.m_componentCount = 1;
     decl.m_componentType = gl_const::GLFloatType;
@@ -46,8 +44,8 @@ UNIT_TEST(InitStreamsTest)
   }
 
   {
-    BindingInfo secondStreamBinding(1);
-    BindingDecl & decl = secondStreamBinding.GetBindingDecl(0);
+    dp::BindingInfo secondStreamBinding(1);
+    dp::BindingDecl & decl = secondStreamBinding.GetBindingDecl(0);
     decl.m_attributeName = "normal";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
@@ -78,7 +76,7 @@ UNIT_TEST(InitStreamsTest)
 UNIT_TEST(InterleavedStreamTest)
 {
   int const VERTEX_COUNT = 10;
-  AttributeProvider provider(1, 10);
+  dp::AttributeProvider provider(1, 10);
   float data[5 * VERTEX_COUNT];
 
   for (int i = 0; i < VERTEX_COUNT; ++i)
@@ -90,9 +88,9 @@ UNIT_TEST(InterleavedStreamTest)
     data[(5 * i) + 4] = 0.0;
   }
 
-  BindingInfo binding(3);
+  dp::BindingInfo binding(3);
   {
-    BindingDecl & decl = binding.GetBindingDecl(0);
+    dp::BindingDecl & decl = binding.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
@@ -100,7 +98,7 @@ UNIT_TEST(InterleavedStreamTest)
     decl.m_stride = 5 * sizeof(float);
   }
   {
-    BindingDecl & decl = binding.GetBindingDecl(1);
+    dp::BindingDecl & decl = binding.GetBindingDecl(1);
     decl.m_attributeName = "depth";
     decl.m_componentCount = 1;
     decl.m_componentType = gl_const::GLFloatType;
@@ -108,7 +106,7 @@ UNIT_TEST(InterleavedStreamTest)
     decl.m_stride = 5 * sizeof(float);
   }
   {
-    BindingDecl & decl = binding.GetBindingDecl(2);
+    dp::BindingDecl & decl = binding.GetBindingDecl(2);
     decl.m_attributeName = "normal";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
@@ -136,7 +134,7 @@ UNIT_TEST(InterleavedStreamTest)
 UNIT_TEST(MixedStreamsTest)
 {
   int const VERTEX_COUNT = 10;
-  AttributeProvider provider(2, 10);
+  dp::AttributeProvider provider(2, 10);
   float position[3 * VERTEX_COUNT];
   float normal[2 * VERTEX_COUNT];
 
@@ -150,9 +148,9 @@ UNIT_TEST(MixedStreamsTest)
   }
 
   {
-    BindingInfo binding(2);
+    dp::BindingInfo binding(2);
     {
-      BindingDecl & decl = binding.GetBindingDecl(0);
+      dp::BindingDecl & decl = binding.GetBindingDecl(0);
       decl.m_attributeName = "position";
       decl.m_componentCount = 2;
       decl.m_componentType = gl_const::GLFloatType;
@@ -161,7 +159,7 @@ UNIT_TEST(MixedStreamsTest)
     }
 
     {
-      BindingDecl & decl = binding.GetBindingDecl(1);
+      dp::BindingDecl & decl = binding.GetBindingDecl(1);
       decl.m_attributeName = "depth";
       decl.m_componentCount = 1;
       decl.m_componentType = gl_const::GLFloatType;
@@ -173,8 +171,8 @@ UNIT_TEST(MixedStreamsTest)
   }
 
   {
-    BindingInfo binding(1);
-    BindingDecl & decl = binding.GetBindingDecl(0);
+    dp::BindingInfo binding(1);
+    dp::BindingDecl & decl = binding.GetBindingDecl(0);
     decl.m_attributeName = "normal";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;

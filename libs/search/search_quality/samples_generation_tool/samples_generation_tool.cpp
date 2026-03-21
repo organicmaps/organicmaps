@@ -32,7 +32,6 @@
 
 #include <gflags/gflags.h>
 
-using namespace search::search_quality;
 using namespace search;
 using namespace std;
 
@@ -283,9 +282,9 @@ string_view GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> co
   return translation;
 }
 
-optional<Sample> GenerateRequest(FeatureType & ft, search::ReverseGeocoder const & coder,
-                                 unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
-                                 LangsBufferT const & mwmLangCodes, RequestType requestType)
+std::optional<search::Sample> GenerateRequest(FeatureType & ft, search::ReverseGeocoder const & coder,
+                                              unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
+                                              LangsBufferT const & mwmLangCodes, RequestType requestType)
 {
   string street;
   string cafeStr;
@@ -318,12 +317,12 @@ optional<Sample> GenerateRequest(FeatureType & ft, search::ReverseGeocoder const
   if (!cafeStr.empty())
     query = FLAGS_add_cafe_address ? CombineRandomly(cafeStr, address) : cafeStr;
 
-  Sample sample;
+  search::Sample sample;
   sample.m_query = strings::MakeUniString(query);
   sample.m_locale = StringUtf8Multilang::GetLangByCode(lang);
   sample.m_pos = GenerateNearbyPosition(featureCenter);
   sample.m_viewport = GenerateNearbyViewport(featureCenter);
-  sample.m_results.push_back(Sample::Result::Build(ft, Sample::Result::Relevance::Vital));
+  sample.m_results.push_back(search::Sample::Result::Build(ft, search::Sample::Result::Relevance::Vital));
 
   return sample;
 }
@@ -380,12 +379,12 @@ unordered_map<uint32_t, StringUtf8Multilang> ParseStrings()
 
 int main(int argc, char * argv[])
 {
-  platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
 
   gflags::SetUsageMessage("Samples generation tool.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
+  search::search_quality::SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 
   ofstream buildingsOut;
   buildingsOut.open(FLAGS_out_buildings_path);
@@ -397,7 +396,7 @@ int main(int argc, char * argv[])
 
   classificator::Load();
   FrozenDataSource dataSource;
-  InitDataSource(dataSource, "" /* mwmListPath */);
+  search::search_quality::InitDataSource(dataSource, "" /* mwmListPath */);
   search::ReverseGeocoder const coder(dataSource);
   auto const typesTranslations = ParseStrings();
 
@@ -442,7 +441,7 @@ int main(int argc, char * argv[])
         if (sample)
         {
           string json;
-          Sample::SerializeToJSONLines({*sample}, json);
+          search::Sample::SerializeToJSONLines({*sample}, json);
           out << json;
           ++numSamples;
         }

@@ -11,9 +11,6 @@
 #include <sys/stat.h>
 #endif
 
-using namespace base;
-using namespace platform;
-
 /*
  * This test is useless because of we don't build offsets index from now.
 #ifndef OMIM_OS_WINDOWS

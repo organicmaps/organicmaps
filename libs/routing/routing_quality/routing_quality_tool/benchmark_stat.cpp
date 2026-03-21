@@ -17,16 +17,13 @@
 
 namespace
 {
-using namespace routing;
-using namespace routes_builder;
-using namespace routing_quality::routing_quality_tool;
-
-bool IsErrorCode(RouterResultCode code)
+bool IsErrorCode(routing::RouterResultCode code)
 {
-  return code != RouterResultCode::NoError;
+  return code != routing::RouterResultCode::NoError;
 }
 
-void LogIfNotConsistent(RoutesBuilder::Result const & oldRes, RoutesBuilder::Result const & newRes)
+void LogIfNotConsistent(routing::routes_builder::RoutesBuilder::Result const & oldRes,
+                        routing::routes_builder::RoutesBuilder::Result const & newRes)
 {
   auto const start = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetStart());
   auto const finish = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetFinish());
@@ -47,7 +44,7 @@ void LogIfNotConsistent(RoutesBuilder::Result const & oldRes, RoutesBuilder::Res
 /// \brief Helps to compare route time building for routes group by old time building.
 void FillInfoAboutBuildTimeGroupByPreviousResults(std::vector<std::string> & labels,
                                                   std::vector<std::vector<double>> & bars,
-                                                  std::vector<TimeInfo> && times)
+                                                  std::vector<routing_quality::routing_quality_tool::TimeInfo> && times)
 {
   bars.clear();
   labels.clear();
@@ -90,7 +87,8 @@ void FillInfoAboutBuildTimeGroupByPreviousResults(std::vector<std::string> & lab
   }
 }
 
-std::vector<double> GetBoostPercents(BenchmarkResults const & oldResults, BenchmarkResults const & newResults)
+std::vector<double> GetBoostPercents(routing_quality::routing_quality_tool::BenchmarkResults const & oldResults,
+                                     routing_quality::routing_quality_tool::BenchmarkResults const & newResults)
 {
   std::vector<double> boostPercents;
   for (size_t i = 0; i < oldResults.GetBuildTimes().size(); ++i)
@@ -110,8 +108,6 @@ std::vector<double> GetBoostPercents(BenchmarkResults const & oldResults, Benchm
 
 namespace routing_quality::routing_quality_tool
 {
-using namespace routing;
-using namespace routes_builder;
 // Shows distribution of routes time building.
 static std::string const kPythonDistTimeBuilding = "show_route_time_building_dist.py";
 // Shows graph of "how many routes in percents build in less time than some T".
@@ -132,7 +128,7 @@ static std::string const kPythonEtaDiffPercent = "eta_diff_percent.py";
 // see here: https://github.com/mapsme/omim/pull/12401
 static std::string const kPythonSmartDistr = "show_smart_boost_distr.py";
 
-void RunBenchmarkStat(std::vector<std::pair<RoutesBuilder::Result, std::string>> const & mapsmeResults,
+void RunBenchmarkStat(std::vector<std::pair<RouteResult, std::string>> const & mapsmeResults,
                       std::string const & dirForResults)
 {
   BenchmarkResults benchmarkResults;
@@ -141,7 +137,7 @@ void RunBenchmarkStat(std::vector<std::pair<RoutesBuilder::Result, std::string>>
   {
     auto const & result = resultItem.first;
     errorTypeCounter.PushError(result.m_code);
-    if (result.m_code != RouterResultCode::NoError)
+    if (result.m_code != routing::RouterResultCode::NoError)
       continue;
 
     CHECK(!result.m_routes.empty(), ());
@@ -177,8 +173,8 @@ void RunBenchmarkStat(std::vector<std::pair<RoutesBuilder::Result, std::string>>
                        "Number of errors" /* ylabel */);
 }
 
-void RunBenchmarkComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeResults,
-                            std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeOldResults,
+void RunBenchmarkComparison(std::vector<std::pair<RouteResult, std::string>> && mapsmeResults,
+                            std::vector<std::pair<RouteResult, std::string>> && mapsmeOldResults,
                             std::string const & dirForResults)
 {
   BenchmarkResults benchmarkResults;
@@ -194,7 +190,7 @@ void RunBenchmarkComparison(std::vector<std::pair<RoutesBuilder::Result, std::st
   {
     auto const & mapsmeResult = mapsmeResults[i].first;
 
-    std::pair<RoutesBuilder::Result, std::string> mapsmeOldResultPair;
+    std::pair<RouteResult, std::string> mapsmeOldResultPair;
     if (!FindAnotherResponse(mapsmeResult, mapsmeOldResults, mapsmeOldResultPair))
     {
       LOG(LDEBUG, ("Can not find pair for:", i));

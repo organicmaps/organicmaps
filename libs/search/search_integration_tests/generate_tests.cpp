@@ -21,16 +21,13 @@
 #include <string>
 #include <utility>
 
-using namespace feature;
-using namespace generator::tests_support;
-using namespace std;
-
 namespace
 {
-class GenerateTest : public TestWithClassificator
+class GenerateTest : public generator::tests_support::TestWithClassificator
 {
 public:
-  void MakeFeature(TestMwmBuilder & builder, vector<pair<string, string>> const & tags, m2::PointD const & pt)
+  void MakeFeature(generator::tests_support::TestMwmBuilder & builder,
+                   std::vector<std::pair<std::string, std::string>> const & tags, m2::PointD const & pt)
   {
     OsmElement e;
     for (auto const & tag : tags)
@@ -40,10 +37,10 @@ public:
     ftype::GetNameAndType(&e, params);
     params.AddName("en", "xxx");
 
-    FeatureBuilder fb;
+    feature::FeatureBuilder fb;
     fb.SetParams(params);
     fb.SetCenter(pt);
-    fb.GetMetadata().Set(Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
+    fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
     ++m_lastId;
 
     TEST(builder.Add(fb), (fb));
@@ -58,7 +55,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   auto file = platform::LocalCountryFile::MakeForTesting("testCountry");
 
   {
-    TestMwmBuilder builder(file, DataHeader::MapType::Country);
+    generator::tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
 
     // Deprecated types.
     MakeFeature(builder, {{"leisure", "dog_park"}, {"sport", "tennis"}}, {0.0, 0.0});
@@ -72,7 +69,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   base::StringIL arr[] = {{"leisure", "dog_park"}, {"leisure", "playground"}, {"sport", "tennis"}};
 
   Classificator const & cl = classif();
-  set<uint32_t> types;
+  std::set<uint32_t> types;
   for (auto const & s : arr)
     types.insert(cl.GetTypeByPath(s));
 

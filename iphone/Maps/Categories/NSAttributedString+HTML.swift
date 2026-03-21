@@ -91,9 +91,8 @@ extension NSMutableAttributedString {
     let rect = CGRect(origin: CGPoint.zero, size: newSize)
 
     let renderer = UIGraphicsImageRenderer(size: newSize)
-    let newImage = renderer.image { _ in
+    return renderer.image { _ in
       image.draw(in: rect)
     }
-    return newImage
   }
 }

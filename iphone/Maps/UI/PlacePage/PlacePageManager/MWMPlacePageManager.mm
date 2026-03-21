@@ -16,8 +16,6 @@
 
 #include "indexer/validate_and_format_contacts.hpp"
 
-using namespace storage;
-
 @interface MWMPlacePageManager ()
 
 @property(nonatomic) storage::NodeStatus currentDownloaderStatus;

@@ -15,7 +15,11 @@ final class NavigationInfoArea: AvailableArea {
 }
 
 extension UIView {
-  var navigationInfoAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  var navigationInfoAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    []
+  }
 
-  var navigationInfoAreaAffectView: UIView { self }
+  var navigationInfoAreaAffectView: UIView {
+    self
+  }
 }

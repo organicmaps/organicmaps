@@ -6,8 +6,6 @@
 
 namespace
 {
-using namespace routing;
-
 //  10 guide, track 0        10 guide, track 1     11 guide, track 0
 //  4 points                 3 points              3 points
 //
@@ -25,10 +23,10 @@ using namespace routing;
 //                          XX
 //                        XX 0
 
-GuidesTracks GetTestGuides()
+routing::GuidesTracks GetTestGuides()
 {
   // Two guides. First with 2 tracks, second - with 1 track.
-  GuidesTracks guides;
+  routing::GuidesTracks guides;
   guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 5},
                  {mercator::FromLatLon(48.14096, 11.57246), 5},
                  {mercator::FromLatLon(48.14487, 11.57259), 6}},
@@ -44,7 +42,7 @@ GuidesTracks GetTestGuides()
 
 UNIT_TEST(Guides_SafeInit)
 {
-  GuidesConnections guides;
+  routing::GuidesConnections guides;
   TEST(!guides.IsActive(), ());
   TEST(!guides.IsAttached(), ());
   TEST(!guides.IsCheckpointAttached(0 /* checkpointIdx */), ());
@@ -52,14 +50,14 @@ UNIT_TEST(Guides_SafeInit)
 
 UNIT_TEST(Guides_InitWithGuides)
 {
-  GuidesConnections guides(GetTestGuides());
+  routing::GuidesConnections guides(GetTestGuides());
   TEST(guides.IsActive(), ());
   TEST(!guides.IsAttached(), ());
 }
 
 UNIT_TEST(Guides_TooFarCheckpointsAreNotAttached)
 {
-  GuidesConnections guides(GetTestGuides());
+  routing::GuidesConnections guides(GetTestGuides());
   TEST(guides.IsActive(), ());
   TEST(!guides.IsAttached(), ());
 
@@ -79,7 +77,7 @@ UNIT_TEST(Guides_TooFarCheckpointsAreNotAttached)
 
 UNIT_TEST(Guides_FinishAndStartAttached)
 {
-  GuidesConnections guides(GetTestGuides());
+  routing::GuidesConnections guides(GetTestGuides());
 
   // Start checkpoint should be with fake ending to OSM and finish - with fake ending to the guide
   // segment.
@@ -112,7 +110,7 @@ UNIT_TEST(Guides_FinishAndStartAttached)
 
 UNIT_TEST(Guides_NotAttachIntermediatePoint)
 {
-  GuidesConnections guides(GetTestGuides());
+  routing::GuidesConnections guides(GetTestGuides());
 
   // Intermediate checkpoints should not be attached to the guides if they are far enough even
   // if their neighbours are attached.

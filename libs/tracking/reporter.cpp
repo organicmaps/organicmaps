@@ -11,9 +11,6 @@
 
 #include <cmath>
 
-using namespace std;
-using namespace std::chrono;
-
 namespace
 {
 double constexpr kRequiredHorizontalAccuracy = 10.0;
@@ -29,21 +26,23 @@ namespace tracking
 char const Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
 
 // static
-milliseconds const Reporter::kPushDelayMs = milliseconds(20000);
+std::chrono::milliseconds const Reporter::kPushDelayMs = std::chrono::milliseconds(20000);
 
 // Set m_points size to be enough to keep all points even if one reconnect attempt failed.
-Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port, milliseconds pushDelay)
+Reporter::Reporter(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
+                   std::chrono::milliseconds pushDelay)
   : m_allowSendingPoints(true)
   , m_realtimeSender(std::move(socket), host, port, false)
   , m_pushDelay(pushDelay)
-  , m_points(ceil(duration_cast<seconds>(pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds)
+  , m_points(ceil(std::chrono::duration_cast<std::chrono::seconds>(pushDelay).count() + kReconnectDelaySeconds) /
+             kMinDelaySeconds)
   , m_thread([this] { Run(); })
 {}
 
 Reporter::~Reporter()
 {
   {
-    lock_guard<mutex> lg(m_mutex);
+    std::lock_guard<std::mutex> lg(m_mutex);
     m_isFinished = true;
   }
   m_cv.notify_one();
@@ -52,7 +51,7 @@ Reporter::~Reporter()
 
 void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup traffic)
 {
-  lock_guard<mutex> lg(m_mutex);
+  std::lock_guard<std::mutex> lg(m_mutex);
 
   if (info.m_horizontalAccuracy > kRequiredHorizontalAccuracy)
     return;
@@ -79,11 +78,11 @@ void Reporter::Run()
 {
   LOG(LINFO, ("Tracking Reporter started"));
 
-  unique_lock<mutex> lock(m_mutex);
+  std::unique_lock<std::mutex> lock(m_mutex);
 
   while (!m_isFinished)
   {
-    auto const startTime = steady_clock::now();
+    auto const startTime = std::chrono::steady_clock::now();
 
     // Fetch input.
     m_points.insert(m_points.end(), m_input.begin(), m_input.end());
@@ -96,7 +95,8 @@ void Reporter::Run()
       m_points.clear();
     lock.lock();
 
-    auto const passedMs = duration_cast<milliseconds>(steady_clock::now() - startTime);
+    auto const passedMs =
+        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - startTime);
     if (passedMs < m_pushDelay)
       m_cv.wait_for(lock, m_pushDelay - passedMs, [this] { return m_isFinished; });
   }

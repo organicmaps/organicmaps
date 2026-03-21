@@ -14,9 +14,6 @@ NSString * const kLogout = L(@"logout");
 NSString * const kRefresh = L(@"refresh");
 }  // namespace
 
-using namespace osm;
-using namespace osm_auth_ios;
-
 @interface MWMAuthorizationLoginViewController ()
 
 @property(weak, nonatomic) IBOutlet UIView * authView;
@@ -42,12 +39,12 @@ using namespace osm_auth_ios;
 {
   [super viewWillAppear:animated];
   [self checkConnection];
-  if (AuthorizationHaveCredentials())
+  if (osm_auth_ios::AuthorizationHaveCredentials())
     [self configHaveAuth];
   else
     [self configNoAuth];
 
-  AuthorizationSetNeedCheck(NO);
+  osm_auth_ios::AuthorizationSetNeedCheck(NO);
 }
 
 - (void)checkConnection
@@ -57,7 +54,7 @@ using namespace osm_auth_ios;
 
 - (void)configHaveAuth
 {
-  NSString * osmUserName = OSMUserName();
+  NSString * osmUserName = osm_auth_ios::OSMUserName();
   self.title = osmUserName.length > 0 ? osmUserName : L(@"osm_account");
   self.authView.hidden = YES;
   self.accountView.hidden = NO;
@@ -88,7 +85,8 @@ using namespace osm_auth_ios;
 
 - (IBAction)loginWithBrowser
 {
-  [self performOnlineAction:^{ [self openUrl:@(OsmOAuth::ServerAuth().BuildOAuth2Url().c_str()) externally:YES]; }];
+  [self
+      performOnlineAction:^{ [self openUrl:@(osm::OsmOAuth::ServerAuth().BuildOAuth2Url().c_str()) externally:YES]; }];
 }
 
 - (IBAction)loginWithPassword
@@ -99,7 +97,7 @@ using namespace osm_auth_ios;
 
 - (IBAction)signup
 {
-  [self performOnlineAction:^{ [self openUrl:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())]; }];
+  [self performOnlineAction:^{ [self openUrl:@(osm::OsmOAuth::ServerAuth().GetRegistrationURL().c_str())]; }];
 }
 
 - (IBAction)osmTap
@@ -109,18 +107,18 @@ using namespace osm_auth_ios;
 
 - (IBAction)historyTap
 {
-  [self openUrl:@(OsmOAuth::ServerAuth().GetHistoryURL([OSMUserName() UTF8String]).c_str())];
+  [self openUrl:@(osm::OsmOAuth::ServerAuth().GetHistoryURL([osm_auth_ios::OSMUserName() UTF8String]).c_str())];
 }
 
 - (void)logout
 {
-  AuthorizationClearCredentials();
+  osm_auth_ios::AuthorizationClearCredentials();
   [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)refresh:(BOOL)force
 {
-  self.changesCountLabel.text = @(OSMUserChangesetsCount()).stringValue;
+  self.changesCountLabel.text = @(osm_auth_ios::OSMUserChangesetsCount()).stringValue;
 }
 
 #pragma mark - ActionSheet

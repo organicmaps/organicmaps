@@ -4,8 +4,6 @@
 
 #include <string>
 
-using namespace std;
-
 namespace
 {
 struct Foo
@@ -17,13 +15,13 @@ struct Foo
 struct Bar
 {
   Bar() = default;
-  Bar(int d, string const & s) : m_d(d), m_s(s) {}
+  Bar(int d, std::string const & s) : m_d(d), m_s(s) {}
 
   DECLARE_VISITOR(visitor(m_d), visitor(m_s, "string"))
   DECLARE_DEBUG_PRINT(Bar)
 
   int m_d = 0;
-  string m_s;
+  std::string m_s;
 };
 
 UNIT_TEST(DebugPrintVisitor_Smoke)

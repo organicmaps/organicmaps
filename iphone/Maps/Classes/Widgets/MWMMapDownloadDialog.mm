@@ -36,8 +36,6 @@ BOOL canAutoDownload(storage::CountryId const & countryId)
 }
 }  // namespace
 
-using namespace storage;
-
 @interface MWMMapDownloadDialog () <MWMStorageObserver, MWMCircularProgressProtocol>
 @property(strong, nonatomic) IBOutlet UILabel * parentNode;
 @property(strong, nonatomic) IBOutlet UILabel * node;
@@ -55,8 +53,8 @@ using namespace storage;
 
 @implementation MWMMapDownloadDialog
 {
-  CountryId m_countryId;
-  CountryId m_autoDownloadCountryId;
+  storage::CountryId m_countryId;
+  storage::CountryId m_autoDownloadCountryId;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller
@@ -72,7 +70,7 @@ using namespace storage;
   auto const & s = f.GetStorage();
   auto const & p = f.GetDownloadingPolicy();
 
-  NodeAttrs nodeAttrs;
+  storage::NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
 
   if (!nodeAttrs.m_present && ![MWMRouter isRoutingActive])
@@ -96,8 +94,8 @@ using namespace storage;
 
     switch (nodeAttrs.m_status)
     {
-    case NodeStatus::NotDownloaded:
-    case NodeStatus::Partly:
+    case storage::NodeStatus::NotDownloaded:
+    case storage::NodeStatus::Partly:
     {
       MapViewController * controller = self.controller;
       BOOL const isMapVisible = [controller.navigationController.topViewController isEqual:controller];
@@ -108,28 +106,28 @@ using namespace storage;
       }
       else
       {
-        m_autoDownloadCountryId = kInvalidCountryId;
+        m_autoDownloadCountryId = storage::kInvalidCountryId;
         [self showDownloadRequest];
       }
       [[MWMCarPlayService shared] showNoMapAlert];
       break;
     }
-    case NodeStatus::Downloading:
+    case storage::NodeStatus::Downloading:
       if (nodeAttrs.m_downloadingProgress.m_bytesTotal != 0)
         [self showDownloading:(CGFloat)nodeAttrs.m_downloadingProgress.m_bytesDownloaded /
                               nodeAttrs.m_downloadingProgress.m_bytesTotal];
       break;
-    case NodeStatus::Applying:
-    case NodeStatus::InQueue: [self showInQueue]; break;
-    case NodeStatus::Undefined:
-    case NodeStatus::Error:
+    case storage::NodeStatus::Applying:
+    case storage::NodeStatus::InQueue: [self showInQueue]; break;
+    case storage::NodeStatus::Undefined:
+    case storage::NodeStatus::Error:
       if (p.IsAutoRetryDownloadFailed())
         [self showError:nodeAttrs.m_error];
       else
         [self showInQueue];
       break;
-    case NodeStatus::OnDisk:
-    case NodeStatus::OnDiskOutOfDate: [self removeFromSuperview]; break;
+    case storage::NodeStatus::OnDisk:
+    case storage::NodeStatus::OnDiskOutOfDate: [self removeFromSuperview]; break;
     }
   }
   else
@@ -162,9 +160,9 @@ using namespace storage;
   [super removeFromSuperview];
 }
 
-- (void)showError:(NodeErrorCode)errorCode
+- (void)showError:(storage::NodeErrorCode)errorCode
 {
-  if (errorCode == NodeErrorCode::NoError)
+  if (errorCode == storage::NodeErrorCode::NoError)
     return;
   self.nodeSize.textColor = [UIColor red];
   self.nodeSize.text = L(@"country_status_download_failed");
@@ -180,12 +178,12 @@ using namespace storage;
   auto const cancelBlock = ^{ [[MWMStorage sharedStorage] cancelDownloadNode:@(self->m_countryId.c_str())]; };
   switch (errorCode)
   {
-  case NodeErrorCode::NoError: break;
-  case NodeErrorCode::UnknownError:
+  case storage::NodeErrorCode::NoError: break;
+  case storage::NodeErrorCode::UnknownError:
     [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
     break;
-  case NodeErrorCode::OutOfMemFailed: [avc presentDownloaderNotEnoughSpaceAlert]; break;
-  case NodeErrorCode::NoInetConnection:
+  case storage::NodeErrorCode::OutOfMemFailed: [avc presentDownloaderNotEnoughSpaceAlert]; break;
+  case storage::NodeErrorCode::NoInetConnection:
     [avc presentDownloaderNoConnectionAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
     break;
   }
@@ -218,10 +216,10 @@ using namespace storage;
   [self addToSuperview];
 }
 
-- (void)processViewportCountryEvent:(CountryId const &)countryId
+- (void)processViewportCountryEvent:(storage::CountryId const &)countryId
 {
   m_countryId = countryId;
-  if (countryId == kInvalidCountryId)
+  if (countryId == storage::kInvalidCountryId)
     [self removeFromSuperview];
   else
     [self configDialog];

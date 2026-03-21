@@ -14,8 +14,6 @@
 #include <functional>
 #include <utility>
 
-using namespace std::placeholders;
-
 namespace gui
 {
 namespace
@@ -132,7 +130,9 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
   batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
-  dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  dp::SessionGuard guard(
+      context, batcher,
+      std::bind(&ShapeRenderer::AddShape, renderer.get(), std::placeholders::_1, std::placeholders::_2));
   batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 
   return renderer;

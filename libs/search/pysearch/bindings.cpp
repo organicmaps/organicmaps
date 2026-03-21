@@ -33,8 +33,6 @@
 
 #include "defines.hpp"
 
-using namespace std;
-
 namespace
 {
 struct Mercator
@@ -43,9 +41,9 @@ struct Mercator
   Mercator(double x, double y) : m_x(x), m_y(y) {}
   explicit Mercator(m2::PointD const & m) : m_x(m.x), m_y(m.y) {}
 
-  string ToString() const
+  std::string ToString() const
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "x: " << m_x << ", y: " << m_y;
     return os.str();
   }
@@ -59,9 +57,9 @@ struct Viewport
   Viewport() = default;
   Viewport(Mercator const & min, Mercator const & max) : m_min(min), m_max(max) {}
 
-  string ToString() const
+  std::string ToString() const
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "[" << m_min.ToString() << ", " << m_max.ToString() << "]";
     return os.str();
   }
@@ -72,15 +70,15 @@ struct Viewport
 
 struct Params
 {
-  string ToString() const
+  std::string ToString() const
   {
-    ostringstream os;
+    std::ostringstream os;
     os << m_query << ", " << m_locale << ", " << m_position.ToString() << ", " << m_viewport.ToString();
     return os.str();
   }
 
-  string m_query;
-  string m_locale;
+  std::string m_query;
+  std::string m_locale;
   Mercator m_position;
   Viewport m_viewport;
 };
@@ -98,9 +96,9 @@ struct Result
       m_center = Mercator(r.GetFeatureCenter());
   }
 
-  string ToString() const
+  std::string ToString() const
   {
-    ostringstream os;
+    std::ostringstream os;
     os << m_name << " [ " << m_address;
     if (m_hasCenter)
       os << ", " << m_center.ToString();
@@ -108,23 +106,23 @@ struct Result
     return os.str();
   }
 
-  string m_name;
-  string m_address;
+  std::string m_name;
+  std::string m_address;
   bool m_hasCenter = false;
   Mercator m_center;
 };
 
 struct TraceResult
 {
-  string ToString() const
+  std::string ToString() const
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "parse: [" << strings::JoinStrings(m_parse, ", ") << "], ";
-    os << "is_category: " << boolalpha << m_isCategory;
+    os << "is_category: " << std::boolalpha << m_isCategory;
     return os.str();
   }
 
-  vector<string> m_parse;
+  std::vector<std::string> m_parse;
   bool m_isCategory = false;
 };
 
@@ -171,7 +169,7 @@ struct SearchEngineProxy
     m_engine->SetLocale(params.m_locale);
 
     auto sp = MakeSearchParams(params);
-    auto tracer = make_shared<search::Tracer>();
+    auto tracer = std::make_shared<search::Tracer>();
     sp.m_tracer = tracer;
 
     search::tests_support::TestSearchRequest request(*m_engine, sp);
@@ -197,10 +195,10 @@ struct SearchEngineProxy
   storage::Affiliations m_affiliations;
   storage::CountryNameSynonyms m_countryNameSynonyms;
   FrozenDataSource m_dataSource;
-  unique_ptr<search::tests_support::TestSearchEngine> m_engine;
+  std::unique_ptr<search::tests_support::TestSearchEngine> m_engine;
 };
 
-void Init(string const & dataPath, string const & mwmPath)
+void Init(std::string const & dataPath, std::string const & mwmPath)
 {
   classificator::Load();
   search::search_quality::SetPlatformDirs(dataPath, mwmPath);

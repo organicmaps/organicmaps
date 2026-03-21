@@ -3,10 +3,9 @@
 extension LocalMetadataItem {
   static func stub(fileName: String,
                    lastModificationDate: TimeInterval) -> LocalMetadataItem {
-    let item = LocalMetadataItem(fileName: fileName,
-                                 fileUrl: URL(string: "url")!,
-                                 lastModificationDate: lastModificationDate)
-    return item
+    LocalMetadataItem(fileName: fileName,
+                      fileUrl: URL(string: "url")!,
+                      lastModificationDate: lastModificationDate)
   }
 }
 
@@ -16,14 +15,13 @@ extension CloudMetadataItem {
                    isDownloaded: Bool = true,
                    percentDownloaded: NSNumber = 100.0,
                    hasUnresolvedConflicts: Bool = false) -> CloudMetadataItem {
-    let item = CloudMetadataItem(fileName: fileName,
-                                 fileUrl: URL(string: "url")!,
-                                 isDownloaded: isDownloaded,
-                                 percentDownloaded: percentDownloaded,
-                                 lastModificationDate: lastModificationDate,
-                                 downloadingError: nil,
-                                 uploadingError: nil,
-                                 hasUnresolvedConflicts: hasUnresolvedConflicts)
-    return item
+    CloudMetadataItem(fileName: fileName,
+                      fileUrl: URL(string: "url")!,
+                      isDownloaded: isDownloaded,
+                      percentDownloaded: percentDownloaded,
+                      lastModificationDate: lastModificationDate,
+                      downloadingError: nil,
+                      uploadingError: nil,
+                      hasUnresolvedConflicts: hasUnresolvedConflicts)
   }
 }

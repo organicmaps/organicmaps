@@ -7,8 +7,6 @@
 
 namespace
 {
-using namespace editor::ui;
-
 size_t SpanLength(osmoh::Timespan const & span)
 {
   using osmoh::operator""_h;

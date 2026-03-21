@@ -9,9 +9,17 @@ final class ChartPresentationLine {
   var path = UIBezierPath()
   var previewPath = UIBezierPath()
 
-  var values: [ChartValue] { chartLine.values }
-  var color: UIColor { chartLine.color }
-  var type: ChartLineType { chartLine.type }
+  var values: [ChartValue] {
+    chartLine.values
+  }
+
+  var color: UIColor {
+    chartLine.color
+  }
+
+  var type: ChartLineType {
+    chartLine.type
+  }
 
   init(_ chartLine: ChartLine) {
     self.chartLine = chartLine

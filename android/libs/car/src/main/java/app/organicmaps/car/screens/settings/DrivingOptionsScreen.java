@@ -26,7 +26,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
 {
   public static final Object DRIVING_OPTIONS_RESULT_CHANGED = 0x1;
 
-  private record DrivingOption(RoadType roadType, @StringRes int text) {}
+  private record DrivingOption(RoadType roadType, @StringRes int text)
+  {}
 
   private final DrivingOption[] mDrivingOptions = {new DrivingOption(RoadType.Toll, R.string.avoid_tolls),
                                                    new DrivingOption(RoadType.Dirty, R.string.avoid_unpaved),

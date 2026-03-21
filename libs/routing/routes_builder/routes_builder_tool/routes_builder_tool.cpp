@@ -44,10 +44,6 @@ DEFINE_bool(verbose, false, "Verbose logging (default: false)");
 DEFINE_int32(launches_number, 1, "Number of launches of routes buildings. Needs for benchmarking (default: 1)");
 DEFINE_string(vehicle_type, "car", "Vehicle type: car|pedestrian|bicycle|transit. (Only for mapsme).");
 
-using namespace routing;
-using namespace routes_builder;
-using namespace routing_quality;
-
 namespace
 {
 bool IsLocalBuild()
@@ -102,14 +98,14 @@ int Main(int argc, char ** argv)
     if (launchesNumber > 1)
       LOG(LINFO, ("Benchmark mode is activated. Each route will be built", launchesNumber, "times."));
 
-    BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout, FLAGS_vehicle_type,
-                FLAGS_verbose, launchesNumber);
+    routing::routes_builder::BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads,
+                                         FLAGS_timeout, FLAGS_vehicle_type, FLAGS_verbose, launchesNumber);
   }
 
   if (IsApiBuild())
   {
-    auto api = CreateRoutingApi(FLAGS_api_name, FLAGS_api_token);
-    BuildRoutesWithApi(std::move(api), FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from);
+    auto api = routing::routes_builder::CreateRoutingApi(FLAGS_api_name, FLAGS_api_token);
+    routing::routes_builder::BuildRoutesWithApi(std::move(api), FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from);
   }
 
   return 0;

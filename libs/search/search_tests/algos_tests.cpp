@@ -6,8 +6,6 @@
 #include <iterator>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
 struct CompWithEqual
@@ -18,10 +16,10 @@ struct CompWithEqual
 
 void TestLongestSequence(int in[], size_t inSz, int eta[])
 {
-  vector<int> res;
-  search::LongestSubsequence(vector<int>(in, in + inSz), back_inserter(res), CompWithEqual());
-  reverse(res.begin(), res.end());
-  TEST(equal(res.begin(), res.end(), eta), (res));
+  std::vector<int> res;
+  search::LongestSubsequence(std::vector<int>(in, in + inSz), std::back_inserter(res), CompWithEqual());
+  std::reverse(res.begin(), res.end());
+  TEST(std::equal(res.begin(), res.end(), eta), (res));
 }
 }  // namespace
 

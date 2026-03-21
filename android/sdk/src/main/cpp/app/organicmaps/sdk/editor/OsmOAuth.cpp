@@ -12,14 +12,11 @@
 
 namespace
 {
-using namespace osm;
-using namespace jni;
-
-bool LoadOsmUserPreferences(std::string const & oauthToken, UserPreferences & outPrefs)
+bool LoadOsmUserPreferences(std::string const & oauthToken, osm::UserPreferences & outPrefs)
 {
   try
   {
-    ServerApi06 const api(OsmOAuth::ServerAuth(oauthToken));
+    osm::ServerApi06 const api(osm::OsmOAuth::ServerAuth(oauthToken));
     outPrefs = api.GetUserPreferences();
     return true;
   }
@@ -35,8 +32,8 @@ extern "C"
 {
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOAuth2Url(JNIEnv * env, jclass)
 {
-  auto const auth = OsmOAuth::ServerAuth();
-  return ToJavaString(env, auth.BuildOAuth2Url());
+  auto const auth = osm::OsmOAuth::ServerAuth();
+  return jni::ToJavaString(env, auth.BuildOAuth2Url());
 }
 
 // Attempts to authenticate with login and password, returns true on success or false on failure
@@ -44,26 +41,26 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithPasswo
                                                                                    jstring login, jstring password,
                                                                                    jobjectArray result)
 {
-  OsmOAuth auth = OsmOAuth::ServerAuth();
+  osm::OsmOAuth auth = osm::OsmOAuth::ServerAuth();
 
   try
   {
-    if (auth.AuthorizePassword(ToNativeString(env, login), ToNativeString(env, password)))
+    if (auth.AuthorizePassword(jni::ToNativeString(env, login), jni::ToNativeString(env, password)))
     {
-      env->SetObjectArrayElement(result, 0, ToJavaString(env, auth.GetAuthToken()));
+      env->SetObjectArrayElement(result, 0, jni::ToJavaString(env, auth.GetAuthToken()));
       if (env->ExceptionCheck())
         return JNI_FALSE;
       return JNI_TRUE;
     }
     LOG(LWARNING, ("nativeAuthWithPassword: invalid login or password."));
-    env->SetObjectArrayElement(result, 0, ToJavaString(env, "Invalid login or password"));
+    env->SetObjectArrayElement(result, 0, jni::ToJavaString(env, "Invalid login or password"));
     if (env->ExceptionCheck())
       return JNI_FALSE;
   }
   catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeAuthWithPassword error ", ex.what()));
-    env->SetObjectArrayElement(result, 0, ToJavaString(env, ex.what()));
+    env->SetObjectArrayElement(result, 0, jni::ToJavaString(env, ex.what()));
     if (env->ExceptionCheck())
       return JNI_FALSE;
   }
@@ -73,14 +70,14 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithPasswo
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jclass,
                                                                                     jstring oauth2code)
 {
-  OsmOAuth auth = OsmOAuth::ServerAuth();
+  osm::OsmOAuth auth = osm::OsmOAuth::ServerAuth();
   try
   {
-    auto token = auth.FinishAuthorization(ToNativeString(env, oauth2code));
+    auto token = auth.FinishAuthorization(jni::ToNativeString(env, oauth2code));
     if (!token.empty())
     {
       auth.SetAuthToken(token);
-      return ToJavaString(env, token);
+      return jni::ToJavaString(env, token);
     }
     LOG(LWARNING, ("nativeAuthWithOAuth2Code: invalid OAuth2 code", oauth2code));
   }
@@ -94,7 +91,7 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithOAuth2C
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOsmUsername(JNIEnv * env, jclass,
                                                                                 jstring oauthToken)
 {
-  UserPreferences prefs;
+  osm::UserPreferences prefs;
   if (LoadOsmUserPreferences(jni::ToNativeString(env, oauthToken), prefs))
     return jni::ToJavaString(env, prefs.m_displayName);
   return nullptr;
@@ -103,7 +100,7 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOsmUsername(
 JNIEXPORT jint Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOsmChangesetsCount(JNIEnv * env, jclass,
                                                                                     jstring oauthToken)
 {
-  UserPreferences prefs;
+  osm::UserPreferences prefs;
   if (LoadOsmUserPreferences(jni::ToNativeString(env, oauthToken), prefs))
     return prefs.m_changesets;
   return -1;
@@ -112,7 +109,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOsmChangesetsCo
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOsmProfilePictureUrl(JNIEnv * env, jclass,
                                                                                          jstring oauthToken)
 {
-  UserPreferences prefs;
+  osm::UserPreferences prefs;
   if (LoadOsmUserPreferences(jni::ToNativeString(env, oauthToken), prefs))
     return jni::ToJavaString(env, prefs.m_imageUrl);
   return nullptr;
@@ -120,11 +117,11 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOsmProfilePi
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetHistoryUrl(JNIEnv * env, jclass, jstring user)
 {
-  return jni::ToJavaString(env, OsmOAuth::ServerAuth().GetHistoryURL(jni::ToNativeString(env, user)));
+  return jni::ToJavaString(env, osm::OsmOAuth::ServerAuth().GetHistoryURL(jni::ToNativeString(env, user)));
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetNotesUrl(JNIEnv * env, jclass, jstring user)
 {
-  return jni::ToJavaString(env, OsmOAuth::ServerAuth().GetNotesURL(jni::ToNativeString(env, user)));
+  return jni::ToJavaString(env, osm::OsmOAuth::ServerAuth().GetNotesURL(jni::ToNativeString(env, user)));
 }
 }  // extern "C"

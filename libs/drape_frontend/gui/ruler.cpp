@@ -12,8 +12,6 @@
 
 #include <functional>
 
-using namespace std::placeholders;
-
 namespace gui
 {
 namespace
@@ -215,7 +213,8 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & contr
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, std::bind(&ShapeControl::AddShape, &control, _1, _2));
+    dp::SessionGuard guard(context, batcher,
+                           std::bind(&ShapeControl::AddShape, &control, std::placeholders::_1, std::placeholders::_2));
     batcher.InsertTriangleStrip(context, state, make_ref(&provider),
                                 make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler, m_position.m_anchor,
                                                             m_position.m_pixelPivot, isAppearing));
@@ -238,6 +237,7 @@ void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & contro
   params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot)
   { return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot, isAppearing, tex); };
 
-  MutableLabelDrawer::Draw(context, params, tex, std::bind(&ShapeControl::AddShape, &control, _1, _2));
+  MutableLabelDrawer::Draw(context, params, tex,
+                           std::bind(&ShapeControl::AddShape, &control, std::placeholders::_1, std::placeholders::_2));
 }
 }  // namespace gui

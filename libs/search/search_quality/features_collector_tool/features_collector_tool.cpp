@@ -28,7 +28,6 @@
 
 #include <gflags/gflags.h>
 
-using namespace search::search_quality;
 using namespace search::tests_support;
 using namespace search;
 using namespace std;
@@ -55,7 +54,7 @@ void GetContents(istream & is, string & contents)
   }
 }
 
-void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> const & stats)
+void DisplayStats(ostream & os, vector<search::Sample> const & samples, vector<Stats> const & stats)
 {
   auto const n = samples.size();
   ASSERT_EQUAL(stats.size(), n, ());
@@ -84,23 +83,23 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
 
 int main(int argc, char * argv[])
 {
-  platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
-  CheckLocale();
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
+  search::search_quality::CheckLocale();
 
   gflags::SetUsageMessage("Features collector tool.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
+  search::search_quality::SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 
   classificator::Load();
 
   FrozenDataSource dataSource;
-  InitDataSource(dataSource, "" /* mwmListPath */);
+  search::search_quality::InitDataSource(dataSource, "" /* mwmListPath */);
 
-  auto engine = InitSearchEngine(dataSource, "en" /* locale */, FLAGS_num_threads);
+  auto engine = search::search_quality::InitSearchEngine(dataSource, "en" /* locale */, FLAGS_num_threads);
   engine->InitAffiliations();
 
-  vector<Sample> samples;
+  vector<search::Sample> samples;
   {
     string lines;
     if (FLAGS_json_in.empty())
@@ -118,7 +117,7 @@ int main(int argc, char * argv[])
       GetContents(ifs, lines);
     }
 
-    if (!Sample::DeserializeFromJSONLines(lines, samples))
+    if (!search::Sample::DeserializeFromJSONLines(lines, samples))
     {
       cerr << "Can't parse input json file." << endl;
       return -1;
@@ -127,7 +126,7 @@ int main(int argc, char * argv[])
 
   vector<Stats> stats(samples.size());
   FeatureLoader loader(dataSource);
-  Matcher matcher(loader);
+  search::Matcher matcher(loader);
 
   vector<unique_ptr<TestSearchRequest>> requests;
   requests.reserve(samples.size());
@@ -159,7 +158,7 @@ int main(int argc, char * argv[])
     {
       if (results[j].GetResultType() != Result::Type::Feature)
         continue;
-      if (actualMatching[j] == Matcher::kInvalidId)
+      if (actualMatching[j] == search::Matcher::kInvalidId)
         continue;
 
       auto const & info = results[j].GetRankingInfo();
@@ -173,10 +172,10 @@ int main(int argc, char * argv[])
     auto & s = stats[i];
     for (size_t j = 0; j < goldenMatching.size(); ++j)
     {
-      auto const wasNotFound = goldenMatching[j] == Matcher::kInvalidId ||
+      auto const wasNotFound = goldenMatching[j] == search::Matcher::kInvalidId ||
                                goldenMatching[j] >= search::SearchParams::kDefaultNumResultsEverywhere;
-      auto const isRelevant = sample.m_results[j].m_relevance == Sample::Result::Relevance::Relevant ||
-                              sample.m_results[j].m_relevance == Sample::Result::Relevance::Vital;
+      auto const isRelevant = sample.m_results[j].m_relevance == search::Sample::Result::Relevance::Relevant ||
+                              sample.m_results[j].m_relevance == search::Sample::Result::Relevance::Vital;
       if (wasNotFound && isRelevant)
         s.m_notFound.push_back(j);
     }

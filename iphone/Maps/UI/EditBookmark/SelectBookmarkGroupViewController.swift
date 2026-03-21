@@ -164,5 +164,7 @@ extension SelectBookmarkGroupViewController: UISearchBarDelegate {
 }
 
 private extension String {
-  var normalizedAndSimplified: String { (self as NSString).normalizedAndSimplified() }
+  var normalizedAndSimplified: String {
+    (self as NSString).normalizedAndSimplified()
+  }
 }

@@ -1,7 +1,9 @@
 import UIKit
 
 private class CircleView: UIView {
-  override class var layerClass: AnyClass { CAShapeLayer.self }
+  override class var layerClass: AnyClass {
+    CAShapeLayer.self
+  }
 
   var color: UIColor? {
     didSet {

@@ -173,7 +173,7 @@ final class NavigationControlView: SolidTouchView {
     }
     let speedMeasure = Measure(asSpeed: speedMps)
     var speed = speedMeasure.valueAsString
-    /// @todo Draw speed limit sign similar to the CarPlay implemenation.
+    // @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
     if info.speedLimitMps >= 0 {
       // Short delimeter to not overlap with timeToTarget longer than an hour.

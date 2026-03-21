@@ -13,12 +13,8 @@
 #include <iomanip>
 #include <utility>
 
-using namespace routing::routes_builder;
-
 namespace
 {
-using namespace routing_quality;
-
 void PrintWithSpaces(std::string const & str, size_t maxN)
 {
   std::cout << str;
@@ -62,8 +58,8 @@ kml::BookmarkData CreateBookmark(m2::PointD const & point, bool isStart)
 }
 
 template <typename AnotherResult>
-void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult, AnotherResult const & apiResult,
-                       std::string const & kmlFile)
+void SaveKmlFileDataTo(routing::routes_builder::RoutesBuilder::Result const & mapsmeResult,
+                       AnotherResult const & apiResult, std::string const & kmlFile)
 {
   static std::array<uint32_t, 5> const kColors = {
       0xff0000ff,  // Red
@@ -492,7 +488,8 @@ void SimilarityCounter::CreateKmlFiles(double percent, std::vector<Result> const
       }
 
       CHECK_LESS(realResultIndex, results.size(), ());
-      auto const mapsmeResult = RoutesBuilder::Result::Load(results[realResultIndex].m_mapsmeDumpPath);
+      auto const mapsmeResult =
+          routing::routes_builder::RoutesBuilder::Result::Load(results[realResultIndex].m_mapsmeDumpPath);
 
       std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
       if (m_routesSaver.GetComparsionType() == ComparisonType::MapsmeVsApi)
@@ -502,7 +499,8 @@ void SimilarityCounter::CreateKmlFiles(double percent, std::vector<Result> const
       }
       else
       {
-        auto const mapsmeAnotherResult = RoutesBuilder::Result::Load(results[realResultIndex].m_anotherDumpPath);
+        auto const mapsmeAnotherResult =
+            routing::routes_builder::RoutesBuilder::Result::Load(results[realResultIndex].m_anotherDumpPath);
         SaveKmlFileDataTo(mapsmeResult, mapsmeAnotherResult, kmlFile);
       }
 

@@ -6,9 +6,6 @@
 
 #include "editor/ui2oh.hpp"
 
-using namespace editor;
-using namespace osmoh;
-
 using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 @interface MWMPlacePageOpeningHoursCell ()
@@ -33,12 +30,12 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 @end
 
-NSString * stringFromTimeSpan(Timespan const & timeSpan)
+NSString * stringFromTimeSpan(osmoh::Timespan const & timeSpan)
 {
   return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
 }
 
-NSArray<NSString *> * arrayFromClosedTimes(TTimespans const & closedTimes)
+NSArray<NSString *> * arrayFromClosedTimes(osmoh::TTimespans const & closedTimes)
 {
   NSMutableArray<NSString *> * breaks = [NSMutableArray arrayWithCapacity:closedTimes.size()];
   for (auto & ct : closedTimes)
@@ -53,7 +50,7 @@ WeekDayView getWeekDayView()
 
 @implementation MWMPlacePageOpeningHoursCell
 {
-  ui::TimeTableSet timeTableSet;
+  editor::ui::TimeTableSet timeTableSet;
 }
 
 - (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate info:(NSString *)info
@@ -70,7 +67,7 @@ WeekDayView getWeekDayView()
     self.expandImage.transform = CGAffineTransformMakeScale(-1, 1);
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
-  if (MakeTimeTableSet(oh, timeTableSet))
+  if (editor::MakeTimeTableSet(oh, timeTableSet))
   {
     cd.isCompatibility = NO;
     if (delegate.isEditor)
@@ -94,7 +91,8 @@ WeekDayView getWeekDayView()
 {
   NSCalendar * cal = NSCalendar.currentCalendar;
   cal.locale = NSLocale.currentLocale;
-  Weekday currentDay = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  osmoh::Weekday currentDay =
+      static_cast<osmoh::Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   BOOL haveCurrentDay = NO;
   size_t timeTablesCount = timeTableSet.Size();
   self.haveExpandSchedule = (timeTablesCount > 1 || !timeTableSet.GetUnhandledDays().empty());
@@ -103,7 +101,7 @@ WeekDayView getWeekDayView()
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
   {
     auto tt = timeTableSet.Get(idx);
-    ui::OpeningDays const & workingDays = tt.GetOpeningDays();
+    editor::ui::OpeningDays const & workingDays = tt.GetOpeningDays();
     if (workingDays.find(currentDay) != workingDays.end())
     {
       haveCurrentDay = YES;
@@ -139,7 +137,7 @@ WeekDayView getWeekDayView()
   [self alignTimeOffsets];
 }
 
-- (void)addCurrentDay:(ui::TimeTableSet::Proxy)timeTable
+- (void)addCurrentDay:(editor::ui::TimeTableSet::Proxy)timeTable
 {
   WeekDayView cd = self.currentDay;
   NSString * label;
@@ -176,7 +174,7 @@ WeekDayView getWeekDayView()
   [cd setClosed:NO];
 }
 
-- (void)addWeekDays:(ui::TimeTableSet::Proxy)timeTable
+- (void)addWeekDays:(editor::ui::TimeTableSet::Proxy)timeTable
 {
   WeekDayView wd = getWeekDayView();
   wd.currentDay = NO;

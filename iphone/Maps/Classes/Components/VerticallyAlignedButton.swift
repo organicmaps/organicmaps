@@ -42,10 +42,7 @@ class VerticallyAlignedButton: UIControl {
     }
   }
 
-  private lazy var spacingConstraint: NSLayoutConstraint = {
-    let spacingConstraint = titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: spacing)
-    return spacingConstraint
-  }()
+  private lazy var spacingConstraint: NSLayoutConstraint = titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: spacing)
 
   lazy var titleLabel: UILabel = {
     let titleLabel = UILabel()

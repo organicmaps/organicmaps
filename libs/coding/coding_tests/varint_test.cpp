@@ -9,15 +9,13 @@
 
 #include <vector>
 
-using namespace std;
-
 namespace
 {
 template <typename T>
 void TestVarUint(T const x)
 {
-  vector<unsigned char> data;
-  PushBackByteSink<vector<uint8_t>> dst(data);
+  std::vector<unsigned char> data;
+  PushBackByteSink<std::vector<uint8_t>> dst(data);
   WriteVarUint(dst, x);
 
   ArrayByteSource src(&data[0]);
@@ -30,8 +28,8 @@ void TestVarUint(T const x)
 template <typename T>
 void TestVarInt(T const x)
 {
-  vector<uint8_t> data;
-  PushBackByteSink<vector<uint8_t>> dst(data);
+  std::vector<uint8_t> data;
+  PushBackByteSink<std::vector<uint8_t>> dst(data);
   WriteVarInt(dst, x);
 
   ArrayByteSource src(&data[0]);
@@ -86,8 +84,8 @@ UNIT_TEST(VarInt32)
 
 UNIT_TEST(VarIntSize)
 {
-  vector<unsigned char> data;
-  PushBackByteSink<vector<unsigned char>> dst(data);
+  std::vector<unsigned char> data;
+  PushBackByteSink<std::vector<unsigned char>> dst(data);
   WriteVarInt(dst, 60);
   TEST_EQUAL(data.size(), 1, ());
   data.clear();
@@ -113,18 +111,18 @@ UNIT_TEST(VarIntMax)
 
 UNIT_TEST(ReadVarInt64Array_EmptyArray)
 {
-  vector<int64_t> result;
+  std::vector<int64_t> result;
   void const * pEnd = ReadVarInt64Array(NULL, (void *)0, base::MakeBackInsertFunctor(result));
-  TEST_EQUAL(result, vector<int64_t>(), ("UntilBufferEnd"));
+  TEST_EQUAL(result, std::vector<int64_t>(), ("UntilBufferEnd"));
   TEST_EQUAL(reinterpret_cast<uintptr_t>(pEnd), 0, ("UntilBufferEnd"));
   pEnd = ReadVarInt64Array(NULL, (size_t)0, base::MakeBackInsertFunctor(result));
-  TEST_EQUAL(result, vector<int64_t>(), ("GivenSize"));
+  TEST_EQUAL(result, std::vector<int64_t>(), ("GivenSize"));
   TEST_EQUAL(reinterpret_cast<uintptr_t>(pEnd), 0, ("GivenSize"));
 }
 
 UNIT_TEST(ReadVarInt64Array)
 {
-  vector<int64_t> values;
+  std::vector<int64_t> values;
 
   // Fill in values.
   {
@@ -143,21 +141,21 @@ UNIT_TEST(ReadVarInt64Array)
       values.push_back(baseValues[i]);
       values.push_back(-baseValues[i]);
     }
-    sort(values.begin(), values.end());
-    values.erase(unique(values.begin(), values.end()), values.end());
+    std::sort(values.begin(), values.end());
+    values.erase(std::unique(values.begin(), values.end()), values.end());
   }
 
   // Test all subsets.
   for (size_t i = 1; i < 1U << values.size(); ++i)
   {
-    vector<int64_t> testValues;
+    std::vector<int64_t> testValues;
     for (size_t j = 0; j < values.size(); ++j)
       if (i & (1 << j))
         testValues.push_back(values[j]);
 
-    vector<unsigned char> data;
+    std::vector<unsigned char> data;
     {
-      PushBackByteSink<vector<unsigned char>> dst(data);
+      PushBackByteSink<std::vector<unsigned char>> dst(data);
       for (size_t j = 0; j < testValues.size(); ++j)
         WriteVarInt(dst, testValues[j]);
     }
@@ -171,14 +169,14 @@ UNIT_TEST(ReadVarInt64Array)
       void const * pDataStart = &data[0];
       void const * pDataEnd = &data[0] + data.size();
 
-      vector<int64_t> result;
+      std::vector<int64_t> result;
       void const * pEnd = ReadVarInt64Array(pDataStart, pDataEnd, base::MakeBackInsertFunctor(result));
 
       TEST_EQUAL(pEnd, pDataEnd, ("UntilBufferEnd", data.size()));
       TEST_EQUAL(result, testValues, ("UntilBufferEnd", data.size()));
     }
     {
-      vector<int64_t> result;
+      std::vector<int64_t> result;
       void const * pEnd = ReadVarInt64Array(&data[0], testValues.size(), base::MakeBackInsertFunctor(result));
 
       TEST_EQUAL(pEnd, &data[0] + data.size(), ("GivenSize", data.size()));

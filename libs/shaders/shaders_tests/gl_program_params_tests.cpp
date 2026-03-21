@@ -12,8 +12,6 @@
 
 #include <functional>
 
-using namespace std::placeholders;
-
 template <typename ProgramParams>
 void TestProgramParams()
 {

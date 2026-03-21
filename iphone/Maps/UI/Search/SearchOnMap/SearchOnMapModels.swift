@@ -31,6 +31,7 @@ enum SearchOnMap {
         }
       }
     }
+
     var latestVisiblePresentationStep: SearchOnMapModalPresentationStep
   }
 

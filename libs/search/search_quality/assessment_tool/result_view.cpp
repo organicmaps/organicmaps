@@ -11,8 +11,6 @@
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QVBoxLayout>
 
-using namespace std;
-
 namespace
 {
 QLabel * CreateLabel(QWidget & parent)
@@ -23,7 +21,7 @@ QLabel * CreateLabel(QWidget & parent)
   return label;
 }
 
-void SetText(QLabel & label, string const & text)
+void SetText(QLabel & label, std::string const & text)
 {
   if (text.empty())
   {
@@ -35,18 +33,19 @@ void SetText(QLabel & label, string const & text)
   label.show();
 }
 
-string GetResultType(search::Sample::Result const & result)
+std::string GetResultType(search::Sample::Result const & result)
 {
   return strings::JoinStrings(result.m_types, ", ");
 }
 
-string GetResultType(search::Result const & result)
+std::string GetResultType(search::Result const & result)
 {
   return (result.GetResultType() == search::Result::Type::Feature ? result.GetLocalizedFeatureType() : "");
 }
 }  // namespace
 
-ResultView::ResultView(string const & name, string const & type, string const & address, QWidget & parent)
+ResultView::ResultView(std::string const & name, std::string const & type, std::string const & address,
+                       QWidget & parent)
   : QWidget(&parent)
 {
   Init();
@@ -65,7 +64,7 @@ ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
 
 void ResultView::SetEditor(ResultsEdits::Editor && editor)
 {
-  m_editor = make_unique<ResultsEdits::Editor>(std::move(editor));
+  m_editor = std::make_unique<ResultsEdits::Editor>(std::move(editor));
 
   UpdateRelevanceRadioButtons();
 
@@ -121,7 +120,7 @@ void ResultView::Init()
   }
 }
 
-void ResultView::SetContents(string const & name, string const & type, string const & address)
+void ResultView::SetContents(std::string const & name, std::string const & type, std::string const & address)
 {
   SetText(*m_name, name);
   SetText(*m_type, type);
@@ -133,7 +132,7 @@ void ResultView::SetContents(string const & name, string const & type, string co
   m_vital->setChecked(false);
 }
 
-QRadioButton * ResultView::CreateRatioButton(string const & text, QLayout & layout)
+QRadioButton * ResultView::CreateRatioButton(std::string const & text, QLayout & layout)
 {
   QRadioButton * radio = new QRadioButton(QString::fromStdString(text), this /* parent */);
   layout.addWidget(radio);

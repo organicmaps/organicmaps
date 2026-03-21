@@ -7,13 +7,11 @@
 
 #include "platform/platform.hpp"
 
-using namespace std::chrono;
-
 namespace
 {
-auto constexpr kUpdateInterval = minutes(1);
-auto constexpr kOutdatedDataTimeout = minutes(5) + kUpdateInterval;
-auto constexpr kNetworkErrorTimeout = minutes(20);
+auto constexpr kUpdateInterval = std::chrono::minutes(1);
+auto constexpr kOutdatedDataTimeout = std::chrono::minutes(5) + kUpdateInterval;
+auto constexpr kNetworkErrorTimeout = std::chrono::minutes(20);
 
 auto constexpr kMaxRetriesCount = 5;
 }  // namespace
@@ -26,7 +24,7 @@ TrafficManager::CacheEntry::CacheEntry()
   , m_lastAvailability(traffic::TrafficInfo::Availability::Unknown)
 {}
 
-TrafficManager::CacheEntry::CacheEntry(time_point<steady_clock> const & requestTime)
+TrafficManager::CacheEntry::CacheEntry(std::chrono::time_point<std::chrono::steady_clock> const & requestTime)
   : m_isLoaded(false)
   , m_dataSize(0)
   , m_lastActiveTime(requestTime)
@@ -284,7 +282,7 @@ bool TrafficManager::WaitForRequest(std::vector<MwmSet::MwmId> & mwms)
 void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
 {
   bool needRequesting = false;
-  auto const currentTime = steady_clock::now();
+  auto const currentTime = std::chrono::steady_clock::now();
   auto const it = m_mwmCache.find(mwmId);
   if (it == m_mwmCache.end())
   {
@@ -363,7 +361,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
       return;
 
     it->second.m_isLoaded = true;
-    it->second.m_lastResponseTime = steady_clock::now();
+    it->second.m_lastResponseTime = std::chrono::steady_clock::now();
     it->second.m_isWaitingForResponse = false;
     it->second.m_lastAvailability = info.GetAvailability();
 
@@ -404,7 +402,7 @@ void TrafficManager::ShrinkCacheToAllowableSize()
 
   if (m_currentCacheSizeBytes > m_maxCacheSizeBytes && m_mwmCache.size() > numActiveMwms)
   {
-    std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
+    std::multimap<std::chrono::time_point<std::chrono::steady_clock>, MwmSet::MwmId> seenTimings;
     for (auto const & mwmInfo : m_mwmCache)
       seenTimings.insert(std::make_pair(mwmInfo.second.m_lastActiveTime, mwmInfo.first));
 
@@ -456,8 +454,8 @@ void TrafficManager::UpdateState()
   if (!IsEnabled() || IsInvalidState())
     return;
 
-  auto const currentTime = steady_clock::now();
-  auto maxPassedTime = steady_clock::duration::zero();
+  auto const currentTime = std::chrono::steady_clock::now();
+  auto maxPassedTime = std::chrono::steady_clock::duration::zero();
 
   bool waiting = false;
   bool networkError = false;

@@ -15,7 +15,11 @@ final class TrackRecordingButtonArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    []
+  }
 
-  var trackRecordingButtonAreaAffectView: UIView { self }
+  var trackRecordingButtonAreaAffectView: UIView {
+    self
+  }
 }

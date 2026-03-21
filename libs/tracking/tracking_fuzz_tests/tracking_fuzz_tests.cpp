@@ -11,7 +11,6 @@
 #include <iterator>
 #include <vector>
 
-using namespace coding;
 using namespace tracking;
 
 namespace
@@ -34,13 +33,13 @@ T PopType(std::vector<uint8_t> & data)
   return t;
 }
 
-TrafficGPSEncoder::DataPoint PopDataPoint(std::vector<uint8_t> & data)
+coding::TrafficGPSEncoder::DataPoint PopDataPoint(std::vector<uint8_t> & data)
 {
   auto const timestamp = PopType<uint64_t>(data);
   auto const lat = PopType<double>(data);
   auto const lon = PopType<double>(data);
   auto const traffic = PopType<uint8_t>(data);
-  return TrafficGPSEncoder::DataPoint(timestamp, ms::LatLon(lat, lon), traffic);
+  return coding::TrafficGPSEncoder::DataPoint(timestamp, ms::LatLon(lat, lon), traffic);
 }
 }  // namespace
 

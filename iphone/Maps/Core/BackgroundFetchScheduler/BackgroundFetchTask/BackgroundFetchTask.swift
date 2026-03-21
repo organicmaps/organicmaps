@@ -1,5 +1,7 @@
 @objc class BackgroundFetchTask: NSObject {
-  var frameworkType: BackgroundFetchTaskFrameworkType { .none }
+  var frameworkType: BackgroundFetchTaskFrameworkType {
+    .none
+  }
 
   private var backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
 

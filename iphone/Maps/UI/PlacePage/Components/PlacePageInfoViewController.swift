@@ -99,7 +99,7 @@ class PlacePageInfoViewController: UIViewController {
       routeRefsView = createInfoItem(routeRefs, icon: UIImage(resource: .icPlacepageBus))
     }
 
-    /// @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
+    // @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
 
     phoneViews = placePageInfoData.phones.map { phone in
       var cellStyle: Style = .regular

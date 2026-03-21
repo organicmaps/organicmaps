@@ -9,8 +9,6 @@
 
 #include "platform/languages.hpp"
 
-using namespace locale_translator;
-
 namespace
 {
 NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
@@ -23,7 +21,7 @@ std::vector<std::pair<std::string, std::string>> availableLanguages()
   NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
   std::vector<std::pair<std::string, std::string>> native;
   for (AVSpeechSynthesisVoice * v in voices)
-    native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), v.language.UTF8String));
+    native.emplace_back(make_pair(locale_translator::bcp47ToTwineLanguage(v.language), v.language.UTF8String));
 
   using namespace routing::turns::sound;
   std::vector<std::pair<std::string, std::string>> result;
@@ -220,7 +218,7 @@ using Observers = NSHashTable<Observer>;
   self.speechVoice = voice;
   if (voice)
   {
-    std::string const twineLang = bcp47ToTwineLanguage(voice.language);
+    std::string const twineLang = locale_translator::bcp47ToTwineLanguage(voice.language);
     if (twineLang.empty())
       LOG(LERROR, ("Cannot convert UI locale or default locale to twine language. MWMTextToSpeech "
                    "is invalid."));

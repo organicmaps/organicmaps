@@ -15,7 +15,11 @@ final class TrafficButtonArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var trafficButtonAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var trafficButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    []
+  }
 
-  var trafficButtonAreaAffectView: UIView { self }
+  var trafficButtonAreaAffectView: UIView {
+    self
+  }
 }

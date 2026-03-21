@@ -7,12 +7,10 @@
 #include <random>
 #include <string>
 
-using namespace std;
-
 UNIT_TEST(GoldenRecode)
 {
-  string data("\x01\x23\x45\x67\x89\xAB\xCD\xEF");
-  string hexData("0123456789ABCDEF");
+  std::string data("\x01\x23\x45\x67\x89\xAB\xCD\xEF");
+  std::string hexData("0123456789ABCDEF");
 
   TEST_EQUAL(ToHex(data), hexData, ());
   TEST_EQUAL(data, FromHex(hexData), ());
@@ -20,10 +18,10 @@ UNIT_TEST(GoldenRecode)
 
 UNIT_TEST(RandomRecode)
 {
-  mt19937 rng(0);
+  std::mt19937 rng(0);
   for (size_t i = 0; i < 256; ++i)
   {
-    string data(1 + (rng() % 20), 0);
+    std::string data(1 + (rng() % 20), 0);
     for (size_t j = 0; j < data.size(); ++j)
       data[j] = static_cast<char>(rng() % 26) + 'A';
     TEST_EQUAL(data, FromHex(ToHex(data)), ());
@@ -42,7 +40,7 @@ UNIT_TEST(DecodeLowerCaseHex)
 
 UNIT_TEST(EncodeEmptyString)
 {
-  TEST_EQUAL(ToHex(string()), "", ());
+  TEST_EQUAL(ToHex(std::string()), "", ());
 }
 
 UNIT_TEST(DecodeEmptyString)

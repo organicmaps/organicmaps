@@ -82,7 +82,7 @@ class UISearchBarRenderer: UIViewRenderer {
     }
   }
 
-  // fix for iOS 12 and below
+  /// fix for iOS 12 and below
   class func setAppearance() {
     for style in StyleManager.shared.getStyle("SearchBar") {
       if let backgroundColor = style.backgroundColor {
@@ -109,8 +109,8 @@ class UISearchBarRenderer: UIViewRenderer {
   @available(iOS, deprecated: 13.0)
   private static var searchBarBackgroundImage: UIImage?
 
-  // Draws the background image for the UITextField using the default system's text field height.
-  // This approach is used only for iOS 12.
+  /// Draws the background image for the UITextField using the default system's text field height.
+  /// This approach is used only for iOS 12.
   @available(iOS, deprecated: 13.0)
   private static func getSearchBarBackgroundImage(color: UIColor) -> UIImage? {
     if color != searchBarBackgroundColor {

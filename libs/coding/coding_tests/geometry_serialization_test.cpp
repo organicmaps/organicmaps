@@ -12,8 +12,6 @@
 
 #include <vector>
 
-using namespace std;
-
 // Copy-Paste from generator/feature_builder.cpp
 namespace
 {
@@ -38,15 +36,15 @@ UNIT_TEST(SaveLoadPolyline_DataSet1)
 {
   using namespace geometry_coding_tests;
 
-  vector<m2::PointD> data1(arr1, arr1 + ARRAY_SIZE(arr1));
+  std::vector<m2::PointD> data1(arr1, arr1 + ARRAY_SIZE(arr1));
 
-  vector<char> buffer;
-  PushBackByteSink<vector<char>> w(buffer);
+  std::vector<char> buffer;
+  PushBackByteSink<std::vector<char>> w(buffer);
 
   serial::GeometryCodingParams cp;
   serial::SaveOuterPath(data1, cp, w);
 
-  vector<m2::PointD> data2;
+  std::vector<m2::PointD> data2;
   ArrayByteSource r(&buffer[0]);
   serial::LoadOuterPath(r, cp, data2);
 

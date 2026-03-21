@@ -4,8 +4,6 @@
 
 #include <CoreApi/Framework.h>
 
-using namespace power_management;
-
 @interface MWMPowerManagmentViewController ()
 @property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * never;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * manualMax;
@@ -24,11 +22,11 @@ using namespace power_management;
   SettingsTableViewSelectableCell * selectedCell;
   switch (GetFramework().GetPowerManager().GetScheme())
   {
-  case Scheme::None: break;
-  case Scheme::Normal: selectedCell = self.never; break;
-  case Scheme::EconomyMedium: break;
-  case Scheme::EconomyMaximum: selectedCell = self.manualMax; break;
-  case Scheme::Auto: selectedCell = self.automatic; break;
+  case power_management::Scheme::None: break;
+  case power_management::Scheme::Normal: selectedCell = self.never; break;
+  case power_management::Scheme::EconomyMedium: break;
+  case power_management::Scheme::EconomyMaximum: selectedCell = self.manualMax; break;
+  case power_management::Scheme::Auto: selectedCell = self.automatic; break;
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selectedCell = selectedCell;
@@ -43,11 +41,11 @@ using namespace power_management;
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 
   _selectedCell = selectedCell;
-  Scheme scheme = Scheme::Auto;
+  power_management::Scheme scheme = power_management::Scheme::Auto;
   if ([selectedCell isEqual:self.never])
-    scheme = Scheme::Normal;
+    scheme = power_management::Scheme::Normal;
   else if ([selectedCell isEqual:self.manualMax])
-    scheme = Scheme::EconomyMaximum;
+    scheme = power_management::Scheme::EconomyMaximum;
 
   GetFramework().GetPowerManager().SetScheme(scheme);
 }

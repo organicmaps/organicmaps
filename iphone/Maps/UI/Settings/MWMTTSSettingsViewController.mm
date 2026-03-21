@@ -7,10 +7,6 @@
 #include <CoreApi/Framework.h>
 #include "LocaleTranslator.h"
 
-using namespace locale_translator;
-using namespace routing;
-using namespace std;
-
 namespace
 {
 NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
@@ -24,7 +20,7 @@ enum class Section
   Count
 };
 
-using SectionType = underlying_type_t<Section>;
+using SectionType = std::underlying_type_t<Section>;
 
 struct BaseCellStategy
 {
@@ -96,7 +92,7 @@ struct LanguageCellStrategy : BaseCellStategy
     Class cls = [SettingsTableViewSelectableCell class];
     auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
                                                                                                  indexPath:indexPath]);
-    pair<string, string> const p = controller.languages[row];
+    std::pair<std::string, std::string> const p = controller.languages[row];
     [cell configWithTitle:@(p.second.c_str())];
     BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
     if (isSelected)
@@ -157,12 +153,12 @@ struct CamerasCellStrategy : BaseCellStategy
     auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
                                                                                                  indexPath:indexPath]);
     NSString * title = nil;
-    switch (static_cast<SpeedCameraManagerMode>(indexPath.row))
+    switch (static_cast<routing::SpeedCameraManagerMode>(indexPath.row))
     {
-    case SpeedCameraManagerMode::Auto: title = L(@"pref_tts_speedcams_auto"); break;
-    case SpeedCameraManagerMode::Always: title = L(@"pref_tts_speedcams_always"); break;
-    case SpeedCameraManagerMode::Never: title = L(@"pref_tts_speedcams_never"); break;
-    case SpeedCameraManagerMode::MaxValue: CHECK(false, ()); return nil;
+    case routing::SpeedCameraManagerMode::Auto: title = L(@"pref_tts_speedcams_auto"); break;
+    case routing::SpeedCameraManagerMode::Always: title = L(@"pref_tts_speedcams_always"); break;
+    case routing::SpeedCameraManagerMode::Never: title = L(@"pref_tts_speedcams_never"); break;
+    case routing::SpeedCameraManagerMode::MaxValue: CHECK(false, ()); return nil;
     }
 
     CHECK(title, ());
@@ -183,7 +179,7 @@ struct CamerasCellStrategy : BaseCellStategy
 
   size_t NumberOfRows(MWMTTSSettingsViewController * /* controller */) const override
   {
-    return base::Underlying(SpeedCameraManagerMode::MaxValue);
+    return base::Underlying(routing::SpeedCameraManagerMode::MaxValue);
   }
 
   NSString * TitleForHeader() const override { return L(@"speedcams_alert_title"); }
@@ -199,8 +195,8 @@ struct CamerasCellStrategy : BaseCellStategy
 
     m_selectedCell.accessoryType = UITableViewCellAccessoryNone;
     auto & scm = GetFramework().GetRoutingManager().GetSpeedCamManager();
-    auto const mode = static_cast<SpeedCameraManagerMode>(indexPath.row);
-    CHECK_NOT_EQUAL(mode, SpeedCameraManagerMode::MaxValue, ());
+    auto const mode = static_cast<routing::SpeedCameraManagerMode>(indexPath.row);
+    CHECK_NOT_EQUAL(mode, routing::SpeedCameraManagerMode::MaxValue, ());
     scm.SetMode(mode);
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     m_selectedCell = cell;
@@ -230,9 +226,9 @@ struct StreetNamesCellStrategy : BaseCellStategy
 
 @interface MWMTTSSettingsViewController () <SettingsTableViewSwitchCellDelegate>
 {
-  pair<string, string> m_additionalTTSLanguage;
-  vector<pair<string, string>> m_languages;
-  unordered_map<SectionType, unique_ptr<BaseCellStategy>> m_strategies;
+  std::pair<std::string, std::string> m_additionalTTSLanguage;
+  std::vector<std::pair<std::string, std::string>> m_languages;
+  std::unordered_map<SectionType, std::unique_ptr<BaseCellStategy>> m_strategies;
 }
 
 @property(nonatomic) BOOL isLocaleLanguageAbsent;
@@ -247,10 +243,10 @@ struct StreetNamesCellStrategy : BaseCellStategy
   if (self)
   {
     using base::Underlying;
-    m_strategies.emplace(Underlying(Section::VoiceInstructions), make_unique<VoiceInstructionCellStrategy>());
-    m_strategies.emplace(Underlying(Section::StreetNames), make_unique<StreetNamesCellStrategy>());
-    m_strategies.emplace(Underlying(Section::Language), make_unique<LanguageCellStrategy>());
-    m_strategies.emplace(Underlying(Section::SpeedCameras), make_unique<CamerasCellStrategy>());
+    m_strategies.emplace(Underlying(Section::VoiceInstructions), std::make_unique<VoiceInstructionCellStrategy>());
+    m_strategies.emplace(Underlying(Section::StreetNames), std::make_unique<StreetNamesCellStrategy>());
+    m_strategies.emplace(Underlying(Section::Language), std::make_unique<LanguageCellStrategy>());
+    m_strategies.emplace(Underlying(Section::SpeedCameras), std::make_unique<CamerasCellStrategy>());
   }
 
   return self;
@@ -263,19 +259,19 @@ struct StreetNamesCellStrategy : BaseCellStategy
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
 
   m_languages.reserve(3);
-  pair<string, string> const standard = tts.standardLanguage;
+  std::pair<std::string, std::string> const standard = tts.standardLanguage;
   m_languages.push_back(standard);
 
   using namespace tts;
   NSString * currentBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
-  string const currentBcp47Str = currentBcp47.UTF8String;
+  std::string const currentBcp47Str = currentBcp47.UTF8String;
   if (currentBcp47Str != standard.first && !currentBcp47Str.empty())
   {
     auto const & v = tts.availableLanguages;
     NSAssert(!v.empty(), @"Vector can't be empty!");
     std::string const translated = translateLocale(currentBcp47Str);
     auto cur = std::make_pair(currentBcp47Str, translated);
-    if (translated.empty() || find(v.begin(), v.end(), cur) != v.end())
+    if (translated.empty() || std::find(v.begin(), v.end(), cur) != v.end())
       m_languages.push_back(std::move(cur));
     else
       self.isLocaleLanguageAbsent = YES;
@@ -293,7 +289,7 @@ struct StreetNamesCellStrategy : BaseCellStategy
 - (IBAction)unwind:(id)sender
 {
   size_t const size = m_languages.size();
-  if (find(m_languages.begin(), m_languages.end(), m_additionalTTSLanguage) != m_languages.end())
+  if (std::find(m_languages.begin(), m_languages.end(), m_additionalTTSLanguage) != m_languages.end())
   {
     [self.tableView reloadData];
     return;
@@ -313,13 +309,13 @@ struct StreetNamesCellStrategy : BaseCellStategy
   [self.tableView reloadData];
 }
 
-- (void)setAdditionalTTSLanguage:(pair<string, string> const &)l
+- (void)setAdditionalTTSLanguage:(std::pair<std::string, std::string> const &)l
 {
   [[MWMTextToSpeech tts] setNotificationsLocale:@(l.first.c_str())];
   m_additionalTTSLanguage = l;
 }
 
-- (vector<pair<string, string>> const &)languages
+- (std::vector<std::pair<std::string, std::string>> const &)languages
 {
   return m_languages;
 }

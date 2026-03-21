@@ -1,7 +1,9 @@
 import UIKit
 
 class ChartLineView: UIView {
-  override class var layerClass: AnyClass { CAShapeLayer.self }
+  override class var layerClass: AnyClass {
+    CAShapeLayer.self
+  }
 
   private var minX = 0
   private var maxX = 0

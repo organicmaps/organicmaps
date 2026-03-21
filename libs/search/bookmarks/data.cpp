@@ -2,15 +2,13 @@
 
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
 namespace bookmarks
 {
-string DebugPrint(Data const & data)
+std::string DebugPrint(Data const & data)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Data [";
   os << "names: " << ::DebugPrint(data.GetNames()) << ", ";
   os << "description: " << data.GetDescription() << "]";

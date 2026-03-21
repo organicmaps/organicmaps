@@ -1,6 +1,8 @@
 final class TransportTransitIntermediatePoint: TransportTransitCell {
   enum Config {
-    static var imageColor: UIColor { UIColor.primary() }
+    static var imageColor: UIColor {
+      UIColor.primary()
+    }
   }
 
   @IBOutlet private var image: UIImageView!

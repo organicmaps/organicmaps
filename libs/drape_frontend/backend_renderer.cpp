@@ -27,8 +27,6 @@
 #include <algorithm>
 #include <utility>
 
-using namespace std::placeholders;
-
 namespace df
 {
 BackendRenderer::BackendRenderer(Params && params)
@@ -37,11 +35,12 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings,
                                               params.m_trafficEnabled, params.m_isolinesEnabled,
                                               params.m_backgroundMode))
-  , m_transitBuilder(
-        make_unique_dp<TransitSchemeBuilder>(std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
-  , m_trafficGenerator(make_unique_dp<TrafficGenerator>(std::bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
-  , m_userMarkGenerator(
-        make_unique_dp<UserMarkGenerator>(std::bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
+  , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(
+        std::bind(&BackendRenderer::FlushTransitRenderData, this, std::placeholders::_1)))
+  , m_trafficGenerator(make_unique_dp<TrafficGenerator>(
+        std::bind(&BackendRenderer::FlushTrafficRenderData, this, std::placeholders::_1)))
+  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(
+        std::bind(&BackendRenderer::FlushUserMarksRenderData, this, std::placeholders::_1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
   , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
@@ -771,7 +770,10 @@ void BackendRenderer::InitContextDependentResources()
   uint32_t constexpr kBatchSize = 5000;
 
   m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(
-      kReadingThreadsCount, std::bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3), kBatchSize, kBatchSize);
+      kReadingThreadsCount,
+      std::bind(&BackendRenderer::FlushGeometry, this, std::placeholders::_1, std::placeholders::_2,
+                std::placeholders::_3),
+      kBatchSize, kBatchSize);
   m_trafficGenerator->Init();
 
   dp::TextureManager::Params params;

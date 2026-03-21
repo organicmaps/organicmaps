@@ -4,12 +4,10 @@
 
 #include <unordered_map>
 
-using namespace power_management;
-
 namespace
 {
-std::unordered_map<Scheme, FacilitiesState> const kSchemeToState = {
-    {Scheme::Normal,
+std::unordered_map<power_management::Scheme, power_management::FacilitiesState> const kSchemeToState = {
+    {power_management::Scheme::Normal,
      {{
          /* Buildings3d */ true,
          /* PerspectiveView */ true,
@@ -21,7 +19,7 @@ std::unordered_map<Scheme, FacilitiesState> const kSchemeToState = {
          /* BookmarkCloudUploading */ true,
          /* MapDownloader */ true,
      }}},
-    {Scheme::EconomyMedium,
+    {power_management::Scheme::EconomyMedium,
      {{
          /* Buildings3d */ true,
          /* PerspectiveView */ false,
@@ -33,7 +31,7 @@ std::unordered_map<Scheme, FacilitiesState> const kSchemeToState = {
          /* BookmarkCloudUploading */ false,
          /* MapDownloader */ true,
      }}},
-    {Scheme::EconomyMaximum,
+    {power_management::Scheme::EconomyMaximum,
      {{
          /* Buildings3d */ false,
          /* PerspectiveView */ false,
@@ -47,8 +45,8 @@ std::unordered_map<Scheme, FacilitiesState> const kSchemeToState = {
      }}},
 };
 
-std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState = {
-    {AutoScheme::Normal,
+std::unordered_map<power_management::AutoScheme, power_management::FacilitiesState> const kAutoSchemeToState = {
+    {power_management::AutoScheme::Normal,
      {{
          /* Buildings3d */ true,
          /* PerspectiveView */ true,
@@ -60,7 +58,7 @@ std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState = {
          /* BookmarkCloudUploading */ true,
          /* MapDownloader */ true,
      }}},
-    {AutoScheme::EconomyMedium,
+    {power_management::AutoScheme::EconomyMedium,
      {{
          /* Buildings3d */ true,
          /* PerspectiveView */ false,
@@ -72,7 +70,7 @@ std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState = {
          /* BookmarkCloudUploading */ false,
          /* MapDownloader */ false,
      }}},
-    {AutoScheme::EconomyMaximum,
+    {power_management::AutoScheme::EconomyMaximum,
      {{
          /* Buildings3d */ false,
          /* PerspectiveView */ false,

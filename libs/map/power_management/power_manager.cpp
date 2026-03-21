@@ -11,19 +11,17 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
-using namespace power_management;
-
 namespace
 {
-using Subscribers = std::vector<PowerManager::Subscriber *>;
+using Subscribers = std::vector<power_management::PowerManager::Subscriber *>;
 
-void NotifySubscribers(Subscribers & subscribers, Scheme const scheme)
+void NotifySubscribers(Subscribers & subscribers, power_management::Scheme const scheme)
 {
   for (auto & subscriber : subscribers)
     subscriber->OnPowerSchemeChanged(scheme);
 }
 
-void NotifySubscribers(Subscribers & subscribers, Facility const facility, bool enabled)
+void NotifySubscribers(Subscribers & subscribers, power_management::Facility const facility, bool enabled)
 {
   for (auto & subscriber : subscribers)
     subscriber->OnPowerFacilityChanged(facility, enabled);

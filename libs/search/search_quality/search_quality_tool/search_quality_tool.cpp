@@ -41,7 +41,6 @@
 
 #include <gflags/gflags.h>
 
-using namespace search::search_quality;
 using namespace search::tests_support;
 using namespace search;
 using namespace std::chrono;
@@ -283,7 +282,7 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
   {
     if (queriesPath.empty())
       queriesPath = base::JoinPath(GetPlatform().WritableDir(), kDefaultQueriesPathSuffix);
-    ReadStringsFromFile(queriesPath, queries);
+    search::search_quality::ReadStringsFromFile(queriesPath, queries);
   }
 
   vector<unique_ptr<TestSearchRequest>> requests;
@@ -344,24 +343,24 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
 
 int main(int argc, char * argv[])
 {
-  platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
-  CheckLocale();
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
+  search::search_quality::CheckLocale();
 
   gflags::SetUsageMessage("Search quality tests.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
+  search::search_quality::SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 
   classificator::Load();
 
   FrozenDataSource dataSource;
-  InitDataSource(dataSource, FLAGS_mwm_list_path);
+  search::search_quality::InitDataSource(dataSource, FLAGS_mwm_list_path);
 
-  auto engine = InitSearchEngine(dataSource, FLAGS_locale, FLAGS_num_threads);
+  auto engine = search::search_quality::InitSearchEngine(dataSource, FLAGS_locale, FLAGS_num_threads);
   engine->InitAffiliations();
 
   m2::RectD viewport;
-  InitViewport(FLAGS_viewport, viewport);
+  search::search_quality::InitViewport(FLAGS_viewport, viewport);
 
   ios_base::sync_with_stdio(false);
 

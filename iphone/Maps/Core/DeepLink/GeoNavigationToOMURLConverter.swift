@@ -215,7 +215,9 @@ struct GeoNavigationToOMURLConverter {
 }
 
 private extension String {
-  var nilIfEmpty: String? { isEmpty ? nil : self }
+  var nilIfEmpty: String? {
+    isEmpty ? nil : self
+  }
 }
 
 private extension URLComponents {

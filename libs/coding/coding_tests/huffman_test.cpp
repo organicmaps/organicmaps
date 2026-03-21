@@ -11,13 +11,11 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
-vector<strings::UniString> MakeUniStringVector(vector<string> const & v)
+std::vector<strings::UniString> MakeUniStringVector(std::vector<std::string> const & v)
 {
-  vector<strings::UniString> result(v.size());
+  std::vector<strings::UniString> result(v.size());
   for (size_t i = 0; i < v.size(); ++i)
     result[i] = strings::MakeUniString(v[i]);
   return result;
@@ -37,7 +35,7 @@ namespace coding
 UNIT_TEST(Huffman_Smoke)
 {
   HuffmanCoder h;
-  h.Init(MakeUniStringVector(vector<string>{"ab", "ac"}));
+  h.Init(MakeUniStringVector(std::vector<std::string>{"ab", "ac"}));
 
   TestDecode(h, 0, 1, static_cast<uint32_t>('a'));  // 0
   TestDecode(h, 1, 2, static_cast<uint32_t>('b'));  // 10
@@ -47,7 +45,7 @@ UNIT_TEST(Huffman_Smoke)
 UNIT_TEST(Huffman_OneSymbol)
 {
   HuffmanCoder h;
-  h.Init(MakeUniStringVector(vector<string>{string(5, 0)}));
+  h.Init(MakeUniStringVector(std::vector<std::string>{std::string(5, 0)}));
 
   TestDecode(h, 0, 0, 0);
 }
@@ -55,9 +53,9 @@ UNIT_TEST(Huffman_OneSymbol)
 UNIT_TEST(Huffman_NonAscii)
 {
   HuffmanCoder h;
-  string const data = "2πΩ";
+  std::string const data = "2πΩ";
   strings::UniString const uniData = strings::MakeUniString(data);
-  h.Init(vector<strings::UniString>{uniData});
+  h.Init(std::vector<strings::UniString>{uniData});
 
   TestDecode(h, 0, 2, static_cast<uint32_t>(uniData[0]));  // 00
   TestDecode(h, 1, 1, static_cast<uint32_t>(uniData[1]));  // 1
@@ -67,9 +65,9 @@ UNIT_TEST(Huffman_NonAscii)
 UNIT_TEST(Huffman_Init)
 {
   HuffmanCoder h;
-  h.Init(MakeUniStringVector(vector<string>{"ab"}));
+  h.Init(MakeUniStringVector(std::vector<std::string>{"ab"}));
 
-  vector<uint8_t> buf;
+  std::vector<uint8_t> buf;
   buf.push_back(16);   // size
   buf.push_back(105);  // 01101001
   buf.push_back(150);  // 10010110
@@ -85,9 +83,9 @@ UNIT_TEST(Huffman_Init)
 UNIT_TEST(Huffman_Serialization_Encoding)
 {
   HuffmanCoder hW;
-  hW.Init(MakeUniStringVector(vector<string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
-  vector<uint8_t> buf;
-  MemWriter<vector<uint8_t>> writer(buf);
+  hW.Init(MakeUniStringVector(std::vector<std::string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
+  std::vector<uint8_t> buf;
+  MemWriter<std::vector<uint8_t>> writer(buf);
   hW.WriteEncoding(writer);
 
   HuffmanCoder hR;
@@ -111,13 +109,13 @@ UNIT_TEST(Huffman_Serialization_Encoding)
 UNIT_TEST(Huffman_Serialization_Data)
 {
   HuffmanCoder hW;
-  hW.Init(MakeUniStringVector(vector<string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
-  vector<uint8_t> buf;
+  hW.Init(MakeUniStringVector(std::vector<std::string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
+  std::vector<uint8_t> buf;
 
-  string const data = "abacabaddddaaabbcabacabadbabd";
+  std::string const data = "abacabaddddaaabbcabacabadbabd";
   strings::UniString expected = strings::UniString(data.begin(), data.end());
 
-  MemWriter<vector<uint8_t>> writer(buf);
+  MemWriter<std::vector<uint8_t>> writer(buf);
   hW.WriteEncoding(writer);
   hW.EncodeAndWrite(writer, expected);
 

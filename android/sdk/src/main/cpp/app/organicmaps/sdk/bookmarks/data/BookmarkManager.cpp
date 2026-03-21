@@ -19,9 +19,6 @@
 #include <limits>
 #include <utility>
 
-using namespace jni;
-using namespace std::placeholders;
-
 namespace
 {
 jclass g_bookmarkManagerClass;
@@ -241,8 +238,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoa
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&OnAsyncLoadingStarted, env);
   callbacks.m_onFinished = std::bind(&OnAsyncLoadingFinished, env);
-  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, _1, _2);
-  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, _1, _2);
+  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, std::placeholders::_1, std::placeholders::_2);
+  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, std::placeholders::_1, std::placeholders::_2);
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
@@ -253,7 +250,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoa
 JNIEXPORT jlong Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeCreateCategory(JNIEnv * env, jobject,
                                                                                              jstring name)
 {
-  auto const categoryId = frm()->GetBookmarkManager().CreateBookmarkCategory(ToNativeString(env, name));
+  auto const categoryId = frm()->GetBookmarkManager().CreateBookmarkCategory(jni::ToNativeString(env, name));
   frm()->GetBookmarkManager().SetLastEditedBmCategory(categoryId);
   return static_cast<jlong>(categoryId);
 }
@@ -321,7 +318,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoa
                                                                                                jstring path,
                                                                                                jboolean isTemporaryFile)
 {
-  frm()->AddBookmarksFile(ToNativeString(env, path), isTemporaryFile);
+  frm()->AddBookmarksFile(jni::ToNativeString(env, path), isTemporaryFile);
 }
 
 JNIEXPORT jboolean JNICALL
@@ -399,7 +396,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeIsUsedCategoryName(JNIEnv * env, jclass, jstring name)
 {
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsUsedCategoryName(ToNativeString(env, name)));
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsUsedCategoryName(jni::ToNativeString(env, name)));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareForSearch(JNIEnv *, jclass,
@@ -504,7 +501,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGet
   sortParams.m_sortingType = static_cast<BookmarkManager::SortingType>(sortingType);
   sortParams.m_hasMyPosition = static_cast<bool>(hasMyPosition);
   sortParams.m_myPosition = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
-  sortParams.m_onResults = bind(&OnCategorySortingResults, env, timestamp, _1, _2);
+  sortParams.m_onResults =
+      std::bind(&OnCategorySortingResults, env, timestamp, std::placeholders::_1, std::placeholders::_2);
 
   bm.GetSortedCategory(sortParams);
 }

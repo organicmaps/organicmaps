@@ -3,12 +3,10 @@
 
 #include "base/assert.hpp"
 
-using namespace emul;
-
 dp::ApiVersion GLFunctions::CurrentApiVersion = dp::ApiVersion::Invalid;
 dp::GLExtensionsList GLFunctions::ExtensionsList;
 
-#define MOCK_CALL(f) GLMockFunctions::Instance().f;
+#define MOCK_CALL(f) emul::GLMockFunctions::Instance().f;
 
 void GLFunctions::Init(dp::ApiVersion apiVersion)
 {

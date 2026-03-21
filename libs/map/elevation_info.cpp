@@ -4,7 +4,6 @@
 
 #include "geometry/mercator.hpp"
 
-using namespace geometry;
 using namespace mercator;
 
 ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)

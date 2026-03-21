@@ -290,7 +290,7 @@ private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
   static var results = SearchOnMap.SearchResults.empty {
     didSet {
-      observers.forEach { observer in
+      for observer in observers {
         observer.onSearchCompleted?()
       }
     }
@@ -310,9 +310,17 @@ private class SearchManagerMock: SearchManager {
   static func searchQuery(_: SearchQuery) {}
   static func showResult(at _: UInt) {}
   static func clear() {}
-  static func getResults() -> [SearchResult] { results.results }
-  static func searchMode() -> SearchMode { _searchMode }
-  static func setSearchMode(_ mode: SearchMode) { _searchMode = mode }
+  static func getResults() -> [SearchResult] {
+    results.results
+  }
+
+  static func searchMode() -> SearchMode {
+    _searchMode
+  }
+
+  static func setSearchMode(_ mode: SearchMode) {
+    _searchMode = mode
+  }
 }
 
 private extension SearchResult {

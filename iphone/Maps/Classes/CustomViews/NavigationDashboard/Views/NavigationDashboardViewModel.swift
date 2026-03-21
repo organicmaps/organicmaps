@@ -16,6 +16,7 @@ enum NavigationDashboard {
         }
       }
     }
+
     var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep
     var progress: CGFloat
     var navigationSearchState: NavigationSearchState?
@@ -55,7 +56,9 @@ extension NavigationDashboard.ViewModel {
     )
   }
 
-  var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
+  var isBottomActionsMenuHidden: Bool {
+    presentationStep == .hidden
+  }
 
   var startButtonState: StartRouteButton.State {
     if routePoints.count < 2 ||

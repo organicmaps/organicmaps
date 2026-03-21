@@ -9,8 +9,6 @@
 #include <functional>
 #include <list>
 
-using namespace std::placeholders;
-
 #ifdef DEBUG
 
 namespace
@@ -20,7 +18,7 @@ class UserEventStreamTest : df::UserEventStream::Listener
 public:
   explicit UserEventStreamTest(bool filtrateTouches) : m_filtrate(filtrateTouches)
   {
-    m_stream.SetTestBridge(std::bind(&UserEventStreamTest::TestBridge, this, _1));
+    m_stream.SetTestBridge(std::bind(&UserEventStreamTest::TestBridge, this, std::placeholders::_1));
   }
 
   void OnTap(m2::PointD const & pt, bool isLong) override {}

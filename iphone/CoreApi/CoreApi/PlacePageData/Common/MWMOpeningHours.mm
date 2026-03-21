@@ -3,17 +3,14 @@
 
 #include "editor/ui2oh.hpp"
 
-using namespace editor;
-using namespace osmoh;
-
 namespace
 {
-NSString * stringFromTimeSpan(Timespan const & timeSpan)
+NSString * stringFromTimeSpan(osmoh::Timespan const & timeSpan)
 {
-  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
+  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
 }
 
-NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHoursLocalization> localization)
+NSString * breaksFromClosedTime(osmoh::TTimespans const & closedTimes, id<IOpeningHoursLocalization> localization)
 {
   NSMutableString * breaks = [@"" mutableCopy];
   auto const size = closedTimes.size();
@@ -27,7 +24,7 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHours
   return [breaks copy];
 }
 
-void addToday(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
+void addToday(editor::ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
 {
   NSString * workingDays;
   NSString * workingTimes;
@@ -55,7 +52,7 @@ void addClosedToday(std::vector<Day> & allDays, id<IOpeningHoursLocalization> lo
   allDays.emplace(allDays.begin(), localization.dayOffString);
 }
 
-void addDay(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
+void addDay(editor::ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
 {
   NSString * workingDays = stringFromOpeningDays(tt.GetOpeningDays());
   NSString * workingTimes;
@@ -72,7 +69,7 @@ void addDay(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHou
   allDays.emplace_back(workingDays, workingTimes, breaks);
 }
 
-void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
+void addUnhandledDays(editor::ui::OpeningDays const & days, std::vector<Day> & allDays)
 {
   if (!days.empty())
     allDays.emplace_back(stringFromOpeningDays(days));
@@ -88,8 +85,8 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOp
   osmoh::OpeningHours oh(str.UTF8String);
   bool const isClosed = oh.IsClosed(time(nullptr));
 
-  ui::TimeTableSet timeTableSet;
-  if (!MakeTimeTableSet(oh, timeTableSet))
+  editor::ui::TimeTableSet timeTableSet;
+  if (!editor::MakeTimeTableSet(oh, timeTableSet))
     return {{}, isClosed};
 
   std::vector<Day> days;
@@ -98,7 +95,7 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOp
   cal.locale = NSLocale.currentLocale;
 
   auto const timeTablesSize = timeTableSet.Size();
-  auto const today = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  auto const today = static_cast<osmoh::Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   auto const unhandledDays = timeTableSet.GetUnhandledDays();
 
   /// Schedule contains more than one rule for all days or unhandled days.

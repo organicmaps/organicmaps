@@ -6,7 +6,9 @@ enum ChartYAxisViewAlignment {
 }
 
 private class ChartYAxisInnerView: UIView {
-  override class var layerClass: AnyClass { CAShapeLayer.self }
+  override class var layerClass: AnyClass {
+    CAShapeLayer.self
+  }
 
   private static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
   var lowerBound: CGFloat = 0

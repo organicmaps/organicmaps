@@ -17,9 +17,6 @@ extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation;
 
 @end
 
-using namespace editor::ui;
-using namespace osmoh;
-
 @implementation MWMOpeningHoursSection
 
 - (instancetype _Nonnull)initWithDelegate:(id<MWMOpeningHoursSectionProtocol> _Nonnull)delegate
@@ -111,7 +108,7 @@ using namespace osmoh;
   BOOL const isClosed = [self cellKeyForRow:row] == MWMOpeningHoursEditorClosedSpanCell;
   auto tt = [self timeTableProxy];
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
-  Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
+  osmoh::Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
   return dateComponentsFromTime(isStart ? span.GetStart() : span.GetEnd());
 }
 
@@ -123,20 +120,20 @@ using namespace osmoh;
   auto tt = [self timeTableProxy];
   NSUInteger const row = self.selectedRow.unsignedIntegerValue;
   NSUInteger const index = isClosed ? [self closedTimeIndex:row] : 0;
-  Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
+  osmoh::Timespan span = isClosed ? tt.GetExcludeTime()[index] : tt.GetOpeningTime();
 
   if (startTime)
   {
-    HourMinutes startHM;
-    startHM.SetHours(HourMinutes::THours(startTime.hour));
-    startHM.SetMinutes(HourMinutes::TMinutes(startTime.minute));
+    osmoh::HourMinutes startHM;
+    startHM.SetHours(osmoh::HourMinutes::THours(startTime.hour));
+    startHM.SetMinutes(osmoh::HourMinutes::TMinutes(startTime.minute));
     span.SetStart(startHM);
   }
   if (endTime)
   {
-    HourMinutes endHM;
-    endHM.SetHours(HourMinutes::THours(endTime.hour));
-    endHM.SetMinutes(HourMinutes::TMinutes(endTime.minute));
+    osmoh::HourMinutes endHM;
+    endHM.SetHours(osmoh::HourMinutes::THours(endTime.hour));
+    endHM.SetMinutes(osmoh::HourMinutes::TMinutes(endTime.minute));
     span.SetEnd(endHM);
   }
 
@@ -184,7 +181,7 @@ using namespace osmoh;
 
   NSUInteger const closedTimesCountBeforeUpdate = [self closedTimesCount];
 
-  Timespan timeSpan = timeTable.GetPredefinedExcludeTime();
+  osmoh::Timespan timeSpan = timeTable.GetPredefinedExcludeTime();
   timeTable.AddExcludeTime(timeSpan);
   timeTable.Commit();
 
@@ -225,7 +222,7 @@ using namespace osmoh;
 
 #pragma mark - Selected days
 
-- (void)addSelectedDay:(Weekday)day
+- (void)addSelectedDay:(osmoh::Weekday)day
 {
   auto timeTable = [self timeTableProxy];
   auto openingDays(timeTable.GetOpeningDays());
@@ -235,7 +232,7 @@ using namespace osmoh;
   [self refresh:YES];
 }
 
-- (void)removeSelectedDay:(Weekday)day
+- (void)removeSelectedDay:(osmoh::Weekday)day
 {
   auto timeTable = [self timeTableProxy];
   auto openingDays(timeTable.GetOpeningDays());
@@ -245,7 +242,7 @@ using namespace osmoh;
   [self refresh:YES];
 }
 
-- (BOOL)containsSelectedDay:(Weekday)day
+- (BOOL)containsSelectedDay:(osmoh::Weekday)day
 {
   auto timeTable = [self timeTableProxy];
   auto const & openingDays = timeTable.GetOpeningDays();
@@ -303,7 +300,7 @@ using namespace osmoh;
 
 #pragma mark - Model
 
-- (TimeTableSet::Proxy)timeTableProxy
+- (editor::ui::TimeTableSet::Proxy)timeTableProxy
 {
   return [self.delegate timeTableProxy:self.index];
 }

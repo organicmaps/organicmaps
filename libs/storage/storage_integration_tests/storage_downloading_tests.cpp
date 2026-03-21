@@ -23,7 +23,6 @@
 #include <functional>
 #include <string>
 
-using namespace platform;
 using namespace storage;
 using namespace std;
 using namespace std::placeholders;

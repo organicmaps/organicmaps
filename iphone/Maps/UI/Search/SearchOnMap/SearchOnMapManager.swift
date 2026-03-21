@@ -5,11 +5,16 @@ protocol SearchOnMapManagerObserver: AnyObject {
 
 @objcMembers
 final class SearchOnMapManager: NSObject {
-  private var interactor: SearchOnMapInteractor? { viewController?.interactor }
+  private var interactor: SearchOnMapInteractor? {
+    viewController?.interactor
+  }
+
   private let observers = ListenerContainer<SearchOnMapManagerObserver>()
 
   weak var viewController: SearchOnMapViewController?
-  var isSearching: Bool { viewController != nil }
+  var isSearching: Bool {
+    viewController != nil
+  }
 
   override init() {
     super.init()

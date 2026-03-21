@@ -6,8 +6,6 @@
 #include <set>
 #include <vector>
 
-using namespace base;
-
 namespace
 {
 template <typename Elem>

@@ -21,8 +21,6 @@ enum class State
 };
 }  // namespace
 
-using namespace storage;
-
 @interface MWMAutoupdateView : UIView
 
 @property(weak, nonatomic) IBOutlet UIImageView * image;
@@ -112,7 +110,7 @@ using namespace storage;
   self.spinner = nil;
 }
 
-- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
+- (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(storage::NodeAttrs const &)nodeAttrs
 {
   auto const progress = nodeAttrs.m_downloadingProgress;
   if (progress.m_bytesTotal > 0)
@@ -143,12 +141,12 @@ using namespace storage;
 
 @interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMStorageObserver>
 {
-  std::unordered_set<CountryId> m_updatingCountries;
+  std::unordered_set<storage::CountryId> m_updatingCountries;
 }
 
 @property(nonatomic) Framework::DoAfterUpdate todo;
 @property(nonatomic) MwmSize sizeInMB;
-@property(nonatomic) NodeErrorCode errorCode;
+@property(nonatomic) storage::NodeErrorCode errorCode;
 @property(nonatomic) BOOL progressFinished;
 
 @end
@@ -250,10 +248,10 @@ using namespace storage;
                       completion:nil];
 }
 
-- (void)updateProcessStatus:(CountryId const &)countryId
+- (void)updateProcessStatus:(storage::CountryId const &)countryId
 {
   auto const & s = GetFramework().GetStorage();
-  NodeAttrs nodeAttrs;
+  storage::NodeAttrs nodeAttrs;
   s.GetNodeAttrs(s.GetRootId(), nodeAttrs);
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
@@ -273,9 +271,9 @@ using namespace storage;
 
 - (void)processCountryEvent:(NSString *)countryId
 {
-  NodeStatuses nodeStatuses;
+  storage::NodeStatuses nodeStatuses;
   GetFramework().GetStorage().GetNodeStatuses(countryId.UTF8String, nodeStatuses);
-  if (nodeStatuses.m_status == NodeStatus::Error)
+  if (nodeStatuses.m_status == storage::NodeStatus::Error)
   {
     self.errorCode = nodeStatuses.m_error;
     SEL const process = @selector(processError);
@@ -287,8 +285,8 @@ using namespace storage;
   {
     switch (nodeStatuses.m_status)
     {
-    case NodeStatus::Error:
-    case NodeStatus::OnDisk: m_updatingCountries.erase(countryId.UTF8String); break;
+    case storage::NodeStatus::Error:
+    case storage::NodeStatus::OnDisk: m_updatingCountries.erase(countryId.UTF8String); break;
     default: m_updatingCountries.insert(countryId.UTF8String);
     }
   }

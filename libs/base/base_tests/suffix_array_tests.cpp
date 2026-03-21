@@ -6,39 +6,36 @@
 #include <string>
 #include <vector>
 
-using namespace base;
-using namespace std;
-
-#define TEST_STR_EQUAL(X, Y, msg) TEST_EQUAL(string(X), string(Y), msg)
+#define TEST_STR_EQUAL(X, Y, msg) TEST_EQUAL(std::string(X), std::string(Y), msg)
 
 namespace
 {
 UNIT_TEST(Skew_Smoke)
 {
-  Skew(0, nullptr /* s */, nullptr /* sa */);
+  base::Skew(0, nullptr /* s */, nullptr /* sa */);
 }
 
 UNIT_TEST(Skew_Simple)
 {
   {
-    string const s;
-    vector<size_t> pos;
-    Skew(s, pos);
+    std::string const s;
+    std::vector<size_t> pos;
+    base::Skew(s, pos);
     TEST_EQUAL(pos.size(), s.size(), ());
   }
 
   {
-    string const s = "a";
-    vector<size_t> pos;
-    Skew(s, pos);
+    std::string const s = "a";
+    std::vector<size_t> pos;
+    base::Skew(s, pos);
     TEST_EQUAL(pos.size(), s.size(), ());
     TEST_EQUAL(pos[0], 0, ());
   }
 
   {
-    string const s = "aaaa";
-    vector<size_t> pos;
-    Skew(s, pos);
+    std::string const s = "aaaa";
+    std::vector<size_t> pos;
+    base::Skew(s, pos);
     TEST_EQUAL(pos.size(), s.size(), ());
     TEST_EQUAL(pos[0], 3, ());
     TEST_EQUAL(pos[1], 2, ());
@@ -48,9 +45,9 @@ UNIT_TEST(Skew_Simple)
 
   for (size_t length = 0; length < 100; ++length)
   {
-    string const s(length, 'a');
-    vector<size_t> pos;
-    Skew(s, pos);
+    std::string const s(length, 'a');
+    std::vector<size_t> pos;
+    base::Skew(s, pos);
     TEST_EQUAL(pos.size(), s.size(), ());
     for (size_t i = 0; i < pos.size(); ++i)
       TEST_EQUAL(pos[i], pos.size() - i - 1, ());
@@ -58,9 +55,9 @@ UNIT_TEST(Skew_Simple)
 
   for (size_t length = 0; length < 100; ++length)
   {
-    string const s(length, '\0');
-    vector<size_t> pos;
-    Skew(s, pos);
+    std::string const s(length, '\0');
+    std::vector<size_t> pos;
+    base::Skew(s, pos);
     TEST_EQUAL(pos.size(), s.size(), ());
     for (size_t i = 0; i < pos.size(); ++i)
       TEST_EQUAL(pos[i], pos.size() - i - 1, ());
@@ -73,8 +70,8 @@ UNIT_TEST(Skew_Classic)
   size_t const n = strlen(s);
   TEST_EQUAL(n, 11, ());
 
-  vector<size_t> pos(n);
-  Skew(n, reinterpret_cast<uint8_t const *>(s), pos.data());
+  std::vector<size_t> pos(n);
+  base::Skew(n, reinterpret_cast<uint8_t const *>(s), pos.data());
 
   TEST_STR_EQUAL("i", s + pos[0], ());
   TEST_STR_EQUAL("ippi", s + pos[1], ());

@@ -13,18 +13,16 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 UNIT_TEST(MyersSimpleDiff)
 {
-  vector<char> tmp;
-  PushBackByteSink<vector<char>> sink(tmp);
-  TEST_EQUAL(4, diff::DiffMyersSimple(string("axxxb"), string("cxxxd"), 5, sink), ());
-  TEST_EQUAL(5, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 10, sink), ());
-  TEST_EQUAL(5, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 5, sink), ());
-  TEST_EQUAL(-1, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 4, sink), ());
-  TEST_EQUAL(-1, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 2, sink), ());
-  TEST_EQUAL(-1, diff::DiffMyersSimple(string("abcabba"), string("cbabac"), 1, sink), ());
+  std::vector<char> tmp;
+  PushBackByteSink<std::vector<char>> sink(tmp);
+  TEST_EQUAL(4, diff::DiffMyersSimple(std::string("axxxb"), std::string("cxxxd"), 5, sink), ());
+  TEST_EQUAL(5, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 10, sink), ());
+  TEST_EQUAL(5, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 5, sink), ());
+  TEST_EQUAL(-1, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 4, sink), ());
+  TEST_EQUAL(-1, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 2, sink), ());
+  TEST_EQUAL(-1, diff::DiffMyersSimple(std::string("abcabba"), std::string("cbabac"), 1, sink), ());
 }
 
 class TestPatchWriter
@@ -39,10 +37,10 @@ public:
 
   void WriteOperation(uint64_t op) { m_Stream << op << "."; }
 
-  string Str() { return m_Stream.str(); }
+  std::string Str() { return m_Stream.str(); }
 
 private:
-  ostringstream m_Stream;
+  std::ostringstream m_Stream;
 };
 
 UNIT_TEST(PatchCoderCopyFirst)
@@ -119,10 +117,10 @@ public:
     m_Stream << ".";
   }
   void Finalize() {}
-  string Str() { return m_Stream.str(); }
+  std::string Str() { return m_Stream.str(); }
 
 private:
-  ostringstream m_Stream;
+  std::ostringstream m_Stream;
 };
 
 UNIT_TEST(DiffSimpleReplace)

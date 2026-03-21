@@ -29,7 +29,11 @@ final class VisibleArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    []
+  }
 
-  var visibleAreaAffectView: UIView { self }
+  var visibleAreaAffectView: UIView {
+    self
+  }
 }

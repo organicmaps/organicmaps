@@ -269,7 +269,7 @@ private extension AboutController {
 
   func buildInfoTableViewData() -> [AboutInfoTableViewCellModel] {
     let infoContent: [AboutInfo] = [.faq, .reportMapDataProblem, .reportABug, .news, .volunteer, .rateTheApp]
-    let data = infoContent.map { [weak self] aboutInfo in
+    return infoContent.map { [weak self] aboutInfo in
       return AboutInfoTableViewCellModel(title: aboutInfo.title, image: aboutInfo.image, didTapHandler: {
         switch aboutInfo {
         case .faq:
@@ -285,12 +285,11 @@ private extension AboutController {
         }
       })
     }
-    return data
   }
 
   func buildSocialMediaCollectionViewData() -> [SocialMediaCollectionViewCellModel] {
     let socialMediaContent = SocialMedia.allCases
-    let data = socialMediaContent.map { [weak self] socialMedia in
+    return socialMediaContent.map { [weak self] socialMedia in
       return SocialMediaCollectionViewCellModel(image: socialMedia.image, didTapHandler: {
         switch socialMedia {
         case .telegram: fallthrough
@@ -311,10 +310,9 @@ private extension AboutController {
         }
       })
     }
-    return data
   }
 
-  // Returns a human-readable maps data version.
+  /// Returns a human-readable maps data version.
   static func formattedMapsDataVersion() -> String {
     // First, convert version code like 220131 to a date.
     let df = DateFormatter()

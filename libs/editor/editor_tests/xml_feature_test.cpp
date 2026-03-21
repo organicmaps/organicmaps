@@ -16,11 +16,9 @@
 
 #include <pugixml.hpp>
 
-using namespace editor;
-
 UNIT_TEST(XMLFeature_RawGetSet)
 {
-  XMLFeature feature(XMLFeature::Type::Node);
+  editor::XMLFeature feature(editor::XMLFeature::Type::Node);
   TEST(!feature.HasTag("opening_hours"), ());
   TEST(!feature.HasAttribute("center"), ());
 
@@ -49,7 +47,7 @@ UNIT_TEST(XMLFeature_RawGetSet)
 
 UNIT_TEST(XMLFeature_Setters)
 {
-  XMLFeature feature(XMLFeature::Type::Node);
+  editor::XMLFeature feature(editor::XMLFeature::Type::Node);
 
   feature.SetCenter(mercator::FromLatLon(55.7978998, 37.4745280));
   feature.SetModificationTime(base::StringToTimestamp("2015-11-27T21:13:32Z"));
@@ -83,7 +81,7 @@ UNIT_TEST(XMLFeature_Setters)
 
 UNIT_TEST(XMLFeature_UintLang)
 {
-  XMLFeature feature(XMLFeature::Type::Node);
+  editor::XMLFeature feature(editor::XMLFeature::Type::Node);
 
   feature.SetCenter(mercator::FromLatLon(55.79, 37.47));
   feature.SetModificationTime(base::StringToTimestamp("2015-11-27T21:13:32Z"));
@@ -104,7 +102,7 @@ UNIT_TEST(XMLFeature_UintLang)
 
   TEST_EQUAL(sstr.str(), expectedString, ());
 
-  XMLFeature f2(expectedString);
+  editor::XMLFeature f2(expectedString);
   TEST_EQUAL(f2.GetName(StringUtf8Multilang::kDefaultCode), "Gorki Park", ());
   TEST_EQUAL(f2.GetName(StringUtf8Multilang::GetLangIndex("ru")), "Парк Горького", ());
   TEST_EQUAL(f2.GetName(StringUtf8Multilang::kInternationalCode), "Gorky Park", ());
@@ -117,7 +115,7 @@ UNIT_TEST(XMLFeature_UintLang)
 
 UNIT_TEST(XMLFeature_ToOSMString)
 {
-  XMLFeature feature(XMLFeature::Type::Node);
+  editor::XMLFeature feature(editor::XMLFeature::Type::Node);
   feature.SetCenter(mercator::FromLatLon(55.7978998, 37.4745280));
   feature.SetName("OSM");
   feature.SetTagValue("amenity", "atm");
@@ -141,7 +139,7 @@ UNIT_TEST(XMLFeature_HasTags)
   <tag k="amenity" v="atm" />
 </node>
 )";
-  XMLFeature taggedFeature(taggedNode);
+  editor::XMLFeature taggedFeature(taggedNode);
   TEST(taggedFeature.HasAnyTags(), ());
   TEST(taggedFeature.HasTag("amenity"), ());
   TEST(taggedFeature.HasKey("amenity"), ());
@@ -154,7 +152,7 @@ UNIT_TEST(XMLFeature_HasTags)
   constexpr char const * emptyWay = R"(
 <way timestamp="2015-11-27T21:13:32Z"/>
 )";
-  XMLFeature emptyFeature(emptyWay);
+  editor::XMLFeature emptyFeature(emptyWay);
   TEST(!emptyFeature.HasAnyTags(), ());
   TEST(emptyFeature.HasAttribute("timestamp"), ());
 }
@@ -177,7 +175,7 @@ UNIT_TEST(XMLFeature_FromXml)
   std::map<std::string_view, std::string_view> kTestNames{
       {"default", "Gorki Park"}, {"en", "Gorki Park"}, {"ru", "Парк Горького"}, {"int_name", "Gorky Park"}};
 
-  XMLFeature feature(kTestNode);
+  editor::XMLFeature feature(kTestNode);
 
   std::stringstream sstr;
   feature.Save(sstr);
@@ -222,15 +220,15 @@ UNIT_TEST(XMLFeature_FromOSM)
   </osm>
   )";
 
-  TEST_ANY_THROW(XMLFeature::FromOSM(""), ());
-  TEST_ANY_THROW(XMLFeature::FromOSM("This is not XML"), ());
-  TEST_ANY_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?>"), ());
-  TEST_NO_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?><osm></osm>"), ());
-  TEST_ANY_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?><osm><node lat=\"11.11\"/></osm>"), ());
-  std::vector<XMLFeature> features;
-  TEST_NO_THROW(features = XMLFeature::FromOSM(kTestNodeWay), ());
+  TEST_ANY_THROW(editor::XMLFeature::FromOSM(""), ());
+  TEST_ANY_THROW(editor::XMLFeature::FromOSM("This is not XML"), ());
+  TEST_ANY_THROW(editor::XMLFeature::FromOSM("<?xml version=\"1.0\"?>"), ());
+  TEST_NO_THROW(editor::XMLFeature::FromOSM("<?xml version=\"1.0\"?><osm></osm>"), ());
+  TEST_ANY_THROW(editor::XMLFeature::FromOSM("<?xml version=\"1.0\"?><osm><node lat=\"11.11\"/></osm>"), ());
+  std::vector<editor::XMLFeature> features;
+  TEST_NO_THROW(features = editor::XMLFeature::FromOSM(kTestNodeWay), ());
   TEST_EQUAL(3, features.size(), ());
-  XMLFeature const & node = features[0];
+  editor::XMLFeature const & node = features[0];
   TEST_EQUAL(node.GetAttribute("id"), "4", ());
   TEST_EQUAL(node.GetTagValue("test"), "value", ());
   TEST_EQUAL(features[2].GetTagValue("hi"), "test", ());
@@ -248,10 +246,10 @@ UNIT_TEST(XMLFeature_FromXmlNode)
 
   pugi::xml_document doc;
   doc.load_string(kTestNode);
-  XMLFeature const feature(doc.child("osm").child("node"));
+  editor::XMLFeature const feature(doc.child("osm").child("node"));
   TEST_EQUAL(feature.GetAttribute("id"), "4", ());
   TEST_EQUAL(feature.GetTagValue("amenity"), "fountain", ());
-  XMLFeature const copy(feature);
+  editor::XMLFeature const copy(feature);
   TEST_EQUAL(copy.GetAttribute("id"), "4", ());
   TEST_EQUAL(copy.GetTagValue("amenity"), "fountain", ());
 }
@@ -262,7 +260,7 @@ UNIT_TEST(XMLFeature_Geometry)
       {28.7206411, 3.7182409},  {46.7569003, 47.0774689}, {22.5909217, 41.6994874}, {14.7537008, 17.7788229},
       {55.1261701, 10.3199476}, {28.6519654, 50.0305930}, {28.7206411, 3.7182409}};
 
-  XMLFeature feature(XMLFeature::Type::Way);
+  editor::XMLFeature feature(editor::XMLFeature::Type::Way);
   feature.SetGeometry(geometry);
   TEST_EQUAL(feature.GetGeometry(), geometry, ());
 }
@@ -381,7 +379,7 @@ UNIT_TEST(XMLFeature_AmenityRecyclingFromAndToXml)
 
 UNIT_TEST(XMLFeature_Diet)
 {
-  XMLFeature ft(XMLFeature::Type::Node);
+  editor::XMLFeature ft(editor::XMLFeature::Type::Node);
   TEST(ft.GetCuisine().empty(), ());
 
   ft.SetCuisine("vegan;vegetarian");

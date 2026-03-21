@@ -2,17 +2,15 @@
 
 #include "platform/platform.hpp"
 
-using namespace std::chrono;
-
 void StorageDownloadingPolicy::EnableCellularDownload(bool enabled)
 {
   m_cellularDownloadEnabled = enabled;
-  m_disableCellularTime = steady_clock::now() + hours(1);
+  m_disableCellularTime = std::chrono::steady_clock::now() + std::chrono::hours(1);
 }
 
 bool StorageDownloadingPolicy::IsCellularDownloadEnabled()
 {
-  if (m_cellularDownloadEnabled && steady_clock::now() > m_disableCellularTime)
+  if (m_cellularDownloadEnabled && std::chrono::steady_clock::now() > m_disableCellularTime)
     m_cellularDownloadEnabled = false;
 
   return m_cellularDownloadEnabled;

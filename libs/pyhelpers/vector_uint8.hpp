@@ -14,8 +14,6 @@
 
 namespace
 {
-using namespace boost::python;
-
 // Converts a vector<uint8_t> to Python2 str or Python3 bytes.
 struct vector_uint8t_to_str
 {
@@ -33,7 +31,8 @@ struct vector_uint8t_from_python_str
 {
   vector_uint8t_from_python_str()
   {
-    converter::registry::push_back(&convertible, &construct, type_id<std::vector<uint8_t>>());
+    boost::python::converter::registry::push_back(&convertible, &construct,
+                                                  boost::python::type_id<std::vector<uint8_t>>());
   }
 
   static void * convertible(PyObject * obj_ptr)
@@ -43,12 +42,13 @@ struct vector_uint8t_from_python_str
     return obj_ptr;
   }
 
-  static void construct(PyObject * obj_ptr, converter::rvalue_from_python_stage1_data * data)
+  static void construct(PyObject * obj_ptr, boost::python::converter::rvalue_from_python_stage1_data * data)
   {
     char const * value = PyBytes_AsString(obj_ptr);
     if (value == nullptr)
-      throw_error_already_set();
-    void * storage = ((converter::rvalue_from_python_storage<std::vector<uint8_t>> *)data)->storage.bytes;
+      boost::python::throw_error_already_set();
+    void * storage =
+        ((boost::python::converter::rvalue_from_python_storage<std::vector<uint8_t>> *)data)->storage.bytes;
     new (storage) std::vector<uint8_t>(value, value + PyBytes_Size(obj_ptr));
     data->convertible = storage;
   }

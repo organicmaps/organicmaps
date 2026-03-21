@@ -7,14 +7,12 @@
 #include <iomanip>
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
 // Tracer::Parse -----------------------------------------------------------------------------------
-Tracer::Parse::Parse(vector<TokenType> const & types, bool category) : m_category(category)
+Tracer::Parse::Parse(std::vector<TokenType> const & types, bool category) : m_category(category)
 {
-  size_t i = 0;
+  std::size_t i = 0;
   while (i != types.size())
   {
     auto const type = types[i];
@@ -27,14 +25,14 @@ Tracer::Parse::Parse(vector<TokenType> const & types, bool category) : m_categor
   }
 }
 
-Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges, bool category) : m_category(category)
+Tracer::Parse::Parse(std::vector<std::pair<TokenType, TokenRange>> const & ranges, bool category) : m_category(category)
 {
   for (auto const & kv : ranges)
     m_ranges[kv.first] = kv.second;
 }
 
 // Tracer ------------------------------------------------------------------------------------------
-vector<Tracer::Parse> Tracer::GetUniqueParses() const
+std::vector<Tracer::Parse> Tracer::GetUniqueParses() const
 {
   auto parses = m_parses;
   base::SortUnique(parses);
@@ -60,15 +58,15 @@ void ResultTracer::LeaveMethod(Branch branch)
 }
 
 // Functions ---------------------------------------------------------------------------------------
-string DebugPrint(Tracer::Parse const & parse)
+std::string DebugPrint(Tracer::Parse const & parse)
 {
   using TokenType = Tracer::Parse::TokenType;
 
-  ostringstream os;
+  std::ostringstream os;
   os << "Parse [";
 
   bool first = true;
-  for (size_t i = 0; i < TokenType::TOKEN_TYPE_COUNT; ++i)
+  for (std::size_t i = 0; i < TokenType::TOKEN_TYPE_COUNT; ++i)
   {
     auto const & range = parse.m_ranges[i];
     if (range.Begin() == range.End())
@@ -81,13 +79,13 @@ string DebugPrint(Tracer::Parse const & parse)
     first = false;
   }
 
-  os << ", category: " << boolalpha << parse.m_category;
+  os << ", category: " << std::boolalpha << parse.m_category;
   os << "]";
 
   return os.str();
 }
 
-string DebugPrint(ResultTracer::Branch branch)
+std::string DebugPrint(ResultTracer::Branch branch)
 {
   switch (branch)
   {

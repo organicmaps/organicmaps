@@ -14,9 +14,6 @@
 #include <memory>
 #include <vector>
 
-using namespace indexer;
-using namespace std;
-
 char const g_testCategoriesTxt[] =
     "amenity-bench\n"
     "en:1bench|sit down|to sit\n"
@@ -96,7 +93,7 @@ UNIT_TEST(LoadCategories)
 {
   classificator::Load();
 
-  CategoriesHolder h(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
+  CategoriesHolder h(std::make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);
@@ -150,7 +147,7 @@ UNIT_TEST(CategoriesHolder_ForEach)
       "";
 
   classificator::Load();
-  CategoriesHolder holder(make_unique<MemReader>(kCategories, ARRAY_SIZE(kCategories) - 1));
+  CategoriesHolder holder(std::make_unique<MemReader>(kCategories, ARRAY_SIZE(kCategories) - 1));
 
   {
     uint32_t counter = 0;
@@ -178,19 +175,19 @@ UNIT_TEST(CategoriesIndex_Smoke)
 {
   classificator::Load();
 
-  CategoriesHolder holder(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
-  CategoriesIndex index(holder);
+  CategoriesHolder holder(std::make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
+  indexer::CategoriesIndex index(holder);
 
   uint32_t type1 = classif().GetTypeByPath({"amenity", "bench"});
   uint32_t type2 = classif().GetTypeByPath({"place", "village"});
   if (type1 > type2)
-    swap(type1, type2);
+    std::swap(type1, type2);
   int8_t lang1 = CategoriesHolder::MapLocaleToInteger("en");
   int8_t lang2 = CategoriesHolder::MapLocaleToInteger("de");
 
-  auto testTypes = [&](string const & query, vector<uint32_t> const & expected)
+  auto testTypes = [&](std::string const & query, std::vector<uint32_t> const & expected)
   {
-    vector<uint32_t> result;
+    std::vector<uint32_t> result;
     index.GetAssociatedTypes(query, result);
     TEST_EQUAL(result, expected, (query));
   };
@@ -208,10 +205,10 @@ UNIT_TEST(CategoriesIndex_Smoke)
   index.AddCategoryByTypeAndLang(type2, lang1);
   testTypes("i", {type1, type2});
 
-  CategoriesIndex fullIndex(holder);
+  indexer::CategoriesIndex fullIndex(holder);
   fullIndex.AddCategoryByTypeAllLangs(type1);
   fullIndex.AddCategoryByTypeAllLangs(type2);
-  vector<CategoriesHolder::Category> cats;
+  std::vector<CategoriesHolder::Category> cats;
 
   // The letter 'a' matches "strafbank" and "village".
   // One language is not enough.
@@ -238,13 +235,13 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
       "en:shop of meat";
 
   classificator::Load();
-  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
-  CategoriesIndex index(holder);
+  CategoriesHolder holder(std::make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  indexer::CategoriesIndex index(holder);
 
   index.AddAllCategoriesInAllLangs();
-  auto testTypes = [&](string const & query, vector<uint32_t> const & expected)
+  auto testTypes = [&](std::string const & query, std::vector<uint32_t> const & expected)
   {
-    vector<uint32_t> result;
+    std::vector<uint32_t> result;
     index.GetAssociatedTypes(query, result);
     TEST_EQUAL(result, expected, (query));
   };
@@ -252,7 +249,7 @@ UNIT_TEST(CategoriesIndex_MultipleTokens)
   uint32_t type1 = classif().GetTypeByPath({"shop", "bakery"});
   uint32_t type2 = classif().GetTypeByPath({"shop", "butcher"});
   if (type1 > type2)
-    swap(type1, type2);
+    std::swap(type1, type2);
 
   testTypes("shop", {type1, type2});
   testTypes("shop buns", {type1});
@@ -277,13 +274,13 @@ UNIT_TEST(CategoriesIndex_Groups)
       "";
 
   classificator::Load();
-  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
-  CategoriesIndex index(holder);
+  CategoriesHolder holder(std::make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  indexer::CategoriesIndex index(holder);
 
   index.AddAllCategoriesInAllLangs();
-  auto testTypes = [&](string const & query, vector<uint32_t> const & expected)
+  auto testTypes = [&](std::string const & query, std::vector<uint32_t> const & expected)
   {
-    vector<uint32_t> result;
+    std::vector<uint32_t> result;
     index.GetAssociatedTypes(query, result);
     TEST_EQUAL(result, expected, (query));
   };
@@ -291,7 +288,7 @@ UNIT_TEST(CategoriesIndex_Groups)
   uint32_t type1 = classif().GetTypeByPath({"shop", "bakery"});
   uint32_t type2 = classif().GetTypeByPath({"shop", "butcher"});
   if (type1 > type2)
-    swap(type1, type2);
+    std::swap(type1, type2);
 
   testTypes("buns", {type1});
   testTypes("butcher", {type2});
@@ -307,7 +304,7 @@ UNIT_TEST(CategoriesIndex_AllCategories)
 {
   classificator::Load();
 
-  CategoriesIndex index;
+  indexer::CategoriesIndex index;
 
   index.AddAllCategoriesInAllLangs();
   // Consider deprecating this method if this bound rises as high as a million.
@@ -320,7 +317,7 @@ UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
 {
   classificator::Load();
 
-  CategoriesIndex index;
+  indexer::CategoriesIndex index;
 
   index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
   TEST_LESS(index.GetNumTrieNodes(), 15000, ());

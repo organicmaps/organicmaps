@@ -20,9 +20,13 @@ class BottomTabBarViewController: UIViewController {
     }
   }
 
-  var tabBarView: BottomTabBarView { view as! BottomTabBarView }
+  var tabBarView: BottomTabBarView {
+    view as! BottomTabBarView
+  }
 
-  @objc static var controller: BottomTabBarViewController? { MWMMapViewControlsManager.manager()?.tabBarController }
+  @objc static var controller: BottomTabBarViewController? {
+    MWMMapViewControlsManager.manager()?.tabBarController
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()

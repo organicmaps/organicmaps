@@ -15,8 +15,6 @@
 
 #include "private.h"
 
-using namespace std;
-
 namespace
 {
 using namespace storage::diffs;
@@ -29,7 +27,7 @@ char const kVersionKey[] = "version";
 
 auto const kTimeoutInSeconds = 5.0;
 
-string SerializeCheckerData(LocalMapsInfo const & info)
+std::string SerializeCheckerData(LocalMapsInfo const & info)
 {
   auto mwmsArrayNode = base::NewJSONArray();
   for (auto const & nameAndVersion : info.m_localMaps)
@@ -43,11 +41,11 @@ string SerializeCheckerData(LocalMapsInfo const & info)
   auto const root = base::NewJSONObject();
   json_object_set_new(root.get(), kMwmsKey, mwmsArrayNode.release());
   ToJSONObject(*root, kMaxVersionKey, info.m_currentDataVersion);
-  unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT));
+  std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT));
   return buffer.get();
 }
 
-NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::NameVersionMap const & nameVersionMap)
+NameDiffInfoMap DeserializeResponse(std::string const & response, LocalMapsInfo::NameVersionMap const & nameVersionMap)
 {
   if (response.empty())
   {
@@ -82,7 +80,7 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
       return {};
     }
 
-    string name;
+    std::string name;
     FromJSONObject(node, kNameKey, name);
     int64_t size;
     FromJSONObject(node, kSizeKey, size);
@@ -109,7 +107,7 @@ NameDiffInfoMap Load(LocalMapsInfo const & info)
     return {};
 
   platform::HttpClient request(DIFF_LIST_URL);
-  string const body = SerializeCheckerData(info);
+  std::string const body = SerializeCheckerData(info);
   ASSERT(!body.empty(), ());
   request.SetBodyData(body, "application/json");
   request.SetTimeout(kTimeoutInSeconds);
@@ -120,7 +118,7 @@ NameDiffInfoMap Load(LocalMapsInfo const & info)
   }
   else
   {
-    ostringstream ost;
+    std::ostringstream ost;
     ost << "Request to diffs server failed. Code = " << request.ErrorCode()
         << ", redirection = " << request.WasRedirected();
     LOG(LINFO, (ost.str()));

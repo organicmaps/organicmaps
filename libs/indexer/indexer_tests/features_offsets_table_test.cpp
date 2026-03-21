@@ -17,15 +17,12 @@
 #include <memory>
 #include <string>
 
-using namespace platform;
-using namespace std;
-
 namespace feature
 {
 UNIT_TEST(FeaturesOffsetsTable_Empty)
 {
   FeaturesOffsetsTable::Builder builder;
-  unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
+  std::unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
   TEST(table.get(), ());
   TEST_EQUAL(static_cast<uint64_t>(0), table->size(), ());
 }
@@ -42,7 +39,7 @@ UNIT_TEST(FeaturesOffsetsTable_Basic)
   builder.PushOffset(513);
   builder.PushOffset(1024);
 
-  unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
+  std::unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
   TEST(table.get(), ());
   TEST_EQUAL(static_cast<uint64_t>(8), table->size(), ());
 
@@ -67,24 +64,24 @@ UNIT_TEST(FeaturesOffsetsTable_Basic)
 
 UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
 {
-  string const testFileName = "test_file";
+  std::string const testFileName = "test_file";
   Platform & pl = GetPlatform();
 
   FilesContainerR baseContainer(pl.GetReader("minsk-pass" DATA_FILE_EXTENSION));
   size_t constexpr minFeaturesCount = 5000;
 
-  LocalCountryFile localFile = LocalCountryFile::MakeForTesting(testFileName);
-  CountryIndexes::PreparePlaceOnDisk(localFile);
+  platform::LocalCountryFile localFile = platform::LocalCountryFile::MakeForTesting(testFileName);
+  platform::CountryIndexes::PreparePlaceOnDisk(localFile);
 
-  string const indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
-  SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
+  std::string const indexFile = platform::CountryIndexes::GetPath(localFile, platform::CountryIndexes::Index::Offsets);
+  SCOPE_GUARD(deleteTestFileIndexGuard, std::bind(&FileWriter::DeleteFileX, std::cref(indexFile)));
 
   FeaturesOffsetsTable::Build(baseContainer, indexFile);
 
-  unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Load(baseContainer, FEATURE_OFFSETS_FILE_TAG));
+  std::unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Load(baseContainer, FEATURE_OFFSETS_FILE_TAG));
   TEST(table.get() && table->size() > minFeaturesCount, ());
 
-  unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
+  std::unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
   TEST(loadedTable.get() && loadedTable->size() > minFeaturesCount, ());
 
   TEST_EQUAL(table->size(), loadedTable->size(), ());

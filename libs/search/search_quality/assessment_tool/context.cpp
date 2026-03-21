@@ -7,8 +7,6 @@
 
 #include <utility>
 
-using namespace std;
-
 // Context -----------------------------------------------------------------------------------------
 void Context::Clear()
 {
@@ -157,9 +155,9 @@ void ContextList::Resize(size_t size)
   }
 }
 
-vector<search::Sample> ContextList::MakeSamples(search::FeatureLoader & loader) const
+std::vector<search::Sample> ContextList::MakeSamples(search::FeatureLoader & loader) const
 {
-  vector<search::Sample> samples;
+  std::vector<search::Sample> samples;
   for (auto const & context : m_contexts)
     samples.push_back(context.MakeSample(loader));
   return samples;

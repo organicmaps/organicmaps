@@ -15,15 +15,14 @@
 
 namespace
 {
-using namespace routing;
 /// \returns if features |r1| and |r2| have a common end returns its joint id.
-/// If not, returns Joint::kInvalidId.
+/// If not, returns routing::Joint::kInvalidId.
 /// \note It's possible that the both ends of |r1| and |r2| have common joint ids.
 /// In that case returns any of them.
 /// \note In general case ends of features don't have to be joints. For example all
 /// loose feature ends aren't joints. But if ends of r1 and r2 are connected at this
 /// point there has to be a joint. So the method is valid.
-Joint::Id GetCommonEndJoint(RoadJointIds const & r1, RoadJointIds const & r2)
+routing::Joint::Id GetCommonEndJoint(routing::RoadJointIds const & r1, routing::RoadJointIds const & r2)
 {
   auto const & j11 = r1.GetJointId(0 /* point id */);
   auto const & j12 = r1.GetEndingJointId();
@@ -36,7 +35,7 @@ Joint::Id GetCommonEndJoint(RoadJointIds const & r1, RoadJointIds const & r2)
   if (j12 == j21 || j12 == j22)
     return j12;
 
-  return Joint::kInvalidId;
+  return routing::Joint::kInvalidId;
 }
 }  // namespace
 

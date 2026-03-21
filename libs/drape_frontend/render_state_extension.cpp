@@ -4,19 +4,22 @@
 
 namespace
 {
-using namespace df;
-
-std::array<RenderStateExtension, static_cast<size_t>(DepthLayer::LayersCount)> kStateExtensions = {
-    RenderStateExtension(DepthLayer::GeometryLayer),    RenderStateExtension(DepthLayer::Geometry3dLayer),
-    RenderStateExtension(DepthLayer::UserLineLayer),    RenderStateExtension(DepthLayer::MwmBorderLayer),
-    RenderStateExtension(DepthLayer::OverlayLayer),     RenderStateExtension(DepthLayer::TransitSchemeLayer),
-    RenderStateExtension(DepthLayer::UserMarkLayer),    RenderStateExtension(DepthLayer::RoutingBottomMarkLayer),
-    RenderStateExtension(DepthLayer::RoutingMarkLayer), RenderStateExtension(DepthLayer::SearchMarkLayer),
-    RenderStateExtension(DepthLayer::GuiLayer)};
+std::array<df::RenderStateExtension, static_cast<size_t>(df::DepthLayer::LayersCount)> kStateExtensions = {
+    df::RenderStateExtension(df::DepthLayer::GeometryLayer),
+    df::RenderStateExtension(df::DepthLayer::Geometry3dLayer),
+    df::RenderStateExtension(df::DepthLayer::UserLineLayer),
+    df::RenderStateExtension(df::DepthLayer::MwmBorderLayer),
+    df::RenderStateExtension(df::DepthLayer::OverlayLayer),
+    df::RenderStateExtension(df::DepthLayer::TransitSchemeLayer),
+    df::RenderStateExtension(df::DepthLayer::UserMarkLayer),
+    df::RenderStateExtension(df::DepthLayer::RoutingBottomMarkLayer),
+    df::RenderStateExtension(df::DepthLayer::RoutingMarkLayer),
+    df::RenderStateExtension(df::DepthLayer::SearchMarkLayer),
+    df::RenderStateExtension(df::DepthLayer::GuiLayer)};
 
 struct RenderStateExtensionFactory
 {
-  static ref_ptr<RenderStateExtension> Get(DepthLayer depthLayer)
+  static ref_ptr<df::RenderStateExtension> Get(df::DepthLayer depthLayer)
   {
     ASSERT_LESS(static_cast<size_t>(depthLayer), kStateExtensions.size(), ());
     return make_ref(&kStateExtensions[static_cast<size_t>(depthLayer)]);

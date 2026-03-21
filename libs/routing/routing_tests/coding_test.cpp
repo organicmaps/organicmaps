@@ -6,8 +6,6 @@
 #include <limits>
 #include <type_traits>
 
-using namespace routing;
-
 namespace
 {
 template <typename T, typename ToDo>
@@ -25,8 +23,8 @@ void ForEachNumber(ToDo && toDo)
 template <typename T>
 void TestZigZag(T prev, T current)
 {
-  auto const delta = EncodeZigZagDelta(prev, current);
-  auto const decodedCurrent = DecodeZigZagDelta(prev, delta);
+  auto const delta = routing::EncodeZigZagDelta(prev, current);
+  auto const decodedCurrent = routing::DecodeZigZagDelta(prev, delta);
   TEST_EQUAL(decodedCurrent, current, ("prev:", prev, "delta:", delta));
 }
 
@@ -62,7 +60,7 @@ UNIT_TEST(ModuleCastTest)
 {
   ForEachNumber<uint8_t>([](uint8_t number)
   {
-    auto signedNumber = ModularCast(number);
+    auto signedNumber = routing::ModularCast(number);
     static_assert(std::is_same<decltype(signedNumber), int8_t>::value, "int8_t expected");
     TEST_EQUAL(static_cast<uint8_t>(signedNumber), number, ("signedNumber:", signedNumber));
   });

@@ -15,8 +15,6 @@
 #pragma clang diagnostic pop
 #endif
 
-using namespace std;
-
 template <typename Key, typename Value>
 class FifoCacheTest
 {
@@ -24,13 +22,13 @@ public:
   FifoCacheTest(size_t capacity, typename FifoCache<Key, Value>::Loader const & loader) : m_cache(capacity, loader) {}
 
   Value const & GetValue(Key const & key) { return m_cache.GetValue(key); }
-  unordered_map<Key, Value> const & GetMap() const { return m_cache.m_map; }
+  std::unordered_map<Key, Value> const & GetMap() const { return m_cache.m_map; }
   boost::circular_buffer<Key> const & GetFifo() const { return m_cache.m_fifo; }
 
   bool IsValid() const
   {
-    set<Key> listKeys(m_cache.m_fifo.begin(), m_cache.m_fifo.end());
-    set<Key> mapKeys;
+    std::set<Key> listKeys(m_cache.m_fifo.begin(), m_cache.m_fifo.end());
+    std::set<Key> mapKeys;
 
     for (auto const & kv : m_cache.m_map)
       mapKeys.insert(kv.first);
@@ -67,9 +65,9 @@ UNIT_TEST(FifoCache)
   TEST_EQUAL(cache.GetValue(2), 2, ());
   TEST(cache.IsValid(), ());
   {
-    unordered_map<Key, Value> expectedMap({{1 /* key */, 1 /* value */}, {2, 2}, {3, 3}});
+    std::unordered_map<Key, Value> expectedMap({{1 /* key */, 1 /* value */}, {2, 2}, {3, 3}});
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
-    list<Key> expectedList({2, 3, 1});
+    std::list<Key> expectedList({2, 3, 1});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
     TEST(cache.GetFifo() == expectedCB, ());
   }
@@ -77,9 +75,9 @@ UNIT_TEST(FifoCache)
   TEST_EQUAL(cache.GetValue(7), 7, ());
   TEST(cache.IsValid(), ());
   {
-    unordered_map<Key, Value> expectedMap({{7 /* key */, 7 /* value */}, {2, 2}, {3, 3}});
+    std::unordered_map<Key, Value> expectedMap({{7 /* key */, 7 /* value */}, {2, 2}, {3, 3}});
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
-    list<Key> expectedList({7, 2, 3});
+    std::list<Key> expectedList({7, 2, 3});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
     TEST(cache.GetFifo() == expectedCB, ());
   }

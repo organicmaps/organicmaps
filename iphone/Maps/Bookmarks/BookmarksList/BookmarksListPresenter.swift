@@ -420,25 +420,49 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
 }
 
 extension IBookmarksSectionViewModel {
-  var numberOfItems: Int { bookmarks.count }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
-  var canEdit: Bool { true }
+  var numberOfItems: Int {
+    bookmarks.count
+  }
+
+  var visibilityButtonState: BookmarksListVisibilityButtonState {
+    .hidden
+  }
+
+  var canEdit: Bool {
+    true
+  }
 }
 
 extension ITracksSectionViewModel {
-  var numberOfItems: Int { tracks.count }
-  var sectionTitle: String { L("tracks_title") }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
-  var canEdit: Bool { true }
+  var numberOfItems: Int {
+    tracks.count
+  }
+
+  var sectionTitle: String {
+    L("tracks_title")
+  }
+
+  var visibilityButtonState: BookmarksListVisibilityButtonState {
+    .hidden
+  }
+
+  var canEdit: Bool {
+    true
+  }
 }
 
 extension ISubgroupsSectionViewModel {
-  var numberOfItems: Int { subgroups.count }
+  var numberOfItems: Int {
+    subgroups.count
+  }
+
   var visibilityButtonState: BookmarksListVisibilityButtonState {
     subgroups.reduce(false) { $0 ? $0 : $1.isVisible } ? .hideAll : .showAll
   }
 
-  var canEdit: Bool { false }
+  var canEdit: Bool {
+    false
+  }
 }
 
 private struct BookmarkViewModel: IBookmarksListItemViewModel {
@@ -513,10 +537,6 @@ private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
 
 private struct TracksSectionViewModel: ITracksSectionViewModel {
   let tracks: [IBookmarksListItemViewModel]
-
-  init(tracks: [IBookmarksListItemViewModel]) {
-    self.tracks = tracks
-  }
 }
 
 private struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {

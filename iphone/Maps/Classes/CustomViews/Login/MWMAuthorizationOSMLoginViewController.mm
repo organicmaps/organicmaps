@@ -10,8 +10,6 @@
 #include "platform/platform.hpp"
 #include "private.h"
 
-using namespace osm;
-
 @interface MWMAuthorizationOSMLoginViewController () <UITextFieldDelegate>
 
 @property(weak, nonatomic) IBOutlet UITextField * loginTextField;
@@ -101,7 +99,7 @@ using namespace osm;
 
     [self startSpinner];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-      OsmOAuth auth = OsmOAuth::ServerAuth();
+      osm::OsmOAuth auth = osm::OsmOAuth::ServerAuth();
       try
       {
         auth.AuthorizePassword(username.UTF8String, password.UTF8String);
@@ -150,7 +148,7 @@ using namespace osm;
 }
 - (IBAction)forgotPassword
 {
-  [self openUrl:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())];
+  [self openUrl:@(osm::OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())];
 }
 
 @end

@@ -6,8 +6,6 @@
 
 #include "geometry/rect2d.hpp"
 
-using namespace test;
-
 UNIT_TEST(Rect)
 {
   m2::RectD rect(0, 0, 500, 300);
@@ -17,7 +15,7 @@ UNIT_TEST(Rect)
   {
     m2::RectD r(rect);
     r.Scale(factor[i]);
-    TEST(is_equal_center(rect, r), ());
+    TEST(test::is_equal_center(rect, r), ());
   }
 
   m2::RectD external(0, 0, 100, 100);
@@ -32,8 +30,8 @@ UNIT_TEST(Point)
   double const a = math::pi / 4.0;
   m2::PointD const start(0.0, 0.0);
 
-  TEST(is_equal(start.Move(l, a), m2::PointD(1, 1)), ());
-  TEST(is_equal(start.Move(l, math::pi - a), m2::PointD(-1, 1)), ());
-  TEST(is_equal(start.Move(l, -math::pi + a), m2::PointD(-1, -1)), ());
-  TEST(is_equal(start.Move(l, -a), m2::PointD(1, -1)), ());
+  TEST(test::is_equal(start.Move(l, a), m2::PointD(1, 1)), ());
+  TEST(test::is_equal(start.Move(l, math::pi - a), m2::PointD(-1, 1)), ());
+  TEST(test::is_equal(start.Move(l, -math::pi + a), m2::PointD(-1, -1)), ());
+  TEST(test::is_equal(start.Move(l, -a), m2::PointD(1, -1)), ());
 }

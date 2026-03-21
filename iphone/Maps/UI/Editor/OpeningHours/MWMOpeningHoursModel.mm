@@ -13,12 +13,9 @@ extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation = UITabl
 
 @end
 
-using namespace editor;
-using namespace osmoh;
-
 @implementation MWMOpeningHoursModel
 {
-  ui::TimeTableSet timeTableSet;
+  editor::ui::TimeTableSet timeTableSet;
 }
 
 - (instancetype _Nullable)initWithDelegate:(id<MWMOpeningHoursModelProtocol> _Nonnull)delegate
@@ -82,7 +79,7 @@ using namespace osmoh;
       section.selectedRow = nil;
 }
 
-- (ui::TimeTableSet::Proxy)timeTableProxy:(NSUInteger)index
+- (editor::ui::TimeTableSet::Proxy)timeTableProxy:(NSUInteger)index
 {
   NSAssert(index < self.count, @"Invalid section index");
   return timeTableSet.Get(index);
@@ -116,7 +113,7 @@ using namespace osmoh;
   return self.sections[section].numberOfRows;
 }
 
-- (ui::OpeningDays)unhandledDays
+- (editor::ui::OpeningDays)unhandledDays
 {
   return timeTableSet.GetUnhandledDays();
 }
@@ -132,7 +129,7 @@ using namespace osmoh;
   if (!self.isSimpleMode)
     return;
   std::stringstream sstr;
-  sstr << MakeOpeningHours(timeTableSet).GetRule();
+  sstr << editor::MakeOpeningHours(timeTableSet).GetRule();
   self.delegate.openingHours = @(sstr.str().c_str());
 }
 
@@ -166,7 +163,7 @@ using namespace osmoh;
 
   auto isSimple = isSimpleMode;
   if (isSimple && oh && oh.length)
-    isSimple = MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet);
+    isSimple = editor::MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet);
 
   delegate.advancedEditor.hidden = isSimple;
   UITableView * tv = delegate.tableView;
@@ -202,8 +199,8 @@ using namespace osmoh;
   NSString * oh = self.delegate.openingHours;
   if (!oh || !oh.length)
     return YES;
-  ui::TimeTableSet tts;
-  return MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), tts);
+  editor::ui::TimeTableSet tts;
+  return editor::MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), tts);
 }
 
 @end

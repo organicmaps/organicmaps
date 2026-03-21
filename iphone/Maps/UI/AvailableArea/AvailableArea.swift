@@ -3,7 +3,9 @@ class AvailableArea: UIView {
     static let observeKeyPath = "sublayers"
   }
 
-  var deferNotification: Bool { true }
+  var deferNotification: Bool {
+    true
+  }
 
   private(set) var orientation = UIDeviceOrientation.unknown {
     didSet {
@@ -142,7 +144,10 @@ class AvailableArea: UIView {
     }
   }
 
-  func isAreaAffectingView(_: UIView) -> Bool { false }
+  func isAreaAffectingView(_: UIView) -> Bool {
+    false
+  }
+
   func addAffectingView(_: UIView) {}
   @objc func notifyObserver() {}
 }

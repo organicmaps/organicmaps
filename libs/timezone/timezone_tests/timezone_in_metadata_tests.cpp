@@ -6,25 +6,23 @@
 #include "timezone/serdes.hpp"
 #include "timezone/timezone.hpp"
 
-using namespace om::tz;
-
 TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
 {
-  TimeZone const tz{.generation_year_offset = 0,
-                    .base_offset = 68,  // UTC+1
-                    .dst_delta = 60,    // DST +1h
-                    .transitions = {
-                        Transition{.day_delta = 88, .minute_of_day = 60},
-                        Transition{.day_delta = 154, .minute_of_day = 60},
-                        Transition{.day_delta = 210, .minute_of_day = 120},
-                        Transition{.day_delta = 234, .minute_of_day = 120},
-                    }};
+  om::tz::TimeZone const tz{.generation_year_offset = 0,
+                            .base_offset = 68,  // UTC+1
+                            .dst_delta = 60,    // DST +1h
+                            .transitions = {
+                                om::tz::Transition{.day_delta = 88, .minute_of_day = 60},
+                                om::tz::Transition{.day_delta = 154, .minute_of_day = 60},
+                                om::tz::Transition{.day_delta = 210, .minute_of_day = 120},
+                                om::tz::Transition{.day_delta = 234, .minute_of_day = 120},
+                            }};
 
   feature::RegionData rd;
-  auto const result = Serialize(tz);
+  auto const result = om::tz::Serialize(tz);
   EXPECT_TRUE(result.has_value());
   rd.Set(feature::RegionData::RD_TIMEZONE, result.value());
-  EXPECT_EQ(tz, Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE)).value());
+  EXPECT_EQ(tz, om::tz::Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE)).value());
 
   std::vector<uint8_t> buf;
 
@@ -37,5 +35,5 @@ TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
   ReaderSource src(reader);
   feature::RegionData rd2;
   rd2.Deserialize(src);
-  EXPECT_EQ(tz, Deserialize(rd2.Get(feature::RegionData::RD_TIMEZONE)).value());
+  EXPECT_EQ(tz, om::tz::Deserialize(rd2.Get(feature::RegionData::RD_TIMEZONE)).value());
 }

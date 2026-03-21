@@ -3,8 +3,6 @@
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 
-using namespace std::placeholders;
-
 extern "C"
 {
 static void IsolinesStateChanged(IsolinesManager::IsolinesState state, std::shared_ptr<jobject> const & listener)

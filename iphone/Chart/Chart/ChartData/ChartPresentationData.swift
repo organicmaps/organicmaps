@@ -6,10 +6,22 @@ public class ChartPresentationData {
   private let pathBuilder = DefaultChartPathBuilder()
 
   let formatter: ChartFormatter
-  var linesCount: Int { chartData.lines.count }
-  var pointsCount: Int { chartData.xAxisValues.count }
-  var xAxisValues: [Double] { chartData.xAxisValues }
-  var type: ChartType { chartData.type }
+  var linesCount: Int {
+    chartData.lines.count
+  }
+
+  var pointsCount: Int {
+    chartData.xAxisValues.count
+  }
+
+  var xAxisValues: [Double] {
+    chartData.xAxisValues
+  }
+
+  var type: ChartType {
+    chartData.type
+  }
+
   var labels: [String]
   var lower = CGFloat(Int.max)
   var upper = CGFloat(Int.min)
