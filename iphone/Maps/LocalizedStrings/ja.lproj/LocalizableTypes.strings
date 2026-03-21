@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "トンネル";
-"type.highway.platform" = "公共交通機関のプラットホーム";
+"type.highway.platform" = "公共交通の乗り場";
 "type.highway.primary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "公共交通機関";
-"type.public_transport.platform" = "公共交通機関のプラットホーム";
+"type.public_transport.platform" = "公共交通の乗り場";
 "type.railway" = "鉄道";
 "type.railway.abandoned" = "廃線";
 "type.railway.abandoned.bridge" = "廃線(橋)";

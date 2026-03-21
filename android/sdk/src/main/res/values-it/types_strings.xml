@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Ponte</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
-    <string name="type.highway.platform">Banchina</string>
+    <string name="type.highway.platform">Banchina del trasporto pubblico</string>
     <string name="type.highway.primary">Strada</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Ponte</string>
@@ -833,7 +833,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Trasporto pubblico</string>
-    <string name="type.public_transport.platform">Banchina</string>
+    <string name="type.public_transport.platform">Banchina del trasporto pubblico</string>
     <string name="type.railway">Ferrovia</string>
     <string name="type.railway.abandoned">Ferrovia abbandonata</string>
     <string name="type.railway.abandoned.bridge">Ponte ferroviario abbandonato</string>

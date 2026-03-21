@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Most dla pieszych</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel dla pieszych</string>
-    <string name="type.highway.platform">Przystanek transportu publicznego</string>
+    <string name="type.highway.platform">Peron transportu publicznego</string>
     <string name="type.highway.primary">Ulica</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -833,7 +833,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transport publiczny</string>
-    <string name="type.public_transport.platform">Przystanek transportu publicznego</string>
+    <string name="type.public_transport.platform">Peron transportu publicznego</string>
     <string name="type.railway">Kolej</string>
     <string name="type.railway.abandoned">Opuszczona kolej</string>
     <string name="type.railway.abandoned.bridge">Opuszczony most kolejowy</string>

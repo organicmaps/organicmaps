@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Міст</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Тунель</string>
-    <string name="type.highway.platform">Платформа</string>
+    <string name="type.highway.platform">Платформа громадського транспорту</string>
     <string name="type.highway.primary">Шосе</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Міст</string>
@@ -833,7 +833,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Громадський транспорт</string>
-    <string name="type.public_transport.platform">Платформа</string>
+    <string name="type.public_transport.platform">Платформа громадського транспорту</string>
     <string name="type.railway">Залізниця</string>
     <string name="type.railway.abandoned">Закинута залізниця</string>
     <string name="type.railway.abandoned.bridge">Закинутий залізничний міст</string>

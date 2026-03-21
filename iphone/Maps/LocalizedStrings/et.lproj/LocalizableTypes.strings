@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Jalakäijate tunnel";
-"type.highway.platform" = "Ooteplatvorm";
+"type.highway.platform" = "Ühistranspordi platvorm";
 "type.highway.primary" = "Põhimaantee";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Ühistransport";
-"type.public_transport.platform" = "Ooteplatvorm";
+"type.public_transport.platform" = "Ühistranspordi platvorm";
 "type.railway" = "Raudtee";
 "type.railway.abandoned" = "Mahajäetud raudtee";
 "type.railway.abandoned.bridge" = "Mahajäetud sild";

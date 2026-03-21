@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Göng fyrir fótgangandi";
-"type.highway.platform" = "Pallur";
+"type.highway.platform" = "Stoppistöð almenningssamgangna";
 "type.highway.primary" = "Stofnvegur";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Almenningssamgöngur";
-"type.public_transport.platform" = "Pallur";
+"type.public_transport.platform" = "Stoppistöð almenningssamgangna";
 "type.railway" = "Járnbraut";
 "type.railway.abandoned" = "Aflögð járnbraut";
 "type.railway.abandoned.bridge" = "Aflögð járnbrautarbrú";

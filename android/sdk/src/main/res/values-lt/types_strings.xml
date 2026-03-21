@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Tiltas</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunelis</string>
-    <string name="type.highway.platform">Platforma</string>
+    <string name="type.highway.platform">Viešojo transporto platforma</string>
     <string name="type.highway.primary">Pagrindinis kelias</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Tiltas</string>
@@ -833,7 +833,7 @@
     <string name="type.psurface.unpaved_bad">bloga be dangos</string>
     <string name="type.psurface.unpaved_good">gera be dangos</string>
     <string name="type.public_transport">Viešasis transportas</string>
-    <string name="type.public_transport.platform">Platforma</string>
+    <string name="type.public_transport.platform">Viešojo transporto platforma</string>
     <string name="type.railway">Geležinkelis</string>
     <string name="type.railway.abandoned">Apleistas geležinkelis</string>
     <string name="type.railway.abandoned.bridge">Apleistas geležinkelio tiltas</string>

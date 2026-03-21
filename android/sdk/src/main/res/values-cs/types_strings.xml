@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel pro pěší</string>
-    <string name="type.highway.platform">Nástupiště</string>
+    <string name="type.highway.platform">Platforma veřejné dopravy</string>
     <string name="type.highway.primary">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -833,7 +833,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Veřejná doprava</string>
-    <string name="type.public_transport.platform">Nástupiště</string>
+    <string name="type.public_transport.platform">Platforma veřejné dopravy</string>
     <string name="type.railway">Železnice</string>
     <string name="type.railway.abandoned">Zaniklá železnice</string>
     <string name="type.railway.abandoned.bridge">Most zaniklé železnice</string>

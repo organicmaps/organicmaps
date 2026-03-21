@@ -381,7 +381,7 @@
     <string name="type.highway.pedestrian.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">تونل</string>
-    <string name="type.highway.platform">سکو</string>
+    <string name="type.highway.platform">سکوی حمل‌ونقل عمومی</string>
     <string name="type.highway.primary">جاده</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">پل</string>
@@ -730,7 +730,7 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">تیر چراغ برق</string>
     <string name="type.public_transport">حمل و نقل عمومی</string>
-    <string name="type.public_transport.platform">سکو</string>
+    <string name="type.public_transport.platform">سکوی حمل‌ونقل عمومی</string>
     <string name="type.railway">راه‌آهن</string>
     <string name="type.railway.abandoned">راه اهن متروکه</string>
     <string name="type.railway.abandoned.bridge">پل راه اهن متروکه</string>

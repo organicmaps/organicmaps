@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Urë këmbësorësh</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel këmbësorësh</string>
-    <string name="type.highway.platform">Platformë</string>
+    <string name="type.highway.platform">Platforma e transportit publik</string>
     <string name="type.highway.primary">Rrugë kryesore</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Urë</string>
@@ -828,7 +828,7 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Shtyllë utilitare</string>
     <string name="type.public_transport">Transport Publik</string>
-    <string name="type.public_transport.platform">Platformë</string>
+    <string name="type.public_transport.platform">Platforma e transportit publik</string>
     <string name="type.railway">Hekurudhë</string>
     <string name="type.railway.abandoned">Hekurudhë e braktisur</string>
     <string name="type.railway.abandoned.bridge">Urë hekurudhore e braktisur</string>

@@ -392,6 +392,7 @@
     <string name="type.highway.pedestrian.bridge">Bru</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
+    <string name="type.highway.platform">Plattform for offentlig transport</string>
     <string name="type.highway.primary">Hovedvei</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bru</string>
@@ -699,6 +700,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Strømmast</string>
     <string name="type.public_transport">Offentlig transport</string>
+    <string name="type.public_transport.platform">Plattform for offentlig transport</string>
     <string name="type.railway">Jernbane</string>
     <string name="type.railway.disused.tunnel">Nedlagt jernbanetunnel</string>
     <string name="type.railway.funicular">Kabelbane</string>

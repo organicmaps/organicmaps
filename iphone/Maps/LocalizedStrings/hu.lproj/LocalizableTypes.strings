@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Alagút";
-"type.highway.platform" = "Peron";
+"type.highway.platform" = "Tömegközlekedési peron";
 "type.highway.primary" = "Utca";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "felület-burkolatlan_rossz";
 "type.psurface.unpaved_good" = "felület-burkolatlan_jó";
 "type.public_transport" = "Közösségi közlekedés";
-"type.public_transport.platform" = "Peron";
+"type.public_transport.platform" = "Tömegközlekedési peron";
 "type.railway" = "Vasút";
 "type.railway.abandoned" = "Elhagyott vasútvonal";
 "type.railway.abandoned.bridge" = "Elhagyott vasúti híd";

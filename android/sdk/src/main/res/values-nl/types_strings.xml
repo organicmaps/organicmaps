@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Voetgangersbrug</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Voetgangerstunnel</string>
-    <string name="type.highway.platform">Platform</string>
+    <string name="type.highway.platform">Platform voor openbaar vervoer</string>
     <string name="type.highway.primary">Hoofdweg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brug</string>
@@ -833,7 +833,7 @@
     <string name="type.psurface.unpaved_bad">Onverhard</string>
     <string name="type.psurface.unpaved_good">Onverhard</string>
     <string name="type.public_transport">Openbaar vervoer</string>
-    <string name="type.public_transport.platform">Platform</string>
+    <string name="type.public_transport.platform">Platform voor openbaar vervoer</string>
     <string name="type.railway">Spoorweg</string>
     <string name="type.railway.abandoned">Voormalig treinspoor</string>
     <string name="type.railway.abandoned.bridge">Voormalige spoorbrug</string>

@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Пешеходный тоннель";
-"type.highway.platform" = "Платформа";
+"type.highway.platform" = "Платформа общественного транспорта";
 "type.highway.primary" = "Шоссе";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "Плохая неасфальтированная";
 "type.psurface.unpaved_good" = "Хорошая неасфальтированная";
 "type.public_transport" = "Общественный транспорт";
-"type.public_transport.platform" = "Платформа";
+"type.public_transport.platform" = "Платформа общественного транспорта";
 "type.railway" = "Ж/Д";
 "type.railway.abandoned" = "Заброшенная железная дорога";
 "type.railway.abandoned.bridge" = "Заброшенный железнодорожный мост";

@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "隧道";
-"type.highway.platform" = "月台";
+"type.highway.platform" = "公共運輸站台";
 "type.highway.primary" = "主要道路";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "路面舖設 - 較差";
 "type.psurface.unpaved_good" = "路面舖設 - 良好";
 "type.public_transport" = "大眾運輸";
-"type.public_transport.platform" = "月台";
+"type.public_transport.platform" = "公共運輸站台";
 "type.railway" = "鐵路設施";
 "type.railway.abandoned" = "廢棄鐵路";
 "type.railway.abandoned.bridge" = "廢棄鐵路橋樑";

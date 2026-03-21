@@ -446,7 +446,7 @@
     <string name="type.highway.pedestrian.bridge">ຂົວຄົນຍ່າງ</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">ອຸມົງຄົນຍ່າງ</string>
-    <string name="type.highway.platform">ຊານຊາລາ</string>
+    <string name="type.highway.platform">ເວທີການຂົນສົ່ງສາທາລະນະ</string>
     <string name="type.highway.primary">ທາງຫຼັກ</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">ຂົວ</string>
@@ -832,7 +832,7 @@
     <string name="type.psurface.unpaved_bad">ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບບໍ່ດີ</string>
     <string name="type.psurface.unpaved_good">ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບດີ</string>
     <string name="type.public_transport">ຂົນສົ່ງສາທາລະນະ</string>
-    <string name="type.public_transport.platform">ຊານຊາລາ</string>
+    <string name="type.public_transport.platform">ເວທີການຂົນສົ່ງສາທາລະນະ</string>
     <string name="type.railway">ທາງລົດໄຟ</string>
     <string name="type.railway.abandoned">ທາງລົດໄຟຮ້າງ</string>
     <string name="type.railway.abandoned.bridge">ຂົວທາງລົດໄຟຮ້າງ</string>

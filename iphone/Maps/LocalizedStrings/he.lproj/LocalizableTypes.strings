@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "מנהרה להולכי רגל";
-"type.highway.platform" = "רציף תחבורה";
+"type.highway.platform" = "רציף תחבורה ציבורית";
 "type.highway.primary" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "לא סלול במצב גרוע";
 "type.psurface.unpaved_good" = "לא סלול במצב טוב";
 "type.public_transport" = "תחבורה ציבורית";
-"type.public_transport.platform" = "רציף תחבורה";
+"type.public_transport.platform" = "רציף תחבורה ציבורית";
 "type.railway" = "מסילת רכבת";
 "type.railway.abandoned" = "מסילת רכבת נטושה";
 "type.railway.abandoned.bridge" = "גשר רכבת נטוש";

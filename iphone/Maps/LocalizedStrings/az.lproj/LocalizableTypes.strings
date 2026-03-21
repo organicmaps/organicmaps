@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel";
-"type.highway.platform" = "Platforma";
+"type.highway.platform" = "İctimai nəqliyyat platforması";
 "type.highway.primary" = "Əsas yol";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -967,7 +967,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "İctimai nəqliyyat";
-"type.public_transport.platform" = "Platforma";
+"type.public_transport.platform" = "İctimai nəqliyyat platforması";
 "type.railway" = "Dəmir yolu";
 "type.railway.abandoned" = "Tərk edilmiş dəmir yolu";
 "type.railway.abandoned.bridge" = "Tərk edilmiş dəmir yolu";

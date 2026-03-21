@@ -4,7 +4,11 @@
     <!-- SECTION: Types: Recycling -->
     <string name="type.cuisine.uzbek">উজবেক</string>
 
+    <!-- SECTION: Types: Roads -->
+    <string name="type.highway.platform">জনপরিবহন প্ল্যাটফর্ম</string>
+
     <!-- SECTION: Types: Historic -->
+    <string name="type.public_transport.platform">জনপরিবহন প্ল্যাটফর্ম</string>
     <string name="type.railway.disused.tunnel">অব্যবহৃত রেল সুড়ঙ্গ</string>
     <string name="type.shop.leather">চামড়াজাত পণ্যের দোকান</string>
     <string name="type.shop.religion">ধর্মীয় সামগ্রীর দোকান</string>
