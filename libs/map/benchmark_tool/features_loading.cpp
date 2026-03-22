@@ -14,8 +14,6 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
 namespace bench
 {
 namespace
@@ -60,12 +58,12 @@ private:
   int m_scale = 0;
 };
 
-void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect, pair<int, int> const & scaleRange,
+void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect, std::pair<int, int> const & scaleRange,
                   AllResult & res)
 {
   ASSERT_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, ());
 
-  vector<m2::RectD> rects;
+  std::vector<m2::RectD> rects;
   rects.push_back(rect);
 
   Accumulator acc(res.m_reading);
@@ -99,7 +97,7 @@ void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect, pair<int,
 }
 }  // namespace
 
-void RunFeaturesLoadingBenchmark(string fileName, pair<int, int> scaleRange, AllResult & res)
+void RunFeaturesLoadingBenchmark(std::string fileName, std::pair<int, int> scaleRange, AllResult & res)
 {
   base::GetNameFromFullPath(fileName);
   base::GetNameWithoutExt(fileName);

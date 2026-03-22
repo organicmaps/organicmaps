@@ -38,8 +38,6 @@ DEFINE_string(csv_path, "",
 using namespace extrapolation;
 using namespace location;
 using namespace routing;
-using namespace std;
-
 namespace
 {
 struct GpsPoint
@@ -74,47 +72,47 @@ class MovingAverageVec
 public:
   explicit MovingAverageVec(size_t size) { m_mes.resize(size); }
 
-  void Add(vector<double> const & values)
+  void Add(std::vector<double> const & values)
   {
     CHECK_EQUAL(values.size(), m_mes.size(), ());
     for (size_t i = 0; i < values.size(); ++i)
       m_mes[i].Add(values[i]);
   }
 
-  vector<MovingAverage> const & Get() const { return m_mes; }
+  std::vector<MovingAverage> const & Get() const { return m_mes; }
 
 private:
-  vector<MovingAverage> m_mes;
+  std::vector<MovingAverage> m_mes;
 };
 
-using Track = vector<GpsPoint>;
-using Tracks = vector<Track>;
+using Track = std::vector<GpsPoint>;
+using Tracks = std::vector<Track>;
 
-bool GetString(istringstream & lineStream, string & result)
+bool GetString(std::istringstream & lineStream, std::string & result)
 {
   if (!lineStream.good())
     return false;
-  getline(lineStream, result, ',');
+  std::getline(lineStream, result, ',');
   return true;
 }
 
-bool GetDouble(istringstream & lineStream, double & result)
+bool GetDouble(std::istringstream & lineStream, double & result)
 {
-  string strResult;
+  std::string strResult;
   if (!GetString(lineStream, strResult))
     return false;
   return strings::to_double(strResult, result);
 }
 
-bool GetUint64(istringstream & lineStream, uint64_t & result)
+bool GetUint64(std::istringstream & lineStream, uint64_t & result)
 {
-  string strResult;
+  std::string strResult;
   if (!GetString(lineStream, strResult))
     return false;
   return strings::to_uint64(strResult, result);
 }
 
-bool GetGpsPoint(istringstream & lineStream, uint64_t & timestampS, double & lat, double & lon)
+bool GetGpsPoint(std::istringstream & lineStream, uint64_t & timestampS, double & lat, double & lon)
 {
   if (!GetUint64(lineStream, timestampS))
     return false;
@@ -129,7 +127,7 @@ bool GetGpsPoint(istringstream & lineStream, uint64_t & timestampS, double & lat
 /// <Mwm name (country id)>, <Aloha id>,
 /// <Latitude of the first point>, <Longitude of the first point>, <Timestamp in seconds of the
 /// first point>, <Latitude of the second point> and so on.
-bool Parse(string const & pathToCsv, Tracks & tracks)
+bool Parse(std::string const & pathToCsv, Tracks & tracks)
 {
   tracks.clear();
 
@@ -137,11 +135,11 @@ bool Parse(string const & pathToCsv, Tracks & tracks)
   if (!csvStream.is_open())
     return false;
 
-  string line;
-  while (getline(csvStream, line))
+  std::string line;
+  while (std::getline(csvStream, line))
   {
-    istringstream lineStream(line);
-    string dummy;
+    std::istringstream lineStream(line);
+    std::string dummy;
     GetString(lineStream, dummy);  // mwm id
     GetString(lineStream, dummy);  // aloha id
 
@@ -247,8 +245,8 @@ int main(int argc, char * argv[])
       if (!AreCoordsGoodForExtrapolation(info1, info2))
         break;
 
-      vector<double> onePointDeviations;
-      vector<double> onePointDeviationsSquared;
+      std::vector<double> onePointDeviations;
+      std::vector<double> onePointDeviationsSquared;
       bool projFound = true;
       for (size_t timeMs = Extrapolator::kExtrapolationPeriodMs; timeMs <= Extrapolator::kMaxExtrapolationTimeMs;
            timeMs += Extrapolator::kExtrapolationPeriodMs)
@@ -308,7 +306,7 @@ int main(int argc, char * argv[])
     double const variance = squareMes.Get()[i].Get() - math::Pow2(mes.Get()[i].Get());
     LOG(LINFO, ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
                 "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(), "meters.",
-                "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(max(0.0, variance))));
+                "Variance =", std::max(0.0, variance), ". Standard deviation =", sqrt(std::max(0.0, variance))));
   }
 
   return 0;

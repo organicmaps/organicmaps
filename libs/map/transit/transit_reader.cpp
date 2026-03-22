@@ -18,7 +18,6 @@
 #include <chrono>
 #include <memory>
 
-using namespace std;
 using namespace std::chrono;
 
 namespace
@@ -37,14 +36,14 @@ size_t CalculateCacheSize(TransitDisplayInfo const & transitInfo)
 }  // namespace
 
 // ReadTransitTask --------------------------------------------------------------------------------
-void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> transitInfo)
+void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> transitInfo)
 {
   m_id = id;
   m_mwmId = mwmId;
   if (transitInfo == nullptr)
   {
     m_loadSubset = false;
-    m_transitInfo = make_unique<TransitDisplayInfo>();
+    m_transitInfo = std::make_unique<TransitDisplayInfo>();
   }
   else
   {
@@ -149,10 +148,10 @@ void ReadTransitTask::Do()
     CHECK(false, (transitHeaderVersion));
   }
 
-  vector<FeatureID> features;
+  std::vector<FeatureID> features;
   for (auto & id : m_transitInfo->m_features)
     features.push_back(id.first);
-  sort(features.begin(), features.end());
+  std::sort(features.begin(), features.end());
 
   m_readFeaturesFn([this](FeatureType & ft)
   {
@@ -180,7 +179,7 @@ void ReadTransitTask::Reset()
   IRoutine::Reset();
 }
 
-unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
+std::unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
 {
   return std::move(m_transitInfo);
 }
@@ -237,9 +236,10 @@ void TransitReadManager::Start()
   if (m_threadsPool != nullptr)
     return;
 
-  using namespace placeholders;
+  using namespace std::placeholders;
   uint8_t constexpr kThreadsCount = 1;
-  m_threadsPool = make_unique<base::ThreadPool>(kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
+  m_threadsPool =
+      std::make_unique<base::ThreadPool>(kThreadsCount, std::bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }
 
 void TransitReadManager::Stop()
@@ -330,7 +330,7 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
     if (it == m_mwmCache.end())
     {
       newTransitData[mwmId] = {};
-      m_mwmCache.insert(make_pair(mwmId, CacheEntry(currentTime)));
+      m_mwmCache.insert(std::make_pair(mwmId, CacheEntry(currentTime)));
     }
     else
     {
@@ -434,7 +434,7 @@ void TransitReadManager::ShrinkCacheToAllowableSize()
     std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
     for (auto const & entry : m_mwmCache)
       if (entry.second.m_isLoaded && m_lastActiveMwms.count(entry.first) == 0)
-        seenTimings.insert(make_pair(entry.second.m_lastActiveTime, entry.first));
+        seenTimings.insert(std::make_pair(entry.second.m_lastActiveTime, entry.first));
 
     while (m_cacheSize > kMaxTransitCacheSizeBytes && !seenTimings.empty())
     {
@@ -446,15 +446,15 @@ void TransitReadManager::ShrinkCacheToAllowableSize()
 
 bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos)
 {
-  unique_lock<mutex> lock(m_mutex);
+  std::unique_lock<std::mutex> lock(m_mutex);
   auto const groupId = ++m_nextTasksGroupId;
   lock.unlock();
 
-  map<MwmSet::MwmId, unique_ptr<ReadTransitTask>> transitTasks;
+  std::map<MwmSet::MwmId, std::unique_ptr<ReadTransitTask>> transitTasks;
   for (auto & mwmTransitPair : transitDisplayInfos)
   {
     auto const & mwmId = mwmTransitPair.first;
-    auto task = make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
+    auto task = std::make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
     task->Init(groupId, mwmId, std::move(mwmTransitPair.second));
     transitTasks[mwmId] = std::move(task);
   }
@@ -489,7 +489,7 @@ void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)
   ASSERT(dynamic_cast<ReadTransitTask *>(task) != nullptr, ());
   ReadTransitTask * t = static_cast<ReadTransitTask *>(task);
 
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (--m_tasksGroups[t->GetId()] == 0)
     m_event.notify_all();

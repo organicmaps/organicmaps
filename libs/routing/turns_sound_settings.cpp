@@ -10,11 +10,10 @@ namespace turns
 {
 namespace sound
 {
-using namespace std;
 using namespace measurement_utils;
 
 void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
-                        uint32_t maxNotificationDistanceUnits, vector<uint32_t> const & soundedDistancesUnits,
+                        uint32_t maxNotificationDistanceUnits, std::vector<uint32_t> const & soundedDistancesUnits,
                         measurement_utils::Units lengthUnits)
 {
   m_timeSeconds = notificationTimeSeconds;
@@ -27,7 +26,7 @@ void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificati
 bool Settings::IsValid() const
 {
   return m_minDistanceUnits <= m_maxDistanceUnits && !m_soundedDistancesUnits.empty() &&
-         is_sorted(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend());
+         std::is_sorted(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend());
 }
 
 uint32_t Settings::ComputeTurnDistanceM(double speedMetersPerSecond) const
@@ -48,8 +47,8 @@ uint32_t Settings::RoundByPresetSoundedDistancesUnits(uint32_t turnNotificationU
 {
   ASSERT(IsValid(), ());
 
-  auto it = upper_bound(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend(), turnNotificationUnits,
-                        less_equal<uint32_t>());
+  auto it = std::upper_bound(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend(), turnNotificationUnits,
+                             std::less_equal<uint32_t>());
   // Rounding up the result.
   if (it != m_soundedDistancesUnits.cend())
     return *it;
@@ -107,15 +106,15 @@ uint32_t Settings::ComputeDistToPronounceDistM(double speedMetersPerSecond, bool
   return math::Clamp(startBeforeMeters, minStartBeforeMeters, maxStartBeforeMeters);
 }
 
-string DebugPrint(Notification const & notification)
+std::string DebugPrint(Notification const & notification)
 {
-  stringstream out;
+  std::stringstream out;
   out << "Notification [ m_distanceUnits == " << notification.m_distanceUnits
       << ", m_exitNum == " << notification.m_exitNum
       << ", m_useThenInsteadOfDistance == " << notification.m_useThenInsteadOfDistance
       << ", m_turnDir == " << DebugPrint(notification.m_turnDir)
       << ", m_turnDirPedestrian == " << DebugPrint(notification.m_turnDirPedestrian)
-      << ", m_lengthUnits == " << DebugPrint(notification.m_lengthUnits) << " ]" << endl;
+      << ", m_lengthUnits == " << DebugPrint(notification.m_lengthUnits) << " ]" << std::endl;
   return out.str();
 }
 
@@ -144,21 +143,21 @@ VecPairDist const & GetAllSoundedDistFeet()
   return inst;
 }
 
-vector<uint32_t> const & GetSoundedDistMeters()
+std::vector<uint32_t> const & GetSoundedDistMeters()
 {
   // The vector has to be sorted. Besides that any of its elements has to be contained in
   // the vector which GetAllSoundedDistMeters() returns.
   // It is checked in the unit test GetSoundedDistMeters.
-  static vector<uint32_t> const inst = {200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000};
+  static std::vector<uint32_t> const inst = {200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000};
   return inst;
 }
 
-vector<uint32_t> const & GetSoundedDistFeet()
+std::vector<uint32_t> const & GetSoundedDistFeet()
 {
   // The vector has to be sorted. Besides that any of its elements has to be contained in
   // the vector which GetAllSoundedDistFeet() returns.
   // It is checked in the unit test GetSoundedDistFeet.
-  static vector<uint32_t> const inst = {500, 600, 700, 800, 900, 1000, 1500, 2000, 3000, 4000, 5000};
+  static std::vector<uint32_t> const inst = {500, 600, 700, 800, 900, 1000, 1500, 2000, 3000, 4000, 5000};
   return inst;
 }
 }  // namespace sound

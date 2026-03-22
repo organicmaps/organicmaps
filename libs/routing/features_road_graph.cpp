@@ -12,15 +12,13 @@
 
 namespace routing
 {
-using namespace std;
-
 namespace
 {
 uint32_t constexpr kPowOfTwoForFeatureCacheSize = 10;  // cache contains 2 ^ kPowOfTwoForFeatureCacheSize elements
 
 double constexpr kMwmRoadCrossingRadiusMeters = 2.0;
 
-auto constexpr kInvalidSpeedKMPH = numeric_limits<double>::max();
+auto constexpr kInvalidSpeedKMPH = std::numeric_limits<double>::max();
 }  // namespace
 
 double GetRoadCrossingRadiusMeters()
@@ -102,7 +100,7 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 }
 
 FeaturesRoadGraphBase::FeaturesRoadGraphBase(MwmDataSource & dataSource, IRoadGraph::Mode mode,
-                                             shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
+                                             std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
   : m_dataSource(dataSource)
   , m_mode(mode)
   , m_vehicleModel(vehicleModelFactory)
@@ -142,8 +140,9 @@ void FeaturesRoadGraphBase::ForEachFeatureClosestToCross(m2::PointD const & cros
   m_dataSource.ForEachStreet(featuresLoader, rect);
 }
 
-void FeaturesRoadGraphBase::FindClosestEdges(m2::RectD const & rect, uint32_t count,
-                                             vector<pair<Edge, geometry::PointWithAltitude>> & vicinities) const
+void FeaturesRoadGraphBase::FindClosestEdges(
+    m2::RectD const & rect, uint32_t count,
+    std::vector<std::pair<Edge, geometry::PointWithAltitude>> & vicinities) const
 {
   NearestEdgeFinder finder(rect.Center(), nullptr /* IsEdgeProjGood */);
 
@@ -161,10 +160,10 @@ void FeaturesRoadGraphBase::FindClosestEdges(m2::RectD const & rect, uint32_t co
   finder.MakeResult(vicinities, count);
 }
 
-vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraphBase::FindRoads(m2::RectD const & rect,
-                                                                  IsGoodFeatureFn const & isGoodFeature) const
+std::vector<IRoadGraph::FullRoadInfo> FeaturesRoadGraphBase::FindRoads(m2::RectD const & rect,
+                                                                       IsGoodFeatureFn const & isGoodFeature) const
 {
-  vector<IRoadGraph::FullRoadInfo> roads;
+  std::vector<IRoadGraph::FullRoadInfo> roads;
 
   m_dataSource.ForEachStreet([&](FeatureType & ft)
   {

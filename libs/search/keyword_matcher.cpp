@@ -12,8 +12,6 @@
 
 namespace search
 {
-using namespace std;
-
 KeywordMatcher::KeywordMatcher()
 {
   Clear();
@@ -31,7 +29,7 @@ void KeywordMatcher::SetKeywords(QueryString const & query)
   m_prefix = query.m_prefix;
 }
 
-KeywordMatcher::Score KeywordMatcher::CalcScore(string_view name) const
+KeywordMatcher::Score KeywordMatcher::CalcScore(std::string_view name) const
 {
   return CalcScore(NormalizeAndSimplifyString(name));
 }
@@ -47,10 +45,10 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const & name)
 KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * tokens, size_t count) const
 {
   // Some names can have too many tokens. Trim them.
-  count = min(count, kMaxNumTokens);
+  count = std::min(count, kMaxNumTokens);
 
-  vector<bool> isQueryTokenMatched(m_keywords.size());
-  vector<bool> isNameTokenMatched(count);
+  std::vector<bool> isQueryTokenMatched(m_keywords.size());
+  std::vector<bool> isNameTokenMatched(count);
   uint32_t sumTokenMatchDistance = 0;
   int8_t prevTokenMatchDistance = 0;
   bool prefixMatched = true;
@@ -63,7 +61,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
       {
         isQueryTokenMatched[i] = isNameTokenMatched[j] = true;
         int8_t const tokenMatchDistance = i - j;
-        sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
+        sumTokenMatchDistance += std::abs(tokenMatchDistance - prevTokenMatchDistance);
         prevTokenMatchDistance = tokenMatchDistance;
       }
     }
@@ -79,7 +77,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
       {
         isNameTokenMatched[j] = prefixMatched = true;
         int8_t const tokenMatchDistance = int(m_keywords.size()) - j;
-        sumTokenMatchDistance += abs(tokenMatchDistance - prevTokenMatchDistance);
+        sumTokenMatchDistance += std::abs(tokenMatchDistance - prevTokenMatchDistance);
       }
     }
   }
@@ -149,9 +147,9 @@ bool KeywordMatcher::Score::LessInTokensLength(Score const & s) const
   return false;
 }
 
-string DebugPrint(KeywordMatcher::Score const & score)
+std::string DebugPrint(KeywordMatcher::Score const & score)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "KeywordMatcher::Score(";
   out << "FQM=" << score.m_fullQueryMatched;
   out << ",nQTM=" << static_cast<int>(score.m_numQueryTokensAndPrefixMatched);

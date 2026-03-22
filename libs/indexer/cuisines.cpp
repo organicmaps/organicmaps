@@ -11,8 +11,6 @@
 
 namespace osm
 {
-using namespace std;
-
 Cuisines::Cuisines()
 {
   auto const & c = classif();
@@ -27,8 +25,8 @@ Cuisines::Cuisines()
     m_allCuisines.emplace_back(name, platform::GetLocalizedTypeName("cuisine-" + name));
   });
 
-  sort(m_allCuisines.begin(), m_allCuisines.end(),
-       [](auto const & lhs, auto const & rhs) { return lhs.second < rhs.second; });
+  std::sort(m_allCuisines.begin(), m_allCuisines.end(),
+            [](auto const & lhs, auto const & rhs) { return lhs.second < rhs.second; });
 }
 
 // static
@@ -38,11 +36,11 @@ Cuisines const & Cuisines::Instance()
   return instance;
 }
 
-string const & Cuisines::Translate(string const & singleCuisine) const
+std::string const & Cuisines::Translate(std::string const & singleCuisine) const
 {
-  static string const kEmptyString;
-  auto const it = find_if(m_allCuisines.begin(), m_allCuisines.end(),
-                          [&](auto const & cuisine) { return cuisine.first == singleCuisine; });
+  static std::string const kEmptyString;
+  auto const it = std::find_if(m_allCuisines.begin(), m_allCuisines.end(),
+                               [&](auto const & cuisine) { return cuisine.first == singleCuisine; });
   if (it != m_allCuisines.end())
     return it->second;
   return kEmptyString;

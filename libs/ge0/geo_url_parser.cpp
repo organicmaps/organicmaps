@@ -8,8 +8,6 @@
 
 namespace geo
 {
-using namespace std;
-
 namespace
 {
 double constexpr kEps = 1e-10;
@@ -26,7 +24,8 @@ std::string_view ToView(std::ssub_match const & sm)
   return {&*sm.first, static_cast<size_t>(sm.length())};
 }
 
-bool MatchLatLonZoom(string const & s, regex const & re, size_t lati, size_t loni, size_t zoomi, GeoURLInfo & info)
+bool MatchLatLonZoom(std::string const & s, std::regex const & re, size_t lati, size_t loni, size_t zoomi,
+                     GeoURLInfo & info)
 {
   std::smatch m;
   if (!std::regex_search(s, m, re) || m.size() != 4)
@@ -129,7 +128,7 @@ void LatLonParser::operator()(std::string name, std::string const & value)
   }
 }
 
-int LatLonParser::GetCoordinatesPriority(string const & token)
+int LatLonParser::GetCoordinatesPriority(std::string const & token)
 {
   if (token.empty())
     return 0;
@@ -139,7 +138,7 @@ int LatLonParser::GetCoordinatesPriority(string const & token)
     return 2;
   if (token == "sll")
     return 3;
-  if (token.find("point") != string::npos)
+  if (token.find("point") != std::string::npos)
     return 4;
   if (token == "ll")
     return kLLPriority;
@@ -175,8 +174,8 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
   /*
    * Check for trailing `(label)` which is not RFC3986-compliant (thanks, Google).
    */
-  size_t end = string::npos;
-  if (raw.size() > 2 && raw.back() == ')' && string::npos != (end = raw.rfind('(')))
+  size_t end = std::string::npos;
+  if (raw.size() > 2 && raw.back() == ')' && std::string::npos != (end = raw.rfind('(')))
   {
     // head (label)
     //      ^end
@@ -187,7 +186,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
       end--;
   }
 
-  url::Url url(end == string::npos ? raw : raw.substr(0, end + 1));
+  url::Url url(end == std::string::npos ? raw : raw.substr(0, end + 1));
   if (!url.IsValid())
     return false;
   ASSERT_EQUAL(url.GetScheme(), "geo", ());

@@ -7,7 +7,6 @@
 
 namespace routing
 {
-using namespace std;
 using Iter = routing::FollowedPolyline::Iter;
 
 Iter FollowedPolyline::Begin() const
@@ -78,8 +77,8 @@ void FollowedPolyline::Swap(FollowedPolyline & rhs)
   m_poly.Swap(rhs.m_poly);
   m_segDistance.swap(rhs.m_segDistance);
   m_segProj.swap(rhs.m_segProj);
-  swap(m_current, rhs.m_current);
-  swap(m_nextCheckpointIndex, rhs.m_nextCheckpointIndex);
+  std::swap(m_current, rhs.m_current);
+  std::swap(m_nextCheckpointIndex, rhs.m_nextCheckpointIndex);
 }
 
 void FollowedPolyline::Update()
@@ -110,7 +109,7 @@ void FollowedPolyline::Update()
 
 bool FollowedPolyline::IsFakeSegment(size_t index) const
 {
-  return binary_search(m_fakeSegmentIndexes.begin(), m_fakeSegmentIndexes.end(), index);
+  return std::binary_search(m_fakeSegmentIndexes.begin(), m_fakeSegmentIndexes.end(), index);
 }
 
 template <class DistanceFn>
@@ -120,7 +119,7 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect, DistanceFn c
   // At first trying to find a projection to two closest route segments of route which is close
   // enough to |posRect| center. If |m_current| is right before intermediate point we can get |closestIter|
   // right after intermediate point (in next subroute).
-  size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 2);
+  size_t const hoppingBorderIdx = std::min(m_segProj.size(), m_current.m_ind + 2);
   Iter const closestIter = GetClosestProjectionInInterval(posRect, distFn, m_current.m_ind, hoppingBorderIdx);
   if (closestIter.IsValid())
     return closestIter;
@@ -136,7 +135,7 @@ Iter FollowedPolyline::GetBestMatchingProjection(m2::RectD const & posRect) cons
   // At first trying to find a projection to two closest route segments of route which is close
   // enough to |posRect| center. If |m_current| is right before intermediate point we can get |iter|
   // right after intermediate point (in next subroute).
-  size_t const hoppingBorderIdx = min(m_nextCheckpointIndex, min(m_segProj.size(), m_current.m_ind + 3));
+  size_t const hoppingBorderIdx = std::min(m_nextCheckpointIndex, std::min(m_segProj.size(), m_current.m_ind + 3));
   auto const iter = GetClosestMatchingProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
   if (iter.IsValid())
     return iter;
@@ -175,9 +174,9 @@ Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)
   return res;
 }
 
-void FollowedPolyline::SetFakeSegmentIndexes(vector<size_t> && fakeSegmentIndexes)
+void FollowedPolyline::SetFakeSegmentIndexes(std::vector<size_t> && fakeSegmentIndexes)
 {
-  ASSERT(is_sorted(fakeSegmentIndexes.cbegin(), fakeSegmentIndexes.cend()), ());
+  ASSERT(std::is_sorted(fakeSegmentIndexes.cbegin(), fakeSegmentIndexes.cend()), ());
   m_fakeSegmentIndexes = std::move(fakeSegmentIndexes);
 }
 
@@ -200,7 +199,7 @@ double FollowedPolyline::GetDistFromCurPointToRoutePointMeters() const
 void FollowedPolyline::GetCurrentDirectionPoint(m2::PointD & pt, double toleranceM) const
 {
   ASSERT(IsValid(), ());
-  size_t currentIndex = min(m_current.m_ind + 1, m_poly.GetSize() - 1);
+  size_t currentIndex = std::min(m_current.m_ind + 1, m_poly.GetSize() - 1);
   m2::PointD point = m_poly.GetPoint(currentIndex);
   for (; currentIndex < m_poly.GetSize() - 1; point = m_poly.GetPoint(++currentIndex))
     if (mercator::DistanceOnEarth(point, m_current.m_pt) > toleranceM)

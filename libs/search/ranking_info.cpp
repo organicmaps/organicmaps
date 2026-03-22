@@ -14,8 +14,6 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 // See search/search_quality/scoring_model.py for details. In short,
@@ -45,7 +43,7 @@ double constexpr kAltOldName = -0.3;  // Some reasonable penalty like kErrorsMad
 // - should be greater than fabs(kErrorsMade) / 2
 // - shoulbe be comparable with kRank to keep cities/towns
 double constexpr kViewportDiffThreshold = 0.29;
-static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
+static_assert(kViewportDiffThreshold<-kAltOldName && kViewportDiffThreshold> - kErrorsMade / 2);
 static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
 double constexpr kNameScore[] = {
@@ -124,7 +122,7 @@ double TransformDistance(double distance)
   return std::min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
 }
 
-void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges, size_t numTokens)
+void PrintParse(std::ostringstream & oss, std::array<TokenRange, Model::TYPE_COUNT> const & ranges, size_t numTokens)
 {
   std::vector<Model::Type> types(numTokens, Model::TYPE_COUNT);
   for (size_t i = 0; i < ranges.size(); ++i)
@@ -215,7 +213,7 @@ ResultTypeResolver::IsSkipRegionInfo::IsSkipRegionInfo()
 {}
 
 // static
-void RankingInfo::PrintCSVHeader(ostream & os)
+void RankingInfo::PrintCSVHeader(std::ostream & os)
 {
   os << "DistanceToPivot"
      << ",Rank"
@@ -236,7 +234,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
 
 std::string DebugPrint(StoredRankingInfo const & info)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "StoredRankingInfo "
      << "{ m_distanceToPivot: " << info.m_distanceToPivot << ", m_type: " << DebugPrint(info.m_type)
      << ", m_classifType: ";
@@ -250,10 +248,10 @@ std::string DebugPrint(StoredRankingInfo const & info)
   return os.str();
 }
 
-string DebugPrint(RankingInfo const & info)
+std::string DebugPrint(RankingInfo const & info)
 {
-  ostringstream os;
-  os << boolalpha << "RankingInfo { " << DebugPrint(static_cast<StoredRankingInfo const &>(info)) << ", ";
+  std::ostringstream os;
+  os << std::boolalpha << "RankingInfo { " << DebugPrint(static_cast<StoredRankingInfo const &>(info)) << ", ";
 
   PrintParse(os, info.m_tokenRanges, info.m_numTokens);
 
@@ -270,9 +268,9 @@ string DebugPrint(RankingInfo const & info)
   return os.str();
 }
 
-void RankingInfo::ToCSV(ostream & os) const
+void RankingInfo::ToCSV(std::ostream & os) const
 {
-  os << fixed;
+  os << std::fixed;
   os << m_distanceToPivot << ",";
   os << static_cast<int>(m_rank) << ",";
   os << static_cast<int>(m_popularity) << ",";
@@ -301,8 +299,8 @@ double RankingInfo::GetLinearRankViewportThreshold()
 double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
 {
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
-  double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
-  double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();
+  double const rank = static_cast<double>(m_rank) / std::numeric_limits<uint8_t>::max();
+  double const popularity = static_cast<double>(m_popularity) / std::numeric_limits<uint8_t>::max();
 
   double result = 0.0;
   if (!m_categorialRequest)
@@ -368,7 +366,7 @@ double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
 double RankingInfo::GetErrorsMadePerToken() const
 {
   if (!m_errorsMade.IsValid())
-    return GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
+    return GetMaxErrorsForTokenLength(std::numeric_limits<size_t>::max());
 
   ASSERT_GREATER(m_numTokens, 0, ());
   return m_errorsMade.m_errorsMade / static_cast<double>(m_numTokens);
@@ -449,7 +447,7 @@ PoiType ResultTypeResolver::GetPoiType(feature::TypesHolder const & th) const
   return PoiType::General;
 }
 
-string DebugPrint(PoiType type)
+std::string DebugPrint(PoiType type)
 {
   switch (type)
   {

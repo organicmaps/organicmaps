@@ -13,8 +13,6 @@
 
 namespace osm
 {
-using namespace std;
-
 // FeatureNames -------------------------------------------------------------------------------
 
 void FeatureNames::Add(int8_t langCode, std::string_view name)
@@ -88,7 +86,7 @@ ms::LatLon MapObject::GetLatLon() const
   return mercator::ToLatLon(m_mercator);
 }
 
-string_view MapObject::GetDefaultName() const
+std::string_view MapObject::GetDefaultName() const
 {
   return m_name.Get(StringUtf8Multilang::kDefaultCode);
 }
@@ -178,27 +176,27 @@ feature::Internet MapObject::GetInternet() const
   return feature::InternetFromString(m_metadata.Get(MetadataID::FMD_INTERNET));
 }
 
-vector<string> MapObject::GetCuisines() const
+std::vector<std::string> MapObject::GetCuisines() const
 {
   return feature::GetCuisines(m_types);
 }
 
-vector<string> MapObject::GetLocalizedCuisines() const
+std::vector<std::string> MapObject::GetLocalizedCuisines() const
 {
   return feature::GetLocalizedCuisines(m_types);
 }
 
-vector<string> MapObject::GetRecyclingTypes() const
+std::vector<std::string> MapObject::GetRecyclingTypes() const
 {
   return feature::GetRecyclingTypes(m_types);
 }
 
-vector<string> MapObject::GetLocalizedRecyclingTypes() const
+std::vector<std::string> MapObject::GetLocalizedRecyclingTypes() const
 {
   return feature::GetLocalizedRecyclingTypes(m_types);
 }
 
-string MapObject::GetLocalizedFeeType() const
+std::string MapObject::GetLocalizedFeeType() const
 {
   return feature::GetLocalizedFeeType(m_types);
 }
@@ -213,12 +211,12 @@ bool MapObject::HasToilets() const
   return feature::HasToilets(m_types);
 }
 
-string MapObject::FormatCuisines() const
+std::string MapObject::FormatCuisines() const
 {
   return strings::JoinStrings(GetLocalizedCuisines(), feature::kFieldsSeparator);
 }
 
-string MapObject::FormatRoadShields() const
+std::string MapObject::FormatRoadShields() const
 {
   return strings::JoinStrings(m_roadShields, feature::kFieldsSeparator);
 }

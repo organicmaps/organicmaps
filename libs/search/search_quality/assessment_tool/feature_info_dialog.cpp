@@ -19,11 +19,9 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 
-using namespace std;
-
 namespace
 {
-QLabel * MakeSelectableLabel(string const & s)
+QLabel * MakeSelectableLabel(std::string const & s)
 {
   auto * result = new QLabel(QString::fromStdString(s));
   result->setTextInteractionFlags(Qt::TextSelectableByMouse);
@@ -32,7 +30,7 @@ QLabel * MakeSelectableLabel(string const & s)
 }  // namespace
 
 FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & mapObject,
-                                     search::ReverseGeocoder::Address const & address, string const & locale)
+                                     search::ReverseGeocoder::Address const & address, std::string const & locale)
   : QDialog(parent)
 {
   auto * layout = new QGridLayout();
@@ -58,16 +56,16 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & ma
 
   {
     int8_t const localeCode = StringUtf8Multilang::GetLangIndex(locale);
-    vector<int8_t> codes = {{StringUtf8Multilang::kDefaultCode, StringUtf8Multilang::kEnglishCode}};
+    std::vector<int8_t> codes = {{StringUtf8Multilang::kDefaultCode, StringUtf8Multilang::kEnglishCode}};
     if (localeCode != StringUtf8Multilang::kUnsupportedLanguageCode &&
-        ::find(codes.begin(), codes.end(), localeCode) == codes.end())
+        std::find(codes.begin(), codes.end(), localeCode) == codes.end())
     {
       codes.push_back(localeCode);
     }
 
     for (int8_t code : codes)
     {
-      string_view name = mapObject.GetNameMultilang().Get(code);
+      std::string_view name = mapObject.GetNameMultilang().Get(code);
       if (name.empty())
         continue;
 
@@ -83,7 +81,7 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & ma
   {
     auto const & c = classif();
 
-    vector<string> types;
+    std::vector<std::string> types;
     for (auto type : mapObject.GetTypes())
       types.push_back(c.GetReadableObjectName(type));
 

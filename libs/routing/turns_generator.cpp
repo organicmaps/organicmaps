@@ -8,7 +8,6 @@ namespace routing
 {
 namespace turns
 {
-using namespace std;
 using namespace ftypes;
 
 /// * \returns true when
@@ -23,8 +22,8 @@ bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandida
   HighwayClass outgoingRouteRoadClass = turnInfo.m_outgoing->m_highwayClass;
   HighwayClass ingoingRouteRoadClass = turnInfo.m_ingoing->m_highwayClass;
 
-  HighwayClass maxRouteRoadClass =
-      static_cast<HighwayClass>(max(static_cast<int>(ingoingRouteRoadClass), static_cast<int>(outgoingRouteRoadClass)));
+  HighwayClass maxRouteRoadClass = static_cast<HighwayClass>(
+      std::max(static_cast<int>(ingoingRouteRoadClass), static_cast<int>(outgoingRouteRoadClass)));
 
   // The turn should be kept if there's no any information about feature id of outgoing segment
   // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
@@ -272,7 +271,7 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
   auto const IsFirstOutgoingSeg = [&firstOutgoingSeg](TurnCandidate const & turnCandidate)
   { return turnCandidate.m_segment == firstOutgoingSeg; };
   auto & candidates = nodes.candidates;
-  auto it = find_if(candidates.begin(), candidates.end(), IsFirstOutgoingSeg);
+  auto it = std::find_if(candidates.begin(), candidates.end(), IsFirstOutgoingSeg);
   if (it == candidates.end())
   {
     // firstOutgoingSeg not found. Try to match by angle.
@@ -281,7 +280,7 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
       return (AlmostEqualAbs(candidate.m_angle, turnAngle, 0.001) ||
               fabs(candidate.m_angle) + fabs(turnAngle) > 359.999);
     };
-    auto it = find_if(candidates.begin(), candidates.end(), DoesAngleMatch);
+    auto it = std::find_if(candidates.begin(), candidates.end(), DoesAngleMatch);
     if (it != candidates.end())
     {
       // Match by angle. Update candidate's segment.

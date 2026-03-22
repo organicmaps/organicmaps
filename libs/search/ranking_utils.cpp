@@ -13,7 +13,6 @@
 
 namespace search
 {
-using namespace std;
 using namespace strings;
 
 // CategoriesInfo ----------------------------------------------------------------------------------
@@ -27,7 +26,7 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
   };
 
   QuerySlice slice(tokens);
-  vector<TokenInfo> infos(slice.Size());
+  std::vector<TokenInfo> infos(slice.Size());
 
   ForEachCategoryType(slice, locales, categories, [&](size_t i, uint32_t t)
   {
@@ -45,18 +44,18 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 
   // Note that m_inFeatureTypes implies m_isCategoryToken.
 
-  m_pureCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
+  m_pureCategories = std::all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
   {
     ASSERT(!info.m_inFeatureTypes || info.m_isCategoryToken, ());
     return info.m_inFeatureTypes;
   });
 
-  m_falseCategories = all_of(infos.begin(), infos.end(),
-                             [](TokenInfo const & info) { return !info.m_inFeatureTypes && info.m_isCategoryToken; });
+  m_falseCategories = std::all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
+  { return !info.m_inFeatureTypes && info.m_isCategoryToken; });
 }
 
 // ErrorsMade --------------------------------------------------------------------------------------
-string DebugPrint(ErrorsMade const & errorsMade)
+std::string DebugPrint(ErrorsMade const & errorsMade)
 {
   if (errorsMade.IsValid())
     return std::to_string(errorsMade.m_errorsMade);
@@ -100,7 +99,7 @@ bool IsStopWord(UniString const & s)
   /// Should skip this tokens when building search index?
   class StopWordsChecker
   {
-    set<UniString> m_set;
+    std::set<UniString> m_set;
 
   public:
     StopWordsChecker()
@@ -123,7 +122,7 @@ bool IsStopWord(UniString const & s)
   return swChecker.Has(s);
 }
 
-TokensVector::TokensVector(string_view name)
+TokensVector::TokensVector(std::string_view name)
 {
   ForEachNormalizedToken(name, [this](strings::UniString && token)
   {
@@ -134,7 +133,7 @@ TokensVector::TokensVector(string_view name)
   Init();
 }
 
-string DebugPrint(NameScore const & score)
+std::string DebugPrint(NameScore const & score)
 {
   switch (score)
   {
@@ -149,10 +148,10 @@ string DebugPrint(NameScore const & score)
   return "Unknown";
 }
 
-string DebugPrint(NameScores const & scores)
+std::string DebugPrint(NameScores const & scores)
 {
-  ostringstream os;
-  os << boolalpha << "NameScores "
+  std::ostringstream os;
+  os << std::boolalpha << "NameScores "
      << "{ m_nameScore: " << DebugPrint(scores.m_nameScore) << ", m_matchedLength: " << scores.m_matchedLength
      << ", m_errorsMade: " << DebugPrint(scores.m_errorsMade) << ", m_isAltOrOldName: "
      << " }";

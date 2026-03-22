@@ -16,7 +16,6 @@
 
 namespace search
 {
-using namespace std;
 using namespace strings;
 
 void PostcodePoints::Header::Read(Reader & reader)
@@ -56,7 +55,7 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   m_radius = kPostcodeRadiusMultiplier * 0.5 * sqrt(area / count);
 }
 
-void PostcodePoints::Get(UniString const & postcode, bool recursive, vector<m2::PointD> & points) const
+void PostcodePoints::Get(UniString const & postcode, bool recursive, std::vector<m2::PointD> & points) const
 {
   if (!m_root || !m_points || !m_trieSubReader || !m_pointsSubReader || postcode.empty())
     return;
@@ -66,19 +65,19 @@ void PostcodePoints::Get(UniString const & postcode, bool recursive, vector<m2::
 
   while (postcodeIt != postcode.end())
   {
-    auto it = find_if(trieIt->m_edges.begin(), trieIt->m_edges.end(), [&](auto const & edge)
+    auto it = std::find_if(trieIt->m_edges.begin(), trieIt->m_edges.end(), [&](auto const & edge)
     { return StartsWith(postcodeIt, postcode.end(), edge.m_label.begin(), edge.m_label.end()); });
     if (it == trieIt->m_edges.end())
       return;
 
     postcodeIt += it->m_label.size();
-    trieIt = trieIt->GoToEdge(distance(trieIt->m_edges.begin(), it));
+    trieIt = trieIt->GoToEdge(std::distance(trieIt->m_edges.begin(), it));
   }
 
   if (postcodeIt != postcode.end())
     return;
 
-  vector<uint32_t> indexes;
+  std::vector<uint32_t> indexes;
   trieIt->m_values.ForEach([&indexes](auto const & v)
   { indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId)); });
 
@@ -93,7 +92,7 @@ void PostcodePoints::Get(UniString const & postcode, bool recursive, vector<m2::
     CHECK(m_points->Get(indexes[i], points[i]), ());
 }
 
-void PostcodePoints::Get(UniString const & postcode, vector<m2::PointD> & points) const
+void PostcodePoints::Get(UniString const & postcode, std::vector<m2::PointD> & points) const
 {
   points.clear();
 
@@ -113,7 +112,7 @@ PostcodePoints & PostcodePointsCache::Get(MwmContext const & context)
   if (it != m_entries.end())
     return *it->second;
 
-  auto const emplaceRes = m_entries.emplace(mwmId, make_unique<PostcodePoints>(context.m_value));
+  auto const emplaceRes = m_entries.emplace(mwmId, std::make_unique<PostcodePoints>(context.m_value));
   ASSERT(emplaceRes.second, ("Failed to load postcode points for", mwmId));
   return *(emplaceRes.first)->second;
 }

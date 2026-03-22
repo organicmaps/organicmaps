@@ -6,8 +6,6 @@
 
 namespace routing
 {
-using namespace std;
-
 template <>
 SingleVehicleWorldGraph::AStarParents<Segment>::ParentType SingleVehicleWorldGraph::AStarParents<Segment>::kEmpty = {};
 
@@ -15,9 +13,9 @@ template <>
 SingleVehicleWorldGraph::AStarParents<JointSegment>::ParentType
     SingleVehicleWorldGraph::AStarParents<JointSegment>::kEmpty = {};
 
-SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
-                                                 unique_ptr<IndexGraphLoader> loader,
-                                                 shared_ptr<EdgeEstimator> estimator,
+SingleVehicleWorldGraph::SingleVehicleWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
+                                                 std::unique_ptr<IndexGraphLoader> loader,
+                                                 std::shared_ptr<EdgeEstimator> estimator,
                                                  MwmHierarchyHandler && hierarchyHandler)
   : m_crossMwmGraph(std::move(crossMwmGraph))
   , m_loader(std::move(loader))
@@ -177,7 +175,7 @@ void SingleVehicleWorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter,
   return m_crossMwmGraph->ForEachTransition(numMwmId, isEnter, fn);
 }
 
-vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
+std::vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
 {
   ASSERT(segment.IsRealSegment(), ());
   return m_loader->GetSpeedCameraInfo(segment);
@@ -244,7 +242,7 @@ void SingleVehicleWorldGraph::DropAStarParents()
 }
 
 template <typename VertexType>
-NumMwmId GetCommonMwmInChain(vector<VertexType> const & chain)
+NumMwmId GetCommonMwmInChain(std::vector<VertexType> const & chain)
 {
   NumMwmId mwmId = kFakeNumMwmId;
   for (size_t i = 0; i < chain.size(); ++i)
@@ -270,7 +268,7 @@ bool SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const 
   if (IsRegionsGraphMode())
     return true;
 
-  vector<VertexType> chain;
+  std::vector<VertexType> chain;
   auto const fillUntilNextFeatureId = [&](VertexType const & cur, auto const & parents)
   {
     auto startFeatureId = cur.GetFeatureId();
@@ -304,7 +302,7 @@ bool SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const 
 
   fillParents(commonVertex, forwardParents);
 
-  reverse(chain.begin(), chain.end());
+  std::reverse(chain.begin(), chain.end());
   chain.emplace_back(commonVertex);
 
   fillParents(commonVertex, backwardParents);
@@ -339,7 +337,7 @@ bool SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const 
 bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
                                                   Parents<Segment> & backwardParents)
 {
-  return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents, [](vector<Segment> &) {});
+  return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents, [](std::vector<Segment> &) {});
 }
 
 bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents,
@@ -348,7 +346,7 @@ bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<JointSegment> & forwar
                                                   FakeConverterT const & fakeFeatureConverter)
 {
   return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents,
-                                 [&fakeFeatureConverter](vector<JointSegment> & chain)
+                                 [&fakeFeatureConverter](std::vector<JointSegment> & chain)
   {
     for (auto & vertex : chain)
       fakeFeatureConverter(vertex);

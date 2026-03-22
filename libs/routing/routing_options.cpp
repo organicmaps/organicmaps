@@ -12,8 +12,6 @@
 
 namespace routing
 {
-using namespace std;
-
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_options_car";
@@ -55,7 +53,7 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
 {
   Classificator const & c = classif();
 
-  pair<vector<string>, RoutingOptions::Road> const types[] = {
+  std::pair<std::vector<std::string>, RoutingOptions::Road> const types[] = {
       {{"highway", "motorway"}, RoutingOptions::Road::Motorway},
 
       {{"hwtag", "toll"}, RoutingOptions::Road::Toll},
@@ -73,7 +71,7 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
   m_data.FinishBuilding();
 }
 
-optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
+std::optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
   ftype::TruncValue(type, 2);  // in case of highway-motorway-bridge
 
@@ -106,9 +104,9 @@ RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options, bool is
   return RoutingOptions::Road::Usual;
 }
 
-string DebugPrint(RoutingOptions const & routingOptions)
+std::string DebugPrint(RoutingOptions const & routingOptions)
 {
-  ostringstream ss;
+  std::ostringstream ss;
   ss << "RoutingOptions: {";
 
   bool wasAppended = false;
@@ -135,7 +133,7 @@ string DebugPrint(RoutingOptions const & routingOptions)
   return ss.str();
 }
 
-string DebugPrint(RoutingOptions::Road type)
+std::string DebugPrint(RoutingOptions::Road type)
 {
   switch (type)
   {

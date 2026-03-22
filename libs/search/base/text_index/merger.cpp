@@ -18,8 +18,6 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
 using namespace search_base;
@@ -81,17 +79,17 @@ private:
   TextIndexReader const & m_index2;
   // Index of the next token from |m_dict| to be processed.
   size_t m_tokenId = 0;
-  vector<uint32_t> m_postings;
+  std::vector<uint32_t> m_postings;
 };
 
 TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1, TextIndexDictionary const & dict2)
 {
-  vector<Token> commonTokens;
+  std::vector<Token> commonTokens;
   auto const & ts1 = dict1.GetTokens();
   auto const & ts2 = dict2.GetTokens();
-  merge(ts1.begin(), ts1.end(), ts2.begin(), ts2.end(), back_inserter(commonTokens));
-  ASSERT(is_sorted(commonTokens.begin(), commonTokens.end()), ());
-  commonTokens.erase(unique(commonTokens.begin(), commonTokens.end()), commonTokens.end());
+  std::merge(ts1.begin(), ts1.end(), ts2.begin(), ts2.end(), std::back_inserter(commonTokens));
+  ASSERT(std::is_sorted(commonTokens.begin(), commonTokens.end()), ());
+  commonTokens.erase(std::unique(commonTokens.begin(), commonTokens.end()), commonTokens.end());
 
   TextIndexDictionary dict;
   dict.SetTokens(std::move(commonTokens));

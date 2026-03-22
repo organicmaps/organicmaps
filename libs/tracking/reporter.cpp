@@ -11,7 +11,6 @@
 
 #include <cmath>
 
-using namespace std;
 using namespace std::chrono;
 
 namespace
@@ -32,7 +31,8 @@ char const Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
 milliseconds const Reporter::kPushDelayMs = milliseconds(20000);
 
 // Set m_points size to be enough to keep all points even if one reconnect attempt failed.
-Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port, milliseconds pushDelay)
+Reporter::Reporter(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
+                   milliseconds pushDelay)
   : m_allowSendingPoints(true)
   , m_realtimeSender(std::move(socket), host, port, false)
   , m_pushDelay(pushDelay)
@@ -43,7 +43,7 @@ Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uin
 Reporter::~Reporter()
 {
   {
-    lock_guard<mutex> lg(m_mutex);
+    std::lock_guard<std::mutex> lg(m_mutex);
     m_isFinished = true;
   }
   m_cv.notify_one();
@@ -52,7 +52,7 @@ Reporter::~Reporter()
 
 void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup traffic)
 {
-  lock_guard<mutex> lg(m_mutex);
+  std::lock_guard<std::mutex> lg(m_mutex);
 
   if (info.m_horizontalAccuracy > kRequiredHorizontalAccuracy)
     return;
@@ -79,7 +79,7 @@ void Reporter::Run()
 {
   LOG(LINFO, ("Tracking Reporter started"));
 
-  unique_lock<mutex> lock(m_mutex);
+  std::unique_lock<std::mutex> lock(m_mutex);
 
   while (!m_isFinished)
   {

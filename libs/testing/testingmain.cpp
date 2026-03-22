@@ -42,8 +42,6 @@
 
 namespace testing
 {
-using namespace std;
-
 base::Waiter g_waiter;
 
 void RunEventLoop()
@@ -94,28 +92,29 @@ enum Status
   STATUS_BROKEN_FRAMEWORK = 5,
 };
 
-void DisplayOption(ostream & os, char const * option, char const * description)
+void DisplayOption(std::ostream & os, char const * option, char const * description)
 {
-  os << "  " << setw(kOptionFieldWidth) << left << option << " " << description << '\n';
+  os << "  " << std::setw(kOptionFieldWidth) << std::left << option << " " << description << '\n';
 }
 
-void DisplayOption(ostream & os, char const * option, char const * value, char const * description)
+void DisplayOption(std::ostream & os, char const * option, char const * value, char const * description)
 {
-  os << "  " << setw(kOptionFieldWidth) << left << (string(option) + value) << " " << description << '\n';
+  os << "  " << std::setw(kOptionFieldWidth) << std::left << (std::string(option) + value) << " " << description
+     << '\n';
 }
 
 void Usage(char const * name)
 {
-  cerr << "USAGE: " << name << " [options]\n\n";
-  cerr << "OPTIONS:\n";
-  DisplayOption(cerr, kFilterOption, "<ECMA Regexp>", "Run tests with names corresponding to regexp.");
-  DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>", "Do not run tests with names corresponding to regexp.");
-  DisplayOption(cerr, kDataPathOptions, "<Path>", "Path to data files.");
-  DisplayOption(cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
-  DisplayOption(cerr, kWritablePathOptions, "<Path>",
+  std::cerr << "USAGE: " << name << " [options]\n\n";
+  std::cerr << "OPTIONS:\n";
+  DisplayOption(std::cerr, kFilterOption, "<ECMA Regexp>", "Run tests with names corresponding to regexp.");
+  DisplayOption(std::cerr, kSuppressOption, "<ECMA Regexp>", "Do not run tests with names corresponding to regexp.");
+  DisplayOption(std::cerr, kDataPathOptions, "<Path>", "Path to data files.");
+  DisplayOption(std::cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
+  DisplayOption(std::cerr, kWritablePathOptions, "<Path>",
                 "Path to writable directory for test output (enables parallel test execution).");
-  DisplayOption(cerr, kListAllTestsOption, "List all the tests in the test suite and exit.");
-  DisplayOption(cerr, kHelpOption, "Print this help message and exit.");
+  DisplayOption(std::cerr, kListAllTestsOption, "List all the tests in the test suite and exit.");
+  DisplayOption(std::cerr, kHelpOption, "Print this help message and exit.");
 }
 
 void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
@@ -180,11 +179,11 @@ int main(int argc, char * argv[])
 
 #ifdef WITH_GL_MOCK
   emul::GLMockFunctions::Init(&argc, argv);
-  SCOPE_GUARD(GLMockScope, bind(&emul::GLMockFunctions::Teardown));
+  SCOPE_GUARD(GLMockScope, std::bind(&emul::GLMockFunctions::Teardown));
 #endif
 
-  vector<string> testnames;
-  vector<bool> testResults;
+  std::vector<std::string> testnames;
+  std::vector<bool> testResults;
   int numFailedTests = 0;
 
   ParseOptions(argc, argv, g_testingOptions);
@@ -194,22 +193,22 @@ int main(int argc, char * argv[])
     return STATUS_SUCCESS;
   }
 
-  regex filterRegExp;
+  std::regex filterRegExp;
   if (g_testingOptions.m_filterRegExp)
     filterRegExp.assign(g_testingOptions.m_filterRegExp);
 
-  regex suppressRegExp;
+  std::regex suppressRegExp;
   if (g_testingOptions.m_suppressRegExp)
     suppressRegExp.assign(g_testingOptions.m_suppressRegExp);
 
   for (TestRegister * test = TestRegister::FirstRegister(); test; test = test->m_next)
   {
-    string filename(test->m_filename);
-    string testname(test->m_testname);
+    std::string filename(test->m_filename);
+    std::string testname(test->m_testname);
 
     // Retrieve fine file name.
     auto const lastSlash = filename.find_last_of("\\/");
-    if (lastSlash != string::npos)
+    if (lastSlash != std::string::npos)
       filename.erase(0, lastSlash + 1);
 
     testnames.push_back(filename + "::" + testname);
@@ -219,7 +218,7 @@ int main(int argc, char * argv[])
   if (GetTestingOptions().m_listTests)
   {
     for (auto const & name : testnames)
-      cout << name << '\n';
+      std::cout << name << '\n';
     return 0;
   }
 
@@ -265,7 +264,7 @@ int main(int argc, char * argv[])
       testResults[testIndex] = false;
       ++numFailedTests;
     }
-    catch (exception const & ex)
+    catch (std::exception const & ex)
     {
       LOG(LERROR, ("[FAILED]", "<<<Exception thrown [", ex.what(), "].>>>"));
       testResults[testIndex] = false;

@@ -3,8 +3,6 @@
 #include <limits>
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
 namespace
@@ -19,7 +17,7 @@ CBV const & CBV::GetFull()
   return fullCBV;
 }
 
-CBV::CBV(unique_ptr<coding::CompressedBitVector> p) : m_p(std::move(p)) {}
+CBV::CBV(std::unique_ptr<coding::CompressedBitVector> p) : m_p(std::move(p)) {}
 
 CBV::CBV(CBV && cbv) : m_p(std::move(cbv.m_p)), m_isFull(cbv.m_isFull)
 {
@@ -28,7 +26,7 @@ CBV::CBV(CBV && cbv) : m_p(std::move(cbv.m_p)), m_isFull(cbv.m_isFull)
 
 CBV::CBV(bool full) : m_isFull(full) {}
 
-CBV & CBV::operator=(unique_ptr<coding::CompressedBitVector> p)
+CBV & CBV::operator=(std::unique_ptr<coding::CompressedBitVector> p)
 {
   m_p = std::move(p);
   m_isFull = false;
@@ -102,7 +100,7 @@ CBV CBV::Take(uint64_t n) const
     return *this;
   if (IsFull())
   {
-    vector<uint64_t> groups(static_cast<size_t>((n + 63) / 64), numeric_limits<uint64_t>::max());
+    std::vector<uint64_t> groups(static_cast<size_t>((n + 63) / 64), std::numeric_limits<uint64_t>::max());
     uint64_t const r = n % 64;
     if (r != 0)
     {

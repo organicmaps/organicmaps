@@ -20,8 +20,6 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 class EliasFanoMap : public HouseToStreetTable
@@ -29,10 +27,10 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(std::move(reader))
+  explicit EliasFanoMap(std::unique_ptr<Reader> && reader) : m_reader(std::move(reader))
   {
     ASSERT(m_reader, ());
-    auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values)
+    auto readBlockCallback = [](auto & source, uint32_t blockSize, std::vector<uint32_t> & values)
     {
       values.resize(blockSize);
       values[0] = ReadVarUint<uint32_t>(source);
@@ -59,8 +57,8 @@ public:
   }
 
 private:
-  unique_ptr<Reader> m_reader;
-  unique_ptr<Map> m_map;
+  std::unique_ptr<Reader> m_reader;
+  std::unique_ptr<Map> m_map;
 };
 
 class DummyTable : public HouseToStreetTable
@@ -70,9 +68,9 @@ public:
   std::optional<Result> Get(uint32_t /* houseId */) const override { return {}; }
 };
 
-unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::string const & tag)
+std::unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::string const & tag)
 {
-  unique_ptr<HouseToStreetTable> result;
+  std::unique_ptr<HouseToStreetTable> result;
 
   try
   {
@@ -88,7 +86,7 @@ unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::s
 
     auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
     CHECK(subreader, ());
-    result = make_unique<EliasFanoMap>(std::move(subreader));
+    result = std::make_unique<EliasFanoMap>(std::move(subreader));
   }
   catch (Reader::OpenException const & ex)
   {
@@ -96,7 +94,7 @@ unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::s
   }
 
   if (!result)
-    result = make_unique<DummyTable>();
+    result = std::make_unique<DummyTable>();
   return result;
 }
 }  // namespace

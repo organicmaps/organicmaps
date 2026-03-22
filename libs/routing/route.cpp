@@ -15,8 +15,6 @@
 namespace routing
 {
 using namespace routing::turns;
-using namespace std;
-
 namespace
 {
 double constexpr kOnEndToleranceM = 10.0;
@@ -25,7 +23,7 @@ double constexpr kSteetNameLinkMeters = 400.0;
 
 std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
 {
-  stringstream out;
+  std::stringstream out;
   out << "RoadNameInfo "
       << "{ m_name = " << rni.m_name << ", m_ref = " << rni.m_ref << ", m_junction_ref = " << rni.m_junction_ref
       << ", m_destination_ref = " << rni.m_destination_ref << ", m_destination = " << rni.m_destination
@@ -63,7 +61,8 @@ void RouteSegment::MergeLanes(RouteSegment & from)
 ////////////////////////////////////////////////////////////////////////////////////////
 // Route implementation
 
-Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId, string const & name)
+Route::Route(std::string const & router, std::vector<m2::PointD> const & points, uint64_t routeId,
+             std::string const & name)
   : m_router(router)
   , m_routingSettings(GetRoutingSettings(VehicleType::Car))
   , m_name(name)
@@ -303,10 +302,10 @@ void Route::GetNearestTurn(double & distanceToTurnMeters, TurnItem & turn) const
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.GetIterToIndex(turn.m_index));
 }
 
-optional<turns::TurnItem> Route::GetCurrentIteratorTurn() const
+std::optional<turns::TurnItem> Route::GetCurrentIteratorTurn() const
 {
   if (!IsValid())
-    return nullopt;
+    return std::nullopt;
 
   auto const & iter = m_poly.GetCurrentIter();
 
@@ -341,7 +340,7 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) cons
   return true;
 }
 
-bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
+bool Route::GetNextTurns(std::vector<TurnItemDist> & turns) const
 {
   TurnItemDist currentTurn;
   GetNearestTurn(currentTurn.m_distMeters, currentTurn.m_turnItem);
@@ -360,9 +359,9 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
   m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
 }
 
-void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
+void Route::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 {
-  vector<size_t> fakeSegmentIndexes;
+  std::vector<size_t> fakeSegmentIndexes;
   m_routeSegments = std::move(routeSegments);
   m_haveAltitudes = true;
   for (size_t i = 0; i < m_routeSegments.size(); ++i)
@@ -379,8 +378,8 @@ void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
 
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
-  m2::RectD const rect = mercator::MetersToXY(info.m_longitude, info.m_latitude,
-                                              max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+  m2::RectD const rect = mercator::MetersToXY(
+      info.m_longitude, info.m_latitude, std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
 
   return m_poly.UpdateMatchingProjection(rect);
 }
@@ -502,7 +501,7 @@ traffic::SpeedGroup Route::GetTraffic(size_t segmentIdx) const
   return m_routeSegments[segmentIdx].GetTraffic();
 }
 
-void Route::GetTurnsForTesting(vector<TurnItem> & turns) const
+void Route::GetTurnsForTesting(std::vector<TurnItem> & turns) const
 {
   turns.clear();
   for (auto const & s : m_routeSegments)
@@ -517,7 +516,7 @@ double Route::GetSegLenMeters(size_t segIdx) const
          (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetDistFromBeginningMeters());
 }
 
-void Route::SetMwmsPartlyProhibitedForSpeedCams(vector<platform::CountryFile> && mwms)
+void Route::SetMwmsPartlyProhibitedForSpeedCams(std::vector<platform::CountryFile> && mwms)
 {
   m_speedCamPartlyProhibitedMwms = std::move(mwms);
 }
@@ -527,7 +526,7 @@ bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
   return !m_speedCamPartlyProhibitedMwms.empty();
 }
 
-vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
+std::vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
   return m_speedCamPartlyProhibitedMwms;
 }
@@ -567,7 +566,7 @@ bool IsNormalTurn(TurnItem const & turn)
   return !turn.IsTurnNone();
 }
 
-string DebugPrint(Route const & r)
+std::string DebugPrint(Route const & r)
 {
   return DebugPrint(r.m_poly.GetPolyline());
 }

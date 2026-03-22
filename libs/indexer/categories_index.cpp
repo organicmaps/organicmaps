@@ -10,8 +10,6 @@
 
 namespace indexer
 {
-using namespace std;
-
 namespace
 {
 void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie, std::string const & s,
@@ -88,7 +86,7 @@ void CategoriesIndex::GetCategories(std::string const & query, std::vector<Categ
   base::SortUnique(types);
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, Category const & cat)
   {
-    if (binary_search(types.begin(), types.end(), type))
+    if (std::binary_search(types.begin(), types.end(), type))
       result.push_back(cat);
   });
 }
@@ -110,8 +108,8 @@ void CategoriesIndex::GetAssociatedTypes(std::string const & query, std::vector<
     else
     {
       std::set<uint32_t> tmp;
-      set_intersection(intersection.begin(), intersection.end(), types.begin(), types.end(),
-                       inserter(tmp, tmp.begin()));
+      std::set_intersection(intersection.begin(), intersection.end(), types.begin(), types.end(),
+                            std::inserter(tmp, tmp.begin()));
       intersection.swap(tmp);
     }
     first = false;

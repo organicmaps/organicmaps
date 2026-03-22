@@ -13,11 +13,9 @@
 
 namespace indexer
 {
-using namespace std;
-
 void MetadataDeserializer::Header::Read(Reader & reader)
 {
-  static_assert(is_same<underlying_type_t<Version>, uint8_t>::value, "");
+  static_assert(std::is_same<std::underlying_type_t<Version>, uint8_t>::value, "");
   NonOwningReaderSource source(reader);
   m_version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
   CHECK_EQUAL(base::Underlying(m_version), base::Underlying(Version::V0), ());
@@ -33,7 +31,7 @@ bool MetadataDeserializer::Get(uint32_t featureId, feature::MetadataBase & meta)
   if (!GetIds(featureId, metaIds))
     return false;
 
-  lock_guard<mutex> guard(m_stringsMutex);
+  std::lock_guard<std::mutex> guard(m_stringsMutex);
   for (auto const & id : metaIds)
   {
     CHECK_LESS_OR_EQUAL(id.second, m_strings.GetNumStrings(), ());
@@ -49,14 +47,14 @@ bool MetadataDeserializer::GetIds(uint32_t featureId, MetaIds & metaIds) const
 
 std::string MetadataDeserializer::GetMetaById(uint32_t id)
 {
-  lock_guard<mutex> guard(m_stringsMutex);
+  std::lock_guard<std::mutex> guard(m_stringsMutex);
   return m_strings.ExtractString(*m_stringsSubreader, id);
 }
 
 // static
-unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
+std::unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
 {
-  auto deserializer = make_unique<MetadataDeserializer>();
+  auto deserializer = std::make_unique<MetadataDeserializer>();
   deserializer->m_version = Version::V0;
 
   Header header;
@@ -72,7 +70,7 @@ unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
     return {};
 
   // Decodes block encoded by writeBlockCallback from MetadataBuilder::Freeze.
-  auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize, vector<MetaIds> & values)
+  auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize, std::vector<MetaIds> & values)
   {
     values.resize(blockSize);
     for (size_t i = 0; i < blockSize && source.Size() > 0; ++i)

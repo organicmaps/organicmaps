@@ -12,8 +12,6 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace search
 {
 namespace cuisine_filter
@@ -30,12 +28,12 @@ Description::Description(FeatureType & ft)
 }
 
 CuisineFilter::ScopedFilter::ScopedFilter(MwmSet::MwmId const & mwmId, Descriptions const & descriptions,
-                                          vector<uint32_t> const & types)
+                                          std::vector<uint32_t> const & types)
   : m_mwmId(mwmId)
   , m_descriptions(descriptions)
   , m_types(types)
 {
-  sort(m_types.begin(), m_types.end());
+  std::sort(m_types.begin(), m_types.end());
 }
 
 bool CuisineFilter::ScopedFilter::Matches(FeatureID const & fid) const
@@ -43,14 +41,14 @@ bool CuisineFilter::ScopedFilter::Matches(FeatureID const & fid) const
   if (fid.m_mwmId != m_mwmId)
     return false;
 
-  auto it = lower_bound(m_descriptions.begin(), m_descriptions.end(), make_pair(fid.m_index, Description{}),
-                        [](pair<uint32_t, Description> const & lhs, pair<uint32_t, Description> const & rhs)
-  { return lhs.first < rhs.first; });
+  auto it = std::lower_bound(m_descriptions.begin(), m_descriptions.end(), std::make_pair(fid.m_index, Description{}),
+                             [](std::pair<uint32_t, Description> const & lhs,
+                                std::pair<uint32_t, Description> const & rhs) { return lhs.first < rhs.first; });
   if (it == m_descriptions.end() || it->first != fid.m_index)
     return false;
 
   for (auto const t : it->second.m_types)
-    if (binary_search(m_types.begin(), m_types.end(), t))
+    if (std::binary_search(m_types.begin(), m_types.end(), t))
       return true;
   return false;
 }
@@ -58,12 +56,12 @@ bool CuisineFilter::ScopedFilter::Matches(FeatureID const & fid) const
 // CuisineFilter ------------------------------------------------------------------------------------
 CuisineFilter::CuisineFilter(FoodCache & food) : m_food(food) {}
 
-unique_ptr<CuisineFilter::ScopedFilter> CuisineFilter::MakeScopedFilter(MwmContext const & context,
-                                                                        vector<uint32_t> const & types)
+std::unique_ptr<CuisineFilter::ScopedFilter> CuisineFilter::MakeScopedFilter(MwmContext const & context,
+                                                                             std::vector<uint32_t> const & types)
 {
   if (types.empty())
     return {};
-  return make_unique<ScopedFilter>(context.GetId(), GetDescriptions(context), types);
+  return std::make_unique<ScopedFilter>(context.GetId(), GetDescriptions(context), types);
 }
 
 void CuisineFilter::ClearCaches()

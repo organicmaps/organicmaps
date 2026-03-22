@@ -8,8 +8,6 @@
 
 namespace routing
 {
-using namespace std;
-
 // static
 double CheckpointPredictor::CalculateDeltaMeters(m2::PointD const & from, m2::PointD const & to,
                                                  m2::PointD const & between)
@@ -19,9 +17,9 @@ double CheckpointPredictor::CalculateDeltaMeters(m2::PointD const & from, m2::Po
   return distThroughPoint - directDist;
 }
 
-size_t CheckpointPredictor::PredictPosition(vector<m2::PointD> const & points, m2::PointD const & point) const
+size_t CheckpointPredictor::PredictPosition(std::vector<m2::PointD> const & points, m2::PointD const & point) const
 {
-  double constexpr kInvalidDistance = numeric_limits<double>::max();
+  double constexpr kInvalidDistance = std::numeric_limits<double>::max();
   double minDeltaMeters = kInvalidDistance;
   size_t minDeltaIdx = 0;
   // Checkpoints include start, all the intermediate points and finish.
@@ -40,7 +38,7 @@ size_t CheckpointPredictor::PredictPosition(vector<m2::PointD> const & points, m
   return minDeltaIdx;
 }
 
-m2::PointD const & CheckpointPredictor::GetCheckpoint(vector<m2::PointD> const & points, size_t index) const
+m2::PointD const & CheckpointPredictor::GetCheckpoint(std::vector<m2::PointD> const & points, size_t index) const
 {
   if (index == 0)
     return m_start;

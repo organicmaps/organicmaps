@@ -29,15 +29,13 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 template <typename Slice>
-void UpdateNameScores(string_view name, uint8_t lang, Slice const & slice, NameScores & bestScores)
+void UpdateNameScores(std::string_view name, uint8_t lang, Slice const & slice, NameScores & bestScores)
 {
   if (StringUtf8Multilang::IsAltOrOldName(lang))
-    strings::Tokenize(name, ";", [&](string_view n) { bestScores.UpdateIfBetter(GetNameScores(n, lang, slice)); });
+    strings::Tokenize(name, ";", [&](std::string_view n) { bestScores.UpdateIfBetter(GetNameScores(n, lang, slice)); });
   else
     bestScores.UpdateIfBetter(GetNameScores(name, lang, slice));
 }
@@ -50,12 +48,12 @@ void UpdateNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice, 
 
 // This function supports only street names like "abcdstrasse"/"abcd strasse".
 /// @see Also FeatureNameInserter::AddDACHNames
-vector<vector<strings::UniString>> ModifyDACHStreet(vector<strings::UniString> const & streetTokens)
+std::vector<std::vector<strings::UniString>> ModifyDACHStreet(std::vector<strings::UniString> const & streetTokens)
 {
   auto const size = streetTokens.size();
   ASSERT_GREATER(size, 0, ());
 
-  vector<vector<strings::UniString>> result;
+  std::vector<std::vector<strings::UniString>> result;
   for (auto const & sx : GetDACHStreets())
   {
     if (!strings::EndsWith(streetTokens.back(), sx.first))
@@ -90,16 +88,16 @@ vector<vector<strings::UniString>> ModifyDACHStreet(vector<strings::UniString> c
   return result;
 }
 
-vector<strings::UniString> RemoveStreetSynonyms(vector<strings::UniString> const & tokens)
+std::vector<strings::UniString> RemoveStreetSynonyms(std::vector<strings::UniString> const & tokens)
 {
-  vector<strings::UniString> res;
+  std::vector<strings::UniString> res;
   for (auto const & e : tokens)
     if (!IsStreetSynonym(e))
       res.push_back(e);
   return res;
 }
 
-void RemoveDuplicatingLinear(vector<RankerResult> & results)
+void RemoveDuplicatingLinear(std::vector<RankerResult> & results)
 {
   // "Молодечно первомайская ул"; "Тюрли первомайская ул" should remain both :)
   double constexpr kDistSameStreetMeters = 3000.0;
@@ -203,11 +201,11 @@ public:
 
     for (auto const lang : m_params.GetLangs())
     {
-      string_view const name = ft.GetName(lang);
+      std::string_view const name = ft.GetName(lang);
       if (name.empty())
         continue;
 
-      auto const updateScore = [&](string_view name)
+      auto const updateScore = [&](std::string_view name)
       {
         TokensVector vec(name);
         // Name consists of stop words only.
@@ -241,7 +239,7 @@ public:
       };
 
       if (StringUtf8Multilang::IsAltOrOldName(lang))
-        strings::Tokenize(name, ";", [&updateScore](string_view n) { updateScore(n); });
+        strings::Tokenize(name, ";", [&updateScore](std::string_view n) { updateScore(n); });
       else
         updateScore(name);
     }
@@ -289,11 +287,11 @@ public:
     return bestScores;
   }
 
-  optional<RankerResult> operator()(PreRankerResult const & preResult)
+  std::optional<RankerResult> operator()(PreRankerResult const & preResult)
   {
     m2::PointD center;
-    string name;
-    string country;
+    std::string name;
+    std::string country;
 
     auto ft = LoadFeature(preResult.GetId(), center, name, country);
     if (!ft)
@@ -362,7 +360,7 @@ public:
 
       // Factor is a number of the rest, not common matched tokens in Feature' name. Bigger is worse.
       // Example when count == 0: UTH airport has empty name, but "ut" is a _common_ token.
-      info.m_commonTokensFactor = min(3, std::max(0, count - int(info.m_tokenRanges[info.m_type].Size())));
+      info.m_commonTokensFactor = std::min(3, std::max(0, count - int(info.m_tokenRanges[info.m_type].Size())));
     }
 
     res.SetRankingInfo(info, m_isViewportMode);
@@ -379,14 +377,14 @@ public:
 private:
   bool IsSameLoader(FeatureID const & id) const { return (m_loader && m_loader->GetId() == id.m_mwmId); }
 
-  unique_ptr<FeatureType> LoadFeature(FeatureID const & id)
+  std::unique_ptr<FeatureType> LoadFeature(FeatureID const & id)
   {
     if (!IsSameLoader(id))
-      m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id.m_mwmId);
+      m_loader = std::make_unique<FeaturesLoaderGuard>(m_dataSource, id.m_mwmId);
     return LoadFeatureImpl(id, *m_loader);
   }
 
-  static unique_ptr<FeatureType> LoadFeatureImpl(FeatureID const & id, FeaturesLoaderGuard & loader)
+  static std::unique_ptr<FeatureType> LoadFeatureImpl(FeatureID const & id, FeaturesLoaderGuard & loader)
   {
     auto ft = loader.GetFeatureByIndex(id.m_index);
     if (ft)
@@ -407,7 +405,8 @@ private:
   }
 
   // For the best performance, incoming ids should be sorted by id.first (mwm file id).
-  unique_ptr<FeatureType> LoadFeature(FeatureID const & id, m2::PointD & center, string & name, string & country)
+  std::unique_ptr<FeatureType> LoadFeature(FeatureID const & id, m2::PointD & center, std::string & name,
+                                           std::string & country)
   {
     auto ft = LoadFeature(id);
     if (!ft)
@@ -447,7 +446,7 @@ private:
       ReverseGeocoder::Address addr;
       if (GetExactAddress(*ft, center, addr))
       {
-        unique_ptr<FeatureType> streetFeature;
+        std::unique_ptr<FeatureType> streetFeature;
 
         // We can't change m_loader here, because of the following RankerResult. So do this trick:
         if (IsSameLoader(addr.m_street.m_id))
@@ -456,13 +455,13 @@ private:
         }
         else
         {
-          auto loader = make_unique<FeaturesLoaderGuard>(m_dataSource, addr.m_street.m_id.m_mwmId);
+          auto loader = std::make_unique<FeaturesLoaderGuard>(m_dataSource, addr.m_street.m_id.m_mwmId);
           streetFeature = LoadFeatureImpl(addr.m_street.m_id, *loader);
         }
 
         if (streetFeature)
         {
-          string streetName;
+          std::string streetName;
           m_ranker.GetBestMatchName(*streetFeature, streetName);
           name = addr.FormatStreetHN(streetName);
         }
@@ -613,7 +612,7 @@ private:
     info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 
-  uint16_t NormalizeRank(uint16_t rank, Model::Type type, m2::PointD const & center, string const & country,
+  uint16_t NormalizeRank(uint16_t rank, Model::Type type, m2::PointD const & center, std::string const & country,
                          bool isCapital, bool isRelaxed)
   {
     // Do not prioritize objects with population < 800. Same as RankToPopulation(rank) < 800, but faster.
@@ -657,13 +656,13 @@ private:
   Geocoder::Params const & m_params;
   bool m_isViewportMode;
 
-  unique_ptr<FeaturesLoaderGuard> m_loader;
+  std::unique_ptr<FeaturesLoaderGuard> m_loader;
 };
 
 Ranker::Ranker(DataSource const & dataSource, CitiesBoundariesTable const & boundariesTable,
                storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer, Emitter & emitter,
-               CategoriesHolder const & categories, vector<Suggest> const & suggests, VillagesCache & villagesCache,
-               base::Cancellable const & cancellable)
+               CategoriesHolder const & categories, std::vector<Suggest> const & suggests,
+               VillagesCache & villagesCache, base::Cancellable const & cancellable)
   : m_reverseGeocoder(dataSource)
   , m_cancellable(cancellable)
   , m_keywordsScorer(keywordsScorer)
@@ -771,7 +770,7 @@ void Ranker::SuggestStrings()
   if (m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  string const prologue = DropLastToken(m_params.m_query.m_query);
+  std::string const prologue = DropLastToken(m_params.m_query.m_query);
 
   for (auto const locale : m_params.m_categoryLocales)
     MatchForSuggestions(m_params.m_query.m_prefix, locale, prologue);
@@ -883,7 +882,7 @@ void Ranker::ClearCaches()
   m_localities.ClearCache();
 }
 
-void Ranker::SetLocale(string const & locale)
+void Ranker::SetLocale(std::string const & locale)
 {
   m_regionInfoGetter.SetLocale(locale);
 }
@@ -913,11 +912,11 @@ void Ranker::MakeRankerResults()
   m_preRankerResults.clear();
 }
 
-void Ranker::GetBestMatchName(FeatureType & f, string & name) const
+void Ranker::GetBestMatchName(FeatureType & f, std::string & name) const
 {
   int8_t bestLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   KeywordLangMatcher::Score bestScore;
-  auto updateScore = [&](int8_t lang, string_view s, bool force)
+  auto updateScore = [&](int8_t lang, std::string_view s, bool force)
   {
     // Ignore name for categorial requests.
     auto const score = m_keywordsScorer.CalcScore(lang, m_params.m_categorialRequest ? "" : s);
@@ -929,7 +928,7 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     }
   };
 
-  auto bestNameFinder = [&](int8_t lang, string_view s)
+  auto bestNameFinder = [&](int8_t lang, std::string_view s)
   {
     if (StringUtf8Multilang::IsAltOrOldName(lang))
       strings::Tokenize(s, ";", [lang, &updateScore](std::string_view n) { updateScore(lang, n, true /* force */); });
@@ -950,14 +949,14 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 
   if (StringUtf8Multilang::IsAltOrOldName(bestLang))
   {
-    string_view const readableName = f.GetReadableName();
+    std::string_view const readableName = f.GetReadableName();
     // Do nothing if alt/old name is the only name we have.
     if (readableName != name && !readableName.empty())
       name = std::string(readableName) + " (" + name + ")";
   }
 }
 
-void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale, string const & prologue)
+void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale, std::string const & prologue)
 {
   for (auto const & suggest : m_suggests)
   {
@@ -966,7 +965,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
         && suggest.m_locale == locale                         // push suggestions only for needed language
         && strings::StartsWith(s, token))
     {
-      string const utf8Str = strings::ToUtf8(s);
+      std::string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");
       HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, r);
       m_emitter.AddResult(std::move(r));
@@ -974,7 +973,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   }
 }
 
-void Ranker::ProcessSuggestions(vector<RankerResult> const & vec)
+void Ranker::ProcessSuggestions(std::vector<RankerResult> const & vec)
 {
   if (m_noSuggests || m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
@@ -999,7 +998,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec)
     auto const types = r.GetTypes();
     if (IsCountryOrCity(m_reverseGeocoder.m_isLocality.GetType(types)) || m_reverseGeocoder.m_isStreetOrSquare(types))
     {
-      string suggestion = GetSuggestion(r.GetName(), m_params.m_query);
+      std::string suggestion = GetSuggestion(r.GetName(), m_params.m_query);
       if (!suggestion.empty())
       {
         // todo(@m) RankingInfo is lost here. Should it be?

@@ -6,12 +6,10 @@
 
 namespace drule
 {
-using namespace std;
-
 namespace
 {
 
-bool IsTag(string const & str)
+bool IsTag(std::string const & str)
 {
   // tag consists of a-z or A-Z letters or _ and not empty
   for (auto const c : str)
@@ -22,7 +20,7 @@ bool IsTag(string const & str)
 
 }  // namespace
 
-bool ParseSelector(string const & str, SelectorExpression & e)
+bool ParseSelector(std::string const & str, SelectorExpression & e)
 {
   // See https://wiki.openstreetmap.org/wiki/MapCSS/0.2
   // Now we support following expressions
@@ -41,7 +39,7 @@ bool ParseSelector(string const & str, SelectorExpression & e)
   // [!tag]
   if (str[0] == '!')
   {
-    string tag(str.begin() + 1, str.end());
+    std::string tag(str.begin() + 1, str.end());
     if (!IsTag(tag))
       return false;  // invalid format
 
@@ -61,15 +59,15 @@ bool ParseSelector(string const & str, SelectorExpression & e)
   }
 
   // Find first entrance of >, < or =
-  size_t pos = string::npos;
+  size_t pos = std::string::npos;
   size_t len = 0;
   char const c[] = {'>', '<', '=', 0};
   for (size_t i = 0; c[i] != 0; ++i)
   {
     size_t p = str.find(c[i]);
-    if (p != string::npos)
+    if (p != std::string::npos)
     {
-      pos = (pos == string::npos) ? p : min(p, pos);
+      pos = (pos == std::string::npos) ? p : std::min(p, pos);
       len = 1;
     }
   }
@@ -110,13 +108,13 @@ bool ParseSelector(string const & str, SelectorExpression & e)
     }
   }
 
-  string tag(str.begin(), str.begin() + pos);
+  std::string tag(str.begin(), str.begin() + pos);
   if (!IsTag(tag))
     return false;  // invalid format
 
   e.m_operator = op;
   e.m_tag = std::move(tag);
-  e.m_value = string(str.begin() + pos + len, str.end());
+  e.m_value = std::string(str.begin() + pos + len, str.end());
   return true;
 }
 

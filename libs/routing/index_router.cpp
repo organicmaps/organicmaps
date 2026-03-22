@@ -54,8 +54,6 @@
 
 namespace routing
 {
-using namespace std;
-
 namespace
 {
 size_t constexpr kMaxRoadCandidates = 10;
@@ -82,9 +80,9 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactoryInterface co
   double maxSpeed = 0.0;
   numMwmIds.ForEachId([&](NumMwmId id)
   {
-    string const & country = numMwmIds.GetFile(id).GetName();
+    std::string const & country = numMwmIds.GetFile(id).GetName();
     double const mwmMaxSpeed = vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxWeightSpeed();
-    maxSpeed = max(maxSpeed, mwmMaxSpeed);
+    maxSpeed = std::max(maxSpeed, mwmMaxSpeed);
   });
   CHECK_GREATER(maxSpeed, 0.0, ("Most likely |numMwmIds| is empty."));
   return maxSpeed;
@@ -95,41 +93,41 @@ SpeedKMpH const & CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleM
   return vehicleModelFactory.GetVehicleModel()->GetOffroadSpeed();
 }
 
-shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
+std::shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
     VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return make_shared<PedestrianModelFactory>(countryParentNameGetterFn);
-  case VehicleType::Bicycle: return make_shared<BicycleModelFactory>(countryParentNameGetterFn);
-  case VehicleType::Car: return make_shared<CarModelFactory>(countryParentNameGetterFn);
+  case VehicleType::Transit: return std::make_shared<PedestrianModelFactory>(countryParentNameGetterFn);
+  case VehicleType::Bicycle: return std::make_shared<BicycleModelFactory>(countryParentNameGetterFn);
+  case VehicleType::Car: return std::make_shared<CarModelFactory>(countryParentNameGetterFn);
   case VehicleType::Count: CHECK(false, ("Can't create VehicleModelFactoryInterface for", vehicleType)); return nullptr;
   }
   UNREACHABLE();
 }
 
-unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
-                                                    MwmDataSource & dataSource)
+std::unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType, std::shared_ptr<NumMwmIds> numMwmIds,
+                                                         MwmDataSource & dataSource)
 {
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return make_unique<PedestrianDirectionsEngine>(dataSource, numMwmIds);
+  case VehicleType::Transit: return std::make_unique<PedestrianDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Bicycle:
-  case VehicleType::Car: return make_unique<CarDirectionsEngine>(dataSource, numMwmIds);
+  case VehicleType::Car: return std::make_unique<CarDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Count: CHECK(false, ("Can't create DirectionsEngine for", vehicleType)); return nullptr;
   }
   UNREACHABLE();
 }
 
-shared_ptr<TrafficStash> CreateTrafficStash(VehicleType, shared_ptr<NumMwmIds>, traffic::TrafficCache const &)
+std::shared_ptr<TrafficStash> CreateTrafficStash(VehicleType, std::shared_ptr<NumMwmIds>, traffic::TrafficCache const &)
 {
   return nullptr;
   // return (vehicleType == VehicleType::Car ? make_shared<TrafficStash>(trafficCache, numMwmIds) : nullptr);
 }
 
-void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::SubrouteAttrs> & subroutes)
+void PushPassedSubroutes(Checkpoints const & checkpoints, std::vector<Route::SubrouteAttrs> & subroutes)
 {
   for (size_t i = 0; i < checkpoints.GetPassedIdx(); ++i)
   {
@@ -139,7 +137,7 @@ void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::Subroute
   }
 }
 
-bool GetLastRealOrPart(IndexGraphStarter const & starter, vector<Segment> const & route, Segment & real)
+bool GetLastRealOrPart(IndexGraphStarter const & starter, std::vector<Segment> const & route, Segment & real)
 {
   for (auto rit = route.rbegin(); rit != route.rend(); ++rit)
   {
@@ -158,7 +156,7 @@ bool IsTheSameSegments(m2::PointD const & seg1From, m2::PointD const & seg1To, m
 }
 
 bool IsDeadEnd(Segment const & segment, bool isOutgoing, bool useRoutingOptions, WorldGraph & worldGraph,
-               set<Segment> & visitedSegments)
+               std::set<Segment> & visitedSegments)
 {
   // Maximum size (in Segment) of an island in road graph which may be found by the method.
   size_t constexpr kDeadEndTestLimit = 250;
@@ -168,12 +166,12 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
 }
 
 bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOptions, WorldGraph & worldGraph,
-                     set<Segment> & deadEnds)
+                     std::set<Segment> & deadEnds)
 {
   if (deadEnds.count(segment) != 0)
     return true;
 
-  set<Segment> visitedSegments;
+  std::set<Segment> visitedSegments;
   if (IsDeadEnd(segment, isOutgoing, useRoutingOptions, worldGraph, visitedSegments))
   {
     deadEnds.insert(visitedSegments.begin(), visitedSegments.end());
@@ -232,7 +230,7 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
-                         shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
+                         std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          traffic::TrafficCache const & trafficCache, DataSource & dataSource)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
@@ -262,7 +260,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   CHECK(m_directionsEngine, ());
 }
 
-unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
+std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
 {
   auto worldGraph = MakeWorldGraph();
   worldGraph->SetMode(WorldGraphMode::SingleMwm);
@@ -464,7 +462,7 @@ void IndexRouter::AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom
   auto linksTo = m_guides.GetOsmConnections(checkpointIdxTo);
   for (auto const & link : linksTo)
   {
-    auto it = find_if(linksFrom.begin(), linksFrom.end(), [&link](ConnectionToOsm const & cur)
+    auto it = std::find_if(linksFrom.begin(), linksFrom.end(), [&link](ConnectionToOsm const & cur)
     {
       return link.m_fakeEnding.m_originJunction == cur.m_fakeEnding.m_originJunction &&
              link.m_fakeEnding.m_projections == cur.m_fakeEnding.m_projections &&
@@ -493,9 +491,9 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
   m_lastRoute.reset();
 
   TrafficStash::Guard guard(m_trafficStash);
-  unique_ptr<WorldGraph> graph = MakeWorldGraph();
+  std::unique_ptr<WorldGraph> graph = MakeWorldGraph();
 
-  vector<Segment> segments;
+  std::vector<Segment> segments;
 
   // MwmId used for guides segments in RedressRoute().
   {
@@ -512,12 +510,12 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
   ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);
 
   size_t subrouteSegmentsBegin = 0;
-  vector<Route::SubrouteAttrs> subroutes;
+  std::vector<Route::SubrouteAttrs> subroutes;
   PushPassedSubroutes(checkpoints, subroutes);
 
-  unique_ptr<IndexGraphStarter> starter;
+  std::unique_ptr<IndexGraphStarter> starter;
 
-  auto progress = make_shared<AStarProgress>();
+  auto progress = std::make_shared<AStarProgress>();
   double const checkpointsLength = checkpoints.GetSummaryLengthBetweenPointsMeters();
 
   PointsOnEdgesSnapping snapping(*this, *graph);
@@ -558,7 +556,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
       AddGuidesOsmConnectionsToGraphStarter(i, i + 1, subrouteStarter);
     }
 
-    vector<Segment> subroute;
+    std::vector<Segment> subroute;
     double contributionCoef = kAlmostZeroContribution;
     if (!AlmostEqualAbs(checkpointsLength, 0.0, 1e-5))
       contributionCoef = mercator::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength;
@@ -591,7 +589,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
     snapping.SetNextStartSegment(nextSegment);
 
     if (!starter)
-      starter = make_unique<IndexGraphStarter>(std::move(subrouteStarter));
+      starter = std::make_unique<IndexGraphStarter>(std::move(subrouteStarter));
     else
       starter->Append(FakeEdgesContainer(std::move(subrouteStarter)));
   }
@@ -609,24 +607,24 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
 
   LOG(LINFO, ("Route length:", route.GetTotalDistanceMeters(), "meters. ETA:", route.GetTotalTimeSec(), "seconds."));
 
-  m_lastRoute = make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(), route.GetSubroutes());
+  m_lastRoute = std::make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(), route.GetSubroutes());
   for (Segment const & segment : segments)
     m_lastRoute->AddStep(segment, mercator::FromLatLon(starter->GetPoint(segment, true /* front */)));
 
-  m_lastFakeEdges = make_unique<FakeEdgesContainer>(std::move(*starter));
+  m_lastFakeEdges = std::make_unique<FakeEdgesContainer>(std::move(*starter));
 
   return RouterResultCode::NoError;
 }
 
-vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
-                              IndexGraphStarterJoints<IndexGraphStarter> & jointStarter)
+std::vector<Segment> ProcessJoints(std::vector<JointSegment> const & jointsPath,
+                                   IndexGraphStarterJoints<IndexGraphStarter> & jointStarter)
 {
   CHECK(!jointsPath.empty(), ());
 
-  vector<Segment> path;
+  std::vector<Segment> path;
   for (auto const & joint : jointsPath)
   {
-    vector<Segment> jointPath = jointStarter.ReconstructJoint(joint);
+    std::vector<Segment> jointPath = jointStarter.ReconstructJoint(joint);
     if (jointPath.empty())
       continue;
 
@@ -647,8 +645,9 @@ vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
 
 RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
                                                 RouterDelegate const & delegate,
-                                                shared_ptr<AStarProgress> const & progress, IndexGraphStarter & starter,
-                                                vector<Segment> & subroute, bool guidesActive /* = false */)
+                                                std::shared_ptr<AStarProgress> const & progress,
+                                                IndexGraphStarter & starter, std::vector<Segment> & subroute,
+                                                bool guidesActive /* = false */)
 {
   subroute.clear();
 
@@ -670,8 +669,8 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
-                                                          shared_ptr<AStarProgress> const & progress,
-                                                          vector<Segment> & subroute)
+                                                          std::shared_ptr<AStarProgress> const & progress,
+                                                          std::vector<Segment> & subroute)
 {
   using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
   JointsStarter jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
@@ -699,8 +698,8 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(IndexGraphStarter & st
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
-                                                           shared_ptr<AStarProgress> const & progress,
-                                                           vector<Segment> & subroute)
+                                                           std::shared_ptr<AStarProgress> const & progress,
+                                                           std::vector<Segment> & subroute)
 {
   using Vertex = IndexGraphStarter::Vertex;
   using Edge = IndexGraphStarter::Edge;
@@ -714,7 +713,7 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter & s
       AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
-  set<NumMwmId> const mwmIds = starter.GetMwms();
+  std::set<NumMwmId> const mwmIds = starter.GetMwms();
   RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
 
   if (result != RouterResultCode::NoError)
@@ -746,8 +745,8 @@ void CollapseForward_ReverseLoops(std::vector<Segment> & path)
 RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const & checkpoints, size_t subrouteIdx,
                                                              IndexGraphStarter & starter,
                                                              RouterDelegate const & delegate,
-                                                             shared_ptr<AStarProgress> const & progress,
-                                                             vector<Segment> & subroute)
+                                                             std::shared_ptr<AStarProgress> const & progress,
+                                                             std::vector<Segment> & subroute)
 {
   using Vertex = LeapsGraph::Vertex;
   using Edge = LeapsGraph::Edge;
@@ -785,9 +784,9 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
 
     // Use Feature's index as a key to avoid multiple vertices with the same feature but a bit different segment.
     using EdgeKeyT = std::array<uint32_t, 2>;
-    vector<RoutingResultT> routes;
-    set<EdgeKeyT> edges;
-    set<uint32_t> keys[2];  // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
+    std::vector<RoutingResultT> routes;
+    std::set<EdgeKeyT> edges;
+    std::set<uint32_t> keys[2];  // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
 
     auto const getBegEnd = [](RoutingResultT const & r) -> EdgeKeyT
     {
@@ -825,8 +824,8 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
     if (routes.empty() || result == AlgoT::Result::Cancelled)
       return ConvertResult<Vertex, Edge, Weight>(result);
 
-    sort(routes.begin(), routes.end(),
-         [](RoutingResultT const & l, RoutingResultT const & r) { return l.m_distance < r.m_distance; });
+    std::sort(routes.begin(), routes.end(),
+              [](RoutingResultT const & l, RoutingResultT const & r) { return l.m_distance < r.m_distance; });
 
     // Additional heuristic to reduce number of candidates.
     // Group candidates by category and accept no more than *2* routes of each.
@@ -956,7 +955,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   auto graph = MakeWorldGraph();
   graph->SetMode(WorldGraphMode::NoLeaps);
 
-  vector<Segment> startSegments;
+  std::vector<Segment> startSegments;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
   bool bestSegmentIsAlmostCodirectional = false;
   PointsOnEdgesSnapping snapping(*this, *graph);
@@ -979,7 +978,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   starter.Append(*m_lastFakeEdges);
 
-  vector<SegmentEdge> prevEdges;
+  std::vector<SegmentEdge> prevEdges;
   CHECK_LESS_OR_EQUAL(lastSubroute.GetEndSegmentIdx(), steps.size(), ());
   for (size_t i = lastSubroute.GetBeginSegmentIdx(); i < lastSubroute.GetEndSegmentIdx(); ++i)
   {
@@ -1009,7 +1008,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   CHECK(IndexGraphStarter::IsFakeSegment(result.m_path.front()), ());
   CHECK(IndexGraphStarter::IsFakeSegment(result.m_path.back()), ());
 
-  vector<Route::SubrouteAttrs> subroutes;
+  std::vector<Route::SubrouteAttrs> subroutes;
   PushPassedSubroutes(checkpoints, subroutes);
 
   size_t subrouteOffset = result.m_path.size();
@@ -1042,7 +1041,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   return RouterResultCode::NoError;
 }
 
-unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
+std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   // Use saved routing options for all types (car, bicycle, pedestrian).
   RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
@@ -1051,7 +1050,7 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   // routingOptions.Add(RoutingOptions::Road::Motorway);
   LOG(LINFO, ("Avoid next roads:", routingOptions));
 
-  auto crossMwmGraph = make_unique<CrossMwmGraph>(
+  auto crossMwmGraph = std::make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
       m_countryRectFn, m_dataSource);
 
@@ -1062,15 +1061,15 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   if (m_vehicleType != VehicleType::Transit)
   {
     auto graph =
-        make_unique<SingleVehicleWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader), m_estimator,
-                                             MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
+        std::make_unique<SingleVehicleWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader), m_estimator,
+                                                  MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
     graph->SetRoutingOptions(routingOptions);
     return graph;
   }
 
   auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_estimator);
-  return make_unique<TransitWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader),
-                                        std::move(transitGraphLoader), m_estimator);
+  return std::make_unique<TransitWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader),
+                                             std::move(transitGraphLoader), m_estimator);
 }
 
 int IndexRouter::PointsOnEdgesSnapping::Snap(m2::PointD const & start, m2::PointD const & finish,
@@ -1085,7 +1084,7 @@ int IndexRouter::PointsOnEdgesSnapping::Snap(m2::PointD const & start, m2::Point
       return 1;
   }
 
-  vector<Segment> finishSegments;
+  std::vector<Segment> finishSegments;
   bool dummy;
   if (!FindBestSegments(finish, {} /* direction */, false /* isOutgoing */, finishSegments, dummy))
     return 2;
@@ -1121,7 +1120,7 @@ void IndexRouter::PointsOnEdgesSnapping::FillDeadEndsCache(m2::PointD const & po
   }, candidates);
 }
 
-void IndexRouter::PointsOnEdgesSnapping::EraseIfDeadEnd(m2::PointD const & checkpoint, vector<RoadInfoT> & roads,
+void IndexRouter::PointsOnEdgesSnapping::EraseIfDeadEnd(m2::PointD const & checkpoint, std::vector<RoadInfoT> & roads,
                                                         std::set<Segment> & deadEnds) const
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
@@ -1144,7 +1143,7 @@ void IndexRouter::PointsOnEdgesSnapping::EraseIfDeadEnd(m2::PointD const & check
 
 // static
 bool IndexRouter::PointsOnEdgesSnapping::IsFencedOff(m2::PointD const & point, EdgeProjectionT const & edgeProjection,
-                                                     vector<RoadInfoT> const & fences)
+                                                     std::vector<RoadInfoT> const & fences)
 {
   auto const & edge = edgeProjection.first;
   auto const & projPoint = edgeProjection.second.GetPoint();
@@ -1178,9 +1177,10 @@ bool IndexRouter::PointsOnEdgesSnapping::IsFencedOff(m2::PointD const & point, E
 }
 
 // static
-void IndexRouter::PointsOnEdgesSnapping::RoadsToNearestEdges(m2::PointD const & point, vector<RoadInfoT> const & roads,
+void IndexRouter::PointsOnEdgesSnapping::RoadsToNearestEdges(m2::PointD const & point,
+                                                             std::vector<RoadInfoT> const & roads,
                                                              IsEdgeProjGood const & isGood,
-                                                             vector<EdgeProjectionT> & edgeProj)
+                                                             std::vector<EdgeProjectionT> & edgeProj)
 {
   NearestEdgeFinder finder(point, isGood);
   for (auto const & road : roads)
@@ -1201,10 +1201,10 @@ Segment IndexRouter::PointsOnEdgesSnapping::GetSegmentByEdge(Edge const & edge) 
 // static
 bool IndexRouter::PointsOnEdgesSnapping::FindClosestCodirectionalEdge(m2::PointD const & point,
                                                                       m2::PointD const & direction,
-                                                                      vector<EdgeProjectionT> const & candidates,
+                                                                      std::vector<EdgeProjectionT> const & candidates,
                                                                       Edge & closestCodirectionalEdge)
 {
-  double constexpr kInvalidDist = numeric_limits<double>::max();
+  double constexpr kInvalidDist = std::numeric_limits<double>::max();
   double squareDistToClosestCodirectionalEdgeM = kInvalidDist;
 
   IndexRouter::BestEdgeComparator bestEdgeComparator(point, direction);
@@ -1229,10 +1229,10 @@ bool IndexRouter::PointsOnEdgesSnapping::FindClosestCodirectionalEdge(m2::PointD
 }
 
 bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction,
-                                                          bool isOutgoing, vector<Segment> & bestSegments,
+                                                          bool isOutgoing, std::vector<Segment> & bestSegments,
                                                           bool & bestSegmentIsAlmostCodirectional)
 {
-  vector<Edge> bestEdges;
+  std::vector<Edge> bestEdges;
   if (!FindBestEdges(checkpoint, direction, isOutgoing, kFirstSearchDistanceM /* closestEdgesRadiusM */, bestEdges,
                      bestSegmentIsAlmostCodirectional))
   {
@@ -1257,7 +1257,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestSegments(m2::PointD const & che
 
 bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkpoint, m2::PointD const & direction,
                                                        bool isOutgoing, double closestEdgesRadiusM,
-                                                       vector<Edge> & bestEdges,
+                                                       std::vector<Edge> & bestEdges,
                                                        bool & bestSegmentIsAlmostCodirectional)
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
@@ -1267,7 +1267,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
     return m_router.m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
   });
 
-  set<Segment> deadEnds[2];
+  std::set<Segment> deadEnds[2];
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
   // It's necessary to remove all dead ends for all |closestRoads| before IsFencedOff().
   // If to remove all fenced off by other features from |checkpoint| candidates at first,
@@ -1278,7 +1278,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   // Sorting from the closest features to the further ones. The idea is the closer
   // a feature to a |checkpoint| the more chances that it crosses the segment
   // |checkpoint|, projections of |checkpoint| on feature edges. It confirmed with benchmarks.
-  sort(closestRoads.begin(), closestRoads.end(), [&checkpoint](RoadInfoT const & lhs, RoadInfoT const & rhs)
+  std::sort(closestRoads.begin(), closestRoads.end(), [&checkpoint](RoadInfoT const & lhs, RoadInfoT const & rhs)
   {
     auto const & lj = lhs.m_roadInfo.m_junctions;
     auto const & rj = rhs.m_roadInfo.m_junctions;
@@ -1310,7 +1310,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(m2::PointD const & checkp
   };
 
   // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
-  vector<EdgeProjectionT> candidates;
+  std::vector<EdgeProjectionT> candidates;
   RoadsToNearestEdges(checkpoint, closestRoads, isGood, candidates);
 
   if (candidates.empty())
@@ -1407,8 +1407,8 @@ IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc2Times(Se
   return r;
 }
 
-RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input, IndexGraphStarter & starter,
-                                                 shared_ptr<AStarProgress> const & progress,
+RouterResultCode IndexRouter::ProcessLeapsJoints(std::vector<Segment> const & input, IndexGraphStarter & starter,
+                                                 std::shared_ptr<AStarProgress> const & progress,
                                                  RoutesCalculator & calculator, RoutingResultT & result)
 {
   LOG(LDEBUG, ("Process input:", input));
@@ -1462,7 +1462,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input, 
         ASSERT_LESS(start, input.size(), ());
         ASSERT_LESS(end, input.size(), ());
 
-        maxStart = max(maxStart, start);
+        maxStart = std::max(maxStart, start);
         auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / variantsCount;
 
         // VNG: I don't like this strategy with clearing previous caches, taking into account
@@ -1474,8 +1474,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input, 
         return calculator.Calc(input[start], input[end], progress, contribCoef);
       };
 
-      vector<vector<Segment>> paths;
-      size_t prevStart = numeric_limits<size_t>::max();
+      std::vector<std::vector<Segment>> paths;
+      size_t prevStart = std::numeric_limits<size_t>::max();
       auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode)
       {
         auto const * res = runAStarAlgorithm(start, end, mode);
@@ -1587,14 +1587,14 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input, 
   return RouterResultCode::NoError;
 }
 
-RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, base::Cancellable const & cancellable,
+RouterResultCode IndexRouter::RedressRoute(std::vector<Segment> const & segments, base::Cancellable const & cancellable,
                                            IndexGraphStarter & starter, Route & route)
 {
   CHECK(!segments.empty(), ());
   IndexGraphStarter::CheckValidRoute(segments);
 
   size_t const segsCount = segments.size();
-  vector<geometry::PointWithAltitude> junctions;
+  std::vector<geometry::PointWithAltitude> junctions;
   junctions.reserve(segsCount + 1);
 
   for (size_t i = 0; i <= segsCount; ++i)
@@ -1603,7 +1603,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
   IndexRoadGraph roadGraph(starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
-  vector<double> times;
+  std::vector<double> times;
   times.reserve(segments.size());
 
   // Time at first route point - weight of first segment.
@@ -1684,7 +1684,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
       starter.ConvertToReal(segment);
   }
 
-  vector<platform::CountryFile> speedCamProhibited;
+  std::vector<platform::CountryFile> speedCamProhibited;
   FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
   route.SetMwmsPartlyProhibitedForSpeedCams(std::move(speedCamProhibited));
 
@@ -1730,7 +1730,7 @@ bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId)
   return m_dataSource.GetSectionStatus(numMwmId, TRANSIT_FILE_TAG) == MwmDataSource::SectionExists;
 }
 
-RouterResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds, RouterResultCode resultCode)
+RouterResultCode IndexRouter::ConvertTransitResult(std::set<NumMwmId> const & mwmIds, RouterResultCode resultCode)
 {
   if (m_vehicleType != VehicleType::Transit || resultCode != RouterResultCode::RouteNotFound)
     return resultCode;
@@ -1745,12 +1745,12 @@ RouterResultCode IndexRouter::ConvertTransitResult(set<NumMwmId> const & mwmIds,
   return RouterResultCode::TransitRouteNotFoundTooLongPedestrian;
 }
 
-void IndexRouter::FillSpeedCamProhibitedMwms(vector<Segment> const & segments,
-                                             vector<platform::CountryFile> & speedCamProhibitedMwms) const
+void IndexRouter::FillSpeedCamProhibitedMwms(std::vector<Segment> const & segments,
+                                             std::vector<platform::CountryFile> & speedCamProhibitedMwms) const
 {
   CHECK(m_numMwmIds, ());
 
-  set<NumMwmId> mwmIds;
+  std::set<NumMwmId> mwmIds;
   for (auto const & s : segments)
     mwmIds.emplace(s.GetMwmId());
 

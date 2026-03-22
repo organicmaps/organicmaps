@@ -19,8 +19,6 @@
 #include <fstream>
 #include <iterator>
 
-using namespace std;
-
 // MainModel ---------------------------------------------------------------------------------------
 MainModel::MainModel(Framework & framework)
   : m_framework(framework)
@@ -41,23 +39,23 @@ MainModel::MainModel(Framework & framework)
   search::search_quality::CheckLocale();
 }
 
-void MainModel::Open(string const & path)
+void MainModel::Open(std::string const & path)
 {
   CHECK(m_view, ());
 
-  string contents;
+  std::string contents;
 
   {
-    ifstream ifs(path);
+    std::ifstream ifs(path);
     if (!ifs)
     {
       m_view->ShowError("Can't open file: " + path);
       return;
     }
-    contents.assign(istreambuf_iterator<char>(ifs), istreambuf_iterator<char>());
+    contents.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
   }
 
-  vector<search::Sample> samples;
+  std::vector<search::Sample> samples;
   if (!search::Sample::DeserializeFromJSONLines(contents, samples))
   {
     m_view->ShowError("Can't parse samples: " + path);
@@ -85,22 +83,22 @@ void MainModel::Save()
   SaveAs(m_path);
 }
 
-void MainModel::SaveAs(string const & path)
+void MainModel::SaveAs(std::string const & path)
 {
   CHECK(HasChanges(), ());
   CHECK(!path.empty(), ());
 
-  string contents;
+  std::string contents;
   search::Sample::SerializeToJSONLines(m_contexts.MakeSamples(m_loader), contents);
 
   {
-    ofstream ofs(path);
+    std::ofstream ofs(path);
     if (!ofs)
     {
       m_view->ShowError("Can't open file: " + path);
       return;
     }
-    copy(contents.begin(), contents.end(), ostreambuf_iterator<char>(ofs));
+    std::copy(contents.begin(), contents.end(), std::ostreambuf_iterator<char>(ofs));
   }
 
   m_contexts.ApplyEdits();
@@ -184,7 +182,7 @@ void MainModel::OnShowPositionClicked()
 
   auto const & context = m_contexts[m_selectedSample];
 
-  vector<m2::PointD> points;
+  std::vector<m2::PointD> points;
   if (context.m_sample.m_pos)
     points.push_back(*context.m_sample.m_pos);
 

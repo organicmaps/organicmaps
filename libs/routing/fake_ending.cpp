@@ -15,8 +15,6 @@
 namespace routing
 {
 using namespace routing;
-using namespace std;
-
 LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin, LatLonWithAltitude const & end,
                                            m2::PointD const & point)
 {
@@ -41,11 +39,11 @@ LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin, Lat
 
 bool Projection::operator==(Projection const & other) const
 {
-  return tie(m_segment, m_isOneWay, m_segmentFront, m_segmentBack, m_junction) ==
-         tie(other.m_segment, other.m_isOneWay, other.m_segmentFront, other.m_segmentBack, other.m_junction);
+  return std::tie(m_segment, m_isOneWay, m_segmentFront, m_segmentBack, m_junction) ==
+         std::tie(other.m_segment, other.m_isOneWay, other.m_segmentFront, other.m_segmentBack, other.m_junction);
 }
 
-FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & point, WorldGraph & graph)
+FakeEnding MakeFakeEnding(std::vector<Segment> const & segments, m2::PointD const & point, WorldGraph & graph)
 {
   FakeEnding ending;
   double averageAltitude = 0.0;

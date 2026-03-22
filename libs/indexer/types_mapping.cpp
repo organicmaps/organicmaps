@@ -4,20 +4,18 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-using namespace std;
-
 void IndexAndTypeMapping::Clear()
 {
   m_types.clear();
   m_map.clear();
 }
 
-void IndexAndTypeMapping::Load(istream & s)
+void IndexAndTypeMapping::Load(std::istream & s)
 {
   Classificator const & c = classif();
 
-  string line;
-  vector<string_view> path;
+  std::string line;
+  std::vector<std::string_view> path;
 
   uint32_t ind = 0;
   while (s.good())
@@ -51,7 +49,7 @@ void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type, bool isMainTypeDescri
   m_types.push_back(type);
   if (isMainTypeDescription)
   {
-    auto const res = m_map.insert(make_pair(type, ind));
+    auto const res = m_map.insert(std::make_pair(type, ind));
     CHECK(res.second, ("Type can have only one main description.", ind, m_map[ind]));
   }
 }

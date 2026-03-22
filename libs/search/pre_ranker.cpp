@@ -21,12 +21,10 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
-void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const & prevEmit,
-                        vector<PreRankerResult> & results)
+void SweepNearbyResults(m2::PointD const & eps, std::unordered_set<FeatureID> const & prevEmit,
+                        std::vector<PreRankerResult> & results)
 {
   m2::NearbyPointsSweeper sweeper(eps.x, eps.y);
   for (size_t i = 0; i < results.size(); ++i)
@@ -59,7 +57,7 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
     sweeper.Add(p.x, p.y, i, priority);
   }
 
-  vector<PreRankerResult> filtered;
+  std::vector<PreRankerResult> filtered;
   filtered.reserve(results.size());
   sweeper.Sweep([&filtered, &results](size_t i) { filtered.push_back(std::move(results[i])); });
 
@@ -93,9 +91,9 @@ void PreRanker::FillMissingFieldsInPreResults()
 {
   MwmSet::MwmId mwmId;
   MwmSet::MwmHandle mwmHandle;
-  unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
-  unique_ptr<RankTable> popularityRanks = make_unique<DummyRankTable>();
-  unique_ptr<LazyCentersTable> centers;
+  std::unique_ptr<RankTable> ranks = std::make_unique<DummyRankTable>();
+  std::unique_ptr<RankTable> popularityRanks = std::make_unique<DummyRankTable>();
+  std::unique_ptr<LazyCentersTable> centers;
   bool pivotFeaturesInitialized = false;
 
   auto const & editor = osm::Editor::Instance();
@@ -115,12 +113,12 @@ void PreRanker::FillMissingFieldsInPreResults()
 
         ranks = RankTable::Load(value->m_cont, SEARCH_RANKS_FILE_TAG);
         popularityRanks = RankTable::Load(value->m_cont, POPULARITY_RANKS_FILE_TAG);
-        centers = make_unique<LazyCentersTable>(*value);
+        centers = std::make_unique<LazyCentersTable>(*value);
       }
       if (!ranks)
-        ranks = make_unique<DummyRankTable>();
+        ranks = std::make_unique<DummyRankTable>();
       if (!popularityRanks)
-        popularityRanks = make_unique<DummyRankTable>();
+        popularityRanks = std::make_unique<DummyRankTable>();
     }
 
     r.SetRank(ranks->Get(id.m_index));
@@ -299,7 +297,8 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
   }
   else
   {
-    auto const it = partition(m_results.begin(), iEnd, [](PreRankerResult const & res) { return res.IsNotRelaxed(); });
+    auto const it =
+        std::partition(m_results.begin(), iEnd, [](PreRankerResult const & res) { return res.IsNotRelaxed(); });
 
     m_relaxedResults.insert(m_relaxedResults.end(), make_move_iterator(it), make_move_iterator(iEnd));
     m_results.erase(it, iEnd);

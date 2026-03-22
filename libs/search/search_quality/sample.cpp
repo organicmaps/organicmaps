@@ -17,8 +17,6 @@
 namespace search
 {
 using namespace base;
-using namespace std;
-
 namespace
 {
 bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
@@ -35,18 +33,18 @@ bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
 }
 
 template <typename T>
-bool Less(vector<T> lhs, vector<T> rhs)
+bool Less(std::vector<T> lhs, std::vector<T> rhs)
 {
-  sort(lhs.begin(), lhs.end());
-  sort(rhs.begin(), rhs.end());
+  std::sort(lhs.begin(), lhs.end());
+  std::sort(rhs.begin(), rhs.end());
   return lhs < rhs;
 }
 
 template <typename T>
-bool Equal(vector<T> lhs, vector<T> rhs)
+bool Equal(std::vector<T> lhs, std::vector<T> rhs)
 {
-  sort(lhs.begin(), lhs.end());
-  sort(rhs.begin(), rhs.end());
+  std::sort(lhs.begin(), lhs.end());
+  std::sort(rhs.begin(), rhs.end());
   return lhs == rhs;
 }
 }  // namespace
@@ -83,7 +81,7 @@ bool Sample::Result::operator==(Sample::Result const & rhs) const
          Equal(m_types, rhs.m_types) && m_relevance == rhs.m_relevance;
 }
 
-bool Sample::DeserializeFromJSON(string const & jsonStr)
+bool Sample::DeserializeFromJSON(std::string const & jsonStr)
 {
   try
   {
@@ -126,13 +124,13 @@ bool Sample::operator==(Sample const & rhs) const
 }
 
 // static
-bool Sample::DeserializeFromJSONLines(string const & lines, vector<Sample> & samples)
+bool Sample::DeserializeFromJSONLines(std::string const & lines, std::vector<Sample> & samples)
 {
-  istringstream is(lines);
-  string line;
-  vector<Sample> result;
+  std::istringstream is(lines);
+  std::string line;
+  std::vector<Sample> result;
 
-  while (getline(is, line))
+  while (std::getline(is, line))
   {
     if (line.empty())
       continue;
@@ -148,11 +146,11 @@ bool Sample::DeserializeFromJSONLines(string const & lines, vector<Sample> & sam
 }
 
 // static
-void Sample::SerializeToJSONLines(vector<Sample> const & samples, string & lines)
+void Sample::SerializeToJSONLines(std::vector<Sample> const & samples, std::string & lines)
 {
   for (auto const & sample : samples)
   {
-    unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(sample.SerializeToJSON().get(), JSON_COMPACT));
+    std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(sample.SerializeToJSON().get(), JSON_COMPACT));
     lines.append(buffer.get());
     lines.push_back('\n');
   }
@@ -196,7 +194,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
 
 void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance & relevance)
 {
-  string r;
+  std::string r;
   FromJSONObject(root, field, r);
   if (r == "harmful")
     relevance = search::Sample::Result::Relevance::Harmful;
@@ -214,7 +212,7 @@ void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance r
 {
   using Relevance = Sample::Result::Relevance;
 
-  string r;
+  std::string r;
   switch (relevance)
   {
   case Relevance::Harmful: r = "harmful"; break;
@@ -226,12 +224,12 @@ void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance r
   json_object_set_new(&root, field, json_string(r.c_str()));
 }
 
-void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance)
+void FromJSONObject(json_t * root, std::string const & field, Sample::Result::Relevance & relevance)
 {
   FromJSONObject(root, field.c_str(), relevance);
 }
 
-void ToJSONObject(json_t & root, string const & field, Sample::Result::Relevance relevance)
+void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance)
 {
   ToJSONObject(root, field.c_str(), relevance);
 }
@@ -256,7 +254,7 @@ base::JSONPtr ToJSON(Sample::Result const & result)
   return root;
 }
 
-string DebugPrint(Sample::Result::Relevance r)
+std::string DebugPrint(Sample::Result::Relevance r)
 {
   switch (r)
   {
@@ -268,9 +266,9 @@ string DebugPrint(Sample::Result::Relevance r)
   return "Unknown";
 }
 
-string DebugPrint(Sample::Result const & r)
+std::string DebugPrint(Sample::Result const & r)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "relevance: " << DebugPrint(r.m_relevance) << " ";
   oss << "name: " << DebugPrint(r.m_name) << " ";
   oss << "house number: " << r.m_houseNumber << " ";
@@ -286,9 +284,9 @@ string DebugPrint(Sample::Result const & r)
   return oss.str();
 }
 
-string DebugPrint(Sample const & s)
+std::string DebugPrint(Sample const & s)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "[";
   oss << "query: " << DebugPrint(s.m_query) << ", ";
   oss << "locale: " << s.m_locale << ", ";

@@ -17,7 +17,6 @@
 namespace search
 {
 using boost::make_transform_iterator;
-using namespace std;
 using namespace strings;
 
 namespace
@@ -72,11 +71,11 @@ public:
 private:
   void AddString(UniString const & s, search::Delimiters & delimiters)
   {
-    vector<UniString> tokens;
+    std::vector<UniString> tokens;
     SplitUniString(s, base::MakeBackInsertFunctor(tokens), delimiters);
     StringSlice slice(tokens);
 
-    m_maxNumTokensInPostcode = max(m_maxNumTokensInPostcode, tokens.size());
+    m_maxNumTokensInPostcode = std::max(m_maxNumTokensInPostcode, tokens.size());
     m_strings.Add(JoinIterator::Begin(slice), JoinIterator::End(slice));
   }
 
@@ -98,9 +97,9 @@ bool LooksLikePostcode(StringSliceBase const & slice, bool isPrefix)
   return GetPostcodesMatcher().HasString(slice, isPrefix);
 }
 
-bool LooksLikePostcode(string_view sv, bool isPrefix)
+bool LooksLikePostcode(std::string_view sv, bool isPrefix)
 {
-  vector<UniString> tokens;
+  std::vector<UniString> tokens;
   bool const lastTokenIsPrefix = TokenizeStringAndCheckIfLastTokenIsPrefix(sv, tokens);
 
   return LooksLikePostcode(StringSlice(tokens), isPrefix && lastTokenIsPrefix);

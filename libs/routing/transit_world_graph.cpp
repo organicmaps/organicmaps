@@ -8,10 +8,10 @@
 
 namespace routing
 {
-using namespace std;
-
-TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, unique_ptr<IndexGraphLoader> indexLoader,
-                                     unique_ptr<TransitGraphLoader> transitLoader, shared_ptr<EdgeEstimator> estimator)
+TransitWorldGraph::TransitWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
+                                     std::unique_ptr<IndexGraphLoader> indexLoader,
+                                     std::unique_ptr<TransitGraphLoader> transitLoader,
+                                     std::shared_ptr<EdgeEstimator> estimator)
   : m_crossMwmGraph(std::move(crossMwmGraph))
   , m_indexLoader(std::move(indexLoader))
   , m_transitLoader(std::move(transitLoader))
@@ -163,7 +163,7 @@ double TransitWorldGraph::CalculateETAWithoutPenalty(Segment const & segment)
                                         EdgeEstimator::Purpose::ETA);
 }
 
-unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segment)
+std::unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segment)
 {
   if (!TransitGraph::IsTransitSegment(segment))
     return {};
@@ -172,18 +172,18 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
   if (transitGraph.GetTransitVersion() == ::transit::TransitVersion::OnlySubway)
   {
     if (transitGraph.IsGate(segment))
-      return make_unique<TransitInfo>(transitGraph.GetGate(segment));
+      return std::make_unique<TransitInfo>(transitGraph.GetGate(segment));
 
     if (transitGraph.IsEdge(segment))
-      return make_unique<TransitInfo>(transitGraph.GetEdge(segment));
+      return std::make_unique<TransitInfo>(transitGraph.GetEdge(segment));
   }
   else if (transitGraph.GetTransitVersion() == ::transit::TransitVersion::AllPublicTransport)
   {
     if (transitGraph.IsGate(segment))
-      return make_unique<TransitInfo>(transitGraph.GetGatePT(segment));
+      return std::make_unique<TransitInfo>(transitGraph.GetGatePT(segment));
 
     if (transitGraph.IsEdge(segment))
-      return make_unique<TransitInfo>(transitGraph.GetEdgePT(segment));
+      return std::make_unique<TransitInfo>(transitGraph.GetEdgePT(segment));
   }
   else
   {

@@ -4,14 +4,12 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 template <typename Slice>
-string SliceToString(string const & name, Slice const & slice)
+std::string SliceToString(std::string const & name, Slice const & slice)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << name << " [";
   for (size_t i = 0; i < slice.Size(); ++i)
   {
@@ -48,12 +46,12 @@ TokenSliceNoCategories::TokenSliceNoCategories(QueryParams const & params, Token
       m_indexes.push_back(i);
 }
 
-string DebugPrint(TokenSlice const & slice)
+std::string DebugPrint(TokenSlice const & slice)
 {
   return SliceToString("TokenSlice", slice);
 }
 
-string DebugPrint(TokenSliceNoCategories const & slice)
+std::string DebugPrint(TokenSliceNoCategories const & slice)
 {
   return SliceToString("TokenSliceNoCategories", slice);
 }

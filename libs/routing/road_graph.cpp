@@ -12,8 +12,6 @@
 
 namespace routing
 {
-using namespace std;
-
 namespace
 {
 bool OnEdge(geometry::PointWithAltitude const & p, Edge const & ab)
@@ -23,7 +21,7 @@ bool OnEdge(geometry::PointWithAltitude const & p, Edge const & ab)
   return m2::IsPointOnSegmentEps(p.GetPoint(), a.GetPoint(), b.GetPoint(), 1e-9);
 }
 
-void SplitEdge(Edge const & ab, geometry::PointWithAltitude const & p, vector<Edge> & edges)
+void SplitEdge(Edge const & ab, geometry::PointWithAltitude const & p, std::vector<Edge> & edges)
 {
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
@@ -84,7 +82,7 @@ Edge::Edge(Type type, FeatureID featureId, uint32_t fakeSegmentId, bool forward,
   , m_endJunction(endJunction)
   , m_fakeSegmentId(fakeSegmentId)
 {
-  ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
+  ASSERT_LESS(segId, std::numeric_limits<uint32_t>::max(), ());
   ASSERT_EQUAL(m_featureId.IsValid(), HasRealPart(), ());
 }
 
@@ -92,7 +90,7 @@ Edge Edge::GetReverseEdge() const
 {
   Edge edge = *this;
   edge.m_forward = !edge.m_forward;
-  swap(edge.m_startJunction, edge.m_endJunction);
+  std::swap(edge.m_startJunction, edge.m_endJunction);
   return edge;
 }
 
@@ -124,10 +122,10 @@ bool Edge::operator<(Edge const & r) const
   return false;
 }
 
-string DebugPrint(Edge const & r)
+std::string DebugPrint(Edge const & r)
 {
-  ostringstream ss;
-  ss << boolalpha << "Edge "
+  std::ostringstream ss;
+  ss << std::boolalpha << "Edge "
      << "{ featureId: " << DebugPrint(r.GetFeatureId()) << ", isForward: " << r.IsForward()
      << ", partOfReal: " << r.HasRealPart() << ", segId: " << r.m_segId
      << ", startJunction: " << DebugPrint(r.m_startJunction) << ", endJunction: " << DebugPrint(r.m_endJunction)
@@ -149,7 +147,8 @@ IRoadGraph::RoadInfo::RoadInfo(RoadInfo && ri)
   , m_bidirectional(ri.m_bidirectional)
 {}
 
-IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH, initializer_list<JunctionPointT> const & points)
+IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH,
+                               std::initializer_list<JunctionPointT> const & points)
   : m_junctions(points)
   , m_speedKMPH(speedKMPH)
   , m_bidirectional(bidirectional)
@@ -228,22 +227,23 @@ void IRoadGraph::ResetFakes()
 void IRoadGraph::AddEdge(JunctionPointT const & j, Edge const & e, EdgeCacheT & edges)
 {
   auto & cont = edges[j];
-  ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
-  auto const range = equal_range(cont.cbegin(), cont.cend(), e);
+  ASSERT(std::is_sorted(cont.cbegin(), cont.cend()), ());
+  auto const range = std::equal_range(cont.cbegin(), cont.cend(), e);
   // Note. The "if" condition below is necessary to prevent duplicates which may be added when
   // edges from |j| to "projection of |j|" and an edge in the opposite direction are added.
   if (range.first == range.second)
     cont.insert(range.second, e);
 }
 
-void IRoadGraph::AddFakeEdges(JunctionPointT const & junction, vector<pair<Edge, JunctionPointT>> const & vicinity)
+void IRoadGraph::AddFakeEdges(JunctionPointT const & junction,
+                              std::vector<std::pair<Edge, JunctionPointT>> const & vicinity)
 {
   for (auto const & v : vicinity)
   {
     Edge const & ab = v.first;
     JunctionPointT const & p = v.second;
 
-    vector<Edge> edges;
+    std::vector<Edge> edges;
     SplitEdge(ab, p, edges);
 
     edges.push_back(Edge::MakeFake(junction, p));
@@ -281,7 +281,7 @@ void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) c
     GetFeatureTypes(edge.GetFeatureId(), types);
 }
 
-string DebugPrint(IRoadGraph::Mode mode)
+std::string DebugPrint(IRoadGraph::Mode mode)
 {
   switch (mode)
   {
@@ -292,7 +292,7 @@ string DebugPrint(IRoadGraph::Mode mode)
 }
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
-                                            initializer_list<m2::PointD> const & points)
+                                            std::initializer_list<m2::PointD> const & points)
 {
   IRoadGraph::RoadInfo ri(bidirectional, speedKMPH, {});
   for (auto const & p : points)

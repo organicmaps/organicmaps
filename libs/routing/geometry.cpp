@@ -17,9 +17,7 @@
 
 namespace routing
 {
-using namespace std;
-
-double CalcFerryDurationHours(string_view durationHours, double roadLenKm)
+double CalcFerryDurationHours(std::string_view durationHours, double roadLenKm)
 {
   // Look for more info: https://confluence.mail.ru/display/MAPSME/Ferries
   // Shortly: the coefs were received from statistic about ferries with durations in OSM.
@@ -104,7 +102,7 @@ private:
 class FileGeometryLoader final : public GeometryLoader
 {
 public:
-  FileGeometryLoader(string const & fileName, VehicleModelPtrT const & vehicleModel)
+  FileGeometryLoader(std::string const & fileName, VehicleModelPtrT const & vehicleModel)
     : m_featuresVector(fileName)
     , m_vehicleModel(vehicleModel)
   {
@@ -221,7 +219,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
       geometry::Altitude constexpr kError = 1;
 
       auto const altDiff = (*altitudes)[i] - (*altitudes)[i - 1];
-      auto const absDiff = abs(altDiff) - kError;
+      auto const absDiff = std::abs(altDiff) - kError;
       if (absDiff > 0)
       {
         double const dist = ms::DistanceOnEarth(m_junctions[i - 1].GetLatLon(), m_junctions[i].GetLatLon());
@@ -293,11 +291,11 @@ double RoadGeometry::GetRoadLengthM() const
 }
 
 // Geometry ----------------------------------------------------------------------------------------
-Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize) : m_loader(std::move(loader))
+Geometry::Geometry(std::unique_ptr<GeometryLoader> loader, size_t roadsCacheSize) : m_loader(std::move(loader))
 {
   CHECK(m_loader, ());
 
-  m_featureIdToRoad = make_unique<RoutingCacheT>(
+  m_featureIdToRoad = std::make_unique<RoutingCacheT>(
       roadsCacheSize, [this](uint32_t featureId, RoadGeometry & road) { m_loader->Load(featureId, road); });
 }
 
@@ -315,19 +313,19 @@ Maxspeed GeometryLoader::GetSavedMaxspeed(uint32_t featureId)
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::Create(MwmSet::MwmHandle const & handle,
-                                                  VehicleModelPtrT const & vehicleModel, bool loadAltitudes)
+std::unique_ptr<GeometryLoader> GeometryLoader::Create(MwmSet::MwmHandle const & handle,
+                                                       VehicleModelPtrT const & vehicleModel, bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
   CHECK(vehicleModel, ());
-  return make_unique<GeometryLoaderImpl>(handle, vehicleModel, loadAltitudes);
+  return std::make_unique<GeometryLoaderImpl>(handle, vehicleModel, loadAltitudes);
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(string const & fileName,
-                                                          VehicleModelPtrT const & vehicleModel)
+std::unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(std::string const & fileName,
+                                                               VehicleModelPtrT const & vehicleModel)
 {
   CHECK(vehicleModel, ());
-  return make_unique<FileGeometryLoader>(fileName, vehicleModel);
+  return std::make_unique<FileGeometryLoader>(fileName, vehicleModel);
 }
 }  // namespace routing

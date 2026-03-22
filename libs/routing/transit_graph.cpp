@@ -9,12 +9,11 @@ namespace routing
 {
 namespace
 {
-using namespace std;
 // TODO(o.khlopkova) Replace this constant with implementation of intervals calculation on the
 // gtfs converter step.
 size_t constexpr kDefaultIntervalS = 60 * 60;  // 1 hour.
 
-LatLonWithAltitude const & GetStopJunction(map<transit::StopId, LatLonWithAltitude> const & stopCoords,
+LatLonWithAltitude const & GetStopJunction(std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                                            transit::StopId stopId)
 {
   auto const it = stopCoords.find(stopId);
@@ -36,7 +35,7 @@ bool TransitGraph::IsTransitSegment(Segment const & segment)
 }
 
 TransitGraph::TransitGraph(::transit::TransitVersion transitVersion, NumMwmId numMwmId,
-                           shared_ptr<EdgeEstimator> estimator)
+                           std::shared_ptr<EdgeEstimator> estimator)
   : m_transitVersion(transitVersion)
   , m_mwmId(numMwmId)
   , m_estimator(estimator)
@@ -178,7 +177,7 @@ void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing, Edg
   }
 }
 
-set<Segment> const & TransitGraph::GetFake(Segment const & real) const
+std::set<Segment> const & TransitGraph::GetFake(Segment const & real) const
 {
   return m_fake.GetFake(real);
 }
@@ -196,7 +195,7 @@ void TransitGraph::Fill(::transit::experimental::TransitData const & transitData
   for (auto const & line : transitData.GetLines())
     m_transferPenaltiesPT[line.GetId()] = line.GetSchedule();
 
-  map<transit::StopId, LatLonWithAltitude> stopCoords;
+  std::map<transit::StopId, LatLonWithAltitude> stopCoords;
 
   for (auto const & stop : transitData.GetStops())
   {
@@ -263,7 +262,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   for (auto const & line : transitData.GetLines())
     m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2;
 
-  map<transit::StopId, LatLonWithAltitude> stopCoords;
+  std::map<transit::StopId, LatLonWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())
     stopCoords[stop.GetId()] =
         LatLonWithAltitude(mercator::ToLatLon(stop.GetPoint()), geometry::kDefaultAltitudeMeters);
@@ -374,12 +373,12 @@ Segment TransitGraph::GetTransitSegment(uint32_t featureId) const
 Segment TransitGraph::GetNewTransitSegment() const
 {
   auto const featureId = m_fake.GetSize() + FakeFeatureIds::kTransitGraphFeaturesStart;
-  CHECK_LESS_OR_EQUAL(featureId, numeric_limits<uint32_t>::max(), ());
+  CHECK_LESS_OR_EQUAL(featureId, std::numeric_limits<uint32_t>::max(), ());
   return GetTransitSegment(static_cast<uint32_t>(featureId));
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
-                           map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
+                           std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                            StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (gate));
@@ -539,7 +538,8 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
   }
 }
 
-Segment TransitGraph::AddEdge(transit::Edge const & edge, map<transit::StopId, LatLonWithAltitude> const & stopCoords,
+Segment TransitGraph::AddEdge(transit::Edge const & edge,
+                              std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (edge));
@@ -591,7 +591,7 @@ void TransitGraph::AddConnections(StopToSegmentsMap const & connections, StopToS
   }
 }
 
-void MakeGateEndings(vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
+void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
                      TransitGraph::Endings & gateEndings)
 {
   for (auto const & gate : gates)

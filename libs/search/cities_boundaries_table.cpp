@@ -21,12 +21,11 @@
 namespace search
 {
 using namespace indexer;
-using namespace std;
-
 // CitiesBoundariesTable::Boundaries ---------------------------------------------------------------
 bool CitiesBoundariesTable::Boundaries::HasPoint(m2::PointD const & p) const
 {
-  return any_of(m_boundaries.begin(), m_boundaries.end(), [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
+  return std::any_of(m_boundaries.begin(), m_boundaries.end(),
+                     [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
 }
 
 std::string DebugPrint(CitiesBoundariesTable::Boundaries const & boundaries)
@@ -65,7 +64,7 @@ bool CitiesBoundariesTable::Load()
     return false;
   }
 
-  vector<vector<CityBoundary>> all;
+  std::vector<std::vector<CityBoundary>> all;
   double precision;
 
   try
@@ -121,7 +120,7 @@ bool CitiesBoundariesTable::Get(uint32_t fid, Boundaries & bs) const
 }
 
 void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const & table, m2::RectD const & rect,
-                                       vector<uint32_t> & featureIds)
+                                       std::vector<uint32_t> & featureIds)
 {
   featureIds.clear();
   for (auto const & kv : table.m_table)

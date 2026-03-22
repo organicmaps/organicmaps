@@ -16,8 +16,6 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 double const kMaxCityRadiusMeters = 30000.0;
@@ -58,7 +56,7 @@ class LocalitiesLoader
 {
 public:
   LocalitiesLoader(MwmContext const & ctx, CitiesBoundariesTable const & boundaries, Filter const & filter,
-                   LocalityFinder::Holder & holder, map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
+                   LocalityFinder::Holder & holder, std::map<MwmSet::MwmId, std::unordered_set<uint32_t>> & loadedIds)
     : m_ctx(ctx)
     , m_boundaries(boundaries)
     , m_filter(filter)
@@ -111,7 +109,7 @@ private:
   Filter const & m_filter;
 
   LocalityFinder::Holder & m_holder;
-  unordered_set<uint32_t> & m_loadedIds;
+  std::unordered_set<uint32_t> & m_loadedIds;
 };
 
 int GetVillagesScale()
@@ -121,7 +119,7 @@ int GetVillagesScale()
   {
     feature::TypesHolder th;
     th.Assign(type);
-    currentVillagesMinDrawableScale = max(currentVillagesMinDrawableScale, GetMinDrawableScaleClassifOnly(th));
+    currentVillagesMinDrawableScale = std::max(currentVillagesMinDrawableScale, GetMinDrawableScaleClassifOnly(th));
   });
 
   // Needed for backward compatibility. |kCompatibilityVillagesMinDrawableScale| should be set to
@@ -129,7 +127,7 @@ int GetVillagesScale()
   int const kCompatibilityVillagesMinDrawableScale = 13;
   ASSERT_LESS_OR_EQUAL(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale,
                        ("Set kCompatibilityVillagesMinDrawableScale to", currentVillagesMinDrawableScale));
-  return max(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale);
+  return std::max(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale);
 }
 }  // namespace
 
@@ -143,9 +141,9 @@ LocalityItem::LocalityItem(StringUtf8Multilang const & names, m2::PointD const &
   , m_id(id)
 {}
 
-string DebugPrint(LocalityItem const & item)
+std::string DebugPrint(LocalityItem const & item)
 {
-  stringstream os;
+  std::stringstream os;
   os << "Names = " << DebugPrint(item.m_names) << ", ";
   os << "Center = " << DebugPrint(item.m_center) << ", ";
   os << "Population = " << item.m_population << ", ";
@@ -259,7 +257,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
       if (!m_ranks)
         m_ranks = RankTable::Load(value.m_cont, SEARCH_RANKS_FILE_TAG);
       if (!m_ranks)
-        m_ranks = make_unique<DummyRankTable>();
+        m_ranks = std::make_unique<DummyRankTable>();
 
       MwmContext ctx(std::move(handle));
       ctx.ForEachIndex(crect, LocalitiesLoader(ctx, m_boundariesTable, CityFilter(*m_ranks), m_cities, m_loadedIds));
@@ -293,7 +291,7 @@ void LocalityFinder::UpdateMaps()
   if (m_mapsLoaded)
     return;
 
-  vector<shared_ptr<MwmInfo>> mwmsInfo;
+  std::vector<std::shared_ptr<MwmInfo>> mwmsInfo;
   m_dataSource.GetMwmsInfo(mwmsInfo);
   for (auto const & info : mwmsInfo)
   {

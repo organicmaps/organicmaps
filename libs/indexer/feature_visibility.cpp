@@ -14,14 +14,12 @@
 
 namespace feature
 {
-using namespace std;
-
 namespace
 {
 int CorrectScale(int scale)
 {
   CHECK_LESS_OR_EQUAL(scale, scales::GetUpperStyleScale(), ());
-  return min(scale, scales::GetUpperStyleScale());
+  return std::min(scale, scales::GetUpperStyleScale());
 }
 }  // namespace
 
@@ -36,7 +34,7 @@ void GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys)
     c.GetObject(t)->GetSuitable(level, geomType, keys);
 }
 
-void GetDrawRule(vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys)
+void GetDrawRule(std::vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys)
 {
   ASSERT(keys.empty(), ());
   Classificator const & c = classif();
@@ -211,7 +209,7 @@ bool IsUsefulType(uint32_t type)
   return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
 }
 
-bool CanGenerateLike(vector<uint32_t> const & types, GeomType geomType)
+bool CanGenerateLike(std::vector<uint32_t> const & types, GeomType geomType)
 {
   Classificator const & c = classif();
 
@@ -289,7 +287,7 @@ bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
   return false;
 }
 
-bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyName)
+bool RemoveUselessTypes(std::vector<uint32_t> & types, GeomType geomType, bool emptyName)
 {
   base::EraseIf(types, [&](uint32_t t) { return !IsUsefulType(t, geomType, emptyName); });
 
@@ -340,33 +338,33 @@ int GetMinDrawableScaleClassifOnly(TypesHolder const & types)
 
 namespace
 {
-void AddRange(pair<int, int> & dest, pair<int, int> const & src)
+void AddRange(std::pair<int, int> & dest, std::pair<int, int> const & src)
 {
   if (src.first != -1)
   {
     ASSERT_GREATER(src.first, -1, ());
     ASSERT_GREATER(src.second, -1, ());
 
-    dest.first = min(dest.first, src.first);
-    dest.second = max(dest.second, src.second);
+    dest.first = std::min(dest.first, src.first);
+    dest.second = std::max(dest.second, src.second);
 
     ASSERT_GREATER(dest.first, -1, ());
     ASSERT_GREATER(dest.second, -1, ());
   }
 }
 
-pair<int, int> kInvalidScalesRange(-1, -1);
+std::pair<int, int> kInvalidScalesRange(-1, -1);
 }  // namespace
 
-pair<int, int> GetDrawableScaleRange(uint32_t type)
+std::pair<int, int> GetDrawableScaleRange(uint32_t type)
 {
   auto const res = classif().GetObject(type)->GetDrawScaleRange();
   return (res.first > res.second ? kInvalidScalesRange : res);
 }
 
-pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
+std::pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
 {
-  pair<int, int> res(1000, -1000);
+  std::pair<int, int> res(1000, -1000);
 
   for (uint32_t t : types)
     AddRange(res, GetDrawableScaleRange(t));
@@ -374,7 +372,7 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
   return (res.first > res.second ? kInvalidScalesRange : res);
 }
 
-bool IsVisibleInRange(uint32_t type, pair<int, int> const & scaleRange)
+bool IsVisibleInRange(uint32_t type, std::pair<int, int> const & scaleRange)
 {
   CHECK_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, (scaleRange));
   if (TypeAlwaysExists(type))
@@ -404,7 +402,7 @@ bool IsDrawableForRules(TypesHolder const & types, int level, int rules)
 }
 }  // namespace
 
-pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules)
+std::pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules)
 {
   int const upBound = scales::GetUpperStyleScale();
   int lowL = -1;
@@ -433,7 +431,7 @@ pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rule
   return {lowL, highL};
 }
 
-TypeSetChecker::TypeSetChecker(initializer_list<char const *> const & lst)
+TypeSetChecker::TypeSetChecker(std::initializer_list<char const *> const & lst)
 {
   m_type = classif().GetTypeByPath(lst);
   m_level = base::checked_cast<uint8_t>(lst.size());

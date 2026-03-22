@@ -11,8 +11,6 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 bool LessByHashAndRange(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Prediction const & rhs)
@@ -43,7 +41,7 @@ bool EqualsByHashAndRange(StreetsMatcher::Prediction const & lhs, StreetsMatcher
 
 void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
                  QueryParams const & params, size_t startToken, bool withMisprints,
-                 vector<StreetsMatcher::Prediction> & predictions)
+                 std::vector<StreetsMatcher::Prediction> & predictions)
 {
   // Here we try to match as many tokens as possible while
   // intersection is a non-empty bit vector of streets. Single
@@ -136,7 +134,7 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
 
 // static
 void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
-                        QueryParams const & params, vector<Prediction> & predictions)
+                        QueryParams const & params, std::vector<Prediction> & predictions)
 {
   predictions.clear();
   FindStreets(ctx, candidates, filter, params, predictions);
@@ -171,8 +169,8 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates, Feature
   //
   // That's why we need all predictions here.
 
-  sort(predictions.begin(), predictions.end(),
-       [](Prediction const & l, Prediction const & r) { return l.IsBetter(r); });
+  std::sort(predictions.begin(), predictions.end(),
+            [](Prediction const & l, Prediction const & r) { return l.IsBetter(r); });
 
   // I suppose, it was made to avoid matching by *very* common tokens (like 'street' only).
   size_t constexpr kMaxNumOfImprobablePredictions = 3;
@@ -183,7 +181,7 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates, Feature
 
 // static
 void StreetsMatcher::FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
-                                 QueryParams const & params, vector<Prediction> & predictions)
+                                 QueryParams const & params, std::vector<Prediction> & predictions)
 {
   for (size_t startToken = 0; startToken < ctx.NumTokens(); ++startToken)
   {

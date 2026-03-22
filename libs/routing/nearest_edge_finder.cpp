@@ -7,8 +7,6 @@
 
 namespace routing
 {
-using namespace std;
-
 NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point, IsEdgeProjGood const & isEdgeProjGood)
   : m_point(point)
   , m_isEdgeProjGood(isEdgeProjGood)
@@ -75,10 +73,10 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
   m_candidates.emplace_back(res);
 }
 
-void NearestEdgeFinder::MakeResult(vector<EdgeProjectionT> & res, size_t maxCountFeatures)
+void NearestEdgeFinder::MakeResult(std::vector<EdgeProjectionT> & res, size_t maxCountFeatures)
 {
-  sort(m_candidates.begin(), m_candidates.end(),
-       [](Candidate const & r1, Candidate const & r2) { return r1.m_squaredDist < r2.m_squaredDist; });
+  std::sort(m_candidates.begin(), m_candidates.end(),
+            [](Candidate const & r1, Candidate const & r2) { return r1.m_squaredDist < r2.m_squaredDist; });
 
   res.clear();
   res.reserve(maxCountFeatures);
@@ -92,7 +90,7 @@ void NearestEdgeFinder::MakeResult(vector<EdgeProjectionT> & res, size_t maxCoun
 }
 
 void NearestEdgeFinder::CandidateToResult(Candidate const & candidate, size_t maxCountFeatures,
-                                          vector<EdgeProjectionT> & res) const
+                                          std::vector<EdgeProjectionT> & res) const
 {
   AddResIf(candidate, true /* forward */, maxCountFeatures, res);
 
@@ -101,7 +99,7 @@ void NearestEdgeFinder::CandidateToResult(Candidate const & candidate, size_t ma
 }
 
 void NearestEdgeFinder::AddResIf(Candidate const & candidate, bool forward, size_t maxCountFeatures,
-                                 vector<EdgeProjectionT> & res) const
+                                 std::vector<EdgeProjectionT> & res) const
 {
   if (res.size() >= maxCountFeatures)
     return;

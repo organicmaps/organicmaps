@@ -9,8 +9,6 @@
 
 namespace search
 {
-using namespace std;
-
 // CategoriesCache ---------------------------------------------------------------------------------
 CBV CategoriesCache::Get(MwmContext const & context)
 {

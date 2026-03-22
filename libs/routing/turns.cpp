@@ -15,11 +15,9 @@
 namespace routing
 {
 using namespace routing::turns;
-using namespace std;
-
 namespace
 {
-array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const g_turnNames = {
+std::array<std::pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const g_turnNames = {
     {{CarDirection::None, "None"},
      {CarDirection::GoStraight, "GoStraight"},
      {CarDirection::TurnRight, "TurnRight"},
@@ -126,9 +124,9 @@ bool SegmentRange::GetSegmentBySegId(uint32_t segId, NumMwmIds const & numMwmIds
   return true;
 }
 
-string DebugPrint(SegmentRange const & segmentRange)
+std::string DebugPrint(SegmentRange const & segmentRange)
 {
-  stringstream out;
+  std::stringstream out;
   out << "SegmentRange "
       << "{ m_featureId = " << DebugPrint(segmentRange.m_featureId) << ", m_startSegId = " << segmentRange.m_startSegId
       << ", m_endSegId = " << segmentRange.m_endSegId << ", m_forward = " << segmentRange.m_forward
@@ -138,9 +136,9 @@ string DebugPrint(SegmentRange const & segmentRange)
 
 namespace turns
 {
-string DebugPrint(TurnItem const & turnItem)
+std::string DebugPrint(TurnItem const & turnItem)
 {
-  stringstream out;
+  std::stringstream out;
   out << "TurnItem "
       << "{ m_index = " << turnItem.m_index << ", m_turn = " << DebugPrint(turnItem.m_turn)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
@@ -148,16 +146,16 @@ string DebugPrint(TurnItem const & turnItem)
   return out.str();
 }
 
-string DebugPrint(TurnItemDist const & turnItemDist)
+std::string DebugPrint(TurnItemDist const & turnItemDist)
 {
-  stringstream out;
+  std::stringstream out;
   out << "TurnItemDist "
       << "{ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem) << ", m_distMeters = " << turnItemDist.m_distMeters
       << " }";
   return out.str();
 }
 
-string GetTurnString(CarDirection turn)
+std::string GetTurnString(CarDirection turn)
 {
   for (auto const & p : g_turnNames)
     if (p.first == turn)
@@ -202,12 +200,12 @@ bool IsGoStraightOrSlightTurn(CarDirection t)
   return (t == CarDirection::GoStraight || t == CarDirection::TurnSlightLeft || t == CarDirection::TurnSlightRight);
 }
 
-string DebugPrint(CarDirection const turn)
+std::string DebugPrint(CarDirection const turn)
 {
   return GetTurnString(turn);
 }
 
-string DebugPrint(PedestrianDirection const l)
+std::string DebugPrint(PedestrianDirection const l)
 {
   switch (l)
   {

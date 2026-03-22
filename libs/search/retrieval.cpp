@@ -31,7 +31,6 @@
 
 namespace search
 {
-using namespace std;
 using namespace strings;
 using osm::EditableMapObject;
 using osm::Editor;
@@ -41,8 +40,8 @@ namespace
 class FeaturesCollector
 {
 public:
-  FeaturesCollector(base::Cancellable const & cancellable, vector<uint64_t> & features,
-                    vector<uint64_t> & exactlyMatchedFeatures)
+  FeaturesCollector(base::Cancellable const & cancellable, std::vector<uint64_t> & features,
+                    std::vector<uint64_t> & exactlyMatchedFeatures)
     : m_cancellable(cancellable)
     , m_features(features)
     , m_exactlyMatchedFeatures(exactlyMatchedFeatures)
@@ -80,8 +79,8 @@ public:
 
 private:
   base::Cancellable const & m_cancellable;
-  vector<uint64_t> & m_features;
-  vector<uint64_t> & m_exactlyMatchedFeatures;
+  std::vector<uint64_t> & m_features;
+  std::vector<uint64_t> & m_exactlyMatchedFeatures;
   uint32_t m_counter;
 };
 
@@ -97,8 +96,8 @@ public:
 
   bool ModifiedOrDeleted(uint32_t featureIndex) const
   {
-    return binary_search(m_deleted.begin(), m_deleted.end(), featureIndex) ||
-           binary_search(m_modified.begin(), m_modified.end(), featureIndex);
+    return std::binary_search(m_deleted.begin(), m_deleted.end(), featureIndex) ||
+           std::binary_search(m_modified.begin(), m_modified.end(), featureIndex);
   }
 
   template <typename Fn>
@@ -110,7 +109,7 @@ public:
 
 private:
   template <typename Fn>
-  void ForEach(vector<uint32_t> const & features, Fn & fn)
+  void ForEach(std::vector<uint32_t> const & features, Fn & fn)
   {
     for (auto const index : features)
     {
@@ -121,15 +120,15 @@ private:
   }
 
   MwmSet::MwmId const & m_id;
-  vector<uint32_t> m_deleted;
-  vector<uint32_t> m_modified;
-  vector<uint32_t> m_created;
+  std::vector<uint32_t> m_deleted;
+  std::vector<uint32_t> m_modified;
+  std::vector<uint32_t> m_created;
 
   Editor const & m_editor = Editor::Instance();
 };
 
-Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && features,
-                                                       vector<uint64_t> && exactlyMatchedFeatures)
+Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(std::vector<uint64_t> && features,
+                                                       std::vector<uint64_t> && exactlyMatchedFeatures)
 {
   using Builder = coding::CompressedBitVectorBuilder;
   base::SortUnique(features);
@@ -139,7 +138,7 @@ Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && featu
   return Retrieval::ExtendedFeatures(std::move(featuresCBV), std::move(exactlyMatchedFeaturesCBV));
 }
 
-Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && features)
+Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(std::vector<uint64_t> && features)
 {
   using Builder = coding::CompressedBitVectorBuilder;
   base::SortUnique(features);
@@ -148,7 +147,7 @@ Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && featu
 }
 
 template <typename DFA>
-pair<bool, bool> MatchesByName(vector<UniString> const & tokens, vector<DFA> const & dfas)
+std::pair<bool, bool> MatchesByName(std::vector<UniString> const & tokens, std::vector<DFA> const & dfas)
 {
   for (auto const & dfa : dfas)
   {
@@ -165,7 +164,7 @@ pair<bool, bool> MatchesByName(vector<UniString> const & tokens, vector<DFA> con
 }
 
 template <typename DFA>
-pair<bool, bool> MatchesByType(feature::TypesHolder const & types, vector<DFA> const & dfas)
+std::pair<bool, bool> MatchesByType(feature::TypesHolder const & types, std::vector<DFA> const & dfas)
 {
   if (dfas.empty())
     return {false, false};
@@ -189,18 +188,18 @@ pair<bool, bool> MatchesByType(feature::TypesHolder const & types, vector<DFA> c
 }
 
 template <typename DFA>
-pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo, SearchTrieRequest<DFA> const & request)
+std::pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo, SearchTrieRequest<DFA> const & request)
 {
   auto const & th = emo.GetTypes();
 
-  pair<bool, bool> matchedByType = MatchesByType(th, request.m_categories);
+  std::pair<bool, bool> matchedByType = MatchesByType(th, request.m_categories);
 
   // Exactly matched by type.
   if (matchedByType.second)
     return {true, true};
 
-  pair<bool, bool> matchedByName = {false, false};
-  emo.GetNameMultilang().ForEach([&](int8_t lang, string_view name)
+  std::pair<bool, bool> matchedByName = {false, false};
+  emo.GetNameMultilang().ForEach([&](int8_t lang, std::string_view name)
   {
     if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
@@ -244,8 +243,8 @@ Retrieval::ExtendedFeatures RetrieveAddressFeaturesImpl(Retrieval::TrieRoot<Valu
                                                         SearchTrieRequest<DFA> const & request)
 {
   EditedFeaturesHolder holder(context.GetId());
-  vector<uint64_t> features;
-  vector<uint64_t> exactlyMatchedFeatures;
+  std::vector<uint64_t> features;
+  std::vector<uint64_t> exactlyMatchedFeatures;
   FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   MatchFeaturesInTrie(request, root, [&holder](Value const & value)
@@ -272,8 +271,8 @@ Retrieval::ExtendedFeatures RetrievePostcodeFeaturesImpl(Retrieval::TrieRoot<Val
                                                          TokenSlice const & slice)
 {
   EditedFeaturesHolder holder(context.GetId());
-  vector<uint64_t> features;
-  vector<uint64_t> exactlyMatchedFeatures;
+  std::vector<uint64_t> features;
+  std::vector<uint64_t> exactlyMatchedFeatures;
   FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   MatchPostcodesInTrie(slice, root, [&holder](Value const & value)
@@ -297,8 +296,8 @@ Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & cont
   covering::Intervals coverage;
   CoverRect(rect, scale, coverage);
 
-  vector<uint64_t> features;
-  vector<uint64_t> exactlyMatchedFeatures;
+  std::vector<uint64_t> features;
+  std::vector<uint64_t> exactlyMatchedFeatures;
 
   FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
@@ -334,7 +333,7 @@ struct RetrievePostcodeFeaturesAdaptor
 };
 
 template <typename Value>
-unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader)
+std::unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader)
 {
   return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(SubReaderWrapper<Reader>(reader.GetPtr()),
                                                                     SingleValueSerializer<Value>());
@@ -344,7 +343,7 @@ unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader)
 Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cancellable)
   : m_context(context)
   , m_cancellable(cancellable)
-  , m_reader(unique_ptr<ModelReader>())
+  , m_reader(std::unique_ptr<ModelReader>())
 {
   auto const & value = context.m_value;
 

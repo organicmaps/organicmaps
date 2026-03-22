@@ -14,8 +14,6 @@
 
 namespace routing
 {
-using namespace std;
-
 // IndexGraphStarter::Ending -----------------------------------------------------------------------
 void IndexGraphStarter::Ending::FillMwmIds()
 {
@@ -25,7 +23,7 @@ void IndexGraphStarter::Ending::FillMwmIds()
 
 // IndexGraphStarter -------------------------------------------------------------------------------
 // static
-void IndexGraphStarter::CheckValidRoute(vector<Segment> const & segments)
+void IndexGraphStarter::CheckValidRoute(std::vector<Segment> const & segments)
 {
   // Valid route contains at least 3 segments:
   // start fake, finish fake and at least one normal nearest segment.
@@ -109,7 +107,7 @@ LatLonWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segmen
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-LatLonWithAltitude const & IndexGraphStarter::GetRouteJunction(vector<Segment> const & segments,
+LatLonWithAltitude const & IndexGraphStarter::GetRouteJunction(std::vector<Segment> const & segments,
                                                                size_t pointIndex) const
 {
   CHECK(!segments.empty(), ());
@@ -142,9 +140,9 @@ RoutingOptions IndexGraphStarter::GetRoutingOptions(Segment const & segment) con
   return m_graph.GetRoutingOptions(real);
 }
 
-set<NumMwmId> IndexGraphStarter::GetMwms() const
+std::set<NumMwmId> IndexGraphStarter::GetMwms() const
 {
-  set<NumMwmId> mwms;
+  std::set<NumMwmId> mwms;
   mwms.insert(m_start.m_mwmIds.begin(), m_start.m_mwmIds.end());
   mwms.insert(m_finish.m_mwmIds.begin(), m_finish.m_mwmIds.end());
   return mwms;
@@ -327,7 +325,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
 {
   Segment const dummy = Segment();
 
-  map<Segment, vector<LatLonWithAltitude>> otherSegments;
+  std::map<Segment, std::vector<LatLonWithAltitude>> otherSegments;
   for (auto const & ending : m_otherEndings)
   {
     for (auto const & p : ending.m_projections)
@@ -418,7 +416,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 {
   Segment const dummy = Segment();
 
-  map<Segment, LatLonWithAltitude> otherSegments;
+  std::map<Segment, LatLonWithAltitude> otherSegments;
   for (auto const & p : otherEnding.m_projections)
   {
     otherSegments[p.m_segment] = p.m_junction;
@@ -490,7 +488,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 
 void IndexGraphStarter::ConnectLoopToGuideSegments(FakeVertex const & loop, Segment const & realSegment,
                                                    LatLonWithAltitude realFrom, LatLonWithAltitude realTo,
-                                                   vector<pair<FakeVertex, Segment>> const & partsOfReal)
+                                                   std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal)
 {
   m_fake.ConnectLoopToGuideSegments(loop, realSegment, realFrom, realTo, partsOfReal);
 }
@@ -571,7 +569,7 @@ bool IndexGraphStarter::HasNoPassThroughAllowed(Ending const & ending) const
   if (IsRegionsGraphMode())
     return false;
 
-  return any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s)
+  return std::any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s)
   {
     if (IsGuidesSegment(s))
       return false;
@@ -582,7 +580,7 @@ bool IndexGraphStarter::HasNoPassThroughAllowed(Ending const & ending) const
 
 Segment IndexGraphStarter::GetFakeSegmentAndIncr()
 {
-  CHECK_LESS(m_fakeNumerationStart, numeric_limits<uint32_t>::max(), ());
+  CHECK_LESS(m_fakeNumerationStart, std::numeric_limits<uint32_t>::max(), ());
   return GetFakeSegment(m_fakeNumerationStart++);
 }
 

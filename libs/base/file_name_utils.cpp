@@ -2,31 +2,29 @@
 
 namespace base
 {
-using namespace std;
-
-void GetNameWithoutExt(string & name)
+void GetNameWithoutExt(std::string & name)
 {
-  string::size_type const i = name.rfind('.');
-  if (i != string::npos)
+  std::string::size_type const i = name.rfind('.');
+  if (i != std::string::npos)
     name.erase(i);
 }
 
-string FilenameWithoutExt(string name)
+std::string FilenameWithoutExt(std::string name)
 {
   GetNameWithoutExt(name);
   return name;
 }
 
-string GetFileExtension(string const & name)
+std::string GetFileExtension(std::string const & name)
 {
   size_t const pos = name.find_last_of("./\\");
-  return ((pos != string::npos && name[pos] == '.') ? name.substr(pos) : string());
+  return ((pos != std::string::npos && name[pos] == '.') ? name.substr(pos) : std::string());
 }
 
-void GetNameFromFullPath(string & name)
+void GetNameFromFullPath(std::string & name)
 {
-  string::size_type const i = name.find_last_of("/\\");
-  if (i != string::npos)
+  std::string::size_type const i = name.find_last_of("/\\");
+  if (i != std::string::npos)
     name = name.substr(i + 1);
 }
 
@@ -36,27 +34,27 @@ std::string FileNameFromFullPath(std::string path)
   return path;
 }
 
-string GetNameFromFullPathWithoutExt(string path)
+std::string GetNameFromFullPathWithoutExt(std::string path)
 {
   GetNameFromFullPath(path);
   GetNameWithoutExt(path);
   return path;
 }
 
-string GetDirectory(string const & name)
+std::string GetDirectory(std::string const & name)
 {
   auto const sep = GetNativeSeparator();
   size_t const sepSize = sizeof(sep);
 
-  string::size_type i = name.rfind(sep);
-  if (i == string::npos)
+  std::string::size_type i = name.rfind(sep);
+  if (i == std::string::npos)
     return ".";
   while (i > sepSize && (name[i - sepSize] == sep))
     i -= sepSize;
   return name.substr(0, i ? i : sepSize);
 }
 
-string::value_type GetNativeSeparator()
+std::string::value_type GetNativeSeparator()
 {
 #ifdef OMIM_OS_WINDOWS
   return '\\';
@@ -65,11 +63,11 @@ string::value_type GetNativeSeparator()
 #endif
 }
 
-string AddSlashIfNeeded(string const & path)
+std::string AddSlashIfNeeded(std::string const & path)
 {
   auto const sep = GetNativeSeparator();
-  string::size_type const pos = path.rfind(sep);
-  if (pos != string::npos && pos + sizeof(sep) == path.size())
+  std::string::size_type const pos = path.rfind(sep);
+  if (pos != std::string::npos && pos + sizeof(sep) == path.size())
     return path;
   return path + sep;
 }

@@ -15,13 +15,11 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 class InitSuggestions
 {
-  map<pair<strings::UniString, int8_t>, uint8_t> m_suggests;
+  std::map<std::pair<strings::UniString, int8_t>, uint8_t> m_suggests;
 
 public:
   void operator()(CategoriesHolder::Category::Name const & name)
@@ -30,13 +28,13 @@ public:
     {
       strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
 
-      uint8_t & score = m_suggests[make_pair(uniName, name.m_locale)];
+      uint8_t & score = m_suggests[std::make_pair(uniName, name.m_locale)];
       if (score == 0 || score > name.m_prefixLengthToSuggest)
         score = name.m_prefixLengthToSuggest;
     }
   }
 
-  void GetSuggests(vector<Suggest> & suggests) const
+  void GetSuggests(std::vector<Suggest> & suggests) const
   {
     suggests.reserve(suggests.size() + m_suggests.size());
     for (auto const & s : m_suggests)
@@ -50,7 +48,7 @@ ProcessorHandle::ProcessorHandle() : m_processor(nullptr), m_cancelled(false) {}
 
 void ProcessorHandle::Cancel()
 {
-  lock_guard<mutex> lock(m_mu);
+  std::lock_guard<std::mutex> lock(m_mu);
   m_cancelled = true;
   if (m_processor)
     m_processor->Cancel();
@@ -58,7 +56,7 @@ void ProcessorHandle::Cancel()
 
 void ProcessorHandle::Attach(Processor & processor)
 {
-  lock_guard<mutex> lock(m_mu);
+  std::lock_guard<std::mutex> lock(m_mu);
   m_processor = &processor;
   if (m_cancelled)
     m_processor->Cancel();
@@ -66,14 +64,14 @@ void ProcessorHandle::Attach(Processor & processor)
 
 void ProcessorHandle::Detach()
 {
-  lock_guard<mutex> lock(m_mu);
+  std::lock_guard<std::mutex> lock(m_mu);
   m_processor = nullptr;
 }
 
 // Engine::Params ----------------------------------------------------------------------------------
 Engine::Params::Params() : m_locale("en"), m_numThreads(1) {}
 
-Engine::Params::Params(string const & locale, size_t numThreads) : m_locale(locale), m_numThreads(numThreads) {}
+Engine::Params::Params(std::string const & locale, size_t numThreads) : m_locale(locale), m_numThreads(numThreads) {}
 
 // Engine ------------------------------------------------------------------------------------------
 Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
@@ -87,14 +85,14 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   m_contexts.resize(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
   {
-    auto processor = make_unique<Processor>(dataSource, categories, m_suggests, infoGetter);
+    auto processor = std::make_unique<Processor>(dataSource, categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
     m_contexts[i].m_processor = std::move(processor);
   }
 
   m_threads.reserve(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
-    m_threads.emplace_back(&Engine::MainLoop, this, ref(m_contexts[i]));
+    m_threads.emplace_back(&Engine::MainLoop, this, std::ref(m_contexts[i]));
 
   LoadCountriesTree();
 }
@@ -102,7 +100,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
 Engine::~Engine()
 {
   {
-    lock_guard<mutex> lock(m_mu);
+    std::lock_guard<std::mutex> lock(m_mu);
     m_shutdown = true;
     m_cv.notify_all();
   }
@@ -111,15 +109,15 @@ Engine::~Engine()
     thread.join();
 }
 
-weak_ptr<ProcessorHandle> Engine::Search(SearchParams params)
+std::weak_ptr<ProcessorHandle> Engine::Search(SearchParams params)
 {
-  shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
+  std::shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
   PostMessage(Message::TYPE_TASK, [this, params = std::move(params), handle](Processor & processor)
   { DoSearch(std::move(params), handle, processor); });
   return handle;
 }
 
-void Engine::SetLocale(string const & locale)
+void Engine::SetLocale(std::string const & locale)
 {
   PostMessage(Message::TYPE_BROADCAST, [locale](Processor & processor) { processor.SetPreferredLocale(locale); });
 }
@@ -167,28 +165,28 @@ void Engine::ResetBookmarks()
   PostMessage(Message::TYPE_BROADCAST, [](Processor & processor) { processor.ResetBookmarks(); });
 }
 
-void Engine::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
+void Engine::OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST, [marks](Processor & processor) { processor.OnBookmarksCreated(marks); });
 }
 
-void Engine::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
+void Engine::OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST, [marks](Processor & processor) { processor.OnBookmarksUpdated(marks); });
 }
 
-void Engine::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
+void Engine::OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST, [marks](Processor & processor) { processor.OnBookmarksDeleted(marks); });
 }
 
-void Engine::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, vector<bookmarks::Id> const & marks)
+void Engine::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,
               [groupId, marks](Processor & processor) { processor.OnBookmarksAttachedToGroup(groupId, marks); });
 }
 
-void Engine::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId, vector<bookmarks::Id> const & marks)
+void Engine::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,
               [groupId, marks](Processor & processor) { processor.OnBookmarksDetachedFromGroup(groupId, marks); });
@@ -199,10 +197,10 @@ void Engine::MainLoop(Context & context)
   while (true)
   {
     bool hasBroadcast = false;
-    queue<Message> messages;
+    std::queue<Message> messages;
 
     {
-      unique_lock<mutex> lock(m_mu);
+      std::unique_lock<std::mutex> lock(m_mu);
       m_cv.wait(lock, [&]() { return m_shutdown || !m_messages.empty() || !context.m_messages.empty(); });
 
       if (m_shutdown)
@@ -252,12 +250,12 @@ void Engine::MainLoop(Context & context)
 template <typename... Args>
 void Engine::PostMessage(Args &&... args)
 {
-  lock_guard<mutex> lock(m_mu);
+  std::lock_guard<std::mutex> lock(m_mu);
   m_messages.emplace(std::forward<Args>(args)...);
   m_cv.notify_one();
 }
 
-void Engine::DoSearch(SearchParams params, shared_ptr<ProcessorHandle> handle, Processor & processor)
+void Engine::DoSearch(SearchParams params, std::shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
   LOG(LINFO, ("Search started:", params.m_mode, params.m_viewport));
   base::Timer timer;

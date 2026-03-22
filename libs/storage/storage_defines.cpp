@@ -3,12 +3,13 @@
 #include "base/assert.hpp"
 
 #include <sstream>
+#include <string>
+
+using namespace std::string_literals;
 
 namespace storage
 {
-using namespace std;
-
-string DebugPrint(Status status)
+std::string DebugPrint(Status status)
 {
   switch (status)
   {
@@ -26,7 +27,7 @@ string DebugPrint(Status status)
   UNREACHABLE();
 }
 
-string DebugPrint(NodeStatus status)
+std::string DebugPrint(NodeStatus status)
 {
   switch (status)
   {
@@ -43,7 +44,7 @@ string DebugPrint(NodeStatus status)
   UNREACHABLE();
 }
 
-string DebugPrint(NodeErrorCode status)
+std::string DebugPrint(NodeErrorCode status)
 {
   switch (status)
   {
@@ -73,9 +74,9 @@ StatusAndError ParseStatus(Status innerStatus)
   UNREACHABLE();
 }
 
-string DebugPrint(StatusAndError statusAndError)
+std::string DebugPrint(StatusAndError statusAndError)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "StatusAndError[" << DebugPrint(statusAndError.status) << ", " << DebugPrint(statusAndError.error) << "]";
   return out.str();
 }

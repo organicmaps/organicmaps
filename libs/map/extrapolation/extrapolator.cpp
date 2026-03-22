@@ -39,8 +39,6 @@ private:
 
 namespace extrapolation
 {
-using namespace std;
-
 location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms)
 {
@@ -128,7 +126,7 @@ Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
 void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
 {
   {
-    lock_guard<mutex> guard(m_mutex);
+    std::lock_guard<std::mutex> guard(m_mutex);
     m_beforeLastGpsInfo = m_lastGpsInfo;
     m_lastGpsInfo = gpsInfo;
     m_consecutiveRuns = 0;
@@ -141,7 +139,7 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
 
 void Extrapolator::Enable(bool enabled)
 {
-  lock_guard<mutex> guard(m_mutex);
+  std::lock_guard<std::mutex> guard(m_mutex);
   m_isEnabled = enabled;
 }
 
@@ -149,7 +147,7 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
 {
   location::GpsInfo gpsInfo;
   {
-    lock_guard<mutex> guard(m_mutex);
+    std::lock_guard<std::mutex> guard(m_mutex);
     // Canceling all calls of the method which were activated before |m_locationUpdateMinValid|.
     if (locationUpdateCounter < m_locationUpdateMinValid)
       return;
@@ -168,7 +166,7 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
     GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo]() { m_extrapolatedLocationUpdate(gpsInfo); });
 
   {
-    lock_guard<mutex> guard(m_mutex);
+    std::lock_guard<std::mutex> guard(m_mutex);
     if (m_consecutiveRuns != kExtrapolationCounterUndefined)
       ++m_consecutiveRuns;
   }
@@ -181,7 +179,7 @@ void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
 {
   uint64_t locationUpdateCounter = 0;
   {
-    lock_guard<mutex> guard(m_mutex);
+    std::lock_guard<std::mutex> guard(m_mutex);
     locationUpdateCounter = m_locationUpdateCounter;
   }
 

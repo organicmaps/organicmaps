@@ -9,8 +9,6 @@
 
 namespace drule
 {
-using namespace std;
-
 namespace
 {
 
@@ -19,7 +17,7 @@ class CompositeSelector : public ISelector
 public:
   explicit CompositeSelector(size_t capacity) { m_selectors.reserve(capacity); }
 
-  void Add(unique_ptr<ISelector> && selector) { m_selectors.emplace_back(std::move(selector)); }
+  void Add(std::unique_ptr<ISelector> && selector) { m_selectors.emplace_back(std::move(selector)); }
 
   // ISelector overrides:
   bool Test(FeatureType & ft, int zoom) const override
@@ -31,7 +29,7 @@ public:
   }
 
 private:
-  vector<unique_ptr<ISelector>> m_selectors;
+  std::vector<std::unique_ptr<ISelector>> m_selectors;
 };
 
 // Runtime feature style selector implementation
@@ -173,7 +171,7 @@ bool GetBoundingBoxArea(FeatureType & ft, int zoom, double & sqM)
 }
 }  // namespace
 
-unique_ptr<ISelector> ParseSelector(string const & str)
+std::unique_ptr<ISelector> ParseSelector(std::string const & str)
 {
   SelectorExpression e;
   if (!ParseSelector(str, e))
@@ -192,11 +190,11 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       LOG(LDEBUG, ("Invalid selector:", str));
       return {};
     }
-    return make_unique<Selector<uint64_t>>(&GetPopulation, e.m_operator, value);
+    return std::make_unique<Selector<uint64_t>>(&GetPopulation, e.m_operator, value);
   }
   else if (e.m_tag == "name")
   {
-    return make_unique<HasSelector>(&HasName, e.m_operator);
+    return std::make_unique<HasSelector>(&HasName, e.m_operator);
   }
   else if (e.m_tag == "bbox_area")
   {
@@ -207,7 +205,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       LOG(LDEBUG, ("Invalid selector:", str));
       return {};
     }
-    return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
+    return std::make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
   //  else if (e.m_tag == "extra_tag")
   //  {
@@ -226,22 +224,22 @@ unique_ptr<ISelector> ParseSelector(string const & str)
   return {};
 }
 
-unique_ptr<ISelector> ParseSelector(vector<string> const & strs)
+std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs)
 {
-  unique_ptr<CompositeSelector> cs = make_unique<CompositeSelector>(strs.size());
+  std::unique_ptr<CompositeSelector> cs = std::make_unique<CompositeSelector>(strs.size());
 
-  for (string const & str : strs)
+  for (std::string const & str : strs)
   {
-    unique_ptr<ISelector> s = ParseSelector(str);
+    std::unique_ptr<ISelector> s = ParseSelector(str);
     if (nullptr == s)
     {
       LOG(LDEBUG, ("Invalid composite selector:", str));
-      return unique_ptr<ISelector>();
+      return std::unique_ptr<ISelector>();
     }
     cs->Add(std::move(s));
   }
 
-  return unique_ptr<ISelector>(cs.release());
+  return std::unique_ptr<ISelector>(cs.release());
 }
 
 }  // namespace drule

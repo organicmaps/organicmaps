@@ -7,21 +7,19 @@
 
 #include <memory>
 
-using namespace std;
-
-map<TransitType, string> const kTransitSymbols = {{TransitType::Subway, "transit_subway"},
-                                                  {TransitType::LightRail, "transit_light_rail"},
-                                                  {TransitType::Monorail, "transit_monorail"},
-                                                  {TransitType::Train, "transit_train"},
-                                                  {TransitType::Tram, "transit_tram"},
-                                                  {TransitType::Bus, "transit_bus"},
-                                                  {TransitType::Ferry, "transit_ferry"},
-                                                  {TransitType::CableTram, "transit_cable_tram"},
-                                                  {TransitType::AerialLift, "transit_aerial_lift"},
-                                                  {TransitType::Funicular, "transit_funicular"},
-                                                  {TransitType::Trolleybus, "transit_trolleybus"},
-                                                  {TransitType::AirService, "transit_air_service"},
-                                                  {TransitType::WaterService, "transit_water_service"}};
+std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway, "transit_subway"},
+                                                            {TransitType::LightRail, "transit_light_rail"},
+                                                            {TransitType::Monorail, "transit_monorail"},
+                                                            {TransitType::Train, "transit_train"},
+                                                            {TransitType::Tram, "transit_tram"},
+                                                            {TransitType::Bus, "transit_bus"},
+                                                            {TransitType::Ferry, "transit_ferry"},
+                                                            {TransitType::CableTram, "transit_cable_tram"},
+                                                            {TransitType::AerialLift, "transit_aerial_lift"},
+                                                            {TransitType::Funicular, "transit_funicular"},
+                                                            {TransitType::Trolleybus, "transit_trolleybus"},
+                                                            {TransitType::AirService, "transit_air_service"},
+                                                            {TransitType::WaterService, "transit_water_service"}};
 
 namespace
 {
@@ -40,7 +38,7 @@ int const kGateTitleOffset = 0;
 
 std::string const kZeroIcon = "zero-icon";
 
-TransitType GetTransitType(string const & type)
+TransitType GetTransitType(std::string const & type)
 {
   if (type == "subway")
     return TransitType::Subway;
@@ -80,22 +78,22 @@ uint32_t ColorToARGB(df::ColorConstant const & colorConstant)
   return color.GetAlpha() << 24 | color.GetRed() << 16 | color.GetGreen() << 8 | color.GetBlue();
 }
 
-vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteWidth)
+std::vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteWidth)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  vector<m2::PointF> markerSizes;
+  std::vector<m2::PointF> markerSizes;
   markerSizes.reserve(df::kRouteHalfWidthInPixelTransit.size());
   for (auto const halfWidth : df::kRouteHalfWidthInPixelTransit)
   {
-    float const d = 2.0f * min(halfWidth * vs, maxRouteWidth * 0.5f) * markerScale;
+    float const d = 2.0f * std::min(halfWidth * vs, maxRouteWidth * 0.5f) * markerScale;
     markerSizes.push_back(m2::PointF(d, d));
   }
   return markerSizes;
 }
 }  // namespace
 
-TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, string const & number, uint32_t color,
-                                 int intermediateIndex)
+TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, std::string const & number,
+                                 uint32_t color, int intermediateIndex)
   : m_type(type)
   , m_distanceInMeters(distance)
   , m_timeInSec(time)
@@ -163,7 +161,7 @@ void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & su
   subroute.AddStyle(style);
 }
 
-void AddTransitShapes(vector<routing::transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
+void AddTransitShapes(std::vector<routing::transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
                       df::ColorConstant const & color, bool isInverted, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
@@ -198,8 +196,8 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
   size_t const startIdx = isInverted ? shapeLink.m_endIndex : shapeLink.m_startIndex;
   size_t const endIdx = isInverted ? shapeLink.m_startIndex : shapeLink.m_endIndex;
 
-  auto const & edgePolyline =
-      vector<m2::PointD>(it->second.GetPolyline().begin() + startIdx, it->second.GetPolyline().begin() + endIdx + 1);
+  auto const & edgePolyline = std::vector<m2::PointD>(it->second.GetPolyline().begin() + startIdx,
+                                                      it->second.GetPolyline().begin() + endIdx + 1);
 
   if (isInverted)
     subroute.m_polyline.Append(edgePolyline.crbegin(), edgePolyline.crend());
@@ -212,7 +210,7 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
 
 TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager, GetMwmIdFn const & getMwmIdFn,
                                          GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
-                                         map<string, m2::PointF> const & transitSymbolSizes)
+                                         std::map<std::string, m2::PointF> const & transitSymbolSizes)
   : m_transitReadManager(transitReadManager)
   , m_getMwmIdFn(getMwmIdFn)
   , m_getStringsBundleFn(getStringsBundleFn)
@@ -573,7 +571,7 @@ void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & seg
   m_transitMarks.push_back(gateMarkInfo);
 }
 
-bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & segments, df::Subroute & subroute)
+bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute)
 {
   if (m_subrouteIndex > 0)
   {
@@ -657,7 +655,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & 
 }
 
 template <class T>
-void FillMwmTransitSubway(unique_ptr<TransitDisplayInfo> & mwmTransit, routing::TransitInfo const & transitInfo,
+void FillMwmTransitSubway(std::unique_ptr<TransitDisplayInfo> & mwmTransit, routing::TransitInfo const & transitInfo,
                           T mwmId)
 {
   switch (transitInfo.GetType())
@@ -696,7 +694,8 @@ void FillMwmTransitSubway(unique_ptr<TransitDisplayInfo> & mwmTransit, routing::
 }
 
 template <class T>
-void FillMwmTransitPT(unique_ptr<TransitDisplayInfo> & mwmTransit, routing::TransitInfo const & transitInfo, T mwmId)
+void FillMwmTransitPT(std::unique_ptr<TransitDisplayInfo> & mwmTransit, routing::TransitInfo const & transitInfo,
+                      T mwmId)
 {
   switch (transitInfo.GetType())
   {
@@ -732,7 +731,7 @@ void FillMwmTransitPT(unique_ptr<TransitDisplayInfo> & mwmTransit, routing::Tran
   }
 }
 
-void TransitRouteDisplay::CollectTransitDisplayInfo(vector<routing::RouteSegment> const & segments,
+void TransitRouteDisplay::CollectTransitDisplayInfo(std::vector<routing::RouteSegment> const & segments,
                                                     TransitDisplayInfos & transitDisplayInfos)
 {
   for (auto const & s : segments)
@@ -744,7 +743,7 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<routing::RouteSegment
 
     auto & mwmTransit = transitDisplayInfos[mwmId];
     if (mwmTransit == nullptr)
-      mwmTransit = make_unique<TransitDisplayInfo>();
+      mwmTransit = std::make_unique<TransitDisplayInfo>();
 
     routing::TransitInfo const & transitInfo = s.GetTransitInfo();
 
@@ -773,10 +772,10 @@ void TransitRouteDisplay::CreateTransitMarks()
   if (m_transitMarks.empty())
     return;
 
-  vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
-  vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
+  std::vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
+  std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
-  vector<m2::PointF> transferArrowOffsets;
+  std::vector<m2::PointF> transferArrowOffsets;
   transferArrowOffsets.reserve(transferMarkerSizes.size());
   for (auto const & size : transferMarkerSizes)
     transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
@@ -842,12 +841,12 @@ void TransitRouteDisplay::CreateTransitMarks()
         auto const zoomLevel = sizeIndex + 1;
         auto const & sz = transferMarkerSizes[sizeIndex];
         df::ColoredSymbolViewParams params;
-        params.m_radiusInPixels = max(sz.x, sz.y) * 0.5f;
+        params.m_radiusInPixels = std::max(sz.x, sz.y) * 0.5f;
         params.m_color = dp::Color::Transparent();
         if (coloredSymbol.m_zoomInfo.empty() ||
             coloredSymbol.m_zoomInfo.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
         {
-          coloredSymbol.m_zoomInfo.insert(make_pair(zoomLevel, params));
+          coloredSymbol.m_zoomInfo.insert(std::make_pair(zoomLevel, params));
         }
       }
       transitMark->SetColoredSymbols(coloredSymbol);
@@ -877,11 +876,11 @@ void TransitRouteDisplay::CreateTransitMarks()
         params.m_color = df::GetColorConstant(mark.m_color);
 
         auto sz = m_symbolSizes.at(symbolNames[kSmallIconZoom]);
-        params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
+        params.m_radiusInPixels = std::max(sz.x, sz.y) * kGateBgScale * 0.5f;
         coloredSymbol.m_zoomInfo[kSmallIconZoom] = params;
 
         sz = m_symbolSizes.at(symbolNames[kMediumIconZoom]);
-        params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
+        params.m_radiusInPixels = std::max(sz.x, sz.y) * kGateBgScale * 0.5f;
         coloredSymbol.m_zoomInfo[kMediumIconZoom] = params;
 
         transitMark->SetColoredSymbols(coloredSymbol);
@@ -895,12 +894,12 @@ void TransitRouteDisplay::CreateTransitMarks()
           auto const zoomLevel = sizeIndex + 1;
           auto const & sz = stopMarkerSizes[sizeIndex];
           df::ColoredSymbolViewParams params;
-          params.m_radiusInPixels = max(sz.x, sz.y) * 0.5f;
+          params.m_radiusInPixels = std::max(sz.x, sz.y) * 0.5f;
           params.m_color = dp::Color::Transparent();
           if (coloredSymbol.m_zoomInfo.empty() ||
               coloredSymbol.m_zoomInfo.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
           {
-            coloredSymbol.m_zoomInfo.insert(make_pair(zoomLevel, params));
+            coloredSymbol.m_zoomInfo.insert(std::make_pair(zoomLevel, params));
           }
         }
         transitMark->SetSymbolSizes(stopMarkerSizes);

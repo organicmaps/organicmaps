@@ -9,8 +9,6 @@
 #include <chrono>
 #include <utility>
 
-using namespace std;
-
 SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const & dataSource, ContextList & contexts,
                                          UpdateViewOnResults && updateViewOnResults,
                                          UpdateSampleSearchState && updateSampleSearchState)
@@ -82,7 +80,7 @@ void SearchRequestRunner::ResetBackgroundSearch()
 
   ++m_backgroundTimestamp;
 
-  queue<size_t>().swap(m_backgroundQueue);
+  std::queue<size_t>().swap(m_backgroundQueue);
   m_backgroundNumProcessed = 0;
 
   bool cancelledAny = false;
@@ -137,9 +135,9 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
   sample.FillSearchParams(params);
   params.m_onResults = [=, this](search::Results const & results)
   {
-    vector<optional<ResultsEdits::Relevance>> relevances;
-    vector<size_t> goldenMatching;
-    vector<size_t> actualMatching;
+    std::vector<std::optional<ResultsEdits::Relevance>> relevances;
+    std::vector<size_t> goldenMatching;
+    std::vector<size_t> actualMatching;
 
     if (results.IsEndedNormal())
     {
@@ -147,7 +145,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
       search::FeatureLoader loader(m_dataSource);
       search::Matcher matcher(loader);
 
-      vector<search::Result> const actual(results.begin(), results.end());
+      std::vector<search::Result> const actual(results.begin(), results.end());
       matcher.Match(sample, actual, goldenMatching, actualMatching);
       relevances.resize(actual.size());
       for (size_t i = 0; i < goldenMatching.size(); ++i)
@@ -192,7 +190,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
           context.m_actualMatching = actualMatching;
 
           {
-            vector<optional<ResultsEdits::Relevance>> relevances;
+            std::vector<std::optional<ResultsEdits::Relevance>> relevances;
 
             auto & nonFound = context.m_nonFoundResults;
             CHECK(nonFound.empty(), ());
@@ -237,12 +235,12 @@ void SearchRequestRunner::PrintBackgroundSearchStats() const
 {
   LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1, "have been processed"));
 
-  vector<size_t> vitals;
+  std::vector<size_t> vitals;
   vitals.reserve(m_backgroundLastIndex - m_backgroundFirstIndex + 1);
   for (size_t index = m_backgroundFirstIndex; index <= m_backgroundLastIndex; ++index)
   {
     auto const & entries = m_contexts[index].m_foundResultsEdits.GetEntries();
-    bool const foundVital = any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e)
+    bool const foundVital = std::any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e)
     { return e.m_currRelevance == search::Sample::Result::Relevance::Vital; });
     if (foundVital)
       vitals.emplace_back(index + 1);

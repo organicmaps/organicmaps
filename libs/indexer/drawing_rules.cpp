@@ -14,8 +14,6 @@
 
 namespace drule
 {
-using namespace std;
-
 namespace
 {
 uint32_t const DEFAULT_BG_COLOR = 0xEEEEDD;
@@ -58,7 +56,7 @@ bool BaseRule::TestFeature(FeatureType & ft, int zoom) const
   return m_selector->Test(ft, zoom);
 }
 
-void BaseRule::SetSelector(unique_ptr<ISelector> && selector)
+void BaseRule::SetSelector(std::unique_ptr<ISelector> && selector)
 {
   m_selector = std::move(selector);
 }
@@ -210,7 +208,7 @@ public:
   ContainerProto m_cont;
 
 private:
-  vector<string> m_names;
+  std::vector<std::string> m_names;
 
   typedef ClassifElementProto ElementT;
 
@@ -235,18 +233,18 @@ private:
   struct less_name
   {
     bool operator()(ElementT const & e1, ElementT const & e2) const { return (e1.name() < e2.name()); }
-    bool operator()(string const & e1, ElementT const & e2) const { return (e1 < e2.name()); }
-    bool operator()(ElementT const & e1, string const & e2) const { return (e1.name() < e2); }
+    bool operator()(std::string const & e1, ElementT const & e2) const { return (e1 < e2.name()); }
+    bool operator()(ElementT const & e1, std::string const & e2) const { return (e1.name() < e2); }
   };
 
   int FindIndex() const
   {
-    string name = m_names[0];
+    std::string name = m_names[0];
     for (size_t i = 1; i < m_names.size(); ++i)
       name = name + "-" + m_names[i];
 
     int const count = m_cont.cont_size();
-    int const i = lower_bound(RandI(m_cont, 0), RandI(m_cont, count), name, less_name()).m_index;
+    int const i = std::lower_bound(RandI(m_cont, 0), RandI(m_cont, count), name, less_name()).m_index;
     ASSERT_GREATER_OR_EQUAL(i, 0, ());
     ASSERT_LESS_OR_EQUAL(i, count, ());
 
@@ -259,9 +257,10 @@ private:
   RulesHolder & m_holder;
 
   template <class TRule, class TProtoRule>
-  void AddRule(ClassifObject * p, int scale, TypeT type, TProtoRule const & rule, vector<string> const & apply_if)
+  void AddRule(ClassifObject * p, int scale, TypeT type, TProtoRule const & rule,
+               std::vector<std::string> const & apply_if)
   {
-    unique_ptr<ISelector> selector;
+    std::unique_ptr<ISelector> selector;
     if (!apply_if.empty())
     {
       selector = ParseSelector(apply_if);
@@ -280,7 +279,7 @@ private:
     p->AddDrawRule(k);
   }
 
-  static void DrawElementGetApplyIf(DrawElementProto const & de, vector<string> & apply_if)
+  static void DrawElementGetApplyIf(DrawElementProto const & de, std::vector<std::string> & apply_if)
   {
     apply_if.clear();
     apply_if.reserve(de.apply_if_size());
@@ -298,7 +297,7 @@ public:
     int const i = FindIndex();
     if (i != -1)
     {
-      vector<string> apply_if;
+      std::vector<std::string> apply_if;
 
       ClassifElementProto const & ce = m_cont.cont(i);
       for (int j = 0; j < ce.element_size(); ++j)
@@ -329,7 +328,7 @@ public:
       }
     }
 
-    p->ForEachObject(ref(*this));
+    p->ForEachObject(std::ref(*this));
 
     m_names.pop_back();
   }
@@ -347,7 +346,7 @@ void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
   uint32_t bgColorDefault = DEFAULT_BG_COLOR;
 
   // Background colors specified for scales
-  unordered_map<int, uint32_t> bgColorForScale;
+  std::unordered_map<int, uint32_t> bgColorForScale;
 
   // Find the "natural-land" classification element
   for (int i = 0; i < cont.cont_size(); ++i)
@@ -366,7 +365,7 @@ void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
           bgColorDefault = rule.color();
 
           if (de.scale() != 0)
-            bgColorForScale.insert(make_pair(de.scale(), rule.color()));
+            bgColorForScale.insert(std::make_pair(de.scale(), rule.color()));
         }
       }
       break;
@@ -397,7 +396,7 @@ void RulesHolder::InitColors(ContainerProto const & cp)
   }
 }
 
-void RulesHolder::LoadFromBinaryProto(string const & s)
+void RulesHolder::LoadFromBinaryProto(std::string const & s)
 {
   Clean();
 
@@ -405,7 +404,7 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
 
   CHECK(doSet.m_cont.ParseFromString(s), ("Error in proto loading!"));
 
-  classif().GetMutableRoot()->ForEachObject(ref(doSet));
+  classif().GetMutableRoot()->ForEachObject(std::ref(doSet));
 
   InitBackgroundColors(doSet.m_cont);
   InitColors(doSet.m_cont);
@@ -413,7 +412,7 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
 
 void LoadRules()
 {
-  string buffer;
+  std::string buffer;
   GetStyleReader().GetDrawingRulesReader().ReadAsString(buffer);
   GetCurrentRules().LoadFromBinaryProto(buffer);
 }

@@ -16,13 +16,11 @@
 
 namespace feature
 {
-using namespace std;
-
 namespace
 {
 using StrUtf8 = StringUtf8Multilang;
 
-void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, string_view & out)
+void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, std::string_view & out)
 {
   LangsBufferT mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
@@ -32,14 +30,14 @@ void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src,
       return;
 }
 
-bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, string & out)
+bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, std::string & out)
 {
   LangsBufferT mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
 
   auto const & translator = Transliteration::Instance();
 
-  string_view srcName;
+  std::string_view srcName;
   for (auto const code : mwmLangCodes)
     if (src.GetString(code, srcName) && translator.Transliterate(srcName, code, out))
       return true;
@@ -52,16 +50,16 @@ bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, s
   return false;
 }
 
-bool GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, string_view & out)
+bool GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, std::string_view & out)
 {
   size_t bestIndex = priorityList.size();
 
-  src.ForEach([&](int8_t code, string_view name)
+  src.ForEach([&](int8_t code, std::string_view name)
   {
     if (bestIndex == 0)
       return base::ControlFlow::Break;
 
-    size_t const idx = std::distance(priorityList.begin(), find(priorityList.begin(), priorityList.end(), code));
+    size_t const idx = std::distance(priorityList.begin(), std::find(priorityList.begin(), priorityList.end(), code));
     if (bestIndex > idx)
     {
       bestIndex = idx;
@@ -138,10 +136,10 @@ void GetReadableNameImpl(NameParamsIn const & in, bool preferDefault, NameParams
 // Filters types with |checker|, returns vector of raw type second components.
 // For example for types {"cuisine-sushi", "cuisine-pizza", "cuisine-seafood"} vector
 // of second components is {"sushi", "pizza", "seafood"}.
-vector<string> GetRawTypeSecond(ftypes::BaseCheckerEx const & checker, TypesHolder const & types)
+std::vector<std::string> GetRawTypeSecond(ftypes::BaseCheckerEx const & checker, TypesHolder const & types)
 {
   auto const & c = classif();
-  vector<string> res;
+  std::vector<std::string> res;
   for (auto const t : types)
   {
     if (!checker(t))
@@ -153,10 +151,10 @@ vector<string> GetRawTypeSecond(ftypes::BaseCheckerEx const & checker, TypesHold
   return res;
 }
 
-vector<string> GetLocalizedTypes(ftypes::BaseCheckerEx const & checker, TypesHolder const & types)
+std::vector<std::string> GetLocalizedTypes(ftypes::BaseCheckerEx const & checker, TypesHolder const & types)
 {
   auto const & c = classif();
-  vector<string> localized;
+  std::vector<std::string> localized;
   for (auto const t : types)
     if (checker(t))
       localized.push_back(platform::GetLocalizedTypeName(c.GetReadableObjectName(t)));
@@ -205,7 +203,7 @@ public:
 
   void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
   {
-    pair<int, int> const scaleR = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
+    std::pair<int, int> const scaleR = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
     ASSERT_LESS_OR_EQUAL(scaleR.first, scaleR.second, ());
 
     // Result types can be without visible texts (matched by category).
@@ -224,7 +222,7 @@ public:
 
     if (types.GetGeomType() == GeomType::Point)
       for (uint32_t t : types)
-        scale = min(scale, GetScaleForType(t));
+        scale = std::min(scale, GetScaleForType(t));
 
     CorrectScaleForVisibility(types, scale);
     return scale;
@@ -348,7 +346,7 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 
   if (out.primary.empty())
     out.primary.swap(out.secondary);
-  else if (!out.secondary.empty() && out.primary.find(out.secondary) != string::npos)
+  else if (!out.secondary.empty() && out.primary.find(out.secondary) != std::string::npos)
     out.secondary = {};
 }
 
@@ -383,7 +381,7 @@ int8_t GetNameForSearchOnBooking(RegionData const & regionData, StrUtf8 const & 
 }
 */
 
-bool GetPreferredName(StrUtf8 const & src, int8_t deviceLang, string_view & out)
+bool GetPreferredName(StrUtf8 const & src, int8_t deviceLang, std::string_view & out)
 {
   auto const priorityList = MakeLanguagesPriorityList(deviceLang, true /* preferDefault */);
   return GetBestName(src, priorityList, out);
@@ -395,31 +393,31 @@ LangsBufferT GetDescriptionLangPriority(RegionData const & regionData, int8_t co
   return MakeLanguagesPriorityList(deviceLang, preferDefault);
 }
 
-vector<string> GetCuisines(TypesHolder const & types)
+std::vector<std::string> GetCuisines(TypesHolder const & types)
 {
   auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
   return GetRawTypeSecond(isCuisine, types);
 }
 
-vector<string> GetLocalizedCuisines(TypesHolder const & types)
+std::vector<std::string> GetLocalizedCuisines(TypesHolder const & types)
 {
   auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
   return GetLocalizedTypes(isCuisine, types);
 }
 
-vector<string> GetRecyclingTypes(TypesHolder const & types)
+std::vector<std::string> GetRecyclingTypes(TypesHolder const & types)
 {
   auto const & isRecyclingType = ftypes::IsRecyclingTypeChecker::Instance();
   return GetRawTypeSecond(isRecyclingType, types);
 }
 
-vector<string> GetLocalizedRecyclingTypes(TypesHolder const & types)
+std::vector<std::string> GetLocalizedRecyclingTypes(TypesHolder const & types)
 {
   auto const & isRecyclingType = ftypes::IsRecyclingTypeChecker::Instance();
   return GetLocalizedTypes(isRecyclingType, types);
 }
 
-string GetLocalizedFeeType(TypesHolder const & types)
+std::string GetLocalizedFeeType(TypesHolder const & types)
 {
   auto const & isFeeType = ftypes::IsFeeTypeChecker::Instance();
   auto localized_types = GetLocalizedTypes(isFeeType, types);
@@ -429,7 +427,7 @@ string GetLocalizedFeeType(TypesHolder const & types)
   return localized_types[0];
 }
 
-string GetReadableWheelchairType(TypesHolder const & types)
+std::string GetReadableWheelchairType(TypesHolder const & types)
 {
   auto const value = ftraits::Wheelchair::GetValue(types);
   if (!value.has_value())
@@ -461,7 +459,7 @@ bool HasToilets(TypesHolder const & types)
   return isToiletsType(types);
 }
 
-string FormatDrinkingWater(TypesHolder const & types)
+std::string FormatDrinkingWater(TypesHolder const & types)
 {
   auto const value = ftraits::DrinkingWater::GetValue(types);
   if (!value.has_value())
@@ -475,7 +473,7 @@ string FormatDrinkingWater(TypesHolder const & types)
   UNREACHABLE();
 }
 
-string FormatStars(uint8_t starsCount)
+std::string FormatStars(uint8_t starsCount)
 {
   std::string stars;
   for (int i = 0; i < starsCount && i < kMaxStarsCount; ++i)
@@ -483,7 +481,7 @@ string FormatStars(uint8_t starsCount)
   return stars;
 }
 
-string FormatElevation(string_view elevation)
+std::string FormatElevation(std::string_view elevation)
 {
   if (!elevation.empty())
   {
@@ -496,7 +494,7 @@ string FormatElevation(string_view elevation)
   return {};
 }
 
-string FormatCapacity(std::string_view capacity, TypesHolder const & types)
+std::string FormatCapacity(std::string_view capacity, TypesHolder const & types)
 {
   if (!capacity.empty())
   {
@@ -524,7 +522,7 @@ constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 constexpr char const * kOnly = "only";
 
-string DebugPrint(Internet internet)
+std::string DebugPrint(Internet internet)
 {
   switch (internet)
   {
@@ -542,11 +540,11 @@ Internet InternetFromString(std::string_view inet)
 {
   if (inet.empty())
     return Internet::Unknown;
-  if (inet.find(kWlan) != string::npos)
+  if (inet.find(kWlan) != std::string::npos)
     return Internet::Wlan;
-  if (inet.find(kWired) != string::npos)
+  if (inet.find(kWired) != std::string::npos)
     return Internet::Wired;
-  if (inet.find(kTerminal) != string::npos)
+  if (inet.find(kTerminal) != std::string::npos)
     return Internet::Terminal;
   if (inet == kYes)
     return Internet::Yes;
@@ -559,11 +557,11 @@ YesNoUnknown YesNoUnknownFromString(std::string_view str)
 {
   if (str.empty())
     return Unknown;
-  if (str.find(kOnly) != string::npos)
+  if (str.find(kOnly) != std::string::npos)
     return Yes;
-  if (str.find(kYes) != string::npos)
+  if (str.find(kYes) != std::string::npos)
     return Yes;
-  if (str.find(kNo) != string::npos)
+  if (str.find(kNo) != std::string::npos)
     return No;
   else
     return YesNoUnknown::Unknown;

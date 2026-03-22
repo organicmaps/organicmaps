@@ -15,13 +15,11 @@
 
 namespace osm
 {
-using namespace std;
-
-string_view constexpr kTagCuisine = "cuisine";
+std::string_view constexpr kTagCuisine = "cuisine";
 
 namespace
 {
-bool ExtractName(FeatureNames const & names, int8_t langCode, vector<osm::LocalizedName> & result)
+bool ExtractName(FeatureNames const & names, int8_t langCode, std::vector<osm::LocalizedName> & result)
 {
   // Exclude languages that are already present.
   auto const it = base::FindIf(
@@ -37,14 +35,14 @@ bool ExtractName(FeatureNames const & names, int8_t langCode, vector<osm::Locali
 
 // LocalizedName -----------------------------------------------------------------------------------
 
-LocalizedName::LocalizedName(int8_t const code, string_view name)
+LocalizedName::LocalizedName(int8_t const code, std::string_view name)
   : m_code(code)
   , m_lang(StringUtf8Multilang::GetLangByCode(code))
   , m_langName(StringUtf8Multilang::GetLangNameByCode(code))
   , m_name(name)
 {}
 
-LocalizedName::LocalizedName(string const & langCode, string const & name)
+LocalizedName::LocalizedName(std::string const & langCode, std::string const & name)
   : m_code(StringUtf8Multilang::GetLangIndex(langCode))
   , m_lang(StringUtf8Multilang::GetLangByCode(m_code))
   , m_langName(StringUtf8Multilang::GetLangNameByCode(m_code))
@@ -62,7 +60,7 @@ bool EditableMapObject::IsAddressEditable() const
   return m_editableProperties.m_address;
 }
 
-vector<MapObject::MetadataID> EditableMapObject::GetEditableProperties() const
+std::vector<MapObject::MetadataID> EditableMapObject::GetEditableProperties() const
 {
   auto props = m_editableProperties.m_metadata;
 
@@ -106,12 +104,12 @@ NamesDataSource EditableMapObject::GetNamesDataSource(FeatureNames const & sourc
     ++mandatoryCount;
 
   // Push other languages.
-  source.ForEach([&names, mandatoryCount](int8_t const code, string_view name)
+  source.ForEach([&names, mandatoryCount](int8_t const code, std::string_view name)
   {
     auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
     // Exclude languages which are already in container (languages with top priority).
-    auto const it = find_if(names.begin(), mandatoryNamesEnd,
-                            [code](LocalizedName const & localizedName) { return localizedName.m_code == code; });
+    auto const it = std::find_if(names.begin(), mandatoryNamesEnd,
+                                 [code](LocalizedName const & localizedName) { return localizedName.m_code == code; });
 
     if (mandatoryNamesEnd == it)
       names.emplace_back(code, name);
@@ -120,12 +118,13 @@ NamesDataSource EditableMapObject::GetNamesDataSource(FeatureNames const & sourc
   return result;
 }
 
-vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const
+std::vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const
 {
   return m_nearbyStreets;
 }
 
-void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, string_view value)> const & fn) const
+void EditableMapObject::ForEachMetadataItem(
+    std::function<void(std::string_view tag, std::string_view value)> const & fn) const
 {
   m_metadata.ForEach([&fn](MetadataID type, std::string_view value)
   {
@@ -135,12 +134,12 @@ void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, strin
     case MetadataID::FMD_DESCRIPTION:
     {
       auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(value));
-      mlDescr.ForEach([&fn](int8_t code, string_view v)
+      mlDescr.ForEach([&fn](int8_t code, std::string_view v)
       {
         if (code == StringUtf8Multilang::kDefaultCode)
           fn("description", v);
         else
-          fn(string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
+          fn(std::string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
       });
       break;
     }
@@ -167,7 +166,7 @@ void EditableMapObject::SetEditableProperties(osm::EditableProperties const & pr
   m_editableProperties = props;
 }
 
-void EditableMapObject::SetName(string_view name, int8_t langCode)
+void EditableMapObject::SetName(std::string_view name, int8_t langCode)
 {
   m_name.Add(langCode, name);
 }
@@ -227,12 +226,12 @@ void EditableMapObject::SetStreet(LocalizedStreet const & st)
   m_street = st;
 }
 
-void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
+void EditableMapObject::SetNearbyStreets(std::vector<LocalizedStreet> && streets)
 {
   m_nearbyStreets = std::move(streets);
 }
 
-void EditableMapObject::SetHouseNumber(string const & houseNumber)
+void EditableMapObject::SetHouseNumber(std::string const & houseNumber)
 {
   m_houseNumber = houseNumber;
 }
@@ -294,7 +293,7 @@ void EditableMapObject::SetMetadata(MetadataID type, std::string value)
   m_metadata.Set(type, std::move(value));
 }
 
-bool EditableMapObject::UpdateMetadataValue(string_view key, string value)
+bool EditableMapObject::UpdateMetadataValue(std::string_view key, std::string value)
 {
   MetadataID type;
   if (!feature::Metadata::TypeFromString(key, type))
@@ -328,7 +327,7 @@ LocalizedStreet const & EditableMapObject::GetStreet() const
 }
 
 template <class T>
-void EditableMapObject::SetCuisinesImpl(vector<T> const & cuisines)
+void EditableMapObject::SetCuisinesImpl(std::vector<T> const & cuisines)
 {
   FeatureParams params;
 
@@ -359,7 +358,7 @@ void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
 }
 
 // static
-bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
+bool EditableMapObject::ValidateBuildingLevels(std::string const & buildingLevels)
 {
   if (buildingLevels.empty())
     return true;
@@ -375,7 +374,7 @@ bool EditableMapObject::ValidateBuildingLevels(string const & buildingLevels)
 }
 
 // static
-bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
+bool EditableMapObject::ValidateHouseNumber(std::string const & houseNumber)
 {
   // TODO(mgsergio): Use LooksLikeHouseNumber!
 
@@ -400,11 +399,11 @@ bool EditableMapObject::ValidateHouseNumber(string const & houseNumber)
 }
 
 // static
-bool EditableMapObject::ValidateFlats(string const & flats)
+bool EditableMapObject::ValidateFlats(std::string const & flats)
 {
   for (auto it = strings::SimpleTokenizer(flats, ";"); it; ++it)
   {
-    string_view token = *it;
+    std::string_view token = *it;
     strings::Trim(token);
 
     auto range = strings::Tokenize(token, "-");
@@ -412,14 +411,14 @@ bool EditableMapObject::ValidateFlats(string const & flats)
       return false;
 
     for (auto const & rangeBorder : range)
-      if (!all_of(begin(rangeBorder), end(rangeBorder), ::isalnum))
+      if (!std::all_of(std::begin(rangeBorder), std::end(rangeBorder), ::isalnum))
         return false;
   }
   return true;
 }
 
 // static
-bool EditableMapObject::ValidatePostCode(string const & postCode)
+bool EditableMapObject::ValidatePostCode(std::string const & postCode)
 {
   if (postCode.empty())
     return true;
@@ -427,7 +426,7 @@ bool EditableMapObject::ValidatePostCode(string const & postCode)
 }
 
 // static
-bool EditableMapObject::ValidatePhoneList(string const & phone)
+bool EditableMapObject::ValidatePhoneList(std::string const & phone)
 {
   // BNF:
   // <digit>            ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
@@ -450,13 +449,13 @@ bool EditableMapObject::ValidatePhoneList(string const & phone)
 
   do
   {
-    last = find_if(curr, phone.end(), [](string::value_type const & ch) { return ch == ',' || ch == ';'; });
+    last = std::find_if(curr, phone.end(), [](std::string::value_type const & ch) { return ch == ',' || ch == ';'; });
 
     auto digitsCount = 0;
-    string const symbols = "+-() ";
+    std::string const symbols = "+-() ";
     for (; curr != last; ++curr)
     {
-      if (!isdigit(*curr) && find(symbols.begin(), symbols.end(), *curr) == symbols.end())
+      if (!isdigit(*curr) && std::find(symbols.begin(), symbols.end(), *curr) == symbols.end())
         return false;
 
       if (isdigit(*curr))
@@ -474,14 +473,14 @@ bool EditableMapObject::ValidatePhoneList(string const & phone)
 }
 
 // static
-bool EditableMapObject::ValidateEmail(string const & email)
+bool EditableMapObject::ValidateEmail(std::string const & email)
 {
   if (email.empty())
     return true;
 
   if (strings::IsASCIIString(email))
   {
-    static auto const s_emailRegex = regex(R"([^@\s]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$)");
+    static auto const s_emailRegex = std::regex(R"([^@\s]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$)");
     return regex_match(email, s_emailRegex);
   }
 
@@ -491,23 +490,23 @@ bool EditableMapObject::ValidateEmail(string const & email)
   if ('.' == email.back())
     return false;
 
-  auto const atPos = find(begin(email), end(email), '@');
-  if (atPos == end(email))
+  auto const atPos = std::find(std::begin(email), std::end(email), '@');
+  if (atPos == std::end(email))
     return false;
 
   // There should be only one '@' sign.
-  if (find(next(atPos), end(email), '@') != end(email))
+  if (std::find(std::next(atPos), std::end(email), '@') != std::end(email))
     return false;
 
   // There should be at least one '.' sign after '@'
-  if (find(next(atPos), end(email), '.') == end(email))
+  if (std::find(std::next(atPos), std::end(email), '.') == std::end(email))
     return false;
 
   return true;
 }
 
 // static
-bool EditableMapObject::ValidateLevel(string const & level)
+bool EditableMapObject::ValidateLevel(std::string const & level)
 {
   if (level.empty())
     return true;
@@ -516,7 +515,7 @@ bool EditableMapObject::ValidateLevel(string const & level)
     return false;
 
   // Allowing only half-levels.
-  if (level.find('.') != string::npos && !level.ends_with(".5"))
+  if (level.find('.') != std::string::npos && !level.ends_with(".5"))
     return false;
 
   // Forbid "04" and "0.".
@@ -529,14 +528,14 @@ bool EditableMapObject::ValidateLevel(string const & level)
 }
 
 // static
-bool EditableMapObject::ValidateName(string const & name)
+bool EditableMapObject::ValidateName(std::string const & name)
 {
   if (name.empty())
     return true;
 
   static std::u32string_view constexpr excludedSymbols = U"^§><*=_±√•÷×¶";
 
-  using Iter = utf8::unchecked::iterator<string::const_iterator>;
+  using Iter = utf8::unchecked::iterator<std::string::const_iterator>;
   for (Iter it{name.cbegin()}; it != Iter{name.cend()}; ++it)
   {
     auto const ch = *it;
@@ -639,11 +638,11 @@ void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
     {
       Classificator const & cl = classif();
       // Remove old cuisine values
-      vector<std::string_view> oldCuisines = strings::Tokenize(tagModData.old_value, ";");
+      std::vector<std::string_view> oldCuisines = strings::Tokenize(tagModData.old_value, ";");
       for (std::string_view const cuisine : oldCuisines)
         m_types.Remove(cl.GetTypeByPath({kTagCuisine, cuisine}));
       // Add new cuisine values
-      vector<std::string_view> newCuisines = strings::Tokenize(tagModData.new_value, ";");
+      std::vector<std::string_view> newCuisines = strings::Tokenize(tagModData.new_value, ";");
       for (std::string_view const cuisine : newCuisines)
         m_types.SafeAdd(cl.GetTypeByPath({kTagCuisine, cuisine}));
     }
@@ -764,7 +763,7 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   }
 
   if (cuisinesModified)
-    m_journal.AddTagChange(string(kTagCuisine), strings::JoinStrings(old_cuisines, ";"),
+    m_journal.AddTagChange(std::string(kTagCuisine), strings::JoinStrings(old_cuisines, ";"),
                            strings::JoinStrings(new_cuisines, ";"));
 }
 

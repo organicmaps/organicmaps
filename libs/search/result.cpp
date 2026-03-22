@@ -14,8 +14,6 @@
 
 namespace search
 {
-using namespace std;
-
 void Result::FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details)
 {
   m_id = id;
@@ -27,13 +25,13 @@ void Result::FromFeature(FeatureID const & id, uint32_t mainType, uint32_t match
   m_resultType = Type::Feature;
 }
 
-Result::Result(string str, string && suggest)
+Result::Result(std::string str, std::string && suggest)
   : m_resultType(Type::PureSuggest)
   , m_str(std::move(str))
   , m_suggestionStr(std::move(suggest))
 {}
 
-Result::Result(Result && res, string && suggest)
+Result::Result(Result && res, std::string && suggest)
   : m_id(std::move(res.m_id))
   , m_center(res.m_center)
   , m_str(std::move(res.m_str))
@@ -126,7 +124,7 @@ m2::PointD Result::GetFeatureCenter() const
   return m_center;
 }
 
-string const & Result::GetSuggestionString() const
+std::string const & Result::GetSuggestionString() const
 {
   ASSERT(IsSuggest(), ());
   return m_suggestionStr;
@@ -172,47 +170,47 @@ bool Result::IsEqualFeature(Result const & r) const
   return m_address == r.m_address && PointDistance(m_center, r.m_center) < 10.0;
 }
 
-void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
+void Result::AddHighlightRange(std::pair<uint16_t, uint16_t> const & range)
 {
   m_hightlightRanges.push_back(range);
 }
 
-void Result::AddDescHighlightRange(pair<uint16_t, uint16_t> const & range)
+void Result::AddDescHighlightRange(std::pair<uint16_t, uint16_t> const & range)
 {
   m_descHightlightRanges.push_back(range);
 }
 
-pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
+std::pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
 {
   ASSERT(idx < m_hightlightRanges.size(), ());
   return m_hightlightRanges[idx];
 }
-pair<uint16_t, uint16_t> const & Result::GetDescHighlightRange(size_t idx) const
+std::pair<uint16_t, uint16_t> const & Result::GetDescHighlightRange(size_t idx) const
 {
   ASSERT(idx < m_descHightlightRanges.size(), ());
   return m_descHightlightRanges[idx];
 }
 
-string Result::ToStringForStats() const
+std::string Result::ToStringForStats() const
 {
-  string readableType;
+  std::string readableType;
   if (GetResultType() == Type::Feature)
     readableType = classif().GetReadableObjectName(m_matchedType);
 
-  string s;
+  std::string s;
   s.append(GetString());
   s.append("|");
   s.append(readableType);
   s.append("|");
   s.append(IsSuggest() ? "1" : "0");
   s.append("|");
-  s.append(to_string(mercator::YToLat(m_center.y)));
+  s.append(std::to_string(mercator::YToLat(m_center.y)));
   s.append("|");
-  s.append(to_string(mercator::XToLon(m_center.x)));
+  s.append(std::to_string(mercator::XToLon(m_center.x)));
   return s;
 }
 
-string DebugPrint(Result::Type type)
+std::string DebugPrint(Result::Type type)
 {
   switch (type)
   {
@@ -226,13 +224,13 @@ string DebugPrint(Result::Type type)
   return "Unknown";
 }
 
-string DebugPrint(Result const & result)
+std::string DebugPrint(Result const & result)
 {
-  string readableType;
+  std::string readableType;
   if (result.GetResultType() == Result::Type::Feature)
     readableType = classif().GetReadableObjectName(result.GetFeatureType());
 
-  ostringstream os;
+  std::ostringstream os;
   os << "Result [";
   os << "name: " << result.GetString();
   os << ", type: " << readableType;
@@ -256,8 +254,8 @@ Results::Results()
 bool Results::AddResult(Result && result)
 {
   // Find first feature result.
-  auto it = find_if(m_results.begin(), m_results.end(),
-                    [](Result const & r) { return r.GetResultType() == Result::Type::Feature; });
+  auto it = std::find_if(m_results.begin(), m_results.end(),
+                         [](Result const & r) { return r.GetResultType() == Result::Type::Feature; });
 
   if (result.IsSuggest())
   {
@@ -313,9 +311,9 @@ bookmarks::Results const & Results::GetBookmarksResults() const
   return m_bookmarksResults;
 }
 
-void Results::InsertResult(vector<Result>::iterator where, Result && result)
+void Results::InsertResult(std::vector<Result>::iterator where, Result && result)
 {
-  ASSERT_LESS(m_results.size(), numeric_limits<int32_t>::max(), ());
+  ASSERT_LESS(m_results.size(), std::numeric_limits<int32_t>::max(), ());
 
   for (auto it = where; it != m_results.end(); ++it)
   {
@@ -324,11 +322,11 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
     r.SetPositionInResults(position + 1);
   }
 
-  result.SetPositionInResults(static_cast<int32_t>(distance(m_results.begin(), where)));
+  result.SetPositionInResults(static_cast<int32_t>(std::distance(m_results.begin(), where)));
   m_results.insert(where, std::move(result));
 }
 
-string DebugPrint(search::Results const & results)
+std::string DebugPrint(search::Results const & results)
 {
   return DebugPrintSequence(results.begin(), results.end());
 }

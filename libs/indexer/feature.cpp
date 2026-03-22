@@ -21,11 +21,9 @@
 #include <limits>
 
 using namespace feature;
-using namespace std;
-
 namespace
 {
-uint32_t constexpr kInvalidOffset = numeric_limits<uint32_t>::max();
+uint32_t constexpr kInvalidOffset = std::numeric_limits<uint32_t>::max();
 
 bool IsRealGeomOffset(uint32_t offset)
 {
@@ -111,10 +109,10 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale, FeatureType::Geome
 uint32_t CalcOffset(ArrayByteSource const & source, uint8_t const * start)
 {
   ASSERT_GREATER_OR_EQUAL(source.PtrUint8(), start, ());
-  return static_cast<uint32_t>(distance(start, source.PtrUint8()));
+  return static_cast<uint32_t>(std::distance(start, source.PtrUint8()));
 }
 
-uint8_t Header(vector<uint8_t> const & data)
+uint8_t Header(std::vector<uint8_t> const & data)
 {
   CHECK(!data.empty(), ());
   return data[0];
@@ -184,7 +182,7 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer)
   : m_loadInfo(loadInfo)
   , m_data(std::move(buffer))
 {
@@ -244,7 +242,7 @@ std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject con
   ft->m_parsed.m_points = ft->m_parsed.m_triangles = true;
 
   ft->m_params.name = emo.GetNameMultilang().ToBuffer();
-  string const & house = emo.GetHouseNumber();
+  std::string const & house = emo.GetHouseNumber();
   if (house.empty())
     ft->m_params.house.Clear();
   else
@@ -256,7 +254,7 @@ std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject con
   ft->m_parsed.m_metaIds = true;
 
   CHECK_LESS_OR_EQUAL(emo.GetTypes().Size(), feature::kMaxTypesCount, ());
-  copy(emo.GetTypes().begin(), emo.GetTypes().end(), ft->m_types.begin());
+  std::copy(emo.GetTypes().begin(), emo.GetTypes().end(), ft->m_types.begin());
 
   ft->m_parsed.m_types = true;
   ft->m_header = CalculateHeader(emo.GetTypes().Size(), headerGeomType, ft->m_params);
@@ -823,7 +821,7 @@ void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, featu
   feature::GetPreferredNames({GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit}, out);
 }
 
-string_view FeatureType::GetReadableName()
+std::string_view FeatureType::GetReadableName()
 {
   feature::NameParamsOut out;
   GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage()),
@@ -845,13 +843,13 @@ void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature
   feature::GetReadableName({GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit}, out);
 }
 
-string const & FeatureType::GetHouseNumber()
+std::string const & FeatureType::GetHouseNumber()
 {
   ParseCommon();
   return m_params.house.Get();
 }
 
-string_view FeatureType::GetName(int8_t lang)
+std::string_view FeatureType::GetName(int8_t lang)
 {
   if (!HasName())
     return {};
@@ -859,7 +857,7 @@ string_view FeatureType::GetName(int8_t lang)
   ParseCommon();
 
   // We don't store empty names. UPD: We do for coast features :)
-  string_view name;
+  std::string_view name;
   if (m_params.name.GetString(lang, name))
     ASSERT(!name.empty() || m_id.m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS, ());
 
@@ -877,7 +875,7 @@ uint64_t FeatureType::GetPopulation()
   return feature::RankToPopulation(GetRank());
 }
 
-string const & FeatureType::GetRef()
+std::string const & FeatureType::GetRef()
 {
   ParseCommon();
   return m_params.ref;

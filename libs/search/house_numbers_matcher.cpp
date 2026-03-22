@@ -15,7 +15,6 @@ namespace search
 {
 namespace house_numbers
 {
-using namespace std;
 using namespace strings;
 
 namespace
@@ -76,16 +75,16 @@ char const * g_strings[] = {
 // ./clusterize-tag-values.lisp house-number path-to-taginfo-db.db > numbers.txt
 // tail -n +2 numbers.txt  | head -78 | sed 's/^.*) \(.*\) \[.*$/"\1"/g;s/[ -/]//g;s/$/,/' |
 // sort | uniq
-vector<string> const g_patterns = {"BL", "BLN", "BLNSL", "BN", "BNL", "BNSL", "L", "LL", "LN", "LNL", "LNLN", "LNN",
-                                   "N", "NBL", "NBLN", "NBN", "NBNBN", "NBNL", "NL", "NLBN", "NLL", "NLLN", "NLN",
-                                   "NLNL", "NLS", "NLSN", "NN", "NNBN", "NNL", "NNLN", "NNN", "NNS", "NS", "NSN", "NSS",
-                                   "S", "SL", "SLL", "SLN", "SN", "SNBNSS", "SNL", "SNN", "SS", "SSN", "SSS", "SSSS",
+std::vector<std::string> const g_patterns = {
+    "BL", "BLN", "BLNSL", "BN", "BNL", "BNSL", "L", "LL", "LN", "LNL", "LNLN", "LNN", "N", "NBL", "NBLN", "NBN",
+    "NBNBN", "NBNL", "NL", "NLBN", "NLL", "NLLN", "NLN", "NLNL", "NLS", "NLSN", "NN", "NNBN", "NNL", "NNLN", "NNN",
+    "NNS", "NS", "NSN", "NSS", "S", "SL", "SLL", "SLN", "SN", "SNBNSS", "SNL", "SNN", "SS", "SSN", "SSS", "SSSS",
 
-                                   // List of exceptions
-                                   "NNBNL"};
+    // List of exceptions
+    "NNBNL"};
 
 // List of patterns which look like house numbers more than other patterns. Constructed by hand.
-vector<string> const g_patternsStrict = {"N", "NBN", "NBL", "NL"};
+std::vector<std::string> const g_patternsStrict = {"N", "NBN", "NBL", "NL"};
 
 // List of common synonyms for building parts. Constructed by hand.
 char const * g_buildingPartSynonyms[] = {"building", "bldg", "bld",   "bl",  "unit",     "block", "blk",  "корпус",
@@ -167,7 +166,7 @@ class HouseNumberClassifier
 public:
   using Patterns = StringSet<Token::Type, 4>;
 
-  HouseNumberClassifier(vector<string> const & patterns = g_patterns)
+  HouseNumberClassifier(std::vector<std::string> const & patterns = g_patterns)
   {
     for (auto const & p : patterns)
       m_patterns.Add(make_transform_iterator(p.begin(), &CharToType), make_transform_iterator(p.end(), &CharToType));
@@ -255,9 +254,9 @@ Token::Type GetCharType(UniChar c)
 
   if (IsASCIIDigit(c))
     return Token::TYPE_NUMBER;
-  if (find(kSeps.begin(), kSeps.end(), c) != kSeps.end())
+  if (std::find(kSeps.begin(), kSeps.end(), c) != kSeps.end())
     return Token::TYPE_SEPARATOR;
-  if (find(kGroupSeps.begin(), kGroupSeps.end(), c) != kGroupSeps.end())
+  if (std::find(kGroupSeps.begin(), kGroupSeps.end(), c) != kGroupSeps.end())
     return Token::TYPE_GROUP_SEPARATOR;
   if (c == '-')
     return Token::TYPE_HYPHEN;
@@ -296,11 +295,11 @@ void SimplifyParse(TokensT & tokens)
   if (i != 0)
   {
     tokens.resize(i);
-    sort(tokens.begin() + 1, tokens.end());
+    std::sort(tokens.begin() + 1, tokens.end());
   }
   else
   {
-    sort(tokens.begin(), tokens.end());
+    std::sort(tokens.begin(), tokens.end());
   }
 }
 
@@ -468,7 +467,7 @@ void Tokenize(UniString s, bool isPrefix, TokensT & ts)
   }
 }
 
-void ParseHouseNumber(UniString const & s, vector<TokensT> & parses)
+void ParseHouseNumber(UniString const & s, std::vector<TokensT> & parses)
 {
   TokensT tokens;
   Tokenize(s, false /* isPrefix */, tokens);
@@ -525,7 +524,7 @@ bool HouseNumbersMatch(UniString const & houseNumber, TokensT const & queryParse
     return false;
   }
 
-  vector<TokensT> houseNumberParses;
+  std::vector<TokensT> houseNumberParses;
   ParseHouseNumber(houseNumber, houseNumberParses);
 
   for (auto & parse : houseNumberParses)
@@ -593,7 +592,7 @@ bool LooksLikeHouseNumber(UniString const & s, bool isPrefix)
   return classifier.LooksGood(s, isPrefix);
 }
 
-bool LooksLikeHouseNumber(string const & s, bool isPrefix)
+bool LooksLikeHouseNumber(std::string const & s, bool isPrefix)
 {
   return LooksLikeHouseNumber(MakeUniString(s), isPrefix);
 }
@@ -604,12 +603,12 @@ bool LooksLikeHouseNumberStrict(UniString const & s)
   return classifier.LooksGood(s, false /* isPrefix */);
 }
 
-bool LooksLikeHouseNumberStrict(string const & s)
+bool LooksLikeHouseNumberStrict(std::string const & s)
 {
   return LooksLikeHouseNumberStrict(MakeUniString(s));
 }
 
-string DebugPrint(Token::Type type)
+std::string DebugPrint(Token::Type type)
 {
   switch (type)
   {
@@ -626,9 +625,9 @@ string DebugPrint(Token::Type type)
   return "Unknown";
 }
 
-string DebugPrint(Token const & token)
+std::string DebugPrint(Token const & token)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Token [" << DebugPrint(token.m_value) << ", " << DebugPrint(token.m_type) << "]";
   return os.str();
 }

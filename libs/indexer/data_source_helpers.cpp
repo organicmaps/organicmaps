@@ -5,9 +5,7 @@
 
 namespace indexer
 {
-using namespace std;
-
-void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureType &)> && fn,
+void ForEachFeatureAtPoint(DataSource const & dataSource, std::function<void(FeatureType &)> && fn,
                            m2::PointD const & mercator, int scale /* = scales::GetUpperScale() */)
 {
   ASSERT(scale <= scales::GetUpperScale(), (scale));

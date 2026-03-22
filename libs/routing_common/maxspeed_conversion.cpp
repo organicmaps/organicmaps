@@ -7,7 +7,6 @@
 
 namespace routing
 {
-using namespace std;
 using namespace measurement_utils;
 
 // SpeedInUnits ------------------------------------------------------------------------------------
@@ -103,7 +102,7 @@ SpeedInUnits FeatureMaxspeed::GetBackwardSpeedInUnits() const
 // MaxspeedConverter -------------------------------------------------------------------------------
 MaxspeedConverter::MaxspeedConverter()
 {
-  tuple<SpeedMacro, MaxspeedType, Units> const table[] = {
+  std::tuple<SpeedMacro, MaxspeedType, Units> const table[] = {
       // Special values.
       {SpeedMacro::Undefined, kInvalidSpeed /* speed */, Units::Metric},
       {SpeedMacro::None, kNoneMaxSpeed /* speed */, Units::Metric},
@@ -346,9 +345,9 @@ std::string PrintMaxspeedType(MaxspeedType s)
 }
 }  // namespace
 
-string DebugPrint(Maxspeed maxspeed)
+std::string DebugPrint(Maxspeed maxspeed)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "Maxspeed { m_units: " << DebugPrint(maxspeed.GetUnits())
       << ", m_forward: " << PrintMaxspeedType(maxspeed.GetForward())
       << ", m_backward: " << PrintMaxspeedType(maxspeed.GetBackward())
@@ -356,25 +355,25 @@ string DebugPrint(Maxspeed maxspeed)
   return oss.str();
 }
 
-string DebugPrint(SpeedMacro maxspeed)
+std::string DebugPrint(SpeedMacro maxspeed)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "SpeedMacro { " << static_cast<int>(maxspeed)
       << ", decoded: " << DebugPrint(GetMaxspeedConverter().MacroToSpeed(maxspeed)) << " }";
   return oss.str();
 }
 
-string DebugPrint(SpeedInUnits const & speed)
+std::string DebugPrint(SpeedInUnits const & speed)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "SpeedInUnits { m_speed: " << PrintMaxspeedType(speed.GetSpeed())
       << ", m_units: " << DebugPrint(speed.GetUnits()) << " }";
   return oss.str();
 }
 
-string DebugPrint(FeatureMaxspeed const & featureMaxspeed)
+std::string DebugPrint(FeatureMaxspeed const & featureMaxspeed)
 {
-  ostringstream oss;
+  std::ostringstream oss;
   oss << "FeatureMaxspeed { m_featureId: " << featureMaxspeed.GetFeatureId()
       << ", m_maxspeed: " << DebugPrint(featureMaxspeed.GetMaxspeed()) << " }";
   return oss.str();

@@ -49,7 +49,6 @@
 
 namespace search
 {
-using namespace std;
 using namespace strings;
 
 namespace
@@ -76,7 +75,7 @@ struct ScopedMarkTokens
 {
   static BaseContext::TokenType constexpr kUnused = BaseContext::TOKEN_TYPE_COUNT;
 
-  ScopedMarkTokens(vector<BaseContext::TokenType> & tokens, BaseContext::TokenType type, TokenRange const & range)
+  ScopedMarkTokens(std::vector<BaseContext::TokenType> & tokens, BaseContext::TokenType type, TokenRange const & range)
     : m_tokens(tokens)
     , m_type(type)
     , m_range(range)
@@ -87,7 +86,7 @@ struct ScopedMarkTokens
     for (size_t i : m_range)
       ASSERT_EQUAL(m_tokens[i], kUnused, (i));
 #endif
-    fill(m_tokens.begin() + m_range.Begin(), m_tokens.begin() + m_range.End(), m_type);
+    std::fill(m_tokens.begin() + m_range.Begin(), m_tokens.begin() + m_range.End(), m_type);
   }
 
   ~ScopedMarkTokens()
@@ -96,10 +95,10 @@ struct ScopedMarkTokens
     for (size_t i : m_range)
       ASSERT_EQUAL(m_tokens[i], m_type, (i));
 #endif
-    fill(m_tokens.begin() + m_range.Begin(), m_tokens.begin() + m_range.End(), kUnused);
+    std::fill(m_tokens.begin() + m_range.Begin(), m_tokens.begin() + m_range.End(), kUnused);
   }
 
-  vector<search::BaseContext::TokenType> & m_tokens;
+  std::vector<search::BaseContext::TokenType> & m_tokens;
   search::BaseContext::TokenType const m_type;
   TokenRange const m_range;
 };
@@ -143,18 +142,18 @@ private:
       return;
     m_table = search::RankTable::Load(m_value.m_cont, SEARCH_RANKS_FILE_TAG);
     if (!m_table)
-      m_table = make_unique<search::DummyRankTable>();
+      m_table = std::make_unique<search::DummyRankTable>();
   }
 
   MwmValue const & m_value;
-  mutable unique_ptr<search::RankTable> m_table;
+  mutable std::unique_ptr<search::RankTable> m_table;
 };
 
 class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
   LocalityScorerDelegate(MwmContext & context, Geocoder::Params const & params,
-                         function<bool(m2::PointD const &)> const & belongsToMatchedRegionFn,
+                         std::function<bool(m2::PointD const &)> const & belongsToMatchedRegionFn,
                          base::Cancellable const & cancellable)
     : m_context(context)
     , m_params(params)
@@ -167,14 +166,14 @@ public:
   }
 
   // LocalityScorer::Delegate overrides:
-  void GetNames(uint32_t featureId, vector<string> & names) const override
+  void GetNames(uint32_t featureId, std::vector<std::string> & names) const override
   {
     auto ft = m_context.GetFeature(featureId);
     if (!ft)
       return;
     for (auto const lang : m_params.GetLangs())
     {
-      string_view name = ft->GetName(lang);
+      std::string_view name = ft->GetName(lang);
       if (!name.empty())
         names.push_back(std::string(name));
     }
@@ -182,7 +181,7 @@ public:
 
   uint8_t GetRank(uint32_t featureId) const override { return m_ranks.Get(featureId); }
 
-  optional<m2::PointD> GetCenter(uint32_t featureId) override
+  std::optional<m2::PointD> GetCenter(uint32_t featureId) override
   {
     m2::PointD center;
     // m_context->GetCenter is faster but may not work for editor created features.
@@ -208,7 +207,7 @@ private:
   MwmContext & m_context;
   Geocoder::Params const & m_params;
   base::Cancellable const & m_cancellable;
-  function<bool(m2::PointD const &)> m_belongsToMatchedRegionFn;
+  std::function<bool(m2::PointD const &)> m_belongsToMatchedRegionFn;
 
   Retrieval m_retrieval;
 
@@ -227,9 +226,9 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
 }
 
 /// @todo Can't change on string_view now, because of unordered_map<string> Affiliations.
-[[nodiscard]] bool GetAffiliationName(FeatureType & ft, string & affiliation)
+[[nodiscard]] bool GetAffiliationName(FeatureType & ft, std::string & affiliation)
 {
-  string_view name = ft.GetDefaultName();
+  std::string_view name = ft.GetDefaultName();
   if (name.empty())
   {
     // As a best effort, we try to read an english name if default name is absent.
@@ -256,7 +255,7 @@ double Area(m2::RectD const & rect)
 /// @return [0, 1]
 double GetSimilarity(m2::RectD const & pivot, m2::RectD const & rect)
 {
-  double const area = min(Area(pivot), Area(rect));
+  double const area = std::min(Area(pivot), Area(rect));
   if (area == 0.0)
     return 0.0;
   m2::RectD p = pivot;
@@ -275,24 +274,24 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
   if (rect.IsPointInside(pivot))
     return 0.0;
 
-  double distance = numeric_limits<double>::max();
+  double distance = std::numeric_limits<double>::max();
 
   rect.ForEachSide([&](m2::PointD const & a, m2::PointD const & b)
   {
     m2::ParametrizedSegment<m2::PointD> segment(a, b);
-    distance = min(distance, mercator::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
+    distance = std::min(distance, mercator::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
   });
 
   return distance;
 }
 
-unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
+std::unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
 {
-  vector<shared_ptr<MwmInfo>> infos;
+  std::vector<std::shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
   MwmSet::MwmHandle handle = indexer::FindWorld(dataSource, infos);
   if (handle.IsAlive())
-    return make_unique<MwmContext>(std::move(handle));
+    return std::make_unique<MwmContext>(std::move(handle));
   return {};
 }
 
@@ -396,7 +395,7 @@ void Geocoder::GoEverywhere()
   if (m_params.GetNumTokens() == 0)
     return;
 
-  vector<MwmInfoPtr> infos;
+  std::vector<MwmInfoPtr> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   GoImpl(infos, false /* inViewport */);
@@ -409,7 +408,7 @@ void Geocoder::GoInViewport()
   if (m_params.GetNumTokens() == 0)
     return;
 
-  vector<MwmInfoPtr> infos;
+  std::vector<MwmInfoPtr> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   base::EraseIf(infos, [this](MwmInfoPtr const & info) { return !m_params.m_pivot.IsIntersect(info->m_bordersRect); });
@@ -448,10 +447,10 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
-Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport, vector<MwmInfoPtr> const & infos)
+Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport, std::vector<MwmInfoPtr> const & infos)
 {
-  set<storage::CountryId> mwmsWithCities;
-  set<storage::CountryId> mwmsWithStates;
+  std::set<storage::CountryId> mwmsWithCities;
+  std::set<storage::CountryId> mwmsWithStates;
   if (!inViewport)
   {
     for (auto const & p : m_cities)
@@ -512,16 +511,16 @@ Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport, vector<MwmI
     res.m_infos.push_back(std::move(ei));
   }
 
-  sort(res.m_infos.begin(), res.m_infos.end());
+  std::sort(res.m_infos.begin(), res.m_infos.end());
 
   auto const sep = stable_partition(res.m_infos.begin(), res.m_infos.end(), [&](auto const & extendedInfo)
   { return extendedInfo.m_type.IsFirstBatchMwm(inViewport); });
-  res.m_firstBatchSize = distance(res.m_infos.begin(), sep);
+  res.m_firstBatchSize = std::distance(res.m_infos.begin(), sep);
 
   return res;
 }
 
-void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
+void Geocoder::GoImpl(std::vector<MwmInfoPtr> const & infos, bool inViewport)
 {
   // base::PProf pprof("/tmp/geocoder.prof");
 
@@ -538,7 +537,7 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
       // All MwmIds are unique during the application lifetime, so
       // it's ok to save MwmId.
       m_worldId = handle.GetId();
-      m_context = make_unique<MwmContext>(std::move(handle));
+      m_context = std::make_unique<MwmContext>(std::move(handle));
 
       if (value.HasSearchIndex())
       {
@@ -566,7 +565,7 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
 
   // MatchAroundPivot() should always be matched in mwms
   // intersecting with position and viewport.
-  auto processCountry = [&](unique_ptr<MwmContext> context, bool updatePreranker)
+  auto processCountry = [&](std::unique_ptr<MwmContext> context, bool updatePreranker)
   {
     ASSERT(context, ());
     m_context = std::move(context);
@@ -583,8 +582,8 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
     if (it == m_matchersCache.end())
     {
       it = m_matchersCache
-               .insert(
-                   make_pair(m_context->GetId(), std::make_unique<FeaturesLayerMatcher>(m_dataSource, m_cancellable)))
+               .insert(std::make_pair(m_context->GetId(),
+                                      std::make_unique<FeaturesLayerMatcher>(m_dataSource, m_cancellable)))
                .first;
     }
     m_matcher = it->second.get();
@@ -674,7 +673,7 @@ void Geocoder::InitLayer(Model::Type type, TokenRange const & tokenRange, Featur
 }
 
 void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filter, size_t const maxNumLocalities,
-                                      vector<Locality> & preLocalities)
+                                      std::vector<Locality> & preLocalities)
 {
   // todo(@m) "food moscow" should be a valid categorial request.
   if (m_params.IsCategorialRequest())
@@ -720,7 +719,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     if (ft.GetGeomType() != feature::GeomType::Point)
       return;
 
-    string affiliation;
+    std::string affiliation;
     if (!GetAffiliationName(ft, affiliation))
       return;
 
@@ -733,7 +732,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     m_regions[type][region.m_tokenRange].push_back(std::move(region));
   };
 
-  vector<Locality> preLocalities;
+  std::vector<Locality> preLocalities;
 
   CBV filter = m_localitiesCaches.m_countries.Get(*m_context);
   FillLocalityCandidates(ctx, filter, kMaxNumCountries, preLocalities);
@@ -815,7 +814,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 
 void Geocoder::FillVillageLocalities(BaseContext const & ctx)
 {
-  vector<Locality> preLocalities;
+  std::vector<Locality> preLocalities;
   FillLocalityCandidates(ctx, ctx.m_villages, kMaxNumVillages, preLocalities);
 
   for (auto & l : preLocalities)
@@ -884,7 +883,7 @@ void Geocoder::ForEachCountry(ExtendedMwmInfos const & extendedInfos, Fn && fn)
       continue;
     bool const updatePreranker = i + 1 >= extendedInfos.m_firstBatchSize;
     auto const & mwmType = extendedInfos.m_infos[i].m_type;
-    if (fn(make_unique<MwmContext>(std::move(handle), mwmType), updatePreranker) == base::ControlFlow::Break)
+    if (fn(std::make_unique<MwmContext>(std::move(handle), mwmType), updatePreranker) == base::ControlFlow::Break)
       break;
   }
 }
@@ -1139,7 +1138,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
       auto & postcodePoints = m_postcodePointsCache.Get(*m_context);
       UniString postcodeQuery;
       JoinQueryTokens(m_params, tokenRange, UniString::kSpace /* sep */, postcodeQuery);
-      vector<m2::PointD> points;
+      std::vector<m2::PointD> points;
       postcodePoints.Get(postcodeQuery, points);
 
       // PostcodePoints::Get returns many points for "BN1" or one point for "BN1 3LJ".
@@ -1188,7 +1187,7 @@ void Geocoder::GreedilyMatchStreets(BaseContext & ctx, CentersFilter const & cen
 void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, CBV const & streets)
 {
   using PredictionT = StreetsMatcher::Prediction;
-  vector<PredictionT> predictions;
+  std::vector<PredictionT> predictions;
   StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
 
   // Iterating from best to worst predictions here. Make "Relaxed" results for the best probability.
@@ -1202,7 +1201,7 @@ void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, 
 void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers)
 {
   TRACE(GreedilyMatchStreetsWithSuburbs);
-  vector<StreetsMatcher::Prediction> suburbs;
+  std::vector<StreetsMatcher::Prediction> suburbs;
   StreetsMatcher::Go(ctx, ctx.m_suburbs, *m_filter, m_params, suburbs);
 
   for (auto const & suburb : suburbs)
@@ -1222,7 +1221,7 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter 
 
       auto & layer = layers.back();
       InitLayer(Model::TYPE_SUBURB, suburb.m_tokenRange, layer);
-      vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
+      std::vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
       layer.m_sortedFeatures = &suburbFeatures;
 
       auto const suburbType = m_model.m_isSuburb.GetType(*ft);
@@ -1329,7 +1328,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx, StreetsM
   auto & layer = layers.back();
   InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
 
-  vector<uint32_t> sortedFeatures;
+  std::vector<uint32_t> sortedFeatures;
   layer.m_sortedFeatures = &sortedFeatures;
   sortedFeatures.reserve(base::asserted_cast<size_t>(prediction.m_features.PopCount()));
   prediction.m_features.ForEach([&](uint64_t bit) { sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit)); });
@@ -1414,7 +1413,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
     auto & layer = layers.back();
     InitLayer(Model::TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
 
-    vector<uint32_t> features;
+    std::vector<uint32_t> features;
     m_postcodes.m_countryFeatures.ForEach([&features](uint64_t bit)
     { features.push_back(base::asserted_cast<uint32_t>(bit)); });
     layer.m_sortedFeatures = &features;
@@ -1427,7 +1426,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
   // Clusters of features by search type. Each cluster is a sorted
   // list of ids.
   size_t const kNumClusters = Model::TYPE_BUILDING + 1;
-  vector<uint32_t> clusters[kNumClusters];
+  std::vector<uint32_t> clusters[kNumClusters];
 
   // Appends |featureId| to the end of the corresponding cluster, if
   // any.
@@ -1538,7 +1537,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
   }
 }
 
-bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
+bool Geocoder::IsLayerSequenceSane(std::vector<FeaturesLayer> const & layers) const
 {
   ASSERT(!layers.empty(), ());
   static_assert(Model::TYPE_COUNT <= 32, "Select a wider type to represent search types mask.");
@@ -1623,7 +1622,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
     return;
 
   FeaturesLayer cityLayer;
-  vector<uint32_t> cityFeature;
+  std::vector<uint32_t> cityFeature;
 
   if (ctx.m_city)
   {
@@ -1666,7 +1665,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
   }
 
   // Layers ordered by search type.
-  vector<FeaturesLayer const *> sortedLayers;
+  std::vector<FeaturesLayer const *> sortedLayers;
   sortedLayers.reserve(layers.size() + 1);
   for (auto const & layer : layers)
     sortedLayers.push_back(&layer);
@@ -1674,7 +1673,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
   if (!cityFeature.empty())
     sortedLayers.push_back(&cityLayer);
 
-  sort(sortedLayers.begin(), sortedLayers.end(), base::LessBy(&FeaturesLayer::m_type));
+  std::sort(sortedLayers.begin(), sortedLayers.end(), base::LessBy(&FeaturesLayer::m_type));
 
   auto const & innermostLayer = *sortedLayers.front();
 

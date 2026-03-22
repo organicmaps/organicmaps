@@ -49,8 +49,6 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 enum LanguageTier
@@ -84,13 +82,13 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
   tokens.erase_if(&IsStopWord);
 }
 
-void TrimLeadingSpaces(string & s)
+void TrimLeadingSpaces(std::string & s)
 {
   auto const it = std::find_if(s.cbegin(), s.cend(), [](auto c) { return !strings::IsASCIISpace(c); });
   s.erase(s.begin(), it);
 }
 
-bool EatFid(string & s, uint32_t & fid)
+bool EatFid(std::string & s, uint32_t & fid)
 {
   TrimLeadingSpaces(s);
 
@@ -110,13 +108,13 @@ bool EatFid(string & s, uint32_t & fid)
   return false;
 }
 
-bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> const & countriesTrie, string & s,
+bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> const & countriesTrie, std::string & s,
                 storage::CountryId & mwmName)
 {
   TrimLeadingSpaces(s);
 
   // Greedily eat as much as possible because some country names are prefixes of others.
-  optional<size_t> lastPos;
+  std::optional<size_t> lastPos;
   std::string_view sv(s);
   for (size_t i = 0; i < s.size(); ++i)
   {
@@ -133,7 +131,7 @@ bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> cons
   return true;
 }
 
-bool EatVersion(string & s, uint32_t & version)
+bool EatVersion(std::string & s, uint32_t & version)
 {
   TrimLeadingSpaces(s);
 
@@ -145,7 +143,7 @@ bool EatVersion(string & s, uint32_t & version)
   }
 
   size_t constexpr kVersionLength = 6;
-  if (s.size() >= kVersionLength && all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
+  if (s.size() >= kVersionLength && std::all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
       (s.size() == kVersionLength || !isdigit(s[kVersionLength])))
   {
     VERIFY(strings::to_uint(s.substr(0, kVersionLength), version), ());
@@ -158,7 +156,7 @@ bool EatVersion(string & s, uint32_t & version)
 }  // namespace
 
 Processor::Processor(DataSource const & dataSource, CategoriesHolder const & categories,
-                     vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter)
+                     std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter)
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_dataSource(dataSource)
@@ -198,7 +196,7 @@ void Processor::SetViewport(m2::RectD const & viewport)
   m_viewport = viewport;
 }
 
-void Processor::SetPreferredLocale(string const & locale)
+void Processor::SetPreferredLocale(std::string const & locale)
 {
   ASSERT(!locale.empty(), ());
 
@@ -215,7 +213,7 @@ void Processor::SetPreferredLocale(string const & locale)
   m_ranker.SetLocale(locale);
 }
 
-void Processor::SetInputLocale(string const & locale)
+void Processor::SetInputLocale(std::string const & locale)
 {
   if (locale.empty())
     return;
@@ -226,7 +224,7 @@ void Processor::SetInputLocale(string const & locale)
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
-void Processor::SetQuery(string const & query, bool categorialRequest /* = false */)
+void Processor::SetQuery(std::string const & query, bool categorialRequest /* = false */)
 {
   LOG(LDEBUG, ("query:", query, "isCategorial:", categorialRequest));
 
@@ -353,31 +351,32 @@ void Processor::ResetBookmarks()
   m_bookmarksProcessor.Reset();
 }
 
-void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
+void Processor::OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   for (auto const & idDoc : marks)
     m_bookmarksProcessor.Add(idDoc.first /* id */, idDoc.second /* doc */);
 }
 
-void Processor::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
+void Processor::OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   for (auto const & idDoc : marks)
     m_bookmarksProcessor.Update(idDoc.first /* id */, idDoc.second /* doc */);
 }
 
-void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
+void Processor::OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
     m_bookmarksProcessor.Erase(id);
 }
 
-void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, vector<bookmarks::Id> const & marks)
+void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
     m_bookmarksProcessor.AttachToGroup(id, groupId);
 }
 
-void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId, vector<bookmarks::Id> const & marks)
+void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
+                                             std::vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
     m_bookmarksProcessor.DetachFromGroup(id, groupId);
@@ -409,7 +408,7 @@ bool Processor::IsCancelled() const
 void Processor::SearchByFeatureId()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query.m_query);
+  std::string query(m_query.m_query);
   strings::Trim(query);
 
   if (strings::EatPrefix(query, "?fid"))
@@ -421,7 +420,7 @@ void Processor::SearchByFeatureId()
   else
     return;
 
-  vector<shared_ptr<MwmInfo>> infos;
+  std::vector<std::shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   auto const putFeature = [](FeaturesLoaderGuard & guard, uint32_t fid, auto const & fn)
@@ -438,7 +437,7 @@ void Processor::SearchByFeatureId()
 
   // Case 0.
   {
-    string s = query;
+    std::string s = query;
     if (EatFid(s, fid))
     {
       EmitResultsFromMwms(infos, [&putFeature, fid](FeaturesLoaderGuard & guard, auto const & fn)
@@ -451,7 +450,7 @@ void Processor::SearchByFeatureId()
 
   // Case 1.
   {
-    string s = query;
+    std::string s = query;
     bool const parenPref = strings::EatPrefix(s, "(");
     bool const parenSuff = strings::EatSuffix(s, ")");
     if (parenPref == parenSuff && EatMwmName(m_countriesTrie, s, mwmName) && strings::EatPrefix(s, ",") &&
@@ -467,7 +466,7 @@ void Processor::SearchByFeatureId()
 
   // Case 2.
   {
-    string s = query;
+    std::string s = query;
     if (strings::EatPrefix(s, "{ MwmId [") && EatMwmName(m_countriesTrie, s, mwmName) && strings::EatPrefix(s, ", ") &&
         EatVersion(s, version) && strings::EatPrefix(s, "], ") && EatFid(s, fid) && strings::EatPrefix(s, " }"))
     {
@@ -540,7 +539,7 @@ void Processor::Search(SearchParams params)
 {
   /// @DebugNote
   // Comment this line to run search in a debugger.
-  SetDeadline(chrono::steady_clock::now() + params.m_timeout);
+  SetDeadline(std::chrono::steady_clock::now() + params.m_timeout);
 
   if (params.m_onStarted)
     params.m_onStarted();
@@ -681,8 +680,8 @@ bool Processor::SearchCoordinates()
     results.emplace_back(ll->m_lat, ll->m_lon);
   }
 
-  istringstream iss(m_query.m_query);
-  string token;
+  std::istringstream iss(m_query.m_query);
+  std::string token;
   while (iss >> token)
   {
     ge0::Ge0Parser parser;
@@ -714,7 +713,7 @@ bool Processor::SearchCoordinates()
 void Processor::SearchPlusCode()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query.m_query);
+  std::string query(m_query.m_query);
   strings::Trim(query);
 
   if (openlocationcode::IsFull(query))
@@ -725,7 +724,7 @@ void Processor::SearchPlusCode()
   }
   else if (openlocationcode::IsShort(query))
   {
-    string codeFromPos;
+    std::string codeFromPos;
 
     if (m_position)
     {
@@ -739,7 +738,7 @@ void Processor::SearchPlusCode()
     }
 
     ms::LatLon const latLonFromView = mercator::ToLatLon(m_viewport.Center());
-    string codeFromView = openlocationcode::RecoverNearest(query, {latLonFromView.m_lat, latLonFromView.m_lon});
+    std::string codeFromView = openlocationcode::RecoverNearest(query, {latLonFromView.m_lat, latLonFromView.m_lon});
 
     if (codeFromView != codeFromPos)
     {
@@ -757,14 +756,14 @@ void Processor::SearchPlusCode()
 void Processor::SearchPostcode()
 {
   // Create a copy of the query to trim it in-place.
-  string_view query(m_query.m_query);
+  std::string_view query(m_query.m_query);
   strings::Trim(query);
 
   /// @todo So, "G4 " now doesn't match UK (Glasgow) postcodes as prefix :)
   if (!LooksLikePostcode(query, !m_query.m_prefix.empty()))
     return;
 
-  vector<shared_ptr<MwmInfo>> infos;
+  std::vector<std::shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
   auto const normQuery = NormalizeAndSimplifyString(query);
@@ -779,7 +778,7 @@ void Processor::SearchPostcode()
 
     /// @todo Well, ok for now, but we do only full or "prefix-rect" match w/o possible errors, with only one result.
     PostcodePoints postcodes(value);
-    vector<m2::PointD> points;
+    std::vector<m2::PointD> points;
     postcodes.Get(normQuery, points);
     if (points.empty())
       continue;
@@ -884,7 +883,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams, SearchPar
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_position = m_position;
   params.m_scale = geocoderParams.m_scale;
-  params.m_limit = max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
+  params.m_limit = std::max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
   params.m_numQueryTokens = geocoderParams.GetNumTokens();

@@ -10,9 +10,7 @@
 
 namespace routing
 {
-using namespace std;
-
-CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
+CrossMwmGraph::CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              VehicleType vehicleType, CountryRectFn const & countryRectFn, MwmDataSource & dataSource)
   : m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
@@ -33,7 +31,7 @@ bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
   return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.IsTransition(s, isOutgoing) : false;
 }
 
-bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, vector<NumMwmId> & neighbors)
+bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors)
 {
   CHECK(m_numMwmTree, ());
   m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(numMwmId).GetName());
@@ -59,13 +57,13 @@ bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, vector<NumMwmId> & 
   return allNeighborsHaveCrossMwmSection;
 }
 
-void CrossMwmGraph::DeserializeTransitions(vector<NumMwmId> const & mwmIds)
+void CrossMwmGraph::DeserializeTransitions(std::vector<NumMwmId> const & mwmIds)
 {
   for (auto mwmId : mwmIds)
     m_crossMwmIndexGraph.LoadCrossMwmConnectorWithTransitions(mwmId);
 }
 
-void CrossMwmGraph::DeserializeTransitTransitions(vector<NumMwmId> const & mwmIds)
+void CrossMwmGraph::DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds)
 {
   for (auto mwmId : mwmIds)
   {
@@ -93,7 +91,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, TwinSegmentsLis
   auto const & file = m_numMwmIds->GetFile(s.GetMwmId());
 #endif
 
-  vector<NumMwmId> neighbors;
+  std::vector<NumMwmId> neighbors;
   bool const allNeighborsHaveCrossMwmSection = GetAllLoadedNeighbors(s.GetMwmId(), neighbors);
   ASSERT(allNeighborsHaveCrossMwmSection, (file));
 
@@ -194,7 +192,7 @@ void CrossMwmGraph::GetTwinFeature(Segment const & segment, bool isOutgoing, Twi
   });
 }
 
-CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId, string const & sectionName) const
+CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const
 {
   switch (m_dataSource.GetSectionStatus(numMwmId, sectionName))
   {
@@ -238,7 +236,7 @@ bool CrossMwmGraph::TransitCrossMwmSectionExists(NumMwmId numMwmId) const
   return status == MwmStatus::SectionExists;
 }
 
-string DebugPrint(CrossMwmGraph::MwmStatus status)
+std::string DebugPrint(CrossMwmGraph::MwmStatus status)
 {
   switch (status)
   {
@@ -246,6 +244,6 @@ string DebugPrint(CrossMwmGraph::MwmStatus status)
   case CrossMwmGraph::MwmStatus::SectionExists: return "CrossMwmGraph::SectionExists";
   case CrossMwmGraph::MwmStatus::NoSection: return "CrossMwmGraph::NoSection";
   }
-  return string("Unknown CrossMwmGraph::MwmStatus.");
+  return std::string("Unknown CrossMwmGraph::MwmStatus.");
 }
 }  // namespace routing

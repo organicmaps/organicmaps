@@ -45,8 +45,6 @@ using namespace search::search_quality;
 using namespace search::tests_support;
 using namespace search;
 using namespace std::chrono;
-using namespace std;
-
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
 DEFINE_int32(num_threads, 1, "Number of search engine threads");
@@ -58,15 +56,15 @@ DEFINE_string(viewport, "", "Viewport to use when searching (default, moscow, lo
 DEFINE_string(check_completeness, "", "Path to the file with completeness data");
 DEFINE_string(ranking_csv_file, "", "File ranking info will be exported to");
 
-string const kDefaultQueriesPathSuffix = "/../search/search_quality/search_quality_tool/queries.txt";
-string const kEmptyResult = "<empty>";
+std::string const kDefaultQueriesPathSuffix = "/../search/search_quality/search_quality_tool/queries.txt";
+std::string const kEmptyResult = "<empty>";
 
 // Unlike strings::Tokenize, this function allows for empty tokens.
-void Split(string const & s, char delim, vector<string> & parts)
+void Split(std::string const & s, char delim, std::vector<std::string> & parts)
 {
-  istringstream iss(s);
-  string part;
-  while (getline(iss, part, delim))
+  std::istringstream iss(s);
+  std::string part;
+  while (std::getline(iss, part, delim))
     parts.push_back(part);
 }
 
@@ -74,41 +72,41 @@ struct CompletenessQuery
 {
   DECLARE_EXCEPTION(MalformedQueryException, RootException);
 
-  explicit CompletenessQuery(string && s)
+  explicit CompletenessQuery(std::string && s)
   {
     s.append(" ");
 
-    vector<string> parts;
+    std::vector<std::string> parts;
     Split(s, ';', parts);
     if (parts.size() != 7)
       MYTHROW(MalformedQueryException, ("Can't split", s, ", found", parts.size(), "part(s):", parts));
 
     auto const idx = parts[0].find(':');
-    if (idx == string::npos)
+    if (idx == std::string::npos)
       MYTHROW(MalformedQueryException, ("Could not find \':\':", s));
 
-    string mwmName = parts[0].substr(0, idx);
-    string const kMwmSuffix = ".mwm";
+    std::string mwmName = parts[0].substr(0, idx);
+    std::string const kMwmSuffix = ".mwm";
     if (!mwmName.ends_with(kMwmSuffix))
       MYTHROW(MalformedQueryException, ("Bad mwm name:", s));
 
-    string const featureIdStr = parts[0].substr(idx + 1);
+    std::string const featureIdStr = parts[0].substr(idx + 1);
     uint64_t featureId;
     if (!strings::to_uint64(featureIdStr, featureId))
       MYTHROW(MalformedQueryException, ("Bad feature id:", s));
 
-    string const type = parts[1];
+    std::string const type = parts[1];
     double lon, lat;
     if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
       MYTHROW(MalformedQueryException, ("Bad lon-lat:", s));
 
-    string const city = parts[4];
-    string const street = parts[5];
-    string const house = parts[6];
+    std::string const city = parts[4];
+    std::string const street = parts[5];
+    std::string const house = parts[6];
 
     mwmName = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
-    string country = mwmName;
-    replace(country.begin(), country.end(), '_', ' ');
+    std::string country = mwmName;
+    std::replace(country.begin(), country.end(), '_', ' ');
 
     m_query = country + " " + city + " " + street + " " + house + " ";
     m_mwmName = mwmName;
@@ -117,15 +115,15 @@ struct CompletenessQuery
     m_lon = lon;
   }
 
-  string m_query;
-  unique_ptr<TestSearchRequest> m_request;
-  string m_mwmName;
+  std::string m_query;
+  std::unique_ptr<TestSearchRequest> m_request;
+  std::string m_mwmName;
   uint32_t m_featureId = 0;
   double m_lat = 0;
   double m_lon = 0;
 };
 
-string MakePrefixFree(string const & query)
+std::string MakePrefixFree(std::string const & query)
 {
   return query + " ";
 }
@@ -133,30 +131,30 @@ string MakePrefixFree(string const & query)
 // If n == 1, prints the query and the top result separated by a tab.
 // Otherwise, prints the query on a separate line
 // and then prints n top results on n lines starting with tabs.
-void PrintTopResults(string const & query, vector<Result> const & results, size_t n, double elapsedSeconds)
+void PrintTopResults(std::string const & query, std::vector<Result> const & results, size_t n, double elapsedSeconds)
 {
-  cout << query;
+  std::cout << query;
   char timeBuf[100];
   snprintf(timeBuf, sizeof(timeBuf), "\t[%.3fs]", elapsedSeconds);
   if (n > 1)
-    cout << timeBuf;
+    std::cout << timeBuf;
   for (size_t i = 0; i < n; ++i)
   {
     if (n > 1)
-      cout << endl;
-    cout << "\t";
+      std::cout << std::endl;
+    std::cout << "\t";
     if (i < results.size())
       // todo(@m) Print more information: coordinates, viewport, etc.
-      cout << results[i].GetString();
+      std::cout << results[i].GetString();
     else
-      cout << kEmptyResult;
+      std::cout << kEmptyResult;
   }
   if (n == 1)
-    cout << timeBuf;
-  cout << endl;
+    std::cout << timeBuf;
+  std::cout << std::endl;
 }
 
-void CalcStatistics(vector<double> const & a, double & avg, double & maximum, double & var, double & stdDev)
+void CalcStatistics(std::vector<double> const & a, double & avg, double & maximum, double & var, double & stdDev)
 {
   avg = 0;
   maximum = 0;
@@ -166,7 +164,7 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
   for (auto const x : a)
   {
     avg += static_cast<double>(x);
-    maximum = max(maximum, static_cast<double>(x));
+    maximum = std::max(maximum, static_cast<double>(x));
   }
 
   double n = static_cast<double>(a.size());
@@ -182,10 +180,10 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const featureId, double const lat,
-               double const lon, vector<Result> const & results)
+int FindResult(DataSource & dataSource, std::string const & mwmName, uint32_t const featureId, double const lat,
+               double const lon, std::vector<Result> const & results)
 {
-  CHECK_LESS_OR_EQUAL(results.size(), numeric_limits<int>::max(), ());
+  CHECK_LESS_OR_EQUAL(results.size(), std::numeric_limits<int>::max(), ());
   auto const mwmId = dataSource.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
   FeatureID const expectedFeatureId(mwmId, featureId);
   for (size_t i = 0; i < results.size(); ++i)
@@ -216,12 +214,12 @@ int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const f
 // from |path|, executes them against the |engine| with viewport set to |viewport|
 // and reports the number of queries whose expected result is among the returned results.
 // Exact feature id is expected, but a close enough (lat, lon) is good too.
-void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchEngine & engine,
-                       m2::RectD const & viewport, string const & locale)
+void CheckCompleteness(std::string const & path, DataSource & dataSource, TestSearchEngine & engine,
+                       m2::RectD const & viewport, std::string const & locale)
 {
   base::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
 
-  ifstream stream(path.c_str());
+  std::ifstream stream(path.c_str());
   CHECK(stream.is_open(), ("Can't open", path));
 
   base::Timer timer;
@@ -232,16 +230,16 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
   uint32_t expectedResultsTop1 = 0;
 
   // todo(@m) Process the queries on the fly and do not keep them.
-  vector<CompletenessQuery> queries;
+  std::vector<CompletenessQuery> queries;
 
-  string line;
-  while (getline(stream, line))
+  std::string line;
+  while (std::getline(stream, line))
   {
     ++totalQueries;
     try
     {
       CompletenessQuery q(std::move(line));
-      q.m_request = make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
+      q.m_request = std::make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
       queries.push_back(std::move(q));
     }
     catch (CompletenessQuery::MalformedQueryException & e)
@@ -268,33 +266,34 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
   double const expectedResultsTop1Percentage =
       totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsTop1) / static_cast<double>(totalQueries);
 
-  cout << "Time spent on checking completeness: " << timer.ElapsedSeconds() << "s." << endl;
-  cout << "Total queries: " << totalQueries << endl;
-  cout << "Malformed queries: " << malformedQueries << endl;
-  cout << "Expected results found: " << expectedResultsFound << " (" << expectedResultsFoundPercentage << "%)." << endl;
-  cout << "Expected results found in the top1 slot: " << expectedResultsTop1 << " (" << expectedResultsTop1Percentage
-       << "%)." << endl;
+  std::cout << "Time spent on checking completeness: " << timer.ElapsedSeconds() << "s." << std::endl;
+  std::cout << "Total queries: " << totalQueries << std::endl;
+  std::cout << "Malformed queries: " << malformedQueries << std::endl;
+  std::cout << "Expected results found: " << expectedResultsFound << " (" << expectedResultsFoundPercentage << "%)."
+            << std::endl;
+  std::cout << "Expected results found in the top1 slot: " << expectedResultsTop1 << " ("
+            << expectedResultsTop1Percentage << "%)." << std::endl;
 }
 
-void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string queriesPath, string const & locale,
-                 string const & rankingCSVFile, size_t top)
+void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, std::string queriesPath,
+                 std::string const & locale, std::string const & rankingCSVFile, size_t top)
 {
-  vector<string> queries;
+  std::vector<std::string> queries;
   {
     if (queriesPath.empty())
       queriesPath = base::JoinPath(GetPlatform().WritableDir(), kDefaultQueriesPathSuffix);
     ReadStringsFromFile(queriesPath, queries);
   }
 
-  vector<unique_ptr<TestSearchRequest>> requests;
+  std::vector<std::unique_ptr<TestSearchRequest>> requests;
   for (size_t i = 0; i < queries.size(); ++i)
   {
     // todo(@m) Add a bool flag to search with prefixes?
     requests.emplace_back(
-        make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]), locale, Mode::Everywhere, viewport));
+        std::make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]), locale, Mode::Everywhere, viewport));
   }
 
-  ofstream csv;
+  std::ofstream csv;
   bool dumpCSV = false;
   if (!rankingCSVFile.empty())
   {
@@ -308,10 +307,10 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
   if (dumpCSV)
   {
     RankingInfo::PrintCSVHeader(csv);
-    csv << endl;
+    csv << std::endl;
   }
 
-  vector<double> responseTimes(queries.size());
+  std::vector<double> responseTimes(queries.size());
   for (size_t i = 0; i < queries.size(); ++i)
   {
     requests[i]->Run();
@@ -324,7 +323,7 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
       for (auto const & result : requests[i]->Results())
       {
         result.GetRankingInfo().ToCSV(csv);
-        csv << endl;
+        csv << std::endl;
       }
     }
   }
@@ -335,11 +334,11 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
   double stdDevTime;
   CalcStatistics(responseTimes, averageTime, maxTime, varianceTime, stdDevTime);
 
-  cout << fixed << setprecision(3);
-  cout << endl;
-  cout << "Maximum response time: " << maxTime << "s" << endl;
-  cout << "Average response time: " << averageTime << "s"
-       << " (std. dev. " << stdDevTime << "s)" << endl;
+  std::cout << std::fixed << std::setprecision(3);
+  std::cout << std::endl;
+  std::cout << "Maximum response time: " << maxTime << "s" << std::endl;
+  std::cout << "Average response time: " << averageTime << "s"
+            << " (std. dev. " << stdDevTime << "s)" << std::endl;
 }
 
 int main(int argc, char * argv[])
@@ -363,7 +362,7 @@ int main(int argc, char * argv[])
   m2::RectD viewport;
   InitViewport(FLAGS_viewport, viewport);
 
-  ios_base::sync_with_stdio(false);
+  std::ios_base::sync_with_stdio(false);
 
   if (!FLAGS_check_completeness.empty())
   {

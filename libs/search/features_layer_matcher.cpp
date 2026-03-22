@@ -11,8 +11,6 @@
 
 namespace search
 {
-using namespace std;
-
 /// Max distance from house to street where we do search matching
 /// even if there is no exact street written for this house.
 int constexpr kMaxApproxStreetDistanceM = 100;
@@ -105,7 +103,7 @@ template <class FeatureGetterT>
 uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(FeatureID const & id, FeatureGetterT && getter)
 {
   // Check if this feature is modified - the logic will be different.
-  string streetName;
+  std::string streetName;
   bool const edited = m_editor.GetEditedFeatureStreet(id, streetName);
 
   // Check the cached result value.
@@ -132,8 +130,8 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(FeatureID const & id, Featu
 
   if (edited)
   {
-    auto const ret =
-        find_if(streets.begin(), streets.end(), [&streetName](Street const & st) { return st.m_name == streetName; });
+    auto const ret = std::find_if(streets.begin(), streets.end(),
+                                  [&streetName](Street const & st) { return st.m_name == streetName; });
     if (ret != streets.end())
     {
       result = ret->m_id.m_index;

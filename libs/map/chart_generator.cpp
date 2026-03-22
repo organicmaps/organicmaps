@@ -16,8 +16,6 @@
 
 namespace maps
 {
-using namespace std;
-
 namespace
 {
 template <class Color, class Order>
@@ -86,26 +84,26 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
 }
 }  // namespace
 
-void ScaleChartData(vector<double> & chartData, double scale)
+void ScaleChartData(std::vector<double> & chartData, double scale)
 {
   for (size_t i = 0; i < chartData.size(); ++i)
     chartData[i] *= scale;
 }
 
-void ShiftChartData(vector<double> & chartData, double shift)
+void ShiftChartData(std::vector<double> & chartData, double shift)
 {
   for (size_t i = 0; i < chartData.size(); ++i)
     chartData[i] += shift;
 }
 
-void ReflectChartData(vector<double> & chartData)
+void ReflectChartData(std::vector<double> & chartData)
 {
   for (size_t i = 0; i < chartData.size(); ++i)
     chartData[i] = -chartData[i];
 }
 
-bool NormalizeChartData(vector<double> const & distanceDataM, geometry::Altitudes const & altitudeDataM,
-                        size_t resultPointCount, vector<double> & uniformAltitudeDataM)
+bool NormalizeChartData(std::vector<double> const & distanceDataM, geometry::Altitudes const & altitudeDataM,
+                        size_t resultPointCount, std::vector<double> & uniformAltitudeDataM)
 {
   double constexpr kEpsilon = 1e-6;
 
@@ -115,7 +113,7 @@ bool NormalizeChartData(vector<double> const & distanceDataM, geometry::Altitude
     return false;
   }
 
-  if (!is_sorted(distanceDataM.cbegin(), distanceDataM.cend()))
+  if (!std::is_sorted(distanceDataM.cbegin(), distanceDataM.cend()))
   {
     LOG(LERROR, ("Route segment distances are not sorted."));
     return false;
@@ -134,8 +132,8 @@ bool NormalizeChartData(vector<double> const & distanceDataM, geometry::Altitude
     if (distFormStartM >= distanceDataM.back())
       return static_cast<double>(altitudeDataM.back());
 
-    auto const lowerIt = lower_bound(distanceDataM.cbegin(), distanceDataM.cend(), distFormStartM);
-    size_t const nextPointIdx = distance(distanceDataM.cbegin(), lowerIt);
+    auto const lowerIt = std::lower_bound(distanceDataM.cbegin(), distanceDataM.cend(), distFormStartM);
+    size_t const nextPointIdx = std::distance(distanceDataM.cbegin(), lowerIt);
     ASSERT_LESS(0, nextPointIdx, ("distFormStartM is greater than 0 but nextPointIdx == 0."));
     size_t const prevPointIdx = nextPointIdx - 1;
 
@@ -157,8 +155,8 @@ bool NormalizeChartData(vector<double> const & distanceDataM, geometry::Altitude
   return true;
 }
 
-bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, vector<double> const & altitudeDataM,
-                            vector<double> & yAxisDataPxl)
+bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, std::vector<double> const & altitudeDataM,
+                            std::vector<double> & yAxisDataPxl)
 {
   if (altitudeDataM.empty())
   {
@@ -174,12 +172,12 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, vector<doub
     heightIndentPxl = 0;
   }
 
-  auto const minMaxAltitudeIt = minmax_element(altitudeDataM.begin(), altitudeDataM.end());
+  auto const minMaxAltitudeIt = std::minmax_element(altitudeDataM.begin(), altitudeDataM.end());
   double const minAltM = *minMaxAltitudeIt.first;
   double const maxAltM = *minMaxAltitudeIt.second;
   double const deltaAltM = maxAltM - minAltM;
   uint32_t const drawHeightPxl = height - 2 * heightIndentPxl;
-  double const metersPerPxl = max(minMetersPerPxl, deltaAltM / static_cast<double>(drawHeightPxl));
+  double const metersPerPxl = std::max(minMetersPerPxl, deltaAltM / static_cast<double>(drawHeightPxl));
   if (metersPerPxl == 0.0)
   {
     LOG(LERROR, ("metersPerPxl == 0.0"));
@@ -204,8 +202,8 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, vector<doub
   return true;
 }
 
-bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry, MapStyle mapStyle,
-                           vector<uint8_t> & frameBuffer)
+bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::PointD> const & geometry, MapStyle mapStyle,
+                           std::vector<uint8_t> & frameBuffer)
 {
   frameBuffer.clear();
   if (width == 0 || height == 0)
@@ -219,7 +217,7 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   using TBlender = BlendAdaptor<agg::rgba8, agg::order_rgba>;
   using TPixelFormat = agg::pixfmt_custom_blend_rgba<TBlender, agg::rendering_buffer>;
   using TBaseRenderer = agg::renderer_base<TPixelFormat>;
-  using TPath = agg::poly_container_adaptor<vector<m2::PointD>>;
+  using TPath = agg::poly_container_adaptor<std::vector<m2::PointD>>;
   using TStroke = agg::conv_stroke<TPath>;
 
   agg::rendering_buffer renderBuffer;
@@ -268,8 +266,8 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   return true;
 }
 
-bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
-                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, vector<uint8_t> & frameBuffer)
+bool GenerateChart(uint32_t width, uint32_t height, std::vector<double> const & distanceDataM,
+                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, std::vector<uint8_t> & frameBuffer)
 {
   if (distanceDataM.size() != altitudeDataM.size())
   {
@@ -278,16 +276,16 @@ bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & dista
     return false;
   }
 
-  vector<double> uniformAltitudeDataM;
+  std::vector<double> uniformAltitudeDataM;
   if (!NormalizeChartData(distanceDataM, altitudeDataM, width, uniformAltitudeDataM))
     return false;
 
-  vector<double> yAxisDataPxl;
+  std::vector<double> yAxisDataPxl;
   if (!GenerateYAxisChartData(height, 1.0 /* minMetersPerPxl */, uniformAltitudeDataM, yAxisDataPxl))
     return false;
 
   size_t const uniformAltitudeDataSize = yAxisDataPxl.size();
-  vector<m2::PointD> geometry(uniformAltitudeDataSize);
+  std::vector<m2::PointD> geometry(uniformAltitudeDataSize);
 
   if (uniformAltitudeDataSize != 0)
   {

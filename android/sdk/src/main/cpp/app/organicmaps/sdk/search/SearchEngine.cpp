@@ -23,7 +23,6 @@
 #include <memory>
 #include <vector>
 
-using namespace std;
 using namespace std::placeholders;
 using search::Result;
 using search::Results;
@@ -129,7 +128,7 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
                         descRanges.get(), popularity.get());
 }
 
-jobjectArray BuildSearchResults(vector<search::ProductInfo> const & productInfo, bool hasPosition, double lat,
+jobjectArray BuildSearchResults(std::vector<search::ProductInfo> const & productInfo, bool hasPosition, double lat,
                                 double lon)
 {
   JNIEnv * env = jni::GetEnv();
@@ -144,8 +143,8 @@ jobjectArray BuildSearchResults(vector<search::ProductInfo> const & productInfo,
   return jResults;
 }
 
-void OnResults(Results results, vector<search::ProductInfo> const & productInfo, jlong timestamp, bool isMapAndTable,
-               bool hasPosition, double lat, double lon)
+void OnResults(Results results, std::vector<search::ProductInfo> const & productInfo, jlong timestamp,
+               bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -168,7 +167,7 @@ void OnResults(Results results, vector<search::ProductInfo> const & productInfo,
   }
 }
 
-jobjectArray BuildJavaMapResults(vector<storage::DownloaderSearchResult> const & results)
+jobjectArray BuildJavaMapResults(std::vector<storage::DownloaderSearchResult> const & results)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -208,7 +207,7 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results results,
 
   g_framework->NativeFramework()->GetBookmarkManager().FilterInvalidBookmarks(results);
   jni::ScopedLocalRef<jlongArray> jResults(env, env->NewLongArray(static_cast<jsize>(results.size())));
-  vector<jlong> const tmp(results.cbegin(), results.cend());
+  std::vector<jlong> const tmp(results.cbegin(), results.cend());
   env->SetLongArrayRegion(jResults.get(), 0, static_cast<jsize>(tmp.size()), tmp.data());
 
   auto const method = (status == search::BookmarksSearchParams::Status::InProgress) ? g_updateBookmarksResultsId
@@ -268,7 +267,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
                                         jni::ToNativeString(env, lang),
                                         {},  // default timeout
                                         static_cast<bool>(isCategory),
-                                        bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon)};
+                                        std::bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon)};
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(params));
   if (searchStarted)
     g_queryTimestamp = timestamp;
@@ -295,11 +294,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractive
 
   if (isMapAndTable)
   {
-    search::EverywhereSearchParams eparams{std::move(vparams.m_query),
-                                           std::move(vparams.m_inputLocale),
-                                           {},  // default timeout
-                                           static_cast<bool>(isCategory),
-                                           bind(&OnResults, _1, _2, timestamp, isMapAndTable, hasPosition, lat, lon)};
+    search::EverywhereSearchParams eparams{
+        std::move(vparams.m_query),
+        std::move(vparams.m_inputLocale),
+        {},  // default timeout
+        static_cast<bool>(isCategory),
+        std::bind(&OnResults, _1, _2, timestamp, isMapAndTable, hasPosition, lat, lon)};
 
     if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(std::move(eparams)))
       g_queryTimestamp = timestamp;
@@ -311,7 +311,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(
                                                                                 jlong timestamp)
 {
   storage::DownloaderSearchParams params{jni::ToNativeString(env, bytes), jni::ToNativeString(env, lang),
-                                         bind(&OnMapSearchResults, _1, timestamp)};
+                                         std::bind(&OnMapSearchResults, _1, timestamp)};
 
   if (g_framework->NativeFramework()->GetSearchAPI().SearchInDownloader(std::move(params)))
     g_queryTimestamp = timestamp;
@@ -322,7 +322,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchI
                                                                                            jlong catId, jlong timestamp)
 {
   search::BookmarksSearchParams params{jni::ToNativeString(env, query), static_cast<kml::MarkGroupId>(catId),
-                                       bind(&OnBookmarksSearchResults, _1, _2, timestamp)};
+                                       std::bind(&OnBookmarksSearchResults, _1, _2, timestamp)};
 
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchInBookmarks(std::move(params));
   if (searchStarted)

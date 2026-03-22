@@ -13,8 +13,6 @@
 
 namespace ftypes
 {
-using namespace std;
-
 namespace
 {
 class HighwayClasses
@@ -86,12 +84,12 @@ char const * HighwayClassToString(HighwayClass const cls)
 }
 }  // namespace
 
-string DebugPrint(HighwayClass const cls)
+std::string DebugPrint(HighwayClass const cls)
 {
   return std::string{"[ "} + HighwayClassToString(cls) + " ]";
 }
 
-string DebugPrint(LocalityType const localityType)
+std::string DebugPrint(LocalityType const localityType)
 {
   switch (localityType)
   {
@@ -473,7 +471,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 
   for (auto const & e : primaryAttractionTypes)
     m_types.push_back(c.GetTypeByPath(e));
-  sort(m_types.begin(), m_types.end());
+  std::sort(m_types.begin(), m_types.end());
   m_additionalTypesStart = m_types.size();
 
   // Additional types are worse in "hierarchy" priority.
@@ -484,7 +482,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 
   for (auto const & e : additionalAttractionTypes)
     m_types.push_back(c.GetTypeByPath(e));
-  sort(m_types.begin() + m_additionalTypesStart, m_types.end());
+  std::sort(m_types.begin() + m_additionalTypesStart, m_types.end());
 }
 
 uint32_t AttractionsChecker::GetBestType(FeatureParams::Types const & types) const
@@ -495,10 +493,10 @@ uint32_t AttractionsChecker::GetBestType(FeatureParams::Types const & types) con
   for (auto type : types)
   {
     type = PrepareToMatch(type, m_level);
-    if (binary_search(m_types.begin(), itAdditional, type))
+    if (std::binary_search(m_types.begin(), itAdditional, type))
       return type;
 
-    if (binary_search(itAdditional, m_types.end(), type))
+    if (std::binary_search(itAdditional, m_types.end(), type))
       additionalType = type;
   }
 

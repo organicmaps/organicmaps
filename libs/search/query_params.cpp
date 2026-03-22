@@ -8,14 +8,12 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 // All synonyms should be lowercase.
 
 /// @todo These should check the map language and use only the corresponding translation.
-map<string, vector<string>> const kSynonyms = {
+std::map<std::string, std::vector<std::string>> const kSynonyms = {
     {"n", {"north"}},
     {"w", {"west"}},
     {"s", {"south"}},
@@ -72,7 +70,7 @@ map<string, vector<string>> const kSynonyms = {
 }  // namespace
 
 // QueryParams::Token ------------------------------------------------------------------------------
-void QueryParams::Token::AddSynonym(string const & s)
+void QueryParams::Token::AddSynonym(std::string const & s)
 {
   AddSynonym(strings::MakeUniString(s));
 }
@@ -83,9 +81,9 @@ void QueryParams::Token::AddSynonym(String const & s)
     m_synonyms.push_back(s);
 }
 
-string DebugPrint(QueryParams::Token const & token)
+std::string DebugPrint(QueryParams::Token const & token)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Token [ m_original=" << DebugPrint(token.GetOriginal()) << ", m_synonyms=" << DebugPrint(token.m_synonyms)
      << " ]";
   return os.str();
@@ -96,7 +94,7 @@ void QueryParams::ClearStreetIndices()
 {
   class AdditionalCommonTokens
   {
-    set<String> m_strings;
+    std::set<String> m_strings;
 
   public:
     AdditionalCommonTokens()
@@ -216,7 +214,7 @@ void QueryParams::AddSynonyms()
 {
   for (auto & token : m_tokens)
   {
-    string const ss = ToUtf8(MakeLowerCase(token.GetOriginal()));
+    std::string const ss = ToUtf8(MakeLowerCase(token.GetOriginal()));
     auto const it = kSynonyms.find(ss);
     if (it != kSynonyms.end())
       for (auto const & synonym : it->second)
@@ -224,7 +222,7 @@ void QueryParams::AddSynonyms()
   }
   if (m_hasPrefix)
   {
-    string const ss = ToUtf8(MakeLowerCase(m_prefixToken.GetOriginal()));
+    std::string const ss = ToUtf8(MakeLowerCase(m_prefixToken.GetOriginal()));
     auto const it = kSynonyms.find(ss);
     if (it != kSynonyms.end())
       for (auto const & synonym : it->second)
@@ -232,10 +230,10 @@ void QueryParams::AddSynonyms()
   }
 }
 
-string DebugPrint(QueryParams const & params)
+std::string DebugPrint(QueryParams const & params)
 {
-  ostringstream os;
-  os << boolalpha << "QueryParams "
+  std::ostringstream os;
+  os << std::boolalpha << "QueryParams "
      << "{ m_tokens: " << ::DebugPrint(params.m_tokens) << ", m_prefixToken: " << DebugPrint(params.m_prefixToken)
      << ", m_typeIndices: " << ::DebugPrint(params.m_typeIndices) << ", m_langs: " << DebugPrint(params.m_langs)
      << ", m_isCommonToken: " << ::DebugPrint(params.m_isCommonToken) << " }";

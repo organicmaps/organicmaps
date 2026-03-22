@@ -26,8 +26,6 @@
 
 namespace base
 {
-using namespace std;
-
 std::ostream & operator<<(std::ostream & stream, FileData::Op op)
 {
   switch (op)
@@ -40,7 +38,7 @@ std::ostream & operator<<(std::ostream & stream, FileData::Op op)
   return stream;
 }
 
-FileData::FileData(string const & fileName, Op op) : m_FileName(fileName), m_Op(op)
+FileData::FileData(std::string const & fileName, Op op) : m_FileName(fileName), m_Op(op)
 {
   char const * const modes[] = {"rb", "wb", "r+b", "ab"};
 
@@ -79,7 +77,7 @@ FileData::~FileData()
   }
 }
 
-string FileData::GetErrorProlog() const
+std::string FileData::GetErrorProlog() const
 {
   std::ostringstream stream;
   stream << m_FileName << "; " << m_Op << "; " << strerror(errno);
@@ -160,7 +158,7 @@ void FileData::Truncate(uint64_t sz)
     MYTHROW(Writer::WriteException, (GetErrorProlog(), sz));
 }
 
-bool GetFileSize(string const & fName, uint64_t & sz)
+bool GetFileSize(std::string const & fName, uint64_t & sz)
 {
   try
   {
@@ -179,7 +177,7 @@ bool GetFileSize(string const & fName, uint64_t & sz)
 namespace
 {
 
-bool CheckFileOperationResult(int res, string const & fName)
+bool CheckFileOperationResult(int res, std::string const & fName)
 {
   if (!res)
     return true;
@@ -194,26 +192,26 @@ bool CheckFileOperationResult(int res, string const & fName)
   return false;
 }
 
-bool IsEOF(ifstream & fs)
+bool IsEOF(std::ifstream & fs)
 {
-  return fs.peek() == ifstream::traits_type::eof();
+  return fs.peek() == std::ifstream::traits_type::eof();
 }
 
 }  // namespace
 
-bool DeleteFileX(string const & fName)
+bool DeleteFileX(std::string const & fName)
 {
-  int res = remove(fName.c_str());
+  int res = std::remove(fName.c_str());
   return CheckFileOperationResult(res, fName);
 }
 
-bool RenameFileX(string const & fOld, string const & fNew)
+bool RenameFileX(std::string const & fOld, std::string const & fNew)
 {
   int res = rename(fOld.c_str(), fNew.c_str());
   return CheckFileOperationResult(res, fOld);
 }
 
-bool MoveFileX(string const & fOld, string const & fNew)
+bool MoveFileX(std::string const & fOld, std::string const & fNew)
 {
   // Try to rename the file first.
   int res = rename(fOld.c_str(), fNew.c_str());
@@ -230,9 +228,10 @@ bool MoveFileX(string const & fOld, string const & fNew)
   return true;
 }
 
-bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const &)> const & write, string const & tmp)
+bool WriteToTempAndRenameToFile(std::string const & dest, std::function<bool(std::string const &)> const & write,
+                                std::string const & tmp)
 {
-  string const tmpFileName = tmp.empty() ? dest + ".tmp" + strings::to_string(this_thread::get_id()) : tmp;
+  std::string const tmpFileName = tmp.empty() ? dest + ".tmp" + strings::to_string(std::this_thread::get_id()) : tmp;
   if (!write(tmpFileName))
   {
     LOG(LERROR, ("Can't write to", tmpFileName));
@@ -248,27 +247,27 @@ bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const 
   return true;
 }
 
-void AppendFileToFile(string const & fromFilename, string const & toFilename)
+void AppendFileToFile(std::string const & fromFilename, std::string const & toFilename)
 {
-  ifstream from;
-  from.exceptions(fstream::failbit | fstream::badbit);
-  from.open(fromFilename, ios::binary);
+  std::ifstream from;
+  from.exceptions(std::fstream::failbit | std::fstream::badbit);
+  from.open(fromFilename, std::ios::binary);
 
-  ofstream to;
-  to.exceptions(fstream::badbit);
-  to.open(toFilename, ios::binary | ios::app);
+  std::ofstream to;
+  to.exceptions(std::fstream::badbit);
+  to.open(toFilename, std::ios::binary | std::ios::app);
 
   auto * buffer = from.rdbuf();
   if (!IsEOF(from))
     to << buffer;
 }
 
-bool CopyFileX(string const & fOld, string const & fNew)
+bool CopyFileX(std::string const & fOld, std::string const & fNew)
 {
-  ifstream ifs;
-  ofstream ofs;
-  ifs.exceptions(ifstream::failbit | ifstream::badbit);
-  ofs.exceptions(ifstream::failbit | ifstream::badbit);
+  std::ifstream ifs;
+  std::ofstream ofs;
+  ifs.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+  ofs.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
   try
   {
@@ -283,11 +282,11 @@ bool CopyFileX(string const & fOld, string const & fNew)
     ofs.flush();
     return true;
   }
-  catch (system_error const &)
+  catch (std::system_error const &)
   {
     LOG(LWARNING, ("Failed to copy file from", fOld, "to", fNew, ":", strerror(errno)));
   }
-  catch (exception const &)
+  catch (std::exception const &)
   {
     LOG(LERROR, ("Unknown error when coping files:", fOld, "to", fNew, strerror(errno)));
   }
@@ -297,7 +296,7 @@ bool CopyFileX(string const & fOld, string const & fNew)
   return false;
 }
 
-bool IsEqualFiles(string const & firstFile, string const & secondFile)
+bool IsEqualFiles(std::string const & firstFile, std::string const & secondFile)
 {
   FileData first(firstFile, FileData::Op::READ);
   FileData second(secondFile, FileData::Op::READ);
@@ -305,7 +304,7 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
     return false;
 
   size_t constexpr bufSize = READ_FILE_BUFFER_SIZE;
-  vector<char> buf1, buf2;
+  std::vector<char> buf1, buf2;
   buf1.resize(bufSize);
   buf2.resize(bufSize);
   size_t const fileSize = static_cast<size_t>(first.Size());
@@ -313,7 +312,7 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
 
   while (currSize < fileSize)
   {
-    size_t const toRead = min(bufSize, fileSize - currSize);
+    size_t const toRead = std::min(bufSize, fileSize - currSize);
 
     first.Read(currSize, &buf1[0], toRead);
     second.Read(currSize, &buf2[0], toRead);

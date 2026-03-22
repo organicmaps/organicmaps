@@ -8,10 +8,9 @@
 
 namespace routing
 {
-using namespace std;
 using namespace turns;
 
-PedestrianDirectionsEngine::PedestrianDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
+PedestrianDirectionsEngine::PedestrianDirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, std::move(numMwmIds))
 {}
 
@@ -49,7 +48,7 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
   result.GetPossibleTurns(turnInfo.m_ingoing->m_segmentRange, junctionPoint, ingoingCount, nodes);
   if (nodes.isCandidatesAngleValid)
   {
-    ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates.end(), base::LessBy(&TurnCandidate::m_angle)),
+    ASSERT(std::is_sorted(nodes.candidates.begin(), nodes.candidates.end(), base::LessBy(&TurnCandidate::m_angle)),
            ("Turn candidates should be sorted by its angle field."));
   }
 
@@ -84,7 +83,7 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
   return 0;
 }
 
-void PedestrianDirectionsEngine::FixupTurns(vector<RouteSegment> & routeSegments)
+void PedestrianDirectionsEngine::FixupTurns(std::vector<RouteSegment> & routeSegments)
 {
   double const kMergeDistMeters = 15.0;
 

@@ -9,49 +9,47 @@
 
 namespace osm
 {
-using namespace std;
+static auto const s_instaRegex = std::regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
+static auto const s_twitterRegex = std::regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
+static auto const s_badVkRegex = std::regex(R"(^\d\d\d.+$)");
+static auto const s_goodVkRegex = std::regex(R"(^[A-Za-z0-9_.]{5,32}$)");
+static auto const s_lineRegex = std::regex(R"(^[a-z0-9-_.]{4,20}$)");
 
-static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
-static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
-static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
-static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
-static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
+constexpr std::string_view kFacebook{"contact:facebook"};
+constexpr std::string_view kInstagram{"contact:instagram"};
+constexpr std::string_view kTwitter{"contact:twitter"};
+constexpr std::string_view kVk{"contact:vk"};
+constexpr std::string_view kLine{"contact:line"};
 
-constexpr string_view kFacebook{"contact:facebook"};
-constexpr string_view kInstagram{"contact:instagram"};
-constexpr string_view kTwitter{"contact:twitter"};
-constexpr string_view kVk{"contact:vk"};
-constexpr string_view kLine{"contact:line"};
-
-constexpr string_view kProfilePhp{"profile.php"};
+constexpr std::string_view kProfilePhp{"profile.php"};
 
 // Domains constants.
-constexpr string_view kFbDot{"fb."};
-constexpr string_view kFacebookDot{"facebook."};
-constexpr string_view kInstagramCom{"instagram.com"};
-constexpr string_view kDotInstagramCom{".instagram.com"};
-constexpr string_view kTwitterCom{"twitter.com"};
-constexpr string_view kDotTwitterCom{".twitter.com"};
-constexpr string_view kXCom{"x.com"};
-constexpr string_view kDotXCom{".x.com"};
-constexpr string_view kVkCom{"vk.com"};
-constexpr string_view kVkontakteRu{"vkontakte.ru"};
-constexpr string_view kDotVkCom{".vk.com"};
-constexpr string_view kDotVkontakteRu{".vkontakte.ru"};
-constexpr string_view kLineMe{"line.me"};
-constexpr string_view kPageLineMe{"page.line.me"};
-constexpr string_view kDotLineMe{".line.me"};
+constexpr std::string_view kFbDot{"fb."};
+constexpr std::string_view kFacebookDot{"facebook."};
+constexpr std::string_view kInstagramCom{"instagram.com"};
+constexpr std::string_view kDotInstagramCom{".instagram.com"};
+constexpr std::string_view kTwitterCom{"twitter.com"};
+constexpr std::string_view kDotTwitterCom{".twitter.com"};
+constexpr std::string_view kXCom{"x.com"};
+constexpr std::string_view kDotXCom{".x.com"};
+constexpr std::string_view kVkCom{"vk.com"};
+constexpr std::string_view kVkontakteRu{"vkontakte.ru"};
+constexpr std::string_view kDotVkCom{".vk.com"};
+constexpr std::string_view kDotVkontakteRu{".vkontakte.ru"};
+constexpr std::string_view kLineMe{"line.me"};
+constexpr std::string_view kPageLineMe{"page.line.me"};
+constexpr std::string_view kDotLineMe{".line.me"};
 
 // URLs constants
-constexpr string_view kUrlFacebook{"https://facebook.com/"};
-constexpr string_view kUrlInstagram{"https://instagram.com/"};
-constexpr string_view kUrlTwitter{"https://twitter.com/"};
-constexpr string_view kUrlVk{"https://vk.com/"};
-constexpr string_view kUrlLine{"https://line.me/R/ti/p/@"};
-constexpr string_view kHttp{"http://"};
-constexpr string_view kHttps{"https://"};
+constexpr std::string_view kUrlFacebook{"https://facebook.com/"};
+constexpr std::string_view kUrlInstagram{"https://instagram.com/"};
+constexpr std::string_view kUrlTwitter{"https://twitter.com/"};
+constexpr std::string_view kUrlVk{"https://vk.com/"};
+constexpr std::string_view kUrlLine{"https://line.me/R/ti/p/@"};
+constexpr std::string_view kHttp{"http://"};
+constexpr std::string_view kHttps{"https://"};
 
-size_t GetProtocolNameLength(string const & website)
+size_t GetProtocolNameLength(std::string const & website)
 {
   if (website.starts_with(kHttps))
     return kHttps.size();
@@ -60,7 +58,7 @@ size_t GetProtocolNameLength(string const & website)
   return 0;
 }
 
-bool IsProtocolSpecified(string const & website)
+bool IsProtocolSpecified(std::string const & website)
 {
   return 0 != GetProtocolNameLength(website);
 }
@@ -69,7 +67,7 @@ bool IsProtocolSpecified(string const & website)
 //       unicode. Need to find all restricted *Unicode* symbols
 //       from https://www.facebook.com/pages/create page and verify those symbols
 //       using MakeUniString or utf8cpp.
-bool containsInvalidFBSymbol(string const & facebookPage, size_t startIndex = 0)
+bool containsInvalidFBSymbol(std::string const & facebookPage, size_t startIndex = 0)
 {
   auto const size = facebookPage.size();
   for (auto i = startIndex; i < size; ++i)
@@ -86,11 +84,11 @@ bool containsInvalidFBSymbol(string const & facebookPage, size_t startIndex = 0)
 std::string ValidateAndFormat_website(std::string const & v)
 {
   if (!v.empty() && !IsProtocolSpecified(v))
-    return string{kHttp}.append(v);
+    return std::string{kHttp}.append(v);
   return v;
 }
 
-string ValidateAndFormat_facebook(string const & facebookPage)
+std::string ValidateAndFormat_facebook(std::string const & facebookPage)
 {
   if (facebookPage.empty())
     return {};
@@ -114,10 +112,10 @@ string ValidateAndFormat_facebook(string const & facebookPage)
     return {};
 
   url::Url const url = url::Url::FromString(facebookPage);
-  string const domain = strings::MakeLowerCase(url.GetHost());
+  std::string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Facebook domain name.
-  if (domain.starts_with(kFacebookDot) || domain.starts_with(kFbDot) || domain.find(".facebook.") != string::npos ||
-      domain.find(".fb.") != string::npos)
+  if (domain.starts_with(kFacebookDot) || domain.starts_with(kFbDot) ||
+      domain.find(".facebook.") != std::string::npos || domain.find(".fb.") != std::string::npos)
   {
     auto webPath = url.GetPath();
     // In case of https://www.facebook.com/profile.php?id=100085707580841 extract only ID.
@@ -135,7 +133,7 @@ string ValidateAndFormat_facebook(string const & facebookPage)
   return {};
 }
 
-string ValidateAndFormat_instagram(string const & instagramPage)
+std::string ValidateAndFormat_instagram(std::string const & instagramPage)
 {
   if (instagramPage.empty())
     return {};
@@ -151,7 +149,7 @@ string ValidateAndFormat_instagram(string const & instagramPage)
     return {};
 
   url::Url const url = url::Url::FromString(instagramPage);
-  string const domain = strings::MakeLowerCase(url.GetHost());
+  std::string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Instagram domain name: "instagram.com" or "*.instagram.com".
   if (domain == kInstagramCom || domain.ends_with(kDotInstagramCom))
   {
@@ -164,7 +162,7 @@ string ValidateAndFormat_instagram(string const & instagramPage)
   return {};
 }
 
-string ValidateAndFormat_twitter(string const & twitterPage)
+std::string ValidateAndFormat_twitter(std::string const & twitterPage)
 {
   if (twitterPage.empty())
     return {};
@@ -180,7 +178,7 @@ string ValidateAndFormat_twitter(string const & twitterPage)
     return {};
 
   url::Url const url = url::Url::FromString(twitterPage);
-  string const domain = strings::MakeLowerCase(url.GetHost());
+  std::string const domain = strings::MakeLowerCase(url.GetHost());
   // Check X domain name: "x.com", "*.x.com", "twitter.com" or "*.twitter.com".
   if (domain == kXCom || domain.ends_with(kDotXCom) || domain == kTwitterCom || domain.ends_with(kDotTwitterCom))
   {
@@ -196,7 +194,7 @@ string ValidateAndFormat_twitter(string const & twitterPage)
   return {};
 }
 
-string ValidateAndFormat_vk(string const & vkPage)
+std::string ValidateAndFormat_vk(std::string const & vkPage)
 {
   if (vkPage.empty())
     return {};
@@ -208,7 +206,7 @@ string ValidateAndFormat_vk(string const & vkPage)
     // - begins and ends with "_".
     // - contains a period with less than four symbols after it starting with a letter.
 
-    string vkPageClean = vkPage;
+    std::string vkPageClean = vkPage;
     if (vkPageClean.front() == '@')
       vkPageClean = vkPageClean.substr(1);
 
@@ -235,7 +233,7 @@ string ValidateAndFormat_vk(string const & vkPage)
 }
 
 // Strip '%40' and `@` chars from Line ID start.
-string stripAtSymbol(string const & lineId)
+std::string stripAtSymbol(std::string const & lineId)
 {
   if (lineId.empty())
     return lineId;
@@ -246,7 +244,7 @@ string stripAtSymbol(string const & lineId)
   return lineId;
 }
 
-string ValidateAndFormat_contactLine(string const & linePage)
+std::string ValidateAndFormat_contactLine(std::string const & linePage)
 {
   if (linePage.empty())
     return {};
@@ -257,7 +255,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
     // The page name must be between 4 and 20 characters. Should contain alphanumeric characters
     // and symbols '.', '-', and '_'
 
-    string linePageClean = stripAtSymbol(linePage);
+    std::string linePageClean = stripAtSymbol(linePage);
 
     if (regex_match(linePageClean, s_lineRegex))
       return linePageClean;
@@ -268,7 +266,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
 
   // URL schema documentation: https://developers.line.biz/en/docs/messaging-api/using-line-url-scheme/
   url::Url const url = url::Url::FromString(linePage);
-  string const domain = strings::MakeLowerCase(url.GetHost());
+  std::string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Line domain name.
   if (domain == kPageLineMe)
   {
@@ -278,7 +276,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
       return *id;
 
     // Parse https://page.line.me/{LINE ID}
-    string lineId = url.GetPath();
+    std::string lineId = url.GetPath();
     return stripAtSymbol(lineId);
   }
   else if (domain == kLineMe || domain.ends_with(kDotLineMe))
@@ -287,13 +285,13 @@ string ValidateAndFormat_contactLine(string const & linePage)
     if (webPath.starts_with("R/ti/p/"))
     {
       // Parse https://line.me/R/ti/p/{LINE ID}
-      string lineId = webPath.substr(7, webPath.length());
+      std::string lineId = webPath.substr(7, webPath.length());
       return stripAtSymbol(lineId);
     }
     if (webPath.starts_with("ti/p/"))
     {
       // Parse https://line.me/ti/p/{LINE ID}
-      string lineId = webPath.substr(5, webPath.length());
+      std::string lineId = webPath.substr(5, webPath.length());
       return stripAtSymbol(lineId);
     }
     if (webPath.starts_with("R/home/public/main") || webPath.starts_with("R/home/public/profile"))
@@ -313,7 +311,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
   return {};
 }
 
-bool ValidateWebsite(string const & site)
+bool ValidateWebsite(std::string const & site)
 {
   if (site.empty())
     return true;
@@ -327,16 +325,16 @@ bool ValidateWebsite(string const & site)
   if ('.' == site[startPos] || '.' == site.back())
     return false;
 
-  if (string::npos == site.find('.'))
+  if (std::string::npos == site.find('.'))
     return false;
 
-  if (string::npos != site.find(".."))
+  if (std::string::npos != site.find(".."))
     return false;
 
   return true;
 }
 
-bool ValidateFacebookPage(string const & page)
+bool ValidateFacebookPage(std::string const & page)
 {
   if (page.empty())
     return true;
@@ -353,13 +351,13 @@ bool ValidateFacebookPage(string const & page)
   if (!ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
+  std::string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   // Validate domain name: "facebook.*" or "fb.*" or "*.facebook.*" or "*.fb.*".
-  return (domain.starts_with(kFacebookDot) || domain.starts_with(kFbDot) || domain.find(".facebook.") != string::npos ||
-          domain.find(".fb.") != string::npos);
+  return (domain.starts_with(kFacebookDot) || domain.starts_with(kFbDot) ||
+          domain.find(".facebook.") != std::string::npos || domain.find(".fb.") != std::string::npos);
 }
 
-bool ValidateInstagramPage(string const & page)
+bool ValidateInstagramPage(std::string const & page)
 {
   if (page.empty())
     return true;
@@ -371,11 +369,11 @@ bool ValidateInstagramPage(string const & page)
   if (!ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
+  std::string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return domain == kInstagramCom || domain.ends_with(kDotInstagramCom);
 }
 
-bool ValidateTwitterPage(string const & page)
+bool ValidateTwitterPage(std::string const & page)
 {
   if (page.empty())
     return true;
@@ -383,11 +381,11 @@ bool ValidateTwitterPage(string const & page)
   if (!ValidateWebsite(page))
     return regex_match(page, s_twitterRegex);  // Rules are defined here: https://stackoverflow.com/q/11361044
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
+  std::string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return domain == kXCom || domain.ends_with(kDotXCom) || domain == kTwitterCom || domain.ends_with(kDotTwitterCom);
 }
 
-bool ValidateVkPage(string const & page)
+bool ValidateVkPage(std::string const & page)
 {
   if (page.empty())
     return true;
@@ -403,7 +401,7 @@ bool ValidateVkPage(string const & page)
     if (page.size() < 5)
       return false;
 
-    string vkLogin = page;
+    std::string vkLogin = page;
     if (vkLogin.front() == '@')
       vkLogin = vkLogin.substr(1);
 
@@ -416,11 +414,11 @@ bool ValidateVkPage(string const & page)
   if (!ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
+  std::string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   return domain == kVkCom || domain.ends_with(kDotVkCom) || domain == kVkontakteRu || domain.ends_with(kDotVkontakteRu);
 }
 
-bool ValidateLinePage(string const & page)
+bool ValidateLinePage(std::string const & page)
 {
   if (page.empty())
     return true;
@@ -438,12 +436,12 @@ bool ValidateLinePage(string const & page)
   if (!ValidateWebsite(page))
     return false;
 
-  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
+  std::string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   // Check Line domain name.
   return (domain == kLineMe || domain.ends_with(kDotLineMe));
 }
 
-bool isSocialContactTag(string_view tag)
+bool isSocialContactTag(std::string_view tag)
 {
   return tag == kInstagram || tag == kFacebook || tag == kTwitter || tag == kVk || tag == kLine;
 }
@@ -458,45 +456,45 @@ bool isSocialContactTag(MapObject::MetadataID const metaID)
 
 // Functions ValidateAndFormat_{facebook,instagram,twitter,vk}(...) by default strip domain name
 // from OSM data and user input. This function prepends domain name to generate full URL.
-string socialContactToURL(string_view tag, string_view value)
+std::string socialContactToURL(std::string_view tag, std::string_view value)
 {
   ASSERT(!value.empty(), ());
 
   if (tag == kInstagram)
-    return string{kUrlInstagram}.append(value);
+    return std::string{kUrlInstagram}.append(value);
   if (tag == kFacebook)
-    return string{kUrlFacebook}.append(value);
+    return std::string{kUrlFacebook}.append(value);
   if (tag == kTwitter)
-    return string{kUrlTwitter}.append(value);
+    return std::string{kUrlTwitter}.append(value);
   if (tag == kVk)
-    return string{kUrlVk}.append(value);
+    return std::string{kUrlVk}.append(value);
   if (tag == kLine)
   {
-    if (value.find('/') == string::npos)  // 'value' is a username.
-      return string{kUrlLine}.append(value);
+    if (value.find('/') == std::string::npos)  // 'value' is a username.
+      return std::string{kUrlLine}.append(value);
     else  // 'value' is an URL.
-      return string{kHttps}.append(value);
+      return std::string{kHttps}.append(value);
   }
 
-  return string{value};
+  return std::string{value};
 }
 
-string socialContactToURL(MapObject::MetadataID metaID, string_view value)
+std::string socialContactToURL(MapObject::MetadataID metaID, std::string_view value)
 {
   ASSERT(!value.empty(), ());
 
   switch (metaID)
   {
-  case MapObject::MetadataID::FMD_CONTACT_INSTAGRAM: return string{kUrlInstagram}.append(value);
-  case MapObject::MetadataID::FMD_CONTACT_FACEBOOK: return string{kUrlFacebook}.append(value);
-  case MapObject::MetadataID::FMD_CONTACT_TWITTER: return string{kUrlTwitter}.append(value);
-  case MapObject::MetadataID::FMD_CONTACT_VK: return string{kUrlVk}.append(value);
+  case MapObject::MetadataID::FMD_CONTACT_INSTAGRAM: return std::string{kUrlInstagram}.append(value);
+  case MapObject::MetadataID::FMD_CONTACT_FACEBOOK: return std::string{kUrlFacebook}.append(value);
+  case MapObject::MetadataID::FMD_CONTACT_TWITTER: return std::string{kUrlTwitter}.append(value);
+  case MapObject::MetadataID::FMD_CONTACT_VK: return std::string{kUrlVk}.append(value);
   case MapObject::MetadataID::FMD_CONTACT_LINE:
-    if (value.find('/') == string::npos)  // 'value' is a username.
-      return string{kUrlLine}.append(value);
+    if (value.find('/') == std::string::npos)  // 'value' is a username.
+      return std::string{kUrlLine}.append(value);
     else  // 'value' is an URL.
-      return string{kHttps}.append(value);
-  default: return string{value};
+      return std::string{kHttps}.append(value);
+  default: return std::string{value};
   }
 }
 

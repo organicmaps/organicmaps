@@ -22,11 +22,9 @@
 
 namespace search
 {
-using namespace std;
-
 // PreRankerResult ---------------------------------------------------------------------------------
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
-                                 vector<ResultTracer::Branch> const & provenance)
+                                 std::vector<ResultTracer::Branch> const & provenance)
   : m_id(id)
   , m_info(info)
   , m_isRelaxed(base::IsExist(provenance, ResultTracer::Branch::Relaxed))
@@ -110,7 +108,7 @@ bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & l
 
 std::string DebugPrint(PreRankerResult const & r)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "PreRankerResult "
      << "{ FID: " << r.GetId().m_index  // index is enough here for debug purpose
      << "; m_matchedTokensNumber: " << r.m_matchedTokensNumber << "; m_isRelaxed: " << r.m_isRelaxed << "; "
@@ -119,7 +117,8 @@ std::string DebugPrint(PreRankerResult const & r)
 }
 
 // RankerResult ------------------------------------------------------------------------------------
-RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, string displayName, string const & fileName)
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, std::string displayName,
+                           std::string const & fileName)
   : m_types(ft)
   , m_str(std::move(displayName))
   , m_id(ft.GetID())
@@ -145,7 +144,7 @@ RankerResult::RankerResult(double lat, double lon)
   m_region.SetParams({}, mercator::FromLatLon(lat, lon));
 }
 
-RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
+RankerResult::RankerResult(m2::PointD const & coord, std::string_view postcode)
   : m_str(postcode)
   , m_resultType(Type::Postcode)
 {
@@ -168,13 +167,13 @@ bool RankerResult::IsEqualCommon(RankerResult const & r) const
   return (IsEqualBasic(r) && GetBestType() == r.GetBestType());
 }
 
-uint32_t RankerResult::GetBestType(vector<uint32_t> const * preferredTypes /* = nullptr */) const
+uint32_t RankerResult::GetBestType(std::vector<uint32_t> const * preferredTypes /* = nullptr */) const
 {
   if (preferredTypes)
   {
-    ASSERT(is_sorted(preferredTypes->begin(), preferredTypes->end()), ());
+    ASSERT(std::is_sorted(preferredTypes->begin(), preferredTypes->end()), ());
     for (uint32_t type : m_types)
-      if (binary_search(preferredTypes->begin(), preferredTypes->end(), type))
+      if (std::binary_search(preferredTypes->begin(), preferredTypes->end(), type))
         return type;
   }
 
@@ -285,9 +284,9 @@ void RankerResult::FillDetails(FeatureType & ft, bool isBuilding, bool isHotel)
   m_details.m_description = std::move(description);
 }
 
-string DebugPrint(RankerResult const & r)
+std::string DebugPrint(RankerResult const & r)
 {
-  stringstream ss;
+  std::stringstream ss;
   ss << "RankerResult "
      << "{ FID: " << r.GetID().m_index  // index is enough here for debug purpose
      << "; Name: " << r.GetName() << "; Type: " << classif().GetReadableObjectName(r.GetBestType())

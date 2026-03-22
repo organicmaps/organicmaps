@@ -4,16 +4,14 @@
 
 namespace search
 {
-using namespace std;
-
 namespace
 {
 // Accumulates frequencies of equal tokens in |tfs|. Result is sorted
 // by tokens.
-void SortAndMerge(vector<strings::UniString> tokens, vector<TokenFrequencyPair> & tfs)
+void SortAndMerge(std::vector<strings::UniString> tokens, std::vector<TokenFrequencyPair> & tfs)
 {
   ASSERT(tfs.empty(), ());
-  sort(tokens.begin(), tokens.end());
+  std::sort(tokens.begin(), tokens.end());
   for (size_t i = 0; i < tokens.size(); ++i)
     if (tfs.empty() || tfs.back().m_token != tokens[i])
       tfs.emplace_back(tokens[i], 1 /* frequency */);
@@ -38,7 +36,7 @@ double GetSqrWeightImpl(IdfMap & idfs, TokenFrequencyPair const & tf, bool isPre
 }
 
 // Computes squared L2 norm of vector of tokens.
-double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs)
+double SqrL2(IdfMap & idfs, std::vector<TokenFrequencyPair> const & tfs)
 {
   double sum = 0;
   for (auto const & tf : tfs)
@@ -47,7 +45,8 @@ double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs)
 }
 
 // Computes squared L2 norm of vector of tokens + prefix token.
-double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs, optional<strings::UniString> const & prefix)
+double SqrL2(IdfMap & idfs, std::vector<TokenFrequencyPair> const & tfs,
+             std::optional<strings::UniString> const & prefix)
 {
   auto result = SqrL2(idfs, tfs);
   if (prefix)
@@ -67,12 +66,12 @@ bool TokenFrequencyPair::operator<(TokenFrequencyPair const & rhs) const
 void TokenFrequencyPair::Swap(TokenFrequencyPair & rhs)
 {
   m_token.swap(rhs.m_token);
-  swap(m_frequency, rhs.m_frequency);
+  std::swap(m_frequency, rhs.m_frequency);
 }
 
-string DebugPrint(TokenFrequencyPair const & tf)
+std::string DebugPrint(TokenFrequencyPair const & tf)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "TokenFrequencyPair [" << DebugPrint(tf.m_token) << ", " << tf.m_frequency << "]";
   return os.str();
 }
@@ -114,7 +113,7 @@ QueryVec::QueryVec(IdfMap & idfs, Builder const & builder) : m_idfs(&idfs), m_pr
 
 double QueryVec::Similarity(IdfMap & docIdfs, DocVec const & rhs)
 {
-  size_t kInvalidIndex = numeric_limits<size_t>::max();
+  size_t kInvalidIndex = std::numeric_limits<size_t>::max();
 
   if (Empty() && rhs.Empty())
     return 1.0;
@@ -122,7 +121,7 @@ double QueryVec::Similarity(IdfMap & docIdfs, DocVec const & rhs)
   if (Empty() || rhs.Empty())
     return 0.0;
 
-  vector<size_t> rsMatchTo(rhs.GetNumTokens(), kInvalidIndex);
+  std::vector<size_t> rsMatchTo(rhs.GetNumTokens(), kInvalidIndex);
 
   double dot = 0;
   {
@@ -183,7 +182,7 @@ double QueryVec::Similarity(IdfMap & docIdfs, DocVec const & rhs)
       // vector norms of query and doc.
       auto const oldW = GetPrefixTokenWeight();
       auto const newW = GetTfIdf(1 /* frequency */, rhs.GetIdf(docIdfs, j));
-      auto const l = max(0.0, ln - oldW * oldW + newW * newW);
+      auto const l = std::max(0.0, ln - oldW * oldW + newW * newW);
 
       num = dot + newW * rhs.GetWeight(docIdfs, j);
       denom = sqrt(l) * sqrt(rn);
@@ -208,10 +207,10 @@ double QueryVec::Similarity(IdfMap & docIdfs, DocVec const & rhs)
     }
 
     if (denom > 0)
-      similarityWithPrefix = max(similarityWithPrefix, num / denom);
+      similarityWithPrefix = std::max(similarityWithPrefix, num / denom);
   }
 
-  return max(similarityWithPrefix, similarityNoPrefix);
+  return std::max(similarityWithPrefix, similarityNoPrefix);
 }
 
 double QueryVec::Norm()

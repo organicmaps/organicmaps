@@ -12,14 +12,12 @@
 
 namespace search
 {
-using namespace std;
-
 // static
 FeaturesLayerPathFinder::Mode FeaturesLayerPathFinder::m_mode = MODE_AUTO;
 
 namespace
 {
-using ParentGraph = deque<unordered_map<uint32_t, uint32_t>>;
+using ParentGraph = std::deque<std::unordered_map<uint32_t, uint32_t>>;
 
 // This function tries to estimate amount of work needed to perform an
 // intersection pass on a sequence of layers.
@@ -31,27 +29,27 @@ uint64_t CalcPassCost(It begin, It end)
   if (begin == end)
     return cost;
 
-  uint64_t reachable = max((*begin)->m_sortedFeatures->size(), size_t(1));
+  uint64_t reachable = std::max((*begin)->m_sortedFeatures->size(), size_t(1));
   for (++begin; begin != end; ++begin)
   {
-    uint64_t const layer = max((*begin)->m_sortedFeatures->size(), size_t(1));
+    uint64_t const layer = std::max((*begin)->m_sortedFeatures->size(), size_t(1));
     cost += layer * reachable;
-    reachable = min(reachable, layer);
+    reachable = std::min(reachable, layer);
   }
   return cost;
 }
 
-uint64_t CalcTopDownPassCost(vector<FeaturesLayer const *> const & layers)
+uint64_t CalcTopDownPassCost(std::vector<FeaturesLayer const *> const & layers)
 {
   return CalcPassCost(layers.rbegin(), layers.rend());
 }
 
-uint64_t CalcBottomUpPassCost(vector<FeaturesLayer const *> const & layers)
+uint64_t CalcBottomUpPassCost(std::vector<FeaturesLayer const *> const & layers)
 {
   return CalcPassCost(layers.begin(), layers.end());
 }
 
-bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, ParentGraph const & parent,
+bool GetPath(uint32_t id, std::vector<FeaturesLayer const *> const & layers, ParentGraph const & parent,
              IntersectionResult & result)
 {
   result.Clear();
@@ -80,7 +78,7 @@ bool MayHaveDelayedFeatures(FeaturesLayer const & layer)
 
 template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & matcher,
-                                                    vector<FeaturesLayer const *> const & layers, FnT && fn)
+                                                    std::vector<FeaturesLayer const *> const & layers, FnT && fn)
 {
   switch (m_mode)
   {
@@ -102,12 +100,12 @@ void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & match
 
 template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
-                                                           vector<FeaturesLayer const *> const & layers, FnT && fn)
+                                                           std::vector<FeaturesLayer const *> const & layers, FnT && fn)
 {
   ASSERT(!layers.empty(), ());
 
-  vector<uint32_t> reachable = *(layers.back()->m_sortedFeatures);
-  vector<uint32_t> buffer;
+  std::vector<uint32_t> reachable = *(layers.back()->m_sortedFeatures);
+  std::vector<uint32_t> buffer;
 
   ParentGraph parentGraph;
 
@@ -152,12 +150,13 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(FeaturesLayerMatcher 
 
 template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
-                                                            vector<FeaturesLayer const *> const & layers, FnT && fn)
+                                                            std::vector<FeaturesLayer const *> const & layers,
+                                                            FnT && fn)
 {
   ASSERT(!layers.empty(), ());
 
-  vector<uint32_t> reachable = *(layers.front()->m_sortedFeatures);
-  vector<uint32_t> buffer;
+  std::vector<uint32_t> reachable = *(layers.front()->m_sortedFeatures);
+  std::vector<uint32_t> buffer;
 
   ParentGraph parentGraph;
 
@@ -167,7 +166,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(FeaturesLayerMatcher
   // only one level, we must make sure that it is nonempty.
   // This problem does not arise in the top-down pass because there
   // the last reached level is exactly the lowest one.
-  vector<uint32_t> lowestLevel = reachable;
+  std::vector<uint32_t> lowestLevel = reachable;
   // True iff |addEdge| works with the lowest level.
   bool first = true;
 
