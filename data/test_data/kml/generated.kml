@@ -236,7 +236,7 @@
     <description>Test bookmark description</description>
     <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>
     <styleUrl>#placemark-blue</styleUrl>
-    <Point><coordinates>45.9242,49.326859</coordinates></Point>
+    <Point><coordinates>45.9242,49.3268593</coordinates></Point>
     <ExtendedData xmlns:mwm="https://omaps.app">
       <mwm:name>
         <mwm:lang code="ru">Тестовая метка</mwm:lang>
@@ -277,7 +277,7 @@
       <width>6</width>
     </LineStyle></Style>
     <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
-    <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
+    <LineString><coordinates>45.9242,49.3268593,1 45.2244,48.9412882,2 45.1964,49.4019479,3</coordinates></LineString>
     <ExtendedData xmlns:mwm="https://omaps.app">
       <mwm:name>
         <mwm:lang code="ru">Тестовый трек</mwm:lang>

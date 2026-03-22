@@ -4,8 +4,6 @@
 
 #include "base/string_utils.hpp"
 
-#include <sstream>
-
 namespace kml
 {
 
@@ -14,11 +12,8 @@ std::string PointToString(m2::PointD const & org, char const separator)
   double const lon = mercator::XToLon(org.x);
   double const lat = mercator::YToLat(org.y);
 
-  std::ostringstream ss;
-  ss.precision(8);
-
-  ss << lon << separator << lat;
-  return ss.str();
+  uint8_t constexpr kDigitsAfterComma = 6;
+  return strings::to_string_dac(lon, kDigitsAfterComma) + separator + strings::to_string_dac(lat, kDigitsAfterComma);
 }
 
 std::string PointToLineString(geometry::PointWithAltitude const & pt)
