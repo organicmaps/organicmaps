@@ -106,10 +106,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
   for (uint32_t id : ft.GetRelations())
   {
     auto const rel = ft.ReadRelation(id);
-    auto const type = rel.GetType();
-
-    using RR = feature::RouteRelationBase;
-    if (type == RR::Type::Bus || type == RR::Type::Tram || type == RR::Type::Trolleybus)
+    if (rel.IsPTRoute())
       m_routes.push_back(RouteRef(rel.GetRef(), id));
   }
 
@@ -121,10 +118,18 @@ void Info::SetFromFeatureType(FeatureType & ft)
   }, [](RouteRef const & l, RouteRef const & r) { return l.m_ref == r.m_ref; });
 }
 
-Info::RouteRef::RouteRef(std::string const & ref, uint32_t relID) : m_ref(ref), m_relID(relID)
+Info::RouteRef::RouteRef(std::string const & ref, uint32_t relID) : m_ref(ref), m_iRef(0), m_relID(relID)
 {
-  char * stop;
-  m_iRef = std::strtol(m_ref.c_str(), &stop, 10);
+  // May be "S10" or "12A".
+  /// @todo Sort by prefix if it is different (unlikely).
+  auto it = base::FindIf(ref, &strings::IsASCIIDigit<char>);
+  if (it != ref.end())
+  {
+    auto const [_, ec] = std::from_chars(std::to_address(it), std::to_address(ref.end()), m_iRef, 10);
+    if (ec != std::errc())
+      m_iRef = 0;
+  }
+  // Set max _possible_ value to be placed at the end.
   if (m_iRef == 0)
     m_iRef = 1000000;
 }

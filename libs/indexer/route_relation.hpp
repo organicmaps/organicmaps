@@ -28,7 +28,18 @@ public:
     Train,
     Tram,
     Trolleybus,
+
+    Ferry,
+    Subway,
+    ShareTaxi,  // Маршрутка :)
+    LightRail,
+    Aerialway,
+    Funicular,
+    Monorail,
+
+    // This type is stored as 1 byte, so keep the order! and append to the end.
   };
+
   enum IdxAndFlags : uint8_t
   {
     CycleNetworkIdx = 0,
@@ -45,15 +56,17 @@ public:
 
   static constexpr dp::Color kEmptyColor = dp::Color::Transparent();
 
+public:
+  RouteRelationBase() = default;
+
   void SetParam(std::string_view s, IdxAndFlags idx) { m_params[idx] = s; }
   std::string_view GetParam(IdxAndFlags idx) const { return m_params[idx]; }
 
   Type GetType() const { return m_type; }
+  bool IsPTRoute() const { return m_type >= Type::Bus && m_type <= Type::Monorail; }
   dp::Color GetColor() const { return m_color; }
   std::string const & GetRef() const { return m_ref; }
   std::string const & GetNetwork() const { return m_network; }
-
-  RouteRelationBase() = default;
 
   /// @todo Can optimize by storing color as an index in a palette (1 byte).
 

@@ -32,8 +32,7 @@ void RelationsDrawInfo::Init(FeatureType & ft)
     auto const rel = ft.ReadRelation(relID);
     auto const type = rel.GetType();
     if ((m_sett.hiking && (type == RR::Type::Foot || type == RR::Type::Hiking)) ||
-        (m_sett.cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)) ||
-        (m_sett.PT && (type == RR::Type::Bus || type == RR::Type::Tram || type == RR::Type::Trolleybus)))
+        (m_sett.cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)) || (m_sett.PT && rel.IsPTRoute()))
     {
       auto clr = rel.GetColor();
       if (clr == kEmptyColor)
