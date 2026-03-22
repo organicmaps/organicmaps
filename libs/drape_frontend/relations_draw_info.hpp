@@ -13,9 +13,17 @@ namespace df
 {
 struct RelationsDrawSettings
 {
+  static std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
+  static std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
+
   bool hiking : 1 = false;
   bool cycling : 1 = false;
   bool PT : 1 = false;
+
+  void Load();
+
+  bool IsEmpty() const { return !hiking && !cycling && !PT; }
+  bool MatchHikingOrCycling(feature::RouteRelationBase::Type type) const;
 };
 
 class RelationsDrawInfo

@@ -917,8 +917,18 @@ FeatureType::RelationIDsV const & FeatureType::GetRelations()
 }
 
 /// @pre id is from m_relationIDs.
-feature::RouteRelationBase FeatureType::ReadRelation(uint32_t id)
+/// @{
+RouteRelationBase::Type FeatureType::ReadRelationType(uint32_t id)
 {
-  ParseRelations();
-  return m_loadInfo->ReadRelation(id);
+  return m_loadInfo->ReadRelation<RouteRelationType>(id).m_type;
 }
+
+template <class RelT>
+RelT FeatureType::ReadRelation(uint32_t id)
+{
+  return m_loadInfo->ReadRelation<RelT>(id);
+}
+/// @}
+
+template RouteRelationBase FeatureType::ReadRelation<RouteRelationBase>(uint32_t id);
+template RouteRelation FeatureType::ReadRelation<RouteRelation>(uint32_t id);
