@@ -2,6 +2,7 @@
 
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/route_relation.hpp"
 
 #include "defines.hpp"
 
@@ -31,15 +32,28 @@ SharedLoadInfo::Reader SharedLoadInfo::GetTrianglesReader(size_t ind) const
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
 }
 
-RouteRelationBase SharedLoadInfo::ReadRelation(uint32_t id) const
+template <class RelT>
+RelT SharedLoadInfo::ReadRelation(uint32_t id) const
 {
   auto reader = m_cont.GetReader(RELATIONS_FILE_TAG);
   ReaderSource src(reader);
   src.Skip(m_relTable->GetFeatureOffset(id));
 
-  RouteRelationBase res;
+  RelT res;
+
+  if constexpr (std::is_same_v<RelT, RouteRelation>)
+    if (m_version < DatSectionHeader::Version::V2)
+    {
+      res.RouteRelationBase::Read(src);
+      return res;
+    }
+
   res.Read(src);
   return res;
 }
+
+template RouteRelationType SharedLoadInfo::ReadRelation<RouteRelationType>(uint32_t id) const;
+template RouteRelationBase SharedLoadInfo::ReadRelation<RouteRelationBase>(uint32_t id) const;
+template RouteRelation SharedLoadInfo::ReadRelation<RouteRelation>(uint32_t id) const;
 
 }  // namespace feature

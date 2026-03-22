@@ -105,7 +105,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
 
   for (uint32_t id : ft.GetRelations())
   {
-    auto const rel = ft.ReadRelation(id);
+    auto const rel = ft.ReadRelation<feature::RouteRelationBase>(id);
     if (rel.IsPTRoute())
       m_routes.push_back(RouteRef(rel.GetRef(), id));
   }

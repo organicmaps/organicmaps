@@ -11,7 +11,8 @@ public:
   {
     V0 = 0,
     V1,  // 2025.06, get some free bits in Feature::Header2
-    Latest = V1
+    V2,  // 2026.03, RouteRelation keep members order, prev + ReadVarInt.
+    Latest = V2
   };
 
   template <typename Sink>

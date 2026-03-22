@@ -7,9 +7,6 @@
 
 #include "drape/pointers.hpp"
 
-std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
-std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
-
 namespace dp
 {
 class TextureManager;
