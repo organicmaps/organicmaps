@@ -43241,7 +43241,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "remains-s"
+      name: "city_gate-s"
       priority: 5200
       min_distance: 12
     }
@@ -43258,7 +43258,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "remains-s"
+      name: "city_gate-s"
       priority: 5200
       min_distance: 12
     }
