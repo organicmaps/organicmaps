@@ -11,8 +11,6 @@
 #include "routing/route.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
 #include "search/editor_delegate.hpp"
 #include "search/engine.hpp"
 #include "search/locality_finder.hpp"
@@ -23,8 +21,8 @@
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/gps_track_point.hpp"
+#include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -2683,24 +2681,24 @@ void Framework::SaveOutdoorsEnabled(bool enabled)
 bool Framework::IsHikingEnabled()
 {
   bool enabled;
-  return settings::Get(kHikingEnabledKey, enabled) && enabled;
+  return settings::Get(df::RelationsDrawSettings::kHikingEnabledKey, enabled) && enabled;
 }
 
 void Framework::SetHikingEnabled(bool enabled)
 {
-  settings::Set(kHikingEnabledKey, enabled);
+  settings::Set(df::RelationsDrawSettings::kHikingEnabledKey, enabled);
   Invalidate();
 }
 
 bool Framework::IsCyclingEnabled()
 {
   bool enabled;
-  return settings::Get(kCyclingEnabledKey, enabled) && enabled;
+  return settings::Get(df::RelationsDrawSettings::kCyclingEnabledKey, enabled) && enabled;
 }
 
 void Framework::SetCyclingEnabled(bool enabled)
 {
-  settings::Set(kCyclingEnabledKey, enabled);
+  settings::Set(df::RelationsDrawSettings::kCyclingEnabledKey, enabled);
   Invalidate();
 }
 

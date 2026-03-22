@@ -197,7 +197,12 @@ public:
   using RelationIDsV = feature::ShortArray;
   RelationIDsV const & GetRelations();
 
-  feature::RouteRelationBase ReadRelation(uint32_t id);
+  /// Fast function to for preliminary filtering by type.
+  feature::RouteRelationBase::Type ReadRelationType(uint32_t id);
+
+  /// @param[in] RelT Can be RouteRelationBase (fast) or RouteRelation (with members).
+  template <class RelT>
+  RelT ReadRelation(uint32_t id);
 
 private:
   struct ParsedFlags

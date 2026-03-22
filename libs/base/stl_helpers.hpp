@@ -152,6 +152,12 @@ bool IsExist(Cont const & c, T const & t)
   return std::find(std::cbegin(c), end, t) != end;
 }
 
+template <typename Cont, typename T>
+bool BinarySearch(Cont const & c, T const & t)
+{
+  return std::binary_search(std::cbegin(c), std::cend(c), t);
+}
+
 template <class MapT, class K, class V>
 auto EmplaceOrAssign(MapT & theMap, K && k, V && v)
 {
