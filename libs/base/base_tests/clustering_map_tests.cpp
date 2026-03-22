@@ -9,6 +9,8 @@
 #include <utility>
 #include <vector>
 
+namespace clustering_map_tests
+{
 using namespace base;
 using namespace std;
 
@@ -175,3 +177,4 @@ UNIT_TEST(ClusteringMap_ForEach)
   }
 }
 }  // namespace
+}  // namespace clustering_map_tests

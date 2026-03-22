@@ -11,13 +11,13 @@
 #include <cstdint>
 #include <vector>
 
+namespace transit_test
+{
 using namespace routing;
 using namespace routing::transit;
 using namespace std;
 
-namespace routing
-{
-namespace transit
+namespace
 {
 auto constexpr kTransitHeaderVersion = static_cast<uint16_t>(::transit::TransitVersion::OnlySubway);
 
@@ -82,11 +82,8 @@ UNIT_TEST(Transit_HeaderRewriting)
 
   TEST(deserializedHeader.IsEqualForTesting(bigHeader), (deserializedHeader, bigHeader));
 }
-}  // namespace transit
-}  // namespace routing
+}  // namespace
 
-namespace
-{
 UNIT_TEST(Transit_CheckValidSortedUnique)
 {
   vector<Network> const networks = {Network(1 /* id */, "Title 1"), Network(2 /* id */, "Title 2")};
@@ -305,4 +302,4 @@ UNIT_TEST(Transit_NetworkSerialization)
   TestSerialization(network);
   TEST(network.IsValid(), (network));
 }
-}  // namespace
+}  // namespace transit_test

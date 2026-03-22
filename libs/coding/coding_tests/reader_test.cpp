@@ -12,6 +12,8 @@
 #include <memory>
 #include <string>
 
+namespace reader_test
+{
 using namespace std;
 
 namespace
@@ -120,3 +122,4 @@ UNIT_TEST(ReaderStreamBuf)
 
   FileWriter::DeleteFileX(name);
 }
+}  // namespace reader_test

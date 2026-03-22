@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+namespace rank_table_test
+{
 using namespace std;
 
 namespace
@@ -105,3 +107,4 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 
   TestTable(ranks, mapPath);
 }
+}  // namespace rank_table_test

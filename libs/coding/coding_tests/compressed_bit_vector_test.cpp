@@ -10,6 +10,8 @@
 #include <set>
 #include <vector>
 
+namespace compressed_bit_vector_test
+{
 using namespace std;
 
 namespace
@@ -453,3 +455,4 @@ UNIT_TEST(CompressedBitVector_SparseLeaveFirstNBits)
   for (uint64_t bit = 0; bit < (1 << 10); ++bit)
     TEST(!cbv->GetBit(bit), (bit));
 }
+}  // namespace compressed_bit_vector_test

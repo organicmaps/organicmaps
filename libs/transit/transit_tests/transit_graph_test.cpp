@@ -10,6 +10,8 @@
 #include <utility>
 #include <vector>
 
+namespace transit_graph_test
+{
 using namespace routing;
 using namespace routing::transit;
 using namespace std;
@@ -773,3 +775,4 @@ UNIT_TEST(ClipGraph_TwoLinesTest)
   TestGraph(*graph, *expectedGraph);
 }
 }  // namespace
+}  // namespace transit_graph_test

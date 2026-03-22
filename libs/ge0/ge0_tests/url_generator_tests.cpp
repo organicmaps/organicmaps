@@ -5,22 +5,23 @@
 
 #include <string>
 
+namespace url_generator_tests
+{
+using namespace ge0;
 using namespace std;
 
 namespace
 {
-int const kTestCoordBytes = 9;
-double const kEps = 1e-10;
-}  // namespace
+int constexpr kTestCoordBytes = 9;
+double constexpr kEps = 1e-10;
 
-namespace ge0
-{
 string TestLatLonToStr(double lat, double lon)
 {
   static char s[kTestCoordBytes + 1] = {0};
   LatLonToString(lat, lon, s, kTestCoordBytes);
   return string(s);
 }
+}  // namespace
 
 UNIT_TEST(Base64Char)
 {
@@ -359,4 +360,4 @@ UNIT_TEST(GenerateGeoUri_SmokeTest)
   TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
 }
 
-}  // namespace ge0
+}  // namespace url_generator_tests

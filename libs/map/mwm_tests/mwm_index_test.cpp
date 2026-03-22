@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+namespace mwm_index_test
+{
 using namespace std;
 
 namespace
@@ -73,3 +75,4 @@ UNIT_TEST(ForEachFeatureID_Test)
   // TEST(RunTest("Belarus", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
   TEST(RunTest("minsk-pass", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
 }
+}  // namespace mwm_index_test

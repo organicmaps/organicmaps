@@ -6,6 +6,8 @@
 #include <random>
 #include <string>
 
+namespace bwt_tests
+{
 using namespace coding;
 using namespace std;
 
@@ -88,3 +90,4 @@ UNIT_TEST(RevBWT_AllBytes)
   TEST_EQUAL(s, RevRevBWT(s), ());
 }
 }  // namespace
+}  // namespace bwt_tests

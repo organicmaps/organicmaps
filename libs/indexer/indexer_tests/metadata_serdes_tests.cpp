@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+namespace metadata_serdes_tests
+{
 using namespace feature;
 using namespace indexer;
 using namespace std;
@@ -79,3 +81,4 @@ UNIT_TEST(MetadataSerDesTest_Smoke)
   }
 }
 }  // namespace
+}  // namespace metadata_serdes_tests

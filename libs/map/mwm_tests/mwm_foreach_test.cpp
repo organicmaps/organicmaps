@@ -21,10 +21,9 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-namespace mwm_for_each_test
+namespace mwm_foreach_test
 {
+using namespace std;
 using Cont = vector<uint32_t>;
 
 bool IsDrawable(FeatureType & f, int scale)
@@ -312,4 +311,4 @@ void RunTest(string const & countryFileName)
 //   RunTest("minsk-pass");
 // }
 
-}  // namespace mwm_for_each_test
+}  // namespace mwm_foreach_test

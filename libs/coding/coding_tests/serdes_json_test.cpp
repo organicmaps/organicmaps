@@ -15,6 +15,8 @@
 #include <unordered_set>
 #include <vector>
 
+namespace serdes_json_test
+{
 using namespace std;
 
 namespace
@@ -263,3 +265,4 @@ UNIT_TEST(SerdesJsonTest)
     TEST(TestSerDes(objectsMap), ());
   }
 }
+}  // namespace serdes_json_test

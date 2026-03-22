@@ -4,6 +4,8 @@
 
 #include <string>
 
+namespace country_name_getter_tests
+{
 using namespace std;
 
 UNIT_TEST(CountryNameGetterTest)
@@ -29,3 +31,4 @@ UNIT_TEST(CountryNameGetterTest)
   TEST_EQUAL(string("Ростов-на-Дону"), getter("Russia_Rostov-on-Don"), ());
   TEST_EQUAL(string("Russia_Murmansk"), getter("Russia_Murmansk"), ());
 }
+}  // namespace country_name_getter_tests

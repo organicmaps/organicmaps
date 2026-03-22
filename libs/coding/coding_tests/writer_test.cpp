@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+namespace writer_test
+{
 using namespace std;
 
 namespace
@@ -257,3 +259,4 @@ UNIT_TEST(MemWriter_Chunks)
     ReadTestData(r);
   }
 }
+}  // namespace writer_test

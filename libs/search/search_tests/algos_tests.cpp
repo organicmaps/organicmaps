@@ -6,6 +6,8 @@
 #include <iterator>
 #include <vector>
 
+namespace algos_tests
+{
 using namespace std;
 
 namespace
@@ -48,3 +50,4 @@ UNIT_TEST(LS_Smoke)
     TestLongestSequence(arr, ARRAY_SIZE(arr), res);
   }
 }
+}  // namespace algos_tests

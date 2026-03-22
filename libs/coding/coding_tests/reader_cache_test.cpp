@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+namespace reader_cache_test
+{
 using namespace std;
 
 namespace
@@ -47,3 +49,4 @@ UNIT_TEST(CacheReaderRandomTest)
     TEST_EQUAL(readMem, readCache, (pos, len, i));
   }
 }
+}  // namespace reader_cache_test

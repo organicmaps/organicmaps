@@ -7,6 +7,8 @@
 #include <iterator>
 #include <vector>
 
+namespace string_slice_tests
+{
 using namespace search;
 using namespace std;
 using namespace strings;
@@ -76,3 +78,4 @@ UNIT_TEST(JoinIterator_Smoke)
   }
 }
 }  // namespace
+}  // namespace string_slice_tests

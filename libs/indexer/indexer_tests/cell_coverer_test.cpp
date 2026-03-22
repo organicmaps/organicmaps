@@ -11,6 +11,8 @@
 
 #include <vector>
 
+namespace cell_coverer_test
+{
 using namespace std;
 
 // Unit test uses m2::CellId<30> for historical reasons, the actual production code uses RectId.
@@ -64,3 +66,4 @@ UNIT_TEST(MaxDepthCoverSpiral)
     TEST_EQUAL(cells[0].Level(), levelMax, ());
   }
 }
+}  // namespace cell_coverer_test

@@ -26,6 +26,8 @@
 #include <memory>
 #include <string>
 
+namespace search_api_tests
+{
 using namespace search::tests_support;
 using namespace generator::tests_support;
 using namespace search;
@@ -270,3 +272,4 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   runTest(query, kml::MarkGroupId(11), {});
 }
 }  // namespace
+}  // namespace search_api_tests

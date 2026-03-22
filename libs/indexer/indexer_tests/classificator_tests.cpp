@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+namespace classificator_tests
+{
 using namespace generator::tests_support;
 using namespace std;
 
@@ -102,3 +104,4 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
   TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ());  // Restored underground-fee
   TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
 }
+}  // namespace classificator_tests

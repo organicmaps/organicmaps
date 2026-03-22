@@ -9,6 +9,8 @@
 #include <memory>
 #include <vector>
 
+namespace read_features_tests
+{
 using namespace std;
 
 UNIT_TEST(ReadFeatures_Smoke)
@@ -35,3 +37,4 @@ UNIT_TEST(ReadFeatures_Smoke)
     ft1->ForEachType([](auto const /* t */) {});
   }
 }
+}  // namespace read_features_tests

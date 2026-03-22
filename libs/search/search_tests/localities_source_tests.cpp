@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+namespace localities_source_tests
+{
 using namespace std;
 using generator::tests_support::TestWithClassificator;
 
@@ -45,3 +47,4 @@ UNIT_CLASS_TEST(TestWithClassificator, Smoke)
 
   TEST_EQUAL(expectedTypes, localitiesSourceTypes, ());
 }
+}  // namespace localities_source_tests

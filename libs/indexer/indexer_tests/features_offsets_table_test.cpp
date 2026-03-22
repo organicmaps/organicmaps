@@ -17,11 +17,12 @@
 #include <memory>
 #include <string>
 
+namespace features_offsets_table_test
+{
+using namespace feature;
 using namespace platform;
 using namespace std;
 
-namespace feature
-{
 UNIT_TEST(FeaturesOffsetsTable_Empty)
 {
   FeaturesOffsetsTable::Builder builder;
@@ -91,4 +92,4 @@ UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
   for (uint64_t i = 0; i < table->size(); ++i)
     TEST_EQUAL(table->GetFeatureOffset(i), loadedTable->GetFeatureOffset(i), ());
 }
-}  // namespace feature
+}  // namespace features_offsets_table_test

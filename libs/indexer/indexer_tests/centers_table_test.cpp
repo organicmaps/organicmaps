@@ -21,6 +21,8 @@
 #include <utility>
 #include <vector>
 
+namespace centers_table_test
+{
 using namespace search;
 using namespace std;
 
@@ -154,3 +156,4 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
   }
 }
 }  // namespace
+}  // namespace centers_table_test

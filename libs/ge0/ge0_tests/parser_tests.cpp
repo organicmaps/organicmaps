@@ -8,15 +8,15 @@
 #include <algorithm>
 #include <string>
 
+namespace parser_tests
+{
+using namespace ge0;
 using namespace std;
 
 namespace
 {
-double const kZoomEps = 1e-10;
-}  // namespace
+double constexpr kZoomEps = 1e-10;
 
-namespace ge0
-{
 class Ge0ParserForTest : public Ge0Parser
 {
 public:
@@ -54,7 +54,7 @@ void TestSuccess(char const * s, double lat, double lon, double zoom, char const
   double const lonEps = GetLonEpsilon(9);
   TEST_ALMOST_EQUAL_ABS(parseResult.m_lat, lat, latEps, (s, parseResult));
   TEST_ALMOST_EQUAL_ABS(parseResult.m_lon, lon, lonEps, (s, parseResult));
-  TEST_ALMOST_EQUAL_ABS(parseResult.m_zoomLevel, zoom, kZoomEps, (s, parseResult));
+  TEST_ALMOST_EQUAL_ABS(parseResult.m_zoomLevel, zoom, ::parser_tests::kZoomEps, (s, parseResult));
 }
 
 void TestFailure(char const * s)
@@ -78,6 +78,7 @@ bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
   }
   return AlmostEqualAbs(lat, tmpLat, latEps) && AlmostEqualAbs(lon, tmpLon, lonEps);
 }
+}  // namespace
 
 UNIT_TEST(Base64DecodingWorksForAValidChar)
 {
@@ -229,7 +230,7 @@ UNIT_TEST(NameDecoding)
     double const lonEps = GetLonEpsilon(9);
     TEST_ALMOST_EQUAL_ABS(parseResult.m_lat, lat, latEps, (url, parseResult));
     TEST_ALMOST_EQUAL_ABS(parseResult.m_lon, lon, lonEps, (url, parseResult));
-    TEST_ALMOST_EQUAL_ABS(parseResult.m_zoomLevel, zoom, kZoomEps, (url, parseResult));
+    TEST_ALMOST_EQUAL_ABS(parseResult.m_zoomLevel, zoom, ::parser_tests::kZoomEps, (url, parseResult));
   }
 }
 
@@ -311,4 +312,4 @@ UNIT_TEST(OtherPrefixes)
   TestSuccess("https://omaps.app/Byqqqqqqqq", 45, 0, 4.25, "");
   TestFailure("https://omaps.app/Byqqqqqqq");
 }
-}  // namespace ge0
+}  // namespace parser_tests

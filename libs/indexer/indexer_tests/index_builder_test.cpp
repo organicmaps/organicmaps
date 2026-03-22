@@ -18,6 +18,8 @@
 #include <string>
 #include <vector>
 
+namespace index_builder_test
+{
 using namespace std;
 
 UNIT_TEST(BuildIndexTest)
@@ -64,3 +66,4 @@ UNIT_TEST(BuildIndexTest)
   // Clean after the test.
   FileWriter::DeleteFileX(filePath);
 }
+}  // namespace index_builder_test

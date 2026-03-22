@@ -17,6 +17,8 @@
 #include <string>
 #include <vector>
 
+namespace mem_search_index_tests
+{
 using namespace search_base;
 using namespace search;
 using namespace std;
@@ -107,3 +109,4 @@ UNIT_CLASS_TEST(MemSearchIndexTest, Smoke)
   TEST_EQUAL(StrictQuery("question", "en"), vector<Id>{}, ());
 }
 }  // namespace
+}  // namespace mem_search_index_tests

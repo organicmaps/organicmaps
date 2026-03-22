@@ -8,13 +8,12 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-using namespace generator::tests_support;
-
 namespace search
 {
 namespace tests_support
 {
+using generator::tests_support::TestFeature;
+
 ExactMatchingRule::ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature const & feature)
   : m_mwmId(mwmId)
   , m_feature(feature)
@@ -27,14 +26,14 @@ bool ExactMatchingRule::Matches(FeatureType & feature) const
   return m_feature.Matches(feature);
 }
 
-string ExactMatchingRule::ToString() const
+std::string ExactMatchingRule::ToString() const
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "ExactMatchingRule [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(m_feature) << " ]";
   return os.str();
 }
 
-AlternativesMatchingRule::AlternativesMatchingRule(vector<shared_ptr<MatchingRule>> && rules)
+AlternativesMatchingRule::AlternativesMatchingRule(std::vector<std::shared_ptr<MatchingRule>> && rules)
   : m_rules(std::move(rules))
 {}
 
@@ -46,9 +45,9 @@ bool AlternativesMatchingRule::Matches(FeatureType & feature) const
   return false;
 }
 
-string AlternativesMatchingRule::ToString() const
+std::string AlternativesMatchingRule::ToString() const
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "OrRule [ ";
   for (auto it = m_rules.cbegin(); it != m_rules.cend(); ++it)
   {
@@ -60,16 +59,16 @@ string AlternativesMatchingRule::ToString() const
   return os.str();
 }
 
-bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules,
-                  vector<search::Result> const & actual)
+bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
+                  std::vector<search::Result> const & actual)
 {
-  vector<FeatureID> resultIds;
+  std::vector<FeatureID> resultIds;
   resultIds.reserve(actual.size());
   for (auto const & a : actual)
     resultIds.push_back(a.GetFeatureID());
-  sort(resultIds.begin(), resultIds.end());
+  std::sort(resultIds.begin(), resultIds.end());
 
-  vector<string> unexpected;
+  std::vector<std::string> unexpected;
   auto removeMatched = [&rules, &unexpected](FeatureType & feature)
   {
     for (auto it = rules.begin(); it != rules.end(); ++it)
@@ -87,39 +86,40 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
   if (rules.empty() && unexpected.empty())
     return true;
 
-  ostringstream os;
-  os << "Unsatisfied rules:" << endl;
+  std::ostringstream os;
+  os << "Unsatisfied rules:" << std::endl;
   for (auto const & e : rules)
-    os << "  " << DebugPrint(*e) << endl;
-  os << "Unexpected retrieved features:" << endl;
+    os << "  " << DebugPrint(*e) << std::endl;
+  os << "Unexpected retrieved features:" << std::endl;
   for (auto const & u : unexpected)
-    os << "  " << u << endl;
+    os << "  " << u << std::endl;
 
   LOG(LWARNING, (os.str()));
   return false;
 }
 
-bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules, search::Results const & actual)
+bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
+                  search::Results const & actual)
 {
-  vector<search::Result> const results(actual.begin(), actual.end());
+  std::vector<search::Result> const results(actual.begin(), actual.end());
   return MatchResults(dataSource, rules, results);
 }
 
-bool ResultMatches(DataSource const & dataSource, shared_ptr<MatchingRule> rule, search::Result const & result)
+bool ResultMatches(DataSource const & dataSource, std::shared_ptr<MatchingRule> rule, search::Result const & result)
 {
   bool matches = false;
   dataSource.ReadFeature([&](FeatureType & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
   return matches;
 }
 
-bool AlternativeMatch(DataSource const & dataSource, vector<vector<shared_ptr<MatchingRule>>> rulesList,
+bool AlternativeMatch(DataSource const & dataSource, std::vector<std::vector<std::shared_ptr<MatchingRule>>> rulesList,
                       std::vector<search::Result> const & results)
 {
-  return any_of(rulesList.begin(), rulesList.end(), [&](vector<shared_ptr<MatchingRule>> const & rules)
+  return std::any_of(rulesList.begin(), rulesList.end(), [&](std::vector<std::shared_ptr<MatchingRule>> const & rules)
   { return MatchResults(dataSource, rules, results); });
 }
 
-string DebugPrint(MatchingRule const & rule)
+std::string DebugPrint(MatchingRule const & rule)
 {
   return rule.ToString();
 }

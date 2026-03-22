@@ -9,6 +9,8 @@
 
 #include <vector>
 
+namespace varint_test
+{
 using namespace std;
 
 namespace
@@ -212,3 +214,4 @@ UNIT_TEST(VarInt_ShortSortedArray)
     TEST_EQUAL(s, actual, ());
   }
 }
+}  // namespace varint_test

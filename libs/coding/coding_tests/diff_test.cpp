@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+namespace diff_test
+{
 using namespace std;
 
 UNIT_TEST(MyersSimpleDiff)
@@ -276,3 +278,4 @@ UNIT_TEST(DiffWithRollingHash2)
   differ.Diff(srcV.begin(), srcV.end(), dstV.begin(), dstV.end(), testPatchCoder);
   TEST_EQUAL(testPatchCoder.Str(), "=2.-1.+x.=3.-5.=1.=3.=1.", ());
 }
+}  // namespace diff_test

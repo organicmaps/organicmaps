@@ -13,6 +13,8 @@
 #include <utility>
 #include <vector>
 
+namespace zlib_test
+{
 using namespace coding;
 using namespace std;
 
@@ -101,3 +103,4 @@ UNIT_TEST(GZip_ExtraDataInBuffer)
   TEST_EQUAL(s, "Hello, World!", ());
 }
 }  // namespace
+}  // namespace zlib_test

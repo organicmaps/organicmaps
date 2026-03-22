@@ -12,6 +12,8 @@
 #include <utility>
 #include <vector>
 
+namespace interval_index_test
+{
 using namespace std;
 
 namespace
@@ -296,3 +298,4 @@ UNIT_TEST(IntervalIndex_Simple5)
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
 }
+}  // namespace interval_index_test

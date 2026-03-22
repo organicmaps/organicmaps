@@ -10,6 +10,8 @@
 #include <string>
 #include <utility>
 
+namespace cell_id_test
+{
 using namespace std;
 
 typedef m2::CellId<30> CellIdT;
@@ -52,3 +54,4 @@ UNIT_TEST(CellId_RandomRecode)
     TEST(fabs(pt.y - y) < 0.0001, (x, y, pt));
   }
 }
+}  // namespace cell_id_test

@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+namespace png_decoder_test
+{
 using namespace std;
 
 void loadFile(vector<unsigned char> & buffer,
@@ -43,3 +45,4 @@ UNIT_TEST(PngDecode)
   //  TEST_EQUAL(w, 1024, ());
   //  TEST_EQUAL(h, 1024, ());
 }
+}  // namespace png_decoder_test

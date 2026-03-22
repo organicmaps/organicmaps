@@ -8,10 +8,11 @@
 #include <cmath>
 #include <future>
 
+namespace cancellable_tests
+{
+using base::Cancellable;
 using namespace std;
 
-namespace base
-{
 UNIT_TEST(Cancellable_Smoke)
 {
   Cancellable cancellable;
@@ -80,4 +81,4 @@ UNIT_TEST(Cancellable_Deadline)
   TEST(cancellable.IsCancelled(), ());
   TEST_EQUAL(cancellable.CancellationStatus(), Cancellable::Status::CancelCalled, ());
 }
-}  // namespace base
+}  // namespace cancellable_tests

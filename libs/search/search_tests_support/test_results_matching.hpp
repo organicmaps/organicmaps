@@ -4,7 +4,6 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include <initializer_list>
 #include <memory>
 #include <string>
 #include <utility>

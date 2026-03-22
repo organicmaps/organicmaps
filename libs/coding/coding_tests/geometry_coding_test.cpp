@@ -18,6 +18,8 @@
 #include <cstdint>
 #include <vector>
 
+namespace geometry_coding_test
+{
 using namespace coding;
 using namespace std;
 
@@ -194,3 +196,4 @@ UNIT_TEST(DecodeEncodePolyline_DataSet1)
 
   TestPolylineEncode("DataSet1", points, GetMaxPoint(), &EncodePolyline, &DecodePolyline);
 }
+}  // namespace geometry_coding_test

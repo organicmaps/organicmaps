@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+namespace suffix_array_tests
+{
 using namespace base;
 using namespace std;
 
@@ -89,3 +91,4 @@ UNIT_TEST(Skew_Classic)
   TEST_STR_EQUAL("ssissippi", s + pos[10], ());
 }
 }  // namespace
+}  // namespace suffix_array_tests

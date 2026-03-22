@@ -3,6 +3,8 @@
 
 #include <vector>
 
+namespace sort_and_merge_intervals_test
+{
 using namespace std;
 
 UNIT_TEST(SortAndMergeIntervals_1Interval)
@@ -61,3 +63,4 @@ UNIT_TEST(SortAndMergeIntervals_ContainAndTouchBorder)
   e.push_back(make_pair(1ULL, 4ULL));
   TEST_EQUAL(covering::SortAndMergeIntervals(v), e, ());
 }
+}  // namespace sort_and_merge_intervals_test

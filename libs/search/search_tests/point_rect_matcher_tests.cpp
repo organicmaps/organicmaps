@@ -10,6 +10,8 @@
 #include <utility>
 #include <vector>
 
+namespace point_rect_matcher_tests
+{
 using namespace search;
 using namespace std;
 
@@ -97,3 +99,4 @@ UNIT_TEST(PointRectMatcher_MultiplePointsInRect)
   }
 }
 }  // namespace
+}  // namespace point_rect_matcher_tests

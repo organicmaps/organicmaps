@@ -7,6 +7,8 @@
 #include <random>
 #include <string>
 
+namespace hex_test
+{
 using namespace std;
 
 UNIT_TEST(GoldenRecode)
@@ -60,3 +62,4 @@ UNIT_TEST(FromHex_InvalidInput)
   TEST_EQUAL(FromHex("0"), "", ());
   TEST_EQUAL(FromHex("012"), "", ());
 }
+}  // namespace hex_test

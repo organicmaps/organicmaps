@@ -18,6 +18,8 @@
 #include <memory>
 #include <vector>
 
+namespace reporter_test
+{
 using namespace std;
 using namespace std::chrono;
 using namespace tracking;
@@ -104,3 +106,4 @@ UNIT_TEST(Reporter_TransferLocations)
   TransferLocation(reporter, testSocket, 4.0, 5.0, 6.0);
   TransferLocation(reporter, testSocket, 7.0, 8.0, 9.0);
 }
+}  // namespace reporter_test

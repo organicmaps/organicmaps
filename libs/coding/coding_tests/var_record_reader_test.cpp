@@ -13,6 +13,8 @@
 #include <utility>
 #include <vector>
 
+namespace var_record_reader_test
+{
 using namespace std;
 
 namespace
@@ -67,3 +69,4 @@ UNIT_TEST(VarRecordReader_Simple)
   vector<pair<uint64_t, string>> expectedForEachCalls = {{0, "abc"}, {4, longString}, {6 + longStringSize, "defg"}};
   TEST_EQUAL(forEachCalls, expectedForEachCalls, ());
 }
+}  // namespace var_record_reader_test

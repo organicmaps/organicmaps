@@ -7,8 +7,6 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/target_os.hpp"
-
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -16,6 +14,9 @@
 #ifndef OMIM_OS_WINDOWS
 #include <unistd.h>  // _SC_PAGESIZE
 #endif
+
+namespace files_container_tests
+{
 
 using namespace std;
 
@@ -418,3 +419,4 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 
   FileWriter::DeleteFileX(fName);
 }
+}  // namespace files_container_tests

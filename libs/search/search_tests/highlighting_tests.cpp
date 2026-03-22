@@ -13,6 +13,8 @@
 #include <utility>
 #include <vector>
 
+namespace highlighting_tests
+{
 using namespace std;
 
 namespace
@@ -124,3 +126,4 @@ UNIT_TEST(SearchStringTokensIntersectionRange)
                                                  CheckRange(data.m_results));
   }
 }
+}  // namespace highlighting_tests

@@ -9,6 +9,8 @@
 #include <random>
 #include <string>
 
+namespace bwt_coder_tests
+{
 using namespace coding;
 using namespace std;
 
@@ -105,3 +107,4 @@ UNIT_TEST(BWT_AllBytes)
   TEST_EQUAL(s, EncodeDecode(BWTCoder::Params{}, s), ());
 }
 }  // namespace
+}  // namespace bwt_coder_tests

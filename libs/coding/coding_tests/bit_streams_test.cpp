@@ -13,6 +13,8 @@
 #include <utility>
 #include <vector>
 
+namespace bit_streams_test
+{
 using namespace std;
 
 namespace
@@ -103,3 +105,4 @@ UNIT_TEST(BitStreams_Large)
   }
 }
 }  // namespace
+}  // namespace bit_streams_test

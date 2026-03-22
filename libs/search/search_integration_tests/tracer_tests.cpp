@@ -10,6 +10,8 @@
 #include <memory>
 #include <vector>
 
+namespace tracer_tests
+{
 using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace search;
@@ -86,3 +88,4 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
   }
 }
 }  // namespace
+}  // namespace tracer_tests

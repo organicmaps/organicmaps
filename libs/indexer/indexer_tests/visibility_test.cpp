@@ -14,6 +14,8 @@
 #include <utility>
 #include <vector>
 
+namespace visibility_test
+{
 using namespace std;
 
 namespace
@@ -89,3 +91,4 @@ UNIT_TEST(VisibleScales_Highway)
 
   doGet.Print();
 }
+}  // namespace visibility_test

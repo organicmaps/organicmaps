@@ -9,6 +9,8 @@
 #include <exception>
 #include <string>
 
+namespace zip_reader_test
+{
 using namespace std;
 
 static char const zipBytes[] =
@@ -222,3 +224,4 @@ UNIT_TEST(ZipFileSizes)
 
   FileWriter::DeleteFileX(ZIPFILE);
 }
+}  // namespace zip_reader_test

@@ -4,6 +4,8 @@
 
 #include <string>
 
+namespace protocol_test
+{
 using namespace std;
 using namespace tracking;
 
@@ -140,3 +142,4 @@ UNIT_TEST(Protocol_DecodeWrongDataPacket)
     }
   }
 }
+}  // namespace protocol_test

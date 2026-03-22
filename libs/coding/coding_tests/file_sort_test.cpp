@@ -10,6 +10,8 @@
 #include <random>
 #include <vector>
 
+namespace file_sort_test
+{
 using namespace std;
 
 namespace
@@ -55,3 +57,4 @@ UNIT_TEST(FileSorter_Random)
 
   TestFileSorter(data, "file_sorter_test_random.tmp", data.size() / 10);
 }
+}  // namespace file_sort_test

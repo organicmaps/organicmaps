@@ -4,6 +4,8 @@
 
 #include <string>
 
+namespace visitor_tests
+{
 using namespace std;
 
 namespace
@@ -43,3 +45,4 @@ UNIT_TEST(DebugPrintVisitor_Smoke)
   }
 }
 }  // namespace
+}  // namespace visitor_tests

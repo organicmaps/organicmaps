@@ -21,6 +21,8 @@
 #include <string>
 #include <utility>
 
+namespace generate_tests
+{
 using namespace feature;
 using namespace generator::tests_support;
 using namespace std;
@@ -89,3 +91,4 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   file.DeleteFromDisk(MapFileType::Map);
 }
 }  // namespace
+}  // namespace generate_tests

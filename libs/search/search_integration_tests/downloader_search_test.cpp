@@ -16,27 +16,20 @@
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "platform/downloader_defines.hpp"
-
 #include "geometry/rect2d.hpp"
-
-#include "base/logging.hpp"
-#include "base/macros.hpp"
 
 #include <algorithm>
 #include <functional>
-#include <memory>
 #include <string>
 #include <vector>
 
+namespace downloader_search_test
+{
 using namespace generator::tests_support;
+using namespace search;
 using namespace search::tests_support;
 using namespace std;
 
-class DataSource;
-
-namespace search
-{
 namespace
 {
 string const kCountriesTxt = R"({
@@ -216,6 +209,8 @@ void TestResults(vector<T> received, vector<T> expected)
   TEST_EQUAL(expected, received, ());
 }
 
+}  // namespace
+
 UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
 {
   AddRegion("Flatland", "Squareland One", m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
@@ -253,5 +248,4 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
                                        storage::DownloaderSearchResult("Squareland Two", "Squareland Two capital")});
   }
 }
-}  // namespace
-}  // namespace search
+}  // namespace downloader_search_test

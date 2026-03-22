@@ -11,29 +11,31 @@
 #include <string>
 #include <vector>
 
+namespace huffman_test
+{
+using coding::HuffmanCoder;
 using namespace std;
+using strings::UniString;
 
 namespace
 {
-vector<strings::UniString> MakeUniStringVector(vector<string> const & v)
+vector<UniString> MakeUniStringVector(vector<string> const & v)
 {
-  vector<strings::UniString> result(v.size());
+  vector<UniString> result(v.size());
   for (size_t i = 0; i < v.size(); ++i)
     result[i] = strings::MakeUniString(v[i]);
   return result;
 }
 
-void TestDecode(coding::HuffmanCoder const & h, uint32_t bits, uint32_t len, uint32_t expected)
+void TestDecode(HuffmanCoder const & h, uint32_t bits, uint32_t len, uint32_t expected)
 {
-  coding::HuffmanCoder::Code code(bits, len);
+  HuffmanCoder::Code code(bits, len);
   uint32_t received;
   TEST(h.Decode(code, received), ("Could not decode", code.bits, "( length", code.len, ")"));
   TEST_EQUAL(expected, received, ());
 }
 }  // namespace
 
-namespace coding
-{
 UNIT_TEST(Huffman_Smoke)
 {
   HuffmanCoder h;
@@ -56,8 +58,8 @@ UNIT_TEST(Huffman_NonAscii)
 {
   HuffmanCoder h;
   string const data = "2πΩ";
-  strings::UniString const uniData = strings::MakeUniString(data);
-  h.Init(vector<strings::UniString>{uniData});
+  UniString const uniData = strings::MakeUniString(data);
+  h.Init(vector<UniString>{uniData});
 
   TestDecode(h, 0, 2, static_cast<uint32_t>(uniData[0]));  // 00
   TestDecode(h, 1, 1, static_cast<uint32_t>(uniData[1]));  // 1
@@ -76,8 +78,8 @@ UNIT_TEST(Huffman_Init)
 
   MemReader memReader(&buf[0], buf.size());
   ReaderSource<MemReader> reader(memReader);
-  strings::UniString received = h.ReadAndDecode(reader);
-  strings::UniString expected = strings::MakeUniString("baababbaabbabaab");
+  UniString received = h.ReadAndDecode(reader);
+  UniString expected = strings::MakeUniString("baababbaabbabaab");
 
   TEST_EQUAL(expected, received, ());
 }
@@ -115,7 +117,7 @@ UNIT_TEST(Huffman_Serialization_Data)
   vector<uint8_t> buf;
 
   string const data = "abacabaddddaaabbcabacabadbabd";
-  strings::UniString expected = strings::UniString(data.begin(), data.end());
+  UniString expected = UniString(data.begin(), data.end());
 
   MemWriter<vector<uint8_t>> writer(buf);
   hW.WriteEncoding(writer);
@@ -125,9 +127,9 @@ UNIT_TEST(Huffman_Serialization_Data)
   MemReader memReader(&buf[0], buf.size());
   ReaderSource<MemReader> reader(memReader);
   hR.ReadEncoding(reader);
-  strings::UniString received = hR.ReadAndDecode(reader);
+  UniString received = hR.ReadAndDecode(reader);
 
   TEST_EQUAL(expected, received, ());
 }
 
-}  // namespace coding
+}  // namespace huffman_test

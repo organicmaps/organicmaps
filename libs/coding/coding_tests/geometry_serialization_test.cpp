@@ -12,6 +12,8 @@
 
 #include <vector>
 
+namespace geometry_serialization_test
+{
 using namespace std;
 
 // Copy-Paste from generator/feature_builder.cpp
@@ -63,3 +65,4 @@ UNIT_TEST(SaveLoadPolyline_DataSet1)
 
   TEST(IsEqual(r1, r2), (r1, r2));
 }
+}  // namespace geometry_serialization_test

@@ -15,8 +15,6 @@
 #pragma clang diagnostic pop
 #endif
 
-using namespace std;
-
 template <typename Key, typename Value>
 class FifoCacheTest
 {
@@ -24,13 +22,13 @@ public:
   FifoCacheTest(size_t capacity, typename FifoCache<Key, Value>::Loader const & loader) : m_cache(capacity, loader) {}
 
   Value const & GetValue(Key const & key) { return m_cache.GetValue(key); }
-  unordered_map<Key, Value> const & GetMap() const { return m_cache.m_map; }
+  std::unordered_map<Key, Value> const & GetMap() const { return m_cache.m_map; }
   boost::circular_buffer<Key> const & GetFifo() const { return m_cache.m_fifo; }
 
   bool IsValid() const
   {
-    set<Key> listKeys(m_cache.m_fifo.begin(), m_cache.m_fifo.end());
-    set<Key> mapKeys;
+    std::set<Key> listKeys(m_cache.m_fifo.begin(), m_cache.m_fifo.end());
+    std::set<Key> mapKeys;
 
     for (auto const & kv : m_cache.m_map)
       mapKeys.insert(kv.first);
@@ -41,6 +39,10 @@ public:
 private:
   FifoCache<Key, Value> m_cache;
 };
+
+namespace fifo_cache_test
+{
+using namespace std;
 
 UNIT_TEST(FifoCache_Smoke)
 {
@@ -112,3 +114,4 @@ UNIT_TEST(FifoCache_LoaderCalls)
   cache.GetValue(1);
   TEST(cache.IsValid(), ());
 }
+}  // namespace fifo_cache_test

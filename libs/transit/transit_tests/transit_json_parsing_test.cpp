@@ -12,6 +12,8 @@
 #include <utility>
 #include <vector>
 
+namespace transit_json_parsing_test
+{
 using namespace routing;
 using namespace routing::transit;
 using namespace std;
@@ -335,3 +337,4 @@ UNIT_TEST(DeserializerFromJson_Networks)
   TestDeserializerFromJson(jsonBuffer, "networks", expected);
 }
 }  // namespace
+}  // namespace transit_json_parsing_test

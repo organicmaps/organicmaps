@@ -9,6 +9,8 @@
 #include <set>
 #include <string>
 
+namespace brands_tests
+{
 using namespace std;
 using namespace indexer;
 
@@ -87,3 +89,4 @@ UNIT_TEST(LoadBrands)
     CHECK_EQUAL(names, expectedNames, ());
   }
 }
+}  // namespace brands_tests

@@ -8,6 +8,8 @@
 #include <random>
 #include <utility>
 
+namespace fixed_bits_ddvector_test
+{
 using namespace std;
 
 namespace
@@ -79,3 +81,4 @@ UNIT_TEST(FixedBitsDDVector_Rand)
   TestWithData<8>(v);
   TestWithData<9>(v);
 }
+}  // namespace fixed_bits_ddvector_test

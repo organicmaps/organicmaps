@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+namespace text_storage_tests
+{
 using namespace coding;
 using namespace std;
 
@@ -130,3 +132,4 @@ UNIT_TEST(TextStorage_Random)
     TEST_EQUAL(ts.ExtractString(i), strings[i], ());
 }
 }  // namespace
+}  // namespace text_storage_tests

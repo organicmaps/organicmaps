@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 
+namespace var_serial_vector_test
+{
 using namespace std;
 
 char const kHexSerial[] =
@@ -116,3 +118,4 @@ UNIT_TEST(EncodeDecode)
   for (size_t i = 0; i < elements.size(); ++i)
     TEST_EQUAL(reader.Read(static_cast<uint32_t>(i)), elements[i], ());
 }
+}  // namespace var_serial_vector_test

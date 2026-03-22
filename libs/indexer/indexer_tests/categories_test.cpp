@@ -14,6 +14,8 @@
 #include <memory>
 #include <vector>
 
+namespace categories_test
+{
 using namespace indexer;
 using namespace std;
 
@@ -326,3 +328,4 @@ UNIT_TEST(CategoriesIndex_AllCategoriesEnglishName)
   TEST_LESS(index.GetNumTrieNodes(), 15000, ());
 }
 #endif
+}  // namespace categories_test
