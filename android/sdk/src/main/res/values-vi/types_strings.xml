@@ -634,7 +634,9 @@
     <string name="type.natural.wetland.bog">Đầm lầy toan</string>
     <string name="type.natural.wetland.marsh">Đầm lầy cỏ</string>
     <string name="type.office">Văn phòng</string>
+    <string name="type.office.architect">Văn phòng kiến trúc</string>
     <string name="type.office.company">Văn phòng công ty</string>
+    <string name="type.office.educational_institution">Cơ sở giáo dục</string>
     <string name="type.office.estate_agent">Đại Lý Bất Động Sản</string>
     <string name="type.office.government">Văn phòng chính phủ</string>
     <string name="type.office.insurance">Văn phòng bảo hiểm</string>
@@ -976,6 +978,15 @@
     <string name="type.shop.chemist">Cửa hàng Hóa chất</string>
     <string name="type.shop.chocolate">Cửa hàng socola</string>
     <string name="type.shop.clothes">Cửa hàng quần áo</string>
+    <string name="type.shop.clothes.children">Cửa hàng quần áo trẻ em</string>
+    <string name="type.shop.clothes.fashion">Cửa hàng thời trang</string>
+    <string name="type.shop.clothes.hats">Cửa hàng mũ</string>
+    <string name="type.shop.clothes.men">Cửa hàng quần áo nam</string>
+    <string name="type.shop.clothes.sports">Cửa hàng quần áo thể thao</string>
+    <string name="type.shop.clothes.suits">Cửa hàng vest</string>
+    <string name="type.shop.clothes.underwear">Cửa hàng đồ lót</string>
+    <string name="type.shop.clothes.wedding">Cửa hàng váy cưới</string>
+    <string name="type.shop.clothes.women">Cửa hàng quần áo nữ</string>
     <string name="type.shop.coffee">Quán cà phê</string>
     <string name="type.shop.computer">Cửa hàng máy tính</string>
     <string name="type.shop.confectionery">Cửa hàng kẹo</string>
@@ -996,6 +1007,7 @@
     <string name="type.shop.funeral_directors">Tổ chức tang lễ</string>
     <string name="type.shop.furniture">Cửa hàng nội thất</string>
     <string name="type.shop.garden_centre">Nhà trẻ</string>
+    <string name="type.shop.games">Cửa hàng trò chơi</string>
     <string name="type.shop.gas">Cửa hàng gas</string>
     <string name="type.shop.gift">Cửa hàng quà tặng</string>
     <string name="type.shop.greengrocer">Cửa hàng rau củ</string>

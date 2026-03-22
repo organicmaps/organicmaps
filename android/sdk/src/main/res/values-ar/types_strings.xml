@@ -727,7 +727,9 @@
     <string name="type.natural.wetland.bog">رخاخ</string>
     <string name="type.natural.wetland.marsh">هور</string>
     <string name="type.office">مكتب</string>
+    <string name="type.office.architect">مكتب معماري</string>
     <string name="type.office.company">مكتب شركة</string>
+    <string name="type.office.educational_institution">مؤسسة تعليمية</string>
     <string name="type.office.estate_agent">وكيل عقاري</string>
     <string name="type.office.government">مكتب حكومي</string>
     <string name="type.office.insurance">مكتب تأمين</string>
@@ -1070,6 +1072,15 @@
     <string name="type.shop.chemist">متجر كيماويات</string>
     <string name="type.shop.chocolate">متجر شوكولاتة</string>
     <string name="type.shop.clothes">متجر ملابس</string>
+    <string name="type.shop.clothes.children">متجر ملابس أطفال</string>
+    <string name="type.shop.clothes.fashion">بوتيك الأزياء</string>
+    <string name="type.shop.clothes.hats">متجر قبعات</string>
+    <string name="type.shop.clothes.men">متجر ملابس رجالية</string>
+    <string name="type.shop.clothes.sports">متجر ملابس رياضية</string>
+    <string name="type.shop.clothes.suits">متجر بدلات</string>
+    <string name="type.shop.clothes.underwear">متجر الملابس الداخلية</string>
+    <string name="type.shop.clothes.wedding">متجر ملابس الزفاف</string>
+    <string name="type.shop.clothes.women">متجر ملابس نسائية</string>
     <string name="type.shop.coffee">متجر قهوة</string>
     <string name="type.shop.computer">متجر كمبيوتر</string>
     <string name="type.shop.confectionery">متجر حلويات</string>
@@ -1090,6 +1101,7 @@
     <string name="type.shop.funeral_directors">منظموا الجنازات</string>
     <string name="type.shop.furniture">متجر أثاث</string>
     <string name="type.shop.garden_centre">مشتل</string>
+    <string name="type.shop.games">متجر ألعاب</string>
     <string name="type.shop.gas">متجر غاز</string>
     <string name="type.shop.gift">متجر هدايا</string>
     <string name="type.shop.greengrocer">محل خضار</string>

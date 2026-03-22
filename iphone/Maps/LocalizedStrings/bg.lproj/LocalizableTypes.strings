@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Блато";
 "type.noexit" = "Dead End";
 "type.office" = "Office";
+"type.office.architect" = "Architect Office";
 "type.office.company" = "Company Office";
+"type.office.educational_institution" = "Educational Institution";
 "type.office.estate_agent" = "Estate Agent";
 "type.office.government" = "Government Office";
 "type.office.insurance" = "Insurance Office";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Химик";
 "type.shop.chocolate" = "Chocolate Shop";
 "type.shop.clothes" = "Clothes Shop";
+"type.shop.clothes.children" = "Магазин за детски дрехи";
+"type.shop.clothes.fashion" = "Модна бутика";
+"type.shop.clothes.hats" = "Магазин за шапки";
+"type.shop.clothes.men" = "Магазин за мъжки дрехи";
+"type.shop.clothes.sports" = "Магазин за спортни дрехи";
+"type.shop.clothes.suits" = "Магазин за костюми";
+"type.shop.clothes.underwear" = "Магазин за бельо";
+"type.shop.clothes.wedding" = "Магазин за сватбени дрехи";
+"type.shop.clothes.women" = "Магазин за дамски дрехи";
 "type.shop.coffee" = "Coffee Shop";
 "type.shop.computer" = "Computer Store";
 "type.shop.confectionery" = "Candy Shop";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Funeral Directors";
 "type.shop.furniture" = "Furniture Store";
 "type.shop.garden_centre" = "Garden Center";
+"type.shop.games" = "Магазин за игри";
 "type.shop.gas" = "Магазин за газ";
 "type.shop.gift" = "Gift Shop";
 "type.shop.greengrocer" = "Greengrocer";

@@ -729,7 +729,9 @@
     <string name="type.natural.wetland.marsh">Močiar</string>
     <string name="type.noexit">Koniec cesty</string>
     <string name="type.office">Kancelária</string>
+    <string name="type.office.architect">Architektonická kancelária</string>
     <string name="type.office.company">Sídlo spoločnosti</string>
+    <string name="type.office.educational_institution">Vzdelávacia inštitúcia</string>
     <string name="type.office.estate_agent">Realitný agent</string>
     <string name="type.office.government">Štátny úrad</string>
     <string name="type.office.insurance">Poisťovňa</string>
@@ -1093,6 +1095,15 @@
     <string name="type.shop.chemist">Drogéria</string>
     <string name="type.shop.chocolate">Obchod s čokoládou</string>
     <string name="type.shop.clothes">Oblečenie</string>
+    <string name="type.shop.clothes.children">Detský obchod s oblečením</string>
+    <string name="type.shop.clothes.fashion">Módny butik</string>
+    <string name="type.shop.clothes.hats">Obchod s klobúkmi</string>
+    <string name="type.shop.clothes.men">Pánsky obchod s oblečením</string>
+    <string name="type.shop.clothes.sports">Obchod so športovým oblečením</string>
+    <string name="type.shop.clothes.suits">Obchod s oblekmi</string>
+    <string name="type.shop.clothes.underwear">Obchod so spodnou bielizňou</string>
+    <string name="type.shop.clothes.wedding">Obchod so svadobnými šatami</string>
+    <string name="type.shop.clothes.women">Dámsky obchod s oblečením</string>
     <string name="type.shop.coffee">Obchod s kávou</string>
     <string name="type.shop.computer">Obchod s výpočtovou technikou</string>
     <string name="type.shop.confectionery">Cukrovinky</string>
@@ -1113,6 +1124,7 @@
     <string name="type.shop.funeral_directors">Pohrebníctvo</string>
     <string name="type.shop.furniture">Nábytok</string>
     <string name="type.shop.garden_centre">Záhradkárske potreby</string>
+    <string name="type.shop.games">Obchod s hrami</string>
     <string name="type.shop.gas">Obchod s plynom</string>
     <string name="type.shop.gift">Darčeky</string>
     <string name="type.shop.greengrocer">Zelovoc</string>

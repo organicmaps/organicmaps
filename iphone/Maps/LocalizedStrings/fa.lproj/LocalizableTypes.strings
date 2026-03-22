@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "مرداب";
 "type.noexit" = "بن‌بست";
 "type.office" = "اداره";
+"type.office.architect" = "دفتر معماری";
 "type.office.company" = "دفتر شرکت";
+"type.office.educational_institution" = "مؤسسه آموزشی";
 "type.office.estate_agent" = "بنگاه معاملات ملکی";
 "type.office.government" = "اداره دولتی";
 "type.office.insurance" = "دفتر بیمه";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "فروشگاه";
 "type.shop.chocolate" = "فروشگاه";
 "type.shop.clothes" = "لباس فروشی";
+"type.shop.clothes.children" = "فروشگاه لباس کودک";
+"type.shop.clothes.fashion" = "بوتیک مد";
+"type.shop.clothes.hats" = "کلاه فروشی";
+"type.shop.clothes.men" = "فروشگاه لباس مردانه";
+"type.shop.clothes.sports" = "فروشگاه لباس ورزشی";
+"type.shop.clothes.suits" = "فروشگاه کت و شلوار";
+"type.shop.clothes.underwear" = "فروشگاه لباس زیر";
+"type.shop.clothes.wedding" = "فروشگاه لباس عروس";
+"type.shop.clothes.women" = "فروشگاه لباس زنانه";
 "type.shop.coffee" = "فروشگاه";
 "type.shop.computer" = "فروشگاه";
 "type.shop.confectionery" = "فروشگاه";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "مسئول تشییع جنازه";
 "type.shop.furniture" = "فروشگاه";
 "type.shop.garden_centre" = "فروشگاه";
+"type.shop.games" = "فروشگاه بازی";
 "type.shop.gas" = "فروشگاه گاز";
 "type.shop.gift" = "فروشگاه";
 "type.shop.greengrocer" = "فروشگاه";

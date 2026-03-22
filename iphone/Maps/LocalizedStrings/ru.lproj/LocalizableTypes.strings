@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Болото";
 "type.noexit" = "Тупик";
 "type.office" = "Офис";
+"type.office.architect" = "Архитектурное бюро";
 "type.office.company" = "Организация";
+"type.office.educational_institution" = "Образовательное учреждение";
 "type.office.estate_agent" = "Агентство недвижимости";
 "type.office.government" = "Госучреждение";
 "type.office.insurance" = "Страховая компания";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Бытовая химия";
 "type.shop.chocolate" = "Магазин шоколада";
 "type.shop.clothes" = "Магазин одежды";
+"type.shop.clothes.children" = "Детская одежда";
+"type.shop.clothes.fashion" = "Бутик";
+"type.shop.clothes.hats" = "Магазин головных уборов";
+"type.shop.clothes.men" = "Мужская одежда";
+"type.shop.clothes.sports" = "Спортивная одежда";
+"type.shop.clothes.suits" = "Магазин костюмов";
+"type.shop.clothes.underwear" = "Магазин нижнего белья";
+"type.shop.clothes.wedding" = "Свадебный салон";
+"type.shop.clothes.women" = "Женская одежда";
 "type.shop.coffee" = "Магазин кофе";
 "type.shop.computer" = "Компьютерный магазин";
 "type.shop.confectionery" = "Кондитерская";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Ритуальные услуги";
 "type.shop.furniture" = "Магазин мебели";
 "type.shop.garden_centre" = "Садовые товары";
+"type.shop.games" = "Магазин игр";
 "type.shop.gas" = "Газовый магазин";
 "type.shop.gift" = "Магазин сувениров";
 "type.shop.greengrocer" = "Овощи и фрукты";

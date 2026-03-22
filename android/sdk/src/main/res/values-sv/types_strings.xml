@@ -740,7 +740,9 @@
     <string name="type.natural.wetland.marsh">Kärr</string>
     <string name="type.noexit">Återvändsgränd</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.architect">Arkitektkontor</string>
     <string name="type.office.company">Företagskontor</string>
+    <string name="type.office.educational_institution">Utbildningsinstitution</string>
     <string name="type.office.estate_agent">Fastighetsmäklare</string>
     <string name="type.office.government">Ämbetsverk</string>
     <string name="type.office.insurance">Försäkringskontor</string>
@@ -1112,6 +1114,15 @@
     <string name="type.shop.chemist">Hushållskemikalier</string>
     <string name="type.shop.chocolate">Chokladbutik</string>
     <string name="type.shop.clothes">Klädbutik</string>
+    <string name="type.shop.clothes.children">Barnkläder</string>
+    <string name="type.shop.clothes.fashion">Modeboutique</string>
+    <string name="type.shop.clothes.hats">Hatteaffär</string>
+    <string name="type.shop.clothes.men">Herrklädbutik</string>
+    <string name="type.shop.clothes.sports">Sportklädesbutik</string>
+    <string name="type.shop.clothes.suits">Kostymaffär</string>
+    <string name="type.shop.clothes.underwear">Underkläder</string>
+    <string name="type.shop.clothes.wedding">Brudklänningsaffär</string>
+    <string name="type.shop.clothes.women">Damklädbutik</string>
     <string name="type.shop.coffee">Kaffebutik</string>
     <string name="type.shop.computer">Datorbutik</string>
     <string name="type.shop.confectionery">Konditori</string>
@@ -1132,6 +1143,7 @@
     <string name="type.shop.funeral_directors">Begravningsentreprenörer</string>
     <string name="type.shop.furniture">Möbelaffär</string>
     <string name="type.shop.garden_centre">Plantskola</string>
+    <string name="type.shop.games">Spelbutik</string>
     <string name="type.shop.gas">Gasaffär</string>
     <string name="type.shop.gift">Presentaffär</string>
     <string name="type.shop.greengrocer">Grönsakshandlare</string>

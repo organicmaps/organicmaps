@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Болотиста мiсцевiсть</string>
     <string name="type.noexit">Тупик</string>
     <string name="type.office">Офіс</string>
+    <string name="type.office.architect">Архітектурне бюро</string>
     <string name="type.office.company">Організація</string>
+    <string name="type.office.educational_institution">Навчальний заклад</string>
     <string name="type.office.estate_agent">Агенція нерухомості</string>
     <string name="type.office.government">Держустанова</string>
     <string name="type.office.insurance">Страхова компанія</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Магазин побутової хімії</string>
     <string name="type.shop.chocolate">Шоколадна крамниця</string>
     <string name="type.shop.clothes">Магазин одягу</string>
+    <string name="type.shop.clothes.children">Дитячий одяг</string>
+    <string name="type.shop.clothes.fashion">Модний бутик</string>
+    <string name="type.shop.clothes.hats">Магазин головних уборів</string>
+    <string name="type.shop.clothes.men">Чоловічий одяг</string>
+    <string name="type.shop.clothes.sports">Спортивний одяг</string>
+    <string name="type.shop.clothes.suits">Магазин костюмів</string>
+    <string name="type.shop.clothes.underwear">Магазин нижньої білизни</string>
+    <string name="type.shop.clothes.wedding">Весільний салон</string>
+    <string name="type.shop.clothes.women">Жіночий одяг</string>
     <string name="type.shop.coffee">Кавова крамниця</string>
     <string name="type.shop.computer">Комп\'ютерний магазин</string>
     <string name="type.shop.confectionery">Кондитерська</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Ритуальні послуги</string>
     <string name="type.shop.furniture">Магазин меблів</string>
     <string name="type.shop.garden_centre">Товари для саду</string>
+    <string name="type.shop.games">Магазин ігор</string>
     <string name="type.shop.gas">Газовий магазин</string>
     <string name="type.shop.gift">Магазин сувенірів</string>
     <string name="type.shop.greengrocer">Овочі та фрукти</string>

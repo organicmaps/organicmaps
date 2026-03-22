@@ -643,7 +643,9 @@
     <string name="type.natural.wetland.bog">Myr</string>
     <string name="type.natural.wetland.marsh">Sump</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.architect">Arkitektkontor</string>
     <string name="type.office.company">Firmakontor</string>
+    <string name="type.office.educational_institution">Utdanningsinstitusjon</string>
     <string name="type.office.estate_agent">Eiendomsmegler</string>
     <string name="type.office.government">Offentlig kontor</string>
     <string name="type.office.insurance">Forsikring</string>
@@ -989,6 +991,15 @@
     <string name="type.shop.chemist">Husholdningsartikler</string>
     <string name="type.shop.chocolate">Butikk</string>
     <string name="type.shop.clothes">Klesbutikk</string>
+    <string name="type.shop.clothes.children">Barneklærbutikk</string>
+    <string name="type.shop.clothes.fashion">Motebutikk</string>
+    <string name="type.shop.clothes.hats">Hattebutikk</string>
+    <string name="type.shop.clothes.men">Herreklærbutikk</string>
+    <string name="type.shop.clothes.sports">Sportsklærbutikk</string>
+    <string name="type.shop.clothes.suits">Draktbutikk</string>
+    <string name="type.shop.clothes.underwear">Undertøybutikk</string>
+    <string name="type.shop.clothes.wedding">Brudekjolebutikk</string>
+    <string name="type.shop.clothes.women">Dameklærbutikk</string>
     <string name="type.shop.coffee">Butikk</string>
     <string name="type.shop.computer">Databutikk</string>
     <string name="type.shop.confectionery">Søtsaker</string>
@@ -1009,6 +1020,7 @@
     <string name="type.shop.funeral_directors">Begravelsebyrå</string>
     <string name="type.shop.furniture">Møbelbutikk</string>
     <string name="type.shop.garden_centre">Planteskole</string>
+    <string name="type.shop.games">Spillbutikk</string>
     <string name="type.shop.gas">Gassbutikk</string>
     <string name="type.shop.gift">Gavebutikk</string>
     <string name="type.shop.greengrocer">Frukt- og grønnsakshandler</string>

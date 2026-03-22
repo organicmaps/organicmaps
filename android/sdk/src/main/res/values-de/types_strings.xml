@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Sumpf</string>
     <string name="type.noexit">Sackgasse</string>
     <string name="type.office">Büro</string>
+    <string name="type.office.architect">Architekturbüro</string>
     <string name="type.office.company">Firmenbüro</string>
+    <string name="type.office.educational_institution">Bildungseinrichtung</string>
     <string name="type.office.estate_agent">Immobilienmakler</string>
     <string name="type.office.government">Behörde</string>
     <string name="type.office.insurance">Versicherungsbüro</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Drogerie</string>
     <string name="type.shop.chocolate">Schokoladengeschäft</string>
     <string name="type.shop.clothes">Bekleidungsgeschäft</string>
+    <string name="type.shop.clothes.children">Kinderbekleidungsgeschäft</string>
+    <string name="type.shop.clothes.fashion">Modeboutique</string>
+    <string name="type.shop.clothes.hats">Hutgeschäft</string>
+    <string name="type.shop.clothes.men">Herrenbekleidungsgeschäft</string>
+    <string name="type.shop.clothes.sports">Sportbekleidungsgeschäft</string>
+    <string name="type.shop.clothes.suits">Anzuggeschäft</string>
+    <string name="type.shop.clothes.underwear">Dessousgeschäft</string>
+    <string name="type.shop.clothes.wedding">Brautmodengeschäft</string>
+    <string name="type.shop.clothes.women">Damenbekleidungsgeschäft</string>
     <string name="type.shop.coffee">Kaffeegeschäft</string>
     <string name="type.shop.computer">Computerfachgeschäft</string>
     <string name="type.shop.confectionery">Süßwarengeschäft</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Bestattungsinstitut</string>
     <string name="type.shop.furniture">Möbelhaus</string>
     <string name="type.shop.garden_centre">Gartencenter</string>
+    <string name="type.shop.games">Spielegeschäft</string>
     <string name="type.shop.gas">Gas-Geschäft</string>
     <string name="type.shop.gift">Geschenkeladen</string>
     <string name="type.shop.greengrocer">Gemüseladen</string>

@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Bažina</string>
     <string name="type.noexit">Slepý konec</string>
     <string name="type.office">Kancelář</string>
+    <string name="type.office.architect">Architektonická kancelář</string>
     <string name="type.office.company">Kancelář společnosti</string>
+    <string name="type.office.educational_institution">Vzdělávací instituce</string>
     <string name="type.office.estate_agent">Realitní makléř</string>
     <string name="type.office.government">Úřad vlády</string>
     <string name="type.office.insurance">Pojišťovací kancelář</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Drogerie</string>
     <string name="type.shop.chocolate">Obchod s čokoládou</string>
     <string name="type.shop.clothes">Oblečení</string>
+    <string name="type.shop.clothes.children">Dětský obchod s oblečením</string>
+    <string name="type.shop.clothes.fashion">Módní butik</string>
+    <string name="type.shop.clothes.hats">Obchod s klobouky</string>
+    <string name="type.shop.clothes.men">Pánský obchod s oblečením</string>
+    <string name="type.shop.clothes.sports">Obchod se sportovním oblečením</string>
+    <string name="type.shop.clothes.suits">Obchod s obleky</string>
+    <string name="type.shop.clothes.underwear">Obchod s prádlem</string>
+    <string name="type.shop.clothes.wedding">Obchod se svatebními šaty</string>
+    <string name="type.shop.clothes.women">Dámský obchod s oblečením</string>
     <string name="type.shop.coffee">Obchod s kávou</string>
     <string name="type.shop.computer">Obchod s počítači</string>
     <string name="type.shop.confectionery">Cukrárna</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Pohřební služba</string>
     <string name="type.shop.furniture">Nábytek</string>
     <string name="type.shop.garden_centre">Školka</string>
+    <string name="type.shop.games">Obchod s hrami</string>
     <string name="type.shop.gas">Obchod s plynem</string>
     <string name="type.shop.gift">Obchod s dárkovým zbožím</string>
     <string name="type.shop.greengrocer">Ovoce a zelenina</string>

@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Palude</string>
     <string name="type.noexit">Strada senza uscita</string>
     <string name="type.office">Ufficio</string>
+    <string name="type.office.architect">Studio di architettura</string>
     <string name="type.office.company">Ufficio aziendale</string>
+    <string name="type.office.educational_institution">Istituzione educativa</string>
     <string name="type.office.estate_agent">Agenzia immobiliare</string>
     <string name="type.office.government">Ufficio governativo</string>
     <string name="type.office.insurance">Ufficio assicurazioni</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Negozio di detersivi</string>
     <string name="type.shop.chocolate">Choccolateria</string>
     <string name="type.shop.clothes">Negozio di abbigliamento</string>
+    <string name="type.shop.clothes.children">Negozio di abbigliamento per bambini</string>
+    <string name="type.shop.clothes.fashion">Boutique di moda</string>
+    <string name="type.shop.clothes.hats">Cappelleria</string>
+    <string name="type.shop.clothes.men">Abbigliamento uomo</string>
+    <string name="type.shop.clothes.sports">Abbigliamento sportivo</string>
+    <string name="type.shop.clothes.suits">Sartoria</string>
+    <string name="type.shop.clothes.underwear">Lingerie</string>
+    <string name="type.shop.clothes.wedding">Negozio di abiti da sposa</string>
+    <string name="type.shop.clothes.women">Abbigliamento donna</string>
     <string name="type.shop.coffee">Negozio di caffè</string>
     <string name="type.shop.computer">Negozio di computer</string>
     <string name="type.shop.confectionery">Pasticceria</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Pompe funebri</string>
     <string name="type.shop.furniture">Negozio di mobili</string>
     <string name="type.shop.garden_centre">Vivaio</string>
+    <string name="type.shop.games">Negozio di giochi</string>
     <string name="type.shop.gas">Deposito di gas</string>
     <string name="type.shop.gift">Negozio di regali</string>
     <string name="type.shop.greengrocer">Fruttivendolo</string>

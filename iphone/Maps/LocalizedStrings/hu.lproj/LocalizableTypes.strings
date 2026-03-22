@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Mocsár";
 "type.noexit" = "Zsákutca";
 "type.office" = "Iroda";
+"type.office.architect" = "Építészeti iroda";
 "type.office.company" = "Vállalati iroda";
+"type.office.educational_institution" = "Oktatási intézmény";
 "type.office.estate_agent" = "Ingatlanügynök";
 "type.office.government" = "Állami iroda";
 "type.office.insurance" = "Biztosítóiroda";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Drogéria";
 "type.shop.chocolate" = "Csokoládébolt";
 "type.shop.clothes" = "Ruházati bolt";
+"type.shop.clothes.children" = "Gyerekruhaszalon";
+"type.shop.clothes.fashion" = "Divatboutique";
+"type.shop.clothes.hats" = "Kalapüzlet";
+"type.shop.clothes.men" = "Férfiruházati bolt";
+"type.shop.clothes.sports" = "Sportruházati bolt";
+"type.shop.clothes.suits" = "Öltönyüzlet";
+"type.shop.clothes.underwear" = "Fehérnemű üzlet";
+"type.shop.clothes.wedding" = "Menyasszonyi ruha szalon";
+"type.shop.clothes.women" = "Női ruházati bolt";
 "type.shop.coffee" = "Kávébolt";
 "type.shop.computer" = "Számítógépüzlet";
 "type.shop.confectionery" = "Édességbolt";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Temetkezési vállalkozó";
 "type.shop.furniture" = "Bútorbolt";
 "type.shop.garden_centre" = "Kertészet";
+"type.shop.games" = "Játékbolt";
 "type.shop.gas" = "Palackozottgáz-bolt";
 "type.shop.gift" = "Ajándékbolt (souvenir)";
 "type.shop.greengrocer" = "Zöldséges";

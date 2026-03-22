@@ -759,7 +759,9 @@
     <string name="type.natural.wetland.marsh">Marsk</string>
     <string name="type.noexit">Blind vej</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.architect">Arkitektkontor</string>
     <string name="type.office.company">Selskabskontor</string>
+    <string name="type.office.educational_institution">Uddannelsesinstitution</string>
     <string name="type.office.estate_agent">Ejendomsmægler</string>
     <string name="type.office.government">Regeringskontor</string>
     <string name="type.office.insurance">Forsikringskontor</string>
@@ -1148,6 +1150,15 @@
     <string name="type.shop.chemist">Materialist</string>
     <string name="type.shop.chocolate">Chokoladebutik</string>
     <string name="type.shop.clothes">Tøjbutik</string>
+    <string name="type.shop.clothes.children">Børnetøjsbutik</string>
+    <string name="type.shop.clothes.fashion">Modebutik</string>
+    <string name="type.shop.clothes.hats">Hattebutik</string>
+    <string name="type.shop.clothes.men">Herretøjsbutik</string>
+    <string name="type.shop.clothes.sports">Sportsklæderbutik</string>
+    <string name="type.shop.clothes.suits">Jakkesætbutik</string>
+    <string name="type.shop.clothes.underwear">Undertøjsbutik</string>
+    <string name="type.shop.clothes.wedding">Brudetøjsbutik</string>
+    <string name="type.shop.clothes.women">Dametøjsbutik</string>
     <string name="type.shop.coffee">Kaffehandel</string>
     <string name="type.shop.computer">Computerforretning</string>
     <string name="type.shop.confectionery">Slikbutik</string>
@@ -1168,6 +1179,7 @@
     <string name="type.shop.funeral_directors">Bedemand</string>
     <string name="type.shop.furniture">Møbelbutik</string>
     <string name="type.shop.garden_centre">Havecenter</string>
+    <string name="type.shop.games">Spilbutik</string>
     <string name="type.shop.gas">Gas butik</string>
     <string name="type.shop.gift">Gavebutik</string>
     <string name="type.shop.greengrocer">Grønthandler</string>

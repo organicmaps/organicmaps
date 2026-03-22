@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "ບຶງ";
 "type.noexit" = "ທາງຕັນ";
 "type.office" = "ຫ້ອງການ";
+"type.office.architect" = "Architect Office";
 "type.office.company" = "ຫ້ອງການບໍລິສັດ";
+"type.office.educational_institution" = "Educational Institution";
 "type.office.estate_agent" = "ນາຍໜ້າອະສັງຫາລິມະຊັບ";
 "type.office.government" = "ຫ້ອງການລັດ";
 "type.office.insurance" = "ຫ້ອງການປະກັນໄພ";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "ຮ້ານຂາຍຢາ";
 "type.shop.chocolate" = "ຮ້ານຂາຍຊັອກໂກແລັດ";
 "type.shop.clothes" = "ຮ້ານຂາຍເສື້ອຜ້າ";
+"type.shop.clothes.children" = "Children's Clothes Shop";
+"type.shop.clothes.fashion" = "Fashion Boutique";
+"type.shop.clothes.hats" = "Hat Shop";
+"type.shop.clothes.men" = "Men's Clothes Shop";
+"type.shop.clothes.sports" = "Sports Clothes Shop";
+"type.shop.clothes.suits" = "Suits Shop";
+"type.shop.clothes.underwear" = "Underwear Shop";
+"type.shop.clothes.wedding" = "Wedding Clothes Shop";
+"type.shop.clothes.women" = "Women's Clothes Shop";
 "type.shop.coffee" = "ຮ້ານກາເຟ";
 "type.shop.computer" = "ຮ້ານຂາຍຄອມພິວເຕີ";
 "type.shop.confectionery" = "ຮ້ານຂາຍເຂົ້າໜົມ";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "ຮ້ານບໍລິການງານສົບ";
 "type.shop.furniture" = "ຮ້ານຂາຍເຟີນີເຈີ";
 "type.shop.garden_centre" = "ຮ້ານຂາຍອຸປະກອນເຮັດສວນ";
+"type.shop.games" = "Games Shop";
 "type.shop.gas" = "ຮ້ານຂາຍກາສ";
 "type.shop.gift" = "ຮ້ານຂາຍຂອງຂວັນ";
 "type.shop.greengrocer" = "ຮ້ານຂາຍຜັກແລະໝາກໄມ້";

@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Moczary</string>
     <string name="type.noexit">Ślepy koniec drogi</string>
     <string name="type.office">Biuro</string>
+    <string name="type.office.architect">Pracownia architektoniczna</string>
     <string name="type.office.company">Biuro przedsiębiorstwa</string>
+    <string name="type.office.educational_institution">Placówka oświatowa</string>
     <string name="type.office.estate_agent">Pośrednik handlu nieruchomościami</string>
     <string name="type.office.government">Biuro administracji rządowej</string>
     <string name="type.office.insurance">Biuro ubezpieczeń</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Drogeria</string>
     <string name="type.shop.chocolate">Sklep z czekoladą</string>
     <string name="type.shop.clothes">Sklep z ubraniami</string>
+    <string name="type.shop.clothes.children">Sklep z odzieżą dziecięcą</string>
+    <string name="type.shop.clothes.fashion">Butik modowy</string>
+    <string name="type.shop.clothes.hats">Sklep z kapeluszami</string>
+    <string name="type.shop.clothes.men">Sklep z odzieżą męską</string>
+    <string name="type.shop.clothes.sports">Sklep z odzieżą sportową</string>
+    <string name="type.shop.clothes.suits">Sklep z garniturami</string>
+    <string name="type.shop.clothes.underwear">Sklep z bielizną</string>
+    <string name="type.shop.clothes.wedding">Salon sukien ślubnych</string>
+    <string name="type.shop.clothes.women">Sklep z odzieżą damską</string>
     <string name="type.shop.coffee">Sklep z kawą</string>
     <string name="type.shop.computer">Sklep komputerowy</string>
     <string name="type.shop.confectionery">Sklep ze słodyczami</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Zakład pogrzebowy</string>
     <string name="type.shop.furniture">Sklep meblowy</string>
     <string name="type.shop.garden_centre">Sklep ogrodniczy</string>
+    <string name="type.shop.games">Sklep z grami</string>
     <string name="type.shop.gas">Sklep gazowy</string>
     <string name="type.shop.gift">Sklep z pamiątkami</string>
     <string name="type.shop.greengrocer">Warzywniak</string>

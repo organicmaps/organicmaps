@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">草沼</string>
     <string name="type.noexit">死胡同</string>
     <string name="type.office">办公室</string>
+    <string name="type.office.architect">建筑师事务所</string>
     <string name="type.office.company">企业公司</string>
+    <string name="type.office.educational_institution">教育机构</string>
     <string name="type.office.estate_agent">地产中介</string>
     <string name="type.office.government">政府办公点</string>
     <string name="type.office.insurance">保险公司</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">药妆店</string>
     <string name="type.shop.chocolate">巧克力店</string>
     <string name="type.shop.clothes">服装店</string>
+    <string name="type.shop.clothes.children">童装店</string>
+    <string name="type.shop.clothes.fashion">时装精品店</string>
+    <string name="type.shop.clothes.hats">帽子店</string>
+    <string name="type.shop.clothes.men">男装店</string>
+    <string name="type.shop.clothes.sports">运动服装店</string>
+    <string name="type.shop.clothes.suits">西装店</string>
+    <string name="type.shop.clothes.underwear">内衣店</string>
+    <string name="type.shop.clothes.wedding">婚纱礼服店</string>
+    <string name="type.shop.clothes.women">女装店</string>
     <string name="type.shop.coffee">咖啡店</string>
     <string name="type.shop.computer">电脑店</string>
     <string name="type.shop.confectionery">糖果店</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">殡仪馆</string>
     <string name="type.shop.furniture">家具店</string>
     <string name="type.shop.garden_centre">幼儿园</string>
+    <string name="type.shop.games">游戏店</string>
     <string name="type.shop.gas">燃气站</string>
     <string name="type.shop.gift">礼品店</string>
     <string name="type.shop.greengrocer">蔬果零售店</string>

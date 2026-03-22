@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Mlaştină";
 "type.noexit" = "Dead End";
 "type.office" = "Birou";
+"type.office.architect" = "Birou de arhitectură";
 "type.office.company" = "Sediu companei";
+"type.office.educational_institution" = "Instituție de învățământ";
 "type.office.estate_agent" = "Agent imobiliar";
 "type.office.government" = "Birou guvernamental";
 "type.office.insurance" = "Birou de asigurări";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Mercerie";
 "type.shop.chocolate" = "Magazin de ciocolată";
 "type.shop.clothes" = "Magazin de haine";
+"type.shop.clothes.children" = "Magazin de haine pentru copii";
+"type.shop.clothes.fashion" = "Boutique de modă";
+"type.shop.clothes.hats" = "Magazin de pălării";
+"type.shop.clothes.men" = "Magazin de haine pentru bărbați";
+"type.shop.clothes.sports" = "Magazin de haine sport";
+"type.shop.clothes.suits" = "Magazin de costume";
+"type.shop.clothes.underwear" = "Magazin de lenjerie";
+"type.shop.clothes.wedding" = "Magazin de rochii de mireasă";
+"type.shop.clothes.women" = "Magazin de haine pentru femei";
 "type.shop.coffee" = "Magazin de cafea";
 "type.shop.computer" = "Magazin de calculatoare";
 "type.shop.confectionery" = "Cofetărie";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Pompe funebre";
 "type.shop.furniture" = "Magazin de mobilă";
 "type.shop.garden_centre" = "Pepinieră";
+"type.shop.games" = "Magazin de jocuri";
 "type.shop.gas" = "Magazin de gaze";
 "type.shop.gift" = "Magazin de suveniruri";
 "type.shop.greengrocer" = "Băcănie";

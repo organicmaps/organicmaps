@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Soo</string>
     <string name="type.noexit">Tupiktee</string>
     <string name="type.office">Kontor</string>
+    <string name="type.office.architect">Arhitektibüroo</string>
     <string name="type.office.company">Ettevõtte kontor</string>
+    <string name="type.office.educational_institution">Haridusasutus</string>
     <string name="type.office.estate_agent">Kinnisvarabüroo</string>
     <string name="type.office.government">Valitsusasutus</string>
     <string name="type.office.insurance">Kindlustusbüroo</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Apteek ja ilupood</string>
     <string name="type.shop.chocolate">Šokolaadipood</string>
     <string name="type.shop.clothes">Rõivapood</string>
+    <string name="type.shop.clothes.children">Lasteriidepood</string>
+    <string name="type.shop.clothes.fashion">Moebutiik</string>
+    <string name="type.shop.clothes.hats">Mütsipood</string>
+    <string name="type.shop.clothes.men">Meesterõivaste pood</string>
+    <string name="type.shop.clothes.sports">Spordirõivaste pood</string>
+    <string name="type.shop.clothes.suits">Ülikondade pood</string>
+    <string name="type.shop.clothes.underwear">Aluspesu pood</string>
+    <string name="type.shop.clothes.wedding">Pulmariidepood</string>
+    <string name="type.shop.clothes.women">Naisterõivaste pood</string>
     <string name="type.shop.coffee">Kohvipood</string>
     <string name="type.shop.computer">Arvutipood</string>
     <string name="type.shop.confectionery">Kommipood</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Matusekorraldaja</string>
     <string name="type.shop.furniture">Mööblipood</string>
     <string name="type.shop.garden_centre">Aianduskeskus</string>
+    <string name="type.shop.games">Mängupood</string>
     <string name="type.shop.gas">Balloongaasi kauplus</string>
     <string name="type.shop.gift">Kingipood</string>
     <string name="type.shop.greengrocer">Puu- ja köögiviljapood</string>

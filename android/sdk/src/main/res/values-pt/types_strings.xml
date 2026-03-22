@@ -735,7 +735,9 @@
     <string name="type.natural.wetland.marsh">Brejo</string>
     <string name="type.noexit">Via sem saída</string>
     <string name="type.office">Escritório</string>
+    <string name="type.office.architect">Escritório de arquitetura</string>
     <string name="type.office.company">Empresa</string>
+    <string name="type.office.educational_institution">Instituição de ensino</string>
     <string name="type.office.estate_agent">Imobiliária</string>
     <string name="type.office.government">Órgão governamental</string>
     <string name="type.office.insurance">Agente de seguros</string>
@@ -1126,6 +1128,15 @@
     <string name="type.shop.chemist">Parafarmácia</string>
     <string name="type.shop.chocolate">Loja de chocolates</string>
     <string name="type.shop.clothes">Loja de roupas</string>
+    <string name="type.shop.clothes.children">Loja de roupas infantis</string>
+    <string name="type.shop.clothes.fashion">Boutique de moda</string>
+    <string name="type.shop.clothes.hats">Chapelaria</string>
+    <string name="type.shop.clothes.men">Loja de roupas masculinas</string>
+    <string name="type.shop.clothes.sports">Loja de roupas esportivas</string>
+    <string name="type.shop.clothes.suits">Loja de fatos</string>
+    <string name="type.shop.clothes.underwear">Loja de roupa íntima</string>
+    <string name="type.shop.clothes.wedding">Loja de vestidos de noiva</string>
+    <string name="type.shop.clothes.women">Loja de roupas femininas</string>
     <string name="type.shop.coffee">Loja de café</string>
     <string name="type.shop.computer">Loja de informática</string>
     <string name="type.shop.confectionery">Confeitaria</string>
@@ -1146,6 +1157,7 @@
     <string name="type.shop.funeral_directors">Funerária</string>
     <string name="type.shop.furniture">Loja de móveis</string>
     <string name="type.shop.garden_centre">Loja de jardinagem ou viveiro</string>
+    <string name="type.shop.games">Loja de jogos</string>
     <string name="type.shop.gas">Distribuidora de gás</string>
     <string name="type.shop.gift">Loja de lembranças</string>
     <string name="type.shop.greengrocer">Loja de frutas e verduras</string>

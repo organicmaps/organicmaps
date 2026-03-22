@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Sump";
 "type.noexit" = "Dead End";
 "type.office" = "Kontor";
+"type.office.architect" = "Arkitektkontor";
 "type.office.company" = "Firmakontor";
+"type.office.educational_institution" = "Utdanningsinstitusjon";
 "type.office.estate_agent" = "Eiendomsmegler";
 "type.office.government" = "Offentlig kontor";
 "type.office.insurance" = "Forsikring";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Husholdningsartikler";
 "type.shop.chocolate" = "Butikk";
 "type.shop.clothes" = "Klesbutikk";
+"type.shop.clothes.children" = "Barneklærbutikk";
+"type.shop.clothes.fashion" = "Motebutikk";
+"type.shop.clothes.hats" = "Hattebutikk";
+"type.shop.clothes.men" = "Herreklærbutikk";
+"type.shop.clothes.sports" = "Sportsklærbutikk";
+"type.shop.clothes.suits" = "Draktbutikk";
+"type.shop.clothes.underwear" = "Undertøybutikk";
+"type.shop.clothes.wedding" = "Brudekjolebutikk";
+"type.shop.clothes.women" = "Dameklærbutikk";
 "type.shop.coffee" = "Butikk";
 "type.shop.computer" = "Databutikk";
 "type.shop.confectionery" = "Søtsaker";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Begravelsebyrå";
 "type.shop.furniture" = "Møbelbutikk";
 "type.shop.garden_centre" = "Planteskole";
+"type.shop.games" = "Spillbutikk";
 "type.shop.gas" = "Gassbutikk";
 "type.shop.gift" = "Gavebutikk";
 "type.shop.greengrocer" = "Frukt- og grønnsakshandler";

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Đầm lầy cỏ";
 "type.noexit" = "Dead End";
 "type.office" = "Văn phòng";
+"type.office.architect" = "Văn phòng kiến trúc";
 "type.office.company" = "Văn phòng công ty";
+"type.office.educational_institution" = "Cơ sở giáo dục";
 "type.office.estate_agent" = "Đại Lý Bất Động Sản";
 "type.office.government" = "Văn phòng chính phủ";
 "type.office.insurance" = "Văn phòng bảo hiểm";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Cửa hàng Hóa chất";
 "type.shop.chocolate" = "Cửa hàng socola";
 "type.shop.clothes" = "Cửa hàng quần áo";
+"type.shop.clothes.children" = "Cửa hàng quần áo trẻ em";
+"type.shop.clothes.fashion" = "Cửa hàng thời trang";
+"type.shop.clothes.hats" = "Cửa hàng mũ";
+"type.shop.clothes.men" = "Cửa hàng quần áo nam";
+"type.shop.clothes.sports" = "Cửa hàng quần áo thể thao";
+"type.shop.clothes.suits" = "Cửa hàng vest";
+"type.shop.clothes.underwear" = "Cửa hàng đồ lót";
+"type.shop.clothes.wedding" = "Cửa hàng váy cưới";
+"type.shop.clothes.women" = "Cửa hàng quần áo nữ";
 "type.shop.coffee" = "Quán cà phê";
 "type.shop.computer" = "Cửa hàng máy tính";
 "type.shop.confectionery" = "Cửa hàng kẹo";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Tổ chức tang lễ";
 "type.shop.furniture" = "Cửa hàng nội thất";
 "type.shop.garden_centre" = "Nhà trẻ";
+"type.shop.games" = "Cửa hàng trò chơi";
 "type.shop.gas" = "Cửa hàng gas";
 "type.shop.gift" = "Cửa hàng quà tặng";
 "type.shop.greengrocer" = "Cửa hàng rau củ";

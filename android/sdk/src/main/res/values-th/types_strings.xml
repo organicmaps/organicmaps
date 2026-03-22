@@ -638,7 +638,9 @@
     <string name="type.natural.wetland.bog">พรุ</string>
     <string name="type.natural.wetland.marsh">ที่ลุ่มชื้นแฉะ</string>
     <string name="type.office">สำนักงาน</string>
+    <string name="type.office.architect">สำนักงานสถาปัตยกรรม</string>
     <string name="type.office.company">สำนักงานบริษัท</string>
+    <string name="type.office.educational_institution">สถาบันการศึกษา</string>
     <string name="type.office.estate_agent">นายหน้าอสังหาริมทรัพย์</string>
     <string name="type.office.government">หน่วยงานราชการ</string>
     <string name="type.office.insurance">สำนักงานประกันภัย</string>
@@ -980,6 +982,15 @@
     <string name="type.shop.chemist">ร้านเคมีภัณฑ์</string>
     <string name="type.shop.chocolate">ร้านช็อกโกแลต</string>
     <string name="type.shop.clothes">ร้านขายเสื้อผ้า</string>
+    <string name="type.shop.clothes.children">ร้านเสื้อผ้าเด็ก</string>
+    <string name="type.shop.clothes.fashion">ร้านแฟชั่น</string>
+    <string name="type.shop.clothes.hats">ร้านขายหมวก</string>
+    <string name="type.shop.clothes.men">ร้านเสื้อผ้าผู้ชาย</string>
+    <string name="type.shop.clothes.sports">ร้านเสื้อผ้ากีฬา</string>
+    <string name="type.shop.clothes.suits">ร้านชุดสูท</string>
+    <string name="type.shop.clothes.underwear">ร้านชุดชั้นใน</string>
+    <string name="type.shop.clothes.wedding">ร้านชุดแต่งงาน</string>
+    <string name="type.shop.clothes.women">ร้านเสื้อผ้าผู้หญิง</string>
     <string name="type.shop.coffee">ร้านขายกาแฟ</string>
     <string name="type.shop.computer">ร้านขายคอมพิวเตอร์</string>
     <string name="type.shop.confectionery">ร้านขายขนมหวาน</string>
@@ -1000,6 +1011,7 @@
     <string name="type.shop.funeral_directors">สัปเหร่อ</string>
     <string name="type.shop.furniture">ร้านเฟอร์นิเจอร์</string>
     <string name="type.shop.garden_centre">สถานรับเลี้ยงเด็ก</string>
+    <string name="type.shop.games">ร้านเกม</string>
     <string name="type.shop.gas">ร้านแก๊ส</string>
     <string name="type.shop.gift">ร้านของขวัญ</string>
     <string name="type.shop.greengrocer">ร้านขายผัด</string>

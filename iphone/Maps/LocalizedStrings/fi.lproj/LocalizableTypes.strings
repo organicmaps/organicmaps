@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Marsh";
 "type.noexit" = "Dead End";
 "type.office" = "Toimisto";
+"type.office.architect" = "Arkkitehtitoimisto";
 "type.office.company" = "Yhtiön toimisto";
+"type.office.educational_institution" = "Oppilaitos";
 "type.office.estate_agent" = "Kiinteistönvälittäjä";
 "type.office.government" = "Viranomaisen toimisto";
 "type.office.insurance" = "Vakuutuslaitos";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Kosmetiikkamyymälä";
 "type.shop.chocolate" = "Suklaakauppa";
 "type.shop.clothes" = "Vaatekauppa";
+"type.shop.clothes.children" = "Lastenvaatekauppa";
+"type.shop.clothes.fashion" = "Muotiboutique";
+"type.shop.clothes.hats" = "Hattukauppa";
+"type.shop.clothes.men" = "Miesten vaatekauppa";
+"type.shop.clothes.sports" = "Urheiluvaatekauppa";
+"type.shop.clothes.suits" = "Pukukauppa";
+"type.shop.clothes.underwear" = "Alusvaatekauppa";
+"type.shop.clothes.wedding" = "Hääpukukauppa";
+"type.shop.clothes.women" = "Naisten vaatekauppa";
 "type.shop.coffee" = "Kahvikauppa";
 "type.shop.computer" = "Tietokonekauppa";
 "type.shop.confectionery" = "Makeiskauppa";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Hautaustoimisto";
 "type.shop.furniture" = "Huonekalukauppa";
 "type.shop.garden_centre" = "Taimitarha";
+"type.shop.games" = "Pelikauppa";
 "type.shop.gas" = "Kaasukauppa";
 "type.shop.gift" = "Lahjatavaraliike";
 "type.shop.greengrocer" = "Vihanneskauppias";

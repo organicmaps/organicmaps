@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "هور";
 "type.noexit" = "Dead End";
 "type.office" = "مكتب";
+"type.office.architect" = "مكتب معماري";
 "type.office.company" = "مكتب شركة";
+"type.office.educational_institution" = "مؤسسة تعليمية";
 "type.office.estate_agent" = "وكيل عقاري";
 "type.office.government" = "مكتب حكومي";
 "type.office.insurance" = "مكتب تأمين";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "متجر كيماويات";
 "type.shop.chocolate" = "متجر شوكولاتة";
 "type.shop.clothes" = "متجر ملابس";
+"type.shop.clothes.children" = "متجر ملابس أطفال";
+"type.shop.clothes.fashion" = "بوتيك الأزياء";
+"type.shop.clothes.hats" = "متجر قبعات";
+"type.shop.clothes.men" = "متجر ملابس رجالية";
+"type.shop.clothes.sports" = "متجر ملابس رياضية";
+"type.shop.clothes.suits" = "متجر بدلات";
+"type.shop.clothes.underwear" = "متجر الملابس الداخلية";
+"type.shop.clothes.wedding" = "متجر ملابس الزفاف";
+"type.shop.clothes.women" = "متجر ملابس نسائية";
 "type.shop.coffee" = "متجر قهوة";
 "type.shop.computer" = "متجر كمبيوتر";
 "type.shop.confectionery" = "متجر حلويات";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "منظموا الجنازات";
 "type.shop.furniture" = "متجر أثاث";
 "type.shop.garden_centre" = "مشتل";
+"type.shop.games" = "متجر ألعاب";
 "type.shop.gas" = "متجر غاز";
 "type.shop.gift" = "متجر هدايا";
 "type.shop.greengrocer" = "محل خضار";

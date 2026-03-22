@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Kënetë</string>
     <string name="type.noexit">Rrugë pa krye</string>
     <string name="type.office">Zyrë</string>
+    <string name="type.office.architect">Studio arkitekture</string>
     <string name="type.office.company">Zyrë kompanie</string>
+    <string name="type.office.educational_institution">Institucion arsimor</string>
     <string name="type.office.estate_agent">Agjent imobiliar</string>
     <string name="type.office.government">Zyrë qeveritare</string>
     <string name="type.office.insurance">Zyre sigurimesh</string>
@@ -1149,6 +1151,15 @@
     <string name="type.shop.chemist">Farmaci</string>
     <string name="type.shop.chocolate">Dyqan çokollatash</string>
     <string name="type.shop.clothes">Dyqan rrobash</string>
+    <string name="type.shop.clothes.children">Dyqan rrobash fëmijësh</string>
+    <string name="type.shop.clothes.fashion">Butik mode</string>
+    <string name="type.shop.clothes.hats">Dyqan kapelash</string>
+    <string name="type.shop.clothes.men">Dyqan rrobash për burra</string>
+    <string name="type.shop.clothes.sports">Dyqan rrobash sportive</string>
+    <string name="type.shop.clothes.suits">Dyqan kostumesh</string>
+    <string name="type.shop.clothes.underwear">Dyqan rrobash të brendshme</string>
+    <string name="type.shop.clothes.wedding">Dyqan rrobash nusërie</string>
+    <string name="type.shop.clothes.women">Dyqan rrobash për gra</string>
     <string name="type.shop.coffee">Dyqan kafeje</string>
     <string name="type.shop.computer">Dyqan kompjuterash</string>
     <string name="type.shop.confectionery">Dyqan ëmbëlsirash</string>
@@ -1169,6 +1180,7 @@
     <string name="type.shop.funeral_directors">Agjenci funerale</string>
     <string name="type.shop.furniture">Dyqan mobiljesh</string>
     <string name="type.shop.garden_centre">Qendër kopshtarie</string>
+    <string name="type.shop.games">Dyqan lojërash</string>
     <string name="type.shop.gas">Dyqan gazi</string>
     <string name="type.shop.gift">Dyqan dhuratash</string>
     <string name="type.shop.greengrocer">Dyqan frutash-perimesh</string>

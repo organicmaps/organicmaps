@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Moeras";
 "type.noexit" = "Doodlopende weg";
 "type.office" = "Kantoor";
+"type.office.architect" = "Architectenbureau";
 "type.office.company" = "Bedrijfskantoor";
+"type.office.educational_institution" = "Onderwijsinstelling";
 "type.office.estate_agent" = "Makelaar";
 "type.office.government" = "Overheidskantoor";
 "type.office.insurance" = "Verzekeringskantoor";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Drogisterij";
 "type.shop.chocolate" = "Chocolaterie";
 "type.shop.clothes" = "Kledingwinkel";
+"type.shop.clothes.children" = "Kinderkledingwinkel";
+"type.shop.clothes.fashion" = "Modeboutique";
+"type.shop.clothes.hats" = "Hoedenzaak";
+"type.shop.clothes.men" = "Herenkledingwinkel";
+"type.shop.clothes.sports" = "Sportkledingwinkel";
+"type.shop.clothes.suits" = "Pakkenwinkel";
+"type.shop.clothes.underwear" = "Ondergoedwinkel";
+"type.shop.clothes.wedding" = "Bruidswinkel";
+"type.shop.clothes.women" = "Dameskledingwinkel";
 "type.shop.coffee" = "Koffiewinkel";
 "type.shop.computer" = "Computerwinkel";
 "type.shop.confectionery" = "Snoepwinkel";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Begrafenisondernemer";
 "type.shop.furniture" = "Meubelzaak";
 "type.shop.garden_centre" = "Tuincentrum";
+"type.shop.games" = "Spellenwinkel";
 "type.shop.gas" = "Gas winkel";
 "type.shop.gift" = "Cadeauwinkel";
 "type.shop.greengrocer" = "Groentenwinkel";

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "ביצת עשב";
 "type.noexit" = "Dead End";
 "type.office" = "משרד";
+"type.office.architect" = "משרד אדריכלות";
 "type.office.company" = "משרד החברה";
+"type.office.educational_institution" = "מוסד חינוכי";
 "type.office.estate_agent" = "משרד נדל״ן";
 "type.office.government" = "משרד ממשלתי";
 "type.office.insurance" = "משרד ביטוח";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Chemist";
 "type.shop.chocolate" = "חנות שוקולדים";
 "type.shop.clothes" = "חנות בגדים";
+"type.shop.clothes.children" = "חנות בגדי ילדים";
+"type.shop.clothes.fashion" = "בוטיק אופנה";
+"type.shop.clothes.hats" = "חנות כובעים";
+"type.shop.clothes.men" = "חנות בגדי גברים";
+"type.shop.clothes.sports" = "חנות ביגוד ספורט";
+"type.shop.clothes.suits" = "חנות חליפות";
+"type.shop.clothes.underwear" = "חנות הלבשה תחתונה";
+"type.shop.clothes.wedding" = "חנות שמלות כלה";
+"type.shop.clothes.women" = "חנות בגדי נשים";
 "type.shop.coffee" = "בית קפה";
 "type.shop.computer" = "חנות מחשבים";
 "type.shop.confectionery" = "חנות ממתקים";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "מנהלי הלוויות";
 "type.shop.furniture" = "חנות רהיטים";
 "type.shop.garden_centre" = "משתלה";
+"type.shop.games" = "חנות משחקים";
 "type.shop.gas" = "חנות גז";
 "type.shop.gift" = "חנות מתנות";
 "type.shop.greengrocer" = "ירקן";

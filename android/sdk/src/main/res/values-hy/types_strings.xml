@@ -759,7 +759,9 @@
     <string name="type.natural.wetland.marsh">Ճահիճ</string>
     <string name="type.noexit">Փակուղի</string>
     <string name="type.office">Գրասենյակ</string>
+    <string name="type.office.architect">Ճարտարապետական բյուրո</string>
     <string name="type.office.company">Ընկերության գրասենյակ</string>
+    <string name="type.office.educational_institution">Ուսումնական հաստատություն</string>
     <string name="type.office.estate_agent">Անշարժ գույքի գործակալություն</string>
     <string name="type.office.government">Կառավարական գրասենյակ</string>
     <string name="type.office.insurance">Ապահովագրական գրասենյակ</string>
@@ -1153,6 +1155,15 @@
     <string name="type.shop.chemist">Դեղատուն</string>
     <string name="type.shop.chocolate">Շոկոլադի խանութ</string>
     <string name="type.shop.clothes">Հագուստի խանութ</string>
+    <string name="type.shop.clothes.children">Մանկական հագուստի խանութ</string>
+    <string name="type.shop.clothes.fashion">Նորաձևության բուտիկ</string>
+    <string name="type.shop.clothes.hats">Գլխարկների խանութ</string>
+    <string name="type.shop.clothes.men">Տղամարդկանց հագուստի խանութ</string>
+    <string name="type.shop.clothes.sports">Սպորտային հագուստի խանութ</string>
+    <string name="type.shop.clothes.suits">Կոստյումների խանութ</string>
+    <string name="type.shop.clothes.underwear">Ներքնազգեստի խանութ</string>
+    <string name="type.shop.clothes.wedding">Հարսանյաց հագուստի խանութ</string>
+    <string name="type.shop.clothes.women">Կանացի հագուստի խանութ</string>
     <string name="type.shop.coffee">Սուրճի խանութ</string>
     <string name="type.shop.computer">Համակարգչային խանութ</string>
     <string name="type.shop.confectionery">Քաղցրավենիքի խանութ</string>
@@ -1173,6 +1184,7 @@
     <string name="type.shop.funeral_directors">Սգո ծառայություններ</string>
     <string name="type.shop.furniture">Կահույքի խանութ</string>
     <string name="type.shop.garden_centre">Այգեգործական կենտրոն</string>
+    <string name="type.shop.games">Խաղերի խանութ</string>
     <string name="type.shop.gas">Գազի խանութ</string>
     <string name="type.shop.gift">Նվերների խանութ</string>
     <string name="type.shop.greengrocer">Մրգի և բանջարեղենի խանութ</string>

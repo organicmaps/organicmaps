@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Mocsár</string>
     <string name="type.noexit">Zsákutca</string>
     <string name="type.office">Iroda</string>
+    <string name="type.office.architect">Építészeti iroda</string>
     <string name="type.office.company">Vállalati iroda</string>
+    <string name="type.office.educational_institution">Oktatási intézmény</string>
     <string name="type.office.estate_agent">Ingatlanügynök</string>
     <string name="type.office.government">Állami iroda</string>
     <string name="type.office.insurance">Biztosítóiroda</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Drogéria</string>
     <string name="type.shop.chocolate">Csokoládébolt</string>
     <string name="type.shop.clothes">Ruházati bolt</string>
+    <string name="type.shop.clothes.children">Gyerekruhaszalon</string>
+    <string name="type.shop.clothes.fashion">Divatboutique</string>
+    <string name="type.shop.clothes.hats">Kalapüzlet</string>
+    <string name="type.shop.clothes.men">Férfiruházati bolt</string>
+    <string name="type.shop.clothes.sports">Sportruházati bolt</string>
+    <string name="type.shop.clothes.suits">Öltönyüzlet</string>
+    <string name="type.shop.clothes.underwear">Fehérnemű üzlet</string>
+    <string name="type.shop.clothes.wedding">Menyasszonyi ruha szalon</string>
+    <string name="type.shop.clothes.women">Női ruházati bolt</string>
     <string name="type.shop.coffee">Kávébolt</string>
     <string name="type.shop.computer">Számítógépüzlet</string>
     <string name="type.shop.confectionery">Édességbolt</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Temetkezési vállalkozó</string>
     <string name="type.shop.furniture">Bútorbolt</string>
     <string name="type.shop.garden_centre">Kertészet</string>
+    <string name="type.shop.games">Játékbolt</string>
     <string name="type.shop.gas">Palackozottgáz-bolt</string>
     <string name="type.shop.gift">Ajándékbolt (souvenir)</string>
     <string name="type.shop.greengrocer">Zöldséges</string>

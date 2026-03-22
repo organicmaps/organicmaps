@@ -742,7 +742,9 @@
     <string name="type.natural.wetland.bog">ביצת כבול</string>
     <string name="type.natural.wetland.marsh">ביצת עשב</string>
     <string name="type.office">משרד</string>
+    <string name="type.office.architect">משרד אדריכלות</string>
     <string name="type.office.company">משרד החברה</string>
+    <string name="type.office.educational_institution">מוסד חינוכי</string>
     <string name="type.office.estate_agent">משרד נדל״ן</string>
     <string name="type.office.government">משרד ממשלתי</string>
     <string name="type.office.insurance">משרד ביטוח</string>
@@ -876,6 +878,15 @@
     <string name="type.shop.carpet">חנות שטיחים</string>
     <string name="type.shop.chocolate">חנות שוקולדים</string>
     <string name="type.shop.clothes">חנות בגדים</string>
+    <string name="type.shop.clothes.children">חנות בגדי ילדים</string>
+    <string name="type.shop.clothes.fashion">בוטיק אופנה</string>
+    <string name="type.shop.clothes.hats">חנות כובעים</string>
+    <string name="type.shop.clothes.men">חנות בגדי גברים</string>
+    <string name="type.shop.clothes.sports">חנות ביגוד ספורט</string>
+    <string name="type.shop.clothes.suits">חנות חליפות</string>
+    <string name="type.shop.clothes.underwear">חנות הלבשה תחתונה</string>
+    <string name="type.shop.clothes.wedding">חנות שמלות כלה</string>
+    <string name="type.shop.clothes.women">חנות בגדי נשים</string>
     <string name="type.shop.coffee">בית קפה</string>
     <string name="type.shop.computer">חנות מחשבים</string>
     <string name="type.shop.confectionery">חנות ממתקים</string>
@@ -896,6 +907,7 @@
     <string name="type.shop.funeral_directors">מנהלי הלוויות</string>
     <string name="type.shop.furniture">חנות רהיטים</string>
     <string name="type.shop.garden_centre">משתלה</string>
+    <string name="type.shop.games">חנות משחקים</string>
     <string name="type.shop.gas">חנות גז</string>
     <string name="type.shop.gift">חנות מתנות</string>
     <string name="type.shop.greengrocer">ירקן</string>

@@ -729,7 +729,9 @@
     <string name="type.natural.wetland.marsh">Bataqlıq</string>
     <string name="type.noexit">Çıxılmaz</string>
     <string name="type.office">Ofis</string>
+    <string name="type.office.architect">Memar ofisi</string>
     <string name="type.office.company">Şirkət ofisi</string>
+    <string name="type.office.educational_institution">Təhsil müəssisəsi</string>
     <string name="type.office.estate_agent">Əmlak agenti</string>
     <string name="type.office.government">Hökumət Ofisi</string>
     <string name="type.office.insurance">Sığorta Agentliyi</string>
@@ -1110,6 +1112,15 @@
     <string name="type.shop.chemist">Təmizlik məhsulları mağazası</string>
     <string name="type.shop.chocolate">Şokolad Dükanı</string>
     <string name="type.shop.clothes">Geyim mağazası</string>
+    <string name="type.shop.clothes.children">Uşaq geyim mağazası</string>
+    <string name="type.shop.clothes.fashion">Moda butiki</string>
+    <string name="type.shop.clothes.hats">Papaq mağazası</string>
+    <string name="type.shop.clothes.men">Kişi geyim mağazası</string>
+    <string name="type.shop.clothes.sports">İdman geyim mağazası</string>
+    <string name="type.shop.clothes.suits">Kostyum mağazası</string>
+    <string name="type.shop.clothes.underwear">Alt paltar mağazası</string>
+    <string name="type.shop.clothes.wedding">Toy geyim mağazası</string>
+    <string name="type.shop.clothes.women">Qadın geyim mağazası</string>
     <string name="type.shop.coffee">Qəhvə dükanı</string>
     <string name="type.shop.computer">Kompüter Mağazası</string>
     <string name="type.shop.confectionery">Şirniyyatçı</string>
@@ -1130,6 +1141,7 @@
     <string name="type.shop.funeral_directors">Zərərçi</string>
     <string name="type.shop.furniture">Mebel Dükanı</string>
     <string name="type.shop.garden_centre">Bağ mağazası</string>
+    <string name="type.shop.games">Oyun mağazası</string>
     <string name="type.shop.gas">Qaz doldurma məntəqəsi</string>
     <string name="type.shop.gift">Hədiyyə Dükanı</string>
     <string name="type.shop.greengrocer">Tərəvəzçi</string>

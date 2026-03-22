@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Έλος</string>
     <string name="type.noexit">Αδιέξοδο</string>
     <string name="type.office">Γραφείο</string>
+    <string name="type.office.architect">Αρχιτεκτονικό γραφείο</string>
     <string name="type.office.company">Γραφείο επιχείρησης</string>
+    <string name="type.office.educational_institution">Εκπαιδευτικό ίδρυμα</string>
     <string name="type.office.estate_agent">Κτηματομεσίτης</string>
     <string name="type.office.government">Κυβερνητικό γραφείο</string>
     <string name="type.office.insurance">Ασφαλιστικό γραφείο</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Χημικά προϊόντα</string>
     <string name="type.shop.chocolate">Σοκολατοποιία</string>
     <string name="type.shop.clothes">Κατάστημα ρούχων</string>
+    <string name="type.shop.clothes.children">Παιδικό κατάστημα ρούχων</string>
+    <string name="type.shop.clothes.fashion">Μπουτίκ μόδας</string>
+    <string name="type.shop.clothes.hats">Κατάστημα καπέλων</string>
+    <string name="type.shop.clothes.men">Ανδρικό κατάστημα ρούχων</string>
+    <string name="type.shop.clothes.sports">Αθλητικά ρούχα</string>
+    <string name="type.shop.clothes.suits">Κατάστημα κοστουμιών</string>
+    <string name="type.shop.clothes.underwear">Κατάστημα εσωρούχων</string>
+    <string name="type.shop.clothes.wedding">Κατάστημα νυφικών</string>
+    <string name="type.shop.clothes.women">Γυναικείο κατάστημα ρούχων</string>
     <string name="type.shop.coffee">Καφεκοπτείο</string>
     <string name="type.shop.computer">Κατάστημα υπολογιστών</string>
     <string name="type.shop.confectionery">Γλυκά</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Γραφεία τελετών</string>
     <string name="type.shop.furniture">Κατάστημα επίπλων</string>
     <string name="type.shop.garden_centre">Κατάστημα ειδών κήπου</string>
+    <string name="type.shop.games">Κατάστημα παιχνιδιών</string>
     <string name="type.shop.gas">Κατάστημα υγραερίου</string>
     <string name="type.shop.gift">Είδη δώρου</string>
     <string name="type.shop.greengrocer">Μανάβικο</string>

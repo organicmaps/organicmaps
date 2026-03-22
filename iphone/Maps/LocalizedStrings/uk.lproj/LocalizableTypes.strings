@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Болотиста мiсцевiсть";
 "type.noexit" = "Тупик";
 "type.office" = "Офіс";
+"type.office.architect" = "Архітектурне бюро";
 "type.office.company" = "Організація";
+"type.office.educational_institution" = "Навчальний заклад";
 "type.office.estate_agent" = "Агенція нерухомості";
 "type.office.government" = "Держустанова";
 "type.office.insurance" = "Страхова компанія";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Магазин побутової хімії";
 "type.shop.chocolate" = "Шоколадна крамниця";
 "type.shop.clothes" = "Магазин одягу";
+"type.shop.clothes.children" = "Дитячий одяг";
+"type.shop.clothes.fashion" = "Модний бутик";
+"type.shop.clothes.hats" = "Магазин головних уборів";
+"type.shop.clothes.men" = "Чоловічий одяг";
+"type.shop.clothes.sports" = "Спортивний одяг";
+"type.shop.clothes.suits" = "Магазин костюмів";
+"type.shop.clothes.underwear" = "Магазин нижньої білизни";
+"type.shop.clothes.wedding" = "Весільний салон";
+"type.shop.clothes.women" = "Жіночий одяг";
 "type.shop.coffee" = "Кавова крамниця";
 "type.shop.computer" = "Комп'ютерний магазин";
 "type.shop.confectionery" = "Кондитерська";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Ритуальні послуги";
 "type.shop.furniture" = "Магазин меблів";
 "type.shop.garden_centre" = "Товари для саду";
+"type.shop.games" = "Магазин ігор";
 "type.shop.gas" = "Газовий магазин";
 "type.shop.gift" = "Магазин сувенірів";
 "type.shop.greengrocer" = "Овочі та фрукти";

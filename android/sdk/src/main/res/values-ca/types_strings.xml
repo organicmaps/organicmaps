@@ -757,7 +757,9 @@
     <string name="type.natural.wetland.marsh">Aiguamoll</string>
     <string name="type.noexit">Atzucac</string>
     <string name="type.office">Oficina</string>
+    <string name="type.office.architect">Estudi d\'arquitectura</string>
     <string name="type.office.company">Oficina d’empresa</string>
+    <string name="type.office.educational_institution">Institució educativa</string>
     <string name="type.office.estate_agent">Agent immobiliari</string>
     <string name="type.office.government">Oficina governamental</string>
     <string name="type.office.insurance">Oficina d’assegurances</string>
@@ -1152,6 +1154,15 @@
     <string name="type.shop.chemist">Farmacia</string>
     <string name="type.shop.chocolate">Xocolateria</string>
     <string name="type.shop.clothes">Botiga de roba</string>
+    <string name="type.shop.clothes.children">Botiga de roba infantil</string>
+    <string name="type.shop.clothes.fashion">Boutique de moda</string>
+    <string name="type.shop.clothes.hats">Botiga de barrets</string>
+    <string name="type.shop.clothes.men">Botiga de roba per a homes</string>
+    <string name="type.shop.clothes.sports">Botiga de roba esportiva</string>
+    <string name="type.shop.clothes.suits">Sastreria</string>
+    <string name="type.shop.clothes.underwear">Botiga de roba interior</string>
+    <string name="type.shop.clothes.wedding">Botiga de vestits de casament</string>
+    <string name="type.shop.clothes.women">Botiga de roba de dona</string>
     <string name="type.shop.coffee">Cafeteria</string>
     <string name="type.shop.computer">Botiga d’informàtica</string>
     <string name="type.shop.confectionery">Botiga de llaminadures</string>
@@ -1172,6 +1183,7 @@
     <string name="type.shop.funeral_directors">Funeraris</string>
     <string name="type.shop.furniture">Botiga de mobles</string>
     <string name="type.shop.garden_centre">Centre de jardineria</string>
+    <string name="type.shop.games">Botiga de jocs</string>
     <string name="type.shop.gas">Botiga de gas</string>
     <string name="type.shop.gift">Botiga de regals</string>
     <string name="type.shop.greengrocer">Fruiteria</string>

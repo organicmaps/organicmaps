@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Aiguamoll";
 "type.noexit" = "Atzucac";
 "type.office" = "Oficina";
+"type.office.architect" = "Estudi d'arquitectura";
 "type.office.company" = "Oficina d’empresa";
+"type.office.educational_institution" = "Institució educativa";
 "type.office.estate_agent" = "Agent immobiliari";
 "type.office.government" = "Oficina governamental";
 "type.office.insurance" = "Oficina d’assegurances";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Farmacia";
 "type.shop.chocolate" = "Xocolateria";
 "type.shop.clothes" = "Botiga de roba";
+"type.shop.clothes.children" = "Botiga de roba infantil";
+"type.shop.clothes.fashion" = "Boutique de moda";
+"type.shop.clothes.hats" = "Botiga de barrets";
+"type.shop.clothes.men" = "Botiga de roba per a homes";
+"type.shop.clothes.sports" = "Botiga de roba esportiva";
+"type.shop.clothes.suits" = "Sastreria";
+"type.shop.clothes.underwear" = "Botiga de roba interior";
+"type.shop.clothes.wedding" = "Botiga de vestits de casament";
+"type.shop.clothes.women" = "Botiga de roba de dona";
 "type.shop.coffee" = "Cafeteria";
 "type.shop.computer" = "Botiga d’informàtica";
 "type.shop.confectionery" = "Botiga de llaminadures";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Funeraris";
 "type.shop.furniture" = "Botiga de mobles";
 "type.shop.garden_centre" = "Centre de jardineria";
+"type.shop.games" = "Botiga de jocs";
 "type.shop.gas" = "Botiga de gas";
 "type.shop.gift" = "Botiga de regals";
 "type.shop.greengrocer" = "Fruiteria";

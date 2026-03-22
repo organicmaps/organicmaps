@@ -628,7 +628,9 @@
     <string name="type.natural.wetland.bog">Rawa gambut</string>
     <string name="type.natural.wetland.marsh">Paya</string>
     <string name="type.office">Kantor</string>
+    <string name="type.office.architect">Kantor arsitek</string>
     <string name="type.office.company">Kantor perusahaan</string>
+    <string name="type.office.educational_institution">Lembaga pendidikan</string>
     <string name="type.office.estate_agent">Agen ril estat</string>
     <string name="type.office.government">Kantor pemerintah</string>
     <string name="type.office.insurance">Kantor Asuransi</string>
@@ -970,6 +972,15 @@
     <string name="type.shop.chemist">Toko Bahan Kimia</string>
     <string name="type.shop.chocolate">Toko Cokelat</string>
     <string name="type.shop.clothes">Toko baju</string>
+    <string name="type.shop.clothes.children">Toko pakaian anak</string>
+    <string name="type.shop.clothes.fashion">Butik mode</string>
+    <string name="type.shop.clothes.hats">Toko topi</string>
+    <string name="type.shop.clothes.men">Toko pakaian pria</string>
+    <string name="type.shop.clothes.sports">Toko pakaian olahraga</string>
+    <string name="type.shop.clothes.suits">Toko jas</string>
+    <string name="type.shop.clothes.underwear">Toko pakaian dalam</string>
+    <string name="type.shop.clothes.wedding">Toko baju pengantin</string>
+    <string name="type.shop.clothes.women">Toko pakaian wanita</string>
     <string name="type.shop.coffee">Toko kopi</string>
     <string name="type.shop.computer">Toko komputer</string>
     <string name="type.shop.confectionery">Penganan</string>
@@ -990,6 +1001,7 @@
     <string name="type.shop.funeral_directors">Direktur Pemakaman</string>
     <string name="type.shop.furniture">Toko mebel</string>
     <string name="type.shop.garden_centre">Penitipan anak</string>
+    <string name="type.shop.games">Toko permainan</string>
     <string name="type.shop.gas">Toko gas</string>
     <string name="type.shop.gift">Toko hadiah</string>
     <string name="type.shop.greengrocer">Penjual sayuran</string>

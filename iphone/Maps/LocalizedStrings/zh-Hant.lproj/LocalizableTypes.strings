@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "草沼";
 "type.noexit" = "死巷";
 "type.office" = "辦公室";
+"type.office.architect" = "建築師事務所";
 "type.office.company" = "公司辦公室";
+"type.office.educational_institution" = "教育機構";
 "type.office.estate_agent" = "地產代理";
 "type.office.government" = "政府辦公室";
 "type.office.insurance" = "保險公司";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "藥妝店";
 "type.shop.chocolate" = "巧克力店";
 "type.shop.clothes" = "買衣服";
+"type.shop.clothes.children" = "童裝店";
+"type.shop.clothes.fashion" = "時裝精品店";
+"type.shop.clothes.hats" = "帽子店";
+"type.shop.clothes.men" = "男裝店";
+"type.shop.clothes.sports" = "運動服裝店";
+"type.shop.clothes.suits" = "西裝店";
+"type.shop.clothes.underwear" = "內衣店";
+"type.shop.clothes.wedding" = "婚紗禮服店";
+"type.shop.clothes.women" = "女裝店";
 "type.shop.coffee" = "咖啡店";
 "type.shop.computer" = "電腦店";
 "type.shop.confectionery" = "糕餅店";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "葬儀社";
 "type.shop.furniture" = "家具店";
 "type.shop.garden_centre" = "園藝店";
+"type.shop.games" = "遊戲店";
 "type.shop.gas" = "煤氣庫";
 "type.shop.gift" = "禮品店";
 "type.shop.greengrocer" = "蔬果零售店";

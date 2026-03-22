@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Ճահիճ";
 "type.noexit" = "Փակուղի";
 "type.office" = "Գրասենյակ";
+"type.office.architect" = "Ճարտարապետական բյուրո";
 "type.office.company" = "Ընկերության գրասենյակ";
+"type.office.educational_institution" = "Ուսումնական հաստատություն";
 "type.office.estate_agent" = "Անշարժ գույքի գործակալություն";
 "type.office.government" = "Կառավարական գրասենյակ";
 "type.office.insurance" = "Ապահովագրական գրասենյակ";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Դեղատուն";
 "type.shop.chocolate" = "Շոկոլադի խանութ";
 "type.shop.clothes" = "Հագուստի խանութ";
+"type.shop.clothes.children" = "Մանկական հագուստի խանութ";
+"type.shop.clothes.fashion" = "Նորաձևության բուտիկ";
+"type.shop.clothes.hats" = "Գլխարկների խանութ";
+"type.shop.clothes.men" = "Տղամարդկանց հագուստի խանութ";
+"type.shop.clothes.sports" = "Սպորտային հագուստի խանութ";
+"type.shop.clothes.suits" = "Կոստյումների խանութ";
+"type.shop.clothes.underwear" = "Ներքնազգեստի խանութ";
+"type.shop.clothes.wedding" = "Հարսանյաց հագուստի խանութ";
+"type.shop.clothes.women" = "Կանացի հագուստի խանութ";
 "type.shop.coffee" = "Սուրճի խանութ";
 "type.shop.computer" = "Համակարգչային խանութ";
 "type.shop.confectionery" = "Քաղցրավենիքի խանութ";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Սգո ծառայություններ";
 "type.shop.furniture" = "Կահույքի խանութ";
 "type.shop.garden_centre" = "Այգեգործական կենտրոն";
+"type.shop.games" = "Խաղերի խանութ";
 "type.shop.gas" = "Գազի խանութ";
 "type.shop.gift" = "Նվերների խանութ";
 "type.shop.greengrocer" = "Մրգի և բանջարեղենի խանութ";

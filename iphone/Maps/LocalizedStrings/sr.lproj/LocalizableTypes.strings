@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Мочвара";
 "type.noexit" = "Крај пута";
 "type.office" = "Канцеларија";
+"type.office.architect" = "Архитектонски биро";
 "type.office.company" = "Компанија";
+"type.office.educational_institution" = "Образовна установа";
 "type.office.estate_agent" = "Агент за некретнине";
 "type.office.government" = "Владина канцеларија";
 "type.office.insurance" = "Осигурање";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Кућна хемија";
 "type.shop.chocolate" = "Чоколада";
 "type.shop.clothes" = "Одећа";
+"type.shop.clothes.children" = "Дечија одећа";
+"type.shop.clothes.fashion" = "Модни бутик";
+"type.shop.clothes.hats" = "Продавница шешира";
+"type.shop.clothes.men" = "Мушка одећа";
+"type.shop.clothes.sports" = "Спортска одећа";
+"type.shop.clothes.suits" = "Продавница одела";
+"type.shop.clothes.underwear" = "Доње рубље";
+"type.shop.clothes.wedding" = "Продавница венчаница";
+"type.shop.clothes.women" = "Женска одећа";
 "type.shop.coffee" = "Кафа";
 "type.shop.computer" = "Компјутери";
 "type.shop.confectionery" = "Слаткиши";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Погребна опрема";
 "type.shop.furniture" = "Намештај";
 "type.shop.garden_centre" = "Баштенски производи";
+"type.shop.games" = "Продавница игара";
 "type.shop.gas" = "Индустријски гасови";
 "type.shop.gift" = "Даротека";
 "type.shop.greengrocer" = "Поврће и воће";

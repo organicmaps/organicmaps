@@ -710,7 +710,9 @@
     <string name="type.natural.wetland.marsh">Moeras</string>
     <string name="type.noexit">Doodloop</string>
     <string name="type.office">Kantoor</string>
+    <string name="type.office.architect">Argitekskantoor</string>
     <string name="type.office.company">Maatskappykantoor</string>
+    <string name="type.office.educational_institution">Opvoedkundige instelling</string>
     <string name="type.office.estate_agent">Eiendomsagent</string>
     <string name="type.office.government">Regeringskantoor</string>
     <string name="type.office.insurance">Versekeringskantoor</string>
@@ -1089,6 +1091,15 @@
     <string name="type.shop.chemist">Drogistery</string>
     <string name="type.shop.chocolate">Sjokoladewinkel</string>
     <string name="type.shop.clothes">Kledingwinkel</string>
+    <string name="type.shop.clothes.children">Kinderkledingwinkel</string>
+    <string name="type.shop.clothes.fashion">Modeboetiek</string>
+    <string name="type.shop.clothes.hats">Hoedewinkel</string>
+    <string name="type.shop.clothes.men">Hereklerewinkel</string>
+    <string name="type.shop.clothes.sports">Sportklerewinkel</string>
+    <string name="type.shop.clothes.suits">Pakwinkel</string>
+    <string name="type.shop.clothes.underwear">Onderklerewinkel</string>
+    <string name="type.shop.clothes.wedding">Trouklerewinkel</string>
+    <string name="type.shop.clothes.women">Damesklerewinkel</string>
     <string name="type.shop.coffee">Koffiewinkel</string>
     <string name="type.shop.computer">Rekenaarwinkel</string>
     <string name="type.shop.confectionery">Lekkergoedwinkel</string>
@@ -1109,6 +1120,7 @@
     <string name="type.shop.funeral_directors">Begrafnisondernemer</string>
     <string name="type.shop.furniture">Meubelwinkel</string>
     <string name="type.shop.garden_centre">Tuinsentrum</string>
+    <string name="type.shop.games">Speletjieswinkel</string>
     <string name="type.shop.gas">Gaswinkel</string>
     <string name="type.shop.gift">Geskenkwinkel</string>
     <string name="type.shop.greengrocer">Groentewinkel</string>

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Bataqlıq";
 "type.noexit" = "Çıxılmaz";
 "type.office" = "Ofis";
+"type.office.architect" = "Memar ofisi";
 "type.office.company" = "Şirkət ofisi";
+"type.office.educational_institution" = "Təhsil müəssisəsi";
 "type.office.estate_agent" = "Əmlak agenti";
 "type.office.government" = "Hökumət Ofisi";
 "type.office.insurance" = "Sığorta Agentliyi";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Təmizlik məhsulları mağazası";
 "type.shop.chocolate" = "Şokolad Dükanı";
 "type.shop.clothes" = "Geyim mağazası";
+"type.shop.clothes.children" = "Uşaq geyim mağazası";
+"type.shop.clothes.fashion" = "Moda butiki";
+"type.shop.clothes.hats" = "Papaq mağazası";
+"type.shop.clothes.men" = "Kişi geyim mağazası";
+"type.shop.clothes.sports" = "İdman geyim mağazası";
+"type.shop.clothes.suits" = "Kostyum mağazası";
+"type.shop.clothes.underwear" = "Alt paltar mağazası";
+"type.shop.clothes.wedding" = "Toy geyim mağazası";
+"type.shop.clothes.women" = "Qadın geyim mağazası";
 "type.shop.coffee" = "Qəhvə dükanı";
 "type.shop.computer" = "Kompüter Mağazası";
 "type.shop.confectionery" = "Şirniyyatçı";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Zərərçi";
 "type.shop.furniture" = "Mebel Dükanı";
 "type.shop.garden_centre" = "Bağ mağazası";
+"type.shop.games" = "Oyun mağazası";
 "type.shop.gas" = "Qaz doldurma məntəqəsi";
 "type.shop.gift" = "Hədiyyə Dükanı";
 "type.shop.greengrocer" = "Tərəvəzçi";

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Močvirje";
 "type.noexit" = "Slepa ulica";
 "type.office" = "Pisarna";
+"type.office.architect" = "Arhitekturni biro";
 "type.office.company" = "Pisarna podjetja";
+"type.office.educational_institution" = "Izobraževalna ustanova";
 "type.office.estate_agent" = "Nepremičninska agencija";
 "type.office.government" = "Vladna pisarna";
 "type.office.insurance" = "Zavarovalniška pisarna";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Drogerija";
 "type.shop.chocolate" = "Čokoladnica";
 "type.shop.clothes" = "Trgovina z oblačili";
+"type.shop.clothes.children" = "Otroška oblačila";
+"type.shop.clothes.fashion" = "Modni butik";
+"type.shop.clothes.hats" = "Klobučarstvo";
+"type.shop.clothes.men" = "Moška oblačila";
+"type.shop.clothes.sports" = "Sportna oblačila";
+"type.shop.clothes.suits" = "Obleke";
+"type.shop.clothes.underwear" = "Spodnje perilo";
+"type.shop.clothes.wedding" = "Poročna oblačila";
+"type.shop.clothes.women" = "Ženska oblačila";
 "type.shop.coffee" = "Kavarna";
 "type.shop.computer" = "Računalniška trgovina";
 "type.shop.confectionery" = "Slaščičarna";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Pogrebno podjetje";
 "type.shop.furniture" = "Pohištvena trgovina";
 "type.shop.garden_centre" = "Vrtni center";
+"type.shop.games" = "Trgovina z igrami";
 "type.shop.gas" = "Trgovina s plinom";
 "type.shop.gift" = "Trgovina z darili";
 "type.shop.greengrocer" = "Zelenjavar";

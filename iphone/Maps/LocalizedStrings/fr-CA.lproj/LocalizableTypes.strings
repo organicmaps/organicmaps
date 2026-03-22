@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Marais";
 "type.noexit" = "Voie sans issue";
 "type.office" = "Bureau";
+"type.office.architect" = "Cabinet d'architecte";
 "type.office.company" = "Bureaux d'entreprise";
+"type.office.educational_institution" = "Établissement d'enseignement";
 "type.office.estate_agent" = "Agence immobilière";
 "type.office.government" = "Administration publique";
 "type.office.insurance" = "Bureau d’assurance";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Droguerie";
 "type.shop.chocolate" = "Chocolatier";
 "type.shop.clothes" = "Boutique de vêtements";
+"type.shop.clothes.children" = "Boutique de vêtements pour enfants";
+"type.shop.clothes.fashion" = "Boutique de mode";
+"type.shop.clothes.hats" = "Chapellerie";
+"type.shop.clothes.men" = "Boutique de vêtements pour hommes";
+"type.shop.clothes.sports" = "Boutique de vêtements de sport";
+"type.shop.clothes.suits" = "Boutique de costumes";
+"type.shop.clothes.underwear" = "Boutique de lingerie";
+"type.shop.clothes.wedding" = "Boutique de robes de mariée";
+"type.shop.clothes.women" = "Boutique de vêtements pour femmes";
 "type.shop.coffee" = "Boutique de cafés";
 "type.shop.computer" = "Magasin d'informatique";
 "type.shop.confectionery" = "Confiserie";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Pompes funèbres";
 "type.shop.furniture" = "Magasin de meubles";
 "type.shop.garden_centre" = "Jardinerie";
+"type.shop.games" = "Boutique de jeux";
 "type.shop.gas" = "Vente de gaz";
 "type.shop.gift" = "Boutique de souvenirs";
 "type.shop.greengrocer" = "Primeur";

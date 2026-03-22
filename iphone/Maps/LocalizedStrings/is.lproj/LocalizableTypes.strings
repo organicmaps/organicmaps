@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Mýri";
 "type.noexit" = "Blindgata";
 "type.office" = "Skrifstofa";
+"type.office.architect" = "Arkitektaskrifstofa";
 "type.office.company" = "Skrifstofa fyrirtækis";
+"type.office.educational_institution" = "Menntastofnun";
 "type.office.estate_agent" = "Fasteignasali";
 "type.office.government" = "Stjórnsýsluskrifstofa";
 "type.office.insurance" = "Tryggingaskrifstofa";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Lyfsali";
 "type.shop.chocolate" = "Súkkulaðiverslun";
 "type.shop.clothes" = "Fataverslun";
+"type.shop.clothes.children" = "Barnafataverslun";
+"type.shop.clothes.fashion" = "Tískubúð";
+"type.shop.clothes.hats" = "Hattaverslun";
+"type.shop.clothes.men" = "Herrafataverslun";
+"type.shop.clothes.sports" = "Íþróttafataverslun";
+"type.shop.clothes.suits" = "Jakkafötverslun";
+"type.shop.clothes.underwear" = "Nærfötverslun";
+"type.shop.clothes.wedding" = "Brúðarfataverslun";
+"type.shop.clothes.women" = "Damafataverslun";
 "type.shop.coffee" = "Kaffiverslun";
 "type.shop.computer" = "Tölvuverslun";
 "type.shop.confectionery" = "Sælgætisverslun";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Útfararstjóri";
 "type.shop.furniture" = "Húsgagnaverslun";
 "type.shop.garden_centre" = "Garðvöruverslun";
+"type.shop.games" = "Leikjaverslun";
 "type.shop.gas" = "Gasverslun";
 "type.shop.gift" = "Gjafavöruverslun";
 "type.shop.greengrocer" = "Grænmetissala";

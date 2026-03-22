@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Paya";
 "type.noexit" = "Dead End";
 "type.office" = "Kantor";
+"type.office.architect" = "Kantor arsitek";
 "type.office.company" = "Kantor perusahaan";
+"type.office.educational_institution" = "Lembaga pendidikan";
 "type.office.estate_agent" = "Agen ril estat";
 "type.office.government" = "Kantor pemerintah";
 "type.office.insurance" = "Kantor Asuransi";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Toko Bahan Kimia";
 "type.shop.chocolate" = "Toko Cokelat";
 "type.shop.clothes" = "Toko baju";
+"type.shop.clothes.children" = "Toko pakaian anak";
+"type.shop.clothes.fashion" = "Butik mode";
+"type.shop.clothes.hats" = "Toko topi";
+"type.shop.clothes.men" = "Toko pakaian pria";
+"type.shop.clothes.sports" = "Toko pakaian olahraga";
+"type.shop.clothes.suits" = "Toko jas";
+"type.shop.clothes.underwear" = "Toko pakaian dalam";
+"type.shop.clothes.wedding" = "Toko baju pengantin";
+"type.shop.clothes.women" = "Toko pakaian wanita";
 "type.shop.coffee" = "Toko kopi";
 "type.shop.computer" = "Toko komputer";
 "type.shop.confectionery" = "Penganan";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Direktur Pemakaman";
 "type.shop.furniture" = "Toko mebel";
 "type.shop.garden_centre" = "Penitipan anak";
+"type.shop.games" = "Toko permainan";
 "type.shop.gas" = "Toko gas";
 "type.shop.gift" = "Toko hadiah";
 "type.shop.greengrocer" = "Penjual sayuran";

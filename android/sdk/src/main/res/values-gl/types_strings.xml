@@ -756,7 +756,9 @@
     <string name="type.natural.wetland.marsh">Ciénaga</string>
     <string name="type.noexit">Sen saída</string>
     <string name="type.office">Oficina</string>
+    <string name="type.office.architect">Estudio de arquitectura</string>
     <string name="type.office.company">Oficina</string>
+    <string name="type.office.educational_institution">Institución educativa</string>
     <string name="type.office.estate_agent">Axente inmobiliario</string>
     <string name="type.office.government">Oficina gobernamental</string>
     <string name="type.office.insurance">Oficina de seguros</string>
@@ -1151,6 +1153,15 @@
     <string name="type.shop.chemist">Droguería</string>
     <string name="type.shop.chocolate">Chocolatería</string>
     <string name="type.shop.clothes">Tenda de roupa</string>
+    <string name="type.shop.clothes.children">Tenda de roupa infantil</string>
+    <string name="type.shop.clothes.fashion">Boutique de moda</string>
+    <string name="type.shop.clothes.hats">Sombreiraría</string>
+    <string name="type.shop.clothes.men">Tenda de roupa masculina</string>
+    <string name="type.shop.clothes.sports">Tenda de roupa deportiva</string>
+    <string name="type.shop.clothes.suits">Sastrería</string>
+    <string name="type.shop.clothes.underwear">Tenda de roupa interior</string>
+    <string name="type.shop.clothes.wedding">Tenda de vestidos de noiva</string>
+    <string name="type.shop.clothes.women">Tenda de roupa feminina</string>
     <string name="type.shop.coffee">Tenda de café</string>
     <string name="type.shop.computer">Tenda de informática</string>
     <string name="type.shop.confectionery">Confeitería</string>
@@ -1171,6 +1182,7 @@
     <string name="type.shop.funeral_directors">Funeraria</string>
     <string name="type.shop.furniture">Tenda de mobles</string>
     <string name="type.shop.garden_centre">Viveiro</string>
+    <string name="type.shop.games">Tenda de xogos</string>
     <string name="type.shop.gas">Tenda de gasolina</string>
     <string name="type.shop.gift">Tenda de agasallos</string>
     <string name="type.shop.greengrocer">Frutería</string>

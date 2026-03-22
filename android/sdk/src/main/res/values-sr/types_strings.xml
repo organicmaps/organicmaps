@@ -751,7 +751,9 @@
     <string name="type.natural.wetland.marsh">Мочвара</string>
     <string name="type.noexit">Крај пута</string>
     <string name="type.office">Канцеларија</string>
+    <string name="type.office.architect">Архитектонски биро</string>
     <string name="type.office.company">Компанија</string>
+    <string name="type.office.educational_institution">Образовна установа</string>
     <string name="type.office.estate_agent">Агент за некретнине</string>
     <string name="type.office.government">Владина канцеларија</string>
     <string name="type.office.insurance">Осигурање</string>
@@ -1144,6 +1146,15 @@
     <string name="type.shop.chemist">Кућна хемија</string>
     <string name="type.shop.chocolate">Чоколада</string>
     <string name="type.shop.clothes">Одећа</string>
+    <string name="type.shop.clothes.children">Дечија одећа</string>
+    <string name="type.shop.clothes.fashion">Модни бутик</string>
+    <string name="type.shop.clothes.hats">Продавница шешира</string>
+    <string name="type.shop.clothes.men">Мушка одећа</string>
+    <string name="type.shop.clothes.sports">Спортска одећа</string>
+    <string name="type.shop.clothes.suits">Продавница одела</string>
+    <string name="type.shop.clothes.underwear">Доње рубље</string>
+    <string name="type.shop.clothes.wedding">Продавница венчаница</string>
+    <string name="type.shop.clothes.women">Женска одећа</string>
     <string name="type.shop.coffee">Кафа</string>
     <string name="type.shop.computer">Компјутери</string>
     <string name="type.shop.confectionery">Слаткиши</string>
@@ -1164,6 +1175,7 @@
     <string name="type.shop.funeral_directors">Погребна опрема</string>
     <string name="type.shop.furniture">Намештај</string>
     <string name="type.shop.garden_centre">Баштенски производи</string>
+    <string name="type.shop.games">Продавница игара</string>
     <string name="type.shop.gas">Индустријски гасови</string>
     <string name="type.shop.gift">Даротека</string>
     <string name="type.shop.greengrocer">Поврће и воће</string>

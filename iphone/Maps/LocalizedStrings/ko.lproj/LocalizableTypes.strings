@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "소택";
 "type.noexit" = "Dead End";
 "type.office" = "사무실";
+"type.office.architect" = "건축 사무소";
 "type.office.company" = "회사";
+"type.office.educational_institution" = "교육 기관";
 "type.office.estate_agent" = "부동산중개사";
 "type.office.government" = "관공서";
 "type.office.insurance" = "보험 사무실";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "화학물질 가게";
 "type.shop.chocolate" = "초콜릿 가게";
 "type.shop.clothes" = "옷 가게";
+"type.shop.clothes.children" = "아동복 가게";
+"type.shop.clothes.fashion" = "패션 부티크";
+"type.shop.clothes.hats" = "모자 가게";
+"type.shop.clothes.men" = "남성복 가게";
+"type.shop.clothes.sports" = "스포츠 의류 매장";
+"type.shop.clothes.suits" = "양복점";
+"type.shop.clothes.underwear" = "속옷 가게";
+"type.shop.clothes.wedding" = "웨딩 드레스 가게";
+"type.shop.clothes.women" = "여성복 가게";
 "type.shop.coffee" = "커피숍";
 "type.shop.computer" = "컴퓨터 판매점";
 "type.shop.confectionery" = "제과점";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "장의사";
 "type.shop.furniture" = "가구 상점";
 "type.shop.garden_centre" = "식물 상점";
+"type.shop.games" = "게임 상점";
 "type.shop.gas" = "주유소";
 "type.shop.gift" = "선물 가게";
 "type.shop.greengrocer" = "청과상";

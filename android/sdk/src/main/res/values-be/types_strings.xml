@@ -759,7 +759,9 @@
     <string name="type.natural.wetland.marsh">Балота</string>
     <string name="type.noexit">Тупік</string>
     <string name="type.office">Офіс</string>
+    <string name="type.office.architect">Архітэктурнае бюро</string>
     <string name="type.office.company">Офіс кампаніі</string>
+    <string name="type.office.educational_institution">Адукацыйная ўстанова</string>
     <string name="type.office.estate_agent">Агент па нерухомасці</string>
     <string name="type.office.government">Урадавая ўстанова</string>
     <string name="type.office.insurance">Страхавое бюро</string>
@@ -1154,6 +1156,15 @@
     <string name="type.shop.chemist">Бытавая хімія</string>
     <string name="type.shop.chocolate">Крама шакалада</string>
     <string name="type.shop.clothes">Крама адзення</string>
+    <string name="type.shop.clothes.children">Дзіцячая крама адзення</string>
+    <string name="type.shop.clothes.fashion">Модны бутык</string>
+    <string name="type.shop.clothes.hats">Крама галаўных убораў</string>
+    <string name="type.shop.clothes.men">Мужчынская крама адзення</string>
+    <string name="type.shop.clothes.sports">Крама спартыўнага адзення</string>
+    <string name="type.shop.clothes.suits">Крама касцюмаў</string>
+    <string name="type.shop.clothes.underwear">Крама бялізны</string>
+    <string name="type.shop.clothes.wedding">Вясельны салон</string>
+    <string name="type.shop.clothes.women">Жаночая крама адзення</string>
     <string name="type.shop.coffee">Крама кавы</string>
     <string name="type.shop.computer">Камп\'ютэрная крама</string>
     <string name="type.shop.confectionery">Цукерня</string>
@@ -1174,6 +1185,7 @@
     <string name="type.shop.funeral_directors">Рытуальныя паслугі</string>
     <string name="type.shop.furniture">Мэблевая крама</string>
     <string name="type.shop.garden_centre">Тавары для саду</string>
+    <string name="type.shop.games">Крама гульняў</string>
     <string name="type.shop.gas">Газавая крама</string>
     <string name="type.shop.gift">Сувенірная крама</string>
     <string name="type.shop.greengrocer">Крама гародніны і садавіны</string>

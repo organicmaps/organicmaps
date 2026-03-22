@@ -730,7 +730,9 @@
     <string name="type.natural.wetland.marsh">Močvirje</string>
     <string name="type.noexit">Slepa ulica</string>
     <string name="type.office">Pisarna</string>
+    <string name="type.office.architect">Arhitekturni biro</string>
     <string name="type.office.company">Pisarna podjetja</string>
+    <string name="type.office.educational_institution">Izobraževalna ustanova</string>
     <string name="type.office.estate_agent">Nepremičninska agencija</string>
     <string name="type.office.government">Vladna pisarna</string>
     <string name="type.office.insurance">Zavarovalniška pisarna</string>
@@ -1118,6 +1120,15 @@
     <string name="type.shop.chemist">Drogerija</string>
     <string name="type.shop.chocolate">Čokoladnica</string>
     <string name="type.shop.clothes">Trgovina z oblačili</string>
+    <string name="type.shop.clothes.children">Otroška oblačila</string>
+    <string name="type.shop.clothes.fashion">Modni butik</string>
+    <string name="type.shop.clothes.hats">Klobučarstvo</string>
+    <string name="type.shop.clothes.men">Moška oblačila</string>
+    <string name="type.shop.clothes.sports">Sportna oblačila</string>
+    <string name="type.shop.clothes.suits">Obleke</string>
+    <string name="type.shop.clothes.underwear">Spodnje perilo</string>
+    <string name="type.shop.clothes.wedding">Poročna oblačila</string>
+    <string name="type.shop.clothes.women">Ženska oblačila</string>
     <string name="type.shop.coffee">Kavarna</string>
     <string name="type.shop.computer">Računalniška trgovina</string>
     <string name="type.shop.confectionery">Slaščičarna</string>
@@ -1138,6 +1149,7 @@
     <string name="type.shop.funeral_directors">Pogrebno podjetje</string>
     <string name="type.shop.furniture">Pohištvena trgovina</string>
     <string name="type.shop.garden_centre">Vrtni center</string>
+    <string name="type.shop.games">Trgovina z igrami</string>
     <string name="type.shop.gas">Trgovina s plinom</string>
     <string name="type.shop.gift">Trgovina z darili</string>
     <string name="type.shop.greengrocer">Zelenjavar</string>

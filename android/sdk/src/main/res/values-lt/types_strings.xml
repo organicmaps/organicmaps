@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Liūnas</string>
     <string name="type.noexit">Akligatvis</string>
     <string name="type.office">Biuras</string>
+    <string name="type.office.architect">Architektūros biuras</string>
     <string name="type.office.company">Įmonės biuras</string>
+    <string name="type.office.educational_institution">Švietimo įstaiga</string>
     <string name="type.office.estate_agent">Nekilnojamojo turto agentūra</string>
     <string name="type.office.government">Valstybinė įstaiga</string>
     <string name="type.office.insurance">Draudimo agentūra</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Buitinė chemija</string>
     <string name="type.shop.chocolate">Šokolado parduotuvė</string>
     <string name="type.shop.clothes">Drabužių parduotuvė</string>
+    <string name="type.shop.clothes.children">Vaikų drabužių parduotuvė</string>
+    <string name="type.shop.clothes.fashion">Mados parduotuvė</string>
+    <string name="type.shop.clothes.hats">Kepurių parduotuvė</string>
+    <string name="type.shop.clothes.men">Vyriškų drabužių parduotuvė</string>
+    <string name="type.shop.clothes.sports">Sporto drabužių parduotuvė</string>
+    <string name="type.shop.clothes.suits">Kostiumų parduotuvė</string>
+    <string name="type.shop.clothes.underwear">Apatinių rūbų parduotuvė</string>
+    <string name="type.shop.clothes.wedding">Vestuvių drabužių parduotuvė</string>
+    <string name="type.shop.clothes.women">Moteriškų drabužių parduotuvė</string>
     <string name="type.shop.coffee">Kavos parduotuvė</string>
     <string name="type.shop.computer">Kompiuterių parduotuvė</string>
     <string name="type.shop.confectionery">Saldumynų parduotuvė</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Laidojimo paslaugos</string>
     <string name="type.shop.furniture">Baldai</string>
     <string name="type.shop.garden_centre">Sodo centras</string>
+    <string name="type.shop.games">Žaidimų parduotuvė</string>
     <string name="type.shop.gas">Dujų parduotuvė</string>
     <string name="type.shop.gift">Dovanų parduotuvė</string>
     <string name="type.shop.greengrocer">Vaisiai ir daržovės</string>

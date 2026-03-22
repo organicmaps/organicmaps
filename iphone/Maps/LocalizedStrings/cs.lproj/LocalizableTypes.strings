@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Bažina";
 "type.noexit" = "Slepý konec";
 "type.office" = "Kancelář";
+"type.office.architect" = "Architektonická kancelář";
 "type.office.company" = "Kancelář společnosti";
+"type.office.educational_institution" = "Vzdělávací instituce";
 "type.office.estate_agent" = "Realitní makléř";
 "type.office.government" = "Úřad vlády";
 "type.office.insurance" = "Pojišťovací kancelář";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Drogerie";
 "type.shop.chocolate" = "Obchod s čokoládou";
 "type.shop.clothes" = "Oblečení";
+"type.shop.clothes.children" = "Dětský obchod s oblečením";
+"type.shop.clothes.fashion" = "Módní butik";
+"type.shop.clothes.hats" = "Obchod s klobouky";
+"type.shop.clothes.men" = "Pánský obchod s oblečením";
+"type.shop.clothes.sports" = "Obchod se sportovním oblečením";
+"type.shop.clothes.suits" = "Obchod s obleky";
+"type.shop.clothes.underwear" = "Obchod s prádlem";
+"type.shop.clothes.wedding" = "Obchod se svatebními šaty";
+"type.shop.clothes.women" = "Dámský obchod s oblečením";
 "type.shop.coffee" = "Obchod s kávou";
 "type.shop.computer" = "Obchod s počítači";
 "type.shop.confectionery" = "Cukrárna";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Pohřební služba";
 "type.shop.furniture" = "Nábytek";
 "type.shop.garden_centre" = "Školka";
+"type.shop.games" = "Obchod s hrami";
 "type.shop.gas" = "Obchod s plynem";
 "type.shop.gift" = "Obchod s dárkovým zbožím";
 "type.shop.greengrocer" = "Ovoce a zelenina";

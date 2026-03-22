@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Soo";
 "type.noexit" = "Tupiktee";
 "type.office" = "Kontor";
+"type.office.architect" = "Arhitektibüroo";
 "type.office.company" = "Ettevõtte kontor";
+"type.office.educational_institution" = "Haridusasutus";
 "type.office.estate_agent" = "Kinnisvarabüroo";
 "type.office.government" = "Valitsusasutus";
 "type.office.insurance" = "Kindlustusbüroo";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Apteek ja ilupood";
 "type.shop.chocolate" = "Šokolaadipood";
 "type.shop.clothes" = "Rõivapood";
+"type.shop.clothes.children" = "Lasteriidepood";
+"type.shop.clothes.fashion" = "Moebutiik";
+"type.shop.clothes.hats" = "Mütsipood";
+"type.shop.clothes.men" = "Meesterõivaste pood";
+"type.shop.clothes.sports" = "Spordirõivaste pood";
+"type.shop.clothes.suits" = "Ülikondade pood";
+"type.shop.clothes.underwear" = "Aluspesu pood";
+"type.shop.clothes.wedding" = "Pulmariidepood";
+"type.shop.clothes.women" = "Naisterõivaste pood";
 "type.shop.coffee" = "Kohvipood";
 "type.shop.computer" = "Arvutipood";
 "type.shop.confectionery" = "Kommipood";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Matusekorraldaja";
 "type.shop.furniture" = "Mööblipood";
 "type.shop.garden_centre" = "Aianduskeskus";
+"type.shop.games" = "Mängupood";
 "type.shop.gas" = "Balloongaasi kauplus";
 "type.shop.gift" = "Kingipood";
 "type.shop.greengrocer" = "Puu- ja köögiviljapood";

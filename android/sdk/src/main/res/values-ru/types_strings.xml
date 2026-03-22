@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Болото</string>
     <string name="type.noexit">Тупик</string>
     <string name="type.office">Офис</string>
+    <string name="type.office.architect">Архитектурное бюро</string>
     <string name="type.office.company">Организация</string>
+    <string name="type.office.educational_institution">Образовательное учреждение</string>
     <string name="type.office.estate_agent">Агентство недвижимости</string>
     <string name="type.office.government">Госучреждение</string>
     <string name="type.office.insurance">Страховая компания</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Бытовая химия</string>
     <string name="type.shop.chocolate">Магазин шоколада</string>
     <string name="type.shop.clothes">Магазин одежды</string>
+    <string name="type.shop.clothes.children">Детская одежда</string>
+    <string name="type.shop.clothes.fashion">Бутик</string>
+    <string name="type.shop.clothes.hats">Магазин головных уборов</string>
+    <string name="type.shop.clothes.men">Мужская одежда</string>
+    <string name="type.shop.clothes.sports">Спортивная одежда</string>
+    <string name="type.shop.clothes.suits">Магазин костюмов</string>
+    <string name="type.shop.clothes.underwear">Магазин нижнего белья</string>
+    <string name="type.shop.clothes.wedding">Свадебный салон</string>
+    <string name="type.shop.clothes.women">Женская одежда</string>
     <string name="type.shop.coffee">Магазин кофе</string>
     <string name="type.shop.computer">Компьютерный магазин</string>
     <string name="type.shop.confectionery">Кондитерская</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Ритуальные услуги</string>
     <string name="type.shop.furniture">Магазин мебели</string>
     <string name="type.shop.garden_centre">Садовые товары</string>
+    <string name="type.shop.games">Магазин игр</string>
     <string name="type.shop.gas">Газовый магазин</string>
     <string name="type.shop.gift">Магазин сувениров</string>
     <string name="type.shop.greengrocer">Овощи и фрукты</string>

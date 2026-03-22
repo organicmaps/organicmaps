@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Kärr";
 "type.noexit" = "Återvändsgränd";
 "type.office" = "Kontor";
+"type.office.architect" = "Arkitektkontor";
 "type.office.company" = "Företagskontor";
+"type.office.educational_institution" = "Utbildningsinstitution";
 "type.office.estate_agent" = "Fastighetsmäklare";
 "type.office.government" = "Ämbetsverk";
 "type.office.insurance" = "Försäkringskontor";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Hushållskemikalier";
 "type.shop.chocolate" = "Chokladbutik";
 "type.shop.clothes" = "Klädbutik";
+"type.shop.clothes.children" = "Barnkläder";
+"type.shop.clothes.fashion" = "Modeboutique";
+"type.shop.clothes.hats" = "Hatteaffär";
+"type.shop.clothes.men" = "Herrklädbutik";
+"type.shop.clothes.sports" = "Sportklädesbutik";
+"type.shop.clothes.suits" = "Kostymaffär";
+"type.shop.clothes.underwear" = "Underkläder";
+"type.shop.clothes.wedding" = "Brudklänningsaffär";
+"type.shop.clothes.women" = "Damklädbutik";
 "type.shop.coffee" = "Kaffebutik";
 "type.shop.computer" = "Datorbutik";
 "type.shop.confectionery" = "Konditori";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Begravningsentreprenörer";
 "type.shop.furniture" = "Möbelaffär";
 "type.shop.garden_centre" = "Plantskola";
+"type.shop.games" = "Spelbutik";
 "type.shop.gas" = "Gasaffär";
 "type.shop.gift" = "Presentaffär";
 "type.shop.greengrocer" = "Grönsakshandlare";

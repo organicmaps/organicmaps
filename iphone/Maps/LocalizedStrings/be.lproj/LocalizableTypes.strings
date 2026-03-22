@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Балота";
 "type.noexit" = "Тупік";
 "type.office" = "Офіс";
+"type.office.architect" = "Архітэктурнае бюро";
 "type.office.company" = "Офіс кампаніі";
+"type.office.educational_institution" = "Адукацыйная ўстанова";
 "type.office.estate_agent" = "Агент па нерухомасці";
 "type.office.government" = "Урадавая ўстанова";
 "type.office.insurance" = "Страхавое бюро";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Бытавая хімія";
 "type.shop.chocolate" = "Крама шакалада";
 "type.shop.clothes" = "Крама адзення";
+"type.shop.clothes.children" = "Дзіцячая крама адзення";
+"type.shop.clothes.fashion" = "Модны бутык";
+"type.shop.clothes.hats" = "Крама галаўных убораў";
+"type.shop.clothes.men" = "Мужчынская крама адзення";
+"type.shop.clothes.sports" = "Крама спартыўнага адзення";
+"type.shop.clothes.suits" = "Крама касцюмаў";
+"type.shop.clothes.underwear" = "Крама бялізны";
+"type.shop.clothes.wedding" = "Вясельны салон";
+"type.shop.clothes.women" = "Жаночая крама адзення";
 "type.shop.coffee" = "Крама кавы";
 "type.shop.computer" = "Камп'ютэрная крама";
 "type.shop.confectionery" = "Цукерня";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Рытуальныя паслугі";
 "type.shop.furniture" = "Мэблевая крама";
 "type.shop.garden_centre" = "Тавары для саду";
+"type.shop.games" = "Крама гульняў";
 "type.shop.gas" = "Газавая крама";
 "type.shop.gift" = "Сувенірная крама";
 "type.shop.greengrocer" = "Крама гародніны і садавіны";

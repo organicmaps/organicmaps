@@ -792,7 +792,9 @@
     <string name="type.natural.wetland.marsh">Marsh</string>
     <string name="type.noexit">Dead End</string>
     <string name="type.office">Office</string>
+    <string name="type.office.architect">Architect Office</string>
     <string name="type.office.company">Company Office</string>
+    <string name="type.office.educational_institution">Educational Institution</string>
     <string name="type.office.estate_agent">Estate Agent</string>
     <string name="type.office.government">Government Office</string>
     <string name="type.office.insurance">Insurance Office</string>
@@ -1187,6 +1189,15 @@
     <string name="type.shop.chemist">Chemist</string>
     <string name="type.shop.chocolate">Chocolate Shop</string>
     <string name="type.shop.clothes">Clothes Shop</string>
+    <string name="type.shop.clothes.children">Children\'s Clothes Shop</string>
+    <string name="type.shop.clothes.fashion">Fashion Boutique</string>
+    <string name="type.shop.clothes.hats">Hat Shop</string>
+    <string name="type.shop.clothes.men">Men\'s Clothes Shop</string>
+    <string name="type.shop.clothes.sports">Sports Clothes Shop</string>
+    <string name="type.shop.clothes.suits">Suits Shop</string>
+    <string name="type.shop.clothes.underwear">Underwear Shop</string>
+    <string name="type.shop.clothes.wedding">Wedding Clothes Shop</string>
+    <string name="type.shop.clothes.women">Women\'s Clothes Shop</string>
     <string name="type.shop.coffee">Coffee Shop</string>
     <string name="type.shop.computer">Computer Store</string>
     <string name="type.shop.confectionery">Candy Shop</string>
@@ -1207,6 +1218,7 @@
     <string name="type.shop.funeral_directors">Funeral Directors</string>
     <string name="type.shop.furniture">Furniture Store</string>
     <string name="type.shop.garden_centre">Garden Center</string>
+    <string name="type.shop.games">Games Shop</string>
     <string name="type.shop.gas">Gas Store</string>
     <string name="type.shop.gift">Gift Shop</string>
     <string name="type.shop.greengrocer">Greengrocer</string>

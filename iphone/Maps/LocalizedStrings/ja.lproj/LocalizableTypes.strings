@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "沼地";
 "type.noexit" = "行き止まり";
 "type.office" = "オフィス";
+"type.office.architect" = "建築設計事務所";
 "type.office.company" = "会社事務所";
+"type.office.educational_institution" = "教育機関";
 "type.office.estate_agent" = "不動産業者";
 "type.office.government" = "官庁";
 "type.office.insurance" = "保険会社";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "化学薬品店";
 "type.shop.chocolate" = "チョコレート屋";
 "type.shop.clothes" = "洋服";
+"type.shop.clothes.children" = "子ども服";
+"type.shop.clothes.fashion" = "ファッションブティック";
+"type.shop.clothes.hats" = "帽子屋";
+"type.shop.clothes.men" = "メンズ服";
+"type.shop.clothes.sports" = "スポーツウェア";
+"type.shop.clothes.suits" = "スーツショップ";
+"type.shop.clothes.underwear" = "下着・インナー";
+"type.shop.clothes.wedding" = "ウェディングドレスショップ";
+"type.shop.clothes.women" = "レディースファッション";
 "type.shop.coffee" = "コーヒー屋";
 "type.shop.computer" = "コンピュータショップ";
 "type.shop.confectionery" = "菓子類";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "葬儀屋";
 "type.shop.furniture" = "家具店";
 "type.shop.garden_centre" = "ガーデンセンター";
+"type.shop.games" = "ゲームショップ";
 "type.shop.gas" = "ガス屋";
 "type.shop.gift" = "ギフトショップ";
 "type.shop.greengrocer" = "八百屋";

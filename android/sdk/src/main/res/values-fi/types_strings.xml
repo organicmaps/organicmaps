@@ -716,7 +716,9 @@
     <string name="type.natural.wetland.bog">Suo</string>
     <string name="type.natural.wetland.marsh">Marsh</string>
     <string name="type.office">Toimisto</string>
+    <string name="type.office.architect">Arkkitehtitoimisto</string>
     <string name="type.office.company">Yhtiön toimisto</string>
+    <string name="type.office.educational_institution">Oppilaitos</string>
     <string name="type.office.estate_agent">Kiinteistönvälittäjä</string>
     <string name="type.office.government">Viranomaisen toimisto</string>
     <string name="type.office.insurance">Vakuutuslaitos</string>
@@ -1060,6 +1062,15 @@
     <string name="type.shop.chemist">Kosmetiikkamyymälä</string>
     <string name="type.shop.chocolate">Suklaakauppa</string>
     <string name="type.shop.clothes">Vaatekauppa</string>
+    <string name="type.shop.clothes.children">Lastenvaatekauppa</string>
+    <string name="type.shop.clothes.fashion">Muotiboutique</string>
+    <string name="type.shop.clothes.hats">Hattukauppa</string>
+    <string name="type.shop.clothes.men">Miesten vaatekauppa</string>
+    <string name="type.shop.clothes.sports">Urheiluvaatekauppa</string>
+    <string name="type.shop.clothes.suits">Pukukauppa</string>
+    <string name="type.shop.clothes.underwear">Alusvaatekauppa</string>
+    <string name="type.shop.clothes.wedding">Hääpukukauppa</string>
+    <string name="type.shop.clothes.women">Naisten vaatekauppa</string>
     <string name="type.shop.coffee">Kahvikauppa</string>
     <string name="type.shop.computer">Tietokonekauppa</string>
     <string name="type.shop.confectionery">Makeiskauppa</string>
@@ -1080,6 +1091,7 @@
     <string name="type.shop.funeral_directors">Hautaustoimisto</string>
     <string name="type.shop.furniture">Huonekalukauppa</string>
     <string name="type.shop.garden_centre">Taimitarha</string>
+    <string name="type.shop.games">Pelikauppa</string>
     <string name="type.shop.gas">Kaasukauppa</string>
     <string name="type.shop.gift">Lahjatavaraliike</string>
     <string name="type.shop.greengrocer">Vihanneskauppias</string>

@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Moeras</string>
     <string name="type.noexit">Doodlopende weg</string>
     <string name="type.office">Kantoor</string>
+    <string name="type.office.architect">Architectenbureau</string>
     <string name="type.office.company">Bedrijfskantoor</string>
+    <string name="type.office.educational_institution">Onderwijsinstelling</string>
     <string name="type.office.estate_agent">Makelaar</string>
     <string name="type.office.government">Overheidskantoor</string>
     <string name="type.office.insurance">Verzekeringskantoor</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Drogisterij</string>
     <string name="type.shop.chocolate">Chocolaterie</string>
     <string name="type.shop.clothes">Kledingwinkel</string>
+    <string name="type.shop.clothes.children">Kinderkledingwinkel</string>
+    <string name="type.shop.clothes.fashion">Modeboutique</string>
+    <string name="type.shop.clothes.hats">Hoedenzaak</string>
+    <string name="type.shop.clothes.men">Herenkledingwinkel</string>
+    <string name="type.shop.clothes.sports">Sportkledingwinkel</string>
+    <string name="type.shop.clothes.suits">Pakkenwinkel</string>
+    <string name="type.shop.clothes.underwear">Ondergoedwinkel</string>
+    <string name="type.shop.clothes.wedding">Bruidswinkel</string>
+    <string name="type.shop.clothes.women">Dameskledingwinkel</string>
     <string name="type.shop.coffee">Koffiewinkel</string>
     <string name="type.shop.computer">Computerwinkel</string>
     <string name="type.shop.confectionery">Snoepwinkel</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Begrafenisondernemer</string>
     <string name="type.shop.furniture">Meubelzaak</string>
     <string name="type.shop.garden_centre">Tuincentrum</string>
+    <string name="type.shop.games">Spellenwinkel</string>
     <string name="type.shop.gas">Gas winkel</string>
     <string name="type.shop.gift">Cadeauwinkel</string>
     <string name="type.shop.greengrocer">Groentenwinkel</string>

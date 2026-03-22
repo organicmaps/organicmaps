@@ -662,7 +662,9 @@
     <string name="type.natural.wetland.marsh">مرداب</string>
     <string name="type.noexit">بن‌بست</string>
     <string name="type.office">اداره</string>
+    <string name="type.office.architect">دفتر معماری</string>
     <string name="type.office.company">دفتر شرکت</string>
+    <string name="type.office.educational_institution">مؤسسه آموزشی</string>
     <string name="type.office.estate_agent">بنگاه معاملات ملکی</string>
     <string name="type.office.government">اداره دولتی</string>
     <string name="type.office.insurance">دفتر بیمه</string>
@@ -1043,6 +1045,15 @@
     <string name="type.shop.chemist">فروشگاه</string>
     <string name="type.shop.chocolate">فروشگاه</string>
     <string name="type.shop.clothes">لباس فروشی</string>
+    <string name="type.shop.clothes.children">فروشگاه لباس کودک</string>
+    <string name="type.shop.clothes.fashion">بوتیک مد</string>
+    <string name="type.shop.clothes.hats">کلاه فروشی</string>
+    <string name="type.shop.clothes.men">فروشگاه لباس مردانه</string>
+    <string name="type.shop.clothes.sports">فروشگاه لباس ورزشی</string>
+    <string name="type.shop.clothes.suits">فروشگاه کت و شلوار</string>
+    <string name="type.shop.clothes.underwear">فروشگاه لباس زیر</string>
+    <string name="type.shop.clothes.wedding">فروشگاه لباس عروس</string>
+    <string name="type.shop.clothes.women">فروشگاه لباس زنانه</string>
     <string name="type.shop.coffee">فروشگاه</string>
     <string name="type.shop.computer">فروشگاه</string>
     <string name="type.shop.confectionery">فروشگاه</string>
@@ -1063,6 +1074,7 @@
     <string name="type.shop.funeral_directors">مسئول تشییع جنازه</string>
     <string name="type.shop.furniture">فروشگاه</string>
     <string name="type.shop.garden_centre">فروشگاه</string>
+    <string name="type.shop.games">فروشگاه بازی</string>
     <string name="type.shop.gas">فروشگاه گاز</string>
     <string name="type.shop.gift">فروشگاه</string>
     <string name="type.shop.greengrocer">فروشگاه</string>

@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Marais</string>
     <string name="type.noexit">Voie sans issue</string>
     <string name="type.office">Bureau</string>
+    <string name="type.office.architect">Cabinet d\'architecte</string>
     <string name="type.office.company">Bureaux d\'entreprise</string>
+    <string name="type.office.educational_institution">Établissement d\'enseignement</string>
     <string name="type.office.estate_agent">Agence immobilière</string>
     <string name="type.office.government">Administration publique</string>
     <string name="type.office.insurance">Bureau d’assurance</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Droguerie</string>
     <string name="type.shop.chocolate">Chocolatier</string>
     <string name="type.shop.clothes">Boutique de vêtements</string>
+    <string name="type.shop.clothes.children">Boutique de vêtements pour enfants</string>
+    <string name="type.shop.clothes.fashion">Boutique de mode</string>
+    <string name="type.shop.clothes.hats">Chapellerie</string>
+    <string name="type.shop.clothes.men">Boutique de vêtements pour hommes</string>
+    <string name="type.shop.clothes.sports">Boutique de vêtements de sport</string>
+    <string name="type.shop.clothes.suits">Boutique de costumes</string>
+    <string name="type.shop.clothes.underwear">Boutique de lingerie</string>
+    <string name="type.shop.clothes.wedding">Boutique de robes de mariée</string>
+    <string name="type.shop.clothes.women">Boutique de vêtements pour femmes</string>
     <string name="type.shop.coffee">Boutique de cafés</string>
     <string name="type.shop.computer">Magasin d\'informatique</string>
     <string name="type.shop.confectionery">Confiserie</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Pompes funèbres</string>
     <string name="type.shop.furniture">Magasin de meubles</string>
     <string name="type.shop.garden_centre">Jardinerie</string>
+    <string name="type.shop.games">Boutique de jeux</string>
     <string name="type.shop.gas">Vente de gaz</string>
     <string name="type.shop.gift">Boutique de souvenirs</string>
     <string name="type.shop.greengrocer">Primeur</string>

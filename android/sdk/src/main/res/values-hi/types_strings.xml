@@ -430,7 +430,9 @@
     <string name="type.natural.wetland">आर्द्रभूमि</string>
     <string name="type.natural.wetland.marsh">कच्छभूमि</string>
     <string name="type.office">कार्यालय</string>
+    <string name="type.office.architect">वास्तुकला कार्यालय</string>
     <string name="type.office.company">कंपनी कार्यालय</string>
+    <string name="type.office.educational_institution">शैक्षणिक संस्था</string>
     <string name="type.office.estate_agent">संपत्ति एजेंट</string>
     <string name="type.office.government">सरकारी कार्यालय</string>
     <string name="type.office.insurance">बीमा कार्यालय</string>
@@ -513,6 +515,15 @@
     <string name="type.shop.chemist">दवा की दुकान</string>
     <string name="type.shop.chocolate">चॉकलेट की दुकान</string>
     <string name="type.shop.clothes">कपड़े की दुकान</string>
+    <string name="type.shop.clothes.children">बच्चों के कपड़ों की दुकान</string>
+    <string name="type.shop.clothes.fashion">फैशन बुटीक</string>
+    <string name="type.shop.clothes.hats">टोपी की दुकान</string>
+    <string name="type.shop.clothes.men">पुरुषों के कपड़ों की दुकान</string>
+    <string name="type.shop.clothes.sports">खेल कपड़ों की दुकान</string>
+    <string name="type.shop.clothes.suits">सूट की दुकान</string>
+    <string name="type.shop.clothes.underwear">अंडरवियर की दुकान</string>
+    <string name="type.shop.clothes.wedding">शादी के कपड़ों की दुकान</string>
+    <string name="type.shop.clothes.women">महिलाओं के कपड़ों की दुकान</string>
     <string name="type.shop.coffee">कॉफी की दुकान</string>
     <string name="type.shop.computer">कंप्यूटर की दुकान</string>
     <string name="type.shop.confectionery">हलवाई की दुकान</string>
@@ -531,6 +542,7 @@
     <string name="type.shop.funeral_directors">अंतिम संस्कार के निदेशक</string>
     <string name="type.shop.furniture">फर्नीचर की दुकान</string>
     <string name="type.shop.garden_centre">बगीचे की सामग्री की दुकान</string>
+    <string name="type.shop.games">गेम की दुकान</string>
     <string name="type.shop.gift">उपहार की दुकान</string>
     <string name="type.shop.greengrocer">फल-सब्ज़ियों की दुकान</string>
     <string name="type.shop.grocery">किराने की दुकान</string>

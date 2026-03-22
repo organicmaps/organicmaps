@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Marsh";
 "type.noexit" = "Dead End";
 "type.office" = "Office";
+"type.office.architect" = "Architect Office";
 "type.office.company" = "Company Office";
+"type.office.educational_institution" = "Educational Institution";
 "type.office.estate_agent" = "Estate Agent";
 "type.office.government" = "Governmental Office";
 "type.office.insurance" = "Insurance Office";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Chemist";
 "type.shop.chocolate" = "Chocolate Shop";
 "type.shop.clothes" = "Clothes Shop";
+"type.shop.clothes.children" = "Children's Clothes Shop";
+"type.shop.clothes.fashion" = "Fashion Boutique";
+"type.shop.clothes.hats" = "Hat Shop";
+"type.shop.clothes.men" = "Men's Clothes Shop";
+"type.shop.clothes.sports" = "Sports Clothes Shop";
+"type.shop.clothes.suits" = "Suits Shop";
+"type.shop.clothes.underwear" = "Underwear Shop";
+"type.shop.clothes.wedding" = "Wedding Clothes Shop";
+"type.shop.clothes.women" = "Women's Clothes Shop";
 "type.shop.coffee" = "Coffee Shop";
 "type.shop.computer" = "Computer Shop";
 "type.shop.confectionery" = "Sweet Shop";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Funeral Directors";
 "type.shop.furniture" = "Furniture Shop";
 "type.shop.garden_centre" = "Garden Centre";
+"type.shop.games" = "Games Shop";
 "type.shop.gas" = "Gas Store";
 "type.shop.gift" = "Gift Shop";
 "type.shop.greengrocer" = "Greengrocer";

@@ -647,7 +647,9 @@
     <string name="type.natural.wetland.bog">Turbărie</string>
     <string name="type.natural.wetland.marsh">Mlaştină</string>
     <string name="type.office">Birou</string>
+    <string name="type.office.architect">Birou de arhitectură</string>
     <string name="type.office.company">Sediu companei</string>
+    <string name="type.office.educational_institution">Instituție de învățământ</string>
     <string name="type.office.estate_agent">Agent imobiliar</string>
     <string name="type.office.government">Birou guvernamental</string>
     <string name="type.office.insurance">Birou de asigurări</string>
@@ -991,6 +993,15 @@
     <string name="type.shop.chemist">Mercerie</string>
     <string name="type.shop.chocolate">Magazin de ciocolată</string>
     <string name="type.shop.clothes">Magazin de haine</string>
+    <string name="type.shop.clothes.children">Magazin de haine pentru copii</string>
+    <string name="type.shop.clothes.fashion">Boutique de modă</string>
+    <string name="type.shop.clothes.hats">Magazin de pălării</string>
+    <string name="type.shop.clothes.men">Magazin de haine pentru bărbați</string>
+    <string name="type.shop.clothes.sports">Magazin de haine sport</string>
+    <string name="type.shop.clothes.suits">Magazin de costume</string>
+    <string name="type.shop.clothes.underwear">Magazin de lenjerie</string>
+    <string name="type.shop.clothes.wedding">Magazin de rochii de mireasă</string>
+    <string name="type.shop.clothes.women">Magazin de haine pentru femei</string>
     <string name="type.shop.coffee">Magazin de cafea</string>
     <string name="type.shop.computer">Magazin de calculatoare</string>
     <string name="type.shop.confectionery">Cofetărie</string>
@@ -1011,6 +1022,7 @@
     <string name="type.shop.funeral_directors">Pompe funebre</string>
     <string name="type.shop.furniture">Magazin de mobilă</string>
     <string name="type.shop.garden_centre">Pepinieră</string>
+    <string name="type.shop.games">Magazin de jocuri</string>
     <string name="type.shop.gas">Magazin de gaze</string>
     <string name="type.shop.gift">Magazin de suveniruri</string>
     <string name="type.shop.greengrocer">Băcănie</string>

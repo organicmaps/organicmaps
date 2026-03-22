@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "ओलिताची जमीन";
 "type.noexit" = "रस्ता बंद";
 "type.office" = "कार्यालय";
+"type.office.architect" = "Architect Office";
 "type.office.company" = "कंपनी कार्यालय";
+"type.office.educational_institution" = "Educational Institution";
 "type.office.estate_agent" = "इस्टेट एजंट";
 "type.office.government" = "सरकारी कार्यालय";
 "type.office.insurance" = "विमा कार्यालय";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "औषधालय";
 "type.shop.chocolate" = "चॉकलेट शॉप";
 "type.shop.clothes" = "कपड्याचे दुकान";
+"type.shop.clothes.children" = "Children's Clothes Shop";
+"type.shop.clothes.fashion" = "Fashion Boutique";
+"type.shop.clothes.hats" = "Hat Shop";
+"type.shop.clothes.men" = "Men's Clothes Shop";
+"type.shop.clothes.sports" = "Sports Clothes Shop";
+"type.shop.clothes.suits" = "Suits Shop";
+"type.shop.clothes.underwear" = "Underwear Shop";
+"type.shop.clothes.wedding" = "Wedding Clothes Shop";
+"type.shop.clothes.women" = "Women's Clothes Shop";
 "type.shop.coffee" = "कॉफीचे दुकान";
 "type.shop.computer" = "संगणकाचे दुकान";
 "type.shop.confectionery" = "मिठाई";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "अंत्यसंस्कार संचालक";
 "type.shop.furniture" = "फर्निचरचे दुकान";
 "type.shop.garden_centre" = "बागकामाचे दुकान";
+"type.shop.games" = "Games Shop";
 "type.shop.gas" = "गॅसचे दुकान";
 "type.shop.gift" = "भेटवस्तूंचे दुकान";
 "type.shop.greengrocer" = "भाजीवाला";

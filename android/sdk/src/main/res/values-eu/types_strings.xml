@@ -732,7 +732,9 @@
     <string name="type.natural.wetland.bog">Zohikaztegi</string>
     <string name="type.natural.wetland.marsh">Padura</string>
     <string name="type.office">Bulegoa</string>
+    <string name="type.office.architect">Arkitekto bulegoa</string>
     <string name="type.office.company">Bulegoa</string>
+    <string name="type.office.educational_institution">Hezkuntza erakundea</string>
     <string name="type.office.estate_agent">Higiezinen agentea</string>
     <string name="type.office.government">Gobernu bulegoa</string>
     <string name="type.office.insurance">Aseguru-bulegoa</string>
@@ -1078,6 +1080,15 @@
     <string name="type.shop.chemist">Parafarmazia</string>
     <string name="type.shop.chocolate">Txokolate Denda</string>
     <string name="type.shop.clothes">Arropa denda</string>
+    <string name="type.shop.clothes.children">Haurrentzako arropa denda</string>
+    <string name="type.shop.clothes.fashion">Moda boutique</string>
+    <string name="type.shop.clothes.hats">Kapelu denda</string>
+    <string name="type.shop.clothes.men">Gizonezkoen arropa denda</string>
+    <string name="type.shop.clothes.sports">Kirol arropa denda</string>
+    <string name="type.shop.clothes.suits">Traje denda</string>
+    <string name="type.shop.clothes.underwear">Barneko arropa denda</string>
+    <string name="type.shop.clothes.wedding">Ezkontza arroparen denda</string>
+    <string name="type.shop.clothes.women">Emakumezkoen arropa denda</string>
     <string name="type.shop.coffee">Kafe Denda</string>
     <string name="type.shop.computer">Informatika-denda</string>
     <string name="type.shop.confectionery">Gozokiak</string>
@@ -1098,6 +1109,7 @@
     <string name="type.shop.funeral_directors">Ehorztetxea</string>
     <string name="type.shop.furniture">Altzari denda</string>
     <string name="type.shop.garden_centre">Haurtzaindegia</string>
+    <string name="type.shop.games">Jolastokia denda</string>
     <string name="type.shop.gas">Gas biltegia</string>
     <string name="type.shop.gift">Opari denda</string>
     <string name="type.shop.greengrocer">Barazki eta fruta-denda</string>

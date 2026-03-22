@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "कच्छभूमि";
 "type.noexit" = "Dead End";
 "type.office" = "कार्यालय";
+"type.office.architect" = "वास्तुकला कार्यालय";
 "type.office.company" = "कंपनी कार्यालय";
+"type.office.educational_institution" = "शैक्षणिक संस्था";
 "type.office.estate_agent" = "संपत्ति एजेंट";
 "type.office.government" = "सरकारी कार्यालय";
 "type.office.insurance" = "बीमा कार्यालय";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "दवा की दुकान";
 "type.shop.chocolate" = "चॉकलेट की दुकान";
 "type.shop.clothes" = "कपड़े की दुकान";
+"type.shop.clothes.children" = "बच्चों के कपड़ों की दुकान";
+"type.shop.clothes.fashion" = "फैशन बुटीक";
+"type.shop.clothes.hats" = "टोपी की दुकान";
+"type.shop.clothes.men" = "पुरुषों के कपड़ों की दुकान";
+"type.shop.clothes.sports" = "खेल कपड़ों की दुकान";
+"type.shop.clothes.suits" = "सूट की दुकान";
+"type.shop.clothes.underwear" = "अंडरवियर की दुकान";
+"type.shop.clothes.wedding" = "शादी के कपड़ों की दुकान";
+"type.shop.clothes.women" = "महिलाओं के कपड़ों की दुकान";
 "type.shop.coffee" = "कॉफी की दुकान";
 "type.shop.computer" = "कंप्यूटर की दुकान";
 "type.shop.confectionery" = "हलवाई की दुकान";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "अंतिम संस्कार के निदेशक";
 "type.shop.furniture" = "फर्नीचर की दुकान";
 "type.shop.garden_centre" = "बगीचे की सामग्री की दुकान";
+"type.shop.games" = "गेम की दुकान";
 "type.shop.gas" = "Gas Store";
 "type.shop.gift" = "उपहार की दुकान";
 "type.shop.greengrocer" = "फल-सब्ज़ियों की दुकान";

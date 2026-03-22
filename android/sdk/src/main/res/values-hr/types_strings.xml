@@ -96,6 +96,15 @@
     <string name="type.railway.disused.tunnel">Nekorišteni željeznički tunel</string>
     <string name="type.route">Ruta</string>
     <string name="type.route.ferry">Trajekt</string>
+    <string name="type.shop.clothes.children">Dječja odjeća</string>
+    <string name="type.shop.clothes.fashion">Modni butik</string>
+    <string name="type.shop.clothes.hats">Prodavaonica šešira</string>
+    <string name="type.shop.clothes.men">Muška odjeća</string>
+    <string name="type.shop.clothes.sports">Sportska odjeća</string>
+    <string name="type.shop.clothes.suits">Odijela</string>
+    <string name="type.shop.clothes.underwear">Donje rublje</string>
+    <string name="type.shop.clothes.wedding">Salon vjenčanica</string>
+    <string name="type.shop.clothes.women">Ženska odjeća</string>
     <string name="type.shop.leather">Trgovina kožnom galanterijom</string>
     <string name="type.shop.religion">Trgovina vjerskim predmetima</string>
     <string name="type.barrier.jersey_barrier">Blok</string>

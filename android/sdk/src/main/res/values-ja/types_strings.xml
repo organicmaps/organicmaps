@@ -711,7 +711,9 @@
     <string name="type.natural.wetland.marsh">沼地</string>
     <string name="type.noexit">行き止まり</string>
     <string name="type.office">オフィス</string>
+    <string name="type.office.architect">建築設計事務所</string>
     <string name="type.office.company">会社事務所</string>
+    <string name="type.office.educational_institution">教育機関</string>
     <string name="type.office.estate_agent">不動産業者</string>
     <string name="type.office.government">官庁</string>
     <string name="type.office.insurance">保険会社</string>
@@ -1088,6 +1090,15 @@
     <string name="type.shop.chemist">化学薬品店</string>
     <string name="type.shop.chocolate">チョコレート屋</string>
     <string name="type.shop.clothes">洋服</string>
+    <string name="type.shop.clothes.children">子ども服</string>
+    <string name="type.shop.clothes.fashion">ファッションブティック</string>
+    <string name="type.shop.clothes.hats">帽子屋</string>
+    <string name="type.shop.clothes.men">メンズ服</string>
+    <string name="type.shop.clothes.sports">スポーツウェア</string>
+    <string name="type.shop.clothes.suits">スーツショップ</string>
+    <string name="type.shop.clothes.underwear">下着・インナー</string>
+    <string name="type.shop.clothes.wedding">ウェディングドレスショップ</string>
+    <string name="type.shop.clothes.women">レディースファッション</string>
     <string name="type.shop.coffee">コーヒー屋</string>
     <string name="type.shop.computer">コンピュータショップ</string>
     <string name="type.shop.confectionery">菓子類</string>
@@ -1108,6 +1119,7 @@
     <string name="type.shop.funeral_directors">葬儀屋</string>
     <string name="type.shop.furniture">家具店</string>
     <string name="type.shop.garden_centre">ガーデンセンター</string>
+    <string name="type.shop.games">ゲームショップ</string>
     <string name="type.shop.gas">ガス屋</string>
     <string name="type.shop.gift">ギフトショップ</string>
     <string name="type.shop.greengrocer">八百屋</string>

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Liūnas";
 "type.noexit" = "Akligatvis";
 "type.office" = "Biuras";
+"type.office.architect" = "Architektūros biuras";
 "type.office.company" = "Įmonės biuras";
+"type.office.educational_institution" = "Švietimo įstaiga";
 "type.office.estate_agent" = "Nekilnojamojo turto agentūra";
 "type.office.government" = "Valstybinė įstaiga";
 "type.office.insurance" = "Draudimo agentūra";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Buitinė chemija";
 "type.shop.chocolate" = "Šokolado parduotuvė";
 "type.shop.clothes" = "Drabužių parduotuvė";
+"type.shop.clothes.children" = "Vaikų drabužių parduotuvė";
+"type.shop.clothes.fashion" = "Mados parduotuvė";
+"type.shop.clothes.hats" = "Kepurių parduotuvė";
+"type.shop.clothes.men" = "Vyriškų drabužių parduotuvė";
+"type.shop.clothes.sports" = "Sporto drabužių parduotuvė";
+"type.shop.clothes.suits" = "Kostiumų parduotuvė";
+"type.shop.clothes.underwear" = "Apatinių rūbų parduotuvė";
+"type.shop.clothes.wedding" = "Vestuvių drabužių parduotuvė";
+"type.shop.clothes.women" = "Moteriškų drabužių parduotuvė";
 "type.shop.coffee" = "Kavos parduotuvė";
 "type.shop.computer" = "Kompiuterių parduotuvė";
 "type.shop.confectionery" = "Saldumynų parduotuvė";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Laidojimo paslaugos";
 "type.shop.furniture" = "Baldai";
 "type.shop.garden_centre" = "Sodo centras";
+"type.shop.games" = "Žaidimų parduotuvė";
 "type.shop.gas" = "Dujų parduotuvė";
 "type.shop.gift" = "Dovanų parduotuvė";
 "type.shop.greengrocer" = "Vaisiai ir daržovės";

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Kënetë";
 "type.noexit" = "Rrugë pa krye";
 "type.office" = "Zyrë";
+"type.office.architect" = "Studio arkitekture";
 "type.office.company" = "Zyrë kompanie";
+"type.office.educational_institution" = "Institucion arsimor";
 "type.office.estate_agent" = "Agjent imobiliar";
 "type.office.government" = "Zyrë qeveritare";
 "type.office.insurance" = "Zyre sigurimesh";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Farmaci";
 "type.shop.chocolate" = "Dyqan çokollatash";
 "type.shop.clothes" = "Dyqan rrobash";
+"type.shop.clothes.children" = "Dyqan rrobash fëmijësh";
+"type.shop.clothes.fashion" = "Butik mode";
+"type.shop.clothes.hats" = "Dyqan kapelash";
+"type.shop.clothes.men" = "Dyqan rrobash për burra";
+"type.shop.clothes.sports" = "Dyqan rrobash sportive";
+"type.shop.clothes.suits" = "Dyqan kostumesh";
+"type.shop.clothes.underwear" = "Dyqan rrobash të brendshme";
+"type.shop.clothes.wedding" = "Dyqan rrobash nusërie";
+"type.shop.clothes.women" = "Dyqan rrobash për gra";
 "type.shop.coffee" = "Dyqan kafeje";
 "type.shop.computer" = "Dyqan kompjuterash";
 "type.shop.confectionery" = "Dyqan ëmbëlsirash";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Agjenci funerale";
 "type.shop.furniture" = "Dyqan mobiljesh";
 "type.shop.garden_centre" = "Qendër kopshtarie";
+"type.shop.games" = "Dyqan lojërash";
 "type.shop.gas" = "Dyqan gazi";
 "type.shop.gift" = "Dyqan dhuratash";
 "type.shop.greengrocer" = "Dyqan frutash-perimesh";

@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Padura";
 "type.noexit" = "Dead End";
 "type.office" = "Bulegoa";
+"type.office.architect" = "Arkitekto bulegoa";
 "type.office.company" = "Bulegoa";
+"type.office.educational_institution" = "Hezkuntza erakundea";
 "type.office.estate_agent" = "Higiezinen agentea";
 "type.office.government" = "Gobernu bulegoa";
 "type.office.insurance" = "Aseguru-bulegoa";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Parafarmazia";
 "type.shop.chocolate" = "Txokolate Denda";
 "type.shop.clothes" = "Arropa denda";
+"type.shop.clothes.children" = "Haurrentzako arropa denda";
+"type.shop.clothes.fashion" = "Moda boutique";
+"type.shop.clothes.hats" = "Kapelu denda";
+"type.shop.clothes.men" = "Gizonezkoen arropa denda";
+"type.shop.clothes.sports" = "Kirol arropa denda";
+"type.shop.clothes.suits" = "Traje denda";
+"type.shop.clothes.underwear" = "Barneko arropa denda";
+"type.shop.clothes.wedding" = "Ezkontza arroparen denda";
+"type.shop.clothes.women" = "Emakumezkoen arropa denda";
 "type.shop.coffee" = "Kafe Denda";
 "type.shop.computer" = "Informatika-denda";
 "type.shop.confectionery" = "Gozokiak";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Ehorztetxea";
 "type.shop.furniture" = "Altzari denda";
 "type.shop.garden_centre" = "Haurtzaindegia";
+"type.shop.games" = "Jolastokia denda";
 "type.shop.gas" = "Gas biltegia";
 "type.shop.gift" = "Opari denda";
 "type.shop.greengrocer" = "Barazki eta fruta-denda";

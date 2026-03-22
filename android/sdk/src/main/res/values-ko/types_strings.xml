@@ -638,7 +638,9 @@
     <string name="type.natural.wetland.bog">수렁</string>
     <string name="type.natural.wetland.marsh">소택</string>
     <string name="type.office">사무실</string>
+    <string name="type.office.architect">건축 사무소</string>
     <string name="type.office.company">회사</string>
+    <string name="type.office.educational_institution">교육 기관</string>
     <string name="type.office.estate_agent">부동산중개사</string>
     <string name="type.office.government">관공서</string>
     <string name="type.office.insurance">보험 사무실</string>
@@ -980,6 +982,15 @@
     <string name="type.shop.chemist">화학물질 가게</string>
     <string name="type.shop.chocolate">초콜릿 가게</string>
     <string name="type.shop.clothes">옷 가게</string>
+    <string name="type.shop.clothes.children">아동복 가게</string>
+    <string name="type.shop.clothes.fashion">패션 부티크</string>
+    <string name="type.shop.clothes.hats">모자 가게</string>
+    <string name="type.shop.clothes.men">남성복 가게</string>
+    <string name="type.shop.clothes.sports">스포츠 의류 매장</string>
+    <string name="type.shop.clothes.suits">양복점</string>
+    <string name="type.shop.clothes.underwear">속옷 가게</string>
+    <string name="type.shop.clothes.wedding">웨딩 드레스 가게</string>
+    <string name="type.shop.clothes.women">여성복 가게</string>
     <string name="type.shop.coffee">커피숍</string>
     <string name="type.shop.computer">컴퓨터 판매점</string>
     <string name="type.shop.confectionery">제과점</string>
@@ -1000,6 +1011,7 @@
     <string name="type.shop.funeral_directors">장의사</string>
     <string name="type.shop.furniture">가구 상점</string>
     <string name="type.shop.garden_centre">식물 상점</string>
+    <string name="type.shop.games">게임 상점</string>
     <string name="type.shop.gas">주유소</string>
     <string name="type.shop.gift">선물 가게</string>
     <string name="type.shop.greengrocer">청과상</string>

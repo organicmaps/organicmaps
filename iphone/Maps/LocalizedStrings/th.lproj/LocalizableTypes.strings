@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "ที่ลุ่มชื้นแฉะ";
 "type.noexit" = "Dead End";
 "type.office" = "สำนักงาน";
+"type.office.architect" = "สำนักงานสถาปัตยกรรม";
 "type.office.company" = "สำนักงานบริษัท";
+"type.office.educational_institution" = "สถาบันการศึกษา";
 "type.office.estate_agent" = "นายหน้าอสังหาริมทรัพย์";
 "type.office.government" = "หน่วยงานราชการ";
 "type.office.insurance" = "สำนักงานประกันภัย";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "ร้านเคมีภัณฑ์";
 "type.shop.chocolate" = "ร้านช็อกโกแลต";
 "type.shop.clothes" = "ร้านขายเสื้อผ้า";
+"type.shop.clothes.children" = "ร้านเสื้อผ้าเด็ก";
+"type.shop.clothes.fashion" = "ร้านแฟชั่น";
+"type.shop.clothes.hats" = "ร้านขายหมวก";
+"type.shop.clothes.men" = "ร้านเสื้อผ้าผู้ชาย";
+"type.shop.clothes.sports" = "ร้านเสื้อผ้ากีฬา";
+"type.shop.clothes.suits" = "ร้านชุดสูท";
+"type.shop.clothes.underwear" = "ร้านชุดชั้นใน";
+"type.shop.clothes.wedding" = "ร้านชุดแต่งงาน";
+"type.shop.clothes.women" = "ร้านเสื้อผ้าผู้หญิง";
 "type.shop.coffee" = "ร้านขายกาแฟ";
 "type.shop.computer" = "ร้านขายคอมพิวเตอร์";
 "type.shop.confectionery" = "ร้านขายขนมหวาน";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "สัปเหร่อ";
 "type.shop.furniture" = "ร้านเฟอร์นิเจอร์";
 "type.shop.garden_centre" = "สถานรับเลี้ยงเด็ก";
+"type.shop.games" = "ร้านเกม";
 "type.shop.gas" = "ร้านแก๊ส";
 "type.shop.gift" = "ร้านของขวัญ";
 "type.shop.greengrocer" = "ร้านขายผัด";

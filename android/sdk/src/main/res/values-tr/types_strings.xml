@@ -760,7 +760,9 @@
     <string name="type.natural.wetland.marsh">Sazlık</string>
     <string name="type.noexit">Çıkmaz</string>
     <string name="type.office">Ofis</string>
+    <string name="type.office.architect">Mimarlık bürosu</string>
     <string name="type.office.company">Şirket Bürosu</string>
+    <string name="type.office.educational_institution">Eğitim kurumu</string>
     <string name="type.office.estate_agent">Emlakçı</string>
     <string name="type.office.government">Devlet Dairesi</string>
     <string name="type.office.insurance">Sigorta Acentesi</string>
@@ -1155,6 +1157,15 @@
     <string name="type.shop.chemist">Temizlik Ürünleri Mağazası</string>
     <string name="type.shop.chocolate">Çikolata Dükkanı</string>
     <string name="type.shop.clothes">Giyim Mağazası</string>
+    <string name="type.shop.clothes.children">Çocuk giyim mağazası</string>
+    <string name="type.shop.clothes.fashion">Moda butik</string>
+    <string name="type.shop.clothes.hats">Şapka mağazası</string>
+    <string name="type.shop.clothes.men">Erkek giyim mağazası</string>
+    <string name="type.shop.clothes.sports">Spor giyim mağazası</string>
+    <string name="type.shop.clothes.suits">Takım elbise mağazası</string>
+    <string name="type.shop.clothes.underwear">İç çamaşırı mağazası</string>
+    <string name="type.shop.clothes.wedding">Gelinlik mağazası</string>
+    <string name="type.shop.clothes.women">Kadın giyim mağazası</string>
     <string name="type.shop.coffee">Kahve Dükkanı</string>
     <string name="type.shop.computer">Bilgisayar Mağazası</string>
     <string name="type.shop.confectionery">Şekerci</string>
@@ -1175,6 +1186,7 @@
     <string name="type.shop.funeral_directors">Cenaze Levazımcısı</string>
     <string name="type.shop.furniture">Mobilya Mağazası</string>
     <string name="type.shop.garden_centre">Bahçe Mağazası</string>
+    <string name="type.shop.games">Oyun mağazası</string>
     <string name="type.shop.gas">Gaz İstasyonu</string>
     <string name="type.shop.gift">Hediyelik Eşya Mağazası</string>
     <string name="type.shop.greengrocer">Manav</string>

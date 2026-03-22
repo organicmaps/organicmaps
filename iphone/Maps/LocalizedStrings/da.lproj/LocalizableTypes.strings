@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Marsk";
 "type.noexit" = "Blind vej";
 "type.office" = "Kontor";
+"type.office.architect" = "Arkitektkontor";
 "type.office.company" = "Selskabskontor";
+"type.office.educational_institution" = "Uddannelsesinstitution";
 "type.office.estate_agent" = "Ejendomsmægler";
 "type.office.government" = "Regeringskontor";
 "type.office.insurance" = "Forsikringskontor";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Materialist";
 "type.shop.chocolate" = "Chokoladebutik";
 "type.shop.clothes" = "Tøjbutik";
+"type.shop.clothes.children" = "Børnetøjsbutik";
+"type.shop.clothes.fashion" = "Modebutik";
+"type.shop.clothes.hats" = "Hattebutik";
+"type.shop.clothes.men" = "Herretøjsbutik";
+"type.shop.clothes.sports" = "Sportsklæderbutik";
+"type.shop.clothes.suits" = "Jakkesætbutik";
+"type.shop.clothes.underwear" = "Undertøjsbutik";
+"type.shop.clothes.wedding" = "Brudetøjsbutik";
+"type.shop.clothes.women" = "Dametøjsbutik";
 "type.shop.coffee" = "Kaffehandel";
 "type.shop.computer" = "Computerforretning";
 "type.shop.confectionery" = "Slikbutik";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Bedemand";
 "type.shop.furniture" = "Møbelbutik";
 "type.shop.garden_centre" = "Havecenter";
+"type.shop.games" = "Spilbutik";
 "type.shop.gas" = "Gas butik";
 "type.shop.gift" = "Gavebutik";
 "type.shop.greengrocer" = "Grønthandler";

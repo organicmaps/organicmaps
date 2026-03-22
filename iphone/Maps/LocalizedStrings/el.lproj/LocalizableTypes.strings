@@ -888,7 +888,9 @@
 "type.natural.wetland.marsh" = "Έλος";
 "type.noexit" = "Αδιέξοδο";
 "type.office" = "Γραφείο";
+"type.office.architect" = "Αρχιτεκτονικό γραφείο";
 "type.office.company" = "Γραφείο επιχείρησης";
+"type.office.educational_institution" = "Εκπαιδευτικό ίδρυμα";
 "type.office.estate_agent" = "Κτηματομεσίτης";
 "type.office.government" = "Κυβερνητικό γραφείο";
 "type.office.insurance" = "Ασφαλιστικό γραφείο";
@@ -1293,6 +1295,15 @@
 "type.shop.chemist" = "Χημικά προϊόντα";
 "type.shop.chocolate" = "Σοκολατοποιία";
 "type.shop.clothes" = "Κατάστημα ρούχων";
+"type.shop.clothes.children" = "Παιδικό κατάστημα ρούχων";
+"type.shop.clothes.fashion" = "Μπουτίκ μόδας";
+"type.shop.clothes.hats" = "Κατάστημα καπέλων";
+"type.shop.clothes.men" = "Ανδρικό κατάστημα ρούχων";
+"type.shop.clothes.sports" = "Αθλητικά ρούχα";
+"type.shop.clothes.suits" = "Κατάστημα κοστουμιών";
+"type.shop.clothes.underwear" = "Κατάστημα εσωρούχων";
+"type.shop.clothes.wedding" = "Κατάστημα νυφικών";
+"type.shop.clothes.women" = "Γυναικείο κατάστημα ρούχων";
 "type.shop.coffee" = "Καφεκοπτείο";
 "type.shop.computer" = "Κατάστημα υπολογιστών";
 "type.shop.confectionery" = "Γλυκά";
@@ -1313,6 +1324,7 @@
 "type.shop.funeral_directors" = "Γραφεία τελετών";
 "type.shop.furniture" = "Κατάστημα επίπλων";
 "type.shop.garden_centre" = "Κατάστημα ειδών κήπου";
+"type.shop.games" = "Κατάστημα παιχνιδιών";
 "type.shop.gas" = "Κατάστημα υγραερίου";
 "type.shop.gift" = "Είδη δώρου";
 "type.shop.greengrocer" = "Μανάβικο";
