@@ -822,8 +822,10 @@ world  +
         {}
     noexit  -
     office  +
+        architect  -
         company  -
         diplomatic  -
+        educational_institution  -
         estate_agent  -
         government  -
         insurance  -
@@ -1310,7 +1312,17 @@ world  +
         cheese  -
         chemist  -
         chocolate  -
-        clothes  -
+        clothes  +
+            children  -
+            fashion  -
+            hats  -
+            men  -
+            sports  -
+            suits  -
+            underwear  -
+            wedding  -
+            women  -
+            {}
         coffee  -
         collector  -
         computer  -
@@ -1335,6 +1347,7 @@ world  +
         florist  -
         funeral_directors  -
         furniture  -
+        games  -
         garden_centre  -
         gas  -
         gift  -
