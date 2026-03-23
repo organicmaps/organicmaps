@@ -2,6 +2,8 @@ package app.organicmaps.sdk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import androidx.annotation.IntDef;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -26,10 +28,23 @@ import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class OrganicMaps implements DefaultLifecycleObserver
 {
   private static final String TAG = OrganicMaps.class.getSimpleName();
+
+  private static final int NOT_STARTED = 0;
+  private static final int INITIALIZING = 1;
+  private static final int READY = 2;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({NOT_STARTED, INITIALIZING, READY})
+  @interface CoreState
+  {}
 
   @NonNull
   private final String mFlavor;
@@ -52,8 +67,11 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   @NonNull
   private final SensorHelper mSensorHelper;
 
-  private volatile boolean mFrameworkInitialized;
+  @CoreState
+  private volatile int mCoreState = NOT_STARTED;
   private volatile boolean mPlatformInitialized;
+  @NonNull
+  private final List<Runnable> mCoreReadyCallbacks = new ArrayList<>();
 
   @NonNull
   public LocationHelper getLocationHelper()
@@ -138,7 +156,22 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
   public boolean arePlatformAndCoreInitialized()
   {
-    return mFrameworkInitialized && mPlatformInitialized;
+    return mCoreState == READY && mPlatformInitialized;
+  }
+
+  public boolean isCoreInitializing()
+  {
+    return mCoreState == INITIALIZING;
+  }
+
+  /// Runs the action immediately if core is ready, or queues it for when core becomes ready.
+  @MainThread
+  public void runWhenReady(@NonNull Runnable action)
+  {
+    if (mCoreState == READY)
+      action.run();
+    else
+      mCoreReadyCallbacks.add(action);
   }
 
   @Override
@@ -190,12 +223,31 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
   private boolean initNativeFramework(@NonNull Runnable onComplete)
   {
-    if (mFrameworkInitialized)
+    if (mCoreState == READY)
       return false;
 
-    nativeInitFramework(onComplete);
+    // Queue the external callback (whether first or subsequent caller).
+    mCoreReadyCallbacks.add(onComplete);
 
+    if (mCoreState == INITIALIZING)
+      return true; // already in progress, callback queued
+
+    mCoreState = INITIALIZING;
+
+    // Pass a single internal callback to native. It will fire on the UI thread
+    // after LoadMapsAsync completes and InitRouting() has run.
+    nativeInitFramework(this::onNativeFrameworkReady);
+
+    // These two can run now — they only need g_framework (created synchronously above).
     initNativeStrings();
+    ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+
+    return true;
+  }
+
+  /// Called from native on UI thread when LoadMapsAsync + InitRouting() completes.
+  private void onNativeFrameworkReady()
+  {
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(mContext);
@@ -203,11 +255,17 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
     Logger.i(TAG, "Framework initialized");
-    mFrameworkInitialized = true;
-    return true;
+
+    // Drain pending callbacks into a local copy before setting READY, so that callbacks
+    // which call runWhenReady() don't modify the list during iteration.
+    final List<Runnable> pending = new ArrayList<>(mCoreReadyCallbacks);
+    mCoreReadyCallbacks.clear();
+    mCoreState = READY;
+
+    for (Runnable cb : pending)
+      cb.run();
   }
 
   private void createPlatformDirectories(@NonNull String writablePath, @NonNull String privatePath,
