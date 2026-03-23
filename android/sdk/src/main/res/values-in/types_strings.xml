@@ -378,6 +378,7 @@
     <string name="type.highway.pedestrian.bridge">Menjembatani</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Terowongan</string>
+    <string name="type.highway.platform">Peron angkutan umum</string>
     <string name="type.highway.primary">Jalan</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Menjembatani</string>
@@ -685,6 +686,7 @@
     <string name="type.power.substation">Stasiun bawah tanah</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Menara listrik</string>
+    <string name="type.public_transport.platform">Peron angkutan umum</string>
     <string name="type.railway.disused.tunnel">Terowongan kereta api nonaktif</string>
     <string name="type.railway.funicular">Kereta gantung</string>
     <string name="type.railway.halt">Rel kereta api</string>

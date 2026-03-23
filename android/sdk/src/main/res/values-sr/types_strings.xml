@@ -442,7 +442,7 @@
     <string name="type.highway.pedestrian.bridge">Пешачки мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Пешачки тунел</string>
-    <string name="type.highway.platform">Стајалиште јавног превоза</string>
+    <string name="type.highway.platform">Перон јавног превоза</string>
     <string name="type.highway.primary">Пут прве класе</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>
@@ -826,7 +826,7 @@
     <string name="type.psurface.unpaved_bad">Лош макадам</string>
     <string name="type.psurface.unpaved_good">Добар макадам</string>
     <string name="type.public_transport">Јавни превоз</string>
-    <string name="type.public_transport.platform">Стајалиште јавног превоза</string>
+    <string name="type.public_transport.platform">Перон јавног превоза</string>
     <string name="type.railway">Железница</string>
     <string name="type.railway.abandoned">Напуштена пруга</string>
     <string name="type.railway.abandoned.bridge">Напуштен железнички мост</string>

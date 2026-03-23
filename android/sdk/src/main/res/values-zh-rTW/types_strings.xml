@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">橋</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">隧道</string>
-    <string name="type.highway.platform">月台</string>
+    <string name="type.highway.platform">公共運輸站台</string>
     <string name="type.highway.primary">主要道路</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">橋</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">路面舖設 - 較差</string>
     <string name="type.psurface.unpaved_good">路面舖設 - 良好</string>
     <string name="type.public_transport">大眾運輸</string>
-    <string name="type.public_transport.platform">月台</string>
+    <string name="type.public_transport.platform">公共運輸站台</string>
     <string name="type.railway">鐵路設施</string>
     <string name="type.railway.abandoned">廢棄鐵路</string>
     <string name="type.railway.abandoned.bridge">廢棄鐵路橋樑</string>

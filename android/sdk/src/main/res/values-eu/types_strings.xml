@@ -441,6 +441,7 @@
     <string name="type.highway.pedestrian.bridge">Oinezkoen zubia</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Oinezkoen tunela</string>
+    <string name="type.highway.platform">Garraiotze Publikoaren Plataforma</string>
     <string name="type.highway.primary">Errepide nagusia</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Zubia</string>
@@ -792,6 +793,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Zutabe elektrikoa</string>
     <string name="type.public_transport">Garraio publikoa</string>
+    <string name="type.public_transport.platform">Garraiotze Publikoaren Plataforma</string>
     <string name="type.railway.disused.tunnel">Erabilerarik gabeko trenbide-tunela</string>
     <string name="type.railway.funicular">Funikularra</string>
     <string name="type.railway.halt">Tren geltokian</string>

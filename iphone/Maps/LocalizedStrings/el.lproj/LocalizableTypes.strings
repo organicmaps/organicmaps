@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Σήραγγα πεζών";
-"type.highway.platform" = "Πλατφόρμα";
+"type.highway.platform" = "Πλατφόρμα δημόσιων μεταφορών";
 "type.highway.primary" = "Πρωτεύων δρόμος";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Δημόσια συγκοινωνία";
-"type.public_transport.platform" = "Πλατφόρμα";
+"type.public_transport.platform" = "Πλατφόρμα δημόσιων μεταφορών";
 "type.railway" = "Σιδηρόδρομος";
 "type.railway.abandoned" = "Εγκαταλελειμμένος σιδηρόδρομος";
 "type.railway.abandoned.bridge" = "Εγκαταλελειμμένη σιδηροδρομική γέφυρα";

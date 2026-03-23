@@ -334,6 +334,7 @@
     <string name="type.highway.pedestrian.bridge">Мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Тунел</string>
+    <string name="type.highway.platform">Платформа за обществен транспорт</string>
     <string name="type.highway.primary">Главен път</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>
@@ -597,6 +598,7 @@
     <string name="type.power.plant.hydro">Водноелектрическа централа</string>
     <string name="type.power.plant.solar">Слънчева електроцентрала</string>
     <string name="type.power.plant.wind">Вятърна електроцентрала</string>
+    <string name="type.public_transport.platform">Платформа за обществен транспорт</string>
     <string name="type.railway.disused.tunnel">Неизползван железопътен тунел</string>
     <string name="type.railway.funicular">Фуникуляр</string>
     <string name="type.railway.rail.highspeed">Високоскоростна железница</string>

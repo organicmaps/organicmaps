@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Пешеходный мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Пешеходный тоннель</string>
-    <string name="type.highway.platform">Платформа</string>
+    <string name="type.highway.platform">Платформа общественного транспорта</string>
     <string name="type.highway.primary">Шоссе</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">Плохая неасфальтированная</string>
     <string name="type.psurface.unpaved_good">Хорошая неасфальтированная</string>
     <string name="type.public_transport">Общественный транспорт</string>
-    <string name="type.public_transport.platform">Платформа</string>
+    <string name="type.public_transport.platform">Платформа общественного транспорта</string>
     <string name="type.railway">Ж/Д</string>
     <string name="type.railway.abandoned">Заброшенная железная дорога</string>
     <string name="type.railway.abandoned.bridge">Заброшенный железнодорожный мост</string>

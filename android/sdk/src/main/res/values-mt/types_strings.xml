@@ -4,7 +4,11 @@
     <!-- SECTION: Types: Recycling -->
     <string name="type.cuisine.uzbek">Użbeka</string>
 
+    <!-- SECTION: Types: Roads -->
+    <string name="type.highway.platform">Pjattaforma tat-Trasport Pubbliku</string>
+
     <!-- SECTION: Types: Historic -->
+    <string name="type.public_transport.platform">Pjattaforma tat-Trasport Pubbliku</string>
     <string name="type.railway.disused.tunnel">Mina tal-ferrovija mitluqa</string>
     <string name="type.shop.leather">Ħanut tal-oġġetti tal-ġilda</string>
     <string name="type.shop.religion">Ħanut tal-oġġetti reliġjużi</string>

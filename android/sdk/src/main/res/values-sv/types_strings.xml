@@ -433,7 +433,7 @@
     <string name="type.highway.pedestrian.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
-    <string name="type.highway.platform">Perrong</string>
+    <string name="type.highway.platform">Plattform för kollektivtrafik</string>
     <string name="type.highway.primary">Gata</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bro</string>
@@ -804,7 +804,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elstolpe</string>
     <string name="type.public_transport">Kollektivtrafik</string>
-    <string name="type.public_transport.platform">Perrong</string>
+    <string name="type.public_transport.platform">Plattform för kollektivtrafik</string>
     <string name="type.railway">Järnväg</string>
     <string name="type.railway.abandoned">Nerlagd järnväg</string>
     <string name="type.railway.abandoned.bridge">Nerlagd järnvägsbro</string>

@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Пешачки тунел";
-"type.highway.platform" = "Стајалиште јавног превоза";
+"type.highway.platform" = "Перон јавног превоза";
 "type.highway.primary" = "Пут прве класе";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "Лош макадам";
 "type.psurface.unpaved_good" = "Добар макадам";
 "type.public_transport" = "Јавни превоз";
-"type.public_transport.platform" = "Стајалиште јавног превоза";
+"type.public_transport.platform" = "Перон јавног превоза";
 "type.railway" = "Железница";
 "type.railway.abandoned" = "Напуштена пруга";
 "type.railway.abandoned.bridge" = "Напуштен железнички мост";

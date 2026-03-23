@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunnel";
-"type.highway.platform" = "Stoppested";
+"type.highway.platform" = "Platform for offentlig transport";
 "type.highway.primary" = "Hovedvej";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Offentlig transport";
-"type.public_transport.platform" = "Stoppested";
+"type.public_transport.platform" = "Platform for offentlig transport";
 "type.railway" = "Jernbane";
 "type.railway.abandoned" = "Forladt jernbane";
 "type.railway.abandoned.bridge" = "Forladt jernbanebro";

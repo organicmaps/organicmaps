@@ -385,6 +385,7 @@
     <string name="type.highway.pedestrian.bridge">สะพาน</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">อุโมงค์</string>
+    <string name="type.highway.platform">แพลตฟอร์มขนส่งสาธารณะ</string>
     <string name="type.highway.primary">ถนน</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">สะพาน</string>
@@ -695,6 +696,7 @@
     <string name="type.power.substation">สถานีไฟฟ้า</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">เสาไฟฟ้า</string>
+    <string name="type.public_transport.platform">แพลตฟอร์มขนส่งสาธารณะ</string>
     <string name="type.railway.disused.tunnel">อุโมงค์รถไฟเลิกใช้</string>
     <string name="type.railway.funicular">รถกระเช้าไฟฟ้า</string>
     <string name="type.railway.halt">สถานีรถไฟ</string>

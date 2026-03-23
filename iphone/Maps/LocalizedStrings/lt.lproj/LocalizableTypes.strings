@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunelis";
-"type.highway.platform" = "Platforma";
+"type.highway.platform" = "Viešojo transporto platforma";
 "type.highway.primary" = "Pagrindinis kelias";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "bloga be dangos";
 "type.psurface.unpaved_good" = "gera be dangos";
 "type.public_transport" = "Viešasis transportas";
-"type.public_transport.platform" = "Platforma";
+"type.public_transport.platform" = "Viešojo transporto platforma";
 "type.railway" = "Geležinkelis";
 "type.railway.abandoned" = "Apleistas geležinkelis";
 "type.railway.abandoned.bridge" = "Apleistas geležinkelio tiltas";

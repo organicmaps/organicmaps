@@ -438,6 +438,7 @@
     <string name="type.highway.pedestrian.bridge">جسر</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">نفق</string>
+    <string name="type.highway.platform">منصة النقل العام</string>
     <string name="type.highway.primary">شارع رئيسي</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">جسر</string>
@@ -784,6 +785,7 @@
     <string name="type.power.substation">محطة كهرباء فرعية</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">عمود كهرباء</string>
+    <string name="type.public_transport.platform">منصة النقل العام</string>
     <string name="type.railway.disused.tunnel">نفق سكة حديدية غير مستخدم</string>
     <string name="type.railway.funicular">حبلي</string>
     <string name="type.railway.halt">محطة قطار</string>

@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "ອຸມົງຄົນຍ່າງ";
-"type.highway.platform" = "ຊານຊາລາ";
+"type.highway.platform" = "ເວທີການຂົນສົ່ງສາທາລະນະ";
 "type.highway.primary" = "ທາງຫຼັກ";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບບໍ່ດີ";
 "type.psurface.unpaved_good" = "ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບດີ";
 "type.public_transport" = "ຂົນສົ່ງສາທາລະນະ";
-"type.public_transport.platform" = "ຊານຊາລາ";
+"type.public_transport.platform" = "ເວທີການຂົນສົ່ງສາທາລະນະ";
 "type.railway" = "ທາງລົດໄຟ";
 "type.railway.abandoned" = "ທາງລົດໄຟຮ້າງ";
 "type.railway.abandoned.bridge" = "ຂົວທາງລົດໄຟຮ້າງ";

@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Тунель";
-"type.highway.platform" = "Платформа";
+"type.highway.platform" = "Платформа громадського транспорту";
 "type.highway.primary" = "Шосе";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Громадський транспорт";
-"type.public_transport.platform" = "Платформа";
+"type.public_transport.platform" = "Платформа громадського транспорту";
 "type.railway" = "Залізниця";
 "type.railway.abandoned" = "Закинута залізниця";
 "type.railway.abandoned.bridge" = "Закинутий залізничний міст";

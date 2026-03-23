@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Göngubrú</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Göng fyrir fótgangandi</string>
-    <string name="type.highway.platform">Pallur</string>
+    <string name="type.highway.platform">Stoppistöð almenningssamgangna</string>
     <string name="type.highway.primary">Stofnvegur</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brú</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Almenningssamgöngur</string>
-    <string name="type.public_transport.platform">Pallur</string>
+    <string name="type.public_transport.platform">Stoppistöð almenningssamgangna</string>
     <string name="type.railway">Járnbraut</string>
     <string name="type.railway.abandoned">Aflögð járnbraut</string>
     <string name="type.railway.abandoned.bridge">Aflögð járnbrautarbrú</string>

@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Yaya Köprüsü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Yaya Tüneli</string>
-    <string name="type.highway.platform">Platform</string>
+    <string name="type.highway.platform">Toplu taşıma peronu</string>
     <string name="type.highway.primary">Ana Yol</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Köprü</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Toplu Taşıma</string>
-    <string name="type.public_transport.platform">Platform</string>
+    <string name="type.public_transport.platform">Toplu taşıma peronu</string>
     <string name="type.railway">Demiryolu</string>
     <string name="type.railway.abandoned">Terk Edilmiş Demir Yolu</string>
     <string name="type.railway.abandoned.bridge">Terk Edilmiş Demir Yolu Köprüsü</string>

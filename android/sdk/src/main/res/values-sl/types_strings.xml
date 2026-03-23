@@ -427,7 +427,7 @@
     <string name="type.highway.pedestrian.bridge">Most za pešce</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Predor za pešce</string>
-    <string name="type.highway.platform">Peron</string>
+    <string name="type.highway.platform">Peron javnega prevoza</string>
     <string name="type.highway.primary">Glavna cesta</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -799,7 +799,7 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Komunalni drog</string>
     <string name="type.public_transport">Javni prevoz</string>
-    <string name="type.public_transport.platform">Peron</string>
+    <string name="type.public_transport.platform">Peron javnega prevoza</string>
     <string name="type.railway">Železnica</string>
     <string name="type.railway.abandoned">Opuščena železnica</string>
     <string name="type.railway.abandoned.bridge">Opuščen železniški most</string>

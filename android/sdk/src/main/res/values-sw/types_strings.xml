@@ -174,6 +174,7 @@
     <string name="type.highway.pedestrian.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Mtaro</string>
+    <string name="type.highway.platform">Jukwaa la Usafiri wa Umma</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -392,6 +393,7 @@
     <string name="type.power.plant.hydro">Kiwanda cha umeme wa maji</string>
     <string name="type.power.plant.solar">Kiwanda cha nishati ya jua</string>
     <string name="type.power.plant.wind">Kiwanda cha nguvu cha upepo</string>
+    <string name="type.public_transport.platform">Jukwaa la Usafiri wa Umma</string>
     <string name="type.railway.disused.tunnel">Handaki la reli lisilotumika</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.level_crossing">Tambuka Reli</string>

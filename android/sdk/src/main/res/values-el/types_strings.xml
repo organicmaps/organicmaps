@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Πεζογέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Σήραγγα πεζών</string>
-    <string name="type.highway.platform">Πλατφόρμα</string>
+    <string name="type.highway.platform">Πλατφόρμα δημόσιων μεταφορών</string>
     <string name="type.highway.primary">Πρωτεύων δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Γέφυρα</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Δημόσια συγκοινωνία</string>
-    <string name="type.public_transport.platform">Πλατφόρμα</string>
+    <string name="type.public_transport.platform">Πλατφόρμα δημόσιων μεταφορών</string>
     <string name="type.railway">Σιδηρόδρομος</string>
     <string name="type.railway.abandoned">Εγκαταλελειμμένος σιδηρόδρομος</string>
     <string name="type.railway.abandoned.bridge">Εγκαταλελειμμένη σιδηροδρομική γέφυρα</string>

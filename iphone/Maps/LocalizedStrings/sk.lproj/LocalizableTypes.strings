@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel pre chodcov";
-"type.highway.platform" = "Nástupište";
+"type.highway.platform" = "Platforma verejnej dopravy";
 "type.highway.primary" = "Cesta I. triedy";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Hromadná doprava";
-"type.public_transport.platform" = "Nástupište";
+"type.public_transport.platform" = "Platforma verejnej dopravy";
 "type.railway" = "Železnica";
 "type.railway.abandoned" = "Zrušená trať";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";

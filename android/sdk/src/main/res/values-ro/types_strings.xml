@@ -392,6 +392,7 @@
     <string name="type.highway.pedestrian.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel</string>
+    <string name="type.highway.platform">Platforma de transport public</string>
     <string name="type.highway.primary">Stradă</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Pod</string>
@@ -704,6 +705,7 @@
     <string name="type.power.substation">Stație subterană</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Stâlp de electricitate</string>
+    <string name="type.public_transport.platform">Platforma de transport public</string>
     <string name="type.railway">Cale ferată</string>
     <string name="type.railway.disused.tunnel">Tunel feroviar dezafectat</string>
     <string name="type.railway.funicular">Funicular</string>

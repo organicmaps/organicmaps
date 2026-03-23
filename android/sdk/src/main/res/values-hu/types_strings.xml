@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Híd</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Alagút</string>
-    <string name="type.highway.platform">Peron</string>
+    <string name="type.highway.platform">Tömegközlekedési peron</string>
     <string name="type.highway.primary">Utca</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Híd</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">felület-burkolatlan_rossz</string>
     <string name="type.psurface.unpaved_good">felület-burkolatlan_jó</string>
     <string name="type.public_transport">Közösségi közlekedés</string>
-    <string name="type.public_transport.platform">Peron</string>
+    <string name="type.public_transport.platform">Tömegközlekedési peron</string>
     <string name="type.railway">Vasút</string>
     <string name="type.railway.abandoned">Elhagyott vasútvonal</string>
     <string name="type.railway.abandoned.bridge">Elhagyott vasúti híd</string>

@@ -445,7 +445,7 @@
     <string name="type.highway.pedestrian.bridge">Pont de vianants</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel de vianants</string>
-    <string name="type.highway.platform">Andana</string>
+    <string name="type.highway.platform">Plataforma de transport públic</string>
     <string name="type.highway.primary">Carretera primària</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Pont</string>
@@ -832,7 +832,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transport públic</string>
-    <string name="type.public_transport.platform">Andana</string>
+    <string name="type.public_transport.platform">Plataforma de transport públic</string>
     <string name="type.railway">Ferrocarril</string>
     <string name="type.railway.abandoned">Ferrocarril abandonat</string>
     <string name="type.railway.abandoned.bridge">Pont ferroviari abandonat</string>

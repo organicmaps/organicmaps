@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Fußgängertunnel";
-"type.highway.platform" = "Plattform";
+"type.highway.platform" = "Plattform für öffentliche Verkehrsmittel";
 "type.highway.primary" = "Hauptstraße";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Öffentlicher Verkehr";
-"type.public_transport.platform" = "Plattform";
+"type.public_transport.platform" = "Plattform für öffentliche Verkehrsmittel";
 "type.railway" = "Eisenbahn";
 "type.railway.abandoned" = "Ehemalige Eisenbahnstrecke";
 "type.railway.abandoned.bridge" = "Ehemalige Eisenbahnbrücke";

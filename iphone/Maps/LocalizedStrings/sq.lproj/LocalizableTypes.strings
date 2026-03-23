@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel këmbësorësh";
-"type.highway.platform" = "Platformë";
+"type.highway.platform" = "Platforma e transportit publik";
 "type.highway.primary" = "Rrugë kryesore";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Transport Publik";
-"type.public_transport.platform" = "Platformë";
+"type.public_transport.platform" = "Platforma e transportit publik";
 "type.railway" = "Hekurudhë";
 "type.railway.abandoned" = "Hekurudhë e braktisur";
 "type.railway.abandoned.bridge" = "Urë hekurudhore e braktisur";

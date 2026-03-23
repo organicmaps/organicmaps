@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
-    <string name="type.highway.platform">Stoppested</string>
+    <string name="type.highway.platform">Platform for offentlig transport</string>
     <string name="type.highway.primary">Hovedvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bro</string>
@@ -829,7 +829,7 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Stolpe</string>
     <string name="type.public_transport">Offentlig transport</string>
-    <string name="type.public_transport.platform">Stoppested</string>
+    <string name="type.public_transport.platform">Platform for offentlig transport</string>
     <string name="type.railway">Jernbane</string>
     <string name="type.railway.abandoned">Forladt jernbane</string>
     <string name="type.railway.abandoned.bridge">Forladt jernbanebro</string>

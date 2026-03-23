@@ -447,7 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Jalakäijate sild</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Jalakäijate tunnel</string>
-    <string name="type.highway.platform">Ooteplatvorm</string>
+    <string name="type.highway.platform">Ühistranspordi platvorm</string>
     <string name="type.highway.primary">Põhimaantee</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Põhimaantee sild</string>
@@ -835,7 +835,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Ühistransport</string>
-    <string name="type.public_transport.platform">Ooteplatvorm</string>
+    <string name="type.public_transport.platform">Ühistranspordi platvorm</string>
     <string name="type.railway">Raudtee</string>
     <string name="type.railway.abandoned">Mahajäetud raudtee</string>
     <string name="type.railway.abandoned.bridge">Mahajäetud sild</string>

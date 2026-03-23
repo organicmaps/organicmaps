@@ -383,6 +383,7 @@
     <string name="type.highway.pedestrian.bridge">Cầu</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Đường hầm</string>
+    <string name="type.highway.platform">Sân chờ giao thông công cộng</string>
     <string name="type.highway.primary">Phố</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Cầu</string>
@@ -691,6 +692,7 @@
     <string name="type.power.substation">Trạm biến áp</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Trụ Điện</string>
+    <string name="type.public_transport.platform">Sân chờ giao thông công cộng</string>
     <string name="type.railway.disused.tunnel">Hầm đường sắt ngưng sử dụng</string>
     <string name="type.railway.funicular">Đường sắt leo núi</string>
     <string name="type.railway.halt">Đường tàu hỏa</string>

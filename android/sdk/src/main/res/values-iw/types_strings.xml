@@ -438,7 +438,7 @@
     <string name="type.highway.pedestrian.bridge">גשר הולכי רגל</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">מנהרה להולכי רגל</string>
-    <string name="type.highway.platform">רציף תחבורה</string>
+    <string name="type.highway.platform">רציף תחבורה ציבורית</string>
     <string name="type.highway.primary">כביש ראשי</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">גשר</string>
@@ -813,7 +813,7 @@
     <string name="type.psurface.unpaved_bad">לא סלול במצב גרוע</string>
     <string name="type.psurface.unpaved_good">לא סלול במצב טוב</string>
     <string name="type.public_transport">תחבורה ציבורית</string>
-    <string name="type.public_transport.platform">רציף תחבורה</string>
+    <string name="type.public_transport.platform">רציף תחבורה ציבורית</string>
     <string name="type.railway">מסילת רכבת</string>
     <string name="type.railway.abandoned">מסילת רכבת נטושה</string>
     <string name="type.railway.abandoned.bridge">גשר רכבת נטוש</string>

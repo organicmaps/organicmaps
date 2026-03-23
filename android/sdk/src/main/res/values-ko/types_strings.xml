@@ -383,6 +383,7 @@
     <string name="type.highway.pedestrian.bridge">다리</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">터널</string>
+    <string name="type.highway.platform">대중교통 승강장</string>
     <string name="type.highway.primary">거리</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">다리</string>
@@ -695,6 +696,7 @@
     <string name="type.power.substation">변전소</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">전봇대</string>
+    <string name="type.public_transport.platform">대중교통 승강장</string>
     <string name="type.railway.disused.tunnel">폐철도 터널</string>
     <string name="type.railway.funicular">케이블카</string>
     <string name="type.railway.halt">기차역</string>

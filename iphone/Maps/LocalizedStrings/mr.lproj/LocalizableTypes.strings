@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "पादचारी बोगदा";
-"type.highway.platform" = "फलाट";
+"type.highway.platform" = "सार्वजनिक वाहतूक प्लॅटफॉर्म";
 "type.highway.primary" = "प्राथमिक मार्ग";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "सार्वजनिक वाहतूक";
-"type.public_transport.platform" = "फलाट";
+"type.public_transport.platform" = "सार्वजनिक वाहतूक प्लॅटफॉर्म";
 "type.railway" = "रेल्वे";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";

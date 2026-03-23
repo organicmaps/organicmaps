@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Voetgangertonnel";
-"type.highway.platform" = "Platform";
+"type.highway.platform" = "Openbare vervoersplatform";
 "type.highway.primary" = "Primêre pad";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,7 +969,7 @@
 "type.psurface.unpaved_bad" = "Ongeteer";
 "type.psurface.unpaved_good" = "Ongeteer";
 "type.public_transport" = "Openbare vervoer";
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "Openbare vervoersplatform";
 "type.railway" = "Spoorweg";
 "type.railway.abandoned" = "Verlate treinspoor";
 "type.railway.abandoned.bridge" = "Verlate treintonnel";
