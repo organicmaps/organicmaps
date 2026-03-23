@@ -22,6 +22,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
   private static final int SECTION_RECENT = 0;
   private static final int SECTION_ALL = 1;
+  private static final int INVALID_SECTION_POSITION = -1;
 
   private FeatureCategory[] mCategories;
   private FeatureCategory[] mRecentCategories;
@@ -58,7 +59,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   private int getSectionPosition(int section)
   {
     if (!hasRecentSection())
-      return -1;
+      return INVALID_SECTION_POSITION;
     return section == SECTION_RECENT ? 0 : (mRecentCategories.length + 1);
   }
 
