@@ -25,9 +25,39 @@
     <TextView
       android:id="@+id/tv__place_route_ref"
       android:textAlignment="viewStart"
-      android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.PlacePage"
       tools:text="Route references" />
+
+      <!-- Walking time to stop -->
+      <LinearLayout
+          android:id="@+id/ll__walk_time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:layout_marginStart="@dimen/margin_half"
+          android:visibility="gone"
+          tools:visibility="visible">
+
+          <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:src="@drawable/ic_walk"
+              android:contentDescription="@null"
+              app:tint="?android:textColorSecondary" />
+
+          <TextView
+              android:id="@+id/tv__walk_time"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="2dp"
+              android:textAppearance="@style/MwmTextAppearance.Body4"
+              android:textColor="?android:textColorSecondary"
+              tools:text="1 min" />
+
+      </LinearLayout>
   </LinearLayout>
 </LinearLayout>

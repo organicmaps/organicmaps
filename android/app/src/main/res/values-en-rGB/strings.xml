@@ -29,4 +29,6 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>
+    <string name="transport_schedule">Schedule</string>
+    <string name="schedule_coming_soon">Schedule data coming soon</string>
 </resources>

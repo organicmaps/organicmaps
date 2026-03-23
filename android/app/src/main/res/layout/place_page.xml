@@ -10,6 +10,41 @@
     layout="@layout/place_page_preview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
+
+  <LinearLayout
+      android:id="@+id/pp_tabs"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:background="@drawable/segmented_control_container"
+      android:padding="4dp"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tab_schedule"
+        style="@style/PlacePageSegmentedTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="@string/transport_schedule" />
+
+    <TextView
+        android:id="@+id/tab_details"
+        style="@style/PlacePageSegmentedTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details" />
+
+  </LinearLayout>
+
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_schedule_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone" />
   <include
     android:id="@+id/pp__details_frame"
     layout="@layout/place_page_details"

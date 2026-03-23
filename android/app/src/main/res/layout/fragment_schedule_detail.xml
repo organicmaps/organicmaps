@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_base">
+
+    <!-- Drag handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:background="@drawable/bg_bottom_sheet_handle" />
+
+    <!-- Route header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/margin_base">
+
+        <!-- Transport type icon -->
+        <ImageView
+            android:id="@+id/iv_transport_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_category_bus" />
+
+        <!-- Route number badge -->
+        <TextView
+            android:id="@+id/tv_route_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:paddingHorizontal="@dimen/margin_half"
+            android:paddingVertical="2dp"
+            android:minWidth="36dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            tools:text="114"
+            tools:background="@color/base_accent" />
+
+        <!-- Direction name -->
+        <TextView
+            android:id="@+id/tv_direction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/margin_half"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Central Station" />
+
+    </LinearLayout>
+
+    <!-- Day selector with arrows -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Previous day arrow -->
+        <ImageView
+            android:id="@+id/iv_prev_day"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="@dimen/margin_half"
+            android:src="@drawable/ic_arrow_prev"
+            android:contentDescription="@null"
+            android:background="?selectableItemBackgroundBorderless" />
+
+        <!-- Date label (clickable for calendar) -->
+        <TextView
+            android:id="@+id/tv_selected_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingVertical="@dimen/margin_half"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?android:textColorPrimary"
+            android:background="?selectableItemBackground"
+            tools:text="Today, Mar 13" />
+
+        <!-- Next day arrow -->
+        <ImageView
+            android:id="@+id/iv_next_day"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="@dimen/margin_half"
+            android:src="@drawable/ic_arrow_next"
+            android:contentDescription="@null"
+            android:background="?selectableItemBackgroundBorderless" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:background="?dividerHorizontal" />
+
+    <!-- Schedule times container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <GridLayout
+            android:id="@+id/grid_schedule_times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:useDefaultMargins="true" />
+
+    </ScrollView>
+
+</LinearLayout>

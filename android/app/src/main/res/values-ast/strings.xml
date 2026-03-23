@@ -370,4 +370,6 @@
     <string name="edit_track">Editar trayeutu</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Siguir el sistema</string>
+    <string name="transport_schedule">Horariu</string>
+    <string name="schedule_coming_soon">Los datos del horariu van tar disponibles en breve</string>
 </resources>

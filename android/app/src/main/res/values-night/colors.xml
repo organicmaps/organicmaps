@@ -37,4 +37,10 @@
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>
   <color name="elevation_profile">#4BB9E6</color>
+
+    <!-- Segmented control -->
+    <color name="segmented_control_bg">@color/white_12</color>
+    <color name="segmented_button_selected_bg">@color/bg_cards</color>
+    <color name="segmented_button_selected_text">@color/white_primary</color>
+    <color name="segmented_button_unselected_text">@color/white_secondary</color>
 </resources>

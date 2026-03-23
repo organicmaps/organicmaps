@@ -301,6 +301,23 @@ public class MapObject implements PlacePageData
     return mRawTypes.contains("railway-tram_stop");
   }
 
+  public boolean isTransportStop()
+  {
+    if (mRawTypes == null)
+      return false;
+    return mRawTypes.contains("amenity-bus_station") || mRawTypes.contains("highway-bus_stop")
+ || mRawTypes.contains("railway-tram_stop") || mRawTypes.contains("railway-station")
+ || mRawTypes.contains("railway-halt") || mRawTypes.contains("public_transport-platform")
+ || mRawTypes.contains("public_transport-stop_position");
+  }
+
+  // Stub - always returns true for testing
+  public boolean hasScheduleData()
+  {
+    // TODO: Check FMD_SCHEDULE_ID metadata when API available
+    return true;
+  }
+
   public final boolean isMyPosition()
   {
     return mMapObjectType == MY_POSITION;
