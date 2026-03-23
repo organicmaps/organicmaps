@@ -665,6 +665,7 @@
     <string name="moreyear_ago_sorttype">Meer as ’n jaar gelede</string>
     <string name="near_me_sorttype">Naby my</string>
     <string name="others_sorttype">Ander</string>
+    <string name="editor_add_select_category_all_subtitle">Kategorieë</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Kos</string>
@@ -777,4 +778,6 @@
     <string name="login_osm_credentials">Aanmelding met wagwoord</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Teken aan met blaaier</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Onlangs gebruik</string>
 </resources>

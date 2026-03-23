@@ -704,6 +704,7 @@
     <string name="moreyear_ago_sorttype">Mere end et år siden</string>
     <string name="near_me_sorttype">I nærheden</string>
     <string name="others_sorttype">Andre</string>
+    <string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mad</string>
@@ -863,4 +864,6 @@
     <string name="login_osm_credentials">Login med adgangskode</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Login ved hjælp af browser</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Nyligt brugt</string>
 </resources>

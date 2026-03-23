@@ -710,6 +710,7 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
+    <string name="editor_add_select_category_all_subtitle">Všechny kategorie</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jídlo</string>
@@ -871,4 +872,6 @@
     <string name="login_osm_credentials">Přihlášení pomocí hesla</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Přihlášení pomocí prohlížeče</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Nedávno použité</string>
 </resources>

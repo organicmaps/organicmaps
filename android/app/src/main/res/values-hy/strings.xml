@@ -704,6 +704,7 @@
     <string name="moreyear_ago_sorttype">Ավելի քան մեկ տարի առաջ</string>
     <string name="near_me_sorttype">Իմ մոտակայքում</string>
     <string name="others_sorttype">Այլ</string>
+    <string name="editor_add_select_category_all_subtitle">Բոլոր կատեգորիաները</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Սնունդ</string>
@@ -859,4 +860,8 @@
     <string name="share_track">Կիսվել հետագծով</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ջնջե՞լ %s</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Վերջին օգտագործված</string>
 </resources>

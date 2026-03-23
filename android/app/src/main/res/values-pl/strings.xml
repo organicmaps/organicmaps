@@ -710,6 +710,7 @@
     <string name="moreyear_ago_sorttype">Ponad rok temu</string>
     <string name="near_me_sorttype">W pobliżu</string>
     <string name="others_sorttype">Inne</string>
+    <string name="editor_add_select_category_all_subtitle">Wszystkie kategorie</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedzenie</string>
@@ -871,4 +872,6 @@
     <string name="login_osm_credentials">Proszę zalogować się przy użyciu hasła</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Logowanie za pomocą przeglądarki</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Ostatnio używane</string>
 </resources>

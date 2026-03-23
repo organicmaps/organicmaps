@@ -707,6 +707,7 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+    <string name="editor_add_select_category_all_subtitle">Visas kategorijas</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ēdiens</string>
@@ -864,4 +865,6 @@
     <string name="login_osm_credentials">Pieteikšanās ar paroli</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Pieteikšanās, izmantojot pārlūkprogrammu</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Nesen izmantots</string>
 </resources>

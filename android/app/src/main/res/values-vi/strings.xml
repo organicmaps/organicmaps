@@ -661,6 +661,7 @@
     <string name="moreyear_ago_sorttype">Hơn một năm trước</string>
     <string name="near_me_sorttype">Ở gần tôi</string>
     <string name="others_sorttype">Khác</string>
+    <string name="editor_add_select_category_all_subtitle">Mọi thể loại</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Đồ ăn</string>
@@ -791,4 +792,6 @@
     <string name="login_osm_credentials">Đăng nhập bằng mật khẩu</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Đăng nhập bằng trình duyệt</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Đã sử dụng gần đây</string>
 </resources>

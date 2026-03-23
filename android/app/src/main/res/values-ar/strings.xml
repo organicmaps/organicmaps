@@ -716,6 +716,7 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
+    <string name="editor_add_select_category_all_subtitle">جميع الفئات</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">طعام</string>
@@ -877,4 +878,6 @@
     <string name="login_osm_credentials">تسجيل الدخول باستخدام كلمة المرور</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">تسجيل الدخول باستخدام المتصفح</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">مستخدمة مؤخراً</string>
 </resources>

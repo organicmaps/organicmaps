@@ -658,6 +658,7 @@
     <string name="moreyear_ago_sorttype">ຫຼາຍກວ່າໜຶ່ງປີຜ່ານມາ</string>
     <string name="near_me_sorttype">ໃກ້ຂ້ອຍ</string>
     <string name="others_sorttype">ອື່ນໆ</string>
+    <string name="editor_add_select_category_all_subtitle">ໝວດໝູ່ທັງໝົດ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">ອາຫານ</string>
@@ -811,4 +812,8 @@
     <string name="share_track">ແບ່ງປັນເສັ້ນທາງ</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">ລຶບ %s ບໍ່?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">ໃຊ້ບໍ່ດົນມານີ້</string>
 </resources>

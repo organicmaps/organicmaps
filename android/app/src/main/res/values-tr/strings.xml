@@ -706,6 +706,7 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
+    <string name="editor_add_select_category_all_subtitle">Tüm kategoriler</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Yiyecek</string>
@@ -867,4 +868,6 @@
     <string name="login_osm_credentials">Şifre ile giriş yapın</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Tarayıcı kullanarak giriş yapın</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Son Kullanılanlar</string>
 </resources>

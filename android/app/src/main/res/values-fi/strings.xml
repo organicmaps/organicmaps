@@ -704,6 +704,7 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
+    <string name="editor_add_select_category_all_subtitle">Kaikki kategoriat</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ruoka</string>
@@ -863,4 +864,6 @@
     <string name="login_osm_credentials">Kirjaudu sisään salasanalla</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Sisäänkirjautuminen selaimella</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Äskettäin käytetty</string>
 </resources>

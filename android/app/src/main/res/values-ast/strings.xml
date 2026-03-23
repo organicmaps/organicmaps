@@ -303,6 +303,7 @@
     <string name="trip_finished">Aportesti.</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Ordenar…</string>
+    <string name="editor_add_select_category_all_subtitle">Toles categoríes</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>

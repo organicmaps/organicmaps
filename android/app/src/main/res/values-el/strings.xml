@@ -705,6 +705,7 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
+    <string name="editor_add_select_category_all_subtitle">Όλες οι κατηγορίες</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Φαγητό</string>
@@ -866,4 +867,6 @@
     <string name="login_osm_credentials">Σύνδεση με κωδικό πρόσβασης</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Σύνδεση μέσω προγράμματος περιήγησης</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Πρόσφατα χρησιμοποιημένα</string>
 </resources>

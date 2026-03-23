@@ -705,6 +705,7 @@
     <string name="moreyear_ago_sorttype">Fa més d’un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
+    <string name="editor_add_select_category_all_subtitle">Totes les categories</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Menjar</string>
@@ -862,4 +863,6 @@
     <string name="login_osm_credentials">Inicieu la sessió amb contrasenya</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Inicieu la sessió mitjançant el navegador</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Usats recentment</string>
 </resources>

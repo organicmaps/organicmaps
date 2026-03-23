@@ -588,4 +588,6 @@
     <string name="login_osm_credentials">पासवर्ड से लॉगिन करें</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">ब्राउज़र का उपयोग करके लॉगिन करें</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">हाल ही में उपयोग किए गए</string>
 </resources>

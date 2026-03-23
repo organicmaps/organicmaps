@@ -704,6 +704,7 @@
     <string name="moreyear_ago_sorttype">Duela urtebete baino gehiago</string>
     <string name="near_me_sorttype">Nigandik gertu</string>
     <string name="others_sorttype">Beste batzuk</string>
+    <string name="editor_add_select_category_all_subtitle">Kategoria guztiak</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Janariak</string>
@@ -865,4 +866,6 @@
     <string name="login_osm_credentials">Sartu pasahitzarekin</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">arakatzailea erabiliz saioa hasi</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Orain dela gutxi erabilitakoa</string>
 </resources>

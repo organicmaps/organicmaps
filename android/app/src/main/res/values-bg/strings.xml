@@ -701,6 +701,7 @@
     <string name="moreyear_ago_sorttype">Преди повече от година</string>
     <string name="near_me_sorttype">На близо</string>
     <string name="others_sorttype">Други</string>
+    <string name="editor_add_select_category_all_subtitle">Всички категории</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
@@ -858,4 +859,6 @@
     <string name="login_osm_credentials">Влизане с парола</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Влизане чрез браузър</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Наскоро използван</string>
 </resources>

@@ -820,4 +820,6 @@
     <string name="login_osm_credentials">Login bil-password</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Login billi tuża l-browser</string>
+    <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
+    <string name="editor_add_select_category_recent_subtitle">Użat riċentement</string>
 </resources>
