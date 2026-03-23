@@ -285,7 +285,7 @@ void UpdateDialog::FillTree(optional<Filter> const & filter, uint64_t timestamp)
   ASSERT_EQUAL(m_tree->topLevelItemCount(), 1, ());
   m_tree->topLevelItem(0)->setExpanded(true);
 
-  m_tree->sortItems(KColumnIndexPositionInRanking, Qt::AscendingOrder);
+  m_tree->sortItems(KColumnIndexCountry /* by country */, Qt::AscendingOrder);
   m_tree->setSortingEnabled(true);
 }
 
@@ -513,4 +513,10 @@ void UpdateDialog::ShowModal()
 
   exec();
 }
+
+void UpdateDialog::FillTreeForTesting()
+{
+  FillTree({} /* filter */, m_fillTreeTimestamp);
+}
+
 }  // namespace qt
