@@ -3,6 +3,7 @@ package app.organicmaps.car;
 import androidx.annotation.NonNull;
 import androidx.car.app.Screen;
 import androidx.car.app.SessionInfo;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
@@ -59,12 +60,18 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     final List<Screen> screensStack = new ArrayList<>();
     screensStack.add(new MapScreen(getCarContext(), mOrganicMapsContext, mSurfaceRenderer));
 
-    if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
-    {
-      mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
-                              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
-                              .build());
-    }
+    // Defer world maps download check: DownloaderHelpers.isWorldMapsDownloadNeeded() calls
+    // CountryItem.fill() (native) on fdroid builds, so it can't run before core is ready.
+    mOrganicMapsContext.runWhenReady(() -> {
+      if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED))
+        return;
+      if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
+      {
+        mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                                .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+                                .build());
+      }
+    });
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
       screensStack.add(

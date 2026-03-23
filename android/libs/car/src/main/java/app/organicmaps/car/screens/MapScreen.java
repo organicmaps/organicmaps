@@ -22,6 +22,7 @@ import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
+import java.lang.ref.WeakReference;
 
 public class MapScreen extends BaseMapScreen
 {
@@ -29,6 +30,17 @@ public class MapScreen extends BaseMapScreen
                    @NonNull Renderer surfaceRenderer)
   {
     super(carContext, organicMapsContext, surfaceRenderer);
+    // Re-render with full button grid once native subsystems are initialized.
+    // Use WeakReference to avoid retaining a detached screen via the app-scoped callback queue.
+    if (!organicMapsContext.arePlatformAndCoreInitialized())
+    {
+      final WeakReference<MapScreen> weakThis = new WeakReference<>(this);
+      organicMapsContext.runWhenReady(() -> {
+        final MapScreen screen = weakThis.get();
+        if (screen != null)
+          screen.invalidate();
+      });
+    }
   }
 
   @NonNull
@@ -72,15 +84,26 @@ public class MapScreen extends BaseMapScreen
   private GridTemplate createGridTemplate()
   {
     final GridTemplate.Builder builder = new GridTemplate.Builder();
-
-    final ItemList.Builder itemsBuilder = new ItemList.Builder();
-    itemsBuilder.addItem(createSearchItem());
-    itemsBuilder.addItem(createCategoriesItem());
-    itemsBuilder.addItem(createBookmarksItem());
-    itemsBuilder.addItem(createSettingsItem());
-
     builder.setHeader(createHeader());
-    builder.setSingleList(itemsBuilder.build());
+
+    // Search, categories, bookmarks, and settings screens require native subsystems
+    // (SearchEngine, BookmarkManager, etc.) that are initialized asynchronously in
+    // onNativeFrameworkReady(). Show items only after core is ready; the constructor
+    // registers an invalidate() callback to re-render when initialization completes.
+    if (getOrganicMapsContext().arePlatformAndCoreInitialized())
+    {
+      final ItemList.Builder itemsBuilder = new ItemList.Builder();
+      itemsBuilder.addItem(createSearchItem());
+      itemsBuilder.addItem(createCategoriesItem());
+      itemsBuilder.addItem(createBookmarksItem());
+      itemsBuilder.addItem(createSettingsItem());
+      builder.setSingleList(itemsBuilder.build());
+    }
+    else
+    {
+      builder.setLoading(true);
+    }
+
     return builder.build();
   }
 

@@ -9,6 +9,7 @@ import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
@@ -54,6 +55,8 @@ public abstract class CarAppSessionBase
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   protected CarSensorsManager mSensorsManager;
+  private boolean mNativeHooksAttached = false;
+  private boolean mDeferredHookCallbackPending = false;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
                            @NonNull SessionInfo sessionInfo, boolean isDebug)
@@ -106,6 +109,15 @@ public abstract class CarAppSessionBase
   public final void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
+    // IntentUtils.processIntent() calls Framework native methods. Defer until core is ready.
+    if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
+    {
+      mOrganicMapsContext.runWhenReady(() -> {
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED))
+          IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
+      });
+      return;
+    }
     IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
   }
 
@@ -114,21 +126,23 @@ public abstract class CarAppSessionBase
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    if (mDisplayManager.isCarDisplayUsed())
+
+    attachNativeHooksIfReady();
+
+    // If core isn't ready yet, defer hook attachment until initialization completes.
+    // Guard with a flag to avoid accumulating duplicate callbacks on start/stop cycles.
+    if (!mNativeHooksAttached && !mDeferredHookCallbackPending)
     {
-      LocationState.nativeSetListener(this);
-      Framework.nativePlacePageActivationListener(this);
-      mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
+      mDeferredHookCallbackPending = true;
+      mOrganicMapsContext.runWhenReady(() -> {
+        mDeferredHookCallbackPending = false;
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED))
+          attachNativeHooksIfReady();
+      });
     }
 
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       mSensorsManager.onStart();
-
-    if (mDisplayManager.isCarDisplayUsed())
-    {
-      ThemeUtils.update(getCarContext(), mSurfaceRenderer.isRenderingActive());
-      onRestoreRoute();
-    }
   }
 
   @CallSuper
@@ -139,13 +153,28 @@ public abstract class CarAppSessionBase
 
     mSensorsManager.onStop();
 
-    if (mDisplayManager.isCarDisplayUsed())
+    if (mNativeHooksAttached)
     {
       LocationState.nativeRemoveListener();
       Framework.nativeRemovePlacePageActivationListener(this);
+      mNativeHooksAttached = false;
     }
 
     mCurrentCountryChangedListener.onStop();
+  }
+
+  private void attachNativeHooksIfReady()
+  {
+    if (mNativeHooksAttached || !mDisplayManager.isCarDisplayUsed()
+        || !mOrganicMapsContext.arePlatformAndCoreInitialized())
+      return;
+
+    mNativeHooksAttached = true;
+    LocationState.nativeSetListener(this);
+    Framework.nativePlacePageActivationListener(this);
+    mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
+    ThemeUtils.update(getCarContext(), mSurfaceRenderer.isRenderingActive());
+    onRestoreRoute();
   }
 
   @NonNull
