@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.SessionInfo;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -47,6 +48,15 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   {
     Logger.d(TAG, intent.toString());
     Assert.debug(mDisplayManager != null, "mDisplayManager is null");
+    // IntentUtils.processIntent() calls Framework native methods. Defer until core is ready.
+    if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
+    {
+      mOrganicMapsContext.runWhenReady(() -> {
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED))
+          IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
+      });
+      return;
+    }
     IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
   }
 
@@ -77,12 +87,18 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     final List<Screen> screensStack = new ArrayList<>();
     screensStack.add(new MapScreen(getCarContext(), mOrganicMapsContext, mSurfaceRenderer));
 
-    if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
-    {
-      mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
-                              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
-                              .build());
-    }
+    // Defer world maps download check: DownloaderHelpers.isWorldMapsDownloadNeeded() calls
+    // CountryItem.fill() (native) on fdroid builds, so it can't run before core is ready.
+    mOrganicMapsContext.runWhenReady(() -> {
+      if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED))
+        return;
+      if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
+      {
+        mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                                .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+                                .build());
+      }
+    });
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
       screensStack.add(
