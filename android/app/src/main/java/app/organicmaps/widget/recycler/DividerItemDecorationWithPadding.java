@@ -10,6 +10,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.Holders;
+import app.organicmaps.editor.FeatureCategoryAdapter;
 import java.util.Objects;
 
 public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoration
@@ -44,11 +45,18 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
       if (nextChild != null)
         viewHolderNext = parent.getChildViewHolder(nextChild);
 
+      // For FeatureCategoryAdapter, only draw dividers around section headers
+      boolean isSectionHeader = viewHolder instanceof FeatureCategoryAdapter.SectionHeaderViewHolder;
+      boolean isNextSectionHeader = viewHolderNext instanceof FeatureCategoryAdapter.SectionHeaderViewHolder;
+      if (parent.getAdapter() instanceof FeatureCategoryAdapter && !isSectionHeader && !isNextSectionHeader)
+        continue;
+
       int top = child.getBottom();
       int bottom = top + dividerHeight;
 
       if (viewHolder instanceof Holders.SectionViewHolder || viewHolder instanceof Holders.HeaderViewHolder
-          || viewHolderNext instanceof Holders.SectionViewHolder || viewHolderNext instanceof Holders.HeaderViewHolder
+          || isSectionHeader || viewHolderNext instanceof Holders.SectionViewHolder
+          || viewHolderNext instanceof Holders.HeaderViewHolder || isNextSectionHeader
           || viewHolderNext instanceof Holders.GeneralViewHolder)
         mDivider.setBounds(0, top, right, bottom);
       else if (i == childCount - 1)

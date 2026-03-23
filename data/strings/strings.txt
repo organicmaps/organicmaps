@@ -28859,7 +28859,7 @@ zh-Hans = 受欢迎的
 zh-Hant = 受歡迎的
 
 [editor_add_select_category_all_subtitle]
-tags = apple-maps
+tags = android-app,apple-maps
 en = All Categories
 af = Kategorieë
 ar = جميع الفئات
@@ -41615,7 +41615,7 @@ zh-Hant = 使用瀏覽器登入
 
 [editor_add_select_category_recent_subtitle]
 comment = Editor section title that shows recently used categories (types of objects) when adding a place on the map
-tags = apple-maps
+tags = android-app,apple-maps
 en = Recently Used
 af = Onlangs gebruik
 ar = مستخدمة مؤخراً

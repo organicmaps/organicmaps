@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +18,13 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 {
   private static final int TYPE_CATEGORY = 0;
   private static final int TYPE_FOOTER = 1;
+  private static final int TYPE_SECTION = 2;
+
+  private static final int SECTION_RECENT = 0;
+  private static final int SECTION_ALL = 1;
 
   private FeatureCategory[] mCategories;
+  private FeatureCategory[] mRecentCategories;
   private final FeatureCategoryFragment mFragment;
   private final FeatureCategory mSelectedCategory;
 
@@ -31,26 +35,80 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   }
 
   public FeatureCategoryAdapter(@NonNull FeatureCategoryFragment host, @NonNull FeatureCategory[] categories,
-                                @Nullable FeatureCategory category)
+                                @NonNull FeatureCategory[] recentCategories, @Nullable FeatureCategory category)
   {
     mFragment = host;
     mCategories = categories;
+    mRecentCategories = recentCategories;
     mSelectedCategory = category;
   }
 
-  public void setCategories(FeatureCategory[] categories)
+  public void setCategories(@NonNull FeatureCategory[] categories, @NonNull FeatureCategory[] recentCategories)
   {
     mCategories = categories;
+    mRecentCategories = recentCategories;
     notifyDataSetChanged();
+  }
+
+  private boolean hasRecentSection()
+  {
+    return mRecentCategories.length > 0;
+  }
+
+  private int getSectionPosition(int section)
+  {
+    if (!hasRecentSection())
+      return -1;
+    return section == SECTION_RECENT ? 0 : (mRecentCategories.length + 1);
+  }
+
+  private int getFooterPosition()
+  {
+    if (hasRecentSection())
+      return mRecentCategories.length + 1 + mCategories.length + 1;
+    else
+      return mCategories.length;
+  }
+
+  @Nullable
+  private FeatureCategory getCategoryAtPosition(int position)
+  {
+    if (hasRecentSection())
+    {
+      int recentHeaderPos = getSectionPosition(SECTION_RECENT);
+      int allHeaderPos = getSectionPosition(SECTION_ALL);
+      if (position == recentHeaderPos || position == allHeaderPos)
+        return null;
+      if (position > recentHeaderPos && position < allHeaderPos)
+      {
+        int recentIndex = position - recentHeaderPos - 1;
+        if (recentIndex >= 0 && recentIndex < mRecentCategories.length)
+          return mRecentCategories[recentIndex];
+        return null;
+      }
+      // All categories: after all header
+      int categoryIndex = position - allHeaderPos - 1;
+      if (categoryIndex >= 0 && categoryIndex < mCategories.length)
+        return mCategories[categoryIndex];
+      return null;
+    }
+    else
+    {
+      // No recent section, direct mapping
+      if (position < mCategories.length)
+        return mCategories[position];
+      return null;
+    }
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    if (position == mCategories.length)
+    if (position == getFooterPosition())
       return TYPE_FOOTER;
-    else
-      return TYPE_CATEGORY;
+    if (position == getSectionPosition(SECTION_RECENT) || position == getSectionPosition(SECTION_ALL))
+      return TYPE_SECTION;
+    return TYPE_CATEGORY;
   }
 
   @Override
@@ -68,6 +126,10 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       return new FooterViewHolder(inflater.inflate(R.layout.item_feature_category_footer, parent, false),
                                   (FooterListener) mFragment);
     }
+    case TYPE_SECTION ->
+    {
+      return new SectionHeaderViewHolder(inflater.inflate(R.layout.item_category_title, parent, false));
+    }
     default ->
     {
       throw new IllegalArgumentException("Unsupported viewType: " + viewType);
@@ -80,18 +142,29 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   {
     if (holder instanceof FeatureViewHolder)
     {
-      ((FeatureViewHolder) holder).bind(position);
+      FeatureCategory category = getCategoryAtPosition(position);
+      if (category != null)
+        ((FeatureViewHolder) holder).bind(category);
     }
     else if (holder instanceof FooterViewHolder)
     {
       ((FooterViewHolder) holder).bind(mFragment.getPendingNoteText());
+    }
+    else if (holder instanceof SectionHeaderViewHolder)
+    {
+      boolean isRecentHeader = position == getSectionPosition(SECTION_RECENT);
+      ((SectionHeaderViewHolder) holder).bind(isRecentHeader);
     }
   }
 
   @Override
   public int getItemCount()
   {
-    return mCategories.length + 1;
+    if (hasRecentSection())
+      // Recent header + recent items + All header + all categories + footer
+      return 1 + mRecentCategories.length + 1 + mCategories.length + 1;
+    else
+      return mCategories.length + 1;
   }
 
   protected class FeatureViewHolder extends RecyclerView.ViewHolder
@@ -100,6 +173,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final TextView mName;
     @NonNull
     private final View mSelected;
+    private FeatureCategory mCategory;
 
     FeatureViewHolder(@NonNull View itemView)
     {
@@ -107,15 +181,38 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       mName = itemView.findViewById(R.id.name);
       mSelected = itemView.findViewById(R.id.selected);
       UiUtils.hide(mSelected);
-      itemView.setOnClickListener(v -> onCategorySelected(getBindingAdapterPosition()));
+      itemView.setOnClickListener(v -> {
+        if (mCategory != null)
+          mFragment.selectCategory(mCategory);
+      });
     }
 
-    public void bind(int position)
+    public void bind(@NonNull FeatureCategory category)
     {
-      mName.setText(mCategories[position].getLocalizedTypeName());
-      boolean showCondition =
-          mSelectedCategory != null && mCategories[position].getType().equals(mSelectedCategory.getType());
+      mCategory = category;
+      mName.setText(category.getLocalizedTypeName());
+      boolean showCondition = mSelectedCategory != null && category.getType().equals(mSelectedCategory.getType());
       UiUtils.showIf(showCondition, mSelected);
+    }
+  }
+
+  public static class SectionHeaderViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final TextView mTitle;
+
+    SectionHeaderViewHolder(@NonNull View itemView)
+    {
+      super(itemView);
+      mTitle = itemView.findViewById(R.id.text);
+    }
+
+    public void bind(boolean isRecentHeader)
+    {
+      if (isRecentHeader)
+        mTitle.setText(R.string.editor_add_select_category_recent_subtitle);
+      else
+        mTitle.setText(R.string.editor_add_select_category_all_subtitle);
     }
   }
 
@@ -152,10 +249,5 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       }
       mSendNoteButton.setEnabled(pendingNoteText != null && !pendingNoteText.trim().isEmpty());
     }
-  }
-
-  private void onCategorySelected(int adapterPosition)
-  {
-    mFragment.selectCategory(mCategories[adapterPosition]);
   }
 }

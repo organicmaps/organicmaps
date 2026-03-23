@@ -389,6 +389,17 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeSearchCreata
   return jni::ToJavaStringArray(env, categories.Search(jni::ToNativeString(env, query)));
 }
 
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetRecentCategories(JNIEnv * env, jclass)
+{
+  return jni::ToJavaStringArray(env, GetFeatureCategories().GetRecentCategories());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeAddToRecentCategories(JNIEnv * env, jclass,
+                                                                                  jstring category)
+{
+  GetFeatureCategories().AddToRecentCategories(jni::ToNativeString(env, category));
+}
+
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
 {
   osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();

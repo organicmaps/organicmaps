@@ -146,6 +146,9 @@ public final class Editor
   public static native String[] nativeGetAllCreatableFeatureTypes(@NonNull String lang);
   @NonNull
   public static native String[] nativeSearchCreatableFeatureTypes(@NonNull String query, @NonNull String lang);
+  @NonNull
+  public static native String[] nativeGetRecentCategories();
+  public static native void nativeAddToRecentCategories(@NonNull String type);
 
   /**
    * Creates new object on the map. Places it in the center of current viewport.
