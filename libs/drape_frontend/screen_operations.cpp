@@ -65,14 +65,18 @@ bool CheckBorders(ScreenBase const & screen)
 {
   m2::RectD const & r = screen.ClipRect();
   m2::RectD const & worldR = df::GetWorldRect();
+  auto overscrollWidth = r.SizeX()/2;
+  m2::RectD worldWithOverscroll(worldR.minX()-overscrollWidth, worldR.minY(),
+    worldR.maxX() + overscrollWidth, worldR.maxY());
 
-  return (r.IsRectInside(worldR) || worldR.IsRectInside(r));
+  return (r.IsRectInside(worldWithOverscroll) || worldWithOverscroll.IsRectInside(r));
 }
 
 bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD clipRect = screen.ClipRect();
-  return (boundRect.SizeX() >= clipRect.SizeX()) && (boundRect.SizeY() >= clipRect.SizeY());
+  auto overscrollWidth = clipRect.SizeX() / 2;
+  return (boundRect.SizeX()+overscrollWidth >= clipRect.SizeX()) && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
 ScreenBase ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
