@@ -1307,6 +1307,16 @@ void RoutingManager::SetRouter(RouterType type)
   HidePreviewSegments();
 
   SetLastUsedRouter(type);
+
+  // m_numMwmIDs is initialized in Init(), which runs on the GUI thread after async map loading
+  // completes (Framework::InitRouting). SetRouter() can be called earlier (e.g. route restoration
+  // triggers onRoutePointsLoaded → RoutingController.prepare → Router.set before maps finish loading).
+  // Deferring is safe: Init() calls SetRouterImpl(GetLastUsedRouter()), picking up the type saved above.
+  /// @TODO(AB): The proper fix is to not set mFrameworkInitialized=true in Android's OrganicMaps.java
+  /// until the async native callback fires, so Java subsystems never see a half-initialized core.
+  if (!m_numMwmIDs)
+    return;
+
   SetRouterImpl(type);
 }
 
