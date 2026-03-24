@@ -39,6 +39,7 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.colorpicker.ColorPickerFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
@@ -438,12 +439,24 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), mTrack.getTrackId(), fileType);
   }
 
+  // Shows a confirmation dialog before deleting the track.
+  // On confirm: deletes via BookmarkManager, notifies the listener so the calling
+  // screen (BookmarksListFragment / PlacePageView) can refresh, then dismisses.
   private void onDeleteTrackSelected()
   {
     if (mTrack == null)
       return;
-    BookmarkManager.INSTANCE.deleteTrack(mTrack.getTrackId());
-    dismiss();
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(getString(R.string.delete_track_dialog_title, mTrack.getName()))
+        .setPositiveButton(R.string.delete,
+                           (dialog, which) -> {
+                             BookmarkManager.INSTANCE.deleteTrack(mTrack.getTrackId());
+                             if (mListener != null)
+                               mListener.onBookmarkSaved(mTrack.getTrackId(), true);
+                             dismiss();
+                           })
+        .setNegativeButton(R.string.cancel, null)
+        .show();
   }
 
   @Override
