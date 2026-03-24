@@ -523,6 +523,13 @@ public enum BookmarkManager {
     nativeSetAllCategoriesVisibility(visible);
   }
 
+  /// Sets individual track visibility. Uses EditSession internally for thread safety.
+  /// Category visibility takes precedence: a track renders only if both category and track are visible.
+  public void setTrackVisibility(long trackId, boolean visible)
+  {
+    nativeSetTrackVisibility(trackId, visible);
+  }
+
   public void prepareCategoriesForSharing(long[] catIds, @NonNull FileType fileType)
   {
     nativePrepareFileForSharing(catIds, fileType.ordinal());
@@ -613,6 +620,8 @@ public enum BookmarkManager {
   private static native boolean nativeAreAllCategoriesInvisible();
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
+
+  private static native void nativeSetTrackVisibility(long trackId, boolean visible);
 
   private static native void nativePrepareFileForSharing(long[] catIds, int fileType);
 

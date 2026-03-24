@@ -406,6 +406,8 @@ public class Holders
     @NonNull
     private final TextView mDistance;
     private final ImageView mMoreButton;
+    @NonNull
+    private final ImageView mEyeIcon;
 
     TrackViewHolder(@NonNull View itemView)
     {
@@ -414,6 +416,7 @@ public class Holders
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
       mMoreButton = itemView.findViewById(R.id.more);
+      mEyeIcon = itemView.findViewById(R.id.eye);
     }
 
     @Override
@@ -430,6 +433,21 @@ public class Holders
       Drawable circle =
           Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size, mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);
+      updateEyeIcon(track);
+
+      // Toggle individual track visibility on eye icon tap.
+      // Visibility is persisted to KML via EditSession (thread-safe).
+      mEyeIcon.setOnClickListener(v -> {
+        track.toggleVisibility();
+        updateEyeIcon(track);
+      });
+    }
+
+    private void updateEyeIcon(@NonNull Track track)
+    {
+      mEyeIcon.setImageResource(track.isVisible() ? R.drawable.ic_show : R.drawable.ic_hide);
+      mEyeIcon.setContentDescription(
+          mEyeIcon.getContext().getString(track.isVisible() ? R.string.hide_track : R.string.show_track));
     }
 
     public void setMoreButtonClickListener(RecyclerClickListener listener)

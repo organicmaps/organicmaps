@@ -113,6 +113,15 @@ public final class Track extends MapObject
     return mVisible;
   }
 
+  /// Toggles track visibility and persists the change to the native core via EditSession.
+  /// The local mVisible is updated synchronously; the native side handles KML serialization
+  /// and drape rendering updates.
+  public void toggleVisibility()
+  {
+    mVisible = !mVisible;
+    BookmarkManager.INSTANCE.setTrackVisibility(mId, mVisible);
+  }
+
   public long getCategoryId()
   {
     return mCategoryId;
