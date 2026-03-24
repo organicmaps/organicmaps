@@ -192,6 +192,5 @@ final class ExpandableLabel: UIView {
       expandLabel.isHidden = false
       containerMaximumNumberOfLines = numberOfLines
     }
-    layoutIfNeeded()
   }
 }
