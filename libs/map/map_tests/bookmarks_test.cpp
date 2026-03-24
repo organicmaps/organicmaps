@@ -1675,4 +1675,134 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TrackVisibilityPersistence)
   TEST_EQUAL(false, bmManager.GetTrack(trackId2)->IsVisible(), ());
 }
 
+// Verify SetTrackVisibility via EditSession toggles individual track visibility
+// and that the change survives a save/load round-trip.
+UNIT_CLASS_TEST(Runner, Bookmarks_SetTrackVisibilityRoundTrip)
+{
+  string const dir = GetBookmarksDirectory();
+  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
+  SCOPE_GUARD(dirDeleter, [&]()
+  {
+    if (delDirOnExit)
+      (void)Platform::RmDir(dir);
+  });
+  string const fileName = base::JoinPath(dir, "UnitTestTrackVisibility.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const kmlFile = GetPlatform().TestsDataPathForFile("test_data/kml/single_track.kml");
+  BookmarkManager::KMLDataCollection kmlDataCollection1;
+  kmlDataCollection1.emplace_back("", LoadKmlData(FileReader(kmlFile), GetActiveFileType()));
+  bmManager.CreateCategories(std::move(kmlDataCollection1));
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId = *bmManager.GetTrackIds(groupId).begin();
+
+  // Initially visible.
+  TEST(bmManager.GetTrack(trackId)->IsVisible(), ());
+
+  // Hide via EditSession::SetTrackVisibility.
+  bmManager.GetEditSession().SetTrackVisibility(trackId, false);
+  TEST(!bmManager.GetTrack(trackId)->IsVisible(), ());
+
+  // Show again.
+  bmManager.GetEditSession().SetTrackVisibility(trackId, true);
+  TEST(bmManager.GetTrack(trackId)->IsVisible(), ());
+
+  // Hide and save.
+  bmManager.GetEditSession().SetTrackVisibility(trackId, false);
+  {
+    FileWriter writer(fileName);
+    bmManager.SaveBookmarkCategory(groupId, writer, GetActiveFileType());
+  }
+
+  // Reload and verify hidden state persisted.
+  bmManager.GetEditSession().DeleteBmCategory(groupId, true);
+
+  BookmarkManager::KMLDataCollection kmlDataCollection2;
+  kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), GetActiveFileType()));
+  bmManager.CreateCategories(std::move(kmlDataCollection2));
+
+  auto const groupId2 = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId2 = *bmManager.GetTrackIds(groupId2).begin();
+  TEST(!bmManager.GetTrack(trackId2)->IsVisible(), ());
+}
+
+// Verify that FindNearestVisibleTrack skips hidden tracks.
+// Uses a small touch rect around a known track coordinate.
+UNIT_CLASS_TEST(Runner, Bookmarks_FindNearestVisibleTrackFiltersHidden)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const kmlFile = GetPlatform().TestsDataPathForFile("test_data/kml/single_track.kml");
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back("", LoadKmlData(FileReader(kmlFile), GetActiveFileType()));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId = *bmManager.GetTrackIds(groupId).begin();
+
+  // Make the group visible so tracks can be found.
+  bmManager.GetEditSession().SetIsVisible(groupId, true);
+
+  // Build a large touch rect that should include the track.
+  auto const trackRect = bmManager.GetTrack(trackId)->GetLimitRect();
+  auto const bigRect = mercator::RectByCenterXYAndSizeInMeters(trackRect.Center(), 1e5);
+
+  // Visible track should be findable.
+  auto info1 = bmManager.FindNearestVisibleTrack(bigRect);
+  TEST_EQUAL(info1.m_trackId, trackId, ());
+
+  // Hide the track.
+  bmManager.GetEditSession().SetTrackVisibility(trackId, false);
+
+  // Hidden track should NOT be findable.
+  auto info2 = bmManager.FindNearestVisibleTrack(bigRect);
+  TEST_NOT_EQUAL(info2.m_trackId, trackId, ());
+}
+
+// Verify that group visibility and individual track visibility are independent.
+// Hiding a group does not change individual track m_visible flags.
+UNIT_CLASS_TEST(Runner, Bookmarks_GroupAndIndividualVisibilityIndependent)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const kmlFile = GetPlatform().TestsDataPathForFile("test_data/kml/single_track.kml");
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back("", LoadKmlData(FileReader(kmlFile), GetActiveFileType()));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const trackId = *bmManager.GetTrackIds(groupId).begin();
+
+  // Initially both group and track are visible.
+  TEST(bmManager.IsVisible(groupId), ());
+  TEST(bmManager.GetTrack(trackId)->IsVisible(), ());
+
+  // Hide the group — individual track m_visible should remain true.
+  bmManager.GetEditSession().SetIsVisible(groupId, false);
+  TEST(!bmManager.IsVisible(groupId), ());
+  TEST(bmManager.GetTrack(trackId)->IsVisible(), ("Group hide must not change individual track visibility"));
+
+  // Show the group — track should still be individually visible.
+  bmManager.GetEditSession().SetIsVisible(groupId, true);
+  TEST(bmManager.IsVisible(groupId), ());
+  TEST(bmManager.GetTrack(trackId)->IsVisible(), ());
+
+  // Now hide the individual track — group should remain visible.
+  bmManager.GetEditSession().SetTrackVisibility(trackId, false);
+  TEST(bmManager.IsVisible(groupId), ("Individual track hide must not change group visibility"));
+  TEST(!bmManager.GetTrack(trackId)->IsVisible(), ());
+
+  // Show the group again after hiding it — individually hidden track should stay hidden.
+  bmManager.GetEditSession().SetIsVisible(groupId, false);
+  bmManager.GetEditSession().SetIsVisible(groupId, true);
+  TEST(!bmManager.GetTrack(trackId)->IsVisible(),
+       ("Individually hidden track must stay hidden after group show/hide cycle"));
+}
+
 }  // namespace bookmarks_test
