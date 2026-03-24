@@ -2307,6 +2307,32 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   m_changesTracker.OnUpdateLine(trackId);
 }
 
+// Sets individual track visibility independent of the parent category visibility.
+// Category visibility takes precedence in rendering: a track is rendered only if
+// both the category and the individual track are visible.
+// Must be called through EditSession to ensure thread safety and change notification.
+void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto * track = GetTrackForEdit(trackId);
+  if (!track || track->IsVisible() == visible)
+    return;
+
+  kml::TrackData data = track->GetData();
+  data.m_visible = visible;
+  track->SetData(data);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+  {
+    auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+    if (infoMark->GetTrackId() == trackId)
+      infoMark->SetIsVisible(visible);
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(visible);
+  }
+  m_changesTracker.OnUpdateLine(trackId);
+}
+
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -3585,6 +3611,11 @@ void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   m_bmManager.SetIsVisible(groupId, visible);
+}
+
+void BookmarkManager::EditSession::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  m_bmManager.SetTrackVisibility(trackId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID,
