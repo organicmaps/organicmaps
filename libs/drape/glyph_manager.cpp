@@ -10,6 +10,7 @@
 #include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
+#include "base/buffer_vector.hpp"
 #include "base/internal/message.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -612,7 +613,7 @@ FreetypeError constexpr g_FT_Errors[] =
     auto const splitTextSegmentByFont = [this](std::u16string_view text,
                                                harfbuzz_shaping::TextSegment const & segment)
     {
-      std::vector<FontRun> runs;
+      buffer_vector<FontRun, 4> runs;
 
       auto it = text.begin() + segment.m_start;
       auto const end = it + segment.m_length;
@@ -623,14 +624,14 @@ FreetypeError constexpr g_FT_Errors[] =
 
         auto tmp = it;
         auto const u32Character = utf8::unchecked::next16(tmp);
-        int const fontIndex = GetFontIndexImmutable(u32Character);
+        int const fontIndex = GetFontIndex(u32Character);
         it = tmp;
 
         while (it != end)
         {
           auto probe = it;
           auto const nextChar = utf8::unchecked::next16(probe);
-          if (GetFontIndexImmutable(nextChar) != fontIndex)
+          if (GetFontIndex(nextChar) != fontIndex)
             break;
           it = probe;
         }
@@ -643,16 +644,11 @@ FreetypeError constexpr g_FT_Errors[] =
 
     for (auto const & substring : segments)
     {
-      for (auto const & run : splitTextSegmentByFont(text, substring))
+      auto runs = splitTextSegmentByFont(text, substring);
+      if (substring.m_direction == HB_DIRECTION_RTL)
+        std::reverse(runs.begin(), runs.end());
+      for (auto const & run : runs)
       {
-        hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
-
-        hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
-                            static_cast<int>(text.size()), run.m_start, run.m_length);
-        hb_buffer_set_direction(m_impl->m_harfbuzzBuffer, substring.m_direction);
-        hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
-        hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
-
         if (run.m_fontIndex < 0)
         {
           auto u32CharacterIter{text.begin() + run.m_start};
@@ -661,6 +657,13 @@ FreetypeError constexpr g_FT_Errors[] =
         }
         else
         {
+          hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
+          hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
+                              static_cast<int>(text.size()), run.m_start, run.m_length);
+          hb_buffer_set_direction(m_impl->m_harfbuzzBuffer, substring.m_direction);
+          hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
+          hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
+
           m_impl->m_fonts[run.m_fontIndex]->Shape(m_impl->m_harfbuzzBuffer, fontPixelHeight, run.m_fontIndex,
                                                   allGlyphs);
         }

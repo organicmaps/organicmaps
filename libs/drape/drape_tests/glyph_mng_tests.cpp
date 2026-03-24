@@ -336,18 +336,10 @@ UNIT_TEST(ShapeText_MixedLatinExtendedFontRun)
 
   TEST(!shapedText.m_glyphs.empty(), ());
 
-  int const firstFontIndex = shapedText.m_glyphs.front().m_key.m_fontIndex;
-  bool hasDifferentFontIndex = false;
   for (auto const & glyph : shapedText.m_glyphs)
   {
-    if (glyph.m_key.m_fontIndex != firstFontIndex)
-    {
-      hasDifferentFontIndex = true;
-      break;
-    }
+    TEST_NOT_EQUAL(glyph.m_key.m_glyphId, 0, ("notdef glyph found"));
   }
-
-  TEST(hasDifferentFontIndex, ());
 }
 
 }  // namespace glyph_mng_tests
