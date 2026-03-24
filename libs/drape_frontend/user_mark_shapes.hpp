@@ -63,7 +63,7 @@ struct UserLineRenderParams
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
   std::vector<m2::SharedSpline> m_splines;
-  bool m_visible;
+  bool m_visible = true;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
