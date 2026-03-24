@@ -888,9 +888,9 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Zmena farby</string>
     <!-- Text for the hiding track. -->
-    <string name="hide_track">Skryť stopu</string>
+    <string name="hide_track">Skryť trasu</string>
     <!-- Text for the showing track. -->
-    <string name="show_track">Zobraziť skladbu</string>
+    <string name="show_track">Zobraziť trasu</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

@@ -895,9 +895,9 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Vaihda väri</string>
     <!-- Text for the hiding track. -->
-    <string name="hide_track">Piilota jälki</string>
+    <string name="hide_track">Piilota reitti</string>
     <!-- Text for the showing track. -->
-    <string name="show_track">Näytä kappale</string>
+    <string name="show_track">Näytä reitti</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

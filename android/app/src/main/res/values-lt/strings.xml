@@ -900,9 +900,9 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Keisti spalvą</string>
     <!-- Text for the hiding track. -->
-    <string name="hide_track">Paslėpti takelį</string>
+    <string name="hide_track">Paslėpti trasą</string>
     <!-- Text for the showing track. -->
-    <string name="show_track">Rodyti takelį</string>
+    <string name="show_track">Rodyti trasą</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
