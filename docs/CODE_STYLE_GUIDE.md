@@ -4,20 +4,27 @@ Read the code, and follow the existing style as much as possible.
 
 ## ClangFormat
 
-For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.org/docs/ClangFormat.html).
+For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.org/docs/ClangFormat.html) of version 22 or later.
 
-Install `clang-format` 22 or later and make sure it's in your PATH:
-- For macOS you can install it with Homebrew: `brew install clang-format`
-- For Linux you can install it with your package manager: `sudo apt install clang-format-22` and use as `clang-format-22` instead of `clang-format`
-   Ubuntu 24:
+### Installation
+
+- macOS: `brew install clang-format`
+- Windows (MSYS2): `pacman -S clang`
+- Ubuntu 24:
    ```bash
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
    echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-22 main' | sudo tee /etc/apt/sources.list.d/ llvm-toolchain-noble-22.list
    sudo apt-get update
-   sudo apt-get install -y clang-format-22
+   sudo apt-get install -y clang-format-22  # Run it as clang-format-22
    ```
 
-- To manually format a file run `clang-format -i file`.
+Make sure that clang-format is in your PATH.
+
+### Usage
+
+- Configuration is in `.clang-format`
+- Set up a `git commit` hook (see below) for automatic formatting of changed files
+- To manually format a file run `clang-format -i file` (`clang-format-22` for Ubuntu)
 - To format all files in the repository run `tools/unix/clang-format.sh`
 - To format changes added to commit run `git clang-format`
 - To format already committed changes run `git clang-format HEAD~1`
@@ -37,9 +44,34 @@ Install and setup the [Clang-Format extension](https://marketplace.visualstudio.
 We are using [swiftformat](https://github.com/nicklockwood/SwiftFormat) for Swift code. Install it and configure
 format on save in Xcode by following instructions at https://medium.com/@jozott/format-on-save-xcode-swift-8133d049b3ac
 
+### Installation
+
+- macOS: `brew install swiftformat`
+
+Make sure that swiftformat is in your PATH.
+
+### Usage
+
+- Configuration is in `iphone/.swiftformat`
+- Run `swiftformat <somefile.swift>` to format a single file
+- Set up a `git commit` hook (see below) for automatic formatting of changed files
+
 ## Python Style
 
 Follow the existing style in Python files as much as possible. We'll add a more detailed guide later.
+
+## Automated formatting on pre-commit hook
+
+Run `git config core.hooksPath tools/hooks` to set up the pre-commit hook.
+
+After that, every time you commit, the hook will automatically format your
+`.java`, `.swift`, `.cpp`, `.hpp`, `.m`, `.mm`, `.h`, and `.cc` code according to the project's style rules.
+
+You can bypass the auto-formatting with `git commit --no-verify` if necessary.
+
+To configure the formatting style, edit `.clang-format` and `.swiftformat` in the project root.
+
+To configure which files are formatted, edit `tools/hooks/format-config.bash`
 
 ## Tips and Hints
 
@@ -51,7 +83,7 @@ Follow the existing style in Python files as much as possible. We'll add a more 
 - Avoid using any new 3party library if it is not fully tested and supported on all our platforms
 - Cover your code with unit tests. See examples for existing libraries
 - Ask if you have any questions
-- If you don't have enough time to make it right, or see a potential issue, leave a `// TODO(DeveloperName): need to fix it` comment
+- If you don't have enough time to make it right, or see a potential issue, leave a `// TODO(DeveloperInitialsOrNickname): need to fix it` comment
 
 ### Useful links
 

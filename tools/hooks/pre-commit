@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Pre-commit hook: runs clang-format and swiftformat on staged source files.
+# Automatically reformats and re-stages non-conforming files.
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+source "$REPO_ROOT/tools/hooks/format-config.bash"
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM)
+
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+REFORMATTED=0
+
+# --- clang-format -----------------------------------------------------------
+CLANG_REGEX=$(build_path_regex CLANG_FORMAT_TARGETS)
+CLANG_FILES=$(echo "$STAGED_FILES" | grep -E "$CLANG_REGEX" || true)
+
+if [ -n "$CLANG_FILES" ]; then
+  CLANG_FORMAT=$(resolve_clang_format)
+  echo "pre-commit: using $($CLANG_FORMAT --version)"
+
+  while IFS= read -r FILE; do
+    [ -f "$FILE" ] || continue
+    if ! "$CLANG_FORMAT" --dry-run --Werror "$FILE" > /dev/null 2>&1; then
+      echo "clang-format: reformatting $FILE"
+      "$CLANG_FORMAT" -i "$FILE"
+      git add "$FILE"
+      REFORMATTED=1
+    fi
+  done <<< "$CLANG_FILES"
+fi
+
+# --- swiftformat -------------------------------------------------------------
+SWIFT_REGEX=$(build_path_regex SWIFTFORMAT_TARGETS)
+SWIFT_FILES=$(echo "$STAGED_FILES" | grep -E "$SWIFT_REGEX" || true)
+
+if [ -n "$SWIFT_FILES" ]; then
+  if ! command -v swiftformat >/dev/null 2>&1; then
+    echo "Warning: swiftformat not found, skipping Swift files."
+  else
+    echo "pre-commit: using swiftformat $(swiftformat --version)"
+
+    while IFS= read -r FILE; do
+      [ -f "$FILE" ] || continue
+      if ! swiftformat --lint "$FILE" > /dev/null 2>&1; then
+        echo "swiftformat: reformatting $FILE"
+        swiftformat "$FILE"
+        git add "$FILE"
+        REFORMATTED=1
+      fi
+    done <<< "$SWIFT_FILES"
+  fi
+fi
+
+# -----------------------------------------------------------------------------
+# Fail if reformatting eliminated all staged changes (would create an empty commit).
+if [ "$REFORMATTED" -eq 1 ]; then
+  if git diff --cached --quiet; then
+    echo "pre-commit: nothing to commit after reformatting — all staged changes were formatting-only."
+    exit 1
+  fi
+  echo "pre-commit: some files were reformatted and re-staged."
+fi
+
+exit 0

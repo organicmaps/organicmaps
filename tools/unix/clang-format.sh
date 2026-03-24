@@ -1,31 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-for binary in clang-format clang-format-22; do
-  if command -v "$binary" >/dev/null 2>&1; then
-    CLANG_FORMAT="$binary"
-  fi
-done
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+# Shared list of files and extensions to format, defined in a separate config file for reuse across hooks and tools
+source "$REPO_ROOT/tools/hooks/format-config.bash"
+
+XARGS_OPTS="-n1 -0 -P0"
+if xargs -r </dev/null 2>/dev/null; then
+  XARGS_OPTS="-r $XARGS_OPTS"
+fi
+
+CLANG_FORMAT=$(resolve_clang_format)
 "$CLANG_FORMAT" --version
-
 echo "Running clang-format on all repository files..."
 
-XARGS_COMMAND="xargs -n1 -0 -P0 $CLANG_FORMAT -i"
+for entry in "${CLANG_FORMAT_TARGETS[@]}"; do
+  dir="${entry%%|*}"
+  pattern="${entry##*|}"
+  [ -d "$REPO_ROOT/$dir" ] || continue
+  find "$REPO_ROOT/$dir" -type f -name "$pattern" -print0 \
+    | xargs $XARGS_OPTS "$CLANG_FORMAT" -i
+done
 
-# Android
-find android/{app,sdk}/src -type f -name '*.java' -print0 | $XARGS_COMMAND
-
-find android/libs/{api,branding,car,downloader,googleassistant,routing,utils}/src -type f -name '*.java' -print0 | $XARGS_COMMAND
-
-find android/sdk/car/src -type f -name '*.java' -print0 | $XARGS_COMMAND
-find android/sdk/widgets/{lanes,speedlimit}/src -type f -name '*.java' -print0 | $XARGS_COMMAND
-find android/sdk/src/main/cpp -type f -name '*.[hc]pp' -print0 | $XARGS_COMMAND
-
-# iOS
-find iphone -type f -name '*.[hc]pp' -o -name '*.[hm]' -o -name '*.mm' -print0 | $XARGS_COMMAND
-
-# Core/C++
-find dev_sandbox generator libs qt tools -type f -name '*.[hc]pp' -print0 | $XARGS_COMMAND
+# Swift files (if swiftformat is available)
+if command -v swiftformat >/dev/null 2>&1; then
+  echo "Running swiftformat on Swift files..."
+  for entry in "${SWIFTFORMAT_TARGETS[@]}"; do
+    dir="${entry%%|*}"
+    pattern="${entry##*|}"
+    [ -d "$REPO_ROOT/$dir" ] || continue
+    find "$REPO_ROOT/$dir" -type f -name "$pattern" -print0 \
+      | xargs $XARGS_OPTS swiftformat
+  done
+else
+  echo "Warning: swiftformat not found, skipping Swift files."
+fi
 
 git diff --exit-code
