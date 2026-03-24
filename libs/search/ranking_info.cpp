@@ -43,8 +43,9 @@ double constexpr kAltOldName = -0.3;  // Some reasonable penalty like kErrorsMad
 // - should be greater than fabs(kErrorsMade) / 2
 // - shoulbe be comparable with kRank to keep cities/towns
 double constexpr kViewportDiffThreshold = 0.29;
-// clang-format off, see https://github.com/llvm/llvm-project/issues/187936
-static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
+// clang-format off
+// See https://github.com/llvm/llvm-project/issues/187936
+static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > - kErrorsMade / 2);
 // clang-format on
 static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
