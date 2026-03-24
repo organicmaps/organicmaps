@@ -10,7 +10,6 @@ final class ExpandableLabel: UIView {
   private let expandLabel = UILabel()
   private var contentInsets: UIEdgeInsets = Constants.defaultContentInsets
 
-  private var containerText: String?
   private var containerMaximumNumberOfLines = 2 {
     didSet {
       textView.textContainer.maximumNumberOfLines = containerMaximumNumberOfLines
@@ -46,7 +45,6 @@ final class ExpandableLabel: UIView {
 
   var text: String? {
     didSet {
-      containerText = text
       textView.text = text
       if let text = text {
         isHidden = text.isEmpty
@@ -58,7 +56,6 @@ final class ExpandableLabel: UIView {
 
   var attributedText: NSAttributedString? {
     didSet {
-      containerText = attributedText?.string
       textView.attributedText = attributedText
       if let attributedText = attributedText {
         isHidden = attributedText.length == 0
@@ -165,9 +162,9 @@ final class ExpandableLabel: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    if oldWidth != bounds.width, let attributedText = attributedText?.mutableCopy() as? NSMutableAttributedString {
-      attributedText.enumerateAttachments(estimatedWidth: bounds.width)
-      self.attributedText = attributedText
+    if oldWidth != bounds.width, let mutableText = textView.attributedText?.mutableCopy() as? NSMutableAttributedString {
+      mutableText.enumerateAttachments(estimatedWidth: bounds.width)
+      textView.attributedText = mutableText
       oldWidth = bounds.width
     }
 
