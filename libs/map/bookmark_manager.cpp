@@ -2088,8 +2088,7 @@ void BookmarkManager::LoadBookmarks()
 
   LoadMetadata();
 
-  NotifyAboutStartAsyncLoading();
-  GetPlatform().RunTask(Platform::Thread::File, [this]()
+  auto loadBookmarks = [this]()
   {
     auto collection = LoadBookmarks(GetBookmarksDirectory(), kKmlExtension, FileType::Kml, [](kml::FileData const &)
     {
@@ -2099,8 +2098,21 @@ void BookmarkManager::LoadBookmarks()
     if (m_needTeardown)
       return;
     NotifyAboutFinishAsyncLoading(std::move(collection), true /* autoSave */);
-  });
+  };
 
+  if (m_testModeEnabled)
+  {
+    m_asyncLoadingInProgress = true;
+    if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
+      m_asyncLoadingCallbacks.m_onStarted();
+
+    LoadState();
+    loadBookmarks();
+    return;
+  }
+
+  NotifyAboutStartAsyncLoading();
+  GetPlatform().RunTask(Platform::Thread::File, std::move(loadBookmarks));
   LoadState();
 }
 
@@ -2149,7 +2161,7 @@ void BookmarkManager::ReloadBookmark(std::string const & filePath)
 
 void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, filePath, isTemporaryFile]()
+  auto const routine = [this, filePath, isTemporaryFile]()
   {
     if (m_needTeardown)
       return;
@@ -2200,12 +2212,19 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     NotifyAboutFile(!collection->empty() /* success */, filePath, isTemporaryFile);
     NotifyAboutFinishAsyncLoading(std::move(collection), false /* autoSave */);
-  });
+  };
+
+  if (m_testModeEnabled)
+  {
+    routine();
+    return;
+  }
+  GetPlatform().RunTask(Platform::Thread::File, routine);
 }
 
 void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, filePath]()
+  auto const routine = [this, filePath]()
   {
     if (m_needTeardown)
       return;
@@ -2229,6 +2248,7 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
     if (kmlData)
     {
       auto const kmlFileToReload = GenerateValidFilePath(base::GetNameFromFullPathWithoutExt(filePath), FileType::Kml);
+      // Keep source file modification time to prevent inifinty update loop in sync.
       auto const modificationTime = Platform::GetFileModificationTime(filePath);
       if (SaveKmlFileSafe(*kmlData, kmlFileToReload, FileType::Kml, modificationTime))
         collection->emplace_back(std::move(kmlFileToReload), std::move(kmlData));
@@ -2239,7 +2259,14 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
       return;
 
     NotifyAboutFinishAsyncLoading(std::move(collection), false /* autoSave */);
-  });
+  };
+
+  if (m_testModeEnabled)
+  {
+    routine();
+    return;
+  }
+  GetPlatform().RunTask(Platform::Thread::File, routine);
 }
 
 void BookmarkManager::NotifyAboutStartAsyncLoading()
@@ -2247,12 +2274,20 @@ void BookmarkManager::NotifyAboutStartAsyncLoading()
   if (m_needTeardown)
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  auto const notify = [this]()
   {
     m_asyncLoadingInProgress = true;
     if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
       m_asyncLoadingCallbacks.m_onStarted();
-  });
+  };
+
+  if (m_testModeEnabled)
+  {
+    notify();
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Gui, notify);
 }
 
 void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection, bool autoSave)
@@ -2260,7 +2295,7 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
   if (m_needTeardown)
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, collection, autoSave]()
+  auto const notify = [this, collection, autoSave]()
   {
     bool const isInitialGathering = !m_loadBookmarksFinished;
     if (!collection->empty())
@@ -2296,7 +2331,15 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
       if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
         m_asyncLoadingCallbacks.m_onFinished();
     }
-  });
+  };
+
+  if (m_testModeEnabled)
+  {
+    notify();
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Gui, notify);
 }
 
 void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile)
@@ -2537,22 +2580,20 @@ void BookmarkManager::ProcessBookmarkCategoryFileChanges(MarksChangesTracker con
     {
       switch (categoryFileChange.m_type)
       {
-        case CategoryFileChangeType::Created:
-        case CategoryFileChangeType::Updated:
-        {
-          bool const shouldNotify = categoryFileChange.m_data == nullptr ||
-          SaveKmlFileByExt(*categoryFileChange.m_data, categoryFileChange.m_file);
-          if (!shouldNotify)
-            continue;
+      case CategoryFileChangeType::Created:
+      case CategoryFileChangeType::Updated:
+      {
+        bool const shouldNotify = categoryFileChange.m_data == nullptr ||
+                                  SaveKmlFileByExt(*categoryFileChange.m_data, categoryFileChange.m_file);
+        if (!shouldNotify)
+          continue;
 
-          auto & changedFiles =
-          categoryFileChange.m_type == CategoryFileChangeType::Created ? createdFiles : updatedFiles;
-          changedFiles.push_back(categoryFileChange.m_file);
-          break;
-        }
-        case CategoryFileChangeType::Deleted:
-          deletedFiles.push_back(categoryFileChange.m_file);
-          break;
+        auto & changedFiles =
+            categoryFileChange.m_type == CategoryFileChangeType::Created ? createdFiles : updatedFiles;
+        changedFiles.push_back(categoryFileChange.m_file);
+        break;
+      }
+      case CategoryFileChangeType::Deleted: deletedFiles.push_back(categoryFileChange.m_file); break;
       }
     }
 
