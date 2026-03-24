@@ -881,6 +881,8 @@
     <string name="share_track">Iqassam il-Traċċa</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ħassar %s?</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Biddel il-kulur</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
