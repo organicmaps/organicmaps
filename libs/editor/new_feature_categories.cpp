@@ -88,9 +88,9 @@ NewFeatureCategories::TypeNames NewFeatureCategories::GetRecentCategories() cons
   TypeNames recentlyUsedCategories;
   if (!settings::Get(kRecentlyUsedCategoriesSettingsKey, current) || current.empty())
     return {};
-  strings::Tokenize(current, ";", [&recentlyUsedCategories](std::string_view s)
+  strings::Tokenize(current, ";", [this, &recentlyUsedCategories](std::string_view s)
   {
-    if (!s.empty())
+    if (!s.empty() && std::find(m_types.begin(), m_types.end(), s) != m_types.end())
       recentlyUsedCategories.emplace_back(s);
   });
   if (recentlyUsedCategories.size() > kMaxRecentlyUsedCategoriesCount)
