@@ -73,7 +73,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private Track mTrack;
   private int mType;
   private int mColor = -1;
-  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
+  private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
   private ViewGroup mTrackExportButtons;
 
   public interface EditBookmarkListener
@@ -217,7 +217,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    shareLauncher = SharingUtils.RegisterLauncher(this);
+    mShareLauncher = SharingUtils.RegisterLauncher(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
   }
 
@@ -459,9 +459,14 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
         .show();
   }
 
+  // Guard against IllegalStateException if the async sharing result arrives after the
+  // fragment detaches (e.g. during device rotation). Matches the isAdded() pattern used
+  // in BookmarksListFragment callbacks.
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
+    if (!isAdded() || getActivity() == null)
+      return;
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), mShareLauncher, result);
   }
 }
