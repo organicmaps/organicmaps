@@ -15,7 +15,14 @@ extension NSMutableAttributedString {
   @objc convenience init?(htmlString: String, baseFont: UIFont, paragraphStyle: NSParagraphStyle?, estimatedWidth: CGFloat = 0) {
     self.init(htmlString: htmlString, baseFont: baseFont)
     if let paragraphStyle = paragraphStyle {
-      addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, length))
+      enumerateAttribute(.paragraphStyle, in: NSMakeRange(0, length), options: []) { value, range, _ in
+        if let existingStyle = (value as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle {
+          existingStyle.lineSpacing = paragraphStyle.lineSpacing
+          addAttribute(.paragraphStyle, value: existingStyle, range: range)
+        } else {
+          addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        }
+      }
     }
 
     guard estimatedWidth > 0 else { return }
