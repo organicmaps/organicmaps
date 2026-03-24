@@ -914,6 +914,9 @@ void Framework::ShowTrack(kml::TrackId trackId)
 
   auto es = bm.GetEditSession();
   es.SetIsVisible(track->GetGroupId(), true /* visible */);
+  // Also unhide the individual track so imported tracks with m_visible=false
+  // become visible when navigated to from the bookmark list.
+  es.SetTrackVisibility(trackId, true /* visible */);
 
   if (m_drapeEngine)
     m_drapeEngine->SetModelViewRect(rect, true, scales::GetScaleLevel(rect), true /* isAnim */,
