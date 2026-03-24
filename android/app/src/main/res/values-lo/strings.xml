@@ -812,6 +812,10 @@
     <string name="share_track">ແບ່ງປັນເສັ້ນທາງ</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">ລຶບ %s ບໍ່?</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">ລຶບເສັ້ນທາງ</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">ປ່ຽນສີ</string>
 
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
