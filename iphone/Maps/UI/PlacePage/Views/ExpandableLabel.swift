@@ -17,6 +17,9 @@ final class ExpandableLabel: UIView {
     }
   }
 
+  private var sourceAttributedText: NSAttributedString?
+  private var cachedFullHeight: CGFloat?
+  private var isMeasuring = false
   private var oldWidth: CGFloat = 0
 
   // MARK: - Public properties
@@ -45,23 +48,27 @@ final class ExpandableLabel: UIView {
 
   var text: String? {
     didSet {
+      sourceAttributedText = nil
       textView.text = text
       if let text = text {
         isHidden = text.isEmpty
       } else {
         isHidden = true
       }
+      invalidateMeasurementCache()
     }
   }
 
   var attributedText: NSAttributedString? {
     didSet {
+      sourceAttributedText = attributedText
       textView.attributedText = attributedText
       if let attributedText = attributedText {
         isHidden = attributedText.length == 0
       } else {
         isHidden = true
       }
+      invalidateMeasurementCache()
     }
   }
 
@@ -74,6 +81,7 @@ final class ExpandableLabel: UIView {
   var numberOfLines = 2 {
     didSet {
       containerMaximumNumberOfLines = numberOfLines > 0 ? numberOfLines + 1 : 0
+      invalidateMeasurementCache()
     }
   }
 
@@ -102,6 +110,10 @@ final class ExpandableLabel: UIView {
   }
 
   // MARK: - Private methods
+
+  private func invalidateMeasurementCache() {
+    cachedFullHeight = nil
+  }
 
   private func setupView() {
     stackView.axis = .vertical
@@ -152,6 +164,7 @@ final class ExpandableLabel: UIView {
 
   func setExpanded(_ expanded: Bool) {
     guard expandLabel.isHidden != expanded else { return }
+    invalidateMeasurementCache()
     UIView.animate(withDuration: kFastAnimationDuration) {
       self.containerMaximumNumberOfLines = expanded ? 0 : (self.numberOfLines > 0 ? self.numberOfLines + 1 : 0)
       self.expandLabel.isHidden = expanded ? true : false
@@ -161,25 +174,36 @@ final class ExpandableLabel: UIView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
+    guard !isMeasuring else { return }
 
-    if oldWidth != bounds.width, let mutableText = textView.attributedText?.mutableCopy() as? NSMutableAttributedString {
-      mutableText.enumerateAttachments(estimatedWidth: bounds.width)
-      textView.attributedText = mutableText
+    if oldWidth != bounds.width {
       oldWidth = bounds.width
+      if let source = sourceAttributedText {
+        let mutableText = NSMutableAttributedString(attributedString: source)
+        mutableText.enumerateAttachments(estimatedWidth: bounds.width)
+        textView.attributedText = mutableText
+      }
+      invalidateMeasurementCache()
     }
 
     let measuringWidth = bounds.width - contentInsets.left + contentInsets.right
-    guard containerMaximumNumberOfLines > 0,
+    guard cachedFullHeight == nil,
+          containerMaximumNumberOfLines > 0,
           containerMaximumNumberOfLines != numberOfLines,
           measuringWidth > 0
     else {
       return
     }
 
+    isMeasuring = true
+    defer { isMeasuring = false }
+
     let savedMaxLines = textView.textContainer.maximumNumberOfLines
     textView.textContainer.maximumNumberOfLines = 0
     let fullSize = textView.sizeThatFits(CGSize(width: measuringWidth, height: .greatestFiniteMagnitude))
     textView.textContainer.maximumNumberOfLines = savedMaxLines
+
+    cachedFullHeight = fullSize.height
 
     let lineHeight = font.lineHeight
     if fullSize.height <= lineHeight * CGFloat(numberOfLines + 1) {
