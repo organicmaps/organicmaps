@@ -158,7 +158,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
     // Initialize export buttons for tracks
     mTrackExportButtons = view.findViewById(R.id.track_export_buttons);
-    view.findViewById(R.id.btn).setOnClickListener(v -> onShareTrackSelected(FileType.Kml));
+    view.findViewById(R.id.btn_export_kml).setOnClickListener(v -> onShareTrackSelected(FileType.Kml));
     view.findViewById(R.id.btn_export_gpx).setOnClickListener(v -> onShareTrackSelected(FileType.Gpx));
     view.findViewById(R.id.btn_export_geojson).setOnClickListener(v -> onShareTrackSelected(FileType.GeoJson));
     view.findViewById(R.id.btn_delete_track).setOnClickListener(v -> onDeleteTrackSelected());
