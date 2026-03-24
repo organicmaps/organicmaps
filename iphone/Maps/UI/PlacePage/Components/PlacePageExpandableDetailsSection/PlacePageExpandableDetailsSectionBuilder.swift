@@ -2,7 +2,6 @@ enum PlacePageExpandableDetailsSectionBuilder {
   static func buildWikipediaSection(_ wikiDescriptionHtml: String, showLinkButton: Bool, delegate: WikiDescriptionViewControllerDelegate) -> PlacePageExpandableDetailsSectionViewController {
     let viewModel = PlacePageExpandableDetailsSectionViewModel(title: L("read_in_wikipedia"),
                                                                style: .header,
-                                                               expandableText: wikiDescriptionHtml,
                                                                expandedState: .collapsed)
 
     let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
@@ -29,7 +28,7 @@ enum PlacePageExpandableDetailsSectionBuilder {
   static func buildOSMDescriptionSection(_ osmDescription: String) -> PlacePageExpandableDetailsSectionViewController {
     let viewModel = PlacePageExpandableDetailsSectionViewModel(title: "OpenStreetMap",
                                                                style: .header,
-                                                               expandableText: osmDescription,
+                                                               expandableText: .plain(osmDescription),
                                                                expandedState: .collapsed)
     let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
     let interactor = PlacePageOSMDescriptionSectionInteractor(presenter: presenter, description: osmDescription)

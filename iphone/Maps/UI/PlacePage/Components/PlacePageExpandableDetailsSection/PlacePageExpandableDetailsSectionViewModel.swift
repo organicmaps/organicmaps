@@ -9,7 +9,6 @@ struct PlacePageExpandableDetailsSectionViewModel {
   var style: InfoItemView.Style = .regular
   var icon: UIImage?
   var accessory: UIImage?
-  var expandableText: String?
-  var expandableAttributedText: NSAttributedString?
+  var expandableText: ExpandableText?
   var expandedState: ExpandedState
 }
