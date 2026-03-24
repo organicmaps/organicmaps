@@ -171,19 +171,21 @@ final class ExpandableLabel: UIView {
       oldWidth = bounds.width
     }
 
+    let measuringWidth = bounds.width - contentInsets.left + contentInsets.right
     guard containerMaximumNumberOfLines > 0,
           containerMaximumNumberOfLines != numberOfLines,
-          let s = containerText,
-          !s.isEmpty
+          measuringWidth > 0
     else {
       return
     }
-    let textRect = s.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-                                  options: .usesLineFragmentOrigin,
-                                  attributes: [.font: font],
-                                  context: nil)
+
+    let savedMaxLines = textView.textContainer.maximumNumberOfLines
+    textView.textContainer.maximumNumberOfLines = 0
+    let fullSize = textView.sizeThatFits(CGSize(width: measuringWidth, height: .greatestFiniteMagnitude))
+    textView.textContainer.maximumNumberOfLines = savedMaxLines
+
     let lineHeight = font.lineHeight
-    if Int(lineHeight * CGFloat(numberOfLines + 1)) >= Int(textRect.height) {
+    if fullSize.height <= lineHeight * CGFloat(numberOfLines + 1) {
       expandLabel.isHidden = true
       containerMaximumNumberOfLines = 0
     } else {
