@@ -854,13 +854,13 @@
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Изтриване на %s?</string>
     <!-- Delete track button on track edit screen -->
-    <string name="placepage_delete_track_button">Изтриване на песента</string>
+    <string name="placepage_delete_track_button">Изтриване на маршрут</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Промяна на цвета</string>
     <!-- Text for the hiding track. -->
-    <string name="hide_track">Скриване на пистата</string>
+    <string name="hide_track">Скриване на маршрут</string>
     <!-- Text for the showing track. -->
-    <string name="show_track">Показване на трасето</string>
+    <string name="show_track">Показване на маршрут</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

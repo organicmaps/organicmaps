@@ -790,7 +790,7 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">เปลี่ยนสี</string>
     <!-- Text for the hiding track. -->
-    <string name="hide_track">ซ่อนแทร็ก</string>
+    <string name="hide_track">ซ่อนเส้นทาง</string>
     <!-- Text for the showing track. -->
     <string name="show_track">แสดงเส้นทาง</string>
 

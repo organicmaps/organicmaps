@@ -869,9 +869,9 @@
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Change de couleur</string>
     <!-- Text for the hiding track. -->
-    <string name="hide_track">Cacher la piste</string>
+    <string name="hide_track">Cacher le tracé</string>
     <!-- Text for the showing track. -->
-    <string name="show_track">Afficher la piste</string>
+    <string name="show_track">Afficher le tracé</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
