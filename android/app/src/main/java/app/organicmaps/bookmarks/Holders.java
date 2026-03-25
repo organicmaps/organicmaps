@@ -24,12 +24,13 @@ import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.utils.Graphics;
+import app.organicmaps.widget.recycler.DividerBehavior;
 import app.organicmaps.widget.recycler.RecyclerClickListener;
 import app.organicmaps.widget.recycler.RecyclerLongClickListener;
 
 public class Holders
 {
-  public static class GeneralViewHolder extends RecyclerView.ViewHolder
+  public static class GeneralViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
   {
     @NonNull
     private final TextView mText;
@@ -54,9 +55,15 @@ public class Holders
     {
       return mImage;
     }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return true;
+    }
   }
 
-  public static class HeaderViewHolder extends RecyclerView.ViewHolder
+  public static class HeaderViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
   {
     @NonNull
     private final TextView mButton;
@@ -92,6 +99,12 @@ public class Holders
     {
       mButton.setText(showAll ? R.string.bookmark_lists_show_all : R.string.bookmark_lists_hide_all);
       mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(action, showAll));
+    }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return true;
     }
 
     public interface HeaderAction
@@ -151,7 +164,7 @@ public class Holders
     }
   }
 
-  static class CategoryViewHolderBase extends RecyclerView.ViewHolder
+  static class CategoryViewHolderBase extends RecyclerView.ViewHolder implements DividerBehavior
   {
     @Nullable
     protected BookmarkCategory mEntity;
@@ -163,6 +176,12 @@ public class Holders
     {
       super(root);
       mSize = root.findViewById(R.id.size);
+    }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return false;
     }
 
     protected void setSize()
@@ -291,7 +310,7 @@ public class Holders
     }
   }
 
-  static abstract class BaseBookmarkHolder extends RecyclerView.ViewHolder
+  static abstract class BaseBookmarkHolder extends RecyclerView.ViewHolder implements DividerBehavior
   {
     @NonNull
     private final View mView;
@@ -320,6 +339,12 @@ public class Holders
           listener.onLongItemClick(v, getBindingAdapterPosition());
         return true;
       });
+    }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return false;
     }
   }
 
@@ -433,6 +458,12 @@ public class Holders
     void bind(@NonNull SectionPosition position, @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       mView.setText(sectionsDataSource.getTitle(position.getSectionIndex(), mView.getResources()));
+    }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return true;
     }
   }
 
