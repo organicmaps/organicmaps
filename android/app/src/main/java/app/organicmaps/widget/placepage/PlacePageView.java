@@ -518,13 +518,16 @@ public class PlacePageView extends Fragment
   void refreshCategoryPreview()
   {
     View categoryContainer = mFrame.findViewById(R.id.category_container);
+    boolean showCategory;
     if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_background_size,
                                             requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
-      mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
+      showCategory = !track.isTempRelationTrack();
+      if (showCategory)
+        mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
     }
     else if (mMapObject.isBookmark())
     {
@@ -537,8 +540,11 @@ public class PlacePageView extends Fragment
         mColorIcon.setImageDrawable(circle);
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
       }
+      showCategory = true;
     }
-    UiUtils.showIf(mMapObject.isTrack() || mMapObject.isBookmark(), categoryContainer);
+    else
+      showCategory = false;
+    UiUtils.showIf(showCategory, categoryContainer);
   }
 
   void showColorDialog()
