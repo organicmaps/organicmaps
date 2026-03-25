@@ -6,11 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.Holders;
-import app.organicmaps.editor.FeatureCategoryAdapter;
 import java.util.Objects;
 
 public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoration
@@ -24,6 +23,16 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
   {
     mDivider = Objects.requireNonNull(AppCompatResources.getDrawable(context, R.drawable.divider_base));
     mStartMargin = context.getResources().getDimensionPixelSize(R.dimen.margin_quadruple_plus_half);
+  }
+
+  private boolean useFullWidth(@Nullable RecyclerView.ViewHolder holder)
+  {
+    return holder instanceof DividerBehavior && ((DividerBehavior) holder).useFullWidthDivider();
+  }
+
+  private boolean skipDivider(@NonNull RecyclerView.ViewHolder holder)
+  {
+    return holder instanceof DividerBehavior && ((DividerBehavior) holder).skipDivider();
   }
 
   @Override
@@ -45,21 +54,23 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
       if (nextChild != null)
         viewHolderNext = parent.getChildViewHolder(nextChild);
 
-      // For FeatureCategoryAdapter, only draw dividers around section headers
-      boolean isSectionHeader = viewHolder instanceof FeatureCategoryAdapter.SectionHeaderViewHolder;
-      boolean isNextSectionHeader = viewHolderNext instanceof FeatureCategoryAdapter.SectionHeaderViewHolder;
-      if (parent.getAdapter() instanceof FeatureCategoryAdapter && !isSectionHeader && !isNextSectionHeader)
-        continue;
-
       int top = child.getBottom();
       int bottom = top + dividerHeight;
 
-      if (viewHolder instanceof Holders.SectionViewHolder || viewHolder instanceof Holders.HeaderViewHolder
-          || isSectionHeader || viewHolderNext instanceof Holders.SectionViewHolder
-          || viewHolderNext instanceof Holders.HeaderViewHolder || isNextSectionHeader
-          || viewHolderNext instanceof Holders.GeneralViewHolder)
+      // Full-width has priority
+      if (useFullWidth(viewHolder) || useFullWidth(viewHolderNext))
+      {
         mDivider.setBounds(0, top, right, bottom);
-      else if (i == childCount - 1)
+        mDivider.draw(c);
+        continue;
+      }
+
+      // Skip if current item wants to skip
+      if (skipDivider(viewHolder))
+        continue;
+
+      // Default: divider with margin (or full-width for last item)
+      if (i == childCount - 1)
         mDivider.setBounds(0, top - dividerHeight, right, bottom);
       else
         mDivider.setBounds(mStartMargin, top, right, bottom);
