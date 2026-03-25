@@ -25,11 +25,12 @@
       }
     };
     std::string const oauthToken = osm_auth_ios::AuthorizationGetCredentials();
-    osm::Editor::Instance().UploadChanges(
-        oauthToken,
-        {{"created_by", std::string("Organic Maps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
-         {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
-        lambda);
+    if (!osm::Editor::Instance().UploadChanges(oauthToken,
+                                               {{"created_by", std::string("Organic Maps " OMIM_OS_NAME " ") +
+                                                                   AppInfo.sharedInfo.bundleVersion.UTF8String},
+                                                {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
+                                               lambda))
+      lambda(osm::Editor::UploadResult::NothingToUpload);
   }
 }
 

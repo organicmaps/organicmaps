@@ -19,6 +19,8 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <chrono>
+#include <future>
 #include <set>
 #include <vector>
 
@@ -293,25 +295,23 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeHasSomethingToUp
   return Editor::Instance().HaveMapEditsOrNotesToUpload();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
+JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
                                                                           jstring appVersion, jstring appId)
 {
-  // TODO: Handle upload status in callback
-  Editor::Instance().UploadChanges(
-      jni::ToNativeString(env, token),
-      {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
-       {"bundle_id", jni::ToNativeString(env, appId)}},
-      nullptr);
-}
+  std::promise<Editor::UploadResult> promise;
+  auto future = promise.get_future();
 
-JNIEXPORT jlongArray Java_app_organicmaps_sdk_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz)
-{
-  auto const stats = Editor::Instance().GetStats();
-  jlongArray result = env->NewLongArray(3);
-  jlong buf[] = {static_cast<jlong>(stats.m_edits.size()), static_cast<jlong>(stats.m_uploadedCount),
-                 stats.m_lastUploadTimestamp};
-  env->SetLongArrayRegion(result, 0, 3, buf);
-  return result;
+  if (!Editor::Instance().UploadChanges(
+          jni::ToNativeString(env, token),
+          {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+           {"bundle_id", jni::ToNativeString(env, appId)}},
+          [&promise](Editor::UploadResult result) { promise.set_value(result); }))
+    promise.set_value(Editor::UploadResult::NothingToUpload);
+
+  auto status = future.wait_for(std::chrono::minutes(5));
+  if (status == std::future_status::timeout)
+    return static_cast<jint>(Editor::UploadResult::Error);
+  return static_cast<jint>(future.get());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
