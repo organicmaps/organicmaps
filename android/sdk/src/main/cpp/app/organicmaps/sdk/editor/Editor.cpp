@@ -15,6 +15,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "std/target_os.hpp"
 
@@ -22,6 +23,7 @@
 #include <chrono>
 #include <future>
 #include <set>
+#include <sstream>
 #include <vector>
 
 namespace
@@ -312,6 +314,21 @@ JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv
   if (status == std::future_status::timeout)
     return static_cast<jint>(Editor::UploadResult::Error);
   return static_cast<jint>(future.get());
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetStatsString(JNIEnv * env, jclass)
+{
+  auto const stats = Editor::Instance().GetStats();
+  std::ostringstream ss;
+  ss << "Total edits: " << stats.m_edits.size() << "\n"
+     << "Uploaded: " << stats.m_uploadedCount << "\n"
+     << "Last upload: "
+     << (stats.m_lastUploadTimestamp == base::INVALID_TIME_STAMP ? "never"
+                                                                 : base::TimestampToString(stats.m_lastUploadTimestamp))
+     << "\n\n";
+  for (auto const & [fid, status] : stats.m_edits)
+    ss << fid.m_mwmId.GetInfo()->GetCountryName() << " " << fid.m_index << ": " << status << "\n";
+  return jni::ToJavaString(env, ss.str());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)

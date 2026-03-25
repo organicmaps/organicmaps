@@ -135,6 +135,8 @@ public final class Editor
   @WorkerThread
   private static native int nativeUploadChanges(String oauthToken, String appVersion, String appId);
 
+  @NonNull
+  public static native String nativeGetStatsString();
   public static native void nativeClearLocalEdits();
 
   /**

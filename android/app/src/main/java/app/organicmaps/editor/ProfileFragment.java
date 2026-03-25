@@ -15,7 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
+import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.base.BaseMwmToolbarFragment;
+import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
@@ -52,6 +54,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
   private TextView mProfileName;
   private ImageView mProfileImage;
   private ProgressBar mProfileInfoLoading;
+  private TextView mEditorStats;
 
   @Nullable
   @Override
@@ -84,6 +87,13 @@ public class ProfileFragment extends BaseMwmToolbarFragment
         .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl()));
     view.findViewById(R.id.osm_notes)
         .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl()));
+    mEditorStats = view.findViewById(R.id.editor_stats);
+    mEditorStats.setMovementMethod(new android.text.method.ScrollingMovementMethod());
+    refreshEditorStats();
+    view.findViewById(R.id.upload_edits).setOnClickListener((v) -> {
+      OsmUploadWork.startActionUploadOsmChanges(requireContext());
+      refreshEditorStats();
+    });
 
     View buttonsContainer = view.findViewById(R.id.buttons_container);
     ViewCompat.setOnApplyWindowInsetsListener(
@@ -132,6 +142,11 @@ public class ProfileFragment extends BaseMwmToolbarFragment
       startActivity(intent);
       requireActivity().finish();
     }
+  }
+
+  private void refreshEditorStats()
+  {
+    mEditorStats.setText(Editor.nativeGetStatsString());
   }
 
   private void logout()
