@@ -490,6 +490,8 @@ Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
 Track const * BookmarkManager::GetTrack(kml::TrackId trackId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_tempRelationTrack && m_tempRelationTrack->GetId() == trackId)
+    return m_tempRelationTrack.get();
   auto it = m_tracks.find(trackId);
   return (it != m_tracks.end()) ? it->second.get() : nullptr;
 }
@@ -1218,6 +1220,32 @@ kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string c
   return trackId;
 }
 
+kml::TrackId BookmarkManager::SetTempRelationTrack(kml::TrackData && trackData)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  ClearTempRelationTrack();
+
+  trackData.m_id = kTempRelationTrackId;
+  m_tempRelationTrack = std::make_unique<Track>(std::move(trackData));
+  m_changesTracker.OnAddLine(kTempRelationTrackId);
+  return kTempRelationTrackId;
+}
+
+void BookmarkManager::ClearTempRelationTrack()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (!m_tempRelationTrack)
+    return;
+
+  DeleteTrackSelectionMark(kTempRelationTrackId);
+  m_changesTracker.OnDeleteLine(kTempRelationTrackId);
+  m_tempRelationTrack.reset();
+
+  NotifyChanges(false /* saveChangesOnDisk */);
+}
+
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
                                                 AddressesCollection & newAddresses)
 {
@@ -1781,6 +1809,9 @@ void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (groupId == kml::kInvalidMarkGroupId)
+    return true;
   return GetGroup(groupId)->IsVisible();
 }
 
@@ -1848,9 +1879,13 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_drapeEngine.Set(engine);
   m_firstDrapeNotification = true;
 
-  auto es = GetEditSession();
-  UpdateTrackMarksMinZoom();
-  RequestSymbolSizes();
+  if (engine)
+  {
+    /// @todo Why drape engine invokes "editing"?
+    auto es = GetEditSession();
+    UpdateTrackMarksMinZoom();
+    RequestSymbolSizes();
+  }
 }
 
 void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,

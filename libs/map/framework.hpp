@@ -614,6 +614,9 @@ private:
   static bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
+  /// Tries to build a temporary track from a route relation associated with the feature.
+  /// If successful, fills outInfo as a track selection and returns true.
+  bool TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & mercator, place_page::Info & outInfo);
   /// @param customTitle, if not empty, overrides any other calculated name.
   void FillPointInfo(place_page::Info & info, m2::PointD const & mercator, std::string const & customTitle = {},
                      FeatureMatcher && matcher = nullptr) const;

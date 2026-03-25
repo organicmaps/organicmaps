@@ -3,6 +3,7 @@
 #include "map/benchmark_tools.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/place_page_info.hpp"
+#include "map/relation_track.hpp"
 #include "map/track_mark.hpp"
 #include "map/user_mark.hpp"
 
@@ -668,8 +669,10 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
 void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint, place_page::Info & info) const
 {
   info.SetTrackId(track.GetId());
-  info.SetBookmarkCategoryId(track.GetGroupId());
-  info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(track.GetGroupId()));
+  auto const groupId = track.GetGroupId();
+  info.SetBookmarkCategoryId(groupId);
+  if (groupId != kml::kInvalidMarkGroupId)
+    info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(groupId));
   info.SetMercator(trackPoint);
   info.SetTitlesForTrack(track);
 }
@@ -700,6 +703,49 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   }
 
   FillInfoFromFeatureType(*ft, info);
+}
+
+bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & mercator, place_page::Info & outInfo)
+{
+  auto & bm = GetBookmarkManager();
+  bm.ClearTempRelationTrack();
+
+  if (!fid.IsValid())
+    return false;
+
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid);
+  auto trackData = builder.Build();
+  if (!trackData)
+    return false;
+
+  kml::TrackData kmlTrack;
+  for (auto & line : trackData->m_lines)
+  {
+    kmlTrack.m_geometry.m_lines.push_back(std::move(line));
+    kmlTrack.m_geometry.m_timestamps.emplace_back();
+  }
+  kml::SetDefaultStr(kmlTrack.m_name, std::move(trackData->m_name));
+
+  kml::TrackLayer layer;
+  auto color = trackData->m_color;
+  if (color == dp::Color::Transparent())
+    color = dp::Color(128, 0, 128, 255);  // Default purple.
+  layer.m_color.m_rgba = color.GetRGBA();
+  kmlTrack.m_layers.push_back(layer);
+
+  auto const trackId = bm.SetTempRelationTrack(std::move(kmlTrack));
+  auto const * track = bm.GetTrack(trackId);
+  CHECK(track, ());
+
+  // Enter track selection mode, same as BuildTrackPlacePage.
+  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
+  FillTrackInfo(*track, mercator, outInfo);
+
+  Track::TrackSelectionInfo selInfo(trackId, mercator, 0.0 /* distFromBegM */);
+  auto const touchRect = df::TapInfo::GetDefaultTapRect(mercator, m_currentModelView).GetGlobalRect();
+  track->UpdateSelectionInfo(touchRect, selInfo);
+  bm.SetTrackSelectionInfo(selInfo, true /* notifyListeners */);
+  return true;
 }
 
 void Framework::FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
@@ -2086,6 +2132,7 @@ void Framework::DeactivateMapSelection()
 
     auto & bm = GetBookmarkManager();
     bm.OnTrackDeselected();
+    bm.ClearTempRelationTrack();
     bm.ResetRecentlyDeletedBookmark();
 
     m_currentPlacePageInfo = {};
@@ -2339,6 +2386,12 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
       FillPointInfo(outInfo, buildInfo.m_mercator, {});
     else
       FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
+  }
+
+  if (!selectedFeature.IsValid() && TryBuildRelationTrack(outInfo.GetID(), buildInfo.m_mercator, outInfo))
+  {
+    SetPlacePageLocation(outInfo);
+    return outInfo;
   }
 
   outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);

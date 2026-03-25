@@ -204,6 +204,8 @@ public:
     }
   }
 
+  std::vector<uint32_t> const & GetMembers() const { return m_ftMembers; }
+
 private:
   std::vector<uint32_t> m_ftMembers;
   ShortArray m_relMembers;

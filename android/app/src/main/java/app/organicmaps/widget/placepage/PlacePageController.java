@@ -708,7 +708,7 @@ public class PlacePageController
       {
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                            : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
-        if (mapObject.isTrack())
+        if (mapObject.isTrack() && !((Track) mapObject).isTempRelationTrack())
           buttons.add(PlacePageButtons.ButtonType.TRACK_DELETE);
       }
 
