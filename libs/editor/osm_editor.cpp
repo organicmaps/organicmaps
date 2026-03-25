@@ -582,17 +582,23 @@ bool Editor::HaveMapEditsToUpload(MwmId const & mwmId) const
   return false;
 }
 
-void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback)
+bool Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback)
 {
+  /// @todo Unite data and notes uploading in one thread with one callback.
   m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
 
   if (m_isUploadingNow)
-    return;
+    return false;
 
   if (!HaveMapEditsToUpload(*m_features.Get()))
-    return;
+    return false;
 
-  m_isUploadingNow = true;
+  {
+    // Not sure that this function isn't called in parallel. Put safe CAS.
+    bool expected = false;
+    if (!m_isUploadingNow.compare_exchange_strong(expected, true))
+      return false;
+  }
 
   GetPlatform().RunTask(Platform::Thread::Network,
                         [this, oauthToken, tags = std::move(tags), callback = std::move(callback)]()
@@ -762,6 +768,9 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
         // TODO(AlexZ): Use timestamp from the server.
         uploadInfo.m_uploadAttemptTimestamp = time(nullptr);
 
+        /// @todo I suspect that some (last) features can be uploaded several times.
+        /// UploadChanges -> async update here -> m_isUploadingNow = false, new UploadChanges,
+        /// actual SaveUploadedInformation (on Gui) is called after the new upload.
         GetPlatform().RunTask(Platform::Thread::Gui, [this, id = fti.m_object.GetID(), uploadInfo]()
         {
           // Call Save every time we modify each feature's information.
@@ -780,6 +789,8 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
       callback(result);
     }
   });
+
+  return true;
 }
 
 void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & uploadInfo)

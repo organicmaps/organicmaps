@@ -2,7 +2,6 @@ package app.organicmaps.sdk.editor;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
-import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
@@ -41,11 +40,22 @@ public final class Editor
 
   private static native void nativeInit();
 
+  public static final int UPLOAD_FAILED_NOT_AUTHORIZED = -1;
+  // Values below must match Editor::UploadResult in C++.
+  public static final int UPLOAD_RESULT_SUCCESS = 0;
+  public static final int UPLOAD_RESULT_ERROR = 1;
+  public static final int UPLOAD_RESULT_NOTHING_TO_UPLOAD = 2;
+
+  /**
+   * Blocks the calling thread until the upload completes.
+   * @return one of UPLOAD_RESULT_* constants, or -1 if not authorized.
+   */
   @WorkerThread
-  public static void uploadChanges()
+  public static int uploadChanges()
   {
-    if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
-      nativeUploadChanges(OsmOAuth.getAuthToken(), Config.getVersionName(), Config.getApplicationId());
+    if (OsmOAuth.isAuthorized())
+      return nativeUploadChanges(OsmOAuth.getAuthToken(), Config.getVersionName(), Config.getApplicationId());
+    return UPLOAD_FAILED_NOT_AUTHORIZED;
   }
 
   public static native boolean nativeShouldShowEditPlace();
@@ -123,13 +133,8 @@ public final class Editor
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
-  private static native void nativeUploadChanges(String oauthToken, String appVersion, String appId);
+  private static native int nativeUploadChanges(String oauthToken, String appVersion, String appId);
 
-  /**
-   * @return array [total edits count, uploaded edits count, last upload timestamp in seconds]
-   */
-  @Size(3)
-  public static native long[] nativeGetStats();
   public static native void nativeClearLocalEdits();
 
   /**

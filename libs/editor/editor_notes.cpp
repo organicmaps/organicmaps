@@ -147,14 +147,20 @@ void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
 
 void Notes::Upload(osm::OsmOAuth const & auth)
 {
+  if (m_isUploadingNow)
+    return;
+
   size_t const toUpload = NotUploadedNotesCount();
   LOG(LINFO, ("Notes =", toUpload));
   if (toUpload == 0)
     return;
 
-  if (m_isUploadingNow)
-    return;
-  m_isUploadingNow = true;
+  {
+    // Not sure that this function isn't called in parallel. Put safe CAS.
+    bool expected = false;
+    if (!m_isUploadingNow.compare_exchange_strong(expected, true))
+      return;
+  }
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, auth]()
   {
