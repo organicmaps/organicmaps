@@ -46,6 +46,7 @@
     auto const & bm = GetFramework().GetBookmarkManager();
 
     _trackId = track.GetData().m_id;
+    _isTempRelationTrack = (_trackId == BookmarkManager::kTempRelationTrackId);
 
     auto const & groupId = track.GetGroupId();
     if (groupId && bm.HasBmCategory(groupId))

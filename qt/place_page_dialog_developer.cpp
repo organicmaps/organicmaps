@@ -56,6 +56,11 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     grid->addWidget(new QLabel("Bookmark"), row, 0);
     grid->addWidget(new QLabel("Yes"), row++, 1);
   }
+  else if (info.IsTrack() && info.GetTrackId() == BookmarkManager::kTempRelationTrackId)
+  {
+    grid->addWidget(new QLabel("Track from Relation"), row, 0);
+    grid->addWidget(new QLabel("Yes"), row++, 1);
+  }
 
   if (info.IsMyPosition())
   {

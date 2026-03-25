@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PlacePageTrackData : NSObject
 
 @property(nonatomic, readonly) MWMTrackID trackId;
+@property(nonatomic, readonly) BOOL isTempRelationTrack;
 @property(nonatomic, readonly) MWMMarkGroupID groupId;
 @property(nonatomic, readonly, nullable) NSString * trackCategory;
 // TODO: The track description is not fully implemented in the core yet.

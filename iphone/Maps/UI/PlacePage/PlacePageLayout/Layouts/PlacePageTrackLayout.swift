@@ -70,8 +70,8 @@ class PlacePageTrackLayout: IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
 
-    viewControllers.append(editTrackViewController)
-    if let trackData = placePageData.trackData {
+    if let trackData = placePageData.trackData, !trackData.isTempRelationTrack {
+      viewControllers.append(editTrackViewController)
       editTrackViewController.view.isHidden = false
       editTrackInteractor?.data = .track(trackData)
     }

@@ -17,6 +17,7 @@ set(SRC
   search_api_tests.cpp
   transliteration_test.cpp
   elevation_info_tests.cpp
+  relation_track_tests.cpp
   track_statistics_tests.cpp
 )
 

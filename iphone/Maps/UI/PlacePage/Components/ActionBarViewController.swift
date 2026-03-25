@@ -85,7 +85,9 @@ final class ActionBarViewController: UIViewController {
       if canRouteToAndFrom {
         buttons.append(.routeTo)
       }
-      buttons.append(.track)
+      if !(placePageData.trackData?.isTempRelationTrack ?? false) {
+        buttons.append(.track)
+      }
     case .trackRecording:
       buttons.append(.deleteTrackRecording)
       buttons.append(.saveTrackRecording)

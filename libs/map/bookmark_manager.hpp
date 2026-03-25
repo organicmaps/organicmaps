@@ -434,6 +434,13 @@ public:
 
   kml::TrackId SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to);
 
+  static kml::TrackId constexpr kTempRelationTrackId = kml::kInvalidTrackId - 1;
+
+  /// Creates a temporary track from relation data. Replaces any previous temp track.
+  kml::TrackId SetTempRelationTrack(kml::TrackData && trackData);
+  /// Removes the current temporary relation track, if any.
+  void ClearTempRelationTrack();
+
   void UpdateBookmarksTextPlacement();
 
 private:
@@ -762,6 +769,7 @@ private:
   MarksCollection m_userMarks;
   BookmarksCollection m_bookmarks;
   TracksCollection m_tracks;
+  std::unique_ptr<Track> m_tempRelationTrack;
 
   StaticMarkPoint * m_selectionMark = nullptr;
   MyPositionMarkPoint * m_myPositionMark = nullptr;
