@@ -1,0 +1,6 @@
+description = "Review code changes or PR for bugs, style issues, and potential problems specific to Organic Maps"
+prompt = """
+@{.github/skills/om-review.md}
+
+Review target: {{args}}
+"""
