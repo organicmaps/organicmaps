@@ -8,19 +8,22 @@ import app.organicmaps.sdk.util.Assert;
 
 public class LocationCompatExtractor
 {
-  public record Altitude(double altitude, float accuracy) {
+  public record Altitude(double altitude, float accuracy)
+  {
     public Altitude
     {
       Assert.debug(accuracy > 0, "Altitude accuracy must be positive");
     }
   }
-  public record Speed(float speed, float accuracy) {
+  public record Speed(float speed, float accuracy)
+  {
     public Speed
     {
       Assert.debug(speed >= 0, "Speed must be non-negative");
     }
   }
-  public record Bearing(float bearing, float accuracy) {
+  public record Bearing(float bearing, float accuracy)
+  {
     public Bearing
     {
       Assert.debug(bearing >= 0, "Bearing must be non-negative");

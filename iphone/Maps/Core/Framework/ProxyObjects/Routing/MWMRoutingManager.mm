@@ -230,7 +230,7 @@
 #pragma mark - MWMFrameworkRouteBuilderObserver implementation
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
-                       countries:(const storage::CountriesSet &)absentCountries
+                       countries:(storage::CountriesSet const &)absentCountries
 {
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   MWMRouterResultCode objCCode = MWMRouterResultCode(code);

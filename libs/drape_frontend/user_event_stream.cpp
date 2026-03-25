@@ -67,7 +67,7 @@ char const * UserEventStream::DOUBLE_TAP_AND_HOLD = "DoubleTapAndHold";
 char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 #endif
 
-void TouchEvent::SetFirstTouch(const Touch & touch)
+void TouchEvent::SetFirstTouch(Touch const & touch)
 {
   m_touches[0] = touch;
 }

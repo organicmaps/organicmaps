@@ -164,7 +164,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     refreshData();
   }
 
-  private record PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset) {
+  private record PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset)
+  {
     @Override
     public String toString()
     {
