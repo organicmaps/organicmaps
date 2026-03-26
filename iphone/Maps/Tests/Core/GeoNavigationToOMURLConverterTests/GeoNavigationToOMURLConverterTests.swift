@@ -97,12 +97,12 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     XCTAssertEqual(omUrl.absoluteString, "om://map?v=1&ll=\(coordinate1)&n=\(address)")
   }
 
-  func test_GivenPlace_WhenNoAddressNoCoordinates_ThenFail() throws {
+  func test_GivenPlace_WhenNoAddressNoCoordinates_ThenFail() {
     let geoUrl = geoURLStub("geo-navigation:///place?coordinate=&address=")
     XCTAssertNil(converter.convert(geoUrl))
   }
 
-  func test_GivenPlace_WhenBrokenCoordinates_ThenFail() throws {
+  func test_GivenPlace_WhenBrokenCoordinates_ThenFail() {
     let geoUrl = geoURLStub("geo-navigation:///place?coordinate=1.1")
     XCTAssertNil(converter.convert(geoUrl))
   }

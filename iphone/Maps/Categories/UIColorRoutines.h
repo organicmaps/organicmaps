@@ -16,4 +16,4 @@ static CGFloat const alpha100 = 1.;
 static inline CGFloat scaled(CGFloat f)
 {
   return f / 255.;
-};
+}

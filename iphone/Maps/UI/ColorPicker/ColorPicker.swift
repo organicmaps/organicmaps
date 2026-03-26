@@ -47,8 +47,7 @@ final class ColorPicker: NSObject {
     let bookmarksColorViewController = BookmarkColorViewController(bookmarkColor: selectedColor)
     bookmarksColorViewController.delegate = self
     // The navigation controller is used for getting the navigation item with the title and the close button.
-    let navigationController = UINavigationController(rootViewController: bookmarksColorViewController)
-    return navigationController
+    return UINavigationController(rootViewController: bookmarksColorViewController)
   }
 }
 

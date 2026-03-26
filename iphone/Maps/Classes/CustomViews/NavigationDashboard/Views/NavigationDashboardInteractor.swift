@@ -215,19 +215,20 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
       return
     }
     router.routeAltitudeImage(
-      for: CGSize(width: 350, height: 50)) { [weak self] image, totalAscent, totalDescent in
-        guard let self else { return }
-        guard let totalAscent, let totalDescent else {
-          self.process(.updateElevationInfo(nil))
-          return
-        }
-        let attributes = Self.elevationAttributes
-        let elevation = NSMutableAttributedString(string: "")
-        elevation.append(MWMNavigationDashboardEntity.estimateDot())
-        elevation.append(NSAttributedString(string: "▲ \(totalAscent)  ", attributes: attributes))
-        elevation.append(NSAttributedString(string: "▼ \(totalDescent)", attributes: attributes))
-        let elevationInfo = NavigationDashboard.ElevationInfo(estimates: elevation, image: image)
-        self.process(.updateElevationInfo(elevationInfo))
+      for: CGSize(width: 350, height: 50)
+    ) { [weak self] image, totalAscent, totalDescent in
+      guard let self else { return }
+      guard let totalAscent, let totalDescent else {
+        self.process(.updateElevationInfo(nil))
+        return
       }
+      let attributes = Self.elevationAttributes
+      let elevation = NSMutableAttributedString(string: "")
+      elevation.append(MWMNavigationDashboardEntity.estimateDot())
+      elevation.append(NSAttributedString(string: "▲ \(totalAscent)  ", attributes: attributes))
+      elevation.append(NSAttributedString(string: "▼ \(totalDescent)", attributes: attributes))
+      let elevationInfo = NavigationDashboard.ElevationInfo(estimates: elevation, image: image)
+      self.process(.updateElevationInfo(elevationInfo))
+    }
   }
 }

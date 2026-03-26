@@ -54,6 +54,6 @@ func LOG(_ level: LogLevel,
   }
 }
 
-struct Weak<T> where T: AnyObject {
+struct Weak<T: AnyObject> {
   weak var value: T?
 }

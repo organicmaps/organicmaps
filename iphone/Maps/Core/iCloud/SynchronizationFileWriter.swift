@@ -239,16 +239,15 @@ final class SynchronizationFileWriter {
 
   // MARK: - Helper methods
 
-  // Generate a new file URL with a new name for the file with the same name.
-  // This method should generate the same name for the same file on different devices during the simultaneous conflict resolving.
+  /// Generate a new file URL with a new name for the file with the same name.
+  /// This method should generate the same name for the same file on different devices during the simultaneous conflict resolving.
   private func generateNewFileUrl(for fileUrl: URL, addDeviceName: Bool = false) -> URL {
     let baseName = fileUrl.deletingPathExtension().lastPathComponent
     let fileExtension = fileUrl.pathExtension
     let newBaseName = baseName + "_1"
     let deviceName = addDeviceName ? "_\(UIDevice.current.name)" : ""
     let newFileName = newBaseName + deviceName + "." + fileExtension
-    let newFileUrl = fileUrl.deletingLastPathComponent().appendingPathComponent(newFileName)
-    return newFileUrl
+    return fileUrl.deletingLastPathComponent().appendingPathComponent(newFileName)
   }
 }
 

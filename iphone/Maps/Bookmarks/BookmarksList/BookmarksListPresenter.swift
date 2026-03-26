@@ -513,10 +513,6 @@ private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
 
 private struct TracksSectionViewModel: ITracksSectionViewModel {
   let tracks: [IBookmarksListItemViewModel]
-
-  init(tracks: [IBookmarksListItemViewModel]) {
-    self.tracks = tracks
-  }
 }
 
 private struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {

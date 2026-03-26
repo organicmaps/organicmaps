@@ -56,19 +56,19 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     XCTAssertTrue(directoryMonitor.state == .started, "Monitor should be started.")
   }
 
-  func testDelegateDidFinishGathering() {
+  func testDelegateDidFinishGathering() throws {
     mockDelegate.didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
     directoryMonitor.start()
-    wait(for: [mockDelegate.didFinishGatheringExpectation!], timeout: 5.0)
+    try wait(for: [XCTUnwrap(mockDelegate.didFinishGatheringExpectation)], timeout: 5.0)
   }
 
-  func testDelegateDidReceiveError() {
+  func testDelegateDidReceiveError() throws {
     mockDelegate.didReceiveErrorExpectation = expectation(description: "didReceiveLocalMonitorError called")
 
     let error = NSError(domain: NSCocoaErrorDomain, code: NSFileNoSuchFileError, userInfo: nil)
     directoryMonitor.delegate?.didReceiveLocalMonitorError(error)
 
-    wait(for: [mockDelegate.didReceiveErrorExpectation!], timeout: 1.0)
+    try wait(for: [XCTUnwrap(mockDelegate.didReceiveErrorExpectation)], timeout: 1.0)
   }
 
   func testContentUpdateDetection() {
@@ -97,7 +97,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     wait(for: [didFinishGatheringExpectation, didUpdateExpectation], timeout: 20)
   }
 
-  func testFileWithIncorrectExtension() {
+  func testFileWithIncorrectExtension() throws {
     let startExpectation = expectation(description: "Start monitoring")
     let didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
     mockDelegate.didFinishGatheringExpectation = didFinishGatheringExpectation
@@ -108,10 +108,10 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     let correctFileURL = tempDirectory.appendingPathComponent("test.kml")
 
     let fileData = Data(count: 12)
-    try! fileData.write(to: file1URL, options: .atomic)
-    try! fileData.write(to: file2URL, options: .atomic)
-    try! fileData.write(to: file3URL, options: .atomic)
-    try! fileData.write(to: correctFileURL, options: .atomic)
+    try fileData.write(to: file1URL, options: .atomic)
+    try fileData.write(to: file2URL, options: .atomic)
+    try fileData.write(to: file3URL, options: .atomic)
+    try fileData.write(to: correctFileURL, options: .atomic)
 
     directoryMonitor.start { result in
       switch result {

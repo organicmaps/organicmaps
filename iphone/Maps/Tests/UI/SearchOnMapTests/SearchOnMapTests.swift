@@ -290,7 +290,7 @@ private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
   static var results = SearchOnMap.SearchResults.empty {
     didSet {
-      observers.forEach { observer in
+      for observer in observers {
         observer.onSearchCompleted?()
       }
     }

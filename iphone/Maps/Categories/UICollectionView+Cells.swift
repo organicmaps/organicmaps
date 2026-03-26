@@ -7,11 +7,11 @@ extension UICollectionView {
     dequeueReusableCell(withReuseIdentifier: toString(cellClass), for: indexPath)
   }
 
-  func register<Cell>(cell: Cell.Type) where Cell: UICollectionViewCell {
+  func register<Cell: UICollectionViewCell>(cell: Cell.Type) {
     register(cell, forCellWithReuseIdentifier: toString(cell))
   }
 
-  func dequeueReusableCell<Cell>(cell: Cell.Type, indexPath: IndexPath) -> Cell where Cell: UICollectionViewCell {
+  func dequeueReusableCell<Cell: UICollectionViewCell>(cell: Cell.Type, indexPath: IndexPath) -> Cell {
     dequeueReusableCell(withReuseIdentifier: toString(cell), for: indexPath) as! Cell
   }
 }

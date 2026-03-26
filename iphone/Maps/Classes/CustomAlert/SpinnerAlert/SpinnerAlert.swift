@@ -8,10 +8,7 @@ final class SpinnerAlert: MWMAlert {
 
   private var cancel: MWMVoidBlock?
 
-  private lazy var progress: MWMCircularProgress = {
-    var p = MWMCircularProgress.downloaderProgress(forParentView: progressView)
-    return p
-  }()
+  private lazy var progress: MWMCircularProgress = .downloaderProgress(forParentView: progressView)
 
   @objc static func alert(title: String, cancel: MWMVoidBlock?) -> SpinnerAlert? {
     guard let alert = Bundle.main.loadNibNamed(className(), owner: nil, options: nil)?.first

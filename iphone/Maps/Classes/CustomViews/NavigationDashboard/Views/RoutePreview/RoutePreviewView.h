@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
 
 @end
 
-@protocol RouteNavigationControlsDelegate <NSObject>
+    @protocol RouteNavigationControlsDelegate<NSObject>
 
 - (void)ttsButtonDidTap;
 - (void)settingsButtonDidTap;
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
 
 - (void)routePreviewDidPressDrivingOptions;
 - (void)routingStartButtonDidTap;
-- (void)routePreviewDidSelectPoint:(MWMRoutePoint * _Nullable)point  shouldAppend:(BOOL)shouldAppend;
+- (void)routePreviewDidSelectPoint:(MWMRoutePoint * _Nullable)point shouldAppend:(BOOL)shouldAppend;
 
 @end
 

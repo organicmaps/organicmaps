@@ -46,7 +46,7 @@ extension OpenInApplication {
     }
   }
 
-  // Schemes should be registered in LSApplicationQueriesSchemes - see Info.plist.
+  /// Schemes should be registered in LSApplicationQueriesSchemes - see Info.plist.
   var scheme: String {
     switch self {
     case .osm:

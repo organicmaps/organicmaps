@@ -16,6 +16,7 @@ enum NavigationDashboard {
         }
       }
     }
+
     var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep
     var progress: CGFloat
     var navigationSearchState: NavigationSearchState?

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stateClosed;
 - (void)statePrepare;
 - (void)statePlanning;
-- (void)stateError:(NSString *_Nonnull)errorMessage;
+- (void)stateError:(NSString * _Nonnull)errorMessage;
 - (void)stateReady;
 - (void)onRouteStart;
 - (void)onRouteStop;

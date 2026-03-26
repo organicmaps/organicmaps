@@ -28,7 +28,7 @@ final class BookmarksListCell: UITableViewCell {
     trackColorDidTapAction?()
   }
 
-  // Extends the imageView tappable area.
+  /// Extends the imageView tappable area.
   override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
     if let imageView, imageView.convert(imageView.bounds, to: self).insetBy(dx: Self.extendedImageViewTappableMargin, dy: Self.extendedImageViewTappableMargin).contains(point) {
       return imageView

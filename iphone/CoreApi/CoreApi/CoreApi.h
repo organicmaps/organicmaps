@@ -31,8 +31,8 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import "CoreApi/AltitudeFormatter.h"
 #import "CoreApi/DistanceFormatter.h"
 #import "CoreApi/DurationFormatter.h"
-#import "CoreApi/TrackInfo.h"
 #import "CoreApi/StringUtils.h"
+#import "CoreApi/TrackInfo.h"
 
 #pragma mark - Place Page
 
@@ -40,9 +40,9 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/IOpeningHoursLocalization.h>
 #import <CoreApi/OpeningHours.h>
 #import <CoreApi/PlacePageBookmarkData.h>
-#import <CoreApi/PlacePageOSMContributionData.h>
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/PlacePageInfoData.h>
+#import <CoreApi/PlacePageOSMContributionData.h>
 #import <CoreApi/PlacePagePhone.h>
 #import <CoreApi/PlacePagePreviewData.h>
 #import <CoreApi/PlacePageTrackData.h>

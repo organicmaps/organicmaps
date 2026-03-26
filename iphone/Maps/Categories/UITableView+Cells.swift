@@ -15,31 +15,31 @@ extension UITableView {
     dequeueReusableCell(withIdentifier: toString(cellClass), for: indexPath)
   }
 
-  func registerNib<Cell>(cell: Cell.Type) where Cell: UITableViewCell {
+  func registerNib<Cell: UITableViewCell>(cell: Cell.Type) {
     register(UINib(cell), forCellReuseIdentifier: toString(cell))
   }
 
-  func registerNibs<Cell>(_ cells: [Cell.Type]) where Cell: UITableViewCell {
+  func registerNibs<Cell: UITableViewCell>(_ cells: [Cell.Type]) {
     cells.forEach { registerNib(cell: $0) }
   }
 
-  func register<Cell>(cell: Cell.Type) where Cell: UITableViewCell {
+  func register<Cell: UITableViewCell>(cell: Cell.Type) {
     register(cell, forCellReuseIdentifier: toString(cell))
   }
 
-  func dequeueReusableCell<Cell>(cell: Cell.Type) -> Cell? where Cell: UITableViewCell {
+  func dequeueReusableCell<Cell: UITableViewCell>(cell: Cell.Type) -> Cell? {
     dequeueReusableCell(withIdentifier: toString(cell)) as? Cell
   }
 
-  func dequeueReusableCell<Cell>(cell: Cell.Type, indexPath: IndexPath) -> Cell where Cell: UITableViewCell {
+  func dequeueReusableCell<Cell: UITableViewCell>(cell: Cell.Type, indexPath: IndexPath) -> Cell {
     dequeueReusableCell(withIdentifier: toString(cell), for: indexPath) as! Cell
   }
 
-  func registerNibForHeaderFooterView<View>(_ view: View.Type) where View: UIView {
+  func registerNibForHeaderFooterView<View: UIView>(_ view: View.Type) {
     register(UINib(view), forHeaderFooterViewReuseIdentifier: toString(view))
   }
 
-  func dequeueReusableHeaderFooterView<View>(_ view: View.Type) -> View where View: UIView {
+  func dequeueReusableHeaderFooterView<View: UIView>(_ view: View.Type) -> View {
     dequeueReusableHeaderFooterView(withIdentifier: toString(view)) as! View
   }
 }

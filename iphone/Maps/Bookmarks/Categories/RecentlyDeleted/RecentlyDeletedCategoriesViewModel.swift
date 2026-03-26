@@ -197,13 +197,12 @@ extension RecentlyDeletedCategoriesViewModel: BookmarksObserver {
 
 private extension Array where Element == RecentlyDeletedCategoriesViewModel.Section.Model {
   func filtered(using searchText: String) -> [Element] {
-    let filteredArray = map { section in
+    map { section in
       let filteredContent = section.content.filter {
         guard !searchText.isEmpty else { return true }
         return $0.title.localizedCaseInsensitiveContains(searchText)
       }
       return RecentlyDeletedCategoriesViewModel.Section.Model(content: filteredContent)
     }
-    return filteredArray
   }
 }

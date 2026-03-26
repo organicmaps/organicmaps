@@ -93,7 +93,7 @@ extension TransportOptionsView: UIGestureRecognizerDelegate {
     static let velocityThreshold: CGFloat = 5
   }
 
-  override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+  override func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
     let velocity = panelPanGestureRecognizer.velocity(in: self)
     return abs(velocity.y) > abs(velocity.x) + Constants.velocityThreshold
   }

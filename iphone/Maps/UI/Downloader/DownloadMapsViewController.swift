@@ -274,8 +274,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if hasAddMapSection, indexPath.section == dataSource.numberOfSections() {
       let cellType = MWMMapDownloaderButtonTableViewCell.self
-      let buttonCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
-      return buttonCell
+      return tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
     }
 
     let nodeAttrs = dataSource.item(at: indexPath)

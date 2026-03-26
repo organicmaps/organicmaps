@@ -1,4 +1,4 @@
-// Label shows copy popup menu on tap or long tap.
+/// Label shows copy popup menu on tap or long tap.
 class CopyableLabel: UILabel {
   override init(frame: CGRect) {
     super.init(frame: frame)

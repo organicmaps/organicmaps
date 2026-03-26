@@ -208,7 +208,7 @@ extension BMCViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    func dequeCell<Cell>(_ cell: Cell.Type) -> Cell where Cell: UITableViewCell {
+    func dequeCell<Cell: UITableViewCell>(_ cell: Cell.Type) -> Cell {
       tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
 

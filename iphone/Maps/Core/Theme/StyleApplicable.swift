@@ -30,7 +30,7 @@ extension StyleApplicable {
   }
 }
 
-// Overload for the direct usage of the nested StyleSheet enums
+/// Overload for the direct usage of the nested StyleSheet enums
 extension StyleApplicable {
   func setStyle(_ style: GlobalStyleSheet) { setStyle(style) }
   func setStyle(_ style: PlacePageStyleSheet) { setStyle(style) }
