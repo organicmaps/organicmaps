@@ -89,7 +89,11 @@ std::string GetFileNameForExport(BookmarkManager::KMLDataCollectionPtr::element_
 BookmarkManager::SharingResult ExportSingleFileKml(
     BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
-  std::string const fileName = GetFileNameForExport(kmlToShare);
+  // Workaround for non-latin file names that produce different file name after NFD normalization on iOS.
+  // TODO(AB): normalize file names in iOS layer or use iOS API.
+  std::string fileName = GetFileNameForExport(kmlToShare);
+  if (!strings::IsASCIIString(fileName))
+    fileName = "OrganicMaps";
 
   auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
@@ -110,7 +114,11 @@ BookmarkManager::SharingResult ExportSingleFileKml(
 BookmarkManager::SharingResult ExportSingleFileGpx(
     BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
-  std::string const fileName = GetFileNameForExport(kmlToShare);
+  // Workaround for non-latin file names that produce different file name after NFD normalization on iOS.
+  // TODO(AB): normalize file names in iOS layer or use iOS API.
+  std::string fileName = GetFileNameForExport(kmlToShare);
+  if (!strings::IsASCIIString(fileName))
+    fileName = "OrganicMaps";
   auto filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kGpxExtension});
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, FileType::Gpx))
@@ -121,7 +129,11 @@ BookmarkManager::SharingResult ExportSingleFileGpx(
 BookmarkManager::SharingResult ExportSingleFileGeoJson(
     BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
-  std::string const fileName = GetFileNameForExport(kmlToShare);
+  // Workaround for non-latin file names that produce different file name after NFD normalization on iOS.
+  // TODO(AB): normalize file names in iOS layer or use iOS API.
+  std::string fileName = GetFileNameForExport(kmlToShare);
+  if (!strings::IsASCIIString(fileName))
+    fileName = "OrganicMaps";
   auto filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string(kGeoJsonExtension));
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, FileType::GeoJson))
@@ -174,6 +186,8 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
   for (auto const & kmlToExport : *collection)
   {
     std::string fileName = base::FilenameWithoutExt(GetFileNameForExport(kmlToExport));
+    // Workaround for non-latin file names that produce different file name after NFD normalization on iOS.
+    // TODO(AB): normalize file names in iOS layer or use iOS API. Also see GetFileNameForExport().
     if (!strings::IsASCIIString(fileName))
       fileName = "OrganicMaps_" + std::to_string(suffix++);
     auto const kmlPath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});

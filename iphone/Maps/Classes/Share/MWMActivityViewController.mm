@@ -1,5 +1,6 @@
 #import "MWMActivityViewController.h"
 #import "MWMEditorViralActivityItem.h"
+#import "MWMFileShareActivityItem.h"
 #import "MWMShareActivityItem.h"
 
 @interface MWMActivityViewController ()
@@ -53,6 +54,16 @@
 
   MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:items.copy];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypePostToFacebook];
+  shareVC.completionWithItemsHandler = completionHandler;
+  return shareVC;
+}
+
++ (instancetype)shareControllerForFileURL:(NSURL *)url
+                              displayName:(NSString *)displayName
+                        completionHandler:(UIActivityViewControllerCompletionWithItemsHandler)completionHandler
+{
+  MWMFileShareActivityItem * item = [[MWMFileShareActivityItem alloc] initWithFileURL:url displayName:displayName];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
   shareVC.completionWithItemsHandler = completionHandler;
   return shareVC;
 }
