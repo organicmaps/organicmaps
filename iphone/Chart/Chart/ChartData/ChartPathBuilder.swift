@@ -10,7 +10,7 @@ extension ChartPathBuilder {
   func makeLinePreviewPath(line: ChartPresentationLine) -> UIBezierPath {
     let path = UIBezierPath()
     let values = line.values
-    let xScale = CGFloat(values.count) / values.maxDistance
+    let xScale = values.maxDistance > 0 ? CGFloat(max(values.count - 1, 1)) / values.maxDistance : 0
     for i in 0 ..< values.count {
       let x = values[i].x * xScale
       let y = values[i].y - line.minY
@@ -26,7 +26,7 @@ extension ChartPathBuilder {
   func makeLinePath(line: ChartPresentationLine) -> UIBezierPath {
     let path = UIBezierPath()
     let values = line.values
-    let xScale = CGFloat(values.count) / values.maxDistance
+    let xScale = values.maxDistance > 0 ? CGFloat(max(values.count - 1, 1)) / values.maxDistance : 0
     for i in 0 ..< values.count {
       let x = values[i].x * xScale
       let y = values[i].y - line.minY
@@ -43,13 +43,14 @@ extension ChartPathBuilder {
     let path = UIBezierPath()
     path.move(to: CGPoint(x: 0, y: 0))
     let aggregatedValues = line.aggregatedValues
-    let xScale = CGFloat(aggregatedValues.count) / aggregatedValues.maxDistance
+    let xScale = aggregatedValues.maxDistance > 0 ? CGFloat(max(aggregatedValues.count - 1, 1)) / aggregatedValues.maxDistance : 0
+    let maxX = CGFloat(max(aggregatedValues.count - 1, 1))
     for i in 0 ..< aggregatedValues.count {
       let x = aggregatedValues[i].x * xScale
       let y = aggregatedValues[i].y - CGFloat(line.minY)
       path.addLine(to: CGPoint(x: x, y: y))
     }
-    path.addLine(to: CGPoint(x: aggregatedValues.maxDistance, y: 0))
+    path.addLine(to: CGPoint(x: maxX, y: 0))
     path.close()
     return path
   }
@@ -58,13 +59,14 @@ extension ChartPathBuilder {
     let path = UIBezierPath()
     path.move(to: CGPoint(x: 0, y: 0))
     let aggregatedValues = line.aggregatedValues
-    let xScale = CGFloat(aggregatedValues.count) / aggregatedValues.maxDistance
+    let xScale = aggregatedValues.maxDistance > 0 ? CGFloat(max(aggregatedValues.count - 1, 1)) / aggregatedValues.maxDistance : 0
+    let maxX = CGFloat(max(aggregatedValues.count - 1, 1))
     for i in 0 ..< aggregatedValues.count {
       let x = aggregatedValues[i].x * xScale
       let y = aggregatedValues[i].y - CGFloat(line.minY)
       path.addLine(to: CGPoint(x: x, y: y))
     }
-    path.addLine(to: CGPoint(x: aggregatedValues.maxDistance, y: 0))
+    path.addLine(to: CGPoint(x: maxX, y: 0))
     path.close()
     return path
   }

@@ -129,7 +129,7 @@ public class ChartView: UIView {
     }
   }
 
-  public typealias OnSelectedPointChangedClosure = (_ px: CGFloat) -> Void
+  public typealias OnSelectedPointChangedClosure = (_ distance: Double) -> Void
   public var onSelectedPointChanged: OnSelectedPointChangedClosure?
 
   override init(frame: CGRect) {
@@ -173,33 +173,42 @@ public class ChartView: UIView {
   public func setSelectedPoint(_ x: Double) {
     guard selectedPointDistance != x else { return }
     selectedPointDistance = x
-    let routeLength = chartData.xAxisValueAt(CGFloat(chartData.pointsCount - 1))
+    let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
     let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
     let rangeLength = upper - lower
-    if x < lower || x > upper {
+    if x < lower || x > upper, routeLength > 0 {
       let current = Double(chartInfoView.infoX) * rangeLength + lower
-      let dx = x - current
-      let dIdx = Int(dx / routeLength * Double(chartData.pointsCount))
+      let currentChartX = chartData.chartX(forDistance: current)
+      let targetChartX = chartData.chartX(forDistance: x)
+      let dIdx = Int(round(targetChartX - currentChartX))
       var lowerIdx = chartPreviewView.minX + dIdx
       var upperIdx = chartPreviewView.maxX + dIdx
       if lowerIdx < 0 {
         upperIdx -= lowerIdx
         lowerIdx = 0
       } else if upperIdx >= chartData.pointsCount {
-        lowerIdx -= upperIdx - chartData.pointsCount - 1
+        lowerIdx -= upperIdx - chartData.pointsCount + 1
         upperIdx = chartData.pointsCount - 1
       }
       chartPreviewView.setX(min: lowerIdx, max: upperIdx)
       lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
+      let updatedUpper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
+      let currentRangeLength = updatedUpper - lower
+      guard currentRangeLength > 0 else { return }
+      chartInfoView.infoX = max(0, min(1, CGFloat((x - lower) / currentRangeLength)))
+      return
     }
-    chartInfoView.infoX = CGFloat((x - lower) / rangeLength)
+    let currentRangeLength = upper - lower
+    guard currentRangeLength > 0 else { return }
+    chartInfoView.infoX = max(0, min(1, CGFloat((x - lower) / currentRangeLength)))
   }
 
   fileprivate func setMyPosition(_ x: Double) {
     let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     let lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
     let rangeLength = upper - lower
+    guard rangeLength > 0 else { return }
     chartInfoView.myPositionX = CGFloat((x - lower) / rangeLength)
   }
 
@@ -327,16 +336,16 @@ extension ChartView: ChartPreviewViewDelegate {
     updateCharts(animationStyle: .none)
     chartInfoView.update()
     setMyPosition(myPosition)
-    let x = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    onSelectedPointChanged?(x)
+    let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
 }
 
 extension ChartView: ChartInfoViewDelegate {
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
     let p = convert(CGPoint(x: pointX, y: 0), from: view)
-    let x = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    onSelectedPointChanged?(x)
+    let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
 
   func chartInfoView(_: ChartInfoView, didCaptureInfoView captured: Bool) {
@@ -345,28 +354,21 @@ extension ChartView: ChartInfoViewDelegate {
 
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])? {
     let p = convert(CGPoint(x: pointX, y: .zero), from: view)
-    let x = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    let x1 = floor(x)
-    let x2 = ceil(x)
-    guard !pointX.isZero, Int(x1) < chartData.labels.count, x >= 0 else { return nil }
-    let label = chartData.labelAt(x)
+    let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    guard !pointX.isZero, chartX >= 0, chartX <= CGFloat(chartData.pointsCount - 1) else { return nil }
+    let distance = CGFloat(chartData.distance(forChartX: chartX))
+    let label = chartData.labelAt(chartX)
 
     var result: [ChartLineInfo] = []
     for i in 0 ..< chartData.linesCount {
       let line = chartData.lineAt(i)
       guard line.type != .lineArea else { continue }
-      let y1 = line.values.altitude(at: x1 / CGFloat(chartData.pointsCount))
-      let y2 = line.values.altitude(at: x2 / CGFloat(chartData.pointsCount))
-
-      let dx = x - x1
-      let y = dx * (y2 - y1) + y1
+      let y = line.values.interpolatedAltitude(at: distance)
       let py = round(chartsContainerView.bounds.height * CGFloat(y - yAxisView.lowerBound) /
         CGFloat(yAxisView.upperBound - yAxisView.lowerBound))
-
-      let v = round(dx * CGFloat(y2 - y1)) + CGFloat(y1)
       result.append(ChartLineInfo(color: line.color,
                                   point: chartsContainerView.convert(CGPoint(x: p.x, y: py), to: view),
-                                  formattedValue: chartData.formatter.yAxisString(from: Double(v))))
+                                  formattedValue: chartData.formatter.yAxisString(from: Double(y))))
     }
 
     return (label, result)

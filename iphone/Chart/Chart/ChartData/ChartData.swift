@@ -40,11 +40,47 @@ public struct ChartValue {
   }
 }
 
+public extension Array {
+  func firstIndexAtOrAfter<Value: Comparable>(_ value: Value, by keyPath: KeyPath<Element, Value>) -> Int? {
+    guard !isEmpty else { return nil }
+
+    var lower = 0
+    var upper = count
+    while lower < upper {
+      let mid = lower + (upper - lower) / 2
+      if self[mid][keyPath: keyPath] < value {
+        lower = mid + 1
+      } else {
+        upper = mid
+      }
+    }
+
+    return lower < count ? lower : nil
+  }
+}
+
 extension Array where Element == ChartValue {
   var maxDistance: CGFloat { map(\.x).max() ?? 0 }
 
-  func altitude(at relativeDistance: CGFloat) -> CGFloat {
-    guard let distance = last?.x else { return 0 }
-    return first { $0.x >= distance * relativeDistance }?.y ?? 0
+  func interpolatedAltitude(at distance: CGFloat) -> CGFloat {
+    guard let first, let last else { return 0 }
+    if distance <= first.x {
+      return first.y
+    }
+    if distance >= last.x {
+      return last.y
+    }
+
+    guard let upperIndex = firstIndexAtOrAfter(distance, by: \.x) else {
+      return last.y
+    }
+    let upper = self[upperIndex]
+    if upper.x == distance || upperIndex == 0 {
+      return upper.y
+    }
+
+    let lower = self[upperIndex - 1]
+    let progress = (distance - lower.x) / (upper.x - lower.x)
+    return lower.y + progress * (upper.y - lower.y)
   }
 }
