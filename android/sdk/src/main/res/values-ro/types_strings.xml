@@ -13,11 +13,13 @@
     <string name="type.aerialway.station">Stație de teleferic</string>
     <string name="type.aeroway.aerodrome">Aeroport</string>
     <string name="type.aeroway.aerodrome.international">Aeroport</string>
+    <string name="type.aeroway.gate">Poartă</string>
     <string name="type.aeroway.helipad">Heliport</string>
     <string name="type.amenity">Obiecte ale infrastructurii</string>
     <string name="type.amenity.arts_centre">Centru de artă</string>
     <string name="type.amenity.atm">Bancomat</string>
     <string name="type.amenity.bank">Bancă</string>
+    <string name="type.amenity.bar">Bar</string>
     <string name="type.amenity.bbq">Grătar</string>
     <string name="type.amenity.bench">Banchetă</string>
     <string name="type.amenity.bicycle_parking">Parcare biciclete</string>
@@ -1145,7 +1147,7 @@
     <string name="type.tourism.artwork.painting">Turism</string>
     <string name="type.tourism.artwork.sculpture">Turism</string>
     <string name="type.tourism.artwork.statue">Turism</string>
-    <string name="type.tourism.attraction">Punct de atracție</string>
+    <string name="type.tourism.attraction">Atracţie</string>
     <string name="type.attraction.amusement_ride">Călătorie de distracție</string>
     <string name="type.attraction.animal">Incintă pentru animale</string>
     <string name="type.attraction.carousel">Carusel</string>

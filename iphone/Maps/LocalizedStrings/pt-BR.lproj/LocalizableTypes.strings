@@ -17,7 +17,7 @@
 "type.aeroway.aerodrome.international" = "Aeroporto internacional";
 "type.aeroway.apron" = "Plataforma de estacionamento de aviões";
 "type.aeroway.gate" = "Portão de embarque";
-"type.aeroway.helipad" = "Heliponto";
+"type.aeroway.helipad" = "Heliporto";
 "type.aeroway.runway" = "Pista de aeroporto ou aeródromo";
 "type.aeroway.taxiway" = "Pista de rolagem";
 "type.aeroway.terminal" = "Aerogare de passageiros";
@@ -27,12 +27,12 @@
 "type.amenity.bank" = "Banco";
 "type.amenity.bar" = "Drinqueria";
 "type.amenity.bbq" = "Churrasqueira";
-"type.amenity.bench" = "Assento";
+"type.amenity.bench" = "Banco";
 "type.amenity.bicycle_parking" = "Bicicletário";
 "type.amenity.bicycle_parking.covered" = "Estacionamento de bicicletas coberto";
 "type.amenity.bicycle_rental" = "Aluguel de bicicletas";
 "type.amenity.bicycle_repair_station" = "Oficina de conserto de bicicletas";
-"type.amenity.biergarten" = "Biergarten";
+"type.amenity.biergarten" = "Cervejaria ao ar livre";
 "type.amenity.brothel" = "Bordel";
 "type.amenity.love_hotel" = "Hotel";
 "type.amenity.bureau_de_change" = "Casa de câmbio";

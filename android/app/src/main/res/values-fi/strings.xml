@@ -561,14 +561,14 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Yleinen palaute</string>
     <string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä</string>
-    <string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid).\nAvaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. \nTäällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
+    <string name="prefs_languages_information_off">Joidenkin kielten kohdalla sinun täytyy asentaa puhesyntetisaattori tai ylimääräinen kielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid).\nAvaa laitteesi asetukset → Kieli ja syöttö → Puhe → Tekstistä puheeksi.\nTäällä voit hallita puhesynteesiasetuksia (esimerkiksi ladata kielipaketin offline-käyttöä varten) ja valita toisen tekstistä puheeksi -moottorin.</string>
     <string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
     <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>
     <string name="learn_more">Lisätietoja</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Käytä hakua tai napauta karttaa lisätäksesi reitin lähtöpisteen</string>
+    <string name="routing_add_start_point">Käytä hakua, valitse kirjanmerkki tai napauta karttaa lisätäksesi reitin lähtöpisteen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen</string>
+    <string name="routing_add_finish_point">Käytä hakua, valitse kirjanmerkki tai napauta karttaa lisätäksesi reitin määränpään</string>
     <string name="planning_route_manage_route">Hallitse reittiä</string>
     <string name="button_plan">Suunnittele</string>
     <string name="placepage_remove_stop">Poista pysähdys</string>

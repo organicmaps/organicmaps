@@ -16,7 +16,7 @@
 "type.aeroway.aerodrome" = "Aeroport";
 "type.aeroway.aerodrome.international" = "Aeroport";
 "type.aeroway.apron" = "Apron";
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "Poartă";
 "type.aeroway.helipad" = "Heliport";
 "type.aeroway.runway" = "Runway";
 "type.aeroway.taxiway" = "Taxiway";
@@ -1454,7 +1454,7 @@
 "type.tourism.artwork.painting" = "Turism";
 "type.tourism.artwork.sculpture" = "Turism";
 "type.tourism.artwork.statue" = "Turism";
-"type.tourism.attraction" = "Punct de atracție";
+"type.tourism.attraction" = "Atracţie";
 "type.attraction.amusement_ride" = "Călătorie de distracție";
 "type.attraction.animal" = "Incintă pentru animale";
 "type.attraction.bumper_car" = "Bumper Car";

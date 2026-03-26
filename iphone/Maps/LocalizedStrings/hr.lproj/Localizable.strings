@@ -359,13 +359,13 @@
 "version" = "Organic Maps version: %@";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "Appearance";
+"pref_appearance_title" = "Izgled";
 
 /* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "Light";
+"pref_appearance_light" = "Svijetla";
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "Dark";
+"pref_appearance_dark" = "Tamna";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Other";

@@ -498,7 +498,7 @@
 "login_osm" = "Ierakstīties OpenStreetMap";
 "forgot_password" = "Vai aizmirsāt paroli?";
 "logout" = "Izrakstīties";
-"edit_place" = "Rediģēt vietu";
+"edit_place" = "Labot vietu";
 "add_language" = "Pievienot valodu";
 
 /* Editable House Number text field (in address block). */
@@ -525,7 +525,7 @@
 "downloader_no_space_message" = "Dzēsiet liekos datus";
 "editor_profile_changes" = "Apstiprinātas izmaiņas";
 "editor_focus_map_on_location" = "Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.";
-"editor_edit_place_title" = "Rediģēšana";
+"editor_edit_place_title" = "Vietas labošana";
 "editor_add_place_title" = "Pievienošana";
 "editor_edit_place_name_hint" = "Vietas nosaukums";
 
@@ -573,7 +573,7 @@
 "placepage_more_button" = "Vairāk";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Rediģēt grāmatzīmi";
+"placepage_edit_bookmark_button" = "Grāmatzīmes labošana";
 "placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
 "editor_comment_hint" = "Komentārs…";
 "editor_reset_edits_message" = "Vai izmest visas lokāli saglabātās izmaiņas?";
@@ -969,11 +969,11 @@
 "start_track_recording" = "Ierakstīt pēdojumu";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Apstādināt ierakstīšanu";
+"stop_track_recording" = "Apstādināt pēdojuma ierakstīšanu";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Pēdojums ir tukšs – nav ko saglabāt";
-"edit_track" = "Labot pēdojumu";
+"track_recording_toast_nothing_to_save" = "Pēdojums ir tukšs – nav nekā saglabājama";
+"edit_track" = "Pēdojuma labošana";
 "elevation_profile_diff_level" = "Sarežģītības līmenis";
 "elevation_profile_diff_level_easy" = "Viegls";
 "elevation_profile_diff_level_moderate" = "Normāls";

@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
+"share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers worden geladen";
@@ -198,7 +198,7 @@
 "prefs_group_route" = "Navigatie";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
-"pref_zoom_title" = "‘+’ en ‘-’ knoppen op de kaart";
+"pref_zoom_title" = "Zoomknoppen op de kaart";
 
 /* Generic «Off» string */
 "off" = "Uit";

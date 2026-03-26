@@ -152,7 +152,7 @@
     <string name="description">Notities</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Bladwijzers van Organic Maps zijn met u gedeeld</string>
-    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Bladwijzers worden geladen</string>
     <!-- Kmz file successful loading -->
@@ -202,7 +202,7 @@
     <string name="prefs_group_information">Informatie</string>
     <string name="prefs_group_route">Navigatie</string>
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
-    <string name="pref_zoom_title">‘+’ en ‘-’ knoppen op de kaart</string>
+    <string name="pref_zoom_title">Zoomknoppen op de kaart</string>
     <string name="pref_zoom_summary">Toon op de kaart</string>
     <string name="pref_auto_night_in_navigation_title">Nachtstijl bij navigeren in het donker</string>
     <!-- Settings «Map» category: «Night style» title -->

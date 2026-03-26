@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Pedestrian Tunnel";
-"type.highway.platform" = "Platform";
+"type.highway.platform" = "Platforma";
 "type.highway.primary" = "Primary Road";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -969,8 +969,8 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
-"type.railway" = "Railway";
+"type.public_transport.platform" = "Platforma";
+"type.railway" = "Željeznica";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
 "type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
@@ -997,10 +997,10 @@
 "type.railway.preserved" = "Preserved Rail";
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
-"type.railway.rail" = "Railway";
+"type.railway.rail" = "Željeznica";
 "type.railway.rail.highspeed" = "High-Speed Railway";
 "type.railway.rail.tourism" = "Touristic Railway";
-"type.railway.rail.main" = "Railway";
+"type.railway.rail.main" = "Željeznica";
 
 /* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
 "type.railway.rail.branch" = "Railway Branch";

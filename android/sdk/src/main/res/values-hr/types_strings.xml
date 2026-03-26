@@ -79,6 +79,9 @@
     <string name="type.cuisine.uzbek">Uzbečka</string>
     <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
 
+    <!-- SECTION: Types: Roads -->
+    <string name="type.highway.platform">Platforma</string>
+
     <!-- SECTION: Types: Historic -->
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Groblje</string>
@@ -93,7 +96,11 @@
     <string name="type.power.plant.hydro">Hidroelektrana</string>
     <string name="type.power.plant.solar">Solarna elektrana</string>
     <string name="type.power.plant.wind">Vjetroelektrana</string>
+    <string name="type.public_transport.platform">Platforma</string>
+    <string name="type.railway">Željeznica</string>
     <string name="type.railway.disused.tunnel">Nekorišteni željeznički tunel</string>
+    <string name="type.railway.rail">Željeznica</string>
+    <string name="type.railway.rail.main">Željeznica</string>
     <string name="type.route">Ruta</string>
     <string name="type.route.ferry">Trajekt</string>
     <string name="type.shop.clothes.children">Dječja odjeća</string>

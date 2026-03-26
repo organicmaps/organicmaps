@@ -246,6 +246,12 @@
     <string name="gray">Siva</string>
     <!-- blue gray color -->
     <string name="blue_gray">Plavo siva</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Izgled</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Svijetla</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Tamna</string>
     <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_scheduled">Svijetlo od zore do sumraka</string>
     <!-- Tex label above the Donate button -->

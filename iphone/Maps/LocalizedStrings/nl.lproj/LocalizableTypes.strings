@@ -810,10 +810,10 @@
 "type.man_made.tower" = "Toren";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
-"type.man_made.communications_tower" = "Communicatie Toren";
+"type.man_made.communications_tower" = "Communicatietoren";
 
 /* A regular telecommunications tower / mast. */
-"type.man_made.tower.communication" = "Communicatie Toren";
+"type.man_made.tower.communication" = "Communicatietoren";
 
 /* A deep hole drilled into the earth to extract oil or gas. */
 "type.man_made.petroleum_well" = "Olie- of gasput";
@@ -1309,8 +1309,8 @@
 "type.shop.confectionery" = "Snoepwinkel";
 "type.shop.convenience" = "Buurtwinkel";
 "type.shop.copyshop" = "Kopieerwinkel";
-"type.shop.cosmetics" = "Schoonheidsmiddelen";
-"type.shop.curtain" = "Gordijnen";
+"type.shop.cosmetics" = "Cosmeticawinkel";
+"type.shop.curtain" = "Gordijnenwinkel";
 "type.shop.deli" = "Delicatessenwinkel";
 "type.shop.department_store" = "Warenhuis";
 "type.shop.doityourself" = "IJzerhandel";
@@ -1438,7 +1438,7 @@
 "type.sport.10pin" = "Bowlen";
 "type.sport.9pin" = "Bowlen";
 "type.sport.padel" = "Padel";
-"type.sport.futsal" = "Futsal";
+"type.sport.futsal" = "Zaalvoetbal";
 "type.sport.ice_hockey" = "IJshockey";
 "type.sport.field_hockey" = "Veldhockey";
 "type.sport.badminton" = "Badminton";
@@ -1570,7 +1570,7 @@
 "type.barrier.yes" = "Barrière";
 "type.building.guardhouse" = "Wacht";
 "type.office.security" = "Beveiligingsbureau";
-"type.power.portal" = "Kracht Toren (Portaal)";
+"type.power.portal" = "Krachttoren (Portaal)";
 "type.shop.lighting" = "Verlichtingswinkel";
 "type.barrier.jersey_barrier" = "Blok";
 "type.barrier.debris" = "Puin";

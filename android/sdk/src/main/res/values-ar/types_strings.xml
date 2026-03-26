@@ -10,6 +10,7 @@
     <string name="type.aerialway.chair_lift">مصعد مقعدي</string>
     <string name="type.aerialway.drag_lift">مصعد الجر</string>
     <string name="type.aerialway.gondola">غندول</string>
+    <string name="type.aerialway.mixed_lift">مصعد مشترك</string>
     <string name="type.aerialway.station">محطة تلفريك</string>
     <string name="type.aeroway">بنية الطيران</string>
     <string name="type.aeroway.aerodrome">مطار</string>
@@ -28,6 +29,7 @@
     <string name="type.amenity.bbq">شواية شواء</string>
     <string name="type.amenity.bench">مصطبة</string>
     <string name="type.amenity.bicycle_parking">موقف دراجات</string>
+    <string name="type.amenity.bicycle_parking.covered">موقف دراجات مغطى</string>
     <string name="type.amenity.bicycle_rental">تأجير دراجات</string>
     <string name="type.amenity.bicycle_repair_station">محطة تصليح الدراجات</string>
     <string name="type.amenity.biergarten">متجر بيرة</string>
@@ -84,6 +86,7 @@
     <string name="type.amenity.kindergarten">روضة أطفال</string>
     <string name="type.amenity.library">مكتبة</string>
     <string name="type.amenity.loading_dock">رصيف التحميل</string>
+    <string name="type.amenity.luggage_locker">خزانة الأمتعة</string>
     <string name="type.amenity.marketplace">سوق</string>
     <string name="type.amenity.motorcycle_parking">موقف دراجات نارية</string>
     <string name="type.amenity.nightclub">نادي ليلي</string>
@@ -118,7 +121,7 @@
     <string name="type.amenity.place_of_worship">مكان عبادة</string>
     <string name="type.amenity.place_of_worship.buddhist">معبد بوذي</string>
     <string name="type.amenity.place_of_worship.christian">كنيسة</string>
-    <string name="type.amenity.place_of_worship.christian.mormon">كنيسة يسوع المسيح لقديسي الأيام الأخيرة</string>
+    <string name="type.amenity.place_of_worship.christian.mormon">كنيسة عيسى المسيح لقديسي الأيام الأخيرة</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">قاعة مملكة شهود يهوه</string>
     <string name="type.amenity.place_of_worship.hindu">معبد هندوسي</string>
     <string name="type.amenity.place_of_worship.jewish">معبد يهودي</string>
@@ -128,6 +131,7 @@
     <string name="type.amenity.police">شرطة</string>
     <string name="type.amenity.post_box">صندوق بريد</string>
     <string name="type.amenity.post_office">مكتب بريد</string>
+    <string name="type.post_office.post_partner">شريك البريد</string>
     <string name="type.amenity.prison">سجن</string>
     <string name="type.amenity.pub">حانة</string>
     <string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
@@ -158,6 +162,8 @@
     <string name="type.amenity.shelter.public_transport">ملجأ</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">كوخ إقامة مؤقتة</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">مأوى بسيط مائل</string>
     <string name="type.amenity.public_bath">حمام عام</string>
     <string name="type.amenity.shower">حمام</string>
     <string name="type.amenity.stripclub">نادي تعري</string>
@@ -200,6 +206,7 @@
     <string name="type.natural.water.wastewater">مياه الصرف</string>
     <string name="type.barrier.entrance">مدخل</string>
     <string name="type.barrier.fence">سياج</string>
+    <string name="type.barrier.guard_rail">حاجز أمان</string>
     <string name="type.barrier.gate">بوابة</string>
     <string name="type.barrier.hedge">سياج نباتي</string>
     <string name="type.barrier.kissing_gate">بوابة</string>
@@ -299,6 +306,7 @@
     <string name="type.cuisine.german">مطبخ ألماني</string>
     <string name="type.cuisine.greek">مطبخ يوناني</string>
     <string name="type.cuisine.grill">شواء</string>
+    <string name="type.cuisine.heuriger">مكان نبيذ محلي</string>
     <string name="type.cuisine.hotdog">هوت دوغ</string>
     <string name="type.cuisine.hungarian">مطبخ هنغاري</string>
     <string name="type.cuisine.ice_cream">مُثَلّجات</string>
@@ -361,6 +369,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">المدخل الرئيسي</string>
     <string name="type.entrance.exit">مخرج</string>
+    <string name="type.fee.yes">دولار</string>
     <string name="type.fee.no">مجانية</string>
     <string name="type.healthcare.laboratory">مختبر طبي</string>
     <string name="type.healthcare.physiotherapist">اخصائي علاج طبيعي</string>
@@ -438,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">جسر</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">نفق</string>
+    <string name="type.highway.platform">منصة</string>
     <string name="type.highway.primary">شارع رئيسي</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">جسر</string>
@@ -488,6 +498,7 @@
     <string name="type.highway.steps.bridge">جسر</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">نفق</string>
+    <string name="type.highway.ladder">ﺳُﻠﻢ</string>
     <string name="type.highway.tertiary">شارع</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">جسر</string>
@@ -592,6 +603,7 @@
     <string name="type.landuse">استخدام الارض</string>
     <string name="type.landuse.allotments">حصص الحدائق</string>
     <string name="type.landuse.basin">حوض مياه</string>
+    <string name="type.landuse.brownfield">أرض صناعية مهجورة</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">مقبرة</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -602,6 +614,7 @@
     <string name="type.landuse.construction">منطقة بناء</string>
     <string name="type.landuse.education">مؤسسة تعليمية</string>
     <string name="type.landuse.farmland">حقل</string>
+    <string name="type.landuse.farmyard">ساحة المزرعة</string>
     <string name="type.landuse.field">حقل</string>
     <string name="type.landuse.flowerbed">مشتل أزهار</string>
     <string name="type.landuse.forest">غابة</string>
@@ -611,6 +624,7 @@
     <string name="type.landuse.garages">كراجات خاصة</string>
     <string name="type.landuse.grass">عشب</string>
     <string name="type.landuse.greenfield">مساحة خضراء</string>
+    <string name="type.landuse.greenhouse_horticulture">بيت زجاجي</string>
     <string name="type.landuse.industrial">منطقة صناعية</string>
     <string name="type.landuse.landfill">مكب نفايات</string>
     <string name="type.landuse.meadow">مرج</string>
@@ -623,18 +637,26 @@
     <string name="type.landuse.residential">منطقة سكنية</string>
     <string name="type.landuse.retail">منطقة تجارية</string>
     <string name="type.landuse.salt_pond">ملّاحة</string>
+    <string name="type.landuse.village_green">أرض</string>
     <string name="type.landuse.vineyard">حقل عنب</string>
+    <string name="type.landuse.plant_nursery">مشتل نباتات</string>
+    <string name="type.leisure">ترفيه</string>
+    <string name="type.leisure.common">أرض عامة</string>
     <string name="type.leisure.dog_park">متنزه كلاب</string>
+    <string name="type.leisure.escape_game">غرفة الهروب</string>
     <string name="type.leisure.fitness_centre">مركز لياقة بدنية</string>
     <string name="type.leisure.fitness_station">مركز لياقة خارجي</string>
     <string name="type.leisure.dance">صالة رقص</string>
     <string name="type.leisure.garden">حديقة</string>
     <string name="type.leisure.garden.residential">حديقة</string>
     <string name="type.leisure.golf_course">ملعب غولف</string>
+    <string name="type.leisure.miniature_golf">جولف مصغّر</string>
     <string name="type.leisure.hackerspace">هاكرزبيس</string>
+    <string name="type.leisure.ice_rink">حلبة تزلج على الجليد</string>
     <string name="type.leisure.marina">مرسى</string>
     <string name="type.leisure.nature_reserve">محمية طبيعية</string>
     <string name="type.leisure.outdoor_seating">جلوس في الهواء الطلق</string>
+    <string name="type.leisure.firepit">موقد نار</string>
     <string name="type.leisure.park">متنزه</string>
     <string name="type.leisure.park.no.access">متنزه</string>
     <string name="type.leisure.park.permissive">متنزه</string>
@@ -642,17 +664,24 @@
     <string name="type.leisure.picnic_table">طاولة نزهة</string>
     <string name="type.leisure.pitch">ملعب رياضي</string>
     <string name="type.leisure.playground">ملعب أطفال</string>
+    <string name="type.leisure.recreation_ground">ساحة ترفيه</string>
     <string name="type.leisure.sauna">ساونا</string>
+    <string name="type.leisure.slipway">منحدر قوارب</string>
     <string name="type.leisure.sports_centre">مركز رياضي</string>
     <string name="type.sport.climbing">مركز تسلق</string>
     <string name="type.sport.yoga">نادي يوغا</string>
     <string name="type.leisure.stadium">ملعب</string>
     <string name="type.leisure.swimming_pool">مسبح</string>
     <string name="type.leisure.swimming_pool.private">مسبح خاص</string>
+    <string name="type.leisure.track">مسار</string>
+    <string name="type.leisure.track.area">مسار</string>
     <string name="type.leisure.water_park">مدينة مائية</string>
     <string name="type.leisure.beach_resort">منتجع شاطئي</string>
+    <string name="type.man_made">مُنشأ بشري</string>
+    <string name="type.man_made.breakwater">حاجز أمواج</string>
     <string name="type.man_made.cairn">كوم من الحجارة</string>
     <string name="type.man_made.chimney">مدخنة</string>
+    <string name="type.man_made.cutline">ممر مقطوع</string>
     <string name="type.man_made.survey_point">نقطة مسح ميداني</string>
     <string name="type.man_made.flagpole">سارية علم</string>
     <string name="type.man_made.lighthouse">منارة</string>
@@ -672,14 +701,17 @@
     <string name="type.man_made.petroleum_well">بئر نفط أو غاز</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">شعلة الغاز</string>
+    <string name="type.man_made.wastewater_plant">محطة معالجة مياه الصرف</string>
     <string name="type.man_made.water_tap">حنفية مياه</string>
     <string name="type.man_made.water_tap.drinking_water_no">حنفية مياه</string>
     <string name="type.man_made.water_tower">برج مياه</string>
     <string name="type.man_made.water_well">بئر ماء</string>
     <string name="type.man_made.water_well.drinking_water_no">بئر ماء</string>
     <string name="type.man_made.windmill">طاحونة هواء</string>
+    <string name="type.man_made.works">مُنشأة صناعية</string>
     <string name="type.military">عسكري</string>
     <string name="type.military.bunker">ملجأ</string>
+    <string name="type.mountain_pass">ممر جبلي</string>
     <string name="type.natural">طبيعة</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">صخور عارية</string>
@@ -726,6 +758,7 @@
     <string name="type.natural.wetland">منطقة رطبة</string>
     <string name="type.natural.wetland.bog">رخاخ</string>
     <string name="type.natural.wetland.marsh">هور</string>
+    <string name="type.noexit">طريق مسدود</string>
     <string name="type.office">مكتب</string>
     <string name="type.office.architect">مكتب معماري</string>
     <string name="type.office.company">مكتب شركة</string>
@@ -736,6 +769,8 @@
     <string name="type.office.lawyer">مكتب محامي</string>
     <string name="type.office.ngo">مكتب مؤسسة غير حكومية</string>
     <string name="type.office.telecommunication">شركة اتصالات</string>
+    <string name="type.organic.only">طبيعي</string>
+    <string name="type.organic.yes">طبيعي</string>
     <string name="type.place.city">مدينة</string>
     <string name="type.place.city.capital">عاصمة</string>
     <string name="type.place.city.capital.10">مدينة</string>
@@ -771,21 +806,43 @@
     <string name="type.place.suburb">ضاحية</string>
     <string name="type.place.town">بلدة</string>
     <string name="type.place.village">قرية</string>
+    <string name="type.power">طاقة</string>
+    <string name="type.power.generator">مولد كهرباء</string>
     <string name="type.power.generator.solar">مولد للطاقة الشمسية</string>
     <string name="type.power.generator.wind">مولد الرياح</string>
     <string name="type.power.generator.gas">محطة توليد الكهرباء بالغاز</string>
     <string name="type.power.generator.hydro">محطة توليد الطاقة الكهرمائية</string>
+    <string name="type.power.line">خط كهرباء</string>
+    <string name="type.power.line.underground">خط كهرباء تحت الأرض</string>
+    <string name="type.power.minor_line">خط كهرباء فرعي</string>
     <string name="type.power.plant">محطة توليد الكهرباء</string>
     <string name="type.power.plant.coal">محطة توليد طاقة فحمية</string>
     <string name="type.power.plant.gas">محطة توليد الكهرباء بالغاز</string>
     <string name="type.power.plant.hydro">محطة توليد الطاقة الكهرمائية</string>
     <string name="type.power.plant.solar">محطة طاقة شمسية</string>
     <string name="type.power.plant.wind">محطة طاقة الرياح</string>
+    <string name="type.power.station">محطة كهرباء</string>
     <string name="type.power.substation">محطة كهرباء فرعية</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">عمود كهرباء</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">عمود كهرباء</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">عمود خدمات</string>
+    <string name="type.public_transport">النقل العام</string>
+    <string name="type.public_transport.platform">منصة</string>
+    <string name="type.railway">سكك حديدية</string>
+    <string name="type.railway.abandoned">سكك حديدية مهجورة</string>
+    <string name="type.railway.abandoned.bridge">جسر سكة حديد مهجور</string>
+    <string name="type.railway.abandoned.tunnel">نفق سكة حديد مهجور</string>
+    <string name="type.railway.construction">أشغال سكة حديد</string>
+    <string name="type.railway.crossing">مفترق سكة حديد</string>
+    <string name="type.railway.disused">سكة حديد غير مستخدمة</string>
+    <string name="type.railway.disused.bridge">جسر سكة حديد غير مستخدم</string>
     <string name="type.railway.disused.tunnel">نفق سكة حديدية غير مستخدم</string>
     <string name="type.railway.funicular">حبلي</string>
+    <string name="type.railway.funicular.bridge">جسر فنكولار</string>
+    <string name="type.railway.funicular.tunnel">نفق فنكولار</string>
     <string name="type.railway.halt">محطة قطار</string>
     <string name="type.railway.level_crossing">مزلقان</string>
     <string name="type.railway.monorail">خط حديدي أحادي السكة</string>

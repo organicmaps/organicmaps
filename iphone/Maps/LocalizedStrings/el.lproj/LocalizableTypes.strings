@@ -182,7 +182,7 @@
 "type.toilets.yes" = "Τουαλέτα";
 "type.amenity.townhall" = "Δημαρχείο";
 "type.amenity.university" = "Πανεπιστήμιο";
-"type.amenity.vending_machine" = "Μηχανή αυτόματου πωλητή";
+"type.amenity.vending_machine" = "Αυτόματος πωλητής";
 "type.amenity.vending_machine.cigarettes" = "Αυτόματος πωλητής τσιγάρων";
 "type.amenity.vending_machine.coffee" = "Διανεμητής καφέ";
 "type.amenity.vending_machine.condoms" = "Διανεμητής προφυλακτικών";
@@ -190,7 +190,7 @@
 "type.amenity.vending_machine.food" = "Διανεμητής τροφίμων";
 "type.amenity.vending_machine.newspapers" = "Διανεμητής εφημερίδων";
 "type.amenity.vending_machine.parking_tickets" = "Παρκόμετρο";
-"type.amenity.vending_machine.public_transport_tickets" = "Μηχάνημα αυτόματης πώλησης εισιτηρίων για ΜΜΕ";
+"type.amenity.vending_machine.public_transport_tickets" = "Αυτόματος πωλητής εισιτηρίων";
 "type.amenity.vending_machine.sweets" = "Διανεμητής γλυκών";
 "type.amenity.vending_machine.excrement_bags" = "Διανεμητής σακουλών περιττωμάτων";
 "type.amenity.parcel_locker" = "Θυρίδα δεμάτων";
@@ -1295,15 +1295,15 @@
 "type.shop.chemist" = "Χημικά προϊόντα";
 "type.shop.chocolate" = "Σοκολατοποιία";
 "type.shop.clothes" = "Κατάστημα ρούχων";
-"type.shop.clothes.children" = "Παιδικό κατάστημα ρούχων";
+"type.shop.clothes.children" = "Κατάστημα παιδικών ρούχων";
 "type.shop.clothes.fashion" = "Μπουτίκ μόδας";
 "type.shop.clothes.hats" = "Κατάστημα καπέλων";
-"type.shop.clothes.men" = "Ανδρικό κατάστημα ρούχων";
-"type.shop.clothes.sports" = "Αθλητικά ρούχα";
+"type.shop.clothes.men" = "Κατάστημα ανδρικών ρούχων";
+"type.shop.clothes.sports" = "Κατάστημα αθλητικών ρούχων";
 "type.shop.clothes.suits" = "Κατάστημα κοστουμιών";
 "type.shop.clothes.underwear" = "Κατάστημα εσωρούχων";
 "type.shop.clothes.wedding" = "Κατάστημα νυφικών";
-"type.shop.clothes.women" = "Γυναικείο κατάστημα ρούχων";
+"type.shop.clothes.women" = "Κατάστημα γυναικείων ρούχων";
 "type.shop.coffee" = "Καφεκοπτείο";
 "type.shop.computer" = "Κατάστημα υπολογιστών";
 "type.shop.confectionery" = "Γλυκά";

@@ -174,7 +174,7 @@
     <string name="type.toilets.yes">Τουαλέτα</string>
     <string name="type.amenity.townhall">Δημαρχείο</string>
     <string name="type.amenity.university">Πανεπιστήμιο</string>
-    <string name="type.amenity.vending_machine">Μηχανή αυτόματου πωλητή</string>
+    <string name="type.amenity.vending_machine">Αυτόματος πωλητής</string>
     <string name="type.amenity.vending_machine.cigarettes">Αυτόματος πωλητής τσιγάρων</string>
     <string name="type.amenity.vending_machine.coffee">Διανεμητής καφέ</string>
     <string name="type.amenity.vending_machine.condoms">Διανεμητής προφυλακτικών</string>
@@ -182,7 +182,7 @@
     <string name="type.amenity.vending_machine.food">Διανεμητής τροφίμων</string>
     <string name="type.amenity.vending_machine.newspapers">Διανεμητής εφημερίδων</string>
     <string name="type.amenity.vending_machine.parking_tickets">Παρκόμετρο</string>
-    <string name="type.amenity.vending_machine.public_transport_tickets">Μηχάνημα αυτόματης πώλησης εισιτηρίων για ΜΜΕ</string>
+    <string name="type.amenity.vending_machine.public_transport_tickets">Αυτόματος πωλητής εισιτηρίων</string>
     <string name="type.amenity.vending_machine.sweets">Διανεμητής γλυκών</string>
     <string name="type.amenity.vending_machine.excrement_bags">Διανεμητής σακουλών περιττωμάτων</string>
     <string name="type.amenity.parcel_locker">Θυρίδα δεμάτων</string>
@@ -1157,15 +1157,15 @@
     <string name="type.shop.chemist">Χημικά προϊόντα</string>
     <string name="type.shop.chocolate">Σοκολατοποιία</string>
     <string name="type.shop.clothes">Κατάστημα ρούχων</string>
-    <string name="type.shop.clothes.children">Παιδικό κατάστημα ρούχων</string>
+    <string name="type.shop.clothes.children">Κατάστημα παιδικών ρούχων</string>
     <string name="type.shop.clothes.fashion">Μπουτίκ μόδας</string>
     <string name="type.shop.clothes.hats">Κατάστημα καπέλων</string>
-    <string name="type.shop.clothes.men">Ανδρικό κατάστημα ρούχων</string>
-    <string name="type.shop.clothes.sports">Αθλητικά ρούχα</string>
+    <string name="type.shop.clothes.men">Κατάστημα ανδρικών ρούχων</string>
+    <string name="type.shop.clothes.sports">Κατάστημα αθλητικών ρούχων</string>
     <string name="type.shop.clothes.suits">Κατάστημα κοστουμιών</string>
     <string name="type.shop.clothes.underwear">Κατάστημα εσωρούχων</string>
     <string name="type.shop.clothes.wedding">Κατάστημα νυφικών</string>
-    <string name="type.shop.clothes.women">Γυναικείο κατάστημα ρούχων</string>
+    <string name="type.shop.clothes.women">Κατάστημα γυναικείων ρούχων</string>
     <string name="type.shop.coffee">Καφεκοπτείο</string>
     <string name="type.shop.computer">Κατάστημα υπολογιστών</string>
     <string name="type.shop.confectionery">Γλυκά</string>

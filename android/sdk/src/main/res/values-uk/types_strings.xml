@@ -829,7 +829,7 @@
     <string name="type.power.pole">Стовп ЛЕП</string>
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Стовп передачі</string>
-    <string name="type.psurface">psurface</string>
+    <string name="type.psurface">поверхня</string>
     <string name="type.psurface.paved_bad">psurface-paved_bad</string>
     <string name="type.psurface.paved_good">psurface-paved_good</string>
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>

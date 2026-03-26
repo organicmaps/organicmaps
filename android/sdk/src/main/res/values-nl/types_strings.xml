@@ -694,9 +694,9 @@
     <string name="type.man_made.surveillance">Bewakingscamera</string>
     <string name="type.man_made.tower">Toren</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
-    <string name="type.man_made.communications_tower">Communicatie Toren</string>
+    <string name="type.man_made.communications_tower">Communicatietoren</string>
     <!-- A regular telecommunications tower / mast. -->
-    <string name="type.man_made.tower.communication">Communicatie Toren</string>
+    <string name="type.man_made.tower.communication">Communicatietoren</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Olie- of gasput</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
@@ -1171,8 +1171,8 @@
     <string name="type.shop.confectionery">Snoepwinkel</string>
     <string name="type.shop.convenience">Buurtwinkel</string>
     <string name="type.shop.copyshop">Kopieerwinkel</string>
-    <string name="type.shop.cosmetics">Schoonheidsmiddelen</string>
-    <string name="type.shop.curtain">Gordijnen</string>
+    <string name="type.shop.cosmetics">Cosmeticawinkel</string>
+    <string name="type.shop.curtain">Gordijnenwinkel</string>
     <string name="type.shop.deli">Delicatessenwinkel</string>
     <string name="type.shop.department_store">Warenhuis</string>
     <string name="type.shop.doityourself">IJzerhandel</string>
@@ -1298,7 +1298,7 @@
     <string name="type.sport.10pin">Bowlen</string>
     <string name="type.sport.9pin">Bowlen</string>
     <string name="type.sport.padel">Padel</string>
-    <string name="type.sport.futsal">Futsal</string>
+    <string name="type.sport.futsal">Zaalvoetbal</string>
     <string name="type.sport.ice_hockey">IJshockey</string>
     <string name="type.sport.field_hockey">Veldhockey</string>
     <string name="type.sport.badminton">Badminton</string>
@@ -1423,7 +1423,7 @@
     <string name="type.barrier.yes">Barrière</string>
     <string name="type.building.guardhouse">Wacht</string>
     <string name="type.office.security">Beveiligingsbureau</string>
-    <string name="type.power.portal">Kracht Toren (Portaal)</string>
+    <string name="type.power.portal">Krachttoren (Portaal)</string>
     <string name="type.shop.lighting">Verlichtingswinkel</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Puin</string>
