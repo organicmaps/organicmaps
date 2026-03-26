@@ -4,59 +4,6 @@ final class ExpandableLabel: UIView {
   private enum Constants {
     static let defaultContentInsets = UIEdgeInsets(top: 8, left: 16, bottom: -8, right: -16)
     static let defaultCompactHeight: CGFloat = 70
-    static let expandControlHeight: CGFloat = 24
-  }
-
-  private final class ExpandView: UIView {
-    private enum Constants {
-      static let gradientOverlapHeight: CGFloat = 24
-    }
-
-    let label = UILabel()
-    private let gradientLayer = CAGradientLayer()
-
-    override init(frame: CGRect) {
-      super.init(frame: frame)
-      setupView()
-    }
-
-    required init?(coder: NSCoder) {
-      super.init(coder: coder)
-      setupView()
-    }
-
-    override func layoutSubviews() {
-      super.layoutSubviews()
-      gradientLayer.frame = CGRect(x: 0,
-                                   y: -Constants.gradientOverlapHeight,
-                                   width: bounds.width,
-                                   height: bounds.height + Constants.gradientOverlapHeight)
-    }
-
-    func updateAppearance() {
-      gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-      gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-      gradientLayer.colors = [
-        UIColor.white.withAlphaComponent(0).cgColor,
-        UIColor.white.withAlphaComponent(0.9).cgColor,
-        UIColor.white.cgColor,
-      ]
-      gradientLayer.locations = [0, 0.7, 1]
-    }
-
-    private func setupView() {
-      clipsToBounds = false
-      layer.addSublayer(gradientLayer)
-      addSubview(label)
-
-      label.translatesAutoresizingMaskIntoConstraints = false
-
-      NSLayoutConstraint.activate([
-        label.leadingAnchor.constraint(equalTo: leadingAnchor),
-        label.bottomAnchor.constraint(equalTo: bottomAnchor),
-        label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-      ])
-    }
   }
 
   private let stackView = UIStackView()
@@ -73,7 +20,6 @@ final class ExpandableLabel: UIView {
   // MARK: - Public properties
 
   var didTap: TapHandler?
-  var didLongPress: TapHandler?
 
   var font = UIFont.regular14() {
     didSet {
@@ -142,17 +88,13 @@ final class ExpandableLabel: UIView {
     expandView.setContentHuggingPriority(priority, for: axis)
   }
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    setupView()
-  }
-
   init(contentInsets: UIEdgeInsets = Constants.defaultContentInsets) {
     self.contentInsets = contentInsets
     super.init(frame: .zero)
     setupView()
   }
 
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     setupView()
@@ -161,10 +103,10 @@ final class ExpandableLabel: UIView {
   // MARK: - Private methods
 
   private func setupView() {
-    clipsToBounds = true
-
+    stackView.distribution = .fillProportionally
     stackView.axis = .vertical
     stackView.alignment = .fill
+    stackView.clipsToBounds = true
 
     textView.textContainer.lineFragmentPadding = 0
     textView.isScrollEnabled = false
@@ -189,7 +131,7 @@ final class ExpandableLabel: UIView {
     expandView.label.text = expandText
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
-    stackView.addGestureRecognizer(tapGesture)
+    addGestureRecognizer(tapGesture)
 
     layoutView()
   }
@@ -201,8 +143,7 @@ final class ExpandableLabel: UIView {
     stackView.alignToSuperview(contentInsets)
 
     textHeightConstraint = textView.heightAnchor.constraint(equalToConstant: compactHeight)
-    expandControlHeightConstraint = expandView.heightAnchor.constraint(equalToConstant: 0)
-    expandControlHeightConstraint.isActive = true
+    textHeightConstraint.isActive = true
   }
 
   private func updateCollapsedState() {
@@ -212,8 +153,7 @@ final class ExpandableLabel: UIView {
     let fullHeight = measureFullHeight(for: measuringWidth)
     let shouldCollapse = !isExpanded && fullHeight > compactHeight
 
-    textHeightConstraint.isActive = shouldCollapse
-    expandControlHeightConstraint.constant = shouldCollapse ? Constants.expandControlHeight : 0
+    textHeightConstraint.constant = shouldCollapse ? compactHeight : fullHeight
     expandView.isHidden = !shouldCollapse
   }
 
@@ -265,5 +205,64 @@ final class ExpandableLabel: UIView {
     }
 
     updateCollapsedState()
+  }
+}
+
+private final class ExpandView: UIView {
+  private enum Constants {
+    static let gradientOverlapHeight: CGFloat = 24
+  }
+
+  let label = UILabel()
+  private let gradientLayer = CAGradientLayer()
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupView()
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    setupView()
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    gradientLayer.frame = CGRect(x: 0,
+                                 y: -Constants.gradientOverlapHeight,
+                                 width: bounds.width,
+                                 height: bounds.height + Constants.gradientOverlapHeight)
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    updateAppearance()
+  }
+
+  func updateAppearance() {
+    gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+    gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+    let color = UIColor.white()
+    gradientLayer.colors = [
+      color.withAlphaComponent(0).cgColor,
+      color.cgColor,
+    ]
+    gradientLayer.locations = [0, 1]
+  }
+
+  private func setupView() {
+    backgroundColor = .clear
+    clipsToBounds = false
+    layer.addSublayer(gradientLayer)
+    addSubview(label)
+
+    label.translatesAutoresizingMaskIntoConstraints = false
+
+    NSLayoutConstraint.activate([
+      label.leadingAnchor.constraint(equalTo: leadingAnchor),
+      label.bottomAnchor.constraint(equalTo: bottomAnchor),
+      label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+    ])
   }
 }

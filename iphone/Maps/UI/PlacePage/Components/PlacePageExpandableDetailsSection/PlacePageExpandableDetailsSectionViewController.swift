@@ -1,11 +1,7 @@
 final class PlacePageExpandableDetailsSectionViewController: UIViewController {
-  private enum Constants {
-    static let expandableLabelInsets = UIEdgeInsets(top: 0, left: 16, bottom: -8, right: -16)
-  }
-
   private let stackView = UIStackView()
   private let headerInfoView = InfoItemView()
-  private let expandableLabel = ExpandableLabel(contentInsets: Constants.expandableLabelInsets)
+  private let expandableLabel = ExpandableLabel()
 
   private(set) var interactor: any PlacePageExpandableDetailsSectionInteractor
 
