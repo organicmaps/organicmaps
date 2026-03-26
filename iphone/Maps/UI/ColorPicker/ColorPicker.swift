@@ -64,15 +64,14 @@ extension ColorPicker: BookmarkColorViewControllerDelegate {
 
 // MARK: - UIColorPickerViewControllerDelegate
 
+@available(iOS 14.0, *)
 extension ColorPicker: UIColorPickerViewControllerDelegate {
-  @available(iOS 14.0, *)
   func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
     onUpdateColorHandler?(viewController.selectedColor.sRGBColor)
     onUpdateColorHandler = nil
     viewController.dismiss(animated: true, completion: nil)
   }
 
-  @available(iOS 14.0, *)
   func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
     onUpdateColorHandler?(viewController.selectedColor.sRGBColor)
   }
