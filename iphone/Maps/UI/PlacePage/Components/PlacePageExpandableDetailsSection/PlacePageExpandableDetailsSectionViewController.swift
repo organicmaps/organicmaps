@@ -1,6 +1,5 @@
 final class PlacePageExpandableDetailsSectionViewController: UIViewController {
   private enum Constants {
-    static let collapsedTextMaxLines: Int = 3
     static let expandableLabelInsets = UIEdgeInsets(top: 0, left: 16, bottom: -8, right: -16)
   }
 
@@ -43,7 +42,6 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
     expandableLabel.didTap = { [weak self] in
       self?.interactor.handle(.didTapExpandableText)
     }
-    expandableLabel.numberOfLines = Constants.collapsedTextMaxLines
   }
 
   private func layoutView() {
