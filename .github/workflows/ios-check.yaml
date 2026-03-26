@@ -16,6 +16,7 @@ on:
       - NOTICE
       - README.md
       - android/**
+      - data/organic_maps_emoji/**
       - data/strings/**
       - docs/**
       - generator/**

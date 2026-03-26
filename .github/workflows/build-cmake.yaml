@@ -17,7 +17,9 @@ on:
       - android/**
       - iphone/**
       - data/countries-strings/**
+      - data/organic_maps_emoji/**
       - data/sound-strings/**
+      - data/strings/**
       - docs/**
       - packaging/**
       - pyhelpers/**
