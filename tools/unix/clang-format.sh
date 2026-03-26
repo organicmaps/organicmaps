@@ -27,12 +27,9 @@ done
 # Swift files (if swiftformat is available)
 if command -v swiftformat >/dev/null 2>&1; then
   echo "Running swiftformat on Swift files..."
-  for entry in "${SWIFTFORMAT_TARGETS[@]}"; do
-    dir="${entry%%|*}"
-    pattern="${entry##*|}"
+  for dir in "${SWIFTFORMAT_TARGETS[@]}"; do
     [ -d "$REPO_ROOT/$dir" ] || continue
-    find "$REPO_ROOT/$dir" -type f -name "$pattern" -print0 \
-      | xargs $XARGS_OPTS swiftformat
+    swiftformat "$REPO_ROOT/$dir"
   done
 else
   echo "Warning: swiftformat not found, skipping Swift files."

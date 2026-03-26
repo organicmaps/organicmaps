@@ -37,7 +37,8 @@ if [ -n "$CLANG_FILES" ]; then
 fi
 
 # --- swiftformat -------------------------------------------------------------
-SWIFT_REGEX=$(build_path_regex SWIFTFORMAT_TARGETS)
+SWIFT_DIRS=$(printf '%s|' "${SWIFTFORMAT_TARGETS[@]}" | sed 's/|$//')
+SWIFT_REGEX="^($SWIFT_DIRS)/.*\.swift$"
 SWIFT_FILES=$(echo "$STAGED_FILES" | grep -E "$SWIFT_REGEX" || true)
 
 if [ -n "$SWIFT_FILES" ]; then

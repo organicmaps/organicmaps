@@ -2,3 +2,5 @@
 --ifdef outdent
 --pattern-let inline
 --disable wrapMultilineStatementBraces
+--disable wrapPropertyBodies
+--disable wrapFunctionBodies

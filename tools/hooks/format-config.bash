@@ -34,7 +34,7 @@ CLANG_FORMAT_TARGETS=(
 )
 
 SWIFTFORMAT_TARGETS=(
-  "iphone|*.swift"
+  "iphone"
 )
 
 # Resolve a clang-format binary, preferring a versioned one.
