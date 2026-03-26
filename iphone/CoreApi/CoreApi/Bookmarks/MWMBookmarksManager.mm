@@ -636,11 +636,32 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   switch (sharingResult.m_code)
   {
   case BookmarkManager::SharingResult::Code::Success:
+  {
     urlToALocalFile = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
+    // TODO(AB): Consider normalizing file names in iOS layer or using iOS API to create files with correct names.
+    // Also see GetFileNameForExport() and ExportMultipleFiles().
+    //
+    // NSString * originalPath = @(sharingResult.m_sharingPath.c_str());
+    // // Apple's ShareSheet crashes on NFC-encoded (composed) Unicode filenames.
+    // // Rename the file to NFD (decomposed) form which ShareSheet handles correctly.
+    // NSString * dir = [originalPath stringByDeletingLastPathComponent];
+    // NSString * filename = [originalPath lastPathComponent];
+    // NSString * nfdFilename = [filename decomposedStringWithCanonicalMapping];
+    // if (![filename isEqualToString:nfdFilename])
+    // {
+    //   NSString * nfdPath = [dir stringByAppendingPathComponent:nfdFilename];
+    //   NSError * error = nil;
+    //   if ([[NSFileManager defaultManager] moveItemAtPath:originalPath toPath:nfdPath error:&error])
+    //     originalPath = nfdPath;
+    //   else
+    //     LOG(LWARNING, ("Failed to NFD-normalize sharing file name:", error.localizedDescription.UTF8String));
+    // }
+    // urlToALocalFile = [NSURL fileURLWithPath:originalPath isDirectory:NO];
     ASSERT(urlToALocalFile, ("Invalid share category URL"));
     self.shareCategoryURL = urlToALocalFile;
     status = MWMBookmarksShareStatusSuccess;
     break;
+  }
   case BookmarkManager::SharingResult::Code::EmptyCategory: status = MWMBookmarksShareStatusEmptyCategory; break;
   case BookmarkManager::SharingResult::Code::ArchiveError: status = MWMBookmarksShareStatusArchiveError; break;
   case BookmarkManager::SharingResult::Code::FileError: status = MWMBookmarksShareStatusFileError; break;
