@@ -12,6 +12,7 @@ public class ChartView: UIView {
   let yAxisView = ChartYAxisView()
   let xAxisView = ChartXAxisView()
   let chartInfoView = ChartInfoView()
+  let segmentLinesView = ChartSegmentLinesView()
   var lineViews: [ChartLineView] = []
   var showPreview: Bool = false // Set true to show the preview
 
@@ -79,6 +80,7 @@ public class ChartView: UIView {
   public var gridColor: UIColor = .init(white: 0, alpha: 0.2) {
     didSet {
       yAxisView.gridColor = gridColor
+      segmentLinesView.lineColor = gridColor
     }
   }
 
@@ -103,6 +105,12 @@ public class ChartView: UIView {
         chartsContainerView.addSubview(v)
         lineViews.insert(v, at: 0)
       }
+
+      segmentLinesView.frame = chartsContainerView.bounds
+      segmentLinesView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      segmentLinesView.lineColor = gridColor
+      segmentLinesView.setSegmentDistances(chartData.segmentDistances, chartData: chartData)
+      chartsContainerView.addSubview(segmentLinesView)
 
       yAxisView.frame = chartsContainerView.bounds
       yAxisView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -155,6 +163,7 @@ public class ChartView: UIView {
     chartPreviewView.selectorColor = previewSelectorColor
     chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
     yAxisView.textBackgroundColor = infoBackgroundColor.withAlphaComponent(0.7)
+    segmentLinesView.lineColor = gridColor
 
     tapGR = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
     chartsContainerView.addGestureRecognizer(tapGR)
@@ -327,6 +336,7 @@ public class ChartView: UIView {
                            maxY: upper,
                            animationStyle: animationStyle)
     }
+    segmentLinesView.setViewport(minX: xAxisView.lowerBound, maxX: xAxisView.upperBound)
   }
 }
 

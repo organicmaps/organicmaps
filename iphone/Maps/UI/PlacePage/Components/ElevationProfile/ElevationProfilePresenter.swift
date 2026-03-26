@@ -159,6 +159,7 @@ private struct ElevationProfileChartData {
   fileprivate let chartValues: [ChartValue]
   fileprivate let chartLines: [Line]
   fileprivate let distances: [Double]
+  fileprivate let segmentBoundaryDistances: [Double]
   fileprivate let maxDistance: Double
   fileprivate let points: [ElevationHeightPoint]
 
@@ -166,6 +167,7 @@ private struct ElevationProfileChartData {
     points = elevationData.points
     chartValues = points.map { ChartValue(xValues: $0.distance, y: $0.altitude) }
     distances = points.map(\.distance)
+    segmentBoundaryDistances = elevationData.segmentDistances.map(\.doubleValue)
     maxDistance = distances.last ?? 0
     let lineColor = StyleManager.shared.theme?.colors.chartLine ?? .blue
     let lineShadowColor = StyleManager.shared.theme?.colors.chartShadow ?? .lightGray
@@ -203,5 +205,6 @@ private struct ElevationProfileChartData {
 extension ElevationProfileChartData: ChartData {
   public var xAxisValues: [Double] { distances }
   public var lines: [ChartLine] { chartLines }
+  public var segmentDistances: [Double] { segmentBoundaryDistances.filter { $0 > 0 && $0 < maxDistance } }
   public var type: ChartType { .regular }
 }

@@ -28,6 +28,7 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
     _trackId = trackId;
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
     _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
+    _segmentDistances = [ElevationProfileData segmentDistancesFromElevationInfo:elevationInfo];
     _isTrackRecording = false;
   }
   return self;
@@ -40,6 +41,7 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
   {
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
     _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
+    _segmentDistances = [ElevationProfileData segmentDistancesFromElevationInfo:elevationInfo];
     _isTrackRecording = true;
   }
   return self;
@@ -60,6 +62,15 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
     [pointsArray addObject:elevationPoint];
   }
   return pointsArray;
+}
+
++ (NSArray<NSNumber *> *)segmentDistancesFromElevationInfo:(ElevationInfo const &)elevationInfo
+{
+  auto const & segmentsDistances = elevationInfo.GetSegmentsDistances();
+  NSMutableArray<NSNumber *> * distancesArray = [[NSMutableArray alloc] initWithCapacity:segmentsDistances.size()];
+  for (auto const distance : segmentsDistances)
+    [distancesArray addObject:@(distance)];
+  return distancesArray;
 }
 
 @end

@@ -21,7 +21,12 @@ public protocol ChartFormatter {
 public protocol ChartData {
   var xAxisValues: [Double] { get }
   var lines: [ChartLine] { get }
+  var segmentDistances: [Double] { get }
   var type: ChartType { get }
+}
+
+public extension ChartData {
+  var segmentDistances: [Double] { [] }
 }
 
 public protocol ChartLine {
