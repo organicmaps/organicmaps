@@ -64,22 +64,24 @@ final class BMCViewController: MWMViewController {
   }
 
   private func shareCategoryFile(at index: Int, fileType: FileType, anchor: UIView) {
+    let categoryName = viewModel.category(at: index).title
     UIApplication.shared.showLoadingOverlay()
-    viewModel.shareCategoryFile(at: index, fileType: fileType, handler: sharingResultHandler(anchorView: anchor))
+    viewModel.shareCategoryFile(at: index, fileType: fileType, handler: sharingResultHandler(anchorView: anchor, displayName: categoryName))
   }
 
   private func shareAllCategories(anchor: UIView?) {
     UIApplication.shared.showLoadingOverlay()
-    viewModel.shareAllCategories(handler: sharingResultHandler(anchorView: anchor))
+    viewModel.shareAllCategories(handler: sharingResultHandler(anchorView: anchor, displayName: nil))
   }
 
-  private func sharingResultHandler(anchorView: UIView?) -> SharingResultCompletionHandler {
+  private func sharingResultHandler(anchorView: UIView?, displayName: String?) -> SharingResultCompletionHandler {
     { [weak self] status, url in
       UIApplication.shared.hideLoadingOverlay {
         guard let self else { return }
         switch status {
         case .success:
-          let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body")) { [weak self] _, _, _, _ in
+          let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"),
+                                                             displayName: displayName) { [weak self] _, _, _, _ in
             self?.viewModel?.finishShareCategory()
           }
           shareController.present(inParentViewController: self, anchorView: anchorView)

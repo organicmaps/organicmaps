@@ -14,6 +14,7 @@ NS_SWIFT_NAME(ActivityViewController)
 
 + (instancetype)shareControllerForURL:(nullable NSURL *)url
                               message:(NSString *)message
+                          displayName:(nullable NSString *)displayName
                     completionHandler:(nullable UIActivityViewControllerCompletionWithItemsHandler)completionHandler;
 
 - (void)presentInParentViewController:(UIViewController *)parentVC anchorView:(nullable UIView *)anchorView;

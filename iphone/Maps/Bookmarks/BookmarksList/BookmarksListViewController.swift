@@ -248,9 +248,10 @@ extension BookmarksListViewController: IBookmarksListView {
     navigationItem.rightBarButtonItem = enable ? editButtonItem : nil
   }
 
-  func share(_ url: URL, completion: @escaping () -> Void) {
+  func share(_ url: URL, displayName: String, completion: @escaping () -> Void) {
     let shareController = ActivityViewController.share(for: url,
-                                                       message: L("share_bookmarks_email_body")) { _, _, _, _ in
+                                                       message: L("share_bookmarks_email_body"),
+                                                       displayName: displayName) { _, _, _, _ in
       completion()
     }
     shareController.present(inParentViewController: self, anchorView: toolBar)

@@ -637,11 +637,13 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   switch (sharingResult.m_code)
   {
   case BookmarkManager::SharingResult::Code::Success:
+  {
     urlToALocalFile = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
     ASSERT(urlToALocalFile, ("Invalid share category URL"));
     self.shareCategoryURL = urlToALocalFile;
     status = MWMBookmarksShareStatusSuccess;
     break;
+  }
   case BookmarkManager::SharingResult::Code::EmptyCategory: status = MWMBookmarksShareStatusEmptyCategory; break;
   case BookmarkManager::SharingResult::Code::ArchiveError: status = MWMBookmarksShareStatusArchiveError; break;
   case BookmarkManager::SharingResult::Code::FileError: status = MWMBookmarksShareStatusFileError; break;

@@ -258,6 +258,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
                     MWMActivityViewController * shareController = [MWMActivityViewController
                         shareControllerForURL:url
                                       message:L(@"share_bookmarks_email_body")
+                                  displayName:nil
                             completionHandler:^(UIActivityType _Nullable activityType, BOOL completed,
                                                 NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
                               [self setICloudSynchronizationEnablingAlertIsShown];

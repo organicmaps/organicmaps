@@ -161,7 +161,7 @@ final class BookmarksListPresenter {
           switch status {
           case .success:
             guard let url = url else { fatalError() }
-            self?.view?.share(url) {
+            self?.view?.share(url, displayName: self?.bookmarkGroup.title ?? "") {
               self?.interactor.finishExportFile()
             }
           case .emptyCategory:

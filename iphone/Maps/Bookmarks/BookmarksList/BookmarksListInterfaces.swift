@@ -63,7 +63,7 @@ protocol IBookmarksListView: AnyObject {
   func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource)
   func showColorPicker(with pickerType: ColorPickerType, _ completion: ((UIColor) -> Void)?)
   func enableEditing(_ enable: Bool)
-  func share(_ url: URL, completion: @escaping () -> Void)
+  func share(_ url: URL, displayName: String, completion: @escaping () -> Void)
   func showError(title: String, message: String)
 }
 
