@@ -3694,4 +3694,81 @@ UNIT_CLASS_TEST(ProcessorTest, SkipSuggestWithAddress)
   TEST(ResultsMatch("ul. Szubinska 1", {ExactMatch(wonderlandId, building)}), ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/8356
+UNIT_CLASS_TEST(ProcessorTest, USAddress_WState_Chicago)
+{
+  using namespace mercator;
+  std::string const lang = "en";
+
+  TestState state(FromLatLon(40.079668, -89.4337212), "Illinois", "IL", lang);
+  TestCity city(FromLatLon(41.8755567, -87.6244101), "Chicago", lang, 100 /* rank */);
+  TestStreet street({FromLatLon(41.895126, -87.7408904), FromLatLon(41.8966763, -87.6283766)}, "West Chicago Avenue",
+                    lang);
+  TestBuilding building(FromLatLon(41.8968441, -87.6363603), {}, "310", street.GetName(lang), lang);
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(state);
+    builder.Add(city);
+  });
+
+  auto wonderlandId = BuildCountry("US_Illinois_Chickago", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(city);
+    builder.Add(street);
+    builder.Add(building);
+  });
+
+  SetViewport({41.8758005, -87.6189715}, 100);
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, building)};
+    TEST(ResultsMatch("310 west chicago avenue chicago", rules), ());
+    TEST(ResultsMatch("310 W chicago ave chicago", rules), ());
+  }
+  {
+    /// @todo Still unclear when additional street matching is invoked :)
+    Rules const rules = {ExactMatch(wonderlandId, building), ExactMatch(wonderlandId, street)};
+    TEST(ResultsMatch("310 west chicago avenue", rules), ());
+    TEST(ResultsMatch("310 west chicago avenue chicago IL", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, USAddress_WState_NY)
+{
+  using namespace mercator;
+  std::string const lang = "en";
+
+  TestState state(FromLatLon(43.0, -75.5), "New York", "NY", lang);
+  TestCity city(FromLatLon(40.7128, -74.006), "New York City", lang, 100 /* rank */);
+  TestStreet street({FromLatLon(40.7260, -73.9897), FromLatLon(40.6975, -74.0104)}, "Broadway", lang);
+  TestBuilding building(FromLatLon(40.7264, -73.9944), {}, "636", street.GetName(lang), lang);
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(state);
+    builder.Add(city);
+  });
+
+  auto wonderlandId = BuildCountry("US_New York_New York", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(city);
+    builder.Add(street);
+    builder.Add(building);
+  });
+
+  SetViewport({40.7128, -74.006}, 100);
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, building)};
+    TEST(ResultsMatch("636 Broadway", rules), ());
+  }
+  {
+    /// @todo Relaxed street "Broadway" also returned from the city-without-state path,
+    /// same pattern as Chicago's "310 west chicago avenue" returning both building + street.
+    Rules const rules = {ExactMatch(wonderlandId, building), ExactMatch(wonderlandId, street)};
+    TEST(ResultsMatch("636 Broadway New York City NY", rules), ());
+  }
+}
+
 }  // namespace processor_test

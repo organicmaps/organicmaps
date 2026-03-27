@@ -673,7 +673,7 @@ void Geocoder::InitLayer(Model::Type type, TokenRange const & tokenRange, Featur
 }
 
 void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filter, size_t const maxNumLocalities,
-                                      std::vector<Locality> & preLocalities)
+                                      std::vector<Locality> & preLocalities, bool keepNonOverlapping)
 {
   // todo(@m) "food moscow" should be a valid categorial request.
   if (m_params.IsCategorialRequest())
@@ -696,7 +696,7 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
 
   LocalityScorerDelegate delegate(*m_context, m_params, belongsToMatchedRegion, m_cancellable);
   LocalityScorer scorer(m_params, m_params.m_pivot.Center(), delegate);
-  scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
+  scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities, keepNonOverlapping);
 }
 
 void Geocoder::CacheWorldLocalities()
@@ -735,7 +735,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
   std::vector<Locality> preLocalities;
 
   CBV filter = m_localitiesCaches.m_countries.Get(*m_context);
-  FillLocalityCandidates(ctx, filter, kMaxNumCountries, preLocalities);
+  FillLocalityCandidates(ctx, filter, kMaxNumCountries, preLocalities, true /* keepNonOverlapping */);
   for (auto & l : preLocalities)
   {
     auto ft = m_context->GetFeature(l.GetFeatureIndex());
@@ -749,7 +749,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
   }
 
   filter = m_localitiesCaches.m_states.Get(*m_context);
-  FillLocalityCandidates(ctx, filter, kMaxNumStates, preLocalities);
+  FillLocalityCandidates(ctx, filter, kMaxNumStates, preLocalities, true /* keepNonOverlapping */);
   for (auto & l : preLocalities)
   {
     auto ft = m_context->GetFeature(l.GetFeatureIndex());

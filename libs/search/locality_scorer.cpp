@@ -82,7 +82,8 @@ LocalityScorer::LocalityScorer(QueryParams const & params, m2::PointD const & pi
 {}
 
 void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx, CBV const & filter,
-                                      size_t limit, std::vector<Locality> & localities)
+                                      size_t limit, std::vector<Locality> & localities,
+                                      bool keepNonOverlapping /* = false */)
 {
   double constexpr kUnknownIdf = 1.0;
   size_t const numTokens = ctx.NumTokens();
@@ -152,10 +153,11 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     }
   }
 
-  LeaveTopLocalities(idfs, limit, localities);
+  LeaveTopLocalities(idfs, limit, localities, keepNonOverlapping);
 }
 
-void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities)
+void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities,
+                                        bool keepNonOverlapping)
 {
   std::vector<ExLocality> els;
   els.reserve(localities.size());
@@ -208,10 +210,36 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector
   localities.reserve(els.size());
 
   std::unordered_set<uint32_t> seen;
-  for (auto it = els.begin(); it != els.end() && localities.size() < limit; ++it)
-    if (seen.insert(it->GetId()).second)
+  for (auto it = els.begin(); it != els.end(); ++it)
+  {
+    auto const id = it->GetId();
+    if (seen.count(id) == 0)
+    {
+      if (seen.size() >= limit)
+        continue;  // stop adding NEW features, but keep scanning for alternates
+      seen.insert(id);
       localities.push_back(std::move(it->m_locality));
-  ASSERT_EQUAL(seen.size(), localities.size(), ());
+    }
+    else if (keepNonOverlapping)
+    {
+      // Keep additional non-overlapping token ranges for the same feature.
+      // This is needed for regions with alt_names (e.g., state "New York" at [2,4)
+      // and "NY" at [5,6)) to enable alternative geocoding parses when one range
+      // conflicts with other locality types (cities).
+      auto const & r = it->m_locality.m_tokenRange;
+      bool overlaps = false;
+      for (auto const & loc : localities)
+      {
+        if (loc.GetFeatureIndex() == id && loc.m_tokenRange.Begin() < r.End() && r.Begin() < loc.m_tokenRange.End())
+        {
+          overlaps = true;
+          break;
+        }
+      }
+      if (!overlaps)
+        localities.push_back(std::move(it->m_locality));
+    }
+  }
 }
 
 void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds, std::vector<ExLocality> & els) const
@@ -240,18 +268,30 @@ void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds, std:
 
 void LocalityScorer::GroupBySimilarityAndOther(std::vector<ExLocality> & els) const
 {
-  std::sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs)
   {
-    if (lhs.m_similarity != rhs.m_similarity)
-      return lhs.m_similarity > rhs.m_similarity;
-    if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
-      return lhs.m_locality.m_tokenRange.Size() > rhs.m_locality.m_tokenRange.Size();
-    if (lhs.m_belongsToMatchedRegion != rhs.m_belongsToMatchedRegion)
-      return lhs.m_belongsToMatchedRegion;
-    if (lhs.m_rank != rhs.m_rank)
-      return lhs.m_rank > rhs.m_rank;
-    return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
-  });
+    // For the same feature with different token ranges (e.g., "chicago" appearing twice),
+    // prefer positions closer to query edges. City names typically appear at the start
+    // (European: "Budapest Main st 310") or end (US: "310 Main st New York"),
+    // not embedded in the middle of a street name ("310 west [chicago] avenue").
+    size_t const numTokens = m_params.GetNumTokens();
+    auto const edgeDist = [numTokens](TokenRange const & r) { return std::min(r.Begin(), numTokens - r.End()); };
+
+    std::sort(els.begin(), els.end(), [&edgeDist](ExLocality const & lhs, ExLocality const & rhs)
+    {
+      if (lhs.m_similarity != rhs.m_similarity)
+        return lhs.m_similarity > rhs.m_similarity;
+      if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
+        return lhs.m_locality.m_tokenRange.Size() > rhs.m_locality.m_tokenRange.Size();
+      if (lhs.m_belongsToMatchedRegion != rhs.m_belongsToMatchedRegion)
+        return lhs.m_belongsToMatchedRegion;
+      if (lhs.m_rank != rhs.m_rank)
+        return lhs.m_rank > rhs.m_rank;
+      if (lhs.m_locality.m_featureId != rhs.m_locality.m_featureId)
+        return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
+
+      return edgeDist(lhs.m_locality.m_tokenRange) < edgeDist(rhs.m_locality.m_tokenRange);
+    });
+  }
 
   auto const lessDistance = [](ExLocality const & lhs, ExLocality const & rhs)
   { return lhs.m_distanceToPivot < rhs.m_distanceToPivot; };

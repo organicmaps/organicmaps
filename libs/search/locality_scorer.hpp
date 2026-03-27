@@ -33,10 +33,12 @@ public:
 
   void SetPivotForTesting(m2::PointD const & pivot) { m_pivot = pivot; }
 
-  // Leaves at most |limit| elements of |localities|, ordered by their
-  // features.
+  // Leaves at most |limit| elements of |localities|, ordered by their features.
+  // When |keepNonOverlapping| is true, keeps additional non-overlapping token ranges for the same
+  // feature (e.g., state "New York" at [2,4) and alt_name "NY" at [5,6)), enabling alternative
+  // geocoding parses when one range conflicts with other locality types.
   void GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx, CBV const & filter, size_t limit,
-                        std::vector<Locality> & localities);
+                        std::vector<Locality> & localities, bool keepNonOverlapping = false);
 
 private:
   struct ExLocality
@@ -59,7 +61,7 @@ private:
   // LeaveTopByExactMatchNormAndRank. Number of candidates typically is much bigger than |limit|
   // (100 vs 5). Then final localities are selected from candidates with
   // LeaveTopBySimilarityAndOther.
-  void LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities);
+  void LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities, bool keepNonOverlapping);
 
   // Selects at most |limitUniqueIds| best features by exact match, query norm and
   // rank, and then leaves only localities corresponding to those
