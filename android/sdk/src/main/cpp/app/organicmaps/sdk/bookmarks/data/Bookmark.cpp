@@ -59,7 +59,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeSetColor(J
   auto const bmColor = kml::kOrderedPredefinedColors[color];
 
   if (mark->GetColor() == bmColor)
-    return; // New color is the same as existing color. Nothing to update.
+    return;  // New color is the same as existing color. Nothing to update.
 
   // initialize new bookmark
   kml::BookmarkData bmData(mark->GetData());
@@ -80,7 +80,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeUpdatePara
   auto const bmColor = kml::kOrderedPredefinedColors[color];
 
   if (mark->GetPreferredName() == bmName && mark->GetDescription() == bmDescr && mark->GetColor() == bmColor)
-      return; // New bookmark parameters match existing params. Nothing to update.
+    return;  // New bookmark parameters match existing params. Nothing to update.
 
   kml::BookmarkData bmData(mark->GetData());
 
