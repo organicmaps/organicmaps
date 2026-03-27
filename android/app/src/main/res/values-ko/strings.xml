@@ -620,6 +620,7 @@
     <string name="bookmarks_empty_list_message">북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">모든 북마크 색상 변경</string>
+    <string name="change_all_tracks_color">모든 트랙 색상 변경</string>
     <string name="category_desc_more">…기타 정보</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ 내보내기</string>
@@ -852,4 +853,6 @@
     <string name="login_osm_browser">브라우저를 사용하여 로그인</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">최근 사용</string>
+    <string name="toast_bookmarks_color_changed">북마크 색상이 변경됨</string>
+    <string name="toast_tracks_color_changed">트랙 색상이 변경됨</string>
 </resources>

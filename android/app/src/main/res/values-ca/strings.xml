@@ -632,6 +632,7 @@
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Canvia el color de tots els marcadors</string>
+    <string name="change_all_tracks_color">Canvia el color de tots els recorreguts</string>
     <string name="category_desc_more">…més</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exporta KMZ</string>
@@ -865,4 +866,6 @@
     <string name="login_osm_browser">Inicieu la sessió mitjançant el navegador</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Usats recentment</string>
+    <string name="toast_bookmarks_color_changed">El color dels marcadors ha canviat</string>
+    <string name="toast_tracks_color_changed">El color dels recorreguts ha canviat</string>
 </resources>
