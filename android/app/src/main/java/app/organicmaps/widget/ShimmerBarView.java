@@ -1,6 +1,5 @@
 package app.organicmaps.widget;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;
@@ -12,21 +11,19 @@ import android.graphics.Shader;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.R;
 
 /**
- * A single placeholder bar with a built-in shimmer/shine effect.
+ * A single placeholder bar with a shimmer/shine effect.
  * Draws a rounded rectangle in the base color and sweeps a translucent
  * highlight gradient across it. On API &lt; 28 the bar is drawn statically
- * (no animation).
+ * (no animation). Animation is driven externally by {@link SearchShimmerView}.
  */
 public class ShimmerBarView extends View
 {
-  private static final int SHIMMER_DURATION_MS = 1000;
   private static final float CORNER_RADIUS_DP = 4f;
 
   private final Paint mBasePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -38,9 +35,7 @@ public class ShimmerBarView extends View
   private float mCornerRadius;
   private int mShimmerWidth;
   private float mTranslateX;
-  private ValueAnimator mAnimator;
   private boolean mIsAnimating;
-  private boolean mPendingStart;
 
   public ShimmerBarView(@NonNull Context context)
   {
@@ -82,13 +77,6 @@ public class ShimmerBarView extends View
           new LinearGradient(0, 0, mShimmerWidth, 0, new int[] {transparent, highlightColor, transparent},
                              new float[] {0f, 0.5f, 1f}, Shader.TileMode.CLAMP);
       mShimmerPaint.setShader(gradient);
-
-      // If startShimmer() was called before layout, start now that we have valid dimensions
-      if (mPendingStart)
-      {
-        mPendingStart = false;
-        startAnimator();
-      }
     }
   }
 
@@ -103,7 +91,7 @@ public class ShimmerBarView extends View
     {
       canvas.save();
       // Clip to the rounded rect so the gradient doesn't bleed outside
-      canvas.clipPath(getRoundRectPath());
+      canvas.clipPath(mRoundRectPath);
       mShaderMatrix.setTranslate(mTranslateX, 0);
       mShimmerPaint.getShader().setLocalMatrix(mShaderMatrix);
       canvas.drawRect(mRect, mShimmerPaint);
@@ -111,74 +99,36 @@ public class ShimmerBarView extends View
     }
   }
 
-  @NonNull
-  private Path getRoundRectPath()
-  {
-    return mRoundRectPath;
-  }
-
   /**
-   * Start the shimmer animation. No-op on API &lt; 28.
-   * If the view has not been laid out yet, the animation is deferred
-   * until {@link #onSizeChanged} provides valid dimensions.
+   * Marks this bar as animating. Called by {@link SearchShimmerView} before starting animation.
    */
-  public void startShimmer()
+  void startAnimating()
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P)
-      return;
-    if (mAnimator != null && mAnimator.isRunning())
-      return;
-
-    // View not laid out yet — defer until onSizeChanged
-    if (getWidth() == 0 || mShimmerWidth == 0)
-    {
-      mPendingStart = true;
-      mIsAnimating = true;
-      return;
-    }
-
-    startAnimator();
-  }
-
-  /**
-   * Creates and starts the actual ValueAnimator. Must only be called
-   * when the view has a valid width and the shader has been created.
-   */
-  private void startAnimator()
-  {
-    if (mAnimator != null && mAnimator.isRunning())
-      return;
-
     mIsAnimating = true;
-    mAnimator = ValueAnimator.ofFloat(-mShimmerWidth, getWidth() + mShimmerWidth);
-    mAnimator.setDuration(SHIMMER_DURATION_MS);
-    mAnimator.setInterpolator(new LinearInterpolator());
-    mAnimator.setRepeatCount(ValueAnimator.INFINITE);
-    mAnimator.addUpdateListener(animation -> {
-      mTranslateX = (float) animation.getAnimatedValue();
-      invalidate();
-    });
-    mAnimator.start();
   }
 
   /**
-   * Stop the shimmer animation.
+   * Stops the shimmer visual effect.
    */
-  public void stopShimmer()
+  void stopAnimating()
   {
     mIsAnimating = false;
-    mPendingStart = false;
-    if (mAnimator != null)
-    {
-      mAnimator.cancel();
-      mAnimator = null;
-    }
+    invalidate();
   }
 
-  @Override
-  protected void onDetachedFromWindow()
+  /**
+   * Sets the shimmer progress from an external animator.
+   * @param progress normalized progress from 0.0 to 1.0
+   */
+  void setShimmerProgress(float progress)
   {
-    stopShimmer();
-    super.onDetachedFromWindow();
+    if (!mIsAnimating || Build.VERSION.SDK_INT < Build.VERSION_CODES.P)
+      return;
+    final int width = getWidth();
+    if (width == 0 || mShimmerWidth == 0)
+      return;
+    // Map normalized progress to the pixel range: [-shimmerWidth, width + shimmerWidth]
+    mTranslateX = -mShimmerWidth + progress * (width + 2 * mShimmerWidth);
+    invalidate();
   }
 }
