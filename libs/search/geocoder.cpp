@@ -1472,6 +1472,8 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
 
     bool const looksLikeHouseNumber =
         house_numbers::LooksLikeHouseNumber(layers.back().m_subQuery, layers.back().m_lastTokenIsPrefix);
+
+    /// @todo This logic doesn't work in case when tokens order is: "HouseName, HouseNumber, Street".
     if (filtered.IsEmpty() && !looksLikeHouseNumber)
       break;
 

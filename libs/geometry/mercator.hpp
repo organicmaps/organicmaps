@@ -80,7 +80,10 @@ inline double MercatorToMeters(double mercator)
 /// @name Get rect for center point (lon, lat) and dimensions in meters.
 /// @return mercator rect.
 m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMetersR);
-m2::RectD MetersToXY(double lon, double lat, double metersR);
+inline m2::RectD MetersToXY(double lon, double lat, double metersR)
+{
+  return MetersToXY(lon, lat, metersR, metersR);
+}
 
 m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY, double sizeX, double sizeY);
 
@@ -99,7 +102,10 @@ inline m2::PointD FromLatLon(ms::LatLon const & point)
   return FromLatLon(point.m_lat, point.m_lon);
 }
 
-m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size);
+inline m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
+{
+  return MetersToXY(lon, lat, size);
+}
 
 inline ms::LatLon ToLatLon(m2::PointD const & point)
 {
