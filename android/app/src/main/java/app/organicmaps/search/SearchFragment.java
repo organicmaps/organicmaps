@@ -38,7 +38,6 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
-import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchShimmerView;
@@ -702,7 +701,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       if (!isAdded())
         return;
 
-      if (TextUtils.isEmpty(query))
+      if (query.trim().isEmpty())
       {
         mSearchAdapter.clear();
         stopSearch();
