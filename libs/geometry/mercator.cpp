@@ -104,11 +104,6 @@ m2::RectD RectByCenterXYAndOffset(m2::PointD const & center, double offset)
   return {ClampX(center.x - offset), ClampY(center.y - offset), ClampX(center.x + offset), ClampY(center.y + offset)};
 }
 
-m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
-{
-  return RectByCenterXYAndSizeInMeters(FromLatLon(lat, lon), size);
-}
-
 m2::RectD FromLatLon(m2::RectD const & rect)
 {
   return {FromLatLon(rect.minY(), rect.minX()), FromLatLon(rect.maxY(), rect.maxX())};

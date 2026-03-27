@@ -353,6 +353,11 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     Rules rules = {};
     TEST(ResultsMatch("", rules), ());
   }
+  /// @todo
+  // {
+  //   Rules rules = {ExactMatch(wonderlandId, bornHouse)};
+  //   TEST(ResultsMatch("Born house 8 1st April st", rules), ());
+  // }
   {
     Rules rules = {ExactMatch(wonderlandId, busStop)};
     TEST(ResultsMatch("Central bus stop", rules), ());
@@ -3364,7 +3369,7 @@ UNIT_CLASS_TEST(ProcessorTest, PoiStreetCity_FancyMatch)
     builder.Add(moloBusStop);
   });
 
-  SetViewport(RectByCenterLatLonAndSizeInMeters(53.8861373, 27.5492881, 100));  // Minsk
+  SetViewport(MetersToXY(53.8861373, 27.5492881, 100));  // Minsk
 
   // moloBusStop (on second place) was matched like:
   // prefix name match = "улица", near street = "Толстого", in city = "Молодечно".

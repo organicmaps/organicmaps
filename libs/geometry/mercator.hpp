@@ -99,8 +99,6 @@ inline m2::PointD FromLatLon(ms::LatLon const & point)
   return FromLatLon(point.m_lat, point.m_lon);
 }
 
-m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size);
-
 inline ms::LatLon ToLatLon(m2::PointD const & point)
 {
   return {YToLat(point.y), XToLon(point.x)};
