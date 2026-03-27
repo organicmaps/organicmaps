@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Toussaint</string>
+    <!-- Countries: BE, FR, RS -->
+    <string name="armistice_day">Armistice de 1918</string>
+    <!-- Countries: AT, BE, CH, DE, FR, LI, NL, SE -->
+    <string name="ascension_day">Ascension</string>
+    <!-- Countries: MC -->
+    <string name="ascensions_day">L’Ascension</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Assomption</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Noël</string>
+    <!-- Countries: AT, HR, LI, MC, PL, PT, SM -->
+    <string name="corpus_christi">La Fête Dieu</string>
+    <!-- Countries: BE, SM -->
+    <string name="easter">Pâques</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Lundi de Pâques</string>
+    <!-- Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM -->
+    <string name="feast_of_the_immaculate_conception">L’Immaculée Conception</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Fête nationale suisse</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Fête du Travail</string>
+    <!-- Countries: AT, BE, FR, HU, LT, SE -->
+    <string name="national_day">Fête nationale</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Jour de l\'an</string>
+    <!-- Countries: BE, EE, LV, PL -->
+    <string name="pentecost">Pentecôte</string>
+    <!-- Countries: AD, AT, BE, DE, FR, HU, LI -->
+    <string name="pentecost_monday">Lundi de Pentecôte</string>
+    <!-- Countries: MC -->
+    <string name="princes_day">La Fête du Prince</string>
+    <!-- Countries: MC -->
+    <string name="saint_devotes_day">La Sainte Dévote</string>
+    <!-- Countries: BY, EE, FR, MD -->
+    <string name="victory_day">Victoire 1945</string>
+    <!-- Countries: MC, NL -->
+    <string name="whit_monday">Le lundi de Pentecôte</string>
+</resources>

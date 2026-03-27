@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Adormirea Maicii Domnului</string>
+    <!-- Countries: MD -->
+    <string name="birth_of_jesus_christ_christmas_in_a_new_style">Naşterea lui Iisus Hristos (Crăciunul pe stil nou)</string>
+    <!-- Countries: MD -->
+    <string name="birth_of_jesus_christ_christmas_in_the_old_style">Naşterea lui Iisus Hristos (Crăciunul pe stil vechi)</string>
+    <!-- Countries: MD, RO -->
+    <string name="childrens_day">Ziua ocrotirii copilului</string>
+    <!-- Countries: MD -->
+    <string name="commemoration_day_radonitsa">Ziua Comemorarii (Pastele Blajinilor)</string>
+    <!-- Countries: RO -->
+    <string name="day_of_the_unification_of_the_romanian_principalities">Ziua Unirii Principatelor Române</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Bobotează</string>
+    <!-- Countries: MD -->
+    <string name="europe_day">Ziua Europei</string>
+    <!-- Countries: RO -->
+    <string name="first_christmas_day">Prima zi de Crăciun</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Ziua independenţei Republicii Moldova</string>
+    <!-- Countries: BY, MD, ZA -->
+    <string name="international_womens_day">Ziua internaţională a femeii</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Ziua internaţională a solidarităţii oamenilor muncii</string>
+    <!-- Countries: RO -->
+    <string name="national_day_of_romania">Ziua Națională a României</string>
+    <!-- Countries: MD -->
+    <string name="national_language_day">Sărbătoarea \"Limba noastră\"</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Anul Nou</string>
+    <!-- Countries: AL, MD, RO -->
+    <string name="orthodox_easter_monday">A doua zi de Paște conform calendarului bisericesc</string>
+    <!-- Countries: AL, MD, RO -->
+    <string name="orthodox_easter_sunday">Prima zi de Paşti conform calendarului bisericesc</string>
+    <!-- Countries: RO -->
+    <string name="orthodox_good_friday">Vinerea Mare</string>
+    <!-- Countries: RO -->
+    <string name="orthodox_pentecost_monday">A doua zi de Rusalii</string>
+    <!-- Countries: RO -->
+    <string name="orthodox_pentecost_sunday">Prima zi de Rusalii</string>
+    <!-- Countries: RO -->
+    <string name="saint_andrews_day">Sfântul Apostol Andrei</string>
+    <!-- Countries: RO -->
+    <string name="saint_john_the_baptist_day">Sfântul Ion</string>
+    <!-- Countries: CZ, RO, SK -->
+    <string name="second_christmas_day">A doua zi de Crăciun</string>
+    <!-- Countries: BY, EE, FR, MD -->
+    <string name="victory_day">Ziua Victoriei şi a comemorării eroilor căzuţi pentru Independenţa Patriei</string>
+</resources>
