@@ -353,11 +353,12 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     Rules rules = {};
     TEST(ResultsMatch("", rules), ());
   }
-  /// @todo
-  // {
-  //   Rules rules = {ExactMatch(wonderlandId, bornHouse)};
-  //   TEST(ResultsMatch("Born house 8 1st April st", rules), ());
-  // }
+  {
+    Rules rules = {ExactMatch(wonderlandId, bornHouse)};
+    TEST(ResultsMatch("Born house 8 1st April st", rules), ());
+    /// @todo "8 Born house 1st April st" (HN before building name) doesn't work yet —
+    /// requires deeper refactoring of MatchPOIsAndBuildings to handle HN-first building groups.
+  }
   {
     Rules rules = {ExactMatch(wonderlandId, busStop)};
     TEST(ResultsMatch("Central bus stop", rules), ());
