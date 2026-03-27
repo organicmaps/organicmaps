@@ -102,15 +102,11 @@ public class ChartView: UIView {
         v.lineWidth = 3
         v.frame = chartsContainerView.bounds
         v.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        chartsContainerView.addSubview(v)
+        chartsContainerView.insertSubview(v, belowSubview: segmentLinesView)
         lineViews.insert(v, at: 0)
       }
 
-      segmentLinesView.frame = chartsContainerView.bounds
-      segmentLinesView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-      segmentLinesView.lineColor = gridColor
       segmentLinesView.setSegmentDistances(chartData.segmentDistances, chartData: chartData)
-      chartsContainerView.addSubview(segmentLinesView)
 
       yAxisView.frame = chartsContainerView.bounds
       yAxisView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -172,6 +168,11 @@ public class ChartView: UIView {
     pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(onPinch(_:)))
     chartsContainerView.addGestureRecognizer(pinchGR)
     addSubview(chartsContainerView)
+
+    segmentLinesView.frame = chartsContainerView.bounds
+    segmentLinesView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    chartsContainerView.addSubview(segmentLinesView)
+
     if showPreview {
       addSubview(chartPreviewView)
     }
@@ -363,6 +364,7 @@ extension ChartView: ChartInfoViewDelegate {
   }
 
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])? {
+    guard let chartData, bounds.width > 0 else { return nil }
     let p = convert(CGPoint(x: pointX, y: .zero), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     guard !pointX.isZero, chartX >= 0, chartX <= CGFloat(chartData.pointsCount - 1) else { return nil }
