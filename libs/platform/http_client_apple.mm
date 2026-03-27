@@ -193,6 +193,9 @@ using CancelChecker = platform::HttpClient::CancelChecker;
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
+  if (m_dataAborted)
+    return;
+
   if (m_writeError)
     return;
 
