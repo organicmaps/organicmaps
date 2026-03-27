@@ -336,8 +336,12 @@ void CountryInfoGetterForTesting::AddCountry(CountryDef const & country)
 void CountryInfoGetterForTesting::GetMatchedRegions(std::string const & affiliation, RegionIdVec & regions) const
 {
   for (size_t i = 0; i < m_countries.size(); ++i)
-    if (m_countries[i].m_countryId == affiliation)
+  {
+    auto const & id = m_countries[i].m_countryId;
+    size_t const pos = id.find(affiliation);
+    if (pos != std::string::npos && (pos == 0 || id[pos - 1] == '_'))
       regions.push_back(i);
+  }
 }
 
 void CountryInfoGetterForTesting::ClearCachesImpl() const {}
