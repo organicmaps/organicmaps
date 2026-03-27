@@ -265,7 +265,7 @@ set_source_files_properties(
   PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE
 )
 
-if (NOT (SKIP_TOOLS AND SKIP_TESTS))
+if (NOT SKIP_TOOLS OR BUILD_TESTING)
   # Used in both tests and some tools.
   add_subdirectory(generator_tests_support)
 endif()

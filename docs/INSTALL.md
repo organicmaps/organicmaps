@@ -304,6 +304,8 @@ ctest -L "omim-test" -E "base_tests|coding_tests" --output-on-failure
 
 Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
 
+To skip building tests, configure with `-DBUILD_TESTING=OFF`.
+
 ### Test Coverage
 
 To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.
@@ -388,7 +390,7 @@ echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 ```
 
 If you have Qt installed in an unusual directory, use `QT_PATH` variable (`SET (QT_PATH "your-path-to-qt")`). You can skip building tests
-with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
+with `-DBUILD_TESTING=OFF`. You would need 1.5 GB of memory
 to compile the `stats` module.
 
 The `build_omim.sh` script basically runs these commands:
