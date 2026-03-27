@@ -59,7 +59,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeSetColor(J
   auto const newColor = dp::Color::FromARGB(color);
 
   if (mark->GetColorForRendering() == newColor)
-    return; // New color is the same as existing color. Nothing to update.
+    return;  // New color is the same as existing color. Nothing to update.
 
   // initialize new bookmark
   kml::BookmarkData bmData(mark->GetData());
@@ -80,7 +80,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeUpdatePara
 
   if (mark->GetPreferredName() == bmName && mark->GetDescription() == bmDescr &&
       mark->GetColorForRendering() == newColor)
-    return; // New bookmark parameters match existing params. Nothing to update.
+    return;  // New bookmark parameters match existing params. Nothing to update.
 
   // initialize new bookmark
   kml::BookmarkData bmData(mark->GetData());
