@@ -199,7 +199,9 @@ void UserMarkGenerator::SetGroupVisibility(kml::MarkGroupId groupId, bool isVisi
 
 ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserMarksGroups(TileKey const & tileKey)
 {
-  auto const itTile = m_index.find(tileKey);
+  // Wrap to canonical tile key so extended tiles (past the antimeridian)
+  // find marks indexed under canonical coordinates.
+  auto const itTile = m_index.find(tileKey.GetCanonicalTileKey());
   if (itTile != m_index.end())
     return make_ref(itTile->second);
   return nullptr;
@@ -209,7 +211,9 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & til
 {
   auto itTile = m_index.end();
   int const lineZoom = GetNearestLineIndexZoom(tileKey.m_zoomLevel);
-  CalcTilesCoverage(tileKey.GetGlobalRect(), lineZoom, [this, &itTile, lineZoom](int tileX, int tileY)
+  // Use wrapped data rect so extended tiles (past the antimeridian)
+  // produce canonical tile coordinates that match the index.
+  CalcTilesCoverage(tileKey.GetWrappedDataRect(), lineZoom, [this, &itTile, lineZoom](int tileX, int tileY)
   { itTile = m_index.find(TileKey(tileX, tileY, lineZoom)); });
   if (itTile != m_index.end())
     return make_ref(itTile->second);

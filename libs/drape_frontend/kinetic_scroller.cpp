@@ -185,8 +185,9 @@ drape_ptr<Animation> KineticScroller::CreateKineticAnimation(ScreenBase const & 
   double const offset = (modelView.PtoG(modelView.GtoP(center) + dir * velocity) - center).Length();
   double const glbLength = kKineticAcceleration * offset;
   m2::PointD const glbDirection = dir * glbLength;
-  m2::PointD const targetCenter = center + glbDirection;
-  if (!df::GetWorldRect().IsPointInside(targetCenter))
+  double const targetY = (center + glbDirection).y;
+  m2::RectD const & worldR = df::GetWorldRect();
+  if (targetY < worldR.minY() || targetY > worldR.maxY())
     return {};
 
   return make_unique_dp<KineticScrollAnimation>(center, glbDirection, kKineticDuration);

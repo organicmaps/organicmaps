@@ -6,6 +6,9 @@
 
 #include "base/math.hpp"
 
+#include <cmath>
+#include <vector>
+
 namespace mercator
 {
 // Use to compare/match lat lon coordinates.
@@ -52,6 +55,45 @@ inline double ClampX(double d)
 inline double ClampY(double d)
 {
   return math::Clamp(d, Bounds::kMinY, Bounds::kMaxY);
+}
+
+/// Wraps X (longitude) into [-180, 180) via modular arithmetic.
+/// Unlike ClampX which snaps to the boundary, WrapX preserves the
+/// geographic position across the antimeridian: WrapX(185) = -175.
+inline double WrapX(double x)
+{
+  x = std::fmod(x - Bounds::kMinX, Bounds::kRangeX);
+  return (x < 0.0 ? x + Bounds::kRangeX : x) + Bounds::kMinX;
+}
+
+/// Returns x adjusted to be within 180 degrees of refX.
+/// Picks the nearest world copy across the antimeridian.
+/// Uses a loop to handle screen origins more than 360 degrees from the feature.
+inline double NearestWrapX(double x, double refX)
+{
+  while (x - refX > 180.0)
+    x -= 360.0;
+  while (x - refX < -180.0)
+    x += 360.0;
+  return x;
+}
+
+/// Compacts rects crossing the antimeridian by trying east-shift (+360)
+/// and west-shift (-360) groupings, returning whichever yields smaller width.
+inline m2::RectD CompactRectsAcrossAntimeridian(std::vector<m2::RectD> const & rects)
+{
+  m2::RectD eastGrouped, westGrouped;
+  for (auto const & r : rects)
+  {
+    auto re = r, rw = r;
+    if (r.Center().x < 0.0)
+      re.Offset(360.0, 0.0);
+    if (r.Center().x >= 0.0)
+      rw.Offset(-360.0, 0.0);
+    eastGrouped.Add(re);
+    westGrouped.Add(rw);
+  }
+  return eastGrouped.SizeX() <= westGrouped.SizeX() ? eastGrouped : westGrouped;
 }
 
 void ClampPoint(m2::PointD & pt);

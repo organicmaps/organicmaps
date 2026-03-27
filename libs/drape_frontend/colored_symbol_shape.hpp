@@ -27,6 +27,7 @@ private:
   ColoredSymbolViewParams m_params;
   m2::PointI const m_tileCoords;
   uint32_t const m_textIndex;
+  double const m_tileXOffset;
   bool const m_needOverlay;
   std::vector<m2::PointF> m_overlaySizes;
 };

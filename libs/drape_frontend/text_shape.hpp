@@ -50,6 +50,7 @@ private:
   m2::PointD m_basePoint;
   TextViewParams m_params;
   m2::PointI m_tileCoords;
+  double m_tileXOffset;
   std::vector<m2::PointF> m_symbolSizes;
   dp::Anchor m_symbolAnchor;
   m2::PointF m_symbolOffset;

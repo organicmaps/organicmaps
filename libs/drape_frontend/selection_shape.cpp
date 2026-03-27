@@ -1,5 +1,6 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/selection_shape_generator.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -93,18 +94,20 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
 
   if (m_selectionGeometry.empty())
   {
+    m2::PointD const adjustedPos = df::AdjustPointForViewport(m_position, screen);
+
     gpu::ShapesProgramParams params;
     frameValues.SetTo(params);
-    TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
+    TileKey const key = GetTileKeyByPoint(adjustedPos, ClipTileZoomByMaxDataZoom(zoomLevel));
     params.m_modelView = glsl::make_mat4(key.GetTileBasedModelView(screen).m_data);
 
-    m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+    m2::PointD const pos = MapShape::ConvertToLocal(adjustedPos, key.GetGlobalRect().Center(), kShapeCoordScalar);
     params.m_position = glsl::vec3(pos.x, pos.y, -m_positionZ);
 
     float accuracy = m_selectedObject == OBJECT_TRACK ? 1.0 : m_mapping.GetValue(m_animation.GetT());
     if (screen.isPerspective())
     {
-      m2::PointD const pt1 = screen.GtoP(m_position);
+      m2::PointD const pt1 = screen.GtoP(adjustedPos);
       m2::PointD const pt2(pt1.x + 1, pt1.y);
       auto const scale = static_cast<float>(screen.PtoP3d(pt2).x - screen.PtoP3d(pt1).x);
       accuracy /= scale;

@@ -366,7 +366,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     if (!renderInfo.m_isVisible)
       continue;
 
-    m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
+    m2::PointD const tileCenter = tileKey.GetWrappedDataRect().Center();
 
     m2::PointF symbolSize(0.0f, 0.0f);
     dp::TextureManager::SymbolRegion symbolRegion;
@@ -521,7 +521,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   if (simplify)
     minSegmentSqrLength = math::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel));
 
-  m2::RectD const tileRect = tileKey.GetGlobalRect();
+  m2::RectD const tileRect = tileKey.GetWrappedDataRect();
 
   // Process spline by segments that are no longer than tile size.
   // double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));

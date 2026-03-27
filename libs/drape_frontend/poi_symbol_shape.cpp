@@ -145,6 +145,7 @@ PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParam
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
+  , m_tileXOffset(tileKey.GetTileXOffset())
 {}
 
 void PoiSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
@@ -185,8 +186,9 @@ void PoiSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batc
 drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::RectD const & pixelRect) const
 {
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
+  m2::PointD const pivot(m_pt.x + m_tileXOffset, m_pt.y);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
-      overlayId, m_params.m_anchor, m_pt, pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(m_params.m_offset),
+      overlayId, m_params.m_anchor, pivot, pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(m_params.m_offset),
       GetOverlayPriority(), true /* isBound */, m_params.m_minVisibleScale, true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);

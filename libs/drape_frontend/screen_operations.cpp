@@ -4,9 +4,12 @@
 
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace df
 {
@@ -47,7 +50,9 @@ bool CheckMinScale(ScreenBase const & screen)
   m2::RectD const & r = screen.ClipRect();
   m2::RectD const & worldR = df::GetWorldRect();
 
-  return (r.SizeX() <= worldR.SizeX() || r.SizeY() <= worldR.SizeY());
+  // Only constrain width — Y pole boundaries are enforced by ShrinkAndScaleInto.
+  // Using && would block zoom-out on portrait screens where height reaches 360° first.
+  return r.SizeX() <= worldR.SizeX();
 }
 
 bool CheckMaxScale(ScreenBase const & screen)
@@ -66,13 +71,19 @@ bool CheckBorders(ScreenBase const & screen)
   m2::RectD const & r = screen.ClipRect();
   m2::RectD const & worldR = df::GetWorldRect();
 
-  return (r.IsRectInside(worldR) || worldR.IsRectInside(r));
+  double const rMinY = r.minY();
+  double const rMaxY = r.maxY();
+  double const wMinY = worldR.minY();
+  double const wMaxY = worldR.maxY();
+
+  // Either the viewport Y fits inside world Y, or world Y fits inside viewport Y (zoomed out).
+  return (rMinY >= wMinY && rMaxY <= wMaxY) || (wMinY >= rMinY && wMaxY <= rMaxY);
 }
 
 bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  m2::RectD clipRect = screen.ClipRect();
-  return (boundRect.SizeX() >= clipRect.SizeX()) && (boundRect.SizeY() >= clipRect.SizeY());
+  m2::RectD const & clipRect = screen.ClipRect();
+  return boundRect.SizeX() >= clipRect.SizeX() && boundRect.SizeY() >= clipRect.SizeY();
 }
 
 ScreenBase ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
@@ -80,19 +91,12 @@ ScreenBase ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
   ScreenBase res = screen;
 
   m2::RectD clipRect = res.ClipRect();
-  if (clipRect.minX() < boundRect.minX())
-    clipRect.Offset(boundRect.minX() - clipRect.minX(), 0);
-  if (clipRect.maxX() > boundRect.maxX())
-    clipRect.Offset(boundRect.maxX() - clipRect.maxX(), 0);
   if (clipRect.minY() < boundRect.minY())
     clipRect.Offset(0, boundRect.minY() - clipRect.minY());
   if (clipRect.maxY() > boundRect.maxY())
     clipRect.Offset(0, boundRect.maxY() - clipRect.maxY());
 
   res.SetOrg(clipRect.Center());
-
-  // This assert fails near x = 180 (Philipines).
-  // ASSERT ( boundRect.IsRectInside(res.ClipRect()), (clipRect, res.ClipRect()) );
   return res;
 }
 
@@ -118,14 +122,6 @@ ScreenBase ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
     }
   };
 
-  ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
-
-  if (clipRect.minX() < boundRect.minX())
-    DoScale((boundRect.minX() - clipRect.Center().x) / (clipRect.minX() - clipRect.Center().x));
-
-  if (clipRect.maxX() > boundRect.maxX())
-    DoScale((boundRect.maxX() - clipRect.Center().x) / (clipRect.maxX() - clipRect.Center().x));
-
   if (clipRect.minY() < boundRect.minY())
     DoScale((boundRect.minY() - clipRect.Center().y) / (clipRect.minY() - clipRect.Center().y));
 
@@ -148,38 +144,15 @@ ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & bound
   double scale = 1;
   double offs = 0;
 
-  if (globalRect.minX() < boundRect.minX())
+  // Constrain X width: viewport must not be wider than one world width (360°).
+  if (globalRect.SizeX() > boundRect.SizeX())
   {
-    offs = boundRect.minX() - globalRect.minX();
-    globalRect.Offset(offs, 0);
-    newOrg.x += offs;
-
-    if (globalRect.maxX() > boundRect.maxX())
-    {
-      double k = boundRect.SizeX() / globalRect.SizeX();
-      scale /= k;
-      /// scaling always occur pinpointed to the rect center...
-      globalRect.Scale(k);
-      /// ...so we should shift a rect after scale
-      globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
-    }
+    double k = boundRect.SizeX() / globalRect.SizeX();
+    scale /= k;
+    globalRect.Scale(k);
   }
 
-  if (globalRect.maxX() > boundRect.maxX())
-  {
-    offs = boundRect.maxX() - globalRect.maxX();
-    globalRect.Offset(offs, 0);
-    newOrg.x += offs;
-
-    if (globalRect.minX() < boundRect.minX())
-    {
-      double k = boundRect.SizeX() / globalRect.SizeX();
-      scale /= k;
-      globalRect.Scale(k);
-      globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
-    }
-  }
-
+  // Constrain Y axis: keep viewport within pole boundaries.
   if (globalRect.minY() < boundRect.minY())
   {
     offs = boundRect.minY() - globalRect.minY();
@@ -251,6 +224,26 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
 
   screen = tmp;
   return true;
+}
+
+void NormalizeScreenOriginX(ScreenBase & screen)
+{
+  auto org = screen.GetOrg();
+  double const kMaxX = 540.0;  // 1.5 world widths
+  if (org.x > kMaxX || org.x < -kMaxX)
+  {
+    double const kRangeX = mercator::Bounds::kRangeX;  // 360.0
+    org.x = std::fmod(org.x + kMaxX, kRangeX);
+    if (org.x < 0.0)
+      org.x += kRangeX;
+    org.x -= kMaxX;
+    screen.SetOrg(org);
+  }
+}
+
+m2::PointD AdjustPointForViewport(m2::PointD const & pt, ScreenBase const & screen)
+{
+  return {mercator::NearestWrapX(pt.x, screen.GetOrg().x), pt.y};
 }
 
 }  // namespace df

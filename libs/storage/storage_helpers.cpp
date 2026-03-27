@@ -3,9 +3,13 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include "std/target_os.hpp"
+
+#include <vector>
 
 namespace storage
 {
@@ -65,15 +69,23 @@ m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter)
 {
   m2::RectD boundingBox;
-  auto const accumulator = [&countryInfoGetter, &boundingBox](CountryId const & descendantId, bool groupNode)
+  std::vector<m2::RectD> leafRects;
+
+  storage.ForEachInSubtree(countryId, [&](CountryId const & descendantId, bool groupNode)
   {
     if (!groupNode)
-      boundingBox.Add(countryInfoGetter.GetLimitRectForLeaf(descendantId));
-  };
-
-  storage.ForEachInSubtree(countryId, accumulator);
+    {
+      auto const r = countryInfoGetter.GetLimitRectForLeaf(descendantId);
+      leafRects.push_back(r);
+      boundingBox.Add(r);
+    }
+  });
 
   ASSERT(boundingBox.IsValid(), ());
+
+  if (boundingBox.SizeX() > 180.0)
+    boundingBox = mercator::CompactRectsAcrossAntimeridian(leafRects);
+
   return boundingBox;
 }
 

@@ -76,6 +76,7 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
+  , m_tileXOffset(tileKey.GetTileXOffset())
   , m_needOverlay(needOverlay)
 {}
 
@@ -86,6 +87,7 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
+  , m_tileXOffset(tileKey.GetTileXOffset())
   , m_needOverlay(true)
   , m_overlaySizes(overlaySizes)
 {}
@@ -267,18 +269,20 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
 
+  m2::PointD const pivot(m_point.x + m_tileXOffset, m_point.y);
+
   drape_ptr<dp::OverlayHandle> handle;
   if (m_needOverlay)
   {
     if (!m_overlaySizes.empty())
     {
       handle = make_unique_dp<DynamicSquareHandle>(
-          overlayId, m_params.m_anchor, m_point, m_overlaySizes, m2::PointD(m_params.m_offset), GetOverlayPriority(),
+          overlayId, m_params.m_anchor, pivot, m_overlaySizes, m2::PointD(m_params.m_offset), GetOverlayPriority(),
           true /* isBound */, m_params.m_minVisibleScale, true /* isBillboard */);
     }
     else
     {
-      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
+      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, pivot, m2::PointD(pixelSize),
                                                 m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
                                                 m_params.m_minVisibleScale, true /* isBillboard */);
     }

@@ -79,3 +79,56 @@ UNIT_TEST(Mercator_Sample1)
 {
   LOG(LINFO, (mercator::XToLon(27.531491200000001385), mercator::YToLat(64.392864299248202542)));
 }
+
+UNIT_TEST(Mercator_WrapX)
+{
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(185.0), -175.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-185.0), 175.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(0.0), 0.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-180.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(180.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(540.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-540.0), -180.0, 1e-10, ());
+}
+
+UNIT_TEST(Mercator_NearestWrapX)
+{
+  // No adjustment needed (within 180 of reference).
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(10.0, 0.0), 10.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, -170.0), -170.0, 1e-10, ());
+
+  // Wrap westward: point is > 180 east of reference.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(170.0, -20.0), -190.0, 1e-10, ());
+
+  // Wrap eastward: point is > 180 west of reference.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, 20.0), 190.0, 1e-10, ());
+
+  // Exactly at 180 boundary — no adjustment (strict inequality).
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(180.0, 0.0), 180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-180.0, 0.0), -180.0, 1e-10, ());
+
+  // Extended screen origin (past antimeridian, single wrap).
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-175.0, 350.0), 185.0, 1e-10, ());
+
+  // Extended screen origin requiring two wraps.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, 500.0), 550.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(170.0, -500.0), -550.0, 1e-10, ());
+
+  // Edge case: max normalization range boundary.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-180.0, 540.0), 540.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(180.0, -540.0), -540.0, 1e-10, ());
+}
+
+UNIT_TEST(Mercator_CompactRectsAcrossAntimeridian)
+{
+  // NZ-like scenario: eastern + western sub-regions.
+  std::vector<m2::RectD> rects = {
+      {168.0, -38.0, 180.0, -34.0},   // Auckland
+      {166.0, -45.5, 180.0, -28.0},   // Canterbury (east part)
+      {-175.0, -10.0, -167.0, -5.0},  // Tokelau (western hemisphere)
+  };
+  auto const compacted = mercator::CompactRectsAcrossAntimeridian(rects);
+  // East grouping shifts Tokelau to [185, 193], yielding ~[166, 193] = 27°.
+  TEST_LESS(compacted.SizeX(), 40.0, ());
+  TEST_GREATER_OR_EQUAL(compacted.minX(), 166.0, ());
+}

@@ -30,7 +30,7 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams
   , m_tileCoords(tileKey.GetTileCoords())
   , m_baseTextIndex(baseTextIndex)
 {
-  m_context = std::make_shared<PathTextContext>(m_spline);
+  m_context = std::make_shared<PathTextContext>(m_spline, tileKey.GetTileXOffset());
 }
 
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
