@@ -799,6 +799,7 @@ void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInf
   CHECK(position, ());
   info.SetMercator(*position);
   info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
+  info.SetCanEditOrAdd(CanEditMapForPosition(*position));
 
   UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
