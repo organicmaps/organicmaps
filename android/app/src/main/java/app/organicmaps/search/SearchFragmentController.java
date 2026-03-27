@@ -146,6 +146,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   @Nullable
   private View mRoutingPlanFrame;
   private View mNavigationFrame;
+  private final View.OnLayoutChangeListener mExpandedOffsetListener =
+      (v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset();
   // These variables are used to determine if the touch event is a tap or a drag
   private float mInitialX = 0f;
   private float mInitialY = 0f;
@@ -238,12 +240,12 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.setDraggable(true);
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-    mSearchPageContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
+    mSearchPageContainer.addOnLayoutChangeListener(mExpandedOffsetListener);
     mSearchPageContainer.post(this::updateExpandedOffset);
     if (mRoutingPlanFrame != null)
-      mRoutingPlanFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
+      mRoutingPlanFrame.addOnLayoutChangeListener(mExpandedOffsetListener);
     if (mNavigationFrame != null)
-      mNavigationFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
+      mNavigationFrame.addOnLayoutChangeListener(mExpandedOffsetListener);
 
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
@@ -293,6 +295,12 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onDestroyView()
   {
     super.onDestroyView();
+    if (mSearchPageContainer != null)
+      mSearchPageContainer.removeOnLayoutChangeListener(mExpandedOffsetListener);
+    if (mRoutingPlanFrame != null)
+      mRoutingPlanFrame.removeOnLayoutChangeListener(mExpandedOffsetListener);
+    if (mNavigationFrame != null)
+      mNavigationFrame.removeOnLayoutChangeListener(mExpandedOffsetListener);
     SurfaceView mapView = requireActivity().findViewById(R.id.map);
     if (mapView != null)
     {
