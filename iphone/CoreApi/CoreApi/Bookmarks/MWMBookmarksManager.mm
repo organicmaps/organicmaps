@@ -697,7 +697,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
   if (bookmark->GetPreferredName() == title.UTF8String && bookmark->GetDescription() == description.UTF8String &&
       bookmark->GetColorForRendering() == newColor)
-    return; // No changes in bookmark parameters.
+    return;  // No changes in bookmark parameters.
 
   if (newColor != bookmark->GetColorForRendering())
     self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
@@ -718,7 +718,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
   if (newColor == bookmark->GetColorForRendering())
-    return; // New color is the same as existing color. Nothing to update.
+    return;  // New color is the same as existing color. Nothing to update.
 
   self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
   bookmark->SetColor(newColor);
