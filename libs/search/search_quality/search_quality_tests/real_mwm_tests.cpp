@@ -1447,4 +1447,36 @@ UNIT_CLASS_TEST(MwmTestsFixture, Synonyms)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, US_FullAddress_Chicago)
+{
+  // Chicago
+  ms::LatLon const center(41.8758005, -87.6189715);
+  SetViewportAndLoadMaps(center);
+
+  for (auto query : {"310 west chicago avenue", "310 west chicago avenue chicago", "310 west chicago avenue chicago IL",
+                     "310 west chicago avenue chicago IL "})
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    HasAddress(Range(request->Results(), 0, kPopularPoiResultsCount), "", "310" /* house */);
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, US_FullAddress_NY)
+{
+  // New York
+  ms::LatLon const center(40.689251, -74.0445382);
+  SetViewportAndLoadMaps(center);
+
+  for (auto query : {"636 Broadway", "636 Broadway, New York", "636 Broadway, New York City",
+                     "636 Broadway, New York City, NY", "636 Broadway, New York City, NY 10012"})
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    HasAddress(Range(request->Results(), 0, kPopularPoiResultsCount), "", "636" /* house */);
+  }
+}
+
 }  // namespace real_mwm_tests
