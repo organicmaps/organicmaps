@@ -76,26 +76,6 @@ target_link_libraries(${PROJECT_NAME}
     location_service
 )
 
-omim_add_test(update_dialog_tests
-  REQUIRE_QT
-  GTEST
-  update_dialog_tests.cpp
-  update_dialog.cpp
-)
-
-target_link_libraries(update_dialog_tests
-  PRIVATE
-    qt_common
-    map
-    generator
-    gflags::gflags
-    location_service
-    Qt6::Widgets
-    Qt6::Core
-)
-
-set_target_properties(update_dialog_tests PROPERTIES AUTOMOC ON)
-
 if (BUILD_DESIGNER)
   target_link_libraries(${PROJECT_NAME} PRIVATE generator)
   set(BUNDLE_NAME "OMaps.Designer")
@@ -269,3 +249,4 @@ elseif (BUILD_STANDALONE)
 endif()
 
 add_subdirectory(qt_common)
+add_subdirectory(qt_tests)
