@@ -1490,7 +1490,8 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
     bool const looksLikeHouseNumber =
         house_numbers::LooksLikeHouseNumber(layers.back().m_subQuery, layers.back().m_lastTokenIsPrefix);
 
-    /// @todo This logic doesn't work in case when tokens order is: "HouseName, HouseNumber, Street".
+    /// @todo "HouseNumber BuildingName Street" (e.g., "8 Born house 1st April st") doesn't work
+    /// because the HN token poisons the feature intersection (HN isn't in name index).
     if (filtered.IsEmpty() && !looksLikeHouseNumber)
       break;
 
@@ -1549,9 +1550,25 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
       }
 
       layer.m_type = static_cast<Model::Type>(i);
-      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(layer.m_type), TokenRange(curToken, endToken));
+
+      // When a building is matched by name (e.g., "Born house") and the next unused token
+      // is a house number (e.g., "8"), extend the building range to include it.
+      // This handles "BuildingName HouseNumber Street" patterns like "Born house 8 1st April st".
+      size_t adjustedEnd = endToken;
+      if (i == Model::TYPE_BUILDING && !layer.m_sortedFeatures->empty() && endToken < numTokens &&
+          !ctx.IsTokenUsed(endToken))
+      {
+        auto const & nextToken = m_params.GetToken(endToken).GetOriginal();
+        if (house_numbers::LooksLikeHouseNumber(nextToken, m_params.IsPrefixToken(endToken)))
+        {
+          adjustedEnd = endToken + 1;
+          layer.m_tokenRange = TokenRange(curToken, adjustedEnd);
+        }
+      }
+
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(layer.m_type), TokenRange(curToken, adjustedEnd));
       if (IsLayerSequenceSane(layers))
-        MatchPOIsAndBuildings(ctx, endToken, filter);
+        MatchPOIsAndBuildings(ctx, adjustedEnd, filter);
     }
   }
 }
