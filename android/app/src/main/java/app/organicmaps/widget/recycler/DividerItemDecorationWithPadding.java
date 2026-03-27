@@ -60,7 +60,11 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
       // Full-width has priority
       if (useFullWidth(viewHolder) || useFullWidth(viewHolderNext))
       {
-        mDivider.setBounds(0, top, right, bottom);
+        // For last item, shift divider up to match old behavior
+        if (i == childCount - 1)
+          mDivider.setBounds(0, top - dividerHeight, right, bottom);
+        else
+          mDivider.setBounds(0, top, right, bottom);
         mDivider.draw(c);
         continue;
       }
