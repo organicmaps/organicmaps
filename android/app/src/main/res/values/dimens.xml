@@ -44,6 +44,7 @@
   <dimen name="dialog_min_height">100dp</dimen>
 
   <dimen name="search_item_height">56dp</dimen>
+  <dimen name="search_input_height">48dp</dimen>
 
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>

@@ -37,11 +37,10 @@
     <LinearLayout
       android:id="@+id/search_content"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+        android:layout_height="@dimen/search_input_height"
       android:orientation="horizontal"
       android:layout_weight="1"
-      android:gravity="center_vertical"
-      android:minHeight="@dimen/place_page_icon_size">
+        android:gravity="center_vertical">
       <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
