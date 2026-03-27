@@ -24,7 +24,7 @@ SKIN_GENERATOR="${SKIN_GENERATOR:-$BUILD_DIR/$BINARY_NAME}"
 DATA_PATH="$OMIM_PATH/data"
 
 # cmake rebuilds skin generator binary if necessary.
-cmake -S "$OMIM_PATH" -B "$BUILD_DIR" -G Ninja -DCMAKE_BUILD_TYPE=Release -DSKIP_TESTS:bool=true
+cmake -S "$OMIM_PATH" -B "$BUILD_DIR" -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
 cmake --build "$BUILD_DIR" --target "$BINARY_NAME"
 
 
