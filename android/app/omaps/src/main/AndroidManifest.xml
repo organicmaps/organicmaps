@@ -18,25 +18,32 @@
             android:name="wear-sdk"
             android:required="false" />
 
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
         <activity
-            android:name=".presentation.Omaps"
+            android:name="app.organicmaps.wear.presentation.Omaps"
             android:exported="true"
             android:taskAffinity=""
             android:theme="@style/OmapsTheme.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="app.organicmaps.wear.WearDataListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <data
+                    android:host="*"
+                    android:pathPrefix="/navigation"
+                    android:scheme="wear" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

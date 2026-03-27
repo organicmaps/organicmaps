@@ -42,6 +42,7 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.wear.WearSyncService;
 
 public class NavigationService extends Service implements LocationListener
 {
@@ -184,6 +185,7 @@ public class NavigationService extends Service implements LocationListener
     // The notification is cancelled automatically by the system.
 
     mPlayer.release();
+    WearSyncService.stopNavigation(this);
   }
 
   @Override
@@ -290,6 +292,8 @@ public class NavigationService extends Service implements LocationListener
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
     if (routingInfo == null)
       return;
+
+    WearSyncService.updateNavigation(this, routingInfo);
 
     if (routingInfo.shouldPlayWarningSignal())
       mPlayer.playback(R.raw.speed_cams_beep);
