@@ -56,10 +56,14 @@ extern "C"
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeSetColor(JNIEnv *, jclass, jlong bmk, jint color)
 {
   auto const * mark = getBookmark(bmk);
+  auto const bmColor = kml::kOrderedPredefinedColors[color];
+
+  if (mark->GetColor() == bmColor)
+    return; // New color is the same as existing color. Nothing to update.
 
   // initialize new bookmark
   kml::BookmarkData bmData(mark->GetData());
-  bmData.m_color.m_predefinedColor = kml::kOrderedPredefinedColors[color];
+  bmData.m_color.m_predefinedColor = bmColor;
 
   g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
 }
@@ -71,13 +75,19 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeUpdatePara
   auto const * mark = getBookmark(bmk);
 
   // initialize new bookmark
-  kml::BookmarkData bmData(mark->GetData());
   auto const bmName = jni::ToNativeString(env, name);
+  auto const bmDescr = jni::ToNativeString(env, descr);
+  auto const bmColor = kml::kOrderedPredefinedColors[color];
+
+  if (mark->GetPreferredName() == bmName && mark->GetDescription() == bmDescr && mark->GetColor() == bmColor)
+      return; // New bookmark parameters match existing params. Nothing to update.
+
+  kml::BookmarkData bmData(mark->GetData());
+
   if (mark->GetPreferredName() != bmName)
     kml::SetDefaultStr(bmData.m_customName, bmName);
-  if (descr)
-    kml::SetDefaultStr(bmData.m_description, jni::ToNativeString(env, descr));
-  bmData.m_color.m_predefinedColor = kml::kOrderedPredefinedColors[color];
+  kml::SetDefaultStr(bmData.m_description, bmDescr);
+  bmData.m_color.m_predefinedColor = bmColor;
 
   g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
 }
