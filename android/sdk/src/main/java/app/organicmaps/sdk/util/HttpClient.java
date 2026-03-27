@@ -246,7 +246,7 @@ public final class HttpClient
       try (BufferedSink sink = Okio.buffer(Okio.sink(new File(p.outputFilePath))))
       {
         if (useStreaming)
-          readBodyStreaming(responseBody, nativeCtxPtr, sink);
+          readBodyStreaming(responseBody, nativeCtxPtr, sink, hasDataHandler, hasProgressHandler);
         else
           sink.writeAll(responseBody.source());
       }
@@ -259,7 +259,7 @@ public final class HttpClient
     }
     else if (useStreaming)
     {
-      byte[] accumulated = readBodyStreaming(responseBody, nativeCtxPtr, null);
+      byte[] accumulated = readBodyStreaming(responseBody, nativeCtxPtr, null, hasDataHandler, hasProgressHandler);
       if (accumulated != null)
         p.responseData = accumulated;
     }
@@ -271,12 +271,10 @@ public final class HttpClient
 
   @Nullable
   private static byte[] readBodyStreaming(@NonNull ResponseBody body, long nativeCtxPtr,
-                                          @Nullable BufferedSink outputSink) throws IOException
+                                          @Nullable BufferedSink outputSink, boolean hasDataHandler,
+                                          boolean hasProgressHandler) throws IOException
   {
     final long contentLength = body.contentLength();
-    // Cache JNI handler checks — they are immutable for the duration of a request.
-    final boolean hasDataHandler = hasNativeDataHandler(nativeCtxPtr);
-    final boolean hasProgressHandler = hasNativeProgressHandler(nativeCtxPtr);
     // Accumulate body in memory when no DataHandler consumes it and no file sink exists.
     final boolean accumulate = !hasDataHandler && outputSink == null;
     ByteArrayOutputStream baos = accumulate ? new ByteArrayOutputStream() : null;

@@ -32,6 +32,7 @@ SOFTWARE.
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <iterator>
@@ -214,8 +215,7 @@ extern "C" JNIEXPORT jboolean Java_app_organicmaps_sdk_util_HttpClient_nativeOnD
                                                                                     jint dataSize)
 {
   auto * ctx = reinterpret_cast<AsyncContext *>(nativeCtxPtr);
-  if (!ctx || !ctx->m_dataHandler)
-    return JNI_TRUE;
+  ASSERT(ctx && ctx->m_dataHandler, ());
 
   if (ctx->m_cancelChecker && ctx->m_cancelChecker())
     return JNI_FALSE;
@@ -228,7 +228,7 @@ extern "C" JNIEXPORT jboolean Java_app_organicmaps_sdk_util_HttpClient_nativeOnD
   env->ReleaseByteArrayElements(dataBuffer, buffer, JNI_ABORT);
 
   if (!shouldContinue)
-    ctx->m_dataAborted.store(true, std::memory_order_release);
+    ctx->m_dataAborted = true;
 
   return shouldContinue ? JNI_TRUE : JNI_FALSE;
 }
@@ -239,8 +239,8 @@ extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnProgr
                                                                                     jlong totalBytes)
 {
   auto * ctx = reinterpret_cast<AsyncContext *>(nativeCtxPtr);
-  if (ctx && ctx->m_progressHandler)
-    ctx->m_progressHandler(bytesTransferred, totalBytes);
+  ASSERT(ctx && ctx->m_progressHandler, ());
+  ctx->m_progressHandler(bytesTransferred, totalBytes);
 }
 
 extern "C" JNIEXPORT jboolean Java_app_organicmaps_sdk_util_HttpClient_hasNativeDataHandler(JNIEnv * /*env*/,
@@ -269,7 +269,7 @@ extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnCompl
   platform::HttpClient::Result result;
 
   // Check cancellation or data-handler abort.
-  if ((ctx->m_cancelChecker && ctx->m_cancelChecker()) || ctx->m_dataAborted.load(std::memory_order_acquire))
+  if ((ctx->m_cancelChecker && ctx->m_cancelChecker()) || ctx->m_dataAborted)
   {
     result.m_errorCode = platform::HttpClient::kCancelled;
   }
@@ -312,24 +312,24 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   RequestHandle handle;
   handle.m_impl = std::make_shared<RequestHandle::Impl>();
 
-  ScopedEnv env(jni::GetJVM());
-  if (!env)
+  // Invoke handler with empty Result on any early return.
+  // Released after handler ownership transfers to AsyncContext.
+  SCOPE_GUARD(onError, [&handler]
   {
     if (handler)
       handler(Result{});
+  });
+
+  ScopedEnv env(jni::GetJVM());
+  if (!env)
     return handle;
-  }
 
   static Ids ids(env);
 
   // Create and fill request params.
   jni::ScopedLocalRef<jstring> const jniUrl(env.get(), jni::ToJavaString(env.get(), m_urlRequested));
   if (jni::HandleJavaException(env.get()))
-  {
-    if (handler)
-      handler(Result{});
     return handle;
-  }
 
   static jmethodID const httpParamsConstructor =
       jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
@@ -337,11 +337,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   jni::ScopedLocalRef<jobject> const httpParamsObject(
       env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
   if (jni::HandleJavaException(env.get()))
-  {
-    if (handler)
-      handler(Result{});
     return handle;
-  }
 
   static jfieldID const requestDataField = env->GetFieldID(g_httpParamsClazz, "requestData", "[B");
   if (!m_bodyData.empty())
@@ -349,28 +345,16 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     jni::ScopedLocalRef<jbyteArray> const jniPostData(env.get(),
                                                       env->NewByteArray(static_cast<jsize>(m_bodyData.size())));
     if (jni::HandleJavaException(env.get()))
-    {
-      if (handler)
-        handler(Result{});
       return handle;
-    }
 
     env->SetByteArrayRegion(jniPostData.get(), 0, static_cast<jsize>(m_bodyData.size()),
                             reinterpret_cast<jbyte const *>(m_bodyData.data()));
     if (jni::HandleJavaException(env.get()))
-    {
-      if (handler)
-        handler(Result{});
       return handle;
-    }
 
     env->SetObjectField(httpParamsObject.get(), requestDataField, jniPostData.get());
     if (jni::HandleJavaException(env.get()))
-    {
-      if (handler)
-        handler(Result{});
       return handle;
-    }
   }
 
   ASSERT(!m_httpMethod.empty(), ("Http method type can not be empty."));
@@ -389,14 +373,13 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   }
   catch (JniException const &)
   {
-    if (handler)
-      handler(Result{});
     return handle;
   }
 
   // Allocate async context on the heap — will be freed in nativeOnComplete.
   auto ctx = std::make_unique<AsyncContext>();
   ctx->m_handler = std::move(handler);
+  onError.release();
   ctx->m_progressHandler = m_progressHandler;
   ctx->m_dataHandler = m_dataHandler;
   ctx->m_cancelChecker = handle.MakeCancelChecker();
