@@ -630,7 +630,8 @@
     <string name="bookmarks_empty_list_title">Questa lista è vuota</string>
     <string name="bookmarks_empty_list_message">Per aggiungere un preferito, tocca un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
     <!-- Button to change the color of all bookmarks in the current list -->
-    <string name="change_all_bookmarks_color">Cambia colore di tutti i preferiti</string>
+    <string name="change_all_bookmarks_color">Cambia il colore di tutti i preferiti</string>
+    <string name="change_all_tracks_color">Cambia il colore di tutte le tracce</string>
     <string name="category_desc_more">…altro</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esporta KMZ</string>
@@ -873,4 +874,6 @@
     <string name="login_osm_browser">Effettuare il login con il browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Usati di recente</string>
+    <string name="toast_bookmarks_color_changed">Colore dei preferiti modificato</string>
+    <string name="toast_tracks_color_changed">Colore delle tracce modificato</string>
 </resources>

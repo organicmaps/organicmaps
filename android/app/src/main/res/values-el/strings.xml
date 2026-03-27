@@ -627,6 +627,7 @@
     <string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Αλλαγή χρώματος όλων των σελιδοδεικτών</string>
+    <string name="change_all_tracks_color">Αλλαγή χρώματος όλων των διαδρομών</string>
     <string name="category_desc_more">…περισσότερα</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Εξαγωγή KMZ</string>
@@ -869,4 +870,6 @@
     <string name="login_osm_browser">Σύνδεση μέσω προγράμματος περιήγησης</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Πρόσφατα χρησιμοποιημένα</string>
+    <string name="toast_bookmarks_color_changed">Το χρώμα των σελιδοδεικτών άλλαξε</string>
+    <string name="toast_tracks_color_changed">Το χρώμα των διαδρομών άλλαξε</string>
 </resources>

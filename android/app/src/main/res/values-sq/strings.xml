@@ -614,6 +614,7 @@
     <string name="bookmarks_empty_list_message">Për të shtuar një faqeshënues, prekni një vend në hartë dhe më pas prekni ikonën e yllit</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Ndrysho ngjyrën e të gjithë faqeshënuesve</string>
+    <string name="change_all_tracks_color">Ndrysho ngjyrën e të gjitha gjurmëve</string>
     <string name="category_desc_more">…më shumë</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksporto KMZ</string>
@@ -856,4 +857,6 @@
     <string name="login_osm_browser">Hyni me anë të shfletuesit</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Të përdorura së fundmi</string>
+    <string name="toast_bookmarks_color_changed">Ngjyra e faqeshënuesve u ndryshua</string>
+    <string name="toast_tracks_color_changed">Ngjyra e gjurmëve u ndryshua</string>
 </resources>

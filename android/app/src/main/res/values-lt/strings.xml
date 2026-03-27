@@ -629,6 +629,7 @@
     <string name="bookmarks_empty_list_message">Jeigu norite pridėti žymę, bakstelėkite vietą žemėlapyje, o tada – žvaigždutės piktogramą</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Keisti visų žymų spalvą</string>
+    <string name="change_all_tracks_color">Keisti visų trasų spalvą</string>
     <string name="category_desc_more">…daugiau</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksportuoti KMZ</string>
@@ -871,4 +872,6 @@
     <string name="login_osm_browser">Prisijungimas naudojant naršyklę</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Neseniai naudotas</string>
+    <string name="toast_bookmarks_color_changed">Žymų spalva pakeista</string>
+    <string name="toast_tracks_color_changed">Trasų spalva pakeista</string>
 </resources>

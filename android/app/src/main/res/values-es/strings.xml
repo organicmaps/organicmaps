@@ -632,6 +632,7 @@
     <string name="bookmarks_empty_list_message">Para agregar un marcador, toque un lugar en el mapa y después toque el icono de la estrella</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Cambiar el color de todos los marcadores</string>
+    <string name="change_all_tracks_color">Cambiar el color de todos los trayectos</string>
     <string name="category_desc_more">…más</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportar KMZ</string>
@@ -874,4 +875,6 @@
     <string name="login_osm_browser">Inicio de sesión mediante navegador</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recientes</string>
+    <string name="toast_bookmarks_color_changed">Color de los marcadores cambiado</string>
+    <string name="toast_tracks_color_changed">Color de los trayectos cambiado</string>
 </resources>

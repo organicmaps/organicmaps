@@ -617,6 +617,7 @@
     <string name="bookmarks_empty_list_message">Əlfəcin əlavə etmək üçün xəritədə yerə və sonra ulduz işarəsinə toxunun</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Bütün əlfəcinlərin rəngini dəyişdir</string>
+    <string name="change_all_tracks_color">Bütün treklərin rəngini dəyişdir</string>
     <string name="category_desc_more">…daha çox</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ ixrac edin</string>
@@ -816,4 +817,6 @@
     <string name="login_osm_browser">Brauzerdən istifadə edərək giriş</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Son istifadə olunan</string>
+    <string name="toast_bookmarks_color_changed">Əlfəcinlərin rəngi dəyişdirildi</string>
+    <string name="toast_tracks_color_changed">Treklərin rəngi dəyişdirildi</string>
 </resources>

@@ -629,6 +629,7 @@
     <string name="bookmarks_empty_list_message">Egy könyvjelző hozzáadásához érintsen meg a térképen egy helyet, majd érintse meg a csillag ikont</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Összes könyvjelző színének módosítása</string>
+    <string name="change_all_tracks_color">Összes nyomvonal színének módosítása</string>
     <string name="category_desc_more">…több</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportálás KMZ-fájlba</string>
@@ -871,4 +872,6 @@
     <string name="login_osm_browser">Bejelentkezés böngésző használatával</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Legutóbb használt</string>
+    <string name="toast_bookmarks_color_changed">A könyvjelzők színe megváltozott</string>
+    <string name="toast_tracks_color_changed">A nyomvonalak színe megváltozott</string>
 </resources>

@@ -623,6 +623,7 @@
     <string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Schimbă culoarea tuturor marcajelor</string>
+    <string name="change_all_tracks_color">Schimbă culoarea tuturor traseelor</string>
     <string name="category_desc_more">…mai mult</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Export KMZ</string>
@@ -851,4 +852,6 @@
     <string name="login_osm_browser">Conectare folosind browserul</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Folosite recent</string>
+    <string name="toast_bookmarks_color_changed">Culoarea marcajelor a fost schimbată</string>
+    <string name="toast_tracks_color_changed">Culoarea traseelor a fost schimbată</string>
 </resources>

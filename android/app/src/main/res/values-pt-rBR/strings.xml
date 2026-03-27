@@ -624,4 +624,5 @@
     <string name="login_osm_credentials">Login com senha</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Fazer login usando o navegador</string>
+    <string name="toast_tracks_color_changed">Cor das trilhas alterada</string>
 </resources>

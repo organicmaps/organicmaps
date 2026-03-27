@@ -625,6 +625,7 @@
     <string name="bookmarks_empty_list_message">ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">すべてのブックマークの色を変更</string>
+    <string name="change_all_tracks_color">すべてのトラックの色を変更</string>
     <string name="category_desc_more">詳細</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZをエクスポートする</string>
@@ -865,4 +866,6 @@
     <string name="login_osm_browser">ブラウザでログイン</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">最近使用</string>
+    <string name="toast_bookmarks_color_changed">ブックマークの色が変更されました</string>
+    <string name="toast_tracks_color_changed">トラックの色が変更されました</string>
 </resources>

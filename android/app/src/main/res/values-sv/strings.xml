@@ -626,6 +626,7 @@
     <string name="bookmarks_empty_list_message">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Ändra färg på alla bokmärken</string>
+    <string name="change_all_tracks_color">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
     <string name="category_desc_more">…mer</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportera KMZ</string>
@@ -868,4 +869,6 @@
     <string name="login_osm_browser">Logga in med hjälp av webbläsare</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Senast använda</string>
+    <string name="toast_tracks_color_changed">Senast använda</string>
+    <string name="toast_bookmarks_color_changed">Bokmärkesfärg ändrad</string>
 </resources>

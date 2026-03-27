@@ -626,6 +626,7 @@
     <string name="bookmarks_empty_list_message">Markagailu bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Aldatu markagailu guztien kolorea</string>
+    <string name="change_all_tracks_color">Aldatu ibilbide guztien kolorea</string>
     <string name="category_desc_more">…gehiago</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esportatu KMZ</string>
@@ -868,4 +869,6 @@
     <string name="login_osm_browser">arakatzailea erabiliz saioa hasi</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Orain dela gutxi erabilitakoa</string>
+    <string name="toast_bookmarks_color_changed">Markagailuen kolorea aldatu da</string>
+    <string name="toast_tracks_color_changed">Ibilbideen kolorea aldatu da</string>
 </resources>
