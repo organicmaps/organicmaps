@@ -448,6 +448,12 @@ public:
 class StreetsDirectionsHolder : public SynonymsHolderBase
 {
 public:
+  static StreetsDirectionsHolder const & Instance()
+  {
+    static StreetsDirectionsHolder const inst;
+    return inst;
+  }
+
   StreetsDirectionsHolder()
   {
     // ("short name", "full name")
@@ -514,7 +520,7 @@ UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms)
   if (name.empty())
     return UniString();
 
-  static StreetsDirectionsHolder s_directions;
+  auto const & directions = StreetsDirectionsHolder::Instance();
   auto const & synonyms = StreetsSynonymsHolder::Instance();
 
   UniString res, suffix;
@@ -525,7 +531,7 @@ UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms)
     if (ignoreStreetSynonyms && synonyms.FullMatch(s))
       return;
 
-    if (s_directions.ApplyIf(s, [&suffix](UniString const & s) { suffix.append(s); }))
+    if (directions.ApplyIf(s, [&suffix](UniString const & s) { suffix.append(s); }))
       return;
 
     EraseDummyStreetChars(s);
@@ -538,7 +544,7 @@ UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms)
 
 strings::UniString GetNormalizedStreetName(std::string_view name)
 {
-  static StreetsDirectionsHolder s_directions;
+  auto const & directions = StreetsDirectionsHolder::Instance();
   static StreetsAbbreviationsHolder s_abbrev;
 
   UniString res, abbrev, dir;
@@ -548,7 +554,7 @@ strings::UniString GetNormalizedStreetName(std::string_view name)
 
     if (s_abbrev.ApplyIf(s, [&abbrev](UniString const & s) { abbrev.append(s); }))
       return;
-    if (s_directions.ApplyIf(s, [&dir](UniString const & s) { dir.append(s); }))
+    if (directions.ApplyIf(s, [&dir](UniString const & s) { dir.append(s); }))
       return;
 
     EraseDummyStreetChars(s);
@@ -580,6 +586,16 @@ bool IsStreetSynonymPrefixWithMisprints(UniString const & s)
 {
   auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(s));
   return StreetsSynonymsHolder::Instance().MatchWithMisprints(dfa);
+}
+
+bool IsStreetSynonymOrAffixOnly(UniString const & s)
+{
+  // Street type synonyms ("street", "avenue", "road", "улица", etc.) — never standalone street names.
+  if (StreetsSynonymsHolder::Instance().FullMatch(s))
+    return true;
+
+  // Cardinal directions ("north", "south", "west", "east", etc.) — never standalone street names.
+  return StreetsDirectionsHolder::Instance().ApplyIf(s, [](UniString const &) {});
 }
 
 bool ContainsNormalized(string const & str, string const & substr)

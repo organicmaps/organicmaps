@@ -1190,6 +1190,23 @@ void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, 
   std::vector<PredictionT> predictions;
   StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
 
+  // Skip overly generic 1-token street predictions that cause combinatorial explosion
+  // in ClusterizeStreets (which reads centers for ALL matching features).
+  // Street synonyms ("avenue", "road") and directions ("west", "north") match many streets
+  // but are never standalone street names, so use a lower threshold for them.
+  size_t constexpr kMaxFeaturesForSynonym = 100;
+  size_t constexpr kMaxFeaturesForSingleToken = 3000;
+  base::EraseIf(predictions, [&](PredictionT const & p)
+  {
+    if (p.GetNumTokens() != 1)
+      return false;
+    auto const count = p.m_features.PopCount();
+    auto const & token = m_params.GetToken(p.m_tokenRange.Begin()).GetOriginal();
+    if (IsStreetSynonymOrAffixOnly(token) && count > kMaxFeaturesForSynonym)
+      return true;
+    return count > kMaxFeaturesForSingleToken;
+  });
+
   // Iterating from best to worst predictions here. Make "Relaxed" results for the best probability.
   for (size_t i = 0; i < predictions.size(); ++i)
   {
