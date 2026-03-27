@@ -68,7 +68,7 @@ public:
     m_belongsToMatchedRegion[center] = belongsToMatchedRegion;
   }
 
-  Ids GetTopLocalities(size_t limit)
+  vector<Locality> GetLocalities(size_t limit)
   {
     BaseContext ctx;
     size_t const numTokens = m_params.GetNumTokens();
@@ -102,6 +102,12 @@ public:
 
     vector<Locality> localities;
     m_scorer.GetTopLocalities(MwmSet::MwmId(), ctx, filter, limit, localities);
+    return localities;
+  }
+
+  Ids GetTopLocalities(size_t limit)
+  {
+    auto localities = GetLocalities(limit);
     sort(localities.begin(), localities.end(), base::LessBy(&Locality::m_featureId));
 
     Ids ids;
@@ -322,4 +328,49 @@ UNIT_CLASS_TEST(LocalityScorerTest, MatchedRegion)
   TEST_EQUAL(GetTopLocalities(3 /* limit */),
              Ids({ID_SPRINGFIELD_MATCHED_REGION, ID_SPRINGFIELD_CLOSE, ID_SPRINGFIELD_RANK1}), ());
 }
+// When the same city name appears multiple times in the query, the scorer should
+// prefer the occurrence closer to the query edge (beginning or end), not embedded
+// in the middle where it's likely part of a street name.
+UNIT_CLASS_TEST(LocalityScorerTest, PreferEdgePosition_USAddress)
+{
+  // US address format: "310 west chicago avenue chicago"
+  // "chicago" at [2,3) is part of "West Chicago Avenue" street name (middle).
+  // "chicago" at [4,5) is the actual city reference (end).
+
+  InitParams("310 west chicago avenue chicago", false /* lastTokenIsPrefix */);
+  AddLocality("Chicago", 0 /* featureId */, 100 /* rank */);
+
+  auto localities = GetLocalities(1 /* limit */);
+  TEST_EQUAL(localities.size(), 1, ());
+  // Should pick [4,5) at the end, not [2,3) in the middle.
+  TEST_EQUAL(localities[0].m_tokenRange, TokenRange(4, 5), ());
+}
+
+UNIT_CLASS_TEST(LocalityScorerTest, PreferEdgePosition_EuropeanAddress)
+{
+  // European address format: "springfield main street 310"
+  // "springfield" at [0,1) is the city reference (beginning).
+
+  InitParams("springfield main street 310", false /* lastTokenIsPrefix */);
+  AddLocality("Springfield", 0 /* featureId */, 100 /* rank */);
+
+  auto localities = GetLocalities(1 /* limit */);
+  TEST_EQUAL(localities.size(), 1, ());
+  // Should pick [0,1) at the beginning.
+  TEST_EQUAL(localities[0].m_tokenRange, TokenRange(0, 1), ());
+}
+
+UNIT_CLASS_TEST(LocalityScorerTest, PreferEdgePosition_MiddleVsEnd)
+{
+  // "main york avenue york" — "york" appears at [1,2) and [3,4).
+  // [1,2) is in the middle (dist=1 from each edge), [3,4) is at the end (dist=0).
+
+  InitParams("main york avenue york", false /* lastTokenIsPrefix */);
+  AddLocality("York", 0 /* featureId */, 50 /* rank */);
+
+  auto localities = GetLocalities(1 /* limit */);
+  TEST_EQUAL(localities.size(), 1, ());
+  TEST_EQUAL(localities[0].m_tokenRange, TokenRange(3, 4), ());
+}
+
 }  // namespace locality_scorer_test
