@@ -353,6 +353,11 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     Rules rules = {};
     TEST(ResultsMatch("", rules), ());
   }
+  /// @todo
+  // {
+  //   Rules rules = {ExactMatch(wonderlandId, bornHouse)};
+  //   TEST(ResultsMatch("Born house 8 1st April st", rules), ());
+  // }
   {
     Rules rules = {ExactMatch(wonderlandId, busStop)};
     TEST(ResultsMatch("Central bus stop", rules), ());

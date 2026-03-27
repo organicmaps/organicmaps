@@ -556,7 +556,16 @@ void Framework::RegisterAllMaps()
   std::vector<std::shared_ptr<LocalCountryFile>> maps;
   m_storage.GetLocalMaps(maps);
   for (auto const & localFile : maps)
-    UNUSED_VALUE(RegisterMap(*localFile));
+  {
+    if (RegisterMap(*localFile).second != MwmSet::RegResult::Success)
+    {
+      /// @todo Should call something like Storage::DeleteCountryFiles (DeleteCustomCountryVersion ??).
+      /// Storage::DeleteCountry makes ->Framework callbacks, but Framework <-> Storage
+      /// logic is tangled-complicated enough to realize.
+
+      // Otherwise we have blank map view instead of countries, without Download button.
+    }
+  }
 }
 
 void Framework::DeregisterAllMaps()
