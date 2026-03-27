@@ -720,6 +720,11 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
   auto kmlColor = kmlColorFromBookmarkColor(color);
+  
+  if (bookmark->GetPreferredName() == title.UTF8String && bookmark->GetDescription() == description.UTF8String \
+      && kmlColor != bookmark->GetColor())
+        return; // No changes in bookmark parameters.
+
   if (kmlColor != bookmark->GetColor())
     self.bm.SetLastEditedBmColor(kmlColor);
 
@@ -738,9 +743,10 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
   auto kmlColor = kmlColorFromBookmarkColor(color);
-  if (kmlColor != bookmark->GetColor())
-    self.bm.SetLastEditedBmColor(kmlColor);
+  if (kmlColor == bookmark->GetColor())
+      return; // New color is the same as existing color. Nothing to update.
 
+  self.bm.SetLastEditedBmColor(kmlColor);
   bookmark->SetColor(kmlColor);
   bookmark->SetModifiedTimeStamp(kml::TimestampClock::now());
 }
