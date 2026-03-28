@@ -72,6 +72,7 @@ set(DRAPE_TESTABLE_SRC
   overlay_tree.hpp
   pointers.cpp
   pointers.hpp
+  rainbow_colors.hpp
   render_bucket.cpp
   render_bucket.hpp
   render_state.cpp

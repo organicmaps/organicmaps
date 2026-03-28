@@ -1,9 +1,9 @@
 #include "drape/texture_of_colors.hpp"
 
+#include "base/logging.hpp"
 #include "base/shared_buffer_manager.hpp"
-#include "base/stl_helpers.hpp"
 
-#include <cstring>
+#include <cstring>  // memset
 
 namespace dp
 {
@@ -104,18 +104,21 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
   buffer_vector<size_t, 4> ranges;
   ranges.push_back(0);
 
-  uint32_t minX = pendingNodes[0].m_rect.minX();
-  for (size_t i = 1; i < pendingNodes.size(); ++i)
+  if (hasPartialTextureUpdate)
   {
-    m2::RectU const & currentRect = pendingNodes[i].m_rect;
-    if (minX > currentRect.minX())
+    // Split into ranges by row wraps (when minX decreases).
+    uint32_t minX = pendingNodes[0].m_rect.minX();
+    for (size_t i = 1; i < pendingNodes.size(); ++i)
     {
-      ranges.push_back(i);
-      minX = currentRect.minX();
+      m2::RectU const & currentRect = pendingNodes[i].m_rect;
+      if (minX > currentRect.minX())
+      {
+        ranges.push_back(i);
+        minX = currentRect.minX();
+      }
     }
   }
-
-  ASSERT(hasPartialTextureUpdate || ranges.size() == 1, ());
+  // For !hasPartialTextureUpdate: single range covering all accumulated m_nodes.
 
   ranges.push_back(pendingNodes.size());
   for (size_t i = 1; i < ranges.size(); ++i)
@@ -138,27 +141,25 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     }
 
     size_t const pixelStride = uploadRect.SizeX();
-    size_t const byteCount = kBytesPerPixel * uploadRect.SizeX() * uploadRect.SizeY();
+    size_t const byteStride = pixelStride * kBytesPerPixel;
+    size_t const byteCount = byteStride * uploadRect.SizeY();
     // Scales up the buffer size to the nearest power of 2.
     auto buffer = SharedBufferManager::Instance().ReserveSharedBuffer(byteCount);
-    uint8_t * pointer = SharedBufferManager::GetRawPointer(buffer);
-    // Must zero the buffer: when the upload rect is wider than the pending colors
-    // (e.g., multi-row spans), gaps contain uninitialized data that would overwrite
-    // existing colors in the texture.
-    memset(pointer, 0, byteCount);
+    uint8_t * basePtr = SharedBufferManager::GetRawPointer(buffer);
+    // Zero the buffer so gaps (partially filled rows, padding) are transparent.
+    memset(basePtr, 0, byteCount);
 
-    uint32_t currentY = startRect.minY();
+    uint32_t const originX = uploadRect.minX();
+    uint32_t const originY = uploadRect.minY();
     for (size_t j = startRange; j < endRange; ++j)
     {
-      ASSERT(pointer < SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
       PendingColor const & c = pendingNodes[j];
-      if (c.m_rect.minY() > currentY)
-      {
-        pointer += kBytesPerPixel * pixelStride;
-        currentY = c.m_rect.minY();
-      }
 
-      uint32_t const byteStride = static_cast<uint32_t>(pixelStride * kBytesPerPixel);
+      // Compute absolute position of this color block within the upload buffer.
+      uint32_t const localX = c.m_rect.minX() - originX;
+      uint32_t const localY = c.m_rect.minY() - originY;
+      size_t const blockOffset = localY * byteStride + localX * kBytesPerPixel;
+
       uint8_t const red = c.m_color.GetRed();
       uint8_t const green = c.m_color.GetGreen();
       uint8_t const blue = c.m_color.GetBlue();
@@ -168,29 +169,98 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
       {
         for (size_t column = 0; column < kResourceSize; column++)
         {
-          pointer[row * byteStride + column * kBytesPerPixel] = red;
-          pointer[row * byteStride + column * kBytesPerPixel + 1] = green;
-          pointer[row * byteStride + column * kBytesPerPixel + 2] = blue;
-          pointer[row * byteStride + column * kBytesPerPixel + 3] = alpha;
+          size_t const idx = blockOffset + row * byteStride + column * kBytesPerPixel;
+          ASSERT_LESS(idx + 3, byteCount, ());
+          basePtr[idx] = red;
+          basePtr[idx + 1] = green;
+          basePtr[idx + 2] = blue;
+          basePtr[idx + 3] = alpha;
         }
       }
-
-      pointer += kResourceSize * kBytesPerPixel;
-      ASSERT(pointer <= SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
     }
 
-    pointer = SharedBufferManager::GetRawPointer(buffer);
-    texture->UploadData(context, uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
-                        make_ref(pointer));
+    texture->UploadData(context, originX, originY, uploadRect.SizeX(), uploadRect.SizeY(), make_ref(basePtr));
 
     SharedBufferManager::Instance().FreeSharedBuffer(std::move(buffer));
   }
+}
+
+bool ColorPalette::ReserveStrip(RainbowColors const & colors, m2::PointF & firstCenter, m2::PointF & lastCenter)
+{
+  ASSERT(!colors.empty(), ());
+
+  // Synchronize with MapResource which also modifies m_cursor and m_pendingNodes.
+  std::lock_guard lock(m_mappingLock);
+
+  // Return cached strip if the same color combination was already allocated.
+  auto const it = m_stripCache.find(colors);
+  if (it != m_stripCache.end())
+  {
+    firstCenter = it->second.m_firstCenter;
+    lastCenter = it->second.m_lastCenter;
+    return true;
+  }
+
+  int const n = static_cast<int>(colors.size());
+
+  // Ensure the strip fits in the current row; advance to next row if needed.
+  if (m_cursor.x + n * kResourceSize > m_textureSize.x)
+  {
+    m_cursor.y += kResourceSize;
+    m_cursor.x = 0;
+  }
+
+  if (m_cursor.y + kResourceSize > m_textureSize.y)
+  {
+    LOG(LERROR, ("Color atlas full, cannot allocate rainbow strip of", n, "colors"));
+    return false;
+  }
+
+  float const sizeX = static_cast<float>(m_textureSize.x);
+  float const sizeY = static_cast<float>(m_textureSize.y);
+
+  {
+    // Lock once for the entire strip to keep colors contiguous in m_pendingNodes.
+    std::lock_guard g(m_lock);
+    for (int i = 0; i < n; ++i)
+    {
+      PendingColor pendingColor;
+      pendingColor.m_color = colors[i];
+      pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y, m_cursor.x + kResourceSize, m_cursor.y + kResourceSize);
+
+      m2::PointF const center = m2::RectF(pendingColor.m_rect).Center();
+      m2::PointF const uv(center.x / sizeX, center.y / sizeY);
+      if (i == 0)
+        firstCenter = uv;
+      if (i == n - 1)
+        lastCenter = uv;
+
+      m_pendingNodes.push_back(pendingColor);
+
+      m_cursor.x += kResourceSize;
+    }
+  }
+
+  // Wrap to next row if we've reached the edge (same logic as ReserveResource).
+  if (m_cursor.x >= m_textureSize.x)
+  {
+    m_cursor.y += kResourceSize;
+    m_cursor.x = 0;
+  }
+
+  m_stripCache[colors] = {firstCenter, lastCenter};
+  return true;
 }
 
 void ColorTexture::ReserveColor(dp::Color const & color)
 {
   bool newResource = false;
   m_indexer->ReserveResource(true /* predefined */, ColorKey(color), newResource);
+}
+
+bool ColorTexture::ReserveStrip(RainbowColors const & colors, m2::PointF & firstCenter, m2::PointF & lastCenter)
+{
+  return m_palette.ReserveStrip(colors, firstCenter, lastCenter);
 }
 
 int ColorTexture::GetColorSizeInPixels()

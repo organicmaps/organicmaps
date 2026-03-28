@@ -50,6 +50,13 @@ struct BaseBuilderParams
   DepthLayer m_depthLayer;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
+
+  /// Optional rainbow mode: per-side color UV coords for a color strip texture.
+  /// When m_hasRainbow is true, left vertices use m_colorCoordLeft and right use m_colorCoordRight.
+  bool m_hasRainbow = false;
+  ref_ptr<dp::Texture> m_rainbowTexture;
+  glsl::vec2 m_colorCoordLeft;
+  glsl::vec2 m_colorCoordRight;
 };
 
 template <typename TVertex>
@@ -59,9 +66,10 @@ public:
   BaseLineBuilder(BaseBuilderParams const & params, size_t geomsSize, size_t joinsSize)
     : m_params(params)
     , m_colorCoord(glsl::ToVec2(params.m_color.GetTexRect().Center()))
+    , m_colorCoordLeft(params.m_hasRainbow ? params.m_colorCoordLeft : m_colorCoord)
+    , m_colorCoordRight(params.m_hasRainbow ? params.m_colorCoordRight : m_colorCoord)
   {
     m_geometry.reserve(geomsSize);
-    // m_joinGeom.reserve(joinsSize);
   }
 
   dp::BindingInfo const & GetBindingInfo() override { return TVertex::GetBindingInfo(); }
@@ -101,6 +109,8 @@ protected:
 
   BaseBuilderParams m_params;
   glsl::vec2 const m_colorCoord;
+  glsl::vec2 const m_colorCoordLeft;
+  glsl::vec2 const m_colorCoordRight;
 };
 
 class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
@@ -138,7 +148,7 @@ public:
   dp::RenderState GetState() override
   {
     auto state = CreateRenderState(gpu::Program::Line, m_params.m_depthLayer);
-    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     return state;
   }
@@ -179,7 +189,8 @@ public:
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
     float const halfWidth = GetHalfWidth();
-    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord);
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
+                            isLeft ? m_colorCoordLeft : m_colorCoordRight);
   }
 
   void SubmitJoin(glsl::vec2 const & pos)
@@ -267,7 +278,7 @@ public:
   {
     auto state = CreateRenderState(gpu::Program::DashedLine, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
-    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
     state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
     return state;
   }
@@ -275,7 +286,8 @@ public:
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
   {
     float const halfWidth = GetHalfWidth();
-    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord,
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
+                            isLeft ? m_colorCoordLeft : m_colorCoordRight,
                             m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft));
   }
 
@@ -456,9 +468,30 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     p.m_depthLayer = m_params.m_depthLayer;
     p.m_join = m_params.m_join;
     p.m_pxHalfWidth = m_params.m_width / 2;
+
+    if (!m_params.m_rainbowColors.empty())
+    {
+      if (auto const rainbow = textures->GetRainbowRegion(m_params.m_rainbowColors))
+      {
+        p.m_hasRainbow = true;
+        p.m_rainbowTexture = rainbow->m_texture;
+        p.m_colorCoordLeft = rainbow->m_uvLeft;
+        p.m_colorCoordRight = rainbow->m_uvRight;
+      }
+      // else: atlas full, fall back to single m_color.
+    }
   };
 
-  if (m_params.m_pattern.empty())
+  bool const hasRainbow = !m_params.m_rainbowColors.empty();
+
+  // Rainbow lines must use the DashedLine program because the solid Line program samples color
+  // per-vertex (VTF), which blends colors instead of producing crisp stripes. The DashedLine
+  // program always samples per-fragment. For solid rainbow lines, use a fully-opaque stipple mask.
+  dp::PenPatternT pattern = m_params.m_pattern;
+  if (hasRainbow && pattern.empty())
+    pattern = {2};  // Single 2px dash, no gap = fully opaque mask.
+
+  if (pattern.empty())
   {
     int lineWidth = 1;
     m_isSimple = CanBeSimplified(lineWidth);
@@ -484,7 +517,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   else
   {
     dp::TextureManager::StippleRegion maskRegion;
-    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
+    textures->GetStippleRegion(pattern, maskRegion);
 
     DashedLineBuilder::BuilderParams p;
     commonParamsBuilder(p);
