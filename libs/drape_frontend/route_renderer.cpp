@@ -32,18 +32,18 @@ std::string const kRouteFakeOutlineColor = "RouteFakeOutline";
 
 namespace
 {
-std::array<float, 20> const kPreviewPointRadiusInPixel = {
+std::array<float, 20> constexpr kPreviewPointRadiusInPixel = {
     // 1   2     3     4     5     6     7     8     9     10
     0.8f, 0.8f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
     // 11   12    13    14    15    16    17    18    19     20
     2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f};
 
-int const kArrowAppearingZoomLevel = 14;
-int const kInvalidGroup = -1;
+int constexpr kArrowAppearingZoomLevel = 14;
+int constexpr kInvalidGroup = -1;
 
-uint32_t const kPreviewPointsCount = 512;
+uint32_t constexpr kPreviewPointsCount = 512;
 
-double const kInvalidDistance = -1.0;
+double constexpr kInvalidDistance = -1.0;
 
 void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & screen, float & halfWidth, double & zoom)
 {
@@ -51,11 +51,16 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::array<float, 20> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
-  if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
-    halfWidthInPixel = &kRouteHalfWidthInPixelCar;
-  else if (subroute->m_routeType == RouteType::Transit)
-    halfWidthInPixel = &kRouteHalfWidthInPixelTransit;
+  std::array<float, 20> const * halfWidthInPixel;
+  switch (subroute->m_routeType)
+  {
+  case RouteType::Car:
+  case RouteType::Taxi: halfWidthInPixel = &kRouteHalfWidthInPixelCar; break;
+  case RouteType::Bicycle: halfWidthInPixel = &kRouteHalfWidthInPixelBicycle; break;
+  case RouteType::Transit: halfWidthInPixel = &kRouteHalfWidthInPixelTransit; break;
+  case RouteType::Pedestrian:
+  case RouteType::Ruler: halfWidthInPixel = &kRouteHalfWidthInPixelOthers; break;
+  }
 
   halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -316,15 +321,18 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
   for (auto const & previewSegment : m_previewSegments)
   {
     auto const & info = previewSegment.second;
-    m2::PolylineD polyline = {info.m_startPoint, info.m_finishPoint};
-    double const segmentLen = polyline.GetLength();
+    double const segmentLen = info.m_startPoint.Length(info.m_finishPoint);
+    if (segmentLen < 1e-5)
+      continue;
+
     auto circlesCount = static_cast<size_t>(segmentLen / (diameterMercator + gapMercator));
     if (circlesCount == 0)
       circlesCount = 1;
     double const distDelta = segmentLen / circlesCount;
+    m2::PointD const dir = (info.m_finishPoint - info.m_startPoint) * (1.0 / segmentLen);
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      m2::PointD const pt = polyline.GetPointByDistance(d);
+      m2::PointD const pt = info.m_startPoint + dir * d;
       m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator,
                                  pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))
@@ -636,10 +644,10 @@ void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_
     info.m_length = subrouteData->m_subroute->m_polyline.GetLength();
     info.m_subrouteData.push_back(std::move(subrouteData));
     BuildBuckets(context, info.m_subrouteData.back()->m_renderProperty, mng);
-    m_subroutes.push_back(std::move(info));
-
-    std::sort(m_subroutes.begin(), m_subroutes.end(), [](SubrouteInfo const & info1, SubrouteInfo const & info2)
+    auto const it = std::upper_bound(m_subroutes.begin(), m_subroutes.end(), info,
+                                     [](SubrouteInfo const & info1, SubrouteInfo const & info2)
     { return info1.m_subroute->m_baseDistance > info2.m_subroute->m_baseDistance; });
+    m_subroutes.insert(it, std::move(info));
   }
 }
 
