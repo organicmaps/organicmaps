@@ -257,9 +257,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     if (pref == null)
       return;
 
-    if (!MwmApplication.from(requireContext())
-             .getLocationProviderFactory()
-             .isGoogleLocationAvailable(requireActivity().getApplicationContext()))
+    if (!MwmApplication.from(requireContext()).getLocationHelper().isGmsLocationProviderAvailable())
       removePreference(getString(R.string.pref_privacy), pref);
     else
     {

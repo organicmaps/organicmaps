@@ -24,7 +24,7 @@ import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
-import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.utils.Utils;
 import java.util.Calendar;
 
