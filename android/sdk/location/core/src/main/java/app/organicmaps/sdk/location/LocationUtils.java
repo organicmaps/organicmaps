@@ -1,4 +1,4 @@
-package app.organicmaps.sdk.util;
+package app.organicmaps.sdk.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;

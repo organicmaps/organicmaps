@@ -84,6 +84,8 @@ android {
 }
 
 dependencies {
+  api project(':sdk:location:core')
+
   coreLibraryDesugaring libs.android.tools.desugaring
 
   implementation libs.androidx.annotation

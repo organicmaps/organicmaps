@@ -27,8 +27,8 @@ import app.organicmaps.sdk.car.renderer.RendererFactory;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationState;
+import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 

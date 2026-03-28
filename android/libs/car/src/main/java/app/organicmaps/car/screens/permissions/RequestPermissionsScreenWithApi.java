@@ -19,7 +19,7 @@ import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.screens.BaseScreen;
-import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.location.LocationUtils;
 import java.util.Arrays;
 import java.util.List;
 

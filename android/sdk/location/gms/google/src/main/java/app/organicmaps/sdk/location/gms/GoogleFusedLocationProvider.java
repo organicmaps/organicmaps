@@ -1,8 +1,7 @@
-package app.organicmaps.location;
+package app.organicmaps.sdk.location.gms;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static app.organicmaps.sdk.util.concurrency.UiThread.runLater;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,7 +10,8 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import app.organicmaps.sdk.location.BaseLocationProvider;
-import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.location.LocationUtils;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -30,6 +30,7 @@ import com.google.android.gms.location.SettingsClient;
 class GoogleFusedLocationProvider extends BaseLocationProvider
 {
   private static final String TAG = GoogleFusedLocationProvider.class.getSimpleName();
+
   @NonNull
   private final FusedLocationProviderClient mFusedLocationClient;
   @NonNull
@@ -123,7 +124,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
               final ResolvableApiException resolvable = (ResolvableApiException) e;
               final PendingIntent pendingIntent = resolvable.getResolution();
               // Call this callback in the next event loop to allow LocationHelper::start() to finish.
-              runLater(() -> mListener.onLocationResolutionRequired(pendingIntent));
+              UiThread.runLater(() -> mListener.onLocationResolutionRequired(pendingIntent));
               return;
             }
           }
@@ -137,7 +138,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
           // settings so we won't show the dialog.
           Logger.e(TAG, "Service is not available: " + e);
           // Call this callback in the next event loop to allow LocationHelper::start() to finish.
-          runLater(mListener::onFusedLocationUnsupported);
+          UiThread.runLater(mListener::onFusedLocationUnsupported);
         });
   }
 

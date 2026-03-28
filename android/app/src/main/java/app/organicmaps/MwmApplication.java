@@ -20,7 +20,6 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
-import app.organicmaps.location.LocationProviderFactoryImpl;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Map;
@@ -44,9 +43,6 @@ public class MwmApplication extends Application implements Application.ActivityL
 {
   @NonNull
   private static final String TAG = MwmApplication.class.getSimpleName();
-
-  @NonNull
-  private final LocationProviderFactoryImpl mLocationProviderFactory = new LocationProviderFactoryImpl();
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -107,12 +103,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   @NonNull
-  public LocationProviderFactoryImpl getLocationProviderFactory()
-  {
-    return mLocationProviderFactory;
-  }
-
-  @NonNull
   public static MwmApplication from(@NonNull Context context)
   {
     return (MwmApplication) context.getApplicationContext();
@@ -133,9 +123,9 @@ public class MwmApplication extends Application implements Application.ActivityL
     sInstance = this;
 
     PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
-    mOrganicMaps = new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
-                                   BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME,
-                                   BuildConfig.FILE_PROVIDER_AUTHORITY, mLocationProviderFactory);
+    mOrganicMaps =
+        new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
+                        BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME, BuildConfig.FILE_PROVIDER_AUTHORITY);
 
     DownloaderNotifier.createNotificationChannel(this);
     initNavigationService();

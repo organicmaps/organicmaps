@@ -31,6 +31,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.MediaPlayerWrapper;
@@ -38,7 +39,6 @@ import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Graphics;
-import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 
 public class NavigationService extends Service implements LocationListener

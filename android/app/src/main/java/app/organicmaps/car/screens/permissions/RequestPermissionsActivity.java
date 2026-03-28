@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.location.LocationUtils;
 import java.util.Objects;
 
 public class RequestPermissionsActivity extends BaseMwmFragmentActivity
