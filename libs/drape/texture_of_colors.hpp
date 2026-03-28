@@ -1,16 +1,15 @@
 #pragma once
 
-#include "drape/color.hpp"
 #include "drape/dynamic_texture.hpp"
+#include "drape/rainbow_colors.hpp"
 #include "drape/texture.hpp"
-
-#include "base/buffer_vector.hpp"
 
 #include <map>
 #include <mutex>
 
 namespace dp
 {
+
 class ColorKey : public Texture::Key
 {
 public:
@@ -34,6 +33,12 @@ public:
 
   ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, ColorKey const & key, bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
+
+  /// Allocate a contiguous horizontal strip of N colors (always new texels, not cached).
+  /// @param[out] firstCenter, lastCenter — UV centers of first and last color.
+  /// @return false if the atlas is full (caller should fall back to a single color).
+  bool ReserveStrip(RainbowColors const & colors, m2::PointF & firstCenter, m2::PointF & lastCenter);
+
   void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
   void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
@@ -47,8 +52,15 @@ private:
     Color m_color;
   };
 
+  struct StripInfo
+  {
+    m2::PointF m_firstCenter;
+    m2::PointF m_lastCenter;
+  };
+
   TPalette m_palette;
   TPalette m_predefinedPalette;
+  std::map<RainbowColors, StripInfo> m_stripCache;
   // We have > 400 colors, no need to use buffer_vector here.
   std::vector<PendingColor> m_nodes;
   std::vector<PendingColor> m_pendingNodes;
@@ -72,6 +84,7 @@ public:
   }
 
   void ReserveColor(dp::Color const & color);
+  bool ReserveStrip(RainbowColors const & colors, m2::PointF & firstCenter, m2::PointF & lastCenter);
 
   ~ColorTexture() override { TBase::Reset(); }
 

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "drape/color.hpp"
+#include "drape/glsl_types.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
+#include "drape/rainbow_colors.hpp"
 #include "drape/stipple_pen_resource.hpp"  // for PenPatternT
 #include "drape/texture.hpp"
 
@@ -13,6 +15,7 @@
 #include <atomic>
 #include <map>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -94,6 +97,14 @@ public:
 
   using ColorRegion = BaseRegion;
 
+  /// A strip of N adjacent colors in the color atlas, with UVs spanning the full strip edge-to-edge.
+  struct RainbowRegion
+  {
+    ref_ptr<Texture> m_texture;
+    glsl::vec2 m_uvLeft;   ///< UV for the left edge of the strip (first color).
+    glsl::vec2 m_uvRight;  ///< UV for the right edge of the strip (last color).
+  };
+
   struct Params
   {
     std::string m_resPostfix;
@@ -119,6 +130,8 @@ public:
 
   void GetStippleRegion(PenPatternT const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
+  /// @return nullopt if the color atlas is full (caller should fall back to a single color).
+  std::optional<RainbowRegion> GetRainbowRegion(RainbowColors const & colors);
 
   using TMultilineText = buffer_vector<strings::UniString, 4>;
   using TGlyphsBuffer = buffer_vector<GlyphRegion, 128>;

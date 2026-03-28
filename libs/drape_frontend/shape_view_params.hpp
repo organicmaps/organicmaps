@@ -4,7 +4,8 @@
 
 #include "drape/color.hpp"
 #include "drape/drape_global.hpp"
-#include "drape/stipple_pen_resource.hpp"
+#include "drape/rainbow_colors.hpp"
+#include "drape/stipple_pen_resource.hpp"  // for PenPatternT
 
 #include "kml/type_utils.hpp"
 
@@ -86,6 +87,10 @@ struct LineViewParams : CommonViewParams
   dp::PenPatternT m_pattern;
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
+
+  /// Optional rainbow mode: colors for a multi-stripe overlay.
+  /// When non-empty, LineShape allocates a color strip texture in Prepare().
+  dp::RainbowColors m_rainbowColors;
 };
 
 struct TextViewParams : CommonOverlayViewParams
