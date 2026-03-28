@@ -40,7 +40,7 @@ bool IsCoord(std::string const & s)
   return s == "coord" || s == "gx:coord";
 }
 
-bool IsCreatedTimestamp(std::string const & s)
+bool IsWhenTag(std::string const & s)
 {
   return s == "when";
 }
@@ -1090,7 +1090,7 @@ void KmlParser::CharData(std::string & value)
       if (!IsTrack(prevTag))
         return false;
 
-      if (IsCreatedTimestamp(currTag))
+      if (IsWhenTag(currTag))
       {
         auto & timestamps = m_geometry.m_timestamps;
         ASSERT(!timestamps.empty(), ());
@@ -1352,7 +1352,7 @@ void KmlParser::CharData(std::string & value)
       }
       else if (prevTag == "TimeStamp")
       {
-        if (IsCreatedTimestamp(currTag))
+        if (IsWhenTag(currTag))
         {
           auto const ts = base::StringToTimestamp(value);
           if (ts != base::INVALID_TIME_STAMP)
