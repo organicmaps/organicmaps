@@ -39,6 +39,9 @@ jfieldID g_fidWorkingTimespan;
 jfieldID g_fidClosedTimespans;
 jfieldID g_fidIsFullday;
 jfieldID g_fidWeekdays;
+// ID-s for OpeningHoursInfo class
+jclass g_clazzOpeningHoursInfo;
+jmethodID g_ctorOpeningHoursInfo;
 
 jobject JavaHoursMinutes(JNIEnv * env, jlong hours, jlong minutes)
 {
@@ -103,6 +106,26 @@ jobjectArray JavaTimetables(JNIEnv * env, TimeTableSet & tts)
   }
 
   return result;
+}
+
+jobject JavaOpeningHoursInfo(JNIEnv * env, RuleState state, bool isTwentyFourSeven, time_t nextTimeOpen,
+                             time_t nextTimeClosed)
+{
+  ASSERT(state != RuleState::Unknown, ("Shouldn't instantiate java OpeningHours with unknown state"));
+
+  jlong javaTimeNeverConstant = static_cast<jlong>(-1);
+  jlong jlongNextTimeOpen = static_cast<jlong>(nextTimeOpen);
+  jlong jlongNextTimeClosed = static_cast<jlong>(nextTimeClosed);
+
+  if (nextTimeOpen == std::numeric_limits<time_t>::max())
+    jlongNextTimeOpen = javaTimeNeverConstant;
+  if (nextTimeClosed == std::numeric_limits<time_t>::max())
+    jlongNextTimeClosed = javaTimeNeverConstant;
+
+  jobject const info = env->NewObject(g_clazzOpeningHoursInfo, g_ctorOpeningHoursInfo, static_cast<jint>(state),
+                                      isTwentyFourSeven, jlongNextTimeOpen, jlongNextTimeClosed);
+  ASSERT(info, (jni::DescribeException()));
+  return info;
 }
 
 HourMinutes NativeHoursMinutes(JNIEnv * env, jobject jHourMinutes)
@@ -201,6 +224,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_OpeningHours_nativeInit(JNIEnv * 
   ASSERT(g_fidIsFullday, (jni::DescribeException()));
   g_fidWeekdays = env->GetFieldID(g_clazzTimetable, "weekdays", "[I");
   ASSERT(g_fidWeekdays, (jni::DescribeException()));
+
+  g_clazzOpeningHoursInfo = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/OpeningHoursInfo");
+  // Java signature : OpeningHoursInfo(int state, boolean isTwentyFourHours, long nextTimeOpen, long nextTimeClosed)
+  g_ctorOpeningHoursInfo = env->GetMethodID(g_clazzOpeningHoursInfo, "<init>", "(IZJJ)V");
+  ASSERT(g_ctorOpeningHoursInfo, (jni::DescribeException()));
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetDefaultTimetables(JNIEnv * env,
@@ -307,4 +335,24 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetabl
 {
   return OpeningHours(jni::ToNativeString(env, jSource)).IsValid();
 }
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningHoursInfoFromString(JNIEnv * env,
+                                                                                                   jclass clazz,
+                                                                                                   jstring jSource,
+                                                                                                   jlong jCurrentTime)
+{
+  std::string const source = jni::ToNativeString(env, jSource);
+  OpeningHours const oh = OpeningHours(source);
+
+  if (!source.empty() && oh.IsValid())
+  {
+    OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
+    if (info.state == osmoh::RuleState::Unknown)
+      return nullptr;
+    return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);
+  }
+
+  return nullptr;
+}
+
 }  // extern "C"

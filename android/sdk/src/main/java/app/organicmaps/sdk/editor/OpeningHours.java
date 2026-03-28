@@ -3,6 +3,7 @@ package app.organicmaps.sdk.editor;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import app.organicmaps.sdk.editor.data.OpeningHoursInfo;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 
@@ -55,4 +56,7 @@ public final class OpeningHours
    * @return true if timetable string is valid OSM timetable.
    */
   public static native boolean nativeIsTimetableStringValid(String source);
+
+  @Nullable
+  public static native OpeningHoursInfo nativeGetOpeningHoursInfoFromString(String source, long currentTime);
 }

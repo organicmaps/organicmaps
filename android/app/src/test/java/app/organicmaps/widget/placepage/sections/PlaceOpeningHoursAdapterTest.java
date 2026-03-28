@@ -80,7 +80,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[1] = new Timetable(new Timespan(new HoursMinutes(12, 0, true), new HoursMinutes(14, 0, true)),
                                   new Timespan[0], false, new int[] {7});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, closed
@@ -96,6 +96,9 @@ public class PlaceOpeningHoursAdapterTest
     assertEquals(schedule.get(0).endWeekDay, 1);
     assertFalse(schedule.get(1).isClosed);
     assertFalse(schedule.get(2).isClosed);
+    assertFalse(schedule.get(0).isBold);
+    assertTrue(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
   }
 
   @Test
@@ -109,7 +112,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[1] = new Timetable(new Timespan(new HoursMinutes(12, 0, true), new HoursMinutes(14, 0, true)),
                                   new Timespan[0], false, new int[] {7});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo-Fr, open
@@ -125,6 +128,9 @@ public class PlaceOpeningHoursAdapterTest
     assertTrue(schedule.get(2).isClosed); // Su    - closed
     assertEquals(schedule.get(2).startWeekDay, 1);
     assertEquals(schedule.get(2).endWeekDay, 1);
+    assertTrue(schedule.get(0).isBold);
+    assertFalse(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
   }
 
   @Test
@@ -141,7 +147,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[2] = new Timetable(new Timespan(new HoursMinutes(11, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {6});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.THURSDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo, open
@@ -163,6 +169,12 @@ public class PlaceOpeningHoursAdapterTest
     assertTrue(schedule.get(5).isClosed); // Sa, Su - closed
     assertEquals(schedule.get(5).startWeekDay, 7);
     assertEquals(schedule.get(5).endWeekDay, 1);
+    assertFalse(schedule.get(0).isBold);
+    assertFalse(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
+    assertTrue(schedule.get(3).isBold);
+    assertFalse(schedule.get(4).isBold);
+    assertFalse(schedule.get(5).isBold);
   }
 
   @Test
@@ -179,7 +191,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[2] = new Timetable(new Timespan(new HoursMinutes(11, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {6});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, closed
@@ -203,6 +215,13 @@ public class PlaceOpeningHoursAdapterTest
     assertTrue(schedule.get(6).isClosed); // Sa - closed
     assertEquals(schedule.get(6).startWeekDay, 7);
     assertEquals(schedule.get(6).endWeekDay, 7);
+    assertFalse(schedule.get(0).isBold);
+    assertTrue(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
+    assertFalse(schedule.get(3).isBold);
+    assertFalse(schedule.get(4).isBold);
+    assertFalse(schedule.get(5).isBold);
+    assertFalse(schedule.get(6).isBold);
   }
 
   @Test
@@ -213,7 +232,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {2, 4, 6});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo, open
@@ -235,6 +254,12 @@ public class PlaceOpeningHoursAdapterTest
     assertTrue(schedule.get(5).isClosed); // Sa, Su - closed
     assertEquals(schedule.get(5).startWeekDay, 7);
     assertEquals(schedule.get(5).endWeekDay, 1);
+    assertTrue(schedule.get(0).isBold);
+    assertFalse(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
+    assertFalse(schedule.get(3).isBold);
+    assertFalse(schedule.get(4).isBold);
+    assertFalse(schedule.get(5).isBold);
   }
 
   @Test
@@ -245,7 +270,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {2, 4, 6});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.SUNDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, closed
@@ -269,17 +294,24 @@ public class PlaceOpeningHoursAdapterTest
     assertTrue(schedule.get(6).isClosed); // Sa - closed
     assertEquals(schedule.get(6).startWeekDay, 7);
     assertEquals(schedule.get(6).endWeekDay, 7);
+    assertTrue(schedule.get(0).isBold);
+    assertFalse(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
+    assertFalse(schedule.get(3).isBold);
+    assertFalse(schedule.get(4).isBold);
+    assertFalse(schedule.get(5).isBold);
+    assertFalse(schedule.get(5).isBold);
   }
 
   @Test
   public void test_open_weekend_sunday() throws IllegalAccessException
   {
-    // opening_hours = "Sa-Su 11:00-24:00"
+    // opening_hours = "Sa-Su 9:00-24:00"
     Timetable[] timetables = new Timetable[1];
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, open
@@ -299,17 +331,20 @@ public class PlaceOpeningHoursAdapterTest
     assertEquals(schedule.get(1).endWeekDay, 6);
     assertEquals(schedule.get(2).startWeekDay, 7);
     assertEquals(schedule.get(2).endWeekDay, 7);
+    assertFalse(schedule.get(0).isBold);
+    assertTrue(schedule.get(1).isBold);
+    assertFalse(schedule.get(2).isBold);
   }
 
   @Test
   public void test_open_weekend_monday() throws IllegalAccessException
   {
-    // opening_hours = "Sa-Su 11:00-24:00"
+    // opening_hours = "Sa-Su 9:00-24:00"
     Timetable[] timetables = new Timetable[1];
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.SUNDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo-Fr, closed
@@ -323,5 +358,56 @@ public class PlaceOpeningHoursAdapterTest
     assertFalse(schedule.get(1).isClosed); // Sa-Su - open
     assertEquals(schedule.get(1).startWeekDay, 7);
     assertEquals(schedule.get(1).endWeekDay, 1);
+    assertFalse(schedule.get(0).isBold);
+    assertTrue(schedule.get(1).isBold);
+  }
+
+  @Test
+  public void test_bold_weekend_monday() throws IllegalAccessException
+  {
+    // opening_hours = "Sa-Su 9:00-24:00"
+    Timetable[] timetables = new Timetable[1];
+    timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
+                                  new Timespan[0], false, new int[] {1, 7});
+
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.SATURDAY);
+
+    /* Expected parsed schedule:
+     *  0 - Mo-Fr, closed
+     *  1 - Sa-Su, open
+     * */
+
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    assertNotNull(schedule);
+    assertEquals(2, schedule.size());
+    assertTrue(schedule.get(0).isClosed); // Mo-Fr - closed
+    assertFalse(schedule.get(1).isClosed); // Sa-Su - open
+    assertEquals(schedule.get(1).startWeekDay, 7);
+    assertEquals(schedule.get(1).endWeekDay, 1);
+    assertFalse(schedule.get(0).isBold);
+    assertTrue(schedule.get(1).isBold);
+  }
+
+  @Test
+  public void test_whole_week() throws IllegalAccessException
+  {
+    // opening_hours = "Mo-Su 9:00-24:00"
+    Timetable[] timetables = new Timetable[1];
+    timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
+                                  new Timespan[0], false, new int[] {1, 2, 3, 4, 5, 6, 7});
+
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.FRIDAY);
+
+    /* Expected parsed schedule:
+     *  0 - Mo-Su, open
+     * */
+
+    List<WeekScheduleData> schedule = (List<WeekScheduleData>) mWeekScheduleField.get(adapter);
+    assertNotNull(schedule);
+    assertEquals(1, schedule.size());
+    assertFalse(schedule.get(0).isClosed); // Mo-Su - open
+    assertEquals(schedule.get(0).startWeekDay, 2);
+    assertEquals(schedule.get(0).endWeekDay, 1);
+    assertTrue(schedule.get(0).isBold);
   }
 }
