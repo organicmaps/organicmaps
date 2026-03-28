@@ -223,17 +223,15 @@ typedef struct
 typedef struct
 {
   float4 position [[position]];
-  float4 color;
+  float2 colorTexCoord;
   //float2 halfLength;
 } LineFragment_T;
 
 vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
-                             constant Uniforms_T & uniforms [[buffer(1)]],
-                             texture2d<float> u_colorTex [[texture(0)]],
-                             sampler u_colorTexSampler [[sampler(0)]])
+                             constant Uniforms_T & uniforms [[buffer(1)]])
 {
   LineFragment_T out;
-  
+
   float2 normal = in.a_normal.xy;
   float halfWidth = length(normal);
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
@@ -242,28 +240,30 @@ vertex LineFragment_T vsLine(const LineVertex_T in [[stage_in]],
     transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + normal,
                                                     uniforms.u_modelView, halfWidth);
   }
-  
+
   //out.halfLength = float2(sign(in.a_normal.z) * halfWidth, abs(in.a_normal.z));
-  
+
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
-  
-  float4 color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
-  color.a *= uniforms.u_opacity;
-  out.color = color;
+
+  out.colorTexCoord = in.a_texCoords;
   return out;
 }
 
-fragment float4 fsLine(const LineFragment_T in [[stage_in]])
+fragment float4 fsLine(const LineFragment_T in [[stage_in]],
+                       constant Uniforms_T & uniforms [[buffer(0)]],
+                       texture2d<float> u_colorTex [[texture(0)]],
+                       sampler u_colorTexSampler [[sampler(0)]])
 {
   // Disabled too agressive AA-like blurring of edges,
   // see https://github.com/organicmaps/organicmaps/issues/6583.
   //constexpr float kAntialiasingPixelsCount = 2.5;
-  
+
   //float currentW = abs(in.halfLength.x);
   //float diff = in.halfLength.y - currentW;
-  
-  float4 color = in.color;
+
+  float4 color = u_colorTex.sample(u_colorTexSampler, in.colorTexCoord);
+  color.a *= uniforms.u_opacity;
   //color.a *= mix(0.3, 1.0, saturate(diff / kAntialiasingPixelsCount));
   return color;
 }

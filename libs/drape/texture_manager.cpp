@@ -652,7 +652,7 @@ std::optional<TextureManager::RainbowRegion> TextureManager::GetRainbowRegion(Ra
   CHECK(m_isInitialized, ());
   ASSERT(!colors.empty(), ());
 
-  // Allocate a contiguous strip of color texels (always fresh, not cached).
+  // Allocate a contiguous strip of color texels (cached by color combination).
   m2::PointF firstCenter, lastCenter;
   ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
   if (!colorTex->ReserveStrip(colors, firstCenter, lastCenter))

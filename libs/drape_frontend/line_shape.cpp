@@ -177,7 +177,7 @@ public:
 
     auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
-    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
     state.SetDepthFunction(dp::TestFunction::Less);
     return state;
   }
@@ -482,16 +482,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     }
   };
 
-  bool const hasRainbow = !m_params.m_rainbowColors.empty();
-
-  // Rainbow lines must use the DashedLine program because the solid Line program samples color
-  // per-vertex (VTF), which blends colors instead of producing crisp stripes. The DashedLine
-  // program always samples per-fragment. For solid rainbow lines, use a fully-opaque stipple mask.
-  dp::PenPatternT pattern = m_params.m_pattern;
-  if (hasRainbow && pattern.empty())
-    pattern = {2};  // Single 2px dash, no gap = fully opaque mask.
-
-  if (pattern.empty())
+  if (m_params.m_pattern.empty())
   {
     int lineWidth = 1;
     m_isSimple = CanBeSimplified(lineWidth);
@@ -517,7 +508,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   else
   {
     dp::TextureManager::StippleRegion maskRegion;
-    textures->GetStippleRegion(pattern, maskRegion);
+    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
 
     DashedLineBuilder::BuilderParams p;
     commonParamsBuilder(p);

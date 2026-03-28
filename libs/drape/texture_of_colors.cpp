@@ -203,6 +203,13 @@ bool ColorPalette::ReserveStrip(RainbowColors const & colors, m2::PointF & first
 
   int const n = static_cast<int>(colors.size());
 
+  // A strip wider than a single row can never be allocated contiguously.
+  if (n * kResourceSize > m_textureSize.x)
+  {
+    LOG(LERROR, ("Rainbow strip of", n, "colors exceeds atlas row width"));
+    return false;
+  }
+
   // Ensure the strip fits in the current row; advance to next row if needed.
   if (m_cursor.x + n * kResourceSize > m_textureSize.x)
   {
