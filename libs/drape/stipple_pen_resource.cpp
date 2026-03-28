@@ -62,8 +62,7 @@ void StipplePenRasterizator::Rasterize(uint8_t * buffer) const
 
 void StipplePenRasterizator::RasterizeDash(uint8_t * pixels) const
 {
-  // No problem here, but we use 2 entries patterns now (dash length, space length).
-  ASSERT_EQUAL(m_key.m_pattern.size(), 2, ());
+  ASSERT(!m_key.m_pattern.empty() && m_key.m_pattern.size() <= 2, (m_key.m_pattern.size()));
 
   uint32_t offset = 1;
   for (size_t i = 0; i < m_key.m_pattern.size(); ++i)

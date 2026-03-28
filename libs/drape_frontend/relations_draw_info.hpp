@@ -1,9 +1,7 @@
 #pragma once
-#include "drape/color.hpp"
+#include "drape/rainbow_colors.hpp"
 
 #include "indexer/route_relation.hpp"
-
-#include "base/buffer_vector.hpp"
 
 #include <string>
 
@@ -65,6 +63,17 @@ public:
 
       fn(pxOffset, m_colors[i].first);
     }
+  }
+
+  bool HasColors() const { return !m_colors.empty(); }
+
+  dp::RainbowColors GetColors() const
+  {
+    dp::RainbowColors result;
+    result.reserve(m_colors.size());
+    for (auto const & [color, freq] : m_colors)
+      result.push_back(color);
+    return result;
   }
 
   dp::Color GetTextColor() const;
