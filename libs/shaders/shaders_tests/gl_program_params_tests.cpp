@@ -33,8 +33,6 @@ void TestProgramParams()
   }
 }
 
-// These unit tests create Qt application and OGL context so can't be run in GUI-less Linux machine.
-#ifdef OMIM_OS_MAC
 UNIT_TEST(MapProgramParams_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test", std::bind(&TestProgramParams<gpu::MapProgramParams>));
@@ -97,4 +95,3 @@ UNIT_TEST(SMAAProgramParams_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", std::bind(&TestProgramParams<gpu::SMAAProgramParams>));
 }
-#endif
