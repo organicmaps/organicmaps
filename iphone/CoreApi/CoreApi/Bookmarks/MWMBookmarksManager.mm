@@ -815,6 +815,9 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   auto const currentColor = track->GetColor(0);
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
+  if (newColor == currentColor && track->GetName()==title.UTF8String)
+    return;  // No changes in track parameters.
+
   if (newColor != currentColor)
     track->SetColor(newColor);
 
@@ -833,9 +836,11 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   auto const currentColor = track->GetColor(0);
   auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
-  if (newColor != currentColor)
-    track->SetColor(newColor);
-  track->SetModifiedTimeStamp(kml::TimestampClock::now());
+  if (newColor == currentColor)
+      return;  // Nothing to update.
+
+  track->SetColor(newColor);
+  track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 - (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId
