@@ -754,7 +754,7 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   bookmark->SetDescription(description.UTF8String);
   if (title.UTF8String != bookmark->GetPreferredName())
     bookmark->SetCustomName(title.UTF8String);
-  bookmark->SetModifiedTimeStamp(kml::TimestampClock::now());
+  bookmark->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 - (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(UIColor *)color
@@ -770,7 +770,7 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
   self.bm.SetLastEditedBmColor(kml::MakeCustomBookmarkColorData(newColor));
   bookmark->SetColor(newColor);
-  bookmark->SetModifiedTimeStamp(kml::TimestampClock::now());
+  bookmark->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(UIColor *)color
@@ -823,7 +823,7 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
   track->SetName(title.UTF8String);
   track->SetDescription(description.UTF8String);
-  track->SetModifiedTimeStamp(kml::TimestampClock::now());
+  track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 - (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color
