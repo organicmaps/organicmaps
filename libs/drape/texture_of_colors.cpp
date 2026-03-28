@@ -142,8 +142,10 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     // Scales up the buffer size to the nearest power of 2.
     auto buffer = SharedBufferManager::Instance().ReserveSharedBuffer(byteCount);
     uint8_t * pointer = SharedBufferManager::GetRawPointer(buffer);
-    if (m_isDebug)
-      memset(pointer, 0, buffer->size());
+    // Must zero the buffer: when the upload rect is wider than the pending colors
+    // (e.g., multi-row spans), gaps contain uninitialized data that would overwrite
+    // existing colors in the texture.
+    memset(pointer, 0, byteCount);
 
     uint32_t currentY = startRect.minY();
     for (size_t j = startRange; j < endRange; ++j)
