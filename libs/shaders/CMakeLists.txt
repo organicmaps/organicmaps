@@ -22,6 +22,8 @@ set(shader_files
     GL/colored_symbol_billboard.vsh.glsl
     GL/dashed_line.fsh.glsl
     GL/dashed_line.vsh.glsl
+    GL/dashed_rainbow_line.fsh.glsl
+    GL/dashed_rainbow_line.vsh.glsl
     GL/debug_rect.fsh.glsl
     GL/debug_rect.vsh.glsl
     GL/hatching_area.fsh.glsl
@@ -30,6 +32,8 @@ set(shader_files
     GL/imgui.vsh.glsl
     GL/line.fsh.glsl
     GL/line.vsh.glsl
+    GL/rainbow_line.fsh.glsl
+    GL/rainbow_line.vsh.glsl
     GL/masked_texturing.fsh.glsl
     GL/masked_texturing.vsh.glsl
     GL/masked_texturing_billboard.vsh.glsl

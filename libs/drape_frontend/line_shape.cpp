@@ -283,26 +283,16 @@ private:
   TextureCoordGenerator m_texCoordGen;
   float const m_baseGtoPScale;
 };
-}  // namespace
 
-LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
-  : m_params(params)
-  , m_spline(spline)
-  , m_isSimple(false)
+glsl::vec2 ToShapeVertex2(m2::PointD const & vertex, m2::PointD const & tileCenter)
 {
-  ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
-}
-
-template <typename TBuilder>
-void LineShape::Construct(TBuilder & builder) const
-{
-  ASSERT(false, ("No implementation"));
+  return glsl::ToVec2(MapShape::ConvertToLocal(vertex, tileCenter, kShapeCoordScalar));
 }
 
 template <class FnT>
-void LineShape::ForEachSplineSection(FnT && fn) const
+void ForEachSplineSection(m2::SharedSpline const & spline, m2::PointD const & tileCenter, FnT && fn)
 {
-  std::vector<m2::PointD> const & path = m_spline->GetPath();
+  std::vector<m2::PointD> const & path = spline->GetPath();
   ASSERT(!path.empty(), ());
   size_t const sz = path.size() - 1;
 
@@ -316,7 +306,7 @@ void LineShape::ForEachSplineSection(FnT && fn) const
     if (j == i + 1)
     {
       // Fast path - take calculated tangent and length.
-      tanlen = m_spline->GetTangentAndLength(i);
+      tanlen = spline->GetTangentAndLength(i);
     }
     else
     {
@@ -327,16 +317,39 @@ void LineShape::ForEachSplineSection(FnT && fn) const
 
     glsl::vec2 const tangent = glsl::ToVec2(tanlen.first);
 
-    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]), tangent, tanlen.second, {-tangent.y, tangent.x},
-       {tangent.y, -tangent.x}, (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
+    fn(ToShapeVertex2(path[i], tileCenter), ToShapeVertex2(path[j], tileCenter), tangent, tanlen.second,
+       {-tangent.y, tangent.x}, {tangent.y, -tangent.x}, (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
 
     i = j;
   }
 }
 
-// Specialization optimized for dashed lines.
-template <>
-void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
+template <class TBuilder>
+void ConstructSolidLine(m2::SharedSpline const & spline, m2::PointD const & tileCenter, float depth, TBuilder & builder)
+{
+  bool const generateJoins = builder.GetHalfWidth() > 2.5f;
+
+  ForEachSplineSection(spline, tileCenter,
+                       [&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
+                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
+  {
+    builder.SubmitVertex({p1, depth}, rightNormal, false /* isLeft */);
+    builder.SubmitVertex({p1, depth}, leftNormal, true /* isLeft */);
+    builder.SubmitVertex({p2, depth}, rightNormal, false /* isLeft */);
+    builder.SubmitVertex({p2, depth}, leftNormal, true /* isLeft */);
+
+    if (flag & 0x1)
+      builder.SubmitCap(p1);
+    if (flag & 0x2)
+      builder.SubmitCap(p2);
+    else if (generateJoins)
+      builder.SubmitJoin(p2);
+  });
+}
+
+template <class TBuilder>
+void ConstructDashedLine(m2::SharedSpline const & spline, m2::PointD const & tileCenter, float depth,
+                         TBuilder & builder)
 {
   float constexpr toShapeFactor = kShapeCoordScalar;  // the same as in ToShapeVertex2
 
@@ -349,7 +362,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   float const maskLengthG = builder.GetMaskLengthG() / 3;
 
   float offset = 0;
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw,
+  ForEachSplineSection(spline, tileCenter,
+                       [&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
     glsl::vec2 currPivot = p1;
@@ -374,10 +388,10 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
         toDraw -= len;
       }
 
-      builder.SubmitVertex({currPivot, m_params.m_depth}, rightNormal, false /* isLeft */, offset);
-      builder.SubmitVertex({currPivot, m_params.m_depth}, leftNormal, true /* isLeft */, offset);
-      builder.SubmitVertex({nextPivot, m_params.m_depth}, rightNormal, false /* isLeft */, nextOffset);
-      builder.SubmitVertex({nextPivot, m_params.m_depth}, leftNormal, true /* isLeft */, nextOffset);
+      builder.SubmitVertex({currPivot, depth}, rightNormal, false /* isLeft */, offset);
+      builder.SubmitVertex({currPivot, depth}, leftNormal, true /* isLeft */, offset);
+      builder.SubmitVertex({nextPivot, depth}, rightNormal, false /* isLeft */, nextOffset);
+      builder.SubmitVertex({nextPivot, depth}, leftNormal, true /* isLeft */, nextOffset);
 
       currPivot = nextPivot;
       offset = nextOffset;
@@ -388,41 +402,23 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   });
 }
 
-// Specialization optimized for solid lines.
-template <>
-void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
+void ConstructSimpleSolidLine(m2::SharedSpline const & spline, m2::PointD const & tileCenter, float depth,
+                              SimpleSolidLineBuilder & builder)
 {
-  // Skip joins generation for thin lines.
-  bool const generateJoins = builder.GetHalfWidth() > 2.5f;
-
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
-                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
-  {
-    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
-    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
-    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */);
-    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
-
-    // Generate joins.
-    if (flag & 0x1)  // p1 - first point
-      builder.SubmitCap(p1);
-    if (flag & 0x2)  // p2 - last point
-      builder.SubmitCap(p2);
-    else if (generateJoins)  // p2 - middle point
-      builder.SubmitJoin(p2);
-  });
-}
-
-// Specialization optimized for simple solid lines.
-template <>
-void LineShape::Construct<SimpleSolidLineBuilder>(SimpleSolidLineBuilder & builder) const
-{
-  std::vector<m2::PointD> const & path = m_spline->GetPath();
+  std::vector<m2::PointD> const & path = spline->GetPath();
   ASSERT_GREATER(path.size(), 1, ());
 
-  // Build geometry.
   for (m2::PointD const & pt : path)
-    builder.SubmitVertex(glsl::vec3(ToShapeVertex2(pt), m_params.m_depth));
+    builder.SubmitVertex(glsl::vec3(ToShapeVertex2(pt, tileCenter), depth));
+}
+}  // namespace
+
+LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
+  : m_params(params)
+  , m_spline(spline)
+  , m_isSimple(false)
+{
+  ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
 }
 
 bool LineShape::CanBeSimplified(int & lineWidth) const
@@ -468,7 +464,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
       commonParamsBuilder(p);
 
       auto builder = std::make_unique<SimpleSolidLineBuilder>(p, m_spline->GetPath().size(), lineWidth);
-      Construct<SimpleSolidLineBuilder>(*builder);
+      ConstructSimpleSolidLine(m_spline, m_params.m_tileCenter, m_params.m_depth, *builder);
       m_lineShapeInfo = std::move(builder);
     }
     else
@@ -477,7 +473,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
       commonParamsBuilder(p);
 
       auto builder = std::make_unique<SolidLineBuilder>(p, m_spline->GetPath().size());
-      Construct<SolidLineBuilder>(*builder);
+      ConstructSolidLine(m_spline, m_params.m_tileCenter, m_params.m_depth, *builder);
       m_lineShapeInfo = std::move(builder);
     }
   }
@@ -492,7 +488,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     p.m_baseGtoP = static_cast<float>(m_params.m_baseGtoPScale);
 
     auto builder = std::make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
-    Construct<DashedLineBuilder>(*builder);
+    ConstructDashedLine(m_spline, m_params.m_tileCenter, m_params.m_depth, *builder);
     m_lineShapeInfo = std::move(builder);
   }
 }
@@ -533,4 +529,227 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     batcher->InsertLineStrip(context, state, make_ref(&provider));
   }
 }
+// =================================================================================================
+// RainbowLineShape implementation
+// =================================================================================================
+
+namespace
+{
+// Maximum number of color stripes in a rainbow line, defined by vertex layout
+// (two vec4 attributes packing 4 vec2 texture coordinates).
+static size_t constexpr kMaxRainbowStripes = 4;
+
+struct RainbowBaseBuilderParams
+{
+  std::array<dp::TextureManager::ColorRegion, kMaxRainbowStripes> m_colorRegions;
+  float m_pxHalfWidth;
+  float m_depth;
+  bool m_depthTestEnabled;
+  DepthLayer m_depthLayer;
+  dp::LineCap m_cap;
+  dp::LineJoin m_join;
+  size_t m_stripeCount;
+};
+
+/// Packs up to kMaxRainbowStripes color texture coordinates into two vec4s.
+/// Unused slots are filled with the last valid color.
+void PackRainbowColorCoords(RainbowBaseBuilderParams const & params, glsl::vec4 & colorCoords01,
+                            glsl::vec4 & colorCoords23, glsl::vec2 & stripeInfo)
+{
+  ASSERT(params.m_stripeCount > 0 && params.m_stripeCount <= kMaxRainbowStripes, (params.m_stripeCount));
+
+  float * dst[kMaxRainbowStripes] = {&colorCoords01.x, &colorCoords01.z, &colorCoords23.x, &colorCoords23.z};
+  for (size_t i = 0; i < kMaxRainbowStripes; ++i)
+  {
+    int const srcIdx = (i < params.m_stripeCount) ? i : (params.m_stripeCount - 1);
+    auto const center = params.m_colorRegions[srcIdx].GetTexRect().Center();
+    dst[i][0] = center.x;
+    dst[i][1] = center.y;
+  }
+  stripeInfo = {static_cast<float>(params.m_stripeCount), 0.0f};
+}
+
+class RainbowSolidLineBuilder : public LineShapeInfo
+{
+  using V = gpu::RainbowLineVertex;
+  using TNormal = gpu::LineVertex::TNormal;
+  using TGeometryBuffer = gpu::VBReservedSizeT<V>;
+
+public:
+  RainbowSolidLineBuilder(RainbowBaseBuilderParams const & params, size_t pointsInSpline) : m_params(params)
+  {
+    m_geometry.reserve(pointsInSpline * 2);
+    PackRainbowColorCoords(m_params, m_colorCoords01, m_colorCoords23, m_stripeInfo);
+  }
+
+  dp::BindingInfo const & GetBindingInfo() override { return V::GetBindingInfo(); }
+
+  dp::RenderState GetState() override
+  {
+    auto state = CreateRenderState(gpu::Program::RainbowLine, m_params.m_depthLayer);
+    state.SetColorTexture(m_params.m_colorRegions[0].GetTexture());
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    return state;
+  }
+
+  ref_ptr<void> GetLineData() override { return make_ref(m_geometry.data()); }
+  uint32_t GetLineSize() override { return static_cast<uint32_t>(m_geometry.size()); }
+
+  dp::BindingInfo const & GetCapBindingInfo() override { return GetBindingInfo(); }
+  dp::RenderState GetCapState() override { return GetState(); }
+  ref_ptr<void> GetCapData() override { return ref_ptr<void>(); }
+  uint32_t GetCapSize() override { return 0; }
+
+  float GetHalfWidth() const { return m_params.m_pxHalfWidth; }
+  float GetSide(bool isLeft) const { return isLeft ? 1.0f : -1.0f; }
+
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
+  {
+    float const halfWidth = m_params.m_pxHalfWidth;
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoords01,
+                            m_colorCoords23, m_stripeInfo);
+  }
+
+  void SubmitJoin(glsl::vec2 const &) {}
+  void SubmitCap(glsl::vec2 const &) {}
+
+private:
+  RainbowBaseBuilderParams m_params;
+  TGeometryBuffer m_geometry;
+  glsl::vec4 m_colorCoords01{};
+  glsl::vec4 m_colorCoords23{};
+  glsl::vec2 m_stripeInfo{};
+};
+
+class RainbowDashedLineBuilder : public LineShapeInfo
+{
+  using V = gpu::DashedRainbowLineVertex;
+  using TNormal = gpu::LineVertex::TNormal;
+  using TGeometryBuffer = gpu::VBReservedSizeT<V>;
+
+public:
+  struct BuilderParams : RainbowBaseBuilderParams
+  {
+    dp::TextureManager::StippleRegion m_stipple;
+    float m_baseGtoP;
+  };
+
+  RainbowDashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
+    : m_params(params)
+    , m_texCoordGen(params.m_stipple)
+    , m_baseGtoPScale(params.m_baseGtoP)
+  {
+    m_geometry.reserve(pointsInSpline * 8);
+    PackRainbowColorCoords(m_params, m_colorCoords01, m_colorCoords23, m_stripeInfo);
+  }
+
+  float GetMaskLengthG() const { return m_texCoordGen.GetMaskLength() / m_baseGtoPScale; }
+
+  dp::BindingInfo const & GetBindingInfo() override { return V::GetBindingInfo(); }
+
+  dp::RenderState GetState() override
+  {
+    auto state = CreateRenderState(gpu::Program::DashedRainbowLine, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetColorTexture(m_params.m_colorRegions[0].GetTexture());
+    state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
+    return state;
+  }
+
+  ref_ptr<void> GetLineData() override { return make_ref(m_geometry.data()); }
+  uint32_t GetLineSize() override { return static_cast<uint32_t>(m_geometry.size()); }
+
+  dp::BindingInfo const & GetCapBindingInfo() override { return GetBindingInfo(); }
+  dp::RenderState GetCapState() override { return GetState(); }
+  ref_ptr<void> GetCapData() override { return ref_ptr<void>(); }
+  uint32_t GetCapSize() override { return 0; }
+
+  float GetHalfWidth() const { return m_params.m_pxHalfWidth; }
+  float GetSide(bool isLeft) const { return isLeft ? 1.0f : -1.0f; }
+
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
+  {
+    float const halfWidth = m_params.m_pxHalfWidth;
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoords01,
+                            m_colorCoords23, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft),
+                            m_stripeInfo);
+  }
+
+private:
+  BuilderParams m_params;
+  TGeometryBuffer m_geometry;
+  TextureCoordGenerator m_texCoordGen;
+  float const m_baseGtoPScale;
+  glsl::vec4 m_colorCoords01{};
+  glsl::vec4 m_colorCoords23{};
+  glsl::vec2 m_stripeInfo{};
+};
+}  // namespace
+
+RainbowLineShape::RainbowLineShape(m2::SharedSpline const & spline, RainbowLineViewParams const & params)
+  : m_params(params)
+  , m_spline(spline)
+{
+  ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
+}
+
+void RainbowLineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
+{
+  ASSERT(!m_params.m_colors.empty(), ());
+
+  size_t const stripeCount = std::min(m_params.m_colors.size(), kMaxRainbowStripes);
+  float const totalWidth = m_params.m_stripeWidth * stripeCount;
+
+  auto commonParamsBuilder = [&](RainbowBaseBuilderParams & p)
+  {
+    for (size_t i = 0; i < stripeCount; ++i)
+      textures->GetColorRegion(m_params.m_colors[i], p.m_colorRegions[i]);
+
+    p.m_cap = m_params.m_cap;
+    p.m_join = m_params.m_join;
+    p.m_depthTestEnabled = m_params.m_depthTestEnabled;
+    p.m_depth = m_params.m_depth;
+    p.m_depthLayer = m_params.m_depthLayer;
+    p.m_pxHalfWidth = totalWidth / 2;
+    p.m_stripeCount = stripeCount;
+  };
+
+  if (m_params.m_pattern.empty())
+  {
+    RainbowBaseBuilderParams p;
+    commonParamsBuilder(p);
+
+    auto builder = std::make_unique<RainbowSolidLineBuilder>(p, m_spline->GetPath().size());
+    ConstructSolidLine(m_spline, m_params.m_tileCenter, m_params.m_depth, *builder);
+    m_lineShapeInfo = std::move(builder);
+  }
+  else
+  {
+    dp::TextureManager::StippleRegion maskRegion;
+    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
+
+    RainbowDashedLineBuilder::BuilderParams p;
+    commonParamsBuilder(p);
+    p.m_stipple = maskRegion;
+    p.m_baseGtoP = static_cast<float>(m_params.m_baseGtoPScale);
+
+    auto builder = std::make_unique<RainbowDashedLineBuilder>(p, m_spline->GetPath().size());
+    ConstructDashedLine(m_spline, m_params.m_tileCenter, m_params.m_depth, *builder);
+    m_lineShapeInfo = std::move(builder);
+  }
+}
+
+void RainbowLineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                            ref_ptr<dp::TextureManager> textures) const
+{
+  if (!m_lineShapeInfo)
+    Prepare(textures);
+
+  ASSERT(m_lineShapeInfo != nullptr, ());
+  dp::RenderState state = m_lineShapeInfo->GetState();
+  dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
+  provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
+  batcher->InsertListOfStrip(context, state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+}
+
 }  // namespace df

@@ -158,6 +158,40 @@ struct DashedLineVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct RainbowLineVertex : BaseVertex
+{
+  using TNormal = glsl::vec3;
+  using TColorCoords01 = glsl::vec4;
+  using TColorCoords23 = glsl::vec4;
+  using TStripeInfo = glsl::vec2;
+
+  RainbowLineVertex() = default;
+  RainbowLineVertex(TPosition const & position, TNormal const & normal, TColorCoords01 const & colorCoords01,
+                    TColorCoords23 const & colorCoords23, TStripeInfo const & stripeInfo);
+
+  TPosition m_position;
+  TNormal m_normal;
+  TColorCoords01 m_colorCoords01;
+  TColorCoords23 m_colorCoords23;
+  TStripeInfo m_stripeInfo;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
+struct DashedRainbowLineVertex : RainbowLineVertex
+{
+  using TMaskTexCoord = glsl::vec4;
+
+  DashedRainbowLineVertex() = default;
+  DashedRainbowLineVertex(TPosition const & position, TNormal const & normal, TColorCoords01 const & colorCoords01,
+                          TColorCoords23 const & colorCoords23, TMaskTexCoord const & mask,
+                          TStripeInfo const & stripeInfo);
+
+  TMaskTexCoord m_maskTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 struct RouteVertex : BaseVertex
 {
   using TLength = glsl::vec3;

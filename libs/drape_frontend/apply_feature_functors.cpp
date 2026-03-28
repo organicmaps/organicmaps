@@ -811,18 +811,27 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     for (auto const & spline : m_clippedSplines)
       m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
 
-    // Place multiple color lines with offset.
-    params.m_width = 3 * visScale;  // std::max(4.0f, params.m_width / 2);
-    params.m_depth += 10;
-
-    m_relsInfo.ForEachColorWithOffset(params.m_width, [&params, this](double pxOffset, dp::Color color)
+    // Place multiple color stripes as a single rainbow line shape.
+    if (m_relsInfo.HasColors())
     {
-      params.m_color = color;
+      RainbowLineViewParams rParams;
+      rParams.m_tileCenter = params.m_tileCenter;
+      rParams.m_colors = m_relsInfo.GetColors();
+      rParams.m_stripeWidth = 3 * visScale;
+      rParams.m_depth = params.m_depth + 10;
+      rParams.m_depthTestEnabled = params.m_depthTestEnabled;
+      rParams.m_depthLayer = params.m_depthLayer;
+      rParams.m_minVisibleScale = params.m_minVisibleScale;
+      rParams.m_rank = params.m_rank;
+      rParams.m_cap = params.m_cap;
+      rParams.m_join = params.m_join;
+      rParams.m_pattern = params.m_pattern;
+      rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;
+      rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
       for (auto const & spline : m_clippedSplines)
-        m_params.m_insertShape(
-            make_unique_dp<LineShape>(spline.Equidistant(pxOffset / m_params.m_currentScaleGtoP), params));
-    });
+        m_params.m_insertShape(make_unique_dp<RainbowLineShape>(spline, rParams));
+    }
   }
 }
 

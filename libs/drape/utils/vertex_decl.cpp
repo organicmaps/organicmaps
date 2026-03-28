@@ -16,6 +16,8 @@ enum VertexType
   TextDynamic,
   Line,
   DashedLine,
+  RainbowLine,
+  DashedRainbowLine,
   Route,
   RouteMarker,
   ColoredSymbol,
@@ -164,6 +166,43 @@ dp::BindingInfo DashedLineBindingInit()
   return filler.m_info;
 }
 
+dp::BindingInfo RainbowLineBindingInit()
+{
+  static_assert(sizeof(RainbowLineVertex) == sizeof(RainbowLineVertex::TPosition) + sizeof(RainbowLineVertex::TNormal) +
+                                                 sizeof(RainbowLineVertex::TColorCoords01) +
+                                                 sizeof(RainbowLineVertex::TColorCoords23) +
+                                                 sizeof(RainbowLineVertex::TStripeInfo),
+                "");
+
+  dp::BindingFiller<RainbowLineVertex> filler(5);
+  filler.FillDecl<RainbowLineVertex::TPosition>("a_position");
+  filler.FillDecl<RainbowLineVertex::TNormal>("a_normal");
+  filler.FillDecl<RainbowLineVertex::TColorCoords01>("a_colorCoords01");
+  filler.FillDecl<RainbowLineVertex::TColorCoords23>("a_colorCoords23");
+  filler.FillDecl<RainbowLineVertex::TStripeInfo>("a_stripeInfo");
+
+  return filler.m_info;
+}
+
+dp::BindingInfo DashedRainbowLineBindingInit()
+{
+  // DashedRainbowLineVertex inherits RainbowLineVertex, so m_stripeInfo (from base)
+  // comes before m_maskTexCoord (from derived) in memory layout.
+  static_assert(
+      sizeof(DashedRainbowLineVertex) == sizeof(RainbowLineVertex) + sizeof(DashedRainbowLineVertex::TMaskTexCoord),
+      "");
+
+  dp::BindingFiller<DashedRainbowLineVertex> filler(6);
+  filler.FillDecl<DashedRainbowLineVertex::TPosition>("a_position");
+  filler.FillDecl<DashedRainbowLineVertex::TNormal>("a_normal");
+  filler.FillDecl<DashedRainbowLineVertex::TColorCoords01>("a_colorCoords01");
+  filler.FillDecl<DashedRainbowLineVertex::TColorCoords23>("a_colorCoords23");
+  filler.FillDecl<DashedRainbowLineVertex::TStripeInfo>("a_stripeInfo");
+  filler.FillDecl<DashedRainbowLineVertex::TMaskTexCoord>("a_maskTexCoord");
+
+  return filler.m_info;
+}
+
 dp::BindingInfo RouteBindingInit()
 {
   static_assert(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) + sizeof(RouteVertex::TNormal) +
@@ -219,6 +258,8 @@ TInitFunction g_initFunctions[TypeCount] = {&AreaBindingInit,
                                             &TextDynamicBindingInit,
                                             &LineBindingInit,
                                             &DashedLineBindingInit,
+                                            &RainbowLineBindingInit,
+                                            &DashedRainbowLineBindingInit,
                                             &RouteBindingInit,
                                             &RouteMarkerBindingInit,
                                             &ColoredSymbolBindingInit};
@@ -343,6 +384,34 @@ DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & n
 dp::BindingInfo const & DashedLineVertex::GetBindingInfo()
 {
   return GetBinding(DashedLine);
+}
+
+RainbowLineVertex::RainbowLineVertex(TPosition const & position, TNormal const & normal,
+                                     TColorCoords01 const & colorCoords01, TColorCoords23 const & colorCoords23,
+                                     TStripeInfo const & stripeInfo)
+  : m_position(position)
+  , m_normal(normal)
+  , m_colorCoords01(colorCoords01)
+  , m_colorCoords23(colorCoords23)
+  , m_stripeInfo(stripeInfo)
+{}
+
+dp::BindingInfo const & RainbowLineVertex::GetBindingInfo()
+{
+  return GetBinding(RainbowLine);
+}
+
+DashedRainbowLineVertex::DashedRainbowLineVertex(TPosition const & position, TNormal const & normal,
+                                                 TColorCoords01 const & colorCoords01,
+                                                 TColorCoords23 const & colorCoords23, TMaskTexCoord const & mask,
+                                                 TStripeInfo const & stripeInfo)
+  : RainbowLineVertex(position, normal, colorCoords01, colorCoords23, stripeInfo)
+  , m_maskTexCoord(mask)
+{}
+
+dp::BindingInfo const & DashedRainbowLineVertex::GetBindingInfo()
+{
+  return GetBinding(DashedRainbowLine);
 }
 
 RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length,

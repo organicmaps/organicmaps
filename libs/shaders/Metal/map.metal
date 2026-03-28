@@ -333,6 +333,133 @@ fragment float4 fsDashedLine(const DashedLineFragment_T in [[stage_in]],
   return color;
 }
 
+// RainbowLine
+
+typedef struct
+{
+  float3 a_position [[attribute(0)]];
+  float3 a_normal [[attribute(1)]];
+  float4 a_colorCoords01 [[attribute(2)]];
+  float4 a_colorCoords23 [[attribute(3)]];
+  float2 a_stripeInfo [[attribute(4)]];
+} RainbowLineVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float side;
+  float4 colorCoords01;
+  float4 colorCoords23;
+  float stripeCount;
+} RainbowLineFragment_T;
+
+vertex RainbowLineFragment_T vsRainbowLine(const RainbowLineVertex_T in [[stage_in]],
+                                            constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  RainbowLineFragment_T out;
+
+  float2 normal = in.a_normal.xy;
+  float halfWidth = length(normal);
+  float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
+  if (halfWidth != 0.0)
+  {
+    transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + normal,
+                                                    uniforms.u_modelView, halfWidth);
+  }
+
+  out.side = sign(in.a_normal.z);
+  out.colorCoords01 = in.a_colorCoords01;
+  out.colorCoords23 = in.a_colorCoords23;
+  out.stripeCount = in.a_stripeInfo.x;
+
+  float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
+  return out;
+}
+
+fragment float4 fsRainbowLine(const RainbowLineFragment_T in [[stage_in]],
+                              constant Uniforms_T & uniforms [[buffer(0)]],
+                              texture2d<float> u_colorTex [[texture(0)]],
+                              sampler u_colorTexSampler [[sampler(0)]])
+{
+  float t = (in.side + 1.0) * 0.5;
+  int idx = clamp(int(t * in.stripeCount), 0, int(in.stripeCount) - 1);
+
+  float2 coords[4] = {in.colorCoords01.xy, in.colorCoords01.zw,
+                       in.colorCoords23.xy, in.colorCoords23.zw};
+  float4 color = u_colorTex.sample(u_colorTexSampler, coords[idx]);
+  color.a *= uniforms.u_opacity;
+  return color;
+}
+
+// DashedRainbowLine
+
+typedef struct
+{
+  float3 a_position [[attribute(0)]];
+  float3 a_normal [[attribute(1)]];
+  float4 a_colorCoords01 [[attribute(2)]];
+  float4 a_colorCoords23 [[attribute(3)]];
+  // stripeInfo at attribute 4 (from base RainbowLineVertex), maskTexCoord at 5 (derived member).
+  float2 a_stripeInfo [[attribute(4)]];
+  float4 a_maskTexCoord [[attribute(5)]];
+} DashedRainbowLineVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float side;
+  float4 colorCoords01;
+  float4 colorCoords23;
+  float stripeCount;
+  float2 maskTexCoord;
+} DashedRainbowLineFragment_T;
+
+vertex DashedRainbowLineFragment_T vsDashedRainbowLine(const DashedRainbowLineVertex_T in [[stage_in]],
+                                                        constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  DashedRainbowLineFragment_T out;
+
+  float2 normal = in.a_normal.xy;
+  float halfWidth = length(normal);
+  float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
+  if (halfWidth != 0.0)
+  {
+    transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + normal,
+                                                    uniforms.u_modelView, halfWidth);
+  }
+
+  float uOffset = min(length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView) * in.a_maskTexCoord.x, 1.0);
+  out.maskTexCoord = float2(in.a_maskTexCoord.y + uOffset * in.a_maskTexCoord.z, in.a_maskTexCoord.w);
+
+  out.side = sign(in.a_normal.z);
+  out.colorCoords01 = in.a_colorCoords01;
+  out.colorCoords23 = in.a_colorCoords23;
+  out.stripeCount = in.a_stripeInfo.x;
+
+  float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
+  return out;
+}
+
+fragment float4 fsDashedRainbowLine(const DashedRainbowLineFragment_T in [[stage_in]],
+                                    constant Uniforms_T & uniforms [[buffer(0)]],
+                                    texture2d<float> u_colorTex [[texture(0)]],
+                                    sampler u_colorTexSampler [[sampler(0)]],
+                                    texture2d<float> u_maskTex [[texture(1)]],
+                                    sampler u_maskTexSampler [[sampler(1)]])
+{
+  float t = (in.side + 1.0) * 0.5;
+  int idx = clamp(int(t * in.stripeCount), 0, int(in.stripeCount) - 1);
+
+  float2 coords[4] = {in.colorCoords01.xy, in.colorCoords01.zw,
+                       in.colorCoords23.xy, in.colorCoords23.zw};
+  float4 color = u_colorTex.sample(u_colorTexSampler, coords[idx]);
+  color.a *= u_maskTex.sample(u_maskTexSampler, in.maskTexCoord).a;
+  color.a *= uniforms.u_opacity;
+  return color;
+}
+
 // CapJoin
 
 typedef struct
