@@ -28942,7 +28942,7 @@ zh-Hant = 與朋友分享
 
 [closed_now]
 comment = Place Page opening hours text
-tags = apple-maps
+tags = android-app,apple-maps
 en = Closed now
 af = Nou gesluit
 ar = مغلق الآن
@@ -28997,7 +28997,7 @@ zh-Hans = 现已关门
 zh-Hant = 現已關門
 
 [opens_tomorrow_at]
-tags = apple-maps
+tags = android-app,apple-maps
 en = Opens tomorrow at %@
 af = Open môre om %@
 ar = يُفتتح غداً في %@
@@ -29053,7 +29053,7 @@ zh-Hans = 明天 %@ 营业
 zh-Hant = 明天 %@ 營業
 
 [opens_dayoftheweek_at]
-tags = apple-maps
+tags = android-app,apple-maps
 en = Opens %1$@ at %2$@
 af = Open %1$@ om %2$@
 ar = يفتح %1$@ في %2$@
@@ -29109,7 +29109,7 @@ zh-Hans = %1$@ %2$@ 营业
 zh-Hant = %1$@ %2$@ 營業
 
 [opens_at]
-tags = apple-maps
+tags = android-app,apple-maps
 en = Opens at %@
 af = Open om %@
 ar = يفتح في %@
@@ -29165,7 +29165,7 @@ zh-Hans = %@ 营业
 zh-Hant = %@ 營業
 
 [closes_at]
-tags = apple-maps
+tags = apple-maps,android-app
 en = Closes at %@
 af = Sluit om %@
 ar = يغلق في %@
