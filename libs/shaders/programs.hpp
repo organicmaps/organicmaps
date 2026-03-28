@@ -26,6 +26,8 @@ enum class Program
   Line,
   TransitCircle,
   DashedLine,
+  RainbowLine,
+  DashedRainbowLine,
   PathSymbol,
   TransparentArea,
   CapJoin,
@@ -93,6 +95,8 @@ inline std::string_view DebugPrint(Program p)
   case Program::CapJoin: return "CapJoin";
   case Program::TransitCircle: return "TransitCircle";
   case Program::DashedLine: return "DashedLine";
+  case Program::RainbowLine: return "RainbowLine";
+  case Program::DashedRainbowLine: return "DashedRainbowLine";
   case Program::PathSymbol: return "PathSymbol";
   case Program::TransparentArea: return "TransparentArea";
   case Program::HatchingArea: return "HatchingArea";

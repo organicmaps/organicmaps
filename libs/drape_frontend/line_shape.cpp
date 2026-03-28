@@ -533,4 +533,322 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     batcher->InsertLineStrip(context, state, make_ref(&provider));
   }
 }
+// =================================================================================================
+// RainbowLineShape implementation
+// =================================================================================================
+
+namespace
+{
+struct RainbowBaseBuilderParams
+{
+  buffer_vector<dp::TextureManager::ColorRegion, gpu::kMaxRainbowStripes> m_colorRegions;
+  float m_pxHalfWidth;
+  float m_depth;
+  bool m_depthTestEnabled;
+  DepthLayer m_depthLayer;
+  dp::LineCap m_cap;
+  dp::LineJoin m_join;
+  int m_stripeCount;
+};
+
+/// Packs up to kMaxRainbowStripes color texture coordinates into two vec4s.
+/// Unused slots are filled with the last valid color.
+void PackRainbowColorCoords(RainbowBaseBuilderParams const & params, glsl::vec4 & colorCoords01,
+                            glsl::vec4 & colorCoords23, glsl::vec2 & stripeInfo)
+{
+  ASSERT_GREATER(params.m_stripeCount, 0, ());
+  ASSERT_LESS_OR_EQUAL(params.m_stripeCount, static_cast<int>(gpu::kMaxRainbowStripes), ());
+
+  float * dst[gpu::kMaxRainbowStripes] = {&colorCoords01.x, &colorCoords01.z, &colorCoords23.x, &colorCoords23.z};
+  for (uint32_t i = 0; i < gpu::kMaxRainbowStripes; ++i)
+  {
+    int const srcIdx = (static_cast<int>(i) < params.m_stripeCount) ? i : (params.m_stripeCount - 1);
+    auto const center = params.m_colorRegions[srcIdx].GetTexRect().Center();
+    dst[i][0] = center.x;
+    dst[i][1] = center.y;
+  }
+  stripeInfo = {static_cast<float>(params.m_stripeCount), 0.0f};
+}
+
+class RainbowSolidLineBuilder : public LineShapeInfo
+{
+  using V = gpu::RainbowLineVertex;
+  using TNormal = gpu::LineVertex::TNormal;
+  using TGeometryBuffer = gpu::VBReservedSizeT<V>;
+
+public:
+  RainbowSolidLineBuilder(RainbowBaseBuilderParams const & params, size_t pointsInSpline) : m_params(params)
+  {
+    m_geometry.reserve(pointsInSpline * 2);
+    PackRainbowColorCoords(m_params, m_colorCoords01, m_colorCoords23, m_stripeInfo);
+  }
+
+  dp::BindingInfo const & GetBindingInfo() override { return V::GetBindingInfo(); }
+
+  dp::RenderState GetState() override
+  {
+    auto state = CreateRenderState(gpu::Program::RainbowLine, m_params.m_depthLayer);
+    state.SetColorTexture(m_params.m_colorRegions[0].GetTexture());
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    return state;
+  }
+
+  ref_ptr<void> GetLineData() override { return make_ref(m_geometry.data()); }
+  uint32_t GetLineSize() override { return static_cast<uint32_t>(m_geometry.size()); }
+
+  dp::BindingInfo const & GetCapBindingInfo() override { return GetBindingInfo(); }
+  dp::RenderState GetCapState() override { return GetState(); }
+  ref_ptr<void> GetCapData() override { return ref_ptr<void>(); }
+  uint32_t GetCapSize() override { return 0; }
+
+  float GetHalfWidth() const { return m_params.m_pxHalfWidth; }
+  float GetSide(bool isLeft) const { return isLeft ? 1.0f : -1.0f; }
+
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
+  {
+    float const halfWidth = m_params.m_pxHalfWidth;
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoords01,
+                            m_colorCoords23, m_stripeInfo);
+  }
+
+  void SubmitJoin(glsl::vec2 const &) {}
+  void SubmitCap(glsl::vec2 const &) {}
+
+private:
+  RainbowBaseBuilderParams m_params;
+  TGeometryBuffer m_geometry;
+  glsl::vec4 m_colorCoords01{};
+  glsl::vec4 m_colorCoords23{};
+  glsl::vec2 m_stripeInfo{};
+};
+
+class RainbowDashedLineBuilder : public LineShapeInfo
+{
+  using V = gpu::DashedRainbowLineVertex;
+  using TNormal = gpu::LineVertex::TNormal;
+  using TGeometryBuffer = gpu::VBReservedSizeT<V>;
+
+public:
+  struct BuilderParams : RainbowBaseBuilderParams
+  {
+    dp::TextureManager::StippleRegion m_stipple;
+    float m_baseGtoP;
+  };
+
+  RainbowDashedLineBuilder(BuilderParams const & params, size_t pointsInSpline)
+    : m_params(params)
+    , m_texCoordGen(params.m_stipple)
+    , m_baseGtoPScale(params.m_baseGtoP)
+  {
+    m_geometry.reserve(pointsInSpline * 8);
+    PackRainbowColorCoords(m_params, m_colorCoords01, m_colorCoords23, m_stripeInfo);
+  }
+
+  float GetMaskLengthG() const { return m_texCoordGen.GetMaskLength() / m_baseGtoPScale; }
+
+  dp::BindingInfo const & GetBindingInfo() override { return V::GetBindingInfo(); }
+
+  dp::RenderState GetState() override
+  {
+    auto state = CreateRenderState(gpu::Program::DashedRainbowLine, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetColorTexture(m_params.m_colorRegions[0].GetTexture());
+    state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
+    return state;
+  }
+
+  ref_ptr<void> GetLineData() override { return make_ref(m_geometry.data()); }
+  uint32_t GetLineSize() override { return static_cast<uint32_t>(m_geometry.size()); }
+
+  dp::BindingInfo const & GetCapBindingInfo() override { return GetBindingInfo(); }
+  dp::RenderState GetCapState() override { return GetState(); }
+  ref_ptr<void> GetCapData() override { return ref_ptr<void>(); }
+  uint32_t GetCapSize() override { return 0; }
+
+  float GetHalfWidth() const { return m_params.m_pxHalfWidth; }
+  float GetSide(bool isLeft) const { return isLeft ? 1.0f : -1.0f; }
+
+  void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
+  {
+    float const halfWidth = m_params.m_pxHalfWidth;
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoords01,
+                            m_colorCoords23, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft),
+                            m_stripeInfo);
+  }
+
+private:
+  BuilderParams m_params;
+  TGeometryBuffer m_geometry;
+  TextureCoordGenerator m_texCoordGen;
+  float const m_baseGtoPScale;
+  glsl::vec4 m_colorCoords01{};
+  glsl::vec4 m_colorCoords23{};
+  glsl::vec2 m_stripeInfo{};
+};
+}  // namespace
+
+RainbowLineShape::RainbowLineShape(m2::SharedSpline const & spline, RainbowLineViewParams const & params)
+  : m_params(params)
+  , m_spline(spline)
+{
+  ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
+}
+
+template <class FnT>
+void RainbowLineShape::ForEachSplineSection(FnT && fn) const
+{
+  std::vector<m2::PointD> const & path = m_spline->GetPath();
+  ASSERT(!path.empty(), ());
+  size_t const sz = path.size() - 1;
+
+  for (size_t i = 0, j = 1; j <= sz; ++j)
+  {
+    if (path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
+      continue;
+
+    std::pair<m2::PointD, double> tanlen;
+    if (j == i + 1)
+      tanlen = m_spline->GetTangentAndLength(i);
+    else
+    {
+      tanlen.first = path[j] - path[i];
+      tanlen.second = tanlen.first.Length();
+      tanlen.first = tanlen.first / tanlen.second;
+    }
+
+    glsl::vec2 const tangent = glsl::ToVec2(tanlen.first);
+
+    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]), tangent, tanlen.second, {-tangent.y, tangent.x},
+       {tangent.y, -tangent.x}, (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
+
+    i = j;
+  }
+}
+
+template <>
+void RainbowLineShape::Construct<RainbowSolidLineBuilder>(RainbowSolidLineBuilder & builder) const
+{
+  bool const generateJoins = builder.GetHalfWidth() > 2.5f;
+
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
+                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
+  {
+    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
+    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
+    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */);
+    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
+
+    if (flag & 0x1)
+      builder.SubmitCap(p1);
+    if (flag & 0x2)
+      builder.SubmitCap(p2);
+    else if (generateJoins)
+      builder.SubmitJoin(p2);
+  });
+}
+
+template <>
+void RainbowLineShape::Construct<RainbowDashedLineBuilder>(RainbowDashedLineBuilder & builder) const
+{
+  float constexpr toShapeFactor = kShapeCoordScalar;
+  float const maskLengthG = builder.GetMaskLengthG() / 3;
+
+  float offset = 0;
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw,
+                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
+  {
+    glsl::vec2 currPivot = p1;
+    do
+    {
+      glsl::vec2 nextPivot;
+      float nextOffset = offset + toDraw;
+      if (maskLengthG >= nextOffset)
+      {
+        nextPivot = p2;
+        toDraw = 0;
+      }
+      else
+      {
+        float const len = maskLengthG - offset;
+        ASSERT_GREATER(len, 0, ());
+        nextPivot = currPivot + tangent * (len * toShapeFactor);
+        nextOffset = maskLengthG;
+        toDraw -= len;
+      }
+
+      builder.SubmitVertex({currPivot, m_params.m_depth}, rightNormal, false, offset);
+      builder.SubmitVertex({currPivot, m_params.m_depth}, leftNormal, true, offset);
+      builder.SubmitVertex({nextPivot, m_params.m_depth}, rightNormal, false, nextOffset);
+      builder.SubmitVertex({nextPivot, m_params.m_depth}, leftNormal, true, nextOffset);
+
+      currPivot = nextPivot;
+      offset = nextOffset;
+      if (offset >= maskLengthG)
+        offset = 0;
+    }
+    while (toDraw > 0);
+  });
+}
+
+void RainbowLineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
+{
+  ASSERT(!m_params.m_colors.empty(), ());
+  ASSERT_LESS_OR_EQUAL(m_params.m_colors.size(), gpu::kMaxRainbowStripes, ());
+
+  int const stripeCount = static_cast<int>(m_params.m_colors.size());
+  float const totalWidth = m_params.m_stripeWidth * stripeCount;
+
+  auto commonParamsBuilder = [&](RainbowBaseBuilderParams & p)
+  {
+    p.m_colorRegions.resize(stripeCount);
+    for (int i = 0; i < stripeCount; ++i)
+      textures->GetColorRegion(m_params.m_colors[i], p.m_colorRegions[i]);
+
+    p.m_cap = m_params.m_cap;
+    p.m_join = m_params.m_join;
+    p.m_depthTestEnabled = m_params.m_depthTestEnabled;
+    p.m_depth = m_params.m_depth;
+    p.m_depthLayer = m_params.m_depthLayer;
+    p.m_pxHalfWidth = totalWidth / 2;
+    p.m_stripeCount = stripeCount;
+  };
+
+  if (m_params.m_pattern.empty())
+  {
+    RainbowBaseBuilderParams p;
+    commonParamsBuilder(p);
+
+    auto builder = std::make_unique<RainbowSolidLineBuilder>(p, m_spline->GetPath().size());
+    Construct<RainbowSolidLineBuilder>(*builder);
+    m_lineShapeInfo = std::move(builder);
+  }
+  else
+  {
+    dp::TextureManager::StippleRegion maskRegion;
+    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
+
+    RainbowDashedLineBuilder::BuilderParams p;
+    commonParamsBuilder(p);
+    p.m_stipple = maskRegion;
+    p.m_baseGtoP = static_cast<float>(m_params.m_baseGtoPScale);
+
+    auto builder = std::make_unique<RainbowDashedLineBuilder>(p, m_spline->GetPath().size());
+    Construct<RainbowDashedLineBuilder>(*builder);
+    m_lineShapeInfo = std::move(builder);
+  }
+}
+
+void RainbowLineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                            ref_ptr<dp::TextureManager> textures) const
+{
+  if (!m_lineShapeInfo)
+    Prepare(textures);
+
+  ASSERT(m_lineShapeInfo != nullptr, ());
+  dp::RenderState state = m_lineShapeInfo->GetState();
+  dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
+  provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
+  batcher->InsertListOfStrip(context, state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+}
+
 }  // namespace df

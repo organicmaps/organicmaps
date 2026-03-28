@@ -6,6 +6,8 @@
 #include "drape/drape_global.hpp"
 #include "drape/stipple_pen_resource.hpp"
 
+#include "base/buffer_vector.hpp"
+
 #include "kml/type_utils.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -81,6 +83,17 @@ struct LineViewParams : CommonViewParams
   dp::Color m_color;
   float m_width = 0;
   /// @todo Consider set defaults like RoundCap, RoundJoin?
+  dp::LineCap m_cap;
+  dp::LineJoin m_join;
+  dp::PenPatternT m_pattern;
+  double m_baseGtoPScale = 1.0;
+  int m_zoomLevel = -1;
+};
+
+struct RainbowLineViewParams : CommonViewParams
+{
+  buffer_vector<dp::Color, 4> m_colors;
+  float m_stripeWidth = 0;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;

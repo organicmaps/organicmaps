@@ -60,4 +60,29 @@ private:
   mutable std::unique_ptr<LineShapeInfo> m_lineShapeInfo;
   mutable bool m_isSimple;
 };
+class RainbowLineShape : public MapShape
+{
+public:
+  RainbowLineShape(m2::SharedSpline const & spline, RainbowLineViewParams const & params);
+
+  void Prepare(ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
+
+private:
+  glsl::vec2 ToShapeVertex2(m2::PointD const & vertex) const
+  {
+    return glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
+  }
+
+  template <class FnT>
+  void ForEachSplineSection(FnT && fn) const;
+
+  template <typename TBuilder>
+  void Construct(TBuilder & builder) const;
+
+  RainbowLineViewParams m_params;
+  m2::SharedSpline m_spline;
+  mutable std::unique_ptr<LineShapeInfo> m_lineShapeInfo;
+};
 }  // namespace df

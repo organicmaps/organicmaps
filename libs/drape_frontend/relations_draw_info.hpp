@@ -59,6 +59,17 @@ public:
     }
   }
 
+  bool HasColors() const { return !m_colors.empty(); }
+
+  buffer_vector<dp::Color, 4> GetColors() const
+  {
+    buffer_vector<dp::Color, 4> result;
+    result.reserve(m_colors.size());
+    for (auto const & [color, freq] : m_colors)
+      result.push_back(color);
+    return result;
+  }
+
   dp::Color GetTextColor() const;
 };
 }  // namespace df

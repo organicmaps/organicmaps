@@ -14,6 +14,8 @@ Area3dOutline area3d_outline.vsh.glsl solid_color.fsh.glsl
 Line line.vsh.glsl line.fsh.glsl
 TransitCircle transit_circle.vsh.glsl transit_circle.fsh.glsl
 DashedLine dashed_line.vsh.glsl dashed_line.fsh.glsl
+RainbowLine rainbow_line.vsh.glsl rainbow_line.fsh.glsl
+DashedRainbowLine dashed_rainbow_line.vsh.glsl dashed_rainbow_line.fsh.glsl
 PathSymbol path_symbol.vsh.glsl texturing.fsh.glsl
 TransparentArea area.vsh.glsl solid_color.fsh.glsl
 CapJoin circle.vsh.glsl circle.fsh.glsl
