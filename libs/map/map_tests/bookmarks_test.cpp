@@ -193,13 +193,13 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "Nebraska", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Red, ());
   TEST(bm->GetDescription().empty(), ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimeStamp()), 0, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimestamp()), 0, ());
 
   bm = bmManager.GetBookmark(*it++);
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "Monongahela National Forest", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Pink, ());
   TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimeStamp()), 524214643, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimestamp()), 524214643, ());
 
   bm = bmManager.GetBookmark(*it++);
   m2::PointD org = bm->GetPivot();
@@ -210,7 +210,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "From: Минск, Минская область, Беларусь", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Blue, ());
   TEST(bm->GetDescription().empty(), ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimeStamp()), 888888888, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimestamp()), 888888888, ());
 
   bm = bmManager.GetBookmark(*it++);
   org = bm->GetPivot();
@@ -218,7 +218,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   TEST(AlmostEqualAbs(mercator::YToLat(org.y), 53.89306, kEps), ());
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "<MWM & Sons>", ());
   TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
-  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimeStamp()), 0, ());
+  TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetCreatedTimestamp()), 0, ());
 }
 
 FileType GetActiveFileType()
@@ -383,7 +383,7 @@ UNIT_TEST(Bookmarks_Timestamp)
   auto cat1 = bmManager.CreateBookmarkCategory(arrCat[0], false /* autoSave */);
 
   Bookmark const * pBm1 = bmManager.GetEditSession().CreateBookmark(std::move(b1), cat1);
-  TEST_NOT_EQUAL(kml::ToSecondsSinceEpoch(pBm1->GetCreatedTimeStamp()), 0, ());
+  TEST_NOT_EQUAL(kml::ToSecondsSinceEpoch(pBm1->GetCreatedTimestamp()), 0, ());
 
   kml::BookmarkData b2;
   kml::SetDefaultStr(b2.m_name, "newName");
