@@ -19,8 +19,8 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
   {
     std::string const lang(locale.m_name);
     categories.AddLanguage(lang);
+    // GetAllCreatableTypeNames() returns a sorted vector.
     auto names = categories.GetAllCreatableTypeNames();
-    std::sort(names.begin(), names.end());
     auto result = std::unique(names.begin(), names.end());
 
     if (result != names.end())
