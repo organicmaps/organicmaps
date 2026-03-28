@@ -91,8 +91,8 @@ public:
   float GetWidth(size_t layerIndex) const override;
   float GetDepth(size_t layerIndex) const override;
   void ForEachGeometry(GeometryFnT && fn) const override;
-  kml::Timestamp GetModifiedTimeStamp() const;
-  void SetModifiedTimeStamp(kml::Timestamp);
+  kml::Timestamp GetModifiedTimestamp() const;
+  void SetModifiedTimestamp(kml::Timestamp);
 
   void Attach(kml::MarkGroupId groupId);
   void Detach();

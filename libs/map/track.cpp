@@ -188,12 +188,12 @@ float Track::GetDepth(size_t layerIndex) const
   return layerIndex * 10;
 }
 
-kml::Timestamp Track::GetModifiedTimeStamp() const
+kml::Timestamp Track::GetModifiedTimestamp() const
 {
   return m_data.m_modifiedTimestamp;
 }
 
-void Track::SetModifiedTimeStamp(kml::Timestamp ts)
+void Track::SetModifiedTimestamp(kml::Timestamp ts)
 {
   SetDirty();
   m_data.m_modifiedTimestamp = ts;
