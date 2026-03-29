@@ -132,10 +132,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Map_nativeOnScroll(JNIEnv *, jclass, jdo
   g_framework->Scroll(distanceX, distanceY);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Map_nativeOnMove(JNIEnv *, jclass, jdouble factorX, jdouble factorY,
-                                                         jboolean isAnim)
+JNIEXPORT void Java_app_organicmaps_sdk_Map_nativeOnFling(JNIEnv *, jclass, jdouble velocityX, jdouble velocityY)
 {
-  g_framework->Move(factorX, factorY, isAnim);
+  g_framework->Fling(velocityX, velocityY);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Map_nativeOnScale(JNIEnv *, jclass, jdouble factor, jdouble focusX,
