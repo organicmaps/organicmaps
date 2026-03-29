@@ -147,7 +147,7 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     auto buffer = SharedBufferManager::Instance().ReserveSharedBuffer(byteCount);
     uint8_t * basePtr = SharedBufferManager::GetRawPointer(buffer);
     // Zero the buffer so gaps (partially filled rows, padding) are transparent.
-    memset(basePtr, 0, byteCount);
+    memset(basePtr, 0, buffer->size());
 
     uint32_t const originX = uploadRect.minX();
     uint32_t const originY = uploadRect.minY();
@@ -226,6 +226,10 @@ bool ColorPalette::ReserveStrip(RainbowColors const & colors, m2::PointF & first
   float const sizeX = static_cast<float>(m_textureSize.x);
   float const sizeY = static_cast<float>(m_textureSize.y);
 
+  // Build all pending colors locally, then push atomically under m_lock so that
+  // UploadResources() never drains a partially filled strip.
+  std::vector<PendingColor> strip;
+  strip.reserve(n);
   for (int i = 0; i < n; ++i)
   {
     PendingColor pendingColor;
@@ -239,12 +243,13 @@ bool ColorPalette::ReserveStrip(RainbowColors const & colors, m2::PointF & first
     if (i == n - 1)
       lastCenter = uv;
 
-    {
-      std::lock_guard g(m_lock);
-      m_pendingNodes.push_back(pendingColor);
-    }
-
+    strip.push_back(pendingColor);
     m_cursor.x += kResourceSize;
+  }
+
+  {
+    std::lock_guard g(m_lock);
+    m_pendingNodes.insert(m_pendingNodes.end(), strip.begin(), strip.end());
   }
 
   // Wrap to next row if we've reached the edge (same logic as ReserveResource).

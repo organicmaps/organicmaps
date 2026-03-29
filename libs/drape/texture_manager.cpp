@@ -34,7 +34,7 @@ size_t constexpr kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 // Reserved for elements like RuleDrawer or other LineShapes.
 uint32_t constexpr kReservedPatterns = 10;
 // Extra slots for dynamically allocated colors (rainbow strips, etc.).
-size_t constexpr kReservedColors = 1024;
+size_t constexpr kReservedColors = 128;
 
 // TODO(AB): Investigate if it can be set to 1.0.
 float constexpr kGlyphAreaMultiplier = 1.2f;
