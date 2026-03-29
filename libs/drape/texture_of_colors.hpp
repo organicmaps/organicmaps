@@ -41,8 +41,6 @@ public:
 
   void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
-  void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
-
 private:
   using TPalette = std::map<Color, ColorResourceInfo>;
 
@@ -66,7 +64,7 @@ private:
   std::vector<PendingColor> m_pendingNodes;
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
-  bool m_isDebug = false;
+
   std::mutex m_lock;
   std::mutex m_mappingLock;
 };

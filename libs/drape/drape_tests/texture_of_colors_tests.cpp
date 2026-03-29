@@ -12,17 +12,16 @@
 
 #include <gmock/gmock.h>
 
+namespace texture_of_colors_tests
+{
 using testing::_;
 using testing::AnyOf;
-using testing::IgnoreResult;
-using testing::InSequence;
 using testing::Invoke;
 using testing::Return;
 using namespace dp;
 
 namespace
 {
-
 void TestRects(m2::RectF const & a, m2::RectF const & b)
 {
   TEST_ALMOST_EQUAL_ULPS(a.minX(), b.minX(), ());
@@ -33,7 +32,6 @@ void TestRects(m2::RectF const & a, m2::RectF const & b)
 
 void InitOpenGLTextures(int const w, int const h)
 {
-  InSequence seq;
   EXPECTGL(glHasExtension(_)).WillRepeatedly(Return(true));
   EXPECTGL(glGenTexture()).WillOnce(Return(1));
   EXPECTGL(glBindTexture(1, gl_const::GLTexture2D)).WillOnce(Return());
@@ -45,12 +43,25 @@ void InitOpenGLTextures(int const w, int const h)
   EXPECTGL(glBindTexture(0, gl_const::GLTexture2D)).WillOnce(Return());
 }
 
-class DummyColorPallete : public ColorPalette
+/// Set up bind/unbind expectations for N upload calls, then add per-upload glTexSubImage2D expectations.
+void ExpectUploads(int count)
 {
-  typedef ColorPalette TBase;
+  EXPECTGL(glBindTexture(1, gl_const::GLTexture2D)).Times(count);
+  EXPECTGL(glBindTexture(0, gl_const::GLTexture2D)).Times(count);
+}
+
+void ExpectUploadData(MemoryComparer & cmp, int x, int y, int w, int h)
+{
+  EXPECTGL(glTexSubImage2D(x, y, w, h, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
+      .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
+}
+
+class DummyColorPalette : public ColorPalette
+{
+  using TBase = ColorPalette;
 
 public:
-  explicit DummyColorPallete(m2::PointU const & size) : TBase(size) {}
+  explicit DummyColorPalette(m2::PointU const & size) : TBase(size) {}
 
   ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key)
   {
@@ -59,11 +70,48 @@ public:
   }
 };
 
+class TestColorPaletteFixture
+{
+  TestingGraphicsContext m_context;
+  std::unique_ptr<DummyTexture> m_texture;
+  DummyColorPalette m_cp;
+
+public:
+  TestColorPaletteFixture(int width, int height) : m_cp(m2::PointU(width, height))
+  {
+    InitOpenGLTextures(width, height);
+
+    Texture::Params p;
+    p.m_allocator = GetDefaultAllocator(make_ref(&m_context));
+    p.m_format = dp::TextureFormat::RGBA8;
+    p.m_width = width;
+    p.m_height = height;
+
+    m_texture = std::make_unique<DummyTexture>();
+    m_texture->Create(make_ref(&m_context), p);
+
+    // Clear expectations from InitOpenGLTextures after texture creation.
+    testing::Mock::VerifyAndClearExpectations(&emul::GLMockFunctions::Instance());
+  }
+
+  DummyColorPalette & GetPalette() { return m_cp; }
+  void UploadResources() { m_cp.UploadResources(make_ref(&m_context), make_ref(m_texture.get())); }
+
+  ~TestColorPaletteFixture()
+  {
+    EXPECTGL(glDeleteTexture(1));
+    m_texture.reset();
+
+    bool const ok = testing::Mock::VerifyAndClearExpectations(&emul::GLMockFunctions::Instance());
+    TEST(ok, ("GMock expectations not met"));
+  }
+};
+
 }  // namespace
 
-UNIT_TEST(ColorPalleteMappingTests)
+UNIT_TEST(ColorPaletteMappingTests)
 {
-  DummyColorPallete cp(m2::PointU(32, 16));
+  DummyColorPalette cp(m2::PointU(32, 16));
 
   ref_ptr<Texture::ResourceInfo> info1 = cp.MapResource(dp::ColorKey(dp::Color(0, 0, 0, 0)));
   ref_ptr<Texture::ResourceInfo> info2 = cp.MapResource(dp::ColorKey(dp::Color(1, 1, 1, 1)));
@@ -83,23 +131,11 @@ UNIT_TEST(ColorPalleteMappingTests)
             m2::RectF(13.0f / 32.0f, 7.0f / 16.0f, 13.0f / 32.0f, 7.0f / 16.0f));
 }
 
-UNIT_TEST(ColorPalleteUploadingSingleRow)
+UNIT_TEST(ColorPaletteUploadingSingleRow)
 {
-  int const width = 32;
-  int const height = 16;
-  InitOpenGLTextures(width, height);
-
-  TestingGraphicsContext context;
-  Texture::Params p;
-  p.m_allocator = GetDefaultAllocator(make_ref(&context));
-  p.m_format = dp::TextureFormat::RGBA8;
-  p.m_width = width;
-  p.m_height = height;
-
-  DummyTexture texture;
-  texture.Create(make_ref(&context), p);
-  DummyColorPallete cp(m2::PointU(width, height));
-  cp.UploadResources(make_ref(&context), make_ref(&texture));
+  TestColorPaletteFixture fixture(32, 16);
+  fixture.UploadResources();
+  auto & cp = fixture.GetPalette();
 
   {
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
@@ -133,10 +169,9 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
-    EXPECTGL(glTexSubImage2D(0, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
-
-    cp.UploadResources(make_ref(&context), make_ref(&texture));
+    ExpectUploads(1);
+    ExpectUploadData(cmp, 0, 0, 10, 2);
+    fixture.UploadResources();
   }
 
   {
@@ -171,32 +206,17 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
-    EXPECTGL(glTexSubImage2D(10, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
-
-    cp.UploadResources(make_ref(&context), make_ref(&texture));
+    ExpectUploads(1);
+    ExpectUploadData(cmp, 10, 0, 10, 2);
+    fixture.UploadResources();
   }
-
-  EXPECTGL(glDeleteTexture(1));
 }
 
-UNIT_TEST(ColorPalleteUploadingPartialyRow)
+UNIT_TEST(ColorPaletteUploadingPartialyRow)
 {
-  int const width = 8;
-  int const height = 8;
-  InitOpenGLTextures(width, height);
-
-  TestingGraphicsContext context;
-  Texture::Params p;
-  p.m_allocator = GetDefaultAllocator(make_ref(&context));
-  p.m_format = dp::TextureFormat::RGBA8;
-  p.m_width = width;
-  p.m_height = height;
-
-  DummyTexture texture;
-  texture.Create(make_ref(&context), p);
-
-  DummyColorPallete cp(m2::PointU(width, height));
+  TestColorPaletteFixture fixture(8, 8);
+  fixture.UploadResources();
+  auto & cp = fixture.GetPalette();
 
   {
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
@@ -215,10 +235,9 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
-    EXPECTGL(glTexSubImage2D(0, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
-
-    cp.UploadResources(make_ref(&context), make_ref(&texture));
+    ExpectUploads(1);
+    ExpectUploadData(cmp, 0, 0, 4, 2);
+    fixture.UploadResources();
   }
 
   {
@@ -227,6 +246,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0xAA, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0xAA, 0xAA)));
 
+    // 4 colors: 2 fit in row 0 (x=4..7), 2 go to row 1 (x=0..3). Two separate uploads.
     uint8_t memoryEtalon1[] = {
         0xAA, 0x00, 0x00, 0x00,  // 1 pixel
         0xAA, 0x00, 0x00, 0x00,  // 1 pixel
@@ -251,60 +271,43 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
         0xAA, 0xAA, 0xAA, 0xAA   // 2 pixel
     };
 
+    ExpectUploads(2);
     MemoryComparer cmp1(memoryEtalon1, ARRAY_SIZE(memoryEtalon1));
-    EXPECTGL(glTexSubImage2D(4, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp1, &MemoryComparer::cmpSubImage));
+    ExpectUploadData(cmp1, 4, 0, 4, 2);
 
     MemoryComparer cmp2(memoryEtalon2, ARRAY_SIZE(memoryEtalon2));
-    EXPECTGL(glTexSubImage2D(0, 2, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
+    ExpectUploadData(cmp2, 0, 2, 4, 2);
 
-    cp.UploadResources(make_ref(&context), make_ref(&texture));
+    fixture.UploadResources();
   }
-
-  EXPECTGL(glDeleteTexture(1));
 }
 
-UNIT_TEST(ColorPalleteUploadingMultiplyRow)
+UNIT_TEST(ColorPaletteUploadingMultiplyRow)
 {
-  int const width = 4;
-  int const height = 8;
-  InitOpenGLTextures(width, height);
-
-  TestingGraphicsContext context;
-  Texture::Params p;
-  p.m_allocator = GetDefaultAllocator(make_ref(&context));
-  p.m_format = dp::TextureFormat::RGBA8;
-  p.m_width = width;
-  p.m_height = height;
-
-  DummyTexture texture;
-  texture.Create(make_ref(&context), p);
-
-  DummyColorPallete cp(m2::PointU(width, height));
-  cp.SetIsDebug(true);
+  TestColorPaletteFixture fixture(4, 8);
+  fixture.UploadResources();
+  auto & cp = fixture.GetPalette();
 
   {
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0, 0)));
 
     uint8_t memoryEtalon[] = {
-        0xFF, 0x00, 0x00, 0x00,  // 1 pixel
-        0xFF, 0x00, 0x00, 0x00,  // 1 pixel
-        0xAA, 0x00, 0x00, 0x00,  // 2 pixel
-        0xAA, 0x00, 0x00, 0x00,  // 2 pixel
+        0xFF, 0x00, 0x00, 0x00,  // 1 pixel (1st row)
+        0xFF, 0x00, 0x00, 0x00,  // 1 pixel (1st row)
+        0xAA, 0x00, 0x00, 0x00,  // 2 pixel (1st row)
+        0xAA, 0x00, 0x00, 0x00,  // 2 pixel (1st row)
 
-        0xFF, 0x00, 0x00, 0x00,  // 1 pixel
-        0xFF, 0x00, 0x00, 0x00,  // 1 pixel
-        0xAA, 0x00, 0x00, 0x00,  // 2 pixel
-        0xAA, 0x00, 0x00, 0x00,  // 2 pixel
+        0xFF, 0x00, 0x00, 0x00,  // 1 pixel (2nd row)
+        0xFF, 0x00, 0x00, 0x00,  // 1 pixel (2nd row)
+        0xAA, 0x00, 0x00, 0x00,  // 2 pixel (2nd row)
+        0xAA, 0x00, 0x00, 0x00,  // 2 pixel (2nd row)
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
-    EXPECTGL(glTexSubImage2D(0, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
-
-    cp.UploadResources(make_ref(&context), make_ref(&texture));
+    ExpectUploads(1);
+    ExpectUploadData(cmp, 0, 0, 4, 2);
+    fixture.UploadResources();
   }
 
   {
@@ -313,34 +316,34 @@ UNIT_TEST(ColorPalleteUploadingMultiplyRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0xFF, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0xFF, 0xFF)));
 
-    uint8_t memoryEtalon1[] = {
-        0xCC, 0x00, 0x00, 0x00,  // 1 pixel
-        0xCC, 0x00, 0x00, 0x00,  // 1 pixel
-        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
-        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
+    // 4 colors span 2 rows: (0xCC, 0xFFFF) at y=2, (0xFFFFFF, 0xFFFFFFFF) at y=4.
+    // Single upload covering both rows.
+    uint8_t memoryEtalon[] = {
+        0xCC, 0x00, 0x00, 0x00,  // 1 pixel (1st row)
+        0xCC, 0x00, 0x00, 0x00,  // 1 pixel (1st row)
+        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel (1st row)
+        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel (1st row)
 
-        0xCC, 0x00, 0x00, 0x00,  // 1 pixel
-        0xCC, 0x00, 0x00, 0x00,  // 1 pixel
-        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
-        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
+        0xCC, 0x00, 0x00, 0x00,  // 1 pixel (2nd row)
+        0xCC, 0x00, 0x00, 0x00,  // 1 pixel (2nd row)
+        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel (2nd row)
+        0xFF, 0xFF, 0x00, 0x00,  // 2 pixel (2nd row)
 
-        0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
-        0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
-        0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
-        0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
+        0xFF, 0xFF, 0xFF, 0x00,  // 3 pixel (3rd row)
+        0xFF, 0xFF, 0xFF, 0x00,  // 3 pixel (3rd row)
+        0xFF, 0xFF, 0xFF, 0xFF,  // 4 pixel (3rd row)
+        0xFF, 0xFF, 0xFF, 0xFF,  // 4 pixel (3rd row)
 
-        0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
-        0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
-        0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
-        0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
+        0xFF, 0xFF, 0xFF, 0x00,  // 3 pixel (4th row)
+        0xFF, 0xFF, 0xFF, 0x00,  // 3 pixel (4th row)
+        0xFF, 0xFF, 0xFF, 0xFF,  // 4 pixel (4th row)
+        0xFF, 0xFF, 0xFF, 0xFF,  // 4 pixel (4th row)
     };
 
-    MemoryComparer cmp1(memoryEtalon1, ARRAY_SIZE(memoryEtalon1));
-    EXPECTGL(glTexSubImage2D(0, 2, 4, 4, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp1, &MemoryComparer::cmpSubImage));
-
-    cp.UploadResources(make_ref(&context), make_ref(&texture));
+    MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
+    ExpectUploads(1);
+    ExpectUploadData(cmp, 0, 2, 4, 4);
+    fixture.UploadResources();
   }
-
-  EXPECTGL(glDeleteTexture(1));
 }
+}  // namespace texture_of_colors_tests
