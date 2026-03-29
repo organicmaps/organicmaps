@@ -191,4 +191,32 @@ drape_ptr<Animation> KineticScroller::CreateKineticAnimation(ScreenBase const & 
 
   return make_unique_dp<KineticScrollAnimation>(center, glbDirection, kKineticDuration);
 }
+
+drape_ptr<Animation> CreateFlingAnimation(ScreenBase const & modelView, double velocityX, double velocityY)
+{
+  double const vs = VisualParams::Instance().GetVisualScale();
+  double const speed = m2::PointD(velocityX, velocityY).Length();
+  if (speed < kInstantVelocityThreshold * vs)
+    return {};
+
+  double const clampedSpeed = std::min(speed, CalculateKineticMaxSpeed(modelView) * vs);
+
+  // Viewport center moves opposite to fling (finger) direction.
+  m2::PointD const pixDir = m2::PointD(-velocityX, -velocityY) / speed;
+
+  // Convert pixel displacement to mercator offset.
+  m2::PointD const center = modelView.GlobalRect().GlobalCenter();
+  m2::PointD const pxCenter = modelView.GtoP(center);
+  m2::PointD const mercDelta = modelView.PtoG(pxCenter + pixDir * clampedSpeed) - center;
+
+  if (mercDelta.IsAlmostZero())
+    return {};
+
+  m2::PointD const glbDirection = mercDelta * kKineticAcceleration;
+  m2::PointD const targetCenter = center + glbDirection;
+  if (!df::GetWorldRect().IsPointInside(targetCenter))
+    return {};
+
+  return make_unique_dp<KineticScrollAnimation>(center, glbDirection, kKineticDuration);
+}
 }  // namespace df

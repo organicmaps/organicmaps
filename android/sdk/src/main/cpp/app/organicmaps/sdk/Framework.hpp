@@ -127,7 +127,7 @@ public:
 
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
-  void Move(double factorX, double factorY, bool isAnim);
+  void Fling(double velocityX, double velocityY);
 
   void Scroll(double distanceX, double distanceY);
 

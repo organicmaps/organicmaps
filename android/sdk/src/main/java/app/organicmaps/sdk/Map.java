@@ -291,11 +291,7 @@ public final class Map
 
   public static void onFling(double velocityX, double velocityY)
   {
-    // Convert velocity (pixels/second) to a screen fraction factor.
-    final double kVelocityToFactorScale = 0.0001;
-    final double factorX = velocityX * kVelocityToFactorScale;
-    final double factorY = velocityY * kVelocityToFactorScale;
-    nativeOnMove(factorX, -factorY, true);
+    nativeOnFling(velocityX, velocityY);
   }
 
   public static void zoomIn()
@@ -438,7 +434,7 @@ public final class Map
 
   private static native void nativeOnScroll(double distanceX, double distanceY);
 
-  private static native void nativeOnMove(double factorX, double factorY, boolean isAnim);
+  private static native void nativeOnFling(double velocityX, double velocityY);
 
   private static native void nativeOnScale(double factor, double focusX, double focusY, boolean isAnim);
 
