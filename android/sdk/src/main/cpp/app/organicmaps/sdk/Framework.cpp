@@ -497,6 +497,11 @@ void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
   m_work.Scale(factor, pxPoint, isAnim);
 }
 
+void Framework::Move(double factorX, double factorY, bool isAnim)
+{
+  m_work.Move(factorX, factorY, isAnim);
+}
+
 void Framework::Scroll(double distanceX, double distanceY)
 {
   m_work.Scroll(distanceX, distanceY);
