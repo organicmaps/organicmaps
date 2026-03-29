@@ -250,7 +250,8 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   private func findNearestStop(_ offset: CGFloat) -> PlacePageState {
-    var result = scrollSteps[0]
+    guard let firstStop = scrollSteps.first else { return .closed(-scrollView.height) }
+    var result = firstStop
     for ppState in scrollSteps.suffix(from: 1) {
       if abs(result.offset - offset) > abs(ppState.offset - offset) {
         result = ppState

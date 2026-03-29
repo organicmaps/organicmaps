@@ -72,7 +72,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       iconColor = trackData.color ?? UIColor.buttonRed()
       category = trackData.trackCategory
       description = trackData.trackDescription
-      isHtmlDescription = false
+      isHtmlDescription = trackData.isHtmlDescription 
     }
 
     let editColorImage = circleImageForColor(iconColor, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
