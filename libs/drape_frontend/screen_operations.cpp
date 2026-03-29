@@ -82,34 +82,40 @@ bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
   return boundRect.SizeY() >= clipRect.SizeY();
 }
 
-ScreenBase ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
+void ShrinkInto(ScreenBase & screen, m2::RectD const & boundRect)
 {
-  ScreenBase res = screen;
+  bool changed = false;
 
-  m2::RectD clipRect = res.ClipRect();
+  m2::RectD clipRect = screen.ClipRect();
   if (clipRect.minY() < boundRect.minY())
+  {
+    changed = true;
     clipRect.Offset(0, boundRect.minY() - clipRect.minY());
+  }
   if (clipRect.maxY() > boundRect.maxY())
+  {
+    changed = true;
     clipRect.Offset(0, boundRect.maxY() - clipRect.maxY());
+  }
 
-  res.SetOrg(clipRect.Center());
-  return res;
+  if (changed)
+    screen.SetOrg(clipRect.Center());
 }
 
-ScreenBase ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+void ScaleInto(ScreenBase & screen, m2::RectD const & boundRect)
 {
-  ScreenBase res = screen;
-
   double scale = 1;
-  m2::RectD clipRect = res.ClipRect();
+  m2::RectD clipRect = screen.ClipRect();
+  bool changed = false;
 
-  auto const DoScale = [&scale, &clipRect, &boundRect](double k)
+  auto const DoScale = [&](double k)
   {
     // https://github.com/organicmaps/organicmaps/issues/544
     if (k > 0)
     {
       scale /= k;
       clipRect.Scale(k);
+      changed = true;
     }
     else
     {
@@ -124,21 +130,18 @@ ScreenBase ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
   if (clipRect.maxY() > boundRect.maxY())
     DoScale((boundRect.maxY() - clipRect.Center().y) / (clipRect.maxY() - clipRect.Center().y));
 
-  res.Scale(scale);
-  res.SetOrg(clipRect.Center());
-
-  return res;
+  if (changed)
+  {
+    screen.Scale(scale);
+    screen.SetOrg(clipRect.Center());
+  }
 }
 
-ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+void ShrinkAndScaleInto(ScreenBase & screen, m2::RectD const & boundRect)
 {
-  ScreenBase res = screen;
-
-  m2::RectD globalRect = res.ClipRect();
-
-  m2::PointD newOrg = res.GetOrg();
+  m2::RectD globalRect = screen.ClipRect();
   double scale = 1;
-  double offs = 0;
+  bool changed = false;
 
   // Constrain X width: viewport must not be wider than one world width (360°).
   if (globalRect.SizeX() > boundRect.SizeX())
@@ -146,15 +149,13 @@ ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & bound
     double k = boundRect.SizeX() / globalRect.SizeX();
     scale /= k;
     globalRect.Scale(k);
+    changed = true;
   }
 
   // Constrain Y axis: keep viewport within pole boundaries.
   if (globalRect.minY() < boundRect.minY())
   {
-    offs = boundRect.minY() - globalRect.minY();
-    globalRect.Offset(0, offs);
-    newOrg.y += offs;
-
+    globalRect.Offset(0, boundRect.minY() - globalRect.minY());
     if (globalRect.maxY() > boundRect.maxY())
     {
       double k = boundRect.SizeY() / globalRect.SizeY();
@@ -162,14 +163,12 @@ ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & bound
       globalRect.Scale(k);
       globalRect.Offset(0, boundRect.minY() - globalRect.minY());
     }
+    changed = true;
   }
 
   if (globalRect.maxY() > boundRect.maxY())
   {
-    offs = boundRect.maxY() - globalRect.maxY();
-    globalRect.Offset(0, offs);
-    newOrg.y += offs;
-
+    globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
     if (globalRect.minY() < boundRect.minY())
     {
       double k = boundRect.SizeY() / globalRect.SizeY();
@@ -177,12 +176,14 @@ ScreenBase ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & bound
       globalRect.Scale(k);
       globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
     }
+    changed = true;
   }
 
-  res.SetOrg(globalRect.Center());
-  res.Scale(scale);
-
-  return res;
+  if (changed)
+  {
+    screen.SetOrg(globalRect.Center());
+    screen.Scale(scale);
+  }
 }
 
 bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase & screen)
@@ -201,7 +202,7 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
   if (!CheckBorders(tmp))
   {
     if (CanShrinkInto(tmp, worldR))
-      tmp = ShrinkInto(tmp, worldR);
+      ShrinkInto(tmp, worldR);
     else
       return false;
   }
@@ -216,7 +217,7 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
 
   // re-checking the borders, as we might violate them a bit (don't know why).
   if (!CheckBorders(tmp))
-    tmp = ScaleInto(tmp, worldR);
+    ScaleInto(tmp, worldR);
 
   screen = tmp;
   return true;

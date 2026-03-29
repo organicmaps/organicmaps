@@ -404,8 +404,6 @@ bool UserEventStream::OnMove(ref_ptr<MoveEvent> moveEvent)
   auto const & rect = screen.PixelRectIn3d();
   screen.Move(factorX * rect.SizeX(), -factorY * rect.SizeY());
 
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
-
   return SetScreen(screen, moveEvent->IsAnim());
 }
 
@@ -458,8 +456,6 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
     screen.MatchGandP3d(center, pixelTarget);
   }
 
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
-
   return SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetParallelAnimCreator());
 }
 
@@ -482,7 +478,6 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
   {
     GetTargetScreen(screen);
     screen.MatchGandP3d(m_trackedCenter, m_visibleViewport.Center());
-    ShrinkAndScaleInto(screen, df::GetWorldRect());
     return SetScreen(screen, true /* isAnim */);
   }
   else if (hasOffset)
@@ -502,8 +497,6 @@ bool UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
   ScreenBase screen;
   GetTargetScreen(screen);
   screen.Move(-distanceX, -distanceY);
-
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   if (m_listener)
     m_listener->OnScrolled({-distanceX, -distanceY});
@@ -658,8 +651,6 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     screen.SetFromParams(adjustedUserPos, -azimuth, isAutoScale ? autoScale : GetScreenScale(preferredZoomLevel));
   }
   screen.MatchGandP3d(adjustedUserPos, pixelPos);
-
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   if (isAnim)
   {
