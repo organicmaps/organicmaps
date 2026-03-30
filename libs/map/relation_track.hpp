@@ -6,12 +6,8 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/route_relation.hpp"
 
-#include "geometry/point2d.hpp"
-
 #include "drape/color.hpp"
 
-#include <array>
-#include <cstdint>
 #include <optional>
 #include <vector>
 
@@ -27,25 +23,6 @@ public:
     std::vector<TrackGeometry> m_lines;
     std::string m_name;
     dp::Color m_color;
-  };
-
-  /// Floor-based spatial cell for m2::PointD with kMwmPointAccuracy grid.
-  /// No single hash guarantees hash(a)==hash(b) for epsilon-equal points,
-  /// so lookups must probe 3x3 neighboring cells via GetNearbyCells().
-  struct PointHash
-  {
-    struct Cell
-    {
-      int64_t x, y;
-      bool operator==(Cell const &) const = default;
-    };
-
-    static Cell ToCell(m2::PointD const & p);
-
-    /// Returns 3x3 neighborhood of cells that may contain points within kMwmPointAccuracy of @p p.
-    static std::array<Cell, 9> GetNearbyCells(m2::PointD const & p);
-
-    size_t operator()(Cell const & c) const;
   };
 
 public:

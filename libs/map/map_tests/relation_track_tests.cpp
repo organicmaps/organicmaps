@@ -10,8 +10,6 @@ namespace relation_track_tests
 {
 using namespace geometry;
 using Line = RelationTrackBuilder::TrackGeometry;
-using PointHash = RelationTrackBuilder::PointHash;
-using Cell = PointHash::Cell;
 
 PointWithAltitude MakePt(double x, double y, Altitude alt = kDefaultAltitudeMeters)
 {
@@ -166,55 +164,6 @@ UNIT_TEST(BuildChain_DuplicateMembers)
   TEST_EQUAL(result.size(), 4, ());
   TEST_EQUAL(result[0].GetAltitude(), 0, ());
   TEST_EQUAL(result[3].GetAltitude(), 30, ());
-}
-
-// PointHash tests.
-
-UNIT_TEST(PointHash_SameCell)
-{
-  auto const a = PointHash::ToCell({1.0, 2.0});
-  auto const b = PointHash::ToCell({1.0, 2.0});
-  TEST(a == b, ());
-}
-
-UNIT_TEST(PointHash_DifferentCells)
-{
-  auto const a = PointHash::ToCell({0.0, 0.0});
-  auto const b = PointHash::ToCell({1.0, 1.0});
-  TEST(!(a == b), ());
-}
-
-UNIT_TEST(PointHash_BoundaryPointsInNearbyCells)
-{
-  // Boundary case: straddle exact cell edge.
-  double const c = kMwmPointAccuracy - 1e-7;  // just below 1e-5 → cell 0
-  double const d = kMwmPointAccuracy + 1e-7;  // just above 1e-5 → cell 1
-  TEST_LESS(fabs(c - d), kMwmPointAccuracy, ());
-
-  auto const cellC = PointHash::ToCell({c, 0});
-  auto const cellD = PointHash::ToCell({d, 0});
-  TEST(!(cellC == cellD), ("Points near boundary should be in different cells"));
-
-  // But GetNearbyCells for point c must include cellD and vice versa.
-  bool foundD = false;
-  for (auto const & cell : PointHash::GetNearbyCells({c, 0}))
-    foundD = foundD || (cell == cellD);
-  TEST(foundD, ("Nearby cells of c must include d's cell"));
-
-  bool foundC = false;
-  for (auto const & cell : PointHash::GetNearbyCells({d, 0}))
-    foundC = foundC || (cell == cellC);
-  TEST(foundC, ("Nearby cells of d must include c's cell"));
-}
-
-UNIT_TEST(PointHash_GetNearbyCellsContainsOwnCell)
-{
-  m2::PointD const p(3.14159, 2.71828);
-  auto const own = PointHash::ToCell(p);
-  bool found = false;
-  for (auto const & cell : PointHash::GetNearbyCells(p))
-    found = found || (cell == own);
-  TEST(found, ());
 }
 
 UNIT_TEST(BuildChain_NearbyEndpoints)

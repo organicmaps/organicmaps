@@ -8,45 +8,22 @@
 
 #include "coding/point_coding.hpp"
 
+#include "geometry/spatial_hash_grid.hpp"
+
 #include <deque>
 #include <unordered_map>
-
-// PointHash implementation.
-
-RelationTrackBuilder::PointHash::Cell RelationTrackBuilder::PointHash::ToCell(m2::PointD const & p)
-{
-  return {static_cast<int64_t>(std::floor(p.x / kMwmPointAccuracy)),
-          static_cast<int64_t>(std::floor(p.y / kMwmPointAccuracy))};
-}
-
-std::array<RelationTrackBuilder::PointHash::Cell, 9> RelationTrackBuilder::PointHash::GetNearbyCells(
-    m2::PointD const & p)
-{
-  auto const c = ToCell(p);
-  return {{
-      {c.x - 1, c.y - 1},
-      {c.x, c.y - 1},
-      {c.x + 1, c.y - 1},
-      {c.x - 1, c.y},
-      c,
-      {c.x + 1, c.y},
-      {c.x - 1, c.y + 1},
-      {c.x, c.y + 1},
-      {c.x + 1, c.y + 1},
-  }};
-}
-
-size_t RelationTrackBuilder::PointHash::operator()(Cell const & c) const
-{
-  size_t seed = std::hash<int64_t>{}(c.x);
-  seed ^= std::hash<int64_t>{}(c.y) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-  return seed;
-}
 
 namespace relation_track_merger  // Unity build protect
 {
 using TrackGeometry = RelationTrackBuilder::TrackGeometry;
-using PointHash = RelationTrackBuilder::PointHash;
+
+m2::SpatialHashGrid const & GetPointGrid()
+{
+  static m2::SpatialHashGrid const grid(kMwmPointAccuracy);
+  return grid;
+}
+
+using Grid = m2::SpatialHashGrid;
 
 struct EndpointRef
 {
@@ -54,21 +31,24 @@ struct EndpointRef
   bool isFront;  // true if this endpoint is the front (first point) of the member.
 };
 
-using EndpointMap = std::unordered_multimap<PointHash::Cell, EndpointRef, PointHash>;
+using EndpointMap = std::unordered_multimap<Grid::Cell, EndpointRef, Grid::Hash>;
 
 /// Maintains endpoint map and used-state for chain building.
 class Merger
 {
 public:
-  explicit Merger(std::vector<TrackGeometry> const & members) : m_members(members), m_used(members.size(), false)
+  explicit Merger(std::vector<TrackGeometry> const & members)
+    : m_members(members)
+    , m_used(members.size(), false)
+    , m_grid(GetPointGrid())
   {
     for (size_t i = 0; i < m_members.size(); ++i)
     {
       auto const & m = m_members[i];
       ASSERT_GREATER(m.size(), 1, ());
 
-      m_endpointMap.emplace(PointHash::ToCell(m.front().GetPoint()), EndpointRef{i, true});
-      m_endpointMap.emplace(PointHash::ToCell(m.back().GetPoint()), EndpointRef{i, false});
+      m_endpointMap.emplace(m_grid.ToCell(m.front().GetPoint()), EndpointRef{i, true});
+      m_endpointMap.emplace(m_grid.ToCell(m.back().GetPoint()), EndpointRef{i, false});
     }
   }
 
@@ -140,7 +120,7 @@ private:
     EndpointRef const * best = nullptr;
     size_t bestDelta = std::numeric_limits<size_t>::max();
 
-    for (auto const & cell : PointHash::GetNearbyCells(pt))
+    for (auto const & cell : m_grid.GetNearbyCells(pt))
     {
       auto const [rangeBegin, rangeEnd] = m_endpointMap.equal_range(cell);
       for (auto it = rangeBegin; it != rangeEnd; ++it)
@@ -161,6 +141,7 @@ private:
 
   std::vector<TrackGeometry> const & m_members;
   std::vector<bool> m_used;
+  Grid const & m_grid;
   EndpointMap m_endpointMap;
 };
 
