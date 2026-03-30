@@ -3,8 +3,8 @@
 Any commit needs a helpful message. Mind the following guidelines when committing to any of Organic Maps repositories at GitHub.
 
 1. Separate subject from body with a blank line.
-2. Limit the subject line to **72 characters**.
-3. Prefix the subject line with a **subsystem name** in square brackets:
+2. Limit the subject line to **80 characters**.
+3. Prefix the subject line with one or more affected **subsystem name** in square brackets:
 
    - [android]
    - [ios]
@@ -30,23 +30,24 @@ Any commit needs a helpful message. Mind the following guidelines when committin
    - A properly formed Git commit subject line should always be able to complete
      the following sentence: "If applied, this commit will _/your subject line here/_".
 
-8. Wrap the body to **72 characters** or so.
+8. Wrap the body to **80 characters** or so.
 9. Use the body to explain **what and why** vs. how.
-10. Link GitHub issues on the last lines:
+10. Markdown is allowed in the body, but not in the subject line.
+11. Link GitHub issues on the last lines:
 
     - [See tutorial](https://help.github.com/articles/closing-issues-via-commit-messages).
 
-11. Use your real name and real email address.
+12. Use your real name and real email address.
 
     - See also [Developer's Certificate of Origin](DCO.md)
 
 A template:
 
 ```
-    [subsystem] Summarize in 72 characters or less
+    [subsystem] Summarize in 80 characters or less
 
     More detailed explanatory text, if necessary.
-    Wrap it to 72 characters or so.
+    Wrap it to 80 characters or so.
     In some contexts, the first line is treated as the subject of the
     commit, and the rest of the text as the body.
     The blank line separating the summary from the body is critical
@@ -71,5 +72,3 @@ A template:
     Needed for: #859
     See also: #343, #789
 ```
-
-Based on [Tarantool Guidelines](https://www.tarantool.io/en/doc/latest/dev_guide/developer_guidelines/#how-to-write-a-commit-message).
