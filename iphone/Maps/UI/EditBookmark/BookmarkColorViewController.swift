@@ -6,11 +6,11 @@ protocol BookmarkColorViewControllerDelegate: AnyObject {
 
 final class BookmarkColorViewController: MWMTableViewController {
   weak var delegate: BookmarkColorViewControllerDelegate?
-  private let bookmarkColor: BookmarkColor
+  private let bookmarkColor: BookmarkColor?
 
   private let colors: [BookmarkColor] = BookmarkColor.allCases
 
-  init(bookmarkColor: BookmarkColor) {
+  init(bookmarkColor: BookmarkColor? = nil) {
     self.bookmarkColor = bookmarkColor
     super.init(style: .grouped)
   }
