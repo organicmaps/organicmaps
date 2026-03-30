@@ -589,7 +589,8 @@
     <string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">เปลี่ยนสีที่คั่นหน้าทั้งหมด</string>
-    <string name="change_all_tracks_color">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">เปลี่ยนสีแทร็กทั้งหมด</string>
     <string name="category_desc_more">…เพิ่มเติม</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">ส่งออก KMZ</string>
@@ -796,6 +797,8 @@
     <string name="login_osm_browser">เข้าสู่ระบบโดยใช้เบราว์เซอร์</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">ใช้ล่าสุด</string>
-    <string name="toast_tracks_color_changed">ใช้ล่าสุด</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">สีที่คั่นหน้าเปลี่ยนแล้ว</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">สีแทร็กเปลี่ยนแล้ว</string>
 </resources>

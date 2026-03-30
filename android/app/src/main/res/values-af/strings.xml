@@ -595,6 +595,7 @@
     <string name="bookmarks_empty_list_message">Tik op ’n plek op die kaart en dan op die sterikoon om ’n boekmerk toe te voeg</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Verander die kleur van alle boekmerke</string>
+    <!-- Button to change the color of all tracks in the current list -->
     <string name="change_all_tracks_color">Verander die kleur van alle spore</string>
     <string name="category_desc_more">…nog</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
@@ -781,6 +782,8 @@
     <string name="login_osm_browser">Teken aan met blaaier</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Onlangs gebruik</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">Boekmerkkleur is verander</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Spoorkleur is verander</string>
 </resources>

@@ -651,6 +651,12 @@
 "button_layer_subway" = "Metropolitana";
 "layers_title" = "Stili e livelli della mappa";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Cambia il colore di tutti i preferiti";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Cambia il colore di tutte le tracce";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esporta KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Usati di recente";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Colore dei preferiti modificato";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Colore delle tracce modificato";

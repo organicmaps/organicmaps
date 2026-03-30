@@ -622,7 +622,8 @@
     <string name="bookmarks_empty_list_message">Да бисте додали маркер, кратко додирните место на мапи, а онда додирните иконицу са звездом</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Промени боју свих обележивача</string>
-    <string name="change_all_tracks_color">Да бисте додали маркер, кратко додирните место на мапи, а онда додирните иконицу са звездом</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Промени боју свих путања</string>
     <string name="category_desc_more">…више</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Експортуј KMZ</string>
@@ -852,6 +853,8 @@
     <string name="login_osm_browser">Пријава преко прегледача</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Недавно коришћено</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">Боја обележивача је промењена</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Боја путања је промењена</string>
 </resources>

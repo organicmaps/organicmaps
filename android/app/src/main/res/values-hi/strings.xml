@@ -435,6 +435,7 @@
     <string name="layers_title">मानचित्र शैलियाँ और परतें</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">सभी बुकमार्क का रंग बदलें</string>
+    <!-- Button to change the color of all tracks in the current list -->
     <string name="change_all_tracks_color">सभी ट्रैकों का रंग बदलें</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">निर्यात KMZ</string>
@@ -591,6 +592,8 @@
     <string name="login_osm_browser">ब्राउज़र का उपयोग करके लॉगिन करें</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">हाल ही में उपयोग किए गए</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">बुकमार्क का रंग बदल दिया गया</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">ट्रैकों का रंग बदल दिया गया</string>
 </resources>

@@ -206,7 +206,8 @@
     <string name="bookmarks_empty_list_message">Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Badilisha rangi ya alamisho zote</string>
-    <string name="change_all_tracks_color">Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Badilisha rangi ya njia zote</string>
     <string name="category_desc_more">…zaidi</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Hamisha KMZ</string>
@@ -412,6 +413,8 @@
     <string name="login_osm_browser">Ingia kwa kutumia kivinjari</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Iliyotumiwa Hivi Karibuni</string>
-    <string name="toast_tracks_color_changed">Iliyotumiwa Hivi Karibuni</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">Rangi ya alamisho imebadilishwa</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Rangi ya njia imebadilishwa</string>
 </resources>

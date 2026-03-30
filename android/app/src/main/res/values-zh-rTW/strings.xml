@@ -627,7 +627,8 @@
     <string name="bookmarks_empty_list_message">要增加新書籤，請點擊對象卡片中的星型圖標</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">更改所有書籤顏色</string>
-    <string name="change_all_tracks_color">要增加新書籤，請點擊對象卡片中的星型圖標</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">更改所有軌跡顏色</string>
     <string name="category_desc_more">…更多</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">導出為 KMZ</string>
@@ -870,6 +871,8 @@
     <string name="login_osm_browser">使用瀏覽器登入</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">最近使用</string>
-    <string name="toast_bookmarks_color_changed">使用瀏覽器登入</string>
-    <string name="toast_tracks_color_changed">最近使用</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">書籤顏色已更改</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">軌跡顏色已更改</string>
 </resources>

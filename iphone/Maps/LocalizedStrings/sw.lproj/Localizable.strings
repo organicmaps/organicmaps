@@ -651,6 +651,12 @@
 "button_layer_subway" = "Njia ya chini";
 "layers_title" = "Mitindo ya Ramani na Tabaka";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Badilisha rangi ya alamisho zote";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Badilisha rangi ya njia zote";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Hamisha KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Iliyotumiwa Hivi Karibuni";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Rangi ya alamisho imebadilishwa";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Rangi ya njia imebadilishwa";

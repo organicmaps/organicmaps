@@ -651,6 +651,12 @@
 "button_layer_subway" = "भूमिगत मार्ग";
 "layers_title" = "मानचित्र शैलियाँ और परतें";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "सभी बुकमार्क का रंग बदलें";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "सभी ट्रैकों का रंग बदलें";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "निर्यात KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "हाल ही में उपयोग किए गए";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "बुकमार्क का रंग बदल दिया गया";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "ट्रैकों का रंग बदल दिया गया";

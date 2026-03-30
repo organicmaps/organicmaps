@@ -651,6 +651,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Map Styles and Layers";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Change color of all bookmarks";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Change color of all tracks";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Export KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Recently Used";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Bookmarks color changed";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Tracks color changed";

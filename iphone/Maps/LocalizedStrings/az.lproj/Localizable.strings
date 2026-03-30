@@ -651,6 +651,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Xəritə Üslubları və Qatları";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Bütün əlfəcinlərin rəngini dəyişdir";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Bütün treklərin rəngini dəyişdir";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ ixrac edin";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Son istifadə olunan";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Əlfəcinlərin rəngi dəyişdirildi";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Treklərin rəngi dəyişdirildi";

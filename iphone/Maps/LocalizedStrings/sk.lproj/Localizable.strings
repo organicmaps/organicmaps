@@ -651,6 +651,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Štýly a vrstvy mapy";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Zmeniť farbu všetkých záložiek";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Zmeniť farbu všetkých trás";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportovať KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nedávno použité";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Farba záložiek bola zmenená";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Farba trás bola zmenená";

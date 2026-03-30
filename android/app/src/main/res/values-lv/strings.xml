@@ -629,6 +629,7 @@
     <string name="bookmarks_empty_list_message">Lai pievienotu grāmatzīmi, sākumā spiediet uz vietas kartē, bet tad uz zvaigznītes ikonas</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Mainīt visu grāmatzīmju krāsu</string>
+    <!-- Button to change the color of all tracks in the current list -->
     <string name="change_all_tracks_color">Mainīt visu maršrutu krāsu</string>
     <string name="category_desc_more">…vairāk</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
@@ -868,6 +869,8 @@
     <string name="login_osm_browser">Pieteikšanās, izmantojot pārlūkprogrammu</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nesen izmantots</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">Grāmatzīmju krāsa mainīta</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Maršrutu krāsa mainīta</string>
 </resources>

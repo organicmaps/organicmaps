@@ -651,6 +651,12 @@
 "button_layer_subway" = "Tunnelbana";
 "layers_title" = "Kartstilar och lager";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Ändra färg på alla bokmärken";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Ändra färg på alla spår";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportera KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Senast använda";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Bokmärkesfärg ändrad";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Spårfärg ändrad";

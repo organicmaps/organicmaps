@@ -624,9 +624,10 @@
     <string name="layers_title">Map Styles and Layers</string>
     <string name="bookmarks_empty_list_title">This list is empty</string>
     <string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
-    <!-- Button to change the color of all bookmarks/tracks in the current list -->
+    <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Change color of all bookmarks</string>
-    <string name="change_all_tracks_color">Change all tracks color</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Change color of all tracks</string>
     <string name="category_desc_more">…more</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Export KMZ</string>

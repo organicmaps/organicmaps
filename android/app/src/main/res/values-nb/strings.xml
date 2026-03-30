@@ -622,6 +622,7 @@
     <string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Endre farge på alle bokmerker</string>
+    <!-- Button to change the color of all tracks in the current list -->
     <string name="change_all_tracks_color">Endre farge på alle spor</string>
     <string name="category_desc_more">…mer</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
@@ -853,6 +854,8 @@
     <string name="login_osm_browser">Innlogging ved hjelp av nettleser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nylig brukt</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
     <string name="toast_bookmarks_color_changed">Bokmerkefarge endret</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Sporfarge endret</string>
 </resources>

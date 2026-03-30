@@ -651,6 +651,12 @@
 "button_layer_subway" = "U-Bahn";
 "layers_title" = "Kartenstile und Ebenen";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Farbe aller Lesezeichen ändern";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Farbe aller Tracks ändern";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ exportieren";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Zuletzt verwendet";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Lesezeichenfarbe geändert";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Trackfarbe geändert";

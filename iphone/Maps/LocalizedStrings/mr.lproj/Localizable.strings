@@ -651,6 +651,12 @@
 "button_layer_subway" = "मेट्रो/भुयारी मार्ग";
 "layers_title" = "नकाशा शैली आणि स्तर";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "सर्व बुकमार्कचा रंग बदला";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "सर्व ट्रॅकांचा रंग बदला";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ निर्यात करा";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "अलीकडे वापरलेले";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "बुकमार्कचा रंग बदलला";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "ट्रॅकांचा रंग बदलला";

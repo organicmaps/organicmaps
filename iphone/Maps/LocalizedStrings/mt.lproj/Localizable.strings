@@ -651,6 +651,12 @@
 "button_layer_subway" = "Subway";
 "layers_title" = "Stili u Saffi tal-Mapep";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Ibdel il-kulur tal-bookmarks kollha";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Ibdel il-kulur tat-tracks kollha";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esporta KMZ";
 
@@ -1119,3 +1125,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Użat riċentement";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Il-kulur tal-bookmarks inbidel";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Il-kulur tat-tracks inbidel";
