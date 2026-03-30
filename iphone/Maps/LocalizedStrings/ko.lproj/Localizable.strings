@@ -745,9 +745,9 @@
 /* Place Page opening hours text */
 "closed_now" = "지금 닫힘";
 "opens_tomorrow_at" = "내일 %@에 오픈";
-"opens_dayoftheweek_at" = "2$@에서 %1$@을(를) 엽니다.";
-"opens_at" = "에서 열림 %@";
-"closes_at" = "에서 닫힘";
+"opens_dayoftheweek_at" = "%2$@에서 %1$@을(를) 엽니다.";
+"opens_at" = "%@에 열림";
+"closes_at" = "%@에 닫힘";
 "add_opening_hours" = "영업일 추가";
 "password_8_chars_min" = "암호(최소 8자)";
 "invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";

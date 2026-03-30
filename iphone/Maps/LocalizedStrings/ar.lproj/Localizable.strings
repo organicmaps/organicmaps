@@ -745,7 +745,7 @@
 /* Place Page opening hours text */
 "closed_now" = "مغلق الآن";
 "opens_tomorrow_at" = "يُفتتح غداً في %@";
-"opens_dayoftheweek_at" = "فتح %1$$@ في %2$$@";
+"opens_dayoftheweek_at" = "يفتح %1$@ في %2$@";
 "opens_at" = "يفتح في %@";
 "closes_at" = "يغلق في %@";
 "add_opening_hours" = "أضف ساعات العمل";
