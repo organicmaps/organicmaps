@@ -486,8 +486,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SelectObject:
   {
     ref_ptr<SelectObjectMessage> msg = message;
-    m_mainOverlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
-    m_bookmarksOverlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
+    SetSelectedFeatureForAllTrees(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
     if (m_selectionShape == nullptr)
     {
       m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(
@@ -1281,8 +1280,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
 {
   m2::PointD pt = pixelRect.Center();
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-  if (m_mainOverlayTree->IsNeedUpdate() || m_bookmarksOverlayTree->IsNeedUpdate())
-    BuildOverlayTrees(screen);
+  EnsureOverlayTreesBuilt(screen);
 
   dp::TOverlayContainer selectResult;
 
@@ -1292,10 +1290,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   SearchInNonDisplaceableUserMarksLayer(screen, DepthLayer::SearchMarkLayer, selectionRect, selectResult);
 
   if (selectResult.empty())
-  {
-    m_mainOverlayTree->Select(pixelRect, selectResult);
-    m_bookmarksOverlayTree->Select(pixelRect, selectResult);
-  }
+    SelectFromOverlayTrees(pixelRect, selectResult);
 
   if (selectResult.empty())
     return {FeatureID(), kml::kInvalidMarkId};
@@ -1357,10 +1352,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     if (modelView.isPerspective() && msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
     {
       dp::TOverlayContainer selectResult;
-      if (m_mainOverlayTree->IsNeedUpdate() || m_bookmarksOverlayTree->IsNeedUpdate())
-        BuildOverlayTrees(modelView);
-      m_mainOverlayTree->Select(msg->GetPosition(), selectResult);
-      m_bookmarksOverlayTree->Select(msg->GetPosition(), selectResult);
+      EnsureOverlayTreesBuilt(modelView);
+      SelectFromOverlayTrees(msg->GetPosition(), selectResult);
       for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
@@ -1407,6 +1400,73 @@ ref_ptr<dp::OverlayTree> FrontendRenderer::GetOverlayTree(OverlayCollisionDomain
 ref_ptr<dp::OverlayTree> FrontendRenderer::GetOverlayTree(DepthLayer layerId) const
 {
   return GetOverlayTree(GetOverlayCollisionDomain(layerId));
+}
+
+bool FrontendRenderer::AnyOverlayTreeNeedsUpdate() const
+{
+  for (auto const domain : kOverlayCollisionDomains)
+    if (GetOverlayTree(domain)->IsNeedUpdate())
+      return true;
+  return false;
+}
+
+void FrontendRenderer::EnsureOverlayTreesBuilt(ScreenBase const & screen)
+{
+  if (AnyOverlayTreeNeedsUpdate())
+    BuildOverlayTrees(screen);
+}
+
+void FrontendRenderer::InvalidateOverlayTrees()
+{
+  for (auto const domain : kOverlayCollisionDomains)
+    GetOverlayTree(domain)->InvalidateOnNextFrame();
+}
+
+void FrontendRenderer::SetSelectedFeatureForAllTrees(FeatureID const & featureId)
+{
+  for (auto const domain : kOverlayCollisionDomains)
+    GetOverlayTree(domain)->SetSelectedFeature(featureId);
+}
+
+void FrontendRenderer::ConfigureOverlayTrees(ref_ptr<DebugRectRenderer> debugRectRenderer, float visualScale)
+{
+  for (auto const domain : kOverlayCollisionDomains)
+  {
+    auto const tree = GetOverlayTree(domain);
+    tree->SetDebugRectRenderer(debugRectRenderer);
+    tree->SetVisualScale(visualScale);
+  }
+}
+
+void FrontendRenderer::ClearOverlayTrees()
+{
+  for (auto const domain : kOverlayCollisionDomains)
+  {
+    auto const tree = GetOverlayTree(domain);
+    tree->SetSelectedFeature(FeatureID());
+    tree->SetDebugRectRenderer(nullptr);
+    tree->Clear();
+  }
+}
+
+void FrontendRenderer::SelectFromOverlayTrees(m2::RectD const & pixelRect, dp::TOverlayContainer & result) const
+{
+  for (auto const domain : kOverlayCollisionDomains)
+    GetOverlayTree(domain)->Select(pixelRect, result);
+}
+
+void FrontendRenderer::SelectFromOverlayTrees(m2::PointD const & position, dp::TOverlayContainer & result) const
+{
+  for (auto const domain : kOverlayCollisionDomains)
+    GetOverlayTree(domain)->Select(position, result);
+}
+
+bool FrontendRenderer::TryGetSelectedFeatureRect(OverlayCollisionDomain domain, ScreenBase const & screen,
+                                                 ScreenBase const & targetScreen, m2::RectD & rect,
+                                                 m2::RectD & targetRect) const
+{
+  auto const tree = GetOverlayTree(domain);
+  return tree->GetSelectedFeatureRect(screen, rect) && tree->GetSelectedFeatureRect(targetScreen, targetRect);
 }
 
 void FrontendRenderer::BeginUpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView)
@@ -1868,8 +1928,7 @@ void FrontendRenderer::RenderFrame()
   if (!isActiveFrame)
   {
     if (m_frameData.m_inactiveFramesCounter == 0)
-      for (auto const domain : kOverlayCollisionDomains)
-        GetOverlayTree(domain)->InvalidateOnNextFrame();
+      InvalidateOverlayTrees();
     m_frameData.m_inactiveFramesCounter++;
   }
   else
@@ -1878,9 +1937,7 @@ void FrontendRenderer::RenderFrame()
   }
 
   bool const canSuspend = m_frameData.m_inactiveFramesCounter > FrameData::kMaxInactiveFrames;
-  m_frameData.m_forceFullRedrawNextFrame = false;
-  for (auto const domain : kOverlayCollisionDomains)
-    m_frameData.m_forceFullRedrawNextFrame |= GetOverlayTree(domain)->IsNeedUpdate();
+  m_frameData.m_forceFullRedrawNextFrame = AnyOverlayTreeNeedsUpdate();
   if (canSuspend)
   {
 #if defined(OMIM_OS_DESKTOP)
@@ -2255,12 +2312,10 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   }
   else
   {
-    if (m_mainOverlayTree->IsNeedUpdate())
-      BuildOverlayTrees(screen);
+    EnsureOverlayTreesBuilt(screen);
 
     if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
-          m_mainOverlayTree->GetSelectedFeatureRect(screen, rect) &&
-          m_mainOverlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
+          TryGetSelectedFeatureRect(OverlayCollisionDomain::MainMap, screen, targetScreen, rect, targetRect)))
     {
       double const r = m_selectionShape->GetRadius();
       rect.Inflate(r, r);
@@ -2381,13 +2436,7 @@ void FrontendRenderer::OnContextDestroy()
   }
 
   m_selectObjectMessage.reset();
-  for (auto const domain : kOverlayCollisionDomains)
-  {
-    auto const tree = GetOverlayTree(domain);
-    tree->SetSelectedFeature(FeatureID());
-    tree->SetDebugRectRenderer(nullptr);
-    tree->Clear();
-  }
+  ClearOverlayTrees();
 
   m_guiRenderer.reset();
   m_selectionShape.reset();
@@ -2448,12 +2497,7 @@ void FrontendRenderer::OnContextCreate()
       m_context, m_gpuProgramManager->GetProgram(gpu::Program::DebugRect), m_gpuProgramManager->GetParamsSetter());
   m_debugRectRenderer->SetEnabled(m_isDebugRectRenderingEnabled);
 
-  for (auto const domain : kOverlayCollisionDomains)
-  {
-    auto const tree = GetOverlayTree(domain);
-    tree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
-    tree->SetVisualScale(VisualParams::Instance().GetVisualScale());
-  }
+  ConfigureOverlayTrees(make_ref(m_debugRectRenderer), VisualParams::Instance().GetVisualScale());
 
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(m_context);
@@ -2486,8 +2530,7 @@ void FrontendRenderer::OnContextCreate()
 
 void FrontendRenderer::OnRenderingEnabled()
 {
-  for (auto const domain : kOverlayCollisionDomains)
-    GetOverlayTree(domain)->InvalidateOnNextFrame();
+  InvalidateOverlayTrees();
 
 #ifndef DRAPE_MEASURER_BENCHMARK
   DrapeMeasurer::Instance().Start();

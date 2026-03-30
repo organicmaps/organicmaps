@@ -221,6 +221,16 @@ private:
   static OverlayCollisionDomain GetOverlayCollisionDomain(DepthLayer layerId);
   ref_ptr<dp::OverlayTree> GetOverlayTree(OverlayCollisionDomain domain) const;
   ref_ptr<dp::OverlayTree> GetOverlayTree(DepthLayer layerId) const;
+  bool AnyOverlayTreeNeedsUpdate() const;
+  void EnsureOverlayTreesBuilt(ScreenBase const & screen);
+  void InvalidateOverlayTrees();
+  void SetSelectedFeatureForAllTrees(FeatureID const & featureId);
+  void ConfigureOverlayTrees(ref_ptr<DebugRectRenderer> debugRectRenderer, float visualScale);
+  void ClearOverlayTrees();
+  void SelectFromOverlayTrees(m2::RectD const & pixelRect, dp::TOverlayContainer & result) const;
+  void SelectFromOverlayTrees(m2::PointD const & position, dp::TOverlayContainer & result) const;
+  bool TryGetSelectedFeatureRect(OverlayCollisionDomain domain, ScreenBase const & screen,
+                                 ScreenBase const & targetScreen, m2::RectD & rect, m2::RectD & targetRect) const;
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
