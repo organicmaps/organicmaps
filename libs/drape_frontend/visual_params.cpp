@@ -192,8 +192,7 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t
   int const pow2 = std::max(1, drawScale - static_cast<int>(GetTileScaleIncrement(tileSize, visualScale))) + 1;
   double const len = mercator::Bounds::kRangeX / (1 << pow2);
 
-  return m2::RectD(mercator::ClampX(center.x - len), mercator::ClampY(center.y - len), mercator::ClampX(center.x + len),
-                   mercator::ClampY(center.y + len));
+  return m2::RectD(center.x - len, mercator::ClampY(center.y - len), center.x + len, mercator::ClampY(center.y + len));
 }
 
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)

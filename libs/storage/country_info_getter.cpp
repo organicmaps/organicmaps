@@ -18,14 +18,18 @@ namespace storage
 // CountryInfoGetterBase ---------------------------------------------------------------------------
 CountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
 {
-  RegionId const id = FindFirstCountry(pt);
+  // Wrap X to [-180, 180] so extended coordinates (past the antimeridian) map to
+  // the correct country. Country boundaries and polygons are in canonical coordinates.
+  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
+  RegionId const id = FindFirstCountry(wrapped);
   return id == kInvalidId ? kInvalidCountryId : m_countries[id].m_countryId;
 }
 
 bool CountryInfoGetterBase::BelongsToAnyRegion(m2::PointD const & pt, RegionIdVec const & regions) const
 {
+  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
   for (auto const & id : regions)
-    if (BelongsToRegion(pt, id))
+    if (BelongsToRegion(wrapped, id))
       return true;
   return false;
 }
@@ -56,20 +60,23 @@ CountryInfoGetterBase::RegionId CountryInfoGetterBase::FindFirstCountry(m2::Poin
 }
 
 // CountryInfoGetter -------------------------------------------------------------------------------
-std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
+std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD rect, bool rough) const
 {
+  // Normalize extended rect X into canonical range. IsRectOverlap already handles +-360 shifts,
+  // but exact polygon checks (IsIntersectedByRegion) require canonical coordinates.
+  if (rect.minX() >= mercator::Bounds::kMaxX || rect.maxX() <= mercator::Bounds::kMinX)
+  {
+    double const startX = mercator::WrapX(rect.minX());
+    rect = m2::RectD(startX, rect.minY(), startX + rect.SizeX(), rect.maxY());
+  }
+
   std::vector<CountryId> result;
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
-    if (rect.IsRectInside(m_countries[id].m_rect))
-    {
+    if (!m_countries[id].IsRectOverlap(rect))
+      continue;
+    if (rect.IsRectInside(m_countries[id].m_rect) || rough || IsIntersectedByRegion(rect, id))
       result.push_back(m_countries[id].m_countryId);
-    }
-    else if (rect.IsIntersect(m_countries[id].m_rect))
-    {
-      if (rough || IsIntersectedByRegion(rect, id))
-        result.push_back(m_countries[id].m_countryId);
-    }
   }
   return result;
 }
@@ -79,16 +86,18 @@ void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, CountriesVec 
 {
   closestCoutryIds.clear();
 
-  m2::RectD const lookupRect = mercator::RectByCenterXYAndSizeInMeters(pt, lookupRadiusM);
+  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
+  m2::RectD const lookupRect = mercator::RectByCenterXYAndSizeInMeters(wrapped, lookupRadiusM);
 
   for (size_t id = 0; id < m_countries.size(); ++id)
-    if (m_countries[id].m_rect.IsIntersect(lookupRect) && IsCloseEnough(id, pt, lookupRadiusM))
+    if (m_countries[id].IsRectOverlap(lookupRect) && IsCloseEnough(id, wrapped, lookupRadiusM))
       closestCoutryIds.emplace_back(m_countries[id].m_countryId);
 }
 
 void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const
 {
-  RegionId const id = FindFirstCountry(pt);
+  m2::PointD const wrapped(mercator::WrapX(pt.x), pt.y);
+  RegionId const id = FindFirstCountry(wrapped);
   if (id != kInvalidId)
     GetRegionInfo(m_countries[id].m_countryId, info);
 }
@@ -267,7 +276,7 @@ void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
 
 bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, RegionId id) const
 {
-  if (!m_countries[id].m_rect.IsPointInside(pt))
+  if (!m_countries[id].IsPointInsideRect(pt))
     return false;
 
   auto contains = [&pt](std::vector<m2::RegionD> const & regions)
@@ -349,13 +358,13 @@ void CountryInfoGetterForTesting::ClearCachesImpl() const {}
 bool CountryInfoGetterForTesting::BelongsToRegion(m2::PointD const & pt, RegionId id) const
 {
   CHECK_LESS(id, m_countries.size(), ());
-  return m_countries[id].m_rect.IsPointInside(pt);
+  return m_countries[id].IsPointInsideRect(pt);
 }
 
 bool CountryInfoGetterForTesting::IsIntersectedByRegion(m2::RectD const & rect, RegionId id) const
 {
   CHECK_LESS(id, m_countries.size(), ());
-  return rect.IsIntersect(m_countries[id].m_rect);
+  return m_countries[id].IsRectOverlap(rect);
 }
 
 bool CountryInfoGetterForTesting::IsCloseEnough(RegionId id, m2::PointD const & pt, double distance) const

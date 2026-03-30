@@ -19,7 +19,9 @@ void Navigator::SetFromScreen(ScreenBase const & screen)
 
 void Navigator::SetFromScreen(ScreenBase const & screen, uint32_t tileSize, double visualScale)
 {
-  ScreenBase tmp = ScaleInto(screen, df::GetWorldRect());
+  ScreenBase tmp = screen;
+  if (!CheckBorders(tmp))
+    tmp = ScaleInto(tmp, df::GetWorldRect());
 
   if (!CheckMaxScale(tmp, tileSize, visualScale))
   {
@@ -109,26 +111,22 @@ void Navigator::DoDrag(m2::PointD const & pt)
   double dx = pt.x - m_StartPt1.x;
   double dy = pt.y - m_StartPt1.y;
 
+  // X is unconstrained (world wraps horizontally) — only test Y drag against pole boundaries.
   ScreenBase tmp = s;
-  tmp.Move(dx, 0);
-  if (!CheckBorders(tmp))
-    dx = 0;
-
-  tmp = s;
   tmp.Move(0, dy);
   if (!CheckBorders(tmp))
     dy = 0;
 
   tmp = s;
   tmp.Move(dx, dy);
+  // Clamp Y back within pole boundaries. Move() can introduce tiny floating-point drift in Y
+  // even for horizontal-only drags, which would make CheckBorders fail at the exact Y boundary.
+  tmp = ShrinkInto(tmp, df::GetWorldRect());
 
-  if (CheckBorders(tmp))
-  {
-    m_StartScreen = tmp;
-    m_StartPt1 = pt;
-    m_LastPt1 = pt;
-    m_Screen = tmp;
-  }
+  m_StartScreen = tmp;
+  m_StartPt1 = pt;
+  m_LastPt1 = pt;
+  m_Screen = tmp;
 }
 
 void Navigator::StopDrag(m2::PointD const & pt)
@@ -203,7 +201,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, 
       return false;
   }
 
-  // re-checking the borders, as we might violate them a bit (don't know why).
+  // ShrinkInto may slightly overshoot Y bounds due to floating-point rounding.
   if (!CheckBorders(tmp))
     tmp = ScaleInto(tmp, worldR);
 

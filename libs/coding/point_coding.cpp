@@ -138,7 +138,7 @@ uint64_t PointUToUint64Obsolete(m2::PointU const & pt)
   return res;
 }
 
-m2::PointU Uint64ToPointUObsolete(int64_t v)
+m2::PointU Uint64ToPointUObsolete(uint64_t v)
 {
   m2::PointU res;
   bits::BitwiseSplit(v, res.x, res.y);

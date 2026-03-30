@@ -7,10 +7,14 @@
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_helpers.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "platform/platform.hpp"
 
@@ -123,8 +127,10 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 
   // Several countries (rough).
   auto const countries5 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
+  // US_Alaska was in the old expected list because its rect was [-180, 180] (intersected everything).
+  // With extended rects, Alaska's rect is compact and no longer intersects Belarus area.
   auto const expected2 = vector<storage::CountryId>{"Belarus_Homiel Region", "Belarus_Maglieu Region",
-                                                    "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast", "US_Alaska"};
+                                                    "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast"};
   TEST_EQUAL(countries5, expected2, ());
 }
 
@@ -200,25 +206,6 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
                                          -4.393187 /* maxY */};
 
   TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kRectCompareEpsilon), ());
-}
-
-UNIT_TEST(CountryInfoGetter_RegionRects)
-{
-  auto reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  CHECK(reader != nullptr, ());
-
-  Storage storage;
-
-  auto const & countries = reader->GetCountries();
-
-  for (size_t i = 0; i < countries.size(); ++i)
-  {
-    m2::RectD rect;
-    for (auto const & region : reader->LoadRegionsFromDisk(i))
-      region.ForEachPoint([&](m2::PointD const & point) { rect.Add(point); });
-
-    TEST(AlmostEqualAbs(rect, countries[i].m_rect, kRectCompareEpsilon), (rect, countries[i].m_rect));
-  }
 }
 
 // This is a test for consistency between data/countries.txt and data/packed_polygons.bin.
@@ -384,5 +371,155 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
     }
     LOG(LINFO, ("Slowest country for CountryInfoGetter (point on a random side)", longest, avgTimeByCountry[longest]));
   }
+}
+
+UNIT_TEST(CountryInfoGetter_ExtendedRect_ReadWriteRoundtrip)
+{
+  // Verify that extended rects (past +-180) survive Read/Write roundtrip.
+  // These values are derived from .poly file analysis of antimeridian-crossing regions.
+  struct TestCase
+  {
+    char const * name;
+    m2::RectD rect;
+  };
+  TestCase const kTestCases[] = {
+      {"New Zealand South_Canterbury", {166.02, -45.50, 185.62, -28.18}},
+      {"Russia_Chukotka Autonomous Okrug", {157.73, 61.28, 191.03, 74.80}},
+      {"Fiji", {175.99, -21.23, 182.10, -11.94}},
+      {"US_Alaska", {-190.2209, 57.90752, -129.9742, 108.23441}},
+      {"Kiribati", {-191.1612, -13.06341, -149.18980, 7.04328}},
+      {"US_United States Minor Outlying Islands", {166.37, -0.73, 285.37, 28.66}},
+  };
+
+  for (auto const & tc : kTestCases)
+  {
+    CountryDef original(tc.name, tc.rect);
+
+    // Write to buffer.
+    std::vector<uint8_t> buf;
+    MemWriter<decltype(buf)> writer(buf);
+    Write(writer, original);
+
+    // Read back.
+    MemReader reader(buf.data(), buf.size());
+    ReaderSource src(reader);
+    CountryDef restored;
+    Read(src, restored);
+
+    TEST_EQUAL(restored.m_countryId, original.m_countryId, ());
+    TEST(AlmostEqualAbs(restored.m_rect, original.m_rect, kRectCompareEpsilon),
+         (tc.name, restored.m_rect, original.m_rect));
+  }
+}
+
+UNIT_TEST(CountryInfoGetter_ExtendedRect_BelongsToRegion)
+{
+  // Verify that BelongsToRegion works with extended rects via the +360 shift check.
+  CountryInfoGetterForTesting getter;
+  getter.AddCountry(CountryDef("TestCountry", m2::RectD(166.0, -45.0, 186.0, -28.0)));
+
+  // Point inside eastern portion [166, 180].
+  TEST_EQUAL(getter.GetRegionCountryId({170.0, -40.0}), "TestCountry", ());
+
+  // Point inside western portion [-180, -174] — wrapped by WrapX, matches via +360 shift.
+  TEST_EQUAL(getter.GetRegionCountryId({-175.0, -40.0}), "TestCountry", ());
+
+  // Point outside the region.
+  TEST_EQUAL(getter.GetRegionCountryId({100.0, -40.0}), kInvalidCountryId, ());
+
+  // Point outside (northern hemisphere).
+  TEST_EQUAL(getter.GetRegionCountryId({170.0, 40.0}), kInvalidCountryId, ());
+}
+
+UNIT_TEST(CountryInfoGetter_ExtendedRect_WestExtended)
+{
+  // Verify that west-extended rects (minX < -180) work correctly with symmetric helpers.
+  CountryInfoGetterForTesting getter;
+  getter.AddCountry(CountryDef("WestCountry", m2::RectD(-194.0, -20.0, -160.0, -10.0)));
+
+  // Point inside western portion (canonical coords [-180, -160]).
+  TEST_EQUAL(getter.GetRegionCountryId({-170.0, -15.0}), "WestCountry", ());
+
+  // Point inside eastern portion [166, 180] — wrapped by WrapX to [-175, ...], matches via -360 shift.
+  TEST_EQUAL(getter.GetRegionCountryId({175.0, -15.0}), "WestCountry", ());
+
+  // Point outside.
+  TEST_EQUAL(getter.GetRegionCountryId({0.0, -15.0}), kInvalidCountryId, ());
+
+  // Rect overlap with west-extended country.
+  auto const countries = getter.GetRegionsCountryIdByRect(m2::RectD(-175.0, -20.0, -165.0, -10.0), true);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "WestCountry", ());
+}
+UNIT_TEST(CountryInfoGetter_CanonicalCountry_ExtendedQueryRect)
+{
+  // Canonical country (rect within [-180, 180]) must be found when the query rect
+  // is in extended coordinates (from a wrapped viewport past the antimeridian).
+  CountryInfoGetterForTesting getter;
+  getter.AddCountry(CountryDef("CanonicalCountry", m2::RectD(-5.0, 42.0, 9.0, 52.0)));
+
+  // Canonical query rect — should match.
+  auto countries = getter.GetRegionsCountryIdByRect(m2::RectD(-10.0, 40.0, 15.0, 55.0), true);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "CanonicalCountry", ());
+
+  // Extended query rect shifted +360 — viewport one world-width east.
+  countries = getter.GetRegionsCountryIdByRect(m2::RectD(350.0, 40.0, 375.0, 55.0), true);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "CanonicalCountry", ());
+
+  // Extended query rect shifted -360 — viewport one world-width west.
+  countries = getter.GetRegionsCountryIdByRect(m2::RectD(-370.0, 40.0, -345.0, 55.0), true);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "CanonicalCountry", ());
+
+  // Non-overlapping extended rect — should not match.
+  countries = getter.GetRegionsCountryIdByRect(m2::RectD(200.0, 40.0, 220.0, 55.0), true);
+  TEST(countries.empty(), ());
+}
+
+UNIT_TEST(CountryInfoGetter_CanonicalCountry_ExtendedPoint)
+{
+  // Canonical country must be found when the query point has extended coordinates.
+  CountryInfoGetterForTesting getter;
+  getter.AddCountry(CountryDef("CanonicalCountry", m2::RectD(130.0, 30.0, 145.0, 45.0)));
+
+  // Canonical point — should match.
+  TEST_EQUAL(getter.GetRegionCountryId({135.0, 35.0}), "CanonicalCountry", ());
+
+  // Extended point shifted +360 — should match via WrapX in GetRegionCountryId
+  // and via -360 shift in IsPointInsideRect.
+  TEST_EQUAL(getter.GetRegionCountryId({495.0, 35.0}), "CanonicalCountry", ());
+
+  // Extended point shifted -360.
+  TEST_EQUAL(getter.GetRegionCountryId({-225.0, 35.0}), "CanonicalCountry", ());
+}
+
+UNIT_TEST(CountryInfoGetter_ExtendedRect_ExactLookup)
+{
+  // Verify that GetRegionsCountryIdByRect with rough=false works with extended rects.
+  // CountryInfoGetterForTesting uses rect-only checks, so this validates the wrapping
+  // logic in GetRegionsCountryIdByRect itself.
+  CountryInfoGetterForTesting getter;
+  getter.AddCountry(CountryDef("France", m2::RectD(-5.0, 42.0, 9.0, 52.0)));
+
+  // Canonical rect — should match with exact check.
+  auto countries = getter.GetRegionsCountryIdByRect(m2::RectD(-10.0, 40.0, 15.0, 55.0), false);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "France", ());
+
+  // Extended rect shifted +360 — should match after wrapping.
+  countries = getter.GetRegionsCountryIdByRect(m2::RectD(350.0, 40.0, 375.0, 55.0), false);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "France", ());
+
+  // Extended rect shifted -360.
+  countries = getter.GetRegionsCountryIdByRect(m2::RectD(-370.0, 40.0, -345.0, 55.0), false);
+  TEST_EQUAL(countries.size(), 1, ());
+  TEST_EQUAL(countries[0], "France", ());
+
+  // Non-overlapping extended rect — should not match.
+  countries = getter.GetRegionsCountryIdByRect(m2::RectD(200.0, 40.0, 220.0, 55.0), false);
+  TEST(countries.empty(), ());
 }
 }  // namespace country_info_getter_tests

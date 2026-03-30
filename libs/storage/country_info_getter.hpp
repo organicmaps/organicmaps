@@ -77,7 +77,7 @@ public:
   // Returns vector of countries file names without extension for
   // countries belonging to |rect|. When |rough| is equal to true, the
   // method is much faster but the result is less precise.
-  std::vector<CountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
+  std::vector<CountryId> GetRegionsCountryIdByRect(m2::RectD rect, bool rough) const;
 
   // Returns a list of country ids by a |pt| in mercator.
   // |closestCoutryIds| is filled with country ids of mwms that cover |pt| or are close to it

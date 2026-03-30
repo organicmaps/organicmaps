@@ -103,7 +103,10 @@ void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
   spline.AddPoint(pt);
 }
 
-PathTextContext::PathTextContext(m2::SharedSpline const & spline) : m_globalSpline(spline) {}
+PathTextContext::PathTextContext(m2::SharedSpline const & spline, double xOffset)
+  : m_globalSpline(spline)
+  , m_xOffset(xOffset)
+{}
 
 void PathTextContext::SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale)
 {
@@ -155,6 +158,7 @@ void PathTextContext::Update(ScreenBase const & screen)
   m2::SplineEx pixelSpline(m_globalSpline->GetSize());
   for (auto pos : m_globalSpline->GetPath())
   {
+    pos.x += m_xOffset;
     pos = screen.GtoP(pos);
     if (screen.IsReverseProjection3d(pos))
     {
@@ -175,14 +179,14 @@ void PathTextContext::Update(ScreenBase const & screen)
   ASSERT_EQUAL(m_globalPivots.size(), m_globalOffsets.size(), ());
   for (auto const & pivot : m_globalPivots)
   {
-    m2::PointD const pt2d = screen.GtoP(pivot);
+    m2::PointD const pt2d = screen.GtoP(m2::PointD(pivot.x + m_xOffset, pivot.y));
     if (!screen.IsReverseProjection3d(pt2d))
     {
       auto projectionIter = GetProjectedPoint(screen.PtoP3d(pt2d));
       if (!projectionIter.IsAttached())
         continue;
       m_centerPointIters.push_back(projectionIter);
-      m_centerGlobalPivots.push_back(pivot);
+      m_centerGlobalPivots.push_back(m2::PointD(pivot.x + m_xOffset, pivot.y));
     }
   }
 }

@@ -2,6 +2,7 @@
 #include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
@@ -102,18 +103,19 @@ void MyPosition::SetPositionObsolete(bool obsolete)
 void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                 ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
-  m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
-  auto const pixelAccuracy =
-      static_cast<float>((screen.GtoP(accuracyPoint) - screen.GtoP(m2::PointD(m_position))).Length());
+  m2::PointD const adjustedPos = df::AdjustPointForViewport(m2::PointD(m_position), screen);
+
+  m2::PointD accuracyPoint(adjustedPos.x + m_accuracy, adjustedPos.y);
+  auto const pixelAccuracy = static_cast<float>((screen.GtoP(accuracyPoint) - screen.GtoP(adjustedPos)).Length());
 
   gpu::ShapesProgramParams params;
   frameValues.SetTo(params);
-  TileKey const key = GetTileKeyByPoint(m2::PointD(m_position), ClipTileZoomByMaxDataZoom(zoomLevel));
+  TileKey const key = GetTileKeyByPoint(adjustedPos, ClipTileZoomByMaxDataZoom(zoomLevel));
   math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
   params.m_modelView = glsl::make_mat4(mv.m_data);
 
-  auto const pos = static_cast<m2::PointF>(
-      MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
+  auto const pos =
+      static_cast<m2::PointF>(MapShape::ConvertToLocal(adjustedPos, key.GetGlobalRect().Center(), kShapeCoordScalar));
   params.m_position = glsl::vec3(pos.x, pos.y, 0.0f);
   params.m_accuracy = pixelAccuracy;
   RenderPart(context, mng, params, MyPositionAccuracy);
@@ -122,10 +124,12 @@ void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
 void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                   ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
+  m2::PointD const adjustedPos = df::AdjustPointForViewport(m2::PointD(m_position), screen);
+
   if (m_showAzimuth)
   {
     CHECK(m_arrow3d != nullptr, ());
-    m_arrow3d->SetPosition(m2::PointD(m_position));
+    m_arrow3d->SetPosition(adjustedPos);
     m_arrow3d->SetAzimuth(m_azimuth);
     m_arrow3d->Render(context, mng, screen, m_isRoutingMode);
   }
@@ -133,12 +137,12 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   {
     gpu::ShapesProgramParams params;
     frameValues.SetTo(params);
-    TileKey const key = GetTileKeyByPoint(m2::PointD(m_position), ClipTileZoomByMaxDataZoom(zoomLevel));
+    TileKey const key = GetTileKeyByPoint(adjustedPos, ClipTileZoomByMaxDataZoom(zoomLevel));
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
     params.m_modelView = glsl::make_mat4(mv.m_data);
 
-    auto const pos = static_cast<m2::PointF>(
-        MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
+    auto const pos =
+        static_cast<m2::PointF>(MapShape::ConvertToLocal(adjustedPos, key.GetGlobalRect().Center(), kShapeCoordScalar));
     params.m_position = glsl::vec3(pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
     params.m_azimut = -(m_azimuth + static_cast<float>(screen.GetAngle()));
     RenderPart(context, mng, params, MyPositionPoint);

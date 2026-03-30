@@ -34,7 +34,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
       lastMwm = id.m_mwmId;
     }
     m_featureInfo.push_back(id);
-  }, GetTileKey().GetGlobalRect(), GetZoomLevel());
+  }, GetTileKey().GetWrappedDataRect(), GetZoomLevel());
 }
 
 void TileInfo::ReadFeatures(MapDataProvider const & model)

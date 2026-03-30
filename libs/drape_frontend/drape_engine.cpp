@@ -48,8 +48,16 @@ DrapeEngine::DrapeEngine(Params && params)
   {
     // If the screen rect setting in follow and rotate mode is missing or invalid, it could cause
     // invalid animations, so the follow and rotate mode should be discarded.
+    // Only validate Y bounds — X is unconstrained (world wraps horizontally at the antimeridian).
     m2::AnyRectD rect;
-    if (!(Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect())))
+    bool valid = Get("ScreenClipRect", rect);
+    if (valid)
+    {
+      m2::RectD const gr = rect.GetGlobalRect();
+      m2::RectD const & wr = df::GetWorldRect();
+      valid = (gr.minY() >= wr.minY() && gr.maxY() <= wr.maxY());
+    }
+    if (!valid)
       mode = Follow;
   }
 

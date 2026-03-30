@@ -14,7 +14,7 @@ namespace df
 class PathTextContext
 {
 public:
-  PathTextContext(m2::SharedSpline const & spline);
+  PathTextContext(m2::SharedSpline const & spline, double xOffset = 0.0);
 
   void SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale);
   ref_ptr<PathTextLayout> const GetLayout() const;
@@ -39,6 +39,7 @@ private:
   std::vector<m2::PointD> m_centerGlobalPivots;
 
   drape_ptr<PathTextLayout> m_layout;
+  double m_xOffset = 0.0;
   bool m_updated = false;
 };
 

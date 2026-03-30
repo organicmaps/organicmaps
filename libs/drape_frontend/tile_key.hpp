@@ -30,9 +30,21 @@ struct TileKey
 
   m2::RectD GetGlobalRect(bool clipByDataMaxZoom = true) const;
 
+  /// Returns the tile rect wrapped to [-180, 180] X range for data queries.
+  /// The Y range is unchanged. Used when querying the feature index for wrapped tiles.
+  m2::RectD GetWrappedDataRect(bool clipByDataMaxZoom = true) const;
+
   math::Matrix<float, 4, 4> GetTileBasedModelView(ScreenBase const & screen) const;
 
   m2::PointI GetTileCoords() const;
+
+  /// Returns a TileKey with X wrapped to the canonical range for this zoom level.
+  /// Used to map extended tiles back to their canonical equivalents for index lookups.
+  TileKey GetCanonicalTileKey() const;
+
+  /// Returns the X offset between the extended tile center and the wrapped tile center.
+  /// 0 for canonical tiles, +-360 for extended tiles past the antimeridian.
+  double GetTileXOffset(bool clipByDataMaxZoom = true) const;
 
   uint64_t GetHashValue(BatcherBucket bucket) const;
 

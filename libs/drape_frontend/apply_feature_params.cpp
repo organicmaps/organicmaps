@@ -9,7 +9,9 @@ ApplyFeatureParams::ApplyFeatureParams() : m_vparams(VisualParams::Instance()), 
 void ApplyFeatureParams::Init(TileKey const & tileKey)
 {
   m_tileKey = tileKey;
-  m_tileRect = tileKey.GetGlobalRect(true /* clipByDataMaxZoom */);
+  // Use wrapped rect so m_tileRect.Center() is in [-180, 180], matching feature coordinates.
+  // The extended (unwrapped) center is used separately by GetTileBasedModelView() for screen positioning.
+  m_tileRect = tileKey.GetWrappedDataRect(true /* clipByDataMaxZoom */);
 
   int const tileSize = m_vparams.GetTileSize();
   m2::AnyRectD const rect(tileKey.GetGlobalRect(false /* clipByDataMaxZoom */));

@@ -1,6 +1,9 @@
 #include "drape_frontend/route_renderer.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -164,14 +167,20 @@ std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double scr
       continue;
     }
 
-    m2::PointD pt = polyline.GetPointByDistance(arrowBorders.m_startDistance);
+    auto adjustX = [refX = screenRect.Center().x](m2::PointD pt)
+    {
+      pt.x = mercator::NearestWrapX(pt.x, refX);
+      return pt;
+    };
+
+    m2::PointD pt = adjustX(polyline.GetPointByDistance(arrowBorders.m_startDistance));
     if (screenRect.IsPointInside(pt))
     {
       newArrowBorders.push_back(arrowBorders);
       continue;
     }
 
-    pt = polyline.GetPointByDistance(arrowBorders.m_endDistance);
+    pt = adjustX(polyline.GetPointByDistance(arrowBorders.m_endDistance));
     if (screenRect.IsPointInside(pt))
     {
       newArrowBorders.push_back(arrowBorders);
@@ -324,7 +333,7 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
     double const distDelta = segmentLen / circlesCount;
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      m2::PointD const pt = polyline.GetPointByDistance(d);
+      m2::PointD const pt = AdjustPointForViewport(polyline.GetPointByDistance(d), screen);
       m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator,
                                  pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))

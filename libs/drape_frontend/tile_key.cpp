@@ -18,6 +18,15 @@ uint32_t constexpr GetMask(uint8_t bitsCount)
   ASSERT(bitsCount > 0 && bitsCount < 32, (bitsCount));
   return (uint32_t(1) << bitsCount) - 1;
 }
+
+/// Wraps tile X to canonical range for a given zoom level.
+/// Canonical range: [floor(-numTiles/2), floor(-numTiles/2) + numTiles).
+int WrapTileX(int x, uint8_t zoomLevel)
+{
+  int const numTiles = 1 << (zoomLevel - 1);
+  int const minX = -((numTiles + 1) / 2);  // floor(-numTiles / 2.0)
+  return ((x - minX) % numTiles + numTiles) % numTiles + minX;
+}
 }  // namespace
 
 TileKey::TileKey() : m_x(-1), m_y(-1), m_zoomLevel(0), m_generation(0), m_userMarksGeneration(0) {}
@@ -91,9 +100,34 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom /* = true */) const
   return m2::RectD(startX, startY, startX + rectSize, startY + rectSize);
 }
 
+m2::RectD TileKey::GetWrappedDataRect(bool clipByDataMaxZoom /* = true */) const
+{
+  m2::RectD rect = GetGlobalRect(clipByDataMaxZoom);
+  // If the rect overlaps the canonical data range [-180, 180], use it directly —
+  // the feature index will find data in the intersection.
+  if (rect.minX() < mercator::Bounds::kMaxX && rect.maxX() > mercator::Bounds::kMinX)
+    return rect;
+  // For tiles completely outside the canonical range, wrap minX into [-180, 180)
+  // so the data query covers the equivalent geographic area.
+  double const startX = mercator::WrapX(rect.minX());
+  return m2::RectD(startX, rect.minY(), startX + rect.SizeX(), rect.maxY());
+}
+
 m2::PointI TileKey::GetTileCoords() const
 {
-  return m2::PointI(m_x, m_y);
+  // Wrap X to canonical range so that OverlayIDs match across world copies
+  // at the antimeridian. All callers use this exclusively for OverlayID construction.
+  return m2::PointI(WrapTileX(m_x, m_zoomLevel), m_y);
+}
+
+TileKey TileKey::GetCanonicalTileKey() const
+{
+  return TileKey(WrapTileX(m_x, m_zoomLevel), m_y, m_zoomLevel);
+}
+
+double TileKey::GetTileXOffset(bool clipByDataMaxZoom /* = true */) const
+{
+  return GetGlobalRect(clipByDataMaxZoom).Center().x - GetWrappedDataRect(clipByDataMaxZoom).Center().x;
 }
 
 uint64_t TileKey::GetHashValue(BatcherBucket bucket) const

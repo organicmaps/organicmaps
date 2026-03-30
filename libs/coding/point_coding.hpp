@@ -89,4 +89,4 @@ m2::RectD Int64ToRectObsolete(std::pair<int64_t, int64_t> const & p, uint8_t coo
 
 uint64_t PointUToUint64Obsolete(m2::PointU const & pt);
 
-m2::PointU Uint64ToPointUObsolete(int64_t v);
+m2::PointU Uint64ToPointUObsolete(uint64_t v);

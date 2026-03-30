@@ -22,8 +22,9 @@ m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMeters
   ASSERT_GREATER(cosL, 0.0, ());
 
   double const lonDegreeOffset = lonMetersR * Bounds::kDegreesInMeter / cosL;
-  double const minLon = max(-180.0, lon - lonDegreeOffset);
-  double const maxLon = min(180.0, lon + lonDegreeOffset);
+  // Don't clamp longitude — allow extended coordinates past the antimeridian.
+  double const minLon = lon - lonDegreeOffset;
+  double const maxLon = lon + lonDegreeOffset;
 
   return {FromLatLon(minLat, minLon), FromLatLon(maxLat, maxLon)};
 }
@@ -42,7 +43,8 @@ m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetersR, double latMeters
   ASSERT_GREATER(cosL, 0.0, ());
 
   double const lonDegreeOffset = lonMetersR * Bounds::kDegreesInMeter / cosL;
-  double const newLon = min(180.0, max(-180.0, lon + lonDegreeOffset));
+  // Don't clamp longitude — allow extended coordinates past the antimeridian.
+  double const newLon = lon + lonDegreeOffset;
 
   return FromLatLon(newLat, newLon);
 }

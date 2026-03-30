@@ -1,6 +1,7 @@
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -222,7 +223,8 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
     if (m_points.size() == 1)
     {
       dp::Color const color = GetColorBySpeed(m_points.front().m_speedMPS);
-      m2::PointD const pt = MapShape::ConvertToLocal(m_points.front().m_point, m_pivot, kShapeCoordScalar);
+      m2::PointD const adjusted = df::AdjustPointForViewport(m_points.front().m_point, screen);
+      m2::PointD const pt = MapShape::ConvertToLocal(adjusted, m_pivot, kShapeCoordScalar);
       m_handlesCache[cacheIndex].first->SetPoint(0, pt, m_radius, color);
       m_handlesCache[cacheIndex].second++;
     }
@@ -234,7 +236,7 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
       double lengthFromStart = 0.0;
       while (!it.BeginAgain())
       {
-        m2::PointD const pt = it.m_pos;
+        m2::PointD const pt = df::AdjustPointForViewport(it.m_pos, screen);
         m2::RectD pointRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator, pt.y + radiusMercator);
         if (screen.ClipRect().IsIntersect(pointRect))
         {
