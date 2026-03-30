@@ -2361,7 +2361,8 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
   if (prevColor != newColor)
     SetLastEditedBmColor(newColor);
 
-  bookmark->SetModifiedTimestamp(kml::TimestampClock::now());
+  if (bm.m_modifiedTimestamp == kml::Timestamp())
+    bookmark->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
@@ -2379,7 +2380,8 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   auto * track = GetTrackForEdit(trackId);
   track->SetData(trackData);
 
-  track->SetModifiedTimestamp(kml::TimestampClock::now());
+  if (trackData.m_modifiedTimestamp == kml::Timestamp())
+    track->SetModifiedTimestamp(kml::TimestampClock::now());
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
