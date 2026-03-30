@@ -128,14 +128,16 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
 
 df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
 {
+  UNUSED_VALUE(p);
+  return df::DepthLayer::UserMarkLayer;
+}
+
+df::DepthLayer Bookmark::GetTitleDepthLayerEx(settings::Placement p) const
+{
   if (p == settings::Placement::None)
     return df::DepthLayer::UserMarkLayer;
 
-  // Texts:
-  // - UserMarkLayer, aren't visible at all
-  // - RoutingMarkLayer, displaced by Feature's texts
-  // - SearchMarkLayer, overlapped with each other :)
-  return df::DepthLayer::SearchMarkLayer;
+  return df::DepthLayer::BookmarkTitleLayer;
 }
 
 dp::Anchor Bookmark::GetAnchor() const

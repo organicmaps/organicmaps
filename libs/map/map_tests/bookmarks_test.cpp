@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
 
@@ -1623,6 +1624,36 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0),
                                      geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}};
   TEST_EQUAL(line, expectedLine, ());
+}
+
+UNIT_TEST(Bookmark_TitleDepthLayers)
+{
+  Bookmark bookmark({0.0, 0.0});
+  bookmark.SetName("Bookmark title", kml::kDefaultLangCode);
+
+  TEST_EQUAL(bookmark.GetDepthLayerEx(settings::Placement::None), df::DepthLayer::UserMarkLayer, ());
+  TEST_EQUAL(bookmark.GetDepthLayerEx(settings::Placement::Right), df::DepthLayer::UserMarkLayer, ());
+  TEST_EQUAL(bookmark.GetDepthLayerEx(settings::Placement::Bottom), df::DepthLayer::UserMarkLayer, ());
+  TEST(bookmark.HasTitlePriority(), ());
+
+  TEST_EQUAL(bookmark.GetTitleDepthLayerEx(settings::Placement::None), df::DepthLayer::UserMarkLayer, ());
+  TEST_EQUAL(bookmark.GetTitleDepthLayerEx(settings::Placement::Right), df::DepthLayer::BookmarkTitleLayer, ());
+  TEST_EQUAL(bookmark.GetTitleDepthLayerEx(settings::Placement::Bottom), df::DepthLayer::BookmarkTitleLayer, ());
+
+  auto const noTitle = bookmark.GetTitleDeclEx(settings::Placement::None, dp::Color::Black());
+  TEST(!noTitle, ());
+
+  auto const rightTitle = bookmark.GetTitleDeclEx(settings::Placement::Right, dp::Color::Black());
+  TEST(rightTitle != nullptr, ());
+  TEST_EQUAL(rightTitle->size(), 1, ());
+  TEST_EQUAL(rightTitle->front().m_anchor, dp::Left, ());
+  TEST_EQUAL(rightTitle->front().m_primaryText, "Bookmark title", ());
+
+  auto const bottomTitle = bookmark.GetTitleDeclEx(settings::Placement::Bottom, dp::Color::Black());
+  TEST(bottomTitle != nullptr, ());
+  TEST_EQUAL(bottomTitle->size(), 1, ());
+  TEST_EQUAL(bottomTitle->front().m_anchor, dp::Top, ());
+  TEST_EQUAL(bottomTitle->front().m_primaryText, "Bookmark title", ());
 }
 
 }  // namespace bookmarks_test

@@ -56,6 +56,8 @@ public:
 
   drape_ptr<TitlesInfo> GetTitleDeclEx(settings::Placement p, dp::Color outlineColor) const override;
   df::DepthLayer GetDepthLayerEx(settings::Placement p) const override;
+  df::DepthLayer GetTitleDepthLayerEx(settings::Placement p) const override;
+  bool HasTitlePriority() const override { return true; }
 
   dp::Anchor GetAnchor() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;

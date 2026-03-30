@@ -70,6 +70,7 @@ public:
   virtual DepthLayer GetDepthLayer() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
   virtual DepthLayer GetDepthLayerEx(settings::Placement) const { return GetDepthLayer(); }
+  virtual DepthLayer GetTitleDepthLayerEx(settings::Placement p) const { return GetDepthLayerEx(p); }
   virtual drape_ptr<TitlesInfo> GetTitleDeclEx(settings::Placement, dp::Color) const { return GetTitleDecl(); }
 
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;

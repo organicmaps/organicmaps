@@ -48,6 +48,12 @@ class RenderBucket;
 
 namespace df
 {
+enum class OverlayCollisionDomain : uint8_t
+{
+  MainMap,
+  Bookmarks
+};
+
 class DebugRectRenderer;
 class DrapeNotifier;
 class ScenarioManager;
@@ -211,7 +217,10 @@ private:
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, bool & needActiveFrame);
   void PrepareScene(ScreenBase const & modelView);
   void UpdateScene(ScreenBase const & modelView);
-  void BuildOverlayTree(ScreenBase const & modelView);
+  void BuildOverlayTrees(ScreenBase const & modelView);
+  static OverlayCollisionDomain GetOverlayCollisionDomain(DepthLayer layerId);
+  ref_ptr<dp::OverlayTree> GetOverlayTree(OverlayCollisionDomain domain) const;
+  ref_ptr<dp::OverlayTree> GetOverlayTree(DepthLayer layerId) const;
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
@@ -263,9 +272,10 @@ private:
   template <class MessageT>
   void UpdateAll();
 
-  void BeginUpdateOverlayTree(ScreenBase const & modelView);
-  void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
-  void EndUpdateOverlayTree();
+  void BeginUpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
+  void UpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView,
+                         drape_ptr<RenderGroup> & renderGroup);
+  void EndUpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, bool trackOverlays);
 
   template <typename TRenderGroup>
   void AddToRenderGroup(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
@@ -336,7 +346,8 @@ private:
   drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;
   drape_ptr<DrapeApiRenderer> m_drapeApiRenderer;
 
-  drape_ptr<dp::OverlayTree> m_overlayTree;
+  drape_ptr<dp::OverlayTree> m_mainOverlayTree;
+  drape_ptr<dp::OverlayTree> m_bookmarksOverlayTree;
 
   FrameValues m_frameValues;
 

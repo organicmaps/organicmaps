@@ -43,6 +43,7 @@
 #include <functional>
 #include <limits>
 #include <memory>
+#include <span>
 #include <thread>
 #include <utility>
 
@@ -58,6 +59,29 @@ double constexpr kVSyncInterval = 0.06;
 double constexpr kVSyncIntervalMetalVulkan = 0.03;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
+
+std::array<OverlayCollisionDomain, 2> constexpr kOverlayCollisionDomains = {OverlayCollisionDomain::MainMap,
+                                                                            OverlayCollisionDomain::Bookmarks};
+
+std::span<DepthLayer const> GetCollisionDomainLayers(OverlayCollisionDomain domain)
+{
+  static constexpr std::array kMainMapLayers = {DepthLayer::OverlayLayer, DepthLayer::RoutingBottomMarkLayer,
+                                                DepthLayer::RoutingMarkLayer};
+  static constexpr std::array kBookmarksLayers = {DepthLayer::BookmarkTitleLayer};
+
+  switch (domain)
+  {
+  case OverlayCollisionDomain::MainMap: return kMainMapLayers;
+  case OverlayCollisionDomain::Bookmarks: return kBookmarksLayers;
+  }
+
+  UNREACHABLE();
+}
+
+bool ShouldTrackOverlays(OverlayCollisionDomain domain)
+{
+  return domain == OverlayCollisionDomain::MainMap;
+}
 
 template <typename ToDo>
 bool RemoveGroups(ToDo && filter, std::vector<drape_ptr<RenderGroup>> & groups, ref_ptr<dp::OverlayTree> tree)
@@ -150,7 +174,8 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_trafficRenderer(new TrafficRenderer())
   , m_transitSchemeRenderer(new TransitSchemeRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
-  , m_overlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
+  , m_mainOverlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
+  , m_bookmarksOverlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
   , m_enablePerspectiveInNavigation(false)
   , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
@@ -231,8 +256,11 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
   for (auto const & tileKey : m_notFinishedTiles)
     notFinishedTileRects.push_back(tileKey.GetGlobalRect());
 
-  for (RenderLayer & layer : m_layers)
+  for (size_t i = 0; i < m_layers.size(); ++i)
   {
+    auto const layerId = static_cast<DepthLayer>(i);
+    auto const tree = GetOverlayTree(layerId);
+    RenderLayer & layer = m_layers[i];
     for (auto & group : layer.m_renderGroups)
     {
       if (!group->IsPendingOnDelete())
@@ -245,7 +273,7 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
         if (tileRect.IsIntersect(screenRect))
           canBeDeleted = !HasIntersection(tileRect, notFinishedTileRects);
       }
-      layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, GetCurrentZoom(), make_ref(m_overlayTree));
+      layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, GetCurrentZoom(), tree);
     }
   }
 }
@@ -458,7 +486,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SelectObject:
   {
     ref_ptr<SelectObjectMessage> msg = message;
-    m_overlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
+    m_mainOverlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
+    m_bookmarksOverlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
     if (m_selectionShape == nullptr)
     {
       m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(
@@ -525,7 +554,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     ref_ptr<FlushTransitSchemeMessage> msg = message;
     auto renderData = msg->AcceptRenderData();
     CHECK(m_context != nullptr, ());
-    m_transitSchemeRenderer->AddRenderData(m_context, make_ref(m_gpuProgramManager), make_ref(m_overlayTree),
+    m_transitSchemeRenderer->AddRenderData(m_context, make_ref(m_gpuProgramManager), make_ref(m_mainOverlayTree),
                                            std::move(renderData));
     break;
   }
@@ -807,20 +836,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     // Jagged lines on subway lines are only visible on low density screens
     // so we don't enable it here
     if (!msg->IsEnabled())
-      m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));
+      m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_mainOverlayTree));
     break;
   }
 
   case Message::Type::ClearTransitSchemeData:
   {
     ref_ptr<ClearTransitSchemeDataMessage> msg = message;
-    m_transitSchemeRenderer->Clear(msg->GetMwmId(), make_ref(m_overlayTree));
+    m_transitSchemeRenderer->Clear(msg->GetMwmId(), make_ref(m_mainOverlayTree));
     break;
   }
 
   case Message::Type::ClearAllTransitSchemeData:
   {
-    m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));
+    m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_mainOverlayTree));
     break;
   }
 
@@ -1123,9 +1152,11 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
     // Remove tiles to invalidate from screen.
     auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
     { return tiles.find(group->GetTileKey()) != tiles.end(); };
-    for (RenderLayer & layer : m_layers)
+    for (size_t i = 0; i < m_layers.size(); ++i)
     {
-      RemoveGroups(eraseFunction, layer.m_renderGroups, make_ref(m_overlayTree));
+      auto const layerId = static_cast<DepthLayer>(i);
+      RenderLayer & layer = m_layers[i];
+      RemoveGroups(eraseFunction, layer.m_renderGroups, GetOverlayTree(layerId));
       layer.m_isDirty = true;
     }
 
@@ -1194,8 +1225,10 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state, drape_ptr
 
 void FrontendRenderer::RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate)
 {
-  for (RenderLayer & layer : m_layers)
+  for (size_t i = 0; i < m_layers.size(); ++i)
   {
+    auto const layerId = static_cast<DepthLayer>(i);
+    RenderLayer & layer = m_layers[i];
     RemoveGroups([&predicate, &layer](drape_ptr<RenderGroup> const & group)
     {
       if (predicate(group))
@@ -1205,7 +1238,7 @@ void FrontendRenderer::RemoveRenderGroupsLater(TRenderGroupRemovePredicate const
         return group->CanBeDeleted();
       }
       return false;
-    }, layer.m_renderGroups, make_ref(m_overlayTree));
+    }, layer.m_renderGroups, GetOverlayTree(layerId));
   }
 }
 
@@ -1248,8 +1281,8 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
 {
   m2::PointD pt = pixelRect.Center();
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-  if (m_overlayTree->IsNeedUpdate())
-    BuildOverlayTree(screen);
+  if (m_mainOverlayTree->IsNeedUpdate() || m_bookmarksOverlayTree->IsNeedUpdate())
+    BuildOverlayTrees(screen);
 
   dp::TOverlayContainer selectResult;
 
@@ -1259,7 +1292,10 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   SearchInNonDisplaceableUserMarksLayer(screen, DepthLayer::SearchMarkLayer, selectionRect, selectResult);
 
   if (selectResult.empty())
-    m_overlayTree->Select(pixelRect, selectResult);
+  {
+    m_mainOverlayTree->Select(pixelRect, selectResult);
+    m_bookmarksOverlayTree->Select(pixelRect, selectResult);
+  }
 
   if (selectResult.empty())
     return {FeatureID(), kml::kInvalidMarkId};
@@ -1321,9 +1357,10 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     if (modelView.isPerspective() && msg->GetSelectedObject() != SelectionShape::ESelectedObject::OBJECT_TRACK)
     {
       dp::TOverlayContainer selectResult;
-      if (m_overlayTree->IsNeedUpdate())
-        BuildOverlayTree(modelView);
-      m_overlayTree->Select(msg->GetPosition(), selectResult);
+      if (m_mainOverlayTree->IsNeedUpdate() || m_bookmarksOverlayTree->IsNeedUpdate())
+        BuildOverlayTrees(modelView);
+      m_mainOverlayTree->Select(msg->GetPosition(), selectResult);
+      m_bookmarksOverlayTree->Select(msg->GetPosition(), selectResult);
       for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
@@ -1349,32 +1386,59 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   }
 }
 
-void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
+OverlayCollisionDomain FrontendRenderer::GetOverlayCollisionDomain(DepthLayer layerId)
 {
-  if (m_overlayTree->Frame())
-    m_overlayTree->StartOverlayPlacing(modelView, GetCurrentZoom());
+  if (layerId == DepthLayer::BookmarkTitleLayer)
+    return OverlayCollisionDomain::Bookmarks;
+  return OverlayCollisionDomain::MainMap;
 }
 
-void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup)
+ref_ptr<dp::OverlayTree> FrontendRenderer::GetOverlayTree(OverlayCollisionDomain domain) const
 {
-  if (m_overlayTree->IsNeedUpdate())
-    renderGroup->CollectOverlay(make_ref(m_overlayTree));
+  switch (domain)
+  {
+  case OverlayCollisionDomain::MainMap: return make_ref(m_mainOverlayTree);
+  case OverlayCollisionDomain::Bookmarks: return make_ref(m_bookmarksOverlayTree);
+  }
+
+  UNREACHABLE();
+}
+
+ref_ptr<dp::OverlayTree> FrontendRenderer::GetOverlayTree(DepthLayer layerId) const
+{
+  return GetOverlayTree(GetOverlayCollisionDomain(layerId));
+}
+
+void FrontendRenderer::BeginUpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView)
+{
+  if (tree->Frame())
+    tree->StartOverlayPlacing(modelView, GetCurrentZoom());
+}
+
+void FrontendRenderer::UpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView,
+                                         drape_ptr<RenderGroup> & renderGroup)
+{
+  if (tree->IsNeedUpdate())
+    renderGroup->CollectOverlay(tree);
   else
     renderGroup->Update(modelView);
 }
 
-void FrontendRenderer::EndUpdateOverlayTree()
+void FrontendRenderer::EndUpdateOverlayTree(ref_ptr<dp::OverlayTree> tree, bool trackOverlays)
 {
-  if (m_overlayTree->IsNeedUpdate())
+  if (tree->IsNeedUpdate())
   {
-    m_overlayTree->EndOverlayPlacing();
+    tree->EndOverlayPlacing();
+
+    if (!trackOverlays)
+      return;
 
     // Track overlays.
     if (m_overlaysTracker->StartTracking(GetCurrentZoom(), m_myPositionController->IsModeHasPosition(),
                                          m_myPositionController->GetDrawablePosition(),
                                          m_myPositionController->GetHorizontalAccuracy()))
     {
-      for (auto const & handle : m_overlayTree->GetHandlesCache())
+      for (auto const & handle : tree->GetHandlesCache())
         if (handle->IsVisible())
           m_overlaysTracker->Track(handle->GetOverlayID().m_featureId);
       m_overlaysTracker->FinishTracking();
@@ -1472,6 +1536,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
+      RenderUserMarksLayer(modelView, DepthLayer::BookmarkTitleLayer);
       RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
@@ -1480,8 +1545,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
     m_drapeApiRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
 
-    for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
-      m_debugRectRenderer->DrawArrow(m_context, modelView, arrow);
+    for (auto const domain : kOverlayCollisionDomains)
+      for (auto const & arrow : GetOverlayTree(domain)->GetDisplacementInfo())
+        m_debugRectRenderer->DrawArrow(m_context, modelView, arrow);
   }
 
   if (!m_postprocessRenderer->EndFrame(m_context, make_ref(m_gpuProgramManager), m_viewport))
@@ -1518,7 +1584,7 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] Render2dLayer");
   RenderLayer & layer2d = m_layers[static_cast<size_t>(DepthLayer::GeometryLayer)];
-  layer2d.Sort(make_ref(m_overlayTree));
+  layer2d.Sort(make_ref(m_mainOverlayTree));
 
   CHECK(m_context != nullptr, ());
   DEBUG_LABEL(m_context, "2D Layer");
@@ -1542,7 +1608,7 @@ void FrontendRenderer::PreRender3dLayer(ScreenBase const & modelView)
   m_context->ApplyFramebuffer("Buildings");
   m_viewport.Apply(m_context);
 
-  layer.Sort(make_ref(m_overlayTree));
+  layer.Sort(make_ref(m_mainOverlayTree));
   for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
@@ -1567,7 +1633,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
     CHECK(m_context != nullptr, ());
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
-    layer.Sort(make_ref(m_overlayTree));
+    layer.Sort(make_ref(m_mainOverlayTree));
     for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
       RenderSingleGroup(m_context, modelView, make_ref(group));
   }
@@ -1579,7 +1645,7 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   CHECK(m_context != nullptr, ());
   DEBUG_LABEL(m_context, "Overlay Layer");
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
-  BuildOverlayTree(modelView);
+  BuildOverlayTrees(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
@@ -1675,13 +1741,15 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
   TRACE_SECTION("[drape] RenderUserMarksLayer");
-  auto & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
+  auto & layer = m_layers[static_cast<size_t>(layerId)];
+  auto & renderGroups = layer.m_renderGroups;
   if (renderGroups.empty())
     return;
 
   CHECK(m_context != nullptr, ());
   DEBUG_LABEL(m_context, "User Marks: " + DebugPrint(layerId));
   m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
+  layer.Sort(GetOverlayTree(layerId));
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
@@ -1800,7 +1868,8 @@ void FrontendRenderer::RenderFrame()
   if (!isActiveFrame)
   {
     if (m_frameData.m_inactiveFramesCounter == 0)
-      m_overlayTree->InvalidateOnNextFrame();
+      for (auto const domain : kOverlayCollisionDomains)
+        GetOverlayTree(domain)->InvalidateOnNextFrame();
     m_frameData.m_inactiveFramesCounter++;
   }
   else
@@ -1809,7 +1878,9 @@ void FrontendRenderer::RenderFrame()
   }
 
   bool const canSuspend = m_frameData.m_inactiveFramesCounter > FrameData::kMaxInactiveFrames;
-  m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
+  m_frameData.m_forceFullRedrawNextFrame = false;
+  for (auto const domain : kOverlayCollisionDomains)
+    m_frameData.m_forceFullRedrawNextFrame |= GetOverlayTree(domain)->IsNeedUpdate();
   if (canSuspend)
   {
 #if defined(OMIM_OS_DESKTOP)
@@ -1866,21 +1937,29 @@ void FrontendRenderer::RenderFrame()
 #endif
 }
 
-void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
+void FrontendRenderer::BuildOverlayTrees(ScreenBase const & modelView)
 {
-  TRACE_SECTION("[drape] BuildOverlayTree");
-  BeginUpdateOverlayTree(modelView);
-  for (auto const layerId :
-       {DepthLayer::OverlayLayer, DepthLayer::RoutingBottomMarkLayer, DepthLayer::RoutingMarkLayer})
+  TRACE_SECTION("[drape] BuildOverlayTrees");
+  auto const buildDomain = [this, &modelView](OverlayCollisionDomain domain)
   {
-    RenderLayer & overlay = m_layers[static_cast<size_t>(layerId)];
-    overlay.Sort(make_ref(m_overlayTree));
-    for (auto & group : overlay.m_renderGroups)
-      UpdateOverlayTree(modelView, group);
-  }
-  if (m_transitSchemeRenderer->IsSchemeVisible(GetCurrentZoom()) && !HasTransitRouteData())
-    m_transitSchemeRenderer->CollectOverlays(make_ref(m_overlayTree), modelView);
-  EndUpdateOverlayTree();
+    auto const tree = GetOverlayTree(domain);
+    auto const layers = GetCollisionDomainLayers(domain);
+    auto const trackOverlays = ShouldTrackOverlays(domain);
+    BeginUpdateOverlayTree(tree, modelView);
+    for (auto const layerId : layers)
+    {
+      RenderLayer & overlay = m_layers[static_cast<size_t>(layerId)];
+      overlay.Sort(tree);
+      for (auto & group : overlay.m_renderGroups)
+        UpdateOverlayTree(tree, modelView, group);
+    }
+    if (trackOverlays && m_transitSchemeRenderer->IsSchemeVisible(GetCurrentZoom()) && !HasTransitRouteData())
+      m_transitSchemeRenderer->CollectOverlays(tree, modelView);
+    EndUpdateOverlayTree(tree, trackOverlays);
+  };
+
+  for (auto const domain : kOverlayCollisionDomains)
+    buildDomain(domain);
 }
 
 void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket)
@@ -1979,9 +2058,16 @@ bool FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 void FrontendRenderer::UpdateDisplacementEnabled()
 {
   if (m_choosePositionMode)
-    m_overlayTree->SetDisplacementEnabled(GetCurrentZoom() < scales::GetAddNewPlaceScale());
+  {
+    bool const enabled = GetCurrentZoom() < scales::GetAddNewPlaceScale();
+    for (auto const domain : kOverlayCollisionDomains)
+      GetOverlayTree(domain)->SetDisplacementEnabled(enabled);
+  }
   else
-    m_overlayTree->SetDisplacementEnabled(true);
+  {
+    for (auto const domain : kOverlayCollisionDomains)
+      GetOverlayTree(domain)->SetDisplacementEnabled(true);
+  }
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
@@ -2169,12 +2255,12 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   }
   else
   {
-    if (m_overlayTree->IsNeedUpdate())
-      BuildOverlayTree(screen);
+    if (m_mainOverlayTree->IsNeedUpdate())
+      BuildOverlayTrees(screen);
 
     if (!(m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_POI &&
-          m_overlayTree->GetSelectedFeatureRect(screen, rect) &&
-          m_overlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
+          m_mainOverlayTree->GetSelectedFeatureRect(screen, rect) &&
+          m_mainOverlayTree->GetSelectedFeatureRect(targetScreen, targetRect)))
     {
       double const r = m_selectionShape->GetRadius();
       rect.Inflate(r, r);
@@ -2260,8 +2346,12 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
            (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX || key.m_y < result.m_minTileY ||
             key.m_y >= result.m_maxTileY || base::IsExist(tilesToDelete, key));
   };
-  for (RenderLayer & layer : m_layers)
-    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
+  for (size_t i = 0; i < m_layers.size(); ++i)
+  {
+    auto const layerId = static_cast<DepthLayer>(i);
+    RenderLayer & layer = m_layers[i];
+    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, GetOverlayTree(layerId));
+  }
 
   RemoveRenderGroupsLater([this](drape_ptr<RenderGroup> const & group)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
@@ -2291,9 +2381,13 @@ void FrontendRenderer::OnContextDestroy()
   }
 
   m_selectObjectMessage.reset();
-  m_overlayTree->SetSelectedFeature(FeatureID());
-  m_overlayTree->SetDebugRectRenderer(nullptr);
-  m_overlayTree->Clear();
+  for (auto const domain : kOverlayCollisionDomains)
+  {
+    auto const tree = GetOverlayTree(domain);
+    tree->SetSelectedFeature(FeatureID());
+    tree->SetDebugRectRenderer(nullptr);
+    tree->Clear();
+  }
 
   m_guiRenderer.reset();
   m_selectionShape.reset();
@@ -2354,8 +2448,12 @@ void FrontendRenderer::OnContextCreate()
       m_context, m_gpuProgramManager->GetProgram(gpu::Program::DebugRect), m_gpuProgramManager->GetParamsSetter());
   m_debugRectRenderer->SetEnabled(m_isDebugRectRenderingEnabled);
 
-  m_overlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
-  m_overlayTree->SetVisualScale(VisualParams::Instance().GetVisualScale());
+  for (auto const domain : kOverlayCollisionDomains)
+  {
+    auto const tree = GetOverlayTree(domain);
+    tree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
+    tree->SetVisualScale(VisualParams::Instance().GetVisualScale());
+  }
 
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(m_context);
@@ -2388,7 +2486,8 @@ void FrontendRenderer::OnContextCreate()
 
 void FrontendRenderer::OnRenderingEnabled()
 {
-  m_overlayTree->InvalidateOnNextFrame();
+  for (auto const domain : kOverlayCollisionDomains)
+    GetOverlayTree(domain)->InvalidateOnNextFrame();
 
 #ifndef DRAPE_MEASURER_BENCHMARK
   DrapeMeasurer::Instance().Start();
@@ -2570,8 +2669,12 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
            (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
            (group->IsUserMark() && (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));
   };
-  for (RenderLayer & layer : m_layers)
-    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
+  for (size_t i = 0; i < m_layers.size(); ++i)
+  {
+    auto const layerId = static_cast<DepthLayer>(i);
+    RenderLayer & layer = m_layers[i];
+    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, GetOverlayTree(layerId));
+  }
 
   if (m_forceUpdateScene || m_forceUpdateUserMarks || m_lastReadedModelView != modelView)
   {
