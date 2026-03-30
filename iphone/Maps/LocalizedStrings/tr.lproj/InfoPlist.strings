@@ -1,31 +1,15 @@
 
-
-/********** Strings **********/
-
-
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Ara";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Yer İmleri ve İzler";
 
-
-/********** Other translations **********/
-
-
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Hata bildir";
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "route" = "Rota";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Uygulamanın özelliklerini tamamıyla çıkartmak için arka planda mevcut konumu tanımlamak gereklidir. Rota izleme ve en son gezilen yolları kaydetme seçeneği için kullanılır.";

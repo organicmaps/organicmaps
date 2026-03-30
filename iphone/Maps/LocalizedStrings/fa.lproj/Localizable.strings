@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "لغو";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "فهرست‌های نشانک‌ها";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "کجا غذا بخوریم";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "امکانات ماشین کاروان";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در Organic Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://omaps.app/get?kmz \n\nاز سفر با Organic Maps لذت ببرید!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "نشانک";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:";
 "dialog_routing_disclaimer_priority" = "— شرایط جاده، قوانین راهنمایی و رانندگی و علائم جاده‌ای همیشه نسبت به راهنمایی‌های مسیریابی اولویت دارند؛";
 "dialog_routing_disclaimer_precision" = "—نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.";
 "dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
 "dialog_routing_download_and_update_all" = "برای محاسبه مسیر، همه نقشه‌های مسیر پیش‌بینی‌شده را دانلود یا به‌روزرسانی کنید.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "نمایش";
@@ -859,10 +839,6 @@
 "sort_distance" = "مرتب سازی بر اساس فاصله";
 "sort_date" = "مرتب سازی بر اساس تاریخ";
 "sort_name" = "به ترتیب نام";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "غذا";
 "tourist_places" = "مناظر";
 "museums" = "موزه‌ها";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "برای مشارکت نقشه را به‌روزرسانی کنید";
 "contribute_to_osm_update_map_description" = "برای مشارکت در داده‌های OpenStreetMap باید نقشه %@ را به آخرین نسخه به‌روزرسانی کنید";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "مکان من";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "مناطق دانلود شده بنفش";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "ورود با رمز عبور";

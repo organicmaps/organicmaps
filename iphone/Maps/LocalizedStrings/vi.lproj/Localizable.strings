@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Huỷ bỏ";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Đánh dấu Bộ";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Ăn ở đâu";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Đối với RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "yer i̇mi";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Khi đi theo tuyến đường, hãy lưu ý:";
 "dialog_routing_disclaimer_priority" = "— Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;";
 "dialog_routing_disclaimer_precision" = "— Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.";
 "dialog_routing_download_files" = "Tải xuống các tệp yêu cầu";
 "dialog_routing_download_and_update_all" = "Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Hiện";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sắp xếp theo khoảng cách";
 "sort_date" = "Sắp xếp theo ngày";
 "sort_name" = "Sắp xếp theo tên";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Đồ ăn";
 "tourist_places" = "Danh lam thắng cảnh";
 "museums" = "Bảo tàng";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Cập nhật bản đồ để đóng góp";
 "contribute_to_osm_update_map_description" = "Bạn cần cập nhật bản đồ %@ lên phiên bản mới nhất trước khi có thể đóng góp cho dữ liệu OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Vị trí của Tôi";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Vùng đã tải về màu tím";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Đăng nhập bằng mật khẩu";

@@ -1,31 +1,15 @@
 
-
-/********** Strings **********/
-
-
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Keresés";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Könyvjelzők és nyomvonalak";
 
-
-/********** Other translations **********/
-
-
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Hibajelentés";
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "route" = "Útvonal";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "A helymeghatározás a háttérben szükséges ahhoz, hogy teljes mértékben élvezhesse az alkalmazás funkcióit. A navigációhoz és a nemrég megtett útvonal mentéséhez használatos.";

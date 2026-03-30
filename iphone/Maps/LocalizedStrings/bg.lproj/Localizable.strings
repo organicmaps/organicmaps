@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Отмяна";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Списъци с отметки";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Места за хапване";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "За RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в Organic Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://omaps.app/get?kmz\n\nНаслаждавайте се на пътуванията с Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "отметка";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Когато следвате маршрута, моля, имайте предвид:";
 "dialog_routing_disclaimer_priority" = "- Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат предимство пред пътеводителните подсказки;";
 "dialog_routing_disclaimer_precision" = "- Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.";
 "dialog_routing_download_files" = "Изтегляне на необходимите файлове";
 "dialog_routing_download_and_update_all" = "За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Показване";
@@ -859,10 +839,6 @@
 "sort_distance" = "Сортиране по разстояние";
 "sort_date" = "Сортиране по дата";
 "sort_name" = "Сортиране по име";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Храна";
 "tourist_places" = "Забележителности";
 "museums" = "Музеи";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Актуализирайте картата, за да допринесете";
 "contribute_to_osm_update_map_description" = "Трябва да актуализирате картата %@ до последната версия, преди да можете да допринесете с данни към OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Мое местоположение";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Лилави изтеглени региони";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Влизане с парола";
