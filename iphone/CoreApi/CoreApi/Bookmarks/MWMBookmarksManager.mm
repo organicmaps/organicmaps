@@ -1,6 +1,7 @@
 #import "MWMBookmarksManager.h"
 
 #import "MWMBookmark+Core.h"
+#import "MWMBookmarkColor+Core.h"
 #import "MWMBookmarkGroup.h"
 #import "MWMBookmarksSection.h"
 #import "MWMCarPlayBookmarkObject.h"
@@ -728,6 +729,20 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
     self.bm.SetLastEditedBmColor(kmlColor);
 
   bookmark->SetColor(kmlColor);
+}
+
+- (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(MWMBookmarkColor)color
+{
+  auto editSession = self.bm.GetEditSession();
+  auto const kmlColor = kmlColorFromBookmarkColor(color);
+  editSession.SetCategoryBookmarksColor(groupId, kmlColor);
+  self.bm.SetLastEditedBmColor(kmlColor);
+}
+
+- (void)setCategory:(MWMMarkGroupID)groupId tracksColor:(MWMBookmarkColor)color
+{
+  auto editSession = self.bm.GetEditSession();
+  editSession.SetCategoryTracksColor(groupId, kmlColorFromBookmarkColor(color));
 }
 
 - (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId

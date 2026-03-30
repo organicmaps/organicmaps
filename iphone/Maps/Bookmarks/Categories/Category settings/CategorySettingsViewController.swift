@@ -9,8 +9,27 @@ final class CategorySettingsViewController: MWMTableViewController {
   private enum Sections: Int {
     case info
     case description
+    case color
     case delete
-    case count
+  }
+
+  private enum ColorAction {
+    case bookmarks
+    case tracks
+
+    var title: String {
+      switch self {
+      case .bookmarks: L("change_all_bookmarks_color")
+      case .tracks: L("change_all_tracks_color")
+      }
+    }
+
+    var toastMessage: String {
+      switch self {
+      case .bookmarks: L("toast_bookmarks_color_changed")
+      case .tracks: L("toast_tracks_color_changed")
+      }
+    }
   }
 
   private enum InfoSectionRows: Int {
@@ -22,6 +41,26 @@ final class CategorySettingsViewController: MWMTableViewController {
   private var changesMade = false
   private var newName: String?
   private var newAnnotation: String?
+
+  private var colorActions: [ColorAction] {
+    var actions: [ColorAction] = []
+    if bookmarkGroup.bookmarksCount > 0 {
+      actions.append(.bookmarks)
+    }
+    if bookmarkGroup.trackCount > 0 {
+      actions.append(.tracks)
+    }
+    return actions
+  }
+
+  private var sections: [Sections] {
+    var sections: [Sections] = [.info, .description]
+    if !colorActions.isEmpty {
+      sections.append(.color)
+    }
+    sections.append(.delete)
+    return sections
+  }
 
   @objc weak var delegate: CategorySettingsViewControllerDelegate?
 
@@ -49,22 +88,22 @@ final class CategorySettingsViewController: MWMTableViewController {
   }
 
   override func numberOfSections(in _: UITableView) -> Int {
-    Sections.count.rawValue
+    sections.count
   }
 
   override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-    switch Sections(rawValue: section) {
-    case .info:
+    switch sectionType(for: section) {
+    case .info, .description, .delete:
       return 1
-    case .description, .delete:
-      return 1
+    case .color:
+      return colorActions.count
     default:
       fatalError()
     }
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    switch Sections(rawValue: indexPath.section) {
+    switch sectionType(for: indexPath.section) {
     case .info:
       switch InfoSectionRows(rawValue: indexPath.row) {
       case .title:
@@ -84,6 +123,11 @@ final class CategorySettingsViewController: MWMTableViewController {
         noteCell = cell
         return cell
       }
+    case .color:
+      let cell = tableView.dequeueDefaultCell(for: indexPath)
+      cell.textLabel?.text = colorActions[indexPath.row].title
+      cell.accessoryType = .disclosureIndicator
+      return cell
     case .delete:
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
       cell.configure(with: self,
@@ -108,6 +152,37 @@ final class CategorySettingsViewController: MWMTableViewController {
     }
 
     delegate?.categorySettingsController(self, didEndEditing: bookmarkGroup.categoryId)
+  }
+
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+
+    guard sectionType(for: indexPath.section) == .color else { return }
+    openColorPicker(for: colorActions[indexPath.row])
+  }
+
+  private func sectionType(for section: Int) -> Sections? {
+    guard sections.indices.contains(section) else { return nil }
+    return sections[section]
+  }
+
+  private func openColorPicker(for colorAction: ColorAction) {
+    ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(nil)) { [weak self] color in
+      guard
+        let self,
+        let bookmarkColor = BookmarkColor.bookmarkColor(from: color)
+      else {
+        return
+      }
+
+      switch colorAction {
+      case .bookmarks:
+        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, bookmarksColor: bookmarkColor)
+      case .tracks:
+        BookmarksManager.shared().setCategory(self.bookmarkGroup.categoryId, tracksColor: bookmarkColor)
+      }
+      Toast.show(withText: colorAction.toastMessage, alignment: .top)
+    }
   }
 }
 

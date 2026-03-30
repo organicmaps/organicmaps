@@ -24727,7 +24727,7 @@ zh-Hant = 要增加新書籤，請點擊對象卡片中的星型圖標
 
 [change_all_bookmarks_color]
 comment = Button to change the color of all bookmarks in the current list
-tags = android-app
+tags = android-app,apple-maps
 en = Change color of all bookmarks
 af = Verander die kleur van alle boekmerke
 ar = تغيير لون جميع الإشارات المرجعية
@@ -24782,7 +24782,7 @@ zh-Hant = 更改所有書籤顏色
 
 [change_all_tracks_color]
 comment = Button to change the color of all tracks in the current list
-tags = android-app
+tags = android-app,apple-maps
 en = Change color of all tracks
 af = Verander die kleur van alle spore
 ar = تغيير لون جميع المسارات
@@ -41735,7 +41735,7 @@ zh-Hant = 最近使用
 
 [toast_bookmarks_color_changed]
 comment = Toast message shown when bookmark colors are changed in category settings
-tags = android-app
+tags = android-app,apple-maps
 en = Bookmarks color changed
 af = Boekmerkkleur is verander
 ar = تم تغيير لون الإشارات المرجعية
@@ -41790,7 +41790,7 @@ zh-Hant = 書籤顏色已更改
 
 [toast_tracks_color_changed]
 comment = Toast message shown when track colors are changed in category settings
-tags = android-app
+tags = android-app,apple-maps
 en = Tracks color changed
 af = Spoorkleur is verander
 ar = تم تغيير لون المسارات
