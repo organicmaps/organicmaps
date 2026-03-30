@@ -3652,12 +3652,8 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, size_t colorIndex)
+void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
 {
-  CHECK_LESS(colorIndex, kml::kOrderedPredefinedColors.size(), ());
-
-  // Change all bookmarks to this color
-  auto const color = kml::kOrderedPredefinedColors[colorIndex];
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
   for (auto const markId : markIds)
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))
@@ -3665,16 +3661,12 @@ void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId gr
   m_bmManager.SetLastEditedBmColor(color);
 }
 
-void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, size_t colorIndex)
+void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
 {
-  CHECK_LESS(colorIndex, kml::kOrderedPredefinedColors.size(), ());
-
-  // Change all tracks to this color
-  auto const color = kml::ColorFromPredefinedColor(kml::kOrderedPredefinedColors[colorIndex]);
+  auto const dpColor = ColorFromPredefinedColor(color);
   auto const & trackIds = m_bmManager.GetTrackIds(groupId);
   for (auto const trackId : trackIds)
-    if (auto * track = m_bmManager.GetTrackForEdit(trackId))
-      track->SetColor(color);
+    EditSession::ChangeTrackColor(trackId, dpColor);
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
