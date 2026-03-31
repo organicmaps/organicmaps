@@ -46,8 +46,6 @@
 
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/mwm_version.hpp"
-#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -63,15 +61,12 @@
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/triangle2d.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
-
-#include "defines.hpp"
 
 #include <algorithm>
 
@@ -303,6 +298,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      m_routingManager.RoutingSession())
   , m_lastReportedCountry(kInvalidCountryId)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
+  , m_selectionProcessor(*this)
 {
   // Editor should be initialized from the main thread to set its ThreadChecker.
   // However, search calls editor upon initialization thus setting the lazy editor's ThreadChecker
@@ -600,7 +596,7 @@ void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info 
     types.push_back(cl.GetTypeForIndex(i));
   std::sort(types.begin(), types.end());
 
-  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
+  GetSelectionProcessor().FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
   {
     if (types.empty() || ft.GetTypesCount() != types.size())
       return false;
@@ -648,7 +644,7 @@ void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   default: CHECK(false, ("Unexpected user mark type", mark->GetMarkType()));
   }
 
-  SetPlacePageLocation(outInfo);
+  GetSelectionProcessor().SetPlacePageLocation(outInfo);
 }
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
@@ -695,25 +691,6 @@ search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const &
   return addr;
 }
 
-void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
-{
-  if (!fid.IsValid())
-  {
-    LOG(LERROR, ("FeatureID is invalid:", fid));
-    return;
-  }
-
-  FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
-  auto ft = guard.GetFeatureByIndex(fid.m_index);
-  if (!ft)
-  {
-    LOG(LERROR, ("Feature can't be loaded:", fid));
-    return;
-  }
-
-  FillInfoFromFeatureType(*ft, info);
-}
-
 bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & mercator, place_page::Info & outInfo)
 {
   auto & bm = GetBookmarkManager();
@@ -757,80 +734,9 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   return true;
 }
 
-void Framework::FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
-                              std::string const & customTitle /* = {} */,
-                              FeatureMatcher && matcher /* = nullptr */) const
-{
-  auto const fid = GetFeatureAtPoint(mercator, std::move(matcher));
-  if (fid.IsValid())
-  {
-    m_featuresFetcher.GetDataSource().ReadFeature([&](FeatureType & ft) { FillInfoFromFeatureType(ft, info); }, fid);
-    // This line overwrites mercator center from area feature which can be far away.
-    info.SetMercator(mercator);
-  }
-  else
-  {
-    FillNotMatchedPlaceInfo(info, mercator, customTitle);
-  }
-}
-
-void Framework::FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD const & mercator,
-                                        std::string const & customTitle /* = {} */) const
-{
-  if (customTitle.empty())
-    info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("core_placepage_unknown_place"));
-  else
-    info.SetCustomName(customTitle);
-  info.SetCanEditOrAdd(CanEditMapForPosition(mercator));
-  info.SetMercator(mercator);
-}
-
-void Framework::FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator,
-                                 place_page::Info & info) const
-{
-  info.SetCustomNames(postcode, m_stringsBundle.GetString("postal_code"));
-  info.SetMercator(mercator);
-}
-
-void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const
-{
-  using namespace ftypes;
-
-  auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Deleted features cannot be selected from UI."));
-  info.SetFeatureStatus(featureStatus);
-
-  if (IsAddressObjectChecker::Instance()(ft))
-    info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
-
-  info.SetFromFeatureType(ft);
-
-  FillDescriptions(ft, info);
-
-  auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
-  bool const isMapVersionEditable = CanEditMapForPosition(info.GetMercator());
-  bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && isMapVersionEditable;
-  info.SetCanEditOrAdd(canEditOrAdd);
-
-  // Fill countryId for place page info
-  auto const locType = IsLocalityChecker::Instance().GetType(info.GetTypes());
-  if (locType == LocalityType::State || locType == LocalityType::Country)
-  {
-    // countryId may be empty after all
-    CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-    CountriesVec countries;
-    GetStorage().GetTopmostNodesFor(countryId, countries, locType == LocalityType::State ? 1 : 0 /* level */);
-    if (countries.size() == 1)
-      countryId = countries.front();
-
-    info.SetCountryId(countryId);
-    info.SetTopmostCountryIds(std::move(countries));
-  }
-}
-
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
 {
-  FillPointInfo(info, api.GetPivot());
+  GetSelectionProcessor().FillPointInfo(info, api.GetPivot());
   std::string const & name = api.GetName();
   if (!name.empty())
     info.SetCustomName(name);
@@ -841,9 +747,9 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
 {
   if (smp.GetFeatureID().IsValid())
-    FillFeatureInfo(smp.GetFeatureID(), info);
+    GetSelectionProcessor().FillFeatureInfo(smp.GetFeatureID(), info);
   else
-    FillPointInfo(info, smp.GetPivot(), smp.GetMatchedName());
+    GetSelectionProcessor().FillPointInfo(info, smp.GetPivot(), smp.GetMatchedName());
 }
 
 void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const
@@ -852,7 +758,7 @@ void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInf
   CHECK(position, ());
   info.SetMercator(*position);
   info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
-  info.SetCanEditOrAdd(CanEditMapForPosition(*position));
+  info.SetCanEditOrAdd(GetSelectionProcessor().CanEditMapForPosition(*position));
 
   UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
@@ -866,7 +772,7 @@ void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInf
 
 void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const
 {
-  FillPointInfo(info, rmp.GetPivot());
+  GetSelectionProcessor().FillPointInfo(info, rmp.GetPivot());
   info.SetIsRoutePoint();
   info.SetRouteMarkType(rmp.GetRoutePointType());
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
@@ -887,7 +793,7 @@ void Framework::FillSpeedCameraMarkInfo(SpeedCameraMark const & speedCameraMark,
 
 void Framework::FillTransitMarkInfo(TransitMark const & transitMark, place_page::Info & info) const
 {
-  FillFeatureInfo(transitMark.GetFeatureID(), info);
+  GetSelectionProcessor().FillFeatureInfo(transitMark.GetFeatureID(), info);
   /// @todo Add useful info in PP for TransitMark (public transport).
 }
 
@@ -899,7 +805,7 @@ void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place
     auto ft = guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index);
     if (ft)
     {
-      FillInfoFromFeatureType(*ft, info);
+      GetSelectionProcessor().FillInfoFromFeatureType(*ft, info);
 
       info.SetRoadType(*ft, roadTypeMark.GetRoadWarningType(),
                        RoadWarningMark::GetLocalizedRoadWarningType(roadTypeMark.GetRoadWarningType()),
@@ -1413,7 +1319,6 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   case Result::Type::Postcode:
     info.m_mercator = result.GetFeatureCenter();
     info.m_match = place_page::BuildInfo::Match::Nothing;
-    info.m_postcode = result.GetString();
     scale = scales::GetUpperComfortScale();
     break;
 
@@ -1425,6 +1330,10 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   }
 
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
+
+  if (result.GetResultType() == Result::Type::Postcode)
+    m_currentPlacePageInfo->SetCustomNames(result.GetString(), m_stringsBundle.GetString("postal_code"));
+
   if (m_drapeEngine)
   {
     if (scale < 0)
@@ -1978,63 +1887,9 @@ url_scheme::InAppFeatureHighlightRequest Framework::GetInAppFeatureHighlightRequ
   return m_parsedMapApi.GetInAppFeatureHighlightRequest();
 }
 
-FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher && matcher /* = nullptr */) const
+FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
 {
-  FeatureID fullMatch, poi, line, area;
-  bool haveBuilding = false;
-  double closestDistanceToCenter = std::numeric_limits<double>::max();
-
-  auto const & isIsoline = ftypes::IsIsolineChecker::Instance();
-  auto const & isCoastline = ftypes::IsCoastlineChecker::Instance();
-  auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
-
-  indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), [&](FeatureType & ft)
-  {
-    if (fullMatch.IsValid())
-      return;
-
-    if (matcher && matcher(ft))
-    {
-      fullMatch = ft.GetID();
-      return;
-    }
-
-    switch (ft.GetGeomType())
-    {
-    case feature::GeomType::Point: poi = ft.GetID(); break;
-    case feature::GeomType::Line:
-      // Skip/ignore isolines.
-      if (isIsoline(ft))
-        return;
-      line = ft.GetID();
-      break;
-    case feature::GeomType::Area:
-    {
-      // Buildings have higher priority over other types.
-      if (haveBuilding)
-        return;
-
-      // Skip/ignore coastlines.
-      feature::TypesHolder types(ft);
-      if (isCoastline(types))
-        return;
-
-      haveBuilding = isBuilding(types);
-      double const currentDistance = mercator::DistanceOnEarth(mercator, feature::GetCenter(ft));
-      // Choose the first matching building or, if no buildings are matched,
-      // the first among the closest matching non-buildings.
-      if (!haveBuilding && currentDistance >= closestDistanceToCenter)
-        return;
-
-      area = ft.GetID();
-      closestDistanceToCenter = currentDistance;
-      break;
-    }
-    case feature::GeomType::Undefined: ASSERT(false, ("case feature::Undefined")); break;
-    }
-  }, mercator);
-
-  return fullMatch.IsValid() ? fullMatch : (poi.IsValid() ? poi : (line.IsValid() ? line : area));
+  return GetSelectionProcessor().GetFeatureAtPoint(mercator);
 }
 
 osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const
@@ -2299,6 +2154,7 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   place_page::Info outInfo;
   outInfo.SetBuildInfo(buildInfo);
 
+  // 1. User Bookmarks.
   if (buildInfo.IsUserMarkMatchingEnabled())
   {
     UserMark const * mark = nullptr;
@@ -2320,30 +2176,46 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     }
   }
 
+  auto const & sp = GetSelectionProcessor();
+
+  // 2. My position.
   if (buildInfo.m_isMyPosition)
   {
     outInfo.SetSelectedObject(df::SelectionShape::OBJECT_MY_POSITION);
     FillMyPositionInfo(outInfo, buildInfo);
-    SetPlacePageLocation(outInfo);
+    sp.SetPlacePageLocation(outInfo);
     return outInfo;
   }
 
-  if (!buildInfo.m_postcode.empty())
-  {
-    outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
-    FillPostcodeInfo(buildInfo.m_postcode, buildInfo.m_mercator, outInfo);
-    GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
-    SetPlacePageLocation(outInfo);
-
-    return outInfo;
-  }
-
-  FeatureID selectedFeature = buildInfo.m_featureId;
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
 
-  // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
-  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
-      !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
+  // 3. Feature explicitly set (drape overlay tap or search result) -> possible fallback to Bookmark.
+  if (buildInfo.m_featureId.IsValid())
+  {
+    sp.FillFeatureInfo(buildInfo.m_featureId, outInfo);
+
+    if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark())
+    {
+      double constexpr kEps = 1e-7;
+      auto const rect = df::TapInfo::GetPreciseTapRect(outInfo.GetMercator(), kEps);
+      UserMark const * mark = GetBookmarkManager().FindNearestUserMark([&rect](UserMark::Type) { return rect; },
+                                                                       [](UserMark::Type) { return true; });
+      if (mark)
+      {
+        FillUserMarkInfo(mark, outInfo);
+        sp.SetPlacePageLocation(outInfo);
+        return outInfo;
+      }
+    }
+
+    outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
+    GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
+    sp.SetPlacePageLocation(outInfo);
+    return outInfo;
+  }
+
+  // 4. User Tracks. Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
+  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled())
   {
     Track::TrackSelectionInfo trackSelectionInfo;
     if (buildInfo.m_trackId != kml::kInvalidTrackId)
@@ -2360,53 +2232,67 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     }
   }
 
-  bool isBuildingSelected = false;
-  if (isFeatureMatchingEnabled && !selectedFeature.IsValid())
+  // 5. Find and classify features in tap rect.
+  if (isFeatureMatchingEnabled)
   {
-    selectedFeature = FindBuildingAtPoint(buildInfo.m_mercator);
-    isBuildingSelected = selectedFeature.IsValid();
-  }
-
-  if (selectedFeature.IsValid())
-  {
-    // Selection circle should match feature
-    FillFeatureInfo(selectedFeature, outInfo);
-
-    if (isBuildingSelected)
-      outInfo.SetMercator(buildInfo.m_mercator);  // Move selection circle to the tap position inside a building.
-    else if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark())
+    m2::RectD searchRect;
+    double lineDistThresholdM;
+    if (m_drapeEngine != nullptr)
     {
-      // Search for a user mark at POI position instead of tap position (an icon or text label was tapped).
-      double constexpr kEps = 1e-7;
-      auto const rect = df::TapInfo::GetPreciseTapRect(outInfo.GetMercator(), kEps);
-      UserMark const * mark = GetBookmarkManager().FindNearestUserMark([&rect](UserMark::Type) { return rect; },
-                                                                       [](UserMark::Type) { return true; });
-      if (mark)
+      auto const tapRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
+      searchRect = tapRect.GetGlobalRect();
+      lineDistThresholdM =
+          mercator::DistanceOnEarth(searchRect.Center(), {searchRect.RightTop().x, searchRect.Center().y});
+    }
+    else
+    {
+      // Fallback when drape engine is not available (e.g. search result selection).
+      constexpr double kFallbackRadiusM = 20.0;
+      searchRect = mercator::RectByCenterXYAndSizeInMeters(buildInfo.m_mercator, kFallbackRadiusM);
+      lineDistThresholdM = kFallbackRadiusM;
+    }
+
+    auto const tap = sp.FindFeaturesInRect(buildInfo.m_mercator, searchRect, lineDistThresholdM);
+
+    // Priority: Building > Route relation track > Line > Area.
+    if (tap.m_building.IsValid() && GetDrawScale() >= m_minBuildingsTapZoom)
+    {
+      sp.FillFeatureInfo(tap.m_building, outInfo);
+      outInfo.SetMercator(buildInfo.m_mercator);  // Move selection circle to the tap position inside a building.
+    }
+    else
+    {
+      // Try building a route relation track from line candidates (closest first).
+      for (auto const & [dist, fid] : tap.m_lineCandidates)
       {
-        FillUserMarkInfo(mark, outInfo);
-        SetPlacePageLocation(outInfo);
-        return outInfo;
+        if (TryBuildRelationTrack(fid, buildInfo.m_mercator, outInfo))
+        {
+          sp.SetPlacePageLocation(outInfo);
+          return outInfo;
+        }
+      }
+
+      auto const bestFeature = tap.m_bestLine.IsValid() ? tap.m_bestLine : tap.m_bestArea;
+      if (bestFeature.IsValid())
+      {
+        sp.FillFeatureInfo(bestFeature, outInfo);
+        outInfo.SetMercator(buildInfo.m_mercator);
+      }
+      else
+      {
+        sp.FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
       }
     }
   }
   else
   {
-    if (isFeatureMatchingEnabled)
-      FillPointInfo(outInfo, buildInfo.m_mercator, {});
-    else
-      FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
+    sp.FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
   }
 
-  if (!selectedFeature.IsValid() && TryBuildRelationTrack(outInfo.GetID(), buildInfo.m_mercator, outInfo))
-  {
-    SetPlacePageLocation(outInfo);
-    return outInfo;
-  }
-
+  // 6. Empty place / final POI setup.
   outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
   GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
-  SetPlacePageLocation(outInfo);
-
+  sp.SetPlacePageLocation(outInfo);
   return outInfo;
 }
 
@@ -3117,8 +3003,7 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
 
 bool Framework::CanEditMapForPosition(m2::PointD const & position) const
 {
-  ASSERT(m_infoGetter, ("CountryInfoGetter shouldn't be nullprt."));
-  return GetStorage().IsAllowedToEditVersion(m_infoGetter->GetRegionCountryId(position));
+  return GetSelectionProcessor().CanEditMapForPosition(position);
 }
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
@@ -3440,60 +3325,6 @@ void Framework::InitRouting()
   m_routingManager.Init(routing::CreateNumMwmIds(m_storage));
 
   LOG(LDEBUG, ("Routing initialized"));
-}
-
-void Framework::SetPlacePageLocation(place_page::Info & info)
-{
-  ASSERT(m_infoGetter, ());
-
-  // countryId may be empty after all
-  if (info.GetCountryId().empty())
-    info.SetCountryId(m_infoGetter->GetRegionCountryId(info.GetMercator()));
-
-  if (info.GetTopmostCountryIds().empty())
-  {
-    CountriesVec countries;
-    GetStorage().GetTopmostNodesFor(info.GetCountryId(), countries);
-    info.SetTopmostCountryIds(std::move(countries));
-  }
-}
-
-void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) const
-{
-  if (!ft.GetID().m_mwmId.IsAlive())
-    return;
-
-  auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage());
-  auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
-
-  std::string wikiDescription = m_descriptionsLoader->GetWikiDescription(ft.GetID(), langPriority);
-  if (!wikiDescription.empty())
-  {
-    info.SetWikiDescription(std::move(wikiDescription));
-    info.SetOpeningMode(m_routingManager.IsRoutingActive() ? place_page::OpeningMode::Preview
-                                                           : place_page::OpeningMode::PreviewPlus);
-  }
-
-  std::string_view const osmDescriptionValue = ft.GetMetadata(feature::Metadata::FMD_DESCRIPTION);
-  if (osmDescriptionValue.empty())
-    return;
-
-  LangsBufferT langCodes;
-  for (auto const & lang : languages::GetSystemPreferred())
-  {
-    auto const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(lang));
-    if (code != StringUtf8Multilang::kUnsupportedLanguageCode)
-      langCodes.push_back(code);
-  }
-  langCodes.push_back(StringUtf8Multilang::kDefaultCode);
-  langCodes.push_back(StringUtf8Multilang::kEnglishCode);
-
-  auto const osmDescriptionMultilang = StringUtf8Multilang::FromBuffer(std::string(osmDescriptionValue));
-  std::string_view osmDescription = osmDescriptionMultilang.GetBestString(langCodes);
-  if (osmDescription.empty())
-    osmDescription = osmDescriptionMultilang.GetFirstString();
-  info.SetOSMDescription(std::string(osmDescription));
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
