@@ -5,6 +5,8 @@
 /android/ @organicmaps/android
 # no owner for translation changes
 /android/app/src/main/res/values*/strings.xml
+/android/sdk/src/main/res/values*/strings.xml
+/android/sdk/src/main/res/values*/types_strings.xml
 
 # iOS (catch-all — must precede ios-specific overrides).
 /iphone/ @organicmaps/ios
