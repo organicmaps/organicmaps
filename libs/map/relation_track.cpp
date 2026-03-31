@@ -216,20 +216,28 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMembe
     if (ft->GetGeomType() != feature::GeomType::Line)
       continue;
 
-    if (ftIdx == m_fid.m_index)
-      startIdx = result.size();
-
     ft->ParseGeometry(scales::GetUpperScale());
-    size_t const pointCount = ft->GetPointsCount();
-    ASSERT_GREATER(pointCount, 1, ());
+    size_t const pointsCount = ft->GetPointsCount();
+    ASSERT_GREATER(pointsCount, 1, ());
 
-    geometry::Altitudes alts = altLoader.GetAltitudes(ftIdx, pointCount);
-    ASSERT_EQUAL(pointCount, alts.size(), ());
+    geometry::Altitudes const alts = altLoader.GetAltitudes(ftIdx, pointsCount);
+    ASSERT_EQUAL(pointsCount, alts.size(), ());
 
     TrackGeometry line;
-    line.reserve(pointCount);
-    for (size_t j = 0; j < pointCount; ++j)
-      line.emplace_back(ft->GetPoint(j), alts[j]);
+    line.reserve(pointsCount);
+    line.emplace_back(ft->GetPoint(0), alts[0]);
+    for (size_t j = 1; j < pointsCount; ++j)
+    {
+      /// @todo We still have equal points in Line Feature from MWM.
+      if (!line.back().GetPoint().EqualDxDy(ft->GetPoint(j), kMwmPointAccuracy))
+        line.emplace_back(ft->GetPoint(j), alts[j]);
+    }
+
+    if (line.size() < 2)
+      continue;
+
+    if (ftIdx == m_fid.m_index)
+      startIdx = result.size();
 
     result.push_back(std::move(line));
   }
