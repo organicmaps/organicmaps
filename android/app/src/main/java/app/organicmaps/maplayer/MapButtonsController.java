@@ -28,6 +28,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
+import app.organicmaps.sdk.location.LocationCompatExtractor;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.TrackRecorder;
@@ -63,6 +64,8 @@ public class MapButtonsController extends Fragment
   FloatingActionButton mTrackRecordingStatusButton;
   @Nullable
   private TextView mAltitudeView;
+  @Nullable
+  private LocationHelper mLocationHelper;
 
   @Nullable
   private MyPositionButton mNavMyPosition;
@@ -83,8 +86,16 @@ public class MapButtonsController extends Fragment
     {
       if (mAltitudeView == null)
         return;
-      mAltitudeView.setText(Framework.nativeFormatAltitude(location.getAltitude()));
-      UiUtils.show(mAltitudeView);
+      final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(location);
+      if (altitude != null)
+      {
+        mAltitudeView.setText(Framework.nativeFormatAltitude(altitude.altitude()));
+        UiUtils.show(mAltitudeView);
+      }
+      else
+      {
+        UiUtils.hide(mAltitudeView);
+      }
     }
 
     @Override
@@ -97,7 +108,10 @@ public class MapButtonsController extends Fragment
 
     @Override
     public void onLocationDisabled()
-    {}
+    {
+      if (mAltitudeView != null)
+        UiUtils.hide(mAltitudeView);
+    }
   };
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;
@@ -456,7 +470,8 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getSearchOption().observe(viewLifecycleOwner, mSearchOptionObserver);
     mMapButtonsViewModel.getTrackRecorderState().observe(viewLifecycleOwner, mTrackRecorderObserver);
     mMapButtonsViewModel.getTopButtonsMarginTop().observe(viewLifecycleOwner, mTopButtonMarginObserver);
-    MwmApplication.from(requireActivity()).getLocationHelper().addListener(mLocationListener);
+    mLocationHelper = MwmApplication.from(requireActivity()).getLocationHelper();
+    mLocationHelper.addListener(mLocationListener);
   }
 
   public void onResume()
@@ -493,7 +508,11 @@ public class MapButtonsController extends Fragment
       mBlinkingAnimator.cancel();
       mBlinkingAnimator = null;
     }
-    MwmApplication.from(requireActivity()).getLocationHelper().removeListener(mLocationListener);
+    if (mLocationHelper != null)
+    {
+      mLocationHelper.removeListener(mLocationListener);
+      mLocationHelper = null;
+    }
   }
 
   public void onSearchOptionChange(@Nullable SearchWheel.SearchOption searchOption)

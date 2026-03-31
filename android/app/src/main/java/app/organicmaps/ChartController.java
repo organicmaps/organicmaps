@@ -16,7 +16,6 @@ import app.organicmaps.widget.placepage.FloatingMarkerView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class ChartController implements OnChartValueSelectedListener
     mTrack = track;
     List<Entry> values = new ArrayList<>();
     for (ElevationInfo.Point point : info.getPoints())
-      values.add(new Entry((float) point.getDistance(), point.getAltitude()));
+      values.add(new Entry((float) point.getDistance(), point.getAltitude(), point));
 
     ElevationChartUtils.setChartData(mChart, values, mContext);
 
@@ -82,22 +81,10 @@ public class ChartController implements OnChartValueSelectedListener
     mChart.setTouchEnabled(mTrack != null);
   }
 
-  private float interpolateAltitude(float distance)
+  @Override
+  public void onValueSelected(Entry e, Highlight h)
   {
-    if (mChart.getData() == null || mChart.getData().getDataSetCount() == 0)
-      return 0f;
-    if (!(mChart.getData().getDataSetByIndex(0) instanceof LineDataSet set))
-      return 0f;
-    return ElevationChartUtils.interpolateY(set.getValues(), distance);
-  }
-
-  private void selectAtDistance(float distance, boolean informCore)
-  {
-    float altitude = interpolateAltitude(distance);
-    Entry interpolated = new Entry(distance, altitude);
-    Highlight h = new Highlight(distance, altitude, 0);
-
-    mFloatingMarkerView.updateOffsets(interpolated, h);
+    mFloatingMarkerView.updateOffsets(e, h);
     if (mTrack == null)
       return;
 
@@ -108,22 +95,16 @@ public class ChartController implements OnChartValueSelectedListener
     else
       mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
 
-    if (informCore)
-      BookmarkManager.INSTANCE.setElevationActivePoint(mTrack.getTrackId(), distance);
-  }
-
-  @Override
-  public void onValueSelected(Entry e, Highlight h)
-  {
-    selectAtDistance(h.getX(), mInformSelectedActivePointToCore);
+    if (mInformSelectedActivePointToCore)
+      BookmarkManager.INSTANCE.setElevationActivePoint(mTrack.getTrackId(), e.getX(),
+                                                       (ElevationInfo.Point) e.getData());
     mInformSelectedActivePointToCore = true;
   }
 
   @NonNull
   private Highlight getCurrentPosHighlight()
   {
-    float distance = (float) mTrack.getElevationCurPositionDistance();
-    return new Highlight(distance, interpolateAltitude(distance), 0);
+    return new Highlight((float) mTrack.getElevationCurPositionDistance(), 0f, 0);
   }
 
   @Override
@@ -169,7 +150,7 @@ public class ChartController implements OnChartValueSelectedListener
   @NonNull
   private Highlight getActivePoint()
   {
-    float activeX = (float) mTrack.getElevationActivePointDistance();
-    return new Highlight(activeX, interpolateAltitude(activeX), 0);
+    double activeX = mTrack.getElevationActivePointDistance();
+    return new Highlight((float) activeX, 0f, 0);
   }
 }

@@ -18,10 +18,12 @@ import java.util.List;
 public final class ElevationChartUtils
 {
   public static final int TRACK_X_LABEL_COUNT = 6;
+  public static final int ROUTE_X_LABEL_COUNT = 3;
 
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
   private static final int CHART_AXIS_GRANULARITY = 100;
+
   private static final String ELEVATION_PROFILE_POINTS = "ELEVATION_PROFILE_POINTS";
 
   private ElevationChartUtils() {}
@@ -30,15 +32,13 @@ public final class ElevationChartUtils
   {
     chart.setBackgroundColor(ThemeUtils.getColor(context, R.attr.cardBackground));
     chart.setTouchEnabled(true);
-    chart.setHighlightPerDragEnabled(true);
-    chart.setHighlighter(new InterpolatingHighlighter(chart));
-    chart.setRenderer(new SmoothLineChartRenderer(chart, chart.getAnimator(), chart.getViewPortHandler()));
     chart.setDrawGridBackground(false);
     chart.setScaleXEnabled(true);
     chart.setScaleYEnabled(false);
     chart.setExtraTopOffset(0);
     int sideOffset = context.getResources().getDimensionPixelSize(R.dimen.margin_base);
-    chart.setViewPortOffsets(sideOffset, 0, sideOffset,
+    int topOffset = 0;
+    chart.setViewPortOffsets(sideOffset, topOffset, sideOffset,
                              context.getResources().getDimensionPixelSize(R.dimen.margin_base_plus_quarter));
     chart.getDescription().setEnabled(false);
     chart.setDrawBorders(false);
@@ -98,32 +98,5 @@ public final class ElevationChartUtils
     data.setDrawValues(false);
     chart.setData(data);
     chart.animateX(0);
-    // Reset zoom after layout to handle viewport size changes on rotation.
-    chart.post(chart::fitScreen);
-  }
-
-  public static float interpolateY(@NonNull List<Entry> entries, float xVal)
-  {
-    if (entries.isEmpty())
-      return 0f;
-
-    if (xVal <= entries.get(0).getX())
-      return entries.get(0).getY();
-
-    for (int i = 1; i < entries.size(); i++)
-    {
-      Entry cur = entries.get(i);
-      if (xVal <= cur.getX())
-      {
-        Entry prev = entries.get(i - 1);
-        float segLen = cur.getX() - prev.getX();
-        if (segLen < 1e-9f)
-          return prev.getY();
-        float fraction = (xVal - prev.getX()) / segLen;
-        return prev.getY() + fraction * (cur.getY() - prev.getY());
-      }
-    }
-
-    return entries.get(entries.size() - 1).getY();
   }
 }

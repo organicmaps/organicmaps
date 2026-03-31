@@ -10,7 +10,7 @@
     <!-- Background -->
     <item android:bottom="2dp" android:right="2dp">
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/white" />
+            <solid android:color="@color/bg_cards" />
             <corners android:radius="4dp" />
         </shape>
     </item>

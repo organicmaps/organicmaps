@@ -1272,12 +1272,13 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
     return nullptr;
   }
 
+  // Calculate ascent/descent before simplification to avoid losing intermediate elevation changes.
   auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
 
   ei.Simplify();
 
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
-  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[I[D[D)V");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[I[D[DII)V");
 
   // Collect simplified data from ElevationInfo.
   std::vector<double> distances;
@@ -1297,18 +1298,23 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(
   jsize const size = static_cast<jsize>(distances.size());
 
   jdoubleArray jDistances = env->NewDoubleArray(size);
+  CHECK(jDistances, ());
   env->SetDoubleArrayRegion(jDistances, 0, size, distances.data());
 
   jintArray jElevs = env->NewIntArray(size);
+  CHECK(jElevs, ());
   env->SetIntArrayRegion(jElevs, 0, size, elevations.data());
 
   jdoubleArray jLats = env->NewDoubleArray(size);
+  CHECK(jLats, ());
   env->SetDoubleArrayRegion(jLats, 0, size, lats.data());
 
   jdoubleArray jLons = env->NewDoubleArray(size);
+  CHECK(jLons, ());
   env->SetDoubleArrayRegion(jLons, 0, size, lons.data());
 
-  return env->NewObject(dataClass, constructor, jDistances, jElevs, jLats, jLons);
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, jLats, jLons,
+                        static_cast<jint>(altInfo.GetTotalAscent()), static_cast<jint>(altInfo.GetTotalDescent()));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass, jdouble lat,
@@ -1325,77 +1331,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActi
 {
   if (frm()->GetDrapeEngine() != nullptr)
     frm()->GetDrapeEngine()->DeselectObject(false);
-}
-
-JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass,
-                                                                                            jint width, jint height,
-                                                                                            jobject routeAltitudeLimits)
-{
-  ElevationInfo ei;
-  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
-  {
-    LOG(LWARNING, ("Can't get distance to route points and altitude."));
-    return nullptr;
-  }
-
-  std::vector<uint8_t> imageRGBAData;
-  if (!ChartGenerator(ei).Generate(width, height, imageRGBAData))
-  {
-    LOG(LWARNING, ("Can't generate route altitude image."));
-    return nullptr;
-  }
-
-  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-
-  jni::TScopedLocalRef const totalAscentString(
-      env, jni::ToJavaString(env, platform::Distance::FormatAltitude(altInfo.GetTotalAscent())));
-  jni::TScopedLocalRef const totalDescentString(
-      env, jni::ToJavaString(env, platform::Distance::FormatAltitude(altInfo.GetTotalDescent())));
-
-  // Do not use jni::GetGlobalClassRef, because this class is used only to init static fieldId vars.
-  static jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
-  ASSERT(routeAltitudeLimitsClass, ());
-
-  static jfieldID const totalAscentStringField =
-      env->GetFieldID(routeAltitudeLimitsClass, "totalAscentString", "Ljava/lang/String;");
-  ASSERT(totalAscentStringField, ());
-  env->SetObjectField(routeAltitudeLimits, totalAscentStringField, totalAscentString.get());
-
-  static jfieldID const totalDescentStringField =
-      env->GetFieldID(routeAltitudeLimitsClass, "totalDescentString", "Ljava/lang/String;");
-  ASSERT(totalDescentStringField, ());
-  env->SetObjectField(routeAltitudeLimits, totalDescentStringField, totalDescentString.get());
-
-  size_t const imageRGBADataSize = imageRGBAData.size();
-  ASSERT_NOT_EQUAL(imageRGBADataSize, 0,
-                   ("ChartGenerator::Generate returns true but the vector with altitude image bits is empty."));
-
-  size_t const pxlCount = width * height;
-  if (ChartGenerator::kBPP * pxlCount != imageRGBADataSize)
-  {
-    LOG(LWARNING,
-        ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBADataSize));
-    return nullptr;
-  }
-
-  jintArray imageRGBADataArray = env->NewIntArray(static_cast<jsize>(pxlCount));
-  ASSERT(imageRGBADataArray, ());
-  jint * arrayElements = env->GetIntArrayElements(imageRGBADataArray, 0);
-  ASSERT(arrayElements, ());
-
-  for (size_t i = 0; i < pxlCount; ++i)
-  {
-    size_t const shiftInBytes = i * ChartGenerator::kBPP;
-    // Type of |imageRGBAData| elements is uint8_t. But uint8_t is promoted to unsinged int in code below before
-    // shifting. So there's no data lost in code below.
-    arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */
-                     | (imageRGBAData[shiftInBytes] << 16)     /* red */
-                     | (imageRGBAData[shiftInBytes + 1] << 8)  /* green */
-                     | (imageRGBAData[shiftInBytes + 2]);      /* blue */
-  }
-  env->ReleaseIntArrayElements(imageRGBADataArray, arrayElements, 0);
-
-  return imageRGBADataArray;
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env, jclass, jstring countryId,
@@ -1889,8 +1824,6 @@ namespace
 JNINativeMethod const frameworkMethods[] = {
     {"nativeGetRouteFollowingInfo", "()Lapp/organicmaps/sdk/routing/RoutingInfo;",
      reinterpret_cast<void *>(&Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo)},
-    {"nativeGetRouteAltitudeData", "()Lapp/organicmaps/sdk/routing/RouteAltitudeData;",
-     reinterpret_cast<void *>(&Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData)},
 };
 }
 
