@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Avbryt";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bokmerk sett";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Spisesteder";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Bobilanlegg";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "bokmerk";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Husk følgende når du følger ruten:";
 "dialog_routing_disclaimer_priority" = "– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;";
 "dialog_routing_disclaimer_precision" = "– Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.";
 "dialog_routing_download_files" = "Last ned nødvendige filer";
 "dialog_routing_download_and_update_all" = "Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Vis";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sortere etter avstand";
 "sort_date" = "Sortere etter dato";
 "sort_name" = "Sorter etter navn";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mat";
 "tourist_places" = "Severdigheter";
 "museums" = "Museer";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Oppdater kartet for å bidra";
 "contribute_to_osm_update_map_description" = "Du må oppdatere %@-kartet til den nyeste versjonen før du kan bidra til OpenStreetMap-dataene";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min posisjon";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Lilla nedlastede regioner";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Logg inn med passord";

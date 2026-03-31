@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Avbryt";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bokmärkessamlingar";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Matmöjligheter";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "För husbil";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med Organic Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://omaps.app/get?kmz \n \nTrevlig resa med Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "bokmärke";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "När du följer vägen, kom ihåg att:";
 "dialog_routing_disclaimer_priority" = "– Vägförhållanden, trafikregler och vägskyltar alltid ska prioriteras över navigeringsråden;";
 "dialog_routing_disclaimer_precision" = "– Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen på;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.";
 "dialog_routing_download_files" = "Ladda ned nödvändiga filer";
 "dialog_routing_download_and_update_all" = "Ladda ned och uppdatera all kart- och väginformation längs den beräknade sträckan för att hitta en rutt.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Visa";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sortera efter avstånd";
 "sort_date" = "Sortera efter datum";
 "sort_name" = "Sortera efter namn";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mat";
 "tourist_places" = "Sevärdheter";
 "museums" = "Museer";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Uppdatera kartan för att bidra";
 "contribute_to_osm_update_map_description" = "Du måste uppdatera %@-kartan till den senaste versionen innan du kan bidra till OpenStreetMap-data";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min position";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Lila nedladdade regioner";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Logga in med lösenord";

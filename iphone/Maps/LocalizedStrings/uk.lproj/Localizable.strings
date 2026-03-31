@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Скасувати";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Списки мiток";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Де поїсти";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для автобудинків";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "мітка";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Під час руху за маршрутом пам'ятайте:";
 "dialog_routing_disclaimer_priority" = "— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;";
 "dialog_routing_disclaimer_precision" = "— Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.";
 "dialog_routing_download_files" = "Завантажте необхідні файли";
 "dialog_routing_download_and_update_all" = "Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Показати";
@@ -859,10 +839,6 @@
 "sort_distance" = "Сортувати за відстанню";
 "sort_date" = "Сортувати за датою";
 "sort_name" = "Сортувати за ім'ям";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Їжа";
 "tourist_places" = "Пам’ятки";
 "museums" = "Музеї";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Оновіть карту, щоб долучитися";
 "contribute_to_osm_update_map_description" = "Ви повинні оновити карту %@ до останньої версії, перш ніж зможете долучитися до даних OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Моє місцезнаходження";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Фіолетові завантажені регіони";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Вхід за допомогою пароля";

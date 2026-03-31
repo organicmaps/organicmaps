@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Одустани";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Листе маркера";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Где јести";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "За кампер возила";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Здраво!\n\nУ прилогу су моји маркери; молим те да их отвориш у Organic Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://omaps.app/get?kmz\n\nУживај у путовању са Organic Maps-ом!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "маркер";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Када пратите руту, обратите пажњу на:";
 "dialog_routing_disclaimer_priority" = "— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;";
 "dialog_routing_disclaimer_precision" = "— Мапа може бити нетачна и предложена рута не мора увек бити најоптималнији начин да стигнете на одредиште;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.";
 "dialog_routing_download_files" = "Преузимање потребних фајлова";
 "dialog_routing_download_and_update_all" = "Преузимање или ажурирање свих мапа које се налазе на предвиђеној путањи ради израчунавања руте.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Прикажи";
@@ -859,10 +839,6 @@
 "sort_distance" = "Сортирање по удаљености";
 "sort_date" = "Сортирање по датуму";
 "sort_name" = "Сортирање по називу";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Храна";
 "tourist_places" = "Атракције";
 "museums" = "Музеји";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Ажурирајте мапу да бисте допринели";
 "contribute_to_osm_update_map_description" = "Морате ажурирати %@ мапу на најновију верзију пре него што можете да допринесете OpenStreetMap подацима";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Моја позиција";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Љубичасти преузети региони";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Пријава са лозинком";
