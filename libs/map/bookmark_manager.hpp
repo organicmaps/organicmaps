@@ -101,22 +101,28 @@ public:
 
   struct CategoryFilesUpdate
   {
-    Platform::FilesList files;
-    Platform::FilesList created;
-    Platform::FilesList updated;
-    Platform::FilesList deleted;
+    Platform::FilesList m_files;
+    Platform::FilesList m_created;
+    Platform::FilesList m_updated;
+    Platform::FilesList m_deleted;
 
-    CategoryFilesUpdate(Platform::FilesList const & files, Platform::FilesList const & created,
-                        Platform::FilesList const & updated, Platform::FilesList const & deleted)
-      : files(std::move(files))
-      , created(std::move(created))
-      , updated(std::move(updated))
-      , deleted(std::move(deleted))
+    CategoryFilesUpdate(Platform::FilesList files, Platform::FilesList created, Platform::FilesList updated,
+                        Platform::FilesList deleted)
+      : m_files(std::move(files))
+      , m_created(std::move(created))
+      , m_updated(std::move(updated))
+      , m_deleted(std::move(deleted))
     {}
   };
 
   using CategoryFilesDidFinishGatheringCallback = std::function<void(Platform::FilesList const &)>;
   using CategoryFilesUpdatedCallback = std::function<void(CategoryFilesUpdate const &)>;
+
+  struct CategoryFilesCallbacks
+  {
+    CategoryFilesDidFinishGatheringCallback m_onDidFinishGathering;
+    CategoryFilesUpdatedCallback m_onUpdated;
+  };
 
   class EditSession
   {
@@ -195,8 +201,7 @@ public:
   void InitRegionAddressGetter(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
-  void SetCategoryFilesDidFinishGatheringCallback(CategoryFilesDidFinishGatheringCallback && callback);
-  void SetCategoryFilesUpdatedCallback(CategoryFilesUpdatedCallback && callback);
+  void SetCategoryFilesCallbacks(CategoryFilesCallbacks callbacks);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -399,7 +404,8 @@ public:
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
-  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
+  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false,
+                        bool notifyCategoryFileChanges = true);
 
   static std::string GetTracksSortedBlockName();
   static std::string GetBookmarksSortedBlockName();
@@ -634,7 +640,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges();
+  void NotifyChanges(bool processCategoryFileChanges = true);
 
   void SaveState() const;
   void LoadState();
@@ -784,10 +790,10 @@ private:
 
   std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
   std::mutex m_regionAddressMutex;
+  std::mutex m_categoryFilesCallbacksMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
-  CategoryFilesDidFinishGatheringCallback m_categoryFilesDidFinishGatheringCallback;
-  CategoryFilesUpdatedCallback m_categoryFilesUpdatedCallback;
+  CategoryFilesCallbacks m_categoryFilesCallbacks;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();
@@ -800,7 +806,7 @@ private:
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksCalled = false;
   bool m_loadBookmarksFinished = false;
-  bool m_categoryFilesDidFinishGathering = false;
+  std::atomic<bool> m_categoryFilesDidFinishGathering = false;
   bool m_firstDrapeNotification = false;
   bool m_notificationsEnabled = true;
 
