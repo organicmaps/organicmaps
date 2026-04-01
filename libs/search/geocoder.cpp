@@ -1866,6 +1866,9 @@ void Geocoder::EmitResult(BaseContext & ctx, FeatureID const & id, Model::Type t
   if (geoParts)
     info.m_geoParts = *geoParts;
 
+  if (!m_postcodes.IsEmpty())
+    info.m_postcodeRange = m_postcodes.m_tokenRange;
+
   info.m_allTokensUsed = allTokensUsed;
   info.m_exactMatch = exactMatch;
 

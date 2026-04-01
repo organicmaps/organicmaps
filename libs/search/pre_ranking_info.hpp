@@ -43,6 +43,9 @@ struct PreRankingInfo
   // Matched parts of the query.
   std::array<TokenRange, Model::TYPE_COUNT> m_tokenRanges;
 
+  // Postcode token range (if any). Stored separately because postcodes don't map to Model::Type.
+  TokenRange m_postcodeRange;
+
   // Different geo-parts extracted from query.
   IntersectionResult m_geoParts;
 

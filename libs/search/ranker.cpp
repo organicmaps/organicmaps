@@ -515,6 +515,35 @@ private:
       bool isAltOrOldName = scores.m_isAltOrOldName;
       auto matchedLength = scores.m_matchedLength;
 
+      // Check if the feature's postcode matches the postcode tokens in the query.
+      // This distinguishes "Nero with postcode G4 9HS" from "Nero near postcode G4 9HS area".
+      if (!preInfo.m_postcodeRange.Empty())
+      {
+        auto const & innerRange = preInfo.InnermostTokenRange();
+        bool const postcodeOverlapsInnerRange =
+            innerRange.Begin() < preInfo.m_postcodeRange.End() && preInfo.m_postcodeRange.Begin() < innerRange.End();
+
+        if (!postcodeOverlapsInnerRange)
+        {
+          auto const postcode = ft.GetMetadata(feature::Metadata::FMD_POSTCODE);
+          if (!postcode.empty())
+          {
+            TokenSlice const slice(m_params, preInfo.m_postcodeRange);
+            NameScores pcScores;
+            UpdateNameScores(postcode, StringUtf8Multilang::kDefaultCode, slice, pcScores);
+
+            /// @todo Still not sure, put min (like for matched Streets/Cities below) or max (like LLM advises) here :)
+            // nameScore = std::max(pcScores.m_nameScore, nameScore);
+            errorsMade += pcScores.m_errorsMade;
+            matchedLength += pcScores.m_matchedLength;
+          }
+        }
+      }
+
+      /// @note! All calls to ft.GetMetadata() or similar getters is UB after this moment.
+      /// updateDependScore -> LoadFeature calls inside, which may replace m_loader and invalidate ft
+      /// loader state (like m_loadInfo->m_metaDeserializer).
+
       auto const updateScoreForFeature = [&](FeatureType & ft, Model::Type type)
       {
         auto const & range = preInfo.m_tokenRanges[type];
