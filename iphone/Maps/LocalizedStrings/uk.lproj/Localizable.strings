@@ -431,10 +431,10 @@
 "dialog_routing_system_error" = "Системна помилка";
 "dialog_routing_application_error" = "Не вдалося прокласти маршрут через помилки програми.";
 "dialog_routing_try_again" = "Спробуйте знову";
-"dialog_routing_download_and_build_cross_route" = "Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?";
+"dialog_routing_download_and_build_cross_route" = "Бажаєте завантажити мапу та побудувати оптимальний маршрут через декілька регіонів?";
 "dialog_routing_download_cross_route" = "Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.";
 "dialog_routing_download_files" = "Завантажте необхідні файли";
-"dialog_routing_download_and_update_all" = "Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.";
+"dialog_routing_download_and_update_all" = "Оновіть або завантажте всі мапи та дані для побудови маршруту.";
 
 
 /********** Strings for downloading map from search **********/
@@ -450,9 +450,9 @@
 "search_not_found" = "На жаль, нічого не знайдено.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Завантажте регіон, де ви шукаєте, або спробуйте додати назву найближчого міста/села.";
+"search_not_found_query" = "Завантажте регіон пошуку або спробуйте вказати назву найближчого міста чи села.";
 "search_history_title" = "Історія пошуку";
-"search_history_text" = "Швидкий доступ до недавніх результатів пошуку.";
+"search_history_text" = "Швидкий доступ до нещодавніх результатів пошуку.";
 "clear_search" = "Очистити історію пошуку";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -470,7 +470,7 @@
 "editor_time_delete" = "Видалити розклад";
 
 /* Text for allday switch. */
-"editor_time_allday" = "Весь день (24 години)";
+"editor_time_allday" = "Увесь день (24 години)";
 "editor_time_open" = "Відчинено";
 "editor_time_close" = "Зачинено";
 "editor_time_add_closed" = "Додати перерву";
@@ -486,7 +486,7 @@
 /* Place Page opening hours text */
 "daily" = "Щоденно";
 "twentyfour_seven" = "Цілодобово";
-"day_off_today" = "Сьогодні зачинено";
+"day_off_today" = "Сьогодні не працює";
 "day_off" = "Зачинено";
 "today" = "Сьогодні";
 "opens_in" = "Відкривається через %@";
@@ -754,29 +754,29 @@
 "opens_dayoftheweek_at" = "Відчиняється в %1$@ о %2$@";
 "opens_at" = "Відкриття о %@";
 "closes_at" = "Закривається о %@";
-"add_opening_hours" = "Додати години роботи";
+"add_opening_hours" = "Додати графік роботи";
 "password_8_chars_min" = "Пароль (мінімум 8 символів)";
 "invalid_username_or_password" = "Невірне ім'я користувача або пароль.";
 "osm_account" = "Обліковий запис OSM";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Остання вiдправка";
+"last_upload" = "Останнє відправлення";
 "thank_you" = "Дякуємо";
 "place_name" = "Назва";
 "phone" = "Телефон";
 "please_note" = "Будь ласка, зверніть увагу";
 "migration_download_error_dialog" = "Помилка завантаження";
-"editor_add_select_category" = "Вибрати категорію";
+"editor_add_select_category" = "Оберіть категорію";
 "editor_add_select_category_popular_subtitle" = "Популярні";
 "editor_add_select_category_all_subtitle" = "Усі категорії";
-"whatsnew_editor_message_1" = "Додати нові місця до мапи і редагувати існуючі місця прямо з програми.";
+"whatsnew_editor_message_1" = "Додавайте нові місця на мапу та редагуйте існуючі просто в застосунку.";
 "dialog_incorrect_feature_position" = "Змініть розташування";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.";
 "editor_sharing_title" = "Я покращив мапи Organic Maps";
-"editor_detailed_description_hint" = "Докладний коментар";
-"editor_detailed_description" = "Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у Organic Maps.";
+"editor_detailed_description_hint" = "Детальний коментар";
+"editor_detailed_description" = "Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати в Organic Maps.";
 "current_location_unknown_error_message" = "Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.";
 "location_services_disabled_header" = "Ідентифікацію місцезнаходження відключено";
 "location_services_disabled_message" = "Увімкніть доступ до геолокації в налаштуваннях цього пристрою";

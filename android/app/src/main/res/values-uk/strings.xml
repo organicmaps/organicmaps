@@ -355,8 +355,8 @@
     <string name="not_now">Не зараз</string>
 
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
-    <string name="search_select_map">Вибрати мапу</string>
+    <string name="search_without_internet_advertisement">Завантажте мапу, щоб шукати об\'єкти та прокладати маршрути без доступу до інтернету.</string>
+    <string name="search_select_map">Обрати мапу</string>
     <!-- «Show» context menu -->
     <string name="show">Показати</string>
     <!-- «Hide» context menu -->
@@ -365,9 +365,9 @@
     <string name="history">Історія</string>
     <string name="search_not_found">На жаль, нічого не знайдено.</string>
     <!-- The message when user did not find anything in the search. -->
-    <string name="search_not_found_query">Завантажте регіон, де ви шукаєте, або спробуйте додати назву найближчого міста/села.</string>
+    <string name="search_not_found_query">Завантажте регіон пошуку або спробуйте вказати назву найближчого міста чи села.</string>
     <string name="search_history_title">Історія пошуку</string>
-    <string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
+    <string name="search_history_text">Швидкий доступ до нещодавніх результатів пошуку.</string>
     <string name="clear_search">Очистити історію пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Вікіпедія</string>
@@ -388,7 +388,7 @@
     <string name="editor_time_add">Додати розклад</string>
     <string name="editor_time_delete">Видалити розклад</string>
     <!-- Text for allday switch. -->
-    <string name="editor_time_allday">Весь день (24 години)</string>
+    <string name="editor_time_allday">Увесь день (24 години)</string>
     <string name="editor_time_open">Відчинено</string>
     <string name="editor_time_close">Зачинено</string>
     <string name="editor_time_add_closed">Додати перерву</string>
@@ -399,18 +399,18 @@
     <string name="editor_example_values">Приклади значень</string>
     <string name="editor_correct_mistake">Виправте помилку</string>
     <string name="editor_add_select_location">Виберіть місце розташування</string>
-    <string name="editor_report_problem_desription_1">Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.</string>
+    <string name="editor_report_problem_desription_1">Будь ласка, докладно опишіть проблему, щоб спільнота OpenStreetMap виправила помилку.</string>
     <string name="editor_report_problem_desription_2">Або зробіть це самостійно на сайті https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Надіслати</string>
     <string name="editor_report_problem_title">Проблема</string>
-    <string name="editor_report_problem_no_place_title">Місце не існує</string>
+    <string name="editor_report_problem_no_place_title">Місця не існує</string>
     <string name="editor_report_problem_under_construction_title">Зачинено на ремонт</string>
-    <string name="editor_report_problem_duplicate_place_title">Дубльовані місця</string>
+    <string name="editor_report_problem_duplicate_place_title">Дублікат місця</string>
     <string name="autodownload">Автоматичне завантаження</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Щоденно</string>
     <string name="twentyfour_seven">Цілодобово</string>
-    <string name="day_off_today">Сьогодні зачинено</string>
+    <string name="day_off_today">Сьогодні не працює</string>
     <string name="day_off">Зачинено</string>
     <string name="today">Сьогодні</string>
     <string name="opens_in">Відкривається через %s</string>
@@ -421,7 +421,7 @@
     <string name="register_at_openstreetmap">Зареєструватися</string>
     <string name="login">Увійти</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
-    <string name="not_signed_in">Не ввійшли</string>
+    <string name="not_signed_in">Вхід не виконано</string>
     <string name="login_osm">Увійдіть до OpenStreetMap</string>
     <string name="password">Пароль</string>
     <string name="forgot_password">Забули пароль?</string>
@@ -698,7 +698,7 @@
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сортувати мітки</string>
     <!-- Android -->
-    <string name="by_default">Усталено</string>
+    <string name="by_default">За замовчуванням</string>
     <!-- Android -->
     <string name="by_type">За типом</string>
     <!-- Android -->
