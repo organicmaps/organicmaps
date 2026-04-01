@@ -932,30 +932,31 @@ UNIT_TEST(Belarus_Kopyl_Minsk)
                                    FromLatLon(53.57253, 27.47209), 82109);
 }
 
-UNIT_TEST(Germany_MaxspeedConditional)
+UNIT_TEST(Lithuania_MaxspeedConditional)
 {
   using namespace platform::tests_support;
 
-  auto const from = FromLatLon(50.853998, 12.837031);
-  auto const to = FromLatLon(50.867373, 12.806966);
+  // A1 motorway
+  auto const from = FromLatLon(54.6860678, 25.0537404);
+  auto const to = FromLatLon(54.7520237, 24.9163073);
 
   auto components = CreateAllMapsComponents(VehicleType::Car, {});
   time_t currentTime;
   components->SetCurrentTimeGetter([&currentTime] { return currentTime; });
 
-  // maxspeed = 100
+  // maxspeed = 110 (Nov-Mar)
   currentTime = GetUnixtimeByDate(2026, Month::Feb, 20, 19, 00);
   TRouteResult result = CalculateRoute(*components, from, {0., 0.}, to);
   TEST_EQUAL(result.second, RouterResultCode::NoError, ());
   auto const eta1 = result.first->GetTotalTimeSec();
 
-  // maxspeed = none
-  currentTime = GetUnixtimeByDate(2026, Month::Feb, 20, 14, 00);
+  // maxspeed = 130
+  currentTime = GetUnixtimeByDate(2026, Month::Apr, 20, 14, 00);
   result = CalculateRoute(*components, from, {0., 0.}, to);
   TEST_EQUAL(result.second, RouterResultCode::NoError, ());
   auto const eta2 = result.first->GetTotalTimeSec();
 
-  TEST_LESS(eta2 * 1.2, eta1, ());
+  TEST_LESS(eta2 * 1.1, eta1, ());
 }
 
 }  // namespace route_test
