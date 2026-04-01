@@ -59,13 +59,13 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="categories">Категорії</string>
     <string name="search_not_found">На жаль, нічого не знайдено.</string>
-    <string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
+    <string name="search_history_text">Швидкий доступ до нещодавніх результатів пошуку.</string>
     <string name="p2p_start">Почати рух</string>
     <!-- Text for allday switch. -->
-    <string name="editor_time_allday">Весь день (24 години)</string>
+    <string name="editor_time_allday">Увесь день (24 години)</string>
     <string name="editor_time_open">Відчинено</string>
     <string name="twentyfour_seven">Цілодобово</string>
-    <string name="day_off_today">Сьогодні зачинено</string>
+    <string name="day_off_today">Сьогодні не працює</string>
     <string name="opens_in">Відкривається через %s</string>
     <string name="closes_in">Зачиняється через %s</string>
     <string name="closed">Зачинено</string>
@@ -86,7 +86,7 @@
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сортувати мітки</string>
     <!-- Android -->
-    <string name="by_default">Усталено</string>
+    <string name="by_default">За замовчуванням</string>
     <!-- Android -->
     <string name="by_type">За типом</string>
     <!-- Android -->
