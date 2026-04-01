@@ -110,7 +110,7 @@ public:
   {
     for (auto const & r : results)
     {
-      auto const ll = mercator::ToLatLon(r.GetFeatureCenter());
+      auto const ll = GetLatLon(r);
       TEST(rect.IsPointInside({ll.m_lon, ll.m_lat}), (r));
     }
   }
@@ -139,9 +139,10 @@ public:
     TEST(found, ());
   }
 
+  static ms::LatLon GetLatLon(search::Result const & r) { return mercator::ToLatLon(r.GetFeatureCenter()); }
   static double GetDistanceM(search::Result const & r, ms::LatLon const & ll)
   {
-    return ms::DistanceOnEarth(ll, mercator::ToLatLon(r.GetFeatureCenter()));
+    return ms::DistanceOnEarth(ll, GetLatLon(r));
   }
 };
 
@@ -766,7 +767,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
       {
         // Fill centers table while processing first city.
         if (!arrCenters[j].IsValid())
-          arrCenters[j] = mercator::ToLatLon(it->GetFeatureCenter());
+          arrCenters[j] = GetLatLon(*it);
       }
     }
   }
@@ -1370,9 +1371,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
-    /// @todo We should rank POIs that are closest to the Postcode on top!
-    // TEST(FromLatLon({55.8736446, -4.2768748}).EqualDxDy(results[0].GetFeatureCenter(), kPointEqualityEps), ());
-    TEST_EQUAL(results[0].GetFeatureType(), cl.GetTypeByPath({"amenity", "cafe"}), ());
+    TEST_ALMOST_EQUAL_ABS(ms::LatLon(55.8736281, -4.27685338), GetLatLon(results[0]), kPointEqualityEps, ());
   }
 
   std::string const houseName = "St. Nicholas Lodge";

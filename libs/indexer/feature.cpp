@@ -896,7 +896,11 @@ std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
   {
     auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
     if (it != m_metaIds.end())
+    {
+      /// @note It can be nullptr for the Edited/Created features, but not inside this condition!
+      ASSERT(m_loadInfo && m_loadInfo->m_metaDeserializer, ());
       meta = m_metadata.Set(type, m_loadInfo->m_metaDeserializer->GetMetaById(it->second));
+    }
   }
   return meta;
 }
