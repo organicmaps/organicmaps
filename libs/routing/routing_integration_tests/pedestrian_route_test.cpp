@@ -196,7 +196,7 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(47.2183, 38.8634), {0., 0.},
-                                                mercator::FromLatLon(47.2584, 38.9128), 7563.05);
+                                                mercator::FromLatLon(47.2584, 38.9128), 7748);
 }
 
 UNIT_TEST(RussiaTaganrogJukova2ToBolBulvarnaya8)
@@ -666,7 +666,7 @@ UNIT_TEST(Australia_Mountains_Downlhill)
   TestRouteLength(route, 34.0359);
   // Altitudes diff is (900 -> 800).
   double const eta = route.GetTotalTimeSec();
-  TEST(7 * 60 < eta && eta < 10 * 60, (eta));
+  TEST(9 * 60 < eta && eta < 12 * 60, (eta));  // was "path", now - "steps"
 }
 
 UNIT_TEST(Turkey_UsePrimary)
