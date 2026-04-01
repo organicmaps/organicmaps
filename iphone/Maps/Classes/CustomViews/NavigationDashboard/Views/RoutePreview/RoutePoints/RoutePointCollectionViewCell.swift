@@ -1,7 +1,7 @@
 final class RoutePointCollectionViewCell: UICollectionViewCell {
   enum CellType {
     case point(PointViewModel)
-    case addPoint
+    case addPoint(onSwapHandler: (() -> Void)?)
   }
 
   struct PointViewModel {
@@ -30,12 +30,14 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   private let textStackView = UIStackView()
   private let reorderButton = UIButton(type: .system)
   private let closeButton = UIButton(type: .system)
+  private let swapButton = UIButton(type: .system)
   private lazy var separatorView: UIView = {
     let separatorInsets = UIEdgeInsets(top: 0, left: Constants.logoImageLeadingInset + Constants.logoSize + Constants.horizontalSpacing, bottom: 0, right: 0)
     return contentBackgroundView.addSeparator(.bottom, insets: separatorInsets)
   }()
 
   private var didTapClose: (() -> Void)?
+  private var didTapSwap: (() -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -73,6 +75,12 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     closeButton.setImage(UIImage(resource: .icSearchClear), for: .normal)
     closeButton.setStyle(.gray)
     closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+
+    swapButton.setImage(UIImage(resource: .icSwap), for: .normal)
+    swapButton.setStyle(.blue)
+    swapButton.contentHorizontalAlignment = .trailing
+    swapButton.addTarget(self, action: #selector(didTapSwapButton), for: .touchUpInside)
+    swapButton.setImagePadding(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: Constants.horizontalSpacing))
   }
 
   private func layout() {
@@ -82,12 +90,14 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     contentBackgroundView.addSubview(textStackView)
     contentBackgroundView.addSubview(closeButton)
     contentBackgroundView.addSubview(reorderButton)
+    contentBackgroundView.addSubview(swapButton)
 
     logoImageView.translatesAutoresizingMaskIntoConstraints = false
     contentBackgroundView.translatesAutoresizingMaskIntoConstraints = false
     textStackView.translatesAutoresizingMaskIntoConstraints = false
     reorderButton.translatesAutoresizingMaskIntoConstraints = false
     closeButton.translatesAutoresizingMaskIntoConstraints = false
+    swapButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
       contentBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -113,6 +123,11 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       reorderButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       reorderButton.widthAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
       reorderButton.heightAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
+
+      swapButton.leadingAnchor.constraint(equalTo: closeButton.leadingAnchor),
+      swapButton.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor),
+      swapButton.topAnchor.constraint(equalTo: contentBackgroundView.topAnchor),
+      swapButton.bottomAnchor.constraint(equalTo: contentBackgroundView.bottomAnchor),
     ])
   }
 
@@ -135,18 +150,23 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       logoImageView.image = viewModel.image
       logoImageView.setStyleAndApply(.black)
       didTapClose = viewModel.onCloseHandler
+      didTapSwap = nil
       titleLabel.setFontStyleAndApply(.semibold14, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
       closeButton.isHidden = !viewModel.showCloseButton
       reorderButton.isHidden = false
+      swapButton.isHidden = true
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
       separatorView.isHidden = !viewModel.showSeparator
-    case .addPoint:
+    case .addPoint(let onSwapHandler):
       titleLabel.text = L("placepage_add_stop")
       logoImageView.image = UIImage(resource: .icAddButton)
       logoImageView.setStyleAndApply(.blue)
+      didTapClose = nil
+      didTapSwap = onSwapHandler
       titleLabel.setFontStyleAndApply(.semibold14, color: .linkBlue)
       closeButton.isHidden = true
       reorderButton.isHidden = true
+      swapButton.isHidden = onSwapHandler == nil
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       separatorView.isHidden = true
     }
@@ -160,5 +180,10 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   @objc
   private func didTapCloseButton() {
     didTapClose?()
+  }
+
+  @objc
+  private func didTapSwapButton() {
+    didTapSwap?()
   }
 }

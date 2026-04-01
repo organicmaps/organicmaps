@@ -76,7 +76,9 @@ final class RoutePointsView: UIView {
   private func configure(_ cell: RoutePointCollectionViewCell, at indexPath: IndexPath) {
     switch indexPath.item {
     case routePoints.count:
-      cell.configure(with: .addPoint)
+      cell.configure(with: .addPoint(onSwapHandler: { [weak self] in
+        self?.interactor?.process(.swapStartAndFinishPoints)
+      }))
     default:
       let viewModel = routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
         if let point = self?.routePoints[indexPath.item] {
