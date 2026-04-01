@@ -2278,7 +2278,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"cuisine", "mediterranean"},
       {"cuisine", "mexican"},
       {"cuisine", "moroccan"},
-      {"cuisine", "noodles"},
+      {"cuisine", "noodle"},
       {"cuisine", "oriental"},
       {"cuisine", "pancake"},
       {"cuisine", "pasta"},

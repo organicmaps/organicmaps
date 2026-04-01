@@ -1263,7 +1263,7 @@ tourism|attraction
 *cuisine|spanish
 *cuisine|fish
 *cuisine|vietnamese
-*cuisine|noodles
+*cuisine|noodle
 *cuisine|vegetarian
 *cuisine|korean
 *cuisine|friture
