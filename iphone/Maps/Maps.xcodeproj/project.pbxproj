@@ -5438,6 +5438,7 @@
 					"$(OTHER_CFLAGS)",
 					"-fcxx-modules",
 				);
+				OTHER_LDFLAGS = "$(inherited) -weak_framework LinkPresentation";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "Organic Maps (Debug)";
@@ -5479,6 +5480,7 @@
 					"$(OTHER_CFLAGS)",
 					"-fcxx-modules",
 				);
+				OTHER_LDFLAGS = "$(inherited) -weak_framework LinkPresentation";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "Organic Maps";
