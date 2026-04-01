@@ -78,7 +78,8 @@ public class MapButtonsController extends Fragment
   private final Observer<Boolean> mTrackRecorderObserver = (enable) ->
   {
     updateMenuBadge(enable);
-    showButton(enable, MapButtons.trackRecordingStatus);
+    if (mTrackRecordingStatusButton != null)
+      showButton(enable, MapButtons.trackRecordingStatus);
   };
   private final Observer<Integer> mTopButtonMarginObserver = this::updateTopButtonsMargin;
 
@@ -189,8 +190,10 @@ public class MapButtonsController extends Fragment
     if (helpButton != null)
       mButtonsMap.put(MapButtons.help, helpButton);
     if (mTrackRecordingStatusButton != null)
+    {
       mButtonsMap.put(MapButtons.trackRecordingStatus, mTrackRecordingStatusButton);
-    showButton(false, MapButtons.trackRecordingStatus);
+      showButton(false, MapButtons.trackRecordingStatus);
+    }
     return mFrame;
   }
 
