@@ -13658,7 +13658,7 @@ vi = Ẩm thực ma-rốc
 zh-Hans = 摩洛哥菜
 zh-Hant = 摩洛哥料理
 
-[type.cuisine.noodles]
+[type.cuisine.noodle]
 en = Noodles
 af = Noedels
 ar = نودلز
