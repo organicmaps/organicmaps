@@ -205,19 +205,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private Dialog mAlertDialog;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
   private boolean mLocationPermissionRequestedForRecording = false;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
-  @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<Intent> mPowerSaveSettings;
   private boolean mPowerSaveDisclaimerShown = false;
 
