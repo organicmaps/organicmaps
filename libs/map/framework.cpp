@@ -746,13 +746,13 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   auto const * track = bm.GetTrack(trackId);
   CHECK(track, ());
 
-  // Enter track selection mode, same as BuildTrackPlacePage.
-  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-  FillTrackInfo(*track, mercator, outInfo);
-
+  // Snap to the nearest point on the track, same as BuildTrackPlacePage.
   Track::TrackSelectionInfo selInfo(trackId, mercator, 0.0 /* distFromBegM */);
   auto const touchRect = df::TapInfo::GetDefaultTapRect(mercator, m_currentModelView).GetGlobalRect();
   track->UpdateSelectionInfo(touchRect, selInfo);
+
+  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
+  FillTrackInfo(*track, selInfo.m_trackPoint, outInfo);
   bm.SetTrackSelectionInfo(selInfo, true /* notifyListeners */);
   return true;
 }
