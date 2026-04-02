@@ -338,7 +338,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void restoreRoutingPanelState(@NonNull Bundle state)
   {
     if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
-      mAltitudeChartFrame.post(this::showAltitudeChartAndRoutingDetails);
+    {
+      mAltitudeChartFrame.post(() -> {
+        if (UiUtils.isVisible(mAltitudeChartFrame))
+          mRouteElevationChartController.fitScreen();
+        else
+          showAltitudeChartAndRoutingDetails();
+      });
+    }
 
     String error = state.getString(STATE_ERROR);
     if (!TextUtils.isEmpty(error))

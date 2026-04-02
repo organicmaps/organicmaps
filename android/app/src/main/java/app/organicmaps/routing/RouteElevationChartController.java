@@ -93,6 +93,12 @@ public class RouteElevationChartController
     mListener = listener;
   }
 
+  public void fitScreen()
+  {
+    if (mChart != null)
+      mChart.fitScreen();
+  }
+
   public void setData(@Nullable RouteAltitudeData data)
   {
     mData = data;
