@@ -1,17 +1,13 @@
-#import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ElevationHeightPoint : NSObject
 
-@property(nonatomic, readonly) CLLocationCoordinate2D coordinates;
 @property(nonatomic, readonly) double distance;
 @property(nonatomic, readonly) double altitude;
 
-- (instancetype)initWithCoordinates:(CLLocationCoordinate2D)coordinates
-                           distance:(double)distance
-                        andAltitude:(double)altitude;
+- (instancetype)initWithDistance:(double)distance altitude:(double)altitude;
 
 @end
 

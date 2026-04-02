@@ -170,7 +170,7 @@ NS_SWIFT_NAME(BookmarksManager)
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype)new __attribute__((unavailable("call +manager instead")));
 
-- (void)setElevationActivePoint:(CLLocationCoordinate2D)point distance:(double)distance trackId:(uint64_t)trackId;
+- (void)setElevationActivePointDistance:(double)distance trackId:(uint64_t)trackId;
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;
 - (void)resetElevationActivePointChanged;
 - (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;

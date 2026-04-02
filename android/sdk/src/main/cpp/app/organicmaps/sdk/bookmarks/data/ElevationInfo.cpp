@@ -4,33 +4,41 @@
 
 namespace
 {
-jobject CreateElevationPoint(JNIEnv * env, ElevationInfo::Point const & point)
+jclass GetElevationPointClass(JNIEnv * env)
 {
   static jclass const pointClass =
       jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  // public Point(double distance, int altitude, double latitude, double longitude)
-  static jmethodID const pointCtorId = jni::GetConstructorID(env, pointClass, "(DIDD)V");
-  return env->NewObject(
-      pointClass, pointCtorId, static_cast<jdouble>(point.m_distance), static_cast<jint>(point.m_point.GetAltitude()),
-      static_cast<jdouble>(point.m_point.GetPoint().x), static_cast<jdouble>(point.m_point.GetPoint().y));
+  return pointClass;
 }
 
-jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & points)
+jobject CreateElevationPoint(JNIEnv * env, double distance, int altitude)
 {
-  CHECK(!points.empty(), ("Elevation points must be non empty!"));
-  static jclass const pointClass =
-      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  return jni::ToJavaArray(env, pointClass, points, [](JNIEnv * env, ElevationInfo::Point const & item)
-  { return CreateElevationPoint(env, item); });
+  // public Point(double distance, int altitude)
+  static jmethodID const pointCtorId = jni::GetConstructorID(env, GetElevationPointClass(env), "(DI)V");
+  return env->NewObject(GetElevationPointClass(env), pointCtorId, static_cast<jdouble>(distance),
+                        static_cast<jint>(altitude));
+}
+
+jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo const & info)
+{
+  // Flatten all lines into a single array with cumulative distances.
+  std::vector<std::pair<double, int>> allPoints;
+  double cumulativeOffset = 0;
+  for (auto const & line : info.GetLines())
+  {
+    for (auto const & point : line)
+      allPoints.emplace_back(cumulativeOffset + point.m_distance, point.m_altitude);
+
+    if (!line.empty())
+      cumulativeOffset += line.back().m_distance;
+  }
+
+  CHECK(!allPoints.empty(), ("Elevation points must be non empty!"));
+  return jni::ToJavaArray(env, GetElevationPointClass(env), allPoints,
+                          [](JNIEnv * env, std::pair<double, int> const & item)
+  { return CreateElevationPoint(env, item.first, item.second); });
 }
 }  // namespace
-
-jobject ToJavaElevationInfoPoint(JNIEnv * env, ms::LatLon const & latlon)
-{
-  static jclass const clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  static jmethodID const ctorId = jni::GetConstructorID(env, clazz, "(DIDD)V");
-  return env->NewObject(clazz, ctorId, 0.0, 0, latlon.m_lat, latlon.m_lon);
-}
 
 jobject ToJavaElevationInfo(JNIEnv * env, ElevationInfo const & info)
 {
@@ -38,6 +46,6 @@ jobject ToJavaElevationInfo(JNIEnv * env, ElevationInfo const & info)
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_elevationInfoClazz, "([Lapp/organicmaps/sdk/bookmarks/data/ElevationInfo$Point;I)V");
 
-  jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info.GetPoints()));
+  jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info));
   return env->NewObject(g_elevationInfoClazz, ctorId, jPoints.get(), static_cast<jint>(info.GetDifficulty()));
 }

@@ -885,12 +885,14 @@ void BookmarkManager::SetElevationMyPositionChangedCallback(ElevationMyPositionC
   m_elevationMyPositionChanged = cb;
 }
 
-void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, m2::PointD pt, double targetDistance)
+void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, double targetDistance)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto const track = GetTrack(trackId);
   CHECK(track != nullptr, ());
+
+  auto const pt = track->GetPoint(targetDistance);
 
   SetTrackSelectionInfo({trackId, pt, targetDistance}, true /* notifyListeners */);
 
