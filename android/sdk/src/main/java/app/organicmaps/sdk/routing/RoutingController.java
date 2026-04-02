@@ -80,6 +80,7 @@ public class RoutingController
   @Nullable
   private TransitRouteInfo mCachedTransitRouteInfo;
 
+  private boolean mRouteSaved;
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
 
@@ -275,6 +276,7 @@ public class RoutingController
 
     Logger.d(TAG, "build");
     mLastBuildProgress = 0;
+    mRouteSaved = false;
 
     setBuildState(BuildState.BUILDING);
     if (mContainer != null)
@@ -304,6 +306,16 @@ public class RoutingController
   public void deleteSavedRoute()
   {
     Framework.nativeDeleteSavedRoutePoints();
+  }
+
+  public boolean isRouteSaved()
+  {
+    return mRouteSaved;
+  }
+
+  public void setRouteSaved()
+  {
+    mRouteSaved = true;
   }
 
   public void rebuildLastRoute()

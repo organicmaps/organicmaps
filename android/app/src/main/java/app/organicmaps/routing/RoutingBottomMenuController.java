@@ -176,8 +176,16 @@ final class RoutingBottomMenuController implements View.OnClickListener
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
     Button saveButton = mAltitudeChartFrame.findViewById(R.id.btn__save);
-    saveButton.setText(R.string.save);
-    saveButton.setEnabled(true);
+    if (RoutingController.get().isRouteSaved())
+    {
+      saveButton.setText(R.string.saved);
+      saveButton.setEnabled(false);
+    }
+    else
+    {
+      saveButton.setText(R.string.save);
+      saveButton.setEnabled(true);
+    }
   }
 
   void hideAltitudeChartAndRoutingDetails()
@@ -467,6 +475,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     else if (id == R.id.btn__save)
     {
       Framework.nativeSaveRoute();
+      RoutingController.get().setRouteSaved();
       Button saveButton = (Button) v;
       saveButton.setEnabled(false);
       saveButton.setText(R.string.saved);
