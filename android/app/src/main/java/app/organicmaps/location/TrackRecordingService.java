@@ -197,6 +197,7 @@ public class TrackRecordingService extends Service implements LocationListener
     catch (SecurityException e)
     {
       Logger.e(TAG, "Failed to start foreground service, stopping the service", e);
+      TrackRecorder.nativeStopTrackRecording();
       stopSelf();
       return START_NOT_STICKY;
     }
