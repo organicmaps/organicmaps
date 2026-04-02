@@ -2,13 +2,10 @@
 
 #include "kml/types.hpp"
 
-#include "geometry/latlon.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "platform/location.hpp"
 
-#include <cstdint>
-#include <string>
 #include <vector>
 
 struct ElevationInfo
@@ -16,15 +13,12 @@ struct ElevationInfo
 public:
   struct Point
   {
-    Point(geometry::PointWithAltitude point, double distance) : m_point(point), m_distance(distance) {}
-    geometry::PointWithAltitude const m_point;
-    double const m_distance;
+    double m_distance;
+    geometry::Altitude m_altitude;
   };
 
   using Points = std::vector<Point>;
-  using GpsPoints = std::vector<location::GpsInfo>;
   using GeometryLine = kml::MultiGeometry::LineT;
-  using SegmentsDistances = std::vector<double>;
 
   enum Difficulty : uint8_t
   {
@@ -37,21 +31,32 @@ public:
   ElevationInfo() = default;
   explicit ElevationInfo(std::vector<GeometryLine> const & lines);
 
-  void AddGpsPoints(GpsPoints const & points);
-
-  size_t GetSize() const { return m_points.size(); }
-  Points const & GetPoints() const { return m_points; }
+  /// Each inner vector corresponds to a geometry line.
+  /// Distances are independent per line (each starts from 0).
+  std::vector<Points> const & GetLines() const { return m_lines; }
   uint8_t GetDifficulty() const { return m_difficulty; }
-  SegmentsDistances const & GetSegmentsDistances() const { return m_segmentsDistances; }
+  bool IsEmpty() const { return m_lines.empty(); }
+
+protected:
+  std::vector<Points> m_lines;
+  Difficulty m_difficulty = Difficulty::Unknown;
+};
+
+/// Extends ElevationInfo with incremental GPS point addition for track recording.
+class GpsTrackElevation : public ElevationInfo
+{
+public:
+  using GpsPoints = std::vector<location::GpsInfo>;
+
+  GpsTrackElevation() = default;
+
+  void AddGpsPoints(GpsPoints const & points);
+  void Clear();
+
+  size_t GetSize() const;
 
 private:
-  // Points with distance from start of the track and altitude.
-  Points m_points;
-  // Some digital difficulty level with value in range [0-kMaxDifficulty]
-  // or kInvalidDifficulty when difficulty is not found or incorrect.
-  Difficulty m_difficulty = Difficulty::Unknown;
-  // Distances to the start of each segment.
-  SegmentsDistances m_segmentsDistances;
-
-  void AddPoints(GeometryLine const & line, bool isNewSegment = false);
+  ms::LatLon m_lastLatLon;
+  double m_lastDistance = 0;
+  bool m_hasLastPoint = false;
 };

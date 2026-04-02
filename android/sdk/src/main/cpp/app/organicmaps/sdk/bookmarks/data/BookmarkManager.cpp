@@ -529,11 +529,10 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeRemoveElevationCur
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetElevationActivePoint(
-    JNIEnv *, jclass, jlong trackId, jdouble distanceInMeters, jdouble latitude, jdouble longitude)
+    JNIEnv *, jclass, jlong trackId, jdouble distanceInMeters)
 {
   auto & bm = frm()->GetBookmarkManager();
-  bm.SetElevationActivePoint(static_cast<kml::TrackId>(trackId), {latitude, longitude},
-                             static_cast<double>(distanceInMeters));
+  bm.SetElevationActivePoint(static_cast<kml::TrackId>(trackId), static_cast<double>(distanceInMeters));
 }
 
 JNIEXPORT void JNICALL

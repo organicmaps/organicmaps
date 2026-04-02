@@ -128,7 +128,7 @@ public class ChartController implements OnChartValueSelectedListener
     mTrack = track;
     List<Entry> values = new ArrayList<>();
     for (ElevationInfo.Point point : info.getPoints())
-      values.add(new Entry((float) point.getDistance(), point.getAltitude(), point));
+      values.add(new Entry((float) point.getDistance(), point.getAltitude()));
 
     LineDataSet set = new LineDataSet(values, ELEVATION_PROFILE_POINTS);
     set.setMode(LineDataSet.Mode.LINEAR);
@@ -175,8 +175,7 @@ public class ChartController implements OnChartValueSelectedListener
       mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
 
     if (mInformSelectedActivePointToCore)
-      BookmarkManager.INSTANCE.setElevationActivePoint(mTrack.getTrackId(), e.getX(),
-                                                       (ElevationInfo.Point) e.getData());
+      BookmarkManager.INSTANCE.setElevationActivePoint(mTrack.getTrackId(), e.getX());
     mInformSelectedActivePointToCore = true;
   }
 

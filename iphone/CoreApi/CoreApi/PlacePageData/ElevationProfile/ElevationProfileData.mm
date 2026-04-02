@@ -1,7 +1,5 @@
 #import "ElevationProfileData+Core.h"
 
-#include "geometry/mercator.hpp"
-
 static ElevationDifficulty convertDifficulty(uint8_t difficulty)
 {
   switch (difficulty)
@@ -27,8 +25,7 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
   {
     _trackId = trackId;
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
-    _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
-    _segmentDistances = [ElevationProfileData segmentDistancesFromElevationInfo:elevationInfo];
+    [ElevationProfileData fillPoints:&_points segmentDistances:&_segmentDistances fromElevationInfo:elevationInfo];
     _isTrackRecording = false;
   }
   return self;
@@ -40,37 +37,40 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty)
   if (self)
   {
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
-    _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
-    _segmentDistances = [ElevationProfileData segmentDistancesFromElevationInfo:elevationInfo];
+    [ElevationProfileData fillPoints:&_points segmentDistances:&_segmentDistances fromElevationInfo:elevationInfo];
     _isTrackRecording = true;
   }
   return self;
 }
 
-+ (NSArray<ElevationHeightPoint *> *)pointsFromElevationInfo:(ElevationInfo const &)elevationInfo
++ (void)fillPoints:(NSArray<ElevationHeightPoint *> * __strong *)outPoints
+     segmentDistances:(NSArray<NSNumber *> * __strong *)outSegmentDistances
+    fromElevationInfo:(ElevationInfo const &)elevationInfo
 {
-  auto const & points = elevationInfo.GetPoints();
-  NSMutableArray * pointsArray = [[NSMutableArray alloc] initWithCapacity:points.size()];
-  for (auto const & point : points)
-  {
-    auto pointLatLon = mercator::ToLatLon(point.m_point.GetPoint());
-    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(pointLatLon.m_lat, pointLatLon.m_lon);
-    ElevationHeightPoint * elevationPoint =
-        [[ElevationHeightPoint alloc] initWithCoordinates:coordinates
-                                                 distance:point.m_distance
-                                              andAltitude:point.m_point.GetAltitude()];
-    [pointsArray addObject:elevationPoint];
-  }
-  return pointsArray;
-}
+  NSMutableArray * pointsArray = [[NSMutableArray alloc] init];
+  NSMutableArray<NSNumber *> * distancesArray = [[NSMutableArray alloc] init];
 
-+ (NSArray<NSNumber *> *)segmentDistancesFromElevationInfo:(ElevationInfo const &)elevationInfo
-{
-  auto const & segmentsDistances = elevationInfo.GetSegmentsDistances();
-  NSMutableArray<NSNumber *> * distancesArray = [[NSMutableArray alloc] initWithCapacity:segmentsDistances.size()];
-  for (auto const distance : segmentsDistances)
-    [distancesArray addObject:@(distance)];
-  return distancesArray;
+  double cumulativeOffset = 0;
+  auto const & lines = elevationInfo.GetLines();
+  for (size_t i = 0; i < lines.size(); ++i)
+  {
+    if (i > 0)
+      [distancesArray addObject:@(cumulativeOffset)];
+
+    for (auto const & point : lines[i])
+    {
+      ElevationHeightPoint * elevationPoint =
+          [[ElevationHeightPoint alloc] initWithDistance:(cumulativeOffset + point.m_distance)
+                                                altitude:point.m_altitude];
+      [pointsArray addObject:elevationPoint];
+    }
+
+    if (!lines[i].empty())
+      cumulativeOffset += lines[i].back().m_distance;
+  }
+
+  *outPoints = pointsArray;
+  *outSegmentDistances = distancesArray;
 }
 
 @end

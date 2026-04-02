@@ -125,7 +125,7 @@ public final class Track extends MapObject
   }
 
   @NonNull
-  public ElevationInfo.Point getElevationActivePointCoordinates()
+  public double[] getElevationActivePointCoordinates()
   {
     return nativeGetElevationActivePointCoordinates(mId);
   }
@@ -155,7 +155,7 @@ public final class Track extends MapObject
   @NonNull
   public static native TrackStatistics nativeGetStatistics(long id);
   @NonNull
-  private static native ElevationInfo.Point nativeGetElevationActivePointCoordinates(long trackId);
+  private static native double[] nativeGetElevationActivePointCoordinates(long trackId);
 
   private static native void nativeSetParams(long id, @NonNull String name, @ColorInt int color, @NonNull String descr);
   private static native void nativeChangeColor(long id, @ColorInt int color);
