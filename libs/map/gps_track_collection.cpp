@@ -79,7 +79,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
   m_items.clear();
   m_items.shrink_to_fit();
   m_statistics = {};
-  m_elevationInfo = {};
+  m_elevationInfo.Clear();
 
   if (resetIds)
     m_lastId = 0;
@@ -97,10 +97,10 @@ ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
   if (!m_elevationInfoDirty)
     return m_elevationInfo;
 
-  auto const elevationInfoSize = m_elevationInfo.GetSize();
-  if (elevationInfoSize < m_items.size())
+  auto const elevationSize = m_elevationInfo.GetSize();
+  if (elevationSize < m_items.size())
   {
-    std::vector<TItem> const missedPoints(m_items.begin() + elevationInfoSize, m_items.end());
+    std::vector<TItem> const missedPoints(m_items.begin() + elevationSize, m_items.end());
     m_elevationInfo.AddGpsPoints(missedPoints);
   }
   m_elevationInfoDirty = false;

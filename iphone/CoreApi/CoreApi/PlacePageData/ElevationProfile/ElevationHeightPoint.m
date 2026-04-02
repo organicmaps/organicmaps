@@ -2,14 +2,11 @@
 
 @implementation ElevationHeightPoint
 
-- (instancetype)initWithCoordinates:(CLLocationCoordinate2D)coordinates
-                           distance:(double)distance
-                        andAltitude:(double)altitude
+- (instancetype)initWithDistance:(double)distance altitude:(double)altitude
 {
   self = [super init];
   if (self)
   {
-    _coordinates = coordinates;
     _distance = distance;
     _altitude = altitude;
   }

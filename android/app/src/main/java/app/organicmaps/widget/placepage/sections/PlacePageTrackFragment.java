@@ -100,9 +100,9 @@ public class PlacePageTrackFragment extends Fragment
     if (mTrack == null)
       return;
     mElevationProfileViewRenderer.onChartElevationActivePointChanged();
-    final ElevationInfo.Point point = mTrack.getElevationActivePointCoordinates();
-    mTrack.setLat(point.getLatitude());
-    mTrack.setLon(point.getLongitude());
+    final double[] coords = mTrack.getElevationActivePointCoordinates();
+    mTrack.setLat(coords[0]);
+    mTrack.setLon(coords[1]);
   }
 
   @Override

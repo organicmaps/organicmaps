@@ -69,7 +69,7 @@ public:
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
-  bool GetPoint(double distanceInMeters, m2::PointD & pt) const;
+  m2::PointD GetPoint(double distanceInMeters) const;
 
   kml::MultiGeometry::LineT GetGeometry() const;
   bool HasAltitudes() const;

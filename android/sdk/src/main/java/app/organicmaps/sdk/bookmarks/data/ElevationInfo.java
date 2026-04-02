@@ -72,23 +72,17 @@ public class ElevationInfo implements PlacePageData
   {
     private final double mDistance;
     private final int mAltitude;
-    private final double mLatitude;
-    private final double mLongitude;
 
-    public Point(double distance, int altitude, double latitude, double longitude)
+    public Point(double distance, int altitude)
     {
       mDistance = distance;
       mAltitude = altitude;
-      mLatitude = latitude;
-      mLongitude = longitude;
     }
 
     protected Point(Parcel in)
     {
       mDistance = in.readDouble();
       mAltitude = in.readInt();
-      mLatitude = in.readDouble();
-      mLongitude = in.readDouble();
     }
 
     public static final Creator<Point> CREATOR = new Creator<>() {
@@ -113,16 +107,6 @@ public class ElevationInfo implements PlacePageData
     public int getAltitude()
     {
       return mAltitude;
-    }
-
-    public double getLatitude()
-    {
-      return mLatitude;
-    }
-
-    public double getLongitude()
-    {
-      return mLongitude;
     }
 
     @Override
