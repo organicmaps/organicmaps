@@ -68,6 +68,6 @@ private:
 
   size_t m_lastId;
   TrackStatistics m_statistics;
-  ElevationInfo m_elevationInfo;
+  GpsTrackElevation m_elevationInfo;
   bool m_elevationInfoDirty;
 };

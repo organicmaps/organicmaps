@@ -558,9 +558,9 @@ public enum BookmarkManager {
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 
-  public void setElevationActivePoint(long trackId, double distance, @NonNull ElevationInfo.Point point)
+  public void setElevationActivePoint(long trackId, double distance)
   {
-    nativeSetElevationActivePoint(trackId, distance, point.getLatitude(), point.getLongitude());
+    nativeSetElevationActivePoint(trackId, distance);
   }
 
   @Nullable
@@ -624,8 +624,7 @@ public enum BookmarkManager {
 
   public static native void nativeRemoveElevationCurrentPositionChangedListener();
 
-  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters, double latitude,
-                                                           double longitude);
+  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters);
 
   private static native void nativeSetElevationActiveChangedListener();
 

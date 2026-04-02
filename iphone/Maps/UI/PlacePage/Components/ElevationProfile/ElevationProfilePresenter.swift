@@ -15,7 +15,7 @@ protocol ElevationProfilePresenterProtocol: UICollectionViewDataSource, UICollec
 
 protocol ElevationProfileViewControllerDelegate: AnyObject {
   func openDifficultyPopup()
-  func updateMapPoint(_ point: CLLocationCoordinate2D, distance: Double)
+  func updateMapPoint(distance: Double)
 }
 
 private struct DescriptionsViewModel {
@@ -88,7 +88,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     guard let trackData = trackData,
           let profileData = trackData.elevationProfileData,
           let chartData,
-          chartData.points.count >= kMinPointsToDraw
+          chartData.pointsCount >= kMinPointsToDraw
     else {
       view?.userInteractionEnabled = false
       return
@@ -112,9 +112,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func onSelectedPointChanged(_ distance: Double) {
-    guard let chartData else { return }
-    let point = chartData.interpolatedCoordinates(at: distance)
-    delegate?.updateMapPoint(point, distance: distance)
+    delegate?.updateMapPoint(distance: distance)
   }
 }
 
@@ -161,10 +159,11 @@ private struct ElevationProfileChartData {
   fileprivate let distances: [Double]
   fileprivate let segmentBoundaryDistances: [Double]
   fileprivate let maxDistance: Double
-  fileprivate let points: [ElevationHeightPoint]
+  fileprivate let pointsCount: Int
 
   init(_ elevationData: ElevationProfileData) {
-    points = elevationData.points
+    let points = elevationData.points
+    pointsCount = points.count
     chartValues = points.map { ChartValue(xValues: $0.distance, y: $0.altitude) }
     distances = points.map(\.distance)
     segmentBoundaryDistances = elevationData.segmentDistances.map(\.doubleValue)
@@ -174,31 +173,6 @@ private struct ElevationProfileChartData {
     let l1 = Line(values: chartValues, color: lineColor, type: .line)
     let l2 = Line(values: chartValues, color: lineShadowColor, type: .lineArea)
     chartLines = [l1, l2]
-  }
-
-  fileprivate func interpolatedCoordinates(at distance: Double) -> CLLocationCoordinate2D {
-    guard let first = points.first, let last = points.last else {
-      return .init()
-    }
-    if distance <= first.distance {
-      return first.coordinates
-    }
-    if distance >= last.distance {
-      return last.coordinates
-    }
-
-    guard let upperIndex = points.firstIndexAtOrAfter(distance, by: \.distance) else {
-      return last.coordinates
-    }
-    let upper = points[upperIndex]
-    if upper.distance == distance || upperIndex == 0 {
-      return upper.coordinates
-    }
-
-    let lower = points[upperIndex - 1]
-    let progress = (distance - lower.distance) / (upper.distance - lower.distance)
-    return CLLocationCoordinate2D(latitude: lower.coordinates.latitude + (upper.coordinates.latitude - lower.coordinates.latitude) * progress,
-                                  longitude: lower.coordinates.longitude + (upper.coordinates.longitude - lower.coordinates.longitude) * progress)
   }
 }
 

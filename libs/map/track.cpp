@@ -7,6 +7,8 @@
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/rect_intersect.hpp"
 
+#include <algorithm>
+
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
@@ -28,6 +30,7 @@ std::vector<Track::Lengths> Track::GetLengthsImpl() const
   std::vector<Lengths> lengths;
   for (auto const & line : m_data.m_geometry.m_lines)
   {
+    ASSERT(!line.empty(), ());
     Lengths lineLengths;
     lineLengths.emplace_back(distance);
     for (size_t j = 1; j < line.size(); ++j)
@@ -200,6 +203,47 @@ void Track::Attach(kml::MarkGroupId groupId)
 void Track::Detach()
 {
   m_groupID = kml::kInvalidMarkGroupId;
+}
+
+m2::PointD Track::GetPoint(double distanceInMeters) const
+{
+  if (!m_interactionData)
+    CacheDataForInteraction();
+
+  auto const & lengths = m_interactionData->m_lengths;
+  ASSERT(!lengths.empty(), ());
+
+  for (size_t lineIndex = 0; lineIndex < lengths.size(); ++lineIndex)
+  {
+    auto const & lineLengths = lengths[lineIndex];
+    ASSERT(!lineLengths.empty(), ());
+
+    if (distanceInMeters > lineLengths.back())
+      continue;
+
+    if (distanceInMeters <= lineLengths.front())
+      return m_data.m_geometry.m_lines[lineIndex].front().GetPoint();
+
+    auto const it = std::upper_bound(lineLengths.begin(), lineLengths.end(), distanceInMeters);
+    if (it == lineLengths.end())
+      return m_data.m_geometry.m_lines[lineIndex].back().GetPoint();
+
+    ASSERT(it != lineLengths.begin(), ());
+    size_t const ptIdx = std::distance(lineLengths.begin(), it) - 1;
+
+    auto const & line = m_data.m_geometry.m_lines[lineIndex];
+    auto const segLen = lineLengths[ptIdx + 1] - lineLengths[ptIdx];
+    if (segLen < 1e-9)
+      return line[ptIdx].GetPoint();
+
+    double const f = (distanceInMeters - lineLengths[ptIdx]) / segLen;
+    auto const & p1 = line[ptIdx].GetPoint();
+    auto const & p2 = line[ptIdx + 1].GetPoint();
+    return p1 + (p2 - p1) * f;
+  }
+
+  // Distance beyond last line — return last point.
+  return m_data.m_geometry.m_lines.back().back().GetPoint();
 }
 
 kml::MultiGeometry::LineT Track::GetGeometry() const
