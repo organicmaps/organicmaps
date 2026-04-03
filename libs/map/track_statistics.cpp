@@ -5,111 +5,61 @@
 #include "platform/distance.hpp"
 #include "platform/duration.hpp"
 
-namespace
+void TrackStatistics::CalculateDuration(kml::MultiGeometry const & geometry)
 {
-double constexpr kInvalidTimestamp = std::numeric_limits<double>::lowest();
-geometry::PointWithAltitude const kInvalidPoint = {m2::PointD::Zero(), geometry::kInvalidAltitude};
-}  // namespace
+  if (!geometry.HasTimestamps())
+    return;
 
-TrackStatistics::TrackStatistics()
-  : m_length(0)
-  , m_duration(0)
-  , m_ascent(0)
-  , m_descent(0)
-  , m_minElevation(geometry::kDefaultAltitudeMeters)
-  , m_maxElevation(geometry::kDefaultAltitudeMeters)
-  , m_previousPoint(kInvalidPoint)
-  , m_previousTimestamp(kInvalidTimestamp)
-{}
-
-TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry) : TrackStatistics()
-{
-  for (auto const & line : geometry.m_lines)
-    AddPoints(line);
-  if (geometry.HasTimestamps())
+  for (size_t i = 0; i < geometry.m_timestamps.size(); ++i)
   {
-    for (size_t i = 0; i < geometry.m_timestamps.size(); ++i)
+    ASSERT(geometry.HasTimestampsFor(i), ());
+    auto const & ts = geometry.m_timestamps[i];
+    if (!ts.empty())
     {
-      ASSERT(geometry.HasTimestampsFor(i), ());
-      AddTimestamps(geometry.m_timestamps[i]);
+      ASSERT_GREATER_OR_EQUAL(ts.back(), ts.front(), ());
+      m_duration += ts.back() - ts.front();
     }
   }
 }
 
 void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
 {
-  geometry::PointWithAltitude const pointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude),
-                                                      point.m_altitude);
+  ASSERT_GREATER_OR_EQUAL(point.m_timestamp, 0, ());
+  auto const pt = mercator::FromLatLon(point.m_latitude, point.m_longitude);
 
-  /// @todo point.HasAltitude() ?
-  auto const altitude = geometry::Altitude(point.m_altitude);
-  if (HasNoPoints())
+  if (m_previousTimestamp >= 0)
   {
-    m_minElevation = altitude;
-    m_maxElevation = altitude;
-    m_previousPoint = pointWithAltitude;
-    m_previousTimestamp = point.m_timestamp;
-    return;
+    m_length += mercator::DistanceOnEarth(m_previousPoint, pt);
+    ASSERT_GREATER_OR_EQUAL(point.m_timestamp, m_previousTimestamp, ());
+    m_duration += point.m_timestamp - m_previousTimestamp;
   }
 
-  m_minElevation = std::min(m_minElevation, altitude);
-  m_maxElevation = std::max(m_maxElevation, altitude);
-
-  auto const deltaAltitude = altitude - m_previousPoint.GetAltitude();
-  if (deltaAltitude > 0)
-    m_ascent += deltaAltitude;
-  else
-    m_descent -= deltaAltitude;
-  m_length += mercator::DistanceOnEarth(m_previousPoint.GetPoint(), pointWithAltitude.GetPoint());
-  m_duration += point.m_timestamp - m_previousTimestamp;
-
-  m_previousPoint = pointWithAltitude;
-  m_previousTimestamp = point.m_timestamp;
-}
-
-void TrackStatistics::AddPoints(Points const & points)
-{
-  if (points.empty())
-    return;
-
-  bool const hasNoPoints = HasNoPoints();
-  auto const & firstPoint = points[0];
-  auto const altitude = firstPoint.GetAltitude();
-
-  m_minElevation = hasNoPoints ? altitude : std::min(m_minElevation, altitude);
-  m_maxElevation = hasNoPoints ? altitude : std::max(m_maxElevation, altitude);
-  m_previousPoint = firstPoint;
-
-  for (size_t i = 1; i < points.size(); ++i)
+  if (point.HasAltitude())
   {
-    auto const & point = points[i];
-    auto const pointAltitude = point.GetAltitude();
+    auto const altitude = geometry::Altitude(point.m_altitude);
 
-    m_minElevation = std::min(m_minElevation, pointAltitude);
-    m_maxElevation = std::max(m_maxElevation, pointAltitude);
+    if (m_previousAltitude != geometry::kInvalidAltitude)
+    {
+      m_minElevation = std::min(m_minElevation, altitude);
+      m_maxElevation = std::max(m_maxElevation, altitude);
 
-    auto const deltaAltitude = pointAltitude - m_previousPoint.GetAltitude();
-    if (deltaAltitude > 0)
-      m_ascent += deltaAltitude;
+      auto const delta = altitude - m_previousAltitude;
+      if (delta > 0)
+        m_ascent += delta;
+      else
+        m_descent -= delta;
+    }
     else
-      m_descent -= deltaAltitude;
-    m_length += mercator::DistanceOnEarth(m_previousPoint.GetPoint(), point.GetPoint());
+    {
+      m_minElevation = altitude;
+      m_maxElevation = altitude;
+    }
 
-    m_previousPoint = point;
+    m_previousAltitude = altitude;
   }
-}
 
-void TrackStatistics::AddTimestamps(Timestamps const & timestamps)
-{
-  if (timestamps.empty())
-    return;
-  m_duration += timestamps.back() - timestamps.front();
-  m_previousTimestamp = timestamps.back();
-}
-
-bool TrackStatistics::HasNoPoints() const
-{
-  return m_previousPoint == kInvalidPoint;
+  m_previousPoint = pt;
+  m_previousTimestamp = point.m_timestamp;
 }
 
 std::string TrackStatistics::GetFormattedLength() const

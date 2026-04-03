@@ -92,7 +92,6 @@ void Track::SetData(kml::TrackData const & data)
   m_isDirty = true;
   m_data = data;
 
-  m_trackStatistics.reset();
   m_elevationInfo.reset();
   m_interactionData.reset();
 }
@@ -106,7 +105,10 @@ m2::RectD Track::GetLimitRect() const
 
 double Track::GetLengthMeters() const
 {
-  return GetStatistics().m_length;
+  if (!m_interactionData)
+    CacheDataForInteraction();
+  auto const & lengths = m_interactionData->m_lengths;
+  return lengths.empty() ? 0 : lengths.back().back();
 }
 
 double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
@@ -255,25 +257,24 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
-TrackStatistics const & Track::GetStatistics() const
+TrackStatistics Track::GetStatistics() const
 {
-  if (!m_trackStatistics)
-  {
-    m_trackStatistics = TrackStatistics(m_data.m_geometry);
+  TrackStatistics ts;
+  ts.m_length = GetLengthMeters();
+  ts.CalculateDuration(m_data.m_geometry);
 
-    if (auto const * ei = GetElevationInfo())
-    {
-      // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
-      auto const threshold = (m_data.m_id == kml::kTempRelationTrackId) ? ElevationInfo::kDefThresholdMWM
-                                                                        : ElevationInfo::kDefThresholdGPS;
-      auto const altInfo = ei->CalculateAltitudesInfo(threshold);
-      m_trackStatistics->m_ascent = altInfo.GetTotalAscent();
-      m_trackStatistics->m_descent = altInfo.GetTotalDescent();
-      m_trackStatistics->m_minElevation = altInfo.m_minAltitude;
-      m_trackStatistics->m_maxElevation = altInfo.m_maxAltitude;
-    }
+  if (auto const * ei = GetElevationInfo())
+  {
+    // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
+    auto const threshold =
+        (m_data.m_id == kml::kTempRelationTrackId) ? ElevationInfo::kDefThresholdMWM : ElevationInfo::kDefThresholdGPS;
+    auto const altInfo = ei->CalculateAltitudesInfo(threshold);
+    ts.m_ascent = altInfo.GetTotalAscent();
+    ts.m_descent = altInfo.GetTotalDescent();
+    ts.m_minElevation = altInfo.m_minAltitude;
+    ts.m_maxElevation = altInfo.m_maxAltitude;
   }
-  return *m_trackStatistics;
+  return ts;
 }
 
 ElevationInfo const * Track::GetElevationInfo() const
@@ -294,5 +295,7 @@ ElevationInfo const * Track::GetElevationInfo() const
 
 double Track::GetDurationInSeconds() const
 {
-  return GetStatistics().m_duration;
+  TrackStatistics ts;
+  ts.CalculateDuration(m_data.m_geometry);
+  return ts.m_duration;
 }
