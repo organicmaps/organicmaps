@@ -9,9 +9,6 @@
   <dimen name="nav_bottom_gap">24dp</dimen>
   <dimen name="zoom_buttons_margin">48dp</dimen>
 
-  <!-- Altitude chart -->
-  <dimen name="altitude_chart_image_width">334dp</dimen>
-
   <dimen name="start_button_width">128dp</dimen>
 
   <!--About Fragment -->

@@ -16,11 +16,11 @@ ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)
     pts.reserve(line.size());
 
     double distance = 0;
-    pts.push_back({distance, line[0].GetAltitude(), line[0].GetPoint()});
+    pts.emplace_back(distance, line[0].GetAltitude());
     for (size_t i = 1; i < line.size(); ++i)
     {
       distance += mercator::DistanceOnEarth(line[i - 1].GetPoint(), line[i].GetPoint());
-      pts.push_back({distance, line[i].GetAltitude(), line[i].GetPoint()});
+      pts.emplace_back(distance, line[i].GetAltitude());
     }
 
     m_lines.push_back(std::move(pts));
@@ -101,6 +101,14 @@ double ElevationInfo::GetLength() const
   return length;
 }
 
+size_t ElevationInfo::GetSize() const
+{
+  size_t size = 0;
+  for (auto const & line : m_lines)
+    size += line.size();
+  return size;
+}
+
 ElevationInfo::Altitude ElevationInfo::GetFirstAltitude() const
 {
   ASSERT(!IsEmpty() && !m_lines.front().empty(), ());
@@ -122,31 +130,8 @@ void ElevationInfo::Assign(std::vector<double> const & segDistances, geometry::A
   m_difficulty = Difficulty::Unknown;
 }
 
-void ElevationInfo::Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes,
-                           std::vector<m2::PointD> const & points)
-{
-  ASSERT_EQUAL(segDistances.size() + 1, altitudes.size(), ());
-  ASSERT_EQUAL(altitudes.size(), points.size(), ());
-
-  Points pts;
-  pts.reserve(altitudes.size());
-  pts.push_back({0, altitudes[0], points[0]});
-  for (size_t i = 0; i < segDistances.size(); ++i)
-    pts.push_back({segDistances[i], altitudes[i + 1], points[i + 1]});
-
-  m_lines.clear();
-  m_lines.push_back(std::move(pts));
-  m_difficulty = Difficulty::Unknown;
-}
-
 void ElevationInfo::Simplify(double altitudeDeviation)
 {
-  struct PointWithIndex
-  {
-    m2::PointD m_p;
-    size_t m_index;
-  };
-
   class IterT
   {
     Points const & m_points;
@@ -177,34 +162,22 @@ void ElevationInfo::Simplify(double altitudeDeviation)
     }
     int64_t operator-(IterT const & rhs) const { return int64_t(m_ind) - int64_t(rhs.m_ind); }
 
-    PointWithIndex operator*() const
-    {
-      return {{m_points[m_ind].m_distance, double(m_points[m_ind].m_altitude)}, m_ind};
-    }
-  };
-
-  struct DistFn
-  {
-    double operator()(PointWithIndex const & a, PointWithIndex const & b, PointWithIndex const & p) const
-    {
-      return m2::SquaredDistanceFromSegmentToPoint<m2::PointD>()(a.m_p, b.m_p, p.m_p);
-    }
+    m2::PointD operator*() const { return {m_points[m_ind].m_distance, double(m_points[m_ind].m_altitude)}; }
   };
 
   double const squareEps = math::Pow2(altitudeDeviation);
-  DistFn distFn;
-
   for (auto & line : m_lines)
   {
-    std::vector<PointWithIndex> out;
-    SimplifyNearOptimal(20 /* maxFalseLookAhead */, IterT(line, true), IterT(line, false), squareEps, distFn,
-                        AccumulateSkipSmallTrg(distFn, out, squareEps));
+    std::vector<m2::PointD> out;
+    SimplifyDefault(IterT(line, true), IterT(line, false), squareEps, out);
 
     size_t const count = out.size();
-    Points newLine(count);
+    line.resize(count);
     for (size_t i = 0; i < count; ++i)
-      newLine[i] = line[out[i].m_index];
-    line = std::move(newLine);
+    {
+      line[i].m_distance = out[i].x;
+      line[i].m_altitude = geometry::Altitude(out[i].y);
+    }
   }
 }
 
@@ -281,12 +254,4 @@ void GpsTrackElevation::Clear()
   m_difficulty = Difficulty::Unknown;
   m_lastDistance = 0;
   m_hasLastPoint = false;
-}
-
-size_t GpsTrackElevation::GetSize() const
-{
-  size_t size = 0;
-  for (auto const & line : m_lines)
-    size += line.size();
-  return size;
 }

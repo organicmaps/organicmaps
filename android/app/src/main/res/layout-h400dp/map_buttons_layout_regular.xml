@@ -24,6 +24,7 @@
       android:layout_alignParentBottom="true"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
   <include
     layout="@layout/map_status_track_recording"

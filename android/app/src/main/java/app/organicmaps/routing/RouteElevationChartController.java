@@ -35,7 +35,7 @@ public class RouteElevationChartController
 
   public interface ElevationSelectionListener
   {
-    void onElevationPointSelected(double lat, double lon);
+    void onElevationPointSelected(double distanceMeters);
     void onElevationPointDeselected();
   }
 
@@ -64,17 +64,7 @@ public class RouteElevationChartController
       public void onValueSelected(Entry e, Highlight h)
       {
         if (mListener != null && mData != null)
-        {
-          Object dataObj = e.getData();
-          if (dataObj instanceof Integer)
-          {
-            int index = (Integer) dataObj;
-            if (index >= 0 && index < mData.getSize())
-            {
-              mListener.onElevationPointSelected(mData.getLat(index), mData.getLon(index));
-            }
-          }
-        }
+          mListener.onElevationPointSelected(h.getX());
       }
 
       @Override
@@ -116,6 +106,9 @@ public class RouteElevationChartController
         mListener.onElevationPointDeselected();
       return;
     }
+
+    if (mListener != null)
+      mListener.onElevationPointDeselected();
 
     List<Entry> values = new ArrayList<>();
     for (int i = 0; i < data.getSize(); i++)

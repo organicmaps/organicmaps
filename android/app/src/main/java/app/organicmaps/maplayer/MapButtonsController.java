@@ -4,7 +4,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
@@ -23,14 +21,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
-import app.organicmaps.sdk.location.LocationCompatExtractor;
-import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
@@ -63,11 +57,6 @@ public class MapButtonsController extends Fragment
   @Nullable
   FloatingActionButton mTrackRecordingStatusButton;
   @Nullable
-  private TextView mAltitudeView;
-  @Nullable
-  private LocationHelper mLocationHelper;
-
-  @Nullable
   private MyPositionButton mNavMyPosition;
   private SearchWheel mSearchWheel;
   private BadgeDrawable mBadgeDrawable;
@@ -79,40 +68,6 @@ public class MapButtonsController extends Fragment
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
-
-  private final LocationListener mLocationListener = new LocationListener() {
-    @Override
-    public void onLocationUpdated(@NonNull Location location)
-    {
-      if (mAltitudeView == null)
-        return;
-      final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(location);
-      if (altitude != null)
-      {
-        mAltitudeView.setText(Framework.nativeFormatAltitude(altitude.altitude()));
-        UiUtils.show(mAltitudeView);
-      }
-      else
-      {
-        UiUtils.hide(mAltitudeView);
-      }
-    }
-
-    @Override
-    public void onLocationUpdateTimeout()
-    {}
-
-    @Override
-    public void onLocationResolutionRequired(android.app.PendingIntent pendingIntent)
-    {}
-
-    @Override
-    public void onLocationDisabled()
-    {
-      if (mAltitudeView != null)
-        UiUtils.hide(mAltitudeView);
-    }
-  };
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
@@ -145,7 +100,6 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
-    mAltitudeView = mFrame.findViewById(R.id.dashboard_altitude);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
@@ -470,8 +424,6 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getSearchOption().observe(viewLifecycleOwner, mSearchOptionObserver);
     mMapButtonsViewModel.getTrackRecorderState().observe(viewLifecycleOwner, mTrackRecorderObserver);
     mMapButtonsViewModel.getTopButtonsMarginTop().observe(viewLifecycleOwner, mTopButtonMarginObserver);
-    mLocationHelper = MwmApplication.from(requireActivity()).getLocationHelper();
-    mLocationHelper.addListener(mLocationListener);
   }
 
   public void onResume()
@@ -507,11 +459,6 @@ public class MapButtonsController extends Fragment
     {
       mBlinkingAnimator.cancel();
       mBlinkingAnimator = null;
-    }
-    if (mLocationHelper != null)
-    {
-      mLocationHelper.removeListener(mLocationListener);
-      mLocationHelper = null;
     }
   }
 

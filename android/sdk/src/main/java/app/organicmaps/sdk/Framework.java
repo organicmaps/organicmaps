@@ -191,7 +191,7 @@ public class Framework
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();
 
-  public static native void nativeRouteSetElevationActivePoint(double lat, double lon);
+  public static native void nativeRouteSetElevationActivePoint(double distanceMeters);
 
   public static native void nativeRouteRemoveElevationActivePoint();
 

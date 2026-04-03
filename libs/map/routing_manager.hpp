@@ -26,6 +26,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -244,10 +245,12 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
 
-  /// \brief Builds ElevationInfo from current route altitude data.
-  /// \param[in] simplify When true, applies line simplification to reduce point count.
   /// \return False if current route is invalid or doesn't have altitudes.
-  bool GetRouteElevationInfo(ElevationInfo & ei, bool simplify = true) const;
+  bool GetRouteElevationInfo(ElevationInfo & ei) const;
+
+  /// \brief Interpolates a point along the current route polyline at the given distance from start.
+  /// \return Nullopt if the route is invalid.
+  std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
   uint32_t OpenRoutePointsTransaction();
   void ApplyRoutePointsTransaction(uint32_t transactionId);

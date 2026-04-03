@@ -138,9 +138,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mRouteElevationChartController = new RouteElevationChartController(mAltitudeChart);
     mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener() {
       @Override
-      public void onElevationPointSelected(double lat, double lon)
+      public void onElevationPointSelected(double distanceMeters)
       {
-        Framework.nativeRouteSetElevationActivePoint(lat, lon);
+        Framework.nativeRouteSetElevationActivePoint(distanceMeters);
       }
 
       @Override
@@ -190,8 +190,16 @@ final class RoutingBottomMenuController implements View.OnClickListener
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
     Button saveButton = mAltitudeChartFrame.findViewById(R.id.btn__save);
-    saveButton.setText(R.string.save);
-    saveButton.setEnabled(true);
+    if (RoutingController.get().isRouteSaved())
+    {
+      saveButton.setText(R.string.saved);
+      saveButton.setEnabled(false);
+    }
+    else
+    {
+      saveButton.setText(R.string.save);
+      saveButton.setEnabled(true);
+    }
   }
 
   void hideAltitudeChartAndRoutingDetails()
@@ -490,7 +498,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
       mListener.onManageRouteOpen();
     else if (id == R.id.btn__save)
     {
+      Framework.nativeRouteRemoveElevationActivePoint();
       Framework.nativeSaveRoute();
+      RoutingController.get().setRouteSaved();
       Button saveButton = (Button) v;
       saveButton.setEnabled(false);
       saveButton.setText(R.string.saved);

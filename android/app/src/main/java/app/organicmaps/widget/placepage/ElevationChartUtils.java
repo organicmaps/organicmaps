@@ -32,6 +32,9 @@ public final class ElevationChartUtils
   {
     chart.setBackgroundColor(ThemeUtils.getColor(context, R.attr.cardBackground));
     chart.setTouchEnabled(true);
+    chart.setHighlightPerDragEnabled(true);
+    chart.setHighlighter(new InterpolatingHighlighter(chart));
+    chart.setRenderer(new SmoothLineChartRenderer(chart, chart.getAnimator(), chart.getViewPortHandler()));
     chart.setDrawGridBackground(false);
     chart.setScaleXEnabled(true);
     chart.setScaleYEnabled(false);
@@ -98,5 +101,32 @@ public final class ElevationChartUtils
     data.setDrawValues(false);
     chart.setData(data);
     chart.animateX(0);
+    // Reset zoom after layout to handle viewport size changes on rotation.
+    chart.post(chart::fitScreen);
+  }
+
+  public static float interpolateY(@NonNull List<Entry> entries, float xVal)
+  {
+    if (entries.isEmpty())
+      return 0f;
+
+    if (xVal <= entries.get(0).getX())
+      return entries.get(0).getY();
+
+    for (int i = 1; i < entries.size(); i++)
+    {
+      Entry cur = entries.get(i);
+      if (xVal <= cur.getX())
+      {
+        Entry prev = entries.get(i - 1);
+        float segLen = cur.getX() - prev.getX();
+        if (segLen < 1e-9f)
+          return prev.getY();
+        float fraction = (xVal - prev.getX()) / segLen;
+        return prev.getY() + fraction * (cur.getY() - prev.getY());
+      }
+    }
+
+    return entries.get(entries.size() - 1).getY();
   }
 }

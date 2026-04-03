@@ -1266,65 +1266,51 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
 {
   ElevationInfo ei;
-  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei, false /* simplify */))
+  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
   {
     LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
   }
 
-  // Calculate ascent/descent before simplification to avoid losing intermediate elevation changes.
   auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
 
-  ei.Simplify();
-
   static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
-  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[I[D[DII)V");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
 
-  // Collect simplified data from ElevationInfo.
-  std::vector<double> distances;
-  std::vector<jint> elevations;
-  std::vector<jdouble> lats;
-  std::vector<jdouble> lons;
-
-  ei.ForEachPoint([&](double dist, geometry::Altitude alt, m2::PointD const & pt)
-  {
-    distances.push_back(dist);
-    elevations.push_back(static_cast<jint>(alt));
-    ms::LatLon const ll = mercator::ToLatLon(pt);
-    lats.push_back(ll.m_lat);
-    lons.push_back(ll.m_lon);
-  });
-
-  jsize const size = static_cast<jsize>(distances.size());
+  jsize const size = static_cast<jsize>(ei.GetSize());
 
   jdoubleArray jDistances = env->NewDoubleArray(size);
   CHECK(jDistances, ());
-  env->SetDoubleArrayRegion(jDistances, 0, size, distances.data());
-
   jintArray jElevs = env->NewIntArray(size);
   CHECK(jElevs, ());
-  env->SetIntArrayRegion(jElevs, 0, size, elevations.data());
 
-  jdoubleArray jLats = env->NewDoubleArray(size);
-  CHECK(jLats, ());
-  env->SetDoubleArrayRegion(jLats, 0, size, lats.data());
+  jdouble * distances = env->GetDoubleArrayElements(jDistances, nullptr);
+  jint * elevations = env->GetIntArrayElements(jElevs, nullptr);
 
-  jdoubleArray jLons = env->NewDoubleArray(size);
-  CHECK(jLons, ());
-  env->SetDoubleArrayRegion(jLons, 0, size, lons.data());
+  size_t i = 0;
+  ei.ForEachPoint([&](double dist, geometry::Altitude alt)
+  {
+    distances[i] = dist;
+    elevations[i] = static_cast<jint>(alt);
+    ++i;
+  });
 
-  return env->NewObject(dataClass, constructor, jDistances, jElevs, jLats, jLons,
-                        static_cast<jint>(altInfo.GetTotalAscent()), static_cast<jint>(altInfo.GetTotalDescent()));
+  env->ReleaseDoubleArrayElements(jDistances, distances, 0);
+  env->ReleaseIntArrayElements(jElevs, elevations, 0);
+
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(altInfo.GetTotalAscent()),
+                        static_cast<jint>(altInfo.GetTotalDescent()), static_cast<jint>(altInfo.m_minAltitude),
+                        static_cast<jint>(altInfo.m_maxAltitude));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass, jdouble lat,
-                                                                                     jdouble lon)
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,
+                                                                                     jdouble distanceMeters)
 {
-  if (frm()->GetDrapeEngine() != nullptr)
-  {
-    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
-                                          mercator::FromLatLon(lat, lon), FeatureID(), false, false, true);
-  }
+  if (frm()->GetDrapeEngine() == nullptr)
+    return;
+  if (auto const pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters))
+    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(), false,
+                                          false, true);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)
