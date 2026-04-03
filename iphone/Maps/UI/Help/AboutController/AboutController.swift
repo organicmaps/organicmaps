@@ -260,7 +260,7 @@ private extension AboutController {
 
   func updateCollection() {
     socialMediaCollectionView.collectionViewLayout.invalidateLayout()
-    // On devices with the iOS 12 the actual collectionView layout update not always occurs during the current layout update cycle.
+    // The actual collectionView layout update may not occur during the current layout update cycle.
     // So constraints update should be performed on the next layout update cycle.
     DispatchQueue.main.async {
       self.socialMediaCollectionViewHeighConstraint.constant = self.socialMediaCollectionView.collectionViewLayout.collectionViewContentSize.height
