@@ -4,7 +4,6 @@
 
 #import "SwiftBridge.h"
 
-API_AVAILABLE(ios(12.0))
 @interface MWMCarPlaySearchService () <MWMSearchObserver>
 @property(strong, nonatomic, nullable) void (^completionHandler)
     (NSArray<MWMCarPlaySearchResultObject *> * searchResults);

@@ -54,7 +54,6 @@
 }
 
 - (LPLinkMetadata *)activityViewControllerLinkMetadata:(UIActivityViewController *)activityViewController
-    API_AVAILABLE(ios(13.0))
 {
   LPLinkMetadata * metadata = [[LPLinkMetadata alloc] init];
   metadata.originalURL = self.fileURL;
