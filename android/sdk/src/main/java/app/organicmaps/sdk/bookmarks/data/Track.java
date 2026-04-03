@@ -51,7 +51,7 @@ public final class Track extends MapObject
     mLength = length;
   }
 
-  /// Temp relation track ID matches BookmarkManager::kTempRelationTrackId (kInvalidTrackId - 1).
+  /// Temp relation track ID matches kml::kTempRelationTrackId (kInvalidTrackId - 1).
   private static final long TEMP_RELATION_TRACK_ID = -2L;
 
   public long getTrackId()
