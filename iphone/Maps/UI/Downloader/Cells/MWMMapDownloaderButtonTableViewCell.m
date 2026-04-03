@@ -16,10 +16,8 @@
 
 - (void)config
 {
-  if ([self respondsToSelector:@selector(setSeparatorInset:)])
-    [self setSeparatorInset:UIEdgeInsetsZero];
-  if ([self respondsToSelector:@selector(setLayoutMargins:)])
-    [self setLayoutMargins:UIEdgeInsetsZero];
+  self.separatorInset = UIEdgeInsetsZero;
+  self.layoutMargins = UIEdgeInsetsZero;
 }
 
 @end
