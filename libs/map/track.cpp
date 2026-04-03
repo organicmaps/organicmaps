@@ -282,6 +282,10 @@ ElevationInfo const * Track::GetElevationInfo() const
   if (!m_elevationInfo)
   {
     m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
+
+    // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
+    if (m_data.m_id != kml::kTempRelationTrackId)
+      m_elevationInfo->SmoothSlopeOutliers();
     m_elevationInfo->Simplify();
   }
   return &(*m_elevationInfo);

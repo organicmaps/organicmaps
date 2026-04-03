@@ -389,4 +389,33 @@ UNIT_TEST(Elevation_AscentDescent_Peak4120)
   TEST_ALMOST_EQUAL_ABS(double(ascent), 502.0, 502.0 * kEps, ());
   TEST_ALMOST_EQUAL_ABS(double(descent), 502.0, 502.0 * kEps, ());
 }
+
+UNIT_TEST(Elevation_SmoothSlopeOutliers)
+{
+  kml::FileData fileData;
+  kml::DeserializerGpx(fileData).Deserialize(
+      FileReader(GetPlatform().TestsDataPathForFile("test_data/gpx/transalpes-2026-preparation.gpx")));
+
+  auto const & lines = fileData.m_tracksData[0].m_geometry.m_lines;
+
+  {
+    ElevationInfo ei(lines);
+    ei.Simplify();
+
+    uint32_t a, d;
+    ei.CalculateAscentDescent(a, d, 10);
+    LOG_SHORT(LINFO, ("maxSlope = NONE", "ascent =", a, "descent =", d));
+  }
+
+  for (double maxSlope : {50.0, 70.0, 100.0, 150.0, 200.0})
+  {
+    ElevationInfo ei(lines);
+    ei.SmoothSlopeOutliers(maxSlope);
+    ei.Simplify();
+
+    uint32_t a, d;
+    ei.CalculateAscentDescent(a, d, 10);
+    LOG_SHORT(LINFO, ("maxSlope =", maxSlope, "ascent =", a, "descent =", d));
+  }
+}
 }  // namespace track_tests
