@@ -7,9 +7,7 @@ final class RangeFirstCell: Cell {
     contentView.addSubview(rangeBgView)
     rangeBgView.alignToSuperview(UIEdgeInsets(top: 4, left: 4, bottom: -4, right: 0))
     rangeBgView.layer.cornerRadius = 8
-    if #available(iOS 13.0, *) {
-      rangeBgView.layer.cornerCurve = .continuous
-    }
+    rangeBgView.layer.cornerCurve = .continuous
     rangeBgView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     super.addSubviews()
   }

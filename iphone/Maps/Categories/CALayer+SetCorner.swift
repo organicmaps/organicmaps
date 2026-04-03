@@ -5,9 +5,7 @@ extension CALayer {
     if let maskedCorners {
       self.maskedCorners = maskedCorners
     }
-    if #available(iOS 13.0, *) {
-      cornerCurve = .continuous
-    }
+    cornerCurve = .continuous
   }
 }
 

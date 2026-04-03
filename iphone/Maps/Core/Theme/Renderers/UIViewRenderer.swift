@@ -57,8 +57,6 @@ class UIViewRenderer {
     if let round = style.round, round == true {
       control.layer.cornerRadius = control.size.height / 2
     }
-    if #available(iOS 13.0, *) {
-      control.layer.cornerCurve = .continuous
-    }
+    control.layer.cornerCurve = .continuous
   }
 }

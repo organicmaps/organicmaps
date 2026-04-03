@@ -405,7 +405,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
       {
         rm.FollowRoute();
         [[MWMMapViewControlsManager manager] onRouteStart];
-        [MWMThemeManager setAutoUpdates:YES];
       }
       else
       {
@@ -448,7 +447,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
   if (removeRoutePoints)
     GetFramework().GetRoutingManager().DeleteSavedRoutePoints();
-  [MWMThemeManager setAutoUpdates:NO];
 }
 
 - (void)updateFollowingInfo
