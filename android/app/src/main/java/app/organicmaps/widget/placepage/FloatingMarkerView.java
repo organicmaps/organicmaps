@@ -99,7 +99,8 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   @Override
   public void refreshContent(Entry e, Highlight highlight)
   {
-    updatePointValues(e);
+    // Use highlight's x/y for smooth interpolated values, not the snapped Entry.
+    updatePointValues(new Entry(highlight.getX(), highlight.getY()));
 
     measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
             MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
@@ -120,6 +121,8 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
 
   public void updateOffsets(@NonNull Entry entry, @NonNull Highlight highlight)
   {
+    if (getChartView() == null)
+      return;
     updateVertical(entry);
     final float halfImg = mImage.getResources().getDimensionPixelSize(R.dimen.elevation_profile_marker_width) / 2f;
     boolean isLeftToRightDirection = isInvertedOrder(highlight);
@@ -138,13 +141,18 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
 
   private float calcHorizontalFactor()
   {
+    float width = getChartView().getContentRect().width();
+    if (width == 0)
+      return 0f;
     float delta = getChartView().getXChartMax() - getChartView().getXChartMin();
-    return delta / getChartView().getContentRect().width();
+    return delta / width;
   }
 
   private float convertContainerHeight()
   {
     float height = getChartView().getContentRect().height();
+    if (height == 0)
+      return 0f;
     float delta = getChartView().getYMax() - getChartView().getYMin();
     float factor = delta / height;
     return factor * mTextContentContainer.getHeight();
