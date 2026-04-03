@@ -499,12 +499,10 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
       router.altitudeImagesData[sizeValue] = imageData;
 
-      uint32_t totalAscentM, totalDescentM;
-      ei->CalculateAscentDescent(totalAscentM, totalDescentM, ElevationInfo::kDefThresholdMWM);
+      auto const altInfo = ei->CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
 
-      auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
-      router.totalAscent = @(platform::Distance::FormatAltitude(totalAscentM).c_str());
-      router.totalDescent = @(platform::Distance::FormatAltitude(totalDescentM).c_str());
+      router.totalAscent = @(platform::Distance::FormatAltitude(altInfo.GetTotalAscent()).c_str());
+      router.totalDescent = @(platform::Distance::FormatAltitude(altInfo.GetTotalDescent()).c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{

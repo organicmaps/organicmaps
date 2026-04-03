@@ -61,11 +61,8 @@ public class Framework
   @SuppressWarnings("unused")
   public static class RouteAltitudeLimits
   {
-    public int totalAscent;
-    public int totalDescent;
     public String totalAscentString;
     public String totalDescentString;
-    public boolean isMetricUnits;
   }
 
   // this class is just bridge between Java and C++ worlds, we must not create it

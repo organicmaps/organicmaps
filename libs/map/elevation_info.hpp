@@ -49,12 +49,45 @@ public:
   /// @param[in] altitudeDeviation Simplification threshold in meters (~sqrt(2) by default).
   void Simplify(double altitudeDeviation = 1.415);
 
-  /// Threshold accumulation: only counts altitude change when accumulated delta exceeds threshold.
-  static geometry::Altitude constexpr kDefThresholdMWM = 5;
-  static geometry::Altitude constexpr kDefThresholdGPS = 10;
-  void CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM, geometry::Altitude threshold) const;
+  using Altitude = geometry::Altitude;
+  static Altitude constexpr kDefThresholdMWM = 5;
+  static Altitude constexpr kDefThresholdGPS = 10;
 
-  /// Generates altitude chart image (RGBA 8888). Flattens lines to cumulative distances.
+  struct AltitudesInfo
+  {
+    uint32_t m_totalAscentRaw = 0;
+    uint32_t m_totalDescentRaw = 0;
+    uint32_t m_totalAscentFiltered = 0;
+    uint32_t m_totalDescentFiltered = 0;
+    Altitude m_minAltitude = std::numeric_limits<Altitude>::max();
+    Altitude m_maxAltitude = std::numeric_limits<Altitude>::min();
+
+    /// Falls back to raw values if filtered are zero (e.g. almost flat tracks).
+    uint32_t GetTotalAscent() const { return m_totalAscentFiltered > 0 ? m_totalAscentFiltered : m_totalAscentRaw; }
+    uint32_t GetTotalDescent() const { return m_totalDescentFiltered > 0 ? m_totalDescentFiltered : m_totalDescentRaw; }
+  };
+
+  /// Calculates all altitude statistics in one pass.
+  /// @param[in] threshold Minimum altitude change for filtered ascent/descent (threshold accumulation).
+  AltitudesInfo CalculateAltitudesInfo(Altitude threshold) const;
+
+  /// Iterates all points with cumulative distances across all lines.
+  /// @param[in] fn Called with (double cumulativeDistance, geometry::Altitude altitude) for each point.
+  template <typename Fn>
+  void ForEachPoint(Fn && fn) const
+  {
+    double cumulativeOffset = 0;
+    for (auto const & line : m_lines)
+    {
+      for (auto const & point : line)
+        fn(cumulativeOffset + point.m_distance, point.m_altitude);
+
+      if (!line.empty())
+        cumulativeOffset += line.back().m_distance;
+    }
+  }
+
+  /// Generates altitude chart image (RGBA 8888).
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData) const;
 
 protected:
