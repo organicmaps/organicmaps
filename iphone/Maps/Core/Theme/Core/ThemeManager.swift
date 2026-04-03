@@ -1,18 +1,13 @@
 @objc(MWMThemeManager)
 final class ThemeManager: NSObject {
-  private static let autoUpdatesInterval: TimeInterval = 30 * 60 // 30 minutes in seconds
-
   private static let instance = ThemeManager()
-  private weak var timer: Timer?
 
   override private init() {
     super.init()
   }
 
   private func update(theme: MWMTheme) {
-    if #available(iOS 13.0, *) {
-      updateSystemUserInterfaceStyle(theme)
-    }
+    updateSystemUserInterfaceStyle(theme)
 
     let actualTheme: MWMTheme = { theme in
       let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
@@ -22,19 +17,9 @@ final class ThemeManager: NSObject {
       case .night: fallthrough
       case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
       case .auto:
-        if #available(iOS 13.0, *) {
-          let isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark
-          guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
-          return isDarkModeEnabled ? .vehicleNight : .vehicleDay
-        } else {
-          guard isVehicleRouting else { return .day }
-          switch FrameworkHelper.daytime(at: LocationManager.lastLocation()) {
-          case .day: return .vehicleDay
-          case .night: return .vehicleNight
-          @unknown default:
-            fatalError()
-          }
-        }
+        let isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+        guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
+        return isDarkModeEnabled ? .vehicleNight : .vehicleDay
       @unknown default:
         fatalError()
       }
@@ -68,7 +53,6 @@ final class ThemeManager: NSObject {
     instance.update(theme: Settings.theme())
   }
 
-  @available(iOS 13.0, *)
   private func updateSystemUserInterfaceStyle(_ theme: MWMTheme) {
     let userInterfaceStyle: UIUserInterfaceStyle = { theme in
       switch theme {
@@ -82,20 +66,5 @@ final class ThemeManager: NSObject {
       }
     }(theme)
     UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = userInterfaceStyle
-  }
-
-  @available(iOS, deprecated: 13.0)
-  @objc static var autoUpdates: Bool {
-    get {
-      instance.timer != nil
-    }
-    set {
-      if newValue {
-        instance.timer = Timer.scheduledTimer(timeInterval: autoUpdatesInterval, target: self, selector: #selector(invalidate), userInfo: nil, repeats: true)
-      } else {
-        instance.timer?.invalidate()
-      }
-      invalidate()
-    }
   }
 }
