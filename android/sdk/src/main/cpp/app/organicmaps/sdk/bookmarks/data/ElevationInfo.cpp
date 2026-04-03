@@ -21,17 +21,8 @@ jobject CreateElevationPoint(JNIEnv * env, double distance, int altitude)
 
 jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo const & info)
 {
-  // Flatten all lines into a single array with cumulative distances.
   std::vector<std::pair<double, int>> allPoints;
-  double cumulativeOffset = 0;
-  for (auto const & line : info.GetLines())
-  {
-    for (auto const & point : line)
-      allPoints.emplace_back(cumulativeOffset + point.m_distance, point.m_altitude);
-
-    if (!line.empty())
-      cumulativeOffset += line.back().m_distance;
-  }
+  info.ForEachPoint([&](double d, geometry::Altitude a) { allPoints.emplace_back(d, a); });
 
   CHECK(!allPoints.empty(), ("Elevation points must be non empty!"));
   return jni::ToJavaArray(env, GetElevationPointClass(env), allPoints,

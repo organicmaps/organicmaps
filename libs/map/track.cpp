@@ -266,10 +266,11 @@ TrackStatistics const & Track::GetStatistics() const
       // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
       auto const threshold = (m_data.m_id == kml::kTempRelationTrackId) ? ElevationInfo::kDefThresholdMWM
                                                                         : ElevationInfo::kDefThresholdGPS;
-      uint32_t ascent, descent;
-      ei->CalculateAscentDescent(ascent, descent, threshold);
-      m_trackStatistics->m_ascent = ascent;
-      m_trackStatistics->m_descent = descent;
+      auto const altInfo = ei->CalculateAltitudesInfo(threshold);
+      m_trackStatistics->m_ascent = altInfo.GetTotalAscent();
+      m_trackStatistics->m_descent = altInfo.GetTotalDescent();
+      m_trackStatistics->m_minElevation = altInfo.m_minAltitude;
+      m_trackStatistics->m_maxElevation = altInfo.m_maxAltitude;
     }
   }
   return *m_trackStatistics;

@@ -332,7 +332,7 @@ UNIT_TEST(TrackStatistics_MixedMultiGeometryAndGpsPoints)
 // ===================== Elevation simplification tests =====================
 namespace
 {
-std::tuple<uint32_t, uint32_t> CalculateAscentDescent(std::string const & fileName, Altitude threshold)
+ElevationInfo::AltitudesInfo CalcAltitudesInfo(std::string const & fileName, Altitude threshold)
 {
   kml::FileData fileData;
   kml::DeserializerGpx(fileData).Deserialize(FileReader(GetPlatform().TestsDataPathForFile(fileName)));
@@ -340,54 +340,51 @@ std::tuple<uint32_t, uint32_t> CalculateAscentDescent(std::string const & fileNa
 
   ElevationInfo ei(fileData.m_tracksData[0].m_geometry.m_lines);
   ei.Simplify();
-
-  uint32_t ascent, descent;
-  ei.CalculateAscentDescent(ascent, descent, threshold);
-  return {ascent, descent};
+  return ei.CalculateAltitudesInfo(threshold);
 }
 }  // namespace
 
 // https://github.com/organicmaps/organicmaps/issues/5087#issuecomment-4177262973
 UNIT_TEST(Elevation_AscentDescent_Transalpes)
 {
-  auto const [ascent, descent] = CalculateAscentDescent("test_data/gpx/transalpes-2026-preparation.gpx", 15);
+  auto const altInfo = CalcAltitudesInfo("test_data/gpx/transalpes-2026-preparation.gpx", 15);
 
   // Paper guide: ~1550m ascent, ~850m descent.
   double constexpr kEps = 0.04;
-  TEST_ALMOST_EQUAL_ABS(double(ascent), 1550.0, 1550.0 * kEps, ());
-  TEST_ALMOST_EQUAL_ABS(double(descent), 850.0, 850.0 * kEps, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalAscent()), 1550.0, 1550.0 * kEps, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalDescent()), 850.0, 850.0 * kEps, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5087#issuecomment-3390365431
 UNIT_TEST(Elevation_AscentDescent_AllenMountain)
 {
-  auto const [ascent, descent] = CalculateAscentDescent("test_data/gpx/East River Trail to Allen Mountain.gpx", 4);
+  auto const altInfo = CalcAltitudesInfo("test_data/gpx/East River Trail to Allen Mountain.gpx", 4);
 
   // Komoot: 2850ft (868m) ascent, 375ft (114m) descent.
-  TEST_ALMOST_EQUAL_ABS(double(ascent), 868.0, 868.0 * 0.01, ());
-  TEST_ALMOST_EQUAL_ABS(double(descent), 114.0, 114.0 * 0.1, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalAscent()), 868.0, 868.0 * 0.01, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalDescent()), 114.0, 114.0 * 0.1, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5454#issuecomment-3140515619
 UNIT_TEST(Elevation_AscentDescent_Solden_Merano)
 {
-  auto const [ascent, descent] = CalculateAscentDescent("test_data/gpx/Solden (Tirol) to Merano (South Tirol).gpx", 6);
+  auto const altInfo = CalcAltitudesInfo("test_data/gpx/Solden (Tirol) to Merano (South Tirol).gpx", 6);
 
   // Google: 1374m up and 2427m down.
   double constexpr kEps = 0.05;
-  TEST_ALMOST_EQUAL_ABS(double(ascent), 1374.0, 1374.0 * kEps, ());
-  TEST_ALMOST_EQUAL_ABS(double(descent), 2427.0, 2427.0 * kEps, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalAscent()), 1374.0, 1374.0 * kEps, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalDescent()), 2427.0, 2427.0 * kEps, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5087#issuecomment-4009485791
 UNIT_TEST(Elevation_AscentDescent_Peak4120)
 {
-  auto const [ascent, descent] = CalculateAscentDescent("test_data/gpx/Peak 4120.20260209.gpx", 10);
+  auto const altInfo = CalcAltitudesInfo("test_data/gpx/Peak 4120.20260209.gpx", 10);
 
   // User said: 1647ft (502m) up and down.
   double constexpr kEps = 0.07;
-  TEST_ALMOST_EQUAL_ABS(double(ascent), 502.0, 502.0 * kEps, ());
-  TEST_ALMOST_EQUAL_ABS(double(descent), 502.0, 502.0 * kEps, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalAscent()), 502.0, 502.0 * kEps, ());
+  TEST_ALMOST_EQUAL_ABS(double(altInfo.GetTotalDescent()), 502.0, 502.0 * kEps, ());
 }
 
 UNIT_TEST(Elevation_SmoothSlopeOutliers)
@@ -401,10 +398,8 @@ UNIT_TEST(Elevation_SmoothSlopeOutliers)
   {
     ElevationInfo ei(lines);
     ei.Simplify();
-
-    uint32_t a, d;
-    ei.CalculateAscentDescent(a, d, 10);
-    LOG_SHORT(LINFO, ("maxSlope = NONE", "ascent =", a, "descent =", d));
+    auto const info = ei.CalculateAltitudesInfo(10);
+    LOG_SHORT(LINFO, ("maxSlope = NONE", "ascent =", info.GetTotalAscent(), "descent =", info.GetTotalDescent()));
   }
 
   for (double maxSlope : {50.0, 70.0, 100.0, 150.0, 200.0})
@@ -412,10 +407,8 @@ UNIT_TEST(Elevation_SmoothSlopeOutliers)
     ElevationInfo ei(lines);
     ei.SmoothSlopeOutliers(maxSlope);
     ei.Simplify();
-
-    uint32_t a, d;
-    ei.CalculateAscentDescent(a, d, 10);
-    LOG_SHORT(LINFO, ("maxSlope =", maxSlope, "ascent =", a, "descent =", d));
+    auto const info = ei.CalculateAltitudesInfo(10);
+    LOG_SHORT(LINFO, ("maxSlope =", maxSlope, "ascent =", info.GetTotalAscent(), "descent =", info.GetTotalDescent()));
   }
 }
 }  // namespace track_tests
