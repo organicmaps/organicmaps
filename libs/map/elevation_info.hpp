@@ -31,11 +31,27 @@ public:
   ElevationInfo() = default;
   explicit ElevationInfo(std::vector<GeometryLine> const & lines);
 
+  /// Assigns from route segment data (single line).
+  /// @param[in] segDistances N-1 cumulative distances between consecutive points.
+  /// @param[in] altitudes N altitude values (one per point).
+  void Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes);
+
   /// Each inner vector corresponds to a geometry line.
   /// Distances are independent per line (each starts from 0).
   std::vector<Points> const & GetLines() const { return m_lines; }
   uint8_t GetDifficulty() const { return m_difficulty; }
   bool IsEmpty() const { return m_lines.empty(); }
+
+  /// @param[in] altitudeDeviation Simplification threshold in meters (~sqrt(2) by default).
+  void Simplify(double altitudeDeviation = 1.415);
+
+  /// Threshold accumulation: only counts altitude change when accumulated delta exceeds threshold.
+  static geometry::Altitude constexpr kDefThresholdMWM = 5;
+  static geometry::Altitude constexpr kDefThresholdGPS = 10;
+  void CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM, geometry::Altitude threshold) const;
+
+  /// Generates altitude chart image (RGBA 8888). Flattens lines to cumulative distances.
+  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData) const;
 
 protected:
   std::vector<Points> m_lines;

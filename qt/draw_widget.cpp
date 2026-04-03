@@ -117,21 +117,13 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
     auto const routerType = routingManager.GetLastUsedRouter();
     if (routerType == routing::RouterType::Pedestrian || routerType == routing::RouterType::Bicycle)
     {
-      RoutingManager::DistanceAltitude da;
-      if (!routingManager.GetRouteAltitudesAndDistancesM(da))
+      ElevationInfo ei;
+      if (!routingManager.GetRouteElevationInfo(ei))
         return;
 
-      for (int iter = 0; iter < 2; ++iter)
-      {
-        LOG(LINFO, ("Altitudes", iter == 0 ? "before" : "after", "simplify:"));
-        LOG_SHORT(LDEBUG, (da));
-
-        uint32_t totalAscent, totalDescent;
-        da.CalculateAscentDescent(totalAscent, totalDescent);
-        LOG_SHORT(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
-
-        da.Simplify();
-      }
+      uint32_t totalAscent, totalDescent;
+      ei.CalculateAscentDescent(totalAscent, totalDescent, ElevationInfo::kDefThresholdMWM);
+      LOG(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
     }
   });
 

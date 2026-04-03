@@ -1267,24 +1267,22 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitu
                                                                                             jint width, jint height,
                                                                                             jobject routeAltitudeLimits)
 {
-  RoutingManager::DistanceAltitude altitudes;
-  if (!frm()->GetRoutingManager().GetRouteAltitudesAndDistancesM(altitudes))
+  ElevationInfo ei;
+  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
   {
     LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
   }
 
-  altitudes.Simplify();
-
   std::vector<uint8_t> imageRGBAData;
-  if (!altitudes.GenerateRouteAltitudeChart(width, height, imageRGBAData))
+  if (!ei.GenerateRouteAltitudeChart(width, height, imageRGBAData))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
   }
 
   uint32_t totalAscent, totalDescent;
-  altitudes.CalculateAscentDescent(totalAscent, totalDescent);
+  ei.CalculateAscentDescent(totalAscent, totalDescent, ElevationInfo::kDefThresholdMWM);
 
   // Android platform code has specific result string formatting, so make conversion here.
   using namespace measurement_utils;

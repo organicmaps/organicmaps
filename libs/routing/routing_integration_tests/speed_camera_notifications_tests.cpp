@@ -87,7 +87,7 @@ SpeedCameraManager::Interval CheckZone(RoutingSession const & routingSession, do
   TEST(closestCamera.IsValid(), ("No speed camera found."));
 
   double const speedMpS = measurement_utils::KmphToMps(speedKmPH);
-  double const passedDist = routingSession.GetRouteForTests()->GetCurrentDistanceFromBeginMeters();
+  double const passedDist = routingSession.GetRoute()->GetCurrentDistanceFromBeginMeters();
   double const distToCamera = closestCamera.m_distFromBeginMeters - passedDist;
 
   return SpeedCameraManager::GetIntervalByDistToCam(distToCamera, speedMpS);
