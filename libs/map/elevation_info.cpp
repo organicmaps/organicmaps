@@ -35,6 +35,65 @@ ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)
   m_difficulty = Difficulty::Unknown;
 }
 
+void ElevationInfo::SmoothSlopeOutliers(double maxSlopePercent)
+{
+  double const maxSlope = maxSlopePercent / 100.0;
+
+  for (auto & line : m_lines)
+  {
+    if (line.size() < 3)
+      continue;
+
+    // Mark outlier points where slope to both neighbors exceeds the limit.
+    std::vector<bool> outlier(line.size(), false);
+    for (size_t i = 1; i + 1 < line.size(); ++i)
+    {
+      double const distPrev = line[i].m_distance - line[i - 1].m_distance;
+      double const distNext = line[i + 1].m_distance - line[i].m_distance;
+      if (distPrev < 1e-9 || distNext < 1e-9)
+        continue;
+
+      double const slopePrev = std::abs(double(line[i].m_altitude - line[i - 1].m_altitude)) / distPrev;
+      double const slopeNext = std::abs(double(line[i + 1].m_altitude - line[i].m_altitude)) / distNext;
+
+      // Point is an outlier if slope to at least one neighbor exceeds the limit
+      // AND the slopes have opposite signs (spike pattern: up then down or vice versa).
+      if (slopePrev > maxSlope || slopeNext > maxSlope)
+      {
+        auto const deltaPrev = line[i].m_altitude - line[i - 1].m_altitude;
+        auto const deltaNext = line[i + 1].m_altitude - line[i].m_altitude;
+        // Opposite sign check: a real climb goes the same direction.
+        if ((deltaPrev > 0) != (deltaNext > 0))
+          outlier[i] = true;
+      }
+    }
+
+    // Interpolate outlier altitudes from nearest non-outlier neighbors.
+    for (size_t i = 1; i + 1 < line.size(); ++i)
+    {
+      if (!outlier[i])
+        continue;
+
+      // Find left non-outlier.
+      size_t left = i - 1;
+      while (left > 0 && outlier[left])
+        --left;
+      // Find right non-outlier.
+      size_t right = i + 1;
+      while (right + 1 < line.size() && outlier[right])
+        ++right;
+
+      double const totalDist = line[right].m_distance - line[left].m_distance;
+      if (totalDist < 1e-9)
+        continue;
+
+      double const f = (line[i].m_distance - line[left].m_distance) / totalDist;
+      line[i].m_altitude =
+          geometry::Altitude(double(line[left].m_altitude) * (1.0 - f) + double(line[right].m_altitude) * f);
+    }
+  }
+}
+
 void ElevationInfo::Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes)
 {
   ASSERT_EQUAL(segDistances.size() + 1, altitudes.size(), ());
