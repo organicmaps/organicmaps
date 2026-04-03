@@ -185,17 +185,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
   auto & f = GetFramework();
-  // On some devices we have to free all belong-to-graphics memory
-  // because of new OpenGL driver powered by Metal.
-  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
-  {
-    f.SetRenderingDisabled(true);
-    f.OnDestroySurface();
-  }
-  else
-  {
-    f.SetRenderingDisabled(false);
-  }
+  f.SetRenderingDisabled(false);
   [MWMLocationManager applicationWillResignActive];
   f.EnterBackground();
   LOG(LINFO, ("applicationWillResignActive - end"));
@@ -229,14 +219,6 @@ using namespace osm_auth_ios;
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
   f.SetRenderingEnabled();
-  // On some devices we have to free all belong-to-graphics memory
-  // because of new OpenGL driver powered by Metal.
-  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
-  {
-    CGSize const objcSize = self.mapViewController.mapView.pixelSize;
-    f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height),
-                       true /* recreateContextDependentResources */);
-  }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];

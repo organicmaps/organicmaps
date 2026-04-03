@@ -156,9 +156,7 @@ std::string Platform::DeviceModel() const
   utsname systemInfo;
   uname(&systemInfo);
   NSString * deviceModel = @(systemInfo.machine);
-  if (auto m = platform::kDeviceModelsBeforeMetalDriver[deviceModel])
-    deviceModel = m;
-  else if (auto m = platform::kDeviceModelsWithiOS10MetalDriver[deviceModel])
+  if (auto m = platform::kDeviceModelsWithiOS10MetalDriver[deviceModel])
     deviceModel = m;
   else if (auto m = platform::kDeviceModelsWithMetalDriver[deviceModel])
     deviceModel = m;

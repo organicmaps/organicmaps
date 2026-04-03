@@ -1,11 +1,5 @@
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
-  MWMOpenGLDriverRegular,
-  MWMOpenGLDriverMetalPre103,  // iOS 10..10.3
-  MWMOpenGLDriverMetal
-};
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AppInfo : NSObject
@@ -18,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSString * languageId;
 @property(nonatomic, readonly) NSString * twoLetterLanguageId;
 @property(nonatomic, readonly) NSString * deviceModel;
-@property(nonatomic, readonly) MWMOpenGLDriver openGLDriver;
 
 @end
 
