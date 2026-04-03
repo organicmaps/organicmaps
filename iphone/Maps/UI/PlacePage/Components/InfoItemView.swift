@@ -180,7 +180,6 @@ final class InfoItemView: UIView {
     updateTextLabelLayout()
   }
 
-  @available(iOS 14.0, *)
   func setAccessoryMenu(_ menu: UIMenu) {
     accessoryButton.menu = menu
     accessoryButton.showsMenuAsPrimaryAction = true

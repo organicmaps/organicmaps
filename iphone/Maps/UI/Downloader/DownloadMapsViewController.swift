@@ -80,12 +80,7 @@ class DownloadMapsViewController: MWMViewController {
     tableView.registerNib(cell: MWMMapDownloaderButtonTableViewCell.self)
     title = dataSource.title
     if mode == .downloaded {
-      let image: UIImage
-      if #available(iOS 13.0, *) {
-        image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(weight: .medium))!
-      } else {
-        image = UIImage(resource: .icNavBarAdd)
-      }
+      let image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(weight: .medium))!
       let addMapsButton = UIBarButtonItem(image: image,
                                           style: .plain,
                                           target: self,

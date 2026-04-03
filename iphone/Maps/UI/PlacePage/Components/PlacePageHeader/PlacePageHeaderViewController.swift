@@ -164,45 +164,26 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   func showShareTrackMenu() {
-    if #available(iOS 14.0, *) {
-      // The menu will be shown by the shareButton itself
-    } else {
-      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      alert.addAction(UIAlertAction(title: L("export_file"), style: .default) { [weak self] _ in
-        guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
-      })
-      alert.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default) { [weak self] _ in
-        guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
-      })
-      alert.addAction(UIAlertAction(title: L("export_file_geojson"), style: .default) { [weak self] _ in
-        guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
-      })
-      present(alert, animated: true, completion: nil)
-    }
+    // The menu will be shown by the shareButton itself
   }
 
   private func configureTrackSharingMenu() {
-    if #available(iOS 14.0, *) {
-      let menu = UIMenu(title: "", image: nil, children: [
-        UIAction(title: L("export_file"), image: nil, handler: { [weak self] _ in
-          guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
-        }),
-        UIAction(title: L("export_file_gpx"), image: nil, handler: { [weak self] _ in
-          guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
-        }),
-        UIAction(title: L("export_file_geojson"), image: nil, handler: { [weak self] _ in
-          guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
-        }),
-      ])
-      shareButton.menu = menu
-      shareButton.showsMenuAsPrimaryAction = true
-    }
+    let menu = UIMenu(title: "", image: nil, children: [
+      UIAction(title: L("export_file"), image: nil, handler: { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
+      }),
+      UIAction(title: L("export_file_gpx"), image: nil, handler: { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
+      }),
+      UIAction(title: L("export_file_geojson"), image: nil, handler: { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
+      }),
+    ])
+    shareButton.menu = menu
+    shareButton.showsMenuAsPrimaryAction = true
   }
 }
 

@@ -375,8 +375,7 @@ BOOL defaultOrientation(CGSize const & size)
           (defaultOrientation(availableArea.size) ? kSearchButtonsViewHeightPortrait
                                                   : kSearchButtonsViewHeightLandscape) /
           2;
-      if (@available(iOS 13.0, *))
-        self.searchButtonsView.layer.cornerCurve = kCACornerCurveContinuous;
+      self.searchButtonsView.layer.cornerCurve = kCACornerCurveContinuous;
       self.streetNameTopOffsetConstraint.constant = self.additionalStreetNameTopOffset;
     }];
   });

@@ -130,18 +130,10 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   }
   else
   {
-    UIColor * textColor;
-    if (@available(iOS 13.0, *))
-    {
-      textColor = [[UIColor alloc] initWithDynamicProvider:^UIColor *(UITraitCollection * traitCollection) {
-        return traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? UIColor.whitePrimaryText
-                                                                              : UIColor.blackPrimaryText;
-      }];
-    }
-    else
-    {
-      textColor = UIColor.blackPrimaryText;
-    }
+    UIColor * textColor = [[UIColor alloc] initWithDynamicProvider:^UIColor *(UITraitCollection * traitCollection) {
+      return traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? UIColor.whitePrimaryText
+                                                                            : UIColor.blackPrimaryText;
+    }];
     NSMutableAttributedString * mutableAttributedText =
         [[NSMutableAttributedString alloc] initWithAttributedString:attributedText];
     [mutableAttributedText

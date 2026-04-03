@@ -8,12 +8,7 @@ final class DocumentPicker: NSObject {
                fileTypes: [FileType] = [.kml, .kmz, .gpx, .geoJson, .json],
                completionHandler: @escaping URLsCompletionHandler) {
     self.completionHandler = completionHandler
-    let documentPickerViewController: UIDocumentPickerViewController
-    if #available(iOS 14.0, *) {
-      documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: fileTypes.map(\.utType), asCopy: true)
-    } else {
-      documentPickerViewController = UIDocumentPickerViewController(documentTypes: fileTypes.map(\.typeIdentifier), in: .import)
-    }
+    let documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: fileTypes.map(\.utType), asCopy: true)
     documentPickerViewController.delegate = self
     // TODO: Enable multiple selection when the multiple files parsing support will be added to the bookmark_manager.
     documentPickerViewController.allowsMultipleSelection = false

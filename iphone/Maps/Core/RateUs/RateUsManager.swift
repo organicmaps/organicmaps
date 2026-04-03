@@ -19,7 +19,7 @@ final class RateUsManager: NSObject {
 
 private extension SKStoreReviewController {
   static func requestReviewInCurrentScene() {
-    if #available(iOS 14.0, *), let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+    if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
       requestReview(in: scene)
       return
     }

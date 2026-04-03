@@ -283,11 +283,7 @@ extension CarPlayRouter {
     primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
        let symbol = UIImage(named: imageName) {
-      if #available(iOS 13.0, *) {
-        primaryManeuver.symbolImage = symbol
-      } else {
-        primaryManeuver.symbolSet = CPImageSet(lightContentImage: symbol, darkContentImage: symbol)
-      }
+      primaryManeuver.symbolImage = symbol
     }
     if let estimates = createEstimates(routeInfo) {
       primaryManeuver.initialTravelEstimates = estimates
@@ -298,11 +294,7 @@ extension CarPlayRouter {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
-      if #available(iOS 13.0, *) {
-        secondaryManeuver.symbolImage = symbol
-      } else {
-        secondaryManeuver.symbolSet = CPImageSet(lightContentImage: symbol, darkContentImage: symbol)
-      }
+      secondaryManeuver.symbolImage = symbol
       maneuvers.append(secondaryManeuver)
     }
     return maneuvers

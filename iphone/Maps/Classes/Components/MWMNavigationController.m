@@ -77,17 +77,7 @@
 
 - (void)setupNavigationBackButtonItemFor:(UIViewController *)viewController
 {
-  if (@available(iOS 14.0, *))
-  {
-    viewController.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeMinimal;
-  }
-  else
-  {
-    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                                       style:UIBarButtonItemStylePlain
-                                                                                      target:nil
-                                                                                      action:nil];
-  }
+  viewController.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeMinimal;
 }
 
 @end

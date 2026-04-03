@@ -1,11 +1,6 @@
 final class LoadingOverlayViewController: UIViewController {
   private var activityIndicator: UIActivityIndicatorView = {
-    let indicator: UIActivityIndicatorView
-    if #available(iOS 13.0, *) {
-      indicator = UIActivityIndicatorView(style: .large)
-    } else {
-      indicator = UIActivityIndicatorView(style: .whiteLarge)
-    }
+    let indicator = UIActivityIndicatorView(style: .large)
     indicator.color = .white
     indicator.startAnimating()
     indicator.translatesAutoresizingMaskIntoConstraints = false

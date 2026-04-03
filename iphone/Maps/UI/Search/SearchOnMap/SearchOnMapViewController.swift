@@ -93,7 +93,7 @@ final class SearchOnMapViewController: UIViewController {
 
   override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
-    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+    if ProcessInfo.processInfo.isiOSAppOnMac {
       updateFrameOfPresentedViewInContainerView()
     }
   }
