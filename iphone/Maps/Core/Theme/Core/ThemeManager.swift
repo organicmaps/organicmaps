@@ -36,27 +36,20 @@ final class ThemeManager: NSObject {
       }
     }(effectivePreference)
 
-    let nightMode = UIColor.isNightMode()
-    let newNightMode: Bool = { theme in
-      switch theme {
-      case .day: fallthrough
-      case .vehicleDay: return false
-      case .night: fallthrough
-      case .vehicleNight: return true
-      case .auto: assertionFailure(); return false
-      @unknown default:
-        fatalError()
-      }
-    }(actualTheme)
+    let newNightMode = actualTheme == .night || actualTheme == .vehicleNight
 
     FrameworkHelper.setTheme(actualTheme)
-    if nightMode != newNightMode || StyleManager.shared.hasTheme() == false {
+
+    // Create the theme once with dynamic colors that auto-resolve based on
+    // the window's overrideUserInterfaceStyle. No need to swap themes.
+    if !StyleManager.shared.hasTheme() {
       UIColor.setNightMode(newNightMode)
-      if newNightMode {
-        StyleManager.shared.setTheme(MainTheme(type: .dark, colors: NightColors(), fonts: Fonts()))
-      } else {
-        StyleManager.shared.setTheme(MainTheme(type: .light, colors: DayColors(), fonts: Fonts()))
-      }
+      StyleManager.shared.setTheme(MainTheme(colors: DynamicColors(), fonts: Fonts()))
+    } else if UIColor.isNightMode() != newNightMode {
+      // Update legacy isNightMode flag and re-apply styles for non-dynamic
+      // properties (CGColor, getImage backgrounds, image name suffixes).
+      UIColor.setNightMode(newNightMode)
+      StyleManager.shared.update()
     }
   }
 
