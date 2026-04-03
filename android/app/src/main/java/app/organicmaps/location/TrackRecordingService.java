@@ -22,6 +22,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -38,6 +40,7 @@ public class TrackRecordingService extends Service implements LocationListener
   public static final int TRACK_REC_NOTIFICATION_ID = 54321;
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
+  private static final MutableLiveData<Boolean> sStartResult = new MutableLiveData<>();
   private boolean mWarningNotification = false;
   private NotificationCompat.Builder mWarningBuilder;
   private PendingIntent mPendingIntent;
@@ -48,6 +51,17 @@ public class TrackRecordingService extends Service implements LocationListener
   public IBinder onBind(Intent intent)
   {
     return null;
+  }
+
+  @NonNull
+  public static LiveData<Boolean> getStartResult()
+  {
+    return sStartResult;
+  }
+
+  public static void resetStartResult()
+  {
+    sStartResult.setValue(null);
   }
 
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
@@ -198,9 +212,12 @@ public class TrackRecordingService extends Service implements LocationListener
     {
       Logger.e(TAG, "Failed to start foreground service, stopping the service", e);
       TrackRecorder.nativeStopTrackRecording();
+      sStartResult.setValue(false);
       stopSelf();
       return START_NOT_STICKY;
     }
+
+    sStartResult.setValue(true);
 
     final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
 
