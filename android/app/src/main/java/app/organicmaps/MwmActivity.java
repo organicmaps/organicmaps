@@ -515,6 +515,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // We don't need to manually handle removing the observers it follows the activity lifecycle
     mMapButtonsViewModel.getBottomButtonsHeight().observe(this, this::onMapBottomButtonsHeightChange);
     mMapButtonsViewModel.getLayoutMode().observe(this, this::initNavigationButtons);
+    TrackRecordingService.getStartResult().observe(this, started -> {
+      if (started != null && !started)
+      {
+        stopTrackRecording();
+        TrackRecordingService.resetStartResult();
+      }
+    });
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar().getViewTreeObserver();
