@@ -121,9 +121,8 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
       if (!routingManager.GetRouteElevationInfo(ei))
         return;
 
-      uint32_t totalAscent, totalDescent;
-      ei.CalculateAscentDescent(totalAscent, totalDescent, ElevationInfo::kDefThresholdMWM);
-      LOG(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
+      auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+      LOG(LINFO, ("Ascent:", altInfo.GetTotalAscent(), "Descent:", altInfo.GetTotalDescent()));
     }
   });
 

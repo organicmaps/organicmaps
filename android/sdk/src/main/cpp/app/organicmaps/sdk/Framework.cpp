@@ -1281,34 +1281,16 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitu
     return nullptr;
   }
 
-  uint32_t totalAscent, totalDescent;
-  ei.CalculateAscentDescent(totalAscent, totalDescent, ElevationInfo::kDefThresholdMWM);
+  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
 
-  // Android platform code has specific result string formatting, so make conversion here.
-  using namespace measurement_utils;
-  auto units = Units::Metric;
-  if (settings::Get(settings::kMeasurementUnits, units) && units == Units::Imperial)
-  {
-    totalAscent = measurement_utils::MetersToFeet(totalAscent);
-    totalDescent = measurement_utils::MetersToFeet(totalDescent);
-  }
+  jni::TScopedLocalRef const totalAscentString(
+      env, jni::ToJavaString(env, platform::Distance::FormatAltitude(altInfo.GetTotalAscent())));
+  jni::TScopedLocalRef const totalDescentString(
+      env, jni::ToJavaString(env, platform::Distance::FormatAltitude(altInfo.GetTotalDescent())));
 
-  jni::TScopedLocalRef const totalAscentString(env, jni::ToJavaString(env, ToStringPrecision(totalAscent, 0)));
-
-  jni::TScopedLocalRef const totalDescentString(env, jni::ToJavaString(env, ToStringPrecision(totalDescent, 0)));
-
-  // Passing route limits.
   // Do not use jni::GetGlobalClassRef, because this class is used only to init static fieldId vars.
   static jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
   ASSERT(routeAltitudeLimitsClass, ());
-
-  static jfieldID const totalAscentField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscent", "I");
-  ASSERT(totalAscentField, ());
-  env->SetIntField(routeAltitudeLimits, totalAscentField, static_cast<jint>(totalAscent));
-
-  static jfieldID const totalDescentField = env->GetFieldID(routeAltitudeLimitsClass, "totalDescent", "I");
-  ASSERT(totalDescentField, ());
-  env->SetIntField(routeAltitudeLimits, totalDescentField, static_cast<jint>(totalDescent));
 
   static jfieldID const totalAscentStringField =
       env->GetFieldID(routeAltitudeLimitsClass, "totalAscentString", "Ljava/lang/String;");
@@ -1319,10 +1301,6 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitu
       env->GetFieldID(routeAltitudeLimitsClass, "totalDescentString", "Ljava/lang/String;");
   ASSERT(totalDescentStringField, ());
   env->SetObjectField(routeAltitudeLimits, totalDescentStringField, totalDescentString.get());
-
-  static jfieldID const isMetricUnitsField = env->GetFieldID(routeAltitudeLimitsClass, "isMetricUnits", "Z");
-  ASSERT(isMetricUnitsField, ());
-  env->SetBooleanField(routeAltitudeLimits, isMetricUnitsField, units == Units::Metric);
 
   size_t const imageRGBADataSize = imageRGBAData.size();
   ASSERT_NOT_EQUAL(imageRGBADataSize, 0,

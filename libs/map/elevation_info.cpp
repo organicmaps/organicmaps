@@ -15,7 +15,8 @@ ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)
   for (auto const & line : lines)
   {
     // Enclosing Track class should avoid empty geometries.
-    ASSERT(!line.empty(), ());
+    // Put CHECK for the early crash report. Replace with ASSERT later.
+    CHECK(!line.empty(), ());
 
     Points pts;
     pts.reserve(line.size());
@@ -38,31 +39,32 @@ ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)
 void ElevationInfo::SmoothSlopeOutliers(double maxSlopePercent)
 {
   double const maxSlope = maxSlopePercent / 100.0;
+  double constexpr kZeroLength = 1.0E-9;
 
   for (auto & line : m_lines)
   {
     if (line.size() < 3)
       continue;
 
-    // Mark outlier points where slope to both neighbors exceeds the limit.
+    // Mark outlier points if it is a peak/pit for both neighbors and a slope exceeds the limit.
     std::vector<bool> outlier(line.size(), false);
     for (size_t i = 1; i + 1 < line.size(); ++i)
     {
       double const distPrev = line[i].m_distance - line[i - 1].m_distance;
       double const distNext = line[i + 1].m_distance - line[i].m_distance;
-      if (distPrev < 1e-9 || distNext < 1e-9)
+      if (distPrev < kZeroLength || distNext < kZeroLength)
         continue;
 
-      double const slopePrev = std::abs(double(line[i].m_altitude - line[i - 1].m_altitude)) / distPrev;
-      double const slopeNext = std::abs(double(line[i + 1].m_altitude - line[i].m_altitude)) / distNext;
+      auto const deltaPrev = line[i].m_altitude - line[i - 1].m_altitude;
+      auto const deltaNext = line[i + 1].m_altitude - line[i].m_altitude;
+      double const slopePrev = fabs(double(deltaPrev) / distPrev);
+      double const slopeNext = fabs(double(deltaNext) / distNext);
 
       // Point is an outlier if slope to at least one neighbor exceeds the limit
       // AND the slopes have opposite signs (spike pattern: up then down or vice versa).
       if (slopePrev > maxSlope || slopeNext > maxSlope)
       {
-        auto const deltaPrev = line[i].m_altitude - line[i - 1].m_altitude;
-        auto const deltaNext = line[i + 1].m_altitude - line[i].m_altitude;
-        // Opposite sign check: a real climb goes the same direction.
+        // Opposite sign check (peak/pit): a real climb goes the same direction.
         if ((deltaPrev > 0) != (deltaNext > 0))
           outlier[i] = true;
       }
@@ -84,7 +86,7 @@ void ElevationInfo::SmoothSlopeOutliers(double maxSlopePercent)
         ++right;
 
       double const totalDist = line[right].m_distance - line[left].m_distance;
-      if (totalDist < 1e-9)
+      if (totalDist < kZeroLength)
         continue;
 
       double const f = (line[i].m_distance - line[left].m_distance) / totalDist;
@@ -160,33 +162,47 @@ void ElevationInfo::Simplify(double altitudeDeviation)
   }
 }
 
-void ElevationInfo::CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM,
-                                           geometry::Altitude threshold) const
+ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude threshold) const
 {
   ASSERT(threshold >= 0, ());
 
-  totalAscentM = 0;
-  totalDescentM = 0;
+  AltitudesInfo info;
   for (auto const & line : m_lines)
   {
     ASSERT(!line.empty(), ());
 
-    geometry::Altitude refAlt = line[0].m_altitude;
+    Altitude refAlt = line[0].m_altitude;
+    info.m_minAltitude = std::min(info.m_minAltitude, refAlt);
+    info.m_maxAltitude = std::max(info.m_maxAltitude, refAlt);
+
     for (size_t i = 1; i < line.size(); ++i)
     {
-      auto const delta = line[i].m_altitude - refAlt;
-      if (delta > threshold)
+      auto const alt = line[i].m_altitude;
+      info.m_minAltitude = std::min(info.m_minAltitude, alt);
+      info.m_maxAltitude = std::max(info.m_maxAltitude, alt);
+
+      // Raw: sum all deltas.
+      auto const rawDelta = alt - line[i - 1].m_altitude;
+      if (rawDelta > 0)
+        info.m_totalAscentRaw += rawDelta;
+      else
+        info.m_totalDescentRaw += -rawDelta;
+
+      // Filtered: threshold accumulation from reference point.
+      auto const filteredDelta = alt - refAlt;
+      if (filteredDelta > threshold)
       {
-        totalAscentM += delta;
-        refAlt = line[i].m_altitude;
+        info.m_totalAscentFiltered += filteredDelta;
+        refAlt = alt;
       }
-      else if (delta < -threshold)
+      else if (filteredDelta < -threshold)
       {
-        totalDescentM += -delta;
-        refAlt = line[i].m_altitude;
+        info.m_totalDescentFiltered += -filteredDelta;
+        refAlt = alt;
       }
     }
   }
+  return info;
 }
 
 bool ElevationInfo::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
@@ -195,18 +211,11 @@ bool ElevationInfo::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
   std::vector<double> distances;
   geometry::Altitudes altitudes;
 
-  double cumulativeOffset = 0;
-  for (auto const & line : m_lines)
+  ForEachPoint([&](double d, geometry::Altitude a)
   {
-    for (auto const & point : line)
-    {
-      distances.push_back(cumulativeOffset + point.m_distance);
-      altitudes.push_back(point.m_altitude);
-    }
-
-    if (!line.empty())
-      cumulativeOffset += line.back().m_distance;
-  }
+    distances.push_back(d);
+    altitudes.push_back(a);
+  });
 
   if (distances.empty())
     return false;
