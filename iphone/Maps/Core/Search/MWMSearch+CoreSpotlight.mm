@@ -1,6 +1,5 @@
 #import <CoreApi/AppInfo.h>
 #import <CoreApi/Framework.h>
-#import <CoreApi/MWMCommon.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MWMSearch+CoreSpotlight.h"
@@ -10,7 +9,7 @@
 
 + (void)addCategoriesToSpotlight
 {
-  if (isIOSVersionLessThan(9) || ![CSSearchableIndex isIndexingAvailable])
+  if (![CSSearchableIndex isIndexingAvailable])
     return;
 
   NSString * localeLanguageId = [[AppInfo sharedInfo] languageId];
