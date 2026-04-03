@@ -114,7 +114,7 @@
         //          NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", [MWMFrameworkHelper
         //          userAccessToken]]; [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
         //        }
-        if ([UIColor isNightMode])
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
           [request setValue:@"dark" forHTTPHeaderField:@"x-mapsme-theme"];
         [self.webView loadRequest:request];
       }

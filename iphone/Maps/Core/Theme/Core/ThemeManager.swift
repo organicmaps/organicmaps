@@ -1,6 +1,7 @@
 @objc(MWMThemeManager)
 final class ThemeManager: NSObject {
   private static let instance = ThemeManager()
+  private var isNightMode = false
 
   override private init() {
     super.init()
@@ -9,8 +10,8 @@ final class ThemeManager: NSObject {
   private func update(theme: MWMTheme) {
     // CarPlay may override the user preference with its own light/dark style.
     var effectivePreference = theme
-    if MWMCarPlayService.shared().isCarplayActivated {
-      let carPlayStyle = MWMCarPlayService.shared().interfaceStyle()
+    if CarPlayService.shared.isCarplayActivated {
+      let carPlayStyle = CarPlayService.shared.interfaceStyle()
       switch carPlayStyle {
       case .light: effectivePreference = .day
       case .dark: effectivePreference = .night
@@ -43,12 +44,11 @@ final class ThemeManager: NSObject {
     // Create the theme once with dynamic colors that auto-resolve based on
     // the window's overrideUserInterfaceStyle. No need to swap themes.
     if !StyleManager.shared.hasTheme() {
-      UIColor.setNightMode(newNightMode)
+      isNightMode = newNightMode
       StyleManager.shared.setTheme(MainTheme(colors: DynamicColors(), fonts: Fonts()))
-    } else if UIColor.isNightMode() != newNightMode {
-      // Update legacy isNightMode flag and re-apply styles for non-dynamic
-      // properties (CGColor, getImage backgrounds, image name suffixes).
-      UIColor.setNightMode(newNightMode)
+    } else if isNightMode != newNightMode {
+      // Re-apply styles for non-dynamic properties (CGColor, getImage backgrounds).
+      isNightMode = newNightMode
       StyleManager.shared.update()
     }
   }

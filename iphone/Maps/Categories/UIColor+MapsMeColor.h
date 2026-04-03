@@ -33,9 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)colorWithName:(NSString *)colorName;
 + (UIColor *)colorFromHexString:(NSString *)hexString;
 
-+ (void)setNightMode:(BOOL)mode;
-+ (BOOL)isNightMode;
-
 @end
 
 NS_ASSUME_NONNULL_END

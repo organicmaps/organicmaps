@@ -76,7 +76,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
   BOOL const isAddPlaceUnderStatusBar =
       [self.ownerController.view hasSubviewWithViewClass:[MWMAddPlaceNavigationBar class]];
-  BOOL const isNightMode = [UIColor isNightMode];
+  BOOL const isNightMode = self.ownerController.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
   BOOL const isSomethingUnderStatusBar =
       isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar || isAddPlaceUnderStatusBar;
 

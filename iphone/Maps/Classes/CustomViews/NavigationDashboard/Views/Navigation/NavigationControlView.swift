@@ -240,10 +240,8 @@ final class NavigationControlView: SolidTouchView {
     let endValue = isExtended ? 0 : morphImagesCount + 1
     let stepValue = isExtended ? -1 : 1
     var morphImages: [UIImage] = []
-    let nightMode = UIColor.isNightMode() ? "dark" : "light"
     for i in stride(from: startValue, to: endValue, by: stepValue) {
-      let imageName = "ic_menu_\(i)_\(nightMode)"
-      morphImages.append(UIImage(named: imageName)!)
+      morphImages.append(UIImage(named: "ic_menu_\(i)")!)
     }
     imageView.animationImages = morphImages
     imageView.animationRepeatCount = 1

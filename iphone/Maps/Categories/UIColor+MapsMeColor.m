@@ -2,8 +2,6 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIColorRoutines.h"
 
-static BOOL isNightMode = NO;
-
 @implementation UIColor (MapsMeColor)
 
 // hex string without #
@@ -17,16 +15,6 @@ static BOOL isNightMode = NO;
                          green:((rgbValue & 0xFF00) >> 8) / 255.0
                           blue:(rgbValue & 0xFF) / 255.0
                          alpha:1.0];
-}
-
-+ (void)setNightMode:(BOOL)mode
-{
-  isNightMode = mode;
-}
-
-+ (BOOL)isNightMode
-{
-  return isNightMode;
 }
 
 // Green color

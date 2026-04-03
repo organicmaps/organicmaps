@@ -7,8 +7,7 @@
 - (void)setMwm_name:(NSString *)mwm_name
 {
   objc_setAssociatedObject(self, @selector(mwm_name), mwm_name, OBJC_ASSOCIATION_COPY_NONATOMIC);
-  self.image =
-      [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
+  self.image = [UIImage imageNamed:mwm_name];
 }
 
 - (NSString *)mwm_name
@@ -41,8 +40,7 @@
   if (self.mwm_coloring == MWMImageColoringOther)
   {
     if (self.mwm_name)
-      self.image = [UIImage
-          imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
+      self.image = [UIImage imageNamed:self.mwm_name];
     return;
   }
   [self applyColoring];

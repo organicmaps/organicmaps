@@ -175,11 +175,20 @@ static CGFloat angleWithProgress(CGFloat progress)
     self.spinner.hidden = NO;
     self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
   }
-  NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) ||
-                               (![UIColor isNightMode] && self.isInvertColor) || _spinnerBackgroundColor
-                         ? @"dark"
-                         : @"light";
-  UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@", postfix]];
+  BOOL const isDark = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+  BOOL const wantsDark = (isDark && !self.isInvertColor) || (!isDark && self.isInvertColor) || _spinnerBackgroundColor;
+  UIImage * image;
+  if (wantsDark != isDark)
+  {
+    // Need the opposite appearance variant.
+    UITraitCollection * traits = [UITraitCollection
+        traitCollectionWithUserInterfaceStyle:wantsDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight];
+    image = [UIImage imageNamed:@"Spinner" inBundle:nil compatibleWithTraitCollection:traits];
+  }
+  else
+  {
+    image = [UIImage imageNamed:@"Spinner"];
+  }
   self.spinner.image = image;
   [self.spinner startRotation:1];
 }

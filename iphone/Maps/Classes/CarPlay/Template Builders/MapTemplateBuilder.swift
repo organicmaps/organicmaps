@@ -160,9 +160,9 @@ final class MapTemplateBuilder {
     case .startPanning:
       button.image = UIImage(named: "btn_carplay_pan_light")
     case .zoomIn:
-      button.image = UIImage(named: "btn_zoom_in_light")
+      button.image = UIImage(named: "btn_zoom_in")
     case .zoomOut:
-      button.image = UIImage(named: "btn_zoom_out_light")
+      button.image = UIImage(named: "btn_zoom_out")
     }
     return button
   }
