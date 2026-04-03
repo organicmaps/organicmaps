@@ -470,11 +470,11 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (![self hasRouteAltitude])
     return;
 
-  auto altitudes = std::make_shared<RoutingManager::DistanceAltitude>();
-  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*altitudes))
+  auto ei = std::make_shared<ElevationInfo>();
+  if (!GetFramework().GetRoutingManager().GetRouteElevationInfo(*ei))
     return;
 
-  // |altitudes| should not be used in the method after line below.
+  // |ei| should not be used in the method after line below.
   dispatch_async(self.router.renderAltitudeImagesQueue, [=]()
   {
     auto router = self.router;
@@ -491,10 +491,8 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     NSData * imageData = router.altitudeImagesData[sizeValue];
     if (!imageData)
     {
-      altitudes->Simplify();
-
       std::vector<uint8_t> imageRGBAData;
-      if (!altitudes->GenerateRouteAltitudeChart(width, height, imageRGBAData))
+      if (!ei->GenerateRouteAltitudeChart(width, height, imageRGBAData))
         return;
       if (imageRGBAData.empty())
         return;
@@ -502,7 +500,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
       router.altitudeImagesData[sizeValue] = imageData;
 
       uint32_t totalAscentM, totalDescentM;
-      altitudes->CalculateAscentDescent(totalAscentM, totalDescentM);
+      ei->CalculateAscentDescent(totalAscentM, totalDescentM, ElevationInfo::kDefThresholdMWM);
 
       auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
       router.totalAscent = @(platform::Distance::FormatAltitude(totalAscentM).c_str());
