@@ -436,8 +436,6 @@ public:
 
   kml::TrackId SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to);
 
-  static kml::TrackId constexpr kTempRelationTrackId = kml::kInvalidTrackId - 1;
-
   /// Creates a temporary track from relation data. Replaces any previous temp track.
   kml::TrackId SetTempRelationTrack(kml::TrackData && trackData);
   /// Removes the current temporary relation track, if any.
