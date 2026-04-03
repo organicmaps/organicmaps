@@ -262,7 +262,7 @@
   view.frame = ownerViewController.view.bounds;
   [ownerViewController.view addSubview:view];
   [self addControllerViewToWindow];
-  auto const orientation = UIApplication.sharedApplication.statusBarOrientation;
+  auto const orientation = view.window.windowScene.interfaceOrientation;
   [self rotate:orientation duration:0.0];
   [view addSubview:self];
   self.frame = view.bounds;

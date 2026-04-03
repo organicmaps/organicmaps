@@ -29,7 +29,7 @@ static CGFloat const kMinimumOffset = 20.;
                                         NSForegroundColorAttributeName: UIColor.blackSecondaryText
                                       }];
   [alert.textView sizeToFit];
-  UIWindow * window = UIApplication.sharedApplication.keyWindow;
+  UIWindow * window = UIApplication.sharedApplication.delegate.window;
   [alert invalidateTextViewHeight:alert.textView.height withHeight:window.height];
   alert.okBlock = block;
   return alert;
@@ -47,7 +47,7 @@ static CGFloat const kMinimumOffset = 20.;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  UIView * superview = self.superview ?: UIApplication.sharedApplication.keyWindow;
+  UIView * superview = self.superview ?: UIApplication.sharedApplication.delegate.window;
   CGFloat const height = UIInterfaceOrientationIsLandscape(orientation) ? MIN(superview.width, superview.height)
                                                                         : MAX(superview.width, superview.height);
   [self invalidateTextViewHeight:self.textView.contentSize.height withHeight:height];
