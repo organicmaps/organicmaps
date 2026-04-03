@@ -38,7 +38,6 @@
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIScreen.h>
-#import <UIKit/UIWebView.h>
 #endif  // TARGET_OS_IPHONE
 
 #import <SystemConfiguration/SystemConfiguration.h>
