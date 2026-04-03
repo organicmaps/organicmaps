@@ -70,7 +70,6 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   public void start(long interval)
   {
     Logger.d(TAG);
-    mActive = true;
 
     final LocationRequest locationRequest =
         new LocationRequest
@@ -92,6 +91,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     builder.setAlwaysShow(true); // improves the wording/appearance of the dialog
     final LocationSettingsRequest locationSettingsRequest = builder.build();
 
+    mActive = true;
     mSettingsClient.checkLocationSettings(locationSettingsRequest)
         .addOnSuccessListener(locationSettingsResponse -> {
           if (!mActive)
