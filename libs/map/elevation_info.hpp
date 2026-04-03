@@ -42,6 +42,10 @@ public:
   uint8_t GetDifficulty() const { return m_difficulty; }
   bool IsEmpty() const { return m_lines.empty(); }
 
+  /// Replaces altitude of points where slope exceeds maxSlopePercent with interpolated values.
+  /// @param[in] maxSlopePercent Maximum plausible slope (100 = 45°). Default 100% covers steep alpine trails.
+  void SmoothSlopeOutliers(double maxSlopePercent = 100.0);
+
   /// @param[in] altitudeDeviation Simplification threshold in meters (~sqrt(2) by default).
   void Simplify(double altitudeDeviation = 1.415);
 
