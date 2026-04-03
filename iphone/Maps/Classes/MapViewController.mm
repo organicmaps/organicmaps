@@ -471,9 +471,8 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
   self.title = L(@"map");
 
-  // On iOS 10 (it was reproduced, it may be also on others), mapView can be uninitialized
-  // when onGetFocus is called, it can lead to missing of onGetFocus call and a deadlock on the start.
-  // As soon as mapView must exist before onGetFocus, so we have to defer onGetFocus call.
+  // mapView can be uninitialized when onGetFocus is called, which can lead to missing
+  // the onGetFocus call and a deadlock on start. Defer the call until mapView exists.
   if (self.needDeferFocusNotification)
     [self onGetFocus:self.deferredFocusValue];
 
