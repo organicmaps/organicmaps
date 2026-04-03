@@ -1,7 +1,6 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MWMCarPlaySearchResultObject;
 
-API_AVAILABLE(ios(12.0))
 NS_SWIFT_NAME(CarPlaySearchService)
 @interface MWMCarPlaySearchService : NSObject
 @property(strong, nonatomic, readonly) NSArray<MWMCarPlaySearchResultObject *> * lastResults;
