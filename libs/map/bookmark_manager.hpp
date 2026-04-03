@@ -661,41 +661,15 @@ private:
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext, FileType fileType,
                                      BookmarksChecker const & checker);
 
-  enum class CategoryFileChangeType
-  {
-    Created,
-    Updated,
-    Deleted
-  };
-
-  struct PendingCategoryFileChange
-  {
-    PendingCategoryFileChange(kml::MarkGroupId groupId, std::string file, std::unique_ptr<kml::FileData> data,
-                              CategoryFileChangeType type)
-      : m_groupId(groupId)
-      , m_file(std::move(file))
-      , m_data(std::move(data))
-      , m_type(type)
-    {}
-
-    kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
-    std::string m_file;
-    std::unique_ptr<kml::FileData> m_data;
-    CategoryFileChangeType m_type;
-  };
-  using PendingCategoryFileChanges = std::vector<PendingCategoryFileChange>;
-
   void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;
   void UpdateBmGroupIdList();
 
   void NotifyBookmarksChanged();
-  void DeleteCategories(kml::GroupIdCollection const & groupIdCollection);
+  void DeleteCategories(kml::GroupIdSet const & groupIdSet);
 
   void NotifyCategoryFilesDidFinishGathering();
   void NotifyCategoryFilesChanged(CategoryFilesUpdate update);
   void ProcessBookmarkCategoryFileChanges(MarksChangesTracker const & changesTracker);
-  void CollectCategoryFileChanges(kml::GroupIdCollection const & groupIdCollection, CategoryFileChangeType changeType,
-                                  PendingCategoryFileChanges & categoryFileChanges);
 
   void SendBookmarksChanges(MarksChangesTracker const & changesTracker);
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks) const;
@@ -705,9 +679,12 @@ private:
   kml::MarkGroupId CheckAndCreateDefaultCategory();
   void CheckAndResetLastIds();
 
+  std::string EnsureCategoryFileName(BookmarkCategory & group) const;
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
   KMLDataCollectionPtr PrepareToSaveBookmarksForTrack(kml::TrackId trackId);
+  void SaveBookmarks(BookmarkManager::KMLDataCollectionPtr const & kmlDataCollection,
+                     BookmarksChangedCallback && callback);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   template <typename UniquityChecker>

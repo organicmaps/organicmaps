@@ -1901,7 +1901,7 @@ void BookmarkManager::SetCategoryFilesCallbacks(CategoryFilesCallbacks callbacks
     std::lock_guard<std::mutex> const lock(m_categoryFilesCallbacksMutex);
     m_categoryFilesCallbacks = std::move(callbacks);
     shouldNotifyAboutFinishedGathering =
-        m_categoryFilesDidFinishGathering.load() && m_categoryFilesCallbacks.m_onDidFinishGathering != nullptr;
+        m_categoryFilesDidFinishGathering && m_categoryFilesCallbacks.m_onDidFinishGathering != nullptr;
   }
 
   if (shouldNotifyAboutFinishedGathering)
@@ -2542,83 +2542,51 @@ void BookmarkManager::ProcessBookmarkCategoryFileChanges(MarksChangesTracker con
   auto const & createdIds = changesTracker.GetCreatedGroupIds();
   auto const & updatedIds = changesTracker.GetUpdatedGroupIds();
 
-  kml::GroupIdCollection categoriesToDelete;
-  categoriesToDelete.reserve(removedIds.size());
-  kml::GroupIdCollection createdCategoriesToSave;
-  createdCategoriesToSave.reserve(createdIds.size());
-  kml::GroupIdCollection updatedCategoriesToSave;
-  updatedCategoriesToSave.reserve(updatedIds.size());
-
+  Platform::FilesList deletedFiles;
+  deletedFiles.reserve(removedIds.size());
   for (auto groupId : removedIds)
-    if (IsBookmarkCategory(groupId))
-      categoriesToDelete.push_back(groupId);
-
-  for (auto groupId : createdIds)
-    if (IsBookmarkCategory(groupId) && !base::IsExist(categoriesToDelete, groupId))
-      createdCategoriesToSave.push_back(groupId);
-
-  for (auto groupId : updatedIds)
-    if (IsBookmarkCategory(groupId) && !base::IsExist(createdCategoriesToSave, groupId) &&
-        !base::IsExist(categoriesToDelete, groupId))
-      updatedCategoriesToSave.push_back(groupId);
-
-  PendingCategoryFileChanges categoryFileChanges;
-  CollectCategoryFileChanges(categoriesToDelete, CategoryFileChangeType::Deleted, categoryFileChanges);
-  // Delete synchorously
-  DeleteCategories(categoriesToDelete);
-
-  CollectCategoryFileChanges(createdCategoriesToSave, CategoryFileChangeType::Created, categoryFileChanges);
-  CollectCategoryFileChanges(updatedCategoriesToSave, CategoryFileChangeType::Updated, categoryFileChanges);
-  auto const files = GetCategoryFilesList();
-
-  auto categoryFileChangesPtr = std::make_shared<PendingCategoryFileChanges>(std::move(categoryFileChanges));
-  auto processCategoryFileChanges = [this, files, categoryFileChangesPtr]() mutable
   {
-    auto & categoryFileChanges = *categoryFileChangesPtr;
-    Platform::FilesList createdFiles;
-    Platform::FilesList updatedFiles;
-    Platform::FilesList deletedFiles;
+    if (!IsBookmarkCategory(groupId))
+      continue;
 
-    for (auto & categoryFileChange : categoryFileChanges)
-    {
-      switch (categoryFileChange.m_type)
-      {
-      case CategoryFileChangeType::Created:
-      case CategoryFileChangeType::Updated:
-      {
-        bool const shouldNotify = categoryFileChange.m_data == nullptr ||
-                                  SaveKmlFileByExt(*categoryFileChange.m_data, categoryFileChange.m_file);
-        if (!shouldNotify)
-          continue;
-
-        auto & changedFiles =
-            categoryFileChange.m_type == CategoryFileChangeType::Created ? createdFiles : updatedFiles;
-        changedFiles.push_back(categoryFileChange.m_file);
-        break;
-      }
-      case CategoryFileChangeType::Deleted: deletedFiles.push_back(categoryFileChange.m_file); break;
-      }
-    }
-
-    Platform::FilesList existingFiles;
-    existingFiles.reserve(files.size());
-    for (auto const & file : files)
-      if (Platform::IsFileExistsByFullPath(file))
-        existingFiles.push_back(file);
-
-    if (createdFiles.empty() && updatedFiles.empty() && deletedFiles.empty())
-      return;
-
-    NotifyCategoryFilesChanged(CategoryFilesUpdate(existingFiles, createdFiles, updatedFiles, deletedFiles));
-  };
-
-  if (m_testModeEnabled)
-  {
-    processCategoryFileChanges();
-    return;
+    auto const fileName = GetBmCategory(groupId)->GetFileName();
+    if (!fileName.empty())
+      deletedFiles.push_back(fileName);
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, std::move(processCategoryFileChanges));
+  DeleteCategories(removedIds);
+
+  Platform::FilesList createdFiles;
+  Platform::FilesList updatedFiles;
+  auto categoriesToAutoSave = std::make_shared<KMLDataCollection>();
+
+  kml::GroupIdSet changedIds(createdIds.begin(), createdIds.end());
+  changedIds.insert(updatedIds.begin(), updatedIds.end());
+  for (auto groupId : changedIds)
+  {
+    if (!IsBookmarkCategory(groupId) || base::IsExist(removedIds, groupId))
+      continue;
+
+    auto * group = GetBmCategory(groupId);
+    auto const file = EnsureCategoryFileName(*group);
+    if (file.empty())
+      continue;
+
+    if (base::IsExist(createdIds, groupId))
+      createdFiles.push_back(file);
+    else
+      updatedFiles.push_back(file);
+
+    if (group->IsAutoSaveEnabled())
+      categoriesToAutoSave->emplace_back(file, CollectBmGroupKMLData(group));
+  }
+
+  if (createdFiles.empty() && updatedFiles.empty() && deletedFiles.empty())
+    return;
+
+  auto const files = GetCategoryFilesList();
+  auto const update = CategoryFilesUpdate(files, createdFiles, updatedFiles, deletedFiles);
+  SaveBookmarks(categoriesToAutoSave, [this, files, update]() { NotifyCategoryFilesChanged(update); });
 }
 
 void BookmarkManager::NotifyCategoryFilesDidFinishGathering()
@@ -2647,24 +2615,22 @@ void BookmarkManager::NotifyCategoryFilesDidFinishGathering()
 
 void BookmarkManager::NotifyCategoryFilesChanged(CategoryFilesUpdate update)
 {
-  if (!m_categoryFilesDidFinishGathering.load())
+  if (!m_categoryFilesDidFinishGathering)
     return;
 
-  auto const notify = [this, update = std::move(update)]()
+  CategoryFilesUpdatedCallback callback;
   {
-    CategoryFilesUpdatedCallback callback;
-    {
-      std::lock_guard<std::mutex> const lock(m_categoryFilesCallbacksMutex);
-      callback = m_categoryFilesCallbacks.m_onUpdated;
-    }
+    std::lock_guard<std::mutex> const lock(m_categoryFilesCallbacksMutex);
+    callback = m_categoryFilesCallbacks.m_onUpdated;
+  }
 
-    if (callback)
-      callback(update);
-  };
+  if (!callback)
+    return;
+
+  auto const notify = [callback = std::move(callback), update = std::move(update)]() { callback(update); };
 
   if (m_testModeEnabled)
   {
-    // Notify synchronously.
     notify();
     return;
   }
@@ -2739,6 +2705,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
   CHECK_EQUAL(m_compilations.count(groupId), 0, ());
+
   m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
@@ -3143,87 +3110,76 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarksFor
   return collection;
 }
 
+std::string BookmarkManager::EnsureCategoryFileName(BookmarkCategory & group) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  std::string const fileDir = GetBookmarksDirectory();
+  if (!Platform::IsFileExistsByFullPath(fileDir) && !Platform::MkDirChecked(fileDir))
+    return {};
+
+  std::string file = group.GetFileName();
+  if (!file.empty())
+    return file;
+
+  std::string name = RemoveInvalidSymbols(group.GetName());
+  if (name.empty())
+    name = kDefaultBookmarksFileName;
+
+  file = GenerateUniqueFileName(fileDir, std::move(name), kKmlExtension);
+  group.SetFileName(file);
+  return file;
+}
+
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
     kml::GroupIdCollection const & groupIdCollection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  std::string const fileDir = GetBookmarksDirectory();
-
-  if (!Platform::IsFileExistsByFullPath(fileDir) && !Platform::MkDirChecked(fileDir))
-    return nullptr;
-
   auto collection = std::make_shared<KMLDataCollection>();
   for (auto const groupId : groupIdCollection)
   {
     auto * group = GetBmCategory(groupId);
-
-    // Get valid file name from category name
-    std::string file = group->GetFileName();
+    auto const file = EnsureCategoryFileName(*group);
     if (file.empty())
-    {
-      std::string name = RemoveInvalidSymbols(group->GetName());
-      if (name.empty())
-        name = kDefaultBookmarksFileName;
-
-      file = GenerateUniqueFileName(fileDir, std::move(name), kKmlExtension);
-      group->SetFileName(file);
-    }
+      return nullptr;
 
     collection->emplace_back(std::move(file), CollectBmGroupKMLData(group));
   }
   return collection;
 }
 
-void BookmarkManager::CollectCategoryFileChanges(kml::GroupIdCollection const & groupIdCollection,
-                                                 CategoryFileChangeType changeType,
-                                                 PendingCategoryFileChanges & categoryFileChanges)
+void BookmarkManager::SaveBookmarks(BookmarkManager::KMLDataCollectionPtr const & kmlDataCollection,
+                                    BookmarksChangedCallback && callback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (groupIdCollection.empty())
+  if (!kmlDataCollection)
     return;
 
-  switch (changeType)
+  if (m_testModeEnabled)
   {
-  case CategoryFileChangeType::Created:
-  case CategoryFileChangeType::Updated:
-  {
-    auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
-    CHECK(kmlDataCollection != nullptr, ());
-
-    categoryFileChanges.reserve(categoryFileChanges.size() + kmlDataCollection->size());
-    for (size_t i = 0; i < groupIdCollection.size(); ++i)
-    {
-      auto const groupId = groupIdCollection[i];
-      auto & kmlItem = (*kmlDataCollection)[i];
-      std::unique_ptr<kml::FileData> fileData;
-      if (GetBmCategory(groupId)->IsAutoSaveEnabled())
-        fileData = std::move(kmlItem.second);
-      categoryFileChanges.emplace_back(groupId, std::move(kmlItem.first), std::move(fileData), changeType);
-    }
+    // Save bookmarks synchronously.
+    for (auto const & kmlItem : *kmlDataCollection)
+      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+    if (callback)
+      callback();
     return;
   }
-  case CategoryFileChangeType::Deleted:
-  {
-    categoryFileChanges.reserve(categoryFileChanges.size() + groupIdCollection.size());
-    for (auto groupId : groupIdCollection)
-    {
-      auto const filePath = GetCategoryFileName(groupId);
-      if (filePath.empty())
-        continue;  // category was created and deleted before ever getting a file on disk
 
-      categoryFileChanges.emplace_back(groupId, filePath, nullptr, changeType);
-    }
-    return;
-  }
-  }
+  GetPlatform().RunTask(Platform::Thread::File, [kmlDataCollection = std::move(kmlDataCollection), callback]()
+  {
+    for (auto const & kmlItem : *kmlDataCollection)
+      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+    if (callback)
+      callback();
+  });
 }
 
-void BookmarkManager::DeleteCategories(kml::GroupIdCollection const & groupIdCollection)
+void BookmarkManager::DeleteCategories(kml::GroupIdSet const & groupIdSet)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (groupIdCollection.empty())
+  if (groupIdSet.empty())
     return;
 
   /// @todo(KK): Remove when the `recently deleted` for the android/win will be implemented.
@@ -3233,7 +3189,7 @@ void BookmarkManager::DeleteCategories(kml::GroupIdCollection const & groupIdCol
   moveToTrash = true;
 #endif
 
-  for (auto const & groupId : groupIdCollection)
+  for (auto const & groupId : groupIdSet)
   {
     auto it = m_categories.find(groupId);
     if (it == m_categories.end())
