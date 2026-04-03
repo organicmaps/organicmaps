@@ -216,30 +216,13 @@ using CancelChecker = platform::HttpClient::CancelChecker;
   }
   else if (m_outputFileHandle)
   {
-    if (@available(iOS 13.0, macOS 10.15, *))
+    NSError * writeError = nil;
+    if (![m_outputFileHandle writeData:data error:&writeError])
     {
-      NSError * writeError = nil;
-      if (![m_outputFileHandle writeData:data error:&writeError])
-      {
-        LOG(LERROR, ("File write error:", writeError.localizedDescription.UTF8String));
-        m_writeError = YES;
-        [dataTask cancel];
-        return;
-      }
-    }
-    else
-    {
-      @try
-      {
-        [m_outputFileHandle writeData:data];
-      }
-      @catch (NSException * exception)
-      {
-        LOG(LERROR, ("File write exception:", exception.reason.UTF8String));
-        m_writeError = YES;
-        [dataTask cancel];
-        return;
-      }
+      LOG(LERROR, ("File write error:", writeError.localizedDescription.UTF8String));
+      m_writeError = YES;
+      [dataTask cancel];
+      return;
     }
   }
   else

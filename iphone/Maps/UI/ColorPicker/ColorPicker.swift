@@ -21,7 +21,7 @@ final class ColorPicker: NSObject {
 
     switch pickerType {
     case .defaultColorPicker(let color):
-      if #available(iOS 14.0, *), !ProcessInfo.processInfo.isiOSAppOnMac {
+      if !ProcessInfo.processInfo.isiOSAppOnMac {
         colorPickerViewController = defaultColorPickerViewController(with: color)
       } else {
         var selectedColor: BookmarkColor?
@@ -38,7 +38,6 @@ final class ColorPicker: NSObject {
 
   // MARK: - Private
 
-  @available(iOS 14.0, *)
   private func defaultColorPickerViewController(with selectedColor: UIColor?) -> UIViewController {
     let colorPickerController = UIColorPickerViewController()
     colorPickerController.supportsAlpha = false
@@ -69,7 +68,6 @@ extension ColorPicker: BookmarkColorViewControllerDelegate {
 
 // MARK: - UIColorPickerViewControllerDelegate
 
-@available(iOS 14.0, *)
 extension ColorPicker: UIColorPickerViewControllerDelegate {
   func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
     onUpdateColorHandler?(viewController.selectedColor.sRGBColor)

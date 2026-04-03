@@ -58,9 +58,6 @@ extension MWMRouterType: CaseIterable {
     @unknown default:
       fatalError("Unknown router type")
     }
-    if #available(iOS 13, *) {
-      return image.withTintColor(isSelected ? .linkBlue() : .blackSecondaryText(), renderingMode: .alwaysOriginal)
-    }
-    return image
+    return image.withTintColor(isSelected ? .linkBlue() : .blackSecondaryText(), renderingMode: .alwaysOriginal)
   }
 }

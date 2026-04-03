@@ -67,9 +67,7 @@ final class CarPlayService: NSObject {
       applyBaseRootTemplate()
       router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: true)
     }
-    if #available(iOS 13.0, *) {
-      updateContentStyle(configuration.contentStyle)
-    }
+    updateContentStyle(configuration.contentStyle)
     FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
 
     CarPlayWindowScaleAdjuster.updateAppearance(
@@ -164,7 +162,6 @@ final class CarPlayService: NSObject {
     return .unspecified
   }
 
-  @available(iOS 13.0, *)
   private func updateContentStyle(_ contentStyle: CPContentStyle) {
     rootTemplateStyle = contentStyle == .dark ? .dark : .light
     // Update the current map style in accordance with the CarPLay content theme.
@@ -397,7 +394,6 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   func sessionConfiguration(_: CPSessionConfiguration,
                             limitedUserInterfacesChanged _: CPLimitableUserInterface) {}
 
-  @available(iOS 13.0, *)
   func sessionConfiguration(_: CPSessionConfiguration,
                             contentStyleChanged contentStyle: CPContentStyle) {
     // Handle the CarPlay content style changing triggered by the 'Always Show Dark Maps' toggle.

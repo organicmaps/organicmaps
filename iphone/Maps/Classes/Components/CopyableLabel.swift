@@ -28,12 +28,7 @@ class CopyableLabel: UILabel {
       var rect = bounds
       rect.origin = locationOfTouchInLabel
       rect.size = CGSize(width: 1, height: 1)
-      if #available(iOS 13, *) {
-        menu.showMenu(from: self, rect: rect)
-      } else {
-        menu.setTargetRect(rect, in: self)
-        menu.setMenuVisible(true, animated: false)
-      }
+      menu.showMenu(from: self, rect: rect)
     }
   }
 

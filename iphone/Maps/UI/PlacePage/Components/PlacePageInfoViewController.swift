@@ -308,15 +308,13 @@ class PlacePageInfoViewController: UIViewController {
                                      longPressHandler: { [weak self] in
                                        self?.copyCoordinatesToPasteboard()
                                      })
-    if #available(iOS 14.0, *) {
-      let menu = UIMenu(children: coordFormats.enumerated().map { index, format in
-        UIAction(title: format, handler: { [weak self] _ in
-          self?.setCoordinatesSelected(formatId: index)
-          self?.copyCoordinatesToPasteboard()
-        })
+    let menu = UIMenu(children: coordFormats.enumerated().map { index, format in
+      UIAction(title: format, handler: { [weak self] _ in
+        self?.setCoordinatesSelected(formatId: index)
+        self?.copyCoordinatesToPasteboard()
       })
-      coordinatesView?.setAccessoryMenu(menu)
-    }
+    })
+    coordinatesView?.setAccessoryMenu(menu)
   }
 
   private func setCoordinatesSelected(formatId: Int) {
