@@ -7,7 +7,18 @@ final class ThemeManager: NSObject {
   }
 
   private func update(theme: MWMTheme) {
-    updateSystemUserInterfaceStyle(theme)
+    // CarPlay may override the user preference with its own light/dark style.
+    var effectivePreference = theme
+    if MWMCarPlayService.shared().isCarplayActivated {
+      let carPlayStyle = MWMCarPlayService.shared().interfaceStyle()
+      switch carPlayStyle {
+      case .light: effectivePreference = .day
+      case .dark: effectivePreference = .night
+      default: break
+      }
+    }
+
+    updateSystemUserInterfaceStyle(effectivePreference)
 
     let actualTheme: MWMTheme = { theme in
       let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
@@ -23,7 +34,7 @@ final class ThemeManager: NSObject {
       @unknown default:
         fatalError()
       }
-    }(theme)
+    }(effectivePreference)
 
     let nightMode = UIColor.isNightMode()
     let newNightMode: Bool = { theme in
