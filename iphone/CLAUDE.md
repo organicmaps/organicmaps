@@ -35,7 +35,7 @@ Swift UI (ViewControllers) -> ObjC wrappers (MWM* classes) -> CoreApi framework 
 - Never call C++ Framework methods on background threads without checking thread safety
 
 ## Build configuration
-- Deployment target: iOS 12.0, macOS 10.15
+- Deployment target: iOS 15.0, macOS 10.15
 - C++ standard: C++23; Swift 5.5
 - Scheme: `OMaps`; workspace: `xcode/omim.xcworkspace`
 - Entitlements: CarPlay, iCloud, Associated Domains (`applinks:omaps.app`), Push Notifications

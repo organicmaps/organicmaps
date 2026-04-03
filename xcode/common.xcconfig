@@ -9,7 +9,7 @@ HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(OMIM_ROOT)/libs $(BOOST_ROOT) 
 FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
 
 // Deployment target
-IPHONEOS_DEPLOYMENT_TARGET = 12.0
+IPHONEOS_DEPLOYMENT_TARGET = 15.0
 // The minimum version that properly supports Qt6's std::filesystem for C++17
 MACOSX_DEPLOYMENT_TARGET = 10.15
 
