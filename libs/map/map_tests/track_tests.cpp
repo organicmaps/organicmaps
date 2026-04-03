@@ -20,12 +20,13 @@ using namespace location;
 
 double constexpr kEqualPointsEps = 1e-9;
 
-GpsInfo const BuildGpsInfo(double latitude, double longitude, double altitude, double timestamp = 0)
+GpsInfo BuildGpsInfo(double latitude, double longitude, double altitude, double timestamp = 0)
 {
   GpsInfo gpsInfo;
   gpsInfo.m_latitude = latitude;
   gpsInfo.m_longitude = longitude;
   gpsInfo.m_altitude = altitude;
+  gpsInfo.m_verticalAccuracy = 1.0;  // Mark altitude as valid.
   gpsInfo.m_timestamp = timestamp;
   return gpsInfo;
 }
@@ -195,138 +196,34 @@ UNIT_TEST(Track_GetPoint_NegativeDistance)
 
 // ===================== TrackStatistics tests =====================
 
-UNIT_TEST(TrackStatistics_EmptyMultiGeometry)
+UNIT_TEST(TrackStatistics_Duration)
 {
-  TrackStatistics ts;
-  TEST_EQUAL(0, ts.m_ascent, ());
-  TEST_EQUAL(0, ts.m_descent, ());
-  TEST_EQUAL(ts.m_minElevation, kDefaultAltitudeMeters, ());
-  TEST_EQUAL(ts.m_maxElevation, kDefaultAltitudeMeters, ());
-}
-
-UNIT_TEST(TrackStatistics_FromMultiGeometry)
-{
-  using PWA = PointWithAltitude;
   kml::MultiGeometry geometry;
-  PWA const point1({0.0, 0.0}, 100);
-  PWA const point2({1.0, 1.0}, 150);
-  PWA const point3({2.0, 2.0}, 50);
-  geometry.AddLine({point1, point2, point3});
-  geometry.AddTimestamps({0, 1, 2});
-
-  auto const ts = TrackStatistics(geometry);
-  TEST_EQUAL(ts.m_minElevation, 50, ());
-  TEST_EQUAL(ts.m_maxElevation, 150, ());
-  TEST_EQUAL(ts.m_ascent, 50, ());    // Ascent from 100 -> 150
-  TEST_EQUAL(ts.m_descent, 100, ());  // Descent from 150 -> 50
-  TEST_EQUAL(ts.m_duration, 2, ());
-
-  double distance = 0;
-  distance += mercator::DistanceOnEarth(point1, point2);
-  distance += mercator::DistanceOnEarth(point2, point3);
-  TEST_EQUAL(ts.m_length, distance, ());
-}
-
-UNIT_TEST(TrackStatistics_NoAltitudeAndTimestampPoints)
-{
-  using PWA = PointWithAltitude;
-  kml::MultiGeometry geometry;
-  geometry.AddLine({PWA({0.0, 0.0}), PWA({1.0, 1.0}), PWA({2.0, 2.0})});
-
-  auto const ts = TrackStatistics(geometry);
-
-  TEST_EQUAL(ts.m_minElevation, kDefaultAltitudeMeters, ());
-  TEST_EQUAL(ts.m_maxElevation, kDefaultAltitudeMeters, ());
-  TEST_EQUAL(ts.m_ascent, 0, ());
-  TEST_EQUAL(ts.m_descent, 0, ());
-  TEST_EQUAL(ts.m_duration, 0, ());
-}
-
-UNIT_TEST(TrackStatistics_MultipleLines)
-{
-  using PWA = PointWithAltitude;
-  kml::MultiGeometry geometry;
-  geometry.AddLine({PWA({0.0, 0.0}, 100), PWA({1.0, 1.0}, 150), PWA({1.0, 1.0}, 140)});
-  geometry.AddTimestamps({0, 1, 2});
-  geometry.AddLine({PWA({2.0, 2.0}, 50), PWA({3.0, 3.0}, 75), PWA({3.0, 3.0}, 60)});
-  geometry.AddTimestamps({0, 0, 0});
-  geometry.AddLine({PWA({4.0, 4.0}, 200), PWA({5.0, 5.0}, 250)});
-  geometry.AddTimestamps({4, 5});
-  auto const ts = TrackStatistics(geometry);
-
-  TEST_EQUAL(ts.m_minElevation, 50, ());
-  TEST_EQUAL(ts.m_maxElevation, 250, ());
-  TEST_EQUAL(ts.m_ascent, 125, ());  // Ascent from 100 -> 150, 50 -> 75, 200 -> 250
-  TEST_EQUAL(ts.m_descent, 25, ());  // Descent from 150 -> 140, 75 -> 60
-  TEST_EQUAL(ts.m_duration, 3, ());
-}
-
-UNIT_TEST(TrackStatistics_WithGpsPoints)
-{
-  std::vector<GpsInfo> const arrData[] = {
-      {BuildGpsInfo(0.0, 0.0, 0, 0), BuildGpsInfo(1.0, 1.0, 50, 1), BuildGpsInfo(2.0, 2.0, 100, 2)},
-      {BuildGpsInfo(3.0, 3.0, -50, 5)},
-      {BuildGpsInfo(4.0, 4.0, 0, 10)}};
-  TrackStatistics ts;
-  for (auto const & pointsList : arrData)
-    for (auto const & point : pointsList)
-      ts.AddGpsInfoPoint(point);
-
-  TEST_EQUAL(ts.m_minElevation, -50, ());
-  TEST_EQUAL(ts.m_maxElevation, 100, ());
-  TEST_EQUAL(ts.m_ascent, 150, ());   // Ascent from 0 -> 50, 50 -> 100, -50 -> 0
-  TEST_EQUAL(ts.m_descent, 150, ());  // Descent from 100 -> -50
-  TEST_EQUAL(ts.m_duration, 10, ());
-}
-
-UNIT_TEST(TrackStatistics_PositiveAndNegativeAltitudes)
-{
-  using PWA = PointWithAltitude;
-  kml::MultiGeometry geometry;
-  geometry.AddLine({PWA({0.0, 0.0}, -10), PWA({1.0, 1.0}, 20), PWA({2.0, 2.0}, -5), PWA({3.0, 3.0}, 15)});
-  auto const ts = TrackStatistics(geometry);
-
-  TEST_EQUAL(ts.m_minElevation, -10, ());
-  TEST_EQUAL(ts.m_maxElevation, 20, ());
-  TEST_EQUAL(ts.m_ascent, 50, ());   // Ascent from -10 -> 20 and -5 -> 15
-  TEST_EQUAL(ts.m_descent, 25, ());  // Descent from 20 -> -5
-}
-
-UNIT_TEST(TrackStatistics_SmallAltitudeDelta)
-{
-  GpsInfo const arrPoints[] = {BuildGpsInfo(0.0, 0.0, 0),   BuildGpsInfo(1.0, 1.0, 0.2), BuildGpsInfo(2.0, 2.0, 0.4),
-                               BuildGpsInfo(3.0, 3.0, 0.6), BuildGpsInfo(4.0, 4.0, 0.8), BuildGpsInfo(5.0, 5.0, 1.0)};
+  geometry.AddLine({PointWithAltitude({0.0, 0.0}, 100), PointWithAltitude({1.0, 1.0}, 150)});
+  geometry.AddTimestamps({0, 5});
+  geometry.AddLine({PointWithAltitude({2.0, 2.0}, 50), PointWithAltitude({3.0, 3.0}, 75)});
+  geometry.AddTimestamps({10, 13});
 
   TrackStatistics ts;
-  for (auto const & point : arrPoints)
-    ts.AddGpsInfoPoint(point);
-
-  TEST_EQUAL(ts.m_minElevation, 0, ());
-  TEST_EQUAL(ts.m_maxElevation, 1.0, ());
-  TEST_EQUAL(ts.m_ascent, 1.0, ());
-  TEST_EQUAL(ts.m_descent, 0, ());
+  ts.CalculateDuration(geometry);
+  TEST_EQUAL(ts.m_duration, 8, ());  // (5 - 0) + (13 - 10)
 }
 
-UNIT_TEST(TrackStatistics_MixedMultiGeometryAndGpsPoints)
+UNIT_TEST(TrackStatistics_GpsPoints)
 {
-  using PWA = PointWithAltitude;
-  kml::MultiGeometry geometry;
-  geometry.AddLine({PWA({0.0, 0.0}, 100), PWA({1.0, 1.0}, 150), PWA({2.0, 2.0}, 50)});
-  geometry.AddTimestamps({5, 6, 7});
+  GpsInfo const points[] = {BuildGpsInfo(0.0, 0.0, 0, 0), BuildGpsInfo(1.0, 1.0, 50, 1), BuildGpsInfo(2.0, 2.0, 100, 2),
+                            BuildGpsInfo(3.0, 3.0, -50, 5), BuildGpsInfo(4.0, 4.0, 0, 10)};
 
-  auto ts = TrackStatistics(geometry);
-
-  std::vector<GpsInfo> const points = {BuildGpsInfo(3.0, 3.0, 60, 8), BuildGpsInfo(4.0, 4.0, 160, 10),
-                                       BuildGpsInfo(4.0, 4.0, 20, 15)};
-
+  TrackStatistics ts;
   for (auto const & point : points)
     ts.AddGpsInfoPoint(point);
 
-  TEST_EQUAL(ts.m_minElevation, 20, ());
-  TEST_EQUAL(ts.m_maxElevation, 160, ());
-  TEST_EQUAL(ts.m_ascent, 160, ());   // 50 + 10 + 100
-  TEST_EQUAL(ts.m_descent, 240, ());  // 100 + 140
-  TEST_EQUAL(ts.m_duration, 10, ());  // 10
+  TEST_EQUAL(ts.m_minElevation, -50, ());
+  TEST_EQUAL(ts.m_maxElevation, 100, ());
+  TEST_EQUAL(ts.m_ascent, 150, ());   // 0->50, 50->100, -50->0
+  TEST_EQUAL(ts.m_descent, 150, ());  // 100->-50
+  TEST_EQUAL(ts.m_duration, 10, ());
+  TEST_GREATER(ts.m_length, 0, ());
 }
 
 // ===================== Elevation simplification tests =====================

@@ -33,7 +33,7 @@ public:
   double GetLengthMeters() const;
   double GetDurationInSeconds() const;
 
-  TrackStatistics const & GetStatistics() const;
+  TrackStatistics GetStatistics() const;
   ElevationInfo const * GetElevationInfo() const;
 
   std::pair<m2::PointD, double> GetCenterPoint() const;
@@ -84,7 +84,6 @@ private:
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
-  mutable std::optional<TrackStatistics> m_trackStatistics;
   mutable std::optional<ElevationInfo> m_elevationInfo;
 
   struct InteractionData
