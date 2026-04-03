@@ -2093,7 +2093,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     {
       // For user tracks: tapping the same track at a different point just moves the selection circle.
       // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
-      if (newTrackId == prevTrackId && newTrackId != BookmarkManager::kTempRelationTrackId)
+      if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId)
       {
         if (m_drapeEngine)
         {

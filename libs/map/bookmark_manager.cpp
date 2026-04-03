@@ -1228,10 +1228,10 @@ kml::TrackId BookmarkManager::SetTempRelationTrack(kml::TrackData && trackData)
 
   ClearTempRelationTrack();
 
-  trackData.m_id = kTempRelationTrackId;
+  trackData.m_id = kml::kTempRelationTrackId;
   m_tempRelationTrack = std::make_unique<Track>(std::move(trackData));
-  m_changesTracker.OnAddLine(kTempRelationTrackId);
-  return kTempRelationTrackId;
+  m_changesTracker.OnAddLine(kml::kTempRelationTrackId);
+  return kml::kTempRelationTrackId;
 }
 
 void BookmarkManager::ClearTempRelationTrack()
@@ -1241,8 +1241,8 @@ void BookmarkManager::ClearTempRelationTrack()
   if (!m_tempRelationTrack)
     return;
 
-  DeleteTrackSelectionMark(kTempRelationTrackId);
-  m_changesTracker.OnDeleteLine(kTempRelationTrackId);
+  DeleteTrackSelectionMark(kml::kTempRelationTrackId);
+  m_changesTracker.OnDeleteLine(kml::kTempRelationTrackId);
   m_tempRelationTrack.reset();
 
   NotifyChanges(false /* saveChangesOnDisk */);
