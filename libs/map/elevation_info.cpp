@@ -160,33 +160,47 @@ void ElevationInfo::Simplify(double altitudeDeviation)
   }
 }
 
-void ElevationInfo::CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM,
-                                           geometry::Altitude threshold) const
+ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude threshold) const
 {
   ASSERT(threshold >= 0, ());
 
-  totalAscentM = 0;
-  totalDescentM = 0;
+  AltitudesInfo info;
   for (auto const & line : m_lines)
   {
     ASSERT(!line.empty(), ());
 
-    geometry::Altitude refAlt = line[0].m_altitude;
+    Altitude refAlt = line[0].m_altitude;
+    info.m_minAltitude = std::min(info.m_minAltitude, refAlt);
+    info.m_maxAltitude = std::max(info.m_maxAltitude, refAlt);
+
     for (size_t i = 1; i < line.size(); ++i)
     {
-      auto const delta = line[i].m_altitude - refAlt;
-      if (delta > threshold)
+      auto const alt = line[i].m_altitude;
+      info.m_minAltitude = std::min(info.m_minAltitude, alt);
+      info.m_maxAltitude = std::max(info.m_maxAltitude, alt);
+
+      // Raw: sum all deltas.
+      auto const rawDelta = alt - line[i - 1].m_altitude;
+      if (rawDelta > 0)
+        info.m_totalAscentRaw += rawDelta;
+      else
+        info.m_totalDescentRaw += -rawDelta;
+
+      // Filtered: threshold accumulation from reference point.
+      auto const filteredDelta = alt - refAlt;
+      if (filteredDelta > threshold)
       {
-        totalAscentM += delta;
-        refAlt = line[i].m_altitude;
+        info.m_totalAscentFiltered += filteredDelta;
+        refAlt = alt;
       }
-      else if (delta < -threshold)
+      else if (filteredDelta < -threshold)
       {
-        totalDescentM += -delta;
-        refAlt = line[i].m_altitude;
+        info.m_totalDescentFiltered += -filteredDelta;
+        refAlt = alt;
       }
     }
   }
+  return info;
 }
 
 bool ElevationInfo::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
@@ -195,18 +209,11 @@ bool ElevationInfo::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
   std::vector<double> distances;
   geometry::Altitudes altitudes;
 
-  double cumulativeOffset = 0;
-  for (auto const & line : m_lines)
+  ForEachPoint([&](double d, geometry::Altitude a)
   {
-    for (auto const & point : line)
-    {
-      distances.push_back(cumulativeOffset + point.m_distance);
-      altitudes.push_back(point.m_altitude);
-    }
-
-    if (!line.empty())
-      cumulativeOffset += line.back().m_distance;
-  }
+    distances.push_back(d);
+    altitudes.push_back(a);
+  });
 
   if (distances.empty())
     return false;

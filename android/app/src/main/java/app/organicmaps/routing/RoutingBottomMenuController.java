@@ -349,11 +349,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mAltitudeChart.setImageBitmap(bm);
       UiUtils.show(mAltitudeChart);
-      final String unit = limits.isMetricUnits
-                            ? mAltitudeDifference.getResources().getString(app.organicmaps.sdk.R.string.m)
-                            : mAltitudeDifference.getResources().getString(app.organicmaps.sdk.R.string.ft);
-      mAltitudeDifference.setText("↗ " + limits.totalAscentString + " " + unit + " ↘ " + limits.totalDescentString + " "
-                                  + unit);
+      mAltitudeDifference.setText("↗ " + limits.totalAscentString + " ↘ " + limits.totalDescentString);
       UiUtils.show(mAltitudeDifference);
     }
   }
