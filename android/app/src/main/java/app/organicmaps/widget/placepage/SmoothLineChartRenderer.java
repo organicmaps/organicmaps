@@ -21,6 +21,8 @@ public class SmoothLineChartRenderer extends LineChartRenderer
   public void drawHighlighted(Canvas c, Highlight[] indices)
   {
     LineData lineData = mChart.getLineData();
+    if (lineData == null)
+      return;
 
     for (Highlight high : indices)
     {
