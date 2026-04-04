@@ -23,6 +23,8 @@
     <string name="search">Пошук</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Пошук на мапі</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Пошук на завантажених мапах</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

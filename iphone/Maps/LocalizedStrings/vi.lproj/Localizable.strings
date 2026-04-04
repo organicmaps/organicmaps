@@ -25,6 +25,9 @@
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Tìm kiếm";
 
+/* Placeholder text for search box to clarify that the search does not look for places outside downloaded maps */
+"search_hint" = "Tìm kiếm trong các bản đồ đã tải xuống";
+
 /* View and button titles for accessibility */
 "zoom_to_country" = "Hiển thị trên bản đồ";
 

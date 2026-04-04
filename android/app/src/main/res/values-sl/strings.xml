@@ -23,6 +23,8 @@
     <string name="search">Iskanje</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Išči po zemljevidu</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Iskanje po prenesenih zemljevidih</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Trenutno imate onemogočene vse lokacijske storitve za to napravo ali aplikacijo. Omogočite jih v nastavitvah.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

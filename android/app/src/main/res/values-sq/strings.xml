@@ -23,6 +23,8 @@
     <string name="search">Kërko</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Kërko në Hartë</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Kërko në hartat e shkarkuara</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Aktualisht i keni të çaktivizuara të gjitha Shërbimet e Vendndodhjes për këtë pajisje ose aplikacion. Ju lutemi aktivizoni ato në Cilësimet.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
