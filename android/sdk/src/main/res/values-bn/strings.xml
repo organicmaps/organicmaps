@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">A2DP-এর পরিবর্তে ব্লুটুথ হ্যান্ডস-ফ্রি প্রোফাইল (HFP) ব্যবহার করা</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">যদি TTS ভয়েস নির্দেশনাগুলি আপনার গাড়ির স্টেরিও বা অন্য কোনো ব্লুটুথ ডিভাইসের সাথে কাজ না করে তবে সক্রিয় করুন</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">এমবি</string>

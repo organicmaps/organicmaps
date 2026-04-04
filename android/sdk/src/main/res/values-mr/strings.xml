@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">A2DP ऐवजी ब्लूटूथ हँड्स-फ्री प्रोफाइल (HFP) वापरणे</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">जर TTS व्हॉइस निर्देश तुमच्या कार स्टेरियो किंवा इतर ब्लूटूथ उपकरणावर काम करत नसतील तर सक्रिय करा</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">माझे स्थान</string>

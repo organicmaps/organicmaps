@@ -496,6 +496,7 @@ public final class Config
       String LANGUAGE = "TtsLanguage";
       String VOLUME = "TtsVolume";
       String STREETS = "TtsStreetNames";
+      String HANDSFREE_PROFILE = "TtsHandsfreeProfile";
     }
 
     public interface Defaults
@@ -507,6 +508,7 @@ public final class Config
       float VOLUME = VOLUME_MAX;
 
       boolean STREETS = false; // TTS may mangle some languages, do not announce streets by default
+      boolean HANDSFREE_PROFILE = false;
     }
 
     public static boolean isEnabled()
@@ -548,6 +550,16 @@ public final class Config
     public static void setAnnounceStreets(boolean enabled)
     {
       setBool(Keys.STREETS, enabled);
+    }
+
+    public static boolean isHandsfreeProfile()
+    {
+      return getBool(Keys.HANDSFREE_PROFILE, Defaults.HANDSFREE_PROFILE);
+    }
+
+    public static void setHandsfreeProfile(boolean enabled)
+    {
+      setBool(Keys.HANDSFREE_PROFILE, enabled);
     }
   }
 

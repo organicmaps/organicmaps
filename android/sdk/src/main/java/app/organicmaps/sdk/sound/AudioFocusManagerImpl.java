@@ -18,7 +18,7 @@ final class AudioFocusManagerImpl extends AudioFocusManager
   {
     super(context, onAudioFocusLost);
     mAudioFocusRequest = new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                             .setAudioAttributes(AUDIO_ATTRIBUTES)
+                             .setAudioAttributes(getAudioAttributes())
                              .setOnAudioFocusChangeListener(this::onAudioFocusChange)
                              .build();
   }

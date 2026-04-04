@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">A2DP ਦੀ ਥਾਂ ਬਲੂਟੁੱਥ ਹੈਂਡਸ-ਫ੍ਰੀ ਪ੍ਰੋਫਾਈਲ (HFP) ਵਰਤਣਾ</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">ਜੇ TTS ਵੌਇਸ ਨਿਰਦੇਸ਼ ਤੁਹਾਡੇ ਕਾਰ ਸਟੀਰੀਓ ਜਾਂ ਕਿਸੇ ਹੋਰ ਬਲੂਟੁੱਥ ਡਿਵਾਈਸ ਨਾਲ ਕੰਮ ਨਹੀਂ ਕਰਦੇ ਤਾਂ ਐਕਟੀਵੇਟ ਕਰੋ</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>

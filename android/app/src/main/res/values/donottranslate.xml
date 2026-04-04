@@ -25,6 +25,7 @@
   <string name="pref_tts_info" translatable="false">TtsInfo</string>
   <string name="pref_tts_info_link" translatable="false">TtsInfoLink</string>
   <string name="pref_tts_speed_cameras" translatable="false">SpeedCameras</string>
+  <string name="pref_tts_handsfree_profile" translatable="false">HandsfreeProfile</string>
   <string name="prefs_routing" translatable="false">RoutingOptions</string>
   <string name="pref_autodownload" translatable="false">AutoDownloadMap</string>
   <string name="pref_3d" translatable="false">3D</string>

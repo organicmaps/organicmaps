@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">استخدام ملف تعريف عدم استخدام اليدين عبر البلوتوث (HFP) بدلاً من A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">تنشيط إذا كانت الاتجاهات الصوتية لتعليمات TTS لا تعمل مع ستيريو سيارتك أو جهاز Bluetooth آخر.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">ميغابايت</string>

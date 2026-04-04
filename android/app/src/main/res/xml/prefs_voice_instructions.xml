@@ -50,4 +50,10 @@
       android:entries="@array/speed_cameras"
       android:entryValues="@array/speed_cameras_values"
       android:defaultValue="@string/auto_enum_value" />
+  <SwitchPreferenceCompat
+      android:key="@string/pref_tts_handsfree_profile"
+      android:title="@string/pref_tts_handsfree_profile_setting"
+      app:singleLineTitle="false"
+      android:summary="@string/pref_tts_handsfree_profile_setting_hint"
+      android:defaultValue="false" />
 </androidx.preference.PreferenceScreen>
