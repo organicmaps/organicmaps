@@ -4,8 +4,11 @@ import static app.organicmaps.sdk.location.LocationState.LOCATION_TAG;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -135,7 +138,7 @@ public class MwmApplication extends Application implements Application.ActivityL
                                    BuildConfig.FILE_PROVIDER_AUTHORITY, mLocationProviderFactory);
 
     DownloaderNotifier.createNotificationChannel(this);
-    NavigationService.createNotificationChannel(this);
+    initNavigationService();
     TrackRecordingService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
@@ -233,5 +236,17 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Stopping location in the background");
       getLocationHelper().stop();
     }
+  }
+
+  private void initNavigationService()
+  {
+    NavigationService.createNotificationChannel(this);
+    NavigationService.setOrganicMaps(getOrganicMaps());
+
+    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
+    final Intent contentIntent = new Intent(this, MwmActivity.class);
+    final PendingIntent pendingIntent =
+        PendingIntent.getActivity(this, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    NavigationService.setOpenAppPendingIntent(pendingIntent);
   }
 }

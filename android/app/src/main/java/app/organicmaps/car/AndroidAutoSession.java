@@ -18,6 +18,7 @@ import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.UserActionRequired;
+import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
@@ -56,6 +57,8 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     super.onCreate(owner);
     mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Car, this);
+
+    NavigationService.setCarNotificationExtender(AndroidAutoService.getCarNotificationExtender(getCarContext()));
   }
 
   @Override
@@ -64,6 +67,8 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     super.onCreate(owner);
     Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     mDisplayManager.removeListener(DisplayType.Car);
+
+    NavigationService.setCarNotificationExtender(null);
   }
 
   @NonNull

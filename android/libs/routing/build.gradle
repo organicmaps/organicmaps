@@ -10,6 +10,10 @@ android {
 
 dependencies {
   implementation project(':sdk')
+  implementation project(':libs:branding')
 
   implementation libs.androidx.annotation
+  implementation libs.androidx.appcompat.resources
+  implementation libs.androidx.core
+  implementation libs.androidx.lifecycle
 }
