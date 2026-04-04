@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Actualizează hărțile</string>
     <string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.</string>
+    <string name="navigation_stop_button">Oprește</string>
     <string name="ok">Bine</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

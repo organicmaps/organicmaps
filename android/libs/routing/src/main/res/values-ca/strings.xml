@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Actualitza els mapes</string>
     <string name="downloader_mwm_migration_dialog">Per a crear una ruta, cal que actualitzeu tots els mapes i després torneu a planificar la ruta.</string>
+    <string name="navigation_stop_button">Atura</string>
     <string name="ok">D’acord</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Uppdatera kartor</string>
     <string name="downloader_mwm_migration_dialog">För att hitta en rutt måste du uppdatera alla kartor och sedan försöka igen.</string>
+    <string name="navigation_stop_button">Stopp</string>
     <string name="ok">Ok</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

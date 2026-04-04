@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Оновити мапи</string>
     <string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>
+    <string name="navigation_stop_button">Cтоп</string>
     <string name="ok">Ок</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
