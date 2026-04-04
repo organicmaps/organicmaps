@@ -98,6 +98,8 @@ public final class ElevationChartUtils
     data.setDrawValues(false);
     chart.setData(data);
     chart.animateX(0);
+    // Reset zoom after layout to handle viewport size changes on rotation.
+    chart.post(chart::fitScreen);
   }
 
   public static float interpolateY(@NonNull List<Entry> entries, float xVal)
