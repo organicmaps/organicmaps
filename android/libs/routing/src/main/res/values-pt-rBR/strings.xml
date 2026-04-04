@@ -36,6 +36,7 @@
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_mwm_migration_dialog">Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planejá-lo novamente.</string>
+    <string name="navigation_stop_button">Pare</string>
     <string name="ok">Tudo bem</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

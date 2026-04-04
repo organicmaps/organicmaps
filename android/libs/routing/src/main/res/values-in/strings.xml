@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Perbarui peta</string>
     <string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>
+    <string name="navigation_stop_button">Berhenti</string>
     <string name="ok">Oke</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

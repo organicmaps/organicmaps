@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">ອັບເດດແຜນທີ່</string>
     <string name="downloader_mwm_migration_dialog">ເພື່ອສ້າງເສັ້ນທາງ, ທ່ານຕ້ອງອັບເດດແຜນທີ່ທັງໝົດ ແລ້ວຈຶ່ງວາງແຜນເສັ້ນທາງໃໝ່ອີກຄັ້ງ.</string>
+    <string name="navigation_stop_button">ຢຸດ</string>
     <string name="ok">ຕົກລົງ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

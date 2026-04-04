@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">नकाशे अद्ययावत करा</string>
     <string name="downloader_mwm_migration_dialog">मार्ग तयार करण्यासाठी तुम्हाला सर्व नकाशे अद्ययावत करावे लागतील आणि मग मार्ग नियोजन करता येईल.</string>
+    <string name="navigation_stop_button">थांबा</string>
     <string name="ok">ठीक आहे</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

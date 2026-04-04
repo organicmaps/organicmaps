@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Xəritələri yeniləyin</string>
     <string name="downloader_mwm_migration_dialog">Marşrut yaratmaq üçün bütün xəritələri yeniləməli və sonra marşrutu yenidən planlaşdırmalısınız.</string>
+    <string name="navigation_stop_button">Dayan</string>
     <string name="ok">Yaxşı</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

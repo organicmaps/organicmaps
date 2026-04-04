@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Update kaarten</string>
     <string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>
+    <string name="navigation_stop_button">Stop</string>
     <string name="ok">Oké</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
