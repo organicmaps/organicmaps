@@ -130,38 +130,11 @@ bool HttpClientReply::ValidateSegmentIfNeeded()
     return false;
   }
 
-  // Parse Content-Range: "bytes <start>-<end>/<total|*>". RFC 7233 requires this header
-  // on 206 responses.
+  // RFC 7233 requires a Content-Range header on 206 responses.
   QByteArray const crBytes = m_reply->rawHeader("Content-Range");
-  if (crBytes.isEmpty())
-  {
-    m_writeError = true;
-    m_segmentErrorCode = HttpClient::kInconsistentFileSize;
-    return false;
-  }
-  QByteArray cr = crBytes.trimmed();
-  // Strip "bytes " prefix (case-insensitive per RFC).
-  if (cr.startsWith("bytes ") || cr.startsWith("BYTES "))
-    cr = cr.mid(6).trimmed();
-  auto const slash = cr.indexOf('/');
-  auto const dash = cr.indexOf('-');
-  if (slash < 0 || dash < 0 || dash > slash)
-  {
-    m_writeError = true;
-    m_segmentErrorCode = HttpClient::kInconsistentFileSize;
-    return false;
-  }
-  bool okStart = false, okEnd = false, okTotal = false;
-  int64_t const start = cr.left(dash).toLongLong(&okStart);
-  int64_t const end = cr.mid(dash + 1, slash - dash - 1).toLongLong(&okEnd);
-  QByteArray const totalStr = cr.mid(slash + 1);
-  int64_t total = -1;
-  if (totalStr == "*")
-    okTotal = true;  // Unknown total is allowed by RFC, but we can't validate it.
-  else
-    total = totalStr.toLongLong(&okTotal);
-
-  if (!okStart || !okEnd || !okTotal)
+  int64_t start = 0, end = 0, total = -1;
+  if (crBytes.isEmpty() ||
+      !HttpClient::ParseContentRange({crBytes.constData(), static_cast<size_t>(crBytes.size())}, start, end, total))
   {
     m_writeError = true;
     m_segmentErrorCode = HttpClient::kInconsistentFileSize;
@@ -407,16 +380,9 @@ void HttpClientReply::OnFinished()
       m_outputFileStream->close();
     result.m_success = false;
     if (m_segmentErrorCode != HttpClient::kNoError)
-    {
-      // Segment-specific failures override the HTTP code (kInconsistentFileSize for
-      // protocol violations, kWriteException for file I/O errors).
       result.m_errorCode = m_segmentErrorCode;
-    }
     else if (!m_segment)
-    {
-      // Legacy plain-output-file path keeps its historical kWriteException mapping.
       result.m_errorCode = HttpClient::kWriteException;
-    }
     // Segment mode with m_segmentErrorCode == kNoError: preserve the HTTP code (e.g. 404),
     // so the downloader's 404 → FileNotFound mapping still works.
   }

@@ -103,7 +103,9 @@ using CancelChecker = platform::HttpClient::CancelChecker;
     m_segment = std::move(segment);
     m_segmentBytesWritten = 0;
     m_segmentErrorCode = platform::HttpClient::kNoError;
-    m_accumulatedData = [[NSMutableData alloc] init];
+    // Accumulator is only used when not streaming to a file or user handler.
+    bool const needAccumulator = !m_dataHandler && m_outputFile.empty() && !m_segment;
+    m_accumulatedData = needAccumulator ? [[NSMutableData alloc] init] : nil;
     m_outputFileHandle = nil;
     m_writeError = NO;
     m_dataAborted = NO;
@@ -230,53 +232,13 @@ using CancelChecker = platform::HttpClient::CancelChecker;
     return NO;
   }
 
-  // Parse Content-Range: "bytes <start>-<end>/<total|*>" per RFC 7233 §4.2.
+  // RFC 7233 §4.1 requires a Content-Range header on 206 responses.
   NSString * crValue = [httpResponse.allHeaderFields objectForKey:@"Content-Range"];
-  if (!crValue || crValue.length == 0)
+  int64_t start = 0, end = 0, total = -1;
+  if (!crValue || !platform::HttpClient::ParseContentRange(crValue.UTF8String, start, end, total))
   {
     m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
     return NO;
-  }
-  NSString * trimmed = [crValue stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-  NSRange const bytesPrefix = [trimmed rangeOfString:@"bytes" options:NSCaseInsensitiveSearch];
-  if (bytesPrefix.location == 0)
-    trimmed = [[trimmed substringFromIndex:bytesPrefix.length] stringByTrimmingCharactersInSet:
-        NSCharacterSet.whitespaceCharacterSet];
-  NSRange const slashRange = [trimmed rangeOfString:@"/"];
-  NSRange const dashRange = [trimmed rangeOfString:@"-"];
-  if (slashRange.location == NSNotFound || dashRange.location == NSNotFound ||
-      dashRange.location > slashRange.location)
-  {
-    m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
-    return NO;
-  }
-  NSString * startStr = [trimmed substringToIndex:dashRange.location];
-  NSString * endStr = [trimmed substringWithRange:NSMakeRange(dashRange.location + 1,
-      slashRange.location - dashRange.location - 1)];
-  NSString * totalStr = [trimmed substringFromIndex:slashRange.location + 1];
-
-  NSScanner * scanner = nil;
-  long long start = 0, end = 0, total = -1;
-  scanner = [NSScanner scannerWithString:startStr];
-  if (![scanner scanLongLong:&start] || !scanner.atEnd)
-  {
-    m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
-    return NO;
-  }
-  scanner = [NSScanner scannerWithString:endStr];
-  if (![scanner scanLongLong:&end] || !scanner.atEnd)
-  {
-    m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
-    return NO;
-  }
-  if (![totalStr isEqualToString:@"*"])
-  {
-    scanner = [NSScanner scannerWithString:totalStr];
-    if (![scanner scanLongLong:&total] || !scanner.atEnd)
-    {
-      m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
-      return NO;
-    }
   }
 
   int64_t const expectedEnd = m_segment->m_offset + m_segment->m_expectedBytes - 1;
@@ -399,11 +361,9 @@ using CancelChecker = platform::HttpClient::CancelChecker;
           m_handler(std::move(m_result));
         return;
       }
-      // Only map to kCancelled when the cancel was NOT triggered by an internal error
-      // flag. If m_writeError or m_dataAborted is set, the cancel was self-inflicted
-      // (file I/O error, segment validation failure, DataHandler abort) and the real
-      // error code is set below based on those flags — preserve the HTTP status until
-      // then so segment mode can return the original HTTP code (e.g. 404).
+      // Self-inflicted cancels (m_writeError / m_dataAborted) must NOT be mapped to
+      // kCancelled — the real error is set later, and preserving the HTTP status here
+      // lets segment mode return 404 etc.
       if (!m_writeError && !m_dataAborted)
         m_result.m_errorCode = platform::HttpClient::kCancelled;
     }
@@ -443,16 +403,9 @@ using CancelChecker = platform::HttpClient::CancelChecker;
   {
     m_result.m_success = false;
     if (m_segmentErrorCode != platform::HttpClient::kNoError)
-    {
-      // Segment-specific failures override the HTTP code (kInconsistentFileSize for
-      // protocol violations, kWriteException for file I/O errors).
       m_result.m_errorCode = m_segmentErrorCode;
-    }
     else if (!m_segment)
-    {
-      // Legacy plain-output-file path keeps its historical kWriteException mapping.
       m_result.m_errorCode = platform::HttpClient::kWriteException;
-    }
     // Segment mode with m_segmentErrorCode == kNoError: preserve the HTTP code (e.g. 404),
     // so the downloader's 404 → FileNotFound mapping still works.
   }

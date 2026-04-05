@@ -181,6 +181,11 @@ public:
   // Internal helper, used by platform implementations.
   static std::string NormalizeServerCookies(std::string && cookies);
 
+  // Parses a Content-Range header value ("bytes <start>-<end>/<total|*>" per RFC 7233 §4.2).
+  // On success returns true and fills start/end/total; total is set to -1 if the server sent "*".
+  // Used by native HTTP backends to validate ranged responses in segment mode.
+  static bool ParseContentRange(std::string_view header, int64_t & start, int64_t & end, int64_t & total);
+
 private:
   std::string m_urlRequested;
   // Contains final content's url taking redirects (if any) into an account.

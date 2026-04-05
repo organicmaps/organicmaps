@@ -87,6 +87,7 @@ class FileHttpRequest : public HttpRequest
   AliveFlag m_alive;
   std::shared_ptr<CleanupCoordinator> m_cleanup;
   string m_filePath;
+  string m_downloadingPath;  // m_filePath + DOWNLOADING_FILE_EXTENSION, cached.
   size_t m_goodChunksCount;
   bool m_doCleanProgressFiles;
 
@@ -110,35 +111,28 @@ class FileHttpRequest : public HttpRequest
     {
       int64_t const begRange = range.first;
       int64_t const endRange = range.second;
-      int64_t const expectedSize = m_progress.m_bytesTotal;
 
       platform::HttpClient client(url);
       client.SetRange(begRange, endRange);
       // Stream the chunk body directly into the .downloading file at begRange. The
-      // transport validates 206 + Content-Range against {begRange, endRange-begRange+1,
-      // expectedSize} before writing any byte, so no corruption if a mirror returns
-      // 200 + full body instead of a partial response.
-      client.SetReceivedFileSegment(
-          {m_filePath + DOWNLOADING_FILE_EXTENSION, begRange, endRange - begRange + 1, expectedSize});
+      // transport validates 206 + Content-Range against the requested segment before
+      // writing any byte, so no corruption if a mirror returns 200 + full body instead
+      // of a partial response.
+      client.SetReceivedFileSegment({m_downloadingPath, begRange, endRange - begRange + 1, m_progress.m_bytesTotal});
       client.LoadHeaders(true);
 
       auto alive = m_alive;
       auto cleanup = m_cleanup;
-      auto handle = client.RunHttpRequestAsync(
-          [this, alive, cleanup, begRange, endRange, expectedSize](platform::HttpClient::Result result)
+      auto handle =
+          client.RunHttpRequestAsync([this, alive, cleanup, begRange, endRange](platform::HttpClient::Result result)
       {
-        // cleanup is captured by value — its shared_ptr ref count holds the
-        // CleanupCoordinator alive until this lambda (and the GuiThread lambda below)
-        // finish. On destruction of the last reference the coordinator deletes the
-        // temp files if cleanup was requested.
         if (!alive->load(std::memory_order_acquire))
           return;
-        platform::GuiThread().Push(
-            [this, alive, cleanup, begRange, endRange, expectedSize, result = std::move(result)]() mutable
+        platform::GuiThread().Push([this, alive, cleanup, begRange, endRange, result = std::move(result)]() mutable
         {
           if (!alive->load(std::memory_order_acquire))
             return;
-          OnChunkFinished(std::move(result), begRange, endRange, expectedSize);
+          OnChunkFinished(std::move(result), begRange, endRange);
         });
       });
 
@@ -155,15 +149,12 @@ class FileHttpRequest : public HttpRequest
       m_chunks.erase(it);
   }
 
-  void OnChunkFinished(platform::HttpClient::Result && result, int64_t begRange, int64_t endRange,
-                       int64_t /*expectedSize*/)
+  void OnChunkFinished(platform::HttpClient::Result && result, int64_t begRange, int64_t endRange)
   {
     ASSERT(IsCalledOnOriginalThread(), ());
 
     // The transport (SetReceivedFileSegment) has already validated 206 + Content-Range
-    // and streamed the body directly to disk at begRange. m_serverResponse is empty in
-    // segment mode. A successful chunk is result.m_success && errorCode == 206; any
-    // protocol violation surfaces as kInconsistentFileSize in m_errorCode.
+    // and streamed the body to disk. Protocol violations surface as kInconsistentFileSize.
     bool const isRangeRequest = !(begRange == 0 && endRange < 0);
     bool const isChunkOk = result.m_success && (isRangeRequest ? result.m_errorCode == 206 : result.m_errorCode == 200);
 
@@ -207,7 +198,7 @@ class FileHttpRequest : public HttpRequest
     {
       Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
       Platform::RemoveFileIfExists(m_filePath);
-      base::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath);
+      base::RenameFileX(m_downloadingPath, m_filePath);
     }
 
     // 3. Finish downloading.
@@ -230,6 +221,7 @@ public:
     , m_alive(std::make_shared<std::atomic<bool>>(true))
     , m_cleanup(std::make_shared<CleanupCoordinator>())
     , m_filePath(filePath)
+    , m_downloadingPath(filePath + DOWNLOADING_FILE_EXTENSION)
     , m_goodChunksCount(0)
     , m_doCleanProgressFiles(doCleanProgressFiles)
   {
@@ -244,7 +236,7 @@ public:
     {
       uint64_t size = 0;
       // The file must exist and be large enough to cover all completed chunks.
-      if (base::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= static_cast<uint64_t>(fileSize) &&
+      if (base::GetFileSize(m_downloadingPath, size) && size <= static_cast<uint64_t>(fileSize) &&
           static_cast<int64_t>(size) >= m_strategy.RequiredFileSize())
       {
         openMode = FileWriter::OP_WRITE_EXISTING;
@@ -259,13 +251,11 @@ public:
     }
 
     // Create/validate the .downloading file, then close it immediately. Each chunk's
-    // transport opens its own random-access handle to this file and seeks to the
-    // chunk's begin offset — no shared FileWriter, no cross-thread synchronization.
-    // FileWriter's destructor flushes and closes the file at the end of this block.
+    // transport opens its own random-access handle at the chunk's begin offset.
     {
-      FileWriter writer(filePath + DOWNLOADING_FILE_EXTENSION, openMode);
+      FileWriter writer(m_downloadingPath, openMode);
     }
-    Platform::DisableBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
+    Platform::DisableBackupForFile(m_downloadingPath);
     StartChunks();
   }
 
@@ -280,16 +270,13 @@ public:
     {
       std::lock_guard lock(m_cleanup->m_mu);
       m_cleanup->m_cleanupRequested = true;
-      m_cleanup->m_downloadingPath = m_filePath + DOWNLOADING_FILE_EXTENSION;
+      m_cleanup->m_downloadingPath = m_downloadingPath;
       m_cleanup->m_resumePath = m_filePath + RESUME_FILE_EXTENSION;
     }
 
     for (auto & chunk : m_chunks)
       chunk.m_handle.Cancel();
     m_chunks.clear();
-    // m_cleanup shared_ptr is released here. If no chunk callbacks hold a copy,
-    // its destructor runs now and deletes the temp files. Otherwise cleanup happens
-    // when the last callback unwinds.
   }
 
   string const & GetFilePath() const override { return m_filePath; }

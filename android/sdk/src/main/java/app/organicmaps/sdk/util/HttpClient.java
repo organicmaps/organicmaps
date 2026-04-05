@@ -345,7 +345,9 @@ public final class HttpClient
          okio.BufferedSource source = responseBody.source())
     {
       raf.seek(p.outputFileOffset);
-      byte[] buffer = new byte[8192];
+      // 64 KB buffer: RandomAccessFile.write is unbuffered, so each iteration is a
+      // syscall + JNI crossing. Matches typical 512 KB segment chunks at ~8 iterations.
+      byte[] buffer = new byte[65536];
       int bytesRead;
       while ((bytesRead = source.read(buffer)) != -1)
       {
