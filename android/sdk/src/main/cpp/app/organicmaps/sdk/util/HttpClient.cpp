@@ -83,6 +83,12 @@ void SetInt(ScopedEnv & env, jobject params, jfieldID const fieldId, int const v
   RethrowOnJniException(env);
 }
 
+void SetLong(ScopedEnv & env, jobject params, jfieldID const fieldId, int64_t const value)
+{
+  env->SetLongField(params, fieldId, static_cast<jlong>(value));
+  RethrowOnJniException(env);
+}
+
 void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, std::string & result)
 {
   jni::ScopedLocalRef<jstring> const wrappedValue(env.get(),
@@ -141,7 +147,11 @@ public:
                   {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
                   {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
                   {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
-                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}};
+                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")},
+                  {"outputFileIsSegment", GetHttpParamsFieldId(env, "outputFileIsSegment", "Z")},
+                  {"outputFileOffset", GetHttpParamsFieldId(env, "outputFileOffset", "J")},
+                  {"outputFileSegmentBytes", GetHttpParamsFieldId(env, "outputFileSegmentBytes", "J")},
+                  {"outputFileTotalBytes", GetHttpParamsFieldId(env, "outputFileTotalBytes", "J")}};
   }
 
   jfieldID GetId(std::string const & fieldName) const
@@ -167,6 +177,11 @@ struct AsyncContext
   // Global ref to the Params object so we can read results on the callback thread.
   jobject m_paramsGlobalRef = nullptr;
   std::atomic<bool> m_dataAborted{false};
+  // Mirrors HttpClient::m_receivedFileSegment.has_value() at request-send time.
+  // Segment-mode completions require errorCode == 206 for m_success; any other HTTP
+  // code (404, 416, 500, etc.) or negative error code must map to m_success=false,
+  // matching Qt/Apple semantics.
+  bool m_isSegmentMode = false;
 };
 
 // Extract Result from a Java Params object.
@@ -276,7 +291,13 @@ extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnCompl
   else if (success && ctx->m_paramsGlobalRef)
   {
     result = ExtractResult(env, ctx->m_paramsGlobalRef);
-    result.m_success = true;
+    // Negative error codes (kInconsistentFileSize, kWriteException) signal an
+    // application-level failure even though the HTTP transfer completed without
+    // throwing. Segment mode is stricter: only 206 means the requested chunk was
+    // accepted and written successfully — any other HTTP code (404, 416, 500, ...)
+    // leaves no bytes on disk, so must not be reported as success. Matches Qt/Apple
+    // m_success semantics.
+    result.m_success = result.m_errorCode >= 0 && (!ctx->m_isSegmentMode || result.m_errorCode == 206);
   }
   else if (ctx->m_paramsGlobalRef)
   {
@@ -369,6 +390,19 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
     SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"), static_cast<int>(m_timeoutSec * 1000));
 
+    // Segment mode: stream the response body into an existing file at the given offset
+    // with pre-write validation of 206 + Content-Range. Takes precedence over
+    // outputFilePath-only mode on the Java side.
+    if (m_receivedFileSegment)
+    {
+      SetString(env, httpParamsObject.get(), ids.GetId("outputFilePath"), m_receivedFileSegment->m_path);
+      SetBoolean(env, httpParamsObject.get(), ids.GetId("outputFileIsSegment"), true);
+      SetLong(env, httpParamsObject.get(), ids.GetId("outputFileOffset"), m_receivedFileSegment->m_offset);
+      SetLong(env, httpParamsObject.get(), ids.GetId("outputFileSegmentBytes"), m_receivedFileSegment->m_expectedBytes);
+      SetLong(env, httpParamsObject.get(), ids.GetId("outputFileTotalBytes"),
+              m_receivedFileSegment->m_expectedTotalBytes);
+    }
+
     ::SetHeaders(env, httpParamsObject.get(), m_headers);
   }
   catch (JniException const &)
@@ -384,6 +418,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   ctx->m_dataHandler = m_dataHandler;
   ctx->m_cancelChecker = handle.MakeCancelChecker();
   ctx->m_paramsGlobalRef = env->NewGlobalRef(httpParamsObject.get());
+  ctx->m_isSegmentMode = m_receivedFileSegment.has_value();
 
   // Call Java HttpClient.runAsync(Params, long nativeCtxPtr) — returns a Call object.
   static jmethodID const runAsyncMethod = env->GetStaticMethodID(

@@ -4,7 +4,9 @@
 
 #include "base/string_utils.hpp"
 
+#include <cctype>
 #include <condition_variable>
+#include <ranges>
 #include <sstream>
 
 namespace platform
@@ -112,6 +114,12 @@ HttpClient & HttpClient::SetBodyFile(string const & body_file, string const & co
 HttpClient & HttpClient::SetReceivedFile(string const & received_file)
 {
   m_outputFile = received_file;
+  return *this;
+}
+
+HttpClient & HttpClient::SetReceivedFileSegment(ReceivedFileSegment segment)
+{
+  m_receivedFileSegment = std::move(segment);
   return *this;
 }
 
@@ -240,6 +248,34 @@ void HttpClient::LoadHeaders(bool loadHeaders)
 HttpClient::Headers const & HttpClient::GetHeaders() const
 {
   return m_headers;
+}
+
+// static
+bool HttpClient::ParseContentRange(std::string_view header, int64_t & start, int64_t & end, int64_t & total)
+{
+  strings::Trim(header);
+  // Strip the "bytes " prefix (case-insensitive per RFC 7233).
+  if (header.size() >= 6 &&
+      std::ranges::equal(header | std::views::take(6), std::string_view{"bytes "},
+                         [](char a, char b) { return std::tolower(static_cast<unsigned char>(a)) == b; }))
+  {
+    header.remove_prefix(6);
+    strings::Trim(header);
+  }
+  auto const dash = header.find('-');
+  auto const slash = header.find('/');
+  if (dash == std::string_view::npos || slash == std::string_view::npos || dash >= slash)
+    return false;
+  if (!strings::to_int(header.substr(0, dash), start))
+    return false;
+  if (!strings::to_int(header.substr(dash + 1, slash - dash - 1), end))
+    return false;
+  auto const totalStr = header.substr(slash + 1);
+  if (totalStr == "*")
+    total = -1;
+  else if (!strings::to_int(totalStr, total))
+    return false;
+  return true;
 }
 
 // static
