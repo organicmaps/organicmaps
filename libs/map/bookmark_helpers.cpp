@@ -24,7 +24,6 @@
 
 #include <algorithm>
 #include <map>
-#include <sstream>
 
 namespace
 {
@@ -250,8 +249,11 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
       validGeometry.m_timestamps.emplace_back();
 
       auto & validLine = validGeometry.m_lines.back();
+      validLine.reserve(line.size());
       auto & validTimestamps = validGeometry.m_timestamps.back();
+      validTimestamps.reserve(timestamps.size());
 
+      /// @todo Can rewrite with unique loop analog to filter existing geometry and avoid new vectors allocation.
       for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
       {
         auto const & currPoint = line[pointIndex];
@@ -266,10 +268,32 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
             validTimestamps.push_back(timestamps[pointIndex]);
         }
       }
+
+      if (validLine.size() < 2)
+      {
+        validGeometry.m_lines.pop_back();
+        validGeometry.m_timestamps.pop_back();
+        LOG(LWARNING, ("Degenerated line in track:", trackData.m_name[kml::kDefaultLang]));
+      }
     }
 
     trackData.m_geometry = std::move(validGeometry);
   }
+
+  std::set<kml::LocalId> removedIds;
+  base::EraseIf(data->m_tracksData, [&removedIds](kml::TrackData const & td)
+  {
+    if (!td.m_geometry.IsValid())
+    {
+      removedIds.insert(td.m_localId);
+      return true;
+    }
+    return false;
+  });
+
+  if (!removedIds.empty())
+    for (auto & bm : data->m_bookmarksData)
+      base::EraseIf(bm.m_boundTracks, [&removedIds](kml::LocalId id) { return removedIds.contains(id); });
 }
 
 bool IsBadCharForPath(strings::UniChar c)
