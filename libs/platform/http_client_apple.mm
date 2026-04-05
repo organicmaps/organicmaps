@@ -248,7 +248,16 @@ using CancelChecker = platform::HttpClient::CancelChecker;
     m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
     return NO;
   }
-  if (m_segment->m_expectedTotalBytes >= 0 && total >= 0 && total != m_segment->m_expectedTotalBytes)
+  // If the caller supplied an expected total file size, the server MUST echo it
+  // back. A "*" (total == -1) would let a mirror serve a chunk from a different
+  // file version at the same offset without us noticing — reject it.
+  if (m_segment->m_expectedTotalBytes >= 0 && total < 0)
+  {
+    LOG(LWARNING, ("Server sent Content-Range with unknown total, expected", m_segment->m_expectedTotalBytes));
+    m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
+    return NO;
+  }
+  if (m_segment->m_expectedTotalBytes >= 0 && total != m_segment->m_expectedTotalBytes)
   {
     LOG(LWARNING, ("Content-Range total mismatch: got", total, "expected", m_segment->m_expectedTotalBytes));
     m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;

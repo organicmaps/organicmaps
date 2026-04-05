@@ -1131,6 +1131,7 @@ char constexpr kUrlSegmentIgnoreRange[] = "http://localhost:34568/unit_tests/seg
 char constexpr kUrlSegmentMissingCR[] = "http://localhost:34568/unit_tests/segment/missing_content_range";
 char constexpr kUrlSegmentShortBody[] = "http://localhost:34568/unit_tests/segment/short_body";
 char constexpr kUrlSegmentOverflowBody[] = "http://localhost:34568/unit_tests/segment/overflow_body";
+char constexpr kUrlSegmentUnknownTotal[] = "http://localhost:34568/unit_tests/segment/unknown_total";
 
 // Create a temp file pre-filled with a known sentinel byte pattern so tests can verify
 // that only the target segment was modified.
@@ -1301,6 +1302,33 @@ UNIT_TEST(HttpClient_Segment_OverflowBody)
 
   TEST(!result.m_success, ());
   TEST_EQUAL(result.m_errorCode, HttpClient::kInconsistentFileSize, ());
+  base::DeleteFileX(path);
+}
+
+UNIT_TEST(HttpClient_Segment_UnknownTotal_Rejected)
+{
+  // Server returns 206 with "Content-Range: bytes 0-99/*" and a 100-byte body.
+  // The range start/end match, but the total is "*". When the caller supplied an
+  // expected total size, this must fail: a mirror could serve a byte-range from
+  // a different file version that happens to match offset/length, and we'd silently
+  // write corrupt data. Matches the pre-segment-rewrite downloader behavior, which
+  // rejected Content-Range values without a numeric total.
+  string const path = MakeSegmentTargetFile(0x66);
+
+  HttpClient client(kUrlSegmentUnknownTotal);
+  client.SetRange(0, kSegmentTestRangeEnd);
+  client.SetReceivedFileSegment({path, 0, kSegmentTestRangeBytes, kSegmentTestTotalSize});
+  auto result = RunAsync(client);
+
+  TEST(!result.m_success, ());
+  TEST_EQUAL(result.m_errorCode, HttpClient::kInconsistentFileSize, ());
+
+  // File untouched — no bytes written before validation failure.
+  FileReader reader(path);
+  string data;
+  reader.ReadAsString(data);
+  for (size_t i = 0; i < data.size(); ++i)
+    TEST_EQUAL(static_cast<uint8_t>(data[i]), 0x66, ("byte at", i));
   base::DeleteFileX(path);
 }
 

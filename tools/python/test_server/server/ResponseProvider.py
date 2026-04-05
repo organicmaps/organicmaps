@@ -173,6 +173,7 @@ class ResponseProvider:
                 "/unit_tests/segment/missing_content_range": self.test_segment_missing_content_range,
                 "/unit_tests/segment/short_body": self.test_segment_short_body,
                 "/unit_tests/segment/overflow_body": self.test_segment_overflow_body,
+                "/unit_tests/segment/unknown_total": self.test_segment_unknown_total,
                 "/unit_tests/segment/ok": self.test_segment_ok,
             }.get(url, self.test_404)()
         except Exception as e:
@@ -392,6 +393,13 @@ class ResponseProvider:
         body = self.segment_test_body(150)
         return Payload(body, 206, {"Content-Range": "bytes 0-{end}/{total}".format(
             end=self.SEGMENT_TEST_RANGE_END, total=self.SEGMENT_TEST_TOTAL_SIZE)})
+
+    def test_segment_unknown_total(self):
+        """Returns 206 with Content-Range: bytes 0-99/* and a correct 100-byte body.
+        RFC 7233 allows "*" for unknown total, but segment-mode clients that supply
+        an expected total must reject it (different file version / mirror drift)."""
+        body = self.segment_test_body(self.SEGMENT_TEST_RANGE_END + 1)
+        return Payload(body, 206, {"Content-Range": "bytes 0-{end}/*".format(end=self.SEGMENT_TEST_RANGE_END)})
 
     def test_segment_ok(self):
         """Returns 206 with correct Content-Range and exact byte count. Happy-path
