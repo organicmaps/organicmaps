@@ -62,9 +62,10 @@ public:
     Altitude m_minAltitude = std::numeric_limits<Altitude>::max();
     Altitude m_maxAltitude = std::numeric_limits<Altitude>::min();
 
-    /// Falls back to raw values if filtered are zero (e.g. almost flat tracks).
-    uint32_t GetTotalAscent() const { return m_totalAscentFiltered > 0 ? m_totalAscentFiltered : m_totalAscentRaw; }
-    uint32_t GetTotalDescent() const { return m_totalDescentFiltered > 0 ? m_totalDescentFiltered : m_totalDescentRaw; }
+    /// Falls back to raw values if filtered are both zeros (e.g. almost flat tracks).
+    bool IsGoodFiltered() const { return m_totalAscentFiltered > 0 || m_totalDescentFiltered > 0; }
+    uint32_t GetTotalAscent() const { return IsGoodFiltered() ? m_totalAscentFiltered : m_totalAscentRaw; }
+    uint32_t GetTotalDescent() const { return IsGoodFiltered() ? m_totalDescentFiltered : m_totalDescentRaw; }
   };
 
   /// Calculates all altitude statistics in one pass.
