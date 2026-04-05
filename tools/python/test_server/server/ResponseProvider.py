@@ -167,6 +167,13 @@ class ResponseProvider:
                 "/unit_tests/basic_auth": self.test_basic_auth,
                 "/unit_tests/set_cookies_lowercase": self.test_set_cookies_lowercase,
                 "/unit_tests/set_cookies_uppercase": self.test_set_cookies_uppercase,
+                # Segment-mode (ReceivedFileSegment) failure routes.
+                # SEGMENT_TEST_TOTAL_SIZE (1000) is the advertised total file size.
+                "/unit_tests/segment/ignore_range": self.test_segment_ignore_range,
+                "/unit_tests/segment/missing_content_range": self.test_segment_missing_content_range,
+                "/unit_tests/segment/short_body": self.test_segment_short_body,
+                "/unit_tests/segment/overflow_body": self.test_segment_overflow_body,
+                "/unit_tests/segment/ok": self.test_segment_ok,
             }.get(url, self.test_404)()
         except Exception as e:
             logging.error("test_server: Can't build server response", exc_info=e)
@@ -347,6 +354,52 @@ class ResponseProvider:
     def test_set_cookies_uppercase(self):
         """Return Set-Cookie with all-uppercase header name."""
         return Payload("ok", 200, {"SET-COOKIE": "upper=yes; Path=/"})
+
+    # --- Segment-mode (ReceivedFileSegment) failure-injection routes. ---
+    # These routes exist to test HttpClient::SetReceivedFileSegment error handling.
+    # SEGMENT_TEST_TOTAL_SIZE must match the value in http_client_test.cpp.
+    SEGMENT_TEST_TOTAL_SIZE = 1000
+    SEGMENT_TEST_RANGE_END = 99  # Inclusive end of the test range (100 bytes: 0-99).
+
+    def segment_test_body(self, size):
+        """Returns a deterministic byte sequence of the given size (values 0,1,2,...,255,0,...)."""
+        return bytes(i % 256 for i in range(size))
+
+    def test_segment_ignore_range(self):
+        """Always returns 200 OK with the full file body, ignoring any Range header.
+        Simulates a mis-configured mirror that doesn't honor partial requests.
+        Segment-mode clients must detect this and fail with kInconsistentFileSize
+        before any byte is written to the target file."""
+        body = self.segment_test_body(self.SEGMENT_TEST_TOTAL_SIZE)
+        return Payload(body, 200, {})
+
+    def test_segment_missing_content_range(self):
+        """Returns 206 Partial Content but WITHOUT a Content-Range header.
+        Spec violation per RFC 7233 §4.1 - segment-mode clients must reject this."""
+        body = self.segment_test_body(self.SEGMENT_TEST_RANGE_END + 1)
+        return Payload(body, 206, {})
+
+    def test_segment_short_body(self):
+        """Returns 206 with Content-Range advertising 100 bytes (0-99/1000), but the
+        body has only 50 bytes. Tests segment-underflow detection at finish."""
+        body = self.segment_test_body(50)
+        return Payload(body, 206, {"Content-Range": "bytes 0-{end}/{total}".format(
+            end=self.SEGMENT_TEST_RANGE_END, total=self.SEGMENT_TEST_TOTAL_SIZE)})
+
+    def test_segment_overflow_body(self):
+        """Returns 206 with Content-Range advertising 100 bytes (0-99/1000), but the
+        body has 150 bytes. Tests segment-overflow detection (abort mid-stream)."""
+        body = self.segment_test_body(150)
+        return Payload(body, 206, {"Content-Range": "bytes 0-{end}/{total}".format(
+            end=self.SEGMENT_TEST_RANGE_END, total=self.SEGMENT_TEST_TOTAL_SIZE)})
+
+    def test_segment_ok(self):
+        """Returns 206 with correct Content-Range and exact byte count. Happy-path
+        reference. Honors the Range header like test1/test_47_kb via chunk_requested()."""
+        body = self.segment_test_body(self.SEGMENT_TEST_TOTAL_SIZE)
+        self.check_byterange(self.SEGMENT_TEST_TOTAL_SIZE)
+        headers = self.chunked_response_header(self.SEGMENT_TEST_TOTAL_SIZE)
+        return Payload(self.trim_message(body), self.response_code, headers)
 
     def kill(self):
         logging.debug("Kill called in ResponseProvider")
