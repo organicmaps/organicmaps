@@ -320,7 +320,13 @@ public final class HttpClient
       p.httpResponseCode = kInconsistentFileSize;
       return;
     }
-    if (p.outputFileTotalBytes >= 0 && total >= 0 && total != p.outputFileTotalBytes)
+    if (p.outputFileTotalBytes >= 0 && total < 0)
+    {
+      Logger.w(TAG, "Content-Range total mismatch: got unknown total, expected " + p.outputFileTotalBytes);
+      p.httpResponseCode = kInconsistentFileSize;
+      return;
+    }
+    if (p.outputFileTotalBytes >= 0 && total != p.outputFileTotalBytes)
     {
       Logger.w(TAG, "Content-Range total mismatch: got " + total + " expected " + p.outputFileTotalBytes);
       p.httpResponseCode = kInconsistentFileSize;
