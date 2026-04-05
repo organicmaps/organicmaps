@@ -40,29 +40,6 @@ string DebugPrint(long errorCode)
 
 using AliveFlag = std::shared_ptr<std::atomic<bool>>;
 
-// Shared state that coordinates file cleanup with in-flight transport callbacks.
-// Each chunk's async callback captures a shared_ptr<CleanupCoordinator> so the
-// destructor runs only after the last in-flight chunk callback unwinds.
-// This prevents deleting the .downloading file while a transport is still writing
-// to it (transport cancellation is asynchronous on all backends).
-struct CleanupCoordinator
-{
-  std::mutex m_mu;
-  bool m_cleanupRequested = false;
-  string m_downloadingPath;
-  string m_resumePath;
-
-  ~CleanupCoordinator()
-  {
-    std::lock_guard lock(m_mu);
-    if (m_cleanupRequested)
-    {
-      Platform::RemoveFileIfExists(m_downloadingPath);
-      Platform::RemoveFileIfExists(m_resumePath);
-    }
-  }
-};
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /// Downloads file using chunked strategy, backed by HttpClient async API.
 /// Each chunk is streamed directly to disk via SetReceivedFileSegment — the chunk body
@@ -80,7 +57,6 @@ class FileHttpRequest : public HttpRequest
   std::list<ChunkInfo> m_chunks;
 
   AliveFlag m_alive;
-  std::shared_ptr<CleanupCoordinator> m_cleanup;
   string m_filePath;
   string m_downloadingPath;  // m_filePath + DOWNLOADING_FILE_EXTENSION, cached.
   size_t m_goodChunksCount;
@@ -116,13 +92,11 @@ class FileHttpRequest : public HttpRequest
       client.LoadHeaders(true);
 
       auto alive = m_alive;
-      auto cleanup = m_cleanup;
-      auto handle =
-          client.RunHttpRequestAsync([this, alive, cleanup, begRange, endRange](platform::HttpClient::Result result)
+      auto handle = client.RunHttpRequestAsync([this, alive, begRange, endRange](platform::HttpClient::Result result)
       {
         if (!alive->load(std::memory_order_acquire))
           return;
-        platform::GuiThread().Push([this, alive, cleanup, begRange, endRange, result = std::move(result)]() mutable
+        platform::GuiThread().Push([this, alive, begRange, endRange, result = std::move(result)]() mutable
         {
           if (!alive->load(std::memory_order_acquire))
             return;
@@ -213,7 +187,6 @@ public:
     : HttpRequest(std::move(onFinish), std::move(onProgress))
     , m_strategy(urls)
     , m_alive(std::make_shared<std::atomic<bool>>(true))
-    , m_cleanup(std::make_shared<CleanupCoordinator>())
     , m_filePath(filePath)
     , m_downloadingPath(filePath + DOWNLOADING_FILE_EXTENSION)
     , m_goodChunksCount(0)
@@ -257,20 +230,20 @@ public:
   {
     m_alive->store(false, std::memory_order_release);
 
-    // If the download is still in progress and cleanup is requested, hand off the
-    // temp-file deletion to CleanupCoordinator. It will run when the last in-flight
-    // chunk callback drops its captured shared_ptr<CleanupCoordinator>.
-    if (m_status == DownloadStatus::InProgress && m_doCleanProgressFiles)
-    {
-      std::lock_guard lock(m_cleanup->m_mu);
-      m_cleanup->m_cleanupRequested = true;
-      m_cleanup->m_downloadingPath = m_downloadingPath;
-      m_cleanup->m_resumePath = m_filePath + RESUME_FILE_EXTENSION;
-    }
-
     for (auto & chunk : m_chunks)
       chunk.m_handle.Cancel();
     m_chunks.clear();
+
+    // Delete temp files synchronously. Any still-in-flight transport writes will land
+    // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
+    // closes) or fail silently (Windows) — either way, no interaction with a potential
+    // new download that reuses the same path. A deferred-cleanup scheme here would
+    // introduce a cancel+retry race where the cleanup deletes the NEW download's file.
+    if (m_status == DownloadStatus::InProgress && m_doCleanProgressFiles)
+    {
+      Platform::RemoveFileIfExists(m_downloadingPath);
+      Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
+    }
   }
 
   string const & GetFilePath() const override { return m_filePath; }
