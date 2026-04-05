@@ -4,7 +4,9 @@
 
 #include "base/string_utils.hpp"
 
+#include <cctype>
 #include <condition_variable>
+#include <ranges>
 #include <sstream>
 
 namespace platform
@@ -253,7 +255,9 @@ bool HttpClient::ParseContentRange(std::string_view header, int64_t & start, int
 {
   strings::Trim(header);
   // Strip the "bytes " prefix (case-insensitive per RFC 7233).
-  if (header.size() >= 6 && (header.substr(0, 6) == "bytes " || header.substr(0, 6) == "BYTES "))
+  if (header.size() >= 6 &&
+      std::ranges::equal(header | std::views::take(6), std::string_view{"bytes "},
+                         [](char a, char b) { return std::tolower(static_cast<unsigned char>(a)) == b; }))
   {
     header.remove_prefix(6);
     strings::Trim(header);
