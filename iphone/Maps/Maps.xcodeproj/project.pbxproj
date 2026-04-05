@@ -307,7 +307,6 @@
 		ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C43F2F90180300FA103D /* MWMAlertViewController.mm */; };
 		ED82C5CB2F90180300FA103D /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4442F90180300FA103D /* MWMAlert.mm */; };
 		ED82C5CC2F90180300FA103D /* BCCreateCategoryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4472F90180300FA103D /* BCCreateCategoryAlert.swift */; };
-		ED82C5CD2F90180300FA103D /* MWMDefaultAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C44B2F90180300FA103D /* MWMDefaultAlert.mm */; };
 		ED82C5CE2F90180300FA103D /* MWMDownloaderDialogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4502F90180300FA103D /* MWMDownloaderDialogCell.m */; };
 		ED82C5CF2F90180300FA103D /* MWMDownloaderDialogHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4532F90180300FA103D /* MWMDownloaderDialogHeader.mm */; };
 		ED82C5D02F90180300FA103D /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4562F90180300FA103D /* MWMDownloadTransitMapAlert.mm */; };
@@ -318,7 +317,6 @@
 		ED82C5D52F90180300FA103D /* MWMOsmReauthAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4682F90180300FA103D /* MWMOsmReauthAlert.mm */; };
 		ED82C5D62F90180300FA103D /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C46C2F90180300FA103D /* MWMPlaceDoesntExistAlert.m */; };
 		ED82C5D72F90180300FA103D /* MWMRoutingDisclaimerAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4702F90180300FA103D /* MWMRoutingDisclaimerAlert.m */; };
-		ED82C5D82F90180300FA103D /* SpinnerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4742F90180300FA103D /* SpinnerAlert.swift */; };
 		ED82C5D92F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4762F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift */; };
 		ED82C5DA2F90180300FA103D /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4792F90180300FA103D /* MWMEditorViralAlert.mm */; };
 		ED82C5DB2F90180300FA103D /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C47D2F90180300FA103D /* LoadingOverlayViewController.swift */; };
@@ -436,7 +434,6 @@
 		ED82C65A2F90180300FA103D /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4392F90180300FA103D /* MWMCircularProgress.xib */; };
 		ED82C65B2F90180300FA103D /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4402F90180300FA103D /* MWMAlertViewController.xib */; };
 		ED82C65C2F90180300FA103D /* MWMBCCreateCategoryAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4482F90180300FA103D /* MWMBCCreateCategoryAlert.xib */; };
-		ED82C65D2F90180300FA103D /* MWMDefaultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C44C2F90180300FA103D /* MWMDefaultAlert.xib */; };
 		ED82C65E2F90180300FA103D /* MWMDownloaderDialogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4512F90180300FA103D /* MWMDownloaderDialogCell.xib */; };
 		ED82C65F2F90180300FA103D /* MWMDownloaderDialogHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4542F90180300FA103D /* MWMDownloaderDialogHeader.xib */; };
 		ED82C6602F90180300FA103D /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4572F90180300FA103D /* MWMDownloadTransitMapAlert.xib */; };
@@ -447,7 +444,6 @@
 		ED82C6652F90180300FA103D /* MWMOsmReauthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4692F90180300FA103D /* MWMOsmReauthAlert.xib */; };
 		ED82C6662F90180300FA103D /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C46D2F90180300FA103D /* MWMPlaceDoesntExistAlert.xib */; };
 		ED82C6672F90180300FA103D /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4712F90180300FA103D /* MWMRoutingDisclaimerAlert.xib */; };
-		ED82C6682F90180300FA103D /* MWMSpinnerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4732F90180300FA103D /* MWMSpinnerAlert.xib */; };
 		ED82C6692F90180300FA103D /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C47A2F90180300FA103D /* MWMEditorViralAlert.xib */; };
 		ED82C66A2F90180300FA103D /* MWMSearchCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4BE2F90180300FA103D /* MWMSearchCommonCell.xib */; };
 		ED82C66B2F90180300FA103D /* MWMSearchSuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4C12F90180300FA103D /* MWMSearchSuggestionCell.xib */; };
@@ -1299,10 +1295,6 @@
 		ED82C4452F90180300FA103D /* MWMAlert+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlert+CPP.h"; sourceTree = "<group>"; };
 		ED82C4472F90180300FA103D /* BCCreateCategoryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCreateCategoryAlert.swift; sourceTree = "<group>"; };
 		ED82C4482F90180300FA103D /* MWMBCCreateCategoryAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBCCreateCategoryAlert.xib; sourceTree = "<group>"; };
-		ED82C44A2F90180300FA103D /* MWMDefaultAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert.h; sourceTree = "<group>"; };
-		ED82C44B2F90180300FA103D /* MWMDefaultAlert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDefaultAlert.mm; sourceTree = "<group>"; };
-		ED82C44C2F90180300FA103D /* MWMDefaultAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMDefaultAlert.xib; sourceTree = "<group>"; };
-		ED82C44D2F90180300FA103D /* MWMDefaultAlert_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert_Protected.h; sourceTree = "<group>"; };
 		ED82C44F2F90180300FA103D /* MWMDownloaderDialogCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDownloaderDialogCell.h; sourceTree = "<group>"; };
 		ED82C4502F90180300FA103D /* MWMDownloaderDialogCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDownloaderDialogCell.m; sourceTree = "<group>"; };
 		ED82C4512F90180300FA103D /* MWMDownloaderDialogCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMDownloaderDialogCell.xib; sourceTree = "<group>"; };
@@ -1332,8 +1324,6 @@
 		ED82C46F2F90180300FA103D /* MWMRoutingDisclaimerAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutingDisclaimerAlert.h; sourceTree = "<group>"; };
 		ED82C4702F90180300FA103D /* MWMRoutingDisclaimerAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMRoutingDisclaimerAlert.m; sourceTree = "<group>"; };
 		ED82C4712F90180300FA103D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
-		ED82C4732F90180300FA103D /* MWMSpinnerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSpinnerAlert.xib; sourceTree = "<group>"; };
-		ED82C4742F90180300FA103D /* SpinnerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerAlert.swift; sourceTree = "<group>"; };
 		ED82C4762F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+UnknownCurrentPosition.swift"; sourceTree = "<group>"; };
 		ED82C4782F90180300FA103D /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
 		ED82C4792F90180300FA103D /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; };
@@ -3109,17 +3099,6 @@
 			path = CreateBookmarkCategory;
 			sourceTree = "<group>";
 		};
-		ED82C44E2F90180300FA103D /* DefaultAlert */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C44A2F90180300FA103D /* MWMDefaultAlert.h */,
-				ED82C44B2F90180300FA103D /* MWMDefaultAlert.mm */,
-				ED82C44C2F90180300FA103D /* MWMDefaultAlert.xib */,
-				ED82C44D2F90180300FA103D /* MWMDefaultAlert_Protected.h */,
-			);
-			path = DefaultAlert;
-			sourceTree = "<group>";
-		};
 		ED82C4582F90180300FA103D /* DownloadTransitMapsAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3198,15 +3177,6 @@
 			path = RoutingDisclaimerAlert;
 			sourceTree = "<group>";
 		};
-		ED82C4752F90180300FA103D /* SpinnerAlert */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C4732F90180300FA103D /* MWMSpinnerAlert.xib */,
-				ED82C4742F90180300FA103D /* SpinnerAlert.swift */,
-			);
-			path = SpinnerAlert;
-			sourceTree = "<group>";
-		};
 		ED82C4772F90180300FA103D /* UnknownCurrentPositionAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3231,7 +3201,6 @@
 				ED82C4422F90180300FA103D /* AlertController */,
 				ED82C4462F90180300FA103D /* BaseAlert */,
 				ED82C4492F90180300FA103D /* CreateBookmarkCategory */,
-				ED82C44E2F90180300FA103D /* DefaultAlert */,
 				ED82C4582F90180300FA103D /* DownloadTransitMapsAlert */,
 				ED82C45E2F90180300FA103D /* LocationAlert */,
 				ED82C4622F90180300FA103D /* MobileInternetAlert */,
@@ -3239,7 +3208,6 @@
 				ED82C46A2F90180300FA103D /* OsmReautAlert */,
 				ED82C46E2F90180300FA103D /* PlaceDoesntExist */,
 				ED82C4722F90180300FA103D /* RoutingDisclaimerAlert */,
-				ED82C4752F90180300FA103D /* SpinnerAlert */,
 				ED82C4772F90180300FA103D /* UnknownCurrentPositionAlert */,
 				ED82C47B2F90180300FA103D /* ViralAlert */,
 			);
@@ -4430,7 +4398,6 @@
 				ED82C65A2F90180300FA103D /* MWMCircularProgress.xib in Resources */,
 				ED82C65B2F90180300FA103D /* MWMAlertViewController.xib in Resources */,
 				ED82C65C2F90180300FA103D /* MWMBCCreateCategoryAlert.xib in Resources */,
-				ED82C65D2F90180300FA103D /* MWMDefaultAlert.xib in Resources */,
 				ED82C65E2F90180300FA103D /* MWMDownloaderDialogCell.xib in Resources */,
 				ED82C65F2F90180300FA103D /* MWMDownloaderDialogHeader.xib in Resources */,
 				ED82C6602F90180300FA103D /* MWMDownloadTransitMapAlert.xib in Resources */,
@@ -4441,7 +4408,6 @@
 				ED82C6652F90180300FA103D /* MWMOsmReauthAlert.xib in Resources */,
 				ED82C6662F90180300FA103D /* MWMPlaceDoesntExistAlert.xib in Resources */,
 				ED82C6672F90180300FA103D /* MWMRoutingDisclaimerAlert.xib in Resources */,
-				ED82C6682F90180300FA103D /* MWMSpinnerAlert.xib in Resources */,
 				ED82C6692F90180300FA103D /* MWMEditorViralAlert.xib in Resources */,
 				ED82C66A2F90180300FA103D /* MWMSearchCommonCell.xib in Resources */,
 				ED82C66B2F90180300FA103D /* MWMSearchSuggestionCell.xib in Resources */,
@@ -4831,7 +4797,6 @@
 				ED82C5CA2F90180300FA103D /* MWMAlertViewController.mm in Sources */,
 				ED82C5CB2F90180300FA103D /* MWMAlert.mm in Sources */,
 				ED82C5CC2F90180300FA103D /* BCCreateCategoryAlert.swift in Sources */,
-				ED82C5CD2F90180300FA103D /* MWMDefaultAlert.mm in Sources */,
 				ED82C5CE2F90180300FA103D /* MWMDownloaderDialogCell.m in Sources */,
 				ED82C5CF2F90180300FA103D /* MWMDownloaderDialogHeader.mm in Sources */,
 				ED82C5D02F90180300FA103D /* MWMDownloadTransitMapAlert.mm in Sources */,
@@ -4842,7 +4807,6 @@
 				ED82C5D52F90180300FA103D /* MWMOsmReauthAlert.mm in Sources */,
 				ED82C5D62F90180300FA103D /* MWMPlaceDoesntExistAlert.m in Sources */,
 				ED82C5D72F90180300FA103D /* MWMRoutingDisclaimerAlert.m in Sources */,
-				ED82C5D82F90180300FA103D /* SpinnerAlert.swift in Sources */,
 				ED82C5D92F90180300FA103D /* UIAlertController+UnknownCurrentPosition.swift in Sources */,
 				ED82C5DA2F90180300FA103D /* MWMEditorViralAlert.mm in Sources */,
 				ED82C5DB2F90180300FA103D /* LoadingOverlayViewController.swift in Sources */,
