@@ -354,21 +354,27 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
         track.m_layers.push_back(TrackLayer{.m_color = *lineColor});
 
       // Convert line(s) coordinates
-      if (lineGeometry)
+      if (lineGeometry && !lineGeometry->coordinates.empty())
       {
         track.m_geometry.m_lines.push_back(CoordsToPoints(lineGeometry->coordinates));
         track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
       }
       if (multilineGeometry)
       {
-        for (auto & coords : multilineGeometry->coordinates)
+        for (auto const & coords : multilineGeometry->coordinates)
         {
-          track.m_geometry.m_lines.push_back(CoordsToPoints(coords));
-          track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
+          if (!coords.empty())
+          {
+            track.m_geometry.m_lines.push_back(CoordsToPoints(coords));
+            track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
+          }
         }
       }
 
-      m_fileData.m_tracksData.push_back(std::move(track));
+      if (track.m_geometry.IsValid())
+        m_fileData.m_tracksData.push_back(std::move(track));
+      else
+        LOG(LWARNING, ("GeoJson track without geometry:", GetDefaultStr(track.m_name)));
     }
   }
 
