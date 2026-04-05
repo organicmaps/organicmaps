@@ -800,10 +800,6 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
 #pragma mark - ShowDialog callback
 
-- (void)presentDisabledLocationAlert
-{
-  [self.alertController presentDisabledLocationAlert];
-}
 - (void)setDisableStandbyOnLocationStateMode:(BOOL)disableStandbyOnLocationStateMode
 {
   if (_disableStandbyOnLocationStateMode == disableStandbyOnLocationStateMode)

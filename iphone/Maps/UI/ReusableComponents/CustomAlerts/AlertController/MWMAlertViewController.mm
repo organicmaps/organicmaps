@@ -6,11 +6,21 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
+#include <CoreApi/Framework.h>
+
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
 @interface MWMAlertViewController () <UIGestureRecognizerDelegate>
 
 @property(weak, nonatomic, readwrite) UIViewController * ownerViewController;
+@property(weak, nonatomic) UIAlertController * systemAlertController;
+
+- (void)presentSystemAlertWithTitle:(nonnull NSString *)title
+                            message:(nullable NSString *)message
+                   rightButtonTitle:(nonnull NSString *)rightButtonTitle
+                    leftButtonTitle:(nullable NSString *)leftButtonTitle
+                  rightButtonAction:(nullable MWMVoidBlock)rightButtonAction
+                   leftButtonAction:(nullable MWMVoidBlock)leftButtonAction;
 
 @end
 
@@ -53,44 +63,101 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 }
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild
 {
-  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
+  if (needToRebuild)
+  {
+    [self presentSystemAlertWithTitle:L(@"p2p_only_from_current")
+                              message:L(@"p2p_reroute_from_current")
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:L(@"cancel")
+                    rightButtonAction:okBlock
+                     leftButtonAction:nil];
+  }
+  else
+  {
+    [self presentSystemAlertWithTitle:L(@"p2p_only_from_current")
+                              message:nil
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+  }
 }
 
 - (void)presentLocationServiceNotSupportedAlert
 {
-  [self displayAlert:[MWMAlert locationServiceNotSupportedAlert]];
+  [self presentSystemAlertWithTitle:L(@"current_location_unknown_error_title")
+                            message:L(@"current_location_unknown_error_message")
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 - (void)presentNoConnectionAlert
 {
-  [self displayAlert:[MWMAlert noConnectionAlert]];
+  [self presentSystemAlertWithTitle:L(@"common_check_internet_connection_dialog")
+                            message:nil
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentDeleteMapProhibitedAlert
 {
-  [self displayAlert:[MWMAlert deleteMapProhibitedAlert]];
+  [self presentSystemAlertWithTitle:L(@"downloader_delete_map")
+                            message:L(@"downloader_delete_map_while_routing_dialog")
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];
+  [self presentSystemAlertWithTitle:L(@"please_note")
+                            message:L(@"downloader_delete_map_dialog")
+                   rightButtonTitle:L(@"delete")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:okBlock
+                   leftButtonAction:nil];
 }
 
 - (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock]];
+  [self presentSystemAlertWithTitle:L(@"download_over_mobile_header")
+                            message:L(@"download_over_mobile_message")
+                   rightButtonTitle:L(@"use_cellular_data")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:okBlock
+                   leftButtonAction:cancelBlock];
 }
 
 - (void)presentIncorrectFeauturePositionAlert
 {
-  [self displayAlert:[MWMAlert incorrectFeaturePositionAlert]];
+  [self presentSystemAlertWithTitle:L(@"dialog_incorrect_feature_position")
+                            message:L(@"message_invalid_feature_position")
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentNotEnoughSpaceAlert
 {
-  [self displayAlert:[MWMAlert notEnoughSpaceAlert]];
+  [self presentSystemAlertWithTitle:L(@"downloader_no_space_title")
+                            message:L(@"migration_no_space_message")
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 - (void)presentInvalidUserNameOrPasswordAlert
 {
-  [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
+  [self presentSystemAlertWithTitle:L(@"invalid_username_or_password")
+                            message:nil
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentDownloaderAlertWithCountries:(storage::CountriesSet const &)countries
@@ -111,11 +178,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingDisclaimerAlertWithOkBlock:block]];
 }
 
-- (void)presentDisabledLocationAlert
-{
-  [self displayAlert:[MWMAlert disabledLocationAlert]];
-}
-
 - (void)presentLocationServicesDisabledAlert;
 {
   [self displayAlert:[MWMAlert locationServicesDisabledAlert]];
@@ -123,24 +185,144 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentAlert:(routing::RouterResultCode)type
 {
-  [self displayAlert:[MWMAlert alert:type]];
+  switch (type)
+  {
+  case routing::RouterResultCode::NoCurrentPosition:
+  {
+    NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_error_location_not_found"),
+                                                    L(@"dialog_routing_location_turn_wifi")];
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_check_gps")
+                              message:message
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  }
+  case routing::RouterResultCode::StartPointNotFound:
+  {
+    NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_start_not_determined"),
+                                                    L(@"dialog_routing_select_closer_start")];
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_change_start")
+                              message:message
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  }
+  case routing::RouterResultCode::EndPointNotFound:
+  {
+    NSString * message = [NSString
+        stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_end_not_determined"), L(@"dialog_routing_select_closer_end")];
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_change_end")
+                              message:message
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  }
+  case routing::RouterResultCode::PointsInDifferentMWM:
+    [self presentSystemAlertWithTitle:L(@"routing_failed_cross_mwm_building")
+                              message:nil
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
+    [self presentSystemAlertWithTitle:L(@"transit_not_found")
+                              message:nil
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
+    [self presentSystemAlertWithTitle:L(@"dialog_pedestrian_route_is_long_header")
+                              message:L(@"dialog_pedestrian_route_is_long_message")
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+  case routing::RouterResultCode::RouteNotFound:
+  case routing::RouterResultCode::InconsistentMWMandRoute:
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_unable_locate_route")
+                              message:L(@"dialog_routing_change_start_or_end")
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  case routing::RouterResultCode::RouteFileNotExist:
+  case routing::RouterResultCode::FileTooOld:
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_download_files")
+                              message:L(@"dialog_routing_download_and_update_all")
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  case routing::RouterResultCode::InternalError:
+  {
+    NSString * message =
+        [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_application_error"), L(@"dialog_routing_try_again")];
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_system_error")
+                              message:message
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  }
+  case routing::RouterResultCode::IntermediatePointNotFound:
+    [self presentSystemAlertWithTitle:L(@"dialog_routing_change_intermediate")
+                              message:L(@"dialog_routing_intermediate_not_determined")
+                     rightButtonTitle:L(@"ok")
+                      leftButtonTitle:nil
+                    rightButtonAction:nil
+                     leftButtonAction:nil];
+    break;
+  case routing::RouterResultCode::Cancelled:
+  case routing::RouterResultCode::NoError:
+  case routing::RouterResultCode::HasWarnings:
+  case routing::RouterResultCode::NeedMoreMaps: break;
+  }
 }
 
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                                           cancelBlock:(nonnull MWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+  [self presentSystemAlertWithTitle:L(@"downloader_status_failed")
+                            message:L(@"common_check_internet_connection_dialog")
+                   rightButtonTitle:L(@"downloader_retry")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:okBlock
+                   leftButtonAction:cancelBlock];
 }
 
 - (void)presentDownloaderNotEnoughSpaceAlert
 {
-  [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
+  [self presentSystemAlertWithTitle:L(@"downloader_no_space_title")
+                            message:L(@"downloader_no_space_message")
+                   rightButtonTitle:L(@"close")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                                            cancelBlock:(nonnull MWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+  [self presentSystemAlertWithTitle:L(@"migration_download_error_dialog")
+                            message:nil
+                   rightButtonTitle:L(@"downloader_retry")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:okBlock
+                   leftButtonAction:cancelBlock];
 }
 
 - (void)presentPlaceDoesntExistAlertWithBlock:(MWMStringBlock)block
@@ -150,22 +332,44 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentResetChangesAlertWithBlock:(MWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert resetChangesAlertWithBlock:block]];
+  [self presentSystemAlertWithTitle:L(@"editor_reset_edits_message")
+                            message:nil
+                   rightButtonTitle:L(@"editor_reset_edits_button")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:block
+                   leftButtonAction:nil];
 }
 
 - (void)presentDeleteFeatureAlertWithBlock:(MWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert deleteFeatureAlertWithBlock:block]];
+  [self presentSystemAlertWithTitle:L(@"editor_remove_place_message")
+                            message:nil
+                   rightButtonTitle:L(@"editor_remove_place_button")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:block
+                   leftButtonAction:nil];
 }
 
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull MWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert personalInfoWarningAlertWithBlock:block]];
+  NSString * message = [NSString stringWithFormat:@"%@\n%@", L(@"editor_share_to_all_dialog_message_1"),
+                                                  L(@"editor_share_to_all_dialog_message_2")];
+  [self presentSystemAlertWithTitle:L(@"editor_share_to_all_dialog_title")
+                            message:message
+                   rightButtonTitle:L(@"editor_report_problem_send_button")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:block
+                   leftButtonAction:nil];
 }
 
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert trackWarningAlertWithCancelBlock:block]];
+  [self presentSystemAlertWithTitle:L(@"recent_track_background_dialog_title")
+                            message:L(@"recent_track_background_dialog_message")
+                   rightButtonTitle:L(@"off_recent_track_background_button")
+                    leftButtonTitle:L(@"continue_button")
+                  rightButtonAction:block
+                   leftButtonAction:nil];
 }
 
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block
@@ -175,12 +379,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text
 {
-  [self displayAlert:[MWMAlert infoAlert:title text:text]];
+  [self presentSystemAlertWithTitle:title
+                            message:text
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentInfoAlert:(nonnull NSString *)title
 {
-  [self displayAlert:[MWMAlert infoAlert:title text:nil]];
+  [self presentSystemAlertWithTitle:title
+                            message:nil
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentEditorViralAlert
@@ -216,18 +430,33 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentBookmarkConversionErrorAlert
 {
-  [self displayAlert:[MWMAlert bookmarkConversionErrorAlert]];
+  [self presentSystemAlertWithTitle:L(@"bookmarks_convert_error_title")
+                            message:L(@"bookmarks_convert_error_message")
+                   rightButtonTitle:L(@"ok")
+                    leftButtonTitle:nil
+                  rightButtonAction:nil
+                   leftButtonAction:nil];
 }
 
 - (void)presentTagsLoadingErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                                     cancelBlock:(nonnull MWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+  [self presentSystemAlertWithTitle:L(@"title_error_downloading_bookmarks")
+                            message:L(@"tags_loading_error_subtitle")
+                   rightButtonTitle:L(@"downloader_retry")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:okBlock
+                   leftButtonAction:cancelBlock];
 }
 
 - (void)presentBugReportAlertWithTitle:(nonnull NSString *)title
 {
-  [self displayAlert:[MWMAlert bugReportAlertWithTitle:title]];
+  [self presentSystemAlertWithTitle:title
+                            message:L(@"bugreport_alert_message")
+                   rightButtonTitle:L(@"report_a_bug")
+                    leftButtonTitle:L(@"cancel")
+                  rightButtonAction:^{ [MailComposer sendBugReportWithTitle:title]; }
+                   leftButtonAction:nil];
 }
 
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
@@ -236,11 +465,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                      leftButtonTitle:(nullable NSString *)leftButtonTitle
                    rightButtonAction:(nullable MWMVoidBlock)action
 {
-  [self displayAlert:[MWMAlert defaultAlertWithTitle:title
-                                             message:message
-                                    rightButtonTitle:rightButtonTitle
-                                     leftButtonTitle:leftButtonTitle
-                                   rightButtonAction:action]];
+  [self presentSystemAlertWithTitle:title
+                            message:message
+                   rightButtonTitle:rightButtonTitle
+                    leftButtonTitle:leftButtonTitle
+                  rightButtonAction:action
+                   leftButtonAction:nil];
 }
 
 - (void)displayAlert:(MWMAlert *)alert
@@ -285,6 +515,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)closeAlert:(nullable MWMVoidBlock)completion
 {
+  UIAlertController * alert = self.systemAlertController;
+  if (alert)
+  {
+    self.systemAlertController = nil;
+    [alert dismissViewControllerAnimated:YES completion:completion];
+    return;
+  }
   NSArray * subviews = self.view.subviews;
   MWMAlert * closeAlert = subviews.lastObject;
   MWMAlert * showAlert = (subviews.count >= 2 ? subviews[subviews.count - 2] : nil);
@@ -312,7 +549,70 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (BOOL)isAlertDisplayed
 {
-  return self.view.superview != nil;
+  return self.view.superview != nil || self.systemAlertController != nil;
+}
+
+- (void)presentSystemAlertWithTitle:(nonnull NSString *)title
+                            message:(nullable NSString *)message
+                   rightButtonTitle:(nonnull NSString *)rightButtonTitle
+                    leftButtonTitle:(nullable NSString *)leftButtonTitle
+                  rightButtonAction:(nullable MWMVoidBlock)rightButtonAction
+                   leftButtonAction:(nullable MWMVoidBlock)leftButtonAction
+{
+  if (!NSThread.isMainThread)
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self presentSystemAlertWithTitle:title
+                                message:message
+                       rightButtonTitle:rightButtonTitle
+                        leftButtonTitle:leftButtonTitle
+                      rightButtonAction:rightButtonAction
+                       leftButtonAction:leftButtonAction];
+    });
+    return;
+  }
+
+  UIViewController * ownerVC = self.ownerViewController;
+  if (!ownerVC.isViewLoaded || ownerVC.view.window == nil)
+    return;
+
+  UIAlertController * existingAlert = self.systemAlertController;
+  if (existingAlert)
+  {
+    self.systemAlertController = nil;
+    [existingAlert dismissViewControllerAnimated:NO completion:nil];
+  }
+
+  UIAlertController * alert = [UIAlertController alertControllerWithTitle:title
+                                                                  message:message
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+
+  __weak __typeof(self) weakSelf = self;
+  UIAlertAction * rightAction = [UIAlertAction actionWithTitle:rightButtonTitle
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(__unused UIAlertAction * action) {
+                                                         __typeof(self) strongSelf = weakSelf;
+                                                         strongSelf.systemAlertController = nil;
+                                                         if (rightButtonAction)
+                                                           rightButtonAction();
+                                                       }];
+  [alert addAction:rightAction];
+
+  if (leftButtonTitle)
+  {
+    UIAlertAction * leftAction = [UIAlertAction actionWithTitle:leftButtonTitle
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(__unused UIAlertAction * action) {
+                                                          __typeof(self) strongSelf = weakSelf;
+                                                          strongSelf.systemAlertController = nil;
+                                                          if (leftButtonAction)
+                                                            leftButtonAction();
+                                                        }];
+    [alert addAction:leftAction];
+  }
+
+  self.systemAlertController = alert;
+  [ownerVC presentViewController:alert animated:YES completion:nil];
 }
 
 @end
