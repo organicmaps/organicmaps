@@ -33,6 +33,8 @@ SOFTWARE.
 
 #include "base/logging.hpp"
 
+#include <optional>
+
 using CancelChecker = platform::HttpClient::CancelChecker;
 
 // Per-request delegate that bridges NSURLSession callbacks to C++ HttpClient handlers.
@@ -56,6 +58,12 @@ using CancelChecker = platform::HttpClient::CancelChecker;
   BOOL m_dataAborted;
   std::string m_urlRequested;
   std::string m_outputFile;
+
+  // Segment-mode state. When set, m_outputFile is unused and bytes are streamed into
+  // m_segment->m_path at m_segment->m_offset after 206 + Content-Range validation.
+  std::optional<platform::HttpClient::ReceivedFileSegment> m_segment;
+  int64_t m_segmentBytesWritten;
+  int m_segmentErrorCode;  // kNoError unless a segment-specific failure overrides HTTP code.
 }
 
 - (instancetype)initWithHandler:(platform::HttpClient::CompletionHandler)handler
@@ -65,7 +73,8 @@ using CancelChecker = platform::HttpClient::CancelChecker;
                 followRedirects:(BOOL)followRedirects
                     loadHeaders:(BOOL)loadHeaders
                    urlRequested:(std::string)urlRequested
-                     outputFile:(std::string)outputFile;
+                     outputFile:(std::string)outputFile
+                        segment:(std::optional<platform::HttpClient::ReceivedFileSegment>)segment;
 
 @end
 
@@ -79,6 +88,7 @@ using CancelChecker = platform::HttpClient::CancelChecker;
                     loadHeaders:(BOOL)loadHeaders
                    urlRequested:(std::string)urlRequested
                      outputFile:(std::string)outputFile
+                        segment:(std::optional<platform::HttpClient::ReceivedFileSegment>)segment
 {
   if (self = [super init])
   {
@@ -90,11 +100,18 @@ using CancelChecker = platform::HttpClient::CancelChecker;
     m_loadHeaders = loadHeaders;
     m_urlRequested = std::move(urlRequested);
     m_outputFile = std::move(outputFile);
-    m_accumulatedData = [[NSMutableData alloc] init];
+    m_segment = std::move(segment);
+    m_segmentBytesWritten = 0;
+    m_segmentErrorCode = platform::HttpClient::kNoError;
+    // Accumulator is only used when not streaming to a file or user handler.
+    bool const needAccumulator = !m_dataHandler && m_outputFile.empty() && !m_segment;
+    m_accumulatedData = needAccumulator ? [[NSMutableData alloc] init] : nil;
     m_outputFileHandle = nil;
     m_writeError = NO;
     m_dataAborted = NO;
-    if (!m_outputFile.empty())
+    // Segment mode takes precedence over plain output file and defers file open
+    // until 206 + Content-Range are validated in didReceiveResponse.
+    if (!m_segment && !m_outputFile.empty())
     {
       // Create/truncate the file and open a handle for streaming writes.
       if (![[NSFileManager defaultManager] createFileAtPath:@(m_outputFile.c_str()) contents:nil attributes:nil])
@@ -188,7 +205,52 @@ using CancelChecker = platform::HttpClient::CancelChecker;
       m_result.m_headers.emplace("set-cookie", platform::HttpClient::NormalizeServerCookies(setCookies.UTF8String));
   }
 
+  // Segment mode: validate 206 Partial Content and Content-Range against the expected
+  // segment BEFORE allowing any body bytes. A 200 (range ignored) or mismatched range
+  // would corrupt adjacent chunks at different offsets.
+  if (m_segment && ![self validateSegmentResponse:httpResponse])
+  {
+    m_writeError = YES;
+    [dataTask cancel];
+    completionHandler(NSURLSessionResponseCancel);
+    return;
+  }
+
   completionHandler(NSURLSessionResponseAllow);
+}
+
+- (BOOL)validateSegmentResponse:(NSHTTPURLResponse *)httpResponse
+{
+  int const httpCode = static_cast<int>(httpResponse.statusCode);
+  NSString * crValue = [httpResponse.allHeaderFields objectForKey:@"Content-Range"];
+  auto const validation = platform::HttpClient::ValidateReceivedFileSegmentResponse(
+      httpCode, crValue ? std::string_view(crValue.UTF8String) : std::string_view(), *m_segment);
+  if (!validation.m_ok)
+  {
+    m_segmentErrorCode = validation.m_errorCode;
+    return NO;
+  }
+
+  // Open the existing target file without truncating and seek to the segment offset.
+  NSString * path = @(m_segment->m_path.c_str());
+  m_outputFileHandle = [NSFileHandle fileHandleForUpdatingAtPath:path];
+  if (!m_outputFileHandle)
+  {
+    LOG(LWARNING, ("Can't open segment file for updating:", m_segment->m_path));
+    m_segmentErrorCode = platform::HttpClient::kWriteException;
+    return NO;
+  }
+  NSError * seekError = nil;
+  if (![m_outputFileHandle seekToOffset:static_cast<unsigned long long>(m_segment->m_offset) error:&seekError])
+  {
+    LOG(LWARNING, ("Can't seek segment file", m_segment->m_path, "to offset", m_segment->m_offset, ":",
+                   seekError.localizedDescription.UTF8String));
+    [m_outputFileHandle closeFile];
+    m_outputFileHandle = nil;
+    m_segmentErrorCode = platform::HttpClient::kWriteException;
+    return NO;
+  }
+  return YES;
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
@@ -216,14 +278,32 @@ using CancelChecker = platform::HttpClient::CancelChecker;
   }
   else if (m_outputFileHandle)
   {
+    // Segment mode: refuse to write past the expected segment length — the server is
+    // sending more than advertised in Content-Range.
+    if (m_segment)
+    {
+      int64_t const remaining = m_segment->m_expectedBytes - m_segmentBytesWritten;
+      if (length > remaining)
+      {
+        LOG(LWARNING, ("Segment overflow:", length, "bytes received, only", remaining, "expected"));
+        m_writeError = YES;
+        m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
+        [dataTask cancel];
+        return;
+      }
+    }
     NSError * writeError = nil;
     if (![m_outputFileHandle writeData:data error:&writeError])
     {
       LOG(LERROR, ("File write error:", writeError.localizedDescription.UTF8String));
       m_writeError = YES;
+      if (m_segment)
+        m_segmentErrorCode = platform::HttpClient::kWriteException;
       [dataTask cancel];
       return;
     }
+    if (m_segment)
+      m_segmentBytesWritten += length;
   }
   else
   {
@@ -257,7 +337,11 @@ using CancelChecker = platform::HttpClient::CancelChecker;
           m_handler(std::move(m_result));
         return;
       }
-      m_result.m_errorCode = platform::HttpClient::kCancelled;
+      // Self-inflicted cancels (m_writeError / m_dataAborted) must NOT be mapped to
+      // kCancelled — the real error is set later, and preserving the HTTP status here
+      // lets segment mode return 404 etc.
+      if (!m_writeError && !m_dataAborted)
+        m_result.m_errorCode = platform::HttpClient::kCancelled;
     }
     else if (error.code == NSURLErrorUserCancelledAuthentication)
     {
@@ -279,19 +363,35 @@ using CancelChecker = platform::HttpClient::CancelChecker;
     m_outputFileHandle = nil;
   }
 
+  // Segment-mode: verify the server delivered exactly the number of bytes advertised
+  // by Content-Range. A short body means the transfer ended before the segment was
+  // fully received, which must NOT be treated as a successful chunk.
+  if (m_segment && !m_writeError && !error && m_segmentBytesWritten != m_segment->m_expectedBytes &&
+      m_segmentErrorCode == platform::HttpClient::kNoError)
+  {
+    LOG(LWARNING, ("Segment underflow:", m_segmentBytesWritten, "bytes written, expected", m_segment->m_expectedBytes));
+    m_writeError = YES;
+    m_segmentErrorCode = platform::HttpClient::kInconsistentFileSize;
+  }
+
   // Report file write/open failure.
   if (m_writeError)
   {
     m_result.m_success = false;
-    m_result.m_errorCode = platform::HttpClient::kWriteException;
+    if (m_segmentErrorCode != platform::HttpClient::kNoError)
+      m_result.m_errorCode = m_segmentErrorCode;
+    else if (!m_segment)
+      m_result.m_errorCode = platform::HttpClient::kWriteException;
+    // Segment mode with m_segmentErrorCode == kNoError: preserve the HTTP code (e.g. 404),
+    // so the downloader's 404 → FileNotFound mapping still works.
   }
 
   // DataHandler requested abort — override the HTTP success set in didReceiveResponse.
   if (m_dataAborted)
     m_result.m_success = false;
 
-  // Store accumulated data in result (only when not streaming to DataHandler or file).
-  if (!m_dataHandler && m_outputFile.empty() && m_accumulatedData.length > 0)
+  // Store accumulated data in result (only when not streaming to DataHandler, file, or segment).
+  if (!m_dataHandler && m_outputFile.empty() && !m_segment && m_accumulatedData.length > 0)
     m_result.m_serverResponse.assign(reinterpret_cast<char const *>(m_accumulatedData.bytes), m_accumulatedData.length);
 
   if (m_handler)
@@ -313,6 +413,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   std::string const bodyData = m_bodyData;
   std::string const inputFile = m_inputFile;
   std::string const outputFile = m_outputFile;
+  auto const segment = m_receivedFileSegment;
   std::string const cookies = m_cookies;
   Headers const headers = m_headers;
   bool const followRedirects = m_followRedirects;
@@ -358,10 +459,10 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     LOG(LDEBUG, ("Uploading file", inputFile, file_size, "bytes"));
   }
 
-  // Use delegate-based task when streaming is needed: DataHandler, ProgressHandler, or file output.
-  // The delegate's didReceiveData: writes chunks to disk incrementally, avoiding buffering the
-  // entire response body in memory.
-  bool const useDelegate = m_progressHandler || m_dataHandler || !outputFile.empty();
+  // Use delegate-based task when streaming is needed: DataHandler, ProgressHandler, file
+  // output, or segment output. The delegate's didReceiveData: writes chunks to disk
+  // incrementally, avoiding buffering the entire response body in memory.
+  bool const useDelegate = m_progressHandler || m_dataHandler || !outputFile.empty() || segment.has_value();
 
   NSURLSessionDataTask * task = nil;
 
@@ -376,7 +477,8 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
                                                                 followRedirects:followRedirects ? YES : NO
                                                                     loadHeaders:loadHeaders ? YES : NO
                                                                    urlRequested:urlRequested
-                                                                     outputFile:outputFile];
+                                                                     outputFile:outputFile
+                                                                        segment:segment];
 
     task = [[HttpSessionManager sharedManager] dataTaskWithRequest:request delegate:delegate completionHandler:nil];
   }
@@ -395,7 +497,8 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
                                                         followRedirects:followRedirects ? YES : NO
                                                             loadHeaders:NO
                                                            urlRequested:urlRequested
-                                                             outputFile:std::string()]
+                                                             outputFile:std::string()
+                                                                segment:std::nullopt]
           completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             Result result;
 

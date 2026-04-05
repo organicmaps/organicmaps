@@ -28,7 +28,9 @@ SOFTWARE.
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <utility>
 
@@ -39,6 +41,7 @@ class HttpClient
 public:
   static auto constexpr kNoError = -1;
   static auto constexpr kWriteException = -2;
+  static auto constexpr kInconsistentFileSize = -3;
   static auto constexpr kCancelled = -6;
 
   using Headers = std::unordered_map<std::string, std::string>;
@@ -51,6 +54,24 @@ public:
     std::string m_urlReceived;
     std::string m_serverResponse;
     Headers m_headers;
+  };
+
+  // Sink config for streaming a ranged response into an existing file at a specific offset.
+  // Used by the chunked downloader to write each chunk directly to disk without accumulating
+  // the body in memory. Transport validates 206 Partial Content and Content-Range before
+  // writing any bytes; mismatch yields kInconsistentFileSize.
+  struct ReceivedFileSegment
+  {
+    std::string m_path;
+    int64_t m_offset = 0;
+    int64_t m_expectedBytes = 0;
+    int64_t m_expectedTotalBytes = -1;  // -1 means do not validate the total file size.
+  };
+
+  struct ReceivedFileSegmentValidation
+  {
+    bool m_ok = false;
+    int m_errorCode = kNoError;
   };
 
   using CompletionHandler = std::function<void(Result)>;
@@ -113,6 +134,12 @@ public:
                            std::string const & http_method = "POST", std::string const & content_encoding = "");
   // If set, stores server reply in file specified.
   HttpClient & SetReceivedFile(std::string const & received_file);
+  // If set, streams a ranged response body directly into the specified file at the given
+  // offset. The transport validates 206 + Content-Range before the first byte is written.
+  // Mutually exclusive with SetReceivedFile(): if both are configured, segment mode wins.
+  // Mutually exclusive with SetDataHandler() (CHECK-enforced).
+  // In segment mode, Result::m_serverResponse remains empty.
+  HttpClient & SetReceivedFileSegment(ReceivedFileSegment segment);
   // This method is mutually exclusive with SetBodyFile().
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, std::string const & content_type,
@@ -162,6 +189,18 @@ public:
   // Internal helper, used by platform implementations.
   static std::string NormalizeServerCookies(std::string && cookies);
 
+  // Parses a Content-Range header value ("bytes <start>-<end>/<total|*>" per RFC 7233 §4.2).
+  // On success returns true and fills start/end/total; total is set to -1 if the server sent "*".
+  // Used by native HTTP backends to validate ranged responses in segment mode.
+  static bool ParseContentRange(std::string_view header, int64_t & start, int64_t & end, int64_t & total);
+
+  // Validates HTTP status + Content-Range for a ranged response targeting |segment|.
+  // On success returns {true, 206}. On failure returns {false, finalErrorCode}, where
+  // finalErrorCode is either kInconsistentFileSize for protocol violations or the original
+  // HTTP status for genuine HTTP errors such as 404.
+  static ReceivedFileSegmentValidation ValidateReceivedFileSegmentResponse(int httpCode, std::string_view contentRange,
+                                                                           ReceivedFileSegment const & segment);
+
 private:
   std::string m_urlRequested;
   // Contains final content's url taking redirects (if any) into an account.
@@ -170,6 +209,9 @@ private:
   std::string m_inputFile;
   // Used instead of m_serverResponse if set.
   std::string m_outputFile;
+  // If set, the response body is streamed into an existing file at a validated segment.
+  // Takes precedence over m_outputFile.
+  std::optional<ReceivedFileSegment> m_receivedFileSegment;
   // Data we received from the server if m_outputFile wasn't initialized.
   std::string m_serverResponse;
   std::string m_bodyData;

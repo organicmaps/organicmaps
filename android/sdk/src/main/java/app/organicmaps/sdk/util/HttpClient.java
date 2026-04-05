@@ -33,6 +33,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +59,7 @@ public final class HttpClient
   // These constants must match the C++ HttpClient error codes in http_client.hpp.
   private static final int kNoError = -1;
   private static final int kWriteException = -2;
+  private static final int kInconsistentFileSize = -3;
   private static final int kCancelled = -6;
 
   private static volatile OkHttpClient sBaseClient;
@@ -241,6 +243,16 @@ public final class HttpClient
     final boolean hasProgressHandler = hasNativeProgressHandler(nativeCtxPtr);
     final boolean useStreaming = hasDataHandler || hasProgressHandler;
 
+    if (p.outputFileIsSegment)
+    {
+      // Segment mode: validate 206 + Content-Range against the expected segment BEFORE
+      // writing any byte. Stream directly to the target file at the configured offset
+      // with random-access I/O so multiple chunks of the same file can run concurrently
+      // without sharing a BufferedSink or tracking a seek position.
+      processSegmentResponse(p, response, responseBody, nativeCtxPtr, hasProgressHandler);
+      return;
+    }
+
     if (!TextUtils.isEmpty(p.outputFilePath))
     {
       try (BufferedSink sink = Okio.buffer(Okio.sink(new File(p.outputFilePath))))
@@ -266,6 +278,73 @@ public final class HttpClient
     else
     {
       p.responseData = responseBody.bytes();
+    }
+  }
+
+  // Stream a ranged response body directly into an existing file at the configured
+  // segment offset, with pre-write validation of 206 + Content-Range. Never populates
+  // p.responseData. On validation failure or I/O error, sets p.httpResponseCode to the
+  // final transport error code and returns without writing to the file.
+  private static void processSegmentResponse(@NonNull Params p, @NonNull Response response,
+                                             @NonNull ResponseBody responseBody, long nativeCtxPtr,
+                                             boolean hasProgressHandler) throws IOException
+  {
+    // Keep the status + Content-Range policy in shared C++ so all backends make the
+    // same accept/reject decision. Java still owns segment file I/O and body streaming.
+    p.httpResponseCode =
+        nativeValidateSegmentResponse(p.httpResponseCode, response.header("Content-Range"), p.outputFileOffset,
+                                      p.outputFileSegmentBytes, p.outputFileTotalBytes);
+    if (p.httpResponseCode != 206)
+      return;
+
+    // Open the existing file for random-access writing. RandomAccessFile with mode "rw"
+    // creates the file if missing, so we require the caller (downloader) to have
+    // created it already; an empty existing file would pass through here. The missing-
+    // file case is guarded in native code by checking that the .downloading file exists
+    // before issuing chunk requests.
+    File targetFile = new File(p.outputFilePath);
+    if (!targetFile.exists())
+    {
+      Logger.w(TAG, "Segment target file does not exist: " + p.outputFilePath);
+      p.httpResponseCode = kWriteException;
+      return;
+    }
+
+    long bytesWritten = 0;
+    try (RandomAccessFile raf = new RandomAccessFile(targetFile, "rw");
+         okio.BufferedSource source = responseBody.source())
+    {
+      raf.seek(p.outputFileOffset);
+      // 64 KB buffer: RandomAccessFile.write is unbuffered, so each iteration is a
+      // syscall + JNI crossing. Matches typical 512 KB segment chunks at ~8 iterations.
+      byte[] buffer = new byte[65536];
+      int bytesRead;
+      while ((bytesRead = source.read(buffer)) != -1)
+      {
+        long remaining = p.outputFileSegmentBytes - bytesWritten;
+        if (bytesRead > remaining)
+        {
+          Logger.w(TAG, "Segment overflow: " + bytesRead + " bytes received, only " + remaining + " expected");
+          p.httpResponseCode = kInconsistentFileSize;
+          return;
+        }
+        raf.write(buffer, 0, bytesRead);
+        bytesWritten += bytesRead;
+        if (hasProgressHandler)
+          nativeOnProgress(nativeCtxPtr, bytesWritten, p.outputFileSegmentBytes);
+      }
+    }
+    catch (IOException e)
+    {
+      Logger.e(TAG, "Segment file write error for " + p.outputFilePath, e);
+      p.httpResponseCode = kWriteException;
+      throw e;
+    }
+
+    if (bytesWritten != p.outputFileSegmentBytes)
+    {
+      Logger.w(TAG, "Segment underflow: " + bytesWritten + " bytes written, expected " + p.outputFileSegmentBytes);
+      p.httpResponseCode = kInconsistentFileSize;
     }
   }
 
@@ -324,6 +403,9 @@ public final class HttpClient
 
   // Called from OkHttp's callback thread to deliver results to C++.
   private static native void nativeOnComplete(long nativeCtxPtr, boolean success);
+  private static native int nativeValidateSegmentResponse(int httpResponseCode, @Nullable String contentRange,
+                                                          long outputFileOffset, long outputFileSegmentBytes,
+                                                          long outputFileTotalBytes);
   // Streaming callbacks — called during response body reading.
   private static native boolean nativeOnData(long nativeCtxPtr, byte[] buffer, int size);
   private static native void nativeOnProgress(long nativeCtxPtr, long bytesTransferred, long totalBytes);
@@ -358,6 +440,15 @@ public final class HttpClient
     boolean followRedirects = true;
     boolean loadHeaders;
     int timeoutMillisec = Constants.READ_TIMEOUT_MS;
+    // Segment mode: when true, outputFilePath points to an existing file and the
+    // response body is streamed into it at outputFileOffset. Transport validates
+    // 206 + Content-Range against outputFileSegmentBytes / outputFileTotalBytes
+    // before writing any bytes. When outputFileIsSegment is true, responseData
+    // is NOT populated.
+    boolean outputFileIsSegment;
+    long outputFileOffset;
+    long outputFileSegmentBytes;
+    long outputFileTotalBytes; // -1 = do not validate the total file size.
 
     public Params(String url)
     {

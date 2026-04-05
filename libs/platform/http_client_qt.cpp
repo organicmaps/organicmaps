@@ -66,7 +66,8 @@ namespace platform
 HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                                  HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
                                  CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
-                                 std::string urlRequested, std::string cookies, std::string outputFile)
+                                 std::string urlRequested, std::string cookies, std::string outputFile,
+                                 std::optional<HttpClient::ReceivedFileSegment> segment)
   : m_reply(reply)
   , m_handler(std::move(handler))
   , m_progressHandler(std::move(progressHandler))
@@ -77,8 +78,11 @@ HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHa
   , m_urlRequested(std::move(urlRequested))
   , m_cookies(std::move(cookies))
   , m_outputFile(std::move(outputFile))
+  , m_segment(std::move(segment))
 {
-  if (!m_outputFile.empty())
+  // Segment mode takes precedence over plain output file and defers file open
+  // until 206 + Content-Range are validated in ValidateSegmentIfNeeded().
+  if (!m_segment && !m_outputFile.empty())
   {
     m_outputFileStream = new QFile(QString::fromStdString(m_outputFile), this);
     if (!m_outputFileStream->open(QIODevice::WriteOnly | QIODevice::Truncate))
@@ -102,10 +106,65 @@ HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHa
     m_reply->abort();
 }
 
+bool HttpClientReply::ValidateSegmentIfNeeded()
+{
+  if (!m_segment)
+    return !m_writeError;
+  if (m_segmentValidated)
+    return !m_writeError;
+  // Only run once, even on failure.
+  m_segmentValidated = true;
+
+  int const httpCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+  QByteArray const crBytes = m_reply->rawHeader("Content-Range");
+  std::string_view const contentRange = crBytes.isEmpty()
+                                          ? std::string_view()
+                                          : std::string_view(crBytes.constData(), static_cast<size_t>(crBytes.size()));
+  auto const validation = HttpClient::ValidateReceivedFileSegmentResponse(httpCode, contentRange, *m_segment);
+  if (!validation.m_ok)
+  {
+    m_writeError = true;
+    m_segmentErrorCode = validation.m_errorCode;
+    return false;
+  }
+
+  // Open the existing target file without truncating and seek to the segment offset.
+  m_outputFileStream = new QFile(QString::fromStdString(m_segment->m_path), this);
+  if (!m_outputFileStream->open(QIODevice::ReadWrite | QIODevice::ExistingOnly))
+  {
+    LOG(LWARNING, ("Can't open segment file for writing:", m_segment->m_path));
+    delete m_outputFileStream;
+    m_outputFileStream = nullptr;
+    m_writeError = true;
+    m_segmentErrorCode = HttpClient::kWriteException;
+    return false;
+  }
+  if (!m_outputFileStream->seek(static_cast<qint64>(m_segment->m_offset)))
+  {
+    LOG(LWARNING, ("Can't seek segment file", m_segment->m_path, "to offset", m_segment->m_offset));
+    m_outputFileStream->close();
+    m_writeError = true;
+    m_segmentErrorCode = HttpClient::kWriteException;
+    return false;
+  }
+  return true;
+}
+
 void HttpClientReply::OnReadyRead()
 {
   if (m_writeError)
     return;
+
+  // Segment mode requires header validation BEFORE any byte is written to disk. If the
+  // response is not a valid 206 Partial Content for the requested range, fail fast —
+  // otherwise we'd overwrite adjacent chunks' data at the wrong offset.
+  if (m_segment && !ValidateSegmentIfNeeded())
+  {
+    // Drain and discard; abort the transfer.
+    m_reply->readAll();
+    m_reply->abort();
+    return;
+  }
 
   QByteArray const data = m_reply->readAll();
   if (data.isEmpty())
@@ -122,13 +181,31 @@ void HttpClientReply::OnReadyRead()
   }
   else if (m_outputFileStream)
   {
+    // Segment mode: refuse to write past the expected segment length — the server is
+    // sending more than advertised in Content-Range.
+    if (m_segment)
+    {
+      int64_t const remaining = m_segment->m_expectedBytes - m_segmentBytesWritten;
+      if (data.size() > remaining)
+      {
+        LOG(LWARNING, ("Segment overflow:", data.size(), "bytes received, only", remaining, "expected"));
+        m_writeError = true;
+        m_segmentErrorCode = HttpClient::kInconsistentFileSize;
+        m_reply->abort();
+        return;
+      }
+    }
     if (m_outputFileStream->write(data) != data.size())
     {
-      LOG(LWARNING, ("File write error for:", m_outputFile));
+      LOG(LWARNING, ("File write error for:", m_segment ? m_segment->m_path : m_outputFile));
       m_writeError = true;
+      if (m_segment)
+        m_segmentErrorCode = HttpClient::kWriteException;
       m_reply->abort();
       return;
     }
+    if (m_segment)
+      m_segmentBytesWritten += data.size();
   }
   else
   {
@@ -205,13 +282,38 @@ void HttpClientReply::OnFinished()
 
     if (!m_dataHandler)
     {
+      // Segment mode: validate headers here too, in case the body arrived with no
+      // readyRead firing (e.g. empty 206 body, or status != 206).
+      if (m_segment)
+        ValidateSegmentIfNeeded();
+
       if (m_outputFileStream)
       {
         QByteArray const remaining = m_reply->readAll();
         if (!remaining.isEmpty())
         {
-          if (m_outputFileStream->write(remaining) != remaining.size())
+          // Segment overflow check: any bytes past expectedBytes are a protocol violation.
+          if (m_segment)
+          {
+            int64_t const available = m_segment->m_expectedBytes - m_segmentBytesWritten;
+            if (remaining.size() > available)
+            {
+              LOG(LWARNING,
+                  ("Segment overflow at finish:", remaining.size(), "bytes trailing, only", available, "expected"));
+              m_writeError = true;
+              m_segmentErrorCode = HttpClient::kInconsistentFileSize;
+            }
+          }
+          if (!m_writeError && m_outputFileStream->write(remaining) != remaining.size())
+          {
             m_writeError = true;
+            if (m_segment)
+              m_segmentErrorCode = HttpClient::kWriteException;
+          }
+          else if (!m_writeError && m_segment)
+          {
+            m_segmentBytesWritten += remaining.size();
+          }
         }
         m_outputFileStream->close();
       }
@@ -230,6 +332,16 @@ void HttpClientReply::OnFinished()
     LOG(LDEBUG, ("Network error:", m_reply->errorString().toStdString(), "while connecting to", m_urlRequested));
   }
 
+  // Segment-mode: verify the server delivered exactly the number of bytes advertised
+  // by Content-Range. A short body means the transfer ended before the segment was
+  // fully received, which must NOT be treated as a successful chunk.
+  if (m_segment && !m_writeError && m_segmentValidated && m_segmentBytesWritten != m_segment->m_expectedBytes)
+  {
+    LOG(LWARNING, ("Segment underflow:", m_segmentBytesWritten, "bytes written, expected", m_segment->m_expectedBytes));
+    m_writeError = true;
+    m_segmentErrorCode = HttpClient::kInconsistentFileSize;
+  }
+
   // File open or write error — report failure regardless of HTTP result.
   // Must be outside the if/else above because abort() on file-open failure
   // yields noError=false and httpCode=0, skipping the if branch entirely.
@@ -238,7 +350,12 @@ void HttpClientReply::OnFinished()
     if (m_outputFileStream)
       m_outputFileStream->close();
     result.m_success = false;
-    result.m_errorCode = HttpClient::kWriteException;
+    if (m_segmentErrorCode != HttpClient::kNoError)
+      result.m_errorCode = m_segmentErrorCode;
+    else if (!m_segment)
+      result.m_errorCode = HttpClient::kWriteException;
+    // Segment mode with m_segmentErrorCode == kNoError: preserve the HTTP code (e.g. 404),
+    // so the downloader's 404 → FileNotFound mapping still works.
   }
 
   // DataHandler requested abort — override the HTTP success.
@@ -311,6 +428,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   auto const urlRequested = m_urlRequested;
   auto const cookies = m_cookies;
   auto const outputFile = m_outputFile;
+  auto const segment = m_receivedFileSegment;
   auto impl = handle.m_impl;
   auto cancelChecker = handle.MakeCancelChecker();
 
@@ -350,7 +468,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
       reply = manager.sendCustomRequest(request, QByteArray::fromStdString(httpMethod), bodyBytes);
 
     new HttpClientReply(reply, std::move(handler), progressHandler, dataHandler, std::move(cancelChecker), loadHeaders,
-                        followRedirects, urlRequested, cookies, outputFile);
+                        followRedirects, urlRequested, cookies, outputFile, segment);
 
     // Install platform cancel hook. reply->abort() must be called on the
     // reply's thread; use QMetaObject::invokeMethod with QueuedConnection.
