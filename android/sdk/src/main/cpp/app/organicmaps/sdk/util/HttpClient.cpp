@@ -177,6 +177,11 @@ struct AsyncContext
   // Global ref to the Params object so we can read results on the callback thread.
   jobject m_paramsGlobalRef = nullptr;
   std::atomic<bool> m_dataAborted{false};
+  // Mirrors HttpClient::m_receivedFileSegment.has_value() at request-send time.
+  // Segment-mode completions require errorCode == 206 for m_success; any other HTTP
+  // code (404, 416, 500, etc.) or negative error code must map to m_success=false,
+  // matching Qt/Apple semantics.
+  bool m_isSegmentMode = false;
 };
 
 // Extract Result from a Java Params object.
@@ -288,8 +293,11 @@ extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnCompl
     result = ExtractResult(env, ctx->m_paramsGlobalRef);
     // Negative error codes (kInconsistentFileSize, kWriteException) signal an
     // application-level failure even though the HTTP transfer completed without
-    // throwing. Match Qt/Apple semantics: m_success=false for non-HTTP error codes.
-    result.m_success = result.m_errorCode >= 0;
+    // throwing. Segment mode is stricter: only 206 means the requested chunk was
+    // accepted and written successfully — any other HTTP code (404, 416, 500, ...)
+    // leaves no bytes on disk, so must not be reported as success. Matches Qt/Apple
+    // m_success semantics.
+    result.m_success = result.m_errorCode >= 0 && (!ctx->m_isSegmentMode || result.m_errorCode == 206);
   }
   else if (ctx->m_paramsGlobalRef)
   {
@@ -410,6 +418,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   ctx->m_dataHandler = m_dataHandler;
   ctx->m_cancelChecker = handle.MakeCancelChecker();
   ctx->m_paramsGlobalRef = env->NewGlobalRef(httpParamsObject.get());
+  ctx->m_isSegmentMode = m_receivedFileSegment.has_value();
 
   // Call Java HttpClient.runAsync(Params, long nativeCtxPtr) — returns a Call object.
   static jmethodID const runAsyncMethod = env->GetStaticMethodID(
