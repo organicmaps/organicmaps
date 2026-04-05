@@ -28,6 +28,7 @@ SOFTWARE.
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -39,6 +40,7 @@ class HttpClient
 public:
   static auto constexpr kNoError = -1;
   static auto constexpr kWriteException = -2;
+  static auto constexpr kInconsistentFileSize = -3;
   static auto constexpr kCancelled = -6;
 
   using Headers = std::unordered_map<std::string, std::string>;
@@ -51,6 +53,18 @@ public:
     std::string m_urlReceived;
     std::string m_serverResponse;
     Headers m_headers;
+  };
+
+  // Sink config for streaming a ranged response into an existing file at a specific offset.
+  // Used by the chunked downloader to write each chunk directly to disk without accumulating
+  // the body in memory. Transport validates 206 Partial Content and Content-Range before
+  // writing any bytes; mismatch yields kInconsistentFileSize.
+  struct ReceivedFileSegment
+  {
+    std::string m_path;
+    int64_t m_offset = 0;
+    int64_t m_expectedBytes = 0;
+    int64_t m_expectedTotalBytes = -1;  // -1 means do not validate the total file size.
   };
 
   using CompletionHandler = std::function<void(Result)>;
@@ -113,6 +127,11 @@ public:
                            std::string const & http_method = "POST", std::string const & content_encoding = "");
   // If set, stores server reply in file specified.
   HttpClient & SetReceivedFile(std::string const & received_file);
+  // If set, streams a ranged response body directly into the specified file at the given
+  // offset. The transport validates 206 + Content-Range before the first byte is written.
+  // Mutually exclusive with SetReceivedFile(): if both are configured, segment mode wins.
+  // In segment mode, Result::m_serverResponse remains empty.
+  HttpClient & SetReceivedFileSegment(ReceivedFileSegment segment);
   // This method is mutually exclusive with SetBodyFile().
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, std::string const & content_type,
@@ -170,6 +189,9 @@ private:
   std::string m_inputFile;
   // Used instead of m_serverResponse if set.
   std::string m_outputFile;
+  // If set, the response body is streamed into an existing file at a validated segment.
+  // Takes precedence over m_outputFile.
+  std::optional<ReceivedFileSegment> m_receivedFileSegment;
   // Data we received from the server if m_outputFile wasn't initialized.
   std::string m_serverResponse;
   std::string m_bodyData;

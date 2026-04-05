@@ -115,6 +115,12 @@ HttpClient & HttpClient::SetReceivedFile(string const & received_file)
   return *this;
 }
 
+HttpClient & HttpClient::SetReceivedFileSegment(ReceivedFileSegment segment)
+{
+  m_receivedFileSegment = std::move(segment);
+  return *this;
+}
+
 HttpClient & HttpClient::SetUserAndPassword(string const & user, string const & password)
 {
   m_headers.emplace("Authorization", "Basic " + base64::Encode(user + ":" + password));
