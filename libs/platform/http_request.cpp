@@ -70,11 +70,6 @@ struct CleanupCoordinator
 /// is not churned by per-chunk 512 KB byte[] allocations.
 class FileHttpRequest : public HttpRequest
 {
-  // Cap on simultaneous in-flight chunks. Independent of server count — all CDNs in
-  // m_serversList remain eligible via round-robin through ChunksDownloadStrategy when
-  // slots free up, so this bounds peak memory without pinning clients to top-N servers.
-  static constexpr size_t kMaxInFlightChunks = 4;
-
   ChunksDownloadStrategy m_strategy;
 
   struct ChunkInfo
@@ -106,8 +101,7 @@ class FileHttpRequest : public HttpRequest
     string url;
     std::pair<int64_t, int64_t> range;
     ChunksDownloadStrategy::ResultT result = ChunksDownloadStrategy::ENoFreeServers;
-    while (m_chunks.size() < kMaxInFlightChunks &&
-           (result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
+    while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
     {
       int64_t const begRange = range.first;
       int64_t const endRange = range.second;
