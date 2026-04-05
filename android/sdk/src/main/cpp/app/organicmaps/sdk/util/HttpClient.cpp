@@ -83,6 +83,12 @@ void SetInt(ScopedEnv & env, jobject params, jfieldID const fieldId, int const v
   RethrowOnJniException(env);
 }
 
+void SetLong(ScopedEnv & env, jobject params, jfieldID const fieldId, int64_t const value)
+{
+  env->SetLongField(params, fieldId, static_cast<jlong>(value));
+  RethrowOnJniException(env);
+}
+
 void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, std::string & result)
 {
   jni::ScopedLocalRef<jstring> const wrappedValue(env.get(),
@@ -141,7 +147,11 @@ public:
                   {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
                   {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
                   {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
-                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}};
+                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")},
+                  {"outputFileIsSegment", GetHttpParamsFieldId(env, "outputFileIsSegment", "Z")},
+                  {"outputFileOffset", GetHttpParamsFieldId(env, "outputFileOffset", "J")},
+                  {"outputFileSegmentBytes", GetHttpParamsFieldId(env, "outputFileSegmentBytes", "J")},
+                  {"outputFileTotalBytes", GetHttpParamsFieldId(env, "outputFileTotalBytes", "J")}};
   }
 
   jfieldID GetId(std::string const & fieldName) const
@@ -276,7 +286,10 @@ extern "C" JNIEXPORT void Java_app_organicmaps_sdk_util_HttpClient_nativeOnCompl
   else if (success && ctx->m_paramsGlobalRef)
   {
     result = ExtractResult(env, ctx->m_paramsGlobalRef);
-    result.m_success = true;
+    // Negative error codes (kInconsistentFileSize, kWriteException) signal an
+    // application-level failure even though the HTTP transfer completed without
+    // throwing. Match Qt/Apple semantics: m_success=false for non-HTTP error codes.
+    result.m_success = result.m_errorCode >= 0;
   }
   else if (ctx->m_paramsGlobalRef)
   {
@@ -368,6 +381,19 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     SetBoolean(env, httpParamsObject.get(), ids.GetId("followRedirects"), m_followRedirects);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
     SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"), static_cast<int>(m_timeoutSec * 1000));
+
+    // Segment mode: stream the response body into an existing file at the given offset
+    // with pre-write validation of 206 + Content-Range. Takes precedence over
+    // outputFilePath-only mode on the Java side.
+    if (m_receivedFileSegment)
+    {
+      SetString(env, httpParamsObject.get(), ids.GetId("outputFilePath"), m_receivedFileSegment->m_path);
+      SetBoolean(env, httpParamsObject.get(), ids.GetId("outputFileIsSegment"), true);
+      SetLong(env, httpParamsObject.get(), ids.GetId("outputFileOffset"), m_receivedFileSegment->m_offset);
+      SetLong(env, httpParamsObject.get(), ids.GetId("outputFileSegmentBytes"), m_receivedFileSegment->m_expectedBytes);
+      SetLong(env, httpParamsObject.get(), ids.GetId("outputFileTotalBytes"),
+              m_receivedFileSegment->m_expectedTotalBytes);
+    }
 
     ::SetHeaders(env, httpParamsObject.get(), m_headers);
   }

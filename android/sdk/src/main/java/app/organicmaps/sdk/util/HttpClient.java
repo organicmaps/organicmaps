@@ -33,6 +33,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +59,7 @@ public final class HttpClient
   // These constants must match the C++ HttpClient error codes in http_client.hpp.
   private static final int kNoError = -1;
   private static final int kWriteException = -2;
+  private static final int kInconsistentFileSize = -3;
   private static final int kCancelled = -6;
 
   private static volatile OkHttpClient sBaseClient;
@@ -241,6 +243,16 @@ public final class HttpClient
     final boolean hasProgressHandler = hasNativeProgressHandler(nativeCtxPtr);
     final boolean useStreaming = hasDataHandler || hasProgressHandler;
 
+    if (p.outputFileIsSegment)
+    {
+      // Segment mode: validate 206 + Content-Range against the expected segment BEFORE
+      // writing any byte. Stream directly to the target file at the configured offset
+      // with random-access I/O so multiple chunks of the same file can run concurrently
+      // without sharing a BufferedSink or tracking a seek position.
+      processSegmentResponse(p, response, responseBody);
+      return;
+    }
+
     if (!TextUtils.isEmpty(p.outputFilePath))
     {
       try (BufferedSink sink = Okio.buffer(Okio.sink(new File(p.outputFilePath))))
@@ -266,6 +278,126 @@ public final class HttpClient
     else
     {
       p.responseData = responseBody.bytes();
+    }
+  }
+
+  // Stream a ranged response body directly into an existing file at the configured
+  // segment offset, with pre-write validation of 206 + Content-Range. Never populates
+  // p.responseData. On validation failure or I/O error, sets p.httpResponseCode to the
+  // appropriate negative error code and returns without writing to the file.
+  private static void processSegmentResponse(@NonNull Params p, @NonNull Response response,
+                                             @NonNull ResponseBody responseBody) throws IOException
+  {
+    // status must be 206 Partial Content for a ranged request. A 2xx-without-206 is a
+    // protocol violation (server ignored Range) → kInconsistentFileSize. Preserve the
+    // HTTP code for 4xx/5xx so 404 can still map to DownloadStatus::FileNotFound in
+    // FileHttpRequest::OnChunkFinished.
+    if (p.httpResponseCode != 206)
+    {
+      if (p.httpResponseCode >= 200 && p.httpResponseCode < 300)
+        p.httpResponseCode = kInconsistentFileSize;
+      return;
+    }
+
+    // Parse Content-Range: "bytes <start>-<end>/<total|*>" per RFC 7233 §4.2.
+    // Fetch directly from the Response so we don't depend on p.loadHeaders being true.
+    String cr = response.header("Content-Range");
+    long[] parsed = parseContentRange(cr);
+    if (parsed == null)
+    {
+      p.httpResponseCode = kInconsistentFileSize;
+      return;
+    }
+    long start = parsed[0];
+    long end = parsed[1];
+    long total = parsed[2]; // -1 if "*"
+
+    long expectedEnd = p.outputFileOffset + p.outputFileSegmentBytes - 1;
+    if (start != p.outputFileOffset || end != expectedEnd)
+    {
+      Logger.w(TAG, "Content-Range mismatch: got " + start + "-" + end + " expected " + p.outputFileOffset + "-"
+                        + expectedEnd);
+      p.httpResponseCode = kInconsistentFileSize;
+      return;
+    }
+    if (p.outputFileTotalBytes >= 0 && total >= 0 && total != p.outputFileTotalBytes)
+    {
+      Logger.w(TAG, "Content-Range total mismatch: got " + total + " expected " + p.outputFileTotalBytes);
+      p.httpResponseCode = kInconsistentFileSize;
+      return;
+    }
+
+    // Open the existing file for random-access writing. RandomAccessFile with mode "rw"
+    // creates the file if missing, so we require the caller (downloader) to have
+    // created it already; an empty existing file would pass through here. The missing-
+    // file case is guarded in native code by checking that the .downloading file exists
+    // before issuing chunk requests.
+    File targetFile = new File(p.outputFilePath);
+    if (!targetFile.exists())
+    {
+      Logger.w(TAG, "Segment target file does not exist: " + p.outputFilePath);
+      p.httpResponseCode = kWriteException;
+      return;
+    }
+
+    long bytesWritten = 0;
+    try (RandomAccessFile raf = new RandomAccessFile(targetFile, "rw");
+         okio.BufferedSource source = responseBody.source())
+    {
+      raf.seek(p.outputFileOffset);
+      byte[] buffer = new byte[8192];
+      int bytesRead;
+      while ((bytesRead = source.read(buffer)) != -1)
+      {
+        long remaining = p.outputFileSegmentBytes - bytesWritten;
+        if (bytesRead > remaining)
+        {
+          Logger.w(TAG, "Segment overflow: " + bytesRead + " bytes received, only " + remaining + " expected");
+          p.httpResponseCode = kInconsistentFileSize;
+          return;
+        }
+        raf.write(buffer, 0, bytesRead);
+        bytesWritten += bytesRead;
+      }
+    }
+    catch (IOException e)
+    {
+      Logger.e(TAG, "Segment file write error for " + p.outputFilePath, e);
+      p.httpResponseCode = kWriteException;
+      throw e;
+    }
+
+    if (bytesWritten != p.outputFileSegmentBytes)
+    {
+      Logger.w(TAG, "Segment underflow: " + bytesWritten + " bytes written, expected " + p.outputFileSegmentBytes);
+      p.httpResponseCode = kInconsistentFileSize;
+    }
+  }
+
+  // Returns {start, end, total} or null on parse failure. total == -1 means "*" (unknown).
+  @Nullable
+  private static long[] parseContentRange(@Nullable String value)
+  {
+    if (value == null)
+      return null;
+    String trimmed = value.trim();
+    if (trimmed.regionMatches(true, 0, "bytes ", 0, 6))
+      trimmed = trimmed.substring(6).trim();
+    int dash = trimmed.indexOf('-');
+    int slash = trimmed.indexOf('/');
+    if (dash < 0 || slash < 0 || dash > slash)
+      return null;
+    try
+    {
+      long start = Long.parseLong(trimmed.substring(0, dash));
+      long end = Long.parseLong(trimmed.substring(dash + 1, slash));
+      String totalStr = trimmed.substring(slash + 1);
+      long total = totalStr.equals("*") ? -1L : Long.parseLong(totalStr);
+      return new long[] {start, end, total};
+    }
+    catch (NumberFormatException e)
+    {
+      return null;
     }
   }
 
@@ -358,6 +490,15 @@ public final class HttpClient
     boolean followRedirects = true;
     boolean loadHeaders;
     int timeoutMillisec = Constants.READ_TIMEOUT_MS;
+    // Segment mode: when true, outputFilePath points to an existing file and the
+    // response body is streamed into it at outputFileOffset. Transport validates
+    // 206 + Content-Range against outputFileSegmentBytes / outputFileTotalBytes
+    // before writing any bytes. When outputFileIsSegment is true, responseData
+    // is NOT populated.
+    boolean outputFileIsSegment;
+    long outputFileOffset;
+    long outputFileSegmentBytes;
+    long outputFileTotalBytes; // -1 = do not validate the total file size.
 
     public Params(String url)
     {
