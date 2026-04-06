@@ -9,9 +9,13 @@
 #include "geometry/spline.hpp"
 
 #include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 namespace df
 {
+using MarksIDGroups = std::map<kml::MarkGroupId, drape_ptr<IDCollections>>;
+
 struct UserMarkRenderParams
 {
   kml::MarkId m_markId = kml::kInvalidMarkId;
@@ -65,6 +69,38 @@ struct UserLineRenderParams
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
 using UserLinesRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserLineRenderParams>>;
+using UserGroupsVisibilitySet = std::unordered_set<kml::MarkGroupId>;
+
+class TracksSource
+{
+public:
+  explicit TracksSource(UserGroupsVisibilitySet const * visibility) : m_visibility(visibility) {}
+  void AddGroup(ref_ptr<MarksIDGroups> group) { m_groups.push_back(group); }
+  bool IsEmpty() const { return m_groups.empty(); }
+
+  /// Iterates unique tracks across all groups, respecting group visibility and track's minZoom.
+  /// @param fn is called with UserLineRenderParams const &.
+  template <class FnT>
+  void ForEachUniqueTrack(int zoom, UserLinesRenderCollection const & lines, FnT && fn) const
+  {
+    std::unordered_set<kml::TrackId> visited;
+
+    for (auto const & group : m_groups)
+      for (auto const & [groupId, ids] : *group.get())
+        if (m_visibility->contains(groupId))
+          for (auto const lineId : ids->m_lineIds)
+            if (visited.insert(lineId).second)
+            {
+              auto it = lines.find(lineId);
+              if (it != lines.end() && it->second->m_minZoom <= zoom)
+                fn(*it->second);
+            }
+  }
+
+private:
+  UserGroupsVisibilitySet const * m_visibility;
+  std::vector<ref_ptr<MarksIDGroups>> m_groups;
+};
 
 struct UserMarkRenderData
 {
@@ -86,6 +122,5 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
                     dp::Batcher & batcher);
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection const & renderParams,
-                    dp::Batcher & batcher);
+                    TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);
 }  // namespace df

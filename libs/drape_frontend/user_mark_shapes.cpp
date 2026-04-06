@@ -479,8 +479,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 }
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection const & renderParams,
-                    dp::Batcher & batcher)
+                    TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher)
 {
   CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
   CHECK_LESS(tileKey.m_zoomLevel - 1, static_cast<int>(kLineWidthZoomFactor.size()), ());
@@ -495,17 +494,8 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
   m2::RectD const tileRect = tileKey.GetWrappedDataRect();
 
-  // Process spline by segments that are no longer than tile size.
-  // double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
-
-  for (auto const & id : linesId)
+  source.ForEachUniqueTrack(tileKey.m_zoomLevel, renderParams, [&](UserLineRenderParams const & renderInfo)
   {
-    auto const it = renderParams.find(id);
-    if (it == renderParams.end())
-      continue;
-
-    UserLineRenderParams const & renderInfo = *it->second;
-
     // Spline is a shared_ptr here, can reassign later.
     for (auto spline : renderInfo.m_splines)
     {
@@ -536,6 +526,6 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         }
       }
     }
-  }
+  });
 }
 }  // namespace df
