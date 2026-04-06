@@ -11,7 +11,6 @@
 		165953742CB1D85500CFED7C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 165953732CB1D83700CFED7C /* fonts */; };
 		165953942CB44B5600CFED7C /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 165953932CB44B3B00CFED7C /* symbols */; };
 		16CDB3FB2F15B0C30040FC4F /* libtimezone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CDB3FA2F15B0C30040FC4F /* libtimezone.a */; };
-		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
 		337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98A521D37B7400C8AC27 /* SearchTabViewController.swift */; };
@@ -451,7 +450,6 @@
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
 		ED4F4F292D9558C2006AD910 /* NavigationDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F282D9558C2006AD910 /* NavigationDashboardViewController.swift */; };
 		ED4F4F392D9AF887006AD910 /* RoutePointCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */; };
-		ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */; };
 		ED4F4F4D2D9E6CA0006AD910 /* NavigationDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4A2D9E6C94006AD910 /* NavigationDashboardInteractor.swift */; };
 		ED4F4F4F2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4E2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift */; };
 		ED4F4F512D9E8854006AD910 /* NavigationDashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F502D9E8854006AD910 /* NavigationDashboardPresenter.swift */; };
@@ -777,9 +775,6 @@
 		16CDB3FA2F15B0C30040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1DFA2F6820D3B52F00FB2C66 /* UIColor+PartnerColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+PartnerColor.h"; sourceTree = "<group>"; };
-		1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; lineEnding = 0; path = "UIColor+PartnerColor.m"; sourceTree = "<group>"; };
-		1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIColorRoutines.h; sourceTree = "<group>"; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
 		30034C5C2B3F0B74005D961A /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1426,7 +1421,6 @@
 		ED4F4F282D9558C2006AD910 /* NavigationDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardViewController.swift; sourceTree = "<group>"; };
 		ED4F4F372D9AC4B5006AD910 /* SearchOnMapState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchOnMapState.h; sourceTree = "<group>"; };
 		ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointCollectionViewCell.swift; sourceTree = "<group>"; };
-		ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportOptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		ED4F4F4A2D9E6C94006AD910 /* NavigationDashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardInteractor.swift; sourceTree = "<group>"; };
 		ED4F4F4E2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardBuilder.swift; sourceTree = "<group>"; };
 		ED4F4F502D9E8854006AD910 /* NavigationDashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardPresenter.swift; sourceTree = "<group>"; };
@@ -1644,7 +1638,6 @@
 		F6E2FC261E097B9F0083EBEC /* MWMNoMapsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNoMapsView.m; sourceTree = "<group>"; };
 		F6E2FC271E097B9F0083EBEC /* MWMNoMapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapsViewController.h; sourceTree = "<group>"; };
 		F6E2FC281E097B9F0083EBEC /* MWMNoMapsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoMapsViewController.mm; sourceTree = "<group>"; };
-		F6E2FC2A1E097B9F0083EBEC /* legacy_bookmark_colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = legacy_bookmark_colors.h; sourceTree = "<group>"; };
 		F6E2FC341E097B9F0083EBEC /* MWMEditorAdditionalNamesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorAdditionalNamesTableViewController.h; sourceTree = "<group>"; };
 		F6E2FC351E097B9F0083EBEC /* MWMEditorAdditionalNamesTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorAdditionalNamesTableViewController.mm; sourceTree = "<group>"; };
 		F6E2FC371E097B9F0083EBEC /* MWMCuisineEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCuisineEditorViewController.h; sourceTree = "<group>"; };
@@ -2297,9 +2290,6 @@
 				3454D7A01E07F045004AF2AD /* UIButton+Orientation.h */,
 				3454D7A11E07F045004AF2AD /* UIButton+Orientation.m */,
 				34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */,
-				1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */,
-				1DFA2F6820D3B52F00FB2C66 /* UIColor+PartnerColor.h */,
-				1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */,
 				3454D7A41E07F045004AF2AD /* UIColor+Colors.h */,
 				ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */,
 				3454D7A51E07F045004AF2AD /* UIColor+Colors.m */,
@@ -3203,7 +3193,6 @@
 			isa = PBXGroup;
 			children = (
 				ED18EF882DBAA60E00B383A0 /* TransportOptionsView.swift */,
-				ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */,
 			);
 			path = TransportOptions;
 			sourceTree = "<group>";
@@ -3794,7 +3783,6 @@
 		F6E2FC291E097B9F0083EBEC /* EditBookmark */ = {
 			isa = PBXGroup;
 			children = (
-				F6E2FC2A1E097B9F0083EBEC /* legacy_bookmark_colors.h */,
 				471A7BBF2481C82500A0D4C1 /* BookmarkTitleCell.swift */,
 				471A7BC12481C9B700A0D4C1 /* BookmarkTitleCell.xib */,
 				471A7BBD2481A3D000A0D4C1 /* EditBookmarkViewController.swift */,
@@ -4709,7 +4697,6 @@
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.m in Sources */,
 				99AAEA78244DA9810039D110 /* BottomMenuTransitioningManager.swift in Sources */,
 				4761BE2A252D3DB900EE2DE4 /* SubgroupCell.swift in Sources */,
-				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */,
 				9989273B2449E60200260CE2 /* BottomMenuBuilder.swift in Sources */,
 				993DF10F23F6BDB100AC231A /* UIActivityIndicatorRenderer.swift in Sources */,
 				ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */,
@@ -4909,7 +4896,6 @@
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
 				993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */,
-				ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
 				039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */,
 				447DB4BC2BA78282000DF4C2 /* MWMOsmReauthAlert.mm in Sources */,
