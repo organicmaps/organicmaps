@@ -1275,7 +1275,7 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitu
   }
 
   std::vector<uint8_t> imageRGBAData;
-  if (!ei.GenerateRouteAltitudeChart(width, height, imageRGBAData))
+  if (!ChartGenerator(ei).Generate(width, height, imageRGBAData))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
@@ -1304,10 +1304,10 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitu
 
   size_t const imageRGBADataSize = imageRGBAData.size();
   ASSERT_NOT_EQUAL(imageRGBADataSize, 0,
-                   ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
+                   ("ChartGenerator::Generate returns true but the vector with altitude image bits is empty."));
 
   size_t const pxlCount = width * height;
-  if (maps::kAltitudeChartBPP * pxlCount != imageRGBADataSize)
+  if (ChartGenerator::kBPP * pxlCount != imageRGBADataSize)
   {
     LOG(LWARNING,
         ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBADataSize));
@@ -1321,7 +1321,7 @@ JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitu
 
   for (size_t i = 0; i < pxlCount; ++i)
   {
-    size_t const shiftInBytes = i * maps::kAltitudeChartBPP;
+    size_t const shiftInBytes = i * ChartGenerator::kBPP;
     // Type of |imageRGBAData| elements is uint8_t. But uint8_t is promoted to unsinged int in code below before
     // shifting. So there's no data lost in code below.
     arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */

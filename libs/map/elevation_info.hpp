@@ -6,9 +6,11 @@
 
 #include "platform/location.hpp"
 
+#include "base/assert.hpp"
+
 #include <vector>
 
-struct ElevationInfo
+class ElevationInfo
 {
 public:
   struct Point
@@ -42,6 +44,9 @@ public:
   uint8_t GetDifficulty() const { return m_difficulty; }
   bool IsEmpty() const { return m_lines.empty(); }
 
+  /// Total cumulative length across all lines.
+  double GetLength() const;
+
   /// Replaces altitude of points where slope exceeds maxSlopePercent with interpolated values.
   /// @param[in] maxSlopePercent Maximum plausible slope (100 = 45°). Default 100% covers steep alpine trails.
   void SmoothSlopeOutliers(double maxSlopePercent = 100.0);
@@ -52,6 +57,9 @@ public:
   using Altitude = geometry::Altitude;
   static Altitude constexpr kDefThresholdMWM = 5;
   static Altitude constexpr kDefThresholdGPS = 10;
+
+  /// First altitude in the first line. Asserts non-empty.
+  Altitude GetFirstAltitude() const;
 
   struct AltitudesInfo
   {
@@ -80,16 +88,13 @@ public:
     double cumulativeOffset = 0;
     for (auto const & line : m_lines)
     {
+      ASSERT(!line.empty(), ());
       for (auto const & point : line)
         fn(cumulativeOffset + point.m_distance, point.m_altitude);
 
-      if (!line.empty())
-        cumulativeOffset += line.back().m_distance;
+      cumulativeOffset += line.back().m_distance;
     }
   }
-
-  /// Generates altitude chart image (RGBA 8888).
-  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData) const;
 
 protected:
   std::vector<Points> m_lines;

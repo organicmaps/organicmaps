@@ -1,10 +1,11 @@
 #include "map/chart_generator.hpp"
 
+#include "map/elevation_info.hpp"
+
+#include "indexer/map_style_reader.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/math.hpp"
-
-#include <algorithm>
 
 #include "3party/agg/agg_conv_curve.h"
 #include "3party/agg/agg_conv_stroke.h"
@@ -14,8 +15,8 @@
 #include "3party/agg/agg_renderer_scanline.h"
 #include "3party/agg/agg_scanline_p.h"
 
-namespace maps
-{
+#include <algorithm>
+
 namespace
 {
 template <class Color, class Order>
@@ -84,85 +85,87 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
 }
 }  // namespace
 
-void ScaleChartData(std::vector<double> & chartData, double scale)
+void ChartGenerator::ScaleChartData(std::vector<double> & chartData, double scale)
 {
   for (size_t i = 0; i < chartData.size(); ++i)
     chartData[i] *= scale;
 }
 
-void ShiftChartData(std::vector<double> & chartData, double shift)
+void ChartGenerator::ShiftChartData(std::vector<double> & chartData, double shift)
 {
   for (size_t i = 0; i < chartData.size(); ++i)
     chartData[i] += shift;
 }
 
-void ReflectChartData(std::vector<double> & chartData)
+void ChartGenerator::ReflectChartData(std::vector<double> & chartData)
 {
   for (size_t i = 0; i < chartData.size(); ++i)
     chartData[i] = -chartData[i];
 }
 
-bool NormalizeChartData(std::vector<double> const & distanceDataM, geometry::Altitudes const & altitudeDataM,
-                        size_t resultPointCount, std::vector<double> & uniformAltitudeDataM)
+void ChartGenerator::NormalizeAltitudes(size_t resultPointCount, std::vector<double> & uniformAltitudeDataM) const
 {
-  double constexpr kEpsilon = 1e-6;
+  ASSERT(resultPointCount > 0, ());
 
-  if (distanceDataM.size() != altitudeDataM.size())
-  {
-    LOG(LERROR, ("Altitude and distance data have different size."));
-    return false;
-  }
-
-  if (!std::is_sorted(distanceDataM.cbegin(), distanceDataM.cend()))
-  {
-    LOG(LERROR, ("Route segment distances are not sorted."));
-    return false;
-  }
-
-  if (distanceDataM.empty() || resultPointCount == 0)
-  {
-    uniformAltitudeDataM.clear();
-    return true;
-  }
-
-  auto const calculateAltitude = [&](double distFormStartM)
-  {
-    if (distFormStartM <= distanceDataM.front())
-      return static_cast<double>(altitudeDataM.front());
-    if (distFormStartM >= distanceDataM.back())
-      return static_cast<double>(altitudeDataM.back());
-
-    auto const lowerIt = std::lower_bound(distanceDataM.cbegin(), distanceDataM.cend(), distFormStartM);
-    size_t const nextPointIdx = std::distance(distanceDataM.cbegin(), lowerIt);
-    ASSERT_LESS(0, nextPointIdx, ("distFormStartM is greater than 0 but nextPointIdx == 0."));
-    size_t const prevPointIdx = nextPointIdx - 1;
-
-    if (AlmostEqualAbs(distanceDataM[prevPointIdx], distanceDataM[nextPointIdx], kEpsilon))
-      return static_cast<double>(altitudeDataM[prevPointIdx]);
-
-    double const k = (altitudeDataM[nextPointIdx] - altitudeDataM[prevPointIdx]) /
-                     (distanceDataM[nextPointIdx] - distanceDataM[prevPointIdx]);
-    return static_cast<double>(altitudeDataM[prevPointIdx]) + k * (distFormStartM - distanceDataM[prevPointIdx]);
-  };
-
-  double const routeLenM = distanceDataM.back();
+  double const totalDistance = m_info.GetLength();
+  double const stepLen = resultPointCount <= 1 ? 0.0 : totalDistance / (resultPointCount - 1);
   uniformAltitudeDataM.resize(resultPointCount);
-  double const stepLenM = resultPointCount <= 1 ? 0.0 : routeLenM / (resultPointCount - 1);
 
-  for (size_t i = 0; i < resultPointCount; ++i)
-    uniformAltitudeDataM[i] = calculateAltitude(static_cast<double>(i) * stepLenM);
+  // Sequential scan: iterate through ElevationInfo points while generating uniform samples.
+  // Both sample distances and point distances are monotonically increasing.
+  size_t sampleIdx = 0;
+  double prevDist = 0;
+  double prevAlt = 0;
+  bool hasPrev = false;
 
-  return true;
+  m_info.ForEachPoint([&](double dist, geometry::Altitude alt)
+  {
+    if (!hasPrev)
+    {
+      prevDist = dist;
+      prevAlt = alt;
+      hasPrev = true;
+    }
+
+    while (sampleIdx < resultPointCount)
+    {
+      double const sampleDist = sampleIdx * stepLen;
+      if (sampleDist > dist + kDistanceEps)
+        break;
+
+      double const segLen = dist - prevDist;
+      if (segLen < kDistanceEps)
+        uniformAltitudeDataM[sampleIdx] = prevAlt;
+      else
+      {
+        double const k = (static_cast<double>(alt) - prevAlt) / segLen;
+        uniformAltitudeDataM[sampleIdx] = prevAlt + k * (sampleDist - prevDist);
+      }
+      ++sampleIdx;
+    }
+
+    prevDist = dist;
+    prevAlt = alt;
+  });
+
+  // Fill remaining samples with last altitude (floating point edge case).
+  while (sampleIdx < resultPointCount)
+    uniformAltitudeDataM[sampleIdx++] = prevAlt;
+
+  // Ensure the endpoint matches the final point's altitude
+  // (handles duplicate terminal distances from zero-length segments).
+  if (hasPrev)
+  {
+    ASSERT(!uniformAltitudeDataM.empty(), ());
+    uniformAltitudeDataM.back() = prevAlt;
+  }
 }
 
-bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, std::vector<double> const & altitudeDataM,
-                            std::vector<double> & yAxisDataPxl)
+bool ChartGenerator::GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
+                                            std::vector<double> const & altitudeDataM,
+                                            std::vector<double> & yAxisDataPxl)
 {
-  if (altitudeDataM.empty())
-  {
-    yAxisDataPxl.clear();
-    return true;
-  }
+  ASSERT(!altitudeDataM.empty(), ());
 
   uint32_t constexpr kHeightIndentPxl = 2;
   uint32_t heightIndentPxl = kHeightIndentPxl;
@@ -202,12 +205,11 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, std::vector
   return true;
 }
 
-bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::PointD> const & geometry, MapStyle mapStyle,
-                           std::vector<uint8_t> & frameBuffer)
+void ChartGenerator::GenerateByPoints(uint32_t width, uint32_t height, std::vector<m2::PointD> const & geometry,
+                                      MapStyle mapStyle, std::vector<uint8_t> & frameBuffer)
 {
+  ASSERT(width > 0 && height > 0, ());
   frameBuffer.clear();
-  if (width == 0 || height == 0)
-    return false;
 
   agg::rgba8 const kBackgroundColor = agg::rgba8(255, 255, 255, 0);
   agg::rgba8 const kLineColor = GetLineColor(mapStyle);
@@ -224,9 +226,9 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::Poin
   TPixelFormat pixelFormat(renderBuffer, agg::comp_op_src_over);
   TBaseRenderer baseRenderer(pixelFormat);
 
-  frameBuffer.assign(width * kAltitudeChartBPP * height, 0);
+  frameBuffer.assign(width * kBPP * height, 0);
   renderBuffer.attach(&frameBuffer[0], static_cast<unsigned>(width), static_cast<unsigned>(height),
-                      static_cast<int>(width * kAltitudeChartBPP));
+                      static_cast<int>(width * kBPP));
 
   // Background.
   baseRenderer.reset_clipping(true);
@@ -238,8 +240,9 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::Poin
   agg::rasterizer_scanline_aa<> rasterizer;
   rasterizer.clip_box(0, 0, width, height);
 
+  // No chart line to draw.
   if (geometry.empty())
-    return true; /* No chart line to draw. */
+    return;
 
   // Polygon under chart line.
   agg::path_storage underChartGeometryPath;
@@ -263,38 +266,35 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::Poin
 
   rasterizer.add_path(stroke);
   agg::render_scanlines_aa_solid(rasterizer, scanline, baseRenderer, kLineColor);
-  return true;
 }
 
-bool GenerateChart(uint32_t width, uint32_t height, std::vector<double> const & distanceDataM,
-                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, std::vector<uint8_t> & frameBuffer)
+bool ChartGenerator::Generate(uint32_t width, uint32_t height, MapStyle mapStyle,
+                              std::vector<uint8_t> & frameBuffer) const
 {
-  if (distanceDataM.size() != altitudeDataM.size())
-  {
-    LOG(LERROR, ("The route is in inconsistent state. Size of altitudes is", altitudeDataM.size(),
-                 ". Number of segment is", distanceDataM.size()));
+  if (width == 0 || height == 0 || m_info.IsEmpty())
     return false;
-  }
 
   std::vector<double> uniformAltitudeDataM;
-  if (!NormalizeChartData(distanceDataM, altitudeDataM, width, uniformAltitudeDataM))
-    return false;
+  NormalizeAltitudes(width, uniformAltitudeDataM);
 
   std::vector<double> yAxisDataPxl;
   if (!GenerateYAxisChartData(height, 1.0 /* minMetersPerPxl */, uniformAltitudeDataM, yAxisDataPxl))
     return false;
 
-  size_t const uniformAltitudeDataSize = yAxisDataPxl.size();
-  std::vector<m2::PointD> geometry(uniformAltitudeDataSize);
-
-  if (uniformAltitudeDataSize != 0)
+  size_t const sz = yAxisDataPxl.size();
+  std::vector<m2::PointD> geometry(sz);
+  if (sz != 0)
   {
-    double const oneSegLenPix =
-        static_cast<double>(width) / (uniformAltitudeDataSize == 1 ? 1 : (uniformAltitudeDataSize - 1));
-    for (size_t i = 0; i < uniformAltitudeDataSize; ++i)
+    double const oneSegLenPix = static_cast<double>(width) / (sz == 1 ? 1 : (sz - 1));
+    for (size_t i = 0; i < sz; ++i)
       geometry[i] = m2::PointD(i * oneSegLenPix, yAxisDataPxl[i]);
   }
 
-  return GenerateChartByPoints(width, height, geometry, mapStyle, frameBuffer);
+  GenerateByPoints(width, height, geometry, mapStyle, frameBuffer);
+  return true;
 }
-}  // namespace maps
+
+bool ChartGenerator::Generate(uint32_t width, uint32_t height, std::vector<uint8_t> & frameBuffer) const
+{
+  return Generate(width, height, GetStyleReader().GetCurrentStyle(), frameBuffer);
+}
