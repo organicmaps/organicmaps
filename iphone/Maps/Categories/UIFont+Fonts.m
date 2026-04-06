@@ -1,4 +1,4 @@
-@implementation UIFont (MapsMeFonts)
+@implementation UIFont (Fonts)
 
 + (UIFont *)regular10
 {

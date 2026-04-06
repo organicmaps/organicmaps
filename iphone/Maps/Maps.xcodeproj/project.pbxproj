@@ -58,8 +58,8 @@
 		3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79C1E07F045004AF2AD /* CLLocation+Mercator.mm */; };
 		3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79F1E07F045004AF2AD /* NSString+Categories.m */; };
 		3454D7C51E07F045004AF2AD /* UIButton+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A11E07F045004AF2AD /* UIButton+Orientation.m */; };
-		3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A51E07F045004AF2AD /* UIColor+MapsMeColor.m */; };
-		3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A71E07F045004AF2AD /* UIFont+MapsMeFonts.m */; };
+		3454D7CB1E07F045004AF2AD /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A51E07F045004AF2AD /* UIColor+Colors.m */; };
+		3454D7CE1E07F045004AF2AD /* UIFont+Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A71E07F045004AF2AD /* UIFont+Fonts.m */; };
 		3454D7D11E07F045004AF2AD /* UIImage+RGBAData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A91E07F045004AF2AD /* UIImage+RGBAData.m */; };
 		3454D7D41E07F045004AF2AD /* UIImageView+Coloring.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7AB1E07F045004AF2AD /* UIImageView+Coloring.m */; };
 		3454D7D71E07F045004AF2AD /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7AD1E07F045004AF2AD /* UIKitCategories.m */; };
@@ -864,10 +864,10 @@
 		3454D79F1E07F045004AF2AD /* NSString+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Categories.m"; sourceTree = "<group>"; };
 		3454D7A01E07F045004AF2AD /* UIButton+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Orientation.h"; sourceTree = "<group>"; };
 		3454D7A11E07F045004AF2AD /* UIButton+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Orientation.m"; sourceTree = "<group>"; };
-		3454D7A41E07F045004AF2AD /* UIColor+MapsMeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapsMeColor.h"; sourceTree = "<group>"; };
-		3454D7A51E07F045004AF2AD /* UIColor+MapsMeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIColor+MapsMeColor.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3454D7A61E07F045004AF2AD /* UIFont+MapsMeFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MapsMeFonts.h"; sourceTree = "<group>"; };
-		3454D7A71E07F045004AF2AD /* UIFont+MapsMeFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+MapsMeFonts.m"; sourceTree = "<group>"; };
+		3454D7A41E07F045004AF2AD /* UIColor+Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colors.h"; sourceTree = "<group>"; };
+		3454D7A51E07F045004AF2AD /* UIColor+Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIColor+Colors.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3454D7A61E07F045004AF2AD /* UIFont+Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Fonts.h"; sourceTree = "<group>"; };
+		3454D7A71E07F045004AF2AD /* UIFont+Fonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Fonts.m"; sourceTree = "<group>"; };
 		3454D7A81E07F045004AF2AD /* UIImage+RGBAData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RGBAData.h"; sourceTree = "<group>"; };
 		3454D7A91E07F045004AF2AD /* UIImage+RGBAData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RGBAData.m"; sourceTree = "<group>"; };
 		3454D7AA1E07F045004AF2AD /* UIImageView+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Coloring.h"; sourceTree = "<group>"; };
@@ -2300,12 +2300,12 @@
 				1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */,
 				1DFA2F6820D3B52F00FB2C66 /* UIColor+PartnerColor.h */,
 				1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */,
-				3454D7A41E07F045004AF2AD /* UIColor+MapsMeColor.h */,
+				3454D7A41E07F045004AF2AD /* UIColor+Colors.h */,
 				ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */,
-				3454D7A51E07F045004AF2AD /* UIColor+MapsMeColor.m */,
+				3454D7A51E07F045004AF2AD /* UIColor+Colors.m */,
 				3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */,
-				3454D7A61E07F045004AF2AD /* UIFont+MapsMeFonts.h */,
-				3454D7A71E07F045004AF2AD /* UIFont+MapsMeFonts.m */,
+				3454D7A61E07F045004AF2AD /* UIFont+Fonts.h */,
+				3454D7A71E07F045004AF2AD /* UIFont+Fonts.m */,
 				3454D7A81E07F045004AF2AD /* UIImage+RGBAData.h */,
 				3454D7A91E07F045004AF2AD /* UIImage+RGBAData.m */,
 				3454D7AA1E07F045004AF2AD /* UIImageView+Coloring.h */,
@@ -4805,7 +4805,7 @@
 				EDCA7CDF2D317DF9003366CE /* StyleSheet.swift in Sources */,
 				EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */,
 				996D108A24E3DBF2002DD0E2 /* BookmarksCoordinator.swift in Sources */,
-				3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.m in Sources */,
+				3454D7CE1E07F045004AF2AD /* UIFont+Fonts.m in Sources */,
 				99A906E123F6F7030005872B /* PlacePageOSMContributionViewController.swift in Sources */,
 				998927382449E60200260CE2 /* BottomMenuPresenter.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.m in Sources */,
@@ -4905,7 +4905,7 @@
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.m in Sources */,
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
-				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */,
+				3454D7CB1E07F045004AF2AD /* UIColor+Colors.m in Sources */,
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
 				993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */,

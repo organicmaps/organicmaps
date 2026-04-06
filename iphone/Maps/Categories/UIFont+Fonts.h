@@ -1,5 +1,5 @@
 NS_ASSUME_NONNULL_BEGIN
-@interface UIFont (MapsMeFonts)
+@interface UIFont (Fonts)
 
 + (UIFont *)regular10;
 + (UIFont *)regular12;

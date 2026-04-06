@@ -8,7 +8,7 @@
 
   #import "MWMConsts.h"
   #import "MWMMacros.h"
-  #import "UIColor+MapsMeColor.h"
-  #import "UIFont+MapsMeFonts.h"
+  #import "UIColor+Colors.h"
+  #import "UIFont+Fonts.h"
   #import "UIKitCategories.h"
 #endif

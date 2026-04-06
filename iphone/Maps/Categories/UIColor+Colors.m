@@ -1,11 +1,11 @@
-#import "UIColor+MapsMeColor.h"
+#import "UIColor+Colors.h"
 
 static UIColor * NamedColor(NSString * name)
 {
   return [UIColor colorNamed:name inBundle:NSBundle.mainBundle compatibleWithTraitCollection:nil];
 }
 
-@implementation UIColor (MapsMeColor)
+@implementation UIColor (Colors)
 
 // hex string without #
 + (UIColor *)colorFromHexString:(NSString *)hexString
@@ -23,11 +23,6 @@ static UIColor * NamedColor(NSString * name)
 + (UIColor *)greenPrimary
 {
   return NamedColor(@"greenPrimary");
-}
-
-+ (UIColor *)fadeBackgroundColor
-{
-  return NamedColor(@"fadeBackground");
 }
 
 + (UIColor *)pressBackground
@@ -50,10 +45,6 @@ static UIColor * NamedColor(NSString * name)
   return NamedColor(@"linkBlueHighlighted");
 }
 
-+ (UIColor *)linkBlueDarkColor
-{
-  return NamedColor(@"linkBlueDark");
-}
 + (UIColor *)buttonRed
 {
   return NamedColor(@"buttonRed");
@@ -98,24 +89,9 @@ static UIColor * NamedColor(NSString * name)
   return NamedColor(@"whiteHintText");
 }
 
-+ (UIColor *)buttonDisabledBlueText
-{
-  return NamedColor(@"buttonDisabledBlueText");
-}
-
-+ (UIColor *)buttonHighlightedBlueTextColor
-{
-  return NamedColor(@"buttonHighlightedBlueText");
-}
-
 + (UIColor *)blackOpaque
 {
   return NamedColor(@"blackOpaque");
-}
-
-+ (UIColor *)carplayPlaceholderBackgroundColor
-{
-  return NamedColor(@"carplayPlaceholderBackground");
 }
 
 + (UIColor *)bookingBackground
@@ -128,33 +104,4 @@ static UIColor * NamedColor(NSString * name)
   return NamedColor(@"opentableBackground");
 }
 
-+ (UIColor *)transparentGreen
-{
-  return NamedColor(@"transparentGreen");
-}
-
-+ (UIColor *)speedLimitRed
-{
-  return NamedColor(@"speedLimitRed");
-}
-
-+ (UIColor *)speedLimitGreen
-{
-  return NamedColor(@"speedLimitGreen");
-}
-
-+ (UIColor *)speedLimitWhiteColor
-{
-  return NamedColor(@"speedLimitWhite");
-}
-
-+ (UIColor *)speedLimitLightGrayColor
-{
-  return NamedColor(@"speedLimitLightGray");
-}
-
-+ (UIColor *)speedLimitDarkGrayColor
-{
-  return NamedColor(@"speedLimitDarkGray");
-}
 @end
