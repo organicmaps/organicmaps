@@ -7,10 +7,10 @@
 
 - (NSString *)normalizedAndSimplified
 {
-  auto const u32str = search::NormalizeAndSimplifyString(self.UTF8String);
-  return [[NSString alloc] initWithBytes:u32str.data()
-                                  length:u32str.size() * sizeof(UniChar)
-                                encoding:NSUTF32StringEncoding];
+  auto const normalized = search::NormalizeAndSimplifyString(self.UTF8String);
+  return [[NSString alloc] initWithBytes:normalized.data()
+                                  length:normalized.size() * sizeof(strings::UniChar)
+                                encoding:NSUTF32LittleEndianStringEncoding];
 }
 
 @end
