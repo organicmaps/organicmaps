@@ -74,17 +74,3 @@ After editing, run `tools/unix/generate_drules.sh` and commit generated files se
 5. Add search keywords to `categories.txt` (see format in file header)
 6. Run `tools/unix/generate_localizations.sh`
 7. Add classifier tests in `generator/generator_tests/osm_type_test.cpp`
-
-## When translating content from English
-These rules apply to all translation files: `data/strings/`, `data/categories*.txt`, Android `strings.xml`, iOS/Android store metadata.
-
-- "bookmark"/"bookmarks" (favorite place, saved by user): "метка"/"метки" (Russian), "мітка"/"міткі" (Ukrainian)
-- "track" (recorded path on the map that user walked): "трек" (Russian)
-- "route": "маршрут" (Russian)
-- "icon"/"icons" (place's image symbol on the map): "иконка"/"иконки" (Russian)
-- "outdoors"/"outdoors style"/"outdoors map style": "стиль для активного отдыха" (Russian), "режим Активний відпочинок" (Ukrainian)
-- "map": "мапа" (Ukrainian, Belarusian)
-- use "..." instead of "..."
-- use ё instead е in Russian where applicable
-- do not translate "Organic Maps" and "ID Editor"
-- do not replace amounts like 5K with zeroes (5.000), either leave it (if it is a normal language practice) or use "5 thousands" equivalent (like 5 тыс. in Russian)
