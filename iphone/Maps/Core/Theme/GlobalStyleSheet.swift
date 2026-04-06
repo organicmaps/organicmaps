@@ -4,7 +4,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case tableViewCell = "MWMTableViewCell"
   case defaultTableViewCell
   case tableViewHeaderFooterView = "TableViewHeaderFooterView"
-  case searchOnMapSearchBar
   case searchBar = "SearchBar"
   case navigationBar = "NavigationBar"
   case navigationBarItem = "NavigationBarItem"
@@ -101,25 +100,16 @@ extension GlobalStyleSheet: IStyleSheet {
         s.font = fonts.medium14
         s.fontColor = .blackSecondaryText
       }
-    case .searchOnMapSearchBar:
-      return .add { s in
-        if #available(iOS 26.0, *) {
-          s.backgroundColor = .lightGray.withAlphaComponent(0.2)
-        } else {
-          s.backgroundColor = .pressBackground
-          s.barTintColor = .clear
-          s.fontColor = .blackPrimaryText
-          s.fontColorDetailed = UIColor.whitePrimary
-          s.tintColor = .blackSecondaryText
-        }
-      }
     case .searchBar:
       return .add { s in
-        s.backgroundColor = .whitePrimary
-        s.barTintColor = .greenPrimary
-        s.fontColor = .blackPrimaryText
-        s.fontColorDetailed = UIColor.white
-        s.tintColor = .blackSecondaryText
+        if #available(iOS 26.0, *) {
+        } else {
+          s.backgroundColor = .whitePrimary
+          s.barTintColor = .greenPrimary
+          s.fontColor = .blackPrimaryText
+          s.fontColorDetailed = UIColor.white
+          s.tintColor = .blackSecondaryText
+        }
       }
     case .navigationBar:
       return .add { s in
