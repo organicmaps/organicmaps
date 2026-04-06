@@ -1,0 +1,59 @@
+Organic Maps është një aplikacion i shpejtë, i detajuar për harta offline dhe navigim me GPS për udhëtime, ecje në natyrë, shëtitje malore dhe aventurat me biçikletë. Planifikoni, importoni dhe regjistroni rrugët, dhe shijoni udhëzime të qeta pa shterur baterinë ose pa përdorur lidhje interneti. Eksploroni vende dhe navigoni në mënyrë të sigurt gjatë aventurave tuaja në natyrë dhe udhëtimeve rreth botës. Aplikacioni ofron shkarkime të pakufizuara të hartave dhe përditësime çdo dy javë. Bazuar në OpenStreetMap, krijuar nga vullnetarë, me privatësi të parët, 100% jashtë linje dhe 100% falas.
+
+<b>JASHTË LINJE:</b>
+
+Aplikacioni funksionon 100% jashtë linje — përfshirë kërkimin dhe navigimin. Mund të eksploroni hartën dhe të navigoni pa lidhje interneti, duke kursyer të dhëna mobile dhe tarifa roaming. Dhe pa transferime të dhënash në sfond, bateria juaj zgjat shumë më gjatë.
+
+<b>I SHPEJTË:</b>
+
+Zmadhimi, kërkimi dhe llogaritjet e rrugëve funksionojnë dukshëm shpejt.
+
+<b>ME DETAJE DHE E PËRDITËSUAR:</b>
+
+Hartat janë të pasura me detaje dhe përditësohen dy herë në muaj për të pasqyruar kushtet reale. Ndryshe nga shumë konkurrentë të njohur, ato përfshijnë etiketat e ndërtesave, stolat, shtigjet e ecjes dhe informacione të tjera të dobishme.
+
+<b>MBËSHTETUR NË OPENSTREETMAP:</b>
+
+OpenStreetMap është një hartë botërore në stil wiki, e ndërtuar dhe e mirëmbajtur nga miliona vullnetarë — vendas që njohin më së miri zonat e tyre. Ky përpjekje komunitare rezulton në harta shumë të detajuara, shpesh më të sakta se ato komerciale në rajonet më pak të matura. Organic Maps përditëson të dhënat e saj nga OpenStreetMap çdo dy javë, duke i mbajtur hartat tuaja të freskëta dhe të besueshme. Dhe nëse vëreni që diçka mungon, mund ta shtoni në OpenStreetMap dhe të ndihmoni në përmirësimin e hartës për të gjithë.
+
+<b>PRIVATËSIA E PARË:</b>
+
+Ne nuk mbledhim asnjë të dhënë ose identifikues. Kjo do të thotë që nuk ka rrezik për rrjedhje të të dhënave dhe asnjë shpërqendrim si reklamat ose njoftimet e zhurmshme — vetëm një përvojë harte e pastër dhe private.
+
+<b>KARAKTERISTIKA TË RËNDËSISHME</b>
+
+<b>EKSPLORO VENDET:</b>
+
+Kërko sipas adrese, emri ose kategorie, zbuloj milionë pika interesi (POI) dhe shiko informacione të detajuara si oraret e hapjes, artikujt e Wikipedisë, aksesueshmërinë për karroca invalidësh dhe detaje të tjera të dobishme.
+
+<b>NAVIGACION ME GPS:</b>
+
+Shijo udhëzime me zë, hap pas hapi. Krijo rrugë për ecje, shëtitje në natyrë, çiklizëm ose me makinë — duke përfshirë rrugët midis qyteteve, vendeve dhe pikave të shumta referimi. Gjeni rrugët më të mira për udhëtimet tuaja me metro dhe çdo ditë. Android Auto është i mbështetur.
+
+<b>SHTEGJET E ECJES DHE ÇIKLIZMIT NGA E GJITHË BOTA:</b>
+
+Aktivizoni shtresa speciale hartash për të zbuluar shtigje të njohura ecjeje dhe çiklizmi në mbarë botën, të gjitha të marra nga OpenStreetMap. Kaloni midis shtresave për të parë shtigje me ngjyra për biçikleta dhe MTB, si dhe shtigje zyrtare ecjeje.
+
+<b>TRANSPORTI PUBLIK:</b>
+
+Shikoni numrat e linjave të transportit publik në ndalesa. Oraret e transportit në kohë reale dhe udhëzimet e rrugës janë aktualisht në zhvillim.
+
+<b>STILET E HARTËS:</b>
+
+Zgjidhni shtresat e hartës që i përshtaten aktivitetit tuaj — Jashtë, Vijat e konturit, Ecje, Çiklizëm, ose Metro/Udhëtim nëntokësor.
+
+<b>REGISTROHUES I GJURMËS:</b>
+
+Regjistroni, importoni, eksportoni dhe ndani rrugët dhe vendet tuaja të preferuara. Mbështet formatet KML, KMZ, GPX dhe GeoJSON.
+
+<b>ARTIKUJ TË WIKIPEDIAS:</b>
+
+Eksploroni artikujt në Wikipedia për vendet që zbuloni në hartë. Shkruani "?wiki" në kërkim për të gjetur të gjitha vendet me artikuj në Wikipedia.
+
+<b>REDAKTUESI I HARTËS:</b>
+
+Kontribuoni në OpenStreetMap duke shtuar vende që mungojnë ose duke redaktuar hartën direkt nga Organic Maps.
+
+<b>MODI I ERRËT:</b>
+
+Kaloni në një temë të errët për një pamje të rehatshme natën.

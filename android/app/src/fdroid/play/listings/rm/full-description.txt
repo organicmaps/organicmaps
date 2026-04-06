@@ -1,0 +1,40 @@
+Organic Maps è ina app svelta e detagliada per cartas offline e navigaziun GPS per viagis, excursiuns a pe, trekking e velo. Planisai, importai e registrai rutas e gaudai ina navigaziun fluenta senza consimar bler current u dovrar internet. Scuvrai lieus e navigai segir durant Vossas aventuras en la natira ed ils viagis enturn il mund. Downloads illimitads da cartas ed actualisaziuns mintga duas emnas. Basada sin OpenStreetMap, creada da voluntaris, protecziun da datas, 100% offline e 100% gratuita.
+
+<b>OFFLINE:</b> L'app funcziuna 100% offline — inclusiv retschertga e navigaziun. Navigai senza connexiun d'internet e spargnar datas mobilas e custs da roaming. Senza transferiment da datas en il fund dura Voss accu era bler pli ditg.
+
+<b>SVELT:</b> Il zoom, la retschertga e la calculaziun da rutas funcziunan remartgablamain svelt.
+
+<b>DETAGLIÀ & ACTUAL:</b> Las cartas èn ritgas en detagls e vegnan actualisadas duas giadas il mais. A differenza da blers concurrents cuntegnan ellas noms d'edifizis, bancas, sendas per excursiuns ed autras infurmaziuns utilas.
+
+<b>BASÀ SIN OPENSTREETMAP:</b> OpenStreetMap è ina carta dal mund en stil wiki, construida da milliuns da voluntaris — persunas localas che enconuschan lur regiuns il meglier. Quai resulta en cartas fitg detagliadas, savens pli exactas che cartas commerzialas. Organic Maps actualisescha sias datas mintga duas emnas. Sche Vus constatais insatge che manca, pudais Vus l'agiuntar ad OpenStreetMap.
+
+<b>PROTECZIUN DA DATAS:</b> Nus na rimnain naginas datas u identificaturs. Nagin ristg da sperdita da datas e naginas distracziuns sco reclamas u notificaziuns — mo ina carta netta e privata.
+
+<b>FUNCZIUNS IMPORTANTAS</b>
+
+<b>SCUVRIR LIEUS:</b> Tschertgai tenor adressa, num u categoria, scuvrai milliuns da puncts d'interess e vesai infurmaziuns sco uras d'avertura, artitgels da Wikipedia ed accessibilitad per sutgas a rodas.
+
+<b>NAVIGAZIUN GPS:</b> Indicaziuns vocalas, pass per pass. Creai rutas per ir a pe, per excursiuns, cun velo u cun auto — inclusiv tranter citads e plirs puncts intermediars. Chattai las meglieras rutas per il metro. Android Auto è sustegnì.
+
+<b>SENDAS PER EXCURSIUNS & VELO DAL MUND ENTIR:</b> Activai nivels spezials per scuvrir rutas popularas per excursiuns e velo dal mund entir, tut ord OpenStreetMap. Vesai rutas da velo e MTB coloradas sco era sendas d'excursiun uffizialas.
+
+<b>TRANSPORT PUBLIC:</b> Vesai numers da rutas dal transport public a las fermadas. Uraris en temp real èn en svilup.
+
+<b>STILS DA CARTA:</b> Tschernai nivels che sa cunfan a Vossa activitad — Natira, Lingias da nivel, Excursiuns, Velo u Metro.
+
+<b>REGISTRAR PERCURS:</b> Registrai, importai, exportai e partì Vossas rutas e lieus preferids. Sustegna KML, KMZ, GPX e GeoJSON.
+
+<b>ARTITGELS DA WIKIPEDIA:</b> Scuvrai artitgels da Wikipedia per lieus sin la carta. Tippai "?wiki" en la retschertga per chattar tut ils lieus cun artitgels da Wikipedia.
+
+<b>EDITUR DA CARTA:</b> Contribuiai ad OpenStreetMap cun agiuntar lieus che mancan u modifitgar la carta directamain ord Organic Maps.
+
+<b>MODUS STGIR:</b> Commutai ad in design stgir per ina vista comoda la notg.
+
+Empruvai l'app — 100% gratuita, senza reclamas, svelta e cumplettamain offline. Navigaziun GPS fiabla per excursiuns, velo, trekking e viagis en tut il mund! Gaudai ina carta svelta, fiabla e privata e partì ella cun auters!
+
+Organic Maps è in project independent, open-source cun tschientaners da contribuentas e contribuents che giadan a sviluppar novas funcziuns, schliar problems e purtar enavant il project.
+
+Participai a la communitad sin Telegram: @OrganicMapsApp
+U sustegnai il project: https://organicmaps.app/contribute/
+
+Voss novitadsziuns sinceras e Vossas recensiuns en il shop ans motiveschan! Sche Vus avais dumondas, visitai per plaschair organicmaps.app per novitadsziuns supplementaras e FAQ.

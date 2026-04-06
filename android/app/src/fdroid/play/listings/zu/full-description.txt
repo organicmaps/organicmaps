@@ -1,0 +1,47 @@
+Organic Maps iyithuluzi elishesha nelinemininingwane elisebenza ngaphandle kokuxhumeka kwe-intanethi futhi line-GPS yokuhola indlela, elenzelwe ukuhamba, ukuhamba ngezintaba, ukuhamba ngezinyawo, kanye nokugibela ibhayisikili. Hlela, uthumele, futhi urekhoda izindlela, futhi ujabulele ukuqondiswa okuhle ngaphandle kokudla ibhethri lakho noma ukusebenzisa uxhumano lwe-intanethi. Hlola izindawo futhi uqondise ngokuphepha ngesikhathi sokuzijabulisa kwakho ngaphandle kanye nohambo lwakho emhlabeni wonke. Lolu hlelo lokusebenza lunikeza ukulanda kwemephu okungenamkhawulo kanye nezibuyekezo eziphindwa kabili ngenyanga. Lusekelwe ku-OpenStreetMap, lwenziwe ngabavolontiya, lugxile ekuvikelweni kwemfihlo, lusebenza ngaphandle kwe-intanethi ngokuphelele, futhi luyamahhala ngokuphelele.
+
+<b>NGAPHANDLE KWENETHIWEKI:</b>
+
+Lolu hlelo lokusebenza lusebenza ngokuphelele ngaphandle kwe-intanethi — kuhlanganisa ukusesha nokuhamba. Ungahlola imephu futhi uhambe ngaphandle kokuxhumeka ku-intanethi, ngaleyo ndlela ugcine idatha yeselula nemali yokuhamba phesheya. Futhi ngenxa yokungadluliseli idatha ngemuva kwesikrini, ibhethri lakho lihlala isikhathi eside kakhulu.
+
+<b>SHESHA:</b>
+
+Ukuzula, ukusesha, nokubala izindlela kusebenza ngokushesha okubonakalayo.
+
+<b>OKUGCWELE IMINININGWANE NOKUVUZA:</b>
+
+Amamephu agcwele imininingwane futhi avuselelwa kabili ngenyanga ukuze abonise izimo zangempela zomhlaba. Ngokungafani nabancintisana nabo abaningi abaziwayo, afaka izilabelama zokwakha, amabhentshi, izindlela zokuhamba ngezinyawo, nolunye ulwazi oluwusizo.
+
+<b>ESEKELWE KU-OPENSTREETMAP:</b>
+
+I-OpenStreetMap iyimephu yomhlaba yesitayela se-wiki eyakhiwe futhi igcinwe yizigidi zabavolontiya — abantu bendawo abazi kahle izindawo zabo. Lomzamo womphakathi uholela kumamephu anemininingwane eningi, kaningi anembile kakhulu kunalawo ezohwebo ezindaweni ezingakaze zidwetshwe kakhulu. I-Organic Maps ivuselela idatha yayo evela ku-OpenStreetMap njalo ngemva kwamaviki amabili, igcina amamephu akho esesikhathini futhi ethembekile. Futhi uma ubona ukuthi kukhona okushodayo, ungakwengeza ku-OpenStreetMap futhi usize ukuthuthukisa imephu kubo bonke.
+
+<b>IMFIHLO KUZA KUQALA:</b>
+
+Asiqoqi idatha noma izazisi. Lokhu kusho ukuthi akukho ngozi yokuvuza kwedatha futhi akukho ukuphazamiseka okufana nezikhangiso noma izaziso ezinesasaza — isipiliyoni semephu esihlanzekile, esizimele.
+
+<b>IZICI EZIBALULEKILE</b>
+
+<b>HLOLA IZINDAWO:</b>
+
+Sesha ngokwekheli, igama, noma isigaba, thola izigidi zama-POI, futhi ubone imininingwane eningiliziwe efana namahora okuvula, izihloko ze-Wikipedia, ukufinyeleleka kwesihlalo esinesondo, nezinye imininingwane ewusizo.
+
+<b>UKUZULAZULA NGE-GPS:</b>
+
+Jabulela imiyalelo eqondiswa ngamazwi, okujika ngokujika. Dala imizila yokuhamba ngezinyawo, yokuhamba entabeni, yokugibela ibhayisikili, noma yokushayela — kuhlanganisa nemizila phakathi kwamadolobha, amazwe, nezindawo eziningi zokuma. Thola izindlela ezingcono kakhulu zohambo lwakho lwe-metro nokuhamba kwakho kwansuku zonke. I-Android Auto iyasekelwa.
+
+<b>IZINDLELA ZOKUHAMBA NGEZINYAWO NANGEBHAYISIKILI EMHLABENI WONKE:</b>
+
+Vumela izendlalelo zemephu ezikhethekile ukuze uthole izindlela ezidume kakhulu zokuhamba ngezinyawo nokugibela ibhayisikili emhlabeni wonke, zonke zithathwe ku-OpenStreetMap. Shintsha phakathi kwezendlalelo ukuze ubone imigqa enemibala yamabhayisikili ne-MTB, kanye nemizila esemthethweni yokuhamba ngezinyawo.
+
+<b>EZOKUTHUTHA ZOMPHAKATHI:</b>
+
+Bona izinombolo zemigqa yezokuthutha zomphakathi eziteshini. Uhlelo lokuhamba bukhoma nezindlela okwamanje kusathuthukiswa.
+
+<b>IZITAYELA ZEMEPHU:</b>
+
+Khetha izendlalelo zemephu ezifanele umsebenzi wakho — Ngaphandle, Imigqa Yemibimbi, Ukuhamba Ngezinyawo, Ukugibela Ibhayisikili, noma iMetro/Isitimela Esingaphansi Komhlaba.
+
+<b>UMREKHODI WOMZILA:</b>
+
+Rekhoda, ngena, thumela ngaphandle, futhi wabelane ngezindlela zakho nezindawo ozithandayo. Isekela amafomethi e-KML, KMZ, GPX, ne-GeoJSON.

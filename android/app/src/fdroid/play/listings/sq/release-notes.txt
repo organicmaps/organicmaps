@@ -1,0 +1,8 @@
+• Zgjidhni rrugët e ecjes dhe çiklizmit për të parë grafikët e tyre të lartësisë
+• Përkulje e duhur e hartës në antimeridian (gjatësia ±180°)
+• Ndryshoni të gjitha ngjyrat e shënimeve dhe shtigjeve në një kategori njëherësh
+• Kërkim më i mirë për numrat e shtëpive, mbulohen më shumë adresa në SHBA
+• Të dhënat e OSM-së deri më 4 prill
+• Modaliteti i shfaqjes së planifikuar në Cilësime
+• Rregulluar ndarjen e shënimeve/shtigjeve me aplikacione të tjera
+…më shumë në omaps.org/news

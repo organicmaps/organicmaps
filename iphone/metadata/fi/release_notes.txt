@@ -1,23 +1,56 @@
-• OSM-karttatiedot 10. maaliskuuta
-• Wikipedia-tiedot 1. maaliskuuta
-• Lisätty tuki ehdollisille nopeusrajoituksille
-• Yksityiskohtaisemmat korkeuskäyrät Kiinan maakunnille
-• Lisätty nahkakaupat ja uskonnollisia tuotteita myyvät kaupat
-• Lisätty puurivit
-• Lisätty julkisen liikenteen pysäkkialustat ilman lähellä olevia bussipysäkkejä
-• Korjattu maiden lataamisen edistymisen laskeminen
-• Jaettu Tansania pienempiin alueisiin
-• Lisätty äskettäin käytettyjen luokkien historia editoriin
-• Parannettu pyyhkäisy ylöspäin reitin suunnittelunäytöllä
-• Korjattu viivaimen sijainti CarPlayssa
-• Korjattu useita kaatumisia, parannettu vakautta ja suorituskykyä
+## Kartta
 
-### Käännökset
+- UUTTA! Kartta näkyy oikein antimeridiaanin yli vedettäessä ja käännettäessä
+- OpenStreetMap-tiedot päivitetty 4. huhtikuuta
+- Wikipedia-tiedot päivitetty 1. huhtikuuta
+- Lisätty kuvakkeita ruokatoreille ja kaupunginporteille
+- Lisätty vaatekauppojen alaluokat: naiset, miehet, lapset, häät, urheilu, alusvaatteet sekä toimistovaatteet
+- Korjattu Sydneyn metrolinjojen värit
+- Korjattu aukioloaikojen näyttö paikoissa, joissa on auringonnousu-/auringonlaskuaikojen poikkeama
 
-• Parannettu maiden kuvaukset
-• Sovellettu Eugen Dedu:n romaniankielisiä korjauksia
-• Päivitetty maiden nimet
-• Päivitetty Weblate-avustajien käännökset
-• Korjattu ukrainankielinen käännös
+## Reititys ja navigointi
 
-Kiitos kaikille, jotka avustavat, lahjoittavat ja tukevat Organic Mapsia! Rakennetaan yhdessä parhaat kartat!
+- UUTTA! Napauta pyöräily- tai vaellusreittiä valitaksesi sen ja tarkastellaksesi sen korkeuskaaviota
+- Parannettu monivärinen renderointi vaellus- ja pyöräilyreiteille
+- Pyöräilynavigointi käyttää nyt kompassisuuntaa hitailla nopeuksilla
+- Korjattu järjestelmävirhe reittejä suunniteltaessa joidenkin alueellisten rajojen lähellä
+- Voit nyt aloittaa kelvollisen reitin, vaikka sinua pyydettäisiin lataamaan lisäkarttoja
+
+## Kirjanmerkit ja jäljet
+
+- UUTTA! Vaihda kaikki kirjanmerkkien ja jälkien värit kategoriassa kerralla
+- Säädetty korkeuserojen arviointia jälkikaavioissa vastaamaan paremmin muita sovelluksia
+- Parannettu HTML-sisällön näyttö taulukoineen ja kuvineen kirjanmerkkien tiedoissa
+- Lisätty pystysuuntaiset erottimet moniosaisille jäljille korkeuskaaviossa
+- Korjattu pisteiden valinta korkeuskaaviossa interpoloitujen pisteiden osalta
+- Korjattu GPS-jäljen tallennuksen pisteiden katoaminen segmenttien välillä
+- Korjattu GeoJSON-tuonti
+- Korjattu kaatuminen jälkiä vietäessä
+
+## Haku
+
+- Parempi haku Yhdysvalloissa, kahden miljoonan lisäosoitteen avulla, jotka on jäsennetty TIGER-väestönlaskentatiedoista
+- Päivitetyt hakukategoriat: lisätty "Bread" leipomoille, "Shawarma" ruokalajille ja muita synonyymiparannuksia
+- Parannettu talonumeroiden hakua
+- Lisätty Yhdysvaltain katujen synonyymejä: highway, hwy, freeway, fwy
+- Korjattiin hakutulokset, kun kaupungin ja osavaltion nimet ovat samat
+
+## Editori / OpenStreetMap
+
+- Voit nyt lisätä uuden paikan OpenStreetMapiin valittuasi nykyisen sijaintisi kartalta
+- Korjattu editorin tähtäimen väärä kohdistus painettaessa "Lisää paikka"
+- Suurennettu painikkeiden kosketusaluetta "Lisää paikka" -navigointipalkissa
+
+## Käyttöliittymä ja käyttökokemus
+
+- Parannetut modaalieleet: kiinnittyminen lähimpään vaiheeseen, sulkeminen reunan panoroinnilla ja edellisen tilan palauttaminen uudelleen avattaessa
+- Korjattu kesäajan käsittely aikavyöhykkeillä
+
+## Vakauden ja lokalisoinnin parannukset
+
+- Parannettu vakautta ja suorituskykyä, pienempi akunkulutus
+- Päivitetyt käännökset
+
+## Alustatuki
+
+- TestFlightin ja App Storen muutosten vuoksi tämä versio tukee vain iOS 15:tä ja uudempia versioita. iOS 12:ta, 13:ta ja 14:ää ei enää tueta.
