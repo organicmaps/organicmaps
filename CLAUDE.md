@@ -178,3 +178,20 @@ Enter in the search bar to activate (see [docs/DEBUG_COMMANDS.md](docs/DEBUG_COM
 See `.github/CODEOWNERS` for team assignments. Key teams:
 `@organicmaps/android`, `@organicmaps/ios`, `@organicmaps/qt`, `@organicmaps/rendering`, `@organicmaps/data`, `@organicmaps/styles`
 
+## When translating content from English
+These rules apply to all translation files: `data/strings/`, `data/categories*.txt`, Android `strings.xml`, iOS/Android store metadata.
+
+- "bookmark"/"bookmarks" (favorite place, saved by user): "метка"/"метки" (Russian), "мітка"/"міткі" (Ukrainian)
+- "track" (recorded path on the map that user walked): "трек" (Russian)
+- "route": "маршрут" (Russian)
+- "icon"/"icons" (place's image symbol on the map): "иконка"/"иконки" (Russian)
+- "outdoors"/"outdoors style"/"outdoors map style": "стиль для активного отдыха" (Russian), "режим Активний відпочинок" (Ukrainian)
+- "map": "мапа" (Ukrainian, Belarusian)
+- use "..." instead of "..."
+- use ё instead е in Russian where applicable
+- do not translate "Organic Maps" and "ID Editor"
+- do not replace amounts like 5K with zeroes (5.000), either leave it (if it is a normal language practice) or use "5 thousands" equivalent (like 5 тыс. in Russian)
+- prefer OpenStreetMap over OSM in user-facing notes (except short Android release-notes.txt with max 500 characters limit)
+- prefer contour lines over elevation isolines.
+- prefer shown on the map over technical conditions like “without nearby bus stops”.
+- keep contributor credits out of store notes; they are better suited to a full changelog or news post.
