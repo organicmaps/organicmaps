@@ -1,7 +1,7 @@
 protocol StyleStringRepresentable {
   var rawValue: String { get }
 
-  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver
+  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver
 }
 
 extension Theme {

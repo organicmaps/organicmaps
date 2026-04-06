@@ -113,11 +113,11 @@ static NSString * const kSelectedPattern = @"%@_selected";
   switch (self.coloring)
   {
   case MWMButtonColoringBlack: self.tintColor = [UIColor blackSecondaryText]; break;
-  case MWMButtonColoringWhite: self.tintColor = [UIColor white]; break;
+  case MWMButtonColoringWhite: self.tintColor = [UIColor whitePrimary]; break;
   case MWMButtonColoringWhiteText: self.tintColor = [UIColor whitePrimaryText]; break;
   case MWMButtonColoringBlue: self.tintColor = [UIColor linkBlue]; break;
   case MWMButtonColoringGray: self.tintColor = [UIColor blackHintText]; break;
-  case MWMButtonColoringRed: self.tintColor = [UIColor red]; break;
+  case MWMButtonColoringRed: self.tintColor = [UIColor redPrimary]; break;
   case MWMButtonColoringOther: self.imageView.image = [self imageForState:UIControlStateNormal]; break;
   }
 }

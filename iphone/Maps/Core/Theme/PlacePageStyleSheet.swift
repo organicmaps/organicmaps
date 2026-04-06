@@ -25,61 +25,61 @@ enum PlacePageStyleSheet: String, CaseIterable {
 }
 
 extension PlacePageStyleSheet: IStyleSheet {
-  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
+  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
     switch self {
     case .ppTitlePopularView:
       return .add { s in
-        s.backgroundColor = colors.linkBlueHighlighted
+        s.backgroundColor = .linkBlueHighlighted
         s.cornerRadius = .custom(10)
       }
     case .ppActionBarTitle:
       return .add { s in
         s.font = fonts.regular10
-        s.fontColor = colors.blackSecondaryText
+        s.fontColor = .blackSecondaryText
       }
     case .ppActionBarTitlePartner:
       return .add { s in
         s.font = fonts.regular10
-        s.fontColor = UIColor.white
+        s.fontColor = UIColor.whitePrimary
       }
     case .ppElevationProfileDescriptionCell:
       return .add { s in
-        s.backgroundColor = colors.blackOpaque
+        s.backgroundColor = .blackOpaque
         s.cornerRadius = .buttonDefault
       }
     case .ppElevationProfileExtendedDifficulty:
       return .add { s in
-        s.backgroundColor = colors.blackSecondaryText
-        s.fontColor = colors.white
+        s.backgroundColor = .blackSecondaryText
+        s.fontColor = .whitePrimary
         s.font = fonts.medium14
         s.textContainerInset = UIEdgeInsets(top: 4, left: 6, bottom: 4, right: 6)
       }
     case .ppRouteBasePreview:
       return .add { s in
-        s.borderColor = colors.blackDividers
+        s.borderColor = .blackDividers
         s.borderWidth = 1
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
       }
     case .ppRoutePreview:
       return .add { s in
         s.shadowRadius = 2
-        s.shadowColor = colors.blackDividers
+        s.shadowColor = .blackDividers
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 3, height: 0)
-        s.backgroundColor = colors.pressBackground
+        s.backgroundColor = .pressBackground
       }
     case .ppRatingSummaryView24:
       return .add { s in
         s.font = fonts.bold16
-        s.fontColorHighlighted = colors.ratingYellow
-        s.fontColorDisabled = colors.blackDividers
+        s.fontColorHighlighted = .ratingYellow
+        s.fontColorDisabled = .blackDividers
         s.colors = [
-          colors.blackSecondaryText,
-          colors.ratingRed,
-          colors.ratingOrange,
-          colors.ratingYellow,
-          colors.ratingLightGreen,
-          colors.ratingGreen,
+          .blackSecondaryText,
+          .ratingRed,
+          .ratingOrange,
+          .ratingYellow,
+          .ratingLightGreen,
+          .ratingGreen,
         ]
         s.images = [
           "ic_24px_rating_normal",
@@ -104,18 +104,18 @@ extension PlacePageStyleSheet: IStyleSheet {
       }
     case .ppRatingSummaryView12User:
       return .addFrom(Self.ppRatingSummaryView12) { s in
-        s.colors?[0] = colors.linkBlue
+        s.colors?[0] = .linkBlue
         s.images?[0] = "ic_12px_radio_on"
       }
     case .ppHeaderView:
       return .add { s in
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
         s.cornerRadius = .modalSheet
         s.clip = true
       }
     case .ppNavigationShadowView:
       return .add { s in
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
         s.shadowColor = UIColor.black
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.shadowOpacity = 0.3
@@ -124,7 +124,7 @@ extension PlacePageStyleSheet: IStyleSheet {
       }
     case .ppBackgroundView:
       return .addFrom(GlobalStyleSheet.modalSheetBackground) { s in
-        s.backgroundColor = colors.pressBackground
+        s.backgroundColor = .pressBackground
         s.maskedCorners = .all
       }
     case .ppView:
@@ -136,54 +136,54 @@ extension PlacePageStyleSheet: IStyleSheet {
       }
     case .ppHeaderCircleIcon:
       return .add { s in
-        s.tintColor = colors.iconOpaqueGrayTint
-        s.backgroundColor = colors.iconOpaqueGrayBackground
+        s.tintColor = .iconOpaqueGrayTint
+        s.backgroundColor = .iconOpaqueGrayBackground
       }
     case .ppChartView:
       return .add { s in
-        s.backgroundColor = colors.white
-        s.fontColor = colors.blackSecondaryText
+        s.backgroundColor = .whitePrimary
+        s.fontColor = .blackSecondaryText
         s.font = fonts.regular12
-        s.gridColor = colors.blackDividers
-        s.previewSelectorColor = colors.elevationPreviewSelector
-        s.previewTintColor = colors.elevationPreviewTint
+        s.gridColor = .blackDividers
+        s.previewSelectorColor = .elevationPreviewSelector
+        s.previewTintColor = .elevationPreviewTint
         s.shadowOpacity = 0.25
-        s.shadowColor = colors.shadow
-        s.infoBackground = colors.pressBackground
+        s.shadowColor = .shadow
+        s.infoBackground = .pressBackground
       }
     case .ppRatingView:
       return .add { s in
-        s.backgroundColor = colors.blackOpaque
+        s.backgroundColor = .blackOpaque
         s.round = true
       }
     case .ppRatingHorrible:
       return .add { s in
         s.image = "ic_24px_rating_horrible"
-        s.tintColor = colors.ratingRed
+        s.tintColor = .ratingRed
       }
     case .ppRatingBad:
       return .add { s in
         s.image = "ic_24px_rating_bad"
-        s.tintColor = colors.ratingOrange
+        s.tintColor = .ratingOrange
       }
     case .ppRatingNormal:
       return .add { s in
         s.image = "ic_24px_rating_normal"
-        s.tintColor = colors.ratingYellow
+        s.tintColor = .ratingYellow
       }
     case .ppRatingGood:
       return .add { s in
         s.image = "ic_24px_rating_good"
-        s.tintColor = colors.ratingLightGreen
+        s.tintColor = .ratingLightGreen
       }
     case .ppRatingExcellent:
       return .add { s in
         s.image = "ic_24px_rating_excellent"
-        s.tintColor = colors.ratingGreen
+        s.tintColor = .ratingGreen
       }
     case .ppButton:
       return .addFrom(GlobalStyleSheet.flatNormalTransButtonBig) { s in
-        s.borderColor = colors.linkBlue
+        s.borderColor = .linkBlue
         s.borderWidth = 1
       }
     }

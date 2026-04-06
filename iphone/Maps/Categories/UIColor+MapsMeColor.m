@@ -1,6 +1,9 @@
-#import "SwiftBridge.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIColorRoutines.h"
+
+static UIColor * NamedColor(NSString * name)
+{
+  return [UIColor colorNamed:name inBundle:NSBundle.mainBundle compatibleWithTraitCollection:nil];
+}
 
 @implementation UIColor (MapsMeColor)
 
@@ -17,154 +20,141 @@
                          alpha:1.0];
 }
 
-// Green color
-+ (UIColor *)primary
++ (UIColor *)greenPrimary
 {
-  return StyleManager.shared.theme.colors.primary;
+  return NamedColor(@"greenPrimary");
 }
 
-// Use for opaque fullscreen
-+ (UIColor *)fadeBackground
++ (UIColor *)fadeBackgroundColor
 {
-  return [UIColor colorWithWhite:0. alpha:alpha80];
+  return NamedColor(@"fadeBackground");
 }
 
-// Background color && press color
 + (UIColor *)pressBackground
 {
-  return StyleManager.shared.theme.colors.pressBackground;
-}
-// Red color (use for status closed in place page)
-+ (UIColor *)red
-{
-  return StyleManager.shared.theme.colors.red;
+  return NamedColor(@"pressBackground");
 }
 
-// Blue color (use for links and phone numbers)
++ (UIColor *)redPrimary
+{
+  return NamedColor(@"redPrimary");
+}
+
 + (UIColor *)linkBlue
 {
-  return StyleManager.shared.theme.colors.linkBlue;
+  return NamedColor(@"linkBlue");
 }
 
 + (UIColor *)linkBlueHighlighted
 {
-  return StyleManager.shared.theme.colors.linkBlueHighlighted;
+  return NamedColor(@"linkBlueHighlighted");
 }
 
-+ (UIColor *)linkBlueDark
++ (UIColor *)linkBlueDarkColor
 {
-  return StyleManager.shared.theme.colors.linkBlueDark;
+  return NamedColor(@"linkBlueDark");
 }
 + (UIColor *)buttonRed
 {
-  return StyleManager.shared.theme.colors.buttonRed;
+  return NamedColor(@"buttonRed");
 }
 + (UIColor *)blackPrimaryText
 {
-  return StyleManager.shared.theme.colors.blackPrimaryText;
+  return NamedColor(@"blackPrimaryText");
 }
 
 + (UIColor *)blackSecondaryText
 {
-  return StyleManager.shared.theme.colors.blackSecondaryText;
+  return NamedColor(@"blackSecondaryText");
 }
 
 + (UIColor *)blackHintText
 {
-  return StyleManager.shared.theme.colors.blackHintText;
+  return NamedColor(@"blackHintText");
 }
 
 + (UIColor *)blackDividers
 {
-  return StyleManager.shared.theme.colors.blackDividers;
+  return NamedColor(@"blackDividers");
 }
 
-+ (UIColor *)white
++ (UIColor *)whitePrimary
 {
-  return StyleManager.shared.theme.colors.white;
+  return NamedColor(@"whitePrimary");
 }
 
 + (UIColor *)whitePrimaryText
 {
-  return [UIColor colorWithWhite:1. alpha:alpha87];
+  return NamedColor(@"whitePrimaryText");
 }
 
 + (UIColor *)whitePrimaryTextHighlighted
 {
-  // use only for highlighted colors!
-  return [UIColor colorWithWhite:1. alpha:alpha30];
+  return NamedColor(@"whitePrimaryTextHighlighted");
 }
 
 + (UIColor *)whiteHintText
 {
-  return StyleManager.shared.theme.colors.whiteHintText;
+  return NamedColor(@"whiteHintText");
 }
 
 + (UIColor *)buttonDisabledBlueText
 {
-  return StyleManager.shared.theme.colors.buttonDisabledBlueText;
+  return NamedColor(@"buttonDisabledBlueText");
 }
 
-+ (UIColor *)buttonHighlightedBlueText
++ (UIColor *)buttonHighlightedBlueTextColor
 {
-  return [UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha54];
+  return NamedColor(@"buttonHighlightedBlueText");
 }
 
 + (UIColor *)blackOpaque
 {
-  return StyleManager.shared.theme.colors.blackOpaque;
+  return NamedColor(@"blackOpaque");
 }
 
-+ (UIColor *)carplayPlaceholderBackground
++ (UIColor *)carplayPlaceholderBackgroundColor
 {
-  return StyleManager.shared.theme.colors.carplayPlaceholderBackground;
+  return NamedColor(@"carplayPlaceholderBackground");
 }
 
 + (UIColor *)bookingBackground
 {
-  return [UIColor colorWithRed:scaled(25.) green:scaled(69.) blue:scaled(125.) alpha:alpha100];
+  return NamedColor(@"bookingBackground");
 }
 
 + (UIColor *)opentableBackground
 {
-  return [UIColor colorWithRed:scaled(218.) green:scaled(55) blue:scaled(67) alpha:alpha100];
+  return NamedColor(@"opentableBackground");
 }
 
 + (UIColor *)transparentGreen
 {
-  return [UIColor colorWithRed:scaled(233) green:scaled(244) blue:scaled(233) alpha:alpha26];
-}
-
-+ (UIColor *)colorWithName:(NSString *)colorName
-{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  return [[UIColor class] performSelector:NSSelectorFromString(colorName)];
-#pragma clang diagnostic pop
+  return NamedColor(@"transparentGreen");
 }
 
 + (UIColor *)speedLimitRed
 {
-  return [UIColor colorWithRed:scaled(224) green:scaled(31) blue:scaled(31) alpha:alpha100];
+  return NamedColor(@"speedLimitRed");
 }
 
 + (UIColor *)speedLimitGreen
 {
-  return [UIColor colorWithRed:scaled(1) green:scaled(104) blue:scaled(44) alpha:alpha100];
+  return NamedColor(@"speedLimitGreen");
 }
 
-+ (UIColor *)speedLimitWhite
++ (UIColor *)speedLimitWhiteColor
 {
-  return [UIColor colorWithRed:scaled(255) green:scaled(255) blue:scaled(255) alpha:alpha80];
+  return NamedColor(@"speedLimitWhite");
 }
 
-+ (UIColor *)speedLimitLightGray
++ (UIColor *)speedLimitLightGrayColor
 {
-  return [UIColor colorWithRed:scaled(0) green:scaled(0) blue:scaled(0) alpha:alpha20];
+  return NamedColor(@"speedLimitLightGray");
 }
 
-+ (UIColor *)speedLimitDarkGray
++ (UIColor *)speedLimitDarkGrayColor
 {
-  return [UIColor colorWithRed:scaled(51) green:scaled(51) blue:scaled(50) alpha:alpha100];
+  return NamedColor(@"speedLimitDarkGray");
 }
 @end

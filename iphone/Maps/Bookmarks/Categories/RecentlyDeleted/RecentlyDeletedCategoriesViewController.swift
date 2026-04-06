@@ -72,7 +72,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
     fixedSpace.width = Constants.fixedSpaceWidth
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let toolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16(),
-                                 NSAttributedString.Key.foregroundColor: UIColor.linkBlue()]
+                                 NSAttributedString.Key.foregroundColor: UIColor.linkBlue]
     recoverButton.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     deleteButton.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     toolBar.items = [

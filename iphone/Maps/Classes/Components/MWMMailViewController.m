@@ -5,8 +5,8 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.navigationBar.tintColor = UIColor.whiteColor;
-  self.navigationBar.barTintColor = UIColor.primary;
+  self.navigationBar.tintColor = UIColor.whitePrimary;
+  self.navigationBar.barTintColor = UIColor.greenPrimary;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

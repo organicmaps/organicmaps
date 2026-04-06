@@ -138,12 +138,12 @@ final class NavigationControlView: SolidTouchView {
     guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
-        NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText(),
+        NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText,
         NSAttributedString.Key.font: UIFont.bold24(),
       ]
     let routingLegendAttributes: [NSAttributedString.Key: Any] =
       [
-        NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText(),
+        NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText,
         NSAttributedString.Key.font: UIFont.bold14(),
       ]
 
@@ -190,11 +190,11 @@ final class NavigationControlView: SolidTouchView {
     speedWithLegendLabel.attributedText = speedWithLegend
 
     if MWMRouter.isSpeedCamLimitExceeded() {
-      speedLabel.textColor = UIColor.white()
-      speedBackground.backgroundColor = UIColor.buttonRed()
+      speedLabel.textColor = .whitePrimary
+      speedBackground.backgroundColor = .buttonRed
     } else {
       let isSpeedLimitExceeded = info.speedLimitMps > 0 && speedMps > info.speedLimitMps
-      speedLabel.textColor = isSpeedLimitExceeded ? UIColor.buttonRed() : UIColor.blackPrimaryText()
+      speedLabel.textColor = isSpeedLimitExceeded ? .buttonRed : .blackPrimaryText
       speedBackground.backgroundColor = UIColor.clear
     }
     speedLegendLabel.textColor = speedLabel.textColor

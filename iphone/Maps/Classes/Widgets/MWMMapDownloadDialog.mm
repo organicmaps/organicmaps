@@ -166,7 +166,7 @@ using namespace storage;
 {
   if (errorCode == NodeErrorCode::NoError)
     return;
-  self.nodeSize.textColor = [UIColor red];
+  self.nodeSize.textColor = [UIColor redPrimary];
   self.nodeSize.text = L(@"country_status_download_failed");
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;

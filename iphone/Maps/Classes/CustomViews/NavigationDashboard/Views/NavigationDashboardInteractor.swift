@@ -206,7 +206,7 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
 
   // TODO: (KK) elevation info should be removed when the new elevation chart with all statistics will be implemented
   static var elevationAttributes: [NSAttributedString.Key: Any] {
-    [.foregroundColor: UIColor.blackSecondaryText(), .font: UIFont.medium16()]
+    [.foregroundColor: UIColor.blackSecondaryText, .font: UIFont.medium16()]
   }
 
   private func buildElevationInfoIfNeeded() {

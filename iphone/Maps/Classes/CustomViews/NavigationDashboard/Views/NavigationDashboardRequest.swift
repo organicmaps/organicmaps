@@ -58,6 +58,6 @@ extension MWMRouterType: CaseIterable {
     @unknown default:
       fatalError("Unknown router type")
     }
-    return image.withTintColor(isSelected ? .linkBlue() : .blackSecondaryText(), renderingMode: .alwaysOriginal)
+    return image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
   }
 }

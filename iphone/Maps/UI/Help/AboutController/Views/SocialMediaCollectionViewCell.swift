@@ -33,7 +33,7 @@ final class SocialMediaCollectionViewCell: UICollectionViewCell {
   }
 
   private func updateImageColor() {
-    imageView.tintColor = StyleManager.shared.theme?.colors.blackPrimaryText
+    imageView.tintColor = .blackPrimaryText
   }
 
   // MARK: - Public

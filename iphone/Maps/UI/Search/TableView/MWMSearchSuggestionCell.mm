@@ -12,17 +12,17 @@
 {
   [super awakeFromNib];
   if (IPAD)
-    self.contentView.backgroundColor = [UIColor white];
+    self.contentView.backgroundColor = [UIColor whitePrimary];
 }
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  return @{NSForegroundColorAttributeName: UIColor.linkBlue, NSFontAttributeName: UIFont.bold16};
+  return @{NSForegroundColorAttributeName: [UIColor linkBlue], NSFontAttributeName: UIFont.bold16};
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  return @{NSForegroundColorAttributeName: UIColor.linkBlue, NSFontAttributeName: UIFont.regular16};
+  return @{NSForegroundColorAttributeName: [UIColor linkBlue], NSFontAttributeName: UIFont.regular16};
 }
 
 #pragma mark - Properties

@@ -65,7 +65,7 @@ enum FontStyleSheet: String, CaseIterable {
 }
 
 extension FontStyleSheet: IStyleSheet {
-  func styleResolverFor(colors _: IColors, fonts: IFonts) -> Theme.StyleResolver {
+  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
     let font: UIFont = {
       switch self {
       case .regular9: return fonts.regular9

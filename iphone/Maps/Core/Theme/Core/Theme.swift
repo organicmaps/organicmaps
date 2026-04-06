@@ -2,21 +2,19 @@
   typealias StyleName = String
   typealias Resolver = (Style) -> Void
 
-  @objc let colors: IColors
   @objc let fonts: IFonts
   private var components: [StyleName: Style] = [:]
   private var resolvers: [StyleName: Resolver] = [:]
   private var dependencies: [StyleName: StyleName] = [:]
 
-  init(colors: IColors, fonts: IFonts) {
-    self.colors = colors
+  init(fonts: IFonts) {
     self.fonts = fonts
     super.init()
     register()
   }
 
   func registerStyleSheet<U: IStyleSheet>(_: U.Type) {
-    U.register(theme: self, colors: colors, fonts: fonts)
+    U.register(theme: self, fonts: fonts)
   }
 
   func add(styleName: StyleName, _ resolver: @escaping Resolver) {

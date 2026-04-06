@@ -41,13 +41,11 @@ final class ThemeManager: NSObject {
 
     FrameworkHelper.setTheme(actualTheme)
 
-    // Create the theme once with dynamic colors that auto-resolve based on
-    // the window's overrideUserInterfaceStyle. No need to swap themes.
     if !StyleManager.shared.hasTheme() {
       isNightMode = newNightMode
-      StyleManager.shared.setTheme(MainTheme(colors: DynamicColors(), fonts: Fonts()))
+      StyleManager.shared.setTheme(MainTheme(fonts: Fonts()))
     } else if isNightMode != newNightMode {
-      // Re-apply styles for non-dynamic properties (CGColor, getImage backgrounds).
+      // Re-apply styles for non-dynamic properties (CGColor, themed images).
       isNightMode = newNightMode
       StyleManager.shared.update()
     }
