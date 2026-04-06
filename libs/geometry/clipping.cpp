@@ -309,4 +309,19 @@ void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> 
     guidePoints.push_back({currentGuideFront, guideBack});
   }
 }
+
+bool IsRealIntersect(m2::RectD const & rect, m2::Spline const & spl)
+{
+  auto const & path = spl.GetPath();
+  size_t const sz = path.size();
+  for (size_t i = 1; i < sz; i++)
+  {
+    int code1, code2;
+    auto p1 = path[i - 1];
+    auto p2 = path[i];
+    if (m2::Intersect(rect, p1, p2, code1, code2))
+      return true;
+  }
+  return false;
+}
 }  // namespace m2

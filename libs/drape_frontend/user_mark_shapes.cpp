@@ -19,10 +19,8 @@
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
-#include "geometry/mercator.hpp"
 
 #include <array>
-#include <cmath>
 #include <vector>
 
 namespace df
@@ -480,33 +478,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   }
 }
 
-void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmentLength,
-                               std::function<bool(m2::RectD const & segmentRect)> const & func)
-{
-  double const splineFullLength = spline->GetLength();
-  double length = 0;
-  while (length < splineFullLength)
-  {
-    m2::RectD splineRect;
-
-    auto const itBegin = spline->GetPoint(length);
-    auto itEnd = spline->GetPoint(length + maxSegmentLength);
-    if (itEnd.BeginAgain())
-    {
-      double const lastSegmentLength = spline->GetLastLength();
-      itEnd = spline->GetPoint(splineFullLength - lastSegmentLength / 2.0);
-      splineRect.Add(spline->GetPath().back());
-    }
-
-    spline->ForEachNode(itBegin, itEnd, [&splineRect](m2::PointD const & pt) { splineRect.Add(pt); });
-
-    length += maxSegmentLength;
-
-    if (!func(splineRect))
-      return;
-  }
-}
-
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     kml::TrackIdCollection const & linesId, UserLinesRenderCollection const & renderParams,
                     dp::Batcher & batcher)
@@ -538,23 +509,6 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     // Spline is a shared_ptr here, can reassign later.
     for (auto spline : renderInfo.m_splines)
     {
-      // This check is redundant, because we already made rough check while covering tracks by tiles
-      // (see UserMarkGenerator::UpdateIndex).
-      // Also looks like ClipSplineByRect works faster than Spline iterating in ProcessSplineSegmentRects
-      // by |maxLength| segments on high zoom levels.
-      /*
-      bool intersected = false;
-      ProcessSplineSegmentRects(spline, maxLength, [&tileRect, &intersected](m2::RectD const & segmentRect)
-      {
-        if (segmentRect.IsIntersect(tileRect))
-          intersected = true;
-        return !intersected;
-      });
-
-      if (!intersected)
-        continue;
-      */
-
       if (simplify)
         spline = SimplifySpline(spline, minSegmentSqrLength);
 

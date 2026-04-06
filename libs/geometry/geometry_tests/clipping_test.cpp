@@ -10,14 +10,16 @@ namespace clipping_test
 {
 using namespace std;
 
+double constexpr kClipEps = 1.0E-6;
+double constexpr kSplitEps = 1.0E-10;
+
 bool CompareTriangleLists(vector<m2::PointD> const & list1, vector<m2::PointD> const & list2)
 {
   if (list1.size() != list2.size())
     return false;
 
-  double const kEps = 1e-5;
   for (size_t i = 0; i < list1.size(); i++)
-    if (!list1[i].EqualDxDy(list2[i], kEps))
+    if (!list1[i].EqualDxDy(list2[i], kClipEps))
       return false;
 
   return true;
@@ -28,7 +30,6 @@ bool CompareSplineLists(vector<m2::SharedSpline> const & list1, vector<m2::Share
   if (list1.size() != list2.size())
     return false;
 
-  double const kEps = 1e-5;
   for (size_t i = 0; i < list1.size(); i++)
   {
     auto & path1 = list1[i]->GetPath();
@@ -37,7 +38,7 @@ bool CompareSplineLists(vector<m2::SharedSpline> const & list1, vector<m2::Share
       return false;
 
     for (size_t j = 0; j < path1.size(); j++)
-      if (!path1[j].EqualDxDy(path2[j], kEps))
+      if (!path1[j].EqualDxDy(path2[j], kClipEps))
         return false;
   }
 
@@ -275,4 +276,81 @@ UNIT_TEST(Clipping_ClipSplineByRect)
       {{m2::PointD(-1.0, 0.0), m2::PointD(-0.5, 1.0)}, {m2::PointD(0.0, 1.0), m2::PointD(0.0, 0.0)}});
   TEST(CompareSplineLists(result6, expectedResult6), ());
 }
+UNIT_TEST(ForEachSection_SingleShortSegment)
+{
+  m2::Spline spl;
+  spl.AddPoint(m2::PointD(0, 0));
+  spl.AddPoint(m2::PointD(1, 0));
+
+  vector<pair<m2::PointD, m2::PointD>> sections;
+  m2::ForEachSection(spl, 5.0, [&](m2::PointD const & p1, m2::PointD const & p2) { sections.emplace_back(p1, p2); });
+
+  TEST_EQUAL(sections.size(), 1, ());
+  TEST(sections[0].first.EqualDxDy(m2::PointD(0, 0), kSplitEps), ());
+  TEST(sections[0].second.EqualDxDy(m2::PointD(1, 0), kSplitEps), ());
+}
+
+UNIT_TEST(ForEachSection_SplitLongSegment)
+{
+  m2::Spline spl;
+  spl.AddPoint(m2::PointD(0, 0));
+  spl.AddPoint(m2::PointD(10, 0));
+
+  vector<pair<m2::PointD, m2::PointD>> sections;
+  m2::ForEachSection(spl, 3.0, [&](m2::PointD const & p1, m2::PointD const & p2) { sections.emplace_back(p1, p2); });
+
+  // Length 10, maxLength 3 → ceil(10/3) = 4 sections.
+  TEST_EQUAL(sections.size(), 4, ());
+
+  // All sections are contiguous.
+  for (size_t i = 1; i < sections.size(); ++i)
+    TEST(sections[i].first.EqualDxDy(sections[i - 1].second, kSplitEps), ());
+
+  // First starts at origin, last ends at (10, 0).
+  TEST(sections.front().first.EqualDxDy(m2::PointD(0, 0), kSplitEps), ());
+  TEST(sections.back().second.EqualDxDy(m2::PointD(10, 0), kSplitEps), ());
+
+  // Each section length <= maxLength.
+  for (auto const & [p1, p2] : sections)
+    TEST_LESS_OR_EQUAL(p1.Length(p2), 3.0 + kSplitEps, ());
+}
+
+UNIT_TEST(ForEachSection_MultipleSegments)
+{
+  // Two segments: short (length 2) + long (length 6), maxLength = 4.
+  m2::Spline spl;
+  spl.AddPoint(m2::PointD(0, 0));
+  spl.AddPoint(m2::PointD(2, 0));
+  spl.AddPoint(m2::PointD(2, 6));
+
+  vector<pair<m2::PointD, m2::PointD>> sections;
+  m2::ForEachSection(spl, 4.0, [&](m2::PointD const & p1, m2::PointD const & p2) { sections.emplace_back(p1, p2); });
+
+  // First segment (length 2 <= 4): 1 section. Second segment (length 6, ceil(6/4)=2): 2 sections.
+  TEST_EQUAL(sections.size(), 3, ());
+
+  TEST(sections[0].first.EqualDxDy(m2::PointD(0, 0), kSplitEps), ());
+  TEST(sections[0].second.EqualDxDy(m2::PointD(2, 0), kSplitEps), ());
+  TEST(sections[1].first.EqualDxDy(m2::PointD(2, 0), kSplitEps), ());
+  TEST(sections[2].second.EqualDxDy(m2::PointD(2, 6), kSplitEps), ());
+
+  for (auto const & [p1, p2] : sections)
+    TEST_LESS_OR_EQUAL(p1.Length(p2), 4.0 + kSplitEps, ());
+}
+
+UNIT_TEST(ForEachSection_ExactMultiple)
+{
+  // Segment length exactly divisible by maxLength.
+  m2::Spline spl;
+  spl.AddPoint(m2::PointD(0, 0));
+  spl.AddPoint(m2::PointD(9, 0));
+
+  vector<pair<m2::PointD, m2::PointD>> sections;
+  m2::ForEachSection(spl, 3.0, [&](m2::PointD const & p1, m2::PointD const & p2) { sections.emplace_back(p1, p2); });
+
+  TEST_EQUAL(sections.size(), 3, ());
+  for (auto const & [p1, p2] : sections)
+    TEST_ALMOST_EQUAL_ABS(p1.Length(p2), 3.0, kSplitEps, ());
+}
+
 }  // namespace clipping_test

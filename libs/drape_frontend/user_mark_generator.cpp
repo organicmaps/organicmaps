@@ -3,12 +3,10 @@
 
 #include "drape/batcher.hpp"
 
-#include "geometry/mercator.hpp"
-#include "geometry/rect_intersect.hpp"
-
 #include "indexer/scales.hpp"
 
-#include <algorithm>
+#include "geometry/clipping.hpp"
+#include "geometry/mercator.hpp"
 
 namespace df
 {
@@ -53,25 +51,13 @@ void UserMarkGenerator::SetJustCreatedUserMarks(drape_ptr<IDCollections> && ids)
 void UserMarkGenerator::SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks)
 {
   for (auto & pair : *marks)
-  {
-    auto it = m_marks.find(pair.first);
-    if (it != m_marks.end())
-      it->second = std::move(pair.second);
-    else
-      m_marks.emplace(pair.first, std::move(pair.second));
-  }
+    m_marks.insert_or_assign(pair.first, std::move(pair.second));
 }
 
 void UserMarkGenerator::SetUserLines(drape_ptr<UserLinesRenderCollection> && lines)
 {
   for (auto & pair : *lines)
-  {
-    auto it = m_lines.find(pair.first);
-    if (it != m_lines.end())
-      it->second = std::move(pair.second);
-    else
-      m_lines.emplace(pair.first, std::move(pair.second));
-  }
+    m_lines.insert_or_assign(pair.first, std::move(pair.second));
 }
 
 void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
@@ -116,17 +102,29 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
       if (zoomLevel < startZoom)
         continue;
 
-      // Process spline by segments that are no longer than tile size.
-      double const maxLength = mercator::Bounds::kRangeX / (1 << (zoomLevel - 1));
-
       for (auto const & spline : params.m_splines)
       {
-        df::ProcessSplineSegmentRects(spline, maxLength, [&](m2::RectD const & segmentRect)
+        auto const cov = CalcTilesCoverage(spline->GetRect(), zoomLevel, nullptr);
+        if (cov.IsOneTile())  // Most likely path
+          tiles.emplace(cov.m_minTileX, cov.m_minTileY, zoomLevel);
+        else if (cov.GetTilesCount() <= 16)
         {
-          CalcTilesCoverage(segmentRect, zoomLevel,
-                            [&](int tileX, int tileY) { tiles.emplace(tileX, tileY, zoomLevel); });
-          return true;
-        });
+          cov.ForEach([&](int tileX, int tileY)
+          {
+            TileKey tileKey(tileX, tileY, zoomLevel);
+            if (!tiles.contains(tileKey) && m2::IsRealIntersect(tileKey.GetWrappedDataRect(), *spline))
+              tiles.insert(tileKey);
+          });
+        }
+        else  // Fallback to the approx covering, avoiding O(tilesCount * segsCount) complexity.
+        {
+          double const maxLength = mercator::Bounds::kRangeX / (1 << (zoomLevel - 1));
+          m2::ForEachSection(*spline, maxLength, [&](m2::PointD const & p1, m2::PointD const & p2)
+          {
+            CalcTilesCoverage(m2::RectD(p1, p2), zoomLevel,
+                              [&](int tileX, int tileY) { tiles.emplace(tileX, tileY, zoomLevel); });
+          });
+        }
       }
     }
 
@@ -142,51 +140,34 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
 
 ref_ptr<IDCollections> UserMarkGenerator::GetIdCollection(TileKey const & tileKey, kml::MarkGroupId groupId)
 {
-  ref_ptr<MarksIDGroups> tileGroups;
-  auto itTileGroups = m_index.find(tileKey);
-  if (itTileGroups == m_index.end())
-  {
-    auto tileIDGroups = make_unique_dp<MarksIDGroups>();
-    tileGroups = make_ref(tileIDGroups);
-    m_index.insert(make_pair(tileKey, std::move(tileIDGroups)));
-  }
-  else
-  {
-    tileGroups = make_ref(itTileGroups->second);
-  }
+  auto [itTileGroups, inserted1] = m_index.emplace(tileKey, nullptr);
+  if (inserted1)
+    itTileGroups->second = make_unique_dp<MarksIDGroups>();
 
-  ref_ptr<IDCollections> groupIDs;
-  auto itGroupIDs = tileGroups->find(groupId);
-  if (itGroupIDs == tileGroups->end())
-  {
-    auto groupMarkIndexes = make_unique_dp<IDCollections>();
-    groupIDs = make_ref(groupMarkIndexes);
-    tileGroups->insert(make_pair(groupId, std::move(groupMarkIndexes)));
-  }
-  else
-  {
-    groupIDs = make_ref(itGroupIDs->second);
-  }
+  auto [itGroupIDs, inserted2] = itTileGroups->second->emplace(groupId, nullptr);
+  if (inserted2)
+    itGroupIDs->second = make_unique_dp<IDCollections>();
 
-  return groupIDs;
+  return make_ref(itGroupIDs->second);
 }
 
 void UserMarkGenerator::CleanIndex()
 {
+  for (auto & tileGroups : m_index)
+  {
+    auto & groups = tileGroups.second;
+    for (auto groupIt = groups->begin(); groupIt != groups->end();)
+      if (groupIt->second->IsEmpty())
+        groupIt = groups->erase(groupIt);
+      else
+        ++groupIt;
+  }
+
   for (auto tileIt = m_index.begin(); tileIt != m_index.end();)
     if (tileIt->second->empty())
       tileIt = m_index.erase(tileIt);
     else
       ++tileIt;
-
-  for (auto & tileGroups : m_index)
-  {
-    for (auto groupIt = tileGroups.second->begin(); groupIt != tileGroups.second->end();)
-      if (groupIt->second->IsEmpty())
-        groupIt = tileGroups.second->erase(groupIt);
-      else
-        ++groupIt;
-  }
 }
 
 void UserMarkGenerator::SetGroupVisibility(kml::MarkGroupId groupId, bool isVisible)
@@ -209,15 +190,27 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserMarksGroups(TileKey const & til
 
 ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & tileKey)
 {
-  auto itTile = m_index.end();
   int const lineZoom = GetNearestLineIndexZoom(tileKey.m_zoomLevel);
+
   // Use wrapped data rect so extended tiles (past the antimeridian)
   // produce canonical tile coordinates that match the index.
-  CalcTilesCoverage(tileKey.GetWrappedDataRect(), lineZoom, [this, &itTile, lineZoom](int tileX, int tileY)
-  { itTile = m_index.find(TileKey(tileX, tileY, lineZoom)); });
-  if (itTile != m_index.end())
-    return make_ref(itTile->second);
-  return nullptr;
+  auto tileRect = tileKey.GetWrappedDataRect();
+
+  // We know for sure that child-parent boundary tiles should have _equal_ boundary coordinates.
+  // Reduce input tile rect to avoid unnecessary overlapping with neibour tiles because of calculation errors.
+  /// @todo Better to use child-parent tile arithmetics here instead of raw rect covering.
+  tileRect.Inflate(-kMwmPointAccuracy, -kMwmPointAccuracy);
+
+  auto const cov = CalcTilesCoverage(tileKey.GetWrappedDataRect(), lineZoom, nullptr);
+  // Should be the _one_ covering tile since with selected lineZoom <= tileKey.m_zoomLevel above.
+  /// @todo I see visible lags now on Desktop app. Better strategy is:
+  /// - make covering with child index tiles (e.g. when tileKey.m_zoomLevel < lineZoom)
+  /// - return vector<ref_ptr<MarksIDGroups>>
+  /// - use visited set when processing TrackId
+  ASSERT(cov.IsOneTile(), ());
+
+  auto itTile = m_index.find(TileKey(cov.m_minTileX, cov.m_minTileY, lineZoom));
+  return itTile != m_index.end() ? make_ref(itTile->second) : nullptr;
 }
 
 void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,

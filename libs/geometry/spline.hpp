@@ -59,20 +59,6 @@ public:
 
   iterator GetPoint(double step) const;
 
-  template <typename TFunctor>
-  void ForEachNode(iterator const & begin, iterator const & end, TFunctor const & f) const
-  {
-    ASSERT(begin.BeginAgain() == false, ());
-    ASSERT(end.BeginAgain() == false, ());
-
-    f(begin.m_pos);
-
-    for (size_t i = begin.GetIndex() + 1; i <= end.GetIndex(); ++i)
-      f(m_position[i]);
-
-    f(end.m_pos);
-  }
-
   bool IsEmpty() const;
   bool IsValid() const;
 
@@ -110,15 +96,23 @@ public:
   explicit SharedSpline(std::vector<PointD> const & path);
   explicit SharedSpline(std::vector<PointD> && path);
 
-  bool IsNull() const;
+  bool IsNull() const { return m_spline == nullptr; }
   void Reset(Spline * spline);
-  // void Reset(std::vector<PointD> const & path);
 
   Spline::iterator CreateIterator() const;
 
-  Spline * operator->();
-  Spline const * operator->() const;
-  Spline const * Get() const;
+  Spline * operator->()
+  {
+    ASSERT(!IsNull(), ());
+    return m_spline.get();
+  }
+  Spline const & operator*() const { return *Get(); }
+  Spline const * operator->() const { return Get(); }
+  Spline const * Get() const
+  {
+    ASSERT(!IsNull(), ());
+    return m_spline.get();
+  }
 
   SharedSpline Equidistant(double dist) const;
 
