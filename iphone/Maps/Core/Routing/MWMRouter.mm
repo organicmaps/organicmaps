@@ -16,6 +16,8 @@
 #include <CoreApi/Framework.h>
 #include <CoreApi/StringUtils+Core.h>
 
+#include "map/chart_generator.hpp"
+
 #include "platform/distance.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
@@ -492,7 +494,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     if (!imageData)
     {
       std::vector<uint8_t> imageRGBAData;
-      if (!ei->GenerateRouteAltitudeChart(width, height, imageRGBAData))
+      if (!ChartGenerator(*ei).Generate(width, height, imageRGBAData))
         return;
       if (imageRGBAData.empty())
         return;

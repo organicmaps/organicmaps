@@ -1,14 +1,8 @@
 #include "map/elevation_info.hpp"
 
-#include "map/chart_generator.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/simplification.hpp"
-
-#include "indexer/map_style_reader.hpp"
-
-#include "base/math.hpp"
 
 ElevationInfo::ElevationInfo(std::vector<GeometryLine> const & lines)
 {
@@ -94,6 +88,23 @@ void ElevationInfo::SmoothSlopeOutliers(double maxSlopePercent)
           geometry::Altitude(double(line[left].m_altitude) * (1.0 - f) + double(line[right].m_altitude) * f);
     }
   }
+}
+
+double ElevationInfo::GetLength() const
+{
+  double length = 0;
+  for (auto const & line : m_lines)
+  {
+    ASSERT(!line.empty(), ());
+    length += line.back().m_distance;
+  }
+  return length;
+}
+
+ElevationInfo::Altitude ElevationInfo::GetFirstAltitude() const
+{
+  ASSERT(!IsEmpty() && !m_lines.front().empty(), ());
+  return m_lines.front().front().m_altitude;
 }
 
 void ElevationInfo::Assign(std::vector<double> const & segDistances, geometry::Altitudes const & altitudes)
@@ -203,24 +214,6 @@ ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude thre
     }
   }
   return info;
-}
-
-bool ElevationInfo::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                               std::vector<uint8_t> & imageRGBAData) const
-{
-  std::vector<double> distances;
-  geometry::Altitudes altitudes;
-
-  ForEachPoint([&](double d, geometry::Altitude a)
-  {
-    distances.push_back(d);
-    altitudes.push_back(a);
-  });
-
-  if (distances.empty())
-    return false;
-
-  return maps::GenerateChart(width, height, distances, altitudes, GetStyleReader().GetCurrentStyle(), imageRGBAData);
 }
 
 void GpsTrackElevation::AddGpsPoints(GpsPoints const & points)
