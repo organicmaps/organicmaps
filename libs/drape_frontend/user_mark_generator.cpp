@@ -10,7 +10,18 @@
 
 namespace df
 {
-std::array<int, 3> const kLineIndexingLevels = {1, 7, 11};
+namespace
+{
+std::array<int, 3> const kLineIndexingLevels = {4, 8, 12};
+
+int GetNearestLineIndexZoom(int zoom)
+{
+  for (auto z : kLineIndexingLevels)
+    if (zoom <= z)
+      return z;
+  return kLineIndexingLevels.back();
+}
+}  // namespace
 
 UserMarkGenerator::UserMarkGenerator(TFlushFn const & flushFn) : m_flushFn(flushFn)
 {
@@ -188,7 +199,7 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserMarksGroups(TileKey const & til
   return nullptr;
 }
 
-ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & tileKey)
+TracksSource UserMarkGenerator::GetUserLinesGroups(TileKey const & tileKey)
 {
   int const lineZoom = GetNearestLineIndexZoom(tileKey.m_zoomLevel);
 
@@ -196,21 +207,21 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & til
   // produce canonical tile coordinates that match the index.
   auto tileRect = tileKey.GetWrappedDataRect();
 
-  // We know for sure that child-parent boundary tiles should have _equal_ boundary coordinates.
-  // Reduce input tile rect to avoid unnecessary overlapping with neibour tiles because of calculation errors.
+  // Reduce input tile rect to avoid unnecessary overlapping with neighbour tiles because of calculation errors.
   /// @todo Better to use child-parent tile arithmetics here instead of raw rect covering.
   tileRect.Inflate(-kMwmPointAccuracy, -kMwmPointAccuracy);
 
-  auto const cov = CalcTilesCoverage(tileKey.GetWrappedDataRect(), lineZoom, nullptr);
-  // Should be the _one_ covering tile since with selected lineZoom <= tileKey.m_zoomLevel above.
-  /// @todo I see visible lags now on Desktop app. Better strategy is:
-  /// - make covering with child index tiles (e.g. when tileKey.m_zoomLevel < lineZoom)
-  /// - return vector<ref_ptr<MarksIDGroups>>
-  /// - use visited set when processing TrackId
-  ASSERT(cov.IsOneTile(), ());
+  TracksSource source(&m_groupsVisibility);
 
-  auto itTile = m_index.find(TileKey(cov.m_minTileX, cov.m_minTileY, lineZoom));
-  return itTile != m_index.end() ? make_ref(itTile->second) : nullptr;
+  auto const cov = CalcTilesCoverage(tileRect, lineZoom, nullptr);
+  cov.ForEach([&](int tileX, int tileY)
+  {
+    auto itTile = m_index.find(TileKey(tileX, tileY, lineZoom));
+    if (itTile != m_index.end())
+      source.AddGroup(make_ref(itTile->second));
+  });
+
+  return source;
 }
 
 void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
@@ -218,9 +229,9 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
 {
   auto const clippedTileKey = TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
   auto marksGroups = GetUserMarksGroups(clippedTileKey);
-  auto linesGroups = GetUserLinesGroups(clippedTileKey);
+  auto linesSource = GetUserLinesGroups(clippedTileKey);
 
-  if (marksGroups == nullptr && linesGroups == nullptr)
+  if (marksGroups == nullptr && linesSource.IsEmpty())
     return;
 
   uint32_t constexpr kMaxSize = 65000;
@@ -232,40 +243,18 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
                            [&tileKey, &renderData](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     { renderData.emplace_back(state, std::move(b), tileKey); });
 
-    if (marksGroups != nullptr)
-      CacheUserMarks(context, tileKey, *marksGroups.get(), textures, batcher);
-    if (linesGroups != nullptr)
-      CacheUserLines(context, tileKey, *linesGroups.get(), textures, batcher);
+    if (marksGroups)
+    {
+      for (auto const & gp : *marksGroups.get())
+        if (m_groupsVisibility.contains(gp.first))
+          df::CacheUserMarks(context, tileKey, textures, gp.second->m_markIds, m_marks, batcher);
+    }
+
+    if (!linesSource.IsEmpty())
+      df::CacheUserLines(context, tileKey, textures, linesSource, m_lines, batcher);
   }
+
   m_flushFn(std::move(renderData));
 }
 
-void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
-                                       dp::Batcher & batcher) const
-{
-  for (auto const & gp : indexesGroups)
-    if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
-      df::CacheUserLines(context, tileKey, textures, gp.second->m_lineIds, m_lines, batcher);
-}
-
-void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
-                                       dp::Batcher & batcher) const
-{
-  for (auto const & gp : indexesGroups)
-    if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
-      df::CacheUserMarks(context, tileKey, textures, gp.second->m_markIds, m_marks, batcher);
-}
-
-int UserMarkGenerator::GetNearestLineIndexZoom(int zoom) const
-{
-  int nearestZoom = kLineIndexingLevels[0];
-  for (size_t i = 1; i < kLineIndexingLevels.size(); ++i)
-    if (kLineIndexingLevels[i] <= zoom)
-      nearestZoom = kLineIndexingLevels[i];
-    else
-      break;
-  return nearestZoom;
-}
 }  // namespace df
