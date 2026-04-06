@@ -8,8 +8,6 @@
 
 #include "geometry/spline.hpp"
 
-#include <limits>
-#include <memory>
 #include <unordered_map>
 
 namespace df
@@ -82,9 +80,6 @@ struct UserMarkRenderData
 };
 
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
-
-void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmentLength,
-                               std::function<bool(m2::RectD const & segmentRect)> const & func);
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     kml::MarkIdCollection const & marksId, UserMarksRenderCollection const & renderParams,

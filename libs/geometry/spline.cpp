@@ -1,8 +1,6 @@
 #include "geometry/spline.hpp"
 #include "geometry/line2d.hpp"
 
-#include "base/logging.hpp"
-
 #include <numeric>
 
 namespace m2
@@ -301,43 +299,16 @@ SharedSpline::SharedSpline(std::vector<PointD> const & path) : m_spline(std::mak
 
 SharedSpline::SharedSpline(std::vector<PointD> && path) : m_spline(std::make_shared<Spline>(std::move(path))) {}
 
-bool SharedSpline::IsNull() const
-{
-  return m_spline == nullptr;
-}
-
 void SharedSpline::Reset(Spline * spline)
 {
   m_spline.reset(spline);
 }
-
-// void SharedSpline::Reset(std::vector<PointD> const & path)
-//{
-//   m_spline.reset(new Spline(path));
-// }
 
 Spline::iterator SharedSpline::CreateIterator() const
 {
   Spline::iterator result;
   result.Attach(*m_spline.get());
   return result;
-}
-
-Spline * SharedSpline::operator->()
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
-
-Spline const * SharedSpline::operator->() const
-{
-  return Get();
-}
-
-Spline const * SharedSpline::Get() const
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
 }
 
 SharedSpline SharedSpline::Equidistant(double dist) const
