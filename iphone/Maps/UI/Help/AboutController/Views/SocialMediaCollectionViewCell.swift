@@ -11,12 +11,6 @@ final class SocialMediaCollectionViewCell: UICollectionViewCell {
     setupView()
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    updateImageColor()
-  }
-
   private func setupView() {
     setStyle(.clearBackground)
 

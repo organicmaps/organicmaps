@@ -53,7 +53,7 @@ final class TransportOptionsView: UIView {
     ])
   }
 
-  func reload() {
+  private func reload() {
     segmentedControl.removeAllSegments()
     for (index, type) in routerTypes.enumerated() {
       let isSelected = type == selectedRouterType

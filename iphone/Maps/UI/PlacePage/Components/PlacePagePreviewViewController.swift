@@ -57,12 +57,6 @@ final class PlacePagePreviewViewController: UIViewController {
     }
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    updateViews()
-  }
-
   func updateViews() {
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {

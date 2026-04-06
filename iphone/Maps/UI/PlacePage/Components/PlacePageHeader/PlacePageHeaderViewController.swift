@@ -79,12 +79,6 @@ final class PlacePageHeaderViewController: UIViewController {
     }
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    updateTitleEditingStyle()
-  }
-
   @objc private func onExpandPressed(sender _: UITapGestureRecognizer) {
     presenter?.onExpandPress()
   }

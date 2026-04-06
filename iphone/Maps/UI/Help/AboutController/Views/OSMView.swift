@@ -19,12 +19,6 @@ final class OSMView: UIView {
     layoutViews()
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard let mapDate, traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    OSMTextLabel.attributedText = attributedString(for: mapDate)
-  }
-
   // MARK: - Public
 
   func setMapDate(_ mapDate: String) {

@@ -62,12 +62,8 @@
 {
   [super traitCollectionDidChange:previousTraitCollection];
   // Update the app theme when the device appearance is changing.
-  if ((self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass) ||
-      (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass) ||
-      (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle))
-  {
+  if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection])
     [MWMThemeManager invalidate];
-  }
 }
 
 - (BOOL)shouldAutorotate
