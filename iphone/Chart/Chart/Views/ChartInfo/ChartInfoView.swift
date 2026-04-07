@@ -8,8 +8,8 @@ struct ChartLineInfo {
 
 protocol ChartInfoViewDelegate: AnyObject {
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])?
-  func chartInfoView(_ view: ChartInfoView, didCaptureInfoView captured: Bool)
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat)
+  func chartInfoView(_ view: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool
 }
 
 class ChartInfoView: ExpandedTouchView {
@@ -20,11 +20,7 @@ class ChartInfoView: ExpandedTouchView {
   private let myPositionView = ChartMyPositionView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
   private var lineInfo: ChartLineInfo?
 
-  fileprivate var captured = false {
-    didSet {
-      delegate?.chartInfoView(self, didCaptureInfoView: captured)
-    }
-  }
+  fileprivate var captured = false
 
   private var _infoX: CGFloat = 0
   var infoX: CGFloat {
@@ -82,7 +78,8 @@ class ChartInfoView: ExpandedTouchView {
     }
   }
 
-  var panGR: UIPanGestureRecognizer!
+  private var scrubGR: UILongPressGestureRecognizer!
+  var selectionGestureRecognizer: UIGestureRecognizer { scrubGR }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -92,9 +89,11 @@ class ChartInfoView: ExpandedTouchView {
     addSubview(pointsView)
     addSubview(pointInfoView)
     isExclusiveTouch = true
-    panGR = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-    panGR.delegate = self
-    addGestureRecognizer(panGR)
+    scrubGR = UILongPressGestureRecognizer(target: self, action: #selector(onScrub(_:)))
+    scrubGR.minimumPressDuration = 0
+    scrubGR.allowableMovement = .greatestFiniteMagnitude
+    scrubGR.delegate = self
+    addGestureRecognizer(scrubGR)
     pointInfoView.textColor = textColor
     pointInfoView.backgroundColor = tooltipBackgroundColor
   }
@@ -122,22 +121,20 @@ class ChartInfoView: ExpandedTouchView {
     myPositionView.pinY = myPositionPoints[0].point.y
   }
 
-  @objc func onPan(_ sender: UIPanGestureRecognizer) {
-    let x = sender.location(in: self).x
+  @objc private func onScrub(_ sender: UILongPressGestureRecognizer) {
+    let x = max(bounds.minX, min(bounds.maxX, sender.location(in: self).x))
     switch sender.state {
     case .possible:
       break
     case .began:
-      guard let lineInfo = lineInfo else { return }
-      captured = abs(x - lineInfo.point.x) <= 22
+      captured = delegate?.chartInfoView(self, shouldStartSelectingAtPoint: x) ?? false
+      guard captured else { return }
+      update(x)
+      delegate?.chartInfoView(self, didMoveToPoint: x)
     case .changed:
-      if captured {
-        if x < bounds.minX || x > bounds.maxX {
-          return
-        }
-        update(x)
-        delegate?.chartInfoView(self, didMoveToPoint: x)
-      }
+      guard captured else { return }
+      update(x)
+      delegate?.chartInfoView(self, didMoveToPoint: x)
     case .ended, .cancelled, .failed:
       captured = false
     @unknown default:
@@ -191,8 +188,17 @@ class ChartInfoView: ExpandedTouchView {
 }
 
 extension ChartInfoView: UIGestureRecognizerDelegate {
+  override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    guard gestureRecognizer === scrubGR else { return true }
+    let pointX = gestureRecognizer.location(in: self).x
+    return delegate?.chartInfoView(self, shouldStartSelectingAtPoint: pointX) ?? false
+  }
+
   func gestureRecognizer(_: UIGestureRecognizer,
-                         shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
-    !captured
+                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    if otherGestureRecognizer is UIPinchGestureRecognizer {
+      return true
+    }
+    return !captured
   }
 }
