@@ -7,7 +7,7 @@ enum ChartAnimation: TimeInterval {
 }
 
 public class ChartView: UIView {
-  private static let kSelectedPointCaptureRadius: CGFloat = 22
+  private static let selectedPointCaptureRadius: CGFloat = 22
 
   let chartsContainerView = ExpandedTouchView()
   let chartPreviewView = ChartPreviewView()
@@ -358,7 +358,7 @@ public class ChartView: UIView {
 
     let clampedPointX = max(chartInfoView.bounds.minX, min(chartInfoView.bounds.maxX, pointX))
     let selectedPointX = chartInfoView.infoX * chartInfoView.bounds.width
-    return abs(clampedPointX - selectedPointX) <= Self.kSelectedPointCaptureRadius
+    return abs(clampedPointX - selectedPointX) <= Self.selectedPointCaptureRadius
   }
 }
 
@@ -379,8 +379,6 @@ extension ChartView: ChartInfoViewDelegate {
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
-
-  func chartInfoView(_: ChartInfoView, didCaptureInfoView _: Bool) {}
 
   func chartInfoView(_: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool {
     shouldStartSelecting(at: pointX)

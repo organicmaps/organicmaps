@@ -8,7 +8,6 @@ struct ChartLineInfo {
 
 protocol ChartInfoViewDelegate: AnyObject {
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])?
-  func chartInfoView(_ view: ChartInfoView, didCaptureInfoView captured: Bool)
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat)
   func chartInfoView(_ view: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool
 }
@@ -21,11 +20,7 @@ class ChartInfoView: ExpandedTouchView {
   private let myPositionView = ChartMyPositionView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
   private var lineInfo: ChartLineInfo?
 
-  fileprivate var captured = false {
-    didSet {
-      delegate?.chartInfoView(self, didCaptureInfoView: captured)
-    }
-  }
+  fileprivate var captured = false
 
   private var _infoX: CGFloat = 0
   var infoX: CGFloat {
@@ -131,7 +126,12 @@ class ChartInfoView: ExpandedTouchView {
     switch sender.state {
     case .possible:
       break
-    case .began, .changed:
+    case .began:
+      captured = delegate?.chartInfoView(self, shouldStartSelectingAtPoint: x) ?? false
+      guard captured else { return }
+      update(x)
+      delegate?.chartInfoView(self, didMoveToPoint: x)
+    case .changed:
       guard captured else { return }
       update(x)
       delegate?.chartInfoView(self, didMoveToPoint: x)
@@ -191,12 +191,14 @@ extension ChartInfoView: UIGestureRecognizerDelegate {
   override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     guard gestureRecognizer === scrubGR else { return true }
     let pointX = gestureRecognizer.location(in: self).x
-    captured = delegate?.chartInfoView(self, shouldStartSelectingAtPoint: pointX) ?? false
-    return captured
+    return delegate?.chartInfoView(self, shouldStartSelectingAtPoint: pointX) ?? false
   }
 
   func gestureRecognizer(_: UIGestureRecognizer,
-                         shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
-    !captured
+                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    if otherGestureRecognizer is UIPinchGestureRecognizer {
+      return true
+    }
+    return !captured
   }
 }
