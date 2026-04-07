@@ -276,7 +276,8 @@ time_t Platform::GetFileCreationTime(std::string const & path)
     return std::min(st.stx_atime.tv_sec, std::min(st.stx_mtime.tv_sec, st.stx_ctime.tv_sec));
   }
 
-  LOG(LERROR, ("GetFileCreationTime statx failed for", path, "with error", strerror(errno)));
+  // Possible for example when settings.ini is absent (unit tests or the first launch).
+  LOG(LWARNING, ("GetFileCreationTime statx failed for", path, "with error", strerror(errno)));
 #else
   struct stat st;
   if (0 == stat(path.c_str(), &st))
