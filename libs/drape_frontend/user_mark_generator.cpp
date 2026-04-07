@@ -3,8 +3,6 @@
 
 #include "drape/batcher.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 
@@ -13,13 +11,15 @@ namespace df
 namespace
 {
 std::array<int, 3> const kLineIndexingLevels = {4, 8, 12};
+/// @todo Test as-is for now, probably worth to add additional 16 scale.
+std::array<int, 3> const kMarkIndexingLevels = {4, 8, 12};
 
-int GetNearestLineIndexZoom(int zoom)
+int GetNearestIndexZoom(auto const & levels, int zoom)
 {
-  for (auto z : kLineIndexingLevels)
+  for (auto z : levels)
     if (zoom <= z)
       return z;
-  return kLineIndexingLevels.back();
+  return levels.back();
 }
 }  // namespace
 
@@ -92,8 +92,12 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
   for (auto const & markId : idCollection.m_markIds)
   {
     UserMarkRenderParams const & params = *m_marks[markId];
-    for (int zoomLevel = params.m_minZoom; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
+    int const startZoom = GetNearestIndexZoom(kMarkIndexingLevels, params.m_minZoom);
+    for (int zoomLevel : kMarkIndexingLevels)
     {
+      if (zoomLevel < startZoom)
+        continue;
+
       TileKey const tileKey = GetTileKeyByPoint(params.m_pivot, zoomLevel);
       auto groupIDs = GetIdCollection(tileKey, groupId);
       groupIDs->m_markIds.push_back(markId);
@@ -107,7 +111,7 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
 
     UserLineRenderParams const & params = *m_lines[lineId];
 
-    int const startZoom = GetNearestLineIndexZoom(params.m_minZoom);
+    int const startZoom = GetNearestIndexZoom(kLineIndexingLevels, params.m_minZoom);
     for (int zoomLevel : kLineIndexingLevels)
     {
       if (zoomLevel < startZoom)
@@ -189,19 +193,10 @@ void UserMarkGenerator::SetGroupVisibility(kml::MarkGroupId groupId, bool isVisi
     m_groupsVisibility.erase(groupId);
 }
 
-ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserMarksGroups(TileKey const & tileKey)
+template <class SourceT, class LevelsT>
+SourceT UserMarkGenerator::GetIndexSource(TileKey const & tileKey, LevelsT const & levels) const
 {
-  // Wrap to canonical tile key so extended tiles (past the antimeridian)
-  // find marks indexed under canonical coordinates.
-  auto const itTile = m_index.find(tileKey.GetCanonicalTileKey());
-  if (itTile != m_index.end())
-    return make_ref(itTile->second);
-  return nullptr;
-}
-
-TracksSource UserMarkGenerator::GetUserLinesGroups(TileKey const & tileKey)
-{
-  int const lineZoom = GetNearestLineIndexZoom(tileKey.m_zoomLevel);
+  int const indexZoom = GetNearestIndexZoom(levels, tileKey.m_zoomLevel);
 
   // Use wrapped data rect so extended tiles (past the antimeridian)
   // produce canonical tile coordinates that match the index.
@@ -211,12 +206,12 @@ TracksSource UserMarkGenerator::GetUserLinesGroups(TileKey const & tileKey)
   /// @todo Better to use child-parent tile arithmetics here instead of raw rect covering.
   tileRect.Inflate(-kMwmPointAccuracy, -kMwmPointAccuracy);
 
-  TracksSource source(&m_groupsVisibility);
+  SourceT source(&m_groupsVisibility);
 
-  auto const cov = CalcTilesCoverage(tileRect, lineZoom, nullptr);
+  auto const cov = CalcTilesCoverage(tileRect, indexZoom, nullptr);
   cov.ForEach([&](int tileX, int tileY)
   {
-    auto itTile = m_index.find(TileKey(tileX, tileY, lineZoom));
+    auto itTile = m_index.find(TileKey(tileX, tileY, indexZoom));
     if (itTile != m_index.end())
       source.AddGroup(make_ref(itTile->second));
   });
@@ -228,10 +223,11 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
                                                   ref_ptr<dp::TextureManager> textures)
 {
   auto const clippedTileKey = TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
-  auto marksGroups = GetUserMarksGroups(clippedTileKey);
-  auto linesSource = GetUserLinesGroups(clippedTileKey);
 
-  if (marksGroups == nullptr && linesSource.IsEmpty())
+  auto marksSource = GetIndexSource<MarksSource>(clippedTileKey, kMarkIndexingLevels);
+  auto linesSource = GetIndexSource<TracksSource>(clippedTileKey, kLineIndexingLevels);
+
+  if (marksSource.IsEmpty() && linesSource.IsEmpty())
     return;
 
   uint32_t constexpr kMaxSize = 65000;
@@ -243,13 +239,8 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
                            [&tileKey, &renderData](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     { renderData.emplace_back(state, std::move(b), tileKey); });
 
-    if (marksGroups)
-    {
-      for (auto const & gp : *marksGroups.get())
-        if (m_groupsVisibility.contains(gp.first))
-          df::CacheUserMarks(context, tileKey, textures, gp.second->m_markIds, m_marks, batcher);
-    }
-
+    if (!marksSource.IsEmpty())
+      df::CacheUserMarks(context, tileKey, textures, marksSource, m_marks, batcher);
     if (!linesSource.IsEmpty())
       df::CacheUserLines(context, tileKey, textures, linesSource, m_lines, batcher);
   }

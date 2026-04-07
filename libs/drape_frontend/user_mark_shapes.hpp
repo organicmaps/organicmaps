@@ -71,35 +71,77 @@ using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<User
 using UserLinesRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserLineRenderParams>>;
 using UserGroupsVisibilitySet = std::unordered_set<kml::MarkGroupId>;
 
-class TracksSource
+class SourceBase
 {
 public:
-  explicit TracksSource(UserGroupsVisibilitySet const * visibility) : m_visibility(visibility) {}
+  explicit SourceBase(UserGroupsVisibilitySet const * visibility) : m_visibility(visibility) {}
   void AddGroup(ref_ptr<MarksIDGroups> group) { m_groups.push_back(group); }
   bool IsEmpty() const { return m_groups.empty(); }
 
-  /// Iterates unique tracks across all groups, respecting group visibility and track's minZoom.
-  /// @param fn is called with UserLineRenderParams const &.
+protected:
   template <class FnT>
-  void ForEachUniqueTrack(int zoom, UserLinesRenderCollection const & lines, FnT && fn) const
+  void ForEachVisibleGroup(FnT && fn) const
   {
-    std::unordered_set<kml::TrackId> visited;
-
     for (auto const & group : m_groups)
       for (auto const & [groupId, ids] : *group.get())
         if (m_visibility->contains(groupId))
-          for (auto const lineId : ids->m_lineIds)
-            if (visited.insert(lineId).second)
-            {
-              auto it = lines.find(lineId);
-              if (it != lines.end() && it->second->m_minZoom <= zoom)
-                fn(*it->second);
-            }
+          fn(*ids);
   }
 
 private:
   UserGroupsVisibilitySet const * m_visibility;
   std::vector<ref_ptr<MarksIDGroups>> m_groups;
+};
+
+class MarksSource : public SourceBase
+{
+public:
+  using SourceBase::SourceBase;
+
+  /// Iterates marks across all visible groups, filtering by minZoom and tile containment.
+  /// @param fn is called with UserMarkRenderParams const &.
+  template <class FnT>
+  void ForEachMark(TileKey const & tileKey, UserMarksRenderCollection const & marks, FnT && fn) const
+  {
+    auto const tileRect = tileKey.GetWrappedDataRect();
+    ForEachVisibleGroup([&](IDCollections const & ids)
+    {
+      for (auto const markId : ids.m_markIds)
+      {
+        auto it = marks.find(markId);
+        if (it == marks.end())
+          continue;
+
+        auto const & rp = *it->second;
+        if (rp.m_isVisible && rp.m_minZoom <= tileKey.m_zoomLevel && tileRect.IsPointInside(rp.m_pivot))
+          fn(rp);
+      }
+    });
+  }
+};
+
+class TracksSource : public SourceBase
+{
+public:
+  using SourceBase::SourceBase;
+
+  /// Iterates unique tracks across all visible groups, filtering by minZoom.
+  /// @param fn is called with UserLineRenderParams const &.
+  template <class FnT>
+  void ForEachUniqueTrack(int zoom, UserLinesRenderCollection const & lines, FnT && fn) const
+  {
+    std::unordered_set<kml::TrackId> visited;
+    ForEachVisibleGroup([&](IDCollections const & ids)
+    {
+      for (auto const lineId : ids.m_lineIds)
+        if (visited.insert(lineId).second)
+        {
+          auto it = lines.find(lineId);
+          if (it != lines.end() && it->second->m_minZoom <= zoom)
+            fn(*it->second);
+        }
+    });
+  }
 };
 
 struct UserMarkRenderData
@@ -118,8 +160,7 @@ struct UserMarkRenderData
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection const & renderParams,
-                    dp::Batcher & batcher);
+                    MarksSource const & source, UserMarksRenderCollection const & renderParams, dp::Batcher & batcher);
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);

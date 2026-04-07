@@ -37,8 +37,8 @@ private:
   ref_ptr<IDCollections> GetIdCollection(TileKey const & tileKey, kml::MarkGroupId groupId);
   void CleanIndex();
 
-  ref_ptr<MarksIDGroups> GetUserMarksGroups(TileKey const & tileKey);
-  TracksSource GetUserLinesGroups(TileKey const & tileKey);
+  template <class SourceT, class LevelsT>
+  SourceT GetIndexSource(TileKey const & tileKey, LevelsT const & levels) const;
 
   UserGroupsVisibilitySet m_groupsVisibility;
   MarksIDGroups m_groups;
