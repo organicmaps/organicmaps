@@ -432,13 +432,16 @@ extension PlacePageViewController: UIScrollViewDelegate {
       interactor?.close()
       return
     }
-    if velocity.y > Constants.fastSwipeUpVelocity {
+
+    guard let lastStop = scrollSteps.last else { return }
+    let isFullyExpanded = isNavigationBarVisible || scrollView.contentOffset.y >= lastStop.offset
+
+    if velocity.y > Constants.fastSwipeUpVelocity, !isFullyExpanded {
       showLastStop()
       return
     }
 
-    let maxOffset = scrollSteps.last?.offset ?? 0
-    if targetContentOffset.pointee.y > maxOffset {
+    if targetContentOffset.pointee.y > lastStop.offset {
       return
     }
 
