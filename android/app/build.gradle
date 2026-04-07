@@ -404,6 +404,7 @@ huaweiPublish {
           'ml-IN': 'ml_IN',
           'mn-MN': 'mn_MN',
           'mr-IN': 'mr_IN',
+          'sw'   : 'sw_TZ',
           'ta-IN': 'ta_IN',
           'te-IN': 'te_IN',
       ]
@@ -411,8 +412,10 @@ huaweiPublish {
           include: '**/release-notes.txt')
       files.each { File file ->
         def locale = file.parentFile.getName()
-        if (locale == 'hy-AM') {
-          return // Armenian locale is not supported by Huawei AppGallery, skip it.
+        if (locale in ['af', 'en-AU', 'en-CA', 'en-IN', 'en-SG', 'en-ZA',
+            'es-US', 'fa-AE', 'fa-AF', 'fr-CA', 'hy-AM', 'is-IS', 'ky-KG',
+            'ms-MY', 'rm', 'sq', 'zu']) {
+          return // These locales are not supported by Huawei AppGallery, skip them.
         }
         def path = file.getPath()
         locale = localeOverride.get(locale, locale)
