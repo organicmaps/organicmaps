@@ -364,8 +364,12 @@ tasks.register("prepareGoogleReleaseListing") {
     final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
     final sourceFiles = fileTree(dir: sourceDir,
         include: '**/*.txt', exclude: "**/*-${targetFlavor}.txt")
+    // Locales that exist in F-Droid listings but are not supported by Google Play.
+    final googleUnsupportedLocales = ['as', 'bo', 'bs', 'jv', 'mai', 'mi', 'or', 'ug', 'uz']
     sourceFiles.each { File sourceFile ->
       final locale = sourceFile.parentFile.getName()
+      if (locale in googleUnsupportedLocales)
+        return
       final targetLocaleDir = new File(targetDir, locale)
       if (!targetLocaleDir.isDirectory())
         targetLocaleDir.mkdirs()
@@ -397,16 +401,22 @@ huaweiPublish {
       deployType = 'draft' // Requires manual confirmation in Huawei AppGallery Connect.
       def releaseDescriptions = []
       def localeOverride = [
-          'am'   : 'am-ET',
+          'am'   : 'am_ET',
+          'as'   : 'as_IN',
           'gu'   : 'gu_IN',
           'iw-IL': 'he_IL',
           'kn-IN': 'kn_IN',
+//          'mai'  : 'mai_Deva_IN',
+          'mi'   : 'mi_NZ',
           'ml-IN': 'ml_IN',
           'mn-MN': 'mn_MN',
           'mr-IN': 'mr_IN',
+          'or'   : 'or_IN',
+//          'pa-IN' : 'pa_Guru_IN',
           'sw'   : 'sw_TZ',
           'ta-IN': 'ta_IN',
           'te-IN': 'te_IN',
+          'ug'   : 'ug_CN',
       ]
       def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
           include: '**/release-notes.txt')
@@ -414,7 +424,10 @@ huaweiPublish {
         def locale = file.parentFile.getName()
         if (locale in ['af', 'en-AU', 'en-CA', 'en-IN', 'en-SG', 'en-ZA',
             'es-US', 'fa-AE', 'fa-AF', 'fr-CA', 'hy-AM', 'is-IS', 'ky-KG',
-            'ms-MY', 'rm', 'sq', 'zu']) {
+            'ms-MY', 'rm', 'sq', 'zu',
+            'ta-IN', 'te-IN',  // Not supported in Huawei
+            'mai', 'pa',       // Excluded temporarily due to "max language length > 8" error when publishing
+            ]) {
           return // These locales are not supported by Huawei AppGallery, skip them.
         }
         def path = file.getPath()
