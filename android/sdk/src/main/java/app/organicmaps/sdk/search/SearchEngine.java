@@ -10,8 +10,7 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
 import org.chromium.base.ObserverList;
 
-public enum SearchEngine implements SearchListener, MapSearchListener,
-                                    BookmarkSearchListener
+public enum SearchEngine implements SearchListener, MapSearchListener
 {
   INSTANCE;
 
@@ -47,25 +46,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     });
   }
 
-  @Override
-  public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
-  {
-    for (BookmarkSearchListener listener : mBookmarkListeners)
-      listener.onBookmarkSearchResultsUpdate(bookmarkIds, timestamp);
-  }
-
-  @Override
-  public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
-  {
-    for (BookmarkSearchListener listener : mBookmarkListeners)
-      listener.onBookmarkSearchResultsEnd(bookmarkIds, timestamp);
-  }
-
   private final ObserverList<SearchListener> mListeners = new ObserverList<>();
 
   private final ObserverList<MapSearchListener> mMapListeners = new ObserverList<>();
-
-  private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
   public void addListener(SearchListener listener)
   {
@@ -85,16 +68,6 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public void removeMapListener(MapSearchListener listener)
   {
     mMapListeners.removeObserver(listener);
-  }
-
-  public void addBookmarkListener(BookmarkSearchListener listener)
-  {
-    mBookmarkListeners.addObserver(listener);
-  }
-
-  public void removeBookmarkListener(BookmarkSearchListener listener)
-  {
-    mBookmarkListeners.removeObserver(listener);
   }
 
   /**
@@ -137,12 +110,6 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   public static void searchMaps(@NonNull Context context, @NonNull String query, long timestamp)
   {
     nativeRunSearchMaps(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context), timestamp);
-  }
-
-  @MainThread
-  public boolean searchInBookmarks(@NonNull String query, long categoryId, long timestamp)
-  {
-    return nativeRunSearchInBookmarks(query.getBytes(StandardCharsets.UTF_8), categoryId, timestamp);
   }
 
   public void setQuery(@Nullable String query)
@@ -220,8 +187,6 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
    * @param bytes utf-8 formatted query bytes
    */
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
-
-  private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
 
   private static native void nativeShowResult(int index);
 
