@@ -511,8 +511,7 @@ static std::vector<std::string> GetFilePathsToLoadByType(std::string const & fil
 
 std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
 {
-  // Copy or convert file from 'filePath' to temp folder.
-  // KMZ archives are unpacked to temp folder.
+  // Copy or convert or unpack (kmz) file from 'filePath' to GetBookmarksDirectory folder.
   if (auto const fileType = GetFileType(filePath))
   {
     switch (*fileType)

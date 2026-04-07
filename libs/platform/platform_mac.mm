@@ -1,3 +1,4 @@
+#include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -190,7 +191,8 @@ time_t Platform::GetFileCreationTime(std::string const & path)
   if (0 == stat(path.c_str(), &st))
     return st.st_birthtimespec.tv_sec;
 
-  LOG(LERROR, ("GetFileCreationTime stat failed for", path, "with error", strerror(errno)));
+  // Possible for example when settings.ini is absent (unit tests or the first launch).
+  LOG(LWARNING, ("GetFileCreationTime stat failed for", path, "with error", strerror(errno)));
   // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }
