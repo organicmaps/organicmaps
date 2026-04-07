@@ -2,6 +2,7 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import java.util.Arrays;
 
 @Keep
@@ -42,6 +43,13 @@ public final class BookmarkListSnapshot
   public BookmarkListRow[] getRows()
   {
     return mRows.clone();
+  }
+
+  @VisibleForTesting
+  @NonNull
+  public static BookmarkListSnapshot forTest(boolean loading, @NonNull BookmarkListRow... rows)
+  {
+    return new BookmarkListSnapshot(loading, rows);
   }
 
   @Override

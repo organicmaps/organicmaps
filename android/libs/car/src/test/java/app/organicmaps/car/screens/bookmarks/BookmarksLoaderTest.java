@@ -9,14 +9,13 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.Track;
-import java.lang.reflect.Constructor;
 import java.util.List;
 import org.junit.Test;
 
 public class BookmarksLoaderTest
 {
   @Test
-  public void extractBookmarks_skips_non_bookmark_rows_and_limits_results() throws Exception
+  public void extractBookmarks_skips_non_bookmark_rows_and_limits_results()
   {
     BookmarkInfo firstBookmark = mock(BookmarkInfo.class);
     when(firstBookmark.getBookmarkId()).thenReturn(1L);
@@ -25,10 +24,10 @@ public class BookmarksLoaderTest
     Track track = mock(Track.class);
     when(track.getTrackId()).thenReturn(7L);
 
-    BookmarkListSnapshot snapshot =
-        snapshot(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.DESCRIPTION, null),
-                 BookmarkListRow.description(-2, "Category", "Description"), BookmarkListRow.bookmark(firstBookmark),
-                 BookmarkListRow.track(track), BookmarkListRow.bookmark(secondBookmark));
+    BookmarkListSnapshot snapshot = BookmarkListSnapshot.forTest(
+        false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.DESCRIPTION, null),
+        BookmarkListRow.description(-2, "Category", "Description"), BookmarkListRow.bookmark(firstBookmark),
+        BookmarkListRow.track(track), BookmarkListRow.bookmark(secondBookmark));
 
     List<BookmarkInfo> bookmarks = BookmarksLoader.extractBookmarks(snapshot, 1);
 
@@ -37,27 +36,20 @@ public class BookmarksLoaderTest
   }
 
   @Test
-  public void extractBookmarks_returns_only_bookmark_rows() throws Exception
+  public void extractBookmarks_returns_only_bookmark_rows()
   {
     BookmarkInfo bookmark = mock(BookmarkInfo.class);
     when(bookmark.getBookmarkId()).thenReturn(3L);
     Track track = mock(Track.class);
     when(track.getTrackId()).thenReturn(9L);
 
-    BookmarkListSnapshot snapshot = snapshot(false, BookmarkListRow.track(track), BookmarkListRow.bookmark(bookmark),
-                                             BookmarkListRow.section(-3, BookmarkListRow.SectionKind.BOOKMARKS, null));
+    BookmarkListSnapshot snapshot =
+        BookmarkListSnapshot.forTest(false, BookmarkListRow.track(track), BookmarkListRow.bookmark(bookmark),
+                                     BookmarkListRow.section(-3, BookmarkListRow.SectionKind.BOOKMARKS, null));
 
     List<BookmarkInfo> bookmarks = BookmarksLoader.extractBookmarks(snapshot, 5);
 
     assertEquals(1, bookmarks.size());
     assertSame(bookmark, bookmarks.get(0));
-  }
-
-  private static BookmarkListSnapshot snapshot(boolean loading, BookmarkListRow... rows) throws Exception
-  {
-    Constructor<BookmarkListSnapshot> constructor =
-        BookmarkListSnapshot.class.getDeclaredConstructor(boolean.class, BookmarkListRow[].class);
-    constructor.setAccessible(true);
-    return constructor.newInstance(loading, rows);
   }
 }

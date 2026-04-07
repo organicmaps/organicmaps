@@ -11,13 +11,12 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.Track;
-import java.lang.reflect.Constructor;
 import org.junit.Test;
 
 public class BookmarkListAdapterTest
 {
   @Test
-  public void snapshot_rows_define_adapter_content() throws Exception
+  public void snapshot_rows_define_adapter_content()
   {
     BookmarkInfo bookmark = mock(BookmarkInfo.class);
     when(bookmark.getBookmarkId()).thenReturn(11L);
@@ -25,10 +24,11 @@ public class BookmarkListAdapterTest
     when(track.getTrackId()).thenReturn(22L);
 
     BookmarkListAdapter adapter = new BookmarkListAdapter();
-    adapter.setSnapshot(snapshot(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.DESCRIPTION, null),
-                                 BookmarkListRow.description(-2, "Category", "Description"),
-                                 BookmarkListRow.bookmark(bookmark), BookmarkListRow.track(track)),
-                        false);
+    adapter.setSnapshot(
+        BookmarkListSnapshot.forTest(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.DESCRIPTION, null),
+                                     BookmarkListRow.description(-2, "Category", "Description"),
+                                     BookmarkListRow.bookmark(bookmark), BookmarkListRow.track(track)),
+        false);
 
     assertEquals(4, adapter.getItemCount());
     assertEquals(BookmarkListAdapter.TYPE_SECTION, adapter.getItemViewType(0));
@@ -42,7 +42,7 @@ public class BookmarkListAdapterTest
   }
 
   @Test
-  public void search_mode_and_position_lookup_follow_snapshot_ids() throws Exception
+  public void search_mode_and_position_lookup_follow_snapshot_ids()
   {
     BookmarkInfo firstBookmark = mock(BookmarkInfo.class);
     when(firstBookmark.getBookmarkId()).thenReturn(1L);
@@ -52,9 +52,10 @@ public class BookmarkListAdapterTest
     when(track.getTrackId()).thenReturn(33L);
 
     BookmarkListAdapter adapter = new BookmarkListAdapter();
-    adapter.setSnapshot(snapshot(false, BookmarkListRow.bookmark(firstBookmark),
-                                 BookmarkListRow.bookmark(secondBookmark), BookmarkListRow.track(track)),
-                        true);
+    adapter.setSnapshot(
+        BookmarkListSnapshot.forTest(false, BookmarkListRow.bookmark(firstBookmark),
+                                     BookmarkListRow.bookmark(secondBookmark), BookmarkListRow.track(track)),
+        true);
 
     assertTrue(adapter.isSearchResults());
     assertEquals(1, adapter.getPositionById(2L, BookmarkListAdapter.TYPE_BOOKMARK));
@@ -63,20 +64,13 @@ public class BookmarkListAdapterTest
   }
 
   @Test
-  public void get_item_rejects_non_content_rows() throws Exception
+  public void get_item_rejects_non_content_rows()
   {
     BookmarkListAdapter adapter = new BookmarkListAdapter();
-    adapter.setSnapshot(snapshot(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.BOOKMARKS, null)),
-                        false);
+    adapter.setSnapshot(
+        BookmarkListSnapshot.forTest(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.BOOKMARKS, null)),
+        false);
 
     assertThrows(UnsupportedOperationException.class, () -> adapter.getItem(0));
-  }
-
-  private static BookmarkListSnapshot snapshot(boolean loading, BookmarkListRow... rows) throws Exception
-  {
-    Constructor<BookmarkListSnapshot> constructor =
-        BookmarkListSnapshot.class.getDeclaredConstructor(boolean.class, BookmarkListRow[].class);
-    constructor.setAccessible(true);
-    return constructor.newInstance(loading, rows);
   }
 }
