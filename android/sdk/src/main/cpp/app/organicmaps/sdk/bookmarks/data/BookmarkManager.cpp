@@ -1,10 +1,10 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkJniHelpers.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-#include "app/organicmaps/sdk/util/Distance.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -36,8 +36,6 @@ jmethodID g_onBookmarksFileLoadedMethod;
 jmethodID g_onPreparedFileForSharingMethod;
 jmethodID g_onElevationActivePointChangedMethod;
 jmethodID g_onElevationCurrentPositionChangedMethod;
-jmethodID g_bookmarkInfoConstructor;
-jclass g_bookmarkInfoClass;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -58,20 +56,8 @@ void PrepareClassRefs(JNIEnv * env)
       jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksFileLoaded", "(ZLjava/lang/String;Z)V");
   g_onPreparedFileForSharingMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                                                       "(Lapp/organicmaps/sdk/bookmarks/data/BookmarkSharingResult;)V");
-  g_bookmarkInfoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/BookmarkInfo");
-  g_bookmarkInfoConstructor = jni::GetConstructorID(env, g_bookmarkInfoClass,
-                                                    "("
-                                                    "J"                   // categoryId
-                                                    "J"                   // bookmarkId
-                                                    "Ljava/lang/String;"  // title
-                                                    "Ljava/lang/String;"  // description
-                                                    "Ljava/lang/String;"  // featureType
-                                                    "I"                   // color
-                                                    "I"                   // iconType
-                                                    "Lapp/organicmaps/sdk/bookmarks/data/ParcelablePointD;"  // coords
-                                                    "D"                                                      // scale
-                                                    "Ljava/lang/String;"                                     // address
-                                                    ")V");
+
+  bookmark_jni::PrepareClassRefs(env);
 
   g_onElevationCurrentPositionChangedMethod =
       jni::GetMethodID(env, bookmarkManagerInstance, "onElevationCurrentPositionChanged", "()V");
@@ -305,22 +291,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeUpd
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarkInfo(JNIEnv * env, jobject,
                                                                                                 jlong bmkId)
 {
-  auto const bookmark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
+  auto const * bookmark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
   if (!bookmark)
     return nullptr;
 
-  auto title = jni::ToJavaString(env, bookmark->GetPreferredName());
-  auto description = jni::ToJavaString(env, bookmark->GetDescription());
-  auto featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark->GetData().m_featureTypes));
-  auto color = static_cast<jint>(kml::kColorIndexMap[base::E2I(bookmark->GetColor())]);
-  auto iconType = static_cast<jint>(bookmark->GetData().m_icon);
-  auto coords = jni::GetNewParcelablePointD(env, bookmark->GetPivot());
-  auto scale = static_cast<jdouble>(bookmark->GetScale());
-  auto address = jni::ToJavaString(env, frm()->GetAddressAtPoint(bookmark->GetPivot()).FormatAddress());
-
-  return env->NewObject(g_bookmarkInfoClass, g_bookmarkInfoConstructor, static_cast<jlong>(bookmark->GetGroupId()),
-                        static_cast<jlong>(bmkId), title, description, featureType, color, iconType, coords, scale,
-                        address);
+  return bookmark_jni::CreateBookmarkInfo(env, *bookmark);
 }
 
 static uint32_t shift(uint32_t v, uint8_t bitCount)
@@ -330,21 +305,12 @@ static uint32_t shift(uint32_t v, uint8_t bitCount)
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetTrack(JNIEnv * env, jobject,
                                                                                          jlong trackId,
-                                                                                         jclass trackClazz)
+                                                                                         jclass /* trackClazz */)
 {
-  // Track(long trackId, long categoryId, boolean isRelationTrack, String name, String lengthString, int color)
-  static jmethodID const cId =
-      jni::GetConstructorID(env, trackClazz, "(JJZLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;I)V");
-  auto const kmlTrackId = static_cast<kml::TrackId>(trackId);
-  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(kmlTrackId);
+  auto const * track = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
+  ASSERT(track, ("Track must not be null with id:", trackId));
 
-  ASSERT(nTrack, ("Track must not be null with id:)", trackId));
-
-  auto const isRelationTrack = static_cast<jboolean>(kmlTrackId == kml::kTempRelationTrackId);
-  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()), isRelationTrack,
-                        jni::ToJavaString(env, nTrack->GetName()),
-                        ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
-                        nTrack->GetColor(0).GetARGB());
+  return bookmark_jni::CreateTrack(env, *track);
 }
 
 JNIEXPORT jboolean JNICALL

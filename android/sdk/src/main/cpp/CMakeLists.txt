@@ -56,6 +56,8 @@ set(SRC
   app/organicmaps/sdk/bookmarks/data/Bookmark.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkCategory.cpp
   app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp
+  app/organicmaps/sdk/bookmarks/data/BookmarkJniHelpers.cpp
+  app/organicmaps/sdk/bookmarks/data/BookmarkJniHelpers.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkListSession.cpp
   app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkManager.cpp

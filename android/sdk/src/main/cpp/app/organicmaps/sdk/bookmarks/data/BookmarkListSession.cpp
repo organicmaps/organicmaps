@@ -1,7 +1,7 @@
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp"
 #include "app/organicmaps/sdk/Framework.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkJniHelpers.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-#include "app/organicmaps/sdk/util/Distance.hpp"
 
 #include "map/bookmark.hpp"
 #include "map/bookmarks_search_params.hpp"
@@ -87,8 +87,6 @@ private:
 
   static jobjectArray BuildRowsArray(JNIEnv * env, std::vector<RowSpec> const & rows);
   static jobject CreateRow(JNIEnv * env, RowSpec const & row);
-  static jobject CreateBookmarkInfo(JNIEnv * env, Bookmark const & bookmark);
-  static jobject CreateTrack(JNIEnv * env, Track const & track);
   static RowSpec MakeBuiltInSection(jlong stableId, SectionKind sectionKind);
   static RowSpec MakeCustomSection(jlong stableId, std::string const & title);
   static RowSpec MakeDescriptionRow(jlong stableId, std::string title, std::string description);
@@ -110,10 +108,6 @@ private:
 jclass g_bookmarkListRowClass = nullptr;
 jmethodID g_bookmarkListRowConstructor = nullptr;
 jmethodID g_onSnapshotChangedMethod = nullptr;
-jclass g_bookmarkListBookmarkInfoClass = nullptr;
-jmethodID g_bookmarkListBookmarkInfoConstructor = nullptr;
-jclass g_bookmarkListTrackClass = nullptr;
-jmethodID g_bookmarkListTrackConstructor = nullptr;
 
 jlong g_nextSessionHandle = 1;
 jlong g_activeSearchHandle = 0;
@@ -141,31 +135,7 @@ void PrepareClassRefs(JNIEnv * env, jobject javaSession)
                                                        "Lapp/organicmaps/sdk/bookmarks/data/Track;"         // track
                                                        ")V");
 
-  g_bookmarkListBookmarkInfoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/BookmarkInfo");
-  g_bookmarkListBookmarkInfoConstructor =
-      jni::GetConstructorID(env, g_bookmarkListBookmarkInfoClass,
-                            "("
-                            "J"                                                      // categoryId
-                            "J"                                                      // bookmarkId
-                            "Ljava/lang/String;"                                     // title
-                            "Ljava/lang/String;"                                     // description
-                            "Ljava/lang/String;"                                     // featureType
-                            "I"                                                      // color
-                            "I"                                                      // iconType
-                            "Lapp/organicmaps/sdk/bookmarks/data/ParcelablePointD;"  // coords
-                            "D"                                                      // scale
-                            "Ljava/lang/String;"                                     // address
-                            ")V");
-
-  g_bookmarkListTrackClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Track");
-  g_bookmarkListTrackConstructor = jni::GetConstructorID(env, g_bookmarkListTrackClass,
-                                                         "("
-                                                         "J"                                    // id
-                                                         "J"                                    // categoryId
-                                                         "Ljava/lang/String;"                   // title
-                                                         "Lapp/organicmaps/sdk/util/Distance;"  // length
-                                                         "I"                                    // color
-                                                         ")V");
+  bookmark_jni::PrepareClassRefs(env);
 
   jni::HandleJavaException(env);
 }
@@ -479,7 +449,7 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
     auto const * bookmark = frm()->GetBookmarkManager().GetBookmark(row.m_bookmarkId);
     ASSERT(bookmark != nullptr, ("Bookmark not found:", row.m_bookmarkId));
 
-    jni::ScopedLocalRef<jobject> bookmarkInfo(env, CreateBookmarkInfo(env, *bookmark));
+    jni::ScopedLocalRef<jobject> bookmarkInfo(env, bookmark_jni::CreateBookmarkInfo(env, *bookmark));
     return env->NewObject(g_bookmarkListRowClass, g_bookmarkListRowConstructor, static_cast<jint>(RowType::Bookmark),
                           row.m_stableId, static_cast<jint>(row.m_sectionKind), nullptr, nullptr, bookmarkInfo.get(),
                           nullptr);
@@ -489,7 +459,7 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
     auto const * track = frm()->GetBookmarkManager().GetTrack(row.m_trackId);
     ASSERT(track != nullptr, ("Track not found:", row.m_trackId));
 
-    jni::ScopedLocalRef<jobject> trackObject(env, CreateTrack(env, *track));
+    jni::ScopedLocalRef<jobject> trackObject(env, bookmark_jni::CreateTrack(env, *track));
     return env->NewObject(g_bookmarkListRowClass, g_bookmarkListRowConstructor, static_cast<jint>(RowType::Track),
                           row.m_stableId, static_cast<jint>(row.m_sectionKind), nullptr, nullptr, nullptr,
                           trackObject.get());
@@ -497,30 +467,6 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
   }
 
   UNREACHABLE();
-}
-
-jobject BookmarkListSession::CreateBookmarkInfo(JNIEnv * env, Bookmark const & bookmark)
-{
-  auto const title = jni::ToJavaString(env, bookmark.GetPreferredName());
-  auto const description = jni::ToJavaString(env, bookmark.GetDescription());
-  auto const featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark.GetData().m_featureTypes));
-  auto const color = static_cast<jint>(kml::kColorIndexMap[base::E2I(bookmark.GetColor())]);
-  auto const iconType = static_cast<jint>(bookmark.GetData().m_icon);
-  auto const coords = jni::GetNewParcelablePointD(env, bookmark.GetPivot());
-  auto const scale = static_cast<jdouble>(bookmark.GetScale());
-  auto const address = jni::ToJavaString(env, frm()->GetAddressAtPoint(bookmark.GetPivot()).FormatAddress());
-
-  return env->NewObject(g_bookmarkListBookmarkInfoClass, g_bookmarkListBookmarkInfoConstructor,
-                        static_cast<jlong>(bookmark.GetGroupId()), static_cast<jlong>(bookmark.GetId()), title,
-                        description, featureType, color, iconType, coords, scale, address);
-}
-
-jobject BookmarkListSession::CreateTrack(JNIEnv * env, Track const & track)
-{
-  return env->NewObject(g_bookmarkListTrackClass, g_bookmarkListTrackConstructor, static_cast<jlong>(track.GetId()),
-                        static_cast<jlong>(track.GetGroupId()), jni::ToJavaString(env, track.GetName()),
-                        ToJavaDistance(env, platform::Distance::CreateFormatted(track.GetLengthMeters())),
-                        track.GetColor(0).GetARGB());
 }
 
 RowSpec BookmarkListSession::MakeBuiltInSection(jlong stableId, SectionKind sectionKind)
