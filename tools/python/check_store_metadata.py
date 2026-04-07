@@ -105,7 +105,7 @@ GPLAY_LOCALES = [
 # From a Fastline error message and https://help.apple.com/app-store-connect/#/dev997f9cf7c
 APPSTORE_LOCALES = [
     "ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU",
-    "en-CA", "en-GB", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR",
+    "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR",
     "gu-IN", "he", "hi", "hr", "hu", "id", "it", "ja", "kn-IN",
     "ko", "ml-IN", "mr-IN", "ms", "nl-NL", "no", "or-IN", "pa-IN",
     "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl-SI", "sv", "ta-IN",
@@ -252,8 +252,12 @@ def check_ios():
             elif os.path.exists(english_path) and not os.path.exists(target_path):
                 shutil.copy(english_path, target_path)
 
+    SKIP_DIRS = {'review_information'}
     for locale in glob.glob('iphone/metadata/*/'):
-        if locale.split('/')[-2] not in APPSTORE_LOCALES:
+        dirname = locale.split('/')[-2]
+        if dirname in SKIP_DIRS:
+            continue
+        if dirname not in APPSTORE_LOCALES:
             ok = error(locale, "unsupported locale") and ok
             continue
         ok = check_text(locale + "name.txt", 30) and ok
