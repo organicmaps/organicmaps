@@ -349,24 +349,15 @@ drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams cons
 }  // namespace
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection const & renderParams,
-                    dp::Batcher & batcher)
+                    MarksSource const & source, UserMarksRenderCollection const & renderParams, dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
   buffer_vector<UPV, dp::Batcher::VertexPerQuad> buffer;
 
-  for (auto const id : marksId)
+  m2::PointD const tileCenter = tileKey.GetWrappedDataRect().Center();
+
+  source.ForEachMark(tileKey, renderParams, [&](UserMarkRenderParams const & renderInfo)
   {
-    auto const it = renderParams.find(id);
-    if (it == renderParams.end())
-      continue;
-
-    UserMarkRenderParams const & renderInfo = *it->second;
-    if (!renderInfo.m_isVisible)
-      continue;
-
-    m2::PointD const tileCenter = tileKey.GetWrappedDataRect().Center();
-
     m2::PointF symbolSize(0.0f, 0.0f);
     dp::TextureManager::SymbolRegion symbolRegion;
     auto const symbolName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_symbolNames), tileKey);
@@ -475,7 +466,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
 
     renderInfo.m_justCreated = false;
-  }
+  });
 }
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
