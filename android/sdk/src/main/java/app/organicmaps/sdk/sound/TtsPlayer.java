@@ -2,12 +2,14 @@ package app.organicmaps.sdk.sound;
 
 import android.content.Context;
 import android.database.ContentObserver;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
+import android.speech.tts.Voice;
 import android.text.TextUtils;
 import android.util.Pair;
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -37,10 +40,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public enum TtsPlayer
 {
   INSTANCE;
-
   private static final String TAG = TtsPlayer.class.getSimpleName();
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.0f;
+  private String mCurrentEngineLabel = null;
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
   private static final String TTS_SILENT_UTTERANCE_ID = "SILENT_DELAY";
 
@@ -177,58 +180,104 @@ public enum TtsPlayer
     setEnabled(false);
   }
 
-  public void initialize(@NonNull Context context)
+  public void initialize(@NonNull Context context, @Nullable String enginePackage)
   {
-    mContext = context;
-
-    if (mTts != null || mInitializing || mUnavailable)
+    if (mInitializing || mUnavailable)
       return;
-
-    mInitializing = true;
-    // TextToSpeech.OnInitListener() can be called from a non-main thread
-    // on LineageOS '20.0-20231127-RELEASE-thyme' 'Xiaomi/thyme/thyme'.
-    // https://github.com/organicmaps/organicmaps/issues/6903
-    mTts = new TextToSpeech(context, status -> UiThread.run(() -> {
-      if (status == TextToSpeech.ERROR)
-      {
-        Logger.e(TAG, "Failed to initialize TextToSpeech");
-        lockDown();
-        mInitializing = false;
-        return;
-      }
-      refreshLanguages();
-      mTts.setSpeechRate(SPEECH_RATE);
-      mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
-      mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
-      mAudioFocusManager = AudioFocusManager.create(context, this::stop);
-      mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
-      mInitializing = false;
-      if (mReloadTriggered && sOnReloadCallback != null)
-      {
-        sOnReloadCallback.run();
-        mReloadTriggered = false;
-      }
-    }));
-
-    if (mTtsEngineObserver == null)
+    mContext = context.getApplicationContext();
+    if (mTts != null)
     {
-      mTtsEngineObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
-        @Override
-        public void onChange(boolean selfChange)
+      try
+      {
+        mTts.shutdown();
+      }
+      catch (Exception e)
+      {
+        Logger.w(TAG, "Error shutting down old TTS" + e.getMessage());
+      }
+      mTts = null;
+    }
+    mInitializing = true;
+    Runnable initTask = () ->
+    {
+      TextToSpeech.OnInitListener onInit = status ->
+      {
+        if (status == TextToSpeech.ERROR)
         {
-          Logger.d(TAG, "System TTS engine changed – reloading TTS engine");
-          mReloadTriggered = true;
-          if (mTts != null)
+          Logger.e(TAG, "Failed to initialize TextToSpeech (status=" + status + ", engine=" + enginePackage + ")");
+          lockDown();
+          mInitializing = false;
+          return;
+        }
+        try
+        {
+          List<TextToSpeech.EngineInfo> engines = mTts.getEngines();
+          if (engines != null)
           {
-            mTts.shutdown();
-            mTts = null;
+            String runningPkg = enginePackage;
+            if (runningPkg == null)
+              runningPkg = mTts.getDefaultEngine();
+
+            for (TextToSpeech.EngineInfo engine : engines)
+            {
+              if (TextUtils.equals(engine.name, runningPkg))
+              {
+                mCurrentEngineLabel = engine.label;
+                break;
+              }
+            }
           }
-          initialize(mContext);
+          if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+          {
+            Set<android.speech.tts.Voice> voices = mTts.getVoices();
+            if (voices != null)
+              Logger.d(TAG, "Modern API VOICES COUNT: " + voices.size());
+            else
+              Logger.w(TAG, "Modern API returned null voices ");
+          }
+        }
+        catch (Exception e)
+        {
+          Logger.e(TAG, "Modern API check failed safely", e);
+        }
+        refreshLanguages();
+        mTts.setSpeechRate(SPEECH_RATE);
+        mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
+        mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
+        mAudioFocusManager = AudioFocusManager.create(mContext, this::stop);
+        mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
+        mInitializing = false;
+        if (mReloadTriggered && sOnReloadCallback != null)
+        {
+          sOnReloadCallback.run();
+          mReloadTriggered = false;
         }
       };
-      mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("tts_default_synth"), false,
-                                                            mTtsEngineObserver);
-    }
+      mTts = new TextToSpeech(mContext, onInit, enginePackage);
+      if (mTtsEngineObserver == null)
+      {
+        mTtsEngineObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+          @Override
+          public void onChange(boolean selfChange)
+          {
+            Logger.d(TAG, "System TTS engine changed – reloading");
+            mReloadTriggered = true;
+            if (mContext != null)
+              initialize(mContext, null);
+          }
+        };
+        mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor("tts_default_synth"), false,
+                                                              mTtsEngineObserver);
+      }
+    };
+    if (Looper.myLooper() == Looper.getMainLooper())
+      initTask.run();
+    else
+      UiThread.run(initTask);
+  }
+  public void initialize(@NonNull Context context)
+  {
+    initialize(context, null);
   }
 
   private static boolean isReady()
@@ -406,6 +455,36 @@ public enum TtsPlayer
       sSupportedLanguages = nativeGetSupportedLanguages();
     }
     return sSupportedLanguages;
+  }
+  @NonNull
+  public static String formatVoiceName(@NonNull Voice voice, @NonNull Context context)
+  {
+    StringBuilder sb = new StringBuilder();
+
+    Locale locale = voice.getLocale();
+    sb.append(locale.getDisplayName());
+
+    String rawName = voice.getName();
+    String cleanName = rawName;
+
+    int xIndex = cleanName.indexOf("-x-");
+    if (xIndex != -1)
+      cleanName = cleanName.substring(xIndex + 3);
+
+    cleanName = cleanName.replace("-local", "").replace("-network", "");
+
+    if (cleanName.contains("#"))
+    {
+      String[] parts = cleanName.split("#");
+      if (parts.length > 1)
+        cleanName = parts[1];
+    }
+
+    if (!TextUtils.isEmpty(cleanName))
+      sb.append(" - ").append(cleanName);
+    if (INSTANCE.mCurrentEngineLabel != null)
+      sb.append(" (").append(INSTANCE.mCurrentEngineLabel).append(")");
+    return sb.toString();
   }
 
   private native static void nativeEnableTurnNotifications(boolean enable);
