@@ -315,6 +315,37 @@ void RoutePointsLayout::RemoveIntermediateRoutePoints()
   { return mark->GetRoutePointType() == RouteMarkType::Intermediate; });
 }
 
+bool RoutePointsLayout::RemovePassedRoutePoints()
+{
+  auto const & markIds = m_manager.GetUserMarkIds(UserMark::Type::ROUTING);
+  if (!base::IsExistIf(markIds,
+                       [this](kml::MarkId markId) { return m_manager.GetMark<RouteMarkPoint>(markId)->IsPassed(); }))
+    return false;
+
+  m_editSession.DeleteUserMarks<RouteMarkPoint>(UserMark::Type::ROUTING,
+                                                [](RouteMarkPoint const * mark) { return mark->IsPassed(); });
+
+  // Re-index remaining intermediate points after removing passed ones.
+  std::vector<RouteMarkPoint *> remaining;
+  for (auto markId : markIds)
+  {
+    auto const * mark = m_manager.GetMark<RouteMarkPoint>(markId);
+    if (mark->GetRoutePointType() == RouteMarkType::Intermediate)
+    {
+      ASSERT(!mark->IsPassed(), ());
+      remaining.push_back(m_editSession.GetMarkForEdit<RouteMarkPoint>(markId));
+    }
+  }
+
+  std::sort(remaining.begin(), remaining.end(), [](RouteMarkPoint * a, RouteMarkPoint * b)
+  { return a->GetIntermediateIndex() < b->GetIntermediateIndex(); });
+
+  for (size_t i = 0; i < remaining.size(); ++i)
+    remaining[i]->SetIntermediateIndex(i);
+
+  return true;
+}
+
 bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
                                        RouteMarkType destType, size_t destIntermediateIndex)
 {

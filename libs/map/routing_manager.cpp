@@ -891,6 +891,25 @@ void RoutingManager::RemoveIntermediateRoutePoints()
   routePoints.RemoveIntermediateRoutePoints();
 }
 
+void RoutingManager::RemovePassedRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(*m_bmManager);
+  if (!routePoints.RemovePassedRoutePoints())
+    return;
+
+  // If the passed Start was removed, add a new one at the current position.
+  if (routePoints.GetRoutePoint(RouteMarkType::Start) == nullptr)
+  {
+    RouteMarkData startPt;
+    startPt.m_pointType = RouteMarkType::Start;
+    startPt.m_isMyPosition = true;
+    startPt.m_isVisible = false;
+    startPt.m_position = m_bmManager->MyPositionMark().GetPivot();
+    routePoints.AddRoutePoint(std::move(startPt));
+  }
+}
+
 void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
                                     RouteMarkType targetType, size_t targetIntermediateIndex)
 {
@@ -990,6 +1009,12 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
+
+  // Remove already passed intermediate points so they don't affect the new route.
+  // https://github.com/organicmaps/organicmaps/issues/7939
+  // https://github.com/organicmaps/organicmaps/issues/9592
+  // https://github.com/organicmaps/organicmaps/issues/11256
+  RemovePassedRoutePoints();
 
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)
