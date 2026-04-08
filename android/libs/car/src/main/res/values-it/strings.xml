@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Evita i traghetti</string>
     <string name="avoid_motorways">Evita l\'autostrada</string>
     <string name="unable_to_calc_alert_title">Impossibile calcolare il percorso</string>
+    <string name="trip_finished">Sei arrivato!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordina i preferiti</string>
     <!-- Android -->

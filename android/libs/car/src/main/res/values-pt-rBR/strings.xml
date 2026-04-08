@@ -59,6 +59,7 @@
     <string name="avoid_ferry">Evitar balsas</string>
     <string name="avoid_motorways">Evitar rodovias</string>
     <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
+    <string name="trip_finished">Você chegou!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Classificar marcadores</string>
     <!-- Android -->

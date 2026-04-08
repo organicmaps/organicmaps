@@ -83,6 +83,7 @@
     <string name="avoid_ferry">जल मार्ग टाळा</string>
     <string name="avoid_motorways">मोटरवे टाळा</string>
     <string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
+    <string name="trip_finished">तुम्ही पोचलात!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">खूणपत्रे क्रमाने लावा</string>
     <!-- Android -->

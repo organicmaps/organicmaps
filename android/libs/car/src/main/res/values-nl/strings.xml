@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Vermijd veerboten</string>
     <string name="avoid_motorways">Vermijd snelwegen</string>
     <string name="unable_to_calc_alert_title">Kan route niet berekenen</string>
+    <string name="trip_finished">U bent aangekomen!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sorteer bladwijzers</string>
     <!-- Android -->

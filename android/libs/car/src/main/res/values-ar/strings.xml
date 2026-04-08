@@ -83,6 +83,7 @@
     <string name="avoid_ferry">تجنب استخدام العبّارات</string>
     <string name="avoid_motorways">تجنب الطريق السريع</string>
     <string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
+    <string name="trip_finished">لقد وصلت!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">رتّب العلامات المرجعية</string>
     <!-- Android -->

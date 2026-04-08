@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Unngå fergeoverganger</string>
     <string name="avoid_motorways">Unngå motorveien</string>
     <string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
+    <string name="trip_finished">Du har ankommet!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sortere merker</string>
     <!-- Android -->

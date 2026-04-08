@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Ferriak saihestea</string>
     <string name="avoid_motorways">Autobideak saihestea</string>
     <string name="unable_to_calc_alert_title">Ezin da ibilbidea proposatu</string>
+    <string name="trip_finished">Iritsi zara!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenatu markagailuak</string>
     <!-- Android -->

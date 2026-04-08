@@ -81,6 +81,7 @@
     <string name="avoid_ferry">Tránh bến phà</string>
     <string name="avoid_motorways">Tránh xa lộ</string>
     <string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
+    <string name="trip_finished">Bạn đã tới nơi!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sắp xếp dấu trang</string>
     <!-- Android -->

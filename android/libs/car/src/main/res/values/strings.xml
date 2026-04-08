@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Avoid ferries</string>
     <string name="avoid_motorways">Avoid freeways</string>
     <string name="unable_to_calc_alert_title">Unable to calculate route</string>
+    <string name="trip_finished">You have arrived!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sort bookmarks</string>
     <!-- Android -->

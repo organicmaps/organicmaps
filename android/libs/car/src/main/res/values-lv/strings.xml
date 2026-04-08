@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Izvairīties no prāmjiem</string>
     <string name="avoid_motorways">Izvairīties no automaģistrālēm</string>
     <string name="unable_to_calc_alert_title">Neizdevās aprēķināt maršrutu</string>
+    <string name="trip_finished">Ieradāties galamērķī!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Kārtot grāmatzīmes</string>
     <!-- Android -->

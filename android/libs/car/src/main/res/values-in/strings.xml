@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Hindari feri</string>
     <string name="avoid_motorways">Hindari jalan raya</string>
     <string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
+    <string name="trip_finished">Anda telah tiba!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Urutkan bookmark</string>
     <!-- Android -->

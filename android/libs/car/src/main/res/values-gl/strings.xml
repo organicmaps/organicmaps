@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Evitar ferris</string>
     <string name="avoid_motorways">Evitar autoestradas</string>
     <string name="unable_to_calc_alert_title">Non se pode calcular a ruta</string>
+    <string name="trip_finished">Chegou!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenar marcadores</string>
     <!-- Android -->

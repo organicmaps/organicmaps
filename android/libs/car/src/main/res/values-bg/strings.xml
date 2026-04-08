@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Избягване на преходи с ферибот</string>
     <string name="avoid_motorways">Избягвайте магистралата</string>
     <string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
+    <string name="trip_finished">Пристигнахте!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сортиране на отметки</string>
     <!-- Android -->

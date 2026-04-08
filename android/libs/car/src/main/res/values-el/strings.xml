@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Αποφυγή πορθμείων</string>
     <string name="avoid_motorways">Αποφυγή αυτοκινητόδρομων</string>
     <string name="unable_to_calc_alert_title">Δεν ήταν δυνατός ο υπολογισμός διαδρομής</string>
+    <string name="trip_finished">Μόλις φτάσατε!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ταξινόμηση σελιδ/κτών</string>
     <!-- Android -->

@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Unikaj przepraw promowych</string>
     <string name="avoid_motorways">Unikaj autostrad</string>
     <string name="unable_to_calc_alert_title">Brak możliwości zbudowania trasy</string>
+    <string name="trip_finished">Jesteś na miejscu!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sortuj znaczniki</string>
     <!-- Android -->

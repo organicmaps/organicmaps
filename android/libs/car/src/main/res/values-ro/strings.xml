@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Evită trecerile cu bac</string>
     <string name="avoid_motorways">Evitați autostrăzile</string>
     <string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
+    <string name="trip_finished">Ai ajuns!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sortează preferatele</string>
     <!-- Android -->

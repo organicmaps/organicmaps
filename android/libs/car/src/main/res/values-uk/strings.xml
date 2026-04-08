@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Уникати поромів</string>
     <string name="avoid_motorways">Уникати автострад</string>
     <string name="unable_to_calc_alert_title">Неможливо побудувати маршрут</string>
+    <string name="trip_finished">Ви прибули!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сортувати мітки</string>
     <!-- Android -->
