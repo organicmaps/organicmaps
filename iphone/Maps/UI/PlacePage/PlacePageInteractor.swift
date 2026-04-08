@@ -268,7 +268,10 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .more:
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:
-      guard placePageData.trackData != nil else { return }
+      guard let trackId = placePageData.trackData?.trackId, bookmarksManager.hasTrack(trackId) else {
+        presenter?.close()
+        return
+      }
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
       trackRecordingManager.stopAndSave { [weak self] result in
@@ -308,8 +311,9 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
                                   preferredStyle: .actionSheet)
     let deleteAction = UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
       guard let self = self else { return }
-      guard self.placePageData.trackData != nil else {
-        fatalError("The track data should not be nil during the track deletion")
+      guard let trackId = self.placePageData.trackData?.trackId, self.bookmarksManager.hasTrack(trackId) else {
+        self.presenter?.close()
+        return
       }
       MWMPlacePageManagerHelper.removeTrack(self.placePageData)
       self.presenter?.close()
@@ -437,9 +441,20 @@ extension PlacePageInteractor: BookmarksObserver {
     updatePlacePageIfNeeded()
   }
 
+  func onBookmarkDeleted(_ bookmarkId: MWMMarkID) {
+    if placePageData.bookmarkData?.bookmarkId == bookmarkId {
+      FrameworkHelper.updateAfterDeleteBookmark()
+    }
+  }
+
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
-    guard let bookmarkGroupId = placePageData.bookmarkData?.bookmarkGroupId else { return }
-    if bookmarkGroupId == groupId {
+    if placePageData.bookmarkData?.bookmarkGroupId == groupId || placePageData.trackData?.groupId == groupId {
+      presenter?.close()
+    }
+  }
+
+  func onTrackDeleted(_ trackId: MWMTrackID) {
+    if placePageData.trackData?.trackId == trackId {
       presenter?.close()
     }
   }
