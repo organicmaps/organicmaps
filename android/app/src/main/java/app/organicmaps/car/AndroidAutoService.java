@@ -1,11 +1,11 @@
 package app.organicmaps.car;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.car.app.CarContext;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.car.app.notification.CarAppExtender;
@@ -30,9 +30,6 @@ public final class AndroidAutoService extends CarAppServiceBase
   @NonNull
   public static final String ANDROID_AUTO_NOTIFICATION_CHANNEL_ID = "ANDROID_AUTO";
 
-  @Nullable
-  private static NotificationCompat.Extender mCarNotificationExtender;
-
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private OrganicMaps mOrganicMapsContext;
@@ -47,20 +44,15 @@ public final class AndroidAutoService extends CarAppServiceBase
   @Override
   public Session onCreateSession(@Nullable SessionInfo sessionInfo)
   {
-    createNotificationChannel();
-    return new AndroidAutoSession(mOrganicMapsContext, sessionInfo, mInitFailed);
-  }
-
-  @NonNull
-  @Override
-  public Session onCreateSession()
-  {
-    return onCreateSession(null);
+    return new AndroidAutoSession(mOrganicMapsContext, sessionInfo, /* isDebug */ BuildConfig.DEBUG, mInitFailed);
   }
 
   @Override
   public void onCreate()
   {
+    super.onCreate();
+    createNotificationChannel();
+
     final MwmApplication app = MwmApplication.from(getApplicationContext());
     mOrganicMapsContext = app.getOrganicMaps();
     if (!mOrganicMapsContext.arePlatformAndCoreInitialized())
@@ -80,22 +72,18 @@ public final class AndroidAutoService extends CarAppServiceBase
     Config.setFirstStartDialogSeen(getApplicationContext());
   }
 
+  @Override
   @NonNull
-  public static NotificationCompat.Extender getCarNotificationExtender(@NonNull CarContext context)
+  protected NotificationCompat.Extender buildCarNotificationExtender(@NonNull Context context)
   {
-    if (mCarNotificationExtender != null)
-      return mCarNotificationExtender;
-
     final Intent intent = new Intent(Intent.ACTION_VIEW)
                               .setComponent(new ComponentName(context, AndroidAutoService.class))
                               .setData(Uri.fromParts(Const.API_SCHEME, CarAppServiceBase.API_CAR_HOST,
                                                      CarAppServiceBase.ACTION_SHOW_NAVIGATION_SCREEN));
-    mCarNotificationExtender = new CarAppExtender.Builder()
-                                   .setImportance(NotificationManagerCompat.IMPORTANCE_MIN)
-                                   .setContentIntent(CarPendingIntent.getCarApp(context, intent.hashCode(), intent, 0))
-                                   .build();
-
-    return mCarNotificationExtender;
+    return new CarAppExtender.Builder()
+        .setImportance(NotificationManagerCompat.IMPORTANCE_MIN)
+        .setContentIntent(CarPendingIntent.getCarApp(context, intent.hashCode(), intent, 0))
+        .build();
   }
 
   private void createNotificationChannel()
