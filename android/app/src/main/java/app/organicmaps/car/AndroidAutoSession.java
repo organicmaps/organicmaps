@@ -64,7 +64,7 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
-    super.onCreate(owner);
+    super.onDestroy(owner);
     Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     mDisplayManager.removeListener(DisplayType.Car);
 
