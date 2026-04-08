@@ -183,12 +183,12 @@ final class EditBookmarkViewController: MWMTableViewController {
   @objc private func onSave() {
     view.endEditing(true)
 
-    BookmarksManager.shared().updateBookmark(bookmarkId,
-                                             setGroupId: bookmarkGroupId,
-                                             title: bookmarkTitle ?? "",
-                                             color: bookmarkColor,
-                                             description: bookmarkDescription ?? "")
-    if let placePageData = placePageData {
+    bookmarksManager.updateBookmark(bookmarkId,
+                                    setGroupId: bookmarkGroupId,
+                                    title: bookmarkTitle ?? "",
+                                    color: bookmarkColor,
+                                    description: bookmarkDescription ?? "")
+    if placePageData != nil {
       FrameworkHelper.updatePlacePageData()
     }
     editingCompleted?(true)
@@ -229,9 +229,10 @@ extension EditBookmarkViewController: MWMNoteCellDelegate {
 }
 
 extension EditBookmarkViewController: MWMButtonCellDelegate {
-  func cellDidPressButton(_: UITableViewCell) {
+  func cellDidPressButton(_ cell: UITableViewCell) {
+    cell.isUserInteractionEnabled = false
     // goBack() and updateAfterDeleteBookmark() are called by onBookmarkDeleted observer.
-    BookmarksManager.shared().deleteBookmark(bookmarkId)
+    bookmarksManager.deleteBookmark(bookmarkId)
   }
 }
 

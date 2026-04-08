@@ -193,6 +193,7 @@ extension EditTrackViewController: MWMButtonCellDelegate {
     case .info:
       break
     case .delete:
+      cell.isUserInteractionEnabled = false
       // goBack() is called by onTrackDeleted observer.
       bookmarksManager.deleteTrack(trackId)
     default:

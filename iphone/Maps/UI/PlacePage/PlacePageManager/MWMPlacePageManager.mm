@@ -228,9 +228,6 @@ using namespace storage;
 - (void)removeBookmark:(PlacePageData *)data
 {
   [[MWMBookmarksManager sharedManager] deleteBookmark:data.bookmarkData.bookmarkId];
-  // Safety net: when HasBookmark is already false, deleteBookmark: returns early
-  // without firing onBookmarkDeleted, so the observer won't call this.
-  [MWMFrameworkHelper updateAfterDeleteBookmark];
 }
 
 - (void)updateTrack:(PlacePageData *)data
