@@ -311,9 +311,8 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
                                   preferredStyle: .actionSheet)
     let deleteAction = UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
       guard let self = self else { return }
-      guard let trackId = self.placePageData.trackData?.trackId, self.bookmarksManager.hasTrack(trackId) else {
-        self.presenter?.close()
-        return
+      guard self.placePageData.trackData != nil else {
+        fatalError("The track data should not be nil during the track deletion")
       }
       MWMPlacePageManagerHelper.removeTrack(self.placePageData)
       self.presenter?.close()
