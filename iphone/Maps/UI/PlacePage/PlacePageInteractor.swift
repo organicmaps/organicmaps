@@ -11,6 +11,7 @@ class PlacePageInteractor: NSObject {
   private let bookmarksManager = BookmarksManager.shared()
   private let trackRecordingManager = TrackRecordingManager.shared
   private var placePageData: PlacePageData
+  private weak var trackDeletionConfirmationDialog: UIAlertController?
 
   init(data: PlacePageData) {
     placePageData = data
@@ -39,6 +40,9 @@ class PlacePageInteractor: NSObject {
       updatePlacePage()
     case .track:
       guard let trackData = placePageData.trackData, bookmarksManager.hasTrack(trackData.trackId) else {
+        if let trackDeletionConfirmationDialog {
+          trackDeletionConfirmationDialog.dismiss(animated: true)
+        }
         presenter?.close()
         return
       }
@@ -313,6 +317,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     let cancelAction = UIAlertAction(title: L("cancel"), style: .cancel)
     alert.addAction(deleteAction)
     alert.addAction(cancelAction)
+    trackDeletionConfirmationDialog = alert
     presenter?.showAlert(alert)
   }
 
