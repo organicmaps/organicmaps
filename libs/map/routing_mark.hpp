@@ -93,6 +93,7 @@ public:
   bool RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
+  bool RemovePassedRoutePoints();
   bool MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType destType,
                       size_t destIntermediateIndex);
   void PassRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
