@@ -521,10 +521,8 @@ void Storage::RestoreDownloadQueue()
 
   strings::Tokenize(download, ";", [this](std::string_view v)
   {
-    auto const it = base::FindIf(
-        m_notAppliedDiffs, [this, v](LocalCountryFile const & localDiff) { return v == FindCountryId(localDiff); });
-
-    if (it == m_notAppliedDiffs.end())
+    if (!base::IsExistIf(m_notAppliedDiffs,
+                         [this, v](LocalCountryFile const & localDiff) { return v == FindCountryId(localDiff); }))
     {
       std::string const s(v);
       auto localFile = GetLatestLocalFile(s);

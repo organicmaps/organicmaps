@@ -911,7 +911,7 @@ bool FeatureType::HasMetadata(feature::Metadata::EType type)
   if (m_metadata.Has(type))
     return true;
 
-  return base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; }) != m_metaIds.end();
+  return base::IsExistIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
 }
 
 FeatureType::RelationIDsV const & FeatureType::GetRelations()
