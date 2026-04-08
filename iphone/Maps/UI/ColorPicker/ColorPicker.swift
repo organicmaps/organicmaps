@@ -45,6 +45,7 @@ final class ColorPicker: NSObject {
       colorPickerController.selectedColor = selectedColor
     }
     colorPickerController.delegate = self
+    colorPickerController.presentationController?.delegate = self
     return colorPickerController
   }
 
@@ -54,14 +55,19 @@ final class ColorPicker: NSObject {
     // The navigation controller is used for getting the navigation item with the title and the close button.
     return UINavigationController(rootViewController: bookmarksColorViewController)
   }
+
+  private func commitSelection(_ color: UIColor) {
+    guard let onUpdateColorHandler else { return }
+    self.onUpdateColorHandler = nil
+    onUpdateColorHandler(color)
+  }
 }
 
 // MARK: - BookmarkColorViewControllerDelegate
 
 extension ColorPicker: BookmarkColorViewControllerDelegate {
   func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
-    onUpdateColorHandler?(bookmarkColor.color)
-    onUpdateColorHandler = nil
+    commitSelection(bookmarkColor.color)
     viewController.dismiss(animated: true)
   }
 }
@@ -70,12 +76,17 @@ extension ColorPicker: BookmarkColorViewControllerDelegate {
 
 extension ColorPicker: UIColorPickerViewControllerDelegate {
   func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-    onUpdateColorHandler?(viewController.selectedColor.sRGBColor)
-    onUpdateColorHandler = nil
-    viewController.dismiss(animated: true, completion: nil)
+    commitSelection(viewController.selectedColor.sRGBColor)
   }
+}
 
-  func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-    onUpdateColorHandler?(viewController.selectedColor.sRGBColor)
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension ColorPicker: UIAdaptivePresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    guard let colorPickerViewController = presentationController.presentedViewController as? UIColorPickerViewController else {
+      return
+    }
+    commitSelection(colorPickerViewController.selectedColor.sRGBColor)
   }
 }
