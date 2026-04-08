@@ -36,6 +36,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   private final SettingsClient mSettingsClient;
   @NonNull
   private final Context mContext;
+  private volatile boolean mActive;
 
   private class GoogleLocationCallback extends LocationCallback
   {
@@ -90,12 +91,17 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     builder.setAlwaysShow(true); // improves the wording/appearance of the dialog
     final LocationSettingsRequest locationSettingsRequest = builder.build();
 
+    mActive = true;
     mSettingsClient.checkLocationSettings(locationSettingsRequest)
         .addOnSuccessListener(locationSettingsResponse -> {
+          if (!mActive)
+            return;
           Logger.d(TAG, "Service is available");
           mFusedLocationClient.requestLocationUpdates(locationRequest, mCallback, Looper.myLooper());
         })
         .addOnFailureListener(e -> {
+          if (!mActive)
+            return;
           try
           {
             int statusCode = ((ApiException) e).getStatusCode();
@@ -145,6 +151,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   protected void stop()
   {
     Logger.d(TAG);
+    mActive = false;
     mFusedLocationClient.removeLocationUpdates(mCallback);
   }
 }
