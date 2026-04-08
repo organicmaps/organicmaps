@@ -19,8 +19,7 @@ import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.BuildConfig;
-import app.organicmaps.R;
+import app.organicmaps.car.R;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.ThemeUtils;
@@ -42,13 +41,13 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.util.List;
 import java.util.Objects;
 
-public class NavigationScreen
-    extends BaseMapScreen implements INavigationScreen, RoutingController.Container, NavigationManagerCallback
+public class NavigationScreen extends BaseMapScreen implements RoutingController.Container, NavigationManagerCallback
 {
   private static final String TAG = NavigationScreen.class.getSimpleName();
 
   public static final String MARKER = NavigationScreen.class.getSimpleName();
 
+  private final boolean mIsDebug;
   @NonNull
   private final RoutingController mRoutingController;
   @NonNull
@@ -70,8 +69,10 @@ public class NavigationScreen
   private NavigationScreen(@NonNull Builder builder)
   {
     super(builder.mCarContext, builder.mOrganicMapsContext, builder.mSurfaceRenderer);
+    mIsDebug = builder.mIsDebug;
     mRoutingController = RoutingController.get();
     mNavigationManager = builder.mCarContext.getCarService(NavigationManager.class);
+    setMarker(MARKER);
   }
 
   @NonNull
@@ -194,7 +195,7 @@ public class NavigationScreen
     });
 
     final ActionStrip.Builder builder = new ActionStrip.Builder();
-    if (BuildConfig.DEBUG)
+    if (mIsDebug)
       builder.addAction(createSimulateRouteAction());
     builder.addAction(createTtsAction());
     builder.addAction(UiHelpers.createSettingsActionForResult(this, getSurfaceRenderer(), this::onSettingsResult));
@@ -308,6 +309,7 @@ public class NavigationScreen
     private final OrganicMaps mOrganicMapsContext;
     @NonNull
     private final Renderer mSurfaceRenderer;
+    private boolean mIsDebug;
 
     public Builder(@NonNull final CarContext carContext, @NonNull OrganicMaps organicMapsContext,
                    @NonNull final Renderer surfaceRenderer)
@@ -318,11 +320,16 @@ public class NavigationScreen
     }
 
     @NonNull
+    public Builder setDebugMode(boolean isDebug)
+    {
+      mIsDebug = isDebug;
+      return this;
+    }
+
+    @NonNull
     public NavigationScreen build()
     {
-      final NavigationScreen navigationScreen = new NavigationScreen(this);
-      navigationScreen.setMarker(MARKER);
-      return navigationScreen;
+      return new NavigationScreen(this);
     }
   }
 }

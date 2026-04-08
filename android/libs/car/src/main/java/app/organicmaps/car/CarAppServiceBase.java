@@ -1,9 +1,14 @@
 package app.organicmaps.car;
 
+import android.content.Context;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.car.app.CarAppService;
+import androidx.car.app.Session;
 import androidx.car.app.validation.HostValidator;
+import androidx.core.app.NotificationCompat;
 import app.organicmaps.api.Const;
+import app.organicmaps.routing.NavigationService;
 
 public abstract class CarAppServiceBase extends CarAppService
 {
@@ -27,5 +32,31 @@ public abstract class CarAppServiceBase extends CarAppService
     return new HostValidator.Builder(getApplicationContext())
         .addAllowedHosts(androidx.car.app.R.array.hosts_allowlist_sample)
         .build();
+  }
+
+  @NonNull
+  protected abstract NotificationCompat.Extender buildCarNotificationExtender(@NonNull Context context);
+
+  @NonNull
+  @Override
+  public final Session onCreateSession()
+  {
+    return onCreateSession(null);
+  }
+
+  @Override
+  @CallSuper
+  public void onCreate()
+  {
+    super.onCreate();
+    NavigationService.setCarNotificationExtender(buildCarNotificationExtender(getApplicationContext()));
+  }
+
+  @Override
+  @CallSuper
+  public void onDestroy()
+  {
+    super.onDestroy();
+    NavigationService.setCarNotificationExtender(null);
   }
 }

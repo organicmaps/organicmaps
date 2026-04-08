@@ -26958,7 +26958,7 @@ zh-Hans = 网络：%@
 zh-Hant = 網路： %@
 
 [trip_finished]
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = You have arrived!
 af = U het aangekom!
 ar = لقد وصلت!

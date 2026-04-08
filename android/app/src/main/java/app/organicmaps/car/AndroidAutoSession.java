@@ -3,7 +3,6 @@ package app.organicmaps.car;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.LifecycleOwner;
@@ -12,16 +11,12 @@ import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
 import app.organicmaps.car.screens.MapScreen;
-import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.UserActionRequired;
-import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.car.renderer.Renderer;
-import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayChangedListener;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationUtils;
@@ -36,10 +31,10 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
 
   private final boolean mInitFailed;
 
-  public AndroidAutoSession(@NonNull OrganicMaps organicMapsContext, @Nullable SessionInfo sessionInfo,
+  public AndroidAutoSession(@NonNull OrganicMaps organicMapsContext, @Nullable SessionInfo sessionInfo, boolean isDebug,
                             boolean initFailed)
   {
-    super(organicMapsContext, sessionInfo);
+    super(organicMapsContext, sessionInfo, isDebug);
     mInitFailed = initFailed;
   }
 
@@ -57,8 +52,6 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     super.onCreate(owner);
     mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Car, this);
-
-    NavigationService.setCarNotificationExtender(AndroidAutoService.getCarNotificationExtender(getCarContext()));
   }
 
   @Override
@@ -67,8 +60,6 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
     super.onDestroy(owner);
     Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     mDisplayManager.removeListener(DisplayType.Car);
-
-    NavigationService.setCarNotificationExtender(null);
   }
 
   @NonNull
@@ -142,13 +133,5 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
   {
     Assert.debug(mDisplayManager != null, "mDisplayManager is null");
     return mDisplayManager.isCarDisplayUsed();
-  }
-
-  @Override
-  @NonNull
-  protected BaseMapScreen buildNavigationScreen(@NonNull CarContext context, @NonNull OrganicMaps organicMapsContext,
-                                                @NonNull Renderer surfaceRenderer)
-  {
-    return new NavigationScreen.Builder(context, organicMapsContext, surfaceRenderer).build();
   }
 }

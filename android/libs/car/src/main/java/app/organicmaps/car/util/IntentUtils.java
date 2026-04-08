@@ -11,7 +11,7 @@ import androidx.car.app.ScreenManager;
 import androidx.car.app.notification.CarPendingIntent;
 import app.organicmaps.api.Const;
 import app.organicmaps.car.CarAppServiceBase;
-import app.organicmaps.car.screens.INavigationScreen;
+import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.intent.GoogleAssistantIntentHandler;
 import app.organicmaps.sdk.Framework;
@@ -57,8 +57,7 @@ public final class IntentUtils
   }
 
   private record CarSearchHandler(CarContext mCarContext, OrganicMaps mOrganicMapsContext, Renderer mSurfaceRenderer)
-      implements GoogleAssistantIntentHandler.SearchHandler
-  {
+      implements GoogleAssistantIntentHandler.SearchHandler {
     private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull OrganicMaps mOrganicMapsContext,
                              @NonNull Renderer mSurfaceRenderer)
     {
@@ -150,8 +149,8 @@ public final class IntentUtils
       final Screen top = screenManager.getTop();
       if (!displayManager.isCarDisplayUsed())
         displayManager.changeDisplay(DisplayType.Car);
-      if (!(top instanceof INavigationScreen))
-        screenManager.popTo(INavigationScreen.MARKER);
+      if (!(top instanceof NavigationScreen))
+        screenManager.popTo(NavigationScreen.MARKER);
     }
   }
 
