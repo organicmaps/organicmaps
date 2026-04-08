@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="back">Back</string>
+    <!-- Maps viewer pagination controls -->
+    <string name="previous_page">Previous</string>
+    <string name="next_page">Next</string>
+    <string name="maps_controls_section">Controls</string>
+    <!-- Delete maps confirmation dialog -->
+    <string name="maps_confirm_delete">Are you sure?</string>
+    <string name="maps_deleting_progress">Deleting…</string>
+    <string name="all_maps">All Maps</string>
+    <string name="my_maps">My Maps</string>
+    <string name="updatable_maps">Update</string>
+    <string name="delete">Delete</string>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="cancel">Cancel</string>

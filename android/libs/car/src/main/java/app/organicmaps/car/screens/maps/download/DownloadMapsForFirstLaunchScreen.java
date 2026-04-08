@@ -1,4 +1,4 @@
-package app.organicmaps.car.screens.download;
+package app.organicmaps.car.screens.maps.download;
 
 import android.location.Location;
 import android.text.TextUtils;
@@ -9,7 +9,7 @@ import app.organicmaps.car.R;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 
-class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen
+final class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen
 {
   DownloadMapsForFirstLaunchScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {

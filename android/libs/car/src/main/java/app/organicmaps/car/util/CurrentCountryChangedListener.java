@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.ScreenManager;
-import app.organicmaps.car.screens.download.DownloadMapsScreen;
-import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
+import app.organicmaps.car.screens.maps.download.DownloadMapsScreen;
+import app.organicmaps.car.screens.maps.download.DownloadMapsScreenBuilder;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
@@ -47,7 +47,7 @@ public class CurrentCountryChangedListener implements MapManager.CurrentCountryC
 
     mPreviousCountryId = countryId;
     screenManager.push(new DownloadMapsScreenBuilder(mCarContext, mOrganicMapsContext)
-                           .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.View)
+                           .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.OnMap)
                            .setMissingMaps(new String[] {countryId})
                            .build());
   }

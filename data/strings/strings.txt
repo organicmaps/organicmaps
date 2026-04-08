@@ -2,7 +2,7 @@
 
 [back]
 comment = Button text (should be short)
-tags = android-app
+tags = android-app,android-libs-car
 en = Back
 af = Terug
 ar = رجوع
@@ -118,7 +118,7 @@ zh-Hant = 取消
 
 [delete]
 comment = Button which deletes downloaded country
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Delete
 af = Skrap
 ar = حذف
@@ -175,6 +175,11 @@ uk = Видалити
 vi = Xóa
 zh-Hans = 删除
 zh-Hant = 刪除
+
+[deleting]
+comment = Delete process status message
+tags = android-libs-car
+en = Deleting
 
 [download_maps]
 tags = android-app,apple-maps
@@ -14268,7 +14273,7 @@ zh-Hant = 您是否想要規劃目前位置的路線？
 
 [next_button]
 comment = Edit open hours/set time and minutes dialog
-tags = android-app
+tags = android-app,android-libs-car
 en = Next
 af = Volgende
 ar = التالي
@@ -18728,7 +18733,7 @@ zh-Hant = 建立 OpenStreetMap 帳戶或登入以向全世界發布您的地圖�
 
 [downloader_of]
 comment = Downloaded 10 **of** 20 <- it is that "of"
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = %1$d of %2$d
 af = %1$d van %2$d
 ar = %1$d من%2$d
@@ -43429,3 +43434,32 @@ uk = Колір треків змінено
 vi = Màu tuyến đường đã thay đổi
 zh-Hans = 轨迹颜色已更改
 zh-Hant = 軌跡顏色已更改
+
+[confirmation]
+comment = Generic confirmation message
+tags = android-libs-car
+en = Are you sure?
+
+[controls]
+comment = Control buttons section name
+tags = android-libs-car
+en = Controls
+
+[all_maps]
+comment = "All Maps" section name. Must be short
+tags = android-libs-car
+en = All Maps
+
+[my_maps]
+comment = "My Maps" section name. Must be short
+tags = android-libs-car
+en = My Maps
+
+[updatable_maps]
+comment = "Updatable Maps" section name. Must be short
+tags = android-libs-car
+en = Updatable
+
+[up_to_date]
+tags = android-libs-car
+en = Everything is up to date

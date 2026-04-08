@@ -1,12 +1,12 @@
-package app.organicmaps.car.screens.download;
+package app.organicmaps.car.screens.maps.download;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
 import app.organicmaps.car.R;
 
-class DownloadMapsForViewScreen extends DownloadMapsScreen
+final class DownloadMapsForOnMapScreen extends DownloadMapsScreen
 {
-  DownloadMapsForViewScreen(@NonNull final DownloadMapsScreenBuilder builder)
+  DownloadMapsForOnMapScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {
     super(builder);
   }

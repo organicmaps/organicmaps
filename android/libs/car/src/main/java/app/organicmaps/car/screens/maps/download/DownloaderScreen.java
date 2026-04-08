@@ -1,4 +1,4 @@
-package app.organicmaps.car.screens.download;
+package app.organicmaps.car.screens.maps.download;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
@@ -137,7 +137,10 @@ class DownloaderScreen extends BaseScreen
     if (mIsCancelActionDisabled)
       headerBuilder.setStartHeaderAction(Action.APP_ICON);
     else
+    {
       headerBuilder.setStartHeaderAction(Action.BACK);
+      builder.addAction(getCancelAction());
+    }
     headerBuilder.setTitle(getCarContext().getString(R.string.notification_channel_downloader));
     builder.setHeader(headerBuilder.build());
 
@@ -184,5 +187,14 @@ class DownloaderScreen extends BaseScreen
   {
     for (final String map : mMissingMaps.keySet())
       MapManager.nativeCancel(map);
+  }
+
+  @NonNull
+  private Action getCancelAction()
+  {
+    return new Action.Builder()
+        .setTitle(getCarContext().getString(R.string.cancel))
+        .setOnClickListener(this::finish)
+        .build();
   }
 }

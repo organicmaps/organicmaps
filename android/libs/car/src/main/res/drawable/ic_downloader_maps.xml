@@ -1,0 +1,55 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="88dp"
+    android:height="88dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+
+  <path
+      android:fillColor="#FFF"
+      android:pathData="m18,14a1,1 0,0 0,-1 1v4.586L15.707,18.293A1,1 0,0 0,15 18a1,1 0,0 0,-0.707 0.293,1 1,0 0,0 0,1.414l3,3a1,1 0,0 0,1.414 0l3,-3a1,1 0,0 0,0 -1.414,1 1,0 0,0 -1.414,0L19,19.586V15a1,1 0,0 0,-1 -1z"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1" />
+
+  <path
+      android:fillColor="#FFF"
+      android:pathData="m9.5,8 l1,-1V6l1,-0.5h1L13,6h1l2,-1.5 1,0.5 2,2 0.5,1 0.5,1v2.5L19.5,11 18.5,10.5 18,11 16.5,11.5h-1L15,11H14L13.5,10.5H12L10.5,9h-1z"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1.5" />
+
+  <path
+      android:fillColor="#FFF"
+      android:pathData="M3.5,10.5V9L4,9.5H6L6.5,9h1L8,9.5V10H8.5L9,11H9.5L10,11.5V12l0.5,0.5v1l-1,1v2L9,17 8.5,18H8V16.5L7.5,16V15L8.5,14 8,13.5H6.5l-2,-2z"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1.5" />
+
+  <path
+      android:fillColor="#FFF"
+      android:pathData="M8.5,7H9V7.5L8.5,8v0h-1V7L8,6.5Z"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1.5" />
+
+  <path
+      android:fillColor="#FFF"
+      android:pathData="m11.5,15 l0.5,-1 1,-1 1,-0.5 1,0.5v0.5l-1,1V15l-0.5,0.5 -0.5,1 -1,-1"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="1.5" />
+
+  <path
+      android:fillColor="#FFF"
+      android:pathData="M12,2A10,10 0,0 0,2 12A10,10 0,0 0,12 22A10,10 0,0 0,13.438 21.896A6,6 0,0 1,12.34 19.992A8,8 0,0 1,12 20A8,8 0,0 1,4 12A8,8 0,0 1,12 4A8,8 0,0 1,20 12A8,8 0,0 1,19.992 12.34A6,6 0,0 1,21.896 13.438A10,10 0,0 0,22 12A10,10 0,0 0,12 2z"
+      android:strokeColor="#00000000"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="2.5" />
+
+</vector>
