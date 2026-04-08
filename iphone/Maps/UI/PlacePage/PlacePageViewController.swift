@@ -468,7 +468,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
 
   private func updateContentOffsetForTitleEditing() {
     guard !isiPad else { return }
-    let keyboardHeight = MWMKeyboard.keyboardHeight()
+    var keyboardHeight = MWMKeyboard.keyboardHeight()
     var yOffset: CGFloat?
     if keyboardHeight > 0 {
       let yOffsetFromKeyboard = layout.headerViewController.view.height
@@ -481,8 +481,18 @@ extension PlacePageViewController: UIScrollViewDelegate {
       yOffset = previousScrollContentOffset.y
       self.previousScrollContentOffset = nil
     }
+
     guard let yOffset else { return }
-    scrollTo(CGPoint(x: 0, y: yOffset), forced: true)
+
+    let bottomInset = max(0, keyboardHeight - actionBarContainerView.frame.height)
+    scrollView.contentInset.bottom = bottomInset
+
+    let minOffset = -scrollView.adjustedContentInset.top
+    let maxOffset = max(minOffset, scrollView.contentSize.height + scrollView.adjustedContentInset.bottom - scrollView.height)
+    let contentOffset = CGPoint(x: 0, y: min(maxOffset, max(minOffset, yOffset)))
+    scrollView.contentOffset = contentOffset
+    currentScrollContentOffset = contentOffset
+    updateBackgroundViewFrame()
   }
 }
 
