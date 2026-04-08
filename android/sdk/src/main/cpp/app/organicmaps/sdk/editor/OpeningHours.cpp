@@ -111,9 +111,17 @@ jobjectArray JavaTimetables(JNIEnv * env, TimeTableSet & tts)
 jobject JavaOpeningHoursInfo(JNIEnv * env, RuleState state, bool isTwentyFourSeven, time_t nextTimeOpen,
                              time_t nextTimeClosed)
 {
-  jobject const info =
-      env->NewObject(g_clazzOpeningHoursInfo, g_ctorOpeningHoursInfo, static_cast<jint>(state), isTwentyFourSeven,
-                     static_cast<jlong>(nextTimeOpen), static_cast<jlong>(nextTimeClosed));
+  jlong javaTimeNeverConstant = static_cast<jlong>(-1);
+  jlong jlongNextTimeOpen = static_cast<jlong>(nextTimeOpen);
+  jlong jlongNextTimeClosed = static_cast<jlong>(nextTimeClosed);
+
+  if (nextTimeOpen == std::numeric_limits<time_t>::max())
+    jlongNextTimeOpen = javaTimeNeverConstant;
+  if (nextTimeClosed == std::numeric_limits<time_t>::max())
+    jlongNextTimeClosed = javaTimeNeverConstant;
+
+  jobject const info = env->NewObject(g_clazzOpeningHoursInfo, g_ctorOpeningHoursInfo, static_cast<jint>(state),
+                                      isTwentyFourSeven, jlongNextTimeOpen, jlongNextTimeClosed);
   ASSERT(info, (jni::DescribeException()));
   return info;
 }

@@ -8,6 +8,9 @@ import androidx.annotation.Keep;
 @SuppressWarnings("unused")
 public class OpeningHoursInfo
 {
+  // Used for nextTimeOpen and nextTimeClosed when the place will stay open (or closed) forever
+  public static final long TIME_NEVER = -1;
+
   public enum RuleState
   {
     Open,
@@ -32,7 +35,7 @@ public class OpeningHoursInfo
   }
 
   public final RuleState state;
-  public final long nextTimeOpen;
-  public final long nextTimeClosed;
+  public final long nextTimeOpen; // Is TIME_NEVER if currently closed but never opens
+  public final long nextTimeClosed; // Is TIME_NEVER if currently open but never closes
   public final boolean isTwentyFourSeven;
 }
