@@ -565,7 +565,9 @@ public class PlacePageView extends Fragment
         Date closeDate = new Date(ohInfo.nextTimeClosed * 1000L);
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
 
-        if (timeLeftMinutes < 3 * 60) // Less than 3 hours
+        if (ohInfo.nextTimeClosed == OpeningHoursInfo.TIME_NEVER) // Will stay open forever
+          descriptionString = "";
+        else if (timeLeftMinutes < 3 * 60) // Less than 3 hours
           descriptionString = " • " + getString(R.string.closes_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(closeDate);
         else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
@@ -592,7 +594,9 @@ public class PlacePageView extends Fragment
         Date openDate = new Date(ohInfo.nextTimeOpen * 1000L);
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
 
-        if (timeLeftMinutes < 3 * 60) // Less than 3 hours
+        if (ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER) // Will stay closed forever
+          descriptionString = "";
+        else if (timeLeftMinutes < 3 * 60) // Less than 3 hours
           descriptionString = " • " + getString(R.string.opens_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(openDate);
         else if (nowCal.get(Calendar.DAY_OF_YEAR) == openCal.get(Calendar.DAY_OF_YEAR)) // Today
