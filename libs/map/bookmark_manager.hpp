@@ -49,7 +49,6 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
-  using CategoriesChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
 
@@ -98,6 +97,31 @@ public:
     DeletedBookmarksCallback m_deletedBookmarksCallback;
     AttachedBookmarksCallback m_attachedBookmarksCallback;
     DetachedBookmarksCallback m_detachedBookmarksCallback;
+  };
+
+  struct CategoryFilesUpdate
+  {
+    Platform::FilesList m_files;
+    Platform::FilesList m_created;
+    Platform::FilesList m_updated;
+    Platform::FilesList m_deleted;
+
+    CategoryFilesUpdate(Platform::FilesList files, Platform::FilesList created, Platform::FilesList updated,
+                        Platform::FilesList deleted)
+      : m_files(std::move(files))
+      , m_created(std::move(created))
+      , m_updated(std::move(updated))
+      , m_deleted(std::move(deleted))
+    {}
+  };
+
+  using CategoryFilesDidFinishGatheringCallback = std::function<void(Platform::FilesList const &)>;
+  using CategoryFilesUpdatedCallback = std::function<void(CategoryFilesUpdate const &)>;
+
+  struct CategoryFilesCallbacks
+  {
+    CategoryFilesDidFinishGatheringCallback m_onDidFinishGathering;
+    CategoryFilesUpdatedCallback m_onUpdated;
   };
 
   class EditSession
@@ -163,10 +187,7 @@ public:
     /// @todo(KK) Update to the dp::Color color when custom colors for tracks will be implemented on android.
     void SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
 
-    /// Removes the category from the list of categories and deletes the related file.
-    /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted
-    /// and moved into a trash.
-    bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
+    bool DeleteBmCategory(kml::MarkGroupId groupId);
     void NotifyChanges();
 
   private:
@@ -180,7 +201,7 @@ public:
   void InitRegionAddressGetter(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
-  void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
+  void SetCategoryFilesCallbacks(CategoryFilesCallbacks callbacks);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -272,6 +293,7 @@ public:
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
+  Platform::FilesList GetCategoryFilesList() const;
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
@@ -305,10 +327,6 @@ public:
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
   void ReloadBookmark(std::string const & filePath);
-
-  /// Uses the same file name from which was loaded, or
-  /// creates unique file name on first save and uses it every time.
-  void SaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
 
   StaticMarkPoint & SelectionMark() { return *m_selectionMark; }
   StaticMarkPoint const & SelectionMark() const { return *m_selectionMark; }
@@ -386,7 +404,8 @@ public:
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
-  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
+  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false,
+                        bool notifyCategoryFileChanges = true);
 
   static std::string GetTracksSortedBlockName();
   static std::string GetBookmarksSortedBlockName();
@@ -461,6 +480,7 @@ private:
     void OnUpdateLine(kml::TrackId lineId);
 
     void OnAddGroup(kml::MarkGroupId groupId);
+    void OnUpdateGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
 
     void OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId);
@@ -479,6 +499,7 @@ private:
 
     // UserMarksProvider
     kml::GroupIdSet GetAllGroupIds() const override;
+    kml::GroupIdSet const & GetCreatedGroupIds() const override { return m_createdGroups; }
     kml::GroupIdSet const & GetUpdatedGroupIds() const override { return m_updatedGroups; }
     kml::GroupIdSet const & GetRemovedGroupIds() const override { return m_removedGroups; }
     kml::MarkIdSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
@@ -496,7 +517,6 @@ private:
     df::UserLineMark const * GetUserLineMark(kml::TrackId lineId) const override;
 
   private:
-    void OnUpdateGroup(kml::MarkGroupId groupId);
     void OnBecomeVisibleGroup(kml::MarkGroupId groupId);
     void OnBecomeInvisibleGroup(kml::MarkGroupId groupId);
 
@@ -517,9 +537,9 @@ private:
     kml::TrackIdSet m_updatedLines;
 
     kml::GroupIdSet m_createdGroups;
+    kml::GroupIdSet m_updatedGroups;
     kml::GroupIdSet m_removedGroups;
 
-    kml::GroupIdSet m_updatedGroups;
     kml::GroupIdSet m_becameVisibleGroups;
     kml::GroupIdSet m_becameInvisibleGroups;
 
@@ -597,7 +617,7 @@ private:
   void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
-  bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
+  bool DeleteBmCategory(kml::MarkGroupId groupId);
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
   void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
@@ -618,7 +638,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges(bool saveChangesOnDisk);
+  void NotifyChanges(bool processCategoryFileChanges = true);
 
   void SaveState() const;
   void LoadState();
@@ -630,7 +650,7 @@ private:
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
   void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
+  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection, bool autoSave);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
   void ReloadBookmarkRoutine(std::string const & filePath);
@@ -643,7 +663,11 @@ private:
   void UpdateBmGroupIdList();
 
   void NotifyBookmarksChanged();
-  void NotifyCategoriesChanged();
+  void DeleteCategories(kml::GroupIdSet const & groupIdSet);
+
+  void NotifyCategoryFilesDidFinishGathering();
+  void NotifyCategoryFilesChanged(CategoryFilesUpdate update);
+  void ProcessBookmarkCategoryFileChanges(MarksChangesTracker const & changesTracker);
 
   void SendBookmarksChanges(MarksChangesTracker const & changesTracker);
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks) const;
@@ -653,9 +677,12 @@ private:
   kml::MarkGroupId CheckAndCreateDefaultCategory();
   void CheckAndResetLastIds();
 
+  std::string EnsureCategoryFileName(BookmarkCategory & group) const;
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
   KMLDataCollectionPtr PrepareToSaveBookmarksForTrack(kml::TrackId trackId);
+  void SaveBookmarks(BookmarkManager::KMLDataCollectionPtr const & kmlDataCollection,
+                     BookmarksChangedCallback && callback);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   template <typename UniquityChecker>
@@ -738,9 +765,10 @@ private:
 
   std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
   std::mutex m_regionAddressMutex;
+  std::mutex m_categoryFilesCallbacksMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
-  CategoriesChangedCallback m_categoriesChangedCallback;
+  CategoryFilesCallbacks m_categoryFilesCallbacks;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();
@@ -753,6 +781,7 @@ private:
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksCalled = false;
   bool m_loadBookmarksFinished = false;
+  std::atomic<bool> m_categoryFilesDidFinishGathering = false;
   bool m_firstDrapeNotification = false;
   bool m_notificationsEnabled = true;
 

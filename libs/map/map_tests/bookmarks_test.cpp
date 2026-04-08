@@ -10,6 +10,7 @@
 
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
@@ -31,6 +32,8 @@ namespace bookmarks_test
 using namespace std;
 
 using Runner = Platform::ThreadRunner;
+using CategoryFilesCallbacks = BookmarkManager::CategoryFilesCallbacks;
+using CategoryFilesUpdate = BookmarkManager::CategoryFilesUpdate;
 
 static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
@@ -190,6 +193,29 @@ FileType GetActiveFileType()
   return FileType::Kml;
 }
 
+struct ScopedBookmarksTestDirectories
+{
+  ScopedBookmarksTestDirectories() : m_bookmarksDir(GetBookmarksDirectory()), m_trashDir(GetTrashDirectory())
+  {
+    Reset();
+    TEST(Platform::MkDirRecursively(m_bookmarksDir), ());
+  }
+
+  ~ScopedBookmarksTestDirectories() { Reset(); }
+
+  std::string const & GetBookmarksDir() const { return m_bookmarksDir; }
+
+private:
+  void Reset() const
+  {
+    (void)Platform::RmDirRecursively(m_bookmarksDir);
+    (void)Platform::RmDirRecursively(m_trashDir);
+  }
+
+  std::string const m_bookmarksDir;
+  std::string const m_trashDir;
+};
+
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
@@ -213,13 +239,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
-  string const dir = GetBookmarksDirectory();
-  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
-  SCOPE_GUARD(dirDeleter, [&]()
-  {
-    if (delDirOnExit)
-      (void)Platform::RmDir(dir);
-  });
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
   string const ext = ".kmb";
   string const fileName = base::JoinPath(dir, "UnitTestBookmarks" + ext);
   SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
@@ -249,7 +270,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   bmManager.GetEditSession().ClearGroup(groupId1);
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId1).size(), 0, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId1, true);
+  bmManager.GetEditSession().DeleteBmCategory(groupId1);
   TEST_EQUAL(bmManager.HasBmCategory(groupId1), false, ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
@@ -264,7 +285,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   CheckBookmarks(bmManager, groupId2);
   TEST_EQUAL(bmManager.IsVisible(groupId2), true, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId2, true);
+  bmManager.GetEditSession().DeleteBmCategory(groupId2);
   TEST_EQUAL(bmManager.HasBmCategory(groupId2), false, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
@@ -285,6 +306,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 
 namespace
 {
+void WriteKmlStringToFile(std::string const & filePath, char const * kml)
+{
+  FileWriter writer(filePath);
+  writer.Write(kml, std::strlen(kml));
+}
+
 void DeleteCategoryFiles(vector<string> const & arrFiles)
 {
   string const path = GetBookmarksDirectory();
@@ -1073,7 +1100,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const fileNameTmp = fileName + ".backup";
   TEST(base::CopyFileX(fileName, fileNameTmp), ());
 
-  bmManager.GetEditSession().DeleteBmCategory(catId, true);
+  bmManager.GetEditSession().DeleteBmCategory(catId);
 
   auto const fileNameOnDisk = "file1";
   BookmarkManager::KMLDataCollection kmlDataCollection2;
@@ -1092,7 +1119,6 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
   TEST_EQUAL(bmManager.GetUserMarkIds(lastModifiedCatId).size(), 1, ());
   TEST_EQUAL(bmManager.GetCategoryName(olderCatId), expectedName, ());
-  TEST_EQUAL(bmManager.GetCategoryFileName(lastModifiedCatId), fileNameFromMemory, ());
   TEST_EQUAL(bmManager.GetCategoryFileName(olderCatId), fileNameOnDisk, ());
 
   auto const bmId1 = *bmManager.GetUserMarkIds(lastModifiedCatId).begin();
@@ -1569,13 +1595,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
-  auto const dir = GetBookmarksDirectory();
-  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
-  SCOPE_GUARD(dirDeleter, [&]()
-  {
-    if (delDirOnExit)
-      (void)Platform::RmDir(dir);
-  });
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
 
   std::string const filePath = base::JoinPath(dir, "file" + std::string{kKmlExtension});
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -1591,7 +1612,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */);
+  bmManager.GetEditSession().DeleteBmCategory(groupId);
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
   auto const deletedCategories = bmManager.GetRecentlyDeletedCategories();
@@ -1609,6 +1630,544 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidFinishGatheringInitialLoad)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "CategoryFilesDidFinishGatheringInitialLoad.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  {
+    BookmarkManager bmManager(BM_CALLBACKS);
+    bmManager.EnableTestMode(true);
+
+    size_t didFinishGatheringCount = 0;
+    size_t didUpdateCount = 0;
+    Platform::FilesList gatheredFiles;
+
+    bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const & files)
+    {
+      ++didFinishGatheringCount;
+      gatheredFiles = files;
+    }, [&](CategoryFilesUpdate const &) { ++didUpdateCount; }));
+
+    bmManager.LoadBookmarks();
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 0, ());
+    TEST_EQUAL(gatheredFiles.size(), 1, ());
+    TEST_EQUAL(gatheredFiles.front(), filePath, ());
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidFinishGatheringEmptyDirectory)
+{
+  [[maybe_unused]] ScopedBookmarksTestDirectories const testDirs;
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  size_t didFinishGatheringCount = 0;
+  size_t didUpdateCount = 0;
+  Platform::FilesList gatheredFiles;
+
+  bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const & files)
+  {
+    ++didFinishGatheringCount;
+    gatheredFiles = files;
+  }, [&](CategoryFilesUpdate const &) { ++didUpdateCount; }));
+
+  bmManager.LoadBookmarks();
+
+  TEST_EQUAL(didFinishGatheringCount, 1, ());
+  TEST_EQUAL(didUpdateCount, 0, ());
+  TEST(gatheredFiles.empty(), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidFinishGatheringLateRegistration)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "file.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  size_t didFinishGatheringCount = 0;
+  Platform::FilesList gatheredFiles;
+  bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const & files)
+  {
+    ++didFinishGatheringCount;
+    gatheredFiles = files;
+  }));
+
+  TEST_EQUAL(didFinishGatheringCount, 1, ());
+  TEST_EQUAL(gatheredFiles.size(), 1, ());
+  TEST_EQUAL(gatheredFiles.front(), filePath, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidNotReplayPastUpdatesForLateUpdatedCallback)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "file.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  {
+    auto editSession = bmManager.GetEditSession();
+    editSession.SetCategoryName(groupId, "late_callback_before_registration");
+  }
+
+  size_t didUpdateCount = 0;
+  CategoryFilesUpdate updatedFiles{{}, {}, {}, {}};
+  bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const & update)
+  {
+    ++didUpdateCount;
+    updatedFiles = update;
+  }));
+
+  TEST_EQUAL(didUpdateCount, 0, ());
+
+  {
+    auto editSession = bmManager.GetEditSession();
+    editSession.SetCategoryName(groupId, "late_callback_after_registration");
+  }
+
+  TEST_EQUAL(didUpdateCount, 1, ());
+  TEST_EQUAL(updatedFiles.m_files.size(), 1, ());
+  TEST_EQUAL(updatedFiles.m_created.size(), 0, ());
+  TEST_EQUAL(updatedFiles.m_updated.size(), 1, ());
+  TEST_EQUAL(updatedFiles.m_deleted.size(), 0, ());
+  TEST_EQUAL(updatedFiles.m_files.front(), filePath, ());
+  TEST_EQUAL(updatedFiles.m_updated.front(), filePath, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidUpdateAfterInitialGathering)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "CategoryFilesDidUpdateAfterInitialGathering.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  {
+    BookmarkManager bmManager(BM_CALLBACKS);
+    bmManager.EnableTestMode(true);
+
+    size_t didFinishGatheringCount = 0;
+    size_t didUpdateCount = 0;
+    CategoryFilesUpdate updatedFiles{{}, {}, {}, {}};
+
+    bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const &)
+    { ++didFinishGatheringCount; }, [&](CategoryFilesUpdate const & update)
+    {
+      ++didUpdateCount;
+      updatedFiles = update;
+    }));
+
+    bmManager.LoadBookmarks();
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 0, ());
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+
+    auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+    {
+      auto editSession = bmManager.GetEditSession();
+      editSession.SetCategoryName(groupId, "CategoryFilesDidUpdateAfterInitialGathering_updated");
+    }
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 1, ());
+    TEST_EQUAL(updatedFiles.m_files.size(), 1, ());
+    TEST_EQUAL(updatedFiles.m_created.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_updated.size(), 1, ());
+    TEST_EQUAL(updatedFiles.m_deleted.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_files.front(), filePath, ());
+    TEST_EQUAL(updatedFiles.m_updated.front(), filePath, ());
+    TEST(Platform::IsFileExistsByFullPath(filePath), ());
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidNotUpdateForNoOpEditSession)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "CategoryFilesDidNotUpdateForNoOpEditSession.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  size_t didUpdateCount = 0;
+  bmManager.SetCategoryFilesCallbacks(
+      CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const &) { ++didUpdateCount; }));
+  {
+    auto editSession = bmManager.GetEditSession();
+  }
+
+  TEST_EQUAL(didUpdateCount, 0, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidCreateAfterLoad)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "file.kml");
+  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), "new_file.kml");
+  SCOPE_GUARD(fileDeleter, [&]()
+  {
+    (void)base::DeleteFileX(filePath);
+    (void)base::DeleteFileX(tmpFilePath);
+  });
+  WriteKmlStringToFile(filePath, kmlString);
+  WriteKmlStringToFile(tmpFilePath, kmlString);
+
+  {
+    BookmarkManager bmManager(BM_CALLBACKS);
+    bmManager.EnableTestMode(true);
+
+    size_t didFinishGatheringCount = 0;
+    size_t didUpdateCount = 0;
+    CategoryFilesUpdate updatedFiles{{}, {}, {}, {}};
+
+    bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const &)
+    { ++didFinishGatheringCount; }, [&](CategoryFilesUpdate const & update)
+    {
+      ++didUpdateCount;
+      updatedFiles = update;
+    }));
+
+    bmManager.LoadBookmarks();
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 0, ());
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+
+    bmManager.LoadBookmark(tmpFilePath, true /* isTemporary */);
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 1, ());
+
+    TEST_EQUAL(updatedFiles.m_files.size(), 2, ());
+    TEST_EQUAL(updatedFiles.m_created.size(), 1, ());
+    TEST_EQUAL(updatedFiles.m_updated.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_deleted.size(), 0, ());
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidNotUpdateForCreateThenDeleteBeforeCommit)
+{
+  [[maybe_unused]] ScopedBookmarksTestDirectories const testDirs;
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  size_t didUpdateCount = 0;
+  bmManager.SetCategoryFilesCallbacks(
+      CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const &) { ++didUpdateCount; }));
+  {
+    auto editSession = bmManager.GetEditSession();
+    auto const createdGroupId = bmManager.CreateBookmarkCategory("transient");
+    TEST(editSession.DeleteBmCategory(createdGroupId), ());
+  }
+
+  TEST_EQUAL(didUpdateCount, 1, ());
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());  // 1 is because LoadBookmarks creates Default empty category
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidUpdateAfterReload)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "file.kml");
+
+  // new version of the file
+  auto updatedKml = std::string{kmlString};
+  TEST(strings::ReplaceFirst(updatedKml, "<name>MapName</name>", "<name>MapName_Updated</name>"), ());
+  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), "file.kml");
+
+  SCOPE_GUARD(fileDeleter, [&]()
+  {
+    (void)base::DeleteFileX(filePath);
+    (void)base::DeleteFileX(tmpFilePath);
+  });
+  WriteKmlStringToFile(filePath, kmlString);
+  WriteKmlStringToFile(tmpFilePath, updatedKml.c_str());
+
+  {
+    BookmarkManager bmManager(BM_CALLBACKS);
+    bmManager.EnableTestMode(true);
+
+    size_t didFinishGatheringCount = 0;
+    size_t didUpdateCount = 0;
+    CategoryFilesUpdate updatedFiles{{}, {}, {}, {}};
+
+    bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const &)
+    { ++didFinishGatheringCount; }, [&](CategoryFilesUpdate const & update)
+    {
+      ++didUpdateCount;
+      updatedFiles = update;
+    }));
+
+    bmManager.LoadBookmarks();
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 0, ());
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+
+    bmManager.ReloadBookmark(tmpFilePath);
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 1, ());
+    TEST_EQUAL(updatedFiles.m_files.size(), 1, ());
+    TEST_EQUAL(updatedFiles.m_created.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_updated.size(), 1, ());
+    TEST_EQUAL(updatedFiles.m_deleted.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_files.front(), filePath, ());
+    TEST_EQUAL(updatedFiles.m_updated.front(), filePath, ());
+    TEST(Platform::IsFileExistsByFullPath(filePath), ());
+    TEST_EQUAL(Platform::GetFileModificationTime(filePath), Platform::GetFileModificationTime(tmpFilePath), ());
+
+    auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+    TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName_Updated", ());
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidNotUpdateForFailedLoadBookmark)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "CategoryFilesDidNotUpdateForFailedLoadBookmark.kml");
+  auto const missingFilePath = base::JoinPath(GetPlatform().TmpDir(), "missing_load_bookmark.kml");
+  SCOPE_GUARD(fileDeleter, [&]()
+  {
+    (void)base::DeleteFileX(filePath);
+    (void)base::DeleteFileX(missingFilePath);
+  });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  size_t didUpdateCount = 0;
+  bmManager.SetCategoryFilesCallbacks(
+      CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const &) { ++didUpdateCount; }));
+
+  bmManager.LoadBookmark(missingFilePath, true /* isTemporaryFile */);
+
+  TEST_EQUAL(didUpdateCount, 0, ());
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidNotUpdateForFailedReloadBookmark)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "CategoryFilesDidNotUpdateForFailedReloadBookmark.kml");
+  auto const missingFilePath = base::JoinPath(GetPlatform().TmpDir(), "missing_reload_bookmark.kml");
+  SCOPE_GUARD(fileDeleter, [&]()
+  {
+    (void)base::DeleteFileX(filePath);
+    (void)base::DeleteFileX(missingFilePath);
+  });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  size_t didUpdateCount = 0;
+  bmManager.SetCategoryFilesCallbacks(
+      CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const &) { ++didUpdateCount; }));
+
+  bmManager.ReloadBookmark(missingFilePath);
+
+  TEST_EQUAL(didUpdateCount, 0, ());
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidUpdateAfterDelete)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "file.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  {
+    BookmarkManager bmManager(BM_CALLBACKS);
+    bmManager.EnableTestMode(true);
+
+    size_t didFinishGatheringCount = 0;
+    size_t didUpdateCount = 0;
+    CategoryFilesUpdate updatedFiles{{}, {}, {}, {}};
+
+    bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks([&](Platform::FilesList const &)
+    { ++didFinishGatheringCount; }, [&](CategoryFilesUpdate const & update)
+    {
+      ++didUpdateCount;
+      updatedFiles = update;
+    }));
+
+    bmManager.LoadBookmarks();
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 0, ());
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+
+    auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+    TEST(bmManager.GetEditSession().DeleteBmCategory(groupId), ());
+
+    TEST_EQUAL(didFinishGatheringCount, 1, ());
+    TEST_EQUAL(didUpdateCount, 1, ());
+    TEST_EQUAL(updatedFiles.m_files.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_created.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_updated.size(), 0, ());
+    TEST_EQUAL(updatedFiles.m_deleted.size(), 1, ());
+    TEST_EQUAL(updatedFiles.m_deleted.front(), filePath, ());
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesDidUpdateMixed)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const updatedCategoryFile = base::JoinPath(dir, "update.kml");
+  auto const deletedCategoryFile = base::JoinPath(dir, "delete.kml");
+  SCOPE_GUARD(fileDeleter, [&]()
+  {
+    (void)base::DeleteFileX(updatedCategoryFile);
+    (void)base::DeleteFileX(deletedCategoryFile);
+  });
+
+  WriteKmlStringToFile(updatedCategoryFile, kmlString);
+  WriteKmlStringToFile(deletedCategoryFile, kmlString);
+
+  {
+    BookmarkManager bmManager(BM_CALLBACKS);
+    bmManager.EnableTestMode(true);
+
+    bmManager.LoadBookmarks();
+
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
+    kml::MarkGroupId updatedCategoryId = kml::kInvalidMarkGroupId;
+    kml::MarkGroupId deletedCategoryId = kml::kInvalidMarkGroupId;
+    for (auto const groupId : bmManager.GetSortedBmGroupIdList())
+    {
+      auto const & fileName = bmManager.GetCategoryFileName(groupId);
+      if (fileName == updatedCategoryFile)
+        updatedCategoryId = groupId;
+      else if (fileName == deletedCategoryFile)
+        deletedCategoryId = groupId;
+    }
+    TEST_NOT_EQUAL(updatedCategoryId, kml::kInvalidMarkGroupId, ());
+    TEST_NOT_EQUAL(deletedCategoryId, kml::kInvalidMarkGroupId, ());
+
+    size_t callbackCount = 0;
+    Platform::FilesList files;
+    Platform::FilesList created;
+    Platform::FilesList updated;
+    Platform::FilesList deleted;
+    bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const & update)
+    {
+      ++callbackCount;
+      files = update.m_files;
+      created = update.m_created;
+      updated = update.m_updated;
+      deleted = update.m_deleted;
+    }));
+
+    {
+      auto editSession = bmManager.GetEditSession();
+      editSession.SetCategoryName(updatedCategoryId, "updated");
+      TEST(editSession.DeleteBmCategory(deletedCategoryId), ());
+      UNUSED_VALUE(bmManager.CreateBookmarkCategory("created"));
+    }
+
+    TEST_EQUAL(callbackCount, 1, ());
+    TEST_EQUAL(created.size(), 1, ());
+    TEST_EQUAL(updated.size(), 1, ());
+    TEST_EQUAL(deleted.size(), 1, ());
+    TEST_EQUAL(files.size(), 2, ());
+    TEST(std::find(files.begin(), files.end(), created.front()) != files.end(), ());
+    TEST(std::find(files.begin(), files.end(), updatedCategoryFile) != files.end(), ());
+    TEST_EQUAL(updated.front(), updatedCategoryFile, ());
+    TEST(std::find(files.begin(), files.end(), deleted.front()) == files.end(), ());
+    TEST(Platform::IsFileExistsByFullPath(created.front()), ());
+    TEST(Platform::IsFileExistsByFullPath(updated.front()), ());
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesReuseDeletedFileNameInSameBatch)
+{
+  ScopedBookmarksTestDirectories const testDirs;
+  auto const & dir = testDirs.GetBookmarksDir();
+
+  auto const filePath = base::JoinPath(dir, "same_name.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  WriteKmlStringToFile(filePath, kmlString);
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+
+  Platform::FilesList files;
+  Platform::FilesList created;
+  Platform::FilesList deleted;
+  bmManager.SetCategoryFilesCallbacks(CategoryFilesCallbacks({}, [&](CategoryFilesUpdate const & update)
+  {
+    files = update.m_files;
+    created = update.m_created;
+    deleted = update.m_deleted;
+  }));
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  {
+    auto editSession = bmManager.GetEditSession();
+    TEST(editSession.DeleteBmCategory(groupId), ());
+    UNUSED_VALUE(bmManager.CreateBookmarkCategory("same_name"));
+  }
+
+  TEST_EQUAL(created.size(), 1, ());
+  TEST_EQUAL(deleted.size(), 1, ());
+  TEST_EQUAL(created.front(), filePath, ());
+  TEST_EQUAL(deleted.front(), filePath, ());
+  TEST_EQUAL(files.size(), 1, ());
+  TEST_EQUAL(files.front(), filePath, ());
+  TEST(Platform::IsFileExistsByFullPath(filePath), ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
