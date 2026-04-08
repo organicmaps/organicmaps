@@ -63,6 +63,7 @@
     <string name="avoid_ferry">Izbjegni trajekte</string>
     <string name="avoid_motorways">Izbjegni autoputeve</string>
     <string name="unable_to_calc_alert_title">Nije moguće izračunati rutu</string>
+    <string name="trip_finished">Stigli ste!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Razvrstaj zabilješke</string>
     <!-- Android -->

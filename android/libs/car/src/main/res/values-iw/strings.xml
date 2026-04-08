@@ -83,6 +83,7 @@
     <string name="avoid_ferry">הימנע ממעבורות</string>
     <string name="avoid_motorways">הימנע מכבישים מהירים</string>
     <string name="unable_to_calc_alert_title">לא ניתן לחשב מסלול</string>
+    <string name="trip_finished">הגעת!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">מיון סימניות</string>
     <!-- Android -->

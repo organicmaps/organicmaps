@@ -83,6 +83,7 @@
     <string name="avoid_ferry">اجتناب از گذرگاه‌های کشتی</string>
     <string name="avoid_motorways">از بزرگراه دوری کنید</string>
     <string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
+    <string name="trip_finished">شما به مقصد رسیدید!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">مرتب‌سازی نشانک‌ها</string>
     <!-- Android -->

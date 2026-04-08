@@ -83,6 +83,7 @@
     <string name="avoid_ferry">避開渡輪</string>
     <string name="avoid_motorways">避開高速公路</string>
     <string name="unable_to_calc_alert_title">無法規劃路線</string>
+    <string name="trip_finished">您已到達目的地！</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">分類排序</string>
     <!-- Android -->

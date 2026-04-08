@@ -83,6 +83,7 @@
     <string name="avoid_ferry">フェリーを利用しない</string>
     <string name="avoid_motorways">高速道路を避ける</string>
     <string name="unable_to_calc_alert_title">ルートを計算できません</string>
+    <string name="trip_finished">到着しました!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">ブックマークの並べ替え</string>
     <!-- Android -->

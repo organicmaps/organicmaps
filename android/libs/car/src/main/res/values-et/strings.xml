@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Väldi praamiületusi</string>
     <string name="avoid_motorways">Väldi kiirteed</string>
     <string name="unable_to_calc_alert_title">Teekonna koostamine ei õnnestu</string>
+    <string name="trip_finished">Oled kohal!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Järjesta järjehoidjaid</string>
     <!-- Android -->
