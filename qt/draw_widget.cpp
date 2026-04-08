@@ -603,9 +603,8 @@ void DrawWidget::FollowRoute()
 {
   auto & routingManager = m_framework.GetRoutingManager();
 
-  /// @DebugNote
-  /// Uncomment to debug TTS.
-  // routingManager.SetTurnNotificationsLocale("es");
+  routingManager.SetTurnNotificationsLocale("en");
+  /// @DebugNote Uncomment to Debug TTS.
   // routingManager.EnableTurnNotifications(true);
 
   auto const points = routingManager.GetRoutePoints();
