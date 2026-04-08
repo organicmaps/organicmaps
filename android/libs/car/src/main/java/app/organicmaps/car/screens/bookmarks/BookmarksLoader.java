@@ -18,9 +18,11 @@ import app.organicmaps.car.R;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSession;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
-import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.sdk.car.RoutingHelpers;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.Distance;
@@ -34,7 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Future;
 
-class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
+class BookmarksLoader
 {
   public interface OnBookmarksLoaded
   {
@@ -50,6 +52,8 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
 
   @Nullable
   private Future<?> mBookmarkLoaderTask = null;
+  @Nullable
+  private BookmarkListSession mBookmarkListSession = null;
 
   @NonNull
   private final CarContext mCarContext;
@@ -80,20 +84,28 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
   public void load()
   {
     UiThread.runLater(() -> {
-      BookmarkManager.INSTANCE.addSortingListener(this);
+      cancel();
+      mBookmarkListSession = new BookmarkListSession(mBookmarkCategory.getId());
+      mBookmarkListSession.setListener(this::onSnapshotChanged);
       if (sortBookmarks())
         return;
-
-      final List<Long> bookmarkIds = new ArrayList<>();
-      for (int i = 0; i < mBookmarksListSize; ++i)
-        bookmarkIds.add(mBookmarkCategory.getBookmarkIdByPosition(i));
-      loadBookmarks(bookmarkIds);
+      Objects.requireNonNull(mBookmarkListSession).showDefault();
     });
   }
 
   public void cancel()
   {
-    BookmarkManager.INSTANCE.removeSortingListener(this);
+    if (mBookmarkListSession != null)
+    {
+      mBookmarkListSession.setListener(null);
+      mBookmarkListSession.close();
+      mBookmarkListSession = null;
+    }
+    cancelLoaderTask();
+  }
+
+  private void cancelLoaderTask()
+  {
     if (mBookmarkLoaderTask != null)
     {
       mBookmarkLoaderTask.cancel(true);
@@ -123,20 +135,21 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     final double lat = hasMyPosition ? loc.getLatitude() : 0;
     final double lon = hasMyPosition ? loc.getLongitude() : 0;
 
-    BookmarkManager.INSTANCE.getSortedCategory(mBookmarkCategory.getId(), sortingType, hasMyPosition, lat, lon, 0);
+    Objects.requireNonNull(mBookmarkListSession).sort(sortingType, hasMyPosition, lat, lon);
 
     return true;
   }
 
-  private void loadBookmarks(@NonNull List<Long> bookmarksIds)
+  private void onSnapshotChanged(@NonNull BookmarkListSnapshot snapshot)
   {
-    final BookmarkInfo[] bookmarks = new BookmarkInfo[mBookmarksListSize];
-    for (int i = 0; i < mBookmarksListSize && i < bookmarksIds.size(); ++i)
-    {
-      final long id = bookmarksIds.get(i);
-      bookmarks[i] = BookmarkManager.INSTANCE.getBookmarkInfo(id);
-    }
+    if (snapshot.isLoading())
+      return;
 
+    loadBookmarks(extractBookmarks(snapshot, mBookmarksListSize));
+  }
+
+  private void loadBookmarks(@NonNull List<BookmarkInfo> bookmarks)
+  {
     mBookmarkLoaderTask = ThreadPool.getWorker().submit(() -> {
       final ItemList bookmarksList = createBookmarksList(bookmarks);
       UiThread.run(() -> {
@@ -147,7 +160,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
   }
 
   @NonNull
-  private ItemList createBookmarksList(@NonNull BookmarkInfo[] bookmarks)
+  private ItemList createBookmarksList(@NonNull List<BookmarkInfo> bookmarks)
   {
     final Location location = mLocationHelper.getSavedLocation();
     final ItemList.Builder builder = new ItemList.Builder();
@@ -202,12 +215,27 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     return result;
   }
 
-  @Override
-  public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
+  @NonNull
+  static List<BookmarkInfo> extractBookmarks(@NonNull BookmarkListSnapshot snapshot, int maxBookmarks)
   {
-    final List<Long> bookmarkIds = new ArrayList<>();
-    for (final SortedBlock block : sortedBlocks)
-      bookmarkIds.addAll(block.getBookmarkIds());
-    loadBookmarks(bookmarkIds);
+    final List<BookmarkInfo> bookmarks = new ArrayList<>(Math.max(0, maxBookmarks));
+    if (maxBookmarks <= 0)
+      return bookmarks;
+
+    for (int i = 0; i < snapshot.size(); i++)
+    {
+      final BookmarkListRow row = snapshot.getRow(i);
+      if (row.getType() != BookmarkListRow.Type.BOOKMARK)
+        continue;
+
+      final BookmarkInfo bookmark = row.getBookmark();
+      if (bookmark == null)
+        continue;
+
+      bookmarks.add(bookmark);
+      if (bookmarks.size() == maxBookmarks)
+        break;
+    }
+    return bookmarks;
   }
 }
