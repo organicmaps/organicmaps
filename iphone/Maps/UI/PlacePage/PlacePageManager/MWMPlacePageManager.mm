@@ -227,8 +227,9 @@ using namespace storage;
 
 - (void)removeBookmark:(PlacePageData *)data
 {
-  auto & f = GetFramework();
-  f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
+  [[MWMBookmarksManager sharedManager] deleteBookmark:data.bookmarkData.bookmarkId];
+  // Safety net: when HasBookmark is already false, deleteBookmark: returns early
+  // without firing onBookmarkDeleted, so the observer won't call this.
   [MWMFrameworkHelper updateAfterDeleteBookmark];
 }
 
@@ -244,8 +245,7 @@ using namespace storage;
 
 - (void)removeTrack:(PlacePageData *)data
 {
-  auto & f = GetFramework();
-  f.GetBookmarkManager().GetEditSession().DeleteTrack(data.trackData.trackId);
+  [[MWMBookmarksManager sharedManager] deleteTrack:data.trackData.trackId];
 }
 
 - (void)call:(PlacePagePhone *)phone

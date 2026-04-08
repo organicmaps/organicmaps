@@ -485,6 +485,9 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
+  if (!self.bm.HasBookmark(bookmarkId))
+    return;
+
   self.bm.GetEditSession().DeleteBookmark(bookmarkId);
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
@@ -494,7 +497,14 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
 - (void)deleteTrack:(MWMTrackID)trackId
 {
+  if (!self.bm.HasTrack(trackId))
+    return;
+
   self.bm.GetEditSession().DeleteTrack(trackId);
+  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+    if ([observer respondsToSelector:@selector(onTrackDeleted:)])
+      [observer onTrackDeleted:trackId];
+  }];
 }
 
 - (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId

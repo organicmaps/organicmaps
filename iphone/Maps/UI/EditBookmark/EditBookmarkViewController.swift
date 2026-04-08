@@ -230,11 +230,8 @@ extension EditBookmarkViewController: MWMNoteCellDelegate {
 
 extension EditBookmarkViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_: UITableViewCell) {
+    // goBack() and updateAfterDeleteBookmark() are called by onBookmarkDeleted observer.
     BookmarksManager.shared().deleteBookmark(bookmarkId)
-    if let placePageData = placePageData {
-      FrameworkHelper.updateAfterDeleteBookmark()
-    }
-    goBack()
   }
 }
 
@@ -254,6 +251,12 @@ extension EditBookmarkViewController: SelectBookmarkGroupViewControllerDelegate 
 extension EditBookmarkViewController: BookmarksObserver {
   func onBookmarksLoadFinished() {
     updateBookmarkIfNeeded()
+  }
+
+  func onBookmarkDeleted(_ deletedBookmarkId: MWMMarkID) {
+    if bookmarkId == deletedBookmarkId {
+      goBack()
+    }
   }
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
