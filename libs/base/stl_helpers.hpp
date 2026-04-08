@@ -152,6 +152,13 @@ bool IsExist(Cont const & c, T const & t)
   return std::find(std::cbegin(c), end, t) != end;
 }
 
+template <typename Cont, class FnT>
+bool IsExistIf(Cont const & c, FnT && fn)
+{
+  auto const end = std::cend(c);
+  return std::find_if(std::cbegin(c), end, std::ref(fn)) != end;
+}
+
 template <typename Cont, typename T>
 bool BinarySearch(Cont const & c, T const & t)
 {

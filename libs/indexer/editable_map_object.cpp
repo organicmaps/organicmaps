@@ -22,10 +22,8 @@ namespace
 bool ExtractName(FeatureNames const & names, int8_t langCode, std::vector<osm::LocalizedName> & result)
 {
   // Exclude languages that are already present.
-  auto const it = base::FindIf(
-      result, [langCode](osm::LocalizedName const & localizedName) { return localizedName.m_code == langCode; });
-
-  if (result.end() != it)
+  if (base::IsExistIf(
+          result, [langCode](osm::LocalizedName const & localizedName) { return localizedName.m_code == langCode; }))
     return false;
 
   result.emplace_back(langCode, names.Get(langCode));
