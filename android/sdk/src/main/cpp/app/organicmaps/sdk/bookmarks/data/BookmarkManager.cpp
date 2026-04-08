@@ -1,6 +1,7 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
@@ -116,6 +117,7 @@ void OnBookmarksChanged(JNIEnv * env)
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksChangedMethod);
+  OnBookmarkListSessionsChanged(env);
   jni::HandleJavaException(env);
 }
 
