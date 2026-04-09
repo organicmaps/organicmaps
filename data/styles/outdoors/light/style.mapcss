@@ -129,6 +129,9 @@ colors
   SpeedCameraMarkText-color: #FFFFFF;
   SpeedCameraMarkBg-color: #F51E30;
   SpeedCameraMarkOutline-color: #FFFFFF;
+  RouteMarkInterBg-color: #006C35;
+  RouteMarkInterOutline-color: #FFFFFF;
+  RouteMarkInterText-color: #FFFFFF;
   GuideCityMarkText-color: #6639BF;
   GuideOutdoorMarkText-color: #3C8C3C;
   HotelPriceText-color: #000000;
