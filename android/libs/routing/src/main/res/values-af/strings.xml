@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Werk kaarte by</string>
     <string name="downloader_mwm_migration_dialog">Om ’n roete te skep moet u alle kaarte bywerk en die roete dan weer beplan.</string>
+    <string name="navigation_stop_button">Stop</string>
     <string name="ok">Goed</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

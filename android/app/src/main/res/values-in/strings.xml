@@ -236,6 +236,8 @@
     <string name="pref_map_auto_zoom">Perbesar otomatis</string>
     <string name="placepage_distance">Jarak</string>
     <string name="search_show_on_map">Tampilkan pada peta</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Situs Web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -367,6 +369,10 @@
     <string name="search_history_title">Riwayat Pencarian</string>
     <string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
     <string name="clear_search">Bersihkan riwayat pencarian</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Lokasi Anda</string>
     <string name="p2p_start">Mulai</string>
     <string name="p2p_from_here">Dari</string>
@@ -480,7 +486,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Catatan untuk relawan OpenStreetMap (opsional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit dengan Peta Organik</string>
+    <string name="editor_note_hint">Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit melalui Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Hasil editan Anda akan diunggah ke database <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> publik. Mohon untuk tidak menambahkan informasi pribadi atau informasi yang memiliki hak cipta.</string>
     <string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
@@ -608,6 +614,8 @@
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="terms_of_use">Ketentuan penggunaan</string>
     <string name="button_layer_traffic">Lalu lintas</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Pendakian</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Bersepeda</string>
     <string name="button_layer_subway">Kereta bawah tanah</string>
@@ -750,6 +758,8 @@
     <string name="splash_subtitle">Data peta dari OpenStreetMap</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/id/</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Terima kasih telah menggunakan peta buatan komunitas kami!</string>
     <!-- App tip #01 -->

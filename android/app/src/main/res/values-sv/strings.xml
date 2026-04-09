@@ -511,7 +511,7 @@
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Redigera bokmärke</string>
     <string name="placepage_personal_notes_hint">Personlig anteckning (text eller html)</string>
-    <string name="editor_comment_hint">kommentar…</string>
+    <string name="editor_comment_hint">Kommentar…</string>
     <string name="editor_reset_edits_message">Återställ alla lokala ändringar?</string>
     <string name="editor_reset_edits_button">Återställ</string>
     <string name="editor_remove_place_message">Ta bort en tillagd plats?</string>

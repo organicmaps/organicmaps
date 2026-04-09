@@ -88,8 +88,12 @@
     <string name="maps_storage_summary">Chọn vị trí nơi bản đồ sẽ được tải về</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Bản đồ</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s trống trong tổng số %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Di chuyển bản đồ?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Lỗi khi di chuyển tệp bản đồ</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Việc này có thể mất vài phút.\nVui lòng đợi…</string>
     <!-- Measurement units title in settings activity -->
@@ -148,6 +152,7 @@
     <string name="description">Ghi chú</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Điểm đánh dấu Organic Maps được chia sẻ</string>
+    <string name="share_bookmarks_email_body">Xin chào!\n\nĐính kèm là các dấu trang của tôi; vui lòng mở chúng trong Organic Maps. Nếu bạn chưa cài đặt ứng dụng này, bạn có thể tải xuống tại đây: https://omaps.app/get?kmz\n\nChúc bạn có những chuyến đi thú vị cùng Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Tải Điểm đánh dấu</string>
     <!-- Kmz file successful loading -->
@@ -191,6 +196,10 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Độ dài</string>
     <string name="share_my_location">Chia sẻ Vị trí của tôi</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Cài đặt chung</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Thông tin</string>
     <string name="prefs_group_route">Điều hướng</string>
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Nút + và - trên bản đồ</string>
@@ -227,6 +236,8 @@
     <string name="pref_map_auto_zoom">Ống dòm tự động</string>
     <string name="placepage_distance">Khoảng cách</string>
     <string name="search_show_on_map">Xem trên bản đồ</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Trang web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -358,6 +369,10 @@
     <string name="search_history_title">Lịch sử tìm kiếm</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Vị trí của bạn</string>
     <string name="p2p_start">Bắt đầu</string>
     <string name="p2p_from_here">Từ</string>
@@ -398,6 +413,8 @@
     <string name="day_off_today">Nghỉ hôm nay</string>
     <string name="day_off">Ngày nghỉ</string>
     <string name="today">Hôm nay</string>
+    <string name="opens_in">Mở trong %s</string>
+    <string name="closes_in">Đóng trong %s</string>
     <string name="closed">Đã đóng</string>
     <string name="edit_opening_hours">Sửa giờ làm việc</string>
     <string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
@@ -419,13 +436,18 @@
     <string name="building">Xây dựng</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Thêm con đường</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Vui lòng nhập tên đường</string>
     <string name="choose_language">Đã chọn ngôn ngữ</string>
     <string name="choose_street">Đã chọn con đường</string>
     <string name="cuisine">Ẩm thực</string>
     <string name="select_cuisine">Chọn Ẩm thực</string>
     <!-- login text field -->
     <string name="email_or_username">Email hoặc tên người dùng</string>
+    <string name="editor_add_phone">Thêm số điện thoại</string>
     <string name="level">Tầng</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Cấp độ: %s</string>
     <string name="downloader_delete_map_dialog">Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.</string>
     <string name="downloader_update_maps">Cập nhật các bản đồ</string>
     <string name="downloader_search_field_hint">Tìm bản đồ</string>
@@ -449,7 +471,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %s. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) là một dự án cộng đồng nhằm xây dựng bản đồ mở và miễn phí. Đây là nguồn dữ liệu bản đồ chính trong Bản đồ không phải trả tiền và hoạt động tương tự như Wikipedia. Bạn có thể thêm hoặc chỉnh sửa địa điểm và chúng sẽ có sẵn cho hàng triệu người dùng trên toàn thế giới.\nTham gia cộng đồng và giúp tạo bản đồ tốt hơn cho mọi người!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) là một dự án cộng đồng nhằm xây dựng bản đồ miễn phí và mở. Đây là nguồn dữ liệu bản đồ chính trên Organic Maps và hoạt động tương tự như Wikipedia. Bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng sẽ được cung cấp cho hàng triệu người dùng trên toàn thế giới.\nHãy tham gia cộng đồng và cùng góp phần tạo ra bản đồ tốt hơn cho mọi người!</string>
     <string name="login_to_make_edits_visible">Tạo tài khoản OpenStreetMap hoặc đăng nhập để xuất bản các chỉnh sửa bản đồ của bạn với thế giới.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d trên %2$d</string>
@@ -464,7 +486,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Lưu ý dành cho tình nguyện viên OpenStreetMap (tùy chọn)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Mô tả lỗi trên bản đồ hoặc những gì không thể chỉnh sửa bằng Bản đồ không phải trả tiền</string>
+    <string name="editor_note_hint">Mô tả các lỗi trên bản đồ hoặc các mục không thể chỉnh sửa bằng Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.</string>
     <string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
@@ -474,7 +496,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Toán tử: %s</string>
     <string name="editor_category_unsuitable_title">Không thể tìm thấy một danh mục phù hợp?</string>
-    <string name="editor_category_unsuitable_text">Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps chỉ cho phép thêm các loại điểm đơn giản, tức là không bao gồm các thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các loại này trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy tham khảo <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết các bước thực hiện chi tiết.</string>
     <string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
     <string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
     <string name="current_location_unknown_error_title">Chưa biết địa điểm hiện tại.</string>
@@ -495,11 +517,20 @@
     <string name="editor_remove_place_message">Xóa một địa điểm đã thêm?</string>
     <string name="editor_remove_place_button">Xóa</string>
     <string name="editor_place_doesnt_exist">Địa điểm không tồn tại</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Vui lòng cho biết lý do xóa địa điểm</string>
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">Nhập chính xác số điện thoại</string>
     <string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
     <string name="error_enter_correct_email">Nhập email hợp lệ</string>
+    <string name="error_enter_correct_facebook_page">Nhập địa chỉ web, tài khoản hoặc tên trang Facebook hợp lệ</string>
+    <string name="error_enter_correct_instagram_page">Nhập tên người dùng Instagram hoặc địa chỉ web hợp lệ</string>
+    <string name="error_enter_correct_twitter_page">Nhập tên người dùng Twitter hoặc địa chỉ web hợp lệ</string>
+    <string name="error_enter_correct_vk_page">Nhập tên người dùng VK hoặc địa chỉ web hợp lệ</string>
+    <string name="error_enter_correct_line_page">Nhập ID LINE hoặc địa chỉ web hợp lệ</string>
     <string name="placepage_add_place_button">Thêm địa điểm vào OpenStreetMap</string>
+    <string name="osm_note_hint">Hoặc, bạn có thể để lại lời nhắn cho cộng đồng OpenStreetMap để người khác có thể thêm hoặc sửa địa điểm này.</string>
+    <string name="osm_note_toast">Ghi chú sẽ được gửi đến OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -542,6 +573,7 @@
     <string name="button_plan">Kế hoạch</string>
     <string name="placepage_remove_stop">Xóa điểm dừng</string>
     <string name="placepage_add_stop">Thêm điểm dừng</string>
+    <string name="saved">Đã lưu</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.</string>
     <string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
@@ -582,6 +614,10 @@
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="terms_of_use">Điều khoảng sử dụng</string>
     <string name="button_layer_traffic">Giao thông</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Đi bộ đường dài</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Đạp xe</string>
     <string name="button_layer_subway">Xe điện ngầm</string>
     <string name="layers_title">Kiểu và lớp bản đồ</string>
     <string name="bookmarks_empty_list_title">Danh sách trống</string>
@@ -613,6 +649,11 @@
     <string name="power_managment_setting_never">Không bao giờ</string>
     <string name="power_managment_setting_auto">Tự động</string>
     <string name="power_managment_setting_manual_max">Tiết kiệm năng lượng tối đa</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Tên dấu trang trên bản đồ</string>
+    <string name="bookmarks_text_placement_description">Nếu có quá nhiều dấu trang, việc hiển thị tên của chúng trên bản đồ có thể làm chậm ứng dụng.</string>
+    <string name="show_to_the_right">Hiển thị ở bên phải</string>
+    <string name="show_at_the_bottom">Hiển thị ở phía dưới</string>
     <string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
     <string name="driving_options_title">Thiết lập đi vòng</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -695,11 +736,28 @@
     <string name="elevation_profile_time">Giờ:</string>
     <string name="isolines_toast_zooms_1_10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
     <string name="downloader_loading_ios">Tải xuống</string>
+    <string name="download_map_title">Tải xuống bản đồ tổng quan thế giới</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Không thể tạo thư mục và di chuyển tệp trên bộ nhớ trong của thiết bị hoặc thẻ SD</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Lỗi đĩa</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Lỗi kết nối</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Ngắt kết nối cáp USB</string>
     <string name="enable_keep_screen_on">Giữ màn hình luôn bật</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Khi được bật, màn hình sẽ luôn sáng khi hiển thị bản đồ.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Hiển thị trên màn hình khóa</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Khi được bật, ứng dụng sẽ hoạt động trên màn hình khóa ngay cả khi thiết bị đang bị khóa.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Ngôn ngữ bản đồ</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Cảm ơn bạn đã sử dụng bản đồ do cộng đồng xây dựng của chúng tôi!</string>
     <!-- App tip #01 -->
@@ -721,9 +779,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Mục tiêu chính của chúng tôi là xây dựng các bản đồ nhanh chóng, tập trung vào quyền riêng tư, dễ sử dụng mà bạn sẽ yêu thích.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại</string>
+    <string name="car_used_on_the_phone_screen">Bạn hiện đang sử dụng Organic Maps trên màn hình điện thoại</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô</string>
+    <string name="car_used_on_the_car_screen">Bạn hiện đang sử dụng Organic Maps trên màn hình xe hơi</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Bạn đã kết nối với Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -731,7 +789,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Đến màn hình ô tô</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Bản đồ không phải trả tiền cần quyền truy cập vị trí. Khi an toàn, hãy kiểm tra thông báo trên điện thoại của bạn.</string>
+    <string name="aa_location_permissions_request">Organic Maps cần quyền truy cập vị trí. Khi an toàn, hãy kiểm tra thông báo trên điện thoại của bạn.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ứng dụng này cần sự cho phép của bạn</string>
     <!-- Grant Permissions button. -->
@@ -788,6 +846,10 @@
     <string name="nav_auto">Tự động điều hướng</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Theo hệ thống</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Chia sẻ lộ trình</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Xóa %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

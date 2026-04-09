@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน Organic Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://omaps.app/get?kmz\n\nขอให้สนุกกับการเดินทางด้วย Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
@@ -456,10 +456,10 @@
 "clear_search" = "ล้างการค้นหาประวัติ";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "วิกิพีเดีย";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "วิกิมีเดีย คอมมอนส์";
 "p2p_your_location" = "ตำแหน่งที่ตั้งของคุณ";
 "p2p_start" = "เริ่มต้น";
 "p2p_from_here" = "จาก";
@@ -489,8 +489,8 @@
 "day_off_today" = "วันนี้ปิด";
 "day_off" = "ปิด";
 "today" = "วันนี้";
-"opens_in" = "Opens in %@";
-"closes_in" = "Closes in %@";
+"opens_in" = "เปิดใน %@";
+"closes_in" = "ปิดใน %@";
 "closed" = "ปิด";
 "no_osm_account" = "ไม่มีบัญชีใน OpenStreetMap?";
 "register_at_openstreetmap" = "ลงทะเบียน";
@@ -558,7 +558,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "ตัวดำเนินการ: %@";
 "editor_category_unsuitable_title" = "ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?";
-"editor_category_unsuitable_text" = "แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. ดู<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน";
+"editor_category_unsuitable_text" = "Organic Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> โปรดตรวจสอบ<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน";
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
 "current_location_unknown_error_title" = "ไม่ทราบชื่อของที่ตั้งปัจจุบัน";
@@ -575,7 +575,7 @@
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "แก้ไข Bookmark";
 "placepage_personal_notes_hint" = "ข้อความส่วนตัว (ข้อความหรือ html)";
-"editor_comment_hint" = "ข้อคิดเห็น";
+"editor_comment_hint" = "ข้อคิดเห็น…";
 "editor_reset_edits_message" = "ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด";
 "editor_reset_edits_button" = "ตั้งค่าใหม่";
 "editor_remove_place_message" = "ลบที่ที่เพิ่มออก";
@@ -622,7 +622,7 @@
 "button_plan" = "วางแผน";
 "placepage_remove_stop" = "ลบจุดแวะพัก";
 "placepage_add_stop" = "เพิ่มจุดแวะพัก";
-"saved" = "Saved";
+"saved" = "บันทึกแล้ว";
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 "bookmark_lists" = "รายการ";
 
@@ -644,10 +644,10 @@
 "terms_of_use" = "ข้อกำหนดในการใช้งาน";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "การเดินป่า";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "การปั่นจักรยาน";
 "button_layer_subway" = "รถไฟใต้ดิน";
 "layers_title" = "รูปแบบและเลเยอร์ของแผนที่";
 
@@ -684,10 +684,10 @@
 "power_managment_setting_manual_max" = "ประหยัดพลังงานสูงสุด";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "บันทึกชื่อบนแผนที่";
+"bookmarks_text_placement_description" = "หากมีบุ๊กมาร์กมากเกินไป การแสดงชื่อของบุ๊กมาร์กบนแผนที่อาจทำให้แอปทำงานช้าลง";
+"show_to_the_right" = "แสดงทางขวา";
+"show_at_the_bottom" = "แสดงที่ด้านล่าง";
 "enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น";
 "driving_options_title" = "ทางเลือกเส้นทางขับขี่";
 
@@ -750,10 +750,10 @@
 
 /* Place Page opening hours text */
 "closed_now" = "ปิดตอนนี้";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"closes_at" = "Closes at %@";
+"opens_tomorrow_at" = "เปิดพรุ่งนี้ที่ %@";
+"opens_dayoftheweek_at" = "เปิด %1$@ ที่ %2$@";
+"opens_at" = "เปิดที่ %@";
+"closes_at" = "ปิดที่ %@";
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 "password_8_chars_min" = "รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)";
 "invalid_username_or_password" = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
@@ -788,7 +788,7 @@
 "location_services_disabled_on_device_2" = "2. เลือกความเป็นส่วนตัว";
 "location_services_disabled_on_device_3" = "3. เลือกบริการระบุตำแหน่ง";
 "location_services_disabled_on_device_4" = "4. เปิดบริการระบุตำแหน่ง";
-"location_services_disabled_on_device_additional_message" = "หรือใช้แผนที่ทั่วไปโดยไม่มีตำแหน่งต่อไป";
+"location_services_disabled_on_device_additional_message" = "หรือใช้ต่อที่ Organic Maps โดยไม่ต้องระบุตำแหน่ง";
 "book_button" = "จอง";
 "placepage_call_button" = "โทร";
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน";
 "log_file_size" = "ขนาดไฟล์บันทึก: %@";
 "planning_route_remove_title" = "ลากมาที่นี่เพื่อเอาออก";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "แทนที่หยุด";
 "start_from_my_position" = "เริ่มจาก";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -828,15 +828,15 @@
 "bookmarks_convert_error_title" = "ความผิดพลาด";
 "bookmarks_convert_error_message" = "ไฟล์บางไฟล์ไม่ได้รับการแปลง";
 "title_error_downloading_bookmarks" = "มีข้อผิดพลาดเกิดขึ้น";
-"popular_place" = "Popular";
+"popular_place" = "ยอดนิยม";
 "hide_from_map" = "ซ่อนจากแผนที่";
 "tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "ถูกต้อง";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "ด้านล่าง";
 "trip_start" = "ไปกันเลย";
 "pick_destination" = "จุดหมาย";
 "follow_my_position" = "รีเซ็นเตอร์";
@@ -941,10 +941,10 @@
 "app_tip_09" = "เป้าหมายหลักของเราคือการสร้างแผนที่ที่รวดเร็ว เน้นความเป็นส่วนตัว และใช้งานง่ายที่คุณจะหลงรัก";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์";
+"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้ Organic Maps บนหน้าจอโทรศัพท์";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอรถยนต์";
+"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้ Organic Maps บนหน้าจอรถยนต์";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "ดำเนินการต่อบนโทรศัพท์";
@@ -999,16 +999,16 @@
 "whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "ลบเพลง";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "คุณแน่ใจหรือไม่ว่าต้องการลบแทร็กนี้";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "ชื่อเพลง";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "ย้าย";
 
 /* edit track screen title */
 "track_title" = "ติดตาม";
@@ -1103,7 +1103,7 @@
 "ft" = "ฟุต";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "เพื่อแสดงเส้นทาง แผนที่ต้องได้รับการอัปเดต";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "ออก";

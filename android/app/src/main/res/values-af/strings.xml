@@ -114,6 +114,8 @@
     <string name="category_parking">Parkering</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
     <string name="category_shopping">Inkopies</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Tweedehandse</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
@@ -205,6 +207,8 @@
     <string name="pref_auto_night_in_navigation_title">Nagstyl wanneer in die donker genavigeer word</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nagmodus</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Af</string>
     <!-- Generic «On» string -->
     <string name="on">Aan</string>
     <!-- Generic «Auto» string -->
@@ -217,8 +221,16 @@
     <string name="pref_map_3d_buildings_disabled_summary">3D-geboue is gedeaktiveer in batterybesparingsmodus</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Steminstruksies</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Kondig straatname aan</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Wanneer dit geaktiveer is, sal die naam van die straat of die uitgang waarop jy moet afdraai, hardop uitgespreek word.</string>
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Stemtaal</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Toets Stemmingsaanwysings (TTS, Teks-na-spraak)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Kontroleer die volume of die stelsel se Teks-na-Spreek-instellings as jy nou nie die stem hoor nie.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Nie beskikbaar</string>
     <string name="pref_map_auto_zoom">Outomatiese zoem</string>
@@ -320,6 +332,12 @@
     <string name="gray">Grys</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blougrys</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Uitsien</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Lig</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Donker</string>
     <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_scheduled">Lig van dagbreek tot skemer</string>
     <!-- Tex label above the Donate button -->
@@ -351,6 +369,10 @@
     <string name="search_history_title">Soekgeskiedenis</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
     <string name="clear_search">Wis soekgeskiedenis</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">U ligging</string>
     <string name="p2p_start">Begin</string>
     <string name="p2p_from_here">Roete vanaf</string>
@@ -424,6 +446,8 @@
     <string name="email_or_username">E-posadres of gebruikersnaam</string>
     <string name="editor_add_phone">Voeg telefoonnomer toe</string>
     <string name="level">Verdieping</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Vlak: %s</string>
     <string name="downloader_delete_map_dialog">Alle wysigings aan kaarte word saam met die kaart geskrap.</string>
     <string name="downloader_update_maps">Werk kaarte by</string>
     <string name="downloader_search_field_hint">Vind kaart</string>
@@ -462,7 +486,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota aan OpenStreetMap-vrywilligers (opsioneel)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Beskryf foute in die kaart of wat nie met Organiese Kaarte geredigeer kan word nie</string>
+    <string name="editor_note_hint">Beskryf foute op die kaart of dinge wat nie met Organic Maps gewysig kan word nie.</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Jou wysigings word opgelaai na die publieke <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-databasis. Moet asseblief nie persoonlike of kopiereginligting byvoeg nie.</string>
     <string name="editor_more_about_osm">Meer oor OpenStreetMap</string>
@@ -472,7 +496,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operateur: %s</string>
     <string name="editor_category_unsuitable_title">Kan u nie \'n geskikte kategorie vind nie?</string>
-    <string name="editor_category_unsuitable_text">Organiese kaarte laat toe om slegs eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomlynings, ens. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Gaan ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> na vir gedetailleerde stap-vir-stap-instruksies.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps laat slegs toe om eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomtrekke, ens. nie. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kyk na ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> vir gedetailleerde stap-vir-stap instruksies.</string>
     <string name="downloader_no_downloaded_maps_title">U het geen kaarte afgelaai nie</string>
     <string name="downloader_no_downloaded_maps_message">Laai kaarte af om die ligging te soek en vanlyn te navigeer.</string>
     <string name="current_location_unknown_error_title">Huidige ligging is onbekend.</string>
@@ -505,11 +529,14 @@
     <string name="error_enter_correct_vk_page">Voer ’n geldige VK-gebruikersnaam of -webadres in</string>
     <string name="error_enter_correct_line_page">Voer ’n geldige LINE-ID of -webadres in</string>
     <string name="placepage_add_place_button">Voeg plek by OpenStreetMap</string>
+    <string name="osm_note_hint">Of laat alternatiewelik \'n nota vir die OpenStreetMap-gemeenskap agter sodat iemand anders hier \'n plek kan byvoeg of regstel.</string>
+    <string name="osm_note_toast">Nota sal aan OpenStreetMap gestuur word</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Wil u dit na alle gebruikers stuur?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Maak seker u het geen privaat of persoonlike data ingevoer nie.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStraatMap-redigeerders sal die verandeirnge nagaan en u kontak indien hulle vrae het.</string>
+    <string name="navigation_stop_button">Stop</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Opname van die spoor</string>
     <!-- For the first routing -->
@@ -546,6 +573,7 @@
     <string name="button_plan">Beplan</string>
     <string name="placepage_remove_stop">Verwyder stop</string>
     <string name="placepage_add_stop">Voeg tussenstop toe</string>
+    <string name="saved">Gespaar</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Meld asseblief aan by OpenStreetMap om al jou kaartwysigings outomaties op te laai. Kom meer te wete <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
     <string name="dialog_error_storage_title">Bergtoegangprobleem</string>
@@ -620,12 +648,20 @@
     <string name="power_managment_setting_never">Nooit</string>
     <string name="power_managment_setting_auto">Wanneer battery laag as</string>
     <string name="power_managment_setting_manual_max">Altyd</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Boekmerkname op die kaart</string>
+    <string name="bookmarks_text_placement_description">As daar te veel boekmerke is, kan die vertoning van hul name op die kaart die app vertraag.</string>
+    <string name="show_to_the_right">Wys aan die regterkant</string>
+    <string name="show_at_the_bottom">Wys onderaan</string>
     <string name="enable_logging_warning_message">Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.</string>
     <string name="driving_options_title">Ompadopsies</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Vermy tolgelde</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_unpaved">Vermy grondpaaie</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vermy veerbootkruisings</string>
+    <string name="avoid_motorways">Vermy snelweë</string>
     <string name="unable_to_calc_alert_title">Kan nie ’n roete bereken nie</string>
     <string name="unable_to_calc_alert_subtitle">’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.</string>
     <string name="define_to_avoid_btn">Definieer paaie om te vermy</string>
@@ -708,6 +744,9 @@
     <string name="connection_failure">Koppelingsfout</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable_title">Ontkoppel USB-kabel</string>
+    <string name="enable_keep_screen_on">Hou die skerm aan</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Wanneer dit geaktiveer is, sal die skerm altyd aan wees wanneer die kaart vertoon word.</string>
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Toon op grendelskerm</string>
     <!-- Description in preferences -->
@@ -718,12 +757,44 @@
     <string name="splash_subtitle">Kaartdata vanad OpenStreetMap</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/af/</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Dankie dat u ons gemeenskapsgeboude kaarte gebruik!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Met jou skenkings en ondersteuning kan ons die beste kaarte in die wêreld skep!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Hou jy van ons app? Doner asseblief om die ontwikkeling te ondersteun! Hou jy nog nie daarvan nie? Laat weet ons asseblief hoekom, en ons sal dit regstel!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">As jy \'n sagtewareontwikkelaar ken, kan jy hom of haar vra om \'n funksie te implementeer wat jy nodig het.</string>
     <!-- App tip #04 -->
     <string name="app_tip_04">Tik enige plek op die kaart om enigiets te kies. Tik lank om te versteek en om die koppelvlak terug te wys.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">Het jy geweet dat jou huidige ligging op die kaart gekies kan word?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Jy kan help om ons app in jou taal te vertaal.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Ons app is ontwikkel deur \'n paar entoesiaste en die gemeenskap.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Jy kan maklik die kaartdata regstel en verbeter.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Ons hoofdoel is om vinnige, privaatheidsgerigte, maklik-om-te-gebruik kaarte te bou wat jy sal liefhê.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Jy gebruik nou Organic Maps op die foon se skerm</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Jy gebruik nou Organic Maps op die motor se skerm</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Jy is gekoppel aan Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Gaan voort op die foon</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">Na die kar se skerm</string>
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Organic Maps benodig liggingtoegang. Gaan die kennisgewing op jou foon na wanneer dit veilig is.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Hierdie toepassing benodig jou toestemming</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Gee toestemmings</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Stap</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
@@ -758,6 +829,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stop roete-opname</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Spooropname</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Stop sonder om te stoor</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Voortgaan met Opname</string>
@@ -774,6 +847,10 @@
     <string name="nav_auto">Outo in navigasie</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Volg die stelsel</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Deel spoor</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Verwyder %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

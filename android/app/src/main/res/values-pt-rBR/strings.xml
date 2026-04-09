@@ -112,7 +112,7 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">O download do país está atualmente em progresso.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem mapas offline instalados? Baixe aqui: https://omaps.app/get</string>
+    <string name="my_position_share_sms">Confira minha localização atual no Organic Maps! %1$s ou %2$s Não tem mapas offline? Baixe aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Ei, dê uma olhada no meu pin no Organic Maps!</string>
     <!-- Subject for emailed position -->

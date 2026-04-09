@@ -2,6 +2,36 @@
 <resources>
 
     <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Msimamo Wangu</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Maeneo Yangu</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Hifadhi ya ndani ya faragha</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Hifadhi ya pamoja ya ndani</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Kadi ya SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Hifadhi ya nje iliyoshirikiwa</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Msimbo wa posta</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Alama ya Ramani</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Ili kuonyesha njia, ramani lazima zisasishwe.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Toka</string>
     <string name="core_entrance">Kiingilio</string>

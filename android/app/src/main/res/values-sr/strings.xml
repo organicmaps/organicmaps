@@ -529,6 +529,8 @@
     <string name="error_enter_correct_vk_page">Унесите исправно VK корисничко име или веб адресу</string>
     <string name="error_enter_correct_line_page">Унесите исправан LINE ID или веб адресу</string>
     <string name="placepage_add_place_button">Додај место на OpenStreetMap</string>
+    <string name="osm_note_hint">Или, као алтернативу, оставите поруку заједници OpenStreetMap како би неко други могао да дода или исправи неку локацију овде.</string>
+    <string name="osm_note_toast">Напомена ће бити послата OpenStreetMap-у</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Да ли желите да поделите са свим другим корисницима?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -571,6 +573,7 @@
     <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
+    <string name="saved">Сачувано</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
@@ -616,6 +619,10 @@
     <string name="privacy_policy">Политика приватности</string>
     <string name="terms_of_use">Услови коришћења</string>
     <string name="button_layer_traffic">Саобраћај</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Планинарење</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Бициклизам</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилови мапе и слојеви</string>
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
@@ -647,6 +654,11 @@
     <string name="power_managment_setting_never">Никад</string>
     <string name="power_managment_setting_auto">Када је батерија при крају</string>
     <string name="power_managment_setting_manual_max">Увек</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Имена обележивача на мапи</string>
+    <string name="bookmarks_text_placement_description">Ако има превише обележивача, приказивање њихових имена на мапи може успорити апликацију.</string>
+    <string name="show_to_the_right">Прикажи десно</string>
+    <string name="show_at_the_bottom">Прикажи на дну</string>
     <string name="enable_logging_warning_message">Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.</string>
     <string name="driving_options_title">Опције рутирања</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -829,6 +841,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Заустави снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Снимање траке</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Заустави без снимања</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Настави снимање</string>
@@ -845,6 +859,10 @@
     <string name="nav_auto">Аутоматски у навигацији</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Прати систем</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Подели стазу</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Избриши %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

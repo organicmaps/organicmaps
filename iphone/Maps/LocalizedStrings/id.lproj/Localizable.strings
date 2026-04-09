@@ -644,7 +644,7 @@
 "terms_of_use" = "Ketentuan penggunaan";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Pendakian";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Bersepeda";

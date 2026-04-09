@@ -371,6 +371,8 @@
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Poziția ta</string>
     <string name="p2p_start">Pornește</string>
     <string name="p2p_from_here">De la</string>
@@ -430,6 +432,7 @@
     <!-- Editable House Number text field (in address block). -->
     <string name="house_number">Număr</string>
     <string name="details">Detalii</string>
+    <string name="social_media">Rețele sociale</string>
     <string name="building">Clădire</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Adaugă o stradă</string>
@@ -755,6 +758,8 @@
     <string name="change_map_locale">Limbă hartă</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
     <!-- App tip #01 -->
@@ -843,6 +848,8 @@
     <string name="nav_auto">Auto în navigație</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Urmează sistemul</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Partajează traseul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
 

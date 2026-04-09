@@ -622,7 +622,7 @@
 "button_plan" = "План";
 "placepage_remove_stop" = "Уклони међуодредиште";
 "placepage_add_stop" = "Међуодредиште";
-"saved" = "Saved";
+"saved" = "Сачувано";
 "error_enter_correct_name" = "Молим Вас да унесете исправан назив";
 "bookmark_lists" = "Листе";
 
@@ -644,10 +644,10 @@
 "terms_of_use" = "Услови коришћења";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Планинарење";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "Бициклизам";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стилови мапе и слојеви";
 
@@ -684,10 +684,10 @@
 "power_managment_setting_manual_max" = "Увек";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Имена обележивача на мапи";
+"bookmarks_text_placement_description" = "Ако има превише обележивача, приказивање њихових имена на мапи може успорити апликацију.";
+"show_to_the_right" = "Прикажи десно";
+"show_at_the_bottom" = "Прикажи на дну";
 "enable_logging_warning_message" = "Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.";
 "driving_options_title" = "Опције рутирања";
 
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Да бисте видели податке о саобраћају, морате да ажурирате апликацију.";
 "log_file_size" = "Величина лог фајла: %@";
 "planning_route_remove_title" = "Превуците овде за уклањање";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Замени Stop";
 "start_from_my_position" = "Крени од";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -833,10 +833,10 @@
 "tags_loading_error_subtitle" = "Десила се грешка приликом учитавања тагова, покушајте поново";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Десно";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Доња";
 "trip_start" = "Крећемо";
 "pick_destination" = "Одредиште";
 "follow_my_position" = "Центрирај";
@@ -1103,7 +1103,7 @@
 "ft" = "стопа";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Да би се приказале руте, мапе морају бити ажуриране.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Излаз";

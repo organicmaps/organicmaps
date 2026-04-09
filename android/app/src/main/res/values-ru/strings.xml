@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
     <string name="download">Загрузить</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
+    <string name="disconnect_usb_cable">Для использования приложения Organic Maps отсоедините USB-кабель или вставьте карту памяти</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
     <string name="download_resources">Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.\nПотребуется %s данных.</string>
@@ -172,7 +172,7 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Идет процесс загрузки карт.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
+    <string name="my_position_share_sms">Проверьте моё текущее местоположение в приложении Organic Maps! %1$s или %2$s У вас нет офлайн-карт? Скачайте их здесь: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Проверь мою метку на карте Organic Maps!</string>
     <!-- Subject for emailed position -->
@@ -511,7 +511,7 @@
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Редактировать метку</string>
     <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
-    <string name="editor_comment_hint">Коментарий…</string>
+    <string name="editor_comment_hint">Комментарий…</string>
     <string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
     <string name="editor_reset_edits_button">Сбросить</string>
     <string name="editor_remove_place_message">Удалить добавленный вами объект?</string>

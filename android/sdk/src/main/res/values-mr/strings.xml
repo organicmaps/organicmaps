@@ -2,10 +2,21 @@
 <resources>
 
     <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">एमबी</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">माझे स्थान</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">माझी ठिकाणे</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">आंतरिक खाजगी संग्रहण</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">आंतरिक सामायिक संग्रहण</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">एसडी कार्ड</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">बाह्य सामायिक संग्रहण</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">वायफाय इंटरनेट</string>
     <string name="postal_code">पिनकोड</string>
@@ -19,6 +30,8 @@
     <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">फूट</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">मार्ग दाखवण्यासाठी नकाशे अद्ययावत केले पाहिजेत.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">बाहेर पडा</string>
     <string name="core_entrance">प्रवेशद्वार</string>

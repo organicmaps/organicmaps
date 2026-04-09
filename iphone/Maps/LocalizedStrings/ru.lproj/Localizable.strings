@@ -575,7 +575,7 @@
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "Редактировать метку";
 "placepage_personal_notes_hint" = "Примечание (текст или html)";
-"editor_comment_hint" = "Коментарий…";
+"editor_comment_hint" = "Комментарий…";
 "editor_reset_edits_message" = "Сбросить все локальные правки?";
 "editor_reset_edits_button" = "Сбросить";
 "editor_remove_place_message" = "Удалить добавленный вами объект?";

@@ -151,7 +151,7 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Piezīmes</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Ar jums kopīgoja „Oranic Maps“ grāmatzīmes</string>
+    <string name="share_bookmarks_email_subject">Organic Maps ar jums tika dalītas grāmatzīmes</string>
     <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
@@ -176,7 +176,7 @@
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi Organic Maps kartē!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!</string>
+    <string name="my_position_share_email_subject">Hei, apskati manu pašreizējo atrašanās vietu kartē „Organic Maps”!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hei, \n \nŠobrīd atrodos te: %1$s. Spied uz šīs %2$s vai šīs %3$s saites, lai kartē redzētu manu atrašanās vietu. \n \nPaldies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

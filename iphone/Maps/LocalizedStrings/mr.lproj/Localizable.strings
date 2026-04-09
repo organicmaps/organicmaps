@@ -459,7 +459,7 @@
 "read_in_wikipedia" = "विकिपीडिया";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "विकिमीडिया कॉमन्स";
 "p2p_your_location" = "तुमचे स्थान";
 "p2p_start" = "सुरू करा";
 "p2p_from_here" = "पासून मार्ग";
@@ -558,7 +558,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "ऑपरेटर: %@";
 "editor_category_unsuitable_title" = "योग्य श्रेणी शोधू शकत नाही?";
-"editor_category_unsuitable_text" = "ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">मार्गदर्शक</a> पहा.";
+"editor_category_unsuitable_text" = "Organic Maps फक्त साध्या बिंदू श्रेण्या जोडण्याची परवानगी देते, म्हणजे शहरं, रस्ते, तलाव, इमारतींच्या रूपरेषा इत्यादी नाहीत. कृपया अशा श्रेण्या थेट <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> वर जोडा. सविस्तर टप्प्याटप्प्याच्या सूचनांसाठी आमचे <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">मार्गदर्शक</a> तपासा.";
 "downloader_no_downloaded_maps_title" = "तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत";
 "downloader_no_downloaded_maps_message" = "स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.";
 "current_location_unknown_error_title" = "वर्तमान स्थान अज्ञात आहे.";
@@ -622,7 +622,7 @@
 "button_plan" = "नियोजन";
 "placepage_remove_stop" = "थांबा काढा";
 "placepage_add_stop" = "स्टॉप जोडा";
-"saved" = "Saved";
+"saved" = "जतन केले";
 "error_enter_correct_name" = "कृपया योग्य नाव प्रविष्ट करा";
 "bookmark_lists" = "याद्या";
 
@@ -644,10 +644,10 @@
 "terms_of_use" = "वापरण्याच्या अटी";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "हायकिंग";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "सायकलिंग";
 "button_layer_subway" = "मेट्रो/भुयारी मार्ग";
 "layers_title" = "नकाशा शैली आणि स्तर";
 
@@ -684,10 +684,10 @@
 "power_managment_setting_manual_max" = "कमाल वीज बचत";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "नकाशावरील बुकमार्क नावे";
+"bookmarks_text_placement_description" = "जर खूप सारे बुकमार्क असतील, तर नकाशावर त्यांची नावे दाखवल्याने अॅप मंदावू शकते.";
+"show_to_the_right" = "उजवीकडे दाखवा";
+"show_at_the_bottom" = "तळाशी दाखवा";
 "enable_logging_warning_message" = "निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.";
 "driving_options_title" = "मार्गशोधी पर्याय";
 
@@ -788,7 +788,7 @@
 "location_services_disabled_on_device_2" = "2. गोपनीयता निवडा";
 "location_services_disabled_on_device_3" = "3. स्थान सेवा निवडा";
 "location_services_disabled_on_device_4" = "4. स्थान सेवा चालू करा";
-"location_services_disabled_on_device_additional_message" = "किंवा स्थानाशिवाय ऑरगॅनिक नकाशे वापरणे सुरू ठेवा";
+"location_services_disabled_on_device_additional_message" = "किंवा स्थानशिवाय Organic Maps वापरणे सुरू ठेवा";
 "book_button" = "पुस्तक";
 "placepage_call_button" = "फोन करा";
 "placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "वाहतूक माहिती दाखवण्यासाठी ऍप अद्ययावत करणे आवश्यक आहे.";
 "log_file_size" = "लॉग फाइल आकारमान: %@";
 "planning_route_remove_title" = "काढण्यासाठी इथे सरकवा";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "स्टॉप बदला";
 "start_from_my_position" = "पासून प्रारंभ";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -833,10 +833,10 @@
 "tags_loading_error_subtitle" = "टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "उजवे";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "तळ";
 "trip_start" = "चल जाऊया";
 "pick_destination" = "गंतव्यस्थाना";
 "follow_my_position" = "पुनरकेंद्रित करा";
@@ -941,10 +941,10 @@
 "app_tip_09" = "आमचे मुख्य ध्येय जलद, गोपनीयता-केंद्रित, वापरण्यास-सुलभ नकाशे तयार करणे आहे जे तुम्हाला आवडतील.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात";
+"car_used_on_the_phone_screen" = "आपण आता फोन स्क्रीनवर Organic Maps वापरत आहात";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "तुम्ही आता कार स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात";
+"car_used_on_the_car_screen" = "तुम्ही आता कार स्क्रीनवर Organic Maps वापरत आहात";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "फोनवर सुरू ठेवा";
@@ -1020,7 +1020,7 @@
 "map" = "नकाशा";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "तुम्ही विकासकांना बग अहवाल पाठवू इच्छिता?\nआम्ही आमच्या वापरकर्त्यांवर अवलंबून आहोत कारण सेंद्रिय नकाशे कोणतीही त्रुटी माहिती स्वयंचलितपणे संकलित करत नाही. ऑरगॅनिक नकाशेला समर्थन दिल्याबद्दल आगाऊ धन्यवाद!";
+"bugreport_alert_message" = "तुम्हाला विकासकांना बग रिपोर्ट पाठवायचा आहे का?\nआम्ही आमच्या वापरकर्त्यांवर अवलंबून आहोत कारण Organic Maps आपोआप कोणतीही त्रुटीची माहिती गोळा करत नाही. Organic Maps ला पाठिंबा दिल्याबद्दल आगाऊ धन्यवाद!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "iCloud सिंक्रोनाइझेशन सक्षम करा";
@@ -1103,7 +1103,7 @@
 "ft" = "फूट";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "मार्ग दाखवण्यासाठी नकाशे अद्ययावत केले पाहिजेत.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "बाहेर पडा";

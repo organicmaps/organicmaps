@@ -35,7 +35,7 @@
     <string name="country_status_download_failed">Изтеглянето се провали</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Опитайте отново</string>
-    <string name="about_menu_title">Относно приложението</string>
+    <string name="about_menu_title">За „Organic Maps“</string>
     <!-- Text in About screen -->
     <string name="about_headline">Безплатно за всички, направени с любов</string>
     <!-- Text in About screen -->
@@ -52,7 +52,7 @@
     <string name="unsupported_phone">Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.</string>
     <string name="download">Изтегляне</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете карта с памет.</string>
+    <string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете картата с памет, за да използвате Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.</string>
     <string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим основната карта на света на вашето устройство. \nТова ще използва %s от паметта.</string>
@@ -371,6 +371,8 @@
     <string name="clear_search">Изчистване на историята на търсенията</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Уикипедия</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Вашето местоположение</string>
     <string name="p2p_start">Начало</string>
     <string name="p2p_from_here">Маршрут от</string>
@@ -763,6 +765,8 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Bg:About</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Благодарим ви, че използвате нашите карти, създадени от общността!</string>
     <!-- App tip #01 -->

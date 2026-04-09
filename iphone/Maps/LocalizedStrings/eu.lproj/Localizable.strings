@@ -776,7 +776,7 @@
 "migration_no_space_message" = "Leku gehiago behar duzu deskargatzeko. Ezabatu beharrezkoak ez diren datuak.";
 "editor_sharing_title" = "Organic Maps mapak hobetu ditut";
 "editor_detailed_description_hint" = "Iruzkin zehatza";
-"editor_detailed_description" = "Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.";
+"editor_detailed_description" = "Zure proposatutako mapen aldaketak OpenStreetMap komunitateari bidaliko zaizkio. Mesedez, azaldu Organic Maps-n editatu ezin diren bestelako xehetasun guztiak.";
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
 "location_services_disabled_header" = "Kokapen zerbitzuak desaktibatuta daude";
 "location_services_disabled_message" = "Aktibatu geokokapenerako sarbidea gailuaren ezarpenetan";
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.";
 "log_file_size" = "Erregistro fitxategiaren tamaina: %@";
 "planning_route_remove_title" = "Arrastatu hona kentzeko";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Ordeztu geldialdia";
 "start_from_my_position" = "Hasi hemendik";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -833,10 +833,10 @@
 "tags_loading_error_subtitle" = "Errore bat gertatu da etiketak kargatzean. Saiatu berriro";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Eskubidea";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Behealdea";
 "trip_start" = "Goazen";
 "pick_destination" = "Helmuga";
 "follow_my_position" = "Berriz zentratu";

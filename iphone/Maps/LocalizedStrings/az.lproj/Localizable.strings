@@ -558,7 +558,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Uyğun kateqoriya tapa bilmirsiniz?";
-"editor_category_unsuitable_text" = "Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">bələdçimizi</a> yoxlayın.";
+"editor_category_unsuitable_text" = "Organic Maps yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, yəni şəhərlər, yollar, göllər, binaların konturları və s. daxil deyil. Zəhmət olmasa belə kateqoriyaları birbaşa <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimat üçün <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">bələdç</a>imizə baxın.";
 "downloader_no_downloaded_maps_title" = "Siz heç bir xəritə endirməmisiniz";
 "downloader_no_downloaded_maps_message" = "Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.";
 "current_location_unknown_error_title" = "Cari yer məlum deyil.";
@@ -622,7 +622,7 @@
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Kəsmə nöqtəsini silin";
 "placepage_add_stop" = "Dayanacaq nöqtəsini əlavə edin";
-"saved" = "Saved";
+"saved" = "Yadda saxlanıldı";
 "error_enter_correct_name" = "Düzgün ad daxil edin";
 "bookmark_lists" = "Siyahılar";
 
@@ -684,10 +684,10 @@
 "power_managment_setting_manual_max" = "Maksimum enerji qənaəti";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Xəritədə nişan adları";
+"bookmarks_text_placement_description" = "Əgər çoxlu nişanlar varsa, onların adlarını xəritədə göstərmək tətbiqin işini ləngidə bilər.";
+"show_to_the_right" = "Sağa göstər";
+"show_at_the_bottom" = "Aşağıda göstər";
 "enable_logging_warning_message" = "Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər";
 "driving_options_title" = "Marşrutlaşdırma seçimləri";
 
@@ -721,7 +721,7 @@
 "no_available" = "Yox";
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
-"capacity" = "Capacity: %@";
+"capacity" = "Sıxlıq: %@";
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Şəbəkə: %@";
@@ -788,7 +788,7 @@
 "location_services_disabled_on_device_2" = "2. Məxfilik seçin";
 "location_services_disabled_on_device_3" = "3. Məkan Xidmətləri seçin";
 "location_services_disabled_on_device_4" = "4. Məkan Xidmətlərini yandırın";
-"location_services_disabled_on_device_additional_message" = "Və ya Məkan olmadan Üzvi Xəritələrdən istifadə etməyə davam edin";
+"location_services_disabled_on_device_additional_message" = "Yoxsa Location olmadan Organic Maps-dən istifadə etməyə davam edin";
 "book_button" = "Rezervasyon";
 "placepage_call_button" = "Zəng";
 "placepage_bookmark_name_hint" = "Əlfəcin Adı";
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Nəqliyyat məlumatlarına baxmaq üçün tətbiq yenilənməlidir.";
 "log_file_size" = "Giriş faylının ölçüsü: %@";
 "planning_route_remove_title" = "Silmək üçün bura çəkin";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Duruşu əvəz et";
 "start_from_my_position" = "Buradan başlayın";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -833,10 +833,10 @@
 "tags_loading_error_subtitle" = "Etiketləri yükləyərkən xəta baş verdi, zəhmət olmasa yenidən cəhd edin";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Sağ";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Aşağı";
 "trip_start" = "Gedək";
 "pick_destination" = "Hədəf";
 "follow_my_position" = "Yenidən mərkəzləşdirin";
@@ -899,7 +899,7 @@
 "downloader_loading_ios" = "Endirilir";
 
 /* Telegram group url for the "?" About page */
-"telegram_url" = "https://t.me/OrganicMapsTR # Probably better than Ru";
+"telegram_url" = "https://t.me/OrganicMapsTR";
 
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
@@ -914,31 +914,31 @@
 "app_tip_00" = "İcma tərəfindən yaradılmış xəritələrimizdən istifadə etdiyiniz üçün təşəkkür edirik!";
 
 /* App tip #01 */
-"app_tip_01" = "With your donations and support, we can create the best maps in the World!";
+"app_tip_01" = "Sizin ianələriniz və dəstəyinizlə biz dünyanın ən yaxşı xəritələrini yarada bilərik!";
 
 /* App tip #02 */
-"app_tip_02" = "Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!";
+"app_tip_02" = "Tətbiqimizi bəyənirsiniz? İnkişafı dəstəkləmək üçün ianə edin! Hələ bəyənmirsiniz? Niyə belə olduğunu bizə bildirin, biz də düzəldək!";
 
 /* App tip #03 */
-"app_tip_03" = "If you know a software developer, you can ask him or her to implement a feature that you need.";
+"app_tip_03" = "Əgər proqram tərtibatçısını tanıyırsınızsa, ona ehtiyac duyduğunuz funksiyanı əlavə etməsini xahiş edə bilərsiniz.";
 
 /* App tip #04 */
 "app_tip_04" = "Nəyisə seçmək üçün xəritədə istənilən yerə toxunun. Gizlətmək və interfeysi geri göstərmək üçün uzun müddət toxunun.";
 
 /* App tip #05 */
-"app_tip_05" = "Did you know that your current location on the map can be selected?";
+"app_tip_05" = "Xəritədə cari yerinizi seçə biləcəyinizi bilirdinizmi?";
 
 /* App tip #06 */
-"app_tip_06" = "You can help to translate our app into your language.";
+"app_tip_06" = "Tətbiqimizi dilinizə tərcümə etməyə kömək edə bilərsiniz.";
 
 /* App tip #07 */
-"app_tip_07" = "Our app is developed by a few enthusiasts and the community.";
+"app_tip_07" = "Tətbiqimiz bir neçə həvəskar və icma tərəfindən hazırlanıb.";
 
 /* App tip #08 */
-"app_tip_08" = "You can easily fix and improve the map data.";
+"app_tip_08" = "Xəritə məlumatlarını asanlıqla düzəldə və təkmilləşdirə bilərsiniz.";
 
 /* App tip #09 */
-"app_tip_09" = "Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.";
+"app_tip_09" = "Əsas məqsədimiz sizin sevəcəyiniz sürətli, məxfiliyə yönəlmiş, istifadəsi asan xəritələr yaratmaqdır.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "İndi telefon ekranında Organic Maps istifadə edirsiniz";
@@ -1020,7 +1020,7 @@
 "map" = "Xəritə";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "Tərtibatçılara səhv hesabatı göndərmək istərdinizmi?\nÜzvi Xəritələr heç bir səhv məlumatını avtomatik toplamadığından istifadəçilərimizə etibar edirik. Üzvi Xəritələri dəstəklədiyiniz üçün əvvəlcədən təşəkkür edirik!";
+"bugreport_alert_message" = "İnkişaf etdiricilərə səhv hesabatı göndərmək istərdinizmi?\nOrganic Maps heç bir səhv məlumatını avtomatik olaraq toplamadığından, biz istifadəçilərimizin köməyinə güvənirik. Organic Maps-ı dəstəklədiyiniz üçün əvvəlcədən təşəkkür edirik!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "iCloud Sinxronizasiyasını aktivləşdirin";
@@ -1103,7 +1103,7 @@
 "ft" = "Addım";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Marşrutları göstərmək üçün xəritələr yenilənməlidir.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Çıx";

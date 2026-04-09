@@ -2,10 +2,21 @@
 <resources>
 
     <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Vị trí của Tôi</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Các Địa chỉ của Tôi</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Bộ nhớ riêng tư nội bộ</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Bộ nhớ chung nội bộ</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Thẻ SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Bộ nhớ ngoài dùng chung</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
     <string name="postal_code">Mã bưu chính</string>
@@ -19,6 +30,8 @@
     <string name="mi">dặm</string>
     <!-- A unit of measure -->
     <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Để hiển thị các tuyến đường, bản đồ phải được cập nhật.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Lối ra</string>
     <string name="core_entrance">Lối vào</string>
