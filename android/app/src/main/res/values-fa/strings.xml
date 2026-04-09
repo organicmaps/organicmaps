@@ -446,6 +446,8 @@
     <string name="email_or_username">ایمیل یا نام کاربری</string>
     <string name="editor_add_phone">افزودن تلفن</string>
     <string name="level">طبقه</string>
+    <!-- Building level -->
+    <string name="level_value_generic">سطح: %s</string>
     <string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
     <string name="downloader_update_maps">به‌روزرسانی نقشه‌ها</string>
     <string name="downloader_search_field_hint">یافتن نقشه</string>
@@ -469,7 +471,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">داده های OpenStreetMap ایجاد شده توسط انجمن از %s. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) یک پروژه اجتماعی برای ساخت یک نقشه رایگان و باز است. این منبع اصلی داده های نقشه در نقشه های ارگانیک است و مشابه ویکی پدیا کار می کند. میu200cتوانید مکانu200cها را اضافه یا ویرایش کنید تا در دسترس میلیونu200cها کاربر در سراسر جهان قرار گیرند.\nبه انجمن بپیوندید و به ایجاد نقشه بهتر برای همه کمک کنید!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) یک پروژهٔ اجتماعی برای ساختن نقشه‌ای آزاد و باز است. این منبع اصلی داده‌های نقشه در Organic Maps است و به‌طور مشابهی با ویکی‌پدیا کار می‌کند. شما می‌توانید مکان‌ها را اضافه یا ویرایش کنید و آن‌ها در اختیار میلیون‌ها کاربر در سراسر جهان قرار می‌گیرند. به جامعه بپیوندید و به ساختن نقشه‌ای بهتر برای همه کمک کنید!</string>
     <string name="login_to_make_edits_visible">یک حساب OpenStreetMap ایجاد کنید یا وارد شوید تا ویرایش های نقشه خود را در جهان منتشر کنید.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d از %2$d</string>
@@ -484,7 +486,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">توجه به داوطلبان OpenStreetMap (اختیاری)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">خطاهای موجود در نقشه یا مواردی که با استفاده از نقشه های ارگانیک قابل ویرایش نیستند را شرح دهید</string>
+    <string name="editor_note_hint">خطاهای روی نقشه یا مواردی را که قابل ویرایش نیستند با Organic Maps توصیف کنید</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.</string>
     <string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
@@ -651,6 +653,9 @@
     <string name="power_managment_setting_manual_max">حداکثر ذخیره انرژی</string>
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">نام‌ها را روی نقشه نشانه‌گذاری کنید</string>
+    <string name="bookmarks_text_placement_description">اگر نشانک‌ها زیاد باشند، نمایش نام آن‌ها روی نقشه ممکن است باعث کند شدن برنامه شود.</string>
+    <string name="show_to_the_right">نمایش به سمت راست</string>
+    <string name="show_at_the_bottom">در پایین نمایش دهید</string>
     <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -786,9 +791,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">هدف اصلی ما ساختن نقشه هایی سریع، متمرکز بر حریم خصوصی و با کاربری آسان است که شما عاشق آن خواهید شد.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید</string>
+    <string name="car_used_on_the_phone_screen">شما اکنون در حال استفاده از Organic Maps بر روی صفحهٔ تلفن همراه هستید</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید</string>
+    <string name="car_used_on_the_car_screen">شما اکنون در حال استفاده از Organic Maps بر روی صفحهٔ خودرو هستید</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">شما به Android Auto متصل هستید</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -853,6 +858,10 @@
     <string name="nav_auto">مسیریابی خودکار</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">تابع سیستم</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">اشتراک‌گذاری مسیر</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">حذف %s؟</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Xin chào!\n\nĐính kèm là các dấu trang của tôi; vui lòng mở chúng trong Organic Maps. Nếu bạn chưa cài đặt ứng dụng này, bạn có thể tải xuống tại đây: https://omaps.app/get?kmz\n\nChúc bạn có những chuyến đi thú vị cùng Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Tải Điểm đánh dấu";
@@ -489,8 +489,8 @@
 "day_off_today" = "Nghỉ hôm nay";
 "day_off" = "Ngày nghỉ";
 "today" = "Hôm nay";
-"opens_in" = "Opens in %@";
-"closes_in" = "Closes in %@";
+"opens_in" = "Mở trong %@";
+"closes_in" = "Đóng trong %@";
 "closed" = "Đã đóng";
 "no_osm_account" = "Bạn chưa có tài khoản tại OpenStreetMap ư?";
 "register_at_openstreetmap" = "Đăng ký";
@@ -558,7 +558,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Toán tử: %@";
 "editor_category_unsuitable_title" = "Không thể tìm thấy một danh mục phù hợp?";
-"editor_category_unsuitable_text" = "Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Hãy xem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.";
+"editor_category_unsuitable_text" = "Organic Maps chỉ cho phép thêm các loại điểm đơn giản, tức là không bao gồm các thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các loại này trực tiếp vào <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Hãy tham khảo <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">hướng dẫn</a> của chúng tôi để biết các bước thực hiện chi tiết.";
 "downloader_no_downloaded_maps_title" = "Bạn chưa tải về bất kỳ bản đồ nào";
 "downloader_no_downloaded_maps_message" = "Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.";
 "current_location_unknown_error_title" = "Chưa biết địa điểm hiện tại.";
@@ -622,7 +622,7 @@
 "button_plan" = "Kế hoạch";
 "placepage_remove_stop" = "Xóa điểm dừng";
 "placepage_add_stop" = "Thêm điểm dừng";
-"saved" = "Saved";
+"saved" = "Đã lưu";
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 "bookmark_lists" = "Danh sách";
 
@@ -644,10 +644,10 @@
 "terms_of_use" = "Điều khoảng sử dụng";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Đi bộ đường dài";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "Đạp xe";
 "button_layer_subway" = "Xe điện ngầm";
 "layers_title" = "Kiểu và lớp bản đồ";
 
@@ -684,10 +684,10 @@
 "power_managment_setting_manual_max" = "Tiết kiệm năng lượng tối đa";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Tên dấu trang trên bản đồ";
+"bookmarks_text_placement_description" = "Nếu có quá nhiều dấu trang, việc hiển thị tên của chúng trên bản đồ có thể làm chậm ứng dụng.";
+"show_to_the_right" = "Hiển thị ở bên phải";
+"show_at_the_bottom" = "Hiển thị ở phía dưới";
 "enable_logging_warning_message" = "Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.";
 "driving_options_title" = "Thiết lập đi vòng";
 
@@ -750,10 +750,10 @@
 
 /* Place Page opening hours text */
 "closed_now" = "Hiện đã đóng";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"closes_at" = "Closes at %@";
+"opens_tomorrow_at" = "Mở cửa vào ngày mai tại %@";
+"opens_dayoftheweek_at" = "Mở %1$@ tại %2$@";
+"opens_at" = "Mở tại %@";
+"closes_at" = "Đóng cửa lúc %@";
 "add_opening_hours" = "Thêm giờ làm việc";
 "password_8_chars_min" = "Mật khẩu (tối thiểu 8 ký tự)";
 "invalid_username_or_password" = "Sai Tên người dùng hoặc Mật khẩu.";
@@ -788,7 +788,7 @@
 "location_services_disabled_on_device_2" = "2. Chọn Quyền riêng tư";
 "location_services_disabled_on_device_3" = "3. Chọn Dịch vụ định vị";
 "location_services_disabled_on_device_4" = "4. Bật Dịch vụ định vị";
-"location_services_disabled_on_device_additional_message" = "Hoặc tiếp tục sử dụng Bản đồ không phải trả tiền mà không có Vị trí";
+"location_services_disabled_on_device_additional_message" = "Hoặc tiếp tục sử dụng Organic Maps mà không cần định vị";
 "book_button" = "Đặt trước";
 "placepage_call_button" = "Gọi";
 "placepage_bookmark_name_hint" = "Tên Dấu Trang";
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.";
 "log_file_size" = "Kích thước tệp nhật ký: %@";
 "planning_route_remove_title" = "Kéo vào đây để xóa";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Thay thế điểm dừng";
 "start_from_my_position" = "Bắt đầu từ";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -828,15 +828,15 @@
 "bookmarks_convert_error_title" = "Lỗi";
 "bookmarks_convert_error_message" = "Một số tệp không được chuyển đổi.";
 "title_error_downloading_bookmarks" = "Đã xảy ra lỗi";
-"popular_place" = "Popular";
+"popular_place" = "Phổ biến";
 "hide_from_map" = "Ẩn từ bản đồ";
 "tags_loading_error_subtitle" = "Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Bên phải";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Phía dưới";
 "trip_start" = "Đi nào";
 "pick_destination" = "Mục đích";
 "follow_my_position" = "Định tâm";
@@ -941,10 +941,10 @@
 "app_tip_09" = "Mục tiêu chính của chúng tôi là xây dựng các bản đồ nhanh chóng, tập trung vào quyền riêng tư, dễ sử dụng mà bạn sẽ yêu thích.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại";
+"car_used_on_the_phone_screen" = "Bạn hiện đang sử dụng Organic Maps trên màn hình điện thoại";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô";
+"car_used_on_the_car_screen" = "Bạn hiện đang sử dụng Organic Maps trên màn hình xe hơi";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Tiếp tục trên điện thoại";
@@ -999,16 +999,16 @@
 "whats_new_auto_update_button_later" = "Cập nhật thủ công sau";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Xóa lộ trình";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Bạn có chắc chắn muốn xóa bản nhạc này không?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Tên bài hát";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Di chuyển";
 
 /* edit track screen title */
 "track_title" = "Dấu chân";
@@ -1103,7 +1103,7 @@
 "ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Để hiển thị các tuyến đường, bản đồ phải được cập nhật.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Lối ra";

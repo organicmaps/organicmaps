@@ -575,7 +575,7 @@
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "Խմբագրել էջանիշը";
 "placepage_personal_notes_hint" = "Անձնական նշումներ (տեքստ կամ html)";
-"editor_comment_hint" = "Մեկնաբանություն...";
+"editor_comment_hint" = "Մեկնաբանություն…";
 "editor_reset_edits_message" = "Չեղարկե՞լ բոլոր տեղական փոփոխությունները:";
 "editor_reset_edits_button" = "Չեղարկել";
 "editor_remove_place_message" = "Ջնջե՞լ ավելացված վայրը:";
@@ -1118,10 +1118,10 @@
 
 
 /* Login to OSM button text */
-"login_osm_credentials" = "Login with password";
+"login_osm_credentials" = "Մուտք գաղտնաբառով";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Login using Browser";
+"login_osm_browser" = "Մուտք գործել զննարկչի միջոցով";
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Վերջին օգտագործված";

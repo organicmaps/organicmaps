@@ -486,7 +486,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap 志工注意事項（可選）</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">描述地圖中的錯誤或無法使用有機地圖編輯的內容</string>
+    <string name="editor_note_hint">請描述地圖上的錯誤或無法透過 Organic Maps 進行編輯的內容</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。</string>
     <string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
@@ -802,7 +802,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">轉到汽車螢幕</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">有機地圖需要位置存取權限。當安全時，請查看手機上的通知。</string>
+    <string name="aa_location_permissions_request">Organic Maps 需要位置存取權限。在安全的情況下，請查看手機上的通知。</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">此應用程式需要您的許可</string>
     <!-- Grant Permissions button. -->

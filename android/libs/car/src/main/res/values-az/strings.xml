@@ -100,6 +100,8 @@
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Endirilir</string>
     <string name="download_map_title">Dünya xəritəsini yükləyin</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps Android Auto effektiv işləmək üçün yer icazələrinə ehtiyac duyur</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İcazələr verin</string>
 </resources>

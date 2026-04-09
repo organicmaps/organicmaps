@@ -981,9 +981,9 @@
 "track_recording_toast_nothing_to_save" = "Маршрутът е празен - няма какво да запазвате";
 "edit_track" = "Редактиране на маршрут";
 "elevation_profile_diff_level" = "Степен на трудност";
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Лесно";
 "elevation_profile_diff_level_moderate" = "Умерен";
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Трудно";
 "downloader_updating_ios" = "Актуализиране на";
 
 /* Autoupdate dialog on start */

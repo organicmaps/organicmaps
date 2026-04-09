@@ -12,7 +12,7 @@
     <string name="country_status_download_failed">Помилка завантаження</string>
     <string name="close">Закрити</string>
     <string name="download">Завантажити</string>
-    <string name="download_resources">Перш ніж почати користуватися додатком, завантажте оглядову карту світу на свій пристрій.\nВона використовуватиме %s пам’яті.</string>
+    <string name="download_resources">Перш ніж почати користуватися додатком, завантажте оглядову мапу світу на свій пристрій.\nВона використовуватиме %s пам’яті.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Мітки</string>
     <!-- Settings button in system menu -->

@@ -575,7 +575,7 @@
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "Redigera bokmärke";
 "placepage_personal_notes_hint" = "Personlig anteckning (text eller html)";
-"editor_comment_hint" = "kommentar…";
+"editor_comment_hint" = "Kommentar…";
 "editor_reset_edits_message" = "Återställ alla lokala ändringar?";
 "editor_reset_edits_button" = "Återställ";
 "editor_remove_place_message" = "Ta bort en tillagd plats?";

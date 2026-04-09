@@ -101,7 +101,7 @@
     <string name="downloader_loading_ios">جاري التنزيل</string>
     <string name="download_map_title">تنزيل الخريطة العامة للعالم</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">تحتاج الخرائط العضوية في أندرويد أوتو إلى أذونات الموقع للعمل بفعالية</string>
+    <string name="aa_request_permission_activity_text">Organic Maps في Android Auto تحتاج إلى أذونات الموقع لتعمل بفعالية</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
 </resources>

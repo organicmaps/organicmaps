@@ -34,7 +34,7 @@
 "NSLocationWhenInUseUsageDescription" = "Ձեր տեղադիրքի որոշումը անհրաժեշտ է նավիգացիայի և ձեր անցած հետագծի պահպանման համար։";
 
 /* Login to OSM button text */
-"login_osm_credentials" = "Login with password";
+"login_osm_credentials" = "Մուտք գաղտնաբառով";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Login using Browser";
+"login_osm_browser" = "Մուտք գործել զննարկչի միջոցով";

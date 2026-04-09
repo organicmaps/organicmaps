@@ -4,6 +4,7 @@
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Ünvanım</string>
     <!-- Default bookmark list name -->
@@ -29,6 +30,8 @@
     <string name="mi">mil</string>
     <!-- A unit of measure -->
     <string name="ft">Addım</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Marşrutları göstərmək üçün xəritələr yenilənməlidir.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Çıx</string>
     <string name="core_entrance">Giriş</string>

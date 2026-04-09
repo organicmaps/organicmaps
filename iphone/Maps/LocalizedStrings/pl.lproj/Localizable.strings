@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.";
 "log_file_size" = "Rozmiar pliku dziennika: %@";
 "planning_route_remove_title" = "Przeciągnij tu, aby usunąć";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Zastąp przystanek";
 "start_from_my_position" = "Zacznij od";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */

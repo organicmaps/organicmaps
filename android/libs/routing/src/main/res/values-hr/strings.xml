@@ -2,14 +2,46 @@
 <resources>
 
     <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Rute se mogu stvarati samo ako su u potpunosti sadržane unutar karte jednog područja.</string>
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Aktualiziraj kartu</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Preuzmite sve karte duž vaše rute</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Da bismo kreirali rutu, moramo preuzeti i ažurirati sve karte od vaše lokacije do odredišta.</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_check_gps">Provjeri GPS signal</string>
+    <string name="dialog_routing_error_location_not_found">Nije moguće stvoriti rutu. Trenutne GPS koordinate nisu mogle biti utvrđene.</string>
+    <string name="dialog_routing_location_turn_wifi">Provjerite GPS signal. Aktiviranje Wi-Fi-ja poboljšat će točnost vaše lokacije.</string>
     <string name="dialog_routing_location_turn_on">Aktiviraj usluge lokacija</string>
+    <string name="dialog_routing_location_unknown_turn_on">Nije moguće pronaći trenutačne GPS koordinate. Omogućite usluge lokacije kako biste izračunali rutu.</string>
+    <string name="dialog_routing_unable_locate_route">Nije moguće pronaći rutu</string>
+    <string name="dialog_routing_cant_build_route">Nije moguće stvoriti rutu.</string>
+    <string name="dialog_routing_change_start_or_end">Molimo prilagodite svoju polaznu točku ili odredište.</string>
+    <string name="dialog_routing_change_start">Podesite početnu točku</string>
+    <string name="dialog_routing_start_not_determined">Ruta nije stvorena. Nije moguće pronaći polaznu točku.</string>
+    <string name="dialog_routing_select_closer_start">Molimo odaberite polaznu točku bliže cesti.</string>
+    <string name="dialog_routing_change_end">Podesite odredište</string>
+    <string name="dialog_routing_end_not_determined">Ruta nije stvorena. Odredište nije moguće pronaći.</string>
+    <string name="dialog_routing_select_closer_end">Molimo odaberite odredišnu točku smještenu bliže cesti.</string>
+    <string name="dialog_routing_change_intermediate">Nije moguće pronaći posrednu točku.</string>
+    <string name="dialog_routing_intermediate_not_determined">Molimo prilagodite svoju međustanicu.</string>
+    <string name="dialog_routing_system_error">Sistemski greška</string>
+    <string name="dialog_routing_application_error">Nije moguće stvoriti rutu zbog pogreške u aplikaciji.</string>
     <string name="dialog_routing_try_again">Pokušaj ponovo</string>
+    <string name="dialog_routing_download_and_build_cross_route">Želite li preuzeti kartu i stvoriti optimalniju rutu koja obuhvaća više karata?</string>
+    <string name="dialog_routing_download_cross_route">Preuzmite dodatne karte kako biste stvorili bolju rutu koja prelazi granice ove karte.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">Ažuriraj karte</string>
+    <string name="downloader_mwm_migration_dialog">Da biste stvorili rutu, morate ažurirati sve karte i zatim ponovno isplanirati rutu.</string>
+    <string name="navigation_stop_button">Stani</string>
     <string name="ok">U redu</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">Navigacija podzemnom željeznicom u ovom području još nije dostupna</string>
+    <string name="dialog_pedestrian_route_is_long_header">Nije pronađena ruta podzemne željeznice</string>
+    <string name="dialog_pedestrian_route_is_long_message">Molimo odaberite početnu ili završnu točku bliže stanici metroa</string>
 </resources>

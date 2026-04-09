@@ -2,26 +2,46 @@
 <resources>
 
     <!-- SECTION: Other translations -->
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">मार्ग केवल उन्हीं का निर्माण किया जा सकता है जो किसी एक क्षेत्र के नक्शे के भीतर पूरी तरह से समाहित हों।</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">नक्शा अपडेट करें</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">अपने मार्ग के सभी मानचित्र डाउनलोड करें</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">मार्ग बनाने के लिए, हमें आपके स्थान से आपके गंतव्य तक के सभी मानचित्रों को डाउनलोड और अपडेट करना होगा।</string>
 
     <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_check_gps">GPS सिग्नल की जाँच करें</string>
     <string name="dialog_routing_error_location_not_found">मार्ग बनाने में असमर्थ. वर्तमान जीपीएस निर्देशांक की पहचान नहीं की जा सकी.</string>
+    <string name="dialog_routing_location_turn_wifi">कृपया अपना GPS सिग्नल जांचें। वाई-फाई सक्षम करने से आपके स्थान की सटीकता बेहतर होगी।</string>
+    <string name="dialog_routing_location_turn_on">स्थान सेवाएँ सक्षम करें</string>
     <string name="dialog_routing_location_unknown_turn_on">वर्तमान जीपीएस निर्देशांक का पता लगाने में असमर्थ. मार्ग की गणना करने के लिए स्थान सेवाएँ सक्षम करें।</string>
     <string name="dialog_routing_unable_locate_route">मार्ग ढूंढने में असमर्थ</string>
     <string name="dialog_routing_cant_build_route">मार्ग बनाने में असमर्थ.</string>
+    <string name="dialog_routing_change_start_or_end">कृपया अपनी प्रारंभिक बिंदु या गंतव्य समायोजित करें।</string>
+    <string name="dialog_routing_change_start">प्रारंभ बिंदु समायोजित करें</string>
     <string name="dialog_routing_start_not_determined">रूट नहीं बनाया गया. प्रारंभिक बिंदु का पता लगाने में असमर्थ.</string>
+    <string name="dialog_routing_select_closer_start">कृपया सड़क के पास कोई प्रारंभिक बिंदु चुनें।</string>
+    <string name="dialog_routing_change_end">गंतव्य समायोजित करें</string>
     <string name="dialog_routing_end_not_determined">रूट नहीं बनाया गया. गंतव्य का पता लगाने में असमर्थ.</string>
+    <string name="dialog_routing_select_closer_end">कृपया सड़क के निकट स्थित गंतव्य बिंदु चुनें।</string>
+    <string name="dialog_routing_change_intermediate">मध्यवर्ती बिंदु का पता नहीं लगाया जा सका।</string>
+    <string name="dialog_routing_intermediate_not_determined">कृपया अपना मध्यवर्ती बिंदु समायोजित करें।</string>
     <string name="dialog_routing_system_error">सिस्टम त्रुटि</string>
     <string name="dialog_routing_application_error">एप्लिकेशन त्रुटि के कारण मार्ग बनाने में असमर्थ.</string>
+    <string name="dialog_routing_try_again">कृपया फिर से प्रयास करें</string>
+    <string name="dialog_routing_download_and_build_cross_route">क्या आप नक्शा डाउनलोड करके एक से अधिक नक्शों में फैला एक अधिक अनुकूल मार्ग बनाना चाहेंगे?</string>
+    <string name="dialog_routing_download_cross_route">इस नक्शे की सीमाओं को पार करने वाला बेहतर मार्ग बनाने के लिए अतिरिक्त नक्शे डाउनलोड करें।</string>
 
     <!-- SECTION: Strings for downloading map from search -->
+    <string name="downloader_update_maps">नक्शे अपडेट करें</string>
     <string name="downloader_mwm_migration_dialog">मार्ग बनाने के लिए, आपको सभी मानचित्र अपडेट करने होंगे और फिर मार्ग की दोबारा योजना बनानी होगी।</string>
+    <string name="navigation_stop_button">रुकें</string>
     <string name="ok">ठीक है</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="transit_not_found">इस क्षेत्र में सबवे नेविगेशन अभी उपलब्ध नहीं है</string>
     <string name="dialog_pedestrian_route_is_long_header">सबवे मार्ग नहीं मिला</string>
     <string name="dialog_pedestrian_route_is_long_message">कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें</string>
 </resources>

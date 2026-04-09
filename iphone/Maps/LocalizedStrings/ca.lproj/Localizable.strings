@@ -684,10 +684,10 @@
 "power_managment_setting_manual_max" = "Sempre";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Noms de marcadors al mapa";
+"bookmarks_text_placement_description" = "Si hi ha massa marcadors, mostrar-ne els noms al mapa pot alentir l'aplicació.";
+"show_to_the_right" = "Mostra a la dreta";
+"show_at_the_bottom" = "Mostra a la part inferior";
 "enable_logging_warning_message" = "Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.";
 "driving_options_title" = "Opcions d’encaminament";
 
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.";
 "log_file_size" = "Mida del fitxer de registre: %@";
 "planning_route_remove_title" = "Arrossegueu-lo aquí per a eliminar-lo";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Substituir Stop";
 "start_from_my_position" = "Comença des de";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -833,10 +833,10 @@
 "tags_loading_error_subtitle" = "S'ha produït un error en carregar les etiquetes, torneu-ho a intentar";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Dret";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Baix";
 "trip_start" = "Som-hi";
 "pick_destination" = "Destinació";
 "follow_my_position" = "Centra";

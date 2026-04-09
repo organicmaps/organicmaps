@@ -353,7 +353,7 @@
 "blue_gray" = "Modro siva";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Informacije";
 
 /* Prints version number in About dialog */
 "version" = "Različica Organic Maps: %@";

@@ -353,7 +353,7 @@
 "blue_gray" = "Gri albăstriu";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Informații";
 
 /* Prints version number in About dialog */
 "version" = "Versiunea Organic Maps: %@";

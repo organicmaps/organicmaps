@@ -511,7 +511,7 @@
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Խմբագրել էջանիշը</string>
     <string name="placepage_personal_notes_hint">Անձնական նշումներ (տեքստ կամ html)</string>
-    <string name="editor_comment_hint">Մեկնաբանություն...</string>
+    <string name="editor_comment_hint">Մեկնաբանություն…</string>
     <string name="editor_reset_edits_message">Չեղարկե՞լ բոլոր տեղական փոփոխությունները:</string>
     <string name="editor_reset_edits_button">Չեղարկել</string>
     <string name="editor_remove_place_message">Ջնջե՞լ ավելացված վայրը:</string>
@@ -864,6 +864,10 @@
     <string name="delete_track_dialog_title">Ջնջե՞լ %s</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Մուտք գաղտնաբառով</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Մուտք գործել զննարկչի միջոցով</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Վերջին օգտագործված</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

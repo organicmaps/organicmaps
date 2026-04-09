@@ -264,7 +264,7 @@
 "report_a_bug" = "Сповістити про помилку";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Ще раз потримайте палець на карті, щоб побачити інтерфейс";
+"long_tap_toast" = "Ще раз потримайте палець на мапі, щоб побачити інтерфейс";
 
 /* Update all button text */
 "downloader_update_all_button" = "Оновити всі";
@@ -524,7 +524,7 @@
 /* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Видаліть непотрібні дані";
 "editor_profile_changes" = "Виправлення, що ураховані";
-"editor_focus_map_on_location" = "Перетягніть карту, щоб розмістити хрестик на розташуванні об'єкту або бізнесу.";
+"editor_focus_map_on_location" = "Перетягніть мапу, щоб розмістити хрестик на розташуванні об'єкту або бізнесу.";
 "editor_edit_place_title" = "Редагування";
 "editor_add_place_title" = "Додавання";
 "editor_edit_place_name_hint" = "Назва місця";
@@ -558,7 +558,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Оператор: %@";
 "editor_category_unsuitable_title" = "Не можете знайти відповідну категорію?";
-"editor_category_unsuitable_text" = "Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">детальними інструкціями та іншими додатками для редагування карти</a>.";
+"editor_category_unsuitable_text" = "Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">детальними інструкціями та іншими додатками для редагування мапи</a>.";
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
 "current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
@@ -608,7 +608,7 @@
 "mobile_data" = "Мобільні дані";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Використання мобільних даних необхідно для сповіщень про оновлення карти та для відображення докладної інформації про місця та мітки.";
+"mobile_data_description" = "Використання мобільних даних необхідно для сповіщень про оновлення мапи та для відображення докладної інформації про місця та мітки.";
 "mobile_data_option_never" = "Ніколи";
 "mobile_data_option_ask" = "Завжди питати";
 "traffic_update_maps_text" = "Для відображення інформації про трафік необхідно оновити мапи.";
@@ -684,8 +684,8 @@
 "power_managment_setting_manual_max" = "Максимальне енергозбереження";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Додавання назв до закладок на карті";
-"bookmarks_text_placement_description" = "Якщо закладок забагато, відображення їхніх назв на карті може уповільнити роботу програми.";
+"bookmarks_text_placement_title" = "Назви міток на мапі";
+"bookmarks_text_placement_description" = "Якщо міток забагато, відображення їхніх назв на мапі може уповільнити роботу програми.";
 "show_to_the_right" = "Показати праворуч";
 "show_at_the_bottom" = "Показати внизу";
 "enable_logging_warning_message" = "Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".";
@@ -744,8 +744,8 @@
 "routing_arrive" = "Прибуття в %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.";
-"editor_done_dialog_1" = "Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.";
+"dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі мапи за ним.";
+"editor_done_dialog_1" = "Ви змінили мапу світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.";
 "share_with_friends" = "Поділитися з друзями";
 
 /* Place Page opening hours text */
@@ -848,7 +848,7 @@
 "dialog_routing_change_end_carplay" = "Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу";
 "dialog_routing_check_gps_carplay" = "Немає сигналу GPS. Перейдіть на відкриту місцевість";
 "dialog_routing_unable_locate_route_carplay" = "Неможливо побудувати маршрут. Оберіть інші точки маршруту";
-"dialog_routing_download_files_carplay" = "Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої";
+"dialog_routing_download_files_carplay" = "Щоб побудувати маршрут, завантажте відсутні мапи на своєму пристрої";
 "dialog_routing_system_error_carplay" = "Виникла помилка. Перезапустіть додаток";
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут буде перебудовано від вашого поточного місця розташування";
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут буде змінено на автомобільний";
@@ -856,7 +856,7 @@
 "switch_to_phone_bookmarks_carplay" = "Перейдіть на телефон, щоб побачити всі мітки";
 "speedcams_alert_title_carplay_1" = "Камери";
 "speedcams_alert_title_carplay_2" = "Інфо о камерах";
-"download_map_carplay" = "Завантажте карти в додатку Organic Maps на своєму пристрої";
+"download_map_carplay" = "Завантажте мапи в додатку Organic Maps на своєму пристрої";
 "carplay_roundabout_exit" = "%@ з’їзд";
 
 /* iOS */
@@ -889,7 +889,7 @@
 "dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
 "button_layer_isolines" = "Висоти";
-"isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості";
+"isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте мапу потрібної місцевості";
 "isolines_location_error_dialog" = "Лінії висот ще недоступні в цьому регіоні";
 "elevation_profile_ascent" = "Підйом";
 "elevation_profile_descent" = "Спуск";
@@ -914,7 +914,7 @@
 "app_tip_00" = "Дякуємо, що користуєтесь нашими мапами, створеними спільнотою!";
 
 /* App tip #01 */
-"app_tip_01" = "Завдяки вашим пожертвам і підтримці ми зможемо створити найкращі карти світу!";
+"app_tip_01" = "Завдяки вашим пожертвам і підтримці ми зможемо створити найкращі мапи світу!";
 
 /* App tip #02 */
 "app_tip_02" = "Вам подобається наш додаток? Підтримайте його розвиток грошима! Поки ще не подобається? Будь ласка, повідомте нам, чому, і ми це виправимо!";
@@ -923,10 +923,10 @@
 "app_tip_03" = "Якщо у вас є знайомий розробник програмного забезпечення, ви можете попросити його реалізувати потрібну вам функцію.";
 
 /* App tip #04 */
-"app_tip_04" = "Торкніться будь-якого місця на карті, щоб вибрати щось. Тривале натискання приховує та відображає інтерфейс.";
+"app_tip_04" = "Торкніться будь-якого місця на мапі, щоб вибрати щось. Тривале натискання приховує та відображає інтерфейс.";
 
 /* App tip #05 */
-"app_tip_05" = "А ви знали, що своє місцезнаходження на карті можна вибрати?";
+"app_tip_05" = "А ви знали, що своє місцезнаходження на мапі можна вибрати?";
 
 /* App tip #06 */
 "app_tip_06" = "Ви можете допомогти перекласти наш додаток на вашу мову.";
@@ -935,10 +935,10 @@
 "app_tip_07" = "Наша програма розроблена кількома ентузіастами та спільнотою.";
 
 /* App tip #08 */
-"app_tip_08" = "Ви можете легко виправити та покращити дані карти.";
+"app_tip_08" = "Ви можете легко виправити та покращити дані мапи.";
 
 /* App tip #09 */
-"app_tip_09" = "Наша головна мета – створити швидкі, конфіденційні та прості у використанні карти, які вам сподобаються.";
+"app_tip_09" = "Наша головна мета – створити швидкі, конфіденційні та прості у використанні мапи, які вам сподобаються.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Зараз ви використовуєте Organic Maps на екрані телефону";
@@ -1070,8 +1070,8 @@
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "Долучитися до OpenStreetMap";
 "contribute_to_osm_add_place" = "Додати місце";
-"contribute_to_osm_update_map" = "Оновіть карту, щоб долучитися";
-"contribute_to_osm_update_map_description" = "Ви повинні оновити карту %@ до останньої версії, перш ніж зможете долучитися до даних OpenStreetMap";
+"contribute_to_osm_update_map" = "Оновіть мапу, щоб долучитися";
+"contribute_to_osm_update_map_description" = "Ви повинні оновити мапу %@ до останньої версії, перш ніж зможете вносити зміни до даних OpenStreetMap";
 
 
 /********** Uncategorized **********/
@@ -1103,7 +1103,7 @@
 "ft" = "фут";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "Для відображення маршрутів карти необхідно оновити.";
+"routes_update_maps_text" = "Для відображення маршрутів мапи необхідно оновити.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Вихід";

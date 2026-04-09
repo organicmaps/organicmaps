@@ -2,5 +2,6 @@
 <resources>
 
     <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Molimo provjerite je li vaš uređaj povezan na Internet.</string>
     <string name="downloader_no_space_title">Nema dovoljno memorije</string>
 </resources>

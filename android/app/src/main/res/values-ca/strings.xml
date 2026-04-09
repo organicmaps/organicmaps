@@ -486,7 +486,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per als voluntaris d\'OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Descriu errors al mapa o què no es pot editar amb Mapes orgànics</string>
+    <string name="editor_note_hint">Descriviu els errors al mapa o les coses que no es poden editar amb Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
     <string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
@@ -657,6 +657,11 @@
     <string name="power_managment_setting_never">Mai</string>
     <string name="power_managment_setting_auto">Automàtic</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Noms de marcadors al mapa</string>
+    <string name="bookmarks_text_placement_description">Si hi ha massa marcadors, mostrar-ne els noms al mapa pot alentir l\'aplicació.</string>
+    <string name="show_to_the_right">Mostra a la dreta</string>
+    <string name="show_at_the_bottom">Mostra a la part inferior</string>
     <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -859,6 +864,10 @@
     <string name="nav_auto">Auto a la navegació</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segueix el sistema</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Comparteix la pista</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Esborrar %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
