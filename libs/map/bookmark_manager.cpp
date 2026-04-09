@@ -842,7 +842,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
     auto const snapRect =
         mercator::RectByCenterXYAndSizeInMeters(m_myPositionMark->GetPivot(), kMyPositionTrackSnapInMeters);
     auto const selectionInfo =
-        FindNearestTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
+        FindNearestVisibleTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
     if (selectionInfo.m_trackId == trackId)
       myPositionDistance = selectionInfo.m_distFromBegM;
   }
@@ -919,8 +919,8 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   m_elevationActivePointChanged = cb;
 }
 
-Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect,
-                                                            TracksFilter const & tracksFilter) const
+Track::TrackSelectionInfo BookmarkManager::FindNearestVisibleTrack(m2::RectD const & touchRect,
+                                                                   TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   Track::TrackSelectionInfo selectionInfo;
@@ -934,6 +934,8 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (!track->IsVisible())
+        continue;
       if (tracksFilter && !tracksFilter(track))
         continue;
 
@@ -2334,6 +2336,37 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
   track->SetData(trackData);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(track->IsVisible());
+  m_changesTracker.OnUpdateLine(trackId);
+}
+
+// Sets individual track visibility independent of the parent category visibility.
+// Category visibility takes precedence in rendering: a track is rendered only if
+// both the category and the individual track are visible.
+// Must be called through EditSession to ensure thread safety and change notification.
+void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto * track = GetTrackForEdit(trackId);
+  if (!track || track->IsVisible() == visible)
+    return;
+
+  kml::TrackData data = track->GetData();
+  data.m_visible = visible;
+  track->SetData(data);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+  {
+    auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+    if (infoMark->GetTrackId() == trackId)
+      infoMark->SetIsVisible(visible);
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(visible);
+  }
+  m_changesTracker.OnUpdateLine(trackId);
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
@@ -3614,6 +3647,11 @@ void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   m_bmManager.SetIsVisible(groupId, visible);
+}
+
+void BookmarkManager::EditSession::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  m_bmManager.SetTrackVisibility(trackId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID,

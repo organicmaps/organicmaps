@@ -252,8 +252,24 @@ void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context, Til
                                        dp::Batcher & batcher) const
 {
   for (auto const & gp : indexesGroups)
-    if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
-      df::CacheUserLines(context, tileKey, textures, gp.second->m_lineIds, m_lines, batcher);
+  {
+    if (m_groupsVisibility.contains(gp.first))
+    {
+      // TODO: Avoid visibleLineIds — filter at SetUserLines time or use an iterator adapter
+      // to avoid per-group per-tile heap allocation in this rendering hot path.
+      kml::TrackIdCollection visibleLineIds;
+      visibleLineIds.reserve(gp.second->m_lineIds.size());
+      for (auto const & lineId : gp.second->m_lineIds)
+      {
+        auto it = m_lines.find(lineId);
+        if (it != m_lines.end() && it->second->m_visible)
+          visibleLineIds.push_back(lineId);
+      }
+
+      if (!visibleLineIds.empty())
+        df::CacheUserLines(context, tileKey, textures, visibleLineIds, m_lines, batcher);
+    }
+  }
 }
 
 void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,

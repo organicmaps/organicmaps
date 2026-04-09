@@ -999,7 +999,7 @@
 "whats_new_auto_update_button_later" = "Ръчно актуализиране по-късно";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Изтриване на песента";
+"placepage_delete_track_button" = "Изтриване на маршрут";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Сигурни ли сте, че искате да изтриете този трак?";

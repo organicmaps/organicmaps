@@ -137,6 +137,7 @@ public:
     void ClearGroup(kml::MarkGroupId groupId);
 
     void SetIsVisible(kml::MarkGroupId groupId, bool visible);
+    void SetTrackVisibility(kml::TrackId trackId, bool visible);
 
     void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
     /// @todo Get data by value and make moves by call-chain.
@@ -416,8 +417,8 @@ public:
   void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
   using TracksFilter = std::function<bool(Track const * track)>;
-  Track::TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
-                                             TracksFilter const & tracksFilter = nullptr) const;
+  Track::TrackSelectionInfo FindNearestVisibleTrack(m2::RectD const & touchRect,
+                                                    TracksFilter const & tracksFilter = nullptr) const;
   Track::TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
   void SetTrackSelectionInfo(Track::TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
@@ -591,6 +592,7 @@ private:
 
   void ClearGroup(kml::MarkGroupId groupId);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
+  void SetTrackVisibility(kml::TrackId trackId, bool visible);
 
   void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
   void SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc);

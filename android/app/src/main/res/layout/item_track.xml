@@ -41,6 +41,16 @@
         tools:text="@string/by_distance" />
   </LinearLayout>
   <ImageView
+      android:id="@+id/eye"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:background="?selectableItemBackgroundBorderless"
+      android:paddingHorizontal="@dimen/margin_half"
+      android:layout_gravity="center_vertical"
+      app:srcCompat="@drawable/ic_show"
+      app:tint="?secondary"
+      android:contentDescription="@string/hide_track" />
+  <ImageView
       android:id="@+id/more"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
