@@ -329,8 +329,7 @@ std::vector<RowSpec> BookmarkListSession::BuildDefaultRows() const
 {
   std::vector<RowSpec> rows;
   auto & bm = frm()->GetBookmarkManager();
-  if (!bm.HasBmCategory(m_categoryId))
-    return rows;
+  CHECK(bm.HasBmCategory(m_categoryId), (m_categoryId));
 
   auto const & categoryData = bm.GetCategoryData(m_categoryId);
   auto const categoryName = bm.GetCategoryName(m_categoryId);
@@ -372,8 +371,7 @@ std::vector<RowSpec> BookmarkListSession::BuildSortedRows(
 {
   std::vector<RowSpec> rows;
   auto & bm = frm()->GetBookmarkManager();
-  if (!bm.HasBmCategory(m_categoryId))
-    return rows;
+  CHECK(bm.HasBmCategory(m_categoryId), (m_categoryId));
 
   auto const & categoryData = bm.GetCategoryData(m_categoryId);
   if (!kml::GetDefaultStr(categoryData.m_annotation).empty() || !kml::GetDefaultStr(categoryData.m_description).empty())
@@ -514,7 +512,7 @@ RowSpec BookmarkListSession::MakeTrackRow(kml::TrackId trackId)
 
 std::string BookmarkListSession::GetDescriptionText(kml::CategoryData const & categoryData)
 {
-  auto const annotation = kml::GetDefaultStr(categoryData.m_annotation);
+  auto annotation = kml::GetDefaultStr(categoryData.m_annotation);
   if (!annotation.empty())
     return annotation;
   return kml::GetDefaultStr(categoryData.m_description);
@@ -525,19 +523,8 @@ void OnBookmarkListSessionsChanged(JNIEnv * env)
 {
   (void)env;
 
-  std::vector<jlong> handles;
-  handles.reserve(g_sessions.size());
   for (auto const & [handle, session] : g_sessions)
-    handles.push_back(handle);
-
-  for (auto const handle : handles)
-  {
-    auto const it = g_sessions.find(handle);
-    if (it == g_sessions.end())
-      continue;
-
-    it->second->OnBookmarksChanged(handle);
-  }
+    session->OnBookmarksChanged(handle);
 }
 
 extern "C"
