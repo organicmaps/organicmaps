@@ -576,6 +576,12 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
   else
     point.m_position = pointIsMercator ? pt : P2G(pt);
 
+  // Fill title/subtitle from the nearest feature and address, like Android/iOS do.
+  if (auto const fid = m_framework.GetFeatureAtPoint(point.m_position); fid.IsValid())
+    m_framework.GetDataSource().ReadFeature([&](FeatureType & ft) { point.m_title = ft.GetReadableName(); }, fid);
+  auto const addr = m_framework.GetAddressAtPoint(point.m_position);
+  point.m_subTitle = addr.FormatAddress();
+
   rm.AddRoutePoint(std::move(point));
 
   if (rm.GetRoutePoints().size() >= 2)
