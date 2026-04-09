@@ -213,7 +213,7 @@ final class ExpandableLabel: UIView {
     isExpanded = expanded
     UIView.animate(withDuration: kFastAnimationDuration) {
       self.updateCollapsedState()
-      self.layoutIfNeeded()
+      self.superview?.layoutIfNeeded()
     }
   }
 
@@ -240,9 +240,9 @@ extension ExpandableLabel: UIGestureRecognizerDelegate {
     return !isTouchOnInteractiveText(touch)
   }
 
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    gestureRecognizer === tapGestureRecognizer || otherGestureRecognizer === tapGestureRecognizer
+  func gestureRecognizer(_: UIGestureRecognizer,
+                         shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
+    true
   }
 
   /// Keep link taps inside UITextView and use the outer tap only for expand/collapse.
@@ -254,7 +254,16 @@ extension ExpandableLabel: UIGestureRecognizerDelegate {
 
     let adjustedLocation = CGPoint(x: location.x - textView.textContainerInset.left,
                                    y: location.y - textView.textContainerInset.top)
-    let glyphIndex = textView.layoutManager.glyphIndex(for: adjustedLocation, in: textView.textContainer)
+    var fraction: CGFloat = 0
+    let glyphIndex = textView.layoutManager.glyphIndex(for: adjustedLocation,
+                                                       in: textView.textContainer,
+                                                       fractionOfDistanceThroughGlyph: &fraction)
+    guard fraction <= 1 else { return false }
+
+    let glyphRect = textView.layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1),
+                                                        in: textView.textContainer)
+    guard glyphRect.contains(adjustedLocation) else { return false }
+
     let characterIndex = textView.layoutManager.characterIndexForGlyph(at: glyphIndex)
     guard characterIndex < textView.textStorage.length else { return false }
 
