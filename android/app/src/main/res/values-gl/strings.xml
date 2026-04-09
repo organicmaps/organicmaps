@@ -469,7 +469,7 @@
     <string name="placepage_add_business_button">Engadir organización</string>
     <string name="message_invalid_feature_position">Non se pode situar ningún obxecto aquí</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Datos de OpenStreetMap creados pola comunidade a partir de %s. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org</string>
+    <string name="osm_presentation">Datos de OpenStreetMap creados pola comunidade a data de %s. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) é un proxecto comunitario para construír un mapa libre e aberto. É a principal fonte de datos cartográficos de Organic Maps e funciona de forma similar a Wikipedia. Vostede pode engadir ou editar lugares e estes pasan a estar dispoñibles para millóns de usuarios de todo o mundo. \nÚnase á comunidade e axude a crear un mapa mellor para todos!</string>
     <string name="login_to_make_edits_visible">Cre unha conta OpenStreetMap ou inicie sesión para publicar as súas edicións de mapas en todo o mundo.</string>

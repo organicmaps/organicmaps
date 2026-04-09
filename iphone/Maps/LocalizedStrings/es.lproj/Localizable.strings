@@ -535,7 +535,7 @@
 "message_invalid_feature_position" = "No se puede ubicar ningún objeto aquí";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a partir de %@. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
+"osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a fecha de %@. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
 "login_to_make_edits_visible" = "Cree una cuenta OpenStreetMap o inicie sesión para publicar sus ediciones de mapas en todo el mundo.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

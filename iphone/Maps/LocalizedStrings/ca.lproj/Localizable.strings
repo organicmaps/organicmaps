@@ -535,7 +535,7 @@
 "message_invalid_feature_position" = "No s’ha trobat cap objecte aquí";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Dades de l’OpenStreetMap creades per la comunitat a partir de %@. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org";
+"osm_presentation" = "Dades de l’OpenStreetMap creades per la comunitat a data de %@. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org";
 "login_to_make_edits_visible" = "Creeu un compte d'OpenStreetMap o inicieu sessió per publicar les vostres edicions de mapes al món.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
