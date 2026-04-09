@@ -1,7 +1,6 @@
 #pragma once
 
 #include "map/user_mark.hpp"
-#include "map/user_mark_layer.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -10,15 +9,13 @@
 namespace style
 {
 // Fixes icons which are not supported by Organic Maps.
-std::string GetSupportedStyle(std::string const & style);
+df::ColorConstant GetSupportedStyle(std::string_view style);
 }  // namespace style
 
 class ApiMarkPoint : public UserMark
 {
 public:
-  ApiMarkPoint(m2::PointD const & ptOrg);
-
-  ApiMarkPoint(std::string const & name, std::string const & id, std::string const & style, m2::PointD const & ptOrg);
+  explicit ApiMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   df::ColorConstant GetColorConstant() const override;
@@ -29,11 +26,13 @@ public:
   std::string const & GetApiID() const { return m_id; }
   void SetApiID(std::string const & id);
 
-  void SetStyle(std::string const & style);
-  std::string const & GetStyle() const { return m_style; }
+  void SetStyle(df::ColorConstant style);
+  df::ColorConstant GetStyle() const { return m_style; }
 
 private:
   std::string m_name;
   std::string m_id;
-  std::string m_style;
+
+  /// @todo Replace ColorConstant with std::string for possible future custom styles.
+  df::ColorConstant m_style;
 };

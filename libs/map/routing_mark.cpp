@@ -9,24 +9,24 @@
 
 namespace
 {
-static std::string const kRouteMarkPrimaryText = "RouteMarkPrimaryText";
-static std::string const kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOutline";
-static std::string const kRouteMarkSecondaryText = "RouteMarkSecondaryText";
-static std::string const kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
+df::ColorConstant constexpr kRouteMarkPrimaryText = "RouteMarkPrimaryText";
+df::ColorConstant constexpr kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOutline";
+df::ColorConstant constexpr kRouteMarkSecondaryText = "RouteMarkSecondaryText";
+df::ColorConstant constexpr kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
 
-static std::string const kTransitMarkPrimaryText = "TransitMarkPrimaryText";
-static std::string const kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTextOutline";
-static std::string const kTransitMarkSecondaryText = "TransitMarkSecondaryText";
-static std::string const kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
+df::ColorConstant constexpr kTransitMarkPrimaryText = "TransitMarkPrimaryText";
+df::ColorConstant constexpr kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTextOutline";
+df::ColorConstant constexpr kTransitMarkSecondaryText = "TransitMarkSecondaryText";
+df::ColorConstant constexpr kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
 
 float const kRouteMarkPrimaryTextSize = 10.5f;
 float const kRouteMarkSecondaryTextSize = 10.0f;
 float const kRouteMarkSecondaryOffsetY = 2.0f;
 float const kTransitMarkTextSize = 12.0f;
 
-static std::string const kSpeedCameraMarkText = "SpeedCameraMarkText";
-static std::string const kSpeedCameraMarkBg = "SpeedCameraMarkBg";
-static std::string const kSpeedCameraMarkOutline = "SpeedCameraMarkOutline";
+df::ColorConstant constexpr kSpeedCameraMarkText = "SpeedCameraMarkText";
+df::ColorConstant constexpr kSpeedCameraMarkBg = "SpeedCameraMarkBg";
+df::ColorConstant constexpr kSpeedCameraMarkOutline = "SpeedCameraMarkOutline";
 
 float constexpr kSpeedCameraMarkTextSize = 11.0f;
 float constexpr kSpeedCameraMarkTextMargin = 1.5f;

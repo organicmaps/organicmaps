@@ -2,6 +2,8 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <deque>
 #include <functional>
 #include <istream>
@@ -58,17 +60,7 @@ private:
   void LoadFromStream(std::istream & s);
   void AddBrand(Brand & brand, std::string const & key);
 
-  struct StringViewHash
-  {
-    using hash_type = std::hash<std::string_view>;
-    using is_transparent = void;
-
-    // std::size_t operator()(const char* str) const        { return hash_type{}(str); }
-    size_t operator()(std::string_view str) const { return hash_type{}(str); }
-    size_t operator()(std::string const & str) const { return hash_type{}(str); }
-  };
-
-  std::unordered_map<std::string, std::shared_ptr<Brand>, StringViewHash, std::equal_to<>> m_keyToName;
+  std::unordered_map<std::string, std::shared_ptr<Brand>, base::StringHash, std::equal_to<>> m_keyToName;
   std::set<std::string> m_keys;
 };
 
