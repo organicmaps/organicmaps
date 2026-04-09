@@ -109,6 +109,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   glsl::vec3 const position = glsl::vec3(pt, m_params.m_depth);
 
   buffer_vector<V, 48> buffer;
+  size_t outlineStart = 0;
+  bool hasOutlineGeometry = false;
 
   auto norm = [this](float x, float y) { return ShiftNormal(glsl::vec2(x, y), m_params); };
 
@@ -128,6 +130,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
     if (m_params.m_outlineWidth >= 1e-5)
     {
+      outlineStart = buffer.size();
+      hasOutlineGeometry = true;
       r = m_params.m_radiusInPixels;
       V::TTexCoord uvOutline2(uvOutline.x, uvOutline.y, norm(0.0, 0.0));
       buffer.push_back(V(position, V::TNormal(-r * kSqrt3, -r, r, 1.0f), uvOutline2));
@@ -154,6 +158,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
     if (m_params.m_outlineWidth >= 1e-5)
     {
+      outlineStart = buffer.size();
+      hasOutlineGeometry = true;
       buffer.push_back(V(position, V::TNormal(norm(-halfWidth, halfHeight), v, 0.0f), uvOutline));
       buffer.push_back(V(position, V::TNormal(norm(halfWidth, -halfHeight), v, 0.0f), uvOutline));
       buffer.push_back(V(position, V::TNormal(norm(halfWidth, halfHeight), v, 0.0f), uvOutline));
@@ -219,6 +225,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
     if (m_params.m_outlineWidth >= 1e-5)
     {
+      outlineStart = buffer.size();
+      hasOutlineGeometry = true;
       if (halfWidthBody > 0.0f && halfHeight > 0.0f)
       {
         buffer.push_back(V(position, V::TNormal(norm(-halfWidthBody, halfHeight), v, 0.0f), uvOutline));
@@ -260,6 +268,16 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
       buffer.push_back(V(position, V::TNormal(-r * kSqrt2, 0.0, r, 0.0f), uv2));
       buffer.push_back(V(position, V::TNormal(0.0, -r * kSqrt2, r, 0.0f), uv2));
     }
+  }
+
+  // Outlined symbols currently rely on draw order when depth test is disabled.
+  // Emit outline first and body second so fill color is preserved in the interior.
+  if (hasOutlineGeometry && !m_params.m_depthTestEnabled)
+  {
+    buffer_vector<V, 48> reordered;
+    reordered.insert(reordered.end(), buffer.begin() + outlineStart, buffer.end());
+    reordered.insert(reordered.end(), buffer.begin(), buffer.begin() + outlineStart);
+    buffer = std::move(reordered);
   }
 
   if (buffer.empty())
