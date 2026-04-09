@@ -138992,6 +138992,18 @@ colors {
     color: 4278542285
   }
   value {
+    name: "RouteMarkInterBg"
+    color: 27701
+  }
+  value {
+    name: "RouteMarkInterOutline"
+    color: 16777215
+  }
+  value {
+    name: "RouteMarkInterText"
+    color: 16777215
+  }
+  value {
     name: "RouteMarkPrimaryText"
     color: 8947848
   }
