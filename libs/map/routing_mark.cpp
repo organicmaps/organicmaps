@@ -19,10 +19,18 @@ df::ColorConstant constexpr kTransitMarkPrimaryTextOutline = "TransitMarkPrimary
 df::ColorConstant constexpr kTransitMarkSecondaryText = "TransitMarkSecondaryText";
 df::ColorConstant constexpr kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
 
-float const kRouteMarkPrimaryTextSize = 10.5f;
-float const kRouteMarkSecondaryTextSize = 10.0f;
-float const kRouteMarkSecondaryOffsetY = 2.0f;
-float const kTransitMarkTextSize = 12.0f;
+float constexpr kRouteMarkPrimaryTextSize = 10.5f;
+float constexpr kRouteMarkSecondaryTextSize = 10.0f;
+float constexpr kRouteMarkSecondaryOffsetY = 2.0f;
+float constexpr kTransitMarkTextSize = 12.0f;
+
+df::ColorConstant constexpr kRouteMarkInterBg = "RouteMarkInterBg";
+df::ColorConstant constexpr kRouteMarkInterOutline = "RouteMarkInterOutline";
+df::ColorConstant constexpr kRouteMarkInterText = "RouteMarkInterText";
+
+float constexpr kRouteMarkInterTextSize = 11.0f;
+float constexpr kRouteMarkInterRadius = 10.0f;
+float constexpr kRouteMarkInterOutlineWidth = 2.0f;
 
 df::ColorConstant constexpr kSpeedCameraMarkText = "SpeedCameraMarkText";
 df::ColorConstant constexpr kSpeedCameraMarkBg = "SpeedCameraMarkBg";
@@ -152,19 +160,51 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
 
 drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const
 {
-  if (m_followingMode)
+  bool const isIntermediate = m_markData.m_pointType == RouteMarkType::Intermediate;
+  if (m_followingMode && !isIntermediate)
     return nullptr;
 
   auto titles = make_unique_dp<TitlesInfo>();
-  titles->push_back(m_titleDecl);
+
+  if (isIntermediate)
+  {
+    dp::TitleDecl numberDecl;
+    numberDecl.m_primaryText = std::to_string(m_markData.m_intermediateIndex + 1);
+    numberDecl.m_primaryTextFont.m_color = df::GetColorConstant(kRouteMarkInterText);
+    numberDecl.m_primaryTextFont.m_size = kRouteMarkInterTextSize;
+    numberDecl.m_anchor = dp::Center;
+    numberDecl.m_forceNoWrap = true;
+    titles->push_back(std::move(numberDecl));
+  }
+
+  if (!m_followingMode)
+    titles->push_back(m_titleDecl);
+
   return titles;
 }
 
 drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RouteMarkPoint::GetColoredSymbols() const
 {
-  auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
-  coloredSymbol->m_isSymbolStub = true;
-  return coloredSymbol;
+  if (m_markData.m_pointType == RouteMarkType::Intermediate)
+  {
+    auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+
+    df::ColoredSymbolViewParams params;
+    params.m_color = df::GetColorConstant(kRouteMarkInterBg);
+    params.m_shape = df::ColoredSymbolViewParams::Shape::Circle;
+    params.m_radiusInPixels = kRouteMarkInterRadius * vs;
+    params.m_outlineColor = df::GetColorConstant(kRouteMarkInterOutline);
+    params.m_outlineWidth = kRouteMarkInterOutlineWidth * vs;
+
+    auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
+    coloredSymbol->m_zoomInfo[1] = params;
+    // Don't set m_addTextSize: it sizes the circle to fit titles[0], but then
+    // GenerateTextShapes sees symbolSize=0 (isTextBg path skips the update),
+    // so the address title below can't offset past the circle.
+    return coloredSymbol;
+  }
+
+  return nullptr;
 }
 
 void RouteMarkPoint::SetFollowingMode(bool enabled)
@@ -183,14 +223,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
   {
   case RouteMarkType::Start: name = "route-point-start"; break;
   case RouteMarkType::Finish: name = "route-point-finish"; break;
-  case RouteMarkType::Intermediate:
-  {
-    /// @todo Draw RouteMarkPoint icons dynamically like SpeedCameraMark.
-    if (m_markData.m_intermediateIndex < 19)
-      name = "route-point-" + std::to_string(m_markData.m_intermediateIndex + 1);
-    else
-      name = "route-point-20";
-  }
+  case RouteMarkType::Intermediate: return nullptr;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, name));
