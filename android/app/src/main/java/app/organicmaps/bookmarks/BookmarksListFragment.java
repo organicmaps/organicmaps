@@ -205,6 +205,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkCategory category = mCategoryDataSource.getData();
     BookmarkListAdapter adapter = new BookmarkListAdapter();
     adapter.setHasStableIds(true);
+    adapter.setSession(mBookmarkListSession);
     return new ConcatAdapter(initAndGetCollectionAdapter(category.getId()), adapter);
   }
 

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSession;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import java.util.List;
@@ -24,12 +25,20 @@ public class BookmarksLoaderTest
     Track track = mock(Track.class);
     when(track.getTrackId()).thenReturn(7L);
 
-    BookmarkListSnapshot snapshot = BookmarkListSnapshot.forTest(
-        false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.DESCRIPTION, null),
-        BookmarkListRow.description(-2, "Category", "Description"), BookmarkListRow.bookmark(firstBookmark),
-        BookmarkListRow.track(track), BookmarkListRow.bookmark(secondBookmark));
+    BookmarkListSession session = mock(BookmarkListSession.class);
+    when(session.getRow(2)).thenReturn(BookmarkListRow.bookmark(firstBookmark));
+    when(session.getRow(4)).thenReturn(BookmarkListRow.bookmark(secondBookmark));
 
-    List<BookmarkInfo> bookmarks = BookmarksLoader.extractBookmarks(snapshot, 1);
+    BookmarkListSnapshot snapshot = BookmarkListSnapshot.forTest(
+        false,
+        new int[] {BookmarkListRow.Type.SECTION, BookmarkListRow.Type.DESCRIPTION, BookmarkListRow.Type.BOOKMARK,
+                   BookmarkListRow.Type.TRACK, BookmarkListRow.Type.BOOKMARK},
+        new long[] {-1, -2, 1, -8, 2},
+        new int[] {BookmarkListRow.SectionKind.DESCRIPTION, BookmarkListRow.SectionKind.NONE,
+                   BookmarkListRow.SectionKind.NONE, BookmarkListRow.SectionKind.NONE,
+                   BookmarkListRow.SectionKind.NONE});
+
+    List<BookmarkInfo> bookmarks = BookmarksLoader.extractBookmarks(session, snapshot, 1);
 
     assertEquals(1, bookmarks.size());
     assertSame(firstBookmark, bookmarks.get(0));
@@ -43,11 +52,16 @@ public class BookmarksLoaderTest
     Track track = mock(Track.class);
     when(track.getTrackId()).thenReturn(9L);
 
-    BookmarkListSnapshot snapshot =
-        BookmarkListSnapshot.forTest(false, BookmarkListRow.track(track), BookmarkListRow.bookmark(bookmark),
-                                     BookmarkListRow.section(-3, BookmarkListRow.SectionKind.BOOKMARKS, null));
+    BookmarkListSession session = mock(BookmarkListSession.class);
+    when(session.getRow(1)).thenReturn(BookmarkListRow.bookmark(bookmark));
 
-    List<BookmarkInfo> bookmarks = BookmarksLoader.extractBookmarks(snapshot, 5);
+    BookmarkListSnapshot snapshot = BookmarkListSnapshot.forTest(
+        false, new int[] {BookmarkListRow.Type.TRACK, BookmarkListRow.Type.BOOKMARK, BookmarkListRow.Type.SECTION},
+        new long[] {-10, 3, -3},
+        new int[] {BookmarkListRow.SectionKind.NONE, BookmarkListRow.SectionKind.NONE,
+                   BookmarkListRow.SectionKind.BOOKMARKS});
+
+    List<BookmarkInfo> bookmarks = BookmarksLoader.extractBookmarks(session, snapshot, 5);
 
     assertEquals(1, bookmarks.size());
     assertSame(bookmark, bookmarks.get(0));

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSession;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import org.junit.Test;
@@ -16,19 +17,30 @@ import org.junit.Test;
 public class BookmarkListAdapterTest
 {
   @Test
-  public void snapshot_rows_define_adapter_content()
+  public void snapshot_metadata_defines_adapter_content()
   {
     BookmarkInfo bookmark = mock(BookmarkInfo.class);
     when(bookmark.getBookmarkId()).thenReturn(11L);
     Track track = mock(Track.class);
     when(track.getTrackId()).thenReturn(22L);
 
+    BookmarkListRow bookmarkRow = BookmarkListRow.bookmark(bookmark);
+    BookmarkListRow trackRow = BookmarkListRow.track(track);
+
+    BookmarkListSession session = mock(BookmarkListSession.class);
+    when(session.getRow(2)).thenReturn(bookmarkRow);
+    when(session.getRow(3)).thenReturn(trackRow);
+
     BookmarkListAdapter adapter = new BookmarkListAdapter();
-    adapter.setSnapshot(
-        BookmarkListSnapshot.forTest(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.DESCRIPTION, null),
-                                     BookmarkListRow.description(-2, "Category", "Description"),
-                                     BookmarkListRow.bookmark(bookmark), BookmarkListRow.track(track)),
-        false);
+    adapter.setSession(session);
+    adapter.setSnapshot(BookmarkListSnapshot.forTest(
+                            false,
+                            new int[] {BookmarkListRow.Type.SECTION, BookmarkListRow.Type.DESCRIPTION,
+                                       BookmarkListRow.Type.BOOKMARK, BookmarkListRow.Type.TRACK},
+                            new long[] {-1, -2, 11, -23},
+                            new int[] {BookmarkListRow.SectionKind.DESCRIPTION, BookmarkListRow.SectionKind.NONE,
+                                       BookmarkListRow.SectionKind.NONE, BookmarkListRow.SectionKind.NONE}),
+                        false);
 
     assertEquals(4, adapter.getItemCount());
     assertEquals(BookmarkListAdapter.TYPE_SECTION, adapter.getItemViewType(0));
@@ -42,19 +54,15 @@ public class BookmarkListAdapterTest
   }
 
   @Test
-  public void search_mode_and_position_lookup_follow_snapshot_ids()
+  public void search_mode_and_position_lookup_use_metadata_arrays()
   {
-    BookmarkInfo firstBookmark = mock(BookmarkInfo.class);
-    when(firstBookmark.getBookmarkId()).thenReturn(1L);
-    BookmarkInfo secondBookmark = mock(BookmarkInfo.class);
-    when(secondBookmark.getBookmarkId()).thenReturn(2L);
-    Track track = mock(Track.class);
-    when(track.getTrackId()).thenReturn(33L);
-
     BookmarkListAdapter adapter = new BookmarkListAdapter();
     adapter.setSnapshot(
-        BookmarkListSnapshot.forTest(false, BookmarkListRow.bookmark(firstBookmark),
-                                     BookmarkListRow.bookmark(secondBookmark), BookmarkListRow.track(track)),
+        BookmarkListSnapshot.forTest(
+            false, new int[] {BookmarkListRow.Type.BOOKMARK, BookmarkListRow.Type.BOOKMARK, BookmarkListRow.Type.TRACK},
+            new long[] {1, 2, -34},
+            new int[] {BookmarkListRow.SectionKind.NONE, BookmarkListRow.SectionKind.NONE,
+                       BookmarkListRow.SectionKind.NONE}),
         true);
 
     assertTrue(adapter.isSearchResults());
@@ -66,10 +74,14 @@ public class BookmarkListAdapterTest
   @Test
   public void get_item_rejects_non_content_rows()
   {
+    BookmarkListSession session = mock(BookmarkListSession.class);
+    when(session.getRow(0)).thenReturn(BookmarkListRow.section(-1, BookmarkListRow.SectionKind.BOOKMARKS, null));
+
     BookmarkListAdapter adapter = new BookmarkListAdapter();
-    adapter.setSnapshot(
-        BookmarkListSnapshot.forTest(false, BookmarkListRow.section(-1, BookmarkListRow.SectionKind.BOOKMARKS, null)),
-        false);
+    adapter.setSession(session);
+    adapter.setSnapshot(BookmarkListSnapshot.forTest(false, new int[] {BookmarkListRow.Type.SECTION}, new long[] {-1},
+                                                     new int[] {BookmarkListRow.SectionKind.BOOKMARKS}),
+                        false);
 
     assertThrows(UnsupportedOperationException.class, () -> adapter.getItem(0));
   }

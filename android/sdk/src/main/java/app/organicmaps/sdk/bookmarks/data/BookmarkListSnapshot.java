@@ -3,24 +3,34 @@ package app.organicmaps.sdk.bookmarks.data;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-import java.util.Arrays;
 
+/**
+ * Lightweight metadata snapshot of a bookmark list session.
+ * Contains only structural information (row types, stable IDs, section kinds).
+ * Full row content is fetched lazily via {@link BookmarkListSession#getRow(int)}.
+ */
 @Keep
 @SuppressWarnings("unused")
 public final class BookmarkListSnapshot
 {
   @NonNull
-  public static final BookmarkListSnapshot EMPTY = new BookmarkListSnapshot(false, new BookmarkListRow[0]);
+  public static final BookmarkListSnapshot EMPTY = new BookmarkListSnapshot(false, new int[0], new long[0], new int[0]);
 
   private final boolean mLoading;
   @NonNull
-  private final BookmarkListRow[] mRows;
+  private final int[] mTypes;
+  @NonNull
+  private final long[] mStableIds;
+  @NonNull
+  private final int[] mSectionKinds;
 
   @Keep
-  BookmarkListSnapshot(boolean loading, @NonNull BookmarkListRow[] rows)
+  BookmarkListSnapshot(boolean loading, @NonNull int[] types, @NonNull long[] stableIds, @NonNull int[] sectionKinds)
   {
     mLoading = loading;
-    mRows = rows.clone();
+    mTypes = types;
+    mStableIds = stableIds;
+    mSectionKinds = sectionKinds;
   }
 
   public boolean isLoading()
@@ -30,42 +40,31 @@ public final class BookmarkListSnapshot
 
   public int size()
   {
-    return mRows.length;
+    return mTypes.length;
   }
 
-  @NonNull
-  public BookmarkListRow getRow(int index)
+  @BookmarkListRow.Type
+  public int getType(int index)
   {
-    return mRows[index];
+    return mTypes[index];
   }
 
-  @NonNull
-  public BookmarkListRow[] getRows()
+  public long getStableId(int index)
   {
-    return mRows.clone();
+    return mStableIds[index];
+  }
+
+  @BookmarkListRow.SectionKind
+  public int getSectionKind(int index)
+  {
+    return mSectionKinds[index];
   }
 
   @VisibleForTesting
   @NonNull
-  public static BookmarkListSnapshot forTest(boolean loading, @NonNull BookmarkListRow... rows)
+  public static BookmarkListSnapshot forTest(boolean loading, @NonNull int[] types, @NonNull long[] stableIds,
+                                             @NonNull int[] sectionKinds)
   {
-    return new BookmarkListSnapshot(loading, rows);
-  }
-
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-    BookmarkListSnapshot that = (BookmarkListSnapshot) o;
-    return mLoading == that.mLoading && Arrays.equals(mRows, that.mRows);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return 31 * Boolean.hashCode(mLoading) + Arrays.hashCode(mRows);
+    return new BookmarkListSnapshot(loading, types, stableIds, sectionKinds);
   }
 }

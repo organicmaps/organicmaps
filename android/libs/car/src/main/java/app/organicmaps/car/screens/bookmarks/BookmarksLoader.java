@@ -145,7 +145,7 @@ class BookmarksLoader
     if (snapshot.isLoading())
       return;
 
-    loadBookmarks(extractBookmarks(snapshot, mBookmarksListSize));
+    loadBookmarks(extractBookmarks(Objects.requireNonNull(mBookmarkListSession), snapshot, mBookmarksListSize));
   }
 
   private void loadBookmarks(@NonNull List<BookmarkInfo> bookmarks)
@@ -216,7 +216,8 @@ class BookmarksLoader
   }
 
   @NonNull
-  static List<BookmarkInfo> extractBookmarks(@NonNull BookmarkListSnapshot snapshot, int maxBookmarks)
+  static List<BookmarkInfo> extractBookmarks(@NonNull BookmarkListSession session,
+                                             @NonNull BookmarkListSnapshot snapshot, int maxBookmarks)
   {
     final List<BookmarkInfo> bookmarks = new ArrayList<>(Math.max(0, maxBookmarks));
     if (maxBookmarks <= 0)
@@ -224,10 +225,10 @@ class BookmarksLoader
 
     for (int i = 0; i < snapshot.size(); i++)
     {
-      final BookmarkListRow row = snapshot.getRow(i);
-      if (row.getType() != BookmarkListRow.Type.BOOKMARK)
+      if (snapshot.getType(i) != BookmarkListRow.Type.BOOKMARK)
         continue;
 
+      final BookmarkListRow row = session.getRow(i);
       final BookmarkInfo bookmark = row.getBookmark();
       if (bookmark == null)
         continue;

@@ -1,6 +1,5 @@
 package app.organicmaps.sdk.bookmarks.data;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
@@ -31,32 +30,35 @@ public class BookmarkListSessionTest
   {
     FakeNativeBridge bridge = new FakeNativeBridge();
     BookmarkListSession session = new BookmarkListSession(1, bridge);
-    BookmarkListRow[] rows = {BookmarkListRow.section(-2, BookmarkListRow.SectionKind.BOOKMARKS, null),
-                              BookmarkListRow.description(-3, "Category", "Description")};
 
-    session.onSnapshotChanged(true, rows);
+    session.onSnapshotChanged(true, new int[] {BookmarkListRow.Type.SECTION, BookmarkListRow.Type.DESCRIPTION},
+                              new long[] {-2, -3},
+                              new int[] {BookmarkListRow.SectionKind.BOOKMARKS, BookmarkListRow.SectionKind.NONE});
 
     List<BookmarkListSnapshot> received = new ArrayList<>();
     session.setListener(received::add);
 
     assertEquals(1, received.size());
     assertTrue(received.get(0).isLoading());
-    assertArrayEquals(rows, received.get(0).getRows());
+    assertEquals(2, received.get(0).size());
+    assertEquals(BookmarkListRow.Type.SECTION, received.get(0).getType(0));
+    assertEquals(BookmarkListRow.Type.DESCRIPTION, received.get(0).getType(1));
   }
 
   @Test
-  public void loading_change_preserves_existing_rows()
+  public void loading_change_with_null_arrays_preserves_empty_snapshot()
   {
     FakeNativeBridge bridge = new FakeNativeBridge();
     BookmarkListSession session = new BookmarkListSession(2, bridge);
-    BookmarkListRow[] rows = {BookmarkListRow.section(-4, BookmarkListRow.SectionKind.TRACKS, null)};
-    session.onSnapshotChanged(false, rows);
+    session.onSnapshotChanged(false, new int[] {BookmarkListRow.Type.SECTION}, new long[] {-4},
+                              new int[] {BookmarkListRow.SectionKind.TRACKS});
 
-    session.onSnapshotChanged(true, null);
+    // Null arrays signal loading state without new data.
+    session.onSnapshotChanged(true, null, null, null);
 
     BookmarkListSnapshot snapshot = session.getLatestSnapshot();
     assertTrue(snapshot.isLoading());
-    assertArrayEquals(rows, snapshot.getRows());
+    assertEquals(0, snapshot.size());
   }
 
   @Test
@@ -64,34 +66,17 @@ public class BookmarkListSessionTest
   {
     FakeNativeBridge bridge = new FakeNativeBridge();
     BookmarkListSession session = new BookmarkListSession(3, bridge);
-    BookmarkListRow[] rows = {BookmarkListRow.section(-5, BookmarkListRow.SectionKind.DESCRIPTION, null)};
-    session.onSnapshotChanged(false, rows);
+    session.onSnapshotChanged(false, new int[] {BookmarkListRow.Type.SECTION}, new long[] {-5},
+                              new int[] {BookmarkListRow.SectionKind.DESCRIPTION});
     session.close();
 
-    session.onSnapshotChanged(true, new BookmarkListRow[] {BookmarkListRow.description(-6, "A", "B")});
+    session.onSnapshotChanged(true, new int[] {BookmarkListRow.Type.DESCRIPTION}, new long[] {-6},
+                              new int[] {BookmarkListRow.SectionKind.NONE});
 
     BookmarkListSnapshot snapshot = session.getLatestSnapshot();
     assertFalse(snapshot.isLoading());
-    assertArrayEquals(rows, snapshot.getRows());
-  }
-
-  @Test
-  public void snapshots_are_defensively_copied()
-  {
-    FakeNativeBridge bridge = new FakeNativeBridge();
-    BookmarkListSession session = new BookmarkListSession(4, bridge);
-    BookmarkListRow original = BookmarkListRow.section(-7, BookmarkListRow.SectionKind.BOOKMARKS, null);
-    BookmarkListRow[] rows = {original};
-
-    session.onSnapshotChanged(false, rows);
-    rows[0] = BookmarkListRow.description(-8, "Category", "Description");
-
-    BookmarkListSnapshot snapshot = session.getLatestSnapshot();
-    assertArrayEquals(new BookmarkListRow[] {original}, snapshot.getRows());
-
-    BookmarkListRow[] exposedRows = snapshot.getRows();
-    exposedRows[0] = BookmarkListRow.section(-9, BookmarkListRow.SectionKind.TRACKS, null);
-    assertArrayEquals(new BookmarkListRow[] {original}, snapshot.getRows());
+    assertEquals(1, snapshot.size());
+    assertEquals(BookmarkListRow.Type.SECTION, snapshot.getType(0));
   }
 
   @Test
@@ -124,6 +109,7 @@ public class BookmarkListSessionTest
     assertThrows(IllegalStateException.class, () -> session.search("park"));
     assertThrows(IllegalStateException.class,
                  () -> session.sort(BookmarkCategory.SortingType.BY_TYPE, false, 0.0, 0.0));
+    assertThrows(IllegalStateException.class, () -> session.getRow(0));
   }
 
   @Test
@@ -138,6 +124,19 @@ public class BookmarkListSessionTest
     assertEquals("Failed to create native bookmark list session.", exception.getMessage());
   }
 
+  @Test
+  public void getRow_delegates_to_native_bridge()
+  {
+    FakeNativeBridge bridge = new FakeNativeBridge();
+    BookmarkListSession session = new BookmarkListSession(12, bridge);
+
+    BookmarkListRow row = session.getRow(5);
+
+    assertEquals(1, bridge.getRowCalls);
+    assertEquals(5, bridge.lastGetRowIndex);
+    assertEquals(BookmarkListRow.Type.SECTION, row.getType());
+  }
+
   private static class FakeNativeBridge implements BookmarkListSession.NativeBridge
   {
     long nextPtr = 42;
@@ -145,6 +144,8 @@ public class BookmarkListSessionTest
     int showDefaultCalls;
     int searchCalls;
     int sortCalls;
+    int getRowCalls;
+    int lastGetRowIndex = -1;
     boolean searchResult;
     String lastQuery;
     int lastSortingType = -1;
@@ -180,6 +181,15 @@ public class BookmarkListSessionTest
     {
       sortCalls++;
       lastSortingType = sortingType;
+    }
+
+    @NonNull
+    @Override
+    public BookmarkListRow getRow(long nativePtr, int index)
+    {
+      getRowCalls++;
+      lastGetRowIndex = index;
+      return BookmarkListRow.section(index, BookmarkListRow.SectionKind.BOOKMARKS, null);
     }
   }
 }

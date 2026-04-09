@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSession;
 import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.IconClickListener;
 import app.organicmaps.sdk.bookmarks.data.Track;
@@ -28,6 +29,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
   @NonNull
   private BookmarkListSnapshot mSnapshot = BookmarkListSnapshot.EMPTY;
+  @Nullable
+  private BookmarkListSession mSession;
   private boolean mSearchResults;
 
   @Nullable
@@ -38,6 +41,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private RecyclerClickListener mMoreClickListener;
   @Nullable
   private IconClickListener mIconClickListener;
+
+  void setSession(@Nullable BookmarkListSession session)
+  {
+    mSession = session;
+  }
 
   void setSnapshot(@NonNull BookmarkListSnapshot snapshot, boolean searchResults)
   {
@@ -119,20 +127,21 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   @Override
   public void onBindViewHolder(@NonNull Holders.BaseBookmarkHolder holder, int position)
   {
-    BookmarkListRow row = mSnapshot.getRow(position);
-    holder.bind(row, row.getType() == TYPE_SECTION ? getSectionTitle(row, holder.itemView.getResources()) : null);
+    BookmarkListRow row = Objects.requireNonNull(mSession).getRow(position);
+    holder.bind(
+        row, mSnapshot.getType(position) == TYPE_SECTION ? getSectionTitle(row, holder.itemView.getResources()) : null);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    return mSnapshot.getRow(position).getType();
+    return mSnapshot.getType(position);
   }
 
   @Override
   public long getItemId(int position)
   {
-    return mSnapshot.getRow(position).getStableId();
+    return mSnapshot.getStableId(position);
   }
 
   @Override
@@ -156,7 +165,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
   public Object getItem(int position)
   {
-    BookmarkListRow row = mSnapshot.getRow(position);
+    BookmarkListRow row = Objects.requireNonNull(mSession).getRow(position);
     if (row.getType() == TYPE_TRACK)
       return Objects.requireNonNull(row.getTrack());
     if (row.getType() == TYPE_BOOKMARK)
@@ -166,15 +175,17 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
   int getPositionById(long id, int type)
   {
+    // Use metadata arrays for O(N) scan without JNI calls.
+    // Stable ID encoding: bookmark = bookmarkId, track = -trackId - 1.
     for (int position = 0; position < mSnapshot.size(); position++)
     {
-      BookmarkListRow row = mSnapshot.getRow(position);
-      if (row.getType() != type)
+      if (mSnapshot.getType(position) != type)
         continue;
 
-      if (type == TYPE_BOOKMARK && Objects.requireNonNull(row.getBookmark()).getBookmarkId() == id)
+      long stableId = mSnapshot.getStableId(position);
+      if (type == TYPE_BOOKMARK && stableId == id)
         return position;
-      if (type == TYPE_TRACK && Objects.requireNonNull(row.getTrack()).getTrackId() == id)
+      if (type == TYPE_TRACK && stableId == -id - 1)
         return position;
     }
     return -1;

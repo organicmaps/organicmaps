@@ -84,9 +84,8 @@ private:
   std::vector<RowSpec> BuildDefaultRows() const;
   std::vector<RowSpec> BuildBookmarkRows(std::vector<kml::MarkId> const & bookmarkIds) const;
   std::vector<RowSpec> BuildSortedRows(BookmarkManager::SortedBlocksCollection const & sortedBlocks) const;
-  void NotifySnapshot(bool loading, std::vector<RowSpec> const * rows) const;
+  void NotifySnapshot(bool loading, std::vector<RowSpec> rows);
 
-  static jobjectArray BuildRowsArray(JNIEnv * env, std::vector<RowSpec> const & rows);
   static jobject CreateRow(JNIEnv * env, RowSpec const & row);
   static RowSpec MakeBuiltInSection(jlong stableId, SectionKind sectionKind);
   static RowSpec MakeCustomSection(jlong stableId, std::string const & title);
@@ -104,6 +103,10 @@ private:
   BookmarkManager::SortingType m_sortingType = BookmarkManager::SortingType::ByType;
   bool m_hasMyPosition = false;
   m2::PointD m_myPosition = {0.0, 0.0};
+  std::vector<RowSpec> m_rows;
+
+  // nativeGetRow needs access to m_rows and CreateRow.
+  friend jobject GetRowByIndex(JNIEnv * env, jlong handle, jint index);
 };
 
 jclass g_bookmarkListRowClass = nullptr;
@@ -120,8 +123,7 @@ void PrepareClassRefs(JNIEnv * env, jobject javaSession)
     return;
 
   jclass const sessionClass = env->GetObjectClass(javaSession);
-  g_onSnapshotChangedMethod =
-      env->GetMethodID(sessionClass, "onSnapshotChanged", "(Z[Lapp/organicmaps/sdk/bookmarks/data/BookmarkListRow;)V");
+  g_onSnapshotChangedMethod = env->GetMethodID(sessionClass, "onSnapshotChanged", "(Z[I[J[I)V");
   env->DeleteLocalRef(sessionClass);
 
   g_bookmarkListRowClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/BookmarkListRow");
@@ -158,8 +160,7 @@ void BookmarkListSession::ShowDefault()
   CancelSearchIfNeeded();
   ++m_generation;
   m_mode = SessionMode::Default;
-  auto rows = BuildDefaultRows();
-  NotifySnapshot(false /* loading */, &rows);
+  NotifySnapshot(false /* loading */, BuildDefaultRows());
 }
 
 bool BookmarkListSession::Search(std::string query, jlong handle)
@@ -171,8 +172,7 @@ bool BookmarkListSession::Search(std::string query, jlong handle)
 
   if (!IsCategoryAvailable())
   {
-    std::vector<RowSpec> rows;
-    NotifySnapshot(false /* loading */, &rows);
+    NotifySnapshot(false /* loading */, {});
     return false;
   }
 
@@ -183,7 +183,7 @@ bool BookmarkListSession::Search(std::string query, jlong handle)
     searchApi.CancelSearch(search::Mode::Bookmarks);
   g_activeSearchHandle = handle;
 
-  NotifySnapshot(true /* loading */, nullptr);
+  NotifySnapshot(true /* loading */, {});
 
   search::BookmarksSearchParams params{
       m_query, m_categoryId,
@@ -199,8 +199,7 @@ bool BookmarkListSession::Search(std::string query, jlong handle)
     if (g_activeSearchHandle == handle)
       g_activeSearchHandle = 0;
 
-    std::vector<RowSpec> rows;
-    NotifySnapshot(false /* loading */, &rows);
+    NotifySnapshot(false /* loading */, {});
   }
   return started;
 }
@@ -218,19 +217,17 @@ void BookmarkListSession::Sort(BookmarkManager::SortingType sortingType, bool ha
 
   if (!IsCategoryAvailable())
   {
-    std::vector<RowSpec> rows;
-    NotifySnapshot(false /* loading */, &rows);
+    NotifySnapshot(false /* loading */, {});
     return;
   }
 
   if (!m_hasMyPosition && m_sortingType == BookmarkManager::SortingType::ByDistance)
   {
-    auto rows = BuildDefaultRows();
-    NotifySnapshot(false /* loading */, &rows);
+    NotifySnapshot(false /* loading */, BuildDefaultRows());
     return;
   }
 
-  NotifySnapshot(true /* loading */, nullptr);
+  NotifySnapshot(true /* loading */, {});
 
   BookmarkManager::SortParams sortParams;
   sortParams.m_groupId = m_categoryId;
@@ -253,8 +250,7 @@ void BookmarkListSession::OnBookmarksChanged(jlong handle)
     CancelSearchIfNeeded();
     ++m_generation;
     m_mode = SessionMode::Default;
-    std::vector<RowSpec> rows;
-    NotifySnapshot(false /* loading */, &rows);
+    NotifySnapshot(false /* loading */, {});
     return;
   }
 
@@ -287,8 +283,7 @@ void BookmarkListSession::OnSearchResults(uint64_t generation, search::Bookmarks
 
   frm()->GetBookmarkManager().FilterInvalidBookmarks(results);
 
-  auto rows = BuildBookmarkRows(results);
-  NotifySnapshot(status == search::BookmarksSearchParams::Status::InProgress, &rows);
+  NotifySnapshot(status == search::BookmarksSearchParams::Status::InProgress, BuildBookmarkRows(results));
 
   if (status != search::BookmarksSearchParams::Status::InProgress && g_activeSearchHandle == handle)
     g_activeSearchHandle = 0;
@@ -302,13 +297,11 @@ void BookmarkListSession::OnSortedResults(uint64_t generation, BookmarkManager::
 
   if (status == BookmarkManager::SortParams::Status::Cancelled)
   {
-    auto rows = BuildDefaultRows();
-    NotifySnapshot(false /* loading */, &rows);
+    NotifySnapshot(false /* loading */, BuildDefaultRows());
     return;
   }
 
-  auto rows = BuildSortedRows(sortedBlocks);
-  NotifySnapshot(false /* loading */, &rows);
+  NotifySnapshot(false /* loading */, BuildSortedRows(sortedBlocks));
 }
 
 void BookmarkListSession::CancelSearchIfNeeded()
@@ -327,9 +320,15 @@ bool BookmarkListSession::IsCategoryAvailable() const
 
 std::vector<RowSpec> BookmarkListSession::BuildDefaultRows() const
 {
-  std::vector<RowSpec> rows;
   auto & bm = frm()->GetBookmarkManager();
   CHECK(bm.HasBmCategory(m_categoryId), (m_categoryId));
+
+  auto const & tracks = bm.GetTrackIds(m_categoryId);
+  auto const & bookmarks = bm.GetUserMarkIds(m_categoryId);
+
+  std::vector<RowSpec> rows;
+  // 2 for description section + row, 1 header + N items per non-empty group.
+  rows.reserve(2 + (tracks.empty() ? 0 : 1 + tracks.size()) + (bookmarks.empty() ? 0 : 1 + bookmarks.size()));
 
   auto const & categoryData = bm.GetCategoryData(m_categoryId);
   auto const categoryName = bm.GetCategoryName(m_categoryId);
@@ -338,7 +337,6 @@ std::vector<RowSpec> BookmarkListSession::BuildDefaultRows() const
   rows.push_back(
       MakeDescriptionRow(std::numeric_limits<jlong>::min() + 2, categoryName, GetDescriptionText(categoryData)));
 
-  auto const & tracks = bm.GetTrackIds(m_categoryId);
   if (!tracks.empty())
   {
     rows.push_back(MakeBuiltInSection(std::numeric_limits<jlong>::min() + 3, SectionKind::Tracks));
@@ -346,7 +344,6 @@ std::vector<RowSpec> BookmarkListSession::BuildDefaultRows() const
       rows.push_back(MakeTrackRow(trackId));
   }
 
-  auto const & bookmarks = bm.GetUserMarkIds(m_categoryId);
   if (!bookmarks.empty())
   {
     rows.push_back(MakeBuiltInSection(std::numeric_limits<jlong>::min() + 4, SectionKind::Bookmarks));
@@ -369,9 +366,15 @@ std::vector<RowSpec> BookmarkListSession::BuildBookmarkRows(std::vector<kml::Mar
 std::vector<RowSpec> BookmarkListSession::BuildSortedRows(
     BookmarkManager::SortedBlocksCollection const & sortedBlocks) const
 {
-  std::vector<RowSpec> rows;
   auto & bm = frm()->GetBookmarkManager();
   CHECK(bm.HasBmCategory(m_categoryId), (m_categoryId));
+
+  size_t estimatedSize = 2;  // optional description section + row
+  for (auto const & block : sortedBlocks)
+    estimatedSize += 1 + block.m_markIds.size() + block.m_trackIds.size();
+
+  std::vector<RowSpec> rows;
+  rows.reserve(estimatedSize);
 
   auto const & categoryData = bm.GetCategoryData(m_categoryId);
   if (!kml::GetDefaultStr(categoryData.m_annotation).empty() || !kml::GetDefaultStr(categoryData.m_description).empty())
@@ -397,30 +400,35 @@ std::vector<RowSpec> BookmarkListSession::BuildSortedRows(
   return rows;
 }
 
-void BookmarkListSession::NotifySnapshot(bool loading, std::vector<RowSpec> const * rows) const
+void BookmarkListSession::NotifySnapshot(bool loading, std::vector<RowSpec> rows)
 {
+  m_rows = std::move(rows);
+
   JNIEnv * env = jni::GetEnv();
   ASSERT(env != nullptr, ());
 
-  jni::ScopedLocalRef<jobjectArray> rowsArray(env, rows == nullptr ? nullptr : BuildRowsArray(env, *rows));
-  env->CallVoidMethod(m_javaSession, g_onSnapshotChangedMethod, static_cast<jboolean>(loading), rowsArray.get());
-  jni::HandleJavaException(env);
-}
+  auto const size = static_cast<jsize>(m_rows.size());
 
-jobjectArray BookmarkListSession::BuildRowsArray(JNIEnv * env, std::vector<RowSpec> const & rows)
-{
-  auto const size = static_cast<jsize>(rows.size());
-  jobjectArray const array = env->NewObjectArray(size, g_bookmarkListRowClass, nullptr);
+  std::vector<jint> types(size);
+  std::vector<jlong> stableIds(size);
+  std::vector<jint> sectionKinds(size);
   for (jsize i = 0; i < size; ++i)
   {
-    // PushLocalFrame/PopLocalFrame to free intermediate JNI refs (strings, ParcelablePointD, etc.)
-    // created inside CreateRow/CreateBookmarkInfo/CreateTrack on each iteration.
-    env->PushLocalFrame(16);
-    jobject const rowObject = CreateRow(env, rows[i]);
-    env->SetObjectArrayElement(array, i, rowObject);
-    env->PopLocalFrame(nullptr);
+    types[i] = static_cast<jint>(m_rows[i].m_type);
+    stableIds[i] = m_rows[i].m_stableId;
+    sectionKinds[i] = static_cast<jint>(m_rows[i].m_sectionKind);
   }
-  return array;
+
+  jni::ScopedLocalRef<jintArray> jTypes(env, env->NewIntArray(size));
+  env->SetIntArrayRegion(jTypes.get(), 0, size, types.data());
+  jni::ScopedLocalRef<jlongArray> jStableIds(env, env->NewLongArray(size));
+  env->SetLongArrayRegion(jStableIds.get(), 0, size, stableIds.data());
+  jni::ScopedLocalRef<jintArray> jSectionKinds(env, env->NewIntArray(size));
+  env->SetIntArrayRegion(jSectionKinds.get(), 0, size, sectionKinds.data());
+
+  env->CallVoidMethod(m_javaSession, g_onSnapshotChangedMethod, static_cast<jboolean>(loading), jTypes.get(),
+                      jStableIds.get(), jSectionKinds.get());
+  jni::HandleJavaException(env);
 }
 
 jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
@@ -444,7 +452,7 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
   case RowType::Bookmark:
   {
     auto const * bookmark = frm()->GetBookmarkManager().GetBookmark(row.m_bookmarkId);
-    ASSERT(bookmark != nullptr, ("Bookmark not found:", row.m_bookmarkId));
+    ASSERT(bookmark, ("Bookmark not found:", row.m_bookmarkId));
 
     jni::ScopedLocalRef<jobject> bookmarkInfo(env, CreateBookmarkInfo(env, *bookmark));
     return env->NewObject(g_bookmarkListRowClass, g_bookmarkListRowConstructor, static_cast<jint>(RowType::Bookmark),
@@ -454,7 +462,7 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
   case RowType::Track:
   {
     auto const * track = frm()->GetBookmarkManager().GetTrack(row.m_trackId);
-    ASSERT(track != nullptr, ("Track not found:", row.m_trackId));
+    ASSERT(track, ("Track not found:", row.m_trackId));
 
     jni::ScopedLocalRef<jobject> trackObject(env, CreateTrack(env, *track));
     return env->NewObject(g_bookmarkListRowClass, g_bookmarkListRowConstructor, static_cast<jint>(RowType::Track),
@@ -516,6 +524,15 @@ std::string BookmarkListSession::GetDescriptionText(kml::CategoryData const & ca
   if (!annotation.empty())
     return annotation;
   return kml::GetDefaultStr(categoryData.m_description);
+}
+
+jobject GetRowByIndex(JNIEnv * env, jlong handle, jint index)
+{
+  auto * session = BookmarkListSession::GetSession(handle);
+  CHECK(session != nullptr, ("Session not found:", handle));
+  CHECK(index >= 0 && index < static_cast<jint>(session->m_rows.size()),
+        ("Index out of bounds:", index, session->m_rows.size()));
+  return BookmarkListSession::CreateRow(env, session->m_rows[index]);
 }
 }  // namespace
 
@@ -581,5 +598,12 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkListSessi
     session->Sort(static_cast<BookmarkManager::SortingType>(sortingType), static_cast<bool>(hasMyPosition),
                   mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon)), nativePtr);
   }
+}
+
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkListSession_nativeGetRow(JNIEnv * env, jclass,
+                                                                                                   jlong nativePtr,
+                                                                                                   jint index)
+{
+  return GetRowByIndex(env, nativePtr, index);
 }
 }  // extern "C"

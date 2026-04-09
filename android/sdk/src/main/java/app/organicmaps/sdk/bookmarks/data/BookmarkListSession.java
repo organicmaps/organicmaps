@@ -15,6 +15,8 @@ public final class BookmarkListSession implements AutoCloseable
     void showDefault(long nativePtr);
     boolean search(long nativePtr, @NonNull String query);
     void sort(long nativePtr, int sortingType, boolean hasMyPosition, double lat, double lon);
+    @NonNull
+    BookmarkListRow getRow(long nativePtr, int index);
   }
 
   private static final NativeBridge NATIVE_BRIDGE = new NativeBridge() {
@@ -47,6 +49,13 @@ public final class BookmarkListSession implements AutoCloseable
     {
       nativeSort(nativePtr, sortingType, hasMyPosition, lat, lon);
     }
+
+    @Override
+    @NonNull
+    public BookmarkListRow getRow(long nativePtr, int index)
+    {
+      return nativeGetRow(nativePtr, index);
+    }
   };
 
   public interface Listener
@@ -58,9 +67,6 @@ public final class BookmarkListSession implements AutoCloseable
   private final NativeBridge mBridge;
   private long mNativePtr;
   private boolean mClosed;
-  private boolean mLoading;
-  @NonNull
-  private BookmarkListRow[] mRows = new BookmarkListRow[0];
   @NonNull
   private BookmarkListSnapshot mLatestSnapshot = BookmarkListSnapshot.EMPTY;
   @Nullable
@@ -90,6 +96,17 @@ public final class BookmarkListSession implements AutoCloseable
   public BookmarkListSnapshot getLatestSnapshot()
   {
     return mLatestSnapshot;
+  }
+
+  /**
+   * Fetches the full row content for the given position from the native session.
+   * This is the lazy accessor called by the adapter during {@code onBindViewHolder}.
+   */
+  @NonNull
+  public BookmarkListRow getRow(int index)
+  {
+    ensureOpen();
+    return mBridge.getRow(mNativePtr, index);
   }
 
   public void showDefault()
@@ -131,19 +148,15 @@ public final class BookmarkListSession implements AutoCloseable
 
   @Keep
   @SuppressWarnings("unused")
-  void onSnapshotChanged(boolean loading, @Nullable BookmarkListRow[] rows)
+  void onSnapshotChanged(boolean loading, @Nullable int[] types, @Nullable long[] stableIds,
+                         @Nullable int[] sectionKinds)
   {
     if (mClosed)
       return;
-    mLoading = loading;
-    if (rows != null)
-      mRows = rows.clone();
-    dispatchSnapshot();
-  }
-
-  private void dispatchSnapshot()
-  {
-    mLatestSnapshot = new BookmarkListSnapshot(mLoading, mRows);
+    if (types != null && stableIds != null && sectionKinds != null)
+      mLatestSnapshot = new BookmarkListSnapshot(loading, types, stableIds, sectionKinds);
+    else
+      mLatestSnapshot = new BookmarkListSnapshot(loading, new int[0], new long[0], new int[0]);
     if (mListener != null)
       mListener.onBookmarkListSnapshotChanged(mLatestSnapshot);
   }
@@ -159,4 +172,6 @@ public final class BookmarkListSession implements AutoCloseable
   private static native void nativeShowDefault(long nativePtr);
   private static native boolean nativeSearch(long nativePtr, @NonNull String query);
   private static native void nativeSort(long nativePtr, int sortingType, boolean hasMyPosition, double lat, double lon);
+  @NonNull
+  private static native BookmarkListRow nativeGetRow(long nativePtr, int index);
 }
