@@ -471,4 +471,10 @@ consteval bool HasUniqueElements(Container container)
   std::sort(container.begin(), container.end());
   return std::adjacent_find(container.begin(), container.end()) == container.end();
 }
+
+// Required to use std::string_view as a search key for std::unordered_map::find().
+struct StringHash : public std::hash<std::string_view>
+{
+  using is_transparent = void;
+};
 }  // namespace base

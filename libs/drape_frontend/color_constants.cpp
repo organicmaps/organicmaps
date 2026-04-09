@@ -13,6 +13,8 @@
 
 #include "cppjansson/cppjansson.hpp"
 
+namespace df
+{
 namespace
 {
 std::string const kTransitColorFileName = "transit_colors.txt";
@@ -20,7 +22,7 @@ std::string const kTransitColorFileName = "transit_colors.txt";
 class TransitColorsHolder
 {
 public:
-  dp::Color GetColor(std::string const & name) const
+  dp::Color GetColor(std::string_view name) const
   {
     auto const isDarkStyle = MapStyleIsDark(GetStyleReader().GetCurrentStyle());
     auto const & colors = isDarkStyle ? m_nightColors : m_clearColors;
@@ -77,7 +79,7 @@ public:
     }
   }
 
-  std::map<std::string, dp::Color> const & GetClearColors() const { return m_clearColors; }
+  ColorsMapT const & GetClearColors() const { return m_clearColors; }
 
 private:
   dp::Color ParseColor(std::string const & colorStr)
@@ -89,8 +91,8 @@ private:
     return dp::Color();
   }
 
-  std::map<std::string, dp::Color> m_clearColors;
-  std::map<std::string, dp::Color> m_nightColors;
+  ColorsMapT m_clearColors;
+  ColorsMapT m_nightColors;
 };
 
 TransitColorsHolder & TransitColors()
@@ -100,16 +102,14 @@ TransitColorsHolder & TransitColors()
 }
 }  // namespace
 
-namespace df
+std::string GetTransitColorName(ColorConstant const & localName)
 {
-ColorConstant GetTransitColorName(ColorConstant const & localName)
-{
-  return kTransitColorPrefix + kTransitLinePrefix + localName;
+  return (kTransitColorPrefix + kTransitLinePrefix).append(localName);
 }
 
-ColorConstant GetTransitTextColorName(ColorConstant const & localName)
+std::string GetTransitTextColorName(ColorConstant const & localName)
 {
-  return kTransitColorPrefix + kTransitTextPrefix + localName;
+  return (kTransitColorPrefix + kTransitTextPrefix).append(localName);
 }
 
 bool IsTransitColor(ColorConstant const & constant)
@@ -125,7 +125,7 @@ dp::Color GetColorConstant(ColorConstant const & constant)
   return ToDrapeColor(color);
 }
 
-std::map<std::string, dp::Color> const & GetTransitClearColors()
+ColorsMapT const & GetTransitClearColors()
 {
   return TransitColors().GetClearColors();
 }

@@ -329,14 +329,8 @@ FreetypeError constexpr g_FT_Errors[] =
     TUniBlockIter m_lastUsedBlock;
     std::vector<std::unique_ptr<Font>> m_fonts;
 
-    // Required to use std::string_view as a search key for std::unordered_map::find().
-    struct StringHash : public std::hash<std::string_view>
-    {
-      using is_transparent = void;
-    };
-
     // TODO(AB): Compare performance with std::map.
-    std::unordered_map<std::string, text::TextMetrics, StringHash, std::equal_to<>> m_textMetricsCache;
+    std::unordered_map<std::string, text::TextMetrics, base::StringHash, std::equal_to<>> m_textMetricsCache;
     hb_buffer_t * m_harfbuzzBuffer;
   };
 

@@ -56,7 +56,7 @@ public:
   BaseRule const * Find(Key const & k) const;
 
   uint32_t GetBgColor(int scale) const;
-  uint32_t GetColor(std::string const & name) const;
+  uint32_t GetColor(std::string_view name) const;
 
 #ifdef OMIM_OS_DESKTOP
   void LoadFromTextProto(std::string const & buffer);
@@ -79,7 +79,7 @@ private:
 
   /// background color for scales in range [0...scales::UPPER_STYLE_SCALE]
   std::vector<uint32_t> m_bgColors;
-  std::unordered_map<std::string, uint32_t> m_colors;
+  std::unordered_map<std::string, uint32_t, base::StringHash, std::equal_to<>> m_colors;
   std::vector<BaseRule *> m_dRules;
 };
 

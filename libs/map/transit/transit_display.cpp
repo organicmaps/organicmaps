@@ -141,7 +141,7 @@ void TransitRouteInfo::UpdateDistanceStrings()
   routing::FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr, m_totalPedestrianUnitsSuffix);
 }
 
-void AddTransitGateSegment(m2::PointD const & destPoint, df::ColorConstant const & color, df::Subroute & subroute)
+void AddTransitGateSegment(m2::PointD const & destPoint, std::string const & color, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color, df::RoutePattern(4.0, 2.0));
@@ -162,7 +162,7 @@ void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & su
 }
 
 void AddTransitShapes(std::vector<routing::transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
-                      df::ColorConstant const & color, bool isInverted, df::Subroute & subroute)
+                      std::string const & color, bool isInverted, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color);
@@ -181,8 +181,8 @@ void AddTransitShapes(std::vector<routing::transit::ShapeId> const & shapeIds, T
   subroute.AddStyle(style);
 }
 
-void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const & shapesInfo,
-                      df::ColorConstant const & color, df::Subroute & subroute)
+void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const & shapesInfo, std::string const & color,
+                      df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color);
@@ -348,8 +348,8 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   {
     auto const fid = FeatureID(ssp.m_mwmId, stop2.GetFeatureId());
     sp.m_transitMarkInfo.m_featureId = fid;
-    sp.m_transitMarkInfo.m_titles.push_back(
-        TransitTitle(ssp.m_displayInfo.m_features.at(fid).m_title, df::GetTransitTextColorName(line.GetColor())));
+    sp.m_transitMarkInfo.m_titles.emplace_back(ssp.m_displayInfo.m_features.at(fid).m_title,
+                                               df::GetTransitTextColorName(line.GetColor()));
   }
 }
 
