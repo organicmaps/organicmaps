@@ -1,9 +1,10 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp"
-#include "app/organicmaps/sdk/bookmarks/data/BookmarkJniHelpers.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkInfo.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
 #include "kml/type_utils.hpp"
@@ -56,8 +57,6 @@ void PrepareClassRefs(JNIEnv * env)
       jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksFileLoaded", "(ZLjava/lang/String;Z)V");
   g_onPreparedFileForSharingMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                                                       "(Lapp/organicmaps/sdk/bookmarks/data/BookmarkSharingResult;)V");
-
-  bookmark_jni::PrepareClassRefs(env);
 
   g_onElevationCurrentPositionChangedMethod =
       jni::GetMethodID(env, bookmarkManagerInstance, "onElevationCurrentPositionChanged", "()V");
@@ -295,7 +294,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   if (!bookmark)
     return nullptr;
 
-  return bookmark_jni::CreateBookmarkInfo(env, *bookmark);
+  return CreateBookmarkInfo(env, *bookmark);
 }
 
 static uint32_t shift(uint32_t v, uint8_t bitCount)
@@ -310,7 +309,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   auto const * track = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
   ASSERT(track, ("Track must not be null with id:", trackId));
 
-  return bookmark_jni::CreateTrack(env, *track);
+  return CreateTrack(env, *track);
 }
 
 JNIEXPORT jboolean JNICALL

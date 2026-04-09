@@ -1,6 +1,7 @@
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp"
 #include "app/organicmaps/sdk/Framework.hpp"
-#include "app/organicmaps/sdk/bookmarks/data/BookmarkJniHelpers.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkInfo.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
 #include "map/bookmark.hpp"
@@ -134,8 +135,6 @@ void PrepareClassRefs(JNIEnv * env, jobject javaSession)
                                                        "Lapp/organicmaps/sdk/bookmarks/data/BookmarkInfo;"  // bookmark
                                                        "Lapp/organicmaps/sdk/bookmarks/data/Track;"         // track
                                                        ")V");
-
-  bookmark_jni::PrepareClassRefs(env);
 
   jni::HandleJavaException(env);
 }
@@ -449,7 +448,7 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
     auto const * bookmark = frm()->GetBookmarkManager().GetBookmark(row.m_bookmarkId);
     ASSERT(bookmark != nullptr, ("Bookmark not found:", row.m_bookmarkId));
 
-    jni::ScopedLocalRef<jobject> bookmarkInfo(env, bookmark_jni::CreateBookmarkInfo(env, *bookmark));
+    jni::ScopedLocalRef<jobject> bookmarkInfo(env, CreateBookmarkInfo(env, *bookmark));
     return env->NewObject(g_bookmarkListRowClass, g_bookmarkListRowConstructor, static_cast<jint>(RowType::Bookmark),
                           row.m_stableId, static_cast<jint>(row.m_sectionKind), nullptr, nullptr, bookmarkInfo.get(),
                           nullptr);
@@ -459,7 +458,7 @@ jobject BookmarkListSession::CreateRow(JNIEnv * env, RowSpec const & row)
     auto const * track = frm()->GetBookmarkManager().GetTrack(row.m_trackId);
     ASSERT(track != nullptr, ("Track not found:", row.m_trackId));
 
-    jni::ScopedLocalRef<jobject> trackObject(env, bookmark_jni::CreateTrack(env, *track));
+    jni::ScopedLocalRef<jobject> trackObject(env, CreateTrack(env, *track));
     return env->NewObject(g_bookmarkListRowClass, g_bookmarkListRowConstructor, static_cast<jint>(RowType::Track),
                           row.m_stableId, static_cast<jint>(row.m_sectionKind), nullptr, nullptr, nullptr,
                           trackObject.get());
