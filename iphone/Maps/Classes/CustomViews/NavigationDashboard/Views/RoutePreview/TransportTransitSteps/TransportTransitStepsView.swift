@@ -35,10 +35,10 @@ final class TransportTransitStepsView: SolidTouchView {
       stepsCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top),
       stepsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentInsets.left),
       stepsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.contentInsets.right),
-      stepsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom),
+      stepsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom)
+        .withPriority(.defaultHigh),
       stepsCollectionViewHeight,
     ])
-    layoutIfNeeded()
   }
 
   func setNavigationInfo(_ navigationInfo: MWMNavigationDashboardEntity?) {
