@@ -103,27 +103,6 @@ public class MapButtonsController extends Fragment
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
-    if (helpButton != null)
-    {
-      if (Framework.nativeCanShowCrowdfundingPromo() && !TextUtils.isEmpty(Utils.getDonateUrl(requireContext())))
-      {
-        helpButton.setImageResource(R.drawable.ic_crowdfunding);
-        helpButton.getDrawable().setTintList(null);
-      }
-      else if (Config.isNY() && !TextUtils.isEmpty(Utils.getDonateUrl(requireContext())))
-      {
-        helpButton.setImageResource(R.drawable.ic_christmas_tree);
-        helpButton.getDrawable().setTintList(null);
-      }
-      else
-      {
-        helpButton.setImageResource(app.organicmaps.branding.R.drawable.logo);
-        // Keep this button colorful in normal theme.
-        if (!ThemeUtils.isDarkTheme(requireContext()))
-          helpButton.getDrawable().setTintList(null);
-      }
-    }
-
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
     mFrame.findViewById(R.id.nav_zoom_in)
         .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn));
@@ -190,6 +169,7 @@ public class MapButtonsController extends Fragment
     if (mTrackRecordingStatusButton != null)
       mButtonsMap.put(MapButtons.trackRecordingStatus, mTrackRecordingStatusButton);
     showButton(false, MapButtons.trackRecordingStatus);
+    updateHelpButtonIcon();
     return mFrame;
   }
 
@@ -298,6 +278,31 @@ public class MapButtonsController extends Fragment
     BadgeUtils.attachBadgeDrawable(mBadgeDrawable, menuButton);
 
     updateMenuBadge(TrackRecorder.nativeIsTrackRecordingEnabled());
+  }
+
+  public void updateHelpButtonIcon()
+  {
+    final View view = mButtonsMap.get(MapButtons.help);
+    if (!(view instanceof FloatingActionButton helpButton))
+      return;
+
+    if (Framework.nativeCanShowCrowdfundingPromo() && !TextUtils.isEmpty(Utils.getDonateUrl(requireContext())))
+    {
+      helpButton.setImageResource(R.drawable.ic_crowdfunding);
+      helpButton.getDrawable().setTintList(null);
+    }
+    else if (Config.isNY() && !TextUtils.isEmpty(Utils.getDonateUrl(requireContext())))
+    {
+      helpButton.setImageResource(R.drawable.ic_christmas_tree);
+      helpButton.getDrawable().setTintList(null);
+    }
+    else
+    {
+      helpButton.setImageResource(app.organicmaps.branding.R.drawable.logo);
+      // Keep this button colorful in normal theme.
+      if (!ThemeUtils.isDarkTheme(requireContext()))
+        helpButton.getDrawable().setTintList(null);
+    }
   }
 
   public void updateLayerButton()
@@ -428,6 +433,7 @@ public class MapButtonsController extends Fragment
     mSearchWheel.onResume();
     updateMenuBadge();
     updateLayerButton();
+    updateHelpButtonIcon();
     final WindowInsetUtils.PaddingInsetsListener insetsListener =
         new WindowInsetUtils.PaddingInsetsListener.Builder()
             .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
