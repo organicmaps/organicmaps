@@ -61,6 +61,8 @@ final class ChartPointInfoView: UIView {
 
     stackView.alignment = .leading
     stackView.axis = .vertical
+
+    translatesAutoresizingMaskIntoConstraints = false
     stackView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(stackView)
 
