@@ -85,6 +85,7 @@ private:
   std::vector<RowSpec> BuildBookmarkRows(std::vector<kml::MarkId> const & bookmarkIds) const;
   std::vector<RowSpec> BuildSortedRows(BookmarkManager::SortedBlocksCollection const & sortedBlocks) const;
   void NotifySnapshot(bool loading, std::vector<RowSpec> rows);
+  void NotifyLoading(bool loading);
 
   static jobject CreateRow(JNIEnv * env, RowSpec const & row);
   static RowSpec MakeBuiltInSection(jlong stableId, SectionKind sectionKind);
@@ -112,6 +113,7 @@ private:
 jclass g_bookmarkListRowClass = nullptr;
 jmethodID g_bookmarkListRowConstructor = nullptr;
 jmethodID g_onSnapshotChangedMethod = nullptr;
+jmethodID g_onLoadingChangedMethod = nullptr;
 
 jlong g_nextSessionHandle = 1;
 jlong g_activeSearchHandle = 0;
@@ -124,6 +126,7 @@ void PrepareClassRefs(JNIEnv * env, jobject javaSession)
 
   jclass const sessionClass = env->GetObjectClass(javaSession);
   g_onSnapshotChangedMethod = env->GetMethodID(sessionClass, "onSnapshotChanged", "(Z[I[J[I)V");
+  g_onLoadingChangedMethod = env->GetMethodID(sessionClass, "onLoadingChanged", "(Z)V");
   env->DeleteLocalRef(sessionClass);
 
   g_bookmarkListRowClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/BookmarkListRow");
@@ -183,7 +186,7 @@ bool BookmarkListSession::Search(std::string query, jlong handle)
     searchApi.CancelSearch(search::Mode::Bookmarks);
   g_activeSearchHandle = handle;
 
-  NotifySnapshot(true /* loading */, {});
+  NotifyLoading(true);
 
   search::BookmarksSearchParams params{
       m_query, m_categoryId,
@@ -227,7 +230,7 @@ void BookmarkListSession::Sort(BookmarkManager::SortingType sortingType, bool ha
     return;
   }
 
-  NotifySnapshot(true /* loading */, {});
+  NotifyLoading(true);
 
   BookmarkManager::SortParams sortParams;
   sortParams.m_groupId = m_categoryId;
@@ -259,11 +262,22 @@ void BookmarkListSession::OnBookmarksChanged(jlong handle)
   case SessionMode::Default: ShowDefault(); return;
   case SessionMode::Search:
     if (m_query.empty())
+    {
       ShowDefault();
+    }
     else
+    {
+      // Refresh m_rows to reflect current bookmarks (a bookmark may have been deleted)
+      // before re-running the search. Otherwise getRow() may dereference a stale ID.
+      NotifySnapshot(true /* loading */, BuildDefaultRows());
       Search(m_query, handle);
+    }
     return;
-  case SessionMode::Sorted: Sort(m_sortingType, m_hasMyPosition, m_myPosition, handle); return;
+  case SessionMode::Sorted:
+    // Same rationale as the Search branch above.
+    NotifySnapshot(true /* loading */, BuildDefaultRows());
+    Sort(m_sortingType, m_hasMyPosition, m_myPosition, handle);
+    return;
   }
 }
 
@@ -428,6 +442,14 @@ void BookmarkListSession::NotifySnapshot(bool loading, std::vector<RowSpec> rows
 
   env->CallVoidMethod(m_javaSession, g_onSnapshotChangedMethod, static_cast<jboolean>(loading), jTypes.get(),
                       jStableIds.get(), jSectionKinds.get());
+  jni::HandleJavaException(env);
+}
+
+void BookmarkListSession::NotifyLoading(bool loading)
+{
+  JNIEnv * env = jni::GetEnv();
+  ASSERT(env != nullptr, ());
+  env->CallVoidMethod(m_javaSession, g_onLoadingChangedMethod, static_cast<jboolean>(loading));
   jni::HandleJavaException(env);
 }
 

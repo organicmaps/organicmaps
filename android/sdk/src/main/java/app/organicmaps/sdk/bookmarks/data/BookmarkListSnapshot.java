@@ -60,6 +60,14 @@ public final class BookmarkListSnapshot
     return mSectionKinds[index];
   }
 
+  @NonNull
+  BookmarkListSnapshot withLoading(boolean loading)
+  {
+    if (loading == mLoading)
+      return this;
+    return new BookmarkListSnapshot(loading, mTypes, mStableIds, mSectionKinds);
+  }
+
   @VisibleForTesting
   @NonNull
   public static BookmarkListSnapshot forTest(boolean loading, @NonNull int[] types, @NonNull long[] stableIds,

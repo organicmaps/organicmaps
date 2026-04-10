@@ -400,21 +400,29 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     mToolbarController.showProgress(mSearchResults && mToolbarController.hasQuery() && snapshot.isLoading());
     updateSortingProgressBar();
+
+    // Show the loading overlay on top of the existing list while search/sort is in progress,
+    // but only when there are rows underneath — otherwise the empty-list placeholder is shown instead.
+    View view = getView();
+    if (view != null)
+      updateLoadingPlaceholder(view, snapshot.isLoading() && snapshot.size() > 0);
+
     updateRecyclerVisibility();
   }
 
   private void updateRecyclerVisibility()
   {
-    if (isEmptySearchResults())
+    boolean loading = mBookmarkListSession.getLatestSnapshot().isLoading();
+
+    if (!loading)
     {
-      requirePlaceholder().setContent(R.string.search_not_found, R.string.search_not_found_query);
-    }
-    else if (isEmpty())
-    {
-      requirePlaceholder().setContent(R.string.bookmarks_empty_list_title, R.string.bookmarks_empty_list_message);
+      if (isEmptySearchResults())
+        requirePlaceholder().setContent(R.string.search_not_found, R.string.search_not_found_query);
+      else if (isEmpty())
+        requirePlaceholder().setContent(R.string.bookmarks_empty_list_title, R.string.bookmarks_empty_list_message);
     }
 
-    boolean isEmptyRecycler = isEmpty() || isEmptySearchResults();
+    boolean isEmptyRecycler = (isEmpty() || isEmptySearchResults()) && !loading;
 
     showPlaceholder(isEmptyRecycler);
 

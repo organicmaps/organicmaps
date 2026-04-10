@@ -137,6 +137,59 @@ public class BookmarkListSessionTest
     assertEquals(BookmarkListRow.Type.SECTION, row.getType());
   }
 
+  @Test
+  public void onLoadingChanged_preserves_existing_metadata()
+  {
+    FakeNativeBridge bridge = new FakeNativeBridge();
+    BookmarkListSession session = new BookmarkListSession(13, bridge);
+    session.onSnapshotChanged(false, new int[] {BookmarkListRow.Type.BOOKMARK, BookmarkListRow.Type.BOOKMARK},
+                              new long[] {100, 200},
+                              new int[] {BookmarkListRow.SectionKind.NONE, BookmarkListRow.SectionKind.NONE});
+
+    List<BookmarkListSnapshot> received = new ArrayList<>();
+    session.setListener(received::add);
+    received.clear();
+
+    session.onLoadingChanged(true);
+
+    assertEquals(1, received.size());
+    BookmarkListSnapshot snapshot = received.get(0);
+    assertTrue(snapshot.isLoading());
+    assertEquals(2, snapshot.size());
+    assertEquals(100L, snapshot.getStableId(0));
+    assertEquals(200L, snapshot.getStableId(1));
+  }
+
+  @Test
+  public void onLoadingChanged_is_a_noop_when_same_loading_state()
+  {
+    FakeNativeBridge bridge = new FakeNativeBridge();
+    BookmarkListSession session = new BookmarkListSession(14, bridge);
+    session.onSnapshotChanged(false, new int[] {BookmarkListRow.Type.BOOKMARK}, new long[] {1},
+                              new int[] {BookmarkListRow.SectionKind.NONE});
+    BookmarkListSnapshot before = session.getLatestSnapshot();
+
+    session.onLoadingChanged(false);
+
+    BookmarkListSnapshot after = session.getLatestSnapshot();
+    // withLoading(sameValue) returns the same instance.
+    assertEquals(before, after);
+  }
+
+  @Test
+  public void onLoadingChanged_after_close_is_ignored()
+  {
+    FakeNativeBridge bridge = new FakeNativeBridge();
+    BookmarkListSession session = new BookmarkListSession(15, bridge);
+    session.onSnapshotChanged(false, new int[] {BookmarkListRow.Type.BOOKMARK}, new long[] {1},
+                              new int[] {BookmarkListRow.SectionKind.NONE});
+    session.close();
+
+    session.onLoadingChanged(true);
+
+    assertFalse(session.getLatestSnapshot().isLoading());
+  }
+
   private static class FakeNativeBridge implements BookmarkListSession.NativeBridge
   {
     long nextPtr = 42;

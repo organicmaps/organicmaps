@@ -161,6 +161,17 @@ public final class BookmarkListSession implements AutoCloseable
       mListener.onBookmarkListSnapshotChanged(mLatestSnapshot);
   }
 
+  @Keep
+  @SuppressWarnings("unused")
+  void onLoadingChanged(boolean loading)
+  {
+    if (mClosed)
+      return;
+    mLatestSnapshot = mLatestSnapshot.withLoading(loading);
+    if (mListener != null)
+      mListener.onBookmarkListSnapshotChanged(mLatestSnapshot);
+  }
+
   private void ensureOpen()
   {
     if (mClosed || mNativePtr == 0)
