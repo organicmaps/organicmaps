@@ -1,9 +1,8 @@
-• Dados do mapa OSM em 10 de março, Wikipédia em 1º de março
-• Isolinhas de elevação mais detalhadas para províncias chinesas
-• Adicionadas fileiras de árvores, lojas de couro e lojas que vendem produtos religiosos
-• Adicionado suporte para limites de velocidade condicionais
-• Tanzânia dividida em regiões menores
-• Melhor exibição do horário de funcionamento comercial
-• Várias falhas corrigidas
-• Traduções aprimoradas de nomes de aplicativos e países
-omaps.org/pt-BR/news
+• Selecione rotas de caminhada e ciclismo para ver seus gráficos de elevação
+• Ajuste correto do mapa no antimeridiano (±180° de longitude)
+• Altere todas as cores de marcadores e trilhas em uma categoria de uma só vez
+• Melhor busca por números de casas, mais endereços dos EUA cobertos
+• Dados do OSM a partir de 4 de abril
+• Modo de aparência programada em Configurações
+• Corrigido o compartilhamento de marcadores/trilhas com outros aplicativos
+…mais em omaps.org/pt-BR/news

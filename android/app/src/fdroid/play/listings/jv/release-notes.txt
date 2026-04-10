@@ -1,0 +1,9 @@
+• Data peta OSM per 10 Maret, Wikipedia per 1 Maret
+• Isolin ketinggian sing luwih rinci kanggo provinsi-provinsi China
+• Nambah barisan wit, toko kulit, lan toko sing adol barang agama
+• Nambah dhukungan kanggo watesan kecepatan bersyarat
+• Misahake Tanzania dadi wilayah-wilayah sing luwih cilik
+• Ningkatake tampilan jam buka usaha
+• Mbenerake sawetara keruntuhan aplikasi
+• Ningkatake terjemahan jeneng aplikasi lan jeneng negara
+…lan liya-liyane ing omaps.org/news

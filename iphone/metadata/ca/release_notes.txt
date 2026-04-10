@@ -1,23 +1,56 @@
-• Dades del mapa OSM a data de 10 de març
-• Dades de la Viquipèdia a data de 1 de març
-• S'ha afegit suport per a límits de velocitat condicionals
-• Isòlines d'altitud més detallades per a les províncies xineses
-• S'han afegit botigues de cuir i botigues que venen articles religiosos
-• S'han afegit fileres d'arbres
-• S'han afegit plataformes d'aturada de transport públic sense aturades d'autobús a prop
-• S'ha corregit el càlcul del progrés de la descàrrega de països
-• S'ha dividit Tanzània en regions més petites
-• S'ha afegit un historial de les categories utilitzades recentment a l'Editor
-• Millorada la gestió de l'esllavetada cap amunt a la pantalla de planificació d'itineraris
-• Corregida la posició de la regla per a CarPlay
-• Corregits diversos bloquejos, i millorada l'estabilitat i el rendiment
+## Mapa
 
-### Traduccions
+- NOVETAT! Adaptació correcta del mapa a l'antimeridià en arrossegar i girar
+- Dades d'OpenStreetMap actualitzades a 4 d'abril
+- Dades de la Viquipèdia actualitzades a 1 d'abril
+- S'han afegit icones per a zones de restauració i portes de la ciutat
+- S'han afegit subcategories per a botigues de roba: dona, home, nen, núvia, esport, roba interior i tipus d'oficina
+- S'han corregit els colors de les línies de metro de Sydney
+- S'ha corregit la visualització dels horaris d'obertura per a llocs amb desplaçaments en l'alba/el capvespre
 
-• Millorades les descripcions dels països
-• Aplicades les correccions romaneses d'Eugen Dedu
-• Actualitzats els noms dels països
-• Actualitzades les traduccions dels col·laboradors de Weblate
-• Corregida la traducció a l'ucraïnès
+## Rutes i navegació
 
-Gràcies a tothom qui col·labora, fa donacions i dona suport a Organic Maps! Creem junts els millors mapes!
+- NOVETAT! Toca una ruta de bicicleta o de senderisme per seleccionar-la i veure'n el gràfic d'altitud
+- Millorat el renderitzat multicolor per a les rutes de senderisme i bicicleta
+- La navegació per bicicleta ara utilitza el rumb de la brúixola a velocitats baixes
+- S'ha corregit un error del sistema en planificar rutes a prop d'algunes fronteres regionals
+- Ara pots començar una ruta vàlida fins i tot quan se't demani que descarreguis mapes addicionals
+
+## Marcadors i Traçats
+
+- NOVETAT! Canvieu tots els colors dels marcadors i les rutes d'una categoria alhora
+- S'ha ajustat l'aproximació del desnivell positiu i negatiu als gràfics de ruta perquè coincideixi millor amb altres aplicacions
+- Millorada la visualització de contingut HTML amb taules i imatges als detalls dels marcadors
+- S'han afegit separadors verticals per a les rutes de diversos segments al gràfic d'altitud
+- S'ha corregit la selecció de punts al gràfic d'altitud per als punts interpolats
+- S'ha corregit la pèrdua de punts en la gravació de la ruta GPS entre segments
+- S'ha corregit la importació de GeoJSON
+- S'ha corregit un bloqueig en exportar rutes
+
+## Cerca
+
+- Millora de la cerca als EUA, amb dos milions d'adreces addicionals processades a partir de les dades del cens TIGER
+- S'han actualitzat les categories de cerca: s'ha afegit "Pa" per a fleques, cuina "shawarma" i altres millores de sinònims
+- Millorada la cerca d'adreces amb número de casa
+- S'han afegit sinònims de carrers dels EUA: highway, hwy, freeway, fwy
+- S'han corregit els resultats de cerca quan el nom de la ciutat i de l'estat és el mateix
+
+## Editor / OpenStreetMap
+
+- Ara podeu afegir un lloc nou a OpenStreetMap després de seleccionar la vostra posició actual al mapa
+- S'ha corregit el desalineament del punt de mira de l'editor en prémer «Afegeix lloc»
+- S'ha augmentat la superfície tàctil dels botons de la barra de navegació «Afegeix lloc»
+
+## UI i UX
+
+- Millorats els gestos modals: ajustament al pas més proper, tancament en desplaçar-se per la vora i restauració de l'estat anterior en tornar-lo a obrir
+- S'ha corregit el tractament de l'horari d'estiu per a les zones horàries
+
+## Estabilitat i localització
+
+- Millorada l'estabilitat i el rendiment, i reduït el consum de bateria
+- Actualitzades les traduccions
+
+## Suport de plataformes
+
+- A causa dels canvis a TestFlight i l'App Store, aquesta versió només és compatible amb iOS 15 o posterior. Ja no es dona suport a iOS 12, 13 i 14.

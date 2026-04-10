@@ -1,0 +1,32 @@
+Organic Maps je brza, detaljna aplikacija za offline mape i GPS navigaciju za putovanja, planinarenje, pješačenje i biciklizam. Planirajte, uvozite i bilježite rute i uživajte u glatkoj navigaciji bez trošenja baterije ili korištenja internetske veze. Istražite mjesta i sigurno se krećite tokom vaših avantura na otvorenom i putovanja širom svijeta. Aplikacija nudi neograničeno preuzimanje mapa i ažuriranja svake dvije sedmice. Zasnovana na OpenStreetMapu, napravljena od strane volontera, s privatnošću na prvom mjestu, 100% offline i 100% besplatna.
+
+<b>OFFLINE:</b> Aplikacija radi 100% offline — uključujući pretraživanje i navigaciju. Možete istraživati mapu i navigirati bez internetske veze, čime štedite na mobilnim podacima i troškovima roaminga. A bez pozadinskog prijenosa podataka, vaša baterija traje mnogo duže.
+
+<b>BRZO:</b> Približavanje, pretraživanje i izračunavanje ruta rade primjetno brzo.
+
+<b>DETALJNO I AŽURIRANO:</b> Mape su bogate detaljima i osvježavaju se dva puta mjesečno kako bi odražavale stvarne uslove. Za razliku od mnogih poznatih konkurenata, one uključuju oznake zgrada, klupe, planinarske staze i druge korisne informacije.
+
+<b>ZASNOVANO NA OPENSTREETMAPU:</b> OpenStreetMap je svjetska mapa u stilu wiki-ja, koju su izgradili i održavaju milioni volontera — lokalaca koji najbolje poznaju svoja područja. Ovaj zajednički napor rezultira visoko detaljnim mapama, koje su često tačnije od komercijalnih u manje mapiranim regijama. Organic Maps ažurira svoje podatke s OpenStreetMapa svake dvije sedmice, čineći vaše mape ažurnim i pouzdanim. A ako primijetite da nešto nedostaje, možete to dodati na OpenStreetMap i pomoći u poboljšanju mape za sve.
+
+<b>PRIVATNOST NA PRVOM MJESTU:</b> Ne prikupljamo nikakve podatke niti identifikatore. To znači da ne postoji rizik od curenja podataka i da nema ometanja poput oglasa ili bučnih obavijesti — samo čisto, privatno iskustvo korištenja mape.
+
+<b>VAŽNE KARAKTERISTIKE</b>
+
+<b>ISKRAJTE MJESTA:</b> Pretražujte po adresi, nazivu ili kategoriji, otkrijte milione POI-ja i pogledajte detaljne informacije kao što su radno vrijeme, članci na Wikipediji, pristupačnost za osobe u invalidskim kolicima i druge korisne detalje.
+
+<b>GPS NAVIGACIJA:</b> Uživajte u uputama korak po korak uz glasovno vođenje. Kreirajte rute za pješačenje, planinarenje, biciklizam ili vožnju — uključujući rute između gradova, zemalja i više usputnih tačaka. Pronađite najbolje rute za svoje vožnje metroom i svakodnevne putovanja. Podržan je Android Auto.
+
+<b>PJEŠAČKE I BICIKLISTIČKE STAZE IZ CIJELOG SVIJETA:</b> Omogućite posebne slojeve karte da biste otkrili popularne pješačke i biciklističke rute širom svijeta, sve preuzete iz OpenStreetMap. Prebacujte se između slojeva da biste vidjeli obojene biciklističke i brdsko-biciklističke (MTB) staze, kao i službene pješačke staze.
+
+<b>JAVNI PREVOZ:</b> Pogledajte brojeve ruta javnog prijevoza na stanicama. Rasporedi i navigacija javnog prijevoza uživo su trenutno u razvoju.
+
+<b>STILOVI KARTE:</b> Odaberite slojeve karte koji odgovaraju vašoj aktivnosti — na otvorenom, konturne linije, planinarenje, biciklizam ili metro/podzemna željeznica.
+
+Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline. Iskusite pouzdanu GPS navigaciju za planinarenje, biciklizam, trekking i putovanja bilo gdje u svijetu! Uživajte u brzom, pouzdanom i privatnom iskustvu na mapi i podijelite ga s drugima!
+
+Organic Maps je nezavisni, zajednicom vođen projekt otvorenog koda sa stotinama saradnika koji pomažu u razvoju novih funkcija, otklanjanju problema, prevođenju i napretku projekta.
+
+Pridružite se zajednici na Telegramu: @OrganicMapsApp
+Ili saznajte druge načine za podršku projektu: https://organicmaps.app/contribute/
+
+Vaše iskrene povratne informacije i recenzije u prodavnici nas motivišu! Volimo čuti vaše mišljenje. Imate pitanja? Posjetite web stranicu organicmaps.app za dodatne detalje i FAQ.

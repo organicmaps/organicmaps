@@ -1,9 +1,9 @@
-• OSM-kaartgegevens vanaf 10 maart, Wikipedia vanaf 1 maart
-• Meer gedetailleerde hoogte-isolijnen voor Chinese provincies
-• Rijen bomen, leerwinkels en winkels die religieuze goederen verkopen toegevoegd
-• Ondersteuning toegevoegd voor voorwaardelijke snelheidslimieten
-• Tanzania opgesplitst in kleinere regio's
-• Verbeterde weergave van openingstijden van bedrijven
-• Verschillende crashes opgelost
-• Verbeterde vertalingen van app- en landnamen
-omaps.org/nl/news
+• Selecteer wandel- en fietsroutes om hun hoogtekaarten te bekijken
+• Juiste kaartweergave bij de antimeridiaan (±180° lengtegraad)
+• Verander alle bookmark- en trackkleuren in een categorie in één keer
+• Beter zoeken naar huisnummers, meer Amerikaanse adressen gedekt
+• OSM-gegevens vanaf 4 april
+• Geplande weergavemodus in Instellingen
+• Delen van bladwijzers/tracks met andere apps is opgelost
+• Uploaden van kaartbewerkingen naar OSM is opgelost
+…meer op omaps.org/nl/news

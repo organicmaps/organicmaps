@@ -1,10 +1,9 @@
-• OSM kartografski podaci od 10. ožujka, Wikipedia od 1. ožujka
-• Detaljnije visinske izolinije za kineske pokrajine
-• Dodani su drvoredi, trgovine s kožom i trgovine s vjerskom robom
-• Dodana podrška za uvjetna ograničenja brzine
-• Tanzanija podijeljena na manje regije
-• Poboljšan prikaz radnog vremena poduzeća
-• Popravljeno je nekoliko padova
-• Poboljšani prijevodi naziva aplikacija i zemalja
-• Dodani peroni javnog prijevoza bez obližnjih autobusnih stanica
-omaps.org/news
+• Odaberite planinarske i biciklističke staze za pregled njihovih visinskih profila
+• Ispravno presavijanje karte na antimeridijanu (±180° geografske dužine)
+• Promjena boja svih oznaka i tragova u jednoj kategoriji odjednom
+• Bolja pretraga kućnih brojeva, pokriveno je više američkih adresa
+• OSM podaci od 4. travnja
+• Planirani način prikaza u postavkama
+• Ispravljeno dijeljenje oznaka/tragova s drugim aplikacijama
+• Ispravljeno učitavanje izmjena karte u OSM
+…više na omaps.org/news

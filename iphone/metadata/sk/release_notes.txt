@@ -1,23 +1,56 @@
-• Mapové údaje OSM k 10. marcu
-• Údaje z Wikipédie k 1. marcu
-• Pridaná podpora podmienených rýchlostných obmedzení
-• Podrobnejšie izolinie nadmorskej výšky pre čínske provincie
-• Pridané kožiarne a obchody s náboženskými predmetmi
-• Pridané rady stromov
-• Pridané nástupišťa verejnej dopravy bez blízkych autobusových zastávok
-• Opravené výpočty priebehu sťahovania krajín
-• Rozdelenie Tanzánie na menšie regióny
-• Pridaná história nedávno použitých kategórií v editore
-• Vylepšené potiahnutie nahor na obrazovke plánovania trasy
-• Opravená poloha pravítka pre CarPlay
-• Opravených niekoľko zlyhaní, vylepšená stabilita a výkon
+## Mapa
 
-### Preklady
+- NOVINKA! Správne zalamovanie mapy na antimeridiáne pri ťahaní a otáčaní
+- Dáta OpenStreetMap aktualizované k 4. aprílu
+- Dáta Wikipédie aktualizované k 1. aprílu
+- Pridané ikony pre stravovacie zariadenia a mestské brány
+- Pridané podkategórie obchodov s odevmi: dámske, pánske, detské, svadobné, športové, spodná bielizeň a kancelárske typy
+- Opravené farby liniek metra v Sydney
+- Opravené zobrazenie otváracích hodín pre miesta s posunom východu/západu slnka
 
-• Vylepšené popisy krajín
-• Použité rumunské opravy od Eugena Dedu
-• Aktualizované názvy krajín
-• Aktualizované preklady od prispievateľov Weblate
-• Opravený ukrajinský preklad
+## Trasy a navigácia
 
-Ďakujeme všetkým, ktorí prispievajú, darujú a podporujú Organic Maps! Spoločne vytvoríme najlepšie mapy!
+- NOVINKA! Ťuknutím na cyklistickú alebo turistickú trasu ju vyberiete a zobrazíte jej výškový profil
+- Vylepšené viacfarebné zobrazenie turistických a cyklistických trás
+- Cyklistická navigácia teraz pri nízkych rýchlostiach používa smer kompasu
+- Opravená systémová chyba pri plánovaní trás v blízkosti niektorých regionálnych hraníc
+- Teraz môžete začať platnú trasu aj v prípade, že sa zobrazí výzva na stiahnutie ďalších máp
+
+## Záložky a trasy
+
+- NOVINKA! Zmeňte farby všetkých záložiek a trás v kategórii naraz
+- Upravené približné hodnoty prevýšenia a klesania na grafoch trás, aby lepšie zodpovedali iným aplikáciám
+- Vylepšené zobrazenie HTML obsahu s tabuľkami a obrázkami v podrobnostiach záložiek
+- Pridané vertikálne oddeľovače pre viacsegmentové trasy v grafe nadmorskej výšky
+- Opravený výber bodov v grafe nadmorskej výšky pre interpolované body
+- Opravené vypadávanie bodov medzi segmentmi pri zaznamenávaní GPS trasy
+- Opravený import GeoJSON
+- Opravená chyba spôsobujúca pád aplikácie pri exportovaní trás
+
+## Vyhľadávanie
+
+- Lepšie vyhľadávanie v USA s dvoma miliónmi dodatočných adries získaných z údajov sčítania ľudu TIGER
+- Aktualizované kategórie vyhľadávania: pridané „Bread“ pre pekárne, kuchyňa „Shawarma“ a ďalšie vylepšenia synoným
+- Vylepšené vyhľadávanie adries podľa čísla domu
+- Pridané synonymá pre ulice v USA: highway, hwy, freeway, fwy
+- Opravené výsledky vyhľadávania, keď sú názvy miest a štátov rovnaké
+
+## Editor / OpenStreetMap
+
+- Teraz môžete pridať nové miesto do OpenStreetMap po výbere vašej aktuálnej polohy na mape
+- Opravené nesprávne zarovnanie kríža v editore pri stlačení tlačidla „Pridať miesto“
+- Zväčšená dotyková plocha tlačidiel v navigačnej lište „Pridať miesto“
+
+## UI a UX
+
+- Vylepšené modálne gestá: prichytenie k najbližšiemu kroku, zatvorenie pri posúvaní po okraji a obnovenie predchádzajúceho stavu pri opätovnom otvorení
+- Opravené spracovanie letného času pre časové pásma
+
+## Stabilita a lokalizácia
+
+- Vylepšená stabilita a výkon, znížená spotreba batérie
+- Aktualizované preklady
+
+## Podpora platforiem
+
+- V dôsledku zmien v TestFlight a App Store táto verzia podporuje iba iOS 15 a novšie. iOS 12, 13 a 14 už nie sú podporované.

@@ -1,9 +1,9 @@
-• Data peta OSM per 10 Maret, Wikipedia per 1 Maret
-• Isoline elevasi yang lebih rinci untuk provinsi-provinsi di Tiongkok
-• Menambah deretan pepohonan, toko kulit, dan toko yang menjual barang keagamaan
-• Menambahkan dukungan untuk batas kecepatan bersyarat
-• Tanzania dibagi menjadi beberapa wilayah yang lebih kecil
-• Peningkatan tampilan jam buka bisnis
-• Memperbaiki beberapa kerusakan
-• Peningkatan terjemahan nama aplikasi dan negara
-omaps.org/id/news
+• Pilih rute pendakian dan bersepeda untuk melihat grafik ketinggiannya
+• Tampilan peta yang benar di antimeridian (±180° bujur)
+• Mengubah semua warna penanda dan lintasan dalam satu kategori sekaligus
+• Pencarian nomor rumah yang lebih baik, lebih banyak alamat AS yang tercakup
+• Data OSM per tanggal 4 April
+• Mode tampilan terjadwal di Pengaturan
+• Berbagi penanda/trek ke aplikasi lain telah diperbaiki
+• Pengunggahan pengeditan peta ke OSM telah diperbaiki
+…selengkapnya di omaps.org/id/news

@@ -1,23 +1,56 @@
-• 10 Mart itibarıyla OSM harita verileri
-• 1 Mart itibarıyla Wikipedia verileri
-• Koşullu hız sınırları için destek eklendi
-• Çin eyaletleri için daha ayrıntılı yükseklik izolinerleri
-• Deri mağazaları ve dini ürünler satan mağazalar eklendi
-• Ağaç sıraları eklendi
-• Yakınında otobüs durağı olmayan toplu taşıma durağı platformları eklendi
-• Ülke indirme ilerleme hesaplaması düzeltildi
-• Tanzanya daha küçük bölgelere ayrıldı
-• Editörde son kullanılan kategoriler geçmişi eklendi
-• Rota planlama ekranında yukarı kaydırma iyileştirildi
-• CarPlay için cetvel konumu düzeltildi
-• Birkaç çökme düzeltildi, kararlılık ve performans iyileştirildi
+## Harita
 
-### Çeviriler
+- YENİ! Sürükleme ve döndürme sırasında harita artık antimeridyende doğru şekilde sarılıyor
+- OpenStreetMap verileri 4 Nisan itibarıyla güncellendi
+- Wikipedia verileri 1 Nisan itibarıyla güncellendi
+- Yemek alanları ve şehir kapıları için simgeler eklendi
+- Giyim mağazası alt kategorileri eklendi: kadın, erkek, çocuk, düğün, spor, iç giyim ve ofis giyimi
+- Sidney metro hattı renkleri düzeltildi
+- Güneş doğumu/batımı farkı olan yerler için çalışma saatleri gösterimi düzeltildi
 
-• Ülke açıklamaları iyileştirildi
-• Eugen Dedu'dan Romence düzeltmeler uygulandı
-• Ülke isimleri güncellendi
-• Weblate katkıcılarından gelen çeviriler güncellendi
-• Ukraynaca çeviri düzeltildi
+## Rota Planlama ve Navigasyon
 
-Organic Maps'e katkıda bulunan, bağış yapan ve destekleyen herkese teşekkür ederiz! Gelin birlikte en iyi haritaları oluşturalım!
+- YENİ! Bir bisiklet veya yürüyüş rotasına dokunarak seçin ve yükseklik grafiğini görüntüleyin
+- Yürüyüş ve bisiklet rotaları için çok renkli görüntüleme iyileştirildi
+- Bisiklet navigasyonu artık düşük hızlarda pusula yönünü kullanıyor
+- Bazı bölge sınırlarının yakınında rota planlarken ortaya çıkan bir sistem hatası düzeltildi
+- Artık ek haritaları indirmeniz istendiğinde bile geçerli bir rotaya başlayabilirsiniz
+
+## Yer İşaretleri ve İzler
+
+- YENİ! Bir kategorideki tüm yer işareti ve iz renklerini tek seferde değiştirin
+- Diğer uygulamalarla daha iyi uyum sağlaması için iz grafiklerindeki yükseklik kazancı ve kaybı tahminleri ayarlandı
+- Yer işareti ayrıntılarında tablolar ve resimler içeren HTML içeriğinin görüntülenmesi iyileştirildi
+- Yükseklik grafiğinde çok segmentli izler için dikey ayırıcılar eklendi
+- Yükseklik grafiğinde enterpolasyonlu noktaların seçimi düzeltildi
+- GPS iz kaydında segmentler arasında noktaların düşmesi sorunu düzeltildi
+- GeoJSON içe aktarma sorunu düzeltildi
+- İzleri dışa aktarırken meydana gelen çökme sorunu düzeltildi
+
+## Arama
+
+- TIGER Nüfus Sayımı verilerinden ayrıştırılan iki milyon ek adresle ABD'de daha iyi arama
+- Güncellenen arama kategorileri: fırınlar için "Bread", "Shawarma" mutfağı ve diğer eşanlamlı iyileştirmeler eklendi
+- Ev numarası adres araması iyileştirildi
+- ABD sokak eşanlamlıları eklendi: highway, hwy, freeway, fwy
+- Şehir ve eyalet adları aynı olduğunda arama sonuçları düzeltildi
+
+## Düzenleyici / OpenStreetMap
+
+- Artık harita üzerinde mevcut konumunuzu seçtikten sonra OpenStreetMap'e yeni bir yer ekleyebilirsiniz
+- "Yer Ekle" düğmesine basıldığında düzenleyicideki artı işaretinin yanlış hizalanması sorunu düzeltildi
+- "Yer Ekle" gezinme çubuğundaki düğmelerin dokunma alanı genişletildi
+
+## Kullanıcı Arayüzü ve Kullanıcı Deneyimi
+
+- Modal hareketler iyileştirildi: en yakın adıma kaydırma, kenardan kaydırmada kapatma ve yeniden açıldığında önceki durumun geri yüklenmesi
+- Saat dilimleri için yaz saati uygulaması işleme sorunu düzeltildi
+
+## Kararlılık ve Yerelleştirme
+
+- Kararlılık ve performans iyileştirildi, pil tüketimi azaltıldı
+- Çeviriler güncellendi
+
+## Platform Desteği
+
+- TestFlight ve App Store'daki değişiklikler nedeniyle, bu sürüm yalnızca iOS 15 ve sonraki sürümleri desteklemektedir. iOS 12, 13 ve 14 artık desteklenmemektedir.

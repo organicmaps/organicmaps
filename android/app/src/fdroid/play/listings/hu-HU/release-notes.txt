@@ -1,9 +1,8 @@
-• OSM térképadatok március 10-én, Wikipédia március 1-jén
-• Részletesebb magassági izolációk a kínai tartományokhoz
-• Fasorok, bőrüzletek és vallási árukat árusító üzletek hozzáadása
-• Hozzáadott támogatás a feltételes sebességkorlátozásokhoz
-• Tanzánia felosztása kisebb régiókra
-• A nyitvatartási idő jobb megjelenítése
-• Több összeomlást javítottunk
-• Továbbfejlesztett alkalmazás- és országnevek fordítása
-omaps.org/hu/news
+• Válassza ki a túra- és kerékpáros útvonalakat, hogy megnézze a magassági diagramjaikat.
+• A térkép megfelelő megjelenítése az antimeridiánnál (±180° hosszúság)
+• Egyszerre megváltoztathatja az összes könyvjelző és nyomvonal színét egy kategóriában.
+• Jobb keresés a házszámokra, több amerikai cím lefedése
+• OSM-adatok április 4-től
+• Ütemezett megjelenési mód a Beállításokban
+• Javított könyvjelzők/nyomvonalak megosztása más alkalmazásokkal
+…még több az omaps.org/hu/news oldalon

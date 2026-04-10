@@ -1,9 +1,8 @@
-• Datos do mapa OSM a partir do 10 de marzo, Wikipedia a partir do 1 de marzo
-• Isolíneas de elevación máis detalladas para as provincias chinesas
-• Engadíronse filas de árbores, tendas de coiro e tendas de artigos relixiosos
-• Engadido soporte para límites de velocidade condicionais
-• Tanzania dividida en rexións máis pequenas
-• Mellora da visualización do horario de apertura comercial
-• Arranxáronse varios fallos
-• Mellora das traducións de nomes de países e aplicacións
-omaps.org/gl/news
+• Selecciona rutas de sendeirismo e ciclismo para ver os seus perfís de altitude
+• Enrolamento do mapa axeitado no antimeridiano (lonxitude ±180°)
+• Cambio de todas as cores de marcadores e rutas nunha categoría de vez
+• Mellor busca de números de casa, con máis enderezos de EE. UU. cubertos
+• Datos de OSM do 4 de abril
+• Modo de aparición programada na configuración
+• Corrixiuse o compartido de marcadores/rutas con outras aplicacións
+…máis en omaps.org/gl/news

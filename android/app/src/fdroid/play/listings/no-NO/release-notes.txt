@@ -1,10 +1,9 @@
-• OSM-kartdata per 10. mars, Wikipedia per 1. mars
-• Mer detaljerte høyde-isoliner for kinesiske provinser
-• Lagt til rader med trær, lærbutikker og butikker som selger religiøse varer
-• Lagt til støtte for betingede fartsgrenser
-• Tanzania delt inn i mindre regioner
-• Forbedret visning av virksomhetens åpningstider
-• Fikset flere krasj
-• Forbedrede oversettelser av app- og landnavn
-• Lagt til holdeplasser for offentlig transport uten bussholdeplasser i nærheten
-omaps.org/news
+• Velg vandre- og sykkelruter for å se høydediagrammene deres
+• Riktig kartinnpakning ved antimeridianen (±180° lengdegrad)
+• Endre alle bokmerke- og sporfarger i en kategori samtidig
+• Bedre søk etter husnummer, flere amerikanske adresser dekket
+• OSM-data fra og med 4. april
+• Planlagt visningsmodus i Innstillinger
+• Fikset deling av bokmerker/spor til andre apper
+• Fikset opplasting av kartredigeringer til OSM
+…mer på omaps.org/news

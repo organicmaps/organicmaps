@@ -1,9 +1,8 @@
-• OSM-Kartendaten vom 10. März, Wikipedia vom 1. März
-• Detailliertere Höhenisolinien für chinesische Provinzen
-• Es wurden Baumreihen, Ledergeschäfte und Geschäfte mit religiösen Gütern hinzugefügt
-• Unterstützung für bedingte Geschwindigkeitsbegrenzungen hinzugefügt
-• Tansania in kleinere Regionen aufgeteilt
-• Verbesserte Anzeige der Geschäftsöffnungszeiten
-• Mehrere Abstürze behoben
-• Verbesserte Übersetzungen von App- und Ländernamen
-omaps.org/de/news
+• Wählen Sie Wander- und Radrouten aus, um deren Höhendiagramme anzuzeigen.
+• Korrekter Kartenumbruch am Antimeridian (±180° Längengrad)
+• Ändern Sie alle Lesezeichen- und Trackfarben in einer Kategorie auf einmal
+• Bessere Suche nach Hausnummern, mehr US-Adressen abgedeckt
+• OSM-Daten mit Stand vom 4. April
+• Geplanter Darstellungsmodus in den Einstellungen
+• Die Freigabe von Lesezeichen/Tracks für andere Anwendungen wurde behoben
+…mehr unter omaps.org/de/news

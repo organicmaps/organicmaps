@@ -1,10 +1,9 @@
-• Podatki zemljevidov OSM od 10. marca, Wikipedia od 1. marca
-• Podrobnejše višinske izolinije za kitajske province
-• Dodane so vrste dreves, trgovine z usnjem in trgovine z verskimi izdelki
-• Dodana podpora za pogojne omejitve hitrosti
-• Tanzanija razdeljena na manjše regije
-• Izboljšan prikaz obratovalnega časa podjetja
-• Odpravljenih več zrušitev
-• Izboljšani prevodi imen aplikacij in držav
-• Dodana postajališča javnega prevoza brez bližnjih avtobusnih postajališč
-omaps.org/news
+• Izberite pohodniške in kolesarske poti, da si ogledate njihove grafe nadmorske višine
+• Pravilno zavijanje zemljevida na antimeridianu (±180° zemljepisne dolžine)
+• Spremenite vse barve zaznamkov in sledi v kategoriji naenkrat
+• Boljše iskanje hišnih številk, več zajetih ameriških naslovov
+• Podatki OSM od 4. aprila
+• Način načrtovanega videza v nastavitvah
+• Popravljena delitev zaznamkov/sledi z drugimi aplikacijami
+• Popravljeno nalaganje popravkov zemljevidov v OSM
+…več na omaps.org/news

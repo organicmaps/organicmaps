@@ -1,0 +1,34 @@
+Organic Maps iku aplikasi peta offline lan navigasi GPS sing cepet lan rinci kanggo lelungan, hiking, trekking, lan petualangan bersepeda. Rancang, impor, lan rekam rute, lan nikmati pandhuan sing lancar tanpa ngentekake baterei utawa nggunakake sambungan internet. Jelajahi papan-papan lan navigasi kanthi aman sajrone petualangan njaba lan lelunganmu ing saindenging jagad. Aplikasi iki nawakake undhuhan peta tanpa wates lan nganyari saben rong minggu. Adhedhasar OpenStreetMap, digawe sukarelawan, ngutamakake privasi, 100% offline, lan 100% gratis.
+
+<b>OFFLINE:</b> Aplikasi iki bisa digunakake 100% offline — kalebu panelusuran lan navigasi. Sampeyan bisa njelajah peta lan navigasi tanpa sambungan internet, ngirit data seluler lan biaya roaming. Lan amarga ora ana transfer data latar mburi, baterei sampeyan tahan luwih suwe.
+
+<b>CEPET:</b> Ng-zoom, nggoleki, lan ngitung rute bisa digunakake kanthi cepet banget.
+
+<b>RINCI & DIUPDATE:</b> Peta iki rinci banget lan dianyari kaping pindho saben wulan kanggo nggambarake kahanan nyata. Beda karo akèh pesaing kondhang, peta iki kalebu label bangunan, bangku, jalur pendakian, lan informasi migunani liyane.
+
+<b>ADHISASAR OPENSTREETMAP:</b> OpenStreetMap iku peta donya gaya wiki sing dibangun lan dirawat dening yuta-yuta relawan — warga lokal sing paling ngerti wilayahé. Upaya komunitas iki ngasilake peta sing rinci banget, asring luwih akurat tinimbang peta komersial ing wilayah sing kurang dipetakake. Organic Maps nganyari datane saka OpenStreetMap saben rong minggu, supaya peta sampeyan tetep anyar lan bisa dipercaya. Lan yen sampeyan weruh ana sing kurang, sampeyan bisa nambahake menyang OpenStreetMap lan mbantu ngapikake peta kanggo kabeh wong.
+
+<b>PRIVASI-KABEH DHISIK:</b> Kita ora nglumpukake data utawa identifikasi apa wae. Iki ateges ora ana risiko bocoran data lan ora ana gangguan kaya iklan utawa kabar sing rame — mung pengalaman peta sing resik lan pribadi.
+
+<b>FITUR PENTING</b>
+
+<b>JELLAJAH PAPAN:</b> Golek miturut alamat, jeneng, utawa kategori, temokake yuta-yuta POI, lan deleng informasi rinci kaya jam buka, artikel Wikipedia, akses kursi roda, lan rincian migunani liyane.
+
+<b>NAVIGASI GPS:</b> Nikmati pandhuan swara saben belokan. Gawé rute mlaku, hiking, numpak sepeda, utawa nyopir — kalebu rute antarané kutha, negara, lan pirang-pirang titik mampir. Golek rute paling apik kanggo perjalanan metro lan komutmu. Android Auto didhukung.
+
+<b>JALUR PANJAT GUNUNG & SEPEDA SAK JAGAD:</b> Aktifake lapisan peta khusus kanggo nemokake rute panjat gunung lan sepeda sing populer ing saindenging jagad, kabeh dijupuk saka OpenStreetMap. Ganti antarane lapisan kanggo ndeleng rute sepeda lan MTB sing berwarna, uga jalur panjat gunung resmi.
+
+<b>ANGKUTAN UMUM:</b> Deleng nomer rute angkutan umum ing halte. Jadwal transportasi langsung lan rute saiki lagi dikembangake.
+
+<b>GAYA PETA:</b> Pilih lapisan peta sing cocog karo kegiyatanmu — Luar Ruang, Garis Kontur, Hiking, Sepeda, utawa Metro/Kereta Bawah Tanah.
+
+<b>REKAM LINTASAN:</b> Rekam, impor, ekspor, lan barengake rute lan papan favoritmu. Ndukung format KML, KMZ, GPX, lan GeoJSON.
+
+Coba aplikasi iki — gratis 100%, tanpa iklan, cepet, lan bisa offline sakabehe. Rasakna navigasi GPS sing bisa dipercaya kanggo hiking, numpak sepeda, trekking, lan lelungan ing endi wae ing donya! Nikmati pengalaman peta sing cepet, bisa dipercaya, lan pribadi, lan barengna karo wong liya!
+
+Organic Maps iku proyek indie, digerakke komunitas, lan open-source sing nduweni atusan kontributor sing mbantu ngembangake fitur anyar, ndandani masalah, nerjemahake, lan ngembangake proyek iki.
+
+Gabung karo komunitas ing Telegram: @OrganicMapsApp
+Utawa sinau cara liya kanggo ndhukung proyek iki: https://organicmaps.app/contribute/
+
+Umpan balik lan ulasan jujur saka sampeyan ing toko nyemangati kita! Kita seneng krungu saka sampeyan ing kana. Ana pitakon? Mangga bukak situs web organicmaps.app kanggo rincian luwih lengkap lan FAQ

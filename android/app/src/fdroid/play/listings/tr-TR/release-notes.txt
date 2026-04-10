@@ -1,9 +1,9 @@
-• 10 Mart itibarıyla OSM harita verileri, 1 Mart itibarıyla Wikipedia
-• Çin eyaletleri için daha ayrıntılı yükseklik izolinleri
-• Sıra sıra ağaçlar, deri mağazaları ve dini ürünler satan mağazalar eklendi
-• Koşullu hız sınırları için destek eklendi
-• Tanzanya daha küçük bölgelere ayrıldı
-• İşletme açılış saatlerinin iyileştirilmiş gösterimi
-• Birkaç kilitlenme düzeltildi
-• Geliştirilmiş uygulama ve ülke adları çevirileri
-omaps.org/tr/news
+• Yükseklik grafiklerini görmek için yürüyüş ve bisiklet rotalarını seçin
+• Antimeridyende haritanın doğru sarılması (±180° boylam)
+• Bir kategorideki tüm yer imi ve iz renklerini aynı anda değiştirin
+• Ev numaraları için daha iyi arama, daha fazla ABD adresi kapsandı
+• OSM verileri 4 Nisan itibariyle
+• Ayarlar'da zamanlanmış görünüm modu
+• Diğer uygulamalarla yer imi/iz paylaşımı düzeltildi
+• Harita düzenlemelerinin OSM'ye yüklenmesi düzeltildi
+…daha fazlası omaps.org/tr/news adresinde
