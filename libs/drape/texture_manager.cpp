@@ -702,7 +702,7 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
   for (auto const & glyph : glyphs)
   {
     bool newResource = false;
-    auto fontTexture = static_cast<FontTexture *>(group.m_texture.get())->MapResource(glyph.m_key, newResource);
+    auto fontTexture = ref_ptr<FontTexture>(group.m_texture)->MapResource(glyph.m_key, newResource);
     hasNewResources |= newResource;
 
     if (glyphRegions)

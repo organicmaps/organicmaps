@@ -159,8 +159,9 @@ public:
 
   bool operator<(ref_ptr const & rhs) const { return m_ptr < rhs.m_ptr; }
 
-  template <typename TResult, typename = std::enable_if_t<!std::is_void<TResult>::value>>
-  TResult & operator*() const
+  template <typename U = T>
+  U const & operator*() const
+    requires(!std::is_same_v<U, void>)
   {
     return *m_ptr;
   }

@@ -8,7 +8,6 @@ namespace gpu
 {
 void ProgramManager::InitForMetal(ref_ptr<dp::GraphicsContext> context)
 {
-  ASSERT(dynamic_cast<dp::metal::MetalBaseContext *>(context.get()) != nullptr, ());
   ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
   m_pool = make_unique_dp<metal::MetalProgramPool>(metalContext->GetMetalDevice());
   m_paramsSetter = make_unique_dp<metal::MetalProgramParamsSetter>();
@@ -21,8 +20,6 @@ void ProgramManager::InitForMetal(ref_ptr<dp::GraphicsContext> context)
 
 void ProgramManager::DestroyForMetal(ref_ptr<dp::GraphicsContext> context)
 {
-  ASSERT(dynamic_cast<dp::metal::MetalBaseContext *>(context.get()) != nullptr, ());
-  ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
-  metalContext->ResetPipelineStatesCache();
+  ref_ptr<dp::metal::MetalBaseContext>(context)->ResetPipelineStatesCache();
 }
 }  // namespace gpu

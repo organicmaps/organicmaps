@@ -361,7 +361,6 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       if (depthStencilRef != nullptr)
       {
         depthFormat = VulkanFormatUnpacker::Unpack(depthStencilRef->GetTexture()->GetFormat());
-        ASSERT(dynamic_cast<VulkanTexture *>(depthStencilRef->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
         ref_ptr<VulkanTexture> depthStencilAttachment = depthStencilRef->GetTexture()->GetHardwareTexture();
         initialDepthStencilLayout = depthStencilAttachment->GetCurrentLayout();
       }
@@ -415,14 +414,12 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       auto const attachmentsCount = (depthStencilRef != nullptr) ? 2 : 1;
       std::vector<VkImageView> attachmentsViews(attachmentsCount);
 
-      ASSERT(dynamic_cast<VulkanTexture *>(framebuffer->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
       ref_ptr<VulkanTexture> colorAttachment = framebuffer->GetTexture()->GetHardwareTexture();
 
       attachmentsViews[0] = colorAttachment->GetTextureView();
 
       if (depthStencilRef != nullptr)
       {
-        ASSERT(dynamic_cast<VulkanTexture *>(depthStencilRef->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
         ref_ptr<VulkanTexture> depthStencilAttachment = depthStencilRef->GetTexture()->GetHardwareTexture();
         attachmentsViews[1] = depthStencilAttachment->GetTextureView();
       }
