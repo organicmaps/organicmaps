@@ -705,34 +705,40 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
 {
-  m_spline.Reset(new m2::Spline(f.GetPointsCount()));
-
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
 }
 
-void ApplyLineFeatureGeometry::operator()(m2::PointD const & point)
+void ApplyLineFeatureGeometry::BuildGeometry(FeatureType & f, int zoomLevel)
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  ++m_readCount;
+  m_readCount += f.GetPointsCount();
 #endif
 
-  if (m_spline->IsEmpty())
+  auto spline = std::make_unique<m2::Spline>(f.GetPointsCount());
+
+  m2::PointD lastAddedPoint;
+  f.ForEachPoint([this, &spline, &lastAddedPoint](m2::PointD const & point)
   {
-    m_spline->AddPoint(point);
-    m_lastAddedPoint = point;
-  }
-  else if (m_params.IsSimplifyLines() &&
-           ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_params.m_minSegmentSqrLength) ||
-            m_spline->IsProlonging(point)))
-  {
-    m_spline->ReplacePoint(point);
-  }
-  else
-  {
-    m_spline->AddPoint(point);
-    m_lastAddedPoint = point;
-  }
+    if (spline->IsEmpty())
+    {
+      spline->AddPoint(point);
+      lastAddedPoint = point;
+    }
+    else if (m_params.IsSimplifyLines() &&
+             ((spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) < m_params.m_minSegmentSqrLength) ||
+              spline->IsProlonging(point)))
+    {
+      spline->ReplacePoint(point);
+    }
+    else
+    {
+      spline->AddPoint(point);
+      lastAddedPoint = point;
+    }
+  }, zoomLevel);
+
+  m_spline = std::move(spline);
 }
 
 void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)

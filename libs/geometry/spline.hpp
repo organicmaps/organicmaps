@@ -45,8 +45,7 @@ public:
 public:
   Spline() = default;
   explicit Spline(size_t reservedSize);
-  explicit Spline(std::vector<PointD> const & path);
-  explicit Spline(std::vector<PointD> && path);
+  explicit Spline(std::vector<PointD> path);
 
   void AddPoint(PointD const & pt);
   void ReplacePoint(PointD const & pt);
@@ -63,7 +62,6 @@ public:
   bool IsValid() const;
 
   double GetLength() const;
-  double GetLastLength() const;
   /// @return for (i) -> (i + 1) section.
   std::pair<PointD, double> GetTangentAndLength(size_t i) const;
 
@@ -83,7 +81,7 @@ protected:
 class SplineEx : public Spline
 {
 public:
-  explicit SplineEx(size_t reservedSize = 2);
+  explicit SplineEx(size_t reservedSize = 2) : Spline(reservedSize) {}
 
   std::vector<double> const & GetLengths() const { return m_length; }
   std::vector<PointD> const & GetDirections() const { return m_direction; }
@@ -93,19 +91,13 @@ class SharedSpline
 {
 public:
   SharedSpline() = default;
-  explicit SharedSpline(std::vector<PointD> const & path);
-  explicit SharedSpline(std::vector<PointD> && path);
+  explicit SharedSpline(std::vector<PointD> path) : m_spline(std::make_shared<Spline>(std::move(path))) {}
+  SharedSpline(std::unique_ptr<Spline> p) : m_spline(std::move(p)) {}
 
   bool IsNull() const { return m_spline == nullptr; }
-  void Reset(Spline * spline);
 
   Spline::iterator CreateIterator() const;
 
-  Spline * operator->()
-  {
-    ASSERT(!IsNull(), ());
-    return m_spline.get();
-  }
   Spline const & operator*() const { return *Get(); }
   Spline const * operator->() const { return Get(); }
   Spline const * Get() const

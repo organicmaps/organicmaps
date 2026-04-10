@@ -315,7 +315,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
   ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
-  f.ForEachPoint(applyGeom, m_zoomLevel);
+  applyGeom.BuildGeometry(f, m_zoomLevel);
 
   if (applyGeom.HasGeometry())
     applyGeom.ProcessLineRules(s.m_lineRules, m_isIsoline(f));
