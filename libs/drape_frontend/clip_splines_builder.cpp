@@ -22,6 +22,7 @@ double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
 {
   m_path.clear();
+  m_spline = {};
   m_knownInside = false;
 
   // Use the feature's pre-parsed limit rect to short-circuit the read of
@@ -129,9 +130,14 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
 
 std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
 {
+  ASSERT(m_spline.IsNull(), ());  // call GetSpline after Release only
+
   std::vector<m2::SharedSpline> out;
   if (m_path.size() < 2)
+  {
+    m_path.clear();
     return out;
+  }
 
   // Inside hint: move m_path straight into the resulting spline, skipping the
   // per-segment Intersect calls in ClipPathByRect. Only valid for non-isoline
@@ -141,6 +147,8 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   if (!isIsoline && m_knownInside)
   {
     out.emplace_back(std::move(m_path));
+    m_path.clear();
+    m_spline = out.back();
     return out;
   }
 
@@ -169,4 +177,18 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
 
   return out;
 }
+
+m2::SharedSpline ClipSplinesBuilder::GetSpline()
+{
+  if (m_spline.IsNull())
+  {
+    if (m_path.size() >= 2)
+    {
+      m_spline = m2::SharedSpline(std::move(m_path));
+      m_path.clear();
+    }
+  }
+  return m_spline;
+}
+
 }  // namespace df

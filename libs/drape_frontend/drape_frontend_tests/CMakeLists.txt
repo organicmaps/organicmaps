@@ -4,6 +4,7 @@ set(SRC
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
   navigator_test.cpp
+  overlay_processor_tests.cpp
   path_text_test.cpp
   rainbow_line_gpu_test.cpp
   screen_operations_tests.cpp

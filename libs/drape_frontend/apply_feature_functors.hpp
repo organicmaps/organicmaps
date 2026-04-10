@@ -153,7 +153,8 @@ public:
   bool HasGeometry() const { return m_builder.HasGeometry(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
 
-  std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
+  //std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
+  m2::SharedSpline GetSpline() { return m_builder.GetSpline(); }
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);
@@ -168,6 +169,7 @@ private:
 };
 
 // Process pathtext and shield drules. Operates on metalines usually.
+/*
 class ApplyLineFeatureAdditional : public BaseApplyFeature
 {
   using TBase = BaseApplyFeature;
@@ -198,6 +200,15 @@ private:
   CaptionDefProto const * m_captionRule = nullptr;
   ShieldRuleProto const * m_shieldRule = nullptr;
 };
+*/
 
 extern dp::Color ToDrapeColor(uint32_t src);
+
+/// Creates road shield shapes at given positions on merged geometry.
+void CreateRoadShieldShapes(ApplyFeatureParams const & params, ShieldRuleProto const * shieldRule,
+                            float shieldDepth, uint8_t rank, FeatureID const & featureId,
+                            ref_ptr<dp::TextureManager> texMng,
+                            ftypes::RoadShieldsSetT const & roadShields,
+                            std::vector<m2::PointD> const & shieldPositions,
+                            GeneratedRoadShields & generatedRoadShields);
 }  // namespace df

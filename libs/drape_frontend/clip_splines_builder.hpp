@@ -31,19 +31,29 @@ public:
   void Build(FeatureType & f, int zoomLevel, bool isIsoline = false);
 
   bool HasGeometry() const { return m_path.size() > 1; }
+
+  /// @name For unit-tests only.
+  /// @{
   size_t GetPathSize() const { return m_path.size(); }
   std::vector<m2::PointD> const & GetPath() const { return m_path; }
   bool IsKnownInside() const { return m_knownInside; }
+  /// @}
 
   /// Clips the built path against the tile rect (isoline pipeline if isIsoline).
   /// In the Inside case m_path is moved out into the resulting spline; otherwise
   /// no cleanup is performed — the next Build() resets all state.
   std::vector<m2::SharedSpline> Release(bool isIsoline);
 
+  /// Get source (non-clipped) spline.
+  /// @note Call after Release only.
+  m2::SharedSpline GetSpline();
+
 private:
   ApplyFeatureParams const & m_params;
 
   std::vector<m2::PointD> m_path;
+  m2::SharedSpline m_spline;
+
   bool m_knownInside = false;
 };
 }  // namespace df

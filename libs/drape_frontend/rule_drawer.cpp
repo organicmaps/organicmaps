@@ -1,17 +1,19 @@
 #include "drape_frontend/rule_drawer.hpp"
 
 #include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/metaline_manager.hpp"
+#include "drape_frontend/path_text_shape.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 
 #include "indexer/drawing_rules.hpp"
+#include "indexer/drules_include.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_style_reader.hpp"
 
-#include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -31,6 +33,13 @@
 
 namespace df
 {
+// Defined in apply_feature_functors.cpp (may be in a different Unity TU).
+void CreateRoadShieldShapes(ApplyFeatureParams const & params, ShieldRuleProto const * shieldRule,
+                            float shieldDepth, uint8_t rank, FeatureID const & featureId,
+                            ref_ptr<dp::TextureManager> texMng,
+                            ftypes::RoadShieldsSetT const & roadShields,
+                            std::vector<m2::PointD> const & shieldPositions,
+                            GeneratedRoadShields & generatedRoadShields);
 
 namespace
 {
@@ -184,12 +193,140 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
     shape->SetFeatureMinZoom(0);
     m_mapShapes[index].push_back(std::move(shape));
   };
+
+  m_overlayProcessor = std::make_unique<OverlayProcessor>(
+      m_applyParams.m_tileRect, m_applyParams.m_tileKey, m_applyParams.m_currentScaleGtoP);
 }
 
 RuleDrawer::~RuleDrawer()
 {
   if (m_wasCancelled)
     return;
+
+  // Create PathTextShapes from the OverlayProcessor's merged chains.
+  // Done here (same context as original overlay shapes) to ensure identical lifecycle.
+  ASSERT(m_overlayProcessor, ());
+  {
+    auto chains = m_overlayProcessor->BuildChains();
+    uint32_t textIndex = 128;  // kPathTextBaseTextIndex
+    auto const texMng = m_context->GetTextureManager();
+    auto const & tileKey = m_overlayProcessor->GetTileKey();
+
+    auto ptChains = m_overlayProcessor->BuildPTChains();
+
+    for (auto const & chain : chains)
+    {
+#ifdef DEBUG_OVERLAY_PROCESSOR
+      // Blue dots at feature junction points (where features were merged).
+      uint32_t dbgIndex = 50000;
+      for (auto const & pt : chain.m_junctionPoints)
+      {
+        ColoredSymbolViewParams dbg;
+        dbg.m_depthLayer = DepthLayer::OverlayLayer;
+        dbg.m_depthTestEnabled = false;
+        dbg.m_depth = 9999;
+        dbg.m_featureId = FeatureID();
+        dbg.m_tileCenter = m_applyParams.m_tileRect.Center();
+        dbg.m_rank = 0;
+        dbg.m_shape = ColoredSymbolViewParams::Shape::Circle;
+        dbg.m_color = dp::Color(0, 80, 255, 255);
+        dbg.m_radiusInPixels = 5.0f;
+
+        m_applyParams.m_insertShape(make_unique_dp<ColoredSymbolShape>(
+            pt, dbg, tileKey, dbgIndex++, false /* needOverlay */));
+      }
+#endif
+
+      std::vector<m2::PointD> shieldPositions;
+      for (auto const & spline : chain.m_clippedSplines)
+      {
+        PathTextViewParams p = chain.m_params;
+#ifdef DEBUG_OVERLAY_PROCESSOR
+        // Max priority so street texts displace POIs, not vice versa.
+        p.m_depth = 9999;
+        p.m_rank = 255;
+#endif
+
+        // Calculate shape and offsets even if street's name is empty. Draw road's shield then.
+        bool addPathTextShape = true;
+        if (p.m_mainText.empty())
+        {
+          p.m_mainText = "Average Street Name";
+          addPathTextShape = false;
+        }
+
+        auto shape = make_unique_dp<PathTextShape>(spline, p, tileKey, textIndex);
+
+        if (!shape->CalculateLayout(texMng))
+          continue;
+
+        // Shield positions at midpoints between text instances: ---STN---SH---STN---SH---
+        if (chain.m_shield.HasShield())
+        {
+          auto const & offsets = shape->GetOffsets();
+          if (offsets.size() == 1)
+            shieldPositions.push_back(spline->GetPoint(0.5 * spline->GetLength()).m_pos);
+          else
+            for (size_t i = 0; i + 1 < offsets.size(); ++i)
+              shieldPositions.push_back(spline->GetPoint(0.5 * (offsets[i] + offsets[i + 1])).m_pos);
+        }
+
+#ifdef DEBUG_OVERLAY_PROCESSOR
+        // Red dots at text pivot positions.
+        for (auto const offset : shape->GetOffsets())
+        {
+          ColoredSymbolViewParams dbg;
+          dbg.m_depthLayer = DepthLayer::OverlayLayer;
+          dbg.m_depthTestEnabled = false;
+          dbg.m_depth = p.m_depth;
+          dbg.m_featureId = FeatureID();
+          dbg.m_tileCenter = p.m_tileCenter;
+          dbg.m_rank = 0;
+          dbg.m_shape = ColoredSymbolViewParams::Shape::Circle;
+          dbg.m_color = dp::Color(255, 0, 0, 255);
+          dbg.m_radiusInPixels = 5.0f;
+
+          m_applyParams.m_insertShape(make_unique_dp<ColoredSymbolShape>(
+              spline->GetPoint(offset).m_pos, dbg, tileKey, dbgIndex++, false /* needOverlay */));
+        }
+#endif
+
+        if (addPathTextShape)
+        {
+          m_applyParams.m_insertShape(std::move(shape));
+          ++textIndex;
+        }
+      }
+
+      // Create shields between text instances on merged geometry.
+      if (chain.m_shield.HasShield() && !shieldPositions.empty())
+      {
+        CreateRoadShieldShapes(m_applyParams, chain.m_shield.m_shieldRule, chain.m_shield.m_depth,
+                               chain.m_params.m_rank, chain.m_params.m_featureId, texMng,
+                               chain.m_shield.m_roadShields, shieldPositions, m_generatedRoadShields);
+
+#ifdef DEBUG_OVERLAY_PROCESSOR
+        // Yellow dots at shield positions.
+        for (auto const & pos : shieldPositions)
+        {
+          ColoredSymbolViewParams dbg;
+          dbg.m_depthLayer = DepthLayer::OverlayLayer;
+          dbg.m_depthTestEnabled = false;
+          dbg.m_depth = 9999;
+          dbg.m_featureId = FeatureID();
+          dbg.m_tileCenter = m_applyParams.m_tileRect.Center();
+          dbg.m_rank = 0;
+          dbg.m_shape = ColoredSymbolViewParams::Shape::Circle;
+          dbg.m_color = dp::Color(255, 200, 0, 255);
+          dbg.m_radiusInPixels = 5.0f;
+
+          m_applyParams.m_insertShape(make_unique_dp<ColoredSymbolShape>(
+              pos, dbg, tileKey, dbgIndex++, false /* needOverlay */));
+        }
+#endif
+      }
+    }
+  }
 
   auto & overlayShapes = m_mapShapes[df::OverlayType];
   for (auto const & shape : overlayShapes)
@@ -318,31 +455,72 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
   applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
 
-  if (applyGeom.HasGeometry())
+  bool const hasGeom = applyGeom.HasGeometry();
+  if (hasGeom)
     applyGeom.ProcessLineRules(s.m_lineRules, isIsoline);
 
-  if (s.m_pathtextRule || s.m_shieldRule)
+  // Build params identically to ApplyLineFeatureAdditional::ProcessAdditionalLineRules.
+  if ((s.m_pathtextRule || s.m_shieldRule) && hasGeom)
   {
-    std::vector<m2::SharedSpline> clippedSplines;
+    double const visScale = m_applyParams.m_vparams.GetVisualScale();
+    auto const toDrapeColor = [](uint32_t src) { return dp::Color(src, static_cast<uint8_t>(255 - (src >> 24))); };
 
-    auto const metalineSpline = m_context->GetMetalineManager()->GetMetaline(f.GetID());
-    if (metalineSpline.IsNull())
+    dp::FontDecl fontDecl;
+    if (s.m_pathtextRule)
     {
-      // There is no metaline for this feature.
-      clippedSplines = applyGeom.MoveClippedSplines();
+      auto const & capRule = s.m_pathtextRule->primary();
+      fontDecl.m_color = toDrapeColor(capRule.color());
+      fontDecl.m_size = static_cast<float>(std::max(8.0, capRule.height() * visScale));
+      if (capRule.stroke_color() != 0)
+        fontDecl.m_outlineColor = toDrapeColor(capRule.stroke_color());
     }
-    else if (m_usedMetalines.insert(metalineSpline.Get()).second)
+    else
     {
-      // Generate additional by metaline, mark metaline spline as used.
-      clippedSplines = m2::ClipSplineByRect(m_applyParams.m_tileRect, metalineSpline);
+      // Shield-only feature: use shield rule font height to drive PathText layout
+      // (placeholder text is used solely to compute shield positions in the destructor).
+      ASSERT(s.m_shieldRule, ());
+      fontDecl.m_size = static_cast<float>(std::max(8.0, s.m_shieldRule->height() * visScale));
     }
 
-    if (!clippedSplines.empty())
+    auto const initTextParamsCommon = [&](PathTextViewParams & params)
     {
-      ApplyLineFeatureAdditional applyAdditional(m_applyParams, f, s.m_captionDescriptor, std::move(clippedSplines));
-      applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule, m_context->GetTextureManager(),
-                                                 s.m_roadShields, m_generatedRoadShields);
+      params.m_rank = f.GetRank();
+      params.m_tileCenter = m_applyParams.m_tileRect.Center();
+      params.m_featureId = f.GetID();
+      params.m_depthLayer = DepthLayer::OverlayLayer;
+      params.m_depthTestEnabled = false;
+      params.m_textFont = fontDecl;
+      params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+    };
+
+    PathTextViewParams params;
+    initTextParamsCommon(params);
+
+    std::string ftKey = s.m_captionDescriptor.GetMainText();
+    if (s.m_pathtextRule && !ftKey.empty())
+    {
+      params.m_depth = static_cast<float>(s.m_pathtextRule->priority());
+      params.m_mainText = ftKey;
+      params.m_auxText = s.m_captionDescriptor.GetAuxText();
     }
+    else
+    {
+      ftKey = f.GetRef();
+      if (s.m_shieldRule)
+        params.m_depth = static_cast<float>(s.m_shieldRule->priority());
+    }
+
+    OverlayProcessor::ShieldInfo shield;
+    if (s.m_shieldRule && !s.m_roadShields.empty())
+    {
+      shield.m_shieldRule = s.m_shieldRule;
+      shield.m_roadShields = s.m_roadShields;
+      shield.m_depth = static_cast<float>(s.m_shieldRule->priority());
+    }
+
+    // Collect path text into OverlayProcessor for runtime merging (replaces metalines for text).
+    if (!ftKey.empty())
+      m_overlayProcessor->CollectFeature(ftKey, applyGeom.GetSpline(), params, shield, false /* hasPT */);
   }
 
   if (m_context->IsTrafficEnabled() && m_zoomLevel >= kRoadClass0ZoomLevel)

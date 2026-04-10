@@ -3,6 +3,7 @@
 #include "drape_frontend/apply_feature_params.hpp"
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/overlay_processor.hpp"
 #include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/traffic_generator.hpp"
@@ -16,6 +17,7 @@
 
 #include <array>
 #include <functional>
+#include <memory>
 #include <unordered_set>
 
 class FeatureType;
@@ -65,6 +67,7 @@ private:
   ref_ptr<EngineContext> m_context;
   CustomFeaturesContextPtr m_customFeaturesContext;
   std::unordered_set<m2::Spline const *> m_usedMetalines;
+  std::unique_ptr<OverlayProcessor> m_overlayProcessor;
 
   TrafficSegmentsGeometry m_trafficGeometry;
 

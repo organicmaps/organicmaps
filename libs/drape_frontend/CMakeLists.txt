@@ -130,6 +130,8 @@ set(SRC
   navigator.hpp
   overlay_batcher.cpp
   overlay_batcher.hpp
+  overlay_processor.cpp
+  overlay_processor.hpp
   overlays_tracker.cpp
   overlays_tracker.hpp
   path_symbol_shape.cpp

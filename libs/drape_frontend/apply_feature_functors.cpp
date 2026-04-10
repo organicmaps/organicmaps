@@ -301,6 +301,7 @@ m2::PointF GetShieldOffset(dp::Anchor anchor, double paddingWidth, double paddin
   return offset;
 }
 
+/*
 void CalculateRoadShieldPositions(std::vector<double> const & offsets, m2::SharedSpline const & spline,
                                   std::vector<m2::PointD> & shieldPositions)
 {
@@ -318,6 +319,7 @@ void CalculateRoadShieldPositions(std::vector<double> const & offsets, m2::Share
     }
   }
 }
+*/
 }  // namespace
 
 void BaseApplyFeature::FillCommonParams(CommonOverlayViewParams & p) const
@@ -778,6 +780,7 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
       m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
 
     // Place rainbow color stripes using a color strip texture on the same geometry.
+    /*
     if (m_relsInfo.HasColors())
     {
       float const stripeWidth = 3 * visScale;
@@ -802,9 +805,11 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
       for (auto const & spline : m_clippedSplines)
         m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));
     }
+    */
   }
 }
 
+/*
 void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureManager> texMng,
                                                           ftypes::RoadShield const & shield, uint8_t shieldIndex,
                                                           uint8_t shieldCount, TextViewParams & textParams,
@@ -975,24 +980,22 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
 
       /// @todo It is not correct to draw overlay text for GetMetaline(f),
       /// because metalines were merged by street names, which is not always equal to overlay text (PT).
-      /*
-      if (!m_relsInfo.m_text.empty())
-      {
-        PathTextViewParams p = params;
-        p.m_depth += 10;
-        p.m_mainText = m_params.m_relsInfo.m_text;
-        p.m_auxText.clear();
-        p.m_textFont.m_color = m_params.m_relsInfo.GetTextColor();
+      // if (!m_relsInfo.m_text.empty())
+      // {
+      //   PathTextViewParams p = params;
+      //   p.m_depth += 10;
+      //   p.m_mainText = m_params.m_relsInfo.m_text;
+      //   p.m_auxText.clear();
+      //   p.m_textFont.m_color = m_params.m_relsInfo.GetTextColor();
 
-        double const offset = p.m_textFont.m_size / m_params.m_currentScaleGtoP;
-        auto shape = make_unique_dp<PathTextShape>(spline.Equidistant(offset), p, m_params.m_tileKey, textIndex);
-        if (shape->CalculateLayout(texMng))
-        {
-          m_params.m_insertShape(std::move(shape));
-          ++textIndex;
-        }
-      }
-      */
+      //   double const offset = p.m_textFont.m_size / m_params.m_currentScaleGtoP;
+      //   auto shape = make_unique_dp<PathTextShape>(spline.Equidistant(offset), p, m_params.m_tileKey, textIndex);
+      //   if (shape->CalculateLayout(texMng))
+      //   {
+      //     m_params.m_insertShape(std::move(shape));
+      //     ++textIndex;
+      //   }
+      // }
     }
   }
   else if (m_shieldRule)
@@ -1045,6 +1048,159 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
             make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_params.m_tileKey, textIndex));
       else if (IsSymbolRoadShield(shield))
         m_params.m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, m_params.m_tileKey, textIndex));
+      ++textIndex;
+    }
+    ++shieldIndex;
+  }
+}
+*/
+
+void CreateRoadShieldShapes(ApplyFeatureParams const & params, ShieldRuleProto const * shieldRule,
+                            float shieldDepth, uint8_t rank, FeatureID const & featureId,
+                            ref_ptr<dp::TextureManager> texMng,
+                            ftypes::RoadShieldsSetT const & roadShields,
+                            std::vector<m2::PointD> const & shieldPositions,
+                            GeneratedRoadShields & generatedRoadShields)
+{
+  if (shieldPositions.empty() || !shieldRule)
+    return;
+
+  double const mainScale = params.m_vparams.GetVisualScale();
+  double const fontScale = params.m_vparams.GetFontScale();
+
+  int minDistance = shieldRule->min_distance();
+  if (minDistance <= 0)
+    minDistance = 50;
+  uint32_t const scaledMinDistance = static_cast<uint32_t>(mainScale * minDistance);
+
+  auto const fillCommon = [&](CommonOverlayViewParams & p)
+  {
+    p.m_rank = rank;
+    p.m_tileCenter = params.m_tileRect.Center();
+    p.m_featureId = featureId;
+  };
+
+  auto const checkNearby = [&](m2::PointD const & shieldPos, m2::PointD const & shieldPixelSize,
+                                uint32_t minDist, std::vector<m2::RectD> & shields) -> bool
+  {
+    m2::PointD const skippingArea(2 * minDist, 2 * minDist);
+    m2::PointD const extendedPixelSize = shieldPixelSize + skippingArea;
+    m2::PointD const halfSize = extendedPixelSize / params.m_currentScaleGtoP * 0.5;
+    m2::RectD shieldRect(shieldPos - halfSize, shieldPos + halfSize);
+    for (auto const & r : shields)
+      if (r.IsIntersect(shieldRect))
+        return false;
+    shields.push_back(shieldRect);
+    return true;
+  };
+
+  uint8_t shieldIndex = 0;
+  uint32_t textIndex = kShieldBaseTextIndex;
+  for (ftypes::RoadShield const & rs : roadShields)
+  {
+    std::string const & roadNumber = rs.m_name;
+    auto const shieldCount = static_cast<uint8_t>(roadShields.size());
+    auto const anchor = GetShieldAnchor(shieldIndex, shieldCount);
+    m2::PointF const shieldOffset = GetShieldOffset(anchor, 2.0, 2.0);
+    double const paddingWidth = 5.0 * mainScale;
+    double const paddingHeight = 1.5 * mainScale;
+    m2::PointF const shieldTextOffset = GetShieldOffset(anchor, paddingWidth, paddingHeight);
+
+    dp::FontDecl font;
+    ShieldRuleProtoToFontDecl(shieldRule, mainScale, font);
+    UpdateRoadShieldTextFont(font, rs);
+
+    TextViewParams textParams;
+    fillCommon(textParams);
+    textParams.m_depthLayer = DepthLayer::OverlayLayer;
+    textParams.m_depthTestEnabled = false;
+    textParams.m_depth = shieldDepth;
+    textParams.m_titleDecl.m_anchor = anchor;
+    textParams.m_titleDecl.m_primaryText = roadNumber;
+    textParams.m_titleDecl.m_primaryTextFont = font;
+    textParams.m_titleDecl.m_primaryOffset = shieldOffset + shieldTextOffset;
+    textParams.m_titleDecl.m_primaryOptional = false;
+    textParams.m_titleDecl.m_secondaryOptional = false;
+    textParams.m_startOverlayRank = dp::OverlayRank1;
+
+    auto const textMetrics = texMng->ShapeSingleTextLine(dp::kBaseFontSizePixels, roadNumber, nullptr);
+    float const textRatio = font.m_size * fontScale / dp::kBaseFontSizePixels;
+    float const textWidthInPixels = textMetrics.m_lineWidthInPixels * textRatio;
+    float const textHeightInPixels = textMetrics.m_maxLineHeightInPixels * textRatio;
+
+    m2::PointD shieldPixelSize;
+    shieldPixelSize.x = textWidthInPixels + 2.0 * paddingWidth;
+    shieldPixelSize.y = textHeightInPixels + 2.0 * paddingHeight;
+    textParams.m_limitedText = true;
+    textParams.m_limits = shieldPixelSize * 0.9;
+
+    ColoredSymbolViewParams symbolParams;
+    PoiSymbolViewParams poiParams;
+
+    if (IsColoredRoadShield(rs))
+    {
+      fillCommon(symbolParams);
+      symbolParams.m_depthLayer = DepthLayer::OverlayLayer;
+      symbolParams.m_depthTestEnabled = true;
+      symbolParams.m_depth = shieldDepth;
+      symbolParams.m_anchor = anchor;
+      symbolParams.m_offset = shieldOffset;
+      symbolParams.m_shape = ColoredSymbolViewParams::Shape::RoundedRectangle;
+      symbolParams.m_radiusInPixels = static_cast<float>(2.5 * mainScale);
+      symbolParams.m_color = ToDrapeColor(shieldRule->color());
+      if (shieldRule->stroke_color() != shieldRule->color())
+      {
+        symbolParams.m_outlineColor = ToDrapeColor(shieldRule->stroke_color());
+        symbolParams.m_outlineWidth = static_cast<float>(1.0 * mainScale);
+      }
+      symbolParams.m_sizeInPixels = shieldPixelSize;
+      symbolParams.m_outlineWidth = GetRoadShieldOutlineWidth(symbolParams.m_outlineWidth, rs);
+      symbolParams.m_color = GetRoadShieldColor(symbolParams.m_color, rs);
+    }
+    else if (IsSymbolRoadShield(rs))
+    {
+      fillCommon(poiParams);
+      poiParams.m_depthLayer = DepthLayer::OverlayLayer;
+      poiParams.m_depthTestEnabled = false;
+      poiParams.m_depth = shieldDepth;
+      poiParams.m_symbolName = GetRoadShieldSymbolName(rs, fontScale);
+      poiParams.m_maskColor.clear();
+      poiParams.m_anchor = anchor;
+      poiParams.m_offset = GetShieldOffset(anchor, 0.5, 0.5);
+
+      dp::TextureManager::SymbolRegion region;
+      texMng->GetSymbolRegion(poiParams.m_symbolName, region);
+      float const symBorderWidth = (region.GetPixelSize().x - textWidthInPixels) * 0.5f;
+      float const symBorderHeight = (region.GetPixelSize().y - textHeightInPixels) * 0.5f;
+      textParams.m_titleDecl.m_primaryOffset =
+          poiParams.m_offset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
+      shieldPixelSize = region.GetPixelSize();
+    }
+
+    if (!rs.m_additionalText.empty() && (anchor & dp::Top || anchor & dp::Center))
+    {
+      auto & titleDecl = textParams.m_titleDecl;
+      titleDecl.m_secondaryText = rs.m_additionalText;
+      titleDecl.m_secondaryTextFont = titleDecl.m_primaryTextFont;
+      titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kRoadShieldBlackTextColor);
+      titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
+      titleDecl.m_secondaryTextFont.m_size *= 0.9f;
+      titleDecl.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
+    }
+
+    auto & generatedShieldRects = generatedRoadShields[rs];
+    generatedShieldRects.reserve(10);
+    for (auto const & shieldPos : shieldPositions)
+    {
+      if (!checkNearby(shieldPos, shieldPixelSize, scaledMinDistance, generatedShieldRects))
+        continue;
+
+      params.m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, params.m_tileKey, m2::PointF(0, 0),
+                                                     m2::PointF(0, 0), dp::Center, textIndex));
+      if (IsColoredRoadShield(rs))
+        params.m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, params.m_tileKey, textIndex));
+      else if (IsSymbolRoadShield(rs))
+        params.m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, params.m_tileKey, textIndex));
       ++textIndex;
     }
     ++shieldIndex;
