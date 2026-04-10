@@ -2230,6 +2230,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onDonateOptionSelected()
   {
     Utils.openUrl(this, mDonatesUrl);
+    Framework.nativeDidShowDonationPage();
   }
 
   public void onSettingsOptionSelected()
