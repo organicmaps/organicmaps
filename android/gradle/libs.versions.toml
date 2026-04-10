@@ -44,39 +44,43 @@ okhttp = "5.3.2"
 triplet-play-publisher = "4.0.0"
 
 [libraries]
-android-tools-desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "android-tools-desugaring" }
+android-tools-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugaring" }
 
-androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
-androidx-appcompat-resources = { group = "androidx.appcompat", name = "appcompat-resources", version.ref = "androidx-appcompat" }
-androidx-car-app = { group = "androidx.car.app", name = "app", version.ref = "androidx-car" }
-androidx-car-app-automotive = { group = "androidx.car.app", name = "app-automotive", version.ref = "androidx-car" }
-androidx-car-app-projected = { group = "androidx.car.app", name = "app-projected", version.ref = "androidx-car" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
-androidx-core = { group = "androidx.core", name = "core", version.ref = "androidx-core" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-appcompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidx-appcompat" }
+androidx-car-app = { module = "androidx.car.app:app", version.ref = "androidx-car" }
+androidx-car-app-automotive = { module = "androidx.car.app:app-automotive", version.ref = "androidx-car" }
+androidx-car-app-projected = { module = "androidx.car.app:app-projected", version.ref = "androidx-car" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx-fragment" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
-androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidx-lifecycle" }
-androidx-media = { group = "androidx.media", name = "media", version.ref = "androidx-media" }
-androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "androidx-preference" }
-androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidx-recyclerview" }
+androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidx-lifecycle" }
+androidx-media = { module = "androidx.media:media", version.ref = "androidx-media" }
+androidx-preference = { module = "androidx.preference:preference", version.ref = "androidx-preference" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
-androidx-work = { group = "androidx.work", name = "work-runtime", version.ref = "androidx-work" }
+androidx-work = { module = "androidx.work:work-runtime", version.ref = "androidx-work" }
 
-devnullorthrow-mpandroidchart = { group = "com.github.devnullorthrow", name = "MPAndroidChart", version.ref = "devnullorthrow-mpandroidchart" }
+devnullorthrow-mpandroidchart = { module = "com.github.devnullorthrow:MPAndroidChart", version.ref = "devnullorthrow-mpandroidchart" }
 
-google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
-google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
-google-firebase-crashlytics-ndk = { group = "com.google.firebase", name = "firebase-crashlytics-ndk" }
-google-gms-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "google-gms-location" }
-google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
+google-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "google-firebase" }
 
-microg-gms-location = { group = "org.microg.gms", name = "play-services-location", version.ref = "microg-gms-location" }
+# Version managed by firebase-bom
+google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+# Version managed by firebase-bom
+google-firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
 
-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
-mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito-inline" }
+google-gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-gms-location" }
+google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+microg-gms-location = { module = "org.microg.gms:play-services-location", version.ref = "microg-gms-location" }
+
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
