@@ -164,8 +164,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     super.onCreate(savedInstanceState);
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
+    // showDefault() is deferred to onViewCreatedInternal() because it queries BookmarkManager
+    // and the category may not exist yet if bookmarks are still loading asynchronously.
     mBookmarkListSession = new BookmarkListSession(category.getId());
-    mBookmarkListSession.showDefault();
 
     if (savedInstanceState != null)
     {
@@ -271,6 +272,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     updateLoadingPlaceholder(view, false);
 
+    mBookmarkListSession.showDefault();
     mBookmarkListSession.setListener(this::onBookmarkListSnapshotChanged);
     applySnapshot(mBookmarkListSession.getLatestSnapshot());
     restoreSearchState();
