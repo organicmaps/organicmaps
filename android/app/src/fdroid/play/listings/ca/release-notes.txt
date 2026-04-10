@@ -1,9 +1,8 @@
-• Dades del mapa OSM a partir del 10 de març, Viquipèdia a partir de l'1 de març
-• Isolínies d'elevació més detallades per a les províncies xineses
-• S'han afegit fileres d'arbres, cuireries i botigues de venda d'articles religiosos
-• S'ha afegit suport per a límits de velocitat condicionals
-• Tanzània dividida en regions més petites
-• Millora de la visualització de l'horari comercial
-• Arreglats diversos bloquejos
-• Traduccions millorades de noms d'aplicacions i països
-omaps.org/ca/news
+• Seleccioneu rutes de senderisme i ciclisme per veure'n els perfils d'altitud
+• Adaptació correcta del mapa a l'antimeridià (llargitud ±180°)
+• Canvi de tots els colors dels marcadors i els traçats d'una categoria alhora
+• Millora de la cerca de números de casa, amb més adreces dels EUA cobertes
+• Dades d'OSM a data de 4 d'abril
+• Mode d'aparença programada a la configuració
+• S'ha solucionat la compartició de marcadors/traçats amb altres aplicacions
+…i més a omaps.org/ca/news

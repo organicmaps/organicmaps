@@ -1,10 +1,8 @@
-• OSM-karttatiedot 10. maaliskuuta, Wikipedia 1. maaliskuuta
-• Tarkemmat korkeuskäyrät Kiinan provinsseille
-• Lisätty rivejä puita, nahkakauppoja ja uskonnollisia tavaroita myyviä liikkeitä
-• Lisätty tuki ehdollisille nopeusrajoituksille
-• Tansania jaettu pienempiin alueisiin
-• Parannettu aukioloaikojen näyttö
-• Korjattu useita kaatumisia
-• Parannetut sovellusten ja maiden nimien käännökset
-• Lisätty joukkoliikenteen pysäkkitasoja ilman lähellä olevia bussipysäkkejä
-omaps.org/news
+• Valitse patikointi- ja pyöräilyreitit nähdäksesi niiden korkeuskäyrät.
+• Oikea kartan kääriminen antimeridiaanin kohdalla (±180° pituusastetta).
+• Vaihda kaikkien luokkaan kuuluvien kirjanmerkkien ja reittien värejä kerralla.
+• Parempi talonumeroiden haku, enemmän Yhdysvaltain osoitteita katettu.
+• OSM-tiedot huhtikuun 4. päivästä alkaen
+• Ajastettu näyttötila asetuksissa
+• Kirjanmerkkien ja jälkien jakaminen muihin sovelluksiin korjattu
+…lisää osoitteessa omaps.org/news

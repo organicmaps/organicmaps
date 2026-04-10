@@ -1,0 +1,59 @@
+Organic Maps ni programu ya haraka, yenye ramani za kina na urambazaji wa GPS inayofanya kazi bila intaneti kwa ajili ya safari, matembezi ya miguu, matembezi ya milimani, na matembezi ya baiskeli. Panga, ingiza, na rekodi njia, na ufurahie mwongozo laini bila kuchosha betri yako au kutumia muunganisho wa intaneti. Gundua maeneo na urambazaji salama wakati wa matembezi yako ya nje na safari zako duniani kote. App hii inatoa upakuaji wa ramani usio na kikomo na masasisho kila baada ya wiki mbili. Inatokana na OpenStreetMap, imetengenezwa na watu wa kujitolea, inazingatia faragha kwanza, haihitaji intaneti 100%, na ni bure 100%.
+
+<b>HAINA INTANETI:</b>
+
+App hii hufanya kazi 100% bila intaneti — ikiwemo utafutaji na urambazaji. Unaweza kuchunguza ramani na kuramba bila intaneti, ukiokoa gharama za data ya simu na za kutumia simu ukiwa nje ya eneo lako. Na kwa kuwa hakuna uhamishaji wa data nyuma ya pazia, betri yako hudumu kwa muda mrefu zaidi.
+
+<b>HARAKA:</b>
+
+Kukuza, kutafuta, na kukokotoa njia hufanya kazi kwa haraka inayoonekana.
+
+<b>ZA KINA NA ZINAZOSASISHWA:</b>
+
+Ramani zina maelezo ya kina na husasishwa mara mbili kwa mwezi ili kuakisi hali halisi ya dunia. Tofauti na washindani wengi wanaojulikana, zinajumuisha lebo za majengo, benchi, njia za matembezi, na taarifa nyingine muhimu.
+
+<b>IMETENGENEZWA KWA KUTUMIA OPENSTREETMAP:</b>
+
+OpenStreetMap ni ramani ya dunia ya mtindo wa wiki iliyotengenezwa na kudumishwa na mamilioni ya watu wa kujitolea — wenyeji wanaozijua vizuri zaidi maeneo yao. Juhudi hii ya jamii hutoa ramani zenye maelezo ya kina sana, mara nyingi zikiwa sahihi zaidi kuliko zile za kibiashara katika maeneo ambayo hayajaorodheshwa vizuri. Organic Maps husasisha data yake kutoka OpenStreetMap kila baada ya wiki mbili, na hivyo kuweka ramani zako zikiwa mpya na za kuaminika. Na ukiona kitu kimepungua, unaweza kuongeza kwenye OpenStreetMap na kusaidia kuboresha ramani kwa ajili ya kila mtu.
+
+<b>FARAGHA KWANZA:</b>
+
+Sikusanyii data yoyote au vitambulisho. Hii inamaanisha hakuna hatari ya uvujaji wa data na hakuna usumbufu kama matangazo au arifa zenye kelele — ni uzoefu safi tu wa ramani ya faragha.
+
+<b>VIPENGELE MUHIMU</b>
+
+<b>GUNDUA MAENEO:</b>
+
+Tafuta kwa anwani, jina, au kategoria, gundua mamilioni ya POI, na uone maelezo ya kina kama vile saa za kufungua, makala za Wikipedia, upatikanaji kwa viti vya magurudumu, na maelezo mengine muhimu.
+
+<b>MAELEKEZO YA GPS:</b>
+
+Furahia maelekezo yanayoongozwa kwa sauti, hatua kwa hatua. Tengeneza njia za kutembea, kupanda milima, kuendesha baiskeli, au kuendesha gari — ikiwa ni pamoja na njia kati ya miji, nchi, na vituo vingi vya njiani. Pata njia bora zaidi kwa safari zako za metro na za kila siku. Android Auto inasaidiwa.
+
+<b>NJIA ZA MATEMBEZI NA BISKELI DUNIANI KOTE:</b>
+
+Washa tabaka maalum za ramani ili kugundua njia maarufu za upandaji milima na uendeshaji baiskeli duniani kote, zote zikitoka OpenStreetMap. Badilisha kati ya tabaka ili kuona njia za baiskeli na MTB zenye rangi, pamoja na njia rasmi za upandaji milima.
+
+<b>USAFIRI WA UMMA:</b>
+
+Tazama nambari za njia za usafiri wa umma kwenye vituo. Ratiba za usafiri wa moja kwa moja na mwelekeo kwa sasa zinaendelezwa.
+
+<b>MITINDO YA RAMANI:</b>
+
+Chagua tabaka za ramani zinazofaa kwa shughuli yako — Nje, Mstari wa Mwinuko, Utengeneaji Miguu, Uendeshaji Baiskeli, au Metro/Treni ya Chini ya Ardhi.
+
+<b>KIREKODI NJIA:</b>
+
+Rekodi, ingiza, toa, na shiriki njia zako na maeneo unayopenda. Inaunga mkono fomati za KML, KMZ, GPX, na GeoJSON.
+
+<b>MAKALA ZA WIKIPEDIA:</b>
+
+Chunguza makala za Wikipedia za maeneo unayogundua kwenye ramani. Andika "?wiki" kwenye sehemu ya kutafutia ili kupata maeneo yote yenye makala za Wikipedia.
+
+<b>MHARIRI WA RAMANI:</b>
+
+Changia OpenStreetMap kwa kuongeza maeneo yanayokosekana au kuhariri ramani moja kwa moja kutoka Organic Maps.
+
+<b>HALI YA GIZA:</b>
+
+Badilisha kuwa mandhari ya giza kwa ajili ya kuangalia kwa starehe usiku.

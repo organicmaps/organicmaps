@@ -1,8 +1,7 @@
-• Dati cartografici OSM al 10 marzo, Wikipedia al 1 marzo
-• Isolinee di elevazione più dettagliate per le province cinesi
-• Aggiunti filari di alberi, negozi di pelletteria e negozi che vendono articoli religiosi
-• Aggiunto il supporto per i limiti di velocità condizionali
-• La Tanzania è stata suddivisa in regioni più piccole
-• Migliorata la visualizzazione degli orari di apertura delle attività
-• Risolti diversi arresti anomali
-omaps.org/it/news
+• Selezionare gli itinerari escursionistici e ciclistici per visualizzare i relativi grafici altimetrici.
+• Avvolgimento corretto della mappa all'antimeridiano (±180° di longitudine)
+• Modifica dei colori di tutti i segnalibri e delle tracce di una categoria in una sola volta
+• Migliore ricerca dei numeri civici, più indirizzi statunitensi coperti
+• Dati OSM aggiornati al 4 aprile
+• Modalità di visualizzazione programmata nelle Impostazioni
+…per saperne di più: omaps.org/it/news

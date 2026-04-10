@@ -1,0 +1,30 @@
+He taupānga mapi ā-roto, tere, taipitopito hoki, ā, he arataki GPS mō ngā haerenga, hikoi, hīkoi roa, me ngā haerenga pahikara. Whakaritea, kawemai, me te tuhi i ngā huarahi, ā, kia pai ai tō arataki, kāore e pau tō pākahiko, kāore hoki e hiahiatia he hononga ipurangi. Torohia ngā wāhi, ā, arataki haumaru i āu haerenga ā-waho me ō haerenga puta noa i te ao. Ka tukuna e te taupānga ngā tango mapi mutunga kore me ngā whakahōu ia rua wiki. I runga i te OpenStreetMap, nā ngā tūao i hanga, ko te tūmataitinga te mea tuatahi, 100% kāore e hono ipurangi, ā, 100% kore utu.
+
+<b>TERE:</b> He tino tere te whakawhānui, te rapu, me te tātai huarahi.
+
+<b>MATAPAKI & WHAKANŪ:</b> He tino taipitopito ngā mahere, ā, ka whakahouhia ia rua wiki kia whakaata i ngā āhuatanga o te ao tūturu. Ehara i te pērā i ētahi atu kaiwhakataetae rongonui, kei roto i ēnei ngā tapanga whare, ngā tūru, ngā ara hīkoi, me ētahi atu pārongo whai hua.
+
+<b>E AI KI TE OPENSTREETMAP:</b> He mapi ā-ao āhua wiki a OpenStreetMap i hangaia, i tiakina hoki e ngā miriona o ngā tūao — ko ngā tāngata whenua e tino mōhio ana ki ā rātou ake rohe. Nā tēnei mahi ā-hapori ka puta he mapi tino taipitopito, ā, he tika ake i ngā mapi hokohoko i ngā rohe kāore i tino mapi. Ka whakahou a Organic Maps i āna raraunga mai i OpenStreetMap ia rua wiki, kia hou, kia whai pono hoki ōu mahere. Ā, ki te kite koe i tētahi mea kua ngaro, ka taea e koe te tāpiri ki OpenStreetMap, ā, ka āwhina koe ki te whakapai ake i te mahere mō te katoa.
+
+<b>TUATOHU TE MATATAPU:</b> Kāore mātou e kohi raraunga, e tohu tangata rānei. Ko te tikanga, kāore he tūraru o te rerenga raraunga, kāore hoki he whakararuraru pērā i ngā pānui hokohoko, ngā whakamōhiotanga haruru rānei — he wheako mahere mārama, tūmataiti noa iho.
+
+<b>NGĀ ĀHUATANGA HIRAHIRA</b>
+
+<b>TORO WĒHI:</b> Rapua mā te wāhitau, te ingoa, te kāwai rānei, kitea ngā miriona o ngā wāhi whai take (POIs), ā, tirohia ngā pārongo taipitopito pērā i ngā haora whakatuwhera, ngā tuhinga Wikipedia, te urunga mō ngā tūru wīra, me ētahi atu taipitopito whai hua.
+
+<b>ARATAKI GPS:</b> Whai pārekareka ki ngā tohutohu ā-waha, huringa-ia-huringa. Waihangahia ngā huarahi hikoi, hīkoi maunga, pahikara, rānei taraiwa — tae atu ki ngā huarahi i waenga i ngā tāone, ngā whenua, me ngā tohu ara maha. Kimihia ngā huarahi pai mō ō haerenga metro me ō haerenga ia rā. Ka tautokohia te Android Auto.
+
+<b>Ngā Ara Hīkoi me ngā Ara Peke Hākinakina nō te Ao Whānui:</b> Whakahohe i ngā paparanga mahere motuhake kia kitea ai ngā ara hīkoi me ngā ara peke hākinakina rongonui o te ao, nā OpenStreetMap katoa i whakarato. Huri i waenga i ngā paparanga kia kite i ngā ara peke hākinakina tae me ngā ara MTB, me ngā ara hīkoi ā-ture.
+
+<b>Waka Tūmatanui:</b> Tirohia ngā nama ara waka tūmatanui i ngā tauranga. Kei te whakawhanakehia ināianei ngā rārangi wā me ngā huarahi waka tūmatanui ora.
+
+<b>ETITA MAPI:</b> Tuku āwhina ki OpenStreetMap mā te tāpiri i ngā wāhi kua ngaro, te whakatika rānei i te mapi i te wāhi kotahi mai i Organic Maps.
+
+Whakamātauria te taupānga — he 100% kore utu, kāore he pānui, he tere, ā, ka taea te whakamahi katoa i waho o te ipurangi. Whakamātauria te aratohu GPS pono mō te hīkoi, te eke pahikara, te hikoi roa, me te haerenga ki ngā wāhi katoa o te ao! Kia pai ki te wheako mahere tere, pono, me te tūmataiti, ā, tiritiria ki ētahi atu!
+
+He kaupapa tūwhera, ā-hapori, ā-tangata takitahi a Organic Maps, me ngā rau o ngā kaiāwhina e āwhina ana ki te whakawhanake i ngā āhuatanga hou, ki te whakatika i ngā take, ki te whakamāori, me te whakamua i te kaupapa.
+
+Hono mai ki te hapori i runga i a Telegram: @OrganicMapsApp
+Rānei, ako i ētahi atu huarahi hei tautoko i te kaupapa: https://organicmaps.app/contribute/
+
+Ko ō koutou urupare pono me ngā arotake i te toa e whakatenatena ana i a mātou! He tino pai ki a mātou te rongo mai i a koutou i reira. He pātai āu? Tēnā, toro ki te paetukutuku organicmaps.app mō ētahi atu taipitopito me ngā Pātai Auau (FAQ).

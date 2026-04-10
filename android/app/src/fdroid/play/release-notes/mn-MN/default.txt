@@ -1,0 +1,1 @@
+../../listings/mn-MN/release-notes.txt

@@ -1,0 +1,7 @@
+• Pumili ng mga ruta para sa pag-hiking at pagbibisikleta upang makita ang kanilang tsart ng taas
+• Tamang pagbalot ng mapa sa antimeridian (±180° longhitud)
+• Baguhin ang lahat ng kulay ng bookmark at track sa isang kategorya nang sabay-sabay
+• Mas mahusay na paghahanap para sa mga numero ng bahay, mas maraming sakop na address sa US
+• OSM data mula Abril 4
+• Naka-iskedyul na mode ng hitsura sa Mga Setting
+…marami pa sa omaps.org/news

@@ -1,9 +1,9 @@
-• Dane mapy OSM na dzień 10 marca, Wikipedia na dzień 1 marca
-• Bardziej szczegółowe izolinie wysokości dla chińskich prowincji
-• Dodano rzędy drzew, sklepy skórzane i sklepy sprzedające towary religijne
-• Dodano obsługę warunkowych ograniczeń prędkości
-• Podział Tanzanii na mniejsze regiony
-• Poprawione wyświetlanie godzin otwarcia firmy
-• Naprawiono kilka awarii
-• Ulepszone tłumaczenia nazw aplikacji i krajów
-omaps.org/pl/news
+• Wybierz trasy piesze i rowerowe, aby wyświetlić ich wykresy wysokości
+• Prawidłowe zawijanie mapy na antymeridianie (±180° długości geograficznej)
+• Jednoczesna zmiana kolorów wszystkich zakładek i tras w danej kategorii
+• Lepsze wyszukiwanie numerów domów, więcej adresów w USA
+• Dane OSM na dzień 4 kwietnia
+• Zaplanowany tryb wyglądu w Ustawieniach
+• Naprawiono udostępnianie zakładek/ścieżek innym aplikacjom
+• Naprawiono przesyłanie zmian mapy do OSM.
+…więcej na omaps.org/pl/news

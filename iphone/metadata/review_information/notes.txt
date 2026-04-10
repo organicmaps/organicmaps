@@ -1,0 +1,8 @@
+This application provides offline maps with turn-by-turn car navigation.
+
+Here is a video link on footage of our app running on a physical iOS device, as requested:
+
+https://www.icloud.com/iclouddrive/07qKFUP6hrsg_GZyE2EUAxTvQ#Demo
+
+The location services are needed to display the user's position on the map (00:35) and turn-by-turn navigation (01:00). The background location services are needed for optional background track recording. This background tracking feature is optional and can be enabled/disabled by the user in Settings (see 02:00). If enabled, the user will see the last track on the map (see 04:00). We care about privacy and don't send any location and other personal data to remote servers in the foreground or the background modes.
+Audio is needed for turn-by-turn navigation to inform the user whether to turn left or right, how much distance to the turn, etc.
