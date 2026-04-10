@@ -181,6 +181,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
     m_relsSettings.Load();
+    m_relsSettings.PT = true;
   }
 
   m_applyParams.m_insertShape = [this](drape_ptr<MapShape> && shape)
@@ -255,7 +256,17 @@ RuleDrawer::~RuleDrawer()
           addPathTextShape = false;
         }
 
-        auto shape = make_unique_dp<PathTextShape>(spline, p, tileKey, textIndex);
+        // Offset street name above geometry only when this chain shares features with PT routes.
+        m2::SharedSpline textSpline = spline;
+        if (addPathTextShape && chain.m_hasPT)
+        {
+          double const streetOffset = p.m_textFont.m_size / m_overlayProcessor->GetScaleGtoP();
+          auto const aboveSpline = spline.Equidistant(-streetOffset);
+          if (!aboveSpline.IsNull())
+            textSpline = aboveSpline;
+        }
+
+        auto shape = make_unique_dp<PathTextShape>(textSpline, p, tileKey, textIndex);
 
         if (!shape->CalculateLayout(texMng))
           continue;
@@ -324,6 +335,32 @@ RuleDrawer::~RuleDrawer()
               pos, dbg, tileKey, dbgIndex++, false /* needOverlay */));
         }
 #endif
+      }
+    }
+
+    // Draw PT route text below geometry.
+    for (auto const & chain : ptChains)
+    {
+      for (auto const & spline : chain.m_clippedSplines)
+      {
+        PathTextViewParams p = chain.m_params;
+#ifdef DEBUG_OVERLAY_PROCESSOR
+        p.m_depth = 9999;
+        p.m_rank = 255;
+#endif
+
+        // Offset below the road geometry: positive dist = right side of direction = below for L-to-R.
+        double const offset = p.m_textFont.m_size / m_overlayProcessor->GetScaleGtoP();
+        auto const equidistant = spline.Equidistant(offset);
+        if (equidistant.IsNull())
+          continue;
+
+        auto shape = make_unique_dp<PathTextShape>(equidistant, p, tileKey, textIndex);
+        if (!shape->CalculateLayout(texMng))
+          continue;
+
+        m_applyParams.m_insertShape(std::move(shape));
+        ++textIndex;
       }
     }
   }
@@ -518,9 +555,25 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
       shield.m_depth = static_cast<float>(s.m_shieldRule->priority());
     }
 
+    auto const & relsInfo = applyGeom.GetRelationsInfo();
+    bool const hasPT = !relsInfo.GetText().empty();
+
     // Collect path text into OverlayProcessor for runtime merging (replaces metalines for text).
     if (!ftKey.empty())
-      m_overlayProcessor->CollectFeature(ftKey, applyGeom.GetSpline(), params, shield, false /* hasPT */);
+      m_overlayProcessor->CollectFeature(ftKey, applyGeom.GetSpline(), params, shield, hasPT);
+
+    // Collect PT route text for drawing below the geometry.
+    if (hasPT)
+    {
+      PathTextViewParams ptParams;
+      initTextParamsCommon(ptParams);
+
+      ptParams.m_depth = params.m_depth + 10;
+      ptParams.m_mainText = relsInfo.GetText();
+      ptParams.m_textFont.m_color = dp::Color(0, 80, 255, 255);
+
+      m_overlayProcessor->CollectPTFeature(applyGeom.GetSpline(), ptParams);
+    }
   }
 
   if (m_context->IsTrafficEnabled() && m_zoomLevel >= kRoadClass0ZoomLevel)

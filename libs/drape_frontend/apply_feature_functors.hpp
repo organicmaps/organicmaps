@@ -155,6 +155,7 @@ public:
 
   //std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
   m2::SharedSpline GetSpline() { return m_builder.GetSpline(); }
+  RelationsDrawInfo const & GetRelationsInfo() const { return m_relsInfo; }
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);

@@ -76,6 +76,7 @@ public:
     return result;
   }
 
+  std::string const & GetText() const { return m_text; }
   dp::Color GetTextColor() const;
 };
 }  // namespace df
