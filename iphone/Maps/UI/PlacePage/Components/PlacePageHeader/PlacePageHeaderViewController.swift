@@ -11,10 +11,12 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 final class PlacePageHeaderViewController: UIViewController {
   private enum Constants {
     static let editImageRect = CGRect(x: 0, y: -2, width: 14, height: 14)
+    static let titleTrailingInsetEditing: CGFloat = 22
   }
 
   @IBOutlet private var headerView: PlacePageHeaderView!
   @IBOutlet private var titleTextView: UITextView!
+  @IBOutlet private var titleTextViewTrailingConstraint: NSLayoutConstraint!
   @IBOutlet private var clearTitleTextButton: CircleImageButton!
   @IBOutlet private var subtitleLabel: UILabel!
   @IBOutlet private var expandView: UIView!
@@ -143,6 +145,8 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   private func updateTitleEditingStyle() {
+    titleTextViewTrailingConstraint.constant = isEditingTitle ? Constants.titleTrailingInsetEditing : 0
+
     let titleAttributes: [NSAttributedString.Key: Any] = [
       .font: StyleManager.shared.theme!.fonts.medium20,
       .foregroundColor: UIColor.blackPrimaryText(),
