@@ -173,11 +173,14 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
 
     def init_vars(self):
         self.response_provider = ResponseProvider(self)
+        # Every request must extend the server's lifespan. Previously only
+        # do_POST reset the timer, so long GET-only test runs could die at
+        # the LIFESPAN boundary on slow CI.
+        self.server.reset_selfdestruct_timer()
 
 
     def do_POST(self):
         self.init_vars()
-        self.server.reset_selfdestruct_timer()
         headers = self.prepare_headers()
         payload = self.response_provider.response_for_url_and_headers(self.path, headers)
         if payload.response_code() >= 300:
