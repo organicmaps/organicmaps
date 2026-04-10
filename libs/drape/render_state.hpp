@@ -53,8 +53,7 @@ public:
   template <typename RenderStateExtensionType>
   ref_ptr<RenderStateExtensionType> GetRenderStateExtension() const
   {
-    ASSERT(dynamic_cast<RenderStateExtensionType *>(m_renderStateExtension.get()) != nullptr, ());
-    return make_ref(static_cast<RenderStateExtensionType *>(m_renderStateExtension.get()));
+    return m_renderStateExtension;
   }
 
   void SetColorTexture(ref_ptr<Texture> tex);

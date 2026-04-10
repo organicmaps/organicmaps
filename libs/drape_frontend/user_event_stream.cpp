@@ -229,7 +229,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     {
       m_needTrackCenter = false;
       ref_ptr<TouchEvent> touchEvent = make_ref(e);
-      breakAnim = ProcessTouch(*touchEvent.get());
+      breakAnim = ProcessTouch(*touchEvent);
     }
     break;
     case UserEvent::EventType::Rotate:

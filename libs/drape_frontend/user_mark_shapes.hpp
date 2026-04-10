@@ -83,7 +83,7 @@ protected:
   void ForEachVisibleGroup(FnT && fn) const
   {
     for (auto const & group : m_groups)
-      for (auto const & [groupId, ids] : *group.get())
+      for (auto const & [groupId, ids] : *group)
         if (m_visibility->contains(groupId))
           fn(*ids);
   }
