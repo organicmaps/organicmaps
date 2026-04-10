@@ -94,7 +94,7 @@ final class AudioFocusManager
 
   private void onAudioFocusChange(int focusChange)
   {
-    Logger.d(TAG, "Audio focus change: " + focusChange);
+    Logger.i(TAG, "Audio focus change: " + focusChange);
     if (focusChange == AudioManager.AUDIOFOCUS_GAIN || focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
         || focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
     {
