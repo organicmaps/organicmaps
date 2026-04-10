@@ -253,9 +253,6 @@ private extension AboutController {
       termsOfUseAndPrivacyPolicyView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
     ])
     donationView?.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = donationView != nil
-
-    view.layoutIfNeeded()
-    updateCollection()
   }
 
   func updateCollection() {
