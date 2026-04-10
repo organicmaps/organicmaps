@@ -15,7 +15,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.sdk.Framework;
@@ -23,6 +25,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
+import java.io.File;
 import java.io.IOException;
 
 public class SharingUtils
@@ -217,7 +220,8 @@ public class SharingUtils
 
     if (!info.mFileName.isEmpty())
     {
-      final Uri fileUri = StorageUtils.getUriForFilePath(context, info.mFileName);
+      final Uri fileUri = FileProvider.getUriForFile(context.getApplicationContext(),
+                                                     BuildConfig.FILE_PROVIDER_AUTHORITY, new File(info.mFileName));
       Logger.i(TAG, "Sharing file " + info.mMimeType + " " + info.mFileName + " with URI " + fileUri);
       intent.putExtra(Intent.EXTRA_STREAM, fileUri);
       intent.setType(info.mMimeType);
