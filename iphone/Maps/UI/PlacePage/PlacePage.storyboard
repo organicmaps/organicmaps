@@ -1119,10 +1119,10 @@
                                                         <constraints>
                                                             <constraint firstItem="qLF-Ps-upn" firstAttribute="top" secondItem="FPZ-be-cyu" secondAttribute="top" constant="5" id="A5c-Ja-uVM"/>
                                                             <constraint firstItem="ct0-4B-Xfk" firstAttribute="leading" secondItem="FPZ-be-cyu" secondAttribute="leading" id="C47-fd-RqU"/>
-                                                            <constraint firstItem="qLF-Ps-upn" firstAttribute="leading" secondItem="ct0-4B-Xfk" secondAttribute="trailing" constant="4" id="Gkz-P7-Nq3"/>
                                                             <constraint firstAttribute="trailing" secondItem="qLF-Ps-upn" secondAttribute="trailing" constant="2" id="Ynn-EA-LWW"/>
                                                             <constraint firstAttribute="bottom" secondItem="ct0-4B-Xfk" secondAttribute="bottom" id="pBn-HL-Ku8"/>
                                                             <constraint firstItem="ct0-4B-Xfk" firstAttribute="top" secondItem="FPZ-be-cyu" secondAttribute="top" id="xto-UN-VQD"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ct0-4B-Xfk" secondAttribute="trailing" id="zwm-9s-0J5"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iT-AD-Eyf">
@@ -1249,6 +1249,7 @@
                         <outlet property="shadowView" destination="spW-XI-KSY" id="kLc-R7-Rij"/>
                         <outlet property="shareButton" destination="apG-SB-14M" id="pCj-pl-Oxa"/>
                         <outlet property="subtitleLabel" destination="4iT-AD-Eyf" id="bVf-i6-dpW"/>
+                        <outlet property="titleTextViewTrailingConstraint" destination="zwm-9s-0J5" id="K6v-gG-YmN"/>
                         <outlet property="titleTextView" destination="ct0-4B-Xfk" id="N7x-8b-198"/>
                         <outlet property="view" destination="xTs-NP-HcT" id="jQF-X9-Xlv"/>
                     </connections>
