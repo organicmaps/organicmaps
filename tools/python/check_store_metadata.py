@@ -102,13 +102,27 @@ GPLAY_LOCALES = [
     "zu",    # Zulu
 ]
 
+# Locales supported by Huawei AppGallery but not Google Play.
+HUAWEI_ONLY_LOCALES = [
+    "as",    # Assamese
+    "bo",    # Tibetan
+    "bs",    # Bosnian
+    "jv",    # Javanese
+    "mai",   # Maithili
+    "mi",    # Maori
+    "or",    # Oriya
+    "ug",    # Uighur
+    "uz",    # Uzbek
+]
+
 # From a Fastline error message and https://help.apple.com/app-store-connect/#/dev997f9cf7c
 APPSTORE_LOCALES = [
-    "ar-SA", "ca", "cs", "da", "de-DE", "el", "en-AU", "en-CA",
-    "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR",
-    "he", "hi", "hr", "hu", "id", "it", "ja", "ko", "ms", "nl-NL",
-    "no", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sv", "th", "tr",
-    "uk", "vi", "zh-Hans", "zh-Hant"
+    "ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU",
+    "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR",
+    "gu-IN", "he", "hi", "hr", "hu", "id", "it", "ja", "kn-IN",
+    "ko", "ml-IN", "mr-IN", "ms", "nl-NL", "no", "or-IN", "pa-IN",
+    "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl-SI", "sv", "ta-IN",
+    "te-IN", "th", "tr", "uk", "ur-PK", "vi", "zh-Hans", "zh-Hant"
 ]
 
 
@@ -213,8 +227,9 @@ def check_android():
     ok = check_url(flavor + 'contact-website.txt') and ok
     ok = check_email(flavor + 'contact-email.txt') and ok
     ok = check_exact(flavor + 'default-language.txt', 'en-US') and ok
+    all_locales = set(GPLAY_LOCALES + HUAWEI_ONLY_LOCALES)
     for locale in glob.glob(flavor + 'listings/*/'):
-        if locale.split('/')[-2] not in GPLAY_LOCALES:
+        if locale.split('/')[-2] not in all_locales:
             ok = error(locale, 'unsupported locale') and ok
             continue
         ok = check_text(locale + 'title.txt', 50) and ok
@@ -225,7 +240,7 @@ def check_android():
         ok = check_text(locale + 'full-description-google.txt', 4000, True) and ok
         ok = check_text(locale + 'release-notes.txt', 500) and ok
     for locale in glob.glob(flavor + 'release-notes/*/'):
-        if locale.split('/')[-2] not in GPLAY_LOCALES:
+        if locale.split('/')[-2] not in all_locales:
             ok = error(locale, 'unsupported locale') and ok
             continue
         ok = check_text(locale + 'default.txt', 500) and ok
@@ -251,8 +266,12 @@ def check_ios():
             elif os.path.exists(english_path) and not os.path.exists(target_path):
                 shutil.copy(english_path, target_path)
 
+    SKIP_DIRS = {'review_information'}
     for locale in glob.glob('iphone/metadata/*/'):
-        if locale.split('/')[-2] not in APPSTORE_LOCALES:
+        dirname = locale.split('/')[-2]
+        if dirname in SKIP_DIRS:
+            continue
+        if dirname not in APPSTORE_LOCALES:
             ok = error(locale, "unsupported locale") and ok
             continue
         ok = check_text(locale + "name.txt", 30) and ok
