@@ -147,8 +147,8 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings);
+  void BuildGeometry(FeatureType & f, int zoomLevel);
 
-  void operator()(m2::PointD const & point);
   bool HasGeometry() const { return m_spline->IsValid(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
 
@@ -160,7 +160,6 @@ private:
   RelationsDrawInfo m_relsInfo;
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;
-  m2::PointD m_lastAddedPoint;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   int m_readCount = 0;

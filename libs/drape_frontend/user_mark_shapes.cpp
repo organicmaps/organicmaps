@@ -299,8 +299,7 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
 
 m2::SharedSpline SimplifySpline(m2::SharedSpline const & in, double minSqrLength)
 {
-  m2::SharedSpline spline;
-  spline.Reset(new m2::Spline(in->GetSize()));
+  auto spline = std::make_unique<m2::Spline>(in->GetSize());
 
   m2::PointD lastAddedPoint;
   for (auto const & point : in->GetPath())

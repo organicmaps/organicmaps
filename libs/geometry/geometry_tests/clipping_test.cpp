@@ -45,18 +45,20 @@ bool CompareSplineLists(vector<m2::SharedSpline> const & list1, vector<m2::Share
   return true;
 }
 
+m2::SharedSpline MakeSpline(vector<m2::PointD> const & pts)
+{
+  auto spline = std::make_unique<m2::Spline>(pts.size());
+  for (auto const & p : pts)
+    spline->AddPoint(p);
+  return spline;
+}
+
 vector<m2::SharedSpline> ConstructSplineList(vector<vector<m2::PointD>> const & segments)
 {
   vector<m2::SharedSpline> result;
   result.reserve(segments.size());
   for (size_t i = 0; i < segments.size(); i++)
-  {
-    m2::SharedSpline s;
-    s.Reset(new m2::Spline(segments[i].size()));
-    for (size_t j = 0; j < segments[i].size(); j++)
-      s->AddPoint(segments[i][j]);
-    result.push_back(std::move(s));
-  }
+    result.push_back(MakeSpline(segments[i]));
   return result;
 }
 
@@ -213,64 +215,39 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   m2::RectD r(-1.0, -1.0, 1.0, 1.0);
 
   // Intersection.
-  m2::SharedSpline spline1;
-  spline1.Reset(new m2::Spline(2));
-  spline1->AddPoint(m2::PointD(-2.0, 0.0));
-  spline1->AddPoint(m2::PointD(2.0, 1.0));
+  m2::SharedSpline spline1 = MakeSpline({{-2.0, 0.0}, {2.0, 1.0}});
   vector<m2::SharedSpline> result1 = m2::ClipSplineByRect(r, spline1);
   vector<m2::SharedSpline> expectedResult1 = ConstructSplineList({{m2::PointD(-1.0, 0.25), m2::PointD(1.0, 0.75)}});
   TEST(CompareSplineLists(result1, expectedResult1), ());
 
   // Intersection. Several segments.
-  m2::SharedSpline spline2;
-  spline2.Reset(new m2::Spline(4));
-  spline2->AddPoint(m2::PointD(-2.0, 0.0));
-  spline2->AddPoint(m2::PointD(2.0, 1.0));
-  spline2->AddPoint(m2::PointD(0.5, -2.0));
-  spline2->AddPoint(m2::PointD(-0.5, -0.5));
+  m2::SharedSpline spline2 = MakeSpline({{-2.0, 0.0}, {2.0, 1.0}, {0.5, -2.0}, {-0.5, -0.5}});
   vector<m2::SharedSpline> result2 = m2::ClipSplineByRect(r, spline2);
   vector<m2::SharedSpline> expectedResult2 = ConstructSplineList(
       {{m2::PointD(-1.0, 0.25), m2::PointD(1.0, 0.75)}, {m2::PointD(-0.166666666, -1.0), m2::PointD(-0.5, -0.5)}});
   TEST(CompareSplineLists(result2, expectedResult2), ());
 
   // Completely outside.
-  m2::SharedSpline spline3;
-  spline3.Reset(new m2::Spline(2));
-  spline3->AddPoint(m2::PointD(-2.0, 2.0));
-  spline3->AddPoint(m2::PointD(2.0, 3.0));
+  m2::SharedSpline spline3 = MakeSpline({{-2.0, 2.0}, {2.0, 3.0}});
   vector<m2::SharedSpline> result3 = m2::ClipSplineByRect(r, spline3);
   vector<m2::SharedSpline> expectedResult3 = {};
   TEST(CompareSplineLists(result3, expectedResult3), ());
 
   // Completely inside.
-  m2::SharedSpline spline4;
-  spline4.Reset(new m2::Spline(2));
-  spline4->AddPoint(m2::PointD(-0.5, 0.0));
-  spline4->AddPoint(m2::PointD(0.5, 0.5));
+  m2::SharedSpline spline4 = MakeSpline({{-0.5, 0.0}, {0.5, 0.5}});
   vector<m2::SharedSpline> result4 = m2::ClipSplineByRect(r, spline4);
   vector<m2::SharedSpline> expectedResult4 = ConstructSplineList({{m2::PointD(-0.5, 0.0), m2::PointD(0.5, 0.5)}});
   TEST(CompareSplineLists(result4, expectedResult4), ());
 
   // Intersection. Long spline.
-  m2::SharedSpline spline5;
-  spline5.Reset(new m2::Spline(4));
-  spline5->AddPoint(m2::PointD(-2.0, 0.0));
-  spline5->AddPoint(m2::PointD(0.0, 0.0));
-  spline5->AddPoint(m2::PointD(0.5, 0.5));
-  spline5->AddPoint(m2::PointD(2.0, 1.0));
+  m2::SharedSpline spline5 = MakeSpline({{-2.0, 0.0}, {0.0, 0.0}, {0.5, 0.5}, {2.0, 1.0}});
   vector<m2::SharedSpline> result5 = m2::ClipSplineByRect(r, spline5);
   vector<m2::SharedSpline> expectedResult5 = ConstructSplineList(
       {{m2::PointD(-1.0, 0.0), m2::PointD(0.0, 0.0), m2::PointD(0.5, 0.5), m2::PointD(1.0, 0.66666666)}});
   TEST(CompareSplineLists(result5, expectedResult5), ());
 
   // Intersection. Several segments.
-  m2::SharedSpline spline6;
-  spline6.Reset(new m2::Spline(5));
-  spline6->AddPoint(m2::PointD(-1.0, 0.0));
-  spline6->AddPoint(m2::PointD(-0.5, 1.0));
-  spline6->AddPoint(m2::PointD(-0.5, 1.000000001));
-  spline6->AddPoint(m2::PointD(0.0, 1.5));
-  spline6->AddPoint(m2::PointD(0.0, 0.0));
+  m2::SharedSpline spline6 = MakeSpline({{-1.0, 0.0}, {-0.5, 1.0}, {-0.5, 1.000000001}, {0.0, 1.5}, {0.0, 0.0}});
   vector<m2::SharedSpline> result6 = m2::ClipSplineByRect(r, spline6);
   vector<m2::SharedSpline> expectedResult6 = ConstructSplineList(
       {{m2::PointD(-1.0, 0.0), m2::PointD(-0.5, 1.0)}, {m2::PointD(0.0, 1.0), m2::PointD(0.0, 0.0)}});

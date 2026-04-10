@@ -143,16 +143,16 @@ void ClipPathByRectImpl(m2::RectD const & rect, std::vector<m2::PointD> const & 
   m2::PointD p1, p2;
   int code1 = 0;
   int code2 = 0;
-  m2::SharedSpline s;
 
+  std::unique_ptr<m2::Spline> s;
   for (size_t i = 0; i < sz - 1; i++)
   {
     p1 = path[i];
     p2 = path[i + 1];
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
-      if (s.IsNull())
-        s.Reset(new m2::Spline(sz - i));
+      if (!s)
+        s = std::make_unique<Spline>(sz - i);
 
       s->AddPoint(p1);
       s->AddPoint(p2);
@@ -161,14 +161,16 @@ void ClipPathByRectImpl(m2::RectD const & rect, std::vector<m2::PointD> const & 
       {
         if (s->GetSize() > 1)
           fn(std::move(s));
-        s.Reset(nullptr);
+        else
+          s->Clear();  // reuse reserved
       }
     }
-    else if (!s.IsNull() && !s->IsEmpty())
+    else if (s && !s->IsEmpty())
     {
       if (s->GetSize() > 1)
         fn(std::move(s));
-      s.Reset(nullptr);
+      else
+        s->Clear();  // reuse reserved
     }
   }
 }
