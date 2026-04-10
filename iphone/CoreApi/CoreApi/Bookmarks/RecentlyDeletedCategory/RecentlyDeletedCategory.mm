@@ -3,6 +3,8 @@
 #include <platform/platform_ios.h>
 #include <map/bookmark_helpers.hpp>
 
+#include "base/logging.hpp"
+
 @implementation RecentlyDeletedCategory
 
 - (instancetype)initTitle:(NSString *)title fileURL:(NSURL *)fileURL deletionDate:(NSDate *)deletionDate
@@ -30,8 +32,16 @@
     _title = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
     auto const pathString = [NSString stringWithCString:filePath.c_str() encoding:NSUTF8StringEncoding];
     _fileURL = [NSURL fileURLWithPath:pathString];
-    NSTimeInterval creationTime = Platform::GetFileCreationTime(filePath);
-    _deletionDate = [NSDate dateWithTimeIntervalSince1970:creationTime];
+    auto const creationTime = Platform::GetFileCreationTime(filePath);
+    if (creationTime > 0)
+    {
+      _deletionDate = [NSDate dateWithTimeIntervalSince1970:static_cast<NSTimeInterval>(creationTime)];
+    }
+    else
+    {
+      LOG(LWARNING, ("GetFileCreationTime failed for", filePath, "- using current time as deletion date"));
+      _deletionDate = [NSDate date];
+    }
   }
   return self;
 }

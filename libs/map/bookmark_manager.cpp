@@ -246,7 +246,11 @@ bool GetSortingType(std::string const & typeStr, BookmarkManager::SortingType & 
 
 kml::Timestamp FileModificationTimestamp(std::string const & fullFilePath)
 {
-  return kml::TimestampClock::from_time_t(Platform::GetFileModificationTime(fullFilePath));
+  auto const t = Platform::GetFileModificationTime(fullFilePath);
+  if (t > 0)
+    return kml::TimestampClock::from_time_t(t);
+  LOG(LWARNING, ("GetFileModificationTime failed for", fullFilePath, "- using current time"));
+  return kml::TimestampClock::now();
 }
 }  // namespace
 
