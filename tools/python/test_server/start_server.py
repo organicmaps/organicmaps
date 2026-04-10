@@ -10,11 +10,12 @@ import urllib.request
 
 from pathlib import Path
 
+from server.config import PORT
+
 SCRIPT_DIR = Path(os.path.dirname(__file__))
 SERVER_RUNNABLE = SCRIPT_DIR / 'server/testserver.py'
 
 HOST = 'localhost'
-PORT = 34568  # Must match server/config.py.
 # /id returns the server PID without mutating its internal client counter.
 # Using /ping here would inflate that counter and break /kill-triggered
 # shutdown from stop_server.py, leaving a zombie server between runs.
