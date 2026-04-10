@@ -227,8 +227,16 @@ NSString * const kSettingsSegue = @"Map2Settings";
     }
   }
 
-  [self.placePageWidthConstraint setActive:isLimitedWidth];
-  [self.placePageTrailingConstraint setActive:!isLimitedWidth];
+  if (isLimitedWidth)
+  {
+    [self.placePageTrailingConstraint setActive:NO];
+    [self.placePageWidthConstraint setActive:YES];
+  }
+  else
+  {
+    [self.placePageWidthConstraint setActive:NO];
+    [self.placePageTrailingConstraint setActive:YES];
+  }
   [self.view layoutIfNeeded];
 }
 
