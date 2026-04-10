@@ -4,5 +4,3 @@ PORT = 34568
 # passes between the last request and the server killing
 # itself
 LIFESPAN = 180.0
-
-PING_TIMEOUT = 5  # Nubmer of seconds to wait for ping response

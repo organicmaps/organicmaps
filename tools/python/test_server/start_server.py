@@ -59,8 +59,16 @@ while True:
 
     try:
         with urllib.request.urlopen(READY_URL, timeout=1.0) as response:
-            if response.status == 200 and response.read():
+            body = response.read().decode('ascii', errors='replace').strip()
+            if response.status == 200 and body == str(proc.pid):
                 break
+            # Another server is answering on our port - our subprocess likely
+            # failed to bind. Record and keep polling until our subprocess
+            # exits (handled by proc.poll() above) or we time out.
+            last_error = (
+                f"/id returned pid {body!r}, expected {proc.pid} "
+                f"(another server bound to {PORT}?)"
+            )
     except (urllib.error.URLError, TimeoutError, OSError) as ex:
         last_error = ex
 
