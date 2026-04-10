@@ -26,10 +26,6 @@ public final class Config
   @NonNull
   private static String mVersionName;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private static String mFileProviderAuthority;
-
   private static final String KEY_APP_STORAGE = "StoragePath";
 
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
@@ -162,12 +158,6 @@ public final class Config
   public static String getVersionName()
   {
     return mVersionName;
-  }
-
-  @NonNull
-  public static String getFileProviderAuthority()
-  {
-    return mFileProviderAuthority;
   }
 
   public static String getStoragePath()
@@ -430,16 +420,14 @@ public final class Config
     return getString(KEY_DONATE_URL);
   }
 
-  public static void init(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull String flavor,
-                          @NonNull String applicationId, int versionCode, @NonNull String versionName,
-                          @NonNull String fileProviderAuthority)
+  public static void init(@NonNull SharedPreferences prefs, @NonNull String flavor, @NonNull String applicationId,
+                          int versionCode, @NonNull String versionName)
   {
     mPrefs = prefs;
     mFlavor = flavor;
     mApplicationId = applicationId;
     mVersionCode = versionCode;
     mVersionName = versionName;
-    mFileProviderAuthority = fileProviderAuthority;
     final SharedPreferences.Editor editor = mPrefs.edit();
 
     // Update counters.

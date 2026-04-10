@@ -123,9 +123,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     sInstance = this;
 
     PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
-    mOrganicMaps =
-        new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
-                        BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME, BuildConfig.FILE_PROVIDER_AUTHORITY);
+    mOrganicMaps = new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
+                                   BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
 
     DownloaderNotifier.createNotificationChannel(this);
     initNavigationService();

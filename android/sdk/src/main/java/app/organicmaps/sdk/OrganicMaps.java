@@ -92,7 +92,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   }
 
   public OrganicMaps(@NonNull Context context, @NonNull String flavor, @NonNull String applicationId, int versionCode,
-                     @NonNull String versionName, @NonNull String fileProviderAuthority)
+                     @NonNull String versionName)
   {
     mFlavor = flavor;
     mVersionName = versionName;
@@ -107,7 +107,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     Logger.d(TAG, "Settings path = " + settingsPath);
     nativeSetSettingsDir(settingsPath);
 
-    Config.init(mContext, mPreferences, mFlavor, applicationId, versionCode, mVersionName, fileProviderAuthority);
+    Config.init(mPreferences, mFlavor, applicationId, versionCode, mVersionName);
     OsmOAuth.init(mPreferences);
     SharedPropertiesUtils.init(mPreferences);
     LogsManager.INSTANCE.initFileLogging(mContext, mPreferences);
