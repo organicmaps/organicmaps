@@ -200,7 +200,7 @@ public enum TtsPlayer
       mTts.setSpeechRate(SPEECH_RATE);
       mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
       mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
-      mAudioFocusManager = AudioFocusManager.create(context, this::stop);
+      mAudioFocusManager = new AudioFocusManager(context, this::stop);
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
       mInitializing = false;
       if (mReloadTriggered && sOnReloadCallback != null)

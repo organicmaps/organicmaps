@@ -13,6 +13,7 @@ androidx-core = "1.17.0"
 androidx-fragment = "1.8.9"
 androidx-junit = "1.3.0"
 androidx-lifecycle = "2.9.4"
+androidx-media = "1.7.0"
 androidx-preference = "1.2.1"
 androidx-recyclerview = "1.4.0"
 androidx-test-runner = "1.7.0"
@@ -56,6 +57,7 @@ androidx-core = { group = "androidx.core", name = "core", version.ref = "android
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx-fragment" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidx-lifecycle" }
+androidx-media = { group = "androidx.media", name = "media", version.ref = "androidx-media" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "androidx-preference" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidx-recyclerview" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }

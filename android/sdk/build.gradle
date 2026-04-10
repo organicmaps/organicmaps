@@ -93,6 +93,7 @@ dependencies {
   implementation libs.androidx.recyclerview
   implementation libs.androidx.fragment
   implementation libs.androidx.lifecycle
+  implementation libs.androidx.media
   implementation libs.okhttp
 
   testImplementation libs.androidx.junit
