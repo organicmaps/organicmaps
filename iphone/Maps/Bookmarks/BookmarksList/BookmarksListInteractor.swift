@@ -122,10 +122,18 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   }
 
   func deleteBookmark(_ bookmarkId: MWMMarkID) {
+    guard bookmarksManager.hasBookmark(bookmarkId) else {
+      LOG(.error, "Bookmark \(bookmarkId) does not exist")
+      return
+    }
     bookmarksManager.deleteBookmark(bookmarkId)
   }
 
   func deleteTrack(_ trackId: MWMTrackID) {
+    guard bookmarksManager.hasTrack(trackId) else {
+      LOG(.error, "Track \(trackId) does not exist")
+      return
+    }
     bookmarksManager.deleteTrack(trackId)
   }
 
