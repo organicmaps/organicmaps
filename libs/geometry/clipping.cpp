@@ -215,15 +215,16 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
   return {};
 }
 
-void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> && path,
+void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path,
                     std::function<void(m2::SharedSpline &&)> const & fn)
 {
-  switch (GetRectCase(rect, path))
-  {
-  case RectCase::Inside: fn(m2::SharedSpline(std::move(path))); break;
-  case RectCase::Outside: break;
-  case RectCase::Intersect: ClipPathByRectImpl(rect, path, fn); break;
-  }
+  // Precondition: the caller has already classified |path| against |rect|
+  // (e.g. via the feature's limit rect) and only invokes this for the real
+  // Intersect case. Inside/Outside dispatch is therefore intentionally absent.
+  // ClipPathByRectImpl is still correct for Inside/Outside paths — it just
+  // does redundant work — so calling it from places where the classification
+  // is unknown (e.g. post-smoothing isoline fragments) remains safe.
+  ClipPathByRectImpl(rect, path, fn);
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,

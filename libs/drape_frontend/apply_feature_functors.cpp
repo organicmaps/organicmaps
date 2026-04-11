@@ -17,7 +17,6 @@
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/robust_orientation.hpp"
-#include "geometry/smoothing.hpp"
 
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
@@ -704,6 +703,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
                                                    RelationsDrawSettings const & relsSettings)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
+  , m_builder(params)
 {
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
@@ -715,63 +715,23 @@ void ApplyLineFeatureGeometry::BuildGeometry(FeatureType & f, int zoomLevel)
   m_readCount += f.GetPointsCount();
 #endif
 
-  auto spline = std::make_unique<m2::Spline>(f.GetPointsCount());
-
-  m2::PointD lastAddedPoint;
-  f.ForEachPoint([this, &spline, &lastAddedPoint](m2::PointD const & point)
-  {
-    if (spline->IsEmpty())
-    {
-      spline->AddPoint(point);
-      lastAddedPoint = point;
-    }
-    else if (m_params.IsSimplifyLines() &&
-             ((spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) < m_params.m_minSegmentSqrLength) ||
-              spline->IsProlonging(point)))
-    {
-      spline->ReplacePoint(point);
-    }
-    else
-    {
-      spline->AddPoint(point);
-      lastAddedPoint = point;
-    }
-  }, zoomLevel);
-
-  m_spline = std::move(spline);
+  m_builder.Build(f, zoomLevel);
 }
 
 void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)
 {
   ASSERT(!lineRules.empty(), ());
   ASSERT(HasGeometry(), ());
+  ASSERT(!isIsoline || lineRules.size() == 1, ());
 
-  if (!isIsoline)
-  {
-    // A line crossing the tile several times will be split in several parts.
-    // TODO(pastk) : use feature's pre-calculated limitRect when possible.
-    m_clippedSplines = m2::ClipSplineByRect(m_params.m_tileRect, m_spline);
-  }
-  else
-  {
-    // Isolines smoothing.
-    ASSERT_EQUAL(lineRules.size(), 1, ());
-    m2::GuidePointsForSmooth guidePointsForSmooth;
-    std::vector<std::vector<m2::PointD>> clippedPaths;
-    auto extTileRect = m_params.m_tileRect;
-    extTileRect.Scale(1.6);  // same as Inflate(0.3*szX, 0.3*szY)
-    m2::ClipPathByRectBeforeSmooth(extTileRect, m_spline->GetPath(), guidePointsForSmooth, clippedPaths);
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+  size_t const builtSize = m_builder.GetPathSize();
+#endif
 
-    if (clippedPaths.empty())
-      return;
-
-    m2::SmoothPaths(guidePointsForSmooth, 4 /* newPointsPerSegmentCount */, m2::kCentripetalAlpha, clippedPaths);
-
-    ASSERT(m_clippedSplines.empty(), ());
-    std::function<void(m2::SharedSpline &&)> inserter = base::MakeBackInsertFunctor(m_clippedSplines);
-    for (auto & path : clippedPaths)
-      m2::ClipPathByRect(m_params.m_tileRect, std::move(path), inserter);
-  }
+  // Builds clipped splines from the (possibly simplified) feature path.
+  // Directions/lengths are computed only on the splines actually returned —
+  // see ClipSplinesBuilder::Release.
+  m_clippedSplines = m_builder.Release(isIsoline);
 
   if (m_clippedSplines.empty())
     return;
@@ -780,7 +740,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
     ProcessRule(*r);
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(m_spline->GetSize()));
+  LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(builtSize));
 #endif
 }
 

@@ -49,6 +49,8 @@ set(SRC
   batchers_pool.hpp
   circles_pack_shape.cpp
   circles_pack_shape.hpp
+  clip_splines_builder.cpp
+  clip_splines_builder.hpp
   color_constants.cpp
   color_constants.hpp
   colored_symbol_shape.cpp
