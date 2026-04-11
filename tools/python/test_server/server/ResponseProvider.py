@@ -326,7 +326,7 @@ class ResponseProvider:
         return Payload("Forbidden", response_code=403)
 
     def test_redirect_to_1txt(self):
-        return Payload("", 301, {"Location": "http://localhost:34568/unit_tests/1.txt"})
+        return Payload("", 301, {"Location": "http://localhost:24568/unit_tests/1.txt"})
 
     def test_set_cookies(self):
         return Payload("ok", 200, {"Set-Cookie": "session=abc123; Path=/"})

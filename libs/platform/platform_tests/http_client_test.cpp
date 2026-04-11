@@ -23,18 +23,18 @@ namespace http_client_test
 using namespace platform;
 using std::string;
 
-char constexpr kTestUrl1[] = "http://localhost:34568/unit_tests/1.txt";
-char constexpr kTestUrl404[] = "http://localhost:34568/unit_tests/notexisting_unittest";
-char constexpr kTestUrlBigFile[] = "http://localhost:34568/unit_tests/47kb.file";
-char constexpr kTestUrlEchoHeaders[] = "http://localhost:34568/unit_tests/echo_headers";
-char constexpr kTestUrlEchoCookies[] = "http://localhost:34568/unit_tests/echo_cookies";
-char constexpr kTestUrlTimeout[] = "http://localhost:34568/unit_tests/timeout";
-char constexpr kTestUrl500[] = "http://localhost:34568/unit_tests/500";
-char constexpr kTestUrl403[] = "http://localhost:34568/unit_tests/403";
-char constexpr kTestUrlRedirect[] = "http://localhost:34568/unit_tests/redirect_to_1txt";
-char constexpr kTestUrlSetCookies[] = "http://localhost:34568/unit_tests/set_cookies";
-char constexpr kTestUrlMultiSetCookies[] = "http://localhost:34568/unit_tests/multi_set_cookies";
-char constexpr kTestUrlPost[] = "http://localhost:34568/unit_tests/post.php";
+char constexpr kTestUrl1[] = "http://localhost:24568/unit_tests/1.txt";
+char constexpr kTestUrl404[] = "http://localhost:24568/unit_tests/notexisting_unittest";
+char constexpr kTestUrlBigFile[] = "http://localhost:24568/unit_tests/47kb.file";
+char constexpr kTestUrlEchoHeaders[] = "http://localhost:24568/unit_tests/echo_headers";
+char constexpr kTestUrlEchoCookies[] = "http://localhost:24568/unit_tests/echo_cookies";
+char constexpr kTestUrlTimeout[] = "http://localhost:24568/unit_tests/timeout";
+char constexpr kTestUrl500[] = "http://localhost:24568/unit_tests/500";
+char constexpr kTestUrl403[] = "http://localhost:24568/unit_tests/403";
+char constexpr kTestUrlRedirect[] = "http://localhost:24568/unit_tests/redirect_to_1txt";
+char constexpr kTestUrlSetCookies[] = "http://localhost:24568/unit_tests/set_cookies";
+char constexpr kTestUrlMultiSetCookies[] = "http://localhost:24568/unit_tests/multi_set_cookies";
+char constexpr kTestUrlPost[] = "http://localhost:24568/unit_tests/post.php";
 
 int constexpr kBigFileSize = 47684;
 
@@ -806,7 +806,7 @@ UNIT_TEST(HttpClient_Cancel_Idempotent)
 // Basic Auth (SetUserAndPassword)
 // =====================================================================
 
-char constexpr kTestUrlBasicAuth[] = "http://localhost:34568/unit_tests/basic_auth";
+char constexpr kTestUrlBasicAuth[] = "http://localhost:24568/unit_tests/basic_auth";
 
 UNIT_TEST(HttpClient_BasicAuth_Success)
 {
@@ -877,8 +877,8 @@ UNIT_TEST(HttpClient_MultiSetCookies)
 // Case-insensitive Set-Cookie header parsing
 // =====================================================================
 
-char constexpr kTestUrlSetCookiesLower[] = "http://localhost:34568/unit_tests/set_cookies_lowercase";
-char constexpr kTestUrlSetCookiesUpper[] = "http://localhost:34568/unit_tests/set_cookies_uppercase";
+char constexpr kTestUrlSetCookiesLower[] = "http://localhost:24568/unit_tests/set_cookies_lowercase";
+char constexpr kTestUrlSetCookiesUpper[] = "http://localhost:24568/unit_tests/set_cookies_uppercase";
 
 UNIT_TEST(HttpClient_SetCookie_LowercaseHeader)
 {
@@ -1101,7 +1101,7 @@ UNIT_TEST(HttpClient_Post_BodyData_ResponseToFile)
 // Regression: POST to 204 No Content must not return request body as response
 // =====================================================================
 
-char constexpr kTestUrl204[] = "http://localhost:34568/unit_tests/204";
+char constexpr kTestUrl204[] = "http://localhost:24568/unit_tests/204";
 
 UNIT_TEST(HttpClient_Post_NoContentResponse)
 {
@@ -1126,12 +1126,12 @@ int constexpr kSegmentTestTotalSize = 1000;
 int64_t constexpr kSegmentTestRangeEnd = 99;
 int64_t constexpr kSegmentTestRangeBytes = kSegmentTestRangeEnd + 1;  // 100 bytes: offsets 0..99.
 
-char constexpr kUrlSegmentOk[] = "http://localhost:34568/unit_tests/segment/ok";
-char constexpr kUrlSegmentIgnoreRange[] = "http://localhost:34568/unit_tests/segment/ignore_range";
-char constexpr kUrlSegmentMissingCR[] = "http://localhost:34568/unit_tests/segment/missing_content_range";
-char constexpr kUrlSegmentShortBody[] = "http://localhost:34568/unit_tests/segment/short_body";
-char constexpr kUrlSegmentOverflowBody[] = "http://localhost:34568/unit_tests/segment/overflow_body";
-char constexpr kUrlSegmentUnknownTotal[] = "http://localhost:34568/unit_tests/segment/unknown_total";
+char constexpr kUrlSegmentOk[] = "http://localhost:24568/unit_tests/segment/ok";
+char constexpr kUrlSegmentIgnoreRange[] = "http://localhost:24568/unit_tests/segment/ignore_range";
+char constexpr kUrlSegmentMissingCR[] = "http://localhost:24568/unit_tests/segment/missing_content_range";
+char constexpr kUrlSegmentShortBody[] = "http://localhost:24568/unit_tests/segment/short_body";
+char constexpr kUrlSegmentOverflowBody[] = "http://localhost:24568/unit_tests/segment/overflow_body";
+char constexpr kUrlSegmentUnknownTotal[] = "http://localhost:24568/unit_tests/segment/unknown_total";
 
 // Create a temp file pre-filled with a known sentinel byte pattern so tests can verify
 // that only the target segment was modified.
