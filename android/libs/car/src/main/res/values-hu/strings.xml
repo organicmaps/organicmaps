@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Vissza</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Mégse</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Törlés</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Keresés</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +65,8 @@
     <string name="search_not_found">Nincs eredmény.</string>
     <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
     <string name="p2p_start">Indítás</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Következő</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Egész nap (24 óra)</string>
     <string name="editor_time_open">Nyitva</string>
@@ -69,6 +75,8 @@
     <string name="opens_in">Kinyit %s múlva</string>
     <string name="closes_in">Bezár %s múlva</string>
     <string name="closed">Zárva</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d / %2$d</string>
     <string name="minute">p</string>
     <string name="big_font">Betűméret növelése a térképen</string>
     <string name="transliteration_title">Átírás latin betűkre</string>

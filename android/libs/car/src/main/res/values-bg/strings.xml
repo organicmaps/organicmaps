@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Назад</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Отмяна</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Изтриване</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Търсене</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +65,8 @@
     <string name="search_not_found">За съжаление не са намерени резултати.</string>
     <string name="search_history_text">Преглед на последните търсения.</string>
     <string name="p2p_start">Начало</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Напред</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Цял ден (24 часа)</string>
     <string name="editor_time_open">Отворено</string>
@@ -69,6 +75,8 @@
     <string name="opens_in">Отваря се в %s</string>
     <string name="closes_in">Приключва в %s</string>
     <string name="closed">Затворено</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d от %2$d</string>
     <string name="minute">мин</string>
     <string name="big_font">Увеличаване на размера на шрифта в картата</string>
     <string name="transliteration_title">Изпиши на латиница</string>

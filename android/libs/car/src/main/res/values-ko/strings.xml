@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">뒤로</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">취소하기</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">삭제하기</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">검색하기</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +65,8 @@
     <string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
     <string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
     <string name="p2p_start">시작</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">다음</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">종일 영업(24시간)</string>
     <string name="editor_time_open">개점</string>
@@ -69,6 +75,8 @@
     <string name="opens_in">%s에서 열립니다</string>
     <string name="closes_in">%s로 마감</string>
     <string name="closed">닫음</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%2$d중의 %1$d</string>
     <string name="minute">분</string>
     <string name="big_font">지도에서 글꼴 크기 늘리기</string>
     <string name="transliteration_title">라틴어로 음역</string>

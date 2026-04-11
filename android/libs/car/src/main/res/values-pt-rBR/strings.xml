@@ -2,6 +2,8 @@
 <resources>
 
     <!-- SECTION: Strings -->
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Apagar</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar</string>
     <!-- Location services are disabled by user alert - message -->
@@ -43,6 +45,8 @@
     <string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
     <string name="search_history_text">Visualizar as buscas recentes.</string>
     <string name="p2p_start">Início</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Próximo</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">O dia todo (24 horas)</string>
     <string name="twentyfour_seven">24/7</string>

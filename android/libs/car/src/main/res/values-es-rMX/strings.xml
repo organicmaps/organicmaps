@@ -2,6 +2,10 @@
 <resources>
 
     <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Volver</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Borrar</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar en</string>
     <!-- Location services are disabled by user alert - message -->

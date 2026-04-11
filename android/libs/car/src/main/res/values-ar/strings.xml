@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">رجوع</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">إلغاء</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">حذف</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">البحث</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +65,8 @@
     <string name="search_not_found">المعذرة، لم أعثر على أية نتائج.</string>
     <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
     <string name="p2p_start">ابدأ</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">التالي</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">طوال اليوم (٢٤ ساعة)</string>
     <string name="editor_time_open">مفتوح</string>
@@ -69,6 +75,8 @@
     <string name="opens_in">يفتح بعد %s</string>
     <string name="closes_in">يغلق في غضون %s</string>
     <string name="closed">مغلق</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d من%2$d</string>
     <string name="minute">د</string>
     <string name="big_font">زيادة حجم الخط على الخريطة</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>

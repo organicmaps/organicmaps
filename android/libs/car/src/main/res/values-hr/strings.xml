@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Nazad</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Otkaži</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Izbriši</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Pretraživaj</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +65,8 @@
     <string name="search_not_found">Ups, nema rezultata.</string>
     <string name="search_history_text">Pogledaj svoje nedavne pretrage.</string>
     <string name="p2p_start">Početak</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Dalje</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Cijeli dan (24 sata)</string>
     <string name="editor_time_open">Otvoreno</string>

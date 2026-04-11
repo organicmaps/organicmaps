@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">পিছনে</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">বাতিল</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">মুছো</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">অনুসন্ধান</string>
 </resources>

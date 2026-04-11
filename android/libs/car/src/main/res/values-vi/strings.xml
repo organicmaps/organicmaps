@@ -3,7 +3,11 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Quay lại</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Huỷ bỏ</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Xóa</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Tìm kiếm</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +65,8 @@
     <string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="p2p_start">Bắt đầu</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Tiếp theo</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Cả ngày (24 giờ)</string>
     <string name="editor_time_open">Mở cửa</string>
@@ -69,6 +75,8 @@
     <string name="opens_in">Mở trong %s</string>
     <string name="closes_in">Đóng trong %s</string>
     <string name="closed">Đã đóng</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d trên %2$d</string>
     <string name="minute">phút</string>
     <string name="big_font">Tăng kích cỡ phông chữ trên bản đồ</string>
     <string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
