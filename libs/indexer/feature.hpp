@@ -31,6 +31,10 @@ class MapObject;
 // Lazy feature loader. Loads needed data and caches it.
 class FeatureType
 {
+  // Test-only friend: lets MockTestFeature populate m_points / m_limitRect /
+  // m_header / m_parsed directly without going through a real .mwm load.
+  friend class MockTestFeature;
+
   FeatureType() = default;
 
 public:

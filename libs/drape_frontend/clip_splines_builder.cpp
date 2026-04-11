@@ -5,21 +5,20 @@
 #include "indexer/feature.hpp"
 
 #include "geometry/clipping.hpp"
-#include "geometry/rect2d.hpp"
 #include "geometry/smoothing.hpp"
 
-#include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <cmath>
 #include <functional>
 
 namespace df
 {
 namespace
 {
-// Same threshold as Spline::IsProlonging.
-double constexpr kProlongingDot = 0.995;
+// Same threshold as Spline::IsProlonging — but squared, since the colinearity
+// test in Build() is reformulated to avoid sqrt:
+//   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
+double constexpr kProlongingDotSqr = math::Pow2(0.995);
 }  // namespace
 
 ClipSplinesBuilder::ClipSplinesBuilder(ApplyFeatureParams const & params) : m_params(params) {}
@@ -46,71 +45,83 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel)
   m_path.reserve(f.GetPointsCount());
 
   bool const simplify = m_params.IsSimplifyLines();
+  double const minSqr = m_params.m_minSegmentSqrLength;
 
-  // Tracks the last "anchor" point: the last point that was added without
-  // being subsequently replaced by simplification.
-  m2::PointD lastAddedPoint;
+  // Last segment of m_path (un-normalized) and its squared length. Only
+  // meaningful (and only touched) when simplify is true and m_path.size() >= 2.
+  // Storing the raw segment + sqrlen lets us run the colinearity check
+  // entirely in squared quantities — no sqrts in Build(), so the simplify+Inside
+  // path no longer pays for normalization both here and in Spline::InitDirections.
+  m2::PointD lastSeg;
+  double lastSegSqrLen = 0.0;
 
-  // Direction of the last segment of m_path, normalized. Only meaningful when
-  // simplification is enabled and m_path.size() > 1; the call sites guarantee
-  // that precondition.
-  m2::PointD lastDir;
+  // Latest input point seen, regardless of whether it ended up in m_path.
+  // Used at end-of-stream to preserve the feature's actual endpoint
+  // coordinate when the trailing input was thinned away.
+  // Valid only when m_path is non-empty (i.e. at least one point processed).
+  m2::PointD lastReadPoint;
 
-  // Mirrors Spline::AddPoint. Appends pt to m_path and (when simplification is
-  // on) updates lastDir. Skips zero-length segments to match prior behavior.
-  auto const addPoint = [this, simplify, &lastDir](m2::PointD const & pt)
+  f.ForEachPoint([&](m2::PointD const & p)
   {
+    lastReadPoint = p;
+
     if (m_path.empty())
     {
-      m_path.push_back(pt);
+      m_path.push_back(p);
       return;
     }
-    m2::PointD const d = pt - m_path.back();
+
+    m2::PointD const d = p - m_path.back();
     if (d.IsAlmostZero())
-      return;
+      return;  // duplicate, ignore
+
     if (simplify)
     {
-      double const len = d.Length();
-      ASSERT_GREATER(len, 0, ());
-      lastDir = d / len;
-    }
-    m_path.push_back(pt);
-  };
+      double const d2 = d.SquaredLength();
+      if (d2 < minSqr)
+        return;  // too close — thin
 
-  // Mirrors Spline::IsProlonging. Caller must ensure m_path.size() >= 2.
-  auto const isProlonging = [this, &lastDir](m2::PointD const & pt) -> bool
-  {
-    ASSERT_GREATER_OR_EQUAL(m_path.size(), 2, ());
-    m2::PointD d = pt - m_path.back();
-    if (d.IsAlmostZero())
-      return true;
-    d = d.Normalize();
-    return std::fabs(DotProduct(lastDir, d)) > kProlongingDot;
-  };
+      // Forward-only colinearity check, squared form. Equivalent to
+      //   cos(θ) > kProlongingDot
+      // when dot > 0 (the forward guard — leaves backward U-turn segments
+      // alone instead of collapsing them into a degenerate zero-length tail).
+      size_t const sz = m_path.size();
+      if (sz >= 2)
+      {
+        double const dot = DotProduct(lastSeg, d);
+        if (dot > 0 && dot * dot > kProlongingDotSqr * lastSegSqrLen * d2)
+        {
+          m_path.back() = p;
+          // Recompute lastSeg from the actual merged segment m_path[sz-2] -> p,
+          // so long colinear runs don't drift past the threshold by accumulating per-step error.
+          lastSeg = m_path[sz - 1] - m_path[sz - 2];
+          lastSegSqrLen = lastSeg.SquaredLength();
+          return;
+        }
+      }
 
-  f.ForEachPoint([&](m2::PointD const & point)
-  {
-    if (m_path.empty())
-    {
-      addPoint(point);
-      lastAddedPoint = point;
-      return;
-    }
-
-    if (simplify && m_path.size() > 1 &&
-        (point.SquaredLength(lastAddedPoint) < m_params.m_minSegmentSqrLength || isProlonging(point)))
-    {
-      // ReplacePoint: drop the current tail and append the new point in its
-      // place. lastDir is updated by addPoint() against the new prior point.
-      // lastAddedPoint stays at the previous anchor — same as the prior Spline-based code.
-      m_path.pop_back();
-      addPoint(point);
-      return;
+      lastSeg = d;
+      lastSegSqrLen = d2;
     }
 
-    addPoint(point);
-    lastAddedPoint = point;
+    m_path.push_back(p);
   }, zoomLevel);
+
+  // Endpoint preservation: if the latest read point did not end up at the
+  // tail of m_path (it was thinned, deduped, or replaced away), commit it
+  // now — replacing the kept tail rather than appending if doing so would
+  // create a tiny trailing segment.
+  if (simplify && !m_path.empty())
+  {
+    m2::PointD const tailD = lastReadPoint - m_path.back();
+    if (!tailD.IsAlmostZero())
+    {
+      if (m_path.size() >= 2 && tailD.SquaredLength() < minSqr)
+        m_path.back() = lastReadPoint;
+      else
+        m_path.push_back(lastReadPoint);
+    }
+  }
 }
 
 std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)

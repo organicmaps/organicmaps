@@ -36,6 +36,8 @@ public:
 
   bool HasGeometry() const { return m_path.size() > 1; }
   size_t GetPathSize() const { return m_path.size(); }
+  std::vector<m2::PointD> const & GetPath() const { return m_path; }
+  CaseHint GetCaseHint() const { return m_caseHint; }
 
   /// Clips the built path against the tile rect (isoline pipeline if isIsoline).
   /// In the Inside case m_path is moved out into the resulting spline; otherwise
