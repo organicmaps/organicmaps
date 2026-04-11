@@ -48,6 +48,14 @@ public:
   explicit Spline(std::vector<PointD> path);
 
   void AddPoint(PointD const & pt);
+  /// Variant for callers that already know the direction and length of the
+  /// new segment (e.g. clip-from-source-spline). The caller guarantees:
+  ///   - the spline is non-empty;
+  ///   - |dir| is the unit vector from the current m_position.back() to pt;
+  ///   - |len| is the Euclidean distance from m_position.back() to pt
+  ///     and is strictly positive (no degenerate zero-length segments).
+  /// Skips the sqrt + normalize that the single-arg overload pays.
+  void AddPoint(PointD const & pt, PointD const & dir, double len);
   void ReplacePoint(PointD const & pt);
   bool IsProlonging(PointD const & pt) const;
 
