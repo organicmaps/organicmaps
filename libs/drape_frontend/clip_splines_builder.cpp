@@ -7,10 +7,6 @@
 #include "geometry/clipping.hpp"
 #include "geometry/smoothing.hpp"
 
-#include "base/stl_helpers.hpp"
-
-#include <functional>
-
 namespace df
 {
 namespace
@@ -19,14 +15,14 @@ namespace
 // test in Build() is reformulated to avoid sqrt:
 //   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
 double constexpr kProlongingDotSqr = math::Pow2(0.995);
+
+double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
 }  // namespace
 
-ClipSplinesBuilder::ClipSplinesBuilder(ApplyFeatureParams const & params) : m_params(params) {}
-
-void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel)
+void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
 {
   m_path.clear();
-  m_caseHint = CaseHint::Unknown;
+  m_knownInside = false;
 
   // Use the feature's pre-parsed limit rect to short-circuit the read of
   // features that lie entirely outside the tile, and to record an Inside hint
@@ -36,10 +32,17 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel)
   m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
   if (limitRect.IsValid())
   {
-    if (!m_params.m_tileRect.IsIntersect(limitRect))
-      return;  // Outside the tile — leave m_path empty.
-    if (m_params.m_tileRect.IsRectInside(limitRect))
-      m_caseHint = CaseHint::Inside;
+    m2::RectD checkRect = m_params.m_tileRect;
+    if (isIsoline)
+      checkRect.Scale(kIsolineSmoothScale);
+
+    // Outside the tile — leave m_path empty.
+    if (!checkRect.IsIntersect(limitRect))
+      return;
+
+    // Inside hint is only consumed by the non-isoline branch of Release().
+    if (!isIsoline && m_params.m_tileRect.IsRectInside(limitRect))
+      m_knownInside = true;
   }
 
   m_path.reserve(f.GetPointsCount());
@@ -135,14 +138,13 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   // features (the isoline pipeline pre-clips with an inflated rect for
   // smoothing, so the hint doesn't apply). The moved-from m_path is reset by
   // the next Build() — no cleanup needed here.
-  if (!isIsoline && m_caseHint == CaseHint::Inside)
+  if (!isIsoline && m_knownInside)
   {
     out.emplace_back(std::move(m_path));
     return out;
   }
 
   out.reserve(2);
-  std::function<void(m2::SharedSpline &&)> inserter = base::MakeBackInsertFunctor(out);
 
   if (isIsoline)
   {
@@ -151,7 +153,7 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     m2::GuidePointsForSmooth guidePoints;
     std::vector<std::vector<m2::PointD>> clippedPaths;
     auto extTileRect = m_params.m_tileRect;
-    extTileRect.Scale(1.6);  // same as Inflate(0.3*szX, 0.3*szY)
+    extTileRect.Scale(kIsolineSmoothScale);
     m2::ClipPathByRectBeforeSmooth(extTileRect, m_path, guidePoints, clippedPaths);
 
     if (!clippedPaths.empty())
@@ -159,17 +161,11 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
       m2::SmoothPaths(guidePoints, 4 /* newPointsPerSegmentCount */, m2::kCentripetalAlpha, clippedPaths);
 
       for (auto const & path : clippedPaths)
-        m2::ClipPathByRect(m_params.m_tileRect, path, inserter);
+        m2::ClipPathByRect(m_params.m_tileRect, path, out);
     }
   }
   else
-  {
-    // Non-isoline real-Intersect case: Inside/Outside have already been
-    // handled (Outside in Build(), Inside via the CaseHint shortcut above),
-    // so ClipPathByRect runs straight through to the per-segment clipper
-    // and only computes directions/lengths on the sub-splines it produces.
-    m2::ClipPathByRect(m_params.m_tileRect, m_path, inserter);
-  }
+    m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
 
   return out;
 }

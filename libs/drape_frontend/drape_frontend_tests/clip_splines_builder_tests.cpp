@@ -239,7 +239,7 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Outside)
 
   TEST(!builder.HasGeometry(), ());
   TEST_EQUAL(builder.GetPathSize(), 0, ());
-  TEST(builder.GetCaseHint() == df::ClipSplinesBuilder::CaseHint::Unknown, ());
+  TEST(!builder.IsKnownInside(), ());
 }
 
 UNIT_TEST(ClipSplinesBuilder_LimitRect_Inside)
@@ -259,7 +259,7 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Inside)
   builder.Build(f, kSimplifyZoom);
 
   TEST(builder.HasGeometry(), ());
-  TEST(builder.GetCaseHint() == df::ClipSplinesBuilder::CaseHint::Inside, ());
+  TEST(builder.IsKnownInside(), ());
   TestPath(builder, {P(0, 0), P(20, 0), P(20, 20)});
 }
 
@@ -281,9 +281,30 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Crossing)
   builder.Build(f, kSimplifyZoom);
 
   TEST(builder.HasGeometry(), ());
-  TEST(builder.GetCaseHint() == df::ClipSplinesBuilder::CaseHint::Unknown, ());
+  TEST(!builder.IsKnownInside(), ());
   // (-5,5)->(5,5)->(15,5) is a colinear forward run; the middle point is
   // collapsed by the colinearity replace.
   TestPath(builder, {P(-5, 5), P(15, 5)});
+}
+
+UNIT_TEST(ClipSplinesBuilder_LimitRect_Isoline_InSmoothBand)
+{
+  // Isoline feature whose limit rect is strictly outside tileRect but inside
+  // tileRect.Scale(kIsolineSmoothScale). Must NOT be short-circuited — the isoline smoother
+  // needs the full control-point set to avoid seams at tile boundaries.
+  df::VisualParams::Init(1.0, 1024);
+
+  df::ApplyFeatureParams params;
+  params.m_tileKey = df::TileKey(0, 0, kSimplifyZoom);
+  params.m_tileRect = m2::RectD(0, 0, 10, 10);  // extTileRect = (-3, -3, 13, 13)
+  params.m_minSegmentSqrLength = kMinSqr;
+
+  df::ClipSplinesBuilder builder(params);
+
+  MockTestFeature f({P(11, 5), P(12, 5), P(12, 6)});
+  builder.Build(f, kSimplifyZoom, true /* isIsoline */);
+
+  TEST(builder.HasGeometry(), ());
+  TEST(!builder.IsKnownInside(), ());  // never set for isolines
 }
 }  // namespace clip_spline_builder_tests
