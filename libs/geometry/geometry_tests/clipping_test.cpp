@@ -253,6 +253,61 @@ UNIT_TEST(Clipping_ClipSplineByRect)
       {{m2::PointD(-1.0, 0.0), m2::PointD(-0.5, 1.0)}, {m2::PointD(0.0, 1.0), m2::PointD(0.0, 0.0)}});
   TEST(CompareSplineLists(result6, expectedResult6), ());
 }
+
+UNIT_TEST(Clipping_ClipSplineByRect_GrazingRectCorner)
+{
+  // A two-point spline that just touches a rect corner (and lies entirely
+  // outside otherwise) should clip to nothing — the single shared point
+  // is degenerate (length 0) and cannot form a valid sub-spline.
+  m2::RectD const r(0.0, 0.0, 10.0, 10.0);
+
+  // Touches the top-right corner (10, 10) only.
+  m2::SharedSpline const grazeTopRight = MakeSpline({{5.0, 15.0}, {15.0, 5.0}});
+  TEST(m2::ClipSplineByRect(r, grazeTopRight).empty(), ());
+
+  // Touches the bottom-left corner (0, 0) only.
+  m2::SharedSpline const grazeBottomLeft = MakeSpline({{-1.0, 1.0}, {1.0, -1.0}});
+  TEST(m2::ClipSplineByRect(r, grazeBottomLeft).empty(), ());
+}
+
+UNIT_TEST(Clipping_ClipSplineByRect_InheritsTangentAndLength)
+{
+  // Pins the optimization in ClipSplineByRect: an unchanged interior segment
+  // (both endpoints inside the rect) must inherit its precomputed direction
+  // and length from the source spline byte-for-byte, not via a re-normalize +
+  // re-sqrt round trip.
+  m2::RectD const r(-1.0, -1.0, 1.0, 1.0);
+
+  // Source: enters the rect from the left, two interior segments, then leaves
+  // to the right. The middle two source segments are entirely inside the rect.
+  m2::SharedSpline src =
+      MakeSpline({m2::PointD(-2.0, 0.0), m2::PointD(-0.5, 0.0), m2::PointD(0.5, 0.5), m2::PointD(2.0, 1.0)});
+  auto const result = m2::ClipSplineByRect(r, src);
+  TEST_EQUAL(result.size(), 1, ());
+
+  auto const & clipped = *result.front();
+  TEST_EQUAL(clipped.GetSize(), 4, ());
+
+  // The middle segment (index 1: (-0.5, 0) -> (0.5, 0.5)) is fully inside
+  // the rect and corresponds to source segment index 1. Its direction and
+  // length must be exactly the source's — no recomputation.
+  auto const srcMiddle = src->GetTangentAndLength(1);
+  auto const clippedMiddle = clipped.GetTangentAndLength(1);
+  TEST_EQUAL(clippedMiddle.first, srcMiddle.first, ());
+  TEST_EQUAL(clippedMiddle.second, srcMiddle.second, ());
+
+  // The first and last segments are clipped: their direction must still match
+  // the source (clipping never rotates a segment), but their length is shorter.
+  auto const srcFirst = src->GetTangentAndLength(0);
+  auto const clippedFirst = clipped.GetTangentAndLength(0);
+  TEST_EQUAL(clippedFirst.first, srcFirst.first, ());
+  TEST_LESS(clippedFirst.second, srcFirst.second, ());
+
+  auto const srcLast = src->GetTangentAndLength(2);
+  auto const clippedLast = clipped.GetTangentAndLength(2);
+  TEST_EQUAL(clippedLast.first, srcLast.first, ());
+  TEST_LESS(clippedLast.second, srcLast.second, ());
+}
 UNIT_TEST(ForEachSection_SingleShortSegment)
 {
   m2::Spline spl;

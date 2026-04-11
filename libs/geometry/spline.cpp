@@ -7,6 +7,11 @@ namespace m2
 {
 Spline::Spline(std::vector<PointD> path) : m_position(std::move(path))
 {
+  // Splines must have at least 2 points to be meaningful: a single-point
+  // spline has no segments, no direction, no length. Construct an empty
+  // Spline with the size_t ctor and AddPoint() if you need to build
+  // incrementally.
+  ASSERT_GREATER(m_position.size(), 1, ());
   InitDirections();
 }
 
@@ -40,6 +45,15 @@ void Spline::AddPoint(PointD const & pt)
     m_direction.push_back(dir / len);
   }
 
+  m_position.push_back(pt);
+}
+
+void Spline::AddPoint(PointD const & pt, PointD const & dir, double len)
+{
+  ASSERT(!IsEmpty(), ());
+  ASSERT_GREATER(len, 0, ());
+  m_length.push_back(len);
+  m_direction.push_back(dir);
   m_position.push_back(pt);
 }
 
