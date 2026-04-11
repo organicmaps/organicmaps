@@ -148,12 +148,12 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings);
-  void BuildGeometry(FeatureType & f, int zoomLevel);
+  void BuildGeometry(int zoomLevel, bool isIsoline);
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
 
-  std::vector<m2::SharedSpline> MoveClippedSplines() const { return std::move(m_clippedSplines); }
+  std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);

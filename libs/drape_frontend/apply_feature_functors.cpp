@@ -709,13 +709,13 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
     m_relsInfo.Init(f);
 }
 
-void ApplyLineFeatureGeometry::BuildGeometry(FeatureType & f, int zoomLevel)
+void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline)
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  m_readCount += f.GetPointsCount();
+  m_readCount += m_f.GetPointsCount();
 #endif
 
-  m_builder.Build(f, zoomLevel);
+  m_builder.Build(m_f, zoomLevel, isIsoline);
 }
 
 void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)

@@ -14,14 +14,13 @@ using ClipTriangleByRectResultIt = std::function<void(m2::PointD const &, m2::Po
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator);
 
-/// Clips |path| against |rect| and emits the resulting sub-splines via |fn|.
+/// Clips |path| against |rect| and back-inserts the resulting sub-splines into |out|.
 /// Caller is expected to have already classified the path against the rect
 /// (e.g. via the feature's limit rect) and only invoke this for the real
 /// Intersect case — Inside/Outside dispatch is intentionally absent. The
 /// underlying implementation is still correct for Inside/Outside paths
 /// (just redundant), so passing such paths is safe but wasteful.
-void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path,
-                    std::function<void(m2::SharedSpline &&)> const & fn);
+void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out);
 std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline);
 
 using GuidePointsForSmooth = std::vector<std::pair<m2::PointD, m2::PointD>>;

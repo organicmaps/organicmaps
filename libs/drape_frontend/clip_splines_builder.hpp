@@ -18,26 +18,22 @@ struct ApplyFeatureParams;
 class ClipSplinesBuilder
 {
 public:
-  /// Cached relationship between the feature's limit rect and the tile rect,
-  /// determined upfront from f.GetLimitRect() so the regular bbox pass over
-  /// the path can be skipped (and Outside features short-circuited entirely).
-  enum class CaseHint
-  {
-    Unknown,  // could be Inside, Outside, or Intersect — let the clip pipeline decide
-    Inside,   // feature lies fully inside the tile rect
-  };
-
-  explicit ClipSplinesBuilder(ApplyFeatureParams const & params);
+  explicit ClipSplinesBuilder(ApplyFeatureParams const & params) : m_params(params) {}
 
   /// Reads the feature path with optional simplification (driven by params).
   /// Uses f.GetLimitRect() to short-circuit Outside features (path stays empty)
   /// and to remember Inside features for a faster Release() path.
-  void Build(FeatureType & f, int zoomLevel);
+  /// When |isIsoline| is true the limit rect is checked against an inflated
+  /// tile rect (matching the post-smoothing buffer used by Release()), so
+  /// isolines whose tight rect just misses the tile but whose control points
+  /// reach into the smoothing buffer aren't dropped. The Inside hint is
+  /// suppressed in this mode since Release() ignores it on the isoline path.
+  void Build(FeatureType & f, int zoomLevel, bool isIsoline = false);
 
   bool HasGeometry() const { return m_path.size() > 1; }
   size_t GetPathSize() const { return m_path.size(); }
   std::vector<m2::PointD> const & GetPath() const { return m_path; }
-  CaseHint GetCaseHint() const { return m_caseHint; }
+  bool IsKnownInside() const { return m_knownInside; }
 
   /// Clips the built path against the tile rect (isoline pipeline if isIsoline).
   /// In the Inside case m_path is moved out into the resulting spline; otherwise
@@ -48,6 +44,6 @@ private:
   ApplyFeatureParams const & m_params;
 
   std::vector<m2::PointD> m_path;
-  CaseHint m_caseHint = CaseHint::Unknown;
+  bool m_knownInside = false;
 };
 }  // namespace df

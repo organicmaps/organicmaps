@@ -4,6 +4,7 @@
 #include "geometry/triangle2d.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cfloat>
@@ -231,7 +232,7 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
-      auto const & [srcDir, srcLen] = src.GetTangentAndLength(i);
+      auto const [srcDir, srcLen] = src.GetTangentAndLength(i);
       double const len = (code1 == 0 && code2 == 0) ? srcLen : DotProduct(p2 - p1, srcDir);
 
       // Start a new sub-spline if either we have no allocation yet, or the
@@ -278,8 +279,7 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
   return out;
 }
 
-void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path,
-                    std::function<void(m2::SharedSpline &&)> const & fn)
+void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out)
 {
   // Precondition: the caller has already classified |path| against |rect|
   // (e.g. via the feature's limit rect) and only invokes this for the real
@@ -287,7 +287,7 @@ void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path
   // ClipPathByRectImpl is still correct for Inside/Outside paths — it just
   // does redundant work — so calling it from places where the classification
   // is unknown (e.g. post-smoothing isoline fragments) remains safe.
-  ClipPathByRectImpl(rect, path, fn);
+  ClipPathByRectImpl(rect, path, base::MakeBackInsertFunctor(out));
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
