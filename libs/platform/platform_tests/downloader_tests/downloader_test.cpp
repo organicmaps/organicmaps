@@ -25,9 +25,9 @@ using namespace downloader;
 using namespace std::placeholders;
 using std::bind, std::string, std::vector;
 
-char constexpr kTestUrl1[] = "http://localhost:34568/unit_tests/1.txt";
-char constexpr kTestUrl404[] = "http://localhost:34568/unit_tests/notexisting_unittest";
-char constexpr kTestUrlBigFile[] = "http://localhost:34568/unit_tests/47kb.file";
+char constexpr kTestUrl1[] = "http://localhost:24568/unit_tests/1.txt";
+char constexpr kTestUrl404[] = "http://localhost:24568/unit_tests/notexisting_unittest";
+char constexpr kTestUrlBigFile[] = "http://localhost:24568/unit_tests/47kb.file";
 
 // Should match file size in tools/python/ResponseProvider.py
 int constexpr kBigFileSize = 47684;

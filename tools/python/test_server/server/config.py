@@ -1,4 +1,4 @@
-PORT = 34568
+PORT = 24568
 
 # timeout for the self destruction timer - how much time
 # passes between the last request and the server killing

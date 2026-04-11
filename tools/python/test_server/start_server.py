@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import http.client
 import os
 import subprocess
 import sys
@@ -70,7 +71,7 @@ while True:
                 f"/id returned pid {body!r}, expected {proc.pid} "
                 f"(another server bound to {PORT}?)"
             )
-    except (urllib.error.URLError, TimeoutError, OSError) as ex:
+    except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException) as ex:
         last_error = ex
 
     if time.perf_counter() - start_time >= TIMEOUT_SECONDS:
