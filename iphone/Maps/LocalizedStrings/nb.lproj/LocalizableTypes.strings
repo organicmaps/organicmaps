@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Middelhavsmat";
 "type.cuisine.mexican" = "Meksikansk mat";
 "type.cuisine.moroccan" = "Marokkansk mat";
-"type.cuisine.noodles" = "Nudler";
+"type.cuisine.noodle" = "Nudler";
 "type.cuisine.oriental" = "Orientalsk mat";
 "type.cuisine.pancake" = "Pannekake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Pølse";
 "type.cuisine.savory_pancakes" = "Fylte pannekaker";
 "type.cuisine.seafood" = "Sjømat";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spansk mat";
 "type.cuisine.steak_house" = "Biffrestaurant";

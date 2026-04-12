@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "地中海料理";
 "type.cuisine.mexican" = "メキシコ料理";
 "type.cuisine.moroccan" = "モロッコ料理";
-"type.cuisine.noodles" = "麺類";
+"type.cuisine.noodle" = "麺類";
 "type.cuisine.oriental" = "東洋料理";
 "type.cuisine.pancake" = "ホットケーキ";
 "type.cuisine.pasta" = "パスタ";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "ソーセージ";
 "type.cuisine.savory_pancakes" = "おいしいホットケーキ";
 "type.cuisine.seafood" = "シーフード";
+"type.cuisine.shawarma" = "シャワルマ";
 "type.cuisine.soba" = "そば";
 "type.cuisine.spanish" = "スペイン料理";
 "type.cuisine.steak_house" = "ステーキハウス";

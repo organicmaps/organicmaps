@@ -273,7 +273,7 @@
     <string name="type.cuisine.mediterranean">อาหารเมดิเตอร์เรเนียน</string>
     <string name="type.cuisine.mexican">อาหารเม็กซิกัน</string>
     <string name="type.cuisine.moroccan">อาหารโมร็อกโก</string>
-    <string name="type.cuisine.noodles">บะหมี่</string>
+    <string name="type.cuisine.noodle">บะหมี่</string>
     <string name="type.cuisine.oriental">อาหารโอเรียนทอล</string>
     <string name="type.cuisine.pancake">แพนเค้ก</string>
     <string name="type.cuisine.pasta">พาสต้า</string>
@@ -289,6 +289,7 @@
     <string name="type.cuisine.sausage">ไส้กรอก</string>
     <string name="type.cuisine.savory_pancakes">แพนเค้กแบบเค็ม</string>
     <string name="type.cuisine.seafood">อาหารทะเล</string>
+    <string name="type.cuisine.shawarma">ชาวัรมา</string>
     <string name="type.cuisine.soba">โซบะ</string>
     <string name="type.cuisine.spanish">อาหารสเปน</string>
     <string name="type.cuisine.steak_house">ร้านสเต๊ก</string>

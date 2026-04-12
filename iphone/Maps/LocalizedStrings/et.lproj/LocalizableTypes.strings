@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Vahemere";
 "type.cuisine.mexican" = "Mehhiko";
 "type.cuisine.moroccan" = "Maroko";
-"type.cuisine.noodles" = "Nuudliroad";
+"type.cuisine.noodle" = "Nuudliroad";
 "type.cuisine.oriental" = "Kaug-Ida";
 "type.cuisine.pancake" = "Pannkoogid";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Vorstid";
 "type.cuisine.savory_pancakes" = "Soolased pannkoogid";
 "type.cuisine.seafood" = "Mereannid";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Jaapani soba-nuudlid";
 "type.cuisine.spanish" = "Hispaania";
 "type.cuisine.steak_house" = "Liharestoran";

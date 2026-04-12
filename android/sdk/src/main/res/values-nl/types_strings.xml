@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Mediterraans</string>
     <string name="type.cuisine.mexican">Mexicaans</string>
     <string name="type.cuisine.moroccan">Marokkaans</string>
-    <string name="type.cuisine.noodles">Noedels</string>
+    <string name="type.cuisine.noodle">Noedels</string>
     <string name="type.cuisine.oriental">Oosters</string>
     <string name="type.cuisine.pancake">Pannenkoek</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Worst</string>
     <string name="type.cuisine.savory_pancakes">Hartige pannenkoeken</string>
     <string name="type.cuisine.seafood">Vis en zeevruchten</string>
+    <string name="type.cuisine.shawarma">Shoarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Spaans</string>
     <string name="type.cuisine.steak_house">Steakhouse</string>

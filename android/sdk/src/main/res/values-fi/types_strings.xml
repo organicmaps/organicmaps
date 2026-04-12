@@ -313,7 +313,7 @@
     <string name="type.cuisine.mediterranean">Välimeren keittiö</string>
     <string name="type.cuisine.mexican">Meksikolainen keittiö</string>
     <string name="type.cuisine.moroccan">Marokkolainen keittiö</string>
-    <string name="type.cuisine.noodles">Nuudelit</string>
+    <string name="type.cuisine.noodle">Nuudelit</string>
     <string name="type.cuisine.oriental">Itämainen keittiö</string>
     <string name="type.cuisine.pancake">Lettu</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -329,6 +329,7 @@
     <string name="type.cuisine.sausage">Makkara</string>
     <string name="type.cuisine.savory_pancakes">Suolaiset letut</string>
     <string name="type.cuisine.seafood">Meren elävät</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Sobanuudeli</string>
     <string name="type.cuisine.spanish">Espanjalainen keittiö</string>
     <string name="type.cuisine.steak_house">Pihviravintola</string>

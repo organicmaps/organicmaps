@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Μεσογειακή</string>
     <string name="type.cuisine.mexican">Μεξικάνικη</string>
     <string name="type.cuisine.moroccan">Μαροκινή</string>
-    <string name="type.cuisine.noodles">Χυλοπίτες</string>
+    <string name="type.cuisine.noodle">Χυλοπίτες</string>
     <string name="type.cuisine.oriental">Άπω Ανατολής</string>
     <string name="type.cuisine.pancake">Τηγανίτα</string>
     <string name="type.cuisine.pasta">Ζυμαρικά</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Λουκάνικο</string>
     <string name="type.cuisine.savory_pancakes">Αλμυρές τηγανίτες</string>
     <string name="type.cuisine.seafood">Θαλασσινά</string>
+    <string name="type.cuisine.shawarma">Σαουαρμά</string>
     <string name="type.cuisine.soba">Σόμπα (λεπτά μακαρόνια)</string>
     <string name="type.cuisine.spanish">Ισπανική</string>
     <string name="type.cuisine.steak_house">Μπριζολάδικο</string>

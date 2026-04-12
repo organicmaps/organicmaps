@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "อาหารเมดิเตอร์เรเนียน";
 "type.cuisine.mexican" = "อาหารเม็กซิกัน";
 "type.cuisine.moroccan" = "อาหารโมร็อกโก";
-"type.cuisine.noodles" = "บะหมี่";
+"type.cuisine.noodle" = "บะหมี่";
 "type.cuisine.oriental" = "อาหารโอเรียนทอล";
 "type.cuisine.pancake" = "แพนเค้ก";
 "type.cuisine.pasta" = "พาสต้า";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "ไส้กรอก";
 "type.cuisine.savory_pancakes" = "แพนเค้กแบบเค็ม";
 "type.cuisine.seafood" = "อาหารทะเล";
+"type.cuisine.shawarma" = "ชาวัรมา";
 "type.cuisine.soba" = "โซบะ";
 "type.cuisine.spanish" = "อาหารสเปน";
 "type.cuisine.steak_house" = "ร้านสเต๊ก";

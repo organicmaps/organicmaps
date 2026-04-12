@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Mediterránea";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquí";
-"type.cuisine.noodles" = "Fideos";
+"type.cuisine.noodle" = "Fideos";
 "type.cuisine.oriental" = "Oriental";
 "type.cuisine.pancake" = "Tortitas";
 "type.cuisine.pasta" = "Pastas";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Salchichas";
 "type.cuisine.savory_pancakes" = "Tortitas salgadas";
 "type.cuisine.seafood" = "Mariscos";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Española";
 "type.cuisine.steak_house" = "Asador";

@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Viduržemio jūros virtuvė";
 "type.cuisine.mexican" = "Meksikiečių virtuvė";
 "type.cuisine.moroccan" = "Maroko virtuvė";
-"type.cuisine.noodles" = "Makaronai";
+"type.cuisine.noodle" = "Makaronai";
 "type.cuisine.oriental" = "Rytų Azijos virtuvė";
 "type.cuisine.pancake" = "Blynai";
 "type.cuisine.pasta" = "Makaronai";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Dešrelės";
 "type.cuisine.savory_pancakes" = "Nesaldūs blynai";
 "type.cuisine.seafood" = "Jūros gėrybės";
+"type.cuisine.shawarma" = "Šavarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Ispanų virtuvė";
 "type.cuisine.steak_house" = "Kepsnių restoranas";

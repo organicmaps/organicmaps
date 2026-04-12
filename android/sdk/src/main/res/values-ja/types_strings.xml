@@ -294,7 +294,7 @@
     <string name="type.cuisine.mediterranean">地中海料理</string>
     <string name="type.cuisine.mexican">メキシコ料理</string>
     <string name="type.cuisine.moroccan">モロッコ料理</string>
-    <string name="type.cuisine.noodles">麺類</string>
+    <string name="type.cuisine.noodle">麺類</string>
     <string name="type.cuisine.oriental">東洋料理</string>
     <string name="type.cuisine.pancake">ホットケーキ</string>
     <string name="type.cuisine.pasta">パスタ</string>
@@ -310,6 +310,7 @@
     <string name="type.cuisine.sausage">ソーセージ</string>
     <string name="type.cuisine.savory_pancakes">おいしいホットケーキ</string>
     <string name="type.cuisine.seafood">シーフード</string>
+    <string name="type.cuisine.shawarma">シャワルマ</string>
     <string name="type.cuisine.soba">そば</string>
     <string name="type.cuisine.spanish">スペイン料理</string>
     <string name="type.cuisine.steak_house">ステーキハウス</string>

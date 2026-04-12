@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Ẩm thực địa trung hải";
 "type.cuisine.mexican" = "Ẩm thực mexico";
 "type.cuisine.moroccan" = "Ẩm thực ma-rốc";
-"type.cuisine.noodles" = "Mì";
+"type.cuisine.noodle" = "Mì";
 "type.cuisine.oriental" = "Ẩm thực phương đông";
 "type.cuisine.pancake" = "Bánh kếp";
 "type.cuisine.pasta" = "Mỳ ống";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Xúc xích";
 "type.cuisine.savory_pancakes" = "Bánh kếp rau thơm";
 "type.cuisine.seafood" = "Hải sản";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Mì soba";
 "type.cuisine.spanish" = "Ẩm thực tây ban nha";
 "type.cuisine.steak_house" = "Steak house";

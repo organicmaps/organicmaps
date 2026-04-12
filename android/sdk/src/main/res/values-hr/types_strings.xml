@@ -75,7 +75,7 @@
     <!-- SECTION: Types: Recycling -->
     <string name="type.barrier.block">Blok</string>
     <string name="type.craft.photographer">Fotograf</string>
-    <string name="type.cuisine.noodles">Rezanci</string>
+    <string name="type.cuisine.noodle">Rezanci</string>
     <string name="type.cuisine.uzbek">Uzbečka</string>
     <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
 

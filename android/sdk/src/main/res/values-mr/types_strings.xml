@@ -248,12 +248,13 @@
     <string name="type.cuisine.italian_pizza">इटालियन, पिझ्झा</string>
     <string name="type.cuisine.japanese">जपानी</string>
     <string name="type.cuisine.local">स्थानिक</string>
-    <string name="type.cuisine.noodles">नूडल्स</string>
+    <string name="type.cuisine.noodle">नूडल्स</string>
     <string name="type.cuisine.pasta">पास्ता</string>
     <string name="type.cuisine.pizza">पिझ्झा</string>
     <string name="type.cuisine.regional">प्रादेशिक</string>
     <string name="type.cuisine.sandwich">सँडविच</string>
     <string name="type.cuisine.seafood">मासळी जेवण</string>
+    <string name="type.cuisine.shawarma">शोरमा</string>
     <string name="type.cuisine.tea">चहा</string>
     <string name="type.cuisine.uzbek">उझ्बेक</string>
     <string name="type.cuisine.vegetarian">शाकाहारी</string>

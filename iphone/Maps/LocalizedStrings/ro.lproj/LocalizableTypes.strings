@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Bucătărie mediteraneeană";
 "type.cuisine.mexican" = "Bucătărie mexicană";
 "type.cuisine.moroccan" = "Bucătărie marocană";
-"type.cuisine.noodles" = "Tăiței";
+"type.cuisine.noodle" = "Tăiței";
 "type.cuisine.oriental" = "Bucătărie orientală";
 "type.cuisine.pancake" = "Clătite americane";
 "type.cuisine.pasta" = "Paste";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Cârnați";
 "type.cuisine.savory_pancakes" = "Clătite sărate";
 "type.cuisine.seafood" = "Fructe de mare";
+"type.cuisine.shawarma" = "Șaorma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Bucătărie spaniolă";
 "type.cuisine.steak_house" = "Steakhouse";

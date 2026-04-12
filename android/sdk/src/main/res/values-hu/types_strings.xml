@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Mediterrán</string>
     <string name="type.cuisine.mexican">Mexikói</string>
     <string name="type.cuisine.moroccan">Marokkói</string>
-    <string name="type.cuisine.noodles">Tészta (noodle)</string>
+    <string name="type.cuisine.noodle">Tészta (noodle)</string>
     <string name="type.cuisine.oriental">Kelet-ázsiai</string>
     <string name="type.cuisine.pancake">Palacsinta</string>
     <string name="type.cuisine.pasta">Olasz tészta (pasta)</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Kolbász</string>
     <string name="type.cuisine.savory_pancakes">Sós palacsinta</string>
     <string name="type.cuisine.seafood">Tenger gyümölcsei</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Szo-ba</string>
     <string name="type.cuisine.spanish">Spanyol</string>
     <string name="type.cuisine.steak_house">Steak ház</string>

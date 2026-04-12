@@ -325,7 +325,7 @@
     <string name="type.cuisine.mediterranean">Mediterrània</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquina</string>
-    <string name="type.cuisine.noodles">Fideus xinesos</string>
+    <string name="type.cuisine.noodle">Fideus xinesos</string>
     <string name="type.cuisine.oriental">Cuina de l’Àsia oriental</string>
     <string name="type.cuisine.pancake">Pancake</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -341,6 +341,7 @@
     <string name="type.cuisine.sausage">Salsitxa</string>
     <string name="type.cuisine.savory_pancakes">Creps salades</string>
     <string name="type.cuisine.seafood">Marisc</string>
+    <string name="type.cuisine.shawarma">Xauarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Espanyola</string>
     <string name="type.cuisine.steak_house">Restaurant de carn</string>

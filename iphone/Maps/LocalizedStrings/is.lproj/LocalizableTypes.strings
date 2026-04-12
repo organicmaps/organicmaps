@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Miðjarðarhafs";
 "type.cuisine.mexican" = "Mexíkanskt";
 "type.cuisine.moroccan" = "Marokkanskt";
-"type.cuisine.noodles" = "Núðlur";
+"type.cuisine.noodle" = "Núðlur";
 "type.cuisine.oriental" = "Austur-asískt";
 "type.cuisine.pancake" = "Pönnukökur";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Kryddpylsur";
 "type.cuisine.savory_pancakes" = "Girnilegar pönnukökur";
 "type.cuisine.seafood" = "Sjávarréttir";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba-núðlur";
 "type.cuisine.spanish" = "Spænskt";
 "type.cuisine.steak_house" = "Steikhús";

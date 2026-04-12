@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Sukaldaritza mediterraneoa";
 "type.cuisine.mexican" = "Mexikoko sukaldea";
 "type.cuisine.moroccan" = "Marokoko sukaldaritza";
-"type.cuisine.noodles" = "Fideoak";
+"type.cuisine.noodle" = "Fideoak";
 "type.cuisine.oriental" = "Ekialdeko sukaldaritza";
 "type.cuisine.pancake" = "Krepeak";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Saltxitxak";
 "type.cuisine.savory_pancakes" = "Krepe gaziak";
 "type.cuisine.seafood" = "Itsaskiak";
+"type.cuisine.shawarma" = "Xawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Espainiar sukaldaritza";
 "type.cuisine.steak_house" = "Txu";

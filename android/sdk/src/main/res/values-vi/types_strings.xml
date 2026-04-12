@@ -271,7 +271,7 @@
     <string name="type.cuisine.mediterranean">Ẩm thực địa trung hải</string>
     <string name="type.cuisine.mexican">Ẩm thực mexico</string>
     <string name="type.cuisine.moroccan">Ẩm thực ma-rốc</string>
-    <string name="type.cuisine.noodles">Mì</string>
+    <string name="type.cuisine.noodle">Mì</string>
     <string name="type.cuisine.oriental">Ẩm thực phương đông</string>
     <string name="type.cuisine.pancake">Bánh kếp</string>
     <string name="type.cuisine.pasta">Mỳ ống</string>
@@ -287,6 +287,7 @@
     <string name="type.cuisine.sausage">Xúc xích</string>
     <string name="type.cuisine.savory_pancakes">Bánh kếp rau thơm</string>
     <string name="type.cuisine.seafood">Hải sản</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Mì soba</string>
     <string name="type.cuisine.spanish">Ẩm thực tây ban nha</string>
     <string name="type.cuisine.steak_house">Steak house</string>

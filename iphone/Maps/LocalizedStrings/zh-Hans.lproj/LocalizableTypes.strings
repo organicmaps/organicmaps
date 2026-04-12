@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "地中海菜";
 "type.cuisine.mexican" = "墨西哥菜";
 "type.cuisine.moroccan" = "摩洛哥菜";
-"type.cuisine.noodles" = "面";
+"type.cuisine.noodle" = "面";
 "type.cuisine.oriental" = "东方菜";
 "type.cuisine.pancake" = "煎饼";
 "type.cuisine.pasta" = "意大利面";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "火腿";
 "type.cuisine.savory_pancakes" = "咸味煎饼";
 "type.cuisine.seafood" = "海鲜";
+"type.cuisine.shawarma" = "沙威玛";
 "type.cuisine.soba" = "荞麦面";
 "type.cuisine.spanish" = "西班牙菜";
 "type.cuisine.steak_house" = "牛排馆";

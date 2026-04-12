@@ -266,7 +266,7 @@
     <string name="type.cuisine.mediterranean">Masakan mediterania</string>
     <string name="type.cuisine.mexican">Masakan meksiko</string>
     <string name="type.cuisine.moroccan">Masakan maroko</string>
-    <string name="type.cuisine.noodles">Bakmi</string>
+    <string name="type.cuisine.noodle">Bakmi</string>
     <string name="type.cuisine.oriental">Masakan oriental</string>
     <string name="type.cuisine.pancake">Panekuk</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -282,6 +282,7 @@
     <string name="type.cuisine.sausage">Sosis</string>
     <string name="type.cuisine.savory_pancakes">Panekuk gurih</string>
     <string name="type.cuisine.seafood">Hidangan laut</string>
+    <string name="type.cuisine.shawarma">Syawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Masakan spanyol</string>
     <string name="type.cuisine.steak_house">Restoran_steik</string>
