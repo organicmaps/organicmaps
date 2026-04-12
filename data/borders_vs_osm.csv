@@ -14,7 +14,7 @@ US_Tennessee_East	4	Tennessee
 US_Tennessee_East	4	TN
 US_Tennessee_West	4	Tennessee
 US_Tennessee_West	4	TN
-Malaysia	4	Terengganu / ترڠڬانو
+Malaysia_West	4	Terengganu / ترڠڬانو
 Vietnam	4	Tỉnh Hà Nam
 Azerbaijan	4	Abşeron rayonu
 Indonesia_West	4	Aceh
@@ -2070,7 +2070,7 @@ Jersey	4	Janvrin's Tomb
 Papua New Guinea	4	Jiwaka
 Uzbekistan	4	Jizzax Viloyati
 Singapore	4	Johor
-Malaysia	4	Johor
+Malaysia_West	4	Johor
 South Sudan	4	Jonglei
 Sudan_West	4	Jonub Darfur
 Mauritius	4	Île Gombrani
@@ -2180,8 +2180,8 @@ Turkey_Central Anatolia Region_Kayseri	4	Kayseri
 Uganda	4	Kayunga
 Nigeria_South	4	Kebbi
 Nigeria_North	4	Kebbi
-Malaysia	4	Kedah / قدح
-Malaysia	4	Kelantan / کلنتن دار النعيم
+Malaysia_West	4	Kedah / قدح
+Malaysia_West	4	Kelantan / کلنتن دار النعيم
 Malta	4	Kemmuna
 US_Kentucky_Louisville	4	Kentucky
 US_Kentucky_Louisville	4	KY
@@ -2259,7 +2259,7 @@ Italy_Lazio	4	Lazio
 Morocco_Western Sahara	4	Laâyoune-Sakia El Hamra ⵍⵄⵢⵓⵏ-ⵙⴰⵇⵢⴰ ⵍⵃⴰⵎⵔⴰ العيون-الساقية الحمراء
 Mauritius	4	Île Plate
 Congo-Brazzaville	4	Kouilou
-Malaysia	4	Kuala Lumpur
+Malaysia_West	4	Kuala Lumpur
 Panama	4	Kuna de Madugandí
 Panama	4	Kuna de Wargandí
 Afghanistan	4	Kunar
@@ -2305,7 +2305,7 @@ Cote dIvoire	4	Lagunes
 Kenya	4	Laikipia
 Philippines_Luzon_North	4	La Union
 Dominican Republic	4	La Vega
-Malaysia	4	Labuan
+Malaysia_East	4	Labuan
 East Timor	4	Liquiçá
 Uganda	4	Lira
 Portugal_South	4	Lisboa
@@ -2354,7 +2354,7 @@ Angola	4	Lunda Sul
 Azerbaijan	4	Lənkəran rayonu
 Azerbaijan	4	Lənkəran İnzibati Ərazisi
 Algeria_Central	4	M'Sila - المسيلة
-Malaysia	4	Putrajaya
+Malaysia_West	4	Putrajaya
 Zambia	4	Lusaka Province
 Switzerland_Central	4	Luzern
 Finland_Western Finland_Jyvaskyla	4	Länsi-Suomi
@@ -2403,7 +2403,6 @@ Angola	4	Malanje
 Turkey_Eastern Anatolia Region	4	Malatya
 Malawi	2	Malawi
 Singapore	2	Malaysia
-Malaysia	2	Malaysia
 Uruguay	4	Maldonado
 Mali	2	Mali
 Malta	2	Malta
@@ -2457,7 +2456,7 @@ US_Maryland_and_DC	4	Maryland
 US_Maryland_and_DC	4	MD
 Liberia	4	Maryland County
 Azerbaijan	4	Neftçala rayonu
-Malaysia	4	Negeri Sembilan
+Malaysia_West	4	Negeri Sembilan
 Dominican Republic	4	María Trinidad Sánchez
 Azerbaijan	4	Masallı rayonu
 Nicaragua	4	Masaya
@@ -2520,7 +2519,7 @@ Maldives	4	Medhu-Uthuru Province
 India_Meghalaya	4	Meghalaya
 Romania_South_West	4	Mehedinți
 Canada_Newfoundland_South	2	Île Verte
-Malaysia	4	Melaka
+Malaysia_West	4	Melaka
 Spain_Melilla	4	Melilla
 Argentina_Cuyo	4	Mendoza
 Turkey_Mediterranean Region	4	Mersin İli
@@ -3006,9 +3005,9 @@ US_Pennsylvania_Pittsburgh	4	Pennsylvania
 US_Pennsylvania_Pittsburgh	4	PA
 US_Pennsylvania_Scranton	4	Pennsylvania
 US_Pennsylvania_Scranton	4	PA
-Malaysia	4	Perak / ڨيرق
+Malaysia_West	4	Perak / ڨيرق
 Dominican Republic	4	Peravia
-Malaysia	4	Perlis
+Malaysia_West	4	Perlis
 Brazil_Northeast Region_West	4	Pernambuco
 Brazil_Northeast Region_East	4	Pernambuco
 Brazil_Rio Grande do Norte	4	Pernambuco
@@ -3024,7 +3023,7 @@ Nigeria_South	4	Oyo
 Azerbaijan	4	Oğuz rayonu
 Uzbekistan	2	Oʻzbekiston
 Uganda	4	Pader
-Malaysia	4	Pahang
+Malaysia_West	4	Pahang
 Cambodia	4	Pailin
 Afghanistan	4	Paktia
 Afghanistan	4	Paktika
@@ -3107,14 +3106,14 @@ Poland_Greater Poland Voivodeship	2	Polska
 Poland_Lesser Poland Voivodeship	2	Polska
 Poland_Lower Silesian Voivodeship	2	Polska
 Poland_Silesian Voivodeship	2	Polska
-Malaysia	4	Pulau Bidong
-Malaysia	4	Pulau Burung
+Malaysia_West	4	Pulau Bidong
+Malaysia_West	4	Pulau Burung
 Philippines_Mindanao	4	Saguing
 French Polynesia	2	Polynésie française, Îles du Vent (eaux territoriales)
 Congo-Brazzaville	4	Pool
-Malaysia	4	Pulau Rusukan Besar
-Malaysia	4	Pulau Rusukan Kecil
-Malaysia	4	Pulau Susu Dara Kecil
+Malaysia_East	4	Pulau Rusukan Besar
+Malaysia_East	4	Pulau Rusukan Kecil
+Malaysia_West	4	Pulau Susu Dara Kecil
 Burkina Faso	4	Sahel
 Dominica	4	Saint Andrew Parish
 Dominica	4	Saint David Parish
@@ -3132,8 +3131,8 @@ Romania_South	4	Prahova
 Cambodia	4	Preah Sihanouk
 Cambodia	4	Preah Vihear
 Paraguay	4	Presidente Hayes
-Malaysia	4	Pulau Tenggol
-Malaysia	4	Pulau Tikus
+Malaysia_West	4	Pulau Tenggol
+Malaysia_West	4	Pulau Tikus
 India_Punjab	4	Punjab
 Peru_South	4	Puno
 Costa Rica	4	Puntarenas
@@ -3162,19 +3161,19 @@ US_Puerto Rico	4	PR
 United States Virgin Islands	4	Puerto Rico
 United States Virgin Islands	4	PR
 Italy_Apulia	4	Puglia
-Malaysia	4	Pulau Aman
-Malaysia	4	Pulau Betong
-Malaysia	4	Pulau Daat
-Malaysia	4	Pulau Gedung
-Malaysia	4	Pulau Gemia
-Malaysia	4	Pulau Jerejak
-Malaysia	4	Pulau Kapas
-Malaysia	4	Pulau Kendi
-Malaysia	4	Pulau Kuraman
-Malaysia	4	Pulau Papan
-Malaysia	4	Pulau Pinang
-Malaysia	4	Pulau Rhu
-Malaysia	4	Pulau Rimau
+Malaysia_West	4	Pulau Aman
+Malaysia_West	4	Pulau Betong
+Malaysia_West	4	Pulau Daat
+Malaysia_West	4	Pulau Gedung
+Malaysia_West	4	Pulau Gemia
+Malaysia_West	4	Pulau Jerejak
+Malaysia_West	4	Pulau Kapas
+Malaysia_West	4	Pulau Kendi
+Malaysia_East	4	Pulau Kuraman
+Malaysia_West	4	Pulau Papan
+Malaysia_West	4	Pulau Pinang
+Malaysia_West	4	Pulau Rhu
+Malaysia_West	4	Pulau Rimau
 Uzbekistan	4	Qashqadaryo Viloyati
 Greece_Decentralized Administration of West Greece	2	Territorial waters of Greece - Strofades
 Azerbaijan	4	Qax rayonu
@@ -3313,7 +3312,7 @@ Burundi	4	Ruyigi
 Yemen	4	Sa'dah
 Germany_Saarland	4	Saarland
 Azerbaijan	4	Saatlı rayonu
-Malaysia	4	Sabah
+Malaysia_East	4	Sabah
 Sri Lanka	4	Sabaragamuwa Province
 Dominica	4	Saint Paul Parish
 Azerbaijan	4	Sabirabad rayonu
@@ -3408,7 +3407,7 @@ UK_Scotland_North	4	Scotland
 Isle of Man	4	Scotland
 UK_Northern Ireland	4	Scotland
 UK_Scotland_South	4	Scotland
-Malaysia	4	Selangor
+Malaysia_West	4	Selangor
 Guernsey	4	Selle Rocque
 Uganda	4	Sembabule
 Eritrea	4	Semienawi Kayih Bahri
@@ -3435,7 +3434,7 @@ Afghanistan	4	Sar-e Pol
 Somalia	4	Shabeellaha Dhexe
 Suriname	4	Saramacca
 Philippines_Mindanao	4	Sarangani
-Malaysia	4	Sarawak
+Malaysia_East	4	Sarawak
 Italy_Sardinia	4	Sardigna/Sardegna
 Guernsey	4	Sark
 Canada_Saskatchewan_North	4	Saskatchewan
@@ -3489,7 +3488,7 @@ Mexico_Chihuahua	4	Sinaloa
 Mexico_Sonora	4	Sinaloa
 Singapore	2	Singapura
 Indonesia_West	2	Singapura
-Malaysia	2	Singapura
+Malaysia_West	2	Singapura
 Tanzania_Central	4	Singida
 Liberia	4	Sinoe County
 Turkey_Black Sea Region	4	Sinop

@@ -667,6 +667,8 @@ Macedonia;Q221;mk;mk
 Madagascar;Q1019;mg
 Malawi;Q1020;mw;en,ny
 Malaysia;Q833;my;en
+ Malaysia_East;Q833-East
+ Malaysia_West;Q833-West
 Maldives;Q826;mv;dv
 Mali;Q912;ml;fr
 Malta;Q233;mt;en,mt
