@@ -132,6 +132,7 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
   if (!IsPendingOnDelete())
     return false;
 
+  bool bucketsRemoved = false;
   for (size_t i = 0; i < m_renderBuckets.size();)
   {
     bool const visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
@@ -140,12 +141,25 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
       m_renderBuckets[i]->RemoveOverlayHandles(tree);
       std::swap(m_renderBuckets[i], m_renderBuckets.back());
       m_renderBuckets.pop_back();
+      bucketsRemoved = true;
     }
     else
     {
       ++i;
     }
   }
+
+  // OverlayTree stores non-owning ref_ptrs to handles owned by render buckets.
+  // RemoveOverlayHandles only invalidates the tree when it finds handles in the
+  // cache. Displaced handles (not in cache) bypass the invalidation, yet their
+  // group may still have other handles that ARE cached. Freeing displaced handles
+  // without invalidation leaves the tree's IsNeedUpdate() returning false, so
+  // a subsequent ProcessSelection trusts a stale cache -> use-after-free crash.
+  // Unconditionally invalidate when any bucket is removed to guarantee the tree
+  // is rebuilt before the next Select call.
+  if (bucketsRemoved)
+    tree->InvalidateOnNextFrame();
+
   m_canBeDeleted = m_renderBuckets.empty();
   return m_canBeDeleted;
 }
