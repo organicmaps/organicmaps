@@ -161,6 +161,14 @@ class TabAdapter extends FragmentPagerAdapter
     mTabSelectedListener = listener;
   }
 
+  public Fragment getFragmentForTab(Tab tab)
+  {
+    final int idx = mClasses.indexOf(tab.getFragmentClass());
+    if (idx < 0)
+      return null;
+    return mFragments.get(idx);
+  }
+
   @Override
   public Fragment getItem(int position)
   {
