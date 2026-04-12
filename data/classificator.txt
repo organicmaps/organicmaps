@@ -370,7 +370,7 @@ world  +
         mediterranean  -
         mexican  -
         moroccan  -
-        noodles  -
+        noodle  -
         oriental  -
         pancake  -
         pasta  -
@@ -386,6 +386,7 @@ world  +
         sausage  -
         savory_pancakes  -
         seafood  -
+        shawarma  -
         soba  -
         spanish  -
         steak_house  -
