@@ -5,11 +5,12 @@
   style="@style/MwmWidget.ToolbarStyle.NoElevation"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:background="@android:color/transparent"
   android:theme="@style/MwmWidget.ToolbarTheme">
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <include layout="@layout/toolbar_search_controls" />
+    <include layout="@layout/toolbar_search_controls_place_page" />
   </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

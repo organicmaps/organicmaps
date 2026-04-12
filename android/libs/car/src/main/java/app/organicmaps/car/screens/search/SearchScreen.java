@@ -148,7 +148,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
       builder.setOnClickListener(() -> {
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();
-        SearchEngine.INSTANCE.showResult(resultIndex);
+        SearchEngine.INSTANCE.selectResult(resultIndex);
       });
     }
     else
