@@ -2294,6 +2294,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"cuisine", "sausage"},
       {"cuisine", "savory_pancakes"},
       {"cuisine", "seafood"},
+      {"cuisine", "shawarma"},
       {"cuisine", "soba"},
       {"cuisine", "spanish"},
       {"cuisine", "steak_house"},
