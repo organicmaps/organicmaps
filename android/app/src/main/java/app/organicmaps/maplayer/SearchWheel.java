@@ -158,7 +158,10 @@ public class SearchWheel implements View.OnClickListener
       return;
     }
 
-    refreshSearchButtonImage();
+    if (RoutingController.get().isNavigating())
+      refreshSearchButtonImage();
+    else
+      resetSearchButtonImage();
   }
 
   private void toggleSearchLayout()
