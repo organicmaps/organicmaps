@@ -10,8 +10,6 @@
 
 #include "drape/texture_manager.hpp"
 
-#include "geometry/point3d.hpp"
-
 #include <array>
 
 namespace df
@@ -94,7 +92,7 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
 
   if (m_selectionGeometry.empty())
   {
-    m2::PointD const adjustedPos = df::AdjustPointForViewport(m_position, screen);
+    m2::PointD const adjustedPos = AdjustPointForViewport(m_position, screen);
 
     gpu::ShapesProgramParams params;
     frameValues.SetTo(params);
@@ -134,7 +132,7 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     geomParams.m_lineParams = glsl::vec2(currentHalfWidth, screenHalfWidth);
     for (auto const & geometry : m_selectionGeometry)
     {
-      math::Matrix<float, 4, 4> mv = screen.GetModelView(geometry->GetPivot(), kShapeCoordScalar);
+      auto const mv = AdjustedScreen(screen, geometry->GetPivot()).GetShapeModelView();
       geomParams.m_modelView = glsl::make_mat4(mv.m_data);
       geometry->Render(context, mng, geomParams);
     }

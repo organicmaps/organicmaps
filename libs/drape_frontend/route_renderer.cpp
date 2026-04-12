@@ -445,10 +445,13 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
   auto const & style = subrouteInfo.m_subroute->m_style[styleIndex];
 
+  // Shift route into the wrapped world copy nearest to the current viewport.
+  AdjustedScreen adjScreen(screen, subrouteData->m_pivot);
+
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteData->m_pivot, kShapeCoordScalar);
+  auto const mv = adjScreen.GetShapeModelView();
   params.m_modelView = glsl::make_mat4(mv.m_data);
   params.m_color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   params.m_routeParams = glsl::vec4(currentHalfWidth, screenHalfWidth, dist, trafficShown ? 1.0f : 0.0f);
@@ -478,7 +481,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   mng->GetParamsSetter()->Apply(context, prg, params);
 
   // Render buckets.
-  auto const & clipRect = screen.ClipRect();
+  auto const clipRect = adjScreen.GetClipRect();
   CHECK_EQUAL(subrouteData->m_renderProperty.m_buckets.size(), subrouteData->m_renderProperty.m_boundingBoxes.size(),
               ());
   for (size_t i = 0; i < subrouteData->m_renderProperty.m_buckets.size(); ++i)
@@ -499,10 +502,13 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   dp::RenderState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
   float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
+  // Shift arrows into the wrapped world copy nearest to the current viewport.
+  AdjustedScreen adjScreen(screen, subrouteInfo.m_arrowsData->m_pivot);
+
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot, kShapeCoordScalar);
+  auto const mv = adjScreen.GetShapeModelView();
   params.m_modelView = glsl::make_mat4(mv.m_data);
   auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   params.m_arrowHalfWidth = arrowHalfWidth;
@@ -516,7 +522,7 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(context, prg, params);
 
-  auto const & clipRect = screen.ClipRect();
+  auto const clipRect = adjScreen.GetClipRect();
   CHECK_EQUAL(subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(),
               subrouteInfo.m_arrowsData->m_renderProperty.m_boundingBoxes.size(), ());
   for (size_t i = 0; i < subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(); ++i)
@@ -544,7 +550,7 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot, kShapeCoordScalar);
+  auto const mv = AdjustedScreen(screen, subrouteInfo.m_markersData->m_pivot).GetShapeModelView();
   params.m_modelView = glsl::make_mat4(mv.m_data);
   params.m_routeParams = glsl::vec4(currentHalfWidth, dist, 0.0f, 0.0f);
   params.m_angleCosSin =

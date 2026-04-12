@@ -30,10 +30,28 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
 /// Wraps the screen origin X into [-540, 540] to prevent unbounded coordinate growth
 /// when scrolling continuously past the antimeridian. The +-540 threshold (1.5 world widths)
 /// gives a buffer before normalization kicks in, minimizing tile cache churn.
+/// @todo Find places where we can safely call this Normalization?
 void NormalizeScreenOriginX(ScreenBase & screen);
 
 /// Adjusts a point's X coordinate to be within 180 degrees of the screen origin,
 /// for correct rendering when the viewport extends past the antimeridian.
 m2::PointD AdjustPointForViewport(m2::PointD const & pt, ScreenBase const & screen);
+
+class AdjustedScreen
+{
+  ScreenBase const & m_screen;
+  m2::PointD m_wrapPivot;
+  double m_offsetWrapX;
+
+public:
+  AdjustedScreen(ScreenBase const & screen, m2::PointD const & pivot);
+  ScreenBase::Matrix3dT GetShapeModelView() const;
+  m2::RectD GetClipRect() const
+  {
+    auto r = m_screen.ClipRect();
+    r.Offset(m_offsetWrapX, 0);
+    return r;
+  }
+};
 
 }  // namespace df
