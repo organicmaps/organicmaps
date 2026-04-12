@@ -4,17 +4,21 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
+import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.util.UiUtils;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
 {
   @NonNull
   private final RoutingPlanListener mRoutingPlanListener;
+  private final MapButtonsViewModel mMapButtonsViewModel;
 
   @Nullable
   private Animator mAnimator;
@@ -27,6 +31,11 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     super(activity.findViewById(R.id.routing_plan_frame), activity, startDrivingOptionsForResult, routingPlanListener,
           listener);
     mRoutingPlanListener = routingPlanListener;
+    mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
+    getFrame().addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+      if (getFrame().getVisibility() == View.VISIBLE)
+        mMapButtonsViewModel.setTopHeaderHeight(b - t > 0 ? b - t : mFrameHeight);
+    });
   }
 
   public void show(final boolean show)
@@ -41,7 +50,10 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
     mAnimator = animateFrame(show, () -> {
       if (!show)
+      {
+        mMapButtonsViewModel.setTopHeaderHeight(0);
         UiUtils.hide(getFrame());
+      }
     });
   }
 

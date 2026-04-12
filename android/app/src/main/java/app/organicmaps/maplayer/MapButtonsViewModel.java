@@ -1,6 +1,7 @@
 package app.organicmaps.maplayer;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import app.organicmaps.sdk.location.TrackRecorder;
@@ -16,6 +17,7 @@ public class MapButtonsViewModel extends ViewModel
   private final MutableLiveData<SearchWheel.SearchOption> mSearchOption = new MutableLiveData<>();
   private final MutableLiveData<Boolean> mTrackRecorderState =
       new MutableLiveData<>(TrackRecorder.nativeIsTrackRecordingEnabled());
+  private final MutableLiveData<Integer> mTopHeaderHeight = new MutableLiveData<>(0);
 
   public MutableLiveData<Boolean> getButtonsHidden()
   {
@@ -85,5 +87,15 @@ public class MapButtonsViewModel extends ViewModel
   public MutableLiveData<Boolean> getTrackRecorderState()
   {
     return mTrackRecorderState;
+  }
+
+  public LiveData<Integer> getTopHeaderHeight()
+  {
+    return mTopHeaderHeight;
+  }
+
+  public void setTopHeaderHeight(int height)
+  {
+    mTopHeaderHeight.setValue(height);
   }
 }

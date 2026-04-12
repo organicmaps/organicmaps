@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
+import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.util.InputUtils;
@@ -32,13 +32,9 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SearchFragmentController extends Fragment implements SearchFragment.SearchFragmentListener
 {
-  private static final String KEY_MAP_TOUCH_LISTENER_TAG = "app.organicmaps.MAP_TOUCH_LISTENER_TAG_v1";
-
   BottomSheetBehavior<FrameLayout> mFrameLayoutBottomSheetBehavior;
   private final Observer<MapObject> mPlacePageMapObjectObserver = new Observer<>() {
     @Override
@@ -100,15 +96,23 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     }
   };
   PlacePageViewModel mPlacePageViewModel;
+  private MapButtonsViewModel mMapButtonsViewModel;
   private ViewGroup mCoordinator;
   private WindowInsetsCompat mCurrentWindowInsets;
+  private int mTopHeaderHeight = 0;
+  private View mMapView;
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState)
         {
-          if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
+          if (PlacePageUtils.isSettlingState(newState))
             return;
+          if (PlacePageUtils.isDraggingState(newState))
+          {
+            InputUtils.hideKeyboard(bottomSheet);
+            return;
+          }
 
           if (!RoutingController.get().isNavigating() && !RoutingController.get().isPlanning())
             PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
@@ -140,11 +144,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           mViewModel.setSearchPageDistanceToTop(mDistanceToTop);
         }
       };
-  @Nullable
-  private View mRoutingPlanFrame;
-  private View mNavigationFrame;
-  private final View.OnLayoutChangeListener mExpandedOffsetListener =
-      (v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset();
   // These variables are used to determine if the touch event is a tap or a drag
   private float mInitialX = 0f;
   private float mInitialY = 0f;
@@ -197,10 +196,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     super.onViewCreated(view, savedInstanceState);
     mViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
     mPlacePageViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
+    mMapButtonsViewModel = new ViewModelProvider(requireActivity()).get(MapButtonsViewModel.class);
 
     mCoordinator = requireActivity().findViewById(R.id.coordinator);
-    mRoutingPlanFrame = requireActivity().findViewById(R.id.routing_plan_frame);
-    mNavigationFrame = requireActivity().findViewById(R.id.nav_top_frame);
     mViewportMinHeight = requireActivity().getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
 
     mSearchPageContainer = view.findViewById(R.id.search_page_container);
@@ -238,10 +236,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
     mSearchPageContainer.post(this::updateExpandedOffset);
-    if (mRoutingPlanFrame != null)
-      mRoutingPlanFrame.addOnLayoutChangeListener(mExpandedOffsetListener);
-    if (mNavigationFrame != null)
-      mNavigationFrame.addOnLayoutChangeListener(mExpandedOffsetListener);
 
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
@@ -255,25 +249,11 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     });
 
     // Set touch listener on map view to handle drag events
-    SurfaceView mapView = requireActivity().findViewById(R.id.map);
-    if (mapView != null)
+    mMapView = requireActivity().findViewById(R.id.map);
+    if (mMapView != null)
     {
-      mapView.setOnTouchListener(mMapTouchListener);
-      mapView.setClickable(true);
-      Object existingTag = mapView.getTag();
-      if (existingTag instanceof Map)
-      {
-        @SuppressWarnings("unchecked")
-        Map<String, Object> tagMap = (Map<String, Object>) existingTag;
-        tagMap.put(KEY_MAP_TOUCH_LISTENER_TAG, mMapTouchListener);
-        mapView.setTag(tagMap);
-      }
-      else
-      {
-        Map<String, Object> tagMap = new HashMap<>();
-        tagMap.put(KEY_MAP_TOUCH_LISTENER_TAG, mMapTouchListener);
-        mapView.setTag(tagMap);
-      }
+      mMapView.setOnTouchListener(mMapTouchListener);
+      mMapView.setClickable(true);
     }
   }
 
@@ -282,30 +262,11 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onDestroyView()
   {
     super.onDestroyView();
-    if (mRoutingPlanFrame != null)
-      mRoutingPlanFrame.removeOnLayoutChangeListener(mExpandedOffsetListener);
-    if (mNavigationFrame != null)
-      mNavigationFrame.removeOnLayoutChangeListener(mExpandedOffsetListener);
-    SurfaceView mapView = requireActivity().findViewById(R.id.map);
-    if (mapView != null)
+    if (mMapView != null)
     {
-      Object currentTag = mapView.getTag();
-      if (currentTag instanceof Map)
-      {
-        @SuppressWarnings("unchecked")
-        Map<String, Object> tagMap = (Map<String, Object>) currentTag;
-        Object listenerObj = tagMap.get(KEY_MAP_TOUCH_LISTENER_TAG);
-        if (listenerObj == mMapTouchListener)
-        {
-          mapView.setOnTouchListener(null);
-          mapView.setClickable(false);
-          tagMap.remove(KEY_MAP_TOUCH_LISTENER_TAG);
-          if (tagMap.isEmpty())
-            mapView.setTag(null);
-          else
-            mapView.setTag(tagMap);
-        }
-      }
+      mMapView.setOnTouchListener(null);
+      mMapView.setClickable(false);
+      mMapView = null;
     }
   }
 
@@ -317,6 +278,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.addBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchPageEnabledObserver);
     mViewModel.getToolbarHeight().observe(getViewLifecycleOwner(), mToolbarHeightObserver);
+    mMapButtonsViewModel.getTopHeaderHeight().observe(getViewLifecycleOwner(), height -> {
+      mTopHeaderHeight = height != null ? height : 0;
+      updateExpandedOffset();
+    });
   }
 
   @Override
@@ -330,38 +295,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   {
     if (mFrameLayoutBottomSheetBehavior == null || mSearchPageContainer == null)
       return;
-
     int topInset =
         mCurrentWindowInsets != null ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
-    int routingHeaderHeight = 0;
-    int navigationHeaderHeight = 0;
-
-    if (mRoutingPlanFrame != null && RoutingController.get().isPlanning())
-    {
-      if (mRoutingPlanFrame.getVisibility() == View.VISIBLE)
-        routingHeaderHeight = mRoutingPlanFrame.getHeight();
-      if (routingHeaderHeight == 0)
-        routingHeaderHeight = (int) getResources().getDimension(
-            ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
-    }
-    else if (mNavigationFrame != null && mNavigationFrame.getVisibility() == View.VISIBLE)
-    {
-      navigationHeaderHeight = mNavigationFrame.findViewById(R.id.street_frame).getHeight();
-      int a = 0, b = 0;
-      if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-      {
-        if (mNavigationFrame.findViewById(R.id.nav_next_turn_container).getVisibility() == View.VISIBLE)
-          a += mNavigationFrame.findViewById(R.id.nav_next_turn_container).getHeight();
-        if (mNavigationFrame.findViewById(R.id.nav_speed_limit).getVisibility() == View.VISIBLE)
-          a += mNavigationFrame.findViewById(R.id.nav_speed_limit).getHeight();
-      }
-      if (mNavigationFrame.findViewById(R.id.lanes).getVisibility() == View.VISIBLE)
-        b += mNavigationFrame.findViewById(R.id.lanes).getHeight();
-      navigationHeaderHeight += Math.max(a, b);
-    }
-
-    int expandedOffset = Math.max(topInset + routingHeaderHeight + navigationHeaderHeight, 0);
-    mFrameLayoutBottomSheetBehavior.setExpandedOffset(expandedOffset);
+    mFrameLayoutBottomSheetBehavior.setExpandedOffset(topInset + mTopHeaderHeight);
   }
 
   /**
