@@ -279,7 +279,7 @@
     <string name="type.cuisine.mediterranean">Bucătărie mediteraneeană</string>
     <string name="type.cuisine.mexican">Bucătărie mexicană</string>
     <string name="type.cuisine.moroccan">Bucătărie marocană</string>
-    <string name="type.cuisine.noodles">Tăiței</string>
+    <string name="type.cuisine.noodle">Tăiței</string>
     <string name="type.cuisine.oriental">Bucătărie orientală</string>
     <string name="type.cuisine.pancake">Clătite americane</string>
     <string name="type.cuisine.pasta">Paste</string>
@@ -295,6 +295,7 @@
     <string name="type.cuisine.sausage">Cârnați</string>
     <string name="type.cuisine.savory_pancakes">Clătite sărate</string>
     <string name="type.cuisine.seafood">Fructe de mare</string>
+    <string name="type.cuisine.shawarma">Șaorma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Bucătărie spaniolă</string>
     <string name="type.cuisine.steak_house">Steakhouse</string>

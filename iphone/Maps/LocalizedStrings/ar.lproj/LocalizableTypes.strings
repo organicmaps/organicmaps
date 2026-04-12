@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "مطبخ البحر المتوسط";
 "type.cuisine.mexican" = "مطبخ مكسيكي";
 "type.cuisine.moroccan" = "مطبخ مغربي";
-"type.cuisine.noodles" = "نودلز";
+"type.cuisine.noodle" = "نودلز";
 "type.cuisine.oriental" = "مطبخ شرقي";
 "type.cuisine.pancake" = "بان كيك";
 "type.cuisine.pasta" = "معكرونة";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "سجق";
 "type.cuisine.savory_pancakes" = "بان كيك السافوري";
 "type.cuisine.seafood" = "مأكولات بحرية";
+"type.cuisine.shawarma" = "الشاورما";
 "type.cuisine.soba" = "سوبا";
 "type.cuisine.spanish" = "مطبخ إسباني";
 "type.cuisine.steak_house" = "شرائح اللحم";

@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">مطبخ البحر المتوسط</string>
     <string name="type.cuisine.mexican">مطبخ مكسيكي</string>
     <string name="type.cuisine.moroccan">مطبخ مغربي</string>
-    <string name="type.cuisine.noodles">نودلز</string>
+    <string name="type.cuisine.noodle">نودلز</string>
     <string name="type.cuisine.oriental">مطبخ شرقي</string>
     <string name="type.cuisine.pancake">بان كيك</string>
     <string name="type.cuisine.pasta">معكرونة</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">سجق</string>
     <string name="type.cuisine.savory_pancakes">بان كيك السافوري</string>
     <string name="type.cuisine.seafood">مأكولات بحرية</string>
+    <string name="type.cuisine.shawarma">الشاورما</string>
     <string name="type.cuisine.soba">سوبا</string>
     <string name="type.cuisine.spanish">مطبخ إسباني</string>
     <string name="type.cuisine.steak_house">شرائح اللحم</string>

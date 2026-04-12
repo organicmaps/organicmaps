@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Mediterreens";
 "type.cuisine.mexican" = "Meksikaans";
 "type.cuisine.moroccan" = "Marokkaans";
-"type.cuisine.noodles" = "Noedels";
+"type.cuisine.noodle" = "Noedels";
 "type.cuisine.oriental" = "Oosters";
 "type.cuisine.pancake" = "Pannekoek";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Wors";
 "type.cuisine.savory_pancakes" = "Pikante pannekoeke";
 "type.cuisine.seafood" = "Seekos";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spaans";
 "type.cuisine.steak_house" = "Braairestourant";

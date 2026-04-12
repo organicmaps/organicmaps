@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Μεσογειακή";
 "type.cuisine.mexican" = "Μεξικάνικη";
 "type.cuisine.moroccan" = "Μαροκινή";
-"type.cuisine.noodles" = "Χυλοπίτες";
+"type.cuisine.noodle" = "Χυλοπίτες";
 "type.cuisine.oriental" = "Άπω Ανατολής";
 "type.cuisine.pancake" = "Τηγανίτα";
 "type.cuisine.pasta" = "Ζυμαρικά";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Λουκάνικο";
 "type.cuisine.savory_pancakes" = "Αλμυρές τηγανίτες";
 "type.cuisine.seafood" = "Θαλασσινά";
+"type.cuisine.shawarma" = "Σαουαρμά";
 "type.cuisine.soba" = "Σόμπα (λεπτά μακαρόνια)";
 "type.cuisine.spanish" = "Ισπανική";
 "type.cuisine.steak_house" = "Μπριζολάδικο";

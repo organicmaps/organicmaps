@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "भूमध्य व्यंजन";
 "type.cuisine.mexican" = "मैक्सिकन व्यंजन";
 "type.cuisine.moroccan" = "मोरक्कन व्यंजन";
-"type.cuisine.noodles" = "नूडल्स";
+"type.cuisine.noodle" = "नूडल्स";
 "type.cuisine.oriental" = "प्राच्य व्यंजन";
 "type.cuisine.pancake" = "पैनकेक";
 "type.cuisine.pasta" = "पास्ता";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "सॉसेज";
 "type.cuisine.savory_pancakes" = "दिलकश पेनकेक्स";
 "type.cuisine.seafood" = "समुद्री भोजन";
+"type.cuisine.shawarma" = "शवर्मा";
 "type.cuisine.soba" = "सोबा";
 "type.cuisine.spanish" = "स्पेनिश व्यंजन";
 "type.cuisine.steak_house" = "स्टेक (माँस का कबाब)";

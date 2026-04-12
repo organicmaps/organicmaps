@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Akdeniz Mutfağı";
 "type.cuisine.mexican" = "Meksika Mutfağı";
 "type.cuisine.moroccan" = "Fas Mutfağı";
-"type.cuisine.noodles" = "Erişte";
+"type.cuisine.noodle" = "Erişte";
 "type.cuisine.oriental" = "Uzak Doğu Mutfağı";
 "type.cuisine.pancake" = "Gözleme";
 "type.cuisine.pasta" = "Makarna";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Sucuk";
 "type.cuisine.savory_pancakes" = "Açma";
 "type.cuisine.seafood" = "Deniz Ürünleri";
+"type.cuisine.shawarma" = "Şavurma";
 "type.cuisine.soba" = "Erişte";
 "type.cuisine.spanish" = "İspanyol Mutfağı";
 "type.cuisine.steak_house" = "Biftekçi";

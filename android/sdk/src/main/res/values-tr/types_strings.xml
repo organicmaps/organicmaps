@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Akdeniz Mutfağı</string>
     <string name="type.cuisine.mexican">Meksika Mutfağı</string>
     <string name="type.cuisine.moroccan">Fas Mutfağı</string>
-    <string name="type.cuisine.noodles">Erişte</string>
+    <string name="type.cuisine.noodle">Erişte</string>
     <string name="type.cuisine.oriental">Uzak Doğu Mutfağı</string>
     <string name="type.cuisine.pancake">Gözleme</string>
     <string name="type.cuisine.pasta">Makarna</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Sucuk</string>
     <string name="type.cuisine.savory_pancakes">Açma</string>
     <string name="type.cuisine.seafood">Deniz Ürünleri</string>
+    <string name="type.cuisine.shawarma">Şavurma</string>
     <string name="type.cuisine.soba">Erişte</string>
     <string name="type.cuisine.spanish">İspanyol Mutfağı</string>
     <string name="type.cuisine.steak_house">Biftekçi</string>

@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Středomořská kuchyně</string>
     <string name="type.cuisine.mexican">Mexická kuchyně</string>
     <string name="type.cuisine.moroccan">Marocká kuchyně</string>
-    <string name="type.cuisine.noodles">Nudle</string>
+    <string name="type.cuisine.noodle">Nudle</string>
     <string name="type.cuisine.oriental">Orientální kuchyně</string>
     <string name="type.cuisine.pancake">Palačinka</string>
     <string name="type.cuisine.pasta">Těstoviny</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Klobása</string>
     <string name="type.cuisine.savory_pancakes">Pikantní palačinky</string>
     <string name="type.cuisine.seafood">Mořské plody</string>
+    <string name="type.cuisine.shawarma">Šavarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Španělská kuchyně</string>
     <string name="type.cuisine.steak_house">Steaková restaurace</string>

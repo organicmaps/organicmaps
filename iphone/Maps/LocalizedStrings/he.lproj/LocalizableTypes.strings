@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "מטבח ים-תיכוני";
 "type.cuisine.mexican" = "מטבח מקסיקני";
 "type.cuisine.moroccan" = "מטבח מרוקאי";
-"type.cuisine.noodles" = "אטריות";
+"type.cuisine.noodle" = "אטריות";
 "type.cuisine.oriental" = "מטבח מזרחי";
 "type.cuisine.pancake" = "פנקייק";
 "type.cuisine.pasta" = "פסטה";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "נקניק";
 "type.cuisine.savory_pancakes" = "חביתיות מתובלות";
 "type.cuisine.seafood" = "מאכלי ים";
+"type.cuisine.shawarma" = "שוארמה";
 "type.cuisine.soba" = "אטריות סובה";
 "type.cuisine.spanish" = "מטבח ספרדי";
 "type.cuisine.steak_house" = "סטקייה";

@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Välimeren keittiö";
 "type.cuisine.mexican" = "Meksikolainen keittiö";
 "type.cuisine.moroccan" = "Marokkolainen keittiö";
-"type.cuisine.noodles" = "Nuudelit";
+"type.cuisine.noodle" = "Nuudelit";
 "type.cuisine.oriental" = "Itämainen keittiö";
 "type.cuisine.pancake" = "Lettu";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Makkara";
 "type.cuisine.savory_pancakes" = "Suolaiset letut";
 "type.cuisine.seafood" = "Meren elävät";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Sobanuudeli";
 "type.cuisine.spanish" = "Espanjalainen keittiö";
 "type.cuisine.steak_house" = "Pihviravintola";

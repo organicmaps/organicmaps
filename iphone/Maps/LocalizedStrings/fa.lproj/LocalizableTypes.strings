@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexican";
 "type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "Noodles";
+"type.cuisine.noodle" = "Noodles";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "سوسیس";
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
 "type.cuisine.seafood" = "غذای دریایی";
+"type.cuisine.shawarma" = "شاورما";
 "type.cuisine.soba" = "سوبا­­";
 "type.cuisine.spanish" = "اسپانیایی";
 "type.cuisine.steak_house" = "خانه استیک";

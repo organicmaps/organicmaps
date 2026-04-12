@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Cucina mediterranea</string>
     <string name="type.cuisine.mexican">Cucina messicana</string>
     <string name="type.cuisine.moroccan">Cucina marocchina</string>
-    <string name="type.cuisine.noodles">Noodles</string>
+    <string name="type.cuisine.noodle">Noodles</string>
     <string name="type.cuisine.oriental">Cucina orientale</string>
     <string name="type.cuisine.pancake">Pancake</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Salsicce</string>
     <string name="type.cuisine.savory_pancakes">Pancake salati</string>
     <string name="type.cuisine.seafood">Frutti di mare</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Cucina spagnola</string>
     <string name="type.cuisine.steak_house">Bisteccheria</string>

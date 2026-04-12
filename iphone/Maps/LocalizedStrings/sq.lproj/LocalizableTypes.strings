@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Mesdhetare";
 "type.cuisine.mexican" = "Meksikane";
 "type.cuisine.moroccan" = "Marokene";
-"type.cuisine.noodles" = "Nudëll";
+"type.cuisine.noodle" = "Nudëll";
 "type.cuisine.oriental" = "Aziatike Lindore";
 "type.cuisine.pancake" = "Pankake";
 "type.cuisine.pasta" = "Makarna";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Salsiçe";
 "type.cuisine.savory_pancakes" = "Pankake të kripura";
 "type.cuisine.seafood" = "Ushqim deti";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanjolle";
 "type.cuisine.steak_house" = "Steak House";

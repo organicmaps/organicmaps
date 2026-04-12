@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Средиземноморская кухня";
 "type.cuisine.mexican" = "Мексиканская кухня";
 "type.cuisine.moroccan" = "Марокканская кухня";
-"type.cuisine.noodles" = "Лапшичная";
+"type.cuisine.noodle" = "Лапшичная";
 "type.cuisine.oriental" = "Восточная кухня";
 "type.cuisine.pancake" = "Блинная";
 "type.cuisine.pasta" = "Паста";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Сосисочная";
 "type.cuisine.savory_pancakes" = "Несладкие блинчики";
 "type.cuisine.seafood" = "Морепродукты";
+"type.cuisine.shawarma" = "Шаурма";
 "type.cuisine.soba" = "Соба";
 "type.cuisine.spanish" = "Испанская кухня";
 "type.cuisine.steak_house" = "Стейк-хаус";

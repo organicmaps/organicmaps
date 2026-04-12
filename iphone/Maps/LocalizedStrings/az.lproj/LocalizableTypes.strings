@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Aralıq dənizi mətbəxi";
 "type.cuisine.mexican" = "Meksika mətbəxi";
 "type.cuisine.moroccan" = "Mərakeş mətbəxi";
-"type.cuisine.noodles" = "Əriştə";
+"type.cuisine.noodle" = "Əriştə";
 "type.cuisine.oriental" = "Uzaq Şərq mətbəxi";
 "type.cuisine.pancake" = "Müşahidə";
 "type.cuisine.pasta" = "Makaron";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Kolbasa";
 "type.cuisine.savory_pancakes" = "Açılış";
 "type.cuisine.seafood" = "Dəniz məhsulları";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Əriştə";
 "type.cuisine.spanish" = "Ispan mətbəxi";
 "type.cuisine.steak_house" = "Steakhouse";

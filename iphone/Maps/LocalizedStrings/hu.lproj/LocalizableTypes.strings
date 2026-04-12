@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Mediterrán";
 "type.cuisine.mexican" = "Mexikói";
 "type.cuisine.moroccan" = "Marokkói";
-"type.cuisine.noodles" = "Tészta (noodle)";
+"type.cuisine.noodle" = "Tészta (noodle)";
 "type.cuisine.oriental" = "Kelet-ázsiai";
 "type.cuisine.pancake" = "Palacsinta";
 "type.cuisine.pasta" = "Olasz tészta (pasta)";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Kolbász";
 "type.cuisine.savory_pancakes" = "Sós palacsinta";
 "type.cuisine.seafood" = "Tenger gyümölcsei";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Szo-ba";
 "type.cuisine.spanish" = "Spanyol";
 "type.cuisine.steak_house" = "Steak ház";

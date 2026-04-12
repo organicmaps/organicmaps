@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Mediterránea</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquí</string>
-    <string name="type.cuisine.noodles">Fideos</string>
+    <string name="type.cuisine.noodle">Fideos</string>
     <string name="type.cuisine.oriental">Oriental</string>
     <string name="type.cuisine.pancake">Tortitas</string>
     <string name="type.cuisine.pasta">Pastas</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Salchichas</string>
     <string name="type.cuisine.savory_pancakes">Tortitas saladas</string>
     <string name="type.cuisine.seafood">Mariscos</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Soba (fideos japoneses)</string>
     <string name="type.cuisine.spanish">Española</string>
     <string name="type.cuisine.steak_house">Asador</string>

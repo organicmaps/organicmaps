@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Середземноморська кухня</string>
     <string name="type.cuisine.mexican">Мексиканська кухня</string>
     <string name="type.cuisine.moroccan">Марокканська кухня</string>
-    <string name="type.cuisine.noodles">Вермішель</string>
+    <string name="type.cuisine.noodle">Вермішель</string>
     <string name="type.cuisine.oriental">Східна кухня</string>
     <string name="type.cuisine.pancake">Млинцева</string>
     <string name="type.cuisine.pasta">Паста</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Сосисочна</string>
     <string name="type.cuisine.savory_pancakes">Пікантні оладки</string>
     <string name="type.cuisine.seafood">Морська їжа</string>
+    <string name="type.cuisine.shawarma">Шаурма</string>
     <string name="type.cuisine.soba">Соба</string>
     <string name="type.cuisine.spanish">Іспанська кухня</string>
     <string name="type.cuisine.steak_house">Стейк-хаус</string>

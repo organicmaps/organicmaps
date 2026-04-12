@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Cozinha mediterrânea";
 "type.cuisine.mexican" = "Cozinha mexicana";
 "type.cuisine.moroccan" = "Cozinha marroquina";
-"type.cuisine.noodles" = "Macarrão";
+"type.cuisine.noodle" = "Macarrão";
 "type.cuisine.oriental" = "Cozinha oriental";
 "type.cuisine.pancake" = "Panquecas";
 "type.cuisine.pasta" = "Massa";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Linguiças";
 "type.cuisine.savory_pancakes" = "Panquecas salgadas";
 "type.cuisine.seafood" = "Frutos do mar";
+"type.cuisine.shawarma" = "Xauarma";
 "type.cuisine.soba" = "Sobá";
 "type.cuisine.spanish" = "Cozinha espanhola";
 "type.cuisine.steak_house" = "Churrascaria";

@@ -219,7 +219,7 @@
     <string name="type.cuisine.mediterranean">भूमध्य व्यंजन</string>
     <string name="type.cuisine.mexican">मैक्सिकन व्यंजन</string>
     <string name="type.cuisine.moroccan">मोरक्कन व्यंजन</string>
-    <string name="type.cuisine.noodles">नूडल्स</string>
+    <string name="type.cuisine.noodle">नूडल्स</string>
     <string name="type.cuisine.oriental">प्राच्य व्यंजन</string>
     <string name="type.cuisine.pancake">पैनकेक</string>
     <string name="type.cuisine.pasta">पास्ता</string>
@@ -234,6 +234,7 @@
     <string name="type.cuisine.sausage">सॉसेज</string>
     <string name="type.cuisine.savory_pancakes">दिलकश पेनकेक्स</string>
     <string name="type.cuisine.seafood">समुद्री भोजन</string>
+    <string name="type.cuisine.shawarma">शवर्मा</string>
     <string name="type.cuisine.soba">सोबा</string>
     <string name="type.cuisine.spanish">स्पेनिश व्यंजन</string>
     <string name="type.cuisine.steak_house">स्टेक (माँस का कबाब)</string>

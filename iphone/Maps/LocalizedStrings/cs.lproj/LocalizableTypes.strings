@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Středomořská kuchyně";
 "type.cuisine.mexican" = "Mexická kuchyně";
 "type.cuisine.moroccan" = "Marocká kuchyně";
-"type.cuisine.noodles" = "Nudle";
+"type.cuisine.noodle" = "Nudle";
 "type.cuisine.oriental" = "Orientální kuchyně";
 "type.cuisine.pancake" = "Palačinka";
 "type.cuisine.pasta" = "Těstoviny";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Klobása";
 "type.cuisine.savory_pancakes" = "Pikantní palačinky";
 "type.cuisine.seafood" = "Mořské plody";
+"type.cuisine.shawarma" = "Šavarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Španělská kuchyně";
 "type.cuisine.steak_house" = "Steaková restaurace";

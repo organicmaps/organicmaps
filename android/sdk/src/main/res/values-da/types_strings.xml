@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Middelhavskøkken</string>
     <string name="type.cuisine.mexican">Mexicansk</string>
     <string name="type.cuisine.moroccan">Marokkansk</string>
-    <string name="type.cuisine.noodles">Nudler</string>
+    <string name="type.cuisine.noodle">Nudler</string>
     <string name="type.cuisine.oriental">Orientalsk</string>
     <string name="type.cuisine.pancake">Pandekage</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Pølse</string>
     <string name="type.cuisine.savory_pancakes">Madpandekage</string>
     <string name="type.cuisine.seafood">Fisk og skaldyr</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Spansk</string>
     <string name="type.cuisine.steak_house">Bøfhus</string>

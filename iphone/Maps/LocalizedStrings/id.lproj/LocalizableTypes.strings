@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Masakan mediterania";
 "type.cuisine.mexican" = "Masakan meksiko";
 "type.cuisine.moroccan" = "Masakan maroko";
-"type.cuisine.noodles" = "Bakmi";
+"type.cuisine.noodle" = "Bakmi";
 "type.cuisine.oriental" = "Masakan oriental";
 "type.cuisine.pancake" = "Panekuk";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Sosis";
 "type.cuisine.savory_pancakes" = "Panekuk gurih";
 "type.cuisine.seafood" = "Hidangan laut";
+"type.cuisine.shawarma" = "Syawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Masakan spanyol";
 "type.cuisine.steak_house" = "Restoran_steik";

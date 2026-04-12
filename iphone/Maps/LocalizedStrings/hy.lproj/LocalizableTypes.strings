@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Միջերկրածովյան";
 "type.cuisine.mexican" = "Մեքսիկական";
 "type.cuisine.moroccan" = "Մարոկկոյական";
-"type.cuisine.noodles" = "Լապշա";
+"type.cuisine.noodle" = "Լապշա";
 "type.cuisine.oriental" = "Արևելաասիական";
 "type.cuisine.pancake" = "Նրբաբլիթներ";
 "type.cuisine.pasta" = "Պաստա";
@@ -356,6 +356,7 @@
 "type.cuisine.sausage" = "Նրբերշիկներ";
 "type.cuisine.savory_pancakes" = "Չուղղված նրբաբլիթներ";
 "type.cuisine.seafood" = "Ծովամթերք";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Սոբա";
 "type.cuisine.spanish" = "Իսպանական";
 "type.cuisine.steak_house" = "Սթեյք հաուս";

@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">地中海菜</string>
     <string name="type.cuisine.mexican">墨西哥菜</string>
     <string name="type.cuisine.moroccan">摩洛哥菜</string>
-    <string name="type.cuisine.noodles">面</string>
+    <string name="type.cuisine.noodle">面</string>
     <string name="type.cuisine.oriental">东方菜</string>
     <string name="type.cuisine.pancake">煎饼</string>
     <string name="type.cuisine.pasta">意大利面</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">火腿</string>
     <string name="type.cuisine.savory_pancakes">咸味煎饼</string>
     <string name="type.cuisine.seafood">海鲜</string>
+    <string name="type.cuisine.shawarma">沙威玛</string>
     <string name="type.cuisine.soba">荞麦面</string>
     <string name="type.cuisine.spanish">西班牙菜</string>
     <string name="type.cuisine.steak_house">牛排馆</string>

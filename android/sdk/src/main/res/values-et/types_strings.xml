@@ -327,7 +327,7 @@
     <string name="type.cuisine.mediterranean">Vahemere</string>
     <string name="type.cuisine.mexican">Mehhiko</string>
     <string name="type.cuisine.moroccan">Maroko</string>
-    <string name="type.cuisine.noodles">Nuudliroad</string>
+    <string name="type.cuisine.noodle">Nuudliroad</string>
     <string name="type.cuisine.oriental">Kaug-Ida</string>
     <string name="type.cuisine.pancake">Pannkoogid</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +343,7 @@
     <string name="type.cuisine.sausage">Vorstid</string>
     <string name="type.cuisine.savory_pancakes">Soolased pannkoogid</string>
     <string name="type.cuisine.seafood">Mereannid</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Jaapani soba-nuudlid</string>
     <string name="type.cuisine.spanish">Hispaania</string>
     <string name="type.cuisine.steak_house">Liharestoran</string>

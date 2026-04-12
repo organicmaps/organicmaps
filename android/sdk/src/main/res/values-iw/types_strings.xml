@@ -318,7 +318,7 @@
     <string name="type.cuisine.mediterranean">מטבח ים-תיכוני</string>
     <string name="type.cuisine.mexican">מטבח מקסיקני</string>
     <string name="type.cuisine.moroccan">מטבח מרוקאי</string>
-    <string name="type.cuisine.noodles">אטריות</string>
+    <string name="type.cuisine.noodle">אטריות</string>
     <string name="type.cuisine.oriental">מטבח מזרחי</string>
     <string name="type.cuisine.pancake">פנקייק</string>
     <string name="type.cuisine.pasta">פסטה</string>
@@ -334,6 +334,7 @@
     <string name="type.cuisine.sausage">נקניק</string>
     <string name="type.cuisine.savory_pancakes">חביתיות מתובלות</string>
     <string name="type.cuisine.seafood">מאכלי ים</string>
+    <string name="type.cuisine.shawarma">שוארמה</string>
     <string name="type.cuisine.soba">אטריות סובה</string>
     <string name="type.cuisine.spanish">מטבח ספרדי</string>
     <string name="type.cuisine.steak_house">סטקייה</string>
