@@ -1156,3 +1156,5 @@ Tanzania_Southern Highlands	50000.0
 Tanzania_Offshore Islands	50000.0
 Tanzania_Lake	50000.0
 Tanzania_Western	50000.0
+Malaysia_East	50000.0
+Malaysia_West	50000.0
