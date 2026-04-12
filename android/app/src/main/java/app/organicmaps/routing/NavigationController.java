@@ -2,6 +2,7 @@ package app.organicmaps.routing;
 
 import static app.organicmaps.sdk.util.Utils.dimen;
 
+import android.content.res.Configuration;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
@@ -51,6 +52,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   private final SpeedLimitView mSpeedLimit;
 
   private final MapButtonsViewModel mMapButtonsViewModel;
+  private final View mTopFrame;
+  private final View mNextTurnContainer;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -65,35 +68,40 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mOnSettingsClickListener = onSettingsClickListener;
 
     // Top frame
-    final View topFrame = mFrame.findViewById(R.id.nav_top_frame);
-    final View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
+    mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
+    mTopFrame.addOnLayoutChangeListener(
+        (v, l, t, r, b, ol, ot, or, ob) -> mMapButtonsViewModel.setTopHeaderHeight(computeNavContentHeight()));
+    View turnFrame = mTopFrame.findViewById(R.id.nav_next_turn_frame);
     mNextTurnImage = turnFrame.findViewById(R.id.turn);
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
 
-    mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
+    addWindowsInsets(mTopFrame);
+
+    mNextNextTurnFrame = mTopFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);
 
-    mStreetFrame = topFrame.findViewById(R.id.street_frame);
+    mStreetFrame = mTopFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
 
-    mLanesView = topFrame.findViewById(R.id.lanes);
-    mSpeedLimit = topFrame.findViewById(R.id.nav_speed_limit);
+    mLanesView = mTopFrame.findViewById(R.id.lanes);
 
-    final View nextTurnContainer = topFrame.findViewById(R.id.nav_next_turn_container);
+    mSpeedLimit = mTopFrame.findViewById(R.id.nav_speed_limit);
+
     // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View navBottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
+    mNextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
 
     ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, BaselinePaddingInsetsListener.excludeBottom());
 
-    ViewCompat.setOnApplyWindowInsetsListener(topFrame, (v, windowInsets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(mTopFrame, (v, windowInsets) -> {
       final Insets safeDrawing = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
       // Pad the start edge (LTR: left, RTL: right) so the next-turn container clears side
       // cutouts and system bars regardless of layout direction.
       final boolean isRtl = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
       final int startInset = isRtl ? safeDrawing.right : safeDrawing.left;
-      nextTurnContainer.setPaddingRelative(startInset, nextTurnContainer.getPaddingTop(),
-                                           nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
+      mNextTurnContainer.setPaddingRelative(startInset, mNextTurnContainer.getPaddingTop(),
+                                            mNextTurnContainer.getPaddingEnd(), mNextTurnContainer.getPaddingBottom());
       return windowInsets;
     });
 
@@ -115,6 +123,22 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
         navigationBarBackground.setLayoutParams(lp);
       }
     });
+  }
+
+  private int computeNavContentHeight()
+  {
+    int height = mStreetFrame.getHeight();
+    int a = 0, lanesHeight = 0;
+    if (mFrame.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+    {
+      if (UiUtils.isVisible(mNextTurnContainer))
+        a += mNextTurnContainer.getHeight();
+      if (UiUtils.isVisible(mSpeedLimit))
+        a += mSpeedLimit.getHeight();
+    }
+    if (UiUtils.isVisible(mLanesView))
+      lanesHeight += mLanesView.getHeight();
+    return height + Math.max(a, lanesHeight);
   }
 
   private void updateVehicle(@NonNull RoutingInfo info)
@@ -172,6 +196,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     if (show && !UiUtils.isVisible(mFrame))
       collapseNavMenu();
     UiUtils.showIf(show, mFrame);
+    if (!show)
+      mMapButtonsViewModel.setTopHeaderHeight(0);
   }
 
   public boolean isNavMenuCollapsed()
