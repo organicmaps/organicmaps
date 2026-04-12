@@ -80,7 +80,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mProgress = mSearchContainer.findViewById(R.id.progress);
     mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
-
     showProgress(false);
     updateViewsVisibility(true);
   }

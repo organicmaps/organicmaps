@@ -620,6 +620,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   interface SearchFragmentListener
   {
     void onSearchClicked();
+    void closeSearch();
   }
 
   private static class LastPosition
@@ -700,6 +701,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     {
       super(root, SearchFragment.this.requireActivity());
       ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
+      root.findViewById(R.id.close_search).setOnClickListener(v -> mSearchFragmentListener.closeSearch());
     }
 
     @Override
