@@ -2,7 +2,7 @@
 
 #include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
-#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/graphics_context.hpp"
@@ -180,7 +180,7 @@ void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context
 
     gpu::TransitProgramParams params;
     frameValues.SetTo(params);
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
+    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_lineHalfWidth = pixelHalfWidth;
     params.m_maxRadius = kTransitLineHalfWidth;
@@ -202,7 +202,7 @@ void TransitSchemeRenderer::RenderLines(ref_ptr<dp::GraphicsContext> context, re
 
     gpu::TransitProgramParams params;
     frameValues.SetTo(params);
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
+    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_lineHalfWidth = pixelHalfWidth;
     mng->GetParamsSetter()->Apply(context, program, params);
@@ -224,7 +224,7 @@ void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context, 
 
     gpu::TransitProgramParams params;
     frameValues.SetTo(params);
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
+    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_params = glsl::vec3(static_cast<float>(cos(screen.GetAngle())), static_cast<float>(sin(screen.GetAngle())),
                                  pixelHalfWidth);
@@ -247,7 +247,7 @@ void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref
 
     gpu::MapProgramParams params;
     frameValues.SetTo(params);
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
+    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_contrastGamma = glsl::vec2(glyphParams.m_outlineContrast, glyphParams.m_outlineGamma);
     params.m_isOutlinePass = 1.0f;
@@ -277,7 +277,7 @@ void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, re
 
     gpu::MapProgramParams params;
     frameValues.SetTo(params);
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
+    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
     params.m_modelView = glsl::make_mat4(mv.m_data);
     mng->GetParamsSetter()->Apply(context, program, params);
 

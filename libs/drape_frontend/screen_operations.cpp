@@ -1,5 +1,6 @@
 #include "screen_operations.hpp"
 
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
@@ -241,6 +242,18 @@ void NormalizeScreenOriginX(ScreenBase & screen)
 m2::PointD AdjustPointForViewport(m2::PointD const & pt, ScreenBase const & screen)
 {
   return {mercator::NearestWrapX(pt.x, screen.GetOrg().x), pt.y};
+}
+
+AdjustedScreen::AdjustedScreen(ScreenBase const & screen, m2::PointD const & pivot) : m_screen(screen)
+{
+  double const wrapX = mercator::NearestWrapX(pivot.x, screen.GetOrg().x);
+  m_wrapPivot = {wrapX, pivot.y};
+  m_offsetWrapX = pivot.x - wrapX;
+}
+
+ScreenBase::Matrix3dT AdjustedScreen::GetShapeModelView() const
+{
+  return m_screen.GetModelView(m_wrapPivot, kShapeCoordScalar);
 }
 
 }  // namespace df

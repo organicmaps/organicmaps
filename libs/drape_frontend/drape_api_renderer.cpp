@@ -1,8 +1,7 @@
 #include "drape_frontend/drape_api_renderer.hpp"
-#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape/overlay_handle.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include <algorithm>
@@ -50,7 +49,7 @@ void DrapeApiRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu:
   auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   for (auto const & property : m_properties)
   {
-    math::Matrix<float, 4, 4> const mv = screen.GetModelView(property->m_center, kShapeCoordScalar);
+    auto const mv = AdjustedScreen(screen, property->m_center).GetShapeModelView();
     for (auto const & bucket : property->m_buckets)
     {
       auto program = mng->GetProgram(bucket.first.GetProgram<gpu::Program>());
