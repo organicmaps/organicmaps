@@ -96,4 +96,17 @@
     app:tint="?attr/textSearchField"
     android:visibility="gone"
     tools:visibility="visible" />
+  <ImageView
+    android:id="@+id/close_search"
+    android:layout_width="@dimen/place_page_icon_size"
+    android:layout_height="@dimen/place_page_icon_size"
+    android:padding="0dp"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:layout_gravity="center_vertical"
+    android:layout_weight="0"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@string/close"
+    android:scaleType="center"
+    app:srcCompat="@drawable/ic_cancel"
+    app:tint="?attr/textSearchField" />
 </app.organicmaps.widget.SuppressLayoutLinearLayout>

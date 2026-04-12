@@ -360,4 +360,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   {
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
   }
+
+  @Override
+  public void closeSearch()
+  {
+    mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+  }
 }

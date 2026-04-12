@@ -37,6 +37,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mProgress;
   @NonNull
   private final View mVoiceInput;
+  @NonNull
+  private final View mClose;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
@@ -80,6 +82,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mProgress = mSearchContainer.findViewById(R.id.progress);
     mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
+    mClose = root.findViewById(R.id.close_search);
+    mClose.setOnClickListener(this);
 
     showProgress(false);
     updateViewsVisibility(true);
@@ -117,6 +121,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     return false;
   }
+
+  protected void onCloseSearch() {}
 
   private void onVoiceInputClick()
   {
@@ -220,6 +226,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
       onQueryClick(getQuery());
     else if (id == R.id.voice_input)
       onVoiceInputClick();
+    else if (id == R.id.close_search)
+      onCloseSearch();
   }
 
   public void showSearchControls(boolean show)

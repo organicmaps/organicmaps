@@ -620,6 +620,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   interface SearchFragmentListener
   {
     void onSearchClicked();
+    void closeSearch();
   }
 
   private static class LastPosition
@@ -763,6 +764,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     protected boolean supportsVoiceSearch()
     {
       return true;
+    }
+
+    @Override
+    protected void onCloseSearch()
+    {
+      mSearchFragmentListener.closeSearch();
     }
 
     @Override
