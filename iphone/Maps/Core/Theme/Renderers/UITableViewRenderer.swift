@@ -14,7 +14,7 @@ class UITableViewRenderer: UIViewRenderer {
   class func render(_ control: UITableView, style: Style) {
     super.render(control, style: style)
     if let backgroundColor = style.backgroundColor {
-      let bgView = control.backgroundView ?? UIView()
+      let bgView = UIView()
       bgView.backgroundColor = backgroundColor
       control.backgroundView = bgView
     }

@@ -37,12 +37,12 @@ class UITableViewCellRenderer {
     }
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
-      let bgView = control.backgroundView ?? UIView()
+      let bgView = UIView()
       bgView.backgroundColor = backgroundColor
       control.backgroundView = bgView
     }
     if let backgroundColorSelected = style.backgroundColorSelected {
-      let selView = control.selectedBackgroundView ?? UIView()
+      let selView = UIView()
       selView.backgroundColor = backgroundColorSelected
       control.selectedBackgroundView = selView
     }

@@ -13,7 +13,7 @@ extension UITableViewHeaderFooterView {
 class UITableViewHeaderFooterViewRenderer {
   class func render(_ control: UITableViewHeaderFooterView, style: Style) {
     if let backgroundColor = style.backgroundColor {
-      let bgView = control.backgroundView ?? UIView()
+      let bgView = UIView()
       bgView.backgroundColor = backgroundColor
       control.backgroundView = bgView
     }
