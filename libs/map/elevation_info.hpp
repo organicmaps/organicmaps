@@ -43,6 +43,7 @@ public:
   std::vector<Points> const & GetLines() const { return m_lines; }
   uint8_t GetDifficulty() const { return m_difficulty; }
   bool IsEmpty() const { return m_lines.empty(); }
+  size_t GetSize() const;
 
   /// Total cumulative length across all lines.
   double GetLength() const;
@@ -111,8 +112,6 @@ public:
 
   void AddGpsPoints(GpsPoints const & points);
   void Clear();
-
-  size_t GetSize() const;
 
 private:
   ms::LatLon m_lastLatLon;

@@ -10,7 +10,4 @@
   <dimen name="nav_next_next_turn_frame">48dp</dimen>
 
   <dimen name="nav_frame_padding">@dimen/margin_base</dimen>
-
-  <!-- Altitude chart -->
-  <dimen name="altitude_chart_image_width">720dp</dimen>
 </resources>

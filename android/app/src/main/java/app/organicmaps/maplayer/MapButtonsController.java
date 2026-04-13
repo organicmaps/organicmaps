@@ -56,7 +56,6 @@ public class MapButtonsController extends Fragment
   private LayersButton mToggleMapLayerButton;
   @Nullable
   FloatingActionButton mTrackRecordingStatusButton;
-
   @Nullable
   private MyPositionButton mNavMyPosition;
   private SearchWheel mSearchWheel;

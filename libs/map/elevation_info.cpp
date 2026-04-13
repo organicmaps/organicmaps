@@ -101,6 +101,14 @@ double ElevationInfo::GetLength() const
   return length;
 }
 
+size_t ElevationInfo::GetSize() const
+{
+  size_t size = 0;
+  for (auto const & line : m_lines)
+    size += line.size();
+  return size;
+}
+
 ElevationInfo::Altitude ElevationInfo::GetFirstAltitude() const
 {
   ASSERT(!IsEmpty() && !m_lines.front().empty(), ());
@@ -246,12 +254,4 @@ void GpsTrackElevation::Clear()
   m_difficulty = Difficulty::Unknown;
   m_lastDistance = 0;
   m_hasLastPoint = false;
-}
-
-size_t GpsTrackElevation::GetSize() const
-{
-  size_t size = 0;
-  for (auto const & line : m_lines)
-    size += line.size();
-  return size;
 }

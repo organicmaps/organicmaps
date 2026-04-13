@@ -29,6 +29,7 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <map>
 
 using namespace routing;
@@ -1232,6 +1233,30 @@ bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
   ei.Assign(route->GetSegDistanceMeters(), altitudes);
   ei.Simplify();
   return true;
+}
+
+std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
+{
+  auto const * route = m_routingSession.GetRoute();
+  if (!route || !route->IsValid())
+    return std::nullopt;
+
+  auto const & distances = route->GetSegDistanceMeters();
+  auto const & points = route->GetPoly().GetPoints();
+  ASSERT_EQUAL(distances.size() + 1, points.size(), ());
+
+  if (distanceMeters <= 0)
+    return points.front();
+
+  if (distanceMeters >= distances.back())
+    return points.back();
+
+  auto const it = std::upper_bound(distances.begin(), distances.end(), distanceMeters);
+  size_t const idx = std::distance(distances.begin(), it);
+  // distances[idx-1] < distanceMeters <= distances[idx], points[idx] .. points[idx+1]
+  double const segLen = distances[idx] - (idx > 0 ? distances[idx - 1] : 0.0);
+  double const f = segLen > 1e-9 ? (distanceMeters - (idx > 0 ? distances[idx - 1] : 0.0)) / segLen : 0.0;
+  return points[idx] + (points[idx + 1] - points[idx]) * f;
 }
 
 void RoutingManager::SetRouter(RouterType type)

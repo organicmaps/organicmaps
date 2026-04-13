@@ -18,10 +18,12 @@ import java.util.List;
 public final class ElevationChartUtils
 {
   public static final int TRACK_X_LABEL_COUNT = 6;
+  public static final int ROUTE_X_LABEL_COUNT = 3;
 
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
   private static final int CHART_AXIS_GRANULARITY = 100;
+
   private static final String ELEVATION_PROFILE_POINTS = "ELEVATION_PROFILE_POINTS";
 
   private ElevationChartUtils() {}
@@ -38,7 +40,8 @@ public final class ElevationChartUtils
     chart.setScaleYEnabled(false);
     chart.setExtraTopOffset(0);
     int sideOffset = context.getResources().getDimensionPixelSize(R.dimen.margin_base);
-    chart.setViewPortOffsets(sideOffset, 0, sideOffset,
+    int topOffset = 0;
+    chart.setViewPortOffsets(sideOffset, topOffset, sideOffset,
                              context.getResources().getDimensionPixelSize(R.dimen.margin_base_plus_quarter));
     chart.getDescription().setEnabled(false);
     chart.setDrawBorders(false);
