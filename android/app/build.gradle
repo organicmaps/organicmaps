@@ -40,11 +40,11 @@ def getCommitMessage() {
 android {
   namespace = 'app.organicmaps'
 
-  if (googleFirebaseServicesEnabled) {
-    enableKotlin = true
-  } else {
-    enableKotlin = false
-  }
+  // Kotlin is enabled for the app module so new code can be written in Kotlin
+  // and existing Java classes can be migrated incrementally. Other modules keep
+  // it disabled by default (see groovy/common-config.gradle) and can opt in by
+  // uncommenting the `enableKotlin = true` stub in their own build.gradle.
+  enableKotlin = true
 
   buildFeatures {
     dataBinding = true
@@ -250,9 +250,8 @@ dependencies {
     implementation libs.google.firebase.crashlytics.ndk
   }
 
-  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
+  // Workaround for a duplicate-classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
-  // We don't use Kotlin, but some dependencies are actively using it.
   // See https://stackoverflow.com/a/75719642
   implementation libs.androidx.core
   implementation libs.androidx.annotation

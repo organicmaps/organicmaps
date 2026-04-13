@@ -6,6 +6,8 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk.location.gms'
+  // Uncomment to start writing Kotlin in this module (see app/build.gradle for a live example):
+  // enableKotlin = true
 
   sourceSets {
     main {
