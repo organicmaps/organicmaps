@@ -121,14 +121,17 @@ class ChartInfoView: ExpandedTouchView {
     myPositionView.pinY = myPositionPoints[0].point.y
   }
 
+  private func shouldCapture(at pointX: CGFloat) -> Bool {
+    delegate?.chartInfoView(self, shouldStartSelectingAtPoint: pointX) ?? false
+  }
+
   @objc private func onScrub(_ sender: UILongPressGestureRecognizer) {
     let x = max(bounds.minX, min(bounds.maxX, sender.location(in: self).x))
     switch sender.state {
     case .possible:
       break
     case .began:
-      captured = delegate?.chartInfoView(self, shouldStartSelectingAtPoint: x) ?? false
-      guard captured else { return }
+      captured = true
       update(x)
       delegate?.chartInfoView(self, didMoveToPoint: x)
     case .changed:
@@ -191,14 +194,21 @@ extension ChartInfoView: UIGestureRecognizerDelegate {
   override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     guard gestureRecognizer === scrubGR else { return true }
     let pointX = gestureRecognizer.location(in: self).x
-    return delegate?.chartInfoView(self, shouldStartSelectingAtPoint: pointX) ?? false
+    return shouldCapture(at: pointX)
   }
 
-  func gestureRecognizer(_: UIGestureRecognizer,
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                          shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     if otherGestureRecognizer is UIPinchGestureRecognizer {
       return true
     }
-    return !captured
+
+    if captured {
+      return false
+    }
+
+    let pointX = gestureRecognizer.location(in: self).x
+    let shouldCapture = shouldCapture(at: pointX)
+    return !shouldCapture
   }
 }
