@@ -65,16 +65,28 @@ inline double WrapX(double x)
   return (x < 0.0 ? x + Bounds::kRangeX : x) + Bounds::kMinX;
 }
 
-/// Returns x adjusted to be within 180 degrees of refX.
+/// Returns x adjusted so that |x - refX| <= 180.
 /// Picks the nearest world copy across the antimeridian.
-/// Uses a loop to handle screen origins more than 360 degrees from the feature.
+/// O(1) and bounded for any input — never iterates and never hangs.
 inline double NearestWrapX(double x, double refX)
 {
-  while (x - refX > 180.0)
-    x -= 360.0;
-  while (x - refX < -180.0)
-    x += 360.0;
-  return x;
+  double const dx = x - refX;
+  // Fast path for the common case. Uses non-strict <= so that |dx| == 180
+  // returns x unchanged, matching the strict > / < semantics of the
+  // earlier loop-based implementation at the boundaries.
+  if (std::abs(dx) <= 180.0)
+    return x;
+  // Defensive bound. |dx| above ~2^53 (9e15) can't be wrapped meaningfully:
+  // round(dx/360)*360 loses enough precision that the answer drifts off
+  // the world-copy lattice. The threshold (1e9 -- ~2.7M world widths) is
+  // chosen far above any plausible legitimate value (kMaxX = 540) and far
+  // below the precision limit. The negation in `!(... < ...)` deliberately
+  // catches NaN as well: NaN < anything is false, so !false = true.
+  // Using a magnitude check rather than std::isfinite() keeps the guard
+  // robust under -ffast-math, which is enabled project-wide.
+  if (!(std::abs(dx) < 1e9))
+    return x;
+  return x - std::round(dx / 360.0) * 360.0;
 }
 
 void ClampPoint(m2::PointD & pt);
