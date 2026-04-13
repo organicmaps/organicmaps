@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
+import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,7 +67,9 @@ final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
     buttonParams.bottomMargin = insets.bottom;
     mButton.setPadding(insets.left, mButton.getPaddingTop(), insets.right, mButton.getPaddingBottom());
 
-    fabParams.rightMargin = insets.right + baseMargin;
+    final boolean isRtl = mFab.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    final int endInset = isRtl ? insets.left : insets.right;
+    MarginLayoutParamsCompat.setMarginEnd(fabParams, endInset + baseMargin);
     if (isButtonVisible)
       fabParams.bottomMargin = baseMargin;
     else

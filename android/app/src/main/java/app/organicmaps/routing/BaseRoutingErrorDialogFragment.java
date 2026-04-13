@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.MarginLayoutParamsCompat;
 import app.organicmaps.R;
 import app.organicmaps.adapter.DisabledChildSimpleExpandableListAdapter;
 import app.organicmaps.base.BaseMwmDialogFragment;
@@ -100,7 +101,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     final TextView szView = countryView.findViewById(R.id.tv__size);
     szView.setText(StringUtils.getFileSizeString(requireContext(), map.totalSize));
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) szView.getLayoutParams();
-    lp.rightMargin = 0;
+    MarginLayoutParamsCompat.setMarginEnd(lp, 0);
     szView.setLayoutParams(lp);
 
     return countryView;

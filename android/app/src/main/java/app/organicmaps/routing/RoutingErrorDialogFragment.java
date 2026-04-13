@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.MwmApplication;
@@ -40,7 +41,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 
     TextView titleView = new TextView(requireContext());
     titleView.setText(titleMessage.first);
-    titleView.setPadding(65, 32, 32, 16);
+    ViewCompat.setPaddingRelative(titleView, 65, 32, 32, 16);
     titleView.setTextSize(18);
     titleView.setMaxLines(4);
     titleView.setEllipsize(TextUtils.TruncateAt.END);
