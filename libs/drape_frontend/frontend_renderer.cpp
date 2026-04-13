@@ -1895,10 +1895,9 @@ void FrontendRenderer::RenderFrame()
 #if defined(OMIM_OS_DESKTOP)
     EmitGraphicsReady();
 #endif
-    // Process a message or wait for a message.
-    // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
-    // possibility of infinity waiting in ProcessSingleMessage.
-    ProcessSingleMessage(IsRenderingEnabled());
+    // Process a message, or park until one arrives. SetRenderingEnabled(false) and CloseQueue() both
+    // cancel the wait, and the cancellation is sticky, so this cannot block indefinitely.
+    ProcessSingleMessage();
     m_frameData.m_forceFullRedrawNextFrame = true;
     m_frameData.m_timer.Reset();
     m_frameData.m_inactiveFramesCounter = 0;

@@ -113,7 +113,8 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
     // here we set up value only if rendering disabled
     m_isEnabled = false;
 
-    // if renderer thread is waiting for message let it go
+    // Let the renderer thread out of its message wait so that it reaches CheckRenderingEnabled().
+    // The cancellation is sticky, so it also covers a thread that has not started waiting yet.
     CancelMessageWaiting();
   }
 
