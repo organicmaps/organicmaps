@@ -18,19 +18,19 @@ class UIButtonRenderer {
     if let fontColor = style.fontColor {
       control.setTitleColor(fontColor, for: .normal)
     }
-
+    let traits = control.window?.traitCollection ?? control.traitCollection
     if let backgroundColor = style.backgroundColor {
-      control.setBackgroundImage(backgroundColor.getImage(), for: .normal)
+      control.setBackgroundImage(backgroundColor.getImage(traits), for: .normal)
       control.backgroundColor = UIColor.clear
     }
     if let backgroundColorSelected = style.backgroundColorSelected {
-      control.setBackgroundImage(backgroundColorSelected.getImage(), for: .selected)
+      control.setBackgroundImage(backgroundColorSelected.getImage(traits), for: .selected)
     }
     if let backgroundColorHighlighted = style.backgroundColorHighlighted {
-      control.setBackgroundImage(backgroundColorHighlighted.getImage(), for: .highlighted)
+      control.setBackgroundImage(backgroundColorHighlighted.getImage(traits), for: .highlighted)
     }
     if let backgroundColorDisabled = style.backgroundColorDisabled {
-      control.setBackgroundImage(backgroundColorDisabled.getImage(), for: .disabled)
+      control.setBackgroundImage(backgroundColorDisabled.getImage(traits), for: .disabled)
     }
     if let fontColorSelected = style.fontColorSelected {
       control.setTitleColor(fontColorSelected, for: .selected)

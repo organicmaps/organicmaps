@@ -10,7 +10,8 @@ extension UIToolbar {
 class UIToolbarRenderer {
   class func render(_ control: UIToolbar, style: Style) {
     if let backgroundColor = style.backgroundColor {
-      control.setBackgroundImage(backgroundColor.getImage(), forToolbarPosition: .any, barMetrics: .default)
+      let traits = control.window?.traitCollection ?? control.traitCollection
+      control.setBackgroundImage(backgroundColor.getImage(traits), forToolbarPosition: .any, barMetrics: .default)
     }
     if let tintColor = style.tintColor {
       control.tintColor = tintColor

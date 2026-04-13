@@ -62,9 +62,10 @@ class UISearchBarRenderer: UIViewRenderer {
       control.setImage(clearButtonImage, for: .clear, state: .normal)
     }
     if let barTintColor = style.barTintColor {
+      let traits = control.window?.traitCollection ?? control.traitCollection
       let position = control.delegate?.position?(for: control) ?? control.barPosition
-      control.setBackgroundImage(barTintColor.getImage(), for: position, barMetrics: .defaultPrompt)
-      control.setBackgroundImage(barTintColor.getImage(), for: position, barMetrics: .default)
+      control.setBackgroundImage(barTintColor.getImage(traits), for: position, barMetrics: .defaultPrompt)
+      control.setBackgroundImage(barTintColor.getImage(traits), for: position, barMetrics: .default)
       control.backgroundColor = barTintColor
     }
     if let fontColorDetailed = style.fontColorDetailed {
