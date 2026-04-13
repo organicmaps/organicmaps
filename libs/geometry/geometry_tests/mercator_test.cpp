@@ -4,6 +4,9 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/math.hpp"
+
+#include <cmath>
 
 UNIT_TEST(Mercator_Grid)
 {
@@ -102,9 +105,12 @@ UNIT_TEST(Mercator_NearestWrapX)
   // Wrap eastward: point is > 180 west of reference.
   TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, 20.0), 190.0, 1e-10, ());
 
-  // Exactly at 180 boundary — no adjustment (strict inequality).
+  // Exact 180-degree ties: x is kept when it is within one world width, farther ties resolve to
+  // either of the two equidistant copies.
   TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(180.0, 0.0), 180.0, 1e-10, ());
   TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-180.0, 0.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(std::abs(mercator::NearestWrapX(180.0, -360.0) + 360.0), 180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(std::abs(mercator::NearestWrapX(-180.0, 360.0) - 360.0), 180.0, 1e-10, ());
 
   // Extended screen origin (past antimeridian, single wrap).
   TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-175.0, 350.0), 185.0, 1e-10, ());
@@ -140,4 +146,29 @@ UNIT_TEST(Mercator_RectFromToLatLon)
   TEST_ALMOST_EQUAL_ABS(backToMerc.minY(), mercRect.minY(), eps, ());
   TEST_ALMOST_EQUAL_ABS(backToMerc.maxX(), mercRect.maxX(), eps, ());
   TEST_ALMOST_EQUAL_ABS(backToMerc.maxY(), mercRect.maxY(), eps, ());
+}
+
+UNIT_TEST(Mercator_NearestWrapX_NeverHangs)
+{
+  using mercator::NearestWrapX;
+
+  // Huge magnitudes stay next to refX while doubles can still resolve 360-degree steps.
+  for (double const v : {1e12, -1e12})
+  {
+    TEST_LESS_OR_EQUAL(std::abs(NearestWrapX(v, 0.0)), 180.0, (v));
+    TEST_LESS_OR_EQUAL(std::abs(NearestWrapX(0.0, v) - v), 180.0, (v));
+  }
+  for (double const v : {1e18, -1e18})
+  {
+    TEST(math::is_finite(NearestWrapX(v, 0.0)), (v));
+    TEST(math::is_finite(NearestWrapX(0.0, v)), (v));
+  }
+
+  // Non-finite input cannot be wrapped and must not hang; the result is not meaningful.
+  for (double const v : {math::Infinity(), -math::Infinity(), math::Nan()})
+    TEST(!math::is_finite(NearestWrapX(v, 0.0)), (v));
+
+  // Many world widths away.
+  TEST_ALMOST_EQUAL_ABS(NearestWrapX(170.0, 35830.0), 35810.0, 1e-9, ());
+  TEST_ALMOST_EQUAL_ABS(NearestWrapX(-170.0, -35830.0), -35810.0, 1e-9, ());
 }
