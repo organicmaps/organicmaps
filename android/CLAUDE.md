@@ -55,9 +55,28 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - Unit tests: `app/src/test/java/`, `sdk/src/test/java/`
 - Instrumentation tests: `sdk/src/androidTest/java/`
 
+## Java to Kotlin porting
+- Readability over brevity — don't chain multiple scope functions or use clever one-liners that obscure intent
+- Use Kotlin features when they genuinely improve the code, not for the sake of being "more Kotlin"
+- Remember that Kotlin code is called from Java modules — use `@JvmStatic`, `@JvmOverloads`, `@JvmField` where needed for clean interop
+- Prefer idiomatic Kotlin over a 1:1 Java translation:
+  - `data class` instead of POJOs with manual `equals`/`hashCode`/`toString`
+  - Scope functions (`let`, `apply`, `also`, `with`, `run`) for single, non-nested usage — avoid chaining or nesting them
+  - Kotlin null-safety (`?.`, `?:`) instead of `@Nullable`/`@NonNull` annotations and manual null checks; avoid `!!` except where the value is provably non-null
+  - `require()` for argument validation, `check()` for state validation instead of manual `if (...) throw`
+  - `val` by default; `var` only when mutation is necessary
+  - `listOf`/`mapOf`/`setOf` (immutable) by default; mutable variants only when needed
+  - Extension functions instead of static utility methods where it improves readability
+  - `sealed class`/`sealed interface` instead of abstract classes with restricted hierarchies
+  - `when` expressions instead of `if-else` chains and `switch` statements
+- Preserve public API and behavior unless the ticket explicitly says otherwise
+- When converting a Java utility class to Kotlin top-level functions, use `@file:JvmName("ClassName")` to preserve static call sites for Java callers
+- Keep the diff reviewable — large files can be ported incrementally
+
 ## Important notes
 - Minimum SDK: 21; target SDK: latest stable
-- Java 17 source/target; Kotlin only enabled with Firebase
+- Java 17 source/target; Kotlin enabled in `app` module, other modules can opt in via `enableKotlin = true` in `build.gradle`
+- Run `ktlint --editorconfig=android/.editorconfig --format <file.kt>` after creating or editing Kotlin files
 - NDK version: 29+; CMake: 3.22.1+
 - Deep link schemes: `geo://`, `om://`, `ge0://`, `ge0.me` (HTTP/HTTPS)
 - Permissions validated at build time via `permission-checker.gradle`

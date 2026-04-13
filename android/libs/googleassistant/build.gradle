@@ -6,6 +6,7 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace 'app.organicmaps.intent'
+  // enableKotlin = true  // see app/build.gradle
 }
 
 dependencies {

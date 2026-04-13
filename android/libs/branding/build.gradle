@@ -6,4 +6,5 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace 'app.organicmaps.branding'
+  // enableKotlin = true  // see app/build.gradle
 }
