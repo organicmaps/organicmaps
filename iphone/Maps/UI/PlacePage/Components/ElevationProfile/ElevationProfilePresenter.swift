@@ -168,8 +168,8 @@ private struct ElevationProfileChartData {
     distances = points.map(\.distance)
     segmentBoundaryDistances = elevationData.segmentDistances.map(\.doubleValue)
     maxDistance = distances.last ?? 0
-    let lineColor = StyleManager.shared.theme?.colors.chartLine ?? .blue
-    let lineShadowColor = StyleManager.shared.theme?.colors.chartShadow ?? .lightGray
+    let lineColor = UIColor.chartLine
+    let lineShadowColor = UIColor.chartShadow
     let l1 = Line(values: chartValues, color: lineColor, type: .line)
     let l2 = Line(values: chartValues, color: lineShadowColor, type: .lineArea)
     chartLines = [l1, l2]

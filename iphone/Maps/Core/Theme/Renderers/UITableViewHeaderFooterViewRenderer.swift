@@ -13,7 +13,9 @@ extension UITableViewHeaderFooterView {
 class UITableViewHeaderFooterViewRenderer {
   class func render(_ control: UITableViewHeaderFooterView, style: Style) {
     if let backgroundColor = style.backgroundColor {
-      control.backgroundView = UIImageView(image: backgroundColor.getImage())
+      let bgView = UIView()
+      bgView.backgroundColor = backgroundColor
+      control.backgroundView = bgView
     }
     if let fontColor = style.fontColor {
       control.textLabel?.textColor = fontColor

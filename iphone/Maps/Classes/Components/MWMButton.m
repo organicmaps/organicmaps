@@ -1,8 +1,7 @@
 #import "MWMButton.h"
 #import "SwiftBridge.h"
-static NSString * const kDefaultPattern = @"%@_%@";
-static NSString * const kHighlightedPattern = @"%@_highlighted_%@";
-static NSString * const kSelectedPattern = @"%@_selected_%@";
+static NSString * const kHighlightedPattern = @"%@_highlighted";
+static NSString * const kSelectedPattern = @"%@_selected";
 
 @implementation MWMButton
 
@@ -46,12 +45,10 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
 
 - (void)setDefaultImages
 {
-  NSString * postfix = [UIColor isNightMode] ? @"dark" : @"light";
-  [self setImage:[UIImage imageNamed:[NSString stringWithFormat:kDefaultPattern, self.imageName, postfix]]
-        forState:UIControlStateNormal];
-  [self setImage:[UIImage imageNamed:[NSString stringWithFormat:kHighlightedPattern, self.imageName, postfix]]
+  [self setImage:[UIImage imageNamed:self.imageName] forState:UIControlStateNormal];
+  [self setImage:[UIImage imageNamed:[NSString stringWithFormat:kHighlightedPattern, self.imageName]]
         forState:UIControlStateHighlighted];
-  [self setImage:[UIImage imageNamed:[NSString stringWithFormat:kSelectedPattern, self.imageName, postfix]]
+  [self setImage:[UIImage imageNamed:[NSString stringWithFormat:kSelectedPattern, self.imageName]]
         forState:UIControlStateSelected];
 }
 
@@ -116,11 +113,11 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
   switch (self.coloring)
   {
   case MWMButtonColoringBlack: self.tintColor = [UIColor blackSecondaryText]; break;
-  case MWMButtonColoringWhite: self.tintColor = [UIColor white]; break;
+  case MWMButtonColoringWhite: self.tintColor = [UIColor whitePrimary]; break;
   case MWMButtonColoringWhiteText: self.tintColor = [UIColor whitePrimaryText]; break;
   case MWMButtonColoringBlue: self.tintColor = [UIColor linkBlue]; break;
   case MWMButtonColoringGray: self.tintColor = [UIColor blackHintText]; break;
-  case MWMButtonColoringRed: self.tintColor = [UIColor red]; break;
+  case MWMButtonColoringRed: self.tintColor = [UIColor redPrimary]; break;
   case MWMButtonColoringOther: self.imageView.image = [self imageForState:UIControlStateNormal]; break;
   }
 }

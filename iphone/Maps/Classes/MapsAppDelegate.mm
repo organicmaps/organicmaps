@@ -300,9 +300,6 @@ using namespace osm_auth_ios;
   [UIButton appearance].exclusiveTouch = YES;
 
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
-
-  UITextField * textField = [UITextField appearance];
-  textField.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
 }
 
 - (BOOL)application:(UIApplication *)app

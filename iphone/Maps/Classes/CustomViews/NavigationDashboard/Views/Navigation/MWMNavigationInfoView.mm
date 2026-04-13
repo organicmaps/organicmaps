@@ -259,11 +259,11 @@ BOOL defaultOrientation(CGSize const & size)
     }
 
     NSDictionary * turnNumberAttributes = @{
-      NSForegroundColorAttributeName: [UIColor white],
+      NSForegroundColorAttributeName: [UIColor whitePrimary],
       NSFontAttributeName: IPAD ? [UIFont bold36] : [UIFont bold28]
     };
     NSDictionary * turnLegendAttributes = @{
-      NSForegroundColorAttributeName: [UIColor white],
+      NSForegroundColorAttributeName: [UIColor whitePrimary],
       NSFontAttributeName: IPAD ? [UIFont bold24] : [UIFont bold16]
     };
 

@@ -7,8 +7,7 @@
 - (void)setMwm_name:(NSString *)mwm_name
 {
   objc_setAssociatedObject(self, @selector(mwm_name), mwm_name, OBJC_ASSOCIATION_COPY_NONATOMIC);
-  self.image =
-      [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
+  self.image = [UIImage imageNamed:mwm_name];
 }
 
 - (NSString *)mwm_name
@@ -30,10 +29,15 @@
 
 - (void)applyColoring
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  self.tintColor = [[UIColor class] performSelector:self.coloringSelector];
-#pragma clang diagnostic pop
+  switch (self.mwm_coloring)
+  {
+  case MWMImageColoringWhite: self.tintColor = [UIColor whitePrimary]; break;
+  case MWMImageColoringBlack: self.tintColor = [UIColor blackSecondaryText]; break;
+  case MWMImageColoringBlue: self.tintColor = [UIColor linkBlue]; break;
+  case MWMImageColoringGray: self.tintColor = [UIColor blackHintText]; break;
+  case MWMImageColoringOther: self.tintColor = [UIColor whitePrimary]; break;
+  case MWMImageColoringSeparator: self.tintColor = [UIColor blackDividers]; break;
+  }
 }
 
 - (void)changeColoringToOpposite
@@ -41,31 +45,17 @@
   if (self.mwm_coloring == MWMImageColoringOther)
   {
     if (self.mwm_name)
-      self.image = [UIImage
-          imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
+      self.image = [UIImage imageNamed:self.mwm_name];
     return;
   }
   [self applyColoring];
-}
-
-- (SEL)coloringSelector
-{
-  switch (self.mwm_coloring)
-  {
-  case MWMImageColoringWhite: return @selector(white);
-  case MWMImageColoringBlack: return @selector(blackSecondaryText);
-  case MWMImageColoringBlue: return @selector(linkBlue);
-  case MWMImageColoringGray: return @selector(blackHintText);
-  case MWMImageColoringOther: return @selector(white);
-  case MWMImageColoringSeparator: return @selector(blackDividers);
-  }
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
   switch (self.mwm_coloring)
   {
-  case MWMImageColoringWhite: self.tintColor = highlighted ? [UIColor whiteHintText] : [UIColor white]; break;
+  case MWMImageColoringWhite: self.tintColor = highlighted ? [UIColor whiteHintText] : [UIColor whitePrimary]; break;
   case MWMImageColoringBlack:
     self.tintColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
     break;

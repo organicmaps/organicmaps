@@ -81,12 +81,6 @@ final class PlacePageHeaderViewController: UIViewController {
     }
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    updateTitleEditingStyle()
-  }
-
   @objc private func onExpandPressed(sender _: UITapGestureRecognizer) {
     presenter?.onExpandPress()
   }
@@ -149,13 +143,13 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
 
     let titleAttributes: [NSAttributedString.Key: Any] = [
       .font: StyleManager.shared.theme!.fonts.medium20,
-      .foregroundColor: UIColor.blackPrimaryText(),
+      .foregroundColor: UIColor.blackPrimaryText,
     ]
     let editImage = NSTextAttachment()
     editImage.image = UIImage(resource: .ic24PxEdit)
     editImage.bounds = Constants.editImageRect
     let editString = NSMutableAttributedString(attachment: editImage)
-    editString.addAttributes([.foregroundColor: UIColor.linkBlue()],
+    editString.addAttributes([.foregroundColor: UIColor.linkBlue],
                              range: NSRange(location: 0, length: editString.length))
 
     let titleString = NSMutableAttributedString(string: titleText ?? "", attributes: titleAttributes)

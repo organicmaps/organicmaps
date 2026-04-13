@@ -16,7 +16,7 @@ final class ProductButton: UIButton {
   private func setup(title: String, action _: @escaping () -> Void) {
     setStyleAndApply(.blueBackground)
     setTitle(title, for: .normal)
-    setTitleColor(.white, for: .normal)
+    setTitleColor(.whitePrimary, for: .normal)
     titleLabel?.font = UIFont.regular14()
     titleLabel?.allowsDefaultTighteningForTruncation = true
     titleLabel?.adjustsFontSizeToFitWidth = true

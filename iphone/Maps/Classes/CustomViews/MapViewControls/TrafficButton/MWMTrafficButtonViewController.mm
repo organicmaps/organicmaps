@@ -18,10 +18,9 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 {
   NSUInteger const imagesCount = 3;
   NSMutableArray<UIImage *> * images = [NSMutableArray arrayWithCapacity:imagesCount];
-  NSString * mode = [UIColor isNightMode] ? @"dark" : @"light";
   for (NSUInteger i = 1; i <= imagesCount; i += 1)
   {
-    NSString * imageName = [NSString stringWithFormat:@"%@_%@_%@", name, mode, @(i).stringValue];
+    NSString * imageName = [NSString stringWithFormat:@"%@_%@", name, @(i).stringValue];
     [images addObject:static_cast<UIImage * _Nonnull>([UIImage imageNamed:imageName])];
   }
   return [images copy];

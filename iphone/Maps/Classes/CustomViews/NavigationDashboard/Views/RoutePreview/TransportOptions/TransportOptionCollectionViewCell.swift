@@ -42,6 +42,6 @@ final class TransportOptionCollectionViewCell: UICollectionViewCell {
 
   private func setSelected(_ selected: Bool) {
     imageView.image = routerType.image(for: selected)
-    imageView.tintColor = selected ? .linkBlue() : .lightGray
+    imageView.tintColor = selected ? .linkBlue : .lightGray
   }
 }

@@ -14,13 +14,6 @@ final class CircleImageButton: UIButton {
     setupView()
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-      circleImageView.applyTheme()
-    }
-  }
-
   private func setupView() {
     backgroundColor = .clear
     circleImageView.contentMode = .scaleAspectFill

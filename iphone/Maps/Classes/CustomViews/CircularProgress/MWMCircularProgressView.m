@@ -49,7 +49,7 @@ static CGFloat angleWithProgress(CGFloat progress)
 {
   self.colors = [NSMutableDictionary dictionary];
   UIColor * progressColor =
-      [_spinnerBackgroundColor isEqual:UIColor.clearColor] ? UIColor.whiteColor : [UIColor linkBlue];
+      [_spinnerBackgroundColor isEqual:UIColor.clearColor] ? [UIColor whitePrimary] : [UIColor linkBlue];
   UIColor * clearColor = UIColor.clearColor;
   [self setSpinnerColoring:MWMImageColoringGray];
   [self setColor:clearColor forState:MWMCircularProgressStateNormal];
@@ -77,6 +77,18 @@ static CGFloat angleWithProgress(CGFloat progress)
   self.suspendRefreshProgress = YES;
   [self setupColors];
   self.suspendRefreshProgress = NO;
+  if (self.state == MWMCircularProgressStateSpinner)
+    [self startSpinner];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (self.state != MWMCircularProgressStateSpinner)
+    return;
+  if (![self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection])
+    return;
+  [self startSpinner];
 }
 
 - (void)setupAnimationLayers
@@ -175,12 +187,11 @@ static CGFloat angleWithProgress(CGFloat progress)
     self.spinner.hidden = NO;
     self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
   }
-  NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) ||
-                               (![UIColor isNightMode] && self.isInvertColor) || _spinnerBackgroundColor
-                         ? @"dark"
-                         : @"light";
-  UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@", postfix]];
+  BOOL const isDark = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+  BOOL const wantsDark = (isDark && !self.isInvertColor) || (!isDark && self.isInvertColor) || _spinnerBackgroundColor;
+  UIImage * image = [[UIImage imageNamed:@"Spinner"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
   self.spinner.image = image;
+  self.spinner.tintColor = wantsDark ? UIColor.whiteColor : UIColor.blackColor;
   [self.spinner startRotation:1];
 }
 

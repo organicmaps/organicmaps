@@ -20,9 +20,9 @@
   SettingsTableViewSelectableCell * selectedCell = nil;
   switch ([MWMSettings theme])
   {
-  case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
+  case MWMThemeVehicleDay:
   case MWMThemeDay: selectedCell = self.off; break;
-  case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
+  case MWMThemeVehicleNight:
   case MWMThemeNight: selectedCell = self.on; break;
   case MWMThemeAuto: selectedCell = self.autoSwitch; break;
   }

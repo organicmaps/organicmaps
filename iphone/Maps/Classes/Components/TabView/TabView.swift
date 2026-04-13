@@ -143,7 +143,7 @@ class TabView: UIView {
   }
 
   private func configure() {
-    backgroundColor = .white
+    backgroundColor = .whitePrimary
 
     configureHeader()
     configureContent()

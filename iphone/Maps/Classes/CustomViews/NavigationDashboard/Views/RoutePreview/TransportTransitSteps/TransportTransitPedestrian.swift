@@ -1,7 +1,7 @@
 final class TransportTransitPedestrian: TransportTransitCell {
   enum Config {
-    static var backgroundColor: UIColor { UIColor.blackOpaque() }
-    static var imageColor: UIColor { UIColor.blackSecondaryText() }
+    static var backgroundColor: UIColor { .blackOpaque }
+    static var imageColor: UIColor { .blackSecondaryText }
   }
 
   @IBOutlet private var background: UIView! {

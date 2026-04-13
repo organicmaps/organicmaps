@@ -56,7 +56,7 @@ final class EstimatesView: UIView {
                           self.estimatesLabel.alpha = 1.0
                           self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage, attributes: [
                             .font: Fonts().semibold16,
-                            .foregroundColor: UIColor.buttonRed(),
+                            .foregroundColor: UIColor.buttonRed,
                           ])
                         case .estimates(let estimates):
                           self.estimatesLabel.alpha = 1.0

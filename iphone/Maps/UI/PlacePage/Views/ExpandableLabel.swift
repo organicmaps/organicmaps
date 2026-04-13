@@ -307,7 +307,7 @@ private final class ExpandView: UIView {
   func updateAppearance() {
     gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
     gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-    let color = UIColor.white()
+    let color = UIColor.whitePrimary
     gradientLayer.colors = [
       color.withAlphaComponent(0).cgColor,
       color.cgColor,

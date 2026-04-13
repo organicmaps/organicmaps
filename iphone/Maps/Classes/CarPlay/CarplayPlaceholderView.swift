@@ -45,10 +45,10 @@ class CarplayPlaceholderView: UIView {
   }
 
   private func updateColors() {
-    backgroundColor = UIColor.carplayPlaceholderBackground()
-    descriptionLabel.textColor = UIColor.blackSecondaryText()
-    switchButton.backgroundColor = UIColor.linkBlue()
-    switchButton.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
+    backgroundColor = .carplayPlaceholderBackground
+    descriptionLabel.textColor = .blackSecondaryText
+    switchButton.backgroundColor = .linkBlue
+    switchButton.setTitleColor(.whitePrimaryText, for: .normal)
   }
 
   @objc private func onSwitchButtonTap(_: UIButton) {

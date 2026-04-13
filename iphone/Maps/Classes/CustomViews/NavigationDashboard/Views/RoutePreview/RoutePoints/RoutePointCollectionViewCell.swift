@@ -45,7 +45,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   override var isHighlighted: Bool {
     didSet {
-      contentBackgroundView.backgroundColor = isHighlighted ? .lightGray : .pressBackground()
+      contentBackgroundView.backgroundColor = isHighlighted ? .lightGray : .pressBackground
     }
   }
 

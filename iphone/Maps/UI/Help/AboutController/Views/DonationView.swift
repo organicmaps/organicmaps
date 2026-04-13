@@ -64,7 +64,7 @@ final class DonationView: UIButton {
     acationButtonGradientLayer.startPoint = CGPoint(x: 0, y: 0)
     acationButtonGradientLayer.endPoint = CGPoint(x: 1, y: 1)
     acationButtonGradientLayer.frame = actionButton.bounds
-    let actionButtonGradiengColor = StyleManager.shared.theme!.colors.ratingYellow
+    let actionButtonGradiengColor = UIColor.ratingYellow
     acationButtonGradientLayer.colors = [
       actionButtonGradiengColor.lighter(percent: Constants.gradientColorMultiplier).cgColor,
       actionButtonGradiengColor.darker(percent: Constants.gradientColorMultiplier).cgColor,

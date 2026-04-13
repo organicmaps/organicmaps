@@ -102,16 +102,6 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 
 + (MWMTheme)theme
 {
-  if ([MWMCarPlayService shared].isCarplayActivated)
-  {
-    UIUserInterfaceStyle style = [[MWMCarPlayService shared] interfaceStyle];
-    switch (style)
-    {
-    case UIUserInterfaceStyleLight: return MWMThemeDay;
-    case UIUserInterfaceStyleDark: return MWMThemeNight;
-    case UIUserInterfaceStyleUnspecified: break;
-    }
-  }
   auto ud = NSUserDefaults.standardUserDefaults;
   if (![ud boolForKey:kUDAutoNightModeOff])
     return MWMThemeAuto;

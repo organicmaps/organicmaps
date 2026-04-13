@@ -1,29 +1,20 @@
 @objc class Theme: NSObject {
-  enum ThemeType {
-    case dark
-    case light
-  }
-
   typealias StyleName = String
   typealias Resolver = (Style) -> Void
 
-  @objc let colors: IColors
   @objc let fonts: IFonts
-  private var themeType: ThemeType
   private var components: [StyleName: Style] = [:]
   private var resolvers: [StyleName: Resolver] = [:]
   private var dependencies: [StyleName: StyleName] = [:]
 
-  init(type: ThemeType, colors: IColors, fonts: IFonts) {
-    self.colors = colors
+  init(fonts: IFonts) {
     self.fonts = fonts
-    themeType = type
     super.init()
     register()
   }
 
   func registerStyleSheet<U: IStyleSheet>(_: U.Type) {
-    U.register(theme: self, colors: colors, fonts: fonts)
+    U.register(theme: self, fonts: fonts)
   }
 
   func add(styleName: StyleName, _ resolver: @escaping Resolver) {
@@ -31,21 +22,6 @@
   }
 
   func add(styleName: StyleName, from: StyleName, _ resolver: @escaping Resolver) {
-    resolvers[styleName] = resolver
-    dependencies[styleName] = from
-  }
-
-  func add(styleName: StyleName, forType: ThemeType, _ resolver: @escaping Resolver) {
-    guard themeType == forType else {
-      return
-    }
-    resolvers[styleName] = resolver
-  }
-
-  func add(styleName: StyleName, from: StyleName, forType: ThemeType, _ resolver: @escaping Resolver) {
-    guard themeType == forType else {
-      return
-    }
     resolvers[styleName] = resolver
     dependencies[styleName] = from
   }
