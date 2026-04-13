@@ -355,14 +355,8 @@
     <item name="android:minWidth">30dp</item>
     <item name="android:paddingTop">7dp</item>
     <item name="android:paddingBottom">7dp</item>
-    <item name="android:paddingStart" >
-      12dp
-    </item>
-    <item name="android:paddingEnd" >
-      12dp
-    </item>
-    <item name="android:paddingLeft">12dp</item>
-    <item name="android:paddingRight">12dp</item>
+    <item name="android:paddingStart">12dp</item>
+    <item name="android:paddingEnd">12dp</item>
     <item name="iconPadding">4dp</item>
     <item name="iconSize">20dp</item>
     <item name="iconTint">?accentButtonTextColor</item>
