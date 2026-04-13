@@ -16,12 +16,18 @@ MessageQueue::~MessageQueue()
 drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 {
   std::unique_lock<std::mutex> lock(m_mutex);
-  if (waitForMessage && m_messages.empty() && m_lowPriorityMessages.empty())
+  // Honour any pending cancel that arrived before we acquired the mutex.
+  // Without this, a CancelWait() that races just ahead of PopMessage()
+  // would be lost: m_isWaiting was still false at cancel time, so the
+  // cancel returned without notifying, then PopMessage() would park
+  // indefinitely with no one left to wake it.
+  if (waitForMessage && !m_cancelPending && m_messages.empty() && m_lowPriorityMessages.empty())
   {
     m_isWaiting = true;
-    m_condition.wait(lock, [this]() { return !m_isWaiting; });
+    m_condition.wait(lock, [this]() { return !m_isWaiting || m_cancelPending; });
     m_isWaiting = false;
   }
+  m_cancelPending = false;
 
   drape_ptr<Message> msg;
   if (!m_messages.empty())
@@ -149,11 +155,11 @@ void MessageQueue::CancelWait()
 
 void MessageQueue::CancelWaitImpl()
 {
-  if (m_isWaiting)
-  {
-    m_isWaiting = false;
-    m_condition.notify_all();
-  }
+  // Sticky: even if no one is currently waiting, the next PopMessage()
+  // that arrives must observe the cancel and return without parking.
+  m_cancelPending = true;
+  m_isWaiting = false;
+  m_condition.notify_all();
 }
 
 void MessageQueue::ClearQuery()

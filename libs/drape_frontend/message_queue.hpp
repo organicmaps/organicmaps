@@ -41,6 +41,11 @@ private:
   mutable std::mutex m_mutex;
   std::condition_variable m_condition;
   bool m_isWaiting;
+  // Sticky cancel flag: a CancelWait() that arrives before PopMessage()
+  // enters its wait must still take effect, otherwise PopMessage() can
+  // park on an empty queue with no one left to wake it up. Cleared on
+  // every PopMessage() entry and exit.
+  bool m_cancelPending = false;
   using TMessageNode = std::pair<drape_ptr<Message>, MessagePriority>;
   std::deque<TMessageNode> m_messages;
   std::deque<drape_ptr<Message>> m_lowPriorityMessages;
