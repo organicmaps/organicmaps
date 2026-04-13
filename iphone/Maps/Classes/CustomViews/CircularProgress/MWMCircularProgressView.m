@@ -77,6 +77,18 @@ static CGFloat angleWithProgress(CGFloat progress)
   self.suspendRefreshProgress = YES;
   [self setupColors];
   self.suspendRefreshProgress = NO;
+  if (self.state == MWMCircularProgressStateSpinner)
+    [self startSpinner];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (self.state != MWMCircularProgressStateSpinner)
+    return;
+  if (![self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection])
+    return;
+  [self startSpinner];
 }
 
 - (void)setupAnimationLayers
@@ -177,19 +189,9 @@ static CGFloat angleWithProgress(CGFloat progress)
   }
   BOOL const isDark = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
   BOOL const wantsDark = (isDark && !self.isInvertColor) || (!isDark && self.isInvertColor) || _spinnerBackgroundColor;
-  UIImage * image;
-  if (wantsDark != isDark)
-  {
-    // Need the opposite appearance variant.
-    UITraitCollection * traits = [UITraitCollection
-        traitCollectionWithUserInterfaceStyle:wantsDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight];
-    image = [UIImage imageNamed:@"Spinner" inBundle:nil compatibleWithTraitCollection:traits];
-  }
-  else
-  {
-    image = [UIImage imageNamed:@"Spinner"];
-  }
+  UIImage * image = [[UIImage imageNamed:@"Spinner"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
   self.spinner.image = image;
+  self.spinner.tintColor = wantsDark ? UIColor.whiteColor : UIColor.blackColor;
   [self.spinner startRotation:1];
 }
 
