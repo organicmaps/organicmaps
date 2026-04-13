@@ -1,0 +1,39 @@
+name: Code style check - Kotlin
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths: # Should stay in sync with tools/unix/ktlint_format.sh
+      - '.github/workflows/code-style-check-kotlin.yaml'
+      - 'android/**/*.kt'
+      - 'android/.editorconfig'
+      - 'android/gradle/libs.versions.toml'
+      - 'tools/unix/ktlint_format.sh'
+      - 'tools/hooks/format-config.bash'
+      - 'tools/hooks/pre-commit'
+
+jobs:
+  code-style-check-kotlin:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      # Version is read from android/gradle/libs.versions.toml (single source of truth).
+      - name: Install ktlint
+        run: |
+          KTLINT_VERSION=$(grep -E '^ktlint\s*=' android/gradle/libs.versions.toml | grep -oE '"[^"]+"' | tr -d '"')
+          if [ -z "$KTLINT_VERSION" ]; then
+            echo "::error::Failed to parse ktlint version from android/gradle/libs.versions.toml"
+            exit 1
+          fi
+          echo "Installing ktlint $KTLINT_VERSION"
+          curl -sSLO "https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint"
+          chmod +x ktlint
+          sudo mv ktlint /usr/local/bin/
+          ktlint --version
+
+      - name: Run ktlint
+        run: tools/unix/ktlint_format.sh

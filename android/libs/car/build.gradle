@@ -6,6 +6,7 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace 'app.organicmaps.car'
+  // enableKotlin = true  // see app/build.gradle
 
   compileOptions {
     coreLibraryDesugaringEnabled = true

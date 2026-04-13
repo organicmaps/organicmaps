@@ -1,5 +1,6 @@
 [versions]
 agp = "9.1.1"
+ktlint = "1.8.0"
 
 # com.android.tools:desugar_jdk_libs
 android-tools-desugaring = "2.1.5"
@@ -52,6 +53,8 @@ triplet-play-publisher = "4.0.0"
 
 [libraries]
 android-tools-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugaring" }
+
+ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
