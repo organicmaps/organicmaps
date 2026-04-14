@@ -4,6 +4,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/rect_intersect.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -154,6 +155,22 @@ std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double scr
   std::vector<ArrowBorders> newArrowBorders;
   newArrowBorders.reserve(kAverageArrowsCount);
   auto const & polyline = subroute->m_polyline;
+
+  auto const intersectsScreen = [&screenRect, &polyline](double startDistance, double endDistance)
+  {
+    auto p1 = polyline.GetPointByDistance(startDistance);
+    if (screenRect.IsPointInside(p1))
+      return true;
+    auto p2 = polyline.GetPointByDistance(endDistance);
+    if (screenRect.IsPointInside(p2))
+      return true;
+
+    return false;
+    /// @todo Reasonable or overhead?
+    // int code1 = 0, code2 = 0;
+    // return m2::Intersect(screenRect, p1, p2, code1, code2);
+  };
+
   for (size_t i = 0; i < turns.size(); i++)
   {
     ArrowBorders arrowBorders;
@@ -167,25 +184,8 @@ std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double scr
       continue;
     }
 
-    auto adjustX = [refX = screenRect.Center().x](m2::PointD pt)
-    {
-      pt.x = mercator::NearestWrapX(pt.x, refX);
-      return pt;
-    };
-
-    m2::PointD pt = adjustX(polyline.GetPointByDistance(arrowBorders.m_startDistance));
-    if (screenRect.IsPointInside(pt))
-    {
+    if (intersectsScreen(arrowBorders.m_startDistance, arrowBorders.m_endDistance))
       newArrowBorders.push_back(arrowBorders);
-      continue;
-    }
-
-    pt = adjustX(polyline.GetPointByDistance(arrowBorders.m_endDistance));
-    if (screenRect.IsPointInside(pt))
-    {
-      newArrowBorders.push_back(arrowBorders);
-      continue;
-    }
   }
 
   // Merge intersected borders and clip them.
@@ -244,10 +244,14 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen, PrepareRouteAr
 
     if (zoom < kArrowAppearingZoomLevel)
     {
+      subrouteInfo.m_arrowsPrepareInProgress = false;
       subrouteInfo.m_arrowsData.reset();
       subrouteInfo.m_arrowBorders.clear();
       continue;
     }
+
+    if (subrouteInfo.m_arrowsPrepareInProgress)
+      continue;
 
     // Calculate arrow borders.
     double dist = kInvalidDistance;
@@ -256,10 +260,11 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen, PrepareRouteAr
 
     // We run asynchronous task to calculate new positions of route arrows.
     auto const subrouteId = subrouteInfo.m_subrouteId;
-    auto const screenRect = screen.ClipRect();
+    auto const screenRect = AdjustedScreen(screen, subrouteInfo.m_subroute->m_polyline.Front()).GetClipRect();
     auto const screenScale = screen.GetScale();
     auto const subrouteLength = subrouteInfo.m_length;
     auto subroute = subrouteInfo.m_subroute;
+    subrouteInfo.m_arrowsPrepareInProgress = true;
     dp::DrapeRoutine::RunSequential([subrouteId, screenRect, screenScale, halfWidth, subroute = std::move(subroute),
                                      subrouteLength, dist, prepareCallback]()
     {
@@ -280,6 +285,7 @@ void RouteRenderer::CacheRouteArrows(ScreenBase const & screen, dp::DrapeID subr
     return;
 
   auto & subrouteInfo = *it;
+  subrouteInfo.m_arrowsPrepareInProgress = false;
 
   double zoom = 0.0;
   float halfWidth = 0.0;
