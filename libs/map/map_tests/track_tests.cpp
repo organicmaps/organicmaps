@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "map/elevation_info.hpp"
+#include "map/routing_manager.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 
@@ -12,6 +13,9 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_reader.hpp"
+
+#include <algorithm>
+#include <vector>
 
 namespace track_tests
 {
@@ -192,6 +196,43 @@ UNIT_TEST(Track_GetPoint_NegativeDistance)
   Track track = MakeTrack({{p1, p2}});
 
   TEST_ALMOST_EQUAL_ABS(track.GetPoint(-1.0), p1.GetPoint(), kEqualPointsEps, ());
+}
+
+// ===================== InterpolateByDistance tests =====================
+
+UNIT_TEST(InterpolatePointAtDistance_NegativeDistance)
+{
+  std::vector<m2::PointD> const points = {{0, 0}, {1, 0}, {2, 0}};
+  std::vector<double> const distances = {1.0, 2.0};
+
+  TEST_ALMOST_EQUAL_ABS(InterpolatePointAtDistance(distances, points, -5.0), points.front(), kEqualPointsEps, ());
+}
+
+UNIT_TEST(InterpolatePointAtDistance_BeyondEnd)
+{
+  std::vector<m2::PointD> const points = {{0, 0}, {1, 0}, {2, 0}};
+  std::vector<double> const distances = {1.0, 2.0};
+
+  TEST_ALMOST_EQUAL_ABS(InterpolatePointAtDistance(distances, points, 100.0), points.back(), kEqualPointsEps, ());
+}
+
+UNIT_TEST(InterpolatePointAtDistance_Midpoint)
+{
+  std::vector<m2::PointD> const points = {{0, 0}, {1, 0}, {2, 0}};
+  std::vector<double> const distances = {1.0, 2.0};
+
+  TEST_ALMOST_EQUAL_ABS(InterpolatePointAtDistance(distances, points, 0.5), m2::PointD(0.5, 0), kEqualPointsEps, ());
+  TEST_ALMOST_EQUAL_ABS(InterpolatePointAtDistance(distances, points, 1.5), m2::PointD(1.5, 0), kEqualPointsEps, ());
+}
+
+// Duplicated points don't cause issues because the algorithm interpolates
+// by cumulative distances, not by pairwise point gaps.
+UNIT_TEST(InterpolatePointAtDistance_DuplicatedPoints)
+{
+  std::vector<m2::PointD> const points = {{0, 0}, {0, 0}, {1, 0}};
+  std::vector<double> const distances = {0.0, 1.0};
+
+  TEST_ALMOST_EQUAL_ABS(InterpolatePointAtDistance(distances, points, 0.5), m2::PointD(0.5, 0), kEqualPointsEps, ());
 }
 
 // ===================== TrackStatistics tests =====================

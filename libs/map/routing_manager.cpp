@@ -1235,14 +1235,9 @@ bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
   return true;
 }
 
-std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
+m2::PointD InterpolatePointAtDistance(std::vector<double> const & distances, std::vector<m2::PointD> const & points,
+                                      double distanceMeters)
 {
-  auto const * route = m_routingSession.GetRoute();
-  if (!route || !route->IsValid())
-    return std::nullopt;
-
-  auto const & distances = route->GetSegDistanceMeters();
-  auto const & points = route->GetPoly().GetPoints();
   ASSERT_EQUAL(distances.size() + 1, points.size(), ());
 
   if (distanceMeters <= 0)
@@ -1253,10 +1248,24 @@ std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanc
 
   auto const it = std::upper_bound(distances.begin(), distances.end(), distanceMeters);
   size_t const idx = std::distance(distances.begin(), it);
-  // distances[idx-1] < distanceMeters <= distances[idx], points[idx] .. points[idx+1]
-  double const segLen = distances[idx] - (idx > 0 ? distances[idx - 1] : 0.0);
-  double const f = segLen > 1e-9 ? (distanceMeters - (idx > 0 ? distances[idx - 1] : 0.0)) / segLen : 0.0;
+  // distances[idx-1] <= distanceMeters < distances[idx], points[idx] .. points[idx+1]
+  double const prevDist = idx > 0 ? distances[idx - 1] : 0.0;
+  double const segLen = distances[idx] - prevDist;
+  // segLen == 0 is unreachable: upper_bound skips duplicates to the first strictly-greater element.
+  ASSERT(segLen > 0, (distanceMeters, prevDist, distances[idx]));
+  double const f = (distanceMeters - prevDist) / segLen;
   return points[idx] + (points[idx + 1] - points[idx]) * f;
+}
+
+std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
+{
+  auto const * route = m_routingSession.GetRoute();
+  if (!route || !route->IsValid())
+    return std::nullopt;
+
+  auto const & distances = route->GetSegDistanceMeters();
+  auto const & points = route->GetPoly().GetPoints();
+  return InterpolatePointAtDistance(distances, points, distanceMeters);
 }
 
 void RoutingManager::SetRouter(RouterType type)

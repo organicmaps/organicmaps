@@ -2,7 +2,6 @@ package app.organicmaps.routing;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,13 +45,6 @@ public class RouteElevationChartController
     mMaxAltitude = view.findViewById(R.id.highest_altitude);
     mMinAltitude = view.findViewById(R.id.lowest_altitude);
 
-    if (mMinAltitude != null)
-    {
-      final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mMinAltitude.getLayoutParams();
-      lp.bottomMargin -= mContext.getResources().getDimensionPixelSize(R.dimen.margin_half);
-      mMinAltitude.setLayoutParams(lp);
-    }
-
     if (mChart == null)
       return;
 
@@ -83,10 +75,10 @@ public class RouteElevationChartController
     mListener = listener;
   }
 
-  public void fitScreen()
+  public void clearSelection()
   {
     if (mChart != null)
-      mChart.fitScreen();
+      mChart.highlightValue(null, false);
   }
 
   public void setData(@Nullable RouteAltitudeData data)
@@ -102,13 +94,8 @@ public class RouteElevationChartController
         mMaxAltitude.setText("");
       if (mMinAltitude != null)
         mMinAltitude.setText("");
-      if (mListener != null)
-        mListener.onElevationPointDeselected();
       return;
     }
-
-    if (mListener != null)
-      mListener.onElevationPointDeselected();
 
     List<Entry> values = new ArrayList<>();
     for (int i = 0; i < data.getSize(); i++)

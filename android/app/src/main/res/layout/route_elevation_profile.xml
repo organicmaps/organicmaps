@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="@dimen/elevation_profile_content_height"
   android:background="?cardBackground">
@@ -8,11 +7,6 @@
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-  <app.organicmaps.widget.placepage.FloatingMarkerView
-    android:id="@+id/floating_marker"
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
   <TextView
     android:id="@+id/highest_altitude"
     android:layout_width="wrap_content"
@@ -36,7 +30,7 @@
     android:layout_alignParentBottom="true"
     android:layout_marginStart="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_base_plus"
-    android:layout_marginBottom="@dimen/margin_base_plus"
+    android:layout_marginBottom="@dimen/margin_base"
     android:background="?altitudeBg"
     android:paddingStart="@dimen/margin_quarter_plus"
     android:paddingTop="@dimen/margin_eighth"
