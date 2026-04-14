@@ -3,9 +3,6 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "geometry/mercator.hpp"
-#include "geometry/rect_intersect.hpp"
-
 #include "shaders/programs.hpp"
 
 #include "drape/drape_routine.hpp"
@@ -457,8 +454,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  auto const mv = adjScreen.GetShapeModelView();
-  params.m_modelView = glsl::make_mat4(mv.m_data);
+  params.m_modelView = glsl::make_mat4(adjScreen.GetShapeModelView().m_data);
   params.m_color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   params.m_routeParams = glsl::vec4(currentHalfWidth, screenHalfWidth, dist, trafficShown ? 1.0f : 0.0f);
 
@@ -514,8 +510,7 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  auto const mv = adjScreen.GetShapeModelView();
-  params.m_modelView = glsl::make_mat4(mv.m_data);
+  params.m_modelView = glsl::make_mat4(adjScreen.GetShapeModelView().m_data);
   auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   params.m_arrowHalfWidth = arrowHalfWidth;
 
