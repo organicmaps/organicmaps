@@ -1010,42 +1010,46 @@ NSString * const kSettingsSegue = @"Map2Settings";
   return YES;
 }
 
-- (NSArray *)keyCommands
+- (NSArray<UIKeyCommand *> *)keyCommands
 {
-  NSArray * commands = @[
-    [UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow
-                        modifierFlags:0
-                               action:@selector(zoomOut)],  // Alternative, not shown when holding CMD
-    [UIKeyCommand keyCommandWithInput:@"-"
-                        modifierFlags:UIKeyModifierCommand
-                               action:@selector(zoomOut)
-                 discoverabilityTitle:@"Zoom Out"],
-    [UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
-                        modifierFlags:0
-                               action:@selector(zoomIn)],  // Alternative, not shown when holding CMD
-    [UIKeyCommand keyCommandWithInput:@"="
-                        modifierFlags:UIKeyModifierCommand
-                               action:@selector(zoomIn)],  // Alternative, not shown when holding CMD
-    [UIKeyCommand keyCommandWithInput:@"+"
-                        modifierFlags:UIKeyModifierCommand
-                               action:@selector(zoomIn)
-                 discoverabilityTitle:@"Zoom In"],
-    [UIKeyCommand keyCommandWithInput:UIKeyInputEscape
-                        modifierFlags:0
-                               action:@selector(goBack)
-                 discoverabilityTitle:@"Go Back"],
-    [UIKeyCommand keyCommandWithInput:@"0"
-                        modifierFlags:UIKeyModifierCommand
-                               action:@selector(switchPositionMode)
-                 discoverabilityTitle:@"Switch position mode"]
-  ];
+  UIKeyCommand * downArrow = [UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow
+                                                 modifierFlags:0
+                                                        action:@selector(zoomOut)];
+
+  UIKeyCommand * zoomOut = [UIKeyCommand keyCommandWithInput:@"-"
+                                               modifierFlags:UIKeyModifierCommand
+                                                      action:@selector(zoomOut)];
+  zoomOut.discoverabilityTitle = @"Zoom Out";
+
+  UIKeyCommand * upArrow = [UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
+                                               modifierFlags:0
+                                                      action:@selector(zoomIn)];
+
+  UIKeyCommand * zoomInEquals = [UIKeyCommand keyCommandWithInput:@"="
+                                                    modifierFlags:UIKeyModifierCommand
+                                                           action:@selector(zoomIn)];
+
+  UIKeyCommand * zoomInPlus = [UIKeyCommand keyCommandWithInput:@"+"
+                                                  modifierFlags:UIKeyModifierCommand
+                                                         action:@selector(zoomIn)];
+  zoomInPlus.discoverabilityTitle = @"Zoom In";
+
+  UIKeyCommand * escape = [UIKeyCommand keyCommandWithInput:UIKeyInputEscape modifierFlags:0 action:@selector(goBack)];
+  escape.discoverabilityTitle = @"Go Back";
+
+  UIKeyCommand * switchPositionMode = [UIKeyCommand keyCommandWithInput:@"0"
+                                                          modifierFlags:UIKeyModifierCommand
+                                                                 action:@selector(switchPositionMode)];
+  switchPositionMode.discoverabilityTitle = @"Switch position mode";
+
+  NSArray<UIKeyCommand *> * commands =
+      @[downArrow, zoomOut, upArrow, zoomInEquals, zoomInPlus, escape, switchPositionMode];
 
   for (UIKeyCommand * command in commands)
     command.wantsPriorityOverSystemBehavior = YES;
 
   return commands;
 }
-
 - (void)zoomOut
 {
   GetFramework().Scale(Framework::SCALE_MIN, true);
