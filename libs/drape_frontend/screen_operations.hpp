@@ -37,6 +37,9 @@ void NormalizeScreenOriginX(ScreenBase & screen);
 /// for correct rendering when the viewport extends past the antimeridian.
 m2::PointD AdjustPointForViewport(m2::PointD const & pt, ScreenBase const & screen);
 
+m2::PointD GtoPWrap(m2::PointD const & pt, ScreenBase const & screen);
+m2::PointD PtoGWrap(m2::PointD const & pt, ScreenBase const & screen);
+
 class AdjustedScreen
 {
   ScreenBase const & m_screen;

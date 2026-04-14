@@ -9,7 +9,6 @@
 #include "base/buffer_vector.hpp"
 
 #include <array>
-#include <memory>
 #include <unordered_set>
 #include <vector>
 
@@ -72,7 +71,7 @@ public:
   HandlesCache const & GetHandlesCache() const { return m_handlesCache; }
 
   void Select(m2::RectD const & rect, TOverlayContainer & result) const;
-  void Select(m2::PointD const & glbPoint, TOverlayContainer & result) const;
+  void Select(m2::PointD glbPoint, TOverlayContainer & result) const;
 
   void SetDisplacementEnabled(bool enabled);
 
