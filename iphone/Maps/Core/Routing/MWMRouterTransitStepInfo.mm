@@ -14,14 +14,13 @@ MWMRouterTransitType convertType(TransitType type)
   case TransitType::Train: return MWMRouterTransitTypeTrain;
   case TransitType::LightRail: return MWMRouterTransitTypeLightRail;
   case TransitType::Monorail: return MWMRouterTransitTypeMonorail;
-  }
-
   // This is temporary solution for compiling iOS project after adding new
   // TransitType values. When these values will be approved we'll add them
   // above in switch(type) and remove this line.
   // TODO(o.khlopkova) Replace this return with more cases when transit
   // types are ready.
-  return MWMRouterTransitTypePedestrian;
+  default: return MWMRouterTransitTypePedestrian;
+  }
 }
 
 UIColor * convertColor(uint32_t colorARGB)
