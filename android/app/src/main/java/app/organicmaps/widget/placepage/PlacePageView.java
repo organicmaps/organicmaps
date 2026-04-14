@@ -56,8 +56,6 @@ import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.Editor;
-import app.organicmaps.sdk.editor.OpeningHours;
-import app.organicmaps.sdk.editor.data.OpeningHoursInfo;
 import app.organicmaps.sdk.location.LocationCompatExtractor;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.SensorListener;
@@ -81,12 +79,8 @@ import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackRecordingFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class PlacePageView extends Fragment
@@ -116,9 +110,6 @@ public class PlacePageView extends Fragment
   private Toolbar mToolbar;
   private TextView mTvTitle;
   private TextView mTvSecondaryTitle;
-  private ViewGroup mSchedulePreviewContainer;
-  private TextView mTvSchedulePreviewOpenIndicator;
-  private TextView mTvSchedulePreviewDescription;
   private TextView mTvSubtitle;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
@@ -282,10 +273,6 @@ public class PlacePageView extends Fragment
     mColorIcon.setOnClickListener(this);
     mTvCategory.setOnClickListener(this);
     mEditBookmark.setOnClickListener(this);
-
-    mSchedulePreviewContainer = mFrame.findViewById(R.id.schedule_preview_container);
-    mTvSchedulePreviewOpenIndicator = mFrame.findViewById(R.id.tv__schedule_preview_open_indicator);
-    mTvSchedulePreviewDescription = mFrame.findViewById(R.id.tv__schedule_preview_description);
 
     mOsmDescriptionContainer = mFrame.findViewById(R.id.osm_description_container);
     mTvOsmDescription = mFrame.findViewById(R.id.tv__osm_description);
@@ -508,7 +495,6 @@ public class PlacePageView extends Fragment
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
 
     refreshCategoryPreview();
-    refreshSchedulePreview();
 
     final String osmDescription = mMapObject.getOsmDescription();
     if (osmDescription.isEmpty())
@@ -531,106 +517,6 @@ public class PlacePageView extends Fragment
       mTrackRecordingObserver = s -> UiUtils.setTextAndHideIfEmpty(mTvTitle, s);
       liveData.observe(getViewLifecycleOwner(), mTrackRecordingObserver);
       UiUtils.hide(mAvDirection, mTvDistance);
-    }
-  }
-
-  private void refreshSchedulePreview()
-  {
-    final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-
-    final long currentTime = System.currentTimeMillis() / 1000L;
-
-    final OpeningHoursInfo ohInfo = OpeningHours.nativeGetOpeningHoursInfoFromString(ohStr, currentTime);
-
-    if (ohInfo == null || ohInfo.state == OpeningHoursInfo.RuleState.Unknown)
-    {
-      UiUtils.hide(mSchedulePreviewContainer);
-    }
-    else
-    {
-      UiUtils.show(mSchedulePreviewContainer);
-
-      if (ohInfo.isTwentyFourSeven)
-      {
-        UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.twentyfour_seven));
-        mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_green));
-        UiUtils.hide(mTvSchedulePreviewDescription);
-      }
-      else if (ohInfo.state == OpeningHoursInfo.RuleState.Open)
-      {
-        String descriptionString;
-
-        final long timeLeftMinutes = (ohInfo.nextTimeClosed - currentTime) / 60;
-
-        Date closeDate = new Date(ohInfo.nextTimeClosed * 1000L);
-        DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
-
-        if (ohInfo.nextTimeClosed == OpeningHoursInfo.TIME_NEVER) // Will stay open forever
-          descriptionString = "";
-        else if (timeLeftMinutes < 3 * 60) // Less than 3 hours
-          descriptionString = " • " + getString(R.string.closes_in, getTimeIntervalString(timeLeftMinutes)) + " • "
-                            + dateFormat.format(closeDate);
-        else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
-          descriptionString = " • " + getString(R.string.closes_at, dateFormat.format(closeDate));
-        else
-          descriptionString = "";
-
-        UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.editor_time_open));
-        mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_green));
-
-        UiUtils.setTextAndHideIfEmpty(mTvSchedulePreviewDescription, descriptionString);
-      }
-      else // ohInfo.state == OpeningHoursInfo.RuleState.Closed
-      {
-        String descriptionString;
-
-        final long timeLeftMinutes = (ohInfo.nextTimeOpen - currentTime) / 60;
-
-        final Calendar nowCal = Calendar.getInstance();
-
-        Calendar openCal = Calendar.getInstance();
-        openCal.setTimeInMillis(ohInfo.nextTimeOpen * 1000L);
-
-        Date openDate = new Date(ohInfo.nextTimeOpen * 1000L);
-        DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
-
-        if (ohInfo.nextTimeOpen == OpeningHoursInfo.TIME_NEVER) // Will stay closed forever
-          descriptionString = "";
-        else if (timeLeftMinutes < 3 * 60) // Less than 3 hours
-          descriptionString = " • " + getString(R.string.opens_in, getTimeIntervalString(timeLeftMinutes)) + " • "
-                            + dateFormat.format(openDate);
-        else if (nowCal.get(Calendar.DAY_OF_YEAR) == openCal.get(Calendar.DAY_OF_YEAR)) // Today
-          descriptionString = " • " + getString(R.string.opens_at, dateFormat.format(openDate));
-        else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
-          descriptionString = " • " + getString(R.string.opens_tomorrow_at, dateFormat.format(openDate));
-        else if (timeLeftMinutes < 7 * 24 * 60) // Less than 1 week
-        {
-          final int openDay = openCal.get(Calendar.DAY_OF_WEEK);
-          final String openDayName = DateFormatSymbols.getInstance().getWeekdays()[openDay];
-          descriptionString =
-              " • " + getString(R.string.opens_dayoftheweek_at, openDayName, dateFormat.format(openDate));
-        }
-        else
-          descriptionString = "";
-
-        UiUtils.setTextAndShow(mTvSchedulePreviewOpenIndicator, getString(R.string.closed_now));
-        mTvSchedulePreviewOpenIndicator.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_red));
-
-        UiUtils.setTextAndHideIfEmpty(mTvSchedulePreviewDescription, descriptionString);
-      }
-    }
-  }
-
-  private String getTimeIntervalString(long minutes)
-  {
-    if (minutes >= 60)
-    {
-      return String.format("%d %s %d %s", minutes / 60, getString(R.string.hour), minutes % 60,
-                           getString(R.string.minute));
-    }
-    else
-    {
-      return String.format("%d %s", minutes % 60, getString(R.string.minute));
     }
   }
 

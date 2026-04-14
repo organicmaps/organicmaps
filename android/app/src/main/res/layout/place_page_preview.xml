@@ -79,40 +79,6 @@
         tools:background="#300000F0"
         tools:text="Subtitle, very very very very very very very long" />
 
-      <LinearLayout
-        android:id="@+id/schedule_preview_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:layoutDirection="locale"
-        android:layout_marginTop="@dimen/margin_quarter"
-        android:orientation="horizontal">
-
-        <TextView
-          android:id="@+id/tv__schedule_preview_open_indicator"
-          android:textAlignment="viewStart"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:ellipsize="end"
-          android:maxLines="1"
-          android:fontFamily="@font/organic_maps_emoji"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:background="#300000F0"
-          tools:text="Open" />
-
-        <TextView
-          android:id="@+id/tv__schedule_preview_description"
-          android:textAlignment="viewStart"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:ellipsize="end"
-          android:maxLines="1"
-          android:fontFamily="@font/organic_maps_emoji"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:background="#300000F0"
-          tools:text=" • Will close eventually" />
-      </LinearLayout>
-
       <TextView
         android:id="@+id/tv__address"
         android:textAlignment="viewStart"
