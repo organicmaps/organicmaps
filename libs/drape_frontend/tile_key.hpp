@@ -3,17 +3,22 @@
 #include "drape_frontend/batcher_bucket.hpp"
 
 #include "geometry/rect2d.hpp"
-#include "geometry/screenbase.hpp"
 
 #include "base/matrix.hpp"
 
 #include <string>
 
+class ScreenBase;
+
 namespace df
 {
 struct TileKey
 {
-  TileKey();
+  static constexpr int kNoCoord = -1;
+  static constexpr uint8_t kNoZoom = 0;
+  static m2::PointI NoCoordinates() { return {kNoCoord, kNoCoord}; }
+
+  TileKey() : m_x(kNoCoord), m_y(kNoCoord), m_zoomLevel(kNoZoom), m_generation(0), m_userMarksGeneration(0) {}
   TileKey(int x, int y, uint8_t zoomLevel);
   TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGeneration);
 

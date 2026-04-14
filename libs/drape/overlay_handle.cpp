@@ -1,12 +1,12 @@
 #include "drape/overlay_handle.hpp"
 
-#include "base/internal/message.hpp"
 #include "base/macros.hpp"
 
 #include "indexer/drawing_rule_def.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <algorithm>
-#include <sstream>
 
 namespace dp
 {
@@ -174,7 +174,12 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen, bool perspective
   if (perspective)
     return GetPixelRectPerspective(screen);
 
-  m2::PointD const pxPivot = screen.GtoP(m_gbPivot) + m_pxOffset;
+  // Tile-base coordinates already have valid alignment via the tile offset and tile-based identity.
+  m2::PointD gbPivot = m_gbPivot;
+  if (m_id.m_tileCoords == OverlayID::NoCoordinates())
+    gbPivot.x = mercator::NearestWrapX(gbPivot.x, screen.GetOrg().x);
+
+  m2::PointD const pxPivot = screen.GtoP(gbPivot) + m_pxOffset;
   m2::RectD result(pxPivot - m_pxHalfSize, pxPivot + m_pxHalfSize);
   m2::PointD offset(0.0, 0.0);
 

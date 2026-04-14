@@ -4,6 +4,7 @@
 #include "drape_frontend/tile_utils.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/screenbase.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -28,8 +29,6 @@ int WrapTileX(int x, uint8_t zoomLevel)
   return ((x - minX) % numTiles + numTiles) % numTiles + minX;
 }
 }  // namespace
-
-TileKey::TileKey() : m_x(-1), m_y(-1), m_zoomLevel(0), m_generation(0), m_userMarksGeneration(0) {}
 
 TileKey::TileKey(int x, int y, uint8_t zoomLevel)
   : m_x(x)

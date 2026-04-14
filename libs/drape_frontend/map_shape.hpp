@@ -99,4 +99,26 @@ public:
 
   Type GetType() const override { return Message::Type::OverlayMapShapeReaded; }
 };
+
+struct TileWithOffset
+{
+  m2::PointI coords;
+  double xOffset;
+
+  // TextShape and ColoredSymboShape may have default TileKey().
+  TileWithOffset(TileKey const & key)
+  {
+    if (key.m_zoomLevel != TileKey::kNoZoom)
+    {
+      coords = key.GetTileCoords();
+      xOffset = key.GetTileXOffset();
+    }
+    else
+    {
+      coords = TileKey::NoCoordinates();
+      xOffset = 0;
+    }
+  }
+};
+
 }  // namespace df
