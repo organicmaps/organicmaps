@@ -19,10 +19,10 @@ final class RateUsManager: NSObject {
 
 private extension SKStoreReviewController {
   static func requestReviewInCurrentScene() {
-    if let scene = UIApplication.shared.foregroundActiveScene {
-      requestReview(in: scene)
+    guard let scene = UIApplication.shared.foregroundActiveScene else {
+      LOG(.error, "Attempt to display SKStoreReviewController in a non-active scene.")
       return
     }
-    requestReview()
+    requestReview(in: scene)
   }
 }
