@@ -707,6 +707,12 @@
     <string name="moreyear_ago_sorttype">มากกว่าหนึ่งปีที่ผ่านมา</string>
     <string name="near_me_sorttype">ใกล้ฉัน</string>
     <string name="others_sorttype">อื่นๆ</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">ปิดตอนนี้</string>
+    <string name="opens_tomorrow_at">เปิดพรุ่งนี้ที่ %s</string>
+    <string name="opens_dayoftheweek_at">เปิด %1$s ที่ %2$s</string>
+    <string name="opens_at">เปิดที่ %s</string>
+    <string name="closes_at">ปิดที่ %s</string>
     <string name="editor_add_select_category_all_subtitle">หมวดหมูทั้งหมด</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

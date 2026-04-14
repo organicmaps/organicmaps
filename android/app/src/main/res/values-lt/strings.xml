@@ -711,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Virš metų senumo</string>
     <string name="near_me_sorttype">Netoliese</string>
     <string name="others_sorttype">Kitkas</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Dabar uždaryta</string>
+    <string name="opens_tomorrow_at">Atsidaro rytoj %s</string>
+    <string name="opens_dayoftheweek_at">Atsidaro %1$s %2$s</string>
+    <string name="opens_at">Atsidaro %s</string>
+    <string name="closes_at">Užsidaro %s</string>
     <string name="editor_add_select_category_all_subtitle">Visos kategorijos</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
