@@ -696,6 +696,12 @@
     <string name="moreyear_ago_sorttype">Më shumë se një vit më parë</string>
     <string name="near_me_sorttype">Pranë meje</string>
     <string name="others_sorttype">Të tjera</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Mbyllur tani</string>
+    <string name="opens_tomorrow_at">Hapet nesër në %s</string>
+    <string name="opens_dayoftheweek_at">Hapet %1$s në %2$s</string>
+    <string name="opens_at">Hapet në %s</string>
+    <string name="closes_at">Mbyllet në %s</string>
     <string name="editor_add_select_category_all_subtitle">Të Gjitha Kategoritë</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -662,6 +662,12 @@
     <string name="moreyear_ago_sorttype">ຫຼາຍກວ່າໜຶ່ງປີຜ່ານມາ</string>
     <string name="near_me_sorttype">ໃກ້ຂ້ອຍ</string>
     <string name="others_sorttype">ອື່ນໆ</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">ປິດຢູ່ໃນຂະນະນີ້</string>
+    <string name="opens_tomorrow_at">ຈະເປີດມື້ອື່ນເວລາ %s</string>
+    <string name="opens_dayoftheweek_at">ຈະເປີດວັນ%1$s ເວລາ %2$s</string>
+    <string name="opens_at">ຈະເປີດເວລາ %s</string>
+    <string name="closes_at">ຈະປິດເວລາ %s</string>
     <string name="editor_add_select_category_all_subtitle">ໝວດໝູ່ທັງໝົດ</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -717,6 +717,12 @@
     <string name="moreyear_ago_sorttype">Aktar minn sena ilu</string>
     <string name="near_me_sorttype">Ħdejja</string>
     <string name="others_sorttype">Oħrajn</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Magħluq issa</string>
+    <string name="opens_tomorrow_at">Jiftaħ għada fil-%s</string>
+    <string name="opens_dayoftheweek_at">Jiftaħ %1$s fl-%2$s</string>
+    <string name="opens_at">Jiftaħ f \' %s</string>
+    <string name="closes_at">Jagħlaq f ’ %s</string>
     <string name="editor_add_select_category_all_subtitle">Kategoriji kollha</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

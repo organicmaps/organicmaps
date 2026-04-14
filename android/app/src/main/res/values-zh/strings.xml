@@ -709,6 +709,12 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">现已关门</string>
+    <string name="opens_tomorrow_at">明天 %s 营业</string>
+    <string name="opens_dayoftheweek_at">%1$s %2$s 营业</string>
+    <string name="opens_at">%s 营业</string>
+    <string name="closes_at">%s 不营业</string>
     <string name="editor_add_select_category_all_subtitle">所有类别</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

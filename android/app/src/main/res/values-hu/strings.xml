@@ -711,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
     <string name="near_me_sorttype">A közelben</string>
     <string name="others_sorttype">Egyebek</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Most zárva</string>
+    <string name="opens_tomorrow_at">Holnap ekkor nyit: %s</string>
+    <string name="opens_dayoftheweek_at">Nyitva ekkortól: %1$s eddig: %2$s</string>
+    <string name="opens_at">Kinyit ekkor: %s</string>
+    <string name="closes_at">Bezár ekkor: %s</string>
     <string name="editor_add_select_category_all_subtitle">Összes kategória</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -711,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Üle aasta tagasi</string>
     <string name="near_me_sorttype">Minu lähedal</string>
     <string name="others_sorttype">Muud</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Praegu suletud</string>
+    <string name="opens_tomorrow_at">Avatakse homme kell %s</string>
+    <string name="opens_dayoftheweek_at">Avatakse %1$s kell %2$s</string>
+    <string name="opens_at">Avatakse kell %s</string>
+    <string name="closes_at">Suletakse kell %s</string>
     <string name="editor_add_select_category_all_subtitle">Kõik kategooriad</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

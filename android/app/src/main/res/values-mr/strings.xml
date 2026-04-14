@@ -708,6 +708,12 @@
     <string name="moreyear_ago_sorttype">एक वर्षांपूर्वी</string>
     <string name="near_me_sorttype">माझ्या जवळ</string>
     <string name="others_sorttype">इतर</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">आता बंद</string>
+    <string name="opens_tomorrow_at">उद्या %s ला उघडेल</string>
+    <string name="opens_dayoftheweek_at">%1$s ला %2$s वाजता उघडेल</string>
+    <string name="opens_at">%s ला उघडेल</string>
+    <string name="closes_at">%s ला बंद होईल</string>
     <string name="editor_add_select_category_all_subtitle">सर्व प्रवर्ग</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

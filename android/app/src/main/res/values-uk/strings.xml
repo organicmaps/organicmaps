@@ -715,6 +715,12 @@
     <string name="moreyear_ago_sorttype">Понад рік тому</string>
     <string name="near_me_sorttype">Поруч зі мною</string>
     <string name="others_sorttype">Інші</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Зараз закрито</string>
+    <string name="opens_tomorrow_at">Відкриття завтра о %s</string>
+    <string name="opens_dayoftheweek_at">Відчиняється в %1$s о %2$s</string>
+    <string name="opens_at">Відкриття о %s</string>
+    <string name="closes_at">Закривається о %s</string>
     <string name="editor_add_select_category_all_subtitle">Усі категорії</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

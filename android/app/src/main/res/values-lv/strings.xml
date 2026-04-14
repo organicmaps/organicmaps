@@ -711,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Šobrīd slēgts</string>
+    <string name="opens_tomorrow_at">Atveras rīt %s</string>
+    <string name="opens_dayoftheweek_at">Atveras %1$s plkst. %2$s</string>
+    <string name="opens_at">Atveras plkst. %s</string>
+    <string name="closes_at">Slēgts no plkst. %s</string>
     <string name="editor_add_select_category_all_subtitle">Visas kategorijas</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
