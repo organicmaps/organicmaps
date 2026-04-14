@@ -180,6 +180,10 @@ final class NavigationDashboardViewController: UIViewController {
 
   @objc
   private func handlePan(_ gesture: UIPanGestureRecognizer) {
+    let didMeaningfullyDrag = abs(gesture.translation(in: availableAreaView).y) > Constants.panGestureThreshold
+    if didMeaningfullyDrag, presentationStepStrategy.shouldUseCompactDiscoverabilityOffset {
+      presentationStepStrategy.shouldUseCompactDiscoverabilityOffset = false
+    }
     presentationStepsController.handlePan(gesture)
   }
 
@@ -361,20 +365,43 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep) {
-    availableAreaView.layoutIfNeeded()
+    view.layoutIfNeeded()
     let regularHeight = routePointsView.contentBottom.y
       + bottomActionsMenu.frame.height
       + Constants.startButtonSpacing
 
-    let compactHeight = routePointsView.origin.y
+    let compactBaseHeight = routePointsView.origin.y
       + bottomActionsMenu.frame.height
       + Constants.startButtonSpacing
-      + Constants.routePointsDiscoverabilityPadding
 
-    let shouldForceContentFrameUpdate = presentationStepStrategy.regularHeigh != regularHeight || presentationStepStrategy.compactHeight != compactHeight
+    let estimatesBottom = estimatesStackView.convert(CGPoint(x: .zero, y: estimatesStackView.bounds.maxY), to: availableAreaView).y
+    let estimatesHeight = estimatesBottom
+      + bottomActionsMenu.frame.height
+      + Constants.startButtonSpacing
+
+    let containerHeight = view.bounds.height
+    let shouldShowHalfScreenStep = traitCollection.verticalSizeClass == .regular &&
+      containerHeight > 0 &&
+      regularHeight > containerHeight * NavigationDashboardModalPresentationStepStrategy.halfScreenActivationHeightFactor
+    let shouldShowEstimatesStep = !elevationProfileView.isHidden && estimatesHeight < compactBaseHeight
+
+    let shouldForceContentFrameUpdate =
+      presentationStepStrategy.regularHeigh != regularHeight ||
+      presentationStepStrategy.compactBaseHeight != compactBaseHeight ||
+      presentationStepStrategy.estimatesHeight != estimatesHeight ||
+      presentationStepStrategy.compactDiscoverabilityOffset != Constants.routePointsDiscoverabilityPadding ||
+      presentationStepStrategy.shouldShowEstimatesStep != shouldShowEstimatesStep ||
+      presentationStepStrategy.shouldShowHalfScreenStep != shouldShowHalfScreenStep
+
     presentationStepStrategy.regularHeigh = regularHeight
-    presentationStepStrategy.compactHeight = compactHeight
-    presentationStepsController.setStep(step, forced: shouldForceContentFrameUpdate)
+    presentationStepStrategy.compactBaseHeight = compactBaseHeight
+    presentationStepStrategy.estimatesHeight = estimatesHeight
+    presentationStepStrategy.compactDiscoverabilityOffset = Constants.routePointsDiscoverabilityPadding
+    presentationStepStrategy.shouldShowEstimatesStep = shouldShowEstimatesStep
+    presentationStepStrategy.shouldShowHalfScreenStep = shouldShowHalfScreenStep
+
+    let resolvedStep = presentationStepStrategy.resolvedStep(step)
+    presentationStepsController.setStep(resolvedStep, forced: shouldForceContentFrameUpdate || resolvedStep != step)
   }
 
   private func close() {
