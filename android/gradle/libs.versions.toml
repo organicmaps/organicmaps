@@ -1,22 +1,29 @@
 [versions]
-agp = "9.1.0"
+agp = "9.1.1"
 
+# com.android.tools:desugar_jdk_libs
 android-tools-desugaring = "2.1.5"
 
-androidx-annotation = "1.9.1"
+androidx-annotation = "1.10.0"
 androidx-appcompat = "1.7.1"
 # We can't use 1.8.0-alpha03 version of car app library because it requires minSdk 23, but we want to support minSdk 21.
 # noinspection GradleDependency
 androidx-car = "1.8.0-alpha02"
 androidx-constraintlayout = "2.2.1"
+# Newer versions require minSdk 23
+# noinspection GradleDependency
 androidx-core = "1.17.0"
 androidx-fragment = "1.8.9"
 androidx-junit = "1.3.0"
+# Newer versions require minSdk 23
+# noinspection GradleDependency
 androidx-lifecycle = "2.9.4"
-androidx-media = "1.7.0"
+androidx-media = "1.7.1"
 androidx-preference = "1.2.1"
 androidx-recyclerview = "1.4.0"
 androidx-test-runner = "1.7.0"
+# Newer versions require minSdk 23
+# noinspection GradleDependency
 androidx-work = "2.10.5"
 
 devnullorthrow-mpandroidchart = "3.2.0-alpha"
@@ -34,9 +41,9 @@ google-material = "1.13.0"
 
 huawei-plugin = "1.5.0"
 
-microg-gms-location = "0.3.6.244735"
+microg-gms-location = "0.3.14.250932"
 
-mockito-core = "5.21.0"
+mockito-core = "5.23.0"
 mockito-inline = "5.2.0"
 
 okhttp = "5.3.2"
