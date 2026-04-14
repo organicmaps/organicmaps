@@ -43,13 +43,16 @@
 
 - (id<NavigationDashboardView>)navigationDashboardView
 {
-  if (_navigationDashboardView)
-    return _navigationDashboardView;
+  id<NavigationDashboardView> navigationDashboardView = _navigationDashboardView;
+  if (navigationDashboardView)
+    return navigationDashboardView;
+
   NavigationDashboardViewController * routePreviewViewController = [NavigationDashboardBuilder buildWithDelegate:self];
   [routePreviewViewController addTo:self.parentViewController];
-  _navigationDashboardView = routePreviewViewController.interactor;
+  navigationDashboardView = routePreviewViewController.interactor;
+  _navigationDashboardView = navigationDashboardView;
   _availableAreaView = routePreviewViewController.availableAreaView;
-  return _navigationDashboardView;
+  return navigationDashboardView;
 }
 
 - (SearchOnMapManager *)searchManager
@@ -104,15 +107,16 @@
 
 - (void)onRouteReady:(BOOL)hasWarnings
 {
+  id<NavigationDashboardView> navigationDashboardView = self.navigationDashboardView;
   if (self.state != MWMNavigationDashboardStateNavigation)
     self.state = MWMNavigationDashboardStateReady;
   if ([MWMRouter hasActiveDrivingOptions])
   {
-    [self.navigationDashboardView setDrivingOptionState:MWMDrivingOptionsStateChange];
+    [navigationDashboardView setDrivingOptionState:MWMDrivingOptionsStateChange];
   }
   else
   {
-    [self.navigationDashboardView
+    [navigationDashboardView
         setDrivingOptionState:hasWarnings ? MWMDrivingOptionsStateDefine : MWMDrivingOptionsStateNone];
   }
 }
