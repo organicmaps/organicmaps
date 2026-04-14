@@ -37,7 +37,7 @@
 
 Platform::Platform()
 {
-  m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+  m_isTablet = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
 
   NSBundle * bundle = NSBundle.mainBundle;
   NSString * path = [bundle resourcePath];
