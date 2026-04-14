@@ -297,7 +297,6 @@ public:
   using TFindOnlyVisibleChecker = std::function<bool(UserMark::Type)>;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder,
                                        TFindOnlyVisibleChecker const & findOnlyVisible) const;
-  UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, bool findOnlyVisible,
                                   double & d) const;
 

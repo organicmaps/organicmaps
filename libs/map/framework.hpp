@@ -487,11 +487,11 @@ public:
   bool GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
                             platform::Distance & distance, double & azimut);
 
-  /// @name Manipulating with model view
-  m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
-  m2::PointD P3dtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(m_currentModelView.P3dtoP(p)); }
-  m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
-  m2::PointD GtoP3d(m2::PointD const & p) const { return m_currentModelView.PtoP3d(m_currentModelView.GtoP(p)); }
+  /// @name For Desktop only.
+  /// @{
+  m2::PointD PtoG(m2::PointD const & p) const;
+  m2::PointD P3dtoG(m2::PointD const & p) const;
+  /// @}
 
   /// Show all model by it's world rect.
   void ShowAll();
@@ -508,8 +508,6 @@ public:
   /// - Check minimal visible scale according to downloaded countries.
   void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true, bool useVisibleViewport = false);
   void ShowRect(m2::AnyRectD const & rect, bool animation = true, bool useVisibleViewport = false);
-
-  void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 
   void SetViewportListener(TViewportChangedFn const & fn);
 

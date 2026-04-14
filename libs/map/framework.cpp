@@ -1017,11 +1017,6 @@ void Framework::ShowRect(m2::AnyRectD const & rect, bool animation, bool useVisi
     m_drapeEngine->SetModelViewAnyRect(rect, animation, useVisibleViewport);
 }
 
-void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)
-{
-  m_currentModelView.GetTouchRect(center, static_cast<double>(pxRadius), rect);
-}
-
 void Framework::SetViewportListener(TViewportChangedFn const & fn)
 {
   m_viewportChangedFn = fn;
@@ -1447,6 +1442,20 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, doubl
 
   // This constant and return value is using for arrow/flag choice.
   return (d < 25000.0);
+}
+
+m2::PointD Framework::PtoG(m2::PointD const & p) const
+{
+  auto pt = m_currentModelView.PtoG(p);
+  pt.x = mercator::WrapX(pt.x);
+  return pt;
+}
+
+m2::PointD Framework::P3dtoG(m2::PointD const & p) const
+{
+  auto pt = m_currentModelView.PtoG(m_currentModelView.P3dtoP(p));
+  pt.x = mercator::WrapX(pt.x);
+  return pt;
 }
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
