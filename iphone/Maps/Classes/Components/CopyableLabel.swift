@@ -34,7 +34,7 @@ class CopyableLabel: UILabel {
 
   override func copy(_: Any?) {
     UIPasteboard.general.string = text
-    UIMenuController.shared.setMenuVisible(false, animated: true)
+    UIMenuController.shared.hideMenu(from: self)
   }
 
   override var canBecomeFirstResponder: Bool {
