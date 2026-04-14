@@ -49,6 +49,7 @@ public:
 
     drape_ptr<SubrouteArrowsData> m_arrowsData;
     std::vector<ArrowBorders> m_arrowBorders;
+    bool m_arrowsPrepareInProgress = false;
     float m_baseHalfWidth = 0.0f;
 
     drape_ptr<SubrouteMarkersData> m_markersData;
