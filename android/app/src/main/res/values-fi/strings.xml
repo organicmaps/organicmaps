@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Suljettu nyt</string>
+    <string name="opens_tomorrow_at">Aukeaa huomenna kello %s</string>
+    <string name="opens_dayoftheweek_at">Aukeaa %1$s kello %2$s</string>
+    <string name="opens_at">Aukeaa kello %s</string>
+    <string name="closes_at">Sulkeutuu kello %s</string>
     <string name="editor_add_select_category_all_subtitle">Kaikki kategoriat</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

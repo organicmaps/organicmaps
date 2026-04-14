@@ -704,6 +704,12 @@
     <string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
     <string name="near_me_sorttype">Dekat dengan saya</string>
     <string name="others_sorttype">Lainnya</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Sekarang Tutup</string>
+    <string name="opens_tomorrow_at">Dibuka besok pada pukul %s</string>
+    <string name="opens_dayoftheweek_at">Membuka %1$s di %2$s</string>
+    <string name="opens_at">Dibuka di %s</string>
+    <string name="closes_at">Ditutup pada %s</string>
     <string name="editor_add_select_category_all_subtitle">Semua kategori</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

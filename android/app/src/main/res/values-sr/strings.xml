@@ -709,6 +709,12 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Затворено сада</string>
+    <string name="opens_tomorrow_at">Отвара се сутра у %s</string>
+    <string name="opens_dayoftheweek_at">Отвара се %1$s у %2$s</string>
+    <string name="opens_at">Отвара се у %s</string>
+    <string name="closes_at">Затвара се у %s</string>
     <string name="editor_add_select_category_all_subtitle">Све категорије</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

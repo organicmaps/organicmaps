@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Închis acum</string>
+    <string name="opens_tomorrow_at">Deschide mâine la %s</string>
+    <string name="opens_dayoftheweek_at">Deschide %1$s la %2$s</string>
+    <string name="opens_at">Deschide la %s</string>
+    <string name="closes_at">Închide la %s</string>
     <string name="editor_add_select_category_all_subtitle">Toate categoriile</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

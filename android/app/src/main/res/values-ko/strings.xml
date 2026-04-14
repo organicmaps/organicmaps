@@ -704,6 +704,12 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">지금 닫힘</string>
+    <string name="opens_tomorrow_at">내일 %s에 오픈</string>
+    <string name="opens_dayoftheweek_at">%2$s에서 %1$s을(를) 엽니다.</string>
+    <string name="opens_at">%s에 열림</string>
+    <string name="closes_at">%s에서 닫힘</string>
     <string name="editor_add_select_category_all_subtitle">모든 카테고리</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">Över ett år sedan</string>
     <string name="near_me_sorttype">Nära mig</string>
     <string name="others_sorttype">Andra</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Stängt just nu</string>
+    <string name="opens_tomorrow_at">Öppnar i morgon på %s</string>
+    <string name="opens_dayoftheweek_at">Öppnar %1$s vid %2$s</string>
+    <string name="opens_at">Öppnas vid %s</string>
+    <string name="closes_at">Stänger vid %s</string>
     <string name="editor_add_select_category_all_subtitle">Alla kategorier</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

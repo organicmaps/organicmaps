@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">اکنون تعطیل است</string>
+    <string name="opens_tomorrow_at">فردا در %s باز می‌شود</string>
+    <string name="opens_dayoftheweek_at">باز می‌شود %1$s در %2$s</string>
+    <string name="opens_at">در %s باز می‌شود</string>
+    <string name="closes_at">در %s بسته می‌شود</string>
     <string name="editor_add_select_category_all_subtitle">همه دسته‌بندی‌ها</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

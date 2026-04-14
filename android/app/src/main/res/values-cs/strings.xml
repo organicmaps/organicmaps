@@ -712,6 +712,12 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Nyní je zavřeno</string>
+    <string name="opens_tomorrow_at">Otevírá zítra v %s</string>
+    <string name="opens_dayoftheweek_at">Otevírá %1$s v %2$s</string>
+    <string name="opens_at">Otevírá v %s</string>
+    <string name="closes_at">Zavírá v %s</string>
     <string name="editor_add_select_category_all_subtitle">Všechny kategorie</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
