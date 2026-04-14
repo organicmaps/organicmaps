@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">לפני יותר משנה</string>
     <string name="near_me_sorttype">קרוב אלי</string>
     <string name="others_sorttype">אחרים</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">סגור כעת</string>
+    <string name="opens_tomorrow_at">נפתח מחר ב-%s</string>
+    <string name="opens_dayoftheweek_at">נפתח ביום %1$s ב-%2$s</string>
+    <string name="opens_at">נפתח מחר ב-%s</string>
+    <string name="closes_at">נסגר ב-%s</string>
     <string name="editor_add_select_category_all_subtitle">כל הקטגוריות</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

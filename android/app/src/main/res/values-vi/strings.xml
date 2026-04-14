@@ -704,6 +704,12 @@
     <string name="moreyear_ago_sorttype">Hơn một năm trước</string>
     <string name="near_me_sorttype">Ở gần tôi</string>
     <string name="others_sorttype">Khác</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Hiện đã đóng</string>
+    <string name="opens_tomorrow_at">Mở cửa vào ngày mai tại %s</string>
+    <string name="opens_dayoftheweek_at">Mở %1$s tại %2$s</string>
+    <string name="opens_at">Mở tại %s</string>
+    <string name="closes_at">Đóng cửa lúc %s</string>
     <string name="editor_add_select_category_all_subtitle">Mọi thể loại</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

@@ -712,6 +712,12 @@
     <string name="moreyear_ago_sorttype">Hace más de un año</string>
     <string name="near_me_sorttype">Cerca de mí</string>
     <string name="others_sorttype">Otros</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Cerrado ahora</string>
+    <string name="opens_tomorrow_at">Abre mañana a las %s</string>
+    <string name="opens_dayoftheweek_at">Abre el %1$s a las %2$s</string>
+    <string name="opens_at">Abre a las %s</string>
+    <string name="closes_at">Cierra a las %s</string>
     <string name="editor_add_select_category_all_subtitle">Todas las categorías</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

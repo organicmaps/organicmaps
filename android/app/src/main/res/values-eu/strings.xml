@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">Duela urtebete baino gehiago</string>
     <string name="near_me_sorttype">Nigandik gertu</string>
     <string name="others_sorttype">Beste batzuk</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Orain itxita</string>
+    <string name="opens_tomorrow_at">Bihar %sean irekiko da</string>
+    <string name="opens_dayoftheweek_at">%1$sean %2$setan irekiko da</string>
+    <string name="opens_at">%setan irekiko da</string>
+    <string name="closes_at">%setan itxiko da</string>
     <string name="editor_add_select_category_all_subtitle">Kategoria guztiak</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

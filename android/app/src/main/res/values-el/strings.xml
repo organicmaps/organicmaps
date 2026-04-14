@@ -707,6 +707,12 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Κλειστό τώρα</string>
+    <string name="opens_tomorrow_at">Ανοίγει αύριο στις %s</string>
+    <string name="opens_dayoftheweek_at">Ανοίγει %1$s στις %2$s</string>
+    <string name="opens_at">Ανοίγει στις %s</string>
+    <string name="closes_at">Κλείνει στις %s</string>
     <string name="editor_add_select_category_all_subtitle">Όλες οι κατηγορίες</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

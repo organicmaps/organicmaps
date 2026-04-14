@@ -709,6 +709,12 @@
     <string name="moreyear_ago_sorttype">Fyrir meira en ári síðan</string>
     <string name="near_me_sorttype">Nálægt mér</string>
     <string name="others_sorttype">Annað</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Lokað núna</string>
+    <string name="opens_tomorrow_at">Opnar á morgun kl. %s</string>
+    <string name="opens_dayoftheweek_at">Opnar %1$s kl. %2$s</string>
+    <string name="opens_at">Opnar %s</string>
+    <string name="closes_at">Lokar %s</string>
     <string name="editor_add_select_category_all_subtitle">Allir flokkar</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

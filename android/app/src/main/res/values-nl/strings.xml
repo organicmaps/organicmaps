@@ -709,6 +709,12 @@
     <string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
     <string name="near_me_sorttype">Dicht bij mij</string>
     <string name="others_sorttype">Andere</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Nu gesloten</string>
+    <string name="opens_tomorrow_at">Opent morgen om %s</string>
+    <string name="opens_dayoftheweek_at">Opent %1$s om %2$s</string>
+    <string name="opens_at">Opent om %s</string>
+    <string name="closes_at">Sluit om %s</string>
     <string name="editor_add_select_category_all_subtitle">Alle categorieën</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

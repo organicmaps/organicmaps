@@ -706,6 +706,12 @@
     <string name="moreyear_ago_sorttype">Ավելի քան մեկ տարի առաջ</string>
     <string name="near_me_sorttype">Իմ մոտակայքում</string>
     <string name="others_sorttype">Այլ</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Փակ է</string>
+    <string name="opens_tomorrow_at">Բացվում է վաղը %s</string>
+    <string name="opens_dayoftheweek_at">Բացվում է %1$s՝ %2$s</string>
+    <string name="opens_at">Բացվում է %s</string>
+    <string name="closes_at">Փակվում է %s</string>
     <string name="editor_add_select_category_all_subtitle">Բոլոր կատեգորիաները</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
