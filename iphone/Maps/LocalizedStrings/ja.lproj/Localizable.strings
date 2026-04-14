@@ -1081,7 +1081,7 @@
 "core_my_position" = "現在地";
 
 /* Default bookmark list name */
-"core_my_places" = "マイロケーション";
+"core_my_places" = "マイプレイス";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "無線LAN";

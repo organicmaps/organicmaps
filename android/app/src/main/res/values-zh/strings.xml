@@ -552,7 +552,7 @@
     <string name="mobile_data_description">要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。</string>
     <string name="mobile_data_option_never">从不使用</string>
     <string name="mobile_data_option_ask">总是询问</string>
-    <string name="traffic_update_maps_text">诺要显示交通数据，必须更新地图。</string>
+    <string name="traffic_update_maps_text">若要显示交通数据，必须更新地图。</string>
     <string name="big_font">增大地图上的字体大小</string>
     <string name="traffic_update_app">请更新 Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
@@ -575,7 +575,7 @@
     <string name="placepage_add_stop">添加经停点</string>
     <string name="saved">已保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">请登录 OpenStreetMap 以自动上传您的所有地图编辑。诺要了解更多信息请点击<a href="https://github.com/organicmaps/organicmaps/issues/6144">这里</a>。</string>
+    <string name="alert_reauth_message">请登录 OpenStreetMap 以自动上传您的所有地图编辑。若要了解更多信息请点击<a href="https://github.com/organicmaps/organicmaps/issues/6144">这里</a>。</string>
     <string name="dialog_error_storage_title">存储空间访问问题</string>
     <string name="dialog_error_storage_message">外部存储空间不可用，很可能是因为 SD 卡已移除、损毁，或者文件系统为只读状态。请进行检查，然后通过 support\@organicmaps.app 联系我们</string>
     <string name="setting_emulate_bad_storage">模拟不良存储空间</string>

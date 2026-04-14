@@ -10,9 +10,9 @@
     <!-- Default bookmark list name -->
     <string name="core_my_places">Mijn plaatsen</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Intern persoonlijk geheugen</string>
+    <string name="maps_storage_internal">Intern privéopslag</string>
     <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Intern gedeeld geheugen</string>
+    <string name="maps_storage_shared">Interne gedeelde opslag</string>
     <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
     <string name="maps_storage_removable">SD-kaart</string>
     <!-- Generic external storage type in Maps Storage settings -->

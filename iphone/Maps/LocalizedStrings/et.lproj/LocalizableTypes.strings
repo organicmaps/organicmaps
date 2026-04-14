@@ -87,7 +87,7 @@
 "type.amenity.internet_cafe" = "Internetikohvik";
 "type.amenity.kindergarten" = "Lasteaed";
 "type.amenity.library" = "Raamatukogu";
-"type.amenity.loading_dock" = "Laoestakaad";
+"type.amenity.loading_dock" = "Laadimisdokk";
 "type.amenity.luggage_locker" = "Pagasihoid";
 "type.amenity.marketplace" = "Turg";
 "type.amenity.motorcycle_parking" = "Mootorrataste parkla";
@@ -255,7 +255,7 @@
 "type.building.train_station" = "Jaamahoone";
 "type.building.warehouse" = "Ladu";
 "type.cemetery.grave" = "Haud";
-"type.craft" = "Käsitöömeister";
+"type.craft" = "Käsitöö";
 "type.craft.beekeeper" = "Mesinik";
 "type.craft.blacksmith" = "Sepp";
 "type.craft.brewery" = "Väikepruulikoda";

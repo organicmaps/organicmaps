@@ -8,7 +8,7 @@
     <string name="cancel">Atsisakyti</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Šalinti</string>
-    <string name="download_maps">Atsiųsti žemėlapius</string>
+    <string name="download_maps">Atsisiųsti žemėlapius</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">Atsiuntimas nepavyko. Bakstelėkite, kad būtų pabandyta dar kartą.</string>
     <!-- Settings/Downloader - info for country which started downloading -->

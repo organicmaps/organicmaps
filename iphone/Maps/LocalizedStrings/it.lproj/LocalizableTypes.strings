@@ -8,7 +8,7 @@
 "type.aerialway" = "Impianto a fune";
 "type.aerialway.cable_car" = "Teleferica";
 "type.aerialway.chair_lift" = "Seggiovia";
-"type.aerialway.drag_lift" = "Ski-lift";
+"type.aerialway.drag_lift" = "Sciovia";
 "type.aerialway.gondola" = "Cabinovia";
 "type.aerialway.mixed_lift" = "Impianto misto";
 "type.aerialway.station" = "Stazione";
@@ -82,7 +82,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Cimitero cristiano";
 "type.amenity.hospital" = "Ospedale";
-"type.amenity.hunting_stand" = "Torre di caccio";
+"type.amenity.hunting_stand" = "Torre di caccia";
 "type.amenity.ice_cream" = "Gelateria";
 "type.amenity.internet_cafe" = "Cybercaffè";
 "type.amenity.kindergarten" = "Scuola materna";

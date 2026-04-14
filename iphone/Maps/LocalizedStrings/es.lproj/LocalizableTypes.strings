@@ -18,7 +18,7 @@
 "type.aeroway.apron" = "Plataforma de estacionamiento de aviones";
 "type.aeroway.gate" = "Puerta de embarque";
 "type.aeroway.helipad" = "Helipuerto";
-"type.aeroway.runway" = "Pista de despegue";
+"type.aeroway.runway" = "Pista";
 "type.aeroway.taxiway" = "Pista de rodaje";
 "type.aeroway.terminal" = "Terminal";
 "type.amenity" = "Infraestructura";
@@ -27,7 +27,7 @@
 "type.amenity.bank" = "Banco";
 "type.amenity.bar" = "Bar";
 "type.amenity.bbq" = "Barbacoa";
-"type.amenity.bench" = "Asiento";
+"type.amenity.bench" = "Banco";
 "type.amenity.bicycle_parking" = "Aparcamiento de bicicletas";
 "type.amenity.bicycle_parking.covered" = "Aparcamiento de bicicletas cubierto";
 "type.amenity.bicycle_rental" = "Alquiler de bicicletas";

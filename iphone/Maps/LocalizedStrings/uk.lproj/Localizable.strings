@@ -52,7 +52,7 @@
 "add_new_set" = "Додати список";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Назва списка мiток";
+"bookmark_set_name" = "Назва списка міток";
 
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Мітки";
@@ -70,7 +70,7 @@
 "measurement_units" = "Одиниці виміру";
 
 /* Button which interrupts country download */
-"cancel_download" = "Вiдмiнити завантаження";
+"cancel_download" = "Відмінити завантаження";
 
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Написати відгук";
@@ -82,7 +82,7 @@
 "country_status_download_without_size" = "Завантажити мапу";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Списки мiток";
+"bookmark_sets" = "Списки міток";
 
 
 /********** Search categories **********/
@@ -157,13 +157,13 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
+"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мітки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
 
 /* message title of loading file */
-"load_kmz_title" = "Завантаження мiток";
+"load_kmz_title" = "Завантаження міток";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Мiтки успішно завантаженi! Ви можете знайти їх на мапі або у ваших збережених мітках.";
+"load_kmz_successful" = "Мітки успішно завантажені! Ви можете знайти їх на мапі або у ваших збережених мітках.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.";
@@ -175,7 +175,7 @@
 "unknown_current_position" = "Ваше місце розташування не визначено";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Поглянь на мою мiтку на мапі Organic Maps!";
+"bookmark_share_email_subject" = "Поглянь на мою мітку на мапі Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Поглянь на моє поточне розташування на мапі Organic Maps!";
@@ -190,7 +190,7 @@
 "done" = "Готово";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Маршрути";
+"tracks_title" = "Треки";
 
 /* Length of track in cell that describes route */
 "length" = "Довжина";
@@ -282,7 +282,7 @@
 "downloader_downloading" = "Завантажується:";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "Щоб видалити мапу, будь ласка, зупините навiгацiю.";
+"downloader_delete_map_while_routing_dialog" = "Щоб видалити мапу, будь ласка, зупините навігацію.";
 
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Маршрут бути прокладений всередині мапи тільки одного регіону.";
@@ -396,7 +396,7 @@
 "downloader_search_results" = "Знайдено";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Oновити";
+"downloader_status_outdated" = "Оновити";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Помилка";
@@ -560,7 +560,7 @@
 "editor_category_unsuitable_title" = "Не можете знайти відповідну категорію?";
 "editor_category_unsuitable_text" = "Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">детальними інструкціями та іншими додатками для редагування мапи</a>.";
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
-"downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
+"downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без інтернету.";
 "current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
 
 /* abbreviation for kilometers per hour */
@@ -573,7 +573,7 @@
 "placepage_more_button" = "Ще";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Редагувати мiтку";
+"placepage_edit_bookmark_button" = "Редагувати мітку";
 "placepage_personal_notes_hint" = "Примітка (текст чи html)";
 "editor_comment_hint" = "Коментар…";
 "editor_reset_edits_message" = "Скинути всі локальні виправлення?";
@@ -594,7 +594,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Переконайтеся, що ви не ввели особисті дані.";
 "editor_share_to_all_dialog_message_2" = "Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.";
-"navigation_stop_button" = "Cтоп";
+"navigation_stop_button" = "Стоп";
 
 /* For the first routing */
 "accept" = "Прийняти";
@@ -632,7 +632,7 @@
 "bookmarks_create_new_group" = "Створити новий список";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Імпорт міток та маршрутів";
+"bookmarks_import" = "Імпорт міток та треків";
 "bookmarks_error_message_share_general" = "Неможливо поділитися через помилку програми";
 "bookmarks_error_title_share_empty" = "Помилка обміну";
 "bookmarks_error_message_share_empty" = "Неможливо поділитися пустим списком";
@@ -791,8 +791,8 @@
 "location_services_disabled_on_device_additional_message" = "Або продовжуйте використовувати Organic Maps без визначення місцезнаходження";
 "book_button" = "Забронювати";
 "placepage_call_button" = "Подзвонити";
-"placepage_bookmark_name_hint" = "Назва мiтки";
-"placepage_delete_bookmark_button" = "Видалити мiтку";
+"placepage_bookmark_name_hint" = "Назва мітки";
+"placepage_delete_bookmark_button" = "Видалити мітку";
 "editor_edits_sent_message" = "Вашу замітку буде надіслано в OpenStreetMap";
 "text_more_button" = "…більше";
 "refresh" = "Оновити";
@@ -956,7 +956,7 @@
 "button_layer_outdoor" = "Активний відпочинок";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Експортувати всі мітки та маршрути";
+"bookmarks_export" = "Експортувати всі мітки та треки";
 "drive_through" = "З віконцем для водіїв";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -972,14 +972,14 @@
 "outdoor_seating" = "Сидіння на відкритому повітрі";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Записати маршрут";
+"start_track_recording" = "Записати трек";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Зупинити запис маршруту";
+"stop_track_recording" = "Зупинити запис треку";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
-"edit_track" = "Редагувати маршрут";
+"track_recording_toast_nothing_to_save" = "Трек порожній - нічого зберігати";
+"edit_track" = "Редагувати трек";
 "elevation_profile_diff_level" = "Рівень складності";
 "elevation_profile_diff_level_easy" = "Простий";
 "elevation_profile_diff_level_moderate" = "Помірний";
@@ -1002,7 +1002,7 @@
 "placepage_delete_track_button" = "Видалити трек";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Ви дійсно бажаєте видалити цей маршрут?";
+"placepage_delete_track_confirmation_alert_message" = "Ви дійсно хочете видалити цей трек?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Назва треку";
@@ -1011,7 +1011,7 @@
 "move" = "Перемістити";
 
 /* edit track screen title */
-"track_title" = "Маршрут";
+"track_title" = "Трек";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Змінити колір";
@@ -1026,7 +1026,7 @@
 "enable_icloud_synchronization_title" = "Увімкнути синхронізацію з iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших мiток і треків.";
+"enable_icloud_synchronization_message" = "Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших міток і треків.";
 
 /* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud вимкнено";

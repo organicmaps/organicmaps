@@ -859,7 +859,7 @@
     <string name="edit_track">Modifier le trace</string>
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto dans la navigation</string>
+    <string name="nav_auto">Auto pendant la navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Suivre le système</string>
     <!-- Title of the bottom sheet when sharing the track -->

@@ -794,7 +794,7 @@
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
     <string name="car_used_on_the_car_screen">Tagad „Organic Maps“ izmantojat automobiļa ekrānā</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
-    <string name="aa_connected_title">Savienojās ar „Android Audio“</string>
+    <string name="aa_connected_title">Savienots ar Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
     <string name="car_continue_on_the_phone">Turpināt tālrunī</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
@@ -811,12 +811,12 @@
     <string name="browser_not_available">Tīmekļa pārlūkprogramma nav pieejama</string>
     <string name="volume">Skaļums</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Izgūt visus pēdojumus un grāmatzīmes</string>
+    <string name="bookmarks_export">Eksportēt visas trases un grāmatzīmes</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Runas sintēzes sistēmas iestatījumi</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Lietotnes neatrada runas sintēzes iestatījumus. Vai ierīce tos atbalsta?</string>
-    <string name="drive_through">Caurbrauktuve caur</string>
+    <string name="drive_through">Caurbrauktuve</string>
     <string name="clear_the_search">Notīrīt meklēšanu</string>
     <string name="zoom_in">Tuvināt</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -839,7 +839,7 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Apstādināt pēdojuma ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="track_recording_title">Pēdojuma ierakstīšana</string>
+    <string name="track_recording_title">Trases ierakstīšana</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->

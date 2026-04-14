@@ -7,10 +7,10 @@
     <string name="type.addr_interpolation.odd">Διεύθυνση/Τετράγωνο</string>
     <string name="type.aerialway">Τελεφερίκ</string>
     <string name="type.aerialway.cable_car">Τελεφερίκ</string>
-    <string name="type.aerialway.chair_lift">Τελεφερίκ</string>
-    <string name="type.aerialway.drag_lift">Τελεφερίκ</string>
-    <string name="type.aerialway.gondola">Τελεφερίκ</string>
-    <string name="type.aerialway.mixed_lift">Τελεφερίκ</string>
+    <string name="type.aerialway.chair_lift">Αναβατήρας καρεκλών</string>
+    <string name="type.aerialway.drag_lift">Συρόμενος αναβατήρας</string>
+    <string name="type.aerialway.gondola">Γόνδολα</string>
+    <string name="type.aerialway.mixed_lift">Συνδυασμένος αναβατήρας</string>
     <string name="type.aerialway.station">Σταθμός τελεφερίκ</string>
     <string name="type.aeroway">Υποδομή εναέριου χώρου</string>
     <string name="type.aeroway.aerodrome">Αεροδρόμιο</string>

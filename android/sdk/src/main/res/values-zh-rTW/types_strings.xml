@@ -5,14 +5,14 @@
     <string name="type.addr_interpolation">地址/區塊</string>
     <string name="type.addr_interpolation.even">地址/區塊</string>
     <string name="type.addr_interpolation.odd">地址/區塊</string>
-    <string name="type.aerialway">纜車要素</string>
+    <string name="type.aerialway">架空索道</string>
     <string name="type.aerialway.cable_car">纜車</string>
-    <string name="type.aerialway.chair_lift">纜車</string>
-    <string name="type.aerialway.drag_lift">纜車要素</string>
-    <string name="type.aerialway.gondola">循環式索道</string>
-    <string name="type.aerialway.mixed_lift">纜車</string>
+    <string name="type.aerialway.chair_lift">吊椅式纜車</string>
+    <string name="type.aerialway.drag_lift">拖牽式纜車</string>
+    <string name="type.aerialway.gondola">吊艙式纜車</string>
+    <string name="type.aerialway.mixed_lift">混合式纜車</string>
     <string name="type.aerialway.station">纜車站</string>
-    <string name="type.aeroway">機場要素</string>
+    <string name="type.aeroway">空域基礎設施</string>
     <string name="type.aeroway.aerodrome">機場</string>
     <string name="type.aeroway.aerodrome.international">機場</string>
     <string name="type.aeroway.apron">機場停機坪</string>
@@ -20,7 +20,7 @@
     <string name="type.aeroway.helipad">直升機場</string>
     <string name="type.aeroway.runway">機場跑道</string>
     <string name="type.aeroway.taxiway">滑行道</string>
-    <string name="type.aeroway.terminal">航站楼</string>
+    <string name="type.aeroway.terminal">航站大廈</string>
     <string name="type.amenity">設施</string>
     <string name="type.amenity.arts_centre">藝術中心</string>
     <string name="type.amenity.atm">自動櫃員機</string>
@@ -601,7 +601,7 @@
     <string name="type.junction">交叉口</string>
     <string name="type.junction.circular">環形交叉口</string>
     <string name="type.junction.roundabout">環形交叉口</string>
-    <string name="type.landuse">土地利用要素</string>
+    <string name="type.landuse">土地利用</string>
     <string name="type.landuse.allotments">市民農園</string>
     <string name="type.landuse.basin">水庫</string>
     <string name="type.landuse.brownfield">廢棄的工業用地</string>
@@ -1172,7 +1172,7 @@
     <string name="type.shop.confectionery">糕餅店</string>
     <string name="type.shop.convenience">便利店</string>
     <string name="type.shop.copyshop">復印店</string>
-    <string name="type.shop.cosmetics">化妆品</string>
+    <string name="type.shop.cosmetics">化妝品</string>
     <string name="type.shop.curtain">窗簾</string>
     <string name="type.shop.deli">熟食店</string>
     <string name="type.shop.department_store">百貨公司</string>

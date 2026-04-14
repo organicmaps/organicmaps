@@ -26,7 +26,7 @@
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Khí đốt</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
-    <string name="category_parking">đỗ xe</string>
+    <string name="category_parking">Đỗ xe</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Khách sạn</string>
     <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->

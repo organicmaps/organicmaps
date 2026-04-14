@@ -820,7 +820,7 @@
     <string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
-    <string name="drive_through">Drive-though</string>
+    <string name="drive_through">Drive-through</string>
     <string name="clear_the_search">Wis de zoekopdracht</string>
     <string name="zoom_in">Inzoomen</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -858,7 +858,7 @@
     <string name="edit_track">Route bewerken</string>
     <string name="uri_open_location_failed">Geen app geïnstalleerd die de locatie kan openen</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto in navigatie</string>
+    <string name="nav_auto">Auto tijdens navigatie</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Systeem volgen</string>
     <!-- Title of the bottom sheet when sharing the track -->

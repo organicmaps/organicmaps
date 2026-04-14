@@ -101,7 +101,7 @@
     <string name="downloader_loading_ios">S’està baixant</string>
     <string name="download_map_title">Baixa el mapa general del món</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">L’Organic Maps a l’Android Auto necessita permissos d’ubicació per a funcionar eficaçment</string>
+    <string name="aa_request_permission_activity_text">L’Organic Maps a l’Android Auto necessita permisos d’ubicació per a funcionar eficaçment</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Concedeix permisos</string>
 </resources>

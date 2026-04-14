@@ -16,7 +16,7 @@
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
-    <string name="search_map">Procurar mapa</string>
+    <string name="search_map">Procurar no mapa</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Atualmente todos os serviços de localização para este dispositivo ou aplicativo estão desativados. Por favor ative-os em configurações.</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -75,7 +75,7 @@
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Mercados</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">Gás</string>
+    <string name="category_fuel">Combustível</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
     <string name="category_secondhand">De segunda mão</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->

@@ -1374,7 +1374,7 @@
     <string name="type.waterway.stream.tunnel">Řeka</string>
     <string name="type.waterway.waterfall">Vodopád</string>
     <string name="type.waterway.weir">Jez</string>
-    <string name="type.wheelchair">Vozíčkář</string>
+    <string name="type.wheelchair">Invalidní vozík</string>
     <string name="type.wheelchair.limited">Omezený bezbariérový přístup</string>
     <string name="type.wheelchair.no">Žádný bezbariérový přístup</string>
     <string name="type.wheelchair.yes">Plně bezbariérový přístup</string>
@@ -1420,9 +1420,9 @@
     <string name="type.leisure.sports_hall">Sportovní hala</string>
     <string name="type.sport.diving">Potápění</string>
     <string name="type.man_made.crane">Jeřáb</string>
-    <string name="type.barrier.wicket_gate">Vjezdová brána</string>
+    <string name="type.barrier.wicket_gate">Branka</string>
     <string name="type.barrier.yes">Bariéra</string>
-    <string name="type.building.guardhouse">Strážce</string>
+    <string name="type.building.guardhouse">Strážnice</string>
     <string name="type.office.security">Bezpečnostní agentura</string>
     <string name="type.power.portal">Energetická věž (portál)</string>
     <string name="type.shop.lighting">Obchod s osvětlením</string>

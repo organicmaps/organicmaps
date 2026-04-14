@@ -776,7 +776,7 @@
 "migration_no_space_message" = "Leku gehiago behar duzu deskargatzeko. Ezabatu beharrezkoak ez diren datuak.";
 "editor_sharing_title" = "Organic Maps mapak hobetu ditut";
 "editor_detailed_description_hint" = "Iruzkin zehatza";
-"editor_detailed_description" = "Zure proposatutako mapen aldaketak OpenStreetMap komunitateari bidaliko zaizkio. Mesedez, azaldu Organic Maps-n editatu ezin diren bestelako xehetasun guztiak.";
+"editor_detailed_description" = "Zure proposatutako mapen aldaketak OpenStreetMap komunitateari bidaliko zaizkio. Mesedez, azaldu Organic Maps-en editatu ezin diren bestelako xehetasun guztiak.";
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
 "location_services_disabled_header" = "Kokapen zerbitzuak desaktibatuta daude";
 "location_services_disabled_message" = "Aktibatu geokokapenerako sarbidea gailuaren ezarpenetan";
@@ -1020,7 +1020,7 @@
 "map" = "Mapa";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "Akatsen txostena bidali nahi diezu garatzaileei?\nGure erabiltzaileengan oinarritzen gara Organic Maps-ek ez baitu automatikoki akatsen informaziorik biltzen. Eskerrik asko aldez aurretik Maps organikoak laguntzeagatik!";
+"bugreport_alert_message" = "Akatsen txostena bidali nahi diezu garatzaileei?\nGure erabiltzaileengan oinarritzen gara Organic Maps-ek ez baitu automatikoki akatsen informaziorik biltzen. Eskerrik asko aldez aurretik Organic Maps laguntzeagatik!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Gaitu iCloud sinkronizazioa";

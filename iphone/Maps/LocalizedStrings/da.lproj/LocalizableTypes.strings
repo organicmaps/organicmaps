@@ -980,7 +980,7 @@
 "type.railway.disused" = "Ubenyttet jernbane";
 "type.railway.disused.bridge" = "Ubenyttet jernbanebro";
 "type.railway.disused.tunnel" = "Ubenyttet jernbanetunnel";
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Funikular";
 "type.railway.funicular.bridge" = "Kabelbanebro";
 "type.railway.funicular.tunnel" = "Kabelbanetunnel";
 "type.railway.halt" = "Togstation";
@@ -1320,7 +1320,7 @@
 "type.shop.erotic" = "Erotikbutik";
 "type.shop.fabric" = "Stofbutik";
 "type.shop.farm" = "Foderhandel";
-"type.shop.fashion_accessories" = "Accessory-butik";
+"type.shop.fashion_accessories" = "Tilbehørsbutik";
 "type.shop.florist" = "Blomsterbutik";
 "type.shop.funeral_directors" = "Bedemand";
 "type.shop.furniture" = "Møbelbutik";
@@ -1492,7 +1492,7 @@
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Vildmarkshytte";
 "type.tourism.zoo" = "Zoologisk have";
-"type.tourism.zoo.petting" = "Petting Zoo";
+"type.tourism.zoo.petting" = "Dyrepark med klappedyr";
 "type.traffic_calming" = "Trafiksanering";
 "type.traffic_calming.bump" = "Vejbump";
 "type.traffic_calming.hump" = "Vejbump";

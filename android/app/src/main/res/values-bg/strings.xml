@@ -289,7 +289,7 @@
     <!-- Item in context menu. -->
     <string name="downloader_delete_map">Изтриване на карта</string>
     <!-- Item in context menu. -->
-    <string name="downloader_update_map">Обнояване на карта</string>
+    <string name="downloader_update_map">Обновяване на карта</string>
     <!-- Preference title -->
     <string name="google_play_services">Услуги за местоположение в Google Play</string>
     <!-- Preference text -->

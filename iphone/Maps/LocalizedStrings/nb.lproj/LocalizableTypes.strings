@@ -1477,7 +1477,7 @@
 "type.tourism.hotel" = "Hotell";
 "type.tourism.information" = "Turistinformasjon";
 "type.tourism.information.board" = "Informasjonstavle";
-"type.tourism.information.guidepost" = "Guidepost";
+"type.tourism.information.guidepost" = "Veiviser";
 "type.tourism.information.map" = "Turistkart";
 "type.tourism.information.office" = "Turistkontor";
 "type.tourism.information.visitor_centre" = "Besøkssenter";
@@ -1542,7 +1542,7 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
-"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.snow_park" = "Snøpark";
 "type.piste_type.hike" = "Tursti i snø";
 "type.piste_type.connection" = "Pisteforbindelse";
 "type.piste_type.skitour" = "Skitour-stien";

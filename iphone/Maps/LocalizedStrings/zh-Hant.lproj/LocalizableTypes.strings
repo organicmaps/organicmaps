@@ -5,14 +5,14 @@
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";
-"type.aerialway" = "纜車要素";
+"type.aerialway" = "架空索道";
 "type.aerialway.cable_car" = "纜車";
-"type.aerialway.chair_lift" = "纜車";
-"type.aerialway.drag_lift" = "纜車要素";
-"type.aerialway.gondola" = "循環式索道";
-"type.aerialway.mixed_lift" = "纜車";
+"type.aerialway.chair_lift" = "吊椅式纜車";
+"type.aerialway.drag_lift" = "拖牽式纜車";
+"type.aerialway.gondola" = "吊艙式纜車";
+"type.aerialway.mixed_lift" = "混合式纜車";
 "type.aerialway.station" = "纜車站";
-"type.aeroway" = "機場要素";
+"type.aeroway" = "空域基礎設施";
 "type.aeroway.aerodrome" = "機場";
 "type.aeroway.aerodrome.international" = "機場";
 "type.aeroway.apron" = "機場停機坪";
@@ -20,7 +20,7 @@
 "type.aeroway.helipad" = "直升機場";
 "type.aeroway.runway" = "機場跑道";
 "type.aeroway.taxiway" = "滑行道";
-"type.aeroway.terminal" = "航站楼";
+"type.aeroway.terminal" = "航站大廈";
 "type.amenity" = "設施";
 "type.amenity.arts_centre" = "藝術中心";
 "type.amenity.atm" = "自動櫃員機";
@@ -714,7 +714,7 @@
 "type.junction" = "交叉口";
 "type.junction.circular" = "環形交叉口";
 "type.junction.roundabout" = "環形交叉口";
-"type.landuse" = "土地利用要素";
+"type.landuse" = "土地利用";
 "type.landuse.allotments" = "市民農園";
 "type.landuse.basin" = "水庫";
 "type.landuse.brownfield" = "廢棄的工業用地";
@@ -1310,7 +1310,7 @@
 "type.shop.confectionery" = "糕餅店";
 "type.shop.convenience" = "便利店";
 "type.shop.copyshop" = "復印店";
-"type.shop.cosmetics" = "化妆品";
+"type.shop.cosmetics" = "化妝品";
 "type.shop.curtain" = "窗簾";
 "type.shop.deli" = "熟食店";
 "type.shop.department_store" = "百貨公司";

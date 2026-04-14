@@ -16,13 +16,13 @@
     <string name="type.amenity.charging_station.bicycle">Kituo cha Kuchaji Baiskeli</string>
     <string name="type.amenity.charging_station.motorcar">Kituo cha Kuchaji Magari</string>
     <string name="type.leisure.bowling_alley">Njia ya Bowling</string>
-    <string name="type.amenity.compressed_air">Air compressed</string>
+    <string name="type.amenity.compressed_air">Hewa iliyoshinikizwa</string>
     <string name="type.amenity.conference_centre">Kituo cha Mikutano</string>
     <string name="type.amenity.exhibition_centre">Kituo cha Maonyesho</string>
     <string name="type.amenity.money_transfer">Uhamisho wa pesa</string>
     <string name="type.amenity.music_school">Shule ya Muziki</string>
     <string name="type.amenity.language_school">Shule ya Lugha</string>
-    <string name="type.amenity.loading_dock">Inapakia kituo</string>
+    <string name="type.amenity.loading_dock">Eneo la kupakia</string>
     <string name="type.amenity.parking">Maegesho</string>
     <string name="type.amenity.parking.fee">Maegesho</string>
     <string name="type.amenity.parking.multi.storey">Maegesho ya Hifadhi nyingi</string>
@@ -46,7 +46,7 @@
     <string name="type.amenity.parking_space.permissive">Sehemu ya maegesho</string>
     <string name="type.amenity.parking_space.private">Sehemu ya maegesho</string>
     <string name="type.amenity.parking_space.underground">Sehemu ya maegesho</string>
-    <string name="type.amenity.parking_space.disabled">Nafasi ya maegesho iliyozimwa</string>
+    <string name="type.amenity.parking_space.disabled">Nafasi ya maegesho ya walemavu</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Ukumbi wa Ufalme wa Mashahidi wa Yehova</string>
     <string name="type.amenity.post_office">Ofisi ya posta</string>
@@ -88,11 +88,11 @@
     <string name="type.craft.electrician">Fundi umeme</string>
     <string name="type.craft.electronics_repair">Urekebishaji wa Elektroniki</string>
     <string name="type.craft.gardener">Mtunza bustani</string>
-    <string name="type.craft.grinding_mill">Kusaga kinu</string>
+    <string name="type.craft.grinding_mill">Kinu cha kusaga</string>
     <string name="type.craft.handicraft">Kazi za mikono</string>
     <!-- Heating, Ventilation, and Air Conditioning -->
     <string name="type.craft.hvac">Kiyoyozi</string>
-    <string name="type.craft.key_cutter">Kukata Muhimu</string>
+    <string name="type.craft.key_cutter">Kukata funguo</string>
     <string name="type.craft.locksmith">Fundi wa kufuli</string>
     <string name="type.craft.metal_construction">Mfanyikazi wa chuma</string>
     <string name="type.craft.painter">Mchoraji</string>
@@ -101,7 +101,7 @@
     <string name="type.craft.plumber">Fundi bomba</string>
     <string name="type.craft.sawmill">Sumel</string>
     <string name="type.craft.shoemaker">Mtengeneza viatu</string>
-    <string name="type.craft.winery">Mvinyo</string>
+    <string name="type.craft.winery">Kiwanda cha divai</string>
     <string name="type.craft.tailor">Mshonaji nguo</string>
     <string name="type.cuisine.coffee_shop">Kahawa</string>
     <string name="type.cuisine.shawarma">Shawarma</string>
@@ -113,7 +113,7 @@
     <string name="type.emergency.mountain_rescue">Kituo cha uokoaji wa milima</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Mlango Mkuu</string>
-    <string name="type.entrance.exit">Utgång</string>
+    <string name="type.entrance.exit">Kutoka</string>
     <string name="type.fee.no">Bila</string>
     <string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
     <string name="type.healthcare.physiotherapist">Mtaalamu wa Physiotherapist</string>
@@ -364,7 +364,7 @@
     <string name="type.place.country">Nchi</string>
     <string name="type.place.county">Wilaya</string>
     <string name="type.place.farm">Shamba</string>
-    <string name="type.place.hamlet">Hamlet</string>
+    <string name="type.place.hamlet">Kitongoji</string>
     <string name="type.place.island">Kisiwa</string>
     <string name="type.place.islet">Kisiwa</string>
     <string name="type.place.isolated_dwelling">Makao ya Pekee</string>
@@ -642,7 +642,7 @@
     <string name="type.tourism.chalet">Nyumba ndogo ya Likizo</string>
     <string name="type.tourism.information">Taarifa za Watalii</string>
     <string name="type.tourism.information.board">Bodi ya habari</string>
-    <string name="type.tourism.information.guidepost">Chapisho la mwongozo</string>
+    <string name="type.tourism.information.guidepost">Bango la mwongozo</string>
     <string name="type.tourism.information.map">Ramani ya Watalii</string>
     <string name="type.tourism.information.office">Ofisi ya watalii</string>
     <string name="type.tourism.information.visitor_centre">Kituo cha Wageni</string>

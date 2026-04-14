@@ -37,8 +37,8 @@
     <string name="type.amenity.love_hotel">情侣酒店</string>
     <string name="type.amenity.bureau_de_change">货币兑换</string>
     <string name="type.amenity.bus_station">公交车站</string>
-    <string name="type.amenity.cafe">咖啡馆่</string>
-    <string name="type.amenity.car_rental">汽车出租์</string>
+    <string name="type.amenity.cafe">咖啡馆</string>
+    <string name="type.amenity.car_rental">汽车出租</string>
     <string name="type.amenity.motorcycle_rental">摩托车租赁</string>
     <string name="type.amenity.car_sharing">拼车点</string>
     <string name="type.amenity.car_wash">洗车</string>
@@ -1172,7 +1172,7 @@
     <string name="type.shop.confectionery">糖果店</string>
     <string name="type.shop.convenience">便利店</string>
     <string name="type.shop.copyshop">复印店</string>
-    <string name="type.shop.cosmetics">化妝品店</string>
+    <string name="type.shop.cosmetics">化妆品店</string>
     <string name="type.shop.curtain">窗帘</string>
     <string name="type.shop.deli">熟食店</string>
     <string name="type.shop.department_store">百货商场</string>

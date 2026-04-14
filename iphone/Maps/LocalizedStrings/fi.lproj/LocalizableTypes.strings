@@ -355,7 +355,7 @@
 "type.cuisine.sandwich" = "Voileipä";
 "type.cuisine.sausage" = "Makkara";
 "type.cuisine.savory_pancakes" = "Suolaiset letut";
-"type.cuisine.seafood" = "Meren elävät";
+"type.cuisine.seafood" = "Merenelävät";
 "type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Sobanuudeli";
 "type.cuisine.spanish" = "Espanjalainen keittiö";
@@ -456,7 +456,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Moottoritietunneli";
 "type.highway.motorway_junction" = "Poistumistie";
-"type.highway.motorway_link" = "Mottoritieramppi";
+"type.highway.motorway_link" = "Moottoritieramppi";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Silta";

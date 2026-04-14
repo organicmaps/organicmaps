@@ -24,7 +24,7 @@
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Migahawani</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">Petroli</string>
+    <string name="category_fuel">Mafuta</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">Maegesho</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
@@ -103,5 +103,5 @@
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
     <!-- Grant Permissions button. -->
-    <string name="aa_grant_permissions">Ruhusa za ruzuku</string>
+    <string name="aa_grant_permissions">Toa ruhusa</string>
 </resources>

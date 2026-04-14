@@ -820,7 +820,7 @@
 "type.man_made.petroleum_well" = "Petrolio edo gas putzua";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Gas zuzia|Gas sugarra";
+"type.man_made.flare" = "Gas zuzia";
 "type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 "type.man_made.water_tap" = "Ura hartzea";
 "type.man_made.water_tap.drinking_water_no" = "Ura hartzea";
@@ -1578,7 +1578,7 @@
 "type.barrier.log" = "Enbor hesia";
 "type.amenity.boat_rental" = "Itsasontz";
 "type.shop.telecommunication" = "Telekomunikazioen denda";
-"type.leisure.indoor_play" = "Play Center";
+"type.leisure.indoor_play" = "Jolasgunea";
 "type.tourism.camp_pitch" = "Kanpin-lekua";
 "type.railway.miniature" = "Miniaturazko trenbidea";
 "type.amenity.kneipp_water_cure" = "Kneipp Ur Sendapena";

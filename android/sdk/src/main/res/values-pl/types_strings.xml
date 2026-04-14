@@ -25,7 +25,7 @@
     <string name="type.amenity.arts_centre">Centrum sztuki</string>
     <string name="type.amenity.atm">Bankomat</string>
     <string name="type.amenity.bank">Bank</string>
-    <string name="type.amenity.bar">Bar alkoholowy</string>
+    <string name="type.amenity.bar">Bar</string>
     <string name="type.amenity.bbq">Grill</string>
     <string name="type.amenity.bench">Ławka</string>
     <string name="type.amenity.bicycle_parking">Parking dla rowerów</string>
@@ -116,7 +116,7 @@
     <string name="type.amenity.parking_space.private">Miejsce parkingowe</string>
     <string name="type.amenity.parking_space.underground">Miejsce parkingowe</string>
     <string name="type.amenity.parking_space.disabled">Miejsce parkingowe dla niepełnosprawnych</string>
-    <string name="type.amenity.payment_terminal">Wpłatomat</string>
+    <string name="type.amenity.payment_terminal">Terminal płatniczy</string>
     <string name="type.amenity.pharmacy">Apteka</string>
     <string name="type.amenity.place_of_worship">Świątynia</string>
     <string name="type.amenity.place_of_worship.buddhist">Świątynia buddyjska</string>

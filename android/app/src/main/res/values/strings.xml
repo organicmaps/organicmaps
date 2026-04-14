@@ -404,7 +404,7 @@
     <string name="editor_report_problem_send_button">Send</string>
     <string name="editor_report_problem_title">Issue</string>
     <string name="editor_report_problem_no_place_title">This place does not exist</string>
-    <string name="editor_report_problem_under_construction_title">Сlosed for maintenance</string>
+    <string name="editor_report_problem_under_construction_title">Closed for maintenance</string>
     <string name="editor_report_problem_duplicate_place_title">Duplicate place</string>
     <string name="autodownload">Auto-download maps</string>
     <!-- Place Page opening hours text -->
@@ -753,7 +753,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Show on the lock screen</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">When enabled, the app will work on the lockscreen even when the device is locked.</string>
+    <string name="enable_show_on_lock_screen_description">When enabled, the app will work on the lock screen even when the device is locked.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Map language</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -773,7 +773,7 @@
     <!-- App Tip #00 -->
     <string name="app_tip_00">Thank you for using our community-built maps!</string>
     <!-- App tip #01 -->
-    <string name="app_tip_01">With your donations and support, we can create the best maps in the World!</string>
+    <string name="app_tip_01">With your donations and support, we can create the best maps in the world!</string>
     <!-- App tip #02 -->
     <string name="app_tip_02">Do you like our app? Please donate to support the development! Don\'t like it yet? Please let us know why, and we will fix it!</string>
     <!-- App tip #03 -->

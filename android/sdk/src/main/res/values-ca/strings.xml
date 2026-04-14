@@ -37,7 +37,7 @@
     <string name="core_entrance">Entrada</string>
     <string name="subway_data_unavailable">El mapa del metro no està disponible</string>
     <!-- Settings/Highlight downloaded regions on the map -->
-    <string name="show_downloaded_regions">Regions descarregades liles</string>
+    <string name="show_downloaded_regions">Regions descarregades en lila</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

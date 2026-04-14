@@ -11,7 +11,7 @@
 "type.aerialway.drag_lift" = "Sleeplift";
 "type.aerialway.gondola" = "Gondelbaan";
 "type.aerialway.mixed_lift" = "Gecombineerde kabelbaan";
-"type.aerialway.station" = "Kabelwagenstation";
+"type.aerialway.station" = "Kabelbaanstation";
 "type.aeroway" = "Luchtvaartinfrastructuur";
 "type.aeroway.aerodrome" = "Vliegveld";
 "type.aeroway.aerodrome.international" = "Vliegveld";
@@ -41,7 +41,7 @@
 "type.amenity.car_rental" = "Autoverhuur";
 "type.amenity.motorcycle_rental" = "Motorverhuur";
 "type.amenity.car_sharing" = "Autodelen";
-"type.amenity.car_wash" = "Wasserette";
+"type.amenity.car_wash" = "Autowasstraat";
 "type.amenity.casino" = "Casino";
 "type.amenity.gambling" = "Gokken";
 "type.leisure.adult_gaming_centre" = "Gamingcentrum voor volwassenen";
@@ -87,7 +87,7 @@
 "type.amenity.internet_cafe" = "Internetcafé";
 "type.amenity.kindergarten" = "Kleuterschool";
 "type.amenity.library" = "Bibliotheek";
-"type.amenity.loading_dock" = "Laad-dock";
+"type.amenity.loading_dock" = "Laaddock";
 "type.amenity.luggage_locker" = "Baggage Kluis";
 "type.amenity.marketplace" = "Markt";
 "type.amenity.motorcycle_parking" = "Parking Motorfietsen";

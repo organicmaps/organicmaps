@@ -8,7 +8,7 @@
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Sijaintini</string>
     <!-- Default bookmark list name -->
-    <string name="core_my_places">Paikkani</string>
+    <string name="core_my_places">Omat paikat</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">Sisäinen yksityinen tallennustila</string>
     <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

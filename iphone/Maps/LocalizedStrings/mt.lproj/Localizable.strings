@@ -73,7 +73,7 @@
 "cancel_download" = "Ikkanċella it-Tniżżil";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Ħalli l-analiżi tiegħek";
+"leave_a_review" = "Ħalli reviżjoni";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Iva";
@@ -854,7 +854,7 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ir-rotta se tiġi kkonvertita f'rotta għall-karozza";
 "not_all_shown_bookmarks_carplay" = "Mhux il-bookmarks kollha huma murija";
 "switch_to_phone_bookmarks_carplay" = "Ibdel għall-mowbajl biex tara l-marki kollha";
-"speedcams_alert_title_carplay_1" = "Speedсams";
+"speedcams_alert_title_carplay_1" = "Kameras tal-veloċità";
 "speedcams_alert_title_carplay_2" = "Twissijiet dwar il-veloċità";
 "download_map_carplay" = "Jekk jogħġbok niżżel il-mappijiet fl-app fuq it-tagħmir mobbli tiegħek";
 "carplay_roundabout_exit" = "%@ ħruġ";
@@ -953,7 +953,7 @@
 "car_continue_in_the_car" = "Lejn l-iskrin tal-karozza";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Barra";
+"button_layer_outdoor" = "Fil-beraħ";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Esporta l-bookmarks u l-korsiji kollha";

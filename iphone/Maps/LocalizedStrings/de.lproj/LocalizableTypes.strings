@@ -47,7 +47,7 @@
 "type.leisure.adult_gaming_centre" = "Gaming-Zentrum für Erwachsene";
 "type.leisure.amusement_arcade" = "Arkade";
 "type.amenity.charging_station" = "Ladestation";
-"type.amenity.charging_station.bicycle" = "Fahrrad Ladestation";
+"type.amenity.charging_station.bicycle" = "Fahrrad-Ladestation";
 "type.amenity.charging_station.motorcar" = "Kfz-Ladestation";
 "type.amenity.childcare" = "Kindertagesstätte";
 "type.amenity.cinema" = "Kino";

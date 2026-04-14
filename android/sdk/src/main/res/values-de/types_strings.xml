@@ -47,7 +47,7 @@
     <string name="type.leisure.adult_gaming_centre">Gaming-Zentrum für Erwachsene</string>
     <string name="type.leisure.amusement_arcade">Arkade</string>
     <string name="type.amenity.charging_station">Ladestation</string>
-    <string name="type.amenity.charging_station.bicycle">Fahrrad Ladestation</string>
+    <string name="type.amenity.charging_station.bicycle">Fahrrad-Ladestation</string>
     <string name="type.amenity.charging_station.motorcar">Kfz-Ladestation</string>
     <string name="type.amenity.childcare">Kindertagesstätte</string>
     <string name="type.amenity.cinema">Kino</string>

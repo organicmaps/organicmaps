@@ -364,7 +364,7 @@
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Ратавальнік</string>
     <!-- A mountain rescue base for search and rescue activities. -->
-    <string name="type.emergency.mountain_rescue">ГорныГ ратавальны пункт</string>
+    <string name="type.emergency.mountain_rescue">Горны ратавальны пункт</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Уваход</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->

@@ -12,7 +12,7 @@
 "type.aerialway.gondola" = "ゴンドラ";
 "type.aerialway.mixed_lift" = "混合リフト";
 "type.aerialway.station" = "ケーブルカー駅";
-"type.aeroway" = "空路";
+"type.aeroway" = "航空インフラ";
 "type.aeroway.aerodrome" = "空港";
 "type.aeroway.aerodrome.international" = "空港";
 "type.aeroway.apron" = "エプロン";
@@ -21,7 +21,7 @@
 "type.aeroway.runway" = "滑走路";
 "type.aeroway.taxiway" = "誘導路";
 "type.aeroway.terminal" = "空港ターミナルビル";
-"type.amenity" = "アメニティー";
+"type.amenity" = "設備";
 "type.amenity.arts_centre" = "芸術センター";
 "type.amenity.atm" = "ATM";
 "type.amenity.bank" = "銀行";
@@ -36,7 +36,7 @@
 "type.amenity.brothel" = "売春宿";
 "type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "外貨両替所";
-"type.amenity.bus_station" = "バスステーション";
+"type.amenity.bus_station" = "バスターミナル";
 "type.amenity.cafe" = "カフェ";
 "type.amenity.car_rental" = "レンタカー";
 "type.amenity.motorcycle_rental" = "レンタルバイク";

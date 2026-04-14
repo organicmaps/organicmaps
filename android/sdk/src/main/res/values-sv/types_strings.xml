@@ -24,7 +24,7 @@
     <string name="type.amenity.atm">Bankomat</string>
     <string name="type.amenity.bank">Bank</string>
     <string name="type.amenity.bar">Bar</string>
-    <string name="type.amenity.bbq">Grill för barbecue</string>
+    <string name="type.amenity.bbq">Grillplats</string>
     <string name="type.amenity.bench">Bänk</string>
     <string name="type.amenity.bicycle_parking">Cykelparkering</string>
     <string name="type.amenity.bicycle_rental">Cykeluthyrning</string>
@@ -39,7 +39,7 @@
     <string name="type.amenity.car_sharing">Samåkning</string>
     <string name="type.amenity.car_wash">Biltvätt</string>
     <string name="type.amenity.casino">Kasino</string>
-    <string name="type.amenity.gambling">Spelande</string>
+    <string name="type.amenity.gambling">Hasardspel</string>
     <string name="type.leisure.adult_gaming_centre">Spelcenter för vuxna</string>
     <string name="type.leisure.amusement_arcade">Arkad</string>
     <string name="type.amenity.charging_station">Laddstation</string>
@@ -59,7 +59,7 @@
     <string name="type.amenity.drinking_water">Dricksvatten</string>
     <string name="type.drinking_water.yes">Dricksvatten</string>
     <string name="type.amenity.driving_school">Körskola</string>
-    <string name="type.amenity.exhibition_centre">Mässa</string>
+    <string name="type.amenity.exhibition_centre">Utställningscentrum</string>
     <string name="type.amenity.money_transfer">Pengaöverföring</string>
     <string name="type.amenity.music_school">Musikskola</string>
     <string name="type.amenity.language_school">Språkskola</string>
@@ -76,7 +76,7 @@
     <string name="type.amenity.grave_yard.christian">Begravningsplats</string>
     <string name="type.amenity.hospital">Sjukhus</string>
     <string name="type.amenity.hunting_stand">Jakttorn</string>
-    <string name="type.amenity.ice_cream">Glasstånd</string>
+    <string name="type.amenity.ice_cream">Glassstånd</string>
     <string name="type.amenity.internet_cafe">Internetkafé</string>
     <string name="type.amenity.kindergarten">Förskola</string>
     <string name="type.amenity.library">Bibliotek</string>
@@ -1292,7 +1292,7 @@
     <string name="type.tourism.hotel">Hotell</string>
     <string name="type.tourism.information">Turistinformation</string>
     <string name="type.tourism.information.board">Informationstavla</string>
-    <string name="type.tourism.information.guidepost">Vägledning</string>
+    <string name="type.tourism.information.guidepost">Vägvisare</string>
     <string name="type.tourism.information.map">Turistkarta</string>
     <string name="type.tourism.information.office">Turistcenter</string>
     <string name="type.tourism.information.visitor_centre">Besökscentrum</string>

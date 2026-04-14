@@ -12,7 +12,7 @@
     <string name="type.aerialway.gondola">ゴンドラ</string>
     <string name="type.aerialway.mixed_lift">混合リフト</string>
     <string name="type.aerialway.station">ケーブルカー駅</string>
-    <string name="type.aeroway">空路</string>
+    <string name="type.aeroway">航空インフラ</string>
     <string name="type.aeroway.aerodrome">空港</string>
     <string name="type.aeroway.aerodrome.international">空港</string>
     <string name="type.aeroway.apron">エプロン</string>
@@ -21,7 +21,7 @@
     <string name="type.aeroway.runway">滑走路</string>
     <string name="type.aeroway.taxiway">誘導路</string>
     <string name="type.aeroway.terminal">空港ターミナルビル</string>
-    <string name="type.amenity">アメニティー</string>
+    <string name="type.amenity">設備</string>
     <string name="type.amenity.arts_centre">芸術センター</string>
     <string name="type.amenity.bank">銀行</string>
     <string name="type.amenity.bar">居酒屋</string>
@@ -33,7 +33,7 @@
     <string name="type.amenity.biergarten">ビアガーデン</string>
     <string name="type.amenity.brothel">売春宿</string>
     <string name="type.amenity.bureau_de_change">外貨両替所</string>
-    <string name="type.amenity.bus_station">バスステーション</string>
+    <string name="type.amenity.bus_station">バスターミナル</string>
     <string name="type.amenity.cafe">カフェ</string>
     <string name="type.amenity.car_rental">レンタカー</string>
     <string name="type.amenity.motorcycle_rental">レンタルバイク</string>

@@ -134,7 +134,7 @@
     <string name="type.recycling.shoes">Skoene</string>
     <string name="type.recycling.green_waste">Groen-/organiese afval</string>
     <string name="type.recycling.cartons">Drankverpakking</string>
-    <string name="type.amenity.restaurant">Restourant</string>
+    <string name="type.amenity.restaurant">Restaurant</string>
     <string name="type.amenity.sanitary_dump_station">Opgaartenkstortstasie</string>
     <string name="type.amenity.school">Skool</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->

@@ -54,7 +54,7 @@
     <string name="type.junction.circular">Glorieta</string>
     <string name="type.junction.roundabout">Glorieta</string>
     <string name="type.landuse.farmland">Terreno agrícola</string>
-    <string name="type.leisure.ice_rink">Pisa de patinaje</string>
+    <string name="type.leisure.ice_rink">Pista de patinaje</string>
     <string name="type.leisure.swimming_pool">Alberca</string>
     <string name="type.leisure.swimming_pool.private">Alberca</string>
     <string name="type.railway.monorail">Monorriel</string>

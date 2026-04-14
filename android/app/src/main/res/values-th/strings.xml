@@ -133,7 +133,7 @@
     <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
     <string name="category_pharmacy">ร้านขายยา</string>
     <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
-    <string name="category_hospital">คลินิก</string>
+    <string name="category_hospital">โรงพยาบาล</string>
     <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
     <string name="category_toilet">ห้องน้ำ</string>
     <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->

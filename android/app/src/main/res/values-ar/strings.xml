@@ -49,12 +49,12 @@
     <!-- The button that opens system location settings -->
     <string name="location_settings">إعدادات الموقع</string>
     <string name="close">إغلاق</string>
-    <string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
+    <string name="unsupported_phone">يتطلب التطبيق OpenGL مع تسريع الأجهزة. لسوء الحظ، جهازك غير مدعوم.</string>
     <string name="download">تنزيل</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنةلناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق</string>
+    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة أولاً في بطاقة SD/تخزين USB لاستخدام التطبيق.</string>
     <string name="download_resources">قبل البدء في استخدام التطبيق، يرجى تنزيل خريطة نظرة عامة على العالم على جهازك.\nسيستخدم %s من مساحة التخزين.</string>
     <string name="download_resources_continue">الذهاب الى الخريطة</string>
     <string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن\nالمتابعة الى الخريطة.</string>
@@ -109,7 +109,7 @@
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
     <string name="category_transport">مواصلات</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">وقود الحافلات</string>
+    <string name="category_fuel">وقود</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">مرافق ركن السيارات</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
@@ -560,7 +560,7 @@
     <string name="enable_logging">تفعيل التسجيل</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">تعقيب عام</string>
-    <string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play</string>
+    <string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد Google TTS، ويمكنك تنزيله أو تحديثه من متجر Google Play</string>
     <string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid).\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا (على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنت).</string>
     <string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
@@ -819,7 +819,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">جولة على الأقدام</string>
+    <string name="button_layer_outdoor">الأنشطة الخارجية</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">متصفح الويب غير متوفر</string>
     <string name="volume">مستوى الصوت</string>
@@ -829,7 +829,7 @@
     <string name="pref_tts_open_system_settings">إعدادات تركيب الكلام النظام</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">لم يتم العثور على إعدادات تركيب الكلام، هل أنت متأكد من أن جهازك يدعمها؟</string>
-    <string name="drive_through">الشراء من السيارة</string>
+    <string name="drive_through">خدمة من السيارة</string>
     <string name="clear_the_search">مسح البحث</string>
     <string name="zoom_in">تكبير</string>
     <!-- Accessibility text for the zoom-out button on the map -->

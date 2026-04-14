@@ -368,7 +368,7 @@
     <string name="search_not_found_query">Scarica la regione in cui stai effettuando la ricerca oppure prova ad aggiungere il nome di una città/villaggio vicino.</string>
     <string name="search_history_title">Cronologia delle ricerche</string>
     <string name="search_history_text">Visualizza le ricerche recenti.</string>
-    <string name="clear_search">Elimina сronologia ricerche</string>
+    <string name="clear_search">Elimina cronologia ricerche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <!-- Place Page link to Wikimedia Commons. -->

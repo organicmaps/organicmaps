@@ -2,9 +2,9 @@
 <resources>
 
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">כתובת/שכונה</string>
-    <string name="type.addr_interpolation.even">כתובת/שכונה</string>
-    <string name="type.addr_interpolation.odd">כתובת/שכונה</string>
+    <string name="type.addr_interpolation">כתובת/בלוק</string>
+    <string name="type.addr_interpolation.even">כתובת/בלוק</string>
+    <string name="type.addr_interpolation.odd">כתובת/בלוק</string>
     <string name="type.aerialway.cable_car">רכבל</string>
     <string name="type.aerialway.chair_lift">רכבל סקי</string>
     <string name="type.aerialway.drag_lift">מעלית גרר לסקי</string>
@@ -81,7 +81,7 @@
     <string name="type.amenity.kindergarten">גן ילדים</string>
     <string name="type.amenity.library">ספרייה</string>
     <string name="type.amenity.loading_dock">מתחם העמסה</string>
-    <string name="type.amenity.marketplace">זירת מסחר</string>
+    <string name="type.amenity.marketplace">שוק</string>
     <string name="type.amenity.motorcycle_parking">חניית אופנועים</string>
     <string name="type.amenity.nightclub">מועדון לילה</string>
     <string name="type.amenity.nursing_home">בית אבות</string>

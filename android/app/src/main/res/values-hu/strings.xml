@@ -810,7 +810,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Engedélyek megadása</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Szabadtéri</string>
+    <string name="button_layer_outdoor">Kültéri</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">A webböngésző nem érhető el</string>
     <string name="volume">Hangerő</string>

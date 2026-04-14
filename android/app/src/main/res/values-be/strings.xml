@@ -73,7 +73,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Закладкі</string>
     <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
-    <string name="bookmarks_and_tracks">Закладкі і маршруты</string>
+    <string name="bookmarks_and_tracks">Закладкі і трэкі</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Назва</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -855,7 +855,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Працягнуць запіс</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Захаваць у закладкі і маршруты?</string>
+    <string name="track_recording_alert_title">Захаваць у закладкі і трэкі?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Маршрут пусты - няма чаго захоўваць</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -868,7 +868,7 @@
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Як у сістэме</string>
     <!-- Title of the bottom sheet when sharing the track -->
-    <string name="share_track">Падзяліцца маршрутам</string>
+    <string name="share_track">Падзяліцца трэкам</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Выдаліць %s?</string>
 

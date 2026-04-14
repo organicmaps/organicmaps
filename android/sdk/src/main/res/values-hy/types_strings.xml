@@ -15,11 +15,11 @@
     <string name="type.aeroway">Օդային ենթակառուցվածք</string>
     <string name="type.aeroway.aerodrome">Օդանավակայան</string>
     <string name="type.aeroway.aerodrome.international">Միջազգային օդանավակայան</string>
-    <string name="type.aeroway.apron">Օդանավակայանի կայանատեղի</string>
-    <string name="type.aeroway.gate">Ելք</string>
+    <string name="type.aeroway.apron">Օդանավերի կայանման հարթակ</string>
+    <string name="type.aeroway.gate">Ելքի դարպաս</string>
     <string name="type.aeroway.helipad">Ուղղաթիռի հրապարակ</string>
     <string name="type.aeroway.runway">Թռիչքուղի</string>
-    <string name="type.aeroway.taxiway">Գնացուղի</string>
+    <string name="type.aeroway.taxiway">Օդանավերի շարժուղի</string>
     <string name="type.aeroway.terminal">Տերմինալ</string>
     <string name="type.amenity">Ծառայություններ</string>
     <string name="type.amenity.arts_centre">Արվեստի կենտրոն</string>

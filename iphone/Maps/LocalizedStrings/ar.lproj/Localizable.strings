@@ -98,7 +98,7 @@
 "category_transport" = "مواصلات";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "وقود الحافلات";
+"category_fuel" = "وقود";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "مرافق ركن السيارات";
@@ -846,7 +846,7 @@
 "keyboard_availability_alert" = "لوحة الكتابة غير متاحة أثناء القيادة";
 "dialog_routing_change_start_carplay" = "لا يمكن رسم طريق من موقعك الحالي";
 "dialog_routing_change_end_carplay" = "لا يمكن رسم طريق لجهة الوصول. يرجي اختيار مكان آخر";
-"dialog_routing_check_gps_carplay" = "لا يوجد إشارة نظام تحديد المواقع الجغرافية. يرجى الانتقال لمنطقة مفتوح";
+"dialog_routing_check_gps_carplay" = "لا توجد إشارة لنظام تحديد المواقع الجغرافية. يرجى الانتقال إلى منطقة مفتوحة";
 "dialog_routing_unable_locate_route_carplay" = "لا يمكن رسم طريق. يرجى تحديد أماكن أخرى على الطريق";
 "dialog_routing_download_files_carplay" = "كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك";
 "dialog_routing_system_error_carplay" = "حدث خطأ. يرجى إعادة تشغيل التطبيق";
@@ -953,11 +953,11 @@
 "car_continue_in_the_car" = "إلى شاشة السيارة";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "جولة على الأقدام";
+"button_layer_outdoor" = "الأنشطة الخارجية";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "تصدير كافة الإشارات المرجعية والمسارات";
-"drive_through" = "الشراء من السيارة";
+"drive_through" = "خدمة من السيارة";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "رابط القائمة";

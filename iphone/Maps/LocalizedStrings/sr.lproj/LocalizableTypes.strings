@@ -46,7 +46,7 @@
 "type.amenity.gambling" = "Коцкарница";
 "type.leisure.adult_gaming_centre" = "Центар за игру одраслих";
 "type.leisure.amusement_arcade" = "Играоница за одрасле";
-"type.amenity.charging_station" = "Станица за пуњење ЕВ";
+"type.amenity.charging_station" = "Пуњач за електрична возила";
 "type.amenity.charging_station.bicycle" = "Станица за пуњење бицикала";
 "type.amenity.charging_station.motorcar" = "Станица за пуњење аутомобила";
 "type.amenity.childcare" = "Вртић";
@@ -72,7 +72,7 @@
 "type.amenity.fast_food" = "Брза храна";
 "type.amenity.ferry_terminal" = "Трајект";
 "type.amenity.fire_station" = "Ватрогасна станица";
-"type.amenity.food_court" = "Ресторанска башта";
+"type.amenity.food_court" = "Простор за исхрану";
 "type.amenity.fountain" = "Фонтана";
 "type.amenity.fuel" = "Бензинска станица";
 
@@ -100,7 +100,7 @@
 "type.amenity.parking.no.access" = "Приватни паркинг";
 "type.amenity.parking.permissive" = "Приватни паркинг";
 "type.amenity.parking.private" = "Приватни паркинг";
-"type.amenity.parking.park_and_ride" = "Паркирај и вози паркинг";
+"type.amenity.parking.park_and_ride" = "Паркирај и вози";
 "type.amenity.parking.underground" = "Подземни паркинг";
 "type.amenity.parking.underground.fee" = "Подземни паркинг";
 "type.amenity.parking.underground.private" = "Приватни подземни паркинг";
@@ -144,7 +144,7 @@
 "type.amenity.recycling.centre" = "Центар за рециклажу";
 "type.amenity.recycling" = "Контејнер за рециклажу";
 "type.amenity.recycling.container" = "Контејнер за рециклажу";
-"type.recycling.batteries" = "Бетерије";
+"type.recycling.batteries" = "Батерије";
 "type.recycling.clothes" = "Стара одећа";
 "type.recycling.glass_bottles" = "Стаклене флаше";
 "type.recycling.paper" = "Папир";
@@ -158,7 +158,7 @@
 "type.recycling.green_waste" = "Биолошки отпад";
 "type.recycling.cartons" = "Картон и папир";
 "type.amenity.restaurant" = "Ресторан";
-"type.amenity.sanitary_dump_station" = "Станица за одлагање резервоара";
+"type.amenity.sanitary_dump_station" = "Станица за пражњење отпадних резервоара";
 "type.amenity.school" = "Школа";
 
 /* Weather shelter (including sun shelters and natural rock shelters). */

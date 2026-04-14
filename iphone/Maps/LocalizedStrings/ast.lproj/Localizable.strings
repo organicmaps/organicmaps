@@ -851,10 +851,10 @@
 "dialog_routing_download_files_carplay" = "To create a route, download missing maps on your device";
 "dialog_routing_system_error_carplay" = "An error occurred. Please restart the application";
 "dialog_routing_rebuild_from_current_location_carplay" = "The route will be rebuilt from your current location";
-"dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
+"dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile route";
 "not_all_shown_bookmarks_carplay" = "Not all bookmarks are shown";
 "switch_to_phone_bookmarks_carplay" = "Switch to the phone to see all bookmarks";
-"speedcams_alert_title_carplay_1" = "Speedсams";
+"speedcams_alert_title_carplay_1" = "Speedcams";
 "speedcams_alert_title_carplay_2" = "Alvertencies de velocidá";
 "download_map_carplay" = "Please download maps in the app on your mobile device";
 "carplay_roundabout_exit" = "%@ exit";
@@ -914,7 +914,7 @@
 "app_tip_00" = "Thank you for using our community-built maps!";
 
 /* App tip #01 */
-"app_tip_01" = "With your donations and support, we can create the best maps in the World!";
+"app_tip_01" = "With your donations and support, we can create the best maps in the world!";
 
 /* App tip #02 */
 "app_tip_02" = "Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!";

@@ -195,7 +195,7 @@
     <string name="tracks_title">Stopy</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Dĺžka</string>
-    <string name="share_my_location">Zdieľať moje umiestnenie</string>
+    <string name="share_my_location">Zdieľať moju polohu</string>
     <!-- Settings general group in settings screen -->
     <string name="prefs_group_general">Všeobecné nastavenia</string>
     <!-- Settings information group in settings screen -->

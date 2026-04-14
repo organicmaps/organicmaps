@@ -1579,7 +1579,7 @@
 "type.amenity.boat_rental" = "Laivu noma";
 "type.shop.telecommunication" = "Telekomunikāciju veikals";
 "type.leisure.indoor_play" = "Spēļu centrs";
-"type.tourism.camp_pitch" = "Kempings Spot";
+"type.tourism.camp_pitch" = "Kempinga vieta";
 "type.railway.miniature" = "Miniatūras dzelzceļš";
 "type.amenity.kneipp_water_cure" = "Kneipa ūdens kūre";
 "type.area_highway.traffic_island" = "Satiksmes sala";

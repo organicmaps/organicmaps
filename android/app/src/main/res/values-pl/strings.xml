@@ -861,7 +861,7 @@
     <string name="edit_track">Edytuj trasę</string>
     <string name="uri_open_location_failed">Brak zainstalowanej aplikacji, która może otworzyć lokalizację</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automatyczna nawigacja</string>
+    <string name="nav_auto">Auto w nawigacji</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Zgodnie z systemem</string>
     <!-- Title of the bottom sheet when sharing the track -->

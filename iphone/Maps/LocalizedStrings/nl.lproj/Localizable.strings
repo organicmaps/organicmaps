@@ -957,7 +957,7 @@
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Exporteer alle bladwijzers en tracks";
-"drive_through" = "Drive-though";
+"drive_through" = "Drive-through";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menulink";

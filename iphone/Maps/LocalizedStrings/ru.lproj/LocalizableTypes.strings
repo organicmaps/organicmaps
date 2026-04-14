@@ -7,12 +7,12 @@
 "type.addr_interpolation.odd" = "Адрес/Блок";
 "type.aerialway" = "Канатная дорога";
 "type.aerialway.cable_car" = "Канатная дорога";
-"type.aerialway.chair_lift" = "Кресельная канатная дорога";
-"type.aerialway.drag_lift" = "Бугельная канатная дорога";
+"type.aerialway.chair_lift" = "Кресельный подъёмник";
+"type.aerialway.drag_lift" = "Бугельный подъёмник";
 "type.aerialway.gondola" = "Канатная дорога";
 "type.aerialway.mixed_lift" = "Канатная дорога";
 "type.aerialway.station" = "Канатная дорога";
-"type.aeroway" = "Аэрокосмическая инфраструктура";
+"type.aeroway" = "Инфраструктура воздушного пространства";
 "type.aeroway.aerodrome" = "Аэропорт";
 "type.aeroway.aerodrome.international" = "Международный аэропорт";
 "type.aeroway.apron" = "Перрон";
@@ -287,7 +287,7 @@
 "type.cuisine.argentinian" = "Аргентинская кухня";
 "type.cuisine.asian" = "Азиатская кухня";
 "type.cuisine.austrian" = "Австрийская кухня";
-"type.cuisine.bagel" = "Бeйглы";
+"type.cuisine.bagel" = "Бейглы";
 "type.cuisine.balkan" = "Балканская кухня";
 "type.cuisine.barbecue" = "Барбекю";
 "type.cuisine.bavarian" = "Баварская кухня";

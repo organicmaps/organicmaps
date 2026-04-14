@@ -59,7 +59,7 @@
     <string name="download_resources_continue">Перейти на мапу</string>
     <string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
     <string name="download_country_ask">Завантажити %s?</string>
-    <string name="update_country_ask">Oновити %s?</string>
+    <string name="update_country_ask">Оновити %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">Призупинити</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -69,13 +69,13 @@
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Додати список</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
-    <string name="bookmark_set_name">Назва списка мiток</string>
+    <string name="bookmark_set_name">Назва списка міток</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Мітки</string>
     <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Мітки та маршрути</string>
     <!-- Add bookmark dialog - bookmark name -->
-    <string name="name">Iм\'я</string>
+    <string name="name">Ім\'я</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
     <string name="address">Адреса</string>
     <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
@@ -87,7 +87,7 @@
     <!-- Detailed description of Maps Storage settings button -->
     <string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені мапи.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-    <string name="maps_storage_downloaded">Завантаженнi мапи</string>
+    <string name="maps_storage_downloaded">Завантаженні мапи</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s вільно з %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -151,12 +151,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примітка</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">З вами поділилися мiтками Organic Maps</string>
-    <string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">З вами поділилися мітками Organic Maps</string>
+    <string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої мітки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
     <!-- message title of loading file -->
-    <string name="load_kmz_title">Завантаження мiток</string>
+    <string name="load_kmz_title">Завантаження міток</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Мiтки успішно завантаженi! Ви можете знайти їх на мапі або у ваших збережених мітках.</string>
+    <string name="load_kmz_successful">Мітки успішно завантажені! Ви можете знайти їх на мапі або у ваших збережених мітках.</string>
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
@@ -174,13 +174,13 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Перегляньте моє поточне місцезнаходження в Organic Maps! %1$s або %2$s Не маєте офлайн мап? Завантажте їх тут: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Поглянь на мою мiтку на мапі Organic Maps!</string>
+    <string name="bookmark_share_email_subject">Поглянь на мою мітку на мапі Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Поглянь на моє поточне розташування на мапі Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на мапі.\n\nДякую.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-    <string name="share">Подiлитись</string>
+    <string name="share">Поділитись</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Ел. пошта</string>
     <!-- Text for message when used successfully copied something -->
@@ -192,7 +192,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Ви впевнені, що хочете вийти зі свого облікового запису OpenStreetMap?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Маршрути</string>
+    <string name="tracks_title">Треки</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Довжина</string>
     <string name="share_my_location">Поділитися моїм місцезнаходженням</string>
@@ -232,7 +232,7 @@
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Якщо ви не чуєте голос, перевірте гучність або налаштування системи перетворення тексту на мовлення.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
-    <string name="pref_tts_unavailable">Не доступнi</string>
+    <string name="pref_tts_unavailable">Не доступні</string>
     <string name="pref_map_auto_zoom">Автозум</string>
     <string name="placepage_distance">Відстань</string>
     <string name="search_show_on_map">Подивитись на мапі</string>
@@ -281,7 +281,7 @@
     <string name="downloader_download_all_button">Завантажити всі</string>
     <string name="downloader_downloading">Завантажується:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Щоб видалити мапу, будь ласка, зупините навiгацiю.</string>
+    <string name="downloader_delete_map_while_routing_dialog">Щоб видалити мапу, будь ласка, зупините навігацію.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Завантажити мапу</string>
     <!-- Item status in downloader. -->
@@ -498,7 +498,7 @@
     <string name="editor_category_unsuitable_title">Не можете знайти відповідну категорію?</string>
     <string name="editor_category_unsuitable_text">Organic Maps дозволяють додавати до мапи лише прості типи об\'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування мапи</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
-    <string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
+    <string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без інтернету.</string>
     <string name="current_location_unknown_error_title">Місцезнаходження не знайдено.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">км/год</string>
@@ -509,7 +509,7 @@
     <string name="second">с</string>
     <string name="placepage_more_button">Ще</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
+    <string name="placepage_edit_bookmark_button">Редагувати мітку</string>
     <string name="placepage_personal_notes_hint">Примітка (текст чи html)</string>
     <string name="editor_comment_hint">Коментар…</string>
     <string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>
@@ -536,9 +536,9 @@
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
     <string name="editor_share_to_all_dialog_message_2">Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.</string>
-    <string name="navigation_stop_button">Cтоп</string>
+    <string name="navigation_stop_button">Стоп</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Запис маршруту</string>
+    <string name="track_recording">Запис треку</string>
     <!-- For the first routing -->
     <string name="accept">Прийняти</string>
     <!-- For the first routing -->
@@ -592,7 +592,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Створити новий список</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Імпорт міток та маршрутів</string>
+    <string name="bookmarks_import">Імпорт міток та треків</string>
     <string name="bookmarks_error_message_share_general">Неможливо поділитися через помилку програми</string>
     <string name="bookmarks_error_title_share_empty">Помилка обміну</string>
     <string name="bookmarks_error_message_share_empty">Неможливо поділитися пустим списком</string>
@@ -819,7 +819,7 @@
     <string name="browser_not_available">Веб-браузер недоступний</string>
     <string name="volume">Гучність</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Експортувати всі мітки та маршрути</string>
+    <string name="bookmarks_export">Експортувати всі мітки та треки</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Системні налаштування синтезу мови</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -843,9 +843,9 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Записати маршрут</string>
+    <string name="start_track_recording">Записати трек</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Зупинити запис маршруту</string>
+    <string name="stop_track_recording">Зупинити запис треку</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Запис треку</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -853,13 +853,13 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Продовжити запис</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Зберегти в мітки та маршрути?</string>
+    <string name="track_recording_alert_title">Зберегти в мітки та треки?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Маршрут порожній - нічого зберігати</string>
+    <string name="track_recording_toast_nothing_to_save">Трек порожній - нічого зберігати</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Неможливо відобразити діалогове вікно вибору теки, оскільки на вашому пристрої не встановлено відповідний застосунок. Встановіть файловий менеджер і спробуйте ще раз.</string>
     <string name="choose_color">Виберіть колір</string>
-    <string name="edit_track">Редагувати маршрут</string>
+    <string name="edit_track">Редагувати трек</string>
     <string name="uri_open_location_failed">Не встановлено застосунок, який може відкрити розташування</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Авто в навігації</string>

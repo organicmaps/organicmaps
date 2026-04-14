@@ -1517,7 +1517,7 @@
 "type.waterway.stream.tunnel" = "Řeka";
 "type.waterway.waterfall" = "Vodopád";
 "type.waterway.weir" = "Jez";
-"type.wheelchair" = "Vozíčkář";
+"type.wheelchair" = "Invalidní vozík";
 "type.wheelchair.limited" = "Omezený bezbariérový přístup";
 "type.wheelchair.no" = "Žádný bezbariérový přístup";
 "type.wheelchair.yes" = "Plně bezbariérový přístup";
@@ -1567,9 +1567,9 @@
 "type.leisure.sports_hall" = "Sportovní hala";
 "type.sport.diving" = "Potápění";
 "type.man_made.crane" = "Jeřáb";
-"type.barrier.wicket_gate" = "Vjezdová brána";
+"type.barrier.wicket_gate" = "Branka";
 "type.barrier.yes" = "Bariéra";
-"type.building.guardhouse" = "Strážce";
+"type.building.guardhouse" = "Strážnice";
 "type.office.security" = "Bezpečnostní agentura";
 "type.power.portal" = "Energetická věž (portál)";
 "type.shop.lighting" = "Obchod s osvětlením";

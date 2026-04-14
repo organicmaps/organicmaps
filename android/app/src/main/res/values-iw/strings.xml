@@ -710,7 +710,7 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">אוכל</string>
-    <string name="tourist_places">תיירות</string>
+    <string name="tourist_places">אטרקציות</string>
     <string name="museums">מוזיאונים</string>
     <string name="parks">פארקים</string>
     <string name="swim_places">שחייה</string>
@@ -800,7 +800,7 @@
     <string name="button_layer_outdoor">טיול רגלי</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">דפדפן אינטרנט אינו זמין</string>
-    <string name="volume">כרך</string>
+    <string name="volume">עוצמת שמע</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
     <string name="bookmarks_export">ייצא את כל הסימניות והרצועות</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->

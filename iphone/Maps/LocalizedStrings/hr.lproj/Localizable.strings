@@ -755,7 +755,7 @@
 "opens_at" = "Otvara se u %@";
 "closes_at" = "Zatvara se u %@";
 "add_opening_hours" = "Dodaj radno vrijeme";
-"password_8_chars_min" = "Lozenka (najmanje 8 znakova)";
+"password_8_chars_min" = "Lozinka (najmanje 8 znakova)";
 "invalid_username_or_password" = "Neispravno korisničko ime ili lozinka.";
 "osm_account" = "OSM račun";
 
@@ -854,7 +854,7 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ruta će biti pretvorena u automobilsku";
 "not_all_shown_bookmarks_carplay" = "Ne prikazuju se sve zabilješke";
 "switch_to_phone_bookmarks_carplay" = "Prijeđi na mobitel za prikaz svih zabilješki";
-"speedcams_alert_title_carplay_1" = "Speedсams";
+"speedcams_alert_title_carplay_1" = "Speedcams";
 "speedcams_alert_title_carplay_2" = "Upozorenja na brzinu";
 "download_map_carplay" = "Molimo preuzmite karte u aplikaciji na svom mobilnom uređaju";
 "carplay_roundabout_exit" = "%@ izlaz";

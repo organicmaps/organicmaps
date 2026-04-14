@@ -37,8 +37,8 @@
 "type.amenity.love_hotel" = "情侣酒店";
 "type.amenity.bureau_de_change" = "货币兑换";
 "type.amenity.bus_station" = "公交车站";
-"type.amenity.cafe" = "咖啡馆่";
-"type.amenity.car_rental" = "汽车出租์";
+"type.amenity.cafe" = "咖啡馆";
+"type.amenity.car_rental" = "汽车出租";
 "type.amenity.motorcycle_rental" = "摩托车租赁";
 "type.amenity.car_sharing" = "拼车点";
 "type.amenity.car_wash" = "洗车";
@@ -1310,7 +1310,7 @@
 "type.shop.confectionery" = "糖果店";
 "type.shop.convenience" = "便利店";
 "type.shop.copyshop" = "复印店";
-"type.shop.cosmetics" = "化妝品店";
+"type.shop.cosmetics" = "化妆品店";
 "type.shop.curtain" = "窗帘";
 "type.shop.deli" = "熟食店";
 "type.shop.department_store" = "百货商场";

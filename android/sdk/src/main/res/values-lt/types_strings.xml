@@ -6,9 +6,9 @@
     <string name="type.addr_interpolation.even">Adresas / blokas</string>
     <string name="type.addr_interpolation.odd">Adresas / blokas</string>
     <string name="type.aerialway">Keltuvas</string>
-    <string name="type.aerialway.cable_car">Cable Car</string>
-    <string name="type.aerialway.chair_lift">Kėdė Liftas</string>
-    <string name="type.aerialway.drag_lift">Pasipriešinimas Liftas</string>
+    <string name="type.aerialway.cable_car">Kabininis keltuvas</string>
+    <string name="type.aerialway.chair_lift">Kėdutinis keltuvas</string>
+    <string name="type.aerialway.drag_lift">Vilkimo keltuvas</string>
     <string name="type.aerialway.gondola">Gondola</string>
     <string name="type.aerialway.mixed_lift">Mišrus keltuvas</string>
     <string name="type.aerialway.station">Keltuvo stotis</string>
@@ -18,7 +18,7 @@
     <string name="type.aeroway.apron">Peronas</string>
     <string name="type.aeroway.gate">Vartai</string>
     <string name="type.aeroway.helipad">Sraigtasparnių aikštelė</string>
-    <string name="type.aeroway.runway">Runway</string>
+    <string name="type.aeroway.runway">Kilimo ir tūpimo takas</string>
     <string name="type.aeroway.taxiway">Riedėjimo takas</string>
     <string name="type.aeroway.terminal">Terminalas</string>
     <string name="type.amenity">Paslaugos</string>
