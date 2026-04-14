@@ -9,6 +9,8 @@ extension FileType {
     case .gpx: return "gpx"
     case .geoJson: return "geojson"
     case .json: return "json"
+    @unknown default:
+      fatalError("Unexpected FileType: \(self)")
     }
   }
 
@@ -20,6 +22,8 @@ extension FileType {
     case .gpx: return "com.topografix.gpx"
     case .geoJson: return "public.geojson"
     case .json: return "public.json"
+    @unknown default:
+      fatalError("Unexpected FileType: \(self)")
     }
   }
 
