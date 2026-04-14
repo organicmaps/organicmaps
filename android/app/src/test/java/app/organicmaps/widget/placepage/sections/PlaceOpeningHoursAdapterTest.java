@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 
+import androidx.core.text.util.LocalePreferences;
 import app.organicmaps.sdk.editor.data.HoursMinutes;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
@@ -80,7 +81,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[1] = new Timetable(new Timespan(new HoursMinutes(12, 0, true), new HoursMinutes(14, 0, true)),
                                   new Timespan[0], false, new int[] {7});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, closed
@@ -109,7 +110,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[1] = new Timetable(new Timespan(new HoursMinutes(12, 0, true), new HoursMinutes(14, 0, true)),
                                   new Timespan[0], false, new int[] {7});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo-Fr, open
@@ -141,7 +142,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[2] = new Timetable(new Timespan(new HoursMinutes(11, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {6});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo, open
@@ -179,7 +180,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[2] = new Timetable(new Timespan(new HoursMinutes(11, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {6});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, closed
@@ -213,7 +214,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {2, 4, 6});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo, open
@@ -245,7 +246,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
                                   new Timespan[0], false, new int[] {2, 4, 6});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, closed
@@ -279,7 +280,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.SUNDAY);
+    adapter.setTimetables(timetables, Calendar.SUNDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Su, open
@@ -309,7 +310,7 @@ public class PlaceOpeningHoursAdapterTest
     timetables[0] = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(24, 0, true)),
                                   new Timespan[0], false, new int[] {1, 7});
 
-    adapter.setTimetables(timetables, Calendar.MONDAY);
+    adapter.setTimetables(timetables, Calendar.MONDAY, Calendar.MONDAY);
 
     /* Expected parsed schedule:
      *  0 - Mo-Fr, closed
