@@ -23,7 +23,7 @@
   for (auto const & categoryKey : categoriesKeys)
   {
     CSSearchableItemAttributeSet * attrSet =
-        [[CSSearchableItemAttributeSet alloc] initWithItemContentType:static_cast<NSString *>(kUTTypeItem)];
+        [[CSSearchableItemAttributeSet alloc] initWithItemContentType:static_cast<NSString *>(UTTypeItem)];
 
     NSString * categoryName = nil;
     NSMutableDictionary<NSString *, NSString *> * localizedStrings = [@{} mutableCopy];
