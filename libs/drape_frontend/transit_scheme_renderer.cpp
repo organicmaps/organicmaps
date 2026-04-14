@@ -180,8 +180,7 @@ void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context
 
     gpu::TransitProgramParams params;
     frameValues.SetTo(params);
-    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView().m_data);
     params.m_lineHalfWidth = pixelHalfWidth;
     params.m_maxRadius = kTransitLineHalfWidth;
     mng->GetParamsSetter()->Apply(context, program, params);
@@ -202,8 +201,7 @@ void TransitSchemeRenderer::RenderLines(ref_ptr<dp::GraphicsContext> context, re
 
     gpu::TransitProgramParams params;
     frameValues.SetTo(params);
-    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView().m_data);
     params.m_lineHalfWidth = pixelHalfWidth;
     mng->GetParamsSetter()->Apply(context, program, params);
 
@@ -224,8 +222,7 @@ void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context, 
 
     gpu::TransitProgramParams params;
     frameValues.SetTo(params);
-    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView().m_data);
     params.m_params = glsl::vec3(static_cast<float>(cos(screen.GetAngle())), static_cast<float>(sin(screen.GetAngle())),
                                  pixelHalfWidth);
     mng->GetParamsSetter()->Apply(context, program, params);
@@ -247,8 +244,7 @@ void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref
 
     gpu::MapProgramParams params;
     frameValues.SetTo(params);
-    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView().m_data);
     params.m_contrastGamma = glsl::vec2(glyphParams.m_outlineContrast, glyphParams.m_outlineGamma);
     params.m_isOutlinePass = 1.0f;
     mng->GetParamsSetter()->Apply(context, program, params);
@@ -277,8 +273,7 @@ void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, re
 
     gpu::MapProgramParams params;
     frameValues.SetTo(params);
-    auto const mv = AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView();
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(AdjustedScreen(screen, renderData.m_pivot).GetShapeModelView().m_data);
     mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(context, false /* draw as line */);

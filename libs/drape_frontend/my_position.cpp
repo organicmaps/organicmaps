@@ -11,7 +11,6 @@
 #include "drape/constants.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 
 namespace df
@@ -111,8 +110,7 @@ void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
   gpu::ShapesProgramParams params;
   frameValues.SetTo(params);
   TileKey const key = GetTileKeyByPoint(adjustedPos, ClipTileZoomByMaxDataZoom(zoomLevel));
-  math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-  params.m_modelView = glsl::make_mat4(mv.m_data);
+  params.m_modelView = glsl::make_mat4(key.GetTileBasedModelView(screen).m_data);
 
   auto const pos =
       static_cast<m2::PointF>(MapShape::ConvertToLocal(adjustedPos, key.GetGlobalRect().Center(), kShapeCoordScalar));
@@ -135,11 +133,11 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   }
   else
   {
+    /// @todo Copy-paste block from the above RenderAccuracy.
     gpu::ShapesProgramParams params;
     frameValues.SetTo(params);
     TileKey const key = GetTileKeyByPoint(adjustedPos, ClipTileZoomByMaxDataZoom(zoomLevel));
-    math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_modelView = glsl::make_mat4(key.GetTileBasedModelView(screen).m_data);
 
     auto const pos =
         static_cast<m2::PointF>(MapShape::ConvertToLocal(adjustedPos, key.GetGlobalRect().Center(), kShapeCoordScalar));

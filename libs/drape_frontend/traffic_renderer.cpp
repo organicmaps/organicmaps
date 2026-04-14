@@ -139,8 +139,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
 
       gpu::TrafficProgramParams params;
       frameValues.SetTo(params);
-      math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-      params.m_modelView = glsl::make_mat4(mv.m_data);
+      params.m_modelView = glsl::make_mat4(renderData.m_tileKey.GetTileBasedModelView(screen).m_data);
       params.m_opacity = opacity;
       mng->GetParamsSetter()->Apply(context, program, params);
       renderData.m_bucket->Render(context, true /* draw as line */);
@@ -156,8 +155,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
 
         gpu::TrafficProgramParams params;
         frameValues.SetTo(params);
-        math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-        params.m_modelView = glsl::make_mat4(mv.m_data);
+        params.m_modelView = glsl::make_mat4(renderData.m_tileKey.GetTileBasedModelView(screen).m_data);
         params.m_opacity = opacity;
         // Here we reinterpret light/dark colors as left/right sizes by road classes.
         params.m_lightArrowColor = glsl::vec3(CalculateHalfWidth(screen, RoadClass::Class0, true /* left */),
@@ -207,8 +205,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
 
       gpu::TrafficProgramParams params;
       frameValues.SetTo(params);
-      math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-      params.m_modelView = glsl::make_mat4(mv.m_data);
+      params.m_modelView = glsl::make_mat4(renderData.m_tileKey.GetTileBasedModelView(screen).m_data);
       params.m_opacity = opacity;
       params.m_outline = outline;
       params.m_lightArrowColor = glsl::ToVec3(lightArrowColor);

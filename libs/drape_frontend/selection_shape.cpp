@@ -132,8 +132,7 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     geomParams.m_lineParams = glsl::vec2(currentHalfWidth, screenHalfWidth);
     for (auto const & geometry : m_selectionGeometry)
     {
-      auto const mv = AdjustedScreen(screen, geometry->GetPivot()).GetShapeModelView();
-      geomParams.m_modelView = glsl::make_mat4(mv.m_data);
+      geomParams.m_modelView = glsl::make_mat4(AdjustedScreen(screen, geometry->GetPivot()).GetShapeModelView().m_data);
       geometry->Render(context, mng, geomParams);
     }
   }
