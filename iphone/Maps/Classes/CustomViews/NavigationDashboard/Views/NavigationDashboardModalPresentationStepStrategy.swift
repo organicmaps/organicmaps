@@ -1,7 +1,9 @@
 enum NavigationDashboardModalPresentationStep: Int, CaseIterable, ModalPresentationStep {
   case expanded
   case regular
+  case halfScreen
   case compact
+  case estimates
   case hidden
 }
 
@@ -12,17 +14,48 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
     static let compactHeightOffset: CGFloat = 300
     static let fullScreenHeightFactorPortrait: CGFloat = 0.1
     static let halfScreenHeightFactorPortrait: CGFloat = 0.55
+    static let halfScreenOriginFactorPortrait: CGFloat = 0.5
     static let topInset: CGFloat = 8
   }
+
+  static let halfScreenActivationHeightFactor: CGFloat = 2.0 / 3.0
 
   typealias Step = NavigationDashboardModalPresentationStep
 
   static func == (lhs: NavigationDashboardModalPresentationStepStrategy, rhs: NavigationDashboardModalPresentationStepStrategy) -> Bool {
-    lhs.regularHeigh == rhs.regularHeigh && lhs.compactHeight == rhs.compactHeight
+    lhs.regularHeigh == rhs.regularHeigh &&
+      lhs.compactBaseHeight == rhs.compactBaseHeight &&
+      lhs.estimatesHeight == rhs.estimatesHeight &&
+      lhs.compactDiscoverabilityOffset == rhs.compactDiscoverabilityOffset &&
+      lhs.shouldUseCompactDiscoverabilityOffset == rhs.shouldUseCompactDiscoverabilityOffset &&
+      lhs.shouldShowHalfScreenStep == rhs.shouldShowHalfScreenStep &&
+      lhs.shouldShowEstimatesStep == rhs.shouldShowEstimatesStep
   }
 
   var regularHeigh: CGFloat = .zero
-  var compactHeight: CGFloat = .zero
+  var compactBaseHeight: CGFloat = .zero
+  var estimatesHeight: CGFloat = .zero
+  var compactDiscoverabilityOffset: CGFloat = .zero
+  var shouldUseCompactDiscoverabilityOffset = true
+  var shouldShowHalfScreenStep = false
+  var shouldShowEstimatesStep = false
+
+  var compactHeight: CGFloat {
+    compactBaseHeight + (shouldUseCompactDiscoverabilityOffset ? compactDiscoverabilityOffset : 0)
+  }
+
+  var steps: [Step] {
+    var availableSteps: [Step] = [.expanded, .regular]
+    if shouldShowHalfScreenStep {
+      availableSteps.append(.halfScreen)
+    }
+    availableSteps.append(.compact)
+    if shouldShowEstimatesStep {
+      availableSteps.append(.estimates)
+    }
+    availableSteps.append(.hidden)
+    return availableSteps
+  }
 
   func upperTo(_ step: Step) -> Step {
     switch step {
@@ -30,10 +63,14 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       return .expanded
     case .regular:
       return .expanded
+    case .halfScreen:
+      return .regular
     case .compact:
-      return .regular
+      return shouldShowHalfScreenStep ? .halfScreen : .regular
+    case .estimates:
+      return .compact
     case .hidden:
-      return .regular
+      return shouldShowEstimatesStep ? .estimates : .compact
     }
   }
 
@@ -42,20 +79,27 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
     case .expanded:
       return .regular
     case .regular:
+      return shouldShowHalfScreenStep ? .halfScreen : .compact
+    case .halfScreen:
       return .compact
     case .compact:
-      return .compact
+      return shouldShowEstimatesStep ? .estimates : .compact
+    case .estimates:
+      return .estimates
     case .hidden:
       return .hidden
     }
   }
 
-  var first: Step {
-    .expanded
-  }
-
-  var last: Step {
-    .compact
+  func resolvedStep(_ step: Step) -> Step {
+    switch step {
+    case .halfScreen where !shouldShowHalfScreenStep:
+      return .regular
+    case .estimates where !shouldShowEstimatesStep:
+      return .compact
+    default:
+      return step
+    }
   }
 
   func frame(_ step: Step, for _: UIView, in containerViewController: UIViewController) -> CGRect {
@@ -80,11 +124,21 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         } else {
           frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
         }
+      case .halfScreen:
+        frame.origin.y = max(containerSize.height * Constants.halfScreenOriginFactorPortrait, safeAreaInsets.top + Constants.topInset)
       case .compact:
         if compactHeight != 0 {
           frame.origin.y = containerSize.height - compactHeight
         } else {
           frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+        }
+      case .estimates:
+        if estimatesHeight != 0 {
+          frame.origin.y = containerSize.height - estimatesHeight
+        } else {
+          frame.origin.y = compactHeight != 0
+            ? containerSize.height - compactHeight
+            : containerSize.height * Constants.halfScreenHeightFactorPortrait
         }
       case .hidden:
         frame.origin.y = containerSize.height
@@ -104,11 +158,21 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
           } else {
             frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
           }
+        case .halfScreen:
+          frame.origin.y = max(containerSize.height * Constants.halfScreenOriginFactorPortrait, safeAreaInsets.top + Constants.topInset)
         case .compact:
           if compactHeight != 0 {
             frame.origin.y = containerSize.height - compactHeight
           } else {
             frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+          }
+        case .estimates:
+          if estimatesHeight != 0 {
+            frame.origin.y = containerSize.height - estimatesHeight
+          } else {
+            frame.origin.y = compactHeight != 0
+              ? containerSize.height - compactHeight
+              : containerSize.height * Constants.halfScreenHeightFactorPortrait
           }
         case .hidden:
           frame.origin.y = containerSize.height
@@ -117,10 +181,13 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         frame.size.width = Constants.iPadWidth
         frame.origin.x = safeAreaInsets.left
         switch step {
-        case .expanded, .regular:
+        case .expanded, .regular, .halfScreen:
           frame.origin.y = Constants.topInset
         case .compact:
           frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
+        case .estimates:
+          let height = estimatesHeight != 0 ? estimatesHeight : compactHeight
+          frame.origin.y = containerSize.height - (height != 0 ? height : Constants.compactHeightOffset)
         case .hidden:
           frame.origin.y = containerSize.height
         }
