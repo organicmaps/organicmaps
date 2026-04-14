@@ -2677,12 +2677,6 @@ private:
 };
 }  // namespace
 
-UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return FindNearestUserMark([&rect](UserMark::Type) { return rect; }, [](UserMark::Type) { return false; });
-}
-
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder,
                                                       TFindOnlyVisibleChecker const & findOnlyVisible) const
 {

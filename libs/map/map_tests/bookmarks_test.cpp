@@ -308,25 +308,20 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 
 namespace
 {
+// Same as in Framework::BuildPlacePageInfo.
 UserMark const * GetMark(Framework & fm, m2::PointD const & pt)
 {
-  m2::AnyRectD rect;
-  fm.GetTouchRect(fm.GtoP(pt), 20, rect);
-
-  return fm.GetBookmarkManager().FindNearestUserMark(rect);
+  double constexpr kEps = 1.0E-7;
+  m2::AnyRectD const rect(pt, ang::AngleD(0.0), m2::RectD(-kEps, -kEps, kEps, kEps));
+  return fm.GetBookmarkManager().FindNearestUserMark([&rect](UserMark::Type) { return rect; },
+                                                     [](UserMark::Type) { return false; });
 }
 
 Bookmark const * GetBookmark(Framework & fm, m2::PointD const & pt)
 {
   auto const * mark = GetMark(fm, pt);
-  ASSERT(mark, ());
-  ASSERT(mark->GetMarkType() == UserMark::BOOKMARK, ());
+  TEST(mark && mark->GetMarkType() == UserMark::BOOKMARK, ());
   return dynamic_cast<Bookmark const *>(mark);
-}
-
-Bookmark const * GetBookmarkPxPoint(Framework & fm, m2::PointD const & pt)
-{
-  return GetBookmark(fm, fm.PtoG(pt));
 }
 
 bool IsValidBookmark(Framework & fm, m2::PointD const & pt)
@@ -448,14 +443,12 @@ UNIT_TEST(Bookmarks_Getting)
 
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 3, ());
 
-  TEST(IsValidBookmark(fm, m2::PointD(40, 20)), ());
-  Bookmark const * mark = GetBookmark(fm, m2::PointD(40, 20));
+  Bookmark const * mark = GetBookmark(fm, m2::PointD(41, 20));
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat2", ());
 
   TEST(!IsValidBookmark(fm, m2::PointD(0, 0)), ());
   TEST(!IsValidBookmark(fm, m2::PointD(800, 400)), ());
 
-  TEST(IsValidBookmark(fm, m2::PointD(41, 40)), ());
   mark = GetBookmark(fm, m2::PointD(41, 40));
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat3", ());
 
@@ -566,8 +559,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
-  m2::PointD constexpr globalPoint = m2::PointD(40, 20);
-  m2::PointD const pixelPoint = fm.GtoP(globalPoint);
+  m2::PointD constexpr globalPoint(40, 20);
 
   BookmarkManager & bmManager = fm.GetBookmarkManager();
   bmManager.EnableTestMode(true);
@@ -580,7 +572,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   kml::SetDefaultStr(bm1.m_name, "name");
   bm1.m_point = globalPoint;
   auto const * pBm1 = bmManager.GetEditSession().CreateBookmark(std::move(bm1), cat1);
-  Bookmark const * mark = GetBookmarkPxPoint(fm, pixelPoint);
+  Bookmark const * mark = GetBookmark(fm, globalPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
 
   kml::BookmarkData bm2;
@@ -589,7 +581,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   bm2.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
   auto const * pBm11 = bmManager.GetEditSession().CreateBookmark(std::move(bm2), cat1);
   TEST_EQUAL(pBm1->GetGroupId(), pBm11->GetGroupId(), ());
-  mark = GetBookmarkPxPoint(fm, pixelPoint);
+  mark = GetBookmark(fm, globalPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
   TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "name2", ());
   TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
@@ -602,7 +594,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   auto const * pBm2 = bmManager.GetEditSession().CreateBookmark(std::move(bm3), cat2);
   TEST_NOT_EQUAL(pBm1->GetGroupId(), pBm2->GetGroupId(), ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
-  mark = GetBookmarkPxPoint(fm, pixelPoint);
+  mark = GetBookmark(fm, globalPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2, ("Bookmark wasn't moved from one category to another"));
   TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "name2", ());
