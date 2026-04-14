@@ -41,6 +41,7 @@ public:
   void SetScale(double scale);
 
   double GetAngle() const { return m_Angle.val(); }
+  ang::AngleD GetAngleD() const { return m_Angle; }
   void SetAngle(double angle);
 
   m2::PointD const & GetOrg() const { return m_Org; }
@@ -58,9 +59,7 @@ public:
   void MatchGandP(m2::PointD const & g, m2::PointD const & p);
   void MatchGandP3d(m2::PointD const & g, m2::PointD const & p3d);
 
-  void GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const;
-  void GetTouchRect(m2::PointD const & pixPoint, double const pxWidth, double const pxHeight,
-                    m2::AnyRectD & glbRect) const;
+  m2::AnyRectD GetTouchRect(m2::PointD const & pixPoint, double const pxWidth, double const pxHeight) const;
 
   MatrixT const & GtoPMatrix() const { return m_GtoP; }
   MatrixT const & PtoGMatrix() const { return m_PtoG; }

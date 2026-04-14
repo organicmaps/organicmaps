@@ -244,6 +244,18 @@ m2::PointD AdjustPointForViewport(m2::PointD const & pt, ScreenBase const & scre
   return {mercator::NearestWrapX(pt.x, screen.GetOrg().x), pt.y};
 }
 
+m2::PointD GtoPWrap(m2::PointD const & pt, ScreenBase const & screen)
+{
+  return screen.GtoP(AdjustPointForViewport(pt, screen));
+}
+
+m2::PointD PtoGWrap(m2::PointD const & pt, ScreenBase const & screen)
+{
+  auto mercator = screen.PtoG(pt);
+  mercator.x = mercator::WrapX(mercator.x);
+  return mercator;
+}
+
 AdjustedScreen::AdjustedScreen(ScreenBase const & screen, m2::PointD const & pivot) : m_screen(screen)
 {
   double const wrapX = mercator::NearestWrapX(pivot.x, screen.GetOrg().x);

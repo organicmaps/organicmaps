@@ -3,6 +3,8 @@
 #include "drape/constants.hpp"
 #include "drape/debug_renderer.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <algorithm>
 
 namespace dp
@@ -461,9 +463,11 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
   return false;
 }
 
-void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
+void OverlayTree::Select(m2::PointD glbPoint, TOverlayContainer & result) const
 {
   ScreenBase const & screen = GetModelView();
+
+  glbPoint.x = mercator::NearestWrapX(glbPoint.x, screen.GetOrg().x);
   m2::PointD const pxPoint = screen.GtoP(glbPoint);
 
   double const kSearchRectHalfSize = 10.0;

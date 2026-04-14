@@ -78,7 +78,7 @@ std::optional<m2::PointD> SelectionShape::GetPixelPosition(ScreenBase const & sc
     posZ = 0.0;
   }
 
-  m2::PointD const pt = screen.GtoP(pos);
+  m2::PointD const pt = GtoPWrap(pos, screen);
   if (!screen.IsReverseProjection3d(pt))
     return screen.PtoP3d(pt, -posZ);
   return {};

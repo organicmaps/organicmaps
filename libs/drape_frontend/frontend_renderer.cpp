@@ -25,8 +25,6 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/any_rect2d.hpp"
-
 #include "platform/trace.hpp"
 
 #include "base/assert.hpp"
@@ -44,7 +42,6 @@
 #include <limits>
 #include <memory>
 #include <thread>
-#include <utility>
 
 namespace df
 {
@@ -1323,6 +1320,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       dp::TOverlayContainer selectResult;
       if (m_overlayTree->IsNeedUpdate())
         BuildOverlayTree(modelView);
+      // Expect that msg->GetPosition() is in canonical mercator coordinates.
       m_overlayTree->Select(msg->GetPosition(), selectResult);
       for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
@@ -1996,8 +1994,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   bool isMyPosition = false;
 
-  m2::PointD const pxPoint2d = screen.P3dtoP(pt);
-  m2::PointD mercator = screen.PtoG(pxPoint2d);
+  m2::PointD mercator = PtoGWrap(screen.P3dtoP(pt), screen);
 
   // Long tap should show/hide the interface. There is no need to detect tapped features.
   if (isLongTap)
@@ -2008,7 +2005,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 
   if (m_myPositionController->IsModeHasPosition())
   {
-    m2::PointD const pixelPos = screen.PtoP3d(screen.GtoP(m_myPositionController->Position()));
+    m2::PointD const pixelPos = screen.PtoP3d(GtoPWrap(m_myPositionController->Position(), screen));
     isMyPosition = selectRect.IsPointInside(pixelPos);
     if (isMyPosition)
       mercator = m_myPositionController->Position();
@@ -2692,10 +2689,8 @@ void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
 // static
 m2::AnyRectD TapInfo::GetDefaultTapRect(m2::PointD const & mercator, ScreenBase const & screen)
 {
-  m2::AnyRectD result;
-  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(mercator), halfSize, result);
-  return result;
+  double const r = VisualParams::Instance().GetTouchRectRadius() * screen.GetScale();
+  return m2::AnyRectD(mercator, screen.GetAngleD(), m2::RectD(-r, -r, r, r));
 }
 
 // static
@@ -2703,13 +2698,13 @@ m2::AnyRectD TapInfo::GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase
 {
   static int constexpr kBmTouchPixelIncrease = 20;
 
-  m2::AnyRectD result;
   double const bmAddition = kBmTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
   double const halfSize = VisualParams::Instance().GetTouchRectRadius();
   double const pxWidth = halfSize;
   double const pxHeight = halfSize + bmAddition;
-  screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, bmAddition), pxWidth, pxHeight, result);
-  return result;
+
+  // No need in GtoPWrap since screen.GetTouchRect makes PtoG inside :)
+  return screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, bmAddition), pxWidth, pxHeight);
 }
 
 // static
@@ -2717,11 +2712,11 @@ m2::AnyRectD TapInfo::GetRoutingPointTapRect(m2::PointD const & mercator, Screen
 {
   static int constexpr kRoutingPointTouchPixelIncrease = 20;
 
-  m2::AnyRectD result;
-  double const bmAddition = kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
-  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(mercator), halfSize + bmAddition, result);
-  return result;
+  double const r = (kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale() +
+                    VisualParams::Instance().GetTouchRectRadius()) *
+                   screen.GetScale();
+
+  return m2::AnyRectD(mercator, screen.GetAngleD(), m2::RectD(-r, -r, r, r));
 }
 
 // static
