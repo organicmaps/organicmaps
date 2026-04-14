@@ -74,9 +74,8 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
                                        TileKey const & tileKey, uint32_t textIndex, bool needOverlay)
   : m_point(mercatorPt)
   , m_params(params)
-  , m_tileCoords(tileKey.GetTileCoords())
+  , m_tile(tileKey)
   , m_textIndex(textIndex)
-  , m_tileXOffset(tileKey.GetTileXOffset())
   , m_needOverlay(needOverlay)
 {}
 
@@ -85,9 +84,8 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
                                        std::vector<m2::PointF> const & overlaySizes)
   : m_point(mercatorPt)
   , m_params(params)
-  , m_tileCoords(tileKey.GetTileCoords())
+  , m_tile(tileKey)
   , m_textIndex(textIndex)
-  , m_tileXOffset(tileKey.GetTileXOffset())
   , m_needOverlay(true)
   , m_overlaySizes(overlaySizes)
 {}
@@ -267,13 +265,12 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   if (buffer.empty())
     return;
 
-  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
-
-  m2::PointD const pivot(m_point.x + m_tileXOffset, m_point.y);
-
   drape_ptr<dp::OverlayHandle> handle;
   if (m_needOverlay)
   {
+    dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tile.coords, m_textIndex);
+    m2::PointD const pivot(m_point.x + m_tile.xOffset, m_point.y);
+
     if (!m_overlaySizes.empty())
     {
       handle = make_unique_dp<DynamicSquareHandle>(
