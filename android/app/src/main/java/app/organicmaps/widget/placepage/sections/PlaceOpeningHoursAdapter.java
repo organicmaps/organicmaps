@@ -24,12 +24,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
   public PlaceOpeningHoursAdapter() {}
 
-  public PlaceOpeningHoursAdapter(Timetable[] timetables, int firstDayOfWeek)
-  {
-    setTimetables(timetables, firstDayOfWeek);
-  }
-
-  public void setTimetables(Timetable[] timetables, int firstDayOfWeek)
+  public void setTimetables(Timetable[] timetables, int firstDayOfWeek, int currentDayOfWeek)
   {
     final List<Integer> weekDays = buildWeekByFirstDay(firstDayOfWeek);
     final List<WeekScheduleData> scheduleData = new ArrayList<>();
@@ -48,7 +43,8 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
         i--;
         final int endWeekDay = weekDays.get(i);
-        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt));
+        final boolean isBold = startWeekDay <= currentDayOfWeek && currentDayOfWeek <= endWeekDay;
+        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt, isBold));
       }
       else
       {
@@ -60,7 +56,8 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
           i++;
         }
 
-        scheduleData.add(new WeekScheduleData(startWeekDay, weekDays.get(i), null));
+        final boolean isBold = startWeekDay <= currentDayOfWeek && currentDayOfWeek <= weekDays.get(i);
+        scheduleData.add(new WeekScheduleData(startWeekDay, weekDays.get(i), null, isBold));
       }
     }
 
@@ -105,6 +102,8 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
     final WeekScheduleData schedule = mWeekSchedule.get(position);
 
+    holder.setBoldStyle(schedule.isBold);
+
     if (schedule.isClosed)
     {
       holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
@@ -145,13 +144,15 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     public final int endWeekDay;
     public final boolean isClosed;
     public final Timetable timetable;
+    public final boolean isBold;
 
-    public WeekScheduleData(int startWeekDay, int endWeekDay, Timetable timetable)
+    public WeekScheduleData(int startWeekDay, int endWeekDay, Timetable timetable, boolean isBold)
     {
       this.startWeekDay = startWeekDay;
       this.endWeekDay = endWeekDay;
       this.isClosed = timetable == null;
       this.timetable = timetable;
+      this.isBold = isBold;
     }
   }
 
@@ -168,6 +169,13 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       mOpenTime = itemView.findViewById(R.id.tv__opening_hours_time);
       mNonBusinessTime = itemView.findViewById(R.id.tv__opening_hours_nonbusiness_time);
       itemView.setVisibility(View.VISIBLE);
+    }
+
+    public void setBoldStyle(boolean isBold)
+    {
+      final int style = isBold ? R.style.MwmTextAppearance_PlacePage : R.style.MwmTextAppearance_Body3;
+      mWeekdays.setTextAppearance(itemView.getContext(), style);
+      mOpenTime.setTextAppearance(itemView.getContext(), style);
     }
 
     public void setWeekdays(String weekdays)

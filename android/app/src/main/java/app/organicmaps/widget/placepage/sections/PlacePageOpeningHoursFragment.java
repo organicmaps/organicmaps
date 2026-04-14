@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.util.LocalePreferences;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,8 +27,10 @@ import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class PlacePageOpeningHoursFragment extends Fragment implements Observer<MapObject>
 {
@@ -134,11 +137,28 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       final boolean isTwentyFourSeven = timetables[0].isFullWeek() && timetables[0].isFullday;
       if (!isTwentyFourSeven) // Show whole week time table, except if it's open 24/7
       {
-        int firstDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
+        int currentDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        mOpeningHoursAdapter.setTimetables(timetables, getFirstDayOfWeek(), currentDayOfWeek);
         enableDropdownContent();
       }
     }
+  }
+
+  private int getFirstDayOfWeek()
+  {
+    final List<String> stringDayList =
+        Arrays.asList(LocalePreferences.FirstDayOfWeek.SUNDAY, LocalePreferences.FirstDayOfWeek.MONDAY,
+                      LocalePreferences.FirstDayOfWeek.TUESDAY, LocalePreferences.FirstDayOfWeek.WEDNESDAY,
+                      LocalePreferences.FirstDayOfWeek.THURSDAY, LocalePreferences.FirstDayOfWeek.FRIDAY,
+                      LocalePreferences.FirstDayOfWeek.SATURDAY);
+
+    int dayIndex = stringDayList.indexOf(LocalePreferences.getFirstDayOfWeek());
+    if (dayIndex == -1)
+    {
+      return 1; // LocalePreferences.getFirstDayOfWeek() returned default
+    }
+
+    return dayIndex + 1;
   }
 
   private void expandOpeningHours()
