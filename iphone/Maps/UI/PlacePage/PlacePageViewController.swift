@@ -471,7 +471,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
 
   private func updateContentOffsetForTitleEditing() {
     guard !isiPad else { return }
-    var keyboardHeight = MWMKeyboard.keyboardHeight()
+    let keyboardHeight = MWMKeyboard.keyboardHeight()
     var yOffset: CGFloat?
     if keyboardHeight > 0 {
       let yOffsetFromKeyboard = layout.headerViewController.view.height
