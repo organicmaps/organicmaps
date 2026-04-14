@@ -25,11 +25,13 @@
 #include <utf8.h>  // utf8::is_valid
 
 #include <array>
+#include <chrono>
 #include <cstring>  // strlen
 #include <map>
 #include <numeric>  // std::reduce
 #include <set>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace bookmarks_test
@@ -454,6 +456,184 @@ UNIT_TEST(Bookmarks_CustomColorAndLastEdited)
   auto const * bm2 = bmManager.GetEditSession().CreateBookmark(std::move(bmData2), cat);
   TEST_EQUAL(bm2->GetData().m_color.m_predefinedColor, kml::PredefinedColor::None, ());
   TEST_EQUAL(bm2->GetData().m_color.m_rgba, customB.GetRGBA(), ());
+}
+
+UNIT_TEST(Bookmarks_ModifiedTimestamp_AdvancesOnEachUpdate)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+
+  kml::BookmarkData bmData;
+  kml::SetDefaultStr(bmData.m_name, "bm");
+  bmData.m_point = m2::PointD(10, 10);
+  bmData.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
+  auto const bmId = bmManager.GetEditSession().CreateBookmark(std::move(bmData), catId)->GetId();
+  TEST_EQUAL(bmManager.GetBookmark(bmId)->GetModifiedTimestamp(), kml::Timestamp{},
+             ("CreateBookmark does not stamp m_modifiedTimestamp"));
+
+  {
+    kml::BookmarkData copy = bmManager.GetBookmark(bmId)->GetData();
+    copy.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+    bmManager.GetEditSession().UpdateBookmark(bmId, copy);
+  }
+  auto const bmTs1 = bmManager.GetBookmark(bmId)->GetModifiedTimestamp();
+  TEST_NOT_EQUAL(bmTs1, kml::Timestamp{}, ("First UpdateBookmark must set m_modifiedTimestamp"));
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+  // Android-style second edit: clone the already-stamped data and forward it to UpdateBookmark.
+  {
+    kml::BookmarkData copy = bmManager.GetBookmark(bmId)->GetData();
+    TEST_NOT_EQUAL(copy.m_modifiedTimestamp, kml::Timestamp{}, ("copy carries the prior stamp"));
+    copy.m_color.m_predefinedColor = kml::PredefinedColor::Green;
+    bmManager.GetEditSession().UpdateBookmark(bmId, copy);
+  }
+  auto const bmTs2 = bmManager.GetBookmark(bmId)->GetModifiedTimestamp();
+  TEST_GREATER(bmTs2, bmTs1, ("Second UpdateBookmark must refresh m_modifiedTimestamp"));
+
+  kml::TrackData trackData;
+  kml::SetDefaultStr(trackData.m_name, "tr");
+  trackData.m_layers = {{5.0 /* lineWidth */, {kml::PredefinedColor::None, 0xff0000ff}}};
+  trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 1.0}, 2}});
+  trackData.m_geometry.AddTimestamps({});
+  auto const trackId = bmManager.GetEditSession().CreateTrack(std::move(trackData))->GetId();
+  bmManager.GetEditSession().AttachTrack(trackId, catId);
+  TEST_EQUAL(bmManager.GetTrack(trackId)->GetModifiedTimestamp(), kml::Timestamp{},
+             ("CreateTrack does not stamp m_modifiedTimestamp"));
+
+  {
+    kml::TrackData copy = bmManager.GetTrack(trackId)->GetData();
+    kml::SetDefaultStr(copy.m_name, "renamed");
+    bmManager.GetEditSession().UpdateTrack(trackId, copy);
+  }
+  auto const trTs1 = bmManager.GetTrack(trackId)->GetModifiedTimestamp();
+  TEST_NOT_EQUAL(trTs1, kml::Timestamp{}, ("First UpdateTrack must set m_modifiedTimestamp"));
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+  {
+    kml::TrackData copy = bmManager.GetTrack(trackId)->GetData();
+    TEST_NOT_EQUAL(copy.m_modifiedTimestamp, kml::Timestamp{}, ("copy carries the prior stamp"));
+    kml::SetDefaultStr(copy.m_name, "renamed again");
+    bmManager.GetEditSession().UpdateTrack(trackId, copy);
+  }
+  auto const trTs2 = bmManager.GetTrack(trackId)->GetModifiedTimestamp();
+  TEST_GREATER(trTs2, trTs1, ("Second UpdateTrack must refresh m_modifiedTimestamp"));
+}
+
+UNIT_TEST(Bookmarks_ModifiedTimestamp_FirstEditAfterImport)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+
+  // Simulate a bookmark imported from a KML that already has m_modifiedTimestamp set.
+  auto const importedStamp = kml::TimestampClock::from_time_t(2400);
+  kml::BookmarkData bmData;
+  kml::SetDefaultStr(bmData.m_name, "imported");
+  bmData.m_point = m2::PointD(10, 10);
+  bmData.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
+  bmData.m_modifiedTimestamp = importedStamp;
+  auto const bmId = bmManager.GetEditSession().CreateBookmark(std::move(bmData), catId)->GetId();
+  TEST_EQUAL(bmManager.GetBookmark(bmId)->GetModifiedTimestamp(), importedStamp, ());
+
+  // Android first-edit pattern: clone existing data (carries importedStamp) and mutate.
+  {
+    kml::BookmarkData copy = bmManager.GetBookmark(bmId)->GetData();
+    copy.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+    bmManager.GetEditSession().UpdateBookmark(bmId, copy);
+  }
+  TEST_GREATER(bmManager.GetBookmark(bmId)->GetModifiedTimestamp(), importedStamp,
+               ("First edit after import must refresh m_modifiedTimestamp"));
+
+  kml::TrackData trackData;
+  kml::SetDefaultStr(trackData.m_name, "imported track");
+  trackData.m_layers = {{5.0 /* lineWidth */, {kml::PredefinedColor::None, 0xff0000ff}}};
+  trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 1.0}, 2}});
+  trackData.m_geometry.AddTimestamps({});
+  trackData.m_modifiedTimestamp = importedStamp;
+  auto const trackId = bmManager.GetEditSession().CreateTrack(std::move(trackData))->GetId();
+  bmManager.GetEditSession().AttachTrack(trackId, catId);
+  TEST_EQUAL(bmManager.GetTrack(trackId)->GetModifiedTimestamp(), importedStamp, ());
+
+  {
+    kml::TrackData copy = bmManager.GetTrack(trackId)->GetData();
+    kml::SetDefaultStr(copy.m_name, "renamed");
+    bmManager.GetEditSession().UpdateTrack(trackId, copy);
+  }
+  TEST_GREATER(bmManager.GetTrack(trackId)->GetModifiedTimestamp(), importedStamp,
+               ("First edit after import must refresh m_modifiedTimestamp"));
+}
+
+UNIT_TEST(Bookmarks_ModifiedTimestamp_BulkCategoryRecolor)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+
+  auto const makeBookmark = [&](kml::PredefinedColor color, std::string const & name)
+  {
+    kml::BookmarkData bmData;
+    kml::SetDefaultStr(bmData.m_name, name);
+    bmData.m_point = m2::PointD(1.0, 1.0);
+    bmData.m_color.m_predefinedColor = color;
+    return bmManager.GetEditSession().CreateBookmark(std::move(bmData), catId)->GetId();
+  };
+
+  auto const blueId = makeBookmark(kml::PredefinedColor::Blue, "blue");
+  auto const redId = makeBookmark(kml::PredefinedColor::Red, "red");
+  auto const greenId = makeBookmark(kml::PredefinedColor::Green, "green");
+
+  for (auto const id : {blueId, redId, greenId})
+    TEST_EQUAL(bmManager.GetBookmark(id)->GetModifiedTimestamp(), kml::Timestamp{}, ());
+
+  bmManager.GetEditSession().SetCategoryBookmarksColor(catId, kml::ColorFromPredefinedColor(kml::PredefinedColor::Red));
+
+  TEST_NOT_EQUAL(bmManager.GetBookmark(blueId)->GetModifiedTimestamp(), kml::Timestamp{},
+                 ("Blue->Red must bump m_modifiedTimestamp"));
+  TEST_EQUAL(bmManager.GetBookmark(redId)->GetModifiedTimestamp(), kml::Timestamp{},
+             ("Red->Red must NOT bump m_modifiedTimestamp"));
+  TEST_NOT_EQUAL(bmManager.GetBookmark(greenId)->GetModifiedTimestamp(), kml::Timestamp{},
+                 ("Green->Red must bump m_modifiedTimestamp"));
+
+  auto const makeTrack = [&](kml::PredefinedColor color, std::string const & name)
+  {
+    kml::TrackData trackData;
+    kml::SetDefaultStr(trackData.m_name, name);
+    trackData.m_layers = {
+        {5.0 /* lineWidth */, {kml::PredefinedColor::None, kml::ColorFromPredefinedColor(color).GetRGBA()}}};
+    trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 1.0}, 2}});
+    trackData.m_geometry.AddTimestamps({});
+    auto const id = bmManager.GetEditSession().CreateTrack(std::move(trackData))->GetId();
+    bmManager.GetEditSession().AttachTrack(id, catId);
+    return id;
+  };
+
+  auto const blueTrId = makeTrack(kml::PredefinedColor::Blue, "blue track");
+  auto const redTrId = makeTrack(kml::PredefinedColor::Red, "red track");
+  auto const greenTrId = makeTrack(kml::PredefinedColor::Green, "green track");
+
+  for (auto const id : {blueTrId, redTrId, greenTrId})
+    TEST_EQUAL(bmManager.GetTrack(id)->GetModifiedTimestamp(), kml::Timestamp{}, ());
+
+  bmManager.GetEditSession().SetCategoryTracksColor(catId, kml::ColorFromPredefinedColor(kml::PredefinedColor::Red));
+
+  TEST_NOT_EQUAL(bmManager.GetTrack(blueTrId)->GetModifiedTimestamp(), kml::Timestamp{},
+                 ("Blue->Red track must bump m_modifiedTimestamp"));
+  TEST_EQUAL(bmManager.GetTrack(redTrId)->GetModifiedTimestamp(), kml::Timestamp{},
+             ("Red->Red track must NOT bump m_modifiedTimestamp"));
+  TEST_NOT_EQUAL(bmManager.GetTrack(greenTrId)->GetModifiedTimestamp(), kml::Timestamp{},
+                 ("Green->Red track must bump m_modifiedTimestamp"));
 }
 
 UNIT_TEST(Bookmarks_Getting)
