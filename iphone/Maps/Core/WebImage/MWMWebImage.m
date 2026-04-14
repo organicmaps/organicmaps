@@ -54,7 +54,7 @@
   return self;
 }
 
-- (id<IMWMImageTask>)imageWithUrl:(NSURL *)url completion:(MWMWebImageCompletion)completion
+- (id<IMWMImageTask>)imageWithUrl:(NSURL *)url callback:(MWMWebImageCompletion)callback
 {
   MWMWebImageTask * imageTask = [MWMWebImageTask new];
   NSString * cacheKey = url.absoluteString;
@@ -65,7 +65,7 @@
 
                       if (image)
                       {
-                        completion(image, nil);
+                        callback(image, nil);
                       }
                       else
                       {
@@ -82,7 +82,7 @@
 
                               dispatch_async(dispatch_get_main_queue(), ^{
                                 if (!imageTask.cancelled)
-                                  completion(image, error);
+                                  callback(image, error);
                               });
                             }];
                         imageTask.dataTask = dataTask;

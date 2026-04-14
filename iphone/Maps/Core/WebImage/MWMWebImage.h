@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithImageCahce:(id<IMWMImageCache>)imageCache imageCoder:(id<IMWMImageCoder>)imageCoder;
-- (id<IMWMImageTask>)imageWithUrl:(NSURL *)url completion:(MWMWebImageCompletion)completion;
+- (id<IMWMImageTask>)imageWithUrl:(NSURL *)url callback:(MWMWebImageCompletion)callback;
 - (void)cleanup;
 
 @end
