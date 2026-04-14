@@ -172,37 +172,21 @@ final class MapTemplateBuilder {
   private class func buildBarButton(type: BarButtonType, action: ((CPBarButton) -> Void)?) -> CPBarButton {
     switch type {
     case .dismissPaning:
-      let button = CPBarButton(type: .text, handler: action)
-      button.title = L("done")
-      return button
+      CPBarButton(title: L("done"), handler: action)
     case .destination:
-      let button = CPBarButton(type: .text, handler: action)
-      button.title = L("pick_destination")
-      return button
+      CPBarButton(title: L("pick_destination"), handler: action)
     case .recenter:
-      let button = CPBarButton(type: .text, handler: action)
-      button.title = L("follow_my_position")
-      return button
+      CPBarButton(title: L("follow_my_position"), handler: action)
     case .settings:
-      let button = CPBarButton(type: .image, handler: action)
-      button.image = UIImage(named: "ic_carplay_settings")
-      return button
+      CPBarButton(image: UIImage.icCarplaySettings, handler: action)
     case .mute:
-      let button = CPBarButton(type: .image, handler: action)
-      button.image = UIImage(named: "ic_carplay_unmuted")
-      return button
+      CPBarButton(image: UIImage.icCarplayUnmuted, handler: action)
     case .unmute:
-      let button = CPBarButton(type: .image, handler: action)
-      button.image = UIImage(named: "ic_carplay_muted")
-      return button
+      CPBarButton(image: UIImage.icCarplayMuted, handler: action)
     case .redirectRoute:
-      let button = CPBarButton(type: .image, handler: action)
-      button.image = UIImage(named: "ic_carplay_redirect_route")
-      return button
+      CPBarButton(image: UIImage.icCarplayRedirectRoute, handler: action)
     case .endRoute:
-      let button = CPBarButton(type: .text, handler: action)
-      button.title = L("navigation_stop_button").capitalized
-      return button
+      CPBarButton(title: L("navigation_stop_button").capitalized, handler: action)
     }
   }
 }
