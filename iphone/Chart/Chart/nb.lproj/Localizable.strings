@@ -17,4 +17,4 @@
 "login_osm_credentials" = "Logg inn med passord";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Innlogging ved hjelp av nettleser";
+"login_osm_browser" = "Logg inn med nettleser";

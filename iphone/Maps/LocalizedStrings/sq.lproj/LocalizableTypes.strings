@@ -31,7 +31,7 @@
 "type.amenity.bicycle_parking" = "Parkim biçikletash";
 "type.amenity.bicycle_parking.covered" = "Parkim i mbuluar";
 "type.amenity.bicycle_rental" = "Marrje biçikletash me qira";
-"type.amenity.bicycle_repair_station" = "Stacion riparimi";
+"type.amenity.bicycle_repair_station" = "Stacion riparimi biçikletash";
 "type.amenity.biergarten" = "Birrari";
 "type.amenity.brothel" = "Shtëpi publike";
 "type.amenity.love_hotel" = "Hotel dashurie";

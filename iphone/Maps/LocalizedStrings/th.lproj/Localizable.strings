@@ -134,7 +134,7 @@
 "category_pharmacy" = "ร้านขายยา";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
-"category_hospital" = "คลินิก";
+"category_hospital" = "โรงพยาบาล";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
 "category_toilet" = "ห้องน้ำ";

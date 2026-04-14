@@ -10,7 +10,7 @@
     <string name="delete">Kustuta</string>
     <string name="download_maps">Laadi kaarte</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Allalaadimine ei õnnestunud. Uuesti proovimiseks klõpsi.</string>
+    <string name="download_has_failed">Allalaadimine ei õnnestunud. Uuesti proovimiseks puuduta.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Allalaadimisel…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->

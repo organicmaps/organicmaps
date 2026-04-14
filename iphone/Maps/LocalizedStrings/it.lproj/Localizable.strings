@@ -453,7 +453,7 @@
 "search_not_found_query" = "Scarica la regione in cui stai effettuando la ricerca oppure prova ad aggiungere il nome di una città/villaggio vicino.";
 "search_history_title" = "Cronologia delle ricerche";
 "search_history_text" = "Visualizza le ricerche recenti.";
-"clear_search" = "Elimina сronologia ricerche";
+"clear_search" = "Elimina cronologia ricerche";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
@@ -810,7 +810,7 @@
 "traffic_update_app_message" = "Per visualizzare i dati sul traffico, l'applicazione deve essere aggiornata.";
 "log_file_size" = "Dimensione del file di log: %@";
 "planning_route_remove_title" = "Trascina qui per rimuovere";
-"placepage_replace_stop" = "Sostituire l'arresto";
+"placepage_replace_stop" = "Sostituisci la fermata";
 "start_from_my_position" = "Parti da";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */

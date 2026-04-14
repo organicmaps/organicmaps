@@ -795,7 +795,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Jepni Lejet</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Jashtë</string>
+    <string name="button_layer_outdoor">Në natyrë</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Shfletuesi i uebit nuk është i disponueshëm</string>
     <string name="volume">Volumi</string>

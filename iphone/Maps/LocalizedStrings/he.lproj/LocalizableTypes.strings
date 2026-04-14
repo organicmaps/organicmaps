@@ -2,9 +2,9 @@
 
 /********** Types **********/
 
-"type.addr_interpolation" = "כתובת/שכונה";
-"type.addr_interpolation.even" = "כתובת/שכונה";
-"type.addr_interpolation.odd" = "כתובת/שכונה";
+"type.addr_interpolation" = "כתובת/בלוק";
+"type.addr_interpolation.even" = "כתובת/בלוק";
+"type.addr_interpolation.odd" = "כתובת/בלוק";
 "type.aerialway" = "Aerialway";
 "type.aerialway.cable_car" = "רכבל";
 "type.aerialway.chair_lift" = "רכבל סקי";
@@ -89,7 +89,7 @@
 "type.amenity.library" = "ספרייה";
 "type.amenity.loading_dock" = "מתחם העמסה";
 "type.amenity.luggage_locker" = "Luggage Locker";
-"type.amenity.marketplace" = "זירת מסחר";
+"type.amenity.marketplace" = "שוק";
 "type.amenity.motorcycle_parking" = "חניית אופנועים";
 "type.amenity.nightclub" = "מועדון לילה";
 "type.amenity.nursing_home" = "בית אבות";

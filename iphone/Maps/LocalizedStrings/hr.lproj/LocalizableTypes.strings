@@ -5,7 +5,7 @@
 "type.addr_interpolation" = "Adresa/Blok";
 "type.addr_interpolation.even" = "Adresa/Blok";
 "type.addr_interpolation.odd" = "Adresa/Blok";
-"type.aerialway" = "Zračni put";
+"type.aerialway" = "Žičara";
 "type.aerialway.cable_car" = "Žičara";
 "type.aerialway.chair_lift" = "Žičara sa sjedalima";
 "type.aerialway.drag_lift" = "Vučno dizalo";
@@ -14,14 +14,14 @@
 "type.aerialway.station" = "Stanica žičare";
 "type.aeroway" = "Infrastruktura zračnog prostora";
 "type.aeroway.aerodrome" = "Zračna luka";
-"type.aeroway.aerodrome.international" = "Internacionala zračna luka";
-"type.aeroway.apron" = "Pregača";
+"type.aeroway.aerodrome.international" = "Međunarodna zračna luka";
+"type.aeroway.apron" = "Stajanka";
 "type.aeroway.gate" = "Vrata";
-"type.aeroway.helipad" = "Helipodrom";
+"type.aeroway.helipad" = "Helidrom";
 "type.aeroway.runway" = "Pista";
 "type.aeroway.taxiway" = "Rulna staza";
 "type.aeroway.terminal" = "Terminal";
-"type.amenity" = "Ugodnost";
+"type.amenity" = "Sadržaji";
 "type.amenity.arts_centre" = "Umjetnički centar";
 "type.amenity.atm" = "ATM";
 "type.amenity.bank" = "Banka";

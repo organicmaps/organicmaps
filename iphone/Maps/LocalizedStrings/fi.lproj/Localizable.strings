@@ -1002,7 +1002,7 @@
 "placepage_delete_track_button" = "Poista reitti";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Haluatko varmasti poistaa tämän kappaleen?";
+"placepage_delete_track_confirmation_alert_message" = "Haluatko varmasti poistaa tämän reitin?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Reitin nimi";
@@ -1081,7 +1081,7 @@
 "core_my_position" = "Sijaintini";
 
 /* Default bookmark list name */
-"core_my_places" = "Paikkani";
+"core_my_places" = "Omat paikat";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "WiFi";

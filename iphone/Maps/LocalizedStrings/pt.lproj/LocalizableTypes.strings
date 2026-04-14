@@ -12,7 +12,7 @@
 "type.aerialway.gondola" = "Telecabine";
 "type.aerialway.mixed_lift" = "Teleférico híbrido";
 "type.aerialway.station" = "Estação de teleférico";
-"type.aeroway" = "Via aérea";
+"type.aeroway" = "Infraestrutura do espaço aéreo";
 "type.aeroway.aerodrome" = "Aeroporto ou aeródromo";
 "type.aeroway.aerodrome.international" = "Aeroporto internacional";
 "type.aeroway.apron" = "Plataforma de estacionamento de aviões";
@@ -1583,7 +1583,7 @@
 "type.railway.miniature" = "Caminho de ferro em miniatura";
 "type.amenity.kneipp_water_cure" = "Cura pela água Kneipp";
 "type.area_highway.traffic_island" = "Ilha de tráfego";
-"type.man_made.monitoring_station" = "Estação de controlo";
+"type.man_made.monitoring_station" = "Estação de monitorização";
 "type.man_made.monitoring_station.water_level" = "Estação de monitorização do nível da água";
 "type.man_made.monitoring_station.weather" = "Estação de monitorização meteorológica";
 "type.amenity.student_accommodation" = "Alojamento para estudantes";

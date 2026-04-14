@@ -7,10 +7,10 @@
 "type.addr_interpolation.odd" = "Διεύθυνση/Τετράγωνο";
 "type.aerialway" = "Τελεφερίκ";
 "type.aerialway.cable_car" = "Τελεφερίκ";
-"type.aerialway.chair_lift" = "Τελεφερίκ";
-"type.aerialway.drag_lift" = "Τελεφερίκ";
-"type.aerialway.gondola" = "Τελεφερίκ";
-"type.aerialway.mixed_lift" = "Τελεφερίκ";
+"type.aerialway.chair_lift" = "Αναβατήρας καρεκλών";
+"type.aerialway.drag_lift" = "Συρόμενος αναβατήρας";
+"type.aerialway.gondola" = "Γόνδολα";
+"type.aerialway.mixed_lift" = "Συνδυασμένος αναβατήρας";
 "type.aerialway.station" = "Σταθμός τελεφερίκ";
 "type.aeroway" = "Υποδομή εναέριου χώρου";
 "type.aeroway.aerodrome" = "Αεροδρόμιο";

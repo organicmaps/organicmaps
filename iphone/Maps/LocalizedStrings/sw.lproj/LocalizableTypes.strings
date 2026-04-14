@@ -56,7 +56,7 @@
 "type.amenity.clinic" = "Clinic";
 "type.amenity.college" = "College";
 "type.amenity.community_centre" = "Community Centre";
-"type.amenity.compressed_air" = "Air compressed";
+"type.amenity.compressed_air" = "Hewa iliyoshinikizwa";
 "type.amenity.conference_centre" = "Kituo cha Mikutano";
 "type.amenity.courthouse" = "Courthouse";
 "type.amenity.dentist" = "Dentist";
@@ -87,7 +87,7 @@
 "type.amenity.internet_cafe" = "Internet Cafe";
 "type.amenity.kindergarten" = "Kindergarten";
 "type.amenity.library" = "Library";
-"type.amenity.loading_dock" = "Inapakia kituo";
+"type.amenity.loading_dock" = "Eneo la kupakia";
 "type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Marketplace";
 "type.amenity.motorcycle_parking" = "Motorcycle Parking";
@@ -117,7 +117,7 @@
 "type.amenity.parking_space.permissive" = "Sehemu ya maegesho";
 "type.amenity.parking_space.private" = "Sehemu ya maegesho";
 "type.amenity.parking_space.underground" = "Sehemu ya maegesho";
-"type.amenity.parking_space.disabled" = "Nafasi ya maegesho iliyozimwa";
+"type.amenity.parking_space.disabled" = "Nafasi ya maegesho ya walemavu";
 "type.amenity.payment_terminal" = "Payment Terminal";
 "type.amenity.pharmacy" = "Pharmacy";
 "type.amenity.place_of_worship" = "Place of Worship";
@@ -265,12 +265,12 @@
 "type.craft.electrician" = "Fundi umeme";
 "type.craft.electronics_repair" = "Urekebishaji wa Elektroniki";
 "type.craft.gardener" = "Mtunza bustani";
-"type.craft.grinding_mill" = "Kusaga kinu";
+"type.craft.grinding_mill" = "Kinu cha kusaga";
 "type.craft.handicraft" = "Kazi za mikono";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Kiyoyozi";
-"type.craft.key_cutter" = "Kukata Muhimu";
+"type.craft.key_cutter" = "Kukata funguo";
 "type.craft.locksmith" = "Fundi wa kufuli";
 "type.craft.metal_construction" = "Mfanyikazi wa chuma";
 "type.craft.painter" = "Mchoraji";
@@ -279,7 +279,7 @@
 "type.craft.plumber" = "Fundi bomba";
 "type.craft.sawmill" = "Sumel";
 "type.craft.shoemaker" = "Mtengeneza viatu";
-"type.craft.winery" = "Mvinyo";
+"type.craft.winery" = "Kiwanda cha divai";
 "type.craft.tailor" = "Mshonaji nguo";
 "type.cuisine.african" = "African";
 "type.cuisine.american" = "American";
@@ -386,7 +386,7 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Mlango Mkuu";
-"type.entrance.exit" = "Utgång";
+"type.entrance.exit" = "Kutoka";
 "type.fee.yes" = "$";
 "type.fee.no" = "Bila";
 "type.healthcare.laboratory" = "Maabara ya Matibabu";
@@ -916,7 +916,7 @@
 "type.place.country" = "Nchi";
 "type.place.county" = "Wilaya";
 "type.place.farm" = "Shamba";
-"type.place.hamlet" = "Hamlet";
+"type.place.hamlet" = "Kitongoji";
 "type.place.island" = "Kisiwa";
 "type.place.islet" = "Kisiwa";
 "type.place.isolated_dwelling" = "Makao ya Pekee";
@@ -1477,7 +1477,7 @@
 "type.tourism.hotel" = "Hotel";
 "type.tourism.information" = "Taarifa za Watalii";
 "type.tourism.information.board" = "Bodi ya habari";
-"type.tourism.information.guidepost" = "Chapisho la mwongozo";
+"type.tourism.information.guidepost" = "Bango la mwongozo";
 "type.tourism.information.map" = "Ramani ya Watalii";
 "type.tourism.information.office" = "Ofisi ya watalii";
 "type.tourism.information.visitor_centre" = "Kituo cha Wageni";

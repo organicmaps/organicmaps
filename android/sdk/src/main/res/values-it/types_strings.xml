@@ -8,7 +8,7 @@
     <string name="type.aerialway">Impianto a fune</string>
     <string name="type.aerialway.cable_car">Teleferica</string>
     <string name="type.aerialway.chair_lift">Seggiovia</string>
-    <string name="type.aerialway.drag_lift">Ski-lift</string>
+    <string name="type.aerialway.drag_lift">Sciovia</string>
     <string name="type.aerialway.gondola">Cabinovia</string>
     <string name="type.aerialway.mixed_lift">Impianto misto</string>
     <string name="type.aerialway.station">Stazione</string>
@@ -80,7 +80,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Cimitero cristiano</string>
     <string name="type.amenity.hospital">Ospedale</string>
-    <string name="type.amenity.hunting_stand">Torre di caccio</string>
+    <string name="type.amenity.hunting_stand">Torre di caccia</string>
     <string name="type.amenity.ice_cream">Gelateria</string>
     <string name="type.amenity.internet_cafe">Cybercaffè</string>
     <string name="type.amenity.kindergarten">Scuola materna</string>

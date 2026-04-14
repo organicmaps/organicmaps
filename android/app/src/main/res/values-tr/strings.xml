@@ -728,9 +728,9 @@
     <string name="search_in_the_list">Listede ara</string>
     <string name="religious_places">Dini yerler</string>
     <string name="select_list">Liste seç</string>
-    <string name="button_layer_isolines">Arazi</string>
+    <string name="button_layer_isolines">İzohipsler</string>
     <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede kullanılamaz</string>
+    <string name="isolines_location_error_dialog">İzohipsler henüz bu bölgede kullanılamaz</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>

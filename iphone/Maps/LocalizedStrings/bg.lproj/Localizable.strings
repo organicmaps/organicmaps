@@ -413,7 +413,7 @@
 "dialog_routing_disclaimer_recommendations" = "- Предложените маршрути са само препоръки;";
 "dialog_routing_disclaimer_borders" = "- Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.";
 "dialog_routing_disclaimer_beware" = "Моля, бъдете бдителни и безопасни по пътищата!";
-"dialog_routing_check_gps" = "Приверете GPS сигнала";
+"dialog_routing_check_gps" = "Проверете GPS сигнала";
 "dialog_routing_error_location_not_found" = "Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.";
 "dialog_routing_location_turn_wifi" = "Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.";
 "dialog_routing_location_turn_on" = "Активиране на услугите за местоположение";
@@ -854,7 +854,7 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрутът ще бъде превърнат в автомобилен";
 "not_all_shown_bookmarks_carplay" = "Не всички отметки се показват";
 "switch_to_phone_bookmarks_carplay" = "Превключване към телефона, за да видите всички отметки";
-"speedcams_alert_title_carplay_1" = "Speedsams";
+"speedcams_alert_title_carplay_1" = "Камери за скорост";
 "speedcams_alert_title_carplay_2" = "Предупреждения за скорост";
 "download_map_carplay" = "Моля, изтеглете картите от приложението на мобилното си устройство";
 "carplay_roundabout_exit" = "%@ изход";

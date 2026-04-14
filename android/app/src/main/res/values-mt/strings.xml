@@ -560,7 +560,7 @@
     <string name="enable_logging">Attiva l-illoggjar</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Feedback Ġenerali</string>
-    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet tal-vuċi. Ħafna tagħmir tal-Android jużaw Google TTS, inti tista tniżżel jew taġġornah minn Google Play</string>
+    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet bil-vuċi. Ħafna apparati Android jużaw Google TTS, tista\' tniżżlu jew taġġornah minn Google Play</string>
     <string name="prefs_languages_information_off">Għal xi lingwi, se jkollok bżonn tinstalla sintetizzatur tad-diskors jew pakkett tal-lingwa addizzjonali mill-App Store (Google Play, Galaxy Store, App Gallery, FDroid).\nIftaħ is-settings tat-tagħmir → Language and input → Speech → Text to speech output.\nHawnhekk tista’ timmaniġġja s-settings għas-sinteżi tad-diskors (pereżempju, niżżel il-pakkett tal-lingwa għall-użu offline) u agħżel magna oħra minn kitba għal diskors.</string>
     <string name="prefs_languages_information_off_link">Għal aktar informazzjoni jekk jogħġbok iċċekkja din il-gwida.</string>
     <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>
@@ -806,7 +806,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Għati Permess</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Barra</string>
+    <string name="button_layer_outdoor">Fil-beraħ</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Brawżer tal-web mhux disponibbli</string>
     <string name="volume">Volum</string>
@@ -843,7 +843,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Waqqaf Mingħajr ma\' Tissejvja</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Kompli Rrekordja</string>
+    <string name="continue_recording">Kompli rrekordja</string>
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">Issejvja fil-Bookmarks u l-Korsiji?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->

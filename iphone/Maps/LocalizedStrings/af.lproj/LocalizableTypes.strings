@@ -157,7 +157,7 @@
 "type.recycling.shoes" = "Skoene";
 "type.recycling.green_waste" = "Groen-/organiese afval";
 "type.recycling.cartons" = "Drankverpakking";
-"type.amenity.restaurant" = "Restourant";
+"type.amenity.restaurant" = "Restaurant";
 "type.amenity.sanitary_dump_station" = "Opgaartenkstortstasie";
 "type.amenity.school" = "Skool";
 

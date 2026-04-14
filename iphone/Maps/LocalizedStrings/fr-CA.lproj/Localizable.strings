@@ -73,7 +73,7 @@
 "cancel_download" = "Annuler le téléchargement";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Laisser un commentaire";
+"leave_a_review" = "Laisser un avis";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Oui";
@@ -984,7 +984,7 @@
 "elevation_profile_diff_level_easy" = "Facile";
 "elevation_profile_diff_level_moderate" = "Moyen";
 "elevation_profile_diff_level_hard" = "Difficile";
-"downloader_updating_ios" = "Misе à jour";
+"downloader_updating_ios" = "Mise à jour";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Mettez à jour vos cartes téléchargées";
@@ -1002,10 +1002,10 @@
 "placepage_delete_track_button" = "Supprimer la route";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Êtes-vous sûr de vouloir supprimer ce track ?";
+"placepage_delete_track_confirmation_alert_message" = "Êtes-vous sûr de vouloir supprimer ce tracé ?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Nom de la route";
+"placepage_track_name_hint" = "Nom du tracé";
 
 /* move track or bookmark from the list button text */
 "move" = "Déplacer";

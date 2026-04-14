@@ -15,11 +15,11 @@
 "type.aeroway" = "Օդային ենթակառուցվածք";
 "type.aeroway.aerodrome" = "Օդանավակայան";
 "type.aeroway.aerodrome.international" = "Միջազգային օդանավակայան";
-"type.aeroway.apron" = "Օդանավակայանի կայանատեղի";
-"type.aeroway.gate" = "Ելք";
+"type.aeroway.apron" = "Օդանավերի կայանման հարթակ";
+"type.aeroway.gate" = "Ելքի դարպաս";
 "type.aeroway.helipad" = "Ուղղաթիռի հրապարակ";
 "type.aeroway.runway" = "Թռիչքուղի";
-"type.aeroway.taxiway" = "Գնացուղի";
+"type.aeroway.taxiway" = "Օդանավերի շարժուղի";
 "type.aeroway.terminal" = "Տերմինալ";
 "type.amenity" = "Ծառայություններ";
 "type.amenity.arts_centre" = "Արվեստի կենտրոն";

@@ -6,9 +6,9 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Saját tartózkodási helyszín</string>
+    <string name="core_my_position">Saját pozícióm</string>
     <!-- Default bookmark list name -->
-    <string name="core_my_places">Saját helyszínek</string>
+    <string name="core_my_places">Saját helyeim</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">Belső privát tárhely</string>
     <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
@@ -37,7 +37,7 @@
     <string name="core_entrance">Bejárat</string>
     <string name="subway_data_unavailable">A metrótérkép nem érhető el</string>
     <!-- Settings/Highlight downloaded regions on the map -->
-    <string name="show_downloaded_regions">Lila letöltött régiók</string>
+    <string name="show_downloaded_regions">Lila színnel jelölt letöltött régiók</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->

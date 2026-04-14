@@ -8,7 +8,7 @@
     <string name="type.aerialway">Teleferik</string>
     <string name="type.aerialway.cable_car">Teleferik</string>
     <string name="type.aerialway.chair_lift">Kreslo lifti</string>
-    <string name="type.aerialway.drag_lift">Bugle teleferik</string>
+    <string name="type.aerialway.drag_lift">Bügel lifti</string>
     <string name="type.aerialway.gondola">Qondol</string>
     <string name="type.aerialway.mixed_lift">Teleferik</string>
     <string name="type.aerialway.station">Hava yolu stansiyası</string>
@@ -532,9 +532,9 @@
     <string name="type.historic">Tarix</string>
     <string name="type.historic.aircraft">Tarixi Təyyarə</string>
     <string name="type.historic.anchor">Tarixi Çapa</string>
-    <string name="type.historic.archaeological_site">Qorunan ərazi</string>
+    <string name="type.historic.archaeological_site">Arxeoloji sahə</string>
     <string name="type.historic.battlefield">Döyüş Meydanı</string>
-    <string name="type.historic.boundary_stone">Landmark</string>
+    <string name="type.historic.boundary_stone">Sərhəd daşı</string>
     <string name="type.historic.cannon">Top</string>
     <string name="type.historic.castle">Möhkəmləndirilmiş qala</string>
     <string name="type.historic.castle.castrum">Kastra</string>

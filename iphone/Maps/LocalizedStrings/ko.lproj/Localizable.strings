@@ -143,7 +143,7 @@
 "category_post" = "우편";
 
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
-"category_police" = "치안대";
+"category_police" = "경찰";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "재활용";
@@ -854,7 +854,7 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "루트가 차량에 맞춰 수정됩니다";
 "not_all_shown_bookmarks_carplay" = "모든 북마크가 표시되는 것은 아닙니다.";
 "switch_to_phone_bookmarks_carplay" = "모든 북마크를 보려면 휴대폰으로 전환하세요.";
-"speedcams_alert_title_carplay_1" = "속도단속 카메라";
+"speedcams_alert_title_carplay_1" = "과속 경고";
 "speedcams_alert_title_carplay_2" = "속도단속 카메라";
 "download_map_carplay" = "Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요";
 "carplay_roundabout_exit" = "%@번 출구";

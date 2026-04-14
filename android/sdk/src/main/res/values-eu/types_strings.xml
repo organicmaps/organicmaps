@@ -678,7 +678,7 @@
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Petrolio edo gas putzua</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
-    <string name="type.man_made.flare">Gas zuzia|Gas sugarra</string>
+    <string name="type.man_made.flare">Gas zuzia</string>
     <string name="type.man_made.water_tap">Ura hartzea</string>
     <string name="type.man_made.water_tap.drinking_water_no">Ura hartzea</string>
     <string name="type.man_made.water_tower">Ur depositua</string>
@@ -1307,7 +1307,7 @@
     <string name="type.barrier.log">Enbor hesia</string>
     <string name="type.amenity.boat_rental">Itsasontz</string>
     <string name="type.shop.telecommunication">Telekomunikazioen denda</string>
-    <string name="type.leisure.indoor_play">Play Center</string>
+    <string name="type.leisure.indoor_play">Jolasgunea</string>
     <string name="type.tourism.camp_pitch">Kanpin-lekua</string>
     <string name="type.railway.miniature">Miniaturazko trenbidea</string>
     <string name="type.amenity.kneipp_water_cure">Kneipp Ur Sendapena</string>

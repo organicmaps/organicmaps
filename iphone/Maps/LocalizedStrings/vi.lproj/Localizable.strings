@@ -101,7 +101,7 @@
 "category_fuel" = "Khí đốt";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
-"category_parking" = "đỗ xe";
+"category_parking" = "Đỗ xe";
 
 /* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
 "category_shopping" = "Đi mua sắm";
@@ -113,7 +113,7 @@
 "category_hotel" = "Khách sạn";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Diểm tham quan";
+"category_tourism" = "Điểm tham quan";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Giải trí";
@@ -854,7 +854,7 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
 "not_all_shown_bookmarks_carplay" = "Không phải tất cả dấu trang đều được hiển thị";
 "switch_to_phone_bookmarks_carplay" = "Chuyển sang điện thoại để xem tất cả dấu trang";
-"speedcams_alert_title_carplay_1" = "Сam tốc độ";
+"speedcams_alert_title_carplay_1" = "Camera bắn tốc độ";
 "speedcams_alert_title_carplay_2" = "Cảnh báo tốc độ";
 "download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn";
 "carplay_roundabout_exit" = "Lối ra %@ của vòng xuyến";

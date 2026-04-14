@@ -379,7 +379,7 @@
 "type.emergency.lifeguard" = "Ратавальнік";
 
 /* A mountain rescue base for search and rescue activities. */
-"type.emergency.mountain_rescue" = "ГорныГ ратавальны пункт";
+"type.emergency.mountain_rescue" = "Горны ратавальны пункт";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Уваход";

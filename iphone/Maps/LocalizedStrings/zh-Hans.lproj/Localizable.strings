@@ -611,7 +611,7 @@
 "mobile_data_description" = "要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。";
 "mobile_data_option_never" = "从不使用";
 "mobile_data_option_ask" = "总是询问";
-"traffic_update_maps_text" = "诺要显示交通数据，必须更新地图。";
+"traffic_update_maps_text" = "若要显示交通数据，必须更新地图。";
 "big_font" = "增大地图上的字体大小";
 
 /* "traffic" as in "road congestion" */
@@ -807,7 +807,7 @@
 "general_settings" = "常规设置";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "诺要显示交通数据，必须更新应用。";
+"traffic_update_app_message" = "若要显示交通数据，必须更新应用。";
 "log_file_size" = "日志文件大小：%@";
 "planning_route_remove_title" = "拖拽到此处以移除";
 "placepage_replace_stop" = "更换停机坪";
@@ -818,7 +818,7 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "这里";
-"downloader_hide_screen" = "隱藏屏幕";
+"downloader_hide_screen" = "隐藏屏幕";
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "正在下載 %@…";
 "downloader_applying" = "正在应用 %@…";

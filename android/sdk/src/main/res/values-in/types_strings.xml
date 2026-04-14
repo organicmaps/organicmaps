@@ -9,13 +9,13 @@
     <string name="type.aeroway.aerodrome">Bandar udara</string>
     <string name="type.aeroway.aerodrome.international">Bandar udara</string>
     <string name="type.aeroway.helipad">Landasan helikopter</string>
-    <string name="type.amenity">Ruang berfasilitas</string>
+    <string name="type.amenity">Fasilitas</string>
     <string name="type.amenity.arts_centre">Pusat kesenian</string>
     <string name="type.amenity.bbq">Panggangan barbekyu</string>
     <string name="type.amenity.bench">Bangku panjang</string>
     <string name="type.amenity.bicycle_parking">Parkir Sepeda</string>
     <string name="type.amenity.bicycle_rental">Penyewaan Sepeda</string>
-    <string name="type.amenity.brothel">Hiburan</string>
+    <string name="type.amenity.brothel">Bordil</string>
     <string name="type.amenity.bureau_de_change">Pertukaran valuta</string>
     <string name="type.amenity.bus_station">Stasiun bus</string>
     <string name="type.amenity.cafe">Kafe</string>
@@ -23,7 +23,7 @@
     <string name="type.amenity.motorcycle_rental">Penyewaan Sepeda Motor</string>
     <string name="type.amenity.car_sharing">Berbagi mobil</string>
     <string name="type.amenity.car_wash">Cuci Mobil</string>
-    <string name="type.amenity.casino">Hiburan</string>
+    <string name="type.amenity.casino">Kasino</string>
     <string name="type.amenity.gambling">Berjudi</string>
     <string name="type.leisure.adult_gaming_centre">Pusat Permainan Dewasa</string>
     <string name="type.leisure.amusement_arcade">Arkade</string>
@@ -34,7 +34,7 @@
     <string name="type.amenity.cinema">Bioskop</string>
     <string name="type.leisure.bowling_alley">Arena Bowling</string>
     <string name="type.amenity.clinic">Klinik</string>
-    <string name="type.amenity.college">Kampus</string>
+    <string name="type.amenity.college">Perguruan tinggi</string>
     <string name="type.amenity.community_centre">Pusat komunitas</string>
     <string name="type.amenity.compressed_air">Udara terkompresi</string>
     <string name="type.amenity.conference_centre">Pusat konferensi</string>
@@ -59,7 +59,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Pemakaman</string>
     <string name="type.amenity.hospital">Rumahsakit</string>
-    <string name="type.amenity.hunting_stand">Lokasi berburu</string>
+    <string name="type.amenity.hunting_stand">Pos berburu</string>
     <string name="type.amenity.ice_cream">Kios Es Krim</string>
     <string name="type.amenity.internet_cafe">Kafe Internet</string>
     <string name="type.amenity.kindergarten">Taman kanak-kanak</string>

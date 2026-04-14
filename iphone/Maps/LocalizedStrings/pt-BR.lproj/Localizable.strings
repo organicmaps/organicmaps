@@ -98,7 +98,7 @@
 "category_transport" = "Transporte";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "Gás";
+"category_fuel" = "Combustível";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Estacionamento";

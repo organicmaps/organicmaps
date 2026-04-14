@@ -5,11 +5,11 @@
     <string name="type.addr_interpolation">العنوان / البلوك</string>
     <string name="type.addr_interpolation.even">العنوان / البلوك</string>
     <string name="type.addr_interpolation.odd">العنوان / البلوك</string>
-    <string name="type.aerialway">طريق جوي</string>
+    <string name="type.aerialway">وسيلة نقل معلّقة</string>
     <string name="type.aerialway.cable_car">تلفريك</string>
     <string name="type.aerialway.chair_lift">مصعد مقعدي</string>
     <string name="type.aerialway.drag_lift">مصعد الجر</string>
-    <string name="type.aerialway.gondola">غندول</string>
+    <string name="type.aerialway.gondola">تلفريك</string>
     <string name="type.aerialway.mixed_lift">مصعد مشترك</string>
     <string name="type.aerialway.station">محطة تلفريك</string>
     <string name="type.aeroway">بنية الطيران</string>

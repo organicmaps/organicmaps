@@ -7,12 +7,12 @@
     <string name="type.addr_interpolation.odd">Адрес/Блок</string>
     <string name="type.aerialway">Канатная дорога</string>
     <string name="type.aerialway.cable_car">Канатная дорога</string>
-    <string name="type.aerialway.chair_lift">Кресельная канатная дорога</string>
-    <string name="type.aerialway.drag_lift">Бугельная канатная дорога</string>
+    <string name="type.aerialway.chair_lift">Кресельный подъёмник</string>
+    <string name="type.aerialway.drag_lift">Бугельный подъёмник</string>
     <string name="type.aerialway.gondola">Канатная дорога</string>
     <string name="type.aerialway.mixed_lift">Канатная дорога</string>
     <string name="type.aerialway.station">Канатная дорога</string>
-    <string name="type.aeroway">Аэрокосмическая инфраструктура</string>
+    <string name="type.aeroway">Инфраструктура воздушного пространства</string>
     <string name="type.aeroway.aerodrome">Аэропорт</string>
     <string name="type.aeroway.aerodrome.international">Международный аэропорт</string>
     <string name="type.aeroway.apron">Перрон</string>
@@ -274,7 +274,7 @@
     <string name="type.cuisine.argentinian">Аргентинская кухня</string>
     <string name="type.cuisine.asian">Азиатская кухня</string>
     <string name="type.cuisine.austrian">Австрийская кухня</string>
-    <string name="type.cuisine.bagel">Бeйглы</string>
+    <string name="type.cuisine.bagel">Бейглы</string>
     <string name="type.cuisine.balkan">Балканская кухня</string>
     <string name="type.cuisine.barbecue">Барбекю</string>
     <string name="type.cuisine.bavarian">Баварская кухня</string>

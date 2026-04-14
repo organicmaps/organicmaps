@@ -999,13 +999,13 @@
 "whats_new_auto_update_button_later" = "Perbarui secara manual nanti";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Menghapus Trek";
+"placepage_delete_track_button" = "Hapus Trek";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Apakah Anda yakin ingin menghapus trek ini?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Nama Lagu";
+"placepage_track_name_hint" = "Nama Trek";
 
 /* move track or bookmark from the list button text */
 "move" = "Pindah";
@@ -1108,7 +1108,7 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Keluar";
 "core_entrance" = "Tempat masuk";
-"subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
+"subway_data_unavailable" = "Peta metro tidak tersedia";
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Wilayah unduhan berwarna ungu";

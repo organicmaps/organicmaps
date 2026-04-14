@@ -1121,7 +1121,7 @@
 "login_osm_credentials" = "Innskráning með lykilorði";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Innskráning með vafrara";
+"login_osm_browser" = "Innskráning með vafra";
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nýlega notað";

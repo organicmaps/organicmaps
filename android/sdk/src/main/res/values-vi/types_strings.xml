@@ -20,7 +20,7 @@
     <string name="type.amenity.bicycle_repair_station">trạm sửa xe đạp</string>
     <string name="type.amenity.biergarten">Vườn bia</string>
     <string name="type.amenity.brothel">Giải trí</string>
-    <string name="type.amenity.bureau_de_change">Tỉ giá hiện tại</string>
+    <string name="type.amenity.bureau_de_change">Quầy đổi tiền</string>
     <string name="type.amenity.bus_station">Trạm xe buýt</string>
     <string name="type.amenity.cafe">Cà phê</string>
     <string name="type.amenity.car_rental">Ô tô</string>
@@ -62,7 +62,7 @@
     <string name="type.amenity.grave_yard">Bãi tha ma</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Bãi tha ma</string>
-    <string name="type.amenity.hospital">Bệnhviện</string>
+    <string name="type.amenity.hospital">Bệnh viện</string>
     <string name="type.amenity.hunting_stand">Điểm săn bắn</string>
     <string name="type.amenity.ice_cream">Quầy kem</string>
     <string name="type.amenity.internet_cafe">Quán Internet</string>
@@ -99,7 +99,7 @@
     <string name="type.amenity.parking_space.underground">Chỗ để xe</string>
     <string name="type.amenity.parking_space.disabled">Chỗ đậu xe dành cho người khuyết tật</string>
     <string name="type.amenity.payment_terminal">Thiết bị thanh toán</string>
-    <string name="type.amenity.pharmacy">3Hiệu thuốc</string>
+    <string name="type.amenity.pharmacy">Nhà thuốc</string>
     <string name="type.amenity.place_of_worship">Chùa</string>
     <string name="type.amenity.place_of_worship.buddhist">Đền</string>
     <string name="type.amenity.place_of_worship.christian">Chùa</string>
@@ -209,7 +209,7 @@
     <string name="type.craft.photographer">Thợ chụp ảnh</string>
     <string name="type.shop.camera">Cửa hàng máy ảnh</string>
     <string name="type.craft.plumber">Thợ đường ống</string>
-    <string name="type.craft.sawmill">Sumel</string>
+    <string name="type.craft.sawmill">Xưởng cưa</string>
     <string name="type.craft.shoemaker">Sửa giày</string>
     <string name="type.craft.winery">Nhà máy rượu</string>
     <string name="type.craft.tailor">Thợ may</string>
@@ -290,7 +290,7 @@
     <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Mì soba</string>
     <string name="type.cuisine.spanish">Ẩm thực tây ban nha</string>
-    <string name="type.cuisine.steak_house">Steak house</string>
+    <string name="type.cuisine.steak_house">Nhà hàng bít tết</string>
     <string name="type.cuisine.sushi">Sushi</string>
     <string name="type.cuisine.tapas">Tapas</string>
     <string name="type.cuisine.tea">Trà</string>
@@ -496,8 +496,8 @@
     <string name="type.historic.castle.defensive">Lâu đài</string>
     <string name="type.historic.castle.fortified_church">Nhà thờ kiên cố</string>
     <string name="type.historic.castle.fortress">Pháo đài</string>
-    <string name="type.historic.castle.hillfort">Hillfort</string>
-    <string name="type.historic.castle.kremlin">Kremli</string>
+    <string name="type.historic.castle.hillfort">Pháo đài trên đồi</string>
+    <string name="type.historic.castle.kremlin">Kremlin</string>
     <string name="type.historic.castle.manor">Trang viên</string>
     <string name="type.historic.castle.palace">Cung điện</string>
     <string name="type.historic.castle.shiro">Lâu đài nhật bản</string>
@@ -519,9 +519,9 @@
     <string name="type.historic.monument">Tượng đài</string>
     <string name="type.historic.pillory">Thuốc viên</string>
     <string name="type.historic.ruins">Phế tích</string>
-    <string name="type.historic.ship">Diểm tham quan</string>
+    <string name="type.historic.ship">Tàu lịch sử</string>
     <string name="type.historic.tank">Xe tăng lịch sử</string>
-    <string name="type.historic.tomb">Diểm tham quan</string>
+    <string name="type.historic.tomb">Mộ</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Thập tự</string>
     <!-- Usually a Christian historical cross placed along a road. -->
@@ -546,7 +546,7 @@
     <string name="type.landuse.railway">Cơ sở đường sắt</string>
     <string name="type.landuse.reservoir">Nước</string>
     <string name="type.leisure.dog_park">Nơi cho chó đi dạo</string>
-    <string name="type.leisure.fitness_centre">Phòng Tập</string>
+    <string name="type.leisure.fitness_centre">Trung tâm thể hình</string>
     <string name="type.leisure.fitness_station">Trạm tập thể hình</string>
     <string name="type.leisure.dance">Vũ trường</string>
     <string name="type.leisure.garden">Điểm khảo cổ</string>
@@ -569,8 +569,8 @@
     <string name="type.leisure.stadium">Sân vận động</string>
     <string name="type.leisure.swimming_pool">Bể bơi</string>
     <string name="type.leisure.swimming_pool.private">Bể bơi</string>
-    <string name="type.leisure.water_park">Công Viên Nước</string>
-    <string name="type.man_made.chimney">Ống Khói Nhà Máy</string>
+    <string name="type.leisure.water_park">Công viên nước</string>
+    <string name="type.man_made.chimney">Ống khói nhà máy</string>
     <string name="type.man_made.lighthouse">Hải đăng</string>
     <string name="type.man_made.surveillance">Camera giám sát</string>
     <string name="type.man_made.tower">Tháp</string>
@@ -1145,7 +1145,7 @@
     <string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Nha nghi</string>
-    <string name="type.tourism.gallery">Diểm tham quan</string>
+    <string name="type.tourism.gallery">Phòng trưng bày nghệ thuật</string>
     <string name="type.tourism.guest_house">Nhà khách</string>
     <string name="type.tourism.hostel">Nhà trọ</string>
     <string name="type.tourism.hotel">Khách sạn</string>
@@ -1159,7 +1159,7 @@
     <string name="type.tourism.museum">Bảo tàng</string>
     <string name="type.tourism.picnic_site">Điểm cắm trại</string>
     <string name="type.leisure.resort">Khu nghỉ dưỡng</string>
-    <string name="type.tourism.theme_park">Diểm tham quan</string>
+    <string name="type.tourism.theme_park">Công viên chủ đề</string>
     <string name="type.tourism.viewpoint">Điểm nhìn</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Nhà tạm trú</string>

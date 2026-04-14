@@ -8,7 +8,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Šalinti";
-"download_maps" = "Atsiųsti žemėlapius";
+"download_maps" = "Atsisiųsti žemėlapius";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Atsiunčiama…";

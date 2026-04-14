@@ -139,7 +139,7 @@
     <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
     <string name="category_post">우편</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
-    <string name="category_police">치안대</string>
+    <string name="category_police">경찰</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">재활용</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -834,7 +834,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">저장하지 않고 중지</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">녹화 계속하기</string>
+    <string name="continue_recording">기록 계속하기</string>
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">북마크 및 트랙에 저장하시겠습니까?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
@@ -845,7 +845,7 @@
     <string name="edit_track">경로 편집</string>
     <string name="uri_open_location_failed">위치를 열 수 있는 앱이 설치되어 있지 않습니다.</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">내비게이션에서 자동</string>
+    <string name="nav_auto">내비게이션 중 자동</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">시스템 설정 따름</string>
     <!-- Title of the bottom sheet when sharing the track -->

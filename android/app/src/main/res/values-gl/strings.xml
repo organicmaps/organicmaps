@@ -726,12 +726,12 @@
     <string name="parkings">Estacionamento</string>
     <string name="fuel_places">Gasolineiras</string>
     <string name="medicine">Medicina</string>
-    <string name="search_in_the_list">Buscar nos lista</string>
+    <string name="search_in_the_list">Buscar na lista</string>
     <string name="religious_places">Lugares sacros</string>
     <string name="select_list">Seleccionar lista</string>
-    <string name="button_layer_isolines">Alturas</string>
+    <string name="button_layer_isolines">Curvas de nivel</string>
     <string name="isolines_activation_error_dialog">Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada</string>
-    <string name="isolines_location_error_dialog">A altitude de relevo aínda non está dispoñible nesta rexión</string>
+    <string name="isolines_location_error_dialog">As curvas de nivel aínda non están dispoñibles nesta zona</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -810,7 +810,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permisos</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Sendeirismo</string>
+    <string name="button_layer_outdoor">Ao aire libre</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">A navegador web non está dispoñible</string>
     <string name="volume">Volume</string>
@@ -819,7 +819,7 @@
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Configuración de síntese de voz do sistema</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-    <string name="pref_tts_no_system_tts">Non se atoparon as configuracións de sínteses de voz. Sabe se o seu dispositivo admítea?</string>
+    <string name="pref_tts_no_system_tts">Non se atoparon os axustes de síntese de voz. Está seguro de que o seu dispositivo admite esta función?</string>
     <string name="drive_through">Servizo desde o coche</string>
     <string name="clear_the_search">Borrar procura</string>
     <string name="zoom_in">Achegar</string>

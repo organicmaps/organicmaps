@@ -728,7 +728,7 @@
     <string name="select_list">Välj lista</string>
     <string name="button_layer_isolines">Terräng</string>
     <string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
-    <string name="isolines_location_error_dialog">Höjningslinjer är ännu inte tillgängligt i den här regionen</string>
+    <string name="isolines_location_error_dialog">Höjdkurvor är ännu inte tillgängliga i det här området</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Backe</string>
     <string name="elevation_profile_min_elevation">Min. höjd</string>
@@ -867,7 +867,7 @@
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Logga in med lösenord</string>
     <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Logga in med hjälp av webbläsare</string>
+    <string name="login_osm_browser">Logga in med hjälp av en webbläsare</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Senast använda</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->

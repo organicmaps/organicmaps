@@ -11,7 +11,7 @@
 "type.aerialway.drag_lift" = "Kayak Teleferiği";
 "type.aerialway.gondola" = "Telekabin";
 "type.aerialway.mixed_lift" = "Karışık Teleferik";
-"type.aerialway.station" = "Havayolu İstasyonu";
+"type.aerialway.station" = "Teleferik İstasyonu";
 "type.aeroway" = "Hava Sahası Alt Yapısı";
 "type.aeroway.aerodrome" = "Havaalanı";
 "type.aeroway.aerodrome.international" = "Uluslararası Havalimanı";
@@ -82,7 +82,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Hristiyan Mezarlığı";
 "type.amenity.hospital" = "Hastane";
-"type.amenity.hunting_stand" = "Avlanma Alanı";
+"type.amenity.hunting_stand" = "Avlanma Kulübesi";
 "type.amenity.ice_cream" = "Dondurma";
 "type.amenity.internet_cafe" = "İnternet Kafe";
 "type.amenity.kindergarten" = "Anaokulu";
@@ -189,7 +189,7 @@
 "type.amenity.vending_machine.drinks" = "İçecek Dağıtıcı";
 "type.amenity.vending_machine.food" = "Yiyecek Dağıtıcı";
 "type.amenity.vending_machine.newspapers" = "Gazete Dağıtıcı";
-"type.amenity.vending_machine.parking_tickets" = "Otopark Fişi";
+"type.amenity.vending_machine.parking_tickets" = "Parkmetre";
 "type.amenity.vending_machine.public_transport_tickets" = "Bilet Dağıtıcı";
 "type.amenity.vending_machine.sweets" = "Şekerleme Dağıtıcı";
 "type.amenity.vending_machine.excrement_bags" = "Dışkı Torbası Dağıtıcı";

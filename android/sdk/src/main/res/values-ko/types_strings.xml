@@ -31,7 +31,7 @@
     <string name="type.amenity.gambling">도박</string>
     <string name="type.leisure.adult_gaming_centre">성인 게임 센터</string>
     <string name="type.leisure.amusement_arcade">아케이드</string>
-    <string name="type.amenity.charging_station">충전 역</string>
+    <string name="type.amenity.charging_station">충전소</string>
     <string name="type.amenity.charging_station.bicycle">자전거 충전소</string>
     <string name="type.amenity.charging_station.motorcar">자동차 충전소</string>
     <string name="type.amenity.childcare">보육</string>
@@ -44,7 +44,7 @@
     <string name="type.amenity.conference_centre">컨퍼런스 센터</string>
     <string name="type.amenity.courthouse">법원</string>
     <string name="type.amenity.dentist">치과</string>
-    <string name="type.amenity.doctors">개인병원</string>
+    <string name="type.amenity.doctors">의원</string>
     <string name="type.amenity.drinking_water">음수대</string>
     <string name="type.drinking_water.yes">음수대</string>
     <string name="type.amenity.driving_school">운전학원</string>
@@ -104,7 +104,7 @@
     <string name="type.amenity.place_of_worship.buddhist">불교 사원</string>
     <string name="type.amenity.place_of_worship.christian">교회</string>
     <string name="type.amenity.place_of_worship.christian.mormon">예수 그리스도 후기 성도 교회</string>
-    <string name="type.amenity.place_of_worship.christian.jehovahs_witness">예수 그리스도의 후기 성도 국회당</string>
+    <string name="type.amenity.place_of_worship.christian.jehovahs_witness">여호와의 증인 왕국회관</string>
     <string name="type.amenity.place_of_worship.hindu">힌두교 사원</string>
     <string name="type.amenity.place_of_worship.jewish">유태교 회당</string>
     <string name="type.amenity.place_of_worship.muslim">모스크</string>
@@ -140,17 +140,17 @@
     <string name="type.amenity.public_bath">대중목욕탕</string>
     <string name="type.amenity.shower">샤워시설</string>
     <string name="type.amenity.stripclub">스트립클럽</string>
-    <string name="type.amenity.taxi">택시</string>
+    <string name="type.amenity.taxi">택시 승차장</string>
     <string name="type.amenity.telephone">전화</string>
-    <string name="type.amenity.theatre">연극</string>
+    <string name="type.amenity.theatre">극장</string>
     <string name="type.amenity.toilets">화장실</string>
     <string name="type.toilets.yes">화장실</string>
     <string name="type.amenity.townhall">시청</string>
     <string name="type.amenity.university">대학</string>
     <string name="type.amenity.vending_machine.cigarettes">담배자판기</string>
     <string name="type.amenity.vending_machine.drinks">음료자동판매기</string>
-    <string name="type.amenity.vending_machine.parking_tickets">주차티켓판매기</string>
-    <string name="type.amenity.vending_machine.public_transport_tickets">대중교통표 자동판매기</string>
+    <string name="type.amenity.vending_machine.parking_tickets">주차요금 미터기</string>
+    <string name="type.amenity.vending_machine.public_transport_tickets">대중교통 승차권 판매기</string>
     <string name="type.amenity.vehicle_inspection">차량검사</string>
     <string name="type.amenity.veterinary">동물병원</string>
     <string name="type.amenity.waste_basket">쓰레기통</string>
@@ -162,7 +162,7 @@
     <string name="type.barrier.border_control">국경통제소</string>
     <string name="type.barrier.city_wall">도시의 벽</string>
     <string name="type.waterway.ditch">배수구</string>
-    <string name="type.natural.water.moat">\"해자 외호\"</string>
+    <string name="type.natural.water.moat">해자</string>
     <string name="type.natural.water.wastewater">폐수</string>
     <string name="type.barrier.entrance">입구</string>
     <string name="type.barrier.gate">게이트</string>
@@ -187,7 +187,7 @@
     <string name="type.building.has_parts">건물</string>
     <string name="type.building_part">건물</string>
     <string name="type.building.garage">차고</string>
-    <string name="type.building.train_station">역 빌딩</string>
+    <string name="type.building.train_station">역사</string>
     <string name="type.cemetery.grave">무덤</string>
     <string name="type.craft">공예</string>
     <string name="type.craft.beekeeper">양봉가</string>
@@ -1156,7 +1156,7 @@
     <string name="type.tourism.hotel">호텔</string>
     <string name="type.tourism.information">관광 정보</string>
     <string name="type.tourism.information.board">정보 게시판</string>
-    <string name="type.tourism.information.guidepost">도표</string>
+    <string name="type.tourism.information.guidepost">이정표</string>
     <string name="type.tourism.information.map">관광안내도</string>
     <string name="type.tourism.information.office">관광정보센터</string>
     <string name="type.tourism.information.visitor_centre">방문자 센터</string>

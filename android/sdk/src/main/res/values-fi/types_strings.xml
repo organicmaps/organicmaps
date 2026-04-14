@@ -328,7 +328,7 @@
     <string name="type.cuisine.sandwich">Voileipä</string>
     <string name="type.cuisine.sausage">Makkara</string>
     <string name="type.cuisine.savory_pancakes">Suolaiset letut</string>
-    <string name="type.cuisine.seafood">Meren elävät</string>
+    <string name="type.cuisine.seafood">Merenelävät</string>
     <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Sobanuudeli</string>
     <string name="type.cuisine.spanish">Espanjalainen keittiö</string>
@@ -409,7 +409,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Moottoritietunneli</string>
     <string name="type.highway.motorway_junction">Poistumistie</string>
-    <string name="type.highway.motorway_link">Mottoritieramppi</string>
+    <string name="type.highway.motorway_link">Moottoritieramppi</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Silta</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

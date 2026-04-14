@@ -1166,7 +1166,7 @@
     <string name="type.tourism.hotel">Hotell</string>
     <string name="type.tourism.information">Turistinformasjon</string>
     <string name="type.tourism.information.board">Informasjonstavle</string>
-    <string name="type.tourism.information.guidepost">Guidepost</string>
+    <string name="type.tourism.information.guidepost">Veiviser</string>
     <string name="type.tourism.information.map">Turistkart</string>
     <string name="type.tourism.information.office">Turistkontor</string>
     <string name="type.tourism.information.visitor_centre">Besøkssenter</string>
@@ -1196,7 +1196,7 @@
     <string name="type.wheelchair.limited">Begrenset tilgang for rullestol</string>
     <string name="type.wheelchair.no">Ingen tilgang for rullestol</string>
     <string name="type.wheelchair.yes">Full tilgang for rullestol</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Snøpark</string>
     <string name="type.piste_type.hike">Tursti i snø</string>
     <string name="type.piste_type.connection">Pisteforbindelse</string>
     <string name="type.piste_type.skitour">Skitour-stien</string>

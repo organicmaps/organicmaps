@@ -85,7 +85,7 @@
     <string name="type.amenity.internet_cafe">Internetikohvik</string>
     <string name="type.amenity.kindergarten">Lasteaed</string>
     <string name="type.amenity.library">Raamatukogu</string>
-    <string name="type.amenity.loading_dock">Laoestakaad</string>
+    <string name="type.amenity.loading_dock">Laadimisdokk</string>
     <string name="type.amenity.luggage_locker">Pagasihoid</string>
     <string name="type.amenity.marketplace">Turg</string>
     <string name="type.amenity.motorcycle_parking">Mootorrataste parkla</string>
@@ -243,7 +243,7 @@
     <string name="type.building.train_station">Jaamahoone</string>
     <string name="type.building.warehouse">Ladu</string>
     <string name="type.cemetery.grave">Haud</string>
-    <string name="type.craft">Käsitöömeister</string>
+    <string name="type.craft">Käsitöö</string>
     <string name="type.craft.beekeeper">Mesinik</string>
     <string name="type.craft.blacksmith">Sepp</string>
     <string name="type.craft.brewery">Väikepruulikoda</string>

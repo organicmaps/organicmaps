@@ -11,7 +11,7 @@
     <string name="type.aerialway.drag_lift">Kayak Teleferiği</string>
     <string name="type.aerialway.gondola">Telekabin</string>
     <string name="type.aerialway.mixed_lift">Karışık Teleferik</string>
-    <string name="type.aerialway.station">Havayolu İstasyonu</string>
+    <string name="type.aerialway.station">Teleferik İstasyonu</string>
     <string name="type.aeroway">Hava Sahası Alt Yapısı</string>
     <string name="type.aeroway.aerodrome">Havaalanı</string>
     <string name="type.aeroway.aerodrome.international">Uluslararası Havalimanı</string>
@@ -80,7 +80,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Hristiyan Mezarlığı</string>
     <string name="type.amenity.hospital">Hastane</string>
-    <string name="type.amenity.hunting_stand">Avlanma Alanı</string>
+    <string name="type.amenity.hunting_stand">Avlanma Kulübesi</string>
     <string name="type.amenity.ice_cream">Dondurma</string>
     <string name="type.amenity.internet_cafe">İnternet Kafe</string>
     <string name="type.amenity.kindergarten">Anaokulu</string>
@@ -181,7 +181,7 @@
     <string name="type.amenity.vending_machine.drinks">İçecek Dağıtıcı</string>
     <string name="type.amenity.vending_machine.food">Yiyecek Dağıtıcı</string>
     <string name="type.amenity.vending_machine.newspapers">Gazete Dağıtıcı</string>
-    <string name="type.amenity.vending_machine.parking_tickets">Otopark Fişi</string>
+    <string name="type.amenity.vending_machine.parking_tickets">Parkmetre</string>
     <string name="type.amenity.vending_machine.public_transport_tickets">Bilet Dağıtıcı</string>
     <string name="type.amenity.vending_machine.sweets">Şekerleme Dağıtıcı</string>
     <string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>

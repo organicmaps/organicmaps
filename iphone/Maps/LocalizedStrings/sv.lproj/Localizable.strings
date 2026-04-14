@@ -890,7 +890,7 @@
 "dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller mål närmare en tunnelbanestation";
 "button_layer_isolines" = "Terräng";
 "isolines_activation_error_dialog" = "Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område";
-"isolines_location_error_dialog" = "Höjningslinjer är ännu inte tillgängligt i den här regionen";
+"isolines_location_error_dialog" = "Höjdkurvor är ännu inte tillgängliga i det här området";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Backe";
 "elevation_profile_min_elevation" = "Min. höjd";
@@ -1121,7 +1121,7 @@
 "login_osm_credentials" = "Logga in med lösenord";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Logga in med hjälp av webbläsare";
+"login_osm_browser" = "Logga in med hjälp av en webbläsare";
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Senast använda";

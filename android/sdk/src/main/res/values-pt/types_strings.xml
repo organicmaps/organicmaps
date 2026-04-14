@@ -12,7 +12,7 @@
     <string name="type.aerialway.gondola">Telecabine</string>
     <string name="type.aerialway.mixed_lift">Teleférico híbrido</string>
     <string name="type.aerialway.station">Estação de teleférico</string>
-    <string name="type.aeroway">Via aérea</string>
+    <string name="type.aeroway">Infraestrutura do espaço aéreo</string>
     <string name="type.aeroway.aerodrome">Aeroporto ou aeródromo</string>
     <string name="type.aeroway.aerodrome.international">Aeroporto internacional</string>
     <string name="type.aeroway.apron">Plataforma de estacionamento de aviões</string>
@@ -1398,7 +1398,7 @@
     <string name="type.railway.miniature">Caminho de ferro em miniatura</string>
     <string name="type.amenity.kneipp_water_cure">Cura pela água Kneipp</string>
     <string name="type.area_highway.traffic_island">Ilha de tráfego</string>
-    <string name="type.man_made.monitoring_station">Estação de controlo</string>
+    <string name="type.man_made.monitoring_station">Estação de monitorização</string>
     <string name="type.man_made.monitoring_station.water_level">Estação de monitorização do nível da água</string>
     <string name="type.man_made.monitoring_station.weather">Estação de monitorização meteorológica</string>
     <string name="type.amenity.student_accommodation">Alojamento para estudantes</string>

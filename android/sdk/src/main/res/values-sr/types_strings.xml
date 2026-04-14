@@ -45,7 +45,7 @@
     <string name="type.amenity.gambling">Коцкарница</string>
     <string name="type.leisure.adult_gaming_centre">Центар за игру одраслих</string>
     <string name="type.leisure.amusement_arcade">Играоница за одрасле</string>
-    <string name="type.amenity.charging_station">Станица за пуњење ЕВ</string>
+    <string name="type.amenity.charging_station">Пуњач за електрична возила</string>
     <string name="type.amenity.charging_station.bicycle">Станица за пуњење бицикала</string>
     <string name="type.amenity.charging_station.motorcar">Станица за пуњење аутомобила</string>
     <string name="type.amenity.childcare">Вртић</string>
@@ -70,7 +70,7 @@
     <string name="type.amenity.fast_food">Брза храна</string>
     <string name="type.amenity.ferry_terminal">Трајект</string>
     <string name="type.amenity.fire_station">Ватрогасна станица</string>
-    <string name="type.amenity.food_court">Ресторанска башта</string>
+    <string name="type.amenity.food_court">Простор за исхрану</string>
     <string name="type.amenity.fountain">Фонтана</string>
     <string name="type.amenity.fuel">Бензинска станица</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -95,7 +95,7 @@
     <string name="type.amenity.parking.no.access">Приватни паркинг</string>
     <string name="type.amenity.parking.permissive">Приватни паркинг</string>
     <string name="type.amenity.parking.private">Приватни паркинг</string>
-    <string name="type.amenity.parking.park_and_ride">Паркирај и вози паркинг</string>
+    <string name="type.amenity.parking.park_and_ride">Паркирај и вози</string>
     <string name="type.amenity.parking.underground">Подземни паркинг</string>
     <string name="type.amenity.parking.underground.fee">Подземни паркинг</string>
     <string name="type.amenity.parking.underground.private">Приватни подземни паркинг</string>
@@ -136,7 +136,7 @@
     <string name="type.amenity.recycling.centre">Центар за рециклажу</string>
     <string name="type.amenity.recycling">Контејнер за рециклажу</string>
     <string name="type.amenity.recycling.container">Контејнер за рециклажу</string>
-    <string name="type.recycling.batteries">Бетерије</string>
+    <string name="type.recycling.batteries">Батерије</string>
     <string name="type.recycling.clothes">Стара одећа</string>
     <string name="type.recycling.glass_bottles">Стаклене флаше</string>
     <string name="type.recycling.paper">Папир</string>
@@ -150,7 +150,7 @@
     <string name="type.recycling.green_waste">Биолошки отпад</string>
     <string name="type.recycling.cartons">Картон и папир</string>
     <string name="type.amenity.restaurant">Ресторан</string>
-    <string name="type.amenity.sanitary_dump_station">Станица за одлагање резервоара</string>
+    <string name="type.amenity.sanitary_dump_station">Станица за пражњење отпадних резервоара</string>
     <string name="type.amenity.school">Школа</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->
     <string name="type.amenity.shelter">Склониште</string>

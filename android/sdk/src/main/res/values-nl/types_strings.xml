@@ -11,7 +11,7 @@
     <string name="type.aerialway.drag_lift">Sleeplift</string>
     <string name="type.aerialway.gondola">Gondelbaan</string>
     <string name="type.aerialway.mixed_lift">Gecombineerde kabelbaan</string>
-    <string name="type.aerialway.station">Kabelwagenstation</string>
+    <string name="type.aerialway.station">Kabelbaanstation</string>
     <string name="type.aeroway">Luchtvaartinfrastructuur</string>
     <string name="type.aeroway.aerodrome">Vliegveld</string>
     <string name="type.aeroway.aerodrome.international">Vliegveld</string>
@@ -41,7 +41,7 @@
     <string name="type.amenity.car_rental">Autoverhuur</string>
     <string name="type.amenity.motorcycle_rental">Motorverhuur</string>
     <string name="type.amenity.car_sharing">Autodelen</string>
-    <string name="type.amenity.car_wash">Wasserette</string>
+    <string name="type.amenity.car_wash">Autowasstraat</string>
     <string name="type.amenity.casino">Casino</string>
     <string name="type.amenity.gambling">Gokken</string>
     <string name="type.leisure.adult_gaming_centre">Gamingcentrum voor volwassenen</string>
@@ -85,7 +85,7 @@
     <string name="type.amenity.internet_cafe">Internetcafé</string>
     <string name="type.amenity.kindergarten">Kleuterschool</string>
     <string name="type.amenity.library">Bibliotheek</string>
-    <string name="type.amenity.loading_dock">Laad-dock</string>
+    <string name="type.amenity.loading_dock">Laaddock</string>
     <string name="type.amenity.luggage_locker">Baggage Kluis</string>
     <string name="type.amenity.marketplace">Markt</string>
     <string name="type.amenity.motorcycle_parking">Parking Motorfietsen</string>

@@ -98,7 +98,7 @@
 "category_transport" = "Usafiri";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "Petroli";
+"category_fuel" = "Mafuta";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Maegesho";
@@ -890,7 +890,7 @@
 "dialog_pedestrian_route_is_long_message" = "Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini";
 "button_layer_isolines" = "Topografia";
 "isolines_activation_error_dialog" = "Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo";
-"isolines_location_error_dialog" = "Tabaka la sura ya nchi bado haipatikani katika eneo hili";
+"isolines_location_error_dialog" = "Mistari ya mwinuko bado haipatikani katika eneo hili";
 "elevation_profile_ascent" = "Upandaji";
 "elevation_profile_descent" = "Ushukaji";
 "elevation_profile_min_elevation" = "Min. mwinuko";
@@ -953,7 +953,7 @@
 "car_continue_in_the_car" = "Kwa skrini ya gari";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Kutembea kwa miguu";
+"button_layer_outdoor" = "Nje";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Hamisha Alamisho na Nyimbo zote";
@@ -1005,7 +1005,7 @@
 "placepage_delete_track_confirmation_alert_message" = "Je, una uhakika unataka kufuta wimbo huu?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Jina la wimbo";
+"placepage_track_name_hint" = "Jina la njia";
 
 /* move track or bookmark from the list button text */
 "move" = "Sogeza";

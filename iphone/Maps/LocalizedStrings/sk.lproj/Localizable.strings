@@ -194,7 +194,7 @@
 
 /* Length of track in cell that describes route */
 "length" = "Dĺžka";
-"share_my_location" = "Zdieľať moje umiestnenie";
+"share_my_location" = "Zdieľať moju polohu";
 "prefs_group_route" = "Navigácia";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -1035,7 +1035,7 @@
 "icloud_disabled_message" = "Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Povolenie stránky";
+"enable" = "Povoliť";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Zálohovanie";
@@ -1106,8 +1106,8 @@
 "routes_update_maps_text" = "Na zobrazenie trás je potrebné aktualizovať mapy.";
 
 /* Subway exits for public transport marks on the map */
-"core_exit" = "Ukončiť";
-"core_entrance" = "Vchod | vjazd";
+"core_exit" = "Výstup";
+"core_entrance" = "Vchod";
 "subway_data_unavailable" = "Mapa metra nie je dostupná";
 
 /* Settings/Highlight downloaded regions on the map */

@@ -73,7 +73,7 @@
 "cancel_download" = "Anulo Shkarkimin";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Lini një Recension";
+"leave_a_review" = "Lini një vlerësim";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Po";
@@ -953,7 +953,7 @@
 "car_continue_in_the_car" = "Te ekrani i makinës";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Jashtë";
+"button_layer_outdoor" = "Në natyrë";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Eksporto të gjithë Faqeshënuesit dhe Gjurmët";
@@ -1111,7 +1111,7 @@
 "subway_data_unavailable" = "Harta e metrosë nuk është e disponueshme";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Rajonet e shkarkuara vjollcë";
+"show_downloaded_regions" = "Rajonet e shkarkuara me ngjyrë vjollcë";
 
 
 /********** gps strings **********/

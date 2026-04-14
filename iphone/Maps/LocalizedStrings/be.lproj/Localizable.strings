@@ -58,7 +58,7 @@
 "bookmarks" = "Закладкі";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Закладкі і маршруты";
+"bookmarks_and_tracks" = "Закладкі і трэкі";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Адрас";
@@ -999,13 +999,13 @@
 "whats_new_auto_update_button_later" = "Абнавіць пазней уручную";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Выдаліць сцежку";
+"placepage_delete_track_button" = "Выдаліць трэк";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Вы ўпэўнены, што хочаце выдаліць гэты маршрут?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Назва сцежкі";
+"placepage_track_name_hint" = "Назва трэка";
 
 /* move track or bookmark from the list button text */
 "move" = "Перамясціць";
@@ -1103,7 +1103,7 @@
 "ft" = "фут";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "Aбнaвіце мапы, каб убачыць маршруты";
+"routes_update_maps_text" = "Абнавіце мапы, каб убачыць маршруты";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Выхад";

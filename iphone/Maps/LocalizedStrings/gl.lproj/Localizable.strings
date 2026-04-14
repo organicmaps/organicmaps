@@ -73,7 +73,7 @@
 "cancel_download" = "Cancelar descarga";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Escribir apunta";
+"leave_a_review" = "Deixar unha reseña";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Si";
@@ -860,7 +860,7 @@
 "carplay_roundabout_exit" = "%@ saída";
 
 /* iOS */
-"sort_default" = "Orde predeterminado";
+"sort_default" = "Ordenar por defecto";
 "sort_type" = "Ordenar por tipo";
 "sort_distance" = "Ordenar por distancia";
 "sort_date" = "Ordenar por data";
@@ -883,14 +883,14 @@
 "parkings" = "Estacionamento";
 "fuel_places" = "Gasolineiras";
 "medicine" = "Medicina";
-"search_in_the_list" = "Buscar nos lista";
+"search_in_the_list" = "Buscar na lista";
 "religious_places" = "Lugares sacros";
 "transit_not_found" = "Navegación en metro aínda non dispoñible nesta rexión";
 "dialog_pedestrian_route_is_long_header" = "Non se atopou ningún roteiro de metro";
 "dialog_pedestrian_route_is_long_message" = "Elixa un punto de inicio ou fin de roteiro máis próximo a unha estación de metro";
-"button_layer_isolines" = "Alturas";
+"button_layer_isolines" = "Curvas de nivel";
 "isolines_activation_error_dialog" = "Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada";
-"isolines_location_error_dialog" = "A altitude de relevo aínda non está dispoñible nesta rexión";
+"isolines_location_error_dialog" = "As curvas de nivel aínda non están dispoñibles nesta zona";
 "elevation_profile_ascent" = "Ascenso";
 "elevation_profile_descent" = "Descenso";
 "elevation_profile_min_elevation" = "Elevación mín.";
@@ -953,7 +953,7 @@
 "car_continue_in_the_car" = "Á pantalla do coche";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Sendeirismo";
+"button_layer_outdoor" = "Ao aire libre";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Exportar todos os marcadores e traxectos";
@@ -1002,7 +1002,7 @@
 "placepage_delete_track_button" = "Eliminar traxecto";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Confirma que quere eliminar este traxecto?";
+"placepage_delete_track_confirmation_alert_message" = "Está seguro de que quere eliminar este traxecto?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nome do traxecto";

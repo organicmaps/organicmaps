@@ -8,7 +8,7 @@
 "type.aerialway" = "Teleferik";
 "type.aerialway.cable_car" = "Teleferik";
 "type.aerialway.chair_lift" = "Kreslo lifti";
-"type.aerialway.drag_lift" = "Bugle teleferik";
+"type.aerialway.drag_lift" = "Bügel lifti";
 "type.aerialway.gondola" = "Qondol";
 "type.aerialway.mixed_lift" = "Teleferik";
 "type.aerialway.station" = "Hava yolu stansiyası";
@@ -627,9 +627,9 @@
 "type.historic" = "Tarix";
 "type.historic.aircraft" = "Tarixi Təyyarə";
 "type.historic.anchor" = "Tarixi Çapa";
-"type.historic.archaeological_site" = "Qorunan ərazi";
+"type.historic.archaeological_site" = "Arxeoloji sahə";
 "type.historic.battlefield" = "Döyüş Meydanı";
-"type.historic.boundary_stone" = "Landmark";
+"type.historic.boundary_stone" = "Sərhəd daşı";
 "type.historic.cannon" = "Top";
 "type.historic.castle" = "Möhkəmləndirilmiş qala";
 "type.historic.castle.castrum" = "Kastra";

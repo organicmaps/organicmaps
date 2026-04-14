@@ -31,7 +31,7 @@
     <string name="type.amenity.bicycle_parking">Parkim biçikletash</string>
     <string name="type.amenity.bicycle_parking.covered">Parkim i mbuluar</string>
     <string name="type.amenity.bicycle_rental">Marrje biçikletash me qira</string>
-    <string name="type.amenity.bicycle_repair_station">Stacion riparimi</string>
+    <string name="type.amenity.bicycle_repair_station">Stacion riparimi biçikletash</string>
     <string name="type.amenity.biergarten">Birrari</string>
     <string name="type.amenity.brothel">Shtëpi publike</string>
     <string name="type.amenity.love_hotel">Hotel dashurie</string>

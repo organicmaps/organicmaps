@@ -804,7 +804,7 @@
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Organic Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
     <!-- Notification title for permission request from AA. -->
-    <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
+    <string name="aa_request_permission_notification">Ова апликација треба вашу дозволу</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Одобри дозволе</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -841,9 +841,9 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Заустави снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="track_recording_title">Снимање траке</string>
+    <string name="track_recording_title">Снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Заустави без снимања</string>
+    <string name="stop_without_saving">Заустави без чувања</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Настави снимање</string>
     <!-- Title for the alert when saving a track recording. -->

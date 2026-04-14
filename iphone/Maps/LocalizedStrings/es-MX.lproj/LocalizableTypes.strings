@@ -18,7 +18,7 @@
 "type.aeroway.apron" = "Plataforma de estacionamiento de aviones";
 "type.aeroway.gate" = "Puerta de embarque";
 "type.aeroway.helipad" = "Helipuerto";
-"type.aeroway.runway" = "Pista de despegue";
+"type.aeroway.runway" = "Pista";
 "type.aeroway.taxiway" = "Pista de rodaje";
 "type.aeroway.terminal" = "Terminal";
 "type.amenity" = "Infraestructura";
@@ -27,7 +27,7 @@
 "type.amenity.bank" = "Banco";
 "type.amenity.bar" = "Bar";
 "type.amenity.bbq" = "Barbacoa";
-"type.amenity.bench" = "Asiento";
+"type.amenity.bench" = "Banco";
 "type.amenity.bicycle_parking" = "Estacionamiento de bicicletas";
 "type.amenity.bicycle_parking.covered" = "Estacionamiento de bicicletas techado";
 "type.amenity.bicycle_rental" = "Renta de bicicletas";
@@ -768,7 +768,7 @@
 "type.leisure.golf_course" = "Campo de golf";
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Espacio para hackers";
-"type.leisure.ice_rink" = "Pisa de patinaje";
+"type.leisure.ice_rink" = "Pista de patinaje";
 "type.leisure.marina" = "Puerto o amarradero";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Asientos al aire libre";

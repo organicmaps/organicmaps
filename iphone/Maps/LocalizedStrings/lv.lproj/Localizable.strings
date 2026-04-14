@@ -956,8 +956,8 @@
 "button_layer_outdoor" = "Aktīvā atpūta";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Izgūt visus pēdojumus un grāmatzīmes";
-"drive_through" = "Caurbrauktuve caur";
+"bookmarks_export" = "Eksportēt visas trases un grāmatzīmes";
+"drive_through" = "Caurbrauktuve";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Saite uz ēdienkarti";

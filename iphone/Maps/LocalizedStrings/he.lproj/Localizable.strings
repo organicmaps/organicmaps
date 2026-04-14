@@ -870,7 +870,7 @@
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "אוכל";
-"tourist_places" = "תיירות";
+"tourist_places" = "אטרקציות";
 "museums" = "מוזיאונים";
 "parks" = "פארקים";
 "swim_places" = "שחייה";

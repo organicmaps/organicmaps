@@ -840,7 +840,7 @@
     <string name="type.railway.disused">Ubenyttet jernbane</string>
     <string name="type.railway.disused.bridge">Ubenyttet jernbanebro</string>
     <string name="type.railway.disused.tunnel">Ubenyttet jernbanetunnel</string>
-    <string name="type.railway.funicular">Funicular</string>
+    <string name="type.railway.funicular">Funikular</string>
     <string name="type.railway.funicular.bridge">Kabelbanebro</string>
     <string name="type.railway.funicular.tunnel">Kabelbanetunnel</string>
     <string name="type.railway.halt">Togstation</string>
@@ -1175,7 +1175,7 @@
     <string name="type.shop.erotic">Erotikbutik</string>
     <string name="type.shop.fabric">Stofbutik</string>
     <string name="type.shop.farm">Foderhandel</string>
-    <string name="type.shop.fashion_accessories">Accessory-butik</string>
+    <string name="type.shop.fashion_accessories">Tilbehørsbutik</string>
     <string name="type.shop.florist">Blomsterbutik</string>
     <string name="type.shop.funeral_directors">Bedemand</string>
     <string name="type.shop.furniture">Møbelbutik</string>
@@ -1341,7 +1341,7 @@
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Vildmarkshytte</string>
     <string name="type.tourism.zoo">Zoologisk have</string>
-    <string name="type.tourism.zoo.petting">Petting Zoo</string>
+    <string name="type.tourism.zoo.petting">Dyrepark med klappedyr</string>
     <string name="type.traffic_calming">Trafiksanering</string>
     <string name="type.traffic_calming.bump">Vejbump</string>
     <string name="type.traffic_calming.hump">Vejbump</string>

@@ -6,9 +6,9 @@
 "type.addr_interpolation.even" = "Adresas / blokas";
 "type.addr_interpolation.odd" = "Adresas / blokas";
 "type.aerialway" = "Keltuvas";
-"type.aerialway.cable_car" = "Cable Car";
-"type.aerialway.chair_lift" = "Kėdė Liftas";
-"type.aerialway.drag_lift" = "Pasipriešinimas Liftas";
+"type.aerialway.cable_car" = "Kabininis keltuvas";
+"type.aerialway.chair_lift" = "Kėdutinis keltuvas";
+"type.aerialway.drag_lift" = "Vilkimo keltuvas";
 "type.aerialway.gondola" = "Gondola";
 "type.aerialway.mixed_lift" = "Mišrus keltuvas";
 "type.aerialway.station" = "Keltuvo stotis";
@@ -18,7 +18,7 @@
 "type.aeroway.apron" = "Peronas";
 "type.aeroway.gate" = "Vartai";
 "type.aeroway.helipad" = "Sraigtasparnių aikštelė";
-"type.aeroway.runway" = "Runway";
+"type.aeroway.runway" = "Kilimo ir tūpimo takas";
 "type.aeroway.taxiway" = "Riedėjimo takas";
 "type.aeroway.terminal" = "Terminalas";
 "type.amenity" = "Paslaugos";
