@@ -360,6 +360,7 @@ public class RoutingController
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
 
+    // Clear stale elevation preview marker.
     Framework.nativeRouteRemoveElevationActivePoint();
     setState(State.NAVIGATION);
 
@@ -455,6 +456,7 @@ public class RoutingController
     setBuildState(BuildState.NONE);
     setState(State.NONE);
 
+    // Clear stale elevation preview marker.
     Framework.nativeRouteRemoveElevationActivePoint();
     applyRemovingIntermediatePointsTransaction();
     if (deleteSavedRoute)

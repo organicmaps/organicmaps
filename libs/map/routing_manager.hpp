@@ -47,6 +47,9 @@ namespace power_management
 class PowerManager;
 }
 
+m2::PointD InterpolatePointAtDistance(std::vector<double> const & distances, std::vector<m2::PointD> const & points,
+                                      double distanceMeters);
+
 struct RoutePointInfo
 {
   std::string m_name;

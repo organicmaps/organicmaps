@@ -75,7 +75,8 @@
           android:textSize="@dimen/text_size_routing_plan_detail_arrival"/>
     </LinearLayout>
 
-    <include layout="@layout/elevation_profile"
+    <include
+      layout="@layout/route_elevation_profile"
       android:id="@+id/altitude_chart"
       android:layout_width="0dp"
       android:layout_height="@dimen/route_chart_height"
