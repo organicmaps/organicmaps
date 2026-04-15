@@ -1910,7 +1910,6 @@
 			isa = PBXGroup;
 			children = (
 				FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */,
-				FA36B8011540388B004560CC /* Bookmarks */,
 				3454D7981E07F045004AF2AD /* Extensions */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				340475141E081A4600C92850 /* Common */,
@@ -2745,13 +2744,6 @@
 			path = ElevationDetails;
 			sourceTree = "<group>";
 		};
-		993DF0CF23F6BDB000AC231A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		993DF0D423F6BDB000AC231A /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -2841,7 +2833,6 @@
 			children = (
 				993DF0D423F6BDB000AC231A /* Components */,
 				993DF0FB23F6BDB100AC231A /* Core */,
-				993DF0CF23F6BDB000AC231A /* Extensions */,
 				993DF0D723F6BDB000AC231A /* Renderers */,
 				993DF0F123F6BDB100AC231A /* Swizzle */,
 				993DF0FA23F6BDB100AC231A /* Fonts.swift */,
@@ -3666,6 +3657,7 @@
 				349D1AC21E2E325B004A2006 /* BottomMenu */,
 				CDB4D4DA222D24EE00104869 /* CarPlay */,
 				F6E2FBFC1E097B9F0083EBEC /* Downloader */,
+				FA36B8011540388B004560CC /* Bookmarks */,
 				F6E2FC291E097B9F0083EBEC /* EditBookmark */,
 				F6E2FC321E097B9F0083EBEC /* Editor */,
 				FA85D4372795895500B858E9 /* Help */,
