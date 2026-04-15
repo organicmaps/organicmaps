@@ -379,7 +379,7 @@
 		CD9AD967228067F500EC174A /* MapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD966228067F500EC174A /* MapInfo.swift */; };
 		CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD96B2281B56900EC174A /* CPViewPortState.swift */; };
 		CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */; };
-		CDB4D4D7222D248900104869 /* CarPlayStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB4D4D6222D248900104869 /* CarPlayStoryboard.storyboard */; };
+		CDB4D4D7222D248900104869 /* CarPlay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB4D4D6222D248900104869 /* CarPlay.storyboard */; };
 		CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4E0222D70DF00104869 /* CarPlayMapViewController.swift */; };
 		CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4E3222E8FF600104869 /* CarPlayService.swift */; };
 		CDB4D5002231412900104869 /* MapTemplateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */; };
@@ -1317,7 +1317,7 @@
 		CD9AD966228067F500EC174A /* MapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfo.swift; sourceTree = "<group>"; };
 		CD9AD96B2281B56900EC174A /* CPViewPortState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPViewPortState.swift; sourceTree = "<group>"; };
 		CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInfo.swift; sourceTree = "<group>"; };
-		CDB4D4D6222D248900104869 /* CarPlayStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CarPlayStoryboard.storyboard; sourceTree = "<group>"; };
+		CDB4D4D6222D248900104869 /* CarPlay.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CarPlay.storyboard; sourceTree = "<group>"; };
 		CDB4D4E0222D70DF00104869 /* CarPlayMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapViewController.swift; sourceTree = "<group>"; };
 		CDB4D4E3222E8FF600104869 /* CarPlayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayService.swift; sourceTree = "<group>"; };
 		CDB4D4FB2231412900104869 /* MapTemplateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTemplateBuilder.swift; sourceTree = "<group>"; };
@@ -2180,7 +2180,7 @@
 				340E1EE61E2F614400CE49BF /* Main.storyboard */,
 				340E1EE81E2F614400CE49BF /* Settings.storyboard */,
 				340E1EE91E2F614400CE49BF /* Storyboard.swift */,
-				CDB4D4D6222D248900104869 /* CarPlayStoryboard.storyboard */,
+				CDB4D4D6222D248900104869 /* CarPlay.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -4366,7 +4366,7 @@
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
-				CDB4D4D7222D248900104869 /* CarPlayStoryboard.storyboard in Resources */,
+				CDB4D4D7222D248900104869 /* CarPlay.storyboard in Resources */,
 				4707E4B42372FF480017DF6E /* PlacePage.storyboard in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
 				6741A9521BF340DE002C974C /* World.mwm in Resources */,

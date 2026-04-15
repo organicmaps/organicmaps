@@ -12,7 +12,7 @@ extension UIStoryboard {
     switch id {
     case .main: name = "Main"
     case .drivingOptions: name = "DrivingOptions"
-    case .carPlay: name = "CarPlayStoryboard"
+    case .carPlay: name = "CarPlay"
     case .placePage: name = "PlacePage"
     }
     return UIStoryboard(name: name, bundle: nil)
