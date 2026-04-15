@@ -119,6 +119,7 @@
 "Spain_Galicia": "Galicia",
 "US_Georgia": "Xeorxa",
 "Luxembourg": "Luxemburgu",
+"Macau": "Macau",
 "Greece": "Grecia",
 "Guernsey": "Guérnesei",
 "Hungary": "Hungría",
@@ -228,7 +229,7 @@
 "India_Delhi": "Deli",
 "France_Lower Normandy_Manche": "Manchu",
 "Haiti": "Haitianu",
-"US_Michigan_Lansing": "Landing",
+"Hong Kong":"Hong Kong",
 "Senegal": "Senegalesa",
 "Taiwan": "Taiwanesa",
 "Italy_Calabria": "Cantabria",
@@ -250,5 +251,6 @@
 "US_Ohio_Columbus": "Columnes",
 "Canada_Saskatchewan_Regina": "Rexonal",
 "Brazil_South Region_East Short": "Min nan",
-"Brazil_South Region_West Short": "Min nan"
+"Brazil_South Region_West Short": "Min nan",
+"China_Hainan":"Hainan"
 }

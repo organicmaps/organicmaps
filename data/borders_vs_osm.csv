@@ -4371,6 +4371,11 @@ Japan_Chugoku Region_Okayama	4	岡山県
 Japan_Tohoku_Iwate	4	岩手県
 Japan_Chugoku Region_Shimane	4	島根県
 China_Guangdong	4	广东省
+China_Hainan	2	中国
+Hong Kong	2	中国
+Hong Kong	4	香港特別行政區
+Macau	2	中国
+Macau	4	澳門特別行政區
 Japan_Chugoku Region_Hiroshima	4	広島県
 Japan_Shikoku Region_Tokushima	4	徳島県
 Japan_Shikoku Region_Ehime	4	愛媛県
@@ -4394,7 +4399,7 @@ China_Shanghai	4	浙江省
 China_Jiangsu	4	秦山岛
 Japan_Kanto_Gunma	4	群馬県
 Philippines_Luzon_North	4	海南省
-China_Guangdong	4	海南省
+China_Hainan	4	海南省
 China_Hubei	4	湖北省
 China_Hunan	4	湖南省
 Japan_Shikoku Region_Kyoto	4	滋賀県
