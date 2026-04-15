@@ -738,7 +738,10 @@ People's Republic of China;Q148;cn;zh
  China_Guangdong;Q15175
  China_Guangxi;Q15176
  China_Guizhou;Q47097
+ China_Hainan;Q42200
  China_Hebei;Q21208
+ Hong Kong;Q8646
+ Macau;Q14773
  China_Heilongjiang;Q19206
  China_Henan;Q43684
  China_Hubei;Q46862
