@@ -15,7 +15,9 @@
 + (void)applicationDidBecomeActive;
 
 @property(nonatomic) BOOL active;
+- (NSString *)getDefaultVoice;
 - (void)setNotificationsLocale:(NSString *)locale;
+- (void)setVoice:(NSString *)voiceName;
 - (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications;
 - (void)playWarningSound;
 - (void)play:(NSString *)text;
