@@ -13,7 +13,7 @@ static void releaseCallback(void * info, void const * data, size_t size)
   size_t bitsPerComponent = 8;
   size_t bitsPerPixel = bitsPerComponent * bytesPerPixel;
   size_t bytesPerRow = bytesPerPixel * width;
-  CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault | kCGImageAlphaLast;
+  CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault | (CGBitmapInfo)kCGImageAlphaLast;
 
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
   CFDataRef cfData = (__bridge_retained CFDataRef)data;
