@@ -58,7 +58,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case gray = "MWMGray"
   case separator = "MWMSeparator"
   case white = "MWMWhite"
-  case datePickerView = "DatePickerView"
   case valueStepperView = "ValueStepperView"
   case grabber
   case modalSheetBackground
@@ -455,15 +454,6 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.tintColor = .whitePrimary
         s.coloring = MWMButtonColoring.white
-      }
-    case .datePickerView:
-      return .add { s in
-        s.backgroundColor = .whitePrimary
-        s.fontColor = .blackPrimaryText
-        s.fontColorSelected = .whitePrimaryText
-        s.backgroundColorSelected = .linkBlue
-        s.backgroundColorHighlighted = .linkBlueHighlighted
-        s.fontColorDisabled = .blackSecondaryText
       }
     case .valueStepperView:
       return .add { s in

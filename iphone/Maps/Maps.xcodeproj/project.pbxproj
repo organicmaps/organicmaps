@@ -510,7 +510,6 @@
 		ED82C7822F90186300FA103D /* BottomMenuLayerButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7002F90186300FA103D /* BottomMenuLayerButtonRenderer.swift */; };
 		ED82C7832F90186300FA103D /* ChartViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7012F90186300FA103D /* ChartViewRenderer.swift */; };
 		ED82C7842F90186300FA103D /* CheckmarkRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7022F90186300FA103D /* CheckmarkRenderer.swift */; };
-		ED82C7852F90186300FA103D /* DatePickerViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7032F90186300FA103D /* DatePickerViewRenderer.swift */; };
 		ED82C7862F90186300FA103D /* DifficultyViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7042F90186300FA103D /* DifficultyViewRenderer.swift */; };
 		ED82C7872F90186300FA103D /* InsetsLabelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7052F90186300FA103D /* InsetsLabelRenderer.swift */; };
 		ED82C7882F90186300FA103D /* MWMButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7062F90186300FA103D /* MWMButtonRenderer.swift */; };
@@ -616,7 +615,6 @@
 		FA14E686276014C10066E453 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA14E683276014C10066E453 /* libz.1.tbd */; };
 		FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; };
 		FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FA456C3E26BDC6C100B83C20 /* DatePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDC26BC58570026D455 /* DatePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C3F26BDC6CF00B83C20 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA456C4F26BDCCCC00B83C20 /* shaders_metal.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */; };
 		FA637ED229A500BE00D8921A /* drules_proto_outdoors_light.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA637ECC29A500BE00D8921A /* drules_proto_outdoors_light.bin */; };
@@ -649,7 +647,6 @@
 		FA853BD726BC54650026D455 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BD626BC54650026D455 /* libpugixml.a */; };
 		FA853BD926BC54C80026D455 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BD826BC54C80026D455 /* libexpat.a */; };
 		FA853BDB26BC54CD0026D455 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDA26BC54CD0026D455 /* libtraffic.a */; };
-		FA853BDD26BC58570026D455 /* DatePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDC26BC58570026D455 /* DatePicker.framework */; };
 		FA853BDF26BC58620026D455 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDE26BC58620026D455 /* libge0.a */; };
 		FA853BE326BC58770026D455 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BE226BC58770026D455 /* libfreetype.a */; };
 		FA853BE526BC5B660026D455 /* libvulkan_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BE426BC5B660026D455 /* libvulkan_wrapper.a */; };
@@ -715,7 +712,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FA456C3F26BDC6CF00B83C20 /* minizip.framework in Embed Frameworks */,
-				FA456C3E26BDC6C100B83C20 /* DatePicker.framework in Embed Frameworks */,
 				FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1519,7 +1515,6 @@
 		ED82C7002F90186300FA103D /* BottomMenuLayerButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayerButtonRenderer.swift; sourceTree = "<group>"; };
 		ED82C7012F90186300FA103D /* ChartViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C7022F90186300FA103D /* CheckmarkRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkRenderer.swift; sourceTree = "<group>"; };
-		ED82C7032F90186300FA103D /* DatePickerViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C7042F90186300FA103D /* DifficultyViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C7052F90186300FA103D /* InsetsLabelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetsLabelRenderer.swift; sourceTree = "<group>"; };
 		ED82C7062F90186300FA103D /* MWMButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMButtonRenderer.swift; sourceTree = "<group>"; };
@@ -1813,7 +1808,6 @@
 				FA853BE526BC5B660026D455 /* libvulkan_wrapper.a in Frameworks */,
 				FA853BE326BC58770026D455 /* libfreetype.a in Frameworks */,
 				FA853BDF26BC58620026D455 /* libge0.a in Frameworks */,
-				FA853BDD26BC58570026D455 /* DatePicker.framework in Frameworks */,
 				FA853BDB26BC54CD0026D455 /* libtraffic.a in Frameworks */,
 				FA853BD926BC54C80026D455 /* libexpat.a in Frameworks */,
 				FA853BD726BC54650026D455 /* libpugixml.a in Frameworks */,
@@ -3709,7 +3703,6 @@
 				ED82C7002F90186300FA103D /* BottomMenuLayerButtonRenderer.swift */,
 				ED82C7012F90186300FA103D /* ChartViewRenderer.swift */,
 				ED82C7022F90186300FA103D /* CheckmarkRenderer.swift */,
-				ED82C7032F90186300FA103D /* DatePickerViewRenderer.swift */,
 				ED82C7042F90186300FA103D /* DifficultyViewRenderer.swift */,
 				ED82C7052F90186300FA103D /* InsetsLabelRenderer.swift */,
 				ED82C7062F90186300FA103D /* MWMButtonRenderer.swift */,
@@ -4624,7 +4617,6 @@
 				ED82C7822F90186300FA103D /* BottomMenuLayerButtonRenderer.swift in Sources */,
 				ED82C7832F90186300FA103D /* ChartViewRenderer.swift in Sources */,
 				ED82C7842F90186300FA103D /* CheckmarkRenderer.swift in Sources */,
-				ED82C7852F90186300FA103D /* DatePickerViewRenderer.swift in Sources */,
 				ED82C7862F90186300FA103D /* DifficultyViewRenderer.swift in Sources */,
 				ED82C7872F90186300FA103D /* InsetsLabelRenderer.swift in Sources */,
 				ED82C7882F90186300FA103D /* MWMButtonRenderer.swift in Sources */,
