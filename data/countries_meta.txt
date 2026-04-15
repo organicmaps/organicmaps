@@ -1223,6 +1223,18 @@
     ],
     "timezone": "America/Tegucigalpa"
   },
+  "Hong Kong": {
+    "iso3166-1": {
+      "alpha-2": "HK",
+      "alpha-3": "HKG"
+    },
+    "driving": "l",
+    "languages": [
+      "zh",
+      "en"
+    ],
+    "timezone": "Asia/Shanghai"
+  },
   "Hungary": {
     "iso3166-1": {
       "alpha-2": "HU",
@@ -1641,6 +1653,18 @@
       "en"
     ],
     "timezone": "Europe/Brussels"
+  },
+  "Macau": {
+    "iso3166-1": {
+      "alpha-2": "MO",
+      "alpha-3": "MAC"
+    },
+    "driving": "l",
+    "languages": [
+      "zh",
+      "pt"
+    ],
+    "timezone": "Asia/Shanghai"
   },
   "Macedonia": {
     "iso3166-1": {
