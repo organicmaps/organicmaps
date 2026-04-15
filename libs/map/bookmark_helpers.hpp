@@ -142,6 +142,7 @@ std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types);
 std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type);
 
 kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type);
+kml::BookmarkIcon GetBookmarkIconByMakiSymbol(std::string const & makiSymbol);
 BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes);
 
 void ExpandRectForPreview(m2::RectD & rect);
