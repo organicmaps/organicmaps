@@ -12,7 +12,7 @@ typedef void (^MWMWebImageCompletion)(UIImage * _Nullable image, NSError * _Null
 
 @protocol IMWMWebImage
 
-- (id<IMWMImageTask>)imageWithUrl:(NSURL *)url callback:(MWMWebImageCompletion)callback;
+- (id<IMWMImageTask>)imageWithUrl:(NSURL *)url completion:(MWMWebImageCompletion)completion;
 - (void)cleanup;
 
 @end

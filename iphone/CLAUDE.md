@@ -26,7 +26,7 @@ Swift UI (ViewControllers) -> ObjC wrappers (MWM* classes) -> CoreApi framework 
 ## UI patterns
 - Predominantly UIKit (not SwiftUI); mix of storyboards and programmatic UI
 - VIPER architecture in Bookmarks module (Builder -> View/Presenter/Router/Interactor)
-- Base classes: `MWMViewController`, `MWMTableViewController`, `MWMCollectionViewController`
+- Base classes: `MWMViewController`, `MWMTableViewController`
 - Theme system in `Maps/Core/Theme/` with `StyleSheet` protocol and renderers
 
 ## C++ callback bridging
