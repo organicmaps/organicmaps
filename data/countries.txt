@@ -7892,16 +7892,54 @@
     },
     {
      "id": "China_Guangdong",
+     "old": [
+      "China_Guangdong"
+     ],
      "affiliations": [
       "中国",
-      "广东省",
+      "广东省"
+     ],
+     "s": 273419674,
+     "sha1_base64": "cxtO6J9l9a6ACZ3jnnamXKCzBMg="
+    },
+    {
+     "id": "China_Hainan",
+     "old": [
+      "China_Guangdong"
+     ],
+     "affiliations": [
+      "中国",
       "海南省"
+     ],
+     "s": 1,
+     "sha1_base64": "x"
+    },
+    {
+     "id": "Hong Kong",
+     "old": [
+      "China_Guangdong"
+     ],
+     "affiliations": [
+      "中国",
+      "香港特別行政區"
      ],
      "country_name_synonyms": [
       "Hong Kong"
      ],
-     "s": 273419674,
-     "sha1_base64": "cxtO6J9l9a6ACZ3jnnamXKCzBMg="
+     "s": 1,
+     "sha1_base64": "x"
+    },
+    {
+     "id": "Macau",
+     "old": [
+      "China_Guangdong"
+     ],
+     "affiliations": [
+      "中国",
+      "澳門特別行政區"
+     ],
+     "s": 1,
+     "sha1_base64": "x"
     },
     {
      "id": "China_Guangxi",
