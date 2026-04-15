@@ -358,7 +358,7 @@
 		99C9642C2428C0F700E41723 /* PlacePageHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */; };
 		99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */; };
 		99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */; };
-		99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */; };
+		99E2B0122368A8C700FFABC5 /* BookmarkGroup+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* BookmarkGroup+PlacesCountTitle.swift */; };
 		99F3EB0323F4178200C713F8 /* PlacePageCommonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */; };
 		99F3EB0623F418A200C713F8 /* PlacePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3EB0523F418A200C713F8 /* PlacePagePresenter.swift */; };
 		99F3EB1123F418C900C713F8 /* PlacePageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3EB0B23F418C900C713F8 /* PlacePageBuilder.swift */; };
@@ -1247,7 +1247,7 @@
 		99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderBuilder.swift; sourceTree = "<group>"; };
 		99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderView.swift; sourceTree = "<group>"; };
 		99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileDescriptionCell.swift; sourceTree = "<group>"; };
-		99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMCategory+PlacesCountTitle.swift"; sourceTree = "<group>"; };
+		99E2B0112368A8C700FFABC5 /* BookmarkGroup+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkGroup+PlacesCountTitle.swift"; sourceTree = "<group>"; };
 		99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageCommonLayout.swift; sourceTree = "<group>"; };
 		99F3EB0523F418A200C713F8 /* PlacePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePagePresenter.swift; sourceTree = "<group>"; };
 		99F3EB0B23F418C900C713F8 /* PlacePageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageBuilder.swift; sourceTree = "<group>"; };
@@ -2232,8 +2232,6 @@
 				EDC3573A2B7B5029001AE9CA /* CALayer+SetCorner.swift */,
 				3454D79B1E07F045004AF2AD /* CLLocation+Mercator.h */,
 				3454D79C1E07F045004AF2AD /* CLLocation+Mercator.mm */,
-				99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */,
-				9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */,
 				47699A0621F08E37009E6585 /* NSDate+TimeDistance.h */,
 				47699A0721F08E37009E6585 /* NSDate+TimeDistance.m */,
 				ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */,
@@ -2484,6 +2482,7 @@
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
 				34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */,
+				9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */,
 				345C34661CE9D32500BB2224 /* SideButtons */,
 				3463BA621DE81D760082417F /* TrafficButton */,
 			);
@@ -4055,6 +4054,7 @@
 			children = (
 				47CA68CE2500425900671019 /* BookmarksList */,
 				3404F4A02028A6C00090E401 /* Categories */,
+				99E2B0112368A8C700FFABC5 /* BookmarkGroup+PlacesCountTitle.swift */,
 				996D108924E3DBF2002DD0E2 /* BookmarksCoordinator.swift */,
 			);
 			path = Bookmarks;
@@ -4841,7 +4841,7 @@
 				993DF10C23F6BDB100AC231A /* MWMTableViewCellRenderer.swift in Sources */,
 				3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.m in Sources */,
-				99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */,
+				99E2B0122368A8C700FFABC5 /* BookmarkGroup+PlacesCountTitle.swift in Sources */,
 				F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.m in Sources */,
