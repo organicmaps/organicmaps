@@ -1562,6 +1562,30 @@
             }
         },
         {
+            "key": "China_Hainan",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Hong Kong",
+            "value": {
+                "profileName": "high",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Macau",
+            "value": {
+                "profileName": "high",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
             "key": "China_Guizhou",
             "value": {
                 "profileName": "small",
