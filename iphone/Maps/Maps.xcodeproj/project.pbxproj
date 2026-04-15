@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039371B52C5B68CD00708377 /* UIFont+monospaced.swift */; };
+		039371B62C5B68CD00708377 /* UIFont+Monospaced.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039371B52C5B68CD00708377 /* UIFont+Monospaced.swift */; };
 		165953742CB1D85500CFED7C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 165953732CB1D83700CFED7C /* fonts */; };
 		165953942CB44B5600CFED7C /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 165953932CB44B3B00CFED7C /* symbols */; };
 		16CDB3FB2F15B0C30040FC4F /* libtimezone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CDB3FA2F15B0C30040FC4F /* libtimezone.a */; };
@@ -283,8 +283,8 @@
 		993DF10323F6BDB100AC231A /* MainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0CE23F6BDB000AC231A /* MainTheme.swift */; };
 		993DF10423F6BDB100AC231A /* UIView+SetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */; };
 		993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */; };
-		993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D223F6BDB000AC231A /* UIColor+rgba.swift */; };
-		993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D323F6BDB000AC231A /* UIColor+image.swift */; };
+		993DF10623F6BDB100AC231A /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D223F6BDB000AC231A /* UIColor+RGBA.swift */; };
+		993DF10723F6BDB100AC231A /* UIColor+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D323F6BDB000AC231A /* UIColor+Image.swift */; };
 		993DF10923F6BDB100AC231A /* IFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D623F6BDB000AC231A /* IFonts.swift */; };
 		993DF10A23F6BDB100AC231A /* UISwitchRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D823F6BDB000AC231A /* UISwitchRenderer.swift */; };
 		993DF10B23F6BDB100AC231A /* CheckmarkRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D923F6BDB000AC231A /* CheckmarkRenderer.swift */; };
@@ -369,7 +369,7 @@
 		9E9A0D922F0C8C2E00112233 /* UIWindowScene+KeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A0D912F0C8C2E00112233 /* UIWindowScene+KeyWindow.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
 		AA1C7E3E269A2DD600BAADF2 /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C7E3D269A2DD600BAADF2 /* EditTrackViewController.swift */; };
-		AC79C8922A65AB9500594C24 /* UIColor+hexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */; };
+		AC79C8922A65AB9500594C24 /* UIColor+HEXString.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79C8912A65AB9500594C24 /* UIColor+HEXString.swift */; };
 		B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AE20DAF9F000BAD749 /* Toast.swift */; };
 		B3E3B4FD20D463B700DA8C13 /* BMCCategoriesHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
@@ -745,7 +745,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		039371B52C5B68CD00708377 /* UIFont+monospaced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+monospaced.swift"; sourceTree = "<group>"; };
+		039371B52C5B68CD00708377 /* UIFont+Monospaced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Monospaced.swift"; sourceTree = "<group>"; };
 		165953732CB1D83700CFED7C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../data/fonts; sourceTree = "<group>"; };
 		165953932CB44B3B00CFED7C /* symbols */ = {isa = PBXFileReference; lastKnownFileType = folder; name = symbols; path = ../../data/symbols; sourceTree = "<group>"; };
 		16CDB3FA2F15B0C30040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1167,8 +1167,8 @@
 		993DF0CE23F6BDB000AC231A /* MainTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTheme.swift; sourceTree = "<group>"; };
 		993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SetStyle.swift"; sourceTree = "<group>"; };
 		993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+StyleStyle.swift"; sourceTree = "<group>"; };
-		993DF0D223F6BDB000AC231A /* UIColor+rgba.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+rgba.swift"; sourceTree = "<group>"; };
-		993DF0D323F6BDB000AC231A /* UIColor+image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+image.swift"; sourceTree = "<group>"; };
+		993DF0D223F6BDB000AC231A /* UIColor+RGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
+		993DF0D323F6BDB000AC231A /* UIColor+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Image.swift"; sourceTree = "<group>"; };
 		993DF0D623F6BDB000AC231A /* IFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFonts.swift; sourceTree = "<group>"; };
 		993DF0D823F6BDB000AC231A /* UISwitchRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISwitchRenderer.swift; sourceTree = "<group>"; };
 		993DF0D923F6BDB000AC231A /* CheckmarkRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkRenderer.swift; sourceTree = "<group>"; };
@@ -1298,7 +1298,7 @@
 		AC420A142D79C2EC00A64AA9 /* mt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mt; path = mt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC420A152D79C2EC00A64AA9 /* mt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = mt; path = mt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AC420A162D79C2ED00A64AA9 /* mt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mt; path = mt.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
-		AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexString.swift"; sourceTree = "<group>"; };
+		AC79C8912A65AB9500594C24 /* UIColor+HEXString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEXString.swift"; sourceTree = "<group>"; };
 		AC89C2312F2CF84B00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC89C2322F2CF84C00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC89C2332F2CF84C00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hy; path = hy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1911,7 +1911,7 @@
 			children = (
 				FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */,
 				FA36B8011540388B004560CC /* Bookmarks */,
-				3454D7981E07F045004AF2AD /* Categories */,
+				3454D7981E07F045004AF2AD /* Extensions */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				340475141E081A4600C92850 /* Common */,
 				347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */,
@@ -2222,61 +2222,26 @@
 			path = BMCView;
 			sourceTree = "<group>";
 		};
-		3454D7981E07F045004AF2AD /* Categories */ = {
+		3454D7981E07F045004AF2AD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */,
-				99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */,
-				99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */,
+				ED82B3602F8FC86F00FA103D /* Strings */,
+				ED82B35D2F8FC6E800FA103D /* Colors */,
+				ED82B35F2F8FC6FA00FA103D /* Fonts */,
+				ED82B35E2F8FC6F500FA103D /* Views */,
 				34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */,
-				ED0B1FEE2CAA9A25006E31A4 /* UIView+Highlight.swift */,
+				EDC3573A2B7B5029001AE9CA /* CALayer+SetCorner.swift */,
 				3454D79B1E07F045004AF2AD /* CLLocation+Mercator.h */,
 				3454D79C1E07F045004AF2AD /* CLLocation+Mercator.mm */,
-				3454D79E1E07F045004AF2AD /* NSString+Ranges.h */,
-				3454D79F1E07F045004AF2AD /* NSString+Ranges.m */,
-				3457C4241F680F1900028233 /* String+BoundingRect.swift */,
-				3454D7A01E07F045004AF2AD /* UIButton+Orientation.h */,
-				3454D7A11E07F045004AF2AD /* UIButton+Orientation.m */,
-				34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */,
-				3454D7A41E07F045004AF2AD /* UIColor+Colors.h */,
-				ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */,
-				3454D7A51E07F045004AF2AD /* UIColor+Colors.m */,
-				3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */,
-				3454D7A61E07F045004AF2AD /* UIFont+Fonts.h */,
-				3454D7A71E07F045004AF2AD /* UIFont+Fonts.m */,
-				3454D7A81E07F045004AF2AD /* UIImage+RGBAData.h */,
-				3454D7A91E07F045004AF2AD /* UIImage+RGBAData.m */,
-				3454D7AA1E07F045004AF2AD /* UIImageView+Coloring.h */,
-				3454D7AB1E07F045004AF2AD /* UIImageView+Coloring.m */,
-				3454D7AC1E07F045004AF2AD /* UIKitCategories.h */,
-				3454D7AD1E07F045004AF2AD /* UIKitCategories.m */,
-				3454D7AE1E07F045004AF2AD /* UILabel+RuntimeAttributes.h */,
-				3454D7AF1E07F045004AF2AD /* UILabel+RuntimeAttributes.m */,
-				34D3AFE81E378AF1004100F9 /* UINib+Init.swift */,
-				34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */,
-				34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */,
-				3454D7B21E07F045004AF2AD /* UITextField+RuntimeAttributes.h */,
-				3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.m */,
-				3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */,
-				3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.m */,
-				348B926B1FF3B5E100379009 /* UIView+Animation.swift */,
-				34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */,
-				ED8D79F62EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift */,
-				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
-				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
-				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */,
-				99012846243F0D6900C72B10 /* UIViewController+alternative.swift */,
-				4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */,
-				47699A0621F08E37009E6585 /* NSDate+TimeDistance.h */,
-				47699A0721F08E37009E6585 /* NSDate+TimeDistance.m */,
 				99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */,
 				9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */,
-				EDC3573A2B7B5029001AE9CA /* CALayer+SetCorner.swift */,
+				47699A0621F08E37009E6585 /* NSDate+TimeDistance.h */,
+				47699A0721F08E37009E6585 /* NSDate+TimeDistance.m */,
 				ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */,
-				9E9A0D912F0C8C2E00112233 /* UIWindowScene+KeyWindow.swift */,
-				ED18EF842DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift */,
+				3454D7AC1E07F045004AF2AD /* UIKitCategories.h */,
+				3454D7AD1E07F045004AF2AD /* UIKitCategories.m */,
 			);
-			path = Categories;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		345C34661CE9D32500BB2224 /* SideButtons */ = {
@@ -2783,13 +2748,6 @@
 		993DF0CF23F6BDB000AC231A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */,
-				ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */,
-				993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */,
-				993DF0D223F6BDB000AC231A /* UIColor+rgba.swift */,
-				AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */,
-				993DF0D323F6BDB000AC231A /* UIColor+image.swift */,
-				039371B52C5B68CD00708377 /* UIFont+monospaced.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3265,6 +3223,80 @@
 				ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */,
 			);
 			path = SearchOnMapTests;
+			sourceTree = "<group>";
+		};
+		ED82B35D2F8FC6E800FA103D /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */,
+				993DF0D223F6BDB000AC231A /* UIColor+RGBA.swift */,
+				AC79C8912A65AB9500594C24 /* UIColor+HEXString.swift */,
+				993DF0D323F6BDB000AC231A /* UIColor+Image.swift */,
+				3454D7A41E07F045004AF2AD /* UIColor+Colors.h */,
+				3454D7A51E07F045004AF2AD /* UIColor+Colors.m */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		ED82B35E2F8FC6F500FA103D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3454D7A01E07F045004AF2AD /* UIButton+Orientation.h */,
+				3454D7A11E07F045004AF2AD /* UIButton+Orientation.m */,
+				99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */,
+				99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */,
+				34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */,
+				ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */,
+				3454D7A81E07F045004AF2AD /* UIImage+RGBAData.h */,
+				3454D7A91E07F045004AF2AD /* UIImage+RGBAData.m */,
+				3454D7AA1E07F045004AF2AD /* UIImageView+Coloring.h */,
+				3454D7AB1E07F045004AF2AD /* UIImageView+Coloring.m */,
+				3454D7AE1E07F045004AF2AD /* UILabel+RuntimeAttributes.h */,
+				3454D7AF1E07F045004AF2AD /* UILabel+RuntimeAttributes.m */,
+				ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */,
+				993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */,
+				34D3AFF01E37945B004100F9 /* UITableView+Cells.swift */,
+				34D3AFE01E376F7E004100F9 /* UITableView+Updates.swift */,
+				3454D7B21E07F045004AF2AD /* UITextField+RuntimeAttributes.h */,
+				3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.m */,
+				3454D7B41E07F045004AF2AD /* UITextView+RuntimeAttributes.h */,
+				3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.m */,
+				ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */,
+				348B926B1FF3B5E100379009 /* UIView+Animation.swift */,
+				34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */,
+				ED0B1FEE2CAA9A25006E31A4 /* UIView+Highlight.swift */,
+				ED8D79F62EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift */,
+				993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */,
+				99012846243F0D6900C72B10 /* UIViewController+alternative.swift */,
+				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
+				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
+				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */,
+				34D3AFE81E378AF1004100F9 /* UINib+Init.swift */,
+				9E9A0D912F0C8C2E00112233 /* UIWindowScene+KeyWindow.swift */,
+				ED18EF842DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED82B35F2F8FC6FA00FA103D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				039371B52C5B68CD00708377 /* UIFont+Monospaced.swift */,
+				3454D7A61E07F045004AF2AD /* UIFont+Fonts.h */,
+				3454D7A71E07F045004AF2AD /* UIFont+Fonts.m */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		ED82B3602F8FC86F00FA103D /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				3457C4241F680F1900028233 /* String+BoundingRect.swift */,
+				3454D79E1E07F045004AF2AD /* NSString+Ranges.h */,
+				3454D79F1E07F045004AF2AD /* NSString+Ranges.m */,
+				4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */,
+			);
+			path = Strings;
 			sourceTree = "<group>";
 		};
 		ED9857022C4ECFFC00694F6C /* MailComposer */ = {
@@ -4645,7 +4677,7 @@
 				FA85D43D27958BF500B858E9 /* FaqController.swift in Sources */,
 				99A906ED23F6F7030005872B /* PlacePagePreviewViewController.swift in Sources */,
 				ED70D55C2D5396F300738C1E /* SearchResult.mm in Sources */,
-				AC79C8922A65AB9500594C24 /* UIColor+hexString.swift in Sources */,
+				AC79C8922A65AB9500594C24 /* UIColor+HEXString.swift in Sources */,
 				99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */,
 				993DF11623F6BDB100AC231A /* UIWindowRenderer.swift in Sources */,
 				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
@@ -4773,7 +4805,7 @@
 				ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */,
 				99F8B4C623B644A6009FF0B4 /* MapStyleSheet.swift in Sources */,
 				99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */,
-				993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */,
+				993DF10623F6BDB100AC231A /* UIColor+RGBA.swift in Sources */,
 				EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */,
 				ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */,
 				471AB99423ABA3BD00F56D49 /* SearchMapsDataSource.swift in Sources */,
@@ -4790,7 +4822,7 @@
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
 				993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
-				039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */,
+				039371B62C5B68CD00708377 /* UIFont+Monospaced.swift in Sources */,
 				447DB4BC2BA78282000DF4C2 /* MWMOsmReauthAlert.mm in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
@@ -4833,7 +4865,7 @@
 				ED8D79F72EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift in Sources */,
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				ED0C54992C6E6AF000253A5F /* TrackRecordingManager.swift in Sources */,
-				993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */,
+				993DF10723F6BDB100AC231A /* UIColor+Image.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.m in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.m in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
