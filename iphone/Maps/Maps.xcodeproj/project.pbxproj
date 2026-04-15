@@ -821,7 +821,7 @@
 		4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSTesterTest.m; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
+		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
@@ -1871,15 +1871,15 @@
 			isa = PBXGroup;
 			children = (
 				FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */,
-				ED82C7EE2F90186900FA103D /* Extensions */,
-				ED82C81F2F90186900FA103D /* Common */,
-				ED82C73F2F90186300FA103D /* Core */,
-				FA065FC61286143F00FEA989 /* External Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				34F73F5E1E082FF700AC1FD6 /* LocalizedStrings */,
-				ED82C2922F90127F00FA103D /* SupportingFiles */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				ED82C2922F90127F00FA103D /* SupportingFiles */,
+				34F73F5E1E082FF700AC1FD6 /* LocalizedStrings */,
+				ED6F9DDA2F902139005B472C /* Resources */,
+				FA065FC61286143F00FEA989 /* ExternalResources */,
+				ED82C81F2F90186900FA103D /* Common */,
+				ED82C7EE2F90186900FA103D /* Extensions */,
+				ED82C73F2F90186300FA103D /* Core */,
 				ED82C4F12F90180300FA103D /* UI */,
 				ED1ADA312BC6B19E0029209F /* Tests */,
 				ED2D74372D14337500660FBF /* OMapsWidgetExtension */,
@@ -1888,18 +1888,6 @@
 			name = Maps;
 			sourceTree = "<group>";
 			tabWidth = 2;
-		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */,
-				4A300ED31C6DCFD400140018 /* countries-strings */,
-				5605022E1B6211E100169CAD /* sound-strings */,
-				34F73FA11E08300E00AC1FD6 /* Images.xcassets */,
-				ED2506DE2F83F52A00945FC4 /* Colors.xcassets */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
@@ -2031,6 +2019,16 @@
 				ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */,
 			);
 			path = OMapsWidgetExtension;
+			sourceTree = "<group>";
+		};
+		ED6F9DDA2F902139005B472C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */,
+				34F73FA11E08300E00AC1FD6 /* Images.xcassets */,
+				ED2506DE2F83F52A00945FC4 /* Colors.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		ED810EC02D566E6F00ECDE2C /* UI */ = {
@@ -3589,7 +3587,7 @@
 			path = RateUs;
 			sourceTree = "<group>";
 		};
-		ED82C6CC2F90186300FA103D /* Rendering */ = {
+		ED82C6CC2F90186300FA103D /* MapRendering */ = {
 			isa = PBXGroup;
 			children = (
 				ED82C6C42F90186300FA103D /* EAGLView.h */,
@@ -3601,7 +3599,7 @@
 				ED82C6CA2F90186300FA103D /* MetalContextFactory.h */,
 				ED82C6CB2F90186300FA103D /* MetalContextFactory.mm */,
 			);
-			path = Rendering;
+			path = MapRendering;
 			sourceTree = "<group>";
 		};
 		ED82C6D92F90186300FA103D /* Routing */ = {
@@ -3806,9 +3804,9 @@
 				ED82C6AB2F90186300FA103D /* Framework */,
 				ED82C6B32F90186300FA103D /* iCloud */,
 				ED82C6BE2F90186300FA103D /* Location */,
+				ED82C6CC2F90186300FA103D /* MapRendering */,
 				ED82C6C12F90186300FA103D /* NetworkPolicy */,
 				ED82C6C32F90186300FA103D /* RateUs */,
-				ED82C6CC2F90186300FA103D /* Rendering */,
 				ED82C6D92F90186300FA103D /* Routing */,
 				ED82C6E52F90186300FA103D /* Search */,
 				ED82C6EB2F90186300FA103D /* Settings */,
@@ -4007,7 +4005,7 @@
 			path = iCloudDirectoryMonitorTests;
 			sourceTree = "<group>";
 		};
-		FA065FC61286143F00FEA989 /* External Resources */ = {
+		FA065FC61286143F00FEA989 /* ExternalResources */ = {
 			isa = PBXGroup;
 			children = (
 				165953732CB1D83700CFED7C /* fonts */,
@@ -4038,8 +4036,10 @@
 				FA64D9A813F975AD00350ECF /* types.txt */,
 				FAFF42291347F101009BBB14 /* World.mwm */,
 				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
+				4A300ED31C6DCFD400140018 /* countries-strings */,
+				5605022E1B6211E100169CAD /* sound-strings */,
 			);
-			name = "External Resources";
+			name = ExternalResources;
 			sourceTree = "<group>";
 		};
 		FA456C4126BDCC8E00B83C20 /* Products */ = {
