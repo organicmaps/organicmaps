@@ -111,7 +111,7 @@
 
   <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
     android:id="@+id/nav_speed_limit"
-    style="@style/MwmWidget.SpeedLimit"
+    style="@style/OMSpeedLimitView.Vienna"
     android:layout_width="60dp"
     android:layout_height="60dp"
     android:layout_margin="@dimen/margin_half"

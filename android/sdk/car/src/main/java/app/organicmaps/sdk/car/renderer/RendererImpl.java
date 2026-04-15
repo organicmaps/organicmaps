@@ -136,6 +136,6 @@ abstract class RendererImpl implements Renderer, DefaultLifecycleObserver
   @Override
   public void hideSpeedLimit()
   {
-    setSpeedLimit(0, false);
+    setSpeedLimit(0, 0);
   }
 }

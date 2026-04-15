@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="red">#FFF54137</color>
+  <color name="__om_speed_limit_color_red">#FFF54137</color>
+  <color name="__om_speed_limit_color_orange">#FFD87A2D</color>
+  <color name="__om_speed_limit_color_black">#FF141716</color>
+  <color name="__om_speed_limit_color_white">@android:color/white</color>
+  <color name="__om_speed_limit_color_gray">#FF191919</color>
 </resources>

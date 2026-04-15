@@ -4,189 +4,93 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import java.util.EnumMap;
+import java.util.Objects;
 
 public class SpeedLimitView extends View
 {
-  private interface DefaultValues
+  public enum Shape
   {
-    @ColorInt
-    int BACKGROUND_COLOR = Color.WHITE;
-    @ColorInt
-    int BORDER_COLOR = Color.RED;
-    @ColorInt
-    int ALERT_COLOR = Color.RED;
-    @ColorInt
-    int TEXT_COLOR = Color.BLACK;
-    @ColorInt
-    int TEXT_ALERT_COLOR = Color.WHITE;
-
-    float BORDER_WIDTH_RATIO = 0.1f;
+    Circle,
+    Square
   }
 
-  @ColorInt
-  private final int mBackgroundColor;
+  public enum Mode
+  {
+    Normal,
+    Warning,
+    Alert
+  }
 
-  @ColorInt
-  private final int mBorderColor;
+  public record Colors(@ColorInt int backgroundColor, @ColorInt int borderColor, @ColorInt int textColor) {}
 
-  @ColorInt
-  private final int mAlertColor;
-
-  @ColorInt
-  private final int mTextColor;
-
-  @ColorInt
-  private final int mTextAlertColor;
-
+  private int mValue;
+  private float mBorderWidthRatio;
+  private float mCornerRadiusRatio;
   @NonNull
-  private final Paint mSignBackgroundPaint;
+  private Shape mShape;
   @NonNull
-  private final Paint mSignBorderPaint;
+  private Mode mMode;
   @NonNull
-  private final Paint mTextPaint;
-
-  private float mWidth;
-  private float mHeight;
-  private float mBackgroundRadius;
-  private float mBorderRadius;
-  private float mBorderWidth;
-
-  private int mSpeedLimit = 0;
+  private final EnumMap<Mode, Colors> mColors = new EnumMap<>(Mode.class);
   @NonNull
-  private String mSpeedLimitStr = "0";
-  private boolean mAlert = false;
+  private ShapeDrawer mDrawer;
 
-  public SpeedLimitView(Context context)
+  public SpeedLimitView(@NonNull Context context)
   {
     this(context, null);
   }
 
-  public SpeedLimitView(Context context, @Nullable AttributeSet attrs)
+  public SpeedLimitView(@NonNull Context context, @Nullable AttributeSet attrs)
   {
-    super(context, attrs);
-
-    try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0,
-                                                                     R.style.MwmWidget_SpeedLimit))
-    {
-      mBackgroundColor =
-          data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
-      mBorderColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBorderColor, DefaultValues.BORDER_COLOR);
-      mAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitAlertColor, DefaultValues.ALERT_COLOR);
-      mTextColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextColor, DefaultValues.TEXT_COLOR);
-      mTextAlertColor =
-          data.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
-      if (isInEditMode())
-      {
-        mSpeedLimit = data.getInt(R.styleable.SpeedLimitView_speedLimitEditModeSpeedLimit, 60);
-        mSpeedLimitStr = Integer.toString(mSpeedLimit);
-        mAlert = data.getBoolean(R.styleable.SpeedLimitView_speedLimitEditModeAlert, false);
-      }
-    }
-
-    mSignBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    mSignBackgroundPaint.setColor(mBackgroundColor);
-
-    mSignBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    mSignBorderPaint.setColor(mBorderColor);
-    mSignBorderPaint.setStrokeWidth(mBorderWidth);
-    mSignBorderPaint.setStyle(Paint.Style.STROKE);
-
-    mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    mTextPaint.setColor(mTextColor);
-    mTextPaint.setTextAlign(Paint.Align.CENTER);
-    mTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+    this(context, attrs, 0);
   }
 
-  public void setSpeedLimit(final int speedLimit, boolean alert)
+  public SpeedLimitView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr)
   {
-    final boolean speedLimitChanged = mSpeedLimit != speedLimit;
+    this(context, attrs, defStyleAttr, R.style.OMSpeedLimitView_Vienna);
+  }
 
-    mSpeedLimit = speedLimit;
-    mAlert = alert;
+  public SpeedLimitView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr,
+                        @StyleRes int defStyleRes)
+  {
+    super(context, attrs, defStyleAttr, defStyleRes);
 
-    if (speedLimitChanged)
-    {
-      mSpeedLimitStr = Integer.toString(mSpeedLimit);
-      configureTextSize();
-    }
+    obtainStyledAttributes(context, attrs, defStyleAttr, defStyleRes);
+    initDrawer();
+  }
 
+  public void setStyle(@StyleRes int styleRes)
+  {
+    obtainStyledAttributes(getContext(), null, 0, styleRes);
+    initDrawer();
+  }
+
+  public void setValue(@IntRange(from = 0, to = 999) int value)
+  {
+    mValue = Math.min(Math.max(value, 0), 999);
+    mDrawer.setValue(Integer.toString(mValue));
     invalidate();
   }
 
-  public int getSpeedLimit()
+  public void setMode(@NonNull Mode mode)
   {
-    return mSpeedLimit;
-  }
-
-  public boolean isAlert()
-  {
-    return mAlert;
-  }
-
-  @Override
-  protected void onDraw(@NonNull Canvas canvas)
-  {
-    super.onDraw(canvas);
-
-    final boolean validSpeedLimit = mSpeedLimit > 0;
-    if (!validSpeedLimit)
-      return;
-
-    final float cx = mWidth / 2;
-    final float cy = mHeight / 2;
-
-    drawSign(canvas, cx, cy, mAlert);
-    drawText(canvas, cx, cy, mAlert);
-  }
-
-  private void drawSign(@NonNull Canvas canvas, float cx, float cy, boolean alert)
-  {
-    if (alert)
-      mSignBackgroundPaint.setColor(mAlertColor);
-    else
-      mSignBackgroundPaint.setColor(mBackgroundColor);
-
-    canvas.drawCircle(cx, cy, mBackgroundRadius, mSignBackgroundPaint);
-    if (!alert)
+    Objects.requireNonNull(mode);
+    if (mMode != mode)
     {
-      mSignBorderPaint.setStrokeWidth(mBorderWidth);
-      canvas.drawCircle(cx, cy, mBorderRadius, mSignBorderPaint);
+      mMode = mode;
+      updateCurrentColors();
+      invalidate();
     }
-  }
-
-  private void drawText(@NonNull Canvas canvas, float cx, float cy, boolean alert)
-  {
-    if (alert)
-      mTextPaint.setColor(mTextAlertColor);
-    else
-      mTextPaint.setColor(mTextColor);
-
-    final Rect textBounds = new Rect();
-    mTextPaint.getTextBounds(mSpeedLimitStr, 0, mSpeedLimitStr.length(), textBounds);
-    final float textY = cy - textBounds.exactCenterY();
-    canvas.drawText(mSpeedLimitStr, cx, textY, mTextPaint);
-  }
-
-  @Override
-  public boolean onTouchEvent(@NonNull MotionEvent event)
-  {
-    final float cx = mWidth / 2;
-    final float cy = mHeight / 2;
-    if (Math.pow(event.getX() - cx, 2) + Math.pow(event.getY() - cy, 2) <= Math.pow(mBackgroundRadius, 2))
-    {
-      performClick();
-      return true;
-    }
-    return false;
   }
 
   @Override
@@ -197,6 +101,23 @@ public class SpeedLimitView extends View
   }
 
   @Override
+  public boolean onTouchEvent(@NonNull MotionEvent event)
+  {
+    final boolean handled = mDrawer.onTouchEvent(event);
+    if (handled)
+    {
+      performClick();
+    }
+    return handled;
+  }
+
+  @Override
+  protected void onDraw(@NonNull Canvas canvas)
+  {
+    mDrawer.onDraw(canvas);
+  }
+
+  @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
     super.onSizeChanged(w, h, oldw, oldh);
@@ -204,39 +125,70 @@ public class SpeedLimitView extends View
     final float paddingX = (float) (getPaddingLeft() + getPaddingRight());
     final float paddingY = (float) (getPaddingTop() + getPaddingBottom());
 
-    mWidth = (float) w - paddingX;
-    mHeight = (float) h - paddingY;
-    mBackgroundRadius = Math.min(mWidth, mHeight) / 2;
-    mBorderWidth = mBackgroundRadius * 2 * DefaultValues.BORDER_WIDTH_RATIO;
-    mBorderRadius = mBackgroundRadius - mBorderWidth / 2;
-    configureTextSize();
+    mDrawer.setSize((float) w - paddingX, (float) h - paddingY);
   }
 
-  // Apply binary search to determine the optimal text size that fits within the circular boundary.
-  private void configureTextSize()
+  private void obtainStyledAttributes(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr,
+                                      @StyleRes int defStyleRes)
   {
-    final String text = mSpeedLimitStr;
-    final float textRadius = mBorderRadius - mBorderWidth;
-    final float textMaxSize = 2 * textRadius;
-    final float textMaxSizeSquared = (float) Math.pow(textMaxSize, 2);
-
-    float lowerBound = 0;
-    float upperBound = textMaxSize;
-    float textSize = textMaxSize;
-    final Rect textBounds = new Rect();
-
-    while (lowerBound <= upperBound)
+    try (final TypedArray data =
+             context.getTheme().obtainStyledAttributes(attrs, R.styleable.OMSpeedLimitView, defStyleAttr, defStyleRes))
     {
-      textSize = (lowerBound + upperBound) / 2;
-      mTextPaint.setTextSize(textSize);
-      mTextPaint.getTextBounds(text, 0, text.length(), textBounds);
+      mValue = data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_value, 60);
+      mValue = Math.min(Math.max(mValue, 0), 999);
+      mShape = Shape.values()[data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_shape, 0)];
+      mMode = Mode.values()[data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_mode, 0)];
 
-      if (Math.pow(textBounds.width(), 2) + Math.pow(textBounds.height(), 2) <= textMaxSizeSquared)
-        lowerBound = textSize + 1;
-      else
-        upperBound = textSize - 1;
+      mBorderWidthRatio =
+          data.getFraction(R.styleable.OMSpeedLimitView_om_speed_limit_view_border_width_ratio, 1, 1, 0.1f);
+      mCornerRadiusRatio =
+          data.getFraction(R.styleable.OMSpeedLimitView_om_speed_limit_view_corner_radius_ratio, 1, 1, 0.15f);
+
+      // Normal mode
+      {
+        final int backgroundColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_background_color, Color.WHITE);
+        final int borderColor = data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_border_color, Color.RED);
+        final int textColor = data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_text_color, Color.BLACK);
+        mColors.put(Mode.Normal, new Colors(backgroundColor, borderColor, textColor));
+      }
+
+      // Warning mode
+      {
+        final int backgroundColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_warning_background_color, Color.WHITE);
+        final int borderColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_warning_border_color, Color.YELLOW);
+        final int textColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_warning_text_color, Color.YELLOW);
+        mColors.put(Mode.Warning, new Colors(backgroundColor, borderColor, textColor));
+      }
+
+      // Alert mode
+      {
+        final int backgroundColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_alert_background_color, Color.RED);
+        final int borderColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_alert_border_color, Color.RED);
+        final int textColor =
+            data.getColor(R.styleable.OMSpeedLimitView_om_speed_limit_view_alert_text_color, Color.WHITE);
+        mColors.put(Mode.Alert, new Colors(backgroundColor, borderColor, textColor));
+      }
     }
+  }
 
-    mTextPaint.setTextSize(Math.max(1, textSize));
+  private void updateCurrentColors()
+  {
+    mDrawer.setColors(Objects.requireNonNull(mColors.get(mMode)));
+  }
+
+  private void initDrawer()
+  {
+    if (mShape == Shape.Circle)
+      mDrawer = new CircleShapeDrawer(mBorderWidthRatio, mCornerRadiusRatio);
+    else
+      mDrawer = new SquareShapeDrawer(mBorderWidthRatio, mCornerRadiusRatio);
+    mDrawer.setValue(Integer.toString(mValue));
+    updateCurrentColors();
   }
 }

@@ -293,9 +293,9 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   private void updateSpeedLimit(@NonNull final RoutingInfo info, @Nullable Location location)
   {
-    final boolean speedLimitExceeded =
-        location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.getSpeed();
-    getSurfaceRenderer().setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+    final float currentSpeed = location != null ? location.getSpeed() : 0;
+    getSurfaceRenderer().setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps),
+                                       StringUtils.nativeFormatSpeed(currentSpeed));
   }
 
   /**

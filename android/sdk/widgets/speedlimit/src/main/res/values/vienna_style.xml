@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="OMSpeedLimitView.Vienna" parent="OMSpeedLimitView">
+    <item name="om_speed_limit_view_shape">circle</item>
+
+    <item name="om_speed_limit_view_border_width_ratio">10%</item>
+
+    <!--  Normal mode  -->
+    <item name="om_speed_limit_view_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_limit_view_border_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_text_color">@color/__om_speed_limit_color_black</item>
+
+    <!--  Warning mode  -->
+    <item name="om_speed_limit_view_warning_background_color">@color/__om_speed_limit_color_white</item>
+    <item name="om_speed_limit_view_warning_border_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_warning_text_color">@color/__om_speed_limit_color_orange</item>
+
+    <!--  Alert mode  -->
+    <item name="om_speed_limit_view_alert_background_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_alert_border_color">@color/__om_speed_limit_color_red</item>
+    <item name="om_speed_limit_view_alert_text_color">@color/__om_speed_limit_color_white</item>
+  </style>
+</resources>

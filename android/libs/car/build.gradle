@@ -23,6 +23,7 @@ dependencies {
 
   implementation project(':sdk')
   implementation project(':sdk:car')
+  implementation project(':sdk:widgets:speedlimit')
 
   coreLibraryDesugaring libs.android.tools.desugaring
 

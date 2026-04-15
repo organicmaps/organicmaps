@@ -25,7 +25,7 @@ import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.widget.roadshield.RoadShieldUtils;
 import app.organicmaps.sdk.widgets.lanes.LanesView;
-import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
+import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitViewManager;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
@@ -49,7 +49,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   @NonNull
   private final LanesView mLanesView;
   @NonNull
-  private final SpeedLimitView mSpeedLimit;
+  private final SpeedLimitViewManager mSpeedLimitViewManager;
 
   private final MapButtonsViewModel mMapButtonsViewModel;
 
@@ -78,7 +78,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNextStreet = mStreetFrame.findViewById(R.id.street);
 
     mLanesView = topFrame.findViewById(R.id.lanes);
-    mSpeedLimit = topFrame.findViewById(R.id.nav_speed_limit);
+    mSpeedLimitViewManager = new SpeedLimitViewManager();
+    mSpeedLimitViewManager.setSpeedLimitView(topFrame.findViewById(R.id.nav_speed_limit));
 
     final View nextTurnContainer = topFrame.findViewById(R.id.nav_next_turn_container);
     // Blank rectangle below the navbar that hides menu content behind it.
@@ -266,7 +267,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   private void updateSpeedLimit(@NonNull final RoutingInfo info)
   {
     final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
-    final boolean speedLimitExceeded = location != null && info.speedLimitMps < location.getSpeed();
-    mSpeedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+    final float currentSpeed = location != null ? location.getSpeed() : 0;
+    mSpeedLimitViewManager.setSpeed(StringUtils.nativeFormatSpeed(info.speedLimitMps),
+                                    StringUtils.nativeFormatSpeed(currentSpeed));
   }
 }
