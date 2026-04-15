@@ -3,11 +3,6 @@ extension UIView {
     !subviews.filter { type(of: $0) == viewClass }.isEmpty
   }
 
-  func clearTreeBackground() {
-    backgroundColor = UIColor.clear
-    subviews.forEach { $0.clearTreeBackground() }
-  }
-
   func alignToSuperview(_ insets: UIEdgeInsets = .zero) {
     translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([

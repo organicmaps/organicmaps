@@ -1050,6 +1050,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
   return commands;
 }
+
 - (void)zoomOut
 {
   GetFramework().Scale(Framework::SCALE_MIN, true);

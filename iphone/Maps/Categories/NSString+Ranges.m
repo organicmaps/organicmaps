@@ -1,19 +1,6 @@
-#import "NSString+Categories.h"
+#import "NSString+Ranges.h"
 
-@implementation NSString (MapsMeSize)
-
-- (CGSize)sizeWithDrawSize:(CGSize)drawSize font:(UIFont *)font
-{
-  CGRect rect = [self boundingRectWithSize:drawSize
-                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                attributes:@{NSFontAttributeName: font}
-                                   context:nil];
-  return CGRectIntegral(rect).size;
-}
-
-@end
-
-@implementation NSString (MapsMeRanges)
+@implementation NSString (Ranges)
 
 - (NSArray<NSValue *> *)rangesOfString:(NSString *)aString
 {

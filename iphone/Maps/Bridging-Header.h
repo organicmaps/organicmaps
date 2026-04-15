@@ -22,7 +22,6 @@
 #import "MWMCarPlaySearchResultObject.h"
 #import "MWMCarPlaySearchService.h"
 #import "MWMCircularProgress.h"
-#import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
 #import "MWMEditorHelper.h"

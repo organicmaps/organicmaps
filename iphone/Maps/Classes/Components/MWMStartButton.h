@@ -1,3 +1,0 @@
-@interface MWMStartButton : UIButton
-
-@end
