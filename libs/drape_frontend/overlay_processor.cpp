@@ -63,7 +63,7 @@ void MergeImpl(std::vector<FeatureDataT> const & features, FnT && fn)
   std::vector<size_t> chainIndices;  // Indices of features merged into current chain.
 
   auto const extend = [&](m2::PointD const & pt, std::vector<m2::PointD> & points, bool forward
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
                           ,
                           std::vector<m2::PointD> & junctions
 #endif
@@ -108,7 +108,7 @@ void MergeImpl(std::vector<FeatureDataT> const & features, FnT && fn)
       return false;
 
     auto const & pts = features[bestIdx].m_spline->GetPath();
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
     junctions.push_back(pt);
 #endif
     // clang-format off
@@ -144,7 +144,7 @@ void MergeImpl(std::vector<FeatureDataT> const & features, FnT && fn)
     auto points = features[seed].m_spline->GetPath();
 
     // clang-format off
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
     std::vector<m2::PointD> junctions;
     while (extend(points.back(), points, true, junctions)) {}
     while (extend(points.front(), points, false, junctions)) {}
@@ -161,7 +161,7 @@ void MergeImpl(std::vector<FeatureDataT> const & features, FnT && fn)
       std::reverse(points.begin(), points.end());
 
     fn(chainIndices, std::move(points)
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
                          ,
        std::move(junctions)
 #endif
@@ -177,7 +177,7 @@ void MergeAndClip(std::unordered_map<std::string, std::vector<FeatureDataT>> & f
   for (auto const & [_, features] : featuresByName)
   {
     MergeImpl(features, [&](std::vector<size_t> const & chainIndices, std::vector<m2::PointD> && points
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
                             ,
                             std::vector<m2::PointD> && junctions
 #endif
@@ -189,7 +189,7 @@ void MergeAndClip(std::unordered_map<std::string, std::vector<FeatureDataT>> & f
         return;
 
       makeChain(features, chainIndices, mc);
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
       mc.m_junctionPoints = std::move(junctions);
 #endif
 
@@ -253,7 +253,7 @@ std::vector<std::vector<m2::PointD>> OverlayProcessor::MergeSplines(std::vector<
 
   std::vector<std::vector<m2::PointD>> result;
   MergeImpl(features, [&result](std::vector<size_t> const &, std::vector<m2::PointD> && points
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
                                 ,
                                 std::vector<m2::PointD> &&
 #endif

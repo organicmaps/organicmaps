@@ -217,7 +217,7 @@ RuleDrawer::~RuleDrawer()
 
     for (auto const & chain : chains)
     {
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
       // Blue dots at feature junction points (where features were merged).
       uint32_t dbgIndex = 50000;
       for (auto const & pt : chain.m_junctionPoints)
@@ -242,7 +242,7 @@ RuleDrawer::~RuleDrawer()
       for (auto const & spline : chain.m_clippedSplines)
       {
         PathTextViewParams p = chain.m_params;
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_MAX_PRIO
         // Max priority so street texts displace POIs, not vice versa.
         p.m_depth = 9999;
         p.m_rank = 255;
@@ -282,7 +282,7 @@ RuleDrawer::~RuleDrawer()
               shieldPositions.push_back(spline->GetPoint(0.5 * (offsets[i] + offsets[i + 1])).m_pos);
         }
 
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
         // Red dots at text pivot positions.
         for (auto const offset : shape->GetOffsets())
         {
@@ -316,7 +316,7 @@ RuleDrawer::~RuleDrawer()
                                chain.m_params.m_rank, chain.m_params.m_featureId, texMng,
                                chain.m_shield.m_roadShields, shieldPositions, m_generatedRoadShields);
 
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
         // Yellow dots at shield positions.
         for (auto const & pos : shieldPositions)
         {
@@ -344,7 +344,7 @@ RuleDrawer::~RuleDrawer()
       for (auto const & spline : chain.m_clippedSplines)
       {
         PathTextViewParams p = chain.m_params;
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_MAX_PRIO
         p.m_depth = 9999;
         p.m_rank = 255;
 #endif

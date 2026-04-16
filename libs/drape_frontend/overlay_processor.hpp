@@ -14,7 +14,8 @@
 
 class ShieldRuleProto;
 
-#define DEBUG_OVERLAY_PROCESSOR
+//#define DEBUG_OVERLAY_DRAW_PIVOTS
+#define DEBUG_OVERLAY_MAX_PRIO
 
 namespace df
 {
@@ -54,7 +55,7 @@ public:
     PathTextViewParams m_params;
     ShieldInfo m_shield;
     bool m_hasPT = false;  ///< True if any source feature also has PT route text.
-#ifdef DEBUG_OVERLAY_PROCESSOR
+#ifdef DEBUG_OVERLAY_DRAW_PIVOTS
     std::vector<m2::PointD> m_junctionPoints;
 #endif
   };
