@@ -42,9 +42,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
           i++;
 
         i--;
-        final int endWeekDay = weekDays.get(i);
-        final boolean isBold = startWeekDay <= currentDayOfWeek && currentDayOfWeek <= endWeekDay;
-        scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt, isBold));
       }
       else
       {
@@ -55,10 +52,13 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
             break;
           i++;
         }
-
-        final boolean isBold = startWeekDay <= currentDayOfWeek && currentDayOfWeek <= weekDays.get(i);
-        scheduleData.add(new WeekScheduleData(startWeekDay, weekDays.get(i), null, isBold));
       }
+
+      final int endWeekDay = weekDays.get(i);
+      final boolean isBold = (startWeekDay <= endWeekDay)
+                               ? (startWeekDay <= currentDayOfWeek && currentDayOfWeek <= endWeekDay)
+                               : (currentDayOfWeek >= startWeekDay || currentDayOfWeek <= endWeekDay);
+      scheduleData.add(new WeekScheduleData(startWeekDay, endWeekDay, tt, isBold));
     }
 
     mWeekSchedule = scheduleData;
