@@ -23,7 +23,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
   typealias Step = NavigationDashboardModalPresentationStep
 
   static func == (lhs: NavigationDashboardModalPresentationStepStrategy, rhs: NavigationDashboardModalPresentationStepStrategy) -> Bool {
-    lhs.regularHeigh == rhs.regularHeigh &&
+    lhs.regularHeight == rhs.regularHeight &&
       lhs.compactBaseHeight == rhs.compactBaseHeight &&
       lhs.estimatesHeight == rhs.estimatesHeight &&
       lhs.compactDiscoverabilityOffset == rhs.compactDiscoverabilityOffset &&
@@ -32,7 +32,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       lhs.shouldShowEstimatesStep == rhs.shouldShowEstimatesStep
   }
 
-  var regularHeigh: CGFloat = .zero
+  var regularHeight: CGFloat = .zero
   var compactBaseHeight: CGFloat = .zero
   var estimatesHeight: CGFloat = .zero
   var compactDiscoverabilityOffset: CGFloat = .zero
@@ -119,8 +119,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       case .expanded:
         frame.origin.y = safeAreaInsets.top + Constants.topInset
       case .regular:
-        if regularHeigh != 0 {
-          frame.origin.y = max(containerSize.height - regularHeigh, safeAreaInsets.top + Constants.topInset)
+        if regularHeight != 0 {
+          frame.origin.y = max(containerSize.height - regularHeight, safeAreaInsets.top + Constants.topInset)
         } else {
           frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
         }
@@ -153,8 +153,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         case .expanded:
           frame.origin.y = safeAreaInsets.top + Constants.topInset
         case .regular:
-          if regularHeigh != 0 {
-            frame.origin.y = max(containerSize.height - regularHeigh, safeAreaInsets.top + Constants.topInset)
+          if regularHeight != 0 {
+            frame.origin.y = max(containerSize.height - regularHeight, safeAreaInsets.top + Constants.topInset)
           } else {
             frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
           }
