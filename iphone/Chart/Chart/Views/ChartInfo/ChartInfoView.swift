@@ -68,7 +68,7 @@ class ChartInfoView: ExpandedTouchView {
 
   var infoShadowColor: UIColor = .black {
     didSet {
-      pointInfoView.layer.shadowColor = infoShadowColor.cgColor
+      pointInfoView.layer.shadowColor = infoShadowColor.resolvedColor(with: traitCollection).cgColor
     }
   }
 

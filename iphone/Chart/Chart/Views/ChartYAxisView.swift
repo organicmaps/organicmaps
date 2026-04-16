@@ -41,7 +41,7 @@ private class ChartYAxisInnerView: UIView {
 
   var gridColor: UIColor = .white {
     didSet {
-      shapeLayer.strokeColor = gridColor.cgColor
+      shapeLayer.strokeColor = gridColor.resolvedColor(with: traitCollection).cgColor
     }
   }
 

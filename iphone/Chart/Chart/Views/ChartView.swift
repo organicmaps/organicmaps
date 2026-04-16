@@ -88,7 +88,7 @@ public class ChartView: UIView {
 
   override public var backgroundColor: UIColor? {
     didSet {
-      chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
+      chartInfoView.tooltipBackgroundColor = backgroundColor?.resolvedColor(with: traitCollection) ?? .white
     }
   }
 

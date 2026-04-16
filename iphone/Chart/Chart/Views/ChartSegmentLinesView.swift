@@ -9,7 +9,7 @@ final class ChartSegmentLinesView: UIView {
 
   var lineColor: UIColor = .gray {
     didSet {
-      shapeLayer.strokeColor = lineColor.cgColor
+      shapeLayer.strokeColor = lineColor.resolvedColor(with: traitCollection).cgColor
     }
   }
 

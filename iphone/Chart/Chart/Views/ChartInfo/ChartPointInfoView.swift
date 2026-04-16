@@ -43,7 +43,7 @@ final class ChartPointInfoView: UIView {
 
   override var backgroundColor: UIColor? {
     didSet {
-      maskLayer.fillColor = backgroundColor?.cgColor
+      maskLayer.fillColor = backgroundColor?.resolvedColor(with: traitCollection).cgColor
     }
   }
 
