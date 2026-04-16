@@ -2,8 +2,10 @@ package app.organicmaps.sdk.util;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Pair;
+import android.view.View;
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.R;
 import java.text.NumberFormat;
@@ -89,9 +91,7 @@ public class StringUtils
 
   public static boolean isRtl()
   {
-    Locale defLocale = Locale.getDefault();
-    return Character.getDirectionality(defLocale.getDisplayName(defLocale).charAt(0))
- == Character.DIRECTIONALITY_RIGHT_TO_LEFT;
+    return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
   }
 
   @NonNull

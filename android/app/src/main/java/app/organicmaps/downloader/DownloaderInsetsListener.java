@@ -66,7 +66,9 @@ final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
     buttonParams.bottomMargin = insets.bottom;
     mButton.setPadding(insets.left, mButton.getPaddingTop(), insets.right, mButton.getPaddingBottom());
 
-    fabParams.rightMargin = insets.right + baseMargin;
+    final boolean isRtl = mFab.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    final int endInset = isRtl ? insets.left : insets.right;
+    fabParams.setMarginEnd(endInset + baseMargin);
     if (isButtonVisible)
       fabParams.bottomMargin = baseMargin;
     else

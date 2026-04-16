@@ -21,7 +21,6 @@ import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.util.RtlUtils;
 import java.util.Objects;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
@@ -42,7 +41,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
-    RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       final Intent intent = Objects.requireNonNull(getIntent());
