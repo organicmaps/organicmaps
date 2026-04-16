@@ -110,6 +110,25 @@ struct PathTextViewParams : CommonOverlayViewParams
   std::string m_mainText;
   std::string m_auxText;
   double m_baseGtoPScale = 1.0;
+
+  std::string ConcatRenderText() const
+  {
+    if (!m_auxText.empty())
+    {
+      if (m_mainText.size() > m_auxText.size())
+      {
+        if (m_mainText.find(m_auxText) != std::string::npos)
+          return m_mainText;
+      }
+      else
+      {
+        if (m_auxText.find(m_mainText) != std::string::npos)
+          return m_auxText;
+      }
+      return m_mainText + "   " + m_auxText;
+    }
+    return m_mainText;
+  }
 };
 
 struct PathSymbolViewParams : CommonViewParams
