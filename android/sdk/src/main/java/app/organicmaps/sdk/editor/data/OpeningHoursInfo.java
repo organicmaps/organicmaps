@@ -15,7 +15,6 @@ public class OpeningHoursInfo
   {
     Open,
     Closed,
-    Unknown,
   }
 
   public OpeningHoursInfo(@IntRange(from = 0, to = 2) int state, boolean isTwentyFourSeven, long nextTimeOpen,
@@ -25,8 +24,7 @@ public class OpeningHoursInfo
     {
     case 0: this.state = RuleState.Open; break;
     case 1: this.state = RuleState.Closed; break;
-    case 2: this.state = RuleState.Unknown; break;
-    default: this.state = RuleState.Unknown; assert false;
+    default: this.state = RuleState.Closed; assert false;
     }
 
     this.nextTimeOpen = nextTimeOpen;
