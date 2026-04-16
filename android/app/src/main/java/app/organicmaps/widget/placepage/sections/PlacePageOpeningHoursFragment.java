@@ -288,10 +288,10 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(requireContext());
 
         if (timeLeftMinutes < 3 * 60) // Less than 3 hours
-          descriptionString = " • " + getString(R.string.closes_in, getTimeIntervalString(timeLeftMinutes)) + " • "
+          descriptionString = getString(R.string.closes_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(closeDate);
         else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
-          descriptionString = " • " + getString(R.string.closes_at, dateFormat.format(closeDate));
+          descriptionString = getString(R.string.closes_at, dateFormat.format(closeDate));
         else
           descriptionString = "";
       }
@@ -323,18 +323,17 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
                              && nowCal.get(Calendar.YEAR) == openCal.get(Calendar.YEAR);
 
         if (timeLeftMinutes < 3 * 60) // Less than 3 hours
-          descriptionString = " • " + getString(R.string.opens_in, getTimeIntervalString(timeLeftMinutes)) + " • "
+          descriptionString = getString(R.string.opens_in, getTimeIntervalString(timeLeftMinutes)) + " • "
                             + dateFormat.format(openDate);
         else if (willOpenToday) // Today
-          descriptionString = " • " + getString(R.string.opens_at, dateFormat.format(openDate));
+          descriptionString = getString(R.string.opens_at, dateFormat.format(openDate));
         else if (timeLeftMinutes < 24 * 60) // Less than 24 hours
-          descriptionString = " • " + getString(R.string.opens_tomorrow_at, dateFormat.format(openDate));
+          descriptionString = getString(R.string.opens_tomorrow_at, dateFormat.format(openDate));
         else if (timeLeftMinutes < 7 * 24 * 60) // Less than 1 week
         {
           final int openDay = openCal.get(Calendar.DAY_OF_WEEK);
           final String openDayName = DateFormatSymbols.getInstance().getWeekdays()[openDay];
-          descriptionString =
-              " • " + getString(R.string.opens_dayoftheweek_at, openDayName, dateFormat.format(openDate));
+          descriptionString = getString(R.string.opens_dayoftheweek_at, openDayName, dateFormat.format(openDate));
         }
         else
           descriptionString = "";
