@@ -1,10 +1,10 @@
-extension UIWindowScene {
-  var keyWindow: UIWindow? {
-    windows.first(where: \.isKeyWindow)
-  }
-}
-
 extension UIApplication {
+  var allConnectedWindows: [UIWindow] {
+    connectedScenes
+      .compactMap { $0 as? UIWindowScene }
+      .flatMap(\.windows)
+  }
+
   var activeWindowScenes: [UIWindowScene] {
     connectedScenes
       .compactMap { $0 as? UIWindowScene }

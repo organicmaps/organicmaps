@@ -1,7 +1,7 @@
 #import <CoreApi/AppInfo.h>
 #import <CoreApi/Framework.h>
 #import <CoreSpotlight/CoreSpotlight.h>
-#import <MobileCoreServices/MobileCoreServices.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
 
@@ -22,8 +22,7 @@
 
   for (auto const & categoryKey : categoriesKeys)
   {
-    CSSearchableItemAttributeSet * attrSet =
-        [[CSSearchableItemAttributeSet alloc] initWithItemContentType:static_cast<NSString *>(UTTypeItem)];
+    CSSearchableItemAttributeSet * attrSet = [[CSSearchableItemAttributeSet alloc] initWithContentType:UTTypeItem];
 
     NSString * categoryName = nil;
     NSMutableDictionary<NSString *, NSString *> * localizedStrings = [@{} mutableCopy];
