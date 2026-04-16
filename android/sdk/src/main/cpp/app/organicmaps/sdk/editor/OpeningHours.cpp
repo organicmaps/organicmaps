@@ -111,6 +111,8 @@ jobjectArray JavaTimetables(JNIEnv * env, TimeTableSet & tts)
 jobject JavaOpeningHoursInfo(JNIEnv * env, RuleState state, bool isTwentyFourSeven, time_t nextTimeOpen,
                              time_t nextTimeClosed)
 {
+  ASSERT(state != RuleState::Unknown, ("Shouldn't instantiate java OpeningHours with unknown state"));
+
   jlong javaTimeNeverConstant = static_cast<jlong>(-1);
   jlong jlongNextTimeOpen = static_cast<jlong>(nextTimeOpen);
   jlong jlongNextTimeClosed = static_cast<jlong>(nextTimeClosed);
@@ -345,6 +347,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetOpeningH
   if (!source.empty() && oh.IsValid())
   {
     OpeningHours::InfoT info = oh.GetInfo(static_cast<time_t>(jCurrentTime));
+    if (info.state == osmoh::RuleState::Unknown)
+      return nullptr;
     return JavaOpeningHoursInfo(env, info.state, oh.IsTwentyFourHours(), info.nextTimeOpen, info.nextTimeClosed);
   }
 
