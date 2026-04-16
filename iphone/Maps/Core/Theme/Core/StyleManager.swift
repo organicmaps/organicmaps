@@ -22,7 +22,7 @@
   }
 
   func update() {
-    for window in UIApplication.shared.activeWindows {
+    for window in UIApplication.shared.allConnectedWindows {
       updateView(window.rootViewController?.view)
     }
 
