@@ -1,4 +1,4 @@
-#include "iphone/Maps/Classes/MetalContextFactory.h"
+#include "iphone/Maps/Core/MapRendering/MetalContextFactory.h"
 
 #include "drape/gl_functions.hpp"
 #include "drape/metal/metal_base_context.hpp"
