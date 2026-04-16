@@ -3,7 +3,9 @@
 
   private(set) var isLaunchedByDeeplink = false
   private(set) var isLaunchedByUniversalLink = false
+  private(set) var hasPendingColdLaunchDeepLink = false
   private(set) var url: URL?
+  private var pendingURLs: [URL] = []
 
   override private init() {
     super.init()
@@ -11,9 +13,20 @@
 
   func applicationDidFinishLaunching(_ options: [UIApplication.LaunchOptionsKey: Any]? = nil) {
     if let launchDeeplink = options?[UIApplication.LaunchOptionsKey.url] as? URL {
-      isLaunchedByDeeplink = true
-      url = launchDeeplink
+      prepareForColdLaunch(urls: [launchDeeplink])
     }
+  }
+
+  func prepareForColdLaunch(urls: [URL] = [], universalLinks: [URL] = []) {
+    let convertedUniversalLinks = universalLinks.compactMap(convertUniversalLink)
+    let launchURLs = urls + convertedUniversalLinks
+    guard let firstURL = launchURLs.first else { return }
+
+    isLaunchedByDeeplink = !urls.isEmpty
+    isLaunchedByUniversalLink = !convertedUniversalLinks.isEmpty
+    hasPendingColdLaunchDeepLink = true
+    url = firstURL
+    pendingURLs = Array(launchURLs.dropFirst())
   }
 
   func applicationDidOpenUrl(_ url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -26,9 +39,8 @@
       return handleFileImport(url: url, openInPlace: openInPlace)
     }
 
-    // On the cold start, isLaunchedByDeeplink is set and handleDeepLink() call is delayed
-    // until the map view will be fully initialized.
-    guard !isLaunchedByDeeplink else { return true }
+    // Cold-launch links are delayed until the map view is fully initialized.
+    guard !hasPendingColdLaunchDeepLink else { return true }
 
     // On the hot start, link can be processed immediately.
     self.url = url
@@ -36,18 +48,18 @@
   }
 
   func applicationDidReceiveUniversalLink(_ universalLink: URL) -> Bool {
-    // Convert http(s)://omaps.app/ENCODEDCOORDS/NAME to om://ENCODEDCOORDS/NAME
-    url = URL(string: universalLink.absoluteString
-      .replacingOccurrences(of: "http://omaps.app", with: "om:/")
-      .replacingOccurrences(of: "https://omaps.app", with: "om:/"))
+    guard let convertedURL = convertUniversalLink(universalLink) else { return false }
+    url = convertedURL
     isLaunchedByUniversalLink = true
-    return handleDeepLink(url: url!)
+    return handleDeepLink(url: convertedURL)
   }
 
   func reset() {
     isLaunchedByDeeplink = false
     isLaunchedByUniversalLink = false
+    hasPendingColdLaunchDeepLink = false
     url = nil
+    pendingURLs.removeAll()
   }
 
   func getBackUrl() -> String? {
@@ -63,13 +75,19 @@
   }
 
   func handleDeepLinkAndReset() -> Bool {
-    if let url {
-      let result = handleDeepLink(url: url)
-      reset()
-      return result
+    guard let url else {
+      LOG(.error, "handleDeepLink is called with nil URL")
+      return false
     }
-    LOG(.error, "handleDeepLink is called with nil URL")
-    return false
+
+    let urls = [url] + pendingURLs
+    var handled = false
+    for url in urls {
+      self.url = url
+      handled = handleDeepLink(url: url) || handled
+    }
+    reset()
+    return handled
   }
 
   private func handleFileImport(url: URL, openInPlace: Bool) -> Bool {
@@ -105,6 +123,13 @@
     }
     reset()
     return error == nil && copyError == nil
+  }
+
+  private func convertUniversalLink(_ universalLink: URL) -> URL? {
+    // Convert http(s)://omaps.app/ENCODEDCOORDS/NAME to om://ENCODEDCOORDS/NAME.
+    URL(string: universalLink.absoluteString
+      .replacingOccurrences(of: "http://omaps.app", with: "om:/")
+      .replacingOccurrences(of: "https://omaps.app", with: "om:/"))
   }
 
   private func copyFileToTemporaryDirectory(_ url: URL) throws -> URL {

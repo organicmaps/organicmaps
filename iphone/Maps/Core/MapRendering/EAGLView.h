@@ -10,6 +10,7 @@
 @property(nonatomic, readonly) BOOL drapeEngineCreated;
 @property(nonatomic, readonly) CGSize pixelSize;
 @property(nonatomic, readonly) BOOL graphicContextInitialized;
+@property(nonatomic, copy, nullable) void (^graphicContextDidInitializeHandler)(void);
 
 - (void)createDrapeEngine;
 - (void)deallocateNative;
