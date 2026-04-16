@@ -57,6 +57,8 @@ public:
 
     size_t ChildrenCount() const { return m_children.size(); }
 
+    bool IsLeaf() const { return ChildrenCount() == 0; }
+
     /// \brief Calls |f| for each first generation descendant of the node.
     void ForEachChild(NodeCallback const & f);
 
