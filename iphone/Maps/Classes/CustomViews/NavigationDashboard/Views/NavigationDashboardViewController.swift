@@ -27,6 +27,7 @@ final class NavigationDashboardViewController: UIViewController {
 
     static let routePointsDiscoverabilityPadding: CGFloat = 20
     static let panGestureThreshold: CGFloat = 5
+    static let meaningfulDragThreshold: CGFloat = 10
   }
 
   typealias StepsController = ModalPresentationStepsController<NavigationDashboardModalPresentationStep>
@@ -180,7 +181,7 @@ final class NavigationDashboardViewController: UIViewController {
 
   @objc
   private func handlePan(_ gesture: UIPanGestureRecognizer) {
-    let didMeaningfullyDrag = abs(gesture.translation(in: availableAreaView).y) > Constants.panGestureThreshold
+    let didMeaningfullyDrag = abs(gesture.translation(in: availableAreaView).y) > Constants.meaningfulDragThreshold
     if didMeaningfullyDrag, presentationStepStrategy.shouldUseCompactDiscoverabilityOffset {
       presentationStepStrategy.shouldUseCompactDiscoverabilityOffset = false
     }
@@ -372,7 +373,6 @@ final class NavigationDashboardViewController: UIViewController {
 
     let compactBaseHeight = routePointsView.origin.y
       + bottomActionsMenu.frame.height
-      + Constants.startButtonSpacing
 
     let estimatesBottom = estimatesStackView.convert(CGPoint(x: .zero, y: estimatesStackView.bounds.maxY), to: availableAreaView).y
     let estimatesHeight = estimatesBottom
@@ -386,14 +386,13 @@ final class NavigationDashboardViewController: UIViewController {
     let shouldShowEstimatesStep = !elevationProfileView.isHidden && estimatesHeight < compactBaseHeight
 
     let shouldForceContentFrameUpdate =
-      presentationStepStrategy.regularHeigh != regularHeight ||
+      presentationStepStrategy.regularHeight != regularHeight ||
       presentationStepStrategy.compactBaseHeight != compactBaseHeight ||
       presentationStepStrategy.estimatesHeight != estimatesHeight ||
-      presentationStepStrategy.compactDiscoverabilityOffset != Constants.routePointsDiscoverabilityPadding ||
       presentationStepStrategy.shouldShowEstimatesStep != shouldShowEstimatesStep ||
       presentationStepStrategy.shouldShowHalfScreenStep != shouldShowHalfScreenStep
 
-    presentationStepStrategy.regularHeigh = regularHeight
+    presentationStepStrategy.regularHeight = regularHeight
     presentationStepStrategy.compactBaseHeight = compactBaseHeight
     presentationStepStrategy.estimatesHeight = estimatesHeight
     presentationStepStrategy.compactDiscoverabilityOffset = Constants.routePointsDiscoverabilityPadding
