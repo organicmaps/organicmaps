@@ -131,7 +131,8 @@ static CGFloat angleWithProgress(CGFloat progress)
     return;
   self.backgroundLayer.fillColor = self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
-  self.backgroundLayer.strokeColor = self.spinnerBackgroundColor.CGColor;
+  self.backgroundLayer.strokeColor =
+      [self.spinnerBackgroundColor resolvedColorWithTraitCollection:self.traitCollection].CGColor;
   [self updateBackgroundPath];
   self.progressLayer.strokeColor = self.progressLayerColor;
   NSString * imageName = self.images[@(self.state)];
