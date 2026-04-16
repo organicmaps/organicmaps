@@ -8,6 +8,7 @@
     <string name="cancel">रद्द करा</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">हटवा</string>
+    <string name="download_maps">नकाशे डाउनलोड करा</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">शोधा</string>
     <!-- Location services are disabled by user alert - message -->

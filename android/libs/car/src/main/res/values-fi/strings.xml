@@ -8,6 +8,7 @@
     <string name="cancel">Peruuta</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Poista</string>
+    <string name="download_maps">Lataa karttoja</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Haku</string>
     <!-- Location services are disabled by user alert - message -->

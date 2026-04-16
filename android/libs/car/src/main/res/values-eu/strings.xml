@@ -8,6 +8,7 @@
     <string name="cancel">Utzi</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Ezabatu</string>
+    <string name="download_maps">Deskargatu mapak</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Bilatu</string>
     <!-- Location services are disabled by user alert - message -->

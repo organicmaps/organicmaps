@@ -8,6 +8,7 @@
     <string name="cancel">בטל</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">מחק</string>
+    <string name="download_maps">הורד מפות</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">חיפוש</string>
     <!-- Location services are disabled by user alert - message -->

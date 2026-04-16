@@ -8,6 +8,7 @@
     <string name="cancel">Atsisakyti</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Šalinti</string>
+    <string name="download_maps">Atsisiųsti žemėlapius</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Ieškoti</string>
     <!-- Location services are disabled by user alert - message -->

@@ -10,6 +10,7 @@
     <string name="delete">Delete</string>
     <!-- Delete process status message -->
     <string name="deleting">Deleting</string>
+    <string name="download_maps">Download Maps</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Search</string>
     <!-- Location services are disabled by user alert - message -->

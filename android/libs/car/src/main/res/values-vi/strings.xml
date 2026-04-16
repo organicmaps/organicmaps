@@ -8,6 +8,7 @@
     <string name="cancel">Huỷ bỏ</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Xóa</string>
+    <string name="download_maps">Tải xuống Bản đồ</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Tìm kiếm</string>
     <!-- Location services are disabled by user alert - message -->

@@ -8,6 +8,7 @@
     <string name="cancel">Avbryt</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Slett</string>
+    <string name="download_maps">Last ned kart</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Søk</string>
     <!-- Location services are disabled by user alert - message -->

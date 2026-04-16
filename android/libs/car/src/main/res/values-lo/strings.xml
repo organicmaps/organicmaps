@@ -8,6 +8,7 @@
     <string name="cancel">ຍົກເລີກ</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">ລຶບ</string>
+    <string name="download_maps">ດາວໂຫລດແຜນທີ່</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">ຄົ້ນຫາ</string>
     <!-- Location services are disabled by user alert - message -->

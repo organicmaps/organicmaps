@@ -8,6 +8,7 @@
     <string name="cancel">Anulare</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Șterge</string>
+    <string name="download_maps">Descarcă hărți</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Caută</string>
     <!-- Location services are disabled by user alert - message -->

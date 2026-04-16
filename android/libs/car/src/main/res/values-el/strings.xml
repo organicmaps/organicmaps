@@ -8,6 +8,7 @@
     <string name="cancel">Άκυρο</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Διαγραφή</string>
+    <string name="download_maps">Λήψη χαρτών</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Αναζήτηση</string>
     <!-- Location services are disabled by user alert - message -->

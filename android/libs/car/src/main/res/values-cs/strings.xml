@@ -8,6 +8,7 @@
     <string name="cancel">Zrušit</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Smazat</string>
+    <string name="download_maps">Stáhnout mapy</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Hledat</string>
     <!-- Location services are disabled by user alert - message -->

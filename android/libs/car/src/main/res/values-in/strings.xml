@@ -8,6 +8,7 @@
     <string name="cancel">Batalkan</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Hapus</string>
+    <string name="download_maps">Unduh Peta</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Cari</string>
     <!-- Location services are disabled by user alert - message -->

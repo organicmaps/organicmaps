@@ -8,6 +8,7 @@
     <string name="cancel">إلغاء</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">حذف</string>
+    <string name="download_maps">تنزيل الخرائط</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">البحث</string>
     <!-- Location services are disabled by user alert - message -->

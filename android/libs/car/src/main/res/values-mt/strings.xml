@@ -8,6 +8,7 @@
     <string name="cancel">Ikkanċella</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Ħassar</string>
+    <string name="download_maps">Niżżel il-mappa</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Fittex</string>
     <!-- Location services are disabled by user alert - message -->

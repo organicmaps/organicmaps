@@ -6,6 +6,7 @@
     <string name="cancel">Cancelar</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Desaniciar</string>
+    <string name="download_maps">Baxar mapes</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Guetar</string>
     <string name="close">Zarrar</string>

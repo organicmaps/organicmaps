@@ -8,6 +8,7 @@
     <string name="cancel">Kanselleer</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Skrap</string>
+    <string name="download_maps">Laai kaarte af</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Soek</string>
     <!-- Location services are disabled by user alert - message -->

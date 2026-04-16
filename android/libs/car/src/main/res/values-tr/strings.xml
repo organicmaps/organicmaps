@@ -8,6 +8,7 @@
     <string name="cancel">İptal</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Sil</string>
+    <string name="download_maps">Harita İndir</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Ara</string>
     <!-- Location services are disabled by user alert - message -->

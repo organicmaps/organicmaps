@@ -8,6 +8,7 @@
     <string name="cancel">Скасаваць</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Выдаліць</string>
+    <string name="download_maps">Спампаваць мапы</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Пошук</string>
     <!-- Location services are disabled by user alert - message -->

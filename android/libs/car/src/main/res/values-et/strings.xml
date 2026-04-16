@@ -8,6 +8,7 @@
     <string name="cancel">Katkesta</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Kustuta</string>
+    <string name="download_maps">Laadi kaarte</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Otsi</string>
     <!-- Location services are disabled by user alert - message -->

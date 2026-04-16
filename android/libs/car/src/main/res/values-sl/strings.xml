@@ -8,6 +8,7 @@
     <string name="cancel">Prekliči</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Izbriši</string>
+    <string name="download_maps">Prenesi zemljevide</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Iskanje</string>
     <!-- Location services are disabled by user alert - message -->

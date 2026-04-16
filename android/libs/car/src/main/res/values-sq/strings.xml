@@ -8,6 +8,7 @@
     <string name="cancel">Anulo</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Fshi</string>
+    <string name="download_maps">Shkarko Harta</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Kërko</string>
     <!-- Location services are disabled by user alert - message -->

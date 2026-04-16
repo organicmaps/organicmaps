@@ -8,6 +8,7 @@
     <string name="cancel">취소하기</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">삭제하기</string>
+    <string name="download_maps">지도 다운로드받기</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">검색하기</string>
     <!-- Location services are disabled by user alert - message -->
