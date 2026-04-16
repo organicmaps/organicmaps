@@ -527,6 +527,8 @@ public:
   /// Notifies observers about country status change.
   void DeleteCountry(CountryId const & countryId, MapFileType type);
 
+  bool DeleteFakeCountry(CountryId const & countryId);
+
   /// Removes country files of a particular version from the device.
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
