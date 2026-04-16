@@ -34,6 +34,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isTestsEnvironment;
 
+// UIApplicationDelegate callbacks forwarded by MainSceneDelegate once UIScene is adopted.
+// Re-declared here so Swift sees them on the concrete MapsAppDelegate type.
+- (void)applicationDidBecomeActive:(UIApplication *)application;
+- (void)applicationWillResignActive:(UIApplication *)application;
+- (void)applicationDidEnterBackground:(UIApplication *)application;
+- (void)applicationWillEnterForeground:(UIApplication *)application;
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
+- (BOOL)application:(UIApplication *)application
+    continueUserActivity:(NSUserActivity *)userActivity
+      restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler;
+- (void)application:(UIApplication *)application
+    performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+               completionHandler:(void (^)(BOOL))completionHandler;
+
 @end
 
 NS_ASSUME_NONNULL_END

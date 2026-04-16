@@ -42,6 +42,7 @@
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		AB0CA7A50000000000000004 /* CarPlaySceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000003 /* CarPlaySceneDelegateTests.swift */; };
+		AB0CA7A50000000000000008 /* MainSceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000007 /* MainSceneDelegateTests.swift */; };
 		ED2487962FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2487952FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift */; };
 		ED2506E22F83F86D00945FC4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2506DE2F83F52A00945FC4 /* Colors.xcassets */; };
 		ED2D74382D14337500660FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74342D14337500660FBF /* Assets.xcassets */; };
@@ -437,6 +438,7 @@
 		ED82C66F2F90180300FA103D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4EF2F90180300FA103D /* LaunchScreen.storyboard */; };
 		ED82C6702F90180300FA103D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4F02F90180300FA103D /* Main.storyboard */; };
 		ED82C7402F90186300FA103D /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6732F90186300FA103D /* MapsAppDelegate.mm */; };
+		AB0CA7A50000000000000006 /* MainSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000005 /* MainSceneDelegate.swift */; };
 		ED82C7412F90186300FA103D /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6752F90186300FA103D /* BackgroundFetchTask.swift */; };
 		ED82C7422F90186300FA103D /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6772F90186300FA103D /* BackgroundFetchScheduler.swift */; };
 		ED82C7432F90186300FA103D /* BackgroundFetchTaskFrameworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6782F90186300FA103D /* BackgroundFetchTaskFrameworkType.swift */; };
@@ -876,6 +878,7 @@
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
 		AB0CA7A50000000000000003 /* CarPlaySceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegateTests.swift; sourceTree = "<group>"; };
+		AB0CA7A50000000000000007 /* MainSceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegateTests.swift; sourceTree = "<group>"; };
 		ED2487952FD9906E00E8F7F0 /* PopoverListSelectorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverListSelectorBuilder.swift; sourceTree = "<group>"; };
 		ED2506DE2F83F52A00945FC4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		ED2D742C2D14337500660FBF /* AppLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogo.swift; sourceTree = "<group>"; };
@@ -1390,6 +1393,7 @@
 		ED82C6712F90186300FA103D /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		ED82C6722F90186300FA103D /* MapsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		ED82C6732F90186300FA103D /* MapsAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MapsAppDelegate.mm; sourceTree = "<group>"; };
+		AB0CA7A50000000000000005 /* MainSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneDelegate.swift; sourceTree = "<group>"; };
 		ED82C6752F90186300FA103D /* BackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTask.swift; sourceTree = "<group>"; };
 		ED82C6772F90186300FA103D /* BackgroundFetchScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchScheduler.swift; sourceTree = "<group>"; };
 		ED82C6782F90186300FA103D /* BackgroundFetchTaskFrameworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTaskFrameworkType.swift; sourceTree = "<group>"; };
@@ -1964,6 +1968,7 @@
 			isa = PBXGroup;
 			children = (
 				4B4153B92BF970BD00EE4B02 /* CarPlay */,
+				AB0CA7A50000000000000007 /* MainSceneDelegateTests.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -3374,6 +3379,7 @@
 			isa = PBXGroup;
 			children = (
 				ED82C6712F90186300FA103D /* DownloadIndicatorProtocol.h */,
+				AB0CA7A50000000000000005 /* MainSceneDelegate.swift */,
 				ED82C6722F90186300FA103D /* MapsAppDelegate.h */,
 				ED82C6732F90186300FA103D /* MapsAppDelegate.mm */,
 			);
@@ -4534,6 +4540,7 @@
 				ED82C5872F90180300FA103D /* NavigationDashboardInteractor.swift in Sources */,
 				ED82C5882F90180300FA103D /* NavigationDashboardModalPresentationStepStrategy.swift in Sources */,
 				ED82C5892F90180300FA103D /* NavigationDashboardPresenter.swift in Sources */,
+				AB0CA7A50000000000000006 /* MainSceneDelegate.swift in Sources */,
 				ED82C7402F90186300FA103D /* MapsAppDelegate.mm in Sources */,
 				ED82C7412F90186300FA103D /* BackgroundFetchTask.swift in Sources */,
 				ED82C7422F90186300FA103D /* BackgroundFetchScheduler.swift in Sources */,
@@ -4848,6 +4855,7 @@
 				EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */,
 				ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */,
 				AB0CA7A50000000000000004 /* CarPlaySceneDelegateTests.swift in Sources */,
+				AB0CA7A50000000000000008 /* MainSceneDelegateTests.swift in Sources */,
 				EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */,
 				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
 				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
