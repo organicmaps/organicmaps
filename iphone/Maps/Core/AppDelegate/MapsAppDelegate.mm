@@ -14,7 +14,6 @@
 #import "NSDate+TimeDistance.h"
 #import "SwiftBridge.h"
 
-#import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UserNotifications/UserNotifications.h>
@@ -60,7 +59,7 @@ void InitLocalizedStrings()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
+@interface MapsAppDelegate () <MWMStorageObserver>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) BOOL standbyDisabledForDownloads;
@@ -378,11 +377,6 @@ using namespace osm_auth_ios;
   return nil;
 }
 
-- (MWMCarPlayService *)carplayService
-{
-  return [MWMCarPlayService shared];
-}
-
 #pragma mark - TTS
 
 - (void)enableTTSForTheFirstTime
@@ -446,22 +440,6 @@ using namespace osm_auth_ios;
     return NO;
 
   return YES;
-}
-
-#pragma mark - CPApplicationDelegate implementation
-
-- (void)application:(UIApplication *)application
-    didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                            toWindow:(CPWindow *)window
-{
-  [self.carplayService setupWithWindow:window interfaceController:interfaceController];
-}
-
-- (void)application:(UIApplication *)application
-    didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
-                             fromWindow:(CPWindow *)window
-{
-  [self.carplayService destroy];
 }
 
 @end

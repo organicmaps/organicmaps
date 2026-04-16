@@ -2,7 +2,6 @@
 #import "MWMNavigationController.h"
 
 @class MapViewController;
-@class MWMCarPlayService;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic) UIWindow * window;
 
-@property(nonatomic, readonly) MWMCarPlayService * carplayService;
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;
 
