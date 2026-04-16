@@ -202,6 +202,9 @@ SelectionProcessor::TapFeatures SelectionProcessor::FindFeaturesInRect(
   double closestAreaDist = std::numeric_limits<double>::max();
   bool matched = false;
 
+  /// @todo Do not call _heavy_ feature::GetMinDistanceMeters here, but iterate via segments/triangles
+  /// and check on limitRect and mercator square distance (threshold is calculated from rect).
+
   auto const & dataSource = m_fw.m_featuresFetcher.GetDataSource();
   dataSource.ForEachInRect([&](FeatureType & ft)
   {

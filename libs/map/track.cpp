@@ -129,6 +129,7 @@ void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo 
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
     for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
+      /// @todo Better to set an initial square-dist threshold (info.m_squareDist) instead of rect intersection.
       auto pt1 = line[ptIndex].GetPoint();
       auto pt2 = line[ptIndex + 1].GetPoint();
       if (!m2::Intersect(touchRect, pt1, pt2))
