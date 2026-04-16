@@ -104,8 +104,10 @@ final class CarPlayService: NSObject {
       style: .default,
       handler: { [weak self] _ in
         guard let self else { return }
-        savedInterfaceController?.dismissTemplate(animated: false, completion: templateCompletion)
-        showOnCarplay()
+        savedInterfaceController?.dismissTemplate(animated: false) { [weak self] success, error in
+          self?.templateCompletion(success, error)
+          self?.showOnCarplay()
+        }
       }
     )
     let alert = CPAlertTemplate(
@@ -151,6 +153,25 @@ final class CarPlayService: NSObject {
     }
   }
 
+  func attachMapIfNeeded() {
+    guard isCarplayActivated else { return }
+    guard let window else { return }
+    guard let carplayVC = window.rootViewController as? CarPlayMapViewController else { return }
+    guard carplayVC.mapView == nil else { return }
+
+    // On a CarPlay-first cold launch the phone window scene has not connected yet, so eagerly create
+    // the single shared MapViewController (and its map view / Drape engine) before attaching it here.
+    guard let mapVC = MapViewController.shared() else { return }
+    mapVC.loadViewIfNeeded()
+
+    mapVC.enableCarPlayRepresentation()
+    carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
+    mapVC.add(self)
+    // The base template may have been built with the default position mode before the map existed;
+    // refresh the leading nav button to the map's actual mode now that the listener is attached.
+    processMyPositionStateModeEvent(mapVC.currentPositionMode)
+  }
+
   @objc func destroy() {
     if isCarplayActivated {
       switchScreenToPhone()
@@ -179,16 +200,11 @@ final class CarPlayService: NSObject {
   }
 
   private func applyRootViewController() {
-    guard let window = window else { return }
-    let carplaySotyboard = UIStoryboard.instance(.carPlay)
-    let carplayVC = carplaySotyboard.instantiateInitialViewController() as! CarPlayMapViewController
-    window.rootViewController = carplayVC
-    if let mapVC = MapViewController.shared() {
-      currentPositionMode = mapVC.currentPositionMode
-      mapVC.enableCarPlayRepresentation()
-      carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
-      mapVC.add(self)
+    guard let window else { return }
+    if !(window.rootViewController is CarPlayMapViewController) {
+      window.rootViewController = UIStoryboard.instance(.carPlay).instantiateInitialViewController()
     }
+    attachMapIfNeeded()
   }
 
   private func applyBaseRootTemplate() {
@@ -422,20 +438,36 @@ extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplate(_: CPMapTemplate, panEndedWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.25
-    if direction.contains(.up) { offset.vertical -= offsetStep }
-    if direction.contains(.down) { offset.vertical += offsetStep }
-    if direction.contains(.left) { offset.horizontal += offsetStep }
-    if direction.contains(.right) { offset.horizontal -= offsetStep }
+    if direction.contains(.up) {
+      offset.vertical -= offsetStep
+    }
+    if direction.contains(.down) {
+      offset.vertical += offsetStep
+    }
+    if direction.contains(.left) {
+      offset.horizontal += offsetStep
+    }
+    if direction.contains(.right) {
+      offset.horizontal -= offsetStep
+    }
     FrameworkHelper.moveMap(offset)
   }
 
   func mapTemplate(_: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.1
-    if direction.contains(.up) { offset.vertical -= offsetStep }
-    if direction.contains(.down) { offset.vertical += offsetStep }
-    if direction.contains(.left) { offset.horizontal += offsetStep }
-    if direction.contains(.right) { offset.horizontal -= offsetStep }
+    if direction.contains(.up) {
+      offset.vertical -= offsetStep
+    }
+    if direction.contains(.down) {
+      offset.vertical += offsetStep
+    }
+    if direction.contains(.left) {
+      offset.horizontal += offsetStep
+    }
+    if direction.contains(.right) {
+      offset.horizontal -= offsetStep
+    }
     FrameworkHelper.moveMap(offset)
   }
 
@@ -593,7 +625,9 @@ extension CarPlayService: CarPlayRouterListener {
   }
 
   func routeDidFinish(_ trip: CPTrip) {
-    if router?.currentTrip == nil { return }
+    if router?.currentTrip == nil {
+      return
+    }
     router?.finishTrip()
     if let carplayVC = carplayVC {
       carplayVC.hideSpeedControl()

@@ -112,7 +112,14 @@ class GraphicsContextFactory;
         @{kEAGLDrawablePropertyRetainedBacking: @NO, kEAGLDrawablePropertyColorFormat: kEAGLColorFormatRGBA8};
   }
   auto & f = GetFramework();
-  f.SetGraphicsContextInitializationHandler([self]() { self.graphicContextInitialized = YES; });
+  f.SetGraphicsContextInitializationHandler([self]()
+  {
+    self.graphicContextInitialized = YES;
+    void (^handler)(void) = self.graphicContextDidInitializeHandler;
+    self.graphicContextDidInitializeHandler = nil;
+    if (handler)
+      handler();
+  });
 }
 
 - (void)createDrapeEngine
