@@ -19,7 +19,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/margin_base"
-      android:layout_marginTop="@dimen/margin_quarter"
+      android:layout_alignTop="@+id/schedule_preview_container"
+      android:layout_alignBottom="@+id/schedule_preview_container"
       app:srcCompat="@drawable/ic_operating_hours"
       app:tint="?iconTint" />
 
@@ -27,22 +28,22 @@
       android:id="@+id/schedule_preview_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
+      android:minHeight="24dp"
+      android:layout_marginTop="@dimen/margin_quarter"
       android:layout_marginEnd="@dimen/margin_half"
       android:layout_marginBottom="@dimen/margin_half"
       android:layout_toStartOf="@+id/dropdown_icon"
       android:layout_toEndOf="@id/icon"
-      android:baselineAligned="false"
-      android:layoutDirection="locale"
-      android:orientation="horizontal">
+      android:orientation="vertical">
 
       <TextView
         android:id="@+id/tv__schedule_preview_open_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textAlignment="viewStart"
         android:textAppearance="@style/MwmTextAppearance.PlacePage"
         tools:text="Open" />
 
@@ -50,9 +51,10 @@
         android:id="@+id/tv__schedule_preview_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:textAppearance="@style/MwmTextAppearance.PlacePage"
-        tools:text=" • Will close eventually" />
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:text="Imagine, just imagine that this text is very very long, like sooo much long" />
     </LinearLayout>
 
     <ImageView
@@ -60,8 +62,9 @@
       android:layout_width="30dp"
       android:layout_height="30dp"
       android:layout_alignParentEnd="true"
-      android:layout_marginTop="3dp"
       android:layout_marginEnd="@dimen/neg_margin_quarter"
+      android:layout_alignTop="@+id/schedule_preview_container"
+      android:layout_alignBottom="@+id/schedule_preview_container"
       app:srcCompat="@drawable/ic_down"
       app:tint="?iconTint"
       tools:visibility="visible" />
