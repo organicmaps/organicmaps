@@ -2233,10 +2233,12 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     if (buildInfo.m_trackId != kml::kInvalidTrackId)
     {
       auto const & track = *GetBookmarkManager().GetTrack(buildInfo.m_trackId);
+      // Pass track's rect to ensure that intersection passes and we can update distance only
       track.UpdateSelectionInfo(track.GetLimitRect(), trackSelectionInfo);
     }
     else
       trackSelectionInfo = FindTrackInTapPosition(buildInfo);
+
     if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)
     {
       BuildTrackPlacePage(trackSelectionInfo, outInfo);
