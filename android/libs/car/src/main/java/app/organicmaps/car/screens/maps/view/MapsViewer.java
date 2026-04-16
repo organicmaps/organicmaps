@@ -125,7 +125,8 @@ final class MapsViewer
     mInvalidateCallback = invalidateCallback;
     mState = FolderState.initial(CountryItem.getRootId(), mContext.getString(R.string.downloader_status_maps));
     mIsNavigating = RoutingController.get().isNavigating();
-    MapsProvider.getMaps(mState.rootId(), mType, maps -> onMapsLoaded(maps, mIsNavigating));
+    final String initialRootId = mState.rootId();
+    MapsProvider.getMaps(initialRootId, mType, maps -> onMapsLoaded(maps, mIsNavigating, initialRootId));
   }
 
   /**
@@ -249,7 +250,7 @@ final class MapsViewer
 
     // Show the loading spinner immediately, then fetch in the background.
     mInvalidateCallback.run();
-    MapsProvider.getMaps(folderId, mType, maps -> onMapsLoaded(maps, mIsNavigating));
+    MapsProvider.getMaps(folderId, mType, maps -> onMapsLoaded(maps, mIsNavigating, folderId));
   }
 
   private void restoreFolderState(@NonNull FolderState state)
@@ -259,7 +260,8 @@ final class MapsViewer
     // If the state was invalidated (e.g. after a download), trigger a fresh fetch.
     if (mState.prebuiltRows() == null)
     {
-      MapsProvider.getMaps(mState.rootId(), mType, maps -> onMapsLoaded(maps, mIsNavigating));
+      final String restoredRootId = mState.rootId();
+      MapsProvider.getMaps(restoredRootId, mType, maps -> onMapsLoaded(maps, mIsNavigating, restoredRootId));
     }
   }
 
@@ -370,10 +372,12 @@ final class MapsViewer
 
   /** Called when a folder is opened for the first time — resets pagination to the first page. */
   @WorkerThread
-  private void onMapsLoaded(@NonNull List<MapsProvider.MapItem> maps, boolean isNavigating)
+  private void onMapsLoaded(@NonNull List<MapsProvider.MapItem> maps, boolean isNavigating, @NonNull String expectedRootId)
   {
     final RowsBuildResult result = buildPrebuiltRows(maps, isNavigating);
     UiThread.runLater(() -> {
+      if (!mState.rootId().equals(expectedRootId))
+        return;
       mState = mState.withRowsResult(0, new ArrayDeque<>(), result);
       mInvalidateCallback.run();
     });

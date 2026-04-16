@@ -182,7 +182,7 @@ tags = android-libs-car
 en = Deleting
 
 [download_maps]
-tags = android-app,apple-maps
+tags = android-app,android-libs-car,apple-maps
 en = Download Maps
 af = Laai kaarte af
 ar = تنزيل الخرائط

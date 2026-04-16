@@ -3,30 +3,19 @@ package app.organicmaps.car.screens.maps.download;
 import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
 import app.organicmaps.car.R;
-import app.organicmaps.routing.ResultCodesHelper;
-import java.util.Objects;
 
 final class DownloadMapsForViewerScreen extends DownloadMapsScreen
 {
-  @NonNull
-  private final String mTitle;
-
   DownloadMapsForViewerScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {
     super(builder);
-
-    mTitle = ResultCodesHelper
-                 .getDialogTitleSubtitle(builder.mCarContext, getLocationHelper(), builder.mResultCode,
-                                         Objects.requireNonNull(builder.mMissingMaps).length)
-                 .getTitleMessage()
-                 .first;
   }
 
   @NonNull
   @Override
   protected String getTitle()
   {
-    return mTitle;
+    return getCarContext().getString(R.string.download_maps);
   }
 
   @NonNull

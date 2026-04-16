@@ -139,7 +139,6 @@ public class DeleteMapsScreen extends BaseScreen
                           .setStartHeaderAction(Action.APP_ICON)
                           .setTitle(getCarContext().getString(R.string.delete))
                           .build());
-    builder.addAction(buildCancelAction());
     return builder.build();
   }
 

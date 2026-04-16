@@ -32,8 +32,7 @@ final class MapsProvider
   }
 
   public record MapItem(@NonNull String id, @NonNull String name, @NonNull String description, boolean browsable,
-                        boolean downloadable, boolean removable, int status, int childCount, int totalChildCount)
-  {
+                        boolean downloadable, boolean removable, int status, int childCount, int totalChildCount) {
     // Cache keyed by (status * 2 + (browsable ? 1 : 0)) – covers every (status, type) pair.
     private static final SparseArray<CarIcon> sIconCache = new SparseArray<>();
 
@@ -117,10 +116,6 @@ final class MapsProvider
       final List<MapItem> maps = new ArrayList<>();
       for (final CountryItem item : items)
       {
-        // The Updatable tab shows maps that need an update (STATUS_UPDATABLE), a retry
-        // (STATUS_FAILED), or a resumed download (STATUS_PARTLY), plus folders whose
-        // aggregate status is STATUS_UPDATABLE. Folders never have STATUS_FAILED or
-        // STATUS_PARTLY at the aggregate level, so those conditions apply to leaf maps only.
         if (type == Type.Updatable && item.status != CountryItem.STATUS_UPDATABLE
             && item.status != CountryItem.STATUS_FAILED)
           continue;
@@ -129,7 +124,9 @@ final class MapsProvider
         // When type == Updatable, all remaining items already passed the filter above.
         final boolean isDownloadable = type == Type.Updatable || item.status == CountryItem.STATUS_DOWNLOADABLE
                                     || item.status == CountryItem.STATUS_FAILED;
-        maps.add(new MapItem(item.id, item.name, item.description, item.isExpandable(), isDownloadable, item.present,
+        final boolean isRemovable = item.present && !item.id.startsWith("World");
+
+        maps.add(new MapItem(item.id, item.name, item.description, item.isExpandable(), isDownloadable, isRemovable,
                              item.status, item.childCount, item.totalChildCount));
       }
       onMapsLoadedListener.onMapsLoaded(maps);

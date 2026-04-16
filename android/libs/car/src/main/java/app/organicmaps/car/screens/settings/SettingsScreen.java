@@ -90,7 +90,7 @@ public class SettingsScreen extends BaseMapScreen
   private Item createDownloadMapsItem()
   {
     final Row.Builder builder = new Row.Builder();
-    builder.setTitle("Download Maps");
+    builder.setTitle(getCarContext().getString(R.string.download_maps));
     builder.setOnClickListener(
         () -> getScreenManager().push(new MapsViewerScreen(getCarContext(), getOrganicMapsContext())));
     builder.setBrowsable(true);
