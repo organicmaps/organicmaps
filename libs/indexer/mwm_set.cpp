@@ -155,7 +155,8 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFil
 
   {
     auto & vec = m_info[localFile.GetCountryName()];
-    ASSERT(vec.empty(), ());
+    // No assert here: old mwm with "STATUS_MARKED_TO_DEREGISTER".
+    // ASSERT(vec.empty(), ());
     vec.push_back(info);
   }
 
