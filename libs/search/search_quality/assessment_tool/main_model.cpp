@@ -200,7 +200,7 @@ void MainModel::OnShowPositionClicked()
   }
 
   CHECK(!points.empty(), ());
-  auto boundingBox = m2::ApplyCalculator(points, m2::CalculateBoundingBox());
+  auto boundingBox = m2::ApplyCalculatorPoly(points, m2::CalculateBoundingBox());
   boundingBox.Scale(kViewportAroundTopResultsScale);
 
   auto const minRect = mercator::RectByCenterXYAndSizeInMeters(boundingBox.Center(), kViewportAroundTopResultsSizeM);

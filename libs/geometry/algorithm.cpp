@@ -66,12 +66,4 @@ void CalculatePointOnSurface::operator()(PointD const & p1, PointD const & p2, P
     m_squareDistanceToApproximate = triangleDistance;
   }
 }
-
-// CalculateBoundingBox ----------------------------------------------------------------------------
-void CalculateBoundingBox::operator()(PointD const & p)
-{
-  // Works just fine. If you don't belive me, see geometry/rect2d.hpp.
-  // Pay attention to MakeEmpty and Add functions.
-  m_boundingBox.Add(p);
-}
 }  // namespace m2
