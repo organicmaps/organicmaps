@@ -77,4 +77,13 @@ auto ApplyCalculatorPoly(TCollection const & collection, TCalculator && calc)
     calc(p);
   return calc.GetResult();
 }
+
+/// Returns the linearly-interpolated point at |targetDistance| along the polyline formed by
+/// |points|, given pre-computed cumulative |distances| where distances[i] is the cumulative
+/// length from points[0] to points[i + 1]. For |targetDistance| outside [0, distances.back()]
+/// the corresponding endpoint is returned.
+/// REQUIRES: distances.size() + 1 == points.size() and |distances| is non-decreasing.
+PointD InterpolatePointAtDistance(std::vector<double> const & distances, std::vector<PointD> const & points,
+                                  double targetDistance);
+
 }  // namespace m2
