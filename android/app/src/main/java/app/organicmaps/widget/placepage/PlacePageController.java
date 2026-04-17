@@ -370,8 +370,10 @@ public class PlacePageController
 
     final int state = mPlacePageBehavior.getState();
     // Do not animate the peek height if the place page should not be collapsed (eg: when returning from editor)
+    // Do not animate during dragging or settling to avoid incorrect maxHeight causing a "floating" gap at the bottom
     final boolean shouldAnimate =
-        !(PlacePageUtils.isExpandedState(state) && !mShouldCollapse) && !PlacePageUtils.isHiddenState(state);
+        !(PlacePageUtils.isExpandedState(state) && !mShouldCollapse) && !PlacePageUtils.isHiddenState(state)
+        && !PlacePageUtils.isDraggingState(state) && !PlacePageUtils.isSettlingState(state);
     if (shouldAnimate)
       animatePeekHeight(peekHeight);
     else
