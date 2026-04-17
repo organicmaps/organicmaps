@@ -1,2 +1,0 @@
-omim-data-essential
-omim-data-files
