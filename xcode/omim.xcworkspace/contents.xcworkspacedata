@@ -21,16 +21,6 @@
       </FileRef>
    </Group>
    <Group
-      location = "container:../libs/pyhelpers"
-      name = "pyhelpers">
-      <FileRef
-         location = "group:pair.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:vector_uint8.hpp">
-      </FileRef>
-   </Group>
-   <Group
       location = "container:"
       name = "3party">
       <FileRef
