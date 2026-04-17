@@ -724,13 +724,13 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   CHECK(track, ());
 
   // Snap to the nearest point on the track, same as BuildTrackPlacePage.
-  Track::TrackSelectionInfo selInfo(trackId, mercator, 0.0 /* distFromBegM */);
-  auto const touchRect = df::TapInfo::GetDefaultTapRect(mercator, m_currentModelView).GetGlobalRect();
-  track->UpdateSelectionInfo(touchRect, selInfo);
+  Track::TrackSelectionInfo trackSelInfo;
+  track->UpdateSelectionInfo(mercator, trackSelInfo);
+  ASSERT(trackSelInfo.IsValid(), ());
 
   outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-  FillTrackInfo(*track, selInfo.m_trackPoint, outInfo);
-  bm.SetTrackSelectionInfo(selInfo, true /* notifyListeners */);
+  FillTrackInfo(*track, trackSelInfo.m_trackPoint, outInfo);
+  bm.SetTrackSelectionInfo(trackSelInfo, true /* notifyListeners */);
   return true;
 }
 
@@ -2229,19 +2229,20 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   // 4. User Tracks. Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
   if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled())
   {
-    Track::TrackSelectionInfo trackSelectionInfo;
+    Track::TrackSelectionInfo trackSelInfo;
     if (buildInfo.m_trackId != kml::kInvalidTrackId)
     {
-      auto const & track = *GetBookmarkManager().GetTrack(buildInfo.m_trackId);
-      // Pass track's rect to ensure that intersection passes and we can update distance only
-      track.UpdateSelectionInfo(track.GetLimitRect(), trackSelectionInfo);
+      // Known track: find the closest point to the track's bounding-rect center, no distance limit.
+      auto const * track = GetBookmarkManager().GetTrack(buildInfo.m_trackId);
+      track->UpdateSelectionInfo(track->GetLimitRect().Center(), trackSelInfo);
+      ASSERT(trackSelInfo.IsValid(), ());
     }
     else
-      trackSelectionInfo = FindTrackInTapPosition(buildInfo);
+      trackSelInfo = FindTrackInTapPosition(buildInfo);
 
-    if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)
+    if (trackSelInfo.IsValid())
     {
-      BuildTrackPlacePage(trackSelectionInfo, outInfo);
+      BuildTrackPlacePage(trackSelInfo, outInfo);
       return outInfo;
     }
   }
