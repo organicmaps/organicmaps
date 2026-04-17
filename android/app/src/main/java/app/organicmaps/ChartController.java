@@ -60,9 +60,8 @@ public class ChartController implements OnChartValueSelectedListener
     mMaxAltitude = view.findViewById(R.id.highest_altitude);
     mMinAltitude = view.findViewById(R.id.lowest_altitude);
 
-    ElevationChartUtils.setupChart(mChart, mContext);
+    ElevationChartUtils.setupTrackChart(mChart, mContext);
     mChart.setOnChartValueSelectedListener(this);
-    ElevationChartUtils.initAxes(mChart, mContext, ElevationChartUtils.TRACK_X_LABEL_COUNT);
   }
 
   public void setData(@Nullable Track track, @NonNull ElevationInfo info, @NonNull TrackStatistics stats)

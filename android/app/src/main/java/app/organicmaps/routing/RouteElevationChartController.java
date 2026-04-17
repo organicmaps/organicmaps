@@ -48,9 +48,7 @@ public class RouteElevationChartController
     if (mChart == null)
       return;
 
-    ElevationChartUtils.setupChart(mChart, mContext);
-    mChart.setDragEnabled(true);
-    ElevationChartUtils.initAxes(mChart, mContext, ElevationChartUtils.ROUTE_X_LABEL_COUNT);
+    ElevationChartUtils.setupRouteChart(mChart, mContext);
     mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
       @Override
       public void onValueSelected(Entry e, Highlight h)
