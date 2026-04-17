@@ -17,8 +17,8 @@ import java.util.List;
 
 public final class ElevationChartUtils
 {
-  public static final int TRACK_X_LABEL_COUNT = 6;
-  public static final int ROUTE_X_LABEL_COUNT = 3;
+  private static final int TRACK_X_LABEL_COUNT = 6;
+  private static final int ROUTE_X_LABEL_COUNT = 3;
 
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
@@ -28,11 +28,22 @@ public final class ElevationChartUtils
 
   private ElevationChartUtils() {}
 
-  public static void setupChart(@NonNull LineChart chart, @NonNull Context context)
+  public static void setupTrackChart(@NonNull LineChart chart, @NonNull Context context)
+  {
+    int topOffset = context.getResources().getDimensionPixelSize(R.dimen.margin_quarter);
+    setupCommon(chart, context, topOffset, TRACK_X_LABEL_COUNT);
+  }
+
+  public static void setupRouteChart(@NonNull LineChart chart, @NonNull Context context)
+  {
+    setupCommon(chart, context, 0, ROUTE_X_LABEL_COUNT);
+  }
+
+  private static void setupCommon(@NonNull LineChart chart, @NonNull Context context, int topOffset, int xLabelCount)
   {
     chart.setBackgroundColor(ThemeUtils.getColor(context, R.attr.cardBackground));
     chart.setTouchEnabled(true);
-    chart.setHighlightPerDragEnabled(true);
+    chart.setHighlightPerDragEnabled(false);
     chart.setHighlighter(new InterpolatingHighlighter(chart));
     chart.setRenderer(new SmoothLineChartRenderer(chart, chart.getAnimator(), chart.getViewPortHandler()));
     chart.setDrawGridBackground(false);
@@ -40,15 +51,15 @@ public final class ElevationChartUtils
     chart.setScaleYEnabled(false);
     chart.setExtraTopOffset(0);
     int sideOffset = context.getResources().getDimensionPixelSize(R.dimen.margin_base);
-    int topOffset = 0;
     chart.setViewPortOffsets(sideOffset, topOffset, sideOffset,
                              context.getResources().getDimensionPixelSize(R.dimen.margin_base_plus_quarter));
     chart.getDescription().setEnabled(false);
     chart.setDrawBorders(false);
     chart.getLegend().setEnabled(false);
+    initAxes(chart, context, xLabelCount);
   }
 
-  public static void initAxes(@NonNull LineChart chart, @NonNull Context context, int xLabelCount)
+  private static void initAxes(@NonNull LineChart chart, @NonNull Context context, int xLabelCount)
   {
     XAxis x = chart.getXAxis();
     x.setLabelCount(xLabelCount, false);
