@@ -90,10 +90,6 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   if (auto routes = info.FormatRouteRefs(); !routes.empty())
     addEntry("Routes", routes);
 
-  // Opening hours fragment
-  if (auto openingHours = info.GetOpeningHours(); !openingHours.empty())
-    addEntry(DebugPrint(PropID::FMD_OPEN_HOURS), std::string(openingHours));
-
   // Cuisine fragment
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
