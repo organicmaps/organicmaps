@@ -2255,8 +2255,7 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     {
       auto const tapRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
       searchRect = tapRect.GetGlobalRect();
-      lineDistThresholdM =
-          mercator::DistanceOnEarth(searchRect.Center(), {searchRect.RightTop().x, searchRect.Center().y});
+      lineDistThresholdM = mercator::DistanceOnEarth(searchRect.Center(), searchRect.RightTop());
     }
     else
     {
