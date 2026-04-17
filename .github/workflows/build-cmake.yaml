@@ -22,7 +22,6 @@ on:
       - data/strings/**
       - docs/**
       - packaging/**
-      - pyhelpers/**
       - tools/**
       - '!tools/python/test_server/**'
       - xcode/**

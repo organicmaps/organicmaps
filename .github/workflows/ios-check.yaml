@@ -27,7 +27,6 @@ on:
       - platform/*_mac*
       - platform/*qt*
       - platform/*_win*
-      - pyhelpers/**
       - qt*/**
       - skin_generator/**
       - tools/**
