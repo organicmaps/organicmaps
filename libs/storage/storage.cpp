@@ -586,9 +586,11 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 void Storage::DeleteCountry(CountryId const & countryId, MapFileType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_willDelete != nullptr, ("Storage::Init wasn't called"));
+  ASSERT(m_willDelete, ("Storage::Init wasn't called"));
 
   LocalFilePtr localFile = GetLatestLocalFile(countryId);
+  // localFile may be nullptr
+
   bool const deferredDelete = m_willDelete(countryId, localFile);
   DeleteCountryFiles(countryId, type, deferredDelete);
   DeleteCountryFilesFromDownloader(countryId);
@@ -626,17 +628,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 
   auto it = m_localFilesForFakeCountries.find(localFile.GetCountryFile());
   if (it != m_localFilesForFakeCountries.end())
-  {
     m_localFilesForFakeCountries.erase(it);
-    return;
-  }
-
-  CountryId const & countryId = FindCountryId(localFile);
-  if (!IsLeaf(countryId))
-  {
-    LOG(LERROR, ("Removed files for an unknown country:", localFile));
-    return;
-  }
 }
 
 void Storage::NotifyStatusChanged(CountryId const & countryId)
@@ -1365,7 +1357,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
 
   auto downloadAction = [this, isUpdate](CountryTree::Node const & descendantNode)
   {
-    if (descendantNode.ChildrenCount() == 0 && GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
+    if (descendantNode.IsLeaf() && GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
     {
       auto const countryId = descendantNode.Value().Name();
       auto const fileType = isUpdate && m_diffsDataSource->HasDiffFor(countryId) ? MapFileType::Diff : MapFileType::Map;
@@ -1421,7 +1413,7 @@ bool Storage::IsDisputed(CountryTree::Node const & node) const
 
 bool Storage::IsCountryLeaf(CountryTree::Node const & node)
 {
-  return (node.ChildrenCount() == 0 && !IsWorldCountryID(node.Value().Name()));
+  return (node.IsLeaf() && !IsWorldCountryID(node.Value().Name()));
 }
 
 bool Storage::IsWorldCountryID(CountryId const & country)
@@ -1628,11 +1620,12 @@ StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
                                           bool isDisputedTerritoriesCounted) const
 {
   // Leaf node status.
-  if (node.ChildrenCount() == 0)
+  if (node.IsLeaf())
   {
-    StatusAndError const statusAndError = ParseStatus(CountryStatusEx(node.Value().Name()));
+    auto const & countryId = node.Value().Name();
+    StatusAndError const statusAndError = ParseStatus(CountryStatusEx(countryId));
     if (IsDisputed(node))
-      disputedTerritories.push_back(std::make_pair(node.Value().Name(), statusAndError.status));
+      disputedTerritories.push_back(std::make_pair(countryId, statusAndError.status));
     return statusAndError;
   }
 
@@ -1650,7 +1643,7 @@ StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
       return;
     }
 
-    if (result == NodeStatus::Downloading || nodeInSubtree.ChildrenCount() != 0)
+    if (result == NodeStatus::Downloading || !nodeInSubtree.IsLeaf())
       return;
 
     if (statusAndError.status != NodeStatus::OnDisk)
@@ -1722,8 +1715,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
     // Downloading mwm information.
     StatusAndError const statusAndErr = GetNodeStatus(d);
     ASSERT_NOT_EQUAL(statusAndErr.status, NodeStatus::Undefined, ());
-    if (statusAndErr.status != NodeStatus::NotDownloaded && statusAndErr.status != NodeStatus::Partly &&
-        d.ChildrenCount() == 0)
+    if (statusAndErr.status != NodeStatus::NotDownloaded && statusAndErr.status != NodeStatus::Partly && d.IsLeaf())
     {
       nodeAttrs.m_downloadingMwmCounter += 1;
       nodeAttrs.m_downloadingMwmSize += d.Value().GetSubtreeMwmSizeBytes();
@@ -1887,7 +1879,7 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
 
   auto const updateInfoAccumulator = [&updateInfo, this](CountryTree::Node const & node)
   {
-    if (node.ChildrenCount() != 0 || GetNodeStatus(node).status != NodeStatus::OnDiskOutOfDate)
+    if (!node.IsLeaf() || GetNodeStatus(node).status != NodeStatus::OnDiskOutOfDate)
       return;
 
     // Here the node is a leaf describing one mwm file (not a group node).
