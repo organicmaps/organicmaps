@@ -17,11 +17,10 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 
+#include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"  // kPointEqualityEps
 
 #include "coding/file_writer.hpp"
@@ -29,10 +28,10 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include <algorithm>
 #include <map>
 
 using namespace routing;
+
 namespace
 {
 std::string_view constexpr kRouterTypeKey = "router";
@@ -1235,28 +1234,6 @@ bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
   return true;
 }
 
-m2::PointD InterpolatePointAtDistance(std::vector<double> const & distances, std::vector<m2::PointD> const & points,
-                                      double distanceMeters)
-{
-  ASSERT_EQUAL(distances.size() + 1, points.size(), ());
-
-  if (distanceMeters <= 0)
-    return points.front();
-
-  if (distanceMeters >= distances.back())
-    return points.back();
-
-  auto const it = std::upper_bound(distances.begin(), distances.end(), distanceMeters);
-  size_t const idx = std::distance(distances.begin(), it);
-  // distances[idx-1] <= distanceMeters < distances[idx], points[idx] .. points[idx+1]
-  double const prevDist = idx > 0 ? distances[idx - 1] : 0.0;
-  double const segLen = distances[idx] - prevDist;
-  // segLen == 0 is unreachable: upper_bound skips duplicates to the first strictly-greater element.
-  ASSERT(segLen > 0, (distanceMeters, prevDist, distances[idx]));
-  double const f = (distanceMeters - prevDist) / segLen;
-  return points[idx] + (points[idx + 1] - points[idx]) * f;
-}
-
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
   auto const * route = m_routingSession.GetRoute();
@@ -1265,7 +1242,7 @@ std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanc
 
   auto const & distances = route->GetSegDistanceMeters();
   auto const & points = route->GetPoly().GetPoints();
-  return InterpolatePointAtDistance(distances, points, distanceMeters);
+  return m2::InterpolatePointAtDistance(distances, points, distanceMeters);
 }
 
 void RoutingManager::SetRouter(RouterType type)

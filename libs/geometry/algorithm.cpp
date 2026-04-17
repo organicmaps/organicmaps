@@ -66,4 +66,31 @@ void CalculatePointOnSurface::operator()(PointD const & p1, PointD const & p2, P
     m_squareDistanceToApproximate = triangleDistance;
   }
 }
+
+/// @todo Make distances.size() == points.size() and unify with:
+/// - CalculatePolyLineCenter
+/// - Track::GetPoint(distance)
+PointD InterpolatePointAtDistance(std::vector<double> const & distances, std::vector<PointD> const & points,
+                                  double targetDistance)
+{
+  ASSERT_EQUAL(distances.size() + 1, points.size(), ());
+
+  if (targetDistance <= 0)
+    return points.front();
+
+  if (targetDistance >= distances.back())
+    return points.back();
+
+  auto const it = std::upper_bound(distances.begin(), distances.end(), targetDistance);
+  size_t const idx = std::distance(distances.begin(), it);
+
+  // distances[idx-1] <= targetDistance < distances[idx], points[idx] .. points[idx+1]
+  double const prevDist = idx > 0 ? distances[idx - 1] : 0.0;
+  double const segLen = distances[idx] - prevDist;
+
+  // segLen == 0 is unreachable: upper_bound skips duplicates to the first strictly-greater element.
+  ASSERT(segLen > 0, (targetDistance, prevDist, distances[idx]));
+  double const f = (targetDistance - prevDist) / segLen;
+  return points[idx] + (points[idx + 1] - points[idx]) * f;
+}
 }  // namespace m2
