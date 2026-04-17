@@ -3,8 +3,6 @@
 #include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"
 
-#include "base/assert.hpp"
-
 #include <vector>
 
 namespace algorithm_test
@@ -19,19 +17,18 @@ using m2::RectD;
 
 PointD GetPolyLineCenter(vector<PointD> const & points)
 {
-  return m2::ApplyCalculator(points, m2::CalculatePolyLineCenter());
+  return m2::ApplyCalculatorPoly(points, m2::CalculatePolyLineCenter());
 }
 
 RectD GetBoundingBox(vector<PointD> const & points)
 {
-  return m2::ApplyCalculator(points, m2::CalculateBoundingBox());
+  return m2::ApplyCalculatorPoly(points, m2::CalculateBoundingBox());
 }
 
 PointD GetPointOnSurface(vector<PointD> const & points)
 {
-  ASSERT(!points.empty() && points.size() % 3 == 0, ("points.size() =", points.size()));
   auto const boundingBox = GetBoundingBox(points);
-  return m2::ApplyCalculator(points, m2::CalculatePointOnSurface(boundingBox));
+  return m2::ApplyCalculatorTrg(points, m2::CalculatePointOnSurface(boundingBox));
 }
 
 bool PointsAlmostEqual(PointD const & p1, PointD const & p2)
