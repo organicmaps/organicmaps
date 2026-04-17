@@ -46,6 +46,7 @@ set(SRC
   app/organicmaps/sdk/routing/TransitRouteInfo.hpp
   app/organicmaps/sdk/routing/TransitStepInfo.hpp
   app/organicmaps/sdk/ChoosePositionMode.cpp
+  app/organicmaps/sdk/CountryMetadata.cpp
   app/organicmaps/sdk/MapStyle.cpp
   app/organicmaps/sdk/OrganicMaps.cpp
   app/organicmaps/sdk/Router.cpp
@@ -77,6 +78,7 @@ set(SRC
   app/organicmaps/sdk/editor/OsmOAuth.cpp
   app/organicmaps/sdk/Framework.cpp
   app/organicmaps/sdk/isolines/IsolinesManager.cpp
+  app/organicmaps/sdk/location/CurrentCountryManager.cpp
   app/organicmaps/sdk/LocationState.cpp
   app/organicmaps/sdk/Map.cpp
   app/organicmaps/sdk/MapManager.cpp

@@ -253,6 +253,9 @@ void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosit
 
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
+
+  if (hasPosition)
+    m_locationCountryTracker.OnLocationUpdate(position);
 }
 
 void Framework::OnViewportChanged(ScreenBase const & screen)
@@ -1174,6 +1177,11 @@ void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged listener
   m_lastReportedCountry = kInvalidCountryId;
 }
 
+void Framework::SetLocationCountryChangedListener(TCurrentCountryChanged listener)
+{
+  m_locationCountryTracker.SetListener(std::move(listener));
+}
+
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
@@ -1214,6 +1222,7 @@ void Framework::InitCountryInfoGetter()
 
   // Storage::GetAffiliations() pointer never changed.
   m_infoGetter->SetAffiliations(m_storage.GetAffiliations());
+  m_locationCountryTracker.SetInfoGetter(*m_infoGetter);
 }
 
 void Framework::InitSearchAPI(size_t numThreads)
