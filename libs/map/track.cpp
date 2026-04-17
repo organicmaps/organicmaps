@@ -5,7 +5,6 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
-#include "geometry/rect_intersect.hpp"
 
 #include <algorithm>
 
@@ -119,9 +118,11 @@ double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
   return lineLengths[ptIndex];
 }
 
-void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo & info) const
+void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
 {
-  if (m_interactionData && !m_interactionData->m_limitRect.IsIntersect(touchRect))
+  // Caller sets info.m_squareDist to the max allowed squared distance (mercator). Any segment
+  // whose closest point is strictly closer replaces the current best.
+  if (m_interactionData && m_interactionData->m_limitRect.SquaredDistance(tapPoint) >= info.m_squareDist)
     return;
 
   for (size_t lineIndex = 0; lineIndex < m_data.m_geometry.m_lines.size(); ++lineIndex)
@@ -129,15 +130,9 @@ void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo 
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
     for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
-      /// @todo Better to set an initial square-dist threshold (info.m_squareDist) instead of rect intersection.
-      auto pt1 = line[ptIndex].GetPoint();
-      auto pt2 = line[ptIndex + 1].GetPoint();
-      if (!m2::Intersect(touchRect, pt1, pt2))
-        continue;
-
-      m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
-      auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
-      auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
+      m2::ParametrizedSegment<m2::PointD> seg(line[ptIndex].GetPoint(), line[ptIndex + 1].GetPoint());
+      auto const closestPoint = seg.ClosestPointTo(tapPoint);
+      auto const squaredDist = closestPoint.SquaredLength(tapPoint);
       if (squaredDist >= info.m_squareDist)
         continue;
 

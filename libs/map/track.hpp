@@ -7,6 +7,8 @@
 
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include "geometry/any_rect2d.hpp"
+
 #include <string>
 
 class Track : public df::UserLineMark
@@ -47,6 +49,22 @@ public:
       , m_distFromBegM(distFromBegM)
     {}
 
+    /// @name Use diagonal distance threshold since we are in anisotropic mercator.
+    /// Square diagonal = 2 * sqrt(2) * radius => radius^2 = diagonal^2 / 8.
+    /// @{
+    void SetDistanceFilter(m2::RectD const & r) { m_squareDist = r.LeftBottom().SquaredLength(r.RightTop()) / 8.0; }
+    // void SetDistanceFilter(m2::AnyRectD const & r)
+    // {
+    //   m2::AnyRectD::Corners pts;
+    //   r.GetGlobalPoints(pts);
+    //   m_squareDist = pts[0].SquaredLength(pts[2]) / 8.0;
+    // }
+    /// @}
+
+    /// @return true  Data is initialized and correct (after UpdateSelectionInfo call).
+    /// Can be false if input m_squareDist filtered all track's segments.
+    bool IsValid() const { return m_trackId != kml::kInvalidTrackId; }
+
     kml::TrackId m_trackId = kml::kInvalidTrackId;
     m2::PointD m_trackPoint;
     // Distance in meters from the beginning to m_trackPoint.
@@ -55,7 +73,9 @@ public:
     double m_squareDist = std::numeric_limits<double>::max();
   };
 
-  void UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo & info) const;
+  // Caller must pre-set info.m_squareDist to the max allowed squared mercator distance to
+  // accept a segment. The default (std::numeric_limits<double>::max()) means no threshold.
+  void UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const;
 
   int GetMinZoom() const override { return 1; }
   df::DepthLayer GetDepthLayer() const override;

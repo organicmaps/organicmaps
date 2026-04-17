@@ -928,6 +928,8 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   Track::TrackSelectionInfo selectionInfo;
+  auto const tapPoint = touchRect.Center();
+  selectionInfo.SetDistanceFilter(touchRect);
 
   for (auto const & pair : m_categories)
   {
@@ -941,7 +943,7 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
       if (tracksFilter && !tracksFilter(track))
         continue;
 
-      track->UpdateSelectionInfo(touchRect, selectionInfo);
+      track->UpdateSelectionInfo(tapPoint, selectionInfo);
     }
   }
 

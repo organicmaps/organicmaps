@@ -196,6 +196,149 @@ UNIT_TEST(Track_GetPoint_NegativeDistance)
   TEST_ALMOST_EQUAL_ABS(track.GetPoint(-1.0), p1.GetPoint(), kEqualPointsEps, ());
 }
 
+// ===================== UpdateSelectionInfo tests =====================
+
+UNIT_TEST(Track_UpdateSelectionInfo_OnSegment)
+{
+  using PWA = PointWithAltitude;
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 1.0;  // allow up to distance 1
+  track.UpdateSelectionInfo(m2::PointD(5.0, 0.0), info);
+
+  TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(5.0, 0.0), kEqualPointsEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 0.0, kEqualPointsEps, ());
+}
+
+UNIT_TEST(Track_UpdateSelectionInfo_PerpendicularFoot)
+{
+  using PWA = PointWithAltitude;
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0)}});
+
+  // Tap above segment: closest point is the perpendicular foot.
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 1.0;  // 0.5^2 = 0.25 < 1, should accept
+  track.UpdateSelectionInfo(m2::PointD(3.0, 0.5), info);
+
+  TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(3.0, 0.0), kEqualPointsEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 0.25, kEqualPointsEps, ());
+}
+
+// Tap farther than the threshold: info is left untouched.
+UNIT_TEST(Track_UpdateSelectionInfo_BeyondThreshold)
+{
+  using PWA = PointWithAltitude;
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 0.04;  // only accept within 0.2
+  track.UpdateSelectionInfo(m2::PointD(5.0, 1.0), info);
+
+  TEST_EQUAL(info.m_trackId, kml::kInvalidTrackId, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 0.04, kEqualPointsEps, ());
+}
+
+// Endpoint fallback: tap beyond the segment, closest point is the endpoint.
+UNIT_TEST(Track_UpdateSelectionInfo_BeyondSegmentEnd)
+{
+  using PWA = PointWithAltitude;
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 100.0;
+  track.UpdateSelectionInfo(m2::PointD(12.0, 0.0), info);
+
+  TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(10.0, 0.0), kEqualPointsEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 4.0, kEqualPointsEps, ());
+}
+
+// Multi-segment track: best segment wins.
+UNIT_TEST(Track_UpdateSelectionInfo_MultiSegmentClosestWins)
+{
+  using PWA = PointWithAltitude;
+  // L-shape: (0,0) -> (10,0) -> (10,10)
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0), PWA({10.0, 10.0}, 0)}});
+
+  // Tap nearer to the vertical leg.
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 100.0;
+  track.UpdateSelectionInfo(m2::PointD(9.0, 5.0), info);
+
+  TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(10.0, 5.0), kEqualPointsEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 1.0, kEqualPointsEps, ());
+}
+
+// Multi-line track: best line wins regardless of ordering.
+UNIT_TEST(Track_UpdateSelectionInfo_MultiLine)
+{
+  using PWA = PointWithAltitude;
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0)}, {PWA({0.0, 100.0}, 0), PWA({10.0, 100.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 10000.0;
+  track.UpdateSelectionInfo(m2::PointD(5.0, 99.0), info);
+
+  TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(5.0, 100.0), kEqualPointsEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 1.0, kEqualPointsEps, ());
+}
+
+// Subsequent call tightens the threshold via info.m_squareDist carry-over.
+UNIT_TEST(Track_UpdateSelectionInfo_ThresholdTightensAcrossCalls)
+{
+  using PWA = PointWithAltitude;
+  Track farTrack = MakeTrack({{PWA({0.0, 5.0}, 0), PWA({10.0, 5.0}, 0)}});
+  Track nearTrack = MakeTrack({{PWA({0.0, 1.0}, 0), PWA({10.0, 1.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 100.0;
+  // Tap at (5, 0): far track is at dist 5 (sq=25), near track is at dist 1 (sq=1).
+  farTrack.UpdateSelectionInfo(m2::PointD(5.0, 0.0), info);
+  TEST_EQUAL(info.m_trackId, farTrack.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 25.0, kEqualPointsEps, ());
+
+  nearTrack.UpdateSelectionInfo(m2::PointD(5.0, 0.0), info);
+  TEST_EQUAL(info.m_trackId, nearTrack.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 1.0, kEqualPointsEps, ());
+}
+
+// Farther track is rejected when a closer one already set a tighter threshold.
+UNIT_TEST(Track_UpdateSelectionInfo_FartherTrackRejected)
+{
+  using PWA = PointWithAltitude;
+  Track nearTrack = MakeTrack({{PWA({0.0, 1.0}, 0), PWA({10.0, 1.0}, 0)}});
+  Track farTrack = MakeTrack({{PWA({0.0, 5.0}, 0), PWA({10.0, 5.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  info.m_squareDist = 100.0;
+  nearTrack.UpdateSelectionInfo(m2::PointD(5.0, 0.0), info);
+  auto const nearId = info.m_trackId;
+  TEST_EQUAL(nearId, nearTrack.GetData().m_id, ());
+
+  // Far track is beyond the tightened threshold: must not replace nearTrack.
+  farTrack.UpdateSelectionInfo(m2::PointD(5.0, 0.0), info);
+  TEST_EQUAL(info.m_trackId, nearId, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_squareDist, 1.0, kEqualPointsEps, ());
+}
+
+// No explicit threshold: default (max) accepts everything.
+UNIT_TEST(Track_UpdateSelectionInfo_DefaultThresholdAcceptsAny)
+{
+  using PWA = PointWithAltitude;
+  Track track = MakeTrack({{PWA({0.0, 0.0}, 0), PWA({10.0, 0.0}, 0)}});
+
+  Track::TrackSelectionInfo info;
+  // Default info.m_squareDist = max. Tap very far from the track.
+  track.UpdateSelectionInfo(m2::PointD(1e6, 1e6), info);
+  TEST_EQUAL(info.m_trackId, track.GetData().m_id, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_trackPoint, m2::PointD(10.0, 0.0), kEqualPointsEps, ());
+}
+
 // ===================== TrackStatistics tests =====================
 
 UNIT_TEST(TrackStatistics_Duration)
