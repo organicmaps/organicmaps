@@ -739,6 +739,34 @@ std::vector<uint8_t> BuildV11TrackKmb(uint32_t npts, std::vector<time_t> const &
 }
 }  // namespace
 
+UNIT_TEST(Kml_DecodeMaybeMillisSinceEpoch_Heuristic)
+{
+  using kml::binary::DecodeMaybeMillisSinceEpoch;
+
+  // Zero round-trips as zero (below 10^9 band -> /1000 -> 0).
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(0), 0u, ());
+
+  // Small test-fixture values: 800 seconds stored as 800000 ms should decode back to 800 s.
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(800000u), 800u, ());
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(1000u), 1u, ("Below 10^9 -> treat as ms"));
+
+  // Real-world post-2001 seconds (10^9 .. 10^12): Portugal.kmb bookmark 0 -> 2018-11-02.
+  constexpr uint64_t kBookmarkAsSeconds = 1541183839ULL;
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(kBookmarkAsSeconds), kBookmarkAsSeconds, ());
+
+  // Real-world post-2001 milliseconds (>= 10^12): Portugal.kmb bookmark 800 -> 2024-06-08.
+  constexpr uint64_t kBookmarkAsMillis = 1717852356329ULL;
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(kBookmarkAsMillis), kBookmarkAsMillis / 1000, ());
+
+  // Boundary values. 10^9 is treated as seconds; 10^9 - 1 as ms.
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(1'000'000'000ULL), 1'000'000'000ULL, ());
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(999'999'999ULL), 999'999ULL, ());
+
+  // 10^12 is treated as ms; 10^12 - 1 as seconds.
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(1'000'000'000'000ULL), 1'000'000'000ULL, ());
+  TEST_EQUAL(DecodeMaybeMillisSinceEpoch(999'999'999'999ULL), 999'999'999'999ULL, ());
+}
+
 UNIT_TEST(Kml_Deserialization_From_KMB_V11_With_PointTimestamps)
 {
   // Three points, three per-point capture times (simulating a GPS track like Portugal.kmb).
