@@ -137,4 +137,52 @@ UNIT_TEST(Feature_TypesPriority)
   }
 }
 
+UNIT_TEST(Feature_TypesEqualUsefulSorted)
+{
+  classificator::Load();
+
+  {
+    auto types1 = MakeTypesHolder(
+        {
+            {"psurface", "paved_bad"},
+            {"highway", "cycleway"},
+        },
+        false /* sortBySpec */, feature::GeomType::Line);
+
+    auto types2 = MakeTypesHolder(
+        {
+            {"psurface", "paved_good"},
+            {"highway", "cycleway"},
+        },
+        false /* sortBySpec */, feature::GeomType::Line);
+
+    types1.SortToCompare();
+    types2.SortToCompare();
+    TEST(types1.EqualUsefulSorted(types2), ());
+  }
+
+  {
+    auto types1 = MakeTypesHolder({{"cuisine", "vegan"}, {"amenity", "cafe"}});
+    auto types2 = MakeTypesHolder({{"cuisine", "vegan"}, {"amenity", "restaurant"}});
+    types1.SortToCompare();
+    types2.SortToCompare();
+    TEST(!types1.EqualUsefulSorted(types2), ());
+  }
+  {
+    auto types1 = MakeTypesHolder({{"shop", "bakery"}, {"amenity", "cafe"}});
+    auto types2 = MakeTypesHolder({{"shop", "bakery"}});
+    types1.SortToCompare();
+    types2.SortToCompare();
+    TEST(types1.front() == types2.front(), ());
+    TEST(!types1.EqualUsefulSorted(types2), ());
+  }
+  {
+    auto types1 = MakeTypesHolder({{"building"}});
+    auto types2 = MakeTypesHolder({{"building"}, {"internet_access", "wlan"}});
+    types1.SortToCompare();
+    types2.SortToCompare();
+    TEST(types1.EqualUsefulSorted(types2), ());
+  }
+}
+
 }  // namespace feature_types_test
