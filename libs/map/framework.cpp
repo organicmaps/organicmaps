@@ -2251,23 +2251,19 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   if (isFeatureMatchingEnabled)
   {
     m2::RectD searchRect;
-    double lineDistThresholdM;
     if (m_drapeEngine != nullptr)
     {
-      auto const tapRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
-      searchRect = tapRect.GetGlobalRect();
-      lineDistThresholdM =
-          mercator::DistanceOnEarth(searchRect.Center(), {searchRect.RightTop().x, searchRect.Center().y});
+      // No problem if it is bigger with rotation.
+      searchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
     }
     else
     {
       // Fallback when drape engine is not available (e.g. search result selection).
       constexpr double kFallbackRadiusM = 20.0;
       searchRect = mercator::RectByCenterXYAndSizeInMeters(buildInfo.m_mercator, kFallbackRadiusM);
-      lineDistThresholdM = kFallbackRadiusM;
     }
 
-    auto const tap = sp.FindFeaturesInRect(buildInfo.m_mercator, searchRect, lineDistThresholdM);
+    auto const tap = sp.FindFeaturesInRect(buildInfo.m_mercator, searchRect);
 
     // POIs (tap.m_poi) are intentionally not used here — visible POIs are always
     // selected through drape's OverlayTree (step 3). We must not select displaced or
@@ -2290,7 +2286,7 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
         }
       }
 
-      auto const bestFeature = tap.m_bestLine.IsValid() ? tap.m_bestLine : tap.m_bestArea;
+      auto const bestFeature = tap.m_line.IsValid() ? tap.m_line : tap.m_area;
       if (bestFeature.IsValid())
       {
         sp.FillFeatureInfo(bestFeature, outInfo);

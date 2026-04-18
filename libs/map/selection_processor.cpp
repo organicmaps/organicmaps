@@ -9,8 +9,6 @@
 
 #include "descriptions/loader.hpp"
 
-#include "coding/point_coding.hpp"
-
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_source.hpp"
@@ -18,11 +16,14 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "platform/preferred_languages.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "base/logging.hpp"
 
@@ -92,7 +93,7 @@ void SelectionProcessor::FillInfoFromFeatureType(FeatureType & ft, place_page::I
   using namespace ftypes;
 
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Deleted features cannot be selected from UI."));
+  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ());
   info.SetFeatureStatus(featureStatus);
 
   if (IsAddressObjectChecker::Instance()(ft))
@@ -148,9 +149,9 @@ void SelectionProcessor::FillFeatureInfo(FeatureID const & fid, place_page::Info
 
 void SelectionProcessor::FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
                                        std::string const & customTitle /* = {} */,
-                                       FeatureMatcher && matcher /* = nullptr */) const
+                                       FeatureMatcher const & matcher /* = nullptr */) const
 {
-  auto const fid = GetFeatureAtPoint(mercator, std::move(matcher));
+  auto const fid = GetFeatureAtPoint(mercator, matcher);
   if (fid.IsValid())
   {
     auto const & dataSource = m_fw.m_featuresFetcher.GetDataSource();
@@ -179,17 +180,65 @@ FeatureID SelectionProcessor::TapFeatures::GetBest() const
 {
   if (m_poi.IsValid())
     return m_poi;
-  if (m_bestLine.IsValid())
-    return m_bestLine;
+  if (m_line.IsValid())
+    return m_line;
   // Building has higher priority over non-building areas.
   if (m_building.IsValid())
     return m_building;
-  return m_bestArea;
+  return m_area;
 }
 
+namespace
+{
+// Minimum squared mercator distance from |pt| to line feature |ft|'s polyline at |scale|.
+// Uses ParametrizedSegment::SquaredDistanceToPoint (no trig).
+double LineMinSquaredMercator(FeatureType & ft, m2::PointD const & pt, int scale)
+{
+  double res = std::numeric_limits<double>::max();
+  ft.ForEachSegment([&](m2::PointD const & p1, m2::PointD const & p2)
+  {
+    m2::ParametrizedSegment<m2::PointD> const seg(p1, p2);
+    double const sq = seg.SquaredDistanceToPoint(pt);
+    if (sq < res)
+      res = sq;
+  }, scale);
+  return res;
+}
+
+// Squared mercator distance from |pt| to area feature |ft| (zero if |pt| is inside the polygon).
+// Early-exits the first time a triangle contains the point. Uses per-edge squared distance,
+// not earth distance, so no trig per segment.
+double AreaMinSquaredMercator(FeatureType & ft, m2::PointD const & pt, int scale)
+{
+  double res = std::numeric_limits<double>::max();
+  ft.ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+  {
+    if (res == 0.0)
+      return;
+
+    if (m2::IsPointInsideTriangle(pt, p1, p2, p3))
+    {
+      res = 0.0;
+      return;
+    }
+
+    auto updateEdge = [&](m2::PointD const & a, m2::PointD const & b)
+    {
+      double const sq = m2::ParametrizedSegment<m2::PointD>(a, b).SquaredDistanceToPoint(pt);
+      if (sq < res)
+        res = sq;
+    };
+    updateEdge(p1, p2);
+    updateEdge(p2, p3);
+    updateEdge(p3, p1);
+  }, scale);
+  return res;
+}
+}  // namespace
+
+/// @todo Unify with indexer::ForEachFeatureAtPoint.
 SelectionProcessor::TapFeatures SelectionProcessor::FindFeaturesInRect(
-    m2::PointD const & mercator, m2::RectD const & searchRect, double lineDistThresholdM,
-    FeatureMatcher const & matcher /* = nullptr */) const
+    m2::PointD const & mercator, m2::RectD const & rect, FeatureMatcher const & matcher /* = nullptr */) const
 {
   auto const & isIsoline = ftypes::IsIsolineChecker::Instance();
   auto const & isCoastline = ftypes::IsCoastlineChecker::Instance();
@@ -198,43 +247,48 @@ SelectionProcessor::TapFeatures SelectionProcessor::FindFeaturesInRect(
   constexpr int kScale = scales::GetUpperScale();
 
   TapFeatures result;
-  double closestLineDist = lineDistThresholdM;
-  double closestAreaDist = std::numeric_limits<double>::max();
-  bool matched = false;
 
-  /// @todo Do not call _heavy_ feature::GetMinDistanceMeters here, but iterate via segments/triangles
-  /// and check on limitRect and mercator square distance (threshold is calculated from rect).
+  // Square diagonal = 2 * sqrt(2) * radius => radius^2 = diagonal^2 / 8.
+  double const thresholdMercSq = rect.LeftBottom().SquaredLength(rect.RightTop()) / 8.0;
+  double closestPoint = thresholdMercSq;
+  double closestLine = thresholdMercSq;
+  double smallestBuilding = std::numeric_limits<double>::max();
+  double smallestArea = std::numeric_limits<double>::max();
 
-  auto const & dataSource = m_fw.m_featuresFetcher.GetDataSource();
-  dataSource.ForEachInRect([&](FeatureType & ft)
+  m_fw.m_featuresFetcher.GetDataSource().ForEachInRect([&](FeatureType & ft)
   {
-    if (matched)
+    if (matcher && !matcher(ft))
       return;
 
-    bool geometryHit = false;
+    m2::RectD const limitRect = ft.GetLimitRect(kScale);
+    if (!rect.IsIntersect(limitRect))
+      return;
 
     switch (ft.GetGeomType())
     {
     case feature::GeomType::Point:
-      if (searchRect.IsPointInside(ft.GetCenter()))
+    {
+      double const sq = mercator.SquaredLength(ft.GetCenter());
+      if (sq < closestPoint)
       {
-        geometryHit = true;
+        closestPoint = sq;
         result.m_poi = ft.GetID();
       }
       break;
+    }
     case feature::GeomType::Line:
     {
       if (isIsoline(ft))
         return;
-      double const dist = feature::GetMinDistanceMeters(ft, mercator);
-      if (dist < lineDistThresholdM)
+
+      double const sq = LineMinSquaredMercator(ft, mercator, kScale);
+      if (sq < thresholdMercSq)
       {
-        geometryHit = true;
-        result.m_lineCandidates.emplace_back(dist, ft.GetID());
-        if (dist < closestLineDist)
+        result.m_lineCandidates.emplace_back(sq, ft.GetID());
+        if (sq < closestLine)
         {
-          closestLineDist = dist;
-          result.m_bestLine = ft.GetID();
+          closestLine = sq;
+          result.m_line = ft.GetID();
         }
       }
       break;
@@ -245,56 +299,41 @@ SelectionProcessor::TapFeatures SelectionProcessor::FindFeaturesInRect(
       if (isCoastline(types))
         return;
 
-      // Inflate limit rect to tolerate small coordinate errors (e.g. from editor).
-      auto limitRect = ft.GetLimitRect(kScale);
-      limitRect.Inflate(kMwmPointAccuracy, kMwmPointAccuracy);
-      if (!limitRect.IsPointInside(mercator))
-        return;
-      if (feature::GetMinDistanceMeters(ft, mercator) > 0.01)
+      // Consider areas with the selection point inside only.
+      // kMwmPointAccuracy is more reasonable threshold (~1m on equator) than previous 1cm.
+      if (AreaMinSquaredMercator(ft, mercator, kScale) > math::Pow2(kMwmPointAccuracy))
         return;
 
-      geometryHit = true;
-
+      // Choose the smallest (inner) feature. This is the most reasonable logic for area selection (ATM).
+      double const area = limitRect.Area();
       if (isBuilding(types))
       {
-        if (!result.m_building.IsValid())
-          result.m_building = ft.GetID();
-      }
-      else
-      {
-        double const dist = mercator::DistanceOnEarth(mercator, feature::GetCenter(ft));
-        if (dist < closestAreaDist)
+        if (area < smallestBuilding)
         {
-          closestAreaDist = dist;
-          result.m_bestArea = ft.GetID();
+          smallestBuilding = area;
+          result.m_building = ft.GetID();
         }
+      }
+      else if (area < smallestArea)
+      {
+        smallestArea = area;
+        result.m_area = ft.GetID();
       }
       break;
     }
-    case feature::GeomType::Undefined: ASSERT(false, ("case feature::GeomType::Undefined")); break;
+    case feature::GeomType::Undefined: ASSERT(false, ()); break;
     }
+  }, rect, kScale);
 
-    // Matcher runs after geometry hit-testing to avoid matching features
-    // from neighboring spatial-index cells that don't actually contain the point.
-    if (geometryHit && matcher && matcher(ft))
-    {
-      result.m_poi = ft.GetID();
-      matched = true;
-    }
-  }, searchRect, kScale);
-
-  if (!matched)
-    std::sort(result.m_lineCandidates.begin(), result.m_lineCandidates.end());
-
+  std::sort(result.m_lineCandidates.begin(), result.m_lineCandidates.end());
   return result;
 }
 
 FeatureID SelectionProcessor::GetFeatureAtPoint(m2::PointD const & mercator,
-                                                FeatureMatcher && matcher /* = nullptr */) const
+                                                FeatureMatcher const & matcher /* = nullptr */) const
 {
   // ForEachFeatureAtPoint uses 1.1m rect and 3m line threshold at GetUpperScale.
-  constexpr double kQueryRectWidthM = 1.1;
-  constexpr double kLineDistThresholdM = 3.0;
-  auto const searchRect = mercator::RectByCenterXYAndSizeInMeters(mercator, kQueryRectWidthM);
-  return FindFeaturesInRect(mercator, searchRect, kLineDistThresholdM, std::move(matcher)).GetBest();
+  constexpr double kQueryRadiusM = 2;
+  auto const searchRect = mercator::RectByCenterXYAndSizeInMeters(mercator, kQueryRadiusM);
+  return FindFeaturesInRect(mercator, searchRect, matcher).GetBest();
 }

@@ -139,15 +139,22 @@ public:
   m2::PointD const & GetPoint(size_t i) const;
 
   template <typename TFunctor>
+  void ForEachSegment(TFunctor && f, int scale)
+  {
+    ParseGeometry(scale);
+
+    for (size_t i = 1; i < m_points.size(); ++i)
+      f(m_points[i - 1], m_points[i]);
+  }
+
+  template <typename TFunctor>
   void ForEachTriangle(TFunctor && f, int scale)
   {
     ParseTriangles(scale);
 
-    for (size_t i = 0; i < m_triangles.size();)
-    {
+    ASSERT(m_triangles.size() % 3 == 0, ());
+    for (size_t i = 0; i < m_triangles.size(); i += 3)
       f(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
-      i += 3;
-    }
   }
   //@}
 
