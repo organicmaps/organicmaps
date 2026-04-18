@@ -750,11 +750,17 @@ public:
     if (!SwitchSubIndexIfNeeded(index))
       return;
 
-    // TODO(AB): A copy of map is created, is it really necessary?
-    auto subIndex = index[m_counter];
+    auto const & subIndex = index[m_counter];
     auto const sz = static_cast<int8_t>(subIndex.size() / 2);
     for (int8_t i = 0; i < sz; i++)
-      properties.emplace(ExtractString(subIndex[2 * i]), ExtractString(subIndex[2 * i + 1]));
+    {
+      auto b = subIndex.find(2 * i);
+      auto e = subIndex.find(2 * i + 1);
+      if (b != subIndex.end() && e != subIndex.end())
+        properties.emplace(ExtractString(b->second), ExtractString(e->second));
+      else
+        LOG(LERROR, ("Invalid KMB string index"));
+    }
 
     m_counter++;
     Collect(index, args...);
