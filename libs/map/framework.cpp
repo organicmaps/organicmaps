@@ -589,19 +589,20 @@ kml::MarkGroupId Framework::AddCategory(std::string const & categoryName)
 
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
+  feature::TypesHolder bmTypes;
   auto const & srcTypes = bmk.GetData().m_featureTypes;
-  buffer_vector<uint32_t, 8> types(srcTypes.begin(), srcTypes.end());
-  std::sort(types.begin(), types.end());
+  for (size_t i = 0; i < std::min(feature::kMaxTypesCount, srcTypes.size()); ++i)
+    bmTypes.Add(srcTypes[i]);
+  bmTypes.SortToCompare();
 
-  GetSelectionProcessor().FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
+  GetSelectionProcessor().FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&bmTypes](FeatureType & ft)
   {
-    if (types.empty() || ft.GetTypesCount() != types.size())
+    if (bmTypes.Empty())
       return false;
 
-    // Strict equal types.
     feature::TypesHolder fTypes(ft);
-    std::sort(fTypes.begin(), fTypes.end());
-    return std::equal(types.begin(), types.end(), fTypes.begin(), fTypes.end());
+    fTypes.SortToCompare();
+    return bmTypes.EqualUsefulSorted(fTypes);
   });
 }
 
