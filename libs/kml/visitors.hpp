@@ -4,6 +4,7 @@
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
 #include "kml/types_v7.hpp"
+#include "kml/types_v9mm.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -434,6 +435,17 @@ public:
     (*this)(geom.m_lines[0]);
   }
 
+  void operator()(TrackPointTimestamps const & pts, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, static_cast<uint32_t>(pts.m_values.size()));
+    for (auto const ts : pts.m_values)
+    {
+      auto const ms = static_cast<uint64_t>(ts) * 1000;
+      // Reproduce the V11 encoding: low 7 bits are flags kept as 0x7F.
+      WriteVarUint(m_sink, (ms << 7) | 0x7FULL);
+    }
+  }
+
   template <typename D>
   std::enable_if_t<std::is_integral<D>::value> operator()(D d, char const * /* name */ = nullptr)
   {
@@ -668,6 +680,18 @@ public:
     MultiGeometry::LineT line;
     (*this)(line);
     geom.m_lines.push_back(std::move(line));
+  }
+
+  void operator()(TrackPointTimestamps & pts, char const * /* name */ = nullptr)
+  {
+    auto const size = ReadVarUint<uint32_t, Source>(m_source);
+    pts.m_values.reserve(size);
+    for (uint32_t i = 0; i < size; ++i)
+    {
+      auto const raw = ReadVarUint<uint64_t, Source>(m_source);
+      // V11 encoding: (ms_since_epoch << 7) | low7_flags. Drop flags, then ms -> seconds.
+      pts.m_values.push_back(static_cast<time_t>((raw >> 7) / 1000));
+    }
   }
 
   template <typename D>

@@ -6,6 +6,10 @@
 #include "kml/serdes_binary.hpp"
 #include "kml/serdes_common.hpp"
 
+#include "coding/text_storage.hpp"
+#include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
+
 #include "indexer/classificator_loader.hpp"
 
 #include "platform/platform.hpp"
@@ -622,7 +626,173 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 
   dataFromBinV8.m_tracksData[0].m_id =
       dataFromBinV9MM.m_tracksData[0].m_id;  // V8 and V9MM tracks have different IDs. Fix ID value manually.
+  // V9MM's ConvertToLatestVersion pads m_geometry.m_timestamps to match m_lines (matching
+  // MultiGeometry's own invariant). V8's deserializer does not, so normalize before comparing.
+  dataFromBinV8.m_tracksData[0].m_geometry.m_timestamps.resize(dataFromBinV8.m_tracksData[0].m_geometry.m_lines.size());
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
+}
+
+namespace
+{
+// Builds a minimal V11 MapsMe KMB buffer: empty category, zero bookmarks, and a single track
+// with |npts| points and |pointTimestamps| per-point capture times (seconds since epoch).
+// When |pointTimestamps| is empty, the track omits per-point timestamps (the ts_count varuint
+// is 0) — exercises the ors-route_as_track.kmb case. When non-empty, the count must equal
+// |npts| and matches the encoding used by the real MapsMe files.
+std::vector<uint8_t> BuildV11TrackKmb(uint32_t npts, std::vector<time_t> const & pointTimestamps)
+{
+  CHECK(pointTimestamps.empty() || pointTimestamps.size() == npts, ());
+
+  std::vector<uint8_t> buffer;
+  MemWriter<decltype(buffer)> sink(buffer);
+
+  // --- Header prelude ---
+  WriteToSink(sink, static_cast<uint8_t>(9));  // version byte 0x09 (V9, which detection remaps to V9MM)
+  std::string const deviceId = "testdev";
+  WriteVarUint(sink, static_cast<uint32_t>(deviceId.size()));
+  sink.Write(deviceId.data(), deviceId.size());
+  WriteVarUint(sink, static_cast<uint32_t>(0));  // serverId empty
+  WriteToSink(sink, static_cast<uint8_t>(30));   // doubleBits
+
+  auto const startPos = sink.Pos();
+
+  // 5 offsets (V9MM layout): category, bookmarks, tracks, strings, eos.
+  auto constexpr kHeaderSize = uint64_t{5} * sizeof(uint64_t);
+  WriteZeroesToSink(sink, kHeaderSize);
+
+  // --- Category (empty) ---
+  auto const categoryOffset = sink.Pos() - startPos;
+  WriteToSink(sink, static_cast<uint64_t>(0));   // m_id
+  WriteToSink(sink, static_cast<uint8_t>(1));    // m_visible
+  WriteVarUint(sink, static_cast<uint32_t>(0));  // m_rating
+  WriteToSink(sink, static_cast<uint32_t>(0));   // m_reviewsNumber
+  WriteVarUint(sink, static_cast<uint64_t>(0));  // m_lastModified
+  WriteToSink(sink, static_cast<uint8_t>(0));    // m_accessRules
+  WriteVarUint(sink, static_cast<uint32_t>(0));  // m_languageCodes count
+  WriteVarUint(sink, static_cast<uint32_t>(9));  // collectionIndex size
+  for (int i = 0; i < 9; ++i)
+    WriteVarUint(sink, static_cast<uint32_t>(0));
+
+  // --- Bookmarks (empty) ---
+  auto const bookmarksOffset = sink.Pos() - startPos;
+  WriteVarUint(sink, static_cast<uint32_t>(0));
+
+  // --- Track (V11 layout) ---
+  auto const tracksOffset = sink.Pos() - startPos;
+  WriteVarUint(sink, static_cast<uint32_t>(1));                 // track count
+  WriteToSink(sink, static_cast<uint64_t>(0xABCD));             // m_id
+  WriteToSink(sink, static_cast<uint8_t>(0));                   // m_localId
+  WriteVarUint(sink, static_cast<uint32_t>(1));                 // 1 TrackLayer
+  WriteVarUint(sink, static_cast<uint32_t>(53687091));          // lineWidth_enc (≈ 5.0)
+  WriteToSink(sink, static_cast<uint8_t>(0));                   // predef None
+  WriteToSink(sink, static_cast<uint32_t>(0x9C27B0FFu));        // rgba
+  WriteVarUint(sink, static_cast<uint64_t>(1700000000000ULL));  // m_timestamp (ms)
+
+  WriteVarUint(sink, static_cast<uint32_t>(1));  // 1 MultiGeometry
+  WriteVarUint(sink, npts);                      // line npts
+  // Point deltas (2 varints each), then altitude deltas (1 varint each). All small deltas.
+  m2::PointU last(0, 0);
+  for (uint32_t i = 0; i < npts; ++i)
+  {
+    m2::PointU next(last.x + 10, last.y + 20);
+    coding::EncodePointDelta(sink, last, next);
+    last = next;
+  }
+  for (uint32_t i = 0; i < npts; ++i)
+    WriteVarInt(sink, static_cast<int32_t>(i == 0 ? 5 : 0));
+
+  WriteToSink(sink, static_cast<uint8_t>(1));  // m_visible
+  WriteToSink(sink, static_cast<uint8_t>(0));  // m_constant1
+  WriteToSink(sink, static_cast<uint8_t>(0));  // m_constant2
+
+  // V11 per-point timestamps: count + N varuints. Each varuint encodes (ms << 7) | 0x7F.
+  WriteVarUint(sink, static_cast<uint32_t>(pointTimestamps.size()));
+  for (auto const ts : pointTimestamps)
+  {
+    auto const ms = static_cast<uint64_t>(ts) * 1000;
+    WriteVarUint(sink, (ms << 7) | 0x7FULL);
+  }
+
+  WriteVarUint(sink, static_cast<uint32_t>(4));  // collectionIndex size (4 empty subIndices)
+  for (int i = 0; i < 4; ++i)
+    WriteVarUint(sink, static_cast<uint32_t>(0));
+
+  // --- Strings section: valid empty BlockedTextStorage ---
+  auto const stringsOffset = sink.Pos() - startPos;
+  {
+    coding::BlockedTextStorageWriter<decltype(sink)> writer(sink, 200000 /* blockSize */);
+    // No strings appended — destructor emits a valid empty-index footer.
+  }
+  auto const eosOffset = sink.Pos() - startPos;
+
+  // --- Patch header offsets ---
+  auto const endPos = sink.Pos();
+  sink.Seek(startPos);
+  WriteToSink(sink, categoryOffset);
+  WriteToSink(sink, bookmarksOffset);
+  WriteToSink(sink, tracksOffset);
+  WriteToSink(sink, stringsOffset);
+  WriteToSink(sink, eosOffset);
+  sink.Seek(endPos);
+
+  return buffer;
+}
+}  // namespace
+
+UNIT_TEST(Kml_Deserialization_From_KMB_V11_With_PointTimestamps)
+{
+  // Three points, three per-point capture times (simulating a GPS track like Portugal.kmb).
+  std::vector<time_t> const expectedTs = {1700000000, 1700000010, 1700000020};
+  auto const buffer = BuildV11TrackKmb(3 /* npts */, expectedTs);
+
+  kml::FileData fileData;
+  TEST_NO_THROW(
+      {
+        MemReader reader(buffer.data(), buffer.size());
+        kml::binary::DeserializerKml des(fileData);
+        des.Deserialize(reader);
+      },
+      ());
+
+  TEST_EQUAL(fileData.m_tracksData.size(), 1, ());
+  auto const & track = fileData.m_tracksData[0];
+  TEST_EQUAL(track.m_geometry.m_lines.size(), 1, ());
+  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 3, ());
+
+  // MultiGeometry invariant: timestamps vector is sized to match lines.
+  TEST_EQUAL(track.m_geometry.m_timestamps.size(), 1, ());
+
+  auto const & timestamps = track.m_geometry.m_timestamps[0];
+  TEST_EQUAL(timestamps.size(), expectedTs.size(), ());
+  for (size_t i = 0; i < expectedTs.size(); ++i)
+    TEST_EQUAL(timestamps[i], expectedTs[i], ("Mismatch at index", i));
+}
+
+UNIT_TEST(Kml_Deserialization_From_KMB_V11_Without_PointTimestamps)
+{
+  // Route-planner-style track: geometry present, per-point timestamps absent (ts_count = 0).
+  // This is the ors-route_as_track.kmb shape, and also the shape of legacy V9MM files where
+  // m_constant3 was 0 (now re-interpreted as an empty pointTimestamps vector).
+  auto const buffer = BuildV11TrackKmb(5 /* npts */, {} /* no per-point timestamps */);
+
+  kml::FileData fileData;
+  TEST_NO_THROW(
+      {
+        MemReader reader(buffer.data(), buffer.size());
+        kml::binary::DeserializerKml des(fileData);
+        des.Deserialize(reader);
+      },
+      ());
+
+  TEST_EQUAL(fileData.m_tracksData.size(), 1, ());
+  auto const & track = fileData.m_tracksData[0];
+  TEST_EQUAL(track.m_geometry.m_lines.size(), 1, ());
+  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 5, ());
+
+  // Invariant upheld even without per-point timestamps.
+  TEST_EQUAL(track.m_geometry.m_timestamps.size(), 1, ());
+  TEST(track.m_geometry.m_timestamps[0].empty(), ("No per-point times when ts_count=0"));
+  TEST(!track.m_geometry.HasTimestamps(), ("HasTimestamps should be false"));
 }
 
 UNIT_TEST(Kml_Deserialization_From_KMB_V9MM_With_MultiGeometry)
