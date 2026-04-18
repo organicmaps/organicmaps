@@ -6,8 +6,6 @@
 #include "kml/serdes_binary.hpp"
 #include "kml/serdes_common.hpp"
 
-#include "map/bookmark_helpers.hpp"
-
 #include "indexer/classificator_loader.hpp"
 
 #include "platform/platform.hpp"
@@ -76,7 +74,10 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_name[kRuLang] = "Тестовая метка";
   bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
   bookmarkData.m_description[kRuLang] = "Тестовое описание метки";
-  bookmarkData.m_featureTypes = {718, 715};
+
+  auto const & cl = classif();
+  bookmarkData.m_featureTypes = {cl.GetTypeByPath({"historic", "castle"}), cl.GetTypeByPath({"historic", "memorial"})};
+
   bookmarkData.m_customName[kDefaultLang] = "Мое любимое место";
   bookmarkData.m_customName[kEnLang] = "My favorite place";
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
@@ -192,6 +193,7 @@ kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
 // 1. Check text and binary deserialization from the prepared sources in memory.
 UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
 {
+  classificator::Load();
   UNUSED_VALUE(FormatBytesFromBuffer({}));
 
   kml::FileData dataFromText;
@@ -254,6 +256,8 @@ UNIT_TEST(Kml_Serialization_Text_Memory)
 // 3. Check binary serialization to the memory blob and compare with prepared data.
 UNIT_TEST(Kml_Serialization_Bin_Memory)
 {
+  classificator::Load();
+
   kml::FileData data;
   {
     kml::binary::DeserializerKml des(data);
@@ -315,6 +319,8 @@ UNIT_TEST(Kml_Deserialization_Text_File)
 // 5. Check deserialization from the binary file.
 UNIT_TEST(Kml_Deserialization_Bin_File)
 {
+  classificator::Load();
+
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
   TEST_NO_THROW(
@@ -349,7 +355,8 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
 // The data in RAM must be completely equal to the data in binary file.
 UNIT_TEST(Kml_Serialization_Bin_File)
 {
-  auto data = GenerateKmlFileData();
+  classificator::Load();
+  auto const data = GenerateKmlFileData();
 
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
@@ -381,7 +388,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
 {
   classificator::Load();
 
-  auto data = GenerateKmlFileDataForTrackWithoutTimestamps();
+  auto const data = GenerateKmlFileDataForTrackWithoutTimestamps();
 
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
@@ -441,7 +448,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
 {
   classificator::Load();
 
-  auto data = GenerateKmlFileDataForTrackWithTimestamps();
+  auto const data = GenerateKmlFileDataForTrackWithTimestamps();
 
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));

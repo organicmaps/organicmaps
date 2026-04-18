@@ -338,10 +338,8 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
     std::vector<std::string> types;
     types.reserve(bookmarkData.m_featureTypes.size());
     auto const & c = classif();
-    if (!c.HasTypesMapping())
-      MYTHROW(SerializerKml::SerializeException, ("Types mapping is not loaded."));
-    for (auto const & t : bookmarkData.m_featureTypes)
-      types.push_back(c.GetReadableObjectName(c.GetTypeForIndex(t)));
+    for (auto const type : bookmarkData.m_featureTypes)
+      types.push_back(c.GetReadableObjectName(type));
 
     SaveStringsArray(writer, types, "featureTypes", kIndent6);
   }
@@ -1371,15 +1369,10 @@ void KmlParser::CharData(std::string & value)
           uint32_t i;
           if (prevTag == "mwm:featureTypes")
           {
-            auto const & c = classif();
-            if (!c.HasTypesMapping())
-              MYTHROW(DeserializerKml::DeserializeException, ("Types mapping is not loaded."));
-            auto const type = c.GetTypeByReadableObjectName(value);
-            if (c.IsTypeValid(type))
-            {
-              auto const typeInd = c.GetIndexForType(type);
-              m_featureTypes.push_back(typeInd);
-            }
+            auto const & cl = classif();
+            auto const type = cl.GetTypeByReadableObjectName(value);
+            if (type != Classificator::INVALID_TYPE && type != cl.GetStubType())
+              m_featureTypes.push_back(type);
           }
           else if (prevTag == "mwm:boundTracks" && strings::to_uint(value, i))
           {

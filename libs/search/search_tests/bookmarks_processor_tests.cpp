@@ -88,8 +88,8 @@ kml::BookmarkData MakeBookmarkData(string const & name, string const & customNam
   for (auto const & typeString : types)
   {
     auto const t = c.GetTypeByPath(strings::Tokenize(typeString, "-"));
-    CHECK_NOT_EQUAL(t, 0, ());
-    b.m_featureTypes.emplace_back(c.GetIndexForType(t));
+    TEST(t != Classificator::INVALID_TYPE, ());
+    b.m_featureTypes.emplace_back(t);
   }
 
   return b;

@@ -4,7 +4,7 @@ namespace kml
 {
 namespace binary
 {
-SerializerKml::SerializerKml(FileData & data) : m_data(data)
+SerializerKml::SerializerKml(FileData const & data) : m_data(data)
 {
   ClearCollectionIndex();
 

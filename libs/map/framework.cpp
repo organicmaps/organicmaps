@@ -589,11 +589,8 @@ kml::MarkGroupId Framework::AddCategory(std::string const & categoryName)
 
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
-  // Convert indices to sorted classifier types.
-  Classificator const & cl = classif();
-  buffer_vector<uint32_t, 8> types;
-  for (uint32_t i : bmk.GetData().m_featureTypes)
-    types.push_back(cl.GetTypeForIndex(i));
+  auto const & srcTypes = bmk.GetData().m_featureTypes;
+  buffer_vector<uint32_t, 8> types(srcTypes.begin(), srcTypes.end());
   std::sort(types.begin(), types.end());
 
   GetSelectionProcessor().FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)

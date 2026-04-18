@@ -61,10 +61,7 @@ std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
   if (types.empty())
     return {};
 
-  auto const & c = classif();
-  auto const type = c.GetTypeForIndex(types.front());
-
-  return platform::GetLocalizedTypeName(c.GetReadableObjectName(type));
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(types.front()));
 }
 
 std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_view languageOrig)

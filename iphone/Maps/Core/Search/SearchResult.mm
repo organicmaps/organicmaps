@@ -116,8 +116,7 @@
 
     if (result.GetResultType() == search::Result::Type::Feature)
     {
-      auto const featureType = result.GetFeatureType();
-      auto const bookmarkImage = GetBookmarkIconByFeatureType(featureType);
+      auto const bookmarkImage = GetBookmarkMatchInfo(result.GetFeatureType()).m_icon;
       _iconImageName =
           [NSString stringWithFormat:@"%@%@", @"ic_bm_", [@(kml::ToString(bookmarkImage).c_str()) lowercaseString]];
     }

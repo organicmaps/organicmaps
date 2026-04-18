@@ -301,6 +301,17 @@ struct ColorData
   uint32_t m_rgba = 0;
 };
 
+class ClassifierTypes : public std::vector<uint32_t>
+{
+public:
+  using std::vector<uint32_t>::vector;
+
+  friend std::string DebugPrint(ClassifierTypes const & types)
+  {
+    return DebugPrintSequence(types.begin(), types.end());
+  }
+};
+
 // This structure is used in FileDataV6 because
 // its binary format is the same as in kmb version 6.
 // Make a copy of this structure in a file types_v<n>.hpp
@@ -338,9 +349,10 @@ struct BookmarkData
   LocalizableString m_name;
   // Bookmark's description.
   LocalizableString m_description;
-  // Bound feature's types: type indices sorted by importance, the most
-  // important one goes first.
-  std::vector<uint32_t> m_featureTypes;
+  // Bound feature's classifier types, sorted by importance (most important first).
+  // On-disk format (KMB) stores indices for backward compatibility; see
+  // BookmarkSerializerVisitor / BookmarkDeserializerVisitor in visitors.hpp.
+  ClassifierTypes m_featureTypes;
   // Custom bookmark's name.
   LocalizableString m_customName;
   // Bookmark's color.

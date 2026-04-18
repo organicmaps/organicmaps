@@ -22,7 +22,7 @@ namespace binary
 class SerializerKml
 {
 public:
-  explicit SerializerKml(FileData & data);
+  explicit SerializerKml(FileData const & data);
   ~SerializerKml();
 
   void ClearCollectionIndex();
@@ -121,7 +121,7 @@ public:
   }
 
 protected:
-  FileData & m_data;
+  FileData const & m_data;
   std::vector<std::string> m_strings;
 };
 
