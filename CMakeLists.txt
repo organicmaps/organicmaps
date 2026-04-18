@@ -145,7 +145,7 @@ find_package(Threads REQUIRED)
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   list(APPEND qt_components Core Network)
-  if (NOT SKIP_QT_GUI OR NOT SKIP_TESTS OR PYBINDINGS)
+  if (NOT SKIP_QT_GUI OR NOT SKIP_TESTS)
     list(APPEND qt_components Widgets)
   endif()
   if (NOT SKIP_QT_GUI)

@@ -27,13 +27,5 @@ from mwm.mwm_interface import Triangle
 from mwm.mwm_python import get_region_info
 from mwm.utils import EnumAsStrEncoder
 
-try:
-    from mwm.mwm_pygen import MwmPygen as Mwm
-    from mwm.mwm_pygen import FeaturePygen as Feature
-
-    from mwm.mwm_pygen import init as _init
-
-    _init(resource_path)
-except ImportError:
-    from mwm.mwm_python import MwmPython as Mwm
-    from mwm.mwm_python import FeaturePython as Feature
+from mwm.mwm_python import MwmPython as Mwm
+from mwm.mwm_python import FeaturePython as Feature

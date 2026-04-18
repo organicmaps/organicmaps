@@ -1,3 +1,0 @@
-omim-data-essential
-omim-data-files
-omim-pygen
