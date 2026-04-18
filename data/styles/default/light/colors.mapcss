@@ -63,10 +63,10 @@
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
 
-@pedestrian_area: #EDE8D6;
-@pedestrian_area_light: #F2EEDA;
-@platform: #ECE3D6;
-@leisure: #FAEFE1;
+@pedestrian_area: #E0D8BE;
+@pedestrian_area_light: #E8E0C8;
+@platform: #E0D5C0;
+@leisure: #F0E2CE;
 @university: #F8E4BA;
 @hospital: #F8D9D9;
 @industrial: #E4E2EB;
