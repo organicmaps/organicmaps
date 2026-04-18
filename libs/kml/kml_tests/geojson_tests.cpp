@@ -1,10 +1,12 @@
 #include "testing/testing.hpp"
 
+#include "kml/serdes_geojson.hpp"
+
+#include "indexer/classificator.hpp"
+
 #include "geometry/mercator.hpp"
 
-#include <sstream>
 #include "coding/string_utf8_multilang.hpp"
-#include "kml/serdes_geojson.hpp"
 
 namespace geojson_tests
 {
@@ -748,7 +750,10 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_name[kEnLang] = "Test bookmark";
   bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
   bookmarkData.m_description[kEsLang] = "Descripción del marcador de prueba";
-  bookmarkData.m_featureTypes = {718, 715};
+
+  auto const & cl = classif();
+  bookmarkData.m_featureTypes = {cl.GetTypeByPath({"historic", "castle"}), cl.GetTypeByPath({"historic", "memorial"})};
+
   bookmarkData.m_customName[kDefaultLang] = "Mi lugar favorito";
   bookmarkData.m_customName[kEnLang] = "My favorite place";
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};

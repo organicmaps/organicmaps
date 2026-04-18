@@ -667,7 +667,7 @@ private:
       : m_id(bmData.m_id)
       , m_name(GetPreferredBookmarkName(bmData))
       , m_point(bmData.m_point)
-      , m_type(GetBookmarkBaseType(bmData.m_featureTypes))
+      , m_type(GetBookmarkMatchInfo(bmData.m_featureTypes).m_type)
       , m_timestamp(bmData.m_timestamp)
       , m_address(address)
     {}

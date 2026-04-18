@@ -290,9 +290,12 @@ void FeatureType::ParseTypes()
   size_t const count = GetTypesCount();
   for (size_t i = 0; i < count; ++i)
   {
-    uint32_t index = ReadVarUint<uint32_t>(source);
+    /// @todo Consider skipping Stub types entirely and retaining a single Stub only if the result would be empty.
+    /// There are no constraints on the count of deserialized types, AFAIR.
+
+    uint32_t const index = ReadVarUint<uint32_t>(source);
     uint32_t const type = c.GetTypeForIndex(index);
-    if (type > 0)
+    if (type != Classificator::INVALID_TYPE)
       m_types[i] = type;
     else
     {

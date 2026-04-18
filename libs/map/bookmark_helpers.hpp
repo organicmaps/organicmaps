@@ -121,9 +121,9 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
 std::string GetLowercaseFileExt(std::string const & filePath);
 std::optional<FileType> GetFileType(std::string const & filePath);
 
-bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType);
-bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType);
-bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
+bool SaveKmlFileSafe(kml::FileData const & kmlData, std::string const & file, FileType fileType);
+bool SaveKmlData(kml::FileData const & kmlData, Writer & writer, FileType fileType);
+bool SaveKmlFileByExt(kml::FileData const & kmlData, std::string const & file);
 /// @}
 
 void ResetIds(kml::FileData & kmlData);
@@ -138,10 +138,22 @@ std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData);
 
 std::string GetPreferredBookmarkStr(kml::LocalizableString const & name);
 std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature::RegionData const & regionData);
-std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types);
 std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type);
 
-kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type);
-BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes);
+struct BookmarkMatchInfo
+{
+  kml::BookmarkIcon m_icon;
+  BookmarkBaseType m_type;
+
+  bool operator==(BookmarkMatchInfo const &) const = default;
+};
+BookmarkMatchInfo GetBookmarkMatchInfo(uint32_t type);
+inline BookmarkMatchInfo GetBookmarkMatchInfo(std::vector<uint32_t> const & types)
+{
+  for (auto t : types)
+    if (auto info = GetBookmarkMatchInfo(t); info.m_icon != kml::BookmarkIcon::None)
+      return info;
+  return {kml::BookmarkIcon::None, BookmarkBaseType::None};
+}
 
 void ExpandRectForPreview(m2::RectD & rect);

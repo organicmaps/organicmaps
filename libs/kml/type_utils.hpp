@@ -126,14 +126,22 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
                                     std::string const & languageNorm);
 std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types);
 
+// m_collectionIndex is mutable because it is filled during serialization.
+/// @todo Not good design to store intermediate ser/des index inside data.
+
 #define DECLARE_COLLECTABLE(IndexType, ...)            \
-  IndexType m_collectionIndex;                         \
+  mutable IndexType m_collectionIndex;                 \
   template <typename Collector>                        \
   void Collect(Collector & collector)                  \
   {                                                    \
     collector.Collect(m_collectionIndex, __VA_ARGS__); \
   }                                                    \
-  void ClearCollectionIndex()                          \
+  template <typename Collector>                        \
+  void Collect(Collector & collector) const            \
+  {                                                    \
+    collector.Collect(m_collectionIndex, __VA_ARGS__); \
+  }                                                    \
+  void ClearCollectionIndex() const                    \
   {                                                    \
     m_collectionIndex.clear();                         \
   }

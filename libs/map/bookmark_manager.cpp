@@ -719,7 +719,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
 
     if (!byTypeChecked && !bookmarkData.m_featureTypes.empty())
     {
-      auto const type = GetBookmarkBaseType(bookmarkData.m_featureTypes);
+      auto const type = GetBookmarkMatchInfo(bookmarkData.m_featureTypes).m_type;
       if (type == BookmarkBaseType::Hotel)
       {
         byTypeChecked = true;

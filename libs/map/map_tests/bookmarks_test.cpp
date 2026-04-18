@@ -5,6 +5,7 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -623,11 +624,8 @@ UNIT_TEST(Bookmarks_Sorting)
     for (auto const & readableType : readableTypes)
     {
       auto const type = c.GetTypeByReadableObjectName(readableType);
-      if (c.IsTypeValid(type))
-      {
-        auto const typeInd = c.GetIndexForType(type);
-        bmData.m_featureTypes.push_back(typeInd);
-      }
+      TEST(type != Classificator::INVALID_TYPE, ());
+      bmData.m_featureTypes.push_back(type);
     }
   };
 
@@ -947,6 +945,15 @@ UNIT_TEST(Bookmarks_Sorting)
     auto const sortingTypes6 = bmManager.GetAvailableSortingTypes(catId6, false);
     TEST(sortingTypes6 == expectedSortingTypes6, ());
   }
+}
+
+UNIT_TEST(Bookmarks_GetBookmarkMatchInfo)
+{
+  classificator::Load();
+  auto const & cl = classif();
+
+  uint32_t const type = cl.GetTypeByPath({"aeroway", "aerodrome", "international"});
+  TEST(GetBookmarkMatchInfo(type) == BookmarkMatchInfo(kml::BookmarkIcon::Airport, BookmarkBaseType::None), ());
 }
 
 namespace

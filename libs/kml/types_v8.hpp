@@ -84,7 +84,7 @@ struct BookmarkDataV8
   LocalizableString m_description;
   // Bound feature's types: type indices sorted by importance, the most
   // important one goes first.
-  std::vector<uint32_t> m_featureTypes;
+  ClassifierTypes m_featureTypes;
   // Custom bookmark's name.
   LocalizableString m_customName;
   // Bookmark's color.
