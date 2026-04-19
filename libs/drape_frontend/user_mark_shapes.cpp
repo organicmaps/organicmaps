@@ -264,7 +264,7 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
 
     params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
     params.m_depth = renderInfo.m_depth;
-    params.m_depthLayer = renderInfo.m_depthLayer;
+    params.m_depthLayer = renderInfo.m_titleDepthLayer;
     params.m_minVisibleScale = renderInfo.m_minZoom;
     params.m_startOverlayRank = dp::OverlayRank0;
 
