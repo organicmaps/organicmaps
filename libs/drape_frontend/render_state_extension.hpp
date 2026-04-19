@@ -21,6 +21,9 @@ enum class DepthLayer : uint8_t
   UserMarkLayer,
   RoutingBottomMarkLayer,
   RoutingMarkLayer,
+  /// @todo Rename SearchMarkLayer since it holds:
+  /// - non-displacing search marks
+  /// - displacing (with each others only) Bookmark titles
   SearchMarkLayer,
   GuiLayer,
   LayersCount

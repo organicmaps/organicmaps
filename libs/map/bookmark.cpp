@@ -131,11 +131,9 @@ df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
   if (p == settings::Placement::None)
     return df::DepthLayer::UserMarkLayer;
 
-  /// @see FrontendRenderer::RenderScene
-  // Texts:
-  // - UserMarkLayer, aren't visible at all
-  // - RoutingMarkLayer, displaced by Feature's texts
-  // - SearchMarkLayer, overlapped with each other :)
+  // Used for bookmark captions only, see DrapeEngine::GenerateMarkRenderInfo().
+  // SearchMarkLayer captions are placed through a separate OverlayTree pass,
+  // so bookmark captions displace only other bookmark captions.
   return df::DepthLayer::SearchMarkLayer;
 }
 

@@ -897,7 +897,8 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
     renderInfo->m_depth = mark->GetDepth();
     renderInfo->m_customDepth = true;
   }
-  renderInfo->m_depthLayer = mark->GetDepthLayerEx(m_bookmarksTextPlacement);
+  renderInfo->m_depthLayer = mark->GetDepthLayer();
+  renderInfo->m_titleDepthLayer = mark->GetDepthLayerEx(m_bookmarksTextPlacement);
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
   renderInfo->m_isVisible = mark->IsVisible();

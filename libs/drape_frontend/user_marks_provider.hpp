@@ -69,6 +69,7 @@ public:
 
   virtual DepthLayer GetDepthLayer() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
+  /// Used for titles only. Symbols and other mark shapes always use GetDepthLayer().
   virtual DepthLayer GetDepthLayerEx(settings::Placement) const { return GetDepthLayer(); }
   virtual drape_ptr<TitlesInfo> GetTitleDeclEx(settings::Placement, dp::Color) const { return GetTitleDecl(); }
 
