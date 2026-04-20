@@ -335,6 +335,7 @@ private:
         "avenue", "av", "ave",
         "highway", "hwy",
         "freeway", "fwy",
+        "parkway", "pkwy",
         "blvd", // don't put "boulevard" intentionally
 
         // Belarusian - Беларуская мова
