@@ -68,7 +68,7 @@ class ChartInfoView: ExpandedTouchView {
 
   var infoShadowColor: UIColor = .black {
     didSet {
-      pointInfoView.layer.shadowColor = infoShadowColor.resolvedColor(with: traitCollection).cgColor
+      updateColors()
     }
   }
 
@@ -101,6 +101,16 @@ class ChartInfoView: ExpandedTouchView {
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+    updateColors()
+  }
+
+  private func updateColors() {
+    pointInfoView.layer.shadowColor = infoShadowColor.resolvedColor(with: traitCollection).cgColor
   }
 
   func update(_ x: CGFloat? = nil) {

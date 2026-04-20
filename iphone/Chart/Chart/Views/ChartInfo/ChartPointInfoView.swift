@@ -89,6 +89,12 @@ final class ChartPointInfoView: UIView {
     fatalError()
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+    backgroundColor = backgroundColor
+  }
+
   func set(x _: CGFloat, label: String, points: [ChartLineInfo]) {
     distanceLabel.text = label
     altitudeLabel.text = altitudeText(points[0])
