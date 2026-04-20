@@ -20,8 +20,11 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     // UIApplication launchOptions / application:openURL: and deferred deep-link handling until
     // MapViewController was ready. Mirror that deferred flow by seeding DeepLinkHandler here;
     // MapViewController.viewDidLoad drains it via handleDeepLinkAndReset().
-    if let launchURL = connectionOptions.urlContexts.first?.url {
-      DeepLinkHandler.shared.applicationDidFinishLaunching([.url: launchURL])
+    if !connectionOptions.urlContexts.isEmpty {
+      if let launchURL = connectionOptions.urlContexts.first?.url {
+        DeepLinkHandler.shared.applicationDidFinishLaunching([.url: launchURL])
+      }
+      self.scene(scene, openURLContexts: connectionOptions.urlContexts)
     }
     for userActivity in connectionOptions.userActivities {
       self.scene(scene, continue: userActivity)
@@ -52,9 +55,10 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
   // MARK: - URL / user activity / shortcut forwarding
 
   func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-    let app = MapsAppDelegate.theApp()
     for context in URLContexts {
-      _ = app.application(.shared, open: context.url, options: [:])
+      _ = MapsAppDelegate.theApp().application(.shared,
+                                               open: context.url,
+                                               options: context.options.asDictionary)
     }
   }
 
@@ -70,5 +74,23 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     MapsAppDelegate.theApp().application(.shared,
                                          performActionFor: shortcutItem,
                                          completionHandler: completionHandler)
+  }
+}
+
+private extension UIScene.OpenURLOptions {
+  var asDictionary: [UIApplication.OpenURLOptionsKey: Any] {
+    var options: [UIApplication.OpenURLOptionsKey: Any] = [
+      .openInPlace: openInPlace,
+    ]
+    if let sourceApplication {
+      options[.sourceApplication] = sourceApplication
+    }
+    if let annotation {
+      options[.annotation] = annotation
+    }
+    if let eventAttribution {
+      options[.eventAttribution] = eventAttribution
+    }
+    return options
   }
 }
