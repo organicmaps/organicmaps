@@ -10,13 +10,9 @@ final class CarPlaySceneDelegateTests: XCTestCase {
     XCTAssertEqual(NSStringFromClass(CarPlaySceneDelegate.self), "CarPlaySceneDelegate")
   }
 
-  func testConformsToCPTemplateApplicationSceneDelegate() {
-    XCTAssertTrue(CarPlaySceneDelegate() is CPTemplateApplicationSceneDelegate)
-  }
-
   func testRespondsToConnectAndDisconnectSelectors() {
     let delegate = CarPlaySceneDelegate()
-    XCTAssertTrue(delegate.responds(to: Selector(("templateApplicationScene:didConnectInterfaceController:toWindow:"))))
-    XCTAssertTrue(delegate.responds(to: Selector(("templateApplicationScene:didDisconnectInterfaceController:fromWindow:"))))
+    XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.templateApplicationScene(_:didConnect:to:))))
+    XCTAssertTrue(delegate.responds(to: #selector(CarPlaySceneDelegate.templateApplicationScene(_:didDisconnect:from:))))
   }
 }

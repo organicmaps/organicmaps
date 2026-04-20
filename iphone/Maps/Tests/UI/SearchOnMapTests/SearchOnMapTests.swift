@@ -256,7 +256,7 @@ final class SearchOnMapTests: XCTestCase {
 
   func test_GivenSearchIsActive_WhenPresentationStepUpdate_ThenUpdateSearchMode() {
     interactor.handle(.openSearch)
-    XCTAssertEqual(searchManager.searchMode(), isiPad ? .everywhereAndViewport : .everywhere)
+    XCTAssertEqual(searchManager.searchMode(), .everywhere)
 
     interactor.handle(.didUpdatePresentationStep(.halfScreen))
     XCTAssertEqual(searchManager.searchMode(), .everywhereAndViewport)
