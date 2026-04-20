@@ -60,6 +60,7 @@ public:
     case Type::Funicular: return "Funicular";
     case Type::Monorail: return "Monorail";
     }
+    UNREACHABLE();
   }
 
   enum IdxAndFlags : uint8_t
