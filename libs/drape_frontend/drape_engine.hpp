@@ -169,6 +169,10 @@ public:
                     bool isAnim, bool isGeometrySelectionAllowed, bool isSelectionShapeVisible);
   void DeselectObject(bool restoreViewport);
 
+  /// Highlights @p lines as overlay geometry on top of the current selection, using @p color.
+  /// Replaces any previously highlighted lines. No-op if no selection is active.
+  void SetSelectionLines(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color);
+
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom, bool isArrowGlued);

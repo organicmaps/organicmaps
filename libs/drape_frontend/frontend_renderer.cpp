@@ -488,6 +488,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::SetSelectionLines:
+  {
+    ref_ptr<SetSelectionLinesMessage> msg = message;
+    if (m_selectionShape != nullptr)
+    {
+      // Drop any previously highlighted lines so a new route highlight replaces the old one.
+      // Bumps the recache id, which also invalidates any still-in-flight builds.
+      m_selectionShape->ResetSelectionGeometry();
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                make_unique_dp<BuildSelectionLinesMessage>(std::move(msg->GetLines()), msg->GetColor(),
+                                                                           m_selectionShape->GetRecacheId()),
+                                MessagePriority::Normal);
+    }
+    break;
+  }
+
   case Message::Type::FlushSubroute:
   {
     ref_ptr<FlushSubrouteMessage> msg = message;

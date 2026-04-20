@@ -151,6 +151,12 @@ void SelectionShape::AddSelectionGeometry(drape_ptr<RenderNode> && renderNode, i
   m_selectionGeometry.push_back(std::move(renderNode));
 }
 
+void SelectionShape::ResetSelectionGeometry()
+{
+  m_recacheId++;
+  m_selectionGeometry.clear();
+}
+
 m2::RectD SelectionShape::GetSelectionGeometryBoundingBox() const
 {
   m2::RectD rect;
