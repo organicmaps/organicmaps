@@ -1028,6 +1028,18 @@ void KmlParser::Pop(std::string_view tag)
       lines.pop_back();
       m_geometry.m_timestamps.pop_back();
     }
+    else
+    {
+      // KML does not require <when> timestamps to be ordered, but downstream time
+      // metadata code assumes they are monotonic non-decreasing. Drop broken
+      // timestamps rather than the track -- geometry is preserved.
+      auto & timestamps = m_geometry.m_timestamps.back();
+      if (!std::is_sorted(timestamps.begin(), timestamps.end()))
+      {
+        LOG(LWARNING, ("Non-monotonic timestamps in track, dropping them"));
+        timestamps.clear();
+      }
+    }
   }
   else if (IsProcessTrackCoord())
   {
@@ -1071,10 +1083,7 @@ void KmlParser::CharData(std::string & value)
         auto const timestamp = base::StringToTimestamp(value);
         ASSERT(timestamp != base::INVALID_TIME_STAMP, (value));
 
-        auto & cont = timestamps.back();
-        if (!cont.empty())
-          ASSERT_LESS_OR_EQUAL(cont.back(), timestamp, ());
-        cont.emplace_back(timestamp);
+        timestamps.back().emplace_back(timestamp);
       }
       else if (IsCoord(currTag))
       {
