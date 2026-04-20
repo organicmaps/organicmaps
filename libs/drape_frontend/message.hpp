@@ -39,6 +39,8 @@ public:
     SelectObject,
     CheckSelectionGeometry,
     FlushSelectionGeometry,
+    SetSelectionLines,
+    BuildSelectionLines,
     AddSubroute,
     RemoveSubroute,
     PrepareSubrouteArrows,

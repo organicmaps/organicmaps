@@ -3,14 +3,21 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/circles_pack_shape.hpp"
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/drape_measurer.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape_generator.hpp"
+
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
+
+#include "base/buffer_vector.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -597,14 +604,49 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::CheckSelectionGeometry:
   {
     ref_ptr<CheckSelectionGeometryMessage> msg = message;
-    auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(
-        m_context, msg->GetFeature(), m_texMng, make_ref(m_metalineManager), m_readManager->GetMapDataProvider());
+
+    // Read polyline points from metaline manager or mwm.
+    std::vector<m2::PointD> points;
+    auto spline = m_metalineManager->GetMetaline(msg->GetFeature());
+    if (spline.IsNull())
+    {
+      m_readManager->GetMapDataProvider().ReadFeatures([&points](FeatureType & ft)
+      {
+        if (ft.GetGeomType() == feature::GeomType::Line)
+          assign_range(points, ft.GetPoints(scales::GetUpperScale()));
+      }, {msg->GetFeature()});
+    }
+    else
+    {
+      points = spline->GetPath();
+    }
+
+    auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(m_context, points,
+                                                                         df::GetColorConstant("Selection"), m_texMng);
     if (renderNode && renderNode->GetBoundingBox().IsValid())
     {
       m_commutator->PostMessage(
           ThreadsCommutator::RenderThread,
           make_unique_dp<FlushSelectionGeometryMessage>(std::move(renderNode), msg->GetRecacheId()),
           MessagePriority::Normal);
+    }
+    break;
+  }
+
+  case Message::Type::BuildSelectionLines:
+  {
+    ref_ptr<BuildSelectionLinesMessage> msg = message;
+    for (auto const & points : msg->GetLines())
+    {
+      auto renderNode =
+          SelectionShapeGenerator::GenerateSelectionGeometry(m_context, points, msg->GetColor(), m_texMng);
+      if (renderNode && renderNode->GetBoundingBox().IsValid())
+      {
+        m_commutator->PostMessage(
+            ThreadsCommutator::RenderThread,
+            make_unique_dp<FlushSelectionGeometryMessage>(std::move(renderNode), msg->GetRecacheId()),
+            MessagePriority::Normal);
+      }
     }
     break;
   }

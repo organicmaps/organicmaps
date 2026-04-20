@@ -580,6 +580,50 @@ private:
   int const m_recacheId;
 };
 
+/// Posted from the main thread to the render (frontend) thread. Carries pre-built polylines
+/// and a color to be highlighted as an overlay on top of the current selection, replacing any
+/// previously highlighted lines.
+class SetSelectionLinesMessage : public Message
+{
+public:
+  SetSelectionLinesMessage(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color)
+    : m_lines(std::move(lines))
+    , m_color(color)
+  {}
+
+  Type GetType() const override { return Type::SetSelectionLines; }
+
+  std::vector<std::vector<m2::PointD>> & GetLines() { return m_lines; }
+  dp::Color const & GetColor() const { return m_color; }
+
+private:
+  std::vector<std::vector<m2::PointD>> m_lines;
+  dp::Color m_color;
+};
+
+/// Posted from the frontend thread to the backend (resource upload) thread. Carries the same
+/// polylines plus a recacheId tagged from SelectionShape so stale flushes can be discarded.
+class BuildSelectionLinesMessage : public Message
+{
+public:
+  BuildSelectionLinesMessage(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color, int recacheId)
+    : m_lines(std::move(lines))
+    , m_color(color)
+    , m_recacheId(recacheId)
+  {}
+
+  Type GetType() const override { return Type::BuildSelectionLines; }
+
+  std::vector<std::vector<m2::PointD>> const & GetLines() const { return m_lines; }
+  dp::Color const & GetColor() const { return m_color; }
+  int GetRecacheId() const { return m_recacheId; }
+
+private:
+  std::vector<std::vector<m2::PointD>> m_lines;
+  dp::Color m_color;
+  int m_recacheId;
+};
+
 class AddSubrouteMessage : public Message
 {
 public:

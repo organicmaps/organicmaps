@@ -1345,6 +1345,38 @@ void Framework::ShowSearchResult(search::Result const & res, bool animation)
   SelectSearchResult(res, animation);
 }
 
+void Framework::SelectRoute(uint32_t relID)
+{
+  if (!m_drapeEngine || !HasPlacePageInfo())
+    return;
+
+  auto const & fid = m_currentPlacePageInfo->GetID();
+  if (!fid.IsValid())
+    return;
+
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid);
+  auto trackData = builder.BuildOrdered(relID);
+  if (!trackData)
+    return;
+
+  std::vector<std::vector<m2::PointD>> lines;
+  lines.reserve(trackData->m_lines.size());
+  for (auto const & line : trackData->m_lines)
+  {
+    std::vector<m2::PointD> pts;
+    pts.reserve(line.size());
+    for (auto const & p : line)
+      pts.push_back(p.GetPoint());
+    lines.push_back(std::move(pts));
+  }
+
+  auto color = trackData->m_color;
+  if (color == dp::Color::Transparent())
+    color = dp::Color(128, 0, 128, 255);  // Default purple.
+
+  m_drapeEngine->SetSelectionLines(std::move(lines), color);
+}
+
 void Framework::UpdateViewport(search::Results const & results)
 {
   // Setup viewport according to results.
