@@ -22,6 +22,7 @@ import app.organicmaps.sdk.routing.RoutingRecommendationListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.settings.SpeedCameraMode;
 import app.organicmaps.sdk.util.Constants;
+import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import dalvik.annotation.optimization.FastNative;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -312,7 +313,10 @@ public class Framework
 
   public static native String nativeGetActiveObjectFormattedCuisine();
 
-  public static native String nativeGetActiveObjectFormattedRouteRefs();
+  @Nullable
+  public static native RouteInfo[] nativeGetActiveObjectRoutes();
+
+  public static native void nativeShowRouteTransit(int relId);
 
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
 

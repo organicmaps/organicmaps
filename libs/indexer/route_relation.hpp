@@ -40,6 +40,28 @@ public:
     // This type is stored as 1 byte, so keep the order! and append to the end.
   };
 
+  static std::string_view ToString(Type t)
+  {
+    switch (t)
+    {
+    case Type::Foot: return "Foot";
+    case Type::Hiking: return "Hiking";
+    case Type::Bicycle: return "Bicycle";
+    case Type::MTB: return "MTB";
+    case Type::Bus: return "Bus";
+    case Type::Train: return "Train";
+    case Type::Tram: return "Tram";
+    case Type::Trolleybus: return "Trolleybus";
+    case Type::Ferry: return "Ferry";
+    case Type::Subway: return "Subway";
+    case Type::ShareTaxi: return "ShareTaxi";
+    case Type::LightRail: return "LightRail";
+    case Type::Aerialway: return "Aerialway";
+    case Type::Funicular: return "Funicular";
+    case Type::Monorail: return "Monorail";
+    }
+  }
+
   enum IdxAndFlags : uint8_t
   {
     CycleNetworkIdx = 0,
