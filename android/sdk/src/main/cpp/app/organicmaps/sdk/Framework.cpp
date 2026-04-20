@@ -1604,12 +1604,40 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormat
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedRouteRefs(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectRoutes(JNIEnv * env, jclass)
 {
   if (!frm()->HasPlacePageInfo())
-    return {};
+    return nullptr;
 
-  return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatRouteRefs());
+  auto const & routes = g_framework->GetPlacePageInfo().GetRoutes();
+  if (routes.empty())
+    return nullptr;
+
+  static jclass const routeInfoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/widget/placepage/RouteInfo");
+  // RouteInfo(String ref, String from, String to, int type, int relId, int argbColor)
+  static jmethodID const routeInfoCtor =
+      jni::GetConstructorID(env, routeInfoClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;III)V");
+
+  auto const count = static_cast<jsize>(routes.size());
+  jobjectArray const result = env->NewObjectArray(count, routeInfoClass, nullptr);
+  for (jsize i = 0; i < count; ++i)
+  {
+    auto const & r = routes[i];
+    jni::TScopedLocalRef ref(env, jni::ToJavaString(env, r.m_ref));
+    jni::TScopedLocalRef from(env, jni::ToJavaString(env, r.m_from));
+    jni::TScopedLocalRef to(env, jni::ToJavaString(env, r.m_to));
+    // ARGB with alpha==0 (i.e. plain 0) signals "no color" — Java falls back to defaults.
+    jni::TScopedLocalRef item(
+        env, env->NewObject(routeInfoClass, routeInfoCtor, ref.get(), from.get(), to.get(), static_cast<jint>(r.m_type),
+                            static_cast<jint>(r.m_relID), static_cast<jint>(r.m_color.GetARGB())));
+    env->SetObjectArrayElement(result, i, item.get());
+  }
+  return result;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowRouteTransit(JNIEnv *, jclass, jint relId)
+{
+  frm()->ShowRouteTransit(static_cast<uint32_t>(relId));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top,

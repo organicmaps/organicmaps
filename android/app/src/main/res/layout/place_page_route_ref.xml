@@ -11,6 +11,7 @@
   <include layout="@layout/place_page_shadow_gap" />
 
   <LinearLayout
+    android:id="@+id/ll__place_route_ref_content"
     style="@style/PlacePageItemFrame"
     android:tag="route_ref"
     android:visibility="visible"
