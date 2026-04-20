@@ -469,6 +469,10 @@ public:
   // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
 
+  // Highlights a public-transport route line on the map, using the current place page's feature
+  // to locate the relation. The current place page (stop) remains open.
+  void SelectRoute(uint32_t relID);
+
   // Cancels all searches, stops location follow and then selects
   // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);

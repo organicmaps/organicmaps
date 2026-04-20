@@ -51,6 +51,9 @@ public:
   ESelectedObject GetSelectedObject() const;
 
   void AddSelectionGeometry(drape_ptr<RenderNode> && renderNode, int recacheId);
+  /// Drops any previously added selection geometry and bumps the recache id so stale flushes
+  /// from an in-flight build get discarded. The selection marker itself is not affected.
+  void ResetSelectionGeometry();
   int GetRecacheId() const { return m_recacheId; }
   m2::RectD GetSelectionGeometryBoundingBox() const;
   bool HasSelectionGeometry() const { return !m_selectionGeometry.empty(); }

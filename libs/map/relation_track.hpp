@@ -31,6 +31,10 @@ public:
   /// @return nullopt if no suitable relation found or geometry can't be built.
   std::optional<Data> Build();
 
+  /// Builds geometry for a specific relation (by @p relID) assuming members are ordered.
+  /// Uses MergeOrdered — suitable for public-transport routes where way ordering is meaningful.
+  std::optional<Data> BuildOrdered(uint32_t relID);
+
   /// Builds the longest connected chain starting from @p startIdx, growing in both directions.
   static TrackGeometry BuildChain(std::vector<TrackGeometry> const & members, size_t startIdx);
 

@@ -180,6 +180,30 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
   return std::nullopt;
 }
 
+std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::BuildOrdered(uint32_t relID)
+{
+  FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
+  auto ft = guard.GetFeatureByIndex(m_fid.m_index);
+  ASSERT(ft, ());
+
+  auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
+
+  size_t startIdx = 0;
+  auto members = LoadMemberGeometries(rel, startIdx);
+  if (members.empty())
+    return std::nullopt;
+
+  auto lines = MergeOrdered(members);
+  if (lines.empty())
+    return std::nullopt;
+
+  Data data;
+  data.m_lines = std::move(lines);
+  data.m_name = std::string(rel.GetDefaultName());
+  data.m_color = rel.GetColor();
+  return data;
+}
+
 std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMemberGeometries(
     feature::RouteRelation const & relation, size_t & startIdx)
 {
