@@ -196,6 +196,22 @@ UNIT_TEST(BuildChain_NearbyEndpointsAtCellBoundary)
   TEST_EQUAL(result[2].GetAltitude(), 30, ());
 }
 
+UNIT_TEST(BuildChain_PrefersMatchingEndpointOverNearbyEndpoint)
+{
+  // chainEndX is in cell 10, nearbyFrontX in cell 9 — both inside the 3x3
+  // neighborhood, but |dx| = 1.5 * kMwmPointAccuracy, so they must NOT be merged.
+  double const chainEndX = 10.9 * kMwmPointAccuracy;
+  double const nearbyFrontX = 9.4 * kMwmPointAccuracy;
+
+  std::vector<Line> members = {{MakePt(0, 0, 10), MakePt(chainEndX, 0, 20)},
+                               {MakePt(nearbyFrontX, 0, 30), MakePt(chainEndX, 0, 20)}};
+
+  auto const result = RelationTrackBuilder::BuildChain(members, 0);
+  TEST_EQUAL(result.size(), 3, ());
+  TEST_EQUAL(result[2].GetAltitude(), 30, ());
+  TEST(!result[1].GetPoint().EqualDxDy(result[2].GetPoint(), kMwmPointAccuracy), ());
+}
+
 // MergeAllMembers tests.
 
 UNIT_TEST(MergeAllMembers_SingleConnectedChain)
