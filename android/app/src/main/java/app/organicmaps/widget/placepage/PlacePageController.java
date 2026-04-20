@@ -195,6 +195,8 @@ public class PlacePageController
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
 
     ViewCompat.setOnApplyWindowInsetsListener(mPlacePage, (v, windowInsets) -> {
+      final Insets oldInsets =
+          mCurrentWindowInsets == null ? null : mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
       mCurrentWindowInsets = windowInsets;
       final Insets insets = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
       final ViewGroup.MarginLayoutParams layoutParams =
@@ -209,6 +211,18 @@ public class PlacePageController
         layoutParams.width = mPlacePage.getWidth();
         layoutParams.setMargins(insets.left, 0, insets.right, 0);
         mPlacePageStatusBarBackground.setLayoutParams(layoutParams);
+      }
+
+      // When the system bars come and go (e.g. entering/leaving fullscreen via a long tap on the
+      // map), the sheet's peek height, max height, and bottom padding become stale: max height
+      // can let the sheet slide under the status bar, peek height ignores the nav bar in
+      // landscape, and the missing bottom padding clips content behind the nav bar. Recompute
+      // them whenever the system bar insets actually change while the sheet is visible.
+      if (oldInsets != null && !oldInsets.equals(insets)
+          && !PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()))
+      {
+        mPlacePageBehavior.setPeekHeight(calculatePeekHeight());
+        setPlacePageHeightBounds();
       }
 
       return windowInsets;
