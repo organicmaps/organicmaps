@@ -836,6 +836,33 @@ UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
 }
 
+UNIT_TEST(Kml_Track_With_Non_Monotonic_Timestamps)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+  <Placemark>
+    <name>Unordered</name>
+    <gx:Track>
+      <when>2001-06-02T00:18:15Z</when>
+      <when>2001-11-28T21:05:28Z</when>
+      <when>2001-06-02T03:26:55Z</when>
+      <gx:coord>-71.107628 42.430950 23</gx:coord>
+      <gx:coord>-71.109236 42.431240 27</gx:coord>
+      <gx:coord>-71.109942 42.434980 45</gx:coord>
+    </gx:Track>
+  </Placemark>
+</kml>)";
+
+  kml::FileData fData;
+  TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(input)); }, ());
+
+  TEST_EQUAL(fData.m_tracksData.size(), 1, ());
+  auto const & geom = fData.m_tracksData[0].m_geometry;
+  TEST_EQUAL(geom.m_lines.size(), 1, ());
+  TEST_EQUAL(geom.m_lines[0].size(), 3, ());
+  TEST(!geom.HasTimestamps(), ("Non-monotonic timestamps should be dropped"));
+}
+
 // https://github.com/organicmaps/organicmaps/issues/9290
 UNIT_TEST(Kml_Import_OpenTracks)
 {
