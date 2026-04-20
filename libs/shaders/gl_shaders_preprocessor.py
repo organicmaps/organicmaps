@@ -319,7 +319,7 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
         file.write("namespace gpu\n")
         file.write("{\n")
         file.write("#if defined(OMIM_OS_LINUX)\n")
-        file.write("  char const * GL3_SHADER_VERSION = \"#version 310 es \\n\";\n")
+        file.write("  char const * GL3_SHADER_VERSION = \"#version 300 es \\n\";\n")
         file.write("#else\n")
         file.write("  char const * GL3_SHADER_VERSION = \"#version 410 core \\n\";\n")
         file.write("#endif\n")
