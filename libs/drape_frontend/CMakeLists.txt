@@ -173,6 +173,7 @@ set(SRC
   screen_operations.hpp
   screen_quad_renderer.cpp
   screen_quad_renderer.hpp
+  selection_info.hpp
   selection_shape.cpp
   selection_shape.hpp
   selection_shape_generator.cpp
@@ -200,7 +201,6 @@ set(SRC
   traffic_generator.hpp
   traffic_renderer.cpp
   traffic_renderer.hpp
-  transit_info.hpp
   transit_scheme_builder.cpp
   transit_scheme_builder.hpp
   transit_scheme_renderer.cpp

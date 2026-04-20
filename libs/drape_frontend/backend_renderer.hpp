@@ -87,6 +87,10 @@ private:
   void RecacheChoosePositionMark();
   void RecacheMapShapes();
   void CleanupTextures();
+  /// Posts a ClearTransitSchemeDataMessage to the frontend renderer scoped to the route's
+  /// sentinel (default-constructed) MwmId. Used both before pushing a fresh route build
+  /// and on hide.
+  void ClearRouteTransitData();
 
 #ifdef RENDER_DEBUG_INFO_LABELS
   void RecacheDebugLabels();

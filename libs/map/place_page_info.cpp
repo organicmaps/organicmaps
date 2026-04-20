@@ -113,9 +113,11 @@ void Info::SetFromFeatureType(FeatureType & ft)
   base::SortUnique(m_routes, [](RouteRef const & l, RouteRef const & r)
   {
     if (l.m_iRef == r.m_iRef)
-      return l.m_ref < r.m_ref;
+      return std::tie(l.m_ref, l.m_from, l.m_to) < std::tie(r.m_ref, r.m_from, r.m_to);
     return l.m_iRef < r.m_iRef;
-  }, [](RouteRef const & l, RouteRef const & r) { return l.m_ref == r.m_ref; });
+  }, [](RouteRef const & l, RouteRef const & r) {
+    return std::tie(l.m_ref, l.m_from, l.m_to) == std::tie(r.m_ref, r.m_from, r.m_to);
+  });
 }
 
 Info::RouteRef::RouteRef(uint32_t relID, feature::RouteRelationBase const & rel)

@@ -147,6 +147,12 @@ bool ParseSetGpsTrackMinAccuracyCommand(std::string const & query)
   GpsTrackFilter::StoreMinHorizontalAccuracy(value);
   return true;
 }
+
+void UpdateTrackSelectionColor(dp::Color & color)
+{
+  if (color == feature::RouteRelationBase::kEmptyColor)
+    color = dp::Color(128, 0, 128, 255);  // Default purple.
+}
 }  // namespace
 
 std::pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryFile const & file)
@@ -711,10 +717,8 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   kml::SetDefaultStr(kmlTrack.m_name, std::move(trackData->m_name));
 
   kml::TrackLayer layer;
-  auto color = trackData->m_color;
-  if (color == dp::Color::Transparent())
-    color = dp::Color(128, 0, 128, 255);  // Default purple.
-  layer.m_color.m_rgba = color.GetRGBA();
+  UpdateTrackSelectionColor(trackData->m_color);
+  layer.m_color.m_rgba = trackData->m_color.GetRGBA();
   kmlTrack.m_layers.push_back(layer);
 
   auto const trackId = bm.SetTempRelationTrack(std::move(kmlTrack));
@@ -1355,26 +1359,13 @@ void Framework::SelectRoute(uint32_t relID)
     return;
 
   RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid);
-  auto trackData = builder.BuildOrdered(relID);
-  if (!trackData)
+  auto info = builder.BuildSelectionInfo(relID);
+  if (!info)
     return;
 
-  std::vector<std::vector<m2::PointD>> lines;
-  lines.reserve(trackData->m_lines.size());
-  for (auto const & line : trackData->m_lines)
-  {
-    std::vector<m2::PointD> pts;
-    pts.reserve(line.size());
-    for (auto const & p : line)
-      pts.push_back(p.GetPoint());
-    lines.push_back(std::move(pts));
-  }
+  UpdateTrackSelectionColor(info->m_color);
 
-  auto color = trackData->m_color;
-  if (color == dp::Color::Transparent())
-    color = dp::Color(128, 0, 128, 255);  // Default purple.
-
-  m_drapeEngine->SetSelectionLines(std::move(lines), color);
+  m_drapeEngine->SetSelectionLines(std::move(*info));
 }
 
 void Framework::ShowRouteTransit(uint32_t relID)
@@ -1404,17 +1395,22 @@ void Framework::ShowRouteTransit(uint32_t relID)
     ShowRect(bbox, -1 /* maxScale */, true /* animation */, true /* useVisibleViewport */);
   }
 
-  // Enable the transit scheme flag so the map dim overlay renders.
-  // Clear the existing city transit cache so only the route data is shown (option (a)).
-  m_drapeEngine->ClearAllTransitSchemeCache();
+  UpdateTrackSelectionColor(info->m_color);
+  m_wasPTRoute = true;
+
   m_drapeEngine->EnableTransitScheme(true);
   m_drapeEngine->ShowRouteTransit(std::move(*info));
 }
 
-void Framework::HideRouteTransit()
+void Framework::HideRouteTransitIfNeeded()
 {
+  if (!m_wasPTRoute)
+    return;
+  m_wasPTRoute = false;
+
   if (!m_drapeEngine)
     return;
+
   m_drapeEngine->HideRouteTransit();
   m_drapeEngine->EnableTransitScheme(false);
 }
@@ -2073,6 +2069,8 @@ void Framework::DeactivateMapSelection()
 
   if (m_currentPlacePageInfo)
   {
+    HideRouteTransitIfNeeded();
+
     DeactivateHotelSearchMark();
 
     auto & bm = GetBookmarkManager();

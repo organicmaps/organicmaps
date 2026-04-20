@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/transit_info.hpp"
+#include "drape_frontend/selection_info.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -33,11 +33,12 @@ public:
   /// @return nullopt if no suitable relation found or geometry can't be built.
   std::optional<Data> Build();
 
-  /// Builds geometry for a specific relation (by @p relID) assuming members are ordered.
-  /// Uses MergeOrdered — suitable for public-transport routes where way ordering is meaningful.
-  std::optional<Data> BuildOrdered(uint32_t relID);
+  /// Builds a SelectionInfo (ordered polylines + color) for a specific relation (by @p relID),
+  /// using MergeOrdered — suitable for public-transport routes where way ordering is meaningful.
+  /// Feeds the selection-line render path (DrapeEngine::SetSelectionLines).
+  std::optional<df::SelectionInfo> BuildSelectionInfo(uint32_t relID);
 
-  /// Builds a full TransitInfo (ordered polylines + stops with names + color/title)
+  /// Builds a full TransitInfo (ordered polylines + stops with names + color)
   /// from a specific relation (by @p relID). Suitable for the relation-transit render path.
   std::optional<df::TransitInfo> BuildTransitInfo(uint32_t relID);
 

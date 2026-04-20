@@ -14,11 +14,11 @@
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/render_node.hpp"
 #include "drape_frontend/route_shape.hpp"
+#include "drape_frontend/selection_info.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
-#include "drape_frontend/transit_info.hpp"
 #include "drape_frontend/transit_scheme_builder.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
@@ -587,19 +587,14 @@ private:
 class SetSelectionLinesMessage : public Message
 {
 public:
-  SetSelectionLinesMessage(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color)
-    : m_lines(std::move(lines))
-    , m_color(color)
-  {}
+  explicit SetSelectionLinesMessage(SelectionInfo && info) : m_info(std::move(info)) {}
 
   Type GetType() const override { return Type::SetSelectionLines; }
 
-  std::vector<std::vector<m2::PointD>> & GetLines() { return m_lines; }
-  dp::Color const & GetColor() const { return m_color; }
+  SelectionInfo & MoveInfo() { return m_info; }
 
 private:
-  std::vector<std::vector<m2::PointD>> m_lines;
-  dp::Color m_color;
+  SelectionInfo m_info;
 };
 
 /// Posted from the frontend thread to the backend (resource upload) thread. Carries the same
@@ -607,21 +602,15 @@ private:
 class BuildSelectionLinesMessage : public Message
 {
 public:
-  BuildSelectionLinesMessage(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color, int recacheId)
-    : m_lines(std::move(lines))
-    , m_color(color)
-    , m_recacheId(recacheId)
-  {}
+  BuildSelectionLinesMessage(SelectionInfo && info, int recacheId) : m_info(std::move(info)), m_recacheId(recacheId) {}
 
   Type GetType() const override { return Type::BuildSelectionLines; }
 
-  std::vector<std::vector<m2::PointD>> const & GetLines() const { return m_lines; }
-  dp::Color const & GetColor() const { return m_color; }
+  SelectionInfo const & GetInfo() const { return m_info; }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
-  std::vector<std::vector<m2::PointD>> m_lines;
-  dp::Color m_color;
+  SelectionInfo m_info;
   int m_recacheId;
 };
 
@@ -1210,7 +1199,7 @@ public:
 
   Type GetType() const override { return Type::ShowRouteTransit; }
 
-  TransitInfo & GetInfo() { return m_info; }
+  TransitInfo const & GetInfo() const { return m_info; }
 
 private:
   TransitInfo m_info;

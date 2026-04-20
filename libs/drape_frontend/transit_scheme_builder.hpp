@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/transit_info.hpp"
+#include "drape_frontend/selection_info.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/render_bucket.hpp"
