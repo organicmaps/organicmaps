@@ -6,9 +6,13 @@ protocol TrackActivePointPresenter: AnyObject {
   func updateMyPositionDistance(_ distance: Double)
 }
 
-protocol ElevationProfilePresenterProtocol: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TrackActivePointPresenter {
+protocol ElevationProfilePresenterProtocol:
+  UICollectionViewDataSource,
+  UICollectionViewDelegateFlowLayout,
+  TrackActivePointPresenter {
   func configure()
   func update(with trackData: PlacePageTrackData)
+  func update(with previewData: RouteElevationPreviewData)
   func onDifficultyButtonPressed()
   func onSelectedPointChanged(_ distance: Double)
 }
@@ -26,9 +30,11 @@ private struct DescriptionsViewModel {
 
 final class ElevationProfilePresenter: NSObject {
   private weak var view: ElevationProfileViewProtocol?
-  private weak var trackData: PlacePageTrackData?
+  private var trackInfo: TrackInfo
+  private var elevationProfileData: ElevationProfileData?
+  private var activePointDistance: Double
+  private var myPositionDistance: Double
   private weak var delegate: ElevationProfileViewControllerDelegate?
-  private let bookmarkManager: BookmarksManager = .shared()
 
   private let cellSpacing: CGFloat = 8
   private var descriptionModels: [DescriptionsViewModel]
@@ -36,38 +42,72 @@ final class ElevationProfilePresenter: NSObject {
   private let formatter: ElevationProfileFormatter
 
   init(view: ElevationProfileViewProtocol,
-       trackData: PlacePageTrackData,
+       trackInfo: TrackInfo,
+       elevationProfileData: ElevationProfileData?,
+       activePointDistance: Double = 0,
+       myPositionDistance: Double = 0,
        formatter: ElevationProfileFormatter = ElevationProfileFormatter(),
        delegate: ElevationProfileViewControllerDelegate?) {
     self.view = view
     self.delegate = delegate
     self.formatter = formatter
-    self.trackData = trackData
-    if let profileData = trackData.elevationProfileData {
-      chartData = ElevationProfileChartData(profileData)
+    self.trackInfo = trackInfo
+    self.elevationProfileData = elevationProfileData
+    self.activePointDistance = activePointDistance
+    self.myPositionDistance = myPositionDistance
+    if let elevationProfileData {
+      chartData = ElevationProfileChartData(elevationProfileData)
     }
-    descriptionModels = Self.descriptionModels(for: trackData.trackInfo)
+    descriptionModels = Self.descriptionModels(for: trackInfo)
   }
 
   private static func descriptionModels(for trackInfo: TrackInfo) -> [DescriptionsViewModel] {
     [
-      DescriptionsViewModel(title: L("elevation_profile_ascent"), value: trackInfo.ascent, imageName: "ic_em_ascent_24"),
-      DescriptionsViewModel(title: L("elevation_profile_descent"), value: trackInfo.descent, imageName: "ic_em_descent_24"),
-      DescriptionsViewModel(title: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation, imageName: "ic_em_max_attitude_24"),
-      DescriptionsViewModel(title: L("elevation_profile_min_elevation"), value: trackInfo.minElevation, imageName: "ic_em_min_attitude_24"),
+      DescriptionsViewModel(title: L("elevation_profile_ascent"),
+                            value: trackInfo.ascent,
+                            imageName: "ic_em_ascent_24"),
+      DescriptionsViewModel(title: L("elevation_profile_descent"),
+                            value: trackInfo.descent,
+                            imageName: "ic_em_descent_24"),
+      DescriptionsViewModel(title: L("elevation_profile_max_elevation"),
+                            value: trackInfo.maxElevation,
+                            imageName: "ic_em_max_attitude_24"),
+      DescriptionsViewModel(title: L("elevation_profile_min_elevation"),
+                            value: trackInfo.minElevation,
+                            imageName: "ic_em_min_attitude_24"),
     ]
   }
 }
 
 extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   func update(with trackData: PlacePageTrackData) {
-    self.trackData = trackData
-    if let profileData = trackData.elevationProfileData {
-      chartData = ElevationProfileChartData(profileData)
+    applyTrackData(trackInfo: trackData.trackInfo,
+                   elevationProfileData: trackData.elevationProfileData,
+                   activePointDistance: trackData.activePointDistance,
+                   myPositionDistance: trackData.myPositionDistance)
+  }
+
+  func update(with previewData: RouteElevationPreviewData) {
+    applyTrackData(trackInfo: previewData.trackInfo,
+                   elevationProfileData: previewData.elevationProfileData,
+                   activePointDistance: 0,
+                   myPositionDistance: 0)
+  }
+
+  private func applyTrackData(trackInfo: TrackInfo,
+                              elevationProfileData: ElevationProfileData?,
+                              activePointDistance: Double,
+                              myPositionDistance: Double) {
+    self.trackInfo = trackInfo
+    self.elevationProfileData = elevationProfileData
+    self.activePointDistance = activePointDistance
+    self.myPositionDistance = myPositionDistance
+    if let elevationProfileData {
+      chartData = ElevationProfileChartData(elevationProfileData)
     } else {
       chartData = nil
     }
-    descriptionModels = Self.descriptionModels(for: trackData.trackInfo)
+    descriptionModels = Self.descriptionModels(for: trackInfo)
     configure()
   }
 
@@ -85,8 +125,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.isChartViewHidden = false
 
     let kMinPointsToDraw = 2
-    guard let trackData = trackData,
-          let profileData = trackData.elevationProfileData,
+    guard let elevationProfileData,
           let chartData,
           chartData.pointsCount >= kMinPointsToDraw
     else {
@@ -97,14 +136,15 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.setChartData(ChartPresentationData(chartData, formatter: formatter))
     view?.reloadDescription()
 
-    guard !profileData.isTrackRecording else {
+    guard !elevationProfileData.isTrackRecording else {
+      view?.userInteractionEnabled = false
       view?.isChartViewInfoHidden = true
       return
     }
 
     view?.userInteractionEnabled = true
-    view?.setActivePointDistance(trackData.activePointDistance)
-    view?.setMyPositionDistance(trackData.myPositionDistance)
+    view?.setActivePointDistance(activePointDistance)
+    view?.setMyPositionDistance(myPositionDistance)
   }
 
   func onDifficultyButtonPressed() {
@@ -134,15 +174,21 @@ extension ElevationProfilePresenter {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ElevationProfilePresenter {
-  func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView,
+                      layout _: UICollectionViewLayout,
+                      sizeForItemAt _: IndexPath) -> CGSize {
     let width = collectionView.width
     let cellHeight = collectionView.height
     let modelsCount = CGFloat(descriptionModels.count)
-    let cellWidth = (width - cellSpacing * (modelsCount - 1) - collectionView.contentInset.right - collectionView.contentInset.left) / modelsCount
+    let horizontalSpacing = cellSpacing * (modelsCount - 1)
+    let horizontalInsets = collectionView.contentInset.right + collectionView.contentInset.left
+    let cellWidth = (width - horizontalSpacing - horizontalInsets) / modelsCount
     return CGSize(width: cellWidth, height: cellHeight)
   }
 
-  func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
+  func collectionView(_: UICollectionView,
+                      layout _: UICollectionViewLayout,
+                      minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
     cellSpacing
   }
 }

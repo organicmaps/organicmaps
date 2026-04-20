@@ -5,7 +5,7 @@ enum NavigationDashboard {
     var routerType: MWMRouterType
     var entity: MWMNavigationDashboardEntity
     var routingOptions: RoutingOptions
-    var elevationInfo: ElevationInfo?
+    var routeElevationPreviewData: RouteElevationPreviewData?
     var navigationInfo: NavigationInfo
     var estimates: NSAttributedString
     var dashboardState: MWMNavigationDashboardState
@@ -24,11 +24,6 @@ enum NavigationDashboard {
     var errorMessage: String?
   }
 
-  struct ElevationInfo: Equatable {
-    var estimates: NSAttributedString
-    var image: UIImage?
-  }
-
   struct NavigationInfo: Equatable {
     var state: MWMNavigationInfoViewState
     var availableArea: CGRect
@@ -43,7 +38,7 @@ extension NavigationDashboard.ViewModel {
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
       routingOptions: RoutingOptions(),
-      elevationInfo: nil,
+      routeElevationPreviewData: nil,
       navigationInfo: .hidden,
       estimates: NSAttributedString(),
       dashboardState: .hidden,

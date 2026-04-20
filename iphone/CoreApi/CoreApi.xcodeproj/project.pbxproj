@@ -83,7 +83,7 @@
 		9957FAE9237AE5B000855F48 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FAE7237AE5B000855F48 /* Logger.mm */; };
 		9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2723DF1968003FE824 /* ElevationProfileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA2823DF1968003FE824 /* ElevationProfileData.mm */; };
-		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; };
+		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC6A585728057EF6003EABAF /* StringUtils+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE838D272D9D834F00476DD0 /* PlacePagePhone.h in Headers */ = {isa = PBXBuildFile; fileRef = CE838D252D9D834F00476DD0 /* PlacePagePhone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE838D282D9D834F00476DD0 /* PlacePagePhone.m in Sources */ = {isa = PBXBuildFile; fileRef = CE838D262D9D834F00476DD0 /* PlacePagePhone.m */; };
@@ -100,7 +100,7 @@
 		ED49D75F2CEFA8C0004AF27E /* Product+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED49D75E2CEFA8C0004AF27E /* Product+Core.h */; };
 		ED49D7612CEFA8E1004AF27E /* Product+Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED49D7602CEFA8E1004AF27E /* Product+Core.mm */; };
 		ED7306F42D0C5D2400523AA1 /* TrackInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED7306F12D0C5D2400523AA1 /* TrackInfo.mm */; };
-		ED7306F52D0C5D2400523AA1 /* TrackInfo+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7306F22D0C5D2400523AA1 /* TrackInfo+Core.h */; };
+		ED7306F52D0C5D2400523AA1 /* TrackInfo+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7306F22D0C5D2400523AA1 /* TrackInfo+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED7306F62D0C5D2400523AA1 /* TrackInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7306F02D0C5D2400523AA1 /* TrackInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */; };
 		ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B092CD67A470049E39E /* DistanceFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -109,6 +109,8 @@
 		ED965B222CD8F5AA0049E39E /* DurationFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B212CD8F5AA0049E39E /* DurationFormatter.mm */; };
 		ED965B232CD8F5AA0049E39E /* DurationFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B202CD8F5AA0049E39E /* DurationFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED965B2A2CDA1C440049E39E /* DateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED965B282CDA159C0049E39E /* DateTimeFormatter.swift */; };
+		EDA1A0012F12345600ABCD01 /* RouteElevationPreviewData.h in Headers */ = {isa = PBXBuildFile; fileRef = EDA1A0032F12345600ABCD01 /* RouteElevationPreviewData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDA1A0022F12345600ABCD01 /* RouteElevationPreviewData.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDA1A0042F12345600ABCD01 /* RouteElevationPreviewData.mm */; };
 		EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */; };
 		EDC4E3522C5D222D009286A2 /* RecentlyDeletedCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3532C5D222D009286A2 /* RecentlyDeletedCategory+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */; };
@@ -224,6 +226,8 @@
 		ED965B202CD8F5AA0049E39E /* DurationFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DurationFormatter.h; sourceTree = "<group>"; };
 		ED965B212CD8F5AA0049E39E /* DurationFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DurationFormatter.mm; sourceTree = "<group>"; };
 		ED965B282CDA159C0049E39E /* DateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeFormatter.swift; sourceTree = "<group>"; };
+		EDA1A0032F12345600ABCD01 /* RouteElevationPreviewData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouteElevationPreviewData.h; sourceTree = "<group>"; };
+		EDA1A0042F12345600ABCD01 /* RouteElevationPreviewData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteElevationPreviewData.mm; sourceTree = "<group>"; };
 		EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecentlyDeletedCategory.mm; sourceTree = "<group>"; };
 		EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyDeletedCategory.h; sourceTree = "<group>"; };
 		EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RecentlyDeletedCategory+Core.h"; sourceTree = "<group>"; };
@@ -324,6 +328,8 @@
 				ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */,
 				ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */,
 				ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */,
+				EDA1A0032F12345600ABCD01 /* RouteElevationPreviewData.h */,
+				EDA1A0042F12345600ABCD01 /* RouteElevationPreviewData.mm */,
 				47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */,
 				47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */,
 				47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */,
@@ -519,6 +525,7 @@
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
 				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
 				ED7306F52D0C5D2400523AA1 /* TrackInfo+Core.h in Headers */,
+				EDA1A0012F12345600ABCD01 /* RouteElevationPreviewData.h in Headers */,
 				ED7306F62D0C5D2400523AA1 /* TrackInfo.h in Headers */,
 				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
@@ -686,6 +693,7 @@
 				ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */,
 				EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */,
 				ED49D75B2CEF8BD2004AF27E /* ProductsConfiguration.swift in Sources */,
+				EDA1A0022F12345600ABCD01 /* RouteElevationPreviewData.mm in Sources */,
 				ED46DE3A2D09BE21007CACD6 /* PlacePageTrackData.mm in Sources */,
 				47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
