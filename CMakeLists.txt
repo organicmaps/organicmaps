@@ -160,6 +160,22 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   else()
     message(STATUS "Found Qt version: ${Qt6Widgets_VERSION}")
   endif()
+
+  if (PLATFORM_LINUX AND Qt6_DIR MATCHES "/\\.?linuxbrew/")
+    message(WARNING
+      "Qt6 was found under Homebrew (Linuxbrew) at ${Qt6_DIR}.\n"
+      "Linuxbrew's Qt6 libraries embed a DT_RPATH that forces Linuxbrew's bundled "
+      "Mesa libGL.so.1 to be loaded at runtime, bypassing the system libglvnd dispatcher. "
+      "On systems with the NVIDIA proprietary driver this silently falls back to software "
+      "rendering (llvmpipe) and then crashes in qtoglcontextfactory.cpp when creating "
+      "an offscreen GL surface.\n"
+      "Recommended: install Qt6 from your distribution "
+      "(e.g. 'apt install qt6-base-dev qt6-positioning-dev', "
+      "'dnf install qt6-qtbase-devel qt6-qtpositioning-devel') and reconfigure.\n"
+      "Workaround: run the binary with LD_PRELOAD pointing at the system libGL, e.g. "
+      "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 (Debian/Ubuntu) or "
+      "LD_PRELOAD=/usr/lib64/libGL.so.1 (Fedora/RHEL).")
+  endif()
 endif()
 
 # To allow #include "base/file_name.hpp" in all sources.
