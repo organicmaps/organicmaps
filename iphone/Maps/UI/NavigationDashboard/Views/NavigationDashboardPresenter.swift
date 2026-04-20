@@ -30,6 +30,9 @@ extension NavigationDashboard {
       case .updateState(let state):
         viewModel.dashboardState = state
         viewModel.navigationInfo.state = state.navigationInfo
+        if state == .error {
+          viewModel.routeElevationPreviewData = nil
+        }
 
       case .close:
         viewModel.dashboardState = .closed
@@ -67,17 +70,12 @@ extension NavigationDashboard {
 
       case .updateNavigationInfo(let entity):
         let estimates = buildEstimatesString(routerType: viewModel.routerType,
-                                             navigationInfo: entity,
-                                             elevationInfo: viewModel.elevationInfo)
+                                             navigationInfo: entity)
         viewModel.entity = entity
         viewModel.estimates = estimates
 
       case .updateElevationInfo(let elevationInfo):
-        let estimates = buildEstimatesString(routerType: viewModel.routerType,
-                                             navigationInfo: viewModel.entity,
-                                             elevationInfo: elevationInfo)
-        viewModel.elevationInfo = elevationInfo
-        viewModel.estimates = estimates
+        viewModel.routeElevationPreviewData = elevationInfo
 
       case .updateNavigationInfoAvailableArea(let rect):
         viewModel.navigationInfo.availableArea = rect
@@ -124,17 +122,13 @@ extension NavigationDashboard {
     }
 
     private func buildEstimatesString(routerType: MWMRouterType,
-                                      navigationInfo: MWMNavigationDashboardEntity,
-                                      elevationInfo: ElevationInfo?) -> NSAttributedString {
+                                      navigationInfo: MWMNavigationDashboardEntity) -> NSAttributedString {
       let result = NSMutableAttributedString()
       if let estimates = navigationInfo.estimate() {
         if routerType == .ruler {
           result.append(NSAttributedString(string: L("placepage_distance") + ": "))
         }
         result.append(estimates)
-      }
-      if let elevationInfo {
-        result.append(elevationInfo.estimates)
       }
       return result
     }

@@ -42,7 +42,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     guard trackData.trackInfo.hasElevationInfo, trackData.elevationProfileData != nil else {
       return nil
     }
-    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor)
+    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
   }()
 
   private lazy var actionBarViewController: ActionBarViewController = {

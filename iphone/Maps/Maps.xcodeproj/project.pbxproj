@@ -204,7 +204,6 @@
 		ED82C5812F90180300FA103D /* TransportTransitStepsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3C12F90180300FA103D /* TransportTransitStepsCollectionView.swift */; };
 		ED82C5822F90180300FA103D /* TransportTransitStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3C22F90180300FA103D /* TransportTransitStepsView.swift */; };
 		ED82C5832F90180300FA103D /* TransportTransitTrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3C32F90180300FA103D /* TransportTransitTrain.swift */; };
-		ED82C5842F90180300FA103D /* ElevationProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3C62F90180300FA103D /* ElevationProfileView.swift */; };
 		ED82C5852F90180300FA103D /* EstimatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3C72F90180300FA103D /* EstimatesView.swift */; };
 		ED82C5862F90180300FA103D /* NavigationDashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3CA2F90180300FA103D /* NavigationDashboardBuilder.swift */; };
 		ED82C5872F90180300FA103D /* NavigationDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3CB2F90180300FA103D /* NavigationDashboardInteractor.swift */; };
@@ -1152,7 +1151,6 @@
 		ED82C3C22F90180300FA103D /* TransportTransitStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsView.swift; sourceTree = "<group>"; };
 		ED82C3C32F90180300FA103D /* TransportTransitTrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitTrain.swift; sourceTree = "<group>"; };
 		ED82C3C42F90180300FA103D /* TransportTransitTrain.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportTransitTrain.xib; sourceTree = "<group>"; };
-		ED82C3C62F90180300FA103D /* ElevationProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileView.swift; sourceTree = "<group>"; };
 		ED82C3C72F90180300FA103D /* EstimatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimatesView.swift; sourceTree = "<group>"; };
 		ED82C3C82F90180300FA103D /* RoutePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutePreviewView.h; sourceTree = "<group>"; };
 		ED82C3CA2F90180300FA103D /* NavigationDashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardBuilder.swift; sourceTree = "<group>"; };
@@ -2689,7 +2687,6 @@
 				ED82C3B52F90180300FA103D /* RoutePoints */,
 				ED82C3B72F90180300FA103D /* TransportOptions */,
 				ED82C3C52F90180300FA103D /* TransportTransitSteps */,
-				ED82C3C62F90180300FA103D /* ElevationProfileView.swift */,
 				ED82C3C72F90180300FA103D /* EstimatesView.swift */,
 				ED82C3C82F90180300FA103D /* RoutePreviewView.h */,
 			);
@@ -4542,7 +4539,6 @@
 				ED82C5812F90180300FA103D /* TransportTransitStepsCollectionView.swift in Sources */,
 				ED82C5822F90180300FA103D /* TransportTransitStepsView.swift in Sources */,
 				ED82C5832F90180300FA103D /* TransportTransitTrain.swift in Sources */,
-				ED82C5842F90180300FA103D /* ElevationProfileView.swift in Sources */,
 				ED82C5852F90180300FA103D /* EstimatesView.swift in Sources */,
 				ED82C5862F90180300FA103D /* NavigationDashboardBuilder.swift in Sources */,
 				ED82C5872F90180300FA103D /* NavigationDashboardInteractor.swift in Sources */,

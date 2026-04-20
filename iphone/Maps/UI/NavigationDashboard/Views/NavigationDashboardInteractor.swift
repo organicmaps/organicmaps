@@ -4,20 +4,17 @@ extension NavigationDashboard {
     private let router: MWMRouter.Type
     private let mapViewController: MapViewController
     private let searchManager: SearchOnMapManager
-    private let frameworkHelper: FrameworkHelper.Type
 
     weak var delegate: MWMRoutePreviewDelegate?
 
     init(presenter: Presenter,
          router: MWMRouter.Type = MWMRouter.self,
          mapViewController: MapViewController = MapViewController.shared()!,
-         searchManager: SearchOnMapManager = MapViewController.shared()!.searchManager,
-         frameworkHelper: FrameworkHelper.Type = FrameworkHelper.self) {
+         searchManager: SearchOnMapManager = MapViewController.shared()!.searchManager) {
       self.presenter = presenter
       self.router = router
       self.mapViewController = mapViewController
       self.searchManager = searchManager
-      self.frameworkHelper = frameworkHelper
       super.init()
     }
 
@@ -83,7 +80,7 @@ extension NavigationDashboard {
         return .none
 
       case .saveRouteAsTrackButtonDidTap:
-        frameworkHelper.saveRouteAsTrack()
+        router.saveRouteAsTrack()
         return .setRouteAsTrackSaved
 
       case .updateRouteBuildingProgress(let progress, let routerType):
@@ -204,31 +201,8 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
     process(.showError(errorMessage))
   }
 
-  // TODO: (KK) elevation info should be removed when the new elevation chart with all statistics will be implemented
-  static var elevationAttributes: [NSAttributedString.Key: Any] {
-    [.foregroundColor: UIColor.blackSecondaryText, .font: UIFont.medium16()]
-  }
-
   private func buildElevationInfoIfNeeded() {
-    guard router.hasRouteAltitude() else {
-      presenter.process(.updateElevationInfo(nil))
-      return
-    }
-    router.routeAltitudeImage(
-      for: CGSize(width: 350, height: 50)
-    ) { [weak self] image, totalAscent, totalDescent in
-      guard let self else { return }
-      guard let totalAscent, let totalDescent else {
-        self.process(.updateElevationInfo(nil))
-        return
-      }
-      let attributes = Self.elevationAttributes
-      let elevation = NSMutableAttributedString(string: "")
-      elevation.append(MWMNavigationDashboardEntity.estimateDot())
-      elevation.append(NSAttributedString(string: "▲ \(totalAscent)  ", attributes: attributes))
-      elevation.append(NSAttributedString(string: "▼ \(totalDescent)", attributes: attributes))
-      let elevationInfo = NavigationDashboard.ElevationInfo(estimates: elevation, image: image)
-      self.process(.updateElevationInfo(elevationInfo))
-    }
+    let elevationInfo = router.routeElevationProfileData()
+    process(.updateElevationInfo(elevationInfo))
   }
 }

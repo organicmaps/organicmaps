@@ -42,7 +42,9 @@ final class NavigationDashboardViewController: UIViewController {
   private let routeStatusStackView = UIStackView()
   private let estimatesView = EstimatesView()
   private let transportTransitStepsView = TransportTransitStepsView()
-  private let elevationProfileView = ElevationProfileView()
+  private let elevationProfileContainerView = UIView()
+  private var elevationProfileViewController: ElevationProfileViewController?
+  private var currentRouteElevationPreviewData: RouteElevationPreviewData?
   private let settingsButton = UIButton(type: .system)
   private let settingsBadge = BadgeWithNumber()
   private var routePointsView = RoutePointsView()
@@ -136,6 +138,7 @@ final class NavigationDashboardViewController: UIViewController {
     setupCloseButton()
     setupEstimatesView()
     setupRouteStatusView()
+    setupElevationProfileView()
     setupSettingsButton()
     setupBottomMenuActions()
     setupTransportOptionsView()
@@ -213,6 +216,11 @@ final class NavigationDashboardViewController: UIViewController {
     routeStatusStackView.spacing = Constants.routeStatusStackSpacing
   }
 
+  private func setupElevationProfileView() {
+    elevationProfileContainerView.backgroundColor = .clear
+    elevationProfileContainerView.isHidden = true
+  }
+
   private func setupSettingsButton() {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
@@ -254,6 +262,52 @@ final class NavigationDashboardViewController: UIViewController {
   private func setupRoutePointsView() {
     routePointsView.interactor = interactor
     routePointsView.scrollViewDelegate = self
+  }
+
+  private func updateElevationProfile(with routeElevationPreviewData: RouteElevationPreviewData?) {
+    guard routeElevationPreviewData !== currentRouteElevationPreviewData else {
+      elevationProfileContainerView.isHidden = routeElevationPreviewData == nil
+      return
+    }
+    currentRouteElevationPreviewData = routeElevationPreviewData
+
+    guard let routeElevationPreviewData else {
+      removeElevationProfileIfNeeded()
+      elevationProfileContainerView.isHidden = true
+      return
+    }
+
+    if let elevationProfileViewController {
+      elevationProfileViewController.setPresentationStyle(.routePreview)
+      elevationProfileViewController.presenter?.update(with: routeElevationPreviewData)
+      elevationProfileContainerView.isHidden = false
+      return
+    }
+
+    let viewController = ElevationProfileBuilder.build(routeElevationPreviewData: routeElevationPreviewData,
+                                                       delegate: nil,
+                                                       presentationStyle: .routePreview)
+    addChild(viewController)
+    elevationProfileContainerView.addSubview(viewController.view)
+    viewController.view.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      viewController.view.leadingAnchor.constraint(equalTo: elevationProfileContainerView.leadingAnchor),
+      viewController.view.trailingAnchor.constraint(equalTo: elevationProfileContainerView.trailingAnchor),
+      viewController.view.topAnchor.constraint(equalTo: elevationProfileContainerView.topAnchor),
+      viewController.view.bottomAnchor.constraint(equalTo: elevationProfileContainerView.bottomAnchor),
+    ])
+    viewController.didMove(toParent: self)
+    elevationProfileViewController = viewController
+    elevationProfileContainerView.isHidden = false
+  }
+
+  private func removeElevationProfileIfNeeded() {
+    guard let elevationProfileViewController else { return }
+    elevationProfileViewController.willMove(toParent: nil)
+    elevationProfileViewController.view.removeFromSuperview()
+    elevationProfileViewController.removeFromParent()
+    self.elevationProfileViewController = nil
+    currentRouteElevationPreviewData = nil
   }
 
   // MARK: - Actions
@@ -306,7 +360,7 @@ final class NavigationDashboardViewController: UIViewController {
 
     routeStatusStackView.addArrangedSubview(estimatesStackView)
     routeStatusStackView.addArrangedSubview(transportTransitStepsView)
-    routeStatusStackView.addArrangedSubview(elevationProfileView)
+    routeStatusStackView.addArrangedSubview(elevationProfileContainerView)
     availableAreaView.addSubview(routeStatusStackView)
 
     availableAreaView.addSubview(routePointsView)
@@ -383,7 +437,7 @@ final class NavigationDashboardViewController: UIViewController {
     let shouldShowHalfScreenStep = traitCollection.verticalSizeClass == .regular &&
       containerHeight > 0 &&
       regularHeight > containerHeight * NavigationDashboardModalPresentationStepStrategy.halfScreenActivationHeightFactor
-    let shouldShowEstimatesStep = !elevationProfileView.isHidden && estimatesHeight < compactBaseHeight
+    let shouldShowEstimatesStep = !elevationProfileContainerView.isHidden && estimatesHeight < compactBaseHeight
 
     let shouldForceContentFrameUpdate =
       presentationStepStrategy.regularHeight != regularHeight ||
@@ -406,6 +460,7 @@ final class NavigationDashboardViewController: UIViewController {
   private func close() {
     navigationControlView.isVisible = false
     bottomActionsMenu.setHidden(true)
+    removeElevationProfileIfNeeded()
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
@@ -467,7 +522,7 @@ extension NavigationDashboardViewController {
     case .error:
       estimatesView.setState(viewModel.estimatesState)
       transportTransitStepsView.setNavigationInfo(nil)
-      elevationProfileView.setImage(nil)
+      updateElevationProfile(with: nil)
       saveRouteAsTrackButton.isEnabled = viewModel.canSaveRouteAsTrack
       navigationControlView.isVisible = false
 
@@ -476,7 +531,7 @@ extension NavigationDashboardViewController {
                                selectedRouterType: viewModel.routerType)
       estimatesView.setState(viewModel.estimatesState)
       transportTransitStepsView.setNavigationInfo(viewModel.entity)
-      elevationProfileView.setImage(viewModel.elevationInfo?.image)
+      updateElevationProfile(with: viewModel.routeElevationPreviewData)
       routePointsView.setRoutePoints(viewModel.routePoints)
       settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
       settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
