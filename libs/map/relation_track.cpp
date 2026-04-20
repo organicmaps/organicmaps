@@ -11,7 +11,6 @@
 #include "geometry/spatial_hash_grid.hpp"
 
 #include <deque>
-#include <unordered_map>
 
 namespace relation_track_merger  // Unity build protect
 {
@@ -22,21 +21,11 @@ bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
   return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
 }
 
-m2::SpatialHashGrid const & GetPointGrid()
-{
-  static m2::SpatialHashGrid const grid(kMwmPointAccuracy);
-  return grid;
-}
-
-using Grid = m2::SpatialHashGrid;
-
 struct EndpointRef
 {
   size_t memberIdx;
   bool isFront;  // true if this endpoint is the front (first point) of the member.
 };
-
-using EndpointMap = std::unordered_multimap<Grid::Cell, EndpointRef, Grid::Hash>;
 
 /// Maintains endpoint map and used-state for chain building.
 class Merger
@@ -45,15 +34,15 @@ public:
   explicit Merger(std::vector<TrackGeometry> const & members)
     : m_members(members)
     , m_used(members.size(), false)
-    , m_grid(GetPointGrid())
+    , m_endpointMap(kMwmPointAccuracy)
   {
     for (size_t i = 0; i < m_members.size(); ++i)
     {
       auto const & m = m_members[i];
       ASSERT_GREATER(m.size(), 1, ());
 
-      m_endpointMap.emplace(m_grid.ToCell(m.front().GetPoint()), EndpointRef{i, true});
-      m_endpointMap.emplace(m_grid.ToCell(m.back().GetPoint()), EndpointRef{i, false});
+      m_endpointMap.Emplace(m.front().GetPoint(), EndpointRef{i, true});
+      m_endpointMap.Emplace(m.back().GetPoint(), EndpointRef{i, false});
     }
   }
 
@@ -125,35 +114,25 @@ private:
     EndpointRef const * best = nullptr;
     size_t bestDelta = std::numeric_limits<size_t>::max();
 
-    for (auto const & cell : m_grid.GetNearbyCells(pt))
+    m_endpointMap.ForEachPoint(pt, [&](EndpointRef const & ref)
     {
-      auto const [rangeBegin, rangeEnd] = m_endpointMap.equal_range(cell);
-      for (auto it = rangeBegin; it != rangeEnd; ++it)
+      if (m_used[ref.memberIdx])
+        return;
+
+      size_t const delta = math::AbsDiff(ref.memberIdx, lastIdx);
+      if (delta < bestDelta)
       {
-        auto const & ref = it->second;
-        if (m_used[ref.memberIdx])
-          continue;
-
-        auto const & endpoint =
-            ref.isFront ? m_members[ref.memberIdx].front().GetPoint() : m_members[ref.memberIdx].back().GetPoint();
-        if (!IsEqual(endpoint, pt))
-          continue;
-
-        size_t const delta = math::AbsDiff(ref.memberIdx, lastIdx);
-        if (delta < bestDelta)
-        {
-          bestDelta = delta;
-          best = &ref;
-        }
+        bestDelta = delta;
+        best = &ref;
       }
-    }
+    });
+
     return best;
   }
 
   std::vector<TrackGeometry> const & m_members;
   std::vector<bool> m_used;
-  Grid const & m_grid;
-  EndpointMap m_endpointMap;
+  m2::PointHashMap<EndpointRef> m_endpointMap;
 };
 
 }  // namespace relation_track_merger

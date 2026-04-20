@@ -4,6 +4,9 @@
 
 #include <set>
 
+namespace spatial_hash_grid_test
+{
+
 UNIT_TEST(SpatialHashGrid_ToCell)
 {
   m2::SpatialHashGrid grid(1.0);
@@ -55,7 +58,7 @@ UNIT_TEST(SpatialHashGrid_GetNearbyCells_Returns9)
 // at least one cell in their 3x3 neighborhoods.
 UNIT_TEST(SpatialHashGrid_NearbyCells_BoundaryOverlap)
 {
-  double const eps = 1e-5;
+  double constexpr eps = 1e-5;
   m2::SpatialHashGrid grid(eps);
 
   // Points straddling a cell boundary: just below and just above x = 1.0.
@@ -85,42 +88,48 @@ UNIT_TEST(SpatialHashGrid_NearbyCells_BoundaryOverlap)
   TEST(overlap, ("3x3 neighborhoods of epsilon-close points must overlap"));
 }
 
-UNIT_TEST(SpatialHashGrid_Map)
+UNIT_TEST(PointHashMap_ForEachPoint)
 {
-  m2::SpatialHashGrid grid(1.0);
-  m2::SpatialHashGrid::Map<int> map;
+  double constexpr eps = 0.5;
+  m2::PointHashMap<int> map(eps);
 
-  map[grid.ToCell({1.5, 2.5})] = 42;
-  map[grid.ToCell({3.5, 4.5})] = 99;
+  map.Emplace({1.0, 1.0}, 10);
+  map.Emplace({1.3, 1.1}, 20);
+  map.Emplace({5.0, 5.0}, 50);
+  map.Emplace({1.0, 1.4}, 30);
 
-  TEST_EQUAL(map.size(), 2, ());
-  TEST_EQUAL(map[grid.ToCell({1.1, 2.9})], 42, ());  // same cell as (1.5, 2.5)
+  std::set<int> foundValues;
+  map.ForEachPoint({1.2, 1.2}, [&foundValues](int const & value) { foundValues.insert(value); });
+
+  TEST_EQUAL(foundValues.size(), 3, ());
+  TEST(foundValues.count(10), ());
+  TEST(foundValues.count(20), ());
+  TEST(foundValues.count(30), ());
+  TEST(!foundValues.count(50), ());
 }
 
-// Practical pattern: insert points into grid, then find neighbors via 3x3 lookup.
-UNIT_TEST(SpatialHashGrid_PointProximityQuery)
+UNIT_TEST(PointHashMap_ForEachPoint_FiltersWithEqualFunctor)
 {
-  double const eps = 0.5;
-  m2::SpatialHashGrid grid(eps);
-  m2::SpatialHashGrid::Map<std::vector<size_t>> index;
+  double constexpr eps = 1e-5;
+  m2::PointHashMap<int> map(eps);
 
-  std::vector<m2::PointD> points = {{1.0, 1.0}, {1.3, 1.1}, {5.0, 5.0}, {1.0, 1.4}};
-  for (size_t i = 0; i < points.size(); ++i)
-    index[grid.ToCell(points[i])].push_back(i);
+  m2::PointD const query(1.0 + eps * 0.1, 5.0);
+  m2::PointD const matching(1.0 - eps * 0.1, 5.0);
+  m2::PointD const nearbyButDifferent(1.0 + eps * 1.1, 5.0);
 
-  // Query neighbors of (1.2, 1.2) — should find points 0, 1, 3 (all within ~0.4).
-  std::vector<size_t> found;
-  for (auto const & cell : grid.GetNearbyCells({1.2, 1.2}))
+  map.Emplace(matching, 1);
+  map.Emplace(nearbyButDifferent, 2);
+
+  size_t foundCount = 0;
+  int foundValue = 0;
+  map.ForEachPoint(query, [&](int const & value)
   {
-    auto it = index.find(cell);
-    if (it != index.end())
-      found.insert(found.end(), it->second.begin(), it->second.end());
-  }
+    ++foundCount;
+    foundValue = value;
+  });
 
-  // Should find at least points 0, 1, 3 (not point 2 at (5,5)).
-  std::set<size_t> foundSet(found.begin(), found.end());
-  TEST(foundSet.count(0), ());
-  TEST(foundSet.count(1), ());
-  TEST(foundSet.count(3), ());
-  TEST(!foundSet.count(2), ("Point at (5,5) should not be found"));
+  TEST_EQUAL(foundCount, 1, ());
+  TEST_EQUAL(foundValue, 1, ());
 }
+
+}  // namespace spatial_hash_grid_test
