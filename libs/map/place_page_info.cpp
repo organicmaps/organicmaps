@@ -107,7 +107,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
   {
     auto const rel = ft.ReadRelation<feature::RouteRelationBase>(id);
     if (rel.IsPTRoute())
-      m_routes.push_back(RouteRef(rel.GetRef(), id));
+      m_routes.emplace_back(id, rel);
   }
 
   base::SortUnique(m_routes, [](RouteRef const & l, RouteRef const & r)
@@ -118,14 +118,21 @@ void Info::SetFromFeatureType(FeatureType & ft)
   }, [](RouteRef const & l, RouteRef const & r) { return l.m_ref == r.m_ref; });
 }
 
-Info::RouteRef::RouteRef(std::string const & ref, uint32_t relID) : m_ref(ref), m_iRef(0), m_relID(relID)
+Info::RouteRef::RouteRef(uint32_t relID, feature::RouteRelationBase const & rel)
+  : m_ref(rel.GetRef())
+  , m_from(rel.GetParam(feature::RouteRelationBase::FromIdx))
+  , m_to(rel.GetParam(feature::RouteRelationBase::ToIdx))
+  , m_iRef(0)
+  , m_relID(relID)
+  , m_type(rel.GetType())
+  , m_color(rel.GetColor())
 {
   // May be "S10" or "12A".
   /// @todo Sort by prefix if it is different (unlikely).
-  auto it = base::FindIf(ref, &strings::IsASCIIDigit<char>);
-  if (it != ref.end())
+  auto it = base::FindIf(m_ref, &strings::IsASCIIDigit<char>);
+  if (it != m_ref.end())
   {
-    auto const [_, ec] = std::from_chars(std::to_address(it), std::to_address(ref.end()), m_iRef, 10);
+    auto const [_, ec] = std::from_chars(std::to_address(it), std::to_address(m_ref.end()), m_iRef, 10);
     if (ec != std::errc())
       m_iRef = 0;
   }

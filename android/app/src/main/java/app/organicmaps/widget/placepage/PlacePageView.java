@@ -6,6 +6,8 @@ import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
@@ -14,11 +16,16 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,6 +34,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
@@ -63,6 +72,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
+import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -143,6 +153,11 @@ public class PlacePageView extends Fragment
   private View mRouteRef;
   private TextView mTvRouteRef;
   private ImageView mIvRouteRef;
+  @Nullable
+  private RouteInfo[] mRoutes;
+  /// Relation id of the route selected from the popup (and currently highlighted on the map).
+  /// Reset on each metadata refresh; wrapped in '|' in the primary refs string.
+  private int mSelectedRelId = -1;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -195,6 +210,18 @@ public class PlacePageView extends Fragment
   private MapObject mMapObject;
 
   private static void refreshMetadataOrHide(@Nullable String metadata, @NonNull View metaLayout,
+                                            @NonNull TextView metaTv)
+  {
+    if (!TextUtils.isEmpty(metadata))
+    {
+      metaLayout.setVisibility(VISIBLE);
+      metaTv.setText(metadata);
+    }
+    else
+      metaLayout.setVisibility(GONE);
+  }
+
+  private static void refreshMetadataOrHide(@Nullable CharSequence metadata, @NonNull View metaLayout,
                                             @NonNull TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
@@ -319,7 +346,7 @@ public class PlacePageView extends Fragment
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
     mRouteRef = mFrame.findViewById(R.id.ll__place_route_ref);
-    mRouteRef.setOnClickListener(this);
+    mFrame.findViewById(R.id.ll__place_route_ref_content).setOnClickListener(this);
     mTvRouteRef = mFrame.findViewById(R.id.tv__place_route_ref);
     mIvRouteRef = mFrame.findViewById(R.id.iv__place_route_ref);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
@@ -729,7 +756,9 @@ public class PlacePageView extends Fragment
                           mTvOutdoorSeating);
 
     // showTaxiOffer(mapObject);
-    refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedRouteRefs(), mRouteRef, mTvRouteRef);
+    mRoutes = Framework.nativeGetActiveObjectRoutes();
+    mSelectedRelId = -1;
+    refreshMetadataOrHide(formatRouteRefs(mRoutes, mSelectedRelId), mRouteRef, mTvRouteRef);
     if (mRouteRef.getVisibility() == VISIBLE)
     {
       if (mMapObject.isTramStop())
@@ -895,6 +924,92 @@ public class PlacePageView extends Fragment
       showBookmarkEditFragment();
     else if (id == R.id.tv__category)
       showCategoryList();
+    else if (id == R.id.ll__place_route_ref_content)
+      showRoutesPopup(v);
+  }
+
+  @NonNull
+  private static CharSequence formatRouteRefs(@Nullable RouteInfo[] routes, int selectedRelId)
+  {
+    if (routes == null || routes.length == 0)
+      return "";
+    final SpannableStringBuilder sb = new SpannableStringBuilder();
+    for (RouteInfo r : routes)
+    {
+      if (sb.length() > 0)
+        sb.append(" • ");
+      final int start = sb.length();
+      sb.append(r.getRef());
+      if (r.getRelId() == selectedRelId)
+      {
+        sb.setSpan(new StyleSpan(Typeface.BOLD), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sb.setSpan(new UnderlineSpan(), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+    }
+    return sb;
+  }
+
+  private void showRoutesPopup(@NonNull View anchor)
+  {
+    if (mRoutes == null || mRoutes.length == 0)
+      return;
+
+    final Context context = requireContext();
+    final String[] labels = new String[mRoutes.length];
+    for (int i = 0; i < mRoutes.length; i++)
+      labels[i] = mRoutes[i].formatLabel();
+
+    final int padH =
+        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
+    final int padV =
+        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
+
+    // Resolve theme's primary text color once — used when an item has no tinted background
+    // so it follows light/dark theme as usual.
+    final android.content.res.TypedArray ta =
+        context.obtainStyledAttributes(new int[] {android.R.attr.textColorPrimary});
+    final int defaultTextColor = ta.getColor(0, Color.BLACK);
+    ta.recycle();
+
+    final ListPopupWindow popup = new ListPopupWindow(context);
+    popup.setAnchorView(anchor);
+    popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+    popup.setModal(true);
+    popup.setAdapter(new ArrayAdapter<>(context, 0, labels) {
+      @NonNull
+      @Override
+      public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+      {
+        TextView tv = (TextView) convertView;
+        if (tv == null)
+        {
+          tv = new TextView(context);
+          tv.setPadding(padH, padV, padH, padV);
+          TextViewCompat.setTextAppearance(tv, androidx.appcompat.R.style.TextAppearance_AppCompat_Body1);
+        }
+        tv.setText(labels[position]);
+        final RouteInfo r = mRoutes[position];
+        if (r.hasColor())
+        {
+          tv.setBackgroundColor(ColorUtils.blendARGB(r.getColor(), Color.WHITE, 0.75f));
+          // Pastel background stays light in both themes — keep text readable on it.
+          tv.setTextColor(Color.BLACK);
+        }
+        else
+        {
+          tv.setBackgroundColor(Color.TRANSPARENT);
+          tv.setTextColor(defaultTextColor);
+        }
+        return tv;
+      }
+    });
+    popup.setOnItemClickListener((parent, view, position, id) -> {
+      mSelectedRelId = mRoutes[position].getRelId();
+      mTvRouteRef.setText(formatRouteRefs(mRoutes, mSelectedRelId));
+      Framework.nativeShowRouteTransit(mSelectedRelId);
+      popup.dismiss();
+    });
+    popup.show();
   }
 
   private void showBigDirection()
