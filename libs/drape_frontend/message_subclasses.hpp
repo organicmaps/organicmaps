@@ -18,6 +18,7 @@
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/transit_info.hpp"
 #include "drape_frontend/transit_scheme_builder.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
@@ -1198,6 +1199,29 @@ public:
 };
 
 using FlushTransitSchemeMessage = FlushRenderDataMessage<TransitRenderData, Message::Type::FlushTransitScheme>;
+
+/// Posted from the main thread to drape to display a single relation's transit view
+/// (polylines + stops + labels) on the transit scheme layer. Replaces any existing route
+/// transit; the map dim is driven by the existing m_transitSchemeEnabled flag.
+class ShowRouteTransitMessage : public Message
+{
+public:
+  explicit ShowRouteTransitMessage(TransitInfo && info) : m_info(std::move(info)) {}
+
+  Type GetType() const override { return Type::ShowRouteTransit; }
+
+  TransitInfo & GetInfo() { return m_info; }
+
+private:
+  TransitInfo m_info;
+};
+
+/// Posted from the main thread to drape to drop the currently shown route transit data.
+class HideRouteTransitMessage : public Message
+{
+public:
+  Type GetType() const override { return Type::HideRouteTransit; }
+};
 
 class DrapeApiAddLinesMessage : public Message
 {

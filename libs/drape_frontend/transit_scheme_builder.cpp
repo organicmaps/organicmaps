@@ -1029,6 +1029,121 @@ void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context, M
   }
 }
 
+void TransitSchemeBuilder::BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
+                                                 TransitInfo const & info, ref_ptr<dp::TextureManager> textures)
+{
+  if (info.IsEmpty())
+    return;
+
+  ++m_recacheId;
+
+  // Pivot: centroid of the combined bbox of all route points and stops.
+  m2::RectD bbox;
+  for (auto const & route : info.m_routes)
+    for (auto const & p : route.m_polyline)
+      bbox.Add(p);
+  for (auto const & stop : info.m_stops)
+    bbox.Add(stop.m_pos);
+  if (!bbox.IsValid())
+    return;
+
+  m2::PointD const pivot = bbox.Center();
+  dp::Color const color = info.m_color == dp::Color::Transparent() ? dp::Color(128, 0, 128, 255) : info.m_color;
+
+  uint32_t constexpr kBatchSize = 65000;
+  dp::Batcher batcher(kBatchSize, kBatchSize);
+  batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Transit));
+  {
+    dp::SessionGuard guard(context, batcher,
+                           [this, &mwmId, &pivot](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    {
+      TransitRenderData::Type type = TransitRenderData::Type::Lines;
+      auto const prog = state.GetProgram<gpu::Program>();
+      if (prog == gpu::Program::TransitCircle)
+        type = TransitRenderData::Type::LinesCaps;
+      else if (prog == gpu::Program::TransitMarker)
+        type = TransitRenderData::Type::Markers;
+      else if (prog == gpu::Program::TextOutlined)
+        type = TransitRenderData::Type::Text;
+
+      TransitRenderData renderData(type, state, m_recacheId, mwmId, pivot, std::move(b));
+      m_flushRenderDataFn(std::move(renderData));
+    });
+
+    float constexpr kDepth = 0.0f;
+    for (auto const & route : info.m_routes)
+    {
+      if (route.m_polyline.size() < 2)
+        continue;
+      GenerateLine(context, route.m_polyline, pivot, color, 0.0f /* lineOffset */, kTransitLineHalfWidth, kDepth,
+                   batcher);
+    }
+
+    float constexpr kStopScale = 2.5f;
+    int constexpr kHighlightedStopMinZoomLevel = kTransitSchemeMinZoomLevel;
+    dp::Color const kHighlightedColor(255, 0, 0, 255);  // Red for current/terminal stops.
+    for (auto const & stop : info.m_stops)
+    {
+      dp::Color const markerColor = stop.m_highlight ? kHighlightedColor : color;
+      GenerateMarker(context, MapShape::ConvertToLocal(stop.m_pos, pivot, kShapeCoordScalar),
+                     m2::PointD(1.0, 0.0) /* widthDir */, 1.0f /* linesCountWidth */, 1.0f /* linesCountHeight */,
+                     kStopScale, kStopScale, kDepth, markerColor, batcher);
+    }
+
+    // Stop name labels — emitted into the same batcher; the session guard flusher routes them
+    // to TransitRenderData::Type::Text via the TextOutlined program.
+    auto const vs = static_cast<float>(VisualParams::Instance().GetVisualScale());
+    std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopScale, 1000);
+
+    dp::FontDecl const regularFont(GetColorConstant(kTransitMarkText), kTransitMarkTextSize * vs,
+                                   GetColorConstant(kTransitMarkTextOutline));
+    dp::FontDecl const highlightedFont(kHighlightedColor, kTransitMarkTextSize * vs,
+                                       GetColorConstant(kTransitMarkTextOutline));
+
+    // Highlighted stops share the Transfer priority range so they win overlay-tree displacement
+    // against regular stops (which use the Stop range). Two independent counters per kind.
+    uint16_t regularPriority = static_cast<uint16_t>(Priority::StopMin);
+    uint16_t highlightedPriority = static_cast<uint16_t>(Priority::TransferMin);
+    for (auto const & stop : info.m_stops)
+    {
+      if (stop.m_name.empty())
+        continue;
+
+      uint16_t priority;
+      if (stop.m_highlight)
+      {
+        priority = highlightedPriority;
+        if (highlightedPriority < static_cast<uint16_t>(Priority::TransferMax))
+          ++highlightedPriority;
+      }
+      else
+      {
+        priority = regularPriority;
+        if (regularPriority < static_cast<uint16_t>(Priority::StopMax))
+          ++regularPriority;
+      }
+
+      TextViewParams textParams;
+      textParams.m_tileCenter = pivot;
+      textParams.m_titleDecl.m_primaryOptional = true;
+      textParams.m_titleDecl.m_primaryTextFont = stop.m_highlight ? highlightedFont : regularFont;
+      textParams.m_titleDecl.m_primaryText = stop.m_name;
+      textParams.m_titleDecl.m_anchor = dp::Left;
+      textParams.m_depthTestEnabled = false;
+      textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
+      textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
+      textParams.m_specialPriority = priority;
+      textParams.m_startOverlayRank = dp::OverlayRank0;
+      textParams.m_minVisibleScale = stop.m_highlight ? kHighlightedStopMinZoomLevel : kStopMinZoomLevel;
+
+      // TextShape takes the GLOBAL mercator point, not a local (pivot-relative) one.
+      TextShape(stop.m_pos, textParams, TileKey(), stopMarkerSizes, m2::PointF(0.0f, 0.0f), dp::Center,
+                kTransitOverlayIndex)
+          .Draw(context, &batcher, textures);
+    }
+  }
+}
+
 void TransitSchemeBuilder::GenerateMarker(ref_ptr<dp::GraphicsContext> context, m2::PointD const & pt,
                                           m2::PointD widthDir, float linesCountWidth, float linesCountHeight,
                                           float scaleWidth, float scaleHeight, float depth, dp::Color const & color,

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/transit_info.hpp"
+
 #include "drape/batcher.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/render_state.hpp"
@@ -157,6 +159,12 @@ public:
 
   void Clear();
   void Clear(MwmSet::MwmId const & mwmId);
+
+  /// Builds render data for a single relation's transit view (lines + stops markers).
+  /// Flushes via the callback using @p mwmId as the bucket key so Clear(mwmId) can drop it later.
+  /// Doesn't touch the m_schemes cache used by the mwm-scale UpdateSchemes path.
+  void BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
+                             TransitInfo const & info, ref_ptr<dp::TextureManager> textures);
 
 private:
   struct MwmSchemeData
