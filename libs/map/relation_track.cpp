@@ -17,6 +17,11 @@ namespace relation_track_merger  // Unity build protect
 {
 using TrackGeometry = RelationTrackBuilder::TrackGeometry;
 
+bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
+{
+  return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
+}
+
 m2::SpatialHashGrid const & GetPointGrid()
 {
   static m2::SpatialHashGrid const grid(kMwmPointAccuracy);
@@ -100,12 +105,12 @@ public:
   /// If connected, returns true and sets @p needReverse.
   static bool Connects(TrackGeometry const & member, m2::PointD const & pt, bool & needReverse)
   {
-    if (member.front().GetPoint().EqualDxDy(pt, kMwmPointAccuracy))
+    if (IsEqual(member.front().GetPoint(), pt))
     {
       needReverse = false;
       return true;
     }
-    if (member.back().GetPoint().EqualDxDy(pt, kMwmPointAccuracy))
+    if (IsEqual(member.back().GetPoint(), pt))
     {
       needReverse = true;
       return true;
@@ -114,7 +119,7 @@ public:
   }
 
 private:
-  /// Finds the closest unused matching endpoint near @p pt, preferring members closest to @p lastIdx.
+  /// Finds an unused endpoint matching @p pt, preferring members closest to @p lastIdx.
   EndpointRef const * FindEndpoint(m2::PointD const & pt, size_t lastIdx) const
   {
     EndpointRef const * best = nullptr;
@@ -125,14 +130,20 @@ private:
       auto const [rangeBegin, rangeEnd] = m_endpointMap.equal_range(cell);
       for (auto it = rangeBegin; it != rangeEnd; ++it)
       {
-        if (m_used[it->second.memberIdx])
+        auto const & ref = it->second;
+        if (m_used[ref.memberIdx])
           continue;
 
-        size_t const delta = math::AbsDiff(it->second.memberIdx, lastIdx);
+        auto const & endpoint =
+            ref.isFront ? m_members[ref.memberIdx].front().GetPoint() : m_members[ref.memberIdx].back().GetPoint();
+        if (!IsEqual(endpoint, pt))
+          continue;
+
+        size_t const delta = math::AbsDiff(ref.memberIdx, lastIdx);
         if (delta < bestDelta)
         {
           bestDelta = delta;
-          best = &it->second;
+          best = &ref;
         }
       }
     }
@@ -229,7 +240,7 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMembe
     for (size_t j = 1; j < pointsCount; ++j)
     {
       /// @todo We still have equal points in Line Feature from MWM.
-      if (!line.back().GetPoint().EqualDxDy(ft->GetPoint(j), kMwmPointAccuracy))
+      if (!relation_track_merger::IsEqual(line.back().GetPoint(), ft->GetPoint(j)))
         line.emplace_back(ft->GetPoint(j), alts[j]);
     }
 
