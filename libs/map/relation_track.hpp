@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/transit_info.hpp"
+
 #include "kml/type_utils.hpp"
 
 #include "indexer/data_source.hpp"
@@ -34,6 +36,10 @@ public:
   /// Builds geometry for a specific relation (by @p relID) assuming members are ordered.
   /// Uses MergeOrdered — suitable for public-transport routes where way ordering is meaningful.
   std::optional<Data> BuildOrdered(uint32_t relID);
+
+  /// Builds a full TransitInfo (ordered polylines + stops with names + color/title)
+  /// from a specific relation (by @p relID). Suitable for the relation-transit render path.
+  std::optional<df::TransitInfo> BuildTransitInfo(uint32_t relID);
 
   /// Builds the longest connected chain starting from @p startIdx, growing in both directions.
   static TrackGeometry BuildChain(std::vector<TrackGeometry> const & members, size_t startIdx);

@@ -13,6 +13,7 @@
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
+#include "drape_frontend/transit_info.hpp"
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
@@ -216,6 +217,11 @@ public:
   void UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos);
   void ClearTransitSchemeCache(MwmSet::MwmId const & mwmId);
   void ClearAllTransitSchemeCache();
+
+  /// Shows a single route's transit view (lines + stops) on the transit scheme layer.
+  /// Replaces any previously shown route transit. No-op if the info is empty.
+  void ShowRouteTransit(TransitInfo && info);
+  void HideRouteTransit();
 
   void EnableIsolines(bool enable);
 

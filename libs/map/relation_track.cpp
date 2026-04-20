@@ -4,6 +4,7 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/point_coding.hpp"
@@ -178,6 +179,70 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
     return data;
   }
   return std::nullopt;
+}
+
+std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t relID)
+{
+  FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
+  auto ft = guard.GetFeatureByIndex(m_fid.m_index);
+  ASSERT(ft, ());
+
+  auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
+
+  df::TransitInfo info;
+  info.m_color = rel.GetColor();
+  info.m_title = std::string(rel.GetDefaultName());
+
+  // Collect lines (reuses existing LoadMemberGeometries + MergeOrdered).
+  size_t startIdx = 0;
+  auto members = LoadMemberGeometries(rel, startIdx);
+  if (!members.empty())
+  {
+    auto const lines = MergeOrdered(members);
+    info.m_routes.reserve(lines.size());
+    for (auto const & line : lines)
+    {
+      df::TransitInfo::Route route;
+      route.m_polyline.reserve(line.size());
+      for (auto const & p : line)
+        route.m_polyline.push_back(p.GetPoint());
+      info.m_routes.push_back(std::move(route));
+    }
+  }
+
+  // Collect stops (point-type members of the relation). Track first/last stop indices so we
+  // can highlight the route terminals along with the PP's current stop.
+  size_t firstStopIdx = std::numeric_limits<size_t>::max();
+  size_t lastStopIdx = 0;
+  for (uint32_t const ftIdx : rel.GetMembers())
+  {
+    auto stopFt = guard.GetFeatureByIndex(ftIdx);
+    if (!stopFt)
+      continue;
+    if (stopFt->GetGeomType() != feature::GeomType::Point)
+      continue;
+
+    df::TransitInfo::Stop stop;
+    stop.m_pos = feature::GetCenter(*stopFt);
+    stop.m_name = std::string(stopFt->GetReadableName());
+    stop.m_highlight = (ftIdx == m_fid.m_index);  // Current (PP's) stop.
+
+    if (firstStopIdx == std::numeric_limits<size_t>::max())
+      firstStopIdx = info.m_stops.size();
+    lastStopIdx = info.m_stops.size();
+    info.m_stops.push_back(std::move(stop));
+  }
+
+  // Terminals: first and last point members of the relation.
+  if (firstStopIdx != std::numeric_limits<size_t>::max())
+  {
+    info.m_stops[firstStopIdx].m_highlight = true;
+    info.m_stops[lastStopIdx].m_highlight = true;
+  }
+
+  if (info.IsEmpty())
+    return std::nullopt;
+  return info;
 }
 
 std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::BuildOrdered(uint32_t relID)
