@@ -151,6 +151,19 @@ final class CarPlayService: NSObject {
     }
   }
 
+  @objc func attachMapIfNeeded() {
+    guard isCarplayActivated,
+          let window,
+          let carplayVC = window.rootViewController as? CarPlayMapViewController,
+          let mapVC = MapViewController.shared() else { return }
+    guard carplayVC.mapView == nil else { return }
+
+    currentPositionMode = mapVC.currentPositionMode
+    mapVC.enableCarPlayRepresentation()
+    carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
+    mapVC.add(self)
+  }
+
   @objc func destroy() {
     if isCarplayActivated {
       switchScreenToPhone()
@@ -179,16 +192,10 @@ final class CarPlayService: NSObject {
   }
 
   private func applyRootViewController() {
-    guard let window = window else { return }
-    let carplaySotyboard = UIStoryboard.instance(.carPlay)
-    let carplayVC = carplaySotyboard.instantiateInitialViewController() as! CarPlayMapViewController
-    window.rootViewController = carplayVC
-    if let mapVC = MapViewController.shared() {
-      currentPositionMode = mapVC.currentPositionMode
-      mapVC.enableCarPlayRepresentation()
-      carplayVC.addMapView(mapVC.mapView, mapButtonSafeAreaLayoutGuide: window.mapButtonSafeAreaLayoutGuide)
-      mapVC.add(self)
-    }
+    guard let window else { return }
+    let vc = UIStoryboard.instance(.carPlay).instantiateInitialViewController() as! CarPlayMapViewController
+    window.rootViewController = vc
+    attachMapIfNeeded()
   }
 
   private func applyBaseRootTemplate() {

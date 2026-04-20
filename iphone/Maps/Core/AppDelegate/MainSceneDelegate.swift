@@ -16,6 +16,10 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     window = sceneWindow
     MapsAppDelegate.theApp().window = sceneWindow
 
+    // CarPlay scene can connect before the main phone scene; once the main window is ready,
+    // retry attaching the shared map view to the CarPlay controller if it was deferred.
+    CarPlayService.shared.attachMapIfNeeded()
+
     // Route cold-launch payloads delivered via the scene. Pre-UIScene iOS received these via
     // UIApplication launchOptions / application:openURL: and deferred deep-link handling until
     // MapViewController was ready. Mirror that deferred flow by seeding DeepLinkHandler here;
