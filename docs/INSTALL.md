@@ -181,6 +181,23 @@ sudo apk add \
 brew install cmake ninja qt@6
 ```
 
+#### Note: Homebrew (Linuxbrew) Qt6 on Linux with NVIDIA
+
+Installing Qt6 via Homebrew (Linuxbrew) on a Linux machine that uses the
+NVIDIA proprietary graphics driver is **not recommended**. Linuxbrew's Qt6 is
+built with a `DT_RPATH` entry that forces its bundled Mesa `libGL.so.1` to be
+loaded at runtime, bypassing the system libglvnd dispatcher. The app silently
+falls back to software rendering (`llvmpipe`) and then crashes in
+`qtoglcontextfactory.cpp` when creating an offscreen GL surface.
+
+Prefer the distribution's Qt6 packages listed in the sections above. If
+Linuxbrew's Qt6 must be used, preload the system libGL at runtime:
+
+```bash
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 ./OMaps   # Debian/Ubuntu
+LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
+```
+
 ### Windows
 
 We haven't compiled Organic Maps on Windows *natively* in a long time, though it is possible.
