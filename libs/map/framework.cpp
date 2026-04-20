@@ -1377,6 +1377,48 @@ void Framework::SelectRoute(uint32_t relID)
   m_drapeEngine->SetSelectionLines(std::move(lines), color);
 }
 
+void Framework::ShowRouteTransit(uint32_t relID)
+{
+  if (!m_drapeEngine || !HasPlacePageInfo())
+    return;
+
+  auto const & fid = m_currentPlacePageInfo->GetID();
+  if (!fid.IsValid())
+    return;
+
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid);
+  auto info = builder.BuildTransitInfo(relID);
+  if (!info)
+    return;
+
+  // Fit the viewport to the route before pushing data — same UX as the old selection-line path.
+  m2::RectD bbox;
+  for (auto const & route : info->m_routes)
+    for (auto const & p : route.m_polyline)
+      bbox.Add(p);
+  for (auto const & stop : info->m_stops)
+    bbox.Add(stop.m_pos);
+  if (bbox.IsValid())
+  {
+    bbox.Scale(1.2);
+    ShowRect(bbox, -1 /* maxScale */, true /* animation */, true /* useVisibleViewport */);
+  }
+
+  // Enable the transit scheme flag so the map dim overlay renders.
+  // Clear the existing city transit cache so only the route data is shown (option (a)).
+  m_drapeEngine->ClearAllTransitSchemeCache();
+  m_drapeEngine->EnableTransitScheme(true);
+  m_drapeEngine->ShowRouteTransit(std::move(*info));
+}
+
+void Framework::HideRouteTransit()
+{
+  if (!m_drapeEngine)
+    return;
+  m_drapeEngine->HideRouteTransit();
+  m_drapeEngine->EnableTransitScheme(false);
+}
+
 void Framework::UpdateViewport(search::Results const & results)
 {
   // Setup viewport according to results.

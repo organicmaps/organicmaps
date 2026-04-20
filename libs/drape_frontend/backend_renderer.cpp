@@ -527,6 +527,23 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::ShowRouteTransit:
+  {
+    ref_ptr<ShowRouteTransitMessage> msg = message;
+    CHECK(m_context != nullptr, ());
+    // Use a default-constructed (invalid) MwmId as a sentinel key so the frontend renderer can
+    // drop only the route's render data via Clear(MwmId{}) when hiding.
+    m_transitBuilder->BuildFromRouteTransit(m_context, MwmSet::MwmId{}, msg->GetInfo(), m_texMng);
+    break;
+  }
+
+  case Message::Type::HideRouteTransit:
+  {
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<ClearTransitSchemeDataMessage>(MwmSet::MwmId{}), MessagePriority::Normal);
+    break;
+  }
+
   case Message::Type::EnableTransitScheme:
   {
     ref_ptr<EnableTransitSchemeMessage> msg = message;

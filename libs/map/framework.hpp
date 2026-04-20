@@ -473,6 +473,12 @@ public:
   // to locate the relation. The current place page (stop) remains open.
   void SelectRoute(uint32_t relID);
 
+  // Builds a TransitInfo (lines + stops) for @p relID relative to the current place page's feature
+  // and shows it on the transit scheme layer (with the usual map dim). Option (a): replaces any
+  // currently active subway scheme view until HideRouteTransit() is called.
+  void ShowRouteTransit(uint32_t relID);
+  void HideRouteTransit();
+
   // Cancels all searches, stops location follow and then selects
   // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);

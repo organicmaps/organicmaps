@@ -100,6 +100,8 @@ public:
     ClearAllTransitSchemeData,
     RegenerateTransitScheme,
     FlushTransitScheme,
+    ShowRouteTransit,
+    HideRouteTransit,
     ShowDebugInfo,
     NotifyRenderThread,
     NotifyGraphicsReady,

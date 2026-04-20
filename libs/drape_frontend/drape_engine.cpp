@@ -803,6 +803,20 @@ void DrapeEngine::UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::ShowRouteTransit(TransitInfo && info)
+{
+  if (info.IsEmpty())
+    return;
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<ShowRouteTransitMessage>(std::move(info)), MessagePriority::Normal);
+}
+
+void DrapeEngine::HideRouteTransit()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<HideRouteTransitMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::EnableIsolines(bool enable)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,

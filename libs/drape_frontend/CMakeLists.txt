@@ -200,6 +200,7 @@ set(SRC
   traffic_generator.hpp
   traffic_renderer.cpp
   traffic_renderer.hpp
+  transit_info.hpp
   transit_scheme_builder.cpp
   transit_scheme_builder.hpp
   transit_scheme_renderer.cpp
