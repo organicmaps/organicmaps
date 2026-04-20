@@ -41,7 +41,7 @@ private class ChartYAxisInnerView: UIView {
 
   var gridColor: UIColor = .white {
     didSet {
-      shapeLayer.strokeColor = gridColor.resolvedColor(with: traitCollection).cgColor
+      updateColors()
     }
   }
 
@@ -97,6 +97,16 @@ private class ChartYAxisInnerView: UIView {
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+    updateColors()
+  }
+
+  private func updateColors() {
+    shapeLayer.strokeColor = gridColor.resolvedColor(with: traitCollection).cgColor
   }
 
   override func layoutSubviews() {

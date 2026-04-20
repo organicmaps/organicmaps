@@ -9,7 +9,7 @@ final class ChartSegmentLinesView: UIView {
 
   var lineColor: UIColor = .gray {
     didSet {
-      shapeLayer.strokeColor = lineColor.resolvedColor(with: traitCollection).cgColor
+      updateColors()
     }
   }
 
@@ -38,6 +38,16 @@ final class ChartSegmentLinesView: UIView {
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+    updateColors()
+  }
+
+  private func updateColors() {
+    shapeLayer.strokeColor = lineColor.resolvedColor(with: traitCollection).cgColor
   }
 
   private var shapeLayer: CAShapeLayer {
