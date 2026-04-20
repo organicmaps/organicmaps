@@ -553,13 +553,12 @@ void DrapeEngine::DeselectObject(bool restoreViewport)
       make_unique_dp<SelectObjectMessage>(SelectObjectMessage::DismissTag(), restoreViewport), MessagePriority::Normal);
 }
 
-void DrapeEngine::SetSelectionLines(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color)
+void DrapeEngine::SetSelectionLines(SelectionInfo && info)
 {
-  if (lines.empty())
+  if (info.m_lines.empty())
     return;
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SetSelectionLinesMessage>(std::move(lines), color),
-                                  MessagePriority::Normal);
+                                  make_unique_dp<SetSelectionLinesMessage>(std::move(info)), MessagePriority::Normal);
 }
 
 dp::DrapeID DrapeEngine::AddSubroute(SubrouteConstPtr subroute)

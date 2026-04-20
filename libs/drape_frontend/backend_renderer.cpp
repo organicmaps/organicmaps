@@ -17,14 +17,13 @@
 #include "indexer/feature.hpp"
 #include "indexer/scales.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "shaders/program_params.hpp"
-
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
+
+#include "shaders/program_params.hpp"
 
 #include "platform/platform.hpp"
 
@@ -32,12 +31,11 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <utility>
-
-using namespace std::placeholders;
 
 namespace df
 {
+using namespace std::placeholders;
+
 BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
@@ -634,12 +632,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }, {msg->GetFeature()});
     }
     else
-    {
       points = spline->GetPath();
-    }
 
-    auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(m_context, points,
-                                                                         df::GetColorConstant("Selection"), m_texMng);
+    auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(
+        m_context, points, SelectionShapeGenerator::GetSelectionColor(), m_texMng);
     if (renderNode && renderNode->GetBoundingBox().IsValid())
     {
       m_commutator->PostMessage(
@@ -653,10 +649,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::BuildSelectionLines:
   {
     ref_ptr<BuildSelectionLinesMessage> msg = message;
-    for (auto const & points : msg->GetLines())
+    auto const & info = msg->GetInfo();
+    for (auto const & points : info.m_lines)
     {
-      auto renderNode =
-          SelectionShapeGenerator::GenerateSelectionGeometry(m_context, points, msg->GetColor(), m_texMng);
+      auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(m_context, points, info.m_color, m_texMng);
       if (renderNode && renderNode->GetBoundingBox().IsValid())
       {
         m_commutator->PostMessage(

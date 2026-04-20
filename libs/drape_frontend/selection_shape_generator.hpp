@@ -20,6 +20,8 @@ namespace df
 class SelectionShapeGenerator
 {
 public:
+  static dp::Color GetSelectionColor();
+
   static drape_ptr<RenderNode> GenerateSelectionMarker(ref_ptr<dp::GraphicsContext> context,
                                                        ref_ptr<dp::TextureManager> mng);
 

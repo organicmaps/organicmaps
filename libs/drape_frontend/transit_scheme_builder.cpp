@@ -20,7 +20,6 @@
 #include "transit/transit_entities.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 
@@ -43,7 +42,9 @@ int constexpr kFinalStationMinZoomLevel = 10;
 int constexpr kTransferMinZoomLevel = 11;
 int constexpr kStopMinZoomLevel = 12;
 uint16_t constexpr kFinalStationPriorityInc = 2;
-double constexpr kEps = 1e-5;
+
+float constexpr kStopScale = 2.5f;
+float constexpr kTransferScale = 3.0f;
 
 float constexpr kOuterMarkerDepth = kBaseMarkerDepth + 0.5f;
 float constexpr kInnerMarkerDepth = kBaseMarkerDepth + 1.0f;
@@ -343,6 +344,11 @@ bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId s
       return true;
   }
   return false;
+}
+
+bool IsEqualDirections(m2::PointD const & d1, m2::PointD const & d2)
+{
+  return d1.EqualDxDy(d2, 1.0E-5);
 }
 }  // namespace
 
@@ -818,7 +824,7 @@ void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & 
 
   for (ShapeInfoPT & info : shapeInfos)
   {
-    if (AlmostEqualAbs(info.m_direction, newDir, kEps) || AlmostEqualAbs(info.m_direction, newDirReverse, kEps))
+    if (IsEqualDirections(info.m_direction, newDir) || IsEqualDirections(info.m_direction, newDirReverse))
     {
       for (auto const & color : colors)
         info.m_colors.insert(color);
@@ -972,9 +978,6 @@ void TransitSchemeBuilder::GenerateLocationsWithTitles(ref_ptr<dp::GraphicsConte
 {
   dp::SessionGuard guard(context, batcher, flusher);
 
-  float constexpr kStopScale = 2.5f;
-  float constexpr kTransferScale = 3.0f;
-
   std::vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferScale, 1000);
   std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopScale, 1000);
 
@@ -1048,7 +1051,6 @@ void TransitSchemeBuilder::BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> co
     return;
 
   m2::PointD const pivot = bbox.Center();
-  dp::Color const color = info.m_color == dp::Color::Transparent() ? dp::Color(128, 0, 128, 255) : info.m_color;
 
   uint32_t constexpr kBatchSize = 65000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
@@ -1075,16 +1077,14 @@ void TransitSchemeBuilder::BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> co
     {
       if (route.m_polyline.size() < 2)
         continue;
-      GenerateLine(context, route.m_polyline, pivot, color, 0.0f /* lineOffset */, kTransitLineHalfWidth, kDepth,
+      GenerateLine(context, route.m_polyline, pivot, info.m_color, 0.0f /* lineOffset */, kTransitLineHalfWidth, kDepth,
                    batcher);
     }
 
-    float constexpr kStopScale = 2.5f;
-    int constexpr kHighlightedStopMinZoomLevel = kTransitSchemeMinZoomLevel;
-    dp::Color const kHighlightedColor(255, 0, 0, 255);  // Red for current/terminal stops.
+    dp::Color const highlightColor = info.GetHighlightColor();
     for (auto const & stop : info.m_stops)
     {
-      dp::Color const markerColor = stop.m_highlight ? kHighlightedColor : color;
+      dp::Color const markerColor = stop.m_highlight ? highlightColor : info.m_color;
       GenerateMarker(context, MapShape::ConvertToLocal(stop.m_pos, pivot, kShapeCoordScalar),
                      m2::PointD(1.0, 0.0) /* widthDir */, 1.0f /* linesCountWidth */, 1.0f /* linesCountHeight */,
                      kStopScale, kStopScale, kDepth, markerColor, batcher);
@@ -1097,44 +1097,32 @@ void TransitSchemeBuilder::BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> co
 
     dp::FontDecl const regularFont(GetColorConstant(kTransitMarkText), kTransitMarkTextSize * vs,
                                    GetColorConstant(kTransitMarkTextOutline));
-    dp::FontDecl const highlightedFont(kHighlightedColor, kTransitMarkTextSize * vs,
+    dp::FontDecl const highlightedFont(highlightColor, kTransitMarkTextSize * vs,
                                        GetColorConstant(kTransitMarkTextOutline));
 
     // Highlighted stops share the Transfer priority range so they win overlay-tree displacement
     // against regular stops (which use the Stop range). Two independent counters per kind.
-    uint16_t regularPriority = static_cast<uint16_t>(Priority::StopMin);
-    uint16_t highlightedPriority = static_cast<uint16_t>(Priority::TransferMin);
+    uint16_t const regularPrio = std::to_underlying(Priority::StopMin);
+    uint16_t const highlightedPrio = std::to_underlying(Priority::TransferMin);
+
+    TextViewParams textParams;
+    textParams.m_tileCenter = pivot;
+    textParams.m_titleDecl.m_primaryOptional = true;
+    textParams.m_titleDecl.m_anchor = dp::Left;
+    textParams.m_depthTestEnabled = false;
+    textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
+    textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
+    textParams.m_startOverlayRank = dp::OverlayRank0;
+
     for (auto const & stop : info.m_stops)
     {
       if (stop.m_name.empty())
         continue;
 
-      uint16_t priority;
-      if (stop.m_highlight)
-      {
-        priority = highlightedPriority;
-        if (highlightedPriority < static_cast<uint16_t>(Priority::TransferMax))
-          ++highlightedPriority;
-      }
-      else
-      {
-        priority = regularPriority;
-        if (regularPriority < static_cast<uint16_t>(Priority::StopMax))
-          ++regularPriority;
-      }
-
-      TextViewParams textParams;
-      textParams.m_tileCenter = pivot;
-      textParams.m_titleDecl.m_primaryOptional = true;
       textParams.m_titleDecl.m_primaryTextFont = stop.m_highlight ? highlightedFont : regularFont;
       textParams.m_titleDecl.m_primaryText = stop.m_name;
-      textParams.m_titleDecl.m_anchor = dp::Left;
-      textParams.m_depthTestEnabled = false;
-      textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
-      textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
-      textParams.m_specialPriority = priority;
-      textParams.m_startOverlayRank = dp::OverlayRank0;
-      textParams.m_minVisibleScale = stop.m_highlight ? kHighlightedStopMinZoomLevel : kStopMinZoomLevel;
+      textParams.m_specialPriority = stop.m_highlight ? highlightedPrio : regularPrio;
+      textParams.m_minVisibleScale = stop.m_highlight ? kTransitSchemeMinZoomLevel : kStopMinZoomLevel;
 
       // TextShape takes the GLOBAL mercator point, not a local (pivot-relative) one.
       TextShape(stop.m_pos, textParams, TileKey(), stopMarkerSizes, m2::PointF(0.0f, 0.0f), dp::Center,
@@ -1296,7 +1284,7 @@ bool StopHasMultipleShapes(std::vector<ShapeInfoPT> const & shapeInfosIn,
   for (auto const & si : shapeInfosIn)
   {
     auto const it = std::find_if(shapeInfosOut.begin(), shapeInfosOut.end(), [&si](ShapeInfoPT const & so)
-    { return AlmostEqualAbs(si.m_direction, so.m_direction, kEps); });
+    { return IsEqualDirections(si.m_direction, so.m_direction); });
     if (it != shapeInfosOut.end())
       ++count;
   }
@@ -1379,20 +1367,21 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, 
   titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize * vs;
   titleDecl.m_anchor = dp::Left;
 
+  TextViewParams textParams;
+  textParams.m_featureId = featureId;
+  textParams.m_tileCenter = pivot;
+  textParams.m_titleDecl = titleDecl;
+  textParams.m_depthTestEnabled = false;
+  textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
+  textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
+  textParams.m_specialPriority = priority;
+  textParams.m_startOverlayRank = dp::OverlayRank0;
+  textParams.m_minVisibleScale = minVisibleScale;
+
   for (auto const & title : titles)
   {
-    TextViewParams textParams;
-    textParams.m_featureId = featureId;
-    textParams.m_tileCenter = pivot;
-    textParams.m_titleDecl = titleDecl;
     textParams.m_titleDecl.m_primaryText = title.m_text;
     textParams.m_titleDecl.m_anchor = title.m_anchor;
-    textParams.m_depthTestEnabled = false;
-    textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
-    textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
-    textParams.m_specialPriority = priority;
-    textParams.m_startOverlayRank = dp::OverlayRank0;
-    textParams.m_minVisibleScale = minVisibleScale;
 
     TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
         .Draw(context, &batcher, textures);
@@ -1453,20 +1442,21 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, 
   titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize * vs;
   titleDecl.m_anchor = dp::Left;
 
+  TextViewParams textParams;
+  textParams.m_featureId = featureId;
+  textParams.m_tileCenter = pivot;
+  textParams.m_titleDecl = titleDecl;
+  textParams.m_depthTestEnabled = false;
+  textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
+  textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
+  textParams.m_specialPriority = priority;
+  textParams.m_startOverlayRank = dp::OverlayRank0;
+  textParams.m_minVisibleScale = minVisibleScale;
+
   for (auto const & title : titles)
   {
-    TextViewParams textParams;
-    textParams.m_featureId = featureId;
-    textParams.m_tileCenter = pivot;
-    textParams.m_titleDecl = titleDecl;
     textParams.m_titleDecl.m_primaryText = title.m_text;
     textParams.m_titleDecl.m_anchor = title.m_anchor;
-    textParams.m_depthTestEnabled = false;
-    textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
-    textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
-    textParams.m_specialPriority = priority;
-    textParams.m_startOverlayRank = dp::OverlayRank0;
-    textParams.m_minVisibleScale = minVisibleScale;
 
     TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
         .Draw(context, &batcher, textures);

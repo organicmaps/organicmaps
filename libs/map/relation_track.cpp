@@ -4,7 +4,6 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/point_coding.hpp"
@@ -14,6 +13,8 @@
 #include <deque>
 
 namespace relation_track_merger  // Unity build protect
+{
+namespace  // Avoid exposing symbols
 {
 using TrackGeometry = RelationTrackBuilder::TrackGeometry;
 
@@ -135,7 +136,7 @@ private:
   std::vector<bool> m_used;
   m2::PointHashMap<EndpointRef> m_endpointMap;
 };
-
+}  // namespace
 }  // namespace relation_track_merger
 
 // RelationTrackBuilder implementation.
@@ -191,7 +192,6 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
 
   df::TransitInfo info;
   info.m_color = rel.GetColor();
-  info.m_title = std::string(rel.GetDefaultName());
 
   // Collect lines (reuses existing LoadMemberGeometries + MergeOrdered).
   size_t startIdx = 0;
@@ -210,34 +210,24 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
     }
   }
 
-  // Collect stops (point-type members of the relation). Track first/last stop indices so we
-  // can highlight the route terminals along with the PP's current stop.
-  size_t firstStopIdx = std::numeric_limits<size_t>::max();
-  size_t lastStopIdx = 0;
   for (uint32_t const ftIdx : rel.GetMembers())
   {
     auto stopFt = guard.GetFeatureByIndex(ftIdx);
-    if (!stopFt)
-      continue;
-    if (stopFt->GetGeomType() != feature::GeomType::Point)
+    if (!stopFt || stopFt->GetGeomType() != feature::GeomType::Point)
       continue;
 
     df::TransitInfo::Stop stop;
-    stop.m_pos = feature::GetCenter(*stopFt);
+    stop.m_pos = stopFt->GetCenter();
     stop.m_name = std::string(stopFt->GetReadableName());
     stop.m_highlight = (ftIdx == m_fid.m_index);  // Current (PP's) stop.
-
-    if (firstStopIdx == std::numeric_limits<size_t>::max())
-      firstStopIdx = info.m_stops.size();
-    lastStopIdx = info.m_stops.size();
     info.m_stops.push_back(std::move(stop));
   }
 
   // Terminals: first and last point members of the relation.
-  if (firstStopIdx != std::numeric_limits<size_t>::max())
+  if (!info.m_stops.empty())
   {
-    info.m_stops[firstStopIdx].m_highlight = true;
-    info.m_stops[lastStopIdx].m_highlight = true;
+    info.m_stops.front().m_highlight = true;
+    info.m_stops.back().m_highlight = true;
   }
 
   if (info.IsEmpty())
@@ -245,7 +235,7 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
   return info;
 }
 
-std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::BuildOrdered(uint32_t relID)
+std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32_t relID)
 {
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
   auto ft = guard.GetFeatureByIndex(m_fid.m_index);
@@ -262,11 +252,18 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::BuildOrdered(uin
   if (lines.empty())
     return std::nullopt;
 
-  Data data;
-  data.m_lines = std::move(lines);
-  data.m_name = std::string(rel.GetDefaultName());
-  data.m_color = rel.GetColor();
-  return data;
+  df::SelectionInfo info;
+  info.m_color = rel.GetColor();
+  info.m_lines.reserve(lines.size());
+  for (auto const & line : lines)
+  {
+    df::Polyline polyline;
+    polyline.reserve(line.size());
+    for (auto const & p : line)
+      polyline.push_back(p.GetPoint());
+    info.m_lines.push_back(std::move(polyline));
+  }
+  return info;
 }
 
 std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMemberGeometries(

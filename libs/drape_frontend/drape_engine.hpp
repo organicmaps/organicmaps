@@ -11,9 +11,9 @@
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/scenario_manager.hpp"
+#include "drape_frontend/selection_info.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
-#include "drape_frontend/transit_info.hpp"
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
@@ -172,7 +172,7 @@ public:
 
   /// Highlights @p lines as overlay geometry on top of the current selection, using @p color.
   /// Replaces any previously highlighted lines. No-op if no selection is active.
-  void SetSelectionLines(std::vector<std::vector<m2::PointD>> && lines, dp::Color const & color);
+  void SetSelectionLines(SelectionInfo && info);
 
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);

@@ -22,7 +22,6 @@ namespace df
 namespace
 {
 std::string const kTrackSelectedSymbolName = "track_marker_selected";
-df::ColorConstant const kSelectionColor = "Selection";
 float const kLeftSide = 1.0f;
 float const kCenter = 0.0f;
 float const kRightSide = -1.0f;
@@ -112,6 +111,12 @@ void GenerateJoinsTriangles(glsl::vec3 const & pivot, std::vector<glsl::vec2> co
 }  // namespace
 
 // static
+dp::Color SelectionShapeGenerator::GetSelectionColor()
+{
+  return df::GetColorConstant("Selection");
+}
+
+// static
 drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<dp::GraphicsContext> context,
                                                                        ref_ptr<dp::TextureManager> mng)
 {
@@ -120,7 +125,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<d
   auto const etalonSector = static_cast<float>(2.0 * math::pi / kTriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(df::GetColorConstant(df::kSelectionColor), color);
+  mng->GetColorRegion(GetSelectionColor(), color);
   auto const colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<MarkerVertex, kTriangleCount> buffer;

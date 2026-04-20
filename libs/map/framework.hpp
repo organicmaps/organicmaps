@@ -465,6 +465,8 @@ private:
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;
 
+  bool m_wasPTRoute = false;
+
 public:
   // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
@@ -474,10 +476,11 @@ public:
   void SelectRoute(uint32_t relID);
 
   // Builds a TransitInfo (lines + stops) for @p relID relative to the current place page's feature
-  // and shows it on the transit scheme layer (with the usual map dim). Option (a): replaces any
-  // currently active subway scheme view until HideRouteTransit() is called.
+  // and shows it on the transit scheme layer (with the usual map dim). Replaces any
+  // currently active subway scheme view.
   void ShowRouteTransit(uint32_t relID);
-  void HideRouteTransit();
+  // Is called on PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
+  void HideRouteTransitIfNeeded();
 
   // Cancels all searches, stops location follow and then selects
   // search result.
