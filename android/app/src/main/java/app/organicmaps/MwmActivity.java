@@ -575,9 +575,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateViewsInsets()
   {
-    ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
-      UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
+    // Global listener on the activity's semantic root, so insets are captured regardless
+    // of which overlay views happen to be present at dispatch time.
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.coordinator), (view, windowInsets) -> {
       final int trackRecorderOffset =
           TrackRecorder.nativeIsTrackRecordingEnabled() ? dimen(this, R.dimen.map_button_size) : 0;
       final Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -591,6 +591,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       refreshLightStatusBar();
       updateBottomWidgetsOffset(systemBars.left);
       mCurrentWindowInsets = windowInsets;
+      return windowInsets;
+    });
+
+    // Narrow listener just for the position-chooser overlay's own padding.
+    ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
+      UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
       return windowInsets;
     });
   }
