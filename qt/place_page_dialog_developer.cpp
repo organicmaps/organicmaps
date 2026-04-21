@@ -3,17 +3,23 @@
 
 #include "qt/qt_common/text_dialog.hpp"
 
+#include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 #include <string>
 
-PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info) : QDialog(parent)
+PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info,
+                                                   Framework & framework)
+  : QDialog(parent)
+  , m_framework(framework)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   QGridLayout * grid = new QGridLayout();
@@ -86,9 +92,28 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
 
   using PropID = osm::MapObject::MetadataID;
 
-  // Route refs
-  if (auto routes = info.FormatRouteRefs(); !routes.empty())
-    addEntry("Routes", routes);
+  // Route refs — one clickable button per route; click shows the route's transit view.
+  if (auto const & routes = info.GetRoutes(); !routes.empty())
+  {
+    grid->addWidget(new QLabel("Routes"), row, 0);
+
+    QHBoxLayout * routesRow = new QHBoxLayout();
+    routesRow->setContentsMargins(0, 0, 0, 0);
+    for (auto const & r : routes)
+    {
+      QPushButton * btn = new QPushButton(QString::fromStdString(r.m_ref));
+      btn->setAutoDefault(false);
+      btn->setToolTip(QString::fromStdString(r.m_from + (r.m_to.empty() ? "" : " → " + r.m_to)));
+      uint32_t const relID = r.m_relID;
+      connect(btn, &QAbstractButton::clicked, this, [this, relID]() { m_framework.ShowRouteTransit(relID); });
+      routesRow->addWidget(btn);
+    }
+    routesRow->addStretch();
+
+    QWidget * routesContainer = new QWidget();
+    routesContainer->setLayout(routesRow);
+    grid->addWidget(routesContainer, row++, 1);
+  }
 
   // Cuisine fragment
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
