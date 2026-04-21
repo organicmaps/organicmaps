@@ -494,7 +494,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (carModeChanged)
       return;
 
-    makeNavigationBarTransparentInLightMode();
     recreate();
   }
 
