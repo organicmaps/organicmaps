@@ -4,11 +4,8 @@ import static app.organicmaps.sdk.util.Utils.dimen;
 
 import android.content.res.Configuration;
 import android.location.Location;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +20,9 @@ import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.sdk.widget.roadshield.RoadShieldUtils;
-import app.organicmaps.sdk.widgets.lanes.LanesView;
 import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
-import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -37,17 +30,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 {
   private final View mFrame;
 
-  private final ImageView mNextTurnImage;
-  private final TextView mNextTurnDistance;
-
-  private final View mNextNextTurnFrame;
-  private final ImageView mNextNextTurnImage;
-
-  private final View mStreetFrame;
-  private final TextView mNextStreet;
-
   @NonNull
-  private final LanesView mLanesView;
+  private final ManeuverView mManeuverView;
   @NonNull
   private final SpeedLimitView mSpeedLimit;
 
@@ -70,99 +54,64 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mOnSettingsClickListener = onSettingsClickListener;
     mOnVoiceSettingsClickListener = onVoiceSettingsClickListener;
 
-    // Top frame
     mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
-    mTopFrame.addOnLayoutChangeListener(
-        (v, l, t, r, b, ol, ot, or, ob) -> mMapButtonsViewModel.setTopHeaderHeight(computeNavContentHeight()));
-    View turnFrame = mTopFrame.findViewById(R.id.nav_next_turn_frame);
-    mNextTurnImage = turnFrame.findViewById(R.id.turn);
-    mNextTurnDistance = turnFrame.findViewById(R.id.distance);
-
-    mNextNextTurnFrame = mTopFrame.findViewById(R.id.nav_next_next_turn_frame);
-    mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);
-
-    mStreetFrame = mTopFrame.findViewById(R.id.street_frame);
-    mNextStreet = mStreetFrame.findViewById(R.id.street);
-
-    mLanesView = mTopFrame.findViewById(R.id.lanes);
-
-    mSpeedLimit = mTopFrame.findViewById(R.id.nav_speed_limit);
-
-    // Blank rectangle below the navbar that hides menu content behind it.
-    final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
-    final View navBottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
+    mManeuverView = mTopFrame.requireViewById(R.id.maneuver_view);
+    mSpeedLimit = mTopFrame.requireViewById(R.id.nav_speed_limit);
     mNextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
 
-    ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, BaselinePaddingInsetsListener.excludeBottom());
+    final boolean isLandscape = activity.getResources().getConfiguration().orientation
+        == Configuration.ORIENTATION_LANDSCAPE;
 
-    ViewCompat.setOnApplyWindowInsetsListener(mTopFrame, (v, windowInsets) -> {
-      final Insets safeDrawing = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      // Pad the start edge (LTR: left, RTL: right) so the next-turn container clears side
-      // cutouts and system bars regardless of layout direction.
-      final boolean isRtl = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-      final int startInset = isRtl ? safeDrawing.right : safeDrawing.left;
-      mNextTurnContainer.setPaddingRelative(startInset, mNextTurnContainer.getPaddingTop(),
-                                            mNextTurnContainer.getPaddingEnd(), mNextTurnContainer.getPaddingBottom());
-      return windowInsets;
-    });
+    // Apply status-bar + display-cutout insets so neither the maneuver card nor the
+    // bottom sheet renders behind the camera.  The left cutout is applied as a start
+    // margin (both views shift right), while the top status-bar inset becomes padding
+    // inside the maneuver card.  Nav-bar height is forwarded to the background view
+    // that fills the gesture area below the menu.
+    final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
+    final View bottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
+    final int minStartMargin = dimen(activity, R.dimen.nav_side_margin_min);
+    ViewCompat.setOnApplyWindowInsetsListener(mManeuverView, (v, windowInsets) -> {
+      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      // In landscape keep at least nav_side_margin_min breathing room even when there
+      // is no display cutout (insets.left == 0).  In portrait insets.left is always 0.
+      final int startMargin = isLandscape ? Math.max(minStartMargin, insets.left) : insets.left;
 
-    ViewCompat.setOnApplyWindowInsetsListener(navigationBarBackground, (v, windowInsets) -> {
-      final ViewGroup.LayoutParams lp = v.getLayoutParams();
-      lp.height = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING).bottom;
-      v.setLayoutParams(lp);
-      return windowInsets;
-    });
-
-    // navBottomSheet.getWidth() is 0 on the first inset dispatch (layout hasn't run yet),
-    // so mirror the width through a layout listener instead of reading it inline.
-    navBottomSheet.addOnLayoutChangeListener((v, l, t, r, b, oL, oT, oR, oB) -> {
-      final int width = r - l;
-      final ViewGroup.LayoutParams lp = navigationBarBackground.getLayoutParams();
-      if (lp.width != width)
+      // In landscape shift both cards past the camera cutout (or apply the minimum margin).
+      // In portrait XML margins are left untouched.
+      if (isLandscape)
       {
-        lp.width = width;
-        navigationBarBackground.setLayoutParams(lp);
+        ((ViewGroup.MarginLayoutParams) v.getLayoutParams()).setMarginStart(startMargin);
+        v.requestLayout();
+
+        final ViewGroup.MarginLayoutParams sheetParams = (ViewGroup.MarginLayoutParams) bottomSheet.getLayoutParams();
+        sheetParams.setMarginStart(startMargin);
+        bottomSheet.requestLayout();
       }
+
+      // Status-bar inset: padding inside the maneuver card so content clears the status bar.
+      // In landscape the speed limit sits top-aligned with the card, so it needs the same
+      // top offset; in portrait it is below the card and already inherits the clearance.
+      v.setPaddingRelative(v.getPaddingStart(), insets.top, v.getPaddingEnd(), v.getPaddingBottom());
+      if (isLandscape)
+      {
+        ((ViewGroup.MarginLayoutParams) mSpeedLimit.getLayoutParams()).topMargin = insets.top;
+        mSpeedLimit.requestLayout();
+      }
+
+      // Nav-bar background sits outside the sheet — align it with the sheet and size it to fill
+      // the system nav bar gap below.
+      final ViewGroup.MarginLayoutParams navBarParams = (ViewGroup.MarginLayoutParams) navigationBarBackground.getLayoutParams();
+      final ViewGroup.LayoutParams sheetLayoutParams = bottomSheet.getLayoutParams();
+      navBarParams.setMarginStart(startMargin);
+      navBarParams.width = sheetLayoutParams.width > 0 ? sheetLayoutParams.width : bottomSheet.getWidth();
+      navBarParams.height = insets.bottom;
+      navigationBarBackground.requestLayout();
+      return windowInsets;
     });
-  }
 
-  // Height the search sheet must clear when expanded over the navigation top frame: the always
-  // shown street-name frame plus the taller of the turn/speed column or the lanes strip (the two
-  // overlap rather than stack, so take the max). The turn/speed column is only laid out below the
-  // street frame in portrait.
-  private int computeNavContentHeight()
-  {
-    int turnAndSpeedHeight = 0;
-    if (mFrame.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-    {
-      if (UiUtils.isVisible(mNextTurnContainer))
-        turnAndSpeedHeight += mNextTurnContainer.getHeight();
-      if (UiUtils.isVisible(mSpeedLimit))
-        turnAndSpeedHeight += mSpeedLimit.getHeight();
-    }
-    final int lanesHeight = UiUtils.isVisible(mLanesView) ? mLanesView.getHeight() : 0;
-    return mStreetFrame.getHeight() + Math.max(turnAndSpeedHeight, lanesHeight);
-  }
-
-  private void updateVehicle(@NonNull RoutingInfo info)
-  {
-    mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
-    mNextTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
-
-    final boolean showNextNextTurn = info.hasNextNextTurn();
-    UiUtils.showIf(showNextNextTurn, mNextNextTurnFrame);
-    if (showNextNextTurn)
-      mNextNextTurnImage.setImageResource(info.nextCarDirection.getTurnRes());
-
-    mLanesView.setLanes(info.lanes);
-
-    updateSpeedLimit(info);
-  }
-
-  private void updatePedestrian(@NonNull RoutingInfo info)
-  {
-    mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
-    mNextTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
+    // Right-side map controls (zoom, recenter) sit on the opposite side of the card;
+    // only the base padding is needed.
+    mMapButtonsViewModel.setTopButtonsMarginTop(dimen(activity, R.dimen.nav_frame_padding));
   }
 
   public void update(@Nullable RoutingInfo info)
@@ -171,27 +120,20 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       return;
 
     if (Router.get() == Router.Pedestrian)
-      updatePedestrian(info);
+      mManeuverView.updatePedestrian(info);
     else
-      updateVehicle(info);
+      mManeuverView.updateVehicle(info);
 
-    updateStreetView(info);
+    updateSpeedLimit(info);
     mNavMenu.update(info);
   }
 
-  private void updateStreetView(@NonNull RoutingInfo info)
+  public void updateNorth()
   {
-    boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
-    // Sic: don't use UiUtils.showIf() here because View.GONE breaks layout
-    // https://github.com/organicmaps/organicmaps/issues/3732
-    UiUtils.visibleIf(hasStreet, mStreetFrame);
-    if (!TextUtils.isEmpty(info.nextStreet))
-      mNextStreet.setText(RoadShieldUtils.createStreetTextWithShields(info.nextStreet, info.nextStreetRoadShields,
-                                                                      mNextStreet.getTextSize()));
-    int margin = dimen(mFrame.getContext(), R.dimen.nav_frame_padding);
-    if (hasStreet)
-      margin += mStreetFrame.getHeight();
-    mMapButtonsViewModel.setTopButtonsMarginTop(margin);
+    if (!RoutingController.get().isNavigating())
+      return;
+
+    update(Framework.nativeGetRouteFollowingInfo());
   }
 
   public void show(boolean show)
@@ -228,52 +170,28 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   }
 
   @Override
-  public void onEnabled()
-  {
-    // mNavMenu.refreshTraffic();
-  }
+  public void onEnabled() {}
 
   @Override
-  public void onDisabled()
-  {
-    // mNavMenu.refreshTraffic();
-  }
+  public void onDisabled() {}
 
   @Override
-  public void onWaitingData()
-  {
-    // no op
-  }
+  public void onWaitingData() {}
 
   @Override
-  public void onOutdated()
-  {
-    // no op
-  }
+  public void onOutdated() {}
 
   @Override
-  public void onNoData()
-  {
-    // no op
-  }
+  public void onNoData() {}
 
   @Override
-  public void onNetworkError()
-  {
-    // no op
-  }
+  public void onNetworkError() {}
 
   @Override
-  public void onExpiredData()
-  {
-    // no op
-  }
+  public void onExpiredData() {}
 
   @Override
-  public void onExpiredApp()
-  {
-    // no op
-  }
+  public void onExpiredApp() {}
 
   @Override
   public void onSettingsClicked()
