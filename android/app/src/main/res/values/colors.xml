@@ -62,6 +62,14 @@
   <!-- Backgrounds -->
   <color name="bg_window">#FFEEEEEE</color>
   <color name="bg_primary">#006C35</color>
+
+  <!-- Navigation maneuver card surface + on-surface pair. The background is deliberately
+       dark in BOTH themes so the theme-constant white foreground colors below stay legible;
+       keep that invariant when changing either side of the pair. -->
+  <color name="nav_card_bg">#006C35</color>
+  <color name="on_nav_card">@color/white_primary</color>
+  <color name="on_nav_card_inactive">@color/white_38</color>
+  <color name="on_nav_card_chip">#1FFFFFFF</color>
   <color name="bg_cards">@android:color/white</color>
   <color name="bg_panel">@color/bg_window</color>
   <color name="notes_fade_start">#00FFFFFF</color>
@@ -104,10 +112,6 @@
   <color name="routing_bottom_manage_route_background">@color/light_gray</color>
   <color name="routing_bottom_button_bg">@color/light_gray</color>
   <color name="routing_bottom_button_activated_bg">@color/bg_primary</color>
-  <!-- LanesView -->
-  <color name="nav_lane_arrow_active">@color/white_primary</color>
-  <color name="nav_lane_arrow_inactive">@color/black_20</color>
-
   <!-- Editor -->
   <color name="bg_editor_light">#FFF2F6F6</color>
   <color name="bg_editor_light_pressed">#3D000000</color>

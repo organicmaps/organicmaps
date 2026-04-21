@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Tablet (either orientation): the card is a fixed-width floating card over the light map, so
+       keep the fixed-width sheet layout and dark status-bar icons. -->
+  <bool name="nav_full_width_card">false</bool>
+</resources>

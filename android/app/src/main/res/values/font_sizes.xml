@@ -56,12 +56,14 @@
   <dimen name="text_size_routing_plan_detail_intermediate">20sp</dimen>
   <dimen name="text_size_time_picker">56sp</dimen>
 
-  <dimen name="text_size_nav_street">17sp</dimen>
-  <dimen name="text_size_nav_next_turn">24sp</dimen>
+  <dimen name="text_size_nav_street">26sp</dimen>
+  <dimen name="text_size_nav_then">18sp</dimen>
+  <dimen name="text_size_nav_next_turn">48sp</dimen>
+  <dimen name="text_size_nav_distance">34sp</dimen>
   <dimen name="text_size_nav_circle_exit">22sp</dimen>
-  <dimen name="text_size_nav_number">24sp</dimen>
-  <dimen name="text_size_nav_dimension">20sp</dimen>
-  <dimen name="text_size_nav_menu_number">28sp</dimen>
+  <dimen name="text_size_nav_number">48sp</dimen>
+  <dimen name="text_size_nav_dimension">26sp</dimen>
+  <dimen name="text_size_nav_menu_number">30sp</dimen>
   <dimen name="text_size_nav_menu_dimension">16sp</dimen>
 
   <dimen name="text_size_banner">8sp</dimen>

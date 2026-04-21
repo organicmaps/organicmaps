@@ -177,6 +177,11 @@
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
+  <!-- The street of the maneuver after the upcoming one, shown in the bottom "then" band. -->
+  <style name="MwmTextAppearance.NavStreet.Secondary">
+    <item name="android:textSize">@dimen/text_size_nav_then</item>
+  </style>
+
   <style name="MwmTextAppearance.NavNextTurn">
     <item name="android:textSize">@dimen/text_size_nav_next_turn</item>
     <item name="android:fontFamily">@string/robotoMedium</item>

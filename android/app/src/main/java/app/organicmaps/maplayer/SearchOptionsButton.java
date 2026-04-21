@@ -2,11 +2,9 @@ package app.organicmaps.maplayer;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.content.Context;
+import android.content.res.Configuration;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -21,7 +19,7 @@ import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.UiUtils;
 
-public class SearchWheel implements View.OnClickListener
+public class SearchOptionsButton implements View.OnClickListener
 {
   private final View mFrame;
 
@@ -85,9 +83,9 @@ public class SearchWheel implements View.OnClickListener
     }
   }
 
-  public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener,
-                     @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel,
-                     SearchPageViewModel searchPageViewModel)
+  public SearchOptionsButton(View frame, @NonNull View.OnClickListener onSearchPressedListener,
+                             @NonNull View.OnClickListener onSearchCanceledListener,
+                             MapButtonsViewModel mapButtonsViewModel, SearchPageViewModel searchPageViewModel)
   {
     mFrame = frame;
     mMapButtonsViewModel = mapButtonsViewModel;
@@ -111,14 +109,11 @@ public class SearchWheel implements View.OnClickListener
     if (mSearchLayout == null)
       return false;
 
-    DisplayMetrics displayMetrics = new DisplayMetrics();
-    WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
-    windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
-    // Get available screen height in DP
-    int height = Math.round(displayMetrics.heightPixels / displayMetrics.density);
-    // If height is less than 400dp, the search wheel in a straight line
-    // In this case, move the pivot for the animation
-    if (height < 400)
+    // In landscape the search options are a horizontal strip sliding out from the search button,
+    // so anchor the zoom animation to the left edge instead of the default center.
+    final boolean isLandscape =
+        mFrame.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    if (isLandscape)
     {
       UiUtils.waitLayout(mSearchLayout, () -> {
         mSearchLayout.setPivotX(0);
