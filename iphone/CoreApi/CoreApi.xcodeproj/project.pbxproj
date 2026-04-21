@@ -87,6 +87,8 @@
 		AC6A585728057EF6003EABAF /* StringUtils+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE838D272D9D834F00476DD0 /* PlacePagePhone.h in Headers */ = {isa = PBXBuildFile; fileRef = CE838D252D9D834F00476DD0 /* PlacePagePhone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE838D282D9D834F00476DD0 /* PlacePagePhone.m in Sources */ = {isa = PBXBuildFile; fileRef = CE838D262D9D834F00476DD0 /* PlacePagePhone.m */; };
+		CE838D292D9D834F00476DD0 /* PlacePageRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = CE838D2B2D9D834F00476DD0 /* PlacePageRoute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE838D2A2D9D834F00476DD0 /* PlacePageRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = CE838D2C2D9D834F00476DD0 /* PlacePageRoute.m */; };
 		ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
 		ED221FEE2ED88057007A2BCF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ED221FEC2ED88057007A2BCF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -202,6 +204,8 @@
 		AC6A585628057CC1003EABAF /* StringUtils+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StringUtils+Core.h"; sourceTree = "<group>"; };
 		CE838D252D9D834F00476DD0 /* PlacePagePhone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePagePhone.h; sourceTree = "<group>"; };
 		CE838D262D9D834F00476DD0 /* PlacePagePhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlacePagePhone.m; sourceTree = "<group>"; };
+		CE838D2B2D9D834F00476DD0 /* PlacePageRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageRoute.h; sourceTree = "<group>"; };
+		CE838D2C2D9D834F00476DD0 /* PlacePageRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlacePageRoute.m; sourceTree = "<group>"; };
 		ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkInAppFeatureHighlightData.h; sourceTree = "<group>"; };
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
 		ED221FEC2ED88057007A2BCF /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
@@ -329,6 +333,8 @@
 				47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */,
 				CE838D252D9D834F00476DD0 /* PlacePagePhone.h */,
 				CE838D262D9D834F00476DD0 /* PlacePagePhone.m */,
+				CE838D2B2D9D834F00476DD0 /* PlacePageRoute.h */,
+				CE838D2C2D9D834F00476DD0 /* PlacePageRoute.m */,
 				47942D53237CC3B500DEFAE3 /* PlacePagePreviewData.h */,
 				47942D54237CC3B500DEFAE3 /* PlacePagePreviewData+Core.h */,
 				47942D55237CC3B500DEFAE3 /* PlacePagePreviewData.mm */,
@@ -550,6 +556,7 @@
 				47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */,
 				47942D87237CC55800DEFAE3 /* MWMOpeningHoursCommon.h in Headers */,
 				CE838D272D9D834F00476DD0 /* PlacePagePhone.h in Headers */,
+				CE838D292D9D834F00476DD0 /* PlacePageRoute.h in Headers */,
 				47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */,
 				479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */,
 				47E8163723B188D3008FD836 /* MWMStorage.h in Headers */,
@@ -680,6 +687,7 @@
 				ED49D7222CED0395004AF27E /* ProductsConfiguration+Core.mm in Sources */,
 				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
 				CE838D282D9D834F00476DD0 /* PlacePagePhone.m in Sources */,
+				CE838D2A2D9D834F00476DD0 /* PlacePageRoute.m in Sources */,
 				ED965B2A2CDA1C440049E39E /* DateTimeFormatter.swift in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,

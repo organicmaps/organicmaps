@@ -55,6 +55,9 @@ class PlacePageInfoViewController: UIViewController {
   private var driveThroughView: InfoItemView?
   private var networkView: InfoItemView?
   private var routeRefsView: InfoItemView?
+  /// Relation id of the route most recently picked from the refs popup, or nil.
+  /// Used to render the selected ref bold+underlined in the primary row.
+  private var selectedRelId: UInt32?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -95,8 +98,14 @@ class PlacePageInfoViewController: UIViewController {
       cuisineView = createInfoItem(cuisine, icon: UIImage(resource: .icPlacepageCuisine))
     }
 
-    if let routeRefs = placePageInfoData.routeRefs {
-      routeRefsView = createInfoItem(routeRefs, icon: UIImage(resource: .icPlacepageBus))
+    if let routes = placePageInfoData.routes, !routes.isEmpty {
+      let refsString = routes.map { $0.ref }.joined(separator: " • ")
+      routeRefsView = createInfoItem(refsString,
+                                     icon: UIImage(resource: .icPlacepageBus),
+                                     style: .link,
+                                     tapHandler: { [weak self] in
+                                       self?.showRoutesPopup(for: routes)
+                                     })
     }
 
     // @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
@@ -328,6 +337,58 @@ class PlacePageInfoViewController: UIViewController {
     guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
     let coordinates: String = coordFormats[coordinatesFormatId]
     delegate?.didCopy(coordinates)
+  }
+
+  private func showRoutesPopup(for routes: [PlacePageRoute]) {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    for route in routes {
+      var label = route.ref
+      if !route.from.isEmpty || !route.to.isEmpty {
+        label += ": \(route.from)"
+        if !route.to.isEmpty {
+          label += " → \(route.to)"
+        }
+      }
+      alert.addAction(UIAlertAction(title: label, style: .default, handler: { [weak self] _ in
+        FrameworkHelper.showRouteTransit(route.relId)
+        self?.selectedRelId = route.relId
+        self?.updateRouteRefsLabel(routes: routes)
+      }))
+    }
+    alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+    // iPad popovers need an anchor.
+    if let popover = alert.popoverPresentationController, let sourceView = routeRefsView {
+      popover.sourceView = sourceView
+      popover.sourceRect = sourceView.bounds
+    }
+    present(alert, animated: true)
+  }
+
+  /// Rebuilds the primary refs string, bolding and underlining the selected route's ref.
+  /// Inherits the current label's font and color as the baseline style.
+  private func updateRouteRefsLabel(routes: [PlacePageRoute]) {
+    guard let label = routeRefsView?.textLabel else { return }
+    let baseFont = label.font ?? UIFont.systemFont(ofSize: 16)
+    let baseColor = label.textColor ?? UIColor.black
+    let boldFont = UIFont.boldSystemFont(ofSize: baseFont.pointSize)
+    let baseAttrs: [NSAttributedString.Key: Any] = [.font: baseFont, .foregroundColor: baseColor]
+
+    let result = NSMutableAttributedString()
+    for (i, route) in routes.enumerated() {
+      if i > 0 {
+        result.append(NSAttributedString(string: " • ", attributes: baseAttrs))
+      }
+      let start = result.length
+      result.append(NSAttributedString(string: route.ref, attributes: baseAttrs))
+      if route.relId == selectedRelId {
+        let range = NSRange(location: start, length: (route.ref as NSString).length)
+        result.addAttributes([
+          .font: boldFont,
+          .underlineStyle: NSUnderlineStyle.single.rawValue
+        ], range: range)
+      }
+    }
+    label.attributedText = result
   }
 
   private func setupOpenWithAppView() {

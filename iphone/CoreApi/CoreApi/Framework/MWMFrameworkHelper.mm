@@ -136,6 +136,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DeactivateMapSelection();
 }
 
++ (void)showRouteTransit:(uint32_t)relId
+{
+  GetFramework().ShowRouteTransit(relId);
+}
+
 + (void)switchMyPositionMode
 {
   GetFramework().SwitchMyPositionNextMode();
