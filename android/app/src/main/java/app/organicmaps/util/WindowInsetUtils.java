@@ -155,17 +155,32 @@ public final class WindowInsetUtils
 
     public static PaddingInsetsListener allSides()
     {
-      return new PaddingInsetsListener(true, true, true, true);
+      return allSides(TYPE_SAFE_DRAWING);
+    }
+
+    public static PaddingInsetsListener allSides(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, true, true, true, true);
     }
 
     public static PaddingInsetsListener excludeTop()
     {
-      return new PaddingInsetsListener(false, true, true, true);
+      return excludeTop(TYPE_SAFE_DRAWING);
+    }
+
+    public static PaddingInsetsListener excludeTop(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, false, true, true, true);
     }
 
     public static PaddingInsetsListener excludeBottom()
     {
-      return new PaddingInsetsListener(true, false, true, true);
+      return excludeBottom(TYPE_SAFE_DRAWING);
+    }
+
+    public static PaddingInsetsListener excludeBottom(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, true, false, true, true);
     }
 
     @NonNull
@@ -176,77 +191,6 @@ public final class WindowInsetUtils
       v.setPadding(left ? insets.left : v.getPaddingLeft(), top ? insets.top : v.getPaddingTop(),
                    right ? insets.right : v.getPaddingRight(), bottom ? insets.bottom : v.getPaddingBottom());
       return windowInsets;
-    }
-
-    public static class Builder
-    {
-      private int mInsetsTypeMask = TYPE_SAFE_DRAWING;
-      private boolean mTop;
-      private boolean mBottom;
-      private boolean mLeft;
-      private boolean mRight;
-
-      public Builder setInsetsTypeMask(int insetsTypeMask)
-      {
-        mInsetsTypeMask = insetsTypeMask;
-        return this;
-      }
-
-      public Builder setAllSides()
-      {
-        mTop = true;
-        mBottom = true;
-        mLeft = true;
-        mRight = true;
-        return this;
-      }
-
-      public Builder setExcludeTop()
-      {
-        mTop = false;
-        mBottom = true;
-        mLeft = true;
-        mRight = true;
-        return this;
-      }
-
-      public Builder setExcludeBottom()
-      {
-        mTop = true;
-        mBottom = false;
-        mLeft = true;
-        mRight = true;
-        return this;
-      }
-
-      public Builder setTop(boolean top)
-      {
-        mTop = top;
-        return this;
-      }
-
-      public Builder setBottom(boolean bottom)
-      {
-        mBottom = bottom;
-        return this;
-      }
-
-      public Builder setLeft(boolean left)
-      {
-        mLeft = left;
-        return this;
-      }
-
-      public Builder setRight(boolean right)
-      {
-        mRight = right;
-        return this;
-      }
-
-      public PaddingInsetsListener build()
-      {
-        return new PaddingInsetsListener(mInsetsTypeMask, mTop, mBottom, mLeft, mRight);
-      }
     }
   }
 

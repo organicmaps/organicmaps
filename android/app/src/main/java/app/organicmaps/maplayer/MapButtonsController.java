@@ -433,12 +433,9 @@ public class MapButtonsController extends Fragment
     updateMenuBadge();
     updateLayerButton();
     updateHelpButtonIcon();
-    final WindowInsetUtils.PaddingInsetsListener insetsListener =
-        new WindowInsetUtils.PaddingInsetsListener.Builder()
-            .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
-            .setAllSides()
-            .build();
-    ViewCompat.setOnApplyWindowInsetsListener(mFrame, insetsListener);
+    ViewCompat.setOnApplyWindowInsetsListener(
+        mFrame, WindowInsetUtils.PaddingInsetsListener.allSides(WindowInsetsCompat.Type.systemBars()
+                                                                | WindowInsetsCompat.Type.displayCutout()));
     // Fixes insets on older Androids and with a search opened via API on all Androids.
     if (mFrame.hasWindowFocus())
       ViewCompat.requestApplyInsets(mFrame);

@@ -116,12 +116,9 @@ public class RoutingPlanController extends ToolbarController
         MwmApplication.from(activity.getApplicationContext()).getResources().getInteger(R.integer.anim_default);
 
     final View menuFrame = activity.findViewById(R.id.menu_frame);
-    final PaddingInsetsListener insetsListener =
-        new PaddingInsetsListener.Builder()
-            .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
-            .setExcludeTop()
-            .build();
-    ViewCompat.setOnApplyWindowInsetsListener(menuFrame, insetsListener);
+    ViewCompat.setOnApplyWindowInsetsListener(
+        menuFrame, PaddingInsetsListener.excludeTop(WindowInsetsCompat.Type.systemBars()
+                                                    | WindowInsetsCompat.Type.displayCutout()));
   }
 
   @NonNull

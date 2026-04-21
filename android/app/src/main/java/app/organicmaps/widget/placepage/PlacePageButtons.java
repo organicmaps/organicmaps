@@ -44,14 +44,10 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   {
     super.onViewCreated(view, savedInstanceState);
     mButtonsContainer = view.findViewById(R.id.container);
-    // Only Bottom Padding is required for buttons
+    // Only bottom padding is required for the place-page buttons row.
     final PaddingInsetsListener insetsListener =
-        new PaddingInsetsListener.Builder()
-            .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
-            .setExcludeTop()
-            .setLeft(false)
-            .setRight(false)
-            .build();
+        new PaddingInsetsListener(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout(),
+                                  /*top*/ false, /*bottom*/ true, /*left*/ false, /*right*/ false);
     ViewCompat.setOnApplyWindowInsetsListener(view, insetsListener);
     mMaxButtons = getResources().getInteger(R.integer.pp_buttons_max);
 
