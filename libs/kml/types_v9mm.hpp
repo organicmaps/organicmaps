@@ -3,6 +3,8 @@
 #include "kml/types.hpp"
 #include "kml/types_v8mm.hpp"
 
+#include "base/logging.hpp"
+
 #include <ctime>
 
 namespace kml
@@ -57,10 +59,32 @@ struct TrackDataV9MM : TrackDataV8MM
     // on the size mismatch.
     data.m_geometry.m_timestamps.resize(data.m_geometry.m_lines.size());
 
-    // Attach V11 per-point timestamps to the first line of the merged geometry.
-    // The MapsMe V11 format always emits one line per track.
-    if (!m_pointTimestamps.m_values.empty() && !data.m_geometry.m_lines.empty())
-      data.m_geometry.m_timestamps[0] = std::move(m_pointTimestamps.m_values);
+    // V11 per-point timestamps arrive as a single flat vector covering every point across
+    // all lines of a gx:MultiTrack. Split it back by line length so the per-line invariant
+    // timestamps[i].size() == lines[i].size() holds downstream.
+    if (!m_pointTimestamps.m_values.empty())
+    {
+      size_t totalPoints = 0;
+      for (auto const & line : data.m_geometry.m_lines)
+        totalPoints += line.size();
+
+      if (totalPoints == m_pointTimestamps.m_values.size())
+      {
+        size_t offset = 0;
+        for (size_t i = 0; i < data.m_geometry.m_lines.size(); ++i)
+        {
+          auto const sz = data.m_geometry.m_lines[i].size();
+          data.m_geometry.m_timestamps[i].assign(m_pointTimestamps.m_values.begin() + offset,
+                                                 m_pointTimestamps.m_values.begin() + offset + sz);
+          offset += sz;
+        }
+      }
+      else
+      {
+        LOG(LWARNING, ("V9MM track point timestamps count", m_pointTimestamps.m_values.size(),
+                       "doesn't match total points count", totalPoints, "- dropping timestamps"));
+      }
+    }
 
     data.m_visible = m_visible;
     data.m_nearestToponyms = m_nearestToponyms;

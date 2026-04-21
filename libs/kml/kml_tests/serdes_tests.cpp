@@ -823,6 +823,145 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V11_Without_PointTimestamps)
   TEST(!track.m_geometry.HasTimestamps(), ("HasTimestamps should be false"));
 }
 
+namespace
+{
+// Multi-segment variant of BuildV11TrackKmb: emits one MultiGeometry per |segmentSizes| entry
+// (each with a single line), followed by a single flat pointTimestamps vector whose size equals
+// the sum of all segment sizes — the shape MapsMe writes for gx:MultiTrack with per-point times.
+std::vector<uint8_t> BuildV11MultiTrackKmb(std::vector<uint32_t> const & segmentSizes,
+                                           std::vector<time_t> const & pointTimestamps)
+{
+  size_t totalPts = 0;
+  for (auto const sz : segmentSizes)
+    totalPts += sz;
+  CHECK(pointTimestamps.empty() || pointTimestamps.size() == totalPts, ());
+
+  std::vector<uint8_t> buffer;
+  MemWriter<decltype(buffer)> sink(buffer);
+
+  WriteToSink(sink, static_cast<uint8_t>(9));
+  std::string const deviceId = "testdev";
+  WriteVarUint(sink, static_cast<uint32_t>(deviceId.size()));
+  sink.Write(deviceId.data(), deviceId.size());
+  WriteVarUint(sink, static_cast<uint32_t>(0));
+  WriteToSink(sink, static_cast<uint8_t>(30));
+
+  auto const startPos = sink.Pos();
+  auto constexpr kHeaderSize = uint64_t{5} * sizeof(uint64_t);
+  WriteZeroesToSink(sink, kHeaderSize);
+
+  auto const categoryOffset = sink.Pos() - startPos;
+  WriteToSink(sink, static_cast<uint64_t>(0));
+  WriteToSink(sink, static_cast<uint8_t>(1));
+  WriteVarUint(sink, static_cast<uint32_t>(0));
+  WriteToSink(sink, static_cast<uint32_t>(0));
+  WriteVarUint(sink, static_cast<uint64_t>(0));
+  WriteToSink(sink, static_cast<uint8_t>(0));
+  WriteVarUint(sink, static_cast<uint32_t>(0));
+  WriteVarUint(sink, static_cast<uint32_t>(9));
+  for (int i = 0; i < 9; ++i)
+    WriteVarUint(sink, static_cast<uint32_t>(0));
+
+  auto const bookmarksOffset = sink.Pos() - startPos;
+  WriteVarUint(sink, static_cast<uint32_t>(0));
+
+  auto const tracksOffset = sink.Pos() - startPos;
+  WriteVarUint(sink, static_cast<uint32_t>(1));
+  WriteToSink(sink, static_cast<uint64_t>(0xABCD));
+  WriteToSink(sink, static_cast<uint8_t>(0));
+  WriteVarUint(sink, static_cast<uint32_t>(1));
+  WriteVarUint(sink, static_cast<uint32_t>(53687091));
+  WriteToSink(sink, static_cast<uint8_t>(0));
+  WriteToSink(sink, static_cast<uint32_t>(0x9C27B0FFu));
+  WriteVarUint(sink, static_cast<uint64_t>(1700000000000ULL));
+
+  // One MultiGeometry per segment; each MultiGeometry's visitor reads a single line.
+  WriteVarUint(sink, static_cast<uint32_t>(segmentSizes.size()));
+  for (auto const npts : segmentSizes)
+  {
+    WriteVarUint(sink, npts);
+    m2::PointU last(0, 0);
+    for (uint32_t i = 0; i < npts; ++i)
+    {
+      m2::PointU next(last.x + 10, last.y + 20);
+      coding::EncodePointDelta(sink, last, next);
+      last = next;
+    }
+    for (uint32_t i = 0; i < npts; ++i)
+      WriteVarInt(sink, static_cast<int32_t>(i == 0 ? 5 : 0));
+  }
+
+  WriteToSink(sink, static_cast<uint8_t>(1));
+  WriteToSink(sink, static_cast<uint8_t>(0));
+  WriteToSink(sink, static_cast<uint8_t>(0));
+
+  WriteVarUint(sink, static_cast<uint32_t>(pointTimestamps.size()));
+  for (auto const ts : pointTimestamps)
+  {
+    auto const ms = static_cast<uint64_t>(ts) * 1000;
+    WriteVarUint(sink, (ms << 7) | 0x7FULL);
+  }
+
+  WriteVarUint(sink, static_cast<uint32_t>(4));
+  for (int i = 0; i < 4; ++i)
+    WriteVarUint(sink, static_cast<uint32_t>(0));
+
+  auto const stringsOffset = sink.Pos() - startPos;
+  {
+    coding::BlockedTextStorageWriter<decltype(sink)> writer(sink, 200000);
+  }
+  auto const eosOffset = sink.Pos() - startPos;
+
+  auto const endPos = sink.Pos();
+  sink.Seek(startPos);
+  WriteToSink(sink, categoryOffset);
+  WriteToSink(sink, bookmarksOffset);
+  WriteToSink(sink, tracksOffset);
+  WriteToSink(sink, stringsOffset);
+  WriteToSink(sink, eosOffset);
+  sink.Seek(endPos);
+
+  return buffer;
+}
+}  // namespace
+
+UNIT_TEST(Kml_Deserialization_From_KMB_V11_MultiTrack_With_PointTimestamps)
+{
+  // gx:MultiTrack with three segments (5 + 4 + 4 points) and a flat 13-entry timestamps vector.
+  // Exercises the split-by-line-size path in TrackDataV9MM::ConvertToLatestVersion; before the
+  // fix, all 13 timestamps landed on line 0 and bookmark_helpers rejected the file with a
+  // "Timestamps count 13 doesn't match points count 5" DeserializeException.
+  std::vector<uint32_t> const segmentSizes = {5, 4, 4};
+  std::vector<time_t> const flatTs = {1700000000, 1700000001, 1700000002, 1700000003, 1700000004,
+                                      1700000005, 1700000006, 1700000007, 1700000008, 1700000009,
+                                      1700000010, 1700000011, 1700000012};
+  auto const buffer = BuildV11MultiTrackKmb(segmentSizes, flatTs);
+
+  kml::FileData fileData;
+  TEST_NO_THROW(
+      {
+        MemReader reader(buffer.data(), buffer.size());
+        kml::binary::DeserializerKml des(fileData);
+        des.Deserialize(reader);
+      },
+      ());
+
+  TEST_EQUAL(fileData.m_tracksData.size(), 1, ());
+  auto const & geom = fileData.m_tracksData[0].m_geometry;
+  TEST_EQUAL(geom.m_lines.size(), segmentSizes.size(), ());
+  TEST_EQUAL(geom.m_timestamps.size(), segmentSizes.size(), ());
+
+  size_t offset = 0;
+  for (size_t i = 0; i < segmentSizes.size(); ++i)
+  {
+    TEST_EQUAL(geom.m_lines[i].size(), segmentSizes[i], ("line", i));
+    TEST_EQUAL(geom.m_timestamps[i].size(), segmentSizes[i], ("timestamps", i));
+    for (size_t j = 0; j < segmentSizes[i]; ++j)
+      TEST_EQUAL(geom.m_timestamps[i][j], flatTs[offset + j], ("mismatch at line", i, "point", j));
+    offset += segmentSizes[i];
+  }
+}
+
 UNIT_TEST(Kml_Deserialization_From_KMB_V9MM_With_MultiGeometry)
 {
   kml::FileData dataFromBinV9MM;
