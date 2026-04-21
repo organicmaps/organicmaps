@@ -29,7 +29,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResult;
@@ -508,9 +507,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mIntentConsumed = savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
 
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
-
-    if (!mIsTabletLayout)
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
