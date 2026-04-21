@@ -28,8 +28,8 @@ class MapButtonsViewModel : ViewModel() {
     private val _myPositionMode = MutableLiveData<Int>()
     val myPositionMode: LiveData<Int> = _myPositionMode
 
-    private val _searchOption = MutableLiveData<SearchWheel.SearchOption?>()
-    val searchOption: LiveData<SearchWheel.SearchOption?> = _searchOption
+    private val _searchOption = MutableLiveData<SearchOptionsButton.SearchOption?>()
+    val searchOption: LiveData<SearchOptionsButton.SearchOption?> = _searchOption
 
     private val _trackRecorderState = MutableLiveData(TrackRecorder.nativeIsTrackRecordingEnabled())
     val trackRecorderState: LiveData<Boolean> = _trackRecorderState
@@ -66,7 +66,7 @@ class MapButtonsViewModel : ViewModel() {
         _myPositionMode.value = mode
     }
 
-    fun setSearchOption(searchOption: SearchWheel.SearchOption?) {
+    fun setSearchOption(searchOption: SearchOptionsButton.SearchOption?) {
         _searchOption.value = searchOption
     }
 

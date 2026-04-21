@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Children of ManeuverView. Padded content lives in the inner wrapper so the bottom band can
+     bleed to the card's rounded edges (clipped via the card outline; see the constructor). -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:parentTag="android.widget.LinearLayout"
+  tools:background="@drawable/bg_nav_maneuver_card"
+  tools:orientation="vertical">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_quarter_plus"
+    android:paddingHorizontal="@dimen/margin_half_plus">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/maneuver_distance"
+        style="@style/MwmWidget.TextView.NavNextTurn"
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:textColor="@color/on_nav_card"
+        android:textSize="@dimen/text_size_nav_distance"
+        tools:text="500 m" />
+      <!-- Right slot: the centered turn arrow or, mutually exclusive, the lane strip. -->
+      <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <ImageView
+          android:id="@+id/maneuver_turn"
+          android:layout_width="@dimen/nav_turn_sign"
+          android:layout_height="@dimen/nav_turn_sign"
+          android:layout_gravity="center"
+          app:tint="@color/on_nav_card"
+          tools:src="@drawable/ic_turn_right"
+          tools:visibility="gone" />
+        <app.organicmaps.sdk.widgets.lanes.LanesView
+          android:id="@+id/maneuver_lanes"
+          android:layout_width="match_parent"
+          android:layout_height="44dp"
+          android:layout_gravity="center_vertical"
+          android:visibility="gone"
+          app:lanesActiveLaneTintColor="@color/on_nav_card"
+          app:lanesBackgroundColor="@android:color/transparent"
+          app:lanesCornerRadius="0dp"
+          app:lanesEditModeLanesCount="5"
+          app:lanesInactiveLaneTintColor="@color/on_nav_card_inactive"
+          tools:visibility="visible" />
+      </FrameLayout>
+    </LinearLayout>
+    <FrameLayout
+      android:id="@+id/maneuver_street_frame"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/maneuver_street"
+        style="@style/MwmWidget.TextView.NavStreet"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textColor="@color/on_nav_card"
+        tools:text="Alexanderplatz Straße" />
+    </FrameLayout>
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/maneuver_next_next_turn_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_nav_next_next_band"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/margin_half_plus"
+    android:paddingVertical="@dimen/margin_quarter"
+    android:visibility="gone"
+    tools:visibility="visible">
+    <ImageView
+      android:id="@+id/maneuver_next_next_turn"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="@dimen/margin_half"
+      app:tint="@color/on_nav_card"
+      tools:src="@drawable/ic_turn_right" />
+    <TextView
+      android:id="@+id/maneuver_next_next_turn_street"
+      style="@style/MwmWidget.TextView.NavStreet.Secondary"
+      android:layout_width="match_parent"
+      android:includeFontPadding="false"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:textColor="@color/on_nav_card"
+      tools:text="Harlem River Drive" />
+  </LinearLayout>
+</merge>

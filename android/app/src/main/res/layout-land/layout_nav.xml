@@ -6,13 +6,39 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <include layout="@layout/layout_nav_top" />
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/nav_top_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Maneuver card: matches nav_bottom_sheet width in landscape -->
+    <app.organicmaps.routing.ManeuverView
+      android:id="@+id/maneuver_view"
+      android:layout_width="@dimen/nav_menu_landscape_width"
+      android:layout_height="wrap_content"
+      android:elevation="@dimen/nav_elevation"
+      android:clickable="true"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"/>
+
+    <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+      android:id="@+id/nav_speed_limit"
+      style="@style/MwmWidget.SpeedLimit"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginStart="@dimen/margin_half"
+      app:layout_constraintStart_toEndOf="@id/maneuver_view"
+      app:layout_constraintTop_toTopOf="@id/maneuver_view"/>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/nav_bottom_sheet_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Dim scrim faded in while the nav menu expands. It must stay in this subtree, which is
+         drawn after nav_top_frame: elevation reorders siblings only within one parent, so a
+         scrim placed next to the elevated maneuver card would be drawn below the card. -->
     <View
       android:id="@+id/nav_bottom_sheet_background"
       android:layout_width="match_parent"

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <dimen name="text_size_nav_street">26sp</dimen>
-  <dimen name="text_size_nav_next_turn">32sp</dimen>
+  <dimen name="text_size_nav_then">20sp</dimen>
+  <dimen name="text_size_nav_next_turn">48sp</dimen>
+  <dimen name="text_size_nav_distance">40sp</dimen>
   <dimen name="text_size_nav_circle_exit">30sp</dimen>
-  <dimen name="text_size_nav_number">36sp</dimen>
+  <dimen name="text_size_nav_number">48sp</dimen>
   <dimen name="text_size_nav_dimension">30sp</dimen>
 </resources>
