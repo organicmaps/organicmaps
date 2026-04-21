@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Portrait phone: the navigation maneuver card is full-width and edge-to-edge behind the
+       status bar. Single source for both the card/sheet layout branch (NavigationController) and
+       the white status-bar icons over the green card (MwmActivity). -->
+  <bool name="nav_full_width_card">true</bool>
+</resources>
