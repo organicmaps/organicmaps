@@ -661,7 +661,7 @@ void DrawWidget::ShowPlacePage()
   std::unique_ptr<QDialog> placePageDialog = nullptr;
   bool developerMode;
   if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
-    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info);
+    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info, m_framework);
   else
     placePageDialog = std::make_unique<PlacePageDialogUser>(this, info);
 
