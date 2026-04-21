@@ -40,7 +40,10 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
+    // auto() flips icon appearance with the system theme; subclasses that need a different
+    // policy (e.g. MwmActivity.refreshLightStatusBar for the map surface) override at runtime.
+    EdgeToEdge.enable(this, SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+                      SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT));
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       final Intent intent = Objects.requireNonNull(getIntent());
