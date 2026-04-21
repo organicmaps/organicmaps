@@ -230,28 +230,21 @@ public final class UiUtils
   public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)
   {
     final Window window = activity.getWindow();
-
-    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R)
+    final View decorView = window.getDecorView();
+    final WindowInsetsControllerCompat wic =
+        Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+    if (fullscreen)
     {
-      // On older versions of Android there is layout issue on exit from fullscreen mode.
-      // For such versions we use old-style fullscreen mode.
-      // See https://github.com/organicmaps/organicmaps/pull/8551 for details
-      if (fullscreen)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      else
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      wic.hide(WindowInsetsCompat.Type.systemBars());
+      wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
     }
     else
     {
-      final View decorView = window.getDecorView();
-      WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
-      if (fullscreen)
-      {
-        wic.hide(WindowInsetsCompat.Type.systemBars());
-        wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-      }
-      else
-        wic.show(WindowInsetsCompat.Type.systemBars());
+      wic.show(WindowInsetsCompat.Type.systemBars());
+      // If pre-R devices regress with stale inset positions after exiting fullscreen,
+      // uncomment to force a fresh inset dispatch from the decor view (Option B from
+      // plans/android-insets/00_initial_refactoring.md, §P2):
+      // decorView.requestApplyInsets();
     }
   }
 
