@@ -25,9 +25,9 @@ jobjectArray CreateLanesInfo(JNIEnv * env, routing::turns::lanes::LanesInfo cons
   auto const lanesSize = static_cast<jsize>(lanes.size());
   jobjectArray jLanes = env->NewObjectArray(lanesSize, laneInfoClass, nullptr);
   ASSERT(jLanes, (jni::DescribeException()));
-  // Java signature : LaneInfo(LaneWay[] laneWays, LaneWay activeLane)
+  // Java signature : LaneInfo(LaneWay[] laneWays, LaneWay activeLane, int similarLanesCount)
   static jmethodID const ctorLaneInfoID = jni::GetConstructorID(
-      env, laneInfoClass, "([Lapp/organicmaps/sdk/routing/LaneWay;Lapp/organicmaps/sdk/routing/LaneWay;)V");
+      env, laneInfoClass, "([Lapp/organicmaps/sdk/routing/LaneWay;Lapp/organicmaps/sdk/routing/LaneWay;I)V");
 
   for (jsize j = 0; j < lanesSize; ++j)
   {
@@ -40,8 +40,9 @@ jobjectArray CreateLanesInfo(JNIEnv * env, routing::turns::lanes::LanesInfo cons
       jni::TScopedLocalRef jLaneWay(env, ToJavaLaneWay(env, laneWays[i]));
       env->SetObjectArrayElement(jLaneWays.get(), i, jLaneWay.get());
     }
-    jni::TScopedLocalRef jLaneInfo(env, env->NewObject(laneInfoClass, ctorLaneInfoID, jLaneWays.get(),
-                                                       ToJavaLaneWay(env, lanes[j].recommendedWay)));
+    jni::TScopedLocalRef jLaneInfo(
+        env, env->NewObject(laneInfoClass, ctorLaneInfoID, jLaneWays.get(), ToJavaLaneWay(env, lanes[j].recommendedWay),
+                            static_cast<jint>(lanes[j].similarLanesCount)));
     ASSERT(jLaneInfo.get(), (jni::DescribeException()));
     env->SetObjectArrayElement(jLanes, j, jLaneInfo.get());
   }

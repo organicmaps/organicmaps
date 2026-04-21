@@ -50,8 +50,14 @@ public:
   uint32_t m_exitNum;
   //@}
   int m_time;
-  /// Contains lane information on the edge before the turn.
+  /// Contains lane information on the edge before the turn, collapsed for display: runs of
+  /// identical non-recommended lanes are merged (see LaneInfo::similarLanesCount) and the
+  /// entry count is capped by lanes::CollapseLanes.
   turns::lanes::LanesInfo m_lanes;
+  /// Lane entries were dropped past the corresponding edge of the strip (physical road
+  /// sides), so the UI should hint that more lanes exist there.
+  bool m_lanesTrimmedLeft = false;
+  bool m_lanesTrimmedRight = false;
   // m_turnNotifications contains information about the next turn notifications.
   // If there is nothing to pronounce m_turnNotifications is empty.
   // If there is something to pronounce the size of m_turnNotifications may be one or even more
