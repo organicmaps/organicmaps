@@ -1565,11 +1565,33 @@ UNIT_CLASS_TEST(Runner, ExportSingleGpx)
   bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Gpx);
 }
 
-UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
+UNIT_CLASS_TEST(Runner, Bookmarks_MM_BrokenFile)
 {
   string const fileName = GetPlatform().TestsDataPathForFile("test_data/broken_bookmarks.kmb.test");
   auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
   TEST(kmlData == nullptr, ());
+}
+
+UNIT_CLASS_TEST(Runner, Tracks_MM)
+{
+  {
+    string const fileName = GetPlatform().TestsDataPathForFile("test_data/track_MM_nots.kmb.test");
+    auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
+    TEST(kmlData && kmlData->m_tracksData.size() == 1, ());
+
+    auto const & geom = kmlData->m_tracksData.front().m_geometry.m_lines;
+    auto const & times = kmlData->m_tracksData.front().m_geometry.m_timestamps;
+    TEST(geom.size() == 3 && times.size() == 3, ());
+  }
+  {
+    string const fileName = GetPlatform().TestsDataPathForFile("test_data/track_MM_withts.kmb.test");
+    auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
+    TEST(kmlData && kmlData->m_tracksData.size() == 1, ());
+
+    auto const & geom = kmlData->m_tracksData.front().m_geometry.m_lines;
+    auto const & times = kmlData->m_tracksData.front().m_geometry.m_timestamps;
+    TEST(geom.size() == 3 && times.size() == 3, ());
+  }
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
