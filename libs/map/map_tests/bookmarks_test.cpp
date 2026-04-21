@@ -18,6 +18,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/timer.hpp"
 
 #include <array>
 #include <cstring>  // strlen
@@ -1605,18 +1606,17 @@ UNIT_CLASS_TEST(Runner, Tracks_MM)
     TEST_EQUAL(geometry.m_timestamps.size(), kExpectedLineSizes.size(), ());
 
     // Each segment carries exactly one timestamp per point, and timestamps increase
-    // monotonically both within a segment and across the flattened sequence — confirming that
+    // monotonically by a second both within a segment and across the flattened sequence — confirming that
     // the deserializer split the flat V11 timestamps vector across lines in the right order.
-    time_t prevTs = 0;
+    time_t timestamp = base::StringToTimestamp("2026-04-20T00:00:00Z");
     for (size_t i = 0; i < kExpectedLineSizes.size(); ++i)
     {
       TEST_EQUAL(geometry.m_lines[i].size(), kExpectedLineSizes[i], ("line", i));
       TEST_EQUAL(geometry.m_timestamps[i].size(), kExpectedLineSizes[i], ("timestamps", i));
       for (size_t j = 0; j < geometry.m_timestamps[i].size(); ++j)
       {
-        auto const ts = geometry.m_timestamps[i][j];
-        TEST_GREATER(ts, prevTs, ("line", i, "point", j));
-        prevTs = ts;
+        TEST_EQUAL(geometry.m_timestamps[i][j], timestamp, ("line", i, "point", j));
+        timestamp += 1;
       }
     }
   }
