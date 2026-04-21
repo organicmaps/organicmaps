@@ -912,7 +912,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingPanels();
     if (isFullscreen())
-      setFullscreen(false);
+      exitFullscreen();
 
     if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
@@ -1059,7 +1059,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     refreshSearchToolbar();
-    setFullscreen(isFullscreen());
+    if (isFullscreen())
+      enterFullscreenIfAllowed();
+    else
+      exitFullscreen();
     makeNavigationBarTransparentInLightMode();
     if (ChoosePositionMode.get() != ChoosePositionMode.None)
     {
@@ -1234,7 +1237,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if ((mPanelAnimator != null && mPanelAnimator.isVisible()) || UiUtils.isVisible(mSearchController.getToolbar()))
       return;
 
-    setFullscreen(!isFullscreen());
+    if (isFullscreen())
+      exitFullscreen();
+    else
+      enterFullscreenIfAllowed();
+
     if (isFullscreen())
     {
       closePlacePage();
@@ -1244,21 +1251,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void setFullscreen(boolean isFullscreen)
+  private void enterFullscreenIfAllowed()
   {
-    if (RoutingController.get().isNavigating() || RoutingController.get().isBuilding()
-        || RoutingController.get().isPlanning())
+    final RoutingController rc = RoutingController.get();
+    if (rc.isNavigating() || rc.isBuilding() || rc.isPlanning())
       return;
 
-    mMapButtonsViewModel.setButtonsHidden(isFullscreen);
-    UiUtils.setFullscreen(this, isFullscreen);
+    mMapButtonsViewModel.setFullscreen(true);
+    mMapButtonsViewModel.setButtonsHidden(true);
+    UiUtils.setFullscreen(this, true);
+  }
+
+  private void exitFullscreen()
+  {
+    mMapButtonsViewModel.setFullscreen(false);
+    mMapButtonsViewModel.setButtonsHidden(false);
+    UiUtils.setFullscreen(this, false);
   }
 
   private boolean isFullscreen()
   {
-    // Buttons are hidden in position chooser mode but we are not in fullscreen
-    return Boolean.TRUE.equals(mMapButtonsViewModel.getButtonsHidden().getValue())
- && ChoosePositionMode.get() == ChoosePositionMode.None;
+    return Boolean.TRUE.equals(mMapButtonsViewModel.getFullscreen().getValue());
   }
 
   @Override
@@ -2053,7 +2066,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (!showStartPointNotice())
     {
-      UiUtils.setFullscreen(this, false);
+      exitFullscreen();
       return;
     }
 
@@ -2061,7 +2074,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     closeFloatingPanels();
-    setFullscreen(false);
+    exitFullscreen();
     RoutingController.get().start();
   }
 

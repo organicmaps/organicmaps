@@ -8,6 +8,7 @@ import app.organicmaps.sdk.location.TrackRecorder;
 public class MapButtonsViewModel extends ViewModel
 {
   private final MutableLiveData<Boolean> mButtonsHidden = new MutableLiveData<>(false);
+  private final MutableLiveData<Boolean> mFullscreen = new MutableLiveData<>(false);
   private final MutableLiveData<Float> mBottomButtonsHeight = new MutableLiveData<>(0f);
   private final MutableLiveData<Integer> mTopButtonsMarginTop = new MutableLiveData<>(-1);
   private final MutableLiveData<MapButtonsController.LayoutMode> mLayoutMode =
@@ -25,6 +26,16 @@ public class MapButtonsViewModel extends ViewModel
   public void setButtonsHidden(boolean buttonsHidden)
   {
     mButtonsHidden.setValue(buttonsHidden);
+  }
+
+  public MutableLiveData<Boolean> getFullscreen()
+  {
+    return mFullscreen;
+  }
+
+  public void setFullscreen(boolean fullscreen)
+  {
+    mFullscreen.setValue(fullscreen);
   }
 
   public MutableLiveData<Float> getBottomButtonsHeight()
