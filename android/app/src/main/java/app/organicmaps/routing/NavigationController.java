@@ -5,6 +5,7 @@ import static app.organicmaps.sdk.util.Utils.dimen;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -55,16 +55,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
 
-  private void addWindowsInsets(@NonNull View topFrame)
-  {
-    ViewCompat.setOnApplyWindowInsetsListener(
-        topFrame.findViewById(R.id.nav_next_turn_container), (view, windowInsets) -> {
-          view.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, view.getPaddingTop(),
-                          view.getPaddingEnd(), view.getPaddingBottom());
-          return windowInsets;
-        });
-  }
-
   public NavigationController(AppCompatActivity activity, View.OnClickListener onSettingsClickListener,
                               NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
@@ -75,12 +65,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mOnSettingsClickListener = onSettingsClickListener;
 
     // Top frame
-    View topFrame = mFrame.findViewById(R.id.nav_top_frame);
-    View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
+    final View topFrame = mFrame.findViewById(R.id.nav_top_frame);
+    final View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
     mNextTurnImage = turnFrame.findViewById(R.id.turn);
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
-
-    addWindowsInsets(topFrame);
 
     mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);
@@ -89,23 +77,40 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNextStreet = mStreetFrame.findViewById(R.id.street);
 
     mLanesView = topFrame.findViewById(R.id.lanes);
-
     mSpeedLimit = topFrame.findViewById(R.id.nav_speed_limit);
 
-    // Show a blank view below the navbar to hide the menu content
+    final View nextTurnContainer = topFrame.findViewById(R.id.nav_next_turn_container);
+    // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
-    final View nextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
-    ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, (v, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
+    final View navBottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
 
-      final Insets safeDrawingInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      nextTurnContainer.setPadding(safeDrawingInsets.left, nextTurnContainer.getPaddingTop(),
-                                   nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
-      navigationBarBackground.getLayoutParams().height = safeDrawingInsets.bottom;
-      // The gesture navigation bar stays at the bottom in landscape
-      // We need to add a background only above the nav menu
-      navigationBarBackground.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();
+    ViewCompat.setOnApplyWindowInsetsListener(topFrame, (v, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingNoBottom(mStreetFrame, windowInsets);
+
+      final Insets safeDrawing = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      // Pad the start edge (LTR: left, RTL: right) so the next-turn container clears side
+      // cutouts and system bars regardless of layout direction.
+      final boolean isRtl = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+      final int startInset = isRtl ? safeDrawing.right : safeDrawing.left;
+      nextTurnContainer.setPaddingRelative(startInset, nextTurnContainer.getPaddingTop(),
+                                           nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
+
+      final ViewGroup.LayoutParams lp = navigationBarBackground.getLayoutParams();
+      lp.height = safeDrawing.bottom;
+      navigationBarBackground.setLayoutParams(lp);
       return windowInsets;
+    });
+
+    // navBottomSheet.getWidth() is 0 on the first inset dispatch (layout hasn't run yet),
+    // so mirror the width through a layout listener instead of reading it inline.
+    navBottomSheet.addOnLayoutChangeListener((v, l, t, r, b, oL, oT, oR, oB) -> {
+      final int width = r - l;
+      final ViewGroup.LayoutParams lp = navigationBarBackground.getLayoutParams();
+      if (lp.width != width)
+      {
+        lp.width = width;
+        navigationBarBackground.setLayoutParams(lp);
+      }
     });
   }
 
