@@ -331,7 +331,6 @@
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheetDialog</item>
     <item name="enableEdgeToEdge">true</item>
     <item name="android:navigationBarColor">@android:color/transparent</item>
-    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
   <style name="MwmWidget.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
