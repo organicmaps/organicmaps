@@ -29,6 +29,7 @@ import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -84,9 +85,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View navBottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
 
-    ViewCompat.setOnApplyWindowInsetsListener(topFrame, (v, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingNoBottom(mStreetFrame, windowInsets);
+    ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, BaselinePaddingInsetsListener.excludeBottom());
 
+    ViewCompat.setOnApplyWindowInsetsListener(topFrame, (v, windowInsets) -> {
       final Insets safeDrawing = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
       // Pad the start edge (LTR: left, RTL: right) so the next-turn container clears side
       // cutouts and system bars regardless of layout direction.

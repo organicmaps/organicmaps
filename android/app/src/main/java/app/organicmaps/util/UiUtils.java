@@ -28,7 +28,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -275,18 +274,6 @@ public final class UiUtils
                   : Color.TRANSPARENT;
       window.setStatusBarColor(color);
     }
-  }
-
-  public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
-  {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-    view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(), view.getPaddingEnd(), systemInsets.bottom);
-  }
-
-  public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)
-  {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-    view.setPadding(systemInsets.left, systemInsets.top, systemInsets.right, view.getPaddingBottom());
   }
 
   public static void setupNavigationIcon(@NonNull Toolbar toolbar, @NonNull View.OnClickListener listener)

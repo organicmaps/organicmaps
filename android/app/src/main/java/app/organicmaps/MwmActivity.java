@@ -122,6 +122,7 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.menu.MainMenu;
@@ -594,12 +595,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return windowInsets;
     });
 
-    // Narrow listener just for the position-chooser overlay's own padding.
-    ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
-      UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
-      return windowInsets;
-    });
+    // Position-chooser overlay paddings: the root takes the bottom inset, the toolbar takes
+    // the side + top insets so it clears status bar and side cutouts.
+    ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, BaselinePaddingInsetsListener.onlyBottom());
+    ViewCompat.setOnApplyWindowInsetsListener(mPointChooserToolbar, BaselinePaddingInsetsListener.excludeBottom());
   }
 
   private int getDownloadMapsCounter()

@@ -1,5 +1,6 @@
 package app.organicmaps.util;
 
+import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -246,6 +247,74 @@ public final class WindowInsetUtils
       {
         return new PaddingInsetsListener(mInsetsTypeMask, mTop, mBottom, mLeft, mRight);
       }
+    }
+  }
+
+  /**
+   * Window-inset listener that captures the view's initial padding on first dispatch and
+   * applies <em>baseline + inset</em> on every subsequent dispatch. Use this for bespoke
+   * listeners whose views already carry meaningful padding from XML — reading
+   * {@code view.getPaddingBottom()} inside the lambda would otherwise accumulate insets
+   * across repeated dispatches (rotation, keyboard show/hide, etc.).
+   */
+  public static final class BaselinePaddingInsetsListener implements OnApplyWindowInsetsListener
+  {
+    private final int insetsTypeMask;
+    private final boolean top;
+    private final boolean bottom;
+    private final boolean left;
+    private final boolean right;
+    private final Rect baseline = new Rect();
+    private boolean baselineCaptured;
+
+    public BaselinePaddingInsetsListener(int insetsTypeMask, boolean top, boolean bottom, boolean left, boolean right)
+    {
+      this.insetsTypeMask = insetsTypeMask;
+      this.top = top;
+      this.bottom = bottom;
+      this.left = left;
+      this.right = right;
+    }
+
+    public BaselinePaddingInsetsListener(boolean top, boolean bottom, boolean left, boolean right)
+    {
+      this(TYPE_SAFE_DRAWING, top, bottom, left, right);
+    }
+
+    public static BaselinePaddingInsetsListener allSides()
+    {
+      return new BaselinePaddingInsetsListener(true, true, true, true);
+    }
+
+    public static BaselinePaddingInsetsListener excludeTop()
+    {
+      return new BaselinePaddingInsetsListener(false, true, true, true);
+    }
+
+    public static BaselinePaddingInsetsListener excludeBottom()
+    {
+      return new BaselinePaddingInsetsListener(true, false, true, true);
+    }
+
+    public static BaselinePaddingInsetsListener onlyBottom()
+    {
+      return new BaselinePaddingInsetsListener(false, true, false, false);
+    }
+
+    @NonNull
+    @Override
+    public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
+    {
+      if (!baselineCaptured)
+      {
+        baseline.set(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), v.getPaddingBottom());
+        baselineCaptured = true;
+      }
+      final Insets insets = windowInsets.getInsets(insetsTypeMask);
+      v.setPadding(left ? baseline.left + insets.left : baseline.left, top ? baseline.top + insets.top : baseline.top,
+                   right ? baseline.right + insets.right : baseline.right,
+                   bottom ? baseline.bottom + insets.bottom : baseline.bottom);
+      return windowInsets;
     }
   }
 }
