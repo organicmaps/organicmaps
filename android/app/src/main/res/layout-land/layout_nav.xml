@@ -6,30 +6,55 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <include layout="@layout/layout_nav_top" />
-
-  <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/nav_bottom_sheet_coordinator"
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/nav_top_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-      android:id="@+id/nav_bottom_sheet_background"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#99000000"
-      android:clickable="true"
-      android:focusable="true"
-      android:visibility="gone"
-      tools:visibility="visible" />
-
-    <FrameLayout
-      android:id="@+id/nav_bottom_sheet"
-      style="?attr/bottomSheetStyle"
+    <!-- Maneuver card: matches nav_bottom_sheet width in landscape -->
+    <app.organicmaps.routing.ManeuverView
+      android:id="@+id/maneuver_view"
       android:layout_width="@dimen/nav_menu_landscape_width"
       android:layout_height="wrap_content"
-      android:layout_gravity="start"
-      app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+      android:elevation="@dimen/nav_elevation"
+      android:clickable="true"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"/>
+
+    <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+      android:id="@+id/nav_speed_limit"
+      style="@style/MwmWidget.SpeedLimit"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginStart="@dimen/margin_half"
+      app:layout_constraintStart_toEndOf="@id/maneuver_view"
+      app:layout_constraintTop_toTopOf="@id/maneuver_view"/>
+
+    <View
+        android:id="@+id/nav_bottom_sheet_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp"
+        tools:visibility="visible" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/nav_bottom_sheet_coordinator"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/nav_bottom_sheet"
+        style="?attr/bottomSheetStyle"
+        android:layout_width="@dimen/nav_menu_landscape_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
       <include layout="@layout/layout_nav_bottom" />
     </FrameLayout>
