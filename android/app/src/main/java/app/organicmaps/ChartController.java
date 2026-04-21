@@ -71,6 +71,8 @@ public class ChartController implements OnChartValueSelectedListener
     for (ElevationInfo.Point point : info.getPoints())
       values.add(new Entry((float) point.getDistance(), point.getAltitude()));
 
+    ElevationChartUtils.configureYAxisBounds(mChart, stats.getMinElevation(), stats.getMaxElevation());
+    ElevationChartUtils.addSegmentSeparators(mChart, info.getSegmentDistances(), mContext);
     ElevationChartUtils.setChartData(mChart, values, mContext);
 
     mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
