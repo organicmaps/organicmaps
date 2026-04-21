@@ -99,6 +99,7 @@ public class RouteElevationChartController
     for (int i = 0; i < data.getSize(); i++)
       values.add(new Entry((float) data.getDistance(i), data.getAltitude(i), i));
 
+    ElevationChartUtils.configureYAxisBounds(mChart, data.getMinAltitude(), data.getMaxAltitude());
     ElevationChartUtils.setChartData(mChart, values, mContext);
 
     if (mMinAltitude != null)

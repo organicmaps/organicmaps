@@ -18,16 +18,21 @@ public class ElevationInfo implements PlacePageData
   @NonNull
   private final List<Point> mPoints;
   private final int mDifficulty;
+  @NonNull
+  private final double[] mSegmentDistances;
 
-  public ElevationInfo(@NonNull Point[] points, int difficulty)
+  public ElevationInfo(@NonNull Point[] points, int difficulty, @NonNull double[] segmentDistances)
   {
     mPoints = Arrays.asList(points);
     mDifficulty = difficulty;
+    mSegmentDistances = segmentDistances;
   }
 
   protected ElevationInfo(Parcel in)
   {
     mDifficulty = in.readInt();
+    double[] arr = in.createDoubleArray();
+    mSegmentDistances = arr != null ? arr : new double[0];
     mPoints = readPoints(in);
   }
 
@@ -50,6 +55,12 @@ public class ElevationInfo implements PlacePageData
     return mDifficulty;
   }
 
+  @NonNull
+  public double[] getSegmentDistances()
+  {
+    return mSegmentDistances;
+  }
+
   @Override
   public int describeContents()
   {
@@ -60,6 +71,7 @@ public class ElevationInfo implements PlacePageData
   public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeInt(mDifficulty);
+    dest.writeDoubleArray(mSegmentDistances);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
     dest.writeTypedList(mPoints);
