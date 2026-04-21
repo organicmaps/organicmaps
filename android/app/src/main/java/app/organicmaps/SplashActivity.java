@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.window.SplashScreenView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -208,10 +209,13 @@ public class SplashActivity extends AppCompatActivity
 
   private void adjustBrandingInfoPadding()
   {
-    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ll__branding_info), (view, insets) -> {
+    final View brandingInfo = findViewById(R.id.ll__branding_info);
+    // Capture the baseline once so repeated inset dispatches don't accumulate paddingBottom.
+    final int baseBottom = brandingInfo.getPaddingBottom();
+    ViewCompat.setOnApplyWindowInsetsListener(brandingInfo, (view, insets) -> {
       final Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
       view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
-                      view.getPaddingBottom() + systemBars.bottom);
+                      baseBottom + systemBars.bottom);
       return insets;
     });
   }

@@ -43,6 +43,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -579,16 +580,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
       final int trackRecorderOffset =
           TrackRecorder.nativeIsTrackRecordingEnabled() ? dimen(this, R.dimen.map_button_size) : 0;
-      mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      final Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+      // Drive nav-bar height from the AndroidX visibility signal — pre-R FLAG_FULLSCREEN
+      // hides only the status bar, so inferring from app state misreports the nav bar.
+      mNavBarHeight = windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars()) ? systemBars.bottom : 0;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
       if (mCurrentWindowInsets == null)
-      {
-        updateCompassOffset(trackRecorderOffset + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
-                            windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
-      }
+        updateCompassOffset(trackRecorderOffset + systemBars.top, systemBars.right);
       refreshLightStatusBar();
-      updateBottomWidgetsOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
+      updateBottomWidgetsOffset(systemBars.left);
       mCurrentWindowInsets = windowInsets;
       return windowInsets;
     });
