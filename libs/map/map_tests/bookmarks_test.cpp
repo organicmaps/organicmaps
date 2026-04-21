@@ -1574,23 +1574,51 @@ UNIT_CLASS_TEST(Runner, Bookmarks_MM_BrokenFile)
 
 UNIT_CLASS_TEST(Runner, Tracks_MM)
 {
+  // Both fixtures are gx:MultiTrack exports captured inside MapsMe with three segments of
+  // 5 / 4 / 4 points. The "withts" variant carries per-point capture times; the "nots" variant
+  // omits them. The per-segment size assertions below guard the V11 timestamp-distribution path
+  // in TrackDataV9MM::ConvertToLatestVersion against regressions.
+  std::vector<size_t> const kExpectedLineSizes = {5, 4, 4};
+
   {
     string const fileName = GetPlatform().TestsDataPathForFile("test_data/track_MM_nots.kmb.test");
     auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
     TEST(kmlData && kmlData->m_tracksData.size() == 1, ());
 
-    auto const & geom = kmlData->m_tracksData.front().m_geometry.m_lines;
-    auto const & times = kmlData->m_tracksData.front().m_geometry.m_timestamps;
-    TEST(geom.size() == 3 && times.size() == 3, ());
+    auto const & geometry = kmlData->m_tracksData.front().m_geometry;
+    TEST_EQUAL(geometry.m_lines.size(), kExpectedLineSizes.size(), ());
+    TEST_EQUAL(geometry.m_timestamps.size(), kExpectedLineSizes.size(), ());
+    for (size_t i = 0; i < kExpectedLineSizes.size(); ++i)
+    {
+      TEST_EQUAL(geometry.m_lines[i].size(), kExpectedLineSizes[i], ("line", i));
+      TEST(geometry.m_timestamps[i].empty(), ("line", i, "should have no per-point times"));
+    }
+    TEST(!geometry.HasTimestamps(), ());
   }
   {
     string const fileName = GetPlatform().TestsDataPathForFile("test_data/track_MM_withts.kmb.test");
     auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
     TEST(kmlData && kmlData->m_tracksData.size() == 1, ());
 
-    auto const & geom = kmlData->m_tracksData.front().m_geometry.m_lines;
-    auto const & times = kmlData->m_tracksData.front().m_geometry.m_timestamps;
-    TEST(geom.size() == 3 && times.size() == 3, ());
+    auto const & geometry = kmlData->m_tracksData.front().m_geometry;
+    TEST_EQUAL(geometry.m_lines.size(), kExpectedLineSizes.size(), ());
+    TEST_EQUAL(geometry.m_timestamps.size(), kExpectedLineSizes.size(), ());
+
+    // Each segment carries exactly one timestamp per point, and timestamps increase
+    // monotonically both within a segment and across the flattened sequence — confirming that
+    // the deserializer split the flat V11 timestamps vector across lines in the right order.
+    time_t prevTs = 0;
+    for (size_t i = 0; i < kExpectedLineSizes.size(); ++i)
+    {
+      TEST_EQUAL(geometry.m_lines[i].size(), kExpectedLineSizes[i], ("line", i));
+      TEST_EQUAL(geometry.m_timestamps[i].size(), kExpectedLineSizes[i], ("timestamps", i));
+      for (size_t j = 0; j < geometry.m_timestamps[i].size(); ++j)
+      {
+        auto const ts = geometry.m_timestamps[i][j];
+        TEST_GREATER(ts, prevTs, ("line", i, "point", j));
+        prevTs = ts;
+      }
+    }
   }
 }
 
