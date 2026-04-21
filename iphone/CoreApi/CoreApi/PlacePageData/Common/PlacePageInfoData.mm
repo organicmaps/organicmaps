@@ -2,6 +2,7 @@
 
 #import "OpeningHours.h"
 #import "PlacePagePhone.h"
+#import "PlacePageRoute.h"
 
 #import <CoreApi/StringUtils+Core.h>
 
@@ -11,6 +12,8 @@
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "map/place_page_info.hpp"
+
+#include "drape/color.hpp"
 
 using namespace place_page;
 using namespace osm;
@@ -36,9 +39,29 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
     if (!cuisines.empty())
       _cuisine = ToNSString(cuisines);
 
-    auto const routeRefs = rawData.FormatRouteRefs();
-    if (!routeRefs.empty())
-      _routeRefs = ToNSString(routeRefs);
+    auto const & rawRoutes = rawData.GetRoutes();
+    if (!rawRoutes.empty())
+    {
+      NSMutableArray<PlacePageRoute *> * routes = [NSMutableArray arrayWithCapacity:rawRoutes.size()];
+      for (auto const & r : rawRoutes)
+      {
+        // Empty color means the relation has no colour tag — leave UIColor nil.
+        UIColor * uiColor = nil;
+        if (r.m_color.GetARGB() != 0)
+        {
+          uiColor = [UIColor colorWithRed:r.m_color.GetRedF()
+                                    green:r.m_color.GetGreenF()
+                                     blue:r.m_color.GetBlueF()
+                                    alpha:r.m_color.GetAlphaF()];
+        }
+        [routes addObject:[PlacePageRoute routeWithRef:ToNSString(r.m_ref)
+                                                  from:ToNSString(r.m_from)
+                                                    to:ToNSString(r.m_to)
+                                                 relId:r.m_relID
+                                                 color:uiColor]];
+      }
+      _routes = [routes copy];
+    }
 
     /// @todo Refactor PlacePageInfoData to have a map of simple string properties.
     using MetadataID = MapObject::MetadataID;

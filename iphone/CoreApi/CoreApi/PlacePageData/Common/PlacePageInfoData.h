@@ -2,6 +2,7 @@
 
 @class OpeningHours;
 @class PlacePagePhone;
+@class PlacePageRoute;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString * selfService;
 @property(nonatomic, readonly, nullable) NSString * outdoorSeating;
 @property(nonatomic, readonly, nullable) NSString * network;
-@property(nonatomic, readonly, nullable) NSString * routeRefs;
+@property(nonatomic, readonly, nullable) NSArray<PlacePageRoute *> * routes;
 
 @end
 

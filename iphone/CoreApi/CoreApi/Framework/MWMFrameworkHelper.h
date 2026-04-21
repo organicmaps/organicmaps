@@ -60,6 +60,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)moveMap:(UIOffset)offset;
 + (void)scrollMapToDistanceX:(double)x andY:(double)y;
 + (void)deactivateMapSelection;
++ (void)showRouteTransit:(uint32_t)relId;
 + (void)switchMyPositionMode;
 + (void)stopLocationFollow;
 + (NSArray<NSString *> *)obtainLastSearchQueries;
