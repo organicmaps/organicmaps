@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Edge-to-edge portrait maneuver card: square top (flush behind the status bar), rounded bottom. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+  <solid android:color="@color/nav_card_bg"/>
+  <corners
+    android:topLeftRadius="0dp"
+    android:topRightRadius="0dp"
+    android:bottomLeftRadius="@dimen/corner_radius_large"
+    android:bottomRightRadius="@dimen/corner_radius_large"/>
+</shape>

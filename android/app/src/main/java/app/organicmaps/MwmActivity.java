@@ -125,6 +125,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
+import kotlin.Unit;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener, MapRenderingListener, RoutingController.Container, LocationListener,
@@ -532,8 +533,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void refreshLightStatusBar()
   {
-    UiUtils.setLightStatusBar(this, !(ThemeUtils.isDarkTheme(this) || RoutingController.get().isPlanning()
-                                      || ChoosePositionMode.get() != ChoosePositionMode.None));
+    // White icons only over the full-width green card (portrait nav); dark over the light map elsewhere.
+    final boolean navOverCard =
+        RoutingController.get().isNavigating() && getResources().getBoolean(R.bool.nav_full_width_card);
+    UiUtils.setLightStatusBar(
+        this, !(ThemeUtils.isDarkTheme(this) || navOverCard || ChoosePositionMode.get() != ChoosePositionMode.None));
   }
 
   private void updateViewsInsets()
@@ -577,9 +581,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initNavigationButtons();
 
-    mNavigationController = new NavigationController(
-        this, v -> onSettingsOptionSelected(), v -> openVoiceInstructionsSettings(), this::updateBottomWidgetsOffset);
-    // TrafficManager.INSTANCE.attach(mNavigationController);
+    mNavigationController = new NavigationController(this,
+                                                     ()
+                                                         -> {
+                                                       onSettingsOptionSelected();
+                                                       return Unit.INSTANCE;
+                                                     },
+                                                     ()
+                                                         -> {
+                                                       openVoiceInstructionsSettings();
+                                                       return Unit.INSTANCE;
+                                                     },
+                                                     this::updateBottomWidgetsOffset);
     initOnmapDownloader();
     initPositionChooser();
   }
