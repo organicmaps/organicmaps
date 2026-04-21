@@ -77,13 +77,53 @@ public class LanesView extends View
     mBackgroundPaint.setColor(backgroundColor);
   }
 
+  private static final int MAX_LANES = 8;
+
   public void setLanes(@Nullable LaneInfo[] lanes)
   {
     if (lanes == null || lanes.length == 0)
       mLanesDrawable = null;
     else
-      mLanesDrawable = new LanesDrawable(getContext(), lanes, mActiveLaneTintColor, mInactiveLaneTintColor);
+      mLanesDrawable = new LanesDrawable(getContext(), trimLanes(lanes), mActiveLaneTintColor, mInactiveLaneTintColor);
     update();
+  }
+
+  /**
+   * Limits lanes to {@link #MAX_LANES} by removing inactive lanes from the outer edges first,
+   * preserving spatial order and all active (recommended) lanes.
+   */
+  private static LaneInfo[] trimLanes(@NonNull LaneInfo[] lanes)
+  {
+    if (lanes.length <= MAX_LANES)
+      return lanes;
+
+    final boolean[] keep = new boolean[lanes.length];
+    for (int i = 0; i < lanes.length; i++)
+      keep[i] = true;
+
+    int left = 0;
+    int right = lanes.length - 1;
+    int count = lanes.length;
+
+    while (count > MAX_LANES)
+    {
+      if (lanes[left].mActiveLaneWay == LaneWay.None)
+        keep[left++] = false;
+      else if (lanes[right].mActiveLaneWay == LaneWay.None)
+        keep[right--] = false;
+      else
+        keep[right--] = false; // all remaining are active — drop rightmost
+      count--;
+    }
+
+    final LaneInfo[] result = new LaneInfo[count];
+    int idx = 0;
+    for (int i = 0; i < lanes.length; i++)
+    {
+      if (keep[i])
+        result[idx++] = lanes[i];
+    }
+    return result;
   }
 
   @Override
@@ -94,19 +134,8 @@ public class LanesView extends View
     if (mLanesDrawable == null)
       return;
 
-    final int paddingStart = getPaddingStart();
-    final int paddingTop = getPaddingTop();
-    final int paddingEnd = getPaddingEnd();
-    final int paddingBottom = getPaddingBottom();
-
-    mLanesDrawable.setBounds(paddingStart, paddingTop, getWidth() - paddingEnd, getHeight() - paddingBottom);
-
-    mViewBounds = new Rect(mLanesDrawable.getBounds());
-
-    mViewBounds.left -= paddingStart;
-    mViewBounds.top -= paddingTop;
-    mViewBounds.right += paddingEnd;
-    mViewBounds.bottom += paddingBottom;
+    mLanesDrawable.setBounds(0, 0, getWidth(), getHeight());
+    mViewBounds = new Rect(0, 0, getWidth(), getHeight());
 
     canvas.drawRoundRect(new RectF(mViewBounds), mCornerRadius, mCornerRadius, mBackgroundPaint);
 
