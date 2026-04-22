@@ -50,6 +50,7 @@ final class PlacePageHeaderViewController: UIViewController {
     }
     closeButton.setImage(UIImage(resource: .icClose))
     shareButton.setImage(UIImage(resource: .icShare))
+    shareButton.isHidden = !(presenter?.canShare ?? true)
 
     cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
@@ -76,7 +77,7 @@ final class PlacePageHeaderViewController: UIViewController {
 
     subtitleLabel.font = StyleManager.shared.theme!.fonts.medium16
 
-    if presenter?.objectType == .track {
+    if presenter?.objectType == .track, presenter?.canShare == true {
       configureTrackSharingMenu()
     }
   }
@@ -206,7 +207,7 @@ extension PlacePageHeaderViewController: UITextViewDelegate {
     clearTitleTextButton.isHidden = true
     cancelButton.isHidden = true
     closeButton.isHidden = false
-    shareButton.isHidden = false
+    shareButton.isHidden = !(presenter?.canShare ?? true)
 
     isEditingTitle = false
     let cleanedText = textView.text
