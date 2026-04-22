@@ -24,17 +24,37 @@ enum class Version : uint8_t
            // tags to kml
   V9 = 9,  // 01 October 2020: add minZoom to bookmarks
   Latest = V9,
-  V8MM = 10,  // 27 July 2023: MapsMe released version v15.0.71617. Technically its version is 8
-              // (first byte is 0x08), but it's not compatible with V8 from this repo. It has
-              // no compilations.
-  V9MM = 11   // In July 2024 MapsMe released version with a new KMB format. Technically its version is 9
-              // (first byte is 0x09), but it's not compatible with OrganicMaps V9 from this repo.
-              // It supports multiline geometry.
+  // MapsMe-incompatible variants. Enum values 10/11 are internal identifiers assigned after V9
+  // (V8/V9 occupy 8/9); they are NOT the on-disk version byte. On disk, V8MM still starts with
+  // 0x08 and V9MM still starts with 0x09 — the variant is detected via a header-shape heuristic
+  // (5 section offsets instead of 6) in DeserializerKml::InitializeIfNeeded.
+  V8MM = 10,  // 27 July 2023: MapsMe released version v15.0.71617. On-disk byte is 0x08 but the
+              // layout is not compatible with this repo's V8 (no compilations section).
+  V9MM = 11   // July 2024: MapsMe released a new KMB format. On-disk byte is 0x09 but not
+              // compatible with this repo's V9 (track uses vector<MultiGeometry>, no
+              // compilations). A later MapsMe release evolved the track layout to drop
+              // m_constant3 and append a per-point capture-timestamp vector; both shapes
+              // decode through this path — the legacy c3=0 byte reads as ts_count=0.
 };
 
 inline std::string DebugPrint(Version v)
 {
-  return ::DebugPrint(static_cast<int>(v));
+  switch (v)
+  {
+  case Version::V0: return "V0";
+  case Version::V1: return "V1";
+  case Version::V2: return "V2";
+  case Version::V3: return "V3";
+  case Version::V4: return "V4";
+  case Version::V5: return "V5";
+  case Version::V6: return "V6";
+  case Version::V7: return "V7";
+  case Version::V8: return "V8";
+  case Version::V9: return "V9";  // == Latest
+  case Version::V8MM: return "V8MM";
+  case Version::V9MM: return "V9MM";
+  }
+  return "Unknown(" + ::DebugPrint(static_cast<int>(v)) + ")";
 }
 
 struct Header

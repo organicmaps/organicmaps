@@ -4,6 +4,7 @@
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
 #include "kml/types_v7.hpp"
+#include "kml/types_v9mm.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -201,6 +202,26 @@ private:
 
 namespace binary
 {
+// Decodes a TimestampMillis varuint. Historically the writer emitted
+// ms-since-epoch; some MapsMe V9MM files, however, contain legacy records
+// whose raw value is seconds-since-epoch (never re-multiplied when MapsMe
+// switched the unit), mixed with newer millisecond records in the same file.
+//
+// Disambiguate by magnitude:
+//   - [10^9, 10^12): real post-2001 seconds-since-epoch (10^9 s ≈ 2001-09-09,
+//     10^12 s ≈ year 33658). Passed through unchanged.
+//   - Everything else: milliseconds-since-epoch (the originally intended unit).
+//     Includes 0/small test values and real post-2001 ms timestamps (>= 10^12 ≈ year 2001).
+// Returned value is seconds-since-epoch.
+inline uint64_t DecodeMaybeMillisSinceEpoch(uint64_t raw)
+{
+  static constexpr uint64_t kSecondsLo = 1'000'000'000ULL;      // 10^9  s ≈ 2001-09-09
+  static constexpr uint64_t kSecondsHi = 1'000'000'000'000ULL;  // 10^12 s ≈ year 33658
+  if (raw >= kSecondsLo && raw < kSecondsHi)
+    return raw;
+  return raw / 1000;
+}
+
 template <typename Sink>
 void WriteLocalizableStringIndex(Sink & sink, LocalizableStringIndex const & index)
 {
@@ -434,6 +455,17 @@ public:
     (*this)(geom.m_lines[0]);
   }
 
+  void operator()(TrackPointTimestamps const & pts, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, static_cast<uint32_t>(pts.m_values.size()));
+    for (auto const ts : pts.m_values)
+    {
+      auto const ms = static_cast<uint64_t>(ts) * 1000;
+      // Reproduce the V11 encoding: low 7 bits are flags kept as 0x7F.
+      WriteVarUint(m_sink, (ms << 7) | 0x7FULL);
+    }
+  }
+
   template <typename D>
   std::enable_if_t<std::is_integral<D>::value> operator()(D d, char const * /* name */ = nullptr)
   {
@@ -493,7 +525,7 @@ public:
   void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t>(m_source);
-    t = FromSecondsSinceEpoch(v / 1000);
+    t = FromSecondsSinceEpoch(DecodeMaybeMillisSinceEpoch(v));
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)
@@ -588,7 +620,7 @@ public:
   void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t>(m_source);
-    t = FromSecondsSinceEpoch(v / 1000);
+    t = FromSecondsSinceEpoch(DecodeMaybeMillisSinceEpoch(v));
   }
 
   void operator()(PredefinedColor & color, char const * /* name */ = nullptr)
@@ -668,6 +700,18 @@ public:
     MultiGeometry::LineT line;
     (*this)(line);
     geom.m_lines.push_back(std::move(line));
+  }
+
+  void operator()(TrackPointTimestamps & pts, char const * /* name */ = nullptr)
+  {
+    auto const size = ReadVarUint<uint32_t, Source>(m_source);
+    pts.m_values.reserve(size);
+    for (uint32_t i = 0; i < size; ++i)
+    {
+      auto const raw = ReadVarUint<uint64_t, Source>(m_source);
+      // V11 encoding: (ms_since_epoch << 7) | low7_flags. Drop flags, then ms -> seconds.
+      pts.m_values.push_back(static_cast<time_t>((raw >> 7) / 1000));
+    }
   }
 
   template <typename D>

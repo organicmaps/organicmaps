@@ -263,8 +263,9 @@ private:
       if (m_header.m_categoryOffset == 0x28 || m_header.m_bookmarksOffset == 0x28 || m_header.m_tracksOffset == 0x28 ||
           m_header.m_stringsOffset == 0x28 || m_header.m_compilationsOffset == 0x28)
       {
+        auto const onDiskByte = static_cast<int>(m_header.m_version);
         m_header.m_version = (m_header.m_version == Version::V8 ? Version::V8MM : Version::V9MM);
-        LOG(LINFO, ("KMB file has version", m_header.m_version));
+        LOG(LINFO, ("KMB file: on-disk V", onDiskByte, "detected as MapsMe variant", m_header.m_version));
 
         m_header.m_eosOffset = m_header.m_stringsOffset;
         m_header.m_stringsOffset = m_header.m_compilationsOffset;
