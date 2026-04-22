@@ -112,7 +112,7 @@ private class ChartYAxisInnerView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    if upperBound > 0, lowerBound > 0 {
+    if upperBound > lowerBound {
       updateGrid()
     }
 
