@@ -1,25 +1,10 @@
 #include "generator/feature_generator.hpp"
 
 #include "generator/feature_builder.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/intermediate_data.hpp"
-#include "generator/intermediate_elements.hpp"
 
-#include "geometry/mercator.hpp"
-#include "indexer/cell_id.hpp"
 #include "indexer/data_header.hpp"
 
-#include "coding/varint.hpp"
-
 #include "base/assert.hpp"
-#include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
-
-#include <functional>
-#include <unordered_map>
-#include <utility>
-
-#include "std/target_os.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeaturesCollector implementation
