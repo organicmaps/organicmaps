@@ -231,7 +231,7 @@
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
                                     <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="skM-Xx-3En" secondAttribute="height" multiplier="1:1" id="L4Y-X5-7oP"/>
+                                        <constraint firstAttribute="width" secondItem="skM-Xx-3En" secondAttribute="height" priority="999" multiplier="1:1" id="L4Y-X5-7oP"/>
                                     </constraints>
                                     <state key="normal" image="ic_menu_settings"/>
                                     <userDefinedRuntimeAttributes>
@@ -244,7 +244,7 @@
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
                                     <rect key="frame" x="64" y="0.0" width="64" height="64"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="Bfb-5v-iWA" secondAttribute="height" multiplier="1:1" id="Iku-MW-9C2"/>
+                                        <constraint firstAttribute="width" secondItem="Bfb-5v-iWA" secondAttribute="height" priority="999" multiplier="1:1" id="Iku-MW-9C2"/>
                                     </constraints>
                                     <state key="normal" image="ic_voice_on"/>
                                     <state key="selected" image="ic_voice_off"/>
@@ -258,31 +258,31 @@
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6v-NB-AKJ" userLabel="Track Recording Button" customClass="MWMButton">
                                     <rect key="frame" x="128" y="0.0" width="64" height="64"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="f6v-NB-AKJ" secondAttribute="height" multiplier="1:1" id="ERa-wJ-0YC"/>
+                                        <constraint firstAttribute="width" secondItem="f6v-NB-AKJ" secondAttribute="height" priority="999" multiplier="1:1" id="ERa-wJ-0YC"/>
                                     </constraints>
-                                    <state key="normal" image="ic_menu_track_recording">
-                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
-                                    </state>
-                                    <state key="selected" image="ic_voice_off"/>
+                                    <state key="normal" image="ic_menu_track_recording"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="trackRecordingButonAction:" destination="9fq-65-qd9" eventType="touchUpInside" id="DKF-qL-sRq"/>
+                                        <action selector="trackRecordingButtonAction:" destination="9fq-65-qd9" eventType="touchUpInside" id="DKF-qL-sRq"/>
                                     </connections>
                                 </button>
                             </subviews>
                         </stackView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtt-q0-SUx" customClass="MWMStopButton">
-                            <rect key="frame" x="255" y="10" width="120" height="44"/>
+                            <rect key="frame" x="279" y="10" width="96" height="44"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="4E4-UU-lhc"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="N0o-f3-nuw"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="N0o-f3-nuw"/>
                                 <constraint firstAttribute="height" priority="750" constant="44" id="Pfs-0w-XX9"/>
                             </constraints>
                             <state key="normal" title="STOP">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatRedButton"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="flatRedButtonBig"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="navigation_stop_button"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
@@ -295,7 +295,7 @@
                         <constraint firstItem="mtt-q0-SUx" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" priority="750" constant="10" id="L5z-8y-Duk"/>
                         <constraint firstAttribute="height" constant="64" id="LaX-SD-Kzr"/>
                         <constraint firstItem="udk-ZC-Gz0" firstAttribute="leading" secondItem="CMT-MI-d8X" secondAttribute="leading" id="QXO-Hi-2pN"/>
-                        <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="udk-ZC-Gz0" secondAttribute="trailing" constant="20" id="R5p-Eg-3S4"/>
+                        <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="udk-ZC-Gz0" secondAttribute="trailing" priority="250" constant="20" id="R5p-Eg-3S4"/>
                         <constraint firstItem="udk-ZC-Gz0" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="W8O-lT-eqz"/>
                         <constraint firstAttribute="bottom" secondItem="udk-ZC-Gz0" secondAttribute="bottom" id="bMN-ct-cOQ"/>
                         <constraint firstAttribute="trailing" secondItem="mtt-q0-SUx" secondAttribute="trailing" constant="12" id="huM-XX-MM9"/>

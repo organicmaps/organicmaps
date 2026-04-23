@@ -46,7 +46,9 @@
               __strong __typeof(weakSelf) self = weakSelf;
               if (!self)
                 return;
-              [self->_navigationDashboardView setTrackRecordingState:state];
+              id<NavigationDashboardView> view = self->_navigationDashboardView;
+              if (view)
+                [view setTrackRecordingState:state];
             }];
   }
   return self;
@@ -259,14 +261,13 @@
   [self.searchManager close];
 }
 
-- (void)trackRecordingButonDidTap
+- (void)trackRecordingButtonDidTap
 {
   TrackRecordingManager * manager = TrackRecordingManager.shared;
   switch (manager.recordingState)
   {
   case TrackRecordingStateInactive: [manager start]; break;
   case TrackRecordingStateActive: [[MapViewController sharedController] showTrackRecordingPlacePage]; break;
-  default: NSAssert(false, @"Unexpected track recording state.");
   }
 }
 

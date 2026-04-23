@@ -44,7 +44,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case flatPrimaryTransButton = "FlatPrimaryTransButton"
   case flatRedTransButton = "FlatRedTransButton"
   case flatRedTransButtonBig = "FlatRedTransButtonBig"
-  case flatRedButton = "FlatRedButton"
+  case flatRedButtonBig
   case moreButton = "MoreButton"
   case editButton = "EditButton"
   case rateAppButton = "RateAppButton"
@@ -363,7 +363,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.backgroundColor = .clear
         s.fontColorHighlighted = .redPrimary
       }
-    case .flatRedButton:
+    case .flatRedButtonBig:
       return .add { s in
         s.font = fonts.semibold16
         s.cornerRadius = .buttonDefaultBig

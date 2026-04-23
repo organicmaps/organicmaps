@@ -1,4 +1,8 @@
 final class NavigationControlView: SolidTouchView {
+  private enum Constants {
+    static let buttonContentInset: CGFloat = 15
+  }
+
   @IBOutlet private var distanceLabel: UILabel!
   @IBOutlet private var distanceLegendLabel: UILabel!
   @IBOutlet private var distanceWithLegendLabel: UILabel!
@@ -18,9 +22,9 @@ final class NavigationControlView: SolidTouchView {
     }
   }
 
-  @IBOutlet var settingsButton: UIButton!
+  @IBOutlet private var settingsButton: MWMButton!
 
-  @IBOutlet private var ttsButton: UIButton! {
+  @IBOutlet private var ttsButton: MWMButton! {
     didSet {
       ttsButton.setImage(UIImage.icVoiceOff, for: .normal)
       ttsButton.setImage(UIImage.icVoiceOn, for: .selected)
@@ -29,7 +33,7 @@ final class NavigationControlView: SolidTouchView {
     }
   }
 
-  @IBOutlet var trackRecordingButton: UIButton!
+  @IBOutlet private var trackRecordingButton: MWMButton!
 
   private lazy var dimBackground: DimBackground = .init(mainView: self, tapAction: { [weak self] in
     self?.diminish()
@@ -39,7 +43,6 @@ final class NavigationControlView: SolidTouchView {
   weak var delegate: RouteNavigationControlsDelegate!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
-  private var trackRecordingState = TrackRecordingState.inactive
   private var extendedConstraint: NSLayoutConstraint!
   private var notExtendedConstraint: NSLayoutConstraint!
   private let diminishSelector = #selector(diminish)
@@ -95,7 +98,10 @@ final class NavigationControlView: SolidTouchView {
     button.imageView?.contentMode = .scaleAspectFit
     button.contentHorizontalAlignment = .fill
     button.contentVerticalAlignment = .fill
-    button.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+    button.contentEdgeInsets = UIEdgeInsets(top: Constants.buttonContentInset,
+                                            left: Constants.buttonContentInset,
+                                            bottom: Constants.buttonContentInset,
+                                            right: Constants.buttonContentInset)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -149,10 +155,12 @@ final class NavigationControlView: SolidTouchView {
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
   }
 
-  func render(navigationInfo info: MWMNavigationDashboardEntity, trackRecordingState: TrackRecordingState) {
+  func setTrackRecordingState(_ state: TrackRecordingState) {
+    trackRecordingButton.coloring = state == .active ? .red : .black
+  }
+
+  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
-    self.trackRecordingState = trackRecordingState
-    trackRecordingButton.tintColor = trackRecordingState == .active ? .redPrimary : .blackSecondaryText
     guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
@@ -225,7 +233,7 @@ final class NavigationControlView: SolidTouchView {
   private func toggleInfoAction() {
     if let navigationInfo = navigationInfo {
       timePageControl.currentPage = (timePageControl.currentPage + 1) % timePageControl.numberOfPages
-      render(navigationInfo: navigationInfo, trackRecordingState: trackRecordingState)
+      onNavigationInfoUpdated(navigationInfo)
     }
     refreshDiminishTimer()
   }
@@ -252,8 +260,8 @@ final class NavigationControlView: SolidTouchView {
   }
 
   @IBAction
-  private func trackRecordingButonAction(_: Any) {
-    delegate.trackRecordingButonDidTap()
+  private func trackRecordingButtonAction(_: Any) {
+    delegate.trackRecordingButtonDidTap()
   }
 
   private func morphExtendButton() {
@@ -301,6 +309,7 @@ final class NavigationControlView: SolidTouchView {
   override func applyTheme() {
     super.applyTheme()
     onTTSStatusUpdated()
+    setTrackRecordingState(TrackRecordingManager.shared.recordingState)
   }
 
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {

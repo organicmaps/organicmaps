@@ -123,8 +123,6 @@ final class TrackRecordingManager: NSObject {
         }
       case .active:
         break
-      @unknown default:
-        fatalError()
       }
       completion?(.success)
     } catch {

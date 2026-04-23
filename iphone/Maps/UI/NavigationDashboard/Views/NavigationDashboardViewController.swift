@@ -517,8 +517,8 @@ extension NavigationDashboardViewController {
         navigationInfoView.setSearchState(navigationSearchState, animated: true)
       }
       navigationControlView.isVisible = true
-      navigationControlView.render(navigationInfo: viewModel.entity,
-                                   trackRecordingState: viewModel.trackRecordingState)
+      navigationControlView.onNavigationInfoUpdated(viewModel.entity)
+      navigationControlView.setTrackRecordingState(viewModel.trackRecordingState)
 
     case .error:
       estimatesView.setState(viewModel.estimatesState)
