@@ -29,7 +29,7 @@ class MapWidget : public QOpenGLWidget
   Q_OBJECT
 
 public:
-  MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent);
+  MapWidget(Framework & framework, QWidget * parent);
   ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);
@@ -95,7 +95,6 @@ protected:
   void wheelEvent(QWheelEvent * e) override;
 
   Framework & m_framework;
-  bool m_screenshotMode;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
 

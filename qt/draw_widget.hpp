@@ -13,7 +13,6 @@
 
 #include <QtWidgets/QRubberBand>
 
-#include <memory>
 #include <optional>
 #include <string>
 
@@ -25,9 +24,6 @@ namespace common
 {
 class ScaleSlider;
 }
-
-class Screenshoter;
-struct ScreenshotParams;
 
 class DrawWidget : public qt::common::MapWidget
 {
@@ -42,7 +38,7 @@ public Q_SLOTS:
   void ChoosePositionModeDisable();
 
 public:
-  DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QWidget * parent);
+  DrawWidget(Framework & framework, QWidget * parent);
   ~DrawWidget() override;
 
   std::string GetDistance(search::Result const & res) const;
@@ -128,7 +124,6 @@ private:
   routing::GuidesTracks m_guideTracks;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 
-  std::unique_ptr<Screenshoter> m_screenshoter;
   Ruler m_ruler;
   RoutingTurnsVisualizer m_turnsVisualizer;
 };

@@ -54,8 +54,6 @@ set(SRC
   routing_turns_visualizer.hpp
   ruler.cpp
   ruler.hpp
-  screenshoter.cpp
-  screenshoter.hpp
   search_panel.cpp
   search_panel.hpp
   selection.hpp

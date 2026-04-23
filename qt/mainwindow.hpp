@@ -29,7 +29,6 @@ namespace qt
 {
 class DrawWidget;
 class PopupMenuHolder;
-struct ScreenshotParams;
 
 class MainWindow
   : public QMainWindow
@@ -46,7 +45,6 @@ class MainWindow
   storage::CountryId m_lastCountry;
 
   std::unique_ptr<location::LocationService> const m_locationService;
-  bool const m_screenshotMode;
 
   QAction * m_pMyPositionAction = nullptr;
   QAction * m_pCreateFeatureAction = nullptr;
@@ -80,7 +78,7 @@ class MainWindow
   Q_OBJECT
 
 public:
-  MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry
+  MainWindow(Framework & framework, QRect const & screenGeometry
 #ifdef BUILD_DESIGNER
              ,
              QString const & mapcssFilePath = QString()

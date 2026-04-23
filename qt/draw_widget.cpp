@@ -7,7 +7,6 @@
 #include "qt/place_page_dialog_user.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/routing_settings_dialog.hpp"
-#include "qt/screenshoter.hpp"
 
 #include "generator/borders.hpp"
 
@@ -92,8 +91,8 @@ df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEven
 #endif
 }  // namespace
 
-DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QWidget * parent)
-  : TBase(framework, screenshotParams != nullptr, parent)
+DrawWidget::DrawWidget(Framework & framework, QWidget * parent)
+  : TBase(framework, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
@@ -127,12 +126,6 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
   });
 
   routingManager.SetRouteRecommendationListener([this](RoutingManager::Recommendation r) { OnRouteRecommendation(r); });
-
-  if (screenshotParams != nullptr)
-  {
-    m_ratio = screenshotParams->m_dpiScale;
-    m_screenshoter = std::make_unique<Screenshoter>(*screenshotParams, m_framework, this);
-  }
 }
 
 DrawWidget::~DrawWidget()
@@ -176,10 +169,7 @@ void DrawWidget::ChoosePositionModeDisable()
 
 void DrawWidget::initializeGL()
 {
-  if (m_screenshotMode)
-    m_framework.GetBookmarkManager().EnableTestMode(true);
-  else
-    m_framework.LoadBookmarks();
+  m_framework.LoadBookmarks();
 
   MapWidget::initializeGL();
 
@@ -188,9 +178,6 @@ void DrawWidget::initializeGL()
     if (success)
       m_framework.GetRoutingManager().BuildRoute();
   });
-
-  if (m_screenshotMode)
-    m_screenshoter->Start();
 }
 
 bool DrawWidget::event(QEvent * event)
@@ -245,9 +232,6 @@ bool DrawWidget::event(QEvent * event)
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::mousePressEvent(e);
 
   m2::PointD const pt = GetDevicePoint(e);
@@ -286,9 +270,6 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
 
 void DrawWidget::mouseMoveEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::mouseMoveEvent(e);
 
   if (IsLeftButton(e) && !IsAltModifier(e))
@@ -360,9 +341,6 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVer
 
 void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_UP));
@@ -420,9 +398,6 @@ void DrawWidget::ProcessSelectionMode()
 
 void DrawWidget::keyPressEvent(QKeyEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   if (IsLeftButton(QGuiApplication::mouseButtons()) && e->key() == Qt::Key_Control)
   {
     df::TouchEvent event;
@@ -439,9 +414,6 @@ void DrawWidget::keyPressEvent(QKeyEvent * e)
 
 void DrawWidget::keyReleaseEvent(QKeyEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   if (IsLeftButton(QGuiApplication::mouseButtons()) && e->key() == Qt::Key_Control)
   {
     df::TouchEvent event;

@@ -34,10 +34,9 @@ namespace qt::common
 {
 // #define ENABLE_AA_SWITCH
 
-MapWidget::MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent)
+MapWidget::MapWidget(Framework & framework, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
-  , m_screenshotMode(isScreenshotMode)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
   , m_ratio(1.0f)
@@ -108,10 +107,9 @@ void MapWidget::CreateEngine()
 
   p.m_apiVersion = dp::ApiVersion::OpenGLES3;
 
-  p.m_surfaceWidth = m_screenshotMode ? width() : static_cast<int>(m_ratio * width());
-  p.m_surfaceHeight = m_screenshotMode ? height() : static_cast<int>(m_ratio * height());
+  p.m_surfaceWidth = static_cast<int>(m_ratio * width());
+  p.m_surfaceHeight = static_cast<int>(m_ratio * height());
   p.m_visualScale = static_cast<float>(m_ratio);
-  p.m_hints.m_screenshotMode = m_screenshotMode;
 
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), m_ratio));
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
@@ -384,8 +382,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 void MapWidget::initializeGL()
 {
   ASSERT(m_contextFactory == nullptr, ());
-  if (!m_screenshotMode)
-    m_ratio = devicePixelRatio();
+  m_ratio = devicePixelRatio();
 
 #if defined(OMIM_OS_LINUX)
   {
@@ -459,8 +456,8 @@ void MapWidget::paintGL()
 
 void MapWidget::resizeGL(int width, int height)
 {
-  int const w = m_screenshotMode ? width : m_ratio * width;
-  int const h = m_screenshotMode ? height : m_ratio * height;
+  int const w = m_ratio * width;
+  int const h = m_ratio * height;
   m_framework.OnSize(w, h);
 
   if (m_skin)
@@ -476,9 +473,6 @@ void MapWidget::resizeGL(int width, int height)
 
 void MapWidget::mouseDoubleClickEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::mouseDoubleClickEvent(e);
   if (IsLeftButton(e))
     m_framework.Scale(Framework::SCALE_MAG_LIGHT, GetDevicePoint(e), true);
@@ -486,9 +480,6 @@ void MapWidget::mouseDoubleClickEvent(QMouseEvent * e)
 
 void MapWidget::mousePressEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::mousePressEvent(e);
   if (IsLeftButton(e))
     m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_DOWN));
@@ -496,9 +487,6 @@ void MapWidget::mousePressEvent(QMouseEvent * e)
 
 void MapWidget::mouseMoveEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::mouseMoveEvent(e);
   if (IsLeftButton(e))
     m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_MOVE));
@@ -506,9 +494,6 @@ void MapWidget::mouseMoveEvent(QMouseEvent * e)
 
 void MapWidget::mouseReleaseEvent(QMouseEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   if (e->button() == Qt::RightButton)
     emit OnContextMenuRequested(e->globalPosition().toPoint());
 
@@ -519,9 +504,6 @@ void MapWidget::mouseReleaseEvent(QMouseEvent * e)
 
 void MapWidget::wheelEvent(QWheelEvent * e)
 {
-  if (m_screenshotMode)
-    return;
-
   QOpenGLWidget::wheelEvent(e);
 
   QPointF const pos = e->position();
