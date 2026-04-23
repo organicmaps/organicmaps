@@ -724,6 +724,7 @@
     <string name="opens_at">Atsidaro %s</string>
     <string name="closes_at">Užsidaro %s</string>
     <string name="editor_add_select_category_all_subtitle">Visos kategorijos</string>
+    <string name="placepage_replace_stop">Pakeisti Stop</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Maistas</string>

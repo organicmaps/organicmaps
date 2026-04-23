@@ -720,6 +720,7 @@
     <string name="opens_at">Отваря се в %s</string>
     <string name="closes_at">Затваря се в %s</string>
     <string name="editor_add_select_category_all_subtitle">Всички категории</string>
+    <string name="placepage_replace_stop">Замяна на спирката</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>

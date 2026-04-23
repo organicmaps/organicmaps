@@ -726,6 +726,7 @@
     <string name="opens_at">Apre alle %s</string>
     <string name="closes_at">Chiude alle %s</string>
     <string name="editor_add_select_category_all_subtitle">Tutte le categorie</string>
+    <string name="placepage_replace_stop">Sostituisci la fermata</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Cibo</string>

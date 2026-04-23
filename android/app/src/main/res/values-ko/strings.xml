@@ -719,6 +719,7 @@
     <string name="opens_at">%s에 열림</string>
     <string name="closes_at">%s에서 닫힘</string>
     <string name="editor_add_select_category_all_subtitle">모든 카테고리</string>
+    <string name="placepage_replace_stop">교체 중지</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">음식</string>
