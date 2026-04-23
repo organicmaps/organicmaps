@@ -409,6 +409,7 @@ amenity-bar                                         # icon z15- (also has captio
 === 4000
 
 amenity-biergarten                                  # icon z15- (also has caption(optional) z15-)
+amenity-hookah_lounge                               # icon z15- (also has caption(optional) z15-)
 amenity-pub                                         # icon z15- (also has caption(optional) z15-)
 === 3950
 
@@ -1602,6 +1603,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -6000
 
 # amenity-biergarten                                # caption(optional) z15- (also has icon z15-)
+# amenity-hookah_lounge                             # caption(optional) z15- (also has icon z15-)
 # amenity-pub                                       # caption(optional) z15- (also has icon z15-)
 # === -6050
 
