@@ -13,11 +13,9 @@
 
 #include "base/macros.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
-#include <utility>
 
 class MwmValue;
 
@@ -25,9 +23,59 @@ namespace search
 {
 void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 
+class MwmContextBase
+{
+  DISALLOW_COPY_AND_MOVE(MwmContextBase);
+
+public:
+  MwmValue & m_value;
+
+private:
+  // FeatureType::GetReadableName requires a valid MwmId on the feature to look up region data;
+  // We can't avoid registering MWM and calling FeatureType::SetID().
+  /// @todo Make a simple stub mwmId without DataSource dependency?
+  MwmSet::MwmId m_mwmId;
+  FeaturesVector m_vector;
+  ScaleIndex<ModelReaderPtr> m_index;
+
+public:
+  MwmContextBase(MwmValue & value, MwmSet::MwmId const & mwmId);
+  virtual ~MwmContextBase() = default;
+
+  template <class Fn>
+  void ForEachFeature(m2::RectD const & rect, Fn && fn) const
+  {
+    uint32_t const scale = m_value.GetHeader().GetLastScale();
+    covering::Intervals intervals;
+    CoverRect(rect, scale, intervals);
+
+    ForEachIndexImpl(intervals, scale, [&](uint32_t index)
+    {
+      auto ft = GetFeature(index);
+      if (ft)
+        fn(*ft);
+    });
+  }
+
+  virtual std::unique_ptr<FeatureType> GetFeature(uint32_t index) const;
+
+protected:
+  template <class Fn>
+  void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
+  {
+    CheckUniqueIndexes checkUnique;
+    for (auto const & i : intervals)
+      m_index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
+      {
+        if (checkUnique(value))
+          fn(value);
+      });
+  }
+};
+
 /// @todo Move this class into "index" library and make it more generic.
 /// Now it duplicates "DataSource" functionality.
-class MwmContext
+class MwmContext : public MwmContextBase
 {
 public:
   struct MwmType
@@ -84,52 +132,20 @@ public:
     ForEachIndex(intervals, scale, std::forward<Fn>(fn));
   }
 
-  template <typename Fn>
-  void ForEachFeature(m2::RectD const & rect, Fn && fn) const
-  {
-    uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::Intervals intervals;
-    CoverRect(rect, scale, intervals);
-
-    ForEachIndexImpl(intervals, scale, [&](uint32_t index)
-    {
-      auto ft = GetFeature(index);
-      if (ft)
-        fn(*ft);
-    });
-  }
-
-  // Returns false if feature was deleted by user.
-  std::unique_ptr<FeatureType> GetFeature(uint32_t index) const;
+  /// @return nullptr if feature was deleted by user.
+  virtual std::unique_ptr<FeatureType> GetFeature(uint32_t index) const override;
 
   [[nodiscard]] inline bool GetCenter(uint32_t index, m2::PointD & center) { return m_centers.Get(index, center); }
 
   std::optional<uint32_t> GetStreet(uint32_t index) const;
 
   MwmSet::MwmHandle m_handle;
-  MwmValue & m_value;
 
 private:
   FeatureStatus GetEditedStatus(uint32_t index) const { return m_editableSource.GetFeatureStatus(index); }
 
-  template <class Fn>
-  void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
-  {
-    CheckUniqueIndexes checkUnique;
-    for (auto const & i : intervals)
-      m_index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
-      {
-        if (checkUnique(value))
-          fn(value);
-      });
-  }
-
-  FeaturesVector m_vector;
-  ScaleIndex<ModelReaderPtr> m_index;
   LazyCentersTable m_centers;
   EditableFeatureSource m_editableSource;
   std::optional<MwmType> m_type;
-
-  DISALLOW_COPY_AND_MOVE(MwmContext);
 };
 }  // namespace search

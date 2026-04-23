@@ -14,12 +14,29 @@ void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result)
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
-MwmContext::MwmContext(MwmSet::MwmHandle handle)
-  : m_handle(std::move(handle))
-  , m_value(*m_handle.GetValue())
+// MwmContextBase ---------------------------------------------------------------------------------
+
+MwmContextBase::MwmContextBase(MwmValue & value, MwmSet::MwmId const & mwmId)
+  : m_value(value)
+  , m_mwmId(mwmId)
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_ftTable.get(), m_value.m_relTable.get(),
              m_value.m_metaDeserializer.get())
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG))
+{}
+
+std::unique_ptr<FeatureType> MwmContextBase::GetFeature(uint32_t index) const
+{
+  auto ft = m_vector.GetByIndex(index);
+  CHECK(ft, ());
+  ft->SetID(FeatureID(m_mwmId, index));
+  return ft;
+}
+
+// MwmContext -------------------------------------------------------------------------------------
+
+MwmContext::MwmContext(MwmSet::MwmHandle handle)
+  : MwmContextBase(*handle.GetValue(), handle.GetId())
+  , m_handle(std::move(handle))
   , m_centers(m_value)
   , m_editableSource(m_handle)
 {}
@@ -41,11 +58,7 @@ std::unique_ptr<FeatureType> MwmContext::GetFeature(uint32_t index) const
     ft = m_editableSource.GetModifiedFeature(index);
     CHECK(ft, ());
     return ft;
-  case FeatureStatus::Untouched:
-    auto ft = m_vector.GetByIndex(index);
-    CHECK(ft, ());
-    ft->SetID(FeatureID(GetId(), index));
-    return ft;
+  case FeatureStatus::Untouched: return MwmContextBase::GetFeature(index);
   }
   UNREACHABLE();
 }

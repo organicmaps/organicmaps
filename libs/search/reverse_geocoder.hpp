@@ -34,16 +34,15 @@ class IsSuburbChecker;
 
 namespace search
 {
+class MwmContextBase;
 class MwmContext;
 class CityFinder;
 class RegionInfoGetter;
 
-/// @note Not thread-safe in general, but some functions are! Check the note comments below.
-class ReverseGeocoder
+/// @note Thread-safe.
+class ReverseGeocoderBase
 {
-  DataSource const & m_dataSource;
-  osm::Editor const & m_editor;
-
+protected:
   struct Object
   {
     FeatureID m_id;
@@ -68,7 +67,7 @@ public:
   /// All "Nearby" functions work in this lookup radius.
   static int constexpr kLookupRadiusM = 500;
 
-  explicit ReverseGeocoder(DataSource const & dataSource);
+  ReverseGeocoderBase();
 
   struct Street : public Object
   {
@@ -87,6 +86,23 @@ public:
     {}
   };
   using Place = Street;
+
+  /// @return Sorted by distance streets/places vector.
+  /// @{
+  std::vector<Street> GetNearbyStreets(search::MwmContextBase & context, m2::PointD const & center,
+                                       double radiusM = kLookupRadiusM) const;
+  std::vector<Place> GetNearbyPlaces(search::MwmContextBase & context, m2::PointD const & center, double radiusM) const;
+  /// @}
+};
+
+/// @note Not thread-safe in general.
+class ReverseGeocoder : public ReverseGeocoderBase
+{
+  DataSource const & m_dataSource;
+  osm::Editor const & m_editor;
+
+public:
+  explicit ReverseGeocoder(DataSource const & dataSource);
 
   struct Building : public Object
   {
@@ -157,13 +173,6 @@ public:
 
   /// @return Sorted by distance streets/places vector.
   /// @{
-  /// @note These 2 functions with @param[in] context are thread-safe!
-  /// @{
-  std::vector<Street> GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
-                                       double radiusM = kLookupRadiusM) const;
-  std::vector<Place> GetNearbyPlaces(search::MwmContext & context, m2::PointD const & center, double radiusM) const;
-  /// @}
-
   std::vector<Street> GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center) const;
   std::vector<Street> GetNearbyStreets(FeatureType & ft) const;
   /// @}

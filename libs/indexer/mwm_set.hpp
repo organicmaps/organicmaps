@@ -398,6 +398,7 @@ public:
   std::unique_ptr<HouseToStreetTable> m_house2street, m_house2place;
 
 public:
+  MwmValue(ModelReaderPtr const & reader, platform::LocalCountryFile const & localFile);
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   ~MwmValue();
 

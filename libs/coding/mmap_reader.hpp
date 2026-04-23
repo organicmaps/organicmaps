@@ -2,12 +2,10 @@
 
 #include "coding/reader.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <string>
 
-/// @TODO Add Windows support
+/// @note Not thread-safe like all readers.
 class MmapReader : public ModelReader
 {
 public:
@@ -19,6 +17,12 @@ public:
   };
 
   explicit MmapReader(std::string const & fileName, Advice advice = Advice::Normal);
+
+  class MmapData;
+  MmapReader(std::string const & fileName, std::shared_ptr<MmapData> data);
+
+  /// @return Data handle that can be shared via multiple readers in different threads.
+  std::shared_ptr<MmapData> GetInnerData() const { return m_data; }
 
   uint64_t Size() const override;
   void Read(uint64_t pos, void * p, size_t size) const override;
@@ -33,7 +37,6 @@ protected:
 
 private:
   using base_type = ModelReader;
-  class MmapData;
 
   MmapReader(MmapReader const & reader, uint64_t offset, uint64_t size);
 
