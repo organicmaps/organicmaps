@@ -1,7 +1,5 @@
 #include "indexer/centers_table.hpp"
-#include "indexer/feature_processor.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
@@ -44,16 +42,6 @@ bool CentersTable::Get(uint32_t id, m2::PointD & center)
 }
 
 // CentersTable ------------------------------------------------------------------------------------
-// static
-std::unique_ptr<CentersTable> CentersTable::LoadV0(Reader & reader, serial::GeometryCodingParams const & codingParams)
-{
-  auto table = std::make_unique<CentersTable>();
-  table->m_version = Version::V0;
-  if (!table->Init(reader, codingParams, {} /* limitRect */))
-    return {};
-  return table;
-}
-
 std::unique_ptr<CentersTable> CentersTable::LoadV1(Reader & reader)
 {
   auto table = std::make_unique<CentersTable>();
@@ -170,18 +158,4 @@ void CentersTableBuilder::Freeze(Writer & writer) const
   writer.Seek(endOffset);
 }
 
-void CentersTableBuilder::SetGeometryCodingParamsV0ForTests(serial::GeometryCodingParams const & codingParams)
-{
-  m_codingParams = codingParams;
-}
-
-void CentersTableBuilder::PutV0ForTests(uint32_t featureId, m2::PointD const & center)
-{
-  m_builder.Put(featureId, PointDToPointU(center, m_codingParams.GetCoordBits()));
-}
-
-void CentersTableBuilder::FreezeV0ForTests(Writer & writer) const
-{
-  m_builder.Freeze(writer, [&](auto & w, auto begin, auto end) { WriteBlock(w, begin, end); });
-}
 }  // namespace search

@@ -347,13 +347,8 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
 {
   auto const & value = context.m_value;
 
-  version::MwmTraits mwmTraits(value.GetMwmVersion());
-  auto const format = mwmTraits.GetSearchIndexFormat();
-  if (format == version::MwmTraits::SearchIndexFormat::CompressedBitVector)
-  {
-    m_reader = context.m_value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  }
-  else if (format == version::MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader)
+  auto const format = version::MwmTraits(value.GetMwmVersion()).GetSearchIndexFormat();
+  CHECK_EQUAL(format, version::MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader, ());
   {
     FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
@@ -363,10 +358,7 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
 
     m_reader = reader.SubReader(header.m_indexOffset, header.m_indexSize);
   }
-  else
-  {
-    CHECK(false, ("Unsupported search index format", format));
-  }
+
   m_root = ReadTrie<Uint64IndexValue>(m_reader);
 }
 

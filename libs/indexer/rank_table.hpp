@@ -96,7 +96,7 @@ class SearchRankTableBuilder
 {
 public:
   // Calculates search ranks for all features in an mwm.
-  static void CalcSearchRanks(FilesContainerR & rcont, std::vector<uint8_t> & ranks);
+  static void CalcSearchRanks(FilesContainerR const & rcont, std::vector<uint8_t> & ranks);
 
   // Following methods create rank table for an mwm.
   // * When rank table already exists and has proper endianness, does nothing.

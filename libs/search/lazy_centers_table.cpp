@@ -30,15 +30,9 @@ void LazyCentersTable::EnsureTableLoaded()
     return;
   }
 
-  version::MwmTraits traits(m_value.GetMwmVersion());
-  auto const format = traits.GetCentersTableFormat();
-
-  if (format == version::MwmTraits::CentersTableFormat::PlainEliasFanoMap)
-    m_table = CentersTable::LoadV0(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
-  else if (format == version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader)
-    m_table = CentersTable::LoadV1(*m_reader.GetPtr());
-  else
-    CHECK(false, ("Unknown centers table format."));
+  auto const format = version::MwmTraits(m_value.GetMwmVersion()).GetCentersTableFormat();
+  CHECK_EQUAL(format, version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader, ());
+  m_table = CentersTable::LoadV1(*m_reader.GetPtr());
 
   if (m_table)
     m_state = STATE_LOADED;

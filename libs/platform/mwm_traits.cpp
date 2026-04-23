@@ -23,8 +23,6 @@ std::string DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)
   {
-  case MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter: return "FeaturesWithRankAndCenter";
-  case MwmTraits::SearchIndexFormat::CompressedBitVector: return "CompressedBitVector";
   case MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader: return "CompressedBitVectorWithHeader";
   }
   UNREACHABLE();
@@ -44,7 +42,6 @@ std::string DebugPrint(MwmTraits::CentersTableFormat format)
 {
   switch (format)
   {
-  case MwmTraits::CentersTableFormat::PlainEliasFanoMap: return "PlainEliasFanoMap";
   case MwmTraits::CentersTableFormat::EliasFanoMapWithHeader: return "EliasFanoMapWithHeader";
   }
   UNREACHABLE();
