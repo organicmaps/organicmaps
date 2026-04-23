@@ -20661,3 +20661,47 @@ uk:Різдвяна ялинка
 vi:Cây Giáng sinh
 zh-Hans:圣诞树
 zh-Hant:聖誕樹
+
+amenity-hookah_lounge|@category_nightlife
+en:4Hookah Lounge|4Shisha bar
+ar:مقهى شيشة
+be:3Кальянная
+bg:Наргиле бар
+ca:Bar de xixa
+cs:Shisha bar
+da:Vandpibecafé
+de:Shisha-Bar
+el:Ναργιλέ μπαρ
+es:Lounge de narguile
+et:Vesipiibu kohvik
+eu:Nargile-taberna
+fa:قلیان‌سرا
+fi:Vesipiippubaari
+fr:Bar à chicha
+he:בר נרגילה
+hi:हुक्का लाउंज
+hu:Vízipipa bár
+id:Kafe Shisha
+it:Shisha bar
+ja:シーシャラウンジ
+ko:후카 라운지
+lt:Kaljanų baras
+lv:Ūdenspīpes bārs
+mr:हुक्का पार्लर
+nb:Vannpipebar
+nl:Shisha bar
+pl:Shisha bar
+pt:Bar de narguilé
+pt-BR:Lounge de narguilé
+ro:Lounge de narghilea
+ru:3Кальянная
+sk:Shisha bar
+sr:3Наргила бар|3Nargila bar
+sv:Shishabar
+sw:Eneo la hooka
+th:ร้านบารากู่
+tr:Nargile salonu
+uk:3Кальянна
+vi:Quán shisha
+zh-Hans:水烟馆
+zh-Hant:水煙館

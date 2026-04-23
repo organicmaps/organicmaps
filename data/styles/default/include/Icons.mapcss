@@ -856,7 +856,9 @@ area|z15-[amenity=bar],
 node|z15-[amenity=pub],
 area|z15-[amenity=pub],
 node|z15-[amenity=biergarten],
-area|z15-[amenity=biergarten]
+area|z15-[amenity=biergarten],
+node|z15-[amenity=hookah_lounge],
+area|z15-[amenity=hookah_lounge]
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 node|z15[amenity=cafe],
@@ -878,6 +880,9 @@ area|z15[amenity=pub],
 node|z15[amenity=biergarten],
 area|z15[amenity=biergarten]
 {icon-image: pub-m.svg;icon-min-distance: 28;}
+node|z15[amenity=hookah_lounge],
+area|z15[amenity=hookah_lounge]
+{icon-image: tobacco-m.svg;icon-min-distance: 28;}
 
 node|z16-[amenity=cafe],
 area|z16-[amenity=cafe]
@@ -898,6 +903,9 @@ area|z16-[amenity=pub],
 node|z16-[amenity=biergarten],
 area|z16-[amenity=biergarten]
 {icon-image: pub-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=hookah_lounge],
+area|z16-[amenity=hookah_lounge]
+{icon-image: tobacco-m.svg;icon-min-distance: 12;}
 
 
 /* 5.AMENITY (infrastructure) */
