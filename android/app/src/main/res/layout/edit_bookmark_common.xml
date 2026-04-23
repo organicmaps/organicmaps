@@ -22,7 +22,7 @@
       android:layout_height="wrap_content"
       android:textColorHint="?android:textColorSecondary"
       app:endIconMode="custom"
-      app:endIconDrawable="@drawable/ic_clear_rounded"
+      app:endIconDrawable="@drawable/ic_close_rounded"
       app:endIconTint="?android:textColorSecondary">
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et__bookmark_name"

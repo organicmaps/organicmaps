@@ -15,11 +15,6 @@
     android:layout_weight="0" />
 
   <include
-    layout="@layout/routing_bottom_panel_transit"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-
-  <include
     android:id="@+id/routing_action_frame"
     layout="@layout/routing_action_panel"
     android:visibility="gone"/>
