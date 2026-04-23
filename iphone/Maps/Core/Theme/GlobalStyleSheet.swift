@@ -365,8 +365,8 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .flatRedButton:
       return .add { s in
-        s.font = fonts.medium14
-        s.cornerRadius = .buttonDefault
+        s.font = fonts.semibold16
+        s.cornerRadius = .buttonDefaultBig
         s.fontColor = .whitePrimaryText
         s.backgroundColor = .buttonRed
         s.fontColorHighlighted = .buttonRedHighlighted

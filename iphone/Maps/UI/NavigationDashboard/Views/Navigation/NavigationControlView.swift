@@ -84,7 +84,18 @@ final class NavigationControlView: SolidTouchView {
 
     updateLegendSize()
 
+    configureButton(settingsButton)
+    configureButton(ttsButton)
+    configureButton(trackRecordingButton)
+
     MWMTextToSpeech.add(self)
+  }
+
+  private func configureButton(_ button: UIButton) {
+    button.imageView?.contentMode = .scaleAspectFit
+    button.contentHorizontalAlignment = .fill
+    button.contentVerticalAlignment = .fill
+    button.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

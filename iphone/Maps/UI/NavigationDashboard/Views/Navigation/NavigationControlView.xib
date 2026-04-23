@@ -24,7 +24,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="387" height="52"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLk-JN-wfO">
-                            <rect key="frame" x="0.0" y="0.0" width="88" height="48"/>
+                            <rect key="frame" x="12" y="0.0" width="88" height="48"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LY7-dx-CtV">
                                     <rect key="frame" x="44" y="4" width="0.0" height="0.0"/>
@@ -187,7 +187,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="QLk-JN-wfO" secondAttribute="bottom" constant="4" id="0AT-pb-GFy"/>
-                        <constraint firstItem="QLk-JN-wfO" firstAttribute="leading" secondItem="u7O-n6-ZXy" secondAttribute="leading" id="0hr-A3-h7F">
+                        <constraint firstItem="QLk-JN-wfO" firstAttribute="leading" secondItem="u7O-n6-ZXy" secondAttribute="leading" constant="12" id="0hr-A3-h7F">
                             <variation key="heightClass=compact" constant="16"/>
                             <variation key="heightClass=regular-widthClass=regular" constant="16"/>
                         </constraint>
@@ -225,8 +225,8 @@
                 <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMT-MI-d8X">
                     <rect key="frame" x="0.0" y="52" width="387" height="64"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="right" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="udk-ZC-Gz0">
-                            <rect key="frame" x="20" y="0.0" width="192" height="64"/>
+                        <stackView opaque="NO" contentMode="right" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="udk-ZC-Gz0">
+                            <rect key="frame" x="0.0" y="0.0" width="192" height="64"/>
                             <subviews>
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
                                     <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -269,19 +269,14 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="f6v-NB-AKJ" firstAttribute="height" secondItem="udk-ZC-Gz0" secondAttribute="height" id="E4I-Sd-Kjc"/>
-                                <constraint firstItem="skM-Xx-3En" firstAttribute="height" secondItem="udk-ZC-Gz0" secondAttribute="height" id="f1r-Sv-yvW"/>
-                                <constraint firstItem="Bfb-5v-iWA" firstAttribute="height" secondItem="udk-ZC-Gz0" secondAttribute="height" id="o24-7E-XnA"/>
-                            </constraints>
                         </stackView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtt-q0-SUx" customClass="MWMStopButton">
-                            <rect key="frame" x="247" y="12" width="120" height="38"/>
+                            <rect key="frame" x="255" y="10" width="120" height="44"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="4E4-UU-lhc"/>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="N0o-f3-nuw"/>
-                                <constraint firstAttribute="height" priority="750" constant="38" id="Pfs-0w-XX9"/>
+                                <constraint firstAttribute="height" priority="750" constant="44" id="Pfs-0w-XX9"/>
                             </constraints>
                             <state key="normal" title="STOP">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -297,12 +292,13 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="mtt-q0-SUx" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" priority="750" constant="12" id="L5z-8y-Duk"/>
+                        <constraint firstItem="mtt-q0-SUx" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" priority="750" constant="10" id="L5z-8y-Duk"/>
                         <constraint firstAttribute="height" constant="64" id="LaX-SD-Kzr"/>
-                        <constraint firstItem="udk-ZC-Gz0" firstAttribute="leading" secondItem="CMT-MI-d8X" secondAttribute="leading" constant="20" id="QXO-Hi-2pN"/>
+                        <constraint firstItem="udk-ZC-Gz0" firstAttribute="leading" secondItem="CMT-MI-d8X" secondAttribute="leading" id="QXO-Hi-2pN"/>
+                        <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="udk-ZC-Gz0" secondAttribute="trailing" constant="20" id="R5p-Eg-3S4"/>
                         <constraint firstItem="udk-ZC-Gz0" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="W8O-lT-eqz"/>
                         <constraint firstAttribute="bottom" secondItem="udk-ZC-Gz0" secondAttribute="bottom" id="bMN-ct-cOQ"/>
-                        <constraint firstAttribute="trailing" secondItem="mtt-q0-SUx" secondAttribute="trailing" constant="20" id="huM-XX-MM9"/>
+                        <constraint firstAttribute="trailing" secondItem="mtt-q0-SUx" secondAttribute="trailing" constant="12" id="huM-XX-MM9"/>
                     </constraints>
                 </view>
             </subviews>
