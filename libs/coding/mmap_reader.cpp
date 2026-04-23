@@ -102,8 +102,12 @@ private:
 };
 
 MmapReader::MmapReader(std::string const & fileName, Advice advice)
+  : MmapReader(fileName, std::make_shared<MmapData>(fileName, advice))
+{}
+
+MmapReader::MmapReader(std::string const & fileName, std::shared_ptr<MmapData> data)
   : base_type(fileName)
-  , m_data(std::make_shared<MmapData>(fileName, advice))
+  , m_data(std::move(data))
   , m_offset(0)
   , m_size(m_data->m_size)
 {}

@@ -19,7 +19,6 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <functional>
 
 namespace search
 {
@@ -28,9 +27,6 @@ namespace
 int constexpr kQueryScale = scales::GetUpperScale();
 /// Max number of tries (nearest houses with housenumber) to check when getting point address.
 size_t constexpr kMaxNumTriesToApproxAddress = 10;
-
-using AppendStreet = std::function<void(FeatureType & ft)>;
-using FillStreets = std::function<void(MwmSet::MwmHandle && handle, m2::RectD const & rect, AppendStreet && addStreet)>;
 
 m2::RectD GetLookupRect(m2::PointD const & center, double radiusM)
 {
@@ -41,20 +37,22 @@ ReverseGeocoder::Building FromFeatureImpl(FeatureType & ft, std::string const & 
 {
   return {ft.GetID(), distMeters, hn, feature::GetCenter(ft), ft.GetMetadata(feature::Metadata::FMD_POSTCODE)};
 }
-
 }  // namespace
 
-ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource)
-  : m_dataSource(dataSource)
-  , m_editor(osm::Editor::Instance())
-  , m_isAddressInterpol(ftypes::IsAddressInterpolChecker::Instance())
+ReverseGeocoderBase::ReverseGeocoderBase()
+  : m_isAddressInterpol(ftypes::IsAddressInterpolChecker::Instance())
   , m_isStreetOrSquare(ftypes::IsStreetOrSquareChecker::Instance())
   , m_isLocality(ftypes::IsLocalityChecker::Instance())
   , m_isSuburb(ftypes::IsSuburbChecker::Instance())
 {}
 
+ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource)
+  : m_dataSource(dataSource)
+  , m_editor(osm::Editor::Instance())
+{}
+
 template <class ObjT, class FilterT>
-std::vector<ObjT> GetNearbyObjects(search::MwmContext & context, m2::PointD const & center, double radiusM,
+std::vector<ObjT> GetNearbyObjects(search::MwmContextBase & context, m2::PointD const & center, double radiusM,
                                    FilterT && filter)
 {
   std::vector<ObjT> objs;
@@ -74,8 +72,9 @@ std::vector<ObjT> GetNearbyObjects(search::MwmContext & context, m2::PointD cons
   return objs;
 }
 
-std::vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(search::MwmContext & context,
-                                                                       m2::PointD const & center, double radiusM) const
+std::vector<ReverseGeocoder::Street> ReverseGeocoderBase::GetNearbyStreets(search::MwmContextBase & context,
+                                                                           m2::PointD const & center,
+                                                                           double radiusM) const
 {
   return GetNearbyObjects<Street>(context, center, radiusM,
                                   [this](FeatureType & ft) { return m_isStreetOrSquare(ft); });
@@ -88,7 +87,7 @@ std::vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(MwmSet::M
   if (mwmHandle.IsAlive())
   {
     search::MwmContext context(std::move(mwmHandle));
-    return GetNearbyStreets(context, center);
+    return ReverseGeocoderBase::GetNearbyStreets(context, center);
   }
   return {};
 }
@@ -99,8 +98,9 @@ std::vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(FeatureTy
   return GetNearbyStreets(ft.GetID().m_mwmId, feature::GetCenter(ft));
 }
 
-std::vector<ReverseGeocoder::Place> ReverseGeocoder::GetNearbyPlaces(search::MwmContext & context,
-                                                                     m2::PointD const & center, double radiusM) const
+std::vector<ReverseGeocoder::Place> ReverseGeocoderBase::GetNearbyPlaces(search::MwmContextBase & context,
+                                                                         m2::PointD const & center,
+                                                                         double radiusM) const
 {
   return GetNearbyObjects<Place>(context, center, radiusM, [this](FeatureType & ft)
   { return (m_isLocality.GetType(ft) >= ftypes::LocalityType::City || m_isSuburb(ft)); });

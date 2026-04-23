@@ -409,8 +409,8 @@ void MwmSet::ClearCache(MwmId const & id)
 
 // MwmValue ----------------------------------------------------------------------------------------
 
-MwmValue::MwmValue(LocalCountryFile const & localFile)
-  : m_cont(platform::GetCountryReader(localFile, MapFileType::Map))
+MwmValue::MwmValue(ModelReaderPtr const & reader, LocalCountryFile const & localFile)
+  : m_cont(reader)
   , m_file(localFile)
 {
   m_version = version::MwmVersion::Read(m_cont);
@@ -419,6 +419,10 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
 
   m_header.Load(m_cont);
 }
+
+MwmValue::MwmValue(LocalCountryFile const & localFile)
+  : MwmValue(platform::GetCountryReader(localFile, MapFileType::Map), localFile)
+{}
 
 MwmValue::~MwmValue() {}
 
