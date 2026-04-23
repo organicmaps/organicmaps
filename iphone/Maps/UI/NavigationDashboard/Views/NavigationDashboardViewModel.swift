@@ -4,6 +4,7 @@ enum NavigationDashboard {
     var routePoints: RoutePoints
     var routerType: MWMRouterType
     var entity: MWMNavigationDashboardEntity
+    var trackRecordingState: TrackRecordingState
     var routingOptions: RoutingOptions
     var routeElevationPreviewData: RouteElevationPreviewData?
     var navigationInfo: NavigationInfo
@@ -37,6 +38,7 @@ extension NavigationDashboard.ViewModel {
       routePoints: .empty,
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
+      trackRecordingState: TrackRecordingManager.shared.recordingState,
       routingOptions: RoutingOptions(),
       routeElevationPreviewData: nil,
       navigationInfo: .hidden,
