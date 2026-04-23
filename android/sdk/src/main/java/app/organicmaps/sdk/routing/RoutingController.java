@@ -69,7 +69,8 @@ public class RoutingController
   private RouteMarkType mWaitingPoiPickType = null;
   private int mLastBuildProgress;
   private Router mLastRouterType;
-
+  private boolean isPoiPickReplaceStop;
+  private int mReplaceStopIndex = -1;
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
@@ -260,6 +261,7 @@ public class RoutingController
     {
       mContainer.showNavigation(isNavigating());
       mContainer.updateMenu();
+      updateProgress();
     }
     processRoutingEvent();
   }
@@ -368,6 +370,16 @@ public class RoutingController
 
     Framework.nativeFollowRoute();
   }
+  public void replaceStop(@NonNull MapObject mapObject)
+  {
+    RouteMarkType type = mWaitingPoiPickType != null ? mWaitingPoiPickType : RouteMarkType.Intermediate;
+    replaceRoutePoint(type, mapObject, mReplaceStopIndex);
+    build();
+    if (mContainer != null)
+      mContainer.onAddedStop();
+    resetToPlanningStateIfNavigating();
+    resetPoiPickState();
+  }
 
   public void addStop(@NonNull MapObject mapObject)
   {
@@ -376,6 +388,7 @@ public class RoutingController
     if (mContainer != null)
       mContainer.onAddedStop();
     resetToPlanningStateIfNavigating();
+    resetPoiPickState();
   }
 
   public void removeStop(@NonNull MapObject mapObject)
@@ -436,6 +449,11 @@ public class RoutingController
     return Framework.nativeCouldAddIntermediatePoint();
   }
 
+  public boolean isPoiPickReplaceStop()
+  {
+    return isPoiPickReplaceStop;
+  }
+
   public boolean isRoutePoint(@NonNull MapObject mapObject)
   {
     return mapObject.getRoutePointInfo() != null;
@@ -450,7 +468,7 @@ public class RoutingController
   {
     Logger.d(TAG, "cancelInternal");
 
-    mWaitingPoiPickType = null;
+    resetPoiPickState();
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -590,6 +608,21 @@ public class RoutingController
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
   {
     mWaitingPoiPickType = pointType;
+  }
+
+  public void replaceStopPoiPick(int index)
+  {
+    mReplaceStopIndex = index;
+    isPoiPickReplaceStop = true;
+  }
+
+  // Clears the pending POI-pick selection in one place. The replace-stop index/flag must be cleared together
+  // with the waiting type, otherwise a cancelled replace leaks its index into the next, unrelated pick.
+  private void resetPoiPickState()
+  {
+    mWaitingPoiPickType = null;
+    isPoiPickReplaceStop = false;
+    mReplaceStopIndex = -1;
   }
 
   public boolean isWaitingPoiPick()
@@ -766,6 +799,15 @@ public class RoutingController
     checkAndBuildRoute();
     return true;
   }
+  private static void replaceRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int replaceStopIndex)
+  {
+    Pair<String, String> description = getDescriptionForPoint(point);
+    if (type == RouteMarkType.Intermediate)
+      Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+                                  replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+                                  point.getLon(), false /* reorderIntermediatePoints */);
+  }
 
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
@@ -822,8 +864,7 @@ public class RoutingController
   {
     Logger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
 
-    // Repeating tap on Taxi icon should trigger the route building always,
-    // because it may be "No internet connection, try later" case
+    // Nothing to rebuild when the already selected router type is tapped again.
     if (router == mLastRouterType)
       return;
 
@@ -864,15 +905,16 @@ public class RoutingController
     if (!isWaitingPoiPick())
       return;
 
-    if (mWaitingPoiPickType != RouteMarkType.Start && mWaitingPoiPickType != RouteMarkType.Finish)
-      throw new AssertionError("Only start and finish points can be added through search!");
-
     if (point != null)
     {
-      if (mWaitingPoiPickType == RouteMarkType.Finish)
+      if (isPoiPickReplaceStop)
+        replaceStop(point);
+      else if (mWaitingPoiPickType == RouteMarkType.Finish)
         setEndPoint(point);
-      else
+      else if (mWaitingPoiPickType == RouteMarkType.Start)
         setStartPoint(point);
+      else if (mWaitingPoiPickType == RouteMarkType.Intermediate)
+        addStop(point);
     }
 
     if (mContainer != null)
@@ -881,6 +923,12 @@ public class RoutingController
       showRoutePlan();
     }
 
-    mWaitingPoiPickType = null;
+    resetPoiPickState();
+  }
+
+  @Nullable
+  public RouteMarkType getWaitingPoiPickType()
+  {
+    return mWaitingPoiPickType;
   }
 }

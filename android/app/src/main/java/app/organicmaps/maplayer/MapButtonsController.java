@@ -3,6 +3,7 @@ package app.organicmaps.maplayer;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
+import app.organicmaps.routing.RoutingPlanViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.downloader.UpdateInfo;
@@ -59,7 +61,6 @@ public class MapButtonsController extends Fragment
   FloatingActionButton mTrackRecordingStatusButton;
   @Nullable
   private MyPositionButton mNavMyPosition;
-  private View mMainMenuFrame;
   private SearchWheel mSearchWheel;
   private BadgeDrawable mBadgeDrawable;
   @Nullable
@@ -69,10 +70,13 @@ public class MapButtonsController extends Fragment
 
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
+  private RoutingPlanViewModel mRoutingPlanViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
   private SearchPageViewModel mSearchPageViewModel;
 
-  private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;
+  private final Observer<Integer> mPlacePageDistanceToTopObserver = translationY -> move(translationY, true);
+  private final Observer<Integer> mRoutingBottomDistanceToTopObserver = translationY -> move(translationY, false);
+  private final Observer<Boolean> mBottomButtonHiddenObserver = this::setBottomButtonsHidden;
   private final Observer<Integer> mSearchPageDistanceToTopObserver = this::moveForSearch;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
   private final Observer<Integer> mMyPositionModeObserver = this::updateNavMyPositionButton;
@@ -91,21 +95,18 @@ public class MapButtonsController extends Fragment
   {
     final FragmentActivity activity = requireActivity();
     mMapButtonClickListener = (MwmActivity) activity;
+    mRoutingPlanViewModel = new ViewModelProvider(activity).get(RoutingPlanViewModel.class);
     mPlacePageViewModel = new ViewModelProvider(activity).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
     mSearchPageViewModel = new ViewModelProvider(activity).get(SearchPageViewModel.class);
-    final LayoutMode layoutMode = mMapButtonsViewModel.getLayoutMode().getValue();
-    if (layoutMode == LayoutMode.navigation)
+    if (mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
       mFrame = inflater.inflate(R.layout.map_buttons_layout_navigation, container, false);
-    else if (layoutMode == LayoutMode.planning)
-      mFrame = inflater.inflate(R.layout.map_buttons_layout_planning, container, false);
     else
       mFrame = inflater.inflate(R.layout.map_buttons_layout_regular, container, false);
 
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
-    mMainMenuFrame = activity.findViewById(R.id.menu_frame);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
@@ -175,8 +176,13 @@ public class MapButtonsController extends Fragment
     if (mTrackRecordingStatusButton != null)
       mButtonsMap.put(MapButtons.trackRecordingStatus, mTrackRecordingStatusButton);
     showButton(false, MapButtons.trackRecordingStatus);
-    updateHelpButtonIcon();
     return mFrame;
+  }
+  // For disabling bottom buttons which are visible in tablets
+  private void setBottomButtonsHidden(boolean hide)
+  {
+    if (mBottomButtonsFrame != null)
+      UiUtils.showIf(!hide, mBottomButtonsFrame);
   }
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
@@ -346,21 +352,16 @@ public class MapButtonsController extends Fragment
     return v.getTranslationY() < 0;
   }
 
-  private void move(float translationY)
+  public void move(float translationY, boolean shouldActivate)
   {
-    if (mContentHeight == 0)
+    if (RoutingController.get().isNavigating() || mContentHeight == 0)
       return;
-
-    if (UiUtils.isVisible(mMainMenuFrame) && mMainMenuFrame.getTop() > 0)
-      translationY = Math.min(translationY, mMainMenuFrame.getTop());
-
-    // Move the buttons containers to follow the place page
-    if (mInnerRightButtonsFrame != null
-        && (isBehindPlacePage(mInnerRightButtonsFrame) || isMoving(mInnerRightButtonsFrame)))
+    final boolean pp = Boolean.TRUE.equals(mRoutingPlanViewModel.getIsPlacePageActive().getValue());
+    // don't apply move in landscape
+    if (!shouldActivate == pp || getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      return;
+    if (mInnerRightButtonsFrame != null)
       applyMove(mInnerRightButtonsFrame, translationY);
-    if (mInnerLeftButtonsFrame != null
-        && (isBehindPlacePage(mInnerLeftButtonsFrame) || isMoving(mInnerLeftButtonsFrame)))
-      applyMove(mInnerLeftButtonsFrame, translationY);
   }
 
   private void moveForSearch(float translationY)
@@ -451,7 +452,10 @@ public class MapButtonsController extends Fragment
   {
     super.onStart();
     final var viewLifecycleOwner = getViewLifecycleOwner();
+    mRoutingPlanViewModel.getRoutingBottomDistanceToTop().observe(viewLifecycleOwner,
+                                                                  mRoutingBottomDistanceToTopObserver);
     mPlacePageViewModel.getPlacePageDistanceToTop().observe(viewLifecycleOwner, mPlacePageDistanceToTopObserver);
+    mMapButtonsViewModel.getBottomButtonsHidden().observe(viewLifecycleOwner, mBottomButtonHiddenObserver);
     mMapButtonsViewModel.getButtonsHidden().observe(viewLifecycleOwner, mButtonHiddenObserver);
     mSearchPageViewModel.getSearchPageDistanceToTop().observe(viewLifecycleOwner, mSearchPageDistanceToTopObserver);
     mMapButtonsViewModel.getMyPositionMode().observe(viewLifecycleOwner, mMyPositionModeObserver);
@@ -463,7 +467,8 @@ public class MapButtonsController extends Fragment
   public void onResume()
   {
     super.onResume();
-    mSearchWheel.onResume();
+    if (mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
+      mSearchWheel.onResume();
     updateMenuBadge();
     updateLayerButton();
     updateHelpButtonIcon();
@@ -495,7 +500,7 @@ public class MapButtonsController extends Fragment
 
   public void onSearchOptionChange(@Nullable SearchWheel.SearchOption searchOption)
   {
-    if (searchOption == null)
+    if (searchOption == null && mMapButtonsViewModel.getLayoutMode().getValue() == LayoutMode.navigation)
       mSearchWheel.reset();
   }
 

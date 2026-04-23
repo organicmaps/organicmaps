@@ -37,6 +37,8 @@ public class RoutingToolbarButton extends AppCompatRadioButton
   {
     setBackgroundResource(R.drawable.routing_toolbar_button);
     setButtonTintList(R.color.routing_toolbar_icon_tint);
+    setPadding(0, 0, 0, 0);
+    setCompoundDrawablePadding(0);
   }
 
   public void progress()

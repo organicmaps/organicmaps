@@ -721,6 +721,7 @@
     <string name="opens_at">נפתח מחר ב-%s</string>
     <string name="closes_at">נסגר ב-%s</string>
     <string name="editor_add_select_category_all_subtitle">כל הקטגוריות</string>
+    <string name="placepage_replace_stop">החלף תחנה</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">אוכל</string>

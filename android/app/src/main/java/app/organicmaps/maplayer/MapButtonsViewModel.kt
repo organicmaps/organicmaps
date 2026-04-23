@@ -10,6 +10,9 @@ class MapButtonsViewModel : ViewModel() {
     private val _buttonsHidden = MutableLiveData(false)
     val buttonsHidden: LiveData<Boolean> = _buttonsHidden
 
+    private val _bottomButtonsHidden = MutableLiveData(false)
+    val bottomButtonsHidden: LiveData<Boolean> = _bottomButtonsHidden
+
     private val _fullscreen = MutableLiveData(false)
     val fullscreen: LiveData<Boolean> = _fullscreen
 
@@ -37,6 +40,10 @@ class MapButtonsViewModel : ViewModel() {
 
     fun setButtonsHidden(buttonsHidden: Boolean) {
         _buttonsHidden.value = buttonsHidden
+    }
+
+    fun setBottomButtonsHidden(buttonsHidden: Boolean) {
+        _bottomButtonsHidden.value = buttonsHidden
     }
 
     fun setFullscreen(fullscreen: Boolean) {

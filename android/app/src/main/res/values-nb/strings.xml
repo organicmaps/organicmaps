@@ -721,6 +721,7 @@
     <string name="opens_at">Åpner klokka %s</string>
     <string name="closes_at">Stenger %s</string>
     <string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
+    <string name="placepage_replace_stop">Erstatt stopp</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>

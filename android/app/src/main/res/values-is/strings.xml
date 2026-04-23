@@ -724,6 +724,7 @@
     <string name="opens_at">Opnar %s</string>
     <string name="closes_at">Lokar %s</string>
     <string name="editor_add_select_category_all_subtitle">Allir flokkar</string>
+    <string name="placepage_replace_stop">Skipta út stoppi</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Matur</string>

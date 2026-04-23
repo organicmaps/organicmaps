@@ -3,8 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/coordinatorLayout3"
+  android:id="@+id/pp_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <View
@@ -22,8 +21,7 @@
     android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintWidth_percent="@fraction/place_page_bottom_sheet_width_ratio"
-    tools:layout_constraintWidth_percent="0.55 ">
+    app:layout_constraintWidth_percent="@fraction/place_page_bottom_sheet_width_ratio">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
