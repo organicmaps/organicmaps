@@ -59,6 +59,7 @@ class PlacePageInfoViewController: UIViewController {
   /// Used to render the selected ref bold+underlined in the primary row.
   /// Matched by ref (not by relId) since the primary row deduplicates by ref.
   private var selectedRouteRef: String?
+  private weak var routesSelectorViewController: RoutesSelectorViewController?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -83,6 +84,13 @@ class PlacePageInfoViewController: UIViewController {
     setupViews()
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    // When adaptivePresentationStyle returns .none, the presented view controller loses its parent trait collection relationship,
+    // and the user interface style should be updated manually.
+    routesSelectorViewController?.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+  }
+
   // MARK: private
 
   private func setupViews() {
@@ -105,10 +113,14 @@ class PlacePageInfoViewController: UIViewController {
       var seen = Set<String>()
       let uniqueRefs = routes.compactMap { seen.insert($0.ref).inserted ? $0.ref : nil }
       routeRefsView = createInfoItem(uniqueRefs.joined(separator: " • "),
-                                     icon: UIImage(resource: .icPlacepageBus),
+                                     icon: UIImage.icPlacepageBus,
                                      style: .link,
+                                     accessoryImage: UIImage.icPlacepageChange,
                                      tapHandler: { [weak self] in
-                                       self?.showRoutesPopup(for: routes)
+                                       self?.showRoutesSelector(for: routes)
+                                     },
+                                     accessoryImageTapHandler: { [weak self] in
+                                       self?.showRoutesSelector(for: routes)
                                      })
     }
 
@@ -343,29 +355,27 @@ class PlacePageInfoViewController: UIViewController {
     delegate?.didCopy(coordinates)
   }
 
-  private func showRoutesPopup(for routes: [PlacePageRoute]) {
-    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    for route in routes {
-      var label = route.ref
-      if !route.from.isEmpty || !route.to.isEmpty {
-        label += ": \(route.from)"
-        if !route.to.isEmpty {
-          label += " → \(route.to)"
-        }
-      }
-      alert.addAction(UIAlertAction(title: label, style: .default, handler: { [weak self] _ in
-        FrameworkHelper.showRouteTransit(route.relId)
-        self?.selectedRouteRef = route.ref
-        self?.updateRouteRefsLabel(routes: routes)
-      }))
-    }
-    alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
-    // iPad popovers need an anchor.
-    if let popover = alert.popoverPresentationController, let sourceView = routeRefsView {
-      popover.sourceView = sourceView
-      popover.sourceRect = sourceView.bounds
-    }
-    present(alert, animated: true)
+  private func showRoutesSelector(for routes: [PlacePageRoute]) {
+    guard let routeRefsView else { return }
+    let viewController = RoutesSelectorViewController(routes: routes,
+                                                      selectedRouteRef: selectedRouteRef,
+                                                      routeSelectedHandler: { [weak self] route in
+                                                        self?.dismiss(animated: true)
+                                                        self?.selectRoute(route, from: routes)
+                                                      })
+    viewController.modalPresentationStyle = .popover
+    viewController.popoverPresentationController?.sourceView = routeRefsView
+    viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
+    viewController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
+    viewController.popoverPresentationController?.delegate = viewController
+    routesSelectorViewController = viewController
+    present(viewController, animated: true)
+  }
+
+  private func selectRoute(_ route: PlacePageRoute, from routes: [PlacePageRoute]) {
+    FrameworkHelper.showRouteTransit(route.relId)
+    selectedRouteRef = route.ref
+    updateRouteRefsLabel(routes: routes)
   }
 
   /// Rebuilds the primary refs string, bolding and underlining the selected route's ref.
@@ -391,7 +401,7 @@ class PlacePageInfoViewController: UIViewController {
         let range = NSRange(location: start, length: (route.ref as NSString).length)
         result.addAttributes([
           .font: boldFont,
-          .underlineStyle: NSUnderlineStyle.single.rawValue
+          .underlineStyle: NSUnderlineStyle.single.rawValue,
         ], range: range)
       }
     }

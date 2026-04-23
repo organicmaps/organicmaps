@@ -602,6 +602,7 @@
 		EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAB6F42E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
+		EDCD96352F9BB4BE00B398FC /* RoutesSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCD96342F9BB4BE00B398FC /* RoutesSelectorViewController.swift */; };
 		EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */; };
 		EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */; };
 		EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */; };
@@ -1677,6 +1678,7 @@
 		EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRecentlyDeletedCategoriesManager.swift; sourceTree = "<group>"; };
 		EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModelTests.swift; sourceTree = "<group>"; };
 		EDCD96072F99476300B398FC /* TrackRecordingState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackRecordingState.h; sourceTree = "<group>"; };
+		EDCD96342F9BB4BE00B398FC /* RoutesSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesSelectorViewController.swift; sourceTree = "<group>"; };
 		EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
 		EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitorTests.swift; sourceTree = "<group>"; };
 		EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManagerTests.swift; sourceTree = "<group>"; };
@@ -2821,6 +2823,7 @@
 				ED82C4042F90180300FA103D /* ActionBarViewController.swift */,
 				ED82C4052F90180300FA103D /* InfoItemView.swift */,
 				ED82C4062F90180300FA103D /* OpeningHoursViewController.swift */,
+				EDCD96342F9BB4BE00B398FC /* RoutesSelectorViewController.swift */,
 				ED82C4072F90180300FA103D /* PlacePageDescriptionViewController.swift */,
 				ED82C4082F90180300FA103D /* PlacePageInfoViewController.swift */,
 				ED82C4092F90180300FA103D /* PlacePageOSMContributionViewController.swift */,
@@ -4632,6 +4635,7 @@
 				ED82C7942F90186300FA103D /* UISwitchRenderer.swift in Sources */,
 				ED82C7952F90186300FA103D /* UITableViewCellRenderer.swift in Sources */,
 				ED82C7962F90186300FA103D /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
+				EDCD96352F9BB4BE00B398FC /* RoutesSelectorViewController.swift in Sources */,
 				ED82C7972F90186300FA103D /* UITableViewRenderer.swift in Sources */,
 				ED82C7982F90186300FA103D /* UITextFieldRenderer.swift in Sources */,
 				ED82C7992F90186300FA103D /* UITextViewRenderer.swift in Sources */,
