@@ -218,7 +218,10 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
-  if (TrackRecordingManager.shared.isActive)
+  // Must run after `onRouteStop` has flipped the dashboard state from Navigation to Closed,
+  // otherwise `setTrackRecordingButtonState:` would keep the widget hidden.
+  if (TrackRecordingManager.shared.isActive &&
+      ![TrackRecordingManager.shared contains:MapViewController.sharedController])
     [self setTrackRecordingButtonState:TrackRecordingButtonStateVisible];
   self.promoButton.hidden = YES;
 }
@@ -305,6 +308,8 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   BOOL const isNavigation = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
   if (state == TrackRecordingButtonStateVisible && isNavigation)
     state = TrackRecordingButtonStateHidden;
+  if ((state == TrackRecordingButtonStateHidden || state == TrackRecordingButtonStateClosed) && !_trackRecordingButton)
+    return;
   if (!_trackRecordingButton)
     _trackRecordingButton = [[TrackRecordingButtonViewController alloc] init];
   [self.trackRecordingButton setState:state completion:^{ [MWMMapWidgetsHelper updateLayoutForAvailableArea]; }];

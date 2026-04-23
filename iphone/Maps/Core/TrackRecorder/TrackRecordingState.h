@@ -1,1 +1,4 @@
-typedef NS_ENUM(NSUInteger, TrackRecordingState) { TrackRecordingStateActive, TrackRecordingStateInactive };
+typedef NS_CLOSED_ENUM(NSUInteger, TrackRecordingState) {
+  TrackRecordingStateInactive,
+  TrackRecordingStateActive,
+};
