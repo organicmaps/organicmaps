@@ -8,7 +8,6 @@
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
 #include "coding/memory_region.hpp"
-#include "coding/reader.hpp"
 #include "coding/simple_dense_coding.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
@@ -17,7 +16,6 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <limits>
 
 #include "defines.hpp"
 
@@ -178,7 +176,7 @@ std::unique_ptr<RankTable> RankTable::Load(FilesMappingContainer const & mcont, 
 }
 
 // static
-void SearchRankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, std::vector<uint8_t> & ranks)
+void SearchRankTableBuilder::CalcSearchRanks(FilesContainerR const & rcont, std::vector<uint8_t> & ranks)
 {
   feature::DataHeader header(rcont);
   FeaturesVector featuresVector(rcont, header, nullptr, nullptr, nullptr);

@@ -12,14 +12,12 @@
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/writer.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 #include "defines.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
