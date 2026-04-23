@@ -206,6 +206,8 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.sideButtonsHidden = NO;
   self.disableStandbyOnRouteFollowing = YES;
   self.trafficButtonHidden = YES;
+  if (TrackRecordingManager.shared.isActive)
+    [self setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
   [self.navigationManager onRouteStart];
   self.promoButton.hidden = YES;
 }
@@ -216,6 +218,8 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
+  if (TrackRecordingManager.shared.isActive)
+    [self setTrackRecordingButtonState:TrackRecordingButtonStateVisible];
   self.promoButton.hidden = YES;
 }
 
@@ -298,6 +302,9 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)setTrackRecordingButtonState:(TrackRecordingButtonState)state
 {
+  BOOL const isNavigation = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
+  if (state == TrackRecordingButtonStateVisible && isNavigation)
+    state = TrackRecordingButtonStateHidden;
   if (!_trackRecordingButton)
     _trackRecordingButton = [[TrackRecordingButtonViewController alloc] init];
   [self.trackRecordingButton setState:state completion:^{ [MWMMapWidgetsHelper updateLayoutForAvailableArea]; }];

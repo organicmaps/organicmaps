@@ -18,14 +18,18 @@ final class NavigationControlView: SolidTouchView {
     }
   }
 
+  @IBOutlet var settingsButton: UIButton!
+
   @IBOutlet private var ttsButton: UIButton! {
     didSet {
-      ttsButton.setImage(UIImage(resource: .icVoiceOff), for: .normal)
-      ttsButton.setImage(UIImage(resource: .icVoiceOn), for: .selected)
-      ttsButton.setImage(UIImage(resource: .icVoiceOn), for: [.selected, .highlighted])
+      ttsButton.setImage(UIImage.icVoiceOff, for: .normal)
+      ttsButton.setImage(UIImage.icVoiceOn, for: .selected)
+      ttsButton.setImage(UIImage.icVoiceOn, for: [.selected, .highlighted])
       onTTSStatusUpdated()
     }
   }
+
+  @IBOutlet var trackRecordingButton: UIButton!
 
   private lazy var dimBackground: DimBackground = .init(mainView: self, tapAction: { [weak self] in
     self?.diminish()
@@ -35,6 +39,7 @@ final class NavigationControlView: SolidTouchView {
   weak var delegate: RouteNavigationControlsDelegate!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
+  private var trackRecordingState = TrackRecordingState.inactive
   private var extendedConstraint: NSLayoutConstraint!
   private var notExtendedConstraint: NSLayoutConstraint!
   private let diminishSelector = #selector(diminish)
@@ -133,8 +138,10 @@ final class NavigationControlView: SolidTouchView {
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
   }
 
-  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  func render(navigationInfo info: MWMNavigationDashboardEntity, trackRecordingState: TrackRecordingState) {
     navigationInfo = info
+    self.trackRecordingState = trackRecordingState
+    trackRecordingButton.tintColor = trackRecordingState == .active ? .redPrimary : .blackSecondaryText
     guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
@@ -207,7 +214,7 @@ final class NavigationControlView: SolidTouchView {
   private func toggleInfoAction() {
     if let navigationInfo = navigationInfo {
       timePageControl.currentPage = (timePageControl.currentPage + 1) % timePageControl.numberOfPages
-      onNavigationInfoUpdated(navigationInfo)
+      render(navigationInfo: navigationInfo, trackRecordingState: trackRecordingState)
     }
     refreshDiminishTimer()
   }
@@ -231,6 +238,11 @@ final class NavigationControlView: SolidTouchView {
   @IBAction
   private func stopRoutingButtonAction(_: Any) {
     delegate.stopRoutingButtonDidTap()
+  }
+
+  @IBAction
+  private func trackRecordingButonAction(_: Any) {
+    delegate.trackRecordingButonDidTap()
   }
 
   private func morphExtendButton() {

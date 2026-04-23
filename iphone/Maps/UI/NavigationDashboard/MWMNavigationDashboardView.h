@@ -1,5 +1,6 @@
 #import "RoutePreviewView.h"
 #import "SearchOnMapState.h"
+#import "TrackRecordingState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)entity;
 - (void)setDrivingOptionState:(MWMDrivingOptionsState)state;
+- (void)setTrackRecordingState:(TrackRecordingState)state;
 - (void)searchManagerWithDidChangeState:(SearchOnMapState)state;
 - (void)updateNavigationInfoAvailableArea:(CGRect)frame;
 - (void)setRouteBuilderProgress:(MWMRouterType)router progress:(CGFloat)progress;

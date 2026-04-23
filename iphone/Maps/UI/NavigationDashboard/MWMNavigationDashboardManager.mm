@@ -37,8 +37,24 @@
 {
   self = [super init];
   if (self)
+  {
+    __weak __typeof(self) weakSelf = self;
     _parentViewController = viewController;
+    [TrackRecordingManager.shared addObserver:self
+            recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nonnull,
+                                                ElevationProfileData * _Nonnull (^_Nullable)()) {
+              __strong __typeof(weakSelf) self = weakSelf;
+              if (!self)
+                return;
+              [self->_navigationDashboardView setTrackRecordingState:state];
+            }];
+  }
   return self;
+}
+
+- (void)dealloc
+{
+  [TrackRecordingManager.shared removeObserver:self];
 }
 
 - (id<NavigationDashboardView>)navigationDashboardView
@@ -241,6 +257,17 @@
   [MWMSearch clear];
   [MWMRouter stopRouting];
   [self.searchManager close];
+}
+
+- (void)trackRecordingButonDidTap
+{
+  TrackRecordingManager * manager = TrackRecordingManager.shared;
+  switch (manager.recordingState)
+  {
+  case TrackRecordingStateInactive: [manager start]; break;
+  case TrackRecordingStateActive: [[MapViewController sharedController] showTrackRecordingPlacePage]; break;
+  default: NSAssert(false, @"Unexpected track recording state.");
+  }
 }
 
 #pragma mark - SearchOnMapManagerObserver

@@ -7,6 +7,7 @@ extension NavigationDashboard {
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updateElevationInfo(RouteElevationPreviewData?)
+    case updateTrackRecordingState(TrackRecordingState)
     case updatePresentationStep(NavigationDashboardModalPresentationStep)
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
