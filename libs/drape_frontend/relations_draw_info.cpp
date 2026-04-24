@@ -86,7 +86,11 @@ void RelationsDrawInfo::Init(FeatureType & ft)
   }
 
   // Most used color first.
-  std::sort(m_colors.begin(), m_colors.end(), [](auto const & r1, auto const & r2) { return r1.second > r2.second; });
+  // Use stable sort to keep equal Relations order (less relID).
+  /// @todo For the nice order (consistent with the neighbor Ways) they should be sorted somehow by geom criteria
+  /// (say from North/West to South/East), independently from the actual Way's direction.
+  std::stable_sort(m_colors.begin(), m_colors.end(),
+                   [](auto const & r1, auto const & r2) { return r1.second > r2.second; });
 
   if (m_sett.PT && !refs.empty())
   {
