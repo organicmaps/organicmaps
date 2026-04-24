@@ -278,10 +278,13 @@ dp::TGlyphs TextLayout::GetGlyphs() const
   return glyphs;
 }
 
-StraightTextLayout::StraightTextLayout(std::string const & text, float fontSize, ref_ptr<dp::TextureManager> textures,
+StraightTextLayout::StraightTextLayout(std::string_view text, float fontSize, ref_ptr<dp::TextureManager> textures,
                                        dp::Anchor anchor, bool forceNoWrap)
 {
-  ASSERT_EQUAL(std::string::npos, text.find('\n'), ("Multiline text is not expected", text));
+  /// @todo Support multiline texts (e.g. in Bookmarks).
+  auto iBreak = text.find_first_of("\r\n");
+  if (iBreak != std::string_view::npos)
+    text = text.substr(0, iBreak);
 
   m_textSizeRatio = fontSize * static_cast<float>(VisualParams::Instance().GetFontScale()) / dp::kBaseFontSizePixels;
   m_shapedGlyphs = textures->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
