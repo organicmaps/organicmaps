@@ -1437,4 +1437,5 @@
     <string name="type.craft.watchmaker">Zegarmistrz</string>
     <string name="type.xmas_feature.market">Jarmark bożonarodzeniowy</string>
     <string name="type.xmas_feature.tree">Choinka</string>
+    <string name="type.amenity.hookah_lounge">Shisha bar</string>
 </resources>

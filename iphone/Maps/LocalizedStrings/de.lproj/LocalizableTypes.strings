@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "Uhrmacher";
 "type.xmas_feature.market" = "Weihnachtsmarkt";
 "type.xmas_feature.tree" = "Weihnachtsbaum";
+"type.amenity.hookah_lounge" = "Shisha-Bar";

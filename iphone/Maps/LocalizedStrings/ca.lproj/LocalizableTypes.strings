@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "Rellotger";
 "type.xmas_feature.market" = "Mercat de Nadal";
 "type.xmas_feature.tree" = "Arbre de Nadal";
+"type.amenity.hookah_lounge" = "Bar de xixa";

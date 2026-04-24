@@ -1228,4 +1228,5 @@
     <string name="type.craft.watchmaker">Ceasornicar</string>
     <string name="type.xmas_feature.market">Piață de Crăciun</string>
     <string name="type.xmas_feature.tree">Pom de Crăciun</string>
+    <string name="type.amenity.hookah_lounge">Lounge de narghilea</string>
 </resources>

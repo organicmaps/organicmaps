@@ -1440,4 +1440,5 @@
     <string name="type.craft.watchmaker">Ժամագործ</string>
     <string name="type.xmas_feature.market">Սուրբ Ծննդյան տոնավաճառ</string>
     <string name="type.xmas_feature.tree">Տոնածառ</string>
+    <string name="type.amenity.hookah_lounge">Նարգիլե բար</string>
 </resources>

@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Годинникар</string>
     <string name="type.xmas_feature.market">Різдвяний ярмарок</string>
     <string name="type.xmas_feature.tree">Різдвяна ялинка</string>
+    <string name="type.amenity.hookah_lounge">Кальянна</string>
 </resources>

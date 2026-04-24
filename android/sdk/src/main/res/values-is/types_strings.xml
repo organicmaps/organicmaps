@@ -1442,4 +1442,5 @@
     <string name="type.craft.watchmaker">Úrsmiður</string>
     <string name="type.xmas_feature.market">Jólamarkaður</string>
     <string name="type.xmas_feature.tree">Jólatré</string>
+    <string name="type.amenity.hookah_lounge">Vatnspípubar</string>
 </resources>

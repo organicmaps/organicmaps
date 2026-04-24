@@ -1222,4 +1222,5 @@
     <string name="type.craft.watchmaker">ช่างซ่อมนาฬิกา</string>
     <string name="type.xmas_feature.market">ตลาดคริสต์มาส</string>
     <string name="type.xmas_feature.tree">ต้นคริสต์มาส</string>
+    <string name="type.amenity.hookah_lounge">ร้านบารากู่</string>
 </resources>

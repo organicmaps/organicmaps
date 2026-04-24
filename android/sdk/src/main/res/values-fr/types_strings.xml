@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Horloger</string>
     <string name="type.xmas_feature.market">Marché de Noël</string>
     <string name="type.xmas_feature.tree">Arbre de Noël</string>
+    <string name="type.amenity.hookah_lounge">Bar à chicha</string>
 </resources>

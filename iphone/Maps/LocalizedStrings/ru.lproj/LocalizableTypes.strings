@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "Часовщик";
 "type.xmas_feature.market" = "Рождественский рынок";
 "type.xmas_feature.tree" = "Новогодняя ёлка";
+"type.amenity.hookah_lounge" = "Кальянная";

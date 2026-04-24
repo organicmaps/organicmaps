@@ -1232,4 +1232,5 @@
     <string name="type.craft.watchmaker">Urmaker</string>
     <string name="type.xmas_feature.market">Julemarked</string>
     <string name="type.xmas_feature.tree">Juletre</string>
+    <string name="type.amenity.hookah_lounge">Vannpipebar</string>
 </resources>

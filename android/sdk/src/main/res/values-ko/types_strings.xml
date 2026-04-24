@@ -1223,4 +1223,5 @@
     <string name="type.craft.watchmaker">워치메이커</string>
     <string name="type.xmas_feature.market">크리스마스 마켓</string>
     <string name="type.xmas_feature.tree">크리스마스 트리</string>
+    <string name="type.amenity.hookah_lounge">후카 라운지</string>
 </resources>

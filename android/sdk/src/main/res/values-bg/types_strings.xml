@@ -838,4 +838,5 @@
     <string name="type.craft.watchmaker">Часовникар</string>
     <string name="type.xmas_feature.market">Коледен пазар</string>
     <string name="type.xmas_feature.tree">Коледна елха</string>
+    <string name="type.amenity.hookah_lounge">Наргиле бар</string>
 </resources>

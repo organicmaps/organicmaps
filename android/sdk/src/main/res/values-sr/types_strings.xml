@@ -1406,4 +1406,5 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
+    <string name="type.amenity.hookah_lounge">Наргила бар</string>
 </resources>

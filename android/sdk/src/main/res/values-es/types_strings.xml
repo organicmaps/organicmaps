@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Relojero</string>
     <string name="type.xmas_feature.market">Mercado navideño</string>
     <string name="type.xmas_feature.tree">Árbol de Navidad</string>
+    <string name="type.amenity.hookah_lounge">Lounge de narguile</string>
 </resources>

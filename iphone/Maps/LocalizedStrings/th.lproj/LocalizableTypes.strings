@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "ช่างซ่อมนาฬิกา";
 "type.xmas_feature.market" = "ตลาดคริสต์มาส";
 "type.xmas_feature.tree" = "ต้นคริสต์มาส";
+"type.amenity.hookah_lounge" = "ร้านบารากู่";

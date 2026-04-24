@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Laikrodininkas</string>
     <string name="type.xmas_feature.market">Kalėdų mugė</string>
     <string name="type.xmas_feature.tree">Kalėdų eglutė</string>
+    <string name="type.amenity.hookah_lounge">Kaljanų baras</string>
 </resources>

@@ -1433,4 +1433,5 @@
     <string name="type.craft.watchmaker">Rellotger</string>
     <string name="type.xmas_feature.market">Mercat de Nadal</string>
     <string name="type.xmas_feature.tree">Arbre de Nadal</string>
+    <string name="type.amenity.hookah_lounge">Bar de xixa</string>
 </resources>

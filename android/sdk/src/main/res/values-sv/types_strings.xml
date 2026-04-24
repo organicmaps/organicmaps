@@ -1386,4 +1386,5 @@
     <string name="type.craft.watchmaker">Urmakare</string>
     <string name="type.xmas_feature.market">Julmarknad</string>
     <string name="type.xmas_feature.tree">Julgran</string>
+    <string name="type.amenity.hookah_lounge">Shishabar</string>
 </resources>
