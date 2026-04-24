@@ -1252,6 +1252,7 @@ power-substation                                    # icon z17- (also has captio
 === 240
 
 building                                            # caption z16- (also has area z14-)
+building-construction                               # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
 building-guardhouse                                 # icon z17- and caption z16 (also has caption(optional) z17-, area z14-)
 building-has_parts                                  # caption z16- (also has area z14-)

@@ -746,6 +746,7 @@ leisure-park-private                                # icon z14- (also has captio
 === 100
 
 building                                            # caption z18- (also has area z15-)
+building-construction                               # caption z18- (also has area z15-)
 building-has_parts                                  # caption z18- (also has area z15-)
 === 50
 

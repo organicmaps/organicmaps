@@ -9470,6 +9470,55 @@ vi = Địa chỉ
 zh-Hans = 地址
 zh-Hant = 地址
 
+[type.building.construction]
+en = Building under construction
+af = Gebou in aanbou
+ar = مبنى قيد الإنشاء
+az = İnşa edilən bina
+be = Будынак у стадыі будаўніцтва
+ca = Edifici en construcció
+cs = Budova ve výstavbě
+da = Bygning under opførelse
+de = Gebäude im Bau
+el = Κτίριο υπό κατασκευή
+es = Edificio en construcción
+et = Ehitatav hoone
+eu = Eraikitzen ari den eraikina
+fa = ساختمان در حال ساخت
+fi = Rakenteilla oleva rakennus
+fr = Bâtiment en construction
+gl = Edificio en construción
+he = בניין בבנייה
+hu = Építés alatt álló épület
+hy = Կառուցվող շենք
+id = Bangunan dalam pembangunan
+is = Bygging í byggingu
+it = Edificio in costruzione
+ja = 建設中の建物
+ko = 건설 중인 건물
+lo = ອາຄານທີ່ກໍາລັງກໍ່ສ້າງ
+lt = Statomas pastatas
+mr = बांधकाम सुरू असलेली इमारत
+nb = Bygning under oppføring
+nl = Gebouw in aanbouw
+pl = Budynek w budowie
+pt = Edifício em construção
+pt-BR = Edifício em construção
+ro = Clădire în construcție
+ru = Строящееся здание
+sk = Budova vo výstavbe
+sl = Stavba v gradnji
+sq = Ndërtesë në ndërtim
+sr = Зграда у изградњи
+sv = Byggnad under uppförande
+sw = Jengo linalojengwa
+th = อาคารที่กำลังก่อสร้าง
+tr = İnşa halindeki bina
+uk = Будівля в стадії будівництва
+vi = Tòa nhà đang xây dựng
+zh-Hans = 在建建筑
+zh-Hant = 興建中的建築
+
 [type.building.has_parts]
 ref = type.building
 
