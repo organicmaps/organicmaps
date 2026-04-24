@@ -7239,6 +7239,111 @@ cont {
   }
 }
 cont {
+  name: "amenity-hookah_lounge"
+  element {
+    scale: 15
+    symbol {
+      name: "tobacco-m"
+      priority: 3950
+      min_distance: 28
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6050
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tobacco-m"
+      priority: 3950
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6050
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tobacco-m"
+      priority: 3950
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6050
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tobacco-m"
+      priority: 3950
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6050
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tobacco-m"
+      priority: 3950
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6050
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "tobacco-m"
+      priority: 3950
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6050
+    }
+  }
+}
+cont {
   name: "amenity-hospital"
   element {
     scale: 14
