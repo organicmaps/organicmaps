@@ -9,6 +9,8 @@
 
 namespace df
 {
+uint8_t constexpr kMetaLinesSectionVersion = 1;
+
 class MapDataProvider;
 
 using MetalineCache = std::map<FeatureID, m2::SharedSpline>;
