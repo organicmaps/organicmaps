@@ -231,6 +231,7 @@
     <string name="type.building">Eraikina</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Helbidea</string>
+    <string name="type.building.construction">Eraikitzen ari den eraikina</string>
     <string name="type.building.has_parts">Eraikina</string>
     <string name="type.building_part">Eraikina</string>
     <string name="type.building.garage">Garajea</string>

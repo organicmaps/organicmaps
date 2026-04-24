@@ -237,6 +237,7 @@
     <string name="type.building">Շենք</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Հասցե</string>
+    <string name="type.building.construction">Կառուցվող շենք</string>
     <string name="type.building.has_parts">Շենք</string>
     <string name="type.building_part">Շենք</string>
     <string name="type.building.garage">Ավտոտնակ</string>

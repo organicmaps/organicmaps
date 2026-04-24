@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Cím";
+"type.building.construction" = "Építés alatt álló épület";
 "type.building.has_parts" = "Épület";
 "type.building_part" = "Épületrész";
 "type.building.garage" = "Garázs";

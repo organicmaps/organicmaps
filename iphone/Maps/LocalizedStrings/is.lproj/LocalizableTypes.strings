@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Heimilisfang";
+"type.building.construction" = "Bygging í byggingu";
 "type.building.has_parts" = "Bygging";
 "type.building_part" = "Bygging";
 "type.building.garage" = "Verkstæði";

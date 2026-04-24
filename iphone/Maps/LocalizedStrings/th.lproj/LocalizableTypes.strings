@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "ที่อยู่";
+"type.building.construction" = "อาคารที่กำลังก่อสร้าง";
 "type.building.has_parts" = "อาคาร";
 "type.building_part" = "อาคาร";
 "type.building.garage" = "อาคารจอดรถ";

@@ -189,6 +189,7 @@
     <string name="type.building">Clădire</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresă</string>
+    <string name="type.building.construction">Clădire în construcție</string>
     <string name="type.building.has_parts">Clădire</string>
     <string name="type.building_part">Clădire</string>
     <string name="type.building.garage">Garaj</string>

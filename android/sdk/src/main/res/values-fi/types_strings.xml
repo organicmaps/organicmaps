@@ -224,6 +224,7 @@
     <string name="type.building">Rakennus</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Osoite</string>
+    <string name="type.building.construction">Rakenteilla oleva rakennus</string>
     <string name="type.building.has_parts">Rakennus</string>
     <string name="type.building_part">Rakennus</string>
     <string name="type.building.garage">Autotalli</string>

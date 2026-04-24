@@ -237,6 +237,7 @@
     <string name="type.building">Bygging</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Heimilisfang</string>
+    <string name="type.building.construction">Bygging í byggingu</string>
     <string name="type.building.has_parts">Bygging</string>
     <string name="type.building_part">Bygging</string>
     <string name="type.building.garage">Verkstæði</string>

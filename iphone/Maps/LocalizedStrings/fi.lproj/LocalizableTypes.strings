@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Osoite";
+"type.building.construction" = "Rakenteilla oleva rakennus";
 "type.building.has_parts" = "Rakennus";
 "type.building_part" = "Rakennus";
 "type.building.garage" = "Autotalli";

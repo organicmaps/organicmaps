@@ -237,6 +237,7 @@
     <string name="type.building">Pastatas</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresas</string>
+    <string name="type.building.construction">Statomas pastatas</string>
     <string name="type.building.has_parts">Pastatas</string>
     <string name="type.building_part">Pastatas</string>
     <string name="type.building.garage">Garažas</string>

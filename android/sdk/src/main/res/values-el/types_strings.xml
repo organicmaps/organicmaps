@@ -237,6 +237,7 @@
     <string name="type.building">Κτίριο</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Διεύθυνση</string>
+    <string name="type.building.construction">Κτίριο υπό κατασκευή</string>
     <string name="type.building.has_parts">Κτίριο</string>
     <string name="type.building_part">Κτίριο</string>
     <string name="type.building.garage">Γκαράζ</string>
