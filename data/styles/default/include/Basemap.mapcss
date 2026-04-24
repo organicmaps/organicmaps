@@ -593,6 +593,10 @@ area|z17-[building:part],
 area|z17-[waterway=dam],
 {fill-color: @building1;casing-width: 1;casing-color: @building_border1;}
 
+/* Building under construction is rendered like landuse=construction (industrial). */
+area|z14-[building=construction],
+{fill-color: @industrial; fill-opacity: 1; casing-width: 0;}
+
 
 /* 8.3 Barriers, cliffs */
 

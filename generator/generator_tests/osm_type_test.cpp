@@ -2199,6 +2199,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"barrier", "wall"},
       {"boundary", "national_park"},
       {"boundary", "protected_area"},
+      {"building", "construction"},
       {"building", "has_parts"},
       {"building", "train_station"},
       {"cemetery", "grave"},
