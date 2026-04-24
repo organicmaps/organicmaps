@@ -1378,4 +1378,5 @@
     <string name="type.craft.watchmaker">صانع الساعات</string>
     <string name="type.xmas_feature.market">سوق الكريسماس</string>
     <string name="type.xmas_feature.tree">شجرة الكريسماس</string>
+    <string name="type.amenity.hookah_lounge">مقهى شيشة</string>
 </resources>

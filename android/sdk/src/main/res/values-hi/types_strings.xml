@@ -706,4 +706,5 @@
     <string name="type.craft.watchmaker">घड़ीसाज़</string>
     <string name="type.xmas_feature.market">क्रिसमस का बाजार</string>
     <string name="type.xmas_feature.tree">क्रिसमस ट्री</string>
+    <string name="type.amenity.hookah_lounge">हुक्का लाउंज</string>
 </resources>

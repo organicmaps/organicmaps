@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Saatçi</string>
     <string name="type.xmas_feature.market">Noel Pazarı</string>
     <string name="type.xmas_feature.tree">Noel Ağacı</string>
+    <string name="type.amenity.hookah_lounge">Nargile salonu</string>
 </resources>

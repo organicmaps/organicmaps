@@ -1439,4 +1439,5 @@
     <string name="type.craft.watchmaker">Гадзіннікавы майстар</string>
     <string name="type.xmas_feature.market">Калядны кірмаш</string>
     <string name="type.xmas_feature.tree">Калядная ёлка</string>
+    <string name="type.amenity.hookah_lounge">Кальянная</string>
 </resources>

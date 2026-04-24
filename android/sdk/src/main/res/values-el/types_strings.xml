@@ -1438,4 +1438,5 @@
     <string name="type.craft.watchmaker">Ωρολογοποιός</string>
     <string name="type.xmas_feature.market">Χριστουγεννιάτικη αγορά</string>
     <string name="type.xmas_feature.tree">Χριστουγεννιάτικο δέντρο</string>
+    <string name="type.amenity.hookah_lounge">Ναργιλέ μπαρ</string>
 </resources>

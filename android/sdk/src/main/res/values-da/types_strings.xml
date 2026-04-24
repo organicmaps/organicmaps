@@ -1433,4 +1433,5 @@
     <string name="type.craft.watchmaker">Urmager</string>
     <string name="type.xmas_feature.market">Julemarked</string>
     <string name="type.xmas_feature.tree">Juletræ</string>
+    <string name="type.amenity.hookah_lounge">Vandpibecafé</string>
 </resources>

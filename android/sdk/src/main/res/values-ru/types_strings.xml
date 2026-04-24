@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Часовщик</string>
     <string name="type.xmas_feature.market">Рождественский рынок</string>
     <string name="type.xmas_feature.tree">Новогодняя ёлка</string>
+    <string name="type.amenity.hookah_lounge">Кальянная</string>
 </resources>

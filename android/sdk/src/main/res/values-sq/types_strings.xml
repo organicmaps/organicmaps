@@ -1436,4 +1436,5 @@
     <string name="type.craft.watchmaker">Orëndreqës</string>
     <string name="type.xmas_feature.market">Treg Krishtlindjesh</string>
     <string name="type.xmas_feature.tree">Pema e Krishtlindjeve</string>
+    <string name="type.amenity.hookah_lounge">Shisha bar</string>
 </resources>

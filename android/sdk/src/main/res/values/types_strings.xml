@@ -1475,4 +1475,5 @@
     <string name="type.craft.watchmaker">Watchmaker</string>
     <string name="type.xmas_feature.market">Christmas Market</string>
     <string name="type.xmas_feature.tree">Christmas Tree</string>
+    <string name="type.amenity.hookah_lounge">Hookah Lounge</string>
 </resources>

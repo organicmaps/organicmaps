@@ -1118,4 +1118,5 @@
     <string name="type.craft.watchmaker">שָׁעָן</string>
     <string name="type.xmas_feature.market">שוק חג המולד</string>
     <string name="type.xmas_feature.tree">עץ חג המולד</string>
+    <string name="type.amenity.hookah_lounge">בר נרגילה</string>
 </resources>

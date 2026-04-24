@@ -86,4 +86,5 @@
     <string name="type.craft.watchmaker">Pulksteņmeistars</string>
     <string name="type.xmas_feature.market">Ziemassvētku tirdziņš</string>
     <string name="type.xmas_feature.tree">Ziemassvētku eglīte</string>
+    <string name="type.amenity.hookah_lounge">Ūdenspīpes bārs</string>
 </resources>

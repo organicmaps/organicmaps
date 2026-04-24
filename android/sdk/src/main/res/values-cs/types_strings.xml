@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Hodinář</string>
     <string name="type.xmas_feature.market">Vánoční trh</string>
     <string name="type.xmas_feature.tree">Vánoční stromek</string>
+    <string name="type.amenity.hookah_lounge">Shisha bar</string>
 </resources>

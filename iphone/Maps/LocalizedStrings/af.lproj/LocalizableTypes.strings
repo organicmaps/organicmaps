@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "Watchmaker";
 "type.xmas_feature.market" = "Kersmark";
 "type.xmas_feature.tree" = "Kersboom";
+"type.amenity.hookah_lounge" = "Hookah Lounge";

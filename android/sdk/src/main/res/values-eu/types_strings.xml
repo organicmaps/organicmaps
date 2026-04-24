@@ -1319,4 +1319,5 @@
     <string name="type.craft.watchmaker">Erlojugilea</string>
     <string name="type.xmas_feature.market">Gabonetako Merkatua</string>
     <string name="type.xmas_feature.tree">Gabonetako zuhaitza</string>
+    <string name="type.amenity.hookah_lounge">Nargile-taberna</string>
 </resources>

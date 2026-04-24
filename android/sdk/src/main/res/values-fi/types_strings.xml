@@ -1330,4 +1330,5 @@
     <string name="type.craft.watchmaker">Kelloseppä</string>
     <string name="type.xmas_feature.market">Joulumarkkinat</string>
     <string name="type.xmas_feature.tree">Joulukuusi</string>
+    <string name="type.amenity.hookah_lounge">Vesipiippubaari</string>
 </resources>

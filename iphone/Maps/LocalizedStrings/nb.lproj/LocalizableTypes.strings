@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "Urmaker";
 "type.xmas_feature.market" = "Julemarked";
 "type.xmas_feature.tree" = "Juletre";
+"type.amenity.hookah_lounge" = "Vannpipebar";

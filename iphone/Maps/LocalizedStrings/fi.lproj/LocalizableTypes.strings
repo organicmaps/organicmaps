@@ -1590,3 +1590,4 @@
 "type.craft.watchmaker" = "Kelloseppä";
 "type.xmas_feature.market" = "Joulumarkkinat";
 "type.xmas_feature.tree" = "Joulukuusi";
+"type.amenity.hookah_lounge" = "Vesipiippubaari";

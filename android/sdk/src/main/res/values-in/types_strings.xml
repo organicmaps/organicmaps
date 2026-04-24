@@ -1207,4 +1207,5 @@
     <string name="type.craft.watchmaker">Pembuat jam tangan</string>
     <string name="type.xmas_feature.market">Pasar Natal</string>
     <string name="type.xmas_feature.tree">Pohon Natal</string>
+    <string name="type.amenity.hookah_lounge">Kafe Shisha</string>
 </resources>

@@ -1443,4 +1443,5 @@
     <string name="type.craft.watchmaker">Kellassepp</string>
     <string name="type.xmas_feature.market">Jõuluturg</string>
     <string name="type.xmas_feature.tree">Jõulupuu</string>
+    <string name="type.amenity.hookah_lounge">Vesipiibu kohvik</string>
 </resources>
