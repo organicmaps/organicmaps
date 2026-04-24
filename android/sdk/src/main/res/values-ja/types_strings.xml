@@ -206,6 +206,7 @@
     <string name="type.building">建物</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">住所</string>
+    <string name="type.building.construction">建設中の建物</string>
     <string name="type.building.has_parts">建物</string>
     <string name="type.building_part">建物</string>
     <string name="type.building.garage">車庫</string>

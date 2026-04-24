@@ -237,6 +237,7 @@
     <string name="type.building">Hoone</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Aadress</string>
+    <string name="type.building.construction">Ehitatav hoone</string>
     <string name="type.building.has_parts">Hoone</string>
     <string name="type.building_part">Hooneosa</string>
     <string name="type.building.garage">Garaaž</string>

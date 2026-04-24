@@ -185,6 +185,7 @@
     <string name="type.building">อาคาร</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">ที่อยู่</string>
+    <string name="type.building.construction">อาคารที่กำลังก่อสร้าง</string>
     <string name="type.building.has_parts">อาคาร</string>
     <string name="type.building_part">อาคาร</string>
     <string name="type.building.garage">อาคารจอดรถ</string>

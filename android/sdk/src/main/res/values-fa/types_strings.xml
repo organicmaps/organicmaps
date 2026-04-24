@@ -197,6 +197,7 @@
     <string name="type.building">ساختمان</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">آدرس</string>
+    <string name="type.building.construction">ساختمان در حال ساخت</string>
     <string name="type.building.has_parts">ساختمان</string>
     <string name="type.building_part">ساختمان</string>
     <string name="type.building.garage">گاراژ</string>

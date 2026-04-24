@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Địa chỉ";
+"type.building.construction" = "Tòa nhà đang xây dựng";
 "type.building.has_parts" = "Tòa nhà";
 "type.building_part" = "Tòa nhà";
 "type.building.garage" = "Gara";

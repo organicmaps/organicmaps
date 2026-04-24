@@ -237,6 +237,7 @@
     <string name="type.building">Épület</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Cím</string>
+    <string name="type.building.construction">Építés alatt álló épület</string>
     <string name="type.building.has_parts">Épület</string>
     <string name="type.building_part">Épületrész</string>
     <string name="type.building.garage">Garázs</string>

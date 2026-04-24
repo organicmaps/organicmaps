@@ -229,6 +229,7 @@
     <string name="type.building">מבנה</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">כתובת</string>
+    <string name="type.building.construction">בניין בבנייה</string>
     <string name="type.building.has_parts">מבנה</string>
     <string name="type.building_part">מבנה</string>
     <string name="type.building.garage">מחסן/חנייה</string>

@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Naslov";
+"type.building.construction" = "Stavba v gradnji";
 "type.building.has_parts" = "Stavba";
 "type.building_part" = "Stavba";
 "type.building.garage" = "Garaža";

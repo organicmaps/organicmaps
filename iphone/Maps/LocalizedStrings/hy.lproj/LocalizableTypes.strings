@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Հասցե";
+"type.building.construction" = "Կառուցվող շենք";
 "type.building.has_parts" = "Շենք";
 "type.building_part" = "Շենք";
 "type.building.garage" = "Ավտոտնակ";

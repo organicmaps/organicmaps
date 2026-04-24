@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "주소";
+"type.building.construction" = "건설 중인 건물";
 "type.building.has_parts" = "건물";
 "type.building_part" = "건물";
 "type.building.garage" = "차고";
