@@ -14,6 +14,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressEmail()
   func didPressOpenInApp(from sourceView: UIView)
   func didCopy(_ content: String)
+  func didSelectPublicTransportRoute()
 }
 
 class PlacePageInfoViewController: UIViewController {
@@ -63,6 +64,10 @@ class PlacePageInfoViewController: UIViewController {
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
+  var routeRefsAnchorView: UIView? {
+    routeRefsView
+  }
+
   var coordinatesFormatId: Int {
     get { UserDefaults.standard.integer(forKey: Constants.coordFormatIdKey) }
     set { UserDefaults.standard.set(newValue, forKey: Constants.coordFormatIdKey) }
@@ -360,8 +365,9 @@ class PlacePageInfoViewController: UIViewController {
     let viewController = RoutesSelectorViewController(routes: routes,
                                                       selectedRouteRef: selectedRouteRef,
                                                       routeSelectedHandler: { [weak self] route in
-                                                        self?.dismiss(animated: true)
-                                                        self?.selectRoute(route, from: routes)
+                                                        self?.dismiss(animated: true, completion: { [weak self] in
+                                                          self?.selectRoute(route, from: routes)
+                                                        })
                                                       })
     viewController.modalPresentationStyle = .popover
     viewController.popoverPresentationController?.sourceView = routeRefsView
@@ -376,6 +382,7 @@ class PlacePageInfoViewController: UIViewController {
     FrameworkHelper.showRouteTransit(route.relId)
     selectedRouteRef = route.ref
     updateRouteRefsLabel(routes: routes)
+    delegate?.didSelectPublicTransportRoute()
   }
 
   /// Rebuilds the primary refs string, bolding and underlining the selected route's ref.
