@@ -48,7 +48,7 @@ class StraightTextLayout : public TextLayout
   using TBase = TextLayout;
 
 public:
-  StraightTextLayout(std::string const & text, float fontSize, ref_ptr<dp::TextureManager> textures, dp::Anchor anchor,
+  StraightTextLayout(std::string_view text, float fontSize, ref_ptr<dp::TextureManager> textures, dp::Anchor anchor,
                      bool forceNoWrap);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
