@@ -233,11 +233,11 @@ public class PlacePageController
 
       final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
       if (mPlacePage.getHeight() >= mCoordinator.getHeight() - topInset)
-        mPlacePageDistanceToTopObserver.onChanged(top);
+        mPlacePageDistanceToTopObserver.onChanged(oldTop);
 
       if (top != oldTop)
       {
-        mDistanceToTop = top;
+        mDistanceToTop = oldTop;
         mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
       }
     });
