@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "ທີ່ຢູ່";
+"type.building.construction" = "ອາຄານທີ່ກໍາລັງກໍ່ສ້າງ";
 "type.building.has_parts" = "ອາຄານ";
 "type.building_part" = "ອາຄານ";
 "type.building.garage" = "ໂຮງລົດ";

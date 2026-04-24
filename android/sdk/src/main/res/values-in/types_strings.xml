@@ -178,6 +178,7 @@
     <string name="type.building">Gedung</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Alamat</string>
+    <string name="type.building.construction">Bangunan dalam pembangunan</string>
     <string name="type.building.has_parts">Gedung</string>
     <string name="type.building_part">Gedung</string>
     <string name="type.building.garage">Garasi</string>

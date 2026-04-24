@@ -183,6 +183,7 @@
     <string name="type.building">Tòa nhà</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Địa chỉ</string>
+    <string name="type.building.construction">Tòa nhà đang xây dựng</string>
     <string name="type.building.has_parts">Tòa nhà</string>
     <string name="type.building_part">Tòa nhà</string>
     <string name="type.building.garage">Gara</string>

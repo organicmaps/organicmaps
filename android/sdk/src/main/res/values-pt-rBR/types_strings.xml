@@ -100,6 +100,7 @@
     <string name="type.barrier.toll_booth">Cabine de pedágio</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Endereço</string>
+    <string name="type.building.construction">Edifício em construção</string>
     <string name="type.craft">Artesanato</string>
     <string name="type.craft.blacksmith">Serralheiro</string>
     <string name="type.craft.caterer">Serviço de bufê</string>

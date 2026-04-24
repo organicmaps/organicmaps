@@ -237,6 +237,7 @@
     <string name="type.building">ອາຄານ</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">ທີ່ຢູ່</string>
+    <string name="type.building.construction">ອາຄານທີ່ກໍາລັງກໍ່ສ້າງ</string>
     <string name="type.building.has_parts">ອາຄານ</string>
     <string name="type.building_part">ອາຄານ</string>
     <string name="type.building.garage">ໂຮງລົດ</string>

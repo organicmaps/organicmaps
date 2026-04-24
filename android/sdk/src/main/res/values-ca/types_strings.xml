@@ -235,6 +235,7 @@
     <string name="type.building">Edifici</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adreça</string>
+    <string name="type.building.construction">Edifici en construcció</string>
     <string name="type.building.has_parts">Edifici</string>
     <string name="type.building_part">Edifici</string>
     <string name="type.building.garage">Garatge</string>

@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresse";
+"type.building.construction" = "Bâtiment en construction";
 "type.building.has_parts" = "Bâtiment";
 "type.building_part" = "Bâtiment";
 "type.building.garage" = "Garage";

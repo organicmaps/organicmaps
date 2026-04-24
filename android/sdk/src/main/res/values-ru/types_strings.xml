@@ -237,6 +237,7 @@
     <string name="type.building">Здание</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адрес</string>
+    <string name="type.building.construction">Строящееся здание</string>
     <string name="type.building.has_parts">Здание</string>
     <string name="type.building_part">Здание</string>
     <string name="type.building.garage">Гараж</string>

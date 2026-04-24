@@ -221,6 +221,7 @@
     <string name="type.building">Budova</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresa</string>
+    <string name="type.building.construction">Budova vo výstavbe</string>
     <string name="type.building.has_parts">Budova</string>
     <string name="type.building_part">Budova</string>
     <string name="type.building.garage">Garáž</string>
