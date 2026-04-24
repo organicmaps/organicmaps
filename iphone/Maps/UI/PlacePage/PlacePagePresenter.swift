@@ -2,6 +2,7 @@ protocol PlacePagePresenterProtocol: AnyObject {
   func layoutIfNeeded()
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets, updatingViewport: Bool)
   func showNextStop()
+  func scrollToPublicTransportSection()
   func openURL(_ path: String)
   func showActivity(_ activity: ActivityViewController, from sourceView: UIView)
   func showAlert(_ alert: UIAlertController)
@@ -38,6 +39,10 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
 
   func showNextStop() {
     view.showNextStop()
+  }
+
+  func scrollToPublicTransportSection() {
+    view.scrollToPublicTransportSection()
   }
 
   func showActivity(_ activity: ActivityViewController, from sourceView: UIView) {
