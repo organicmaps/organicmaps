@@ -1,8 +1,8 @@
 enum GlobalStyleSheet: String, CaseIterable {
   case tableView = "TableView"
-  case tableCell = "TableCell"
   case tableViewCell = "MWMTableViewCell"
   case defaultTableViewCell
+  case customTableViewCell
   case tableViewHeaderFooterView = "TableViewHeaderFooterView"
   case searchBar = "SearchBar"
   case navigationBar = "NavigationBar"
@@ -78,7 +78,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.separatorColor = .blackDividers
         s.exclusions = [String(describing: UIDatePicker.self)]
       }
-    case .tableCell:
+    case .tableViewCell:
       return .add { s in
         s.backgroundColor = .whitePrimary
         s.fontColor = .blackPrimaryText
@@ -87,12 +87,13 @@ extension GlobalStyleSheet: IStyleSheet {
         s.backgroundColorSelected = .pressBackground
         s.exclusions = [String(describing: UIDatePicker.self), "_UIActivityUserDefaultsActivityCell"]
       }
-    case .tableViewCell:
-      return .addFrom(Self.tableCell) { _ in
-      }
     case .defaultTableViewCell:
       return .add { s in
         s.backgroundColor = .whitePrimary
+      }
+    case .customTableViewCell:
+      return .add { _ in
+        // configure table view cell manually
       }
     case .tableViewHeaderFooterView:
       return .add { s in
