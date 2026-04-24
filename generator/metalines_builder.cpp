@@ -1,7 +1,7 @@
 #include "generator/metalines_builder.hpp"
-
-#include "generator/intermediate_data.hpp"
 #include "generator/routing_helpers.hpp"
+
+#include "drape_frontend/read_metaline_task.hpp"  // for kMetaLinesSectionVersion
 
 #include "indexer/classificator.hpp"
 
@@ -12,18 +12,11 @@
 
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
-#include <cstdint>
 #include <limits>
 #include <map>
-
-namespace
-{
-uint8_t constexpr kMetaLinesSectionVersion = 1;
-}  // namespace
 
 namespace feature
 {
@@ -296,7 +289,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   // Write buffer to section.
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(METALINES_FILE_TAG);
-  WriteToSink(writer, kMetaLinesSectionVersion);
+  WriteToSink(writer, df::kMetaLinesSectionVersion);
   WriteVarUint(writer, count);
   writer->Write(buffer.data(), buffer.size());
   LOG(LINFO, ("Finished writing metalines section, found", count, "metalines."));
