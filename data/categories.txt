@@ -3469,7 +3469,7 @@ zh-Hans:1旅游|景点|艺术品
 zh-Hant:1藝術品|3旅遊景點
 
 tourism-viewpoint|@category_tourism
-en:4Viewpoint|Vista
+en:4Viewpoint|Vista|4Lookout
 ar:أماكن مشاهدة سياحية|سياحة|مناظر|نقطة منظر
 be:4Аглядальная пляцоўка
 bg:пейзаж|гледка|забележителност
