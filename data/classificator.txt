@@ -81,6 +81,7 @@ world  +
         grave_yard  +
             christian  -
             {}
+        hookah_lounge  -
         hospital  -
         hunting_stand  -
         ice_cream  -
