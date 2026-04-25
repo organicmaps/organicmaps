@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "झाडाची रांग";
 "type.natural.vineyard" = "द्राक्षमळा";
 "type.natural.volcano" = "ज्वालामुखी";
+"type.natural.volcano.active" = "सक्रिय ज्वालामुखी";
 "type.natural.water" = "पाणवठा";
 "type.natural.wetland" = "ओलिताची जमीन";
 "type.natural.wetland.bog" = "ओलिताची जमीन";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "वाहतूक गतिरोधक";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "जलमार्ग";
+"type.waterway.access_point" = "जलमार्ग प्रवेश बिंदू";
 "type.waterway.canal" = "कालवा";
 "type.waterway.canal.tunnel" = "कालवा";
 "type.waterway.fish_pass" = "मासे शिडी";

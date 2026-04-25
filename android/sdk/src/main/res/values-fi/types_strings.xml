@@ -712,6 +712,7 @@
     <string name="type.natural.tree_row">Puurivi</string>
     <string name="type.natural.vineyard">Viinitila</string>
     <string name="type.natural.volcano">Tulivuori</string>
+    <string name="type.natural.volcano.active">Aktiivinen tulivuori</string>
     <string name="type.natural.water">Vettä</string>
     <string name="type.natural.wetland">Soistuva maa</string>
     <string name="type.natural.wetland.bog">Suo</string>
@@ -1254,6 +1255,7 @@
     <string name="type.tourism.zoo.petting">Lemmikkieläintarha</string>
     <string name="type.traffic_calming.bump">Hidastetöyssy</string>
     <string name="type.waterway">Vesiväylä</string>
+    <string name="type.waterway.access_point">Vesiväylän liittymispiste</string>
     <string name="type.waterway.canal">Kanaali</string>
     <string name="type.waterway.canal.tunnel">Kanaali</string>
     <string name="type.waterway.fish_pass">Kalatikkaat</string>

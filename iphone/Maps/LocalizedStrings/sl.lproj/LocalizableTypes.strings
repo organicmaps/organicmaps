@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Drevored";
 "type.natural.vineyard" = "Vinograd";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Aktivni vulkan";
 "type.natural.water" = "Voda";
 "type.natural.wetland" = "Mokrišče";
 "type.natural.wetland.bog" = "Barje";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Grbina";
 "type.traffic_calming.hump" = "Grbina";
 "type.waterway" = "Vodotok";
+"type.waterway.access_point" = "Dostopna točka do plovnih poti";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanalski predor";
 "type.waterway.fish_pass" = "Ribja steza";

@@ -427,6 +427,7 @@
     <string name="type.natural.strait">जलसंधि</string>
     <string name="type.natural.vineyard">द्राक्षाक्षेत्र</string>
     <string name="type.natural.volcano">ज्वालामुखी</string>
+    <string name="type.natural.volcano.active">सक्रिय ज्वालामुखी</string>
     <string name="type.natural.water">जल निकाय</string>
     <string name="type.natural.wetland">आर्द्रभूमि</string>
     <string name="type.natural.wetland.marsh">कच्छभूमि</string>
@@ -664,6 +665,7 @@
     <string name="type.tourism.picnic_site">पिकनिक स्थल</string>
     <string name="type.tourism.viewpoint">दृष्टिकोण</string>
     <string name="type.tourism.zoo">चिड़ियाघर</string>
+    <string name="type.waterway.access_point">जलमार्ग पहुँच बिंदु</string>
     <string name="type.waterway.canal">नहर</string>
     <string name="type.waterway.canal.tunnel">नहर</string>
     <string name="type.waterway.dam">बाँध</string>

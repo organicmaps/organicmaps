@@ -635,6 +635,7 @@
     <string name="type.natural.tree_row">แถวต้นไม้</string>
     <string name="type.natural.vineyard">ไร่องุ่น</string>
     <string name="type.natural.volcano">ภูเขาไฟ</string>
+    <string name="type.natural.volcano.active">ภูเขาไฟที่ยังปะทุอยู่</string>
     <string name="type.natural.water">แหล่งน้ำ</string>
     <string name="type.natural.wetland">พื้นที่น้ำท่วมขัง</string>
     <string name="type.natural.wetland.bog">พรุ</string>
@@ -1169,6 +1170,7 @@
     <string name="type.tourism.wilderness_hut">กระท่อมกลางป่า</string>
     <string name="type.tourism.zoo">สวนสัตว์</string>
     <string name="type.tourism.zoo.petting">สวนสัตว์ลูบคลำ</string>
+    <string name="type.waterway.access_point">จุดเข้าถึงทางน้ำ</string>
     <string name="type.waterway.canal">คลอง</string>
     <string name="type.waterway.canal.tunnel">คลอง</string>
     <string name="type.waterway.fish_pass">บันไดปลา</string>

@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Ծառաշարք";
 "type.natural.vineyard" = "Խաղողի այգի";
 "type.natural.volcano" = "Հրաբուխ";
+"type.natural.volcano.active" = "Գործող հրաբխ";
 "type.natural.water" = "Ջուր";
 "type.natural.wetland" = "Խոնավ տարածք";
 "type.natural.wetland.bog" = "Տորֆաճահիճ";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Արհեստական անհարթություն";
 "type.traffic_calming.hump" = "Արհեստական թմբիկ";
 "type.waterway" = "Ջրային ուղի";
+"type.waterway.access_point" = "Ջրային ճանապարհի մուտքի կետ";
 "type.waterway.canal" = "Ջրանցք";
 "type.waterway.canal.tunnel" = "Ջրանցքի թունել";
 "type.waterway.fish_pass" = "Ձկնանցարան";

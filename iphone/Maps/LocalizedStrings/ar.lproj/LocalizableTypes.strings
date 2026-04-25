@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "صف شجر";
 "type.natural.vineyard" = "حقل عنب";
 "type.natural.volcano" = "بركان";
+"type.natural.volcano.active" = "بركان نشط";
 "type.natural.water" = "ماء";
 "type.natural.wetland" = "منطقة رطبة";
 "type.natural.wetland.bog" = "رخاخ";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "مطبة";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "نقطة وصول الممر المائي";
 "type.waterway.canal" = "قناة";
 "type.waterway.canal.tunnel" = "نفق قناة";
 "type.waterway.fish_pass" = "سلم سمك";

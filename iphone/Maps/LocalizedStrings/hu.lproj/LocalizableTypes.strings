@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Fasor";
 "type.natural.vineyard" = "Szőlőskert";
 "type.natural.volcano" = "Vulkán";
+"type.natural.volcano.active" = "Aktív vulkán";
 "type.natural.water" = "Vizek";
 "type.natural.wetland" = "Vizes terület";
 "type.natural.wetland.bog" = "Láp";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Fekvőrendőr";
 "type.traffic_calming.hump" = "Hosszú fekvőrendőr";
 "type.waterway" = "Vízfolyás";
+"type.waterway.access_point" = "Víziút hozzáférési pont";
 "type.waterway.canal" = "Csatorna";
 "type.waterway.canal.tunnel" = "Csatornaalagút";
 "type.waterway.fish_pass" = "Hallépcső";

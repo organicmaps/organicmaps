@@ -657,6 +657,7 @@
     <string name="type.natural.tree_row">ردیف درخت</string>
     <string name="type.natural.vineyard">تاکستان</string>
     <string name="type.natural.volcano">اتشفشان</string>
+    <string name="type.natural.volcano.active">آتشفشان فعال</string>
     <string name="type.natural.water">پهنه آبی</string>
     <string name="type.natural.wetland">ناحیه تالابی</string>
     <string name="type.natural.wetland.bog">خلاش</string>
@@ -1233,6 +1234,7 @@
     <string name="type.tourism.wilderness_hut">کلبه‌ی صحرایی</string>
     <string name="type.tourism.zoo">گردشگری</string>
     <string name="type.tourism.zoo.petting">باغ وحش پتینگ</string>
+    <string name="type.waterway.access_point">نقطه دسترسی به آبراهه</string>
     <string name="type.waterway.canal">کانال اب</string>
     <string name="type.waterway.canal.tunnel">کانال اب</string>
     <string name="type.waterway.fish_pass">نردبان ماهی</string>

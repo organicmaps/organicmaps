@@ -624,6 +624,7 @@
     <string name="type.natural.tree_row">Baris pohon</string>
     <string name="type.natural.vineyard">Kebun anggur</string>
     <string name="type.natural.volcano">Gunung berapi</string>
+    <string name="type.natural.volcano.active">Gunung Berapi Aktif</string>
     <string name="type.natural.water">Perairan</string>
     <string name="type.natural.wetland">Area lahan basah</string>
     <string name="type.natural.wetland.bog">Rawa gambut</string>
@@ -1154,6 +1155,7 @@
     <string name="type.tourism.wilderness_hut">Pondok Alam Liar</string>
     <string name="type.tourism.zoo">Kebun binatang</string>
     <string name="type.tourism.zoo.petting">Kebun Binatang</string>
+    <string name="type.waterway.access_point">Titik Akses Jalur Air</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Tangga ikan</string>

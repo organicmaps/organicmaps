@@ -755,6 +755,7 @@
     <string name="type.natural.tree_row">Rangée d\'arbres</string>
     <string name="type.natural.vineyard">Vignoble</string>
     <string name="type.natural.volcano">Volcan</string>
+    <string name="type.natural.volcano.active">Volcan actif</string>
     <string name="type.natural.water">Étendue d\'eau</string>
     <string name="type.natural.wetland">Zone humide</string>
     <string name="type.natural.wetland.bog">Tourbière</string>
@@ -1354,6 +1355,7 @@
     <string name="type.traffic_calming.bump">Ralentisseur</string>
     <string name="type.traffic_calming.hump">Ralentisseur</string>
     <string name="type.waterway">Voie navigable</string>
+    <string name="type.waterway.access_point">Point d\'accès à la voie d\'eau</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Tunnel du canal</string>
     <string name="type.waterway.fish_pass">Échelle à poissons</string>

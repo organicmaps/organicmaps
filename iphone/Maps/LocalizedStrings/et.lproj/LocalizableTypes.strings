@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Puude rida";
 "type.natural.vineyard" = "Viinamarjaistandus";
 "type.natural.volcano" = "Vulkaan";
+"type.natural.volcano.active" = "Aktiivne vulkaan";
 "type.natural.water" = "Veekogu";
 "type.natural.wetland" = "Märgala";
 "type.natural.wetland.bog" = "Raba";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Kiirusepiiraja";
 "type.traffic_calming.hump" = "Liikluskünnis";
 "type.waterway" = "Veetee";
+"type.waterway.access_point" = "Veetee juurdepääsupunkt";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal tunnelis";
 "type.waterway.fish_pass" = "Kalatrepp";

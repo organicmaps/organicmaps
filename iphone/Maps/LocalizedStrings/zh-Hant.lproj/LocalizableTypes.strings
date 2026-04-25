@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "樹列";
 "type.natural.vineyard" = "葡萄園";
 "type.natural.volcano" = "火山";
+"type.natural.volcano.active" = "活火山";
 "type.natural.water" = "水體";
 "type.natural.wetland" = "沼澤";
 "type.natural.wetland.bog" = "泥炭地";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "減速帶";
 "type.traffic_calming.hump" = "減速丘";
 "type.waterway" = "水道";
+"type.waterway.access_point" = "水道存取點";
 "type.waterway.canal" = "運河";
 "type.waterway.canal.tunnel" = "運河";
 "type.waterway.fish_pass" = "魚梯";

@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Rândul de copaci";
 "type.natural.vineyard" = "Vie";
 "type.natural.volcano" = "Vulcan";
+"type.natural.volcano.active" = "Vulcan activ";
 "type.natural.water" = "Apă";
 "type.natural.wetland" = "Loc mlăștinos";
 "type.natural.wetland.bog" = "Turbărie";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Punct de acces la calea navigabilă";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Scară de pește";

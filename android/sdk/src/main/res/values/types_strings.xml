@@ -787,6 +787,7 @@
     <string name="type.natural.tree_row">Tree Row</string>
     <string name="type.natural.vineyard">Vineyard</string>
     <string name="type.natural.volcano">Volcano</string>
+    <string name="type.natural.volcano.active">Active Volcano</string>
     <string name="type.natural.water">Water</string>
     <string name="type.natural.wetland">Wetland</string>
     <string name="type.natural.wetland.bog">Bog</string>
@@ -1386,6 +1387,7 @@
     <string name="type.traffic_calming.bump">Traffic Bump</string>
     <string name="type.traffic_calming.hump">Traffic Hump</string>
     <string name="type.waterway">Waterway</string>
+    <string name="type.waterway.access_point">Waterway Access Point</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Canal Tunnel</string>
     <string name="type.waterway.fish_pass">Fish Pass</string>

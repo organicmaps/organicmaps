@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Zuhaitz ilara";
 "type.natural.vineyard" = "Mahasti";
 "type.natural.volcano" = "Sumendi";
+"type.natural.volcano.active" = "Sumendi aktiboa";
 "type.natural.water" = "Ur-masa";
 "type.natural.wetland" = "Lur paduratsua";
 "type.natural.wetland.bog" = "Zohikaztegi";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Ur-bideetarako sarbide-puntu";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Arrainen eskailera";

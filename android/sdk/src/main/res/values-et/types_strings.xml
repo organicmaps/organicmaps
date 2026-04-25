@@ -755,6 +755,7 @@
     <string name="type.natural.tree_row">Puude rida</string>
     <string name="type.natural.vineyard">Viinamarjaistandus</string>
     <string name="type.natural.volcano">Vulkaan</string>
+    <string name="type.natural.volcano.active">Aktiivne vulkaan</string>
     <string name="type.natural.water">Veekogu</string>
     <string name="type.natural.wetland">Märgala</string>
     <string name="type.natural.wetland.bog">Raba</string>
@@ -1354,6 +1355,7 @@
     <string name="type.traffic_calming.bump">Kiirusepiiraja</string>
     <string name="type.traffic_calming.hump">Liikluskünnis</string>
     <string name="type.waterway">Veetee</string>
+    <string name="type.waterway.access_point">Veetee juurdepääsupunkt</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal tunnelis</string>
     <string name="type.waterway.fish_pass">Kalatrepp</string>

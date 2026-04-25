@@ -735,6 +735,7 @@
     <string name="type.natural.tree_row">Trädrad</string>
     <string name="type.natural.vineyard">Vingård</string>
     <string name="type.natural.volcano">Vulkan</string>
+    <string name="type.natural.volcano.active">Aktiv vulkan</string>
     <string name="type.natural.water">Vatten</string>
     <string name="type.natural.wetland">Sumpmarken</string>
     <string name="type.natural.wetland.bog">Myr</string>
@@ -1309,6 +1310,7 @@
     <string name="type.traffic_calming.bump">Fartgupp</string>
     <string name="type.traffic_calming.hump">Fartbula</string>
     <string name="type.waterway">Vattendrag</string>
+    <string name="type.waterway.access_point">Accesspunkt för vattenväg</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Fiskstege</string>

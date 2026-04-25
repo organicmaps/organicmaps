@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Fila de árboles";
 "type.natural.vineyard" = "Viña";
 "type.natural.volcano" = "Volcán";
+"type.natural.volcano.active" = "Volcán activo";
 "type.natural.water" = "Cuerpo de agua";
 "type.natural.wetland" = "Terreno pantanoso";
 "type.natural.wetland.bog" = "Turbera";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Topes";
 "type.traffic_calming.hump" = "Lomo";
 "type.waterway" = "Curso de agua";
+"type.waterway.access_point" = "Punto de acceso a vías navegables";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Escalera de peces";

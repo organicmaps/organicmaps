@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Tree Row";
 "type.natural.vineyard" = "द्राक्षाक्षेत्र";
 "type.natural.volcano" = "ज्वालामुखी";
+"type.natural.volcano.active" = "सक्रिय ज्वालामुखी";
 "type.natural.water" = "जल निकाय";
 "type.natural.wetland" = "आर्द्रभूमि";
 "type.natural.wetland.bog" = "Bog";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "जलमार्ग पहुँच बिंदु";
 "type.waterway.canal" = "नहर";
 "type.waterway.canal.tunnel" = "नहर";
 "type.waterway.fish_pass" = "Fish Pass";

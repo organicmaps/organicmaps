@@ -639,6 +639,7 @@
     <string name="type.natural.tree_row">Trerekke</string>
     <string name="type.natural.vineyard">Vingård</string>
     <string name="type.natural.volcano">Vulkan</string>
+    <string name="type.natural.volcano.active">Aktiv vulkan</string>
     <string name="type.natural.water">Vann</string>
     <string name="type.natural.wetland">Våtmarksområde</string>
     <string name="type.natural.wetland.bog">Myr</string>
@@ -1179,6 +1180,7 @@
     <string name="type.tourism.wilderness_hut">Villmarkshytte</string>
     <string name="type.tourism.zoo">Dyrehage</string>
     <string name="type.tourism.zoo.petting">Dyrehage</string>
+    <string name="type.waterway.access_point">Adkomstpunkt for vannvei</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Fiskestige</string>

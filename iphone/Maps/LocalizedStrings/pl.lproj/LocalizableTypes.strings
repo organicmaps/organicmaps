@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Rząd drzew";
 "type.natural.vineyard" = "Winnica";
 "type.natural.volcano" = "Wulkan";
+"type.natural.volcano.active" = "Aktywny wulkan";
 "type.natural.water" = "Akwen";
 "type.natural.wetland" = "Tereny podmokłe";
 "type.natural.wetland.bog" = "Torfowisko";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Krótki próg zwalniający";
 "type.traffic_calming.hump" = "Długi próg zwalniający";
 "type.waterway" = "Droga wodna";
+"type.waterway.access_point" = "Punkt dostępu do drogi wodnej";
 "type.waterway.canal" = "Kanał";
 "type.waterway.canal.tunnel" = "Kanał";
 "type.waterway.fish_pass" = "Przepławka";

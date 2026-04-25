@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "แถวต้นไม้";
 "type.natural.vineyard" = "ไร่องุ่น";
 "type.natural.volcano" = "ภูเขาไฟ";
+"type.natural.volcano.active" = "ภูเขาไฟที่ยังปะทุอยู่";
 "type.natural.water" = "แหล่งน้ำ";
 "type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
 "type.natural.wetland.bog" = "พรุ";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "จุดเข้าถึงทางน้ำ";
 "type.waterway.canal" = "คลอง";
 "type.waterway.canal.tunnel" = "คลอง";
 "type.waterway.fish_pass" = "บันไดปลา";

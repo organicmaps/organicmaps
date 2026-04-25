@@ -755,6 +755,7 @@
     <string name="type.natural.tree_row">Ağaç Sırası</string>
     <string name="type.natural.vineyard">Bağ</string>
     <string name="type.natural.volcano">Volkan</string>
+    <string name="type.natural.volcano.active">Aktif Volkan</string>
     <string name="type.natural.water">Su</string>
     <string name="type.natural.wetland">Sulak Alan</string>
     <string name="type.natural.wetland.bog">Turbalık</string>
@@ -1354,6 +1355,7 @@
     <string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
     <string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>
     <string name="type.waterway">Su Yolu</string>
+    <string name="type.waterway.access_point">Su Yolu Erişim Noktası</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Balık Geçidi</string>
