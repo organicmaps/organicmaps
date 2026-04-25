@@ -1,16 +1,16 @@
 #pragma once
 #include "indexer/feature_altitude.hpp"
 
+#include "coding/files_container.hpp"
 #include "coding/memory_region.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
-#include <memory>
-#include <string>
-#include <vector>
-
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/rs_bit_vector.hpp"
+
+#include <memory>
+#include <string>
 
 class MwmValue;
 

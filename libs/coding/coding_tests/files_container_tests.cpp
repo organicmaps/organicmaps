@@ -1,14 +1,14 @@
 #include "testing/testing.hpp"
 
 #include "coding/files_container.hpp"
+#include "coding/mmap_reader.hpp"
 #include "coding/varint.hpp"
 
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstddef>
-#include <cstdint>
+#include "std/target_os.hpp"
+
 #include <string>
 
 #ifndef OMIM_OS_WINDOWS
@@ -257,83 +257,12 @@ UNIT_TEST(FilesContainer_ConsecutiveRewriteExisting)
   FileWriter::DeleteFileX(fName);
 }
 
-UNIT_TEST(FilesMappingContainer_Handle)
-{
-  string const fName = "files_container.tmp";
-  string const tag = "dummy";
-
-  {
-    FilesContainerW writer(fName);
-    auto w = writer.GetWriter(tag);
-    w->Write(tag.c_str(), tag.size());
-  }
-
-  {
-    FilesMappingContainer cont(fName);
-
-    FilesMappingContainer::Handle h1 = cont.Map(tag);
-    TEST(h1.IsValid(), ());
-
-    FilesMappingContainer::Handle h2;
-    TEST(!h2.IsValid(), ());
-
-    h2.Assign(std::move(h1));
-    TEST(!h1.IsValid(), ());
-    TEST(h2.IsValid(), ());
-  }
-
-  FileWriter::DeleteFileX(fName);
-}
-
-UNIT_TEST(FilesMappingContainer_MoveHandle)
-{
-  static uint8_t const kNumMapTests = 200;
-  class HandleWrapper
-  {
-  public:
-    explicit HandleWrapper(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle))
-    {
-      TEST(m_handle.IsValid(), ());
-    }
-
-  private:
-    FilesMappingContainer::Handle m_handle;
-  };
-
-  string const containerPath = "files_container.tmp";
-  string const tagName = "dummy";
-
-  SCOPE_GUARD(deleteContainerFileGuard, bind(&FileWriter::DeleteFileX, cref(containerPath)));
-
-  {
-    FilesContainerW writer(containerPath);
-    auto w = writer.GetWriter(tagName);
-    w->Write(tagName.c_str(), tagName.size());
-  }
-
-  {
-    FilesMappingContainer cont(containerPath);
-
-    FilesMappingContainer::Handle h1 = cont.Map(tagName);
-    TEST(h1.IsValid(), ());
-
-    FilesMappingContainer::Handle h2(std::move(h1));
-    TEST(h2.IsValid(), ());
-    TEST(!h1.IsValid(), ());
-
-    for (int i = 0; i < kNumMapTests; ++i)
-    {
-      FilesMappingContainer::Handle parent_handle = cont.Map(tagName);
-      HandleWrapper tmp(std::move(parent_handle));
-    }
-  }
-}
-
 UNIT_TEST(FilesMappingContainer_Smoke)
 {
   string const fName = "files_container.tmp";
   char const * key[] = {"3", "2", "1"};
   uint32_t const count = 1000000;
+  size_t constexpr kSlice = sizeof(uint32_t);
 
   // fill container
   {
@@ -345,26 +274,24 @@ UNIT_TEST(FilesMappingContainer_Smoke)
       for (uint32_t j = 0; j < count; ++j)
       {
         uint32_t v = j + static_cast<uint32_t>(i);
-        w->Write(&v, sizeof(v));
+        w->Write(&v, kSlice);
       }
     }
   }
 
   {
-    FilesMappingContainer reader(fName);
+    FilesContainerR cont(std::make_unique<MmapReader>(fName));
 
     for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
-      FilesMappingContainer::Handle h = reader.Map(key[i]);
-      uint32_t const * data = h.GetData<uint32_t>();
+      auto reader = cont.GetReader(key[i]);
 
       for (uint32_t j = 0; j < count; ++j)
       {
-        TEST_EQUAL(j + i, *data, ());
-        ++data;
+        uint32_t c;
+        reader.Read(j * kSlice, &c, kSlice);
+        TEST_EQUAL(j + i, c, ());
       }
-
-      h.Unmap();
     }
   }
 
@@ -384,7 +311,7 @@ UNIT_TEST(FilesMappingContainer_PageSize)
   LOG(LINFO, ("Page size:", pageSize));
 
   char const * key[] = {"3", "2", "1"};
-  char const byte[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+  uint8_t const byte[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
   size_t count[] = {pageSize - 1, pageSize, pageSize + 1};
   size_t const sz = ARRAY_SIZE(key);
 
@@ -400,20 +327,20 @@ UNIT_TEST(FilesMappingContainer_PageSize)
   }
 
   {
-    FilesMappingContainer reader(fName);
-    FilesMappingContainer::Handle handle[sz];
+    FilesContainerR cont(std::make_unique<MmapReader>(fName));
+
+    for (size_t i = 0; i < sz; ++i)
+      TEST_EQUAL(cont.GetReader(key[i]).Size(), count[i], ());
 
     for (size_t i = 0; i < sz; ++i)
     {
-      handle[i].Assign(reader.Map(key[i]));
-      TEST_EQUAL(handle[i].GetSize(), count[i], ());
-    }
-
-    for (size_t i = 0; i < sz; ++i)
-    {
-      char const * data = handle[i].GetData<char>();
+      auto reader = cont.GetReader(key[i]);
       for (size_t j = 0; j < count[i]; ++j)
-        TEST_EQUAL(*data++, byte[j % ARRAY_SIZE(byte)], ());
+      {
+        uint8_t c;
+        reader.Read(j, &c, 1);
+        TEST_EQUAL(c, byte[j % ARRAY_SIZE(byte)], ());
+      }
     }
   }
 
