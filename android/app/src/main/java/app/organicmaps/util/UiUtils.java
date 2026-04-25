@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
@@ -21,13 +20,11 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
-import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -241,10 +238,9 @@ public final class UiUtils
     else
     {
       wic.show(WindowInsetsCompat.Type.systemBars());
-      // If pre-R devices regress with stale inset positions after exiting fullscreen,
-      // uncomment to force a fresh inset dispatch from the decor view (Option B from
-      // plans/android-insets/00_initial_refactoring.md, §P2):
-      // decorView.requestApplyInsets();
+      // On R+, show() already triggers inset dispatch. Only pre-R needs manual request.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
+        decorView.requestApplyInsets();
     }
   }
 
@@ -252,21 +248,10 @@ public final class UiUtils
   {
     final Window window = activity.getWindow();
     final View decorView = window.getDecorView();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-    {
-      // It should not be possible for Window insets controller to be null
-      WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
-      if (wic.isAppearanceLightStatusBars() != isLight)
-        wic.setAppearanceLightStatusBars(isLight);
-    }
-    else
-    {
-      @ColorInt
-      final int color =
-          isLight ? ResourcesCompat.getColor(activity.getResources(), R.color.bg_statusbar_translucent, null)
-                  : Color.TRANSPARENT;
-      window.setStatusBarColor(color);
-    }
+    // It should not be possible for Window insets controller to be null
+    WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+    if (wic.isAppearanceLightStatusBars() != isLight)
+      wic.setAppearanceLightStatusBars(isLight);
   }
 
   public static void setupNavigationIcon(@NonNull Toolbar toolbar, @NonNull View.OnClickListener listener)

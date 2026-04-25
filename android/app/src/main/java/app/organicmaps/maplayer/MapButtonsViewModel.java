@@ -1,6 +1,7 @@
 package app.organicmaps.maplayer;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import app.organicmaps.sdk.location.TrackRecorder;
@@ -28,7 +29,7 @@ public class MapButtonsViewModel extends ViewModel
     mButtonsHidden.setValue(buttonsHidden);
   }
 
-  public MutableLiveData<Boolean> getFullscreen()
+  public LiveData<Boolean> getFullscreen()
   {
     return mFullscreen;
   }

@@ -19,7 +19,6 @@ import androidx.fragment.app.FragmentManager;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
-import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
 import java.util.Objects;
 
@@ -39,11 +38,8 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
+    EdgeToEdge.enable(this, getStatusBarStyle());
     super.onCreate(savedInstanceState);
-    // auto() flips icon appearance with the system theme; subclasses that need a different
-    // policy (e.g. MwmActivity.refreshLightStatusBar for the map surface) override at runtime.
-    EdgeToEdge.enable(this, SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
-                      SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT));
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       final Intent intent = Objects.requireNonNull(getIntent());
@@ -54,6 +50,18 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     onSafeCreate(savedInstanceState);
+  }
+
+  /**
+   * Status-bar style passed to {@link EdgeToEdge#enable}. The default uses light (white)
+   * icons, which contrast with the dark {@code ?colorPrimary} toolbar that most activities show
+   * behind the transparent status bar. Override in activities whose status bar overlays a
+   * different background (e.g. the map surface).
+   */
+  @NonNull
+  protected SystemBarStyle getStatusBarStyle()
+  {
+    return SystemBarStyle.dark(Color.TRANSPARENT);
   }
 
   /**

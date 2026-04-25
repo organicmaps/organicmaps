@@ -17,9 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -29,6 +27,7 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.IOException;
 import java.util.Objects;
@@ -210,13 +209,6 @@ public class SplashActivity extends AppCompatActivity
   private void adjustBrandingInfoPadding()
   {
     final View brandingInfo = findViewById(R.id.ll__branding_info);
-    // Capture the baseline once so repeated inset dispatches don't accumulate paddingBottom.
-    final int baseBottom = brandingInfo.getPaddingBottom();
-    ViewCompat.setOnApplyWindowInsetsListener(brandingInfo, (view, insets) -> {
-      final Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-      view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
-                      baseBottom + systemBars.bottom);
-      return insets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(brandingInfo, BaselinePaddingInsetsListener.onlyBottom());
   }
 }

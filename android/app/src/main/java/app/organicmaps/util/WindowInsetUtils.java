@@ -128,6 +128,12 @@ public final class WindowInsetUtils
     }
   }
 
+  /**
+   * Inset listener that <b>overwrites</b> the view's padding with the requested inset values.
+   * Any padding set via XML or code is silently replaced on each dispatch. For views that carry
+   * meaningful baseline padding, use {@link BaselinePaddingInsetsListener} instead — it captures
+   * the original padding on first dispatch and <em>adds</em> insets to it.
+   */
   public static final class PaddingInsetsListener implements OnApplyWindowInsetsListener
   {
     private final int insetsTypeMask;
@@ -183,6 +189,11 @@ public final class WindowInsetUtils
       return new PaddingInsetsListener(insetsTypeMask, true, false, true, true);
     }
 
+    public static PaddingInsetsListener onlyBottom(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, false, true, false, false);
+    }
+
     @NonNull
     @Override
     public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
@@ -223,16 +234,6 @@ public final class WindowInsetUtils
     public BaselinePaddingInsetsListener(boolean top, boolean bottom, boolean left, boolean right)
     {
       this(TYPE_SAFE_DRAWING, top, bottom, left, right);
-    }
-
-    public static BaselinePaddingInsetsListener allSides()
-    {
-      return new BaselinePaddingInsetsListener(true, true, true, true);
-    }
-
-    public static BaselinePaddingInsetsListener excludeTop()
-    {
-      return new BaselinePaddingInsetsListener(false, true, true, true);
     }
 
     public static BaselinePaddingInsetsListener excludeBottom()

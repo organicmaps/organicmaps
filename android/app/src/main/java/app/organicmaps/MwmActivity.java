@@ -28,9 +28,9 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
@@ -45,7 +45,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -509,7 +508,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
     setContentView(R.layout.activity_map);
-    makeNavigationBarTransparentInLightMode();
+    // On API 26+ (Oreo), icon appearance can be toggled via isAppearanceLightNavigationBars,
+    // so a fully transparent nav bar is safe. On API 23–25, keep EdgeToEdge's default dark
+    // scrim (0x801b1b1b) — the light nav-bar icons have no dark variant.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+    {
+      getWindow().setNavigationBarColor(Color.TRANSPARENT);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        getWindow().setNavigationBarContrastEnforced(false);
+    }
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
@@ -561,6 +568,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
      */
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
+  }
+
+  @NonNull
+  @Override
+  protected SystemBarStyle getStatusBarStyle()
+  {
+    return SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT);
   }
 
   private void refreshLightStatusBar()
@@ -720,6 +734,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showPositionChooser(ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
   {
+    if (isFullscreen())
+      exitFullscreen();
     closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
@@ -1061,16 +1077,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     refreshSearchToolbar();
-    if (isFullscreen())
-      enterFullscreenIfAllowed();
-    else
-      exitFullscreen();
-    makeNavigationBarTransparentInLightMode();
     if (ChoosePositionMode.get() != ChoosePositionMode.None)
     {
       UiUtils.show(mPointChooser);
       mMapButtonsViewModel.setButtonsHidden(true);
     }
+    else if (isFullscreen())
+      enterFullscreenIfAllowed();
+    else
+      exitFullscreen();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
 
@@ -2399,16 +2414,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(TAG, "Trim memory, level = " + level);
     if (level >= TRIM_MEMORY_RUNNING_LOW && level != TRIM_MEMORY_UI_HIDDEN)
       Framework.nativeMemoryWarning();
-  }
-
-  private void makeNavigationBarTransparentInLightMode()
-  {
-    final boolean isLightMode = !app.organicmaps.sdk.util.Utils.isDarkMode(this);
-    final Window window = getWindow();
-    window.setNavigationBarColor(Color.TRANSPARENT);
-    new WindowInsetsControllerCompat(window, window.getDecorView()).setAppearanceLightNavigationBars(isLightMode);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      window.setNavigationBarContrastEnforced(false);
   }
 
   private void reportUnsupported()

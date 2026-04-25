@@ -95,10 +95,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       final int startInset = isRtl ? safeDrawing.right : safeDrawing.left;
       nextTurnContainer.setPaddingRelative(startInset, nextTurnContainer.getPaddingTop(),
                                            nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
+      return windowInsets;
+    });
 
-      final ViewGroup.LayoutParams lp = navigationBarBackground.getLayoutParams();
-      lp.height = safeDrawing.bottom;
-      navigationBarBackground.setLayoutParams(lp);
+    ViewCompat.setOnApplyWindowInsetsListener(navigationBarBackground, (v, windowInsets) -> {
+      final ViewGroup.LayoutParams lp = v.getLayoutParams();
+      lp.height = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING).bottom;
+      v.setLayoutParams(lp);
       return windowInsets;
     });
 
