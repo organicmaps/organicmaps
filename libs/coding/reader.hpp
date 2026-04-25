@@ -10,6 +10,15 @@
 #include <string>
 #include <type_traits>
 
+class MemoryRegion
+{
+public:
+  virtual ~MemoryRegion() = default;
+
+  virtual uint64_t Size() const = 0;
+  virtual uint8_t const * ImmutableData() const = 0;
+};
+
 // Base class for random-access Reader. Not thread-safe.
 class Reader
 {
@@ -23,6 +32,7 @@ public:
   virtual ~Reader() = default;
   virtual uint64_t Size() const = 0;
   virtual void Read(uint64_t pos, void * p, size_t size) const = 0;
+  virtual std::unique_ptr<MemoryRegion> GetMemoryRegion(uint64_t pos, size_t size) const;
   virtual std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
   void ReadAsString(std::string & s) const;
@@ -102,10 +112,13 @@ public:
   uint64_t Size() const { return m_p->Size(); }
 
   void Read(uint64_t pos, void * p, size_t size) const { m_p->Read(pos, p, size); }
-
+  std::unique_ptr<MemoryRegion> GetMemoryRegion(uint64_t pos, size_t size) const
+  {
+    return m_p->GetMemoryRegion(pos, size);
+  }
   void ReadAsString(std::string & s) const { m_p->ReadAsString(s); }
 
-  ReaderPtr<Reader> SubReader(uint64_t pos, uint64_t size) const { return {m_p->CreateSubReader(pos, size)}; }
+  ReaderPtr<Reader> SubReader(uint64_t pos, uint64_t size) const { return m_p->CreateSubReader(pos, size); }
 
   TReader * GetPtr() const { return m_p.get(); }
 };

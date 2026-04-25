@@ -7,15 +7,12 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
-#include "coding/memory_region.hpp"
 #include "coding/simple_dense_coding.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-
-#include <algorithm>
 
 #include "defines.hpp"
 
@@ -26,26 +23,12 @@ namespace
 size_t constexpr kVersionOffset = 0;
 size_t constexpr kHeaderSize = 8;
 
-std::unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rcont,
-                                                          FilesContainerBase::Tag const & tag)
+template <class TContainer>
+std::unique_ptr<MemoryRegion> GetMemoryRegionForTag(TContainer const & cont, FilesContainerBase::Tag const & tag)
 {
-  if (!rcont.IsExist(tag))
-    return {};
-
-  FilesContainerR::TReader reader = rcont.GetReader(tag);
-  std::vector<uint8_t> buffer(static_cast<size_t>(reader.Size()));
-  reader.Read(0, buffer.data(), buffer.size());
-  return std::make_unique<CopiedMemoryRegion>(std::move(buffer));
-}
-
-std::unique_ptr<MappedMemoryRegion> GetMemoryRegionForTag(FilesMappingContainer const & mcont,
-                                                          FilesContainerBase::Tag const & tag)
-{
-  if (!mcont.IsExist(tag))
-    return {};
-
-  FilesMappingContainer::Handle handle = mcont.Map(tag);
-  return std::make_unique<MappedMemoryRegion>(std::move(handle));
+  if (cont.IsExist(tag))
+    return cont.GetMemoryRegion(tag);
+  return {};
 }
 
 // RankTable version 0, uses simple dense coding to store and access array of ranks.
@@ -83,12 +66,11 @@ public:
   }
 
   // Loads RankTableV0 from a raw memory region.
-  template <class TRegion>
-  static std::unique_ptr<RankTableV0> Load(std::unique_ptr<TRegion> && region)
+  static std::unique_ptr<RankTableV0> Load(std::unique_ptr<MemoryRegion> && region)
   {
     auto table = std::make_unique<RankTableV0>();
     table->m_region = std::move(region);
-    coding::Map(table->m_coding, table->m_region->ImmutableData() + kHeaderSize, "SimpleDenseCoding");
+    coding::Map(table->m_coding, table->m_region->ImmutableData() + kHeaderSize);
     return table;
   }
 
@@ -121,11 +103,7 @@ void SerializeRankTable(RankTable & table, std::string const & mapPath, std::str
   SerializeRankTable(table, wcont, sectionName);
 }
 
-// Deserializes rank table from a rank section. Returns null when it's
-// not possible to load a rank table (no rank section, corrupted
-// header, endianness mismatch for a mapped mwm).
-template <typename TRegion>
-std::unique_ptr<RankTable> LoadRankTable(std::unique_ptr<TRegion> && region)
+std::unique_ptr<RankTable> LoadRankTable(std::unique_ptr<MemoryRegion> && region)
 {
   if (!region || !region->ImmutableData())
     return {};

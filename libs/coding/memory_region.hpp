@@ -4,19 +4,9 @@
 
 #include "base/macros.hpp"
 
-#include <cstdint>
-#include <utility>
 #include <vector>
 
-class MemoryRegion
-{
-public:
-  virtual ~MemoryRegion() = default;
-
-  virtual uint64_t Size() const = 0;
-  virtual uint8_t const * ImmutableData() const = 0;
-};
-
+/// @todo Adapt to MmapReader. FilesMappingContainer will be removed.
 class MappedMemoryRegion : public MemoryRegion
 {
 public:

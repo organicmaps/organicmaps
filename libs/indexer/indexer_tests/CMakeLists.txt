@@ -36,6 +36,7 @@ set(SRC
   string_slice_tests.cpp
   test_mwm_set.hpp
   test_type.cpp
+  tmp_mwm_copy.hpp
   tree_node_tests.cpp
   trie_test.cpp
   validate_and_format_contacts_test.cpp

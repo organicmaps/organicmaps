@@ -1,19 +1,17 @@
 #include "testing/testing.hpp"
+#include "tmp_mwm_copy.hpp"
 
 #include "indexer/data_header.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
-
-#include "base/scope_guard.hpp"
+#include "coding/mmap_reader.hpp"
 
 #include "defines.hpp"
 
-#include <functional>
 #include <memory>
 #include <string>
 
@@ -68,28 +66,22 @@ UNIT_TEST(FeaturesOffsetsTable_Basic)
 
 UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
 {
-  string const testFileName = "test_file";
-  Platform & pl = GetPlatform();
-
-  FilesContainerR baseContainer(pl.GetReader("minsk-pass" DATA_FILE_EXTENSION));
   size_t constexpr minFeaturesCount = 5000;
+  tests::TempMwmCopy mwmCopy("minsk-pass");
+  auto const & mwmPath = mwmCopy.GetPath();
 
-  LocalCountryFile localFile = LocalCountryFile::MakeForTesting(testFileName);
-  CountryIndexes::PreparePlaceOnDisk(localFile);
+  FilesContainerR cont(GetPlatform().GetReader("minsk-pass" DATA_FILE_EXTENSION));
+  unique_ptr<FeaturesOffsetsTable> srcTable(FeaturesOffsetsTable::Load(cont, FEATURE_OFFSETS_FILE_TAG));
+  TEST(srcTable.get() && srcTable->size() > minFeaturesCount, ());
 
-  string const indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
-  SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
+  BuildOffsetsTable(mwmPath);
 
-  FeaturesOffsetsTable::Build(baseContainer, indexFile);
+  FilesContainerR newCont(std::make_unique<MmapReader>(mwmPath));
+  unique_ptr<FeaturesOffsetsTable> newTable(FeaturesOffsetsTable::Load(newCont, FEATURE_OFFSETS_FILE_TAG));
 
-  unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Load(baseContainer, FEATURE_OFFSETS_FILE_TAG));
-  TEST(table.get() && table->size() > minFeaturesCount, ());
-
-  unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
-  TEST(loadedTable.get() && loadedTable->size() > minFeaturesCount, ());
-
-  TEST_EQUAL(table->size(), loadedTable->size(), ());
-  for (uint64_t i = 0; i < table->size(); ++i)
-    TEST_EQUAL(table->GetFeatureOffset(i), loadedTable->GetFeatureOffset(i), ());
+  TEST_EQUAL(srcTable->size(), newTable->size(), ());
+  for (uint64_t i = 0; i < srcTable->size(); ++i)
+    TEST_EQUAL(srcTable->GetFeatureOffset(i), newTable->GetFeatureOffset(i), ());
 }
+
 }  // namespace features_offsets_table_test
