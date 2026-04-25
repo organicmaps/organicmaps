@@ -1,6 +1,7 @@
 #include "coding/files_container.hpp"
 
 #include "coding/internal/file_data.hpp"
+#include "coding/memory_region.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
@@ -82,15 +83,12 @@ FilesContainerR::TReader FilesContainerR::GetReader(Tag const & tag) const
   return m_source.SubReader(p->m_offset, p->m_size);
 }
 
-std::pair<uint64_t, uint64_t> FilesContainerR::GetAbsoluteOffsetAndSize(Tag const & tag) const
+std::unique_ptr<MemoryRegion> FilesContainerR::GetMemoryRegion(Tag const & tag) const
 {
   TagInfo const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", GetFileName(), tag));
-
-  auto reader = dynamic_cast<FileReader const *>(m_source.GetPtr());
-  uint64_t const offset = reader ? reader->GetOffset() : 0;
-  return std::make_pair(offset + p->m_offset, p->m_size);
+  return m_source.GetMemoryRegion(p->m_offset, p->m_size);
 }
 
 FilesContainerBase::TagInfo const * FilesContainerBase::GetInfo(Tag const & tag) const
@@ -238,6 +236,11 @@ FileReader FilesMappingContainer::GetReader(Tag const & tag) const
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", m_name, tag));
   return FileReader(m_name).SubReader(p->m_offset, p->m_size);
+}
+
+std::unique_ptr<MemoryRegion> FilesMappingContainer::GetMemoryRegion(Tag const & tag) const
+{
+  return std::make_unique<MappedMemoryRegion>(Map(tag));
 }
 
 /////////////////////////////////////////////////////////////////////////////

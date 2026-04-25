@@ -1,19 +1,14 @@
 #include "testing/testing.hpp"
+#include "tmp_mwm_copy.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 
-#include "platform/country_defines.hpp"
-#include "platform/local_country_file.hpp"
-#include "platform/platform.hpp"
-
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
-#include "coding/internal/file_data.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 #include "defines.hpp"
@@ -80,29 +75,24 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 {
   classificator::Load();
 
-  string const originalMapPath = base::JoinPath(GetPlatform().ResourcesDir(), "minsk-pass.mwm");
-  string const mapPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-copy.mwm");
-  base::CopyFileX(originalMapPath, mapPath);
-  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, mapPath));
-
-  auto const localFile = platform::LocalCountryFile::MakeForTesting("minsk-pass-copy");
-  TEST(localFile.OnDisk(MapFileType::Map), ());
+  tests::TempMwmCopy mwmCopy("minsk-pass");
+  auto const & mwmPath = mwmCopy.GetPath();
 
   vector<uint8_t> ranks;
   {
-    FilesContainerR rcont(mapPath);
+    FilesContainerR rcont(mwmPath);
     search::SearchRankTableBuilder::CalcSearchRanks(rcont, ranks);
   }
 
   {
-    FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
+    FilesContainerW wcont(mwmPath, FileWriter::OP_WRITE_EXISTING);
     search::RankTableBuilder::Create(ranks, wcont, SEARCH_RANKS_FILE_TAG);
   }
 
   FrozenDataSource dataSource;
-  auto regResult = dataSource.RegisterMap(localFile);
+  auto regResult = dataSource.RegisterMap(mwmCopy.GetLocalFile());
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
-  TestTable(ranks, mapPath);
+  TestTable(ranks, mwmPath);
 }
 }  // namespace rank_table_test

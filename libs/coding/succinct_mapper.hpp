@@ -5,19 +5,9 @@
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 
-#include <type_traits>
-
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-local-typedef"
-#endif
-
 #include "3party/succinct/mappable_vector.hpp"
-#include "3party/succinct/mapper.hpp"
 
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
+#include <type_traits>
 
 namespace coding
 {
@@ -243,7 +233,7 @@ private:
 };
 
 template <typename T>
-uint64_t Map(T & value, uint8_t const * base, char const * name)
+uint64_t Map(T & value, uint8_t const * base, char const * name = nullptr)
 {
   MapVisitor visitor(base);
   visitor(value, name);

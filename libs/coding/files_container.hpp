@@ -7,11 +7,8 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 class FilesContainerBase
@@ -99,6 +96,7 @@ public:
   explicit FilesContainerR(TReader const & file);
 
   TReader GetReader(Tag const & tag) const;
+  std::unique_ptr<MemoryRegion> GetMemoryRegion(Tag const & tag) const;
 
   template <typename F>
   void ForEachTag(F && f) const
@@ -109,8 +107,6 @@ public:
 
   uint64_t GetFileSize() const { return m_source.Size(); }
   std::string const & GetFileName() const { return m_source.GetName(); }
-
-  std::pair<uint64_t, uint64_t> GetAbsoluteOffsetAndSize(Tag const & tag) const;
 
 private:
   TReader m_source;
@@ -195,6 +191,7 @@ private:
 };
 }  // namespace detail
 
+/// @todo Remove. Should be FilesContainerR + MmapReader.
 class FilesMappingContainer : public FilesContainerBase
 {
 public:
@@ -211,6 +208,7 @@ public:
 
   Handle Map(Tag const & tag) const;
   FileReader GetReader(Tag const & tag) const;
+  std::unique_ptr<MemoryRegion> GetMemoryRegion(Tag const & tag) const;
 
   std::string const & GetName() const { return m_name; }
 
