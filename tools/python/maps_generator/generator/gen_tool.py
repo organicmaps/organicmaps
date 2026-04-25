@@ -52,7 +52,6 @@ class GenTool:
         "cache_path": str,
         "cities_boundaries_data": str,
         "data_path": str,
-        "dump_wikipedia_urls": str,
         "geo_objects_features": str,
         "geo_objects_key_value": str,
         "ids_without_addresses": str,

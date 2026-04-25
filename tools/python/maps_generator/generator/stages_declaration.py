@@ -18,9 +18,6 @@ from typing import Type
 
 import maps_generator.generator.diffs as diffs
 import maps_generator.generator.stages_tests as st
-from descriptions.descriptions_downloader import check_and_get_checker
-from descriptions.descriptions_downloader import download_from_wikidata_tags
-from descriptions.descriptions_downloader import download_from_wikipedia_tags
 from maps_generator.generator import coastline
 from maps_generator.generator import settings
 from maps_generator.generator import steps
@@ -137,34 +134,6 @@ class StageFeatures(Stage):
         steps.step_features(env, **extra)
         if os.path.exists(env.paths.packed_polygons_path):
             shutil.copy2(env.paths.packed_polygons_path, env.paths.mwm_path)
-
-
-@outer_stage
-@production_only
-@helper_stage_for("StageDescriptions")
-class StageDownloadDescriptions(Stage):
-    def apply(self, env: Env):
-        run_gen_tool(
-            env.gen_tool,
-            out=env.get_subprocess_out(),
-            err=env.get_subprocess_out(),
-            data_path=env.paths.data_path,
-            intermediate_data_path=env.paths.intermediate_data_path,
-            cache_path=env.paths.cache_path,
-            user_resource_path=env.paths.user_resource_path,
-            dump_wikipedia_urls=env.paths.wiki_url_path,
-            idToWikidata=env.paths.id_to_wikidata_path,
-            threads_count=settings.THREADS_COUNT,
-        )
-
-        langs = ("en", "ru", "es", "fr", "de")
-        checker = check_and_get_checker(env.paths.popularity_path)
-        download_from_wikipedia_tags(
-            env.paths.wiki_url_path, env.paths.descriptions_path, langs, checker
-        )
-        download_from_wikidata_tags(
-            env.paths.id_to_wikidata_path, env.paths.descriptions_path, langs, checker
-        )
 
 
 @outer_stage
