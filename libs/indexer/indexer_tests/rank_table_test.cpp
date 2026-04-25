@@ -43,7 +43,7 @@ void TestTable(vector<uint8_t> const & ranks, string const & path)
 
   // Tries to load table via file mapping.
   {
-    FilesMappingContainer mcont(path);
+    FilesContainerR mcont(std::make_unique<MmapReader>(path));
     auto table = search::RankTable::Load(mcont, SEARCH_RANKS_FILE_TAG);
     TEST(table, ());
     TestTable(ranks, *table);
