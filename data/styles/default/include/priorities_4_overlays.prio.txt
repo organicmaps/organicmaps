@@ -309,6 +309,7 @@ man_made-communications_tower                       # icon z14- (also has captio
 man_made-lighthouse                                 # icon z14- (also has caption(optional) z14-)
 natural-peak                                        # icon z13- (also has caption(optional) z13-)
 natural-volcano                                     # icon z12- (also has caption(optional) z13-)
+natural-volcano-active                              # icon z12- (also has caption(optional) z13-)
 === 5400
 
 amenity-theatre                                     # icon z14- (also has caption(optional) z14-)
@@ -1502,6 +1503,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # man_made-lighthouse                               # caption(optional) z14- (also has icon z14-)
 # natural-peak                                      # caption(optional) z13- (also has icon z13-)
 # natural-volcano                                   # caption(optional) z13- (also has icon z12-)
+# natural-volcano-active                            # caption(optional) z13- (also has icon z12-)
 # === -4600
 
 # amenity-theatre                                   # caption(optional) z14- (also has icon z14-)

@@ -1769,3 +1769,4 @@ shop|games;1646;
 cuisine|shawarma;1647;
 amenity|hookah_lounge;1648;
 waterway|access_point;1649;
+natural|volcano|active;[natural=volcano][volcano:status=active];;;;1650;

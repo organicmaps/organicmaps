@@ -119,6 +119,11 @@ node|z15-[natural=volcano],
 node|z17-[natural=volcano],
 {font-size: 11;}
 
+node|z12-14[natural=volcano][volcano:status=active],
+{icon-image: volcano-active-s.svg; font-size: 10;}
+node|z15-[natural=volcano][volcano:status=active],
+{icon-image: volcano-active-m.svg;}
+
 node|z13[natural=peak][name],
 {icon-image: peak-xs.svg; font-size: 9;}
 node|z14[natural=peak][name],
