@@ -20183,6 +20183,118 @@ cont {
   }
 }
 cont {
+  name: "building-construction"
+  element {
+    scale: 14
+    area {
+      color: 1512734
+      priority: 130
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 1512734
+      priority: 130
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1512734
+      priority: 130
+    }
+    caption {
+      primary {
+        height: 9
+        color: 9211020
+      }
+      secondary {
+        height: 8
+        color: 9211020
+        offset_y: 1
+      }
+      priority: 230
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 1512734
+      priority: 130
+    }
+    caption {
+      primary {
+        height: 9
+        color: 9211020
+      }
+      secondary {
+        height: 8
+        color: 9211020
+        offset_y: 1
+      }
+      priority: 230
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 1512734
+      priority: 130
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+      }
+      secondary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+      }
+      priority: 230
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 1512734
+      priority: 130
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+      }
+      secondary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+      }
+      priority: 230
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 1512734
+      priority: 130
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+      }
+      secondary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+      }
+      priority: 230
+    }
+  }
+}
+cont {
   name: "building-garage"
   element {
     scale: 14
