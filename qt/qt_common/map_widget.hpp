@@ -1,30 +1,19 @@
 #pragma once
 
-#include "drape/pointers.hpp"
-#include "drape_frontend/gui/skin.hpp"
+#include <QWidget>
+
 #include "drape_frontend/user_event_stream.hpp"
-
-#include "qt/qt_common/qtoglcontextfactory.hpp"
-
-#include <QOpenGLWidget>
-
-#include <QtCore/QTimer>
-
-#include <memory>
+#include "qt/qt_common/renderer/base/renderer_window.hpp"
 
 class Framework;
 class QMouseEvent;
-class QWidget;
 class ScreenBase;
-class QOpenGLShaderProgram;
-class QOpenGLVertexArrayObject;
-class QOpenGLBuffer;
 
 namespace qt::common
 {
 class ScaleSlider;
 
-class MapWidget : public QOpenGLWidget
+class MapWidget : public QWidget
 {
   Q_OBJECT
 
@@ -34,11 +23,10 @@ public:
 
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
-  void CreateEngine();
-  void grabGestures(QList<Qt::GestureType> const & gestures);
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
+  void BeforeEngineCreation();
 
 public slots:
   void ScalePlus();
@@ -61,9 +49,6 @@ public slots:
   void AntialiasingOn();
   void AntialiasingOff();
 
-public:
-  Q_SIGNAL void BeforeEngineCreation();
-
 protected:
   enum class SliderState
   {
@@ -71,42 +56,30 @@ protected:
     Released
   };
 
-  int L2D(int px) const { return px * m_ratio; }
-  m2::PointD GetDevicePoint(QMouseEvent * e) const;
-  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent * e) const;
-  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent * e, df::TouchEvent::ETouchType type) const;
-  df::Touch GetSymmetrical(df::Touch const & touch) const;
+  int L2D(int const px) const { return m_rendererWindow->L2D(px); }
+  m2::PointD GetDevicePoint(QMouseEvent const * const e) const { return m_rendererWindow->GetDevicePoint(e); }
+  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent const * const e) const
+  {
+    return m_rendererWindow->GetDfTouchFromQMouseEvent(e);
+  }
+  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent const * const e,
+                                                df::TouchEvent::ETouchType const type) const
+  {
+    return m_rendererWindow->GetDfTouchEventFromQMouseEvent(e, type);
+  }
+  df::Touch GetSymmetrical(df::Touch const & touch) const { return m_rendererWindow->GetSymmetrical(touch); }
 
   void UpdateScaleControl();
-  void Build();
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
   void OnViewportChanged(ScreenBase const & screen);
-
-  // QOpenGLWidget overrides:
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int width, int height) override;
-
-  void mouseDoubleClickEvent(QMouseEvent * e) override;
-  void mousePressEvent(QMouseEvent * e) override;
-  void mouseMoveEvent(QMouseEvent * e) override;
-  void mouseReleaseEvent(QMouseEvent * e) override;
-  void wheelEvent(QWheelEvent * e) override;
 
   Framework & m_framework;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
 
-  float m_ratio;
-  drape_ptr<QtOGLContextFactory> m_contextFactory;
-  std::unique_ptr<gui::Skin> m_skin;
-
-  std::unique_ptr<QTimer> m_updateTimer;
-
-  std::unique_ptr<QOpenGLShaderProgram> m_program;
-  std::unique_ptr<QOpenGLVertexArrayObject> m_vao;
-  std::unique_ptr<QOpenGLBuffer> m_vbo;
+  renderer::base::RendererWindow * m_rendererWindow;
+  QWidget * m_windowContainer;
 };
 
 }  // namespace qt::common

@@ -156,6 +156,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC drape)
 
 if (PLATFORM_MAC)
   set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
+
+  file(GLOB_RECURSE SHADER_SOURCES_FILES Metal/*.metal)
+  add_metal_shader_library(shaders_metal ${SHADER_SOURCES_FILES})
 endif()
 
 omim_add_test_subdirectory(shaders_tests)

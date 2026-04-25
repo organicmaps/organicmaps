@@ -31,13 +31,10 @@
 
 #include "defines.hpp"
 
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QMenu>
 
 #include <string>
 #include <vector>
@@ -48,10 +45,16 @@ using namespace qt::common;
 
 namespace
 {
-std::vector<dp::Color> colorList = {
-    dp::Color(255, 0, 0, 255),   dp::Color(0, 255, 0, 255),   dp::Color(0, 0, 255, 255),   dp::Color(255, 255, 0, 255),
-    dp::Color(0, 255, 255, 255), dp::Color(255, 0, 255, 255), dp::Color(100, 0, 0, 255),   dp::Color(0, 100, 0, 255),
-    dp::Color(0, 0, 100, 255),   dp::Color(100, 100, 0, 255), dp::Color(0, 100, 100, 255), dp::Color(100, 0, 100, 255)};
+#ifdef OMIM_OS_LINUX
+bool constexpr kIsLinux = true;
+#else
+bool constexpr kIsLinux = false;
+#endif
+
+std::vector colorList = {dp::Color(255, 0, 0, 255),   dp::Color(0, 255, 0, 255),   dp::Color(0, 0, 255, 255),
+                         dp::Color(255, 255, 0, 255), dp::Color(0, 255, 255, 255), dp::Color(255, 0, 255, 255),
+                         dp::Color(100, 0, 0, 255),   dp::Color(0, 100, 0, 255),   dp::Color(0, 0, 100, 255),
+                         dp::Color(100, 100, 0, 255), dp::Color(0, 100, 100, 255), dp::Color(100, 0, 100, 255)};
 
 void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName, std::vector<m2::RegionD> const & regions,
                    bool withVertices)
@@ -76,8 +79,7 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName, std::ve
   }
 }
 
-#if defined(OMIM_OS_LINUX)
-df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEventType)
+constexpr df::TouchEvent::ETouchType QtTouchEventTypeToDfTouchEventType(QEvent::Type const qEventType)
 {
   switch (qEventType)
   {
@@ -88,7 +90,6 @@ df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEven
   default: return df::TouchEvent::TOUCH_NONE;
   }
 }
-#endif
 }  // namespace
 
 DrawWidget::DrawWidget(Framework & framework, QWidget * parent)
@@ -167,72 +168,75 @@ void DrawWidget::ChoosePositionModeDisable()
   m_framework.BlockTapEvents(false /* block */);
 }
 
-void DrawWidget::initializeGL()
-{
-  m_framework.LoadBookmarks();
-
-  MapWidget::initializeGL();
-
-  m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)
-  {
-    if (success)
-      m_framework.GetRoutingManager().BuildRoute();
-  });
-}
+// void DrawWidget::initializeGL()
+// {
+//   m_framework.LoadBookmarks();
+//
+//   MapWidget::initializeGL();
+//
+//   m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)
+//   {
+//     if (success)
+//       m_framework.GetRoutingManager().BuildRoute();
+//   });
+// }
 
 bool DrawWidget::event(QEvent * event)
 {
-#if !defined(OMIM_OS_LINUX)
-  return QOpenGLWidget::event(event);
-#else
-  // TouchScreen
-  if (auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
-      dfTouchEventType != df::TouchEvent::TOUCH_NONE)
+  if constexpr (!kIsLinux)
   {
-    event->accept();
-    QTouchEvent const * qtTouchEvent = dynamic_cast<QTouchEvent const *>(event);
-    df::TouchEvent dfTouchEvent;
-    // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
-    // which theoretically can happen in case of `QEvent::TouchCancel`
-    dfTouchEvent.SetTouchType(dfTouchEventType);
-
-    int64_t i = 0;
-    for (auto it = qtTouchEvent->points().cbegin();
-         it != qtTouchEvent->points().cend() && i < 2; /* For now drape_frontend can only handle max 2 touches */
-         ++it, ++i)
-    {
-      df::Touch touch;
-      touch.m_id = i;
-      touch.m_location = m2::PointD(L2D(it->position().x()), L2D(it->position().y()));
-      if (i == 0)
-        dfTouchEvent.SetFirstTouch(touch);
-      else
-        dfTouchEvent.SetSecondTouch(touch);
-    }
-    m_framework.TouchEvent(dfTouchEvent);
-    return true;
+    return QWidget::event(event);
   }
-  // TouchPad
-  else if (event->type() == QEvent::NativeGesture)
+  else
   {
-    event->accept();
-    auto qNativeGestureEvent = dynamic_cast<QNativeGestureEvent *>(event);
-    if (qNativeGestureEvent->gestureType() == Qt::ZoomNativeGesture)
+    // TouchScreen
+    if (auto dfTouchEventType = QtTouchEventTypeToDfTouchEventType(event->type());
+        dfTouchEventType != df::TouchEvent::TOUCH_NONE)
     {
-      QPointF const pos = qNativeGestureEvent->position();
-      double const factor = qNativeGestureEvent->value();
-      m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+      event->accept();
+      QTouchEvent const * qtTouchEvent = dynamic_cast<QTouchEvent const *>(event);
+      df::TouchEvent dfTouchEvent;
+      // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
+      // which theoretically can happen in case of `QEvent::TouchCancel`
+      dfTouchEvent.SetTouchType(dfTouchEventType);
+
+      int64_t i = 0;
+      for (auto it = qtTouchEvent->points().cbegin();
+           it != qtTouchEvent->points().cend() && i < 2; /* For now drape_frontend can only handle max 2 touches */
+           ++it, ++i)
+      {
+        df::Touch touch;
+        touch.m_id = i;
+        touch.m_location = m2::PointD(L2D(it->position().x()), L2D(it->position().y()));
+        if (i == 0)
+          dfTouchEvent.SetFirstTouch(touch);
+        else
+          dfTouchEvent.SetSecondTouch(touch);
+      }
+      m_framework.TouchEvent(dfTouchEvent);
       return true;
     }
+    // TouchPad
+    else if (event->type() == QEvent::NativeGesture)
+    {
+      event->accept();
+      auto qNativeGestureEvent = dynamic_cast<QNativeGestureEvent *>(event);
+      if (qNativeGestureEvent->gestureType() == Qt::ZoomNativeGesture)
+      {
+        QPointF const pos = qNativeGestureEvent->position();
+        double const factor = qNativeGestureEvent->value();
+        m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+        return true;
+      }
+    }
+    // Everything else
+    return QWidget::event(event);
   }
-  // Everything else
-  return QOpenGLWidget::event(event);
-#endif
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)
 {
-  QOpenGLWidget::mousePressEvent(e);
+  QWidget::mousePressEvent(e);
 
   m2::PointD const pt = GetDevicePoint(e);
 
@@ -270,7 +274,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
 
 void DrawWidget::mouseMoveEvent(QMouseEvent * e)
 {
-  QOpenGLWidget::mouseMoveEvent(e);
+  QWidget::mouseMoveEvent(e);
 
   if (IsLeftButton(e) && !IsAltModifier(e))
   {
@@ -341,7 +345,7 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVer
 
 void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
 {
-  QOpenGLWidget::mouseReleaseEvent(e);
+  QWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_UP));
   else if (m_selectionMode && IsRightButton(e) && m_rubberBand != nullptr && m_rubberBand->isVisible())

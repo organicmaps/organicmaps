@@ -25,7 +25,7 @@ namespace common
 class ScaleSlider;
 }
 
-class DrawWidget : public qt::common::MapWidget
+class DrawWidget : public common::MapWidget
 {
   using TBase = MapWidget;
 
@@ -75,7 +75,7 @@ public:
 protected:
   /// @name Overriden from MapWidget.
   //@{
-  void initializeGL() override;
+  // void initializeGL() override;
 
   // Touch events
   bool event(QEvent * event) override;

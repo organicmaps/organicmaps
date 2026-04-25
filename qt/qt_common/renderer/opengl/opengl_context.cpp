@@ -1,4 +1,4 @@
-#include "qt/qt_common/qtoglcontext.hpp"
+#include "opengl_context.hpp"
 
 #include "base/assert.hpp"
 
@@ -7,9 +7,7 @@
 #include <bit>
 #include <memory>
 
-namespace qt
-{
-namespace common
+namespace qt::common::renderer::opengl
 {
 QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
   : m_surface(surface)
@@ -26,7 +24,7 @@ void QtRenderOGLContext::Present()
 {
   GLFunctions::glFinish();
 
-  std::lock_guard<std::mutex> lock(m_frameMutex);
+  std::lock_guard lock(m_frameMutex);
   std::swap(m_frontFrame, m_backFrame);
   m_frameUpdated = true;
 }
@@ -63,13 +61,15 @@ void QtRenderOGLContext::Resize(uint32_t w, uint32_t h)
 
   if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
   {
-    m_frameRect = QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+    m_frameRect = QRectF(0.0, 0.0, static_cast<float>(w) / static_cast<float>(m_width),
+                         static_cast<float>(h) / static_cast<float>(m_height));
     return;
   }
 
   m_width = nw;
   m_height = nh;
-  m_frameRect = QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+  m_frameRect = QRectF(0.0, 0.0, static_cast<float>(w) / static_cast<float>(m_width),
+                       static_cast<float>(h) / static_cast<float>(m_height));
 
   m_backFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height), QOpenGLFramebufferObject::Depth);
   m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height), QOpenGLFramebufferObject::Depth);
@@ -138,5 +138,4 @@ void QtUploadOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer>)
 {
   CHECK(false, ());
 }
-}  // namespace common
-}  // namespace qt
+}  // namespace qt::common::renderer::opengl

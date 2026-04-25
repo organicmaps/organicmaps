@@ -160,8 +160,6 @@ int main(int argc, char * argv[])
     if (!FLAGS_lang.empty())
       (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
 
-    qt::common::SetDefaultSurfaceFormat(QApplication::platformName());
-
     FrameworkParams frameworkParams;
 
 #ifdef BUILD_DESIGNER

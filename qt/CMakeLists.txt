@@ -168,6 +168,7 @@ if (PLATFORM_MAC)
       OUTPUT_NAME ${BUNDLE_NAME}
       MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/generated/Info.plist
   )
+  target_embed_metal_shader_libraries(${PROJECT_NAME} shaders_metal)
 endif()
 
 if (PLATFORM_WIN)
