@@ -746,6 +746,7 @@
     <string name="type.natural.tree_row">Дрворед</string>
     <string name="type.natural.vineyard">Виноград</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Активни вулкан</string>
     <string name="type.natural.water">Вода</string>
     <string name="type.natural.wetland">Мочвара</string>
     <string name="type.natural.wetland.bog">Тресет</string>
@@ -1342,6 +1343,7 @@
     <string name="type.traffic_calming.bump">Лежећи полицајац (грба)</string>
     <string name="type.traffic_calming.hump">Лежећи полицајац</string>
     <string name="type.waterway">Водени ток</string>
+    <string name="type.waterway.access_point">Приступна тачка на водотоку</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Тунел у каналу</string>
     <string name="type.waterway.fish_pass">Рибљи пут</string>

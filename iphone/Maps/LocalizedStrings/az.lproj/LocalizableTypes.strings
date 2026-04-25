@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Ağac cərgəsi";
 "type.natural.vineyard" = "Bond";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Fəal vulkan";
 "type.natural.water" = "Su təchizatı";
 "type.natural.wetland" = "Bataqlıq";
 "type.natural.wetland.bog" = "Bataqlıq";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Sürət Qırıcı (Rip)";
 "type.traffic_calming.hump" = "Sürət Qırıcı (Rip)";
 "type.waterway" = "Su yolu";
+"type.waterway.access_point" = "Su yolu giriş nöqtəsi";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Balıq keçidi";

@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Safu ya mti";
 "type.natural.vineyard" = "Shamba la mizabibu";
 "type.natural.volcano" = "Volkeno";
+"type.natural.volcano.active" = "Mlima wa moto unaotupuka";
 "type.natural.water" = "Maji";
 "type.natural.wetland" = "Maeneo yenye majimaji";
 "type.natural.wetland.bog" = "Bogi";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Kituo cha Ufikiaji wa Njia ya Maji";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Ngazi ya samaki";

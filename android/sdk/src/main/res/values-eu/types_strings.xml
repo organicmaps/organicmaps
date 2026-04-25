@@ -728,6 +728,7 @@
     <string name="type.natural.tree_row">Zuhaitz ilara</string>
     <string name="type.natural.vineyard">Mahasti</string>
     <string name="type.natural.volcano">Sumendi</string>
+    <string name="type.natural.volcano.active">Sumendi aktiboa</string>
     <string name="type.natural.water">Ur-masa</string>
     <string name="type.natural.wetland">Lur paduratsua</string>
     <string name="type.natural.wetland.bog">Zohikaztegi</string>
@@ -1267,6 +1268,7 @@
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Kabina</string>
     <string name="type.tourism.zoo.petting">Maskota-zooa</string>
+    <string name="type.waterway.access_point">Ur-bideetarako sarbide-puntu</string>
     <string name="type.waterway.fish_pass">Arrainen eskailera</string>
     <string name="type.natural.water.ditch">Drainatze Zanga</string>
     <string name="type.waterway.ditch.tunnel">Zuloa</string>

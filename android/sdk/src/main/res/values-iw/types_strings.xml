@@ -738,6 +738,7 @@
     <string name="type.natural.tree_row">שורת עצים</string>
     <string name="type.natural.vineyard">כרם</string>
     <string name="type.natural.volcano">הר געש</string>
+    <string name="type.natural.volcano.active">הר געש פעיל</string>
     <string name="type.natural.water">מים</string>
     <string name="type.natural.wetland">ביצה</string>
     <string name="type.natural.wetland.bog">ביצת כבול</string>
@@ -1069,6 +1070,7 @@
     <string name="type.tourism.zoo.petting">פינת חי</string>
     <string name="type.traffic_calming.hump">פס האטה</string>
     <string name="type.waterway">נתיב מים</string>
+    <string name="type.waterway.access_point">נקודת גישה לנתיב מים</string>
     <string name="type.waterway.canal">תעלת מים</string>
     <string name="type.waterway.canal.tunnel">תעלת מים תת קרקעית</string>
     <string name="type.waterway.fish_pass">סולם דגים</string>

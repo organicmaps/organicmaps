@@ -344,6 +344,7 @@
     <string name="type.natural.tree_row">Safu ya mti</string>
     <string name="type.natural.vineyard">Shamba la mizabibu</string>
     <string name="type.natural.volcano">Volkeno</string>
+    <string name="type.natural.volcano.active">Mlima wa moto unaotupuka</string>
     <string name="type.natural.water">Maji</string>
     <string name="type.natural.wetland">Maeneo yenye majimaji</string>
     <string name="type.natural.wetland.bog">Bogi</string>
@@ -647,6 +648,7 @@
     <string name="type.tourism.information.office">Ofisi ya watalii</string>
     <string name="type.tourism.information.visitor_centre">Kituo cha Wageni</string>
     <string name="type.tourism.zoo.petting">Kufuga Zoo</string>
+    <string name="type.waterway.access_point">Kituo cha Ufikiaji wa Njia ya Maji</string>
     <string name="type.waterway.fish_pass">Ngazi ya samaki</string>
     <string name="type.natural.water.ditch">Mfereji wa mifereji ya maji</string>
     <string name="type.waterway.ditch.tunnel">Culvert</string>

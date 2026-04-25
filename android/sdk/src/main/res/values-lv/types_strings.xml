@@ -51,6 +51,7 @@
     <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Gāzes deglis</string>
+    <string name="type.natural.volcano.active">Aktīvais vulkāns</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Apkaime</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
@@ -69,6 +70,7 @@
     <string name="type.attraction.maze">Labirints</string>
     <string name="type.attraction.roller_coaster">Amerikāņu kalniņi</string>
     <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
+    <string name="type.waterway.access_point">Piekļuves punkts pie ūdensceļiem</string>
     <string name="type.barrier.jersey_barrier">Bloks</string>
     <string name="type.barrier.debris">Gruveši</string>
     <string name="type.barrier.log">Baļķu barjera</string>

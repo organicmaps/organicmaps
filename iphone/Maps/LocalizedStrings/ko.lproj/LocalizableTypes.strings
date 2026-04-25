@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "나무 행";
 "type.natural.vineyard" = "포도원";
 "type.natural.volcano" = "화산";
+"type.natural.volcano.active" = "활화산";
 "type.natural.water" = "수역";
 "type.natural.wetland" = "습지 구역";
 "type.natural.wetland.bog" = "수렁";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "수로 액세스 포인트";
 "type.waterway.canal" = "운하";
 "type.waterway.canal.tunnel" = "운하";
 "type.waterway.fish_pass" = "물고기 사다리";

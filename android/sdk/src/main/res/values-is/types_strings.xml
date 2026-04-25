@@ -754,6 +754,7 @@
     <string name="type.natural.tree_row">Trjáröð</string>
     <string name="type.natural.vineyard">Vínekra</string>
     <string name="type.natural.volcano">Eldfjall</string>
+    <string name="type.natural.volcano.active">Virkur eldfjall</string>
     <string name="type.natural.water">Vatn</string>
     <string name="type.natural.wetland">Votlendi</string>
     <string name="type.natural.wetland.bog">Fen</string>
@@ -1353,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Hraðahindrun</string>
     <string name="type.traffic_calming.hump">Hraðahindrun</string>
     <string name="type.waterway">Siglingaleið</string>
+    <string name="type.waterway.access_point">Aðgengispunktur vatnaleiðar</string>
     <string name="type.waterway.canal">Skipaskurður</string>
     <string name="type.waterway.canal.tunnel">Skipaskurðsgöng</string>
     <string name="type.waterway.fish_pass">Fiskastigi</string>

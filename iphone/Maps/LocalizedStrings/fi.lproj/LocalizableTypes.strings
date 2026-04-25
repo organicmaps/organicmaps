@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Puurivi";
 "type.natural.vineyard" = "Viinitila";
 "type.natural.volcano" = "Tulivuori";
+"type.natural.volcano.active" = "Aktiivinen tulivuori";
 "type.natural.water" = "Vettä";
 "type.natural.wetland" = "Soistuva maa";
 "type.natural.wetland.bog" = "Suo";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Hidastetöyssy";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Vesiväylä";
+"type.waterway.access_point" = "Vesiväylän liittymispiste";
 "type.waterway.canal" = "Kanaali";
 "type.waterway.canal.tunnel" = "Kanaali";
 "type.waterway.fish_pass" = "Kalatikkaat";

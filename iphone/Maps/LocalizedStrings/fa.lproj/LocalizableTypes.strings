@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "ردیف درخت";
 "type.natural.vineyard" = "تاکستان";
 "type.natural.volcano" = "اتشفشان";
+"type.natural.volcano.active" = "آتشفشان فعال";
 "type.natural.water" = "پهنه آبی";
 "type.natural.wetland" = "ناحیه تالابی";
 "type.natural.wetland.bog" = "خلاش";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "نقطه دسترسی به آبراهه";
 "type.waterway.canal" = "کانال اب";
 "type.waterway.canal.tunnel" = "کانال اب";
 "type.waterway.fish_pass" = "نردبان ماهی";

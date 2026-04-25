@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Rresht pemësh";
 "type.natural.vineyard" = "Vresht";
 "type.natural.volcano" = "Vullkan";
+"type.natural.volcano.active" = "Vullkan aktiv";
 "type.natural.water" = "Ujë";
 "type.natural.wetland" = "Zonë ligatinore";
 "type.natural.wetland.bog" = "Mocal";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Kurriz artificial";
 "type.traffic_calming.hump" = "Kurriz i gjerë";
 "type.waterway" = "Rrugë ujore";
+"type.waterway.access_point" = "Pika e aksesit në rrugën ujore";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Tunel kanali";
 "type.waterway.fish_pass" = "Kalim peshqish";

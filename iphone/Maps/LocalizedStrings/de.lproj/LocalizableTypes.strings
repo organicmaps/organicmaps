@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Baumreihe";
 "type.natural.vineyard" = "Weinberg";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Aktiver Vulkan";
 "type.natural.water" = "Wasserfläche";
 "type.natural.wetland" = "Feuchtgebiet";
 "type.natural.wetland.bog" = "Moor";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "kurze Bodenwelle";
 "type.traffic_calming.hump" = "lange Bodenwelle";
 "type.waterway" = "Wasserweg";
+"type.waterway.access_point" = "Wasserstraße Zugangspunkt";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fischtreppe";

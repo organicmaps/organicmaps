@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Trærække";
 "type.natural.vineyard" = "Vinmark";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Aktiv vulkan";
 "type.natural.water" = "Vandmasse";
 "type.natural.wetland" = "Vådområde";
 "type.natural.wetland.bog" = "Mose";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Vejbump";
 "type.traffic_calming.hump" = "Vejbump";
 "type.waterway" = "Vandløb";
+"type.waterway.access_point" = "Adgangspunkt til vandvejen";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fiskestige";

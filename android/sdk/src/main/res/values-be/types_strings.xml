@@ -754,6 +754,7 @@
     <string name="type.natural.tree_row">Шэраг дрэў</string>
     <string name="type.natural.vineyard">Вінаграднік</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Актыўны вулкан</string>
     <string name="type.natural.water">Вадаём</string>
     <string name="type.natural.wetland">Балоцістая мясцовасць</string>
     <string name="type.natural.wetland.bog">Тарфянік</string>
@@ -1353,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Затор</string>
     <string name="type.traffic_calming.hump">Ляжачы паліцэйскі</string>
     <string name="type.waterway">Водны шлях</string>
+    <string name="type.waterway.access_point">Пункт доступу да вадаёма</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Канальны тунэль</string>
     <string name="type.waterway.fish_pass">Рыбаход</string>

@@ -724,6 +724,7 @@
     <string name="type.natural.tree_row">Stromoradie</string>
     <string name="type.natural.vineyard">Vinohrad</string>
     <string name="type.natural.volcano">Sopka</string>
+    <string name="type.natural.volcano.active">Aktívna sopka</string>
     <string name="type.natural.water">Voda</string>
     <string name="type.natural.wetland">Oblasť mokradí</string>
     <string name="type.natural.wetland.bog">Rašelinisko</string>
@@ -1284,6 +1285,7 @@
     <string name="type.traffic_calming.bump">Spomaľovací prah</string>
     <string name="type.traffic_calming.hump">Spomaľovací prah</string>
     <string name="type.waterway">Vodný tok</string>
+    <string name="type.waterway.access_point">Prístupový bod k vodnej ceste</string>
     <string name="type.waterway.canal">Kanál</string>
     <string name="type.waterway.canal.tunnel">Tunel v kanáli</string>
     <string name="type.waterway.fish_pass">Rybovod</string>

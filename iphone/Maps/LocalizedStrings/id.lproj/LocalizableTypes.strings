@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Baris pohon";
 "type.natural.vineyard" = "Kebun anggur";
 "type.natural.volcano" = "Gunung berapi";
+"type.natural.volcano.active" = "Gunung Berapi Aktif";
 "type.natural.water" = "Perairan";
 "type.natural.wetland" = "Area lahan basah";
 "type.natural.wetland.bog" = "Rawa gambut";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Titik Akses Jalur Air";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Tangga ikan";

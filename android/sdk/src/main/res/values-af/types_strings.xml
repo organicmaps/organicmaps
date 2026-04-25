@@ -704,6 +704,7 @@
     <string name="type.natural.tree_row">Boomry</string>
     <string name="type.natural.vineyard">Wingerd</string>
     <string name="type.natural.volcano">Vulkaan</string>
+    <string name="type.natural.volcano.active">Aktiewe vulkaan</string>
     <string name="type.natural.water">Water</string>
     <string name="type.natural.wetland">Moerasland</string>
     <string name="type.natural.wetland.bog">Vlei</string>
@@ -1279,6 +1280,7 @@
     <string name="type.traffic_calming.bump">Verkeersdrempel</string>
     <string name="type.traffic_calming.hump">Verkeersheuwel</string>
     <string name="type.waterway">Waterweg</string>
+    <string name="type.waterway.access_point">Toegangspunt tot waterweg</string>
     <string name="type.waterway.canal">Kanaal</string>
     <string name="type.waterway.canal.tunnel">Kanaal</string>
     <string name="type.waterway.fish_pass">Vistrap</string>

@@ -634,6 +634,7 @@
     <string name="type.natural.tree_row">나무 행</string>
     <string name="type.natural.vineyard">포도원</string>
     <string name="type.natural.volcano">화산</string>
+    <string name="type.natural.volcano.active">활화산</string>
     <string name="type.natural.water">수역</string>
     <string name="type.natural.wetland">습지 구역</string>
     <string name="type.natural.wetland.bog">수렁</string>
@@ -1170,6 +1171,7 @@
     <string name="type.tourism.wilderness_hut">황야 오두막</string>
     <string name="type.tourism.zoo">동물원</string>
     <string name="type.tourism.zoo.petting">페팅 동물원</string>
+    <string name="type.waterway.access_point">수로 액세스 포인트</string>
     <string name="type.waterway.canal">운하</string>
     <string name="type.waterway.canal.tunnel">운하</string>
     <string name="type.waterway.fish_pass">물고기 사다리</string>
