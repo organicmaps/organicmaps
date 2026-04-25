@@ -1621,6 +1621,8 @@ node|z16-[highway=ford],
 
 node|z16-[leisure=slipway],
 {icon-image: slipway-m.svg;}
+node|z16-[waterway=access_point],
+{icon-image: waterway-access_point-m.svg;}
 
 node|z14-[man_made=communications_tower],
 {icon-image: mast-s.svg;}
