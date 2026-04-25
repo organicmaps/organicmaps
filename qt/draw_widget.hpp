@@ -37,6 +37,10 @@ public Q_SLOTS:
   void ChoosePositionModeEnable();
   void ChoosePositionModeDisable();
 
+protected slots:
+  void OnBeforeEngineCreation() override;
+  void OnAfterEngineCreation() override;
+
 public:
   DrawWidget(Framework & framework, QWidget * parent);
   ~DrawWidget() override;

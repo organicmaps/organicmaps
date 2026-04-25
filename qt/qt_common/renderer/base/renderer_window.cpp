@@ -1,6 +1,8 @@
 #include "renderer_window.hpp"
 
-#include "qt/qt_common/renderer/base/mouse_events.hpp"
+#include <QCoreApplication>
+#include <QExposeEvent>
+#include <QResizeEvent>
 
 namespace qt::common::renderer::base
 {
@@ -14,53 +16,21 @@ RendererWindow::RendererWindow(Framework & framework, SurfaceType const surfaceT
   setFormat(surfaceFormat);
 }
 
-RendererWindow::~RendererWindow() = default;
-
-int RendererWindow::L2D(int const px) const
+RendererWindow::~RendererWindow()
 {
-  return static_cast<int>(px * m_ratio);
+  m_framework.SetViewportListener(nullptr);
 }
 
-m2::PointD RendererWindow::GetDevicePoint(QMouseEvent const * const e) const
+dp::ApiVersion RendererWindow::GetApiVersion() const
 {
-  return m2::PointD(L2D(e->position().x()), L2D(e->position().y()));
-}
-
-df::Touch RendererWindow::GetDfTouchFromQMouseEvent(QMouseEvent const * const e) const
-{
-  df::Touch touch;
-  touch.m_id = 0;
-  touch.m_location = GetDevicePoint(e);
-  return touch;
-}
-
-df::TouchEvent RendererWindow::GetDfTouchEventFromQMouseEvent(QMouseEvent const * const e,
-                                                              df::TouchEvent::ETouchType const type) const
-{
-  df::TouchEvent event;
-  event.SetTouchType(type);
-  event.SetFirstTouch(GetDfTouchFromQMouseEvent(e));
-  if (IsCommandModifier(e))
-    event.SetSecondTouch(GetSymmetrical(event.GetFirstTouch()));
-
-  return event;
-}
-
-df::Touch RendererWindow::GetSymmetrical(df::Touch const & touch) const
-{
-  m2::PointD const pixelCenter = m_framework.GetVisiblePixelCenter();
-  m2::PointD const symmetricalLocation = pixelCenter + pixelCenter - m2::PointD(touch.m_location);
-
-  df::Touch result;
-  result.m_id = touch.m_id + 1;
-  result.m_location = symmetricalLocation;
-
-  return result;
+  return m_framework.GetDrapeEngine()->GetApiVersion();
 }
 
 void RendererWindow::CreateDrapeEngine(dp::ApiVersion const apiVersion,
                                        ref_ptr<dp::GraphicsContextFactory> contextFactory)
 {
+  emit OnBeforeEngineCreation();
+
   Framework::DrapeCreationParams params;
   params.m_apiVersion = apiVersion;
   params.m_surfaceWidth = static_cast<int>(m_ratio * width());
@@ -75,6 +45,8 @@ void RendererWindow::CreateDrapeEngine(dp::ApiVersion const apiVersion,
 
   m_framework.CreateDrapeEngine(contextFactory, std::move(params));
   m_framework.SetViewportListener([this](ScreenBase const & screen) { emit OnViewportChanged(screen); });
+
+  emit OnAfterEngineCreation();
 }
 
 void RendererWindow::OnResize(int w, int h) const
@@ -96,55 +68,18 @@ void RendererWindow::OnResize(int w, int h) const
 
 bool RendererWindow::event(QEvent * e)
 {
-  if (e->type() == QEvent::UpdateRequest)
+  switch (e->type())
   {
-    Render();
-    return true;
+  case QEvent::UpdateRequest: Render(); return true;
+  case QEvent::Expose: exposeEvent(static_cast<QExposeEvent *>(e)); return true;
+  case QEvent::Resize: resizeEvent(static_cast<QResizeEvent *>(e)); return true;
+  default: break;
   }
 
-  return QWindow::event(e);
-}
+  if (m_eventReceiver)
+    return QCoreApplication::sendEvent(m_eventReceiver, e);
 
-void RendererWindow::mouseDoubleClickEvent(QMouseEvent * e)
-{
-  QWindow::mouseDoubleClickEvent(e);
-  if (IsLeftButton(e))
-    m_framework.Scale(Framework::SCALE_MAG_LIGHT, GetDevicePoint(e), true);
-}
-
-void RendererWindow::mousePressEvent(QMouseEvent * e)
-{
-  QWindow::mousePressEvent(e);
-  if (IsLeftButton(e))
-    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_DOWN));
-}
-
-void RendererWindow::mouseMoveEvent(QMouseEvent * e)
-{
-  QWindow::mouseMoveEvent(e);
-  if (IsLeftButton(e))
-    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_MOVE));
-}
-
-void RendererWindow::mouseReleaseEvent(QMouseEvent * e)
-{
-  if (IsRightButton(e))
-    emit OnContextMenuRequested(e->globalPosition().toPoint());
-
-  QWindow::mouseReleaseEvent(e);
-  if (IsLeftButton(e))
-    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_UP));
-}
-
-void RendererWindow::wheelEvent(QWheelEvent * e)
-{
-  QWindow::wheelEvent(e);
-
-  QPointF const pos = e->position();
-
-  double const factor = e->angleDelta().y() / 3.0 / 360.0;
-  // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
-  m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+  return false;
 }
 
 void RendererWindow::exposeEvent(QExposeEvent * e)

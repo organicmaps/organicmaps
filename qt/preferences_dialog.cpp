@@ -5,7 +5,6 @@
 #include "map/framework.hpp"
 
 #include "platform/measurement_utils.hpp"
-#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/style_utils.hpp"
 
@@ -21,7 +20,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
-#include <QtWidgets/QVBoxLayout>
+
+#include "qt_common/renderer/renderer_factory.hpp"
 
 using namespace measurement_utils;
 
@@ -31,7 +31,7 @@ std::string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
 
 namespace qt
 {
-PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
+PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework, SetApiVersionFn setApiVersionFn)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
 {
   QIcon icon(":/ui/logo.png");
@@ -211,6 +211,39 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   }
 #endif
 
+  QButtonGroup * renderingApiGroup = new QButtonGroup(this);
+  QGroupBox * renderingApiRadioBox = new QGroupBox("Rendering Api");
+  {
+    QHBoxLayout * layout = new QHBoxLayout();
+
+    dp::ApiVersion const currentApi = framework.LoadPreferredGraphicsAPI();
+    for (dp::ApiVersion const api : common::renderer::RendererFactory::GetSupportedApis())
+    {
+      QString apiName;
+      switch (api)
+      {
+      case dp::ApiVersion::OpenGLES3: apiName = "OpenGL"; break;
+      case dp::ApiVersion::Vulkan: apiName = "Vulkan"; break;
+      case dp::ApiVersion::Metal: apiName = "Metal"; break;
+      default: UNREACHABLE();
+      }
+      QRadioButton * radioButton = new QRadioButton(apiName);
+      if (api == currentApi)
+        radioButton->setChecked(true);
+      layout->addWidget(radioButton);
+      renderingApiGroup->addButton(radioButton, static_cast<int>(api));
+    }
+
+    renderingApiRadioBox->setLayout(layout);
+
+    void (QButtonGroup::*buttonClicked)(int) = &QButtonGroup::idClicked;
+    connect(renderingApiGroup, buttonClicked, [&](int const i)
+    {
+      framework.SavePreferredGraphicsAPI(static_cast<dp::ApiVersion>(i));
+      setApiVersionFn(static_cast<dp::ApiVersion>(i));
+    });
+  }
+
   QHBoxLayout * bottomLayout = new QHBoxLayout();
   {
     QPushButton * closeButton = new QPushButton(tr("Close"));
@@ -233,6 +266,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(bookmarksPlacementLabel);
   finalLayout->addWidget(bookmarksPlacementCB);
   finalLayout->addWidget(nightModeRadioBox);
+  finalLayout->addWidget(renderingApiRadioBox);
 #ifdef BUILD_DESIGNER
   finalLayout->addWidget(indexRegenCheckBox);
 #endif

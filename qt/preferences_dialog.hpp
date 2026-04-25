@@ -4,6 +4,8 @@
 
 #include <QtWidgets/QDialog>
 
+#include <functional>
+
 class Framework;
 
 namespace qt
@@ -15,7 +17,9 @@ class PreferencesDialog : public QDialog
   Q_OBJECT
 
 public:
-  PreferencesDialog(QWidget * parent, Framework & framework);
+  using SetApiVersionFn = std::function<void(dp::ApiVersion)>;
+
+  PreferencesDialog(QWidget * parent, Framework & framework, SetApiVersionFn setApiVersionFn);
 };
 }  // namespace qt
 

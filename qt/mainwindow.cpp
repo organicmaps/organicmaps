@@ -629,7 +629,7 @@ void MainWindow::OnBeforeEngineCreation()
 void MainWindow::OnPreferences()
 {
   Framework & framework = m_pDrawWidget->GetFramework();
-  PreferencesDialog dlg(this, framework);
+  PreferencesDialog dlg(this, framework, [this](dp::ApiVersion const api) { m_pDrawWidget->SetRenderingApi(api); });
   dlg.exec();
 
   framework.EnterForeground();

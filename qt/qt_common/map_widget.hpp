@@ -27,6 +27,7 @@ public:
 signals:
   void OnContextMenuRequested(QPoint const & p);
   void BeforeEngineCreation();
+  void AfterEngineCreation();
 
 public slots:
   void ScalePlus();
@@ -49,6 +50,12 @@ public slots:
   void AntialiasingOn();
   void AntialiasingOff();
 
+  void SetRenderingApi(dp::ApiVersion apiVersion);
+
+protected slots:
+  virtual void OnBeforeEngineCreation();
+  virtual void OnAfterEngineCreation();
+
 protected:
   enum class SliderState
   {
@@ -56,24 +63,24 @@ protected:
     Released
   };
 
-  int L2D(int const px) const { return m_rendererWindow->L2D(px); }
-  m2::PointD GetDevicePoint(QMouseEvent const * const e) const { return m_rendererWindow->GetDevicePoint(e); }
-  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent const * const e) const
-  {
-    return m_rendererWindow->GetDfTouchFromQMouseEvent(e);
-  }
-  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent const * const e,
-                                                df::TouchEvent::ETouchType const type) const
-  {
-    return m_rendererWindow->GetDfTouchEventFromQMouseEvent(e, type);
-  }
-  df::Touch GetSymmetrical(df::Touch const & touch) const { return m_rendererWindow->GetSymmetrical(touch); }
+  int L2D(int px) const;
+  m2::PointD GetDevicePoint(QMouseEvent const * e) const;
+  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent const * e) const;
+  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent const * e, df::TouchEvent::ETouchType type) const;
+  df::Touch GetSymmetrical(df::Touch const & touch) const;
+
+  void mouseDoubleClickEvent(QMouseEvent * e) override;
+  void mousePressEvent(QMouseEvent * e) override;
+  void mouseMoveEvent(QMouseEvent * e) override;
+  void mouseReleaseEvent(QMouseEvent * e) override;
+  void wheelEvent(QWheelEvent * e) override;
 
   void UpdateScaleControl();
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
   void OnViewportChanged(ScreenBase const & screen);
 
+protected:
   Framework & m_framework;
   ScaleSlider * m_slider;
   SliderState m_sliderState;

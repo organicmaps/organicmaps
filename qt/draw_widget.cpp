@@ -168,18 +168,24 @@ void DrawWidget::ChoosePositionModeDisable()
   m_framework.BlockTapEvents(false /* block */);
 }
 
-// void DrawWidget::initializeGL()
-// {
-//   m_framework.LoadBookmarks();
-//
-//   MapWidget::initializeGL();
-//
-//   m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)
-//   {
-//     if (success)
-//       m_framework.GetRoutingManager().BuildRoute();
-//   });
-// }
+void DrawWidget::OnBeforeEngineCreation()
+{
+  static std::once_flag loadBookmarksFlag;
+  std::call_once(loadBookmarksFlag, [this] { m_framework.LoadBookmarks(); });
+
+  MapWidget::OnBeforeEngineCreation();
+}
+
+void DrawWidget::OnAfterEngineCreation()
+{
+  m_framework.GetRoutingManager().LoadRoutePoints([this](bool const success)
+  {
+    if (success)
+      m_framework.GetRoutingManager().BuildRoute();
+  });
+
+  MapWidget::OnAfterEngineCreation();
+}
 
 bool DrawWidget::event(QEvent * event)
 {

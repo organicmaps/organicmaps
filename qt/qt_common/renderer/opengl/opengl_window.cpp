@@ -147,7 +147,6 @@ void OpenGLWindow::EnsureInitialized()
 
   m_contextFactory.reset(new QtOGLContextFactory(m_glContext.get()));
 
-  emit OnBeforeEngineCreation();
   CreateDrapeEngine(dp::ApiVersion::OpenGLES3, make_ref(m_contextFactory));
   m_framework.EnterForeground();
 

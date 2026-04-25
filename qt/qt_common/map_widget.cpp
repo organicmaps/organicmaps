@@ -36,24 +36,12 @@ MapWidget::MapWidget(Framework & framework, QWidget * parent)
   , m_framework(framework)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
-  , m_rendererWindow(renderer::RendererFactory::CreateRendererWindow(framework, dp::ApiVersion::OpenGLES3))
+  , m_rendererWindow(nullptr)
   , m_windowContainer(nullptr)
 {
   setMouseTracking(true);
   setAttribute(Qt::WA_AcceptTouchEvents);
-
-  m_windowContainer = createWindowContainer(m_rendererWindow, this);
-  ASSERT(m_windowContainer != nullptr, ());
-  m_windowContainer->setFocusPolicy(Qt::NoFocus);
-
-  auto * layout = new QVBoxLayout(this);
-  layout->setContentsMargins(0, 0, 0, 0);
-  layout->setSpacing(0);
-  layout->addWidget(m_windowContainer);
-
-  connect(m_rendererWindow, &renderer::base::RendererWindow::OnBeforeEngineCreation, this,
-          &MapWidget::BeforeEngineCreation);
-  connect(m_rendererWindow, &renderer::base::RendererWindow::OnViewportChanged, this, &MapWidget::OnViewportChanged);
+  SetRenderingApi(m_framework.LoadPreferredGraphicsAPI());
 }
 
 MapWidget::~MapWidget() = default;
@@ -173,6 +161,54 @@ void MapWidget::AntialiasingOff()
     engine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, false);
 }
 
+void MapWidget::SetRenderingApi(dp::ApiVersion const apiVersion)
+{
+  if (m_rendererWindow != nullptr && m_rendererWindow->GetApiVersion() == apiVersion)
+    return;
+
+  if (m_windowContainer)
+  {
+    layout()->removeWidget(m_windowContainer);
+    delete m_windowContainer;
+    m_windowContainer = nullptr;
+  }
+
+  m_rendererWindow = renderer::RendererFactory::CreateRendererWindow(m_framework, apiVersion);
+  QWidget * windowContainer = createWindowContainer(m_rendererWindow);
+  ASSERT(windowContainer != nullptr, ());
+  windowContainer->setFocusPolicy(Qt::NoFocus);
+
+  if (layout())
+  {
+    layout()->addWidget(windowContainer);
+  }
+  else
+  {
+    auto * vLayout = new QVBoxLayout(this);
+    vLayout->setContentsMargins(0, 0, 0, 0);
+    vLayout->setSpacing(0);
+    vLayout->addWidget(windowContainer);
+  }
+
+  m_windowContainer = windowContainer;
+
+  connect(m_rendererWindow, &renderer::base::RendererWindow::OnBeforeEngineCreation, this,
+          &MapWidget::OnBeforeEngineCreation);
+  connect(m_rendererWindow, &renderer::base::RendererWindow::OnViewportChanged, this, &MapWidget::OnViewportChanged);
+
+  m_rendererWindow->SetEventReceiver(this);
+}
+
+void MapWidget::OnBeforeEngineCreation()
+{
+  emit BeforeEngineCreation();
+}
+
+void MapWidget::OnAfterEngineCreation()
+{
+  emit AfterEngineCreation();
+}
+
 void MapWidget::ScaleChanged(int action)
 {
   if (!m_slider)
@@ -280,5 +316,89 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   }
 
   menu.exec(e->pos());
+}
+
+int MapWidget::L2D(int const px) const
+{
+  return static_cast<int>(px * m_rendererWindow->GetRatio());
+}
+
+m2::PointD MapWidget::GetDevicePoint(QMouseEvent const * const e) const
+{
+  return m2::PointD(L2D(e->position().x()), L2D(e->position().y()));
+}
+
+df::Touch MapWidget::GetDfTouchFromQMouseEvent(QMouseEvent const * const e) const
+{
+  df::Touch touch;
+  touch.m_id = 0;
+  touch.m_location = GetDevicePoint(e);
+  return touch;
+}
+
+df::TouchEvent MapWidget::GetDfTouchEventFromQMouseEvent(QMouseEvent const * const e,
+                                                         df::TouchEvent::ETouchType const type) const
+{
+  df::TouchEvent event;
+  event.SetTouchType(type);
+  event.SetFirstTouch(GetDfTouchFromQMouseEvent(e));
+  if (IsCommandModifier(e))
+    event.SetSecondTouch(GetSymmetrical(event.GetFirstTouch()));
+
+  return event;
+}
+
+df::Touch MapWidget::GetSymmetrical(df::Touch const & touch) const
+{
+  m2::PointD const pixelCenter = m_framework.GetVisiblePixelCenter();
+  m2::PointD const symmetricalLocation = pixelCenter + pixelCenter - m2::PointD(touch.m_location);
+
+  df::Touch result;
+  result.m_id = touch.m_id + 1;
+  result.m_location = symmetricalLocation;
+
+  return result;
+}
+
+void MapWidget::mouseDoubleClickEvent(QMouseEvent * e)
+{
+  QWidget::mouseDoubleClickEvent(e);
+  if (IsLeftButton(e))
+    m_framework.Scale(Framework::SCALE_MAG_LIGHT, GetDevicePoint(e), true);
+}
+
+void MapWidget::mousePressEvent(QMouseEvent * e)
+{
+  QWidget::mousePressEvent(e);
+  if (IsLeftButton(e))
+    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_DOWN));
+}
+
+void MapWidget::mouseMoveEvent(QMouseEvent * e)
+{
+  QWidget::mouseMoveEvent(e);
+  if (IsLeftButton(e))
+    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_MOVE));
+}
+
+void MapWidget::mouseReleaseEvent(QMouseEvent * e)
+{
+  if (IsRightButton(e))
+    emit OnContextMenuRequested(e->globalPosition().toPoint());
+
+  QWidget::mouseReleaseEvent(e);
+  if (IsLeftButton(e))
+    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_UP));
+}
+
+void MapWidget::wheelEvent(QWheelEvent * e)
+{
+  QWidget::wheelEvent(e);
+
+  QPointF const pos = e->position();
+
+  double const factor = e->angleDelta().y() / 3.0 / 360.0;
+  // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
+  m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 }  // namespace qt::common

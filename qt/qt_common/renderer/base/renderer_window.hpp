@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QMouseEvent>
+#include <QPointer>
 #include <QWindow>
 
 #include <memory>
@@ -18,30 +18,23 @@ public:
                           QWindow * parent = nullptr);
   ~RendererWindow() override;
 
-  int L2D(int px) const;
-  m2::PointD GetDevicePoint(QMouseEvent const * e) const;
-  df::Touch GetDfTouchFromQMouseEvent(QMouseEvent const * e) const;
-  df::TouchEvent GetDfTouchEventFromQMouseEvent(QMouseEvent const * e, df::TouchEvent::ETouchType type) const;
-  df::Touch GetSymmetrical(df::Touch const & touch) const;
+  dp::ApiVersion GetApiVersion() const;
+  float GetRatio() const { return m_ratio; }
+
+  void SetEventReceiver(QObject * receiver) { m_eventReceiver = receiver; }
 
 signals:
   void OnBeforeEngineCreation();
+  void OnAfterEngineCreation();
   void OnViewportChanged(ScreenBase const & screen);
-  void OnContextMenuRequested(QPoint const & p);
 
 protected:
+  virtual void Render() = 0;
+
   void CreateDrapeEngine(dp::ApiVersion apiVersion, ref_ptr<dp::GraphicsContextFactory> contextFactory);
   void OnResize(int w, int h) const;
 
-  virtual void Render() = 0;
-
   bool event(QEvent * e) override;
-  void mouseDoubleClickEvent(QMouseEvent * e) override;
-  void mousePressEvent(QMouseEvent * e) override;
-  void mouseMoveEvent(QMouseEvent * e) override;
-  void mouseReleaseEvent(QMouseEvent * e) override;
-  void wheelEvent(QWheelEvent * e) override;
-
   void exposeEvent(QExposeEvent * e) override;
   void resizeEvent(QResizeEvent * e) override;
 
@@ -50,5 +43,6 @@ protected:
 
 private:
   std::unique_ptr<gui::Skin> m_skin;
+  QPointer<QObject> m_eventReceiver;
 };
 }  // namespace qt::common::renderer::base

@@ -69,7 +69,6 @@ void MetalWindow::EnsureInitialized()
 
   m_contextFactory = make_unique_dp<MetalContextFactory>(layer, m2::PointU{pixelWidth, pixelHeight});
 
-  emit OnBeforeEngineCreation();
   CreateDrapeEngine(dp::ApiVersion::Metal, make_ref(m_contextFactory));
   m_framework.EnterForeground();
 

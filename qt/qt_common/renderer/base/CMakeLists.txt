@@ -1,8 +1,6 @@
 project(qt_common_renderer_base)
 
 set(SRC
-  mouse_events.cpp
-  mouse_events.hpp
   renderer_window.cpp
   renderer_window.hpp
 )

@@ -9,6 +9,16 @@
 
 namespace qt::common::renderer
 {
+std::vector<dp::ApiVersion> RendererFactory::GetSupportedApis()
+{
+  return {
+      dp::ApiVersion::OpenGLES3,
+#ifdef OMIM_METAL_AVAILABLE
+      dp::ApiVersion::Metal,
+#endif
+  };
+}
+
 base::RendererWindow * RendererFactory::CreateRendererWindow(Framework & framework, dp::ApiVersion api)
 {
   switch (api)
