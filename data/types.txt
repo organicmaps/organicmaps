@@ -1646,3 +1646,5 @@ amenity|recycling|container
 *shop|games
 *cuisine|shawarma
 *amenity|hookah_lounge
+*waterway|access_point
+*natural|volcano|active
