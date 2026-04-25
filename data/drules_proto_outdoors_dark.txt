@@ -136965,6 +136965,44 @@ cont {
   }
 }
 cont {
+  name: "waterway-access_point"
+  element {
+    scale: 16
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+}
+cont {
   name: "waterway-canal"
   element {
     scale: 12

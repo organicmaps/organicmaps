@@ -1500,6 +1500,7 @@ world  +
         hump  -
         {}
     waterway  +
+        access_point  -
         canal  +
             tunnel  -
             {}
