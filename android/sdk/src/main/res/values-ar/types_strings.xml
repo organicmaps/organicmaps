@@ -755,6 +755,7 @@
     <string name="type.natural.tree_row">صف شجر</string>
     <string name="type.natural.vineyard">حقل عنب</string>
     <string name="type.natural.volcano">بركان</string>
+    <string name="type.natural.volcano.active">بركان نشط</string>
     <string name="type.natural.water">ماء</string>
     <string name="type.natural.wetland">منطقة رطبة</string>
     <string name="type.natural.wetland.bog">رخاخ</string>
@@ -1320,6 +1321,7 @@
     <string name="type.tourism.zoo.petting">حديقة الحيوان الملاعبة</string>
     <string name="type.traffic_calming">تهدئة سير السيارات</string>
     <string name="type.traffic_calming.bump">مطبة</string>
+    <string name="type.waterway.access_point">نقطة وصول الممر المائي</string>
     <string name="type.waterway.canal">قناة</string>
     <string name="type.waterway.canal.tunnel">نفق قناة</string>
     <string name="type.waterway.fish_pass">سلم سمك</string>

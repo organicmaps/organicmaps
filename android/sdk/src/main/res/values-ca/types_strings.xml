@@ -752,6 +752,7 @@
     <string name="type.natural.tree_row">Fila d’arbres</string>
     <string name="type.natural.vineyard">Vinyar</string>
     <string name="type.natural.volcano">Volcà</string>
+    <string name="type.natural.volcano.active">Volcà actiu</string>
     <string name="type.natural.water">Aigua</string>
     <string name="type.natural.wetland">Zona humida</string>
     <string name="type.natural.wetland.bog">Torbera</string>
@@ -1350,6 +1351,7 @@
     <string name="type.traffic_calming.bump">Rebaixador de trànsit</string>
     <string name="type.traffic_calming.hump">Rebaixador de trànsit</string>
     <string name="type.waterway">Via aquàtica</string>
+    <string name="type.waterway.access_point">Punt d\'accés a la via navegable</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Túnel de canal</string>
     <string name="type.waterway.fish_pass">Pas de peix</string>

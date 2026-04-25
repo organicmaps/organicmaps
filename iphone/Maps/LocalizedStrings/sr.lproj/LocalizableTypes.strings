@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Дрворед";
 "type.natural.vineyard" = "Виноград";
 "type.natural.volcano" = "Вулкан";
+"type.natural.volcano.active" = "Активни вулкан";
 "type.natural.water" = "Вода";
 "type.natural.wetland" = "Мочвара";
 "type.natural.wetland.bog" = "Тресет";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Лежећи полицајац (грба)";
 "type.traffic_calming.hump" = "Лежећи полицајац";
 "type.waterway" = "Водени ток";
+"type.waterway.access_point" = "Приступна тачка на водотоку";
 "type.waterway.canal" = "Канал";
 "type.waterway.canal.tunnel" = "Тунел у каналу";
 "type.waterway.fish_pass" = "Рибљи пут";

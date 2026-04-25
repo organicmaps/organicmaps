@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "שורת עצים";
 "type.natural.vineyard" = "כרם";
 "type.natural.volcano" = "הר געש";
+"type.natural.volcano.active" = "הר געש פעיל";
 "type.natural.water" = "מים";
 "type.natural.wetland" = "ביצה";
 "type.natural.wetland.bog" = "ביצת כבול";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "פס האטה";
 "type.waterway" = "נתיב מים";
+"type.waterway.access_point" = "נקודת גישה לנתיב מים";
 "type.waterway.canal" = "תעלת מים";
 "type.waterway.canal.tunnel" = "תעלת מים תת קרקעית";
 "type.waterway.fish_pass" = "סולם דגים";

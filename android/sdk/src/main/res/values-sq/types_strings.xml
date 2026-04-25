@@ -754,6 +754,7 @@
     <string name="type.natural.tree_row">Rresht pemësh</string>
     <string name="type.natural.vineyard">Vresht</string>
     <string name="type.natural.volcano">Vullkan</string>
+    <string name="type.natural.volcano.active">Vullkan aktiv</string>
     <string name="type.natural.water">Ujë</string>
     <string name="type.natural.wetland">Zonë ligatinore</string>
     <string name="type.natural.wetland.bog">Mocal</string>
@@ -1347,6 +1348,7 @@
     <string name="type.traffic_calming.bump">Kurriz artificial</string>
     <string name="type.traffic_calming.hump">Kurriz i gjerë</string>
     <string name="type.waterway">Rrugë ujore</string>
+    <string name="type.waterway.access_point">Pika e aksesit në rrugën ujore</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Tunel kanali</string>
     <string name="type.waterway.fish_pass">Kalim peshqish</string>

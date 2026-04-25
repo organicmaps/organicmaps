@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Ред дървета";
 "type.natural.vineyard" = "Лозе";
 "type.natural.volcano" = "Вулкан";
+"type.natural.volcano.active" = "Активен вулкан";
 "type.natural.water" = "Воден басейн";
 "type.natural.wetland" = "Влажна зона";
 "type.natural.wetland.bog" = "Торфено блато";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Точка за достъп до водния път";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Стълба за риба";

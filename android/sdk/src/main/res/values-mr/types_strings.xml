@@ -636,6 +636,7 @@
     <string name="type.natural.tree_row">झाडाची रांग</string>
     <string name="type.natural.vineyard">द्राक्षमळा</string>
     <string name="type.natural.volcano">ज्वालामुखी</string>
+    <string name="type.natural.volcano.active">सक्रिय ज्वालामुखी</string>
     <string name="type.natural.water">पाणवठा</string>
     <string name="type.natural.wetland">ओलिताची जमीन</string>
     <string name="type.natural.wetland.bog">ओलिताची जमीन</string>
@@ -1148,6 +1149,7 @@
     <string name="type.tourism.zoo.petting">पेटिंग प्राणीसंग्रहालय</string>
     <string name="type.traffic_calming.bump">वाहतूक गतिरोधक</string>
     <string name="type.waterway">जलमार्ग</string>
+    <string name="type.waterway.access_point">जलमार्ग प्रवेश बिंदू</string>
     <string name="type.waterway.canal">कालवा</string>
     <string name="type.waterway.canal.tunnel">कालवा</string>
     <string name="type.waterway.fish_pass">मासे शिडी</string>

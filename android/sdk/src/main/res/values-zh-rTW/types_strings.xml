@@ -755,6 +755,7 @@
     <string name="type.natural.tree_row">樹列</string>
     <string name="type.natural.vineyard">葡萄園</string>
     <string name="type.natural.volcano">火山</string>
+    <string name="type.natural.volcano.active">活火山</string>
     <string name="type.natural.water">水體</string>
     <string name="type.natural.wetland">沼澤</string>
     <string name="type.natural.wetland.bog">泥炭地</string>
@@ -1354,6 +1355,7 @@
     <string name="type.traffic_calming.bump">減速帶</string>
     <string name="type.traffic_calming.hump">減速丘</string>
     <string name="type.waterway">水道</string>
+    <string name="type.waterway.access_point">水道存取點</string>
     <string name="type.waterway.canal">運河</string>
     <string name="type.waterway.canal.tunnel">運河</string>
     <string name="type.waterway.fish_pass">魚梯</string>

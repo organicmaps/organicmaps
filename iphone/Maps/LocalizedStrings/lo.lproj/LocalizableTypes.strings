@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "ແຖວຕົ້ນໄມ້";
 "type.natural.vineyard" = "ສວນອະງຸ່ນ";
 "type.natural.volcano" = "ພູໄຟ";
+"type.natural.volcano.active" = "ພູເຂົາໄຟທີ່ເຄື່ອນໄຫວ";
 "type.natural.water" = "ແຫຼ່ງນ້ຳ";
 "type.natural.wetland" = "ດິນຊຸ່ມນ້ຳ";
 "type.natural.wetland.bog" = "ໜອງບຶງ";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "ລູກລະນາດ";
 "type.traffic_calming.hump" = "ເນີນຫຼຸດຄວາມໄວ";
 "type.waterway" = "ທາງນ້ຳ";
+"type.waterway.access_point" = "ຈຸດເຂົ້າເຖິງທາງນ້ຳ";
 "type.waterway.canal" = "ຄອງ";
 "type.waterway.canal.tunnel" = "ອຸມົງຄອງນ້ຳ";
 "type.waterway.fish_pass" = "ທາງປາຜ່ານ";

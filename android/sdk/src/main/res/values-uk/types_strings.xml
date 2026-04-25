@@ -755,6 +755,7 @@
     <string name="type.natural.tree_row">Ряд дерев</string>
     <string name="type.natural.vineyard">Виноградник</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Діючий вулкан</string>
     <string name="type.natural.water">Водоймище</string>
     <string name="type.natural.wetland">Болотиста місцевість</string>
     <string name="type.natural.wetland.bog">Торф\'яне болото</string>
@@ -1354,6 +1355,7 @@
     <string name="type.traffic_calming.bump">Лежачий поліцейський</string>
     <string name="type.traffic_calming.hump">Лежачий поліцейський</string>
     <string name="type.waterway">Водяний шлях</string>
+    <string name="type.waterway.access_point">Пункт доступу до водного шляху</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Канал</string>
     <string name="type.waterway.fish_pass">Рибохід</string>

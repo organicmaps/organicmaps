@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Řada stromů";
 "type.natural.vineyard" = "Vinice";
 "type.natural.volcano" = "Sopka";
+"type.natural.volcano.active" = "Aktivní sopka";
 "type.natural.water" = "Vodní plocha";
 "type.natural.wetland" = "Mokřadní oblast";
 "type.natural.wetland.bog" = "Rašeliniště";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Zpomalovací práh";
 "type.traffic_calming.hump" = "Zpomalovací hrbol";
 "type.waterway" = "Vodní cesta";
+"type.waterway.access_point" = "Přístupový bod k vodním cestám";
 "type.waterway.canal" = "Kanál";
 "type.waterway.canal.tunnel" = "Kanál";
 "type.waterway.fish_pass" = "Žebřík pro ryby";

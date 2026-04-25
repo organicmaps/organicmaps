@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Medžių eilė";
 "type.natural.vineyard" = "Vynuogynas";
 "type.natural.volcano" = "Ugnikalnis";
+"type.natural.volcano.active" = "Aktyvus ugnikalnis";
 "type.natural.water" = "Vanduo";
 "type.natural.wetland" = "Šlapynė";
 "type.natural.wetland.bog" = "Pelkė";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Greičio mažinimo kalnelis";
 "type.traffic_calming.hump" = "Greičio mažinimo kalnelis";
 "type.waterway" = "Vandens kelias";
+"type.waterway.access_point" = "Prieigos prie vandens kelių taškas";
 "type.waterway.canal" = "Kanalas";
 "type.waterway.canal.tunnel" = "Kanalo tunelis";
 "type.waterway.fish_pass" = "Žuvitakis";

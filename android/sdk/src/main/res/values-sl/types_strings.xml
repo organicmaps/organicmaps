@@ -725,6 +725,7 @@
     <string name="type.natural.tree_row">Drevored</string>
     <string name="type.natural.vineyard">Vinograd</string>
     <string name="type.natural.volcano">Vulkan</string>
+    <string name="type.natural.volcano.active">Aktivni vulkan</string>
     <string name="type.natural.water">Voda</string>
     <string name="type.natural.wetland">Mokrišče</string>
     <string name="type.natural.wetland.bog">Barje</string>
@@ -1305,6 +1306,7 @@
     <string name="type.traffic_calming.bump">Grbina</string>
     <string name="type.traffic_calming.hump">Grbina</string>
     <string name="type.waterway">Vodotok</string>
+    <string name="type.waterway.access_point">Dostopna točka do plovnih poti</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanalski predor</string>
     <string name="type.waterway.fish_pass">Ribja steza</string>

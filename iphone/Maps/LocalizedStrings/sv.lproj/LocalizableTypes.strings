@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Trädrad";
 "type.natural.vineyard" = "Vingård";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Aktiv vulkan";
 "type.natural.water" = "Vatten";
 "type.natural.wetland" = "Sumpmarken";
 "type.natural.wetland.bog" = "Myr";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Fartgupp";
 "type.traffic_calming.hump" = "Fartbula";
 "type.waterway" = "Vattendrag";
+"type.waterway.access_point" = "Accesspunkt för vattenväg";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fiskstege";

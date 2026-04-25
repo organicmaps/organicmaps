@@ -883,6 +883,7 @@
 "type.natural.tree_row" = "Σειρά δέντρων";
 "type.natural.vineyard" = "Αμπελώνας";
 "type.natural.volcano" = "Ηφαίστειο";
+"type.natural.volcano.active" = "Ενεργό ηφαίστειο";
 "type.natural.water" = "Νερό";
 "type.natural.wetland" = "Υγρότοπος";
 "type.natural.wetland.bog" = "Βάλτος";
@@ -1497,6 +1498,7 @@
 "type.traffic_calming.bump" = "Μικρότερο σαμαράκι δρόμου";
 "type.traffic_calming.hump" = "Σαμαράκι δρόμου";
 "type.waterway" = "Υδάτινη οδός";
+"type.waterway.access_point" = "Σημείο πρόσβασης σε υδατοδρόμιο";
 "type.waterway.canal" = "Κανάλι";
 "type.waterway.canal.tunnel" = "Σήραγγα καναλιού";
 "type.waterway.fish_pass" = "Σκάλα ψαριών";
