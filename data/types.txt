@@ -1648,3 +1648,4 @@ amenity|recycling|container
 *amenity|hookah_lounge
 *waterway|access_point
 *natural|volcano|active
+*building|construction
