@@ -5506,6 +5506,48 @@ vi:Cho thuê thuyền
 zh-Hans:船只租赁
 zh-Hant:船隻租賃
 
+leisure-slipway
+en:3Slipway|4Boat Ramp|5Launch|Ramp|Boat Launch
+ar:3منحدر القوارب|منزلق القوارب|منحدر
+be:3Сліп|сліпвей|спуск для лодак
+bg:3Слипове|рампа за лодки|спуск за лодки
+ca:3Rampa de vaixells|rampa|llançament de vaixells
+cs:3Skluz|rampa pro lodě|spouštěcí rampa
+da:3Bådrampe|slip|rampe
+de:3Slipanlage|Bootsrampe|Sliprampe
+el:3Ράμπα σκαφών|ράμπα|εκτόξευση σκαφών
+es:3Rampa de barcos|rampa|deslizadero
+et:3Paadirammp|slip|paadi laskmise koht
+eu:3Arrapala|ontzi arrapala|ontzi jaurtiketa
+fa:3سرسره قایق|رمپ قایق|سرسره
+fi:3Liukusilta|veneluiska|ramppi
+fr:3Rampe de mise à l'eau|rampe|mise à l'eau
+hi:3नाव रैंप|रैंप|नाव लॉन्च
+hu:3Csúszda|hajórámpa|csónakrámpa
+id:3Landasan perahu|ramp perahu|peluncuran perahu
+it:3Scivolo|rampa per barche|lancio barca
+ja:3スリップウェイ|ボートランプ|船の発進台
+ko:3슬립웨이|보트램프|보트출발대
+lv:3Laivu rampa|slipvejs|laivu palaišanas vieta
+mr:3नाव रॅम्प|रॅम्प|नाव सुरूवात
+nb:3Båtrampe|slip|rampe
+nl:3Boothelling|slipway|helling
+pl:3Slip|rampa dla łodzi|spust dla łodzi
+pt:3Rampa de barcos|rampa|lançamento de barcos
+pt-BR:3Rampa de barcos|rampa|lançamento de barcos
+ro:3Rampă de bărci|rampă|lansare bărci
+ru:3Слип|спуск для лодок|рампа
+sk:3Sklz|rampa pre lode|spúšťacia rampa
+sr:3Слип|рампа за чамце|спуштање чамаца
+sv:3Båtramp|slip|rampe
+sw:3Njia ya mashua|rampa|uzinduzi wa mashua
+th:3ทางลาดเรือ|ทางลงเรือ|ทางสไลด์
+tr:3Tekne rampası|kaydırak|rampa
+uk:3Сліп|спуск для човнів|рампа
+vi:3Dốc thuyền|ramp|bệ thả thuyền
+zh-Hans:3船坡道|船滑道|船下水坡
+zh-Hant:3船坡道|船滑道|船下水坡
+
 amenity-car_sharing
 en:Car Share|3carsharing|car|sharing|carpool|carsharing services|car sharing|4rideshare|U+1F697|U+1F698|U+1F699
 ar:مشاركة السيارة|تقاسم السيارة
