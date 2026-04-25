@@ -16200,6 +16200,51 @@ vi:Núi lửa
 zh-Hans:火山
 zh-Hant:火山
 
+natural-volcano-active
+en:Active Volcano
+ar:بركان نشط
+be:Актыўны вулкан
+bg:Активен вулкан
+ca:Volcà actiu
+cs:Aktivní sopka
+da:Aktiv vulkan
+de:Aktiver Vulkan
+el:Ενεργό ηφαίστειο
+es:Volcán activo
+es-MX:Volcán activo
+et:Aktiivne vulkaan
+eu:Sumendi aktiboa
+fa:آتشفشان فعال
+fi:Aktiivinen tulivuori
+fr:Volcan actif
+he:הר געש פעיל
+hi:सक्रिय ज्वालामुखी
+hu:Aktív vulkán
+id:Gunung Berapi Aktif
+it:Vulcano attivo
+ja:活火山
+ko:활화산
+lt:Aktyvus ugnikalnis
+lv:Aktīvais vulkāns
+mr:सक्रिय ज्वालामुखी
+nb:Aktiv vulkan
+nl:Actieve vulkaan
+pl:Aktywny wulkan
+pt:Vulcão ativo
+ro:Vulcan activ
+ru:Действующий вулкан
+sk:Aktívna sopka
+sl:Aktivni vulkan
+sr:Активни вулкан
+sv:Aktiv vulkan
+sw:Mlima wa moto unaotupuka
+th:ภูเขาไฟที่ยังปะทุอยู่
+tr:Aktif Volkan
+uk:Діючий вулкан
+vi:Núi lửa đang hoạt động
+zh-Hans:活火山
+zh-Hant:活火山
+
 # Do not mix with school, college, university.
 office-educational_institution
 en:Educational Institution
