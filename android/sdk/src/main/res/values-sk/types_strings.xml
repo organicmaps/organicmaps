@@ -1284,6 +1284,7 @@
     <string name="type.traffic_calming.bump">Spomaľovací prah</string>
     <string name="type.traffic_calming.hump">Spomaľovací prah</string>
     <string name="type.waterway">Vodný tok</string>
+    <string name="type.waterway.access_point">Prístupový bod k vodnej ceste</string>
     <string name="type.waterway.canal">Kanál</string>
     <string name="type.waterway.canal.tunnel">Tunel v kanáli</string>
     <string name="type.waterway.fish_pass">Rybovod</string>

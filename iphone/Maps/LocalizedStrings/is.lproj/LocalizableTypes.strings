@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Hraðahindrun";
 "type.traffic_calming.hump" = "Hraðahindrun";
 "type.waterway" = "Siglingaleið";
+"type.waterway.access_point" = "Aðgengispunktur vatnaleiðar";
 "type.waterway.canal" = "Skipaskurður";
 "type.waterway.canal.tunnel" = "Skipaskurðsgöng";
 "type.waterway.fish_pass" = "Fiskastigi";

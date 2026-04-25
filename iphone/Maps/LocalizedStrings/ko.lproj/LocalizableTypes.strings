@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "수로 액세스 포인트";
 "type.waterway.canal" = "운하";
 "type.waterway.canal.tunnel" = "운하";
 "type.waterway.fish_pass" = "물고기 사다리";

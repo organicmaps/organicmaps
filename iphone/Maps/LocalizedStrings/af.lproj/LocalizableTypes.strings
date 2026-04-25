@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Verkeersdrempel";
 "type.traffic_calming.hump" = "Verkeersheuwel";
 "type.waterway" = "Waterweg";
+"type.waterway.access_point" = "Toegangspunt tot waterweg";
 "type.waterway.canal" = "Kanaal";
 "type.waterway.canal.tunnel" = "Kanaal";
 "type.waterway.fish_pass" = "Vistrap";

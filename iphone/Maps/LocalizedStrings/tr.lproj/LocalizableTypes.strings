@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Hız Kesici (Kasis)";
 "type.traffic_calming.hump" = "Hız Kesici (Kasis)";
 "type.waterway" = "Su Yolu";
+"type.waterway.access_point" = "Su Yolu Erişim Noktası";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Balık Geçidi";

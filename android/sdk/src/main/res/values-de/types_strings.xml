@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">kurze Bodenwelle</string>
     <string name="type.traffic_calming.hump">lange Bodenwelle</string>
     <string name="type.waterway">Wasserweg</string>
+    <string name="type.waterway.access_point">Wasserstraße Zugangspunkt</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Fischtreppe</string>

@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Điểm tiếp cận đường thủy";
 "type.waterway.canal" = "Kênh";
 "type.waterway.canal.tunnel" = "Kênh";
 "type.waterway.fish_pass" = "Thang cá";

@@ -1347,6 +1347,7 @@
     <string name="type.traffic_calming.bump">Banda redutora</string>
     <string name="type.traffic_calming.hump">Resalte</string>
     <string name="type.waterway">Curso de auga</string>
+    <string name="type.waterway.access_point">Punto de acceso á vía navegable</string>
     <string name="type.waterway.canal">Canle</string>
     <string name="type.waterway.canal.tunnel">Túnel de canle</string>
     <string name="type.waterway.fish_pass">Escaleira de peces</string>

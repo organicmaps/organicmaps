@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Արհեստական անհարթություն";
 "type.traffic_calming.hump" = "Արհեստական թմբիկ";
 "type.waterway" = "Ջրային ուղի";
+"type.waterway.access_point" = "Ջրային ճանապարհի մուտքի կետ";
 "type.waterway.canal" = "Ջրանցք";
 "type.waterway.canal.tunnel" = "Ջրանցքի թունել";
 "type.waterway.fish_pass" = "Ձկնանցարան";

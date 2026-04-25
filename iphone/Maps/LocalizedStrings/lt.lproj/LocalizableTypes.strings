@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Greičio mažinimo kalnelis";
 "type.traffic_calming.hump" = "Greičio mažinimo kalnelis";
 "type.waterway" = "Vandens kelias";
+"type.waterway.access_point" = "Prieigos prie vandens kelių taškas";
 "type.waterway.canal" = "Kanalas";
 "type.waterway.canal.tunnel" = "Kanalo tunelis";
 "type.waterway.fish_pass" = "Žuvitakis";

@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Greičio mažinimo kalnelis</string>
     <string name="type.traffic_calming.hump">Greičio mažinimo kalnelis</string>
     <string name="type.waterway">Vandens kelias</string>
+    <string name="type.waterway.access_point">Prieigos prie vandens kelių taškas</string>
     <string name="type.waterway.canal">Kanalas</string>
     <string name="type.waterway.canal.tunnel">Kanalo tunelis</string>
     <string name="type.waterway.fish_pass">Žuvitakis</string>

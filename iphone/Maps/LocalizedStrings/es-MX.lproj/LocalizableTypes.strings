@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Topes";
 "type.traffic_calming.hump" = "Lomo";
 "type.waterway" = "Curso de agua";
+"type.waterway.access_point" = "Punto de acceso a vías navegables";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Escalera de peces";

@@ -1305,6 +1305,7 @@
     <string name="type.traffic_calming.bump">Sürət Qırıcı (Rip)</string>
     <string name="type.traffic_calming.hump">Sürət Qırıcı (Rip)</string>
     <string name="type.waterway">Su yolu</string>
+    <string name="type.waterway.access_point">Su yolu giriş nöqtəsi</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Balıq keçidi</string>

@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Grbina";
 "type.traffic_calming.hump" = "Grbina";
 "type.waterway" = "Vodotok";
+"type.waterway.access_point" = "Dostopna točka do plovnih poti";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanalski predor";
 "type.waterway.fish_pass" = "Ribja steza";

@@ -69,6 +69,7 @@
     <string name="type.attraction.maze">Labirints</string>
     <string name="type.attraction.roller_coaster">Amerikāņu kalniņi</string>
     <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
+    <string name="type.waterway.access_point">Piekļuves punkts pie ūdensceļiem</string>
     <string name="type.barrier.jersey_barrier">Bloks</string>
     <string name="type.barrier.debris">Gruveši</string>
     <string name="type.barrier.log">Baļķu barjera</string>

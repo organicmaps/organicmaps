@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Krótki próg zwalniający</string>
     <string name="type.traffic_calming.hump">Długi próg zwalniający</string>
     <string name="type.waterway">Droga wodna</string>
+    <string name="type.waterway.access_point">Punkt dostępu do drogi wodnej</string>
     <string name="type.waterway.canal">Kanał</string>
     <string name="type.waterway.canal.tunnel">Kanał</string>
     <string name="type.waterway.fish_pass">Przepławka</string>

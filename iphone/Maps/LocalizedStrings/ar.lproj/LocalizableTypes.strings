@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "مطبة";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "نقطة وصول الممر المائي";
 "type.waterway.canal" = "قناة";
 "type.waterway.canal.tunnel" = "نفق قناة";
 "type.waterway.fish_pass" = "سلم سمك";

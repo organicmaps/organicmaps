@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Kiirusepiiraja</string>
     <string name="type.traffic_calming.hump">Liikluskünnis</string>
     <string name="type.waterway">Veetee</string>
+    <string name="type.waterway.access_point">Veetee juurdepääsupunkt</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal tunnelis</string>
     <string name="type.waterway.fish_pass">Kalatrepp</string>

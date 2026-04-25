@@ -1254,6 +1254,7 @@
     <string name="type.tourism.zoo.petting">Lemmikkieläintarha</string>
     <string name="type.traffic_calming.bump">Hidastetöyssy</string>
     <string name="type.waterway">Vesiväylä</string>
+    <string name="type.waterway.access_point">Vesiväylän liittymispiste</string>
     <string name="type.waterway.canal">Kanaali</string>
     <string name="type.waterway.canal.tunnel">Kanaali</string>
     <string name="type.waterway.fish_pass">Kalatikkaat</string>

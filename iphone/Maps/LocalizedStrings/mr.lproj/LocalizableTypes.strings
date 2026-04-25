@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "वाहतूक गतिरोधक";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "जलमार्ग";
+"type.waterway.access_point" = "जलमार्ग प्रवेश बिंदू";
 "type.waterway.canal" = "कालवा";
 "type.waterway.canal.tunnel" = "कालवा";
 "type.waterway.fish_pass" = "मासे शिडी";

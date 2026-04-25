@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Fekvőrendőr</string>
     <string name="type.traffic_calming.hump">Hosszú fekvőrendőr</string>
     <string name="type.waterway">Vízfolyás</string>
+    <string name="type.waterway.access_point">Víziút hozzáférési pont</string>
     <string name="type.waterway.canal">Csatorna</string>
     <string name="type.waterway.canal.tunnel">Csatornaalagút</string>
     <string name="type.waterway.fish_pass">Hallépcső</string>

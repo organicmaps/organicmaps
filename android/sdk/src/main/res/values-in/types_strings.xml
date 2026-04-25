@@ -1154,6 +1154,7 @@
     <string name="type.tourism.wilderness_hut">Pondok Alam Liar</string>
     <string name="type.tourism.zoo">Kebun binatang</string>
     <string name="type.tourism.zoo.petting">Kebun Binatang</string>
+    <string name="type.waterway.access_point">Titik Akses Jalur Air</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Tangga ikan</string>

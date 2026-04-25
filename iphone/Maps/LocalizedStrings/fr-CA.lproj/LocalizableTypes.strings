@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Ralentisseur";
 "type.traffic_calming.hump" = "Ralentisseur";
 "type.waterway" = "Voie navigable";
+"type.waterway.access_point" = "Point d'accès à la voie d'eau";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Tunnel du canal";
 "type.waterway.fish_pass" = "Échelle à poissons";

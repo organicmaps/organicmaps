@@ -1353,6 +1353,7 @@
     <string name="type.traffic_calming.bump">Hraðahindrun</string>
     <string name="type.traffic_calming.hump">Hraðahindrun</string>
     <string name="type.waterway">Siglingaleið</string>
+    <string name="type.waterway.access_point">Aðgengispunktur vatnaleiðar</string>
     <string name="type.waterway.canal">Skipaskurður</string>
     <string name="type.waterway.canal.tunnel">Skipaskurðsgöng</string>
     <string name="type.waterway.fish_pass">Fiskastigi</string>

@@ -1339,6 +1339,7 @@
     <string name="type.traffic_calming.bump">ລູກລະນາດ</string>
     <string name="type.traffic_calming.hump">ເນີນຫຼຸດຄວາມໄວ</string>
     <string name="type.waterway">ທາງນ້ຳ</string>
+    <string name="type.waterway.access_point">ຈຸດເຂົ້າເຖິງທາງນ້ຳ</string>
     <string name="type.waterway.canal">ຄອງ</string>
     <string name="type.waterway.canal.tunnel">ອຸມົງຄອງນ້ຳ</string>
     <string name="type.waterway.fish_pass">ທາງປາຜ່ານ</string>

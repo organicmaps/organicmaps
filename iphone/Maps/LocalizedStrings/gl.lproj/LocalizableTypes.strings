@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Banda redutora";
 "type.traffic_calming.hump" = "Resalte";
 "type.waterway" = "Curso de auga";
+"type.waterway.access_point" = "Punto de acceso á vía navegable";
 "type.waterway.canal" = "Canle";
 "type.waterway.canal.tunnel" = "Túnel de canle";
 "type.waterway.fish_pass" = "Escaleira de peces";

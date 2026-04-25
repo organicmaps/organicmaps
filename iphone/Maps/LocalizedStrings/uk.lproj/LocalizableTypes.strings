@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Лежачий поліцейський";
 "type.traffic_calming.hump" = "Лежачий поліцейський";
 "type.waterway" = "Водяний шлях";
+"type.waterway.access_point" = "Пункт доступу до водного шляху";
 "type.waterway.canal" = "Канал";
 "type.waterway.canal.tunnel" = "Канал";
 "type.waterway.fish_pass" = "Рибохід";

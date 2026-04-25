@@ -1320,6 +1320,7 @@
     <string name="type.tourism.zoo.petting">حديقة الحيوان الملاعبة</string>
     <string name="type.traffic_calming">تهدئة سير السيارات</string>
     <string name="type.traffic_calming.bump">مطبة</string>
+    <string name="type.waterway.access_point">نقطة وصول الممر المائي</string>
     <string name="type.waterway.canal">قناة</string>
     <string name="type.waterway.canal.tunnel">نفق قناة</string>
     <string name="type.waterway.fish_pass">سلم سمك</string>

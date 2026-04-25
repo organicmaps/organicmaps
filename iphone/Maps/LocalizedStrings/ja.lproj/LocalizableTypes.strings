@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "スピードバンプ";
 "type.traffic_calming.hump" = "スピードハンプ";
 "type.waterway" = "水域";
+"type.waterway.access_point" = "水路アクセスポイント";
 "type.waterway.canal" = "運河";
 "type.waterway.canal.tunnel" = "運河";
 "type.waterway.fish_pass" = "魚道";

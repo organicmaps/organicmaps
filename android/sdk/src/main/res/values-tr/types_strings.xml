@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
     <string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>
     <string name="type.waterway">Su Yolu</string>
+    <string name="type.waterway.access_point">Su Yolu Erişim Noktası</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Balık Geçidi</string>

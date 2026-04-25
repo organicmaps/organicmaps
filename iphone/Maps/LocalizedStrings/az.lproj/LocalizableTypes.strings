@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Sürət Qırıcı (Rip)";
 "type.traffic_calming.hump" = "Sürət Qırıcı (Rip)";
 "type.waterway" = "Su yolu";
+"type.waterway.access_point" = "Su yolu giriş nöqtəsi";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Balıq keçidi";

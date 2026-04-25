@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Spomaľovací prah";
 "type.traffic_calming.hump" = "Spomaľovací prah";
 "type.waterway" = "Vodný tok";
+"type.waterway.access_point" = "Prístupový bod k vodnej ceste";
 "type.waterway.canal" = "Kanál";
 "type.waterway.canal.tunnel" = "Tunel v kanáli";
 "type.waterway.fish_pass" = "Rybovod";

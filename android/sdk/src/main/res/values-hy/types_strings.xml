@@ -1351,6 +1351,7 @@
     <string name="type.traffic_calming.bump">Արհեստական անհարթություն</string>
     <string name="type.traffic_calming.hump">Արհեստական թմբիկ</string>
     <string name="type.waterway">Ջրային ուղի</string>
+    <string name="type.waterway.access_point">Ջրային ճանապարհի մուտքի կետ</string>
     <string name="type.waterway.canal">Ջրանցք</string>
     <string name="type.waterway.canal.tunnel">Ջրանցքի թունել</string>
     <string name="type.waterway.fish_pass">Ձկնանցարան</string>

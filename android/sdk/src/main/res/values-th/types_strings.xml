@@ -1169,6 +1169,7 @@
     <string name="type.tourism.wilderness_hut">กระท่อมกลางป่า</string>
     <string name="type.tourism.zoo">สวนสัตว์</string>
     <string name="type.tourism.zoo.petting">สวนสัตว์ลูบคลำ</string>
+    <string name="type.waterway.access_point">จุดเข้าถึงทางน้ำ</string>
     <string name="type.waterway.canal">คลอง</string>
     <string name="type.waterway.canal.tunnel">คลอง</string>
     <string name="type.waterway.fish_pass">บันไดปลา</string>

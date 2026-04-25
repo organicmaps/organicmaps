@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "减速带";
 "type.traffic_calming.hump" = "减速丘";
 "type.waterway" = "航道要素";
+"type.waterway.access_point" = "水道入口";
 "type.waterway.canal" = "运河";
 "type.waterway.canal.tunnel" = "运河";
 "type.waterway.fish_pass" = "鱼梯";

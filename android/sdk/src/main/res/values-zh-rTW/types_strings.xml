@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">減速帶</string>
     <string name="type.traffic_calming.hump">減速丘</string>
     <string name="type.waterway">水道</string>
+    <string name="type.waterway.access_point">水道存取點</string>
     <string name="type.waterway.canal">運河</string>
     <string name="type.waterway.canal.tunnel">運河</string>
     <string name="type.waterway.fish_pass">魚梯</string>

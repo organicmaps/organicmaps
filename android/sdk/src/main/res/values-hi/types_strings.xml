@@ -664,6 +664,7 @@
     <string name="type.tourism.picnic_site">पिकनिक स्थल</string>
     <string name="type.tourism.viewpoint">दृष्टिकोण</string>
     <string name="type.tourism.zoo">चिड़ियाघर</string>
+    <string name="type.waterway.access_point">जलमार्ग पहुँच बिंदु</string>
     <string name="type.waterway.canal">नहर</string>
     <string name="type.waterway.canal.tunnel">नहर</string>
     <string name="type.waterway.dam">बाँध</string>

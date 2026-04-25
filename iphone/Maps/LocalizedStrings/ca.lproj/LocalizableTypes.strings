@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Rebaixador de trànsit";
 "type.traffic_calming.hump" = "Rebaixador de trànsit";
 "type.waterway" = "Via aquàtica";
+"type.waterway.access_point" = "Punt d'accés a la via navegable";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Pas de peix";

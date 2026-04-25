@@ -1165,6 +1165,7 @@
     <string name="type.tourism.wilderness_hut">Nhà tạm trú</string>
     <string name="type.tourism.zoo">Vườn bách thú</string>
     <string name="type.tourism.zoo.petting">Vườn thú cưng</string>
+    <string name="type.waterway.access_point">Điểm tiếp cận đường thủy</string>
     <string name="type.waterway.canal">Kênh</string>
     <string name="type.waterway.canal.tunnel">Kênh</string>
     <string name="type.waterway.fish_pass">Thang cá</string>

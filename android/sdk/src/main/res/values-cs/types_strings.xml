@@ -1354,6 +1354,7 @@
     <string name="type.traffic_calming.bump">Zpomalovací práh</string>
     <string name="type.traffic_calming.hump">Zpomalovací hrbol</string>
     <string name="type.waterway">Vodní cesta</string>
+    <string name="type.waterway.access_point">Přístupový bod k vodním cestám</string>
     <string name="type.waterway.canal">Kanál</string>
     <string name="type.waterway.canal.tunnel">Kanál</string>
     <string name="type.waterway.fish_pass">Žebřík pro ryby</string>

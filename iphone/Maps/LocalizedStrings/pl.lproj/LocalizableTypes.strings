@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Krótki próg zwalniający";
 "type.traffic_calming.hump" = "Długi próg zwalniający";
 "type.waterway" = "Droga wodna";
+"type.waterway.access_point" = "Punkt dostępu do drogi wodnej";
 "type.waterway.canal" = "Kanał";
 "type.waterway.canal.tunnel" = "Kanał";
 "type.waterway.fish_pass" = "Przepławka";

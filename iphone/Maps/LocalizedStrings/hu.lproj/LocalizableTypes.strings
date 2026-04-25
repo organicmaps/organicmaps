@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Fekvőrendőr";
 "type.traffic_calming.hump" = "Hosszú fekvőrendőr";
 "type.waterway" = "Vízfolyás";
+"type.waterway.access_point" = "Víziút hozzáférési pont";
 "type.waterway.canal" = "Csatorna";
 "type.waterway.canal.tunnel" = "Csatornaalagút";
 "type.waterway.fish_pass" = "Hallépcső";

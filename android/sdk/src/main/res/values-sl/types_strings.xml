@@ -1305,6 +1305,7 @@
     <string name="type.traffic_calming.bump">Grbina</string>
     <string name="type.traffic_calming.hump">Grbina</string>
     <string name="type.waterway">Vodotok</string>
+    <string name="type.waterway.access_point">Dostopna točka do plovnih poti</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanalski predor</string>
     <string name="type.waterway.fish_pass">Ribja steza</string>

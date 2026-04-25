@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Dosso";
 "type.traffic_calming.hump" = "Dosso";
 "type.waterway" = "Via d'acqua";
+"type.waterway.access_point" = "Punto di accesso alle vie d'acqua";
 "type.waterway.canal" = "Canale";
 "type.waterway.canal.tunnel" = "Canale";
 "type.waterway.fish_pass" = "Passaggio per pesci";

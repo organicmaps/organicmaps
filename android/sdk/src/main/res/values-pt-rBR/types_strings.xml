@@ -502,6 +502,7 @@
     <string name="type.tourism.zoo.petting">Fazendinha</string>
     <string name="type.traffic_calming.bump">Quebra-molas</string>
     <string name="type.traffic_calming.hump">Quebra-molas longo</string>
+    <string name="type.waterway.access_point">Ponto de acesso à hidrovia</string>
     <string name="type.waterway.dam">Represa</string>
     <string name="type.waterway.waterfall">Cachoeira</string>
     <string name="type.waterway.weir">Açude</string>

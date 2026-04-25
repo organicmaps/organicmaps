@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "kurze Bodenwelle";
 "type.traffic_calming.hump" = "lange Bodenwelle";
 "type.waterway" = "Wasserweg";
+"type.waterway.access_point" = "Wasserstraße Zugangspunkt";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fischtreppe";

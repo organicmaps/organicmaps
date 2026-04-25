@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "ລູກລະນາດ";
 "type.traffic_calming.hump" = "ເນີນຫຼຸດຄວາມໄວ";
 "type.waterway" = "ທາງນ້ຳ";
+"type.waterway.access_point" = "ຈຸດເຂົ້າເຖິງທາງນ້ຳ";
 "type.waterway.canal" = "ຄອງ";
 "type.waterway.canal.tunnel" = "ອຸມົງຄອງນ້ຳ";
 "type.waterway.fish_pass" = "ທາງປາຜ່ານ";

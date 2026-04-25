@@ -1284,6 +1284,7 @@
     <string name="type.traffic_calming.bump">スピードバンプ</string>
     <string name="type.traffic_calming.hump">スピードハンプ</string>
     <string name="type.waterway">水域</string>
+    <string name="type.waterway.access_point">水路アクセスポイント</string>
     <string name="type.waterway.canal">運河</string>
     <string name="type.waterway.canal.tunnel">運河</string>
     <string name="type.waterway.fish_pass">魚道</string>

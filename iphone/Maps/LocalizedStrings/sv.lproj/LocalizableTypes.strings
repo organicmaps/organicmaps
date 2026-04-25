@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Fartgupp";
 "type.traffic_calming.hump" = "Fartbula";
 "type.waterway" = "Vattendrag";
+"type.waterway.access_point" = "Accesspunkt för vattenväg";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fiskstege";

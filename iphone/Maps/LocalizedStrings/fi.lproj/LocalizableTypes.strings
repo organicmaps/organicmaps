@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Hidastetöyssy";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Vesiväylä";
+"type.waterway.access_point" = "Vesiväylän liittymispiste";
 "type.waterway.canal" = "Kanaali";
 "type.waterway.canal.tunnel" = "Kanaali";
 "type.waterway.fish_pass" = "Kalatikkaat";

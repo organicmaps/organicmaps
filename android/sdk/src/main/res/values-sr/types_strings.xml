@@ -1342,6 +1342,7 @@
     <string name="type.traffic_calming.bump">Лежећи полицајац (грба)</string>
     <string name="type.traffic_calming.hump">Лежећи полицајац</string>
     <string name="type.waterway">Водени ток</string>
+    <string name="type.waterway.access_point">Приступна тачка на водотоку</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Тунел у каналу</string>
     <string name="type.waterway.fish_pass">Рибљи пут</string>

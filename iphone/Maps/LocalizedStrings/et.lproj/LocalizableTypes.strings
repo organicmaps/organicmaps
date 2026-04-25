@@ -1497,6 +1497,7 @@
 "type.traffic_calming.bump" = "Kiirusepiiraja";
 "type.traffic_calming.hump" = "Liikluskünnis";
 "type.waterway" = "Veetee";
+"type.waterway.access_point" = "Veetee juurdepääsupunkt";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal tunnelis";
 "type.waterway.fish_pass" = "Kalatrepp";
