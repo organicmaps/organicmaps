@@ -276,6 +276,7 @@ world  +
         {}
     building  +
         address  -
+        construction  -
         garage  -
         guardhouse  -
         has_parts  -
