@@ -184,13 +184,12 @@ public:
       std::vector<uint8_t> forwardTableData(header.m_forwardMaxspeedOffset);
       src.Read(forwardTableData.data(), forwardTableData.size());
       maxspeeds.m_forwardMaxspeedTableRegion = std::make_unique<CopiedMemoryRegion>(std::move(forwardTableData));
-      coding::Map(maxspeeds.m_forwardMaxspeedsTable, maxspeeds.m_forwardMaxspeedTableRegion->ImmutableData(),
-                  "ForwardMaxspeedsTable");
+      coding::Map(maxspeeds.m_forwardMaxspeedsTable, maxspeeds.m_forwardMaxspeedTableRegion->ImmutableData());
 
       std::vector<uint8_t> forwardData(header.m_bidirectionalMaxspeedOffset - header.m_forwardMaxspeedOffset);
       src.Read(forwardData.data(), forwardData.size());
       maxspeeds.m_forwardMaxspeedRegion = std::make_unique<CopiedMemoryRegion>(std::move(forwardData));
-      Map(maxspeeds.m_forwardMaxspeeds, maxspeeds.m_forwardMaxspeedRegion->ImmutableData(), "ForwardMaxspeeds");
+      coding::Map(maxspeeds.m_forwardMaxspeeds, maxspeeds.m_forwardMaxspeedRegion->ImmutableData());
     }
 
     // Loading complex speeds.

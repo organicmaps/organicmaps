@@ -1,6 +1,7 @@
 #include "coding/file_reader.hpp"
 
 #include "coding/internal/file_data.hpp"
+#include "coding/memory_region.hpp"
 #include "coding/reader_cache.hpp"
 
 #include "base/logging.hpp"
@@ -18,10 +19,10 @@ uint32_t const FileReader::kDefaultLogPageSize = 10;  // page size is 2^10 = 102
 // static
 uint32_t const FileReader::kDefaultLogPageCount = 4;  // page count is 2^4 = 16, i.e. 16 pages are cached
 
-class FileReader::FileReaderData
+class FileReader::Impl
 {
 public:
-  FileReaderData(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
+  Impl(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
     : m_fileData(fileName)
     , m_readerCache(logPageSize, logPageCount)
   {
@@ -30,7 +31,7 @@ public:
 #endif
   }
 
-  ~FileReaderData()
+  ~Impl()
   {
 #if LOG_FILE_READER_STATS
     LOG(LINFO, ("FileReader", m_fileData.GetName(), m_readerCache.GetStatsStr()));
@@ -47,6 +48,14 @@ public:
 #endif
 
     return m_readerCache.Read(m_fileData, pos, p, size);
+  }
+
+  std::unique_ptr<MemoryRegion> GetMemoryRegion(uint64_t pos, size_t size)
+  {
+    // Bypass the page cache: GetMemoryRegion is one-shot, caching the pages would just evict useful entries.
+    std::vector<uint8_t> buffer(size);
+    m_fileData.Read(pos, buffer.data(), size);
+    return std::make_unique<CopiedMemoryRegion>(std::move(buffer));
   }
 
 private:
@@ -79,9 +88,9 @@ FileReader::FileReader(std::string const & fileName, uint32_t logPageSize, uint3
   : ModelReader(fileName)
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
-  , m_fileData(std::make_shared<FileReaderData>(fileName, logPageSize, logPageCount))
+  , m_impl(std::make_shared<Impl>(fileName, logPageSize, logPageCount))
   , m_offset(0)
-  , m_size(m_fileData->Size())
+  , m_size(m_impl->Size())
 {}
 
 FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size, uint32_t logPageSize,
@@ -89,7 +98,7 @@ FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size
   : ModelReader(reader.GetName())
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
-  , m_fileData(reader.m_fileData)
+  , m_impl(reader.m_impl)
   , m_offset(offset)
   , m_size(size)
 {}
@@ -97,7 +106,13 @@ FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size
 void FileReader::Read(uint64_t pos, void * p, size_t size) const
 {
   CheckPosAndSize(pos, size);
-  m_fileData->Read(m_offset + pos, p, size);
+  m_impl->Read(m_offset + pos, p, size);
+}
+
+std::unique_ptr<MemoryRegion> FileReader::GetMemoryRegion(uint64_t pos, size_t size) const
+{
+  CheckPosAndSize(pos, size);
+  return m_impl->GetMemoryRegion(m_offset + pos, size);
 }
 
 FileReader FileReader::SubReader(uint64_t pos, uint64_t size) const
@@ -120,7 +135,7 @@ void FileReader::CheckPosAndSize(uint64_t pos, uint64_t size) const
   if (!ret1)
     MYTHROW(Reader::SizeException, (pos, size, allSize1));
 
-  uint64_t const allSize2 = m_fileData->Size();
+  uint64_t const allSize2 = m_impl->Size();
   bool const ret2 = (m_offset + pos + size <= allSize2);
   if (!ret2)
     MYTHROW(Reader::SizeException, (pos, size, allSize2));

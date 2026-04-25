@@ -2,14 +2,14 @@
 
 #include "indexer/features_vector.hpp"
 
-#include "platform/platform.hpp"
-
 #include "coding/files_container.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+
+#include "3party/succinct/mapper.hpp"
 
 namespace feature
 {
@@ -21,12 +21,6 @@ void FeaturesOffsetsTable::Builder::PushOffset(uint32_t const offset)
 }
 
 FeaturesOffsetsTable::FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder) : m_table(&builder) {}
-
-FeaturesOffsetsTable::FeaturesOffsetsTable(std::string const & filePath)
-{
-  m_pReader.reset(new MmapReader(filePath));
-  succinct::mapper::map(m_table, reinterpret_cast<char const *>(m_pReader->Data()));
-}
 
 // static
 std::unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Build(Builder & builder)
@@ -44,30 +38,17 @@ std::unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Build(Builder & buil
 }
 
 // static
-std::unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::LoadImpl(std::string const & filePath)
-{
-  return std::unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(filePath));
-}
-
-// static
-std::unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(std::string const & filePath)
-{
-  if (!GetPlatform().IsFileExistsByFullPath(filePath))
-    return std::unique_ptr<FeaturesOffsetsTable>();
-  return LoadImpl(filePath);
-}
-
-// static
 std::unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(FilesContainerR const & cont, std::string const & tag)
 {
   std::unique_ptr<FeaturesOffsetsTable> table(new FeaturesOffsetsTable());
+  table->m_memRegion = cont.GetMemoryRegion(tag);
 
-  table->m_file.Open(cont.GetFileName());
-  auto p = cont.GetAbsoluteOffsetAndSize(tag);
-  ASSERT(p.first % 4 == 0, (p.first));  // will get troubles in succinct otherwise
-  table->m_handle.Assign(table->m_file.Map(p.first, p.second, tag));
+  // Should use coding::Map + coding::Freeze, but it breaks current format.
+  // So, put ASSERT guard for the base address alignment.
+  uint8_t const * addr = table->m_memRegion->ImmutableData();
+  ASSERT(reinterpret_cast<size_t>(addr) % sizeof(size_t) == 0, (addr));
+  succinct::mapper::map(table->m_table, reinterpret_cast<char const *>(addr));
 
-  succinct::mapper::map(table->m_table, table->m_handle.GetData<char>());
   return table;
 }
 
@@ -80,7 +61,7 @@ void FeaturesOffsetsTable::Build(FilesContainerR const & cont, std::string const
 
 void FeaturesOffsetsTable::Save(std::string const & filePath)
 {
-  LOG(LINFO, ("Saving features offsets table to ", filePath));
+  LOG(LINFO, ("Saving features offsets table to", filePath));
   std::string const fileNameTmp = filePath + EXTENSION_TMP;
   succinct::mapper::freeze(m_table, fileNameTmp.c_str());
   base::RenameFileX(fileNameTmp, filePath);
@@ -88,7 +69,7 @@ void FeaturesOffsetsTable::Save(std::string const & filePath)
 
 uint32_t FeaturesOffsetsTable::GetFeatureOffset(uint32_t index) const
 {
-  ASSERT_LESS(index, size(), ("Index out of bounds", index, size()));
+  ASSERT_LESS(index, size(), ());
   return base::asserted_cast<uint32_t>(m_table.select(index));
 }
 
