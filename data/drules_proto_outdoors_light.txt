@@ -65116,6 +65116,158 @@ cont {
   }
 }
 cont {
+  name: "natural-volcano-active"
+  element {
+    scale: 10
+    symbol {
+      name: "volcano-s"
+      priority: 5400
+    }
+  }
+  element {
+    scale: 11
+    symbol {
+      name: "volcano-s"
+      priority: 5400
+    }
+  }
+  element {
+    scale: 12
+    symbol {
+      name: "volcano-s"
+      priority: 5400
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "volcano-m"
+      priority: 5400
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4600
+    }
+  }
+}
+cont {
   name: "natural-water"
   element {
     scale: 1
@@ -136691,6 +136843,44 @@ cont {
         is_optional: true
       }
       priority: -7550
+    }
+  }
+}
+cont {
+  name: "waterway-access_point"
+  element {
+    scale: 16
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "waterway-access_point-m"
+      priority: 120
     }
   }
 }
