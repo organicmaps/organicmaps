@@ -23,14 +23,6 @@ namespace
 size_t constexpr kVersionOffset = 0;
 size_t constexpr kHeaderSize = 8;
 
-template <class TContainer>
-std::unique_ptr<MemoryRegion> GetMemoryRegionForTag(TContainer const & cont, FilesContainerBase::Tag const & tag)
-{
-  if (cont.IsExist(tag))
-    return cont.GetMemoryRegion(tag);
-  return {};
-}
-
 // RankTable version 0, uses simple dense coding to store and access array of ranks.
 class RankTableV0 : public RankTable
 {
@@ -105,8 +97,7 @@ void SerializeRankTable(RankTable & table, std::string const & mapPath, std::str
 
 std::unique_ptr<RankTable> LoadRankTable(std::unique_ptr<MemoryRegion> && region)
 {
-  if (!region || !region->ImmutableData())
-    return {};
+  ASSERT(region && region->ImmutableData(), ());
 
   if (region->Size() < kHeaderSize)
   {
@@ -144,13 +135,9 @@ std::unique_ptr<RankTable> CreateSearchRankTableIfNotExists(FilesContainerR & rc
 // static
 std::unique_ptr<RankTable> RankTable::Load(FilesContainerR const & rcont, std::string const & sectionName)
 {
-  return LoadRankTable(GetMemoryRegionForTag(rcont, sectionName));
-}
-
-// static
-std::unique_ptr<RankTable> RankTable::Load(FilesMappingContainer const & mcont, std::string const & sectionName)
-{
-  return LoadRankTable(GetMemoryRegionForTag(mcont, sectionName));
+  if (rcont.IsExist(sectionName))
+    return LoadRankTable(rcont.GetMemoryRegion(sectionName));
+  return {};
 }
 
 // static

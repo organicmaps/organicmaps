@@ -1,4 +1,5 @@
 #include "coding/mmap_reader.hpp"
+#include "coding/memory_region.hpp"
 
 #include "base/scope_guard.hpp"
 
@@ -126,25 +127,32 @@ uint64_t MmapReader::Size() const
 
 void MmapReader::Read(uint64_t pos, void * p, size_t size) const
 {
-  ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+  CheckPosAndSize(pos, size);
   memcpy(p, m_data->m_memory + m_offset + pos, size);
+}
+
+std::unique_ptr<MemoryRegion> MmapReader::GetMemoryRegion(uint64_t pos, size_t size) const
+{
+  CheckPosAndSize(pos, size);
+  return std::make_unique<MappedMemoryRegion>(m_data->m_memory + m_offset + pos, size, m_data);
 }
 
 std::unique_ptr<Reader> MmapReader::CreateSubReader(uint64_t pos, uint64_t size) const
 {
-  ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+  CheckPosAndSize(pos, size);
   // Can't use make_unique with private constructor.
   return std::unique_ptr<Reader>(new MmapReader(*this, m_offset + pos, size));
 }
 
-uint8_t * MmapReader::Data() const
+void MmapReader::CheckPosAndSize(uint64_t pos, uint64_t size) const
 {
-  return m_data->m_memory;
+  /// @todo FileReader makes honest checks and MYTHROW.
+  ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
 }
 
 void MmapReader::SetOffsetAndSize(uint64_t offset, uint64_t size)
 {
-  ASSERT_LESS_OR_EQUAL(offset + size, Size(), (offset, size));
+  CheckPosAndSize(offset, size);
   m_offset = offset;
   m_size = size;
 }

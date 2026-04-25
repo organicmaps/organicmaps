@@ -47,8 +47,9 @@ UNIT_TEST(SimpleDenseCoding_Smoke)
 
   {
     MmapReader reader(kTestFile);
+    auto region = reader.GetMemoryRegion(0, reader.Size());
     SimpleDenseCoding coding;
-    Map(coding, reader.Data(), "SimpleDenseCoding");
+    Map(coding, region->ImmutableData(), "SimpleDenseCoding");
     TestSDC(data, coding);
   }
 }

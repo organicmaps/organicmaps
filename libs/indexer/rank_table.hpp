@@ -1,13 +1,13 @@
 #pragma once
 
-#include <cstdint>
+#include "base/base.hpp"
+
 #include <memory>
 #include <string>
 #include <vector>
 
 class FilesContainerR;
 class FilesContainerW;
-class FilesMappingContainer;
 class Writer;
 
 namespace platform
@@ -69,17 +69,6 @@ public:
   // undefined behaviour if ranks section exists but internally
   // damaged.
   static std::unique_ptr<RankTable> Load(FilesContainerR const & rcont, std::string const & sectionName);
-
-  // Maps whole section corresponding to a rank table and deserializes
-  // it. Returns nullptr if there're no ranks section, rank table's
-  // header is damaged or serialized rank table has improper
-  // endianness.
-  //
-  // *NOTE* Return value can't outlive |mcont|, i.e. it must be
-  // destructed before |mcont| is closed. Also note that there're
-  // undefined behaviour if ranks section exists but internally
-  // damaged.
-  static std::unique_ptr<RankTable> Load(FilesMappingContainer const & mcont, std::string const & sectionName);
 };
 
 // A builder class for rank tables.
