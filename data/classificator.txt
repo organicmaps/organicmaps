@@ -803,7 +803,9 @@ world  +
             {}
         strait  -
         tree_row  -
-        volcano  -
+        volcano  +
+            active  -
+            {}
         water  +
             basin  -
             ditch  -
@@ -1500,6 +1502,7 @@ world  +
         hump  -
         {}
     waterway  +
+        access_point  -
         canal  +
             tunnel  -
             {}
