@@ -18,9 +18,6 @@
     <attr name="ppBackground" format="color" />
     <attr name="ppButtonsBackground" format="color" />
     <attr name="ppFloatingMarkerIconColor" format="color" />
-    <attr name="navNextTurnFrame" format="reference" />
-    <attr name="navNextNextTurnFrame" format="reference" />
-    <attr name="navLanesBackgroundColor" format="reference" />
     <attr name="navLaneArrowActiveColor" format="reference" />
     <attr name="navLaneArrowInactiveColor" format="reference" />
     <attr name="buttonBackground" format="reference" />
