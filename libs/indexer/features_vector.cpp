@@ -33,6 +33,11 @@ std::unique_ptr<FeatureType> FeaturesVector::GetByIndex(uint32_t index) const
   return std::make_unique<FeatureType>(&m_loadInfo, m_recordReader->ReadRecord(ftOffset));
 }
 
+feature::RouteRelation FeaturesVector::GetRelation(uint32_t index) const
+{
+  return m_loadInfo.GetRelation(index);
+}
+
 size_t FeaturesVector::GetNumFeatures() const
 {
   return m_table ? m_table->size() : 0;

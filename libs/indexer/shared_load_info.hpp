@@ -16,6 +16,7 @@ class MetadataDeserializer;
 namespace feature
 {
 class FeaturesOffsetsTable;
+class RouteRelation;
 
 // This info is created once per FeaturesVector.
 class SharedLoadInfo
@@ -33,6 +34,9 @@ public:
   /// @param[in] RelT Can be RouteRelationBase (fast) or RouteRelation (with members).
   template <class RelT>
   RelT ReadRelation(uint32_t id) const;
+
+  /// Convenience: read full RouteRelation (with members) at relation index @p index.
+  RouteRelation GetRelation(uint32_t index) const;
 
   serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
   {

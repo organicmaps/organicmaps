@@ -6,7 +6,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -37,6 +36,8 @@ public:
   size_t GetNumFeatures() const;
 
   std::unique_ptr<FeatureType> GetOriginalFeature(uint32_t index) const;
+
+  feature::RouteRelation GetRelation(uint32_t index) const;
 
   MwmSet::MwmId const & GetMwmId() const { return m_handle.GetId(); }
 

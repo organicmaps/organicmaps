@@ -11,10 +11,9 @@
 namespace feature
 {
 class FeaturesOffsetsTable;
-}
+}  // namespace feature
 
-/// Note! This class is NOT Thread-Safe.
-/// You should have separate instance of Vector for every thread.
+/// @note This class is NOT Thread-Safe (like the RecordReader and a generic Reader).
 class FeaturesVector
 {
   DISALLOW_COPY(FeaturesVector);
@@ -25,6 +24,7 @@ public:
                  indexer::MetadataDeserializer * metaDeserializer);
 
   std::unique_ptr<FeatureType> GetByIndex(uint32_t index) const;
+  feature::RouteRelation GetRelation(uint32_t index) const;
 
   size_t GetNumFeatures() const;
 

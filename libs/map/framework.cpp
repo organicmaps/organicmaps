@@ -703,7 +703,7 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   if (!fid.IsValid())
     return false;
 
-  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid);
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid, m_infoGetter.get());
   auto trackData = builder.Build();
   if (!trackData)
     return false;
