@@ -13,6 +13,11 @@
 #include <optional>
 #include <vector>
 
+namespace storage
+{
+class CountryInfoGetter;
+}  // namespace storage
+
 /// Builds track geometry from a route relation, starting from a specific feature
 /// and growing the chain in both directions using endpoint matching.
 class RelationTrackBuilder
@@ -28,7 +33,8 @@ public:
   };
 
 public:
-  RelationTrackBuilder(DataSource const & dataSource, FeatureID const & fid);
+  RelationTrackBuilder(DataSource const & dataSource, FeatureID const & fid,
+                       storage::CountryInfoGetter const * infoGetter = nullptr);
 
   /// @return nullopt if no suitable relation found or geometry can't be built.
   std::optional<Data> Build();
@@ -54,8 +60,18 @@ public:
   static std::vector<TrackGeometry> MergeOrdered(std::vector<TrackGeometry> const & members);
 
 private:
-  std::vector<TrackGeometry> LoadMemberGeometries(feature::RouteRelation const & relation, size_t & startIdx);
+  /// Loads member geometries from the MWM identified by an alive @p handle.
+  /// @param[out] startIdx index of @p m_fid.m_index inside the result, or
+  ///                      numeric_limits<size_t>::max() if not present in this MWM.
+  std::vector<TrackGeometry> LoadMemberGeometries(feature::RouteRelation const & relation, size_t & startIdx,
+                                                  FeaturesLoaderGuard const & guard);
+
+  /// Iteratively splices in this relation's geometry from neighbour MWMs (matched by
+  /// OSM Relation ID via RELATION_OSMIDS_FILE_TAG). Visits each MWM at most once.
+  void AppendNeighbourMembers(uint32_t osmRelID, std::vector<TrackGeometry> & members,
+                              MwmSet::MwmId const & startMwmId);
 
   DataSource const & m_dataSource;
   FeatureID m_fid;
+  storage::CountryInfoGetter const * m_infoGetter = nullptr;
 };

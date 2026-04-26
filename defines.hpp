@@ -2,6 +2,7 @@
 
 // Only defines and constexprs are allowed in this file.
 
+// clang-format off
 #define DATA_FILE_EXTENSION ".mwm"
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
 #define RELATIONS_FILE_EXTENSION_TMP ".rels.tmp"
@@ -51,6 +52,7 @@ auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
 #define CROSS_MWM_FILE_TAG "cross_mwm"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RELATION_OFFSETS_FILE_TAG "rel_offs"
+#define RELATION_OSMIDS_FILE_TAG "rel_osmids"
 #define SEARCH_RANKS_FILE_TAG "ranks"
 #define POPULARITY_RANKS_FILE_TAG "popularity"
 #define REGION_INFO_FILE_TAG "rgninfo"
@@ -119,3 +121,4 @@ auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
 #define LOCALIZATION_DESCRIPTION_SUFFIX " Description"
 
 #define BUILDING_PARTS_MAPPING_FILE "building_parts_mapping.bin"
+// clang-format on

@@ -2,15 +2,22 @@
 
 #include "drape_frontend/relations_draw_info.hpp"
 
+#include "storage/country_info_getter.hpp"
+
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/point_coding.hpp"
 
 #include "geometry/spatial_hash_grid.hpp"
 
+#include "defines.hpp"
+
 #include <deque>
+#include <limits>
+#include <unordered_set>
 
 namespace relation_track_merger  // Unity build protect
 {
@@ -21,6 +28,21 @@ using TrackGeometry = RelationTrackBuilder::TrackGeometry;
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 {
   return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
+}
+
+// The same OSM way can appear as a Feature in several MWMs (the borders are
+// not strict cuts). Drop neighbour-side members that already match an existing
+// member by point count, both endpoints, and (only then) all points.
+bool IsSameLine(TrackGeometry const & a, TrackGeometry const & b)
+{
+  if (a.size() != b.size())
+    return false;
+  if (!IsEqual(a.front().GetPoint(), b.front().GetPoint()) || !IsEqual(a.back().GetPoint(), b.back().GetPoint()))
+    return false;
+  for (size_t i = 1; i + 1 < a.size(); ++i)
+    if (!IsEqual(a[i].GetPoint(), b[i].GetPoint()))
+      return false;
+  return true;
 }
 
 struct EndpointRef
@@ -141,9 +163,11 @@ private:
 
 // RelationTrackBuilder implementation.
 
-RelationTrackBuilder::RelationTrackBuilder(DataSource const & dataSource, FeatureID const & fid)
+RelationTrackBuilder::RelationTrackBuilder(DataSource const & dataSource, FeatureID const & fid,
+                                           storage::CountryInfoGetter const * infoGetter)
   : m_dataSource(dataSource)
   , m_fid(fid)
+  , m_infoGetter(infoGetter)
 {}
 
 std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
@@ -165,9 +189,22 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
     auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
 
     size_t startIdx = 0;
-    auto members = LoadMemberGeometries(rel, startIdx);
+    auto members = LoadMemberGeometries(rel, startIdx, guard);
     if (members.empty() || startIdx >= members.size())
       continue;
+
+    // Splice this relation's members from neighbour MWMs (route Relations frequently
+    // straddle several MWMs). The OSM Relation ID is stored in RELATION_OSMIDS_FILE_TAG;
+    // the same OSM Relation may appear in each neighbour MWM that overlaps its bbox.
+    if (m_infoGetter)
+    {
+      auto const & cont = guard.GetContainer();
+      if (cont.IsExist(RELATION_OSMIDS_FILE_TAG))
+      {
+        auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
+        AppendNeighbourMembers(tbl->GetFeatureOffset(relID), members, m_fid.m_mwmId);
+      }
+    }
 
     auto lines = MergeAllMembers(members);
     if (lines.empty())
@@ -180,6 +217,70 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
     return data;
   }
   return std::nullopt;
+}
+
+void RelationTrackBuilder::AppendNeighbourMembers(uint32_t osmRelID, std::vector<TrackGeometry> & members,
+                                                  MwmSet::MwmId const & startMwmId)
+{
+  ASSERT(m_infoGetter, ());
+
+  /// @todo Use m_infoGetter->GetLimitRectForLeaf (is more precise).
+  /// But! It returns a FullRect for the obsolete MWMs.
+  /// Make a better function to select an appropriate rect.
+  m2::RectD curRect = startMwmId.GetInfo()->m_bordersRect;
+
+  // Iteratively (instead of recursively) sweep over neighbour MWMs while new MWMs keep being discovered.
+  std::unordered_set<MwmSet::MwmId> visited;
+  visited.insert(startMwmId);
+
+  for (bool grew = true; grew;)
+  {
+    grew = false;
+    auto const countryIds = m_infoGetter->GetRegionsCountryIdByRect(curRect, false /* rough */);
+    for (auto const & countryId : countryIds)
+    {
+      auto const mwmId = m_dataSource.GetMwmIdByCountryFile(platform::CountryFile(countryId));
+      if (!mwmId.IsAlive() || !visited.insert(mwmId).second)
+        continue;
+
+      FeaturesLoaderGuard guard(m_dataSource, mwmId);
+      auto const & cont = guard.GetContainer();
+      if (!cont.IsExist(RELATION_OSMIDS_FILE_TAG))
+        continue;
+
+      auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
+      auto const idx = tbl->BinarySearch(osmRelID);
+      if (!idx)
+        continue;
+
+      auto const nbRel = guard.GetRelation(base::asserted_cast<uint32_t>(*idx));
+
+      size_t dummyStart = 0;
+      auto nbMembers = LoadMemberGeometries(nbRel, dummyStart, guard);
+      if (nbMembers.empty())
+        continue;
+
+      /// @todo Making BFS by inflating search rect. Ok for now, but probably
+      /// better to keep GetRegionsCountryIdByRect calls for a local rects only and store a queue.
+      curRect.Add(mwmId.GetInfo()->m_bordersRect);
+
+      // Compare only with source members.
+      size_t const sz = members.size();
+      for (auto & nb : nbMembers)
+      {
+        bool dup = false;
+        for (size_t i = 0; i < sz; ++i)
+          if (relation_track_merger::IsSameLine(nb, members[i]))
+          {
+            dup = true;
+            break;
+          }
+        if (!dup)
+          members.push_back(std::move(nb));
+      }
+      grew = true;
+    }
+  }
 }
 
 std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t relID)
@@ -195,7 +296,7 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
 
   // Collect lines (reuses existing LoadMemberGeometries + MergeOrdered).
   size_t startIdx = 0;
-  auto members = LoadMemberGeometries(rel, startIdx);
+  auto members = LoadMemberGeometries(rel, startIdx, guard);
   if (!members.empty())
   {
     auto const lines = MergeOrdered(members);
@@ -245,7 +346,7 @@ std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32
   auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
 
   size_t startIdx = 0;
-  auto members = LoadMemberGeometries(rel, startIdx);
+  auto members = LoadMemberGeometries(rel, startIdx, guard);
   if (members.empty())
     return std::nullopt;
 
@@ -268,7 +369,7 @@ std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32
 }
 
 std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMemberGeometries(
-    feature::RouteRelation const & relation, size_t & startIdx)
+    feature::RouteRelation const & relation, size_t & startIdx, FeaturesLoaderGuard const & guard)
 {
   startIdx = std::numeric_limits<size_t>::max();
 
@@ -276,12 +377,9 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMembe
   if (ftMembers.empty())
     return {};
 
-  auto const handle = m_dataSource.GetMwmHandleById(m_fid.m_mwmId);
-  if (!handle.IsAlive())
-    return {};
+  feature::AltitudeLoaderBase altLoader(*guard.GetHandle().GetValue());
 
-  FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
-  feature::AltitudeLoaderBase altLoader(*handle.GetValue());
+  bool const isCurrentMwm = (guard.GetId() == m_fid.m_mwmId);
 
   std::vector<TrackGeometry> result;
   result.reserve(ftMembers.size());
@@ -313,7 +411,7 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMembe
     if (line.size() < 2)
       continue;
 
-    if (ftIdx == m_fid.m_index)
+    if (isCurrentMwm && ftIdx == m_fid.m_index)
       startIdx = result.size();
 
     result.push_back(std::move(line));
