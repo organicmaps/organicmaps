@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.widget.roadshield.RoadShieldUtils;
@@ -40,18 +41,18 @@ public class ManeuverView extends LinearLayout
     super(context, attrs);
     setOrientation(VERTICAL);
     LayoutInflater.from(context).inflate(R.layout.view_maneuver, this, true);
-    mTurnImage = requireViewById(R.id.maneuver_turn);
-    mDistance = requireViewById(R.id.maneuver_distance);
-    mStreetFrame = requireViewById(R.id.maneuver_street_frame);
-    mStreet = mStreetFrame.requireViewById(R.id.maneuver_street);
-    mLanes = requireViewById(R.id.maneuver_lanes);
+    mTurnImage = ViewCompat.requireViewById(this, R.id.maneuver_turn);
+    mDistance = ViewCompat.requireViewById(this, R.id.maneuver_distance);
+    mStreetFrame = ViewCompat.requireViewById(this, R.id.maneuver_street_frame);
+    mStreet = ViewCompat.requireViewById(mStreetFrame, R.id.maneuver_street);
+    mLanes = ViewCompat.requireViewById(this, R.id.maneuver_lanes);
   }
 
   /** Update for vehicle / bicycle routing. Shows lane guidance when available. */
   public void updateVehicle(@NonNull RoutingInfo info)
   {
     mLanes.setLanes(info.lanes);
-    final boolean lanesVisible = mLanes.getVisibility() == View.VISIBLE;
+    final boolean lanesVisible = info.lanes != null && info.lanes.length > 0;
     UiUtils.showIf(!lanesVisible, mTurnImage);
     if (!lanesVisible)
       mTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
