@@ -9,6 +9,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.util.UiUtils;
@@ -29,10 +30,22 @@ public class ToolbarController
     mActivity = activity;
     mToolbar = root.findViewById(getToolbarId());
 
-    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), WindowInsetUtils.PaddingInsetsListener.excludeBottom());
+    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), provideToolbarInsetsListener());
 
     UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
     setSupportActionBar(activity, mToolbar);
+  }
+
+  /**
+   * Override to attach a different inset listener to the toolbar. The default pads top, left
+   * and right with safe-drawing insets (nav bar / IME handled by the content below).
+   * <p>Implementations must not read instance state that is initialized after super(); the
+   * hook is called from this class's constructor.
+   */
+  @NonNull
+  protected OnApplyWindowInsetsListener provideToolbarInsetsListener()
+  {
+    return WindowInsetUtils.PaddingInsetsListener.excludeBottom();
   }
 
   private void setSupportActionBar(@NonNull Activity activity, @NonNull Toolbar toolbar)

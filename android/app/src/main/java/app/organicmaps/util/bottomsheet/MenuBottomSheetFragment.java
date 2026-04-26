@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -60,7 +61,9 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
         super.onAttachedToWindow();
         Window window = Objects.requireNonNull(getWindow());
         WindowInsetsControllerCompat insetsController = WindowCompat.getInsetsController(window, window.getDecorView());
-        insetsController.setAppearanceLightNavigationBars(false);
+        // Fully-expanded sheet covers the nav-bar region with ?cardBackground, so nav-bar
+        // icons must contrast with the card background — dark in light mode, light in dark.
+        insetsController.setAppearanceLightNavigationBars(!ThemeUtils.isDarkTheme(requireContext()));
       }
     };
   }

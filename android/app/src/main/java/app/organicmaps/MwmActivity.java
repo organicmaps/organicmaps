@@ -28,10 +28,9 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.SystemBarStyle;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
@@ -43,9 +42,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -121,6 +120,7 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.menu.MainMenu;
@@ -492,7 +492,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (carModeChanged)
       return;
 
-    makeNavigationBarTransparentInLightMode();
     recreate();
   }
 
@@ -508,11 +507,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
-    if (!mIsTabletLayout)
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
     setContentView(R.layout.activity_map);
-    makeNavigationBarTransparentInLightMode();
+    // On API 26+ (Oreo), icon appearance can be toggled via isAppearanceLightNavigationBars,
+    // so a fully transparent nav bar is safe. On API 23–25, keep EdgeToEdge's default dark
+    // scrim (0x801b1b1b) — the light nav-bar icons have no dark variant.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+    {
+      getWindow().setNavigationBarColor(Color.TRANSPARENT);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        getWindow().setNavigationBarContrastEnforced(false);
+    }
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
@@ -566,6 +570,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       onRenderingInitializationFinished();
   }
 
+  @NonNull
+  @Override
+  protected SystemBarStyle getStatusBarStyle()
+  {
+    return SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT);
+  }
+
   private void refreshLightStatusBar()
   {
     UiUtils.setLightStatusBar(this, !(ThemeUtils.isDarkTheme(this) || RoutingController.get().isPlanning()
@@ -574,24 +585,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateViewsInsets()
   {
-    ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
-      UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
+    // Global listener on the activity's semantic root, so insets are captured regardless
+    // of which overlay views happen to be present at dispatch time.
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.coordinator), (view, windowInsets) -> {
       final int trackRecorderOffset =
           TrackRecorder.nativeIsTrackRecordingEnabled() ? dimen(this, R.dimen.map_button_size) : 0;
-      mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      final Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+      // Drive nav-bar height from the AndroidX visibility signal — pre-R FLAG_FULLSCREEN
+      // hides only the status bar, so inferring from app state misreports the nav bar.
+      mNavBarHeight = windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars()) ? systemBars.bottom : 0;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
       if (mCurrentWindowInsets == null)
-      {
-        updateCompassOffset(trackRecorderOffset + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
-                            windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
-      }
+        updateCompassOffset(trackRecorderOffset + systemBars.top, systemBars.right);
       refreshLightStatusBar();
-      updateBottomWidgetsOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
+      updateBottomWidgetsOffset(systemBars.left);
       mCurrentWindowInsets = windowInsets;
       return windowInsets;
     });
+
+    // Position-chooser overlay paddings: the root takes the bottom inset, the toolbar takes
+    // the side + top insets so it clears status bar and side cutouts.
+    ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, BaselinePaddingInsetsListener.onlyBottom());
+    ViewCompat.setOnApplyWindowInsetsListener(mPointChooserToolbar, BaselinePaddingInsetsListener.excludeBottom());
   }
 
   private int getDownloadMapsCounter()
@@ -718,6 +734,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showPositionChooser(ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
   {
+    if (isFullscreen())
+      exitFullscreen();
     closeFloatingToolbarsAndPanels(false);
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
@@ -912,7 +930,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingPanels();
     if (isFullscreen())
-      setFullscreen(false);
+      exitFullscreen();
 
     if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
@@ -1059,13 +1077,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     refreshSearchToolbar();
-    setFullscreen(isFullscreen());
-    makeNavigationBarTransparentInLightMode();
     if (ChoosePositionMode.get() != ChoosePositionMode.None)
     {
       UiUtils.show(mPointChooser);
       mMapButtonsViewModel.setButtonsHidden(true);
     }
+    else if (isFullscreen())
+      enterFullscreenIfAllowed();
+    else
+      exitFullscreen();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
 
@@ -1234,7 +1254,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if ((mPanelAnimator != null && mPanelAnimator.isVisible()) || UiUtils.isVisible(mSearchController.getToolbar()))
       return;
 
-    setFullscreen(!isFullscreen());
+    if (isFullscreen())
+      exitFullscreen();
+    else
+      enterFullscreenIfAllowed();
+
     if (isFullscreen())
     {
       closePlacePage();
@@ -1244,21 +1268,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void setFullscreen(boolean isFullscreen)
+  private void enterFullscreenIfAllowed()
   {
-    if (RoutingController.get().isNavigating() || RoutingController.get().isBuilding()
-        || RoutingController.get().isPlanning())
+    final RoutingController rc = RoutingController.get();
+    if (rc.isNavigating() || rc.isBuilding() || rc.isPlanning())
       return;
 
-    mMapButtonsViewModel.setButtonsHidden(isFullscreen);
-    UiUtils.setFullscreen(this, isFullscreen);
+    mMapButtonsViewModel.setFullscreen(true);
+    mMapButtonsViewModel.setButtonsHidden(true);
+    UiUtils.setFullscreen(this, true);
+  }
+
+  private void exitFullscreen()
+  {
+    mMapButtonsViewModel.setFullscreen(false);
+    mMapButtonsViewModel.setButtonsHidden(false);
+    UiUtils.setFullscreen(this, false);
   }
 
   private boolean isFullscreen()
   {
-    // Buttons are hidden in position chooser mode but we are not in fullscreen
-    return Boolean.TRUE.equals(mMapButtonsViewModel.getButtonsHidden().getValue())
- && ChoosePositionMode.get() == ChoosePositionMode.None;
+    return Boolean.TRUE.equals(mMapButtonsViewModel.getFullscreen().getValue());
   }
 
   @Override
@@ -2053,7 +2083,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (!showStartPointNotice())
     {
-      UiUtils.setFullscreen(this, false);
+      exitFullscreen();
       return;
     }
 
@@ -2061,7 +2091,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     closeFloatingPanels();
-    setFullscreen(false);
+    exitFullscreen();
     RoutingController.get().start();
   }
 
@@ -2384,16 +2414,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(TAG, "Trim memory, level = " + level);
     if (level >= TRIM_MEMORY_RUNNING_LOW && level != TRIM_MEMORY_UI_HIDDEN)
       Framework.nativeMemoryWarning();
-  }
-
-  private void makeNavigationBarTransparentInLightMode()
-  {
-    final boolean isLightMode = !app.organicmaps.sdk.util.Utils.isDarkMode(this);
-    final Window window = getWindow();
-    window.setNavigationBarColor(Color.TRANSPARENT);
-    new WindowInsetsControllerCompat(window, window.getDecorView()).setAppearanceLightNavigationBars(isLightMode);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      window.setNavigationBarContrastEnforced(false);
   }
 
   private void reportUnsupported()

@@ -15,15 +15,12 @@
   <style name="MwmTheme.MainActivity">
     <item name="android:colorPrimaryDark">@android:color/black</item>
     <item name="android:windowBackground">@null</item>
-    <item name="android:windowTranslucentNavigation">false</item>
     <!-- Allows to show the app behind the camera notch in landscape and when hiding the status bar -->
     <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
   </style>
 
-  <style name="MwmTheme.DownloadResourcesLegacy">
-    <item name="android:statusBarColor">@android:color/white</item>
-    <item name="android:navigationBarColor">@android:color/transparent</item>
-  </style>
+  <style name="MwmTheme.DownloadResourcesLegacy" />
+
 
   <style name="MwmTheme.CardBg">
     <item name="android:windowBackground">@color/bg_cards</item>

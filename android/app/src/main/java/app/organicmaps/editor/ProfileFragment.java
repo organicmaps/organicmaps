@@ -87,11 +87,8 @@ public class ProfileFragment extends BaseMwmToolbarFragment
 
     View buttonsContainer = view.findViewById(R.id.buttons_container);
     ViewCompat.setOnApplyWindowInsetsListener(
-        buttonsContainer,
-        new WindowInsetUtils.PaddingInsetsListener.Builder()
-            .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
-            .setExcludeTop()
-            .build());
+        buttonsContainer, WindowInsetUtils.PaddingInsetsListener.excludeTop(WindowInsetsCompat.Type.systemBars()
+                                                                            | WindowInsetsCompat.Type.displayCutout()));
   }
 
   private void refreshViews()
