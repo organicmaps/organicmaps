@@ -77,6 +77,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - Minimum SDK: 21; target SDK: latest stable
 - Java 17 source/target; Kotlin enabled in `app` module, other modules can opt in via `enableKotlin = true` in `build.gradle`
 - Run `ktlint --editorconfig=android/.editorconfig --format <file.kt>` after creating or editing Kotlin files
+- Run `./gradlew :app:detektCheck` to verify Kotlin naming and code quality; config in `android/detekt.yml`
 - NDK version: 29+; CMake: 3.22.1+
 - Deep link schemes: `geo://`, `om://`, `ge0://`, `ge0.me` (HTTP/HTTPS)
 - Permissions validated at build time via `permission-checker.gradle`

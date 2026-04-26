@@ -1,0 +1,36 @@
+name: Static analysis - Kotlin (detekt)
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/detekt-check.yaml'
+      - 'android/**/*.kt'
+      - 'android/detekt.yml'
+      - 'android/gradle/libs.versions.toml'
+
+jobs:
+  detekt-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      # Version is read from android/gradle/libs.versions.toml (single source of truth).
+      - name: Install detekt
+        run: |
+          DETEKT_VERSION=$(grep -E '^detekt\s*=' android/gradle/libs.versions.toml | grep -oE '"[^"]+"' | tr -d '"')
+          if [ -z "$DETEKT_VERSION" ]; then
+            echo "::error::Failed to parse detekt version from android/gradle/libs.versions.toml"
+            exit 1
+          fi
+          echo "Installing detekt $DETEKT_VERSION"
+          curl -sSLO "https://github.com/detekt/detekt/releases/download/v${DETEKT_VERSION}/detekt-cli-${DETEKT_VERSION}-all.jar"
+          echo "detekt $(java -jar detekt-cli-${DETEKT_VERSION}-all.jar --version)"
+
+      - name: Run detekt
+        run: |
+          DETEKT_VERSION=$(grep -E '^detekt\s*=' android/gradle/libs.versions.toml | grep -oE '"[^"]+"' | tr -d '"')
+          java -jar "detekt-cli-${DETEKT_VERSION}-all.jar" --build-upon-default-config --input android/ --config android/detekt.yml

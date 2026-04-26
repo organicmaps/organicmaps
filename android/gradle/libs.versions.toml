@@ -1,5 +1,6 @@
 [versions]
 agp = "9.2.1"
+detekt = "1.23.8"
 ktlint = "1.8.0"
 
 # com.android.tools:desugar_jdk_libs
@@ -54,8 +55,6 @@ triplet-play-publisher = "4.0.0"
 [libraries]
 android-tools-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugaring" }
 
-ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
-
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-appcompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidx-appcompat" }
@@ -73,6 +72,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 androidx-work = { module = "androidx.work:work-runtime", version.ref = "androidx-work" }
 
+detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 devnullorthrow-mpandroidchart = { module = "com.github.devnullorthrow:MPAndroidChart", version.ref = "devnullorthrow-mpandroidchart" }
 
 google-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "google-firebase" }
@@ -84,6 +84,8 @@ google-firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crash
 
 google-gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-gms-location" }
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
+
+ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 
 microg-gms-location = { module = "org.microg.gms:play-services-location", version.ref = "microg-gms-location" }
 
