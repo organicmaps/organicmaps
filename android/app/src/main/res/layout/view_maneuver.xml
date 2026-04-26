@@ -30,10 +30,9 @@
 
       <ImageView
           android:id="@+id/maneuver_turn"
-          android:layout_width="@dimen/text_size_nav_number"
-          android:layout_height="@dimen/text_size_nav_number"
-          android:theme="?navigationTheme"
-          app:tint="?iconTint"
+          android:layout_width="@dimen/nav_turn_sign_large"
+          android:layout_height="@dimen/nav_turn_sign_large"
+          app:tint="@color/white_primary"
           tools:src="@drawable/ic_turn_right"
           tools:visibility="gone"
           />
@@ -43,6 +42,7 @@
           style="@style/MwmWidget.TextView.NavNextTurn"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textColor="@color/white_primary"
           tools:text="500 m" />
     </LinearLayout>
     <FrameLayout

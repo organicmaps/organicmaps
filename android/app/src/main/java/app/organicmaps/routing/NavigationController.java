@@ -36,8 +36,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   private final SpeedLimitView mSpeedLimit;
 
   private final MapButtonsViewModel mMapButtonsViewModel;
-  private final View mTopFrame;
-  private final View mNextTurnContainer;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -54,10 +52,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mOnSettingsClickListener = onSettingsClickListener;
     mOnVoiceSettingsClickListener = onVoiceSettingsClickListener;
 
-    mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
-    mManeuverView = mTopFrame.requireViewById(R.id.maneuver_view);
-    mSpeedLimit = mTopFrame.requireViewById(R.id.nav_speed_limit);
-    mNextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
+    View topFrame = mFrame.findViewById(R.id.nav_top_frame);
+    mManeuverView = ViewCompat.requireViewById(topFrame, R.id.maneuver_view);
+    mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
     final boolean isLandscape = activity.getResources().getConfiguration().orientation
         == Configuration.ORIENTATION_LANDSCAPE;
@@ -109,9 +106,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       return windowInsets;
     });
 
-    // Right-side map controls (zoom, recenter) sit on the opposite side of the card;
-    // only the base padding is needed.
-    mMapButtonsViewModel.setTopButtonsMarginTop(dimen(activity, R.dimen.nav_frame_padding));
+    // Right-side map controls (zoom, recenter) sit on the opposite side of the card.
+    // Use an initial value; the layout listener refines it once the card is measured.
+    final int navFramePadding = dimen(activity, R.dimen.nav_frame_padding);
+    mMapButtonsViewModel.setTopButtonsMarginTop(navFramePadding);
+    mManeuverView.addOnLayoutChangeListener(
+        (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
+            mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
   }
 
   public void update(@Nullable RoutingInfo info)
@@ -122,9 +123,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     if (Router.get() == Router.Pedestrian)
       mManeuverView.updatePedestrian(info);
     else
+    {
       mManeuverView.updateVehicle(info);
-
-    updateSpeedLimit(info);
+      updateSpeedLimit(info);
+    }
     mNavMenu.update(info);
   }
 
