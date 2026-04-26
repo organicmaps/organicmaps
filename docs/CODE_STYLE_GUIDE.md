@@ -79,6 +79,29 @@ Make sure that ktlint is in your PATH.
 - To format all Kotlin files in the repository run `tools/unix/ktlint_format.sh`
 - Set up a `git commit` hook (see below) for automatic formatting of changed files
 
+## Kotlin Static Analysis (detekt)
+
+We use [detekt](https://detekt.dev/) for Kotlin static analysis: naming conventions, complexity, code smells, and potential bugs.
+
+### Installation
+
+The canonical detekt version is pinned in `android/gradle/libs.versions.toml`
+(field `detekt`). CI installs that exact version; please match it locally.
+
+- Download the matching version from [GitHub Releases](https://github.com/detekt/detekt/releases) (`detekt-cli-<version>-all.jar`)
+- Or run via Gradle (no local install needed): `cd android && ./gradlew :app:detektCheck`
+
+### Usage
+
+- Configuration is in `android/detekt.yml`
+- Run `cd android && ./gradlew :app:detektCheck` to check the `app` module
+- Run `cd android && ./gradlew detektCheck` to check all Kotlin-enabled modules
+
+### Key rules
+
+- Hungarian notation (`m` prefix) is forbidden for private properties: use `_camelCase` for backing fields, `camelCase` for regular properties
+- Formatting rules are handled by ktlint, not detekt (no overlap)
+
 ## Python Style
 
 Follow the existing style in Python files as much as possible. We'll add a more detailed guide later.
