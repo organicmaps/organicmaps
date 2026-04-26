@@ -41,6 +41,13 @@ std::unique_ptr<FeatureType> FeatureSource::GetOriginalFeature(uint32_t index) c
   return ft;
 }
 
+feature::RouteRelation FeatureSource::GetRelation(uint32_t index) const
+{
+  ASSERT(m_handle.IsAlive(), ());
+  ASSERT(m_vector, ());
+  return m_vector->GetRelation(index);
+}
+
 FeatureStatus FeatureSource::GetFeatureStatus(uint32_t index) const
 {
   return FeatureStatus::Untouched;

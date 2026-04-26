@@ -132,6 +132,9 @@ m2::RectD CountryInfoGetter::CalcLimitRect(std::string const & prefix) const
 
 m2::RectD CountryInfoGetter::GetLimitRectForLeaf(CountryId const & leafCountryId) const
 {
+  /// @todo Check use-cases. Take into account that this function returns FullRect for the obsolete MWMs.
+  /// And we are going to split MWMs a lot for now.
+
   auto const it = m_countryIndex.find(leafCountryId);
   if (it != m_countryIndex.end())
   {

@@ -56,4 +56,9 @@ template RouteRelationType SharedLoadInfo::ReadRelation<RouteRelationType>(uint3
 template RouteRelationBase SharedLoadInfo::ReadRelation<RouteRelationBase>(uint32_t id) const;
 template RouteRelation SharedLoadInfo::ReadRelation<RouteRelation>(uint32_t id) const;
 
+RouteRelation SharedLoadInfo::GetRelation(uint32_t index) const
+{
+  return ReadRelation<RouteRelation>(index);
+}
+
 }  // namespace feature

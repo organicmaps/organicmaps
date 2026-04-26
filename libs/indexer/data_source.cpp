@@ -107,6 +107,12 @@ private:
 }  // namespace
 
 // FeaturesLoaderGuard ---------------------------------------------------------------------
+FilesContainerR const & FeaturesLoaderGuard::GetContainer() const
+{
+  ASSERT(m_handle.IsAlive(), ());
+  return m_handle.GetValue()->m_cont;
+}
+
 std::string FeaturesLoaderGuard::GetCountryFileName() const
 {
   ASSERT(m_handle.IsAlive(), ());

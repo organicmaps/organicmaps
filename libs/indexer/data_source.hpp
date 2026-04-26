@@ -91,17 +91,23 @@ public:
 
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   MwmSet::MwmHandle const & GetHandle() const { return m_handle; }
+  FilesContainerR const & GetContainer() const;
 
   std::string GetCountryFileName() const;
   int64_t GetVersion() const;
-
   bool IsWorld() const;
+
   /// Editor core only method, to get 'untouched', original version of feature.
   std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
   std::unique_ptr<FeatureType> GetOriginalOrEditedFeatureByIndex(uint32_t index) const;
+
   /// Everyone, except Editor core, should use this method.
   std::unique_ptr<FeatureType> GetFeatureByIndex(uint32_t index) const;
   size_t GetNumFeatures() const { return m_source->GetNumFeatures(); }
+
+  /// Reads a full RouteRelation (with members) at relation index @p index.
+  /// Caller must ensure the MWM has a relations section.
+  feature::RouteRelation GetRelation(uint32_t index) const { return m_source->GetRelation(index); }
 
 private:
   MwmSet::MwmHandle m_handle;
