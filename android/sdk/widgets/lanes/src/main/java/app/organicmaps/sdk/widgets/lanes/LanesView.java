@@ -46,8 +46,8 @@ public class LanesView extends View
 
   @Nullable
   private LanesDrawable mLanesDrawable;
-  @Nullable
-  private Rect mViewBounds = null;
+  private final Rect mViewBounds = new Rect();
+  private final RectF mViewBoundsF = new RectF();
 
   public LanesView(Context context, @Nullable AttributeSet attrs)
   {
@@ -135,9 +135,10 @@ public class LanesView extends View
       return;
 
     mLanesDrawable.setBounds(0, 0, getWidth(), getHeight());
-    mViewBounds = new Rect(0, 0, getWidth(), getHeight());
+    mViewBounds.set(0, 0, getWidth(), getHeight());
+    mViewBoundsF.set(mViewBounds);
 
-    canvas.drawRoundRect(new RectF(mViewBounds), mCornerRadius, mCornerRadius, mBackgroundPaint);
+    canvas.drawRoundRect(mViewBoundsF, mCornerRadius, mCornerRadius, mBackgroundPaint);
 
     mLanesDrawable.draw(canvas);
   }
@@ -145,7 +146,7 @@ public class LanesView extends View
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
-    if (mViewBounds != null && mViewBounds.contains((int) event.getX(), (int) event.getY()))
+    if (mViewBounds.contains((int) event.getX(), (int) event.getY()))
     {
       performClick();
       return true;

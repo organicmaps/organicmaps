@@ -117,19 +117,8 @@
   <dimen name="menu_list_item_height">48dp</dimen>
 
   <!-- Nav menu -->
-  <dimen name="nav_maneuver_card_width">340dp</dimen>
-  <dimen name="nav_maneuver_card_width_land">400dp</dimen>
   <dimen name="nav_turn_sign_large">80dp</dimen>
-  <dimen name="nav_next_next_turn_chip">44dp</dimen>
   <dimen name="nav_elevation">6dp</dimen>
-  <dimen name="nav_street_height">44dp</dimen>
-  <dimen name="nav_street_left">104dp</dimen>
-  <dimen name="nav_next_turn_frame">88dp</dimen>
-  <dimen name="nav_next_turn_top">8dp</dimen>
-  <dimen name="nav_next_turn_bottom">6dp</dimen>
-  <dimen name="nav_next_turn_space">6dp</dimen>
-  <dimen name="nav_next_turn_sign">64dp</dimen>
-  <dimen name="nav_next_next_turn_frame">32dp</dimen>
   <dimen name="nav_numbers_side_min_width">90dp</dimen>
   <dimen name="nav_progress">4sp</dimen>
   <dimen name="nav_progress_head">2dp</dimen>
