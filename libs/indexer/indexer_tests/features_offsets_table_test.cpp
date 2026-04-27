@@ -14,6 +14,8 @@
 #include "defines.hpp"
 
 #include <functional>
+#include <iterator>
+#include <limits>
 #include <memory>
 #include <string>
 
@@ -45,25 +47,80 @@ UNIT_TEST(FeaturesOffsetsTable_Basic)
 
   unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
   TEST(table.get(), ());
-  TEST_EQUAL(static_cast<uint64_t>(8), table->size(), ());
+  TEST_EQUAL(8, table->size(), ());
 
-  TEST_EQUAL(static_cast<uint64_t>(1), table->GetFeatureOffset(0), ());
-  TEST_EQUAL(static_cast<uint64_t>(4), table->GetFeatureOffset(1), ());
-  TEST_EQUAL(static_cast<uint64_t>(17), table->GetFeatureOffset(2), ());
-  TEST_EQUAL(static_cast<uint64_t>(128), table->GetFeatureOffset(3), ());
-  TEST_EQUAL(static_cast<uint64_t>(129), table->GetFeatureOffset(4), ());
-  TEST_EQUAL(static_cast<uint64_t>(510), table->GetFeatureOffset(5), ());
-  TEST_EQUAL(static_cast<uint64_t>(513), table->GetFeatureOffset(6), ());
-  TEST_EQUAL(static_cast<uint64_t>(1024), table->GetFeatureOffset(7), ());
+  TEST_EQUAL(1, table->GetFeatureOffset(0), ());
+  TEST_EQUAL(4, table->GetFeatureOffset(1), ());
+  TEST_EQUAL(17, table->GetFeatureOffset(2), ());
+  TEST_EQUAL(128, table->GetFeatureOffset(3), ());
+  TEST_EQUAL(129, table->GetFeatureOffset(4), ());
+  TEST_EQUAL(510, table->GetFeatureOffset(5), ());
+  TEST_EQUAL(513, table->GetFeatureOffset(6), ());
+  TEST_EQUAL(1024, table->GetFeatureOffset(7), ());
 
-  TEST_EQUAL(static_cast<size_t>(0), table->GetFeatureIndexbyOffset(1), ());
-  TEST_EQUAL(static_cast<size_t>(1), table->GetFeatureIndexbyOffset(4), ());
-  TEST_EQUAL(static_cast<size_t>(2), table->GetFeatureIndexbyOffset(17), ());
-  TEST_EQUAL(static_cast<size_t>(3), table->GetFeatureIndexbyOffset(128), ());
-  TEST_EQUAL(static_cast<size_t>(4), table->GetFeatureIndexbyOffset(129), ());
-  TEST_EQUAL(static_cast<size_t>(5), table->GetFeatureIndexbyOffset(510), ());
-  TEST_EQUAL(static_cast<size_t>(6), table->GetFeatureIndexbyOffset(513), ());
-  TEST_EQUAL(static_cast<size_t>(7), table->GetFeatureIndexbyOffset(1024), ());
+  TEST_EQUAL(0, table->GetFeatureIndexbyOffset(1), ());
+  TEST_EQUAL(1, table->GetFeatureIndexbyOffset(4), ());
+  TEST_EQUAL(2, table->GetFeatureIndexbyOffset(17), ());
+  TEST_EQUAL(3, table->GetFeatureIndexbyOffset(128), ());
+  TEST_EQUAL(4, table->GetFeatureIndexbyOffset(129), ());
+  TEST_EQUAL(5, table->GetFeatureIndexbyOffset(510), ());
+  TEST_EQUAL(6, table->GetFeatureIndexbyOffset(513), ());
+  TEST_EQUAL(7, table->GetFeatureIndexbyOffset(1024), ());
+}
+
+UNIT_TEST(FeaturesOffsetsTable_BinarySearch)
+{
+  // Empty table — every lookup misses.
+  {
+    FeaturesOffsetsTable::Builder builder;
+    unique_ptr<FeaturesOffsetsTable> const table(FeaturesOffsetsTable::Build(builder));
+    TEST(!table->BinarySearch(0), ());
+    TEST(!table->BinarySearch(42), ());
+  }
+
+  // Single element.
+  {
+    FeaturesOffsetsTable::Builder builder;
+    builder.PushOffset(7);
+    unique_ptr<FeaturesOffsetsTable> const table(FeaturesOffsetsTable::Build(builder));
+
+    auto const hit = table->BinarySearch(7);
+    TEST(hit, ());
+    TEST_EQUAL(*hit, 0u, ());
+
+    TEST(!table->BinarySearch(0), ());
+    TEST(!table->BinarySearch(6), ());
+    TEST(!table->BinarySearch(8), ());
+  }
+
+  // Many elements: hits return correct idx; misses (below, between, above) return nullopt.
+  {
+    uint32_t const values[] = {1, 4, 17, 128, 129, 510, 513, 1024};
+    FeaturesOffsetsTable::Builder builder;
+    for (uint32_t v : values)
+      builder.PushOffset(v);
+    unique_ptr<FeaturesOffsetsTable> const table(FeaturesOffsetsTable::Build(builder));
+
+    for (size_t i = 0; i < std::size(values); ++i)
+    {
+      auto const hit = table->BinarySearch(values[i]);
+      TEST(hit, (values[i]));
+      TEST_EQUAL(*hit, i, (values[i]));
+    }
+
+    // Below first.
+    TEST(!table->BinarySearch(0), ());
+    // Above last.
+    TEST(!table->BinarySearch(1025), ());
+    TEST(!table->BinarySearch(std::numeric_limits<uint32_t>::max()), ());
+    // Between consecutive present values.
+    TEST(!table->BinarySearch(2), ());
+    TEST(!table->BinarySearch(3), ());
+    TEST(!table->BinarySearch(127), ());
+    TEST(!table->BinarySearch(509), ());
+    TEST(!table->BinarySearch(512), ());
+    TEST(!table->BinarySearch(1023), ());
+  }
 }
 
 UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
