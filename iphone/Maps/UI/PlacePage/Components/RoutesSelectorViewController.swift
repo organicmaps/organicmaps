@@ -9,14 +9,14 @@ final class RoutesSelectorViewController: UITableViewController, UIPopoverPresen
   }
 
   private let routes: [PlacePageRoute]
-  private let selectedRouteRef: String?
+  private let selectedRouteRelId: UInt32?
   private let routeSelectedHandler: (PlacePageRoute) -> Void
 
   init(routes: [PlacePageRoute],
-       selectedRouteRef: String?,
+       selectedRouteRelId: UInt32?,
        routeSelectedHandler: @escaping (PlacePageRoute) -> Void) {
     self.routes = routes
-    self.selectedRouteRef = selectedRouteRef
+    self.selectedRouteRelId = selectedRouteRelId
     self.routeSelectedHandler = routeSelectedHandler
     super.init(style: .plain)
   }
@@ -71,7 +71,7 @@ final class RoutesSelectorViewController: UITableViewController, UIPopoverPresen
 
     cell.setStyle(.customTableViewCell)
     cell.contentConfiguration = content
-    cell.accessoryType = route.ref == selectedRouteRef ? .checkmark : .none
+    cell.accessoryType = route.relId == selectedRouteRelId ? .checkmark : .none
     cell.tintColor = .linkBlue
     cell.backgroundColor = route.color?.withAlphaComponent(Constants.backgroundColorAlpha) ?? .clear
     cell.contentView.backgroundColor = .clear
