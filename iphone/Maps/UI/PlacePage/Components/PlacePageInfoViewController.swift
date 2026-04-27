@@ -60,6 +60,9 @@ class PlacePageInfoViewController: UIViewController {
   /// Used to render the selected ref bold+underlined in the primary row.
   /// Matched by ref (not by relId) since the primary row deduplicates by ref.
   private var selectedRouteRef: String?
+  /// Relation id of the route most recently picked from the refs popup, or nil.
+  /// Used to render exactly one selected row in the popup.
+  private var selectedRouteRelId: UInt32?
   private weak var routesSelectorViewController: RoutesSelectorViewController?
 
   weak var placePageInfoData: PlacePageInfoData!
@@ -363,7 +366,7 @@ class PlacePageInfoViewController: UIViewController {
   private func showRoutesSelector(for routes: [PlacePageRoute]) {
     guard let routeRefsView else { return }
     let viewController = RoutesSelectorViewController(routes: routes,
-                                                      selectedRouteRef: selectedRouteRef,
+                                                      selectedRouteRelId: selectedRouteRelId,
                                                       routeSelectedHandler: { [weak self] route in
                                                         self?.dismiss(animated: true, completion: { [weak self] in
                                                           self?.selectRoute(route, from: routes)
@@ -381,6 +384,7 @@ class PlacePageInfoViewController: UIViewController {
   private func selectRoute(_ route: PlacePageRoute, from routes: [PlacePageRoute]) {
     FrameworkHelper.showRouteTransit(route.relId)
     selectedRouteRef = route.ref
+    selectedRouteRelId = route.relId
     updateRouteRefsLabel(routes: routes)
     delegate?.didSelectPublicTransportRoute()
   }
