@@ -86,30 +86,41 @@ void FeaturesOffsetsTable::Save(std::string const & filePath)
   base::RenameFileX(fileNameTmp, filePath);
 }
 
-uint32_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const
+uint32_t FeaturesOffsetsTable::GetFeatureOffset(uint32_t index) const
 {
   ASSERT_LESS(index, size(), ("Index out of bounds", index, size()));
-  return static_cast<uint32_t>(m_table.select(index));
+  return base::asserted_cast<uint32_t>(m_table.select(index));
 }
 
-size_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint32_t offset) const
+uint32_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint32_t offset) const
 {
-  ASSERT_GREATER(size(), 0, ("We must not ask empty table"));
-  ASSERT_LESS_OR_EQUAL(offset, m_table.select(size() - 1),
-                       ("Offset out of bounds", offset, m_table.select(size() - 1)));
-  ASSERT_GREATER_OR_EQUAL(offset, m_table.select(0), ("Offset out of bounds", offset, m_table.select(size() - 1)));
-  // Binary search in elias_fano list
-  size_t leftBound = 0, rightBound = size();
-  while (leftBound + 1 < rightBound)
+  auto const idx = BinarySearch(offset);
+  CHECK(idx, ("Can't find offset", offset, "in the table"));
+  return *idx;
+}
+
+std::optional<uint32_t> FeaturesOffsetsTable::BinarySearch(uint32_t value) const
+{
+  size_t const sz = size();
+  if (sz == 0)
+    return std::nullopt;
+  if (value < m_table.select(0) || value > m_table.select(sz - 1))
+    return std::nullopt;
+
+  size_t leftBound = 0, rightBound = sz;
+  while (leftBound < rightBound)
   {
-    size_t middle = leftBound + (rightBound - leftBound) / 2;
-    if (m_table.select(middle) <= offset)
-      leftBound = middle;
+    size_t const middle = leftBound + (rightBound - leftBound) / 2;
+    auto const middleV = m_table.select(middle);
+    if (middleV == value)
+      return base::asserted_cast<uint32_t>(middle);
+
+    if (middleV < value)
+      leftBound = middle + 1;
     else
       rightBound = middle;
   }
-  ASSERT_EQUAL(offset, m_table.select(leftBound), ("Can't find offset", offset, "in the table"));
-  return leftBound;
+  return std::nullopt;
 }
 
 bool BuildOffsetsTable(std::string const & filePath)
