@@ -492,6 +492,8 @@ public:
   // Builds a TransitInfo (lines + stops) for @p relID relative to the current place page's feature
   // and shows it on the transit scheme layer (with the usual map dim).
   void ShowRouteTransit(uint32_t relID);
+  // Returns the ref string of the currently selected transit route, or empty if none.
+  std::string GetActiveTransitRouteRef() const;
   // Is called on PT PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
   void HideRouteTransitIfNeeded();
 
