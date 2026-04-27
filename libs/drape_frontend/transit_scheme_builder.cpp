@@ -1119,6 +1119,7 @@ void TransitSchemeBuilder::BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> co
       if (stop.m_name.empty())
         continue;
 
+      textParams.m_featureId = stop.m_featureID;
       textParams.m_titleDecl.m_primaryTextFont = stop.m_highlight ? highlightedFont : regularFont;
       textParams.m_titleDecl.m_primaryText = stop.m_name;
       textParams.m_specialPriority = stop.m_highlight ? highlightedPrio : regularPrio;
