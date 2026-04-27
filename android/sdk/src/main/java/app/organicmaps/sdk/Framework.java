@@ -318,6 +318,9 @@ public class Framework
 
   public static native void nativeShowRouteTransit(int relId);
 
+  @Nullable
+  public static native String nativeGetActiveTransitRouteRef();
+
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
 
   // Navigation.

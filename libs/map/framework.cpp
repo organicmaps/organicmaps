@@ -1411,6 +1411,17 @@ void Framework::ShowRouteTransit(uint32_t relID)
   m_drapeEngine->ShowRouteTransit(std::move(*info));
 }
 
+std::string Framework::GetActiveTransitRouteRef() const
+{
+  if (!m_routeTransitSelectionSession || !HasPlacePageInfo())
+    return {};
+  uint32_t const relID = m_routeTransitSelectionSession->m_relID;
+  for (auto const & r : GetCurrentPlacePageInfo().GetRoutes())
+    if (r.m_relID == relID)
+      return r.m_ref;
+  return {};
+}
+
 void Framework::HideRouteTransitIfNeeded()
 {
   if (!m_routeTransitSelectionSession)

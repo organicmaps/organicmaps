@@ -266,12 +266,15 @@ public class PlacePageController
 
   private void onHiddenInternal()
   {
+    // Must remove fragments before nativeDeactivatePopup() — the native call may
+    // restore a transit PP (re-creating fragments), and commitNow() ensures the old
+    // fragments are gone so createPlacePageFragments() sees no existing tags.
+    removePlacePageFragments();
+    resetPlacePageHeightBounds();
     if (ChoosePositionMode.get() == ChoosePositionMode.None)
       Framework.nativeDeactivatePopup();
     Framework.nativeDeactivateMapSelectionCircle(false);
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
-    resetPlacePageHeightBounds();
-    removePlacePageFragments();
   }
 
   private void onTrackRecordingSelected()
@@ -642,12 +645,12 @@ public class PlacePageController
 
     if (placePageButtonsFragment != null || placePageFragment != null)
     {
-      final var transaction = fm.beginTransaction().setReorderingAllowed(true);
+      final var transaction = fm.beginTransaction();
       if (placePageButtonsFragment != null)
         transaction.remove(placePageButtonsFragment);
       if (placePageFragment != null)
         transaction.remove(placePageFragment);
-      transaction.commit();
+      transaction.commitNow();
     }
     mViewModel.setMapObject(null);
   }

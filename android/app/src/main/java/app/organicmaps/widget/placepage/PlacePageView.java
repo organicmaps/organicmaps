@@ -156,11 +156,6 @@ public class PlacePageView extends Fragment
   private ImageView mIvRouteRef;
   @Nullable
   private RouteInfo[] mRoutes;
-  /// Ref of the route selected from the popup (and currently highlighted on the map).
-  /// Reset on each metadata refresh; bolded+underlined in the primary refs string.
-  /// Matched by ref (not by relId) since the primary string deduplicates by ref.
-  @Nullable
-  private String mSelectedRouteRef;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -760,8 +755,7 @@ public class PlacePageView extends Fragment
 
     // showTaxiOffer(mapObject);
     mRoutes = Framework.nativeGetActiveObjectRoutes();
-    mSelectedRouteRef = null;
-    refreshMetadataOrHide(formatRouteRefs(mRoutes, mSelectedRouteRef), mRouteRef, mTvRouteRef);
+    refreshMetadataOrHide(formatRouteRefs(mRoutes, Framework.nativeGetActiveTransitRouteRef()), mRouteRef, mTvRouteRef);
     if (mRouteRef.getVisibility() == VISIBLE)
     {
       if (mMapObject.isTramStop())
@@ -1013,8 +1007,7 @@ public class PlacePageView extends Fragment
     });
     popup.setOnItemClickListener((parent, view, position, id) -> {
       final RouteInfo r = mRoutes[position];
-      mSelectedRouteRef = r.getRef();
-      mTvRouteRef.setText(formatRouteRefs(mRoutes, mSelectedRouteRef));
+      mTvRouteRef.setText(formatRouteRefs(mRoutes, r.getRef()));
       Framework.nativeShowRouteTransit(r.getRelId());
       popup.dismiss();
     });

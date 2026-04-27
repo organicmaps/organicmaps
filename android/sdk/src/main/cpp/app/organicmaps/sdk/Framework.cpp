@@ -1640,6 +1640,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowRouteTransit(JNIEnv 
   frm()->ShowRouteTransit(static_cast<uint32_t>(relId));
 }
 
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveTransitRouteRef(JNIEnv * env, jclass)
+{
+  auto const ref = frm()->GetActiveTransitRouteRef();
+  return ref.empty() ? nullptr : jni::ToJavaString(env, ref);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top,
                                                                        jint right, jint bottom)
 {
