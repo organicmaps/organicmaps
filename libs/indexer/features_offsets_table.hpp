@@ -5,6 +5,7 @@
 #include "3party/succinct/elias_fano.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -56,11 +57,17 @@ public:
 
   /// \param index index of a feature
   /// \return offset a feature
-  uint32_t GetFeatureOffset(size_t index) const;
+  uint32_t GetFeatureOffset(uint32_t index) const;
 
   /// \param offset offset of a feature
   /// \return index of a feature
-  size_t GetFeatureIndexbyOffset(uint32_t offset) const;
+  /// Calls BinarySearch and CHECK.
+  uint32_t GetFeatureIndexbyOffset(uint32_t offset) const;
+
+  /// Non-asserting binary search over the strictly increasing values.
+  /// \param value the value (usually offset in file or some ID) to look up
+  /// \return index where @p value is stored, or std::nullopt if not present.
+  std::optional<uint32_t> BinarySearch(uint32_t value) const;
 
   /// \return number of features offsets in a table.
   size_t size() const { return static_cast<size_t>(m_table.num_ones()); }
