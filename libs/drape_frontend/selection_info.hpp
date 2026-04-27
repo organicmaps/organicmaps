@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/feature_decl.hpp"
+
 #include "drape/color.hpp"
 
 #include "geometry/point2d.hpp"
@@ -35,8 +37,10 @@ struct TransitInfo
 
   struct Stop
   {
+    FeatureID m_featureId;  // for the OverlayTree::Select routine
     m2::PointD m_pos;
     std::string m_name;
+
     /// true for the PP's feature (the user-selected stop) and for the first/last stop
     /// members of the relation (terminals). Rendered in red with a lower zoom threshold.
     bool m_highlight = false;

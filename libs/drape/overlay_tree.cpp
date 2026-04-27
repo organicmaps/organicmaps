@@ -487,9 +487,8 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   ScreenBase const & screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    // RouteTransit elements with empty FeatureID. Probably, can assign valid IDs.
-    if (!h->GetOverlayID().IsValid())
-      return;
+    // BuildFromRouteTransit elements with _possible_ empty FeatureID. Text shapes have valid FeatureID.
+    // ASSERT(h->GetOverlayID().IsValid(), ());
 
     if (!h->HasLinearFeatureShape() && h->IsVisible())
     {

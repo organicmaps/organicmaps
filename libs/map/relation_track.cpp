@@ -217,6 +217,7 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
       continue;
 
     df::TransitInfo::Stop stop;
+    stop.m_featureId = stopFt->GetID();
     stop.m_pos = stopFt->GetCenter();
     stop.m_name = std::string(stopFt->GetReadableName());
     stop.m_highlight = (ftIdx == m_fid.m_index);  // Current (PP's) stop.
