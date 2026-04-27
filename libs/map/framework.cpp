@@ -1382,6 +1382,16 @@ void Framework::ShowRouteTransit(uint32_t relID)
   if (!info)
     return;
 
+  if (!m_routeTransitSelectionSession || m_routeTransitSelectionSession->m_featureId != fid)
+  {
+    auto modelView = m_currentModelView;
+    if (modelView.isPerspective())
+      modelView.ResetPerspective();
+    m_routeTransitSelectionSession = RouteTransitSelectionSession(m_currentPlacePageInfo->GetBuildInfo(), fid, relID);
+  }
+  else
+    m_routeTransitSelectionSession->m_relID = relID;
+
   // Fit the viewport to the route before pushing data — same UX as the old selection-line path.
   m2::RectD bbox;
   for (auto const & route : info->m_routes)
@@ -1396,7 +1406,6 @@ void Framework::ShowRouteTransit(uint32_t relID)
   }
 
   UpdateTrackSelectionColor(info->m_color);
-  m_wasPTRoute = true;
 
   m_drapeEngine->EnableTransitScheme(true);
   m_drapeEngine->ShowRouteTransit(std::move(*info));
@@ -1404,9 +1413,9 @@ void Framework::ShowRouteTransit(uint32_t relID)
 
 void Framework::HideRouteTransitIfNeeded()
 {
-  if (!m_wasPTRoute)
+  if (!m_routeTransitSelectionSession)
     return;
-  m_wasPTRoute = false;
+  m_routeTransitSelectionSession = {};
 
   if (!m_drapeEngine)
     return;
@@ -2064,6 +2073,26 @@ void Framework::ActivateMapSelection()
 
 void Framework::DeactivateMapSelection()
 {
+  if (m_routingManager.IsRoutingActive())
+    HideRouteTransitIfNeeded();
+
+  bool const recoverRouteTransitSession =
+      m_currentPlacePageInfo && m_routeTransitSelectionSession &&
+      m_currentPlacePageInfo->GetID() != m_routeTransitSelectionSession->m_featureId;
+  if (recoverRouteTransitSession)
+  {
+    DeactivateHotelSearchMark();
+
+    auto & bm = GetBookmarkManager();
+    bm.OnTrackDeselected();
+    bm.ClearTempRelationTrack();
+    bm.ResetRecentlyDeletedBookmark();
+
+    m_currentPlacePageInfo = BuildPlacePageInfo(m_routeTransitSelectionSession->m_buildInfo);
+    ActivateMapSelection();
+    return;
+  }
+
   if (m_onPlacePageClose)
     m_onPlacePageClose();
 

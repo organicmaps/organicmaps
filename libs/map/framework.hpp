@@ -61,6 +61,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -465,7 +466,20 @@ private:
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;
 
-  bool m_wasPTRoute = false;
+  struct RouteTransitSelectionSession
+  {
+    RouteTransitSelectionSession(place_page::BuildInfo const & buildInfo, FeatureID const & featureId, uint32_t relID)
+      : m_buildInfo(buildInfo)
+      , m_featureId(featureId)
+      , m_relID(relID)
+    {}
+
+    place_page::BuildInfo m_buildInfo;
+    FeatureID m_featureId;
+    uint32_t m_relID = 0;
+  };
+
+  std::optional<RouteTransitSelectionSession> m_routeTransitSelectionSession;
 
 public:
   // Moves viewport to the search result and taps on it.
@@ -478,7 +492,7 @@ public:
   // Builds a TransitInfo (lines + stops) for @p relID relative to the current place page's feature
   // and shows it on the transit scheme layer (with the usual map dim).
   void ShowRouteTransit(uint32_t relID);
-  // Is called on PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
+  // Is called on PT PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
   void HideRouteTransitIfNeeded();
 
   // Cancels all searches, stops location follow and then selects
