@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="@dimen/corner_radius_large"
     app:cardElevation="6dp"
     app:cardUseCompatPadding="false">
 
@@ -16,8 +16,7 @@
       android:background="@drawable/bg_donation_gradient"
       android:clipToOutline="true"
       android:clickable="false"
-      android:outlineProvider="background"
-      app:cardCornerRadius="16dp">
+      android:outlineProvider="background">
 
     <View
         android:id="@+id/donation_backgroundPattern"

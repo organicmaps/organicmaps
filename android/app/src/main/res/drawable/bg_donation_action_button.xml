@@ -3,14 +3,14 @@
 
   <item>
     <shape>
-      <corners android:radius="10dp" />
+      <corners android:radius="@dimen/corner_radius_medium" />
       <solid android:color="@color/donation_action_dark" />
     </shape>
   </item>
 
   <item>
     <shape>
-      <corners android:radius="10dp" />
+      <corners android:radius="@dimen/corner_radius_medium" />
       <gradient
           android:centerX="0.1"
           android:centerY="0.1"

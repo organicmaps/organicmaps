@@ -2,13 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item>
     <shape>
-      <corners android:radius="16dp" />
+      <corners android:radius="@dimen/corner_radius_large" />
       <solid android:color="@color/donation_bg_dark" />
     </shape>
   </item>
   <item>
     <shape>
-      <corners android:radius="16dp" />
+      <corners android:radius="@dimen/corner_radius_large" />
       <gradient
           android:centerX="0.15"
           android:centerY="0.85"
