@@ -14,7 +14,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressEmail()
   func didPressOpenInApp(from sourceView: UIView)
   func didCopy(_ content: String)
-  func didSelectPublicTransportRoute()
+  func didSelectPublicTransportRoute(scrollAnchor: UIView)
 }
 
 class PlacePageInfoViewController: UIViewController {
@@ -56,10 +56,6 @@ class PlacePageInfoViewController: UIViewController {
   private var driveThroughView: InfoItemView?
   private var networkView: InfoItemView?
   private var routeRefsView: InfoItemView?
-  /// Ref of the route most recently picked from the refs popup, or nil.
-  /// Used to render the selected ref bold+underlined in the primary row.
-  /// Matched by ref (not by relId) since the primary row deduplicates by ref.
-  private var selectedRouteRef: String?
   /// Relation id of the route most recently picked from the refs popup, or nil.
   /// Used to render exactly one selected row in the popup.
   private var selectedRouteRelId: UInt32?
@@ -67,9 +63,6 @@ class PlacePageInfoViewController: UIViewController {
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
-  var routeRefsAnchorView: UIView? {
-    routeRefsView
-  }
 
   var coordinatesFormatId: Int {
     get { UserDefaults.standard.integer(forKey: Constants.coordFormatIdKey) }
@@ -122,14 +115,19 @@ class PlacePageInfoViewController: UIViewController {
       let uniqueRefs = routes.compactMap { seen.insert($0.ref).inserted ? $0.ref : nil }
       routeRefsView = createInfoItem(uniqueRefs.joined(separator: " • "),
                                      icon: UIImage.icPlacepageBus,
+                                     tapIconHandler: { [weak self] in
+                                       self?.showRoutesSelector()
+                                     },
                                      style: .link,
                                      accessoryImage: UIImage.icPlacepageChange,
                                      tapHandler: { [weak self] in
-                                       self?.showRoutesSelector(for: routes)
+                                       self?.showRoutesSelector()
                                      },
                                      accessoryImageTapHandler: { [weak self] in
-                                       self?.showRoutesSelector(for: routes)
+                                       self?.showRoutesSelector()
                                      })
+      selectedRouteRelId = routes.first { $0.ref == FrameworkHelper.activeTransitRouteRef() }?.relId
+      updateRouteRefsLabel()
     }
 
     // @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
@@ -363,41 +361,50 @@ class PlacePageInfoViewController: UIViewController {
     delegate?.didCopy(coordinates)
   }
 
-  private func showRoutesSelector(for routes: [PlacePageRoute]) {
-    guard let routeRefsView else { return }
-    let viewController = RoutesSelectorViewController(routes: routes,
-                                                      selectedRouteRelId: selectedRouteRelId,
-                                                      routeSelectedHandler: { [weak self] route in
-                                                        self?.dismiss(animated: true, completion: { [weak self] in
-                                                          self?.selectRoute(route, from: routes)
+  private func showRoutesSelector() {
+    guard let routeRefsView, let routes = placePageInfoData.routes else { return }
+    if routes.count == 1 {
+      selectRoute(routes[0])
+    } else {
+      let viewController = RoutesSelectorViewController(routes: routes,
+                                                        selectedRouteRelId: selectedRouteRelId,
+                                                        routeSelectedHandler: { [weak self] route in
+                                                          self?.dismiss(animated: true, completion: { [weak self] in
+                                                            self?.selectRoute(route)
+                                                          })
                                                         })
-                                                      })
-    viewController.modalPresentationStyle = .popover
-    viewController.popoverPresentationController?.sourceView = routeRefsView
-    viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
-    viewController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
-    viewController.popoverPresentationController?.delegate = viewController
-    routesSelectorViewController = viewController
-    present(viewController, animated: true)
+      viewController.modalPresentationStyle = .popover
+      viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+      viewController.popoverPresentationController?.sourceView = routeRefsView
+      viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
+      viewController.popoverPresentationController?.permittedArrowDirections = .any
+      viewController.popoverPresentationController?.delegate = viewController
+      routesSelectorViewController = viewController
+      present(viewController, animated: true)
+    }
   }
 
-  private func selectRoute(_ route: PlacePageRoute, from routes: [PlacePageRoute]) {
+  private func selectRoute(_ route: PlacePageRoute) {
     FrameworkHelper.showRouteTransit(route.relId)
-    selectedRouteRef = route.ref
     selectedRouteRelId = route.relId
-    updateRouteRefsLabel(routes: routes)
-    delegate?.didSelectPublicTransportRoute()
+    updateRouteRefsLabel()
+    if let routeRefsView {
+      delegate?.didSelectPublicTransportRoute(scrollAnchor: routeRefsView)
+    }
   }
 
   /// Rebuilds the primary refs string, bolding and underlining the selected route's ref.
   /// Inherits the current label's font and color as the baseline style.
   /// Routes that share a ref are collapsed (the popup still shows all entries).
-  private func updateRouteRefsLabel(routes: [PlacePageRoute]) {
-    guard let label = routeRefsView?.textLabel else { return }
+  private func updateRouteRefsLabel() {
+    guard let label = routeRefsView?.textLabel, let routes = placePageInfoData.routes else { return }
     let baseFont = label.font ?? UIFont.systemFont(ofSize: 16)
     let baseColor = label.textColor ?? UIColor.black
     let boldFont = UIFont.boldSystemFont(ofSize: baseFont.pointSize)
     let baseAttrs: [NSAttributedString.Key: Any] = [.font: baseFont, .foregroundColor: baseColor]
+    let selectedRouteRef = selectedRouteRelId.flatMap { selectedRelId in
+      routes.first { $0.relId == selectedRelId }?.ref
+    }
 
     var seen = Set<String>()
     let result = NSMutableAttributedString()

@@ -3,7 +3,7 @@ protocol PlacePageViewProtocol: AnyObject {
   var view: UIView! { get }
 
   func showNextStop()
-  func scrollToPublicTransportSection()
+  func scrollToReveal(_ anchor: UIView)
   func layoutIfNeeded()
   func updateWithLayout(_ layout: IPlacePageLayout)
   func showAlert(_ alert: UIAlertController)
@@ -24,7 +24,7 @@ final class PlacePageScrollView: UIScrollView {
   private enum Constants {
     static let actionBarHeight: CGFloat = 50
     static let additionalPreviewOffset: CGFloat = 80
-    static let additionalePublicTransportPreviewOffset: CGFloat = 12
+    static let additionalRevealOffset: CGFloat = 12
     static let fastSwipeDownVelocity: CGFloat = -3.0
     static let fastSwipeUpVelocity: CGFloat = 2.0
   }
@@ -383,10 +383,10 @@ extension PlacePageViewController: PlacePageViewProtocol {
     }
   }
 
-  func scrollToPublicTransportSection() {
-    guard !isiPad, scrollView.isScrollEnabled,
-          let ptBottomOffset = layout.publicTransportBottomOffset(inScrollView: scrollView) else { return }
-    let offset = CGPoint(x: 0, y: ptBottomOffset + Constants.additionalePublicTransportPreviewOffset)
+  func scrollToReveal(_ anchor: UIView) {
+    guard !isiPad, scrollView.isScrollEnabled else { return }
+    let bottomY = scrollView.convert(anchor.bounds, from: anchor).maxY
+    let offset = CGPoint(x: 0, y: bottomY - scrollView.height + Constants.additionalRevealOffset)
     scrollTo(offset, forced: true)
   }
 
