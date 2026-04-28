@@ -15,7 +15,7 @@
 
 #include "defines.hpp"
 
-#include <deque>
+#include <algorithm>
 #include <limits>
 #include <queue>
 #include <unordered_set>
@@ -24,24 +24,25 @@ namespace relation_track_merger  // Unity build protect
 {
 namespace  // Avoid exposing symbols
 {
-using TrackGeometry = RelationTrackBuilder::TrackGeometry;
+using Geometry = RelationTrackBuilder::Geometry;
+using RelationID = RelationTrackBuilder::RelationID;
 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 {
   return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
 }
 
-// The same OSM way can appear as a Feature in several MWMs (the borders are
-// not strict cuts). Drop neighbour-side members that already match an existing
-// member by point count, both endpoints, and (only then) all points.
-bool IsSameLine(TrackGeometry const & a, TrackGeometry const & b)
+// The same OSM way can appear as a Feature in several MWMs (the borders are not strict
+// cuts). Drop neighbour-side members that already match an existing member by point
+// count, both endpoints, and (only then) all points.
+bool IsSameLine(Geometry const & a, Geometry const & b)
 {
-  if (a.size() != b.size())
+  if (a.Size() != b.Size())
     return false;
-  if (!IsEqual(a.front().GetPoint(), b.front().GetPoint()) || !IsEqual(a.back().GetPoint(), b.back().GetPoint()))
+  if (!IsEqual(a.FrontPoint(), b.FrontPoint()) || !IsEqual(a.BackPoint(), b.BackPoint()))
     return false;
-  for (size_t i = 1; i + 1 < a.size(); ++i)
-    if (!IsEqual(a[i].GetPoint(), b[i].GetPoint()))
+  for (size_t i = 1; i + 1 < a.Size(); ++i)
+    if (!IsEqual(a.m_points[i].GetPoint(), b.m_points[i].GetPoint()))
       return false;
   return true;
 }
@@ -56,7 +57,7 @@ struct EndpointRef
 class Merger
 {
 public:
-  explicit Merger(std::vector<TrackGeometry> const & members)
+  explicit Merger(std::vector<Geometry> const & members)
     : m_members(members)
     , m_used(members.size(), false)
     , m_endpointMap(kMwmPointAccuracy)
@@ -64,52 +65,46 @@ public:
     for (size_t i = 0; i < m_members.size(); ++i)
     {
       auto const & m = m_members[i];
-      ASSERT_GREATER(m.size(), 1, ());
+      ASSERT_GREATER(m.Size(), 1, ());
 
-      m_endpointMap.Emplace(m.front().GetPoint(), EndpointRef{i, true});
-      m_endpointMap.Emplace(m.back().GetPoint(), EndpointRef{i, false});
+      m_endpointMap.Emplace(m.FrontPoint(), EndpointRef{i, true});
+      m_endpointMap.Emplace(m.BackPoint(), EndpointRef{i, false});
     }
   }
 
   /// Builds the longest connected chain from @p startIdx, growing in both directions.
-  /// Marks consumed members as used.
-  TrackGeometry BuildChain(size_t startIdx)
+  /// Marks consumed members as used. Provenance (m_relIDs) is preserved end-to-end.
+  Geometry BuildChain(size_t startIdx)
   {
     ASSERT_LESS(startIdx, m_members.size(), ());
     ASSERT(!m_used[startIdx], ());
 
     m_used[startIdx] = true;
-    std::deque<geometry::PointWithAltitude> chain(m_members[startIdx].begin(), m_members[startIdx].end());
+    Geometry chain = m_members[startIdx];
 
-    // Grow forward (from back of chain).
+    // Grow forward (append at back of chain).
+    // ref->isFront == true: m's front equals chain's back → append m forward.
+    // ref->isFront == false: m's back equals chain's back → append m reversed.
     size_t lastFwd = startIdx;
-    while (auto const * ref = FindEndpoint(chain.back().GetPoint(), lastFwd))
+    while (auto const * ref = FindEndpoint(chain.BackPoint(), lastFwd))
     {
-      auto const & m = m_members[ref->memberIdx];
       lastFwd = ref->memberIdx;
       m_used[ref->memberIdx] = true;
-
-      if (ref->isFront)
-        chain.insert(chain.end(), m.begin() + 1, m.end());
-      else
-        chain.insert(chain.end(), m.rbegin() + 1, m.rend());
+      chain.Insert(m_members[ref->memberIdx], false /* atFront */, !ref->isFront /* reverse */);
     }
 
-    // Grow backward (from front of chain).
+    // Grow backward (prepend at front of chain).
+    // ref->isFront == true: m's front equals chain's front → prepend m reversed.
+    // ref->isFront == false: m's back equals chain's front → prepend m forward.
     size_t lastBwd = startIdx;
-    while (auto const * ref = FindEndpoint(chain.front().GetPoint(), lastBwd))
+    while (auto const * ref = FindEndpoint(chain.FrontPoint(), lastBwd))
     {
-      auto const & m = m_members[ref->memberIdx];
       lastBwd = ref->memberIdx;
       m_used[ref->memberIdx] = true;
-
-      if (ref->isFront)
-        chain.insert(chain.begin(), m.rbegin(), m.rend() - 1);
-      else
-        chain.insert(chain.begin(), m.begin(), m.end() - 1);
+      chain.Insert(m_members[ref->memberIdx], true /* atFront */, ref->isFront /* reverse */);
     }
 
-    return TrackGeometry(chain.begin(), chain.end());
+    return chain;
   }
 
   bool IsUsed(size_t idx) const { return m_used[idx]; }
@@ -117,14 +112,14 @@ public:
 
   /// Checks if @p member connects to @p pt (front or back within kMwmPointAccuracy).
   /// If connected, returns true and sets @p needReverse.
-  static bool Connects(TrackGeometry const & member, m2::PointD const & pt, bool & needReverse)
+  static bool Connects(Geometry const & member, m2::PointD const & pt, bool & needReverse)
   {
-    if (IsEqual(member.front().GetPoint(), pt))
+    if (IsEqual(member.FrontPoint(), pt))
     {
       needReverse = false;
       return true;
     }
-    if (IsEqual(member.back().GetPoint(), pt))
+    if (IsEqual(member.BackPoint(), pt))
     {
       needReverse = true;
       return true;
@@ -155,12 +150,83 @@ private:
     return best;
   }
 
-  std::vector<TrackGeometry> const & m_members;
+  std::vector<Geometry> const & m_members;
   std::vector<bool> m_used;
   m2::PointHashMap<EndpointRef> m_endpointMap;
 };
+
+void ToPolyline(Geometry const & g, df::Polyline & poly)
+{
+  poly.reserve(g.Size());
+  for (auto const & p : g.m_points)
+    poly.push_back(p.GetPoint());
+}
 }  // namespace
 }  // namespace relation_track_merger
+
+// Geometry implementation.
+
+void RelationTrackBuilder::Geometry::Insert(Geometry const & other, bool atFront, bool reverse)
+{
+  if (other.IsEmpty())
+    return;
+
+  // Splice points, dropping the shared seam point of @p other (front when appending,
+  // back when prepending; flipped under @p reverse).
+
+  // clang-format off
+  auto const & p = other.m_points;
+  if (!atFront)
+  {
+    if (!reverse)
+      m_points.insert(m_points.end(), p.begin() + 1, p.end());  // [front+1 .. back]
+    else
+      m_points.insert(m_points.end(), p.rbegin() + 1, p.rend());  // [back-1 .. front]
+  }
+  else
+  {
+    if (!reverse)
+      m_points.insert(m_points.begin(), p.begin(), p.end() - 1);  // [front .. back-1]
+    else
+      m_points.insert(m_points.begin(), p.rbegin(), p.rend() - 1);  // [back .. front+1]
+  }
+  // clang-format on
+
+  // Splice provenance with matching orientation. Each ref names a whole run and
+  // carries no per-run direction flag, so we just append/prepend in the right order.
+
+  // clang-format off
+  auto const & r = other.m_relIDs;
+  if (!atFront)
+  {
+    // do not append the same consecutive ids
+    if (!m_relIDs.empty() && r.size() == 1 && m_relIDs.back() == r.front())
+      return;
+
+    if (!reverse)
+      m_relIDs.insert(m_relIDs.end(), r.begin(), r.end());
+    else
+      m_relIDs.insert(m_relIDs.end(), r.rbegin(), r.rend());
+  }
+  else
+  {
+    // do not append the same consecutive ids
+    if (!m_relIDs.empty() && r.size() == 1 && m_relIDs.front() == r.front())
+      return;
+
+    if (!reverse)
+      m_relIDs.insert(m_relIDs.begin(), r.begin(), r.end());
+    else
+      m_relIDs.insert(m_relIDs.begin(), r.rbegin(), r.rend());
+  }
+  // clang-format on
+}
+
+void RelationTrackBuilder::Geometry::Reverse()
+{
+  std::reverse(m_points.begin(), m_points.end());
+  std::reverse(m_relIDs.begin(), m_relIDs.end());
+}
 
 // RelationTrackBuilder implementation.
 
@@ -188,24 +254,12 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
       continue;
 
     auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
-
-    size_t startIdx = 0;
-    auto members = LoadMemberGeometries(rel, startIdx, guard);
-    if (members.empty() || startIdx >= members.size())
+    auto members = LoadMemberGeometries(rel, guard, RelationID(m_fid.m_mwmId, relID));
+    if (members.empty())
       continue;
 
-    // Splice this relation's members from neighbour MWMs (route Relations frequently
-    // straddle several MWMs). The OSM Relation ID is stored in RELATION_OSMIDS_FILE_TAG;
-    // the same OSM Relation may appear in each neighbour MWM that overlaps its bbox.
-    if (m_infoGetter)
-    {
-      auto const & cont = guard.GetContainer();
-      if (cont.IsExist(RELATION_OSMIDS_FILE_TAG))
-      {
-        auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
-        AppendNeighbourMembers(m_fid.m_mwmId, tbl->GetFeatureOffset(relID), members);
-      }
-    }
+    // Cross-MWM merging.
+    AppendNeighbourMembers(guard, relID, members);
 
     auto lines = MergeAllMembers(members);
     if (lines.empty())
@@ -220,12 +274,24 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
   return std::nullopt;
 }
 
-void RelationTrackBuilder::AppendNeighbourMembers(MwmSet::MwmId const & mwmId, uint32_t osmRelID,
-                                                  std::vector<TrackGeometry> & members)
+void RelationTrackBuilder::AppendNeighbourMembers(FeaturesLoaderGuard const & guard, uint32_t relIdx,
+                                                  std::vector<Geometry> & members)
 {
-  ASSERT(m_infoGetter, ());
+  if (!m_infoGetter)
+    return;
+
+  uint32_t osmRelID;
+  auto const & cont = guard.GetContainer();
+  if (cont.IsExist(RELATION_OSMIDS_FILE_TAG))
+  {
+    auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
+    osmRelID = tbl->GetFeatureOffset(relIdx);
+  }
+  else
+    return;
 
   // BFS
+  auto const mwmId = guard.GetId();
   std::queue<MwmSet::MwmId> frontier;
   frontier.push(mwmId);
   std::unordered_set<MwmSet::MwmId> visited;
@@ -251,7 +317,7 @@ void RelationTrackBuilder::AppendNeighbourMembers(MwmSet::MwmId const & mwmId, u
 }
 
 bool RelationTrackBuilder::TryAppendFromMwm(MwmSet::MwmId const & mwmId, uint32_t osmRelID,
-                                            std::vector<TrackGeometry> & members)
+                                            std::vector<Geometry> & members)
 {
   FeaturesLoaderGuard guard(m_dataSource, mwmId);
   auto const & cont = guard.GetContainer();
@@ -263,14 +329,14 @@ bool RelationTrackBuilder::TryAppendFromMwm(MwmSet::MwmId const & mwmId, uint32_
   if (!idx)
     return false;
 
-  auto const nbRel = guard.GetRelation(base::asserted_cast<uint32_t>(*idx));
-
-  size_t dummyStart = 0;
-  auto nbMembers = LoadMemberGeometries(nbRel, dummyStart, guard);
+  auto const relIdx = base::asserted_cast<uint32_t>(*idx);
+  auto const nbRel = guard.GetRelation(relIdx);
+  auto nbMembers = LoadMemberGeometries(nbRel, guard, RelationID(mwmId, relIdx));
   if (nbMembers.empty())
     return false;
 
-  // Compare only with source members.
+  // Compare only with source members (members already added in this call from this
+  // neighbour are themselves non-overlapping — they came from one OSM Relation).
   size_t const sz = members.size();
   for (auto & nb : nbMembers)
   {
@@ -299,42 +365,133 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
   df::TransitInfo info;
   info.m_color = rel.GetColor();
 
-  // Collect lines (reuses existing LoadMemberGeometries + MergeOrdered).
-  size_t startIdx = 0;
-  auto members = LoadMemberGeometries(rel, startIdx, guard);
+  auto members = LoadMemberGeometries(rel, guard, RelationID(m_fid.m_mwmId, relID));
+  std::vector<Geometry> lines;
+  bool isSingleMWM = true;
+
+  /// @todo Should make traversal even if |members| is empty (Subway stops only, without tunnels).
+  /// But I suppuse that we will add subway tunnels geometry one day.
   if (!members.empty())
   {
-    auto const lines = MergeOrdered(members);
+    // Cross-MWM merging.
+    size_t const szBefore = members.size();
+    AppendNeighbourMembers(guard, relID, members);
+
+    // Prefer Ordered algo for one only Relation.
+    if (szBefore == members.size())
+      lines = MergeOrdered(members);
+    else
+    {
+      lines = MergeAllMembers(members);
+      isSingleMWM = lines.empty();
+    }
+
     info.m_routes.reserve(lines.size());
     for (auto const & line : lines)
+      relation_track_merger::ToPolyline(line, info.m_routes.emplace_back().m_polyline);
+  }
+
+  // Walk stops by visiting each contributing Relation at most once across all chains.
+  // Each Relation's stops are emitted in its own source order (the natural order from the OSM Relation).
+  // When @p anchor is set, set highlight stop closest to the anchor (Terminal stop).
+  auto const collectStops = [&](RelationID const & id, std::optional<m2::PointD> const & anchor)
+  {
+    if (!id.m_mwmId.IsAlive())
+      return;
+
+    auto const visit = [&](FeaturesLoaderGuard & g)
     {
-      df::TransitInfo::Route route;
-      route.m_polyline.reserve(line.size());
-      for (auto const & p : line)
-        route.m_polyline.push_back(p.GetPoint());
-      info.m_routes.push_back(std::move(route));
+      auto const r = g.GetRelation(id.m_index);
+      int idx = -1;
+      double nearestD = std::numeric_limits<double>::max();
+      for (uint32_t const ftIdx : r.GetMembers())
+      {
+        auto stopFt = g.GetFeatureByIndex(ftIdx);
+        if (!stopFt || stopFt->GetGeomType() != feature::GeomType::Point)
+          continue;
+
+        auto const ftCenter = stopFt->GetCenter();
+        df::TransitInfo::Stop stop;
+        stop.m_featureId = stopFt->GetID();
+        stop.m_pos = ftCenter;
+        stop.m_name = std::string(stopFt->GetReadableName());
+        stop.m_highlight = (stop.m_featureId == m_fid);
+        info.m_stops.push_back(std::move(stop));
+
+        if (anchor)
+        {
+          /// @todo Not sure that this is the honest criteria, but I don't have a better one.
+          double const d = ftCenter.SquaredLength(*anchor);
+          if (d < nearestD)
+          {
+            nearestD = d;
+            idx = info.m_stops.size() - 1;
+          }
+        }
+      }
+
+      if (idx >= 0)
+        info.m_stops[idx].m_highlight = true;
+    };
+
+    if (id.m_mwmId == m_fid.m_mwmId)
+      visit(guard);
+    else
+    {
+      FeaturesLoaderGuard nbg(m_dataSource, id.m_mwmId);
+      visit(nbg);
+    }
+  };
+
+  if (!isSingleMWM)
+  {
+    std::unordered_set<RelationID> seenRels;
+    auto const & firstID = lines.front().m_relIDs.front();
+    auto const & lastID = lines.back().m_relIDs.back();
+
+    // 1. First Relation — anchors the head; pick start terminal.
+    collectStops(firstID, lines.front().FrontPoint());
+    size_t const szFirst = info.m_stops.size();
+
+    // 2. Intermediate Relations (deduped, last deferred). Order is first-visit order.
+    seenRels.insert(firstID);
+    seenRels.insert(lastID);
+    for (auto const & line : lines)
+      for (auto const & ref : line.m_relIDs)
+        if (seenRels.insert(ref).second)
+          collectStops(ref, std::nullopt);
+
+    // 3. Last Relation — anchors the tail; pick end terminal.
+    if (lastID != firstID)
+      collectStops(lastID, lines.back().BackPoint());
+    else
+    {
+      // Same Relation contributes to both ends — second pass over its already-emitted stops to find the end terminal.
+      int idx = -1;
+      double nearestD = std::numeric_limits<double>::max();
+      auto const & anchor = lines.back().BackPoint();
+      for (size_t i = 0; i < szFirst; ++i)
+      {
+        double const d = info.m_stops[i].m_pos.SquaredLength(anchor);
+        if (d < nearestD)
+        {
+          nearestD = d;
+          idx = i;
+        }
+      }
+      if (idx >= 0)
+        info.m_stops[idx].m_highlight = true;
     }
   }
-
-  for (uint32_t const ftIdx : rel.GetMembers())
+  else
   {
-    auto stopFt = guard.GetFeatureByIndex(ftIdx);
-    if (!stopFt || stopFt->GetGeomType() != feature::GeomType::Point)
-      continue;
-
-    df::TransitInfo::Stop stop;
-    stop.m_featureId = stopFt->GetID();
-    stop.m_pos = stopFt->GetCenter();
-    stop.m_name = std::string(stopFt->GetReadableName());
-    stop.m_highlight = (ftIdx == m_fid.m_index);  // Current (PP's) stop.
-    info.m_stops.push_back(std::move(stop));
-  }
-
-  // Terminals: first and last point members of the relation.
-  if (!info.m_stops.empty())
-  {
-    info.m_stops.front().m_highlight = true;
-    info.m_stops.back().m_highlight = true;
+    // No lines → fall back to the source relation's stop list.
+    collectStops(RelationID(m_fid.m_mwmId, relID), std::nullopt);
+    if (!info.m_stops.empty())
+    {
+      info.m_stops.front().m_highlight = true;
+      info.m_stops.back().m_highlight = true;
+    }
   }
 
   if (info.IsEmpty())
@@ -349,9 +506,7 @@ std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32
   ASSERT(ft, ());
 
   auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
-
-  size_t startIdx = 0;
-  auto members = LoadMemberGeometries(rel, startIdx, guard);
+  auto members = LoadMemberGeometries(rel, guard, RelationID(m_fid.m_mwmId, relID));
   if (members.empty())
     return std::nullopt;
 
@@ -363,30 +518,20 @@ std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32
   info.m_color = rel.GetColor();
   info.m_lines.reserve(lines.size());
   for (auto const & line : lines)
-  {
-    df::Polyline polyline;
-    polyline.reserve(line.size());
-    for (auto const & p : line)
-      polyline.push_back(p.GetPoint());
-    info.m_lines.push_back(std::move(polyline));
-  }
+    relation_track_merger::ToPolyline(line, info.m_lines.emplace_back());
   return info;
 }
 
-std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMemberGeometries(
-    feature::RouteRelation const & relation, size_t & startIdx, FeaturesLoaderGuard const & guard)
+std::vector<RelationTrackBuilder::Geometry> RelationTrackBuilder::LoadMemberGeometries(
+    feature::RouteRelation const & relation, FeaturesLoaderGuard const & guard, RelationID const & relID)
 {
-  startIdx = std::numeric_limits<size_t>::max();
-
   auto const & ftMembers = relation.GetMembers();
   if (ftMembers.empty())
     return {};
 
   feature::AltitudeLoaderBase altLoader(*guard.GetHandle().GetValue());
 
-  bool const isCurrentMwm = (guard.GetId() == m_fid.m_mwmId);
-
-  std::vector<TrackGeometry> result;
+  std::vector<Geometry> result;
   result.reserve(ftMembers.size());
 
   for (uint32_t const ftIdx : ftMembers)
@@ -403,39 +548,36 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::LoadMembe
     geometry::Altitudes const alts = altLoader.GetAltitudes(ftIdx, pointsCount);
     ASSERT_EQUAL(pointsCount, alts.size(), ());
 
-    TrackGeometry line;
-    line.reserve(pointsCount);
-    line.emplace_back(ft->GetPoint(0), alts[0]);
+    Geometry line;
+    line.Reserve(pointsCount);
+    line.Append({ft->GetPoint(0), alts[0]});
     for (size_t j = 1; j < pointsCount; ++j)
     {
       /// @todo We still have equal points in Line Feature from MWM.
-      if (!relation_track_merger::IsEqual(line.back().GetPoint(), ft->GetPoint(j)))
-        line.emplace_back(ft->GetPoint(j), alts[j]);
+      if (!relation_track_merger::IsEqual(line.BackPoint(), ft->GetPoint(j)))
+        line.Append({ft->GetPoint(j), alts[j]});
     }
 
-    if (line.size() < 2)
+    if (line.Size() < 2)
       continue;
 
-    if (isCurrentMwm && ftIdx == m_fid.m_index)
-      startIdx = result.size();
+    line.AddRelationRef(relID);
 
     result.push_back(std::move(line));
   }
   return result;
 }
 
-RelationTrackBuilder::TrackGeometry RelationTrackBuilder::BuildChain(std::vector<TrackGeometry> const & members,
-                                                                     size_t startIdx)
+RelationTrackBuilder::Geometry RelationTrackBuilder::BuildChain(std::vector<Geometry> const & members, size_t startIdx)
 {
   relation_track_merger::Merger merger(members);
   return merger.BuildChain(startIdx);
 }
 
-std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::MergeAllMembers(
-    std::vector<TrackGeometry> const & members)
+std::vector<RelationTrackBuilder::Geometry> RelationTrackBuilder::MergeAllMembers(std::vector<Geometry> const & members)
 {
   relation_track_merger::Merger merger(members);
-  std::vector<TrackGeometry> chains;
+  std::vector<Geometry> chains;
 
   for (size_t i = 0; i < merger.Size(); ++i)
   {
@@ -448,8 +590,8 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::MergeAllM
   if (chains.size() <= 1)
     return chains;
 
-  // Keep chains[0] first (preserving relation member order), but reorder the rest
-  // so that each next one is closest to the previous one's end. Reverse chains as needed.
+  // Keep chains[0] first (preserving relation member order), but reorder the rest so
+  // that each next one is closest to the previous one's end. Reverse chains as needed.
 
   auto const FindNearest = [&chains](m2::PointD const & pt, std::vector<bool> const & picked)
   {
@@ -465,8 +607,8 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::MergeAllM
       if (picked[j])
         continue;
 
-      auto const distFront = pt.SquaredLength(chains[j].front().GetPoint());
-      auto const distBack = pt.SquaredLength(chains[j].back().GetPoint());
+      auto const distFront = pt.SquaredLength(chains[j].FrontPoint());
+      auto const distBack = pt.SquaredLength(chains[j].BackPoint());
 
       if (distFront < best.dist)
         best = {j, distFront, false};
@@ -476,68 +618,64 @@ std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::MergeAllM
     return best;
   };
 
-  std::vector<TrackGeometry> result;
+  std::vector<Geometry> result;
   result.reserve(chains.size());
   std::vector<bool> picked(chains.size(), false);
   picked[0] = true;
 
   // Check if reversing chains[0] gives a better connection to the nearest second chain.
-  auto const fwd = FindNearest(chains[0].back().GetPoint(), picked);
-  auto const rev = FindNearest(chains[0].front().GetPoint(), picked);
+  auto const fwd = FindNearest(chains[0].BackPoint(), picked);
+  auto const rev = FindNearest(chains[0].FrontPoint(), picked);
   if (rev.dist < fwd.dist)
-    std::reverse(chains[0].begin(), chains[0].end());
+    chains[0].Reverse();
 
   result.push_back(std::move(chains[0]));
 
   for (size_t step = 1; step < chains.size(); ++step)
   {
-    auto best = FindNearest(result.back().back().GetPoint(), picked);
+    auto best = FindNearest(result.back().BackPoint(), picked);
 
     picked[best.idx] = true;
     if (best.reverse)
-      std::reverse(chains[best.idx].begin(), chains[best.idx].end());
+      chains[best.idx].Reverse();
     result.push_back(std::move(chains[best.idx]));
   }
 
   return result;
 }
 
-std::vector<RelationTrackBuilder::TrackGeometry> RelationTrackBuilder::MergeOrdered(
-    std::vector<TrackGeometry> const & members)
+std::vector<RelationTrackBuilder::Geometry> RelationTrackBuilder::MergeOrdered(std::vector<Geometry> const & members)
 {
   using relation_track_merger::Merger;
 
-  std::vector<TrackGeometry> result;
-  TrackGeometry chain(members[0].begin(), members[0].end());
+  std::vector<Geometry> result;
+  Geometry chain = members[0];
 
   // Check if reversing the first member gives a better connection to the second.
   if (members.size() > 1)
   {
-    bool needReverse = false;
-    bool const connectsBack = Merger::Connects(members[1], chain.back().GetPoint(), needReverse);
-    bool const connectsFront = Merger::Connects(members[1], chain.front().GetPoint(), needReverse);
+    bool dummy;
+    bool const connectsBack = Merger::Connects(members[1], chain.BackPoint(), dummy);
+    bool const connectsFront = Merger::Connects(members[1], chain.FrontPoint(), dummy);
     if (!connectsBack && connectsFront)
-      std::reverse(chain.begin(), chain.end());
+      chain.Reverse();
   }
 
   for (size_t i = 1; i < members.size(); ++i)
   {
     auto const & m = members[i];
-    ASSERT_GREATER(m.size(), 1, ());
+    ASSERT_GREATER(m.Size(), 1, ());
 
     bool needReverse = false;
-    if (Merger::Connects(m, chain.back().GetPoint(), needReverse))
+    if (Merger::Connects(m, chain.BackPoint(), needReverse))
     {
-      if (!needReverse)
-        chain.insert(chain.end(), m.begin() + 1, m.end());  // front connects → forward
-      else
-        chain.insert(chain.end(), m.rbegin() + 1, m.rend());  // back connects → reversed
+      chain.Splice(m, needReverse);
     }
     else
     {
       // Gap detected — flush current chain and start a new one.
       result.push_back(std::move(chain));
-      chain.assign(m.begin(), m.end());
+      chain = m;
     }
   }
 
