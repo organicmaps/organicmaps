@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -1091,42 +1091,32 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdy-g5-gbM" customClass="SearchOnMapAreaView" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="293" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-E0-cFj">
-                                                <rect key="frame" x="16" y="18" width="277" height="34"/>
+                                                <rect key="frame" x="16" y="18" width="149" height="34"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="FPZ-be-cyu" userLabel="Title Container">
-                                                        <rect key="frame" x="0.0" y="0.0" width="277" height="32"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="149" height="32"/>
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" text="Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ct0-4B-Xfk">
-                                                                <rect key="frame" x="0.0" y="0.0" width="255" height="32"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="149" height="32"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                             </textView>
-                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-Ps-upn" userLabel="Clear Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
-                                                                <rect key="frame" x="259" y="5" width="16" height="16"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="16" id="GbK-CI-YVO"/>
-                                                                    <constraint firstAttribute="height" constant="16" id="aMo-P1-F3P"/>
-                                                                </constraints>
-                                                                <buttonConfiguration key="configuration" style="plain"/>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="qLF-Ps-upn" firstAttribute="top" secondItem="FPZ-be-cyu" secondAttribute="top" constant="5" id="A5c-Ja-uVM"/>
                                                             <constraint firstItem="ct0-4B-Xfk" firstAttribute="leading" secondItem="FPZ-be-cyu" secondAttribute="leading" id="C47-fd-RqU"/>
-                                                            <constraint firstAttribute="trailing" secondItem="qLF-Ps-upn" secondAttribute="trailing" constant="2" id="Ynn-EA-LWW"/>
                                                             <constraint firstAttribute="bottom" secondItem="ct0-4B-Xfk" secondAttribute="bottom" id="pBn-HL-Ku8"/>
                                                             <constraint firstItem="ct0-4B-Xfk" firstAttribute="top" secondItem="FPZ-be-cyu" secondAttribute="top" id="xto-UN-VQD"/>
                                                             <constraint firstAttribute="trailing" secondItem="ct0-4B-Xfk" secondAttribute="trailing" id="zwm-9s-0J5"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iT-AD-Eyf">
-                                                        <rect key="frame" x="0.0" y="34" width="277" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="34" width="149" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1156,32 +1146,64 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-ea-Kac" userLabel="Close Buton" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="331" y="16" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="28" id="IYz-Cb-KoJ"/>
-                                            <constraint firstAttribute="height" constant="28" id="Vhf-Uv-h3C"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="ic_close"/>
-                                        <connections>
-                                            <action selector="onCloseButtonPressed:" destination="aB1-Yk-7p4" eventType="touchUpInside" id="uaQ-Fr-c1K"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apG-SB-14M" userLabel="Share Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="293" y="16" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="28" id="BGG-zy-6QM"/>
-                                            <constraint firstAttribute="height" constant="28" id="jQ6-ST-FeW"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="ic_share"/>
-                                        <connections>
-                                            <action selector="onShareButtonPressed:" destination="aB1-Yk-7p4" eventType="touchUpInside" id="USe-Mw-cbA"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KlB-iV-o7l" userLabel="Actions Stack View">
+                                        <rect key="frame" x="171" y="18" width="188" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZg-oY-rzL" userLabel="Alternative Tracks Button">
+                                                <rect key="frame" x="0.0" y="1" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="28" id="Gud-OH-TfE"/>
+                                                    <constraint firstAttribute="height" constant="28" id="QK7-J2-DXA"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="tintColor" name="AccentColor"/>
+                                                <state key="normal" image="ic_arrow_gray_down"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apG-SB-14M" userLabel="Share Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
+                                                <rect key="frame" x="38" y="1" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="28" id="BGG-zy-6QM"/>
+                                                    <constraint firstAttribute="height" constant="28" id="jQ6-ST-FeW"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="ic_share"/>
+                                                <connections>
+                                                    <action selector="onShareButtonPressed:" destination="aB1-Yk-7p4" eventType="touchUpInside" id="USe-Mw-cbA"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZT-ea-Kac" userLabel="Close Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
+                                                <rect key="frame" x="76" y="1" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="28" id="IYz-Cb-KoJ"/>
+                                                    <constraint firstAttribute="height" constant="28" id="Vhf-Uv-h3C"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="ic_close"/>
+                                                <connections>
+                                                    <action selector="onCloseButtonPressed:" destination="aB1-Yk-7p4" eventType="touchUpInside" id="uaQ-Fr-c1K"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-Ps-upn" userLabel="Clear Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
+                                                <rect key="frame" x="114" y="7" width="16" height="16"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="GbK-CI-YVO"/>
+                                                    <constraint firstAttribute="height" constant="16" id="aMo-P1-F3P"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrr-8j-bGC" userLabel="Cancel Button">
+                                                <rect key="frame" x="140" y="0.0" width="48" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="tintColor" name="AccentColor"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" red="0.2823529541" green="0.58039218189999997" blue="0.91372549530000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHT-jj-Idk">
                                         <rect key="frame" x="0.0" y="59" width="375" height="1"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1192,34 +1214,20 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPHeaderView"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrr-8j-bGC" userLabel="Cancel Buton">
-                                        <rect key="frame" x="293" y="19" width="70" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="tintColor" name="AccentColor"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" red="0.2823529541" green="0.58039218189999997" blue="0.91372549530000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="zrr-8j-bGC" firstAttribute="firstBaseline" secondItem="ct0-4B-Xfk" secondAttribute="firstBaseline" id="0oS-JR-Mwv"/>
-                                    <constraint firstItem="apG-SB-14M" firstAttribute="leading" secondItem="Gdy-g5-gbM" secondAttribute="trailing" id="6o4-Rh-3AV"/>
-                                    <constraint firstItem="zrr-8j-bGC" firstAttribute="leading" secondItem="Gdy-g5-gbM" secondAttribute="trailing" id="C5k-3I-enk"/>
                                     <constraint firstItem="DHT-jj-Idk" firstAttribute="bottom" secondItem="fqh-H3-eji" secondAttribute="bottom" id="E48-Ph-MaM"/>
                                     <constraint firstItem="Gdy-g5-gbM" firstAttribute="top" secondItem="fqh-H3-eji" secondAttribute="top" id="K6g-z6-xFi"/>
                                     <constraint firstItem="Gdy-g5-gbM" firstAttribute="leading" secondItem="fqh-H3-eji" secondAttribute="leading" id="LKl-Yx-giI"/>
+                                    <constraint firstItem="Gdy-g5-gbM" firstAttribute="trailing" secondItem="KlB-iV-o7l" secondAttribute="leading" constant="-6" id="Qe8-Yc-9V6"/>
                                     <constraint firstItem="3HJ-WD-nF5" firstAttribute="top" secondItem="fqh-H3-eji" secondAttribute="top" constant="5" id="Ux6-Nu-CQs"/>
                                     <constraint firstItem="DHT-jj-Idk" firstAttribute="leading" secondItem="fqh-H3-eji" secondAttribute="leading" id="ayy-gO-9FO"/>
-                                    <constraint firstAttribute="trailing" secondItem="zrr-8j-bGC" secondAttribute="trailing" constant="12" id="bgQ-2l-HZE"/>
                                     <constraint firstItem="3HJ-WD-nF5" firstAttribute="centerX" secondItem="fqh-H3-eji" secondAttribute="centerX" id="eSH-HU-aAz"/>
-                                    <constraint firstItem="yZT-ea-Kac" firstAttribute="top" secondItem="fqh-H3-eji" secondAttribute="top" constant="16" id="fKb-5I-FLD"/>
-                                    <constraint firstItem="yZT-ea-Kac" firstAttribute="leading" secondItem="apG-SB-14M" secondAttribute="trailing" constant="10" id="j5g-Vk-Yxu"/>
                                     <constraint firstAttribute="bottom" secondItem="Gdy-g5-gbM" secondAttribute="bottom" id="jk7-BL-0eZ"/>
-                                    <constraint firstItem="apG-SB-14M" firstAttribute="centerY" secondItem="yZT-ea-Kac" secondAttribute="centerY" id="kpT-St-QOy"/>
                                     <constraint firstAttribute="trailing" secondItem="DHT-jj-Idk" secondAttribute="trailing" id="nQM-pQ-Y4F"/>
-                                    <constraint firstAttribute="trailing" secondItem="yZT-ea-Kac" secondAttribute="trailing" constant="16" id="vhs-5f-yFk"/>
+                                    <constraint firstItem="KlB-iV-o7l" firstAttribute="top" secondItem="tDA-E0-cFj" secondAttribute="top" id="od1-r8-Qze"/>
+                                    <constraint firstAttribute="trailing" secondItem="KlB-iV-o7l" secondAttribute="trailing" constant="16" id="vhs-5f-yFk"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPHeaderView"/>
@@ -1240,6 +1248,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="80"/>
                     <connections>
+                        <outlet property="alternativeTracksButton" destination="pZg-oY-rzL" id="Qh2-Uv-KJM"/>
                         <outlet property="cancelButton" destination="zrr-8j-bGC" id="kmq-Tq-HEy"/>
                         <outlet property="clearTitleTextButton" destination="qLF-Ps-upn" id="iDe-oo-ujK"/>
                         <outlet property="closeButton" destination="yZT-ea-Kac" id="9QV-2E-Gg4"/>
@@ -1249,7 +1258,6 @@
                         <outlet property="shadowView" destination="spW-XI-KSY" id="kLc-R7-Rij"/>
                         <outlet property="shareButton" destination="apG-SB-14M" id="pCj-pl-Oxa"/>
                         <outlet property="subtitleLabel" destination="4iT-AD-Eyf" id="bVf-i6-dpW"/>
-                        <outlet property="titleTextViewTrailingConstraint" destination="zwm-9s-0J5" id="K6v-gG-YmN"/>
                         <outlet property="titleTextView" destination="ct0-4B-Xfk" id="N7x-8b-198"/>
                         <outlet property="view" destination="xTs-NP-HcT" id="jQF-X9-Xlv"/>
                     </connections>
