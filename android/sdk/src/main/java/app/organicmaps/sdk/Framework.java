@@ -147,7 +147,8 @@ public class Framework
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
 
-  public static native void nativeDeactivatePopup();
+  /// @return true if a transit route selection was recovered.
+  public static native boolean nativeDeactivatePopup();
   public static native void nativeDeactivateMapSelectionCircle(boolean restoreViewport);
 
   public static native String nativeGetDataFileExt();

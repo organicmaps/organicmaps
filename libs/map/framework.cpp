@@ -2082,7 +2082,7 @@ void Framework::ActivateMapSelection()
     m_onPlacePageOpen();
 }
 
-void Framework::DeactivateMapSelection()
+bool Framework::DeactivateMapSelection()
 {
   if (m_routingManager.IsRoutingActive())
     HideRouteTransitIfNeeded();
@@ -2103,7 +2103,7 @@ void Framework::DeactivateMapSelection()
     info.m_match = place_page::BuildInfo::Match::FeatureOnly;
     m_currentPlacePageInfo = BuildPlacePageInfo(info);
     ActivateMapSelection();
-    return;
+    return true;
   }
 
   if (m_onPlacePageClose)
@@ -2125,6 +2125,8 @@ void Framework::DeactivateMapSelection()
     if (m_drapeEngine != nullptr)
       m_drapeEngine->DeselectObject(false /* restoreViewport */);
   }
+
+  return false;
 }
 
 void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
