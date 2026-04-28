@@ -212,6 +212,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().ShowTrack(trackId);
 }
 
++ (void)selectTrackCandidate:(MWMTrackID)trackId
+{
+  GetFramework().SelectTrackCandidate(trackId);
+}
+
 + (void)updatePlacePageData
 {
   GetFramework().UpdatePlacePageInfoForCurrentSelection();

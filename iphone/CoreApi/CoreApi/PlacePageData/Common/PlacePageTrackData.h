@@ -7,11 +7,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface PlacePageTrackSelectionData : NSObject
+
+@property(nonatomic, readonly) MWMTrackID trackId;
+@property(nonatomic, readonly) NSString * title;
+@property(nonatomic, readonly) UIColor * color;
+@property(nonatomic, readonly) BOOL isSelected;
+
+- (instancetype)init NS_UNAVAILABLE;
+
+@end
+
 @interface PlacePageTrackData : NSObject
 
 @property(nonatomic, readonly) MWMTrackID trackId;
 @property(nonatomic, readonly) MWMMarkGroupID groupId;
 @property(nonatomic, readonly, nullable) NSString * trackCategory;
+@property(nonatomic, readonly) NSArray<PlacePageTrackSelectionData *> * trackSelectionCandidates;
 @property(nonatomic, readonly, nullable) NSString * trackDescription;
 @property(nonatomic, readonly) BOOL isHtmlDescription;
 
