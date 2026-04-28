@@ -271,9 +271,12 @@ public class PlacePageController
     // fragments are gone so createPlacePageFragments() sees no existing tags.
     removePlacePageFragments();
     resetPlacePageHeightBounds();
+    boolean recovered = false;
     if (ChoosePositionMode.get() == ChoosePositionMode.None)
-      Framework.nativeDeactivatePopup();
-    Framework.nativeDeactivateMapSelectionCircle(false);
+      recovered = Framework.nativeDeactivatePopup();
+    // Skip circle deselect when recovery re-activated the transit PP — it just drew a new circle.
+    if (!recovered)
+      Framework.nativeDeactivateMapSelectionCircle(false);
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
   }
 
@@ -650,7 +653,7 @@ public class PlacePageController
         transaction.remove(placePageButtonsFragment);
       if (placePageFragment != null)
         transaction.remove(placePageFragment);
-      transaction.commitNow();
+      transaction.commitNowAllowingStateLoss();
     }
     mViewModel.setMapObject(null);
   }

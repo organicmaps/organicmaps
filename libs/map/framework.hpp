@@ -308,7 +308,8 @@ private:
   void DeactivateHotelSearchMark();
 
 public:
-  void DeactivateMapSelection();
+  /// @return true if a transit route selection was recovered (PP re-activated).
+  bool DeactivateMapSelection();
   void DeactivateMapSelectionCircle(bool restoreViewport);
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
