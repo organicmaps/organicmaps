@@ -2084,7 +2084,7 @@ void Framework::ActivateMapSelection()
 
 bool Framework::DeactivateMapSelection()
 {
-  if (m_routingManager.IsRoutingActive())
+  if (m_routingManager.IsRoutingActive() || m_routingManager.GetRoutePointsCount() > 0)
     HideRouteTransitIfNeeded();
 
   bool const recoverRouteTransitSession = m_currentPlacePageInfo && m_routeTransitSelection &&
