@@ -202,7 +202,7 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
       if (cont.IsExist(RELATION_OSMIDS_FILE_TAG))
       {
         auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
-        AppendNeighbourMembers(tbl->GetFeatureOffset(relID), members, m_fid.m_mwmId);
+        AppendNeighbourMembers(m_fid.m_mwmId, tbl->GetFeatureOffset(relID), members);
       }
     }
 
@@ -219,68 +219,72 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build()
   return std::nullopt;
 }
 
-void RelationTrackBuilder::AppendNeighbourMembers(uint32_t osmRelID, std::vector<TrackGeometry> & members,
-                                                  MwmSet::MwmId const & startMwmId)
+void RelationTrackBuilder::AppendNeighbourMembers(MwmSet::MwmId const & mwmId, uint32_t osmRelID,
+                                                  std::vector<TrackGeometry> & members)
 {
   ASSERT(m_infoGetter, ());
 
-  /// @todo Use m_infoGetter->GetLimitRectForLeaf (is more precise).
-  /// But! It returns a FullRect for the obsolete MWMs.
-  /// Make a better function to select an appropriate rect.
-  m2::RectD curRect = startMwmId.GetInfo()->m_bordersRect;
-
-  // Iteratively (instead of recursively) sweep over neighbour MWMs while new MWMs keep being discovered.
+  // BFS
+  std::queue<MwmSet::MwmId> frontier;
+  frontier.push(mwmId);
   std::unordered_set<MwmSet::MwmId> visited;
-  visited.insert(startMwmId);
+  visited.insert(mwmId);
 
-  for (bool grew = true; grew;)
+  while (!frontier.empty())
   {
-    grew = false;
-    auto const countryIds = m_infoGetter->GetRegionsCountryIdByRect(curRect, false /* rough */);
-    for (auto const & countryId : countryIds)
+    /// @todo Use m_infoGetter->GetLimitRectForLeaf (is more precise).
+    /// But! It returns a FullRect for the obsolete MWMs.
+    /// Make a better function to select an appropriate rect.
+    auto const rect = frontier.front().GetInfo()->m_bordersRect;
+    frontier.pop();
+
+    // rough = true, load OSM Relation ID section is faster than honest rect-polygon intersection.
+    for (auto const & cid : m_infoGetter->GetRegionsCountryIdByRect(rect, true /* rough */))
     {
-      auto const mwmId = m_dataSource.GetMwmIdByCountryFile(platform::CountryFile(countryId));
-      if (!mwmId.IsAlive() || !visited.insert(mwmId).second)
-        continue;
-
-      FeaturesLoaderGuard guard(m_dataSource, mwmId);
-      auto const & cont = guard.GetContainer();
-      if (!cont.IsExist(RELATION_OSMIDS_FILE_TAG))
-        continue;
-
-      auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
-      auto const idx = tbl->BinarySearch(osmRelID);
-      if (!idx)
-        continue;
-
-      auto const nbRel = guard.GetRelation(base::asserted_cast<uint32_t>(*idx));
-
-      size_t dummyStart = 0;
-      auto nbMembers = LoadMemberGeometries(nbRel, dummyStart, guard);
-      if (nbMembers.empty())
-        continue;
-
-      /// @todo Making BFS by inflating search rect. Ok for now, but probably
-      /// better to keep GetRegionsCountryIdByRect calls for a local rects only and store a queue.
-      curRect.Add(mwmId.GetInfo()->m_bordersRect);
-
-      // Compare only with source members.
-      size_t const sz = members.size();
-      for (auto & nb : nbMembers)
-      {
-        bool dup = false;
-        for (size_t i = 0; i < sz; ++i)
-          if (relation_track_merger::IsSameLine(nb, members[i]))
-          {
-            dup = true;
-            break;
-          }
-        if (!dup)
-          members.push_back(std::move(nb));
-      }
-      grew = true;
+      auto const nb = m_dataSource.GetMwmIdByCountryFile(platform::CountryFile(cid));
+      if (nb.IsAlive() && visited.insert(nb).second)
+        if (TryAppendFromMwm(nb, osmRelID, members))
+          frontier.push(nb);
     }
   }
+}
+
+bool RelationTrackBuilder::TryAppendFromMwm(MwmSet::MwmId const & mwmId, uint32_t osmRelID,
+                                            std::vector<TrackGeometry> & members)
+{
+  FeaturesLoaderGuard guard(m_dataSource, mwmId);
+  auto const & cont = guard.GetContainer();
+  if (!cont.IsExist(RELATION_OSMIDS_FILE_TAG))
+    return false;
+
+  auto const tbl = feature::FeaturesOffsetsTable::Load(cont, RELATION_OSMIDS_FILE_TAG);
+  auto const idx = tbl->BinarySearch(osmRelID);
+  if (!idx)
+    return false;
+
+  auto const nbRel = guard.GetRelation(base::asserted_cast<uint32_t>(*idx));
+
+  size_t dummyStart = 0;
+  auto nbMembers = LoadMemberGeometries(nbRel, dummyStart, guard);
+  if (nbMembers.empty())
+    return false;
+
+  // Compare only with source members.
+  size_t const sz = members.size();
+  for (auto & nb : nbMembers)
+  {
+    bool dup = false;
+    for (size_t i = 0; i < sz; ++i)
+      if (relation_track_merger::IsSameLine(nb, members[i]))
+      {
+        dup = true;
+        break;
+      }
+    if (!dup)
+      members.push_back(std::move(nb));
+  }
+
+  return true;
 }
 
 std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t relID)

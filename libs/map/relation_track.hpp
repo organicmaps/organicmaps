@@ -68,8 +68,8 @@ private:
 
   /// Iteratively splices in this relation's geometry from neighbour MWMs (matched by
   /// OSM Relation ID via RELATION_OSMIDS_FILE_TAG). Visits each MWM at most once.
-  void AppendNeighbourMembers(uint32_t osmRelID, std::vector<TrackGeometry> & members,
-                              MwmSet::MwmId const & startMwmId);
+  void AppendNeighbourMembers(MwmSet::MwmId const & mwmId, uint32_t osmRelID, std::vector<TrackGeometry> & members);
+  bool TryAppendFromMwm(MwmSet::MwmId const & mwmId, uint32_t osmRelID, std::vector<TrackGeometry> & members);
 
   DataSource const & m_dataSource;
   FeatureID m_fid;
