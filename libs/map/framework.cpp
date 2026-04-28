@@ -711,7 +711,7 @@ bool Framework::TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & 
   kml::TrackData kmlTrack;
   for (auto & line : trackData->m_lines)
   {
-    kmlTrack.m_geometry.m_lines.push_back(std::move(line));
+    kmlTrack.m_geometry.m_lines.push_back(std::move(line.m_points));
     kmlTrack.m_geometry.m_timestamps.emplace_back();
   }
   kml::SetDefaultStr(kmlTrack.m_name, std::move(trackData->m_name));
@@ -1377,7 +1377,7 @@ void Framework::ShowRouteTransit(uint32_t relID)
   if (!fid.IsValid())
     return;
 
-  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid);
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), fid, m_infoGetter.get());
   auto info = builder.BuildTransitInfo(relID);
   if (!info)
     return;
