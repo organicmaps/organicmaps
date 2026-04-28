@@ -1382,15 +1382,15 @@ void Framework::ShowRouteTransit(uint32_t relID)
   if (!info)
     return;
 
-  if (!m_routeTransitSelectionSession || m_routeTransitSelectionSession->m_featureId != fid)
+  if (!m_routeTransitSelection || m_routeTransitSelection->m_featureId != fid)
   {
-    auto modelView = m_currentModelView;
-    if (modelView.isPerspective())
-      modelView.ResetPerspective();
-    m_routeTransitSelectionSession = RouteTransitSelectionSession(m_currentPlacePageInfo->GetBuildInfo(), fid, relID);
+    if (m_currentModelView.isPerspective())
+      m_currentModelView.ResetPerspective();
+
+    m_routeTransitSelection.emplace(fid, relID);
   }
   else
-    m_routeTransitSelectionSession->m_relID = relID;
+    m_routeTransitSelection->m_relID = relID;
 
   // Fit the viewport to the route before pushing data — same UX as the old selection-line path.
   m2::RectD bbox;
@@ -1413,9 +1413,9 @@ void Framework::ShowRouteTransit(uint32_t relID)
 
 std::string Framework::GetActiveTransitRouteRef() const
 {
-  if (!m_routeTransitSelectionSession || !HasPlacePageInfo())
+  if (!m_routeTransitSelection || !HasPlacePageInfo())
     return {};
-  uint32_t const relID = m_routeTransitSelectionSession->m_relID;
+  uint32_t const relID = m_routeTransitSelection->m_relID;
   for (auto const & r : GetCurrentPlacePageInfo().GetRoutes())
     if (r.m_relID == relID)
       return r.m_ref;
@@ -1424,9 +1424,9 @@ std::string Framework::GetActiveTransitRouteRef() const
 
 void Framework::HideRouteTransitIfNeeded()
 {
-  if (!m_routeTransitSelectionSession)
+  if (!m_routeTransitSelection)
     return;
-  m_routeTransitSelectionSession = {};
+  m_routeTransitSelection = {};
 
   if (!m_drapeEngine)
     return;
@@ -2087,9 +2087,8 @@ void Framework::DeactivateMapSelection()
   if (m_routingManager.IsRoutingActive())
     HideRouteTransitIfNeeded();
 
-  bool const recoverRouteTransitSession =
-      m_currentPlacePageInfo && m_routeTransitSelectionSession &&
-      m_currentPlacePageInfo->GetID() != m_routeTransitSelectionSession->m_featureId;
+  bool const recoverRouteTransitSession = m_currentPlacePageInfo && m_routeTransitSelection &&
+                                          m_currentPlacePageInfo->GetID() != m_routeTransitSelection->m_featureId;
   if (recoverRouteTransitSession)
   {
     DeactivateHotelSearchMark();
@@ -2099,7 +2098,10 @@ void Framework::DeactivateMapSelection()
     bm.ClearTempRelationTrack();
     bm.ResetRecentlyDeletedBookmark();
 
-    m_currentPlacePageInfo = BuildPlacePageInfo(m_routeTransitSelectionSession->m_buildInfo);
+    place_page::BuildInfo info;
+    info.m_featureId = m_routeTransitSelection->m_featureId;
+    info.m_match = place_page::BuildInfo::Match::FeatureOnly;
+    m_currentPlacePageInfo = BuildPlacePageInfo(info);
     ActivateMapSelection();
     return;
   }

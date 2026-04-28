@@ -466,20 +466,13 @@ private:
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;
 
-  struct RouteTransitSelectionSession
+  struct RouteTransitSelection
   {
-    RouteTransitSelectionSession(place_page::BuildInfo const & buildInfo, FeatureID const & featureId, uint32_t relID)
-      : m_buildInfo(buildInfo)
-      , m_featureId(featureId)
-      , m_relID(relID)
-    {}
-
-    place_page::BuildInfo m_buildInfo;
     FeatureID m_featureId;
     uint32_t m_relID = 0;
   };
 
-  std::optional<RouteTransitSelectionSession> m_routeTransitSelectionSession;
+  std::optional<RouteTransitSelection> m_routeTransitSelection;
 
 public:
   // Moves viewport to the search result and taps on it.
