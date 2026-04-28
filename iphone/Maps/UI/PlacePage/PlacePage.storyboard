@@ -1149,7 +1149,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KlB-iV-o7l" userLabel="Actions Stack View">
                                         <rect key="frame" x="171" y="18" width="188" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZg-oY-rzL" userLabel="Alternative Tracks Button">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZg-oY-rzL" userLabel="Track Candidates Button">
                                                 <rect key="frame" x="0.0" y="1" width="28" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="28" id="Gud-OH-TfE"/>
@@ -1248,7 +1248,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="80"/>
                     <connections>
-                        <outlet property="alternativeTracksButton" destination="pZg-oY-rzL" id="Qh2-Uv-KJM"/>
+                        <outlet property="trackCandidatesButton" destination="pZg-oY-rzL" id="Qh2-Uv-KJM"/>
                         <outlet property="cancelButton" destination="zrr-8j-bGC" id="kmq-Tq-HEy"/>
                         <outlet property="clearTitleTextButton" destination="qLF-Ps-upn" id="iDe-oo-ujK"/>
                         <outlet property="closeButton" destination="yZT-ea-Kac" id="9QV-2E-Gg4"/>

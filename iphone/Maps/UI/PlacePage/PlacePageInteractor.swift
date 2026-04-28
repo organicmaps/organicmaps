@@ -379,6 +379,10 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
     presenter?.showNextStop()
   }
 
+  func previewDidSelectTrackCandidate(_ trackId: MWMTrackID) {
+    FrameworkHelper.selectTrackCandidate(trackId)
+  }
+
   func previewDidPressShare(from sourceView: UIView) {
     presenter?.showShareSheet(for: placePageData, from: sourceView)
   }

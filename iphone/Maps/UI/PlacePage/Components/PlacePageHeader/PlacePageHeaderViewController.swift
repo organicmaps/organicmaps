@@ -11,12 +11,10 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 final class PlacePageHeaderViewController: UIViewController {
   private enum Constants {
     static let editImageRect = CGRect(x: 0, y: -2, width: 14, height: 14)
-    static let titleTrailingInsetEditing: CGFloat = 22
   }
 
   @IBOutlet private var headerView: PlacePageHeaderView!
   @IBOutlet private var titleTextView: UITextView!
-  @IBOutlet private var titleTextViewTrailingConstraint: NSLayoutConstraint!
   @IBOutlet private var clearTitleTextButton: CircleImageButton!
   @IBOutlet private var subtitleLabel: UILabel!
   @IBOutlet private var expandView: UIView!
@@ -24,6 +22,7 @@ final class PlacePageHeaderViewController: UIViewController {
   @IBOutlet private var grabberView: UIView!
   @IBOutlet private var closeButton: CircleImageButton!
   @IBOutlet private var shareButton: CircleImageButton!
+  @IBOutlet private var trackCandidatesButton: UIButton!
   @IBOutlet private var cancelButton: UIButton!
   private var titleText: String?
   private var subtitleText: String?
@@ -52,6 +51,10 @@ final class PlacePageHeaderViewController: UIViewController {
     shareButton.setImage(UIImage(resource: .icShare))
     shareButton.isHidden = !(presenter?.canShare ?? true)
 
+    trackCandidatesButton.setImage(UIImage(named: "ic_arrow_gray_down")?.withRenderingMode(.alwaysTemplate), for: .normal)
+    trackCandidatesButton.tintColor = .linkBlue
+    trackCandidatesButton.isHidden = !(presenter?.canSelectTrackCandidates ?? false)
+
     cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
     cancelButton.titleLabel?.numberOfLines = 1
@@ -71,7 +74,7 @@ final class PlacePageHeaderViewController: UIViewController {
     let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTitleTextView(_:)))
     titleTextView.addGestureRecognizer(longTapGesture)
 
-    clearTitleTextButton.setImage(UIImage(resource: .icClear), style: GlobalStyleSheet.gray)
+    clearTitleTextButton.setImage(UIImage.icClear.withRenderingMode(.alwaysTemplate), style: GlobalStyleSheet.gray)
     clearTitleTextButton.isHidden = true
     clearTitleTextButton.addTarget(self, action: #selector(didTapClearTitleButton), for: .touchUpInside)
 
@@ -79,6 +82,9 @@ final class PlacePageHeaderViewController: UIViewController {
 
     if presenter?.objectType == .track, presenter?.canShare == true {
       configureTrackSharingMenu()
+    }
+    if presenter?.canSelectTrackCandidates == true {
+      configureTrackCandidatesMenu()
     }
   }
 
@@ -140,8 +146,6 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   private func updateTitleEditingStyle() {
-    titleTextViewTrailingConstraint.constant = isEditingTitle ? Constants.titleTrailingInsetEditing : 0
-
     let titleAttributes: [NSAttributedString.Key: Any] = [
       .font: StyleManager.shared.theme!.fonts.medium20,
       .foregroundColor: UIColor.blackPrimaryText,
@@ -184,6 +188,18 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     shareButton.menu = menu
     shareButton.showsMenuAsPrimaryAction = true
   }
+
+  private func configureTrackCandidatesMenu() {
+    let candidates = presenter?.trackSelectionCandidates ?? []
+    trackCandidatesButton.menu = UIMenu(children: candidates.map { candidate in
+      UIAction(title: candidate.title,
+               image: UIImage(systemName: "circle.fill")?.withTintColor(candidate.color, renderingMode: .alwaysOriginal),
+               state: candidate.isSelected ? .on : .off) { [weak self] _ in
+        self?.presenter?.onSelectTrackCandidate(candidate.trackId)
+      }
+    })
+    trackCandidatesButton.showsMenuAsPrimaryAction = true
+  }
 }
 
 // MARK: - UITextViewDelegate
@@ -195,6 +211,7 @@ extension PlacePageHeaderViewController: UITextViewDelegate {
     cancelButton.isHidden = false
     closeButton.isHidden = true
     shareButton.isHidden = true
+    trackCandidatesButton.isHidden = true
     updateTitleEditingStyle()
   }
 
@@ -208,6 +225,7 @@ extension PlacePageHeaderViewController: UITextViewDelegate {
     cancelButton.isHidden = true
     closeButton.isHidden = false
     shareButton.isHidden = !(presenter?.canShare ?? true)
+    trackCandidatesButton.isHidden = !(presenter?.canSelectTrackCandidates ?? false)
 
     isEditingTitle = false
     let cleanedText = textView.text
