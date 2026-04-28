@@ -61,6 +61,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)scrollMapToDistanceX:(double)x andY:(double)y;
 + (void)deactivateMapSelection;
 + (void)showRouteTransit:(uint32_t)relId;
++ (NSString *)activeTransitRouteRef;
 + (void)switchMyPositionMode;
 + (void)stopLocationFollow;
 + (NSArray<NSString *> *)obtainLastSearchQueries;

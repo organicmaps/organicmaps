@@ -28,10 +28,8 @@ protocol IPlacePageLayout: AnyObject {
   var sectionSpacing: CGFloat { get }
 
   func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState]
-  func publicTransportBottomOffset(inScrollView scrollView: UIScrollView) -> CGFloat?
 }
 
 extension IPlacePageLayout {
   var sectionSpacing: CGFloat { 12.0 }
-  func publicTransportBottomOffset(inScrollView _: UIScrollView) -> CGFloat? { nil }
 }

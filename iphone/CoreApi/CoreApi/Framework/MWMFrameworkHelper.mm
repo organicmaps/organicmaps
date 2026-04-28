@@ -141,6 +141,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().ShowRouteTransit(relId);
 }
 
++ (NSString *)activeTransitRouteRef
+{
+  return @(GetFramework().GetActiveTransitRouteRef().c_str());
+}
+
 + (void)switchMyPositionMode
 {
   GetFramework().SwitchMyPositionNextMode();

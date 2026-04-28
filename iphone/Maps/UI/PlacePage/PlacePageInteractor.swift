@@ -146,8 +146,8 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     presenter?.showToast(message)
   }
 
-  func didSelectPublicTransportRoute() {
-    presenter?.scrollToPublicTransportSection()
+  func didSelectPublicTransportRoute(scrollAnchor: UIView) {
+    presenter?.scrollToReveal(scrollAnchor)
   }
 
   func didPressOpenInApp(from sourceView: UIView) {
