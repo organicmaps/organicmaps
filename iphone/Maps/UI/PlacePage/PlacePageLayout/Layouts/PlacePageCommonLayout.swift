@@ -166,16 +166,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   }
 
   func publicTransportBottomOffset(inScrollView scrollView: UIScrollView) -> CGFloat? {
-    guard let routeRefsAnchorView = infoViewController.routeRefsAnchorView else { return nil }
-    let frame = scrollView.convert(routeRefsAnchorView.bounds, from: routeRefsAnchorView)
-    return frame.maxY - scrollView.height
-//
-//
-//    scrollView.layoutIfNeeded()
-//    infoViewController.view.layoutIfNeeded()
-//    let frameInScroll = routeRefsAnchorView.convert(routeRefsAnchorView.bounds, to: scrollView)
-//    // Convert from scrollView bounds coordinates to stable content coordinates.
-//    return frameInScroll.maxY + scrollView.contentOffset.y
+    guard let anchorBottomOffset = infoViewController.publicTransportAnchorBottomOffset else { return nil }
+    let infoFrame = scrollView.convert(infoViewController.view.bounds, from: infoViewController.view)
+    return infoFrame.minY + anchorBottomOffset - scrollView.height
   }
 }
 

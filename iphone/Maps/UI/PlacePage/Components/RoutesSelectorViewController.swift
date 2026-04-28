@@ -1,7 +1,6 @@
 final class RoutesSelectorViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
   private enum Constants {
     static let rowHeight: CGFloat = 48
-    static let maxPopoverHeight: CGFloat = rowHeight * 12
     static let maxPopoverWidth: CGFloat = 500
     static let horizontalScreenInset: CGFloat = 12
     static let backgroundColorAlpha: CGFloat = 0.25
@@ -29,13 +28,11 @@ final class RoutesSelectorViewController: UITableViewController, UIPopoverPresen
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.setStyle(.clearBackground)
-    tableView.backgroundColor = .clear
     tableView.register(cell: UITableViewCell.self)
     tableView.rowHeight = Constants.rowHeight
     tableView.separatorStyle = .none
-    tableView.tableFooterView = UIView()
     preferredContentSize = CGSize(width: popoverWidth,
-                                  height: min(CGFloat(routes.count) * Constants.rowHeight, Constants.maxPopoverHeight))
+                                  height: CGFloat(routes.count) * Constants.rowHeight)
   }
 
   override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
@@ -50,6 +47,7 @@ final class RoutesSelectorViewController: UITableViewController, UIPopoverPresen
   }
 
   override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     routeSelectedHandler(routes[indexPath.row])
   }
 
@@ -58,14 +56,14 @@ final class RoutesSelectorViewController: UITableViewController, UIPopoverPresen
   }
 
   private var popoverWidth: CGFloat {
-    let screenWidth = view.window?.windowScene?.screen.bounds.width ?? UIScreen.main.bounds.width
+    let screenWidth = UIApplication.shared.activeKeyWindow?.frame.width ?? 0
     return min(screenWidth - Constants.horizontalScreenInset * 2, Constants.maxPopoverWidth)
   }
 
   private func configureCell(_ cell: UITableViewCell, with route: PlacePageRoute) {
     var content = cell.defaultContentConfiguration()
     content.attributedText = routeMenuLabel(route)
-    content.textProperties.numberOfLines = 2
+    content.textProperties.numberOfLines = 3
     content.directionalLayoutMargins.top = Constants.cellVerticalInset
     content.directionalLayoutMargins.bottom = Constants.cellVerticalInset
 

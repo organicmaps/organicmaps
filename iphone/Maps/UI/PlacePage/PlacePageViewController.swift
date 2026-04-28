@@ -24,7 +24,7 @@ final class PlacePageScrollView: UIScrollView {
   private enum Constants {
     static let actionBarHeight: CGFloat = 50
     static let additionalPreviewOffset: CGFloat = 80
-    static let additionalePublicTransportPreviewOffset: CGFloat = 12
+    static let additionalPublicTransportPreviewOffset: CGFloat = 12
     static let fastSwipeDownVelocity: CGFloat = -3.0
     static let fastSwipeUpVelocity: CGFloat = 2.0
   }
@@ -386,7 +386,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func scrollToPublicTransportSection() {
     guard !isiPad, scrollView.isScrollEnabled,
           let ptBottomOffset = layout.publicTransportBottomOffset(inScrollView: scrollView) else { return }
-    let offset = CGPoint(x: 0, y: ptBottomOffset + Constants.additionalePublicTransportPreviewOffset)
+    let offset = CGPoint(x: 0, y: ptBottomOffset + Constants.additionalPublicTransportPreviewOffset)
     scrollTo(offset, forced: true)
   }
 
