@@ -60,47 +60,56 @@ using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
 
+// Returns the base language part of a BCP-47 tag (e.g., "en" for "en-US"). Returns the input unchanged
+// if there is no region suffix.
+static NSString * BaseLanguage(NSString * bcp47)
+{
+  NSRange const dash = [bcp47 rangeOfString:@"-"];
+  return dash.location == NSNotFound ? bcp47 : [bcp47 substringToIndex:dash.location];
+}
+
+// Among voices sharing a display name, returns YES if `candidate` represents `requestedLanguage`
+// better than `existing`: prefer an exact language-tag match, then higher quality.
+static BOOL IsBetterVoiceForLanguage(AVSpeechSynthesisVoice * candidate, AVSpeechSynthesisVoice * existing,
+                                     NSString * requestedLanguage)
+{
+  BOOL const candidateExact = [candidate.language isEqualToString:requestedLanguage];
+  BOOL const existingExact = [existing.language isEqualToString:requestedLanguage];
+  if (candidateExact != existingExact)
+    return candidateExact;
+  return candidate.quality > existing.quality;
+}
+
 NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * language)
 {
-  if (!language || language.length == 0)
+  if (language.length == 0)
     return @[];
-  
+
   NSArray<AVSpeechSynthesisVoice *> * allVoices = [AVSpeechSynthesisVoice speechVoices];
-  if (!allVoices || allVoices.count == 0)
+  if (allVoices.count == 0)
     return @[];
-  
-  NSMutableArray<AVSpeechSynthesisVoice *> * filteredVoices = [NSMutableArray array];
 
-  // Extract base language (e.g., "en" from "en-US")
-  NSString * baseLanguage = language;
-  NSRange dashRange = [language rangeOfString:@"-"];
-  if (dashRange.location != NSNotFound)
-    baseLanguage = [language substringToIndex:dashRange.location];
-
+  NSString * baseLanguage = BaseLanguage(language);
+  // iOS exposes the same voice under several AVSpeechSynthesisVoice objects: quality tiers / aliases
+  // of one voice (same language), and — for the Eloquence set (Eddy, Flo, Grandma, …) — the very same
+  // named voice in every language (en-US, en-GB, …). Base-language matching pulls in several of these,
+  // so collapse by the display name the user actually sees, keeping the variant that best fits the
+  // requested language (exact tag first, then highest quality). Otherwise identical names pile up.
+  NSMutableDictionary<NSString *, AVSpeechSynthesisVoice *> * bestByName = [NSMutableDictionary dictionary];
   for (AVSpeechSynthesisVoice * voice in allVoices)
   {
-    // Match exact language or base language
-    if ([voice.language isEqualToString:language])
-    {
-      [filteredVoices addObject:voice];
-    }
-    else if (dashRange.location != NSNotFound)
-    {
-      // Also match voices with the same base language (e.g., "en-GB", "en-AU" for "en-US")
-      NSString * voiceBaseLanguage = voice.language;
-      NSRange voiceDashRange = [voice.language rangeOfString:@"-"];
-      if (voiceDashRange.location != NSNotFound)
-        voiceBaseLanguage = [voice.language substringToIndex:voiceDashRange.location];
-      if ([voiceBaseLanguage isEqualToString:baseLanguage])
-        [filteredVoices addObject:voice];
-    }
+    // Match by base language so e.g. en-GB and en-AU show up for en-US.
+    if (![BaseLanguage(voice.language) isEqualToString:baseLanguage])
+      continue;
+    AVSpeechSynthesisVoice * existing = bestByName[voice.name];
+    if (!existing || IsBetterVoiceForLanguage(voice, existing, language))
+      bestByName[voice.name] = voice;
   }
 
-  // Sort by name for better UX
+  NSMutableArray<AVSpeechSynthesisVoice *> * filteredVoices = [[bestByName allValues] mutableCopy];
   [filteredVoices sortUsingComparator:^NSComparisonResult(AVSpeechSynthesisVoice * v1, AVSpeechSynthesisVoice * v2) {
     return [v1.name compare:v2.name];
   }];
-
   return [filteredVoices copy];
 }
 
@@ -197,16 +206,17 @@ NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * langua
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
 
-  // If language changed, verify the saved voice is still valid for this language
+  // Drop the saved voice if it's no longer compatible with the chosen language. The voice picker
+  // uses base-language matching (see availableVoicesForLanguage), so e.g. an en-AU voice stays
+  // valid for en-US but is cleared when switching to fr-FR.
   NSString * savedVoiceIdentifier = [[self class] savedVoiceIdentifier];
   if (savedVoiceIdentifier.length > 0)
   {
     AVSpeechSynthesisVoice * savedVoice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
-    if (!savedVoice || (locale && ![savedVoice.language isEqualToString:locale]))
-    {
-      // Voice is no longer valid for this language, clear it
+    BOOL const stillCompatible =
+        savedVoice && (locale.length == 0 || [BaseLanguage(savedVoice.language) isEqualToString:BaseLanguage(locale)]);
+    if (!stillCompatible)
       [ud removeObjectForKey:kUserDefaultsTTSVoiceIdentifier];
-    }
   }
 
   [self createVoice:locale];
@@ -217,6 +227,32 @@ NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * langua
   [[self class] setSavedVoiceIdentifier:voiceIdentifier];
   NSString * locale = [[self class] savedLanguage];
   [self createVoice:locale];
+}
+
+- (AVSpeechSynthesisVoice *)currentVoice
+{
+  // Recreate the voice if it was invalidated (applicationDidBecomeActive nils it to re-enumerate
+  // installed voices) so callers such as the settings screen never observe a transient nil after the
+  // app returns from the background.
+  if (!self.speechVoice)
+    [self createVoice:[[self class] savedLanguage]];
+  return self.speechVoice;
+}
+
++ (NSString *)displayNameForVoice:(AVSpeechSynthesisVoice *)voice
+{
+  if (!voice)
+    return nil;
+  // Default-quality voices show just the name; mark the higher tiers so users can tell them apart.
+  // Premium (quality == 3) is iOS 16+, so detect it as "above Enhanced" to avoid referencing the
+  // AVSpeechSynthesisVoiceQualityPremium symbol on the iOS 15 deployment target.
+  if (voice.quality == AVSpeechSynthesisVoiceQualityEnhanced)
+    return
+        [NSString stringWithFormat:@"%@ (%@)", voice.name, NSLocalizedString(@"pref_tts_voice_quality_enhanced", @"")];
+  if (voice.quality > AVSpeechSynthesisVoiceQualityEnhanced)
+    return
+        [NSString stringWithFormat:@"%@ (%@)", voice.name, NSLocalizedString(@"pref_tts_voice_quality_premium", @"")];
+  return voice.name;
 }
 
 - (BOOL)isValid
@@ -301,19 +337,16 @@ NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * langua
     self.speechSynthesizer.delegate = self;
   }
 
-  // First, try to use saved voice identifier if available
+  // First, try to use saved voice identifier if available. Match by base language so a voice such
+  // as en-AU stays valid when the user keeps the en-US locale.
   NSString * savedVoiceIdentifier = [[self class] savedVoiceIdentifier];
   AVSpeechSynthesisVoice * voice = nil;
 
   if (savedVoiceIdentifier.length > 0)
   {
     voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
-    // Verify the voice is still available and matches the current language
-    if (voice && locale && ![voice.language isEqualToString:locale])
-    {
-      // Voice identifier saved but language changed, fall back to language-based selection
+    if (voice && locale.length > 0 && ![BaseLanguage(voice.language) isEqualToString:BaseLanguage(locale)])
       voice = nil;
-    }
   }
 
   // If no saved voice or saved voice doesn't match, fall back to language-based selection
@@ -433,6 +466,11 @@ NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * langua
 {
   if (![self isValid])
     [self createVoice:[[self class] savedLanguage]];
+
+  // Interrupt any in-flight test utterance so a fresh tap on Test Voice Directions speaks the
+  // currently selected voice immediately instead of queueing behind the previous one.
+  if (self.speechSynthesizer.isSpeaking)
+    [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
 
   [self speakOneString:text];
 }
