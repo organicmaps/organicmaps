@@ -1,6 +1,7 @@
 #import "MWMFrameworkHelper.h"
 #import "ElevationProfileData+Core.h"
 #import "MWMMapSearchResult+Core.h"
+#import "PlacePageTrackSelectionData+Core.h"
 #import "Product+Core.h"
 #import "ProductsConfiguration+Core.h"
 #import "TrackInfo+Core.h"
@@ -212,9 +213,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().ShowTrack(trackId);
 }
 
-+ (void)selectTrackCandidate:(MWMTrackID)trackId
++ (void)selectTrackCandidate:(PlacePageTrackSelectionData *)trackSelection
 {
-  GetFramework().SelectTrackCandidate(trackId);
+  GetFramework().SelectTrackCandidate(trackSelection.trackId, trackSelection.relationId);
 }
 
 + (void)updatePlacePageData

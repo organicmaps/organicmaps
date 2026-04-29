@@ -4,6 +4,7 @@
 #import "MWMTypes.h"
 
 @class MWMMapSearchResult;
+@class PlacePageTrackSelectionData;
 @class TrackInfo;
 @class ElevationProfileData;
 
@@ -75,7 +76,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
 + (void)showBookmark:(MWMMarkID)bookmarkId;
 + (void)showTrack:(MWMTrackID)trackId;
-+ (void)selectTrackCandidate:(MWMTrackID)trackId;
++ (void)selectTrackCandidate:(PlacePageTrackSelectionData *)trackSelection;
 + (void)updatePlacePageData;
 + (void)updateAfterDeleteBookmark;
 + (int)currentZoomLevel;
