@@ -59,6 +59,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)buildApiRouteWithType:(MWMRouterType)type
                    startPoint:(MWMRoutePoint *)startPoint
                   finishPoint:(MWMRoutePoint *)finishPoint;
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints;
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+         startRouteNavigation:(BOOL)startRouteNavigation;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
 
 + (BOOL)hasRouteAltitude;

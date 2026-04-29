@@ -19,6 +19,8 @@
 
 #include <array>
 #include <tuple>
+#include <utility>
+#include <vector>
 
 namespace url_scheme
 {
@@ -45,12 +47,41 @@ std::string_view constexpr kSourceLatLon = "sll";
 std::string_view constexpr kDestLatLon = "dll";
 std::string_view constexpr kSourceName = "saddr";
 std::string_view constexpr kDestName = "daddr";
+std::string_view constexpr kLatLon = "ll";
+std::string_view constexpr kName = "n";
+std::string_view constexpr kVersion = "v";
 std::string_view constexpr kRouteType = "type";
+std::string_view constexpr kOptimize = "optimize";
 std::string_view constexpr kRouteTypeVehicle = "vehicle";
 std::string_view constexpr kRouteTypePedestrian = "pedestrian";
 std::string_view constexpr kRouteTypeBicycle = "bicycle";
 std::string_view constexpr kRouteTypeTransit = "transit";
 }  // namespace route
+
+namespace route_v2
+{
+std::string_view constexpr kPathDir = "dir";
+std::string_view constexpr kPathNav = "nav";
+std::string_view constexpr kOrigin = "origin";
+std::string_view constexpr kOriginName = "origin_name";
+std::string_view constexpr kOriginCallback = "origin_callback";
+std::string_view constexpr kDestination = "destination";
+std::string_view constexpr kDestinationName = "destination_name";
+std::string_view constexpr kDestinationCallback = "destination_callback";
+std::string_view constexpr kWaypoints = "waypoints";
+std::string_view constexpr kWaypointNames = "waypoint_names";
+std::string_view constexpr kWaypointCallbacks = "waypoint_callbacks";
+std::string_view constexpr kApi = "api";
+std::string_view constexpr kMode = "mode";
+std::string_view constexpr kTravelMode = "travelmode";
+std::string_view constexpr kDirAction = "dir_action";
+std::string_view constexpr kOptimize = "optimize";
+std::string_view constexpr kRef = "ref";
+std::string_view constexpr kRefName = "ref_name";
+std::string_view constexpr kCallback = "callback";
+std::string_view constexpr kCallbackLabel = "callback_label";
+std::string_view constexpr kAvoid = "avoid";
+}  // namespace route_v2
 
 namespace search
 {
@@ -66,6 +97,12 @@ std::string_view constexpr kHighlight = "highlight";
 
 // See also kGe0Prefixes in ge0/parser.hpp
 constexpr std::array<std::string_view, 3> kLegacyMwmPrefixes = {{"mapsme://", "mwm://", "mapswithme://"}};
+
+bool ParseBool(std::string const & value)
+{
+  std::string const lowerValue = strings::MakeLowerCase(value);
+  return lowerValue == "1" || lowerValue == "true" || lowerValue == "yes";
+}
 
 bool ParseLatLon(std::string const & key, std::string const & value, double & lat, double & lon)
 {
@@ -87,6 +124,54 @@ bool ParseLatLon(std::string const & key, std::string const & value, double & la
     LOG(LWARNING, ("Map API: incorrect value for lat and/or lon", key, value, lat, lon));
     return false;
   }
+  return true;
+}
+
+bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePoint & point)
+{
+  double lat = 0.0;
+  double lon = 0.0;
+  if (!ParseLatLon(key, value, lat, lon))
+    return false;
+
+  point.m_org = mercator::FromLatLon(lat, lon);
+  point.m_isMyPosition = false;
+  return true;
+}
+
+std::vector<std::string> SplitRouteList(std::string const & value)
+{
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t const delimiter = value.find('|', from);
+    if (delimiter == std::string::npos)
+    {
+      result.push_back(value.substr(from));
+      break;
+    }
+    result.push_back(value.substr(from, delimiter - from));
+    from = delimiter + 1;
+  }
+  return result;
+}
+
+bool ParseRouteMode(std::string const & value, std::string & routingType)
+{
+  using namespace route;
+
+  std::string const lowerValue = strings::MakeLowerCase(value);
+  if (lowerValue == "drive" || lowerValue == "driving" || lowerValue == "car" || lowerValue == kRouteTypeVehicle)
+    routingType = kRouteTypeVehicle;
+  else if (lowerValue == "walk" || lowerValue == "walking" || lowerValue == kRouteTypePedestrian)
+    routingType = kRouteTypePedestrian;
+  else if (lowerValue == "bike" || lowerValue == "bicycling" || lowerValue == kRouteTypeBicycle)
+    routingType = kRouteTypeBicycle;
+  else if (lowerValue == kRouteTypeTransit)
+    routingType = kRouteTypeTransit;
+  else
+    return false;
   return true;
 }
 
@@ -122,7 +207,135 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     std::string const & type = url.GetHost();
     // The URL is prefixed by one of the kGe0Prefixes or kLegacyMwmPrefixes prefixes
     // => check for well-known API methods first.
-    if (type == "map")
+    if (type == "v2" && (url.GetPath() == route_v2::kPathDir || url.GetPath() == route_v2::kPathNav))
+    {
+      using namespace route_v2;
+
+      m_version = 2;
+      m_startRouteNavigation = url.GetPath() == kPathNav;
+      m_routingType = route::kRouteTypeVehicle;
+
+      RoutePoint origin;
+      RoutePoint destination;
+      std::vector<RoutePoint> waypoints;
+      std::vector<std::string> waypointNames;
+      std::vector<std::string> waypointCallbacks;
+      bool originFound = false;
+      bool destinationFound = false;
+      bool correctParams = true;
+
+      url.ForEachParam([&](auto const & key, auto const & value)
+      {
+        if (key == kOrigin)
+        {
+          originFound = ParseRoutePoint(key, value, origin);
+          correctParams = correctParams && originFound;
+        }
+        else if (key == kOriginName)
+        {
+          origin.m_name = value;
+        }
+        else if (key == kOriginCallback)
+        {
+          origin.m_callback = value;
+        }
+        else if (key == kDestination)
+        {
+          destinationFound = ParseRoutePoint(key, value, destination);
+          correctParams = correctParams && destinationFound;
+        }
+        else if (key == kDestinationName)
+        {
+          destination.m_name = value;
+        }
+        else if (key == kDestinationCallback)
+        {
+          destination.m_callback = value;
+        }
+        else if (key == kWaypoints)
+        {
+          for (auto const & waypoint : SplitRouteList(value))
+          {
+            RoutePoint point;
+            if (ParseRoutePoint(key, waypoint, point))
+              waypoints.push_back(std::move(point));
+            else
+              correctParams = false;
+          }
+        }
+        else if (key == kWaypointNames)
+        {
+          waypointNames = SplitRouteList(value);
+        }
+        else if (key == kWaypointCallbacks)
+        {
+          waypointCallbacks = SplitRouteList(value);
+        }
+        else if (key == kMode || key == kTravelMode)
+        {
+          if (!ParseRouteMode(value, m_routingType))
+          {
+            LOG(LWARNING, ("Incorrect route mode:", value));
+            correctParams = false;
+          }
+        }
+        else if (key == kDirAction)
+        {
+          if (value == "navigate")
+            m_startRouteNavigation = true;
+          else
+            LOG(LWARNING, ("Route API v2 parameter is parsed but not applied yet:", key, value));
+        }
+        else if (key == kOptimize)
+        {
+          m_optimizeRoutePoints = ParseBool(value);
+        }
+        else if (key == kRefName)
+        {
+          m_appName = value;
+        }
+        else if (key == kCallback)
+        {
+          m_globalBackUrl = value;
+        }
+        else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
+        {
+          LOG(LWARNING, ("Route API v2 parameter is parsed but not applied yet:", key, value));
+        }
+        else
+        {
+          LOG(LWARNING, ("Unsupported Route API v2 parameter:", key, value));
+        }
+      });
+
+      if (!correctParams || !destinationFound)
+        return m_requestType = UrlType::Incorrect;
+
+      if (originFound)
+      {
+        m_routePoints.push_back(std::move(origin));
+      }
+      else
+      {
+        RoutePoint myPosition;
+        myPosition.m_isMyPosition = true;
+        myPosition.m_name = "My position";
+        m_routePoints.push_back(std::move(myPosition));
+      }
+
+      for (size_t i = 0; i < waypoints.size(); ++i)
+      {
+        if (i < waypointNames.size())
+          waypoints[i].m_name = waypointNames[i];
+        if (i < waypointCallbacks.size())
+          waypoints[i].m_callback = waypointCallbacks[i];
+        m_routePoints.push_back(std::move(waypoints[i]));
+      }
+      m_routePoints.push_back(std::move(destination));
+
+      return m_requestType = UrlType::Route;
+    }
+    else if (type == "map")
     {
       bool correctOrder = true;
       url.ForEachParam([&correctOrder, this](auto const & key, auto const & value)
@@ -136,15 +349,24 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     else if (type == "route")
     {
       m_routePoints.clear();
-      using namespace route;
-      std::vector pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
-      url.ForEachParam([&pattern, this](auto const & key, auto const & value)
-      { ParseRouteParam(key, value, pattern); });
+      // Keep the legacy route parser strict and separate from the v2 /v2/dir and /v2/nav
+      // parser. This lets v2 evolve without changing legacy validation semantics.
+      size_t legacyRouteParamIndex = 0;
+      bool legacyRouteTypeSeen = false;
+      bool usesModernSyntax = false;
+      bool usesLegacySyntax = false;
+      bool correctOrder = true;
+      url.ForEachParam([&legacyRouteParamIndex, &legacyRouteTypeSeen, &usesModernSyntax, &usesLegacySyntax,
+                        &correctOrder, this](auto const & key, auto const & value)
+      {
+        ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesModernSyntax, usesLegacySyntax,
+                        correctOrder);
+      });
 
-      if (pattern.size() != 0)
+      if (!correctOrder || m_routingType.empty() || !usesLegacySyntax || usesModernSyntax)
         return m_requestType = UrlType::Incorrect;
 
-      if (m_routePoints.size() != 2)
+      if (legacyRouteParamIndex != 4 || !legacyRouteTypeSeen || m_routePoints.size() != 2)
         return m_requestType = UrlType::Incorrect;
 
       return m_requestType = UrlType::Route;
@@ -321,48 +543,129 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
 }
 
-void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value,
-                                   std::vector<std::string_view> & pattern)
+void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
+                                   bool & legacyRouteTypeSeen, bool & usesModernSyntax, bool & usesLegacySyntax,
+                                   bool & correctOrder)
 {
   using namespace route;
 
-  if (pattern.empty() || key != pattern.front())
-    return;
-
-  if (key == kSourceLatLon || key == kDestLatLon)
+  auto parseRouteLatLon = [this](std::string const & key, std::string const & value)
   {
     double lat = 0.0;
     double lon = 0.0;
     if (!ParseLatLon(key, value, lat, lon))
     {
-      LOG(LWARNING, ("Incorrect 'sll':", value));
-      return;
+      LOG(LWARNING, ("Incorrect route lat/lon:", key, value));
+      return false;
     }
 
     RoutePoint p;
     p.m_org = mercator::FromLatLon(lat, lon);
     m_routePoints.push_back(p);
-  }
-  else if (key == kSourceName || key == kDestName)
-  {
-    m_routePoints.back().m_name = value;
-  }
-  else if (key == kRouteType)
+    return true;
+  };
+
+  if (key == kRouteType)
   {
     std::string const lowerValue = strings::MakeLowerCase(value);
     if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle || lowerValue == kRouteTypeBicycle ||
         lowerValue == kRouteTypeTransit)
     {
       m_routingType = lowerValue;
+      if (usesLegacySyntax)
+      {
+        if (legacyRouteParamIndex == 4)
+          legacyRouteTypeSeen = true;
+        else
+          correctOrder = false;
+      }
     }
     else
     {
       LOG(LWARNING, ("Incorrect routing type:", value));
+      correctOrder = false;
+    }
+    return;
+  }
+
+  if (key == kVersion)
+  {
+    if (!strings::to_int(value, m_version))
+      m_version = 0;
+    return;
+  }
+
+  if (key == kOptimize)
+  {
+    m_optimizeRoutePoints = ParseBool(value);
+    return;
+  }
+
+  if (key == kLatLon)
+  {
+    if (usesLegacySyntax)
+    {
+      correctOrder = false;
+      return;
+    }
+    usesModernSyntax = true;
+    if (!parseRouteLatLon(key, value))
+      correctOrder = false;
+    return;
+  }
+
+  if (key == kName)
+  {
+    // In the multi-stop syntax labels are attached to the immediately preceding
+    // ll parameter. This mirrors the existing map API and avoids a second set of
+    // numbered waypoint fields.
+    if (usesLegacySyntax || m_routePoints.empty())
+    {
+      correctOrder = false;
+      return;
+    }
+    usesModernSyntax = true;
+    m_routePoints.back().m_name = value;
+    return;
+  }
+
+  std::array<std::string_view, 4> constexpr kLegacyRouteParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName};
+  bool const isLegacyParam = key == kSourceLatLon || key == kSourceName || key == kDestLatLon || key == kDestName;
+  if (!isLegacyParam)
+  {
+    ParseCommonParam(key, value);
+    return;
+  }
+
+  if (usesModernSyntax || legacyRouteTypeSeen || legacyRouteParamIndex >= kLegacyRouteParams.size() ||
+      key != kLegacyRouteParams[legacyRouteParamIndex])
+  {
+    correctOrder = false;
+    return;
+  }
+
+  // Keep the old two-point format strict: existing integrations may depend on
+  // invalid legacy links being rejected rather than silently reordered.
+  usesLegacySyntax = true;
+  if (key == kSourceLatLon || key == kDestLatLon)
+  {
+    if (!parseRouteLatLon(key, value))
+    {
+      correctOrder = false;
       return;
     }
   }
+  else if (m_routePoints.empty())
+  {
+    correctOrder = false;
+    return;
+  }
+  else
+  {
+    m_routePoints.back().m_name = value;
+  }
 
-  pattern.erase(pattern.begin());
+  ++legacyRouteParamIndex;
 }
 
 void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value)
@@ -421,6 +724,8 @@ void ParsedMapApi::Reset()
   m_appName = {};
   m_centerLatLon = ms::LatLon::Invalid();
   m_routingType = {};
+  m_optimizeRoutePoints = false;
+  m_startRouteNavigation = false;
   m_version = 0;
   m_zoomLevel = 0.0;
   m_goBackOnBalloonClick = false;

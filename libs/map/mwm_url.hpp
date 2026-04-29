@@ -25,6 +25,8 @@ struct RoutePoint
   RoutePoint(m2::PointD const & org, std::string const & name) : m_org(org), m_name(name) {}
   m2::PointD m_org = m2::PointD::Zero();
   std::string m_name;
+  std::string m_callback;
+  bool m_isMyPosition = false;
 };
 
 struct SearchRequest
@@ -96,6 +98,18 @@ public:
     return m_routePoints;
   }
 
+  bool ShouldOptimizeRoutePoints() const
+  {
+    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_optimizeRoutePoints;
+  }
+
+  bool ShouldStartRouteNavigation() const
+  {
+    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_startRouteNavigation;
+  }
+
   std::string const & GetRoutingType() const
   {
     ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
@@ -122,7 +136,9 @@ public:
 
 private:
   void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value, std::vector<std::string_view> & pattern);
+  void ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
+                       bool & legacyRouteTypeSeen, bool & usesModernSyntax, bool & usesLegacySyntax,
+                       bool & correctOrder);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);
@@ -137,6 +153,8 @@ private:
   std::string m_oauth2code;
   ms::LatLon m_centerLatLon = ms::LatLon::Invalid();
   std::string m_routingType;
+  bool m_optimizeRoutePoints = false;
+  bool m_startRouteNavigation = false;
   int m_version = 0;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
   /// Taken into an account when calculating viewport rect, but only if points count is == 1

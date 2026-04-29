@@ -598,12 +598,17 @@ public:
 
   struct ParsedRoutingData
   {
-    ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type)
+    ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type,
+                      bool optimizeRoutePoints, bool startRouteNavigation)
       : m_points(points)
       , m_type(type)
+      , m_optimizeRoutePoints(optimizeRoutePoints)
+      , m_startRouteNavigation(startRouteNavigation)
     {}
     std::vector<url_scheme::RoutePoint> m_points;
     routing::RouterType m_type;
+    bool m_optimizeRoutePoints = false;
+    bool m_startRouteNavigation = false;
   };
 
   ParsedRoutingData GetParsedRoutingData() const;
