@@ -80,7 +80,7 @@ NSString * NormalizeSubtitle(NSString * subtitle)
     _point = point.m_org;
     _title = NormalizeTitle(@(point.m_name.c_str()), _point);
     _subtitle = @"";
-    _isMyPosition = NO;
+    _isMyPosition = point.m_isMyPosition;
     _type = type;
     _intermediateIndex = intermediateIndex;
 

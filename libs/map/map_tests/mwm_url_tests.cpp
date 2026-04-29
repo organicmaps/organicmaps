@@ -59,6 +59,81 @@ UNIT_TEST(RouteApiSmoke)
   TEST_EQUAL(test.GetRoutingType(), "vehicle", ());
 }
 
+UNIT_TEST(RouteApiV2MultipleStopsPreview)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&origin_name=Start&destination=3,3&destination_name=Finish"
+      "&waypoints=2,2|2.5,2.5&waypoint_names=Coffee%20Stop|Bakery&mode=walk&unknown=value";
+  TEST(url::Url(urlString).IsValid(), ());
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  RoutePoint const & p0 = test.GetRoutePoints()[0];
+  RoutePoint const & p1 = test.GetRoutePoints()[1];
+  RoutePoint const & p2 = test.GetRoutePoints()[2];
+  RoutePoint const & p3 = test.GetRoutePoints()[3];
+  TEST_EQUAL(p0.m_org, mercator::FromLatLon(1, 1), ());
+  TEST_EQUAL(p0.m_name, "Start", ());
+  TEST(!p0.m_isMyPosition, ());
+  TEST_EQUAL(p1.m_org, mercator::FromLatLon(2, 2), ());
+  TEST_EQUAL(p1.m_name, "Coffee Stop", ());
+  TEST_EQUAL(p2.m_org, mercator::FromLatLon(2.5, 2.5), ());
+  TEST_EQUAL(p2.m_name, "Bakery", ());
+  TEST_EQUAL(p3.m_org, mercator::FromLatLon(3, 3), ());
+  TEST_EQUAL(p3.m_name, "Finish", ());
+  TEST_EQUAL(test.GetRoutingType(), "pedestrian", ());
+  TEST_EQUAL(test.GetApiVersion(), 2, ());
+  TEST(!test.ShouldOptimizeRoutePoints(), ());
+  TEST(!test.ShouldStartRouteNavigation(), ());
+}
+
+UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
+{
+  string const urlString = "om://v2/nav?destination=2,2&destination_name=Finish&mode=drive&optimize=true";
+  TEST(url::Url(urlString).IsValid(), ());
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_name, "Finish", ());
+  TEST_EQUAL(test.GetRoutingType(), "vehicle", ());
+  TEST(test.ShouldOptimizeRoutePoints(), ());
+  TEST(test.ShouldStartRouteNavigation(), ());
+}
+
+UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
+{
+  string const urlString =
+      "https://omaps.app/v2/dir?origin=1,1&origin_callback=app%3A%2F%2Forigin&destination=2,2"
+      "&destination_callback=app%3A%2F%2Ffinish&waypoints=1.5,1.5&waypoint_callbacks=app%3A%2F%2Fstop"
+      "&mode=bike&ref_name=DeliveryCo&callback=app%3A%2F%2Fback";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 3, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin", ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://finish", ());
+  TEST_EQUAL(test.GetRoutingType(), "bicycle", ());
+  TEST_EQUAL(test.GetAppName(), "DeliveryCo", ());
+  TEST_EQUAL(test.GetGlobalBackUrl(), "app://back", ());
+}
+
+UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
+{
+  string const urlString =
+      "om://v2/dir?api=1&origin=1,1&destination=2,2&travelmode=bicycling&dir_action=navigate"
+      "&avoid=tolls%2Chighways";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutingType(), "bicycle", ());
+  TEST(test.ShouldStartRouteNavigation(), ());
+}
+
 UNIT_TEST(SearchApiSmoke)
 {
   string const urlString =
@@ -171,6 +246,14 @@ UNIT_TEST(RouteApiInvalidUrl)
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?type=vehicle"), UrlType::Incorrect, ());
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://rout?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle"),
              UrlType::Incorrect, ());
+  TEST_EQUAL(test.SetUrlAndParse("om://route?ll=1,1&type=vehicle"), UrlType::Incorrect,
+             ("Legacy route parser does not accept v2 points"));
+  TEST_EQUAL(test.SetUrlAndParse("om://v2/dir?origin=1,1&mode=drive"), UrlType::Incorrect,
+             ("V2 route requires destination"));
+  TEST_EQUAL(test.SetUrlAndParse("om://v2/nav?destination=2,2&mode=spaceship"), UrlType::Incorrect,
+             ("V2 route rejects unknown mode values"));
+  TEST_EQUAL(test.SetUrlAndParse("om://route?ll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle"), UrlType::Incorrect,
+             ("V2 points cannot be mixed into the legacy route parser"));
 }
 
 UNIT_TEST(MapApiLatLonLimits)

@@ -13,10 +13,15 @@ public class ParsedRoutingData
 {
   public final RoutePoint[] mPoints;
   public final Router mRouterType;
+  public final boolean mOptimizeRoutePoints;
+  public final boolean mStartRouteNavigation;
 
-  public ParsedRoutingData(RoutePoint[] points, int routerType)
+  public ParsedRoutingData(RoutePoint[] points, int routerType, boolean optimizeRoutePoints,
+                           boolean startRouteNavigation)
   {
     this.mPoints = points;
     this.mRouterType = Router.valueOf(routerType);
+    this.mOptimizeRoutePoints = optimizeRoutePoints;
+    this.mStartRouteNavigation = startRouteNavigation;
   }
 }
