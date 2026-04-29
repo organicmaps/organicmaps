@@ -30,6 +30,7 @@ using namespace routing;
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
 @property(nonatomic) BOOL isAPICall;
+@property(nonatomic) BOOL startNavigationAfterBuild;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
@@ -345,6 +346,11 @@ using namespace routing;
 
 + (void)addPoint:(MWMRoutePoint *)point
 {
+  [self addPoint:point reorderIntermediatePoints:YES];
+}
+
++ (void)addPoint:(MWMRoutePoint *)point reorderIntermediatePoints:(BOOL)reorderIntermediatePoints
+{
   if (!point)
   {
     NSAssert(NO, @"Point can not be nil");
@@ -352,7 +358,7 @@ using namespace routing;
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt), reorderIntermediatePoints);
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
@@ -403,15 +409,57 @@ using namespace routing;
                    startPoint:(MWMRoutePoint *)startPoint
                   finishPoint:(MWMRoutePoint *)finishPoint
 {
+  [self buildApiRouteWithType:type
+                   startPoint:startPoint
+           intermediatePoints:@[]
+                  finishPoint:finishPoint
+          optimizeRoutePoints:NO];
+}
+
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+{
+  [self buildApiRouteWithType:type
+                   startPoint:startPoint
+           intermediatePoints:intermediatePoints
+                  finishPoint:finishPoint
+          optimizeRoutePoints:optimizeRoutePoints
+         startRouteNavigation:NO];
+}
+
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+         startRouteNavigation:(BOOL)startRouteNavigation
+{
   if (!startPoint || !finishPoint)
     return;
 
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
+  router.startNavigationAfterBuild = startRouteNavigation;
   router.isAPICall = YES;
-  [self addPoint:startPoint];
-  [self addPoint:finishPoint];
+  [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
+  if (optimizeRoutePoints)
+  {
+    // The optimizer needs a known finish before it predicts positions for
+    // intermediate points.
+    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
+    for (MWMRoutePoint * point in intermediatePoints)
+      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
+  }
+  else
+  {
+    for (MWMRoutePoint * point in intermediatePoints)
+      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
+    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
+  }
   router.isAPICall = NO;
 
   [self rebuildWithBestRouter:NO];
@@ -542,12 +590,19 @@ using namespace routing;
 
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
+  if (self.startNavigationAfterBuild)
+  {
+    self.startNavigationAfterBuild = NO;
+    [MWMRouter start];
+  }
 }
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::CountriesSet const &)absentCountries
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
+  if (code != routing::RouterResultCode::NoError && code != routing::RouterResultCode::HasWarnings)
+    self.startNavigationAfterBuild = NO;
   switch (code)
   {
   case routing::RouterResultCode::NoError: [self onRouteReady:NO]; break;

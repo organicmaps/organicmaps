@@ -46,7 +46,7 @@
     _point = point.m_org;
     _title = @(point.m_name.c_str());
     _subtitle = @"";
-    _isMyPosition = NO;
+    _isMyPosition = point.m_isMyPosition;
     _type = type;
     _intermediateIndex = intermediateIndex;
 

@@ -13,11 +13,13 @@ public class RoutePoint
   public final double mLat;
   public final double mLon;
   public final String mName;
+  public final boolean mIsMyPosition;
 
-  public RoutePoint(double lat, double lon, String name)
+  public RoutePoint(double lat, double lon, String name, boolean isMyPosition)
   {
     mLat = lat;
     mLon = lon;
     mName = name;
+    mIsMyPosition = isMyPosition;
   }
 }

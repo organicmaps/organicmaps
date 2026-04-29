@@ -12,6 +12,7 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.List;
 import org.chromium.base.ObserverList;
 
 @androidx.annotation.UiThread
@@ -96,6 +97,7 @@ public class RoutingController
   private TransitRouteInfo mCachedTransitRouteInfo;
 
   private boolean mRouteSaved;
+  private boolean mStartNavigationAfterBuild;
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
 
@@ -134,6 +136,12 @@ public class RoutingController
     mLastBuildProgress = 100;
     if (mContainer != null)
       mContainer.onBuiltRoute();
+    if (mStartNavigationAfterBuild
+        && (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS))
+    {
+      mStartNavigationAfterBuild = false;
+      start();
+    }
   }
 
   private final RoutingProgressListener mRoutingProgressListener = progress ->
@@ -386,6 +394,57 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType)
+  {
+    prepare(routePoints, routerType, false /* optimizeRoutePoints */);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints)
+  {
+    prepare(routePoints, routerType, optimizeRoutePoints, false /* startNavigation */);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
+                      boolean startNavigation)
+  {
+    if (routePoints.size() < 2)
+      return;
+
+    // Deep-link route points are already ordered by the URL parser. Preserve
+    // that itinerary by default, but allow API callers to request the existing
+    // intermediate-point optimization when stop order is not important.
+    cancel();
+    Framework.nativeRemoveRoute();
+    Framework.nativeRemoveRoutePoints();
+    setState(State.PREPARE);
+
+    mLastRouterType = routerType;
+    Router.set(mLastRouterType);
+    mStartNavigationAfterBuild = startNavigation;
+
+    addRoutePoint(RouteMarkType.Start, routePoints.get(0), optimizeRoutePoints);
+    if (optimizeRoutePoints)
+    {
+      // The optimizer needs a known finish before it predicts positions for
+      // intermediate points.
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), optimizeRoutePoints);
+      for (int i = 1; i + 1 < routePoints.size(); ++i)
+        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, optimizeRoutePoints);
+    }
+    else
+    {
+      for (int i = 1; i + 1 < routePoints.size(); ++i)
+        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, optimizeRoutePoints);
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), optimizeRoutePoints);
+    }
+
+    if (mContainer != null)
+      mContainer.updateMenu();
+
+    startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1));
+    build();
+  }
+
   public void start()
   {
     Logger.d(TAG, "start");
@@ -502,6 +561,7 @@ public class RoutingController
     Logger.d(TAG, "cancelInternal");
 
     resetPoiPickState();
+    mStartNavigationAfterBuild = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -870,10 +930,22 @@ public class RoutingController
 
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
+    addRoutePoint(type, point, true /* reorderIntermediatePoints */);
+  }
+
+  private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point,
+                                    boolean reorderIntermediatePoints)
+  {
+    addRoutePoint(type, point, 0 /* intermediateIndex */, reorderIntermediatePoints);
+  }
+
+  private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
+                                    boolean reorderIntermediatePoints)
+  {
     Pair<String, String> description = getDescriptionForPoint(point);
     Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
-                                  true /* reorderIntermediatePoints */);
+                                  intermediateIndex, point.isMyPosition(), point.getLat(), point.getLon(),
+                                  reorderIntermediatePoints);
   }
 
   @NonNull

@@ -23,6 +23,7 @@ import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -88,12 +89,14 @@ public class Factory
         SearchEngine.INSTANCE.cancelInteractiveSearch();
         target.forceCloseSearchFragment();
         final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
-        RoutingController.get().setRouterType(data.mRouterType);
-        final RoutePoint from = data.mPoints[0];
-        final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(
-            MapObject.createMapObject(MapObject.API_POINT, from.mName, "", from.mLat, from.mLon),
-            MapObject.createMapObject(MapObject.API_POINT, to.mName, "", to.mLat, to.mLon));
+        final List<MapObject> routePoints = new ArrayList<>(data.mPoints.length);
+        for (RoutePoint point : data.mPoints)
+        {
+          routePoints.add(MapObject.createMapObject(point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.API_POINT,
+                                                    point.mName, "", point.mLat, point.mLon));
+        }
+        RoutingController.get().prepare(routePoints, data.mRouterType, data.mOptimizeRoutePoints,
+                                        data.mStartRouteNavigation);
         return true;
       case RequestType.SEARCH:
       {

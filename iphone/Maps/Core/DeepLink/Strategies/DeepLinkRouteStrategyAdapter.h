@@ -8,6 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) MWMRoutePoint * p1;
 @property(nonatomic, readonly) MWMRoutePoint * p2;
+@property(nonatomic, readonly) NSArray<MWMRoutePoint *> * intermediatePoints;
+@property(nonatomic, readonly) BOOL optimizeRoutePoints;
+@property(nonatomic, readonly) BOOL startRouteNavigation;
 @property(nonatomic, readonly) MWMRouterType type;
 
 - (nullable instancetype)init:(NSURL *)url;
