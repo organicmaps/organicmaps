@@ -7,6 +7,7 @@ class PlacePageHeaderBuilder {
     let presenter = PlacePageHeaderPresenter(view: viewController,
                                              placePagePreviewData: data.previewData,
                                              objectType: data.objectType,
+                                             trackSelectionCandidates: data.trackData?.trackSelectionCandidates ?? [],
                                              delegate: delegate,
                                              headerType: headerType)
 

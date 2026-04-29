@@ -59,7 +59,7 @@ class PlacePageInfoViewController: UIViewController {
   /// Relation id of the route most recently picked from the refs popup, or nil.
   /// Used to render exactly one selected row in the popup.
   private var selectedRouteRelId: UInt32?
-  private weak var routesSelectorViewController: RoutesSelectorViewController?
+  private weak var routesSelectorViewController: PopoverListSelectorViewController?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -363,25 +363,44 @@ class PlacePageInfoViewController: UIViewController {
 
   private func showRoutesSelector() {
     guard let routeRefsView, let routes = placePageInfoData.routes else { return }
-    if routes.count == 1 {
-      selectRoute(routes[0])
-    } else {
-      let viewController = RoutesSelectorViewController(routes: routes,
-                                                        selectedRouteRelId: selectedRouteRelId,
-                                                        routeSelectedHandler: { [weak self] route in
-                                                          self?.dismiss(animated: true, completion: { [weak self] in
-                                                            self?.selectRoute(route)
-                                                          })
-                                                        })
-      viewController.modalPresentationStyle = .popover
-      viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
-      viewController.popoverPresentationController?.sourceView = routeRefsView
-      viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
-      viewController.popoverPresentationController?.permittedArrowDirections = .any
-      viewController.popoverPresentationController?.delegate = viewController
-      routesSelectorViewController = viewController
-      present(viewController, animated: true)
+    let popoverDataSource = routes.map { route in
+      PopoverListSelectorViewController.RowViewModel(title: .attributed(routeMenuLabel(route)),
+                                                     color: route.color,
+                                                     isSelected: route.relId == selectedRouteRelId,
+                                                     selectionHandler: { [weak self] in
+                                                       self?.dismiss(animated: true, completion: { [weak self] in
+                                                         self?.selectRoute(route)
+                                                       })
+                                                     })
     }
+    let viewController = PopoverListSelectorViewController(popoverDataSource, style: .background)
+    viewController.modalPresentationStyle = .popover
+    viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+    viewController.popoverPresentationController?.sourceView = routeRefsView
+    viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
+    viewController.popoverPresentationController?.permittedArrowDirections = .any
+    viewController.popoverPresentationController?.delegate = viewController
+    routesSelectorViewController = viewController
+    present(viewController, animated: true)
+  }
+
+  private func routeMenuLabel(_ route: PlacePageRoute) -> NSAttributedString {
+    let baseAttributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.regular14(),
+      .foregroundColor: UIColor.blackPrimaryText,
+    ]
+    let boldAttributes: [NSAttributedString.Key: Any] = [
+      .font: UIFont.bold14(),
+      .foregroundColor: UIColor.blackPrimaryText,
+    ]
+    let label = NSMutableAttributedString(string: route.ref, attributes: boldAttributes)
+    if !route.from.isEmpty || !route.to.isEmpty {
+      label.append(NSAttributedString(string: ": \(route.from)", attributes: baseAttributes))
+      if !route.to.isEmpty {
+        label.append(NSAttributedString(string: " → \(route.to)", attributes: baseAttributes))
+      }
+    }
+    return label
   }
 
   private func selectRoute(_ route: PlacePageRoute) {

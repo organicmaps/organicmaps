@@ -11,6 +11,8 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 final class PlacePageHeaderViewController: UIViewController {
   private enum Constants {
     static let editImageRect = CGRect(x: 0, y: -2, width: 14, height: 14)
+    static let didShowEducationalTrackSelectorPopup = "PlacePageHeaderViewController_didShowEducationalTrackSelectorPopup"
+    static let educationalTrackSelectorPopupTimeout = 0.3
   }
 
   @IBOutlet private var headerView: PlacePageHeaderView!
@@ -26,6 +28,7 @@ final class PlacePageHeaderViewController: UIViewController {
   @IBOutlet private var cancelButton: UIButton!
   private var titleText: String?
   private var subtitleText: String?
+  private weak var trackCandidatesSelectorViewController: PopoverListSelectorViewController?
 
   var presenter: PlacePageHeaderPresenterProtocol?
   var isEditingTitle: Bool = false {
@@ -54,6 +57,7 @@ final class PlacePageHeaderViewController: UIViewController {
     trackCandidatesButton.setImage(UIImage(named: "ic_arrow_gray_down")?.withRenderingMode(.alwaysTemplate), for: .normal)
     trackCandidatesButton.tintColor = .linkBlue
     trackCandidatesButton.isHidden = !(presenter?.canSelectTrackCandidates ?? false)
+    trackCandidatesButton.addTarget(self, action: #selector(didTapTrackCandidatesButton), for: .touchUpInside)
 
     cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
@@ -83,9 +87,20 @@ final class PlacePageHeaderViewController: UIViewController {
     if presenter?.objectType == .track, presenter?.canShare == true {
       configureTrackSharingMenu()
     }
-    if presenter?.canSelectTrackCandidates == true {
-      configureTrackCandidatesMenu()
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.educationalTrackSelectorPopupTimeout) { [weak self] in
+      self?.showEducationalTrackCandidatesSelectorIfNeeded()
     }
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    // Popovers with adaptivePresentationStyle == .none should keep the same appearance as the presenting view.
+    trackCandidatesSelectorViewController?.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
   }
 
   @objc private func onExpandPressed(sender _: UITapGestureRecognizer) {
@@ -99,6 +114,10 @@ final class PlacePageHeaderViewController: UIViewController {
 
   @objc private func didTapCancelButton() {
     resetTitleEditing()
+  }
+
+  @objc private func didTapTrackCandidatesButton() {
+    showTrackCandidatesSelector()
   }
 
   @objc private func didLongPressTitleTextView(_ sender: UILongPressGestureRecognizer) {
@@ -118,6 +137,13 @@ final class PlacePageHeaderViewController: UIViewController {
     titleTextView.text = titleText
     titleTextView.resignFirstResponder()
     updateTitleEditingStyle()
+  }
+
+  private func showEducationalTrackCandidatesSelectorIfNeeded() {
+    let key = Constants.didShowEducationalTrackSelectorPopup
+    guard !UserDefaults.standard.bool(forKey: key) else { return }
+    guard showTrackCandidatesSelector() else { return }
+    UserDefaults.standard.set(true, forKey: key)
   }
 }
 
@@ -189,16 +215,38 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     shareButton.showsMenuAsPrimaryAction = true
   }
 
-  private func configureTrackCandidatesMenu() {
-    let candidates = presenter?.trackSelectionCandidates ?? []
-    trackCandidatesButton.menu = UIMenu(children: candidates.map { candidate in
-      UIAction(title: candidate.title,
-               image: UIImage(systemName: "circle.fill")?.withTintColor(candidate.color, renderingMode: .alwaysOriginal),
-               state: candidate.isSelected ? .on : .off) { [weak self] _ in
-        self?.presenter?.onSelectTrackCandidate(candidate.trackId)
-      }
-    })
-    trackCandidatesButton.showsMenuAsPrimaryAction = true
+  @discardableResult
+  private func showTrackCandidatesSelector() -> Bool {
+    guard let presenter, presenter.canSelectTrackCandidates,
+          view.window != nil,
+          !trackCandidatesButton.isHidden,
+          presentedViewController == nil,
+          trackCandidatesSelectorViewController == nil else {
+      return false
+    }
+
+    let popoverDataSource = presenter.trackSelectionCandidates.map { candidate in
+      PopoverListSelectorViewController.RowViewModel(
+        title: .string(candidate.title),
+        color: candidate.color,
+        isSelected: candidate.isSelected,
+        selectionHandler: { [weak self] in
+          self?.dismiss(animated: true, completion: { [weak self] in
+            self?.presenter?.onSelectTrackCandidate(candidate)
+          })
+        }
+      )
+    }
+    let viewController = PopoverListSelectorViewController(popoverDataSource, style: .icon)
+    viewController.modalPresentationStyle = .popover
+    viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+    viewController.popoverPresentationController?.sourceView = trackCandidatesButton
+    viewController.popoverPresentationController?.sourceRect = trackCandidatesButton.bounds
+    viewController.popoverPresentationController?.permittedArrowDirections = .any
+    viewController.popoverPresentationController?.delegate = viewController
+    trackCandidatesSelectorViewController = viewController
+    present(viewController, animated: true)
+    return true
   }
 }
 

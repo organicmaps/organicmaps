@@ -4,19 +4,9 @@
 
 @class TrackInfo;
 @class ElevationProfileData;
+@class PlacePageTrackSelectionData;
 
 NS_ASSUME_NONNULL_BEGIN
-
-@interface PlacePageTrackSelectionData : NSObject
-
-@property(nonatomic, readonly) MWMTrackID trackId;
-@property(nonatomic, readonly) NSString * title;
-@property(nonatomic, readonly) UIColor * color;
-@property(nonatomic, readonly) BOOL isSelected;
-
-- (instancetype)init NS_UNAVAILABLE;
-
-@end
 
 @interface PlacePageTrackData : NSObject
 
