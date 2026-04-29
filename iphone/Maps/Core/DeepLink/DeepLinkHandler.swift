@@ -98,7 +98,12 @@
     switch urlType {
     case .route:
       if let adapter = DeepLinkRouteStrategyAdapter(url) {
-        MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)
+        MWMRouter.buildApiRoute(with: adapter.type,
+                                start: adapter.p1,
+                                intermediatePoints: adapter.intermediatePoints,
+                                finish: adapter.p2,
+                                optimizeRoutePoints: adapter.optimizeRoutePoints,
+                                startRouteNavigation: adapter.startRouteNavigation)
         MapsAppDelegate.theApp().showMap()
         return true
       }
