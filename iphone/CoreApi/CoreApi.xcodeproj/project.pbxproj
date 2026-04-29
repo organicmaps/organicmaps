@@ -93,6 +93,9 @@
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
 		ED221FEE2ED88057007A2BCF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ED221FEC2ED88057007A2BCF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED221FEF2ED88057007A2BCF /* StringUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED221FED2ED88057007A2BCF /* StringUtils.mm */; };
+		ED3F3D2E2FC8A9A6003D2135 /* PlacePageTrackSelectionData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3F3D2D2FC8A9A6003D2135 /* PlacePageTrackSelectionData.mm */; };
+		ED3F3D2F2FC8A9A6003D2135 /* PlacePageTrackSelectionData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3F3D2C2FC8A9A6003D2135 /* PlacePageTrackSelectionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED3F3D312FC8A9FB003D2135 /* PlacePageTrackSelectionData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3F3D302FC8A9FB003D2135 /* PlacePageTrackSelectionData+Core.h */; };
 		ED46DE3A2D09BE21007CACD6 /* PlacePageTrackData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */; };
 		ED46DE3B2D09BE21007CACD6 /* PlacePageTrackData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED46DE3C2D09BE21007CACD6 /* PlacePageTrackData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */; };
@@ -212,6 +215,9 @@
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
 		ED221FEC2ED88057007A2BCF /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		ED221FED2ED88057007A2BCF /* StringUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StringUtils.mm; sourceTree = "<group>"; };
+		ED3F3D2C2FC8A9A6003D2135 /* PlacePageTrackSelectionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageTrackSelectionData.h; sourceTree = "<group>"; };
+		ED3F3D2D2FC8A9A6003D2135 /* PlacePageTrackSelectionData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageTrackSelectionData.mm; sourceTree = "<group>"; };
+		ED3F3D302FC8A9FB003D2135 /* PlacePageTrackSelectionData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageTrackSelectionData+Core.h"; sourceTree = "<group>"; };
 		ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageTrackData.h; sourceTree = "<group>"; };
 		ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageTrackData.mm; sourceTree = "<group>"; };
 		ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageTrackData+Core.h"; sourceTree = "<group>"; };
@@ -330,6 +336,9 @@
 				ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */,
 				ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */,
 				ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */,
+				ED3F3D2C2FC8A9A6003D2135 /* PlacePageTrackSelectionData.h */,
+				ED3F3D2D2FC8A9A6003D2135 /* PlacePageTrackSelectionData.mm */,
+				ED3F3D302FC8A9FB003D2135 /* PlacePageTrackSelectionData+Core.h */,
 				EDA1A0032F12345600ABCD01 /* RouteElevationPreviewData.h */,
 				EDA1A0042F12345600ABCD01 /* RouteElevationPreviewData.mm */,
 				47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */,
@@ -530,6 +539,7 @@
 				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
 				ED7306F52D0C5D2400523AA1 /* TrackInfo+Core.h in Headers */,
 				EDA1A0012F12345600ABCD01 /* RouteElevationPreviewData.h in Headers */,
+				ED3F3D312FC8A9FB003D2135 /* PlacePageTrackSelectionData+Core.h in Headers */,
 				ED7306F62D0C5D2400523AA1 /* TrackInfo.h in Headers */,
 				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
@@ -563,6 +573,7 @@
 				CE838D272D9D834F00476DD0 /* PlacePagePhone.h in Headers */,
 				CE838D292D9D834F00476DD0 /* PlacePageRoute.h in Headers */,
 				47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */,
+				ED3F3D2F2FC8A9A6003D2135 /* PlacePageTrackSelectionData.h in Headers */,
 				479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */,
 				47E8163723B188D3008FD836 /* MWMStorage.h in Headers */,
 				47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */,
@@ -676,6 +687,7 @@
 				479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */,
 				ED7306F42D0C5D2400523AA1 /* TrackInfo.mm in Sources */,
 				47F0D2162516847F00BC685E /* MWMBookmarksSection.m in Sources */,
+				ED3F3D2E2FC8A9A6003D2135 /* PlacePageTrackSelectionData.mm in Sources */,
 				479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */,
 				47942D71237CC40800DEFAE3 /* PlacePageInfoData.mm in Sources */,
 				479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */,
