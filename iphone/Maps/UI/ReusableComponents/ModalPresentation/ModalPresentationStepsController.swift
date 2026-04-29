@@ -25,7 +25,6 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
   var stepStrategy: any ModalPresentationStepStrategy<Step>
   var didUpdateHandler: ((StepUpdate) -> Void)?
-  var currentFrame: CGRect { frame(for: currentStep) }
   var hiddenFrame: CGRect { frame(for: .hidden) }
 
   private var initialTranslationY: CGFloat = .zero

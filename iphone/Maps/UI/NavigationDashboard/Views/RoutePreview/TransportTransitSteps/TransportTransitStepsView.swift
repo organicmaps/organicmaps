@@ -1,7 +1,6 @@
 final class TransportTransitStepsView: SolidTouchView {
   private enum Constants {
     static let contentInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
-    static let spacing: CGFloat = 8
   }
 
   private var stepsCollectionView: TransportTransitStepsCollectionView!

@@ -3,12 +3,6 @@ import UIKit
 class BadgeWithNumber: UIView {
   private let label = UILabel()
 
-  var color: UIColor = .systemRed {
-    didSet {
-      backgroundColor = color
-    }
-  }
-
   var number: Int = 0 {
     didSet {
       label.text = "\(number)"

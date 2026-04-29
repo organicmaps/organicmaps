@@ -15,10 +15,6 @@ extension UIApplication {
     foregroundActiveScene?.keyWindow
   }
 
-  var activeWindows: [UIWindow] {
-    activeWindowScenes.flatMap(\.windows)
-  }
-
   var foregroundActiveScene: UIWindowScene? {
     activeWindowScenes.first(where: { $0.keyWindow != nil }) ?? activeWindowScenes.first
   }

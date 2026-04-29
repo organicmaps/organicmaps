@@ -111,7 +111,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       groupId = trackData.groupId
       groupName = trackData.trackCategory
     }
-    let groupViewController = SelectBookmarkGroupViewController(groupName: groupName ?? "", groupId: groupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)
     let navigationController = UINavigationController(rootViewController: groupViewController)
     groupViewController.delegate = self
     presenter.view?.present(navigationController, animated: true, completion: nil)

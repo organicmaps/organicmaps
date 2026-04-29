@@ -41,14 +41,6 @@ struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
     }
   }
 
-  var first: Step {
-    .expanded
-  }
-
-  var last: Step {
-    .compact
-  }
-
   func frame(_ step: Step, for _: UIView, in containerViewController: UIViewController) -> CGRect {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
     var containerSize = containerViewController.view.bounds.size

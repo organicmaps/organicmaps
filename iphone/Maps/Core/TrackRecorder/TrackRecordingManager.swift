@@ -1,8 +1,3 @@
-enum TrackRecordingAction {
-  case start
-  case stopAndSave(name: String)
-}
-
 enum LocationError: Error {
   case locationIsProhibited
 }

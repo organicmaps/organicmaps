@@ -1,7 +1,6 @@
 final class TransportRuler: TransportTransitCell {
   enum Config {
     static var backgroundColor: UIColor { .blackOpaque }
-    static var imageColor: UIColor { .blackSecondaryText }
     static var labelTextColor: UIColor { .black }
     static let labelTextFont = UIFont.bold12()
     static let labelTrailing: CGFloat = 8

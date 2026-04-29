@@ -60,10 +60,9 @@ extension BookmarksListRouter: IBookmarksListRouter {
     mapViewController.navigationController?.pushViewController(bookmarksListViewController, animated: true)
   }
 
-  func selectGroup(currentGroupName groupName: String,
-                   currentGroupId groupId: MWMMarkGroupID,
+  func selectGroup(currentGroupId groupId: MWMMarkGroupID,
                    delegate: SelectBookmarkGroupViewControllerDelegate?) {
-    let groupViewController = SelectBookmarkGroupViewController(groupName: groupName, groupId: groupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)
     groupViewController.delegate = delegate
     let navigationController = UINavigationController(rootViewController: groupViewController)
     mapViewController.present(navigationController, animated: true, completion: nil)

@@ -27,10 +27,7 @@
                                           controlsManager: controlsManager,
                                           delegate: delegate)
     let presenter = BottomMenuPresenter(view: viewController, interactor: interactor, sections: sections)
-
-    interactor.presenter = presenter
     viewController.presenter = presenter
-
     return viewController
   }
 }

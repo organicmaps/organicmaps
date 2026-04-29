@@ -13,12 +13,6 @@ class DownloadMapsViewController: MWMViewController {
     case delete
   }
 
-  private enum AllMapsButtonState {
-    case none
-    case download(String)
-    case cancel(String)
-  }
-
   // MARK: - Outlets
 
   @IBOutlet var tableView: UITableView!

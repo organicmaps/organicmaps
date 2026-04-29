@@ -48,6 +48,5 @@
 + (void)avoidDirty;
 + (void)avoidFerry;
 + (void)avoidToll;
-+ (void)openElevationDifficultPopup:(PlacePageData *)data;
 
 @end

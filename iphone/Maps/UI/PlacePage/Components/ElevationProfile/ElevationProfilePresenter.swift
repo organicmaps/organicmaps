@@ -13,12 +13,10 @@ protocol ElevationProfilePresenterProtocol:
   func configure()
   func update(with trackData: PlacePageTrackData)
   func update(with previewData: RouteElevationPreviewData)
-  func onDifficultyButtonPressed()
   func onSelectedPointChanged(_ distance: Double)
 }
 
 protocol ElevationProfileViewControllerDelegate: AnyObject {
-  func openDifficultyPopup()
   func updateMapPoint(distance: Double)
 }
 
@@ -145,10 +143,6 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.userInteractionEnabled = true
     view?.setActivePointDistance(activePointDistance)
     view?.setMyPositionDistance(myPositionDistance)
-  }
-
-  func onDifficultyButtonPressed() {
-    delegate?.openDifficultyPopup()
   }
 
   func onSelectedPointChanged(_ distance: Double) {

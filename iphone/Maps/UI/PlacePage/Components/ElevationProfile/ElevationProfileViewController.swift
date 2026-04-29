@@ -231,10 +231,6 @@ final class ElevationProfileViewController: UIViewController {
       chartView.isChartViewInfoHidden = forcedChartViewInfoHidden
     }
   }
-
-  private func getPreviewHeight() -> CGFloat {
-    view.height - descriptionCollectionView.frame.minY
-  }
 }
 
 // MARK: - ElevationProfileViewProtocol

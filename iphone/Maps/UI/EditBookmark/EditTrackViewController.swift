@@ -17,7 +17,6 @@ final class EditTrackViewController: MWMTableViewController {
 
   private var editingCompleted: (Bool) -> Void
 
-  private var placePageData: PlacePageData?
   private let trackId: MWMTrackID
   private var trackTitle: String?
   private var trackGroupTitle: String?
@@ -169,7 +168,7 @@ final class EditTrackViewController: MWMTableViewController {
   }
 
   private func openGroupPicker() {
-    let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupId: trackGroupId)
     groupViewController.delegate = self
     let navigationController = UINavigationController(rootViewController: groupViewController)
     present(navigationController, animated: true, completion: nil)

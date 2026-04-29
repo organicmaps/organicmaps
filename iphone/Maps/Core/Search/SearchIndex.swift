@@ -26,12 +26,6 @@ final class SearchIndex: NSObject {
     super.init()
   }
 
-  func addItem(type: SearchItemType, prefferedPosition: Int, containerIndex: Int) {
-    assert(type != .suggestion && type != .regular)
-    let item = Item(type: type, containerIndex: containerIndex)
-    positionItems.append(PositionItem(item: item, position: prefferedPosition))
-  }
-
   @objc func build() {
     positionItems.sort(by: >)
     var itemsDict: [Int: Item] = [:]

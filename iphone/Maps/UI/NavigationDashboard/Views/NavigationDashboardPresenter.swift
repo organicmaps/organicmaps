@@ -3,12 +3,9 @@ extension NavigationDashboard {
     private weak var view: NavigationDashboardViewController?
     private var viewModel: ViewModel = .initial
     private var isSearchOpened: Bool = false
-    private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 
-    init(view: NavigationDashboardViewController,
-         placePageManagerHelper: MWMPlacePageManagerHelper.Type = MWMPlacePageManagerHelper.self) {
+    init(view: NavigationDashboardViewController) {
       self.view = view
-      self.placePageManagerHelper = placePageManagerHelper
       super.init()
     }
 

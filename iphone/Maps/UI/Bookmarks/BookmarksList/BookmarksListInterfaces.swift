@@ -96,7 +96,6 @@ protocol IBookmarksListInteractor {
   var onCategoryReload: ((GroupReloadingResult) -> Void)? { get set }
 
   func getBookmarkGroup() -> BookmarkGroup
-  func hasDescription() -> Bool
   func prepareForSearch()
   func search(_ text: String, completion: @escaping ([Bookmark]) -> Void)
   func availableSortingTypes(hasMyPosition: Bool) -> [BookmarksListSortingType]
@@ -113,8 +112,6 @@ protocol IBookmarksListInteractor {
   func deleteTrack(_ trackId: MWMTrackID)
   func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId: MWMMarkGroupID)
   func moveTrack(_ trackId: MWMTrackID, toGroupId: MWMMarkGroupID)
-  func updateBookmark(_ bookmarkId: MWMMarkID, setGroupId groupId: MWMMarkGroupID, title: String, color: BookmarkColor, description: String)
-  func updateTrack(_ trackId: MWMTrackID, setGroupId groupId: MWMMarkGroupID)
   func deleteBookmarksGroup()
   func canDeleteGroup() -> Bool
   func exportFile(fileType: FileType, completion: @escaping SharingResultCompletionHandler)
@@ -126,8 +123,7 @@ protocol IBookmarksListRouter {
   func viewOnMap(_ bookmarkGroup: BookmarkGroup)
   func showDescription(_ bookmarkGroup: BookmarkGroup)
   func showSubgroup(_ subgroupId: MWMMarkGroupID)
-  func selectGroup(currentGroupName groupName: String,
-                   currentGroupId groupId: MWMMarkGroupID,
+  func selectGroup(currentGroupId groupId: MWMMarkGroupID,
                    delegate: SelectBookmarkGroupViewControllerDelegate?)
   func editBookmark(bookmarkId: MWMMarkID, completion: @escaping (Bool) -> Void)
   func editTrack(trackId: MWMTrackID, completion: @escaping (Bool) -> Void)

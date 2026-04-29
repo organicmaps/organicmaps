@@ -1,7 +1,6 @@
 final class OSMView: UIView {
   private let OSMImageView = UIImageView()
   private let OSMTextLabel = UILabel()
-  private var mapDate: String?
 
   var didTapHandler: (() -> Void)?
 
@@ -22,7 +21,6 @@ final class OSMView: UIView {
   // MARK: - Public
 
   func setMapDate(_ mapDate: String) {
-    self.mapDate = mapDate
     OSMTextLabel.attributedText = attributedString(for: mapDate)
   }
 

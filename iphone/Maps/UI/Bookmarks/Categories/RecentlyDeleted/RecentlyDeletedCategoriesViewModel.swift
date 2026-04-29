@@ -1,12 +1,8 @@
 final class RecentlyDeletedCategoriesViewModel: NSObject {
   typealias BookmarksManager = BookmarksObservable & RecentlyDeletedCategoriesManager
 
-  enum Section: CaseIterable {
-    struct Model: Equatable {
-      var content: [RecentlyDeletedCategory]
-    }
-
-    case main
+  struct Section: Equatable {
+    var content: [RecentlyDeletedCategory]
   }
 
   enum State {
@@ -16,7 +12,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
   }
 
   private var recentlyDeletedCategoriesManager: BookmarksManager
-  private var dataSource: [Section.Model] = [] {
+  private var dataSource: [Section] = [] {
     didSet {
       if dataSource.isEmpty {
         onCategoriesIsEmpty?()
@@ -25,12 +21,12 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
   }
 
   private(set) var state: State = .nothingSelected
-  private(set) var filteredDataSource: [Section.Model] = []
+  private(set) var filteredDataSource: [Section] = []
   private(set) var selectedIndexPaths: [IndexPath] = []
   private(set) var searchText = String()
 
   var stateDidChange: ((State) -> Void)?
-  var filteredDataSourceDidChange: (([Section.Model]) -> Void)?
+  var filteredDataSourceDidChange: (([Section]) -> Void)?
   var onCategoriesIsEmpty: (() -> Void)?
 
   init(bookmarksManager: BookmarksManager) {
@@ -60,18 +56,9 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
     stateDidChange?(state)
   }
 
-  private func updateFilteredDataSource(_ dataSource: [Section.Model]) {
+  private func updateFilteredDataSource(_ dataSource: [Section]) {
     filteredDataSource = dataSource.filtered(using: searchText)
     filteredDataSourceDidChange?(filteredDataSource)
-  }
-
-  private func updateSelectionAtIndexPath(_: IndexPath, isSelected: Bool) {
-    if isSelected {
-      updateState(to: .someSelected)
-    } else {
-      let allDeselected = dataSource.allSatisfy(\.content.isEmpty)
-      updateState(to: allDeselected ? .nothingSelected : .someSelected)
-    }
   }
 
   private func removeCategories(at indexPaths: [IndexPath], completion: ([URL]) -> Void) {
@@ -108,7 +95,7 @@ extension RecentlyDeletedCategoriesViewModel {
   func fetchRecentlyDeletedCategories() {
     let categories = recentlyDeletedCategoriesManager.getRecentlyDeletedCategories()
     guard !categories.isEmpty else { return }
-    dataSource = [Section.Model(content: categories)]
+    dataSource = [Section(content: categories)]
     updateFilteredDataSource(dataSource)
   }
 
@@ -128,10 +115,6 @@ extension RecentlyDeletedCategoriesViewModel {
     removeSelectedCategories { recentlyDeletedCategoriesManager.recoverRecentlyDeletedCategories(at: $0) }
   }
 
-  func startSelecting() {
-    updateState(to: .nothingSelected)
-  }
-
   func selectCategory(at indexPath: IndexPath) {
     selectedIndexPaths.append(indexPath)
     updateState(to: .someSelected)
@@ -142,13 +125,6 @@ extension RecentlyDeletedCategoriesViewModel {
     if selectedIndexPaths.isEmpty {
       updateState(to: state == .searching ? .searching : .nothingSelected)
     }
-  }
-
-  func selectAllCategories() {
-    selectedIndexPaths = dataSource.enumerated().flatMap { sectionIndex, section in
-      section.content.indices.map { IndexPath(row: $0, section: sectionIndex) }
-    }
-    updateState(to: .someSelected)
   }
 
   func deselectAllCategories() {
@@ -195,14 +171,14 @@ extension RecentlyDeletedCategoriesViewModel: BookmarksObserver {
   }
 }
 
-private extension Array where Element == RecentlyDeletedCategoriesViewModel.Section.Model {
+private extension Array where Element == RecentlyDeletedCategoriesViewModel.Section {
   func filtered(using searchText: String) -> [Element] {
     map { section in
       let filteredContent = section.content.filter {
         guard !searchText.isEmpty else { return true }
         return $0.title.localizedCaseInsensitiveContains(searchText)
       }
-      return RecentlyDeletedCategoriesViewModel.Section.Model(content: filteredContent)
+      return RecentlyDeletedCategoriesViewModel.Section(content: filteredContent)
     }
   }
 }

@@ -7,7 +7,6 @@ final class TrackRecordingButtonViewController: MWMViewController {
     static let color: (lighter: UIColor, darker: UIColor) = (.red, .red.darker(percent: 0.3))
   }
 
-  private let trackRecordingManager: TrackRecordingManager = .shared
   private let button = BottomTabBarButton()
   private var blinkingTimer: Timer?
   private var topConstraint = NSLayoutConstraint()

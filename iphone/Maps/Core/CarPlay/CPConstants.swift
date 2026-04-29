@@ -2,9 +2,7 @@ import Foundation
 
 enum CPConstants {
   enum TemplateKey {
-    static let map = "map_type"
     static let alert = "alert_type"
-    static let list = "list_type"
   }
 
   enum TemplateType {
