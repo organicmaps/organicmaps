@@ -12,11 +12,7 @@ CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
   , m_memoryCursor(NonConstData())
 {}
 
-CPUBuffer::~CPUBuffer()
-{
-  m_memoryCursor = nullptr;
-  SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_memory));
-}
+CPUBuffer::~CPUBuffer() = default;
 
 void CPUBuffer::UploadData(void const * data, uint32_t elementCount)
 {

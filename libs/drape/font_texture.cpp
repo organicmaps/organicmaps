@@ -126,8 +126,6 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphFontAndId const & ke
   m2::RectU r;
   if (!m_packer.PackGlyph(glyphImage.m_width, glyphImage.m_height, r))
   {
-    glyphImage.Destroy();
-
     LOG(LWARNING, ("Glyphs packer could not pack a glyph with fontIndex =", key.m_fontIndex, "glyphId =", key.m_glyphId,
                    "w =", glyphImage.m_width, "h =", glyphImage.m_height, "packerSize =", m_packer.GetSize()));
 
@@ -207,8 +205,7 @@ void GlyphIndex::UploadResources(ref_ptr<GraphicsContext> context, ref_ptr<Textu
     m2::PointU const zeroPoint = rect.LeftBottom();
     uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
     texture->UploadData(context, zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(srcMemory));
-
-    glyph.m_image.Destroy();
   }
+  // pendingNodes is local; m_image's deleter returns each pooled buffer on scope exit.
 }
 }  // namespace dp

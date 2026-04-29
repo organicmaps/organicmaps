@@ -111,8 +111,6 @@ public:
         painter.drawImage(currentPen, CreateImage(w, h, img.m_data->data()), QRect(0, 0, w, h));
       }
       pen += QPoint(glyph.m_xAdvance, glyph.m_yAdvance /* 0 for horizontal texts */);
-
-      img.Destroy();
     }
 
     pen.rx() = kLineStartX;
@@ -135,8 +133,6 @@ public:
                           QRect(dp::kSdfBorder, dp::kSdfBorder, w - 2 * dp::kSdfBorder, h - 2 * dp::kSdfBorder));
       }
       pen += QPoint(glyph.m_xAdvance, glyph.m_yAdvance /* 0 for horizontal texts */);
-
-      img.Destroy();
     }
 
     ////////////////////////////////////////////////////////////////////////////
