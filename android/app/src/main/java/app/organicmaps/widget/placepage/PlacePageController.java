@@ -54,6 +54,8 @@ public class PlacePageController
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
+  // Slide offset threshold below collapsed (0.0) at which the sheet is dismissed.
+  private static final float EASY_DISMISS_SLIDE_THRESHOLD = -0.15f;
 
   private BottomSheetBehavior<View> mPlacePageBehavior;
   private NestedScrollView mPlacePage;
@@ -74,6 +76,8 @@ public class PlacePageController
   private WindowInsetsCompat mCurrentWindowInsets;
 
   private boolean mShouldCollapse;
+  // Enabled after the sheet reaches COLLAPSED; prevents dismiss during initial open animation.
+  private boolean mEasyDismissEnabled;
   private int mDistanceToTop;
 
   private ValueAnimator mCustomPeekHeightAnimator;
@@ -142,8 +146,16 @@ public class PlacePageController
 
           PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
+          if (PlacePageUtils.isExpandedState(newState))
+            mEasyDismissEnabled = false;
+          else if (PlacePageUtils.isCollapsedState(newState))
+            mEasyDismissEnabled = true;
+
           if (PlacePageUtils.isHiddenState(newState))
+          {
+            mEasyDismissEnabled = false;
             onHiddenInternal();
+          }
         }
 
         @Override
@@ -152,6 +164,8 @@ public class PlacePageController
           stopCustomPeekHeightAnimation();
           mDistanceToTop = bottomSheet.getTop();
           mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
+          if (slideOffset < EASY_DISMISS_SLIDE_THRESHOLD && mEasyDismissEnabled)
+            mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         }
       };
 
@@ -188,7 +202,7 @@ public class PlacePageController
     mPlacePageBehavior.setHideable(true);
     mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mPlacePageBehavior.setFitToContents(true);
-    mPlacePageBehavior.setSkipCollapsed(true);
+    mPlacePageBehavior.setSkipCollapsed(false);
 
     UiUtils.bringViewToFrontOf(view.findViewById(R.id.pp_buttons_fragment), mPlacePage);
 
@@ -440,7 +454,9 @@ public class PlacePageController
     final int bottomMargins = getResources().getDimensionPixelSize(R.dimen.margin_double);
     final View plusDetailsContainer = mPlacePage.findViewById(R.id.plus_details);
     int peekHeight = mPreviewHeight + mButtonsHeight + bottomMargins;
-    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
+    final View routeRef = mPlacePage.findViewById(R.id.ll__place_route_ref);
+    final boolean hasRouteRefs = routeRef != null && routeRef.getVisibility() == View.VISIBLE;
+    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS && !hasRouteRefs)
     {
       peekHeight += plusDetailsContainer.getHeight();
     }
@@ -465,6 +481,7 @@ public class PlacePageController
       setPeekHeight();
       if (mShouldCollapse && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
       {
+        mEasyDismissEnabled = false;
         mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         // Make sure to reset the scroll position when opening the place page
         if (mPlacePage.getScrollY() != 0)
@@ -481,7 +498,7 @@ public class PlacePageController
     int state = mPlacePageBehavior.getState();
     stopCustomPeekHeightAnimation();
     if (PlacePageUtils.isExpandedState(state))
-      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+      mPlacePageBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     else
       mPlacePageBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
