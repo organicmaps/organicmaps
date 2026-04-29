@@ -93,8 +93,7 @@ final class ListTemplateBuilder {
     var items = bookmarks.map { bookmark -> CPListItem in
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarks,
-                                   metadata: BookmarkInfo(categoryId: categoryId,
-                                                          bookmarkId: bookmark.bookmarkId))
+                                   metadata: BookmarkInfo(bookmarkId: bookmark.bookmarkId))
       return item
     }
     if #available(iOS 15.0, *) {

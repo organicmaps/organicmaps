@@ -14,7 +14,6 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   }
 
   weak var delegate: SelectBookmarkGroupViewControllerDelegate?
-  private let groupName: String
   private let groupId: MWMMarkGroupID
   private let bookmarkGroups: [NormalizedBookmarkGroup]
   private var filteredGroups: [NormalizedBookmarkGroup] = []
@@ -37,8 +36,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     }
   }
 
-  init(groupName: String, groupId: MWMMarkGroupID) {
-    self.groupName = groupName
+  init(groupId: MWMMarkGroupID) {
     self.groupId = groupId
     bookmarkGroups = BookmarksManager.shared().sortedUserCategories().map(NormalizedBookmarkGroup.init)
     super.init(style: .grouped)

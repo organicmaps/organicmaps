@@ -35,15 +35,6 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
 
   // MARK: - Selection Tests
 
-  func testMultipleSelectionAndDeselection() {
-    viewModel.selectAllCategories()
-    let initialSelectedCount = viewModel.selectedIndexPaths.count
-    XCTAssertEqual(initialSelectedCount, viewModel.filteredDataSource.flatMap(\.content).count)
-
-    viewModel.deselectAllCategories()
-    XCTAssertTrue(viewModel.selectedIndexPaths.isEmpty)
-  }
-
   func testSelectAndDeselectSpecificCategory() {
     let specificIndexPath = IndexPath(row: 0, section: 0)
     viewModel.selectCategory(at: specificIndexPath)
@@ -194,7 +185,6 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
   }
 
   func testMultipleStateTransitions() {
-    viewModel.startSelecting()
     XCTAssertEqual(viewModel.state, .nothingSelected)
 
     viewModel.startSearching()

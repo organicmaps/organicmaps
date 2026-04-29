@@ -8,8 +8,6 @@ import UIKit
   }
 
   private weak var navigationController: UINavigationController?
-  private weak var controlsManager: MWMMapViewControlsManager?
-  private weak var navigationManager: MWMNavigationDashboardManager?
   private var bookmarksControllers: [UIViewController]?
   private var state: BookmarksState = .closed {
     didSet {
@@ -17,12 +15,8 @@ import UIKit
     }
   }
 
-  @objc init(navigationController: UINavigationController,
-             controlsManager: MWMMapViewControlsManager,
-             navigationManager: MWMNavigationDashboardManager) {
+  @objc init(navigationController: UINavigationController) {
     self.navigationController = navigationController
-    self.controlsManager = controlsManager
-    self.navigationManager = navigationManager
   }
 
   @objc func open() {

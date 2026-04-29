@@ -42,7 +42,6 @@ final class CarPlayService: NSObject {
   }
 
   var preparedToPreviewTrips: [CPTrip] = []
-  var isUserPanMap: Bool = false
   private var searchText = ""
 
   @objc func setup(window: CPWindow, interfaceController: CPInterfaceController) {
@@ -405,7 +404,6 @@ extension CarPlayService: CPSessionConfigurationDelegate {
 
 extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
-    isUserPanMap = false
     MapTemplateBuilder.configurePanUI(mapTemplate: mapTemplate)
     FrameworkHelper.stopLocationFollow()
   }
@@ -428,7 +426,6 @@ extension CarPlayService: CPMapTemplateDelegate {
     if direction.contains(.left) { offset.horizontal += offsetStep }
     if direction.contains(.right) { offset.horizontal -= offsetStep }
     FrameworkHelper.moveMap(offset)
-    isUserPanMap = true
   }
 
   func mapTemplate(_: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
@@ -439,7 +436,6 @@ extension CarPlayService: CPMapTemplateDelegate {
     if direction.contains(.left) { offset.horizontal += offsetStep }
     if direction.contains(.right) { offset.horizontal -= offsetStep }
     FrameworkHelper.moveMap(offset)
-    isUserPanMap = true
   }
 
   func mapTemplate(_: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity _: CGPoint) {

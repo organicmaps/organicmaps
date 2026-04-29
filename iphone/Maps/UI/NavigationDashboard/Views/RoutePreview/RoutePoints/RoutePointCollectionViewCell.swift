@@ -16,7 +16,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   private enum Constants {
     static let logoSize: CGFloat = 28
-    static let logoSizeRatio: CGFloat = 1.0
     static let logoImageLeadingInset: CGFloat = 12
     static let reorderButtonSize: CGFloat = 24
     static let closeButtonSize: CGFloat = 24
@@ -116,18 +115,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     ])
   }
 
-  private func makeDotSeparator() -> UIView {
-    let view = UIView()
-    view.setStyle(.gray)
-    view.translatesAutoresizingMaskIntoConstraints = false
-    view.layer.cornerRadius = 2
-    NSLayoutConstraint.activate([
-      view.widthAnchor.constraint(equalToConstant: 4),
-      view.heightAnchor.constraint(equalToConstant: 4),
-    ])
-    return view
-  }
-
   func configure(with viewModel: CellType) {
     switch viewModel {
     case .point(let viewModel):
@@ -150,11 +137,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       separatorView.isHidden = true
     }
-  }
-
-  func updateImage(with image: UIImage, style: GlobalStyleSheet) {
-    logoImageView.image = image
-    logoImageView.setStyleAndApply(style)
   }
 
   @objc

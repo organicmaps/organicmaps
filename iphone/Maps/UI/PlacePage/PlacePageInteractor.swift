@@ -354,10 +354,6 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
 // MARK: - ElevationProfileViewControllerDelegate
 
 extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
-  func openDifficultyPopup() {
-    MWMPlacePageManagerHelper.openElevationDifficultPopup(placePageData)
-  }
-
   func updateMapPoint(distance: Double) {
     guard let trackData = placePageData.trackData, trackData.elevationProfileData?.isTrackRecording == false else { return }
     bookmarksManager.setElevationActivePointDistance(distance, trackId: trackData.trackId)

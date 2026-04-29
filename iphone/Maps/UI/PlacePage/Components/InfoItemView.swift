@@ -18,7 +18,6 @@ final class InfoItemView: UIView {
   typealias TapHandler = () -> Void
 
   private let contentStackView = UIStackView()
-  private var textLabelLeadingConstraint: NSLayoutConstraint!
 
   let iconButton = UIButton()
   let textLabel = InsetsLabel()

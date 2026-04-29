@@ -28,7 +28,6 @@ final class AboutController: MWMViewController {
   private var donationView: DonationView?
   private let osmView = OSMView()
   private let infoTableView = UITableView(frame: .zero, style: .plain)
-  private var infoTableViewHeightAnchor: NSLayoutConstraint?
   private let socialMediaHeaderLabel = UILabel()
   private let socialMediaCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
   private lazy var socialMediaCollectionViewHeighConstraint = socialMediaCollectionView.heightAnchor.constraint(equalToConstant: .zero)

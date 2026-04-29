@@ -26,7 +26,6 @@ final class EditBookmarkViewController: MWMTableViewController {
   private var bookmarkGroupTitle: String?
   private var bookmarkId = FrameworkHelper.invalidBookmarkId()
   private var bookmarkGroupId = FrameworkHelper.invalidCategoryId()
-  private var newBookmarkGroupId = FrameworkHelper.invalidCategoryId()
   private var bookmarkColor: BookmarkColor!
   private let bookmarksManager = BookmarksManager.shared()
 
@@ -203,7 +202,7 @@ final class EditBookmarkViewController: MWMTableViewController {
   }
 
   private func openGroupPicker() {
-    let groupViewController = SelectBookmarkGroupViewController(groupName: bookmarkGroupTitle ?? "", groupId: bookmarkGroupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupId: bookmarkGroupId)
     let navigationController = UINavigationController(rootViewController: groupViewController)
     groupViewController.delegate = self
     present(navigationController, animated: true, completion: nil)

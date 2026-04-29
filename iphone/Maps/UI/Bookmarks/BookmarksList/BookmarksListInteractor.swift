@@ -38,10 +38,6 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
     bookmarksManager.category(withId: markGroupId)
   }
 
-  func hasDescription() -> Bool {
-    bookmarksManager.hasExtraInfo(markGroupId)
-  }
-
   func prepareForSearch() {
     bookmarksManager.prepare(forSearch: markGroupId)
   }
@@ -142,14 +138,6 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   }
 
   func moveTrack(_ trackId: MWMTrackID, toGroupId groupId: MWMMarkGroupID) {
-    bookmarksManager.moveTrack(trackId, toGroupId: groupId)
-  }
-
-  func updateBookmark(_ bookmarkId: MWMMarkID, setGroupId groupId: MWMMarkGroupID, title: String, color: BookmarkColor, description: String) {
-    bookmarksManager.updateBookmark(bookmarkId, setGroupId: groupId, title: title, color: color, description: description)
-  }
-
-  func updateTrack(_ trackId: MWMTrackID, setGroupId groupId: MWMMarkGroupID) {
     bookmarksManager.moveTrack(trackId, toGroupId: groupId)
   }
 

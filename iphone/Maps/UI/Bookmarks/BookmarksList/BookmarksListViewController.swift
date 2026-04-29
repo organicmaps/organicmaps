@@ -217,10 +217,6 @@ extension BookmarksListViewController: IBookmarksListView {
     tableView.reloadData()
   }
 
-  func setMoreItemTitle(_ itemTitle: String) {
-    moreToolbarItem.title = itemTitle
-  }
-
   func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource) {
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     for item in items {

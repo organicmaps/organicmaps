@@ -5,9 +5,7 @@ enum BMCSection {
   case notifications
 }
 
-protocol BMCModel {}
-
-enum BMCAction: BMCModel {
+enum BMCAction {
   case create
   case exportAll
   case `import`
@@ -40,8 +38,4 @@ extension BMCAction {
       return UIImage(named: "ic_route_manager_trash_open")!
     }
   }
-}
-
-enum BMCNotification: BMCModel {
-  case load
 }

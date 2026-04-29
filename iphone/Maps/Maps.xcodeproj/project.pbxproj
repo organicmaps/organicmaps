@@ -218,10 +218,6 @@
 		ED82C5902F90180300FA103D /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3DC2F90180300FA103D /* MWMAuthorizationCommon.mm */; };
 		ED82C5912F90180300FA103D /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3DE2F90180300FA103D /* MWMAuthorizationLoginViewController.mm */; };
 		ED82C5922F90180300FA103D /* MWMAuthorizationOSMLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E02F90180300FA103D /* MWMAuthorizationOSMLoginViewController.mm */; };
-		ED82C5932F90180300FA103D /* ElevationDetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E22F90180300FA103D /* ElevationDetailsBuilder.swift */; };
-		ED82C5942F90180300FA103D /* ElevationDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E32F90180300FA103D /* ElevationDetailsPresenter.swift */; };
-		ED82C5952F90180300FA103D /* ElevationDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E42F90180300FA103D /* ElevationDetailsRouter.swift */; };
-		ED82C5962F90180300FA103D /* ElevationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E52F90180300FA103D /* ElevationDetailsViewController.swift */; };
 		ED82C5972F90180300FA103D /* ElevationProfileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E82F90180300FA103D /* ElevationProfileBuilder.swift */; };
 		ED82C5982F90180300FA103D /* ElevationProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3E92F90180300FA103D /* ElevationProfileDescriptionCell.swift */; };
 		ED82C5992F90180300FA103D /* ElevationProfileFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C3EA2F90180300FA103D /* ElevationProfileFormatter.swift */; };
@@ -410,7 +406,6 @@
 		ED82C6502F90180300FA103D /* TransportTransitPedestrian.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3BF2F90180300FA103D /* TransportTransitPedestrian.xib */; };
 		ED82C6512F90180300FA103D /* TransportTransitTrain.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3C42F90180300FA103D /* TransportTransitTrain.xib */; };
 		ED82C6522F90180300FA103D /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3DA2F90180300FA103D /* Authorization.storyboard */; };
-		ED82C6532F90180300FA103D /* ElevationDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C3E62F90180300FA103D /* ElevationDetailsViewController.xib */; };
 		ED82C6542F90180300FA103D /* DirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C40D2F90180300FA103D /* DirectionView.xib */; };
 		ED82C6552F90180300FA103D /* MWMActionBarButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4112F90180300FA103D /* MWMActionBarButton.xib */; };
 		ED82C6562F90180300FA103D /* MWMPlacePageOpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED82C4152F90180300FA103D /* MWMPlacePageOpeningHoursCell.xib */; };
@@ -1174,11 +1169,6 @@
 		ED82C3DE2F90180300FA103D /* MWMAuthorizationLoginViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationLoginViewController.mm; sourceTree = "<group>"; };
 		ED82C3DF2F90180300FA103D /* MWMAuthorizationOSMLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationOSMLoginViewController.h; sourceTree = "<group>"; };
 		ED82C3E02F90180300FA103D /* MWMAuthorizationOSMLoginViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationOSMLoginViewController.mm; sourceTree = "<group>"; };
-		ED82C3E22F90180300FA103D /* ElevationDetailsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationDetailsBuilder.swift; sourceTree = "<group>"; };
-		ED82C3E32F90180300FA103D /* ElevationDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationDetailsPresenter.swift; sourceTree = "<group>"; };
-		ED82C3E42F90180300FA103D /* ElevationDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationDetailsRouter.swift; sourceTree = "<group>"; };
-		ED82C3E52F90180300FA103D /* ElevationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationDetailsViewController.swift; sourceTree = "<group>"; };
-		ED82C3E62F90180300FA103D /* ElevationDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ElevationDetailsViewController.xib; sourceTree = "<group>"; };
 		ED82C3E82F90180300FA103D /* ElevationProfileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileBuilder.swift; sourceTree = "<group>"; };
 		ED82C3E92F90180300FA103D /* ElevationProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileDescriptionCell.swift; sourceTree = "<group>"; };
 		ED82C3EA2F90180300FA103D /* ElevationProfileFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileFormatter.swift; sourceTree = "<group>"; };
@@ -2739,18 +2729,6 @@
 			path = OSMAuthorization;
 			sourceTree = "<group>";
 		};
-		ED82C3E72F90180300FA103D /* ElevationDetails */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C3E22F90180300FA103D /* ElevationDetailsBuilder.swift */,
-				ED82C3E32F90180300FA103D /* ElevationDetailsPresenter.swift */,
-				ED82C3E42F90180300FA103D /* ElevationDetailsRouter.swift */,
-				ED82C3E52F90180300FA103D /* ElevationDetailsViewController.swift */,
-				ED82C3E62F90180300FA103D /* ElevationDetailsViewController.xib */,
-			);
-			path = ElevationDetails;
-			sourceTree = "<group>";
-		};
 		ED82C3ED2F90180300FA103D /* ElevationProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2812,7 +2790,6 @@
 		ED82C40B2F90180300FA103D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C3E72F90180300FA103D /* ElevationDetails */,
 				ED82C3ED2F90180300FA103D /* ElevationProfile */,
 				ED82C3F02F90180300FA103D /* OpenInAppActionSheet */,
 				ED82C3F92F90180300FA103D /* PlacePageExpandableDetailsSection */,
@@ -4313,7 +4290,6 @@
 				ED82C6502F90180300FA103D /* TransportTransitPedestrian.xib in Resources */,
 				ED82C6512F90180300FA103D /* TransportTransitTrain.xib in Resources */,
 				ED82C6522F90180300FA103D /* Authorization.storyboard in Resources */,
-				ED82C6532F90180300FA103D /* ElevationDetailsViewController.xib in Resources */,
 				ED82C6542F90180300FA103D /* DirectionView.xib in Resources */,
 				ED82C6552F90180300FA103D /* MWMActionBarButton.xib in Resources */,
 				ED82C6562F90180300FA103D /* MWMPlacePageOpeningHoursCell.xib in Resources */,
@@ -4669,10 +4645,6 @@
 				ED82C5902F90180300FA103D /* MWMAuthorizationCommon.mm in Sources */,
 				ED82C5912F90180300FA103D /* MWMAuthorizationLoginViewController.mm in Sources */,
 				ED82C5922F90180300FA103D /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
-				ED82C5932F90180300FA103D /* ElevationDetailsBuilder.swift in Sources */,
-				ED82C5942F90180300FA103D /* ElevationDetailsPresenter.swift in Sources */,
-				ED82C5952F90180300FA103D /* ElevationDetailsRouter.swift in Sources */,
-				ED82C5962F90180300FA103D /* ElevationDetailsViewController.swift in Sources */,
 				ED82C5972F90180300FA103D /* ElevationProfileBuilder.swift in Sources */,
 				ED82C5982F90180300FA103D /* ElevationProfileDescriptionCell.swift in Sources */,
 				ED82C5992F90180300FA103D /* ElevationProfileFormatter.swift in Sources */,

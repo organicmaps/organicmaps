@@ -12,10 +12,8 @@ final class ElevationProfileFormatter {
   private let altitudeFormatter: AltitudeFormatter.Type
   private let unitSystemMultiplier: CGFloat
   private let altitudeStep: CGFloat
-  private let units: Units
 
   init(units: Units = Settings.measurementUnits()) {
-    self.units = units
     distanceFormatter = DistanceFormatter.self
     altitudeFormatter = AltitudeFormatter.self
     switch units {

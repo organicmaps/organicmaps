@@ -1,7 +1,6 @@
 final class RecentlyDeletedTableViewCell: UITableViewCell {
   struct ViewModel: Equatable, Hashable {
     let fileName: String
-    let fileURL: URL
     let deletionDate: Date
   }
 
@@ -25,7 +24,6 @@ final class RecentlyDeletedTableViewCell: UITableViewCell {
 extension RecentlyDeletedTableViewCell.ViewModel {
   init(_ category: RecentlyDeletedCategory) {
     fileName = category.title
-    fileURL = category.fileURL
     deletionDate = category.deletionDate
   }
 }

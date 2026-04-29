@@ -5,10 +5,6 @@ protocol ActionBarViewControllerDelegate: AnyObject {
 final class ActionBarViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   private(set) var downloadButton: ActionBarButton?
-  private(set) var bookmarkButton: ActionBarButton?
-  private var popoverSourceView: UIView? {
-    stackView.arrangedSubviews.last
-  }
 
   var placePageData: PlacePageData!
   var isRoutePlanning = false
@@ -118,8 +114,6 @@ final class ActionBarViewController: UIViewController {
       case .download:
         downloadButton = button
         updateDownloadButtonState(placePageData.mapNodeAttributes!.nodeStatus)
-      case .bookmark:
-        bookmarkButton = button
       default:
         break
       }
@@ -173,7 +167,6 @@ final class ActionBarViewController: UIViewController {
     visibleButtons.removeAll()
     additionalButtons.removeAll()
     downloadButton = nil
-    bookmarkButton = nil
     configureButtons()
   }
 

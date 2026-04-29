@@ -2,7 +2,6 @@ protocol BMCView: AnyObject {
   func update(sections: [BMCSection])
   func delete(at indexPaths: [IndexPath])
   func insert(at indexPaths: [IndexPath])
-  func conversionFinished(success: Bool)
 }
 
 final class BMCDefaultViewModel: NSObject {
@@ -13,11 +12,6 @@ final class BMCDefaultViewModel: NSObject {
   private var sections: [BMCSection] = []
   private var categories: [BookmarkGroup] = []
   private var actions: [BMCAction] = []
-  private var notifications: [BMCNotification] = []
-
-  private(set) var isPendingPermission = false
-  private var isAuthenticated = false
-  private var filesPrepared = false
 
   let minCategoryNameLength: UInt = 0
   let maxCategoryNameLength: UInt = 60
@@ -40,10 +34,6 @@ final class BMCDefaultViewModel: NSObject {
     return actions
   }
 
-  private func getNotifications() -> [BMCNotification] {
-    [.load]
-  }
-
   func reloadData() {
     sections.removeAll()
 
@@ -59,7 +49,6 @@ final class BMCDefaultViewModel: NSObject {
       }
     } else {
       sections.append(.notifications)
-      notifications = getNotifications()
     }
 
     view?.update(sections: [])
@@ -88,7 +77,7 @@ extension BMCDefaultViewModel {
     case .categories: return categories.count
     case .actions: return actions.count
     case .recentlyDeleted: return 1
-    case .notifications: return notifications.count
+    case .notifications: return 1
     }
   }
 
@@ -106,10 +95,6 @@ extension BMCDefaultViewModel {
 
   func recentlyDeletedCategories() -> BMCAction {
     .recentlyDeleted(Int(manager.recentlyDeletedCategoriesCount()))
-  }
-
-  func notification(at index: Int) -> BMCNotification {
-    notifications[index]
   }
 
   func areAllCategoriesHidden() -> Bool {
@@ -172,14 +157,6 @@ extension BMCDefaultViewModel {
 
   func removeFromObserverList() {
     manager.remove(self)
-  }
-
-  func setNotificationsEnabled(_ enabled: Bool) {
-    manager.setNotificationsEnabled(enabled)
-  }
-
-  func areNotificationsEnabled() -> Bool {
-    manager.areNotificationsEnabled()
   }
 }
 

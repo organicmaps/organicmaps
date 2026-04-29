@@ -12,8 +12,6 @@ final class NavigationDashboardViewController: UIViewController {
     static let closeButtonSize: CGSize = .init(width: 28, height: 28)
 
     static let settingsButtonSize: CGFloat = 32
-    static let settingsButtonInsetRight: CGFloat = -16
-    static let settingsButtonSpacing: CGFloat = 8
 
     static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -20)
     static let transportOptionsCollectionHeight: CGFloat = 44

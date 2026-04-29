@@ -12,9 +12,6 @@ final class CarPlayMapViewController: MWMViewController {
   private var isCameraOnRoute: Bool = false
   private var viewPortState: CPViewPortState = .default
   private var isSpeedCamBlinking: Bool = false
-  private var isLeftWheelCar: Bool {
-    speedInfoView.frame.origin.x > view.frame.midX
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -1,12 +1,8 @@
-protocol BookmarksListDelegate: AnyObject {
-  func bookmarksListDidDeleteGroup()
-}
-
 final class BookmarksListPresenter {
   private weak var view: IBookmarksListView?
   private let router: IBookmarksListRouter
   private var interactor: IBookmarksListInteractor
-  private weak var delegate: BookmarksListDelegate?
+  private weak var sourceViewController: UIViewController?
   private var bookmarkGroup: BookmarkGroup
 
   private enum EditableItem {
@@ -18,11 +14,11 @@ final class BookmarksListPresenter {
 
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
-       delegate: BookmarksListDelegate?,
+       sourceViewController: UIViewController?,
        interactor: IBookmarksListInteractor) {
     self.view = view
     self.router = router
-    self.delegate = delegate
+    self.sourceViewController = sourceViewController
     self.interactor = interactor
     bookmarkGroup = interactor.getBookmarkGroup()
     subscribeOnGroupReloading()
@@ -224,8 +220,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
                                  description: bookmarkGroup.detailedAnnotation,
                                  hasDescription: bookmarkGroup.hasDescription,
                                  isHtmlDescription: bookmarkGroup.isHtmlDescription,
-                                 imageUrl: bookmarkGroup.imageUrl,
-                                 hasLogo: false)
+                                 imageUrl: bookmarkGroup.imageUrl)
     view?.setInfo(info)
   }
 
@@ -281,11 +276,11 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     case let bookmarksSection as IBookmarksSectionViewModel:
       guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
       editingItem = .bookmark(bookmark.bookmarkId)
-      router.selectGroup(currentGroupName: group.title, currentGroupId: group.categoryId, delegate: self)
+      router.selectGroup(currentGroupId: group.categoryId, delegate: self)
     case let tracksSection as ITracksSectionViewModel:
       guard let track = tracksSection.tracks[index] as? TrackViewModel else { fatalError() }
       editingItem = .track(track.trackId)
-      router.selectGroup(currentGroupName: group.title, currentGroupId: group.categoryId, delegate: self)
+      router.selectGroup(currentGroupId: group.categoryId, delegate: self)
     default:
       fatalError("Cannot move item: unsupported section type: \(section.self)")
     }
@@ -375,15 +370,14 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
                                  description: bookmarkGroup.detailedAnnotation,
                                  hasDescription: bookmarkGroup.hasDescription,
                                  isHtmlDescription: bookmarkGroup.isHtmlDescription,
-                                 imageUrl: bookmarkGroup.imageUrl,
-                                 hasLogo: false)
+                                 imageUrl: bookmarkGroup.imageUrl)
     view?.setInfo(info)
     viewController.goBack()
   }
 
   func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
-    if let delegate = delegate as? UIViewController {
-      viewController.navigationController?.popToViewController(delegate, animated: true)
+    if let sourceViewController {
+      viewController.navigationController?.popToViewController(sourceViewController, animated: true)
     }
   }
 }
@@ -547,14 +541,12 @@ private struct BookmarksListInfo: IBookmarksListInfoViewModel {
   let hasDescription: Bool
   let isHtmlDescription: Bool
   let imageUrl: URL?
-  let hasLogo: Bool
 
-  init(title: String, description: String, hasDescription: Bool, isHtmlDescription: Bool, imageUrl: URL? = nil, hasLogo: Bool = false) {
+  init(title: String, description: String, hasDescription: Bool, isHtmlDescription: Bool, imageUrl: URL? = nil) {
     self.title = title
     self.description = description
     self.hasDescription = hasDescription
     self.isHtmlDescription = isHtmlDescription
     self.imageUrl = imageUrl
-    self.hasLogo = hasLogo
   }
 }

@@ -961,9 +961,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 - (BookmarksCoordinator *)bookmarksCoordinator
 {
   if (!_bookmarksCoordinator)
-    _bookmarksCoordinator = [[BookmarksCoordinator alloc] initWithNavigationController:self.navigationController
-                                                                       controlsManager:self.controlsManager
-                                                                     navigationManager:self.navigationDashboardManager];
+    _bookmarksCoordinator = [[BookmarksCoordinator alloc] initWithNavigationController:self.navigationController];
   return _bookmarksCoordinator;
 }
 

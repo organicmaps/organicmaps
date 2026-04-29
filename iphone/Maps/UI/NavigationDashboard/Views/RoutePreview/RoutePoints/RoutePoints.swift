@@ -28,14 +28,6 @@ extension NavigationDashboard.RoutePoints {
     }
   }
 
-  func index(of point: MWMRoutePoint) -> Int? {
-    switch point {
-    case start: return 0
-    case finish: return count - 1
-    default: return intermediate.firstIndex(of: point)
-    }
-  }
-
   func title(for index: Int) -> String {
     switch index {
     case 0:
@@ -45,10 +37,6 @@ extension NavigationDashboard.RoutePoints {
     default:
       return intermediate[index - 1].title
     }
-  }
-
-  func subtitle(for index: Int) -> String? {
-    self[index]?.subtitle
   }
 
   func image(for index: Int) -> UIImage {

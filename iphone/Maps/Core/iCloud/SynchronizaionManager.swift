@@ -1,8 +1,3 @@
-enum VoidResult {
-  case success
-  case failure(Error)
-}
-
 enum WritingResult {
   case success
   case reloadCategoriesAtURLs([URL])
@@ -10,7 +5,6 @@ enum WritingResult {
   case failure(Error)
 }
 
-typealias VoidResultCompletionHandler = (VoidResult) -> Void
 typealias WritingResultCompletionHandler = (WritingResult) -> Void
 
 private let kBookmarksDirectoryName = "bookmarks"
@@ -297,11 +291,6 @@ private extension iCloudSynchronizaionManager {
 }
 
 // MARK: - Observation
-
-protocol SynchronizationStateObservation {
-  func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (SynchronizationManagerState) -> Void)
-  func removeObserver(_ observer: AnyObject)
-}
 
 extension iCloudSynchronizaionManager {
   func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (SynchronizationManagerState) -> Void) {

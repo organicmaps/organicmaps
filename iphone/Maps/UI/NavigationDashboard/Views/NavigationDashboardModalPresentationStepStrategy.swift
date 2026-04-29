@@ -12,7 +12,6 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
     static let iPadWidth: CGFloat = 350
     static let iPadLeadingOffset: CGFloat = 20
     static let compactHeightOffset: CGFloat = 300
-    static let fullScreenHeightFactorPortrait: CGFloat = 0.1
     static let halfScreenHeightFactorPortrait: CGFloat = 0.55
     static let halfScreenOriginFactorPortrait: CGFloat = 0.5
     static let topInset: CGFloat = 8

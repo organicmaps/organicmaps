@@ -112,7 +112,7 @@ final class BMCViewController: MWMViewController {
   private func openCategory(category: BookmarkGroup) {
     let bmViewController = BookmarksListBuilder.build(markGroupId: category.categoryId,
                                                       bookmarksCoordinator: coordinator,
-                                                      delegate: self)
+                                                      sourceViewController: self)
     MapViewController.shared()?.navigationController?.pushViewController(bmViewController, animated: true)
   }
 
@@ -185,14 +185,6 @@ extension BMCViewController: BMCView {
 
   func delete(at indexPaths: [IndexPath]) {
     tableView.deleteRows(at: indexPaths, with: .automatic)
-  }
-
-  func conversionFinished(success: Bool) {
-    MWMAlertViewController.activeAlert().closeAlert {
-      if !success {
-        MWMAlertViewController.activeAlert().presentBookmarkConversionErrorAlert()
-      }
-    }
   }
 }
 
@@ -327,12 +319,6 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
 
   func categorySettingsController(_: CategorySettingsViewController,
                                   didDelete _: MWMMarkGroupID) {
-    navigationController?.popViewController(animated: true)
-  }
-}
-
-extension BMCViewController: BookmarksListDelegate {
-  func bookmarksListDidDeleteGroup() {
     navigationController?.popViewController(animated: true)
   }
 }
