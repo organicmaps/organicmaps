@@ -180,8 +180,7 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     }
 
     texture->UploadData(context, originX, originY, uploadRect.SizeX(), uploadRect.SizeY(), make_ref(basePtr));
-
-    SharedBufferManager::Instance().FreeSharedBuffer(std::move(buffer));
+    // buffer's deleter returns the pooled buffer on scope exit.
   }
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/shared_buffer_manager.hpp"
 
@@ -17,17 +16,12 @@ struct GlyphImage
     , m_height(h)
     , m_data(std::move(d))
   {}
-  ~GlyphImage() { ASSERT(!m_data, ("Probably you forgot to call Destroy()")); }
   GlyphImage(GlyphImage const &) = delete;
   GlyphImage & operator=(GlyphImage const &) = delete;
   GlyphImage(GlyphImage &&) noexcept = default;
   GlyphImage & operator=(GlyphImage &&) noexcept = default;
 
-  void Destroy()
-  {
-    if (m_data)
-      SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_data));
-  }
+  // m_data's deleter returns the underlying buffer to SharedBufferManager's pool.
 
   uint32_t m_width = 0;
   uint32_t m_height = 0;
