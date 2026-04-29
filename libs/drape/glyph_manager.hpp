@@ -70,10 +70,10 @@ public:
 
   int GetFontIndex(strings::UniChar unicodePoint);
 
-  text::TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang);
-  text::TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, char const * lang);
+  text::TextMetrics ShapeText(std::string_view utf8, int8_t lang);
+  text::TextMetrics ShapeText(std::string_view utf8, char const * lang);
 
-  GlyphImage GetGlyphImage(GlyphFontAndId key, int pixelHeight, bool sdf) const;
+  GlyphImage GetGlyphImage(GlyphFontAndId key, bool sdf);
 
 private:
   int FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const;
