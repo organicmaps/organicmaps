@@ -124,21 +124,18 @@ void HashCombine(size_t & seed, size_t value)
 struct TextMetricsCacheKeyView
 {
   std::string_view m_utf8;
-  int m_fontPixelHeight;
   int8_t m_lang;
 };
 
 struct TextMetricsCacheKey
 {
   std::string m_utf8;
-  int m_fontPixelHeight;
   int8_t m_lang;
 };
 
 size_t HashTextMetricsCacheKey(TextMetricsCacheKeyView const & key)
 {
   size_t seed = base::StringHash{}(key.m_utf8);
-  HashCombine(seed, std::hash<int>{}(key.m_fontPixelHeight));
   HashCombine(seed, std::hash<int>{}(key.m_lang));
   return seed;
 }
@@ -147,10 +144,7 @@ struct TextMetricsCacheKeyHash
 {
   using is_transparent = void;
 
-  size_t operator()(TextMetricsCacheKey const & key) const
-  {
-    return HashTextMetricsCacheKey({key.m_utf8, key.m_fontPixelHeight, key.m_lang});
-  }
+  size_t operator()(TextMetricsCacheKey const & key) const { return HashTextMetricsCacheKey({key.m_utf8, key.m_lang}); }
 
   size_t operator()(TextMetricsCacheKeyView const & key) const { return HashTextMetricsCacheKey(key); }
 };
@@ -161,22 +155,22 @@ struct TextMetricsCacheKeyEqual
 
   static bool Equal(TextMetricsCacheKeyView const & lhs, TextMetricsCacheKeyView const & rhs)
   {
-    return lhs.m_fontPixelHeight == rhs.m_fontPixelHeight && lhs.m_lang == rhs.m_lang && lhs.m_utf8 == rhs.m_utf8;
+    return lhs.m_lang == rhs.m_lang && lhs.m_utf8 == rhs.m_utf8;
   }
 
   bool operator()(TextMetricsCacheKey const & lhs, TextMetricsCacheKey const & rhs) const
   {
-    return Equal({lhs.m_utf8, lhs.m_fontPixelHeight, lhs.m_lang}, {rhs.m_utf8, rhs.m_fontPixelHeight, rhs.m_lang});
+    return Equal({lhs.m_utf8, lhs.m_lang}, {rhs.m_utf8, rhs.m_lang});
   }
 
   bool operator()(TextMetricsCacheKey const & lhs, TextMetricsCacheKeyView const & rhs) const
   {
-    return Equal({lhs.m_utf8, lhs.m_fontPixelHeight, lhs.m_lang}, rhs);
+    return Equal({lhs.m_utf8, lhs.m_lang}, rhs);
   }
 
   bool operator()(TextMetricsCacheKeyView const & lhs, TextMetricsCacheKey const & rhs) const
   {
-    return Equal(lhs, {rhs.m_utf8, rhs.m_fontPixelHeight, rhs.m_lang});
+    return Equal(lhs, {rhs.m_utf8, rhs.m_lang});
   }
 };
 
@@ -266,9 +260,11 @@ public:
     if (auto const sizeErr = FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace.get(), 0, kBaseFontSizePixels)); sizeErr != 0)
       MYTHROW(InvalidFontException, (sizeErr, GetFreetypeErrorMessage(sizeErr)));
 
-    m_pixelHeight = kBaseFontSizePixels;
     if (auto const activateErr = FREETYPE_CHECK(FT_Activate_Size(m_fontFace->size)); activateErr != 0)
       MYTHROW(InvalidFontException, (activateErr, GetFreetypeErrorMessage(activateErr)));
+
+    m_harfbuzzFont.reset(hb_ft_font_create(m_fontFace.get(), nullptr));
+    CHECK(m_harfbuzzFont != nullptr, ());
   }
 
   ~Font() = default;
@@ -277,11 +273,8 @@ public:
 
   bool HasGlyph(strings::UniChar unicodePoint) const { return FT_Get_Char_Index(m_fontFace.get(), unicodePoint) != 0; }
 
-  GlyphImage GetGlyphImage(uint16_t glyphId, int pixelHeight, bool sdf) const
+  GlyphImage GetGlyphImage(uint16_t glyphId, bool sdf)
   {
-    if (!SetPixelHeight(pixelHeight))
-      return {};
-
     // FT_LOAD_RENDER with FT_RENDER_MODE_SDF uses bsdf driver that is around 3x times faster
     // than sdf driver, activated by FT_LOAD_DEFAULT + FT_RENDER_MODE_SDF
     if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace.get(), glyphId, FT_LOAD_RENDER)) != 0)
@@ -350,22 +343,10 @@ public:
   bool IsGlyphReady(uint16_t glyphId) const { return m_readyGlyphs.find(glyphId) != m_readyGlyphs.end(); }
 
   // This code is not thread safe.
-  void Shape(hb_buffer_t * hbBuffer, int fontPixelSize, int fontIndex, text::TextMetrics & outMetrics)
+  void Shape(hb_buffer_t * hbBuffer, int fontIndex, text::TextMetrics & outMetrics)
   {
-    // TODO(AB): Use hb_font_set_scale to scale the same size font in HB instead of changing it in Freetype.
-    if (!SetPixelHeight(fontPixelSize))
-      return;
-
-    if (!m_harfbuzzFont)
-    {
-      m_harfbuzzFont.reset(hb_ft_font_create(m_fontFace.get(), nullptr));
-      CHECK(m_harfbuzzFont != nullptr, ());
-    }
-
-    // Shape!
     hb_shape(m_harfbuzzFont.get(), hbBuffer, nullptr, 0);
 
-    // Get the glyph and position information.
     unsigned int glyphCount;
     hb_glyph_info_t const * glyphInfo = hb_buffer_get_glyph_infos(hbBuffer, &glyphCount);
     hb_glyph_position_t const * glyphPos = hb_buffer_get_glyph_positions(hbBuffer, &glyphCount);
@@ -381,7 +362,7 @@ public:
       FT_Int32 constexpr flags = FT_LOAD_DEFAULT;
       if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace.get(), glyphId, flags)) != 0)
       {
-        outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, 0, 0, xAdvance, fontPixelSize);
+        outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, 0, 0, xAdvance, kBaseFontSizePixels);
         continue;
       }
 
@@ -391,36 +372,21 @@ public:
       auto const yOffset = static_cast<int32_t>((currPos.y_offset + metrics.horiBearingY - metrics.height) >> 6);
       // yAdvance is always zero for horizontal text layouts.
 
-      outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, xOffset, yOffset, xAdvance, fontPixelSize);
+      outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, xOffset, yOffset, xAdvance,
+                                 kBaseFontSizePixels);
     }
   }
 
 private:
-  bool SetPixelHeight(int pixelHeight) const
-  {
-    if (m_pixelHeight == pixelHeight)
-      return true;
-
-    if (FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace.get(), 0 /* pixel_width */, pixelHeight /* pixel_height */)) != 0)
-      return false;
-
-    m_pixelHeight = pixelHeight;
-    if (m_harfbuzzFont)
-      hb_ft_font_changed(m_harfbuzzFont.get());
-
-    return true;
-  }
-
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
   FtFacePtr m_fontFace;
 
   std::set<uint16_t> m_readyGlyphs;
 
-  mutable int m_pixelHeight = 0;
   // Declared after m_fontFace so HbFontDeleter runs first: hb_font_destroy releases its FT_Face
   // reference before FtFaceDeleter calls FT_Done_Face.
-  mutable HbFontPtr m_harfbuzzFont;
+  HbFontPtr m_harfbuzzFont;
 };
 
 // Information about single unicode block.
@@ -728,16 +694,16 @@ bool GlyphManager::AreGlyphsReady(TGlyphs const & glyphs) const
 }
 
 // TODO(AB): Check and support invalid glyphs.
-GlyphImage GlyphManager::GetGlyphImage(GlyphFontAndId key, int pixelHeight, bool sdf) const
+GlyphImage GlyphManager::GetGlyphImage(GlyphFontAndId key, bool sdf)
 {
-  return m_impl->m_fonts[key.m_fontIndex]->GetGlyphImage(key.m_glyphId, pixelHeight, sdf);
+  return m_impl->m_fonts[key.m_fontIndex]->GetGlyphImage(key.m_glyphId, sdf);
 }
 
 // This method is NOT multithreading-safe.
-text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang)
+text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int8_t lang)
 {
   // A simple cache greatly speeds up text metrics calculation. It has 80+% hit ratio in most scenarios.
-  TextMetricsCacheKeyView const cacheKey{utf8, fontPixelHeight, lang};
+  TextMetricsCacheKeyView const cacheKey{utf8, lang};
   if (auto const found = m_impl->m_textMetricsCache.find(cacheKey); found != m_impl->m_textMetricsCache.end())
     return found->second;
 
@@ -813,7 +779,7 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
       fontRuns.push_back({runStart, runEnd - runStart, 0});
     }
 
-    auto const shapeFontRun = [this, &text, hbLanguage, fontPixelHeight, &substring, &allGlyphs](FontRun const & run)
+    auto const shapeFontRun = [this, &text, hbLanguage, &substring, &allGlyphs](FontRun const & run)
     {
       hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
       hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
@@ -822,7 +788,7 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
       hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
       hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
 
-      m_impl->m_fonts[run.m_fontIndex]->Shape(m_impl->m_harfbuzzBuffer, fontPixelHeight, run.m_fontIndex, allGlyphs);
+      m_impl->m_fonts[run.m_fontIndex]->Shape(m_impl->m_harfbuzzBuffer, run.m_fontIndex, allGlyphs);
     };
 
     if (substring.m_direction == HB_DIRECTION_RTL)
@@ -847,14 +813,13 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
     m_impl->m_textMetricsCache.clear();
   }
 
-  auto [it, _] = m_impl->m_textMetricsCache.emplace(TextMetricsCacheKey{std::string(utf8), fontPixelHeight, lang},
-                                                    std::move(allGlyphs));
+  auto [it, _] = m_impl->m_textMetricsCache.emplace(TextMetricsCacheKey{std::string(utf8), lang}, std::move(allGlyphs));
   return it->second;
 }
 
-text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHeight, char const * lang)
+text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, char const * lang)
 {
-  return ShapeText(utf8, fontPixelHeight, StringUtf8Multilang::GetLangIndex(lang));
+  return ShapeText(utf8, StringUtf8Multilang::GetLangIndex(lang));
 }
 
 }  // namespace dp

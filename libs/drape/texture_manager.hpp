@@ -138,8 +138,8 @@ public:
   using TMultilineGlyphsBuffer = buffer_vector<TGlyphsBuffer, 4>;
 
   using TShapedTextLines = buffer_vector<text::TextMetrics, 4>;
-  text::TextMetrics ShapeSingleTextLine(float fontPixelHeight, std::string_view utf8, TGlyphsBuffer * glyphRegions);
-  TShapedTextLines ShapeMultilineText(float fontPixelHeight, std::string_view utf8, char const * delimiters,
+  text::TextMetrics ShapeSingleTextLine(std::string_view utf8, TGlyphsBuffer * glyphRegions);
+  TShapedTextLines ShapeMultilineText(std::string_view utf8, char const * delimiters,
                                       TMultilineGlyphsBuffer & multilineGlyphRegions);
 
   // This method must be called only on Frontend renderer's thread.

@@ -119,7 +119,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphFontAndId const & ke
   newResource = true;
 
   constexpr bool kUseSdf = true;
-  GlyphImage glyphImage = m_mng->GetGlyphImage(key, dp::kBaseFontSizePixels, kUseSdf);
+  GlyphImage glyphImage = m_mng->GetGlyphImage(key, kUseSdf);
   m2::RectU r;
   if (!m_packer.PackGlyph(glyphImage.m_width, glyphImage.m_height, r))
   {

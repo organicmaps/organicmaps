@@ -119,7 +119,7 @@ dp::TGlyphs StaticLabel::CacheStaticText(std::string const & text, char const * 
       font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
 
   dp::TextureManager::TMultilineGlyphsBuffer buffers;
-  auto const shapedLines = mng->ShapeMultilineText(dp::kBaseFontSizePixels, text, delimiters, buffers);
+  auto const shapedLines = mng->ShapeMultilineText(text, delimiters, buffers);
 
   ASSERT_EQUAL(shapedLines.size(), buffers.size(), ());
 
@@ -313,7 +313,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
                 dp::kBaseFontSizePixels;
 
   // TODO(AB): Is this shaping/precaching really needed if the text changes every frame?
-  m_shapedText = mng->ShapeSingleTextLine(dp::kBaseFontSizePixels, params.m_alphabet, &m_glyphRegions);
+  m_shapedText = mng->ShapeSingleTextLine(params.m_alphabet, &m_glyphRegions);
 
   auto const firstTexture = m_glyphRegions.front().GetTexture();
 #ifdef DEBUG
@@ -363,7 +363,7 @@ void MutableLabel::SetText(LabelResult & result, std::string text, ref_ptr<dp::T
 
   // TODO(AB): Calculate only the length for pre-cached glyphs in a simpler way?
   m_glyphRegions.clear();
-  m_shapedText = mng->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
+  m_shapedText = mng->ShapeSingleTextLine(text, &m_glyphRegions);
 
   // TODO(AB): Reuse pre-calculated width and height?
   // float maxHeight = m_shapedText.m_maxLineHeightInPixels;

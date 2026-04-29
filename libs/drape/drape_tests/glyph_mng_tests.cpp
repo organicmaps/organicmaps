@@ -85,7 +85,7 @@ public:
     QPainter painter(device);
     painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
 
-    auto const shapedText = m_mng->ShapeText(m_utf8, m_fontPixelSize, m_lang);
+    auto const shapedText = m_mng->ShapeText(m_utf8, m_lang);
 
     std::cout << "Total width: " << shapedText.m_lineWidthInPixels << '\n';
     std::cout << "Max height: " << shapedText.m_maxLineHeightInPixels << '\n';
@@ -97,7 +97,7 @@ public:
     for (auto const & glyph : shapedText.m_glyphs)
     {
       constexpr bool kUseSdfBitmap = false;
-      dp::GlyphImage img = m_mng->GetGlyphImage(glyph.m_key, m_fontPixelSize, kUseSdfBitmap);
+      dp::GlyphImage img = m_mng->GetGlyphImage(glyph.m_key, kUseSdfBitmap);
 
       auto const w = img.m_width;
       auto const h = img.m_height;
@@ -121,7 +121,7 @@ public:
     for (auto const & glyph : shapedText.m_glyphs)
     {
       constexpr bool kUseSdfBitmap = true;
-      auto img = m_mng->GetGlyphImage(glyph.m_key, m_fontPixelSize, kUseSdfBitmap);
+      auto img = m_mng->GetGlyphImage(glyph.m_key, kUseSdfBitmap);
 
       auto const w = img.m_width;
       auto const h = img.m_height;

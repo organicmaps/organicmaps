@@ -511,7 +511,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   m_maxGlypsCount = static_cast<uint32_t>(ceil(kGlyphAreaCoverage * textureSquare / averageGlyphSquare));
 
   std::string_view constexpr kSpace{" "};
-  m_spaceGlyph = m_glyphManager->ShapeText(kSpace, dp::kBaseFontSizePixels, "en").m_glyphs.front().m_key;
+  m_spaceGlyph = m_glyphManager->ShapeText(kSpace, "en").m_glyphs.front().m_key;
 
   LOG(LDEBUG, ("Glyphs texture size =", kGlyphsTextureSize, "with max glyphs count =", m_maxGlypsCount));
 
@@ -671,7 +671,7 @@ std::optional<TextureManager::RainbowRegion> TextureManager::GetRainbowRegion(Ra
   return result;
 }
 
-text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std::string_view utf8,
+text::TextMetrics TextureManager::ShapeSingleTextLine(std::string_view utf8,
                                                       TGlyphsBuffer * glyphRegions)  // TODO(AB): Better name?
 {
   ASSERT(!utf8.empty(), ());
@@ -681,7 +681,7 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
   std::lock_guard lock(m_calcGlyphsMutex);
 
   // TODO(AB): Fix hard-coded lang.
-  auto textMetrics = m_glyphManager->ShapeText(utf8, fontPixelHeight, "en");
+  auto textMetrics = m_glyphManager->ShapeText(utf8, "en");
 
   auto const & glyphs = textMetrics.m_glyphs;
 
@@ -721,8 +721,7 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
   return textMetrics;
 }
 
-TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(float fontPixelHeight, std::string_view utf8,
-                                                                    char const * delimiters,
+TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(std::string_view utf8, char const * delimiters,
                                                                     TMultilineGlyphsBuffer & multilineGlyphRegions)
 {
   TShapedTextLines textLines;
@@ -733,7 +732,7 @@ TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(float fontPi
 
     multilineGlyphRegions.emplace_back();
 
-    textLines.emplace_back(ShapeSingleTextLine(fontPixelHeight, line, &multilineGlyphRegions.back()));
+    textLines.emplace_back(ShapeSingleTextLine(line, &multilineGlyphRegions.back()));
   });
 
   return textLines;
