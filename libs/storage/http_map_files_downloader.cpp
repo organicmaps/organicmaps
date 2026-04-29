@@ -57,9 +57,13 @@ void HttpMapFilesDownloader::Download()
     queuedCountry.OnStartDownloading();
 
     using namespace std::placeholders;
+    // doCleanOnCancel=false: keep .downloading and .resume on destruction so a graceful
+    // app shutdown mid-download does not lose progress. Storage::DeleteCountryFilesFromDownloader
+    // wipes them explicitly when the user actually removes the country.
     m_request.reset(downloader::HttpRequest::GetFile(
         urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
-        std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));
+        std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1),
+        512 * 1024 /* chunkSize */, false /* doCleanOnCancel */));
   }
   else
   {
