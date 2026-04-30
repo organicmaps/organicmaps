@@ -437,6 +437,17 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
   // Remove route point.
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
+  if (auto const * point = routePoints.GetRoutePoint(type, intermediateIndex); point != nullptr && !point->IsPassed())
+  {
+    auto const & callback = point->GetMarkData().m_callback;
+    if (!callback.empty())
+    {
+      if (m_routePointCallback)
+        m_routePointCallback(callback);
+      else
+        m_pendingRoutePointCallbacks.push_back(callback);
+    }
+  }
   routePoints.PassRoutePoint(type, intermediateIndex);
 
   if (type == RouteMarkType::Finish)
@@ -1063,6 +1074,17 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
   for (auto const & p : routePoints.GetRoutePoints())
     result.push_back(p->GetMarkData());
   return result;
+}
+
+void RoutingManager::SetRoutePointCallback(RoutePointCallback && callback)
+{
+  m_routePointCallback = std::move(callback);
+  while (m_routePointCallback && !m_pendingRoutePointCallbacks.empty())
+  {
+    std::string pendingCallback = std::move(m_pendingRoutePointCallbacks.front());
+    m_pendingRoutePointCallbacks.erase(m_pendingRoutePointCallbacks.begin());
+    m_routePointCallback(pendingCallback);
+  }
 }
 
 size_t RoutingManager::GetRoutePointsCount() const

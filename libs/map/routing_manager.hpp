@@ -60,6 +60,8 @@ struct RoutePointInfo
 class RoutingManager final
 {
 public:
+  using RoutePointCallback = std::function<void(std::string const &)>;
+
   class Delegate
   {
   public:
@@ -218,6 +220,7 @@ public:
   void AddRoutePoint(RouteMarkData && markData, bool reorderIntermediatePoints = true);
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
+  void SetRoutePointCallback(RoutePointCallback && callback);
   size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
@@ -365,6 +368,8 @@ private:
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;
+  RoutePointCallback m_routePointCallback;
+  std::vector<std::string> m_pendingRoutePointCallbacks;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
 
