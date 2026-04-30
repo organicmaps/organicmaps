@@ -90,7 +90,8 @@ UNIT_TEST(RouteApiV2MultipleStopsPreview)
 
 UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 {
-  string const urlString = "om://v2/nav?destination=2,2&destination_name=Finish&mode=drive&optimize=true";
+  string const urlString =
+      "om://v2/nav?destination=2,2&destination_name=Finish&mode=drive&optimize=true&origin_heading=90";
   TEST(url::Url(urlString).IsValid(), ());
 
   ParsedMapApi test(urlString);
@@ -102,6 +103,14 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
   TEST_EQUAL(test.GetRoutingType(), "vehicle", ());
   TEST(test.ShouldOptimizeRoutePoints(), ());
   TEST(test.ShouldStartRouteNavigation(), ());
+  TEST_ALMOST_EQUAL_ABS(test.GetRouteStartDirection().x, 1.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(test.GetRouteStartDirection().y, 0.0, kEps, ());
+}
+
+UNIT_TEST(RouteApiV2RejectsInvalidOriginHeading)
+{
+  ParsedMapApi test("om://v2/nav?destination=2,2&origin_heading=361");
+  TEST_EQUAL(test.GetRequestType(), UrlType::Incorrect, ());
 }
 
 UNIT_TEST(RouteApiV2CallbacksAndBikeMode)

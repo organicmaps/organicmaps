@@ -59,7 +59,7 @@ void RoutingSession::Init(PointCheckCallback const & pointCheckCallback)
   m_router = std::make_unique<AsyncRouter>(pointCheckCallback);
 }
 
-void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec)
+void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec, m2::PointD const & startDirection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
@@ -71,21 +71,24 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeou
   m_routingRebuildAnnounceCount = 0;
 
   RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback, m_removeRouteCallback, timeoutSec,
-               SessionState::RouteBuilding, false /* adjust */);
+               SessionState::RouteBuilding, false /* adjust */, startDirection);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
                                   NeedMoreMapsCallback const & needMoreMapsCallback,
                                   RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,
-                                  SessionState routeRebuildingState, bool adjustToPrevRoute)
+                                  SessionState routeRebuildingState, bool adjustToPrevRoute,
+                                  m2::PointD const & startDirection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
   SetState(routeRebuildingState);
 
   ++m_routingRebuildCount;
-  auto const & direction =
-      m_routingSettings.m_useDirectionForRouteBuilding ? m_positionAccumulator.GetDirection() : m2::PointD::Zero();
+  m2::PointD const direction = !startDirection.IsAlmostZero() ? startDirection
+                                                              : (m_routingSettings.m_useDirectionForRouteBuilding
+                                                                     ? m_positionAccumulator.GetDirection()
+                                                                     : m2::PointD::Zero());
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
