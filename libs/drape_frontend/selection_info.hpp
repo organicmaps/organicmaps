@@ -11,6 +11,11 @@
 
 namespace df
 {
+int constexpr kTransitSchemeMinZoomLevel = 10;
+/// Hard floor for long inter-city routes (railways): below this the line/stop overlays
+/// become unreadable, so we never widen visibility further than this.
+int constexpr kTransitSchemeMinZoomFloor = 7;
+
 /// A polyline in mercator coordinates. Used by selection / transit highlight payloads
 /// passed from the map layer down to drape.
 using Polyline = std::vector<m2::PointD>;
@@ -51,6 +56,10 @@ struct TransitInfo
   std::vector<Route> m_routes;
   std::vector<Stop> m_stops;
   dp::Color m_color;
+
+  /// Min map zoom at which this transit view becomes visible. Set by the caller depending on
+  /// the route's geographic extent (e.g. lower for long routes spanning a city).
+  int m_minZoomLevel = kTransitSchemeMinZoomLevel;
 
   bool IsEmpty() const { return m_routes.empty() && m_stops.empty(); }
 };

@@ -102,6 +102,7 @@ public:
     FlushTransitScheme,
     ShowRouteTransit,
     HideRouteTransit,
+    SetTransitSchemeMinZoom,
     ShowDebugInfo,
     NotifyRenderThread,
     NotifyGraphicsReady,
