@@ -852,8 +852,7 @@ void Framework::ShowBookmark(Bookmark const * mark)
   auto es = GetBookmarkManager().GetEditSession();
   es.SetIsVisible(mark->GetGroupId(), true /* visible */);
 
-  if (m_drapeEngine)
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */, true /* trackVisibleViewport */);
+  SetViewportCenter(mark->GetPivot(), scale, true /* isAnim */, true /* trackVisibleViewport */);
 
   ActivateMapSelection();
 }
@@ -877,9 +876,7 @@ void Framework::ShowTrack(kml::TrackId trackId)
   auto es = bm.GetEditSession();
   es.SetIsVisible(track->GetGroupId(), true /* visible */);
 
-  if (m_drapeEngine)
-    m_drapeEngine->SetModelViewRect(rect, true, scales::GetScaleLevel(rect), true /* isAnim */,
-                                    true /* trackVisibleViewport */);
+  ShowRect(rect, true /* isAnim */, true /* useVisibleViewport */);
 
   ActivateMapSelection();
 }
@@ -894,7 +891,7 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   ExpandRectForPreview(rect);
 
   StopLocationFollow();
-  ShowRect(rect, -1 /* maxScale */, animation);
+  ShowRect(rect, animation);
 
   auto es = bm.GetEditSession();
   es.SetIsVisible(categoryId, true /* visible */);
@@ -979,7 +976,7 @@ m2::PointD const & Framework::GetViewportCenter() const
 void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel /* = -1 */, bool isAnim /* = true */,
                                   bool trackVisibleViewport /* = false */)
 {
-  if (m_drapeEngine != nullptr)
+  if (m_drapeEngine)
     m_drapeEngine->SetModelViewCenter(pt, zoomLevel, isAnim, trackVisibleViewport);
 }
 
@@ -1005,17 +1002,15 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
   m_drapeEngine->SetVisibleViewport(rect);
 }
 
-void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation, bool useVisibleViewport)
+void Framework::ShowRect(m2::RectD const & rect, bool animation, bool useVisibleViewport)
 {
-  if (m_drapeEngine == nullptr)
-    return;
-
-  m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, maxScale /* zoom */, animation, useVisibleViewport);
+  if (m_drapeEngine)
+    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */, animation, useVisibleViewport);
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect, bool animation, bool useVisibleViewport)
 {
-  if (m_drapeEngine != nullptr)
+  if (m_drapeEngine)
     m_drapeEngine->SetModelViewAnyRect(rect, animation, useVisibleViewport);
 }
 
@@ -1409,7 +1404,7 @@ void Framework::ShowRouteTransit(uint32_t relID)
     if (zoom < df::kTransitSchemeMinZoomLevel)
       info->m_minZoomLevel = std::max(df::kTransitSchemeMinZoomFloor, zoom);
 
-    ShowRect(bbox, -1 /* maxScale */, true /* animation */, true /* useVisibleViewport */);
+    ShowRect(bbox, true /* animation */, true /* useVisibleViewport */);
   }
 
   UpdateTrackSelectionColor(info->m_color);

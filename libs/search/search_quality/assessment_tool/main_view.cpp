@@ -154,7 +154,7 @@ void MainView::MoveViewportToResult(search::Sample::Result const & result)
 
 void MainView::MoveViewportToRect(m2::RectD const & rect)
 {
-  m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */);
+  m_framework.ShowRect(rect, false /* animation */);
 }
 
 void MainView::OnResultChanged(size_t sampleIndex, ResultType type, ResultsEdits::Update const & update)
