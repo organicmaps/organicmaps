@@ -129,15 +129,24 @@ Info::RouteRef::RouteRef(uint32_t relID, feature::RouteRelationBase const & rel)
   , m_type(rel.GetType())
   , m_color(rel.GetColor())
 {
-  // May be "S10" or "12A".
-  /// @todo Sort by prefix if it is different (unlikely).
-  auto it = base::FindIf(m_ref, &strings::IsASCIIDigit<char>);
-  if (it != m_ref.end())
+  if (!m_ref.empty())
   {
-    auto const [_, ec] = std::from_chars(std::to_address(it), std::to_address(m_ref.end()), m_iRef, 10);
-    if (ec != std::errc())
-      m_iRef = 0;
+    // May be "S10" or "12A".
+    /// @todo Sort by prefix if it is different (unlikely).
+    auto it = base::FindIf(m_ref, &strings::IsASCIIDigit<char>);
+    if (it != m_ref.end())
+    {
+      auto const [_, ec] = std::from_chars(std::to_address(it), std::to_address(m_ref.end()), m_iRef, 10);
+      if (ec != std::errc())
+        m_iRef = 0;
+    }
   }
+  else
+  {
+    if (auto name = rel.GetDefaultName(); !name.empty())
+      m_ref = name;
+  }
+
   // Set max _possible_ value to be placed at the end.
   if (m_iRef == 0)
     m_iRef = 1000000;
