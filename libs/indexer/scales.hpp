@@ -65,10 +65,13 @@ constexpr int GetPointHousenumbersScale()
 
 int GetMinAllowableIn3dScale();
 
+/// @obsolete Use functions from visual_params.hpp
+/// @{
 double GetScaleLevelD(double ratio);
 double GetScaleLevelD(m2::RectD const & r);
 int GetScaleLevel(double ratio);
 int GetScaleLevel(m2::RectD const & r);
+/// @}
 
 double GetEpsilonForLevel(int level);
 double GetEpsilonForSimplify(int level);
