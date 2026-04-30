@@ -6,9 +6,9 @@
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -92,27 +92,25 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
 
   using PropID = osm::MapObject::MetadataID;
 
-  // Route refs — one clickable button per route; click shows the route's transit view.
+  // Route refs — pick a route from the combo to show its transit view.
   if (auto const & routes = info.GetRoutes(); !routes.empty())
   {
     grid->addWidget(new QLabel("Routes"), row, 0);
 
-    QHBoxLayout * routesRow = new QHBoxLayout();
-    routesRow->setContentsMargins(0, 0, 0, 0);
+    QComboBox * routesCombo = new QComboBox();
+    // Placeholder so opening the dialog does not auto-select (and trigger) the first route.
+    routesCombo->setPlaceholderText("Select a route…");
     for (auto const & r : routes)
     {
-      QPushButton * btn = new QPushButton(QString::fromStdString(r.m_ref));
-      btn->setAutoDefault(false);
-      btn->setToolTip(QString::fromStdString(r.m_from + (r.m_to.empty() ? "" : " → " + r.m_to)));
-      uint32_t const relID = r.m_relID;
-      connect(btn, &QAbstractButton::clicked, this, [this, relID]() { m_framework.ShowRouteTransit(relID); });
-      routesRow->addWidget(btn);
+      QString const text = QString::fromStdString(r.m_ref);
+      QString const tip = QString::fromStdString(r.m_from + (r.m_to.empty() ? "" : " → " + r.m_to));
+      routesCombo->addItem(text, QVariant::fromValue<uint32_t>(r.m_relID));
+      routesCombo->setItemData(routesCombo->count() - 1, tip, Qt::ToolTipRole);
     }
-    routesRow->addStretch();
+    connect(routesCombo, QOverload<int>::of(&QComboBox::activated), this, [this, routesCombo](int idx)
+    { m_framework.ShowRouteTransit(routesCombo->itemData(idx).value<uint32_t>()); });
 
-    QWidget * routesContainer = new QWidget();
-    routesContainer->setLayout(routesRow);
-    grid->addWidget(routesContainer, row++, 1);
+    grid->addWidget(routesCombo, row++, 1);
   }
 
   // Cuisine fragment
