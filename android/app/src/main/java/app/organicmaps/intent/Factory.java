@@ -128,7 +128,14 @@ public class Factory
         SearchEngine.INSTANCE.cancelInteractiveSearch();
         target.forceCloseSearchFragment();
         final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
-        RoutingController.get().prepareApiRoute(data.mRouterType, data.mStartRouteNavigation);
+        final List<MapObject> routePoints = new ArrayList<>(data.mPoints.length);
+        for (RoutePoint point : data.mPoints)
+        {
+          routePoints.add(MapObject.createMapObject(point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.API_POINT,
+                                                    point.mName, "", point.mLat, point.mLon));
+        }
+        RoutingController.get().prepare(routePoints, data.mRouterType, data.mOptimizeRoutePoints,
+                                        data.mStartRouteNavigation, data.mStartDirectionX, data.mStartDirectionY);
         return true;
       case RequestType.SEARCH:
       {

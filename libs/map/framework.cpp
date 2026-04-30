@@ -2106,7 +2106,10 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
-  return {routing::FromString(m_parsedMapApi.GetRoutingType()), m_parsedMapApi.ShouldStartRouteNavigation()};
+  return Framework::ParsedRoutingData(
+      m_parsedMapApi.GetRoutePoints(), routing::FromString(m_parsedMapApi.GetRoutingType()),
+      m_parsedMapApi.ShouldOptimizeRoutePoints(), m_parsedMapApi.ShouldStartRouteNavigation(),
+      m_parsedMapApi.GetRouteStartDirection());
 }
 
 url_scheme::SearchRequest Framework::GetParsedSearchRequest() const

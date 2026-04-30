@@ -836,15 +836,24 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
 {
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
-  static jmethodID const ctor = jni::GetConstructorID(env, routeDataClazz, "(IZ)V");
-  auto const data = frm()->GetParsedRoutingData();
-  return env->NewObject(routeDataClazz, ctor, static_cast<jint>(data.m_type),
-                        static_cast<jboolean>(data.m_startRouteNavigation));
-}
+  // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean optimizeRoutePoints,
+  // boolean startRouteNavigation, double startDirectionX, double startDirectionY) {
+  static jmethodID const routeDataConstructor =
+      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;IZZDD)V");
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeExecuteRouteApiRequest(JNIEnv *, jclass)
-{
-  frm()->ExecuteRouteApiRequest();
+  auto const & routingData = frm()->GetParsedRoutingData();
+  jobjectArray points =
+      jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
+  {
+    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
+    return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
+                          mercator::XToLon(point.m_org.x), name.get(), static_cast<jboolean>(point.m_isMyPosition));
+  });
+
+  return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type,
+                        static_cast<jboolean>(routingData.m_optimizeRoutePoints),
+                        static_cast<jboolean>(routingData.m_startRouteNavigation), routingData.m_startDirection.x,
+                        routingData.m_startDirection.y);
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
@@ -1268,6 +1277,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeCloseRouting(JNIEnv * en
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().BuildRoute();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRouteWithStartDirection(JNIEnv * env, jclass,
+                                                                                     jdouble startDirectionX,
+                                                                                     jdouble startDirectionY)
+{
+  frm()->GetRoutingManager().BuildRoute(routing::RouterDelegate::kNoTimeout, {startDirectionX, startDirectionY});
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoute(JNIEnv * env, jclass)

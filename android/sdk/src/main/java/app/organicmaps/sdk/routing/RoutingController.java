@@ -12,6 +12,8 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+
+import java.util.List;
 import org.chromium.base.ObserverList;
 
 @androidx.annotation.UiThread
@@ -346,6 +348,11 @@ public class RoutingController
   {
     mStartNavigationAfterBuild = false;
     mContainsCachedResult = false;
+    build(0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
+  }
+
+  private void build(double startDirectionX, double startDirectionY)
+  {
     Framework.nativeRemoveRoute();
 
     Logger.d(TAG, "build");
@@ -360,7 +367,7 @@ public class RoutingController
 
     // This build uses the current settings and route marks, so it consumes any deferred options change.
     mPendingOptionsRebuild = false;
-    Framework.nativeBuildRoute();
+    Framework.nativeBuildRouteWithStartDirection(startDirectionX, startDirectionY);
   }
 
   public void restoreRoute()
@@ -472,39 +479,63 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
-  public void prepareApiRoute(@NonNull Router routerType, boolean startNavigation)
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType)
   {
+    prepare(routePoints, routerType, false /* optimizeRoutePoints */);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints)
+  {
+    prepare(routePoints, routerType, optimizeRoutePoints, false /* startNavigation */);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
+                      boolean startNavigation)
+  {
+    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, 0.0 /* startDirectionX */,
+            0.0 /* startDirectionY */);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
+                      boolean startNavigation, double startDirectionX, double startDirectionY)
+  {
+    if (routePoints.size() < 2)
+      return;
+
+    // Deep-link route points are already ordered by the URL parser. Preserve
+    // that itinerary by default, but allow API callers to request the existing
+    // intermediate-point optimization when stop order is not important.
     cancel();
+    Framework.nativeRemoveRoute();
+    Framework.nativeRemoveRoutePoints();
     setState(State.PREPARE);
 
     mLastRouterType = routerType;
     Router.set(mLastRouterType);
-    // The core sets the auto-start flag only for nav requests, which always route
-    // from the current position, so honor the parsed flag directly.
     mStartNavigationAfterBuild = startNavigation;
-    // BUILDING must be set before the native call: a build that fails synchronously
-    // (e.g. NoCurrentPosition) reports through onRoutingEvent during the call and
-    // overwrites this state with ERROR.
-    setBuildState(BuildState.BUILDING);
-    mLastBuildProgress = 0;
-    mRouteSaved = false;
-    if (mContainer != null)
-      mContainer.onStartRouteBuilding();
+    mContainsCachedResult = false;
 
-    // The core materializes the parsed itinerary as route points and starts the build,
-    // so show the planning UI without triggering another build: the no-points
-    // startPlanning() overload only refreshes the plan from its completion callback.
-    Framework.nativeExecuteRouteApiRequest();
-
-    if (mContainer != null)
+    addRoutePoint(RouteMarkType.Start, routePoints.get(0), optimizeRoutePoints);
+    if (optimizeRoutePoints)
     {
-      mContainer.updateMenu();
-      if (isPlanning())
-      {
-        startPlanning();
-        mContainer.onPlanningStarted();
-      }
+      // The optimizer needs a known finish before it predicts positions for
+      // intermediate points.
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), optimizeRoutePoints);
+      for (int i = 1; i + 1 < routePoints.size(); ++i)
+        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, optimizeRoutePoints);
     }
+    else
+    {
+      for (int i = 1; i + 1 < routePoints.size(); ++i)
+        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, optimizeRoutePoints);
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), optimizeRoutePoints);
+    }
+
+    if (mContainer != null)
+      mContainer.updateMenu();
+
+    startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1));
+    build(startDirectionX, startDirectionY);
   }
 
   public void start()
