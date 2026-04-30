@@ -28,7 +28,7 @@ Optional parameters:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order. Empty slots are skipped.
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
-- `destination_callback=...` and `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
+- `origin_callback=...`, `destination_callback=...` and `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
   Organic Maps opens a stop callback when the corresponding route point is passed during navigation while the
   app is in the foreground. Preview tracking does not open callbacks. Stops passed while Organic Maps is in the
   background are deferred until it returns to the foreground, and only the most recent pending callback

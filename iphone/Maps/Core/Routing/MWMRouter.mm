@@ -56,14 +56,15 @@ NSURL * RoutePointCallbackURL(NSString * callbackString)
 
 void OpenRoutePointCallback(std::string const & callback)
 {
-  ASSERT(NSThread.isMainThread, ());
-  NSURL * url = RoutePointCallbackURL(@(callback.c_str()));
-  if (!url)
-    return;
+  NSString * callbackString = @(callback.c_str());
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSURL * url = RoutePointCallbackURL(callbackString);
+    if (!url)
+      return;
 
-  [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+  });
 }
-
 }  // namespace
 
 @interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
