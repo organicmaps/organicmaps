@@ -835,6 +835,11 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
 {
+  using namespace url_scheme;
+  static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
+  // Java signature : RoutePoint(double lat, double lon, String name, String callback, boolean isMyPosition)
+  static jmethodID const pointConstructor =
+      jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;Ljava/lang/String;Z)V");
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
   // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean optimizeRoutePoints,
   // boolean startRouteNavigation, double startDirectionX, double startDirectionY) {
@@ -846,8 +851,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(
       jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
   {
     jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
+    jni::TScopedLocalRef const callback(env, jni::ToJavaString(env, point.m_callback));
     return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
-                          mercator::XToLon(point.m_org.x), name.get(), static_cast<jboolean>(point.m_isMyPosition));
+                          mercator::XToLon(point.m_org.x), name.get(), callback.get(),
+                          static_cast<jboolean>(point.m_isMyPosition));
   });
 
   return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type,

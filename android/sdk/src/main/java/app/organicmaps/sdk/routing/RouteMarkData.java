@@ -34,8 +34,8 @@ public final class RouteMarkData
   }
 
   public RouteMarkData(@Nullable String title, @Nullable String subtitle, RouteMarkType pointType,
-                       int intermediateIndex, boolean isVisible, boolean isMyPosition, boolean isPassed, double lat,
-                       double lon)
+                       int intermediateIndex, @Nullable String callback, boolean isVisible, boolean isMyPosition,
+                       boolean isPassed, double lat, double lon)
   {
     this(title, subtitle, pointType, intermediateIndex, null /* callback */, isVisible, isMyPosition, isPassed, lat,
          lon);
