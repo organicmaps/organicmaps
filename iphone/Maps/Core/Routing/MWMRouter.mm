@@ -29,6 +29,21 @@
 
 using namespace routing;
 
+namespace
+{
+void OpenRoutePointCallback(std::string const & callback)
+{
+  NSString * callbackString = @(callback.c_str());
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSURL * url = [NSURL URLWithString:callbackString];
+    if (!url)
+      return;
+
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+  });
+}
+}  // namespace
+
 @interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
@@ -219,6 +234,7 @@ using namespace routing;
     _canAutoAddLastLocation = YES;
     _routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     _isRestoreProcessCompleted = NO;
+    GetFramework().GetRoutingManager().SetRoutePointCallback(&OpenRoutePointCallback);
   }
   return self;
 }
