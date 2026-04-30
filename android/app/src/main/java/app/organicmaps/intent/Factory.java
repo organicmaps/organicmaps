@@ -95,7 +95,7 @@ public class Factory
                                                     point.mName, "", point.mLat, point.mLon));
         }
         RoutingController.get().prepare(routePoints, data.mRouterType, data.mOptimizeRoutePoints,
-                                        data.mStartRouteNavigation);
+                                        data.mStartRouteNavigation, data.mStartDirectionX, data.mStartDirectionY);
         return true;
       case RequestType.SEARCH:
       {
