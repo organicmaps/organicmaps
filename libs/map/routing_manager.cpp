@@ -1363,7 +1363,7 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
   m_routingSession.GenerateNotifications(turnNotifications, announceStreets);
 }
 
-void RoutingManager::BuildRoute(uint32_t timeoutSec)
+void RoutingManager::BuildRoute(uint32_t timeoutSec, m2::PointD const & startDirection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
@@ -1434,7 +1434,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec, startDirection);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)

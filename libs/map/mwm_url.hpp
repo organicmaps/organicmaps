@@ -110,6 +110,12 @@ public:
     return m_startRouteNavigation;
   }
 
+  m2::PointD const & GetRouteStartDirection() const
+  {
+    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    return m_startDirection;
+  }
+
   std::string const & GetRoutingType() const
   {
     ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
@@ -153,6 +159,7 @@ private:
   std::string m_oauth2code;
   ms::LatLon m_centerLatLon = ms::LatLon::Invalid();
   std::string m_routingType;
+  m2::PointD m_startDirection = m2::PointD::Zero();
   bool m_optimizeRoutePoints = false;
   bool m_startRouteNavigation = false;
   int m_version = 0;

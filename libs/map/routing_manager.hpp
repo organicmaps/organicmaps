@@ -128,7 +128,8 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
   bool IsRouteValid() const { return m_routingSession.IsRouteValid(); }
-  void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout);
+  void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout,
+                  m2::PointD const & startDirection = m2::PointD::Zero());
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
