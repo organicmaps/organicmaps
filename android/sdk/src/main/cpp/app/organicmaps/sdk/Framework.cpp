@@ -807,6 +807,14 @@ void CallSetRoutingLoadPointsListener(std::shared_ptr<jobject> listener, bool su
   env->CallVoidMethod(*listener, methodId, static_cast<jboolean>(success));
 }
 
+void CallRoutePointCallbackListener(std::shared_ptr<jobject> listener, std::string const & callback)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRoutePointCallback", "(Ljava/lang/String;)V");
+  jni::TScopedLocalRef const jCallback(env, jni::ToJavaString(env, callback));
+  env->CallVoidMethod(*listener, methodId, jCallback.get());
+}
+
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
 /// @name JNI EXPORTS
@@ -1247,6 +1255,19 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
     return nullptr;
 
   return CreateRoutingInfo(env, info, rm);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutePointCallbackListener(JNIEnv * env, jclass,
+                                                                                      jobject listener)
+{
+  if (listener == nullptr)
+  {
+    frm()->GetRoutingManager().SetRoutePointCallback({});
+    return;
+  }
+
+  frm()->GetRoutingManager().SetRoutePointCallback(
+      std::bind(&CallRoutePointCallbackListener, jni::make_global_ref(listener), _1));
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
