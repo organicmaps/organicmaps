@@ -260,8 +260,8 @@ HttpRequest::HttpRequest(Callback && onFinish, Callback && onProgress)
 HttpRequest::~HttpRequest() {}
 
 HttpRequest * HttpRequest::GetFile(std::vector<string> const & urls, string const & filePath, int64_t fileSize,
-                                   Callback && onFinish, Callback && onProgress, int64_t chunkSize,
-                                   bool doCleanOnCancel)
+                                   Callback && onFinish, Callback && onProgress, bool doCleanOnCancel,
+                                   int64_t chunkSize)
 {
   try
   {

@@ -63,7 +63,7 @@ void HttpMapFilesDownloader::Download()
     m_request.reset(downloader::HttpRequest::GetFile(
         urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
         std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1),
-        512 * 1024 /* chunkSize */, false /* doCleanOnCancel */));
+        false /* doCleanOnCancel */));
   }
   else
   {

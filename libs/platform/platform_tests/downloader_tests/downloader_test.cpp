@@ -269,7 +269,8 @@ UNIT_TEST(DownloadChunks)
   auto const MakeRequest = [&](int64_t chunkSize)
   {
     return HttpRequest::GetFile(urls, kFileName, fileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                                bind(&DownloadObserver::OnDownloadProgress, &observer, _1), chunkSize);
+                                bind(&DownloadObserver::OnDownloadProgress, &observer, _1), true /* doCleanOnCancel */,
+                                chunkSize);
   };
 
   {
@@ -449,9 +450,9 @@ UNIT_TEST(DownloadResumeChunksWithCancel)
     if (arrCancelChunks[i] > 0)
       observer.CancelDownloadOnGivenChunk(arrCancelChunks[i]);
 
-    std::unique_ptr<HttpRequest> const request(
-        HttpRequest::GetFile(urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                             bind(&DownloadObserver::OnDownloadProgress, &observer, _1), 1024, false));
+    std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile(
+        urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
+        bind(&DownloadObserver::OnDownloadProgress, &observer, _1), false /* doCleanOnCancel */, 1024 /* chunkSize */));
 
     QCoreApplication::exec();
   }
