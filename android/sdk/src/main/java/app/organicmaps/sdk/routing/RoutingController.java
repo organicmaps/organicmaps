@@ -388,12 +388,20 @@ public class RoutingController
   public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
                       boolean startNavigation)
   {
-    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, 0.0 /* startDirectionX */,
-            0.0 /* startDirectionY */);
+    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, null /* callbacks */,
+            0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
   }
 
   public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
                       boolean startNavigation, double startDirectionX, double startDirectionY)
+  {
+    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, null /* callbacks */, startDirectionX,
+            startDirectionY);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
+                      boolean startNavigation, @Nullable List<String> callbacks, double startDirectionX,
+                      double startDirectionY)
   {
     if (routePoints.size() < 2)
       return;
@@ -410,20 +418,24 @@ public class RoutingController
     Router.set(mLastRouterType);
     mStartNavigationAfterBuild = startNavigation;
 
-    addRoutePoint(RouteMarkType.Start, routePoints.get(0), optimizeRoutePoints);
+    addRoutePoint(RouteMarkType.Start, routePoints.get(0), getCallback(callbacks, 0), optimizeRoutePoints);
     if (optimizeRoutePoints)
     {
       // The optimizer needs a known finish before it predicts positions for
       // intermediate points.
-      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), optimizeRoutePoints);
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1),
+                    getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
       for (int i = 1; i + 1 < routePoints.size(); ++i)
-        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, optimizeRoutePoints);
+        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, getCallback(callbacks, i),
+                      optimizeRoutePoints);
     }
     else
     {
       for (int i = 1; i + 1 < routePoints.size(); ++i)
-        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, optimizeRoutePoints);
-      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), optimizeRoutePoints);
+        addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, getCallback(callbacks, i),
+                      optimizeRoutePoints);
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1),
+                    getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
     }
 
     if (mContainer != null)
@@ -892,8 +904,8 @@ public class RoutingController
     Pair<String, String> description = getDescriptionForPoint(point);
     if (type == RouteMarkType.Intermediate)
       Framework.nativeRemoveRoutePoint(type, replaceStopIndex);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
-                                  replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, "" /* callback */,
+                                  type, replaceStopIndex /* intermediateIndex */, point.isMyPosition(), point.getLat(),
                                   point.getLon(), false /* reorderIntermediatePoints */);
   }
 
@@ -905,16 +917,38 @@ public class RoutingController
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point,
                                     boolean reorderIntermediatePoints)
   {
-    addRoutePoint(type, point, 0 /* intermediateIndex */, reorderIntermediatePoints);
+    addRoutePoint(type, point, "" /* callback */, reorderIntermediatePoints);
+  }
+
+  private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, @Nullable String callback,
+                                    boolean reorderIntermediatePoints)
+  {
+    addRoutePoint(type, point, 0 /* intermediateIndex */, callback, reorderIntermediatePoints);
   }
 
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
                                     boolean reorderIntermediatePoints)
   {
+    addRoutePoint(type, point, intermediateIndex, "" /* callback */, reorderIntermediatePoints);
+  }
+
+  private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
+                                    @Nullable String callback, boolean reorderIntermediatePoints)
+  {
     Pair<String, String> description = getDescriptionForPoint(point);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, callback, type,
                                   intermediateIndex, point.isMyPosition(), point.getLat(), point.getLon(),
                                   reorderIntermediatePoints);
+  }
+
+  @NonNull
+  private static String getCallback(@Nullable List<String> callbacks, int index)
+  {
+    if (callbacks == null || index < 0 || index >= callbacks.size())
+      return "";
+
+    String callback = callbacks.get(index);
+    return callback == null ? "" : callback;
   }
 
   @NonNull

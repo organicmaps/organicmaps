@@ -829,8 +829,9 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(
 {
   using namespace url_scheme;
   static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
-  // Java signature : RoutePoint(double lat, double lon, String name, boolean isMyPosition)
-  static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;Z)V");
+  // Java signature : RoutePoint(double lat, double lon, String name, String callback, boolean isMyPosition)
+  static jmethodID const pointConstructor =
+      jni::GetConstructorID(env, pointClazz, "(DDLjava/lang/String;Ljava/lang/String;Z)V");
 
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
   // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType, boolean optimizeRoutePoints,
@@ -843,8 +844,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(
       jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
   {
     jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
+    jni::TScopedLocalRef const callback(env, jni::ToJavaString(env, point.m_callback));
     return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
-                          mercator::XToLon(point.m_org.x), name.get(), static_cast<jboolean>(point.m_isMyPosition));
+                          mercator::XToLon(point.m_org.x), name.get(), callback.get(),
+                          static_cast<jboolean>(point.m_isMyPosition));
   });
 
   return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type,
@@ -1436,14 +1439,15 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCi
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                                      jstring subtitle, jobject markType,
-                                                                      jint intermediateIndex, jboolean isMyPosition,
-                                                                      jdouble lat, jdouble lon,
+                                                                      jstring subtitle, jstring callback,
+                                                                      jobject markType, jint intermediateIndex,
+                                                                      jboolean isMyPosition, jdouble lat, jdouble lon,
                                                                       jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
   data.m_subTitle = jni::ToNativeString(env, subtitle);
+  data.m_callback = callback == nullptr ? "" : jni::ToNativeString(env, callback);
   data.m_pointType = GetRouteMarkType(env, markType);
   data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
