@@ -480,11 +480,17 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
 std::string Info::FormatRouteRefs() const
 {
   std::string res;
+  std::string_view last;
   for (auto const & r : m_routes)
   {
-    if (!res.empty())
-      res += feature::kFieldsSeparator;
-    res += r.m_ref;
+    // routes are sorted by ref
+    if (r.m_ref != last)
+    {
+      if (!res.empty())
+        res += feature::kFieldsSeparator;
+      res += r.m_ref;
+      last = r.m_ref;
+    }
   }
   return res;
 }

@@ -148,6 +148,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       data->addWidget(wikiButton, row++, 0, 1, 2, Qt::AlignLeft);
     }
 
+    /// @todo Use a combo box like the developer dialog once the place page becomes
+    /// a non-modal floating/dockable window.
     // Route refs
     if (auto routes = info.FormatRouteRefs(); !routes.empty())
       addEntry("Routes", routes);
