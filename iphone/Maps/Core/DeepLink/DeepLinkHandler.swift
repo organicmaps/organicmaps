@@ -99,9 +99,9 @@
     case .route:
       if let adapter = DeepLinkRouteStrategyAdapter(url) {
         MWMRouter.buildApiRoute(with: adapter.type,
-                                start: adapter.p1,
+                                start: adapter.start,
                                 intermediatePoints: adapter.intermediatePoints,
-                                finish: adapter.p2,
+                                finish: adapter.finish,
                                 optimizeRoutePoints: adapter.optimizeRoutePoints,
                                 startRouteNavigation: adapter.startRouteNavigation)
         MapsAppDelegate.theApp().showMap()
