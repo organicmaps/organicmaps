@@ -466,6 +466,56 @@ void OpenRoutePointCallback(std::string const & callback)
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
 }
 
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+{
+  [self buildApiRouteWithType:type
+                   startPoint:startPoint
+           intermediatePoints:intermediatePoints
+                  finishPoint:finishPoint
+          optimizeRoutePoints:optimizeRoutePoints
+         startRouteNavigation:NO];
+}
+
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+         startRouteNavigation:(BOOL)startRouteNavigation
+{
+  if (!startPoint || !finishPoint)
+    return;
+
+  [self removePoints];
+  [MWMRouter setType:type];
+
+  auto router = [MWMRouter router];
+  router.startNavigationAfterBuild = startRouteNavigation;
+  router.isAPICall = YES;
+  [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
+  if (optimizeRoutePoints)
+  {
+    // The optimizer needs a known finish before it predicts positions for
+    // intermediate points.
+    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
+    for (MWMRoutePoint * point in intermediatePoints)
+      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
+  }
+  else
+  {
+    for (MWMRoutePoint * point in intermediatePoints)
+      [self addPoint:point reorderIntermediatePoints:optimizeRoutePoints];
+    [self addPoint:finishPoint reorderIntermediatePoints:optimizeRoutePoints];
+  }
+  router.isAPICall = NO;
+
+  [self rebuildWithBestRouter:NO];
+}
+
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   auto & rm = GetFramework().GetRoutingManager();
