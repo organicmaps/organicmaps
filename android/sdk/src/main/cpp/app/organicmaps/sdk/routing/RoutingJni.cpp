@@ -345,20 +345,21 @@ jobjectArray CreateRouteMarkDataArray(JNIEnv * env, std::vector<RouteMarkData> c
   using namespace jni;
 
   static jclass const pointClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteMarkData");
-  // Java signature : RouteMarkData(String title, String subtitle, int pointType,
-  //                                int intermediateIndex, boolean isVisible, boolean isMyPosition,
+  // Java signature : RouteMarkData(String title, String subtitle, int pointType, int intermediateIndex,
+  //                                String callback, boolean isVisible, boolean isMyPosition,
   //                                boolean isPassed, double lat, double lon)
   static jmethodID const pointConstructor =
-      GetConstructorID(env, pointClazz, "(Ljava/lang/String;Ljava/lang/String;IIZZZDD)V");
+      GetConstructorID(env, pointClazz, "(Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;ZZZDD)V");
   return ToJavaArray(env, pointClazz, points, [](JNIEnv * env, RouteMarkData const & data)
   {
     TScopedLocalRef const title(env, ToJavaString(env, data.m_title));
     TScopedLocalRef const subtitle(env, ToJavaString(env, data.m_subTitle));
+    TScopedLocalRef const callback(env, ToJavaString(env, data.m_callback));
     return env->NewObject(pointClazz, pointConstructor, title.get(), subtitle.get(),
                           static_cast<jint>(data.m_pointType), static_cast<jint>(data.m_intermediateIndex),
-                          static_cast<jboolean>(data.m_isVisible), static_cast<jboolean>(data.m_isMyPosition),
-                          static_cast<jboolean>(data.m_isPassed), mercator::YToLat(data.m_position.y),
-                          mercator::XToLon(data.m_position.x));
+                          callback.get(), static_cast<jboolean>(data.m_isVisible),
+                          static_cast<jboolean>(data.m_isMyPosition), static_cast<jboolean>(data.m_isPassed),
+                          mercator::YToLat(data.m_position.y), mercator::XToLon(data.m_position.x));
   });
 }
 }  // namespace routing_jni
