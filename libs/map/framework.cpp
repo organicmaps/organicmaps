@@ -1382,6 +1382,16 @@ void Framework::ShowRouteTransit(uint32_t relID)
   if (!info)
     return;
 
+  if (!m_routeTransitSelection || m_routeTransitSelection->m_featureId != fid)
+  {
+    if (m_currentModelView.isPerspective())
+      m_currentModelView.ResetPerspective();
+
+    m_routeTransitSelection.emplace(fid, relID);
+  }
+  else
+    m_routeTransitSelection->m_relID = relID;
+
   // Fit the viewport to the route before pushing data — same UX as the old selection-line path.
   m2::RectD bbox;
   for (auto const & route : info->m_routes)
@@ -1396,17 +1406,27 @@ void Framework::ShowRouteTransit(uint32_t relID)
   }
 
   UpdateTrackSelectionColor(info->m_color);
-  m_wasPTRoute = true;
 
   m_drapeEngine->EnableTransitScheme(true);
   m_drapeEngine->ShowRouteTransit(std::move(*info));
 }
 
+std::string Framework::GetActiveTransitRouteRef() const
+{
+  if (!m_routeTransitSelection || !HasPlacePageInfo())
+    return {};
+  uint32_t const relID = m_routeTransitSelection->m_relID;
+  for (auto const & r : GetCurrentPlacePageInfo().GetRoutes())
+    if (r.m_relID == relID)
+      return r.m_ref;
+  return {};
+}
+
 void Framework::HideRouteTransitIfNeeded()
 {
-  if (!m_wasPTRoute)
+  if (!m_routeTransitSelection)
     return;
-  m_wasPTRoute = false;
+  m_routeTransitSelection = {};
 
   if (!m_drapeEngine)
     return;
@@ -2062,8 +2082,30 @@ void Framework::ActivateMapSelection()
     m_onPlacePageOpen();
 }
 
-void Framework::DeactivateMapSelection()
+bool Framework::DeactivateMapSelection()
 {
+  if (m_routingManager.IsRoutingActive() || m_routingManager.GetRoutePointsCount() > 0)
+    HideRouteTransitIfNeeded();
+
+  bool const recoverRouteTransitSession = m_currentPlacePageInfo && m_routeTransitSelection &&
+                                          m_currentPlacePageInfo->GetID() != m_routeTransitSelection->m_featureId;
+  if (recoverRouteTransitSession)
+  {
+    DeactivateHotelSearchMark();
+
+    auto & bm = GetBookmarkManager();
+    bm.OnTrackDeselected();
+    bm.ClearTempRelationTrack();
+    bm.ResetRecentlyDeletedBookmark();
+
+    place_page::BuildInfo info;
+    info.m_featureId = m_routeTransitSelection->m_featureId;
+    info.m_match = place_page::BuildInfo::Match::FeatureOnly;
+    m_currentPlacePageInfo = BuildPlacePageInfo(info);
+    ActivateMapSelection();
+    return true;
+  }
+
   if (m_onPlacePageClose)
     m_onPlacePageClose();
 
@@ -2083,6 +2125,8 @@ void Framework::DeactivateMapSelection()
     if (m_drapeEngine != nullptr)
       m_drapeEngine->DeselectObject(false /* restoreViewport */);
   }
+
+  return false;
 }
 
 void Framework::DeactivateMapSelectionCircle(bool restoreViewport)

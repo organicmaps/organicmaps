@@ -61,6 +61,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -307,7 +308,8 @@ private:
   void DeactivateHotelSearchMark();
 
 public:
-  void DeactivateMapSelection();
+  /// @return true if a transit route selection was recovered (PP re-activated).
+  bool DeactivateMapSelection();
   void DeactivateMapSelectionCircle(bool restoreViewport);
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
@@ -465,7 +467,13 @@ private:
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;
 
-  bool m_wasPTRoute = false;
+  struct RouteTransitSelection
+  {
+    FeatureID m_featureId;
+    uint32_t m_relID = 0;
+  };
+
+  std::optional<RouteTransitSelection> m_routeTransitSelection;
 
 public:
   // Moves viewport to the search result and taps on it.
@@ -478,7 +486,9 @@ public:
   // Builds a TransitInfo (lines + stops) for @p relID relative to the current place page's feature
   // and shows it on the transit scheme layer (with the usual map dim).
   void ShowRouteTransit(uint32_t relID);
-  // Is called on PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
+  // Returns the ref string of the currently selected transit route, or empty if none.
+  std::string GetActiveTransitRouteRef() const;
+  // Is called on PT PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
   void HideRouteTransitIfNeeded();
 
   // Cancels all searches, stops location follow and then selects
