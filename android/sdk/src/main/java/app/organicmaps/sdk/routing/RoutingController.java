@@ -145,6 +145,9 @@ public class RoutingController
           mContainer.onDrivingOptionsWarning();
       }
 
+      if (mLastResultCode != ResultCodes.NO_ERROR && mLastResultCode != ResultCodes.HAS_WARNINGS)
+        mStartNavigationAfterBuild = false;
+
       processRoutingEvent();
     }
   };
@@ -281,13 +284,19 @@ public class RoutingController
 
   private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
+    showRoutePlan(startPoint, endPoint, 0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
+  }
+
+  private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
+                             double startDirectionX, double startDirectionY)
+  {
     if (mContainer != null)
     {
       mContainer.showRoutePlan(true, () -> {
         if (startPoint == null || endPoint == null)
           updatePlan();
         else
-          build();
+          build(startDirectionX, startDirectionY);
       });
     }
   }
@@ -523,8 +532,9 @@ public class RoutingController
     if (mContainer != null)
       mContainer.updateMenu();
 
-    startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1));
-    build(startDirectionX, startDirectionY);
+    startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1), startDirectionX, startDirectionY);
+    if (mContainer == null)
+      build(startDirectionX, startDirectionY);
   }
 
   public void start()
@@ -749,9 +759,15 @@ public class RoutingController
 
   private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
+    startPlanning(startPoint, endPoint, 0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
+  }
+
+  private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
+                             double startDirectionX, double startDirectionY)
+  {
     if (mContainer != null)
     {
-      showRoutePlan(startPoint, endPoint);
+      showRoutePlan(startPoint, endPoint, startDirectionX, startDirectionY);
       mContainer.onPlanningStarted();
     }
   }
