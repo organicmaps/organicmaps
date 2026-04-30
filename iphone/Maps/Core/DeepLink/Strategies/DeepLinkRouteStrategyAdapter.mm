@@ -33,6 +33,7 @@
                                                  intermediateIndex:0];
       _optimizeRoutePoints = parsedData.m_optimizeRoutePoints;
       _startRouteNavigation = parsedData.m_startRouteNavigation;
+      _startDirection = CGPointMake(parsedData.m_startDirection.x, parsedData.m_startDirection.y);
       _type = routerType(parsedData.m_type);
     }
     else

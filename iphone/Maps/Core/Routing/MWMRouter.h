@@ -1,3 +1,4 @@
+#import <CoreGraphics/CoreGraphics.h>
 #import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
@@ -68,7 +69,15 @@ typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWM
                   finishPoint:(MWMRoutePoint *)finishPoint
           optimizeRoutePoints:(BOOL)optimizeRoutePoints
          startRouteNavigation:(BOOL)startRouteNavigation;
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+         startRouteNavigation:(BOOL)startRouteNavigation
+               startDirection:(CGPoint)startDirection;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
++ (void)rebuildWithBestRouter:(BOOL)bestRouter startDirection:(CGPoint)startDirection;
 
 + (BOOL)hasRouteAltitude;
 + (void)saveRouteAsTrack;

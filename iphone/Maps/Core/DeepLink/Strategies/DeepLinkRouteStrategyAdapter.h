@@ -1,3 +1,4 @@
+#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 #import "MWMRouterType.h"
 
@@ -11,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSArray<MWMRoutePoint *> * intermediatePoints;
 @property(nonatomic, readonly) BOOL optimizeRoutePoints;
 @property(nonatomic, readonly) BOOL startRouteNavigation;
+@property(nonatomic, readonly) CGPoint startDirection;
 @property(nonatomic, readonly) MWMRouterType type;
 
 - (nullable instancetype)init:(NSURL *)url;

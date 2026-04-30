@@ -16,6 +16,8 @@ Required parameter:
 Optional parameters:
 
 - `origin=lat,lon`; when omitted, Organic Maps routes from the current position.
+- `origin_heading=degrees` to prefer the initial road direction from the origin. Degrees are clockwise from north:
+  `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order.
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
 - `origin_callback=...`, `destination_callback=...`, `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.

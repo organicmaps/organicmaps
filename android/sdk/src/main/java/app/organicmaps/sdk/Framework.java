@@ -175,6 +175,7 @@ public class Framework
   public static native void nativeCloseRouting();
 
   public static native void nativeBuildRoute();
+  public static native void nativeBuildRouteWithStartDirection(double startDirectionX, double startDirectionY);
 
   public static native void nativeRemoveRoute();
 
