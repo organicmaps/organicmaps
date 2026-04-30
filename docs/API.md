@@ -21,6 +21,7 @@ Optional parameters:
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order.
 - `origin_name=...`, `destination_name=...`, `waypoint_names=name|name|...`.
 - `origin_callback=...`, `destination_callback=...`, `waypoint_callbacks=url|url|...` for caller-specific stop callbacks.
+  Organic Maps opens each stop callback once when the corresponding route point is passed during navigation.
 - `mode=drive|walk|bike|transit` (`drive` is the default). For easier migration from Google Maps URLs, `travelmode=driving|walking|bicycling|transit` is accepted as an alias.
 - `dir_action=navigate` on `/v2/dir` is accepted as a Google Maps-style alias for `/v2/nav`.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
