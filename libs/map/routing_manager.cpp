@@ -52,6 +52,7 @@ struct RoutePointJson
   int type = 0;
   std::string title;
   std::string subtitle;
+  std::string callback;
   double x = 0.0;
   double y = 0.0;
   bool replaceWithMyPosition = false;
@@ -62,6 +63,7 @@ RoutePointJson ToRoutePointJson(RouteMarkData const & data)
   return {.type = static_cast<int>(data.m_pointType),
           .title = data.m_title,
           .subtitle = data.m_subTitle,
+          .callback = data.m_callback,
           .x = data.m_position.x,
           .y = data.m_position.y,
           .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
@@ -73,6 +75,7 @@ RouteMarkData ToRouteMarkData(RoutePointJson const & point)
   data.m_pointType = static_cast<RouteMarkType>(point.type);
   data.m_title = point.title;
   data.m_subTitle = point.subtitle;
+  data.m_callback = point.callback;
   data.m_position = {point.x, point.y};
   data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
   return data;

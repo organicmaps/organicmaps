@@ -27,6 +27,7 @@
     _point = lastLocation.mercator;
     _title = L(@"p2p_your_location");
     _subtitle = @"";
+    _callback = @"";
     _isMyPosition = YES;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -46,6 +47,7 @@
     _point = point.m_org;
     _title = @(point.m_name.c_str());
     _subtitle = @"";
+    _callback = @(point.m_callback.c_str());
     _isMyPosition = point.m_isMyPosition;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -63,6 +65,7 @@
     _point = point.m_position;
     _title = @(point.m_title.c_str());
     _subtitle = @(point.m_subTitle.c_str());
+    _callback = @(point.m_callback.c_str());
     _isMyPosition = point.m_isMyPosition;
     _intermediateIndex = point.m_intermediateIndex;
     switch (point.m_pointType)
@@ -100,6 +103,7 @@
     _point = point;
     _title = title;
     _subtitle = subtitle ?: @"";
+    _callback = @"";
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -144,6 +148,7 @@
   pt.m_isMyPosition = self.isMyPosition;
   pt.m_title = self.title.UTF8String;
   pt.m_subTitle = self.subtitle.UTF8String;
+  pt.m_callback = self.callback.UTF8String;
   pt.m_intermediateIndex = self.intermediateIndex;
   return pt;
 }
@@ -160,6 +165,7 @@
 
   BOOL titlesEqual = (!self.title && !other.title) || [self.title isEqualToString:other.title];
   BOOL subtitlesEqual = (!self.subtitle && !other.subtitle) || [self.subtitle isEqualToString:other.subtitle];
+  BOOL callbacksEqual = (!self.callback && !other.callback) || [self.callback isEqualToString:other.callback];
   BOOL latLonEqual =
       (!self.latLonString && !other.latLonString) || [self.latLonString isEqualToString:other.latLonString];
   BOOL typeEqual = self.type == other.type;
@@ -168,13 +174,13 @@
   BOOL longitudeEqual = fabs(self.longitude - other.longitude) < DBL_EPSILON;
   BOOL isMyPositionEqual = self.isMyPosition == other.isMyPosition;
 
-  return titlesEqual && subtitlesEqual && latLonEqual && typeEqual && indexEqual && latitudeEqual && longitudeEqual &&
-         isMyPositionEqual;
+  return titlesEqual && subtitlesEqual && callbacksEqual && latLonEqual && typeEqual && indexEqual && latitudeEqual &&
+         longitudeEqual && isMyPositionEqual;
 }
 
 - (NSUInteger)hash
 {
-  NSUInteger hash = self.title.hash ^ self.subtitle.hash ^ self.latLonString.hash;
+  NSUInteger hash = self.title.hash ^ self.subtitle.hash ^ self.callback.hash ^ self.latLonString.hash;
   hash ^= self.type;
   hash ^= self.intermediateIndex;
   hash ^= [[NSNumber numberWithDouble:self.latitude] hash];
@@ -194,9 +200,9 @@
   }
 
   return [NSString stringWithFormat:@"<%@: %p> Position: [%@, %@] | IsMyPosition: %@ | Type: %@ | "
-                                    @"IntermediateIndex: %@ | Title: %@ | Subtitle: %@",
+                                    @"IntermediateIndex: %@ | Title: %@ | Subtitle: %@ | Callback: %@",
                                     [self class], self, @(_point.x), @(_point.y), _isMyPosition ? @"true" : @"false",
-                                    type, @(_intermediateIndex), _title, _subtitle];
+                                    type, @(_intermediateIndex), _title, _subtitle, _callback];
 }
 
 @end
