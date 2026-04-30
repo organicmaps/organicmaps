@@ -281,6 +281,11 @@ public class RoutingController
 
   private void build()
   {
+    build(0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
+  }
+
+  private void build(double startDirectionX, double startDirectionY)
+  {
     Framework.nativeRemoveRoute();
 
     Logger.d(TAG, "build");
@@ -293,7 +298,7 @@ public class RoutingController
 
     updatePlan();
 
-    Framework.nativeBuildRoute();
+    Framework.nativeBuildRouteWithStartDirection(startDirectionX, startDirectionY);
   }
 
   public void restoreRoute()
@@ -374,6 +379,13 @@ public class RoutingController
   public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
                       boolean startNavigation)
   {
+    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, 0.0 /* startDirectionX */,
+            0.0 /* startDirectionY */);
+  }
+
+  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
+                      boolean startNavigation, double startDirectionX, double startDirectionY)
+  {
     if (routePoints.size() < 2)
       return;
 
@@ -409,7 +421,7 @@ public class RoutingController
       mContainer.updateMenu();
 
     startPlanning(routePoints.get(0), routePoints.get(routePoints.size() - 1));
-    build();
+    build(startDirectionX, startDirectionY);
   }
 
   public void start()

@@ -21,6 +21,7 @@
 #include "kml/type_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
+#include "routing/router.hpp"
 
 using namespace routing;
 
@@ -404,7 +405,8 @@ using namespace routing;
            intermediatePoints:intermediatePoints
                   finishPoint:finishPoint
           optimizeRoutePoints:optimizeRoutePoints
-         startRouteNavigation:NO];
+         startRouteNavigation:NO
+               startDirection:CGPointZero];
 }
 
 + (void)buildApiRouteWithType:(MWMRouterType)type
@@ -413,6 +415,23 @@ using namespace routing;
                   finishPoint:(MWMRoutePoint *)finishPoint
           optimizeRoutePoints:(BOOL)optimizeRoutePoints
          startRouteNavigation:(BOOL)startRouteNavigation
+{
+  [self buildApiRouteWithType:type
+                   startPoint:startPoint
+           intermediatePoints:intermediatePoints
+                  finishPoint:finishPoint
+          optimizeRoutePoints:optimizeRoutePoints
+         startRouteNavigation:startRouteNavigation
+               startDirection:CGPointZero];
+}
+
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
+                  finishPoint:(MWMRoutePoint *)finishPoint
+          optimizeRoutePoints:(BOOL)optimizeRoutePoints
+         startRouteNavigation:(BOOL)startRouteNavigation
+               startDirection:(CGPoint)startDirection
 {
   if (!startPoint || !finishPoint)
     return;
@@ -441,10 +460,15 @@ using namespace routing;
   }
   router.isAPICall = NO;
 
-  [self rebuildWithBestRouter:NO];
+  [self rebuildWithBestRouter:NO startDirection:startDirection];
 }
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
+{
+  [self rebuildWithBestRouter:bestRouter startDirection:CGPointZero];
+}
+
++ (void)rebuildWithBestRouter:(BOOL)bestRouter startDirection:(CGPoint)startDirection
 {
   auto & rm = GetFramework().GetRoutingManager();
   auto const & points = rm.GetRoutePoints();
@@ -459,7 +483,7 @@ using namespace routing;
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
   [[MWMMapViewControlsManager manager] onRouteRebuild];
-  rm.BuildRoute();
+  rm.BuildRoute(routing::RouterDelegate::kNoTimeout, {startDirection.x, startDirection.y});
 }
 
 + (void)start

@@ -18,6 +18,7 @@
 #include "base/string_utils.hpp"
 
 #include <array>
+#include <cmath>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -65,6 +66,7 @@ std::string_view constexpr kPathNav = "nav";
 std::string_view constexpr kOrigin = "origin";
 std::string_view constexpr kOriginName = "origin_name";
 std::string_view constexpr kOriginCallback = "origin_callback";
+std::string_view constexpr kOriginHeading = "origin_heading";
 std::string_view constexpr kDestination = "destination";
 std::string_view constexpr kDestinationName = "destination_name";
 std::string_view constexpr kDestinationCallback = "destination_callback";
@@ -175,6 +177,18 @@ bool ParseRouteMode(std::string const & value, std::string & routingType)
   return true;
 }
 
+bool ParseOriginHeading(std::string const & value, m2::PointD & startDirection)
+{
+  double heading = 0.0;
+  if (!strings::to_double(value, heading) || !std::isfinite(heading) || heading < 0.0 || heading > 360.0)
+    return false;
+
+  double constexpr kDegreesToRadians = 3.14159265358979323846 / 180.0;
+  double const angle = (90.0 - heading) * kDegreesToRadians;
+  startDirection = {std::cos(angle), std::sin(angle)};
+  return true;
+}
+
 // A helper for SetUrlAndParse() below.
 // kGe0Prefixes supports API and ge0 links, kLegacyMwmPrefixes - only API.
 std::tuple<size_t, bool> FindUrlPrefix(std::string const & url)
@@ -238,6 +252,14 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         else if (key == kOriginCallback)
         {
           origin.m_callback = value;
+        }
+        else if (key == kOriginHeading)
+        {
+          if (!ParseOriginHeading(value, m_startDirection))
+          {
+            LOG(LWARNING, ("Incorrect origin heading:", value));
+            correctParams = false;
+          }
         }
         else if (key == kDestination)
         {
@@ -724,6 +746,7 @@ void ParsedMapApi::Reset()
   m_appName = {};
   m_centerLatLon = ms::LatLon::Invalid();
   m_routingType = {};
+  m_startDirection = m2::PointD::Zero();
   m_optimizeRoutePoints = false;
   m_startRouteNavigation = false;
   m_version = 0;

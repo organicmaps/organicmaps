@@ -2012,7 +2012,8 @@ Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
   return Framework::ParsedRoutingData(
       m_parsedMapApi.GetRoutePoints(), routing::FromString(m_parsedMapApi.GetRoutingType()),
-      m_parsedMapApi.ShouldOptimizeRoutePoints(), m_parsedMapApi.ShouldStartRouteNavigation());
+      m_parsedMapApi.ShouldOptimizeRoutePoints(), m_parsedMapApi.ShouldStartRouteNavigation(),
+      m_parsedMapApi.GetRouteStartDirection());
 }
 
 url_scheme::SearchRequest Framework::GetParsedSearchRequest() const

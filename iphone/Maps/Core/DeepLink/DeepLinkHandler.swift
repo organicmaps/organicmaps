@@ -138,7 +138,8 @@
                                 intermediatePoints: adapter.intermediatePoints,
                                 finish: adapter.finish,
                                 optimizeRoutePoints: adapter.optimizeRoutePoints,
-                                startRouteNavigation: adapter.startRouteNavigation)
+                                startRouteNavigation: adapter.startRouteNavigation,
+                                startDirection: adapter.startDirection)
         MapsAppDelegate.theApp().showMap()
         return true
       }
