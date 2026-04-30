@@ -14,6 +14,7 @@ import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.routing.RoutePointCallbackListener;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingListener;
 import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
@@ -186,6 +187,8 @@ public class Framework
   @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  public static native void nativeSetRoutePointCallbackListener(@Nullable RoutePointCallbackListener listener);
 
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.
