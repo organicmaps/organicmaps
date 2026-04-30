@@ -415,6 +415,8 @@ using namespace routing;
   if (!startPoint || !finishPoint)
     return;
 
+  [self removePoints];
+
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
