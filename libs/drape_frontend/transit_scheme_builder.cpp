@@ -25,8 +25,6 @@
 
 namespace df
 {
-int constexpr kTransitSchemeMinZoomLevel = 10;
-float constexpr kTransitLineHalfWidth = 0.64f;
 std::array<float, 20> constexpr kTransitLinesWidthInPixel = {
     // 1   2     3     4     5     6     7     8     9    10
     0.80f, 0.80f, 0.80f, 0.80f, 0.80f, 0.80f, 0.80f, 0.80f, 0.80f, 1.00f,
@@ -38,9 +36,8 @@ namespace
 float constexpr kBaseLineDepth = 0.0f;
 float constexpr kDepthPerLine = 1.0f;
 float constexpr kBaseMarkerDepth = 300.0f;
-int constexpr kFinalStationMinZoomLevel = 10;
-int constexpr kTransferMinZoomLevel = 11;
-int constexpr kStopMinZoomLevel = 12;
+int constexpr kFinalStationMinZoomLevel = kTransitSchemeMinZoomLevel;
+int constexpr kTransferMinZoomLevel = kTransitSchemeMinZoomLevel + 1;
 uint16_t constexpr kFinalStationPriorityInc = 2;
 
 float constexpr kStopScale = 2.5f;
@@ -349,6 +346,12 @@ bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId s
 bool IsEqualDirections(m2::PointD const & d1, m2::PointD const & d2)
 {
   return d1.EqualDxDy(d2, 1.0E-5);
+}
+
+int GetMinVisibleScale(bool isMain, int mainScale)
+{
+  // Show regular stops later (+1) than main (terminal, transfer) stops.
+  return isMain ? mainScale : mainScale + 1;
 }
 }  // namespace
 
@@ -1123,7 +1126,7 @@ void TransitSchemeBuilder::BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> co
       textParams.m_titleDecl.m_primaryTextFont = stop.m_highlight ? highlightedFont : regularFont;
       textParams.m_titleDecl.m_primaryText = stop.m_name;
       textParams.m_specialPriority = stop.m_highlight ? highlightedPrio : regularPrio;
-      textParams.m_minVisibleScale = stop.m_highlight ? kTransitSchemeMinZoomLevel : kStopMinZoomLevel;
+      textParams.m_minVisibleScale = GetMinVisibleScale(stop.m_highlight, info.m_minZoomLevel);
 
       // TextShape takes the GLOBAL mercator point, not a local (pivot-relative) one.
       TextShape(stop.m_pos, textParams, TileKey(), stopMarkerSizes, m2::PointF(0.0f, 0.0f), dp::Center,
@@ -1344,10 +1347,8 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, 
   auto priority = static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
   priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size());
 
-  auto minVisibleScale = stopParams.m_isTransfer ? kTransferMinZoomLevel : kStopMinZoomLevel;
-
-  bool const isFinalStation = stopParams.m_shapesInfo.size() == 1;
-  if (isFinalStation)
+  auto minVisibleScale = GetMinVisibleScale(stopParams.m_isTransfer, kTransferMinZoomLevel);
+  if (stopParams.m_shapesInfo.size() == 1)
   {
     minVisibleScale = std::min(minVisibleScale, kFinalStationMinZoomLevel);
     priority += kFinalStationPriorityInc;
@@ -1420,8 +1421,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, 
   auto priority = static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
   priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size());
 
-  auto minVisibleScale = stopParams.m_isTransfer ? kTransferMinZoomLevel : kStopMinZoomLevel;
-
+  auto minVisibleScale = GetMinVisibleScale(stopParams.m_isTransfer, kTransferMinZoomLevel);
   if (stopParams.m_isTerminalStop)
   {
     minVisibleScale = std::min(minVisibleScale, kFinalStationMinZoomLevel);

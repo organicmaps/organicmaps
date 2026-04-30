@@ -837,6 +837,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::SetTransitSchemeMinZoom:
+  {
+    ref_ptr<SetTransitSchemeMinZoomMessage> msg = message;
+    m_transitSchemeRenderer->SetMinZoomLevel(msg->GetZoomLevel());
+    break;
+  }
+
   case Message::Type::EnableTraffic:
   {
     ref_ptr<EnableTrafficMessage> msg = message;

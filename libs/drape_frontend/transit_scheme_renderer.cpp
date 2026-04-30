@@ -28,7 +28,7 @@ float CalculateHalfWidth(ScreenBase const & screen)
 
 bool TransitSchemeRenderer::IsSchemeVisible(int zoomLevel) const
 {
-  return zoomLevel >= kTransitSchemeMinZoomLevel;
+  return zoomLevel >= m_minZoomLevel;
 }
 
 bool TransitSchemeRenderer::HasRenderData() const

@@ -29,6 +29,9 @@ public:
                      ref_ptr<dp::OverlayTree> tree, TransitRenderData && renderData);
 
   bool IsSchemeVisible(int zoomLevel) const;
+  /// Override the default scheme-visible zoom for the next render passes.
+  /// Used by the relation-transit path to widen visibility (e.g. show route lines earlier).
+  void SetMinZoomLevel(int zoomLevel) { m_minZoomLevel = zoomLevel; }
 
   void RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
                      ref_ptr<PostprocessRenderer> postprocessRenderer, FrameValues const & frameValues,
@@ -69,6 +72,7 @@ private:
   bool HasRenderData() const;
 
   uint32_t m_lastRecacheId = 0;
+  int m_minZoomLevel = kTransitSchemeMinZoomLevel;
   std::vector<TransitRenderData> m_linesRenderData;
   std::vector<TransitRenderData> m_linesCapsRenderData;
   std::vector<TransitRenderData> m_markersRenderData;

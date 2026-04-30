@@ -1399,9 +1399,16 @@ void Framework::ShowRouteTransit(uint32_t relID)
       bbox.Add(p);
   for (auto const & stop : info->m_stops)
     bbox.Add(stop.m_pos);
+
   if (bbox.IsValid())
   {
     bbox.Scale(1.2);
+
+    /// @todo Set for RouteRelationBase::Type::Train only, keep default otherwise?
+    int const zoom = df::GetDrawTileScale(bbox);
+    if (zoom < df::kTransitSchemeMinZoomLevel)
+      info->m_minZoomLevel = std::max(df::kTransitSchemeMinZoomFloor, zoom);
+
     ShowRect(bbox, -1 /* maxScale */, true /* animation */, true /* useVisibleViewport */);
   }
 

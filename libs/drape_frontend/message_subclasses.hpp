@@ -1212,6 +1212,21 @@ public:
   Type GetType() const override { return Type::HideRouteTransit; }
 };
 
+/// Posted from the backend to the frontend to update TransitSchemeRenderer's min visible zoom.
+/// Driven by TransitInfo::m_minZoomLevel passed in via ShowRouteTransitMessage.
+class SetTransitSchemeMinZoomMessage : public Message
+{
+public:
+  explicit SetTransitSchemeMinZoomMessage(int zoomLevel) : m_zoomLevel(zoomLevel) {}
+
+  Type GetType() const override { return Type::SetTransitSchemeMinZoom; }
+
+  int GetZoomLevel() const { return m_zoomLevel; }
+
+private:
+  int m_zoomLevel;
+};
+
 class DrapeApiAddLinesMessage : public Message
 {
 public:
