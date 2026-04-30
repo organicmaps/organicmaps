@@ -6,8 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWMRoutePoint;
 @interface DeepLinkRouteStrategyAdapter : NSObject
 
-@property(nonatomic, readonly) MWMRoutePoint * p1;
-@property(nonatomic, readonly) MWMRoutePoint * p2;
+@property(nonatomic, readonly) MWMRoutePoint * start;
+@property(nonatomic, readonly) MWMRoutePoint * finish;
 @property(nonatomic, readonly) NSArray<MWMRoutePoint *> * intermediatePoints;
 @property(nonatomic, readonly) BOOL optimizeRoutePoints;
 @property(nonatomic, readonly) BOOL startRouteNavigation;
