@@ -23,9 +23,10 @@
       NSMutableArray<MWMRoutePoint *> * intermediatePoints = [NSMutableArray arrayWithCapacity:points.size() - 2];
       for (size_t i = 1; i + 1 < points.size(); ++i)
       {
+        size_t const intermediateIndex = parsedData.m_optimizeRoutePoints ? 0 : i - 1;
         [intermediatePoints addObject:[[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points[i]
                                                                                     type:MWMRoutePointTypeIntermediate
-                                                                       intermediateIndex:i - 1]];
+                                                                       intermediateIndex:intermediateIndex]];
       }
       _intermediatePoints = [intermediatePoints copy];
       _finish = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
