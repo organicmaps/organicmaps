@@ -67,6 +67,13 @@ public:
     void Reverse();
   };
 
+  struct Metadata
+  {
+    RelationID m_relationId;
+    std::string m_name;
+    dp::Color m_color;
+  };
+
   struct Data
   {
     std::vector<Geometry> m_lines;
@@ -78,8 +85,10 @@ public:
   RelationTrackBuilder(DataSource const & dataSource, FeatureID const & fid,
                        storage::CountryInfoGetter const * infoGetter = nullptr);
 
-  /// @return nullopt if no suitable relation found or geometry can't be built.
-  std::optional<Data> Build();
+  /// Builds relation track candidates metadata.
+  std::vector<Metadata> BuildMetadata(std::unordered_set<RelationID> * processedRelations = nullptr);
+  /// Builds full relation track geometry.
+  std::optional<Data> Build(RelationID const & relationId);
 
   /// Builds a SelectionInfo (ordered polylines + color) for a specific relation (by @p relID),
   /// using MergeOrdered — suitable for public-transport routes where way ordering is meaningful.

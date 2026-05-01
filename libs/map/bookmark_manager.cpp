@@ -932,10 +932,16 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
 Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect,
                                                             TracksFilter const & tracksFilter) const
 {
+  auto const tracks = FindTracksInRect(touchRect, tracksFilter);
+  return tracks.empty() ? Track::TrackSelectionInfo{} : tracks.front();
+}
+
+std::vector<Track::TrackSelectionInfo> BookmarkManager::FindTracksInRect(m2::RectD const & touchRect,
+                                                                         TracksFilter const & tracksFilter) const
+{
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  Track::TrackSelectionInfo selectionInfo;
+  std::vector<Track::TrackSelectionInfo> selectionInfos;
   auto const tapPoint = touchRect.Center();
-  selectionInfo.SetDistanceFilter(touchRect);
 
   for (auto const & pair : m_categories)
   {
@@ -949,11 +955,22 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
       if (tracksFilter && !tracksFilter(track))
         continue;
 
+      Track::TrackSelectionInfo selectionInfo;
+      selectionInfo.SetDistanceFilter(touchRect);
       track->UpdateSelectionInfo(tapPoint, selectionInfo);
+      if (selectionInfo.IsValid())
+        selectionInfos.push_back(selectionInfo);
     }
   }
 
-  return selectionInfo;
+  std::sort(selectionInfos.begin(), selectionInfos.end(), [](auto const & lhs, auto const & rhs)
+  {
+    if (lhs.m_squareDist != rhs.m_squareDist)
+      return lhs.m_squareDist < rhs.m_squareDist;
+    return lhs.m_trackId < rhs.m_trackId;
+  });
+
+  return selectionInfos;
 }
 
 Track::TrackSelectionInfo BookmarkManager::GetTrackSelectionInfo(kml::TrackId const & trackId) const
