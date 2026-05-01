@@ -78,6 +78,8 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
   static uint32_t const kLane = c.GetTypeByPath({"hwtag", "cycleway_lane"});
   static uint32_t const kSharedLane = c.GetTypeByPath({"hwtag", "cycleway_shared_lane"});
   static uint32_t const kYesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
+  static uint32_t const kResidential = c.GetTypeByPath({"highway", "residential"});
+  static uint32_t const kLivingStreet = c.GetTypeByPath({"highway", "living_street"});
 
   if (types.Has(kCycleway) || types.Has(kPathBicycle) || types.Has(kFootwayBicycle))
     return BicycleLineKind::Cycleway;
@@ -89,10 +91,15 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
     return BicycleLineKind::SharedLane;
 
   // Existing downloaded maps do not yet contain cycleway_track/lane/shared_lane
-  // hwtags. They only have the generic bicycle-designated hwtag, which most
-  // closely matches an on-road shared lane for rendering until maps are regenerated.
+  // hwtags. They only have the generic bicycle-designated hwtag.
+  // Use a heuristic for backward compatibility: residential roads are assumed
+  // to be shared lanes (dotted), while others are assumed to have painted lanes (dashed).
   if (types.Has(kYesBicycle))
-    return BicycleLineKind::SharedLane;
+  {
+    if (types.Has(kResidential) || types.Has(kLivingStreet))
+      return BicycleLineKind::SharedLane;
+    return BicycleLineKind::Lane;
+  }
 
   return BicycleLineKind::None;
 }
