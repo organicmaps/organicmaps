@@ -54,6 +54,18 @@ m2::PointF DrapeGui::GetSurfaceSize() const
   return m_surfaceSize;
 }
 
+void DrapeGui::SetVisibleViewport(m2::RectD const & rect)
+{
+  std::lock_guard<std::mutex> lock(m_visibleViewportMutex);
+  m_visibleViewport = rect;
+}
+
+m2::RectD DrapeGui::GetVisibleViewport() const
+{
+  std::lock_guard<std::mutex> lock(m_visibleViewportMutex);
+  return m_visibleViewport;
+}
+
 RulerHelper & DrapeGui::GetRulerHelperImpl()
 {
   ASSERT(m_impl != nullptr, ());

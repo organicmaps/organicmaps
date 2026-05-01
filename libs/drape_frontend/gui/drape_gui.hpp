@@ -8,6 +8,8 @@
 
 #include "drape/pointers.hpp"
 
+#include "geometry/rect2d.hpp"
+
 #include <functional>
 #include <memory>
 #include <mutex>
@@ -29,6 +31,8 @@ public:
   void Destroy();
   void SetSurfaceSize(m2::PointF const & size);
   m2::PointF GetSurfaceSize() const;
+  void SetVisibleViewport(m2::RectD const & rect);
+  m2::RectD GetVisibleViewport() const;
 
   bool IsInUserAction() const { return m_inUserAction; }
   void SetInUserAction(bool isInUserAction) { m_inUserAction = isInUserAction; }
@@ -53,6 +57,8 @@ private:
   Shape::TTapHandler m_onCompassTappedHandler;
   m2::PointF m_surfaceSize;
   mutable std::mutex m_surfaceSizeMutex;
+  m2::RectD m_visibleViewport;
+  mutable std::mutex m_visibleViewportMutex;
   bool m_inUserAction = false;
   ScaleFpsHelper m_scaleFpsHelper;
 };
