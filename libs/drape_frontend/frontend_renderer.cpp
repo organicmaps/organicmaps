@@ -785,7 +785,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           zoom = scales::GetAddNewPlaceScale();
         AddUserEvent(make_unique_dp<SetCenterEvent>(
             pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(), zoom, true /* isAnim */,
-            !pt /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+            true /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
       }
       else
       {
@@ -801,6 +801,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(msg->GetRect()));
     m_myPositionController->SetVisibleViewport(msg->GetRect());
     m_myPositionController->UpdatePosition();
+    gui::DrapeGui::Instance().SetVisibleViewport(msg->GetRect());
     // PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
     break;
   }

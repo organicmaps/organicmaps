@@ -463,6 +463,12 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
 void DrapeEngine::ResizeImpl(int w, int h)
 {
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
+  // Seed the visible viewport so the GUI layer has a sensible default before the
+  // platform reports its safe area. Mirror UserEventStream's lazy init: only set
+  // it on the first resize, so a previously-reported safe area is preserved on
+  // subsequent resizes (the platform re-sends the safe area itself when needed).
+  if (!gui::DrapeGui::Instance().GetVisibleViewport().IsValid())
+    gui::DrapeGui::Instance().SetVisibleViewport(m2::RectD(0, 0, w, h));
   m_viewport.SetViewport(0, 0, w, h);
   PostUserEvent(make_unique_dp<ResizeEvent>(w, h));
 }
