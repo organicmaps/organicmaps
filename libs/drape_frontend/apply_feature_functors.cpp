@@ -55,6 +55,7 @@ uint32_t constexpr kPathTextBaseTextIndex = 128;
 uint32_t constexpr kShieldBaseTextIndex = 0;
 
 dp::Color constexpr kDefaultCycleRouteColor{128, 0, 128};
+double constexpr kBicycleActivationLineWidth = 0.1;
 int constexpr kMinDashedBicycleLineZoom = 13;
 
 enum class BicycleLineKind
@@ -114,6 +115,11 @@ bool IsBicycleLineVisibleAtZoom(BicycleLineKind kind, int zoomLevel)
   }
 
   UNREACHABLE();
+}
+
+bool IsBicycleActivationRule(BicycleLineKind kind, LineRuleProto const & lineRule)
+{
+  return kind != BicycleLineKind::None && lineRule.width() > 0.0 && lineRule.width() <= kBicycleActivationLineWidth;
 }
 
 void SetLinePattern(double visScale, LineViewParams & params, std::initializer_list<double> pattern)
@@ -878,19 +884,25 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
-    for (auto const & spline : m_clippedSplines)
-      m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
-
     // Place hiking/cycling route relation stripes and Cycling-layer bike path
     // highlights on the same geometry.
-    auto const bicycleLineKind = m_relsSettings.cycling ? GetBicycleLineKind(m_f) : BicycleLineKind::None;
+    auto const rawBicycleLineKind = GetBicycleLineKind(m_f);
+    bool const isBicycleActivationRule = IsBicycleActivationRule(rawBicycleLineKind, lineRule);
+    if (!isBicycleActivationRule)
+    {
+      for (auto const & spline : m_clippedSplines)
+        m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
+    }
+
+    auto const bicycleLineKind = m_relsSettings.cycling ? rawBicycleLineKind : BicycleLineKind::None;
     bool const isBicycleLineVisible =
         IsBicycleLineVisibleAtZoom(bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
 
     // Show highlight if specific bicycle infrastructure is visible at this zoom,
     // or if we have a generic route relation (e.g. hiking) and no bike infrastructure is present.
     bool const showHighlight =
-        isBicycleLineVisible || (bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors());
+        isBicycleLineVisible ||
+        (!isBicycleActivationRule && bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors());
     if (showHighlight)
     {
       float const stripeWidth = 3 * visScale;

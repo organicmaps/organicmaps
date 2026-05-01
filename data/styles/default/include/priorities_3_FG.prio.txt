@@ -57,7 +57,7 @@ highway-steps-bridge                                # line z15- (also has line::
 highway-steps-tunnel                                # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z16-)
 hwtag-cycleway_lane                                 # line z13-
 hwtag-cycleway_shared_lane                          # line z13-
-hwtag-cycleway_track                                # line z11-
+hwtag-cycleway_track                                # line z11-12
 hwtag-oneway::arrows                                # line::arrows z15-
 waterway-weir                                       # line z14- (also has pathtext z15-)
 === 330
