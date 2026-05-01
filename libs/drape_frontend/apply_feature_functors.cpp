@@ -895,7 +895,8 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
       rParams.m_width = stripeWidth * static_cast<float>(colors.size());
       rParams.m_depth = params.m_depth + 10;
       rParams.m_depthTestEnabled = params.m_depthTestEnabled;
-      rParams.m_depthLayer = params.m_depthLayer;
+      // Render cycling overlay on top of roads by using a higher depth layer
+      rParams.m_depthLayer = DepthLayer::UserLineLayer;
       rParams.m_minVisibleScale = params.m_minVisibleScale;
       rParams.m_rank = params.m_rank;
       rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;
