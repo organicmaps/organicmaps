@@ -90,8 +90,8 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
   if (types.Has(kSharedLane))
     return BicycleLineKind::SharedLane;
 
-  // Generic fallback for older maps that lack specific cycleway hwtags.
-  // Residential roads are assumed to be shared (dotted), others are assumed to have lanes (dashed).
+  // Generic fallback for older maps that lack specific cycleway hwtags:
+  // residential roads are assumed to be shared, others are assumed to have lanes.
   if (types.Has(kYesBicycle))
   {
     if (types.Has(kResidential) || types.Has(kLivingStreet))
@@ -889,7 +889,8 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
 
     // Show highlight if specific bicycle infrastructure is visible at this zoom,
     // or if we have a generic route relation (e.g. hiking) and no bike infrastructure is present.
-    bool const showHighlight = isBicycleLineVisible || (bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors());
+    bool const showHighlight =
+        isBicycleLineVisible || (bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors());
     if (showHighlight)
     {
       float const stripeWidth = 3 * visScale;

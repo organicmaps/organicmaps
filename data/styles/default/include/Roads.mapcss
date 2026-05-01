@@ -758,47 +758,47 @@ line|z13[highway=cycleway],
 {opacity: 0.3;}
 line|z14[highway=cycleway],
 line|z14[highway=path][bicycle=designated]::cycleline,
-{opacity: 0.4;; z-index: 1000;}
+{opacity: 0.4; z-index: 1000;}
 line|z15[highway=cycleway],
 line|z15[highway=path][bicycle=designated]::cycleline,
-{opacity: 0.5;; z-index: 1000;}
+{opacity: 0.5; z-index: 1000;}
 line|z16-17[highway=cycleway],
 line|z16-17[highway=path][bicycle=designated]::cycleline,
-{opacity: 0.6;; z-index: 1000;}
+{opacity: 0.6; z-index: 1000;}
 line|z18-[highway=cycleway],
 line|z18-[highway=path][bicycle=designated]::cycleline,
-{opacity: 0.8;; z-index: 1000;}
+{opacity: 0.8; z-index: 1000;}
 
 line|z15-16[highway=footway][bicycle=designated]::cycleline,
-{opacity: 0.4;; z-index: 1000;}
+{opacity: 0.4; z-index: 1000;}
 line|z17-[highway=footway][bicycle=designated]::cycleline,
-{opacity: 0.5;; z-index: 1000;}
+{opacity: 0.5; z-index: 1000;}
 
 line|z13[highway=cycleway]
 {width: 0.9;}
 line|z14[highway=cycleway],
 line|z14[highway=path][bicycle=designated]::cycleline,
-{width: 1.1;; z-index: 1000;}
+{width: 1.1; z-index: 1000;}
 line|z15[highway=cycleway]
 line|z15[highway=footway][bicycle=designated]::cycleline,
 line|z15[highway=path][bicycle=designated]::cycleline,
-{width: 1.2;; z-index: 1000;}
+{width: 1.2; z-index: 1000;}
 line|z16[highway=cycleway],
 line|z16[highway=footway][bicycle=designated]::cycleline,
 line|z16[highway=path][bicycle=designated]::cycleline,
-{width: 1.3;; z-index: 1000;}
+{width: 1.3; z-index: 1000;}
 line|z17[highway=cycleway],
 line|z17[highway=footway][bicycle=designated]::cycleline,
 line|z17[highway=path][bicycle=designated]::cycleline,
-{width: 1.4;; z-index: 1000;}
+{width: 1.4; z-index: 1000;}
 line|z18[highway=cycleway],
 line|z18[highway=footway][bicycle=designated]::cycleline,
 line|z18[highway=path][bicycle=designated]::cycleline,
-{width: 1.6;; z-index: 1000;}
+{width: 1.6; z-index: 1000;}
 line|z19-[highway=cycleway],
 line|z19-[highway=footway][bicycle=designated]::cycleline,
 line|z19-[highway=path][bicycle=designated]::cycleline,
-{width: 1.8;; z-index: 1000;}
+{width: 1.8; z-index: 1000;}
 
 line|z13[highway=cycleway]
 {width: 1.4; opacity: 1;}
