@@ -881,7 +881,7 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     auto const bicycleLineKind = m_relsSettings.cycling ? GetBicycleLineKind(m_f) : BicycleLineKind::None;
     bool const isBicycleLineVisible =
         IsBicycleLineVisibleAtZoom(bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
-    if (m_relsInfo.HasColors() || isBicycleLineVisible)
+    if (isBicycleLineVisible || (bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors()))
     {
       float const stripeWidth = 3 * visScale;
       auto const colors = m_relsInfo.HasColors() ? m_relsInfo.GetColors() : dp::RainbowColors{kDefaultCycleRouteColor};
