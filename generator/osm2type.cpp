@@ -248,6 +248,9 @@ public:
     NoBicycle,
     YesBicycle,
     NoCycleway,  // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
+    CyclewayTrack,
+    CyclewayLane,
+    CyclewaySharedLane,
     BicycleBidir,
     SurfacePavedGood,
     SurfacePavedBad,
@@ -287,6 +290,9 @@ public:
         {NoBicycle, {"hwtag", "nobicycle"}},
         {YesBicycle, {"hwtag", "yesbicycle"}},
         {NoCycleway, {"hwtag", "nocycleway"}},
+        {CyclewayTrack, {"hwtag", "cycleway_track"}},
+        {CyclewayLane, {"hwtag", "cycleway_lane"}},
+        {CyclewaySharedLane, {"hwtag", "cycleway_shared_lane"}},
         {BicycleBidir, {"hwtag", "bidir_bicycle"}},
         {SurfacePavedGood, {"psurface", "paved_good"}},
         {SurfacePavedBad, {"psurface", "paved_bad"}},
@@ -1112,6 +1118,36 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     {
       bool addOneway = false;
       bool noOneway = false;
+      CachedTypes::Type cyclewayType = CachedTypes::Count;
+      auto const IsPositiveCyclewayProtection = [](std::string const & value)
+      {
+        return !value.empty() && value != "no" && value != "none" && value != "false" && value != "no_separation";
+      };
+      auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
+      {
+        auto const GetPriority = [](CachedTypes::Type t)
+        {
+          switch (t)
+          {
+          case CachedTypes::CyclewayTrack: return 3;
+          case CachedTypes::CyclewayLane: return 2;
+          case CachedTypes::CyclewaySharedLane: return 1;
+          default: return 0;
+          }
+        };
+
+        if (GetPriority(type) > GetPriority(cyclewayType))
+          cyclewayType = type;
+      };
+      auto const ProcessCyclewayTypeTag = [&SetCyclewayType](std::string const & value)
+      {
+        if (value == "track" || value == "opposite_track" || value == "protected_lane")
+          SetCyclewayType(CachedTypes::CyclewayTrack);
+        else if (value == "lane" || value == "opposite_lane")
+          SetCyclewayType(CachedTypes::CyclewayLane);
+        else if (value == "shared_lane")
+          SetCyclewayType(CachedTypes::CyclewaySharedLane);
+      };
 
       TagProcessor(p).ApplyRules({
           {"oneway", "yes", [&addOneway] { addOneway = true; }},
@@ -1174,6 +1210,15 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"motorcar", "designated", [&flags] { flags[Flags::MotorCar] = 1; }},
       });
 
+      for (auto const & tag : p->Tags())
+      {
+        if (tag.m_key == "cycleway" || tag.m_key == "cycleway:both" || tag.m_key == "cycleway:left" ||
+            tag.m_key == "cycleway:right" || tag.m_key == "cycleway:forward" || tag.m_key == "cycleway:backward")
+        {
+          ProcessCyclewayTypeTag(tag.m_value);
+        }
+      }
+
       if (addOneway && !noOneway)
         params.AddType(types.Get(CachedTypes::OneWay));
 
@@ -1196,6 +1241,26 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
                 IsBicycleDesignatedHighway(vType));
       ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
                 IsCarDesignatedHighway(vType));
+
+      if ((cyclewayType == CachedTypes::CyclewayLane || cyclewayType == CachedTypes::Count) &&
+          (IsPositiveCyclewayProtection(p->GetTag("cycleway:separation")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:both:separation")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:left:separation")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:right:separation")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:forward:separation")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:backward:separation")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:barrier")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:both:barrier")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:left:barrier")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:right:barrier")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:forward:barrier")) ||
+           IsPositiveCyclewayProtection(p->GetTag("cycleway:backward:barrier"))))
+      {
+        SetCyclewayType(CachedTypes::CyclewayTrack);
+      }
+
+      if (cyclewayType != CachedTypes::Count && !IsBicycleDesignatedHighway(vType))
+        AddParam(cyclewayType);
 
       highwayDone = true;
     }

@@ -9291,24 +9291,24 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1716933887
+      width: 3.6
+      color: 5657855
       priority: 130
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1716933887
+      width: 3.6
+      color: 5657855
       priority: 130
     }
   }
   element {
     scale: 20
     lines {
-      width: 1.0
-      color: 1716933887
+      width: 3.6
+      color: 5657855
       priority: 130
     }
   }
@@ -9318,24 +9318,24 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1716933887
+      width: 3.6
+      color: 5657855
       priority: 130
     }
   }
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1716933887
+      width: 3.6
+      color: 5657855
       priority: 130
     }
   }
   element {
     scale: 20
     lines {
-      width: 1.0
-      color: 1716933887
+      width: 3.6
+      color: 5657855
       priority: 130
     }
   }
@@ -26465,6 +26465,114 @@ cont {
         is_optional: true
       }
       priority: -9200
+    }
+  }
+}
+cont {
+  name: "hwtag-cycleway_lane"
+  element {
+    scale: 18
+    lines {
+      width: 1.8
+      color: 5657855
+      dashdot {
+        dd: 5.6
+        dd: 4.2
+      }
+      priority: 270
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.8
+      color: 5657855
+      dashdot {
+        dd: 5.6
+        dd: 4.2
+      }
+      priority: 270
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.8
+      color: 5657855
+      dashdot {
+        dd: 5.6
+        dd: 4.2
+      }
+      priority: 270
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "hwtag-cycleway_shared_lane"
+  element {
+    scale: 18
+    lines {
+      width: 1.2
+      color: 5657855
+      dashdot {
+        dd: 0.1
+        dd: 3.3
+      }
+      priority: 270
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.2
+      color: 5657855
+      dashdot {
+        dd: 0.1
+        dd: 3.3
+      }
+      priority: 270
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.2
+      color: 5657855
+      dashdot {
+        dd: 0.1
+        dd: 3.3
+      }
+      priority: 270
+    }
+  }
+}
+cont {
+  name: "hwtag-cycleway_track"
+  element {
+    scale: 18
+    lines {
+      width: 2.7
+      color: 5657855
+      priority: 270
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.7
+      color: 5657855
+      priority: 270
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 2.7
+      color: 5657855
+      priority: 270
     }
   }
 }

@@ -11,6 +11,7 @@
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/road_shields_parser.hpp"
 
@@ -52,6 +53,88 @@ df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBack
 
 uint32_t constexpr kPathTextBaseTextIndex = 128;
 uint32_t constexpr kShieldBaseTextIndex = 0;
+
+dp::Color constexpr kDefaultCycleRouteColor{128, 0, 128};
+
+enum class BicycleLineKind
+{
+  None,
+  SharedLane,
+  Lane,
+  Track,
+  Cycleway
+};
+
+BicycleLineKind GetBicycleLineKind(FeatureType & f)
+{
+  auto const types = feature::TypesHolder(f);
+  auto const & c = classif();
+
+  static uint32_t const kCycleway = c.GetTypeByPath({"highway", "cycleway"});
+  static uint32_t const kPathBicycle = c.GetTypeByPath({"highway", "path", "bicycle"});
+  static uint32_t const kFootwayBicycle = c.GetTypeByPath({"highway", "footway", "bicycle"});
+  static uint32_t const kTrack = c.GetTypeByPath({"hwtag", "cycleway_track"});
+  static uint32_t const kLane = c.GetTypeByPath({"hwtag", "cycleway_lane"});
+  static uint32_t const kSharedLane = c.GetTypeByPath({"hwtag", "cycleway_shared_lane"});
+  static uint32_t const kYesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
+
+  if (types.Has(kCycleway) || types.Has(kPathBicycle) || types.Has(kFootwayBicycle))
+    return BicycleLineKind::Cycleway;
+  if (types.Has(kTrack))
+    return BicycleLineKind::Track;
+  if (types.Has(kLane))
+    return BicycleLineKind::Lane;
+  if (types.Has(kSharedLane))
+    return BicycleLineKind::SharedLane;
+
+  // Existing downloaded maps do not yet contain cycleway_track/lane/shared_lane
+  // hwtags. They only have the generic bicycle-designated hwtag, which most
+  // closely matches an on-road lane for rendering until maps are regenerated.
+  if (types.Has(kYesBicycle))
+    return BicycleLineKind::Lane;
+
+  return BicycleLineKind::None;
+}
+
+void SetLinePattern(double visScale, LineViewParams & params, std::initializer_list<double> pattern)
+{
+  params.m_pattern.clear();
+  params.m_pattern.reserve(pattern.size());
+  for (double v : pattern)
+    params.m_pattern.push_back(dp::PatternFloat2Pixel(v * visScale));
+}
+
+bool ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams & params)
+{
+  params.m_join = dp::RoundJoin;
+
+  switch (kind)
+  {
+  case BicycleLineKind::Cycleway:
+    params.m_width = static_cast<float>(std::max(4.2 * visScale, 1.0));
+    params.m_cap = dp::RoundCap;
+    params.m_pattern.clear();
+    return true;
+  case BicycleLineKind::Track:
+    params.m_width = static_cast<float>(std::max(2.8 * visScale, 1.0));
+    params.m_cap = dp::RoundCap;
+    params.m_pattern.clear();
+    return true;
+  case BicycleLineKind::Lane:
+    params.m_width = static_cast<float>(std::max(1.8 * visScale, 1.0));
+    params.m_cap = dp::ButtCap;
+    SetLinePattern(visScale, params, {5.6, 4.2});
+    return true;
+  case BicycleLineKind::SharedLane:
+    params.m_width = static_cast<float>(std::max(1.0 * visScale, 1.0));
+    params.m_cap = dp::RoundCap;
+    SetLinePattern(visScale, params, {0.1, 3.3});
+    return true;
+  case BicycleLineKind::None: return false;
+  }
+
+  UNREACHABLE();
+}
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
 class LinesStat
@@ -702,6 +785,7 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
                                                    RelationsDrawSettings const & relsSettings)
   : TBase(params, f, {})
+  , m_relsSettings(relsSettings)
   , m_relsInfo(relsSettings)
   , m_builder(params)
 {
@@ -777,11 +861,13 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     for (auto const & spline : m_clippedSplines)
       m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
 
-    // Place rainbow color stripes using a color strip texture on the same geometry.
-    if (m_relsInfo.HasColors())
+    // Place hiking/cycling route relation stripes and Cycling-layer bike path
+    // highlights on the same geometry.
+    auto const bicycleLineKind = m_relsSettings.cycling ? GetBicycleLineKind(m_f) : BicycleLineKind::None;
+    if (m_relsInfo.HasColors() || bicycleLineKind != BicycleLineKind::None)
     {
       float const stripeWidth = 3 * visScale;
-      auto const colors = m_relsInfo.GetColors();
+      auto const colors = m_relsInfo.HasColors() ? m_relsInfo.GetColors() : dp::RainbowColors{kDefaultCycleRouteColor};
 
       LineViewParams rParams;
       rParams.m_tileCenter = params.m_tileCenter;
@@ -798,6 +884,8 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
       rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;
       rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
       rParams.m_rainbowColors = colors;
+
+      ApplyBicycleLineStyle(bicycleLineKind, visScale, rParams);
 
       for (auto const & spline : m_clippedSplines)
         m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));

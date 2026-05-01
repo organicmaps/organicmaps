@@ -608,6 +608,9 @@ world  +
         {}
     hwtag  +
         bidir_bicycle  -
+        cycleway_lane  -
+        cycleway_shared_lane  -
+        cycleway_track  -
         lit  -
         nobicycle  -
         nocar  -

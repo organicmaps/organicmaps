@@ -1650,3 +1650,6 @@ amenity|recycling|container
 *natural|volcano|active
 *building|construction
 *roller_coaster|track
+*hwtag|cycleway_track
+*hwtag|cycleway_lane
+*hwtag|cycleway_shared_lane

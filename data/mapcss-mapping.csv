@@ -1772,3 +1772,6 @@ waterway|access_point;1649;
 natural|volcano|active;[natural=volcano][volcano:status=active];;;;1650;
 building|construction;1651;
 roller_coaster|track;1652;
+hwtag|cycleway_track;1653;
+hwtag|cycleway_lane;1654;
+hwtag|cycleway_shared_lane;1655;

@@ -796,6 +796,72 @@ line|z19-[highway=footway][bicycle=designated]::cycleline,
 line|z19-[highway=path][bicycle=designated]::cycleline,
 {width: 1.8;}
 
+line|z13[highway=cycleway]
+{width: 1.4; opacity: 1;}
+line|z14[highway=cycleway]
+{width: 1.8; opacity: 1;}
+line|z15[highway=cycleway]
+{width: 2.2; opacity: 1;}
+line|z16[highway=cycleway]
+{width: 2.6; opacity: 1;}
+line|z17[highway=cycleway]
+{width: 3; opacity: 1;}
+line|z18[highway=cycleway]
+{width: 3.6; opacity: 1;}
+line|z19-[highway=cycleway]
+{width: 4.2; opacity: 1;}
+
+line|z13-[hwtag=cycleway_track]
+{color: @cycleway; opacity: 1;}
+line|z13[hwtag=cycleway_track]
+{width: 1.1;}
+line|z14[hwtag=cycleway_track]
+{width: 1.4;}
+line|z15[hwtag=cycleway_track]
+{width: 1.7;}
+line|z16[hwtag=cycleway_track]
+{width: 2;}
+line|z17[hwtag=cycleway_track]
+{width: 2.3;}
+line|z18[hwtag=cycleway_track]
+{width: 2.7;}
+line|z19-[hwtag=cycleway_track]
+{width: 3.1;}
+
+line|z13-[hwtag=cycleway_lane]
+{color: @cycleway; opacity: 1;}
+line|z13[hwtag=cycleway_lane]
+{width: 0.8; dashes: 3.2,2.4; linecap: butt;}
+line|z14[hwtag=cycleway_lane]
+{width: 1; dashes: 3.6,2.7; linecap: butt;}
+line|z15[hwtag=cycleway_lane]
+{width: 1.2; dashes: 4,3; linecap: butt;}
+line|z16[hwtag=cycleway_lane]
+{width: 1.4; dashes: 4.4,3.3; linecap: butt;}
+line|z17[hwtag=cycleway_lane]
+{width: 1.6; dashes: 5,3.8; linecap: butt;}
+line|z18[hwtag=cycleway_lane]
+{width: 1.8; dashes: 5.6,4.2; linecap: butt;}
+line|z19-[hwtag=cycleway_lane]
+{width: 2; dashes: 6,4.5; linecap: butt;}
+
+line|z13-[hwtag=cycleway_shared_lane]
+{color: @cycleway; opacity: 1;}
+line|z13[hwtag=cycleway_shared_lane]
+{width: 0.7; dashes: 0.1,2; linecap: round;}
+line|z14[hwtag=cycleway_shared_lane]
+{width: 0.8; dashes: 0.1,2.2; linecap: round;}
+line|z15[hwtag=cycleway_shared_lane]
+{width: 0.9; dashes: 0.1,2.5; linecap: round;}
+line|z16[hwtag=cycleway_shared_lane]
+{width: 1; dashes: 0.1,2.8; linecap: round;}
+line|z17[hwtag=cycleway_shared_lane]
+{width: 1.1; dashes: 0.1,3; linecap: round;}
+line|z18[hwtag=cycleway_shared_lane]
+{width: 1.2; dashes: 0.1,3.3; linecap: round;}
+line|z19-[hwtag=cycleway_shared_lane]
+{width: 1.4; dashes: 0.1,3.6; linecap: round;}
+
 line|z17[highway=cycleway][tunnel?]::tunnelBackground
 {casing-width-add: 1;}
 line|z18[highway=cycleway][tunnel?]::tunnelBackground
