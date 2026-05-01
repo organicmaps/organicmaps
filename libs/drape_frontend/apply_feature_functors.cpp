@@ -90,9 +90,9 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
 
   // Existing downloaded maps do not yet contain cycleway_track/lane/shared_lane
   // hwtags. They only have the generic bicycle-designated hwtag, which most
-  // closely matches an on-road lane for rendering until maps are regenerated.
+  // closely matches an on-road shared lane for rendering until maps are regenerated.
   if (types.Has(kYesBicycle))
-    return BicycleLineKind::Lane;
+    return BicycleLineKind::SharedLane;
 
   return BicycleLineKind::None;
 }
@@ -141,7 +141,7 @@ bool ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams
     SetLinePattern(visScale, params, {5.6, 4.2});
     return true;
   case BicycleLineKind::SharedLane:
-    params.m_width = static_cast<float>(std::max(1.0 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(1.2 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
     SetLinePattern(visScale, params, {0.1, 3.3});
     return true;
