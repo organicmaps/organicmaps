@@ -55,6 +55,7 @@ uint32_t constexpr kPathTextBaseTextIndex = 128;
 uint32_t constexpr kShieldBaseTextIndex = 0;
 
 dp::Color constexpr kDefaultCycleRouteColor{128, 0, 128};
+int constexpr kMinDashedBicycleLineZoom = 13;
 
 enum class BicycleLineKind
 {
@@ -94,6 +95,20 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
     return BicycleLineKind::Lane;
 
   return BicycleLineKind::None;
+}
+
+bool IsBicycleLineVisibleAtZoom(BicycleLineKind kind, int zoomLevel)
+{
+  switch (kind)
+  {
+  case BicycleLineKind::Lane:
+  case BicycleLineKind::SharedLane: return zoomLevel >= kMinDashedBicycleLineZoom;
+  case BicycleLineKind::Cycleway:
+  case BicycleLineKind::Track: return true;
+  case BicycleLineKind::None: return false;
+  }
+
+  UNREACHABLE();
 }
 
 void SetLinePattern(double visScale, LineViewParams & params, std::initializer_list<double> pattern)
@@ -864,7 +879,9 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     // Place hiking/cycling route relation stripes and Cycling-layer bike path
     // highlights on the same geometry.
     auto const bicycleLineKind = m_relsSettings.cycling ? GetBicycleLineKind(m_f) : BicycleLineKind::None;
-    if (m_relsInfo.HasColors() || bicycleLineKind != BicycleLineKind::None)
+    bool const isBicycleLineVisible =
+        IsBicycleLineVisibleAtZoom(bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
+    if (m_relsInfo.HasColors() || isBicycleLineVisible)
     {
       float const stripeWidth = 3 * visScale;
       auto const colors = m_relsInfo.HasColors() ? m_relsInfo.GetColors() : dp::RainbowColors{kDefaultCycleRouteColor};
@@ -885,7 +902,8 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
       rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
       rParams.m_rainbowColors = colors;
 
-      ApplyBicycleLineStyle(bicycleLineKind, visScale, rParams);
+      if (isBicycleLineVisible)
+        ApplyBicycleLineStyle(bicycleLineKind, visScale, rParams);
 
       for (auto const & spline : m_clippedSplines)
         m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));

@@ -629,6 +629,10 @@ line|z13-[highway=pedestrian],
 line|z16-[highway=platform],
 line|z13-[highway=ford]
 {color: @pedestrian;opacity: 1;}
+line|z11-12[highway=cycleway],
+line|z11-13[highway=path][bicycle=designated]::cycleline,
+line|z11-14[highway=footway][bicycle=designated]::cycleline,
+{color: @cycleway; opacity: 0.01; width: 0.1;}
 line|z13-[highway=cycleway],
 line|z14-[highway=path][bicycle=designated]::cycleline,
 line|z15-[highway=footway][bicycle=designated]::cycleline,
@@ -811,8 +815,14 @@ line|z18[highway=cycleway]
 line|z19-[highway=cycleway]
 {width: 4.2; opacity: 1;}
 
+line|z11-12[hwtag=cycleway_track]
+{color: @cycleway; opacity: 0.01;}
 line|z13-[hwtag=cycleway_track]
 {color: @cycleway; opacity: 1;}
+line|z11[hwtag=cycleway_track]
+{width: 1.1;}
+line|z12[hwtag=cycleway_track]
+{width: 1.1;}
 line|z13[hwtag=cycleway_track]
 {width: 1.1;}
 line|z14[hwtag=cycleway_track]

@@ -302,8 +302,12 @@ line|z17[highway=cycleway]
 line|z18-[highway=cycleway]
 {width: 4;}
 
-line|z13-[hwtag=cycleway_track]
+line|z11-[hwtag=cycleway_track]
 {color: @cycleway; opacity: 1;}
+line|z11[hwtag=cycleway_track]
+{width: 0.8;}
+line|z12[hwtag=cycleway_track]
+{width: 0.9;}
 line|z13[hwtag=cycleway_track]
 {width: 1.1;}
 line|z14[hwtag=cycleway_track]

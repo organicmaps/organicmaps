@@ -26111,18 +26111,20 @@ cont {
   element {
     scale: 11
     lines {
-      width: 1.4
-      color: 5657855
+      width: 0.1
+      color: 4250293503
       priority: 330
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
   element {
     scale: 12
     lines {
-      width: 1.4
-      color: 5657855
+      width: 0.1
+      color: 4250293503
       priority: 330
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -26247,18 +26249,20 @@ cont {
   element {
     scale: 11
     lines {
-      width: 1.4
-      color: 5657855
+      width: 0.1
+      color: 4250293503
       priority: 330
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
   element {
     scale: 12
     lines {
-      width: 1.4
-      color: 5657855
+      width: 0.1
+      color: 4250293503
       priority: 330
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -26443,18 +26447,20 @@ cont {
   element {
     scale: 11
     lines {
-      width: 1.4
-      color: 5657855
+      width: 0.1
+      color: 4250293503
       priority: 330
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
   element {
     scale: 12
     lines {
-      width: 1.4
-      color: 5657855
+      width: 0.1
+      color: 4250293503
       priority: 330
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -26954,109 +26960,39 @@ cont {
   element {
     scale: 11
     lines {
-      width: 1.2
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
+      join: BEVELJOIN
       cap: BUTTCAP
-    }
-    lines {
-      width: 1.5
-      color: 15921906
-      dashdot {
-        dd: 5.0
-        dd: 3.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2950
     }
   }
   element {
     scale: 12
     lines {
-      width: 1.2
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
+      join: BEVELJOIN
       cap: BUTTCAP
-    }
-    lines {
-      width: 1.5
-      color: 15921906
-      dashdot {
-        dd: 5.0
-        dd: 3.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2950
     }
   }
   element {
     scale: 13
     lines {
-      width: 1.2
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
       cap: BUTTCAP
-    }
-    lines {
-      width: 1.5
-      color: 15921906
-      dashdot {
-        dd: 5.0
-        dd: 3.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2950
     }
   }
   element {
     scale: 14
     lines {
-      width: 1.2
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
       cap: BUTTCAP
-    }
-    lines {
-      width: 1.5
-      color: 15921906
-      dashdot {
-        dd: 5.0
-        dd: 3.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2950
     }
   }
   element {
@@ -30927,57 +30863,29 @@ cont {
   element {
     scale: 11
     lines {
-      width: 1.1
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
-      cap: BUTTCAP
-    }
-    lines {
-      width: 0.9
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.7
-      }
-      priority: 180
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
   element {
     scale: 12
     lines {
-      width: 1.1
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
-      cap: BUTTCAP
-    }
-    lines {
-      width: 0.9
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.7
-      }
-      priority: 180
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
   element {
     scale: 13
     lines {
-      width: 1.1
-      color: 2572571903
+      width: 0.1
+      color: 4250293503
       priority: 170
-      cap: BUTTCAP
-    }
-    lines {
-      width: 0.9
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.7
-      }
-      priority: 180
       cap: BUTTCAP
     }
   }
@@ -49063,6 +48971,26 @@ cont {
 }
 cont {
   name: "hwtag-cycleway_track"
+  element {
+    scale: 11
+    lines {
+      width: 1.1
+      color: 4250293503
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 4250293503
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 13
     lines {

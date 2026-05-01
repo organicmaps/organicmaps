@@ -612,6 +612,12 @@ line|z18-[highway=pedestrian][tunnel?],
 
 /* 8.4 Cycleway 18-22 ZOOM */
 
+line|z11-17[highway=cycleway][!tunnel],
+line|z11-17[highway=path][bicycle=designated],
+line|z11-17[highway=footway][bicycle=designated],
+line|z11-17[hwtag=cycleway_track]
+{color: @cycleway; opacity: 0.01; width: 0.1;}
+
 line|z18-[highway=cycleway],
 {color: @cycleway; opacity: 0.6; width: 1;}
 line|z18-[highway=cycleway][tunnel?],
