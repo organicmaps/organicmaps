@@ -90,10 +90,8 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
   if (types.Has(kSharedLane))
     return BicycleLineKind::SharedLane;
 
-  // Existing downloaded maps do not yet contain cycleway_track/lane/shared_lane
-  // hwtags. They only have the generic bicycle-designated hwtag.
-  // Use a heuristic for backward compatibility: residential roads are assumed
-  // to be shared lanes (dotted), while others are assumed to have painted lanes (dashed).
+  // Generic fallback for older maps that lack specific cycleway hwtags.
+  // Residential roads are assumed to be shared (dotted), others are assumed to have lanes (dashed).
   if (types.Has(kYesBicycle))
   {
     if (types.Has(kResidential) || types.Has(kLivingStreet))
@@ -888,7 +886,11 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     auto const bicycleLineKind = m_relsSettings.cycling ? GetBicycleLineKind(m_f) : BicycleLineKind::None;
     bool const isBicycleLineVisible =
         IsBicycleLineVisibleAtZoom(bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
-    if (isBicycleLineVisible || (bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors()))
+
+    // Show highlight if specific bicycle infrastructure is visible at this zoom,
+    // or if we have a generic route relation (e.g. hiking) and no bike infrastructure is present.
+    bool const showHighlight = isBicycleLineVisible || (bicycleLineKind == BicycleLineKind::None && m_relsInfo.HasColors());
+    if (showHighlight)
     {
       float const stripeWidth = 3 * visScale;
       auto const colors = m_relsInfo.HasColors() ? m_relsInfo.GetColors() : dp::RainbowColors{kDefaultCycleRouteColor};
