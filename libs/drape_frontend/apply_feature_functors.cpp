@@ -137,12 +137,12 @@ bool ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams
   switch (kind)
   {
   case BicycleLineKind::Cycleway:
-    params.m_width = static_cast<float>(std::max(3.0 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(2.4 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
     params.m_pattern.clear();
     return true;
   case BicycleLineKind::Track:
-    params.m_width = static_cast<float>(std::max(2.8 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(2.4 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
     params.m_pattern.clear();
     return true;
