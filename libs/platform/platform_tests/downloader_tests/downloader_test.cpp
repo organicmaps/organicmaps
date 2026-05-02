@@ -447,8 +447,10 @@ UNIT_TEST(DownloadResumeChunksWithCancel)
 
   for (size_t i = 0; i < ARRAY_SIZE(arrCancelChunks); ++i)
   {
-    if (arrCancelChunks[i] > 0)
-      observer.CancelDownloadOnGivenChunk(arrCancelChunks[i]);
+    // Always reset cancel state. Without this, an iteration whose download completes
+    // naturally (cancel never reached) leaves m_chunksToFail > 0, which would then
+    // cancel a later "no cancel" iteration unexpectedly.
+    observer.CancelDownloadOnGivenChunk(arrCancelChunks[i] > 0 ? arrCancelChunks[i] : -1);
 
     std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile(
         urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),

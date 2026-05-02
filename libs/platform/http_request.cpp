@@ -234,15 +234,25 @@ public:
       chunk.m_handle.Cancel();
     m_chunks.clear();
 
-    // Delete temp files synchronously. Any still-in-flight transport writes will land
-    // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
-    // closes) or fail silently (Windows) — either way, no interaction with a potential
-    // new download that reuses the same path. A deferred-cleanup scheme here would
-    // introduce a cancel+retry race where the cleanup deletes the NEW download's file.
-    if (m_status == DownloadStatus::InProgress && m_doCleanProgressFiles)
+    if (m_status == DownloadStatus::InProgress)
     {
-      Platform::RemoveFileIfExists(m_downloadingPath);
-      Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
+      if (m_doCleanProgressFiles)
+      {
+        // Delete temp files synchronously. Any still-in-flight transport writes will land
+        // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
+        // closes) or fail silently (Windows) — either way, no interaction with a potential
+        // new download that reuses the same path. A deferred-cleanup scheme here would
+        // introduce a cancel+retry race where the cleanup deletes the NEW download's file.
+        Platform::RemoveFileIfExists(m_downloadingPath);
+        Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
+      }
+      else
+      {
+        // Periodic SaveResumeChunks() runs only every 10th completed chunk, so .resume
+        // may lag the .downloading file by up to 9 chunks. Flush now so those chunks
+        // aren't re-downloaded on next launch.
+        SaveResumeChunks();
+      }
     }
   }
 
