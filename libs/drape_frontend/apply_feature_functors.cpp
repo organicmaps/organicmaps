@@ -889,14 +889,11 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     auto const rawBicycleLineKind = GetBicycleLineKind(m_f);
     bool const isBicycleActivationRule = IsBicycleActivationRule(rawBicycleLineKind, lineRule);
     if (!isBicycleActivationRule)
-    {
       for (auto const & spline : m_clippedSplines)
         m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
-    }
 
     auto const bicycleLineKind = m_relsSettings.cycling ? rawBicycleLineKind : BicycleLineKind::None;
-    bool const isBicycleLineVisible =
-        IsBicycleLineVisibleAtZoom(bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
+    bool const isBicycleLineVisible = IsBicycleLineVisibleAtZoom(bicycleLineKind, m_params.m_tileKey.m_zoomLevel);
 
     // Show highlight if specific bicycle infrastructure is visible at this zoom,
     // or if we have a generic route relation (e.g. hiking) and no bike infrastructure is present.

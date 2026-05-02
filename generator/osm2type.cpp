@@ -1120,9 +1120,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool noOneway = false;
       CachedTypes::Type cyclewayType = CachedTypes::Count;
       auto const IsPositiveCyclewayProtection = [](std::string const & value)
-      {
-        return !value.empty() && value != "no" && value != "none" && value != "false" && value != "no_separation";
-      };
+      { return !value.empty() && value != "no" && value != "none" && value != "false" && value != "no_separation"; };
       auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
       {
         auto const GetPriority = [](CachedTypes::Type t)
