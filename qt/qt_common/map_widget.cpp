@@ -15,11 +15,13 @@
 #include <functional>
 #include <string>
 
+#include <QLayout>
 #include <QTouchEvent>
+#include <QtGui/QPainter>
 
 #include <QtGui/QAction>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QMenu>
-#include <QtWidgets/QVBoxLayout>
 
 // Fraction of the viewport for a move event
 static constexpr float kViewportFractionRoughMove = 0.2;
@@ -31,20 +33,79 @@ namespace qt::common
 {
 // #define ENABLE_AA_SWITCH
 
+namespace
+{
+class OverlayWidget final : public QWidget
+{
+public:
+  explicit OverlayWidget(QWidget * parent) : QWidget(parent)
+  {
+    setAttribute(Qt::WA_NativeWindow);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_NoSystemBackground);
+    setAttribute(Qt::WA_OpaquePaintEvent, false);
+    setAttribute(Qt::WA_StyledBackground, false);
+    setAttribute(Qt::WA_TransparentForMouseEvents);
+    setFocusPolicy(Qt::NoFocus);
+    setAutoFillBackground(false);
+  }
+
+protected:
+  void paintEvent(QPaintEvent * event) override
+  {
+    QPainter painter(this);
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
+    painter.fillRect(rect(), Qt::transparent);
+    event->accept();
+  }
+};
+}  // namespace
+
 MapWidget::MapWidget(Framework & framework, QWidget * parent)
   : QWidget(parent)
   , m_framework(framework)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
   , m_rendererWindow(nullptr)
+  , m_rootLayout(nullptr)
   , m_windowContainer(nullptr)
+  , m_overlayWindow(nullptr)
 {
   setMouseTracking(true);
   setAttribute(Qt::WA_AcceptTouchEvents);
+
+  m_rootLayout = new QGridLayout(this);
+  m_rootLayout->setContentsMargins(0, 0, 0, 0);
+  m_rootLayout->setSpacing(0);
+  m_rootLayout->setRowStretch(0, 1);
+  m_rootLayout->setColumnStretch(0, 1);
+  setLayout(m_rootLayout);
+
+  m_overlayWindow = new OverlayWidget(this);
+  m_rootLayout->addWidget(m_overlayWindow, 0, 0, Qt::AlignCenter);
   SetRenderingApi(m_framework.LoadPreferredGraphicsAPI());
 }
 
-MapWidget::~MapWidget() = default;
+MapWidget::~MapWidget()
+{
+  delete m_overlayWindow;
+  m_overlayWindow = nullptr;
+}
+
+void MapWidget::SetOverlayLayout(QLayout * layout) const
+{
+  if (layout == nullptr)
+    return;
+
+  if (QLayout * oldLayout = m_overlayWindow->layout(); oldLayout != nullptr)
+    delete oldLayout;
+
+  layout->setContentsMargins(0, 0, 0, 0);
+  m_overlayWindow->setLayout(layout);
+  m_overlayWindow->adjustSize();
+  m_overlayWindow->show();
+  m_overlayWindow->raise();
+}
 
 void MapWidget::BindHotkeys(QWidget & parent)
 {
@@ -168,32 +229,23 @@ void MapWidget::SetRenderingApi(dp::ApiVersion const apiVersion)
 
   if (m_windowContainer)
   {
-    layout()->removeWidget(m_windowContainer);
+    m_rootLayout->removeWidget(m_windowContainer);
     delete m_windowContainer;
     m_windowContainer = nullptr;
   }
 
   m_rendererWindow = renderer::RendererFactory::CreateRendererWindow(m_framework, apiVersion);
-  QWidget * windowContainer = createWindowContainer(m_rendererWindow);
-  ASSERT(windowContainer != nullptr, ());
-  windowContainer->setFocusPolicy(Qt::NoFocus);
+  m_windowContainer = createWindowContainer(m_rendererWindow);
+  ASSERT(m_windowContainer != nullptr, ());
+  m_windowContainer->setFocusPolicy(Qt::NoFocus);
 
-  if (layout())
-  {
-    layout()->addWidget(windowContainer);
-  }
-  else
-  {
-    auto * vLayout = new QVBoxLayout(this);
-    vLayout->setContentsMargins(0, 0, 0, 0);
-    vLayout->setSpacing(0);
-    vLayout->addWidget(windowContainer);
-  }
-
-  m_windowContainer = windowContainer;
+  m_windowContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  m_rootLayout->addWidget(m_windowContainer, 0, 0);
 
   connect(m_rendererWindow, &renderer::base::RendererWindow::OnBeforeEngineCreation, this,
           &MapWidget::OnBeforeEngineCreation);
+  connect(m_rendererWindow, &renderer::base::RendererWindow::OnAfterEngineCreation, this,
+          &MapWidget::OnAfterEngineCreation);
   connect(m_rendererWindow, &renderer::base::RendererWindow::OnViewportChanged, this, &MapWidget::OnViewportChanged);
 
   m_rendererWindow->SetEventReceiver(this);

@@ -35,7 +35,7 @@
 #endif
 
 #else
-#define OMIM_OS_LINUX true
-#define OMIM_OS_NAME  "linux"
+#define OMIM_OS_LINUX
+#define OMIM_OS_NAME "linux"
 #define OMIM_OS_DESKTOP
 #endif

@@ -8,6 +8,8 @@
 class Framework;
 class QMouseEvent;
 class ScreenBase;
+class QLayout;
+class QGridLayout;
 
 namespace qt::common
 {
@@ -23,6 +25,7 @@ public:
 
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
+  void SetOverlayLayout(QLayout * layout) const;
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
@@ -86,7 +89,9 @@ protected:
   SliderState m_sliderState;
 
   renderer::base::RendererWindow * m_rendererWindow;
+  QGridLayout * m_rootLayout;
   QWidget * m_windowContainer;
+  QWidget * m_overlayWindow;
 };
 
 }  // namespace qt::common

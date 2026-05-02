@@ -191,7 +191,7 @@ bool DrawWidget::event(QEvent * event)
 {
   if constexpr (!kIsLinux)
   {
-    return QWidget::event(event);
+    return TBase::event(event);
   }
   else
   {
@@ -236,7 +236,7 @@ bool DrawWidget::event(QEvent * event)
       }
     }
     // Everything else
-    return QWidget::event(event);
+    return TBase::event(event);
   }
 }
 

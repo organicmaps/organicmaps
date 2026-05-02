@@ -443,7 +443,7 @@ void MainWindow::CreateCountryStatusControls()
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
   m_downloadingStatusLabel->setVisible(false);
 
-  m_pDrawWidget->setLayout(mainLayout);
+  m_pDrawWidget->SetOverlayLayout(mainLayout);
 
   auto const OnCountryChanged = [this](storage::CountryId const & countryId)
   {
