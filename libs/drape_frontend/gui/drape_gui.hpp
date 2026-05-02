@@ -55,10 +55,11 @@ private:
   bool m_isCopyrightActive = true;
 
   Shape::TTapHandler m_onCompassTappedHandler;
-  m2::PointF m_surfaceSize;
-  mutable std::mutex m_surfaceSizeMutex;
+
+  mutable std::mutex m_paramsMutex;
   m2::RectD m_visibleViewport;
-  mutable std::mutex m_visibleViewportMutex;
+  m2::PointF m_surfaceSize;
+
   bool m_inUserAction = false;
   ScaleFpsHelper m_scaleFpsHelper;
 };
