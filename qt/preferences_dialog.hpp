@@ -1,10 +1,11 @@
 #pragma once
 
+#include <functional>
 #include <string>
 
 #include <QtWidgets/QDialog>
 
-#include <functional>
+#include "drape/drape_global.hpp"
 
 class Framework;
 

@@ -22,5 +22,5 @@ target_link_libraries(${PROJECT_NAME}
     om::qt::common::renderer::base
   PRIVATE
     om::qt::common::renderer::opengl
-    om::qt::common::renderer::metal
+    $<$<BOOL:${PLATFORM_MAC}>:om::qt::common::renderer::metal>
 )
