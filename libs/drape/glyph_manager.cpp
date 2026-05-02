@@ -603,71 +603,72 @@ FreetypeError constexpr g_FT_Errors[] =
     // TODO(AB): Check if it's slower or faster.
     allGlyphs.m_glyphs.reserve(icu::UnicodeString{false, text.data(), static_cast<int32_t>(text.size())}.countChar32());
 
-    struct FontRun
+    auto const fontSupportsTextSegment = [this](int fontIndex, std::u16string_view text,
+                                                harfbuzz_shaping::TextSegment const & segment)
     {
-      int m_start = 0;
-      int m_length = 0;
-      int m_fontIndex = kInvalidFont;
-    };
-
-    auto const splitTextSegmentByFont = [this](std::u16string_view text,
-                                               harfbuzz_shaping::TextSegment const & segment)
-    {
-      buffer_vector<FontRun, 4> runs;
+      if (fontIndex < 0)
+        return false;
 
       auto it = text.begin() + segment.m_start;
       auto const end = it + segment.m_length;
-
       while (it != end)
       {
-        auto const runStart = static_cast<int>(it - text.begin());
-
-        auto tmp = it;
-        auto const u32Character = utf8::unchecked::next16(tmp);
-        int const fontIndex = GetFontIndex(u32Character);
-        it = tmp;
-
-        while (it != end)
-        {
-          auto probe = it;
-          auto const nextChar = utf8::unchecked::next16(probe);
-          if (GetFontIndex(nextChar) != fontIndex)
-            break;
-          it = probe;
-        }
-
-        runs.push_back({runStart, static_cast<int>(it - (text.begin() + runStart)), fontIndex});
+        auto const u32Character = utf8::unchecked::next16(it);
+        if (!m_impl->m_fonts[fontIndex]->HasGlyph(u32Character))
+          return false;
       }
 
-      return runs;
+      return true;
+    };
+
+    auto const findTextSegmentFont = [this, &fontSupportsTextSegment](std::u16string_view text,
+                                                                      harfbuzz_shaping::TextSegment const & segment)
+    {
+      int fontIndex = kInvalidFont;
+      auto it = text.begin() + segment.m_start;
+      auto const end = it + segment.m_length;
+      while (it != end)
+      {
+        auto const u32Character = utf8::unchecked::next16(it);
+        if (fontIndex == kInvalidFont)
+        {
+          fontIndex = GetFontIndex(u32Character);
+          if (fontIndex < 0)
+            LOG(LWARNING, ("No font was found for character", NumToHex(u32Character)));
+          continue;
+        }
+
+        if (m_impl->m_fonts[fontIndex]->HasGlyph(u32Character))
+          continue;
+
+        int const characterFontIndex = GetFontIndex(u32Character);
+        if (characterFontIndex < 0)
+        {
+          LOG(LWARNING, ("No font was found for character", NumToHex(u32Character)));
+          continue;
+        }
+
+        if (fontSupportsTextSegment(characterFontIndex, text, segment))
+          return characterFontIndex;
+      }
+
+      return fontIndex;
     };
 
     for (auto const & substring : segments)
     {
-      auto runs = splitTextSegmentByFont(text, substring);
-      if (substring.m_direction == HB_DIRECTION_RTL)
-        std::reverse(runs.begin(), runs.end());
-      for (auto const & run : runs)
-      {
-        if (run.m_fontIndex < 0)
-        {
-          auto u32CharacterIter{text.begin() + run.m_start};
-          auto const u32Character = utf8::unchecked::next16(u32CharacterIter);
-          LOG(LWARNING, ("No font was found for character", NumToHex(u32Character)));
-        }
-        else
-        {
-          hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
-          hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
-                              static_cast<int>(text.size()), run.m_start, run.m_length);
-          hb_buffer_set_direction(m_impl->m_harfbuzzBuffer, substring.m_direction);
-          hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
-          hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
+      int const fontIndex = findTextSegmentFont(text, substring);
+      if (fontIndex < 0)
+        continue;
 
-          m_impl->m_fonts[run.m_fontIndex]->Shape(m_impl->m_harfbuzzBuffer, fontPixelHeight, run.m_fontIndex,
-                                                  allGlyphs);
-        }
-      }
+      hb_buffer_clear_contents(m_impl->m_harfbuzzBuffer);
+      hb_buffer_add_utf16(m_impl->m_harfbuzzBuffer, reinterpret_cast<uint16_t const *>(text.data()),
+                          static_cast<int>(text.size()), substring.m_start, substring.m_length);
+      hb_buffer_set_direction(m_impl->m_harfbuzzBuffer, substring.m_direction);
+      hb_buffer_set_script(m_impl->m_harfbuzzBuffer, substring.m_script);
+      hb_buffer_set_language(m_impl->m_harfbuzzBuffer, hbLanguage);
+
+      m_impl->m_fonts[fontIndex]->Shape(m_impl->m_harfbuzzBuffer, fontPixelHeight, fontIndex, allGlyphs);
     }
 
     // Uncomment utf8 printing for debugging if necessary. It crashes JNI with non-modified UTF-8 strings on Android 5
