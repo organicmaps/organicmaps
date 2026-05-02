@@ -6,7 +6,16 @@ import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Outline;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -19,13 +28,16 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListPopupWindow;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
@@ -74,6 +86,7 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
 import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -156,6 +169,8 @@ public class PlacePageView extends Fragment
   private ImageView mIvRouteRef;
   @Nullable
   private RouteInfo[] mRoutes;
+  @Nullable
+  private PopupWindow mRoutesPopup;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -385,6 +400,8 @@ public class PlacePageView extends Fragment
   public void onStop()
   {
     super.onStop();
+    if (mRoutesPopup != null && mRoutesPopup.isShowing())
+      mRoutesPopup.dismiss();
     mViewModel.getMapObject().removeObserver(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
@@ -966,18 +983,44 @@ public class PlacePageView extends Fragment
     final int padV =
         (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
 
-    // Resolve theme's primary text color once — used when an item has no tinted background
-    // so it follows light/dark theme as usual.
-    final android.content.res.TypedArray ta =
-        context.obtainStyledAttributes(new int[] {android.R.attr.textColorPrimary});
-    final int defaultTextColor = ta.getColor(0, Color.BLACK);
-    ta.recycle();
+    // Resolve theme colors.
+    final int defaultTextColor = ThemeUtils.getColor(context, android.R.attr.textColorPrimary);
+    final int bgColor = ThemeUtils.getColor(context, R.attr.cardBackground);
 
-    final ListPopupWindow popup = new ListPopupWindow(context);
-    popup.setAnchorView(anchor);
-    popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-    popup.setModal(true);
-    popup.setAdapter(new ArrayAdapter<>(context, 0, labels) {
+    // Popup shape parameters.
+    final Resources res = context.getResources();
+    final float radius = res.getDimension(R.dimen.corner_radius_medium);
+    final float arrowWidth = res.getDimension(R.dimen.routes_popup_arrow_width);
+    final float arrowHeight = res.getDimension(R.dimen.routes_popup_arrow_height);
+
+    // Dismiss any existing popup (prevent stacking on rapid taps).
+    if (mRoutesPopup != null && mRoutesPopup.isShowing())
+      mRoutesPopup.dismiss();
+
+    final int margin = (int) res.getDimension(R.dimen.routes_popup_margin);
+    final int popupWidth = anchor.getWidth() - 2 * margin;
+    if (popupWidth <= 0)
+      return;
+
+    // Predict popup direction: show below when there is more space below the anchor.
+    final int[] anchorLoc = new int[2];
+    anchor.getLocationOnScreen(anchorLoc);
+    final Rect displayFrame = new Rect();
+    anchor.getWindowVisibleDisplayFrame(displayFrame);
+    final int spaceAbove = anchorLoc[1] - displayFrame.top;
+    final int spaceBelow = displayFrame.bottom - anchorLoc[1] - anchor.getHeight();
+    final boolean arrowOnTop = spaceBelow > spaceAbove;
+
+    // Rounded background with an arrow pointing toward the anchor.
+    final ArrowPopupBackground bgDrawable =
+        new ArrowPopupBackground(bgColor, ContextCompat.getColor(context, R.color.black_12), radius, arrowWidth,
+                                 arrowHeight, res.getDimension(R.dimen.routes_popup_shadow_offset), arrowOnTop);
+
+    // Build the list view.
+    final ListView listView = new ListView(context);
+    listView.setDivider(null);
+    listView.setDividerHeight(0);
+    listView.setAdapter(new ArrayAdapter<>(context, 0, labels) {
       @NonNull
       @Override
       public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
@@ -990,6 +1033,8 @@ public class PlacePageView extends Fragment
           TextViewCompat.setTextAppearance(tv, androidx.appcompat.R.style.TextAppearance_AppCompat_Body1);
         }
         tv.setText(labels[position]);
+        if (mRoutes == null || position >= mRoutes.length)
+          return tv;
         final RouteInfo r = mRoutes[position];
         if (r.hasColor())
         {
@@ -1005,13 +1050,49 @@ public class PlacePageView extends Fragment
         return tv;
       }
     });
-    popup.setOnItemClickListener((parent, view, position, id) -> {
+    listView.setOutlineProvider(new ViewOutlineProvider() {
+      @Override
+      public void getOutline(View view, Outline outline)
+      {
+        outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+      }
+    });
+    listView.setClipToOutline(true);
+
+    // Measure content height capped to available space.
+    final int maxHeight = (arrowOnTop ? spaceBelow : spaceAbove) - margin;
+    if (maxHeight <= 0)
+      return;
+    listView.measure(View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.AT_MOST),
+                     View.MeasureSpec.makeMeasureSpec(maxHeight - (int) arrowHeight, View.MeasureSpec.AT_MOST));
+    final int popupHeight = listView.getMeasuredHeight() + (int) arrowHeight;
+    if (popupHeight <= 0)
+      return;
+
+    final PopupWindow popup = new PopupWindow(listView, popupWidth, popupHeight);
+    popup.setBackgroundDrawable(bgDrawable);
+    popup.setElevation(res.getDimension(R.dimen.routes_popup_elevation));
+    popup.setFocusable(true);
+    popup.setOutsideTouchable(true);
+    popup.setAnimationStyle(android.R.style.Animation_Dialog);
+
+    listView.setOnItemClickListener((parent, view, position, id) -> {
       final RouteInfo r = mRoutes[position];
       mTvRouteRef.setText(formatRouteRefs(mRoutes, r.getRef()));
       Framework.nativeShowRouteTransit(r.getRelId());
       popup.dismiss();
     });
-    popup.show();
+
+    // Clamp popupX to screen bounds.
+    final int popupX =
+        Math.max(displayFrame.left + margin, Math.min(anchorLoc[0] + margin, displayFrame.right - popupWidth - margin));
+    final int popupY;
+    if (arrowOnTop)
+      popupY = anchorLoc[1] + anchor.getHeight() + margin;
+    else
+      popupY = anchorLoc[1] - popupHeight - margin;
+    popup.showAtLocation(anchor, Gravity.NO_GRAVITY, popupX, popupY);
+    mRoutesPopup = popup;
   }
 
   private void showBigDirection()
@@ -1249,5 +1330,105 @@ public class PlacePageView extends Fragment
 
     void onPlacePageRequestToggleState();
     void onPlacePageRequestClose();
+  }
+
+  /**
+   * Rounded rectangle background with a triangular arrow on one side,
+   * plus a soft shadow behind the arrow to match the popup's elevation shadow.
+   */
+  private static final class ArrowPopupBackground extends Drawable
+  {
+    private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint mShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Path mPath = new Path();
+    private final RectF mRectF = new RectF();
+    private final float mRadius;
+    private final float mArrowWidth;
+    private final float mArrowHeight;
+    private final float mShadowDy;
+    private final boolean mArrowOnTop;
+
+    ArrowPopupBackground(int bgColor, int shadowColor, float radius, float arrowWidth, float arrowHeight,
+                         float shadowDy, boolean arrowOnTop)
+    {
+      mRadius = radius;
+      mArrowWidth = arrowWidth;
+      mArrowHeight = arrowHeight;
+      mShadowDy = shadowDy;
+      mArrowOnTop = arrowOnTop;
+      mPaint.setColor(bgColor);
+      mShadowPaint.setColor(shadowColor);
+    }
+
+    @Override
+    public void draw(@NonNull Canvas canvas)
+    {
+      final Rect b = getBounds();
+      final float cx = b.exactCenterX();
+      final float arrowBase = mArrowOnTop ? b.top + mArrowHeight : b.bottom - mArrowHeight;
+      final float arrowTip = mArrowOnTop ? b.top : b.bottom;
+      final float shadowTip = mArrowOnTop ? b.top - mShadowDy : b.bottom + mShadowDy;
+
+      // Body: rounded rectangle.
+      if (mArrowOnTop)
+        mRectF.set(b.left, arrowBase, b.right, b.bottom);
+      else
+        mRectF.set(b.left, b.top, b.right, arrowBase);
+      mPath.reset();
+      mPath.addRoundRect(mRectF, mRadius, mRadius, Path.Direction.CW);
+      canvas.drawPath(mPath, mPaint);
+
+      // Arrow shadow.
+      mPath.reset();
+      mPath.moveTo(cx - mArrowWidth / 2 - mShadowDy, arrowBase);
+      mPath.lineTo(cx, shadowTip);
+      mPath.lineTo(cx + mArrowWidth / 2 + mShadowDy, arrowBase);
+      mPath.close();
+      canvas.drawPath(mPath, mShadowPaint);
+
+      // Arrow triangle.
+      mPath.reset();
+      mPath.moveTo(cx - mArrowWidth / 2, arrowBase);
+      mPath.lineTo(cx, arrowTip);
+      mPath.lineTo(cx + mArrowWidth / 2, arrowBase);
+      mPath.close();
+      canvas.drawPath(mPath, mPaint);
+    }
+
+    @Override
+    public boolean getPadding(@NonNull Rect padding)
+    {
+      if (mArrowOnTop)
+        padding.set(0, (int) mArrowHeight, 0, 0);
+      else
+        padding.set(0, 0, 0, (int) mArrowHeight);
+      return true;
+    }
+
+    @Override
+    public void getOutline(@NonNull Outline outline)
+    {
+      final Rect b = getBounds();
+      if (mArrowOnTop)
+        outline.setRoundRect(b.left, (int) (b.top + mArrowHeight), b.right, b.bottom, mRadius);
+      else
+        outline.setRoundRect(b.left, b.top, b.right, (int) (b.bottom - mArrowHeight), mRadius);
+    }
+
+    @Override
+    public void setAlpha(int alpha)
+    {
+      mPaint.setAlpha(alpha);
+    }
+    @Override
+    public void setColorFilter(@Nullable ColorFilter cf)
+    {
+      mPaint.setColorFilter(cf);
+    }
+    @Override
+    public int getOpacity()
+    {
+      return PixelFormat.TRANSLUCENT;
+    }
   }
 }
