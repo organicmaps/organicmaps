@@ -75,9 +75,9 @@ BicycleLineKind GetBicycleLineKind(FeatureType & f)
   static uint32_t const kCycleway = c.GetTypeByPath({"highway", "cycleway"});
   static uint32_t const kPathBicycle = c.GetTypeByPath({"highway", "path", "bicycle"});
   static uint32_t const kFootwayBicycle = c.GetTypeByPath({"highway", "footway", "bicycle"});
-  static uint32_t const kTrack = c.GetTypeByPath({"hwtag", "cycleway_track"});
-  static uint32_t const kLane = c.GetTypeByPath({"hwtag", "cycleway_lane"});
-  static uint32_t const kSharedLane = c.GetTypeByPath({"hwtag", "cycleway_shared_lane"});
+  static uint32_t const kTrack = c.GetTypeByPath({"cyclewaytag", "track"});
+  static uint32_t const kLane = c.GetTypeByPath({"cyclewaytag", "lane"});
+  static uint32_t const kSharedLane = c.GetTypeByPath({"cyclewaytag", "shared_lane"});
   static uint32_t const kYesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
   static uint32_t const kResidential = c.GetTypeByPath({"highway", "residential"});
   static uint32_t const kLivingStreet = c.GetTypeByPath({"highway", "living_street"});

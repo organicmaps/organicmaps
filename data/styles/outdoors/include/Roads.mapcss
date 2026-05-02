@@ -108,9 +108,9 @@ line|z12-[highway=path][bicycle=designated]::cycleline,
 {color: @cycleway; opacity: 1;}
 line|z13-[highway=footway][bicycle=designated]::cycleline,
 {color: @cycleway; opacity: 0.8;}
-line|z11-[hwtag=cycleway_track],
-line|z13-[hwtag=cycleway_lane],
-line|z13-[hwtag=cycleway_shared_lane]
+line|z11-[cyclewaytag=track],
+line|z13-[cyclewaytag=lane],
+line|z13-[cyclewaytag=shared_lane]
 {color: @cycleway; opacity: 0.01; width: 0.1;}
 
 line|z11[highway=track],

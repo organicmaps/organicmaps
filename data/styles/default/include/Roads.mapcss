@@ -632,9 +632,9 @@ line|z13-[highway=ford]
 line|z11-12[highway=cycleway],
 line|z11-13[highway=path][bicycle=designated]::cycleline,
 line|z11-14[highway=footway][bicycle=designated]::cycleline,
-line|z11-12[hwtag=cycleway_track],
-line|z13-[hwtag=cycleway_lane],
-line|z13-[hwtag=cycleway_shared_lane]
+line|z11-12[cyclewaytag=track],
+line|z13-[cyclewaytag=lane],
+line|z13-[cyclewaytag=shared_lane]
 {color: @cycleway; opacity: 0.01; width: 0.1;}
 line|z13-[highway=cycleway],
 line|z14-[highway=path][bicycle=designated]::cycleline,

@@ -251,6 +251,11 @@ public:
     CyclewayTrack,
     CyclewayLane,
     CyclewaySharedLane,
+    CyclewayLineBoth,
+    CyclewayLineLeft,
+    CyclewayLineRight,
+    CyclewayLineForward,
+    CyclewayLineBackward,
     BicycleBidir,
     SurfacePavedGood,
     SurfacePavedBad,
@@ -290,9 +295,14 @@ public:
         {NoBicycle, {"hwtag", "nobicycle"}},
         {YesBicycle, {"hwtag", "yesbicycle"}},
         {NoCycleway, {"hwtag", "nocycleway"}},
-        {CyclewayTrack, {"hwtag", "cycleway_track"}},
-        {CyclewayLane, {"hwtag", "cycleway_lane"}},
-        {CyclewaySharedLane, {"hwtag", "cycleway_shared_lane"}},
+        {CyclewayTrack, {"cyclewaytag", "track"}},
+        {CyclewayLane, {"cyclewaytag", "lane"}},
+        {CyclewaySharedLane, {"cyclewaytag", "shared_lane"}},
+        {CyclewayLineBoth, {"cyclewayline", "both"}},
+        {CyclewayLineLeft, {"cyclewayline", "left"}},
+        {CyclewayLineRight, {"cyclewayline", "right"}},
+        {CyclewayLineForward, {"cyclewayline", "forward"}},
+        {CyclewayLineBackward, {"cyclewayline", "backward"}},
         {BicycleBidir, {"hwtag", "bidir_bicycle"}},
         {SurfacePavedGood, {"psurface", "paved_good"}},
         {SurfacePavedBad, {"psurface", "paved_bad"}},
@@ -1119,6 +1129,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool addOneway = false;
       bool noOneway = false;
       CachedTypes::Type cyclewayType = CachedTypes::Count;
+      std::vector<CachedTypes::Type> cyclewayLineTypes;
       auto const IsPositiveCyclewayProtection = [](std::string const & value)
       { return !value.empty() && value != "no" && value != "none" && value != "false" && value != "no_separation"; };
       auto const SetCyclewayType = [&cyclewayType](CachedTypes::Type type)
@@ -1137,14 +1148,37 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         if (GetPriority(type) > GetPriority(cyclewayType))
           cyclewayType = type;
       };
-      auto const ProcessCyclewayTypeTag = [&SetCyclewayType](std::string const & value)
+      auto const AddCyclewayLineType = [&cyclewayLineTypes](CachedTypes::Type type)
       {
+        if (!base::IsExist(cyclewayLineTypes, type))
+          cyclewayLineTypes.push_back(type);
+      };
+      auto const ProcessCyclewayTypeTag =
+          [&AddCyclewayLineType, &SetCyclewayType](std::string const & key, std::string const & value)
+      {
+        bool hasCyclewayLine = true;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
           SetCyclewayType(CachedTypes::CyclewayTrack);
         else if (value == "lane" || value == "opposite_lane")
           SetCyclewayType(CachedTypes::CyclewayLane);
         else if (value == "shared_lane")
           SetCyclewayType(CachedTypes::CyclewaySharedLane);
+        else
+          hasCyclewayLine = false;
+
+        if (!hasCyclewayLine)
+          return;
+
+        if (key == "cycleway" || key == "cycleway:both")
+          AddCyclewayLineType(CachedTypes::CyclewayLineBoth);
+        else if (key == "cycleway:left")
+          AddCyclewayLineType(CachedTypes::CyclewayLineLeft);
+        else if (key == "cycleway:right")
+          AddCyclewayLineType(CachedTypes::CyclewayLineRight);
+        else if (key == "cycleway:forward")
+          AddCyclewayLineType(CachedTypes::CyclewayLineForward);
+        else if (key == "cycleway:backward")
+          AddCyclewayLineType(CachedTypes::CyclewayLineBackward);
       };
 
       TagProcessor(p).ApplyRules({
@@ -1213,7 +1247,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         if (tag.m_key == "cycleway" || tag.m_key == "cycleway:both" || tag.m_key == "cycleway:left" ||
             tag.m_key == "cycleway:right" || tag.m_key == "cycleway:forward" || tag.m_key == "cycleway:backward")
         {
-          ProcessCyclewayTypeTag(tag.m_value);
+          ProcessCyclewayTypeTag(tag.m_key, tag.m_value);
         }
       }
 
@@ -1259,6 +1293,11 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
       if (cyclewayType != CachedTypes::Count && !IsBicycleDesignatedHighway(vType))
         AddParam(cyclewayType);
+      if (!IsBicycleDesignatedHighway(vType))
+      {
+        for (auto const lineType : cyclewayLineTypes)
+          AddParam(lineType);
+      }
 
       highwayDone = true;
     }

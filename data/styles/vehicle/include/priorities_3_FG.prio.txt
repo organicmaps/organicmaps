@@ -15,12 +15,12 @@
 historic-citywalls                                  # line z15-
 === 280
 
+cyclewaytag-lane                                    # line z13-17
+cyclewaytag-shared_lane                             # line z13-17
+cyclewaytag-track                                   # line z11-17
 highway-ladder                                      # line z18-
 highway-steps                                       # line z18-
 highway-steps-bridge                                # line z18-
-hwtag-cycleway_lane                                 # line z13-17
-hwtag-cycleway_shared_lane                          # line z13-17
-hwtag-cycleway_track                                # line z11-17
 hwtag-oneway::arrows                                # line::arrows z15-
 railway-tram::centerline                            # line::centerline z16- (also has line z16-)
 railway-tram-bridge::centerline                     # line::centerline z16- (also has line z16-)

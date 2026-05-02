@@ -402,6 +402,18 @@ world  +
         vegetarian  -
         vietnamese  -
         {}
+    cyclewayline  +
+        backward  -
+        both  -
+        forward  -
+        left  -
+        right  -
+        {}
+    cyclewaytag  +
+        lane  -
+        shared_lane  -
+        track  -
+        {}
     drinking_water  +
         no  -
         yes  -
@@ -608,9 +620,6 @@ world  +
         {}
     hwtag  +
         bidir_bicycle  -
-        cycleway_lane  -
-        cycleway_shared_lane  -
-        cycleway_track  -
         lit  -
         nobicycle  -
         nocar  -

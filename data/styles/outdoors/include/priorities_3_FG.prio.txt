@@ -49,6 +49,9 @@ power-line::dash                                    # line::dash z13- (also has 
 power-minor_line::dash                              # line::dash z15- (also has line z15-)
 === 340
 
+cyclewaytag-lane                                    # line z13-
+cyclewaytag-shared_lane                             # line z13-
+cyclewaytag-track                                   # line z11-
 highway-cycleway                                    # line z11- (also has pathtext z13-)
 highway-cycleway-bridge                             # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
 highway-cycleway-tunnel                             # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
@@ -57,9 +60,6 @@ highway-ladder                                      # line z12- (also has icon z
 highway-steps                                       # line z12- (also has pathtext z13-)
 highway-steps-bridge                                # line z12- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
 highway-steps-tunnel                                # line z12- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
-hwtag-cycleway_lane                                 # line z13-
-hwtag-cycleway_shared_lane                          # line z13-
-hwtag-cycleway_track                                # line z11-
 hwtag-oneway::arrows                                # line::arrows z15-
 waterway-weir                                       # line z14- (also has pathtext z15-)
 === 330

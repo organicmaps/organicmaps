@@ -177,6 +177,7 @@ bool IsUsefulNondrawableType(uint32_t type, GeomType geomType = GeomType::Undefi
     return false;
 
   static uint32_t const hwtag = cl.GetTypeByPath({"hwtag"});
+  static uint32_t const cyclewayLine = cl.GetTypeByPath({"cyclewayline"});
   static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
   /// @todo "roundabout" type itself has caption drawing rules (for point junctions?).
@@ -186,7 +187,7 @@ bool IsUsefulNondrawableType(uint32_t type, GeomType geomType = GeomType::Undefi
   ftype::TruncValue(type, 1);
   if (geomType == GeomType::Line || geomType == GeomType::Undefined)
   {
-    if (type == hwtag || type == psurface)
+    if (type == hwtag || type == cyclewayLine || type == psurface)
       return true;
   }
 
