@@ -72,6 +72,13 @@
   <dimen name="margin_direction_mid">24dp</dimen>
   <dimen name="margin_direction_around_center">40dp</dimen>
 
+  <!-- routes popup -->
+  <dimen name="routes_popup_arrow_width">16dp</dimen>
+  <dimen name="routes_popup_arrow_height">8dp</dimen>
+  <dimen name="routes_popup_margin">8dp</dimen>
+  <dimen name="routes_popup_elevation">2dp</dimen>
+  <dimen name="routes_popup_shadow_offset">1dp</dimen>
+
   <!-- corner radii -->
   <dimen name="corner_radius_small">8dp</dimen>
   <dimen name="corner_radius_medium">14dp</dimen>
