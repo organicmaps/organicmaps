@@ -44,26 +44,33 @@ void DrapeGui::Destroy()
 
 void DrapeGui::SetSurfaceSize(m2::PointF const & size)
 {
-  std::lock_guard<std::mutex> lock(m_surfaceSizeMutex);
+  std::lock_guard lock(m_paramsMutex);
   m_surfaceSize = size;
 }
 
 m2::PointF DrapeGui::GetSurfaceSize() const
 {
-  std::lock_guard<std::mutex> lock(m_surfaceSizeMutex);
+  std::lock_guard lock(m_paramsMutex);
   return m_surfaceSize;
 }
 
 void DrapeGui::SetVisibleViewport(m2::RectD const & rect)
 {
-  std::lock_guard<std::mutex> lock(m_visibleViewportMutex);
+  std::lock_guard lock(m_paramsMutex);
   m_visibleViewport = rect;
 }
 
 m2::RectD DrapeGui::GetVisibleViewport() const
 {
-  std::lock_guard<std::mutex> lock(m_visibleViewportMutex);
-  return m_visibleViewport;
+  std::lock_guard lock(m_paramsMutex);
+
+  if (m_visibleViewport.IsValid())
+    return m_visibleViewport;
+  else
+  {
+    // Better than assign in SetSurfaceSize.
+    return {0, 0, m_surfaceSize.x, m_surfaceSize.y};
+  }
 }
 
 RulerHelper & DrapeGui::GetRulerHelperImpl()
