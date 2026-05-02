@@ -152,6 +152,12 @@ void UpdateTrackSelectionColor(dp::Color & color)
 {
   if (color == feature::RouteRelationBase::kEmptyColor)
     color = dp::Color(128, 0, 128, 255);  // Default purple.
+
+  // Adjust colors to the current theme for readability.
+  bool const isLightTheme = !MapStyleIsDark(GetStyleReader().GetCurrentStyle());
+  dp::HSL hsl = dp::Color2HSL(color);
+  if (hsl.AdjustLightness(isLightTheme))
+    color = dp::HSL2Color(hsl);
 }
 }  // namespace
 
