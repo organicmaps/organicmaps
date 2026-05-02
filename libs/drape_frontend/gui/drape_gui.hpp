@@ -1,34 +1,27 @@
 #pragma once
 
-#include "drape_frontend/gui/compass.hpp"
+#include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/gui/scale_fps_helper.hpp"
-#include "drape_frontend/gui/skin.hpp"
+#include "drape_frontend/gui/shape.hpp"
 
-#include "storage/storage_defines.hpp"
-
-#include "drape/pointers.hpp"
+#include "drape/drape_global.hpp"
 
 #include "geometry/rect2d.hpp"
 
-#include <functional>
-#include <memory>
 #include <mutex>
 
 class ScreenBase;
 
 namespace gui
 {
-class RulerHelper;
 
 class DrapeGui
 {
 public:
   static DrapeGui & Instance();
   static RulerHelper & GetRulerHelper();
-
   static dp::FontDecl GetGuiTextFont();
 
-  void Destroy();
   void SetSurfaceSize(m2::PointF const & size);
   m2::PointF GetSurfaceSize() const;
   void SetVisibleViewport(m2::RectD const & rect);
@@ -47,11 +40,8 @@ public:
   ScaleFpsHelper const & GetScaleFpsHelper() const { return m_scaleFpsHelper; }
 
 private:
-  DrapeGui();
-  RulerHelper & GetRulerHelperImpl();
+  RulerHelper m_rulerHelper;
 
-  struct Impl;
-  std::unique_ptr<Impl> m_impl;
   bool m_isCopyrightActive = true;
 
   Shape::TTapHandler m_onCompassTappedHandler;

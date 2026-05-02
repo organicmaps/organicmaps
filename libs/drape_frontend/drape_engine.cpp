@@ -127,7 +127,6 @@ DrapeEngine::~DrapeEngine()
   m_frontend.reset();
   m_backend.reset();
 
-  gui::DrapeGui::Instance().Destroy();
   m_textureManager->Release();
 }
 
