@@ -8,6 +8,10 @@
 #include "platform/location.hpp"
 #include "platform/location_service/location_service.hpp"
 
+#ifdef BUILD_DESIGNER
+#include "qt/build_style/build_style.h"
+#endif
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 
@@ -83,6 +87,7 @@ private:
 
 #ifdef BUILD_DESIGNER
   QString const m_mapcssFilePath;
+  build_style::StyleInfo const m_styleInfo;
   QAction * m_pBuildStyleAction = nullptr;
   QAction * m_pRecalculateGeomIndex = nullptr;
   QAction * m_pDrawDebugRectAction = nullptr;
@@ -97,7 +102,7 @@ public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry
 #ifdef BUILD_DESIGNER
              ,
-             QString const & mapcssFilePath = QString()
+             QString const & mapcssFilePath = QString(), build_style::StyleInfo const & styleInfo = {}
 #endif
   );
 

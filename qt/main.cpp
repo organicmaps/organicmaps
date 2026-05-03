@@ -175,6 +175,7 @@ int main(int argc, char * argv[])
   int returnCode = -1;
 #ifdef BUILD_DESIGNER
   QString mapcssFilePath;
+  build_style::StyleInfo styleInfo;
 #endif
   if (eulaAccepted)  // User has accepted EULA
   {
@@ -223,9 +224,22 @@ int main(int argc, char * argv[])
     if (mapcssFilePath.isEmpty())
       return returnCode;
 
+    if (!build_style::TryParseStyleInfo(mapcssFilePath, styleInfo))
+    {
+      QMessageBox msgBox;
+      msgBox.setWindowTitle("Error");
+      msgBox.setText(QString("Could not detect map style from path:\n%1\n\n"
+                             "Expected .../styles/{default|outdoors|vehicle}/{light|dark}/style.mapcss")
+                         .arg(mapcssFilePath));
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setDefaultButton(QMessageBox::Ok);
+      msgBox.exec();
+      return returnCode;
+    }
+
     try
     {
-      build_style::BuildIfNecessaryAndApply(mapcssFilePath);
+      build_style::BuildIfNecessaryAndApply(mapcssFilePath, styleInfo);
     }
     catch (std::exception const & e)
     {
@@ -242,6 +256,10 @@ int main(int argc, char * argv[])
 
     Framework framework(frameworkParams);
     framework.SetupMeasurementSystem();
+#ifdef BUILD_DESIGNER
+    // Lock the active style to whichever .mapcss the Designer is editing.
+    framework.SetMapStyle(styleInfo.m_mapStyle);
+#endif
 
     auto const syncNightMode = [&framework]()
     {
@@ -252,7 +270,7 @@ int main(int argc, char * argv[])
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                                                                  ,
-                     mapcssFilePath
+                     mapcssFilePath, styleInfo
 #endif  // BUILD_DESIGNER
     );
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
@@ -271,7 +289,7 @@ int main(int argc, char * argv[])
   {
     try
     {
-      build_style::RunRecalculationGeometryScript(mapcssFilePath);
+      build_style::RunRecalculationGeometryScript(mapcssFilePath, styleInfo);
     }
     catch (std::exception & e)
     {
