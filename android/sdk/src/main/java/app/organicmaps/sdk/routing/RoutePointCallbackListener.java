@@ -4,9 +4,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 @Keep
-public interface RoutePointCallbackListener {
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
+public interface RoutePointCallbackListener
+{
   void onRoutePointCallback(@NonNull String callback);
 }
