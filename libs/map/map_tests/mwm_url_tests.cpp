@@ -107,6 +107,19 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
   TEST_ALMOST_EQUAL_ABS(test.GetRouteStartDirection().y, 0.0, kEps, ());
 }
 
+UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)
+{
+  string const urlString =
+      "om://v2/nav?destination=2,2&origin_name=Warehouse&origin_callback=app%3A%2F%2Forigin";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_name, "Warehouse", ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin", ());
+}
+
 UNIT_TEST(RouteApiV2RejectsInvalidOriginHeading)
 {
   ParsedMapApi test("om://v2/nav?destination=2,2&origin_heading=361");

@@ -339,10 +339,10 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       }
       else
       {
-        RoutePoint myPosition;
-        myPosition.m_isMyPosition = true;
-        myPosition.m_name = "My position";
-        m_routePoints.push_back(std::move(myPosition));
+        origin.m_isMyPosition = true;
+        if (origin.m_name.empty())
+          origin.m_name = "My position";
+        m_routePoints.push_back(std::move(origin));
       }
 
       for (size_t i = 0; i < waypoints.size(); ++i)
