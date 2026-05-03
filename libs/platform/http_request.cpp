@@ -207,6 +207,7 @@ public:
           static_cast<int64_t>(size) >= m_strategy.RequiredFileSize())
       {
         openMode = FileWriter::OP_WRITE_EXISTING;
+        LOG(LINFO, ("Resuming download of", m_filePath, "from", m_progress.m_bytesDownloaded, "of", fileSize, "bytes"));
       }
       else
       {
@@ -250,6 +251,8 @@ public:
         // Periodic SaveResumeChunks() runs only every kPeriodicResumeSaveInterval-th completed
         // chunk, so .resume may lag the .downloading file by up to N-1 chunks. Flush now so
         // those chunks aren't re-downloaded on next launch.
+        LOG(LINFO, ("Preserving partial download for", m_filePath, "at", m_progress.m_bytesDownloaded, "of",
+                    m_progress.m_bytesTotal, "bytes"));
         SaveResumeChunks();
       }
     }
