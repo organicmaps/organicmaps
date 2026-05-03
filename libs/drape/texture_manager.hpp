@@ -186,14 +186,12 @@ private:
   ref_ptr<Texture> AllocateGlyphTexture();
   void GetRegionBase(ref_ptr<Texture> tex, BaseRegion & region, Texture::Key const & key);
 
-  size_t FindHybridGlyphsGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs);
-
-  static uint32_t GetNumberOfGlyphsNotInGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs,
-                                              GlyphGroup const & group);
+  // Picks (or creates) the hybrid glyph group that should hold `glyphs` and merges the
+  // deduplicated input keys into the chosen group's m_glyphKeys. The returned reference is
+  // valid until the next mutation of m_glyphGroups.
+  GlyphGroup & FindAndUpdateGlyphsGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs);
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
-
-  static constexpr size_t GetInvalidGlyphGroup();
 
 private:
   bool m_isInitialized = false;
