@@ -20,17 +20,20 @@
 #include <ft2build.h>
 #include <hb-ft.h>
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <cstring>
 #include <istream>
 #include <limits>
+#include <list>
 #include <memory>
 #include <set>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <vector>
+
+#include <boost/unordered/unordered_flat_map.hpp>
 
 #include FT_FREETYPE_H
 #include FT_MODULE_H
@@ -180,6 +183,83 @@ struct FontRun
   int32_t m_length = 0;
   int m_fontIndex = kInvalidFont;
 };
+
+// Bounded LRU for shaped text metrics. Replaces the previous design that called clear() at the
+// cap, dropping the entire ~80%-hit-rate cache and producing a multi-second jank as the working
+// set rebuilt. Splice-on-hit keeps recently-used entries; pop_back evicts the least-recently-used
+// when over the cap.
+//
+// Mirrors base/lru_cache.hpp::LruCache structurally (list + hash-map, splice-on-hit) but adds
+// two capabilities the hot path needs:
+//   1. Heterogeneous (transparent) lookup -- Find takes a string_view-keyed view so we do not
+//      allocate a std::string for the ~80% of calls that hit. ShapeText is called per label
+//      per frame; the per-call allocation would be measurable malloc traffic.
+//   2. Find returns nullptr on miss; the caller does HarfBuzz shaping outside the cache and
+//      commits via Insert. LruCache::Find creates a default-constructed Value slot eagerly,
+//      so an empty TextMetrics would sit in the cache during shaping.
+// Worth folding back into base/lru_cache.hpp once that gains transparent-lookup support and a
+// Find/Insert split.
+class TextMetricsCache
+{
+public:
+  // Default cap of 20000 covers the working set of a typical browse session while keeping the
+  // cache footprint bounded after TextMetrics gained an inline glyph buffer (~368 B per entry,
+  // up from ~40 B with the previous std::vector field). At 20k entries the worst-case resident
+  // set is ~7.4 MB, vs ~18.4 MB at the prior 50k cap.
+  // maxSize must be >= 1 so Insert can always retain the entry it just added; a zero cap would
+  // evict the new node before Insert returns its m_value reference, dangling the caller.
+  explicit TextMetricsCache(size_t maxSize = 20000) : m_maxSize(maxSize) { CHECK_GREATER(maxSize, 0, ()); }
+
+  // Returns nullptr on miss. On hit, moves the entry to MRU position. The returned pointer is
+  // valid until the next Find/Insert call on this cache (subsequent ops may evict it).
+  text::TextMetrics const * Find(TextMetricsCacheKeyView const & key)
+  {
+    auto const found = m_index.find(key);
+    if (found == m_index.end())
+      return nullptr;
+
+    // splice() to the same list with src == dst is a no-op per the standard; the unconditional
+    // call is fine and saves a branch.
+    m_lru.splice(m_lru.begin(), m_lru, found->second);
+    return &found->second->m_value;
+  }
+
+  // Inserts a new entry at MRU position. Caller must have verified the key isn't already present
+  // via a prior Find(); inserting a duplicate is undefined for this cache.
+  text::TextMetrics const & Insert(TextMetricsCacheKey key, text::TextMetrics value)
+  {
+    m_lru.emplace_front(std::move(key), std::move(value));
+    auto const inserted = m_lru.begin();
+    m_index.emplace(inserted->m_key, inserted);
+
+    while (m_lru.size() > m_maxSize)
+    {
+      m_index.erase(m_lru.back().m_key);
+      m_lru.pop_back();
+    }
+
+    return inserted->m_value;
+  }
+
+  size_t Size() const { return m_index.size(); }
+
+private:
+  struct Node
+  {
+    Node(TextMetricsCacheKey k, text::TextMetrics v) : m_key(std::move(k)), m_value(std::move(v)) {}
+    TextMetricsCacheKey m_key;
+    text::TextMetrics m_value;
+  };
+
+  size_t m_maxSize;
+  std::list<Node> m_lru;  // front = most recently used, back = least recently used
+  // boost::unordered_flat_map is open-addressed (one cache line per probe vs std::unordered_map's
+  // bucket-list indirection). Measured ~30% lower ns/op on the steady-hit microbenchmark and
+  // ~17% lower end-to-end ShapeText (libs/drape/drape_tests/text_metrics_cache_bench.cpp).
+  boost::unordered_flat_map<TextMetricsCacheKey, std::list<Node>::iterator, TextMetricsCacheKeyHash,
+                            TextMetricsCacheKeyEqual>
+      m_index;
+};
 }  // namespace
 
 template <typename ToDo>
@@ -265,6 +345,19 @@ public:
 
     m_harfbuzzFont.reset(hb_ft_font_create(m_fontFace.get(), nullptr));
     CHECK(m_harfbuzzFont != nullptr, ());
+
+    // Pre-size the per-glyph metrics cache. HB only emits glyph IDs in [0, num_glyphs), so direct
+    // indexing is safe. m_loaded defaults to false; entries become populated on first shape.
+    //
+    // Memory cost is deliberate: 16 B per glyph slot, ~1.55 MB across the bundled font stack
+    // and ~3 MB on Android once /system/fonts/ is scanned (NotoSansCJK alone is ~1 MB). A sparse
+    // unordered_map would save ~1.5 MB at the cost of hash + bucket-walk on every glyph access
+    // during shaping -- the inner loop of every label. Revisit if the stack grows toward full
+    // Noto CJK (multiple weights of ~65k glyphs each).
+    //
+    // resize() can throw bad_alloc on memory-pressured devices; m_harfbuzzFont's deleter
+    // releases the HB font during member unwind so the partial-construction path doesn't leak.
+    m_glyphMetricsCache.resize(static_cast<size_t>(m_fontFace->num_glyphs));
   }
 
   ~Font() = default;
@@ -359,17 +452,16 @@ public:
       auto const & currPos = glyphPos[i];
       int32_t const xAdvance = currPos.x_advance >> 6;
 
-      FT_Int32 constexpr flags = FT_LOAD_DEFAULT;
-      if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace.get(), glyphId, flags)) != 0)
+      auto const cached = LoadGlyphMetrics(glyphId);
+      if (!cached)
       {
         outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, 0, 0, xAdvance, kBaseFontSizePixels);
         continue;
       }
 
-      auto const & metrics = m_fontFace->glyph->metrics;
-      auto const xOffset = static_cast<int32_t>((currPos.x_offset + metrics.horiBearingX) >> 6);
+      auto const xOffset = static_cast<int32_t>((currPos.x_offset + cached->m_horiBearingX) >> 6);
       // The original Drape code expects a bottom, not a top offset in its calculations.
-      auto const yOffset = static_cast<int32_t>((currPos.y_offset + metrics.horiBearingY - metrics.height) >> 6);
+      auto const yOffset = static_cast<int32_t>((currPos.y_offset + cached->m_horiBearingY - cached->m_height) >> 6);
       // yAdvance is always zero for horizontal text layouts.
 
       outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, xOffset, yOffset, xAdvance,
@@ -378,11 +470,42 @@ public:
   }
 
 private:
+  // Cached per-glyph metrics in 26.6 fixed point. Populated lazily on first shape; identical to
+  // FT_Load_Glyph(FT_LOAD_DEFAULT)->glyph->metrics so callers see no metric drift.
+  struct GlyphMetricsCacheEntry
+  {
+    int32_t m_horiBearingX = 0;
+    int32_t m_horiBearingY = 0;
+    int32_t m_height = 0;
+    bool m_loaded = false;
+  };
+
+  // Returns a pointer into the cache for the given glyph, populating it via FT_Load_Glyph on miss.
+  // Returns nullptr when FT_Load_Glyph fails so the caller can emit zero-bearing fallback metrics.
+  GlyphMetricsCacheEntry const * LoadGlyphMetrics(uint16_t glyphId)
+  {
+    ASSERT_LESS(glyphId, m_glyphMetricsCache.size(), ());
+    auto & entry = m_glyphMetricsCache[glyphId];
+    if (entry.m_loaded)
+      return &entry;
+
+    if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace.get(), glyphId, FT_LOAD_DEFAULT)) != 0)
+      return nullptr;
+
+    auto const & metrics = m_fontFace->glyph->metrics;
+    entry.m_horiBearingX = static_cast<int32_t>(metrics.horiBearingX);
+    entry.m_horiBearingY = static_cast<int32_t>(metrics.horiBearingY);
+    entry.m_height = static_cast<int32_t>(metrics.height);
+    entry.m_loaded = true;
+    return &entry;
+  }
+
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
   FtFacePtr m_fontFace;
 
   std::set<uint16_t> m_readyGlyphs;
+  std::vector<GlyphMetricsCacheEntry> m_glyphMetricsCache;
 
   // Declared after m_fontFace so HbFontDeleter runs first: hb_font_destroy releases its FT_Face
   // reference before FtFaceDeleter calls FT_Done_Face.
@@ -485,8 +608,7 @@ struct GlyphManager::Impl
   TUniBlockIter m_lastUsedBlock;
   std::vector<std::unique_ptr<Font>> m_fonts;
 
-  std::unordered_map<TextMetricsCacheKey, text::TextMetrics, TextMetricsCacheKeyHash, TextMetricsCacheKeyEqual>
-      m_textMetricsCache;
+  TextMetricsCache m_textMetricsCache;
   // Codepoints already reported as having no font — avoids per-character LOG spam on every render.
   std::unordered_set<strings::UniChar> m_loggedMissingChars;
   hb_buffer_t * m_harfbuzzBuffer = nullptr;
@@ -702,10 +824,10 @@ GlyphImage GlyphManager::GetGlyphImage(GlyphFontAndId key, bool sdf)
 // This method is NOT multithreading-safe.
 text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int8_t lang)
 {
-  // A simple cache greatly speeds up text metrics calculation. It has 80+% hit ratio in most scenarios.
+  // The cache greatly speeds up text metrics calculation; observed 80+% hit ratio.
   TextMetricsCacheKeyView const cacheKey{utf8, lang};
-  if (auto const found = m_impl->m_textMetricsCache.find(cacheKey); found != m_impl->m_textMetricsCache.end())
-    return found->second;
+  if (auto const * cached = m_impl->m_textMetricsCache.Find(cacheKey))
+    return *cached;
 
   auto const [text, segments] = harfbuzz_shaping::GetTextSegments(utf8);
 
@@ -804,17 +926,7 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int8_t lang)
   if (allGlyphs.m_glyphs.empty())
     LOG(LWARNING, ("No glyphs were found in all fonts for string with characters in warnings above" /*, utf8*/));
 
-  // Empirically measured, may need more tuning.
-  size_t constexpr kMaxCacheSize = 50000;
-  if (m_impl->m_textMetricsCache.size() > kMaxCacheSize)
-  {
-    LOG(LINFO, ("Clearing text metrics cache"));
-    // TODO(AB): Is there a better way? E.g. clear a half of the cache?
-    m_impl->m_textMetricsCache.clear();
-  }
-
-  auto [it, _] = m_impl->m_textMetricsCache.emplace(TextMetricsCacheKey{std::string(utf8), lang}, std::move(allGlyphs));
-  return it->second;
+  return m_impl->m_textMetricsCache.Insert(TextMetricsCacheKey{std::string(utf8), lang}, std::move(allGlyphs));
 }
 
 text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, char const * lang)

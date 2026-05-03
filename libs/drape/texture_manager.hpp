@@ -186,9 +186,10 @@ private:
   ref_ptr<Texture> AllocateGlyphTexture();
   void GetRegionBase(ref_ptr<Texture> tex, BaseRegion & region, Texture::Key const & key);
 
-  size_t FindHybridGlyphsGroup(std::vector<text::GlyphMetrics> const & glyphs);
+  size_t FindHybridGlyphsGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs);
 
-  static uint32_t GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs, GlyphGroup const & group);
+  static uint32_t GetNumberOfGlyphsNotInGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs,
+                                              GlyphGroup const & group);
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
 
