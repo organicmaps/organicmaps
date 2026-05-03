@@ -56,6 +56,17 @@ struct GlyphFontAndId
   }
 };
 
+// Perfect 32-bit hash: the two 16-bit fields are packed without collisions across the full
+// (fontIndex, glyphId) key space. m_fontIndex is widened through uint16_t first so a negative
+// value (e.g. kInvalidFont == -1) doesn't sign-extend into the upper bits before the shift.
+struct GlyphFontAndIdHash
+{
+  size_t operator()(GlyphFontAndId const & k) const noexcept
+  {
+    return (static_cast<uint32_t>(static_cast<uint16_t>(k.m_fontIndex)) << 16) | static_cast<uint32_t>(k.m_glyphId);
+  }
+};
+
 // 50 glyphs should fit most of the strings based on tests in Switzerland and China.
 using TGlyphs = buffer_vector<GlyphFontAndId, 50>;
 
