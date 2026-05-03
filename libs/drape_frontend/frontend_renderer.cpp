@@ -25,6 +25,10 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 
+#ifdef BUILD_DESIGNER
+#include "indexer/classificator_loader.hpp"
+#endif
+
 #include "platform/trace.hpp"
 
 #include "base/assert.hpp"

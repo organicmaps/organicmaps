@@ -173,6 +173,9 @@ int main(int argc, char * argv[])
   }
 
   int returnCode = -1;
+#ifdef BUILD_DESIGNER
+  QString mapcssFilePath;
+#endif
   if (eulaAccepted)  // User has accepted EULA
   {
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
@@ -213,7 +216,6 @@ int main(int argc, char * argv[])
     FrameworkParams frameworkParams;
 
 #ifdef BUILD_DESIGNER
-    QString mapcssFilePath;
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
       mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())

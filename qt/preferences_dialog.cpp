@@ -207,7 +207,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       settings::Set(kEnabledAutoRegenGeomIndex, false);
     indexRegenCheckBox->setChecked(enabled);
     connect(indexRegenCheckBox, &QCheckBox::stateChanged,
-            [](int i) { settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i)) });
+            [](int i) { settings::Set(kEnabledAutoRegenGeomIndex, static_cast<bool>(i)); });
   }
 #endif
 

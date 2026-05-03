@@ -82,7 +82,7 @@ private:
   PopupMenuHolder * m_selection = nullptr;
 
 #ifdef BUILD_DESIGNER
-  QString const m_mapcssFilePath = nullptr;
+  QString const m_mapcssFilePath;
   QAction * m_pBuildStyleAction = nullptr;
   QAction * m_pRecalculateGeomIndex = nullptr;
   QAction * m_pDrawDebugRectAction = nullptr;
