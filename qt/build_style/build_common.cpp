@@ -111,8 +111,3 @@ QString GetExternalPath(QString const & name, QString const & primaryPath, QStri
   }
   return path;
 }
-
-QString GetProtobufEggPath()
-{
-  return GetExternalPath("protobuf-3.3.0-py2.7.egg", "kothic", "../3party/protobuf");
-}

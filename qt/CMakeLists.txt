@@ -191,7 +191,6 @@ if (BUILD_DESIGNER)
     COMMAND cp -rf ${OMIM_ROOT}/tools/python/stylesheet/. ${RESOURCES_FOLDER}/kothic/src/
     COMMAND cp -f ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}/
     COMMAND cp -f ${OMIM_ROOT}/tools/python/generate_styles_override.py ${RESOURCES_FOLDER}/
-    COMMAND cp -f ${OMIM_ROOT}/3party/protobuf/protobuf-3.3.0-py2.7.egg ${RESOURCES_FOLDER}/kothic/
   )
 
   # Generate DMG

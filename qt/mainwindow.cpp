@@ -736,7 +736,7 @@ void MainWindow::OnGetStatistics()
 {
   try
   {
-    QString text = build_style::GetCurrentStyleStatistics();
+    QString text = build_style::GetCurrentStyleStatistics(m_styleInfo);
     InfoDialog dlg(QString("Style statistics"), text, NULL);
     dlg.exec();
   }

@@ -36,8 +36,8 @@ if os.path.exists(output_name):
     shutil.rmtree(output_name)
 os.makedirs(output_name)
 
-paths = ['default/light', 'default/dark', 'vehicle/light', 'vehicle/dark']
-suffixes = ['_default_light', '_default_dark', '_vehicle_light', '_vehicle_dark']
+paths = ['default/light', 'default/dark', 'outdoors/light', 'outdoors/dark', 'vehicle/light', 'vehicle/dark']
+suffixes = ['_default_light', '_default_dark', '_outdoors_light', '_outdoors_dark', '_vehicle_light', '_vehicle_dark']
 
 for i in range(0, len(paths)):
     copy_style_file(os.path.join(path_to_styles, paths[i], 'out'), suffixes[i], output_name)
