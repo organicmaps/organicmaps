@@ -19,6 +19,9 @@ auto constexpr kInvalidURL = -5;
 auto constexpr kCancelled = -6;
 }  // namespace non_http_error_code
 
+/// .resume is flushed every Nth completed chunk; a hard crash can lose at most N-1.
+inline constexpr size_t kPeriodicResumeSaveInterval = 10;
+
 /// Request in progress will be canceled on delete
 class HttpRequest
 {
