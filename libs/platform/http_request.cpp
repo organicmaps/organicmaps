@@ -47,6 +47,10 @@ using AliveFlag = std::shared_ptr<std::atomic<bool>>;
 /// is not churned by per-chunk 512 KB byte[] allocations.
 class FileHttpRequest : public HttpRequest
 {
+  // Save .resume to disk every Nth completed chunk so a crash loses at most N-1 chunks.
+  // Tests in downloader_test.cpp depend on this value to choose a "below threshold" cancel point.
+  static size_t constexpr kPeriodicResumeSaveInterval = 10;
+
   ChunksDownloadStrategy m_strategy;
 
   struct ChunkInfo
@@ -150,7 +154,7 @@ class FileHttpRequest : public HttpRequest
     if (isChunkOk)
     {
       ++m_goodChunksCount;
-      if (m_status != DownloadStatus::Completed && m_goodChunksCount % 10 == 0)
+      if (m_status != DownloadStatus::Completed && m_goodChunksCount % kPeriodicResumeSaveInterval == 0)
         SaveResumeChunks();
     }
 
@@ -248,9 +252,9 @@ public:
       }
       else
       {
-        // Periodic SaveResumeChunks() runs only every 10th completed chunk, so .resume
-        // may lag the .downloading file by up to 9 chunks. Flush now so those chunks
-        // aren't re-downloaded on next launch.
+        // Periodic SaveResumeChunks() runs only every kPeriodicResumeSaveInterval-th completed
+        // chunk, so .resume may lag the .downloading file by up to N-1 chunks. Flush now so
+        // those chunks aren't re-downloaded on next launch.
         SaveResumeChunks();
       }
     }
