@@ -135,7 +135,7 @@ public:
 // Convenience builder for HttpRequest::GetFile bound to a DownloadObserver. Two overloads:
 // the multi-URL form for tests that need URL fallback semantics, and a single-URL form
 // defaulting to kTestUrlBigFile (the common case).
-[[nodiscard]] inline std::unique_ptr<HttpRequest> MakeRequest(vector<string> const & urls, string const & file,
+std::unique_ptr<HttpRequest> MakeRequest(vector<string> const & urls, string const & file,
                                                               int64_t fileSize, DownloadObserver & obs,
                                                               bool doCleanOnCancel = true, int64_t chunkSize = 1024)
 {
@@ -144,7 +144,7 @@ public:
                            bind(&DownloadObserver::OnDownloadProgress, &obs, _1), doCleanOnCancel, chunkSize));
 }
 
-[[nodiscard]] inline std::unique_ptr<HttpRequest> MakeRequest(string const & file, int64_t fileSize,
+std::unique_ptr<HttpRequest> MakeRequest(string const & file, int64_t fileSize,
                                                               DownloadObserver & obs, bool doCleanOnCancel = true,
                                                               int64_t chunkSize = 1024)
 {
@@ -153,7 +153,7 @@ public:
 
 // Reads .resume via the same load path the production constructor uses (LoadOrInitChunks).
 // Returns the bytes-completed claim recorded in the resume file.
-[[nodiscard]] inline int64_t LoadResumeBytes(string const & resumeFile, int64_t fileSize, int64_t chunkSize)
+int64_t LoadResumeBytes(string const & resumeFile, int64_t fileSize, int64_t chunkSize)
 {
   ChunksDownloadStrategy s({});
   return s.LoadOrInitChunks(resumeFile, fileSize, chunkSize);
