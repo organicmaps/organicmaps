@@ -203,7 +203,7 @@ void ApplySkins(QString const & outputDir, QString const & theme)
     QString const outputSkinDir = JoinPathQt({outputDir, "symbols", suffix, theme});
     QString const resourceSkinDir = JoinPathQt({resourceDir, "symbols", suffix, theme});
 
-    if (!QFileInfo::exists(resourceSkinDir) && !QDir().mkdir(resourceSkinDir))
+    if (!QFileInfo::exists(resourceSkinDir) && !QDir().mkpath(resourceSkinDir))
       throw std::runtime_error("Cannot create resource skin directory: " + resourceSkinDir.toStdString());
 
     if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({resourceSkinDir, "symbols.png"})) ||

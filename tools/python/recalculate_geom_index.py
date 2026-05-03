@@ -55,8 +55,15 @@ def parallel_worker(tasks, generator_tool, error_queue):
             task = tasks.get_nowait()
         except Empty:
             return
-        process_mwm(generator_tool, task, error_queue)
-        tasks.task_done()
+        # Always call task_done() — if process_mwm raises (e.g. FileNotFoundError
+        # when generator_tool is missing), the matching tasks.join() in main()
+        # would otherwise block forever waiting for this task to be marked done.
+        try:
+            process_mwm(generator_tool, task, error_queue)
+        except Exception as e:
+            error_queue.put(str(e))
+        finally:
+            tasks.task_done()
 
 
 def main():

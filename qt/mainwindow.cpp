@@ -817,9 +817,12 @@ void MainWindow::OnBuildPhonePackage()
       if (!QDir(symSrcDir).exists())
         continue;
       QString const symDstDir = JoinPathQt({phoneStylesDir, "symbols", dpi, m_styleInfo.m_theme});
-      QDir().mkpath(symDstDir);
-      CopyFile(JoinPathQt({symSrcDir, "symbols.png"}), JoinPathQt({symDstDir, "symbols.png"}));
-      CopyFile(JoinPathQt({symSrcDir, "symbols.sdf"}), JoinPathQt({symDstDir, "symbols.sdf"}));
+      if (!QDir().mkpath(symDstDir))
+        throw std::runtime_error("Cannot create " + symDstDir.toStdString());
+      // BuildSkinImpl produces both files; if either is missing the package is incomplete.
+      for (auto const * leaf : {"symbols.png", "symbols.sdf"})
+        if (!CopyFile(JoinPathQt({symSrcDir, leaf}), JoinPathQt({symDstDir, leaf})))
+          throw std::runtime_error(std::string("Cannot copy ") + leaf + " for " + dpi);
     }
 
     QString const text = QString(
