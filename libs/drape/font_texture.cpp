@@ -110,6 +110,11 @@ std::vector<ref_ptr<Texture::ResourceInfo>> GlyphIndex::MapResources(TGlyphs con
   return info;
 }
 
+// Threading: m_index is accessed without m_mutex because the only caller, TextureManager
+// (ShapeSingleTextLine and friends), serialises calls through its own m_calcGlyphsMutex.
+// m_mutex is taken below only for the cross-thread queue m_pendingNodes, which UploadResources
+// drains on the render thread. If a future caller breaks the m_calcGlyphsMutex serialisation,
+// the unordered_map lookup/emplace becomes UB.
 ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphFontAndId const & key, bool & newResource)
 {
   newResource = false;

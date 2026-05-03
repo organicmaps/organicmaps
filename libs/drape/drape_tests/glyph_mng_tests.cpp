@@ -546,4 +546,55 @@ UNIT_TEST(ShapeText_CacheBoundedUnderLoad)
   TEST_EQUAL(m3.m_glyphs.size(), m4.m_glyphs.size(), ());
 }
 
+// Pins the per-glyph readiness tracking that TextHandle::Update polls until the atlas warms up.
+// Regression coverage for the std::set -> std::bitset switch in m_readyGlyphs: marking must be
+// observable by AreGlyphsReady, idempotent, and isolated per-key. Crucially, m_readyGlyphs is
+// per-Font: marking a glyph in font A must not appear ready in font B even at the same glyph id.
+UNIT_TEST(GlyphManager_GlyphReadinessTracking)
+{
+  auto mng = MakeGlyphManager();
+
+  // Latin + emoji crosses fonts (DejaVu Sans + organic_maps_emoji): the keys we pick below come
+  // from different m_fontIndex values, so the test exercises per-Font isolation in addition to
+  // the bitset's set/test logic.
+  auto const shaped = mng.ShapeText("a🚻", "en");
+  TEST_GREATER_OR_EQUAL(shaped.m_glyphs.size(), size_t{2}, ("need at least two glyphs to test"));
+
+  // Pick one Latin glyph and one emoji glyph so k1.m_fontIndex != k2.m_fontIndex.
+  auto const & latinKey = shaped.m_glyphs.front().m_key;
+  auto const emojiIt = std::find_if(shaped.m_glyphs.begin(), shaped.m_glyphs.end(),
+                                    [&](auto const & g) { return g.m_key.m_fontIndex != latinKey.m_fontIndex; });
+  TEST(emojiIt != shaped.m_glyphs.end(), ("Latin + emoji must come from different fonts"));
+
+  dp::GlyphFontAndId const k1 = latinKey;
+  dp::GlyphFontAndId const k2 = emojiIt->m_key;
+  TEST_NOT_EQUAL(k1.m_fontIndex, k2.m_fontIndex, ("test relies on cross-font keys"));
+
+  dp::TGlyphs const both{k1, k2};
+  dp::TGlyphs const justK1{k1};
+  dp::TGlyphs const justK2{k2};
+
+  // Initial state: nothing marked ready.
+  TEST(!mng.AreGlyphsReady(both), ("no glyphs marked yet"));
+  TEST(!mng.AreGlyphsReady(justK1), ("k1 not marked yet"));
+
+  mng.MarkGlyphReady(k1);
+  TEST(mng.AreGlyphsReady(justK1), ("k1 ready after mark"));
+  TEST(!mng.AreGlyphsReady(justK2), ("k2 still not ready -- per-Font bitset must not bleed"));
+  TEST(!mng.AreGlyphsReady(both), ("k2 still missing in combined set"));
+
+  // Cross-font isolation pin: a foreign key with k1.m_glyphId in k2's font must NOT register as
+  // ready just because (k1.m_fontIndex, k1.m_glyphId) was marked.
+  dp::GlyphFontAndId const foreign{k2.m_fontIndex, k1.m_glyphId};
+  TEST(!mng.AreGlyphsReady(dp::TGlyphs{foreign}), ("readiness must be isolated per font"));
+
+  mng.MarkGlyphReady(k2);
+  TEST(mng.AreGlyphsReady(both), ("both ready after marking k2"));
+
+  // Idempotency: re-marking must not flip a previously-ready glyph back.
+  mng.MarkGlyphReady(k1);
+  mng.MarkGlyphReady(k2);
+  TEST(mng.AreGlyphsReady(both), ("repeated marks are idempotent"));
+}
+
 }  // namespace glyph_mng_tests
