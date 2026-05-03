@@ -532,11 +532,11 @@ void OpenRoutePointCallback(std::string const & callback)
     auto const routePoints = rm.GetRoutePoints();
     if (routePoints.size() >= 2)
     {
-      auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
-      auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
+      auto start = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
+      auto finish = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
 
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
-      if (p1.isMyPosition && lastLocation)
+      if (start.isMyPosition && lastLocation)
       {
         [[MWMRoutingManager routingManager] startRoute];
         [[MWMMapViewControlsManager manager] onRouteStart];
@@ -547,7 +547,7 @@ void OpenRoutePointCallback(std::string const & callback)
         // restoreRouteIfNeeded.
         [self saveRoute];
 
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
+        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !finish.isMyPosition;
 
         [[MWMAlertViewController activeAlertController]
             presentPoint2PointAlertWithOkBlock:^{
@@ -582,6 +582,7 @@ void OpenRoutePointCallback(std::string const & callback)
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
+  [MWMRouter router].startNavigationAfterBuild = NO;
   [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
     [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
