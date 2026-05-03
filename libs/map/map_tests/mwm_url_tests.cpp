@@ -264,6 +264,7 @@ UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)
   TEST_EQUAL(test.GetRoutePoints()[0].m_name, "Warehouse", ());
   TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin", ());
 }
+
 UNIT_TEST(RouteApiV2RejectsInvalidOriginHeading)
 {
   ParsedMapApi test("om://v2/nav?destination=2,2&origin_heading=361");

@@ -485,30 +485,6 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
-  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType)
-  {
-    prepare(routePoints, routerType, false /* optimizeRoutePoints */);
-  }
-
-  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints)
-  {
-    prepare(routePoints, routerType, optimizeRoutePoints, false /* startNavigation */);
-  }
-
-  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
-                      boolean startNavigation)
-  {
-    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, null /* callbacks */,
-            0.0 /* startDirectionX */, 0.0 /* startDirectionY */);
-  }
-
-  public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
-                      boolean startNavigation, double startDirectionX, double startDirectionY)
-  {
-    prepare(routePoints, routerType, optimizeRoutePoints, startNavigation, null /* callbacks */, startDirectionX,
-            startDirectionY);
-  }
-
   public void prepare(@NonNull List<MapObject> routePoints, @NonNull Router routerType, boolean optimizeRoutePoints,
                       boolean startNavigation, @Nullable List<String> callbacks, double startDirectionX,
                       double startDirectionY)
@@ -529,13 +505,14 @@ public class RoutingController
     mStartNavigationAfterBuild = startNavigation;
     mContainsCachedResult = false;
 
-    addRoutePoint(RouteMarkType.Start, routePoints.get(0), getCallback(callbacks, 0), optimizeRoutePoints);
+    addRoutePoint(RouteMarkType.Start, routePoints.get(0), 0 /* intermediateIndex */, getCallback(callbacks, 0),
+                  optimizeRoutePoints);
     if (optimizeRoutePoints)
     {
       // The optimizer needs a known finish before it predicts positions for
       // intermediate points.
       addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1),
-                    getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
+                    0 /* intermediateIndex */, getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
       for (int i = 1; i + 1 < routePoints.size(); ++i)
         addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), 0 /* intermediateIndex */,
                       getCallback(callbacks, i), optimizeRoutePoints);
@@ -546,7 +523,7 @@ public class RoutingController
         addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, getCallback(callbacks, i),
                       optimizeRoutePoints);
       addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1),
-                    getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
+                    0 /* intermediateIndex */, getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
     }
 
     if (mContainer != null)
@@ -1116,25 +1093,8 @@ public class RoutingController
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
-    return addRoutePoint(type, point, true /* reorderIntermediatePoints */);
-  }
-
-  private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point,
-                                    boolean reorderIntermediatePoints)
-  {
-    return addRoutePoint(type, point, "" /* callback */, reorderIntermediatePoints);
-  }
-
-  private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, @Nullable String callback,
-                                    boolean reorderIntermediatePoints)
-  {
-    return addRoutePoint(type, point, 0 /* intermediateIndex */, callback, reorderIntermediatePoints);
-  }
-
-  private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
-                                    boolean reorderIntermediatePoints)
-  {
-    return addRoutePoint(type, point, intermediateIndex, "" /* callback */, reorderIntermediatePoints);
+    return addRoutePoint(type, point, 0 /* intermediateIndex */, "" /* callback */,
+                         true /* reorderIntermediatePoints */);
   }
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
