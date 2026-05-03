@@ -56,9 +56,9 @@ struct ScopedDownloadArtifacts
 private:
   void Wipe() const
   {
-    base::DeleteFileX(m_path);
-    base::DeleteFileX(Downloading());
-    base::DeleteFileX(Resume());
+    Platform::RemoveFileIfExists(m_path);
+    Platform::RemoveFileIfExists(Downloading());
+    Platform::RemoveFileIfExists(Resume());
   }
 };
 
@@ -320,9 +320,8 @@ UNIT_TEST(DownloadChunks)
   observer.Reset();
   {
     // 3 threads - fail, because of invalid size
-    [[maybe_unused]] auto const request =
-        MakeRequest({kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile}, files.m_path, 5, observer,
-                    /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
+    auto const request = MakeRequest({kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile}, files.m_path, 5, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestFailed();
     FinishDownloadFail(files.m_path);
@@ -331,7 +330,7 @@ UNIT_TEST(DownloadChunks)
   observer.Reset();
   {
     // 3 threads - succeeded
-    [[maybe_unused]] auto const request =
+    auto const request =
         MakeRequest({kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile}, files.m_path, kBigFileSize, observer,
                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
@@ -342,9 +341,8 @@ UNIT_TEST(DownloadChunks)
   observer.Reset();
   {
     // 3 threads with only one valid url - succeeded
-    [[maybe_unused]] auto const request =
-        MakeRequest({kTestUrlBigFile, kTestUrl1, kTestUrl404}, files.m_path, kBigFileSize, observer,
-                    /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
+    auto const request = MakeRequest({kTestUrlBigFile, kTestUrl1, kTestUrl404}, files.m_path, kBigFileSize, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestOk();
     FinishDownloadSuccess(files.m_path);
@@ -353,8 +351,8 @@ UNIT_TEST(DownloadChunks)
   observer.Reset();
   {
     // 2 threads and all points to file with invalid size - fail
-    [[maybe_unused]] auto const request = MakeRequest({kTestUrlBigFile, kTestUrlBigFile}, files.m_path, 12345, observer,
-                                                      /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
+    auto const request = MakeRequest({kTestUrlBigFile, kTestUrlBigFile}, files.m_path, 12345, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestFailed();
     FinishDownloadFail(files.m_path);
@@ -448,9 +446,9 @@ UNIT_TEST(DownloadResumeChunks)
 }
 
 // Cancel mid-flight with doCleanOnCancel=true (the "user removes country" path).
-// Asserts: ~FileHttpRequest wipes both .downloading and .resume when status is InProgress
-// and m_doCleanProgressFiles is true (http_request.cpp lines 246-247). No other test
-// exercises this branch — DownloadChunks always lets requests complete naturally.
+// Asserts: ~FileHttpRequest wipes both .downloading and .resume when destroyed while
+// the request is still InProgress. No other test exercises this branch — DownloadChunks
+// always lets requests complete naturally.
 UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
 {
   ScopedDownloadArtifacts files{"http_cancel_clean_"};
@@ -467,9 +465,8 @@ UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
 }
 
 // Cancel mid-flight with doCleanOnCancel=false (the "graceful shutdown" path).
-// Asserts: ~FileHttpRequest preserves both files when status is InProgress and
-// m_doCleanProgressFiles is false (http_request.cpp lines 249-258). Pins down the
-// positive contract of the new flag semantics.
+// Asserts: ~FileHttpRequest preserves both files when destroyed while the request is
+// still InProgress. Pins down the positive contract of the new flag semantics.
 UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_PreservesArtifacts)
 {
   ScopedDownloadArtifacts files{"http_cancel_preserve_"};
@@ -486,14 +483,15 @@ UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_PreservesArtifacts)
   TEST_GREATER(resumeSize, 0u, ());
 }
 
-// Regression test for the destructor flush. Cancel point (5) must stay below
-// kPeriodicResumeSaveInterval (10, in http_request.cpp), so the periodic save never fires.
-// Without the dtor's SaveResumeChunks() call, .resume would be missing or stale.
+// Regression test for the destructor flush. Cancel point must stay below
+// kPeriodicResumeSaveInterval so the periodic save never fires; without the dtor's
+// SaveResumeChunks() call, .resume would be missing or stale.
 UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_ResumeReflectsAllCompletedChunks)
 {
   ScopedDownloadArtifacts files{"http_resume_flush_"};
   int64_t constexpr kChunkSize = 1024;
-  int constexpr kCancelAtChunk = 5;  // < kPeriodicResumeSaveInterval (10)
+  int constexpr kCancelAtChunk = 5;
+  static_assert(kCancelAtChunk < kPeriodicResumeSaveInterval, "Periodic save would mask the dtor flush");
   DownloadObserver obs;
   obs.CancelDownloadOnGivenChunk(kCancelAtChunk);
   {
@@ -508,8 +506,7 @@ UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_ResumeReflectsAllCompletedChunks)
 
 // End-to-end round-trip: cancel + preserve + reload + complete. Validates the user-facing
 // claim that graceful shutdown does not lose progress. Catches regressions in the dtor
-// preservation/flush, ctor reload (LoadOrInitChunks at http_request.cpp:198), and success
-// cleanup, all in one test.
+// preservation/flush, ctor reload via LoadOrInitChunks, and success cleanup, all in one test.
 UNIT_TEST(HttpRequest_ResumeFromPreservedArtifacts_SkipsCompletedChunks)
 {
   ScopedDownloadArtifacts files{"http_round_trip_"};
@@ -538,10 +535,9 @@ UNIT_TEST(HttpRequest_ResumeFromPreservedArtifacts_SkipsCompletedChunks)
   TEST(!base::GetFileSize(files.Resume(), size), ());
 }
 
-// On success, the OnChunkFinished cleanup path (http_request.cpp:165-170) must run
-// regardless of doCleanOnCancel — the flag only governs the dtor's InProgress branch.
-// Pins this invariant explicitly so a future "optimization" gating success cleanup
-// behind the flag is caught.
+// On success, the OnChunkFinished cleanup path must run regardless of doCleanOnCancel —
+// the flag only governs the dtor's InProgress branch. Pins this invariant explicitly so
+// a future "optimization" gating success cleanup behind the flag is caught.
 UNIT_TEST(HttpRequest_Success_AlwaysCleansArtifacts_DespiteNoClean)
 {
   ScopedDownloadArtifacts files{"http_success_noclean_"};
@@ -558,9 +554,8 @@ UNIT_TEST(HttpRequest_Success_AlwaysCleansArtifacts_DespiteNoClean)
   TEST(!base::GetFileSize(files.Resume(), size), ("Resume wiped on success"));
 }
 
-// On failure, OnChunkFinished's save-on-fail (http_request.cpp:161-162) must run
-// regardless of doCleanOnCancel. Existing DownloadChunks failure tests only cover
-// the flag=true case; this exercises both.
+// On failure, OnChunkFinished's save-on-fail path must run regardless of doCleanOnCancel.
+// Existing DownloadChunks failure tests only cover the flag=true case; this exercises both.
 UNIT_TEST(HttpRequest_Failure_PreservesResume_RegardlessOfFlag)
 {
   for (bool doCleanOnCancel : {true, false})
