@@ -7,12 +7,12 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QProcess>
 #include <QtCore/QProcessEnvironment>
 
 #include <exception>
 #include <iomanip>  // std::quoted
-#include <regex>
 #include <string>
 
 QString ExecProcess(QString const & program, std::initializer_list<QString> args, QProcessEnvironment const * env)
@@ -95,19 +95,39 @@ QString JoinPathQt(std::initializer_list<QString> folders)
 QString GetExternalPath(QString const & name, QString const & primaryPath, QString const & secondaryPath)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+
+  // 1. Bundled into the running .app's Resources via install/CPack.
   QString path = JoinPathQt({resourceDir, primaryPath, name});
-  if (!QFileInfo::exists(path))
-    path = JoinPathQt({resourceDir, secondaryPath, name});
-
-  // Special case for looking for in application folder.
-  if (!QFileInfo::exists(path) && secondaryPath.isEmpty())
+  if (QFileInfo::exists(path))
+    return path;
+  if (!secondaryPath.isEmpty())
   {
-    std::string const appPath = QCoreApplication::applicationDirPath().toStdString();
-
-    std::regex re("(/[^/]*\\.app)");
-    std::smatch m;
-    if (std::regex_search(appPath, m, re) && m.size() > 0)
-      path.fromStdString(base::JoinPath(m[0], name.toStdString()));
+    path = JoinPathQt({resourceDir, secondaryPath, name});
+    if (QFileInfo::exists(path))
+      return path;
   }
-  return path;
+
+  // 2. Sibling in the build dir from a plain `cmake --build` (no install step).
+  // applicationDirPath() inside an .app is <build>/<bundle>.app/Contents/MacOS;
+  // walk out of the .app to <build> and look there too.
+  QDir buildDir(QCoreApplication::applicationDirPath());
+  for (auto const & dirName : {QStringLiteral("MacOS"), QStringLiteral("Contents")})
+    if (buildDir.dirName() == dirName)
+      buildDir.cdUp();
+  if (buildDir.dirName().endsWith(QStringLiteral(".app")))
+    buildDir.cdUp();
+
+  if (!primaryPath.isEmpty())
+  {
+    path = JoinPathQt({buildDir.absolutePath(), primaryPath, name});
+    if (QFileInfo::exists(path))
+      return path;
+  }
+  // The helpers can also be raw binaries directly in <build>/ (cmake --build
+  // produces e.g. <build>/skin_generator_tool, not a .app bundle).
+  path = JoinPathQt({buildDir.absolutePath(), name});
+  if (QFileInfo::exists(path))
+    return path;
+
+  return {};
 }

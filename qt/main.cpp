@@ -257,23 +257,25 @@ int main(int argc, char * argv[])
     Framework framework(frameworkParams);
     framework.SetupMeasurementSystem();
 #ifdef BUILD_DESIGNER
-    // Lock the active style to whichever .mapcss the Designer is editing.
+    // Lock the active style to whichever .mapcss the Designer is editing; skip
+    // the night-mode sync below so a NightMode::System preference inherited from
+    // a regular OM session can't flip us to the dark/light variant.
     framework.SetMapStyle(styleInfo.m_mapStyle);
-#endif
-
+#else
     auto const syncNightMode = [&framework]()
     {
       if (style_utils::GetNightModeSetting() == style_utils::NightMode::System)
         qt::common::ApplySystemNightMode(framework);
     };
     syncNightMode();
+#endif
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                                                                  ,
                      mapcssFilePath, styleInfo
 #endif  // BUILD_DESIGNER
     );
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+#if !defined(BUILD_DESIGNER) && QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
     if (auto * styleHints = QGuiApplication::styleHints(); styleHints != nullptr)
     {
       QObject::connect(styleHints, &QStyleHints::colorSchemeChanged, &w,

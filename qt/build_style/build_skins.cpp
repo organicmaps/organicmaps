@@ -140,8 +140,8 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, b
   if (QDir(outputDir).exists())
     throw std::runtime_error("Output directory is not clear");
 
-  // Create output skin directory
-  if (!QDir().mkdir(outputDir))
+  // Create output skin directory (mkpath so the symbols/<dpi>/ parent is also created).
+  if (!QDir().mkpath(outputDir))
     throw std::runtime_error("Cannot create output skin directory");
 
   // Create symbolic link for symbols/png

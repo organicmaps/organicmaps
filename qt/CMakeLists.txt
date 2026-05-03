@@ -76,6 +76,9 @@ target_link_libraries(${PROJECT_NAME}
 
 if (BUILD_DESIGNER)
   target_link_libraries(${PROJECT_NAME} PRIVATE generator)
+  # Build Style / Recalculate Geometry / Run Tests shell out to these helpers,
+  # so a plain `cmake --build … --target desktop` must produce them too.
+  add_dependencies(${PROJECT_NAME} skin_generator_tool generator_tool style_tests)
   set(BUNDLE_NAME "OMaps.Designer")
   set(BUNDLE_DISPLAY_NAME "Organic Maps Designer")
   set(BUNDLE_ICON designer.icns)
