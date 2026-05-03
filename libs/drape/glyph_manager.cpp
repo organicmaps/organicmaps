@@ -79,6 +79,34 @@ FT_Error CheckFreetype(FT_Error error, char const * expression)
 
 #define FREETYPE_CHECK(x) CheckFreetype((x), #x)
 
+namespace
+{
+// RAII owner for an FT_Face. Releases via FT_Done_Face on destruction, including the
+// stack-unwind path when a Font constructor throws after FT_Open_Face has succeeded but
+// before the destructor becomes reachable.
+struct FtFaceDeleter
+{
+  void operator()(FT_FaceRec_ * face) const noexcept
+  {
+    if (face != nullptr)
+      FREETYPE_CHECK(FT_Done_Face(face));
+  }
+};
+using FtFacePtr = std::unique_ptr<FT_FaceRec_, FtFaceDeleter>;
+
+// RAII owner for an hb_font_t. Closes the unwind window between hb_ft_font_create and the
+// rest of Font's constructor (e.g. m_glyphMetricsCache.resize bad_alloc on a CJK font).
+struct HbFontDeleter
+{
+  void operator()(hb_font_t * font) const noexcept
+  {
+    if (font != nullptr)
+      hb_font_destroy(font);
+  }
+};
+using HbFontPtr = std::unique_ptr<hb_font_t, HbFontDeleter>;
+}  // namespace
+
 namespace dp
 {
 int constexpr kInvalidFont = -1;
@@ -214,7 +242,7 @@ public:
   DECLARE_EXCEPTION(InvalidFontException, RootException);
   DISALLOW_COPY_AND_MOVE(Font);
 
-  Font(ReaderPtr<Reader> && fontReader, FT_Library lib) : m_fontReader(std::move(fontReader)), m_fontFace(nullptr)
+  Font(ReaderPtr<Reader> && fontReader, FT_Library lib) : m_fontReader(std::move(fontReader))
   {
     std::memset(&m_stream, 0, sizeof(m_stream));
     m_stream.size = static_cast<unsigned long>(m_fontReader.Size());
@@ -226,12 +254,16 @@ public:
     args.flags = FT_OPEN_STREAM;
     args.stream = &m_stream;
 
-    FT_Error const err = FT_Open_Face(lib, &args, 0, &m_fontFace);
+    // Take ownership immediately so any throw between here and the end of the constructor
+    // releases the FT_Face during member-unwind. ~Font is not invoked on partial construction.
+    FT_Face raw = nullptr;
+    FT_Error const err = FT_Open_Face(lib, &args, 0, &raw);
+    m_fontFace.reset(raw);
     if (err || !IsValid())
       MYTHROW(InvalidFontException, (err, err != 0 ? GetFreetypeErrorMessage(err) : "invalid or empty font face"));
 
     // The same font size is used to render all glyphs to textures and to shape them.
-    if (auto const sizeErr = FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, 0, kBaseFontSizePixels)); sizeErr != 0)
+    if (auto const sizeErr = FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace.get(), 0, kBaseFontSizePixels)); sizeErr != 0)
       MYTHROW(InvalidFontException, (sizeErr, GetFreetypeErrorMessage(sizeErr)));
 
     m_pixelHeight = kBaseFontSizePixels;
@@ -239,18 +271,11 @@ public:
       MYTHROW(InvalidFontException, (activateErr, GetFreetypeErrorMessage(activateErr)));
   }
 
-  ~Font()
-  {
-    ASSERT(m_fontFace, ());
-    if (m_harfbuzzFont)
-      hb_font_destroy(m_harfbuzzFont);
-
-    FREETYPE_CHECK(FT_Done_Face(m_fontFace));
-  }
+  ~Font() = default;
 
   bool IsValid() const { return m_fontFace && m_fontFace->num_glyphs > 0; }
 
-  bool HasGlyph(strings::UniChar unicodePoint) const { return FT_Get_Char_Index(m_fontFace, unicodePoint) != 0; }
+  bool HasGlyph(strings::UniChar unicodePoint) const { return FT_Get_Char_Index(m_fontFace.get(), unicodePoint) != 0; }
 
   GlyphImage GetGlyphImage(uint16_t glyphId, int pixelHeight, bool sdf) const
   {
@@ -259,7 +284,7 @@ public:
 
     // FT_LOAD_RENDER with FT_RENDER_MODE_SDF uses bsdf driver that is around 3x times faster
     // than sdf driver, activated by FT_LOAD_DEFAULT + FT_RENDER_MODE_SDF
-    if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, glyphId, FT_LOAD_RENDER)) != 0)
+    if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace.get(), glyphId, FT_LOAD_RENDER)) != 0)
       return {};
 
     if (sdf)
@@ -291,11 +316,11 @@ public:
     FT_UInt gindex = 0;
     // FT_Get_First_Char / FT_Get_Next_Char walk the active charmap in strictly ascending codepoint
     // order, so the result is already sorted and unique -- no SortUnique needed.
-    auto charcode = FT_Get_First_Char(m_fontFace, &gindex);
+    auto charcode = FT_Get_First_Char(m_fontFace.get(), &gindex);
     while (gindex)
     {
       charcodes.push_back(charcode);
-      charcode = FT_Get_Next_Char(m_fontFace, charcode, &gindex);
+      charcode = FT_Get_Next_Char(m_fontFace.get(), charcode, &gindex);
     }
   }
 
@@ -333,12 +358,12 @@ public:
 
     if (!m_harfbuzzFont)
     {
-      m_harfbuzzFont = hb_ft_font_create(m_fontFace, nullptr);
+      m_harfbuzzFont.reset(hb_ft_font_create(m_fontFace.get(), nullptr));
       CHECK(m_harfbuzzFont != nullptr, ());
     }
 
     // Shape!
-    hb_shape(m_harfbuzzFont, hbBuffer, nullptr, 0);
+    hb_shape(m_harfbuzzFont.get(), hbBuffer, nullptr, 0);
 
     // Get the glyph and position information.
     unsigned int glyphCount;
@@ -354,7 +379,7 @@ public:
       int32_t const xAdvance = currPos.x_advance >> 6;
 
       FT_Int32 constexpr flags = FT_LOAD_DEFAULT;
-      if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, glyphId, flags)) != 0)
+      if (FREETYPE_CHECK(FT_Load_Glyph(m_fontFace.get(), glyphId, flags)) != 0)
       {
         outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, 0, 0, xAdvance, fontPixelSize);
         continue;
@@ -376,24 +401,26 @@ private:
     if (m_pixelHeight == pixelHeight)
       return true;
 
-    if (FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, 0 /* pixel_width */, pixelHeight /* pixel_height */)) != 0)
+    if (FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace.get(), 0 /* pixel_width */, pixelHeight /* pixel_height */)) != 0)
       return false;
 
     m_pixelHeight = pixelHeight;
     if (m_harfbuzzFont)
-      hb_ft_font_changed(m_harfbuzzFont);
+      hb_ft_font_changed(m_harfbuzzFont.get());
 
     return true;
   }
 
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
-  FT_Face m_fontFace;
+  FtFacePtr m_fontFace;
 
   std::set<uint16_t> m_readyGlyphs;
 
   mutable int m_pixelHeight = 0;
-  mutable hb_font_t * m_harfbuzzFont{nullptr};
+  // Declared after m_fontFace so HbFontDeleter runs first: hb_font_destroy releases its FT_Face
+  // reference before FtFaceDeleter calls FT_Done_Face.
+  mutable HbFontPtr m_harfbuzzFont;
 };
 
 // Information about single unicode block.
