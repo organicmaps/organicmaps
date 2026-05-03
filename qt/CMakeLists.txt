@@ -177,38 +177,20 @@ if (PLATFORM_WIN)
 endif()
 
 if (BUILD_DESIGNER)
-  execute_process(
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/mdpi/light/ ${OMIM_ROOT}/data/symbols/mdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/hdpi/light/ ${OMIM_ROOT}/data/symbols/hdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/xhdpi/light/ ${OMIM_ROOT}/data/symbols/xhdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/xxhdpi/light/ ${OMIM_ROOT}/data/symbols/xxhdpi/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/6plus/light/ ${OMIM_ROOT}/data/symbols/6plus/design/
-    COMMAND cp -rf ${OMIM_ROOT}/data/symbols/xxxhdpi/light/ ${OMIM_ROOT}/data/symbols/xxxhdpi/design/
-    COMMAND cp -f ${OMIM_ROOT}/data/drules_proto_default_light.bin ${OMIM_ROOT}/data/drules_proto_default_design.bin
-    COMMAND cp -f ${OMIM_ROOT}/data/colors.txt ${OMIM_ROOT}/data/colors_design.txt
-    COMMAND cp -f ${OMIM_ROOT}/data/patterns.txt ${OMIM_ROOT}/data/patterns_design.txt
-  )
-
+  # Designer's "Build Style" feeds these into libkomwm.py at runtime.
   copy_resources(
-    colors_design.txt
-    drules_proto_default_design.bin
     mapcss-dynamic.txt
     mapcss-mapping.csv
-    patterns_design.txt
-    symbols/mdpi/design
-    symbols/hdpi/design
-    symbols/xhdpi/design
-    symbols/xxhdpi/design
-    symbols/xxxhdpi/design
-    symbols/6plus/design
   )
 
+  # Bundle the kothic stylesheet processor and Python helpers next to the .app
+  # so the in-app Build Style / Recalculate Geometry actions can find them.
+  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER}/kothic/src)
   execute_process(
-    COMMAND cp ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}
-    COMMAND cp ${OMIM_ROOT}/tools/python/generate_styles_override.py ${RESOURCES_FOLDER}
-    COMMAND cp -rf ${OMIM_ROOT}/tools/kothic ${RESOURCES_FOLDER}/kothic/
-    COMMAND cp -f ${OMIM_ROOT}/tools/python/stylesheet/drules_info.py ${RESOURCES_FOLDER}/kothic/src/
-    COMMAND cp -rf ${OMIM_ROOT}/tools/python/stylesheet/ ${RESOURCES_FOLDER}/kothic/src/
+    COMMAND cp -rf ${OMIM_ROOT}/tools/kothic/. ${RESOURCES_FOLDER}/kothic/
+    COMMAND cp -rf ${OMIM_ROOT}/tools/python/stylesheet/. ${RESOURCES_FOLDER}/kothic/src/
+    COMMAND cp -f ${OMIM_ROOT}/tools/python/recalculate_geom_index.py ${RESOURCES_FOLDER}/
+    COMMAND cp -f ${OMIM_ROOT}/tools/python/generate_styles_override.py ${RESOURCES_FOLDER}/
     COMMAND cp -f ${OMIM_ROOT}/3party/protobuf/protobuf-3.3.0-py2.7.egg ${RESOURCES_FOLDER}/kothic/
   )
 
