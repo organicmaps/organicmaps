@@ -79,8 +79,39 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 ## Testing your changes
 
 The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
-(there is a "Designer" version of it also, which facilitates development
-by rebuilding styles and symbols quickly, but it's broken as of now, please help fix it!)
+
+There is also a **Designer** variant of the desktop app that rebuilds the
+currently-edited style on demand, without restarting:
+
+```
+cmake -B build-designer -S . -DCMAKE_BUILD_TYPE=Debug -GNinja -DBUILD_DESIGNER=ON
+cmake --build build-designer --target desktop
+./build-designer/OMaps.Designer.app/Contents/MacOS/OMaps.Designer \
+    data/styles/default/light/style.mapcss
+```
+
+Pass any of the six supported `style.mapcss` files as argv[1] (or pick one
+from the file dialog if you launch the .app without an argument):
+
+```
+data/styles/{default,outdoors,vehicle}/{light,dark}/style.mapcss
+```
+
+The Designer locks the active map style to the file you opened and disables
+the layer-menu Outdoors switch and the night-mode preference (both would
+unload the style being edited).  Edit any include file under
+`data/styles/<type>/include/` (e.g. `Roads.mapcss`) and click **Build style**
+to recompile and reapply the rules and symbol atlases live.
+
+Designer-only buttons:
+
+- **Build style** — recompiles MapCSS via `libkomwm.py` + `skin_generator_tool`
+  and reloads.
+- **Recalculate geometry index** — closes the app, runs `generator_tool
+  --generate_index=true` over every `.mwm` in the resources/writable dirs,
+  then relaunches.  Use this after zoom-range edits.
+- **Debug style** — toggles drape's debug rect overlay.
+- **Get statistics / Run tests** — invoke `drules_info.py` and `style_tests`.
 
 To test on Android or iOS device either re-build the app or put
 the compiled style files (e.g. `drules_proto_default_light.bin`) into
