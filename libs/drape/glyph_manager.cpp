@@ -603,15 +603,13 @@ FreetypeError constexpr g_FT_Errors[] =
     // TODO(AB): Check if it's slower or faster.
     allGlyphs.m_glyphs.reserve(icu::UnicodeString{false, text.data(), static_cast<int32_t>(text.size())}.countChar32());
 
-    auto const fontSupportsTextSegment = [this](int fontIndex, std::u16string_view text,
-                                                harfbuzz_shaping::TextSegment const & segment)
+    auto const fontSupportsText = [this](int fontIndex, std::u16string_view text)
     {
       if (fontIndex < 0)
         return false;
 
-      auto it = text.begin() + segment.m_start;
-      auto const end = it + segment.m_length;
-      while (it != end)
+      auto it = text.begin();
+      while (it != text.end())
       {
         auto const u32Character = utf8::unchecked::next16(it);
         if (!m_impl->m_fonts[fontIndex]->HasGlyph(u32Character))
@@ -621,8 +619,8 @@ FreetypeError constexpr g_FT_Errors[] =
       return true;
     };
 
-    auto const findTextSegmentFont = [this, &fontSupportsTextSegment](std::u16string_view text,
-                                                                      harfbuzz_shaping::TextSegment const & segment)
+    auto const findTextSegmentFonts = [this, &fontSupportsText](std::u16string_view text,
+                                                                harfbuzz_shaping::TextSegment const & segment)
     {
       int fontIndex = kInvalidFont;
       auto it = text.begin() + segment.m_start;
@@ -648,16 +646,30 @@ FreetypeError constexpr g_FT_Errors[] =
           continue;
         }
 
-        if (fontSupportsTextSegment(characterFontIndex, text, segment))
-          return characterFontIndex;
+        if (fontSupportsText(characterFontIndex, text))
+          return std::make_pair(fontIndex, characterFontIndex);
       }
 
-      return fontIndex;
+      return std::make_pair(fontIndex, kInvalidFont);
     };
 
+    int fallbackFontIndex = kInvalidFont;
+    buffer_vector<int, 4> segmentFontIndexes;
+    segmentFontIndexes.reserve(segments.size());
     for (auto const & substring : segments)
     {
-      int const fontIndex = findTextSegmentFont(text, substring);
+      auto const [fontIndex, segmentFallbackFontIndex] = findTextSegmentFonts(text, substring);
+      segmentFontIndexes.push_back(fontIndex);
+      fallbackFontIndex = segmentFallbackFontIndex;
+      if (fallbackFontIndex >= 0)
+        break;
+    }
+
+    for (size_t i = 0; i < segments.size(); ++i)
+    {
+      auto const & substring = segments[i];
+      int const fontIndex =
+          fallbackFontIndex >= 0 ? fallbackFontIndex : segmentFontIndexes[i];
       if (fontIndex < 0)
         continue;
 
