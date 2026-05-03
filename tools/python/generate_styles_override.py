@@ -10,16 +10,11 @@ def copy_style_file(style_path, drules_suffix, target_path):
         print('Path {0} is not found'.format(style_path))
         return
 
-    drules_proto_path = os.path.join(style_path, 'drules_proto_design.bin')
+    drules_proto_path = os.path.join(style_path, 'drules_proto' + drules_suffix + '.bin')
     if not os.path.exists(drules_proto_path):
-        print('Path {0} is not found'.format(drules_proto_path))
+        print('Path {0} is not found (run Build Style for this style first)'.format(drules_proto_path))
         return
     shutil.copyfile(drules_proto_path, os.path.join(target_path, 'drules_proto' + drules_suffix + '.bin'))
-
-    for density in ['6plus', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']:
-        res_path = os.path.join(style_path, 'resources-' + density + "_design")
-        if os.path.exists(res_path):
-            shutil.copytree(res_path, os.path.join(target_path, 'resources-' + density + drules_suffix))
 
 
 if len(sys.argv) < 2:
