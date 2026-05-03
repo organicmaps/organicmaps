@@ -4,6 +4,7 @@
 #include "base/buffer_vector.hpp"
 #include "base/shared_buffer_manager.hpp"
 
+#include <cstdint>
 #include <tuple>  // std::tie
 
 namespace dp
@@ -28,16 +29,16 @@ struct GlyphImage
       SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_data));
   }
 
-  uint32_t m_width;
-  uint32_t m_height;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
 
   SharedBufferManager::shared_buffer_ptr_t m_data;
 };
 
 struct GlyphFontAndId
 {
-  int16_t m_fontIndex;
-  uint16_t m_glyphId;
+  int16_t m_fontIndex = 0;
+  uint16_t m_glyphId = 0;
 
   // Required only for buffer_vector's internal T m_static[N];
   GlyphFontAndId() = default;

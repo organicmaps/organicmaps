@@ -44,8 +44,6 @@ struct TextMetrics
 
     if (m_glyphs.size() == 1)
       xAdvance -= xOffset;
-    // if (yOffset > 0)
-    //   height += yOffset;  // TODO(AB): Is it needed? Is it correct?
     m_lineWidthInPixels += xAdvance;
     m_maxLineHeightInPixels = std::max(m_maxLineHeightInPixels, height);
   }
@@ -71,7 +69,6 @@ public:
   bool AreGlyphsReady(TGlyphs const & str) const;
 
   int GetFontIndex(strings::UniChar unicodePoint);
-  int GetFontIndex(std::u16string_view sv);
 
   text::TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang);
   text::TextMetrics ShapeText(std::string_view utf8, int fontPixelHeight, char const * lang);
@@ -79,8 +76,6 @@ public:
   GlyphImage GetGlyphImage(GlyphFontAndId key, int pixelHeight, bool sdf) const;
 
 private:
-  // Immutable version can be called from any thread and doesn't require internal synchronization.
-  int GetFontIndexImmutable(strings::UniChar unicodePoint) const;
   int FindFontIndexInBlock(UnicodeBlock const & block, strings::UniChar unicodePoint) const;
 
   struct Impl;

@@ -4,7 +4,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <array>
+#include <span>
 #include <sstream>
 #include <string>
 
@@ -71,14 +73,9 @@ size_t ScriptSetIntersect(char32_t codepoint, TScriptsArray & inOutScripts, size
   if (codepointScriptsCount == 1 && codepointScripts[0] == USCRIPT_INHERITED)
     return inOutScriptsCount;
 
-  auto const contains = [&codepointScripts, codepointScriptsCount](UScriptCode code)
-  {
-    for (size_t i = 0; i < codepointScriptsCount; ++i)
-      if (codepointScripts[i] == code)
-        return true;
-
-    return false;
-  };
+  std::span<UScriptCode const> const codepointScriptsView{codepointScripts.data(), codepointScriptsCount};
+  auto const contains = [codepointScriptsView](UScriptCode code)
+  { return std::ranges::find(codepointScriptsView, code) != codepointScriptsView.end(); };
 
   // Intersect both script sets.
   ASSERT(!contains(USCRIPT_INHERITED), ());
@@ -191,8 +188,11 @@ void ReorderRTL(TextSegments & segments)
   // TODO(AB): Optimize implementation to use indexes to segments instead of copying them.
   auto it = segments.m_segments.begin();
   auto const end = segments.m_segments.end();
-  // TODO(AB): Line (default rendering) direction is determined by the first segment. It should be defined as
-  // a parameter depending on the language.
+  // UAX #9 P2: paragraph direction defaults to the first strong character. ubidi_setPara was
+  // called with UBIDI_DEFAULT_LTR which already resolved P2/P3, so the first segment's direction
+  // is the resolved paragraph direction. For map labels (no enclosing paragraph context) this
+  // matches the rendering convention. If a future caller needs to override (e.g. UI text bound
+  // to the user's locale), add a paragraph-direction parameter to GetTextSegments.
   auto const lineDirection = it->m_direction;
   while (it != end)
   {
@@ -218,7 +218,8 @@ TextSegments GetTextSegments(std::string_view utf8)
 
   // TODO(AB): Can unnecessary conversion/allocation be avoided?
   TextSegments segments{strings::ToUtf16(utf8), {}};
-  // TODO(AB): Runs are not split by breaking chars and by different fonts.
+  // TODO(AB): Runs are not split by breaking chars (spaces, control chars).
+  // Per-font splitting is performed downstream in GlyphManager::ShapeText, not here.
   GetSingleTextLineRuns(segments);
   ReorderRTL(segments);
   return segments;

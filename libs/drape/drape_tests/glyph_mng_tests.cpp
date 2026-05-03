@@ -14,8 +14,12 @@
 
 #include <QtGui/QPainter>
 
+#include <algorithm>
 #include <functional>
 #include <iostream>
+#include <numeric>
+#include <set>
+#include <string>
 #include <vector>
 
 #include <ft2build.h>
@@ -157,7 +161,9 @@ public:
         // hb_buffer_guess_segment_properties(buf);
 
         std::string const lang = m_lang;
-        std::string const fontFileName = lang == "ar" ? "00_NotoNaskhArabic-Regular.ttf" : "07_roboto_medium.ttf";
+        std::string const fontFileName = lang == "ar" ? "00_NotoNaskhArabic-Regular.ttf"
+                                       : lang == "hi" ? "00_NotoSerifDevanagari-Regular.ttf"
+                                                      : "07_roboto_medium.ttf";
 
         auto reader = GetPlatform().GetReader("fonts/" + fontFileName);
         auto fontFile = reader->GetName();
@@ -274,6 +280,12 @@ UNIT_TEST(GlyphLoadingTest)
 
   constexpr int fontSize = 27;
 
+  // TODO: U+200D/U+200C and other inherited/default-ignorable shaping controls should inherit
+  // the surrounding font run. This sample currently shows the broken Drape output above the
+  // manually-shaped HarfBuzz reference row.
+  renderer.SetString("क्‍ष  क्ष  क्‌ष", fontSize, "hi");
+  RunTestLoop("TODO Devanagari ZWJ/ZWNJ shaping", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+
   renderer.SetString("🚻💳♿🛜🚰🚱🚍🚊🚇⛴🚆🚡🏍", fontSize, "en");
   RunTestLoop("Emoji", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 
@@ -320,6 +332,181 @@ UNIT_TEST(GlyphLoadingTest)
 
   renderer.SetString("NFKC Razdoĺny NFKD Razdoĺny", fontSize, "be");
   RunTestLoop("Polish", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+}
+
+namespace
+{
+dp::GlyphManager MakeGlyphManager()
+{
+  dp::GlyphManager::Params args;
+  args.m_uniBlocks = base::JoinPath("fonts", "unicode_blocks.txt");
+  args.m_whitelist = base::JoinPath("fonts", "whitelist.txt");
+  args.m_blacklist = base::JoinPath("fonts", "blacklist.txt");
+  GetPlatform().GetFontNames(args.m_fonts);
+  return dp::GlyphManager{args};
+}
+
+int32_t SumAdvances(dp::text::TextMetrics const & m)
+{
+  return std::accumulate(m.m_glyphs.begin(), m.m_glyphs.end(), int32_t{0},
+                         [](int32_t acc, dp::text::GlyphMetrics const & g) { return acc + g.m_xAdvance; });
+}
+
+size_t CountNotdefGlyphs(dp::text::TextMetrics const & m, int fontIndex)
+{
+  size_t count = 0;
+  for (auto const & glyph : m.m_glyphs)
+    if (glyph.m_key.m_fontIndex == fontIndex && glyph.m_key.m_glyphId == 0)
+      ++count;
+  return count;
+}
+}  // namespace
+
+// Pins the line-width invariant: m_lineWidthInPixels == sum(xAdvance) - first_glyph.m_xOffset.
+// The visually-leftmost glyph (first in m_glyphs) carries the line's leading bearing; the bearing
+// is subtracted exactly once, regardless of how many segments or font runs the text was split into.
+// Regression coverage for the multi-font-run shaping introduced in commit a8a4e9b8.
+UNIT_TEST(ShapeText_LineWidthInvariant)
+{
+  auto mng = MakeGlyphManager();
+
+  // Single LTR segment, single font.
+  {
+    auto const m = mng.ShapeText("Hello", "en");
+    TEST(!m.m_glyphs.empty(), ());
+    TEST_EQUAL(m.m_lineWidthInPixels, SumAdvances(m) - m.m_glyphs.front().m_xOffset,
+               ("Single LTR run: width = sum(advance) - first bearing"));
+  }
+
+  // Multi-segment LTR (Latin + CJK): each script becomes its own segment, so the cross-segment
+  // accumulator path is exercised. Bearing must be subtracted only on the visually-first glyph.
+  {
+    auto const m = mng.ShapeText("Hello 中文", "en");
+    TEST(!m.m_glyphs.empty(), ());
+    TEST_EQUAL(m.m_lineWidthInPixels, SumAdvances(m) - m.m_glyphs.front().m_xOffset,
+               ("Multi-segment LTR: width invariant across segment boundaries"));
+
+    // Visually-leftmost glyph is from the Latin font (first physical character is 'H').
+    auto const latinFont = mng.GetFontIndex(static_cast<strings::UniChar>('H'));
+    TEST_NOT_EQUAL(latinFont, -1, ());
+    TEST_EQUAL(m.m_glyphs.front().m_key.m_fontIndex, latinFont,
+               ("First emitted glyph should be from the visually-leftmost run's font"));
+  }
+
+  // Single-segment, multi-font run path: a Latin letter followed by an emoji forces the per-font
+  // run split inside one segment after the emoji-fallback work in commit a8a4e9b8.
+  {
+    auto const m = mng.ShapeText("a🚻", "en");
+    TEST(!m.m_glyphs.empty(), ());
+    TEST_EQUAL(m.m_lineWidthInPixels, SumAdvances(m) - m.m_glyphs.front().m_xOffset,
+               ("Single-segment multi-font: width invariant within a segment"));
+
+    std::set<int> fontIndices;
+    for (auto const & g : m.m_glyphs)
+      fontIndices.insert(g.m_key.m_fontIndex);
+    TEST_GREATER(fontIndices.size(), size_t{1}, ("Latin + emoji must come from different fonts"));
+  }
+
+  // Pure RTL: HB emits glyphs in visual L-to-R order, so the first emitted glyph is the
+  // visually-leftmost of the line and must be the one whose bearing is subtracted.
+  {
+    auto const m = mng.ShapeText("مرحبا", "ar");
+    TEST(m.m_isRTL, ());
+    TEST(!m.m_glyphs.empty(), ());
+    TEST_EQUAL(m.m_lineWidthInPixels, SumAdvances(m) - m.m_glyphs.front().m_xOffset,
+               ("RTL: width invariant holds with reversed-run shaping"));
+  }
+
+  // Bidi LTR + RTL: the LTR segment renders first (visually-leftmost), so the very first emitted
+  // glyph is from the Latin font and the line-width invariant must still hold globally.
+  {
+    auto const m = mng.ShapeText("Hello مرحبا", "en");
+    TEST(!m.m_glyphs.empty(), ());
+    TEST_EQUAL(m.m_lineWidthInPixels, SumAdvances(m) - m.m_glyphs.front().m_xOffset,
+               ("Bidi LTR+RTL: width invariant holds across direction changes"));
+
+    auto const latinFont = mng.GetFontIndex(static_cast<strings::UniChar>('H'));
+    TEST_EQUAL(m.m_glyphs.front().m_key.m_fontIndex, latinFont,
+               ("LTR-dominant bidi: visually-leftmost glyph is from the Latin font"));
+  }
+}
+
+// A codepoint for which GetFontIndex returns kInvalidFont (no font in the stack supports it)
+// must stay in an available font run. HB then emits glyph id 0 (.notdef), so the label shows
+// an explicit missing-glyph box instead of silently dropping the original character.
+//
+// U+AB30 LATIN SMALL LETTER BARRED ALPHA (Latin Extended-E): the block is missing from
+// data/fonts/unicode_blocks.txt, so GetFontIndex returns kInvalidFont. ICU classifies it as
+// Latin script, so GetSingleTextLineRuns groups it into the same segment as the following
+// ASCII text -- exactly the situation that exercises the per-font-run loop.
+UNIT_TEST(ShapeText_NoFontCodepointEmitsNotdef)
+{
+  auto mng = MakeGlyphManager();
+
+  static constexpr strings::UniChar kNoFontCp = 0xAB30;
+  TEST_EQUAL(mng.GetFontIndex(kNoFontCp), -1, ("U+AB30 must be unmapped for this test to be meaningful"));
+
+  static constexpr char const * kNoFontUtf8 = "\xEA\xAC\xB0";  // U+AB30
+  std::string const plain = "Hello";
+
+  auto const baseline = mng.ShapeText(plain, "en");
+  auto const latinFont = mng.GetFontIndex(static_cast<strings::UniChar>('H'));
+  TEST_NOT_EQUAL(latinFont, -1, ());
+
+  // Leading: codepoint precedes all visible text.
+  {
+    auto const m = mng.ShapeText(std::string(kNoFontUtf8) + plain, "en");
+    TEST_EQUAL(baseline.m_glyphs.size() + 1, m.m_glyphs.size(), ("Leading unmapped codepoint emits .notdef"));
+    TEST_EQUAL(m.m_glyphs.front().m_key.m_fontIndex, latinFont, ());
+    TEST_EQUAL(m.m_glyphs.front().m_key.m_glyphId, 0, ());
+  }
+
+  // Trailing: codepoint follows all visible text.
+  {
+    auto const m = mng.ShapeText(plain + kNoFontUtf8, "en");
+    TEST_EQUAL(baseline.m_glyphs.size() + 1, m.m_glyphs.size(), ("Trailing unmapped codepoint emits .notdef"));
+    TEST_EQUAL(m.m_glyphs.back().m_key.m_fontIndex, latinFont, ());
+    TEST_EQUAL(m.m_glyphs.back().m_key.m_glyphId, 0, ());
+  }
+
+  // Inner: codepoint sits between two same-font ASCII characters and stays in that run.
+  {
+    auto const m = mng.ShapeText("Hel" + std::string(kNoFontUtf8) + "lo", "en");
+    TEST_EQUAL(baseline.m_glyphs.size() + 1, m.m_glyphs.size(), ("Inner unmapped codepoint emits .notdef"));
+    TEST_EQUAL(CountNotdefGlyphs(m, latinFont), size_t{1}, ());
+  }
+
+  // Only unmapped text has no surrounding run, so it falls back to the default font's .notdef.
+  {
+    auto const m = mng.ShapeText(kNoFontUtf8, "en");
+    TEST_EQUAL(m.m_glyphs.size(), size_t{1}, ("Only unmapped codepoint emits .notdef"));
+    TEST_NOT_EQUAL(m.m_glyphs.front().m_key.m_fontIndex, -1, ());
+    TEST_EQUAL(m.m_glyphs.front().m_key.m_glyphId, 0, ());
+  }
+}
+
+// Pins basic positivity / monotonicity invariants. Catches gross regressions from the shaping
+// rewrite without depending on exact font metrics.
+UNIT_TEST(ShapeText_BasicInvariants)
+{
+  auto mng = MakeGlyphManager();
+
+  // Width is strictly positive for non-empty visible text.
+  TEST_GREATER(mng.ShapeText("a", "en").m_lineWidthInPixels, 0, ());
+
+  // Width grows when characters are appended.
+  auto const w1 = mng.ShapeText("a", "en").m_lineWidthInPixels;
+  auto const w2 = mng.ShapeText("ab", "en").m_lineWidthInPixels;
+  auto const w3 = mng.ShapeText("abc", "en").m_lineWidthInPixels;
+  TEST_GREATER(w2, w1, ());
+  TEST_GREATER(w3, w2, ());
+
+  // Cache returns equivalent metrics for identical inputs.
+  auto const a = mng.ShapeText("CacheKey", "en");
+  auto const b = mng.ShapeText("CacheKey", "en");
+  TEST_EQUAL(a.m_lineWidthInPixels, b.m_lineWidthInPixels, ());
+  TEST_EQUAL(a.m_glyphs.size(), b.m_glyphs.size(), ());
+  TEST_EQUAL(a.m_isRTL, b.m_isRTL, ());
 }
 
 }  // namespace glyph_mng_tests
