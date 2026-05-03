@@ -135,18 +135,16 @@ public:
 // Convenience builder for HttpRequest::GetFile bound to a DownloadObserver. Two overloads:
 // the multi-URL form for tests that need URL fallback semantics, and a single-URL form
 // defaulting to kTestUrlBigFile (the common case).
-std::unique_ptr<HttpRequest> MakeRequest(vector<string> const & urls, string const & file,
-                                                              int64_t fileSize, DownloadObserver & obs,
-                                                              bool doCleanOnCancel = true, int64_t chunkSize = 1024)
+std::unique_ptr<HttpRequest> MakeRequest(vector<string> const & urls, string const & file, int64_t fileSize,
+                                         DownloadObserver & obs, bool doCleanOnCancel = true, int64_t chunkSize = 1024)
 {
   return std::unique_ptr<HttpRequest>(
       HttpRequest::GetFile(urls, file, fileSize, bind(&DownloadObserver::OnDownloadFinish, &obs, _1),
                            bind(&DownloadObserver::OnDownloadProgress, &obs, _1), doCleanOnCancel, chunkSize));
 }
 
-std::unique_ptr<HttpRequest> MakeRequest(string const & file, int64_t fileSize,
-                                                              DownloadObserver & obs, bool doCleanOnCancel = true,
-                                                              int64_t chunkSize = 1024)
+std::unique_ptr<HttpRequest> MakeRequest(string const & file, int64_t fileSize, DownloadObserver & obs,
+                                         bool doCleanOnCancel = true, int64_t chunkSize = 1024)
 {
   return MakeRequest({kTestUrlBigFile}, file, fileSize, obs, doCleanOnCancel, chunkSize);
 }
