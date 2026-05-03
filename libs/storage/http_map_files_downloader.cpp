@@ -3,6 +3,9 @@
 #include "storage/downloader.hpp"
 
 #include "platform/downloader_defines.hpp"
+#include "platform/platform.hpp"
+
+#include "defines.hpp"
 
 #include <functional>
 
@@ -96,6 +99,17 @@ void HttpMapFilesDownloader::Clear()
   CHECK_THREAD_CHECKER(m_checker, ());
 
   MapFilesDownloader::Clear();
+
+  // Wipe in-flight artifacts before tearing down m_request, since the dtor preserves them
+  // (doCleanOnCancel=false). Clear() is "throw everything away" — leaving .downloading and
+  // .resume on disk would orphan files that nothing else cleans up.
+  if (m_request && !m_queue.IsEmpty())
+  {
+    auto const path = m_queue.GetFirstCountry().GetFileDownloadPath();
+    Platform::RemoveFileIfExists(path);
+    Platform::RemoveFileIfExists(path + DOWNLOADING_FILE_EXTENSION);
+    Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
+  }
 
   m_request.reset();
   m_queue.Clear();
