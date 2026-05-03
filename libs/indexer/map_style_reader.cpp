@@ -18,15 +18,8 @@ std::string const kSuffixOutdoorsDark = "_outdoors_dark";
 
 std::string const kStylesOverrideDir = "styles";
 
-#ifdef BUILD_DESIGNER
-std::string const kSuffixDesignTool = "_design";
-#endif  // BUILD_DESIGNER
-
 std::string GetStyleRulesSuffix(MapStyle mapStyle)
 {
-#ifdef BUILD_DESIGNER
-  return kSuffixDesignTool;
-#else
   switch (mapStyle)
   {
   case MapStyleDefaultDark: return kSuffixDefaultDark;
@@ -41,14 +34,10 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixDefaultLight;
-#endif  // BUILD_DESIGNER
 }
 
 std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 {
-#ifdef BUILD_DESIGNER
-  return kSuffixDesignTool;
-#else
   // We use the same resources for all light/day and dark/night styles
   // to avoid textures duplication and package size increasing.
   switch (mapStyle)
@@ -65,7 +54,6 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixLight;
-#endif  // BUILD_DESIGNER
 }
 }  // namespace
 
