@@ -19,6 +19,9 @@ auto constexpr kInvalidURL = -5;
 auto constexpr kCancelled = -6;
 }  // namespace non_http_error_code
 
+/// .resume is flushed every Nth completed chunk; a hard crash can lose at most N-1.
+inline constexpr size_t kPeriodicResumeSaveInterval = 10;
+
 /// Request in progress will be canceled on delete
 class HttpRequest
 {
@@ -44,7 +47,7 @@ public:
   /// Download file to filePath.
   /// @param[in]  fileSize  Correct file size (needed for resuming and reserving).
   static HttpRequest * GetFile(std::vector<std::string> const & urls, std::string const & filePath, int64_t fileSize,
-                               Callback && onFinish, Callback && onProgress = Callback(),
-                               int64_t chunkSize = 512 * 1024, bool doCleanOnCancel = true);
+                               Callback && onFinish, Callback && onProgress = Callback(), bool doCleanOnCancel = true,
+                               int64_t chunkSize = 512 * 1024);
 };
 }  // namespace downloader

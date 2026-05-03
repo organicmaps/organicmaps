@@ -60,7 +60,7 @@ class FileHttpRequest : public HttpRequest
   string m_filePath;
   string m_downloadingPath;  // m_filePath + DOWNLOADING_FILE_EXTENSION, cached.
   size_t m_goodChunksCount;
-  bool m_doCleanProgressFiles;
+  bool m_doCleanOnCancel;
 
 #ifdef DEBUG
   std::optional<threads::ThreadID> m_callbackThreadId;
@@ -150,7 +150,7 @@ class FileHttpRequest : public HttpRequest
     if (isChunkOk)
     {
       ++m_goodChunksCount;
-      if (m_status != DownloadStatus::Completed && m_goodChunksCount % 10 == 0)
+      if (m_status != DownloadStatus::Completed && m_goodChunksCount % kPeriodicResumeSaveInterval == 0)
         SaveResumeChunks();
     }
 
@@ -183,14 +183,14 @@ class FileHttpRequest : public HttpRequest
 
 public:
   FileHttpRequest(std::vector<string> const & urls, string const & filePath, int64_t fileSize, Callback && onFinish,
-                  Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
+                  Callback && onProgress, int64_t chunkSize, bool doCleanOnCancel)
     : HttpRequest(std::move(onFinish), std::move(onProgress))
     , m_strategy(urls)
     , m_alive(std::make_shared<std::atomic<bool>>(true))
     , m_filePath(filePath)
     , m_downloadingPath(filePath + DOWNLOADING_FILE_EXTENSION)
     , m_goodChunksCount(0)
-    , m_doCleanProgressFiles(doCleanProgressFiles)
+    , m_doCleanOnCancel(doCleanOnCancel)
   {
     ASSERT(!urls.empty(), ());
 
@@ -207,6 +207,7 @@ public:
           static_cast<int64_t>(size) >= m_strategy.RequiredFileSize())
       {
         openMode = FileWriter::OP_WRITE_EXISTING;
+        LOG(LINFO, ("Resuming download of", m_filePath, "from", m_progress.m_bytesDownloaded, "of", fileSize, "bytes"));
       }
       else
       {
@@ -232,17 +233,28 @@ public:
 
     for (auto & chunk : m_chunks)
       chunk.m_handle.Cancel();
-    m_chunks.clear();
 
-    // Delete temp files synchronously. Any still-in-flight transport writes will land
-    // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
-    // closes) or fail silently (Windows) — either way, no interaction with a potential
-    // new download that reuses the same path. A deferred-cleanup scheme here would
-    // introduce a cancel+retry race where the cleanup deletes the NEW download's file.
-    if (m_status == DownloadStatus::InProgress && m_doCleanProgressFiles)
+    if (m_status == DownloadStatus::InProgress)
     {
-      Platform::RemoveFileIfExists(m_downloadingPath);
-      Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
+      if (m_doCleanOnCancel)
+      {
+        // Delete temp files synchronously. Any still-in-flight transport writes will land
+        // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
+        // closes) or fail silently (Windows) — either way, no interaction with a potential
+        // new download that reuses the same path. A deferred-cleanup scheme here would
+        // introduce a cancel+retry race where the cleanup deletes the NEW download's file.
+        Platform::RemoveFileIfExists(m_downloadingPath);
+        Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
+      }
+      else
+      {
+        // Periodic SaveResumeChunks() runs only every kPeriodicResumeSaveInterval-th completed
+        // chunk, so .resume may lag the .downloading file by up to N-1 chunks. Flush now so
+        // those chunks aren't re-downloaded on next launch.
+        LOG(LINFO, ("Preserving partial download for", m_filePath, "at", m_progress.m_bytesDownloaded, "of",
+                    m_progress.m_bytesTotal, "bytes"));
+        SaveResumeChunks();
+      }
     }
   }
 
@@ -260,8 +272,8 @@ HttpRequest::HttpRequest(Callback && onFinish, Callback && onProgress)
 HttpRequest::~HttpRequest() {}
 
 HttpRequest * HttpRequest::GetFile(std::vector<string> const & urls, string const & filePath, int64_t fileSize,
-                                   Callback && onFinish, Callback && onProgress, int64_t chunkSize,
-                                   bool doCleanOnCancel)
+                                   Callback && onFinish, Callback && onProgress, bool doCleanOnCancel,
+                                   int64_t chunkSize)
 {
   try
   {

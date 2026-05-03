@@ -166,7 +166,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeSt
     g_currentRequest.reset(HttpRequest::GetFile(downloader->MakeUrlListLegacy(fileName),
                                                 storage.GetFilePath(curFile.GetName(), MapFileType::Map),
                                                 curFile.GetRemoteSize(), std::bind(&DownloadFileFinished, ptr, _1),
-                                                std::bind(&DownloadFileProgress, ptr, _1), 512 * 1024, false));
+                                                std::bind(&DownloadFileProgress, ptr, _1), false));
   });
 
   return ERR_FILE_IN_PROGRESS;
