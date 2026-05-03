@@ -400,8 +400,8 @@ public class RoutingController
     {
       // The optimizer needs a known finish before it predicts positions for
       // intermediate points.
-      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1),
-                    0 /* intermediateIndex */, getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), 0 /* intermediateIndex */,
+                    getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
       for (int i = 1; i + 1 < routePoints.size(); ++i)
         addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), 0 /* intermediateIndex */,
                       getCallback(callbacks, i), optimizeRoutePoints);
@@ -411,8 +411,8 @@ public class RoutingController
       for (int i = 1; i + 1 < routePoints.size(); ++i)
         addRoutePoint(RouteMarkType.Intermediate, routePoints.get(i), i - 1, getCallback(callbacks, i),
                       optimizeRoutePoints);
-      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1),
-                    0 /* intermediateIndex */, getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
+      addRoutePoint(RouteMarkType.Finish, routePoints.get(routePoints.size() - 1), 0 /* intermediateIndex */,
+                    getCallback(callbacks, routePoints.size() - 1), optimizeRoutePoints);
     }
 
     if (mContainer != null)
