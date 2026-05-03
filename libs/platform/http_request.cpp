@@ -64,7 +64,7 @@ class FileHttpRequest : public HttpRequest
   string m_filePath;
   string m_downloadingPath;  // m_filePath + DOWNLOADING_FILE_EXTENSION, cached.
   size_t m_goodChunksCount;
-  bool m_doCleanProgressFiles;
+  bool m_doCleanOnCancel;
 
 #ifdef DEBUG
   std::optional<threads::ThreadID> m_callbackThreadId;
@@ -187,14 +187,14 @@ class FileHttpRequest : public HttpRequest
 
 public:
   FileHttpRequest(std::vector<string> const & urls, string const & filePath, int64_t fileSize, Callback && onFinish,
-                  Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
+                  Callback && onProgress, int64_t chunkSize, bool doCleanOnCancel)
     : HttpRequest(std::move(onFinish), std::move(onProgress))
     , m_strategy(urls)
     , m_alive(std::make_shared<std::atomic<bool>>(true))
     , m_filePath(filePath)
     , m_downloadingPath(filePath + DOWNLOADING_FILE_EXTENSION)
     , m_goodChunksCount(0)
-    , m_doCleanProgressFiles(doCleanProgressFiles)
+    , m_doCleanOnCancel(doCleanOnCancel)
   {
     ASSERT(!urls.empty(), ());
 
@@ -240,7 +240,7 @@ public:
 
     if (m_status == DownloadStatus::InProgress)
     {
-      if (m_doCleanProgressFiles)
+      if (m_doCleanOnCancel)
       {
         // Delete temp files synchronously. Any still-in-flight transport writes will land
         // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
