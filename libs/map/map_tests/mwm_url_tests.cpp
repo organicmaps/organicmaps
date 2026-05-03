@@ -109,8 +109,7 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 
 UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)
 {
-  string const urlString =
-      "om://v2/nav?destination=2,2&origin_name=Warehouse&origin_callback=app%3A%2F%2Forigin";
+  string const urlString = "om://v2/nav?destination=2,2&origin_name=Warehouse&origin_callback=app%3A%2F%2Forigin";
 
   ParsedMapApi test(urlString);
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
