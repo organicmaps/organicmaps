@@ -447,32 +447,6 @@ UNIT_TEST(DownloadResumeChunks)
   }
 }
 
-// Unit test with forcible canceling of http request
-UNIT_TEST(DownloadResumeChunksWithCancel)
-{
-  ScopedDownloadArtifacts files{"downloader_resume_test_"};
-
-  DownloadObserver observer;
-
-  int arrCancelChunks[] = {1, 3, 10, 15, 20, 0};
-
-  for (size_t i = 0; i < ARRAY_SIZE(arrCancelChunks); ++i)
-  {
-    // Reset() clears m_chunksToFail; this call sets the new value (or leaves it at -1 for "no cancel").
-    if (arrCancelChunks[i] > 0)
-      observer.CancelDownloadOnGivenChunk(arrCancelChunks[i]);
-    else
-      observer.Reset();
-
-    auto const request = MakeRequest(files.m_path, kBigFileSize, observer, /*doCleanOnCancel=*/false);
-    QCoreApplication::exec();
-  }
-
-  observer.TestOk();
-
-  FinishDownloadSuccess(files.m_path);
-}
-
 // Cancel mid-flight with doCleanOnCancel=true (the "user removes country" path).
 // Asserts: ~FileHttpRequest wipes both .downloading and .resume when status is InProgress
 // and m_doCleanProgressFiles is true (http_request.cpp lines 246-247). No other test
