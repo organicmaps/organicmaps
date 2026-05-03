@@ -236,7 +236,6 @@ public:
 
     for (auto & chunk : m_chunks)
       chunk.m_handle.Cancel();
-    m_chunks.clear();
 
     if (m_status == DownloadStatus::InProgress)
     {
