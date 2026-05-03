@@ -453,7 +453,10 @@ UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
 {
   ScopedDownloadArtifacts files{"http_cancel_clean_"};
   DownloadObserver obs;
-  obs.CancelDownloadOnGivenChunk(5);
+  // Cancel after the periodic SaveResumeChunks() has fired, otherwise no .resume exists
+  // on disk at dtor time and the wipe assertion below is vacuous.
+  int constexpr kCancelAtChunk = kPeriodicResumeSaveInterval + 1;
+  obs.CancelDownloadOnGivenChunk(kCancelAtChunk);
   {
     auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/true);
     QCoreApplication::exec();
@@ -498,9 +501,12 @@ UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_ResumeReflectsAllCompletedChunks)
     auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false, kChunkSize);
     QCoreApplication::exec();
   }
-  // kCancelAtChunk - 1 because the chunk that triggered cancel may not have completed before quit().
+  // OnDownloadProgress fires after ChunkFinished marks the chunk complete in the strategy,
+  // so the cancel-triggering chunk is committed by quit() time. The next chunk (started
+  // synchronously after the callback) may or may not finish before exec() returns, so the
+  // bound is >= kCancelAtChunk, never == .
   int64_t const resumed = LoadResumeBytes(files.Resume(), kBigFileSize, kChunkSize);
-  TEST_GREATER_OR_EQUAL(resumed, (kCancelAtChunk - 1) * kChunkSize,
+  TEST_GREATER_OR_EQUAL(resumed, kCancelAtChunk * kChunkSize,
                         ("Resume file under-reports completed bytes; dtor flush regressed"));
 }
 
