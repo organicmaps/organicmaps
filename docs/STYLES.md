@@ -112,6 +112,15 @@ Designer-only buttons:
   then relaunches.  Use this after zoom-range edits.
 - **Debug style** — toggles drape's debug rect overlay.
 - **Get statistics / Run tests** — invoke `drules_info.py` and `style_tests`.
+- **Build phone package** — exports the currently-edited style to a folder
+  you can copy to a device:
+  - Android: `<storage>/Android/data/app.organicmaps/files/styles/`
+  - iOS: Files → On My iPhone → Organic Maps → `styles/`
+
+  Only the rebuilt `drules_proto_<suffix>.bin` and `symbols/<dpi>/<theme>/`
+  atlases are exported; the on-device StyleReader doesn't override
+  `colors.txt`, `patterns.txt`, the classifier or feature mapping, so edits
+  in those files still need a full app rebuild and reinstall.
 
 To test on Android or iOS device either re-build the app or put
 the compiled style files (e.g. `drules_proto_default_light.bin`) into

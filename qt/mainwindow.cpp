@@ -29,13 +29,14 @@
 
 #ifdef BUILD_DESIGNER
 #include "build_style/build_common.h"
-#include "build_style/build_phone_pack.h"
 #include "build_style/build_statistics.h"
 #include "build_style/build_style.h"
 #include "build_style/run_tests.h"
 
 #include "drape_frontend/debug_rect_renderer.hpp"
 
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #endif  // BUILD_DESIGNER
@@ -774,33 +775,61 @@ void MainWindow::OnBuildPhonePackage()
 {
   try
   {
-    char const * const kStylesFolder = "styles";
-    char const * const kClearStyleFolder = "clear";
-
     QString const targetDir = QFileDialog::getExistingDirectory(nullptr, "Choose output directory");
     if (targetDir.isEmpty())
       return;
-    auto outDir = QDir(JoinPathQt({targetDir, kStylesFolder}));
-    if (outDir.exists())
+
+    // Phone-side StyleReader looks under <writable_dir>/styles/ for both the drules
+    // (drules_proto<suffix>.bin) and the symbol atlases (symbols/<dpi>/<theme>/).
+    // Mirror that layout here so the user can drop the produced folder onto a device.
+    QString const phoneStylesDir = JoinPathQt({targetDir, "styles"});
+    if (QDir(phoneStylesDir).exists())
     {
       QMessageBox msgBox;
       msgBox.setWindowTitle("Warning");
-      msgBox.setText(QString("Folder ") + outDir.absolutePath() + " will be deleted?");
+      msgBox.setText("Folder " + phoneStylesDir + " will be overwritten. Continue?");
       msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
       msgBox.setDefaultButton(QMessageBox::No);
-      auto result = msgBox.exec();
-      if (result == QMessageBox::No)
-        throw std::runtime_error(std::string("Target directory exists: ") + outDir.absolutePath().toStdString());
+      if (msgBox.exec() == QMessageBox::No)
+        return;
+      if (!QDir(phoneStylesDir).removeRecursively())
+        throw std::runtime_error("Cannot remove existing " + phoneStylesDir.toStdString());
     }
 
-    QString const stylesDir = JoinPathQt({m_mapcssFilePath, "..", "..", ".."});
-    if (!QDir(JoinPathQt({stylesDir, kClearStyleFolder})).exists())
-      throw std::runtime_error(std::string("Styles folder is not found in ") + stylesDir.toStdString());
+    // Build outputs live alongside the opened style.mapcss in its sibling out/ dir.
+    QString const buildOutputDir = JoinPathQt({QFileInfo(m_mapcssFilePath).absolutePath(), "out"});
 
-    QString text = build_style::RunBuildingPhonePack(stylesDir, targetDir);
-    text.append("\nMobile device style package is in the directory: ");
-    text.append(JoinPathQt({targetDir, kStylesFolder}));
-    text.append(". Copy it to your mobile device.\n");
+    QString const drulesName = "drules_proto" + m_styleInfo.m_drulesSuffix + ".bin";
+    QString const drulesSrc = JoinPathQt({buildOutputDir, drulesName});
+    if (!QFileInfo::exists(drulesSrc))
+      throw std::runtime_error("Run Build Style first; missing " + drulesSrc.toStdString());
+
+    if (!QDir().mkpath(phoneStylesDir))
+      throw std::runtime_error("Cannot create " + phoneStylesDir.toStdString());
+
+    if (!CopyFile(drulesSrc, JoinPathQt({phoneStylesDir, drulesName})))
+      throw std::runtime_error("Cannot copy " + drulesName.toStdString());
+
+    static char const * const kDpis[] = {"6plus", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
+    for (char const * dpi : kDpis)
+    {
+      QString const symSrcDir = JoinPathQt({buildOutputDir, "symbols", dpi, m_styleInfo.m_theme});
+      if (!QDir(symSrcDir).exists())
+        continue;
+      QString const symDstDir = JoinPathQt({phoneStylesDir, "symbols", dpi, m_styleInfo.m_theme});
+      QDir().mkpath(symDstDir);
+      CopyFile(JoinPathQt({symSrcDir, "symbols.png"}), JoinPathQt({symDstDir, "symbols.png"}));
+      CopyFile(JoinPathQt({symSrcDir, "symbols.sdf"}), JoinPathQt({symDstDir, "symbols.sdf"}));
+    }
+
+    QString const text = QString(
+                             "Phone package for %1/%2 written to:\n  %3\n\n"
+                             "Copy this 'styles/' folder to your device:\n"
+                             "  Android: <storage>/Android/data/app.organicmaps/files/styles/\n"
+                             "  iOS:     Files -> On My iPhone -> Organic Maps -> styles/\n\n"
+                             "Only drules and symbol atlases are overrideable on-device.\n"
+                             "Edits to colors / patterns / classifier need a full app rebuild.")
+                             .arg(m_styleInfo.m_styleType, m_styleInfo.m_theme, phoneStylesDir);
     InfoDialog dlg(QString("Building phone pack"), text, nullptr);
     dlg.exec();
   }
