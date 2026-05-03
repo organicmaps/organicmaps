@@ -297,10 +297,14 @@ void MainWindow::CreateNavigationBar()
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
                         std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
     m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
+#ifndef BUILD_DESIGNER
+    // The Outdoors layer switches MapStyle, which would unload the style being
+    // edited; keep it locked to whichever style.mapcss the Designer was opened with.
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
                         std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
     m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+#endif  // BUILD_DESIGNER
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);

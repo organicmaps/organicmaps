@@ -153,6 +153,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
             [&framework](int index) { framework.SetBookmarksTextPlacement(static_cast<Placement>(index)); });
   }
 
+#ifndef BUILD_DESIGNER
+  // Night mode flips MapStyle between light/dark variants, which would unload
+  // the style being edited; the Designer locks this to the opened style.mapcss.
   QButtonGroup * nightModeGroup = new QButtonGroup(this);
   QGroupBox * nightModeRadioBox = new QGroupBox("Night Mode");
   {
@@ -198,6 +201,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       }
     });
   }
+#endif  // BUILD_DESIGNER
 
 #ifdef BUILD_DESIGNER
   QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
@@ -232,9 +236,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(mapLanguageComboBox);
   finalLayout->addWidget(bookmarksPlacementLabel);
   finalLayout->addWidget(bookmarksPlacementCB);
-  finalLayout->addWidget(nightModeRadioBox);
 #ifdef BUILD_DESIGNER
   finalLayout->addWidget(indexRegenCheckBox);
+#else
+  finalLayout->addWidget(nightModeRadioBox);
 #endif
   finalLayout->addLayout(bottomLayout);
   setLayout(finalLayout);
