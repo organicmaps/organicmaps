@@ -4,9 +4,9 @@
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
 
-#include <map>
 #include <mutex>
-#include <utility>  // std::tie
+#include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace dp
@@ -50,7 +50,6 @@ class GlyphIndex
 {
 public:
   GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng);
-  ~GlyphIndex();
 
   // This function can return nullptr.
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphFontAndId const & key, bool & newResource);
@@ -66,7 +65,7 @@ private:
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
 
-  using ResourceMapping = std::map<GlyphFontAndId, GlyphInfo>;
+  using ResourceMapping = std::unordered_map<GlyphFontAndId, GlyphInfo, GlyphFontAndIdHash>;
   using PendingNode = std::pair<m2::RectU, Glyph>;
   using PendingNodes = std::vector<PendingNode>;
 
