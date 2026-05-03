@@ -473,4 +473,137 @@ UNIT_TEST(DownloadResumeChunksWithCancel)
   FinishDownloadSuccess(files.m_path);
 }
 
+// Cancel mid-flight with doCleanOnCancel=true (the "user removes country" path).
+// Asserts: ~FileHttpRequest wipes both .downloading and .resume when status is InProgress
+// and m_doCleanProgressFiles is true (http_request.cpp lines 246-247). No other test
+// exercises this branch — DownloadChunks always lets requests complete naturally.
+UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
+{
+  ScopedDownloadArtifacts files{"http_cancel_clean_"};
+  DownloadObserver obs;
+  obs.CancelDownloadOnGivenChunk(5);
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/true);
+    QCoreApplication::exec();
+  }  // dtor runs while m_status == InProgress
+
+  uint64_t size = 0;
+  TEST(!base::GetFileSize(files.Downloading(), size), ("Downloading must be wiped"));
+  TEST(!base::GetFileSize(files.Resume(), size), ("Resume must be wiped"));
+}
+
+// Cancel mid-flight with doCleanOnCancel=false (the "graceful shutdown" path).
+// Asserts: ~FileHttpRequest preserves both files when status is InProgress and
+// m_doCleanProgressFiles is false (http_request.cpp lines 249-258). Pins down the
+// positive contract of the new flag semantics.
+UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_PreservesArtifacts)
+{
+  ScopedDownloadArtifacts files{"http_cancel_preserve_"};
+  DownloadObserver obs;
+  obs.CancelDownloadOnGivenChunk(5);
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false);
+    QCoreApplication::exec();
+  }
+  uint64_t downloadingSize = 0, resumeSize = 0;
+  TEST(base::GetFileSize(files.Downloading(), downloadingSize), ("Downloading must be preserved"));
+  TEST(base::GetFileSize(files.Resume(), resumeSize), ("Resume must be preserved"));
+  TEST_GREATER(downloadingSize, 0u, ());
+  TEST_GREATER(resumeSize, 0u, ());
+}
+
+// Regression test for the destructor flush. Cancel point (5) must stay below
+// kPeriodicResumeSaveInterval (10, in http_request.cpp), so the periodic save never fires.
+// Without the dtor's SaveResumeChunks() call, .resume would be missing or stale.
+UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_ResumeReflectsAllCompletedChunks)
+{
+  ScopedDownloadArtifacts files{"http_resume_flush_"};
+  int64_t constexpr kChunkSize = 1024;
+  int constexpr kCancelAtChunk = 5;  // < kPeriodicResumeSaveInterval (10)
+  DownloadObserver obs;
+  obs.CancelDownloadOnGivenChunk(kCancelAtChunk);
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false, kChunkSize);
+    QCoreApplication::exec();
+  }
+  // kCancelAtChunk - 1 because the chunk that triggered cancel may not have completed before quit().
+  int64_t const resumed = LoadResumeBytes(files.Resume(), kBigFileSize, kChunkSize);
+  TEST_GREATER_OR_EQUAL(resumed, (kCancelAtChunk - 1) * kChunkSize,
+                        ("Resume file under-reports completed bytes; dtor flush regressed"));
+}
+
+// End-to-end round-trip: cancel + preserve + reload + complete. Validates the user-facing
+// claim that graceful shutdown does not lose progress. Catches regressions in the dtor
+// preservation/flush, ctor reload (LoadOrInitChunks at http_request.cpp:198), and success
+// cleanup, all in one test.
+UNIT_TEST(HttpRequest_ResumeFromPreservedArtifacts_SkipsCompletedChunks)
+{
+  ScopedDownloadArtifacts files{"http_round_trip_"};
+  int64_t constexpr kChunkSize = 1024;
+  int64_t bytesAfterCancel = 0;
+  {
+    DownloadObserver obs;
+    obs.CancelDownloadOnGivenChunk(5);
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false, kChunkSize);
+    QCoreApplication::exec();
+    bytesAfterCancel = req->GetProgress().m_bytesDownloaded;
+  }
+  TEST_GREATER(bytesAfterCancel, 0, ());
+
+  DownloadObserver obs2;
+  auto req2 = MakeRequest(files.m_path, kBigFileSize, obs2, /*doCleanOnCancel=*/false, kChunkSize);
+  // Construction reloaded preserved resume state — this is the user-facing claim.
+  TEST_GREATER_OR_EQUAL(req2->GetProgress().m_bytesDownloaded, bytesAfterCancel, ());
+  QCoreApplication::exec();
+  obs2.TestOk();
+
+  // After natural success, files must be cleaned up regardless of the doCleanOnCancel flag.
+  uint64_t size = 0;
+  TEST(base::GetFileSize(files.m_path, size), ("Result file must exist"));
+  TEST(!base::GetFileSize(files.Downloading(), size), ());
+  TEST(!base::GetFileSize(files.Resume(), size), ());
+}
+
+// On success, the OnChunkFinished cleanup path (http_request.cpp:165-170) must run
+// regardless of doCleanOnCancel — the flag only governs the dtor's InProgress branch.
+// Pins this invariant explicitly so a future "optimization" gating success cleanup
+// behind the flag is caught.
+UNIT_TEST(HttpRequest_Success_AlwaysCleansArtifacts_DespiteNoClean)
+{
+  ScopedDownloadArtifacts files{"http_success_noclean_"};
+  DownloadObserver obs;
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false);
+    QCoreApplication::exec();
+  }
+  obs.TestOk();
+
+  uint64_t size = 0;
+  TEST(base::GetFileSize(files.m_path, size), ("Result must exist"));
+  TEST(!base::GetFileSize(files.Downloading(), size), ("Downloading wiped on success"));
+  TEST(!base::GetFileSize(files.Resume(), size), ("Resume wiped on success"));
+}
+
+// On failure, OnChunkFinished's save-on-fail (http_request.cpp:161-162) must run
+// regardless of doCleanOnCancel. Existing DownloadChunks failure tests only cover
+// the flag=true case; this exercises both.
+UNIT_TEST(HttpRequest_Failure_PreservesResume_RegardlessOfFlag)
+{
+  for (bool doCleanOnCancel : {true, false})
+  {
+    ScopedDownloadArtifacts files{"http_fail_"};
+    DownloadObserver obs;
+    {
+      // fileSize mismatch with the real server file triggers Failed status.
+      auto req = MakeRequest({kTestUrlBigFile, kTestUrlBigFile}, files.m_path, /*fileSize=*/12345, obs, doCleanOnCancel,
+                             /*chunkSize=*/2048);
+      QCoreApplication::exec();
+    }
+    obs.TestFailed();
+
+    uint64_t size = 0;
+    TEST(base::GetFileSize(files.Resume(), size), ("Resume must be preserved on failure"));
+  }
+}
+
 }  // namespace downloader_test
