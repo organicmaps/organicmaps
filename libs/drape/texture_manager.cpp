@@ -399,7 +399,7 @@ void TextureManager::GetRegionBase(ref_ptr<Texture> tex, BaseRegion & region, Te
     m_nothingToUpload.clear();
 }
 
-uint32_t TextureManager::GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs,
+uint32_t TextureManager::GetNumberOfGlyphsNotInGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs,
                                                      GlyphGroup const & group)
 {
   uint32_t count = 0;
@@ -411,7 +411,7 @@ uint32_t TextureManager::GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetr
   return count;
 }
 
-size_t TextureManager::FindHybridGlyphsGroup(std::vector<text::GlyphMetrics> const & glyphs)
+size_t TextureManager::FindHybridGlyphsGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs)
 {
   if (m_glyphGroups.empty())
   {

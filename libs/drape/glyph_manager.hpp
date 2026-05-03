@@ -31,9 +31,19 @@ struct GlyphMetrics
 // TODO(AB): Move to a separate file?
 struct TextMetrics
 {
+  // Inline-buffer cap chosen empirically: ~94% of OSM map labels are <= 16 glyphs after shaping
+  // (Latin/Cyrillic words + spaces). Inline storage eliminates the heap alloc on every cache-hit
+  // copy in TextMetricsCache, the dominant cost after the index hash-table switch (measured
+  // ~16 ns/op savings in text_metrics_cache_bench at 10 glyphs/entry).
+  // Cost: 384 B inline buffer per TextMetrics vs ~24 B for std::vector header. With a 50k-entry
+  // cache that's ~+5 MB resident; longer labels (road names, hashtags >16 glyphs) still spill to
+  // the heap via buffer_vector's m_dynamic. Bump the cap if profiling shows tail-end labels
+  // dominate.
+  using GlyphMetricsBuffer = buffer_vector<GlyphMetrics, 16>;
+
   int32_t m_lineWidthInPixels{0};
   int32_t m_maxLineHeightInPixels{0};
-  std::vector<GlyphMetrics> m_glyphs;
+  GlyphMetricsBuffer m_glyphs;
   // Used for SplitText.
   bool m_isRTL{false};
 

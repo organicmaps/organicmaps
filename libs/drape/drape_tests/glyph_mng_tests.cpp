@@ -509,4 +509,41 @@ UNIT_TEST(ShapeText_BasicInvariants)
   TEST_EQUAL(a.m_isRTL, b.m_isRTL, ());
 }
 
+// Exercises the LRU cap path: inserts more unique entries than the cache holds, then verifies
+// (a) the run completes without crashing -- proves that LRU eviction does not corrupt the index
+// or list iterators, and (b) both a hot entry (still cached) and a cold entry (evicted, must be
+// recomputed) return identical metrics on a repeat shape, proving cache-miss recomputation is
+// consistent with cache-hit lookup.
+//
+// Regression coverage for the wholesale clear() that the LRU replaced -- if an LRU bug ever
+// dropped recent entries or held on to stale iterators, this test would crash or diverge.
+UNIT_TEST(ShapeText_CacheBoundedUnderLoad)
+{
+  auto mng = MakeGlyphManager();
+
+  // Cache cap is 20000 internally; insert clearly past it to force eviction.
+  size_t constexpr kInsertCount = 22000;
+
+  for (size_t i = 0; i < kInsertCount; ++i)
+  {
+    auto const s = "label_" + std::to_string(i);
+    auto const m = mng.ShapeText(s, "en");
+    TEST(!m.m_glyphs.empty(), (i));
+  }
+
+  // Recent entry (last inserted): expected to still be cached. Hit path after many evictions.
+  auto const recent = "label_" + std::to_string(kInsertCount - 1);
+  auto const m1 = mng.ShapeText(recent, "en");
+  auto const m2 = mng.ShapeText(recent, "en");
+  TEST_EQUAL(m1.m_lineWidthInPixels, m2.m_lineWidthInPixels, ());
+  TEST_EQUAL(m1.m_glyphs.size(), m2.m_glyphs.size(), ());
+
+  // Oldest entry: expected to be evicted; second call recomputes. Both shapes must agree.
+  auto const oldest = std::string{"label_0"};
+  auto const m3 = mng.ShapeText(oldest, "en");
+  auto const m4 = mng.ShapeText(oldest, "en");
+  TEST_EQUAL(m3.m_lineWidthInPixels, m4.m_lineWidthInPixels, ());
+  TEST_EQUAL(m3.m_glyphs.size(), m4.m_glyphs.size(), ());
+}
+
 }  // namespace glyph_mng_tests
