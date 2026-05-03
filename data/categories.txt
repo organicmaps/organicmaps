@@ -19480,26 +19480,49 @@ zh-Hans:批发店
 zh-Hant:批髮店
 
 leisure-track
-en:Track
-ca:Pista esportiva|sender
-de:Laufbahn
-es:Pista deportiva
-et:Jooksurada
-fr:Piste de course
-it:Pista da corsa
-ja:トラック
-lt:4Stadionas|5Bėgimo takas
+en:Track|running track|race track|racetrack|racecourse|sports track
+ar:مضمار|مضمار سباق|مسار رياضي
+be:Трэк|бегавая дарожка
+bg:Спортна писта|писта за бягане|писта
+ca:Pista esportiva|pista de cursa
+cs:Trať|sportovní trať|běžecká dráha
+da:Sportsbane|løbebane|væddeløbsbane
+de:Laufbahn|Rennbahn|Sportbahn
+el:Στίβος|αγωνιστική πίστα|πίστα
+es:Pista deportiva|pista de atletismo|pista de carreras
+et:Jooksurada|võistlusrada|spordirada
+eu:Pista|kirol pista|lasterketa pista
+fa:پیست ورزشی|پیست مسابقه|پیست دو
+fi:Urheilurata|juoksurata|kilparata
+fr:Piste de course|piste sportive
+he:מסלול ספורט|מסלול ריצה|מסלול מרוצים
+hi:स्पोर्ट्स ट्रैक|रेस ट्रैक|दौड़ ट्रैक
+hu:Futópálya|versenypálya|pálya
+id:Lintasan olahraga|lintasan lari|lintasan balap
+it:Pista da corsa|pista sportiva
+ja:トラック|競走路|陸上トラック
+ko:스포츠 트랙|육상 트랙|경주로
+lt:Bėgimo takas|lenktynių trasa
 lv:Skrejceļš|Skriešanas celiņš
-mr:ट्रॅक
-nl:Parcours
-pt:Pista para desportos não motorizados|trilha
-pt-BR:Pista para esportes não motorizados
-ru:Беговая дорожка
-sl:4Steza|Tekaška steza
+mr:ट्रॅक|रेस ट्रॅक|धावण्याचा ट्रॅक
+nb:Løpebane|idrettsbane|veddeløpsbane
+nl:Parcours|renbaan|sportbaan
+pl:Tor sportowy|bieżnia|tor wyścigowy
+pt:Pista para desportos|pista de corrida
+pt-BR:Pista para esportes|pista de corrida
+ro:Pistă sportivă|pistă de alergare|pistă de curse
+ru:Беговая дорожка|трек
+sk:Pretekárska dráha|bežecká dráha|dráha
+sl:4Steza|Tekaška steza|dirkalna steza
 sr:Атлетска стаза|трим стаза|atletska staza|trim staza|тркачка стаза
-tr:Pist
-uk:Бігова доріжка
-zh-Hans:賽道
+sv:Löparbana|tävlingsbana|sportbana
+sw:Njia ya mbio|uwanja wa riadha
+th:ลู่กีฬา|ลู่วิ่ง|สนามแข่ง
+tr:Pist|koşu pisti|yarış pisti
+uk:Бігова доріжка|трек
+vi:Đường đua thể thao|đường chạy|đường đua
+zh-Hans:赛道
+zh-Hant:賽道
 
 power-plant
 en:Power Plant
