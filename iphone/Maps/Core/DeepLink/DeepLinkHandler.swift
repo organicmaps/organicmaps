@@ -53,7 +53,12 @@
   func getBackUrl() -> String? {
     guard let urlString = url?.absoluteString else { return nil }
     guard let url = URLComponents(string: urlString) else { return nil }
-    return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? nil)
+    if let backUrl = url.queryItems?.first(where: { $0.name == "backurl" })?.value {
+      return backUrl
+    }
+
+    guard url.host == "v2", url.path == "/dir" || url.path == "/nav" else { return nil }
+    return url.queryItems?.first(where: { $0.name == "callback" })?.value
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
