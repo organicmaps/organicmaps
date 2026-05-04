@@ -40,10 +40,6 @@
 #import <UIKit/UIScreen.h>
 #endif  // TARGET_OS_IPHONE
 
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <netinet/in.h>
-#import <sys/socket.h>
-
 namespace
 {
 // Key for app unique installation id in standardUserDefaults.

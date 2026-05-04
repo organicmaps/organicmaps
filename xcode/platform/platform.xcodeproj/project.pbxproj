@@ -34,6 +34,7 @@
 		3DEE1AE821F7091100054A91 /* battery_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1AE621F7091100054A91 /* battery_tracker.hpp */; };
 		3DF528EB238BFFC1000ED0D5 /* downloader_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */; };
 		3DFACF312432421C00A29A94 /* background_downloader_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF2F2432421C00A29A94 /* background_downloader_ios.mm */; };
+		AB8CB2D5558742AD860212F4 /* connection_status_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8A16141224C1989C8F965 /* connection_status_apple.mm */; };
 		3DFACF322432421C00A29A94 /* background_downloader_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF302432421C00A29A94 /* background_downloader_ios.h */; };
 		44486DC42A1F9AC800A5DD6C /* utm_mgrs_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */; };
 		44CAB5F62A1F926800819330 /* utm_mgrs_utils_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */; };
@@ -167,6 +168,7 @@
 		3DEE1AE621F7091100054A91 /* battery_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = battery_tracker.hpp; sourceTree = "<group>"; };
 		3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_defines.hpp; sourceTree = "<group>"; };
 		3DFACF2F2432421C00A29A94 /* background_downloader_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = background_downloader_ios.mm; sourceTree = "<group>"; };
+		2EA8A16141224C1989C8F965 /* connection_status_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = connection_status_apple.mm; sourceTree = "<group>"; };
 		3DFACF302432421C00A29A94 /* background_downloader_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background_downloader_ios.h; sourceTree = "<group>"; };
 		40D4697623FAB8D00030476C /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
 		44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utm_mgrs_utils_tests.cpp; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				671C62041AE9014C00076BD0 /* measurement_utils.cpp */,
 				56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */,
 				56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */,
+				2EA8A16141224C1989C8F965 /* connection_status_apple.mm */,
 				67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */,
 				67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */,
 				3DE8B98E1DEC3115000E6083 /* network_policy.hpp */,
@@ -728,6 +731,7 @@
 				675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */,
 				675343CE1A3F5D5A00A0A8C3 /* preferred_languages.cpp in Sources */,
 				3DFACF312432421C00A29A94 /* background_downloader_ios.mm in Sources */,
+				AB8CB2D5558742AD860212F4 /* connection_status_apple.mm in Sources */,
 				1669C8402A30DCD200530AD1 /* distance.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -393,3 +393,15 @@ std::string DebugPrint(Platform::ChargingStatus status)
   }
   UNREACHABLE();
 }
+
+std::string DebugPrint(Platform::EConnectionType connectionType)
+{
+  switch (connectionType)
+  {
+    using enum Platform::EConnectionType;
+  case CONNECTION_NONE: return "No connection";
+  case CONNECTION_WIFI: return "WiFi or cable connection";
+  case CONNECTION_WWAN: return "Cellular connection";
+  }
+  UNREACHABLE();
+}

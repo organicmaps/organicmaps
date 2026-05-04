@@ -71,6 +71,7 @@ if (PLATFORM_IPHONE)
   append(SRC
     background_downloader_ios.h
     background_downloader_ios.mm
+    connection_status_apple.mm
     gui_thread_apple.mm
     http_client_apple.mm
     http_uploader_apple.mm
@@ -132,6 +133,7 @@ else() # neither iPhone nor Android
     )
   elseif(${PLATFORM_MAC})
     append(SRC
+      connection_status_apple.mm
       gui_thread_apple.mm
       http_client_apple.mm
       http_uploader_apple.mm
@@ -182,7 +184,7 @@ target_link_libraries(${PROJECT_NAME}
     $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
     $<$<BOOL:${PLATFORM_MAC}>:
       -framework\ Foundation
-      -framework\ SystemConfiguration
+      -framework\ Network
       -framework\ CFNetwork
       -framework\ Security  # SecPKCS12Import
       >

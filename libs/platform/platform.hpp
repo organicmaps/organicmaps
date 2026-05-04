@@ -338,3 +338,4 @@ private:
 
 std::string DebugPrint(Platform::EError err);
 std::string DebugPrint(Platform::ChargingStatus status);
+std::string DebugPrint(Platform::EConnectionType connectionType);
