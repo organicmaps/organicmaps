@@ -30,7 +30,7 @@ add_library(${PROJECT_NAME} ${SRC})
 
 target_include_directories(${PROJECT_NAME}
   PRIVATE . ../../
-  PUBLIC protobuf/src
+  SYSTEM PUBLIC protobuf/src
 )
 
 if(NOT PLATFORM_WIN)
@@ -41,4 +41,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
   $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
   $<$<CXX_COMPILER_ID:AppleClang,Clang,GNU>:-Wno-deprecated-declarations>
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-sign-compare>
+  # Undo the root -ffast-math's -ffinite-math-only: protobuf compares
+  # serialized values against numeric_limits::infinity().
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fno-finite-math-only>
 )

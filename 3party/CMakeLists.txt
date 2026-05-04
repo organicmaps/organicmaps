@@ -54,7 +54,7 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 
   add_library(utf8cpp INTERFACE)
   add_library(utf8cpp::utf8cpp ALIAS utf8cpp)
-  target_include_directories(utf8cpp INTERFACE "${OMIM_ROOT}/3party/utfcpp/source")
+  target_include_directories(utf8cpp SYSTEM INTERFACE "${OMIM_ROOT}/3party/utfcpp/source")
 endif()
 
 add_subdirectory(agg)
