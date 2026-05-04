@@ -23,6 +23,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
 import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,18 +31,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class BookmarkCategorySettingsFragment
-    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener
+    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
+                                              TrackColorPickerFragment.OnTrackColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
-  private static final String EXTRA_COLOR_PICKER_TYPE = "color_picker_type";
-
-  private enum ColorPickerType
-  {
-    BOOKMARK,
-    TRACK
-  }
-
-  private ColorPickerType mColorPickerType = ColorPickerType.BOOKMARK;
 
   @NonNull
   private final DataChangedListener mCategoriesListener = this::onCategoriesChanged;
@@ -101,17 +94,6 @@ public class BookmarkCategorySettingsFragment
     final Bundle args = requireArguments();
     mCategory = Objects.requireNonNull(
         Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
-    if (savedInstanceState != null)
-      mColorPickerType =
-          ColorPickerType
-              .values()[savedInstanceState.getInt(EXTRA_COLOR_PICKER_TYPE, ColorPickerType.BOOKMARK.ordinal())];
-  }
-
-  @Override
-  public void onSaveInstanceState(@NonNull Bundle outState)
-  {
-    super.onSaveInstanceState(outState);
-    outState.putInt(EXTRA_COLOR_PICKER_TYPE, mColorPickerType.ordinal());
   }
 
   @Override
@@ -167,15 +149,9 @@ public class BookmarkCategorySettingsFragment
     mEditDescView.setText(mCategory.getDescription());
 
     mColorBookmarksBtn = root.findViewById(R.id.color_bookmarks_btn);
-    mColorBookmarksBtn.setOnClickListener(v -> {
-      mColorPickerType = ColorPickerType.BOOKMARK;
-      showColorPicker();
-    });
+    mColorBookmarksBtn.setOnClickListener(v -> showBookmarkColorPicker());
     mColorTracksBtn = root.findViewById(R.id.color_tracks_btn);
-    mColorTracksBtn.setOnClickListener(v -> {
-      mColorPickerType = ColorPickerType.TRACK;
-      showColorPicker();
-    });
+    mColorTracksBtn.setOnClickListener(v -> showTrackColorPicker());
     mColorSectionDivider = root.findViewById(R.id.color_section_divider);
     mColorSectionSpacer = root.findViewById(R.id.color_section_spacer);
 
@@ -266,32 +242,32 @@ public class BookmarkCategorySettingsFragment
     InputUtils.showKeyboard(textView);
   }
 
-  private void showColorPicker()
+  private void showBookmarkColorPicker()
   {
     final Bundle args = new Bundle();
-    if (mColorPickerType == ColorPickerType.BOOKMARK)
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
+    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
     final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
     dialogFragment.setArguments(args);
     dialogFragment.show(getChildFragmentManager(), BookmarkColorDialogFragment.class.getName());
   }
 
+  private void showTrackColorPicker()
+  {
+    new TrackColorPickerFragment().show(getChildFragmentManager(), null);
+  }
+
   @Override
   public void onBookmarkColorSet(int color)
   {
-    switch (mColorPickerType)
-    {
-    case TRACK ->
-    {
-      mCategory.setCategoryTracksColor(color);
-      Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
-    }
-    case BOOKMARK ->
-    {
-      mCategory.setCategoryBookmarksColor(color);
-      Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
-    }
-    }
+    mCategory.setCategoryBookmarksColor(color);
+    Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void onTrackColorSet(int color)
+  {
+    mCategory.setCategoryTracksCustomColor(color);
+    Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
   }
 
   private void onCategoriesChanged()
