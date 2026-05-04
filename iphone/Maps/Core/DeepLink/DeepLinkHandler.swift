@@ -57,8 +57,18 @@
       return backUrl
     }
 
-    guard url.host == "v2", url.path == "/dir" || url.path == "/nav" else { return nil }
+    guard isRouteApiV2(url) else { return nil }
     return url.queryItems?.first(where: { $0.name == "callback" })?.value
+  }
+
+  private func isRouteApiV2(_ url: URLComponents) -> Bool {
+    switch (url.host, url.path) {
+    case ("v2", "/dir"), ("v2", "/nav"),
+         ("omaps.app", "/v2/dir"), ("omaps.app", "/v2/nav"):
+      return true
+    default:
+      return false
+    }
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
