@@ -720,6 +720,12 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">مغلق الآن</string>
+    <string name="opens_tomorrow_at">يُفتتح غداً في %s</string>
+    <string name="opens_dayoftheweek_at">يفتح %1$s في %2$s</string>
+    <string name="opens_at">يفتح في %s</string>
+    <string name="closes_at">يغلق في %s</string>
     <string name="editor_add_select_category_all_subtitle">جميع الفئات</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

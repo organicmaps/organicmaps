@@ -708,6 +708,12 @@
     <string name="moreyear_ago_sorttype">Bir ildən çox əvvəl</string>
     <string name="near_me_sorttype">Mənə yaxın</string>
     <string name="others_sorttype">Digərləri</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">İndi bağlıdır</string>
+    <string name="opens_tomorrow_at">Sabah açılır %s</string>
+    <string name="opens_dayoftheweek_at">%1$s %2$s açılır</string>
+    <string name="opens_at">Açılır %s</string>
+    <string name="closes_at">Bağlanır %s</string>
     <string name="editor_add_select_category_all_subtitle">Bütün kateqoriyalar</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

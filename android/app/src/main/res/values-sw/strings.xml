@@ -705,6 +705,12 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Imefungwa sasa</string>
+    <string name="opens_tomorrow_at">Inafunguliwa kesho saa %s</string>
+    <string name="opens_dayoftheweek_at">Hufungua %1$s katika %2$s</string>
+    <string name="opens_at">Hufunguka saa %s</string>
+    <string name="closes_at">Inafungwa saa %s</string>
     <string name="editor_add_select_category_all_subtitle">Kategoria Zote</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
