@@ -107,6 +107,20 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
   TEST_ALMOST_EQUAL_ABS(test.GetRouteStartDirection().y, 0.0, kEps, ());
 }
 
+UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
+{
+  ParsedMapApi empty("om://v2/dir?origin=1,1&waypoints=&destination=2,2");
+  TEST_EQUAL(empty.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(empty.GetRoutePoints().size(), 2, ());
+  TEST_EQUAL(empty.GetRoutePoints()[0].m_org, mercator::FromLatLon(1, 1), ());
+  TEST_EQUAL(empty.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
+
+  ParsedMapApi trailing("om://v2/dir?origin=1,1&waypoints=1.5,1.5|&destination=2,2");
+  TEST_EQUAL(trailing.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(trailing.GetRoutePoints().size(), 3, ());
+  TEST_EQUAL(trailing.GetRoutePoints()[1].m_org, mercator::FromLatLon(1.5, 1.5), ());
+}
+
 UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)
 {
   string const urlString = "om://v2/nav?destination=2,2&origin_name=Warehouse&origin_callback=app%3A%2F%2Forigin";
