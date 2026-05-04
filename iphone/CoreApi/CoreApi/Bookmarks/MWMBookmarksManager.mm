@@ -529,6 +529,12 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
   return [NSString stringWithUTF8String:description.c_str()];
 }
 
+- (NSString *)descriptionForTrackId:(MWMTrackID)trackId
+{
+  auto const description = self.bm.GetTrack(trackId)->GetDescription();
+  return [NSString stringWithUTF8String:description.c_str()];
+}
+
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId
 {
   auto const & bookmarkIds = self.bm.GetUserMarkIds(groupId);
@@ -766,6 +772,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title
+        description:(NSString *)description
 {
   ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
@@ -783,6 +790,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
     track->SetColor(newColor);
 
   track->SetName(title.UTF8String);
+  track->SetDescription(description.UTF8String);
 }
 
 - (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color
