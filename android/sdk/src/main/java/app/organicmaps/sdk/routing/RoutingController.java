@@ -1098,7 +1098,7 @@ public class RoutingController
   }
 
   private static boolean addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point, int intermediateIndex,
-                                    @Nullable String callback, boolean reorderIntermediatePoints)
+                                    @NonNull String callback, boolean reorderIntermediatePoints)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
     return Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, callback, type,

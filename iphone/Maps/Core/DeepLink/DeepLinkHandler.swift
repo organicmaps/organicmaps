@@ -61,6 +61,16 @@
     return backUrl.isEmpty ? nil : backUrl
   }
 
+  private func isRouteApiV2(_ url: URLComponents) -> Bool {
+    switch (url.host, url.path) {
+    case ("v2", "/dir"), ("v2", "/nav"),
+         ("omaps.app", "/v2/dir"), ("omaps.app", "/v2/nav"):
+      return true
+    default:
+      return false
+    }
+  }
+
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
     let data = featureHighlightData
     featureHighlightData = nil
