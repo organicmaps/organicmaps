@@ -284,6 +284,9 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         {
           for (auto const & waypoint : SplitRouteList(value))
           {
+            if (waypoint.empty())
+              continue;
+
             RoutePoint point;
             if (ParseRoutePoint(key, waypoint, point))
               waypoints.push_back(std::move(point));
