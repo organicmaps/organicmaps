@@ -1,56 +1,26 @@
-## Map
-
-- NEW! Proper map wrapping at the antimeridian when dragging and rotating
-- OpenStreetMap data updated as of April 4
-- Wikipedia data updated as of April 1
-- Added icons for food courts and city gates
-- Added clothing shop subcategories: women, men, children, wedding, sports, underwear, plus office types
-- Fixed Sydney subway line colors
-- Fixed opening hours display for places with sunrise/sunset offsets
-
-## Routing and Navigation
-
-- NEW! Tap a cycling or hiking route to select it and view its elevation chart
-- Improved multi-color rendering for hiking and cycling routes
-- Cycling navigation now uses compass heading at low speeds
-- Fixed a system error when planning routes near some regional borders
-- You can now start a valid route even when prompted to download additional maps
-
-## Bookmarks and Tracks
-
-- NEW! Change all bookmark and track colors in a category at once
-- Adjusted elevation gain and loss approximation on track graphs to better match other apps
-- Improved display of HTML content with tables and images in bookmark details
-- Added vertical separators for multi-segment tracks in the elevation chart
-- Fixed point selection in the elevation chart for interpolated points
-- Fixed GPS track recording dropping points between segments
-- Fixed GeoJSON import
-- Fixed a crash when exporting tracks
-
-## Search
-
-- Better search in the USA, with two million additional addresses parsed from TIGER Census data
-- Updated search categories: added "Bread" for bakeries, "Shawarma" cuisine, and other synonym improvements
-- Improved house-number address search
-- Added US street synonyms: highway, hwy, freeway, fwy
-- Fixed search results when city and state names are the same
-
-## Editor / OpenStreetMap
-
-- You can now add a new place to OpenStreetMap after selecting your current position on the map
-- Fixed editor crosshair misalignment when pressing "Add Place"
-- Increased the touch area of buttons in the "Add Place" navigation bar
-
-## UI and UX
-
-- Improved modal gestures: snap to the nearest step, close on edge pan, and restore the previous state when reopened
-- Fixed daylight saving time handling for time zones
-
-## Stability and Localization
-
-- Improved stability and performance, reduced battery usage
-- Updated translations
+- NEW! tap a public transport stop to highlight the entire route on the map, as in the Transit map style.
+- NEW! long-distance public transport routes and other OpenStreetMap relations are now connected across map borders into one continuous line.
+- OpenStreetMap data updated as of May 3.
+- Vietnam and Malaysia are now split into smaller regions that can be downloaded separately.
+- Hong Kong, Macau, and Hainan are now separated from Guangdong, with neighbouring borders updated.
+- Updated contour lines for Indonesia, Malaysia, Tanzania, Thailand, and Vietnam.
+- Added a track recording button to the in-navigation info panel.
+- Added new OpenStreetMap types: volcanoes with active status, waterway access points, slipways, hookah lounges, and buildings under construction.
+- Added “Lookout” as a search synonym for viewpoints, and “pkwy” as a US street synonym.
+- Pedestrian area colours are slightly darker for better legibility.
+- Bookmark labels on the map no longer overlap.
+- Multi-line text is now clipped cleanly, and street names no longer contain duplicates.
+- Routing: resumed routes now remove intermediate points that you have already passed.
+- Fixed the wrong bookmark list being used in TestFlight builds.
+- Fixed KMB file import.
+- Updated proofread translations for categories, search synonyms, and UI strings. Added translations for New South Wales and Northern Territory descriptions.
+- Improved stability and performance, including font shaping, glyph caching, and route line clipping.
+- Improved the elevation chart for tracks and routes.
+- Made in-navigation menu buttons larger for actions such as TTS, settings, and track recording.
+- Refined the animation of the expandable description section on the place page.
+- The place information page no longer closes when elevation chart scrubbing ends, no longer bounces unexpectedly, and keeps the title visible while editing with the keyboard open.
+- Fixed crashes when deleting a track or bookmark that no longer exists.
 
 ## Platform Support
 
-- Due to changes in TestFlight and the App Store, this release supports only iOS 15 and later. iOS 12, 13, and 14 are no longer supported.
+- Due to changes in TestFlight and the App Store, this release supports only iOS 15 and later. iOS 12, iOS 13, and iOS 14 are no longer supported.

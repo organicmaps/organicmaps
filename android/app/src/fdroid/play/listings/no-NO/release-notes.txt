@@ -1,9 +1,8 @@
-• Velg vandre- og sykkelruter for å se høydediagrammene deres
-• Riktig kartinnpakning ved antimeridianen (±180° lengdegrad)
-• Endre alle bokmerke- og sporfarger i en kategori samtidig
-• Bedre søk etter husnummer, flere amerikanske adresser dekket
-• OSM-data fra og med 4. april
-• Planlagt visningsmodus i Innstillinger
-• Fikset deling av bokmerker/spor til andre apper
-• Fikset opplasting av kartredigeringer til OSM
+• Trykk på et stoppested for kollektivtransport, og velg rutenummer for å markere ruter på kartet
+• Bokmerkeetiketter overlapper ikke lenger på kartet
+• Ferske OpenStreetMap-data fra 3. mai, med nye objekttyper
+• Forbedrede høydekurver for spor og ruter
+• Nedlasting av mindre kart for Vietnam, Malaysia, Hongkong, Macao og Hainan
+• Forbedret brukergrensesnitt og animasjoner
+• Oppdaterte høydekurver for Indonesia, Malaysia, Tanzania, Thailand og Vietnam
 …mer på omaps.org/news

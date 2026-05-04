@@ -1,9 +1,9 @@
-• Výběrem pěších a cyklistických tras zobrazíte jejich výškové profily.
-• Správné zabalení mapy na antimeridiánu (±180° zeměpisné délky)
-• Změna všech barev záložek a tras v kategorii najednou
-• Lepší vyhledávání čísel domů, pokryto více adres v USA
-• Data OSM ke dni 4. dubna
-• Režim plánovaného vzhledu v Nastavení
-• Opraveno sdílení záložek/stop do jiných aplikací
-• Opraveno nahrávání úprav mapy do OSM
+• Klepnutím na zastávku veřejné dopravy a výběrem čísla trasy zvýrazníte trasy na mapě.
+• Popisky záložek se již na mapě nepřekrývají.
+• Čerstvá data OpenStreetMap k 3. květnu s novými typy objektů
+• Vylepšené grafy nadmořské výšky pro tratě a trasy
+• Menší mapy ke stažení pro Vietnam, Malajsii, Hongkong, Macao a Hainan
+• Vylepšené uživatelské rozhraní a animace
+• Aktualizované obrysy pro Indonésii, Malajsii, Tanzanii, Thajsko a Vietnam
+• Opravy chyb a zlepšení výkonu
 …více na omaps.org/cs/news

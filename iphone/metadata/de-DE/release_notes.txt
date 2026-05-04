@@ -1,56 +1,26 @@
-## Karte
-
-- NEU! Korrekte Kartenanpassung am Antimeridian beim Ziehen und Drehen
-- OpenStreetMap-Daten aktualisiert (Stand: 4. April)
-- Wikipedia-Daten aktualisiert (Stand: 1. April)
-- Symbole für Food Courts und Stadttore hinzugefügt
-- Unterkategorien für Bekleidungsgeschäfte hinzugefügt: Damen, Herren, Kinder, Hochzeit, Sport, Unterwäsche sowie Bürokleidung
-- Farben der U-Bahn-Linien in Sydney korrigiert
-- Anzeige der Öffnungszeiten für Orte mit Sonnenaufgangs-/Sonnenuntergangsversatz korrigiert
-
-## Routenplanung und Navigation
-
-- NEU! Tippen Sie auf eine Rad- oder Wanderroute, um sie auszuwählen und das Höhenprofil anzuzeigen
-- Verbesserte mehrfarbige Darstellung für Wander- und Radrouten
-- Die Radnavigation verwendet bei niedrigen Geschwindigkeiten nun die Kompassrichtung
-- Ein Systemfehler bei der Routenplanung in der Nähe einiger regionaler Grenzen wurde behoben
-- Sie können nun eine gültige Route starten, auch wenn Sie zum Herunterladen zusätzlicher Karten aufgefordert werden
-
-## Lesezeichen und Tracks
-
-- NEU! Ändern Sie alle Lesezeichen- und Trackfarben einer Kategorie auf einmal
-- Angepasste Annäherung an Höhengewinne und -verluste in Trackdiagrammen, um eine bessere Übereinstimmung mit anderen Apps zu erzielen
-- Verbesserte Darstellung von HTML-Inhalten mit Tabellen und Bildern in den Lesezeichendetails
-- Vertikale Trennlinien für mehrsegmentige Tracks im Höhenprofil hinzugefügt
-- Punkteselektion im Höhenprofil für interpolierte Punkte korrigiert
-- Fehler behoben, bei dem bei der GPS-Trackaufzeichnung Punkte zwischen Segmenten fehlten
-- GeoJSON-Import korrigiert
-- Absturz beim Exportieren von Tracks behoben
-
-## Suche
-
-- Bessere Suche in den USA mit zwei Millionen zusätzlichen Adressen, die aus TIGER-Volkszählungsdaten extrahiert wurden
-- Aktualisierte Suchkategorien: „Brot“ für Bäckereien, „Shawarma“ für die Küche sowie weitere Verbesserungen bei Synonymen hinzugefügt
-- Verbesserte Suche nach Hausnummern
-- US-Straßensynonyme hinzugefügt: highway, hwy, freeway, fwy
-- Suchergebnisse korrigiert, wenn Stadt- und Bundesstaatsnamen identisch sind
-
-## Editor / OpenStreetMap
-
-- Sie können nun einen neuen Ort zu OpenStreetMap hinzufügen, nachdem Sie Ihre aktuelle Position auf der Karte ausgewählt haben
-- Fehlerbehebung bei der Fehlausrichtung des Fadenkreuzes im Editor beim Drücken von „Ort hinzufügen“
-- Vergrößerung der Berührungsfläche der Schaltflächen in der Navigationsleiste „Ort hinzufügen“
-
-## UI und UX
-
-- Verbesserte Modal-Gesten: Ausrichten am nächsten Schritt, Schließen beim Schwenken am Rand und Wiederherstellen des vorherigen Zustands beim erneuten Öffnen
-- Fehlerbehebung bei der Behandlung der Sommerzeit für Zeitzonen
-
-## Stabilität und Lokalisierung
-
-- Verbesserte Stabilität und Leistung, reduzierter Akkuverbrauch
-- Aktualisierte Übersetzungen
+- NEU! Tippen Sie auf eine Haltestelle des öffentlichen Nahverkehrs, um die gesamte Route auf der Karte hervorzuheben, wie im Transit-Kartenstil.
+- NEU! Fernverkehrsstrecken des öffentlichen Nahverkehrs und andere OpenStreetMap-Relationen werden nun über Kartengrenzen hinweg zu einer durchgehenden Linie verbunden.
+- OpenStreetMap-Daten aktualisiert zum 3. Mai.
+- Vietnam und Malaysia sind nun in kleinere Regionen unterteilt, die separat heruntergeladen werden können.
+- Hongkong, Macau und Hainan sind nun von Guangdong getrennt, wobei die angrenzenden Grenzen aktualisiert wurden.
+- Aktualisierte Höhenlinien für Indonesien, Malaysia, Tansania, Thailand und Vietnam.
+- Dem Info-Fenster während der Navigation wurde eine Schaltfläche zur Streckenaufzeichnung hinzugefügt.
+- Neue OpenStreetMap-Typen hinzugefügt: Vulkane mit aktivem Status, Zugangspunkte zu Wasserwegen, Slipanlagen, Shisha-Lounges und im Bau befindliche Gebäude.
+- „Lookout“ wurde als Suchsynonym für Aussichtspunkte und „pkwy“ als Synonym für US-Straßen hinzugefügt.
+- Die Farben für Fußgängerbereiche sind zur besseren Lesbarkeit etwas dunkler.
+- Lesezeichenbeschriftungen auf der Karte überlappen sich nicht mehr.
+- Mehrzeiliger Text wird nun sauber abgeschnitten, und Straßennamen enthalten keine Duplikate mehr.
+- Routenführung: Bei fortgesetzten Routen werden nun Zwischenpunkte entfernt, die Sie bereits passiert haben.
+- Es wurde behoben, dass in TestFlight-Builds die falsche Lesezeichenliste verwendet wurde.
+- Der Import von KMB-Dateien wurde korrigiert.
+- Die überarbeiteten Übersetzungen für Kategorien, Suchsynonyme und UI-Strings wurden aktualisiert. Es wurden Übersetzungen für die Beschreibungen von New South Wales und dem Northern Territory hinzugefügt.
+- Die Stabilität und Leistung wurden verbessert, einschließlich Schriftgestaltung, Glyphen-Caching und Routenlinien-Beschneidung.
+- Das Höhenprofil für Tracks und Routen wurde verbessert.
+- Die Menüschaltflächen während der Navigation wurden für Aktionen wie TTS, Einstellungen und Streckenaufzeichnung vergrößert.
+- Die Animation des ausklappbaren Beschreibungsbereichs auf der Ortsseite wurde verfeinert.
+- Die Ortsinformationsseite schließt sich nicht mehr, wenn das Scrollen im Höhenprofil endet, springt nicht mehr unerwartet zurück und behält den Titel sichtbar, während die Bearbeitung bei geöffneter Tastatur erfolgt.
+- Abstürze beim Löschen einer Strecke oder eines Lesezeichens, die bzw. das nicht mehr existiert, wurden behoben.
 
 ## Plattformunterstützung
 
-- Aufgrund von Änderungen bei TestFlight und im App Store unterstützt diese Version nur noch iOS 15 und höher. iOS 12, 13 und 14 werden nicht mehr unterstützt.
+- Aufgrund von Änderungen bei TestFlight und im App Store unterstützt diese Version nur noch iOS 15 und höher. iOS 12, iOS 13 und iOS 14 werden nicht mehr unterstützt.

@@ -1,9 +1,7 @@
-• Izvēlieties pārgājienu un riteņbraukšanas maršrutus, lai skatītu to augstuma diagrammas
-• Pareiza kartes iesaiņošana pie antimeridiāna (±180° garuma)
-• Mainīt visas grāmatzīmju un trases krāsas kategorijā uzreiz
-• Labāka māju numuru meklēšana, aptverts vairāk ASV adrešu
-• OSM dati no 4. aprīļa
-• Plānotais izskata režīms iestatījumos
-• Novērsta grāmatzīmju/trašu koplietošana ar citām lietotnēm
-• Fiksēta karšu rediģējumu augšupielāde OSM
+• Pieskarieties sabiedriskā transporta pieturai un izvēlieties maršruta numurus, lai kartē izceltu maršrutus.
+• Grāmatzīmju etiķetes kartē vairs nepārklājas
+• Svaigi OpenStreetMap dati no 3. maija ar jauniem objektu tipiem
+• Uzlabotas trases un maršrutu augstuma diagrammas
+• Vjetnamas, Malaizijas, Honkongas, Makao un Hainaņas mazāka izmēra karšu lejupielādes
+• Pilnveidota lietotāja saskarne un animācijas
 …vairāk vietnē omaps.org/news

@@ -1,8 +1,7 @@
-• Válassza ki a túra- és kerékpáros útvonalakat, hogy megnézze a magassági diagramjaikat.
-• A térkép megfelelő megjelenítése az antimeridiánnál (±180° hosszúság)
-• Egyszerre megváltoztathatja az összes könyvjelző és nyomvonal színét egy kategóriában.
-• Jobb keresés a házszámokra, több amerikai cím lefedése
-• OSM-adatok április 4-től
-• Ütemezett megjelenési mód a Beállításokban
-• Javított könyvjelzők/nyomvonalak megosztása más alkalmazásokkal
+• Érintse meg a tömegközlekedési megállóhelyet, és válassza ki az útvonalszámokat az útvonalak kiemeléséhez a térképen.
+• A könyvjelző címkék már nem fedik egymást a térképen
+• Friss OpenStreetMap adatok május 3-tól, új objektumtípusokkal
+• Javított magassági diagramok a pályákhoz és útvonalakhoz
+• Kisebb térképek letöltése Vietnam, Malajzia, Hongkong, Makaó és Hainan számára
+• Finomított felhasználói felület és animációk
 …még több az omaps.org/hu/news oldalon

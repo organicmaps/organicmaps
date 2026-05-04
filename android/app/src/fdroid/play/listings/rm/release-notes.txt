@@ -1,9 +1,7 @@
-• Tschernai rutas d'excursiun e da velo per vesair diagrams d'autezza
-• Visualisaziun correcta da la carta a l'antimeridian (±180°)
-• Midai colurs da segnapostas e percurs en ina categoria
-• Meglier retschertga per numers da chasa, dapli adressas US
-• Datas OSM dal 4 d'avrigl
-• Modus d'appariziun planisà en las configuraziuns
-• Corregì la partiziun da segnapostas/percurs ad autras apps
-• Corregì il transferiment da modificaziuns ad OSM
+• Tutgai ina fermada dal traffic public e tschernei numers da lingia per marcar lingias sin la charta
+• Las etichettas dals segnapaginas na sa cuvran betg pli sin la charta
+• Datas novas dad OpenStreetMap dals 3 da matg, cun novs tips d'objects
+• Diagrams d'autezza meglierads per fastizs e rutas
+• Downloads da chartas pli pitschens per Vietnam, Malaisia, Hong Kong, Macao e Hainan
+• Interfatscha ed animaziuns meglieradas
 …dapli sin omaps.org/news

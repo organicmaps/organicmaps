@@ -1,9 +1,8 @@
-• Selecteer wandel- en fietsroutes om hun hoogtekaarten te bekijken
-• Juiste kaartweergave bij de antimeridiaan (±180° lengtegraad)
-• Verander alle bookmark- en trackkleuren in een categorie in één keer
-• Beter zoeken naar huisnummers, meer Amerikaanse adressen gedekt
-• OSM-gegevens vanaf 4 april
-• Geplande weergavemodus in Instellingen
-• Delen van bladwijzers/tracks met andere apps is opgelost
-• Uploaden van kaartbewerkingen naar OSM is opgelost
+• Tik op een halte van het openbaar vervoer en selecteer routenummers om routes op de kaart te markeren
+• Bladwijzerlabels overlappen elkaar niet meer op de kaart
+• Verse OpenStreetMap-gegevens vanaf 3 mei, met nieuwe objecttypen
+• Verbeterde hoogtekaarten voor tracks en routes
+• Kleinere kaartdownloads voor Vietnam, Maleisië, Hong Kong, Macau en Hainan
+• Verfijnde UI en animaties
+• Bijgewerkte hoogtelijnen voor Indonesië, Maleisië, Tanzania, Thailand en Vietnam
 …meer op omaps.org/nl/news

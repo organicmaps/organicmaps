@@ -1,8 +1,7 @@
-• Wählen Sie Wander- und Radrouten aus, um deren Höhendiagramme anzuzeigen.
-• Korrekter Kartenumbruch am Antimeridian (±180° Längengrad)
-• Ändern Sie alle Lesezeichen- und Trackfarben in einer Kategorie auf einmal
-• Bessere Suche nach Hausnummern, mehr US-Adressen abgedeckt
-• OSM-Daten mit Stand vom 4. April
-• Geplanter Darstellungsmodus in den Einstellungen
-• Die Freigabe von Lesezeichen/Tracks für andere Anwendungen wurde behoben
+• Tippen Sie auf eine Haltestelle der öffentlichen Verkehrsmittel und wählen Sie die Routennummern aus, um die Routen auf der Karte zu markieren.
+• Lesezeichenbeschriftungen überschneiden sich nicht mehr auf der Karte
+• Frische OpenStreetMap-Daten ab dem 3. Mai, mit neuen Objekttypen
+• Verbesserte Höhendiagramme für Tracks und Routen
+• Kleinere Karten-Downloads für Vietnam, Malaysia, Hongkong, Macau und Hainan
+• Verbesserte Benutzeroberfläche und Animationen
 …mehr unter omaps.org/de/news

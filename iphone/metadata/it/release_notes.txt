@@ -1,56 +1,26 @@
-## Mappa
+- NOVITÀ! tocchi una fermata del trasporto pubblico per evidenziare l'intero percorso sulla mappa, come nello stile della mappa Transit.
+- NOVITÀ! i percorsi di trasporto pubblico a lunga distanza e le altre relazioni OpenStreetMap sono ora collegati attraverso i confini della mappa in un'unica linea continua.
+- Dati OpenStreetMap aggiornati al 3 maggio.
+- Il Vietnam e la Malesia sono ora suddivisi in regioni più piccole che possono essere scaricate separatamente.
+- Hong Kong, Macao e Hainan sono ora separati dal Guangdong, con i confini vicini aggiornati.
+- Aggiornamento delle curve di livello per Indonesia, Malesia, Tanzania, Thailandia e Vietnam.
+- Aggiunto un pulsante di registrazione della traccia al pannello informativo di navigazione.
+- Aggiunti nuovi tipi di OpenStreetMap: vulcani con stato attivo, punti di accesso alle vie d'acqua, scivoli, sale da narghilè ed edifici in costruzione.
+- Aggiunto "Lookout" come sinonimo di ricerca per i punti panoramici e "pkwy" come sinonimo di strada statunitense.
+- I colori delle aree pedonali sono leggermente più scuri per una migliore leggibilità.
+- Le etichette dei segnalibri sulla mappa non si sovrappongono più.
+- Il testo multilinea viene ora ritagliato in modo pulito e i nomi delle strade non contengono più duplicati.
+- Percorsi: i percorsi ripresi ora rimuovono i punti intermedi già superati.
+- Corretto l'utilizzo di un elenco di segnalibri sbagliato nelle build di TestFlight.
+- Corretta l'importazione di file KMB.
+- Aggiornate le traduzioni corrette per le categorie, i sinonimi di ricerca e le stringhe dell'interfaccia utente. Aggiunte le traduzioni per le descrizioni del Nuovo Galles del Sud e del Territorio del Nord.
+- Miglioramento della stabilità e delle prestazioni, compreso il modellamento dei caratteri, la cache dei glifi e il ritaglio delle linee di percorso.
+- Migliorato il grafico altimetrico per i tracciati e i percorsi.
+- I pulsanti del menu di navigazione sono diventati più grandi per azioni come il TTS, le impostazioni e la registrazione dei tracciati.
+- Raffinata l'animazione della sezione di descrizione espandibile nella pagina del luogo.
+- La pagina informativa del luogo non si chiude più al termine dello scrubbing del grafico altimetrico, non rimbalza più inaspettatamente e mantiene il titolo visibile durante la modifica con la tastiera aperta.
+- Corretti gli arresti anomali quando si elimina una traccia o un segnalibro che non esiste più.
 
-- NOVITÀ! La mappa ora viene visualizzata correttamente all'antimeridiano durante il trascinamento e la rotazione
-- Dati OpenStreetMap aggiornati al 4 aprile
-- Dati Wikipedia aggiornati al 1° aprile
-- Aggiunte icone per aree ristoro e porte della città
-- Aggiunte sottocategorie dei negozi di abbigliamento: donna, uomo, bambino, matrimonio, sport, intimo e abbigliamento da ufficio
-- Corretti i colori delle linee della metropolitana di Sydney
-- Corretta la visualizzazione degli orari di apertura per i luoghi con offset di alba/tramonto
+## Supporto della piattaforma
 
-## Percorsi e navigazione
-
-- NOVITÀ! Tocca un percorso ciclabile o escursionistico per selezionarlo e visualizzarne il grafico altimetrico
-- Migliorata la resa cromatica multicolore per i percorsi escursionistici e ciclabili
-- La navigazione in bicicletta ora utilizza la direzione della bussola a basse velocità
-- Risolto un errore di sistema durante la pianificazione di percorsi in prossimità di alcuni confini regionali
-- Ora è possibile avviare un percorso valido anche quando viene richiesto di scaricare mappe aggiuntive
-
-## Segnalibri e tracciati
-
-- NOVITÀ! Modifica contemporaneamente tutti i colori dei segnalibri e delle tracce in una categoria
-- Modificata l'approssimazione del dislivello positivo e negativo nei grafici delle tracce per allinearla meglio ad altre app
-- Visualizzazione migliorata dei contenuti HTML con tabelle e immagini nei dettagli dei segnalibri
-- Aggiunti separatori verticali per le tracce a più segmenti nel grafico dell'altitudine
-- Risolto il problema della selezione dei punti nel grafico dell'altitudine per i punti interpolati
-- Risolto il problema della registrazione della traccia GPS che perdeva punti tra i segmenti
-- Risolto il problema dell'importazione GeoJSON
-- Risolto un crash durante l'esportazione delle tracce
-
-## Ricerca
-
-- Ricerca migliorata negli Stati Uniti, con due milioni di indirizzi aggiuntivi analizzati dai dati del censimento TIGER
-- Categorie di ricerca aggiornate: aggiunti "Bread" per le panetterie, "Shawarma" come cucina e altri miglioramenti ai sinonimi
-- Ricerca per numero civico migliorata
-- Aggiunti sinonimi per le strade negli Stati Uniti: highway, hwy, freeway, fwy
-- Risolti i risultati di ricerca quando i nomi di città e stato coincidono
-
-## Editor / OpenStreetMap
-
-- Ora è possibile aggiungere un nuovo luogo su OpenStreetMap dopo aver selezionato la propria posizione attuale sulla mappa
-- Risolto il disallineamento del mirino dell'editor quando si preme "Aggiungi luogo"
-- Aumentata l'area tattile dei pulsanti nella barra di navigazione "Aggiungi luogo"
-
-## Interfaccia utente e esperienza utente
-
-- Migliorati i gesti modali: aggancio al passaggio più vicino, chiusura durante lo scorrimento sul bordo e ripristino dello stato precedente alla riapertura
-- Risolta la gestione dell'ora legale per i fusi orari
-
-## Stabilità e localizzazione
-
-- Migliorate stabilità e prestazioni, ridotto il consumo della batteria
-- Traduzioni aggiornate
-
-## Supporto piattaforme
-
-- A causa delle modifiche apportate a TestFlight e all'App Store, questa versione supporta solo iOS 15 e versioni successive. iOS 12, 13 e 14 non sono più supportati.
+- A causa di cambiamenti in TestFlight e nell'App Store, questa release supporta solo iOS 15 e successivi. iOS 12, iOS 13 e iOS 14 non sono più supportati.

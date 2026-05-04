@@ -1,56 +1,26 @@
-## Peta
-
-- BARU! Peta kini ditampilkan dengan benar di antimeridian saat diseret dan diputar
-- Data OpenStreetMap diperbarui per 4 April
-- Data Wikipedia diperbarui per 1 April
-- Ditambahkan ikon untuk area makanan dan gerbang kota
-- Ditambahkan subkategori toko pakaian: wanita, pria, anak-anak, pernikahan, olahraga, pakaian dalam, serta pakaian kantor
-- Perbaikan warna jalur kereta bawah tanah Sydney
-- Perbaikan tampilan jam operasional untuk tempat dengan selisih waktu matahari terbit/terbenam
-
-## Rute dan Navigasi
-
-- BARU! Ketuk rute bersepeda atau hiking untuk memilihnya dan melihat grafik ketinggiannya
-- Peningkatan rendering multi-warna untuk rute hiking dan bersepeda
-- Navigasi bersepeda kini menggunakan arah kompas pada kecepatan rendah
-- Perbaikan kesalahan sistem saat merencanakan rute di dekat beberapa perbatasan regional
-- Anda kini dapat memulai rute yang valid meskipun diminta untuk mengunduh peta tambahan
-
-## Bookmark dan Jejak
-
-- BARU! Ubah semua warna bookmark dan jejak dalam satu kategori sekaligus
-- Penyesuaian perkiraan kenaikan dan penurunan ketinggian pada grafik jejak agar lebih sesuai dengan aplikasi lain
-- Tampilan konten HTML dengan tabel dan gambar di detail bookmark telah ditingkatkan
-- Ditambahkan pemisah vertikal untuk jejak multi-segmen pada grafik ketinggian
-- Perbaikan pemilihan titik pada grafik ketinggian untuk titik-titik yang diinterpolasi
-- Perbaikan perekaman jejak GPS yang kehilangan titik di antara segmen
-- Perbaikan impor GeoJSON
-- Perbaikan crash saat mengekspor jejak
-
-## Pencarian
-
-- Pencarian yang lebih baik di AS, dengan dua juta alamat tambahan yang diproses dari data Sensus TIGER
-- Kategori pencarian diperbarui: ditambahkan "Roti" untuk toko roti, masakan "Shawarma", dan perbaikan sinonim lainnya
-- Pencarian alamat nomor rumah ditingkatkan
-- Ditambahkan sinonim jalan di AS: highway, hwy, freeway, fwy
-- Perbaikan hasil pencarian saat nama kota dan negara bagian sama
-
-## Editor / OpenStreetMap
-
-- Anda kini dapat menambahkan tempat baru ke OpenStreetMap setelah memilih lokasi saat ini di peta
-- Perbaikan ketidaksejajaran kursor editor saat menekan "Tambahkan Tempat"
-- Peningkatan area sentuh tombol di bilah navigasi "Tambahkan Tempat"
-
-## Antarmuka Pengguna (UI) dan Pengalaman Pengguna (UX)
-
-- Peningkatan gestur jendela pop-up: menyesuaikan ke langkah terdekat, menutup saat menggeser ke tepi, dan mengembalikan keadaan sebelumnya saat dibuka kembali
-- Perbaikan penanganan waktu musim panas (daylight saving time) untuk zona waktu
-
-## Stabilitas dan Lokalisasi
-
-- Stabilitas dan kinerja ditingkatkan, penggunaan baterai dikurangi
-- Terjemahan diperbarui
+- NEW! ketuk halte angkutan umum untuk menyorot seluruh rute pada peta, seperti pada gaya peta Transit.
+- BARU! rute angkutan umum jarak jauh dan hubungan OpenStreetMap lainnya sekarang terhubung melintasi batas peta menjadi satu garis yang berkesinambungan.
+- Data OpenStreetMap telah diperbaharui pada tanggal 3 Mei.
+- Vietnam dan Malaysia sekarang dibagi menjadi wilayah yang lebih kecil yang dapat diunduh secara terpisah.
+- Hong Kong, Makau, dan Hainan sekarang terpisah dari Guangdong, dengan batas-batas wilayah yang telah diperbarui.
+- Memperbarui garis kontur untuk Indonesia, Malaysia, Tanzania, Thailand, dan Vietnam.
+- Menambahkan tombol perekaman lintasan pada panel info navigasi.
+- Menambahkan jenis OpenStreetMap baru: gunung berapi dengan status aktif, titik akses jalur air, jalur luncur, ruang hookah, dan bangunan yang sedang dibangun.
+- Menambahkan "Lookout" sebagai sinonim pencarian untuk sudut pandang, dan "pkwy" sebagai sinonim jalan di Amerika Serikat.
+- Warna area pejalan kaki sedikit lebih gelap agar lebih mudah dibaca.
+- Label penanda pada peta tidak lagi tumpang tindih.
+- Teks multi-baris sekarang terpotong dengan rapi, dan nama jalan tidak lagi memiliki duplikasi.
+- Rute: rute yang dilanjutkan kini menghapus titik peralihan yang telah Anda lewati.
+- Memperbaiki daftar penanda yang salah yang digunakan dalam build TestFlight.
+- Memperbaiki impor file KMB.
+- Memperbarui terjemahan yang telah dikoreksi untuk kategori, sinonim pencarian, dan string UI. Menambahkan terjemahan untuk deskripsi New South Wales dan Wilayah Utara.
+- Peningkatan stabilitas dan kinerja, termasuk pembentukan font, cache mesin terbang, dan kliping garis rute.
+- Memperbaiki grafik ketinggian untuk trek dan rute.
+- Membuat tombol menu dalam navigasi menjadi lebih besar untuk tindakan seperti TTS, pengaturan, dan perekaman lintasan.
+- Menyempurnakan animasi bagian deskripsi yang dapat diperluas pada halaman tempat.
+- Halaman informasi tempat tidak lagi menutup saat penggosokan grafik elevasi berakhir, tidak lagi memantul secara tidak terduga, dan membuat judul tetap terlihat saat mengedit dengan keyboard terbuka.
+- Memperbaiki kerusakan saat menghapus trek atau penanda yang sudah tidak ada.
 
 ## Dukungan Platform
 
-- Karena perubahan di TestFlight dan App Store, rilis ini hanya mendukung iOS 15 dan versi yang lebih baru. iOS 12, 13, dan 14 tidak lagi didukung.
+- Karena perubahan di TestFlight dan App Store, rilis ini hanya mendukung iOS 15 dan yang lebih baru. iOS 12, iOS 13, dan iOS 14 tidak lagi didukung.

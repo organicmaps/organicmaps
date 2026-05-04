@@ -1,7 +1,7 @@
-• Selezionare gli itinerari escursionistici e ciclistici per visualizzare i relativi grafici altimetrici.
-• Avvolgimento corretto della mappa all'antimeridiano (±180° di longitudine)
-• Modifica dei colori di tutti i segnalibri e delle tracce di una categoria in una sola volta
-• Migliore ricerca dei numeri civici, più indirizzi statunitensi coperti
-• Dati OSM aggiornati al 4 aprile
-• Modalità di visualizzazione programmata nelle Impostazioni
-…per saperne di più: omaps.org/it/news
+• Toccare una fermata del trasporto pubblico e selezionare i numeri di percorso per evidenziare i percorsi sulla mappa.
+• Le etichette dei segnalibri non si sovrappongono più sulla mappa
+• Dati OpenStreetMap aggiornati al 3 maggio, con nuovi tipi di oggetti
+• Grafici altimetrici migliorati per tracce e percorsi
+• Download di mappe più piccole per Vietnam, Malesia, Hong Kong, Macao e Hainan
+• Interfaccia utente e animazioni perfezionate
+…Maggiori informazioni su omaps.org/it/news

@@ -1,56 +1,26 @@
-## Carte
-
-- NOUVEAU ! Ajustement correct de la carte au niveau de l'antiméridien lors du glissement et de la rotation
-- Données OpenStreetMap mises à jour au 4 avril
-- Données Wikipédia mises à jour au 1er avril
-- Ajout d'icônes pour les aires de restauration et les portes de la ville
-- Ajout de sous-catégories pour les magasins de vêtements : femmes, hommes, enfants, mariage, sport, sous-vêtements, ainsi que les types de bureaux
-- Correction des couleurs des lignes de métro de Sydney
-- Correction de l'affichage des horaires d'ouverture pour les lieux présentant des décalages de lever/coucher du soleil
-
-## Itinéraires et navigation
-
-- NOUVEAU ! Appuyez sur un itinéraire cyclable ou de randonnée pour le sélectionner et afficher son profil altimétrique
-- Amélioration du rendu multicolore pour les itinéraires de randonnée et cyclables
-- La navigation cyclable utilise désormais le cap de la boussole à basse vitesse
-- Correction d'une erreur système lors de la planification d'itinéraires à proximité de certaines frontières régionales
-- Vous pouvez désormais démarrer un itinéraire valide même lorsqu'on vous invite à télécharger des cartes supplémentaires
-
-## Favoris et tracés
-
-- NOUVEAU ! Modifiez simultanément toutes les couleurs des signets et des tracés d'une catégorie
-- Ajustement de l'estimation du dénivelé positif et négatif sur les graphiques de tracés pour une meilleure correspondance avec d'autres applications
-- Amélioration de l'affichage du contenu HTML avec des tableaux et des images dans les détails des signets
-- Ajout de séparateurs verticaux pour les tracés à segments multiples dans le graphique d'altitude
-- Correction de la sélection des points dans le graphique d'altitude pour les points interpolés
-- Correction de l'enregistrement des tracés GPS qui omettait des points entre les segments
-- Correction de l'importation GeoJSON
-- Correction d'un plantage lors de l'exportation des tracés
-
-## Recherche
-
-- Amélioration de la recherche aux États-Unis, avec deux millions d'adresses supplémentaires extraites des données du recensement TIGER
-- Mise à jour des catégories de recherche : ajout de « Pain » pour les boulangeries, de « Shawarma » pour la cuisine, et d'autres améliorations au niveau des synonymes
-- Amélioration de la recherche d'adresses par numéro de maison
-- Ajout de synonymes pour les rues aux États-Unis : highway, hwy, freeway, fwy
-- Correction des résultats de recherche lorsque les noms de ville et d'État sont identiques
-
-## Éditeur / OpenStreetMap
-
-- Vous pouvez désormais ajouter un nouveau lieu à OpenStreetMap après avoir sélectionné votre position actuelle sur la carte
-- Correction du décalage du réticule de l'éditeur lorsque l'on appuie sur « Ajouter un lieu »
-- Augmentation de la zone tactile des boutons dans la barre de navigation « Ajouter un lieu »
-
-## Interface utilisateur et expérience utilisateur
-
-- Gestes modaux améliorés : alignement sur l'étape la plus proche, fermeture lors d'un panoramique sur le bord et restauration de l'état précédent lors de la réouverture
-- Correction de la gestion de l'heure d'été pour les fuseaux horaires
-
-## Stabilité et localisation
-
-- Amélioration de la stabilité et des performances, réduction de la consommation de batterie
-- Mise à jour des traductions
+- NOUVEAU ! Appuyez sur un arrêt de transport en commun pour mettre en surbrillance l'itinéraire complet sur la carte, comme dans le style de carte « Transit ».
+- NOUVEAU ! Les itinéraires de transport en commun longue distance et autres relations OpenStreetMap sont désormais reliés au-delà des limites de la carte en une ligne continue.
+- Données OpenStreetMap mises à jour au 3 mai.
+- Le Vietnam et la Malaisie sont désormais divisés en régions plus petites pouvant être téléchargées séparément.
+- Hong Kong, Macao et Hainan sont désormais séparés du Guangdong, et les frontières voisines ont été mises à jour.
+- Mise à jour des courbes de niveau pour l'Indonésie, la Malaisie, la Tanzanie, la Thaïlande et le Vietnam.
+- Ajout d'un bouton d'enregistrement de parcours dans le panneau d'informations de navigation.
+- Ajout de nouveaux types OpenStreetMap : volcans en activité, points d'accès aux voies navigables, cales de halage, salons de narguilé et bâtiments en construction.
+- Ajout de « Lookout » comme synonyme de recherche pour les points de vue, et de « pkwy » comme synonyme de rue aux États-Unis.
+- Les couleurs des zones piétonnes sont légèrement plus foncées pour une meilleure lisibilité.
+- Les libellés des signets sur la carte ne se chevauchent plus.
+- Le texte sur plusieurs lignes est désormais correctement tronqué, et les noms de rue ne contiennent plus de doublons.
+- Calcul d'itinéraire : les itinéraires repris suppriment désormais les points intermédiaires que vous avez déjà dépassés.
+- Correction de l'utilisation d'une liste de signets erronée dans les versions TestFlight.
+- Correction de l'importation de fichiers KMB.
+- Mise à jour des traductions relues pour les catégories, les synonymes de recherche et les chaînes de l'interface utilisateur. Ajout de traductions pour les descriptions de la Nouvelle-Galles du Sud et du Territoire du Nord.
+- Amélioration de la stabilité et des performances, notamment au niveau de la mise en forme des polices, de la mise en cache des glyphes et du découpage des lignes d'itinéraire.
+- Amélioration du graphique d'altitude pour les tracés et les itinéraires.
+- Agrandissement des boutons du menu de navigation pour des actions telles que la synthèse vocale, les paramètres et l'enregistrement de tracé.
+- Amélioration de l'animation de la section de description extensible sur la page du lieu.
+- La page d'informations sur le lieu ne se ferme plus lorsque le défilement du graphique d'altitude prend fin, ne rebondit plus de manière inattendue et conserve le titre visible pendant la modification lorsque le clavier est ouvert.
+- Correction des plantages lors de la suppression d’un tracé ou d’un signet qui n’existe plus.
 
 ## Prise en charge des plateformes
 
-- En raison de changements apportés à TestFlight et à l'App Store, cette version ne prend en charge que iOS 15 et les versions ultérieures. iOS 12, 13 et 14 ne sont plus pris en charge.
+- En raison de modifications apportées à TestFlight et à l’App Store, cette version ne prend en charge que iOS 15 et les versions ultérieures. iOS 12, iOS 13 et iOS 14 ne sont plus pris en charge.

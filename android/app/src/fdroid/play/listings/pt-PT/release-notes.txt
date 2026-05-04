@@ -1,8 +1,7 @@
-• Selecionar percursos pedestres e de bicicleta para ver os respectivos mapas de elevação
-• Ajustamento correto do mapa no antimeridiano (±180° de longitude)
-• Alterar todas as cores dos marcadores e dos percursos numa categoria de uma só vez
-• Melhor pesquisa de números de casas, mais endereços dos EUA abrangidos
-• Dados OSM a partir de 4 de abril
-• Modo de aparecimento programado nas Definições
-• Corrigida a partilha de marcadores/trajectos com outras aplicações
+• Toque numa paragem de transportes públicos e selecione os números dos percursos para realçar os percursos no mapa
+• As etiquetas dos marcadores já não se sobrepõem no mapa
+• Dados frescos do OpenStreetMap a partir de 3 de maio, com novos tipos de objectos
+• Gráficos de elevação melhorados para trajectos e rotas
+• Descarregamento de mapas mais pequenos para o Vietname, Malásia, Hong Kong, Macau e Hainan
+• Interface de utilizador e animações aperfeiçoadas
 …mais em omaps.org/pt/news

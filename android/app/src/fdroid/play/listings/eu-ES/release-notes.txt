@@ -1,8 +1,7 @@
-• Ibilbide eta txirrindularitza-bideak hautatu haien altuera-grafikoak ikusteko
-• Mapa egoki birbanatzea antimeridianoan (±180° longitudeari dagokionez)
-• Kategoria berean, gogokoen eta ibilbideen kolore guztiak aldi berean aldatu
-• Etxe-zenbakien bilaketa hobea, AEBetako helbide gehiagorekin
-• Apirilaren 4ko OSM datuak
-• Agertzeko modua programatzeko aukera Ezarpenetan
-• Gogokoen/ibilbideen beste aplikazioekin partekatzea konpondu
+• Egin tap garraio publikoaren geltoki batean eta hautatu ibilbide-zenbakiak mapako ibilbideak nabarmentzeko
+• Markagailu-etiketek ez dute gehiago maparen gainean gainjartzen.
+• Maiatzaren 3ko OpenStreetMap datu freskoak, objektu mota berriekin
+• Ibilbide eta ibilbideen altuera-grafiko hobetuak
+• Vietnam, Malaysia, Hong Kong, Makao eta Hainannerako mapa-deskargak txikiagoak
+• UI dotoretua eta animazioak
 …gehiago omaps.org/eu/news-en

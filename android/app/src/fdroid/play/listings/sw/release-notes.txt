@@ -1,8 +1,7 @@
-• Chagua njia za matembezi na baiskeli ili kuona chati zao za mwinuko
-• Mpangilio sahihi wa ramani kwenye mstari wa kinyume cha mwelekeo (±180° urefu)
-• Badilisha rangi zote za alamisho na njia katika kategoria kwa pamoja
-• Utafutaji bora wa nambari za nyumba, anwani zaidi za Marekani zimejumuishwa
-• Data ya OSM ya tarehe 4 Aprili
-• Hali ya kuonekana iliyopangwa katika Mipangilio
-• Imerekebishwa ushiriki wa alamisho/njia na programu zingine
-…zaidi katika omaps.org/news
+• Gusa kituo cha usafiri wa umma na uchague nambari za njia ili kuonyesha njia kwenye ramani
+• Lebo za alamisho hazipishani tena kwenye ramani
+• Data mpya ya OpenStreetMap kuanzia Mei 3, ikiwa na aina mpya za vitu
+• Chati za juu zilizoboreshwa kwa njia na kozi
+• Upakuaji wa ramani ndogo kwa ajili ya Vietnam, Malaysia, Hong Kong, Macau, na Hainan
+• Kiolesura na uhuishaji vilivyoboreshwa
+…maelezo zaidi katika omaps.org/news

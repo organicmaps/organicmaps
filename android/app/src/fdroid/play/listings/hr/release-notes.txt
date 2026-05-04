@@ -1,9 +1,8 @@
-• Odaberite planinarske i biciklističke staze za pregled njihovih visinskih profila
-• Ispravno presavijanje karte na antimeridijanu (±180° geografske dužine)
-• Promjena boja svih oznaka i tragova u jednoj kategoriji odjednom
-• Bolja pretraga kućnih brojeva, pokriveno je više američkih adresa
-• OSM podaci od 4. travnja
-• Planirani način prikaza u postavkama
-• Ispravljeno dijeljenje oznaka/tragova s drugim aplikacijama
-• Ispravljeno učitavanje izmjena karte u OSM
+• Dodirnite stanicu javnog prijevoza i odaberite brojeve linija za označavanje ruta na karti
+• Označivači na karti se više ne preklapaju
+• Svježi OpenStreetMap podaci od 3. svibnja, s novim vrstama objekata
+• Poboljšani grafikon visina za staze i rute
+• Manje preuzimanja karata za Vijetnam, Maleziju, Hong Kong, Makao i Hainan
+• Unapređeno korisničko sučelje i animacije
+• Ažurirane konturne linije za Indoneziju, Maleziju, Tanzaniju, Tajland i Vijetnam
 …više na omaps.org/news

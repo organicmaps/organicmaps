@@ -1,7 +1,6 @@
-• Sélectionnez des itinéraires de randonnée et de cyclisme pour voir leurs graphiques d'altitude
-• Affichage correct de la carte à l'antiméridien (±180° de longitude)
-• Changement simultané de toutes les couleurs des signets et des traces d'une catégorie
-• Meilleure recherche des numéros de maison, plus d'adresses américaines couvertes
-• Données OSM du 4 avril
-• Mode d'apparence planifié dans les paramètres
-…plus sur omaps.org/fr/news
+• Touchez un arrêt de transport public et sélectionnez les numéros d'itinéraire pour mettre en évidence les itinéraires sur la carte.
+• Les étiquettes des signets ne se chevauchent plus sur la carte
+• Données OpenStreetMap actualisées le 3 mai, avec de nouveaux types d'objets
+• Amélioration des cartes d'altitude pour les pistes et les itinéraires
+• Téléchargement de cartes plus petites pour le Vietnam, la Malaisie, Hong Kong, Macao et Hainan
+…plus d'informations sur omaps.org/fr/news

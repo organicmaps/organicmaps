@@ -1,7 +1,7 @@
-• Khetha izindlela zokuhamba ngezinyawo nezokugibela ibhayisikili ukuze ubone amashadi abo wokuphakama
-• Ukugoqwa kwemephu okufanele e-antimeridian (±180° ubude)
-• Shintsha yonke imibala yamabookmark nemizila esigabeni ngasikhathi sinye
-• Ukusesha okungcono kwezinombolo zezindlu, kuhlanganiswe amakheli amaningi ase-US
-• Idatha ye-OSM kusukela mhla zingama-4 ku-Ephreli
-• Imodi yokubonakala ehleliwe kuzilungiselelo
+• Thinta isitima sokuthutha somphakathi bese ukhetha izinombolo zemigudu ukuze ugqamise imigudu emephini
+• Amalebula wamabookmark awasehlangani emephini
+• Idatha entsha ye-OpenStreetMap kusukela mhla ziyi-3 kuMeyi, enezinhlobo ezintsha zezinto
+• Amashadi wokuphakama athuthukisiwe wemigqa nemizila
+• Ukudawuniloda kwemephu okuncane kweVietnam, iMalaysia, iHong Kong, iMacau, neHainan
+• Uhlangothi lokusebenza nolunye uhlelo lokunyakaza oluthuthukisiwe
 …okuningi ku-omaps.org/news

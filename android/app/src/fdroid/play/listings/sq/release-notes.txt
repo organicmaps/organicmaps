@@ -1,8 +1,7 @@
-• Zgjidhni rrugët e ecjes dhe çiklizmit për të parë grafikët e tyre të lartësisë
-• Përkulje e duhur e hartës në antimeridian (gjatësia ±180°)
-• Ndryshoni të gjitha ngjyrat e shënimeve dhe shtigjeve në një kategori njëherësh
-• Kërkim më i mirë për numrat e shtëpive, mbulohen më shumë adresa në SHBA
-• Të dhënat e OSM-së deri më 4 prill
-• Modaliteti i shfaqjes së planifikuar në Cilësime
-• Rregulluar ndarjen e shënimeve/shtigjeve me aplikacione të tjera
+• Prekni një ndalesë të transportit publik dhe zgjidhni numrat e linjave për të theksuar rrugët në hartë
+• Etiketat e shënimeve nuk mbivendosen më në hartë
+• Të dhëna të freskëta të OpenStreetMap deri më 3 maj, me lloje të reja objektesh
+• Të përmirësuara hartat e lartësisë për shtigjet dhe rrugët
+• Shkarkime më të vogla të hartave për Vietnam, Malajzi, Hong Kong, Makao dhe Hainan
+• Ndërfaqe e rafinuar dhe animacione
 …më shumë në omaps.org/news

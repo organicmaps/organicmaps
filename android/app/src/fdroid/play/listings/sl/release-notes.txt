@@ -1,9 +1,8 @@
-• Izberite pohodniške in kolesarske poti, da si ogledate njihove grafe nadmorske višine
-• Pravilno zavijanje zemljevida na antimeridianu (±180° zemljepisne dolžine)
-• Spremenite vse barve zaznamkov in sledi v kategoriji naenkrat
-• Boljše iskanje hišnih številk, več zajetih ameriških naslovov
-• Podatki OSM od 4. aprila
-• Način načrtovanega videza v nastavitvah
-• Popravljena delitev zaznamkov/sledi z drugimi aplikacijami
-• Popravljeno nalaganje popravkov zemljevidov v OSM
+• Tapnite postajališče javnega prevoza in izberite številke poti, da na zemljevidu označite poti.
+• Oznake zaznamkov se na zemljevidu ne prekrivajo več
+• Sveži podatki OpenStreetMap od 3. maja z novimi vrstami objektov
+• Izboljšane karte nadmorske višine za proge in poti
+• Manjši prenosi zemljevidov za Vietnam, Malezijo, Hongkong, Macao in Hainan
+• Izpopolnjen uporabniški vmesnik in animacije
+• Posodobljene obrisne črte za Indonezijo, Malezijo, Tanzanijo, Tajsko in Vietnam
 …več na omaps.org/news

@@ -1,56 +1,26 @@
-## Kaart
-
-- NIEUW! Correcte kaartovergang bij de antimeridiaan tijdens het slepen en draaien
-- OpenStreetMap-gegevens bijgewerkt per 4 april
-- Wikipedia-gegevens bijgewerkt per 1 april
-- Pictogrammen toegevoegd voor foodcourts en stadspoorten
-- Subcategorieën voor kledingwinkels toegevoegd: dames, heren, kinderen, bruiloft, sport, ondergoed en kantoorkleding
-- Kleuren van de metrolijnen in Sydney gecorrigeerd
-- Weergave van openingstijden gecorrigeerd voor plaatsen met verschuivingen in zonsopgang/zonsondergang
-
-## Routebepaling en navigatie
-
-- NIEUW! Tik op een fiets- of wandelroute om deze te selecteren en de hoogtekaart te bekijken
-- Verbeterde meerkleurige weergave voor wandel- en fietsroutes
-- Fietsnavigatie maakt nu gebruik van kompasrichting bij lage snelheden
-- Systeemfout bij het plannen van routes in de buurt van bepaalde regionale grenzen verholpen
-- Je kunt nu een geldige route starten, zelfs wanneer je wordt gevraagd om extra kaarten te downloaden
-
-## Bladwijzers en routes
-
-- NIEUW! Wijzig alle bladwijzer- en trackkleuren in een categorie in één keer
-- De schatting van hoogtewinst en -verlies op trackgrafieken is aangepast om beter aan te sluiten bij andere apps
-- Verbeterde weergave van HTML-inhoud met tabellen en afbeeldingen in bladwijzerdetails
-- Verticale scheidingslijnen toegevoegd voor tracks met meerdere segmenten in de hoogtekaart
-- Puntenselectie in de hoogtekaart voor geïnterpoleerde punten verholpen
-- Probleem verholpen waarbij GPS-trackopname punten tussen segmenten oversloeg
-- GeoJSON-import verholpen
-- Crash bij het exporteren van tracks verholpen
-
-## Zoeken
-
-- Betere zoekfunctie in de VS, met twee miljoen extra adressen geparst uit TIGER Census-gegevens
-- Bijgewerkte zoekcategorieën: "Bread" toegevoegd voor bakkerijen, "Shawarma" voor de keuken, en andere verbeteringen in synoniemen
-- Verbeterd zoeken op huisnummer
-- Amerikaanse synoniemen voor straatnaam toegevoegd: highway, hwy, freeway, fwy
-- Zoekresultaten gerepareerd wanneer stads- en staatsnamen hetzelfde zijn
-
-## Editor / OpenStreetMap
-
-- Je kunt nu een nieuwe plaats toevoegen aan OpenStreetMap nadat je je huidige positie op de kaart hebt geselecteerd
-- De verkeerde uitlijning van het kruisje in de editor bij het indrukken van "Plaats toevoegen" is verholpen
-- Het aanraakgebied van knoppen in de navigatiebalk "Plaats toevoegen" is vergroot
-
-## UI en UX
-
-- Verbeterde modale gebaren: uitlijnen op de dichtstbijzijnde stap, sluiten bij pannen langs de rand en de vorige status herstellen bij heropenen
-- De afhandeling van zomertijd voor tijdzones is verholpen
-
-## Stabiliteit en lokalisatie
-
-- Verbeterde stabiliteit en prestaties, lager batterijverbruik
-- Vertaalbestanden bijgewerkt
+- NIEUW! tik op een halte van het openbaar vervoer om de hele route op de kaart te markeren, zoals in de Transit-kaartstijl.
+- NIEUW! langeafstandsroutes van het openbaar vervoer en andere OpenStreetMap-relaties zijn nu over de kaartgrenzen heen met elkaar verbonden tot één ononderbroken lijn.
+- OpenStreetMap-gegevens bijgewerkt vanaf 3 mei.
+- Vietnam en Maleisië zijn nu opgesplitst in kleinere regio's die afzonderlijk kunnen worden gedownload.
+- Hong Kong, Macau en Hainan zijn nu gescheiden van Guangdong en de aangrenzende grenzen zijn bijgewerkt.
+- Contourlijnen voor Indonesië, Maleisië, Tanzania, Thailand en Vietnam bijgewerkt.
+- Een track-opnameknop toegevoegd aan het infopaneel in de navigatie.
+- Nieuwe OpenStreetMap types toegevoegd: vulkanen met actieve status, toegangspunten tot waterwegen, scheepshellingen, hookah lounges en gebouwen in aanbouw.
+- "Lookout" toegevoegd als zoeksynoniem voor uitkijkpunten, en "pkwy" als US-straatsynoniem.
+- De kleuren van voetgangersgebieden zijn iets donkerder voor een betere leesbaarheid.
+- Bladwijzerlabels op de kaart overlappen elkaar niet meer.
+- Meerregelige tekst wordt nu netjes geknipt, en straatnamen bevatten geen duplicaten meer.
+- Routing: hervatte routes verwijderen nu tussenliggende punten die u al gepasseerd bent.
+- De verkeerde bladwijzerlijst die werd gebruikt in TestFlight builds is opgelost.
+- KMB-bestandsimport verholpen.
+- Proefgelezen vertalingen voor categorieën, zoeksynoniemen en UI-strings bijgewerkt. Vertalingen toegevoegd voor New South Wales en Northern Territory beschrijvingen.
+- Stabiliteit en prestaties verbeterd, inclusief font shaping, glyph caching en routelijn clipping.
+- De hoogtekaart voor tracks en routes verbeterd.
+- In-navigatie menuknoppen groter gemaakt voor acties zoals TTS, instellingen en track opname.
+- De animatie van de uitklapbare beschrijvingssectie op de plaatspagina is verbeterd.
+- De pagina met plaatsinformatie sluit niet langer wanneer het scrubben van de hoogtekaart eindigt, springt niet langer onverwacht terug, en houdt de titel zichtbaar tijdens het bewerken met het toetsenbord open.
+- Vastgelopen crashes bij het verwijderen van een track of bladwijzer die niet meer bestaat.
 
 ## Platformondersteuning
 
-- Vanwege wijzigingen in TestFlight en de App Store ondersteunt deze release alleen iOS 15 en hoger. iOS 12, 13 en 14 worden niet langer ondersteund.
+- Vanwege wijzigingen in TestFlight en de App Store ondersteunt deze release alleen iOS 15 en hoger. iOS 12, iOS 13 en iOS 14 worden niet langer ondersteund.

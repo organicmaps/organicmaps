@@ -1,56 +1,26 @@
-## Mapa
+- NOWOŚĆ: proszę dotknąć przystanku transportu publicznego, aby podświetlić całą trasę na mapie, tak jak w stylu mapy Transit.
+- NOWOŚĆ! Długodystansowe trasy transportu publicznego i inne relacje OpenStreetMap są teraz połączone ponad granicami mapy w jedną ciągłą linię.
+- Dane OpenStreetMap zaktualizowane na dzień 3 maja.
+- Wietnam i Malezja są teraz podzielone na mniejsze regiony, które można pobrać osobno.
+- Hongkong, Makau i Hainan są teraz oddzielone od Guangdong, a sąsiednie granice zostały zaktualizowane.
+- Zaktualizowano linie konturowe dla Indonezji, Malezji, Tanzanii, Tajlandii i Wietnamu.
+- Dodano przycisk nagrywania trasy do panelu informacyjnego w nawigacji.
+- Dodano nowe typy OpenStreetMap: wulkany o statusie aktywnym, punkty dostępu do dróg wodnych, pochylnie, salony z sziszą i budynki w budowie.
+- Dodano "Lookout" jako synonim wyszukiwania punktów widokowych i "pkwy" jako synonim ulicy w USA.
+- Kolory obszarów dla pieszych są nieco ciemniejsze dla lepszej czytelności.
+- Etykiety zakładek na mapie nie nakładają się już na siebie.
+- Tekst wielowierszowy jest teraz czysto przycinany, a nazwy ulic nie zawierają już duplikatów.
+- Trasowanie: wznowione trasy usuwają teraz punkty pośrednie, które już Państwo minęli.
+- Naprawiono nieprawidłową listę zakładek używaną w kompilacjach TestFlight.
+- Naprawiono import plików KMB.
+- Zaktualizowano tłumaczenia dla kategorii, synonimów wyszukiwania i ciągów interfejsu użytkownika. Dodano tłumaczenia dla opisów Nowej Południowej Walii i Terytorium Północnego.
+- Poprawiono stabilność i wydajność, w tym kształtowanie czcionek, buforowanie glifów i przycinanie linii tras.
+- Ulepszono wykres wysokości dla ścieżek i tras.
+- Powiększono przyciski menu nawigacyjnego dla działań takich jak TTS, ustawienia i nagrywanie trasy.
+- Poprawiono animację rozwijanej sekcji opisu na stronie miejsca.
+- Strona z informacjami o miejscu nie zamyka się już po zakończeniu przewijania wykresu wysokości, nie odbija się już nieoczekiwanie i zachowuje widoczny tytuł podczas edycji z otwartą klawiaturą.
+- Naprawiono awarie podczas usuwania ścieżki lub zakładki, która już nie istnieje.
 
-- NOWOŚĆ! Prawidłowe zawijanie mapy na antymeridianie podczas przeciągania i obracania
-- Dane OpenStreetMap zaktualizowane na dzień 4 kwietnia
-- Dane Wikipedii zaktualizowane na dzień 1 kwietnia
-- Dodano ikony dla stref gastronomicznych i bram miejskich
-- Dodano podkategorie sklepów odzieżowych: damskie, męskie, dziecięce, ślubne, sportowe, bielizna oraz typy biurowe
-- Poprawiono kolory linii metra w Sydney
-- Poprawiono wyświetlanie godzin otwarcia dla miejsc z przesunięciem wschodu/zachodu słońca
+## Obsługa platformy
 
-## Wyznaczanie tras i nawigacja
-
-- NOWOŚĆ! Dotknij trasy rowerowej lub pieszej, aby ją wybrać i wyświetlić wykres wysokości
-- Ulepszone wielokolorowe renderowanie tras pieszych i rowerowych
-- Nawigacja rowerowa wykorzystuje teraz kierunek kompasu przy niskich prędkościach
-- Naprawiono błąd systemowy podczas planowania tras w pobliżu niektórych granic regionalnych
-- Teraz możesz rozpocząć prawidłową trasę nawet wtedy, gdy pojawi się monit o pobranie dodatkowych map
-
-## Zakładki i trasy
-
-- NOWOŚĆ! Zmiana wszystkich kolorów zakładek i tras w danej kategorii jednocześnie
-- Dostosowano przybliżone wartości przyrostu i spadku wysokości na wykresach tras, aby lepiej pasowały do innych aplikacji
-- Ulepszono wyświetlanie treści HTML z tabelami i obrazami w szczegółach zakładek
-- Dodano pionowe separatory dla tras wieloetapowych na wykresie wysokości
-- Naprawiono wybór punktów na wykresie wysokości dla punktów interpolowanych
-- Naprawiono utratę punktów podczas rejestrowania trasy GPS między segmentami
-- Naprawiono import GeoJSON
-- Naprawiono awarię podczas eksportowania tras
-
-## Wyszukiwanie
-
-- Lepsze wyszukiwanie w USA dzięki dwóm milionom dodatkowych adresów pobranych z danych spisu ludności TIGER
-- Zaktualizowano kategorie wyszukiwania: dodano „Bread” dla piekarni, kuchnię „Shawarma” oraz inne ulepszenia synonimów
-- Ulepszono wyszukiwanie adresów z numerami domów
-- Dodano synonimy ulic w USA: highway, hwy, freeway, fwy
-- Naprawiono wyniki wyszukiwania, gdy nazwy miast i stanów są takie same
-
-## Edytor / OpenStreetMap
-
-- Teraz możesz dodać nowe miejsce do OpenStreetMap po zaznaczeniu swojej aktualnej pozycji na mapie
-- Naprawiono nieprawidłowe ustawienie krzyżyka edytora po naciśnięciu przycisku „Dodaj miejsce”
-- Zwiększono obszar dotykowy przycisków na pasku nawigacyjnym „Dodaj miejsce”
-
-## Interfejs użytkownika i doświadczenie użytkownika
-
-- Ulepszono gesty modalne: przyciąganie do najbliższego kroku, zamykanie po przesunięciu do krawędzi oraz przywracanie poprzedniego stanu po ponownym otwarciu
-- Naprawiono obsługę czasu letniego dla stref czasowych
-
-## Stabilność i lokalizacja
-
-- Poprawiono stabilność i wydajność, zmniejszono zużycie baterii
-- Zaktualizowano tłumaczenia
-
-## Obsługa platform
-
-- Ze względu na zmiany w TestFlight i App Store, ta wersja obsługuje wyłącznie iOS 15 i nowsze. iOS 12, 13 i 14 nie są już obsługiwane.
+- Ze względu na zmiany w TestFlight i App Store, ta wersja obsługuje tylko iOS 15 i nowsze. iOS 12, iOS 13 i iOS 14 nie są już obsługiwane.

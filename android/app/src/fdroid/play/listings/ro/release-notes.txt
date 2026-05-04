@@ -1,8 +1,7 @@
-• Selectarea traseelor de drumeție și ciclism pentru a vedea graficele de altitudine ale acestora
-• Afișarea corectă a hărții la antimeridian (±180° longitudine)
-• Schimbarea simultană a culorilor tuturor marcajelor și traseelor dintr-o categorie
-• Căutare mai bună pentru numerele de casă, mai multe adrese din SUA acoperite
-• Date OSM începând cu 4 aprilie
-• Mod de afișare programat în Setări
-• S-a remediat partajarea marcajelor/traseelor către alte aplicații
+• Atingeți o stație de transport public și selectați numere de traseu pentru a evidenția traseele pe hartă
+• Etichetele marcajelor nu se mai suprapun pe hartă
+• Date proaspete OpenStreetMap din 3 mai, cu noi tipuri de obiecte
+• Grafice de elevație îmbunătățite pentru trasee și rute
+• Descărcări de hărți mai mici pentru Vietnam, Malaezia, Hong Kong, Macao și Hainan
+• UI și animații rafinate
 …mai multe la omaps.org/news
