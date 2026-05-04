@@ -194,4 +194,16 @@
 
   <!--About Fragment -->
   <dimen name="about_max_button_width">310dp</dimen>
+
+  <!-- Color picker -->
+  <dimen name="color_preview_square_size">80dp</dimen>
+  <dimen name="color_preset_circle_size">32dp</dimen>
+  <dimen name="color_picker_selector_stroke">2dp</dimen>
+  <dimen name="color_picker_slider_track_height">36dp</dimen>
+  <dimen name="color_picker_slider_track_corner_radius">16dp</dimen>
+  <dimen name="color_picker_slider_value_min_width">56dp</dimen>
+  <dimen name="color_picker_hex_input_min_width">80dp</dimen>
+  <dimen name="color_picker_hex_row_margin_top">32dp</dimen>
+  <dimen name="color_picker_pill_padding">3dp</dimen>
+  <dimen name="color_picker_popup_elevation">8dp</dimen>
 </resources>

@@ -2,6 +2,7 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -136,9 +137,9 @@ public final class BookmarkCategory implements Parcelable
     nativeSetCategoryBookmarksColor(mId, colorIndex);
   }
 
-  public void setCategoryTracksColor(@PredefinedColors.Color int colorIndex)
+  public void setCategoryTracksCustomColor(@ColorInt int color)
   {
-    nativeSetCategoryTracksColor(mId, colorIndex);
+    nativeSetCategoryTracksCustomColor(mId, color);
   }
 
   public long getBookmarkIdByPosition(int positionInCategory)
@@ -250,7 +251,7 @@ public final class BookmarkCategory implements Parcelable
   private static native boolean nativeIsEmpty(long catId);
 
   private static native void nativeSetCategoryBookmarksColor(long catId, @PredefinedColors.Color int colorIndex);
-  private static native void nativeSetCategoryTracksColor(long catId, @PredefinedColors.Color int colorIndex);
+  private static native void nativeSetCategoryTracksCustomColor(long catId, @ColorInt int color);
   private static native long nativeGetBookmarkIdByPosition(long catId, int position);
   private static native long nativeGetTrackIdByPosition(long catId, int position);
 

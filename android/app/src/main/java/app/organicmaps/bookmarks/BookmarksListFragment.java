@@ -45,6 +45,8 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
+import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
 import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
@@ -58,7 +60,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                BookmarkManager.BookmarksLoadingListener, BookmarkSearchListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface,
-               BookmarkColorDialogFragment.OnBookmarkColorChangeListener
+               BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
+               TrackColorPickerFragment.OnTrackColorChangeListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
@@ -640,24 +643,51 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return;
     mSelectedItemType = adapter.getItemViewType(position);
 
-    final Bundle args = new Bundle();
     if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)
     {
       final Track track = (Track) item;
       mSelectedItemId = track.getTrackId();
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(track.getColor()));
+      final Bundle args = new Bundle();
+      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, track.getColor());
+      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
+      fragment.setArguments(args);
+      fragment.show(getChildFragmentManager(), null);
     }
     else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
       mSelectedItemId = bookmark.getBookmarkId();
+      final Bundle args = new Bundle();
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
+      final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
+      dialogFragment.setArguments(args);
+      dialogFragment.show(getChildFragmentManager(), null);
     }
+  }
 
-    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
-    dialogFragment.setArguments(args);
-    dialogFragment.show(getChildFragmentManager(), null);
+  @Override
+  public void onTrackColorSet(int color)
+  {
+    if (mSelectedItemId == -1)
+      return;
+
+    final BookmarkListAdapter adapter = getBookmarkListAdapter();
+    final int position = adapter.getPositionById(mSelectedItemId, mSelectedItemType);
+    if (position == -1)
+      return;
+
+    final Object item = adapter.getItem(position);
+    if (!(item instanceof Track track))
+      return;
+
+    if (track.getColor() == color)
+      return;
+    track.setColor(color);
+    adapter.notifyItemChanged(position);
+
+    mSelectedItemId = -1;
+    mSelectedItemType = -1;
   }
 
   @Override
@@ -672,32 +702,18 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return;
 
     final Object item = adapter.getItem(position);
-    if (item == null)
+    if (!(item instanceof BookmarkInfo bookmark))
       return;
 
-    if (mSelectedItemType == BookmarkListAdapter.TYPE_TRACK)
-    {
-      final Track track = (Track) item;
-      final int from = track.getColor();
-      final int to = PredefinedColors.getColor(colorPos);
-      if (from == to)
-        return;
-      track.setColor(to);
-    }
-    else if (mSelectedItemType == BookmarkListAdapter.TYPE_BOOKMARK)
-    {
-      final BookmarkInfo bookmark = (BookmarkInfo) item;
-      final int from = bookmark.getIcon().getColor();
-      final int to = PredefinedColors.getColor(colorPos);
-      if (from == to)
-        return;
-      final int colorIndex = PredefinedColors.getPredefinedColorIndex(to);
-      if (colorIndex == -1)
-        return;
-      final Icon newIcon = new Icon(colorIndex, bookmark.getIcon().getType());
-      bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
-    }
-
+    final int from = bookmark.getIcon().getColor();
+    final int to = PredefinedColors.getColor(colorPos);
+    if (from == to)
+      return;
+    final int colorIndex = PredefinedColors.getPredefinedColorIndex(to);
+    if (colorIndex == -1)
+      return;
+    final Icon newIcon = new Icon(colorIndex, bookmark.getIcon().getType());
+    bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
     adapter.notifyItemChanged(position);
 
     mSelectedItemId = -1;

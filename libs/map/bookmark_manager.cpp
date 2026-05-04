@@ -3717,10 +3717,14 @@ void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId gr
 
 void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color)
 {
-  auto const dpColor = ColorFromPredefinedColor(color);
+  SetCategoryTracksColor(groupId, ColorFromPredefinedColor(color));
+}
+
+void BookmarkManager::EditSession::SetCategoryTracksColor(kml::MarkGroupId groupId, dp::Color color)
+{
   auto const & trackIds = m_bmManager.GetTrackIds(groupId);
   for (auto const trackId : trackIds)
-    EditSession::ChangeTrackColor(trackId, dpColor);
+    EditSession::ChangeTrackColor(trackId, color);
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
