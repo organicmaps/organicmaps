@@ -166,15 +166,15 @@ void RemoveDuplicatingLinear(std::vector<RankerResult> & results)
 
 bool IsCountryOrCity(ftypes::LocalityType type)
 {
-  using namespace ftypes;
-
   switch (type)
   {
-  case LocalityType::Country:
-  case LocalityType::City:
-  case LocalityType::Town: return true;
+    using enum ftypes::LocalityType;
+  case Country:  // fallthrough
+  case City:     // fallthrough
+  case Town: return true;
+  default: return false;
   }
-  return false;
+  UNREACHABLE();
 }
 
 }  // namespace
