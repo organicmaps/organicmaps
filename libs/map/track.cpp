@@ -78,6 +78,7 @@ std::string Track::GetName() const
 
 void Track::SetName(std::string const & name)
 {
+  m_isDirty = true;
   kml::SetDefaultStr(m_data.m_name, name);
 }
 
