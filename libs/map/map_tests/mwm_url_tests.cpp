@@ -222,7 +222,6 @@ UNIT_TEST(RouteApiV2NavTreatsOriginAsOptionalAndIgnored)
   ParsedMapApi dir("om://v2/dir?origin=not-a-coord&destination=2,2");
   TEST_EQUAL(dir.GetRequestType(), UrlType::Incorrect, ());
 }
-
 UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
 {
   ParsedMapApi empty("om://v2/dir?origin=1,1&waypoints=&destination=2,2");
