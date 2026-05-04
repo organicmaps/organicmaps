@@ -170,7 +170,7 @@ final class NavigationDashboardViewController: UIViewController {
 
   private func visibleAreaInsets(for frame: CGRect) -> UIEdgeInsets {
     let isCompact = traitCollection.verticalSizeClass == .compact
-    let bottom = isCompact ? 0 : frame.height - frame.origin.y
+    let bottom = (isCompact || isiPad) ? 0 : frame.height - frame.origin.y
     return UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
   }
 
