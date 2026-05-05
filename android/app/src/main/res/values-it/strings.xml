@@ -887,4 +887,18 @@
     <string name="toast_bookmarks_color_changed">Colore dei preferiti modificato</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Colore delle tracce modificato</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spettro</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Slider</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ROSSO</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERDE</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLU</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Colore esadecimale sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Griglia</string>
 </resources>

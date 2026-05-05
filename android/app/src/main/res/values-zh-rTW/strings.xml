@@ -883,4 +883,18 @@
     <string name="toast_bookmarks_color_changed">書籤顏色已更改</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">軌跡顏色已更改</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">頻譜</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">滑桿</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">紅色</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">綠色</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">藍色</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB 十六進制顏色 #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">網格</string>
 </resources>

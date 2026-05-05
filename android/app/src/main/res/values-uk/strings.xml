@@ -889,4 +889,18 @@
     <string name="toast_bookmarks_color_changed">Колір міток змінено</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Колір треків змінено</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Спектр</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Повзунки</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ЧЕРВОНИЙ</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ЗЕЛЕНИЙ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">СИНІЙ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Шістнадцятковий колір у форматі sRGB №</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Сітка</string>
 </resources>

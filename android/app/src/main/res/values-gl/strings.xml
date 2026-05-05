@@ -885,4 +885,18 @@
     <string name="toast_bookmarks_color_changed">A cor dos marcadores cambiou</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">A cor dos traxectos cambiou</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Espectro</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Deslizadores</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">VERMELLO</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERDE</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">AZUL</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Cor Hex sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Reixa</string>
 </resources>

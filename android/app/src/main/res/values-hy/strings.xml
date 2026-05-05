@@ -882,4 +882,18 @@
     <string name="toast_bookmarks_color_changed">Էջանիշների գույնը փոխվեց</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Հետագծերի գույնը փոխվեց</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Սպեկտր</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Սլայդերներ</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">Կարմիր</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">Կանաչ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">ԿԱՐՄԻՐ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB հեքս գույն #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Ցանց</string>
 </resources>

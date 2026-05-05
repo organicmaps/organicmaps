@@ -886,4 +886,18 @@
     <string name="toast_bookmarks_color_changed">Barva zaznamkov je spremenjena</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Barva sledi je spremenjena</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spekter</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Drsniki</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">RDEČA</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ZELENA</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLUE</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex Color #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Mreža</string>
 </resources>

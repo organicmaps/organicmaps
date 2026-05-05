@@ -486,4 +486,6 @@
     <string name="login_osm_credentials">Iniciar sesión con contraseña</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Iniciar sesión utilizando el navegador</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
 </resources>

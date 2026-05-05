@@ -876,4 +876,18 @@
     <string name="toast_bookmarks_color_changed">Əlfəcinlərin rəngi dəyişdirildi</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Treklərin rəngi dəyişdirildi</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektr</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Slayderlər</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">QIRMIZI</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">YAŞIL</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">MƏRƏKƏBƏ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex Rəng #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Şəbəkə</string>
 </resources>

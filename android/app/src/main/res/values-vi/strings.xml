@@ -870,4 +870,18 @@
     <string name="toast_bookmarks_color_changed">Màu dấu trang đã thay đổi</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Màu tuyến đường đã thay đổi</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Quang phổ</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Thanh trượt</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ĐỎ</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">XANH LÁ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">XANH</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Màu sRGB dạng hex #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Lưới</string>
 </resources>
