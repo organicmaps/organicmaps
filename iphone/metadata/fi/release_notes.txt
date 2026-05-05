@@ -1,56 +1,26 @@
-## Kartta
-
-- UUTTA! Kartta näkyy oikein antimeridiaanin yli vedettäessä ja käännettäessä
-- OpenStreetMap-tiedot päivitetty 4. huhtikuuta
-- Wikipedia-tiedot päivitetty 1. huhtikuuta
-- Lisätty kuvakkeita ruokatoreille ja kaupunginporteille
-- Lisätty vaatekauppojen alaluokat: naiset, miehet, lapset, häät, urheilu, alusvaatteet sekä toimistovaatteet
-- Korjattu Sydneyn metrolinjojen värit
-- Korjattu aukioloaikojen näyttö paikoissa, joissa on auringonnousu-/auringonlaskuaikojen poikkeama
-
-## Reititys ja navigointi
-
-- UUTTA! Napauta pyöräily- tai vaellusreittiä valitaksesi sen ja tarkastellaksesi sen korkeuskaaviota
-- Parannettu monivärinen renderointi vaellus- ja pyöräilyreiteille
-- Pyöräilynavigointi käyttää nyt kompassisuuntaa hitailla nopeuksilla
-- Korjattu järjestelmävirhe reittejä suunniteltaessa joidenkin alueellisten rajojen lähellä
-- Voit nyt aloittaa kelvollisen reitin, vaikka sinua pyydettäisiin lataamaan lisäkarttoja
-
-## Kirjanmerkit ja jäljet
-
-- UUTTA! Vaihda kaikki kirjanmerkkien ja jälkien värit kategoriassa kerralla
-- Säädetty korkeuserojen arviointia jälkikaavioissa vastaamaan paremmin muita sovelluksia
-- Parannettu HTML-sisällön näyttö taulukoineen ja kuvineen kirjanmerkkien tiedoissa
-- Lisätty pystysuuntaiset erottimet moniosaisille jäljille korkeuskaaviossa
-- Korjattu pisteiden valinta korkeuskaaviossa interpoloitujen pisteiden osalta
-- Korjattu GPS-jäljen tallennuksen pisteiden katoaminen segmenttien välillä
-- Korjattu GeoJSON-tuonti
-- Korjattu kaatuminen jälkiä vietäessä
-
-## Haku
-
-- Parempi haku Yhdysvalloissa, kahden miljoonan lisäosoitteen avulla, jotka on jäsennetty TIGER-väestönlaskentatiedoista
-- Päivitetyt hakukategoriat: lisätty "Bread" leipomoille, "Shawarma" ruokalajille ja muita synonyymiparannuksia
-- Parannettu talonumeroiden hakua
-- Lisätty Yhdysvaltain katujen synonyymejä: highway, hwy, freeway, fwy
-- Korjattiin hakutulokset, kun kaupungin ja osavaltion nimet ovat samat
-
-## Editori / OpenStreetMap
-
-- Voit nyt lisätä uuden paikan OpenStreetMapiin valittuasi nykyisen sijaintisi kartalta
-- Korjattu editorin tähtäimen väärä kohdistus painettaessa "Lisää paikka"
-- Suurennettu painikkeiden kosketusaluetta "Lisää paikka" -navigointipalkissa
-
-## Käyttöliittymä ja käyttökokemus
-
-- Parannetut modaalieleet: kiinnittyminen lähimpään vaiheeseen, sulkeminen reunan panoroinnilla ja edellisen tilan palauttaminen uudelleen avattaessa
-- Korjattu kesäajan käsittely aikavyöhykkeillä
-
-## Vakauden ja lokalisoinnin parannukset
-
-- Parannettu vakautta ja suorituskykyä, pienempi akunkulutus
-- Päivitetyt käännökset
+- UUTUUS! Napauta julkisen liikenteen pysäkkiä korostaaksesi koko reitin kartalla, kuten Transit-karttatyylissä.
+- UUTUUS! pitkän matkan joukkoliikennereitit ja muut OpenStreetMap-suhteet yhdistetään nyt karttarajojen yli yhdeksi yhtenäiseksi viivaksi.
+- OpenStreetMap-tiedot päivitetty 3. toukokuuta.
+- Vietnam ja Malesia on nyt jaettu pienempiin alueisiin, jotka voi ladata erikseen.
+- Hongkong, Macao ja Hainan on nyt erotettu Guangdongista, ja naapurimaiden rajat on päivitetty.
+- Päivitetty Indonesian, Malesian, Tansanian, Thaimaan ja Vietnamin ääriviivat.
+- Navigoinnin infopaneeliin on lisätty radan tallennuspainike.
+- Lisätty uusia OpenStreetMap-tyyppejä: tulivuoria, joilla on aktiivinen tila, vesiväylien liittymispisteitä, liukumäkiä, vesipiippuhuoneita ja rakenteilla olevia rakennuksia.
+- Lisätty "Lookout" näköalapaikkojen hakusynonyymiksi ja "pkwy" yhdysvaltalaisen kadun synonyymiksi.
+- Jalankulkualueiden värit ovat hieman tummemmat luettavuuden parantamiseksi.
+- Kirjanmerkkien merkinnät kartalla eivät enää ole päällekkäisiä.
+- Monirivinen teksti leikataan nyt siististi, eivätkä kadunnimet enää sisällä kaksoiskappaleita.
+- Reititys: jatketut reitit poistavat nyt välipisteet, jotka olet jo ohittanut.
+- Korjattu väärän kirjanmerkkiluettelon käyttäminen TestFlight-rakennuksissa.
+- Korjattu KMB-tiedoston tuonti.
+- Päivitetty luokkien, hakusynonyymien ja käyttöliittymämerkkijonojen oikolukukäännökset. Lisätty käännökset New South Walesin ja Northern Territoryn kuvauksille.
+- Parannettu vakautta ja suorituskykyä, mukaan lukien fontin muotoilu, glyfien välimuistiin tallentaminen ja reittiviivojen leikkaaminen.
+- Parannettu ratojen ja reittien korkeuskäyriä.
+- Navigointivalikon painikkeista on tehty suurempia esimerkiksi TTS:n, asetusten ja radan tallennuksen kaltaisia toimintoja varten.
+- Paikkasivun laajennettavan kuvausosan animaatiota on parannettu.
+- Paikkatietosivu ei enää sulkeudu, kun korkeuskartan pyyhkäisy päättyy, se ei enää pomppaa odottamatta ja pitää otsikon näkyvissä, kun sitä muokataan näppäimistön ollessa auki.
+- Korjattu kaatumisia, kun poistettiin raita tai kirjanmerkki, jota ei enää ole olemassa.
 
 ## Alustatuki
 
-- TestFlightin ja App Storen muutosten vuoksi tämä versio tukee vain iOS 15:tä ja uudempia versioita. iOS 12:ta, 13:ta ja 14:ää ei enää tueta.
+- TestFlightissa ja App Storessa tapahtuneiden muutosten vuoksi tämä julkaisu tukee vain iOS 15:tä ja uudempia. iOS 12, iOS 13 ja iOS 14 eivät ole enää tuettuja.

@@ -1,9 +1,6 @@
-• OSM xarita ma'lumotlari 10 mart holatiga, Vikipediya 1 mart holatiga
-• Xitoy viloyatlari uchun batafsil balandlik izolinlari
-• Daraxtlar, charm do'konlari va diniy buyumlar sotadigan do'konlar qatorlari qo'shildi
-• Shartli tezlik cheklovlarini qo'llab-quvvatlash qo'shildi
-• Tanzaniya kichikroq hududlarga bo'lingan
-• Korxonalar ish vaqtini ko'rsatish yaxshilandi
-• Bir nechta qulashlar tuzatildi
-• Ilova va mamlakat nomlari tarjimalari yaxshilandi
-…batafsil omaps.org/news saytida
+• Jamoat transporti bekatini bosing va xaritada yo'nalishlarni ajratib ko'rsatish uchun yo'nalish raqamlarini tanlang
+• Xaritadagi belgi yorliqlari endi bir-birini qoplamaydi
+• 3 may holatiga ko'ra yangi OpenStreetMap ma'lumotlari, yangi obyekt turlari bilan
+• Yo'laklar va marshrutlar uchun balandlik diagrammalari yaxshilandi
+• Vetnam, Malayziya, Gonkong, Makao va Xaynan uchun xarita yuklamalari kichikroq
+…batafsil ma'lumot uchun omaps.org/news

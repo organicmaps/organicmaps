@@ -1,9 +1,8 @@
-• Data peta OSM per 10 Maret, Wikipedia per 1 Maret
-• Isolin ketinggian sing luwih rinci kanggo provinsi-provinsi China
-• Nambah barisan wit, toko kulit, lan toko sing adol barang agama
-• Nambah dhukungan kanggo watesan kecepatan bersyarat
-• Misahake Tanzania dadi wilayah-wilayah sing luwih cilik
-• Ningkatake tampilan jam buka usaha
-• Mbenerake sawetara keruntuhan aplikasi
-• Ningkatake terjemahan jeneng aplikasi lan jeneng negara
-…lan liya-liyane ing omaps.org/news
+• Tutul halte angkutan umum lan pilih nomer rute kanggo nandhani rute ing peta
+• Label bookmark ora tumpang tindih maneh ing peta
+• Data OpenStreetMap anyar per 3 Mei, karo jinis obyek anyar
+• Peta elevasi trek lan rute sing luwih apik
+• Undhuhan peta sing luwih cilik kanggo Vietnam, Malaysia, Hong Kong, Macau, lan Hainan
+• Antarmuka lan animasi sing luwih alus
+• Garis kontur sing wis dianyari kanggo Indonesia, Malaysia, Tanzania, Thailand, lan Vietnam
+…luwih lengkap ing omaps.org/news

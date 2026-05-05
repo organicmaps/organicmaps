@@ -1,56 +1,26 @@
-## Mapa
+- NOVO! Toque em uma parada de transporte público para destacar a rota inteira no mapa, como no estilo de mapa Transit.
+- NOVO! As rotas de transporte público de longa distância e outras relações do OpenStreetMap agora estão conectadas através das bordas do mapa em uma linha contínua.
+- Dados do OpenStreetMap atualizados a partir de 3 de maio.
+- O Vietnã e a Malásia agora estão divididos em regiões menores que podem ser baixadas separadamente.
+- Hong Kong, Macau e Hainan agora estão separados de Guangdong, com as fronteiras vizinhas atualizadas.
+- Linhas de contorno atualizadas para Indonésia, Malásia, Tanzânia, Tailândia e Vietnã.
+- Adicionado um botão de gravação de trilha ao painel de informações na navegação.
+- Adição de novos tipos de OpenStreetMap: vulcões com status ativo, pontos de acesso a hidrovias, rampas de lançamento, salões de narguilé e edifícios em construção.
+- Adicionado "Lookout" como sinônimo de pesquisa para pontos de vista e "pkwy" como sinônimo de rua dos EUA.
+- As cores das áreas de pedestres estão um pouco mais escuras para melhor legibilidade.
+- Os rótulos dos marcadores no mapa não se sobrepõem mais.
+- O texto com várias linhas agora é recortado de forma limpa, e os nomes das ruas não contêm mais duplicatas.
+- Roteamento: as rotas retomadas agora removem os pontos intermediários pelos quais o usuário já passou.
+- Foi corrigida a lista errada de favoritos que estava sendo usada nas compilações do TestFlight.
+- Correção da importação de arquivos KMB.
+- Atualizadas as traduções revisadas para categorias, sinônimos de pesquisa e cadeias de caracteres da interface do usuário. Adicionadas traduções para as descrições de New South Wales e Northern Territory.
+- Melhoria na estabilidade e no desempenho, incluindo modelagem de fontes, cache de glifos e recorte de linhas de rotas.
+- Aprimoramos o gráfico de elevação para trilhas e rotas.
+- Aumentamos o tamanho dos botões do menu de navegação para ações como TTS, configurações e gravação de trilhas.
+- Aprimoramos a animação da seção de descrição expansível na página do local.
+- A página de informações do local não fecha mais quando a limpeza do gráfico de elevação termina, não salta mais inesperadamente e mantém o título visível durante a edição com o teclado aberto.
+- Correção de falhas ao excluir uma trilha ou marcador que não existe mais.
 
-- NOVIDADE! Ajuste correto do mapa no antimeridiano ao arrastar e girar
-- Dados do OpenStreetMap atualizados em 4 de abril
-- Dados da Wikipedia atualizados em 1º de abril
-- Adicionados ícones para praças de alimentação e portões da cidade
-- Adicionadas subcategorias para lojas de roupas: mulheres, homens, crianças, casamento, esportes, roupa íntima e tipos de escritório
-- Corrigidas as cores das linhas do metrô de Sydney
-- Corrigida a exibição do horário de funcionamento para locais com diferenças de horário entre o nascer e o pôr do sol
+## Suporte à plataforma
 
-## Roteamento e Navegação
-
-- NOVIDADE! Toque em uma rota de ciclismo ou caminhada para selecioná-la e visualizar seu gráfico de elevação
-- Renderização multicolorida aprimorada para rotas de caminhada e ciclismo
-- A navegação de ciclismo agora usa a direção da bússola em baixas velocidades
-- Corrigido um erro de sistema ao planejar rotas perto de algumas fronteiras regionais
-- Agora você pode iniciar uma rota válida mesmo quando solicitado a baixar mapas adicionais
-
-## Favoritos e Trajetos
-
-- NOVIDADE! Altere todas as cores de favoritos e trilhas de uma categoria de uma só vez
-- Ajustada a aproximação de ganho e perda de elevação nos gráficos de trilha para melhor corresponder a outros aplicativos
-- Melhorada a exibição de conteúdo HTML com tabelas e imagens nos detalhes dos favoritos
-- Adicionados separadores verticais para trilhas com vários segmentos no gráfico de elevação
-- Corrigida a seleção de pontos no gráfico de elevação para pontos interpolados
-- Corrigida a perda de pontos na gravação de trilhas por GPS entre segmentos
-- Corrigida a importação de GeoJSON
-- Corrigida uma falha ao exportar trilhas
-
-## Pesquisa
-
-- Pesquisa aprimorada nos EUA, com dois milhões de endereços adicionais extraídos dos dados do Censo TIGER
-- Categorias de pesquisa atualizadas: adicionado “Pão” para padarias, culinária “Shawarma” e outras melhorias em sinônimos
-- Pesquisa de endereços por número de casa aprimorada
-- Adicionados sinônimos de ruas nos EUA: highway, hwy, freeway, fwy
-- Corrigidos os resultados de pesquisa quando os nomes de cidade e estado são iguais
-
-## Editor / OpenStreetMap
-
-- Agora você pode adicionar um novo local ao OpenStreetMap após selecionar sua posição atual no mapa
-- Corrigido o desalinhamento da mira do editor ao pressionar “Adicionar local”
-- Aumentada a área de toque dos botões na barra de navegação “Adicionar local”
-
-## IU e UX
-
-- Gestos modais aprimorados: alinhamento com o passo mais próximo, fechamento ao deslizar pela borda e restauração do estado anterior ao reabrir
-- Corrigido o tratamento do horário de verão para fusos horários
-
-## Estabilidade e Localização
-
-- Estabilidade e desempenho aprimorados, consumo de bateria reduzido
-- Traduções atualizadas
-
-## Suporte a plataformas
-
-- Devido a mudanças no TestFlight e na App Store, esta versão suporta apenas o iOS 15 e versões posteriores. O iOS 12, 13 e 14 não são mais suportados.
+- Devido a alterações no TestFlight e na App Store, esta versão é compatível apenas com o iOS 15 e posterior. O iOS 12, o iOS 13 e o iOS 14 não são mais compatíveis.
