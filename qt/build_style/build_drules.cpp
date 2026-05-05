@@ -1,6 +1,8 @@
 #include "build_drules.h"
 #include "build_common.h"
 
+#include "base/logging.hpp"
+
 #include "platform/platform.hpp"
 
 #include <exception>
@@ -14,6 +16,7 @@ namespace build_style
 {
 void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir, StyleInfo const & info)
 {
+  LOG(LINFO, ("Building drules from source", mapcssFile.toStdString()));
   QString const outputTemplate = JoinPathQt({outputDir, "drules_proto" + info.m_drulesSuffix});
   QString const outputFile = outputTemplate + ".bin";
 

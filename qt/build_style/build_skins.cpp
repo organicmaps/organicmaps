@@ -31,10 +31,10 @@ enum SkinType
   SkinCount
 };
 
-using SkinInfo = std::tuple<char const *, int, bool>;
+using SkinInfo = std::tuple<char const *, int>;
 SkinInfo const g_skinInfo[SkinCount] = {
-    std::make_tuple("mdpi", 18, false),  std::make_tuple("hdpi", 27, false),   std::make_tuple("xhdpi", 36, false),
-    std::make_tuple("6plus", 43, false), std::make_tuple("xxhdpi", 54, false), std::make_tuple("xxxhdpi", 64, false),
+    std::make_tuple("mdpi", 18),  std::make_tuple("hdpi", 27),   std::make_tuple("xhdpi", 36),
+    std::make_tuple("6plus", 43), std::make_tuple("xxhdpi", 54), std::make_tuple("xxxhdpi", 64),
 };
 
 std::array<SkinType, SkinCount> const g_skinTypes = {{
@@ -53,10 +53,6 @@ inline char const * SkinSuffix(SkinType s)
 inline int SkinSize(SkinType s)
 {
   return std::get<1>(g_skinInfo[s]);
-}
-inline bool SkinCoorrectColor(SkinType s)
-{
-  return std::get<2>(g_skinInfo[s]);
 }
 
 QString GetSkinGeneratorPath()
@@ -127,8 +123,7 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
   return skinSizes;
 }
 
-void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, bool colorCorrection,
-                   QString const & outputDir)
+void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, QString const & outputDir)
 {
   QString const symbolsDir = JoinPathQt({styleDir, "symbols"});
 
@@ -164,8 +159,6 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, b
                                                 "--skinName",
                                                 JoinPathQt({outputDir, "basic"}),
                                                 "--skinSuffix=",
-                                                "--colorCorrection",
-                                                (colorCorrection ? "true" : "false"),
                                             });
 
   // Check if files were created.
@@ -187,9 +180,8 @@ void BuildSkins(QString const & styleDir, QString const & outputDir, QString con
     QString const suffix = SkinSuffix(s);
     QString const outputSkinDir = JoinPathQt({outputDir, "symbols", suffix, theme});
     int const size = resolution2size.at(suffix.toStdString());  // SkinSize(s);
-    bool const colorCorrection = SkinCoorrectColor(s);
 
-    BuildSkinImpl(styleDir, suffix, size, colorCorrection, outputSkinDir);
+    BuildSkinImpl(styleDir, suffix, size, outputSkinDir);
   }
 }
 

@@ -3,6 +3,7 @@
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
@@ -17,14 +18,13 @@
 
 QString ExecProcess(QString const & program, std::initializer_list<QString> args, QProcessEnvironment const * env)
 {
-  // Quote all arguments.
   QStringList qargs(args);
-  for (auto i = qargs.begin(); i != qargs.end(); ++i)
-    *i = "\"" + *i + "\"";
 
   QProcess p;
   if (nullptr != env)
     p.setProcessEnvironment(*env);
+
+  LOG(LINFO, ("Running command:", program.toStdString(), "\n   ", qargs.join("\n    ").toStdString()));
 
   p.start(program, qargs, QIODevice::ReadOnly);
   p.waitForFinished(-1);
@@ -43,8 +43,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
   }
   if (!error.isEmpty())
   {
-    QString const msg = "STDERR with a zero exit code:\n" + program + " " + qargs.join(" ");
-    throw std::runtime_error(msg.toStdString());
+    LOG(LWARNING, ("Exit code zero, but non-empty STDERR output:", error.toStdString()));
   }
   return output;
 }
