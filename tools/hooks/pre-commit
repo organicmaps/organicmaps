@@ -106,6 +106,38 @@ if [ -n "$KTLINT_FILES" ]; then
   fi
 fi
 
+# --- Store metadata (release notes, descriptions, URLs, etc.) ---------------
+METADATA_REGEX='^(android/app/src/(fdroid|google)/play/.+\.txt|iphone/metadata/.+\.txt)$'
+METADATA_FILES=$(echo "$STAGED_FILES" | grep -E "$METADATA_REGEX" || true)
+
+if [ -n "$METADATA_FILES" ]; then
+  METADATA_ARGS=()
+  while IFS= read -r FILE; do
+    [ -f "$FILE" ] && METADATA_ARGS+=("$FILE")
+  done <<< "$METADATA_FILES"
+
+  if [ ${#METADATA_ARGS[@]} -gt 0 ]; then
+    set +e
+    "$REPO_ROOT/tools/python/check_store_metadata.py" files --fix "${METADATA_ARGS[@]}"
+    meta_rc=$?
+    set -e
+
+    # Re-stage anything --fix mutated. `git diff --quiet` compares working tree
+    # to index; non-zero means the file changed, so add it and flag REFORMATTED.
+    for FILE in "${METADATA_ARGS[@]}"; do
+      if ! git diff --quiet -- "$FILE"; then
+        git add -- "$FILE"
+        REFORMATTED=1
+      fi
+    done
+
+    if [ $meta_rc -ne 0 ]; then
+      echo "pre-commit: store metadata validation failed — fix manually and re-commit."
+      exit 1
+    fi
+  fi
+fi
+
 # -----------------------------------------------------------------------------
 # Fail if reformatting eliminated all staged changes (would create an empty commit).
 if [ "$REFORMATTED" -eq 1 ]; then
