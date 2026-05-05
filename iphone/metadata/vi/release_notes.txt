@@ -1,56 +1,26 @@
-## Bản đồ
-
-- MỚI! Bản đồ nay hiển thị đúng khi kéo và xoay qua đường đổi ngày
-- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 4 tháng 4
-- Dữ liệu Wikipedia được cập nhật tính đến ngày 1 tháng 4
-- Thêm biểu tượng cho khu ẩm thực và cổng thành phố
-- Thêm các danh mục con cho cửa hàng quần áo: nữ, nam, trẻ em, cưới, thể thao, đồ lót và trang phục công sở
-- Sửa màu các tuyến tàu điện ngầm ở Sydney
-- Sửa hiển thị giờ mở cửa cho các địa điểm có chênh lệch giờ mặt trời mọc/lặn
-
-## Lập lộ trình và điều hướng
-
-- MỚI! Nhấn vào lộ trình đạp xe hoặc đi bộ để chọn và xem biểu đồ độ cao
-- Cải thiện hiển thị đa màu cho lộ trình đi bộ và đạp xe
-- Điều hướng đạp xe nay sử dụng hướng la bàn ở tốc độ thấp
-- Sửa lỗi hệ thống khi lập lộ trình gần một số biên giới khu vực
-- Giờ đây bạn có thể bắt đầu một lộ trình hợp lệ ngay cả khi được yêu cầu tải thêm bản đồ
-
-## Dấu trang và Bản ghi
-
-- MỚI! Thay đổi màu của tất cả dấu trang và bản ghi trong một danh mục cùng lúc
-- Điều chỉnh ước tính độ cao tăng và giảm trên biểu đồ bản ghi để phù hợp hơn với các ứng dụng khác
-- Cải thiện hiển thị nội dung HTML có bảng và hình ảnh trong chi tiết dấu trang
-- Thêm các vạch phân cách dọc cho bản ghi nhiều đoạn trong biểu đồ độ cao
-- Sửa lỗi chọn điểm trong biểu đồ độ cao đối với các điểm nội suy
-- Sửa lỗi ghi bản ghi GPS bị mất điểm giữa các đoạn
-- Sửa lỗi nhập GeoJSON
-- Sửa lỗi ứng dụng bị treo khi xuất bản ghi
-
-## Tìm kiếm
-
-- Tìm kiếm tốt hơn tại Hoa Kỳ, với hai triệu địa chỉ bổ sung được phân tích từ dữ liệu điều tra dân số TIGER
-- Cập nhật danh mục tìm kiếm: thêm "Bread" cho tiệm bánh, "Shawarma" cho ẩm thực, cùng các cải tiến khác về từ đồng nghĩa
-- Cải thiện tìm kiếm địa chỉ theo số nhà
-- Thêm các từ đồng nghĩa đường phố tại Hoa Kỳ: highway, hwy, freeway, fwy
-- Sửa lỗi kết quả tìm kiếm khi tên thành phố và bang trùng nhau
-
-## Trình chỉnh sửa / OpenStreetMap
-
-- Giờ đây bạn có thể thêm một địa điểm mới vào OpenStreetMap sau khi chọn vị trí hiện tại của mình trên bản đồ
-- Sửa lỗi lệch tâm ngắm khi nhấn "Thêm địa điểm"
-- Tăng diện tích chạm của các nút trong thanh điều hướng "Thêm địa điểm"
-
-## Giao diện người dùng và trải nghiệm người dùng
-
-- Cải thiện cử chỉ trong cửa sổ phương thức: tự động căn vào bước gần nhất, đóng khi vuốt từ mép và khôi phục trạng thái trước đó khi mở lại
-- Sửa lỗi xử lý giờ mùa hè cho các múi giờ
-
-## Ổn định và bản địa hóa
-
-- Cải thiện độ ổn định và hiệu suất, giảm mức tiêu thụ pin
-- Cập nhật bản dịch
+- MỚI! Nhấn vào một trạm giao thông công cộng để làm nổi bật toàn bộ lộ trình trên bản đồ, giống như trong kiểu bản đồ Transit.
+- MỚI! Các tuyến giao thông công cộng đường dài và các mối quan hệ OpenStreetMap khác hiện được kết nối qua các ranh giới bản đồ thành một đường liên tục.
+- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 3 tháng 5.
+- Việt Nam và Malaysia hiện đã được chia thành các khu vực nhỏ hơn có thể tải xuống riêng biệt.
+- Hong Kong, Macau và Hainan hiện đã được tách khỏi Quảng Đông, với các đường biên giới lân cận được cập nhật.
+- Cập nhật đường đồng mức cho Indonesia, Malaysia, Tanzania, Thái Lan và Việt Nam.
+- Đã thêm nút ghi lại đường đi vào bảng thông tin trong quá trình điều hướng.
+- Đã thêm các loại OpenStreetMap mới: núi lửa đang hoạt động, điểm tiếp cận đường thủy, đường trượt, phòng hút hookah và các tòa nhà đang xây dựng.
+- Đã thêm “Lookout” làm từ đồng nghĩa trong tìm kiếm cho các điểm quan sát, và “pkwy” làm từ đồng nghĩa cho đường phố ở Mỹ.
+- Màu sắc của khu vực dành cho người đi bộ được làm tối hơn một chút để dễ đọc hơn.
+- Các nhãn Bookmark trên bản đồ không còn chồng chéo lên nhau nữa.
+- Văn bản nhiều dòng hiện được cắt gọn gàng, và tên đường phố không còn chứa các bản sao trùng lặp.
+- Tính năng định tuyến: các lộ trình tiếp tục hiện sẽ loại bỏ các điểm trung gian mà bạn đã đi qua.
+- Đã sửa lỗi sử dụng danh sách dấu trang sai trong các bản dựng TestFlight.
+- Đã sửa lỗi nhập tệp KMB.
+- Đã cập nhật các bản dịch đã được hiệu đính cho các danh mục, từ đồng nghĩa tìm kiếm và chuỗi văn bản giao diện người dùng. Đã thêm bản dịch cho các mô tả về New South Wales và Northern Territory.
+- Đã cải thiện độ ổn định và hiệu suất, bao gồm định dạng phông chữ, lưu trữ ký tự và cắt đường dẫn.
+- Đã cải thiện biểu đồ độ cao cho các đường đi và lộ trình.
+- Đã làm lớn các nút menu trong quá trình điều hướng cho các thao tác như TTS, cài đặt và ghi lại đường đi.
+- Đã tinh chỉnh hiệu ứng động của phần mô tả có thể mở rộng trên trang địa điểm.
+- Trang thông tin địa điểm không còn đóng lại khi kết thúc thao tác vuốt biểu đồ độ cao, không còn bị giật bất ngờ và giữ tiêu đề hiển thị trong khi chỉnh sửa với bàn phím mở.
+- Đã khắc phục sự cố treo ứng dụng khi xóa một track hoặc bookmark không còn tồn tại.
 
 ## Hỗ trợ nền tảng
 
-- Do những thay đổi trong TestFlight và App Store, bản phát hành này chỉ hỗ trợ iOS 15 trở lên. iOS 12, 13 và 14 không còn được hỗ trợ.
+- Do những thay đổi trong TestFlight và App Store, phiên bản này chỉ hỗ trợ iOS 15 trở lên. iOS 12, iOS 13 và iOS 14 không còn được hỗ trợ.

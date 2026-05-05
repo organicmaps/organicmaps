@@ -1,9 +1,7 @@
-• Chọn các tuyến đường đi bộ và đạp xe để xem biểu đồ độ cao
-• Hiển thị bản đồ chính xác tại kinh tuyến đối diện (±180°)
-• Thay đổi màu tất cả dấu trang và bản ghi trong danh mục cùng lúc
-• Tìm kiếm số nhà tốt hơn, bao gồm nhiều địa chỉ tại Mỹ hơn
-• Dữ liệu OSM tính đến ngày 4 tháng 4
-• Chế độ giao diện theo lịch trong Cài đặt
-• Sửa lỗi chia sẻ dấu trang/bản ghi sang ứng dụng khác
-• Sửa lỗi tải lên chỉnh sửa bản đồ lên OSM
+• Nhấn vào một trạm xe buýt và chọn số tuyến để làm nổi bật các tuyến trên bản đồ
+• Các nhãn dấu trang không còn chồng chéo lên nhau trên bản đồ
+• Dữ liệu OpenStreetMap mới nhất tính đến ngày 3 tháng 5, bao gồm các loại đối tượng mới
+• Cải thiện bản đồ độ cao cho các tuyến đường và lộ trình
+• Dung lượng tải bản đồ nhỏ hơn cho Việt Nam, Malaysia, Hồng Kông, Ma Cao và Hải Nam
+• Giao diện người dùng và hiệu ứng chuyển động được tinh chỉnh
 …xem thêm tại omaps.org/news

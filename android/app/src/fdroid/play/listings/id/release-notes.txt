@@ -1,9 +1,7 @@
-• Pilih rute pendakian dan bersepeda untuk melihat grafik ketinggiannya
-• Tampilan peta yang benar di antimeridian (±180° bujur)
-• Mengubah semua warna penanda dan lintasan dalam satu kategori sekaligus
-• Pencarian nomor rumah yang lebih baik, lebih banyak alamat AS yang tercakup
-• Data OSM per tanggal 4 April
-• Mode tampilan terjadwal di Pengaturan
-• Berbagi penanda/trek ke aplikasi lain telah diperbaiki
-• Pengunggahan pengeditan peta ke OSM telah diperbaiki
+• Ketuk pemberhentian angkutan umum dan pilih nomor rute untuk menyorot rute pada peta
+• Label penanda tidak lagi tumpang tindih pada peta
+• Data OpenStreetMap terbaru per tanggal 3 Mei, dengan tipe objek baru
+• Grafik elevasi yang lebih baik untuk trek dan rute
+• Unduhan peta yang lebih kecil untuk Vietnam, Malaysia, Hong Kong, Makau, dan Hainan
+• UI dan animasi yang disempurnakan
 …selengkapnya di omaps.org/id/news

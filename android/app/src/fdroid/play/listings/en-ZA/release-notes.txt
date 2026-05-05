@@ -1,10 +1,9 @@
-• Select hiking and cycling routes to see their elevation charts
-• Proper map wrapping at the antimeridian (±180° longitude)
-• Change all bookmark and track colors in a category at once
-• Better search for house numbers, more US addresses covered
-• OSM data as of April 4
-• Scheduled appearance mode in Settings
-• Fixed bookmarks/tracks sharing to other apps
-• Fixed uploading map edits to OSM
-• Added recently used category history in the map editor
+• Tap a public transport stop and select route numbers to highlight routes on the map
+• Bookmark labels no longer overlap on the map
+• Fresh OpenStreetMap data as of May 3, with new object types
+• Improved elevation charts for tracks and routes
+• Smaller map downloads for Vietnam, Malaysia, Hong Kong, Macau, and Hainan
+• Refined UI and animations
+• Updated contour lines for Indonesia, Malaysia, Tanzania, Thailand, and Vietnam
+• Bug fixes and performance improvements
 …more at omaps.org/news
