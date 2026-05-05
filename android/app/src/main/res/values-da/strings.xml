@@ -880,4 +880,18 @@
     <string name="toast_bookmarks_color_changed">Bogmærkefarve er ændret</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Sporfarve er ændret</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektrum</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Skydere</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">RØD</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">GRØN</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLÅ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB hex-farve #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Gitter</string>
 </resources>

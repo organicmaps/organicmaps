@@ -879,4 +879,18 @@
     <string name="toast_bookmarks_color_changed">ブックマークの色が変更されました</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">トラックの色が変更されました</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">スペクトル</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">スライダー</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">赤</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">グリーン</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">青</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB 16進カラー #.</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">グリッド</string>
 </resources>

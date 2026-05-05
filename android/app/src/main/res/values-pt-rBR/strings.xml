@@ -632,4 +632,8 @@
     <string name="login_osm_browser">Fazer login usando o navegador</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Cor das trilhas alterada</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Controles deslizantes</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grade</string>
 </resources>

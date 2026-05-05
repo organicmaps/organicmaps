@@ -888,4 +888,18 @@
     <string name="toast_bookmarks_color_changed">Barva značek byla změněna</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Barva tras byla změněna</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektrum</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Posuvníky</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ČERVENÁ</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ZELENÁ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLUE</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex barva #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Mřížka</string>
 </resources>

@@ -830,4 +830,18 @@
     <string name="toast_bookmarks_color_changed">ສີຂອງບຸກມາກໄດ້ປ່ຽນແລ້ວ</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">ສີຂອງເສັ້ນທາງໄດ້ປ່ຽນແລ້ວ</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spectrum</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">ຕົວເລື່ອນ</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ສີແດງ</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ຂຽວ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">ສີຟ້າ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex ສີ #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">ຕາຂ່າຍ</string>
 </resources>
