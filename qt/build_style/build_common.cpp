@@ -42,9 +42,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
     throw std::runtime_error(msg.toStdString());
   }
   if (!error.isEmpty())
-  {
     LOG(LWARNING, ("Exit code zero, but non-empty STDERR output:", error.toStdString()));
-  }
   return output;
 }
 
