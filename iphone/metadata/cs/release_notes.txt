@@ -1,56 +1,26 @@
-## Mapa
-
-- NOVINKA! Správné přetáčení mapy na protilehlém poledníku při přetahování a otáčení
-- Data OpenStreetMap aktualizována k 4. dubnu
-- Data Wikipedie aktualizována k 1. dubnu
-- Přidány ikony pro food courty a městské brány
-- Přidány podkategorie obchodů s oblečením: dámské, pánské, dětské, svatební, sportovní, spodní prádlo a kancelářské
-- Opraveny barvy linek metra v Sydney
-- Opraveno zobrazení otevíracích hodin pro místa s posunem východu/západu slunce
-
-## Trasy a navigace
-
-- NOVINKA! Klepnutím na cyklistickou nebo turistickou trasu ji vyberete a zobrazíte její výškový graf
-- Vylepšené vícebarevné zobrazení turistických a cyklistických tras
-- Cyklistická navigace nyní při nízkých rychlostech používá azimut kompasu
-- Opravena systémová chyba při plánování tras v blízkosti některých regionálních hranic
-- Nyní můžete zahájit platnou trasu i v případě, že budete vyzváni ke stažení dalších map
-
-## Záložky a trasy
-
-- NOVINKA! Změňte najednou všechny barvy záložek a tras v dané kategorii
-- Upravili jsme aproximace převýšení a klesání na grafech tras, aby lépe odpovídaly jiným aplikacím
-- Vylepšili jsme zobrazení HTML obsahu s tabulkami a obrázky v detailech záložek
-- Přidány svislé oddělovače pro víceúsekové trasy v grafu nadmořské výšky
-- Opraven výběr bodů v grafu nadmořské výšky pro interpolované body
-- Opraveno vynechávání bodů při záznamu trasy GPS mezi úseky
-- Opraven import GeoJSON
-- Opravena chyba způsobující pád aplikace při exportu tras
-
-## Vyhledávání
-
-- Lepší vyhledávání v USA díky dvěma milionům dalších adres získaných z dat sčítání lidu TIGER
-- Aktualizované kategorie vyhledávání: přidáno „Bread“ pro pekárny, „Shawarma“ pro kuchyni a další vylepšení synonym
-- Vylepšené vyhledávání adres podle čísla domu
-- Přidána synonyma pro ulice v USA: highway, hwy, freeway, fwy
-- Opraveny výsledky vyhledávání, když jsou názvy měst a států stejné
-
-## Editor / OpenStreetMap
-
-- Nyní můžete přidat nové místo do OpenStreetMap po výběru své aktuální polohy na mapě
-- Opraveno nesprávné zarovnání křížku editoru při stisknutí tlačítka „Přidat místo“
-- Zvětšena dotyková plocha tlačítek v navigační liště „Přidat místo“
-
-## UI a UX
-
-- Vylepšená gesta v modálních oknech: přichycení k nejbližšímu kroku, zavření při posunu k okraji a obnovení předchozího stavu při opětovném otevření
-- Opraveno zpracování letního času pro časová pásma
-
-## Stabilita a lokalizace
-
-- Vylepšena stabilita a výkon, snížena spotřeba baterie
-- Aktualizovány překlady
+- NOVINKA! klepnutím na zastávku veřejné dopravy se na mapě zvýrazní celá trasa, stejně jako ve stylu mapy Transit.
+- NOVINKA! dálkové trasy veřejné dopravy a další vztahy OpenStreetMap jsou nyní spojeny přes hranice mapy do jedné souvislé linie.
+- Data OpenStreetMap aktualizována ke dni 3. května.
+- Vietnam a Malajsie jsou nyní rozděleny na menší regiony, které lze stáhnout samostatně.
+- Hongkong, Macao a Hainan jsou nyní odděleny od Guangdongu a sousední hranice jsou aktualizovány.
+- Aktualizovány obrysové linie pro Indonésii, Malajsii, Tanzanii, Thajsko a Vietnam.
+- Na informační panel v navigaci bylo přidáno tlačítko pro nahrávání stop.
+- Přidány nové typy OpenStreetMap: sopky s aktivním stavem, přístupové body k vodním cestám, skluzy, salonky pro vodní dýmky a budovy ve výstavbě.
+- Přidáno "Lookout" jako synonymum pro vyhledávání vyhlídkových bodů a "pkwy" jako synonymum pro americké ulice.
+- Barvy pěších zón jsou mírně tmavší pro lepší čitelnost.
+- Popisky záložek na mapě se již nepřekrývají.
+- Víceřádkový text je nyní čistě oříznut a názvy ulic již neobsahují duplicity.
+- Trasování: obnovené trasy nyní odstraňují mezilehlé body, které jste již projeli.
+- Opraven chybný seznam záložek používaný v sestaveních TestFlight.
+- Opraven import souborů KMB.
+- Aktualizovány korektury překladů kategorií, synonym pro vyhledávání a řetězců uživatelského rozhraní. Přidány překlady popisů pro Nový Jižní Wales a Severní teritorium.
+- Vylepšena stabilita a výkon, včetně tvarování písma, ukládání glyfů do mezipaměti a ořezávání řádků trasy.
+- Vylepšen výškový graf pro tratě a trasy.
+- Zvětšena tlačítka v navigační nabídce pro akce, jako je TTS, nastavení a nahrávání tratí.
+- Vylepšena animace rozbalovací části popisu na stránce místa.
+- Stránka s informacemi o místě se již nezavírá při ukončení procházení výškového grafu, již se neočekávaně nezadrhává a při úpravách s otevřenou klávesnicí zůstává viditelný název.
+- Opraveny pády při odstraňování již neexistující stopy nebo záložky.
 
 ## Podpora platforem
 
-- Vzhledem ke změnám v TestFlight a App Store podporuje tato verze pouze iOS 15 a novější. iOS 12, 13 a 14 již nejsou podporovány.
+- Vzhledem ke změnám v TestFlight a App Store podporuje tato verze pouze iOS 15 a novější. iOS 12, iOS 13 a iOS 14 již nejsou podporovány.

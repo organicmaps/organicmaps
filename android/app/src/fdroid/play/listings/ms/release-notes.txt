@@ -1,9 +1,7 @@
-• Pilih laluan mendaki dan berbasikal untuk melihat carta ketinggiannya
-• Paparan peta yang betul merentasi antimeridian (±180° bujur)
-• Ubah semua warna penanda buku dan jejak dalam satu kategori sekaligus
-• Carian nombor rumah yang lebih baik, lebih banyak alamat AS diliputi
-• Data OSM setakat 4 April
-• Mod penampilan berjadual dalam Tetapan
-• Perkongsian penanda buku/jejak ke aplikasi lain telah dibaiki
-• Pemunggahan suntingan peta ke OSM telah dibaiki
-…lebih banyak di omaps.org/news
+• Ketuk hentian pengangkutan awam dan pilih nombor laluan untuk menandakan laluan pada peta
+• Label penanda halaman tidak lagi bertindih pada peta
+• Data OpenStreetMap terkini setakat 3 Mei, dengan jenis objek baharu
+• Carta ketinggian yang dipertingkatkan untuk trek dan laluan
+• Muat turun peta yang lebih kecil untuk Vietnam, Malaysia, Hong Kong, Macau, dan Hainan
+• Antaramuka dan animasi yang dipertingkatkan
+…lebih lanjut di omaps.org/news

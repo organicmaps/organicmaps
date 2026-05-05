@@ -1,56 +1,26 @@
-## Karta
-
-- NYTT! Korrekt kartanpassning vid antimeridianen vid dragning och rotation
-- OpenStreetMap-data uppdaterade per den 4 april
-- Wikipedia-data uppdaterade per den 1 april
-- Ikoner för matställen och stadsportar har lagts till
-- Underkategorier för klädbutiker har lagts till: dam, herr, barn, bröllop, sport, underkläder samt kontorskläder
-- Färgerna på tunnelbanelinjerna i Sydney har korrigerats
-- Visningen av öppettider för platser med avvikelser för soluppgång/solnedgång har korrigerats
-
-## Ruttplanering och navigering
-
-- NYTT! Tryck på en cykel- eller vandringsrutt för att välja den och visa höjddiagrammet
-- Förbättrad flerfärgsrendering för vandrings- och cykelrutter
-- Cykelnavigeringen använder nu kompassriktning vid låga hastigheter
-- Systemfel vid ruttplanering nära vissa regionsgränser har åtgärdats
-- Du kan nu starta en giltig rutt även när du uppmanas att ladda ner ytterligare kartor
-
-## Bokmärken och spår
-
-- NYTT! Ändra alla bokmärkes- och spårfärger i en kategori på en gång
-- Justerad uppskattning av höjdökning och höjdförlust på spårdiagram för att bättre matcha andra appar
-- Förbättrad visning av HTML-innehåll med tabeller och bilder i bokmärkesdetaljer
-- Vertikala avgränsare har lagts till för spår med flera segment i höjddiagrammet
-- Punktvalet i höjddiagrammet för interpolerade punkter har åtgärdats
-- GPS-spårinspelningen som tappade punkter mellan segment har åtgärdats
-- GeoJSON-import har åtgärdats
-- En krasch vid export av spår har åtgärdats
-
-## Sökning
-
-- Bättre sökning i USA, med två miljoner ytterligare adresser som hämtats från TIGER-folkräkningsdata
-- Uppdaterade sökkategorier: lagt till "Bread" för bagerier, "Shawarma" för mat och andra synonymförbättringar
-- Förbättrad sökning efter husnummer
-- Lagt till amerikanska synonymer för gator: highway, hwy, freeway, fwy
-- Fixat sökresultat när stads- och delstatsnamn är desamma
-
-## Redigerare / OpenStreetMap
-
-- Du kan nu lägga till en ny plats i OpenStreetMap efter att ha valt din aktuella position på kartan
-- Fixat feljustering av redigerarens hårkors när du trycker på "Lägg till plats"
-- Ökat tryckområdet för knapparna i navigeringsfältet "Lägg till plats"
-
-## UI och UX
-
-- Förbättrade modala gester: snäpp till närmaste steg, stäng vid kantpanorering och återställ tidigare tillstånd när du öppnar igen
-- Fixat hantering av sommartid för tidszoner
-
-## Stabilitet och lokalisering
-
-- Förbättrad stabilitet och prestanda, minskad batteriförbrukning
-- Uppdaterade översättningar
+- NYHET! tryck på en hållplats för kollektivtrafik för att markera hela rutten på kartan, som i kartstilen Transit.
+- NYTT! långväga kollektivtrafikrutter och andra OpenStreetMap-relationer är nu anslutna över kartgränser till en kontinuerlig linje.
+- OpenStreetMap-data uppdaterade från och med den 3 maj.
+- Vietnam och Malaysia är nu uppdelade i mindre regioner som kan laddas ner separat.
+- Hongkong, Macao och Hainan är nu separerade från Guangdong, med uppdaterade angränsande gränser.
+- Uppdaterade konturlinjer för Indonesien, Malaysia, Tanzania, Thailand och Vietnam.
+- Lagt till en spårinspelningsknapp till infopanelen i navigationen.
+- Lagt till nya OpenStreetMap-typer: vulkaner med aktiv status, vattenvägsanslutningar, sliprar, vattenpipor och byggnader under uppförande.
+- Lagt till "Lookout" som en söksynonym för utsiktspunkter och "pkwy" som en synonym för amerikanska gator.
+- Färgerna för fotgängarområden är något mörkare för bättre läsbarhet.
+- Bokmärkesetiketter på kartan överlappar inte längre varandra.
+- Text på flera rader klipps nu rent, och gatunamn innehåller inte längre dubbletter.
+- Ruttplanering: återupptagna rutter tar nu bort mellanliggande punkter som du redan har passerat.
+- Fixat fel bokmärkeslista som används i TestFlight-byggnader.
+- Fast KMB-filimport.
+- Uppdaterade korrekturlästa översättningar för kategorier, söksynonymer och användargränssnittssträngar. Lagt till översättningar för beskrivningar av New South Wales och Northern Territory.
+- Förbättrad stabilitet och prestanda, inklusive teckensnittsformning, glyfcaching och klippning av ruttlinjer.
+- Förbättrat höjddiagrammet för spår och rutter.
+- Gjort menyknapparna i navigeringen större för åtgärder som TTS, inställningar och spårinspelning.
+- Förfinat animeringen av det expanderbara beskrivningsavsnittet på platssidan.
+- Sidan med platsinformation stängs inte längre när skurningen av höjddiagrammet avslutas, studsar inte längre oväntat och titeln förblir synlig när du redigerar med tangentbordet öppet.
+- Korrigerade krascher när du tar bort ett spår eller ett bokmärke som inte längre finns.
 
 ## Plattformsstöd
 
-- På grund av ändringar i TestFlight och App Store stöder denna version endast iOS 15 och senare. iOS 12, 13 och 14 stöds inte längre.
+- På grund av ändringar i TestFlight och App Store stöder den här versionen endast iOS 15 och senare. iOS 12, iOS 13 och iOS 14 stöds inte längre.

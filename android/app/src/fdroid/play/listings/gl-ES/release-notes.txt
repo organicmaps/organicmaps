@@ -1,8 +1,7 @@
-• Selecciona rutas de sendeirismo e ciclismo para ver os seus perfís de altitude
-• Enrolamento do mapa axeitado no antimeridiano (lonxitude ±180°)
-• Cambio de todas as cores de marcadores e rutas nunha categoría de vez
-• Mellor busca de números de casa, con máis enderezos de EE. UU. cubertos
-• Datos de OSM do 4 de abril
-• Modo de aparición programada na configuración
-• Corrixiuse o compartido de marcadores/rutas con outras aplicacións
+• Toca unha parada de transporte público e selecciona os números de liña para destacar as rutas no mapa
+• As etiquetas dos marcadores xa non se solapan no mapa
+• Datos frescos de OpenStreetMap a 3 de maio, con novos tipos de obxectos
+• Melloras nos gráficos de elevación para traxectorias e rutas
+• Descargas de mapas máis pequenas para Vietnam, Malaisia, Hong Kong, Macau e Hainan
+• Interfaz de usuario refinada e animacións
 …máis en omaps.org/gl/news

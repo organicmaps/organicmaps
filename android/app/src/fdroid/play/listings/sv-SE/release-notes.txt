@@ -1,9 +1,7 @@
-• Välj vandrings- och cykelleder för att se deras höjddiagram
-• Korrekt kartanpassning vid antimeridianen (±180° longitud)
-• Ändra alla bokmärkes- och spårfärger i en kategori på en gång
-• Bättre sökning efter husnummer, fler amerikanska adresser täckta
-• OSM-data från och med den 4 april
-• Schemalagt utseendeläge i Inställningar
-• Fixat delning av bokmärken/spår till andra appar
-• Fixat uppladdning av kartredigeringar till OSM
+• Tryck på en hållplats för kollektivtrafik och välj ruttnummer för att markera rutter på kartan
+• Bokmärkesetiketter överlappar inte längre varandra på kartan
+• Färsk OpenStreetMap-data från och med den 3 maj, med nya objekttyper
+• Förbättrade höjddiagram för spår och rutter
+• Mindre kartor att ladda ner för Vietnam, Malaysia, Hongkong, Macao och Hainan
+• Förfinat användargränssnitt och animationer
 …mer på omaps.org/sv/news

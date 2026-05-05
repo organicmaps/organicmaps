@@ -1,56 +1,26 @@
-## Mapa
-
-- NOVETAT! Adaptació correcta del mapa a l'antimeridià en arrossegar i girar
-- Dades d'OpenStreetMap actualitzades a 4 d'abril
-- Dades de la Viquipèdia actualitzades a 1 d'abril
-- S'han afegit icones per a zones de restauració i portes de la ciutat
-- S'han afegit subcategories per a botigues de roba: dona, home, nen, núvia, esport, roba interior i tipus d'oficina
-- S'han corregit els colors de les línies de metro de Sydney
-- S'ha corregit la visualització dels horaris d'obertura per a llocs amb desplaçaments en l'alba/el capvespre
-
-## Rutes i navegació
-
-- NOVETAT! Toca una ruta de bicicleta o de senderisme per seleccionar-la i veure'n el gràfic d'altitud
-- Millorat el renderitzat multicolor per a les rutes de senderisme i bicicleta
-- La navegació per bicicleta ara utilitza el rumb de la brúixola a velocitats baixes
-- S'ha corregit un error del sistema en planificar rutes a prop d'algunes fronteres regionals
-- Ara pots començar una ruta vàlida fins i tot quan se't demani que descarreguis mapes addicionals
-
-## Marcadors i Traçats
-
-- NOVETAT! Canvieu tots els colors dels marcadors i les rutes d'una categoria alhora
-- S'ha ajustat l'aproximació del desnivell positiu i negatiu als gràfics de ruta perquè coincideixi millor amb altres aplicacions
-- Millorada la visualització de contingut HTML amb taules i imatges als detalls dels marcadors
-- S'han afegit separadors verticals per a les rutes de diversos segments al gràfic d'altitud
-- S'ha corregit la selecció de punts al gràfic d'altitud per als punts interpolats
-- S'ha corregit la pèrdua de punts en la gravació de la ruta GPS entre segments
-- S'ha corregit la importació de GeoJSON
-- S'ha corregit un bloqueig en exportar rutes
-
-## Cerca
-
-- Millora de la cerca als EUA, amb dos milions d'adreces addicionals processades a partir de les dades del cens TIGER
-- S'han actualitzat les categories de cerca: s'ha afegit "Pa" per a fleques, cuina "shawarma" i altres millores de sinònims
-- Millorada la cerca d'adreces amb número de casa
-- S'han afegit sinònims de carrers dels EUA: highway, hwy, freeway, fwy
-- S'han corregit els resultats de cerca quan el nom de la ciutat i de l'estat és el mateix
-
-## Editor / OpenStreetMap
-
-- Ara podeu afegir un lloc nou a OpenStreetMap després de seleccionar la vostra posició actual al mapa
-- S'ha corregit el desalineament del punt de mira de l'editor en prémer «Afegeix lloc»
-- S'ha augmentat la superfície tàctil dels botons de la barra de navegació «Afegeix lloc»
-
-## UI i UX
-
-- Millorats els gestos modals: ajustament al pas més proper, tancament en desplaçar-se per la vora i restauració de l'estat anterior en tornar-lo a obrir
-- S'ha corregit el tractament de l'horari d'estiu per a les zones horàries
-
-## Estabilitat i localització
-
-- Millorada l'estabilitat i el rendiment, i reduït el consum de bateria
-- Actualitzades les traduccions
+- NOVETAT! Toca una parada de transport públic per ressaltar tota la ruta al mapa, com en l'estil de mapa Transit.
+- NOVETAT! Les rutes de transport públic de llarga distància i altres relacions d'OpenStreetMap ara es connecten a través de les fronteres del mapa en una sola línia contínua.
+- Dades d'OpenStreetMap actualitzades a 3 de maig.
+- Vietnam i Malàisia ara estan dividits en regions més petites que es poden descarregar per separat.
+- Hong Kong, Macau i Hainan ara estan separats de Guangdong, i s'han actualitzat les fronteres veïnes.
+- S'han actualitzat les isòbates d'Indonèsia, Malàisia, Tanzània, Tailàndia i Vietnam.
+- S'ha afegit un botó per gravar una ruta al panell d'informació de la navegació.
+- S'han afegit nous tipus d'OpenStreetMap: volcans amb estat actiu, punts d'accés a vies navegables, rampes d'embarcament, salons de xala i edificis en construcció.
+- S'ha afegit «Lookout» com a sinònim de cerca per a miradors i «pkwy» com a sinònim de carrer dels EUA.
+- Els colors de les zones per a vianants són una mica més foscos per millorar la llegibilitat.
+- Les etiquetes de les marques de pàgina al mapa ja no es superposen.
+- El text de diverses línies ara es retalla correctament i els noms dels carrers ja no contenen duplicats.
+- Rutes: les rutes reanomenades ara eliminen els punts intermedis que ja heu passat.
+- S'ha corregit l'ús de la llista de marcadors incorrecta en les compilacions de TestFlight.
+- S'ha corregit la importació de fitxers KMB.
+- S'han actualitzat les traduccions revisades per a les categories, els sinònims de cerca i les cadenes d'interfície d'usuari. S'han afegit traduccions per a les descripcions de Nova Gal·les del Sud i del Territori del Nord.
+- S'ha millorat l'estabilitat i el rendiment, incloent-hi el modelatge de fonts, l'emmagatzematge en memòria cau de glifs i el retallat de línies de ruta.
+- S'ha millorat el gràfic d'altitud per a rutes i traçats.
+- S'han fet més grans els botons del menú de navegació per a accions com ara la lectura en veu alta (TTS), la configuració i la gravació de rutes.
+- S'ha perfeccionat l'animació de la secció de descripció desplegable a la pàgina del lloc.
+- La pàgina d'informació del lloc ja no es tanca quan acaba el desplaçament per la gràfica d'altitud, ja no fa rebots inesperats i manté el títol visible mentre s'edita amb el teclat obert.
+- S'han corregit els bloquejos en esborrar una pista o un marcador que ja no existeixen.
 
 ## Suport de plataformes
 
-- A causa dels canvis a TestFlight i l'App Store, aquesta versió només és compatible amb iOS 15 o posterior. Ja no es dona suport a iOS 12, 13 i 14.
+- A causa dels canvis a TestFlight i a l'App Store, aquesta versió només és compatible amb iOS 15 o posterior. Ja no es dona suport a iOS 12, iOS 13 i iOS 14.
