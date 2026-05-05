@@ -1,8 +1,7 @@
-• Pasirinkite pėsčiųjų ir dviračių maršrutus, kad pamatytumėte jų aukščio diagramas
-• Tinkamas žemėlapio apvedimas ties antimeridianu (±180° ilgumos)
-• Vienu metu pakeiskite visas žymeklių ir trasų spalvas kategorijoje
-• Geresnė namų numerių paieška, aprėpiama daugiau JAV adresų
-• OSM duomenys nuo balandžio 4 d.
-• Suplanuotos išvaizdos režimas nustatymuose
-• Ištaisytas žymeklių ir takelių bendrinimas su kitomis programomis
-…daugiau adresu omaps.org/lt/news
+• Bakstelėkite viešojo transporto stotelę ir pasirinkite maršruto numerius, kad žemėlapyje paryškintumėte maršrutus
+• Žymeklių etiketės žemėlapyje nebepersidengia
+• Nauji "OpenStreetMap" duomenys nuo gegužės 3 d. su naujais objektų tipais
+• Patobulintos trasų ir maršrutų aukščio diagramos
+• Mažesni Vietnamo, Malaizijos, Honkongo, Makao ir Hainano žemėlapių atsisiuntimai
+• Patobulinta vartotojo sąsaja ir animacijos
+…daugiau - omaps.org/lt/news

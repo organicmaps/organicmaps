@@ -1,9 +1,7 @@
-• Yükseklik grafiklerini görmek için yürüyüş ve bisiklet rotalarını seçin
-• Antimeridyende haritanın doğru sarılması (±180° boylam)
-• Bir kategorideki tüm yer imi ve iz renklerini aynı anda değiştirin
-• Ev numaraları için daha iyi arama, daha fazla ABD adresi kapsandı
-• OSM verileri 4 Nisan itibariyle
-• Ayarlar'da zamanlanmış görünüm modu
-• Diğer uygulamalarla yer imi/iz paylaşımı düzeltildi
-• Harita düzenlemelerinin OSM'ye yüklenmesi düzeltildi
+• Harita üzerinde rotaları vurgulamak için bir toplu taşıma durağına dokunun ve rota numaralarını seçin
+• Yer imi etiketleri artık haritada üst üste gelmiyor
+• Yeni nesne türleriyle birlikte 3 Mayıs itibarıyla yeni OpenStreetMap verileri
+• Parkurlar ve rotalar için geliştirilmiş yükseklik grafikleri
+• Vietnam, Malezya, Hong Kong, Makao ve Hainan için daha küçük harita indirmeleri
+• Geliştirilmiş kullanıcı arayüzü ve animasyonlar
 …daha fazlası omaps.org/tr/news adresinde

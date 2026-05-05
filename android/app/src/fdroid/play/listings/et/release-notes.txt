@@ -1,9 +1,7 @@
-• Valige matkarajad ja jalgrattamarsruudid, et näha nende kõrgusdiagramme
-• Korralik kaardimähis antimeridiaanil (±180° pikkuskraadi)
-• Kõikide kategooriate järjehoidjate ja radade värvide muutmine korraga
-• Parem majanumbrite otsing, rohkem USA aadresse kaetud
-• OSMi andmed seisuga 4. aprill
-• Planeeritud ilmumisrežiim seadetes
-• Parandatud järjehoidjate/jälgede jagamine teistele rakendustele
-• Parandatud kaardi redigeerimise üleslaadimine OSM-i
-…rohkem aadressil omaps.org/et/news
+• Koputage ühistranspordipeatust ja valige marsruudi numbrid, et kaardil marsruute esile tõsta.
+• Järjehoidja sildid ei kattu enam kaardil
+• Värsked OpenStreetMapi andmed alates 3. maist, uute objektitüüpidega
+• Paremad kõrguskaardid radade ja marsruutide jaoks
+• Väiksemate kaartide allalaadimine Vietnami, Malaisia, Hongkongi, Aomeni ja Hainani jaoks.
+• Täiustatud kasutajaliides ja animatsioonid
+…lisateave omaps.org/et/news

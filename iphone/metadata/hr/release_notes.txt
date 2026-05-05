@@ -1,56 +1,26 @@
-## Karta
-
-- NOVO! Ispravno prelamanje karte na antimeridijanu pri povlačenju i rotiranju
-- Podaci OpenStreetMapa ažurirani do 4. travnja
-- Podaci Wikipedije ažurirani do 1. travnja
-- Dodane su ikone za zone hrane i gradska vrata
-- Dodane su podkategorije za trgovine odjećom: ženska, muška, dječja, vjenčana, sportska, donje rublje i uredska odjeća
-- Ispravljene su boje linija podzemne željeznice u Sydneyju
-- Ispravljen je prikaz radnog vremena za lokacije s pomakom izlaska/zalaska sunca
-
-## Usmjeravanje i navigacija
-
-- NOVO! Dodirnite biciklističku ili pješačku rutu kako biste je odabrali i vidjeli njezin visinski profil
-- Poboljšano je višebojno prikazivanje pješačkih i biciklističkih ruta
-- Navigacija za bicikliranje sada koristi smjer kompasa pri malim brzinama
-- Ispravljena je sistemska pogreška pri planiranju ruta u blizini nekih regionalnih granica
-- Sada možete započeti valjanu rutu čak i kada se od vas traži da preuzmete dodatne karte
-
-## Oznake i tragovi
-
-- NOVO! Promijenite sve boje oznaka i tragova u kategoriji odjednom
-- Prilagođena je aproksimacija uspona i spusta na grafikonima tragova kako bi bolje odgovarala drugim aplikacijama
-- Poboljšan je prikaz HTML sadržaja s tablicama i slikama u detaljima oznaka
-- Dodani su vertikalni razdjelnici za višesegmentne tragove na grafikonu nadmorske visine
-- Popravljen je odabir točaka na grafikonu nadmorske visine za interpolirane točke
-- Popravljen je gubitak točaka pri snimanju GPS traga između segmenata
-- Popravljen je uvoz GeoJSON datoteka
-- Popravljen je pad aplikacije pri izvozu tragova
-
-## Pretraživanje
-
-- Bolje pretraživanje u SAD-u, s dva milijuna dodatnih adresa izdvojenih iz podataka popisa stanovništva TIGER
-- Ažurirane kategorije pretraživanja: dodani su "Kruh" za pekare, kuhinja "Shawarma" i druga poboljšanja sinonima
-- Poboljšano je pretraživanje adresa s kućnim brojem
-- Dodani su sinonimi za američke ulice: highway, hwy, freeway, fwy
-- Ispravljeni su rezultati pretraživanja kada su nazivi grada i države isti
-
-## Uređivač / OpenStreetMap
-
-- Sada možete dodati novo mjesto na OpenStreetMap nakon odabira svoje trenutačne pozicije na karti
-- Ispravljeno je neusklađivanje nišana u uređivaču pri pritisku na "Dodaj mjesto"
-- Povećano je dodirno područje gumba u navigacijskoj traci "Dodaj mjesto"
-
-## Korisničko sučelje i korisničko iskustvo
-
-- Poboljšane modalne geste: prijanjanje uz najbliži korak, zatvaranje pri povlačenju uz rub i vraćanje prethodnog stanja pri ponovnom otvaranju
-- Ispravljeno je rukovanje ljetnim vremenom za vremenske zone
-
-## Stabilnost i lokalizacija
-
-- Poboljšane stabilnost i performanse, smanjena je potrošnja baterije
-- Ažurirani prijevodi
+- NOVO! Dodirnite stajalište javnog prijevoza kako biste istaknuli cijelu rutu na karti, kao u stilu karte Transit.
+- NOVO! Rute javnog prijevoza na duge relacije i druge OpenStreetMap relacije sada su povezane preko granica karata u jednu neprekinutu liniju.
+- Podaci OpenStreetMap ažurirani do 3. svibnja.
+- Vijetnam i Malezija sada su podijeljeni na manje regije koje se mogu zasebno preuzeti.
+- Hong Kong, Makao i Hainan sada su odvojeni od Guangdonga, a susjedne su granice ažurirane.
+- Ažurirane su izohipse za Indoneziju, Maleziju, Tanzaniju, Tajland i Vijetnam.
+- Dodan je gumb za snimanje staze u informativni panel za vrijeme navigacije.
+- Dodani su novi tipovi iz OpenStreetMapa: vulkani s aktivnim statusom, pristupne točke vodenim putevima, klizne rampe, lokali za shisha i zgrade u izgradnji.
+- Dodan je "Lookout" kao sinonim za pretraživanje vidikovaca i "pkwy" kao sinonim za američke ceste.
+- Boje pješačkih zona su nešto tamnije radi bolje čitljivosti.
+- Oznake oznaka na karti se više ne preklapaju.
+- Višoredni tekst sada se uredno skraćuje, a nazivi ulica više ne sadrže duplikate.
+- Uspostavljanje rute: nastavljene rute sada uklanjaju međustanice koje ste već prošli.
+- Ispravljena je pogreška pri korištenju pogrešne liste oznaka u verzijama za TestFlight.
+- Ispravljen je uvoz KMB datoteka.
+- Ažurirani su lektorirani prijevodi za kategorije, sinonime za pretraživanje i tekstove korisničkog sučelja. Dodani su prijevodi za opise Novog Južnog Walesa i Sjevernog Teritorija.
+- Poboljšana je stabilnost i performanse, uključujući oblikovanje fonta, keširanje znakova i obrezivanje linija ruta.
+- Poboljšan je grafikon nadmorske visine za staze i rute.
+- Povećana su gumba u izborniku za navigaciju za radnje kao što su TTS, postavke i snimanje staze.
+- Poboljšana je animacija odjeljka s opisom koji se može proširiti na stranici mjesta.
+- Stranica s informacijama o mjestu više se ne zatvara kada završi pomicanje grafikona nadmorske visine, više se ne zatvara i otvara neočekivano te zadržava naslov vidljivim dok se uređuje s otvoritom tipkovnicom.
+- Ispravljeni su padovi pri brisanju staze ili oznake koja više ne postoji.
 
 ## Podrška za platforme
 
-- Zbog promjena u TestFlightu i App Storeu, ovo izdanje podržava samo iOS 15 i novije verzije. iOS 12, 13 i 14 više nisu podržani.
+- Zbog promjena u sustavima TestFlight i App Store, ovo izdanje podržava samo iOS 15 i novije verzije. iOS 12, iOS 13 i iOS 14 više nisu podržani.
