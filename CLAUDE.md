@@ -14,7 +14,7 @@ Libraries in `libs/` are strictly layered -- no circular or upward dependencies 
 4. **Domain:** `search`, `routing`, `storage` (map downloads), `traffic`
 5. **Rendering:** `drape` (OpenGL/Vulkan/Metal abstraction), `drape_frontend` (scene management), `shaders`
 6. **Application:** `map` (Framework class -- aggregates all subsystems)
-7. **UI:** in the project's root: `qt/` (desktop), `iphone/` (iOS), `android/` (Android)
+7. **UI:** in the project's root: `qt/` (desktop), `iphone/` (iOS), `android/` (Android), `dev_sandbox/` (graphics dev tool)
 
 Key namespaces: `m2::` (2D geometry, e.g. `m2::PointD`, `m2::RectD`), `ms::LatLon` (WGS84), `mercator::` (coordinate conversion), `search::`, `routing::`, `storage::`, `kml::`
 
@@ -83,7 +83,7 @@ LOG(LERROR, ("error"));
 DECLARE_EXCEPTION(MyException, RootException);
 MYTHROW(MyException, ("Cannot process", filename));
 
-// All major types should implement DebugPrint():
+// All major types used in LOG and CHECK/ASSERT should implement DebugPrint():
 std::string DebugPrint(MyType const & t);
 ```
 
@@ -107,7 +107,7 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R te
 ### Common build targets
 - `desktop` -- Qt desktop app
 - `generator_tool` -- map generation CLI
-- `dev_sandbox` -- developer debugging tool
+- `dev_sandbox` -- developer graphics engine debugging tool
 - `<lib>_tests` -- test binary for a library (e.g., `base_tests`, `search_tests`, `routing_tests`)
 - `skin_generator_tool`, `track_generator_tool`, `topography_generator_tool` -- auxiliary tools
 
@@ -142,8 +142,9 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 
 ## Main focus
 - On performance, simplicity, regressions, impact and code quality
-- Unit tests covering most/all corner cases or changes
+- Tests covering most/all corner cases or changes
 - Less code/cleaner code/less changes
+- Simple architecture and design for long-term maintenance
 
 ## Code review guidelines
 - Use `gh` CLI tool to review pull requests, leave comments and approve changes
