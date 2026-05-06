@@ -1625,8 +1625,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
     if (m_drapeEngine)
     {
-      m_drapeEngine->SetTileBackgroundData(tileKey, kTileSize, kTileSize, dp::TextureFormat::RGBA8, mode,
-                                           std::vector<uint8_t>(kPixels));
+      // For debug implementation, we generate image UID based on tile key, so each tile will have its own background image.
+      // In full implementation, the caller side must decide if new background image must be added or reused.
+      std::string const imageUid = tileKey.Coord2String();
+      m_drapeEngine->AddTileBackgroundImage(imageUid, kTileSize, kTileSize, dp::TextureFormat::RGBA8, mode,
+                                            std::vector<uint8_t>(kPixels));
+      m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, m2::RectF(0.0f, 0.0f, 1.0f, 1.0f));
     }
 #else
   // Handle cancellation of tile background reading for the specified tile and mode.

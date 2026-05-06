@@ -110,9 +110,15 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 # Exception for some of our math to work reliably.
-# Ubuntu x86_64 gcc 14.2.0 ignores -fno-finite-math-only in debug builds without -O1
+# Ubuntu x86_64 gcc 14.2.0 ignores -fno-finite-math-only in debug builds without -O1.
+# Xcode generator does not support per-config per-source COMPILE_OPTIONS, so the
+# -O1 workaround (only needed for GCC) is omitted there.
 if (NOT MSVC)
-  set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;$<$<CONFIG:DEBUG>:-O1>")
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT CMAKE_GENERATOR STREQUAL "Xcode")
+    set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;$<$<CONFIG:DEBUG>:-O1>")
+  else()
+    set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only")
+  endif()
 endif()
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)

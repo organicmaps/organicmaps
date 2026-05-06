@@ -92,22 +92,31 @@ if (PLATFORM_WIN)
   )
 endif()
 
-# Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
-if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  add_definitions(-DDEBUG)
-  if (NOT MSVC)
-    add_compile_options(-fno-omit-frame-pointer)
-  endif()
-elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
-  add_definitions(-DRELEASE)
-  if (NOT MSVC)
-    add_compile_options(-O3)
-  endif()
-else()
-  message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
+# Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel.
+# Use generator expressions so this also works with multi-config generators
+# (Xcode, Visual Studio, Ninja Multi-Config) where CMAKE_BUILD_TYPE is empty
+# at configure time and the active config is only known per-build.
+add_compile_definitions(
+  $<$<CONFIG:Debug>:DEBUG>
+  $<$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>,$<CONFIG:MinSizeRel>>:RELEASE>
+)
+if (NOT MSVC)
+  add_compile_options(
+    $<$<CONFIG:Debug>:-fno-omit-frame-pointer>
+    $<$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>,$<CONFIG:MinSizeRel>>:-O3>
+  )
 endif()
 
-message(STATUS "Build type: " ${CMAKE_BUILD_TYPE})
+# For single-config generators we can still validate CMAKE_BUILD_TYPE early.
+get_property(_is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+if (NOT _is_multi_config)
+  if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug" AND NOT CMAKE_BUILD_TYPE MATCHES "Rel")
+    message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
+  endif()
+  message(STATUS "Build type: " ${CMAKE_BUILD_TYPE})
+else()
+  message(STATUS "Multi-config generator: build type selected per-build (Debug/Release/RelWithDebInfo/MinSizeRel)")
+endif()
 
 if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   find_program(LLD_FOUND ld.lld)

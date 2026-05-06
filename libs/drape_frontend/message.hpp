@@ -110,9 +110,10 @@ public:
     OnEnterBackground,
     Arrow3dRecache,
     VisualScaleChanged,
+    AddTileBackgroundImage,
     SetTileBackgroundData,
     SetTileBackgroundMode,
-    AssignTileBackgroundTexture
+    AssignTileBackgroundImage
   };
 
   virtual ~Message() = default;
