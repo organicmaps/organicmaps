@@ -12,15 +12,15 @@
 #include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
 
+#include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include "base/buffer_vector.hpp"
 
-#include <deque>
-#include <optional>
+#include <list>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
-#include <vector>
 
 namespace df
 {
@@ -40,21 +40,40 @@ public:
   void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage, int currentZoomLevel,
                         buffer_vector<TileKey, 8> const & tilesToDelete);
 
-  void AssignTileBackgroundTexture(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                                   ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
-                                   dp::BackgroundMode mode);
+  // Registers an image (uploaded by the backend) with the given uid. The image starts unreferenced;
+  // it lives in the unreferenced LRU until SetTileBackgroundData binds it to a tile.
+  void AssignTileBackgroundImage(ref_ptr<dp::GraphicsContext> context, std::string const & uid,
+                                 ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
+                                 dp::BackgroundMode mode);
+
+  // Binds a tile to an image with a sub-rect (full image is (0, 0, 1, 1)).
+  void SetTileBackgroundData(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                             std::string const & imageUid, m2::RectF const & rect);
 
   void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode);
   dp::BackgroundMode GetBackgroundMode() const;
 
 private:
-  struct TextureInfo
+  struct ImageInfo
   {
     ref_ptr<dp::TexturePool> m_texturePool;
     dp::TexturePool::TextureId m_textureId{};
+    dp::BackgroundMode m_mode = dp::BackgroundMode::Default;
+    uint32_t m_refCount = 0;
   };
-  void RemoveTexture(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, TextureInfo const & info);
-  std::optional<TextureInfo> RestoreRemovedTexture(TileKey const & tileKey);
+
+  struct TileBinding
+  {
+    std::string m_imageUid;
+    m2::RectF m_rect;
+  };
+
+  // Decrements refcount; if it reaches 0, pushes uid to the unreferenced LRU.
+  void ReleaseImageRef(ref_ptr<dp::GraphicsContext> context, std::string const & uid);
+  // Increments refcount; if it was 0, removes uid from the unreferenced LRU.
+  void AcquireImageRef(std::string const & uid);
+  // Drops the per-tile binding (if any) and decrements its image refcount.
+  void ReleaseTileBinding(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey);
 
   MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;
   MapDataProvider::TCancelTileBackgroundReadingFn m_cancelTileBackgroundReadingFn;
@@ -62,10 +81,11 @@ private:
   dp::BackgroundMode m_currentMode = dp::BackgroundMode::Default;
 
   std::unordered_set<TileKey> m_awaitingTiles;
-  std::unordered_map<TileKey, TextureInfo> m_tileTextures;
+  std::unordered_map<TileKey, TileBinding> m_tiles;
 
-  using RemoveTexturesList = std::deque<std::pair<TileKey, TextureInfo>>;
-  RemoveTexturesList m_removedTextures;
+  std::unordered_map<std::string, ImageInfo> m_images;
+  // LRU of image uids whose refCount == 0 (oldest at front). Bounded by kMaxUnreferencedImages.
+  std::list<std::string> m_unreferencedLRU;
 
   CoverageResult m_lastCoverage;
   int m_lastCurrentZoomLevel = 0;

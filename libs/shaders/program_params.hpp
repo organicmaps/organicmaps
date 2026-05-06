@@ -224,6 +224,7 @@ struct ALIGNMENT SMAAProgramParams
 struct ALIGNMENT TileBackgroundProgramParams
 {
   glsl::vec4 m_tileCoordsMinMax[kTileBackgroundMaxCount];
+  glsl::vec4 m_textureRectMinMax[kTileBackgroundMaxCount];
   int m_textureIndex[kTileBackgroundMaxCount];
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
