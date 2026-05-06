@@ -2,6 +2,8 @@ package app.organicmaps.sdk.sound;
 
 import android.content.Context;
 import android.database.ContentObserver;
+import android.media.AudioManager;
+import android.media.audiofx.LoudnessEnhancer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,6 +43,9 @@ public enum TtsPlayer
   private static final String TAG = TtsPlayer.class.getSimpleName();
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.0f;
+  private static final float MAX_TTS_VOLUME = 1.0f;
+  private static final float AMPLITUDE_TO_DECIBELS = 60.0f * (float) Math.log10(Config.TTS.Defaults.VOLUME_MAX);
+  private static final float MILLIBELS_IN_DECIBEL = 100.0f;
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
   private static final String TTS_SILENT_UTTERANCE_ID = "SILENT_DELAY";
 
@@ -97,6 +102,11 @@ public enum TtsPlayer
   private boolean mInitializing;
   private boolean mReloadTriggered = false;
   private AudioFocusManager mAudioFocusManager;
+  private int mAudioSessionId = AudioManager.ERROR;
+  private boolean mLoudnessEnhancerUnavailable;
+
+  @Nullable
+  private LoudnessEnhancer mLoudnessEnhancer;
 
   private final Bundle mParams = new Bundle();
 
@@ -201,7 +211,7 @@ public enum TtsPlayer
       mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
       mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
       mAudioFocusManager = new AudioFocusManager(context, this::stop);
-      mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
+      applyVolume(Config.TTS.getVolume());
       mInitializing = false;
       if (mReloadTriggered && sOnReloadCallback != null)
       {
@@ -220,6 +230,7 @@ public enum TtsPlayer
           mReloadTriggered = true;
           if (mTts != null)
           {
+            releaseLoudnessEnhancer();
             mTts.shutdown();
             mTts = null;
           }
@@ -331,8 +342,101 @@ public enum TtsPlayer
 
   public void setVolume(final float volume)
   {
-    mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, volume);
+    applyVolume(volume);
     Config.TTS.setVolume(volume);
+  }
+
+  public static float getBoostGainDb(final float volume)
+  {
+    if (volume <= MAX_TTS_VOLUME)
+      return 0.0f;
+
+    final float boostRange = Config.TTS.Defaults.VOLUME_MAX - MAX_TTS_VOLUME;
+    final float boostProgress = Math.min((volume - MAX_TTS_VOLUME) / boostRange, 1.0f);
+    return boostProgress * AMPLITUDE_TO_DECIBELS;
+  }
+
+  private void applyVolume(final float volume)
+  {
+    mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Math.min(volume, MAX_TTS_VOLUME));
+
+    if (volume <= MAX_TTS_VOLUME)
+    {
+      releaseLoudnessEnhancer();
+      return;
+    }
+
+    enableLoudnessEnhancer(volume);
+  }
+
+  private boolean ensureAudioSessionId()
+  {
+    if (mAudioSessionId != AudioManager.ERROR)
+      return true;
+
+    if (mContext == null)
+      return false;
+
+    final AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+    if (audioManager == null)
+    {
+      Logger.w(TAG, "Failed to get AudioManager for TTS loudness boost");
+      return false;
+    }
+
+    mAudioSessionId = audioManager.generateAudioSessionId();
+    if (mAudioSessionId == AudioManager.ERROR)
+    {
+      Logger.w(TAG, "Failed to generate audio session for TTS loudness boost");
+      return false;
+    }
+
+    return true;
+  }
+
+  private void enableLoudnessEnhancer(final float volume)
+  {
+    if (mLoudnessEnhancerUnavailable || !ensureAudioSessionId())
+      return;
+
+    mParams.putInt(TextToSpeech.Engine.KEY_PARAM_SESSION_ID, mAudioSessionId);
+
+    try
+    {
+      if (mLoudnessEnhancer == null)
+        mLoudnessEnhancer = new LoudnessEnhancer(mAudioSessionId);
+
+      final int gainMb = Math.round(getBoostGainDb(volume) * MILLIBELS_IN_DECIBEL);
+      mLoudnessEnhancer.setTargetGain(gainMb);
+      mLoudnessEnhancer.setEnabled(true);
+    }
+    catch (RuntimeException e)
+    {
+      Logger.w(TAG, "Failed to enable TTS loudness boost", e);
+      mLoudnessEnhancerUnavailable = true;
+      releaseLoudnessEnhancer();
+    }
+  }
+
+  private void releaseLoudnessEnhancer()
+  {
+    mParams.remove(TextToSpeech.Engine.KEY_PARAM_SESSION_ID);
+
+    if (mLoudnessEnhancer == null)
+      return;
+
+    try
+    {
+      mLoudnessEnhancer.release();
+    }
+    catch (RuntimeException e)
+    {
+      Logger.w(TAG, "Failed to release TTS loudness boost", e);
+    }
+    finally
+    {
+      mLoudnessEnhancer = null;
+    }
   }
 
   private boolean getUsableLanguages(List<LanguageData> outList)
