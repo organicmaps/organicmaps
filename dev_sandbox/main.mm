@@ -280,8 +280,8 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, 
     NSScreen * screen = [NSScreen mainScreen];
     CGFloat factor = [screen backingScaleFactor];
     layer.contentsScale = factor;
-    nswindow.contentView.layer = layer;
     nswindow.contentView.wantsLayer = YES;
+    nswindow.contentView.layer = layer;
 
     return make_unique_dp<MetalContextFactory>(layer, size);
   }
@@ -297,8 +297,8 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, 
     NSScreen * screen = [NSScreen mainScreen];
     CGFloat factor = [screen backingScaleFactor];
     layer.contentsScale = factor;
-    nswindow.contentView.layer = layer;
     nswindow.contentView.wantsLayer = YES;
+    nswindow.contentView.layer = layer;
 
     auto contextFactory = make_unique_dp<MacOSVulkanContextFactory>();
     contextFactory->SetSurface(layer);
