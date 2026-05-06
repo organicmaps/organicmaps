@@ -26,6 +26,7 @@
 #include "platform/location.hpp"
 #include "platform/placement_settings.hpp"
 
+#include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
 
@@ -255,8 +256,9 @@ public:
 
   void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
 
-  void SetTileBackgroundData(df::TileKey const & tileKey, uint32_t width, uint32_t height, dp::TextureFormat format,
-                             dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
+  void AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height, dp::TextureFormat format,
+                              dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
+  void SetTileBackgroundData(df::TileKey const & tileKey, std::string const & imageUid, m2::RectF const & rect);
   void SetTileBackgroundMode(dp::BackgroundMode mode);
 
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); }
