@@ -237,17 +237,15 @@ void ImguiRenderer::UpdateBuffers()
   {
     std::lock_guard<std::mutex> lock(m_bufferMutex);
 
-    // Projection
+    // Orthographic projection (transposed for `vec * mat` shader convention).
     float const left = dd->DisplayPos.x;
     float const right = dd->DisplayPos.x + dd->DisplaySize.x;
     float const top = dd->DisplayPos.y;
     float const bottom = dd->DisplayPos.y + dd->DisplaySize.y;
-    m_projection[0][0] = 2.0f / (right - left);
-    m_projection[1][1] = 2.0f / (top - bottom);
-    m_projection[2][2] = -1.0f;
-    m_projection[3][3] = 1.0f;
-    m_projection[0][3] = -(right + left) / (right - left);
-    m_projection[1][3] = -(top + bottom) / (top - bottom);
+    m_projection = glsl::mat4(2.0f / (right - left), 0.0f, 0.0f, -(right + left) / (right - left),  // col 0
+                              0.0f, 2.0f / (top - bottom), 0.0f, -(top + bottom) / (top - bottom),  // col 1
+                              0.0f, 0.0f, -1.0f, 0.0f,                                              // col 2
+                              0.0f, 0.0f, 0.0f, 1.0f);                                              // col 3
 
     // Swap buffers
     m_updateIndex = (m_updateIndex + 1) % m_uiDataBuffer.size();
