@@ -421,7 +421,11 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
                                                category: bookmarkData.bookmarkGroupId)
     case .track:
       guard let trackData = placePageData.trackData, let category = trackData.category else {
-        fatalError("Editing title requires trackData with an owning category")
+        // canEditTitle (PlacePageHeaderPresenter) already gates non-temp-relation tracks; a nil
+        // category here means a non-temp track whose user category vanished (e.g. corrupted state).
+        // Surface in debug, ignore the input in release rather than crashing the app.
+        assertionFailure("Editing title requires trackData with an owning category")
+        return
       }
       MWMPlacePageManagerHelper.updateTrack(placePageData,
                                             title: newTitle,

@@ -198,7 +198,7 @@ using namespace storage;
   // PlacePageTrackData.category is nil for tracks without an owning category (e.g. OSM relation
   // tracks), so we fall back to LastEditedBMCategory for those.
   if (info.IsTrack() && data.trackData.category)
-    categoryId = static_cast<kml::MarkGroupId>(data.trackData.category.groupId);
+    categoryId = data.trackData.category.groupId;
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
