@@ -194,15 +194,11 @@ using namespace storage;
   auto & bmManager = f.GetBookmarkManager();
   auto & info = f.GetCurrentPlacePageInfo();
   kml::MarkGroupId categoryId = f.LastEditedBMCategory();
-  // For a track that already lives in a user category, save the new bookmark in the same category.
-  // Tracks without an owning category (e.g. OSM relation tracks) expose groupId == 0 here, which is
-  // not a valid MarkGroupId and would abort GetBmCategory — fall back to LastEditedBMCategory then.
-  if (info.IsTrack())
-  {
-    auto const trackGroupId = static_cast<kml::MarkGroupId>(data.trackData.groupId);
-    if (trackGroupId != categoryId && bmManager.HasBmCategory(trackGroupId))
-      categoryId = trackGroupId;
-  }
+  // For a track that already lives in a user category, save the new bookmark in that category.
+  // PlacePageTrackData.category is nil for tracks without an owning category (e.g. OSM relation
+  // tracks), so we fall back to LastEditedBMCategory for those.
+  if (info.IsTrack() && data.trackData.category)
+    categoryId = static_cast<kml::MarkGroupId>(data.trackData.category.groupId);
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();

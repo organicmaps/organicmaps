@@ -420,13 +420,13 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
                                                color: bookmarkData.color,
                                                category: bookmarkData.bookmarkGroupId)
     case .track:
-      guard let trackData = placePageData.trackData else {
-        fatalError("trackData can't be nil")
+      guard let trackData = placePageData.trackData, let category = trackData.category else {
+        fatalError("Editing title requires trackData with an owning category")
       }
       MWMPlacePageManagerHelper.updateTrack(placePageData,
                                             title: newTitle,
                                             color: trackData.color,
-                                            category: trackData.groupId)
+                                            category: category.groupId)
     default:
       fatalError("Editing title is only supported for bookmarks and tracks")
     }
@@ -447,7 +447,7 @@ extension PlacePageInteractor: BookmarksObserver {
   }
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
-    if placePageData.bookmarkData?.bookmarkGroupId == groupId || placePageData.trackData?.groupId == groupId {
+    if placePageData.bookmarkData?.bookmarkGroupId == groupId || placePageData.trackData?.category?.groupId == groupId {
       presenter?.close()
     }
   }
