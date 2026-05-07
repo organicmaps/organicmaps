@@ -70,7 +70,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       isHtmlDescription = bookmarkData.isHtmlDescription
     case .track(let trackData):
       iconColor = trackData.color ?? .buttonRed
-      category = trackData.category?.name
+      category = trackData.trackCategory
       description = trackData.trackDescription
       isHtmlDescription = false
     }
@@ -102,12 +102,14 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
   private func showGroupPicker() {
     guard let data else { return }
     let groupId: MWMMarkGroupID
+    let groupName: String?
     switch data {
     case .bookmark(let bookmarkData):
       groupId = bookmarkData.bookmarkGroupId
+      groupName = bookmarkData.bookmarkCategory
     case .track(let trackData):
-      guard let category = trackData.category else { return }
-      groupId = category.groupId
+      groupId = trackData.groupId
+      groupName = trackData.trackCategory
     }
     let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)
     let navigationController = UINavigationController(rootViewController: groupViewController)
@@ -121,8 +123,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
     case .bookmark(let bookmarkData):
       delegate?.didUpdate(color: color ?? bookmarkData.color.color, category: category ?? bookmarkData.bookmarkGroupId, for: data)
     case .track(let trackData):
-      guard let currentCategory = trackData.category else { return }
-      delegate?.didUpdate(color: color ?? trackData.color!, category: category ?? currentCategory.groupId, for: data)
+      delegate?.didUpdate(color: color ?? trackData.color!, category: category ?? trackData.groupId, for: data)
     }
   }
 }

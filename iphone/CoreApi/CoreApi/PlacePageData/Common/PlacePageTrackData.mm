@@ -2,21 +2,6 @@
 #import "PlacePageTrackData+Core.h"
 #import "TrackInfo+Core.h"
 
-@implementation PlacePageTrackCategory
-
-- (instancetype)initWithGroupId:(MWMMarkGroupID)groupId name:(NSString *)name
-{
-  self = [super init];
-  if (self)
-  {
-    _groupId = groupId;
-    _name = [name copy];
-  }
-  return self;
-}
-
-@end
-
 @interface PlacePageTrackData ()
 
 @property(nonatomic, readwrite) double activePointDistance;
@@ -63,9 +48,12 @@
     _trackId = track.GetData().m_id;
     _isTempRelationTrack = (_trackId == kml::kTempRelationTrackId);
 
-    auto const groupId = track.GetGroupId();
-    if (bm.HasBmCategory(groupId))
-      _category = [[PlacePageTrackCategory alloc] initWithGroupId:groupId name:@(bm.GetCategoryName(groupId).c_str())];
+    auto const & groupId = track.GetGroupId();
+    if (groupId && bm.HasBmCategory(groupId))
+    {
+      _groupId = groupId;
+      _trackCategory = [NSString stringWithCString:bm.GetCategoryName(groupId).c_str() encoding:NSUTF8StringEncoding];
+    }
 
     auto const color = track.GetColor(0);
     _color = [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:1.f];

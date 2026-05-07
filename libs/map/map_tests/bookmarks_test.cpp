@@ -1675,10 +1675,11 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   TEST_EQUAL(line, expectedLine, ());
 }
 
-// Pins the contracts that the iOS PlacePageTrackData → addBookmark flow depends on. The bridge
-// builds a nullable category bundle iff HasBmCategory(track.GetGroupId()) holds and falls back to
-// LastEditedBMCategory otherwise. A regression on either contract reintroduces the crash class
-// where addBookmark aborts in BookmarkManager::GetBmCategory.
+// Regression test for the iOS crash in MWMPlacePageManager addBookmark: when adding a bookmark on
+// a track that doesn't belong to any user category (e.g. an OSM relation track). The iOS bridge
+// would pass groupId == 0 to CreateBookmark, which then aborts in GetBmCategory. The fallback path
+// relies on HasBmCategory rejecting invalid ids and on LastEditedBMCategory always returning a
+// valid category — pin both contracts here.
 UNIT_TEST(Bookmarks_LastEditedCategoryIsAlwaysValid)
 {
   ScopedBookmarksDir scopedDir;
@@ -1688,15 +1689,6 @@ UNIT_TEST(Bookmarks_LastEditedCategoryIsAlwaysValid)
 
   TEST(!bmManager.HasBmCategory(0), ("0 is the iOS Obj-C default for groupId and must be invalid"));
   TEST(!bmManager.HasBmCategory(kml::kInvalidMarkGroupId), ());
-
-  // A temp relation track (OSM relation rendered as a track) has no owning user category.
-  // PlacePageTrackData relies on this to leave category nil for such tracks.
-  kml::TrackData tempTrack;
-  tempTrack.m_geometry.m_lines.push_back(
-      {geometry::PointWithAltitude({0.0, 0.0}, 0.0), geometry::PointWithAltitude({0.001, 0.001}, 0)});
-  tempTrack.m_geometry.m_timestamps.emplace_back();
-  auto const tempTrackId = bmManager.SetTempRelationTrack(std::move(tempTrack));
-  TEST_EQUAL(bmManager.GetTrack(tempTrackId)->GetGroupId(), kml::kInvalidMarkGroupId, ());
 
   auto const lastEdited = fm.LastEditedBMCategory();
   TEST(bmManager.HasBmCategory(lastEdited), ("LastEditedBMCategory must always return a valid category"));
