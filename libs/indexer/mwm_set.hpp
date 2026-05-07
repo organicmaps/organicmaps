@@ -131,6 +131,7 @@ public:
 
     void Reset() { m_info.reset(); }
     bool IsNull() const { return m_info == nullptr; }
+    /// @todo I suppose that m_info->GetStatus() == MwmInfo::STATUS_REGISTERED is better and more precise.
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
     bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
 
