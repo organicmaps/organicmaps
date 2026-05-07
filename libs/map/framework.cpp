@@ -368,7 +368,12 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
-  m_storage.SetStartDownloadingCallback([this]() { UpdatePlacePageInfoForCurrentSelection(); });
+  m_storage.SetStartDownloadingCallback([this]()
+  {
+    // Don't call UpdatePlacePageInfoForCurrentSelection -> BuildPlacePageInfo, just need to update UI.
+    if (m_currentPlacePageInfo && m_onPlacePageUpdate)
+      m_onPlacePageUpdate();
+  });
 
   UpdateMinBuildingsTapZoom();
 
@@ -2437,8 +2442,7 @@ void Framework::UpdatePlacePageInfoForCurrentSelection(std::optional<place_page:
   if (!m_currentPlacePageInfo)
     return;
 
-  m_currentPlacePageInfo =
-      BuildPlacePageInfo(overrideInfo.has_value() ? *overrideInfo : m_currentPlacePageInfo->GetBuildInfo());
+  m_currentPlacePageInfo = BuildPlacePageInfo(overrideInfo ? *overrideInfo : m_currentPlacePageInfo->GetBuildInfo());
 
   if (m_onPlacePageUpdate)
     m_onPlacePageUpdate();
