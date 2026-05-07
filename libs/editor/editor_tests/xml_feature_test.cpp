@@ -310,6 +310,43 @@ UNIT_TEST(XMLFeature_FromXMLAndBackToXML)
   TEST_EQUAL(fromEmo, xmlFeature, ());
 }
 
+UNIT_TEST(XMLFeature_ApplyJournalWithObsoleteCuisine)
+{
+  classificator::Load();
+
+  // 'cuisine-noodles' was renamed to 'cuisine-noodle' (commit e53cdbf6bf3d).
+  // A saved edit referencing the old path must not poison m_types with INVALID_TYPE,
+  // which would later crash Classificator::GetIndexForType during search.
+  std::string_view const data = R"(<?xml version="1.0"?>
+  <node lat="55.7978998" lon="37.474528" timestamp="2026-04-15T12:00:00Z">
+    <tag k="amenity" v="restaurant" />
+    <tag k="cuisine" v="noodles" />
+    <journal version="1.0">
+      <entry type="TagModification" timestamp="2026-04-15T12:00:00Z">
+        <data key="cuisine" old_value="" new_value="noodles" />
+      </entry>
+    </journal>
+    <journalHistory version="1.0">
+      <entry type="ObjectCreated" timestamp="2026-04-15T12:00:00Z">
+        <data type="amenity-restaurant" geomType="Point" lat="55.7978998" lon="37.474528" />
+      </entry>
+    </journalHistory>
+  </node>
+  )";
+
+  editor::XMLFeature xmlFeature(data);
+
+  osm::EditableMapObject emo;
+  osm::EditJournal journal = xmlFeature.GetEditJournal();
+  emo.ApplyEditsFromJournal(journal);
+
+  auto const & types = emo.GetTypes();
+  TEST_EQUAL(types.Size(), 1, ());
+  for (uint32_t const t : emo.GetTypes())
+    TEST_NOT_EQUAL(t, Classificator::INVALID_TYPE, ());
+  TEST(types.Has(classif().GetTypeByPath({"amenity", "restaurant"})), ());
+}
+
 UNIT_TEST(XMLFeature_AmenityRecyclingFromAndToXml)
 {
   classificator::Load();
