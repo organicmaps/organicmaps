@@ -130,6 +130,10 @@ ReadMetalineTask::ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const 
 
 void ReadMetalineTask::Run()
 {
+  /// @todo Naive check for now. Should refactor with MwmHandle lock here.
+  if (!m_mwmId.IsAlive() || !m_mwmId.GetInfo()->IsRegistered())
+    return;
+
   auto metalines = ReadMetalinesFromFile(m_mwmId);
   for (auto & metaline : metalines)
   {
