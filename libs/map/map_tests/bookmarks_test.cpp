@@ -1675,4 +1675,23 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   TEST_EQUAL(line, expectedLine, ());
 }
 
+// Regression test for the iOS crash in MWMPlacePageManager addBookmark: when adding a bookmark on
+// a track that doesn't belong to any user category (e.g. an OSM relation track). The iOS bridge
+// would pass groupId == 0 to CreateBookmark, which then aborts in GetBmCategory. The fallback path
+// relies on HasBmCategory rejecting invalid ids and on LastEditedBMCategory always returning a
+// valid category — pin both contracts here.
+UNIT_TEST(Bookmarks_LastEditedCategoryIsAlwaysValid)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  TEST(!bmManager.HasBmCategory(0), ("0 is the iOS Obj-C default for groupId and must be invalid"));
+  TEST(!bmManager.HasBmCategory(kml::kInvalidMarkGroupId), ());
+
+  auto const lastEdited = fm.LastEditedBMCategory();
+  TEST(bmManager.HasBmCategory(lastEdited), ("LastEditedBMCategory must always return a valid category"));
+}
+
 }  // namespace bookmarks_test
