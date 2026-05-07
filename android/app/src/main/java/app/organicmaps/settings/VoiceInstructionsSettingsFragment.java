@@ -171,7 +171,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
         return false;
 
       Utils.showSnackbar(view, getString(R.string.pref_tts_playing_test_voice));
-      TtsPlayer.INSTANCE.speak(mTtsTestStringArray.get(mTestStringIndex));
+      TtsPlayer.INSTANCE.playTurnNotifications(new String[] {mTtsTestStringArray.get(mTestStringIndex)});
       mTestStringIndex++;
       if (mTestStringIndex >= mTtsTestStringArray.size())
         mTestStringIndex = 0;
