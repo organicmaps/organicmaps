@@ -43,6 +43,22 @@ TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType(
   f.ForEachType([this](uint32_t type) { Add(type); });
 }
 
+void TypesHolder::SafeAdd(uint32_t type)
+{
+  // Reject Classificator::INVALID_TYPE: it can leak in via EditableMapObject::ApplyJournalEntry
+  // when an edit references a renamed/removed classifier path.
+  if (type == Classificator::INVALID_TYPE)
+    return;
+
+  if (!Has(type))
+  {
+    if (m_size < kMaxTypesCount)
+      Add(type);
+    else
+      LOG(LWARNING, ("Type could not be added, MaxTypesCount exceeded"));
+  }
+}
+
 bool TypesHolder::HasWithSubclass(uint32_t type) const
 {
   uint8_t const level = ftype::GetLevel(type);

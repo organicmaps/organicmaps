@@ -638,16 +638,16 @@ void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
       // Remove old cuisine values
       std::vector<std::string_view> oldCuisines = strings::Tokenize(tagModData.old_value, ";");
       for (std::string_view const cuisine : oldCuisines)
-        m_types.Remove(cl.GetTypeByPath({kTagCuisine, cuisine}));
+        m_types.Remove(cl.GetTypeByPathSafe({kTagCuisine, cuisine}));
       // Add new cuisine values
       std::vector<std::string_view> newCuisines = strings::Tokenize(tagModData.new_value, ";");
       for (std::string_view const cuisine : newCuisines)
-        m_types.SafeAdd(cl.GetTypeByPath({kTagCuisine, cuisine}));
+        m_types.SafeAdd(cl.GetTypeByPathSafe({kTagCuisine, cuisine}));
     }
     else if (tagModData.key == "diet:vegetarian")
     {
       Classificator const & cl = classif();
-      uint32_t const vegetarianType = cl.GetTypeByPath({kTagCuisine, "vegetarian"});
+      uint32_t const vegetarianType = cl.GetTypeByPathSafe({kTagCuisine, "vegetarian"});
       if (tagModData.new_value == "yes")
         m_types.SafeAdd(vegetarianType);
       else
@@ -656,7 +656,7 @@ void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
     else if (tagModData.key == "diet:vegan")
     {
       Classificator const & cl = classif();
-      uint32_t const veganType = cl.GetTypeByPath({kTagCuisine, "vegan"});
+      uint32_t const veganType = cl.GetTypeByPathSafe({kTagCuisine, "vegan"});
       if (tagModData.new_value == "yes")
         m_types.SafeAdd(veganType);
       else
