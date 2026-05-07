@@ -32,6 +32,9 @@ public:
   // touched (created, edited etc.) features reading.
   void operator()(MwmSet::MwmHandle const & handle, covering::CoveringGetter & cov, int scale) const
   {
+    /// @todo
+    /// - Check handle.IsAlive before and return.
+    /// - Refactor FeatureSource with ASSERT/CHECK inside instead of the silent skip.
     auto src = m_factory(handle);
 
     MwmValue const * mwmValue = handle.GetValue();
@@ -286,9 +289,9 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID>
   while (fidIter != endIter)
   {
     MwmId const & id = fidIter->m_mwmId;
-    if (id.IsAlive())
+    MwmHandle const handle = GetMwmHandleById(id);
+    if (handle.IsAlive())
     {
-      MwmHandle const handle = GetMwmHandleById(id);
       // Prepare features reading.
       auto src = (*m_factory)(handle);
       do
