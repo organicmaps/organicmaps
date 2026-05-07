@@ -104,9 +104,24 @@ inline std::string DebugPrint(FileType const fileType)
 
 /// @name File name/path helpers.
 /// @{
+
+// File-name limit per component, in the units the local filesystem uses for
+// NAME_MAX: UTF-16 code units on Apple (APFS/HFS+) and UTF-8 bytes elsewhere
+// (ext4/F2FS on Linux/Android, NTFS on Windows). 200 leaves headroom inside
+// the kernel's 255-unit budget for ".geojson", the ".tmp<thread_id>" suffix
+// from WriteToTempAndRenameToFile, and GenerateUniqueFileName's collision
+// counter.
+inline constexpr size_t kMaxFileNameLength = 200;
+
 std::string GetBookmarksDirectory();
 std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
+// Truncates `name` (UTF-8) so its on-disk length stays within kMaxFileNameLength.
+// On Apple platforms a supplementary-plane codepoint counts as 2 UTF-16 units
+// (it becomes a surrogate pair); elsewhere only UTF-8 bytes matter. Always
+// cuts at a codepoint boundary -- never produces invalid UTF-8. Short names
+// are returned unchanged.
+std::string TruncateToValidFileName(std::string name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
 std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType);

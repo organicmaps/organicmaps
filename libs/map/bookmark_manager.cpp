@@ -32,6 +32,7 @@
 #include <chrono>
 #include <limits>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace
 {
@@ -83,7 +84,7 @@ std::string GetFileNameForExport(BookmarkManager::KMLDataCollectionPtr::element_
   std::string fileName = RemoveInvalidSymbols(kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name));
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
-  return fileName;
+  return TruncateToValidFileName(std::move(fileName));
 }
 
 std::string CategoryFileName(BookmarkCategory const & category)
@@ -2983,22 +2984,28 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
     return nullptr;
 
   auto collection = std::make_shared<KMLDataCollection>();
+  // Tracks paths picked earlier in this batch so that two new categories
+  // whose names truncate to the same basename don't collide on disk before
+  // any of them is actually written.
+  std::unordered_set<std::string> reservedPaths;
   for (auto const groupId : groupIdCollection)
   {
     auto * group = GetBmCategory(groupId);
 
-    // Get valid file name from category name
     std::string file = group->GetFileName();
     if (file.empty())
     {
-      std::string name = RemoveInvalidSymbols(group->GetName());
-      if (name.empty())
-        name = kDefaultBookmarksFileName;
+      std::string base = TruncateToValidFileName(RemoveInvalidSymbols(group->GetName()));
+      if (base.empty())
+        base = kDefaultBookmarksFileName;
 
-      file = GenerateUniqueFileName(fileDir, std::move(name), kKmlExtension);
+      file = GenerateUniqueFileName(fileDir, base, kKmlExtension);
+      for (size_t i = 1; reservedPaths.contains(file); ++i)
+        file = GenerateUniqueFileName(fileDir, base + std::to_string(i), kKmlExtension);
       group->SetFileName(file);
     }
 
+    reservedPaths.insert(file);
     collection->emplace_back(std::move(file), CollectBmGroupKMLData(group));
   }
   return collection;
