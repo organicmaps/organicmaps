@@ -20,6 +20,10 @@
 #include "base/scope_guard.hpp"
 #include "base/timer.hpp"
 
+#include "std/target_os.hpp"
+
+#include <utf8.h>  // utf8::is_valid
+
 #include <array>
 #include <cstring>  // strlen
 #include <map>
@@ -552,6 +556,384 @@ UNIT_TEST(Bookmarks_UniqueFileName)
 
   gen = GenerateUniqueFileName(".", BASE);
   TEST_EQUAL(gen, FILENAME, ());
+}
+
+namespace
+{
+// Builds a UTF-8 string overshooting BOTH NAME_MAX flavors (bytes and UTF-16
+// units) so the name fails on every target platform.
+string MakeLongUtf8Name(string_view seed, size_t minBytes = 800, size_t minCodepoints = 280)
+{
+  size_t const seedCodepoints = strings::Utf8Length(seed);
+  string out;
+  out.reserve(minBytes + seed.size());
+  size_t codepoints = 0;
+  while (out.size() < minBytes || codepoints < minCodepoints)
+  {
+    out.append(seed);
+    codepoints += seedCodepoints;
+  }
+  return out;
+}
+
+// Mirrors the platform-specific NAME_MAX semantics enforced by
+// TruncateToValidFileName: UTF-16 code units on Apple, UTF-8 bytes elsewhere.
+size_t MeasureFileNameLength(string const & s)
+{
+#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_MAC)
+  return strings::ToUtf16(s).size();
+#else
+  return s.size();
+#endif
+}
+
+bool SaveBookmarkUsingCorePipeline(string const & categoryName)
+{
+  string const filePath = GenerateValidAndUniqueFilePath(categoryName, FileType::Kml);
+
+  kml::FileData kmlData;
+  kml::SetDefaultStr(kmlData.m_categoryData.m_name, categoryName);
+
+  try
+  {
+    if (!SaveKmlFileSafe(kmlData, filePath, FileType::Kml))
+      return false;
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("SaveKmlFileSafe threw on long file name (basename bytes:",
+                   filePath.size() - GetBookmarksDirectory().size() - 1, "):", ex.what()));
+    return false;
+  }
+  return Platform::IsFileExistsByFullPath(filePath);
+}
+}  // namespace
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_ShortNameUntouched)
+{
+  TEST_EQUAL(TruncateToValidFileName(""), "", ());
+  TEST_EQUAL(TruncateToValidFileName("hello"), "hello", ());
+  TEST_EQUAL(TruncateToValidFileName("Bookmarks"), "Bookmarks", ());
+  TEST_EQUAL(TruncateToValidFileName("Очень короткое название"), "Очень короткое название", ());
+  TEST_EQUAL(TruncateToValidFileName("地圖"), "地圖", ());
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_AsciiClampedToLimit)
+{
+  string const longName(500, 'a');
+  string const truncated = TruncateToValidFileName(longName);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(longName.starts_with(truncated), ("must be a prefix of the input"));
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_CyrillicRespectsLimit)
+{
+  string longCyrillic;
+  while (longCyrillic.size() < 1000)
+    longCyrillic.append("Очень длинное имя ");
+  string const truncated = TruncateToValidFileName(longCyrillic);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(::utf8::is_valid(truncated.begin(), truncated.end()), ("UTF-8 must remain well-formed"));
+  TEST(longCyrillic.starts_with(truncated), ());
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_ChineseRespectsLimit)
+{
+  string longChinese;
+  while (longChinese.size() < 1000)
+    longChinese.append("地圖標籤旅行路線");
+  string const truncated = TruncateToValidFileName(longChinese);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(::utf8::is_valid(truncated.begin(), truncated.end()), ());
+  TEST_EQUAL(truncated.size() % 3, 0, ("CJK glyphs are 3 bytes -- must not split"));
+}
+
+// 4-byte UTF-8 emoji = supplementary-plane codepoint = surrogate pair (2
+// UTF-16 units). Verifies the truncator counts surrogate pairs correctly on
+// Apple and bytes correctly elsewhere.
+UNIT_TEST(Bookmarks_TruncateToValidFileName_EmojiKeepsCodepointBoundaries)
+{
+  string longEmoji;
+  for (int i = 0; i < 300; ++i)
+    longEmoji.append("🗺");
+  string const truncated = TruncateToValidFileName(longEmoji);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(::utf8::is_valid(truncated.begin(), truncated.end()), ());
+  TEST_EQUAL(truncated.size() % 4, 0, ("4-byte UTF-8 codepoint must not be split"));
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_ExactlyAtLimit)
+{
+  string const exact(kMaxFileNameLength, 'a');  // ASCII -- bytes == UTF-16 units.
+  TEST_EQUAL(TruncateToValidFileName(exact), exact, ("at-the-limit input must pass through"));
+}
+
+// Verifies the byte-count fast path doesn't cause spurious truncation: a name
+// whose byte count exceeds the limit but whose UTF-16 unit count fits must be
+// returned unchanged on Apple (where the limit is in UTF-16 units). On
+// byte-counted platforms the same input legitimately needs truncation.
+UNIT_TEST(Bookmarks_TruncateToValidFileName_NoUnnecessaryTruncation)
+{
+  // 150 Cyrillic codepoints = 300 UTF-8 bytes = 150 UTF-16 units. Over the
+  // byte limit, under the UTF-16-unit limit.
+  string name;
+  for (int i = 0; i < 150; ++i)
+    name.append("я");
+  TEST_GREATER(name.size(), kMaxFileNameLength, ("byte fast-path must not short-circuit"));
+
+  string const truncated = TruncateToValidFileName(name);
+  if (MeasureFileNameLength(name) <= kMaxFileNameLength)
+    TEST_EQUAL(truncated, name, ("input fits the platform's NAME_MAX -- must not be truncated"));
+  else
+    TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+}
+
+// Exercises the SaveBookmarks file-name path with names that overflow NAME_MAX
+// on at least one target platform. Each test uses ScopedBookmarksDir.
+
+UNIT_TEST(Bookmarks_SaveLongFileName_ASCII)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("a")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Cyrillic)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("Очень длинное название трека ")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Chinese)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("地圖標籤旅行路線")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Arabic)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("علامة طويلة جدا ")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Emoji)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("🗺️📍🚶‍♂️")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Mixed)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("Trip 旅行 Поход 🥾 ")), ());
+}
+
+// Destination basename hits exactly NAME_MAX; the ".tmp<thread_id>" suffix
+// added by WriteToTempAndRenameToFile pushes open() over.
+UNIT_TEST(Bookmarks_SaveLongFileName_BoundaryAtNameMax)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("a", 251, 251)), ());
+}
+
+// Production uses autoSave=true, so a too-long name throws from EditSession's
+// destructor (implicitly noexcept) -> std::terminate. To keep the test binary
+// alive we disable autoSave and call SaveBookmarks in a try/catch; the
+// underlying file-name pipeline is identical.
+UNIT_CLASS_TEST(Runner, Bookmarks_SaveLongCategoryName_ThroughBookmarkManager)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const longName = MakeLongUtf8Name("Очень длинное имя категории закладок ");
+  auto const catId = bmManager.CreateBookmarkCategory(longName, false /* autoSave */);
+  {
+    auto editSession = bmManager.GetEditSession();
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, "pt");
+    auto const bmId = editSession.CreateBookmark(std::move(bm))->GetId();
+    editSession.AttachBookmark(bmId, catId);
+  }
+
+  try
+  {
+    bmManager.SaveBookmarks({catId});
+  }
+  catch (std::exception const & ex)
+  {
+    TEST(false, ("SaveBookmarks threw on long category name:", ex.what()));
+  }
+
+  string const filePath = bmManager.GetCategoryFileName(catId);
+  TEST(!filePath.empty(), ("BookmarkManager did not assign a file name on save"));
+  TEST(Platform::IsFileExistsByFullPath(filePath), ("Bookmarks file was not created on disk:", filePath));
+}
+
+// Two categories whose names share a 200-byte prefix and differ only after
+// truncate to the same on-disk basename. GenerateUniqueFileName must
+// disambiguate with a numeric suffix, and the in-file <name> elements must
+// retain the FULL original strings (truncation only affects the file path).
+UNIT_CLASS_TEST(Runner, Bookmarks_TruncatedFileName_CategoryCollision)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const sharedPrefix(kMaxFileNameLength, 'A');
+  string const nameA = sharedPrefix + " category Alpha";
+  string const nameB = sharedPrefix + " category Beta";
+
+  auto const saveCategoryWithMarker = [&](string const & name)
+  {
+    auto const cat = bmManager.CreateBookmarkCategory(name, false /* autoSave */);
+    {
+      auto session = bmManager.GetEditSession();
+      kml::BookmarkData bm;
+      bm.m_point = m2::PointD(0.0, 0.0);
+      kml::SetDefaultStr(bm.m_name, "pt");
+      auto const bmId = session.CreateBookmark(std::move(bm))->GetId();
+      session.AttachBookmark(bmId, cat);
+    }
+    bmManager.SaveBookmarks({cat});
+    return cat;
+  };
+
+  auto const catA = saveCategoryWithMarker(nameA);
+  auto const catB = saveCategoryWithMarker(nameB);
+
+  string const pathA = bmManager.GetCategoryFileName(catA);
+  string const pathB = bmManager.GetCategoryFileName(catB);
+
+  TEST_NOT_EQUAL(pathA, pathB, ("colliding names must produce distinct file paths"));
+  TEST(Platform::IsFileExistsByFullPath(pathA), (pathA));
+  TEST(Platform::IsFileExistsByFullPath(pathB), (pathB));
+
+  auto const dataA = LoadKmlFile(pathA, FileType::Kml);
+  auto const dataB = LoadKmlFile(pathB, FileType::Kml);
+  TEST(dataA != nullptr, (pathA));
+  TEST(dataB != nullptr, (pathB));
+  TEST_EQUAL(kml::GetDefaultStr(dataA->m_categoryData.m_name), nameA, ());
+  TEST_EQUAL(kml::GetDefaultStr(dataB->m_categoryData.m_name), nameB, ());
+}
+
+// Same collision shape as above, but both categories are saved in a single
+// SaveBookmarks({catA, catB}) batch -- this is what NotifyChanges does at
+// bookmark_manager.cpp:625 when multiple new categories become dirty in one
+// change-tracker tick. PrepareToSaveBookmarks must not pick the same path for
+// two iterations, even though neither file is on disk yet at picking time.
+UNIT_CLASS_TEST(Runner, Bookmarks_TruncatedFileName_BatchedCollision)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const sharedPrefix(kMaxFileNameLength, 'B');
+  string const nameA = sharedPrefix + " Alpha";
+  string const nameB = sharedPrefix + " Beta";
+
+  auto const catA = bmManager.CreateBookmarkCategory(nameA, false /* autoSave */);
+  auto const catB = bmManager.CreateBookmarkCategory(nameB, false /* autoSave */);
+  for (auto const cat : {catA, catB})
+  {
+    auto session = bmManager.GetEditSession();
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, "pt");
+    auto const bmId = session.CreateBookmark(std::move(bm))->GetId();
+    session.AttachBookmark(bmId, cat);
+  }
+
+  bmManager.SaveBookmarks({catA, catB});
+
+  string const pathA = bmManager.GetCategoryFileName(catA);
+  string const pathB = bmManager.GetCategoryFileName(catB);
+  TEST_NOT_EQUAL(pathA, pathB, ("batched save must produce distinct file paths"));
+  TEST(Platform::IsFileExistsByFullPath(pathA), (pathA));
+  TEST(Platform::IsFileExistsByFullPath(pathB), (pathB));
+
+  auto const dataA = LoadKmlFile(pathA, FileType::Kml);
+  auto const dataB = LoadKmlFile(pathB, FileType::Kml);
+  TEST(dataA != nullptr, (pathA));
+  TEST(dataB != nullptr, (pathB));
+  TEST_EQUAL(kml::GetDefaultStr(dataA->m_categoryData.m_name), nameA, ());
+  TEST_EQUAL(kml::GetDefaultStr(dataB->m_categoryData.m_name), nameB, ());
+}
+
+// Truncation only applies to the on-disk basename; the in-file <name>
+// elements (category + bookmark + track) must round-trip the full UTF-8 input.
+UNIT_CLASS_TEST(Runner, Bookmarks_LongName_FullNamePreservedInKml)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  // Use a non-whitespace separator: KML/GPX readers normalise trailing
+  // whitespace inside text elements, which would mask the round-trip check.
+  string const longCatName = MakeLongUtf8Name("Очень длинное название категории.");
+  string const longBookmarkName = MakeLongUtf8Name("Очень длинное название точки.");
+  string const longTrackName = MakeLongUtf8Name("Очень длинное название трека.");
+
+  auto const catId = bmManager.CreateBookmarkCategory(longCatName, false /* autoSave */);
+  {
+    auto session = bmManager.GetEditSession();
+
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, longBookmarkName);
+    auto const bmId = session.CreateBookmark(std::move(bm))->GetId();
+    session.AttachBookmark(bmId, catId);
+
+    kml::TrackData trackData;
+    trackData.m_name = kml::LocalizableString{{kml::kDefaultLangCode, longTrackName}};
+    trackData.m_layers.push_back(kml::TrackLayer());
+    trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+    trackData.m_geometry.AddTimestamps({});
+    auto const trackId = session.CreateTrack(std::move(trackData))->GetId();
+    session.AttachTrack(trackId, catId);
+  }
+
+  bmManager.SaveBookmarks({catId});
+
+  string const path = bmManager.GetCategoryFileName(catId);
+  string const stem = base::FilenameWithoutExt(base::FileNameFromFullPath(path));
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(stem), kMaxFileNameLength, ("file basename must be truncated:", stem));
+
+  auto const data = LoadKmlFile(path, FileType::Kml);
+  TEST(data != nullptr, (path));
+  TEST_EQUAL(kml::GetDefaultStr(data->m_categoryData.m_name), longCatName, ());
+  TEST_EQUAL(data->m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data->m_bookmarksData.front().m_name), longBookmarkName, ());
+  TEST_EQUAL(data->m_tracksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data->m_tracksData.front().m_name), longTrackName, ());
+}
+
+// The file-basename truncation lives upstream of every serializer, so KML,
+// KMB, and GPX exports must all retain the full <name> regardless of how long
+// the input is.
+UNIT_TEST(Bookmarks_LongName_FullNamePreservedInExportFormats)
+{
+  ScopedBookmarksDir scopedDir;
+  string const longCatName = MakeLongUtf8Name("Поход в горы.");
+  string const longBookmarkName = MakeLongUtf8Name("Точка интереса.");
+
+  kml::FileData src;
+  kml::SetDefaultStr(src.m_categoryData.m_name, longCatName);
+  {
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, longBookmarkName);
+    src.m_bookmarksData.push_back(std::move(bm));
+  }
+
+  for (auto const fileType : {FileType::Kml, FileType::Kmb, FileType::Gpx})
+  {
+    string const path = GenerateValidAndUniqueFilePath(longCatName, fileType);
+    TEST(SaveKmlFileSafe(src, path, fileType), (DebugPrint(fileType)));
+    TEST(Platform::IsFileExistsByFullPath(path), (DebugPrint(fileType), path));
+
+    auto const loaded = LoadKmlFile(path, fileType);
+    TEST(loaded != nullptr, (DebugPrint(fileType), path));
+    TEST_EQUAL(kml::GetDefaultStr(loaded->m_categoryData.m_name), longCatName, (DebugPrint(fileType)));
+    TEST_EQUAL(loaded->m_bookmarksData.size(), 1, (DebugPrint(fileType)));
+    TEST_EQUAL(kml::GetDefaultStr(loaded->m_bookmarksData.front().m_name), longBookmarkName, (DebugPrint(fileType)));
+  }
 }
 
 UNIT_TEST(Bookmarks_AddingMoving)

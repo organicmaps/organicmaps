@@ -19,7 +19,10 @@
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
+
+#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <array>
@@ -338,6 +341,36 @@ std::string RemoveInvalidSymbols(std::string const & name)
   return strings::ToUtf8(filtered);
 }
 
+std::string TruncateToValidFileName(std::string name)
+{
+  // UTF-8 byte count >= UTF-16 unit count, so this is sound on every platform.
+  if (name.size() <= kMaxFileNameLength)
+    return name;
+
+  size_t length = 0;
+  auto it = name.begin();
+  while (it != name.end())
+  {
+    auto const cpStart = it;
+    auto const cp = ::utf8::unchecked::next(it);
+#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_MAC)
+    // APFS/HFS+ count UTF-16 code units. A supplementary-plane codepoint
+    // (e.g. an emoji) becomes a surrogate pair = 2 units.
+    size_t const cpLength = (cp < 0x10000) ? 1 : 2;
+#else
+    UNUSED_VALUE(cp);
+    size_t const cpLength = static_cast<size_t>(std::distance(cpStart, it));
+#endif
+    if (length + cpLength > kMaxFileNameLength)
+    {
+      name.resize(static_cast<size_t>(std::distance(name.begin(), cpStart)));
+      return name;
+    }
+    length += cpLength;
+  }
+  return name;
+}
+
 // Returns extension with a dot in a lower case.
 std::string GetLowercaseFileExt(std::string const & filePath)
 {
@@ -386,7 +419,7 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
 
 std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType)
 {
-  std::string filePath = RemoveInvalidSymbols(fileName);
+  std::string filePath = TruncateToValidFileName(RemoveInvalidSymbols(fileName));
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
 
@@ -396,7 +429,7 @@ std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileTyp
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
 {
   std::string extension = base::GetFileExtension(fileName);
-  std::string filePath = RemoveInvalidSymbols(fileName);
+  std::string filePath = TruncateToValidFileName(RemoveInvalidSymbols(fileName));
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
   return GenerateUniqueFileName(GetTrashDirectory(), std::move(filePath), extension);
