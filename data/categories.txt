@@ -1231,7 +1231,7 @@ fr:3Boulangerie|3Pâtisserie|pain
 hi:3बेकरी|4पेस्ट्री का दुकान
 hu:3Pékség|cukrászda
 id:Toko roti|roti|kue-kue
-it:3Panetteria|panettiere|panificio|forno|pasticcino
+it:3Panetteria|panettiere|panificio|forno|pasticceria
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り|ペストリー
 ko:1베이커리|빵집|패스트리
 lt:5Kepinė|duona|4pyragai|kepykla
