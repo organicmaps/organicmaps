@@ -1,6 +1,23 @@
 name: Android Release
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      fdroid:
+        description: 'Push F-Droid bump commit to branch'
+        type: boolean
+        default: true
+      google:
+        description: 'Build & publish Google Play'
+        type: boolean
+        default: true
+      huawei:
+        description: 'Build & publish Huawei AppGallery'
+        type: boolean
+        default: true
+      web:
+        description: 'Build web APK & create GitHub Release'
+        type: boolean
+        default: true
 
 env:
   RELEASE_NOTES: android/app/src/google/play/release-notes/en-US/default.txt
@@ -8,8 +25,24 @@ env:
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.compute.outputs.matrix }}
+    steps:
+      - id: compute
+        shell: bash
+        run: |
+          flavors=()
+          [[ "${{ inputs.google }}" == "true" ]] && flavors+=('{"flavor":"google"}')
+          [[ "${{ inputs.huawei }}" == "true" ]] && flavors+=('{"flavor":"huawei"}')
+          [[ "${{ inputs.web }}"    == "true" ]] && flavors+=('{"flavor":"web"}')
+          (IFS=,; echo "matrix=[${flavors[*]}]" >> $GITHUB_OUTPUT)
+
   tag:
     name: Tag
+    if: inputs.fdroid || inputs.google || inputs.huawei || inputs.web
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -28,21 +61,26 @@ jobs:
           git config user.email '${{ github.actor }}@users.noreply.github.com'
           branch="${GITHUB_REF#refs/heads/}"
           test -n "$branch"
-          # Create the bump commit first, then read version.sh from the new HEAD
-          # and amend the FDroid version file in. Predicting the post-bump version
-          # with "+1" breaks when the bump commit lands on a different UTC day
-          # than its parent (version.sh groups commits by UTC day).
-          git commit --allow-empty -m "Bump versions" -s
+          # When releasing F-Droid, create the bump commit first, read version.sh
+          # from the new HEAD, then amend FDROID_VERSION in. Predicting the
+          # post-bump version with "+1" breaks across UTC midnight (version.sh
+          # groups commits by UTC day).
+          if [[ "${{ inputs.fdroid }}" == "true" ]]; then
+            git commit --allow-empty -m "Bump versions" -s
+          fi
           version=$(tools/unix/version.sh ios_version)
           build=$(tools/unix/version.sh count)
           code=$(tools/unix/version.sh android_code)
           tag=$version-$build-android
-          echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
-          git add ${{ env.FDROID_VERSION }}
-          # Preserve the original committer-date so version.sh post-amend still
-          # returns the values we just wrote, even if the amend crosses midnight UTC.
-          orig_date=$(git log -1 --pretty=format:%cI)
-          GIT_COMMITTER_DATE="$orig_date" git commit --amend --no-edit -s
+          if [[ "${{ inputs.fdroid }}" == "true" ]]; then
+            echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
+            git add ${{ env.FDROID_VERSION }}
+            # Preserve the original committer-date so version.sh post-amend
+            # still returns the values we just wrote, even if the amend crosses
+            # midnight UTC.
+            orig_date=$(git log -1 --pretty=format:%cI)
+            GIT_COMMITTER_DATE="$orig_date" git commit --amend --no-edit -s
+          fi
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "build=$build" >> $GITHUB_OUTPUT
           echo "tag=$tag" >> $GITHUB_OUTPUT
@@ -54,7 +92,9 @@ jobs:
           } > ${{ runner.temp }}/tag.txt
           git tag -a $tag -F ${{ runner.temp }}/tag.txt
           git show $tag
-          git push origin $branch:$branch
+          if [[ "${{ inputs.fdroid }}" == "true" ]]; then
+            git push origin $branch:$branch
+          fi
           git push origin $tag:$tag
     outputs:
       version: ${{ steps.tag.outputs.version }}
@@ -69,14 +109,12 @@ jobs:
     permissions:
       contents: write     # To publish the release on GitHub Releases.
       discussions: write  # To publish the release on GitHub Discussions.
-    needs: tag
+    needs: [setup, tag]
+    if: needs.setup.outputs.matrix != '[]'
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - flavor: google
-          - flavor: huawei
-          - flavor: web
+        include: ${{ fromJSON(needs.setup.outputs.matrix) }}
     steps:
       - name: Install build tools and dependencies
         shell: bash
