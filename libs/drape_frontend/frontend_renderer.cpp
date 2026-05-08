@@ -1768,6 +1768,14 @@ void FrontendRenderer::RenderFrame()
   DrapeMeasurerGuard drapeMeasurerGuard;
 
   CHECK(m_context != nullptr, ());
+
+  // Early-exit polls bound the latency between SetRenderingDisabled() and the
+  // next CheckRenderingEnabled() call (which runs in IterateRenderLoopImpl
+  // immediately after RenderFrame() returns). Without them, a slow frame can
+  // block the UI thread in surfaceDestroyed() long enough to ANR.
+  if (!IsRenderingEnabled())
+    return;
+
   if (!m_context->Validate())
   {
     m_frameData.m_forceFullRedrawNextFrame = true;
@@ -1787,6 +1795,9 @@ void FrontendRenderer::RenderFrame()
   /// @todo Put ResolveZoomLevel under modelViewChanged after testing.
   ASSERT(!zoomChanged || modelViewChanged, ());
 
+  if (!IsRenderingEnabled())
+    return;
+
   if (!m_context->BeginRendering())
     return;
 
@@ -1795,6 +1806,13 @@ void FrontendRenderer::RenderFrame()
 
   if (isActiveFrame)
     PrepareScene(modelView);
+
+  // EndRendering() must balance the BeginRendering() above before returning.
+  if (!IsRenderingEnabled())
+  {
+    m_context->EndRendering();
+    return;
+  }
 
   bool const needUpdateDynamicTextures = m_texMng->UpdateDynamicTextures(m_context);
   isActiveFrame |= needUpdateDynamicTextures;
@@ -1821,6 +1839,9 @@ void FrontendRenderer::RenderFrame()
     m_renderInjectionHandler(m_context, m_texMng, make_ref(m_gpuProgramManager), false);
 
   m_context->EndRendering();
+
+  if (!IsRenderingEnabled())
+    return;
 
   bool const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
   isActiveFrame |= hasForceUpdate;
