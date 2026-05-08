@@ -175,6 +175,7 @@ public class PlacePageView extends Fragment
   private View mAddOrganisation;
   private View mAddPlace;
   private View mEditTopSpace;
+  private View mDetailsTopSpace;
   private ImageView mColorIcon;
   private TextView mTvCategory;
   private ImageView mEditBookmark;
@@ -369,6 +370,7 @@ public class PlacePageView extends Fragment
     mAddPlace = mFrame.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
+    mDetailsTopSpace = mFrame.findViewById(R.id.details_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
@@ -808,8 +810,9 @@ public class PlacePageView extends Fragment
           UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation) || UiUtils.isVisible(mAddPlace),
           mEditTopSpace);
     }
-    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton, mFrame.findViewById(R.id.ll__place_open_in));
-    UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_open_in));
+    final boolean isTrackOrRecording = mMapObject.isTrack() || mMapObject.isTrackRecording();
+    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton);
+    UiUtils.hideIf(isTrackOrRecording, mFrame.findViewById(R.id.ll__place_open_in), mDetailsTopSpace);
     updateLinksView();
     updateOpeningHoursView();
     updateProductsView();

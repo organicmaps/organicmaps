@@ -26,7 +26,6 @@ public class PlacePageTrackFragment extends Fragment
   @Nullable
   private Track mTrack;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
-  private View mElevationProfileView;
 
   @Nullable
   @Override
@@ -42,8 +41,7 @@ public class PlacePageTrackFragment extends Fragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mElevationProfileView = view.findViewById(R.id.elevation_profile);
-    mElevationProfileViewRenderer = new ElevationProfileViewRenderer(mElevationProfileView);
+    mElevationProfileViewRenderer = new ElevationProfileViewRenderer(view.findViewById(R.id.elevation_profile));
   }
 
   @Override
@@ -65,12 +63,6 @@ public class PlacePageTrackFragment extends Fragment
   }
 
   @Override
-  public void onDestroy()
-  {
-    super.onDestroy();
-  }
-
-  @Override
   public void onChanged(@Nullable MapObject mapObject)
   {
     // MapObject could be something else than a Track if the user already has the place page
@@ -79,6 +71,7 @@ public class PlacePageTrackFragment extends Fragment
     if (mapObject == null || !mapObject.isTrack())
     {
       mTrack = null;
+      UiUtils.hide(requireView());
       return;
     }
 
@@ -86,13 +79,11 @@ public class PlacePageTrackFragment extends Fragment
     if (track.getElevationInfo() != null)
     {
       if (mTrack == null || mTrack.getTrackId() != track.getTrackId() || track.isTempRelationTrack())
-      {
         mElevationProfileViewRenderer.render(track, track.getElevationInfo(), track.getTrackStatistics());
-        UiUtils.show(mElevationProfileView);
-      }
+      UiUtils.show(requireView());
     }
     else
-      UiUtils.hide(mElevationProfileView);
+      UiUtils.hide(requireView());
     mTrack = track;
   }
 
