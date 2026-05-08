@@ -8,7 +8,9 @@
   android:orientation="vertical">
 
 
-  <include layout="@layout/place_page_fat_shadow"/>
+  <include
+    android:id="@+id/details_top_space"
+    layout="@layout/place_page_fat_shadow" />
 
   <LinearLayout
     android:layout_width="match_parent"
