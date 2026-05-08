@@ -26,26 +26,32 @@ jobs:
           set -x
           git config user.name '${{ github.actor }}'
           git config user.email '${{ github.actor }}@users.noreply.github.com'
+          branch="${GITHUB_REF#refs/heads/}"
+          test -n "$branch"
+          # Create the bump commit first, then read version.sh from the new HEAD
+          # and amend the FDroid version file in. Predicting the post-bump version
+          # with "+1" breaks when the bump commit lands on a different UTC day
+          # than its parent (version.sh groups commits by UTC day).
+          git commit --allow-empty -m "Bump versions" -s
           version=$(tools/unix/version.sh ios_version)
-          # +1 because below a "Bump versions" commit is created.
-          # TODO: Find a way to refactor FDroid versioning without that additional commit.
-          build=$(($(tools/unix/version.sh count) + 1))
-          code=$(($(tools/unix/version.sh android_code) + 1))
+          build=$(tools/unix/version.sh count)
+          code=$(tools/unix/version.sh android_code)
           tag=$version-$build-android
+          echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
+          git add ${{ env.FDROID_VERSION }}
+          # Preserve the original committer-date so version.sh post-amend still
+          # returns the values we just wrote, even if the amend crosses midnight UTC.
+          orig_date=$(git log -1 --pretty=format:%cI)
+          GIT_COMMITTER_DATE="$orig_date" git commit --amend --no-edit -s
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "build=$build" >> $GITHUB_OUTPUT
           echo "tag=$tag" >> $GITHUB_OUTPUT
           echo "code=$code" >> $GITHUB_OUTPUT
-          echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
-          git add ${{ env.FDROID_VERSION }}
           {
             echo $tag
             echo
             cat ${{ env.RELEASE_NOTES }}
           } > ${{ runner.temp }}/tag.txt
-          branch="${GITHUB_REF#refs/heads/}"
-          test -n "$branch"
-          git commit -m "Bump versions" -s
           git tag -a $tag -F ${{ runner.temp }}/tag.txt
           git show $tag
           git push origin $branch:$branch
