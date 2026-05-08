@@ -176,7 +176,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     LocationState.nativeLocationUpdated(
         mSavedLocation.getTime(), mSavedLocation.getLatitude(), mSavedLocation.getLongitude(),
         mSavedLocation.getAccuracy(), altitude != null ? altitude.altitude() : 0,
-        altitude != null ? altitude.accuracy() : -1, mSavedLocation.getSpeed(), mSavedLocation.getBearing());
+        altitude != null ? altitude.accuracy() : -1, mSavedLocation.hasSpeed() ? mSavedLocation.getSpeed() : -1,
+        mSavedLocation.hasBearing() ? mSavedLocation.getBearing() : -1);
   }
 
   private void notifyLocationUpdateTimeout()

@@ -71,10 +71,10 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpd
     info.m_verticalAccuracy = accuracyV;
   }
 
-  if (bearing > 0)
+  if (bearing >= 0)
     info.m_bearing = bearing;
 
-  if (speed > 0)
+  if (speed >= 0)
     info.m_speed = speed;
 
   g_framework->OnLocationUpdated(info);
