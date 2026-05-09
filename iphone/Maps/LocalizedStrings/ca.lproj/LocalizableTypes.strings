@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Atracció històrica";
 "type.attraction.maze" = "Laberint";
 "type.attraction.roller_coaster" = "Muntanya russa";
+"type.roller_coaster.track" = "Muntanya russa";
 "type.attraction.water_slide" = "Tobogan aquàtic";
 "type.tourism.attraction.specified" = "Atracció";
 "type.tourism.camp_site" = "Paratge d’acampada";

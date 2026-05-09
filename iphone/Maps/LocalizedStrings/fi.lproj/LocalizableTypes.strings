@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Historiallinen nähtävyys";
 "type.attraction.maze" = "Sokkelo";
 "type.attraction.roller_coaster" = "Vuoristorata";
+"type.roller_coaster.track" = "Vuoristorata";
 "type.attraction.water_slide" = "Vesiliukumäki";
 "type.tourism.attraction.specified" = "Nähtävyys";
 "type.tourism.camp_site" = "Retkeily";

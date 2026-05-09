@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Sögustaður";
 "type.attraction.maze" = "Völundarhús";
 "type.attraction.roller_coaster" = "Rússíbani";
+"type.roller_coaster.track" = "Rússíbani";
 "type.attraction.water_slide" = "Vatnsrennibraut";
 "type.tourism.attraction.specified" = "Aðdráttarafl";
 "type.tourism.camp_site" = "Tjaldsvæði";

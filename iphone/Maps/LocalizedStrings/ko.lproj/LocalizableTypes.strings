@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "역사적인 명소";
 "type.attraction.maze" = "미로";
 "type.attraction.roller_coaster" = "롤러 코스터";
+"type.roller_coaster.track" = "롤러 코스터";
 "type.attraction.water_slide" = "워터 슬라이드";
 "type.tourism.attraction.specified" = "관광 명소";
 "type.tourism.camp_site" = "캠핑";

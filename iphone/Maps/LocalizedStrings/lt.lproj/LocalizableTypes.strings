@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Istorinė atrakcija";
 "type.attraction.maze" = "Labirintas";
 "type.attraction.roller_coaster" = "Amerikietiški kalneliai";
+"type.roller_coaster.track" = "Amerikietiški kalneliai";
 "type.attraction.water_slide" = "Vandens kalnelis";
 "type.tourism.attraction.specified" = "Lankytina vieta";
 "type.tourism.camp_site" = "Stovyklavietė";

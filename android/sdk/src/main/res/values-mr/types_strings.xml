@@ -1126,6 +1126,7 @@
     <string name="type.attraction.historic">ऐतिहासिक आकर्षण</string>
     <string name="type.attraction.maze">चक्रव्यूह</string>
     <string name="type.attraction.roller_coaster">रोलर कोस्टर</string>
+    <string name="type.roller_coaster.track">रोलर कोस्टर</string>
     <string name="type.attraction.water_slide">वॉटर स्लाइड</string>
     <string name="type.tourism.attraction.specified">आकर्षण</string>
     <string name="type.tourism.camp_site">शिबिरवास(कॅम्पिंग)</string>

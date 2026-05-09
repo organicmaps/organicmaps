@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Tarixi cazibə";
 "type.attraction.maze" = "Labirent";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Su Slayd";
 "type.tourism.attraction.specified" = "Attraksionlar";
 "type.tourism.camp_site" = "Düşərgə sahəsi";

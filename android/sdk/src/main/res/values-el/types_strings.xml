@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Ιστορικό αξιοθέατο</string>
     <string name="type.attraction.maze">Λαβύρινθος</string>
     <string name="type.attraction.roller_coaster">Τρενάκι του λούνα παρκ</string>
+    <string name="type.roller_coaster.track">Τρενάκι του λούνα παρκ</string>
     <string name="type.attraction.water_slide">Νεροτσουλήθρα</string>
     <string name="type.tourism.attraction.specified">Αξιοθέατο</string>
     <string name="type.tourism.camp_site">Κάμπινγκ</string>

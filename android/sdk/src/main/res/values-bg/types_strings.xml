@@ -774,6 +774,7 @@
     <string name="type.attraction.historic">Историческа атракция</string>
     <string name="type.attraction.maze">Лабиринт</string>
     <string name="type.attraction.roller_coaster">Въртележка</string>
+    <string name="type.roller_coaster.track">Въртележка</string>
     <string name="type.attraction.water_slide">Водна пързалка</string>
     <string name="type.tourism.attraction.specified">Забележителност</string>
     <!-- A rentable countryside vacation house. -->

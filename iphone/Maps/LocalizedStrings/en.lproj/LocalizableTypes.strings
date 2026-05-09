@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Historic attraction";
 "type.attraction.maze" = "Maze";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Water Slide";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Campground";

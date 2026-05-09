@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">历史景点</string>
     <string name="type.attraction.maze">迷宫</string>
     <string name="type.attraction.roller_coaster">过山车</string>
+    <string name="type.roller_coaster.track">过山车</string>
     <string name="type.attraction.water_slide">水上滑梯</string>
     <string name="type.tourism.attraction.specified">景点</string>
     <string name="type.tourism.camp_site">宿营场地</string>

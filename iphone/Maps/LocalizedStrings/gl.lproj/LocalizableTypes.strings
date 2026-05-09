@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Atracción histórica";
 "type.attraction.maze" = "Labirinto";
 "type.attraction.roller_coaster" = "Montaña rusa";
+"type.roller_coaster.track" = "Montaña rusa";
 "type.attraction.water_slide" = "Tobogán acuático";
 "type.tourism.attraction.specified" = "Atracción turística";
 "type.tourism.camp_site" = "Paraxe de campamento";

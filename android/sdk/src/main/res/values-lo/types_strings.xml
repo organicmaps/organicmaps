@@ -1310,6 +1310,7 @@
     <string name="type.attraction.historic">ສະຖານທີ່ທ່ອງທ່ຽວທາງປະຫວັດສາດ</string>
     <string name="type.attraction.maze">ທາງວົງກົດ</string>
     <string name="type.attraction.roller_coaster">ລົດໄຟເຫາະ</string>
+    <string name="type.roller_coaster.track">ລົດໄຟເຫາະ</string>
     <string name="type.attraction.water_slide">ສະໄລເດີນ້ຳ</string>
     <string name="type.tourism.attraction.specified">ສະຖານທີ່ທ່ອງທ່ຽວ</string>
     <string name="type.tourism.camp_site">ສະຖານທີ່ຕັ້ງແຄ້ມ</string>

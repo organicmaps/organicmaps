@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Ιστορικό αξιοθέατο";
 "type.attraction.maze" = "Λαβύρινθος";
 "type.attraction.roller_coaster" = "Τρενάκι του λούνα παρκ";
+"type.roller_coaster.track" = "Τρενάκι του λούνα παρκ";
 "type.attraction.water_slide" = "Νεροτσουλήθρα";
 "type.tourism.attraction.specified" = "Αξιοθέατο";
 "type.tourism.camp_site" = "Κάμπινγκ";

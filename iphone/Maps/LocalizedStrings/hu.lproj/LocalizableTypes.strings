@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Történelmi látványosság";
 "type.attraction.maze" = "Labirintus";
 "type.attraction.roller_coaster" = "Hullámvasút";
+"type.roller_coaster.track" = "Hullámvasút";
 "type.attraction.water_slide" = "Vízicsúszda";
 "type.tourism.attraction.specified" = "Látnivaló";
 "type.tourism.camp_site" = "Kemping";

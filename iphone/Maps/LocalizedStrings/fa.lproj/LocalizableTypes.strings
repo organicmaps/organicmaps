@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "جاذبه تاریخی";
 "type.attraction.maze" = "ماز";
 "type.attraction.roller_coaster" = "ترن هوایی";
+"type.roller_coaster.track" = "ترن هوایی";
 "type.attraction.water_slide" = "سرسره آبی";
 "type.tourism.attraction.specified" = "گردشگری";
 "type.tourism.camp_site" = "محل چادر زنی";

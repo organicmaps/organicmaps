@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "ऐतिहासिक आकर्षण";
 "type.attraction.maze" = "चक्रव्यूह";
 "type.attraction.roller_coaster" = "रोलर कोस्टर";
+"type.roller_coaster.track" = "रोलर कोस्टर";
 "type.attraction.water_slide" = "वॉटर स्लाइड";
 "type.tourism.attraction.specified" = "आकर्षण";
 "type.tourism.camp_site" = "शिबिरवास(कॅम्पिंग)";

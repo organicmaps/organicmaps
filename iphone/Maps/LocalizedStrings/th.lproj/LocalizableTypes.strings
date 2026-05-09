@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "แหล่งท่องเที่ยวทางประวัติศาสตร์";
 "type.attraction.maze" = "เขาวงกต";
 "type.attraction.roller_coaster" = "รถไฟเหาะ";
+"type.roller_coaster.track" = "รถไฟเหาะ";
 "type.attraction.water_slide" = "สไลเดอร์น้ำ";
 "type.tourism.attraction.specified" = "การท่องเที่ยว";
 "type.tourism.camp_site" = "การตั้งแคมป์";

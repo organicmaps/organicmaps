@@ -1156,6 +1156,7 @@
     <string name="type.attraction.historic">Historisk attraksjon</string>
     <string name="type.attraction.maze">Labyrint</string>
     <string name="type.attraction.roller_coaster">Berg- og dalbane</string>
+    <string name="type.roller_coaster.track">Berg- og dalbane</string>
     <string name="type.attraction.water_slide">Vannrutsjebane</string>
     <string name="type.tourism.attraction.specified">Attraksjon</string>
     <string name="type.tourism.camp_site">Campingplass</string>

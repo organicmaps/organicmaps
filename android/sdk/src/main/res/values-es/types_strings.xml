@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Atracción histórica</string>
     <string name="type.attraction.maze">Laberinto</string>
     <string name="type.attraction.roller_coaster">Montaña rusa</string>
+    <string name="type.roller_coaster.track">Montaña rusa</string>
     <string name="type.attraction.water_slide">Tobogán acuático</string>
     <string name="type.tourism.attraction.specified">Atracción turística</string>
     <string name="type.tourism.camp_site">Paraje de campamento</string>

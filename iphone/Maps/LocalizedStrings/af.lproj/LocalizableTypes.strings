@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Historiese aantrekkingskrag";
 "type.attraction.maze" = "Doolhof";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Waterglybaan";
 "type.tourism.attraction.specified" = "Attraksie";
 "type.tourism.camp_site" = "Kampeerterrein";

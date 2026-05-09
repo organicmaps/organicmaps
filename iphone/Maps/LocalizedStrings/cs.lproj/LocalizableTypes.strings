@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Historická atrakce";
 "type.attraction.maze" = "Bludiště";
 "type.attraction.roller_coaster" = "Horská dráha";
+"type.roller_coaster.track" = "Horská dráha";
 "type.attraction.water_slide" = "Vodní skluzavka";
 "type.tourism.attraction.specified" = "Atrakce";
 "type.tourism.camp_site" = "Kempování";

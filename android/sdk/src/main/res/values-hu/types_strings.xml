@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Történelmi látványosság</string>
     <string name="type.attraction.maze">Labirintus</string>
     <string name="type.attraction.roller_coaster">Hullámvasút</string>
+    <string name="type.roller_coaster.track">Hullámvasút</string>
     <string name="type.attraction.water_slide">Vízicsúszda</string>
     <string name="type.tourism.attraction.specified">Látnivaló</string>
     <string name="type.tourism.camp_site">Kemping</string>

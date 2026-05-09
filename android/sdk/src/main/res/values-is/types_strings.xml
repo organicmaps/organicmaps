@@ -1324,6 +1324,7 @@
     <string name="type.attraction.historic">Sögustaður</string>
     <string name="type.attraction.maze">Völundarhús</string>
     <string name="type.attraction.roller_coaster">Rússíbani</string>
+    <string name="type.roller_coaster.track">Rússíbani</string>
     <string name="type.attraction.water_slide">Vatnsrennibraut</string>
     <string name="type.tourism.attraction.specified">Aðdráttarafl</string>
     <string name="type.tourism.camp_site">Tjaldsvæði</string>

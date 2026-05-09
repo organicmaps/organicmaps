@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Atraksion historik";
 "type.attraction.maze" = "Labirint";
 "type.attraction.roller_coaster" = "Roler koster";
+"type.roller_coaster.track" = "Roler koster";
 "type.attraction.water_slide" = "Rrëshqitëse uji";
 "type.tourism.attraction.specified" = "Atraksion";
 "type.tourism.camp_site" = "Kamping";

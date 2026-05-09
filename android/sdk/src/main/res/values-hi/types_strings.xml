@@ -650,6 +650,7 @@
     <string name="type.attraction.historic">ऐतिहासिक आकर्षण</string>
     <string name="type.attraction.maze">भूलभुलैया</string>
     <string name="type.attraction.roller_coaster">रोलर कॉस्टर</string>
+    <string name="type.roller_coaster.track">रोलर कॉस्टर</string>
     <string name="type.attraction.water_slide">पानी की स्लाइड</string>
     <string name="type.tourism.attraction.specified">पर्यटन स्थल</string>
     <string name="type.tourism.caravan_site">कारवां स्थल</string>

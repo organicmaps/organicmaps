@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Tarihi cazibe merkezi";
 "type.attraction.maze" = "Labirent";
 "type.attraction.roller_coaster" = "Lunapark hız treni";
+"type.roller_coaster.track" = "Lunapark hız treni";
 "type.attraction.water_slide" = "Su Kaydırağı";
 "type.tourism.attraction.specified" = "Görülecek Yerler";
 "type.tourism.camp_site" = "Kamp Alanı";

@@ -1277,6 +1277,7 @@
     <string name="type.attraction.historic">Tarixi cazibə</string>
     <string name="type.attraction.maze">Labirent</string>
     <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.roller_coaster.track">Roller Coaster</string>
     <string name="type.attraction.water_slide">Su Slayd</string>
     <string name="type.tourism.attraction.specified">Attraksionlar</string>
     <string name="type.tourism.camp_site">Düşərgə sahəsi</string>

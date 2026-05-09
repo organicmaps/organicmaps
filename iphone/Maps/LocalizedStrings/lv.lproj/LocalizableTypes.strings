@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Vēsturiska atrakcija";
 "type.attraction.maze" = "Labirints";
 "type.attraction.roller_coaster" = "Amerikāņu kalniņi";
+"type.roller_coaster.track" = "Amerikāņu kalniņi";
 "type.attraction.water_slide" = "Ūdens slīdkalniņš";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Campground";

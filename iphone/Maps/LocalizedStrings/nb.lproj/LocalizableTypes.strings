@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Historisk attraksjon";
 "type.attraction.maze" = "Labyrint";
 "type.attraction.roller_coaster" = "Berg- og dalbane";
+"type.roller_coaster.track" = "Berg- og dalbane";
 "type.attraction.water_slide" = "Vannrutsjebane";
 "type.tourism.attraction.specified" = "Attraksjon";
 "type.tourism.camp_site" = "Campingplass";

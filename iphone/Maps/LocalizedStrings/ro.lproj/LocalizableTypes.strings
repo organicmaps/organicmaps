@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Atracție istorică";
 "type.attraction.maze" = "Labirint";
 "type.attraction.roller_coaster" = "Rollercoaster";
+"type.roller_coaster.track" = "Rollercoaster";
 "type.attraction.water_slide" = "Tobogan de apă";
 "type.tourism.attraction.specified" = "Punct de atracție";
 "type.tourism.camp_site" = "Campground";

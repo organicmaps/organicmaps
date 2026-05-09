@@ -1259,6 +1259,7 @@
     <string name="type.attraction.historic">Historická atrakcia</string>
     <string name="type.attraction.maze">Bludisko</string>
     <string name="type.attraction.roller_coaster">Horská dráha</string>
+    <string name="type.roller_coaster.track">Horská dráha</string>
     <string name="type.attraction.water_slide">Vodná šmýkačka</string>
     <string name="type.tourism.attraction.specified">Atrakcia</string>
     <string name="type.tourism.camp_site">Kemp</string>

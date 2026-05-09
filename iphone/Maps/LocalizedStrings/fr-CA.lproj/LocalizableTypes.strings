@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Attraction historique";
 "type.attraction.maze" = "Labyrinthe";
 "type.attraction.roller_coaster" = "Les montagnes russes";
+"type.roller_coaster.track" = "Les montagnes russes";
 "type.attraction.water_slide" = "Toboggan aquatique";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Camping";

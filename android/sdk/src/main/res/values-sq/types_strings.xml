@@ -1318,6 +1318,7 @@
     <string name="type.attraction.historic">Atraksion historik</string>
     <string name="type.attraction.maze">Labirint</string>
     <string name="type.attraction.roller_coaster">Roler koster</string>
+    <string name="type.roller_coaster.track">Roler koster</string>
     <string name="type.attraction.water_slide">Rrëshqitëse uji</string>
     <string name="type.tourism.attraction.specified">Atraksion</string>
     <string name="type.tourism.camp_site">Kamping</string>

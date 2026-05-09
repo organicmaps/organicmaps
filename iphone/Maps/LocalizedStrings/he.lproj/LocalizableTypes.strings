@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "אטרקצייה היסטורית";
 "type.attraction.maze" = "מָבוֹך";
 "type.attraction.roller_coaster" = "רכבת הרים";
+"type.roller_coaster.track" = "רכבת הרים";
 "type.attraction.water_slide" = "מגלשת מים";
 "type.tourism.attraction.specified" = "אטרקצייה תיירותית";
 "type.tourism.camp_site" = "אתר מחנאות";

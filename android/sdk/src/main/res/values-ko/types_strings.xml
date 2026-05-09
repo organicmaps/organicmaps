@@ -1146,6 +1146,7 @@
     <string name="type.attraction.historic">역사적인 명소</string>
     <string name="type.attraction.maze">미로</string>
     <string name="type.attraction.roller_coaster">롤러 코스터</string>
+    <string name="type.roller_coaster.track">롤러 코스터</string>
     <string name="type.attraction.water_slide">워터 슬라이드</string>
     <string name="type.tourism.attraction.specified">관광 명소</string>
     <string name="type.tourism.camp_site">캠핑</string>

@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "جاذبية تاريخية";
 "type.attraction.maze" = "المتاهة";
 "type.attraction.roller_coaster" = "قطار الملاهي الدوارة";
+"type.roller_coaster.track" = "قطار الملاهي الدوارة";
 "type.attraction.water_slide" = "منزلق مائي";
 "type.tourism.attraction.specified" = "مكان جذاب";
 "type.tourism.camp_site" = "مخيّم";

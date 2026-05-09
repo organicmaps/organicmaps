@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Historische Attraktion";
 "type.attraction.maze" = "Labyrinth";
 "type.attraction.roller_coaster" = "Achterbahn";
+"type.roller_coaster.track" = "Achterbahn";
 "type.attraction.water_slide" = "Wasserrutsche";
 "type.tourism.attraction.specified" = "Sehenswürdigkeit";
 "type.tourism.camp_site" = "Campingplatz";

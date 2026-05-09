@@ -1279,6 +1279,7 @@
     <string name="type.attraction.historic">Zgodovinska znamenitost</string>
     <string name="type.attraction.maze">Labirint</string>
     <string name="type.attraction.roller_coaster">Vlak smrti</string>
+    <string name="type.roller_coaster.track">Vlak smrti</string>
     <string name="type.attraction.water_slide">Vodni tobogan</string>
     <string name="type.tourism.attraction.specified">Znamenitost</string>
     <string name="type.tourism.camp_site">Kamp</string>
