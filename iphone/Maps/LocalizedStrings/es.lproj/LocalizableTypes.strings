@@ -922,7 +922,7 @@
 "type.place.island" = "Isla";
 "type.place.islet" = "Islote";
 "type.place.isolated_dwelling" = "Vivienda aislada";
-"type.place.locality" = "Localidad";
+"type.place.locality" = "Paraje";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
 "type.place.quarter" = "Barrio";
