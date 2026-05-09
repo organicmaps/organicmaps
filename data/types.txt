@@ -1649,3 +1649,4 @@ amenity|recycling|container
 *waterway|access_point
 *natural|volcano|active
 *building|construction
+*roller_coaster|track
