@@ -794,7 +794,7 @@
     <string name="type.place.island">Isla</string>
     <string name="type.place.islet">Islote</string>
     <string name="type.place.isolated_dwelling">Vivienda aislada</string>
-    <string name="type.place.locality">Localidad</string>
+    <string name="type.place.locality">Paraje</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Barrio</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
