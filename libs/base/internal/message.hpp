@@ -22,11 +22,6 @@
 #include <utility>
 #include <vector>
 
-/// @name Declarations.
-//@{
-template <typename T>
-inline std::string DebugPrint(T const & t);
-
 inline std::string DebugPrint(std::string s)
 {
   return s;
@@ -35,22 +30,23 @@ inline std::string DebugPrint(std::string_view s)
 {
   return std::string(s);
 }
-inline std::string DebugPrint(char const * t);
+
+inline std::string DebugPrint(char const * t);  // Forward decl: called from DebugPrint(char *) below.
 inline std::string DebugPrint(char * t)
 {
   return DebugPrint(static_cast<char const *>(t));
 }
-inline std::string DebugPrint(char t);
-inline std::string DebugPrint(char32_t t);
 
-/// @name We are going step-by-step to C++20. Use UTF8 string literals instead.
-/// @{
+// We are going step-by-step to C++20. Use UTF8 string literals instead.
 std::string DebugPrint(char16_t const * t) = delete;
 std::string DebugPrint(char16_t * t) = delete;
 std::string DebugPrint(char32_t const * t) = delete;
 std::string DebugPrint(char32_t * t) = delete;
-/// @}
 
+// Forward declarations: pair / optional / DebugPrintSequence are defined before the STL container
+// overloads but call DebugPrint on element types — these decls make the container overloads
+// candidates at parse time so two-phase name lookup picks them at instantiation (ADL on std::
+// types alone wouldn't find ::DebugPrint).
 template <typename U, typename V>
 inline std::string DebugPrint(std::pair<U, V> const & p);
 template <typename T>
@@ -67,12 +63,10 @@ template <typename T>
 inline std::string DebugPrint(std::initializer_list<T> const & v);
 template <typename T>
 inline std::string DebugPrint(std::unique_ptr<T> const & v);
-
 template <class Key, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
 inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v);
 template <class Key, class T, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
 inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v);
-//@}
 
 template <typename T>
 inline std::string DebugPrint(T const & t)
