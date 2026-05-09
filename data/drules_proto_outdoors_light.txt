@@ -120418,6 +120418,58 @@ cont {
   }
 }
 cont {
+  name: "roller_coaster-track"
+  element {
+    scale: 15
+    lines {
+      width: 0.7
+      color: 1302101349
+      priority: 280
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 0.8
+      color: 865893733
+      priority: 280
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 280
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 280
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 280
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.0
+      color: 10255717
+      priority: 280
+    }
+  }
+}
+cont {
   name: "route-ferry"
   element {
     scale: 7
