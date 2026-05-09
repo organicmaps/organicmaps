@@ -166,13 +166,14 @@ DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string cons
   return cancellable.IsCancelled() ? DiffApplicationResult::Cancelled : DiffApplicationResult::Failed;
 }
 
-std::string DebugPrint(DiffApplicationResult result)
+std::string_view DebugPrint(DiffApplicationResult result)
 {
   switch (result)
   {
-  case DiffApplicationResult::Ok: return "Ok";
-  case DiffApplicationResult::Failed: return "Failed";
-  case DiffApplicationResult::Cancelled: return "Cancelled";
+    using enum DiffApplicationResult;
+  case Ok: return "Ok";
+  case Failed: return "Failed";
+  case Cancelled: return "Cancelled";
   }
   UNREACHABLE();
 }

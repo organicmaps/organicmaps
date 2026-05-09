@@ -128,7 +128,7 @@ std::expected<TimeZone, SerializationError> Deserialize(std::string_view const d
   return tz;
 }
 
-std::string DebugPrint(SerializationError const error)
+std::string_view DebugPrint(SerializationError error)
 {
   switch (error)
   {

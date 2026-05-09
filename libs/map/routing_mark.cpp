@@ -745,7 +745,7 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
   return {};
 }
 
-std::string DebugPrint(RoadWarningMarkType type)
+std::string_view DebugPrint(RoadWarningMarkType type)
 {
   switch (type)
   {

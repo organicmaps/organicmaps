@@ -19,30 +19,33 @@ MwmTraits::CentersTableFormat MwmTraits::GetCentersTableFormat() const
   return CentersTableFormat::EliasFanoMapWithHeader;
 }
 
-std::string DebugPrint(MwmTraits::SearchIndexFormat format)
+std::string_view DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)
   {
-  case MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader: return "CompressedBitVectorWithHeader";
+    using enum MwmTraits::SearchIndexFormat;
+  case CompressedBitVectorWithHeader: return "CompressedBitVectorWithHeader";
   }
   UNREACHABLE();
 }
 
-std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
+std::string_view DebugPrint(MwmTraits::HouseToStreetTableFormat format)
 {
   switch (format)
   {
-  case MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader: return "HouseToStreetTableWithHeader";
-  case MwmTraits::HouseToStreetTableFormat::Unknown: return "Unknown";
+    using enum MwmTraits::HouseToStreetTableFormat;
+  case HouseToStreetTableWithHeader: return "HouseToStreetTableWithHeader";
+  case Unknown: return "Unknown";
   }
   UNREACHABLE();
 }
 
-std::string DebugPrint(MwmTraits::CentersTableFormat format)
+std::string_view DebugPrint(MwmTraits::CentersTableFormat format)
 {
   switch (format)
   {
-  case MwmTraits::CentersTableFormat::EliasFanoMapWithHeader: return "EliasFanoMapWithHeader";
+    using enum MwmTraits::CentersTableFormat;
+  case EliasFanoMapWithHeader: return "EliasFanoMapWithHeader";
   }
   UNREACHABLE();
 }

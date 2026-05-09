@@ -9,6 +9,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -49,7 +50,7 @@ enum class Status : uint8_t
   OnDiskOutOfDate, /**< An update for a downloaded mwm is ready according to counties.txt. */
   OutOfMemFailed,  /**< Downloading failed because it's not enough memory */
 };
-std::string DebugPrint(Status status);
+std::string_view DebugPrint(Status status);
 
 /// \note The order of enum items is important. It is used in Storage::NodeStatus method.
 /// If it's necessary to add more statuses it's better to add to the end.
@@ -65,7 +66,7 @@ enum class NodeStatus
   NotDownloaded,   /**< An mwm can be downloaded but not downloaded yet. */
   Partly,          /**< Leafs of group node has a mix of NotDownloaded and OnDisk status. */
 };
-std::string DebugPrint(NodeStatus status);
+std::string_view DebugPrint(NodeStatus status);
 
 enum class NodeErrorCode
 {
@@ -74,7 +75,7 @@ enum class NodeErrorCode
   OutOfMemFailed,   /**< Downloading failed because it's not enough memory */
   NoInetConnection, /**< Downloading failed because internet connection was interrupted */
 };
-std::string DebugPrint(NodeErrorCode status);
+std::string_view DebugPrint(NodeErrorCode status);
 
 struct StatusAndError
 {

@@ -5,53 +5,54 @@
 #include <sstream>
 #include <string>
 
-using namespace std::string_literals;
-
 namespace storage
 {
-std::string DebugPrint(Status status)
+std::string_view DebugPrint(Status status)
 {
   switch (status)
   {
-  case Status::Undefined: return "EUndefined"s;
-  case Status::OnDisk: return "OnDisk"s;
-  case Status::NotDownloaded: return "NotDownloaded"s;
-  case Status::DownloadFailed: return "DownloadFailed"s;
-  case Status::Downloading: return "Downloading"s;
-  case Status::Applying: return "Applying"s;
-  case Status::InQueue: return "InQueue"s;
-  case Status::UnknownError: return "Unknown"s;
-  case Status::OnDiskOutOfDate: return "OnDiskOutOfDate"s;
-  case Status::OutOfMemFailed: return "OutOfMemFailed"s;
+    using enum Status;
+  case Undefined: return "EUndefined";
+  case OnDisk: return "OnDisk";
+  case NotDownloaded: return "NotDownloaded";
+  case DownloadFailed: return "DownloadFailed";
+  case Downloading: return "Downloading";
+  case Applying: return "Applying";
+  case InQueue: return "InQueue";
+  case UnknownError: return "Unknown";
+  case OnDiskOutOfDate: return "OnDiskOutOfDate";
+  case OutOfMemFailed: return "OutOfMemFailed";
   }
   UNREACHABLE();
 }
 
-std::string DebugPrint(NodeStatus status)
+std::string_view DebugPrint(NodeStatus status)
 {
   switch (status)
   {
-  case NodeStatus::Undefined: return "Undefined"s;
-  case NodeStatus::Error: return "Error"s;
-  case NodeStatus::OnDisk: return "OnDisk"s;
-  case NodeStatus::NotDownloaded: return "NotDownloaded"s;
-  case NodeStatus::Downloading: return "Downloading"s;
-  case NodeStatus::Applying: return "Applying"s;
-  case NodeStatus::InQueue: return "InQueue"s;
-  case NodeStatus::OnDiskOutOfDate: return "OnDiskOutOfDate"s;
-  case NodeStatus::Partly: return "Partly"s;
+    using enum NodeStatus;
+  case Undefined: return "Undefined";
+  case Error: return "Error";
+  case OnDisk: return "OnDisk";
+  case NotDownloaded: return "NotDownloaded";
+  case Downloading: return "Downloading";
+  case Applying: return "Applying";
+  case InQueue: return "InQueue";
+  case OnDiskOutOfDate: return "OnDiskOutOfDate";
+  case Partly: return "Partly";
   }
   UNREACHABLE();
 }
 
-std::string DebugPrint(NodeErrorCode status)
+std::string_view DebugPrint(NodeErrorCode status)
 {
   switch (status)
   {
-  case NodeErrorCode::NoError: return "NoError"s;
-  case NodeErrorCode::UnknownError: return "UnknownError"s;
-  case NodeErrorCode::OutOfMemFailed: return "OutOfMemFailed"s;
-  case NodeErrorCode::NoInetConnection: return "NoInetConnection"s;
+    using enum NodeErrorCode;
+  case NoError: return "NoError";
+  case UnknownError: return "UnknownError";
+  case OutOfMemFailed: return "OutOfMemFailed";
+  case NoInetConnection: return "NoInetConnection";
   }
   UNREACHABLE();
 }

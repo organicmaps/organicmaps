@@ -10,6 +10,7 @@
 #include "base/macros.hpp"
 
 #include <string>
+#include <string_view>
 
 class UserMark : public df::UserPointMark
 {
@@ -152,4 +153,4 @@ private:
   ColoredSymbolZoomInfo m_coloredSymbols;
 };
 
-std::string DebugPrint(UserMark::Type type);
+std::string_view DebugPrint(UserMark::Type type);

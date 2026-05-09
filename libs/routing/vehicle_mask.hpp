@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <string>
+#include <string_view>
 
 namespace routing
 {
@@ -31,7 +32,7 @@ VehicleMask constexpr kBicycleMask = GetVehicleMask(VehicleType::Bicycle);
 VehicleMask constexpr kCarMask = GetVehicleMask(VehicleType::Car);
 VehicleMask constexpr kTransitMask = GetVehicleMask(VehicleType::Transit);
 
-std::string DebugPrint(VehicleType vehicleType);
+std::string_view DebugPrint(VehicleType vehicleType);
 std::string ToString(VehicleType vehicleType);
 void FromString(std::string_view s, VehicleType & vehicleType);
 std::string DebugPrint(VehicleMask vehicleMask);

@@ -291,7 +291,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
     // it means the turn is changed. So the |m_onNewTurn| should be called.
-    if (formerIter && curIter && IsNormalTurn(*formerIter) && formerIter->m_index < curIter->m_index && m_onNewTurn)
+    if (formerIter && curIter && !formerIter->IsTurnNone() && formerIter->m_index < curIter->m_index && m_onNewTurn)
       m_onNewTurn();
 
     return m_state;
@@ -876,18 +876,19 @@ void RoutingSession::SetLocaleWithJsonForTesting(std::string const & json, std::
   m_turnNotificationsMgr.SetLocaleWithJsonForTesting(json, locale);
 }
 
-std::string DebugPrint(SessionState state)
+std::string_view DebugPrint(SessionState state)
 {
   switch (state)
   {
-  case SessionState::NoValidRoute: return "NoValidRoute";
-  case SessionState::RouteBuilding: return "RouteBuilding";
-  case SessionState::RouteNotStarted: return "RouteNotStarted";
-  case SessionState::OnRoute: return "OnRoute";
-  case SessionState::RouteNeedRebuild: return "RouteNeedRebuild";
-  case SessionState::RouteFinished: return "RouteFinished";
-  case SessionState::RouteNoFollowing: return "RouteNoFollowing";
-  case SessionState::RouteRebuilding: return "RouteRebuilding";
+    using enum SessionState;
+  case NoValidRoute: return "NoValidRoute";
+  case RouteBuilding: return "RouteBuilding";
+  case RouteNotStarted: return "RouteNotStarted";
+  case OnRoute: return "OnRoute";
+  case RouteNeedRebuild: return "RouteNeedRebuild";
+  case RouteFinished: return "RouteFinished";
+  case RouteNoFollowing: return "RouteNoFollowing";
+  case RouteRebuilding: return "RouteRebuilding";
   }
   UNREACHABLE();
 }

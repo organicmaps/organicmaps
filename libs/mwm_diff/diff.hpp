@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 
 namespace base
 {
@@ -33,6 +34,6 @@ bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath, st
 DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string const & newMwmPath,
                                 std::string const & diffPath, base::Cancellable const & cancellable);
 
-std::string DebugPrint(DiffApplicationResult result);
+std::string_view DebugPrint(DiffApplicationResult result);
 }  // namespace mwm_diff
 }  // namespace generator

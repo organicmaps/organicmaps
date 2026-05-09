@@ -23,6 +23,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 
 namespace location
 {
@@ -224,5 +225,5 @@ private:
 
 void FormatDistance(double dist, std::string & value, std::string & suffix);
 
-std::string DebugPrint(SessionState state);
+std::string_view DebugPrint(SessionState state);
 }  // namespace routing

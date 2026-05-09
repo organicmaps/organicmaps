@@ -3,6 +3,7 @@
 #include "platform/measurement_utils.hpp"
 
 #include <string>
+#include <string_view>
 
 namespace platform
 {
@@ -62,6 +63,6 @@ private:
   Units m_units;
 };
 
-std::string DebugPrint(Distance::Units units);
+std::string_view DebugPrint(Distance::Units units);
 
 }  // namespace platform

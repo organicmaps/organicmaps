@@ -186,4 +186,4 @@ private:
   threads::SimpleThread m_thread;
 };
 
-extern std::string DebugPrint(TrafficManager::TrafficState state);
+extern std::string_view DebugPrint(TrafficManager::TrafficState state);

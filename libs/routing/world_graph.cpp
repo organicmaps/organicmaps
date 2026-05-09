@@ -82,16 +82,17 @@ RouteWeight WorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
 }
 /// @}
 
-std::string DebugPrint(WorldGraphMode mode)
+std::string_view DebugPrint(WorldGraphMode mode)
 {
   switch (mode)
   {
-  case WorldGraphMode::LeapsOnly: return "LeapsOnly";
-  case WorldGraphMode::NoLeaps: return "NoLeaps";
-  case WorldGraphMode::SingleMwm: return "SingleMwm";
-  case WorldGraphMode::Joints: return "Joints";
-  case WorldGraphMode::JointSingleMwm: return "JointsSingleMwm";
-  case WorldGraphMode::Undefined: return "Undefined";
+    using enum WorldGraphMode;
+  case LeapsOnly: return "LeapsOnly";
+  case NoLeaps: return "NoLeaps";
+  case SingleMwm: return "SingleMwm";
+  case Joints: return "Joints";
+  case JointSingleMwm: return "JointsSingleMwm";
+  case Undefined: return "Undefined";
   }
 
   UNREACHABLE();

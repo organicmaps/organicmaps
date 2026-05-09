@@ -46,13 +46,14 @@ void Cancellable::CheckDeadline() const
     m_status = Status::DeadlineExceeded;
 }
 
-std::string DebugPrint(Cancellable::Status status)
+std::string_view DebugPrint(Cancellable::Status status)
 {
   switch (status)
   {
-  case Cancellable::Status::Active: return "Active";
-  case Cancellable::Status::CancelCalled: return "CancelCalled";
-  case Cancellable::Status::DeadlineExceeded: return "DeadlineExceeded";
+    using enum Cancellable::Status;
+  case Active: return "Active";
+  case CancelCalled: return "CancelCalled";
+  case DeadlineExceeded: return "DeadlineExceeded";
   }
   UNREACHABLE();
 }

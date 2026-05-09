@@ -95,13 +95,14 @@ DateTimeRelation GetTimesRelation(::transit::Time const & time1, ::transit::Time
 namespace transit
 {
 // Status ------------------------------------------------------------------------------------------
-std::string DebugPrint(Status const & status)
+std::string_view DebugPrint(Status status)
 {
   switch (status)
   {
-  case Status::Open: return "Open";
-  case Status::Closed: return "Closed";
-  case Status::Unknown: return "Unknown";
+    using enum Status;
+  case Open: return "Open";
+  case Closed: return "Closed";
+  case Unknown: return "Unknown";
   }
   UNREACHABLE();
 }

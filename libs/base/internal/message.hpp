@@ -15,6 +15,8 @@
 #include <set>
 #include <sstream>
 #include <string>
+#include <string_view>
+#include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -28,6 +30,10 @@ inline std::string DebugPrint(T const & t);
 inline std::string DebugPrint(std::string s)
 {
   return s;
+}
+inline std::string DebugPrint(std::string_view s)
+{
+  return std::string(s);
 }
 inline std::string DebugPrint(char const * t);
 inline std::string DebugPrint(char * t)
@@ -248,22 +254,34 @@ inline std::string DebugPrint(std::unique_ptr<T> const & v)
 
 namespace base
 {
+namespace internal
+{
+template <typename T>
+std::string DebugPrintToString(T && t)
+{
+  using ::DebugPrint;
+  auto result = DebugPrint(std::forward<T>(t));
+  if constexpr (std::is_same_v<decltype(result), std::string>)
+    return result;
+  else
+    return std::string(result);
+}
+}  // namespace internal
+
 inline std::string Message()
 {
   return {};
 }
 
 template <typename T>
-std::string Message(T const & t)
+std::string Message(T && t)
 {
-  using ::DebugPrint;
-  return DebugPrint(t);
+  return internal::DebugPrintToString(std::forward<T>(t));
 }
 
 template <typename T, typename... Args>
-std::string Message(T const & t, Args const &... others)
+std::string Message(T && t, Args &&... others)
 {
-  using ::DebugPrint;
-  return DebugPrint(t) + " " + Message(others...);
+  return internal::DebugPrintToString(std::forward<T>(t)) + " " + Message(std::forward<Args>(others)...);
 }
 }  // namespace base

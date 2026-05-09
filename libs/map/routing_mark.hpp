@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <string>
+#include <string_view>
 
 enum class RouteMarkType : uint8_t
 {
@@ -242,4 +243,4 @@ private:
   std::string m_distance;
 };
 
-std::string DebugPrint(RoadWarningMarkType type);
+std::string_view DebugPrint(RoadWarningMarkType type);

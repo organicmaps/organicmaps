@@ -437,12 +437,13 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(vector
   return make_unique<SparseCBV>(std::move(setBits));
 }
 
-std::string DebugPrint(CompressedBitVector::StorageStrategy strat)
+std::string_view DebugPrint(CompressedBitVector::StorageStrategy strat)
 {
   switch (strat)
   {
-  case CompressedBitVector::StorageStrategy::Dense: return "Dense";
-  case CompressedBitVector::StorageStrategy::Sparse: return "Sparse";
+    using enum CompressedBitVector::StorageStrategy;
+  case Dense: return "Dense";
+  case Sparse: return "Sparse";
   }
   UNREACHABLE();
 }

@@ -12,6 +12,7 @@
 #include <memory>
 #include <queue>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace routing
@@ -172,6 +173,6 @@ private:
 
 std::string SpeedCameraManagerModeForStat(SpeedCameraManagerMode mode);
 
-std::string DebugPrint(SpeedCameraManager::Interval interval);
-std::string DebugPrint(SpeedCameraManagerMode mode);
+std::string_view DebugPrint(SpeedCameraManager::Interval interval);
+std::string_view DebugPrint(SpeedCameraManagerMode mode);
 }  // namespace routing

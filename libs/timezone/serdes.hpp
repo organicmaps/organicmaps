@@ -1,6 +1,7 @@
 #pragma once
 
 #include <expected>
+#include <string_view>
 
 #include "timezone/timezone.hpp"
 
@@ -23,5 +24,5 @@ enum class SerializationError
 std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZone);
 std::expected<TimeZone, SerializationError> Deserialize(std::string_view data);
 
-std::string DebugPrint(SerializationError error);
+std::string_view DebugPrint(SerializationError error);
 }  // namespace om::tz
