@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Історична пам'ятка";
 "type.attraction.maze" = "Лабіринт";
 "type.attraction.roller_coaster" = "Американські гірки";
+"type.roller_coaster.track" = "Американські гірки";
 "type.attraction.water_slide" = "Водна гірка";
 "type.tourism.attraction.specified" = "Пам’ятне місце";
 "type.tourism.camp_site" = "Кемпінг";

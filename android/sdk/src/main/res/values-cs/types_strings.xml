@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Historická atrakce</string>
     <string name="type.attraction.maze">Bludiště</string>
     <string name="type.attraction.roller_coaster">Horská dráha</string>
+    <string name="type.roller_coaster.track">Horská dráha</string>
     <string name="type.attraction.water_slide">Vodní skluzavka</string>
     <string name="type.tourism.attraction.specified">Atrakce</string>
     <string name="type.tourism.camp_site">Kempování</string>

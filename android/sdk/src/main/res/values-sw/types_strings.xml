@@ -639,6 +639,7 @@
     <string name="type.attraction.historic">Kivutio cha kihistoria</string>
     <string name="type.attraction.maze">Maze</string>
     <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.roller_coaster.track">Roller Coaster</string>
     <string name="type.attraction.water_slide">Slaidi ya Maji</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Nyumba ndogo ya Likizo</string>

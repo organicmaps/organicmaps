@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Historische attractie</string>
     <string name="type.attraction.maze">Doolhof</string>
     <string name="type.attraction.roller_coaster">Achtbaan</string>
+    <string name="type.roller_coaster.track">Achtbaan</string>
     <string name="type.attraction.water_slide">Waterglijbaan</string>
     <string name="type.tourism.attraction.specified">Attractie</string>
     <string name="type.tourism.camp_site">Kampeerterrein</string>

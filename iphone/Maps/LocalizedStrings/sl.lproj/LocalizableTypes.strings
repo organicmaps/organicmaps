@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Zgodovinska znamenitost";
 "type.attraction.maze" = "Labirint";
 "type.attraction.roller_coaster" = "Vlak smrti";
+"type.roller_coaster.track" = "Vlak smrti";
 "type.attraction.water_slide" = "Vodni tobogan";
 "type.tourism.attraction.specified" = "Znamenitost";
 "type.tourism.camp_site" = "Kamp";

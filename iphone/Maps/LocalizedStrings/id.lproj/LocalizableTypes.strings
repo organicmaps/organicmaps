@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Atraksi bersejarah";
 "type.attraction.maze" = "Labirin";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Seluncuran Air";
 "type.tourism.attraction.specified" = "Atraksi";
 "type.tourism.camp_site" = "Perkemahan";

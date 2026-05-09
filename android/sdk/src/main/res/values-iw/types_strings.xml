@@ -1043,6 +1043,7 @@
     <string name="type.attraction.historic">אטרקצייה היסטורית</string>
     <string name="type.attraction.maze">מָבוֹך</string>
     <string name="type.attraction.roller_coaster">רכבת הרים</string>
+    <string name="type.roller_coaster.track">רכבת הרים</string>
     <string name="type.attraction.water_slide">מגלשת מים</string>
     <string name="type.tourism.attraction.specified">אטרקצייה תיירותית</string>
     <string name="type.tourism.camp_site">אתר מחנאות</string>

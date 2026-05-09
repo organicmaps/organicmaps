@@ -1318,6 +1318,7 @@
     <string name="type.attraction.historic">Historisk attraktion</string>
     <string name="type.attraction.maze">Labyrint</string>
     <string name="type.attraction.roller_coaster">Rutsjebane</string>
+    <string name="type.roller_coaster.track">Rutsjebane</string>
     <string name="type.attraction.water_slide">Vandrutschebane</string>
     <string name="type.tourism.attraction.specified">Attraktioner</string>
     <string name="type.tourism.camp_site">Campingplads</string>

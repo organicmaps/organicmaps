@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Atrakcja historyczna</string>
     <string name="type.attraction.maze">Labirynt</string>
     <string name="type.attraction.roller_coaster">Kolejka górska</string>
+    <string name="type.roller_coaster.track">Kolejka górska</string>
     <string name="type.attraction.water_slide">Zjeżdżalnia wodna</string>
     <string name="type.tourism.attraction.specified">Atrakcja turystyczna</string>
     <string name="type.tourism.camp_site">Kamping</string>

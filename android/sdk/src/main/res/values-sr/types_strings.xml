@@ -1314,6 +1314,7 @@
     <string name="type.attraction.historic">Историјска атракција</string>
     <string name="type.attraction.maze">Лавиринт</string>
     <string name="type.attraction.roller_coaster">Ролеркостер</string>
+    <string name="type.roller_coaster.track">Ролеркостер</string>
     <string name="type.attraction.water_slide">Тобоган</string>
     <string name="type.tourism.attraction.specified">Туристичка атракција</string>
     <string name="type.tourism.camp_site">Камп</string>

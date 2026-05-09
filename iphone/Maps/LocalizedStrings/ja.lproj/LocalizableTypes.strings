@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "歴史的アトラクション";
 "type.attraction.maze" = "迷路";
 "type.attraction.roller_coaster" = "ジェットコースター";
+"type.roller_coaster.track" = "ジェットコースター";
 "type.attraction.water_slide" = "ウォータースライド";
 "type.tourism.attraction.specified" = "アトラクション";
 "type.tourism.camp_site" = "キャンプ場";

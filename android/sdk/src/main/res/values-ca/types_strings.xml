@@ -1322,6 +1322,7 @@
     <string name="type.attraction.historic">Atracció històrica</string>
     <string name="type.attraction.maze">Laberint</string>
     <string name="type.attraction.roller_coaster">Muntanya russa</string>
+    <string name="type.roller_coaster.track">Muntanya russa</string>
     <string name="type.attraction.water_slide">Tobogan aquàtic</string>
     <string name="type.tourism.attraction.specified">Atracció</string>
     <string name="type.tourism.camp_site">Paratge d’acampada</string>

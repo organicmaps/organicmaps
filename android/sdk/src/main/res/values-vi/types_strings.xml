@@ -1141,6 +1141,7 @@
     <string name="type.attraction.historic">Điểm tham quan lịch sử</string>
     <string name="type.attraction.maze">mê cung</string>
     <string name="type.attraction.roller_coaster">Tàu lượn siêu tốc</string>
+    <string name="type.roller_coaster.track">Tàu lượn siêu tốc</string>
     <string name="type.attraction.water_slide">Trượt nước</string>
     <string name="type.tourism.attraction.specified">Hấp dẫn</string>
     <string name="type.tourism.camp_site">Cắm trại</string>

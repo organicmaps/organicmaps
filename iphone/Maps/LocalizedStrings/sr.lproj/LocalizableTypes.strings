@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Историјска атракција";
 "type.attraction.maze" = "Лавиринт";
 "type.attraction.roller_coaster" = "Ролеркостер";
+"type.roller_coaster.track" = "Ролеркостер";
 "type.attraction.water_slide" = "Тобоган";
 "type.tourism.attraction.specified" = "Туристичка атракција";
 "type.tourism.camp_site" = "Камп";

@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Պատմական վայր";
 "type.attraction.maze" = "Լաբիրինթոս";
 "type.attraction.roller_coaster" = "Ամերիկյան բլուրներ";
+"type.roller_coaster.track" = "Ամերիկյան բլուրներ";
 "type.attraction.water_slide" = "Ջրային սահուղի";
 "type.tourism.attraction.specified" = "Տեսարժան վայր";
 "type.tourism.camp_site" = "Ճամբարային տեղ";

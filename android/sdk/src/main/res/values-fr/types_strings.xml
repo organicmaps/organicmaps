@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Attraction historique</string>
     <string name="type.attraction.maze">Labyrinthe</string>
     <string name="type.attraction.roller_coaster">Les montagnes russes</string>
+    <string name="type.roller_coaster.track">Les montagnes russes</string>
     <string name="type.attraction.water_slide">Toboggan aquatique</string>
     <string name="type.tourism.attraction.specified">Attraction</string>
     <string name="type.tourism.camp_site">Camping</string>

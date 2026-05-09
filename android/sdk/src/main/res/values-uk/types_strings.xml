@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Історична пам\'ятка</string>
     <string name="type.attraction.maze">Лабіринт</string>
     <string name="type.attraction.roller_coaster">Американські гірки</string>
+    <string name="type.roller_coaster.track">Американські гірки</string>
     <string name="type.attraction.water_slide">Водна гірка</string>
     <string name="type.tourism.attraction.specified">Пам’ятне місце</string>
     <string name="type.tourism.camp_site">Кемпінг</string>

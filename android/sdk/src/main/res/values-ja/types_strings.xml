@@ -1256,6 +1256,7 @@
     <string name="type.attraction.historic">歴史的アトラクション</string>
     <string name="type.attraction.maze">迷路</string>
     <string name="type.attraction.roller_coaster">ジェットコースター</string>
+    <string name="type.roller_coaster.track">ジェットコースター</string>
     <string name="type.attraction.water_slide">ウォータースライド</string>
     <string name="type.tourism.attraction.specified">アトラクション</string>
     <string name="type.tourism.camp_site">キャンプ場</string>

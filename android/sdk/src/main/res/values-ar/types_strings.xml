@@ -1294,6 +1294,7 @@
     <string name="type.attraction.historic">جاذبية تاريخية</string>
     <string name="type.attraction.maze">المتاهة</string>
     <string name="type.attraction.roller_coaster">قطار الملاهي الدوارة</string>
+    <string name="type.roller_coaster.track">قطار الملاهي الدوارة</string>
     <string name="type.attraction.water_slide">منزلق مائي</string>
     <string name="type.tourism.attraction.specified">مكان جذاب</string>
     <string name="type.tourism.camp_site">مخيّم</string>

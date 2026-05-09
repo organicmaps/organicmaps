@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Исторический аттракцион";
 "type.attraction.maze" = "Лабиринт";
 "type.attraction.roller_coaster" = "Американские горки";
+"type.roller_coaster.track" = "Американские горки";
 "type.attraction.water_slide" = "Водная горка";
 "type.tourism.attraction.specified" = "Достопримечательность";
 "type.tourism.camp_site" = "Кемпинг";

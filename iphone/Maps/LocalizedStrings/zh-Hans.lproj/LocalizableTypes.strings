@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "历史景点";
 "type.attraction.maze" = "迷宫";
 "type.attraction.roller_coaster" = "过山车";
+"type.roller_coaster.track" = "过山车";
 "type.attraction.water_slide" = "水上滑梯";
 "type.tourism.attraction.specified" = "景点";
 "type.tourism.camp_site" = "宿营场地";

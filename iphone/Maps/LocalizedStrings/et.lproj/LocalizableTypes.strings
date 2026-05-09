@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Ajalooline vaatamisväärsus";
 "type.attraction.maze" = "Labürint";
 "type.attraction.roller_coaster" = "Ameerika mäed";
+"type.roller_coaster.track" = "Ameerika mäed";
 "type.attraction.water_slide" = "Vesiliug";
 "type.tourism.attraction.specified" = "Turismiatraktsioon";
 "type.tourism.camp_site" = "Kämpinguala";

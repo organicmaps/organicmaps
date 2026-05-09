@@ -1228,6 +1228,7 @@
     <string name="type.attraction.historic">Historiallinen nähtävyys</string>
     <string name="type.attraction.maze">Sokkelo</string>
     <string name="type.attraction.roller_coaster">Vuoristorata</string>
+    <string name="type.roller_coaster.track">Vuoristorata</string>
     <string name="type.attraction.water_slide">Vesiliukumäki</string>
     <string name="type.tourism.attraction.specified">Nähtävyys</string>
     <string name="type.tourism.camp_site">Retkeily</string>

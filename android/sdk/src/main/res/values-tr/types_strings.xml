@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Tarihi cazibe merkezi</string>
     <string name="type.attraction.maze">Labirent</string>
     <string name="type.attraction.roller_coaster">Lunapark hız treni</string>
+    <string name="type.roller_coaster.track">Lunapark hız treni</string>
     <string name="type.attraction.water_slide">Su Kaydırağı</string>
     <string name="type.tourism.attraction.specified">Görülecek Yerler</string>
     <string name="type.tourism.camp_site">Kamp Alanı</string>

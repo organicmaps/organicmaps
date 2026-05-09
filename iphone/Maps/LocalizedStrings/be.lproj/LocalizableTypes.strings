@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Гістарычная славутасць";
 "type.attraction.maze" = "Лабірынт";
 "type.attraction.roller_coaster" = "Амерыканскія горкі";
+"type.roller_coaster.track" = "Амерыканскія горкі";
 "type.attraction.water_slide" = "Водная горка";
 "type.tourism.attraction.specified" = "Славутасць";
 "type.tourism.camp_site" = "Кемпінг";

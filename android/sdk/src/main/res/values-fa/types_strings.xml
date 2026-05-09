@@ -1210,6 +1210,7 @@
     <string name="type.attraction.historic">جاذبه تاریخی</string>
     <string name="type.attraction.maze">ماز</string>
     <string name="type.attraction.roller_coaster">ترن هوایی</string>
+    <string name="type.roller_coaster.track">ترن هوایی</string>
     <string name="type.attraction.water_slide">سرسره آبی</string>
     <string name="type.tourism.attraction.specified">گردشگری</string>
     <string name="type.tourism.camp_site">محل چادر زنی</string>

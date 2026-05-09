@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Kivutio cha kihistoria";
 "type.attraction.maze" = "Maze";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Slaidi ya Maji";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Campground";

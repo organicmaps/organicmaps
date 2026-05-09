@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Istorinė atrakcija</string>
     <string name="type.attraction.maze">Labirintas</string>
     <string name="type.attraction.roller_coaster">Amerikietiški kalneliai</string>
+    <string name="type.roller_coaster.track">Amerikietiški kalneliai</string>
     <string name="type.attraction.water_slide">Vandens kalnelis</string>
     <string name="type.tourism.attraction.specified">Lankytina vieta</string>
     <string name="type.tourism.camp_site">Stovyklavietė</string>

@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "ສະຖານທີ່ທ່ອງທ່ຽວທາງປະຫວັດສາດ";
 "type.attraction.maze" = "ທາງວົງກົດ";
 "type.attraction.roller_coaster" = "ລົດໄຟເຫາະ";
+"type.roller_coaster.track" = "ລົດໄຟເຫາະ";
 "type.attraction.water_slide" = "ສະໄລເດີນ້ຳ";
 "type.tourism.attraction.specified" = "ສະຖານທີ່ທ່ອງທ່ຽວ";
 "type.tourism.camp_site" = "ສະຖານທີ່ຕັ້ງແຄ້ມ";

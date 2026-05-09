@@ -1282,6 +1282,7 @@
     <string name="type.attraction.historic">Historisk sevärdhet</string>
     <string name="type.attraction.maze">Labyrint</string>
     <string name="type.attraction.roller_coaster">Berg- och dalbana</string>
+    <string name="type.roller_coaster.track">Berg- och dalbana</string>
     <string name="type.attraction.water_slide">Vattenrutschbana</string>
     <string name="type.tourism.attraction.specified">Attraktion</string>
     <string name="type.tourism.camp_site">Campingplats</string>

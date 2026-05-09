@@ -1145,6 +1145,7 @@
     <string name="type.attraction.historic">แหล่งท่องเที่ยวทางประวัติศาสตร์</string>
     <string name="type.attraction.maze">เขาวงกต</string>
     <string name="type.attraction.roller_coaster">รถไฟเหาะ</string>
+    <string name="type.roller_coaster.track">รถไฟเหาะ</string>
     <string name="type.attraction.water_slide">สไลเดอร์น้ำ</string>
     <string name="type.tourism.attraction.specified">การท่องเที่ยว</string>
     <string name="type.tourism.camp_site">การตั้งแคมป์</string>

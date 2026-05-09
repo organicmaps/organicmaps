@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Atrakzio historikoa";
 "type.attraction.maze" = "Labirintoa";
 "type.attraction.roller_coaster" = "Errusiar mendia";
+"type.roller_coaster.track" = "Errusiar mendia";
 "type.attraction.water_slide" = "Ur Txirrista";
 "type.tourism.attraction.specified" = "Erakarpen turistikoa";
 "type.tourism.camp_site" = "Kanpalekua";

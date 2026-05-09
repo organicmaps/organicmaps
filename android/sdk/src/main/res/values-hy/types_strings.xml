@@ -1322,6 +1322,7 @@
     <string name="type.attraction.historic">Պատմական վայր</string>
     <string name="type.attraction.maze">Լաբիրինթոս</string>
     <string name="type.attraction.roller_coaster">Ամերիկյան բլուրներ</string>
+    <string name="type.roller_coaster.track">Ամերիկյան բլուրներ</string>
     <string name="type.attraction.water_slide">Ջրային սահուղի</string>
     <string name="type.tourism.attraction.specified">Տեսարժան վայր</string>
     <string name="type.tourism.camp_site">Ճամբարային տեղ</string>

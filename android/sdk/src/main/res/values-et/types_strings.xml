@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Ajalooline vaatamisväärsus</string>
     <string name="type.attraction.maze">Labürint</string>
     <string name="type.attraction.roller_coaster">Ameerika mäed</string>
+    <string name="type.roller_coaster.track">Ameerika mäed</string>
     <string name="type.attraction.water_slide">Vesiliug</string>
     <string name="type.tourism.attraction.specified">Turismiatraktsioon</string>
     <string name="type.tourism.camp_site">Kämpinguala</string>

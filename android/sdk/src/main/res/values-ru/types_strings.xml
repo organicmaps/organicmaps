@@ -1325,6 +1325,7 @@
     <string name="type.attraction.historic">Исторический аттракцион</string>
     <string name="type.attraction.maze">Лабиринт</string>
     <string name="type.attraction.roller_coaster">Американские горки</string>
+    <string name="type.roller_coaster.track">Американские горки</string>
     <string name="type.attraction.water_slide">Водная горка</string>
     <string name="type.tourism.attraction.specified">Достопримечательность</string>
     <string name="type.tourism.camp_site">Кемпинг</string>

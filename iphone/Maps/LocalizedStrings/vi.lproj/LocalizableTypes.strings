@@ -1466,6 +1466,7 @@
 "type.attraction.historic" = "Điểm tham quan lịch sử";
 "type.attraction.maze" = "mê cung";
 "type.attraction.roller_coaster" = "Tàu lượn siêu tốc";
+"type.roller_coaster.track" = "Tàu lượn siêu tốc";
 "type.attraction.water_slide" = "Trượt nước";
 "type.tourism.attraction.specified" = "Hấp dẫn";
 "type.tourism.camp_site" = "Cắm trại";

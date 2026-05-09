@@ -1247,6 +1247,7 @@
     <string name="type.attraction.historic">Atrakzio historikoa</string>
     <string name="type.attraction.maze">Labirintoa</string>
     <string name="type.attraction.roller_coaster">Errusiar mendia</string>
+    <string name="type.roller_coaster.track">Errusiar mendia</string>
     <string name="type.attraction.water_slide">Ur Txirrista</string>
     <string name="type.tourism.attraction.specified">Erakarpen turistikoa</string>
     <string name="type.tourism.camp_site">Kanpalekua</string>

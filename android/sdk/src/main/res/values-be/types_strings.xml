@@ -1324,6 +1324,7 @@
     <string name="type.attraction.historic">Гістарычная славутасць</string>
     <string name="type.attraction.maze">Лабірынт</string>
     <string name="type.attraction.roller_coaster">Амерыканскія горкі</string>
+    <string name="type.roller_coaster.track">Амерыканскія горкі</string>
     <string name="type.attraction.water_slide">Водная горка</string>
     <string name="type.tourism.attraction.specified">Славутасць</string>
     <string name="type.tourism.camp_site">Кемпінг</string>
