@@ -137,33 +137,38 @@ inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock>
 template <typename U, typename V>
 std::string DebugPrint(std::pair<U, V> const & p)
 {
-  std::ostringstream out;
-  out << "(" << DebugPrint(p.first) << ", " << DebugPrint(p.second) << ")";
-  return out.str();
+  std::string out = "(";
+  out += DebugPrint(p.first);
+  out += ", ";
+  out += DebugPrint(p.second);
+  out += ')';
+  return out;
 }
 
 template <typename IterT>
 std::string DebugPrintSequence(IterT beg, IterT end)
 {
-  std::ostringstream out;
-  out << "[" << std::distance(beg, end) << ":";
+  std::string out = "[";
+  out += std::to_string(std::distance(beg, end));
+  out += ':';
   for (; beg != end; ++beg)
-    out << " " << DebugPrint(*beg);
-  out << " ]";
-  return out.str();
+  {
+    out += ' ';
+    out += DebugPrint(*beg);
+  }
+  out += " ]";
+  return out;
 }
 
 template <typename T>
 std::string DebugPrint(std::optional<T> const & p)
 {
-  if (p)
-  {
-    std::ostringstream out;
-    out << "optional(" << DebugPrint(p.value()) << ")";
-    return out.str();
-  }
-  else
+  if (!p)
     return "nullopt";
+  std::string out = "optional(";
+  out += DebugPrint(*p);
+  out += ')';
+  return out;
 }
 
 std::string inline DebugPrint(std::nullopt_t const & p)
@@ -244,12 +249,9 @@ inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v)
 template <typename T>
 inline std::string DebugPrint(std::unique_ptr<T> const & v)
 {
-  std::ostringstream out;
-  if (v.get() != nullptr)
-    out << DebugPrint(*v);
-  else
-    out << DebugPrint("null");
-  return out.str();
+  if (v)
+    return std::string(DebugPrint(*v));
+  return "null";
 }
 
 namespace base
