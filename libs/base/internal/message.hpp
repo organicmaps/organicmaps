@@ -270,20 +270,28 @@ std::string DebugPrintToString(T && t)
 }
 }  // namespace internal
 
-inline std::string Message()
+template <typename... Args>
+std::string Message(Args &&... args)
 {
-  return {};
-}
-
-template <typename T>
-std::string Message(T && t)
-{
-  return internal::DebugPrintToString(std::forward<T>(t));
-}
-
-template <typename T, typename... Args>
-std::string Message(T && t, Args &&... others)
-{
-  return internal::DebugPrintToString(std::forward<T>(t)) + " " + Message(std::forward<Args>(others)...);
+  if constexpr (sizeof...(args) == 0)
+    return {};
+  else if constexpr (sizeof...(args) == 1)
+    return internal::DebugPrintToString(std::forward<Args>(args)...);
+  else
+  {
+    std::array parts{internal::DebugPrintToString(std::forward<Args>(args))...};
+    size_t total = parts.size() - 1;  // single-space separators
+    for (auto const & p : parts)
+      total += p.size();
+    std::string out;
+    out.reserve(total);
+    out += parts[0];
+    for (size_t i = 1; i < parts.size(); ++i)
+    {
+      out += ' ';
+      out += parts[i];
+    }
+    return out;
+  }
 }
 }  // namespace base

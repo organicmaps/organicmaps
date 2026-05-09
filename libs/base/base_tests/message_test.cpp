@@ -54,3 +54,13 @@ UNIT_TEST(Message_DebugPrintStringViewResult)
   TEST_EQUAL(base::Message(message_test::Printable::Value), "string_view result", ());
   TEST_EQUAL(base::Message("prefix", message_test::Printable::Value), "prefix string_view result", ());
 }
+
+UNIT_TEST(Message_VariadicArgs)
+{
+  TEST_EQUAL(base::Message(), "", ());
+  TEST_EQUAL(base::Message("only"), "only", ());
+  TEST_EQUAL(base::Message("a", "b"), "a b", ());
+  TEST_EQUAL(base::Message("a", "b", "c", "d", "e"), "a b c d e", ());
+  TEST_EQUAL(base::Message(1, 2, 3), "1 2 3", ());
+  TEST_EQUAL(base::Message("count", 42, "items"), "count 42 items", ());
+}
