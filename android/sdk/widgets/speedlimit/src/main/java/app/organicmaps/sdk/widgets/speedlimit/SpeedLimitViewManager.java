@@ -43,7 +43,7 @@ public class SpeedLimitViewManager
     if (mSpeedLimitView == null)
       return;
     mSpeedLimitView.setValue(mSpeedLimit);
-    mSpeedLimitView.setMode(mAlert ? SpeedLimitView.Mode.Alert : SpeedLimitView.Mode.Normal);
+    mSpeedLimitView.setMode(mAlert ? Mode.Alert : Mode.Normal);
     mSpeedLimitView.setVisibility(mVisible ? View.VISIBLE : View.INVISIBLE);
   }
 }

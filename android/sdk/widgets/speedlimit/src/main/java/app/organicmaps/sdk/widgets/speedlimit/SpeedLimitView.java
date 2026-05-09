@@ -18,22 +18,9 @@ import java.util.Objects;
 
 public class SpeedLimitView extends View
 {
-  public enum Shape
-  {
-    Circle,
-    Square
-  }
-
-  public enum Mode
-  {
-    Normal,
-    Warning,
-    Alert
-  }
-
   public record Colors(@ColorInt int backgroundColor, @ColorInt int borderColor, @ColorInt int textColor) {}
 
-  private int mValue;
+  private int mValue = 60;
   private float mBorderWidthRatio;
   private float mCornerRadiusRatio;
   @NonNull
@@ -134,7 +121,7 @@ public class SpeedLimitView extends View
     try (final TypedArray data =
              context.getTheme().obtainStyledAttributes(attrs, R.styleable.OMSpeedLimitView, defStyleAttr, defStyleRes))
     {
-      mValue = data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_value, 60);
+      mValue = data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_value, mValue);
       mValue = Math.min(Math.max(mValue, 0), 999);
       mShape = Shape.values()[data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_shape, 0)];
       mMode = Mode.values()[data.getInt(R.styleable.OMSpeedLimitView_om_speed_limit_view_mode, 0)];
