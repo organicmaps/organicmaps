@@ -81,8 +81,8 @@
   branch = master
 [submodule "3party/glaze"]
   path = 3party/glaze
-  url = https://github.com/organicmaps/glaze
-  branch = organicmaps
+  url = https://github.com/stephenberry/glaze
+  branch = main
 [submodule "3party/fast_float"]
   path = 3party/fast_float
   url = https://github.com/fastfloat/fast_float.git
