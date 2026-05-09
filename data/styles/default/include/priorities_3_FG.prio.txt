@@ -125,6 +125,7 @@ railway-rail-main-tunnel                            # line z10- (also has line::
 railway-rail-tourism                                # line z10- (also has line::dash z16-, pathtext z14-)
 railway-rail-tourism-bridge                         # line z10- (also has line::bridgeblack z16-, line::bridgewhite z13-, line::dash z16-, pathtext z14-)
 railway-rail-tourism-tunnel                         # line z10- (also has line::dash z16-, line(casing) z14-, pathtext z14-)
+roller_coaster-track                                # line z15-
 === 280
 
 # railway-rail-branch-tunnel                        # line(casing) z14- (also has line z11-, line::dash z16-)

@@ -42673,6 +42673,9 @@ vi = Tàu lượn siêu tốc
 zh-Hans = 过山车
 zh-Hant = 雲霄飛車
 
+[type.roller_coaster.track]
+ref = type.attraction.roller_coaster
+
 [type.attraction.water_slide]
 en = Water Slide
 af = Waterglybaan
