@@ -2521,7 +2521,7 @@ fr:Pâtisserie|confiserie|confiseur
 hi:4हलवाई की दुकान
 hu:Cukrászüzlet|édességbolt|cukrászműhely
 id:Penganan|manisan
-it:Pasticceria|drogheria|pasticciere
+it:Negozio di dolciumi|negozio di caramelle|cioccolateria|pasticceria|drogheria
 ja:菓子類|菓子屋|菓子職人
 ko:제과점|과자점|디저트점|사탕|과자|베이커리|과자 장수
 lt:5Saldumynai|5konditerija|saldumynų parduotuvė|konditeris
