@@ -1,0 +1,103 @@
+name: CMake Xcode (macOS)
+
+# Manual-only: this workflow exists primarily for dev_sandbox development on
+# macOS via the CMake-generated Xcode project. The Ninja-generator macOS leg in
+# build-cmake.yaml already covers PR/push validation, so we don't run this on
+# every PR to avoid occupying scarce macOS runners.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: "macOS Xcode ${{ matrix.cmake-build-type }}"
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        cmake-build-type: [ Debug, Release ]
+
+    env:
+      BUILD_DIR: build-xcode
+      DEVELOPER_DIR: /Applications/Xcode_26.4.app/Contents/Developer
+
+    steps:
+      - name: Show current version of Xcode
+        run: xcodebuild -version
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Install build tools and dependencies
+        env:
+          HOMEBREW_NO_ANALYTICS: 1
+          HOMEBREW_NO_INSTALL_CLEANUP: 1
+        run: |
+          brew install qt@6
+          pip3 install tornado --break-system-packages
+
+      - name: Configure repository
+        run: ./configure.sh
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-${{ matrix.cmake-build-type }}
+
+      - name: Generate Xcode project with CMake
+        run: |
+          cmake . -B ${{ env.BUILD_DIR }} -G Xcode \
+            -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_C_FLAGS=-g1 \
+            -DCMAKE_CXX_FLAGS=-g1
+
+      - name: Build all targets
+        working-directory: ${{ env.BUILD_DIR }}
+        run: |
+          xcodebuild build \
+            -project omim.xcodeproj \
+            -target ALL_BUILD \
+            -configuration ${{ matrix.cmake-build-type }} \
+            -parallelizeTargets \
+            -quiet \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run tests
+        working-directory: ${{ env.BUILD_DIR }}
+        env:
+          # drape_tests, drape_frontend_tests, shaders_tests - require offscreen rendering, run separately.
+          # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+          # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
+          # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
+          # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+          # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
+          CTEST_EXCLUDE_REGEX: "drape_tests|drape_frontend_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+        run: |
+          ctest -j$(sysctl -n hw.logicalcpu) -C ${{ matrix.cmake-build-type }} \
+            -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+
+      # Run drape tests separately. They require offscreen rendering support.
+      - name: Run drape tests
+        working-directory: ${{ env.BUILD_DIR }}
+        env:
+          QT_QPA_PLATFORM: "offscreen"
+        run: |
+          ctest -C ${{ matrix.cmake-build-type }} \
+            -R "drape_tests|drape_frontend_tests|shaders_tests" --verbose
