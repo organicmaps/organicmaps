@@ -6,6 +6,7 @@
 #include "base/logging.hpp"
 #include "base/thread_pool_delayed.hpp"
 
+#include <algorithm>
 #include <chrono>
 
 namespace pinger
