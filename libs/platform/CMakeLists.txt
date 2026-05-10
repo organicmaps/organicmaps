@@ -74,12 +74,16 @@ if (PLATFORM_IPHONE)
     connection_status_apple.mm
     gui_thread_apple.mm
     http_client_apple.mm
+    http_session_manager.h
+    http_session_manager.mm
     http_uploader_apple.mm
-    http_user_agent_ios.mm
+    http_uploader_background.hpp
+    http_uploader_background.mm
     localization.mm
     locale.mm
     network_policy_ios.h
     network_policy_ios.mm
+    platform_ios.h
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
