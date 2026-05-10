@@ -735,7 +735,7 @@ node|z17-[attraction=maze],
 node|z17-[attraction=historic],
 node|z17-[attraction=big_wheel],
 node|z17-[attraction=bumper_car],
-{icon-image: playground-m.svg;icon-min-distance: 24;}
+{icon-image: attraction-m.svg;icon-min-distance: 24;}
 
 node|z15-[amenity=community_centre],
 area|z15-[amenity=community_centre],
