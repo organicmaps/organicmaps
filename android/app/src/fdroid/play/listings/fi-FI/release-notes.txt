@@ -1,8 +1,0 @@
-• Valitse patikointi- ja pyöräilyreitit nähdäksesi niiden korkeuskäyrät.
-• Oikea kartan kääriminen antimeridiaanin kohdalla (±180° pituusastetta).
-• Vaihda kaikkien luokkaan kuuluvien kirjanmerkkien ja reittien värejä kerralla.
-• Parempi talonumeroiden haku, enemmän Yhdysvaltain osoitteita katettu.
-• OSM-tiedot huhtikuun 4. päivästä alkaen
-• Ajastettu näyttötila asetuksissa
-• Kirjanmerkkien ja jälkien jakaminen muihin sovelluksiin korjattu
-…lisää osoitteessa omaps.org/news

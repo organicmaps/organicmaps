@@ -1,1 +1,0 @@
-../../listings/ms/release-notes.txt

@@ -1,9 +1,0 @@
-• Velg vandre- og sykkelruter for å se høydediagrammene deres
-• Riktig kartinnpakning ved antimeridianen (±180° lengdegrad)
-• Endre alle bokmerke- og sporfarger i en kategori samtidig
-• Bedre søk etter husnummer, flere amerikanske adresser dekket
-• OSM-data fra og med 4. april
-• Planlagt visningsmodus i Innstillinger
-• Fikset deling av bokmerker/spor til andre apper
-• Fikset opplasting av kartredigeringer til OSM
-…mer på omaps.org/news

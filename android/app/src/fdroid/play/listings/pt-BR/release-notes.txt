@@ -1,8 +1,0 @@
-• Selecione rotas de caminhada e ciclismo para ver seus gráficos de elevação
-• Ajuste correto do mapa no antimeridiano (±180° de longitude)
-• Altere todas as cores de marcadores e trilhas em uma categoria de uma só vez
-• Melhor busca por números de casas, mais endereços dos EUA cobertos
-• Dados do OSM a partir de 4 de abril
-• Modo de aparência programada em Configurações
-• Corrigido o compartilhamento de marcadores/trilhas com outros aplicativos
-…mais em omaps.org/pt-BR/news

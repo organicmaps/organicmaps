@@ -1,8 +1,0 @@
-• Ibilbide eta txirrindularitza-bideak hautatu haien altuera-grafikoak ikusteko
-• Mapa egoki birbanatzea antimeridianoan (±180° longitudeari dagokionez)
-• Kategoria berean, gogokoen eta ibilbideen kolore guztiak aldi berean aldatu
-• Etxe-zenbakien bilaketa hobea, AEBetako helbide gehiagorekin
-• Apirilaren 4ko OSM datuak
-• Agertzeko modua programatzeko aukera Ezarpenetan
-• Gogokoen/ibilbideen beste aplikazioekin partekatzea konpondu
-…gehiago omaps.org/eu/news-en

@@ -1,1 +1,0 @@
--r ../mwm/requirements_dev.txt

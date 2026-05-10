@@ -1,8 +1,0 @@
-• Wählen Sie Wander- und Radrouten aus, um deren Höhendiagramme anzuzeigen.
-• Korrekter Kartenumbruch am Antimeridian (±180° Längengrad)
-• Ändern Sie alle Lesezeichen- und Trackfarben in einer Kategorie auf einmal
-• Bessere Suche nach Hausnummern, mehr US-Adressen abgedeckt
-• OSM-Daten mit Stand vom 4. April
-• Geplanter Darstellungsmodus in den Einstellungen
-• Die Freigabe von Lesezeichen/Tracks für andere Anwendungen wurde behoben
-…mehr unter omaps.org/de/news

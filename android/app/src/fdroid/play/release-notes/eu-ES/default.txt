@@ -1,1 +1,0 @@
-../../listings/eu-ES/release-notes.txt

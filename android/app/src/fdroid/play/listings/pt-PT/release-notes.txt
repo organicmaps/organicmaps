@@ -1,8 +1,0 @@
-• Selecionar percursos pedestres e de bicicleta para ver os respectivos mapas de elevação
-• Ajustamento correto do mapa no antimeridiano (±180° de longitude)
-• Alterar todas as cores dos marcadores e dos percursos numa categoria de uma só vez
-• Melhor pesquisa de números de casas, mais endereços dos EUA abrangidos
-• Dados OSM a partir de 4 de abril
-• Modo de aparecimento programado nas Definições
-• Corrigida a partilha de marcadores/trajectos com outras aplicações
-…mais em omaps.org/pt/news

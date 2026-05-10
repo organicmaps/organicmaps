@@ -1,9 +1,0 @@
-• Yükseklik grafiklerini görmek için yürüyüş ve bisiklet rotalarını seçin
-• Antimeridyende haritanın doğru sarılması (±180° boylam)
-• Bir kategorideki tüm yer imi ve iz renklerini aynı anda değiştirin
-• Ev numaraları için daha iyi arama, daha fazla ABD adresi kapsandı
-• OSM verileri 4 Nisan itibariyle
-• Ayarlar'da zamanlanmış görünüm modu
-• Diğer uygulamalarla yer imi/iz paylaşımı düzeltildi
-• Harita düzenlemelerinin OSM'ye yüklenmesi düzeltildi
-…daha fazlası omaps.org/tr/news adresinde

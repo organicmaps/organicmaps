@@ -1,4 +1,0 @@
-<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="13.5" cy="9.5" r="3.5" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round" paint-order="fill markers stroke"/>
-  <path d="M6 21v-1.5a6.354 6.354 76.717 0 0-.67-2.842l-1.212-2.422A10.59 10.59 76.717 0 1 3 9.5v-5A1.5 1.5 135 0 1 4.5 3a1.686 1.686 42.143 0 1 1.668 1.51l.542 4.88a9.618 9.618 68.395 0 0 1.865 4.71 5.002 5.002 25.135 0 0 4.05 1.9H16a4.828 4.828 22.5 0 1 3.414 1.414l.596.596A3.38 3.38 67.5 0 1 21 20.4v.6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" paint-order="fill markers stroke"/>
-</svg>

@@ -1,3 +1,0 @@
-@protocol MWMFrameworkObserver <NSObject>
-
-@end

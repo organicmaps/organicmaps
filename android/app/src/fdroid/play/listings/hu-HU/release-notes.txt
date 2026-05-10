@@ -1,8 +1,0 @@
-• Válassza ki a túra- és kerékpáros útvonalakat, hogy megnézze a magassági diagramjaikat.
-• A térkép megfelelő megjelenítése az antimeridiánnál (±180° hosszúság)
-• Egyszerre megváltoztathatja az összes könyvjelző és nyomvonal színét egy kategóriában.
-• Jobb keresés a házszámokra, több amerikai cím lefedése
-• OSM-adatok április 4-től
-• Ütemezett megjelenési mód a Beállításokban
-• Javított könyvjelzők/nyomvonalak megosztása más alkalmazásokkal
-…még több az omaps.org/hu/news oldalon

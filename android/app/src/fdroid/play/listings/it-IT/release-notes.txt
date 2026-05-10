@@ -1,7 +1,0 @@
-• Selezionare gli itinerari escursionistici e ciclistici per visualizzare i relativi grafici altimetrici.
-• Avvolgimento corretto della mappa all'antimeridiano (±180° di longitudine)
-• Modifica dei colori di tutti i segnalibri e delle tracce di una categoria in una sola volta
-• Migliore ricerca dei numeri civici, più indirizzi statunitensi coperti
-• Dati OSM aggiornati al 4 aprile
-• Modalità di visualizzazione programmata nelle Impostazioni
-…per saperne di più: omaps.org/it/news

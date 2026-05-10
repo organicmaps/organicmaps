@@ -1,1 +1,0 @@
-../../../.github/skills/om-review.md

@@ -1,9 +1,0 @@
-• Wybierz trasy piesze i rowerowe, aby wyświetlić ich wykresy wysokości
-• Prawidłowe zawijanie mapy na antymeridianie (±180° długości geograficznej)
-• Jednoczesna zmiana kolorów wszystkich zakładek i tras w danej kategorii
-• Lepsze wyszukiwanie numerów domów, więcej adresów w USA
-• Dane OSM na dzień 4 kwietnia
-• Zaplanowany tryb wyglądu w Ustawieniach
-• Naprawiono udostępnianie zakładek/ścieżek innym aplikacjom
-• Naprawiono przesyłanie zmian mapy do OSM.
-…więcej na omaps.org/pl/news

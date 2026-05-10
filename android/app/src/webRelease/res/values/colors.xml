@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <!-- Make Web-Release icon color distinguishable from Google-Release. //-->
-  <color name="logo">#209852</color>
-</resources>

@@ -1,1 +1,0 @@
-Rask kart og navigasjon som fungerer uten internett for turer og reiser.
