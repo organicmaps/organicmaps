@@ -1,18 +1,4 @@
-// backend/storage/store.go
-//
-// Package storage implements a thin wrapper around RocksDB for persisting
-// transformed public‑transport schedules. It provides simple, thread‑safe
-// read/write methods, graceful error handling and structured logging.
-//
-// The implementation is deliberately minimal – it stores opaque byte slices
-// (e.g. protobuf or flatbuffer messages) identified by a string key.
-// All callers are responsible for encoding/decoding the payload.
-//
-// Dependencies:
-//   - github.com/tecbot/gorocksdb v0.1.0+
-//   - github.com/sirupsen/logrus   (optional, can be replaced with std log)
-//   - Go 1.22 or newer
-//
+// Package storage provides a thin wrapper around RocksDB.
 package storage
 
 import (
@@ -20,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"sync"
 
 	"github.com/sirupsen/logrus"
@@ -36,7 +21,7 @@ type Store struct {
 	mu     sync.RWMutex // protects db during close/reopen
 }
 
-// New creates ( new Store instance. The database directory will be created
+// New creates a new Store instance. The database directory will be created
 // if it does not exist. The returned Store must be closed with Close().
 func New(ctx context.Context, dbPath string, logger *logrus.Logger) (*Store, error) {
 	if logger == nil {
@@ -168,11 +153,6 @@ func (s *Store) Close() error {
 // ErrNotFound signals that a requested key does not exist in the store.
 var ErrNotFound = errors.New("record not found")
 
-// ---------------------------------------------------------------------
-// Helper utilities – these are optional but useful in a production
-// environment and are kept in the same file for simplicity.
-// ---------------------------------------------------------------------
-
 // ListKeys returns all keys currently stored in the database.
 // It is primarily intended for debugging or administrative tooling.
 func (s *Store) ListKeys(ctx context.Context) ([]string, error) {
@@ -229,10 +209,6 @@ func (s *Store) DumpDB(ctx context.Context, outPath string) error {
 	s.logger.WithField("path", outPath).Info("database dump completed")
 	return nil
 }
-
-// ---------------------------------------------------------------------
-// Context‑aware helper – cancels ongoing I/O if the context is done.
-// ---------------------------------------------------------------------
 
 // withCancel checks the context before performing a DB operation.
 // It returns an error if the context has been cancelled.
