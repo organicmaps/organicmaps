@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Hoki Lapangan";
 "type.sport.badminton" = "Bulu tangkis";
 "type.sport.pelota" = "Basque pelota";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Bersepeda";
+"type.sport.four_square" = "Empat kotak";
+"type.sport.horse_racing" = "Pacuan kuda";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Olahraga otomotif";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugbi";
+"type.sport.running" = "Lari";
+"type.sport.softball" = "Sofbol";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Akuarium";
 

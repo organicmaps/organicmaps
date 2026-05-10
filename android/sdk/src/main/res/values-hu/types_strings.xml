@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">Gyeplabda</string>
     <string name="type.sport.badminton">Tollaslabda</string>
     <string name="type.sport.pelota">Baszk pelota</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Kerékpározás</string>
+    <string name="type.sport.four_square">Négy négyzet</string>
+    <string name="type.sport.horse_racing">Lóverseny</string>
+    <string name="type.sport.karting">Gokart</string>
+    <string name="type.sport.motocross">Motokrossz</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rögbi</string>
+    <string name="type.sport.running">Futás</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turizmus</string>
     <string name="type.tourism.aquarium">Akvárium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

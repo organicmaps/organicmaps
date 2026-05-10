@@ -1295,6 +1295,18 @@
     <string name="type.sport.field_hockey">Хокеј на трави</string>
     <string name="type.sport.badminton">Бадминтон</string>
     <string name="type.sport.pelota">Баскијска пелота</string>
+    <string name="type.sport.boules">Петанк</string>
+    <string name="type.sport.cycling">Бициклизам</string>
+    <string name="type.sport.four_square">Четири квадрата</string>
+    <string name="type.sport.horse_racing">Коњске трке</string>
+    <string name="type.sport.karting">Картинг</string>
+    <string name="type.sport.motocross">Мотокрос</string>
+    <string name="type.sport.motor">Аутомото спорт</string>
+    <string name="type.sport.netball">Нетбол</string>
+    <string name="type.sport.pickleball">Пиклбол</string>
+    <string name="type.sport.rugby_union">Рагби</string>
+    <string name="type.sport.running">Трчање</string>
+    <string name="type.sport.softball">Софтбол</string>
     <string name="type.tourism">Туризам</string>
     <string name="type.tourism.aquarium">Акваријум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

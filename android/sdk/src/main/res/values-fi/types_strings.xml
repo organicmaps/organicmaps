@@ -1213,6 +1213,18 @@
     <string name="type.sport.field_hockey">Maahockey</string>
     <string name="type.sport.badminton">Sulkapallo</string>
     <string name="type.sport.pelota">Baskimaan pelota</string>
+    <string name="type.sport.boules">Petankki</string>
+    <string name="type.sport.cycling">Pyöräily</string>
+    <string name="type.sport.four_square">Neljä ruutua</string>
+    <string name="type.sport.horse_racing">Hevoskilpailut</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Moottoriurheilu</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby union</string>
+    <string name="type.sport.running">Juoksu</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turismi</string>
     <string name="type.tourism.aquarium">Akvaario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

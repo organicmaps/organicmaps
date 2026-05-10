@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "필드 하키";
 "type.sport.badminton" = "배드민턴";
 "type.sport.pelota" = "바스크 펠로타";
+"type.sport.boules" = "페탕크";
+"type.sport.cycling" = "사이클링";
+"type.sport.four_square" = "포 스퀘어";
+"type.sport.horse_racing" = "경마";
+"type.sport.karting" = "카트";
+"type.sport.motocross" = "모토크로스";
+"type.sport.motor" = "모터스포츠";
+"type.sport.netball" = "네트볼";
+"type.sport.pickleball" = "피클볼";
+"type.sport.rugby_union" = "럭비 유니언";
+"type.sport.running" = "달리기";
+"type.sport.softball" = "소프트볼";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "수족관";
 

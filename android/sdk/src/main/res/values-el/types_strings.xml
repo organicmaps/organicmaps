@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">Χόκεϊ επί χόρτου</string>
     <string name="type.sport.badminton">Αντιπτέριση</string>
     <string name="type.sport.pelota">Βασκική πελότα</string>
+    <string name="type.sport.boules">Πετάνκ</string>
+    <string name="type.sport.cycling">Ποδηλασία</string>
+    <string name="type.sport.four_square">Τέσσερα τετράγωνα</string>
+    <string name="type.sport.horse_racing">Ιπποδρομίες</string>
+    <string name="type.sport.karting">Καρτ</string>
+    <string name="type.sport.motocross">Μοτοκρός</string>
+    <string name="type.sport.motor">Μηχανοκίνητος αθλητισμός</string>
+    <string name="type.sport.netball">Νέτμπολ</string>
+    <string name="type.sport.pickleball">Πίκλμπολ</string>
+    <string name="type.sport.rugby_union">Ράγκμπι γιούνιον</string>
+    <string name="type.sport.running">Τρέξιμο</string>
+    <string name="type.sport.softball">Σόφτμπολ</string>
     <string name="type.tourism">Τουρισμός</string>
     <string name="type.tourism.aquarium">Ενυδρείο</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

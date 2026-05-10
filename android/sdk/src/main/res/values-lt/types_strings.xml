@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">Žolės riedulys</string>
     <string name="type.sport.badminton">Badmintonas</string>
     <string name="type.sport.pelota">Baskų pelota</string>
+    <string name="type.sport.boules">Petankas</string>
+    <string name="type.sport.cycling">Dviračių sportas</string>
+    <string name="type.sport.four_square">Keturi kvadratai</string>
+    <string name="type.sport.horse_racing">Žirgų lenktynės</string>
+    <string name="type.sport.karting">Kartingas</string>
+    <string name="type.sport.motocross">Motokrosas</string>
+    <string name="type.sport.motor">Motorinis sportas</string>
+    <string name="type.sport.netball">Tinklasvydis</string>
+    <string name="type.sport.pickleball">Pikbolas</string>
+    <string name="type.sport.rugby_union">Regbis</string>
+    <string name="type.sport.running">Bėgimas</string>
+    <string name="type.sport.softball">Softbolas</string>
     <string name="type.tourism">Turizmas</string>
     <string name="type.tourism.aquarium">Akvariumas</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Pozemní hokej";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Baskická pelota";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Cyklistika";
+"type.sport.four_square" = "Čtyři čtverce";
+"type.sport.horse_racing" = "Dostihy";
+"type.sport.karting" = "Motokáry";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motoristický sport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragby";
+"type.sport.running" = "Běh";
+"type.sport.softball" = "Softbal";
 "type.tourism" = "Turistika";
 "type.tourism.aquarium" = "Akvárium";
 

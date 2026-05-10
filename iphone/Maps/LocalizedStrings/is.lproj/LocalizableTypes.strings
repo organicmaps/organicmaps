@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Grashokkí";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Baskneskt Pelota";
+"type.sport.boules" = "Boules";
+"type.sport.cycling" = "Hjólreiðar";
+"type.sport.four_square" = "Fjórir ferningar";
+"type.sport.horse_racing" = "Veðhlaup";
+"type.sport.karting" = "Gokart";
+"type.sport.motocross" = "Motokross";
+"type.sport.motor" = "Vélaakstursíþrótt";
+"type.sport.netball" = "Netbolti";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ruðningur";
+"type.sport.running" = "Hlaup";
+"type.sport.softball" = "Softbolti";
 "type.tourism" = "Ferðamennska";
 "type.tourism.aquarium" = "Fiskabúr";
 

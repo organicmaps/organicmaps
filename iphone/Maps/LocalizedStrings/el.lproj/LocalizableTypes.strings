@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Χόκεϊ επί χόρτου";
 "type.sport.badminton" = "Αντιπτέριση";
 "type.sport.pelota" = "Βασκική πελότα";
+"type.sport.boules" = "Πετάνκ";
+"type.sport.cycling" = "Ποδηλασία";
+"type.sport.four_square" = "Τέσσερα τετράγωνα";
+"type.sport.horse_racing" = "Ιπποδρομίες";
+"type.sport.karting" = "Καρτ";
+"type.sport.motocross" = "Μοτοκρός";
+"type.sport.motor" = "Μηχανοκίνητος αθλητισμός";
+"type.sport.netball" = "Νέτμπολ";
+"type.sport.pickleball" = "Πίκλμπολ";
+"type.sport.rugby_union" = "Ράγκμπι γιούνιον";
+"type.sport.running" = "Τρέξιμο";
+"type.sport.softball" = "Σόφτμπολ";
 "type.tourism" = "Τουρισμός";
 "type.tourism.aquarium" = "Ενυδρείο";
 

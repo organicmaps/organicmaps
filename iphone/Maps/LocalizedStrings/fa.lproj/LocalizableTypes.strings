@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "ﻦﻤﭼ ﯼﻭﺭ ﯽﮐﺎﻫ";
 "type.sport.badminton" = "ﻥﻮﺘﻨﯿﻣﺪﺑ";
 "type.sport.pelota" = "ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ";
+"type.sport.boules" = "بولز";
+"type.sport.cycling" = "دوچرخه‌سواری";
+"type.sport.four_square" = "چهار مربع";
+"type.sport.horse_racing" = "اسب‌دوانی";
+"type.sport.karting" = "کارتینگ";
+"type.sport.motocross" = "موتورکراس";
+"type.sport.motor" = "ورزش‌های موتوری";
+"type.sport.netball" = "نتبال";
+"type.sport.pickleball" = "پیکل‌بال";
+"type.sport.rugby_union" = "راگبی ۱۵ نفره";
+"type.sport.running" = "دویدن";
+"type.sport.softball" = "سافت‌بال";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "آکواریوم";
 

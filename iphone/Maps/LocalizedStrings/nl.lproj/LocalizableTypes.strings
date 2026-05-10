@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Veldhockey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Baskische peloton";
+"type.sport.boules" = "Jeu de boules";
+"type.sport.cycling" = "Wielrennen";
+"type.sport.four_square" = "Vier vierkanten";
+"type.sport.horse_racing" = "Paardenrennen";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motorcross";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netbal";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby union";
+"type.sport.running" = "Hardlopen";
+"type.sport.softball" = "Softbal";
 "type.tourism" = "Tourisme";
 "type.tourism.aquarium" = "Aquarium";
 

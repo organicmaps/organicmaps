@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Hoki ya shamba";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Basque pelota";
+"type.sport.boules" = "Boules";
+"type.sport.cycling" = "Uendeshaji baiskeli";
+"type.sport.four_square" = "Four Square";
+"type.sport.horse_racing" = "Mbio za farasi";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Michezo ya magari";
+"type.sport.netball" = "Netiboli";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Raga";
+"type.sport.running" = "Mbio";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Aquarium";
 

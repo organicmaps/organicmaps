@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Gyeplabda";
 "type.sport.badminton" = "Tollaslabda";
 "type.sport.pelota" = "Baszk pelota";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Kerékpározás";
+"type.sport.four_square" = "Négy négyzet";
+"type.sport.horse_racing" = "Lóverseny";
+"type.sport.karting" = "Gokart";
+"type.sport.motocross" = "Motokrossz";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rögbi";
+"type.sport.running" = "Futás";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turizmus";
 "type.tourism.aquarium" = "Akvárium";
 

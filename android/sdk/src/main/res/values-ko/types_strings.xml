@@ -1132,6 +1132,18 @@
     <string name="type.sport.field_hockey">필드 하키</string>
     <string name="type.sport.badminton">배드민턴</string>
     <string name="type.sport.pelota">바스크 펠로타</string>
+    <string name="type.sport.boules">페탕크</string>
+    <string name="type.sport.cycling">사이클링</string>
+    <string name="type.sport.four_square">포 스퀘어</string>
+    <string name="type.sport.horse_racing">경마</string>
+    <string name="type.sport.karting">카트</string>
+    <string name="type.sport.motocross">모토크로스</string>
+    <string name="type.sport.motor">모터스포츠</string>
+    <string name="type.sport.netball">네트볼</string>
+    <string name="type.sport.pickleball">피클볼</string>
+    <string name="type.sport.rugby_union">럭비 유니언</string>
+    <string name="type.sport.running">달리기</string>
+    <string name="type.sport.softball">소프트볼</string>
     <string name="type.tourism.aquarium">수족관</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">마운틴 롯지</string>

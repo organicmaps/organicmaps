@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Maahoki";
 "type.sport.badminton" = "Sulgpall";
 "type.sport.pelota" = "Baski pelota";
+"type.sport.boules" = "Petank";
+"type.sport.cycling" = "Jalgrattasport";
+"type.sport.four_square" = "Neli ruutu";
+"type.sport.horse_racing" = "Hobuste võiduajamine";
+"type.sport.karting" = "Kardisõit";
+"type.sport.motocross" = "Motokross";
+"type.sport.motor" = "Mootorisport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi";
+"type.sport.running" = "Jooks";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turism";
 "type.tourism.aquarium" = "Akvaarium";
 

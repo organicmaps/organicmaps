@@ -639,6 +639,18 @@
     <string name="type.sport.ice_hockey">आइस हॉकी</string>
     <string name="type.sport.field_hockey">मैदानी हॉकी</string>
     <string name="type.sport.badminton">बैडमिंटन</string>
+    <string name="type.sport.boules">बूल्स</string>
+    <string name="type.sport.cycling">साइकिल चलाना</string>
+    <string name="type.sport.four_square">फोर स्क्वायर</string>
+    <string name="type.sport.horse_racing">घुड़दौड़</string>
+    <string name="type.sport.karting">कार्टिंग</string>
+    <string name="type.sport.motocross">मोटोक्रॉस</string>
+    <string name="type.sport.motor">मोटरस्पोर्ट</string>
+    <string name="type.sport.netball">नेटबॉल</string>
+    <string name="type.sport.pickleball">पिकलबॉल</string>
+    <string name="type.sport.rugby_union">रग्बी यूनियन</string>
+    <string name="type.sport.running">दौड़ना</string>
+    <string name="type.sport.softball">सॉफ्टबॉल</string>
     <string name="type.tourism">पर्यटन</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">माउंटेन लॉज</string>

@@ -1291,6 +1291,18 @@
     <string name="type.sport.field_hockey">ຮອກກີ້</string>
     <string name="type.sport.badminton">ດອກປີກໄກ່</string>
     <string name="type.sport.pelota">ເປໂລຕ້າ</string>
+    <string name="type.sport.boules">ກິລາໂບລ</string>
+    <string name="type.sport.cycling">ການຂີ່ລົດຖີບ</string>
+    <string name="type.sport.four_square">ໂຟສະແຄວ</string>
+    <string name="type.sport.horse_racing">ການແຂ່ງມ້າ</string>
+    <string name="type.sport.karting">ກິລາໂກກາດ</string>
+    <string name="type.sport.motocross">ໂມໂຕຄຣອສ</string>
+    <string name="type.sport.motor">ມໍເຕີສະປໍດ</string>
+    <string name="type.sport.netball">ເນັດບອລ</string>
+    <string name="type.sport.pickleball">ພິກເກິນບອລ</string>
+    <string name="type.sport.rugby_union">ລັກບີ້</string>
+    <string name="type.sport.running">ການແລ່ນ</string>
+    <string name="type.sport.softball">ຊອບບອລ</string>
     <string name="type.tourism">ການທ່ອງທ່ຽວ</string>
     <string name="type.tourism.aquarium">ສະຖານທີ່ສະແດງສັດນ້ຳ</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

@@ -1028,6 +1028,18 @@
     <string name="type.sport.field_hockey">הדש יקוה</string>
     <string name="type.sport.badminton">תיצונ</string>
     <string name="type.sport.pelota">תיקסאב הטלפ</string>
+    <string name="type.sport.boules">פטאנק</string>
+    <string name="type.sport.cycling">רכיבה על אופניים</string>
+    <string name="type.sport.four_square">ארבע משבצות</string>
+    <string name="type.sport.horse_racing">מרוצי סוסים</string>
+    <string name="type.sport.karting">קארטינג</string>
+    <string name="type.sport.motocross">מוטוקרוס</string>
+    <string name="type.sport.motor">ספורט מוטורי</string>
+    <string name="type.sport.netball">נטבול</string>
+    <string name="type.sport.pickleball">פיקלבול</string>
+    <string name="type.sport.rugby_union">רוגבי 15</string>
+    <string name="type.sport.running">ריצה</string>
+    <string name="type.sport.softball">סופטבול</string>
     <string name="type.tourism">תיירות</string>
     <string name="type.tourism.aquarium">אַקוַרִיוּם</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

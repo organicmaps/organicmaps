@@ -1299,6 +1299,18 @@
     <string name="type.sport.field_hockey">Hokej në fushë</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Pelota Baske</string>
+    <string name="type.sport.boules">Bul</string>
+    <string name="type.sport.cycling">Çiklizëm</string>
+    <string name="type.sport.four_square">Four square</string>
+    <string name="type.sport.horse_racing">Garat e kuajve</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi</string>
+    <string name="type.sport.running">Vrapim</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turizëm</string>
     <string name="type.tourism.aquarium">Akuarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

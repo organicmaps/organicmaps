@@ -1278,6 +1278,18 @@
     <string name="type.sport.field_hockey">هوكي الميدان</string>
     <string name="type.sport.badminton">ريشة الطائرة</string>
     <string name="type.sport.pelota">باسك بيلوتا</string>
+    <string name="type.sport.boules">بولز</string>
+    <string name="type.sport.cycling">ركوب الدراجات</string>
+    <string name="type.sport.four_square">أربع مربعات</string>
+    <string name="type.sport.horse_racing">سباق الخيل</string>
+    <string name="type.sport.karting">كارتينغ</string>
+    <string name="type.sport.motocross">موتوكروس</string>
+    <string name="type.sport.motor">رياضات المحركات</string>
+    <string name="type.sport.netball">كرة الشبكة</string>
+    <string name="type.sport.pickleball">بيكل بول</string>
+    <string name="type.sport.rugby_union">رغبي الاتحاد</string>
+    <string name="type.sport.running">الجري</string>
+    <string name="type.sport.softball">الكرة اللينة</string>
     <string name="type.tourism.aquarium">حوض سمك</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">لودج الجبل</string>

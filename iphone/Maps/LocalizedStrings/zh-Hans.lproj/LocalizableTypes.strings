@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "曲棍球";
 "type.sport.badminton" = "羽毛球";
 "type.sport.pelota" = "巴斯克回力球";
+"type.sport.boules" = "地掷球";
+"type.sport.cycling" = "自行车运动";
+"type.sport.four_square" = "四方格";
+"type.sport.horse_racing" = "赛马";
+"type.sport.karting" = "卡丁车";
+"type.sport.motocross" = "摩托车越野赛";
+"type.sport.motor" = "赛车运动";
+"type.sport.netball" = "无挡板篮球";
+"type.sport.pickleball" = "匹克球";
+"type.sport.rugby_union" = "联合式橄榄球";
+"type.sport.running" = "跑步";
+"type.sport.softball" = "垒球";
 "type.tourism" = "旅游要素";
 "type.tourism.aquarium" = "水族馆";
 

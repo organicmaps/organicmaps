@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Хакей на траве";
 "type.sport.badminton" = "Бадмінтон";
 "type.sport.pelota" = "Баскская пелота";
+"type.sport.boules" = "Боўлс";
+"type.sport.cycling" = "Веласпорт";
+"type.sport.four_square" = "Чатыры квадраты";
+"type.sport.horse_racing" = "Конныя скачкі";
+"type.sport.karting" = "Картынг";
+"type.sport.motocross" = "Мотакрос";
+"type.sport.motor" = "Аўтаспорт";
+"type.sport.netball" = "Нетбол";
+"type.sport.pickleball" = "Піклбол";
+"type.sport.rugby_union" = "Рэгбі-юніён";
+"type.sport.running" = "Бег";
+"type.sport.softball" = "Софтбол";
 "type.tourism" = "Турызм";
 "type.tourism.aquarium" = "Акварыум";
 

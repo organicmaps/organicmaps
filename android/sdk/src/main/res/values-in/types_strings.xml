@@ -1120,6 +1120,18 @@
     <string name="type.sport.field_hockey">Hoki Lapangan</string>
     <string name="type.sport.badminton">Bulu tangkis</string>
     <string name="type.sport.pelota">Basque pelota</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Bersepeda</string>
+    <string name="type.sport.four_square">Empat kotak</string>
+    <string name="type.sport.horse_racing">Pacuan kuda</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Olahraga otomotif</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugbi</string>
+    <string name="type.sport.running">Lari</string>
+    <string name="type.sport.softball">Sofbol</string>
     <string name="type.tourism.aquarium">Akuarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Penginapan gunung</string>

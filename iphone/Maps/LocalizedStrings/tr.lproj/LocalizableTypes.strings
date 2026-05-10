@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Çim Hokeyi";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Bask pelotası";
+"type.sport.boules" = "Bocce";
+"type.sport.cycling" = "Bisiklet sporu";
+"type.sport.four_square" = "Dört kare";
+"type.sport.horse_racing" = "At yarışı";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motor sporları";
+"type.sport.netball" = "Netbol";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi";
+"type.sport.running" = "Koşu";
+"type.sport.softball" = "Softbol";
 "type.tourism" = "Turizm";
 "type.tourism.aquarium" = "Akvaryum";
 

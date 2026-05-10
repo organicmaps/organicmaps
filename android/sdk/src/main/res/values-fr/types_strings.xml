@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">Hockey sur gazon</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Pelote basque</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Cyclisme</string>
+    <string name="type.sport.four_square">Quatre carrés</string>
+    <string name="type.sport.horse_racing">Courses hippiques</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Sport mécanique</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby à XV</string>
+    <string name="type.sport.running">Course à pied</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Tourisme</string>
     <string name="type.tourism.aquarium">Aquarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

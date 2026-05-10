@@ -1131,6 +1131,18 @@
     <string name="type.sport.field_hockey">กีฬาฮอกกี้</string>
     <string name="type.sport.badminton">แบดมินตัน</string>
     <string name="type.sport.pelota">Basque pelota</string>
+    <string name="type.sport.boules">บูล</string>
+    <string name="type.sport.cycling">ปั่นจักรยาน</string>
+    <string name="type.sport.four_square">โฟร์สแควร์</string>
+    <string name="type.sport.horse_racing">แข่งม้า</string>
+    <string name="type.sport.karting">โกคาร์ต</string>
+    <string name="type.sport.motocross">มอเตอร์ครอส</string>
+    <string name="type.sport.motor">มอเตอร์สปอร์ต</string>
+    <string name="type.sport.netball">เน็ตบอล</string>
+    <string name="type.sport.pickleball">พิคเคิลบอล</string>
+    <string name="type.sport.rugby_union">รักบี้ยูเนี่ยน</string>
+    <string name="type.sport.running">วิ่ง</string>
+    <string name="type.sport.softball">ซอฟต์บอล</string>
     <string name="type.tourism.aquarium">พิพิธภัณฑ์สัตว์น้ำ</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">บ้านพักบนภูเขา</string>

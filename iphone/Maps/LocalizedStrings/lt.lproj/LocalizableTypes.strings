@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Žolės riedulys";
 "type.sport.badminton" = "Badmintonas";
 "type.sport.pelota" = "Baskų pelota";
+"type.sport.boules" = "Petankas";
+"type.sport.cycling" = "Dviračių sportas";
+"type.sport.four_square" = "Keturi kvadratai";
+"type.sport.horse_racing" = "Žirgų lenktynės";
+"type.sport.karting" = "Kartingas";
+"type.sport.motocross" = "Motokrosas";
+"type.sport.motor" = "Motorinis sportas";
+"type.sport.netball" = "Tinklasvydis";
+"type.sport.pickleball" = "Pikbolas";
+"type.sport.rugby_union" = "Regbis";
+"type.sport.running" = "Bėgimas";
+"type.sport.softball" = "Softbolas";
 "type.tourism" = "Turizmas";
 "type.tourism.aquarium" = "Akvariumas";
 
