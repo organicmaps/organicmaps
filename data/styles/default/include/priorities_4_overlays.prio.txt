@@ -1059,6 +1059,11 @@ sport-table_tennis                                  # icon z17- (also has captio
 sport-tennis                                        # icon z17- (also has caption(optional) z17-)
 sport-volleyball                                    # icon z17- (also has caption(optional) z17-)
 sport-yoga                                          # icon z17- (also has caption(optional) z17-)
+sport-boules                                        # icon z17- (also has caption(optional) z17-)
+sport-pickleball                                    # icon z17- (also has caption(optional) z17-)
+sport-running                                       # icon z17- (also has caption(optional) z17-)
+sport-rugby_union                                   # icon z17- (also has caption(optional) z17-)
+sport-softball                                      # icon z17- (also has caption(optional) z17-)
 === 1400
 
 sport-10pin                                         # icon z17- (also has caption(optional) z17-)
@@ -1074,6 +1079,13 @@ sport-equestrian                                    # icon z17- (also has captio
 sport-futsal                                        # icon z17- (also has caption(optional) z17-)
 sport-scuba_diving                                  # icon z17- (also has caption(optional) z17-)
 sport-shooting                                      # icon z17- (also has caption(optional) z17-)
+sport-cycling                                       # icon z17- (also has caption(optional) z17-)
+sport-four_square                                   # icon z17- (also has caption(optional) z17-)
+sport-karting                                       # icon z17- (also has caption(optional) z17-)
+sport-motocross                                     # icon z17- (also has caption(optional) z17-)
+sport-motor                                         # icon z17- (also has caption(optional) z17-)
+sport-netball                                       # icon z17- (also has caption(optional) z17-)
+sport-horse_racing                                  # icon z17- (also has caption(optional) z17-)
 === 1350
 
 sport-multi                                         # icon z17- (also has caption(optional) z17-)
