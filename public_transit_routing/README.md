@@ -1,28 +1,21 @@
-# Public Transit Routing Service
+# Public Transit Routing – Zurich Example
 
 ## Overview
-The **public_transit_routing** package provides a lightweight HTTP API for computing public‑transit routes.  
-It ships with a data‑processing pipeline that can ingest open‑source GTFS (General Transit Feed Specification) feeds, build routing indices, and expose a fast query endpoint.
 
-> **Note:** The original source folder name `job_github_bounty_organicmaps_organicmaps#5331` has been renamed to a simpler, more conventional layout (`public_transit_routing`).  
+This repository contains a minimal public‑transit routing service. The README below walks you through:
 
----
-
-## Prerequisites
-| Tool | Minimum version |
-|------|-----------------|
-| Python | 3.9 |
-| pip   | 22.0 |
-| Docker (optional) | 20.10 |
-| `uvicorn` (ASGI server) | 0.24 |
-| `networkx` | 3.2 |
-| `gtfs-kit` | 5.0 |
-| `requests` (for tests) | 2.31 |
+1. **Building routing indices** (using open‑source GTFS data for Zurich)  
+2. **Running the service locally** (Docker + Python)  
+3. **Executing Python tests** that call the API (sample request/response)
 
 ---
 
-## Build routing indices
+## 1. Build Routing Indices
 
-Below is a step‑by‑step example that builds routing indices for **Zurich** using OpenStreetMap (OSM) and GTFS data.
+### Prerequisites
+- Python 3.11+  
+- `pip` (or `uv`)  
+- `docker` (optional, for containerised execution)  
+- `wget` or `curl` (to download GTFS data)
 
-1. **Create a working directory**
+### Step‑by‑step
