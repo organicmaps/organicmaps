@@ -2,6 +2,7 @@
 
 #include "assert.hpp"
 
+#include <algorithm>
 #include <vector>
 
 namespace base

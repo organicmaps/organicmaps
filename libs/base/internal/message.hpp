@@ -4,6 +4,8 @@
 
 #include <array>
 #include <charconv>
+#include <chrono>
+#include <ctime>
 #include <deque>
 #include <functional>
 #include <initializer_list>
@@ -148,6 +150,14 @@ inline std::string DebugPrint(std::u32string_view utf32)
 inline std::string DebugPrint(char32_t t)
 {
   return internal::ToUtf8(std::u32string_view{&t, 1});
+}
+
+inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
+{
+  auto t = std::chrono::system_clock::to_time_t(ts);
+  std::string str = std::ctime(&t);
+  str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+  return str;
 }
 
 template <typename U, typename V>
