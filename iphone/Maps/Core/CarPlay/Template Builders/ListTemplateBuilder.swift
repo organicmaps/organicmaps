@@ -13,6 +13,10 @@ final class ListTemplateBuilder {
     case search
   }
 
+  private static let itemHandler: (CPSelectableListItem, @escaping () -> Void) -> Void = { selectableItem, completionHandler in
+    CarPlayService.shared.handleListItemSelection(selectableItem, completionHandler: completionHandler)
+  }
+
   // MARK: - CPListTemplate bilder
 
   class func buildListTemplate(for type: ListTemplateType) -> CPListTemplate {
@@ -66,6 +70,7 @@ final class ListTemplateBuilder {
       let item = CPListItem(text: text, detailText: nil, image: UIImage(named: "ic_carplay_recent"))
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.history,
                                    metadata: nil)
+      item.handler = Self.itemHandler
       return item
     }
     let section = CPListSection(items: items)
@@ -81,6 +86,7 @@ final class ListTemplateBuilder {
       let item = CPListItem(text: category.title, detailText: placesString)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarkLists,
                                    metadata: CategoryInfo(category: category))
+      item.handler = Self.itemHandler
       return item
     }
     let section = CPListSection(items: items)
@@ -94,6 +100,7 @@ final class ListTemplateBuilder {
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarks,
                                    metadata: BookmarkInfo(bookmarkId: bookmark.bookmarkId))
+      item.handler = Self.itemHandler
       return item
     }
     if #available(iOS 15.0, *) {
@@ -115,6 +122,7 @@ final class ListTemplateBuilder {
       let item = CPListItem(text: object.title, detailText: object.address)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.searchResults,
                                    metadata: SearchResultInfo(originalRow: object.originalRow))
+      item.handler = Self.itemHandler
       items.append(item)
     }
     let section = CPListSection(items: items)
