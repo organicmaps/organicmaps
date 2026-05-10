@@ -379,6 +379,8 @@
     <string name="type.leisure.sauna">सॉना</string>
     <string name="type.sport.yoga">योग</string>
     <string name="type.leisure.stadium">क्रीडांगन</string>
+    <string name="type.leisure.track">स्पोर्ट्स ट्रैक</string>
+    <string name="type.leisure.track.area">स्पोर्ट्स ट्रैक</string>
     <string name="type.leisure.water_park">वाटर पार्क</string>
     <string name="type.man_made.breakwater">तरंगरोध</string>
     <string name="type.man_made.cairn">स्तूप</string>

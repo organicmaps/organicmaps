@@ -253,6 +253,8 @@
     <string name="type.leisure.park.private">Parque priváu</string>
     <string name="type.leisure.sauna">Sauna</string>
     <string name="type.leisure.stadium">Estadiu</string>
+    <string name="type.leisure.track">Pista deportiva</string>
+    <string name="type.leisure.track.area">Pista deportiva</string>
     <string name="type.leisure.water_park">Parque acuáticu</string>
     <string name="type.man_made.survey_point">Puntu xeodésicu</string>
     <string name="type.man_made.surveillance">Cámara de vixilancia</string>

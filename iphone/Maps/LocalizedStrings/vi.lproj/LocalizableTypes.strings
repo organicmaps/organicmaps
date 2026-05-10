@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Sân vận động";
 "type.leisure.swimming_pool" = "Bể bơi";
 "type.leisure.swimming_pool.private" = "Bể bơi";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Đường đua thể thao";
+"type.leisure.track.area" = "Đường đua thể thao";
 "type.leisure.water_park" = "Công viên nước";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

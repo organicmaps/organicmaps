@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "क्रीडांगन";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "स्पोर्ट्स ट्रैक";
+"type.leisure.track.area" = "स्पोर्ट्स ट्रैक";
 "type.leisure.water_park" = "वाटर पार्क";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

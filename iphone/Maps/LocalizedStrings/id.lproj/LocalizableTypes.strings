@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Kolam renang";
 "type.leisure.swimming_pool.private" = "Kolam renang";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Lintasan olahraga";
+"type.leisure.track.area" = "Lintasan olahraga";
 "type.leisure.water_park" = "Taman air";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

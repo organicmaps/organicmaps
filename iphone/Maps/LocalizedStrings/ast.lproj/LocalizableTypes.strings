@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Estadiu";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Pista deportiva";
+"type.leisure.track.area" = "Pista deportiva";
 "type.leisure.water_park" = "Parque acuáticu";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

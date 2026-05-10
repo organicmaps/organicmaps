@@ -575,6 +575,8 @@
     <string name="type.leisure.stadium">สนามกีฬา</string>
     <string name="type.leisure.swimming_pool">สระว่ายน้ำ</string>
     <string name="type.leisure.swimming_pool.private">สระว่ายน้ำ</string>
+    <string name="type.leisure.track">ลู่กีฬา</string>
+    <string name="type.leisure.track.area">ลู่กีฬา</string>
     <string name="type.leisure.water_park">สวนน้ำ</string>
     <string name="type.man_made.chimney">ปล่องควันโรงงาน</string>
     <string name="type.man_made.lighthouse">ประภาคาร</string>

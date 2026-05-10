@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Estadi";
 "type.leisure.swimming_pool" = "Piscina";
 "type.leisure.swimming_pool.private" = "Piscina";
-"type.leisure.track" = "Sender";
-"type.leisure.track.area" = "Sender";
+"type.leisure.track" = "Pista esportiva";
+"type.leisure.track.area" = "Pista esportiva";
 "type.leisure.water_park" = "Parc aquàtic";
 "type.leisure.beach_resort" = "Complex turístic platger";
 "type.man_made" = "Artificial";

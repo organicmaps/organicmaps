@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Üzgüçülük hovuzu";
 "type.leisure.swimming_pool.private" = "Üzgüçülük hovuzu";
-"type.leisure.track" = "Uçuş zolağı";
-"type.leisure.track.area" = "Uçuş zolağı";
+"type.leisure.track" = "İdman treki";
+"type.leisure.track.area" = "İdman treki";
 "type.leisure.water_park" = "Su parkı";
 "type.leisure.beach_resort" = "Çimərlik kurort";
 "type.man_made" = "İnsan istehsalı";

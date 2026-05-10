@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Svømmebasseng";
 "type.leisure.swimming_pool.private" = "Svømmebasseng";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Løpebane";
+"type.leisure.track.area" = "Løpebane";
 "type.leisure.water_park" = "Vannpark";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "경기장";
 "type.leisure.swimming_pool" = "수영장";
 "type.leisure.swimming_pool.private" = "수영장";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "스포츠 트랙";
+"type.leisure.track.area" = "스포츠 트랙";
 "type.leisure.water_park" = "워터파크";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

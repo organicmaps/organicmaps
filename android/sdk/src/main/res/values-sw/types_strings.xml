@@ -300,6 +300,8 @@
     <string name="type.leisure.park.private">Hifadhi</string>
     <string name="type.leisure.picnic_table">Jedwali la Picnic</string>
     <string name="type.leisure.sauna">Chumba cha mvuke</string>
+    <string name="type.leisure.track">Njia ya mbio</string>
+    <string name="type.leisure.track.area">Njia ya mbio</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Mnara wa Mawasiliano</string>
     <!-- A regular telecommunications tower / mast. -->

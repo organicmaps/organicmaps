@@ -674,8 +674,8 @@
     <string name="type.leisure.stadium">Stadium</string>
     <string name="type.leisure.swimming_pool">Pishinë</string>
     <string name="type.leisure.swimming_pool.private">Pishinë</string>
-    <string name="type.leisure.track">Shteg fushe</string>
-    <string name="type.leisure.track.area">Shteg fushe</string>
+    <string name="type.leisure.track">Pistë sportive</string>
+    <string name="type.leisure.track.area">Pistë sportive</string>
     <string name="type.leisure.water_park">Park ujor</string>
     <string name="type.leisure.beach_resort">Resort plazhi</string>
     <string name="type.man_made">E bërë nga njeriu</string>

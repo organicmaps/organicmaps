@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Basen";
 "type.leisure.swimming_pool.private" = "Basen";
-"type.leisure.track" = "Ścieżka";
-"type.leisure.track.area" = "Ścieżka";
+"type.leisure.track" = "Tor sportowy";
+"type.leisure.track.area" = "Tor sportowy";
 "type.leisure.water_park" = "Park wodny";
 "type.leisure.beach_resort" = "Kurort przy plaży";
 "type.man_made" = "Stworzone przez człowieka";

@@ -661,6 +661,8 @@
     <string name="type.leisure.stadium">אצטדיון</string>
     <string name="type.leisure.swimming_pool">בריכת שחייה</string>
     <string name="type.leisure.swimming_pool.private">בריכת שחייה פרטית</string>
+    <string name="type.leisure.track">מסלול ספורט</string>
+    <string name="type.leisure.track.area">מסלול ספורט</string>
     <string name="type.leisure.water_park">פארק מים</string>
     <string name="type.leisure.beach_resort">אתר נופש על החוף</string>
     <string name="type.man_made">מלאכותי-מעשה ידי אדם</string>

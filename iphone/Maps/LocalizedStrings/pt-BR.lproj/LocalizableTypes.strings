@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Estádio";
 "type.leisure.swimming_pool" = "Piscina";
 "type.leisure.swimming_pool.private" = "Piscina";
-"type.leisure.track" = "Pista para esportes não motorizados";
-"type.leisure.track.area" = "Pista para esportes não motorizados";
+"type.leisure.track" = "Pista para esportes";
+"type.leisure.track.area" = "Pista para esportes";
 "type.leisure.water_park" = "Parque aquático";
 "type.leisure.beach_resort" = "Resort de praia";
 "type.man_made" = "Construção humana";

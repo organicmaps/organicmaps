@@ -581,6 +581,8 @@
     <string name="type.leisure.stadium">استادیوم</string>
     <string name="type.leisure.swimming_pool">استخرشنا</string>
     <string name="type.leisure.swimming_pool.private">استخرشنا</string>
+    <string name="type.leisure.track">پیست ورزشی</string>
+    <string name="type.leisure.track.area">پیست ورزشی</string>
     <string name="type.leisure.water_park">گردشگری</string>
     <string name="type.man_made.breakwater">موج شکن</string>
     <string name="type.man_made.cairn">سنگ چین</string>

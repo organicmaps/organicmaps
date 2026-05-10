@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "אצטדיון";
 "type.leisure.swimming_pool" = "בריכת שחייה";
 "type.leisure.swimming_pool.private" = "בריכת שחייה פרטית";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "מסלול ספורט";
+"type.leisure.track.area" = "מסלול ספורט";
 "type.leisure.water_park" = "פארק מים";
 "type.leisure.beach_resort" = "אתר נופש על החוף";
 "type.man_made" = "מלאכותי-מעשה ידי אדם";
