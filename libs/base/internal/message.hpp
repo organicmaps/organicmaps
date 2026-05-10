@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/float_to_string.hpp"
+
 #include <array>
 #include <charconv>
 #include <deque>
@@ -71,25 +73,32 @@ namespace internal
 std::string ToUtf8(std::u16string_view utf16);
 std::string ToUtf8(std::u32string_view utf32);
 
-// Subset of `std::is_arithmetic` that std::to_chars formats as a decimal number — bool and
-// the character types are excluded so they keep operator<<'s character-printing semantics.
+// Subset of integers that std::to_chars formats as a decimal number — bool and the character
+// types are excluded so they keep operator<<'s character-printing semantics. Floating-point types
+// route to base::FloatToString instead because std::to_chars for float/double is not available
+// on libc++ before iOS 16.3 / macOS 13.3 (the project supports iOS 15+).
 template <typename T>
-concept Numeric =
-    std::is_arithmetic_v<T> && !std::is_same_v<T, bool> && !std::is_same_v<std::remove_cv_t<T>, char> &&
+concept Integer =
+    std::is_integral_v<T> && !std::is_same_v<T, bool> && !std::is_same_v<std::remove_cv_t<T>, char> &&
     !std::is_same_v<std::remove_cv_t<T>, signed char> && !std::is_same_v<std::remove_cv_t<T>, unsigned char> &&
     !std::is_same_v<std::remove_cv_t<T>, wchar_t> && !std::is_same_v<std::remove_cv_t<T>, char8_t> &&
     !std::is_same_v<std::remove_cv_t<T>, char16_t> && !std::is_same_v<std::remove_cv_t<T>, char32_t>;
 }  // namespace internal
 
-// Generic fallback. Numeric types (int/long/double/...) go through std::to_chars: locale-free,
-// allocation-free into a stack buffer, and exact (shortest round-trip for floats). Everything
-// else falls back to std::ostringstream for compatibility with legacy types streamable via
-// operator<< — ostringstream is heavyweight (constructs a full std::locale per call), so types
-// that care about cost should provide an explicit DebugPrint overload.
+// Generic fallback. Floating-point types use base::FloatToString (locale-free, no std::to_chars
+// dependency for floats — required for iOS 15 compatibility). Integers go through std::to_chars
+// directly — locale-free and allocation-free into a stack buffer. Everything else falls back to
+// std::ostringstream for compatibility with legacy types streamable via operator<< —
+// ostringstream is heavyweight (constructs a full std::locale per call), so types that care about
+// cost should provide an explicit DebugPrint overload.
 template <typename T>
 inline std::string DebugPrint(T const & t)
 {
-  if constexpr (internal::Numeric<T>)
+  if constexpr (std::is_floating_point_v<T>)
+  {
+    return base::FloatToString(t);
+  }
+  else if constexpr (internal::Integer<T>)
   {
     char buf[32];
     auto [end, _] = std::to_chars(buf, buf + sizeof(buf), t);

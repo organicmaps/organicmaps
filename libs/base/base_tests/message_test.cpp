@@ -80,3 +80,13 @@ UNIT_TEST(Message_NumericArgs)
   TEST_EQUAL(base::Message(static_cast<int64_t>(-9223372036854775807LL - 1)), "-9223372036854775808", ());
   TEST_EQUAL(base::Message('A'), "A", ());  // char keeps character semantics, not numeric
 }
+
+UNIT_TEST(Message_FloatArgs)
+{
+  // Floats route through base::FloatToString (default precision 6, trailing zeroes stripped)
+  // because std::to_chars for float/double isn't available on iOS 15.
+  TEST_EQUAL(base::Message(0.0), "0", ());
+  TEST_EQUAL(base::Message(3.14), "3.14", ());
+  TEST_EQUAL(base::Message(-0.5f), "-0.5", ());
+  TEST_EQUAL(base::Message("pi", 3.14, "rad"), "pi 3.14 rad", ());
+}
