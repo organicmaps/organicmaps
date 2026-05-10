@@ -1158,7 +1158,7 @@
     <string name="type.shop.caravan">Vendita camper</string>
     <string name="type.shop.carpet">Tappeti</string>
     <string name="type.shop.chemist">Negozio di detersivi</string>
-    <string name="type.shop.chocolate">Choccolateria</string>
+    <string name="type.shop.chocolate">Cioccolateria</string>
     <string name="type.shop.clothes">Negozio di abbigliamento</string>
     <string name="type.shop.clothes.children">Negozio di abbigliamento per bambini</string>
     <string name="type.shop.clothes.fashion">Boutique di moda</string>
@@ -1171,7 +1171,7 @@
     <string name="type.shop.clothes.women">Abbigliamento donna</string>
     <string name="type.shop.coffee">Negozio di caffè</string>
     <string name="type.shop.computer">Negozio di computer</string>
-    <string name="type.shop.confectionery">Pasticceria</string>
+    <string name="type.shop.confectionery">Negozio di dolciumi</string>
     <string name="type.shop.convenience">Minimarket</string>
     <string name="type.shop.copyshop">Copisteria</string>
     <string name="type.shop.cosmetics">Cosmetici</string>
@@ -1219,7 +1219,7 @@
     <string name="type.shop.outdoor">Attrezzatura sportiva</string>
     <string name="type.shop.outpost">Punto di raccolta</string>
     <string name="type.shop.pasta">Negozio di pasta</string>
-    <string name="type.shop.pastry">Pasticcino</string>
+    <string name="type.shop.pastry">Pasticceria</string>
     <string name="type.shop.pawnbroker">Pegni</string>
     <string name="type.shop.pet">Negozio di animali</string>
     <string name="type.shop.pet_grooming">Toelettatura per animali domestici</string>
