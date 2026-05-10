@@ -86,25 +86,26 @@ drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> ColoredMarkPoint::GetColored
   return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
 }
 
-std::string DebugPrint(UserMark::Type type)
+std::string_view DebugPrint(UserMark::Type type)
 {
   switch (type)
   {
-  case UserMark::Type::API: return "API";
-  case UserMark::Type::SEARCH: return "SEARCH";
-  case UserMark::Type::STATIC: return "STATIC";
-  case UserMark::Type::BOOKMARK: return "BOOKMARK";
-  case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
-  case UserMark::Type::ROUTING: return "ROUTING";
-  case UserMark::Type::ROAD_WARNING: return "ROAD_WARNING";
-  case UserMark::Type::SPEED_CAM: return "SPEED_CAM";
-  case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
-  case UserMark::Type::TRANSIT: return "TRANSIT";
-  case UserMark::Type::TRACK_INFO: return "TRACK_INFO";
-  case UserMark::Type::TRACK_SELECTION: return "TRACK_SELECTION";
-  case UserMark::Type::COLORED: return "COLORED";
-  case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
-  case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
+    using enum UserMark::Type;
+  case API: return "API";
+  case SEARCH: return "SEARCH";
+  case STATIC: return "STATIC";
+  case BOOKMARK: return "BOOKMARK";
+  case DEBUG_MARK: return "DEBUG_MARK";
+  case ROUTING: return "ROUTING";
+  case ROAD_WARNING: return "ROAD_WARNING";
+  case SPEED_CAM: return "SPEED_CAM";
+  case LOCAL_ADS: return "LOCAL_ADS";
+  case TRANSIT: return "TRANSIT";
+  case TRACK_INFO: return "TRACK_INFO";
+  case TRACK_SELECTION: return "TRACK_SELECTION";
+  case COLORED: return "COLORED";
+  case USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
+  case USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
   }
   UNREACHABLE();
 }

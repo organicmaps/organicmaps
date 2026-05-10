@@ -122,13 +122,14 @@ void DataHeader::Load(ModelReaderPtr const & r)
     MYTHROW(CorruptedMwmFile, (r.GetName()));
 }
 
-std::string DebugPrint(DataHeader::MapType type)
+std::string_view DebugPrint(DataHeader::MapType type)
 {
   switch (type)
   {
-  case DataHeader::MapType::World: return "World";
-  case DataHeader::MapType::WorldCoasts: return "WorldCoasts";
-  case DataHeader::MapType::Country: return "Country";
+    using enum DataHeader::MapType;
+  case World: return "World";
+  case WorldCoasts: return "WorldCoasts";
+  case Country: return "Country";
   }
 
   UNREACHABLE();

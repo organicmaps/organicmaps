@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace coding
@@ -79,7 +80,7 @@ public:
   virtual std::unique_ptr<CompressedBitVector> Clone() const = 0;
 };
 
-std::string DebugPrint(CompressedBitVector::StorageStrategy strat);
+std::string_view DebugPrint(CompressedBitVector::StorageStrategy strat);
 
 class DenseCBV : public CompressedBitVector
 {

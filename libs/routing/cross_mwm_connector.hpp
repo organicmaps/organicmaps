@@ -12,6 +12,7 @@
 #include "base/buffer_vector.hpp"
 
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -34,7 +35,7 @@ enum class WeightsLoadState
   Loaded
 };
 
-std::string DebugPrint(WeightsLoadState state);
+std::string_view DebugPrint(WeightsLoadState state);
 }  // namespace connector
 
 /// @param CrossMwmId Encoded OSM feature (way) ID that should be equal and unique in all MWMs.

@@ -5,6 +5,7 @@
 
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "3party/opening_hours/opening_hours.hpp"
@@ -178,7 +179,7 @@ time_t GetCurrentTimestamp();
 std::string ToString(RoadAccess::Type type);
 void FromString(std::string_view s, RoadAccess::Type & result);
 
-std::string DebugPrint(RoadAccess::Confidence confidence);
+std::string_view DebugPrint(RoadAccess::Confidence confidence);
 std::string DebugPrint(RoadAccess::Conditional const & conditional);
 std::string DebugPrint(RoadAccess::Type type);
 std::string DebugPrint(RoadAccess const & r);

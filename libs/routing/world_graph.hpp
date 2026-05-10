@@ -16,6 +16,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace routing
@@ -126,5 +127,5 @@ protected:
   bool m_isRegionsGraphMode = false;
 };
 
-std::string DebugPrint(WorldGraphMode mode);
+std::string_view DebugPrint(WorldGraphMode mode);
 }  // namespace routing

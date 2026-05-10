@@ -4,6 +4,7 @@
 #include "geometry/rect2d.hpp"
 
 #include <string>
+#include <string_view>
 
 namespace m2
 {
@@ -47,6 +48,6 @@ IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, dou
 bool IsIntersect(Segment2D const & segment, RectD const & rect, double eps);
 
 std::string DebugPrint(Segment2D const & s);
-std::string DebugPrint(IntersectionResult::Type type);
+std::string_view DebugPrint(IntersectionResult::Type type);
 std::string DebugPrint(IntersectionResult const & result);
 }  // namespace m2

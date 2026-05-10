@@ -2,15 +2,16 @@
 
 namespace search
 {
-std::string DebugPrint(Mode mode)
+std::string_view DebugPrint(Mode mode)
 {
   switch (mode)
   {
-  case Mode::Everywhere: return "Everywhere";
-  case Mode::Viewport: return "Viewport";
-  case Mode::Downloader: return "Downloader";
-  case Mode::Bookmarks: return "Bookmarks";
-  case Mode::Count: return "Count";
+    using enum Mode;
+  case Everywhere: return "Everywhere";
+  case Viewport: return "Viewport";
+  case Downloader: return "Downloader";
+  case Bookmarks: return "Bookmarks";
+  case Count: return "Count";
   }
   return "Unknown";
 }

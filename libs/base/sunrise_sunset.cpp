@@ -253,14 +253,15 @@ time_t GetSunsetTime(time_t timeUtc, double latitude, double longitude)
   return (type == DayEventType::PolarDay || type == DayEventType::PolarNight) ? -1 : t;
 }
 
-std::string DebugPrint(DayTimeType type)
+std::string_view DebugPrint(DayTimeType type)
 {
   switch (type)
   {
-  case DayTimeType::Day: return "Day";
-  case DayTimeType::Night: return "Night";
-  case DayTimeType::PolarDay: return "PolarDay";
-  case DayTimeType::PolarNight: return "PolarNight";
+    using enum DayTimeType;
+  case Day: return "Day";
+  case Night: return "Night";
+  case PolarDay: return "PolarDay";
+  case PolarNight: return "PolarNight";
   }
   return {};
 }

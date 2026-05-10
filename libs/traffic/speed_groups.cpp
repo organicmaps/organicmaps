@@ -16,19 +16,20 @@ SpeedGroup GetSpeedGroupByPercentage(double p)
   return res;
 }
 
-std::string DebugPrint(SpeedGroup const & group)
+std::string_view DebugPrint(SpeedGroup group)
 {
   switch (group)
   {
-  case SpeedGroup::G0: return "G0";
-  case SpeedGroup::G1: return "G1";
-  case SpeedGroup::G2: return "G2";
-  case SpeedGroup::G3: return "G3";
-  case SpeedGroup::G4: return "G4";
-  case SpeedGroup::G5: return "G5";
-  case SpeedGroup::TempBlock: return "TempBlock";
-  case SpeedGroup::Unknown: return "Unknown";
-  case SpeedGroup::Count: return "Count";
+    using enum SpeedGroup;
+  case G0: return "G0";
+  case G1: return "G1";
+  case G2: return "G2";
+  case G3: return "G3";
+  case G4: return "G4";
+  case G5: return "G5";
+  case TempBlock: return "TempBlock";
+  case Unknown: return "Unknown";
+  case Count: return "Count";
   }
   UNREACHABLE();
 }

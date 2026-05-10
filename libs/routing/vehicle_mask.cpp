@@ -7,22 +7,23 @@
 
 namespace routing
 {
-std::string DebugPrint(VehicleType vehicleType)
+std::string_view DebugPrint(VehicleType vehicleType)
 {
   switch (vehicleType)
   {
-  case VehicleType::Pedestrian: return "Pedestrian";
-  case VehicleType::Bicycle: return "Bicycle";
-  case VehicleType::Car: return "Car";
-  case VehicleType::Transit: return "Transit";
-  case VehicleType::Count: return "Count";
+    using enum VehicleType;
+  case Pedestrian: return "Pedestrian";
+  case Bicycle: return "Bicycle";
+  case Car: return "Car";
+  case Transit: return "Transit";
+  case Count: return "Count";
   }
   UNREACHABLE();
 }
 
 std::string ToString(VehicleType vehicleType)
 {
-  return DebugPrint(vehicleType);
+  return std::string{DebugPrint(vehicleType)};
 }
 
 void FromString(std::string_view s, VehicleType & vehicleType)

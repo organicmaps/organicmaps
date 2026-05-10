@@ -4,14 +4,15 @@ namespace routing
 {
 namespace connector
 {
-std::string DebugPrint(WeightsLoadState state)
+std::string_view DebugPrint(WeightsLoadState state)
 {
   switch (state)
   {
-  case WeightsLoadState::Unknown: return "Unknown";
-  case WeightsLoadState::ReadyToLoad: return "ReadyToLoad";
-  case WeightsLoadState::NotExists: return "NotExists";
-  case WeightsLoadState::Loaded: return "Loaded";
+    using enum WeightsLoadState;
+  case Unknown: return "Unknown";
+  case ReadyToLoad: return "ReadyToLoad";
+  case NotExists: return "NotExists";
+  case Loaded: return "Loaded";
   }
   UNREACHABLE();
 }

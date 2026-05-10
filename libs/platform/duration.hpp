@@ -5,6 +5,7 @@
 #include <chrono>
 #include <set>
 #include <string>
+#include <string_view>
 
 namespace platform
 {
@@ -34,6 +35,6 @@ private:
                         std::string_view groupingSeparator) const;
 };
 
-std::string DebugPrint(Duration::Units units);
+std::string_view DebugPrint(Duration::Units units);
 
 }  // namespace platform

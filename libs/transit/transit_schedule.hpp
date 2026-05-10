@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <ctime>
 #include <map>
+#include <string_view>
 #include <tuple>
 #include <unordered_map>
 #include <utility>
@@ -53,7 +54,7 @@ enum class Status : uint8_t
   Unknown
 };
 
-std::string DebugPrint(Status const & status);
+std::string_view DebugPrint(Status status);
 
 struct Date
 {

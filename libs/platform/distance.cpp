@@ -202,14 +202,15 @@ std::string Distance::ToString() const
   return GetDistanceString() + kNarrowNonBreakingSpace + GetUnitsString();
 }
 
-std::string DebugPrint(Distance::Units units)
+std::string_view DebugPrint(Distance::Units units)
 {
   switch (units)
   {
-  case Distance::Units::Meters: return "m";
-  case Distance::Units::Kilometers: return "km";
-  case Distance::Units::Feet: return "ft";
-  case Distance::Units::Miles: return "mi";
+    using enum Distance::Units;
+  case Meters: return "m";
+  case Kilometers: return "km";
+  case Feet: return "ft";
+  case Miles: return "mi";
   default: UNREACHABLE();
   }
 }

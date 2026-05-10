@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
@@ -336,5 +337,6 @@ private:
   void GetSystemFontNames(FilesList & res) const;
 };
 
-std::string DebugPrint(Platform::EError err);
-std::string DebugPrint(Platform::ChargingStatus status);
+std::string_view DebugPrint(Platform::EError err);
+std::string_view DebugPrint(Platform::ChargingStatus status);
+std::string_view DebugPrint(Platform::EConnectionType connectionType);

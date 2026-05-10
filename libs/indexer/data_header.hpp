@@ -8,6 +8,7 @@
 #include "base/buffer_vector.hpp"
 
 #include <string>
+#include <string_view>
 #include <utility>
 
 class FilesContainerR;
@@ -76,5 +77,5 @@ private:
   buffer_vector<uint8_t, 2> m_langs;
 };
 
-std::string DebugPrint(DataHeader::MapType type);
+std::string_view DebugPrint(DataHeader::MapType type);
 }  // namespace feature

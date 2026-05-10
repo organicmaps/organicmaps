@@ -1,5 +1,7 @@
 #include "map/traffic_manager.hpp"
 
+#include "base/assert.hpp"
+
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -553,19 +555,19 @@ void TrafficManager::SetSimplifiedColorScheme(bool simplified)
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetSimplifiedTrafficColors, simplified);
 }
 
-std::string DebugPrint(TrafficManager::TrafficState state)
+std::string_view DebugPrint(TrafficManager::TrafficState state)
 {
   switch (state)
   {
-  case TrafficManager::TrafficState::Disabled: return "Disabled";
-  case TrafficManager::TrafficState::Enabled: return "Enabled";
-  case TrafficManager::TrafficState::WaitingData: return "WaitingData";
-  case TrafficManager::TrafficState::Outdated: return "Outdated";
-  case TrafficManager::TrafficState::NoData: return "NoData";
-  case TrafficManager::TrafficState::NetworkError: return "NetworkError";
-  case TrafficManager::TrafficState::ExpiredData: return "ExpiredData";
-  case TrafficManager::TrafficState::ExpiredApp: return "ExpiredApp";
-  default: ASSERT(false, ("Unknown state"));
+    using enum TrafficManager::TrafficState;
+  case Disabled: return "Disabled";
+  case Enabled: return "Enabled";
+  case WaitingData: return "WaitingData";
+  case Outdated: return "Outdated";
+  case NoData: return "NoData";
+  case NetworkError: return "NetworkError";
+  case ExpiredData: return "ExpiredData";
+  case ExpiredApp: return "ExpiredApp";
   }
-  return "Unknown";
+  UNREACHABLE();
 }

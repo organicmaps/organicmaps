@@ -163,12 +163,13 @@ std::string DebugPrint(RoadAccess::Conditional const & conditional)
   return oss.str();
 }
 
-std::string DebugPrint(RoadAccess::Confidence confidence)
+std::string_view DebugPrint(RoadAccess::Confidence confidence)
 {
   switch (confidence)
   {
-  case RoadAccess::Confidence::Maybe: return "Maybe";
-  case RoadAccess::Confidence::Sure: return "Sure";
+    using enum RoadAccess::Confidence;
+  case Maybe: return "Maybe";
+  case Sure: return "Sure";
   }
   UNREACHABLE();
 }

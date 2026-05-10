@@ -365,7 +365,7 @@ void Platform::CancelTask(Thread thread, base::TaskLoop::TaskId id)
   }
 }
 
-std::string DebugPrint(Platform::EError err)
+std::string_view DebugPrint(Platform::EError err)
 {
   switch (err)
   {
@@ -383,13 +383,25 @@ std::string DebugPrint(Platform::EError err)
   UNREACHABLE();
 }
 
-std::string DebugPrint(Platform::ChargingStatus status)
+std::string_view DebugPrint(Platform::ChargingStatus status)
 {
   switch (status)
   {
   case Platform::ChargingStatus::Unknown: return "Unknown";
   case Platform::ChargingStatus::Plugged: return "Plugged";
   case Platform::ChargingStatus::Unplugged: return "Unplugged";
+  }
+  UNREACHABLE();
+}
+
+std::string_view DebugPrint(Platform::EConnectionType connectionType)
+{
+  switch (connectionType)
+  {
+    using enum Platform::EConnectionType;
+  case CONNECTION_NONE: return "No connection";
+  case CONNECTION_WIFI: return "WiFi or cable connection";
+  case CONNECTION_WWAN: return "Cellular connection";
   }
   UNREACHABLE();
 }

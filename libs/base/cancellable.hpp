@@ -3,7 +3,7 @@
 #include <chrono>
 #include <mutex>
 #include <optional>
-#include <string>
+#include <string_view>
 
 namespace base
 {
@@ -52,5 +52,5 @@ private:
   std::optional<std::chrono::steady_clock::time_point> m_deadline;
 };
 
-std::string DebugPrint(Cancellable::Status status);
+std::string_view DebugPrint(Cancellable::Status status);
 }  // namespace base

@@ -84,15 +84,14 @@ std::string DebugPrint(Segment2D const & segment)
   return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
 }
 
-std::string DebugPrint(IntersectionResult::Type type)
+std::string_view DebugPrint(IntersectionResult::Type type)
 {
-  using Type = IntersectionResult::Type;
-
   switch (type)
   {
-  case Type::Zero: return "Zero";
-  case Type::One: return "One";
-  case Type::Infinity: return "Infinity";
+    using enum IntersectionResult::Type;
+  case Zero: return "Zero";
+  case One: return "One";
+  case Infinity: return "Infinity";
   }
   UNREACHABLE();
 }

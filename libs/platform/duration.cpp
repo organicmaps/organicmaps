@@ -124,14 +124,15 @@ std::string Duration::GetUnitsString(Units unit)
   }
 }
 
-std::string DebugPrint(Duration::Units units)
+std::string_view DebugPrint(Duration::Units units)
 {
   switch (units)
   {
-  case Duration::Units::Days: return "d";
-  case Duration::Units::Hours: return "h";
-  case Duration::Units::Minutes: return "m";
-  case Duration::Units::Seconds: return "s";
+    using enum Duration::Units;
+  case Days: return "d";
+  case Hours: return "h";
+  case Minutes: return "m";
+  case Seconds: return "s";
   default: UNREACHABLE();
   }
 }

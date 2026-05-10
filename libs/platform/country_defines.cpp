@@ -2,13 +2,14 @@
 
 #include "base/assert.hpp"
 
-std::string DebugPrint(MapFileType type)
+std::string_view DebugPrint(MapFileType type)
 {
   switch (type)
   {
-  case MapFileType::Map: return "Map";
-  case MapFileType::Diff: return "Diff";
-  case MapFileType::Count: return "Count";
+    using enum MapFileType;
+  case Map: return "Map";
+  case Diff: return "Diff";
+  case Count: return "Count";
   }
   UNREACHABLE();
 }
