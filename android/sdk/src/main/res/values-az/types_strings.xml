@@ -647,8 +647,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Üzgüçülük hovuzu</string>
     <string name="type.leisure.swimming_pool.private">Üzgüçülük hovuzu</string>
-    <string name="type.leisure.track">Uçuş zolağı</string>
-    <string name="type.leisure.track.area">Uçuş zolağı</string>
+    <string name="type.leisure.track">İdman treki</string>
+    <string name="type.leisure.track.area">İdman treki</string>
     <string name="type.leisure.water_park">Su parkı</string>
     <string name="type.leisure.beach_resort">Çimərlik kurort</string>
     <string name="type.man_made">İnsan istehsalı</string>

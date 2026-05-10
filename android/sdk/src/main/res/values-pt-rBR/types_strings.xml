@@ -241,8 +241,8 @@
     <string name="type.leisure.playground">Parquinho</string>
     <string name="type.leisure.sports_centre">Centro esportivo</string>
     <string name="type.sport.climbing">Ginásio de escalada</string>
-    <string name="type.leisure.track">Pista para esportes não motorizados</string>
-    <string name="type.leisure.track.area">Pista para esportes não motorizados</string>
+    <string name="type.leisure.track">Pista para esportes</string>
+    <string name="type.leisure.track.area">Pista para esportes</string>
     <string name="type.leisure.beach_resort">Resort de praia</string>
     <string name="type.man_made.breakwater">Molhe</string>
     <string name="type.man_made.cairn">Moledro ou mariola</string>

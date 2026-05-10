@@ -564,6 +564,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Kolam renang</string>
     <string name="type.leisure.swimming_pool.private">Kolam renang</string>
+    <string name="type.leisure.track">Lintasan olahraga</string>
+    <string name="type.leisure.track.area">Lintasan olahraga</string>
     <string name="type.leisure.water_park">Taman air</string>
     <string name="type.man_made.chimney">Cerobong asap pabrik</string>
     <string name="type.man_made.lighthouse">Mercusuar</string>

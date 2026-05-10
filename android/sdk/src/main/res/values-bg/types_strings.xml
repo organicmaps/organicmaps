@@ -497,6 +497,8 @@
     <string name="type.sport.yoga">Йога</string>
     <string name="type.leisure.swimming_pool">Басейн</string>
     <string name="type.leisure.swimming_pool.private">Басейн</string>
+    <string name="type.leisure.track">Спортна писта</string>
+    <string name="type.leisure.track.area">Спортна писта</string>
     <string name="type.man_made.silo">Складова кула</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Комуникационна кула</string>

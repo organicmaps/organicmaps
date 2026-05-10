@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "สนามกีฬา";
 "type.leisure.swimming_pool" = "สระว่ายน้ำ";
 "type.leisure.swimming_pool.private" = "สระว่ายน้ำ";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "ลู่กีฬา";
+"type.leisure.track.area" = "ลู่กีฬา";
 "type.leisure.water_park" = "สวนน้ำ";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

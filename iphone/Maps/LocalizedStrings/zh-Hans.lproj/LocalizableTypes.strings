@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "体育场";
 "type.leisure.swimming_pool" = "游泳池";
 "type.leisure.swimming_pool.private" = "游泳池";
-"type.leisure.track" = "賽道";
-"type.leisure.track.area" = "賽道";
+"type.leisure.track" = "赛道";
+"type.leisure.track.area" = "赛道";
 "type.leisure.water_park" = "水上乐园";
 "type.leisure.beach_resort" = "海滨度假区";
 "type.man_made" = "人造要素";

@@ -647,6 +647,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Uima-allas</string>
     <string name="type.leisure.swimming_pool.private">Uima-allas</string>
+    <string name="type.leisure.track">Urheilurata</string>
+    <string name="type.leisure.track.area">Urheilurata</string>
     <string name="type.leisure.water_park">Vesipuisto</string>
     <string name="type.man_made.chimney">Tehtaan piippu</string>
     <string name="type.man_made.flagpole">Lipputanko</string>

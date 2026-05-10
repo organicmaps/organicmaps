@@ -675,8 +675,8 @@
     <string name="type.leisure.stadium">ملعب</string>
     <string name="type.leisure.swimming_pool">مسبح</string>
     <string name="type.leisure.swimming_pool.private">مسبح خاص</string>
-    <string name="type.leisure.track">مسار</string>
-    <string name="type.leisure.track.area">مسار</string>
+    <string name="type.leisure.track">مضمار</string>
+    <string name="type.leisure.track.area">مضمار</string>
     <string name="type.leisure.water_park">مدينة مائية</string>
     <string name="type.leisure.beach_resort">منتجع شاطئي</string>
     <string name="type.man_made">مُنشأ بشري</string>

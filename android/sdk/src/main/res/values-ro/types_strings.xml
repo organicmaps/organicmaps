@@ -584,6 +584,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Piscină</string>
     <string name="type.leisure.swimming_pool.private">Piscină privată</string>
+    <string name="type.leisure.track">Pistă sportivă</string>
+    <string name="type.leisure.track.area">Pistă sportivă</string>
     <string name="type.leisure.water_park">Parc acvatic</string>
     <string name="type.man_made.chimney">Coș de fabrică</string>
     <string name="type.man_made.lighthouse">Far</string>

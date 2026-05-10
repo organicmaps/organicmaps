@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadium";
 "type.leisure.swimming_pool" = "Pishinë";
 "type.leisure.swimming_pool.private" = "Pishinë";
-"type.leisure.track" = "Shteg fushe";
-"type.leisure.track.area" = "Shteg fushe";
+"type.leisure.track" = "Pistë sportive";
+"type.leisure.track.area" = "Pistë sportive";
 "type.leisure.water_park" = "Park ujor";
 "type.leisure.beach_resort" = "Resort plazhi";
 "type.man_made" = "E bërë nga njeriu";

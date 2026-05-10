@@ -676,7 +676,7 @@
     <string name="type.leisure.swimming_pool">Úszómedence</string>
     <string name="type.leisure.swimming_pool.private">Úszómedence</string>
     <string name="type.leisure.track">Futópálya</string>
-    <string name="type.leisure.track.area">Versenypálya</string>
+    <string name="type.leisure.track.area">Futópálya</string>
     <string name="type.leisure.water_park">Aquapark</string>
     <string name="type.leisure.beach_resort">Fürdőhely, vízparti strand</string>
     <string name="type.man_made">Építmény</string>

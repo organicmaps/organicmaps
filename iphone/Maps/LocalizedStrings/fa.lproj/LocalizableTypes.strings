@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "استادیوم";
 "type.leisure.swimming_pool" = "استخرشنا";
 "type.leisure.swimming_pool.private" = "استخرشنا";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "پیست ورزشی";
+"type.leisure.track.area" = "پیست ورزشی";
 "type.leisure.water_park" = "گردشگری";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

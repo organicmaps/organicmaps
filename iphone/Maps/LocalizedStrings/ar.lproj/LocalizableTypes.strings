@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "ملعب";
 "type.leisure.swimming_pool" = "مسبح";
 "type.leisure.swimming_pool.private" = "مسبح خاص";
-"type.leisure.track" = "مسار";
-"type.leisure.track.area" = "مسار";
+"type.leisure.track" = "مضمار";
+"type.leisure.track.area" = "مضمار";
 "type.leisure.water_park" = "مدينة مائية";
 "type.leisure.beach_resort" = "منتجع شاطئي";
 "type.man_made" = "مُنشأ بشري";

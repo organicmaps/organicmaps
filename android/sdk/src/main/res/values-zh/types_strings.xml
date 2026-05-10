@@ -675,8 +675,8 @@
     <string name="type.leisure.stadium">体育场</string>
     <string name="type.leisure.swimming_pool">游泳池</string>
     <string name="type.leisure.swimming_pool.private">游泳池</string>
-    <string name="type.leisure.track">賽道</string>
-    <string name="type.leisure.track.area">賽道</string>
+    <string name="type.leisure.track">赛道</string>
+    <string name="type.leisure.track.area">赛道</string>
     <string name="type.leisure.water_park">水上乐园</string>
     <string name="type.leisure.beach_resort">海滨度假区</string>
     <string name="type.man_made">人造要素</string>

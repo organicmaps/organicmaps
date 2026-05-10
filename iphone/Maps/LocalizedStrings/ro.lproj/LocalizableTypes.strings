@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Piscină";
 "type.leisure.swimming_pool.private" = "Piscină privată";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Pistă sportivă";
+"type.leisure.track.area" = "Pistă sportivă";
 "type.leisure.water_park" = "Parc acvatic";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

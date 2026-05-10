@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Uima-allas";
 "type.leisure.swimming_pool.private" = "Uima-allas";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Urheilurata";
+"type.leisure.track.area" = "Urheilurata";
 "type.leisure.water_park" = "Vesipuisto";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

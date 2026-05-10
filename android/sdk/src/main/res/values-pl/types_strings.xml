@@ -675,8 +675,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Basen</string>
     <string name="type.leisure.swimming_pool.private">Basen</string>
-    <string name="type.leisure.track">Ścieżka</string>
-    <string name="type.leisure.track.area">Ścieżka</string>
+    <string name="type.leisure.track">Tor sportowy</string>
+    <string name="type.leisure.track.area">Tor sportowy</string>
     <string name="type.leisure.water_park">Park wodny</string>
     <string name="type.leisure.beach_resort">Kurort przy plaży</string>
     <string name="type.man_made">Stworzone przez człowieka</string>

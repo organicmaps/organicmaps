@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadium";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Korsa sportiva";
+"type.leisure.track.area" = "Korsa sportiva";
 "type.leisure.water_park" = "Water Park";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

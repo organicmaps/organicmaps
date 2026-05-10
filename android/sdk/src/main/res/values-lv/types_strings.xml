@@ -47,6 +47,8 @@
     <!-- SECTION: Types: Historic -->
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
+    <string name="type.leisure.track">Skrejceļš</string>
+    <string name="type.leisure.track.area">Skrejceļš</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
     <!-- A tower/mast constructed to burn off excess gas. -->

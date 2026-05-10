@@ -790,8 +790,8 @@
 "type.leisure.stadium" = "Stadium";
 "type.leisure.swimming_pool" = "Басейн";
 "type.leisure.swimming_pool.private" = "Басейн";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Спортна писта";
+"type.leisure.track.area" = "Спортна писта";
 "type.leisure.water_park" = "Water Park";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";

@@ -672,8 +672,8 @@
     <string name="type.leisure.stadium">Estadi</string>
     <string name="type.leisure.swimming_pool">Piscina</string>
     <string name="type.leisure.swimming_pool.private">Piscina</string>
-    <string name="type.leisure.track">Sender</string>
-    <string name="type.leisure.track.area">Sender</string>
+    <string name="type.leisure.track">Pista esportiva</string>
+    <string name="type.leisure.track.area">Pista esportiva</string>
     <string name="type.leisure.water_park">Parc aquàtic</string>
     <string name="type.leisure.beach_resort">Complex turístic platger</string>
     <string name="type.man_made">Artificial</string>

@@ -791,7 +791,7 @@
 "type.leisure.swimming_pool" = "Úszómedence";
 "type.leisure.swimming_pool.private" = "Úszómedence";
 "type.leisure.track" = "Futópálya";
-"type.leisure.track.area" = "Versenypálya";
+"type.leisure.track.area" = "Futópálya";
 "type.leisure.water_park" = "Aquapark";
 "type.leisure.beach_resort" = "Fürdőhely, vízparti strand";
 "type.man_made" = "Építmény";
