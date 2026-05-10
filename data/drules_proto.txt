@@ -16261,7 +16261,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16278,7 +16278,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16295,7 +16295,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16312,7 +16312,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16403,7 +16403,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16420,7 +16420,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16437,7 +16437,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16454,7 +16454,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16474,7 +16474,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16491,7 +16491,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16508,7 +16508,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16525,7 +16525,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16545,7 +16545,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16562,7 +16562,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16579,7 +16579,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16596,7 +16596,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16616,7 +16616,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16633,7 +16633,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16650,7 +16650,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16667,7 +16667,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16687,7 +16687,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16704,7 +16704,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16721,7 +16721,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16738,7 +16738,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16758,7 +16758,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16775,7 +16775,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16792,7 +16792,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -16809,7 +16809,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "playground-m"
+      name: "attraction-m"
       priority: 2450
       min_distance: 24
     }
@@ -135767,6 +135767,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 15786702
+      priority: -1830
+    }
     symbol {
       name: "theme_park-m"
       priority: 5200
@@ -135784,6 +135788,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 15786702
+      priority: -1830
+    }
     symbol {
       name: "theme_park-m"
       priority: 5200
@@ -135801,6 +135809,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 15786702
+      priority: -1830
+    }
     symbol {
       name: "theme_park-m"
       priority: 5200
@@ -135818,6 +135830,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 15786702
+      priority: -1830
+    }
     symbol {
       name: "theme_park-m"
       priority: 5200
@@ -135835,6 +135851,10 @@ cont {
   }
   element {
     scale: 20
+    area {
+      color: 15786702
+      priority: -1830
+    }
     symbol {
       name: "theme_park-m"
       priority: 5200
