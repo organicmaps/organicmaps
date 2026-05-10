@@ -319,7 +319,7 @@ leisure-water_park                                  # icon z16- (also has captio
 shop-mall                                           # icon z14- (also has caption(optional) z14-)
 tourism-aquarium                                    # icon z16- (also has caption(optional) z16-)
 tourism-museum                                      # icon z13- (also has caption(optional) z13-)
-tourism-theme_park                                  # icon z14- (also has caption(optional) z14-)
+tourism-theme_park                                  # icon z14- (also has caption(optional) z14-, area z16-)
 tourism-zoo                                         # icon z13- (also has caption(optional) z13-)
 === 5200
 
@@ -1518,7 +1518,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-mall                                         # caption(optional) z14- (also has icon z14-)
 # tourism-aquarium                                  # caption(optional) z16- (also has icon z16-)
 # tourism-museum                                    # caption(optional) z13- (also has icon z13-)
-# tourism-theme_park                                # caption(optional) z14- (also has icon z14-)
+# tourism-theme_park                                # caption(optional) z14- (also has icon z14-, area z16-)
 # tourism-zoo                                       # caption(optional) z13- (also has icon z13-)
 # === -4800
 
