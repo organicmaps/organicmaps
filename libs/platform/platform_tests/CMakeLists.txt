@@ -1,6 +1,7 @@
 project(platform_tests)
 
 set(SRC
+  cjk_resolver_tests.cpp
   country_file_tests.cpp
   distance_tests.cpp
   duration_tests.cpp
