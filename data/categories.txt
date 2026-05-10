@@ -18379,7 +18379,7 @@ es:Tienda de chocolate|Chocolatería
 et:Šokolaadipood
 fr:Chocolatier
 hi:4चॉकलेट की दुकान
-it:Choccolateria
+it:Cioccolateria|cioccolatini
 ja:チョコレート屋
 lt:5Šokoladas|5Šokolado parduotuvė
 lv:Šokolādes veikals
