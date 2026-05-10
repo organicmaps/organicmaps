@@ -4,7 +4,7 @@
 The **public_transit_routing** package provides a lightweight HTTP API for computing public‑transit routes.  
 It ships with a data‑processing pipeline that can ingest open‑source GTFS (General Transit Feed Specification) feeds, build routing indices, and expose a fast query endpoint.
 
-> **Note:** The original source folder name `job_github_bounty_organicmaps_organicmaps#5331` was renamed to a simpler, more conventional layout (`public_transit_routing`).  
+> **Note:** The original source folder name `job_github_bounty_organicmaps_organicmaps#5331` has been renamed to a simpler, more conventional layout (`public_transit_routing`).  
 
 ---
 
@@ -18,3 +18,11 @@ It ships with a data‑processing pipeline that can ingest open‑source GTFS (G
 | `networkx` | 3.2 |
 | `gtfs-kit` | 5.0 |
 | `requests` (for tests) | 2.31 |
+
+---
+
+## Build routing indices
+
+Below is a step‑by‑step example that builds routing indices for **Zurich** using OpenStreetMap (OSM) and GTFS data.
+
+1. **Create a working directory**
