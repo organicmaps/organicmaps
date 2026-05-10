@@ -53,7 +53,7 @@ if (Vulkan_FOUND)
 endif()
 
 if(PLATFORM_MAC)
-  target_embed_metal_shader_libraries(${PROJECT_NAME} shaders_metal)
+  omim_target_embed_metal_shader_libraries(${PROJECT_NAME} shaders_metal)
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC GL_SILENCE_DEPRECATION)
