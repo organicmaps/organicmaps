@@ -3,6 +3,7 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
@@ -607,6 +608,125 @@ std::string GetCurrentTwine()
 std::string GetCurrentMapTwine()
 {
   return GetTwine(GetCurrentMapLanguage());
+}
+
+namespace
+{
+// Parses BCP 47 / POSIX-style language tags and reports whether `subtag` appears as a whole
+// segment, not just as a substring. Delimiters cover "-" (BCP 47), "_" (POSIX), " " and "#"
+// (defensive — some platforms surface "@" or "#"-prefixed locale modifiers). Substring matching
+// would mis-classify e.g. "zh-Hank" as containing "hk".
+bool HasSubtag(std::string_view tag, std::string_view subtag) noexcept
+{
+  size_t start = 0;
+  while (start < tag.size())
+  {
+    auto const end = tag.find_first_of("-_ #", start);
+    if (tag.substr(start, end == std::string_view::npos ? end : end - start) == subtag)
+      return true;
+    if (end == std::string_view::npos)
+      return false;
+    start = end + 1;
+  }
+  return false;
+}
+}  // namespace
+
+CJKResolver::Variant CJKResolver::FromLanguageTag(std::string tag)
+{
+  strings::AsciiToLower(tag);
+
+  // Match the primary language subtag exactly so "jav" (Javanese) isn't treated as Japanese.
+  std::string_view const primary = std::string_view(tag).substr(0, tag.find_first_of("-_ #"));
+
+  if (primary == "ja")
+    return Variant::JP;
+  if (primary == "ko")
+    return Variant::KR;
+  if (primary == "zh")
+  {
+    if (HasSubtag(tag, "hk"))
+      return Variant::HK;
+    for (char const * s : {"hant", "tw", "mo"})
+      if (HasSubtag(tag, s))
+        return Variant::TC;
+    return Variant::SC;
+  }
+  // Non-CJK locales fall back to Simplified Chinese — the most widely recognized variant for any
+  // Han glyph the user might encounter on the map.
+  return Variant::SC;
+}
+
+std::optional<CJKResolver::Variant> CJKResolver::FromSfntFamilyName(std::string_view family) noexcept
+{
+  // Order matters: HK before TC/SC; "Noto Sans CJK HK" must not match TC or SC.
+  if (family.contains("JP"))
+    return Variant::JP;
+  if (family.contains("KR"))
+    return Variant::KR;
+  if (family.contains("HK"))
+    return Variant::HK;
+  if (family.contains("TC"))
+    return Variant::TC;
+  if (family.contains("SC"))
+    return Variant::SC;
+  return std::nullopt;
+}
+
+std::optional<CJKResolver::Variant> CJKResolver::FromFontFileName(std::string_view fileName) noexcept
+{
+  // "Hans"/"Hant" are older Noto naming for SC/TC.
+  struct Entry
+  {
+    std::string_view m_part;
+    Variant m_variant;
+  };
+  static constexpr Entry kEntries[] = {
+      {"NotoSansJP-Regular", Variant::JP},   {"NotoSansKR-Regular", Variant::KR}, {"NotoSansSC-Regular", Variant::SC},
+      {"NotoSansTC-Regular", Variant::TC},   {"NotoSansHK-Regular", Variant::HK}, {"NotoSansHans-Regular", Variant::SC},
+      {"NotoSansHant-Regular", Variant::TC},
+  };
+  for (auto const & e : kEntries)
+    if (fileName.contains(e.m_part))
+      return e.m_variant;
+  return std::nullopt;
+}
+
+bool CJKResolver::IsCJKContainerFileName(std::string_view fileName) noexcept
+{
+  // Android 7+ NotoSansCJK-Regular.ttc is the only Pan-CJK collection currently encountered.
+  // The .ttc suffix gate keeps a stray non-collection file (e.g. NotoSansCJK.txt) from triggering
+  // a face-index probe in glyph_manager.
+  return fileName.contains("NotoSansCJK") && fileName.ends_with(".ttc");
+}
+
+std::array<CJKResolver::Variant, 5> CJKResolver::FallbackChain(Variant userVariant) noexcept
+{
+  using V = Variant;
+  switch (userVariant)
+  {
+  case V::JP: return {V::JP, V::SC, V::TC, V::HK, V::KR};
+  case V::KR: return {V::KR, V::SC, V::TC, V::HK, V::JP};
+  case V::SC: return {V::SC, V::HK, V::TC, V::JP, V::KR};
+  case V::TC: return {V::TC, V::HK, V::SC, V::JP, V::KR};
+  case V::HK: return {V::HK, V::TC, V::SC, V::JP, V::KR};
+  }
+  UNREACHABLE();
+}
+
+CJKResolver::CJKResolver() : m_user(FromLanguageTag(GetCurrentOrig())) {}
+
+std::string DebugPrint(CJKResolver::Variant v)
+{
+  switch (v)
+  {
+  case CJKResolver::Variant::JP: return "JP";
+  case CJKResolver::Variant::KR: return "KR";
+  case CJKResolver::Variant::SC: return "SC";
+  case CJKResolver::Variant::TC: return "TC";
+  case CJKResolver::Variant::HK: return "HK";
+  }
+  UNREACHABLE();
 }
 
 }  // namespace languages
