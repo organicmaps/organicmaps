@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <charconv>
 #include <deque>
 #include <functional>
 #include <initializer_list>
@@ -65,12 +66,41 @@ inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v);
 template <class Key, class T, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
 inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v);
 
+namespace internal
+{
+std::string ToUtf8(std::u16string_view utf16);
+std::string ToUtf8(std::u32string_view utf32);
+
+// Subset of `std::is_arithmetic` that std::to_chars formats as a decimal number — bool and
+// the character types are excluded so they keep operator<<'s character-printing semantics.
+template <typename T>
+concept Numeric =
+    std::is_arithmetic_v<T> && !std::is_same_v<T, bool> && !std::is_same_v<std::remove_cv_t<T>, char> &&
+    !std::is_same_v<std::remove_cv_t<T>, signed char> && !std::is_same_v<std::remove_cv_t<T>, unsigned char> &&
+    !std::is_same_v<std::remove_cv_t<T>, wchar_t> && !std::is_same_v<std::remove_cv_t<T>, char8_t> &&
+    !std::is_same_v<std::remove_cv_t<T>, char16_t> && !std::is_same_v<std::remove_cv_t<T>, char32_t>;
+}  // namespace internal
+
+// Generic fallback. Numeric types (int/long/double/...) go through std::to_chars: locale-free,
+// allocation-free into a stack buffer, and exact (shortest round-trip for floats). Everything
+// else falls back to std::ostringstream for compatibility with legacy types streamable via
+// operator<< — ostringstream is heavyweight (constructs a full std::locale per call), so types
+// that care about cost should provide an explicit DebugPrint overload.
 template <typename T>
 inline std::string DebugPrint(T const & t)
 {
-  std::ostringstream out;
-  out << t;
-  return out.str();
+  if constexpr (internal::Numeric<T>)
+  {
+    char buf[32];
+    auto [end, _] = std::to_chars(buf, buf + sizeof(buf), t);
+    return std::string{buf, end};
+  }
+  else
+  {
+    std::ostringstream out;
+    out << t;
+    return out.str();
+  }
 }
 
 inline std::string DebugPrint(char const * t)
@@ -85,12 +115,6 @@ inline std::string DebugPrint(char t)
   // return {1, t} wrongly constructs "\0x1t" string.
   return std::string(1, t);
 }
-
-namespace internal
-{
-std::string ToUtf8(std::u16string_view utf16);
-std::string ToUtf8(std::u32string_view utf32);
-}  // namespace internal
 
 inline std::string DebugPrint(std::u16string const & utf16)
 {
@@ -241,40 +265,50 @@ namespace base
 {
 namespace internal
 {
+// Append one Message argument to `out` without an intermediate std::string for the cheap cases:
+//   - std::string / std::string_view — direct view append (zero alloc, embedded nulls preserved)
+//   - char* / char const* / char[N]  — null-safe view append (zero alloc)
+//   - everything else                 — call ::DebugPrint(v), append its result through a
+//                                       std::string_view; the temporary is read once and dies
+//
+// Combined with std::to_chars in the generic ::DebugPrint(T const &) fallback above, a typical
+// N-argument LOG/CHECK message allocates once (for the output buffer's reserve) when each
+// DebugPrint result fits SSO, regardless of N.
 template <typename T>
-std::string DebugPrintToString(T && t)
+inline void StreamPart(std::string & out, T const & v)
 {
-  using ::DebugPrint;
-  auto result = DebugPrint(std::forward<T>(t));
-  if constexpr (std::is_same_v<decltype(result), std::string>)
-    return result;
+  using D = std::remove_cvref_t<T>;
+  if constexpr (std::is_same_v<D, std::string> || std::is_same_v<D, std::string_view>)
+  {
+    out += v;
+  }
+  else if constexpr (std::is_convertible_v<T const &, char const *>)
+  {
+    char const * p = v;
+    out += p ? std::string_view{p} : std::string_view{"NULL"};
+  }
   else
-    return std::string(result);
+  {
+    using ::DebugPrint;
+    out += std::string_view{DebugPrint(v)};
+  }
 }
 }  // namespace internal
 
-template <typename... Args>
-std::string Message(Args &&... args)
+[[nodiscard]] inline std::string Message()
 {
-  if constexpr (sizeof...(args) == 0)
-    return {};
-  else if constexpr (sizeof...(args) == 1)
-    return internal::DebugPrintToString(std::forward<Args>(args)...);
-  else
-  {
-    std::array parts{internal::DebugPrintToString(std::forward<Args>(args))...};
-    size_t total = parts.size() - 1;  // single-space separators
-    for (auto const & p : parts)
-      total += p.size();
-    std::string out;
-    out.reserve(total);
-    out += parts[0];
-    for (size_t i = 1; i < parts.size(); ++i)
-    {
-      out += ' ';
-      out += parts[i];
-    }
-    return out;
-  }
+  return {};
+}
+
+template <typename First, typename... Rest>
+[[nodiscard]] inline std::string Message(First const & first, Rest const &... rest)
+{
+  std::string out;
+  // Reserve enough for the common case (short labels and a few values). std::string's geometric
+  // growth handles longer messages with O(log N) realloc cost.
+  out.reserve(64);
+  internal::StreamPart(out, first);
+  ((out += ' ', internal::StreamPart(out, rest)), ...);
+  return out;
 }
 }  // namespace base

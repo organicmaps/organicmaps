@@ -64,3 +64,19 @@ UNIT_TEST(Message_VariadicArgs)
   TEST_EQUAL(base::Message(1, 2, 3), "1 2 3", ());
   TEST_EQUAL(base::Message("count", 42, "items"), "count 42 items", ());
 }
+
+UNIT_TEST(Message_NullCharPointer)
+{
+  char const * p = nullptr;
+  TEST_EQUAL(base::Message(p), "NULL", ());
+  TEST_EQUAL(base::Message("before", p, "after"), "before NULL after", ());
+}
+
+UNIT_TEST(Message_NumericArgs)
+{
+  TEST_EQUAL(base::Message(0), "0", ());
+  TEST_EQUAL(base::Message(-1), "-1", ());
+  TEST_EQUAL(base::Message(static_cast<size_t>(99)), "99", ());
+  TEST_EQUAL(base::Message(static_cast<int64_t>(-9223372036854775807LL - 1)), "-9223372036854775808", ());
+  TEST_EQUAL(base::Message('A'), "A", ());  // char keeps character semantics, not numeric
+}
