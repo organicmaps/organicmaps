@@ -10990,6 +10990,546 @@ vi:Nhảy nhót|Bowling
 zh-Hans:九柱戏|保龄球
 zh-Hant:九柱戲|保齡球
 
+sport-boules
+en:Boules|petanque|bocce|bocci
+ar:بولز|بيتانك|بوتشي
+be:Боўлс|Петанк
+bg:Петанк|боул|бочи
+ca:5Petanca|bocce
+cs:Pétanque|bocce|kuželky
+da:Boule|petanque|bocce
+de:Boule|Pétanque|Boccia
+el:Πετάνκ|μπότσε
+es:Petanca|bochas|bocce|pétanque
+et:Petank|bocce
+eu:Petanka|bocce
+fa:بولز
+fi:Petankki|bocce
+fr:Pétanque|boules|bocce
+he:פטאנק|בוצ׳ה
+hi:बूल्स
+hu:Pétanque|boccia
+id:Pétanque|bocce
+it:Bocce|petanque|bowling sull'erba
+ja:ペタンク|ボッチェ
+ko:페탕크|보체
+lt:5Petankas|bocce
+lv:Petanks
+mr:5बूल्स|पेटांक
+nb:Boule|petanque|bocce
+nl:Jeu de boules|petanque|bocce
+pl:Pétanque|bocce
+pt:Petanca|bocha|bocce
+pt-BR:Bocha|petanca|bocce
+ro:Petanca|popice|bocce
+ru:Петанк|боул|боулз|бочче
+sk:Pétanque|bocce
+sl:Balinanje|petanque|bocce
+sr:Петанк|Petanke|Боће
+sv:Boule|petanque|bocce
+sw:Boules|petanque
+th:บูล|เปตอง|บอคเช
+tr:Bocce|petank
+uk:Петанк|боул|боулз|бочче
+vi:Pétanque|bocce
+zh-Hans:地掷球|法式滚球|室外滚球
+zh-Hant:地擲球|法式滾球|室外滾球
+
+sport-cycling
+en:Cycling|velodrome|cycle racing|bicycle racing
+ar:ركوب الدراجات|سباق الدراجات|فيلودروم
+be:Веласпорт|велатрэк
+bg:Колоездене|велодрум
+ca:Ciclisme|velòdrom
+cs:Cyklistika|velodrom
+da:Cykling|cykelbane|velodrom
+de:Radsport|Velodrom|Radrennen
+el:Ποδηλασία|βελοδρόμιο
+es:Ciclismo|velódromo
+et:Jalgrattasport|velodroom
+eu:Txirrindularitza|belodromoa
+fa:دوچرخه‌سواری
+fi:Pyöräily|velodromi
+fr:Cyclisme|vélodrome
+he:רכיבה על אופניים|וולודרום
+hi:साइकिल चलाना|वेलोड्रोम
+hu:Kerékpározás|velodrom
+id:Bersepeda|balap sepeda|velodrom
+it:Ciclismo|velodromo
+ja:サイクリング|自転車競技|ベロドローム
+ko:사이클링|벨로드롬
+lt:5Dviračių sportas|velodromas
+lv:Riteņbraukšana
+mr:सायकल चालवणे|वेलोड्रोम
+nb:Sykling|velodrom
+nl:Wielrennen|wielerbaan|velodroom
+pl:Kolarstwo|welodrom
+pt:Ciclismo|velódromo
+pt-BR:Ciclismo|velódromo
+ro:Ciclism|velodrom
+ru:Велоспорт|велотрек|велодром|велогонки
+sk:Cyklistika|velodróm
+sl:Kolesarstvo|velodrom
+sr:Бициклизам|велодром
+sv:Cykling|velodrom
+sw:Uendeshaji baiskeli|mbio za baiskeli
+th:ปั่นจักรยาน|เวโลโดรม
+tr:Bisiklet sporu|velodrom
+uk:Велоспорт|велотрек|велодром|велогонки
+vi:Đua xe đạp|trường đua xe đạp
+zh-Hans:自行车运动|自行车|自行车赛|赛车场
+zh-Hant:自行車運動|自行車|自行車賽|賽車場
+
+sport-four_square
+en:Four Square|4 square
+ar:أربع مربعات
+be:Чатыры квадраты
+bg:Четири квадрата
+ca:5Quatre quadrats
+cs:Čtyři čtverce
+da:Fire firkanter
+de:Vier-Felder-Ball|Vier Quadrate
+el:Τέσσερα τετράγωνα
+es:Cuatro cuadrados
+et:Neli ruutu
+eu:Lau karratu
+fa:چهار مربع
+fi:Neljä ruutua
+fr:Quatre carrés
+he:ארבע משבצות
+hi:फोर स्क्वायर
+hu:Négy négyzet
+id:Empat kotak
+it:Quattro quadrati
+ja:フォースクエア|四角ボール
+ko:포 스퀘어
+lt:5Keturi kvadratai
+lv:Četri kvadrāti
+mr:फोर स्क्वेअर
+nb:Fire kvadrater
+nl:Vier vierkanten
+pl:Cztery kwadraty
+pt:Quatro quadrados
+pt-BR:Quatro quadrados
+ro:Patru pătrate
+ru:Четыре квадрата
+sk:Štyri štvorce
+sl:Štirje kvadrati
+sr:Четири квадрата
+sv:Fyra rutor
+sw:Four Square
+th:โฟร์สแควร์
+tr:Dört kare
+uk:Чотири квадрати
+vi:Bốn ô vuông
+zh-Hans:四方格
+zh-Hant:四方格
+
+sport-horse_racing
+en:Horse Racing|hippodrome|racecourse|race track
+ar:سباق الخيل|ميدان سباق الخيل
+be:Конныя скачкі|іпадром
+bg:Конни надбягвания|хиподрум
+ca:5Curses de cavalls|hipòdrom
+cs:Dostihy|závodiště|hipodrom
+da:Hestevæddeløb|hippodrom|væddeløbsbane
+de:Pferderennen|Pferderennbahn|Hippodrom
+el:Ιπποδρομίες|ιππόδρομος
+es:Carreras de caballos|hipódromo
+et:Hobuste võiduajamine|hipodroom
+eu:Zaldi-lasterketak|hipodromoa
+fa:اسب‌دوانی
+fi:Hevoskilpailut|Ravit|raviradat|hippodromi
+fr:Courses hippiques|hippodrome
+he:מרוצי סוסים|מסלול מרוצים
+hi:घुड़दौड़
+hu:Lóverseny|lóversenypálya
+id:Pacuan kuda|hipodrom
+it:Corse di cavalli|ippodromo
+ja:競馬|競馬場
+ko:경마|경마장
+lt:5Žirgų lenktynės|hipodromas
+lv:Zirgu skriešanās sacīkstes
+mr:घोड्यांची शर्यत
+nb:Hesteveddeløp|hippodrom|veddeløpsbane
+nl:Paardenrennen|renbaan|hippodroom
+pl:Wyścigi konne|tor wyścigów konnych|hipodrom
+pt:Corridas de cavalos|hipódromo
+pt-BR:Corridas de cavalos|Turfe|hipódromo
+ro:Curse de cai|hipodrom
+ru:Конные скачки|ипподром|бега
+sk:Dostihy|hipodróm
+sl:Konjske dirke|hipodrom
+sr:Коњске трке|хиподром
+sv:Hästkapplöpning|kapplöpningsbana|hippodrom
+sw:Mbio za farasi
+th:แข่งม้า|สนามม้า
+tr:At yarışı|hipodrom
+uk:Кінні перегони|іподром|бігові
+vi:Đua ngựa|trường đua ngựa
+zh-Hans:赛马|赛马场
+zh-Hant:賽馬|賽馬場
+
+sport-karting
+en:Karting|go-kart|kart racing|kart track
+ar:كارتينغ|سباق الكارتينغ
+be:Картынг
+bg:Картинг
+ca:Karting|kart
+cs:Motokáry|karting
+da:Gokart|karting
+de:Kartsport|Gokart|Kartbahn
+el:Καρτ|καρτινγκ
+es:Karting|kart
+et:Kardisõit|kart
+eu:Karting|karta
+fa:کارتینگ
+fi:Karting|mikroautoilu
+fr:Karting|kart
+he:קארטינג|גו-קארט
+hi:कार्टिंग|गो-कार्ट
+hu:Gokart|gokartpálya
+id:Karting|gokar
+it:Karting|kart
+ja:カート|カートレース
+ko:카트|카트 레이싱
+lt:5Kartingas
+lv:Kartings
+mr:कार्टिंग|गो-कार्ट
+nb:Gokart|karting
+nl:Karting|kart
+pl:Karting|gokart
+pt:Karting|kart
+pt-BR:Kart|kartismo
+ro:Karting|kart
+ru:Картинг|карт|картодром
+sk:Motokáry|karting
+sl:Karting|gokart
+sr:Картинг|gokart
+sv:Gokart|karting
+sw:Karting|gokart
+th:โกคาร์ต|คาร์ทติ้ง
+tr:Karting|gokart
+uk:Картинг|карт|картодром
+vi:Đua xe go-kart|kart
+zh-Hans:卡丁车|卡丁车赛
+zh-Hant:卡丁車|卡丁車賽
+
+sport-motocross
+en:Motocross
+ar:موتوكروس|سباق الدراجات النارية
+be:Мотакрос
+bg:Мотокрос
+ca:Motocròs
+cs:Motokros
+da:Motocross
+de:Motocross
+el:Μοτοκρός
+es:Motocross
+et:Motokross
+eu:Motokrosa
+fa:موتورکراس
+fi:Motocross
+fr:Motocross|moto-cross
+he:מוטוקרוס
+hi:मोटोक्रॉस
+hu:Motokrossz
+id:Motokros
+it:Motocross
+ja:モトクロス
+ko:모토크로스
+lt:5Motokrosas
+lv:Motokross
+mr:मोटोक्रॉस
+nb:Motocross
+nl:Motorcross
+pl:Motocross
+pt:Motocross
+pt-BR:Motocross
+ro:Motocros
+ru:Мотокросс
+sk:Motokros
+sl:Motokros
+sr:Мотокрос
+sv:Motocross
+sw:Motocross
+th:มอเตอร์ครอส
+tr:Motokros
+uk:Мотокрос
+vi:Mô tô địa hình|đua mô tô địa hình
+zh-Hans:摩托车越野赛|越野摩托车
+zh-Hant:摩托車越野賽|越野摩托車
+
+sport-motor
+en:Motorsport|motor sport|race track|race circuit|raceway
+ar:رياضات المحركات|رياضة السيارات|سباق السيارات
+be:Аўтаспорт|аўтадром|трэк
+bg:Моторни спортове|автомобилен спорт|писта
+ca:5Esports de motor|circuit
+cs:Motoristický sport|motosport|závodní okruh
+da:Motorsport|racerbane
+de:Motorsport|Rennstrecke
+el:Μηχανοκίνητος αθλητισμός|πίστα αγώνων
+es:Deportes de motor|automovilismo|circuito
+et:Mootorisport|ringrada
+eu:Motor-kirola|zirkuitua
+fa:ورزش‌های موتوری
+fi:Moottoriurheilu|moottoriautoilu|kilparata
+fr:Sport mécanique|sport automobile|circuit
+he:ספורט מוטורי|מסלול מירוצים
+hi:मोटरस्पोर्ट|रेस ट्रैक
+hu:Motorsport|versenypálya
+id:Olahraga otomotif|sirkuit balap
+it:Sport motoristici|automobilismo|circuito
+ja:モータースポーツ|サーキット
+ko:모터스포츠|레이싱 트랙
+lt:5Motorinis sportas|motosportas|trasa
+lv:Motosports
+mr:मोटरस्पोर्ट|रेस ट्रॅक
+nb:Motorsport|racerbane
+nl:Motorsport|racecircuit
+pl:Sporty motorowe|tor wyścigowy
+pt:Desporto motorizado|automobilismo|circuito
+pt-BR:Esportes motorizados|automobilismo|circuito
+ro:Sport cu motor|circuit auto
+ru:Автомотоспорт|автоспорт|автодром|гоночная трасса|трек
+sk:Motoristický šport|motokáry|pretekárska dráha
+sl:Avto-moto šport|dirkališče
+sr:Аутомото спорт|Моторни спорт
+sv:Motorsport|racerbana
+sw:Michezo ya magari
+th:มอเตอร์สปอร์ต|สนามแข่งรถ
+tr:Motor sporları|yarış pisti
+uk:Автомотоспорт|автоспорт|автодром|гоночна траса|трек
+vi:Thể thao động cơ|đua xe|đường đua
+zh-Hans:赛车运动|赛道|赛车场
+zh-Hant:賽車運動|賽道|賽車場
+
+sport-netball
+en:Netball
+ar:كرة الشبكة|نتبول
+be:Нетбол|Нэтбол
+bg:Нетбол
+ca:Netball
+cs:Netball
+da:Netball
+de:Netball
+el:Νέτμπολ
+es:Netbol|netball
+et:Netball
+eu:Netball
+fa:نتبال
+fi:Netball
+fr:Netball
+he:נטבול
+hi:नेटबॉल
+hu:Netball
+id:Netball|bola jaring
+it:Netball
+ja:ネットボール
+ko:네트볼
+lt:5Tinklasvydis|Netball
+lv:Netbols
+mr:नेटबॉल
+nb:Netball
+nl:Netbal
+pl:Netball
+pt:Netebol
+pt-BR:Netebol
+ro:Netball
+ru:Нетбол
+sk:Netball
+sl:Netball
+sr:Нетбол
+sv:Nätboll
+sw:Netiboli|netball
+th:เน็ตบอล
+tr:Netbol
+uk:Нетбол
+vi:Bóng lưới|netball
+zh-Hans:无挡板篮球|英式篮球
+zh-Hant:無擋板籃球|英式籃球
+
+sport-pickleball
+en:Pickleball
+ar:بيكل بول|بيكلبول
+be:Піклбол
+bg:Пиклбол
+ca:Pickleball
+cs:Pickleball
+da:Pickleball
+de:Pickleball
+el:Πίκλμπολ
+es:Pickleball
+et:Pickleball
+eu:Pickleball
+fa:پیکل‌بال
+fi:Pickleball
+fr:Pickleball
+he:פיקלבול
+hi:पिकलबॉल
+hu:Pickleball
+id:Pickleball
+it:Pickleball
+ja:ピックルボール
+ko:피클볼
+lt:5Pikbolas|Pickleball
+lv:Piklbols
+mr:पिकलबॉल
+nb:Pickleball
+nl:Pickleball
+pl:Pickleball
+pt:Pickleball
+pt-BR:Pickleball
+ro:Pickleball
+ru:Пиклбол|Pickleball
+sk:Pickleball
+sl:Pickleball
+sr:Пиклбол|Pickleball
+sv:Pickleball
+sw:Pickleball
+th:พิคเคิลบอล
+tr:Pickleball
+uk:Піклбол|Pickleball
+vi:Pickleball
+zh-Hans:匹克球|皮克球
+zh-Hant:匹克球|皮克球
+
+sport-rugby_union
+en:Rugby Union|rugby
+ar:رغبي الاتحاد|الرغبي|الرجبي
+be:Рэгбі-юніён|рэгбі
+bg:Ръгби юнион|ръгби
+ca:Rugbi a quinze|rugbi
+cs:Ragby|rugby
+da:Rugby union|rugby
+de:Rugby Union|Rugby
+el:Ράγκμπι γιούνιον|ράγκμπι
+es:Rugby|rugby a 15
+et:Ragbi|rugby
+eu:Errugbia|rugby
+fa:راگبی ۱۵ نفره
+fi:Rugby union|rugby
+fr:Rugby à XV|rugby
+he:רוגבי 15|רוגבי
+hi:रग्बी यूनियन|रग्बी
+hu:Rögbi|rugby union
+id:Rugbi|rugby
+it:Rugby a 15|rugby
+ja:ラグビーユニオン|ラグビー
+ko:럭비 유니언|럭비
+lt:5Regbis
+lv:Regbijs-15
+mr:रग्बी
+nb:Rugby|rugby union
+nl:Rugby union|rugby
+pl:Rugby union|rugby
+pt:Râguebi|rugby
+pt-BR:Rugby|râguebi
+ro:Rugby
+ru:Регби-15|регби
+sk:Rugby
+sl:Ragbi|rugby
+sr:Рагби|Ragbi
+sv:Rugby
+sw:Raga|rugby
+th:รักบี้ยูเนี่ยน|รักบี้
+tr:Ragbi|rugby
+uk:Регбі-15|регбі
+vi:Rugby
+zh-Hans:联合式橄榄球|英式橄榄球|橄榄球
+zh-Hant:聯合式橄欖球|英式橄欖球|橄欖球
+
+sport-running
+en:Running|jogging|run
+ar:الجري|جري|الركض
+be:Бег
+bg:Бягане|джогинг
+ca:3Cursa a peu|córrer|jòguing
+cs:5Běh|běhání|jogging
+da:Løb|jogging
+de:Laufen|Joggen
+el:Τρέξιμο|τζόκινγκ
+es:Carrera a pie|correr|carrera|jogging
+et:Jooks|jooksmine|sörkimine
+eu:Korrika|laster egin
+fa:دویدن
+fi:Juoksu|hölkkä|lenkkeily
+fr:Course à pied|jogging|footing
+he:ריצה|ג׳וגינג
+hi:दौड़ना|जॉगिंग
+hu:Futás|kocogás
+id:Lari|jogging
+it:Corsa|jogging
+ja:ランニング|ジョギング
+ko:달리기|조깅
+lt:5Bėgimas|bėgiojimas
+lv:Skriešana
+mr:धावणे|जॉगिंग
+nb:Løping|jogging
+nl:Hardlopen|joggen
+pl:Bieganie|jogging
+pt:Corrida|jogging
+pt-BR:Corrida|jogging
+ro:Alergare|jogging
+ru:Бег|пробежка|джоггинг|беговая дорожка
+sk:Beh|behanie|jogging
+sl:5Tek|jogging
+sr:Трчање|Trčanje|џогинг
+sv:Löpning|jogging
+sw:Mbio|kukimbia
+th:วิ่ง|จ๊อกกิ้ง
+tr:Koşu|jogging
+uk:Біг|пробіжка|джогінг|бігова доріжка
+vi:Chạy bộ|chạy
+zh-Hans:跑步|慢跑
+zh-Hant:跑步|慢跑
+
+sport-softball
+en:Softball
+ar:الكرة اللينة|سوفت بول
+be:Софтбол
+bg:Софтбол
+ca:Softbol
+cs:Softbal
+da:Softball
+de:Softball
+el:Σόφτμπολ
+es:Sóftbol|softbol
+et:Softball
+eu:Softball
+fa:سافت‌بال
+fi:Softball
+fr:Softball
+he:סופטבול
+hi:सॉफ्टबॉल
+hu:Softball
+id:Sofbol|softball
+it:Softball
+ja:ソフトボール
+ko:소프트볼
+lt:5Softbolas
+lv:Softbols
+mr:सॉफ्टबॉल
+nb:Softball
+nl:Softbal
+pl:Softball
+pt:Softbol
+pt-BR:Softbol
+ro:Softball
+ru:Софтбол
+sk:Softbal
+sl:Softball
+sr:Софтбол|Softbol
+sv:Softboll
+sw:Softball
+th:ซอฟต์บอล
+tr:Softbol
+uk:Софтбол
+vi:Bóng mềm|softball
+zh-Hans:垒球
+zh-Hant:壘球
+
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
 ar:مبنى
