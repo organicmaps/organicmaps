@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "הדש יקוה";
 "type.sport.badminton" = "תיצונ";
 "type.sport.pelota" = "תיקסאב הטלפ";
+"type.sport.boules" = "פטאנק";
+"type.sport.cycling" = "רכיבה על אופניים";
+"type.sport.four_square" = "ארבע משבצות";
+"type.sport.horse_racing" = "מרוצי סוסים";
+"type.sport.karting" = "קארטינג";
+"type.sport.motocross" = "מוטוקרוס";
+"type.sport.motor" = "ספורט מוטורי";
+"type.sport.netball" = "נטבול";
+"type.sport.pickleball" = "פיקלבול";
+"type.sport.rugby_union" = "רוגבי 15";
+"type.sport.running" = "ריצה";
+"type.sport.softball" = "סופטבול";
 "type.tourism" = "תיירות";
 "type.tourism.aquarium" = "אַקוַרִיוּם";
 

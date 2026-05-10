@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Maahockey";
 "type.sport.badminton" = "Sulkapallo";
 "type.sport.pelota" = "Baskimaan pelota";
+"type.sport.boules" = "Petankki";
+"type.sport.cycling" = "Pyöräily";
+"type.sport.four_square" = "Neljä ruutua";
+"type.sport.horse_racing" = "Hevoskilpailut";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Moottoriurheilu";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby union";
+"type.sport.running" = "Juoksu";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turismi";
 "type.tourism.aquarium" = "Akvaario";
 

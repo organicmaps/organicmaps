@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "मैदानी हॉकी";
 "type.sport.badminton" = "बैडमिंटन";
 "type.sport.pelota" = "Basque Pelota";
+"type.sport.boules" = "बूल्स";
+"type.sport.cycling" = "साइकिल चलाना";
+"type.sport.four_square" = "फोर स्क्वायर";
+"type.sport.horse_racing" = "घुड़दौड़";
+"type.sport.karting" = "कार्टिंग";
+"type.sport.motocross" = "मोटोक्रॉस";
+"type.sport.motor" = "मोटरस्पोर्ट";
+"type.sport.netball" = "नेटबॉल";
+"type.sport.pickleball" = "पिकलबॉल";
+"type.sport.rugby_union" = "रग्बी यूनियन";
+"type.sport.running" = "दौड़ना";
+"type.sport.softball" = "सॉफ्टबॉल";
 "type.tourism" = "पर्यटन";
 "type.tourism.aquarium" = "Aquarium";
 

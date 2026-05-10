@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Hokej në fushë";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pelota Baske";
+"type.sport.boules" = "Bul";
+"type.sport.cycling" = "Çiklizëm";
+"type.sport.four_square" = "Four square";
+"type.sport.horse_racing" = "Garat e kuajve";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi";
+"type.sport.running" = "Vrapim";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turizëm";
 "type.tourism.aquarium" = "Akuarium";
 

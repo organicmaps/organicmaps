@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Хокеј на трави";
 "type.sport.badminton" = "Бадминтон";
 "type.sport.pelota" = "Баскијска пелота";
+"type.sport.boules" = "Петанк";
+"type.sport.cycling" = "Бициклизам";
+"type.sport.four_square" = "Четири квадрата";
+"type.sport.horse_racing" = "Коњске трке";
+"type.sport.karting" = "Картинг";
+"type.sport.motocross" = "Мотокрос";
+"type.sport.motor" = "Аутомото спорт";
+"type.sport.netball" = "Нетбол";
+"type.sport.pickleball" = "Пиклбол";
+"type.sport.rugby_union" = "Рагби";
+"type.sport.running" = "Трчање";
+"type.sport.softball" = "Софтбол";
 "type.tourism" = "Туризам";
 "type.tourism.aquarium" = "Акваријум";
 

@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Belar hockey";
 "type.sport.badminton" = "Badmintona";
 "type.sport.pelota" = "Euskal pilota";
+"type.sport.boules" = "Petanka";
+"type.sport.cycling" = "Txirrindularitza";
+"type.sport.four_square" = "Lau karratu";
+"type.sport.horse_racing" = "Zaldi-lasterketak";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokrosa";
+"type.sport.motor" = "Motor-kirola";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Errugbia";
+"type.sport.running" = "Korrika";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turismoa";
 "type.tourism.aquarium" = "Aquariuma";
 

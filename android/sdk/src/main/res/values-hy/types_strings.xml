@@ -1303,6 +1303,18 @@
     <string name="type.sport.field_hockey">Մականախաղ</string>
     <string name="type.sport.badminton">Բադմինտոն</string>
     <string name="type.sport.pelota">Բասկյան պելոտա</string>
+    <string name="type.sport.boules">Բուլ</string>
+    <string name="type.sport.cycling">Հեծանվասպորտ</string>
+    <string name="type.sport.four_square">Չորս քառակուսի</string>
+    <string name="type.sport.horse_racing">Ձիարշավ</string>
+    <string name="type.sport.karting">Քարթինգ</string>
+    <string name="type.sport.motocross">Մոտոկրոս</string>
+    <string name="type.sport.motor">Մոտոսպորտ</string>
+    <string name="type.sport.netball">Նեթբոլ</string>
+    <string name="type.sport.pickleball">Փիքլբոլ</string>
+    <string name="type.sport.rugby_union">Ռեգբի-15</string>
+    <string name="type.sport.running">Վազք</string>
+    <string name="type.sport.softball">Սոֆթբոլ</string>
     <string name="type.tourism">Զբոսաշրջություն</string>
     <string name="type.tourism.aquarium">Ակվարիում</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

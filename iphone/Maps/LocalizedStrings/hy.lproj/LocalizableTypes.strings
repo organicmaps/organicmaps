@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Մականախաղ";
 "type.sport.badminton" = "Բադմինտոն";
 "type.sport.pelota" = "Բասկյան պելոտա";
+"type.sport.boules" = "Բուլ";
+"type.sport.cycling" = "Հեծանվասպորտ";
+"type.sport.four_square" = "Չորս քառակուսի";
+"type.sport.horse_racing" = "Ձիարշավ";
+"type.sport.karting" = "Քարթինգ";
+"type.sport.motocross" = "Մոտոկրոս";
+"type.sport.motor" = "Մոտոսպորտ";
+"type.sport.netball" = "Նեթբոլ";
+"type.sport.pickleball" = "Փիքլբոլ";
+"type.sport.rugby_union" = "Ռեգբի-15";
+"type.sport.running" = "Վազք";
+"type.sport.softball" = "Սոֆթբոլ";
 "type.tourism" = "Զբոսաշրջություն";
 "type.tourism.aquarium" = "Ակվարիում";
 

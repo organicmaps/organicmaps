@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "Hochei pe iarbă";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pilota bascilor";
+"type.sport.boules" = "Petanca";
+"type.sport.cycling" = "Ciclism";
+"type.sport.four_square" = "Patru pătrate";
+"type.sport.horse_racing" = "Curse de cai";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocros";
+"type.sport.motor" = "Sport cu motor";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby";
+"type.sport.running" = "Alergare";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Acvariu";
 

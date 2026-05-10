@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "هوكي الميدان";
 "type.sport.badminton" = "ريشة الطائرة";
 "type.sport.pelota" = "باسك بيلوتا";
+"type.sport.boules" = "بولز";
+"type.sport.cycling" = "ركوب الدراجات";
+"type.sport.four_square" = "أربع مربعات";
+"type.sport.horse_racing" = "سباق الخيل";
+"type.sport.karting" = "كارتينغ";
+"type.sport.motocross" = "موتوكروس";
+"type.sport.motor" = "رياضات المحركات";
+"type.sport.netball" = "كرة الشبكة";
+"type.sport.pickleball" = "بيكل بول";
+"type.sport.rugby_union" = "رغبي الاتحاد";
+"type.sport.running" = "الجري";
+"type.sport.softball" = "الكرة اللينة";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "حوض سمك";
 

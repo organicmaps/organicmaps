@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "フィールドホッケー";
 "type.sport.badminton" = "バドミントン";
 "type.sport.pelota" = "バスクペロタ";
+"type.sport.boules" = "ペタンク";
+"type.sport.cycling" = "サイクリング";
+"type.sport.four_square" = "フォースクエア";
+"type.sport.horse_racing" = "競馬";
+"type.sport.karting" = "カート";
+"type.sport.motocross" = "モトクロス";
+"type.sport.motor" = "モータースポーツ";
+"type.sport.netball" = "ネットボール";
+"type.sport.pickleball" = "ピックルボール";
+"type.sport.rugby_union" = "ラグビーユニオン";
+"type.sport.running" = "ランニング";
+"type.sport.softball" = "ソフトボール";
 "type.tourism" = "観光";
 "type.tourism.aquarium" = "水族館";
 

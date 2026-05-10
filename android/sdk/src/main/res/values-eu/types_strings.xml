@@ -1228,6 +1228,18 @@
     <string name="type.sport.field_hockey">Belar hockey</string>
     <string name="type.sport.badminton">Badmintona</string>
     <string name="type.sport.pelota">Euskal pilota</string>
+    <string name="type.sport.boules">Petanka</string>
+    <string name="type.sport.cycling">Txirrindularitza</string>
+    <string name="type.sport.four_square">Lau karratu</string>
+    <string name="type.sport.horse_racing">Zaldi-lasterketak</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokrosa</string>
+    <string name="type.sport.motor">Motor-kirola</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Errugbia</string>
+    <string name="type.sport.running">Korrika</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turismoa</string>
     <string name="type.tourism.aquarium">Aquariuma</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

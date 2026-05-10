@@ -1446,6 +1446,18 @@
 "type.sport.field_hockey" = "ຮອກກີ້";
 "type.sport.badminton" = "ດອກປີກໄກ່";
 "type.sport.pelota" = "ເປໂລຕ້າ";
+"type.sport.boules" = "ກິລາໂບລ";
+"type.sport.cycling" = "ການຂີ່ລົດຖີບ";
+"type.sport.four_square" = "ໂຟສະແຄວ";
+"type.sport.horse_racing" = "ການແຂ່ງມ້າ";
+"type.sport.karting" = "ກິລາໂກກາດ";
+"type.sport.motocross" = "ໂມໂຕຄຣອສ";
+"type.sport.motor" = "ມໍເຕີສະປໍດ";
+"type.sport.netball" = "ເນັດບອລ";
+"type.sport.pickleball" = "ພິກເກິນບອລ";
+"type.sport.rugby_union" = "ລັກບີ້";
+"type.sport.running" = "ການແລ່ນ";
+"type.sport.softball" = "ຊອບບອລ";
 "type.tourism" = "ການທ່ອງທ່ຽວ";
 "type.tourism.aquarium" = "ສະຖານທີ່ສະແດງສັດນ້ຳ";
 

@@ -1239,6 +1239,18 @@
     <string name="type.sport.field_hockey">フィールドホッケー</string>
     <string name="type.sport.badminton">バドミントン</string>
     <string name="type.sport.pelota">バスクペロタ</string>
+    <string name="type.sport.boules">ペタンク</string>
+    <string name="type.sport.cycling">サイクリング</string>
+    <string name="type.sport.four_square">フォースクエア</string>
+    <string name="type.sport.horse_racing">競馬</string>
+    <string name="type.sport.karting">カート</string>
+    <string name="type.sport.motocross">モトクロス</string>
+    <string name="type.sport.motor">モータースポーツ</string>
+    <string name="type.sport.netball">ネットボール</string>
+    <string name="type.sport.pickleball">ピックルボール</string>
+    <string name="type.sport.rugby_union">ラグビーユニオン</string>
+    <string name="type.sport.running">ランニング</string>
+    <string name="type.sport.softball">ソフトボール</string>
     <string name="type.tourism">観光</string>
     <string name="type.tourism.aquarium">水族館</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

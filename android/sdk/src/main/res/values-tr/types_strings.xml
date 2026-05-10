@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">Çim Hokeyi</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Bask pelotası</string>
+    <string name="type.sport.boules">Bocce</string>
+    <string name="type.sport.cycling">Bisiklet sporu</string>
+    <string name="type.sport.four_square">Dört kare</string>
+    <string name="type.sport.horse_racing">At yarışı</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Motor sporları</string>
+    <string name="type.sport.netball">Netbol</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi</string>
+    <string name="type.sport.running">Koşu</string>
+    <string name="type.sport.softball">Softbol</string>
     <string name="type.tourism">Turizm</string>
     <string name="type.tourism.aquarium">Akvaryum</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

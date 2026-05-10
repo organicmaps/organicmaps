@@ -486,6 +486,18 @@
     <string name="type.sport.table_tennis">Tênis de mesa</string>
     <string name="type.sport.tennis">Quadra de tênis</string>
     <string name="type.sport.padel">Pádel</string>
+    <string name="type.sport.boules">Bocha</string>
+    <string name="type.sport.cycling">Ciclismo</string>
+    <string name="type.sport.four_square">Quatro quadrados</string>
+    <string name="type.sport.horse_racing">Corridas de cavalos</string>
+    <string name="type.sport.karting">Kart</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Esportes motorizados</string>
+    <string name="type.sport.netball">Netebol</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby</string>
+    <string name="type.sport.running">Corrida</string>
+    <string name="type.sport.softball">Softbol</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Alojamento na montanha</string>
     <string name="type.tourism.apartment">Apartamento de temporada</string>

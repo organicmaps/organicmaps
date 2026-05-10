@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">曲棍球</string>
     <string name="type.sport.badminton">羽毛球</string>
     <string name="type.sport.pelota">巴斯克回力球</string>
+    <string name="type.sport.boules">地擲球</string>
+    <string name="type.sport.cycling">自行車運動</string>
+    <string name="type.sport.four_square">四方格</string>
+    <string name="type.sport.horse_racing">賽馬</string>
+    <string name="type.sport.karting">卡丁車</string>
+    <string name="type.sport.motocross">摩托車越野賽</string>
+    <string name="type.sport.motor">賽車運動</string>
+    <string name="type.sport.netball">無擋板籃球</string>
+    <string name="type.sport.pickleball">匹克球</string>
+    <string name="type.sport.rugby_union">聯合式橄欖球</string>
+    <string name="type.sport.running">跑步</string>
+    <string name="type.sport.softball">壘球</string>
     <string name="type.tourism">旅遊設施</string>
     <string name="type.tourism.aquarium">水族館</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

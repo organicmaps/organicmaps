@@ -1109,6 +1109,18 @@
     <string name="type.sport.volleyball">व्हॉलीबॉल</string>
     <string name="type.sport.10pin">गोलंदाजी</string>
     <string name="type.sport.9pin">गोलंदाजी</string>
+    <string name="type.sport.boules">बूल्स</string>
+    <string name="type.sport.cycling">सायकल चालवणे</string>
+    <string name="type.sport.four_square">फोर स्क्वेअर</string>
+    <string name="type.sport.horse_racing">घोड्यांची शर्यत</string>
+    <string name="type.sport.karting">कार्टिंग</string>
+    <string name="type.sport.motocross">मोटोक्रॉस</string>
+    <string name="type.sport.motor">मोटरस्पोर्ट</string>
+    <string name="type.sport.netball">नेटबॉल</string>
+    <string name="type.sport.pickleball">पिकलबॉल</string>
+    <string name="type.sport.rugby_union">रग्बी</string>
+    <string name="type.sport.running">धावणे</string>
+    <string name="type.sport.softball">सॉफ्टबॉल</string>
     <string name="type.tourism">पर्यटन</string>
     <string name="type.tourism.aquarium">मत्स्यालय</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->

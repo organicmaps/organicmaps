@@ -1306,6 +1306,18 @@
     <string name="type.sport.field_hockey">Pozemní hokej</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Baskická pelota</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Cyklistika</string>
+    <string name="type.sport.four_square">Čtyři čtverce</string>
+    <string name="type.sport.horse_racing">Dostihy</string>
+    <string name="type.sport.karting">Motokáry</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Motoristický sport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragby</string>
+    <string name="type.sport.running">Běh</string>
+    <string name="type.sport.softball">Softbal</string>
     <string name="type.tourism">Turistika</string>
     <string name="type.tourism.aquarium">Akvárium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
