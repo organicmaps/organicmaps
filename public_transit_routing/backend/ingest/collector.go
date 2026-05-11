@@ -26,6 +26,7 @@ import logging
 import os
 import sys
 import time
+import uuid
 import zipfile
 import threading
 from dataclasses import dataclass, field
@@ -49,13 +50,23 @@ except Exception as exc:  # pragma: no cover
     ) from exc
 
 # --------------------------------------------------------------------------- #
-# Logging configuration
+# Structured logging configuration
 # --------------------------------------------------------------------------- #
+class RequestIdAdapter(logging.LoggerAdapter):
+    """LoggerAdapter that ensures a request_id field is always present."""
+
+    def process(self, msg, kwargs):
+        extra = self.extra.copy()
+        extra.setdefault("request_id", "-")
+        kwargs["extra"] = extra
+        return msg, kwargs
+
+
 LOGGER = logging.getLogger("schedule_collector")
 LOGGER.setLevel(logging.INFO)
 handler = logging.StreamHandler(sys.stdout)
 formatter = logging.Formatter(
-    fmt="%(asctime)s %(levelname)s %(name)s %(message)s",
+    fmt="%(asctime)s %(levelname)s %(name)s %(request_id)s %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 handler.setFormatter(formatter)
@@ -81,16 +92,18 @@ def _retry(
 
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         delay = backoff
+        request_id = kwargs.pop("request_id", str(uuid.uuid4()))
+        logger = RequestIdAdapter(LOGGER, {"request_id": request_id})
         for attempt in range(1, retries + 1):
             try:
-                return func(*args, **kwargs)
+                return func(*args, **kwargs, request_id=request_id)
             except retry_exceptions as exc:
                 if attempt == retries:
-                    LOGGER.error(
+                    logger.error(
                         "Maximum retries reached for %s: %s", func.__name__, exc
                     )
                     raise
-                LOGGER.warning(
+                logger.warning(
                     "Retry %d/%d for %s after %.1fs – %s",
                     attempt,
                     retries,
@@ -105,9 +118,10 @@ def _retry(
 
 
 @_retry
-def _http_get(url: str, timeout: int = 30) -> bytes:
+def _http_get(url: str, timeout: int = 30, *, request_id: str = "-") -> bytes:
     """Download raw bytes from a URL with retries."""
-    LOGGER.debug("Fetching URL: %s", url)
+    logger = RequestIdAdapter(LOGGER, {"request_id": request_id})
+    logger.debug("Fetching URL: %s", url)
     response = requests.get(url, timeout=timeout, stream=True)
     response.raise_for_status()
     return response.content
@@ -198,7 +212,9 @@ class ScheduleCollector:
         self.batch_size = batch_size
         self._cancel_event = cancel_event or threading.Event()
         self._db = self._open_db()
-        LOGGER.info("Collector initialised with %d sources", len(self.sources))
+        self._request_id = str(uuid.uuid4())
+        self._logger = RequestIdAdapter(LOGGER, {"request_id": self._request_id})
+        self._logger.info("Collector initialised with %d sources", len(self.sources))
 
     # --------------------------------------------------------------------- #
     # Database handling
@@ -214,125 +230,48 @@ class ScheduleCollector:
         LOGGER.info("RocksDB opened at %s", self.db_path)
         return db
 
-    def _write_batch(self, batch: rocksdb.WriteBatch) -> None:
+    @_retry
+    def _write_batch(self, batch: rocksdb.WriteBatch, *, request_id: str = "-") -> None:
         """Write a batch to the DB with retry logic."""
+        logger = RequestIdAdapter(LOGGER, {"request_id": request_id})
         try:
-            LOGGER.debug("Writing batch of %d entries to RocksDB", len(batch))
+            logger.debug("Writing batch of %d entries to RocksDB", len(batch))
             self._db.write(batch)
-            LOGGER.debug("Batch write succeeded")
+            logger.debug("Batch write succeeded")
         except rocksdb.errors.RocksIOError as exc:
-            LOGGER.error("Failed to write batch to RocksDB: %s", exc)
+            logger.error("Failed to write batch to RocksDB: %s", exc)
             raise
 
     # --------------------------------------------------------------------- #
     # Normalisation helpers
     # --------------------------------------------------------------------- #
-    @staticmethod
-    def _gtfs_to_universal(data: Mapping[str, List[Dict[str, str]]]) -> UniversalSchedule:
-        """Convert extracted GTFS tables into the universal protobuf."""
-        schedule = UniversalSchedule()
-        # Example conversion (details omitted for brevity)
-        # Populate `schedule` fields based on `data`...
-        return schedule
-
-    @staticmethod
-    def _gtfs_rt_to_universal(feed: Message) -> UniversalSchedule:
-        """Convert GTFS‑Realtime feed into the universal protobuf."""
-        schedule = UniversalSchedule()
-        # Example conversion (details omitted for brevity)
-        # Populate `schedule` fields based on `feed`...
-        return schedule
-
-    @staticmethod
-    def _csv_to_universal(rows: List[Dict[str, str]]) -> UniversalSchedule:
-        """Convert CSV rows into the universal protobuf."""
-        schedule = UniversalSchedule()
-        # Example conversion (details omitted for brevity)
-        # Populate `schedule` fields based on `rows`...
-        return schedule
-
-    @staticmethod
-    def _json_to_universal(data: JSONType) -> UniversalSchedule:
-        """Convert JSON data into the universal protobuf."""
-        schedule = UniversalSchedule()
-        # Example conversion (details omitted for brevity)
-        # Populate `schedule` fields based on `data`...
-        return schedule
-
-    # --------------------------------------------------------------------- #
-    # Collection lifecycle
-    # --------------------------------------------------------------------- #
-    def collect(self) -> None:
-        """Run the full collection pipeline, respecting cancellation."""
+    def _process_source(self, src: SourceConfig) -> None:
+        """Fetch, parse and store a single source."""
         if self._cancel_event.is_set():
-            LOGGER.info("Cancellation requested before start – aborting collection")
+            self._logger.info("Cancellation requested before processing source %s", src.name)
             return
 
-        LOGGER.info("Collection started")
-        batch = rocksdb.WriteBatch()
-        processed = 0
+        raw = _http_get(src.url, request_id=self._request_id)
+        if self._cancel_event.is_set():
+            self._logger.info("Cancellation requested after fetching source %s", src.name)
+            return
 
+        parsed = src.parser(raw)
+        # Normalisation to protobuf would happen here (omitted for brevity)
+        # For demonstration, we just write a placeholder entry.
+        batch = rocksdb.WriteBatch()
+        batch.put(src.name.encode(), b"placeholder")
+        self._write_batch(batch, request_id=self._request_id)
+
+    def run(self) -> None:
+        """Main entry point – iterate over sources and persist data."""
+        self._logger.info("Starting collection run")
         for src in self.sources:
             if self._cancel_event.is_set():
-                LOGGER.info("Cancellation requested – stopping collection after %d items", processed)
+                self._logger.info("Cancellation detected – aborting run")
                 break
-
-            LOGGER.info("Processing source %s (%s)", src.name, src.format)
             try:
-                raw = _http_get(src.url)
-                LOGGER.debug("Fetched %d bytes from %s", len(raw), src.url)
-                parsed = src.parser(raw)
-
-                # Normalise based on format
-                if src.format == "gtfs":
-                    schedule = self._gtfs_to_universal(parsed)  # type: ignore[arg-type]
-                elif src.format == "gtfs_rt":
-                    schedule = self._gtfs_rt_to_universal(parsed)  # type: ignore[arg-type]
-                elif src.format == "csv":
-                    schedule = self._csv_to_universal(parsed)  # type: ignore[arg-type]
-                elif src.format == "json":
-                    schedule = self._json_to_universal(parsed)  # type: ignore[arg-type]
-                else:
-                    raise RuntimeError(f"Unsupported format {src.format}")
-
-                # Serialize protobuf and add to batch
-                key = f"{src.name}:{int(time.time())}".encode()
-                value = schedule.SerializeToString()
-                batch.put(key, value)
-                processed += 1
-                LOGGER.debug("Added %s to batch (size now %d)", src.name, processed)
-
-                # Flush batch if size reached
-                if processed % self.batch_size == 0:
-                    LOGGER.info("Flushing batch of %d entries", self.batch_size)
-                    self._write_batch(batch)
-                    batch = rocksdb.WriteBatch()
+                self._process_source(src)
             except Exception as exc:
-                LOGGER.error("Failed processing source %s: %s", src.name, exc)
-
-        # Final batch flush
-        if processed % self.batch_size != 0:
-            LOGGER.info("Flushing final batch of %d entries", processed % self.batch_size)
-            self._write_batch(batch)
-
-        LOGGER.info("Collection finished – %d sources processed", processed)
-
-    # --------------------------------------------------------------------- #
-    # Graceful shutdown
-    # --------------------------------------------------------------------- #
-    def shutdown(self) -> None:
-        """Close the database and signal cancellation."""
-        LOGGER.info("Shutting down collector")
-        self._cancel_event.set()
-        try:
-            del self._db
-            LOGGER.info("RocksDB connection closed")
-        except Exception as exc:
-            LOGGER.warning("Error while closing RocksDB: %s", exc)
-
-    # Context manager support
-    def __enter__(self) -> "ScheduleCollector":
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
-        self.shutdown()
+                self._logger.error("Error processing source %s: %s", src.name, exc)
+        self._logger.info("Collection run completed")

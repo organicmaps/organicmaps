@@ -2,7 +2,9 @@ go
 package api
 
 import (
+	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -15,6 +17,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"github.com/xeipuuv/gojsonschema"
 )
 
 // ScheduleBlob represents the compact binary schedule format.
@@ -55,6 +58,7 @@ func NewRouter(cfg Config) *gin.Engine {
 	r.Use(gin.LoggerWithWriter(log.Logger.Output()))
 	r.GET("/schedule/:region", handleSchedule(cfg))
 	r.GET("/schedule/:region/delta/:baseVersion", handleDelta(cfg))
+	r.POST("/schedule/:region", handleUploadSchedule(cfg))
 	return r
 }
 
@@ -69,6 +73,97 @@ func validateRegion(region string) error {
 		return fmt.Errorf("invalid region '%s': only letters, numbers, hyphens and underscores are allowed", region)
 	}
 	return nil
+}
+
+// JSON schema for schedule upload payloads.
+const scheduleUploadSchema = `{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"required": ["version", "timestamp", "payload"],
+	"properties": {
+		"version":   {"type": "integer", "minimum": 0},
+		"timestamp": {"type": "integer", "minimum": 0},
+		"payload":   {"type": "string", "format": "byte"}
+	},
+	"additionalProperties": false
+}`
+
+// handleUploadSchedule validates the JSON body against a schema and stores the blob.
+func handleUploadSchedule(cfg Config) gin.HandlerFunc {
+	schemaLoader := gojsonschema.NewStringLoader(scheduleUploadSchema)
+	return func(c *gin.Context) {
+		region := c.Param("region")
+		if err := validateRegion(region); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		bodyBytes, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "unable to read request body"})
+			return
+		}
+		defer c.Request.Body.Close()
+
+		// Validate JSON against schema.
+		documentLoader := gojsonschema.NewBytesLoader(bodyBytes)
+		result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "schema validation failed"})
+			return
+		}
+		if !result.Valid() {
+			var msgs []string
+			for _, e := range result.Errors() {
+				msgs = append(msgs, e.String())
+			}
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid payload", "details": msgs})
+			return
+		}
+
+		// Unmarshal into struct.
+		var payload struct {
+			Version   uint32 `json:"version"`
+			Timestamp int64  `json:"timestamp"`
+			Payload   string `json:"payload"` // base64-encoded
+		}
+		if err := json.Unmarshal(bodyBytes, &payload); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid JSON format"})
+			return
+		}
+
+		// Decode base64 payload.
+		blobData, err := base64.StdEncoding.DecodeString(payload.Payload)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "payload must be base64-encoded"})
+			return
+		}
+
+		blob := ScheduleBlob{
+			Version:   payload.Version,
+			Timestamp: payload.Timestamp,
+			Payload:   blobData,
+		}
+		// Marshal protobuf (here we just marshal JSON as placeholder).
+		// In real code, use proto.Marshal.
+		data, err := json.Marshal(blob)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to marshal schedule"})
+			return
+		}
+
+		blobPath := filepath.Join(cfg.BlobDir, region+".blob")
+		if err := os.MkdirAll(cfg.BlobDir, 0755); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create storage directory"})
+			return
+		}
+		if err := os.WriteFile(blobPath, data, 0644); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to write schedule blob"})
+			return
+		}
+
+		c.Status(http.StatusCreated)
+	}
 }
 
 // handleSchedule serves the latest schedule blob for a given region.

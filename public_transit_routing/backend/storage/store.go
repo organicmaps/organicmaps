@@ -1,5 +1,6 @@
 go
-// Package storage provides a thin wrapper around RocksDB.
+// Package storage provides a thin wrapper around RocksDB with an abstract
+// interface for easier testing and a retry‑back‑off strategy for operations.
 package storage
 
 import (
@@ -8,10 +9,22 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"github.com/tecbot/gorocksdb"
 )
+
+// Storage abstracts the underlying key‑value store.
+// Implementations can be real RocksDB or an in‑memory mock for tests.
+type Storage interface {
+	PutSchedule(ctx context.Context, key string, payload []byte) error
+	GetSchedule(ctx context.Context, key string) ([]byte, error)
+	DeleteSchedule(ctx context.Context, key string) error
+	ListKeys(ctx context.Context) ([]string, error)
+	DumpDB(ctx context.Context, outPath string) error
+	Close() error
+}
 
 // Store wraps a RocksDB instance and provides safe concurrent access.
 type Store struct {
@@ -22,9 +35,12 @@ type Store struct {
 	woPool   sync.Pool    // pool of write options
 }
 
+// ErrNotFound signals that a requested key does not exist in the store.
+var ErrNotFound = errors.New("record not found")
+
 // New creates a new Store instance. The database directory will be created
-// if it does not exist. The returned Store must be closed with Close().
-func New(ctx context.Context, dbPath string, logger *logrus.Logger) (*Store, error) {
+// if it does not exist. The returned Store implements the Storage interface.
+func New(ctx context.Context, dbPath string, logger *logrus.Logger) (Storage, error) {
 	if logger == nil {
 		logger = logrus.New()
 	}
@@ -82,6 +98,26 @@ func (s *Store) putWO(wo *gorocksdb.WriteOptions) {
 	s.woPool.Put(wo)
 }
 
+// retryOperation retries a DB operation with exponential back‑off.
+// It returns the last error after maxAttempts.
+func retryOperation(op func() error, logger *logrus.Logger, operation string, key string) error {
+	const maxAttempts = 5
+	const baseDelay = 50 * time.Millisecond
+
+	var err error
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		if err = op(); err == nil {
+			return nil
+		}
+		logger.WithError(err).
+			WithField("attempt", attempt).
+			WithField("key", key).
+			Warnf("%s failed, retrying", operation)
+		time.Sleep(baseDelay * time.Duration(1<<uint(attempt-1))) // exponential back‑off
+	}
+	return fmt.Errorf("%s failed after %d attempts for key %s: %w", operation, maxAttempts, key, err)
+}
+
 // PutSchedule stores a schedule payload under the given key.
 // The key must be a non‑empty string. The payload is stored as‑is.
 func (s *Store) PutSchedule(ctx context.Context, key string, payload []byte) error {
@@ -104,13 +140,15 @@ func (s *Store) PutSchedule(ctx context.Context, key string, payload []byte) err
 	wo := s.getWO()
 	defer s.putWO(wo)
 
-	err := s.db.Put(wo, []byte(key), payload)
-	if err != nil {
-		s.logger.WithError(err).WithField("key", key).Error("failed to write schedule")
-		return fmt.Errorf("rocksdb put failed for key %s: %w", key, err)
+	op := func() error {
+		if err := s.db.Put(wo, []byte(key), payload); err != nil {
+			s.logger.WithError(err).WithField("key", key).Error("failed to write schedule")
+			return fmt.Errorf("rocksdb put failed for key %s: %w", key, err)
+		}
+		s.logger.WithField("key", key).Debug("schedule written")
+		return nil
 	}
-	s.logger.WithField("key", key).Debug("schedule written")
-	return nil
+	return retryOperation(op, s.logger, "PutSchedule", key)
 }
 
 // GetSchedule retrieves a schedule payload for the given key.
@@ -132,18 +170,26 @@ func (s *Store) GetSchedule(ctx context.Context, key string) ([]byte, error) {
 	ro := s.getRO()
 	defer s.putRO(ro)
 
-	slice, err := s.db.Get(ro, []byte(key))
-	if err != nil {
-		s.logger.WithError(err).WithField("key", key).Error("failed to read schedule")
-		return nil, fmt.Errorf("rocksdb get failed for key %s: %w", key, err)
-	}
-	defer slice.Free()
+	var result []byte
+	op := func() error {
+		slice, err := s.db.Get(ro, []byte(key))
+		if err != nil {
+			s.logger.WithError(err).WithField("key", key).Error("failed to read schedule")
+			return fmt.Errorf("rocksdb get failed for key %s: %w", key, err)
+		}
+		defer slice.Free()
 
-	if !slice.Exists() {
-		return nil, fmt.Errorf("key %s not found: %w", key, ErrNotFound)
+		if !slice.Exists() {
+			return fmt.Errorf("key %s not found: %w", key, ErrNotFound)
+		}
+		result = slice.Data()
+		s.logger.WithField("key", key).Debug("schedule read")
+		return nil
 	}
-	s.logger.WithField("key", key).Debug("schedule read")
-	return slice.Data(), nil
+	if err := retryOperation(op, s.logger, "GetSchedule", key); err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 // DeleteSchedule removes a schedule entry by key.
@@ -164,32 +210,16 @@ func (s *Store) DeleteSchedule(ctx context.Context, key string) error {
 	wo := s.getWO()
 	defer s.putWO(wo)
 
-	err := s.db.Delete(wo, []byte(key))
-	if err != nil {
-		s.logger.WithError(err).WithField("key", key).Error("failed to delete schedule")
-		return fmt.Errorf("rocksdb delete failed for key %s: %w", key, err)
+	op := func() error {
+		if err := s.db.Delete(wo, []byte(key)); err != nil {
+			s.logger.WithError(err).WithField("key", key).Error("failed to delete schedule")
+			return fmt.Errorf("rocksdb delete failed for key %s: %w", key, err)
+		}
+		s.logger.WithField("key", key).Debug("schedule deleted")
+		return nil
 	}
-	s.logger.WithField("key", key).Debug("schedule deleted")
-	return nil
+	return retryOperation(op, s.logger, "DeleteSchedule", key)
 }
-
-// Close gracefully shuts down the RocksDB instance.
-// It is safe to call multiple times; subsequent calls become no‑ops.
-func (s *Store) Close() error {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	if s.db == nil {
-		return nil // already closed
-	}
-	s.db.Close()
-	s.db = nil
-	s.logger.Info("RocksDB closed")
-	return nil
-}
-
-// ErrNotFound signals that a requested key does not exist in the store.
-var ErrNotFound = errors.New("record not found")
 
 // ListKeys returns all keys currently stored in the database.
 // It is primarily intended for debugging or administrative tooling.
@@ -255,6 +285,21 @@ func (s *Store) DumpDB(ctx context.Context, outPath string) error {
 		return fmt.Errorf("rocksdb iteration error during dump: %w", err)
 	}
 	s.logger.WithField("path", outPath).Info("database dump completed")
+	return nil
+}
+
+// Close gracefully shuts down the RocksDB instance.
+// It is safe to call multiple times; subsequent calls become no‑ops.
+func (s *Store) Close() error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	if s.db == nil {
+		return nil // already closed
+	}
+	s.db.Close()
+	s.db = nil
+	s.logger.Info("RocksDB closed")
 	return nil
 }
 

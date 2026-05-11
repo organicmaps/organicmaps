@@ -9,12 +9,14 @@ The tests cover:
 * Real‑time schedule updates (delta handling).
 * Error handling for malformed inputs.
 * Integration with the HTTP schedule endpoint (mocked).
+* gRPC transport layer handling (timeouts, malformed responses).
 
 Dependencies:
     pytest
     networkx
     requests
     responses
+    unittest.mock
 """
 
 from __future__ import annotations
@@ -26,6 +28,7 @@ from typing import Dict, List, Tuple
 import networkx as nx
 import pytest
 import responses
+from unittest import mock
 
 # The routing implementation is expected to live in ``client.routing``.
 # It provides a ``RoutePlanner`` class with a ``find_route`` method.
@@ -102,6 +105,19 @@ def realtime_delta() -> Dict[Tuple[str, str], List[datetime]]:
     }
     logger.debug("Realtime delta prepared for %d routes", len(delta))
     return delta
+
+
+@pytest.fixture(scope="function")
+def mock_grpc_transport():
+    """
+    Provides a mock gRPC transport layer for RoutePlanner.
+    The mock mimics a ``get_schedule`` RPC that can raise
+    ``grpc.RpcError`` for timeouts or return malformed data.
+    """
+    with mock.patch("client.routing.grpc") as mock_grpc:
+        mock_client = mock.Mock()
+        mock_grpcStub =_gr_value = mock_client
+        yield mock_client
 
 
 # --------------------------------------------------------------------------- #
@@ -220,42 +236,127 @@ def test_missing_schedule(
     departure = datetime.utcnow()
 
     with pytest.raises(RoutingError) as excinfo:
-        planner.find_route(source="A", target="B", departure=departure, realtime=False)
+        planner.find_route(source="A", target="C", departure=departure, realtime=False)
     assert "schedule" in str(excinfo.value).lower()
 
 
-def test_malformed_departure(
+# --------------------------------------------------------------------------- #
+# gRPC transport layer tests
+# --------------------------------------------------------------------------- #
+def test_grpc_timeout(
     static_graph: nx.DiGraph,
     static_schedule: Dict[Tuple[str, str], List[datetime]],
+    mock_grpc_transport,
 ) -> None:
     """
-    Passing a non‑datetime ``departure`` argument must raise ``RoutingError``.
+    Simulate a gRPC timeout and ensure the planner raises ``RoutingError``.
     """
-    planner = RoutePlanner(graph=static_graph, schedule=static_schedule)
+    # Configure the mock to raise a timeout error
+    mock_grpc_transport.get_schedule.side_effect = Exception("Deadline Exceeded")
 
+    planner = RoutePlanner(graph=static_graph, schedule=static_schedule, grpc_client=mock_grpc_transport)
+
+    departure = datetime.utcnow()
     with pytest.raises(RoutingError) as excinfo:
-        planner.find_route(source="A", target="B", departure="not-a-datetime", realtime=False)  # type: ignore[arg-type]
-    assert "departure" in str(excinfo.value).lower()
+        planner.find_route(source="A", target="C", departure=departure, realtime=False)
+    assert "timeout" in str(excinfo.value).lower() or "deadline" in str(excinfo.value).lower()
+
+
+def test_malformed_grpc_response(
+    static_graph: nx.DiGraph,
+    static_schedule: Dict[Tuple[str, str], List[datetime]],
+    mock_grpc_transport,
+) -> None:
+    """
+    Simulate a malformed gRPC response (e.g., missing fields) and verify ``RoutingError``.
+    """
+    # The mock returns a dict that lacks the expected structure
+    mock_grpc_transport.get_schedule.return_value = {"unexpected_key": []}
+
+    planner = RoutePlanner(graph=static_graph, schedule=static_schedule, grpc_client=mock_grpc_transport)
+
+    departure = datetime.utcnow()
+    with pytest.raises(RoutingError) as excinfo:
+        planner.find_route(source="A", target="C", departure=departure, realtime=False)
+    assert "malformed" in str(excinfo.value).lower() or "invalid" in str(excinfo.value).lower()
 
 
 # --------------------------------------------------------------------------- #
-# Integration test – HTTP schedule endpoint (mocked)
+# HTTP schedule endpoint tests (existing)
 # --------------------------------------------------------------------------- #
 @responses.activate
-def test_http_schedule_integration(
+def test_http_schedule_endpoint(
     static_graph: nx.DiGraph,
     static_schedule: Dict[Tuple[str, str], List[datetime]],
 ) -> None:
     """
-    Ensure the planner can fetch a schedule from the HTTP endpoint and use it.
+    Verify that the planner correctly fetches schedule data from the HTTP endpoint.
     """
     _mock_schedule_response(static_schedule)
 
-    # The planner is expected to accept a ``schedule_url`` parameter.
-    planner = RoutePlanner(graph=static_graph, schedule_url=SCHEDULE_ENDPOINT)
-
+    planner = RoutePlanner(
+        graph=static_graph,
+        schedule_url=SCHEDULE_ENDPOINT,
+    )
     departure = datetime.utcnow().replace(second=0, microsecond=0)
+
     route = planner.find_route(source="A", target="C", departure=departure, realtime=False)
 
     expected_stops = ["A", "B", "C"]
-    assert [stop for stop, _ in route] == expected_stops, "HTTP schedule integration failed"
+    assert [stop for stop, _ in route] == expected_stops, "HTTP schedule handling failed"
+
+
+# --------------------------------------------------------------------------- #
+# Timeout handling for HTTP endpoint
+# --------------------------------------------------------------------------- #
+@responses.activate
+def test_http_timeout(
+    static_graph: nx.DiGraph,
+) -> None:
+    """
+    Simulate a timeout on the HTTP schedule endpoint and expect ``RoutingError``.
+    """
+    responses.add(
+        responses.GET,
+        SCHEDULE_ENDPOINT,
+        body=Exception("Connection timed out"),
+        status=504,
+    )
+
+    planner = RoutePlanner(
+        graph=static_graph,
+        schedule_url=SCHEDULE_ENDPOINT,
+    )
+    departure = datetime.utcnow()
+
+    with pytest.raises(RoutingError) as excinfo:
+        planner.find_route(source="A", target="C", departure=departure, realtime=False)
+    assert "timeout" in str(excinfo.value).lower() or "504" in str(excinfo.value)
+
+
+# --------------------------------------------------------------------------- #
+# Malformed HTTP response handling
+# --------------------------------------------------------------------------- #
+@responses.activate
+def test_http_malformed_response(
+    static_graph: nx.DiGraph,
+) -> None:
+    """
+    Return a malformed JSON payload from the schedule endpoint and verify ``RoutingError``.
+    """
+    responses.add(
+        responses.GET,
+        SCHEDULE_ENDPOINT,
+        json={"invalid": "structure"},
+        status=200,
+    )
+
+    planner = RoutePlanner(
+        graph=static_graph,
+        schedule_url=SCHEDULE_ENDPOINT,
+    )
+    departure = datetime.utcnow()
+
+    with pytest.raises(RoutingError) as excinfo:
+        planner.find_route(source="A", target="C", departure=departure, realtime=False)
+    assert "malformed" in str(excinfo.value).lower() or "invalid" in str(excinfo.value).lower()

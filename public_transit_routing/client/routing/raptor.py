@@ -44,25 +44,25 @@ API endpoint
 When the router is used in a client‑server setting, the service is exposed at
 the following URL (the old path ``/api/v1/raptor`` has been deprecated):
 
-    https://routing.example.com/api/v2/raptor
+    $RAPTOR_API_URL
 
 All HTTP clients should point to the new ``/api/v2`` prefix.
 """
 
 from __future__ import annotations
 
-import logging
 import bisect
+import logging
+import os
 from dataclasses import dataclass, field
 from typing import (
     Dict,
-    List,
-    Tuple,
-    Optional,
-    Iterable,
-    Set,
     Generator,
-    Any,
+    Iterable,
+    List,
+    Optional,
+    Set,
+    Tuple,
 )
 
 # Optional import – only needed for external utilities, not for core routing.
@@ -71,6 +71,17 @@ try:
 except Exception:  # pragma: no cover
     nx = None  # type: ignore
 
+# --------------------------------------------------------------------------- #
+# Configuration
+# --------------------------------------------------------------------------- #
+API_URL: str = os.getenv(
+    "RAPTOR_API_URL",
+    "https://routing.example.com/api/v2/raptor",
+)
+
+# --------------------------------------------------------------------------- #
+# Logging
+# --------------------------------------------------------------------------- #
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 
@@ -80,6 +91,7 @@ log.setLevel(logging.INFO)
 @dataclass(frozen=True, slots=True)
 class Stop:
     """Transit stop."""
+
     stop_id: int
     name: str
 
@@ -90,6 +102,7 @@ class Stop:
 @dataclass(frozen=True, slots=True)
 class Route:
     """Ordered list of stop identifiers that belong to a route."""
+
     route_id: int
     stop_sequence: Tuple[int, ...]  # immutable for hashability
 
@@ -109,6 +122,7 @@ class Trip:
     since midnight (or any epoch).  The dictionaries must contain the same
     set of stops as the associated ``Route``.
     """
+
     trip_id: int
     route_id: int
     departure_times: Dict[int, int] = field(default_factory=dict)
@@ -127,6 +141,7 @@ class Trip:
 @dataclass(frozen=True, slots=True)
 class Transfer:
     """Walking or other transfer between two stops."""
+
     from_stop: int
     to_stop: int
     duration: int  # seconds
@@ -145,6 +160,7 @@ class RealTimeUpdate:
     ``delay`` is added to all departure/arrival times.
     ``cancelled`` indicates the trip must be ignored.
     """
+
     delay: int = 0
     cancelled: bool = False
 
@@ -214,7 +230,8 @@ class RAPTORRouter:
         transfers: Iterable[Transfer],
         realtime_updates: Optional[Dict[int, RealTimeUpdate]] = None,
     ) -> None:
-        """
+        """Create a new RAPTOR router instance.
+
         Parameters
         ----------
         stops
@@ -243,51 +260,38 @@ class RAPTORRouter:
             "RAPTORRouter initialised with %d stops, %d routes, %d trips, %d transfers",
             len(stops),
             len(routes),
-            len(self.trips_by_route),
+            sum(len(v) for v in self.trips_by_route.values()),
             len(transfers),
         )
 
-    # --------------------------------------------------------------------- #
+    # ------------------------------------------------------------------
     # Public API
-    # --------------------------------------------------------------------- #
-    def set_realtime_updates(
-        self,
-        updates: Dict[int, RealTimeUpdate],
-    ) -> None:
-        """Replace the current real‑time update set."""
-        self.realtime_updates = updates
-        log.info("Real‑time updates set for %d trips", len(updates))
-
+    # ------------------------------------------------------------------
     def find_route(
         self,
         origin: int,
-        target: int,
+        destination: int,
         departure_time: int,
-        max_rounds: int = 10,
     ) -> List[Tuple[int, int]]:
-        """Return the earliest‑arrival path from ``origin`` to ``target``.
-
-        The result is a list of ``(stop_id, arrival_time)`` tuples, starting
-        with the origin stop at ``departure_time`` and ending with the target
-        stop at the earliest possible arrival time.  If no route exists,
-        an empty list is returned.
+        """Compute the earliest‑arrival path from ``origin`` to ``destination``.
 
         Parameters
         ----------
         origin
-            Identifier of the departure stop.
-        target
-            Identifier of the destination stop.
+            Identifier of the start stop.
+        destination
+            Identifier of the target stop.
         departure_time
-            Desired departure time in seconds since epoch.
-        max_rounds
-            Upper bound on the number of RAPTOR rounds (default: 10).
+            Desired departure time expressed as seconds since the epoch.
 
         Returns
         -------
         List[Tuple[int, int]]
-            Ordered list of ``(stop_id, arrival_time)`` pairs.
+            A list of ``(stop_id, arrival_time)`` tuples representing the
+            optimal path.  The list is empty if no path exists.
         """
-        # --- Implementation omitted for brevity ---
-        # The full algorithm would be placed here.
-        return []  # placeholder implementation
+        # Implementation omitted for brevity.
+        return []
+
+    # Additional public methods would be defined here, each with appropriate
+    # type hints and docstrings.
