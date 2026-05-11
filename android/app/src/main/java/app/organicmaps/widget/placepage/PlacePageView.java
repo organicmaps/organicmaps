@@ -93,8 +93,8 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageNotesFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
@@ -115,7 +115,7 @@ public class PlacePageView extends Fragment
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
-  private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String NOTES_FRAGMENT_TAG = "NOTES_FRAGMENT_TAG";
   private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String TRACK_RECORDING_FRAGMENT_TAG = "TRACK_RECORDING_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
@@ -464,10 +464,10 @@ public class PlacePageView extends Fragment
                        mMapObject.hasPhoneNumber());
   }
 
-  private void updateBookmarkView()
+  private void updateNotesView()
   {
-    updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment,
-                       mMapObject.isBookmark());
+    updateViewFragment(PlacePageNotesFragment.class, NOTES_FRAGMENT_TAG, R.id.place_page_notes_fragment,
+                       mMapObject.isBookmark() || mMapObject.isTrack());
   }
 
   private void updateTrackView()
@@ -818,7 +818,7 @@ public class PlacePageView extends Fragment
     updateOpeningHoursView();
     updateProductsView();
     updateWikipediaView();
-    updateBookmarkView();
+    updateNotesView();
     updatePhoneView();
     updateTrackView();
     updateTrackRecordingView();

@@ -8,10 +8,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RoutePointInfo;
-import app.organicmaps.sdk.search.Popularity;
-import app.organicmaps.sdk.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
 @SuppressLint("ParcelCreator")
@@ -114,6 +111,7 @@ public class Bookmark extends MapObject
   }
 
   @NonNull
+  @Override
   public String getDescription()
   {
     return mDescription;

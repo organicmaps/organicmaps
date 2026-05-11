@@ -103,6 +103,7 @@ public final class Track extends MapObject
   }
 
   @NonNull
+  @Override
   public String getDescription()
   {
     return nativeGetDescription(mId);
