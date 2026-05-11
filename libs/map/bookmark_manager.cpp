@@ -2413,7 +2413,7 @@ void BookmarkManager::GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector
     if (IsBookmark(markId))
     {
       auto const * bm = GetBookmark(markId);
-      bookmarksInfo.emplace_back(markId, bm->GetData(), bm->GetAddress());
+      bookmarksInfo.emplace_back(markId, &bm->GetData());
     }
   }
 }

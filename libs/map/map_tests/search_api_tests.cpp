@@ -198,18 +198,18 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 
 UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
 {
-  vector<BookmarkInfo> marks;
+  // BookmarkInfo stores a non-owning pointer, so each entry needs its own BookmarkData.
+  vector<kml::BookmarkData> data(3);
+  kml::SetDefaultStr(data[0].m_name, "R&R dinner");
+  kml::SetDefaultStr(data[0].m_description, "They've got a cherry pie there that'll kill ya!");
+  kml::SetDefaultStr(data[1].m_name, "Silver Mustang Casino");
+  kml::SetDefaultStr(data[1].m_description, "Joyful place, owners Bradley and Rodney are very friendly!");
+  kml::SetDefaultStr(data[2].m_name, "Great Northern Hotel");
+  kml::SetDefaultStr(data[2].m_description, "Clean place with a reasonable price");
 
-  kml::BookmarkData data;
-  kml::SetDefaultStr(data.m_name, "R&R dinner");
-  kml::SetDefaultStr(data.m_description, "They've got a cherry pie there that'll kill ya!");
-  marks.emplace_back(0, data);
-  kml::SetDefaultStr(data.m_name, "Silver Mustang Casino");
-  kml::SetDefaultStr(data.m_description, "Joyful place, owners Bradley and Rodney are very friendly!");
-  marks.emplace_back(1, data);
-  kml::SetDefaultStr(data.m_name, "Great Northern Hotel");
-  kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
-  marks.emplace_back(2, data);
+  vector<BookmarkInfo> marks;
+  for (kml::MarkId i = 0; i < data.size(); ++i)
+    marks.emplace_back(i, &data[i]);
   m_api.EnableIndexingOfBookmarksDescriptions(true);
   m_api.EnableIndexingOfBookmarkGroup(10, true /* enable */);
   m_api.OnBookmarksCreated(marks);

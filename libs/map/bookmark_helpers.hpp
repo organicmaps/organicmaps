@@ -1,29 +1,24 @@
 #pragma once
 
-#include "map/bookmark.hpp"
+#include "kml/types.hpp"
 
 #include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include <memory>
 #include <string>
 
+// Lightweight non-owning view of a bookmark, delivered to BookmarkManager callbacks.
+// The pointed-to BookmarkData must outlive the BookmarkInfo: callbacks are invoked
+// synchronously while the bookmark is alive in the BookmarkManager.
 struct BookmarkInfo
 {
-  BookmarkInfo() = default;
-
-  BookmarkInfo(kml::MarkId id, kml::BookmarkData const & data) : m_bookmarkId(id), m_bookmarkData(data) {}
-
-  BookmarkInfo(kml::MarkId id, kml::BookmarkData const & data, search::ReverseGeocoder::RegionAddress const & address)
-    : m_bookmarkId(id)
-    , m_bookmarkData(data)
-    , m_address(address)
-  {}
+  BookmarkInfo(kml::MarkId id, kml::BookmarkData const * data) : m_bookmarkId(id), m_bookmarkData(data) {}
 
   kml::MarkId m_bookmarkId;
-  kml::BookmarkData m_bookmarkData;
-  search::ReverseGeocoder::RegionAddress m_address;
+  kml::BookmarkData const * m_bookmarkData;
 };
 
 struct BookmarkGroupInfo

@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
 #include "platform/platform.hpp"
