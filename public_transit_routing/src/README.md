@@ -1,4 +1,4 @@
-python
+markdown
 # routing_service
 
 ## Overview
@@ -9,14 +9,4 @@ It includes tools to generate routing indices, a Go‑based HTTP API, and a Pyth
 
 ---
 
-## 1️⃣ Build Routing Indices (Zurich example)
-
-### Prerequisites
-- **Go 1.22+** (for the index‑building binary)  
-- **wget** or **curl** (to fetch OSM extracts)  
-- **7‑zip** (or any tool that can extract `.pbf` files)  
-- **Docker** (optional, for running the service)  
-
-### Steps
-
-1. **Create a working directory**
+## 📂 Repository Layout
