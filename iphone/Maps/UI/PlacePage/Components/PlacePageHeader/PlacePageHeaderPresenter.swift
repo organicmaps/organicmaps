@@ -30,28 +30,25 @@ class PlacePageHeaderPresenter {
   private weak var view: PlacePageHeaderViewProtocol?
   private let placePagePreviewData: PlacePagePreviewData
   let objectType: PlacePageObjectType
-  private let isTempRelationTrack: Bool
   private weak var delegate: PlacePageHeaderViewControllerDelegate?
   private let headerType: HeaderType
 
   init(view: PlacePageHeaderViewProtocol,
        placePagePreviewData: PlacePagePreviewData,
        objectType: PlacePageObjectType,
-       isTempRelationTrack: Bool,
        delegate: PlacePageHeaderViewControllerDelegate?,
        headerType: HeaderType) {
     self.view = view
     self.delegate = delegate
     self.placePagePreviewData = placePagePreviewData
     self.objectType = objectType
-    self.isTempRelationTrack = isTempRelationTrack
     self.headerType = headerType
   }
 }
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
-  var canEditTitle: Bool { objectType == .bookmark || (objectType == .track && !isTempRelationTrack) }
-  var canShare: Bool { canEditTitle }
+  var canEditTitle: Bool { objectType == .bookmark || objectType == .track }
+  var canShare: Bool { objectType == .POI || objectType == .bookmark || objectType == .track }
 
   func configure() {
     view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)

@@ -38,7 +38,7 @@ class PlacePageInteractor: NSObject {
         return
       }
       updatePlacePage()
-    case .track:
+    case .track, .relationTrack:
       guard let trackData = placePageData.trackData, bookmarksManager.hasTrack(trackData.trackId) else {
         if let trackDeletionConfirmationDialog {
           trackDeletionConfirmationDialog.dismiss(animated: true)
@@ -54,7 +54,10 @@ class PlacePageInteractor: NSObject {
 
   private func subscribeOnTrackActivePointUpdatesIfNeeded() {
     unsubscribeFromTrackActivePointUpdates()
-    guard placePageData.objectType == .track, let trackData = placePageData.trackData else { return }
+    let isActivePointTrackingEnabled = placePageData.objectType == .track || placePageData.objectType == .relationTrack
+    guard isActivePointTrackingEnabled, let trackData = placePageData.trackData else {
+      return
+    }
     bookmarksManager.setElevationActivePointChanged(trackData.trackId) { [weak self] distance in
       self?.trackActivePointPresenter?.updateActivePointDistance(distance)
       trackData.updateActivePointDistance(distance)

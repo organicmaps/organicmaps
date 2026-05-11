@@ -157,7 +157,7 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   if (rawData().IsBookmark())
     return PlacePageObjectTypeBookmark;
   else if (rawData().IsTrack())
-    return PlacePageObjectTypeTrack;
+    return rawData().IsRelationTrack() ? PlacePageObjectTypeRelationTrack : PlacePageObjectTypeTrack;
   else if (self.trackData)
     return PlacePageObjectTypeTrackRecording;
   else
