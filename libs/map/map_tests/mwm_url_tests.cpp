@@ -98,6 +98,7 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
   TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_name, "", ());
   TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(2, 2), ());
   TEST_EQUAL(test.GetRoutePoints()[1].m_name, "Finish", ());
   TEST_EQUAL(test.GetRoutingType(), "vehicle", ());
@@ -119,6 +120,16 @@ UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
   TEST_EQUAL(trailing.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(trailing.GetRoutePoints().size(), 3, ());
   TEST_EQUAL(trailing.GetRoutePoints()[1].m_org, mercator::FromLatLon(1.5, 1.5), ());
+
+  ParsedMapApi gap(
+      "om://v2/dir?origin=1,1&waypoints=1.5,1.5||2.5,2.5&waypoint_names=A|B|C"
+      "&waypoint_callbacks=app%3A%2F%2F1|app%3A%2F%2F2|app%3A%2F%2F3&destination=3,3");
+  TEST_EQUAL(gap.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(gap.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(gap.GetRoutePoints()[1].m_name, "A", ());
+  TEST_EQUAL(gap.GetRoutePoints()[1].m_callback, "app://1", ());
+  TEST_EQUAL(gap.GetRoutePoints()[2].m_name, "C", ());
+  TEST_EQUAL(gap.GetRoutePoints()[2].m_callback, "app://3", ());
 }
 
 UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)
@@ -139,6 +150,19 @@ UNIT_TEST(RouteApiV2RejectsInvalidOriginHeading)
   TEST_EQUAL(test.GetRequestType(), UrlType::Incorrect, ());
 }
 
+UNIT_TEST(RouteApiV2AcceptsHeadingBoundaries)
+{
+  ParsedMapApi north("om://v2/nav?destination=2,2&origin_heading=0");
+  TEST_EQUAL(north.GetRequestType(), UrlType::Route, ());
+  TEST_ALMOST_EQUAL_ABS(north.GetRouteStartDirection().x, 0.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(north.GetRouteStartDirection().y, 1.0, kEps, ());
+
+  ParsedMapApi fullCircle("om://v2/nav?destination=2,2&origin_heading=360");
+  TEST_EQUAL(fullCircle.GetRequestType(), UrlType::Route, ());
+  TEST_ALMOST_EQUAL_ABS(fullCircle.GetRouteStartDirection().x, 0.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(fullCircle.GetRouteStartDirection().y, 1.0, kEps, ());
+}
+
 UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
 {
   string const urlString =
@@ -157,6 +181,19 @@ UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
   TEST_EQUAL(test.GetGlobalBackUrl(), "app://back", ());
 }
 
+UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fstate%3Da%7Cb|app%3A%2F%2Fnext";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next", ());
+}
+
 UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
 {
   string const urlString =
@@ -167,6 +204,50 @@ UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
   TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(test.GetRoutingType(), "bicycle", ());
   TEST(test.ShouldStartRouteNavigation(), ());
+
+  ParsedMapApi car("om://v2/dir?destination=2,2&mode=car");
+  TEST_EQUAL(car.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(car.GetRoutingType(), "vehicle", ());
+
+  ParsedMapApi walking("om://v2/dir?destination=2,2&mode=walking");
+  TEST_EQUAL(walking.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(walking.GetRoutingType(), "pedestrian", ());
+}
+
+UNIT_TEST(RouteApiV2HandlesMixedSignsAndAnyParameterOrder)
+{
+  string const urlString =
+      "om://v2/nav?destination=-34.0522,18.5610&mode=walk&waypoints=-33.95,18.50&origin=-33.9249,18.4241";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST(test.ShouldStartRouteNavigation(), ());
+  TEST_EQUAL(test.GetRoutingType(), "pedestrian", ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 3, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_org, mercator::FromLatLon(-33.9249, 18.4241), ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(-33.95, 18.50), ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_org, mercator::FromLatLon(-34.0522, 18.5610), ());
+}
+
+UNIT_TEST(RouteApiV2OptimizeFalsyValues)
+{
+  for (auto const & optimize : {"0", "false", ""})
+  {
+    ParsedMapApi test("om://v2/dir?destination=2,2&optimize=" + string(optimize));
+    TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+    TEST(!test.ShouldOptimizeRoutePoints(), (optimize));
+  }
+}
+
+UNIT_TEST(RouteApiLegacyAllowsCommonAppAndCenterParams)
+{
+  ParsedMapApi test(
+      "om://route?appname=Foo&cll=1,2&sll=3,4&saddr=Start&dll=5,6&daddr=Finish&type=vehicle&backurl=app%3A%2F%2Fback");
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetAppName(), "Foo", ());
+  TEST_ALMOST_EQUAL_ABS(test.GetCenterLatLon().m_lat, 1.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(test.GetCenterLatLon().m_lon, 2.0, kEps, ());
+  TEST_EQUAL(test.GetGlobalBackUrl(), "", ());
 }
 
 UNIT_TEST(SearchApiSmoke)

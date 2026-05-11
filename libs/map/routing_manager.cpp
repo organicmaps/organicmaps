@@ -1320,9 +1320,9 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
 bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, RouteMarkPoint const * added)
 {
   auto const points = layout.GetRoutePoints();
-  ASSERT_GREATER_OR_EQUAL(points.size(), 3, ());
-  ASSERT(points.front()->GetRoutePointType() == RouteMarkType::Start, ());
-  ASSERT(points.back()->GetRoutePointType() == RouteMarkType::Finish, ());
+  if (points.size() < 3 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return false;
 
   // Passed stops keep their slots; the rest of the route starts from the last of them.
   size_t lastPassedIndex = 0;
@@ -1342,7 +1342,25 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   for (auto const * point : ordered)
     positions.push_back(point->GetPivot());
 
-  CheckpointPredictor const predictor(points[lastPassedIndex]->GetPivot(), points.back()->GetPivot());
+  m2::PointD startPosition = points[lastPassedIndex]->GetPivot();
+  if (lastPassedIndex == 0 && points.front()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return false;
+    startPosition = myPosition.GetPivot();
+  }
+
+  m2::PointD finishPosition = points.back()->GetPivot();
+  if (points.back()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return false;
+    finishPosition = myPosition.GetPivot();
+  }
+
+  CheckpointPredictor const predictor(startPosition, finishPosition);
   for (auto * point : toPlace)
   {
     size_t const index = predictor.PredictPosition(positions, point->GetPivot());
@@ -1355,17 +1373,22 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   if (added == nullptr)
   {
     double currentLength = 0.0;
-    for (size_t i = lastPassedIndex; i + 1 < points.size(); ++i)
-      currentLength += mercator::DistanceOnEarth(points[i]->GetPivot(), points[i + 1]->GetPivot());
+    m2::PointD previousPosition = startPosition;
+    for (size_t i = lastPassedIndex + 1; i < points.size(); ++i)
+    {
+      m2::PointD const currentPosition = i + 1 == points.size() ? finishPosition : points[i]->GetPivot();
+      currentLength += mercator::DistanceOnEarth(previousPosition, currentPosition);
+      previousPosition = currentPosition;
+    }
 
     double optimizedLength = 0.0;
-    m2::PointD const * previous = &points[lastPassedIndex]->GetPivot();
+    previousPosition = startPosition;
     for (auto const & position : positions)
     {
-      optimizedLength += mercator::DistanceOnEarth(*previous, position);
-      previous = &position;
+      optimizedLength += mercator::DistanceOnEarth(previousPosition, position);
+      previousPosition = position;
     }
-    optimizedLength += mercator::DistanceOnEarth(*previous, points.back()->GetPivot());
+    optimizedLength += mercator::DistanceOnEarth(previousPosition, finishPosition);
     if (optimizedLength >= currentLength)
       return false;
   }

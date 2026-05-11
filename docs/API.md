@@ -7,7 +7,10 @@ Organic Maps supports `om://` deep links (and corresponding `https://omaps.app/.
 Use v2 route links for multi-stop routes and navigation-app integrations:
 
 - `om://v2/dir?...` previews/builds a route.
-- `om://v2/nav?...` builds the route and starts navigation after it is ready.
+- `om://v2/nav?...` builds the route and starts navigation after it is ready
+  when routing from the current position. If `origin=lat,lon` supplies an
+  explicit start point, Organic Maps previews the route and lets the user start
+  it manually.
 
 Required parameter:
 
@@ -16,6 +19,7 @@ Required parameter:
 Optional parameters:
 
 - `origin=lat,lon`; when omitted, Organic Maps routes from the current position.
+  Use the omitted-origin form for automatic `/v2/nav` start.
 - `origin_heading=degrees` to prefer the initial road direction from the origin. Degrees are clockwise from north:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order.
@@ -47,5 +51,7 @@ The previous route format remains supported for backward compatibility:
 ```text
 om://route?v=1&sll=50.183933,8.942871&saddr=Start%20Point&dll=49.998912,8.278198&daddr=End%20Point&type=vehicle
 ```
+
+Legacy route links also accept the common `appname=...` and `cll=lat,lon` parameters. Use v2 links for caller callbacks: legacy route links do not read `callback=...` or `backurl=...`.
 
 Do not mix the legacy `sll`/`saddr`/`dll`/`daddr` parameters with the v2 `/v2/dir` or `/v2/nav` syntax.
