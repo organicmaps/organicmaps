@@ -19,5 +19,6 @@ The repository ships with a **src** folder that contains the service implementat
 | `networkx` (graph operations) | – |
 | `requests` (for API examples) | – |
 | Open‑source GTFS data (e.g., Zurich) | – |
+| Docker (optional, for containerised run) | – |
 
 Install the Python dependencies:
