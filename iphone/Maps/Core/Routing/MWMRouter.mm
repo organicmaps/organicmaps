@@ -401,48 +401,6 @@ void OpenRoutePointCallback(std::string const & callback)
 
 + (void)buildApiRouteWithType:(MWMRouterType)type
                    startPoint:(MWMRoutePoint *)startPoint
-                  finishPoint:(MWMRoutePoint *)finishPoint
-{
-  [self buildApiRouteWithType:type
-                   startPoint:startPoint
-           intermediatePoints:@[]
-                  finishPoint:finishPoint
-          optimizeRoutePoints:NO];
-}
-
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-{
-  [self buildApiRouteWithType:type
-                   startPoint:startPoint
-           intermediatePoints:intermediatePoints
-                  finishPoint:finishPoint
-          optimizeRoutePoints:optimizeRoutePoints
-         startRouteNavigation:NO
-               startDirection:CGPointZero];
-}
-
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
-           intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
-                  finishPoint:(MWMRoutePoint *)finishPoint
-          optimizeRoutePoints:(BOOL)optimizeRoutePoints
-         startRouteNavigation:(BOOL)startRouteNavigation
-{
-  [self buildApiRouteWithType:type
-                   startPoint:startPoint
-           intermediatePoints:intermediatePoints
-                  finishPoint:finishPoint
-          optimizeRoutePoints:optimizeRoutePoints
-         startRouteNavigation:startRouteNavigation
-               startDirection:CGPointZero];
-}
-
-+ (void)buildApiRouteWithType:(MWMRouterType)type
-                   startPoint:(MWMRoutePoint *)startPoint
            intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
                   finishPoint:(MWMRoutePoint *)finishPoint
           optimizeRoutePoints:(BOOL)optimizeRoutePoints
@@ -457,7 +415,7 @@ void OpenRoutePointCallback(std::string const & callback)
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
-  router.startNavigationAfterBuild = startRouteNavigation;
+  router.startNavigationAfterBuild = startRouteNavigation && startPoint.isMyPosition;
   router.isAPICall = YES;
   [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
   if (optimizeRoutePoints)
@@ -609,8 +567,8 @@ void OpenRoutePointCallback(std::string const & callback)
   [self updateFollowingInfo];
   if (self.startNavigationAfterBuild)
   {
-    self.startNavigationAfterBuild = NO;
     [MWMRouter start];
+    self.startNavigationAfterBuild = NO;
   }
 }
 

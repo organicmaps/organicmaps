@@ -307,7 +307,7 @@ public class RoutingController
 
     updatePlan();
 
-    Framework.nativeBuildRouteWithStartDirection(startDirectionX, startDirectionY);
+    Framework.nativeBuildRoute(startDirectionX, startDirectionY);
   }
 
   public void restoreRoute()
@@ -392,7 +392,7 @@ public class RoutingController
 
     mLastRouterType = routerType;
     Router.set(mLastRouterType);
-    mStartNavigationAfterBuild = startNavigation;
+    mStartNavigationAfterBuild = startNavigation && routePoints.get(0).isMyPosition();
 
     addRoutePoint(RouteMarkType.Start, routePoints.get(0), 0 /* intermediateIndex */, getCallback(callbacks, 0),
                   optimizeRoutePoints);

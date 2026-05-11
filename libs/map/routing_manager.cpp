@@ -1259,7 +1259,12 @@ void RoutingManager::ReorderIntermediatePoints()
 
   RouteMarkPoint * addedPoint = nullptr;
   m2::PointD addedPosition;
-  for (auto const & p : routePoints.GetRoutePoints())
+  auto const points = routePoints.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return;
+
+  for (auto const & p : points)
   {
     CHECK(p, ());
     if (p->GetRoutePointType() == RouteMarkType::Intermediate)
@@ -1281,7 +1286,25 @@ void RoutingManager::ReorderIntermediatePoints()
   if (addedPoint == nullptr)
     return;
 
-  CheckpointPredictor predictor(m_routingSession.GetStartPoint(), m_routingSession.GetEndPoint());
+  m2::PointD startPosition = points.front()->GetPivot();
+  if (points.front()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return;
+    startPosition = myPosition.GetPivot();
+  }
+
+  m2::PointD finishPosition = points.back()->GetPivot();
+  if (points.back()->IsMyPosition())
+  {
+    auto const & myPosition = m_bmManager->MyPositionMark();
+    if (!myPosition.HasPosition())
+      return;
+    finishPosition = myPosition.GetPivot();
+  }
+
+  CheckpointPredictor predictor(startPosition, finishPosition);
 
   size_t const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
   addedPoint->SetIntermediateIndex(insertIndex);
