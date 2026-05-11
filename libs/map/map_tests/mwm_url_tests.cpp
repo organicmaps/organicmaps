@@ -408,6 +408,19 @@ UNIT_TEST(RouteApiV2SplitsWaypointNamesByLiteralSeparators)
   TEST_EQUAL(encodedSeparators.GetRoutePoints()[2].m_name, "Bauer", ());
 }
 
+UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fstate%3Da%7Cb|app%3A%2F%2Fnext";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next", ());
+}
+
 UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
 {
   string const urlString =

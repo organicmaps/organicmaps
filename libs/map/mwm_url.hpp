@@ -153,7 +153,7 @@ public:
 private:
   void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
   void ParseRouteParam(std::string const & key, std::string const & value, size_t & paramIndex);
-  bool ParseRouteV2(url::Url const & url);
+  bool ParseRouteV2(url::Url const & url, std::string const & rawUrl);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);

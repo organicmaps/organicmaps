@@ -64,7 +64,8 @@
   private func isRouteApiV2(_ url: URLComponents) -> Bool {
     switch (url.host, url.path) {
     case ("v2", "/dir"), ("v2", "/nav"),
-         ("omaps.app", "/v2/dir"), ("omaps.app", "/v2/nav"):
+         ("omaps.app", "/v2/dir"), ("omaps.app", "/v2/nav"),
+         (nil, "/v2/dir"), (nil, "/v2/nav"):
       return true
     default:
       return false

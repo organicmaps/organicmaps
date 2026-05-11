@@ -155,6 +155,50 @@ bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePo
   return true;
 }
 
+std::vector<std::string> SplitRouteList(std::string_view value)
+{
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t const delimiter = value.find('|', from);
+    if (delimiter == std::string_view::npos)
+    {
+      result.emplace_back(value.substr(from));
+      break;
+    }
+    result.emplace_back(value.substr(from, delimiter - from));
+    from = delimiter + 1;
+  }
+  return result;
+}
+
+
+template <typename FnT>
+void ForEachRawParam(std::string_view rawUrl, FnT && fn)
+{
+  size_t start = rawUrl.find_first_of("?#");
+  if (start == std::string_view::npos)
+    return;
+
+  for (++start; start < rawUrl.size();)
+  {
+    size_t end = rawUrl.find_first_of("&#", start);
+    if (end == std::string_view::npos)
+      end = rawUrl.size();
+
+    if (end != start)
+    {
+      size_t const eq = rawUrl.find('=', start);
+      if (eq != std::string_view::npos && eq < end)
+        fn(url::UrlDecode(rawUrl.substr(start, eq - start)), rawUrl.substr(eq + 1, end - eq - 1));
+      else
+        fn(url::UrlDecode(rawUrl.substr(start, end - start)), std::string_view());
+    }
+
+    start = end + 1;
+  }
+}
 bool ParseRouteMode(std::string const & value, std::string & routingType)
 {
   using namespace route;
@@ -222,7 +266,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
     {
       // Fragments are not route parameters; the general URL parser also supports fragment parameters.
       url::Url const queryUrl{normalizedUrl.substr(0, normalizedUrl.find('#'))};
-      return m_requestType = ParseRouteV2(queryUrl) ? UrlType::Route : UrlType::Incorrect;
+      return m_requestType = ParseRouteV2(queryUrl, normalizedUrl) ? UrlType::Route : UrlType::Incorrect;
     }
     else if (type == "map")
     {
@@ -473,7 +517,7 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   ++paramIndex;
 }
 
-bool ParsedMapApi::ParseRouteV2(url::Url const & url)
+bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl)
 {
   using namespace route_v2;
   m_version = 2;
@@ -486,10 +530,12 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url)
   RoutePoint start, finish;
   std::vector<std::string> waypoints, names, callbacks;
 
-  // Values are decoded once by Url. Split on decoded pipes, retaining empty slots for aligned metadata.
-  // Collect before validating so every recognized field consistently uses its last occurrence.
-  url.ForEachParam([&](auto const & key, auto const & value)
+  // Decode each value once before splitting so literal and encoded pipes are both delimiters.
+  // A literal pipe in a value must be double-encoded to remain part of the value.
+  // Collect first so each recognized parameter consistently uses its last occurrence.
+  ForEachRawParam(rawUrl, [&](auto const & key, auto const & rawValue)
   {
+    std::string const value = url::UrlDecode(rawValue);
     if (key == kOrigin)
       origin = value;
     else if (key == kDestination)
@@ -510,11 +556,11 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url)
     else if (key == kMode || key == kTravelMode)
       mode = value;
     else if (key == kWaypoints)
-      strings::ParseCSVRow(value, '|', waypoints);
+      waypoints = SplitRouteList(value);
     else if (key == kWaypointNames)
-      strings::ParseCSVRow(value, '|', names);
+      names = SplitRouteList(value);
     else if (key == kWaypointCallbacks)
-      strings::ParseCSVRow(value, '|', callbacks);
+      callbacks = SplitRouteList(value);
     else if (key == kDirAction)
       dirAction = value;
     else if (key == kOptimize)

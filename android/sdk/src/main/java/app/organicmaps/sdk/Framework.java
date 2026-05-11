@@ -229,8 +229,7 @@ public class Framework
 
   public static native void nativeCloseRouting();
 
-  public static native void nativeBuildRoute();
-  public static native void nativeBuildRouteWithStartDirection(double startDirectionX, double startDirectionY);
+  public static native void nativeBuildRoute(double startDirectionX, double startDirectionY);
 
   /**
    * Materializes the parsed route deep link as route points and starts the build in the

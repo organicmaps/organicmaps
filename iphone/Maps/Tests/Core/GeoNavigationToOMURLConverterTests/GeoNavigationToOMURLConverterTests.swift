@@ -18,7 +18,14 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
     switch urlType {
     case .route:
-      let adapter = DeepLinkRouteStrategyAdapter()
+      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omUrl))
+      CheckAlmostEqual(adapter.start.latitude, 1.1)
+      CheckAlmostEqual(adapter.start.longitude, 2.2)
+      XCTAssertEqual(adapter.start.type, .start)
+      XCTAssertFalse(adapter.start.isMyPosition)
+      CheckAlmostEqual(adapter.finish.latitude, 3.3)
+      CheckAlmostEqual(adapter.finish.longitude, 4.4)
+      XCTAssertFalse(adapter.finish.isMyPosition)
       XCTAssertEqual(adapter.type, routingType)
     default:
       XCTFail("Unexpected url type")
@@ -33,7 +40,14 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
     let urlType = DeepLinkParser.parseAndSetApiURL(omUrl)
     switch urlType {
     case .route:
-      let adapter = DeepLinkRouteStrategyAdapter()
+      let adapter = try XCTUnwrap(DeepLinkRouteStrategyAdapter(omUrl))
+      CheckAlmostEqual(adapter.start.latitude, 1.1)
+      CheckAlmostEqual(adapter.start.longitude, 2.2)
+      XCTAssertEqual(adapter.start.type, .start)
+      XCTAssertFalse(adapter.start.isMyPosition)
+      CheckAlmostEqual(adapter.finish.latitude, 3.3)
+      CheckAlmostEqual(adapter.finish.longitude, 4.4)
+      XCTAssertFalse(adapter.finish.isMyPosition)
       XCTAssertEqual(adapter.type, routingType)
     default:
       XCTFail("Unexpected url type")

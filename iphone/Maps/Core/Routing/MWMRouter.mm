@@ -498,7 +498,6 @@ void OpenRoutePointCallback(std::string const & callback)
          startRouteNavigation:startRouteNavigation
                startDirection:CGPointZero];
 }
-
 + (void)buildApiRouteWithType:(MWMRouterType)type
                    startPoint:(MWMRoutePoint *)startPoint
            intermediatePoints:(NSArray<MWMRoutePoint *> *)intermediatePoints
@@ -514,7 +513,7 @@ void OpenRoutePointCallback(std::string const & callback)
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
-  router.startNavigationAfterBuild = startRouteNavigation;
+  router.startNavigationAfterBuild = startRouteNavigation && startPoint.isMyPosition;
   router.isAPICall = YES;
   [self addPoint:startPoint reorderIntermediatePoints:optimizeRoutePoints];
   if (optimizeRoutePoints)

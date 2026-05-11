@@ -373,7 +373,7 @@ public class RoutingController
 
     // This build uses the current settings and route marks, so it consumes any deferred options change.
     mPendingOptionsRebuild = false;
-    Framework.nativeBuildRouteWithStartDirection(startDirectionX, startDirectionY);
+    Framework.nativeBuildRoute(startDirectionX, startDirectionY);
   }
 
   public void restoreRoute()
