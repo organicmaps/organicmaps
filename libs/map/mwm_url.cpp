@@ -7,6 +7,8 @@
 #include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"
 
+#include "coding/url.hpp"
+
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
@@ -19,6 +21,7 @@
 
 #include <array>
 #include <cmath>
+#include <string_view>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -141,7 +144,7 @@ bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePo
   return true;
 }
 
-std::vector<std::string> SplitRouteList(std::string const & value)
+std::vector<std::string> SplitRouteList(std::string_view value, bool decodeItems = false)
 {
   std::vector<std::string> result;
   size_t from = 0;
@@ -150,13 +153,41 @@ std::vector<std::string> SplitRouteList(std::string const & value)
     size_t const delimiter = value.find('|', from);
     if (delimiter == std::string::npos)
     {
-      result.push_back(value.substr(from));
+      auto const item = value.substr(from);
+      result.push_back(decodeItems ? url::UrlDecode(item) : std::string(item));
       break;
     }
-    result.push_back(value.substr(from, delimiter - from));
+    auto const item = value.substr(from, delimiter - from);
+    result.push_back(decodeItems ? url::UrlDecode(item) : std::string(item));
     from = delimiter + 1;
   }
   return result;
+}
+
+template <typename FnT>
+void ForEachRawParam(std::string_view rawUrl, FnT && fn)
+{
+  size_t start = rawUrl.find_first_of("?#");
+  if (start == std::string_view::npos)
+    return;
+
+  for (++start; start < rawUrl.size();)
+  {
+    size_t end = rawUrl.find_first_of("&#", start);
+    if (end == std::string_view::npos)
+      end = rawUrl.size();
+
+    if (end != start)
+    {
+      size_t const eq = rawUrl.find('=', start);
+      if (eq != std::string_view::npos && eq < end)
+        fn(url::UrlDecode(rawUrl.substr(start, eq - start)), rawUrl.substr(eq + 1, end - eq - 1));
+      else
+        fn(url::UrlDecode(rawUrl.substr(start, end - start)), std::string_view());
+    }
+
+    start = end + 1;
+  }
 }
 
 bool ParseRouteMode(std::string const & value, std::string & routingType)
@@ -214,7 +245,8 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 
   if (auto const [prefix, checkForGe0Link] = FindUrlPrefix(raw); prefix != std::string::npos)
   {
-    url::Url const url{"om://" + raw.substr(prefix)};
+    std::string const normalizedUrl = "om://" + raw.substr(prefix);
+    url::Url const url{normalizedUrl};
     if (!url.IsValid())
       return m_requestType = UrlType::Incorrect;
 
@@ -231,15 +263,21 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 
       RoutePoint origin;
       RoutePoint destination;
-      std::vector<RoutePoint> waypoints;
+      struct WaypointWithRawIndex
+      {
+        size_t m_rawIndex = 0;
+        RoutePoint m_point;
+      };
+      std::vector<WaypointWithRawIndex> waypoints;
       std::vector<std::string> waypointNames;
       std::vector<std::string> waypointCallbacks;
       bool originFound = false;
       bool destinationFound = false;
       bool correctParams = true;
 
-      url.ForEachParam([&](auto const & key, auto const & value)
+      ForEachRawParam(normalizedUrl, [&](auto const & key, auto const & rawValue)
       {
+        std::string const value = url::UrlDecode(rawValue);
         if (key == kOrigin)
         {
           originFound = ParseRoutePoint(key, value, origin);
@@ -276,25 +314,30 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypoints)
         {
-          for (auto const & waypoint : SplitRouteList(value))
+          size_t rawIndex = 0;
+          for (auto const & waypoint : SplitRouteList(rawValue, true /* decodeItems */))
           {
             if (waypoint.empty())
+            {
+              ++rawIndex;
               continue;
+            }
 
             RoutePoint point;
             if (ParseRoutePoint(key, waypoint, point))
-              waypoints.push_back(std::move(point));
+              waypoints.push_back({rawIndex, std::move(point)});
             else
               correctParams = false;
+            ++rawIndex;
           }
         }
         else if (key == kWaypointNames)
         {
-          waypointNames = SplitRouteList(value);
+          waypointNames = SplitRouteList(rawValue, true /* decodeItems */);
         }
         else if (key == kWaypointCallbacks)
         {
-          waypointCallbacks = SplitRouteList(value);
+          waypointCallbacks = SplitRouteList(rawValue, true /* decodeItems */);
         }
         else if (key == kMode || key == kTravelMode)
         {
@@ -343,18 +386,17 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       else
       {
         origin.m_isMyPosition = true;
-        if (origin.m_name.empty())
-          origin.m_name = "My position";
         m_routePoints.push_back(std::move(origin));
       }
 
-      for (size_t i = 0; i < waypoints.size(); ++i)
+      for (auto & waypoint : waypoints)
       {
+        size_t const i = waypoint.m_rawIndex;
         if (i < waypointNames.size())
-          waypoints[i].m_name = waypointNames[i];
+          waypoint.m_point.m_name = waypointNames[i];
         if (i < waypointCallbacks.size())
-          waypoints[i].m_callback = waypointCallbacks[i];
-        m_routePoints.push_back(std::move(waypoints[i]));
+          waypoint.m_point.m_callback = waypointCallbacks[i];
+        m_routePoints.push_back(std::move(waypoint.m_point));
       }
       m_routePoints.push_back(std::move(destination));
 

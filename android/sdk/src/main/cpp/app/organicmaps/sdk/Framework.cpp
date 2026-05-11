@@ -1191,14 +1191,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeCloseRouting(JNIEnv * en
   frm()->GetRoutingManager().CloseRouting(true /* remove route points */);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass)
-{
-  frm()->GetRoutingManager().BuildRoute();
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRouteWithStartDirection(JNIEnv * env, jclass,
-                                                                                     jdouble startDirectionX,
-                                                                                     jdouble startDirectionY)
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass, jdouble startDirectionX,
+                                                                   jdouble startDirectionY)
 {
   frm()->GetRoutingManager().BuildRoute(routing::RouterDelegate::kNoTimeout, {startDirectionX, startDirectionY});
 }
