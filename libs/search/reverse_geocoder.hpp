@@ -206,6 +206,8 @@ public:
 
   bool GetExactAddress(FeatureID const & fid, Address & addr) const;
 
+  bool GetFeatureAddress(FeatureType & ft, Address & addr) const;
+
   /// Returns the nearest region address where mwm or exact city is known.
   static RegionAddress GetNearbyRegionAddress(m2::PointD const & center, storage::CountryInfoGetter const & infoGetter,
                                               CityFinder & cityFinder);
@@ -233,8 +235,8 @@ private:
 
   std::string const & GetHouseNumber(FeatureType & ft) const;
 
-  /// @return Sorted by distance houses vector with valid house number.
-  void GetNearbyBuildings(m2::PointD const & center, double maxDistanceM, std::vector<Building> & buildings) const;
+  /// Get sorted by distance objects (not only building, but any address-like object) vector with valid house number.
+  void GetNearbyHNObjects(m2::PointD const & center, double maxDistanceM, std::vector<Building> & buildings) const;
 
   static Building FromFeature(FeatureType & ft, double distMeters);
 };

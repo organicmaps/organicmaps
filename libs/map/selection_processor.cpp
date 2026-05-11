@@ -99,10 +99,9 @@ void SelectionProcessor::FillInfoFromFeatureType(FeatureType & ft, place_page::I
   if (IsAddressObjectChecker::Instance()(ft))
   {
     auto const & dataSource = m_fw.m_featuresFetcher.GetDataSource();
-    search::ReverseGeocoder const coder(dataSource);
     search::ReverseGeocoder::Address addr;
-    coder.GetNearbyAddress(feature::GetCenter(ft), 0.5 /* maxDistanceM */, addr, true /* placeAsStreet */);
-    info.SetAddress(addr.FormatAddress());
+    if (search::ReverseGeocoder(dataSource).GetFeatureAddress(ft, addr))
+      info.SetAddress(addr.FormatAddress());
   }
 
   info.SetFromFeatureType(ft);

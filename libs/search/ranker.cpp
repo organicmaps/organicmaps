@@ -395,15 +395,6 @@ private:
     return ft;
   }
 
-  bool GetExactAddress(FeatureType & ft, m2::PointD const & center, ReverseGeocoder::Address & addr) const
-  {
-    if (m_reverseGeocoder.GetExactAddress(ft, addr, true /* placeAsStreet */))
-      return true;
-
-    m_reverseGeocoder.GetNearbyAddress(center, 0.0 /* maxDistanceM */, addr, true /* placeAsStreet */);
-    return addr.IsValid();
-  }
-
   // For the best performance, incoming ids should be sorted by id.first (mwm file id).
   std::unique_ptr<FeatureType> LoadFeature(FeatureID const & id, m2::PointD & center, std::string & name,
                                            std::string & country)
@@ -444,7 +435,7 @@ private:
         return ft;
 
       ReverseGeocoder::Address addr;
-      if (GetExactAddress(*ft, center, addr))
+      if (m_reverseGeocoder.GetFeatureAddress(*ft, addr))
       {
         std::unique_ptr<FeatureType> streetFeature;
 
