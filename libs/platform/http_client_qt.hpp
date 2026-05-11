@@ -21,10 +21,22 @@ class HttpClientReply : public QObject
   Q_OBJECT
 
 public:
+  // Installs the platform cancel hook against the given reply. Owns a captured
+  // shared_ptr to the request handle's Impl, so it can be re-bound to a fresh
+  // reply across a transparent retry without exposing Impl outside HttpClient.
+  using RebindCancel = std::function<void(QNetworkReply *)>;
+
   HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                   HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
                   CancelChecker cancelChecker, bool loadHeaders, bool followRedirects, std::string urlRequested,
-                  std::string cookies, std::string outputFile, std::optional<HttpClient::ReceivedFileSegment> segment);
+                  std::string cookies, std::string outputFile, std::optional<HttpClient::ReceivedFileSegment> segment,
+                  QNetworkRequest request, std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel);
+
+  // Pure decision predicate for the GOAWAY/REFUSED_STREAM retry. Exposed for
+  // unit testing — cancellation is intentionally not part of this, it's an
+  // orthogonal concern handled by the caller.
+  static bool ShouldRetry(QNetworkReply::NetworkError error, QString const & errorString, int httpCode,
+                          bool anyBytesReceived, bool writeError, int retriesRemaining);
 
 private slots:
   void OnReadyRead();
@@ -38,7 +50,16 @@ private:
   // to receive data, false if validation failed.
   bool ValidateSegmentIfNeeded();
 
-  QNetworkReply * m_reply;
+  // Reused on initial attach and after a retry installs a fresh reply.
+  void AttachReply(QNetworkReply * reply);
+
+  // RFC 9113 §6.8: a stream above the GOAWAY's last-stream-id was provably not
+  // processed by the server and is safe to retry. Re-issues once over HTTP/1.1
+  // on a fresh connection. Returns true if a retry was scheduled (caller must
+  // not touch m_reply afterwards — a new one is in flight).
+  bool TryRetryOnGoAway();
+
+  QNetworkReply * m_reply = nullptr;
   HttpClient::CompletionHandler m_handler;
   HttpClient::ProgressHandler m_progressHandler;
   HttpClient::DataHandler m_dataHandler;
@@ -59,6 +80,16 @@ private:
   bool m_segmentValidated = false;
   int64_t m_segmentBytesWritten = 0;
   int m_segmentErrorCode = HttpClient::kNoError;  // Overrides result error code when set.
+
+  // Retry state: kept so a single GOAWAY-rejected stream can be re-issued
+  // transparently. Flipped permanently when any body byte is observed by the
+  // caller, so a retry can never silently double-deliver.
+  QNetworkRequest m_request;
+  std::string m_httpMethod;
+  QByteArray m_bodyBytes;
+  RebindCancel m_rebindCancel;
+  int m_retriesRemaining = 1;
+  bool m_anyBytesReceived = false;
 };
 
 // QObject worker living on a dedicated QThread. Owns the QNetworkAccessManager

@@ -21,6 +21,12 @@ set(SRC
   utm_mgrs_utils_tests.cpp
 )
 
+# Qt HTTP backend tests are only valid where http_client_qt.cpp is compiled
+# (macOS uses http_client_apple.mm instead).
+if (PLATFORM_DESKTOP AND NOT PLATFORM_MAC)
+  list(APPEND SRC http_client_qt_retry_test.cpp)
+endif()
+
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
 
 target_link_libraries(${PROJECT_NAME}

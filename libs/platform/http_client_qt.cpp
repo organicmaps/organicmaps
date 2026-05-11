@@ -59,6 +59,22 @@ std::string CollectServerCookies(QNetworkReply * reply)
   }
   return rawCookies.empty() ? std::string{} : platform::HttpClient::NormalizeServerCookies(std::move(rawCookies));
 }
+
+// sendCustomRequest supports body for any method, including DELETE.
+// QNetworkAccessManager::deleteResource() silently drops the body.
+QNetworkReply * IssueRequest(QNetworkAccessManager & manager, std::string const & method,
+                             QNetworkRequest const & request, QByteArray const & body)
+{
+  if (method == "GET")
+    return manager.get(request);
+  if (method == "POST")
+    return manager.post(request, body);
+  if (method == "PUT")
+    return manager.put(request, body);
+  if (method == "HEAD")
+    return manager.head(request);
+  return manager.sendCustomRequest(request, QByteArray::fromStdString(method), body);
+}
 }  // namespace
 
 namespace platform
@@ -67,9 +83,9 @@ HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHa
                                  HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
                                  CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
                                  std::string urlRequested, std::string cookies, std::string outputFile,
-                                 std::optional<HttpClient::ReceivedFileSegment> segment)
-  : m_reply(reply)
-  , m_handler(std::move(handler))
+                                 std::optional<HttpClient::ReceivedFileSegment> segment, QNetworkRequest request,
+                                 std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel)
+  : m_handler(std::move(handler))
   , m_progressHandler(std::move(progressHandler))
   , m_dataHandler(std::move(dataHandler))
   , m_cancelChecker(std::move(cancelChecker))
@@ -79,6 +95,10 @@ HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHa
   , m_cookies(std::move(cookies))
   , m_outputFile(std::move(outputFile))
   , m_segment(std::move(segment))
+  , m_request(std::move(request))
+  , m_httpMethod(std::move(httpMethod))
+  , m_bodyBytes(std::move(bodyBytes))
+  , m_rebindCancel(std::move(rebindCancel))
 {
   // Segment mode takes precedence over plain output file and defers file open
   // until 206 + Content-Range are validated in ValidateSegmentIfNeeded().
@@ -93,17 +113,85 @@ HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHa
       m_writeError = true;
     }
   }
-  connect(m_reply, &QNetworkReply::readyRead, this, &HttpClientReply::OnReadyRead);
-  connect(m_reply, &QNetworkReply::downloadProgress, this, &HttpClientReply::OnDownloadProgress);
-  connect(m_reply, &QNetworkReply::finished, this, &HttpClientReply::OnFinished);
+  AttachReply(reply);
 
   // Abort immediately so we don't waste bandwidth on a doomed download.
-  // Must be after signal connections so OnFinished() still fires.
+  // Must be after AttachReply so OnFinished() still fires.
   // Note: abort() triggers OnFinished() synchronously via direct connection,
   // but all members are already initialized at this point and OnFinished()
   // uses only deleteLater() for cleanup, so this is safe.
   if (m_writeError)
     m_reply->abort();
+}
+
+void HttpClientReply::AttachReply(QNetworkReply * reply)
+{
+  m_reply = reply;
+  connect(reply, &QNetworkReply::readyRead, this, &HttpClientReply::OnReadyRead);
+  connect(reply, &QNetworkReply::downloadProgress, this, &HttpClientReply::OnDownloadProgress);
+  connect(reply, &QNetworkReply::finished, this, &HttpClientReply::OnFinished);
+
+  // Re-point the platform cancel hook at the new reply. Cancel() called between
+  // the old hook firing (no-op against a destroyed reply) and the rebind would
+  // have set m_cancelled, so check the cancel-checker afterwards and abort now.
+  m_rebindCancel(reply);
+  if (m_cancelChecker && m_cancelChecker())
+    reply->abort();
+}
+
+// static
+bool HttpClientReply::ShouldRetry(QNetworkReply::NetworkError error, QString const & errorString, int httpCode,
+                                  bool anyBytesReceived, bool writeError, int retriesRemaining)
+{
+  if (writeError || anyBytesReceived || retriesRemaining <= 0)
+    return false;
+  // Any HTTP status means the server processed (at least the headers of) this request.
+  if (httpCode != 0)
+    return false;
+
+  switch (error)
+  {
+  case QNetworkReply::ContentReSendError: return true;
+
+  case QNetworkReply::ProtocolFailure:
+    // Defensive secondary signal: Qt 6.x's HTTP/2 layer logs these phrases when a
+    // stream is rejected after GOAWAY or with REFUSED_STREAM (see Qt sources
+    // qhttp2connection.cpp / qhttpnetworkconnectionchannel.cpp — not public API,
+    // re-verify on Qt upgrade). RFC 9113 §6.8 permits retrying these on a new
+    // connection.
+    return errorString.contains("stopped accepting", Qt::CaseInsensitive) ||
+           errorString.contains("REFUSED_STREAM", Qt::CaseInsensitive) ||
+           errorString.contains("GOAWAY", Qt::CaseInsensitive);
+
+  default: return false;
+  }
+}
+
+bool HttpClientReply::TryRetryOnGoAway()
+{
+  if (m_cancelChecker && m_cancelChecker())
+    return false;
+
+  int const httpCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+  if (!ShouldRetry(m_reply->error(), m_reply->errorString(), httpCode, m_anyBytesReceived, m_writeError,
+                   m_retriesRemaining))
+    return false;
+
+  --m_retriesRemaining;
+  LOG(LWARNING, ("HTTP/2 stream rejected, retrying once over HTTP/1.1:", m_urlRequested,
+                 "Qt error:", static_cast<int>(m_reply->error()), m_reply->errorString().toStdString()));
+
+  m_reply->disconnect(this);
+  m_reply->deleteLater();
+
+  // Force HTTP/1.1 for the retry so we cannot multiplex onto another HTTP/2
+  // connection from the same poisoned pool. The GOAWAY'd HTTP/2 connection is
+  // already closed by the server; Qt will open a fresh TCP/TLS leg naturally.
+  m_request.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
+
+  auto & manager = GetNetworkThread().worker->m_manager;
+  AttachReply(IssueRequest(manager, m_httpMethod, m_request, m_bodyBytes));
+  return true;
 }
 
 bool HttpClientReply::ValidateSegmentIfNeeded()
@@ -169,6 +257,9 @@ void HttpClientReply::OnReadyRead()
   QByteArray const data = m_reply->readAll();
   if (data.isEmpty())
     return;
+
+  // Past this point the caller will observe body bytes; retry would double-deliver.
+  m_anyBytesReceived = true;
 
   if (m_dataHandler)
   {
@@ -236,6 +327,11 @@ void HttpClientReply::OnFinished()
     deleteLater();
     return;
   }
+
+  // Transparent retry for HTTP/2 GOAWAY-rejected streams (RFC 9113 §6.8).
+  // On success a new reply is in flight and will fire OnFinished again.
+  if (TryRetryOnGoAway())
+    return;
 
   int const httpCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
   bool const noError = (m_reply->error() == QNetworkReply::NoError);
@@ -432,12 +528,26 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   auto impl = handle.m_impl;
   auto cancelChecker = handle.MakeCancelChecker();
 
+  // reply->abort() must be invoked on the reply's thread, so the inner cancel
+  // dispatches via QueuedConnection regardless of which thread Cancel() runs on.
+  auto const rebindCancel = [impl](QNetworkReply * reply)
+  {
+    QPointer<QNetworkReply> guardedReply(reply);
+    std::lock_guard lock(impl->m_mu);
+    impl->m_platformCancel = [guardedReply]
+    {
+      if (guardedReply)
+        QMetaObject::invokeMethod(guardedReply.data(), "abort", Qt::QueuedConnection);
+    };
+  };
+
   // Post to the network worker thread. The lambda runs on that thread
   // where QNetworkAccessManager lives, so QNetworkReply is created with
   // correct affinity and signals fire on the worker's event loop.
   auto & nt = GetNetworkThread();
   QMetaObject::invokeMethod(nt.worker,
-                            [=, handler = std::move(handler), cancelChecker = std::move(cancelChecker)]() mutable
+                            [=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
+                             rebindCancel = std::move(rebindCancel)]() mutable
   {
     // Check cancellation BEFORE creating the request — fixes the race where
     // Cancel() is called between RunHttpRequestAsync() returning and this
@@ -452,45 +562,13 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     }
 
     auto & manager = GetNetworkThread().worker->m_manager;
-    QNetworkReply * reply = nullptr;
-
-    if (httpMethod == "GET")
-      reply = manager.get(request);
-    else if (httpMethod == "POST")
-      reply = manager.post(request, bodyBytes);
-    else if (httpMethod == "PUT")
-      reply = manager.put(request, bodyBytes);
-    else if (httpMethod == "HEAD")
-      reply = manager.head(request);
-    else
-      // sendCustomRequest supports body for any method, including DELETE.
-      // QNetworkAccessManager::deleteResource() silently drops the body.
-      reply = manager.sendCustomRequest(request, QByteArray::fromStdString(httpMethod), bodyBytes);
+    QNetworkReply * reply = IssueRequest(manager, httpMethod, request, bodyBytes);
 
     new HttpClientReply(reply, std::move(handler), progressHandler, dataHandler, std::move(cancelChecker), loadHeaders,
-                        followRedirects, urlRequested, cookies, outputFile, segment);
-
-    // Install platform cancel hook. reply->abort() must be called on the
-    // reply's thread; use QMetaObject::invokeMethod with QueuedConnection.
-    QPointer<QNetworkReply> guardedReply(reply);
-    {
-      std::lock_guard lock(impl->m_mu);
-      impl->m_platformCancel = [guardedReply]
-      {
-        if (guardedReply)
-          QMetaObject::invokeMethod(guardedReply.data(), "abort", Qt::QueuedConnection);
-      };
-    }
-
-    // Double-check: if Cancel() ran between creating the reply and installing the hook,
-    // m_cancelled is set but m_platformCancel was not called. Abort now.
-    // We're on the worker thread (same as the reply), so direct abort is safe.
-    if (impl->m_cancelled.load(std::memory_order_acquire))
-    {
-      if (guardedReply)
-        guardedReply->abort();
-    }
-  }, Qt::QueuedConnection);
+                        followRedirects, urlRequested, cookies, outputFile, segment, request, httpMethod, bodyBytes,
+                        std::move(rebindCancel));
+  },
+                            Qt::QueuedConnection);
 
   return handle;
 }
