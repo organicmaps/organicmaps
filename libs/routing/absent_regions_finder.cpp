@@ -16,6 +16,15 @@ AbsentRegionsFinder::AbsentRegionsFinder(CountryFileGetterFn countryFileGetter, 
   CHECK(m_localFileCheckerFn, ());
 }
 
+AbsentRegionsFinder::~AbsentRegionsFinder()
+{
+  // Make sure the routing thread does not outlive the RouterDelegate it references via
+  // RegionsRouter::m_delegate. Otherwise the detached thread may call IsCancelled() on
+  // an already-destroyed Cancellable::m_mutex and abort.
+  if (m_routerThread)
+    m_routerThread->Cancel();
+}
+
 RouterResultCode AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints,
                                                             RouterDelegate const & delegate)
 {
