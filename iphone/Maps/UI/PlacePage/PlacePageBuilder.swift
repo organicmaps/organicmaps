@@ -10,7 +10,7 @@
     switch data.objectType {
     case .POI, .bookmark:
       layout = PlacePageCommonLayout(interactor: interactor, storyboard: storyboard, data: data)
-    case .track:
+    case .track, .relationTrack:
       let trackLayout = PlacePageTrackLayout(interactor: interactor, storyboard: storyboard, data: data)
       interactor.trackActivePointPresenter = trackLayout.elevationMapViewController?.presenter
       layout = trackLayout
@@ -37,7 +37,7 @@
     switch data.objectType {
     case .POI, .bookmark:
       layout = PlacePageCommonLayout(interactor: interactor, storyboard: storyboard, data: data)
-    case .track:
+    case .track, .relationTrack:
       let trackLayout = PlacePageTrackLayout(interactor: interactor, storyboard: storyboard, data: data)
       interactor.trackActivePointPresenter = trackLayout.elevationMapViewController?.presenter
       layout = trackLayout

@@ -97,6 +97,7 @@ public:
   bool IsFeature() const { return m_featureID.IsValid(); }
   bool IsBookmark() const;
   bool IsTrack() const { return m_trackId != kml::kInvalidTrackId; }
+  bool IsRelationTrack() const { return m_trackId == kml::kTempRelationTrackId; }
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }

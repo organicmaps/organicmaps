@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, PlacePageObjectType) {
   PlacePageObjectTypePOI,
   PlacePageObjectTypeBookmark,
   PlacePageObjectTypeTrack,
+  PlacePageObjectTypeRelationTrack,
   PlacePageObjectTypeTrackRecording
 };
 
