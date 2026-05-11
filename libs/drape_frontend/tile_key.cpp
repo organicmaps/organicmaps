@@ -24,6 +24,7 @@ uint32_t constexpr GetMask(uint8_t bitsCount)
 /// Canonical range: [floor(-numTiles/2), floor(-numTiles/2) + numTiles).
 int WrapTileX(int x, uint8_t zoomLevel)
 {
+  ASSERT(zoomLevel > 0, ());
   int const numTiles = 1 << (zoomLevel - 1);
   int const minX = -((numTiles + 1) / 2);  // floor(-numTiles / 2.0)
   return ((x - minX) % numTiles + numTiles) % numTiles + minX;
@@ -88,7 +89,7 @@ bool TileKey::EqualStrict(TileKey const & other) const
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom /* = true */) const
 {
   int const zoomLevel = clipByDataMaxZoom ? ClipTileZoomByMaxDataZoom(m_zoomLevel) : m_zoomLevel;
-  ASSERT_GREATER(zoomLevel, 0, ());
+  ASSERT(zoomLevel > 0, ());
   double const worldSizeDivisor = 1 << (zoomLevel - 1);
   // Mercator SizeX and SizeY are equal.
   double const rectSize = mercator::Bounds::kRangeX / worldSizeDivisor;
@@ -150,12 +151,15 @@ uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
 
   // Transform [-b, b] coordinates range -> [0, 2b] positive coordinates range.
   int constexpr kCoordsOffset = 1 << (kCoordsBits - 1);
-  CHECK(abs(m_x) <= kCoordsOffset, (m_x));
+  // Wrap X to canonical range: with antimeridian panning m_x can be outside the
+  // 20-bit field, but extended world copies share data identity with the canonical tile.
+  int const canonicalX = WrapTileX(m_x, m_zoomLevel);
+  CHECK(abs(canonicalX) <= kCoordsOffset, (canonicalX, m_x, m_zoomLevel));
   CHECK(abs(m_y) <= kCoordsOffset, (m_y));
-  auto const x = static_cast<uint64_t>(m_x + kCoordsOffset) & kCoordsMask;
+  auto const x = static_cast<uint64_t>(canonicalX + kCoordsOffset) & kCoordsMask;
   auto const y = static_cast<uint64_t>(m_y + kCoordsOffset) & kCoordsMask;
 
-  CHECK(m_zoomLevel <= kZoomMask, (m_zoomLevel));
+  ASSERT(m_zoomLevel > 0 && m_zoomLevel <= kZoomMask, (m_zoomLevel));
   uint64_t const zoom = static_cast<uint64_t>(m_zoomLevel) & kZoomMask;
 
   auto const umg = static_cast<uint64_t>(m_userMarksGeneration % kGenerationMod);
