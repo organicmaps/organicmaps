@@ -1,0 +1,156 @@
+// client/transport_api.proto
+syntax = "proto3";
+
+package transport;
+
+// ---------------------------------------------------
+// Schedule Message
+// ---------------------------------------------------
+message Schedule {
+  // Unique identifier for the schedule (e.g., GTFS trip_id)
+  string schedule_id = 1;
+
+  // Service day in ISO‑8601 format (e.g., "2024-09-01")
+  string service_date = 2;
+
+  // List of stops for this schedule in order
+  repeated Stop stops = 3;
+
+  // Optional real‑time updates (e.g., delays, cancellations)
+  repeated Delta deltas = 4;
+}
+
+// ---------------------------------------------------
+// Stop Message
+// ---------------------------------------------------
+message Stop {
+  // Public transport stop identifier (e.g., GTFS stop_id)
+  string stop_id = 1;
+
+  // Human readable name of the stop
+  string name = 2;
+
+  // Latitude/longitude in WGS‑84
+  double latitude = 3;
+  double longitude = 4;
+
+  // Scheduled arrival time (seconds from midnight)
+  uint32 arrival_time = 5;
+
+  // Scheduled departure time (seconds from midnight)
+  uint32 departure_time = 6;
+}
+
+// ---------------------------------------------------
+// Delta Message (real‑time update)
+// ---------------------------------------------------
+message Delta {
+  // Identifier of the affected schedule
+  string schedule_id = 1;
+
+  // Identifier of the stop being updated
+  string stop_id = 2;
+
+  // Updated arrival time (seconds from midnight). Use 0 if unchanged.
+  uint32 new_arrival_time = 3;
+
+  // Updated departure time (seconds from midnight). Use 0 if unchanged.
+  uint32 new_departure_time = 4;
+
+  // Delay in seconds (positive = later, negative = earlier)
+  int32 delay_seconds = 5;
+
+  // Optional cancellation flag
+  bool cancelled = 6;
+}
+
+// ---------------------------------------------------
+// Routing Request Message
+// ---------------------------------------------------
+message RoutingRequest {
+  // Origin location (latitude/longitude)
+  Location origin = 1;
+
+  // Destination location (latitude/longitude)
+  Location destination = 2;
+
+  // Desired departure time (seconds from epoch)
+  uint64 departure_timestamp = 3;
+
+  // Optional list of preferred transport modes (e.g., "bus", "metro")
+  repeated string preferred_modes = 4;
+
+  // Optional maximum number of transfers
+  uint32 max_transfers = 5;
+}
+
+// ---------------------------------------------------
+// Routing Response Message
+// ---------------------------------------------------
+message RoutingResponse {
+  // Status of the routing operation
+  enum Status {
+    OK = 0;
+    NO_ROUTE = 1;
+    ERROR = 2;
+  }
+  Status status = 1;
+
+  // Human readable message (error description, etc.)
+  string message = 2;
+
+  // Ordered list of legs (segments) that compose the route
+  repeated Leg legs = 3;
+
+  // Total travel time in seconds
+  uint32 total_travel_time = 4;
+
+  // Total number of transfers
+  uint32 total_transfers = 5;
+}
+
+// ---------------------------------------------------
+// Leg Message (single segment of a route)
+// ---------------------------------------------------
+message Leg {
+  // Transport mode for this leg (e.g., "walk", "bus", "metro")
+  string mode = 1;
+
+  // Origin stop or location
+  StopInfo from = 2;
+
+  // Destination stop or location
+  StopInfo to = 3;
+
+  // Scheduled departure time (seconds from epoch)
+  uint64 departure_time = 4;
+
+  // Scheduled arrival time (seconds from epoch)
+  uint64 arrival_time = 5;
+
+  // Optional real‑time delay in seconds
+  int32 delay_seconds = 6;
+}
+
+// ---------------------------------------------------
+// StopInfo Message (used inside Leg)
+// ---------------------------------------------------
+message StopInfo {
+  // Either a stop identifier (if known) or a free‑form location
+  string stop_id = 1;
+
+  // Human readable name (optional)
+  string name = 2;
+
+  // Latitude/longitude (optional, used when stop_id is unknown)
+  double latitude = 3;
+  double longitude = 4;
+}
+
+// ---------------------------------------------------
+// Location Message (generic lat/lon)
+// ---------------------------------------------------
+message Location {
+  double latitude = 1;
+  double longitude = 2;
+}

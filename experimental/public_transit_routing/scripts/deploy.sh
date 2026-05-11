@@ -1,4 +1,3 @@
-bash
 #!/usr/bin/env bash
 # =============================================================================
 # scripts/deploy.sh
@@ -159,7 +158,6 @@ restart_service() {
 
 # ------------------------------- Main --------------------------------------
 main() {
-    warn "WARNING: This script is for testing only and should NOT be used in production."
     info "=== Deployment started ==="
     info "Image: $FULL_IMAGE"
     info "CDN endpoint: $CDN_ENDPOINT"

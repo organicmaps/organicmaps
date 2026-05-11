@@ -1,4 +1,4 @@
-# Experimental Dockerfile: not for production deployment within MONAI
+dockerfile
 # syntax=docker/dockerfile:1.4
 
 ###############################
