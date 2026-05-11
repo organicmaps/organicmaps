@@ -1,3 +1,4 @@
+go
 package transformer
 
 import (
@@ -201,6 +202,23 @@ func transformJSON(ctx context.Context, r io.Reader) (*schedulepb.Schedule, erro
 	return schedule, nil
 }
 
+// columnIndexMap creates a map from column name to its index.
+func columnIndexMap(header []string) map[string]int {
+	m := make(map[string]int, len(header))
+	for i, col := range header {
+		m[col] = i
+	}
+	return m
+}
+
+// safeGetString returns the string value for a column if it exists, otherwise returns an empty string.
+func safeGetString(row []string, idx map[string]int, col string) string {
+	if i, ok := idx[col]; ok && i < len(row) {
+		return row[i]
+	}
+	return ""
+}
+
 // parseAgencyCSV parses agency.txt into schedule.
 func parseAgencyCSV(data []byte, schedule *schedulepb.Schedule) error {
 	r := csv.NewReader(bytes.NewReader(data))
@@ -216,16 +234,20 @@ func parseAgencyCSV(data []byte, schedule *schedulepb.Schedule) error {
 
 	for _, row := range records[1:] {
 		agency := &schedulepb.Agency{
-			Id:       getString(row, idx, "agency_id"),
-			Name:     getString(row, idx, "agency_name"),
-			Url:      getString(row, idx, "agency_url"),
-			Timezone: getString(row, idx, "agency_timezone"),
-			Language: getString(row, idx, "agency_lang"),
-			Phone:    getString(row, idx, "agency_phone"),
-			FareUrl:  getString(row, idx, "agency_fare_url"),
-			Email:    getString(row, idx, "agency_email"),
+			Id:       safeGetString(row, idx, "agency_id"),
+			Name:     safeGetString(row, idx, "agency_name"),
+			Url:      safeGetString(row, idx, "agency_url"),
+			Timezone: safeGetString(row, idx, "agency_timezone"),
+			Language: safeGetString(row, idx, "agency_lang"),
+			Phone:    safeGetString(row, idx, "agency_phone"),
+			FareUrl:  safeGetString(row, idx, "agency_fare_url"),
+			Email:    safeGetString(row, idx, "agency_email"),
 		}
 		schedule.Agency = append(schedule.Agency, agency)
 	}
 	return nil
 }
+
+/* ----------------------------------------------------------------------
+   Unit Tests for Edge Cases
+   ---------------------------------------------------------------------- */

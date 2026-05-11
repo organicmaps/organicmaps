@@ -1,9 +1,10 @@
+dockerfile
 # syntax=docker/dockerfile:1.4
 
 ###############################
 # Builder stage (Go)
 ###############################
-FROM golang:1.22-alpine AS builder
+FROM golang:1.22-alpine3.19 AS builder
 
 # Install build dependencies
 RUN apk add --no-cache git ca-certificates
@@ -18,6 +19,9 @@ RUN go mod download
 # Copy source code
 COPY . .
 
+# Ensure /app directory exists
+RUN mkdir -p /app
+
 # Build the binary
 ARG BUILD_FLAGS="-trimpath -ldflags=-s -w"
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $BUILD_FLAGS -o /app/pt-backend ./cmd/pt-backend
@@ -31,7 +35,7 @@ FROM alpine:3.19 AS runtime
 RUN addgroup -S ptgroup && adduser -S -G ptgroup ptuser
 
 # Install runtime dependencies
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates tzdata curl
 
 # Copy binary from builder
 COPY --from=builder /app/pt-backend /usr/local/bin/pt-backend
@@ -44,7 +48,7 @@ EXPOSE 8080
 
 # Healthcheck (adjust endpoint if needed)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s \
-  CMD wget -qO- http://localhost:8080/health || exit 1
+  CMD curl -f http://localhost:8080/health || exit 1
 
 # Define entrypoint
 ENTRYPOINT ["/usr/local/bin/pt-backend"]

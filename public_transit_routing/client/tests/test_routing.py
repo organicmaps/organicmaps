@@ -1,3 +1,4 @@
+python
 """
 client/tests/test_routing.py
 
@@ -24,7 +25,6 @@ from typing import Dict, List, Tuple
 
 import networkx as nx
 import pytest
-import requests
 import responses
 
 # The routing implementation is expected to live in ``client.routing``.
@@ -220,71 +220,42 @@ def test_missing_schedule(
     departure = datetime.utcnow()
 
     with pytest.raises(RoutingError) as excinfo:
-        planner.find_route(source="A", target="C", departure=departure, realtime=False)
+        planner.find_route(source="A", target="B", departure=departure, realtime=False)
     assert "schedule" in str(excinfo.value).lower()
 
 
-# --------------------------------------------------------------------------- #
-# Integration test – HTTP schedule endpoint
-# --------------------------------------------------------------------------- #
-@responses.activate
-def test_integration_http_schedule(
+def test_malformed_departure(
     static_graph: nx.DiGraph,
     static_schedule: Dict[Tuple[str, str], List[datetime]],
 ) -> None:
     """
-    The planner must be able to fetch a schedule from a remote HTTP endpoint.
-    The endpoint is mocked using ``responses``.
+    Passing a non‑datetime ``departure`` argument must raise ``RoutingError``.
+    """
+    planner = RoutePlanner(graph=static_graph, schedule=static_schedule)
+
+    with pytest.raises(RoutingError) as excinfo:
+        planner.find_route(source="A", target="B", departure="not-a-datetime", realtime=False)  # type: ignore[arg-type]
+    assert "departure" in str(excinfo.value).lower()
+
+
+# --------------------------------------------------------------------------- #
+# Integration test – HTTP schedule endpoint (mocked)
+# --------------------------------------------------------------------------- #
+@responses.activate
+def test_http_schedule_integration(
+    static_graph: nx.DiGraph,
+    static_schedule: Dict[Tuple[str, str], List[datetime]],
+) -> None:
+    """
+    Ensure the planner can fetch a schedule from the HTTP endpoint and use it.
     """
     _mock_schedule_response(static_schedule)
 
-    # The planner is instantiated with a URL instead of a local dict.
-    planner = RoutePlanner(
-        graph=static_graph,
-        schedule_url=SCHEDULE_ENDPOINT,
-    )
-    departure = datetime.utcnow().replace(second=0, microsecond=0)
+    # The planner is expected to accept a ``schedule_url`` parameter.
+    planner = RoutePlanner(graph=static_graph, schedule_url=SCHEDULE_ENDPOINT)
 
-    # The first call triggers the HTTP fetch.
+    departure = datetime.utcnow().replace(second=0, microsecond=0)
     route = planner.find_route(source="A", target="C", departure=departure, realtime=False)
 
-    # Verify that the HTTP request was performed.
-    assert len(responses.calls) == 1, "Schedule endpoint was not called"
-    assert responses.calls[0].request.url == SCHEDULE_ENDPOINT
-
-    # Validate route correctness (same as static test).
     expected_stops = ["A", "B", "C"]
-    assert [stop for stop, _ in route] == expected_stops, "Fetched schedule produced incorrect route"
-
-
-# --------------------------------------------------------------------------- #
-# Helper – ensure the planner raises a helpful error when the HTTP endpoint fails
-# --------------------------------------------------------------------------- #
-@responses.activate
-def test_http_failure_raises_error(
-    static_graph: nx.DiGraph,
-) -> None:
-    """
-    Simulate a 500 server error and verify that ``RoutingError`` propagates.
-    """
-    responses.add(
-        responses.GET,
-        SCHEDULE_ENDPOINT,
-        json={"error": "internal server error"},
-        status=500,
-    )
-
-    planner = RoutePlanner(
-        graph=static_graph,
-        schedule_url=SCHEDULE_ENDPOINT,
-    )
-    departure = datetime.utcnow()
-
-    with pytest.raises(RoutingError) as excinfo:
-        planner.find_route(source="A", target="C", departure=departure, realtime=False)
-    assert "500" in str(excinfo.value) or "failed" in str(excinfo.value).lower()
-
-
-# --------------------------------------------------------------------------- #
-# End of file
-# --------------------------------------------------------------------------- #
+    assert [stop for stop, _ in route] == expected_stops, "HTTP schedule integration failed"

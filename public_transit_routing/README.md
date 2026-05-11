@@ -1,12 +1,15 @@
+markdown
 # Public Transit Routing – Zurich Example
+
+![CI](https://github.com/your-repo/public-transit-routing-zurich/actions/workflows/ci.yml/badge.svg)
 
 ## Overview
 
-This repository contains a minimal public‑transit routing service. The README below walks you through:
+This repository provides a minimal public‑transit routing service for Zurich. The README walks you through:
 
-1. **Building routing indices** (using open‑source GTFS data for Zurich)  
-2. **Running the service locally** (Docker + Python)  
-3. **Executing Python tests** that call the API (sample request/response)
+1. **Building routing indices** using GTFS data for Zurich.  
+2. **Running the service locally** with Docker or directly via Python.  
+3. **Executing the test suite** that validates the API endpoints.
 
 ---
 
@@ -16,6 +19,6 @@ This repository contains a minimal public‑transit routing service. The README 
 - Python 3.11+  
 - `pip` (or `uv`)  
 - `docker` (optional, for containerised execution)  
-- `wget` or `curl` (to download GTFS data)
+- `wget` or `curl` (to download GTFS data)  
 
 ### Step‑by‑step

@@ -1,3 +1,4 @@
+go
 package api
 
 import (
@@ -16,22 +17,14 @@ type ServiceInfo struct {
 
 // HealthResponse is the JSON payload returned by the /health endpoint.
 type HealthResponse struct {
-	Status      string      `json:"status"`      // "ok" or "degraded"
-	Uptime      string      `json:"uptime"`      // human‑readable duration
-	Timestamp   time.Time   `json:"timestamp"`   // server time
-	ServiceInfo ServiceInfo `json:"service"`     // static service metadata
+	Status string `json:"status"` // "ok"
 }
 
 // healthHandler returns a JSON payload describing the current health of the service.
 func healthHandler(startTime time.Time, info ServiceInfo) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		uptime := time.Since(startTime).Round(time.Second)
-
 		resp := HealthResponse{
-			Status:      "ok",
-			Uptime:      uptime.String(),
-			Timestamp:   time.Now().UTC(),
-			ServiceInfo: info,
+			Status: "ok",
 		}
 		c.JSON(http.StatusOK, resp)
 	}

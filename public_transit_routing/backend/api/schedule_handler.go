@@ -1,3 +1,4 @@
+go
 package api
 
 import (
@@ -6,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"time"
 
@@ -56,12 +58,25 @@ func NewRouter(cfg Config) *gin.Engine {
 	return r
 }
 
+// validateRegion ensures the region parameter contains only allowed characters.
+func validateRegion(region string) error {
+	if region == "" {
+		return fmt.Errorf("region is required")
+	}
+	// Allow alphanumeric, hyphens and underscores.
+	matched, _ := regexp.MatchString(`^[a-zA-Z0-9_-]+$`, region)
+	if !matched {
+		return fmt.Errorf("invalid region '%s': only letters, numbers, hyphens and underscores are allowed", region)
+	}
+	return nil
+}
+
 // handleSchedule serves the latest schedule blob for a given region.
 func handleSchedule(cfg Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		region := c.Param("region")
-		if region == "" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "region is required"})
+		if err := validateRegion(region); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -69,7 +84,7 @@ func handleSchedule(cfg Config) gin.HandlerFunc {
 		file, err := os.Open(blobPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": "schedule not found"})
+				c.JSON(http.StatusNotFound, gin.H{"error": fmt.Sprintf("schedule not found for region '%s'", region)})
 			} else {
 				log.Error().Err(err).Str("path", blobPath).Msg("failed to open schedule blob")
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
@@ -78,15 +93,13 @@ func handleSchedule(cfg Config) gin.HandlerFunc {
 		}
 		defer file.Close()
 
-		// Read the whole file (expected to be small enough for a single read)
 		data, err := io.ReadAll(file)
 		if err != nil {
 			log.Error().Err(err).Str("path", blobPath).Msg("failed to read schedule blob")
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to read schedule data"})
 			return
 		}
 
-		// Unmarshal to verify protobuf integrity (optional, can be disabled for perf)
 		var blob ScheduleBlob
 		if err := proto.Unmarshal(data, &blob); err != nil {
 			log.Error().Err(err).Str("path", blobPath).Msg("invalid protobuf in schedule blob")
@@ -94,7 +107,6 @@ func handleSchedule(cfg Config) gin.HandlerFunc {
 			return
 		}
 
-		// Set cache headers
 		c.Header("Cache-Control", "public, max-age="+strconv.Itoa(int(cfg.MaxAge.Seconds())))
 		c.Header("Content-Type", "application/octet-stream")
 		c.Header("ETag", strconv.FormatUint(uint64(blob.Version), 10))
@@ -108,22 +120,27 @@ func handleDelta(cfg Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		region := c.Param("region")
 		baseVersionStr := c.Param("baseVersion")
-		if region == "" || baseVersionStr == "" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "region and baseVersion are required"})
+
+		if err := validateRegion(region); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		baseVersion, err := strconv.ParseUint(baseVersionStr, 10, 32)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid baseVersion"})
+		if baseVersionStr == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "baseVersion is required"})
 			return
 		}
 
-		// Find the latest version for the region.
+		baseVersion, err := strconv.ParseUint(baseVersionStr, 10, 32)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("invalid baseVersion '%s': must be a non‑negative integer", baseVersionStr)})
+			return
+		}
+
 		blobPath := filepath.Join(cfg.BlobDir, region+".blob")
 		blobFile, err := os.Open(blobPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": "schedule not found"})
+				c.JSON(http.StatusNotFound, gin.H{"error": fmt.Sprintf("schedule not found for region '%s'", region)})
 			} else {
 				log.Error().Err(err).Str("path", blobPath).Msg("failed to open schedule blob")
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
@@ -135,7 +152,7 @@ func handleDelta(cfg Config) gin.HandlerFunc {
 		blobData, err := io.ReadAll(blobFile)
 		if err != nil {
 			log.Error().Err(err).Str("path", blobPath).Msg("failed to read schedule blob")
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to read schedule data"})
 			return
 		}
 		var latestBlob ScheduleBlob
@@ -145,23 +162,21 @@ func handleDelta(cfg Config) gin.HandlerFunc {
 			return
 		}
 
-		// If client already has the latest version, respond with 304.
 		if uint64(latestBlob.Version) == baseVersion {
 			c.Status(http.StatusNotModified)
 			return
 		}
 
-		// Load delta file.
 		deltaPath := filepath.Join(cfg.DeltaDir, region, strconv.FormatUint(baseVersion, 10)+"->"+strconv.FormatUint(uint64(latestBlob.Version), 10)+".delta")
 		deltaFile, err := os.Open(deltaPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				// No delta available, fallback to full blob.
+				// No delta available; fallback to full blob.
 				c.Redirect(http.StatusFound, "/schedule/"+region)
-				return
+			} else {
+				log.Error().Err(err).Str("path", deltaPath).Msg("failed to open delta file")
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
 			}
-			log.Error().Err(err).Str("path", deltaPath).Msg("failed to open delta file")
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
 			return
 		}
 		defer deltaFile.Close()
@@ -169,7 +184,7 @@ func handleDelta(cfg Config) gin.HandlerFunc {
 		deltaData, err := io.ReadAll(deltaFile)
 		if err != nil {
 			log.Error().Err(err).Str("path", deltaPath).Msg("failed to read delta file")
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to read delta data"})
 			return
 		}
 		var delta DeltaUpdate
@@ -179,7 +194,6 @@ func handleDelta(cfg Config) gin.HandlerFunc {
 			return
 		}
 
-		// Set cache headers for delta (shorter TTL).
 		c.Header("Cache-Control", "public, max-age="+strconv.Itoa(int(cfg.MaxAge.Seconds()/2)))
 		c.Header("Content-Type", "application/octet-stream")
 		c.Header("ETag", strconv.FormatUint(uint64(delta.NewVersion), 10))
