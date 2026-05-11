@@ -149,7 +149,7 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDist
                                        bool placeAsStreet /* = false*/) const
 {
   std::vector<Building> buildings;
-  GetNearbyBuildings(center, maxDistanceM, buildings);
+  GetNearbyHNObjects(center, maxDistanceM, buildings);
 
   HouseTable table(m_dataSource, placeAsStreet);
   size_t triesCount = 0;
@@ -178,6 +178,16 @@ bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) con
   bool res;
   m_dataSource.ReadFeature([&](FeatureType & ft) { res = GetExactAddress(ft, addr, true /* placeAsStreet */); }, fid);
   return res;
+}
+
+bool ReverseGeocoder::GetFeatureAddress(FeatureType & ft, Address & addr) const
+{
+  /// @todo Duplicate feature::GetCenter call. Add m_geomCenter cached into FeatureType?
+  if (GetExactAddress(ft, addr, true /* placeAsStreet */))
+    return true;
+
+  GetNearbyAddress(feature::GetCenter(ft), 0.5 /* maxDistanceM */, addr, true /* placeAsStreet */);
+  return addr.IsValid();
 }
 
 bool ReverseGeocoder::GetSavedAddress(HouseTable & table, Building const & bld, bool ignoreEdits, Address & addr) const
@@ -238,10 +248,10 @@ std::string const & ReverseGeocoder::GetHouseNumber(FeatureType & ft) const
   return hn;
 }
 
-void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radius,
+void ReverseGeocoder::GetNearbyHNObjects(m2::PointD const & center, double radius,
                                          std::vector<Building> & buildings) const
 {
-  auto const addBuilding = [&](FeatureType & ft)
+  auto const addFn = [&](FeatureType & ft)
   {
     std::string const & hn = GetHouseNumber(ft);
     if (hn.empty())
@@ -252,10 +262,18 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radiu
       buildings.push_back(FromFeatureImpl(ft, hn, distance));
   };
 
-  auto const stop = [&]() { return buildings.size() >= kMaxNumTriesToApproxAddress; };
+  auto const stopFn = [&]() { return buildings.size() >= kMaxNumTriesToApproxAddress; };
 
-  m_dataSource.ForClosestToPoint(addBuilding, stop, center, radius, kQueryScale);
-  std::sort(buildings.begin(), buildings.end(), base::LessBy(&Building::m_distanceMeters));
+  m_dataSource.ForClosestToPoint(addFn, stopFn, center, radius, kQueryScale);
+  std::sort(buildings.begin(), buildings.end(), [&center](Building const & b1, Building const & b2)
+  {
+    if (b1.m_distanceMeters != b2.m_distanceMeters)
+      return b1.m_distanceMeters < b2.m_distanceMeters;
+
+    /// @todo Check area instead? Like smaller is better (inner).
+    /// In case of overlapped polygons (m_distanceMeters == 0).
+    return b1.m_center.SquaredLength(center) < b2.m_center.SquaredLength(center);
+  });
 }
 
 // static
