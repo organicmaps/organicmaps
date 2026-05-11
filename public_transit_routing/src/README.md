@@ -1,4 +1,4 @@
-# job_github_bounty_organicmaps
+# routing_service
 
 ## Overview
 This repository provides a routing service built on OpenStreetMap (OSM) data.  
@@ -10,9 +10,10 @@ It includes tools to generate routing indices, a Go‑based HTTP API, and a Pyth
 
 ### Prerequisites
 - **Go 1.22+** (for the index‑building binary)  
-- **wget / curl** (to fetch OSM extracts)  
-- **7‑zip** (or any tool that can extract `.pbf` files)
+- **wget** or **curl** (to fetch OSM extracts)  
+- **7‑zip** (or any tool that can extract `.pbf` files)  
+- **Docker** (optional, for running the service)  
 
-### Step‑by‑step
+### Steps
 
 1. **Create a working directory**
