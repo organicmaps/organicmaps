@@ -86,7 +86,7 @@ public class ManeuverView extends LinearLayout
     // https://github.com/organicmaps/organicmaps/issues/3732
     UiUtils.visibleIf(hasStreet, mStreetFrame);
     if (hasStreet)
-      mStreet.setText(RoadShieldUtils.createStreetTextWithShields(
-          info.nextStreet, info.nextStreetRoadShields, mStreet.getTextSize()));
+      mStreet.setText(RoadShieldUtils.createStreetTextWithShields(info.nextStreet, info.nextStreetRoadShields,
+                                                                  mStreet.getTextSize()));
   }
 }

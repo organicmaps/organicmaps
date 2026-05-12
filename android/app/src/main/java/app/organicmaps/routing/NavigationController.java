@@ -54,7 +54,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mSpeedLimit = ViewCompat.requireViewById(topFrame, R.id.nav_speed_limit);
 
     final boolean isLandscape = activity.getResources().getConfiguration().orientation
-        == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+                               == android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+    final boolean isTablet = activity.getResources().getConfiguration().smallestScreenWidthDp >= 600;
 
     // Apply status-bar + display-cutout insets so neither the maneuver card nor the
     // bottom sheet renders behind the camera.  The left cutout is applied as a start
@@ -66,9 +67,12 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     final int minStartMargin = dimen(activity, R.dimen.nav_side_margin_min);
     ViewCompat.setOnApplyWindowInsetsListener(mManeuverView, (v, windowInsets) -> {
       final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      // On RTL devices layout_gravity="start" places the card on the right, so the
+      // relevant cutout edge is insets.right.  In portrait the side inset is always 0.
+      final int sideInset = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? insets.right : insets.left;
       // In landscape keep at least nav_side_margin_min breathing room even when there
-      // is no display cutout (insets.left == 0).  In portrait insets.left is always 0.
-      final int startMargin = isLandscape ? Math.max(minStartMargin, insets.left) : insets.left;
+      // is no display cutout (sideInset == 0).
+      final int startMargin = isLandscape ? Math.max(minStartMargin, sideInset) : sideInset;
 
       // In landscape shift both cards past the camera cutout (or apply the minimum margin).
       // In portrait XML margins are left untouched.
@@ -83,10 +87,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       }
 
       // Status-bar inset: padding inside the maneuver card so content clears the status bar.
-      // In landscape the speed limit sits top-aligned with the card, so it needs the same
-      // top offset; in portrait it is below the card and already inherits the clearance.
+      // In phone-landscape the speed limit sits top-aligned with the card, so it needs the same
+      // top offset.  On tablets the speed limit is constrained below the card (its top is
+      // already shifted by the card's padding), so we must not apply the inset a second time.
       v.setPaddingRelative(v.getPaddingStart(), insets.top, v.getPaddingEnd(), v.getPaddingBottom());
-      if (isLandscape)
+      if (isLandscape && !isTablet)
       {
         ((ViewGroup.MarginLayoutParams) mSpeedLimit.getLayoutParams()).topMargin = insets.top;
         mSpeedLimit.requestLayout();
@@ -94,10 +99,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
       // Nav-bar background sits outside the sheet — align it with the sheet and size it to fill
       // the system nav bar gap below.
-      final ViewGroup.MarginLayoutParams navBarParams = (ViewGroup.MarginLayoutParams) navigationBarBackground.getLayoutParams();
+      final ViewGroup.MarginLayoutParams navBarParams =
+          (ViewGroup.MarginLayoutParams) navigationBarBackground.getLayoutParams();
       final ViewGroup.LayoutParams sheetLayoutParams = bottomSheet.getLayoutParams();
       navBarParams.setMarginStart(startMargin);
-      navBarParams.width = sheetLayoutParams.width > 0 ? sheetLayoutParams.width : bottomSheet.getWidth();
+      // In portrait the sheet is match_parent (-1); propagate that directly so the background
+      // fills the full width on the first inset dispatch before any layout pass has run.
+      navBarParams.width = sheetLayoutParams.width > 0 ? sheetLayoutParams.width : ViewGroup.LayoutParams.MATCH_PARENT;
       navBarParams.height = insets.bottom;
       navigationBarBackground.requestLayout();
       return windowInsets;
@@ -108,8 +116,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     final int navFramePadding = dimen(activity, R.dimen.nav_frame_padding);
     mMapButtonsViewModel.setTopButtonsMarginTop(navFramePadding);
     mManeuverView.addOnLayoutChangeListener(
-        (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
-            mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
+        (v, left, top, right, bottom, oldLeft, oldTop, oldRight,
+         oldBottom) -> mMapButtonsViewModel.setTopButtonsMarginTop(v.getHeight() + navFramePadding));
   }
 
   public void update(@Nullable RoutingInfo info)
@@ -163,28 +171,36 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   }
 
   @Override
-  public void onEnabled() {}
+  public void onEnabled()
+  {}
 
   @Override
-  public void onDisabled() {}
+  public void onDisabled()
+  {}
 
   @Override
-  public void onWaitingData() {}
+  public void onWaitingData()
+  {}
 
   @Override
-  public void onOutdated() {}
+  public void onOutdated()
+  {}
 
   @Override
-  public void onNoData() {}
+  public void onNoData()
+  {}
 
   @Override
-  public void onNetworkError() {}
+  public void onNetworkError()
+  {}
 
   @Override
-  public void onExpiredData() {}
+  public void onExpiredData()
+  {}
 
   @Override
-  public void onExpiredApp() {}
+  public void onExpiredApp()
+  {}
 
   @Override
   public void onSettingsClicked()
