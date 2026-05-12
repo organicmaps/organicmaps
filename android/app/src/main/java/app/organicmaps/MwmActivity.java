@@ -1843,7 +1843,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onCompassUpdated(double north)
   {
     Map.onCompassUpdated(north, false);
-    mNavigationController.updateNorth();
   }
 
   @Override
