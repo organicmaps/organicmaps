@@ -112,8 +112,7 @@ public class LanesDrawable extends Drawable
 
     // Scale icon proportionally to fit within the view, maintaining aspect ratio.
     final float intrinsicIconWidth = (float) mIntrinsicWidth / mLanes.length;
-    final float scale = Math.min((float) height / mIntrinsicHeight,
-                                 (float) width / mIntrinsicWidth);
+    final float scale = Math.min((float) height / mIntrinsicHeight, (float) width / mIntrinsicWidth);
     final float iconWidth = intrinsicIconWidth * scale;
     final float iconHeight = mIntrinsicHeight * scale;
 
