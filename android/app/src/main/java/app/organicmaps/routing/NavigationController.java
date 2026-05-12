@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsViewModel;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -137,14 +136,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   {
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
     mNextTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
-  }
-
-  public void updateNorth()
-  {
-    if (!RoutingController.get().isNavigating())
-      return;
-
-    update(Framework.nativeGetRouteFollowingInfo());
   }
 
   public void update(@Nullable RoutingInfo info)
