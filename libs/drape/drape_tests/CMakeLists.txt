@@ -40,7 +40,7 @@ target_compile_definitions(${PROJECT_NAME}
 
 if (WITH_SYSTEM_PROVIDED_3PARTY)
   find_package(GTest REQUIRED)
-  target_link_libraries(${PROJECT_NAME} GTest::gtest)
+  target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest)
 else()
   add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../../../3party/googletest" "${CMAKE_CURRENT_BINARY_DIR}/googletest")
   # Same treatment as for libs under 3party/CMakeLists.txt: undo -ffinite-math-only
