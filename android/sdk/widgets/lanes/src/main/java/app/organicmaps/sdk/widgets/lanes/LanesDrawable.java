@@ -70,11 +70,17 @@ public class LanesDrawable extends Drawable
   private int mWidth;
   private int mHeight;
 
+  // Intrinsic (pre-scale) dimensions; mWidth/mHeight are mutated by setBounds.
+  private final int mIntrinsicWidth;
+  private final int mIntrinsicHeight;
+
   public LanesDrawable(@NonNull final Context context, @NonNull LaneInfo[] lanes)
   {
     final TintColorInfo tintColorInfo = new TintColorInfo(ContextCompat.getColor(context, ACTIVE_LANE_TINT_RES),
                                                           ContextCompat.getColor(context, INACTIVE_LANE_TINT_RES));
     mLanes = createLaneDrawables(context, lanes, tintColorInfo);
+    mIntrinsicWidth = mWidth;
+    mIntrinsicHeight = mHeight;
   }
 
   public LanesDrawable(@NonNull final Context context, @NonNull LaneInfo[] lanes, @ColorInt int activeLaneTint,
@@ -82,6 +88,8 @@ public class LanesDrawable extends Drawable
   {
     final TintColorInfo tintColorInfo = new TintColorInfo(activeLaneTint, inactiveLaneTint);
     mLanes = createLaneDrawables(context, lanes, tintColorInfo);
+    mIntrinsicWidth = mWidth;
+    mIntrinsicHeight = mHeight;
   }
 
   @Override
@@ -101,29 +109,29 @@ public class LanesDrawable extends Drawable
   {
     final int width = right - left;
     final int height = bottom - top;
-    final float widthRatio = (float) width / mWidth;
-    final float heightRatio = (float) height / mHeight;
-    final float ratio = Math.min(widthRatio, heightRatio);
 
-    final float widthForOneLane = ((float) mWidth / mLanes.length) * ratio;
-    final float heightForOneLane = mHeight * ratio;
+    // Scale icon proportionally to fit within the view, maintaining aspect ratio.
+    final float intrinsicIconWidth = (float) mIntrinsicWidth / mLanes.length;
+    final float scale = Math.min((float) height / mIntrinsicHeight, (float) width / mIntrinsicWidth);
+    final float iconWidth = intrinsicIconWidth * scale;
+    final float iconHeight = mIntrinsicHeight * scale;
 
-    mWidth = (int) (widthForOneLane * mLanes.length);
-    mHeight = (int) heightForOneLane;
+    // Space-evenly: equal gap between each icon and between icons and the edges.
+    final float gap = (width - iconWidth * mLanes.length) / (mLanes.length + 1);
+    final float vertOffset = top + (height - iconHeight) / 2f;
 
-    float offsetX = (float) Math.abs(mWidth - width) / 2 + left;
-    float offsetY = (float) Math.abs(mHeight - height) / 2 + top;
+    float offsetX = left + gap;
     for (final LaneDrawable drawable : mLanes)
     {
       final Rect bounds = drawable.mDrawable.getBounds();
-      bounds.offsetTo((int) offsetX, (int) offsetY);
-      bounds.right = (int) (bounds.left + widthForOneLane);
-      bounds.bottom = (int) (bounds.top + heightForOneLane);
-      offsetX += widthForOneLane;
+      bounds.set((int) offsetX, (int) vertOffset, (int) (offsetX + iconWidth), (int) (vertOffset + iconHeight));
+      offsetX += iconWidth + gap;
     }
 
-    super.setBounds(mLanes[0].mDrawable.getBounds().left, mLanes[0].mDrawable.getBounds().top,
-                    mLanes[mLanes.length - 1].mDrawable.getBounds().right, mLanes[0].mDrawable.getBounds().bottom);
+    mWidth = width;
+    mHeight = height;
+
+    super.setBounds(left, top, right, bottom);
   }
 
   @Override

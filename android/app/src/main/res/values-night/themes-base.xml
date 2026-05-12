@@ -49,9 +49,6 @@
     <item name="ppButtonsBackground">@color/bg_window</item>
     <item name="ppFloatingMarkerIconColor">@color/white_54</item>
 
-    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
-    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
-    <item name="navLanesBackgroundColor">@color/base_accent</item>
     <item name="navLaneArrowActiveColor">@color/nav_lane_arrow_active</item>
     <item name="navLaneArrowInactiveColor">@color/nav_lane_arrow_inactive</item>
 
