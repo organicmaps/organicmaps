@@ -58,6 +58,7 @@ landuse-retail                                      # area z15-
 leisure-resort                                      # area z15- (also has icon z16-, caption(optional) z16-)
 leisure-water_park                                  # area z16- (also has icon z16-, caption(optional) z16-)
 tourism-camp_site                                   # area z13- (also has icon z13-, caption(optional) z13-)
+tourism-theme_park                                  # area z16- (also has icon z14-, caption(optional) z14-)
 === 170
 
 highway-footway-area                                # area z14-
