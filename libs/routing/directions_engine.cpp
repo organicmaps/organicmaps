@@ -8,12 +8,11 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "geometry/point2d.hpp"
-
 namespace routing
 {
 using namespace ftypes;
 using namespace routing::turns;
+
 namespace
 {
 bool IsFakeFeature(uint32_t featureId)

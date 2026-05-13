@@ -2,9 +2,10 @@
 
 #include "routing/base/followed_polyline.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/polyline2d.hpp"
 
-namespace routing_test
+namespace followed_polyline_test
 {
 using namespace routing;
 
@@ -121,4 +122,4 @@ UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
   double const masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(), point);
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 }
-}  // namespace routing_test
+}  // namespace followed_polyline_test

@@ -3,37 +3,27 @@
 
 #include "routing/routing_helpers.hpp"
 
-#include "indexer/altitude_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/internal/file_data.hpp"
-#include "coding/read_write_utils.hpp"
-#include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
-#include "coding/varint.hpp"
 
-#include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
 #include <algorithm>
-#include <type_traits>
-#include <utility>
 #include <vector>
 
 #include "3party/succinct/elias_fano.hpp"
-#include "3party/succinct/mapper.hpp"
 #include "3party/succinct/rs_bit_vector.hpp"
 
 using namespace feature;

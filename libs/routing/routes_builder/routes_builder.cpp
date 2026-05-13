@@ -1,5 +1,6 @@
 #include "routing/routes_builder/routes_builder.hpp"
 
+#include "routing/base/followed_polyline.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -286,7 +287,7 @@ RoutesBuilder::Result RoutesBuilder::Processor::operator()(Params const & params
   LOG(LINFO, ("Start building route, checkpoints:", params.m_checkpoints));
 
   RouterResultCode resultCode = RouterResultCode::RouteNotFound;
-  routing::Route route("" /* router */, 0 /* routeId */);
+  routing::RoutesResult routesResult("" /* router */, 0 /* routesId */);
 
   CHECK(m_dataSource, ());
 
@@ -296,7 +297,7 @@ RoutesBuilder::Result RoutesBuilder::Processor::operator()(Params const & params
     m_delegate->SetTimeout(params.m_timeoutSeconds);
     base::Timer timer;
     resultCode = m_router->CalculateRoute(params.m_checkpoints, m2::PointD::Zero(), false /* adjustToPrevRoute */,
-                                          *m_delegate, route);
+                                          *m_delegate, routesResult);
 
     if (resultCode != RouterResultCode::NoError)
       break;
@@ -309,13 +310,16 @@ RoutesBuilder::Result RoutesBuilder::Processor::operator()(Params const & params
   result.m_code = resultCode;
   result.m_buildTimeSeconds = timeSum / static_cast<double>(params.m_launchesNumber);
 
-  RoutesBuilder::Route routeResult;
-  routeResult.m_distance = route.GetTotalDistanceMeters();
-  routeResult.m_eta = route.GetTotalTimeSec();
+  RoutesBuilder::Route res;
+  if (routesResult.IsValid())
+  {
+    routing::Route active(routesResult.GetActive());
+    res.m_distance = active.GetTotalDistanceMeters();
+    res.m_eta = active.GetTotalTimeSec();
+    res.m_followedPolyline = active.MoveFollowedPolyline();
+  }
 
-  routeResult.m_followedPolyline = route.GetFollowedPolyline();
-
-  result.m_routes.emplace_back(std::move(routeResult));
+  result.m_routes.emplace_back(std::move(res));
 
   return result;
 }

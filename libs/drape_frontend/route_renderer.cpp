@@ -456,6 +456,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   frameValues.SetTo(params);
   params.m_modelView = glsl::make_mat4(adjScreen.GetShapeModelView().m_data);
   params.m_color = glsl::ToVec4(df::GetColorConstant(style.m_color));
+  params.m_color.a *= subrouteInfo.m_subroute->m_alphaMul;
   params.m_routeParams = glsl::vec4(currentHalfWidth, screenHalfWidth, dist, trafficShown ? 1.0f : 0.0f);
 
   // Adjust line color depending on route type and subroute distance. After the first stop point
