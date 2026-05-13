@@ -1055,6 +1055,13 @@ void FrontendRenderer::UpdateAll()
     layer.m_isDirty = false;
   }
 
+  // The render groups (and their owned OverlayHandles) just got destroyed; the overlay
+  // trees still hold non-owning ref_ptrs into that freed memory. Clear them so a
+  // SelectObject message arriving before the next BuildOverlayTree does not iterate
+  // dangling handles (manifests as __cxa_pure_virtual in OverlayHandle::GetPixelRect).
+  m_overlayTree->Clear();
+  m_searchMarkTextOverlayTree->Clear();
+
   // Must be recreated on map style changing.
   CHECK(m_context != nullptr, ());
   m_transitBackground = make_unique_dp<ScreenQuadRenderer>(m_context);
