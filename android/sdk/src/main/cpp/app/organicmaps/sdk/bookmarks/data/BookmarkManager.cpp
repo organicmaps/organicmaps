@@ -5,6 +5,8 @@
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
 
+#include "kml/type_utils.hpp"
+
 #include "map/bookmark_helpers.hpp"
 #include "map/place_page_info.hpp"
 
@@ -383,14 +385,16 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
                                                                                          jlong trackId,
                                                                                          jclass trackClazz)
 {
-  // Track(long trackId, long categoryId, String name, String lengthString, int color)
+  // Track(long trackId, long categoryId, boolean isRelationTrack, String name, String lengthString, int color)
   static jmethodID const cId =
-      jni::GetConstructorID(env, trackClazz, "(JJLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;I)V");
-  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
+      jni::GetConstructorID(env, trackClazz, "(JJZLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;I)V");
+  auto const kmlTrackId = static_cast<kml::TrackId>(trackId);
+  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(kmlTrackId);
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
-  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()),
+  auto const isRelationTrack = static_cast<jboolean>(kmlTrackId == kml::kTempRelationTrackId);
+  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()), isRelationTrack,
                         jni::ToJavaString(env, nTrack->GetName()),
                         ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
                         nTrack->GetColor(0).GetARGB());
