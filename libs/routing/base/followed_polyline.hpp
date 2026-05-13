@@ -1,12 +1,7 @@
 #pragma once
 
-#include "geometry/mercator.hpp"
-
-#include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
-#include "geometry/rect2d.hpp"
 
-#include <cstddef>
 #include <limits>
 #include <vector>
 

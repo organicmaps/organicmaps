@@ -87,14 +87,14 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType ty
 void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & finalPos)
 {
   // Find route by A*-bidirectional algorithm.
-  routing::Route routeFoundByAstarBidirectional("", 0 /* route id */);
+  routing::Route routeFoundByAstarBidirectional;
   {
     auto router = CreateRouter("test-astar-bidirectional");
     TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
   }
 
   // Find route by A* algorithm.
-  routing::Route routeFoundByAstar("", 0 /* route id */);
+  routing::Route routeFoundByAstar;
   {
     auto router = CreateRouter("test-astar");
     TestRouter(*router, startPos, finalPos, routeFoundByAstar);
@@ -151,11 +151,14 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
   routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
   base::Timer timer;
+  routing::RoutesResult res(router.GetName(), 0 /* routes id */);
   auto const resultCode =
       router.CalculateRoute(routing::Checkpoints(startPos, finalPos), m2::PointD::Zero() /* startDirection */,
-                            false /* adjust */, delegate, route);
+                            false /* adjust */, delegate, res);
   double const elapsedSec = timer.ElapsedSeconds();
   TEST_EQUAL(routing::RouterResultCode::NoError, resultCode, ());
+  TEST(res.IsValid(), ());
+  route = routing::Route(res.GetActive());
   TEST(route.IsValid(), ());
   m2::PolylineD const & poly = route.GetPoly();
   TEST_GREATER(poly.GetSize(), 0, ());
