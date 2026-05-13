@@ -5,12 +5,12 @@ final class MapTemplateBuilder {
     case startPanning
     case zoomIn
     case zoomOut
+    case recenter
   }
 
   enum BarButtonType {
     case dismissPaning
     case destination
-    case recenter
     case settings
     case mute
     case unmute
@@ -24,24 +24,17 @@ final class MapTemplateBuilder {
 
   // MARK: - CPMapTemplate builders
 
-  class func buildBaseTemplate(positionMode: MWMMyPositionMode) -> CPMapTemplate {
+  class func buildBaseTemplate(positionMode: MWMMyPositionMode, isOnRoute: Bool) -> CPMapTemplate {
     let mapTemplate = CPMapTemplate()
-    mapTemplate.hidesButtonsWithNavigationBar = false
-    configureBaseUI(mapTemplate: mapTemplate)
-    if positionMode == .pendingPosition {
-      mapTemplate.leadingNavigationBarButtons = []
-    } else if positionMode == .follow || positionMode == .followAndRotate {
-      setupDestinationButton(mapTemplate: mapTemplate)
-    } else {
-      setupRecenterButton(mapTemplate: mapTemplate)
-    }
+    mapTemplate.hidesButtonsWithNavigationBar = true
+    configureBaseUI(mapTemplate, positionMode: positionMode, isOnRoute: isOnRoute)
     return mapTemplate
   }
 
-  class func buildNavigationTemplate() -> CPMapTemplate {
+  class func buildNavigationTemplate(positionMode: MWMMyPositionMode) -> CPMapTemplate {
     let mapTemplate = CPMapTemplate()
-    mapTemplate.hidesButtonsWithNavigationBar = false
-    configureNavigationUI(mapTemplate: mapTemplate)
+    mapTemplate.hidesButtonsWithNavigationBar = true
+    configureNavigationUI(mapTemplate, positionMode: positionMode)
     return mapTemplate
   }
 
@@ -61,19 +54,10 @@ final class MapTemplateBuilder {
 
   // MARK: - MapTemplate UI configs
 
-  class func configureBaseUI(mapTemplate: CPMapTemplate) {
+  class func configureBaseUI(_ mapTemplate: CPMapTemplate, positionMode: MWMMyPositionMode, isOnRoute: Bool) {
     mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.main)
-    let panningButton = buildMapButton(type: .startPanning) { _ in
-      mapTemplate.showPanningInterface(animated: true)
-    }
-    let zoomInButton = buildMapButton(type: .zoomIn) { _ in
-      FrameworkHelper.zoomMap(.in)
-    }
-    let zoomOutButton = buildMapButton(type: .zoomOut) { _ in
-      FrameworkHelper.zoomMap(.out)
-    }
-    mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
-
+    setupMapButtons(mapTemplate, positionMode: positionMode)
+    setupLeadingNavigationBarButtons(mapTemplate, positionMode: positionMode, isOnRoute: isOnRoute)
     let settingsButton = buildBarButton(type: .settings) { _ in
       let gridTemplate = SettingsTemplateBuilder.buildGridTemplate()
       CarPlayService.shared.pushTemplate(gridTemplate, animated: true)
@@ -81,7 +65,7 @@ final class MapTemplateBuilder {
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
   }
 
-  class func configurePanUI(mapTemplate: CPMapTemplate) {
+  class func configurePanUI(_ mapTemplate: CPMapTemplate) {
     let zoomInButton = buildMapButton(type: .zoomIn) { _ in
       FrameworkHelper.zoomMap(.in)
     }
@@ -97,13 +81,10 @@ final class MapTemplateBuilder {
     mapTemplate.trailingNavigationBarButtons = [doneButton]
   }
 
-  class func configureNavigationUI(mapTemplate: CPMapTemplate) {
+  class func configureNavigationUI(_ mapTemplate: CPMapTemplate, positionMode: MWMMyPositionMode) {
     mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.navigation)
-    let panningButton = buildMapButton(type: .startPanning) { _ in
-      mapTemplate.showPanningInterface(animated: true)
-    }
-    mapTemplate.mapButtons = [panningButton]
-    setupMuteAndRedirectButtons(template: mapTemplate)
+    setupMapButtons(mapTemplate, positionMode: positionMode)
+    setupLeadingNavigationBarButtons(mapTemplate, positionMode: positionMode, isOnRoute: true)
     let endButton = buildBarButton(type: .endRoute) { _ in
       CarPlayService.shared.cancelCurrentTrip()
     }
@@ -113,43 +94,61 @@ final class MapTemplateBuilder {
 
   // MARK: - Conditional navigation buttons
 
-  class func setupDestinationButton(mapTemplate: CPMapTemplate) {
+  class func setupMapButtons(_ mapTemplate: CPMapTemplate, positionMode: MWMMyPositionMode) {
+    let panningButton = buildMapButton(type: .startPanning) { _ in
+      mapTemplate.showPanningInterface(animated: true)
+    }
+    let zoomInButton = buildMapButton(type: .zoomIn) { _ in
+      FrameworkHelper.zoomMap(.in)
+    }
+    let zoomOutButton = buildMapButton(type: .zoomOut) { _ in
+      FrameworkHelper.zoomMap(.out)
+    }
+    let recenterButton = buildMapButton(type: .recenter) { _ in
+      mapTemplate.hidesButtonsWithNavigationBar = true
+      FrameworkHelper.switchMyPositionMode()
+    }
+
+    switch positionMode {
+    case .follow, .followAndRotate:
+      if !mapTemplate.isPanningInterfaceVisible {
+        mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
+      }
+    case .notFollow:
+      if !mapTemplate.isPanningInterfaceVisible {
+        mapTemplate.mapButtons = [recenterButton, zoomInButton, zoomOutButton]
+      }
+    case .pendingPosition, .notFollowNoPosition:
+      mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
+    }
+  }
+
+  class func setupLeadingNavigationBarButtons(_ mapTemplate: CPMapTemplate, positionMode: MWMMyPositionMode, isOnRoute: Bool) {
+    let isTTSEnabled = MWMTextToSpeech.isTTSEnabled()
+    let muteButton = buildBarButton(type: isTTSEnabled ? .mute : .unmute) { _ in
+      MWMTextToSpeech.setTTSEnabled(!isTTSEnabled)
+      setupLeadingNavigationBarButtons(mapTemplate, positionMode: positionMode, isOnRoute: isOnRoute)
+    }
+    let redirectButton = buildBarButton(type: .redirectRoute) { _ in
+      let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
+      CarPlayService.shared.pushTemplate(listTemplate, animated: true)
+    }
     let destinationButton = buildBarButton(type: .destination) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
     }
-    mapTemplate.leadingNavigationBarButtons = [destinationButton]
-  }
-
-  class func setupRecenterButton(mapTemplate: CPMapTemplate) {
-    let recenterButton = buildBarButton(type: .recenter) { _ in
-      FrameworkHelper.switchMyPositionMode()
+    if isOnRoute {
+      mapTemplate.leadingNavigationBarButtons = [muteButton, redirectButton]
+      return
     }
-    mapTemplate.leadingNavigationBarButtons = [recenterButton]
-  }
-
-  private class func setupMuteAndRedirectButtons(template: CPMapTemplate) {
-    let muteButton = buildBarButton(type: .mute) { _ in
-      MWMTextToSpeech.setTTSEnabled(false)
-      setupUnmuteAndRedirectButtons(template: template)
+    switch positionMode {
+    case .follow, .followAndRotate, .notFollow:
+      if !mapTemplate.isPanningInterfaceVisible {
+        mapTemplate.leadingNavigationBarButtons = [destinationButton]
+      }
+    case .pendingPosition, .notFollowNoPosition:
+      mapTemplate.leadingNavigationBarButtons = []
     }
-    let redirectButton = buildBarButton(type: .redirectRoute) { _ in
-      let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
-      CarPlayService.shared.pushTemplate(listTemplate, animated: true)
-    }
-    template.leadingNavigationBarButtons = [muteButton, redirectButton]
-  }
-
-  private class func setupUnmuteAndRedirectButtons(template: CPMapTemplate) {
-    let unmuteButton = buildBarButton(type: .unmute) { _ in
-      MWMTextToSpeech.setTTSEnabled(true)
-      setupMuteAndRedirectButtons(template: template)
-    }
-    let redirectButton = buildBarButton(type: .redirectRoute) { _ in
-      let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
-      CarPlayService.shared.pushTemplate(listTemplate, animated: true)
-    }
-    template.leadingNavigationBarButtons = [unmuteButton, redirectButton]
   }
 
   // MARK: - CPMapButton builder
@@ -158,11 +157,13 @@ final class MapTemplateBuilder {
     let button = CPMapButton(handler: action)
     switch type {
     case .startPanning:
-      button.image = UIImage(named: "btn_carplay_pan_light")
+      button.image = UIImage.btnCarplayPanLight
     case .zoomIn:
-      button.image = UIImage(named: "btn_zoom_in")
+      button.image = UIImage.btnZoomIn
     case .zoomOut:
-      button.image = UIImage(named: "btn_zoom_out")
+      button.image = UIImage.btnZoomOut
+    case .recenter:
+      button.image = UIImage.btnGetPosition
     }
     return button
   }
@@ -175,8 +176,6 @@ final class MapTemplateBuilder {
       CPBarButton(title: L("done"), handler: action)
     case .destination:
       CPBarButton(title: L("pick_destination"), handler: action)
-    case .recenter:
-      CPBarButton(title: L("follow_my_position"), handler: action)
     case .settings:
       CPBarButton(image: UIImage.icCarplaySettings, handler: action)
     case .mute:
