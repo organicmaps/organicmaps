@@ -33,6 +33,10 @@ final class CarPlayService: NSObject {
     interfaceController?.rootTemplate as? CPMapTemplate
   }
 
+  private var isOnRoute: Bool {
+    MWMRouter.isOnRoute()
+  }
+
   @objc var carplayLayoutMargins: UIEdgeInsets {
     guard isCarplayActivated, let view = carplayVC?.view else {
       return .zero
@@ -188,7 +192,7 @@ final class CarPlayService: NSObject {
   }
 
   private func applyBaseRootTemplate() {
-    let mapTemplate = MapTemplateBuilder.buildBaseTemplate(positionMode: currentPositionMode)
+    let mapTemplate = MapTemplateBuilder.buildBaseTemplate(positionMode: currentPositionMode, isOnRoute: isOnRoute)
     mapTemplate.mapDelegate = self
     mapTemplate.tripEstimateStyle = rootTemplateStyle
     interfaceController?.setRootTemplate(mapTemplate, animated: true, completion: templateCompletion)
@@ -196,7 +200,7 @@ final class CarPlayService: NSObject {
   }
 
   private func applyNavigationRootTemplate(trip: CPTrip, routeInfo: RouteInfo) {
-    let mapTemplate = MapTemplateBuilder.buildNavigationTemplate()
+    let mapTemplate = MapTemplateBuilder.buildNavigationTemplate(positionMode: currentPositionMode)
     mapTemplate.mapDelegate = self
     interfaceController?.setRootTemplate(mapTemplate, animated: true, completion: templateCompletion)
     router?.startNavigationSession(forTrip: trip, template: mapTemplate)
@@ -253,14 +257,7 @@ final class CarPlayService: NSObject {
     guard let mapTemplate = rootMapTemplate else {
       return
     }
-    MapTemplateBuilder.configureBaseUI(mapTemplate: mapTemplate)
-    if currentPositionMode == .pendingPosition {
-      mapTemplate.leadingNavigationBarButtons = []
-    } else if currentPositionMode == .follow || currentPositionMode == .followAndRotate {
-      MapTemplateBuilder.setupDestinationButton(mapTemplate: mapTemplate)
-    } else {
-      MapTemplateBuilder.setupRecenterButton(mapTemplate: mapTemplate)
-    }
+    MapTemplateBuilder.configureBaseUI(mapTemplate, positionMode: currentPositionMode, isOnRoute: isOnRoute)
     updateVisibleViewPortState(.default)
     FrameworkHelper.rotateMap(0.0, animated: true)
   }
@@ -408,16 +405,16 @@ extension CarPlayService: CPSessionConfigurationDelegate {
 
 extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
-    MapTemplateBuilder.configurePanUI(mapTemplate: mapTemplate)
+    MapTemplateBuilder.configurePanUI(mapTemplate)
     FrameworkHelper.stopLocationFollow()
   }
 
   func mapTemplateDidDismissPanningInterface(_ mapTemplate: CPMapTemplate) {
     if let info = mapTemplate.userInfo as? MapInfo,
        info.type == CPConstants.TemplateType.navigation {
-      MapTemplateBuilder.configureNavigationUI(mapTemplate: mapTemplate)
+      MapTemplateBuilder.configureNavigationUI(mapTemplate, positionMode: currentPositionMode)
     } else {
-      MapTemplateBuilder.configureBaseUI(mapTemplate: mapTemplate)
+      MapTemplateBuilder.configureBaseUI(mapTemplate, positionMode: currentPositionMode, isOnRoute: isOnRoute)
     }
     FrameworkHelper.switchMyPositionMode()
   }
@@ -442,8 +439,9 @@ extension CarPlayService: CPMapTemplateDelegate {
     FrameworkHelper.moveMap(offset)
   }
 
-  func mapTemplate(_: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity _: CGPoint) {
+  func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity _: CGPoint) {
     let scaleFactor = carplayVC?.mapView?.contentScaleFactor ?? 1
+    mapTemplate.hidesButtonsWithNavigationBar = false
     FrameworkHelper.scrollMap(toDistanceX: -scaleFactor * translation.x, andY: -scaleFactor * translation.y)
   }
 
@@ -466,7 +464,7 @@ extension CarPlayService: CPMapTemplateDelegate {
       return
     }
 
-    MapTemplateBuilder.configureNavigationUI(mapTemplate: rootMapTemplate)
+    MapTemplateBuilder.configureNavigationUI(rootMapTemplate, positionMode: currentPositionMode)
 
     if interfaceController.templates.count > 1 {
       interfaceController.popToRootTemplate(animated: false, completion: templateCompletion)
@@ -609,24 +607,9 @@ extension CarPlayService: CarPlayRouterListener {
 extension CarPlayService: LocationModeListener {
   func processMyPositionStateModeEvent(_ mode: MWMMyPositionMode) {
     currentPositionMode = mode
-    guard let rootMapTemplate = rootMapTemplate,
-          let info = rootMapTemplate.userInfo as? MapInfo,
-          info.type == CPConstants.TemplateType.main
-    else {
-      return
-    }
-    switch mode {
-    case .follow, .followAndRotate:
-      if !rootMapTemplate.isPanningInterfaceVisible {
-        MapTemplateBuilder.setupDestinationButton(mapTemplate: rootMapTemplate)
-      }
-    case .notFollow:
-      if !rootMapTemplate.isPanningInterfaceVisible {
-        MapTemplateBuilder.setupRecenterButton(mapTemplate: rootMapTemplate)
-      }
-    case .pendingPosition, .notFollowNoPosition:
-      rootMapTemplate.leadingNavigationBarButtons = []
-    }
+    guard let rootMapTemplate else { return }
+    MapTemplateBuilder.setupMapButtons(rootMapTemplate, positionMode: mode)
+    MapTemplateBuilder.setupLeadingNavigationBarButtons(rootMapTemplate, positionMode: mode, isOnRoute: isOnRoute)
   }
 }
 
