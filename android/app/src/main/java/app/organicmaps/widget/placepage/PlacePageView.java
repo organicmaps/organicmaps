@@ -574,7 +574,7 @@ public class PlacePageView extends Fragment
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_background_size,
                                             requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
-      showCategory = !track.isTempRelationTrack();
+      showCategory = !track.isRelationTrack();
       if (showCategory)
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
     }
@@ -811,7 +811,8 @@ public class PlacePageView extends Fragment
           mEditTopSpace);
     }
     final boolean isTrackOrRecording = mMapObject.isTrack() || mMapObject.isTrackRecording();
-    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton);
+    final boolean isRelationTrack = mMapObject.isTrack() && ((Track) mMapObject).isRelationTrack();
+    UiUtils.hideIf(mMapObject.isTrackRecording() || isRelationTrack, mShareButton);
     UiUtils.hideIf(isTrackOrRecording, mFrame.findViewById(R.id.ll__place_open_in), mDetailsTopSpace);
     updateLinksView();
     updateOpeningHoursView();

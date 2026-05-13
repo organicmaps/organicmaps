@@ -14,6 +14,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     "("
     "J"                                               // categoryId
     "J"                                               // trackId
+    "Z"                                               // isRelationTrack
     "Ljava/lang/String;"                              // title
     "Ljava/lang/String;"                              // secondaryTitle
     "Ljava/lang/String;"                              // subtitle
@@ -38,6 +39,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
   jobject mapObject = env->NewObject(g_trackClazz, ctorId,
     static_cast<jlong>(track->GetGroupId()),
     static_cast<jlong>(trackId),
+    static_cast<jboolean>(info.IsRelationTrack()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondaryTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()),

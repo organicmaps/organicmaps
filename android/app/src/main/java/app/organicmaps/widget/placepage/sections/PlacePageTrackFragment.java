@@ -78,7 +78,7 @@ public class PlacePageTrackFragment extends Fragment
     Track track = (Track) mapObject;
     if (track.getElevationInfo() != null)
     {
-      if (mTrack == null || mTrack.getTrackId() != track.getTrackId() || track.isTempRelationTrack())
+      if (mTrack == null || mTrack.getTrackId() != track.getTrackId() || track.isRelationTrack())
         mElevationProfileViewRenderer.render(track, track.getElevationInfo(), track.getTrackStatistics());
       UiUtils.show(requireView());
     }
