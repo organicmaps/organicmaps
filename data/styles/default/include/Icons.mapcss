@@ -1461,24 +1461,27 @@ area|z17-[sport=horse_racing]
 node|z17-[sport=rugby_union],
 area|z17-[sport=rugby_union]
 {icon-image: australian-football-m.svg;}
-
-/* TODO: Update icons */
-node|z17-[sport=athletics],
-area|z17-[sport=athletics],
+node|z17-[sport=cycling],
+area|z17-[sport=cycling]
+{icon-image: cycling-m.svg;}
+node|z17-[sport=motor],
+area|z17-[sport=motor],
+node|z17-[sport=motocross],
+area|z17-[sport=motocross],
+node|z17-[sport=karting],
+area|z17-[sport=karting]
+{icon-image: motor-m.svg;}
 node|z17-[sport=boules],
 area|z17-[sport=boules],
 node|z17-[sport=bowls],
 area|z17-[sport=bowls],
-node|z17-[sport=cycling],
-area|z17-[sport=cycling],
 node|z17-[sport=four_square],
-area|z17-[sport=four_square],
-node|z17-[sport=karting],
-area|z17-[sport=karting],
-node|z17-[sport=motocross],
-area|z17-[sport=motocross],
-node|z17-[sport=motor],
-area|z17-[sport=motor],
+area|z17-[sport=four_square]
+{icon-image: boules-m.svg;}
+
+/* TODO: Update icons */
+node|z17-[sport=athletics],
+area|z17-[sport=athletics],
 node|z17-[sport=running],
 area|z17-[sport=running]
 {icon-image: pitch-m.svg;}
