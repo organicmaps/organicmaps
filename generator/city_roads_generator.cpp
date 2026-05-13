@@ -13,6 +13,7 @@
 #include "indexer/feature_processor.hpp"
 
 #include "geometry/circle_on_earth.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 

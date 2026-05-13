@@ -35,9 +35,11 @@ public:
   string GetName() const override { return "Dummy"; }
   void SetGuides(GuidesTracks && /* guides */) override {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                  bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route) override
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                  RoutesResult & result) override
   {
-    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend(), 0 /* route id */);
+    Route route(checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
+    result.MakeFrom(GetName(), std::move(route));
     return m_result;
   }
 

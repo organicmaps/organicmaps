@@ -17,6 +17,7 @@
 namespace routing
 {
 class Route;
+class RoutesResult;
 
 /// Routing possible statuses enumeration.
 /// \warning  this enum has JNI mirror!
@@ -76,10 +77,10 @@ using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
 using NeedMoreMapsCallback = std::function<void(uint64_t, std::set<std::string> const &)>;
 using PointCheckCallback = std::function<void(ms::LatLon const &)>;
 using ProgressCallback = std::function<void(float)>;
-using ReadyCallback = std::function<void(Route const &, RouterResultCode)>;
-using ReadyCallbackOwnership = std::function<void(std::shared_ptr<Route>, RouterResultCode)>;
+using ReadyCallback = std::function<void(RoutesResult const &, RouterResultCode)>;
+using ReadyCallbackOwnership = std::function<void(std::shared_ptr<RoutesResult>, RouterResultCode)>;
 using RemoveRouteCallback = std::function<void(RouterResultCode)>;
-using RouteCallback = std::function<void(Route const &)>;
+using RouteCallback = std::function<void(RoutesResult const &)>;
 using ChangeSessionStateCallback = std::function<void(SessionState previous, SessionState current)>;
 using SpeedCameraShowCallback = std::function<void(m2::PointD const & point, double cameraSpeedKmPH)>;
 using SpeedCameraClearCallback = std::function<void()>;

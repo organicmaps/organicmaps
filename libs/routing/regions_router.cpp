@@ -6,6 +6,8 @@
 #include "routing/regions_sparse_graph.hpp"
 #include "routing/routing_helpers.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/scope_guard.hpp"
 
 namespace routing

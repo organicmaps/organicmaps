@@ -185,10 +185,7 @@ public:
   /// If not, it returns an empty string.
   std::string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
   // @return polyline of the route.
-  routing::FollowedPolyline const & GetRoutePolyline() const
-  {
-    return m_routingSession.GetRoute()->GetFollowedPolyline();
-  }
+  m2::PolylineD const & GetRoutePolyline() const { return m_routingSession.GetRoute()->GetPoly(); }
   // @return generated turns on the route.
   std::vector<routing::turns::TurnItem> GetTurnsOnRouteForTests() const
   {
@@ -226,8 +223,8 @@ public:
 
   void CheckLocationForRouting(location::GpsInfo const & info);
   void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries);
-  void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
-  void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
+  void OnBuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
+  void OnRebuildRouteReady(routing::RoutesResult const & result, routing::RouterResultCode code);
   void OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet const & absentCountries);
   void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
@@ -276,11 +273,6 @@ public:
 private:
   void SetRouterImpl(routing::RouterType type);
 
-  /// Renders all road-warning marks for the route.
-  /// \returns true if the route has an avoidable warning (toll/ferry/dirty) on a car route, i.e. one
-  /// that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
-  bool InsertRoute(routing::Route const & route);
-
   struct RoadInfo
   {
     RoadInfo() = default;
@@ -292,6 +284,19 @@ private:
     double m_distance = 0.0;
   };
   using RoadWarningsCollection = std::map<RoadWarningMarkType, std::vector<RoadInfo>>;
+
+  /// \brief Renders every route in |result| via drape subroutes. The active alternative
+  /// (result.m_activeIdx) is drawn with normal styling; the rest are dimmed. Also creates
+  /// road-warning marks for the active route.
+  /// \returns true if the active route has an avoidable warning (toll/ferry/dirty) on a car route,
+  /// i.e. one that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
+  bool InsertRoute(routing::RoutesResult const & result);
+
+  // Helper: build drape subroutes for a single route. |isActive| controls styling
+  // (alternatives are dimmed). |roadWarnings| is filled only for the active route.
+  void InsertSingleRoute(routing::RouteBase const & route, bool isActive, double depthOffset,
+                         std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
+                         RoadWarningsCollection & roadWarnings);
 
   using GetMwmIdFn = std::function<MwmSet::MwmId(routing::NumMwmId numMwmId)>;
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.

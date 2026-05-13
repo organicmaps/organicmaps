@@ -7,7 +7,7 @@
 #include "routing/segment.hpp"
 #include "routing/world_graph.hpp"
 
-#include "geometry/point2d.hpp"
+#include "geometry/mercator.hpp"
 
 #include <algorithm>
 #include <queue>

@@ -6,6 +6,7 @@
 #include "routing/turns_generator_utils.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
 
 namespace routing
 {

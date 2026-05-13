@@ -25,7 +25,7 @@ public:
 
   void TestCarRouter(ms::LatLon const & start, ms::LatLon const & final, size_t reiterations)
   {
-    routing::Route routeFoundByAstarBidirectional("", 0 /* route id */);
+    routing::Route routeFoundByAstarBidirectional;
     auto router = CreateRouter("test-astar-bidirectional");
 
     m2::PointD const startMerc = mercator::FromLatLon(start);

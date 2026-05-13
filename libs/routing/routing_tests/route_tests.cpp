@@ -69,7 +69,7 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
     auto const settings = GetRoutingSettings(vehicleType);
     for (auto const & segments : GetSegments())
     {
-      Route route("TestRouter", 0 /* route id */);
+      Route route;
       route.SetRoutingSettings(settings);
 
       vector<RouteSegment> routeSegments;
@@ -78,7 +78,7 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
       route.SetRouteSegments(std::move(routeSegments));
 
       route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
-      route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
+      route.SetSubroutes(vector<Route::SubrouteAttrs>(
           {Route::SubrouteAttrs(geometry::PointWithAltitude(kTestGeometry.front(), geometry::kDefaultAltitudeMeters),
                                 geometry::PointWithAltitude(kTestGeometry.back(), geometry::kDefaultAltitudeMeters), 0,
                                 kTestSegments.size())}));
@@ -111,7 +111,7 @@ UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
 {
   // |curTurn.m_index| is an index of the point of |curTurn| at polyline |route.m_poly|.
 
-  Route route("TestRouter", 0 /* route id */);
+  Route route;
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kTestGeometry, kTestTurns, {}, kTestTimes, routeSegments);
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
@@ -197,7 +197,7 @@ UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
 
 UNIT_TEST(NextTurnTest)
 {
-  Route route("TestRouter", 0 /* route id */);
+  Route route;
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kTestGeometry, kTestTurns, {}, {}, routeSegments);
   route.SetRouteSegments(std::move(routeSegments));
@@ -246,7 +246,7 @@ UNIT_TEST(NextTurnTest)
 
 UNIT_TEST(NextTurnsTest)
 {
-  Route route("TestRouter", 0 /* route id */);
+  Route route;
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<RouteSegment> routeSegments;
   GetTestRouteSegments(kTestGeometry, kTestTurns, {}, {}, routeSegments);
@@ -336,7 +336,7 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
                                              {0.0002, 0.0002}, {0.0002, 0.0001}, {0.0, 0.0001}};
   double constexpr kRoundingErrorMeters = 0.001;
 
-  Route route("TestRouter", 0 /* route id */);
+  Route route;
   route.SetGeometry(kRouteGeometry.begin(), kRouteGeometry.end());
 
   vector<RouteSegment> routeSegments;
@@ -386,7 +386,7 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
 
 UNIT_TEST(RouteNameTest)
 {
-  Route route("TestRouter", 0 /* route id */);
+  Route route;
 
   route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
   vector<RouteSegment> routeSegments;
