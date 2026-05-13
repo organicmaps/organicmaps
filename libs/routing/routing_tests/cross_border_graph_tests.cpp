@@ -2,27 +2,28 @@
 
 #include "routing/cross_border_graph.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
+
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
 #include "platform/platform.hpp"
 
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
+#include "base/scope_guard.hpp"
+
 #include <algorithm>
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 
-namespace routing
+namespace cross_border_graph_tests
 {
+using namespace routing;
+
 //  Test for serializing/deserializing of the chain of 4 points passing through 4 mwms:
 //  *-------------------------*-------------------------*-------------------------*
 //  p1                        p2                        p3                        p4
@@ -108,7 +109,8 @@ void TestEqualSegments(CrossBorderSegments const & s1, CrossBorderSegments const
 
 UNIT_TEST(CrossBorderGraph_SerDes)
 {
-  std::string const fileName = "CrossBorderGraph_SerDes.test";
+  std::string const fileName = GetPlatform().WritablePathForFile("CrossBorderGraph_SerDes.test");
+  SCOPE_GUARD(deleteFile, [&fileName]() { base::DeleteFileX(fileName); });
 
   storage::Storage storage;
   std::shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
@@ -136,4 +138,4 @@ UNIT_TEST(CrossBorderGraph_SerDes)
   TestEqualMwm(graph1.m_mwms, graph2.m_mwms);
   TestEqualSegments(graph1.m_segments, graph2.m_segments);
 }
-}  // namespace routing
+}  // namespace cross_border_graph_tests
