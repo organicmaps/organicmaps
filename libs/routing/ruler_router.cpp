@@ -37,11 +37,14 @@ namespace routing
 
  */
 RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route)
+                                             bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                             RoutesResult & result)
 {
   auto const & points = checkpoints.GetPoints();
   size_t const count = points.size();
   ASSERT(count > 0, ());
+
+  Route route;
 
   std::vector<RouteSegment> routeSegments;
   routeSegments.reserve(count * 2 - 1);
@@ -81,8 +84,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     subroutes.emplace_back(ToPointWA(points[i - 1]), ToPointWA(points[i]), i * 2 - 1, i * 2);
   }
 
-  route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(std::move(subroutes));
+  route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
 
   std::vector<m2::PointD> routeGeometry;
   for (auto p : points)
@@ -92,6 +94,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   }
 
   route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
+  result.MakeFrom(GetName(), std::move(route));
 
   return RouterResultCode::NoError;
 }

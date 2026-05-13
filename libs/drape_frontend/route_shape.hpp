@@ -142,6 +142,10 @@ struct Subroute
 
   double m_headFakeDistance = 0.0;
   double m_tailFakeDistance = 0.0;
+
+  // Per-subroute alpha multiplier, applied to all style colors at render time. 1.0 is fully opaque.
+  // Used by alternative-route rendering to visually dim non-active alternatives.
+  float m_alphaMul = 1.0f;
 };
 
 using SubrouteConstPtr = std::shared_ptr<Subroute const>;

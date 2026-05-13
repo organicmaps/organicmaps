@@ -4,7 +4,7 @@
 #include "routing/turns_generator.hpp"
 #include "routing/turns_generator_utils.hpp"
 
-#include <utility>
+#include "geometry/mercator.hpp"
 
 namespace routing
 {

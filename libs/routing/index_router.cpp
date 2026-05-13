@@ -318,31 +318,38 @@ void IndexRouter::SetGuides(GuidesTracks && guides)
 }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route)
+                                             bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                             RoutesResult & result)
 {
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
+
+  Route route;
+  RouterResultCode code;
 
   try
   {
     SCOPE_GUARD(featureRoadGraphClear, [this] { ClearState(); });
 
+    bool doCalculate = true;
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
     {
       double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
       double const distanceToFinish = mercator::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
-        auto const code = AdjustRoute(checkpoints, startDirection, delegate, route);
+        code = AdjustRoute(checkpoints, startDirection, delegate, route);
         if (code != RouterResultCode::RouteNotFound)
-          return code;
-
-        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
-                       "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
+          doCalculate = false;
+        else
+          LOG(LWARNING,
+              ("Can't adjust route, do full rebuild, prev start:", mercator::ToLatLon(m_lastRoute->GetStart()),
+               "start:", mercator::ToLatLon(startPoint), "finish:", mercator::ToLatLon(finalPoint)));
       }
     }
 
-    return DoCalculateRoute(checkpoints, startDirection, delegate, route);
+    if (doCalculate)
+      code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
   }
   catch (RootException const & e)
   {
@@ -350,6 +357,11 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                  e.what()));
     return RouterResultCode::InternalError;
   }
+
+  if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
+    result.MakeFrom(GetName(), std::move(route));
+
+  return code;
 }
 
 std::vector<Segment> IndexRouter::GetBestOutgoingSegments(m2::PointD const & checkpoint, WorldGraph & graph)
@@ -594,8 +606,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
       starter->Append(FakeEdgesContainer(std::move(subrouteStarter)));
   }
 
-  route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(std::move(subroutes));
+  route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
 
   IndexGraphStarter::CheckValidRoute(segments);
 
@@ -1028,8 +1039,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   CHECK_EQUAL(result.m_path.size(), subrouteOffset, ());
 
-  route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(std::move(subroutes));
+  route.SetSubroutes(std::move(subroutes), checkpoints.GetPassedIdx());
 
   auto const redressResult = RedressRoute(result.m_path, delegate.GetCancellable(), starter, route);
   if (redressResult != RouterResultCode::NoError)

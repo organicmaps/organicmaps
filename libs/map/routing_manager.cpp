@@ -307,9 +307,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 #endif
   );
 
-  m_routingSession.SetRoutingCallbacks([this](Route const & route, RouterResultCode code)
-  { OnBuildRouteReady(route, code); }, [this](Route const & route, RouterResultCode code)
-  { OnRebuildRouteReady(route, code); }, [this](uint64_t routeId, storage::CountriesSet const & absentCountries)
+  m_routingSession.SetRoutingCallbacks([this](RoutesResult const & result, RouterResultCode code)
+  { OnBuildRouteReady(result, code); }, [this](RoutesResult const & result, RouterResultCode code)
+  { OnRebuildRouteReady(result, code); }, [this](uint64_t routeId, storage::CountriesSet const & absentCountries)
   { OnNeedMoreMaps(routeId, absentCountries); }, [this](RouterResultCode code) { OnRemoveRoute(code); });
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
@@ -377,21 +377,22 @@ void RoutingManager::SetTransitManager(TransitReadManager * transitManager)
   m_transitReadManager = transitManager;
 }
 
-void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode code)
+void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResultCode code)
 {
   // @TODO(bykoianko) Remove |code| from callback signature.
   CHECK_EQUAL(code, RouterResultCode::NoError, ());
   HidePreviewSegments();
 
-  auto const hasWarnings = InsertRoute(route);
+  auto const hasWarnings = InsertRoute(result);
   m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
 
   // Validate route (in case of bicycle routing it can be invalid).
-  ASSERT(route.IsValid(), ());
+  ASSERT(result.IsValid(), ());
+  auto const & active = result.GetActive();
   // Do not show the full route if one or more stops were added, for easier multi-stop trip planning.
-  if (route.IsValid() && route.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)
+  if (active.IsValid() && active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)
   {
-    m2::RectD routeRect = route.GetPoly().GetLimitRect();
+    m2::RectD routeRect = active.GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
     m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect, true /* applyRotation */, -1 /* zoom */,
                            true /* isAnim */, true /* useVisibleViewport */);
@@ -400,14 +401,14 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesSet());
 }
 
-void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode code)
+void RoutingManager::OnRebuildRouteReady(RoutesResult const & result, RouterResultCode code)
 {
   HidePreviewSegments();
 
   if (code != RouterResultCode::NoError)
     return;
 
-  auto const hasWarnings = InsertRoute(route);
+  auto const hasWarnings = InsertRoute(result);
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesSet());
 }
 
@@ -631,18 +632,24 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
   });
 }
 
-bool RoutingManager::InsertRoute(Route const & route)
+namespace
 {
-  if (!m_drapeEngine)
+// Multiplier applied to the alpha channel of subroute colors for alternative (non-active) routes.
+float constexpr kAlternativeRouteAlphaMul = 0.5f;
+}  // namespace
+
+bool RoutingManager::InsertRoute(RoutesResult const & result)
+{
+  if (!m_drapeEngine || result.m_routes.empty())
     return false;
 
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
+  RoadWarningsCollection roadWarnings;
+
   auto const getMwmId = [this](routing::NumMwmId numMwmId)
   { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
-
-  RoadWarningsCollection roadWarnings;
 
   bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
   std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
@@ -652,6 +659,46 @@ bool RoutingManager::InsertRoute(Route const & route)
         *m_transitReadManager, getMwmId, m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
   }
 
+  for (size_t i = 0; i < result.m_routes.size(); ++i)
+  {
+    if (i != result.m_activeIdx)
+      InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, transitRouteDisplay,
+                        roadWarnings);
+  }
+  // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
+  // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
+  InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
+
+  {
+    std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
+    m_transitRouteInfo = isTransitRoute ? transitRouteDisplay->GetRouteInfo() : TransitRouteInfo();
+  }
+
+  if (isTransitRoute)
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = std::move(transitRouteDisplay)]()
+    { transitRouteDisplay->CreateTransitMarks(); });
+  }
+
+  bool const hasWarnings = !roadWarnings.empty();
+  if (hasWarnings && m_currentRouterType == RouterType::Vehicle)
+    CreateRoadWarningMarks(std::move(roadWarnings));
+
+  return hasWarnings;
+}
+
+void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, double depthOffset,
+                                       std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
+                                       RoadWarningsCollection & roadWarnings)
+{
+  if (!route.IsValid())
+    return;
+
+  auto const getMwmId = [this](routing::NumMwmId numMwmId)
+  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
+
+  float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
+
   std::vector<RouteSegment> segments;
   double distance = 0.0;
   auto const subroutesCount = route.GetSubrouteCount();
@@ -660,10 +707,12 @@ bool RoutingManager::InsertRoute(Route const & route)
     route.GetSubrouteInfo(subrouteIndex, segments);
 
     auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute = CreateDrapeSubroute(segments, startPt, distance,
-                                        static_cast<double>(subroutesCount - subrouteIndex - 1), m_currentRouterType);
+    auto subroute =
+        CreateDrapeSubroute(segments, startPt, distance,
+                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
     if (!subroute)
       continue;
+    subroute->m_alphaMul = alphaMul;
     distance = segments.back().GetDistFromBeginningMerc();
     switch (m_currentRouterType)
     {
@@ -671,8 +720,12 @@ bool RoutingManager::InsertRoute(Route const & route)
     {
       subroute->m_routeType = df::RouteType::Car;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
-      FillTrafficForRendering(segments, subroute->m_traffic);
-      FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
+      // Skip traffic colors on alternatives — keep them visually muted and easy to distinguish.
+      if (isActive)
+      {
+        FillTrafficForRendering(segments, subroute->m_traffic);
+        FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
+      }
       break;
     }
     case RouterType::Transit:
@@ -692,7 +745,8 @@ bool RoutingManager::InsertRoute(Route const & route)
     {
       subroute->m_routeType = df::RouteType::Bicycle;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
-      FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
+      if (isActive)
+        FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
     }
     case RouterType::Ruler:
@@ -704,33 +758,15 @@ bool RoutingManager::InsertRoute(Route const & route)
     default: CHECK(false, ("Unknown router type"));
     }
 
-    CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
+    if (isActive)
+      CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
 
-    // TODO: we will send subrouteId to routing subsystem when we can partly update route.
-    // route.SetSubrouteUid(subrouteIndex, static_cast<SubrouteUid>(subrouteId));
     std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
     m_drapeSubroutes.push_back(subrouteId);
   }
-
-  {
-    std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
-    m_transitRouteInfo = isTransitRoute ? transitRouteDisplay->GetRouteInfo() : TransitRouteInfo();
-  }
-
-  if (isTransitRoute)
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = std::move(transitRouteDisplay)]()
-    { transitRouteDisplay->CreateTransitMarks(); });
-  }
-
-  bool const hasWarnings = !roadWarnings.empty();
-  if (hasWarnings && m_currentRouterType == RouterType::Vehicle)
-    CreateRoadWarningMarks(std::move(roadWarnings));
-
-  return hasWarnings;
 }
 
 void RoutingManager::FollowRoute()
@@ -1131,10 +1167,11 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   SessionState const state = m_routingSession.OnLocationPositionChanged(info);
   if (state == SessionState::RouteNeedRebuild)
   {
-    m_routingSession.RebuildRoute(
-        mercator::FromLatLon(info.m_latitude, info.m_longitude), [this](Route const & route, RouterResultCode code)
-    { OnRebuildRouteReady(route, code); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
-        RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+    m_routingSession.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude),
+                                  [this](RoutesResult const & result, RouterResultCode code)
+    { OnRebuildRouteReady(result, code); }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+                                  RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
+                                  true /* adjustToPrevRoute */);
   }
 }
 
@@ -1196,7 +1233,7 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
       // In case of the engine reinitialization recover route.
       if (IsRoutingActive())
       {
-        m_routingSession.RouteCall([this](Route const & route) { InsertRoute(route); });
+        m_routingSession.RouteCall([this](RoutesResult const & result) { InsertRoute(result); });
 
         if (is3dAllowed && m_routingSession.IsFollowing())
           m_drapeEngine.SafeCall(&df::DrapeEngine::EnablePerspective);

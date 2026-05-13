@@ -1,5 +1,7 @@
 #include "followed_polyline.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>

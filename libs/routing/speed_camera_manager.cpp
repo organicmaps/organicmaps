@@ -1,6 +1,7 @@
 #include "routing/speed_camera_manager.hpp"
-
 #include "routing/speed_camera.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include <cmath>
 
