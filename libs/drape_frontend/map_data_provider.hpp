@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 
+class DataSource;
+
 namespace df
 {
 class MapDataProvider
@@ -28,9 +30,8 @@ public:
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
   using TTileBackgroundReadFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
   using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
-  using TGetMwmHandleFn = std::function<MwmSet::MwmHandle(MwmSet::MwmId const &)>;
 
-  MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader, TGetMwmHandleFn && getMwmHandleFn,
+  MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader, DataSource const & dataSource,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                   TUpdateCurrentCountryFn && updateCurrentCountryFn, TTileBackgroundReadFn && tileBackgroundReadFn,
                   TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn);
@@ -50,7 +51,7 @@ public:
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
-  TGetMwmHandleFn m_getMwmHandle;
+  DataSource const & m_dataSource;
   TUpdateCurrentCountryFn m_updateCurrentCountry;
   TTileBackgroundReadFn m_tileBackgroundReader;
   TCancelTileBackgroundReadingFn m_cancelTileBackgroundReading;

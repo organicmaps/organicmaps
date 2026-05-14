@@ -14,20 +14,18 @@
 
 namespace
 {
-df::MapDataProvider MakeProvider(df::MapDataProvider::TReadFeaturesFn featureReader,
-                                 df::MapDataProvider::TGetMwmHandleFn getMwmHandleFn)
+df::MapDataProvider MakeProvider(df::MapDataProvider::TReadFeaturesFn featureReader, DataSource const & dataSource)
 {
-  return df::MapDataProvider([](auto const &, m2::RectD const &, int) {}, std::move(featureReader),
-                             std::move(getMwmHandleFn), [](std::string_view) { return true; },
-                             [](m2::PointD const &, int) {}, [](df::TileKey const &, dp::BackgroundMode) {},
-                             [](df::TileKey const &, dp::BackgroundMode) {});
+  return df::MapDataProvider([](auto const &, m2::RectD const &, int) {}, std::move(featureReader), dataSource,
+                             [](std::string_view) { return true; }, [](m2::PointD const &, int) {
+  }, [](df::TileKey const &, dp::BackgroundMode) {}, [](df::TileKey const &, dp::BackgroundMode) {});
 }
 }  // namespace
 
 UNIT_TEST(ReadMetalineTask_DeadHandleIsNoOp)
 {
-  auto model = MakeProvider([](auto const &, std::vector<FeatureID> const &) {},
-                            [](MwmSet::MwmId const &) { return MwmSet::MwmHandle{}; });
+  FrozenDataSource dataSource;
+  auto model = MakeProvider([](auto const &, std::vector<FeatureID> const &) {}, dataSource);
   df::ReadMetalineTask task(model, MwmSet::MwmId{});
   task.Run();
 
@@ -45,8 +43,7 @@ UNIT_TEST(ReadMetalineTask_SkipsMetalineWhenFeaturesUnavailable)
   // ReadFeatures yields nothing — simulates an MWM mid-update so feature geometry can't be loaded
   // for the IDs referenced by the metalines section. The task must bail gracefully (no crash, no
   // cache entries) rather than dereferencing points.cend() in MergePoints.
-  auto model = MakeProvider([](auto const &, std::vector<FeatureID> const &) {},
-                            [&dataSource](MwmSet::MwmId const & id) { return dataSource.GetMwmHandleById(id); });
+  auto model = MakeProvider([](auto const &, std::vector<FeatureID> const &) {}, dataSource);
   df::ReadMetalineTask task(model, reg.first);
   task.Run();
 
@@ -68,9 +65,8 @@ UNIT_TEST(ReadMetalineTask_PopulatesCacheFromRegisteredMwm)
     TEST(handle.GetValue()->m_cont.IsExist(METALINES_FILE_TAG), ("minsk-pass.mwm has no metalines section"));
   }
 
-  auto model = MakeProvider([&dataSource](auto const & fn, std::vector<FeatureID> const & ids) {
-    dataSource.ReadFeatures(fn, ids);
-  }, [&dataSource](MwmSet::MwmId const & id) { return dataSource.GetMwmHandleById(id); });
+  auto model = MakeProvider([&dataSource](auto const & fn, std::vector<FeatureID> const & ids)
+  { dataSource.ReadFeatures(fn, ids); }, dataSource);
   df::ReadMetalineTask task(model, reg.first);
   task.Run();
 

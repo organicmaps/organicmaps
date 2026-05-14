@@ -1,5 +1,7 @@
 #include "drape_frontend/map_data_provider.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "base/assert.hpp"
 
 #include <utility>
@@ -7,14 +9,14 @@
 namespace df
 {
 MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
-                                 TGetMwmHandleFn && getMwmHandleFn, TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
+                                 DataSource const & dataSource, TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                                  TUpdateCurrentCountryFn && updateCurrentCountryFn,
                                  TTileBackgroundReadFn && tileBackgroundReadFn,
                                  TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn)
   : m_isCountryLoadedByName(std::move(isCountryLoadedByNameFn))
   , m_featureReader(std::move(featureReader))
   , m_idsReader(std::move(idsReader))
-  , m_getMwmHandle(std::move(getMwmHandleFn))
+  , m_dataSource(dataSource)
   , m_updateCurrentCountry(std::move(updateCurrentCountryFn))
   , m_tileBackgroundReader(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReading(std::move(cancelTileBackgroundReadingFn))
@@ -22,7 +24,6 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && fea
   CHECK(m_isCountryLoadedByName != nullptr, ());
   CHECK(m_featureReader != nullptr, ());
   CHECK(m_idsReader != nullptr, ());
-  CHECK(m_getMwmHandle != nullptr, ());
   CHECK(m_updateCurrentCountry != nullptr, ());
   CHECK(m_tileBackgroundReader != nullptr, ());
   CHECK(m_cancelTileBackgroundReading != nullptr, ());
@@ -40,7 +41,7 @@ void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, std::v
 
 MwmSet::MwmHandle MapDataProvider::GetMwmHandle(MwmSet::MwmId const & id) const
 {
-  return m_getMwmHandle(id);
+  return m_dataSource.GetMwmHandleById(id);
 }
 
 MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const
