@@ -1123,7 +1123,7 @@ void CreateRoadShieldShapes(ApplyFeatureParams const & params, ShieldRuleProto c
     textParams.m_titleDecl.m_secondaryOptional = false;
     textParams.m_startOverlayRank = dp::OverlayRank1;
 
-    auto const textMetrics = texMng->ShapeSingleTextLine(dp::kBaseFontSizePixels, roadNumber, nullptr);
+    auto const textMetrics = texMng->ShapeSingleTextLine(roadNumber, nullptr);
     float const textRatio = font.m_size * fontScale / dp::kBaseFontSizePixels;
     float const textWidthInPixels = textMetrics.m_lineWidthInPixels * textRatio;
     float const textHeightInPixels = textMetrics.m_maxLineHeightInPixels * textRatio;
