@@ -40,6 +40,7 @@
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt78l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt78l.dat */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
+		ED0E8FBF2FC4752400A4C91D /* UILabel+OneLineScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED2506E22F83F86D00945FC4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2506DE2F83F52A00945FC4 /* Colors.xcassets */; };
 		ED2D74382D14337500660FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74342D14337500660FBF /* Assets.xcassets */; };
@@ -871,6 +872,7 @@
 		BB7626B41E8559980031D71C /* icudt78l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt78l.dat; path = ../../data/icudt78l.dat; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OneLineScaling.swift"; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
 		ED2506DE2F83F52A00945FC4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		ED2D742C2D14337500660FBF /* AppLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogo.swift; sourceTree = "<group>"; };
@@ -3851,6 +3853,7 @@
 				ED82C7E12F90186900FA103D /* UIViewController+Navigation.h */,
 				ED82C7E22F90186900FA103D /* UIViewController+Navigation.m */,
 				ED82C7E32F90186900FA103D /* UIWindowScene+KeyWindow.swift */,
+				ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4703,6 +4706,7 @@
 				ED82C5DB2F90180300FA103D /* LoadingOverlayViewController.swift in Sources */,
 				ED82C5DC2F90180300FA103D /* AlertPresentationController.swift in Sources */,
 				ED82C5DD2F90180300FA103D /* DimmedModalPresentationController.swift in Sources */,
+				ED0E8FBF2FC4752400A4C91D /* UILabel+OneLineScaling.swift in Sources */,
 				ED82C5DE2F90180300FA103D /* FadeInAnimatedTransitioning.swift in Sources */,
 				ED82C5DF2F90180300FA103D /* FadeOutAnimatedTransitioning.swift in Sources */,
 				ED82C5E02F90180300FA103D /* FadeTransitioning.swift in Sources */,

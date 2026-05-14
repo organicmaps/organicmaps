@@ -24,6 +24,9 @@
   [self.locationLabel sizeToFit];
   self.infoLabel.text = result.infoText;
   self.distanceLabel.text = result.distanceText;
+  self.distanceLabel.numberOfLines = 1.0;
+  self.distanceLabel.adjustsFontSizeToFitWidth = YES;
+  self.distanceLabel.minimumScaleFactor = 0.5;
   self.popularView.hidden = YES;
   self.openLabel.text = result.openStatusText;
   self.openLabel.textColor = result.openStatusColor;

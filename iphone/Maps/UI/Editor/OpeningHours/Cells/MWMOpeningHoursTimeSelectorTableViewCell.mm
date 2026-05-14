@@ -11,11 +11,6 @@
 
 @implementation MWMOpeningHoursTimeSelectorTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return 180.0;
-}
-
 - (void)awakeFromNib
 {
   [super awakeFromNib];

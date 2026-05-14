@@ -11,6 +11,9 @@
 
 - (void)configureWithDelegate:(id<MWMButtonCellDelegate>)delegate title:(NSString *)title enabled:(BOOL)enabled
 {
+  self.button.titleLabel.numberOfLines = 0;
+  self.button.titleLabel.textAlignment = NSTextAlignmentCenter;
+  self.button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
   [self.button setTitle:title forState:UIControlStateNormal];
   self.button.enabled = enabled;
   self.delegate = delegate;

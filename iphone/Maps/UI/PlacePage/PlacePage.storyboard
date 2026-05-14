@@ -487,7 +487,7 @@
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="redText"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular13:redText"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="closed_now"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
@@ -1248,7 +1248,6 @@
                     </view>
                     <size key="freeformSize" width="375" height="80"/>
                     <connections>
-                        <outlet property="trackCandidatesButton" destination="pZg-oY-rzL" id="Qh2-Uv-KJM"/>
                         <outlet property="cancelButton" destination="zrr-8j-bGC" id="kmq-Tq-HEy"/>
                         <outlet property="clearTitleTextButton" destination="qLF-Ps-upn" id="iDe-oo-ujK"/>
                         <outlet property="closeButton" destination="yZT-ea-Kac" id="9QV-2E-Gg4"/>
@@ -1259,6 +1258,7 @@
                         <outlet property="shareButton" destination="apG-SB-14M" id="pCj-pl-Oxa"/>
                         <outlet property="subtitleLabel" destination="4iT-AD-Eyf" id="bVf-i6-dpW"/>
                         <outlet property="titleTextView" destination="ct0-4B-Xfk" id="N7x-8b-198"/>
+                        <outlet property="trackCandidatesButton" destination="pZg-oY-rzL" id="Qh2-Uv-KJM"/>
                         <outlet property="view" destination="xTs-NP-HcT" id="jQF-X9-Xlv"/>
                     </connections>
                 </viewController>

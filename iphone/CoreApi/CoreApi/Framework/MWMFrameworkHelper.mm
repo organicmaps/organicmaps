@@ -44,6 +44,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().SetVisibleViewport(m2::RectD(x0, y0, x1, y1));
 }
 
++ (void)setMapFontScaleFactor:(double)scaleFactor
+{
+  GetFramework().SetFontScaleFactor(scaleFactor);
+}
+
 + (void)setTheme:(MWMTheme)theme
 {
   auto & f = GetFramework();

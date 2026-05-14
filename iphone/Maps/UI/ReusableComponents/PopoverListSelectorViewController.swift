@@ -78,7 +78,7 @@ final class PopoverListSelectorViewController: UITableViewController, UIPopoverP
     switch row.title {
     case .string(let title):
       content.text = title
-      content.textProperties.font = UIFont.regular14()
+      content.textProperties.font = UIFont.regular14.dynamic
       content.textProperties.color = UIColor.blackPrimaryText
     case .attributed(let title):
       content.attributedText = title

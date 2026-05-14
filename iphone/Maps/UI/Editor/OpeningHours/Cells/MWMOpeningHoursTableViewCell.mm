@@ -2,11 +2,6 @@
 
 @implementation MWMOpeningHoursTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return 0.0;
-}
-
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {}
 
