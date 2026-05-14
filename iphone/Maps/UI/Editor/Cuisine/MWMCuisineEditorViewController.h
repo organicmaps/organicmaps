@@ -1,4 +1,4 @@
-#import "MWMViewController.h"
+#import "MWMTableViewController.h"
 
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 
 @end
 
-@interface MWMCuisineEditorViewController : MWMViewController
+@interface MWMCuisineEditorViewController : MWMTableViewController
 
 @property(weak, nonatomic) id<MWMCuisineEditorProtocol> delegate;
 

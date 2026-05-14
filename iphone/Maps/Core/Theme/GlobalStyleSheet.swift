@@ -81,8 +81,10 @@ extension GlobalStyleSheet: IStyleSheet {
     case .tableViewCell:
       return .add { s in
         s.backgroundColor = .whitePrimary
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .blackPrimaryText
         s.tintColor = .linkBlue
+        s.fontDetailedStyle = .dynamic(.regular14)
         s.fontColorDetailed = .blackSecondaryText
         s.backgroundColorSelected = .pressBackground
         s.exclusions = [String(describing: UIDatePicker.self), "_UIActivityUserDefaultsActivityCell"]
@@ -122,7 +124,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .navigationBarItem:
       return .add { s in
-        s.fontStyle = .dynamic(.regular18)
+        s.fontStyle = .dynamic(.regular18, maxSize: 24)
         s.fontColor = .whitePrimaryText
         s.fontColorDisabled = UIColor.lightGray
         s.fontColorHighlighted = .whitePrimaryTextHighlighted
@@ -382,11 +384,9 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .editButton:
       return .add { s in
-        s.fontStyle = .dynamic(.regular14)
+        s.fontStyle = .dynamic(.regular16)
         s.fontColor = .linkBlue
-        s.cornerRadius = .buttonDefault
-        s.borderColor = .linkBlue
-        s.borderWidth = 1
+        s.cornerRadius = .none
         s.fontColorHighlighted = .linkBlueHighlighted
         s.backgroundColor = .clear
       }

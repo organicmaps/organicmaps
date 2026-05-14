@@ -81,6 +81,7 @@ enum FontStyleSheet: String, CaseIterable {
 
   case semibold14
   case semibold16
+  case semibold17
   case semibold18
 
   case emojiMedium13
@@ -129,6 +130,7 @@ extension FontStyleSheet: IStyleSheet {
     case .bold36: .bold36
     case .semibold14: .semibold14
     case .semibold16: .semibold16
+    case .semibold17: .semibold17
     case .semibold18: .semibold18
     case .emojiMedium13: .emojiMedium13
     }

@@ -15,12 +15,13 @@ final class DonationView: UIButton {
   }
 
   private let descriptionLabel = UILabel()
-  private let actionButton = UIButton()
+  private let actionLabelBackgroundView = UIView()
+  private let actionLabel = UILabel()
   private let backgroundImageView = UIImageView()
   private let backgroundImageShadowView = UIView()
   private let backgroundGradientLayer = CAGradientLayer()
   private let ribbonImageView = UIImageView(image: UIImage(resource: .crowdfundingRibbon))
-  private let acationButtonGradientLayer = CAGradientLayer()
+  private let actionLabelGradientLayer = CAGradientLayer()
   private let highlightOverlayView = UIView()
   private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
   private let onTap: () -> Void
@@ -40,7 +41,7 @@ final class DonationView: UIButton {
   override func layoutSubviews() {
     super.layoutSubviews()
     backgroundGradientLayer.frame = backgroundImageShadowView.bounds
-    acationButtonGradientLayer.frame = actionButton.bounds
+    actionLabelGradientLayer.frame = actionLabelBackgroundView.bounds
     highlightOverlayView.frame = backgroundImageView.bounds
   }
 
@@ -53,23 +54,28 @@ final class DonationView: UIButton {
     descriptionLabel.lineBreakMode = .byWordWrapping
     descriptionLabel.numberOfLines = 0
 
-    actionButton.setTitle(L("support_organic_maps"), for: .normal)
-    actionButton.titleLabel?.allowsDefaultTighteningForTruncation = true
-    actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
-    actionButton.titleLabel?.minimumScaleFactor = 0.5
-    actionButton.setContentEdgeInsets(Constants.actionButtonTitleInsets)
-    actionButton.isUserInteractionEnabled = false
-    actionButton.setStyle(.crowdfundingButton)
+    actionLabel.text = L("support_organic_maps")
+    actionLabel.allowsDefaultTighteningForTruncation = true
+    actionLabel.lineBreakMode = .byWordWrapping
+    actionLabel.numberOfLines = 2
+    actionLabel.textAlignment = .center
+    actionLabel.isUserInteractionEnabled = false
+	actionLabel.setStyle(.crowdfundingButton)
 
-    acationButtonGradientLayer.startPoint = CGPoint(x: 0, y: 0)
-    acationButtonGradientLayer.endPoint = CGPoint(x: 1, y: 1)
-    acationButtonGradientLayer.frame = actionButton.bounds
-    let actionButtonGradiengColor = UIColor.ratingYellow
-    acationButtonGradientLayer.colors = [
-      actionButtonGradiengColor.lighter(percent: Constants.gradientColorMultiplier).cgColor,
-      actionButtonGradiengColor.darker(percent: Constants.gradientColorMultiplier).cgColor,
+    actionLabelBackgroundView.backgroundColor = .ratingYellow
+    actionLabelBackgroundView.layer.setCornerRadius(.buttonDefaultBig)
+    actionLabelBackgroundView.clipsToBounds = true
+    actionLabelBackgroundView.isUserInteractionEnabled = false
+
+    actionLabelGradientLayer.startPoint = CGPoint(x: 0, y: 0)
+    actionLabelGradientLayer.endPoint = CGPoint(x: 1, y: 1)
+    actionLabelGradientLayer.frame = actionLabelBackgroundView.bounds
+    let actionLabelGradientColor = UIColor.ratingYellow
+    actionLabelGradientLayer.colors = [
+      actionLabelGradientColor.lighter(percent: Constants.gradientColorMultiplier).cgColor,
+      actionLabelGradientColor.darker(percent: Constants.gradientColorMultiplier).cgColor,
     ]
-    actionButton.layer.insertSublayer(acationButtonGradientLayer, at: 0)
+    actionLabelBackgroundView.layer.insertSublayer(actionLabelGradientLayer, at: 0)
 
     backgroundImageView.backgroundColor = UIColor(patternImage: UIImage(resource: .crowdfundingPattern))
     backgroundImageView.layer.setCornerRadius(.buttonDefaultBig)
@@ -121,14 +127,18 @@ final class DonationView: UIButton {
     addSubview(backgroundImageView)
     addSubview(ribbonImageView)
     addSubview(descriptionLabel)
-    addSubview(actionButton)
+    addSubview(actionLabelBackgroundView)
+    actionLabelBackgroundView.addSubview(actionLabel)
     insertSubview(backgroundImageShadowView, belowSubview: backgroundImageView)
 
     backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
     ribbonImageView.translatesAutoresizingMaskIntoConstraints = false
     backgroundImageShadowView.translatesAutoresizingMaskIntoConstraints = false
     descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-    actionButton.translatesAutoresizingMaskIntoConstraints = false
+    actionLabelBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+    actionLabel.translatesAutoresizingMaskIntoConstraints = false
+    actionLabelBackgroundView.setContentCompressionResistancePriority(.required, for: .vertical)
+    actionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
     NSLayoutConstraint.activate([
       backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -150,12 +160,18 @@ final class DonationView: UIButton {
       descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.contentInsets.right),
       descriptionLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top),
 
-      actionButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.actionButtonSpacing),
-      actionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: Constants.actionButtonMinWidth).withPriority(.defaultHigh),
-      actionButton.widthAnchor.constraint(lessThanOrEqualToConstant: Constants.actionButtonMaxWidth).withPriority(.defaultHigh),
-      actionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-      actionButton.heightAnchor.constraint(equalToConstant: Constants.actionButtonHeight),
-      actionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom),
+      actionLabelBackgroundView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.actionButtonSpacing),
+      actionLabelBackgroundView.widthAnchor.constraint(greaterThanOrEqualToConstant: Constants.actionButtonMinWidth).withPriority(.defaultHigh),
+      actionLabelBackgroundView.widthAnchor.constraint(lessThanOrEqualToConstant: Constants.actionButtonMaxWidth).withPriority(.defaultHigh),
+      actionLabelBackgroundView.widthAnchor.constraint(lessThanOrEqualTo: backgroundImageView.widthAnchor, constant: -Constants.actionButtonSpacing * 2),
+      actionLabelBackgroundView.centerXAnchor.constraint(equalTo: centerXAnchor),
+      actionLabelBackgroundView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.actionButtonHeight),
+      actionLabelBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom),
+
+      actionLabel.leadingAnchor.constraint(equalTo: actionLabelBackgroundView.leadingAnchor, constant: Constants.actionButtonTitleInsets.left),
+      actionLabel.trailingAnchor.constraint(equalTo: actionLabelBackgroundView.trailingAnchor, constant: -Constants.actionButtonTitleInsets.right),
+      actionLabel.topAnchor.constraint(equalTo: actionLabelBackgroundView.topAnchor, constant: Constants.actionButtonTitleInsets.top),
+      actionLabel.bottomAnchor.constraint(equalTo: actionLabelBackgroundView.bottomAnchor, constant: -Constants.actionButtonTitleInsets.bottom),
     ])
   }
 

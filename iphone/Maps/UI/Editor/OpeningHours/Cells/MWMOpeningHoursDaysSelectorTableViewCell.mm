@@ -15,11 +15,6 @@ using namespace osmoh;
 
 @implementation MWMOpeningHoursDaysSelectorTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return 76.0;
-}
-
 - (void)awakeFromNib
 {
   [super awakeFromNib];
@@ -28,7 +23,10 @@ using namespace osmoh;
   self.firstWeekday = cal.firstWeekday;
   NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;
   for (UILabel * label in self.labels)
+  {
+    label.font = UIFont.regular17;
     label.text = weekdaySymbols[[self tag2SymbolIndex:label.tag]];
+  }
 }
 
 - (NSUInteger)tag2SymbolIndex:(NSUInteger)tag

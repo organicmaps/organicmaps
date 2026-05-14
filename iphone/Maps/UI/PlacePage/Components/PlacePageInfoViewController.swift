@@ -411,11 +411,11 @@ class PlacePageInfoViewController: UIViewController {
 
   private func routeMenuLabel(_ route: PlacePageRoute) -> NSAttributedString {
     let baseAttributes: [NSAttributedString.Key: Any] = [
-      .font: UIFont.regular14(),
+      .font: UIFont.regular14.dynamic,
       .foregroundColor: UIColor.blackPrimaryText,
     ]
     let boldAttributes: [NSAttributedString.Key: Any] = [
-      .font: UIFont.bold14(),
+      .font: UIFont.bold14.dynamic,
       .foregroundColor: UIColor.blackPrimaryText,
     ]
     let label = NSMutableAttributedString(string: route.ref, attributes: boldAttributes)

@@ -1,6 +1,8 @@
 final class NavigationControlView: SolidTouchView {
   private enum Constants {
     static let buttonContentInset: CGFloat = 15
+    static var metricFont: UIFont { .bold22.dynamic(maxSize: 26) }
+    static var metricLegendFont: UIFont { .bold12.dynamic(maxSize: 16) }
   }
 
   @IBOutlet private var distanceLabel: UILabel!
@@ -23,6 +25,7 @@ final class NavigationControlView: SolidTouchView {
   }
 
   @IBOutlet private var settingsButton: MWMButton!
+  @IBOutlet private var stopButton: UIButton!
 
   @IBOutlet private var ttsButton: MWMButton! {
     didSet {
@@ -82,16 +85,39 @@ final class NavigationControlView: SolidTouchView {
     }
   }
 
+  private var metricsLables: [UILabel] {
+    [distanceLabel, distanceWithLegendLabel, speedLabel, speedWithLegendLabel, timeLabel]
+  }
+
+  private var metricsLegendLables: [UILabel] {
+    [distanceLegendLabel, speedLegendLabel]
+  }
+
   override func awakeFromNib() {
     super.awakeFromNib()
 
+    for label in metricsLables {
+      configureMetricLabel(label, font: Constants.metricFont)
+    }
+    for label in metricsLegendLables {
+      configureMetricLabel(label, font: Constants.metricLegendFont)
+    }
     updateLegendSize()
 
     configureButton(settingsButton)
     configureButton(ttsButton)
     configureButton(trackRecordingButton)
+    configureStopButton(stopButton)
 
     MWMTextToSpeech.add(self)
+  }
+
+  private func configureMetricLabel(_ label: UILabel, font: UIFont) {
+    label.font = font
+    label.adjustsFontForContentSizeCategory = true
+    label.clipsToBounds = true
+    label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+    label.configureSingleLineAutoScaling()
   }
 
   private func configureButton(_ button: UIButton) {
@@ -104,9 +130,19 @@ final class NavigationControlView: SolidTouchView {
                                              right: Constants.buttonContentInset))
   }
 
+  private func configureStopButton(_ button: UIButton) {
+    button.titleLabel?.adjustsFontForContentSizeCategory = true
+    button.titleLabel?.numberOfLines = 1
+    button.setContentCompressionResistancePriority(.required, for: .vertical)
+    button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 22, bottom: 10, right: 22)
+  }
+
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     updateLegendSize()
+    if let navigationInfo {
+      onNavigationInfoUpdated(navigationInfo)
+    }
     updateVisibleViewportArea()
   }
 
@@ -118,7 +154,7 @@ final class NavigationControlView: SolidTouchView {
     leadingAnchor.constraint(equalTo: lg.leadingAnchor).isActive = true
     trailingAnchor.constraint(equalTo: lg.trailingAnchor).isActive = true
 
-    extendedConstraint = bottomAnchor.constraint(equalTo: lg.bottomAnchor)
+    extendedConstraint = bottomAnchor.constraint(equalTo: ownerView.bottomAnchor)
     extendedConstraint.isActive = false
 
     notExtendedConstraint = progressView.bottomAnchor.constraint(equalTo: lg.bottomAnchor)
@@ -165,12 +201,12 @@ final class NavigationControlView: SolidTouchView {
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText,
-        NSAttributedString.Key.font: UIFont.bold24,
+        NSAttributedString.Key.font: Constants.metricFont,
       ]
     let routingLegendAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText,
-        NSAttributedString.Key.font: UIFont.bold14,
+        NSAttributedString.Key.font: Constants.metricLegendFont,
       ]
 
     if timePageControl.currentPage == 0 {
@@ -199,6 +235,7 @@ final class NavigationControlView: SolidTouchView {
     }
     let speedMeasure = Measure(asSpeed: speedMps)
     var speed = speedMeasure.valueAsString
+
     // @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
     if info.speedLimitMps >= 0 {

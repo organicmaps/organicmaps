@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,8 +30,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlue"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jJ-Pu-pjy">
-                                <rect key="frame" x="56" y="11.5" width="248" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jJ-Pu-pjy">
+                                <rect key="frame" x="56" y="10" width="248" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -42,10 +42,11 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2jJ-Pu-pjy" firstAttribute="top" secondItem="YDi-5J-vFD" secondAttribute="top" constant="10" id="ECP-0j-foO"/>
                             <constraint firstItem="paw-km-zXg" firstAttribute="centerY" secondItem="YDi-5J-vFD" secondAttribute="centerY" id="Oe0-2d-YX4"/>
                             <constraint firstAttribute="trailing" secondItem="2jJ-Pu-pjy" secondAttribute="trailing" constant="16" id="ZGg-bD-dnT"/>
-                            <constraint firstItem="2jJ-Pu-pjy" firstAttribute="centerY" secondItem="YDi-5J-vFD" secondAttribute="centerY" id="h3L-zB-b66"/>
                             <constraint firstItem="paw-km-zXg" firstAttribute="leading" secondItem="YDi-5J-vFD" secondAttribute="leading" constant="16" id="hTc-Pj-9Kf"/>
+                            <constraint firstAttribute="bottom" secondItem="2jJ-Pu-pjy" secondAttribute="bottom" constant="10" id="jMM-mB-nPu"/>
                             <constraint firstItem="2jJ-Pu-pjy" firstAttribute="leading" secondItem="paw-km-zXg" secondAttribute="trailing" constant="16" id="maj-Zr-I2l"/>
                         </constraints>
                     </view>

@@ -20,11 +20,6 @@
   self.label.textColor = self.switcher.on ? [UIColor blackPrimaryText] : [UIColor blackHintText];
 }
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return 44.0;
-}
-
 - (void)refresh
 {
   [super refresh];
