@@ -54,6 +54,12 @@ class ChartInfoView: ExpandedTouchView {
     }
   }
 
+  var isFontDynamic: Bool = false {
+    didSet {
+      pointInfoView.isFontDynamic = isFontDynamic
+    }
+  }
+
   var textColor: UIColor = .black {
     didSet {
       pointInfoView.textColor = textColor

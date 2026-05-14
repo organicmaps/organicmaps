@@ -13,16 +13,18 @@ extension UITableViewCell {
 class UITableViewCellRenderer {
   class func render(_ control: UITableViewCell, style: Style) {
     if let label = control.textLabel {
-      if let font = style.font {
-        label.font = font
+      if let fontStyle = style.fontStyle {
+        label.font = fontStyle.font
+        label.adjustsFontForContentSizeCategory = fontStyle.isDynamic
       }
       if let fontColor = style.fontColor {
         label.textColor = fontColor
       }
     }
     if let detailedLabel = control.detailTextLabel {
-      if let fontDetailed = style.fontDetailed {
-        detailedLabel.font = fontDetailed
+      if let fontStyle = style.fontDetailedStyle {
+        detailedLabel.font = fontStyle.font
+        detailedLabel.adjustsFontForContentSizeCategory = fontStyle.isDynamic
       }
       if let fontColorDetailed = style.fontColorDetailed {
         detailedLabel.textColor = fontColorDetailed

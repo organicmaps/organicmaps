@@ -1,6 +1,7 @@
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMCircularProgress.h"
 #import "NSString+Ranges.h"
+#import "SwiftBridge.h"
 
 #import <CoreApi/MWMCommon.h>
 #import <CoreApi/MWMFrameworkHelper.h>
@@ -65,8 +66,8 @@
   [self configProgress:nodeAttrs];
 
   self.title.attributedText = [self matchedString:nodeAttrs.nodeName
-                                    selectedAttrs:@{NSFontAttributeName: [UIFont bold17]}
-                                  unselectedAttrs:@{NSFontAttributeName: [UIFont regular17]}];
+                                    selectedAttrs:@{NSFontAttributeName: UIFont.bold17.dynamic}
+                                  unselectedAttrs:@{NSFontAttributeName: UIFont.regular17.dynamic}];
 
   uint64_t size = 0;
   BOOL isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;

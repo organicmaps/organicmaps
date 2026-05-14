@@ -113,7 +113,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   titleLabel.font = [UIFont boldSystemFontOfSize:20];
   titleLabel.textAlignment = NSTextAlignmentCenter;
   titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  titleLabel.font = [UIFont bold17];
+  titleLabel.font = UIFont.bold17.dynamic;
 
   UITextView * subtitleTextView = [[UITextView alloc] init];
   subtitleTextView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -144,7 +144,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
     NSMutableAttributedString * mutableAttributedText =
         [[NSMutableAttributedString alloc] initWithAttributedString:attributedText];
     [mutableAttributedText
-        addAttributes:@{NSForegroundColorAttributeName: textColor, NSFontAttributeName: UIFont.regular14}
+        addAttributes:@{NSForegroundColorAttributeName: textColor, NSFontAttributeName: UIFont.regular14.dynamic}
                 range:NSMakeRange(0, mutableAttributedText.length)];
     subtitleTextView.attributedText = mutableAttributedText;
     subtitleTextView.textAlignment = NSTextAlignmentCenter;

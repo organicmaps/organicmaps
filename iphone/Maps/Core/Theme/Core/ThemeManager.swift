@@ -43,7 +43,7 @@ final class ThemeManager: NSObject {
 
     if !StyleManager.shared.hasTheme() {
       isNightMode = newNightMode
-      StyleManager.shared.setTheme(MainTheme(fonts: Fonts()))
+      StyleManager.shared.setTheme(MainTheme())
     } else if isNightMode != newNightMode {
       // Re-apply styles for non-dynamic properties (CGColor, themed images).
       isNightMode = newNightMode

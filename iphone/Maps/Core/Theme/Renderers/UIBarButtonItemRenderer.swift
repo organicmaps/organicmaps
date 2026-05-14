@@ -12,10 +12,10 @@ class UIBarButtonItemRenderer {
     if let tintColor = style.tintColor {
       control.tintColor = tintColor
     }
-    if let font = style.font {
-      normalAttributes[NSAttributedString.Key.font] = font
-      disableAttributes[NSAttributedString.Key.font] = font
-      highlightedAttributes[NSAttributedString.Key.font] = font
+    if let fontStyle = style.fontStyle {
+      normalAttributes[NSAttributedString.Key.font] = fontStyle.font
+      disableAttributes[NSAttributedString.Key.font] = fontStyle.font
+      highlightedAttributes[NSAttributedString.Key.font] = fontStyle.font
     }
     if let fontColor = style.fontColor {
       normalAttributes[NSAttributedString.Key.foregroundColor] = fontColor
