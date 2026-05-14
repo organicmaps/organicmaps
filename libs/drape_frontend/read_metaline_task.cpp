@@ -24,11 +24,13 @@ struct MetalineData
   std::set<FeatureID> m_reversed;
 };
 
-std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
+std::vector<MetalineData> ReadMetalinesFromContainer(FilesContainerR const & cont, MwmSet::MwmId const & mwmId)
 {
+  if (!cont.IsExist(METALINES_FILE_TAG))
+    return {};
+
   try
   {
-    FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
     ModelReaderPtr reader = cont.GetReader(METALINES_FILE_TAG);
     ReaderSrc src(reader.GetPtr());
 
@@ -130,11 +132,13 @@ ReadMetalineTask::ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const 
 
 void ReadMetalineTask::Run()
 {
-  /// @todo Naive check for now. Should refactor with MwmHandle lock here.
-  if (!m_mwmId.IsAlive() || !m_mwmId.GetInfo()->IsRegistered())
+  // Pin via MwmHandle: storage-thread re-registration mutates MwmInfo::m_file (data race), but
+  // MwmValue::m_cont is immutable for the handle's lifetime.
+  auto const handle = m_model.GetMwmHandle(m_mwmId);
+  if (!handle.IsAlive())
     return;
 
-  auto metalines = ReadMetalinesFromFile(m_mwmId);
+  auto metalines = ReadMetalinesFromContainer(handle.GetValue()->m_cont, m_mwmId);
   for (auto & metaline : metalines)
   {
     if (m_isCancelled)
