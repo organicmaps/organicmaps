@@ -6,6 +6,7 @@ set(SRC
   navigator_test.cpp
   path_text_test.cpp
   rainbow_line_gpu_test.cpp
+  read_metaline_task_race_test.cpp
   screen_operations_tests.cpp
   shape_test_fixture.cpp
   shape_test_fixture.hpp
