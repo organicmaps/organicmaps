@@ -92,7 +92,7 @@ using namespace storage;
     self.nodeSize.hidden = NO;
     self.nodeSize.textColor = [UIColor blackSecondaryText];
     self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
-    self.nodeSize.font = [UIFont medium14].monospaced;
+    self.nodeSize.font = UIFont.medium14.dynamic.monospaced;
 
     switch (nodeAttrs.m_status)
     {

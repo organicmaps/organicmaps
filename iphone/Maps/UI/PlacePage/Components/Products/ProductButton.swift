@@ -17,7 +17,7 @@ final class ProductButton: UIButton {
     setStyleAndApply(.blueBackground)
     setTitle(title, for: .normal)
     setTitleColor(.whitePrimary, for: .normal)
-    titleLabel?.font = UIFont.regular14()
+    titleLabel?.font = UIFont.regular14
     titleLabel?.allowsDefaultTighteningForTruncation = true
     titleLabel?.adjustsFontSizeToFitWidth = true
     titleLabel?.minimumScaleFactor = 0.5

@@ -35,7 +35,7 @@ final class ExpandableLabel: UIView {
   private var sourceAttributedText: NSAttributedString?
   private var isMeasuring = false
   private var oldWidth: CGFloat = 0
-  private var font = UIFont.regular14()
+  private var font = UIFont.regular14
   private var textStyle: TextColorStyleSheet = .blackPrimary
   private var expandStyle: TextColorStyleSheet = .linkBlue
   private var expandText = L("text_more_button")
