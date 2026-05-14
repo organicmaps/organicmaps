@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="48" id="gZi-cd-LgO" customClass="BottomMenuItemCell" customModule="OMaps" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="48" id="gZi-cd-LgO" customClass="BottomMenuItemCell" customModule="Organic_Maps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gZi-cd-LgO" id="rsu-1s-Lsp">
@@ -26,39 +26,40 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-o1-PsF">
-                        <rect key="frame" x="60" y="14" width="298" height="20"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
-                        </userDefinedRuntimeAttributes>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="con-tP-3dJ" userLabel="DownloadBadgeBackground">
-                        <rect key="frame" x="366" y="14" width="32" height="20"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="15Y-hb-tlK">
+                        <rect key="frame" x="60" y="0.0" width="338" height="48"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FT9-8n-RZm" userLabel="DownloadBadgeCount">
-                                <rect key="frame" x="0.0" y="0.0" width="32" height="20"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-o1-PsF">
+                                <rect key="frame" x="0.0" y="14" width="313" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="con-tP-3dJ" userLabel="DownloadBadgeBackground">
+                                <rect key="frame" x="313" y="11.5" width="25" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FT9-8n-RZm" userLabel="DownloadBadgeCount">
+                                        <rect key="frame" x="8" y="4" width="9" height="17"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="FT9-8n-RZm" secondAttribute="trailing" constant="8" id="Ge3-P2-idS"/>
+                                    <constraint firstAttribute="bottom" secondItem="FT9-8n-RZm" secondAttribute="bottom" constant="4" id="Kgn-y3-dBT"/>
+                                    <constraint firstItem="FT9-8n-RZm" firstAttribute="top" secondItem="con-tP-3dJ" secondAttribute="top" constant="4" id="LaN-Vb-w2N"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="con-tP-3dJ" secondAttribute="height" multiplier="1:1" id="jat-TH-6I5"/>
+                                    <constraint firstItem="FT9-8n-RZm" firstAttribute="leading" secondItem="con-tP-3dJ" secondAttribute="leading" constant="8" id="pE4-Qs-ctY"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="FT9-8n-RZm" secondAttribute="trailing" id="Ge3-P2-idS"/>
-                            <constraint firstAttribute="bottom" secondItem="FT9-8n-RZm" secondAttribute="bottom" id="Kgn-y3-dBT"/>
-                            <constraint firstItem="FT9-8n-RZm" firstAttribute="top" secondItem="con-tP-3dJ" secondAttribute="top" id="LaN-Vb-w2N"/>
-                            <constraint firstAttribute="height" constant="20" id="Y5v-7h-SGf"/>
-                            <constraint firstItem="FT9-8n-RZm" firstAttribute="leading" secondItem="con-tP-3dJ" secondAttribute="leading" id="pE4-Qs-ctY"/>
-                            <constraint firstAttribute="width" constant="32" id="ubK-0L-pDn"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
+                    </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4OJ-wN-dY4" userLabel="Separator">
                         <rect key="frame" x="60" y="47" width="354" height="1"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,28 +73,25 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="5Uc-o1-PsF" firstAttribute="leading" secondItem="4OJ-wN-dY4" secondAttribute="leading" id="9g1-Uo-zCa"/>
-                    <constraint firstAttribute="bottom" secondItem="8oJ-8z-qRL" secondAttribute="bottom" constant="10" id="KJP-IG-4FK"/>
-                    <constraint firstItem="FT9-8n-RZm" firstAttribute="leading" secondItem="5Uc-o1-PsF" secondAttribute="trailing" constant="8" id="RJA-NS-MXP"/>
-                    <constraint firstItem="8oJ-8z-qRL" firstAttribute="top" secondItem="rsu-1s-Lsp" secondAttribute="top" constant="10" id="bab-2f-YZY"/>
+                    <constraint firstAttribute="bottom" secondItem="15Y-hb-tlK" secondAttribute="bottom" id="3s6-2V-RtD"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8oJ-8z-qRL" secondAttribute="bottom" constant="10" id="KJP-IG-4FK"/>
+                    <constraint firstItem="15Y-hb-tlK" firstAttribute="top" secondItem="rsu-1s-Lsp" secondAttribute="top" id="UYB-Nz-ihN"/>
+                    <constraint firstItem="15Y-hb-tlK" firstAttribute="leading" secondItem="rsu-1s-Lsp" secondAttribute="leading" constant="60" id="Y8s-jX-KG0"/>
+                    <constraint firstItem="8oJ-8z-qRL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rsu-1s-Lsp" secondAttribute="top" constant="10" id="bab-2f-YZY"/>
+                    <constraint firstAttribute="trailing" secondItem="15Y-hb-tlK" secondAttribute="trailing" constant="16" id="pRF-51-2oE"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="4OJ-wN-dY4" secondAttribute="trailing" id="3Vq-qn-yhm"/>
                 <constraint firstItem="4OJ-wN-dY4" firstAttribute="leading" secondItem="gZi-cd-LgO" secondAttribute="leading" constant="60" id="7wy-Q8-lja"/>
-                <constraint firstAttribute="trailing" secondItem="con-tP-3dJ" secondAttribute="trailing" constant="16" id="Bm7-vh-vYz"/>
                 <constraint firstItem="8oJ-8z-qRL" firstAttribute="leading" secondItem="gZi-cd-LgO" secondAttribute="leading" constant="16" id="I7K-bz-QOC"/>
                 <constraint firstAttribute="bottom" secondItem="4OJ-wN-dY4" secondAttribute="bottom" id="SVQ-VP-J4d"/>
-                <constraint firstItem="con-tP-3dJ" firstAttribute="centerY" secondItem="gZi-cd-LgO" secondAttribute="centerY" id="UY4-uw-Kda"/>
-                <constraint firstItem="5Uc-o1-PsF" firstAttribute="centerY" secondItem="gZi-cd-LgO" secondAttribute="centerY" id="hVt-zE-3iE"/>
                 <constraint firstItem="8oJ-8z-qRL" firstAttribute="centerY" secondItem="gZi-cd-LgO" secondAttribute="centerY" id="u2b-9I-SLh"/>
             </constraints>
             <connections>
                 <outlet property="badgeBackground" destination="con-tP-3dJ" id="vH5-Rd-uqS"/>
-                <outlet property="badgeBackgroundWidthConstraint" destination="ubK-0L-pDn" id="D3B-sV-eGO"/>
                 <outlet property="badgeCountLabel" destination="FT9-8n-RZm" id="HLY-2S-do9"/>
-                <outlet property="badgeSpacingConstraint" destination="RJA-NS-MXP" id="Hpf-eq-1C1"/>
                 <outlet property="icon" destination="8oJ-8z-qRL" id="qcD-Kv-c5l"/>
                 <outlet property="label" destination="5Uc-o1-PsF" id="y4l-b6-MCt"/>
                 <outlet property="separator" destination="4OJ-wN-dY4" id="Kkv-HO-0eK"/>
@@ -102,6 +100,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_menu_download" width="28" height="28"/>
+        <image name="ic_menu_download" width="24" height="24"/>
     </resources>
 </document>

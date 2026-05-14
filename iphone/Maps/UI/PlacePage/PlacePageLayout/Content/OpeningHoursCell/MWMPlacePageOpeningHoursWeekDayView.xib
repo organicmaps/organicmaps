@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,65 +13,60 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пн-Пт" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="68" translatesAutoresizingMaskIntoConstraints="NO" id="DqS-ds-oj4">
-                    <rect key="frame" x="60" y="4" width="68" height="16.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="68" id="TSk-hp-vXl"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00—20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="Pzb-84-nVN">
-                    <rect key="frame" x="136" y="4.5" width="100" height="16"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="HSs-ZO-QYt"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перерыв" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="68" translatesAutoresizingMaskIntoConstraints="NO" id="LY3-Eu-ESE">
-                    <rect key="frame" x="60" y="24.5" width="68" height="14"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="68" id="zcl-0l-OMI"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_hours_closed"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skl-yW-xDB">
-                    <rect key="frame" x="136" y="24.5" width="100" height="58"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="58" id="JQd-xS-lP1"/>
-                    </constraints>
-                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mNr-Lf-bIf" userLabel="Week Day Data Stack View">
+                    <rect key="frame" x="60" y="4" width="283" height="94"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0x-yD-QzA">
+                            <rect key="frame" x="0.0" y="0.0" width="283" height="17"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пн-Пт" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqS-ds-oj4">
+                                    <rect key="frame" x="0.0" y="0.0" width="201.5" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="10:00—20:00" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pzb-84-nVN">
+                                    <rect key="frame" x="201.5" y="0.0" width="81.5" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="vsJ-hx-1Oy">
+                            <rect key="frame" x="0.0" y="21" width="283" height="73"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="500" text="Перерыв" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LY3-Eu-ESE">
+                                    <rect key="frame" x="0.0" y="0.0" width="53.5" height="14.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_hours_closed"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="skl-yW-xDB" userLabel="Breaks Stack View">
+                                    <rect key="frame" x="53.5" y="0.0" width="229.5" height="50"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="skl-yW-xDB" firstAttribute="trailing" secondItem="Pzb-84-nVN" secondAttribute="trailing" id="2Qa-dX-CKF"/>
-                <constraint firstItem="skl-yW-xDB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LY3-Eu-ESE" secondAttribute="trailing" priority="310" constant="8" id="4HL-o3-GlG"/>
-                <constraint firstItem="Pzb-84-nVN" firstAttribute="centerY" secondItem="DqS-ds-oj4" secondAttribute="centerY" id="D6k-RM-Cx8"/>
-                <constraint firstItem="skl-yW-xDB" firstAttribute="leading" secondItem="Pzb-84-nVN" secondAttribute="leading" id="H3w-tN-bFd"/>
-                <constraint firstItem="LY3-Eu-ESE" firstAttribute="top" secondItem="DqS-ds-oj4" secondAttribute="bottom" constant="4" id="MKr-pT-3ET"/>
-                <constraint firstItem="LY3-Eu-ESE" firstAttribute="leading" secondItem="DqS-ds-oj4" secondAttribute="leading" id="OFa-uz-HMs"/>
-                <constraint firstItem="DqS-ds-oj4" firstAttribute="top" secondItem="SUx-BN-Qk1" secondAttribute="top" constant="4" id="gGO-xk-DeA"/>
-                <constraint firstItem="skl-yW-xDB" firstAttribute="top" secondItem="LY3-Eu-ESE" secondAttribute="top" id="iut-jl-BrW"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Pzb-84-nVN" secondAttribute="trailing" priority="750" constant="32" id="rPc-Jd-cW6"/>
-                <constraint firstItem="DqS-ds-oj4" firstAttribute="leading" secondItem="SUx-BN-Qk1" secondAttribute="leading" constant="60" id="sqM-DI-KUl"/>
-                <constraint firstItem="Pzb-84-nVN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DqS-ds-oj4" secondAttribute="trailing" priority="310" constant="8" id="vtQ-YR-qDv"/>
-                <constraint firstItem="Pzb-84-nVN" firstAttribute="leading" secondItem="SUx-BN-Qk1" secondAttribute="leading" priority="300" id="xiL-Qi-HQc"/>
+                <constraint firstItem="mNr-Lf-bIf" firstAttribute="top" secondItem="SUx-BN-Qk1" secondAttribute="top" constant="4" id="gGO-xk-DeA"/>
+                <constraint firstAttribute="bottom" secondItem="mNr-Lf-bIf" secondAttribute="bottom" constant="4" id="lCc-0M-zpM"/>
+                <constraint firstAttribute="trailing" secondItem="mNr-Lf-bIf" secondAttribute="trailing" constant="32" id="rPc-Jd-cW6"/>
+                <constraint firstItem="mNr-Lf-bIf" firstAttribute="leading" secondItem="SUx-BN-Qk1" secondAttribute="leading" constant="60" id="sqM-DI-KUl"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -79,17 +74,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="breakLabel" destination="LY3-Eu-ESE" id="n3q-d9-OCx"/>
-                <outlet property="breakLabelWidth" destination="zcl-0l-OMI" id="OQq-QW-fVw"/>
                 <outlet property="breaksHolder" destination="skl-yW-xDB" id="O5A-vk-D8U"/>
-                <outlet property="breaksHolderHeight" destination="JQd-xS-lP1" id="yD5-Y7-gDM"/>
                 <outlet property="label" destination="DqS-ds-oj4" id="6RA-e6-H3w"/>
-                <outlet property="labelOpenTimeLabelSpacing" destination="vtQ-YR-qDv" id="Ya6-Gr-qHm"/>
-                <outlet property="labelTopSpacing" destination="gGO-xk-DeA" id="8qk-bN-ayf"/>
-                <outlet property="labelWidth" destination="TSk-hp-vXl" id="r1R-Cy-QXI"/>
                 <outlet property="openTime" destination="Pzb-84-nVN" id="3YU-3c-hyz"/>
-                <outlet property="openTimeLabelLeadingOffset" destination="xiL-Qi-HQc" id="vIE-5M-9Q0"/>
             </connections>
-            <point key="canvasLocation" x="332" y="512"/>
+            <point key="canvasLocation" x="332" y="511.84407796101954"/>
         </view>
     </objects>
 </document>

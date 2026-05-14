@@ -71,7 +71,7 @@ final class PlaceholderView: UIView {
     subtitleLabel.setFontStyle(.regular14, color: .blackSecondary)
     subtitleLabel.textAlignment = .center
     subtitleLabel.isHidden = subtitle == nil
-    subtitleLabel.numberOfLines = 2
+    subtitleLabel.numberOfLines = 0
 
     stackView.axis = .vertical
     stackView.alignment = .center

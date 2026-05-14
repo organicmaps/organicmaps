@@ -89,12 +89,6 @@ using namespace osmoh;
   return rowsCount;
 }
 
-- (CGFloat)heightForRow:(NSUInteger)row withWidth:(CGFloat)width
-{
-  Class cls = kMWMOpeningHoursEditorTableCells[@([self cellKeyForRow:row])];
-  return [cls heightForWidth:width];
-}
-
 - (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell
 {
   cell.section = self;

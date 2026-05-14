@@ -79,7 +79,7 @@ class VerticallyAlignedButton: UIControl {
       spacingConstraint,
       titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
       titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-      titleLabel.topAnchor.constraint(equalTo: bottomAnchor),
+      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
     ])
   }
 }

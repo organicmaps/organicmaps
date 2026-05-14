@@ -32,10 +32,7 @@ final class StartRouteButton: UIView {
   private func setupView() {
     button.setTitle(Constants.buttonTitle, for: .normal)
     button.setStyle(.flatNormalButtonBig)
-    button.titleLabel?.numberOfLines = 1
-    button.titleLabel?.minimumScaleFactor = 0.5
-    button.titleLabel?.adjustsFontSizeToFitWidth = true
-    button.titleLabel?.allowsDefaultTighteningForTruncation = true
+    button.titleLabel?.configureSingleLineAutoScaling()
     button.translatesAutoresizingMaskIntoConstraints = false
 
     activityIndicator.hidesWhenStopped = true

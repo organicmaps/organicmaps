@@ -8,7 +8,6 @@
 
 namespace
 {
-NSString * const kCuisineEditorCell = @"MWMCuisineEditorTableViewCell";
 /// @returns pair.first in a separate vector.
 std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::string>> const & v)
 {
@@ -27,8 +26,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   std::vector<std::string> m_untranslatedKeys;
 }
 
-@property(weak, nonatomic) IBOutlet UITableView * tableView;
-@property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property(nonatomic) UISearchController * searchViewController;
 @property(nonatomic) BOOL isSearch;
 
 @end
@@ -41,7 +39,6 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   [self configNavBar];
   [self configSearchBar];
   [self configData];
-  [self configTable];
   [MWMKeyboard addObserver:self];
 }
 
@@ -117,8 +114,8 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 }
 - (void)searchBar:(UISearchBar *)searchBar setActiveState:(BOOL)isActiveState
 {
-  [searchBar setShowsCancelButton:isActiveState animated:YES];
-  [self.navigationController setNavigationBarHidden:isActiveState animated:YES];
+  if (!isActiveState)
+    m_displayedKeys = SliceKeys(m_allCuisines);
 }
 
 #pragma mark - Configuration
@@ -140,7 +137,18 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 - (void)configSearchBar
 {
   self.isSearch = NO;
-  self.searchBar.placeholder = L(@"search");
+  self.searchViewController = [[UISearchController alloc] initWithSearchResultsController:nil];
+  self.searchViewController.obscuresBackgroundDuringPresentation = NO;
+  self.searchViewController.hidesNavigationBarDuringPresentation = NO;
+  self.searchViewController.searchBar.placeholder = L(@"search");
+  self.searchViewController.searchBar.delegate = self;
+  [self.searchViewController.searchBar applyTheme];
+  self.navigationItem.searchController = self.searchViewController;
+  if (@available(iOS 26.0, *))
+    // The search bar will appear at the bottom of the iPhone screen and cannot be hidden.
+    self.navigationItem.hidesSearchBarWhenScrolling = YES;
+  else
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
 }
 
 - (void)configData
@@ -155,11 +163,6 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
     if (translated.empty())
       m_untranslatedKeys.push_back(s);
   }
-}
-
-- (void)configTable
-{
-  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
 }
 
 #pragma mark - Actions
@@ -189,7 +192,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
                   cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  auto cell = [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
+  UITableViewCell * cell = [tableView dequeueDefaultCellForIndexPath:indexPath];
   NSInteger const index = indexPath.row;
 
   auto const & dataSource = [self dataSourceForSection:indexPath.section];
@@ -208,6 +211,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   BOOL const selected =
       std::find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
   cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+  cell.textLabel.numberOfLines = 0;
   return cell;
 }
 

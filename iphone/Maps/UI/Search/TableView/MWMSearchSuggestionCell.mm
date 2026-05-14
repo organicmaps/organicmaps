@@ -18,7 +18,7 @@
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  return @{NSForegroundColorAttributeName: [UIColor linkBlue], NSFontAttributeName: UIFont.bold16};
+  return @{NSForegroundColorAttributeName: [UIColor linkBlue], NSFontAttributeName: UIFont.bold16.dynamic};
 }
 
 - (NSDictionary *)unselectedTitleAttributes

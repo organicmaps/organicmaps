@@ -37,10 +37,6 @@ BOOL isCompactForCellWidth(CGFloat width)
 
 @implementation MWMOpeningHoursClosedSpanTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width
-{
-  return isCompactForCellWidth(width) ? 44.0 : 64.0;
-}
 - (void)awakeFromNib
 {
   [super awakeFromNib];

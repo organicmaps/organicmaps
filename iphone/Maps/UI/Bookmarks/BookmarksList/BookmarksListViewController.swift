@@ -28,7 +28,7 @@ final class BookmarksListViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let toolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16,
+    let toolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16.dynamic,
                                  NSAttributedString.Key.foregroundColor: UIColor.linkBlue]
 
     sortToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)

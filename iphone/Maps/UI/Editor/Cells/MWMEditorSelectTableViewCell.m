@@ -28,12 +28,12 @@
   if (text && text.length != 0)
   {
     self.label.text = text;
-    [self.label setStyleNameAndApply:@"blackPrimaryText"];
+    [self.label setStyleNameAndApply:@"regular17:blackPrimaryText"];
   }
   else
   {
     self.label.text = placeholder;
-    [self.label setStyleNameAndApply:@"blackHintText"];
+    [self.label setStyleNameAndApply:@"regular17:blackHintText"];
   }
   self.label.preferredMaxLayoutWidth =
       self.width - self.labelLeadingOffset.constant - self.labelTrailingOffset.constant;

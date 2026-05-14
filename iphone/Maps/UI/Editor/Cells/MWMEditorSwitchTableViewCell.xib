@@ -26,7 +26,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-wR-pPw">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-wR-pPw">
                         <rect key="frame" x="60" y="0.0" width="187" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="XYk-fv-D9R"/>

@@ -36,8 +36,6 @@
 
 - (MWMOpeningHoursEditorCells)cellKeyForRow:(NSUInteger)row;
 
-- (CGFloat)heightForRow:(NSUInteger)row withWidth:(CGFloat)width;
-
 - (NSDateComponents * _Nonnull)timeForRow:(NSUInteger)row isStart:(BOOL)isStart;
 
 - (void)addSelectedDay:(osmoh::Weekday)day;

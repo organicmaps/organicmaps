@@ -15,7 +15,7 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 @property(weak, nonatomic) IBOutlet WeekDayView currentDay;
 @property(weak, nonatomic) IBOutlet UIView * middleSeparator;
-@property(weak, nonatomic) IBOutlet UIView * weekDaysView;
+@property(weak, nonatomic) IBOutlet UIStackView * weekDaysView;
 @property(weak, nonatomic) IBOutlet UIImageView * expandImage;
 @property(weak, nonatomic) IBOutlet UIButton * toggleButton;
 
@@ -99,7 +99,11 @@ WeekDayView getWeekDayView()
   size_t timeTablesCount = timeTableSet.Size();
   self.haveExpandSchedule = (timeTablesCount > 1 || !timeTableSet.GetUnhandledDays().empty());
   self.weekDaysViewEstimatedHeight = 0.0;
-  [self.weekDaysView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  for (UIView * view in self.weekDaysView.arrangedSubviews)
+  {
+    [self.weekDaysView removeArrangedSubview:view];
+    [view removeFromSuperview];
+  }
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
   {
     auto tt = timeTableSet.Get(idx);
@@ -137,6 +141,8 @@ WeekDayView getWeekDayView()
       delegate.forcedButton ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
   [self alignTimeOffsets];
+  [self setNeedsLayout];
+  [self layoutIfNeeded];
 }
 
 - (void)addCurrentDay:(ui::TimeTableSet::Proxy)timeTable
@@ -180,6 +186,7 @@ WeekDayView getWeekDayView()
 {
   WeekDayView wd = getWeekDayView();
   wd.currentDay = NO;
+  wd.translatesAutoresizingMaskIntoConstraints = NO;
   wd.frame = {{0, self.weekDaysViewEstimatedHeight}, {self.weekDaysView.width, 0}};
   [wd setLabelText:stringFromOpeningDays(timeTable.GetOpeningDays()) isRed:NO];
   if (timeTable.IsTwentyFourHours())
@@ -194,7 +201,7 @@ WeekDayView getWeekDayView()
     [wd setBreaks:arrayFromClosedTimes(timeTable.GetExcludeTime())];
   }
   [wd invalidate];
-  [self.weekDaysView addSubview:wd];
+  [self.weekDaysView addArrangedSubview:wd];
   self.weekDaysViewEstimatedHeight += wd.viewHeight;
 }
 
@@ -205,12 +212,13 @@ WeekDayView getWeekDayView()
     return;
   WeekDayView wd = getWeekDayView();
   wd.currentDay = NO;
+  wd.translatesAutoresizingMaskIntoConstraints = NO;
   wd.frame = {{0, self.weekDaysViewEstimatedHeight}, {self.weekDaysView.width, 0}};
   [wd setLabelText:stringFromOpeningDays(closedDays) isRed:NO];
   [wd setOpenTimeText:L(@"day_off")];
   [wd setBreaks:@[]];
   [wd invalidate];
-  [self.weekDaysView addSubview:wd];
+  [self.weekDaysView addArrangedSubview:wd];
   self.weekDaysViewEstimatedHeight += wd.viewHeight;
 }
 
@@ -232,7 +240,7 @@ WeekDayView getWeekDayView()
     CGFloat const bottomOffset = 4.0;
     height += bottomOffset;
     if (!self.currentDay.isCompatibility)
-      height += self.weekDaysViewHeight.constant;
+      height += self.weekDaysViewEstimatedHeight;
   }
   return ceil(height);
 }

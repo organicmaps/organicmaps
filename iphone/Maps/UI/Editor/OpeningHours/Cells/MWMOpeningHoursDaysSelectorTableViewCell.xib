@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,16 +26,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-af-NfP">
-                                <rect key="frame" x="0.0" y="12" width="41" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="eN6-Is-HP5">
-                                <rect key="frame" x="9.5" y="40" width="22" height="22"/>
+                                <rect key="frame" x="9.5" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="6PM-WV-5ha"/>
                                     <constraint firstAttribute="width" constant="22" id="Wid-uC-2rb"/>
@@ -49,6 +46,7 @@
                         <constraints>
                             <constraint firstItem="brZ-af-NfP" firstAttribute="top" secondItem="CCr-vZ-lZV" secondAttribute="top" constant="12" id="4Tb-B7-xF1"/>
                             <constraint firstItem="tQj-bk-oM9" firstAttribute="leading" secondItem="CCr-vZ-lZV" secondAttribute="leading" id="5sp-pU-VqX"/>
+                            <constraint firstAttribute="bottom" secondItem="eN6-Is-HP5" secondAttribute="bottom" constant="12" id="A0R-S0-qok"/>
                             <constraint firstAttribute="bottom" secondItem="tQj-bk-oM9" secondAttribute="bottom" id="Flv-li-zyy"/>
                             <constraint firstItem="brZ-af-NfP" firstAttribute="leading" secondItem="CCr-vZ-lZV" secondAttribute="leading" id="b0u-K1-vTb"/>
                             <constraint firstAttribute="trailing" secondItem="tQj-bk-oM9" secondAttribute="trailing" id="hDV-MS-mRl"/>
@@ -71,16 +69,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="TX4-wv-r7d">
-                                <rect key="frame" x="0.0" y="12" width="41.5" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41.5" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-gY-SsH">
-                                <rect key="frame" x="9.5" y="40" width="22" height="22"/>
+                                <rect key="frame" x="9.5" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="ACp-b4-BbL"/>
                                     <constraint firstAttribute="width" constant="22" id="PHS-nj-MJ1"/>
@@ -93,6 +88,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="TX4-wv-r7d" firstAttribute="top" secondItem="d7U-Vz-ZXn" secondAttribute="top" constant="12" id="3Os-r4-IV4"/>
+                            <constraint firstAttribute="bottom" secondItem="PA6-gY-SsH" secondAttribute="bottom" constant="12" id="831-2P-YLL"/>
                             <constraint firstAttribute="trailing" secondItem="7fE-x8-2Vl" secondAttribute="trailing" id="9kd-YQ-iqd"/>
                             <constraint firstItem="7fE-x8-2Vl" firstAttribute="leading" secondItem="d7U-Vz-ZXn" secondAttribute="leading" id="EE7-5x-SsE"/>
                             <constraint firstAttribute="trailing" secondItem="TX4-wv-r7d" secondAttribute="trailing" id="FzE-0n-OB0"/>
@@ -116,16 +112,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="6IK-aQ-W8x">
-                                <rect key="frame" x="0.0" y="12" width="41" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-R1-Lvc">
-                                <rect key="frame" x="9.5" y="40" width="22" height="22"/>
+                                <rect key="frame" x="9.5" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="0ck-A4-4EU"/>
                                     <constraint firstAttribute="width" constant="22" id="OuD-FL-tq0"/>
@@ -139,6 +132,7 @@
                         <constraints>
                             <constraint firstItem="Ocy-4H-ZwH" firstAttribute="top" secondItem="J8L-sr-yWu" secondAttribute="top" id="0sk-ua-zdd"/>
                             <constraint firstItem="eLh-R1-Lvc" firstAttribute="top" secondItem="6IK-aQ-W8x" secondAttribute="bottom" constant="8" id="2fp-13-n6h"/>
+                            <constraint firstAttribute="bottom" secondItem="eLh-R1-Lvc" secondAttribute="bottom" constant="12" id="ATl-Ws-0xV"/>
                             <constraint firstAttribute="trailing" secondItem="6IK-aQ-W8x" secondAttribute="trailing" id="BHD-Pp-LW4"/>
                             <constraint firstItem="6IK-aQ-W8x" firstAttribute="top" secondItem="J8L-sr-yWu" secondAttribute="top" constant="12" id="JQl-98-UDe"/>
                             <constraint firstItem="6IK-aQ-W8x" firstAttribute="leading" secondItem="J8L-sr-yWu" secondAttribute="leading" id="RvV-4c-Mev"/>
@@ -161,16 +155,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="gSE-qV-osv">
-                                <rect key="frame" x="0.0" y="12" width="41" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="IVB-FW-ULI">
-                                <rect key="frame" x="9.5" y="40" width="22" height="22"/>
+                                <rect key="frame" x="9.5" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="rkz-jd-7Vx"/>
                                     <constraint firstAttribute="width" constant="22" id="zeP-ls-q95"/>
@@ -184,6 +175,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Pmq-0T-6ND" secondAttribute="trailing" id="FKK-TY-xSz"/>
                             <constraint firstItem="IVB-FW-ULI" firstAttribute="centerX" secondItem="8q8-c5-QBM" secondAttribute="centerX" id="Jgi-xs-3J6"/>
+                            <constraint firstAttribute="bottom" secondItem="IVB-FW-ULI" secondAttribute="bottom" constant="12" id="Kxb-J3-wd8"/>
                             <constraint firstItem="IVB-FW-ULI" firstAttribute="top" secondItem="gSE-qV-osv" secondAttribute="bottom" constant="8" id="OQT-Tr-My1"/>
                             <constraint firstAttribute="trailing" secondItem="gSE-qV-osv" secondAttribute="trailing" id="RH3-SD-kbf"/>
                             <constraint firstItem="Pmq-0T-6ND" firstAttribute="top" secondItem="8q8-c5-QBM" secondAttribute="top" id="aYK-b7-hF0"/>
@@ -206,16 +198,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="JHH-2W-e7Q">
-                                <rect key="frame" x="0.0" y="12" width="41" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="WaR-h2-4mE">
-                                <rect key="frame" x="9.5" y="40" width="22" height="22"/>
+                                <rect key="frame" x="9.5" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="2WN-hW-NfA"/>
                                     <constraint firstAttribute="height" constant="22" id="paI-VA-gTy"/>
@@ -234,6 +223,7 @@
                             <constraint firstItem="Otc-DJ-XJQ" firstAttribute="leading" secondItem="15A-tH-C45" secondAttribute="leading" id="TMg-gA-iyJ"/>
                             <constraint firstItem="WaR-h2-4mE" firstAttribute="centerX" secondItem="15A-tH-C45" secondAttribute="centerX" id="Ub0-7c-gNn"/>
                             <constraint firstAttribute="trailing" secondItem="Otc-DJ-XJQ" secondAttribute="trailing" id="X8Z-eo-2rO"/>
+                            <constraint firstAttribute="bottom" secondItem="WaR-h2-4mE" secondAttribute="bottom" constant="12" id="cSz-Gm-Wnz"/>
                             <constraint firstItem="Otc-DJ-XJQ" firstAttribute="top" secondItem="15A-tH-C45" secondAttribute="top" id="jmD-7s-O2V"/>
                             <constraint firstAttribute="trailing" secondItem="JHH-2W-e7Q" secondAttribute="trailing" id="ns8-PY-dck"/>
                         </constraints>
@@ -251,16 +241,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="F0Z-Fk-0s9">
-                                <rect key="frame" x="0.0" y="12" width="41.5" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41.5" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="Qo3-ii-YnF">
-                                <rect key="frame" x="10" y="40" width="22" height="22"/>
+                                <rect key="frame" x="10" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="9Ya-Qr-OeU"/>
                                     <constraint firstAttribute="height" constant="22" id="jS5-JM-9BC"/>
@@ -275,6 +262,7 @@
                             <constraint firstItem="Kid-OJ-nOc" firstAttribute="leading" secondItem="Tqf-QU-RCZ" secondAttribute="leading" id="4op-ZK-yva"/>
                             <constraint firstItem="F0Z-Fk-0s9" firstAttribute="leading" secondItem="Tqf-QU-RCZ" secondAttribute="leading" id="H7T-aM-96w"/>
                             <constraint firstItem="F0Z-Fk-0s9" firstAttribute="top" secondItem="Tqf-QU-RCZ" secondAttribute="top" constant="12" id="R78-3k-Sfz"/>
+                            <constraint firstAttribute="bottom" secondItem="Qo3-ii-YnF" secondAttribute="bottom" constant="12" id="T6K-VD-eo9"/>
                             <constraint firstItem="Qo3-ii-YnF" firstAttribute="centerX" secondItem="Tqf-QU-RCZ" secondAttribute="centerX" id="YGK-VR-Te1"/>
                             <constraint firstItem="Qo3-ii-YnF" firstAttribute="top" secondItem="F0Z-Fk-0s9" secondAttribute="bottom" constant="8" id="ZHq-Ok-ieq"/>
                             <constraint firstAttribute="trailing" secondItem="F0Z-Fk-0s9" secondAttribute="trailing" id="cCr-SP-3Ab"/>
@@ -296,16 +284,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="Nzo-2k-zUZ">
-                                <rect key="frame" x="0.0" y="12" width="41" height="20"/>
+                                <rect key="frame" x="0.0" y="12" width="41" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="vIl-li-8uM">
-                                <rect key="frame" x="9.5" y="40" width="22" height="22"/>
+                                <rect key="frame" x="9.5" y="42" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="D4F-jl-d8J"/>
                                     <constraint firstAttribute="width" constant="22" id="nOA-Kh-nx9"/>
@@ -324,6 +309,7 @@
                             <constraint firstItem="Nzo-2k-zUZ" firstAttribute="top" secondItem="lBL-06-25g" secondAttribute="top" constant="12" id="cAw-kT-cSs"/>
                             <constraint firstAttribute="trailing" secondItem="Nzo-2k-zUZ" secondAttribute="trailing" id="cau-Ip-qka"/>
                             <constraint firstAttribute="trailing" secondItem="l5X-og-86Q" secondAttribute="trailing" id="ftk-0P-Eda"/>
+                            <constraint firstAttribute="bottom" secondItem="vIl-li-8uM" secondAttribute="bottom" constant="12" id="rN1-77-uFx"/>
                             <constraint firstItem="l5X-og-86Q" firstAttribute="leading" secondItem="lBL-06-25g" secondAttribute="leading" id="xfC-RT-CxJ"/>
                             <constraint firstItem="l5X-og-86Q" firstAttribute="top" secondItem="lBL-06-25g" secondAttribute="top" id="yir-ep-anV"/>
                         </constraints>
@@ -420,8 +406,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="radioBtnOff" width="22" height="22"/>
-        <image name="radioBtnOn" width="22" height="22"/>
+        <image name="radioBtnOff" width="24" height="24"/>
+        <image name="radioBtnOn" width="24" height="24"/>
         <image name="separator_image" width="1" height="1"/>
     </resources>
 </document>
