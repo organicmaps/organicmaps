@@ -73,7 +73,9 @@ public:
 
   TrafficInfo() = default;
 
-  TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion);
+  // Pins MwmValue via the handle so that section reads on MwmValue::m_cont don't race with
+  // storage-thread re-registrations mutating MwmInfo::m_file. Caller must verify handle.IsAlive().
+  TrafficInfo(MwmSet::MwmHandle const & handle, int64_t currentDataVersion);
 
   static TrafficInfo BuildForTesting(Coloring && coloring);
   void SetTrafficKeysForTesting(std::vector<RoadSegmentId> const & keys);

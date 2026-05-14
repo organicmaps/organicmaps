@@ -306,8 +306,8 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
 { return m_storage.GetParentIdFor(id); }, [this]() -> StringsBundle const &
 { return m_stringsBundle; }, [this]() -> power_management::PowerManager const & { return m_powerManager; }),
                      static_cast<RoutingManager::Delegate &>(*this))
-  , m_trafficManager(std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */), kMaxTrafficCacheSizeBytes,
-                     m_routingManager.RoutingSession())
+  , m_trafficManager(std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
+                     m_featuresFetcher.GetDataSource(), kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
   , m_lastReportedCountry(kInvalidCountryId)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
   , m_selectionProcessor(*this)
