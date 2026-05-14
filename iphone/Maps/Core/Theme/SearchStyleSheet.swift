@@ -6,7 +6,7 @@ enum SearchStyleSheet: String, CaseIterable {
 }
 
 extension SearchStyleSheet: IStyleSheet {
-  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
+  var styleResolver: Theme.StyleResolver {
     switch self {
     case .searchOnMapSearchBar:
       return .add { s in
@@ -33,7 +33,7 @@ extension SearchStyleSheet: IStyleSheet {
       return .add { s in
         s.fontColor = .linkBlue
         s.fontColorHighlighted = .linkBlueHighlighted
-        s.font = fonts.regular17
+        s.fontStyle = .dynamic(.regular17)
         s.backgroundColor = .clear
       }
     }

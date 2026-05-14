@@ -47,14 +47,14 @@ final class ProductsViewController: UIViewController {
 
   private func setupTitleLabel() {
     titleLabel.text = viewModel.title
-    titleLabel.font = UIFont.semibold16()
+    titleLabel.font = UIFont.semibold16
     titleLabel.numberOfLines = 1
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
   }
 
   private func setupDescriptionLabel() {
     descriptionLabel.text = viewModel.description
-    descriptionLabel.font = UIFont.regular14()
+    descriptionLabel.font = UIFont.regular14
     descriptionLabel.numberOfLines = 0
     descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
   }

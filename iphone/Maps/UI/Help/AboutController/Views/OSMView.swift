@@ -69,7 +69,7 @@ final class OSMView: UIView {
   private func attributedString(for date: String) -> NSAttributedString {
     let osmLink = "OpenStreetMap.org"
     let attributedString = NSMutableAttributedString(string: String(format: L("osm_presentation"), date.trimmingCharacters(in: .punctuationCharacters)),
-                                                     attributes: [.font: UIFont.regular14(),
+                                                     attributes: [.font: UIFont.regular14,
                                                                   .foregroundColor: UIColor.blackPrimaryText])
     let linkRange = attributedString.mutableString.range(of: osmLink)
     attributedString.addAttribute(.link, value: "https://www.openstreetmap.org/", range: linkRange)

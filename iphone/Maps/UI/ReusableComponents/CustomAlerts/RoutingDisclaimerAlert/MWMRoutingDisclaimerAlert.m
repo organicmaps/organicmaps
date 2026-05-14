@@ -1,5 +1,6 @@
 #import "MWMRoutingDisclaimerAlert.h"
 #import "MWMAlertViewController.h"
+#import "SwiftBridge.h"
 
 static CGFloat const kMinimumOffset = 20.;
 
@@ -25,7 +26,7 @@ static CGFloat const kMinimumOffset = 20.;
   alert.textView.attributedText =
       [[NSAttributedString alloc] initWithString:message
                                       attributes:@{
-                                        NSFontAttributeName: UIFont.regular14,
+                                        NSFontAttributeName: UIFont.regular14.dynamic,
                                         NSForegroundColorAttributeName: UIColor.blackSecondaryText
                                       }];
   [alert.textView sizeToFit];

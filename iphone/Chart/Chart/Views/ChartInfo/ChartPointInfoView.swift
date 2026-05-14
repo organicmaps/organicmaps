@@ -34,6 +34,13 @@ final class ChartPointInfoView: UIView {
     }
   }
 
+  var isFontDynamic: Bool = false {
+    didSet {
+      distanceLabel.adjustsFontForContentSizeCategory = isFontDynamic
+      altitudeLabel.adjustsFontForContentSizeCategory = isFontDynamic
+    }
+  }
+
   var textColor: UIColor = .lightGray {
     didSet {
       distanceLabel.textColor = textColor
@@ -79,6 +86,8 @@ final class ChartPointInfoView: UIView {
 
     distanceLabel.font = font
     altitudeLabel.font = font
+    distanceLabel.adjustsFontForContentSizeCategory = isFontDynamic
+    altitudeLabel.adjustsFontForContentSizeCategory = isFontDynamic
 
     distanceLabel.textColor = textColor
     altitudeLabel.textColor = textColor

@@ -1,7 +1,7 @@
 final class TransportTransitTrain: TransportTransitCell {
   enum Config {
     static var labelTextColor: UIColor { .whitePrimary }
-    static let labelTextFont = UIFont.bold12()
+    static let labelTextFont = UIFont.bold12
     static let labelTrailing: CGFloat = 4
   }
 

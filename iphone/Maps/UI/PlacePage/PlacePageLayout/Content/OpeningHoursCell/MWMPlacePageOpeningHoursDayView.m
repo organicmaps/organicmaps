@@ -57,7 +57,7 @@
     {
       UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY, 0, 0)];
       label.text = br;
-      label.font = self.currentDay ? [UIFont regular14] : [UIFont light12];
+      label.font = self.currentDay ? UIFont.regular14.dynamic : UIFont.light12.dynamic;
       label.textColor = [UIColor blackSecondaryText];
       [label sizeToIntegralFit];
       [self.breaksHolder addSubview:label];

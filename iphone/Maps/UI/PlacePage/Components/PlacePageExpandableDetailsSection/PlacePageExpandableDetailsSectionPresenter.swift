@@ -54,7 +54,7 @@ final class PlacePageExpandableDetailsSectionPresenter {
 
   private static func buildAttributedString(from htmlString: String, completion: @escaping (NSAttributedString) -> Void) {
     DispatchQueue.global().async {
-      let font = UIFont.regular14()
+      let font = UIFont.regular14
       let color = UIColor.blackPrimaryText
       let paragraphStyle = NSMutableParagraphStyle()
       paragraphStyle.lineSpacing = 4

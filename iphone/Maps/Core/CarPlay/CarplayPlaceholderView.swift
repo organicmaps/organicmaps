@@ -24,7 +24,7 @@ class CarplayPlaceholderView: UIView {
     containerView.addSubview(imageView)
 
     descriptionLabel.text = L("car_used_on_the_car_screen")
-    descriptionLabel.font = UIFont.bold24()
+    descriptionLabel.font = UIFont.bold24
     descriptionLabel.textAlignment = .center
     descriptionLabel.numberOfLines = 0
     containerView.addSubview(descriptionLabel)

@@ -260,11 +260,11 @@ BOOL defaultOrientation(CGSize const & size)
 
     NSDictionary * turnNumberAttributes = @{
       NSForegroundColorAttributeName: [UIColor whitePrimary],
-      NSFontAttributeName: IPAD ? [UIFont bold36] : [UIFont bold28]
+      NSFontAttributeName: IPAD ? UIFont.bold36.dynamic : UIFont.bold28.dynamic
     };
     NSDictionary * turnLegendAttributes = @{
       NSForegroundColorAttributeName: [UIColor whitePrimary],
-      NSFontAttributeName: IPAD ? [UIFont bold24] : [UIFont bold16]
+      NSFontAttributeName: IPAD ? UIFont.bold24.dynamic : UIFont.bold16.dynamic
     };
 
     NSMutableAttributedString * distance = [[NSMutableAttributedString alloc] initWithString:info.distanceToTurn
