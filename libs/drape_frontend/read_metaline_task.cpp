@@ -7,6 +7,8 @@
 #include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
 
+#include "base/assert.hpp"
+
 #include "defines.hpp"
 
 #include <algorithm>
@@ -24,11 +26,15 @@ struct MetalineData
   std::set<FeatureID> m_reversed;
 };
 
-std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
+std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmHandle const & handle)
 {
+  auto const & mwmId = handle.GetId();
+  auto const & cont = handle.GetValue()->m_cont;
+  if (!cont.IsExist(METALINES_FILE_TAG))
+    return {};
+
   try
   {
-    FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
     ModelReaderPtr reader = cont.GetReader(METALINES_FILE_TAG);
     ReaderSrc src(reader.GetPtr());
 
@@ -53,8 +59,9 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
     }
     return model;
   }
-  catch (Reader::Exception const &)
+  catch (Reader::Exception const & e)
   {
+    CHECK(false, ("Can't read metalines section.", mwmId, e.Msg()));
     return {};
   }
 }
@@ -69,6 +76,7 @@ std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & mo
   {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const count = ft.GetPointsCount();
+    CHECK_GREATER(count, 0, (ft.GetID()));
 
     std::vector<m2::PointD> featurePoints;
     featurePoints.reserve(count);
@@ -93,9 +101,6 @@ std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & mo
 std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>> && points,
                                     std::vector<FeatureID> const & featuresOrder)
 {
-  if (points.size() == 1)
-    return std::move(points.begin()->second);
-
   size_t sz = 0;
   for (auto const & p : points)
     sz += p.second.size();
@@ -105,7 +110,8 @@ std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>>
   for (auto const & f : featuresOrder)
   {
     auto const it = points.find(f);
-    ASSERT(it != points.cend(), ());
+    CHECK(it != points.cend(), (f));
+    CHECK(!it->second.empty(), (f));
 
     if (!result.empty())
     {
@@ -130,11 +136,11 @@ ReadMetalineTask::ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const 
 
 void ReadMetalineTask::Run()
 {
-  /// @todo Naive check for now. Should refactor with MwmHandle lock here.
-  if (!m_mwmId.IsAlive() || !m_mwmId.GetInfo()->IsRegistered())
+  auto handle = m_model.GetMwmHandleById(m_mwmId);
+  if (!handle.IsAlive())
     return;
 
-  auto metalines = ReadMetalinesFromFile(m_mwmId);
+  auto metalines = ReadMetalinesFromFile(handle);
   for (auto & metaline : metalines)
   {
     if (m_isCancelled)

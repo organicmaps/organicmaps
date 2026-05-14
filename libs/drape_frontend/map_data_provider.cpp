@@ -7,6 +7,7 @@
 namespace df
 {
 MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
+                                 TGetMwmHandleByIdFn && getMwmHandleByIdFn,
                                  TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                                  TUpdateCurrentCountryFn && updateCurrentCountryFn,
                                  TTileBackgroundReadFn && tileBackgroundReadFn,
@@ -14,6 +15,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && fea
   : m_isCountryLoadedByName(std::move(isCountryLoadedByNameFn))
   , m_featureReader(std::move(featureReader))
   , m_idsReader(std::move(idsReader))
+  , m_getMwmHandleByIdFn(std::move(getMwmHandleByIdFn))
   , m_updateCurrentCountry(std::move(updateCurrentCountryFn))
   , m_tileBackgroundReader(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReading(std::move(cancelTileBackgroundReadingFn))
@@ -21,6 +23,7 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && fea
   CHECK(m_isCountryLoadedByName != nullptr, ());
   CHECK(m_featureReader != nullptr, ());
   CHECK(m_idsReader != nullptr, ());
+  CHECK(m_getMwmHandleByIdFn != nullptr, ());
   CHECK(m_updateCurrentCountry != nullptr, ());
   CHECK(m_tileBackgroundReader != nullptr, ());
   CHECK(m_cancelTileBackgroundReading != nullptr, ());
@@ -34,6 +37,11 @@ void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID const> const & fn, 
 void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const
 {
   m_featureReader(fn, ids);
+}
+
+MwmSet::MwmHandle MapDataProvider::GetMwmHandleById(MwmSet::MwmId const & mwmId) const
+{
+  return m_getMwmHandleByIdFn(mwmId);
 }
 
 MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const

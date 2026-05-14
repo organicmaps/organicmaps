@@ -1588,6 +1588,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
         break;
   };
 
+  auto getMwmHandleByIdFn = [this](MwmSet::MwmId const & mwmId)
+  { return m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId); };
+
   auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
 #if DEBUG_BACKGROUND_TILE
@@ -1687,9 +1690,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-      df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
-                          std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
-                          std::move(cancelTileBackgroundReadingFn)),
+      df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(getMwmHandleByIdFn),
+                          std::move(isCountryLoadedByNameFn), std::move(updateCurrentCountryFn),
+                          std::move(tileBackgroundReadFn), std::move(cancelTileBackgroundReadingFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
