@@ -28,9 +28,10 @@ class UITextFieldRenderer {
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
     }
-    if let font = style.font {
-      control.font = font
-      placeholderAttributes[NSAttributedString.Key.font] = font
+    if let fontStyle = style.fontStyle {
+      control.font = fontStyle.font
+      control.adjustsFontForContentSizeCategory = fontStyle.isDynamic
+      placeholderAttributes[NSAttributedString.Key.font] = fontStyle.font
     }
     if let fontColor = style.fontColor {
       control.textColor = fontColor

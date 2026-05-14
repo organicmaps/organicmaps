@@ -27,8 +27,8 @@ class UINavigationBarRenderer: UIViewRenderer {
     }
 
     var attributes = [NSAttributedString.Key: Any]()
-    if let font = style.font {
-      attributes[NSAttributedString.Key.font] = font
+    if let fontStyle = style.fontStyle {
+      attributes[NSAttributedString.Key.font] = fontStyle.font
     }
     if let fontColor = style.fontColor {
       attributes[NSAttributedString.Key.foregroundColor] = fontColor

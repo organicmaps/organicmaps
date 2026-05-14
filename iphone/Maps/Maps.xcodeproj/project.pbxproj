@@ -54,6 +54,8 @@
 		ED2D74412D14337500660FBF /* OMapsWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */; };
 		ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */; };
 		ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742D2D14337500660FBF /* LiveActivityManager.swift */; };
+		ED3596F12FB4E24100ECC6D2 /* UIFont+DynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3596F02FB4E24100ECC6D2 /* UIFont+DynamicType.swift */; };
+		ED3597152FB611FF00ECC6D2 /* UIFont+Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3597142FB611FF00ECC6D2 /* UIFont+Fonts.swift */; };
 		ED46DDCE2D098A0B007CACD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */; };
 		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
 		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -496,7 +498,6 @@
 		ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F02F90186300FA103D /* LocaleTranslator.mm */; };
 		ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F22F90186300FA103D /* MWMTextToSpeech.mm */; };
 		ED82C77B2F90186300FA103D /* TTSTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F62F90186300FA103D /* TTSTester.mm */; };
-		ED82C77C2F90186300FA103D /* IFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6F82F90186300FA103D /* IFonts.swift */; };
 		ED82C77D2F90186300FA103D /* IStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FA2F90186300FA103D /* IStyleSheet.swift */; };
 		ED82C77E2F90186300FA103D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FB2F90186300FA103D /* Style.swift */; };
 		ED82C77F2F90186300FA103D /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C6FC2F90186300FA103D /* StyleManager.swift */; };
@@ -533,7 +534,6 @@
 		ED82C79F2F90186300FA103D /* SwizzleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C71F2F90186300FA103D /* SwizzleStyle.m */; };
 		ED82C7A02F90186300FA103D /* BookmarksStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7212F90186300FA103D /* BookmarksStyleSheet.swift */; };
 		ED82C7A12F90186300FA103D /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7222F90186300FA103D /* CornerRadius.swift */; };
-		ED82C7A22F90186300FA103D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7232F90186300FA103D /* Fonts.swift */; };
 		ED82C7A32F90186300FA103D /* FontStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7242F90186300FA103D /* FontStyleSheet.swift */; };
 		ED82C7A42F90186300FA103D /* GlobalStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7252F90186300FA103D /* GlobalStyleSheet.swift */; };
 		ED82C7A52F90186300FA103D /* MainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7262F90186300FA103D /* MainTheme.swift */; };
@@ -555,7 +555,6 @@
 		ED82C7F12F90186900FA103D /* UIColor+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7B62F90186900FA103D /* UIColor+Image.swift */; };
 		ED82C7F22F90186900FA103D /* UIColor+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7B72F90186900FA103D /* UIColor+Modifications.swift */; };
 		ED82C7F32F90186900FA103D /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7B82F90186900FA103D /* UIColor+RGBA.swift */; };
-		ED82C7F42F90186900FA103D /* UIFont+Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7BB2F90186900FA103D /* UIFont+Fonts.m */; };
 		ED82C7F52F90186900FA103D /* UIFont+Monospaced.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7BC2F90186900FA103D /* UIFont+Monospaced.swift */; };
 		ED82C7F62F90186900FA103D /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7BE2F90186900FA103D /* NSAttributedString+HTML.swift */; };
 		ED82C7F72F90186900FA103D /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7C02F90186900FA103D /* NSString+Ranges.m */; };
@@ -886,6 +885,8 @@
 		ED2D74342D14337500660FBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED2D74352D14337500660FBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMapsWidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		ED3596F02FB4E24100ECC6D2 /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
+		ED3597142FB611FF00ECC6D2 /* UIFont+Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Fonts.swift"; sourceTree = "<group>"; };
 		ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OMapsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -1496,7 +1497,6 @@
 		ED82C6F42F90186300FA103D /* MWMTextToSpeechObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeechObserver.h; sourceTree = "<group>"; };
 		ED82C6F52F90186300FA103D /* TTSTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSTester.h; sourceTree = "<group>"; };
 		ED82C6F62F90186300FA103D /* TTSTester.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TTSTester.mm; sourceTree = "<group>"; };
-		ED82C6F82F90186300FA103D /* IFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFonts.swift; sourceTree = "<group>"; };
 		ED82C6FA2F90186300FA103D /* IStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IStyleSheet.swift; sourceTree = "<group>"; };
 		ED82C6FB2F90186300FA103D /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		ED82C6FC2F90186300FA103D /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
@@ -1534,7 +1534,6 @@
 		ED82C71F2F90186300FA103D /* SwizzleStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwizzleStyle.m; sourceTree = "<group>"; };
 		ED82C7212F90186300FA103D /* BookmarksStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksStyleSheet.swift; sourceTree = "<group>"; };
 		ED82C7222F90186300FA103D /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
-		ED82C7232F90186300FA103D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		ED82C7242F90186300FA103D /* FontStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyleSheet.swift; sourceTree = "<group>"; };
 		ED82C7252F90186300FA103D /* GlobalStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStyleSheet.swift; sourceTree = "<group>"; };
 		ED82C7262F90186300FA103D /* MainTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTheme.swift; sourceTree = "<group>"; };
@@ -1565,8 +1564,6 @@
 		ED82C7B62F90186900FA103D /* UIColor+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Image.swift"; sourceTree = "<group>"; };
 		ED82C7B72F90186900FA103D /* UIColor+Modifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Modifications.swift"; sourceTree = "<group>"; };
 		ED82C7B82F90186900FA103D /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
-		ED82C7BA2F90186900FA103D /* UIFont+Fonts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+Fonts.h"; sourceTree = "<group>"; };
-		ED82C7BB2F90186900FA103D /* UIFont+Fonts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Fonts.m"; sourceTree = "<group>"; };
 		ED82C7BC2F90186900FA103D /* UIFont+Monospaced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Monospaced.swift"; sourceTree = "<group>"; };
 		ED82C7BE2F90186900FA103D /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		ED82C7BF2F90186900FA103D /* NSString+Ranges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Ranges.h"; sourceTree = "<group>"; };
@@ -3660,14 +3657,6 @@
 			path = TextToSpeech;
 			sourceTree = "<group>";
 		};
-		ED82C6F92F90186300FA103D /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				ED82C6F82F90186300FA103D /* IFonts.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		ED82C6FF2F90186300FA103D /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -3727,13 +3716,11 @@
 		ED82C72D2F90186300FA103D /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C6F92F90186300FA103D /* Components */,
 				ED82C6FF2F90186300FA103D /* Core */,
 				ED82C71D2F90186300FA103D /* Renderers */,
 				ED82C7202F90186300FA103D /* Swizzle */,
 				ED82C7212F90186300FA103D /* BookmarksStyleSheet.swift */,
 				ED82C7222F90186300FA103D /* CornerRadius.swift */,
-				ED82C7232F90186300FA103D /* Fonts.swift */,
 				ED82C7242F90186300FA103D /* FontStyleSheet.swift */,
 				ED82C7252F90186300FA103D /* GlobalStyleSheet.swift */,
 				ED82C7262F90186300FA103D /* MainTheme.swift */,
@@ -3821,9 +3808,9 @@
 		ED82C7BD2F90186900FA103D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				ED82C7BA2F90186900FA103D /* UIFont+Fonts.h */,
-				ED82C7BB2F90186900FA103D /* UIFont+Fonts.m */,
+				ED3597142FB611FF00ECC6D2 /* UIFont+Fonts.swift */,
 				ED82C7BC2F90186900FA103D /* UIFont+Monospaced.swift */,
+				ED3596F02FB4E24100ECC6D2 /* UIFont+DynamicType.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -4540,6 +4527,7 @@
 				ED82C7452F90186300FA103D /* MapTemplateBuilder.swift in Sources */,
 				ED82C7462F90186300FA103D /* SearchTemplateBuilder.swift in Sources */,
 				ED82C7472F90186300FA103D /* SettingsTemplateBuilder.swift in Sources */,
+				ED3596F12FB4E24100ECC6D2 /* UIFont+DynamicType.swift in Sources */,
 				ED82C7482F90186300FA103D /* BookmarkInfo.swift in Sources */,
 				ED82C7492F90186300FA103D /* CategoryInfo.swift in Sources */,
 				ED82C74A2F90186300FA103D /* ListItemInfo.swift in Sources */,
@@ -4550,6 +4538,7 @@
 				ED82C74F2F90186300FA103D /* CarPlayRouter.swift in Sources */,
 				ED82C7502F90186300FA103D /* CarPlayService.swift in Sources */,
 				ED82C7512F90186300FA103D /* CarPlayWindowScaleAdjuster.swift in Sources */,
+				ED3597152FB611FF00ECC6D2 /* UIFont+Fonts.swift in Sources */,
 				ED82C7522F90186300FA103D /* CPConstants.swift in Sources */,
 				ED82C7532F90186300FA103D /* CPViewPortState.swift in Sources */,
 				ED82C7542F90186300FA103D /* MWMCarPlaySearchResultObject.mm in Sources */,
@@ -4592,7 +4581,6 @@
 				ED82C7792F90186300FA103D /* LocaleTranslator.mm in Sources */,
 				ED82C77A2F90186300FA103D /* MWMTextToSpeech.mm in Sources */,
 				ED82C77B2F90186300FA103D /* TTSTester.mm in Sources */,
-				ED82C77C2F90186300FA103D /* IFonts.swift in Sources */,
 				ED82C77D2F90186300FA103D /* IStyleSheet.swift in Sources */,
 				ED82C77E2F90186300FA103D /* Style.swift in Sources */,
 				ED82C77F2F90186300FA103D /* StyleManager.swift in Sources */,
@@ -4631,7 +4619,6 @@
 				ED82C79F2F90186300FA103D /* SwizzleStyle.m in Sources */,
 				ED82C7A02F90186300FA103D /* BookmarksStyleSheet.swift in Sources */,
 				ED82C7A12F90186300FA103D /* CornerRadius.swift in Sources */,
-				ED82C7A22F90186300FA103D /* Fonts.swift in Sources */,
 				ED82C7A32F90186300FA103D /* FontStyleSheet.swift in Sources */,
 				ED82C7A42F90186300FA103D /* GlobalStyleSheet.swift in Sources */,
 				ED82C7A52F90186300FA103D /* MainTheme.swift in Sources */,
@@ -4778,7 +4765,6 @@
 				ED82C7F12F90186900FA103D /* UIColor+Image.swift in Sources */,
 				ED82C7F22F90186900FA103D /* UIColor+Modifications.swift in Sources */,
 				ED82C7F32F90186900FA103D /* UIColor+RGBA.swift in Sources */,
-				ED82C7F42F90186900FA103D /* UIFont+Fonts.m in Sources */,
 				ED82C7F52F90186900FA103D /* UIFont+Monospaced.swift in Sources */,
 				ED82C7F62F90186900FA103D /* NSAttributedString+HTML.swift in Sources */,
 				ED82C7F72F90186900FA103D /* NSString+Ranges.m in Sources */,

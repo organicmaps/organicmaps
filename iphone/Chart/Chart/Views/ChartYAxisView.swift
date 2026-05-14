@@ -25,6 +25,13 @@ private class ChartYAxisInnerView: UIView {
     }
   }
 
+  var isFontDynamic: Bool = false {
+    didSet {
+      lowerLabel.adjustsFontForContentSizeCategory = isFontDynamic
+      upperLabel.adjustsFontForContentSizeCategory = isFontDynamic
+    }
+  }
+
   var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       lowerLabel.textColor = textColor
@@ -188,6 +195,12 @@ class ChartYAxisView: UIView {
   var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       gridView?.font = font
+    }
+  }
+
+  var isFontDynamic: Bool = false {
+    didSet {
+      gridView?.isFontDynamic = isFontDynamic
     }
   }
 

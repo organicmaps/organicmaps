@@ -9,8 +9,9 @@ extension BottomMenuLayerButton {
 
 class BottomMenuLayerButtonRenderer {
   class func render(_ control: BottomMenuLayerButton, style: Style) {
-    if let font = style.font {
-      control.titleLabel.font = font
+    if let fontStyle = style.fontStyle {
+      control.titleLabel.font = fontStyle.font
+      control.titleLabel.adjustsFontForContentSizeCategory = fontStyle.isDynamic
     }
 
     if let fontColor = style.fontColor {

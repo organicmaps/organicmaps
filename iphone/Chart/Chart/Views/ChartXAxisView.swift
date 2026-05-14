@@ -12,6 +12,12 @@ private class ChartXAxisInnerView: UIView {
     }
   }
 
+  var isFontDynamic: Bool = false {
+    didSet {
+      labels.forEach { $0.adjustsFontForContentSizeCategory = isFontDynamic }
+    }
+  }
+
   var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       labels.forEach { $0.textColor = textColor }
@@ -29,6 +35,7 @@ private class ChartXAxisInnerView: UIView {
   private func makeLabel(text: String) -> UILabel {
     let label = UILabel()
     label.font = font
+    label.adjustsFontForContentSizeCategory = isFontDynamic
     label.textColor = textColor
     label.text = text
     label.frame = CGRect(x: 0, y: 0, width: 60, height: 15)
@@ -87,6 +94,12 @@ class ChartXAxisView: UIView {
   var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       labelsView?.font = font
+    }
+  }
+
+  var isFontDynamic: Bool = false {
+    didSet {
+      labelsView?.isFontDynamic = isFontDynamic
     }
   }
 

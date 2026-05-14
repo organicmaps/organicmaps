@@ -44,7 +44,7 @@ final class ButtonsStackView: UIView {
 
   // MARK: - Public
 
-  func addButton(title: String, font: UIFont = .regular14(), didTapHandler: @escaping () -> Void) {
+  func addButton(title: String, font: UIFont = .regular14, didTapHandler: @escaping () -> Void) {
     let button = UIButton()
     button.setStyleAndApply(.flatPrimaryTransButton)
     button.setTitle(title, for: .normal)

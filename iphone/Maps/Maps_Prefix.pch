@@ -9,6 +9,5 @@
   #import "MWMConsts.h"
   #import "MWMMacros.h"
   #import "UIColor+Colors.h"
-  #import "UIFont+Fonts.h"
   #import "UIKitCategories.h"
 #endif

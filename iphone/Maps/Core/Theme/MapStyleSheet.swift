@@ -19,12 +19,12 @@ enum MapStyleSheet: String, CaseIterable {
 }
 
 extension MapStyleSheet: IStyleSheet {
-  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
+  var styleResolver: Theme.StyleResolver {
     switch self {
     case .mapMenuButtonDisabled:
       return .add { s in
         s.fontColor = .blackSecondaryText
-        s.font = fonts.regular10
+        s.fontStyle = .dynamic(.regular10)
         s.backgroundColor = .clear
         s.borderColor = .clear
         s.borderWidth = 0
@@ -33,7 +33,7 @@ extension MapStyleSheet: IStyleSheet {
     case .mapMenuButtonEnabled:
       return .add { s in
         s.fontColor = .linkBlue
-        s.font = fonts.regular10
+        s.fontStyle = .dynamic(.regular10)
         s.backgroundColor = .linkBlue
         s.borderColor = .linkBlue
         s.borderWidth = 3
@@ -114,7 +114,7 @@ extension MapStyleSheet: IStyleSheet {
         s.tintColor = .linkBlue
         s.backgroundImage = UIImage()
         s.shadowImage = UIImage()
-        s.font = fonts.regular18
+        s.fontStyle = .dynamic(.regular18)
         s.fontColor = .blackPrimaryText
       }
     }

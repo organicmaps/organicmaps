@@ -12,9 +12,9 @@ class Style: ExpressibleByDictionaryLiteral {
     case clip
     case round
 
-    case font
+    case fontStyle
     case fontColor
-    case fontDetailed
+    case fontDetailedStyle
     case fontColorDetailed
     case tintColor
     case tintColorDisabled
@@ -148,9 +148,9 @@ extension Style {
     set { params[.round] = newValue }
   }
 
-  var font: UIFont? {
-    get { self[.font] as? UIFont }
-    set { params[.font] = newValue }
+  var fontStyle: FontStyle? {
+    get { self[.fontStyle] as? FontStyle }
+    set { params[.fontStyle] = newValue }
   }
 
   var fontColor: UIColor? {
@@ -158,9 +158,9 @@ extension Style {
     set { params[.fontColor] = newValue }
   }
 
-  var fontDetailed: UIFont? {
-    get { self[.fontDetailed] as? UIFont }
-    set { params[.fontDetailed] = newValue }
+  var fontDetailedStyle: FontStyle? {
+    get { self[.fontDetailedStyle] as? FontStyle }
+    set { params[.fontDetailedStyle] = newValue }
   }
 
   var fontColorDetailed: UIColor? {
