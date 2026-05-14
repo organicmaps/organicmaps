@@ -47,8 +47,9 @@ class UISearchBarRenderer: UIViewRenderer {
     if let backgroundColor = style.backgroundColor {
       searchTextField.backgroundColor = backgroundColor
     }
-    if let font = style.font {
-      searchTextField.font = font
+    if let fontStyle = style.fontStyle {
+      searchTextField.font = fontStyle.font
+      searchTextField.adjustsFontForContentSizeCategory = fontStyle.isDynamic
     }
     if let fontColor = style.fontColor {
       searchTextField.textColor = fontColor

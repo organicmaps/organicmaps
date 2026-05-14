@@ -102,7 +102,7 @@ class TabView: UIView {
 
   var selectedHeaderTextAttributes: [NSAttributedString.Key: Any] = [
     .foregroundColor: UIColor.white,
-    .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+    .font: UIFont.semibold14.dynamic,
   ] {
     didSet {
       tabsCollectionView.reloadData()
@@ -111,7 +111,7 @@ class TabView: UIView {
 
   var deselectedHeaderTextAttributes: [NSAttributedString.Key: Any] = [
     .foregroundColor: UIColor.gray,
-    .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+    .font: UIFont.semibold14.dynamic,
   ] {
     didSet {
       tabsCollectionView.reloadData()

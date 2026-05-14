@@ -1,6 +1,7 @@
 #import "MWMOsmReauthAlert.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "SwiftBridge.h"
 
 #include "editor/osm_auth.hpp"
 
@@ -23,10 +24,10 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 // where {alert_reauth_link_text_ios} has blue color as a link
 + (NSMutableAttributedString *)buildAlertMessage
 {
-  auto textAttrs = @{NSFontAttributeName: UIFont.regular17};
+  auto textAttrs = @{NSFontAttributeName: UIFont.regular17.dynamic};
   auto linkAttrs = @{
     NSForegroundColorAttributeName: UIColor.linkBlue,
-    NSFontAttributeName: UIFont.regular17,
+    NSFontAttributeName: UIFont.regular17.dynamic,
     NSLinkAttributeName: @"https://github.com/organicmaps/organicmaps/issues/6144"
   };
 

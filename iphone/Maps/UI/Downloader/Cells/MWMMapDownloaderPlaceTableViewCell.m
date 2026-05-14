@@ -1,4 +1,5 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
+#import "SwiftBridge.h"
 
 #import <CoreApi/MWMMapNodeAttributes.h>
 
@@ -17,8 +18,8 @@
 {
   [super config:nodeAttrs searchQuery:searchQuery];
   BOOL isDescriptionVisible = NO;
-  NSDictionary * selectedAreaAttrs = @{NSFontAttributeName: [UIFont bold12]};
-  NSDictionary * unselectedAreaAttrs = @{NSFontAttributeName: [UIFont regular12]};
+  NSDictionary * selectedAreaAttrs = @{NSFontAttributeName: UIFont.bold12.dynamic};
+  NSDictionary * unselectedAreaAttrs = @{NSFontAttributeName: UIFont.regular12.dynamic};
   self.needDisplayArea = !nodeAttrs.hasParent;
   if (self.needDisplayArea && nodeAttrs.topmostParentInfo.count == 1)
   {

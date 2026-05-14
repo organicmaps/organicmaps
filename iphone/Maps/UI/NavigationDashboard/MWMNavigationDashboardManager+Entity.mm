@@ -197,16 +197,16 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 + (NSAttributedString *)estimateDot
 {
   auto attributes =
-      @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
+      @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: UIFont.medium17.dynamic};
   return [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
 }
 
 - (NSAttributedString *)estimate
 {
   NSDictionary * primaryAttributes =
-      @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont semibold17]};
+      @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: UIFont.semibold17.dynamic};
   NSDictionary * secondaryAttributes =
-      @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
+      @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: UIFont.medium17.dynamic};
 
   auto result = [[NSMutableAttributedString alloc] initWithString:@""];
   if (self.showEta)

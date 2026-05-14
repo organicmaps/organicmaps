@@ -165,12 +165,12 @@ final class NavigationControlView: SolidTouchView {
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText,
-        NSAttributedString.Key.font: UIFont.bold24(),
+        NSAttributedString.Key.font: UIFont.bold24,
       ]
     let routingLegendAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText,
-        NSAttributedString.Key.font: UIFont.bold14(),
+        NSAttributedString.Key.font: UIFont.bold14,
       ]
 
     if timePageControl.currentPage == 0 {

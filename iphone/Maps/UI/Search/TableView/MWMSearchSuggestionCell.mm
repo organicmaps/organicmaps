@@ -1,4 +1,5 @@
 #import "MWMSearchSuggestionCell.h"
+#import "SwiftBridge.h"
 
 @interface MWMSearchSuggestionCell ()
 
@@ -22,7 +23,7 @@
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  return @{NSForegroundColorAttributeName: [UIColor linkBlue], NSFontAttributeName: UIFont.regular16};
+  return @{NSForegroundColorAttributeName: [UIColor linkBlue], NSFontAttributeName: UIFont.regular16.dynamic};
 }
 
 #pragma mark - Properties
