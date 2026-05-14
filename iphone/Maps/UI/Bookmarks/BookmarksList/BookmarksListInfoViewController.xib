@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksListInfoViewController" customModule="OMaps" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksListInfoViewController" customModule="Organic_Maps" customModuleProvider="target">
             <connections>
                 <outlet property="authorContainerView" destination="bit-FN-ytL" id="CAI-TP-A5D"/>
-                <outlet property="descriptionButton" destination="cxc-pt-qei" id="zce-so-aHF"/>
+                <outlet property="descriptionLabel" destination="cxc-pt-qei" id="zce-so-aHF"/>
                 <outlet property="infoStack" destination="226-gO-8GN" id="f2A-eJ-FGG"/>
                 <outlet property="titleImageView" destination="dsB-Xh-jOl" id="rsb-lH-MDN"/>
                 <outlet property="titleLabel" destination="TFR-Qj-pUF" id="D2T-y8-ztA"/>
@@ -60,20 +60,18 @@
                                                 <constraint firstAttribute="bottom" secondItem="TFR-Qj-pUF" secondAttribute="bottom" id="j5w-Th-flQ"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxc-pt-qei">
+                                        <label opaque="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxc-pt-qei">
                                             <rect key="frame" x="0.0" y="48" width="343" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="g6j-hs-K1V"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="g6j-hs-K1V"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                            <state key="normal" title="DESCRIPTION"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButton"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                                             </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="onDescription:" destination="-1" eventType="touchUpInside" id="fQR-bp-Mds"/>
-                                            </connections>
-                                        </button>
+                                        </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIy-PU-SzO">
                                             <rect key="frame" x="0.0" y="88" width="343" height="10"/>
                                             <constraints>
@@ -101,6 +99,10 @@
                                             </constraints>
                                         </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="cxc-pt-qei" firstAttribute="top" secondItem="Z9F-Yb-cDq" secondAttribute="bottom" constant="8" id="at4-Bi-5xr"/>
+                                        <constraint firstItem="TIy-PU-SzO" firstAttribute="top" secondItem="cxc-pt-qei" secondAttribute="bottom" constant="8" id="wWQ-6X-nIA"/>
+                                    </constraints>
                                 </stackView>
                             </subviews>
                             <constraints>

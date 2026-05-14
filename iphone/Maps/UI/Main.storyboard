@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="iPad13_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -645,40 +645,23 @@
         <!--Objects Category Selector Controller-->
         <scene sceneID="hWY-Fu-EcX">
             <objects>
-                <viewController id="QlF-CJ-cEG" customClass="MWMObjectsCategorySelectorController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="MIY-NW-Joh">
+                <tableViewController id="QlF-CJ-cEG" customClass="MWMObjectsCategorySelectorController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="JbV-y9-HBo">
                         <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="JbV-y9-HBo">
-                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="QlF-CJ-cEG" id="vD2-pf-Vhj"/>
-                                    <outlet property="delegate" destination="QlF-CJ-cEG" id="QFe-QZ-zDw"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="lsu-H8-wQc"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JbV-y9-HBo" secondAttribute="trailing" id="9Eh-BE-WvD"/>
-                            <constraint firstAttribute="bottom" secondItem="JbV-y9-HBo" secondAttribute="bottom" id="JxK-xu-ZHw"/>
-                            <constraint firstItem="JbV-y9-HBo" firstAttribute="leading" secondItem="MIY-NW-Joh" secondAttribute="leading" id="MFw-S4-taL"/>
-                            <constraint firstItem="JbV-y9-HBo" firstAttribute="top" secondItem="MIY-NW-Joh" secondAttribute="top" id="Z4w-zP-8Bk"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                        <connections>
+                            <outlet property="dataSource" destination="QlF-CJ-cEG" id="vD2-pf-Vhj"/>
+                            <outlet property="delegate" destination="QlF-CJ-cEG" id="QFe-QZ-zDw"/>
+                        </connections>
+                    </tableView>
                     <connections>
-                        <outlet property="tableView" destination="JbV-y9-HBo" id="uQw-El-Xes"/>
                         <segue destination="Lfa-Zp-orR" kind="custom" identifier="CategorySelectorToEditorSegue" customClass="MWMSegue" id="gFM-Ca-ARt"/>
                     </connections>
-                </viewController>
+                </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iSu-YM-7aH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-372" y="2753"/>
@@ -686,69 +669,20 @@
         <!--Cuisine Editor View Controller-->
         <scene sceneID="HdR-KQ-HeR">
             <objects>
-                <viewController id="da4-KT-kzF" customClass="MWMCuisineEditorViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iTG-qE-svw">
+                <tableViewController id="da4-KT-kzF" customClass="MWMCuisineEditorViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ina-WD-kps">
                         <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ina-WD-kps">
-                                <rect key="frame" x="0.0" y="96" width="1032" height="1235"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="da4-KT-kzF" id="C9h-WG-CWd"/>
-                                    <outlet property="delegate" destination="da4-KT-kzF" id="eGp-vV-hCr"/>
-                                </connections>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEU-Bu-3wh" userLabel="Status Bar Background">
-                                <rect key="frame" x="0.0" y="-12" width="1032" height="108"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="108" id="Slm-73-UcI"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchStatusBarView"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="z6s-26-dP6">
-                                <rect key="frame" x="0.0" y="32" width="1032" height="64"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="UAk-z1-2EY"/>
-                                </constraints>
-                                <color key="barTintColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="da4-KT-kzF" id="y0G-ow-KBN"/>
-                                </connections>
-                            </searchBar>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="aCA-5u-5ht"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="aCA-5u-5ht" firstAttribute="bottom" secondItem="ina-WD-kps" secondAttribute="bottom" id="4ua-eU-UlF"/>
-                            <constraint firstAttribute="trailing" secondItem="HEU-Bu-3wh" secondAttribute="trailing" id="HVd-J9-Ryl"/>
-                            <constraint firstItem="ina-WD-kps" firstAttribute="top" secondItem="HEU-Bu-3wh" secondAttribute="bottom" id="Mfw-EL-q11"/>
-                            <constraint firstItem="z6s-26-dP6" firstAttribute="top" secondItem="aCA-5u-5ht" secondAttribute="top" id="ON6-k6-SEu"/>
-                            <constraint firstItem="ina-WD-kps" firstAttribute="leading" secondItem="iTG-qE-svw" secondAttribute="leading" id="SEP-Lx-VJm"/>
-                            <constraint firstItem="aCA-5u-5ht" firstAttribute="trailing" secondItem="z6s-26-dP6" secondAttribute="trailing" id="bTi-6f-Tpz"/>
-                            <constraint firstItem="HEU-Bu-3wh" firstAttribute="bottom" secondItem="z6s-26-dP6" secondAttribute="bottom" id="f8W-Bg-e5p"/>
-                            <constraint firstItem="z6s-26-dP6" firstAttribute="leading" secondItem="aCA-5u-5ht" secondAttribute="leading" id="i7D-mx-GbF"/>
-                            <constraint firstAttribute="trailing" secondItem="ina-WD-kps" secondAttribute="trailing" id="rNY-6Q-e5e"/>
-                            <constraint firstItem="HEU-Bu-3wh" firstAttribute="leading" secondItem="iTG-qE-svw" secondAttribute="leading" id="w8n-vg-Wp1"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
-                    <connections>
-                        <outlet property="searchBar" destination="z6s-26-dP6" id="IQV-JB-rOI"/>
-                        <outlet property="tableView" destination="ina-WD-kps" id="o7K-TE-79a"/>
-                    </connections>
-                </viewController>
+                        <connections>
+                            <outlet property="dataSource" destination="da4-KT-kzF" id="C9h-WG-CWd"/>
+                            <outlet property="delegate" destination="da4-KT-kzF" id="eGp-vV-hCr"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bp6-aD-bwn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1055" y="3560"/>
@@ -779,7 +713,7 @@
                                     <segue destination="b8o-rZ-x0k" kind="embed" identifier="MapDownloaderNoResultsEmbedViewControllerSegue" id="ish-dC-mkH"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDj-ol-HRP">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CDj-ol-HRP">
                                 <rect key="frame" x="0.0" y="1267" width="1032" height="109"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
@@ -799,7 +733,7 @@
                             <constraint firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="Wvb-0M-kQl"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="kXO-Oh-2vO" secondAttribute="top" id="eFX-ON-3aD"/>
-                            <constraint firstItem="CDj-ol-HRP" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="bottom" constant="-64" id="j6X-Fl-XrE"/>
+                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="CDj-ol-HRP" secondAttribute="top" constant="64" id="j6X-Fl-XrE"/>
                             <constraint firstItem="CDj-ol-HRP" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="mwH-aX-jCV"/>
                             <constraint firstAttribute="bottom" secondItem="CDj-ol-HRP" secondAttribute="bottom" id="tp7-f9-Sw5"/>
                             <constraint firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>

@@ -54,7 +54,7 @@ class UIViewRenderer {
     if let clip = style.clip {
       control.clipsToBounds = clip
     }
-    if let round = style.round, round == true {
+    if let round = style.round, round {
       control.layer.cornerRadius = control.size.height / 2
     }
     control.layer.cornerCurve = .continuous

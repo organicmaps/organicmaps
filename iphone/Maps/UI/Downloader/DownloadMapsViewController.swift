@@ -26,7 +26,6 @@ class DownloadMapsViewController: MWMViewController {
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
   private var hasAddMapSection: Bool { dataSource.isRoot && mode == .downloaded }
-  private let allMapsViewBottomOffsetConstant: CGFloat = 64
 
   lazy var noSerchResultViewController: SearchNoResultsViewController = {
     let vc = storyboard!.instantiateViewController(ofType: SearchNoResultsViewController.self)
@@ -104,6 +103,11 @@ class DownloadMapsViewController: MWMViewController {
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     Storage.shared().remove(self)
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    updateTableViewContentInset()
   }
 
   fileprivate func showChildren(_ nodeAttrs: MapNodeAttributes) {
@@ -192,6 +196,18 @@ class DownloadMapsViewController: MWMViewController {
 
   private func updateNoMapsVisibility() {
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
+  }
+
+  private func updateTableViewContentInset() {
+    let bottomInset: CGFloat
+    if downloadAllViewContainer.isHidden {
+      bottomInset = 0
+    } else {
+      let containerFrame = downloadAllViewContainer.convert(downloadAllViewContainer.bounds, to: view)
+      bottomInset = max(0, view.bounds.maxY - containerFrame.minY)
+    }
+
+    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
   }
 
   fileprivate func configButtons() {
@@ -467,11 +483,11 @@ extension DownloadMapsViewController: DownloadAllViewDelegate {
   func onStateChanged(state: DownloadAllView.State) {
     if state == .none {
       downloadAllViewContainer.isHidden = true
-      tableView.contentInset = UIEdgeInsets.zero
     } else {
       downloadAllViewContainer.isHidden = false
-      tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: allMapsViewBottomOffsetConstant, right: 0)
     }
+    view.layoutIfNeeded()
+    updateTableViewContentInset()
   }
 
   func onDownloadButtonPressed() {

@@ -58,6 +58,8 @@ private class HeaderCell: UICollectionViewCell {
     self.deselectedAttributes = deselectedAttributes
     label.attributedText = NSAttributedString(string: text.uppercased(),
                                               attributes: deselectedAttributes)
+    label.adjustsFontForContentSizeCategory = true
+    label.configureSingleLineAutoScaling()
   }
 }
 
@@ -72,7 +74,6 @@ protocol TabViewDelegate: AnyObject {
 }
 
 @objcMembers
-@objc(MWMTabView)
 class TabView: UIView {
   private enum CellId {
     static let content = "contentCell"

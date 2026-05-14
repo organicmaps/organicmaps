@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,15 +13,15 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="165" id="KGk-i7-Jjw" customClass="BottomMenuLayersCell" customModule="Organic_Maps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="340" height="165"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="340" height="165"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1i-v6-zbz">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Layers" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-dn-n2c">
-                                <rect key="frame" x="119.5" y="16" width="101.5" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Map Layers" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-dn-n2c">
+                                <rect key="frame" x="119.5" y="16" width="101.5" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -31,7 +31,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xW-dK-D9y" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="296" y="14" width="28" height="28"/>
+                                <rect key="frame" x="296" y="16" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="BD2-bz-n13"/>
                                     <constraint firstAttribute="width" constant="28" id="Thu-MY-dQm" customClass="I"/>
@@ -43,14 +43,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="00h-1i-skR"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="00h-1i-skR"/>
                             <constraint firstItem="2xW-dK-D9y" firstAttribute="leading" secondItem="Vuk-dn-n2c" secondAttribute="trailing" constant="8" id="4PG-Fm-yqS"/>
-                            <constraint firstAttribute="height" constant="45" id="Ez1-s5-1EO"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="Ez1-s5-1EO"/>
                             <constraint firstItem="Vuk-dn-n2c" firstAttribute="top" secondItem="W1i-v6-zbz" secondAttribute="top" constant="16" id="NDD-ew-XjC"/>
                             <constraint firstItem="Vuk-dn-n2c" firstAttribute="centerX" secondItem="W1i-v6-zbz" secondAttribute="centerX" id="XEG-CK-41Y"/>
+                            <constraint firstAttribute="bottom" secondItem="Vuk-dn-n2c" secondAttribute="bottom" constant="8" id="gUA-hk-DrP"/>
                             <constraint firstItem="Vuk-dn-n2c" firstAttribute="leading" secondItem="W1i-v6-zbz" secondAttribute="leading" constant="16" id="kSJ-Wa-nYA"/>
                             <constraint firstAttribute="trailing" secondItem="2xW-dK-D9y" secondAttribute="trailing" constant="16" id="kae-50-2nG"/>
-                            <constraint firstItem="2xW-dK-D9y" firstAttribute="centerY" secondItem="Vuk-dn-n2c" secondAttribute="centerY" id="wCu-O0-cz8"/>
+                            <constraint firstItem="2xW-dK-D9y" firstAttribute="top" secondItem="W1i-v6-zbz" secondAttribute="top" constant="16" id="wCu-O0-cz8"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -77,39 +78,39 @@
                             </mask>
                         </variation>
                     </view>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-zd-xSl">
-                        <rect key="frame" x="16" y="58" width="308" height="64"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-zd-xSl">
+                        <rect key="frame" x="16" y="58" width="308" height="99"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g13-pK-Eig" userLabel="Outdoor Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="64"/>
+                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onOutdoorButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UQ2-jj-fPc"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edA-Mo-3Vx" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="62.5" y="0.0" width="58.5" height="64"/>
+                                <rect key="frame" x="62.5" y="0.0" width="58.5" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onIsoLinesButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3LS-C2-2Mc"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YG0-yw-eUi" userLabel="Hiking Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="125" y="0.0" width="58" height="64"/>
+                                <rect key="frame" x="125" y="0.0" width="58" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onHikingButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XdX-gj-NeS"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yji-ug-v7R" userLabel="Cycling Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="187" y="0.0" width="58.5" height="64"/>
+                                <rect key="frame" x="187" y="0.0" width="58.5" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onCyclingButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZrD-zl-Ffv"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4US-fZ-cyg" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="249.5" y="0.0" width="58.5" height="64"/>
+                                <rect key="frame" x="249.5" y="0.0" width="58.5" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onSubwayButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xxM-kP-gT1"/>
@@ -117,9 +118,9 @@
                             </view>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" constant="70" id="d0H-kE-IWx"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="d0H-kE-IWx"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="nea-IB-ZkL"/>
-                            <constraint firstAttribute="height" constant="64" id="t9j-kf-yze"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="t9j-kf-yze"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -148,7 +149,7 @@
                     <constraint firstItem="W1i-v6-zbz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RLh-Jr-7dm"/>
                     <constraint firstAttribute="trailing" secondItem="sRd-zd-xSl" secondAttribute="trailing" priority="750" constant="16" id="Z8f-X6-r4N"/>
                     <constraint firstItem="sRd-zd-xSl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="750" constant="16" id="hJE-fg-IEX"/>
-                    <constraint firstAttribute="bottom" secondItem="sRd-zd-xSl" secondAttribute="bottom" constant="26" id="iwo-vC-EI9"/>
+                    <constraint firstAttribute="bottom" secondItem="sRd-zd-xSl" secondAttribute="bottom" constant="8" id="iwo-vC-EI9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

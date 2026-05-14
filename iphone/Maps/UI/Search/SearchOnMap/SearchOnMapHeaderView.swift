@@ -12,7 +12,7 @@ final class SearchOnMapHeaderView: UIView {
 
   private enum Constants {
     static let searchBarHeight: CGFloat = 36
-    static let searchBarInsets: UIEdgeInsets = .init(top: 8, left: 10, bottom: 10, right: 0)
+    static let searchBarInsets: UIEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 0)
     static let grabberHeight: CGFloat = 5
     static let grabberWidth: CGFloat = 36
     static let grabberTopMargin: CGFloat = 5
@@ -113,7 +113,7 @@ final class SearchOnMapHeaderView: UIView {
       searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.searchBarInsets.left),
       searchBar.trailingAnchor.constraint(equalTo: cancelContainer.leadingAnchor),
       searchBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.searchBarInsets.bottom),
-      searchBar.heightAnchor.constraint(equalToConstant: Constants.searchBarHeight),
+      searchBar.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.searchBarHeight),
 
       cancelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
       cancelContainer.topAnchor.constraint(equalTo: searchBar.topAnchor),

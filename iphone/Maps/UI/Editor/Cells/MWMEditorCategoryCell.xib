@@ -26,11 +26,10 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMGray"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfx-Kc-WOc">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfx-Kc-WOc">
                         <rect key="frame" x="16" y="12" width="226" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="BaE-rI-CN2"/>
-                            <constraint firstAttribute="height" constant="20" id="oLW-um-5dA"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -40,11 +39,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_edit_place_category_title"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="501" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrd-hP-nIJ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="501" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrd-hP-nIJ">
                         <rect key="frame" x="250" y="11.5" width="42" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="hsO-dV-WsY"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -62,11 +58,13 @@
                 <constraints>
                     <constraint firstItem="Jfx-Kc-WOc" firstAttribute="leading" secondItem="mWc-I7-4kZ" secondAttribute="leading" constant="16" id="5lg-6C-NQt"/>
                     <constraint firstItem="qrd-hP-nIJ" firstAttribute="leading" secondItem="Jfx-Kc-WOc" secondAttribute="trailing" constant="8" id="ETn-mX-ysj"/>
-                    <constraint firstItem="Jfx-Kc-WOc" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="P6u-UL-5f7"/>
+                    <constraint firstItem="Jfx-Kc-WOc" firstAttribute="top" secondItem="mWc-I7-4kZ" secondAttribute="top" constant="12" id="K3a-xR-RAb"/>
                     <constraint firstAttribute="trailing" secondItem="qrd-hP-nIJ" secondAttribute="trailing" constant="28" id="Rwj-G9-EoG"/>
+                    <constraint firstAttribute="bottom" secondItem="Jfx-Kc-WOc" secondAttribute="bottom" constant="12" id="S5a-2k-gBY"/>
                     <constraint firstAttribute="trailing" secondItem="uA3-ru-Ja1" secondAttribute="trailing" constant="6" id="byM-mn-aQu"/>
+                    <constraint firstItem="qrd-hP-nIJ" firstAttribute="top" secondItem="mWc-I7-4kZ" secondAttribute="top" constant="12" id="hzY-09-c4k"/>
                     <constraint firstItem="uA3-ru-Ja1" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="sVc-Kt-8ZX"/>
-                    <constraint firstItem="qrd-hP-nIJ" firstAttribute="centerY" secondItem="mWc-I7-4kZ" secondAttribute="centerY" id="wSH-Lz-TEL"/>
+                    <constraint firstAttribute="bottom" secondItem="qrd-hP-nIJ" secondAttribute="bottom" constant="12" id="zPu-gg-rNe"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>

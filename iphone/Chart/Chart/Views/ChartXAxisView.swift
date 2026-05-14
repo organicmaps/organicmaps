@@ -128,6 +128,8 @@ class ChartXAxisView: UIView {
 
     let lv = ChartXAxisInnerView()
     lv.frame = bounds
+    lv.font = font
+    lv.isFontDynamic = isFontDynamic
     lv.textColor = textColor
     lv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     addSubview(lv)

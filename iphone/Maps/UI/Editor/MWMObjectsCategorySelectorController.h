@@ -1,4 +1,4 @@
-#import "MWMViewController.h"
+#import "MWMTableViewController.h"
 
 #include "geometry/point2d.hpp"
 
@@ -15,7 +15,7 @@ class EditableMapObject;
 
 @end
 
-@interface MWMObjectsCategorySelectorController : MWMViewController
+@interface MWMObjectsCategorySelectorController : MWMTableViewController
 
 @property(weak, nonatomic) id<MWMObjectsCategorySelectorDelegate> delegate;
 

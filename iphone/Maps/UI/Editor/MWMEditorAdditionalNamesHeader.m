@@ -15,7 +15,9 @@
 {
   MWMEditorAdditionalNamesHeader * h =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
-  h.label.text = L(@"place_name").uppercaseString;
+  h.label.text = L(@"place_name");
+  h.toggleButton.titleLabel.numberOfLines = 0;
+  h.toggleButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
   h.toggleBlock = toggleBlock;
   return h;
 }

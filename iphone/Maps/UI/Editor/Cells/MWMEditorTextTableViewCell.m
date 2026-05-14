@@ -2,16 +2,12 @@
 #import "MWMEditorCommon.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
-static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 
 @interface MWMEditorTextTableViewCell () <UITextFieldDelegate>
 
 @property(weak, nonatomic) IBOutlet UIImageView * icon;
 @property(weak, nonatomic, readwrite) IBOutlet UITextField * textField;
 @property(weak, nonatomic) IBOutlet UILabel * errorLabel;
-
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * errorLabelTopSpace;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * labelHeight;
 
 @property(weak, nonatomic) id<MWMEditorCellProtocol> delegate;
 
@@ -53,10 +49,15 @@ static CGFloat const kErrorLabelDefaultTopSpace = 4.;
   self.icon.hidden = (icon == nil);
 
   self.textField.text = text;
+  [self.textField setStyleNameAndApply:@"regular17:blackPrimaryText"];
   self.textField.attributedPlaceholder =
       [[NSAttributedString alloc] initWithString:placeholder
-                                      attributes:@{NSForegroundColorAttributeName: [UIColor blackHintText]}];
+                                      attributes:@{
+                                        NSForegroundColorAttributeName: [UIColor blackHintText],
+                                        NSFontAttributeName: self.textField.font ?: UIFont.regular17.dynamic
+                                      }];
   self.errorLabel.text = errorMessage;
+  [self.errorLabel applyTheme];
   self.textField.keyboardType = keyboardType;
   self.textField.backgroundColor = UIColor.clearColor;
   self.isValid = isValid;
@@ -66,18 +67,8 @@ static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 
 - (void)processValidation
 {
-  if (self.isValid)
-  {
-    self.labelHeight.priority = UILayoutPriorityDefaultHigh;
-    self.errorLabelTopSpace.constant = 0.;
-    [self.contentView setStyleNameAndApply:@"Background"];
-  }
-  else
-  {
-    self.labelHeight.priority = UILayoutPriorityDefaultLow;
-    self.errorLabelTopSpace.constant = kErrorLabelDefaultTopSpace;
-    [self.contentView setStyleNameAndApply:@"ErrorBackground"];
-  }
+  self.errorLabel.hidden = self.isValid || self.errorLabel.text.length == 0;
+  [self.contentView setStyleNameAndApply:self.isValid ? @"Background" : @"ErrorBackground"];
   [self layoutIfNeeded];
 }
 
