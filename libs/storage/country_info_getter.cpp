@@ -227,25 +227,19 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR)
 
 void CountryInfoReader::ClearCachesImpl() const
 {
-  {
-    std::lock_guard lock(m_polyMutex);
+  std::lock_guard lock(m_readerMutex);
 
-    m_polyCache.ForEachValue([](std::vector<m2::RegionD> & v) { std::vector<m2::RegionD>().swap(v); });
-    m_polyCache.Reset();
-  }
+  m_polyCache.ForEachValue([](std::vector<m2::RegionD> & v) { std::vector<m2::RegionD>().swap(v); });
+  m_polyCache.Reset();
 
-  {
-    std::lock_guard lock(m_trgMutex);
-
-    m_trgCache.ForEachValue([](std::vector<m2::PointD> & v) { std::vector<m2::PointD>().swap(v); });
-    m_trgCache.Reset();
-  }
+  m_trgCache.ForEachValue([](std::vector<m2::PointD> & v) { std::vector<m2::PointD>().swap(v); });
+  m_trgCache.Reset();
 }
 
 template <class Fn>
 auto CountryInfoReader::WithRegion(RegionId id, Fn && fn) const
 {
-  std::lock_guard lock(m_polyMutex);
+  std::lock_guard lock(m_readerMutex);
 
   bool isFound = false;
   auto & regions = m_polyCache.Find(static_cast<uint32_t>(id), isFound);
@@ -263,7 +257,7 @@ bool CountryInfoReader::HasRegionTriangles() const
 
 void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
 {
-  std::lock_guard lock(m_trgMutex);
+  std::lock_guard lock(m_readerMutex);
 
   bool isFound = false;
   auto & trgs = m_trgCache.Find(static_cast<uint32_t>(id), isFound);
