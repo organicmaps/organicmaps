@@ -36,6 +36,25 @@ UNIT_TEST(ReadMetalineTask_DeadHandleIsNoOp)
   TEST(cache.empty(), ());
 }
 
+UNIT_TEST(ReadMetalineTask_SkipsMetalineWhenFeaturesUnavailable)
+{
+  FrozenDataSource dataSource;
+  auto const reg = dataSource.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
+  TEST_EQUAL(reg.second, MwmSet::RegResult::Success, ());
+
+  // ReadFeatures yields nothing — simulates an MWM mid-update so feature geometry can't be loaded
+  // for the IDs referenced by the metalines section. The task must bail gracefully (no crash, no
+  // cache entries) rather than dereferencing points.cend() in MergePoints.
+  auto model = MakeProvider([](auto const &, std::vector<FeatureID> const &) {},
+                            [&dataSource](MwmSet::MwmId const & id) { return dataSource.GetMwmHandleById(id); });
+  df::ReadMetalineTask task(model, reg.first);
+  task.Run();
+
+  df::MetalineCache cache;
+  TEST(!task.UpdateCache(cache), ());
+  TEST(cache.empty(), ());
+}
+
 UNIT_TEST(ReadMetalineTask_PopulatesCacheFromRegisteredMwm)
 {
   FrozenDataSource dataSource;
