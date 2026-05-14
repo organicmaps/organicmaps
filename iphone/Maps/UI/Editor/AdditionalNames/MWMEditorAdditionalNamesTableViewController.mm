@@ -66,7 +66,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  MWMTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ListCellIdentifier"];
+  MWMTableViewSubtitleCell * cell = [tableView dequeueReusableCellWithIdentifier:MWMTableViewSubtitleCell.className
+                                                                    forIndexPath:indexPath];
   NSInteger const index = indexPath.row;
   StringUtf8Multilang::Lang const & lang = m_languages[index];
   cell.textLabel.text = ToNSString(lang.m_name);

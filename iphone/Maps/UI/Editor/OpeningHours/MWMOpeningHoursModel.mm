@@ -95,13 +95,6 @@ using namespace osmoh;
   return [self.sections[section] cellKeyForRow:indexPath.row];
 }
 
-- (CGFloat)heightForIndexPath:(NSIndexPath * _Nonnull)indexPath withWidth:(CGFloat)width
-{
-  NSUInteger const section = indexPath.section;
-  NSAssert(section < self.count, @"Invalid section index");
-  return [self.sections[section] heightForRow:indexPath.row withWidth:width];
-}
-
 - (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   NSUInteger const section = indexPath.section;

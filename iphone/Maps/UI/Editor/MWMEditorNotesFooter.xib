@@ -30,10 +30,10 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_detailed_description"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60F-c7-enR">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="60F-c7-enR">
                             <rect key="frame" x="16" y="151" width="288" height="16"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="16" id="lB5-ya-sBr"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="lB5-ya-sBr"/>
                             </constraints>
                             <state key="normal" title="Button"/>
                             <userDefinedRuntimeAttributes>
@@ -59,12 +59,16 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="xcv-fG-OmU" firstAttribute="centerY" secondItem="IBb-39-rly" secondAttribute="centerY" id="FeQ-eT-FSb"/>
-                <constraint firstItem="xcv-fG-OmU" firstAttribute="centerX" secondItem="IBb-39-rly" secondAttribute="centerX" id="HR2-4M-jr2"/>
-                <constraint firstItem="xcv-fG-OmU" firstAttribute="width" secondItem="IBb-39-rly" secondAttribute="width" id="das-TJ-zih"/>
+                <constraint firstItem="xcv-fG-OmU" firstAttribute="top" secondItem="IBb-39-rly" secondAttribute="top" id="4kS-fE-Nqg"/>
+                <constraint firstItem="xcv-fG-OmU" firstAttribute="leading" secondItem="IBb-39-rly" secondAttribute="leading" id="BYz-uq-XgZ"/>
+                <constraint firstAttribute="trailing" secondItem="xcv-fG-OmU" secondAttribute="trailing" id="JdF-4s-c32"/>
+                <constraint firstAttribute="bottom" secondItem="xcv-fG-OmU" secondAttribute="bottom" id="xzd-bt-WqF"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="osmButton" destination="60F-c7-enR" id="O73-4e-b3D"/>
+            </connections>
             <point key="canvasLocation" x="655.07246376811599" y="311.38392857142856"/>
         </view>
     </objects>

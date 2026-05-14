@@ -26,7 +26,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-wR-pPw">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-wR-pPw">
                         <rect key="frame" x="60" y="0.0" width="133" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="XYk-fv-D9R"/>
@@ -55,6 +55,8 @@
                     <constraint firstItem="j3u-fF-pG6" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerY" id="4xr-PJ-Dl2"/>
                     <constraint firstItem="j3u-fF-pG6" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="16" id="TFM-QG-P2e"/>
                     <constraint firstAttribute="bottom" secondItem="QFf-wR-pPw" secondAttribute="bottom" id="YAg-Wx-DLo"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Rp8-YJ-AzV" secondAttribute="bottom" constant="6" id="Zwr-zy-vlT"/>
+                    <constraint firstItem="Rp8-YJ-AzV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fpo-VO-awT" secondAttribute="top" constant="6" id="E1d-M3-mkf"/>
                     <constraint firstItem="Rp8-YJ-AzV" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerY" id="aTy-ab-vvF"/>
                     <constraint firstItem="Rp8-YJ-AzV" firstAttribute="leading" secondItem="QFf-wR-pPw" secondAttribute="trailing" constant="8" id="ge8-tr-S4S"/>
                     <constraint firstItem="QFf-wR-pPw" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="60" id="mNR-IV-cek"/>

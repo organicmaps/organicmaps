@@ -1,12 +1,12 @@
-@objc(MWMSearchTabViewControllerDelegate)
+@objc
 protocol SearchTabViewControllerDelegate: UIScrollViewDelegate {
   func searchTabController(_ viewController: SearchTabViewController, didSearch: SearchQuery)
 }
 
-@objc(MWMSearchTabViewController)
+@objc
 final class SearchTabViewController: TabViewController {
-  private enum SearchActiveTab: Int {
-    case history = 0
+  private enum Tab: Int {
+    case history
     case categories
   }
 
@@ -15,7 +15,7 @@ final class SearchTabViewController: TabViewController {
 
   private var frameworkHelper = MWMSearchFrameworkHelper.self
 
-  private var activeTab: SearchActiveTab = .init(rawValue:
+  private var activeTab: Tab = .init(rawValue:
     UserDefaults.standard.integer(forKey: SearchTabViewController.selectedIndexKey)) ?? .categories {
     didSet {
       UserDefaults.standard.set(activeTab.rawValue, forKey: SearchTabViewController.selectedIndexKey)
@@ -35,7 +35,7 @@ final class SearchTabViewController: TabViewController {
     viewControllers = [history, categories]
 
     if frameworkHelper.isSearchHistoryEmpty() {
-      tabView.selectedIndex = SearchActiveTab.categories.rawValue
+      tabView.selectedIndex = Tab.categories.rawValue
     } else {
       tabView.selectedIndex = activeTab.rawValue
     }
@@ -43,11 +43,11 @@ final class SearchTabViewController: TabViewController {
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    activeTab = SearchActiveTab(rawValue: tabView.selectedIndex ?? 0) ?? .categories
+    activeTab = Tab(rawValue: tabView.selectedIndex ?? 0) ?? .categories
   }
 
   func reloadSearchHistory() {
-    (viewControllers[SearchActiveTab.history.rawValue] as? SearchHistoryViewController)?.reload()
+    (viewControllers[Tab.history.rawValue] as? SearchHistoryViewController)?.reload()
   }
 }
 

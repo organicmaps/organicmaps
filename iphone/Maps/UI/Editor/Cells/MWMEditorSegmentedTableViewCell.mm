@@ -22,6 +22,10 @@
   self.icon.image = icon;
   self.icon.styleName = @"MWMBlack";
   self.label.text = text;
+  auto const normalAttributes =
+      @{NSFontAttributeName: UIFont.regular14.dynamic, NSForegroundColorAttributeName: [UIColor blackPrimaryText]};
+  [self.segmentedControl setTitleTextAttributes:normalAttributes forState:UIControlStateNormal];
+  [self.segmentedControl setTitleTextAttributes:normalAttributes forState:UIControlStateSelected];
 
   [self.segmentedControl setTitle:NSLocalizedString(@"no", nil) forSegmentAtIndex:0];
   [self.segmentedControl setTitle:NSLocalizedString(@"yes", nil) forSegmentAtIndex:2];
@@ -41,8 +45,8 @@
   switch (value)
   {
   case Yes:
-  case No: self.label.textColor = [UIColor blackPrimaryText]; break;
-  case Unknown: self.label.textColor = [UIColor blackHintText]; break;
+  case No: [self.label setStyleNameAndApply:@"regular17:blackPrimaryText"]; break;
+  case Unknown: [self.label setStyleNameAndApply:@"regular17:blackHintText"]; break;
   }
 }
 

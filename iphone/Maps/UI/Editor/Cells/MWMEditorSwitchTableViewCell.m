@@ -25,7 +25,7 @@
 
 - (void)setTextColorWithSwitchValue:(BOOL)value
 {
-  self.label.textColor = value ? [UIColor blackPrimaryText] : [UIColor blackHintText];
+  [self.label setStyleNameAndApply:value ? @"regular17:blackPrimaryText" : @"regular17:blackHintText"];
 }
 
 - (IBAction)valueChanged

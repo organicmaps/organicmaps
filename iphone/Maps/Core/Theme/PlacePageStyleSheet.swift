@@ -143,6 +143,7 @@ extension PlacePageStyleSheet: IStyleSheet {
       return .add { s in
         s.backgroundColor = .whitePrimary
         s.fontColor = .blackSecondaryText
+        // Chart view labels should use a static font size to avoid layout issues caused by insufficient space.
         s.fontStyle = .fixed(.regular12)
         s.gridColor = .blackDividers
         s.previewSelectorColor = .elevationPreviewSelector

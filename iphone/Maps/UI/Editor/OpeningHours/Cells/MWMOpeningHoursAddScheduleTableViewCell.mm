@@ -15,11 +15,6 @@
   self.backgroundColor = UIColor.clearColor;
 }
 
-+ (CGFloat)height
-{
-  return 84.0;
-}
-
 - (void)refresh
 {
   NSString * title =

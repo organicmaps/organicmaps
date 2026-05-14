@@ -50,6 +50,13 @@ BOOL defaultOrientation(CGSize const & size)
   CGFloat const minWidth = MIN(mapViewSize.width, mapViewSize.height);
   return IPAD || (size.height > size.width && size.width >= minWidth);
 }
+
+CGFloat ScaledTurnsWidth()
+{
+  CGFloat const baseWidth = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
+  CGFloat const scaledWidth = [[UIFontMetrics metricsForTextStyle:UIFontTextStyleTitle1] scaledValueForValue:baseWidth];
+  return MAX(baseWidth, scaledWidth);
+}
 }  // namespace
 
 @interface MWMNavigationInfoView ()
@@ -98,6 +105,32 @@ BOOL defaultOrientation(CGSize const & size)
 @end
 
 @implementation MWMNavigationInfoView
+
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+
+  self.streetNameLabel.font = UIFont.bold24.dynamic;
+  self.streetNameLabel.adjustsFontForContentSizeCategory = YES;
+
+  self.roundTurnLabel.font = UIFont.bold24.dynamic;
+  self.roundTurnLabel.adjustsFontForContentSizeCategory = YES;
+
+  self.distanceToNextTurnLabel.adjustsFontForContentSizeCategory = YES;
+  self.turnsWidth.constant = ScaledTurnsWidth();
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (previousTraitCollection && [previousTraitCollection.preferredContentSizeCategory
+                                     isEqualToString:self.traitCollection.preferredContentSizeCategory])
+    return;
+
+  self.turnsWidth.constant = ScaledTurnsWidth();
+  [self onNavigationInfoUpdated:self.navigationInfo];
+  [self setNeedsLayout];
+}
 
 - (void)setMapSearch
 {
@@ -459,7 +492,7 @@ BOOL defaultOrientation(CGSize const & size)
   if (isVisible)
   {
     [self setSearchState:NavigationSearchStateMinimizedNormal animated:NO];
-    self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
+    self.turnsWidth.constant = ScaledTurnsWidth();
     UIView * sv = self.ownerView;
     NSAssert(sv != nil, @"Superview can't be nil");
     if (![sv.subviews containsObject:self])

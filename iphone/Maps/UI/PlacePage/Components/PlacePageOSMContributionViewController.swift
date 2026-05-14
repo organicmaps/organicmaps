@@ -8,7 +8,6 @@ protocol PlacePageOSMContributionViewControllerDelegate: AnyObject {
 final class PlacePageOSMContributionViewController: UIViewController {
   private enum Constants {
     static let horizontalPadding: CGFloat = 16
-    static let headerHeight: CGFloat = 44
     static let buttonsHeight: CGFloat = 44
     static let buttonsTopSpacing: CGFloat = 12
     static let buttonsBottomPadding: CGFloat = 16
@@ -76,11 +75,7 @@ final class PlacePageOSMContributionViewController: UIViewController {
     }
     button.addTarget(self, action: action, for: .touchUpInside)
     button.setStyle(.flatNormalGrayButtonBig)
-    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-    button.titleLabel?.minimumScaleFactor = 0.5
-    button.titleLabel?.adjustsFontSizeToFitWidth = true
-    button.titleLabel?.allowsDefaultTighteningForTruncation = true
-    button.titleLabel?.numberOfLines = 1
+    button.titleLabel?.configureSingleLineAutoScaling()
   }
 
   private func layoutView() {
@@ -97,13 +92,12 @@ final class PlacePageOSMContributionViewController: UIViewController {
       osmHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       osmHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       osmHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
-      osmHeaderView.heightAnchor.constraint(equalToConstant: Constants.headerHeight),
 
       buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalPadding),
       buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.horizontalPadding),
       buttonsStackView.topAnchor.constraint(equalTo: osmHeaderView.bottomAnchor, constant: Constants.buttonsTopSpacing),
       buttonsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constants.buttonsBottomPadding),
-      buttonsStackView.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight),
+      buttonsStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.buttonsHeight),
     ])
   }
 

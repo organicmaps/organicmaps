@@ -1,15 +1,12 @@
 #import "MWMEditorAdditionalNameTableViewCell.h"
 #import "SwiftBridge.h"
 
-static CGFloat const kErrorLabelHeight = 16;
-
 @interface MWMEditorAdditionalNameTableViewCell ()
 
 @property(weak, nonatomic) IBOutlet UIStackView * stackView;
 @property(weak, nonatomic) IBOutlet UILabel * languageLabel;
 @property(weak, nonatomic) IBOutlet UITextField * textField;
 @property(weak, nonatomic) IBOutlet UILabel * errorLabel;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * errorLabelHeight;
 
 @property(nonatomic, readwrite) NSInteger code;
 
@@ -42,16 +39,8 @@ static CGFloat const kErrorLabelHeight = 16;
 
 - (void)processValidation
 {
-  if (self.isValid)
-  {
-    self.errorLabelHeight.constant = 0;
-    [self.contentView setStyleNameAndApply:@"Background"];
-  }
-  else
-  {
-    self.errorLabelHeight.constant = kErrorLabelHeight;
-    [self.contentView setStyleNameAndApply:@"ErrorBackground"];
-  }
+  self.errorLabel.hidden = self.isValid || self.errorLabel.text.length == 0;
+  [self.contentView setStyleNameAndApply:self.isValid ? @"Background" : @"ErrorBackground"];
   [self layoutIfNeeded];
 }
 
