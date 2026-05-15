@@ -205,25 +205,22 @@ void Route::UpdatePolyFakeIdx()
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
-  if (!IsValid())
-    return 0.0;
+  ASSERT(IsValid(), ());
   return m_poly.GetDistanceFromStartMeters();
 }
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
-  if (!IsValid())
-    return 0.0;
+  ASSERT(IsValid(), ());
   return m_poly.GetDistanceToEndMeters();
 }
 
 double Route::GetMercatorDistanceFromBegin() const
 {
-  auto const & curIter = m_poly.GetCurrentIter();
-  if (!IsValid())
-    return 0;
+  ASSERT(IsValid(), ());
 
-  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
+  auto const & curIter = m_poly.GetCurrentIter();
+  ASSERT_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
   double const distMerc = curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
   return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
@@ -263,8 +260,7 @@ double Route::GetCurrentTimeToNearestTurnSec() const
 // CurrentTime is calculated using equal proportions for distance and time at any segment.
 double Route::GetCurrentTimeFromBeginSec() const
 {
-  if (!IsValid())
-    return 0.0;
+  ASSERT(IsValid(), ());
 
   auto const & curIter = m_poly.GetCurrentIter();
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
@@ -285,8 +281,7 @@ double Route::GetCurrentTimeFromBeginSec() const
 
 double Route::GetCurrentTimeToSegmentSec(size_t segIdx) const
 {
-  if (!IsValid())
-    return 0.0;
+  ASSERT(IsValid(), ());
 
   double const endTimeSec = m_routeSegments[segIdx].GetTimeFromBeginningSec();
   double const passedTimeSec = GetCurrentTimeFromBeginSec();
@@ -296,12 +291,11 @@ double Route::GetCurrentTimeToSegmentSec(size_t segIdx) const
 
 SpeedInUnits Route::GetCurrentSpeedLimit() const
 {
-  if (IsValid())
-  {
-    auto const idx = m_poly.GetCurrentIter().m_ind;
-    if (idx < m_routeSegments.size())
-      return m_routeSegments[idx].GetSpeedLimit(GetCurrentTimestamp());
-  }
+  ASSERT(IsValid(), ());
+
+  auto const idx = m_poly.GetCurrentIter().m_ind;
+  if (idx < m_routeSegments.size())
+    return m_routeSegments[idx].GetSpeedLimit(GetCurrentTimestamp());
   return {};
 }
 
@@ -422,10 +416,9 @@ void Route::GetNearestTurn(double & distanceToTurnMeters, TurnItem & turn) const
   distanceToTurnMeters = m_poly.GetDistanceM(curIter, m_poly.GetIterToIndex(turn.m_index));
 }
 
-std::optional<turns::TurnItem> Route::GetCurrentIteratorTurn() const
+turns::TurnItem Route::GetCurrentIteratorTurn() const
 {
-  if (!IsValid())
-    return std::nullopt;
+  ASSERT(IsValid(), ());
 
   auto const & curIter = m_poly.GetCurrentIter();
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
