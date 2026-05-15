@@ -3,7 +3,14 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Back</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Cancel</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Delete</string>
+    <!-- Delete process status message -->
+    <string name="deleting">Deleting</string>
+    <string name="download_maps">Download Maps</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Search</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +68,8 @@
     <string name="search_not_found">Oops, no results found.</string>
     <string name="search_history_text">View your recent searches.</string>
     <string name="p2p_start">Start</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Next</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">All Day (24 hours)</string>
     <string name="editor_time_open">Open</string>
@@ -69,6 +78,8 @@
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
     <string name="closed">Closed</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d of %2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Increase size for map labels</string>
     <string name="transliteration_title">Transliterate into Latin alphabet</string>
@@ -104,4 +115,17 @@
     <string name="aa_request_permission_activity_text">Organic Maps in Android Auto needs location permissions to work effectively</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Grant Permissions</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Generic confirmation message -->
+    <string name="confirmation">Are you sure?</string>
+    <!-- Control buttons section name -->
+    <string name="controls">Controls</string>
+    <!-- "All Maps" section name. Must be short -->
+    <string name="all_maps">All Maps</string>
+    <!-- "My Maps" section name. Must be short -->
+    <string name="my_maps">My Maps</string>
+    <!-- "Updatable Maps" section name. Must be short -->
+    <string name="updatable_maps">Updatable</string>
+    <string name="up_to_date">Everything is up to date</string>
 </resources>

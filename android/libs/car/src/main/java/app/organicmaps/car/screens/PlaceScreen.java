@@ -25,7 +25,7 @@ import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
-import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
+import app.organicmaps.car.screens.maps.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UiHelpers;

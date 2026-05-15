@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Terug</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Annuleer</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Verwijder</string>
+    <string name="download_maps">Download kaarten</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Zoek</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Sorry, geen resultaten gevonden.</string>
     <string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
     <string name="p2p_start">Start</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Volgende</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Elke dag (24 uur)</string>
     <string name="editor_time_open">Open</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Opent over %s</string>
     <string name="closes_in">Sluit over %s</string>
     <string name="closed">Gesloten</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d van %2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Vergroot lettergrootte op de kaart</string>
     <string name="transliteration_title">Transliteratie in het Latijnse alfabet</string>

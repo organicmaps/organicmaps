@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Назад</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Скасувати</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Видалити</string>
+    <string name="download_maps">Завантажити мапи</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Пошук</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">На жаль, нічого не знайдено.</string>
     <string name="search_history_text">Швидкий доступ до нещодавніх результатів пошуку.</string>
     <string name="p2p_start">Почати рух</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Далі</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Увесь день (24 години)</string>
     <string name="editor_time_open">Відчинено</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Відкривається через %s</string>
     <string name="closes_in">Зачиняється через %s</string>
     <string name="closed">Зачинено</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d з %2$d</string>
     <string name="minute">хв</string>
     <string name="big_font">Збільшити розмір шрифту на мапі</string>
     <string name="transliteration_title">Транслітерувати латиницею</string>

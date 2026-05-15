@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Prapa</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Anulo</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Fshi</string>
+    <string name="download_maps">Shkarko Harta</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Kërko</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Ups, nuk u gjetën rezultate.</string>
     <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
     <string name="p2p_start">Fillo</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Tjetra</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Gjithë Ditën (24 orë)</string>
     <string name="editor_time_open">Hapur</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Hapet në %s</string>
     <string name="closes_in">Mbyllet në %s</string>
     <string name="closed">Mbyllur</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d nga %2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Rrit madhësinë për etiketat e hartës</string>
     <string name="transliteration_title">Translitero në alfabetin latin</string>

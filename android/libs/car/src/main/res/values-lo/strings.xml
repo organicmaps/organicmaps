@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">ກັບຄືນ</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">ຍົກເລີກ</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">ລຶບ</string>
+    <string name="download_maps">ດາວໂຫລດແຜນທີ່</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">ຄົ້ນຫາ</string>
     <!-- Location services are disabled by user alert - message -->
@@ -45,6 +50,8 @@
     <string name="search_not_found">ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
     <string name="p2p_start">ເລີ່ມ</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">ຕໍ່ໄປ</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">ທັງໝົດມື້ (24 ຊົ່ວໂມງ)</string>
     <string name="editor_time_open">ເປີດ</string>
@@ -53,6 +60,8 @@
     <string name="opens_in">ຈະເປີດໃນອີກ %s</string>
     <string name="closes_in">ຈະປິດໃນອີກ %s</string>
     <string name="closed">ປິດ</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d ຈາກ %2$d</string>
     <string name="minute">ນາທີ</string>
     <string name="big_font">ເພີ່ມຂະໜາດສຳລັບປ້າຍຊື່ໃນແຜນທີ່</string>
     <string name="transliteration_title">ຖອດອັກສອນເປັນພາສາລາແຕັງ</string>

@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Lura</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Ikkanċella</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Ħassar</string>
+    <string name="download_maps">Niżżel il-mappa</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Fittex</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Oops, ma nstab l-ebda riżultat.</string>
     <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
     <string name="p2p_start">Ibda</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Li jmiss</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Il-Ġurnata Kollha (24 siegħa)</string>
     <string name="editor_time_open">Miftuħ</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Jiftaħ f’ %s</string>
     <string name="closes_in">Jagħlaq f’ %s</string>
     <string name="closed">Magħluq</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d ta\' %2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Żid id-daqs għat-tikketti tal-mapep</string>
     <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>

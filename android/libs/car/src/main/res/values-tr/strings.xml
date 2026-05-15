@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Geri</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">İptal</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Sil</string>
+    <string name="download_maps">Harita İndir</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Ara</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Tüh, sonuç bulunamadı.</string>
     <string name="search_history_text">Son aramalarınızı görüntüleyin.</string>
     <string name="p2p_start">Başla</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Sonraki</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Tüm Gün (24 saat)</string>
     <string name="editor_time_open">Açık</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">%s sonra açılıyor</string>
     <string name="closes_in">%s sonra kapanıyor</string>
     <string name="closed">Kapalı</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d/%2$d</string>
     <string name="minute">dk</string>
     <string name="big_font">Haritadaki yazı tipi boyutunu artır</string>
     <string name="transliteration_title">Latin alfabesine çevir</string>

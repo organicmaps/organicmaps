@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Rudi nyuma</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Futa</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Futa</string>
+    <string name="download_maps">Pakua Ramani</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Tafuta</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Lo, hakuna matokeo yaliyopatikana.</string>
     <string name="search_history_text">Tazama utafutaji wako wa hivi karibuni.</string>
     <string name="p2p_start">Anza</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Ifuatayo</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Siku nzima (masaa 24)</string>
     <string name="editor_time_open">Fungua</string>

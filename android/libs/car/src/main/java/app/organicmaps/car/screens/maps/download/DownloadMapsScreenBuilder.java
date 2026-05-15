@@ -1,4 +1,4 @@
-package app.organicmaps.car.screens.download;
+package app.organicmaps.car.screens.maps.download;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +14,8 @@ public class DownloadMapsScreenBuilder
   {
     FirstLaunch,
     BuildRoute,
-    View
+    OnMap,
+    Viewer
   }
 
   private DownloaderType mDownloaderType = null;
@@ -67,19 +68,22 @@ public class DownloadMapsScreenBuilder
       Assert.debug(ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.length),
                    "Invalid result code for downloadable maps");
     }
-    else if (mDownloaderType == DownloaderType.View)
+    else if (mDownloaderType == DownloaderType.OnMap)
     {
       Assert.debug(mMissingMaps != null, "mMissingMaps must be initialized");
       Assert.debug(mMissingMaps.length == 1, "mMissingMaps must contain exactly one element");
     }
     else if (mDownloaderType == DownloaderType.FirstLaunch)
       Assert.debug(mMissingMaps == null, "mMissingMaps must be null for FirstLaunch");
+    else if (mDownloaderType == DownloaderType.Viewer)
+      Assert.debug(mMissingMaps != null, "mMissingMaps must be initialized");
 
     return switch (mDownloaderType)
     {
       case FirstLaunch -> new DownloadMapsForFirstLaunchScreen(this);
-      case BuildRoute -> new app.organicmaps.car.screens.download.DownloadMapsForRouteScreen(this);
-      case View -> new DownloadMapsForViewScreen(this);
+      case BuildRoute -> new DownloadMapsForRouteScreen(this);
+      case OnMap -> new DownloadMapsForOnMapScreen(this);
+      case Viewer -> new DownloadMapsForViewerScreen(this);
     };
   }
 }

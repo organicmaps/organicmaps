@@ -13,6 +13,7 @@ import androidx.car.app.model.Template;
 import androidx.car.app.model.Toggle;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import app.organicmaps.car.R;
+import app.organicmaps.car.screens.maps.view.MapsViewerScreen;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.Framework;
@@ -63,6 +64,7 @@ public class SettingsScreen extends BaseMapScreen
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createThemeItem());
+    builder.addItem(createDownloadMapsItem());
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(create3dBuildingsItem());
     builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
@@ -80,6 +82,17 @@ public class SettingsScreen extends BaseMapScreen
     builder.addText(getCarContext().getString(ThemeUtils.getThemeMode(getCarContext()).getTitleId()));
     builder.setOnClickListener(
         () -> getScreenManager().push(new ThemeScreen(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer())));
+    builder.setBrowsable(true);
+    return builder.build();
+  }
+
+  @NonNull
+  private Item createDownloadMapsItem()
+  {
+    final Row.Builder builder = new Row.Builder();
+    builder.setTitle(getCarContext().getString(R.string.download_maps));
+    builder.setOnClickListener(
+        () -> getScreenManager().push(new MapsViewerScreen(getCarContext(), getOrganicMapsContext())));
     builder.setBrowsable(true);
     return builder.build();
   }

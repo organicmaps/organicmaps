@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Հետ</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Չեղարկել</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Ջնջել</string>
+    <string name="download_maps">Ներբեռնել քարտեզներ</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Որոնում</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Ոչինչ չգտնվեց:</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="p2p_start">Սկիզբ</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Հաջորդը</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Շուրջօրյա (24 ժամ)</string>
     <string name="editor_time_open">Բաց է</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Բացվում է %s</string>
     <string name="closes_in">Փակվում է %s</string>
     <string name="closed">Փակ է</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d՝ %2$d-ից</string>
     <string name="minute">ր</string>
     <string name="big_font">Մեծացնել քարտեզի գրությունների չափսը</string>
     <string name="transliteration_title">Տառադարձել լատինատառի</string>

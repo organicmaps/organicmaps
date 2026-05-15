@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Geri</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Ləğv et</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Sil</string>
+    <string name="download_maps">Xəritəni yüklə</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Axtar</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Üzr istəyirik, heç bir nəticə tapılmadı.</string>
     <string name="search_history_text">Son axtarışlara baxın.</string>
     <string name="p2p_start">Başla</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Sonrakı</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Bütün gün (24 saat)</string>
     <string name="editor_time_open">Açıq</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">%s sonra açılır</string>
     <string name="closes_in">%s sonra bağlanır</string>
     <string name="closed">Bağlı</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d/%2$d</string>
     <string name="minute">dəq</string>
     <string name="big_font">Xəritədə şrift ölçüsünü artırın</string>
     <string name="transliteration_title">Latın transliterasiyası</string>

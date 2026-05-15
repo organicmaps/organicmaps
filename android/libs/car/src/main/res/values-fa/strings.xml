@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">بازگشت</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">لغو</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">حذف</string>
+    <string name="download_maps">دانلود نقشه‌ها</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">جست‌وجو</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">اوه، نتیجه‌ای یافت نشد.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="p2p_start">شروع</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">بعدی</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">شبانه روزی (24 ساعته)</string>
     <string name="editor_time_open">باز</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">در %s باز می‌شود</string>
     <string name="closes_in">در %s بسته می‌شود</string>
     <string name="closed">تعطیل</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d از %2$d</string>
     <string name="minute">دقیقه</string>
     <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
     <string name="transliteration_title">ترجمه به الفبای لاتین</string>

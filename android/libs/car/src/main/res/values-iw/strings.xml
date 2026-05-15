@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">חזור</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">בטל</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">מחק</string>
+    <string name="download_maps">הורד מפות</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">חיפוש</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">אופס, לא נמצאו תוצאות.</string>
     <string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
     <string name="p2p_start">צא לדרך</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">הבא</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">כל היום (24 שעות)</string>
     <string name="editor_time_open">פתוח</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">נפתח עוד %s</string>
     <string name="closes_in">נסגר עוד %s</string>
     <string name="closed">סגור</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d מתוך %2$d</string>
     <string name="minute">ד׳</string>
     <string name="big_font">הגדל תגיות במפה</string>
     <string name="transliteration_title">תעתיק לאותיות לטיניות</string>

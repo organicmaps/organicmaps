@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">ਵਾਪਿਸ</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">ਰੱਦ ਕਰੋ</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">ਮਿਟਾਓ</string>
+    <string name="download_maps">ਨਕਸ਼ੇ ਡਾਊਨਲੋਡ ਕਰੋ</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">ਲੱਭੋ</string>
     <!-- Location services are disabled by user alert - message -->

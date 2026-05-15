@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Enrere</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Cancel·la</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Suprimeix</string>
+    <string name="download_maps">Baixa mapes</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Cerca</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">No s’ha trobat cap resultat.</string>
     <string name="search_history_text">Mostra les cerques recents.</string>
     <string name="p2p_start">Inicia</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Següent</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Tot el dia (24 hores)</string>
     <string name="editor_time_open">Obert</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Obre en %s</string>
     <string name="closes_in">Tanca en %s</string>
     <string name="closed">Tancat</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d/%2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
     <string name="transliteration_title">Transliteració a l’alfabet llatí</string>

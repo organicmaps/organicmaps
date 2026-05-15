@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Atrás</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Cancelar</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Eliminar</string>
+    <string name="download_maps">Descargar mapas</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">No se encontró ningún resultado.</string>
     <string name="search_history_text">Ver búsquedas recientes.</string>
     <string name="p2p_start">Empezar</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Siguiente</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Todo el día (24 horas)</string>
     <string name="editor_time_open">Abierto</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Abre en %s</string>
     <string name="closes_in">Cierra en %s</string>
     <string name="closed">Cerrado</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d de %2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Aumentar tamaño del texto en el mapa</string>
     <string name="transliteration_title">Transliteración al alfabeto latino</string>

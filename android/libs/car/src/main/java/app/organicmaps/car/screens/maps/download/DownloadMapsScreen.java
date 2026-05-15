@@ -1,4 +1,4 @@
-package app.organicmaps.car.screens.download;
+package app.organicmaps.car.screens.maps.download;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;

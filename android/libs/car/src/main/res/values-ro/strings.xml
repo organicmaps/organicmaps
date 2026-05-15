@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">Înapoi</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">Anulare</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Șterge</string>
+    <string name="download_maps">Descarcă hărți</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Caută</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">Nu s-a găsit nimic.</string>
     <string name="search_history_text">Arată căutările recente.</string>
     <string name="p2p_start">Pornește</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Următorul</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Toată ziua (24 ore)</string>
     <string name="editor_time_open">Deschis</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">Deschide în %s</string>
     <string name="closes_in">Închide în %s</string>
     <string name="closed">Închis</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d din %2$d</string>
     <string name="minute">min</string>
     <string name="big_font">Mărește dimensiunea literelor pe hartă</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>

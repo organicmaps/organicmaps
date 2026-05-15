@@ -3,7 +3,12 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
+    <string name="back">मागे</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">रद्द करा</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">हटवा</string>
+    <string name="download_maps">नकाशे डाउनलोड करा</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">शोधा</string>
     <!-- Location services are disabled by user alert - message -->
@@ -61,6 +66,8 @@
     <string name="search_not_found">अरेच्चा, काहीच सापडले नाही.</string>
     <string name="search_history_text">अलीकडील शोध पहा.</string>
     <string name="p2p_start">सुरू करा</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">पुढे</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">दिवसभर (२४ तास)</string>
     <string name="editor_time_open">उघडे</string>
@@ -69,6 +76,8 @@
     <string name="opens_in">आणखी %s मध्ये उघडेल</string>
     <string name="closes_in">आणखी %s मध्ये बंद होईल</string>
     <string name="closed">बंद</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%2$d पैकी %1$d</string>
     <string name="minute">मिनिट</string>
     <string name="big_font">नकाशावर अक्षरांचा आकार वाढवा</string>
     <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>

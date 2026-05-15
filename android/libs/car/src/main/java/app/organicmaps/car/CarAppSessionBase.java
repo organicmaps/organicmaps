@@ -13,7 +13,7 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
-import app.organicmaps.car.screens.download.DownloadMapsScreen;
+import app.organicmaps.car.screens.maps.download.DownloadMapsScreen;
 import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.sdk.Framework;
