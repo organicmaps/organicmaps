@@ -290,7 +290,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
     // it means the turn is changed. So the |m_onNewTurn| should be called.
-    if (formerIter && curIter && IsNormalTurn(*formerIter) && formerIter->m_index < curIter->m_index && m_onNewTurn)
+    if (IsNormalTurn(formerIter) && formerIter.m_index < curIter.m_index && m_onNewTurn)
       m_onNewTurn();
 
     return m_state;

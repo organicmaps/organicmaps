@@ -23,7 +23,6 @@
 
 #include <limits>
 #include <memory>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -424,7 +423,7 @@ public:
 
   /// \returns information about turn from RouteSegment according to current iterator
   /// set with MoveIterator() method. If it's not possible returns nullopt.
-  std::optional<turns::TurnItem> GetCurrentIteratorTurn() const;
+  turns::TurnItem GetCurrentIteratorTurn() const;
 
   /// \brief Returns first non-empty name info of a street starting from segIdx.
   void GetClosestStreetNameAfterIdx(size_t segIdx, RouteSegment::RoadNameInfo & roadNameInfo) const;
