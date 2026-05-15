@@ -7,4 +7,12 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 android {
   namespace 'app.organicmaps.branding'
   // enableKotlin = true  // see app/build.gradle
+
+    // Mirror the app's `profileable` build type so the `src/profileable/`
+    // source set is consumed (gives the variant its own app_name on the launcher).
+    buildTypes {
+        profileable {
+            matchingFallbacks = ['release']
+        }
+    }
 }
