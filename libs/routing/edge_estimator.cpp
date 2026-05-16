@@ -13,7 +13,6 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
-#include <unordered_map>
 
 namespace routing
 {
@@ -283,6 +282,9 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
                            time_t arrivalTime) const override
   {
+    if (purpose == Purpose::Weight && GetStrategy() == Strategy::Shortest)
+      return road.GetDistance(segment.GetSegmentIdx()) / GetMaxWeightSpeedMpS();
+
     return CalcClimbSegment(purpose, segment, road,
                             [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
     { return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude); });
@@ -312,6 +314,9 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
                            time_t arrivalTime) const override
   {
+    if (purpose == Purpose::Weight && GetStrategy() == Strategy::Shortest)
+      return road.GetDistance(segment.GetSegmentIdx()) / GetMaxWeightSpeedMpS();
+
     return CalcClimbSegment(purpose, segment, road,
                             [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
     {
@@ -388,6 +393,9 @@ private:
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
                                        time_t arrivalTime) const
 {
+  if (purpose == Purpose::Weight && GetStrategy() == Strategy::Shortest)
+    return road.GetDistance(segment.GetSegmentIdx()) / GetMaxWeightSpeedMpS();
+
   double const speed = GetSpeedMpS(purpose, segment, road, arrivalTime);
 
   // Debug log ETA calculated speed.
