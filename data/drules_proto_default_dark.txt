@@ -16062,6 +16062,58 @@ cont {
   }
 }
 cont {
+  name: "attraction-water_slide"
+  element {
+    scale: 15
+    lines {
+      width: 0.7
+      color: 1294615873
+      priority: 280
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 0.8
+      color: 858408257
+      priority: 280
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.0
+      color: 2770241
+      priority: 280
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.0
+      color: 2770241
+      priority: 280
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.0
+      color: 2770241
+      priority: 280
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.0
+      color: 2770241
+      priority: 280
+    }
+  }
+}
+cont {
   name: "barrier-block"
   element {
     scale: 16
