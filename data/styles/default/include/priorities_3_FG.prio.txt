@@ -113,6 +113,7 @@ railway-rail-tourism-tunnel::dash                   # line::dash z16- (also has 
 # highway-primary-tunnel                            # line(casing) z14- (also has line z8-, pathtext z10-, shield::shield z10-)
 # === 289
 
+attraction-water_slide                              # line z15-
 railway-rail-branch                                 # line z11- (also has line::dash z16-)
 railway-rail-branch-bridge                          # line z11- (also has line::bridgeblack z16-, line::bridgewhite z13-, line::dash z16-)
 railway-rail-branch-tunnel                          # line z11- (also has line::dash z16-, line(casing) z14-)
