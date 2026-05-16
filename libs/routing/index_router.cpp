@@ -325,7 +325,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   auto const & finalPoint = checkpoints.GetFinish();
 
   Route route;
+  Route altRoute;
   RouterResultCode code;
+  RouterResultCode altCode = RouterResultCode::RouteNotFound;
 
   try
   {
@@ -349,7 +351,28 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     }
 
     if (doCalculate)
+    {
       code = DoCalculateRoute(checkpoints, startDirection, delegate, route);
+
+      // Compute a Shortest-strategy alternative alongside the Normal route. Only on a full (non-adjust)
+      // build and only within a reasonable distance budget — alt computation roughly doubles latency.
+      if ((code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings) && !delegate.IsCancelled() &&
+          mercator::DistanceOnEarth(startPoint, finalPoint) <= 300000.0)  // 300 km
+      {
+        // Save the Normal route's adjust-cache; the Shortest computation would overwrite it.
+        auto savedLastRoute = std::move(m_lastRoute);
+        auto savedLastFakeEdges = std::move(m_lastFakeEdges);
+        SCOPE_GUARD(restoreNormal, [&]
+        {
+          m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
+          m_lastRoute = std::move(savedLastRoute);
+          m_lastFakeEdges = std::move(savedLastFakeEdges);
+        });
+
+        m_estimator->SetStrategy(EdgeEstimator::Strategy::Shortest);
+        altCode = DoCalculateRoute(checkpoints, startDirection, delegate, altRoute);
+      }
+    }
   }
   catch (RootException const & e)
   {
@@ -359,7 +382,11 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   }
 
   if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
+  {
     result.MakeFrom(GetName(), std::move(route));
+    if ((altCode == RouterResultCode::NoError || altCode == RouterResultCode::HasWarnings) && altRoute.IsValid())
+      result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(altRoute)));
+  }
 
   return code;
 }
