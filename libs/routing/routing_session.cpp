@@ -568,6 +568,22 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
   m_speedCameraManager.SetRoute(m_route);
 }
 
+bool RoutingSession::SwapActiveAlternative(size_t idx)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_lastResult || idx >= m_lastResult->m_routes.size() || idx == m_lastResult->m_activeIdx)
+    return false;
+
+  m_lastResult->m_activeIdx = idx;
+  // Promote the newly-active RouteBase to a followed Route, preserving the session's routing settings.
+  auto route = std::make_shared<Route>(m_lastResult->GetActive());
+  route->SetRoutingSettings(m_routingSettings);
+  m_route = route;
+  m_speedCameraManager.Reset();
+  m_speedCameraManager.SetRoute(m_route);
+  return true;
+}
+
 void RoutingSession::AssignRouteForTesting(Route && route, RouterResultCode e)
 {
   auto result = std::make_shared<RoutesResult>();

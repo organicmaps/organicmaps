@@ -43,6 +43,21 @@ float constexpr kSpeedCameraOutlineWidth = 2.0f;
 
 int constexpr kMinSpeedCameraZoom = 13;
 int constexpr kMinSpeedCameraTitleZoom = 13;
+
+// RouteAltMark constants — ETA balloon (rounded rect) drawn on each route variant. Sized to be
+// legible at typical zoom levels; white background with dark text for readability over the route line.
+float constexpr kRouteAltMarkTextSize = 16.0f;
+float constexpr kRouteAltMarkTextMargin = 12.0f;
+float constexpr kRouteAltMarkRadius = 12.0f;
+float constexpr kRouteAltMarkOutlineWidth = 2.5f;
+int constexpr kMinRouteAltMarkZoom = 9;
+
+// Direct colors — theme color constants (e.g. "RouteMarkInterBg") resolve unpredictably across themes
+// so we hard-code the balloon palette to keep the ETA text readable on any background.
+dp::Color const kRouteAltMarkBg{255, 255, 255, 255};            // white
+dp::Color const kRouteAltMarkText{34, 34, 34, 255};             // near-black
+dp::Color const kRouteAltMarkActiveOutline{36, 116, 233, 255};  // route-blue
+dp::Color const kRouteAltMarkAltOutline{160, 160, 160, 255};    // muted gray
 }  // namespace
 
 RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::ROUTING)
@@ -671,6 +686,97 @@ int SpeedCameraMark::GetMinTitleZoom() const
 dp::Anchor SpeedCameraMark::GetAnchor() const
 {
   return dp::Center;
+}
+
+// RouteAltMark -------------------------------------------------------------------------------------
+
+RouteAltMark::RouteAltMark(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::ROUTE_ALT)
+{
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+
+  m_titleDecl.m_anchor = dp::Center;
+  // Near-black text on a white background — readable over any route color.
+  m_titleDecl.m_primaryTextFont.m_color = kRouteAltMarkText;
+  m_titleDecl.m_primaryTextFont.m_size = kRouteAltMarkTextSize;
+
+  df::ColoredSymbolViewParams params;
+  params.m_anchor = dp::Center;
+  params.m_shape = df::ColoredSymbolViewParams::Shape::RoundedRectangle;
+  params.m_radiusInPixels = kRouteAltMarkRadius * vs;
+  // Generous padding around the text — m_addTextSize=true *adds* this floor to the measured text
+  // dimensions, so big margins guarantee a comfortably-sized balloon even for short ETAs like "4 min".
+  auto const minSize = 2.0f * (kRouteAltMarkOutlineWidth + kRouteAltMarkTextMargin);
+  params.m_sizeInPixels = m2::PointF(minSize, minSize) * vs;
+  params.m_outlineWidth = kRouteAltMarkOutlineWidth * vs;
+  m_textBg.m_zoomInfo[kMinRouteAltMarkZoom] = params;
+  m_textBg.m_addTextSize = true;
+
+  // Initial palette = alternative (gray outline); flipped via SetIsActive() for the followed route.
+  RefreshBackground();
+}
+
+void RouteAltMark::SetEta(std::string const & etaText)
+{
+  if (m_titleDecl.m_primaryText == etaText)
+    return;
+  SetDirty();
+  m_titleDecl.m_primaryText = etaText;
+}
+
+void RouteAltMark::SetIsActive(bool isActive)
+{
+  if (m_isActive == isActive)
+    return;
+  SetDirty();
+  m_isActive = isActive;
+  RefreshBackground();
+}
+
+void RouteAltMark::SetRouteIdx(size_t idx)
+{
+  if (m_routeIdx == idx)
+    return;
+  SetDirty();
+  m_routeIdx = idx;
+}
+
+int RouteAltMark::GetMinZoom() const
+{
+  return kMinRouteAltMarkZoom;
+}
+
+int RouteAltMark::GetMinTitleZoom() const
+{
+  return kMinRouteAltMarkZoom;
+}
+
+drape_ptr<df::UserPointMark::TitlesInfo> RouteAltMark::GetTitleDecl() const
+{
+  if (m_titleDecl.m_primaryText.empty())
+    return nullptr;
+  auto titleInfo = make_unique_dp<TitlesInfo>();
+  titleInfo->push_back(m_titleDecl);
+  return titleInfo;
+}
+
+drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RouteAltMark::GetColoredSymbols() const
+{
+  if (m_titleDecl.m_primaryText.empty())
+    return nullptr;
+  return make_unique_dp<ColoredSymbolZoomInfo>(m_textBg);
+}
+
+void RouteAltMark::RefreshBackground()
+{
+  // White fill (always) keeps the dark ETA text readable regardless of the route's color.
+  // Outline distinguishes active vs alternative: active gets route-blue, alternatives get muted gray.
+  dp::Color const outline = m_isActive ? kRouteAltMarkActiveOutline : kRouteAltMarkAltOutline;
+
+  for (auto & kv : m_textBg.m_zoomInfo)
+  {
+    kv.second.m_color = kRouteAltMarkBg;
+    kv.second.m_outlineColor = outline;
+  }
 }
 
 RoadWarningMark::RoadWarningMark(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::ROAD_WARNING) {}
