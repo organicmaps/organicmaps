@@ -163,6 +163,11 @@ public:
   }
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
+
+  /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
+  /// Returns false if the index is out of range or already active. Re-renders the drape so
+  /// the newly-active variant is highlighted and the previously-active becomes the alternative.
+  bool SwapActiveAlternative(size_t idx);
   void GetRouteFollowingInfo(routing::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
 
   TransitRouteInfo GetTransitRouteInfo() const;
@@ -300,6 +305,10 @@ private:
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
                            double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
+
+  // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.
+  // Active variant uses the route palette; alternatives use a dimmer palette.
+  void CreateRouteAltMarks(routing::RoutesResult const & result);
 
   // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
   // balloons. Used when entering navigation mode (FollowRoute) so the alts drawn at build

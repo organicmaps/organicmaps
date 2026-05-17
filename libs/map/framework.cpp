@@ -2181,6 +2181,16 @@ void Framework::DeactivateHotelSearchMark()
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
+  // Intercept taps on alternative-route ETA balloons before BuildPlacePageInfo: swap the active
+  // variant and bail out, no place page.
+  if (!buildInfo.m_isLongTap && buildInfo.m_userMarkId != kml::kInvalidMarkId &&
+      UserMark::GetMarkType(buildInfo.m_userMarkId) == UserMark::Type::ROUTE_ALT)
+  {
+    if (auto const * mark = static_cast<RouteAltMark const *>(GetBookmarkManager().GetUserMark(buildInfo.m_userMarkId)))
+      m_routingManager.SwapActiveAlternative(mark->GetRouteIdx());
+    return;
+  }
+
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
   bool isRoutePoint = placePageInfo.IsRoutePoint();
 
