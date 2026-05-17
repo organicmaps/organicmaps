@@ -1,5 +1,5 @@
 [versions]
-agp = "9.1.1"
+agp = "9.2.1"
 ktlint = "1.8.0"
 
 # com.android.tools:desugar_jdk_libs
