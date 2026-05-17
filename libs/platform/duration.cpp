@@ -112,6 +112,26 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
   return formattedTime;
 }
 
+std::string Duration::GetHoursMinutesString() const
+{
+  // Round seconds up to the nearest minute so a 4 min 30 s route reads "5 min" rather than "4 min".
+  long const totalMinutes = duration_cast<minutes>(m_seconds + seconds(30)).count();
+  long const h = totalMinutes / 60;
+  long const m = totalMinutes % 60;
+
+  std::string result;
+  if (h > 0)
+    result.append(std::to_string(h)).append(kNonBreakingSpace).append(GetUnitsString(Units::Hours));
+
+  if (h == 0 || m > 0)
+  {
+    if (!result.empty())
+      result.append(kNonBreakingSpace);
+    result.append(std::to_string(m)).append(kNonBreakingSpace).append(GetUnitsString(Units::Minutes));
+  }
+  return result;
+}
+
 std::string Duration::GetUnitsString(Units unit)
 {
   switch (unit)
