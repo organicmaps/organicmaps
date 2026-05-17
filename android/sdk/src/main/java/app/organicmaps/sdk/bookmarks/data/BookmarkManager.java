@@ -288,6 +288,7 @@ public enum BookmarkManager {
     nativeLoadBookmarksFile(path, isTemporaryFile);
   }
 
+  @WorkerThread
   static @Nullable String getBookmarksFilenameFromUri(@NonNull ContentResolver resolver, @NonNull Uri uri)
   {
     String filename = null;
@@ -362,6 +363,7 @@ public enum BookmarkManager {
     return null;
   }
 
+  @WorkerThread
   private static String guessExtensionByContent(@NonNull ContentResolver resolver, @NonNull Uri uri)
   {
     // If first symbol is '{' -> GeoJson
