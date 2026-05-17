@@ -20,7 +20,7 @@ void Navigator::SetFromScreen(ScreenBase const & screen)
 void Navigator::SetFromScreen(ScreenBase const & screen, uint32_t tileSize, double visualScale)
 {
   ScreenBase tmp = screen;
-  if (!CheckBorders(tmp))
+  if (!CheckMinScale(tmp) || !CheckBorders(tmp))
     ScaleInto(tmp, df::GetWorldRect());
 
   if (!CheckMaxScale(tmp, tileSize, visualScale))

@@ -194,14 +194,23 @@ UNIT_TEST(NormalizeScreenOriginX_WrapNegative)
 
 // -- CheckMinScale ------------------------------------------------------------
 
-UNIT_TEST(CheckMinScale_YOnly)
+UNIT_TEST(CheckMinScale_WithinBounds)
 {
-  // Viewport wider than world in X but within Y — should pass (X unconstrained).
+  ScreenBase screen;
+  screen.OnSize(0, 0, 800, 600);
+  screen.SetFromRect(m2::AnyRectD(m2::RectD(-50, -30, 50, 30)));
+
+  TEST(df::CheckMinScale(screen), ("Within world bounds should pass"));
+}
+
+UNIT_TEST(CheckMinScale_XExceeded)
+{
+  // Viewport wider than world in X — should fail (would show duplicate copies).
   ScreenBase screen;
   screen.OnSize(0, 0, 2000, 100);
   screen.SetFromRect(m2::AnyRectD(m2::RectD(-400, -50, 400, 50)));
 
-  TEST(df::CheckMinScale(screen), ("X wider than world should be OK"));
+  TEST(!df::CheckMinScale(screen), ("X wider than world should fail"));
 }
 
 UNIT_TEST(CheckMinScale_YExceeded)
@@ -286,6 +295,25 @@ UNIT_TEST(ScaleInto_ScalesForY)
   TEST_GREATER_OR_EQUAL(clip.minY(), worldR.minY() - 1e-5, ());
 }
 
+UNIT_TEST(ScaleInto_ClampsXWidth)
+{
+  df::VisualParams::Init(1.0, 1024);
+
+  ScreenBase screen;
+  screen.OnSize(0, 0, 2000, 100);
+  // Viewport wider than world; center off the canonical range to verify X
+  // position is preserved (no panning).
+  screen.SetFromRect(m2::AnyRectD(m2::RectD(-300, -10, 100, 10)));
+  double const orgXBefore = screen.GetOrg().x;
+
+  df::ScaleInto(screen, df::GetWorldRect());
+
+  m2::RectD const clip = screen.ClipRect();
+  m2::RectD const & worldR = df::GetWorldRect();
+  TEST_LESS_OR_EQUAL(clip.SizeX(), worldR.SizeX() + 1e-5, ());
+  TEST_ALMOST_EQUAL_ABS(screen.GetOrg().x, orgXBefore, 1e-5, ());
+}
+
 // -- ShrinkAndScaleInto -------------------------------------------------------
 
 UNIT_TEST(ShrinkAndScaleInto_ClampsXWidth)
@@ -340,6 +368,20 @@ UNIT_TEST(Navigator_DoDrag_HorizontalUnbounded)
 
   // Screen origin X should have moved past 180.
   TEST_GREATER(navigator.Screen().GetOrg().x, 170.0, ());
+}
+
+UNIT_TEST(Navigator_SetFromRect_ClampsWideX)
+{
+  df::VisualParams::Init(1.0, 1024);
+  df::Navigator navigator;
+  navigator.OnSize(800, 600);
+
+  // Programmatic SetFromRect with rect wider than the world.
+  navigator.SetFromRect(m2::AnyRectD(m2::RectD(-400, -100, 400, 100)));
+
+  m2::RectD const clip = navigator.Screen().ClipRect();
+  m2::RectD const & worldR = df::GetWorldRect();
+  TEST_LESS_OR_EQUAL(clip.SizeX(), worldR.SizeX() + 1e-5, ());
 }
 
 UNIT_TEST(Navigator_DoDrag_VerticalClamped)

@@ -51,9 +51,8 @@ bool CheckMinScale(ScreenBase const & screen)
   m2::RectD const & r = screen.ClipRect();
   m2::RectD const & worldR = df::GetWorldRect();
 
-  // Y must not exceed pole boundaries (no scrolling past poles).
-  // X is unconstrained — the world wraps horizontally at the antimeridian.
-  return r.SizeY() <= worldR.SizeY();
+  // X must fit one world copy (no duplicates across the antimeridian); Y must fit between the poles.
+  return r.SizeX() <= worldR.SizeX() && r.SizeY() <= worldR.SizeY();
 }
 
 bool CheckMaxScale(ScreenBase const & screen)
@@ -72,15 +71,14 @@ bool CheckBorders(ScreenBase const & screen)
   m2::RectD const & r = screen.ClipRect();
   m2::RectD const & worldR = df::GetWorldRect();
 
-  // Viewport Y must fit inside world Y (no scrolling past poles).
+  // Y must stay between the poles. X is intentionally unchecked — the world wraps at the antimeridian.
   return r.minY() >= worldR.minY() && r.maxY() <= worldR.maxY();
 }
 
 bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD const & clipRect = screen.ClipRect();
-  // Only check Y — X is unconstrained (world wraps horizontally).
-  return boundRect.SizeY() >= clipRect.SizeY();
+  return boundRect.SizeX() >= clipRect.SizeX() && boundRect.SizeY() >= clipRect.SizeY();
 }
 
 void ShrinkInto(ScreenBase & screen, m2::RectD const & boundRect)
@@ -124,6 +122,9 @@ void ScaleInto(ScreenBase & screen, m2::RectD const & boundRect)
       LOG(LERROR, ("Bad scale factor =", k, "Bound rect =", boundRect, "Clip rect =", clipRect));
     }
   };
+
+  if (clipRect.SizeX() > boundRect.SizeX())
+    DoScale(boundRect.SizeX() / clipRect.SizeX());
 
   if (clipRect.minY() < boundRect.minY())
     DoScale((boundRect.minY() - clipRect.Center().y) / (clipRect.minY() - clipRect.Center().y));
