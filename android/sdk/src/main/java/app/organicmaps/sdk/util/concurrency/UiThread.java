@@ -1,7 +1,9 @@
 package app.organicmaps.sdk.util.concurrency;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Looper;
+import androidx.annotation.AnyThread;
 import androidx.annotation.Keep;
 
 public class UiThread
@@ -18,7 +20,10 @@ public class UiThread
    *
    * @param task the code that must be executed on UI thread.
    */
-  public static void run(Runnable task)
+  // isUiThread() guards the synchronous task.run() invocation; lint cannot see that.
+  @SuppressLint("ThreadConstraint")
+  @AnyThread
+  public static void run(@androidx.annotation.UiThread Runnable task)
   {
     if (isUiThread())
       task.run();
@@ -31,7 +36,8 @@ public class UiThread
    *
    * @param task the code that must be executed later on UI thread.
    */
-  public static void runLater(Runnable task)
+  @AnyThread
+  public static void runLater(@androidx.annotation.UiThread Runnable task)
   {
     runLater(task, 0);
   }
@@ -42,7 +48,8 @@ public class UiThread
    * @param task        the code that must be executed on UI thread after given delayMillis.
    * @param delayMillis The delayMillis until the code will be executed.
    */
-  public static void runLater(Runnable task, long delayMillis)
+  @AnyThread
+  public static void runLater(@androidx.annotation.UiThread Runnable task, long delayMillis)
   {
     sUiHandler.postDelayed(task, delayMillis);
   }
@@ -53,7 +60,8 @@ public class UiThread
    *
    * @param task the code that must be cancelled.
    */
-  public static void cancelDelayedTasks(Runnable task)
+  @AnyThread
+  public static void cancelDelayedTasks(@androidx.annotation.UiThread Runnable task)
   {
     sUiHandler.removeCallbacks(task);
   }
