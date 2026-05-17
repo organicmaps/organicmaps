@@ -18,6 +18,8 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include "platform/country_file.hpp"
+#include "platform/distance.hpp"
+#include "platform/duration.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/algorithm.hpp"
@@ -536,6 +538,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
       es.ClearGroup(UserMark::Type::TRANSIT);
       es.ClearGroup(UserMark::Type::SPEED_CAM);
       es.ClearGroup(UserMark::Type::ROAD_WARNING);
+      es.ClearGroup(UserMark::Type::ROUTE_ALT);
     }
     if (deactivateFollowing)
       SetPointsFollowingMode(false /* enabled */);
@@ -567,6 +570,11 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
 
 void RoutingManager::ClearAlternativeRoutes()
 {
+  // Synchronously clear ETA balloons. RemoveRoute uses RunTask(Gui) which only fires after
+  // the current GUI flow returns, leaving stale marks briefly visible; we call the same path
+  // directly since RoutingManager is GUI-thread-only.
+  m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTE_ALT);
+
   m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAlternativeSubroutes);
 }
 
@@ -641,7 +649,70 @@ namespace
 {
 // Multiplier applied to the alpha channel of subroute colors for alternative (non-active) routes.
 float constexpr kAlternativeRouteAlphaMul = 0.5f;
+
+/// \brief Total geodesic length of a RouteBase derived from its cumulative segment distances.
+/// |GetTotalDistanceMeters| lives only on the followed Route, so alternatives compute it from segments.
+double GetRouteTotalDistanceMeters(routing::RouteBase const & route)
+{
+  auto const & segs = route.GetRouteSegments();
+  return segs.empty() ? 0.0 : segs.back().GetDistFromBeginningMeters();
+}
+
+/// \brief Returns the point on |route|'s polyline closest to half its total geodesic length.
+/// Falls back to the first/last junction when the route is degenerate.
+m2::PointD GetRouteMidpoint(routing::RouteBase const & route)
+{
+  auto const & segs = route.GetRouteSegments();
+  if (segs.empty())
+    return {};
+
+  double const halfM = 0.5 * GetRouteTotalDistanceMeters(route);
+  for (auto const & s : segs)
+    if (s.GetDistFromBeginningMeters() >= halfM)
+      return s.GetJunction().GetPoint();
+  return segs.back().GetJunction().GetPoint();
+}
+
 }  // namespace
+
+void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
+{
+  if (result.m_routes.empty())
+    return;
+
+  // Snapshot the data we need so the Gui-thread task doesn't depend on |result|'s lifetime.
+  struct AltMarkInfo
+  {
+    m2::PointD m_pt;
+    std::string m_eta;
+    size_t m_idx;
+    bool m_isActive;
+  };
+  std::vector<AltMarkInfo> infos;
+  infos.reserve(result.m_routes.size());
+  for (size_t i = 0; i < result.m_routes.size(); ++i)
+  {
+    auto const & r = result.m_routes[i];
+    if (!r.IsValid())
+      continue;
+    infos.push_back(
+        {GetRouteMidpoint(r),
+         platform::Duration(static_cast<unsigned long>(std::max(0.0, r.GetTotalTimeSec()))).GetHoursMinutesString(), i,
+         i == result.m_activeIdx});
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
+  {
+    auto es = m_bmManager->GetEditSession();
+    for (auto const & info : infos)
+    {
+      auto mark = es.CreateUserMark<RouteAltMark>(info.m_pt);
+      mark->SetEta(info.m_eta);
+      mark->SetRouteIdx(info.m_idx);
+      mark->SetIsActive(info.m_isActive);
+    }
+  });
+}
 
 bool RoutingManager::InsertRoute(RoutesResult const & result)
 {
@@ -677,6 +748,9 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
+
+  if (!isFollowing)
+    CreateRouteAltMarks(result);
 
   {
     std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
@@ -796,6 +870,21 @@ void RoutingManager::FollowRoute()
   ClearAlternativeRoutes();
 
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+}
+
+bool RoutingManager::SwapActiveAlternative(size_t idx)
+{
+  if (!m_routingSession.SwapActiveAlternative(idx))
+    return false;
+
+  // Re-render drape with the new active variant and notify platform UI (elevation profile,
+  // route info, etc.) via the same RouteBuilded callback path used by the initial build, so
+  // any cached route data on the Android/iOS side is refreshed for the new active route.
+  bool hasWarnings = false;
+  m_routingSession.RouteCall([this, &hasWarnings](routing::RoutesResult const & result)
+  { hasWarnings = InsertRoute(result); });
+  CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : RouterResultCode::NoError, storage::CountriesSet());
+  return true;
 }
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
