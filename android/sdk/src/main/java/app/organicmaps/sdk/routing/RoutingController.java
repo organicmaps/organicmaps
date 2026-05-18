@@ -386,8 +386,6 @@ public class RoutingController
     // that itinerary by default, but allow API callers to request the existing
     // intermediate-point optimization when stop order is not important.
     cancel();
-    Framework.nativeRemoveRoute();
-    Framework.nativeRemoveRoutePoints();
     setState(State.PREPARE);
 
     mLastRouterType = routerType;

@@ -8,8 +8,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
@@ -22,6 +24,7 @@ import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.display.DisplayManager;
@@ -139,10 +142,23 @@ public class MwmApplication extends Application implements Application.ActivityL
     ThemeSwitcher.INSTANCE.initialize(this);
     return mOrganicMaps.init(() -> {
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+      Framework.nativeSetRoutePointCallbackListener(this::openRoutePointCallback);
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
       if (onComplete != null)
         onComplete.run();
     });
+  }
+
+  private void openRoutePointCallback(@NonNull String callback)
+  {
+    if (TextUtils.isEmpty(callback))
+      return;
+
+    final Activity topActivity = getTopActivity();
+    if (topActivity instanceof MwmActivity)
+      ((MwmActivity) topActivity).skipParsedBackUrlOnNextStop();
+
+    Utils.openUri(this, Uri.parse(callback), null);
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {

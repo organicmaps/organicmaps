@@ -1079,12 +1079,18 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
 void RoutingManager::SetRoutePointCallback(RoutePointCallback && callback)
 {
   m_routePointCallback = std::move(callback);
-  while (m_routePointCallback && !m_pendingRoutePointCallbacks.empty())
-  {
-    std::string pendingCallback = std::move(m_pendingRoutePointCallbacks.front());
-    m_pendingRoutePointCallbacks.erase(m_pendingRoutePointCallbacks.begin());
+  if (!m_routePointCallback || m_pendingRoutePointCallbacks.empty())
+    return;
+
+  std::vector<std::string> pendingCallbacks;
+  pendingCallbacks.swap(m_pendingRoutePointCallbacks);
+  for (auto const & pendingCallback : pendingCallbacks)
     m_routePointCallback(pendingCallback);
-  }
+}
+
+std::vector<RouteMarkData> RoutingManager::DeserializeRoutePointsForTesting(std::string const & data)
+{
+  return DeserializeRoutePoints(data);
 }
 
 size_t RoutingManager::GetRoutePointsCount() const
