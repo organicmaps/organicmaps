@@ -43,6 +43,7 @@ public:
     BuildSelectionLines,
     AddSubroute,
     RemoveSubroute,
+    RemoveAlternativeSubroutes,
     PrepareSubrouteArrows,
     CacheSubrouteArrows,
     FlushSubroute,
