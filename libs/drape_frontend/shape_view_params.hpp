@@ -156,5 +156,8 @@ struct ColoredSymbolViewParams : CommonOverlayViewParams
   m2::PointF m_sizeInPixels{0, 0};
   float m_outlineWidth = 0;
   m2::PointF m_offset{0, 0};
+  // RoundedRectangle only: draw a triangular tail pointing from the body's nearest edge
+  // back to the pivot (i.e., the tail tip lands at -m_offset in body-local coords).
+  bool m_drawTail = false;
 };
 }  // namespace df
