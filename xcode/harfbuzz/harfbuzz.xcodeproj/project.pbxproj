@@ -156,8 +156,6 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson",
-					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 					"$(OMIM_ROOT)/3party/freetype",
 					"$(OMIM_ROOT)/3party/freetype/freetype/include",
 				);
@@ -190,8 +188,6 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson",
-					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 					"$(OMIM_ROOT)/3party/freetype",
 					"$(OMIM_ROOT)/3party/freetype/freetype/include",
 				);

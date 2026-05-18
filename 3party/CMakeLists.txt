@@ -4,11 +4,8 @@ set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 
 if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Suppress "Policy CMP0077 is not set: option() honors normal variables"
-  # for the freetype, expat and jansson options.
+  # for the freetype and expat options.
   set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-  # Suppress "Policy CMP0063 is not set: Honor visibility properties for all target types."
-  # for jansson
-  set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
 
   add_library(Boost_headers INTERFACE)
   add_library(Boost::headers ALIAS Boost_headers)
@@ -26,15 +23,6 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   set(EXPAT_DTD OFF)
   set(EXPAT_NS ON)
   add_subdirectory(expat/expat)
-
-  # Configure Jansson library.
-  set(JANSSON_BUILD_DOCS OFF)
-  set(JANSSON_BUILD_MAN OFF)
-  set(JANSSON_EXAMPLES OFF)
-  set(JANSSON_INSTALL OFF)
-  set(JANSSON_WITHOUT_TESTS ON)
-  add_subdirectory(jansson/jansson/)
-  target_include_directories(jansson INTERFACE "${PROJECT_BINARY_DIR}/3party/jansson/jansson/include")
 
   # Add gflags library.
   set(GFLAGS_BUILD_TESTING OFF)

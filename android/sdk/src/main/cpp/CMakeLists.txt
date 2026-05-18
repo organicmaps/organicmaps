@@ -142,7 +142,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   # expat
   # freetype
   # minizip
-  # cppjansson
   # protobuf
   # succinct
   # stb_image
