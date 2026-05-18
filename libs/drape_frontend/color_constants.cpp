@@ -11,10 +11,27 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
+
+#include <map>
 
 namespace df
 {
+namespace transit_colors_json
+{
+struct TransitColorInfo
+{
+  std::string clear;
+  std::string night;
+  std::string text;
+};
+
+struct TransitColorsJson
+{
+  std::map<std::string, TransitColorInfo> colors;
+};
+}  // namespace transit_colors_json
+
 namespace
 {
 std::string const kTransitColorFileName = "transit_colors.txt";
@@ -47,33 +64,20 @@ public:
 
     try
     {
-      base::Json root(data);
+      transit_colors_json::TransitColorsJson transitColors;
+      glz::opts constexpr opts{.error_on_unknown_keys = false};
+      if (auto const error = glz::read<opts>(transitColors, data); error)
+        MYTHROW(RootException, (glz::format_error(error, data)));
 
-      if (root.get() == nullptr)
-        return;
-
-      auto colors = json_object_get(root.get(), "colors");
-      if (colors == nullptr)
-        return;
-
-      char const * name = nullptr;
-      json_t * colorInfo = nullptr;
-      json_object_foreach(colors, name, colorInfo)
+      for (auto const & [name, colorInfo] : transitColors.colors)
       {
-        ASSERT(name != nullptr, ());
-        ASSERT(colorInfo != nullptr, ());
-
-        std::string strValue;
-        FromJSONObject(colorInfo, "clear", strValue);
-        m_clearColors[df::GetTransitColorName(name)] = ParseColor(strValue);
-        FromJSONObject(colorInfo, "night", strValue);
-        m_nightColors[df::GetTransitColorName(name)] = ParseColor(strValue);
-        FromJSONObject(colorInfo, "text", strValue);
-        m_clearColors[df::GetTransitTextColorName(name)] = ParseColor(strValue);
-        m_nightColors[df::GetTransitTextColorName(name)] = ParseColor(strValue);
+        m_clearColors[df::GetTransitColorName(name)] = ParseColor(colorInfo.clear);
+        m_nightColors[df::GetTransitColorName(name)] = ParseColor(colorInfo.night);
+        m_clearColors[df::GetTransitTextColorName(name)] = ParseColor(colorInfo.text);
+        m_nightColors[df::GetTransitTextColorName(name)] = ParseColor(colorInfo.text);
       }
     }
-    catch (base::Json::Exception const & e)
+    catch (RootException const & e)
     {
       LOG(LWARNING, ("Reading transit colors failed:", e.Msg()));
     }

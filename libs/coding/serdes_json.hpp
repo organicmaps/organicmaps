@@ -21,18 +21,11 @@
 #include <utility>
 #include <vector>
 
-namespace base
-{
-class Json
-{
-public:
-  DECLARE_EXCEPTION(Exception, RootException);
-};
-}  // namespace base
-
 namespace coding
 {
 using JsonValue = glz::generic_u64;
+
+DECLARE_EXCEPTION(JsonException, RootException);
 
 namespace traits
 {
@@ -98,13 +91,13 @@ inline JsonValue MakeJSONArray()
 
 inline void ThrowJsonError(std::string const & message)
 {
-  MYTHROW(base::Json::Exception, (message));
+  MYTHROW(JsonException, (message));
 }
 
 inline JsonValue const * GetOptionalField(JsonValue const * root, char const * field)
 {
   if (root == nullptr || !root->is_object())
-    MYTHROW(base::Json::Exception, ("Bad json object while parsing", field));
+    MYTHROW(JsonException, ("Bad json object while parsing", field));
 
   auto const & object = root->get_object();
   auto const it = object.find(field);
@@ -122,7 +115,7 @@ inline JsonValue const * GetObligatoryField(JsonValue const * root, char const *
 {
   JsonValue const * value = GetOptionalField(root, field);
   if (value == nullptr)
-    MYTHROW(base::Json::Exception, ("Obligatory field", field, "is absent."));
+    MYTHROW(JsonException, ("Obligatory field", field, "is absent."));
   return value;
 }
 
@@ -135,7 +128,7 @@ template <typename T, std::enable_if_t<std::is_integral_v<T> && !std::is_same_v<
 void ReadPrimitive(JsonValue const & root, T & result)
 {
   if (!root.is_number())
-    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
+    MYTHROW(JsonException, ("Object must contain a json number."));
 
   result = root.as<T>();
 }
@@ -143,7 +136,7 @@ void ReadPrimitive(JsonValue const & root, T & result)
 inline void ReadPrimitive(JsonValue const & root, double & result)
 {
   if (!root.is_number())
-    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
+    MYTHROW(JsonException, ("Object must contain a json number."));
 
   result = root.as<double>();
 }
@@ -151,7 +144,7 @@ inline void ReadPrimitive(JsonValue const & root, double & result)
 inline void ReadPrimitive(JsonValue const & root, bool & result)
 {
   if (!root.is_boolean())
-    MYTHROW(base::Json::Exception, ("Object must contain a boolean value."));
+    MYTHROW(JsonException, ("Object must contain a boolean value."));
 
   result = root.get_boolean();
 }
@@ -159,7 +152,7 @@ inline void ReadPrimitive(JsonValue const & root, bool & result)
 inline void ReadPrimitive(JsonValue const & root, std::string & result)
 {
   if (!root.is_string())
-    MYTHROW(base::Json::Exception, ("The field must contain a json string."));
+    MYTHROW(JsonException, ("The field must contain a json string."));
 
   result = root.get_string();
 }
@@ -201,7 +194,7 @@ public:
   {
     std::string buffer;
     if (auto const error = glz::write_json(m_json, buffer); error)
-      MYTHROW(base::Json::Exception, ("Failed to write JSON", glz::format_error(error)));
+      MYTHROW(JsonException, ("Failed to write JSON", glz::format_error(error)));
 
     m_sink.Write(buffer.data(), buffer.size());
   }
@@ -213,7 +206,7 @@ public:
     if (name != nullptr)
     {
       if (!m_json.is_object())
-        MYTHROW(base::Json::Exception, ("Current JSON context must be an object."));
+        MYTHROW(JsonException, ("Current JSON context must be an object."));
       m_json[name] = std::move(json);
     }
     else if (m_json.is_array())
@@ -352,7 +345,7 @@ protected:
 class DeserializerJson
 {
 public:
-  using Exception = base::Json::Exception;
+  using Exception = JsonException;
 
   template <typename Source,
             typename std::enable_if<!std::is_convertible<Source, std::string>::value, Source>::type * = nullptr>
@@ -393,7 +386,7 @@ public:
     JsonValue * outerContext = SaveContext(name);
     auto * array = m_json->get_if<JsonValue::array_t>();
     if (array == nullptr)
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
     dest.resize(array->size());
     for (size_t index = 0; index < dest.size(); ++index)
@@ -413,7 +406,7 @@ public:
     JsonValue * outerContext = SaveContext(name);
     auto * array = m_json->get_if<JsonValue::array_t>();
     if (array == nullptr)
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
     dest.reserve(array->size());
     for (auto const & item : *array)
@@ -435,13 +428,10 @@ public:
     JsonValue * outerContext = SaveContext(name);
     auto * array = m_json->get_if<JsonValue::array_t>();
     if (array == nullptr)
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
     if (N != array->size())
-    {
-      MYTHROW(base::Json::Exception,
-              ("The field", name, "must contain a json array of size", N, "but size is", array->size()));
-    }
+      MYTHROW(JsonException, ("The field", name, "must contain a json array of size", N, "but size is", array->size()));
 
     for (size_t index = 0; index < N; ++index)
     {
@@ -460,7 +450,7 @@ public:
     JsonValue * outerContext = SaveContext(name);
     auto * array = m_json->get_if<JsonValue::array_t>();
     if (array == nullptr)
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
     for (auto const & item : *array)
     {
@@ -562,7 +552,7 @@ protected:
   void ParseFrom(std::string const & source)
   {
     if (auto const error = glz::read_json(m_jsonObject, source); error)
-      MYTHROW(base::Json::Exception, (glz::format_error(error, source)));
+      MYTHROW(JsonException, (glz::format_error(error, source)));
 
     m_json = &m_jsonObject;
   }

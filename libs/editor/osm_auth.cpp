@@ -6,9 +6,9 @@
 
 #include "base/string_utils.hpp"
 
-#include "cppjansson/cppjansson.hpp"
-
 #include "private.h"
+
+#include <glaze/json.hpp>
 
 #include <regex>
 
@@ -18,6 +18,14 @@ using platform::HttpClient;
 using std::string;
 
 constexpr char const * kApiVersion = "/api/0.6";
+
+namespace osm_auth_json
+{
+struct AccessTokenResponse
+{
+  string access_token;
+};
+}  // namespace osm_auth_json
 
 string FindAuthenticityToken(string const & action, string body)
 {
@@ -53,16 +61,12 @@ string FindOauthCode(string const & redirectUri)
 string FindAccessToken(string const & json)
 {
   // Extract access_token from JSON in format {"access_token":"...", "token_type":"Bearer", "scope":"read_prefs"}
-  base::Json const root(json.c_str());
+  osm_auth_json::AccessTokenResponse response;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(response, json); error)
+    return {};
 
-  if (json_is_object(root.get()))
-  {
-    json_t * token_node = json_object_get(root.get(), "access_token");
-    if (json_is_string(token_node))
-      return json_string_value(token_node);
-  }
-
-  return {};
+  return response.access_token;
 }
 
 string BuildPostRequest(std::initializer_list<std::pair<string, string>> const & params)
