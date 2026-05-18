@@ -2074,7 +2074,7 @@ void BookmarkManager::LoadMetadata()
     LOG(LWARNING, ("Exception while reading file:", metadataFilePath, "reason:", exception.what()));
     return;
   }
-  catch (base::Json::Exception const & exception)
+  catch (coding::JsonException const & exception)
   {
     LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(), "json:", json));
     return;

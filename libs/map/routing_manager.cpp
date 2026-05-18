@@ -28,9 +28,45 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <glaze/json.hpp>
+
 #include <map>
 
 using namespace routing;
+
+namespace route_points_json
+{
+struct RoutePointJson
+{
+  int type = 0;
+  std::string title;
+  std::string subtitle;
+  double x = 0.0;
+  double y = 0.0;
+  bool replaceWithMyPosition = false;
+};
+
+RoutePointJson ToRoutePointJson(RouteMarkData const & data)
+{
+  return {.type = static_cast<int>(data.m_pointType),
+          .title = data.m_title,
+          .subtitle = data.m_subTitle,
+          .x = data.m_position.x,
+          .y = data.m_position.y,
+          .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
+}
+
+RouteMarkData ToRouteMarkData(RoutePointJson const & point)
+{
+  RouteMarkData data;
+  data.m_pointType = static_cast<RouteMarkType>(point.type);
+  data.m_title = point.title;
+  data.m_subTitle = point.subtitle;
+  data.m_position = {point.x, point.y};
+  data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
+  return data;
+}
+}  // namespace route_points_json
 
 namespace
 {
@@ -98,88 +134,42 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteM
   return data;
 }
 
-void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
-{
-  ASSERT(node != nullptr, ());
-  ToJSONObject(*node, "type", static_cast<int>(data.m_pointType));
-  ToJSONObject(*node, "title", data.m_title);
-  ToJSONObject(*node, "subtitle", data.m_subTitle);
-  ToJSONObject(*node, "x", data.m_position.x);
-  ToJSONObject(*node, "y", data.m_position.y);
-  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
-}
-
-RouteMarkData DeserializeRoutePoint(json_t * node)
-{
-  ASSERT(node != nullptr, ());
-  RouteMarkData data;
-
-  int type = 0;
-  FromJSONObject(node, "type", type);
-  data.m_pointType = static_cast<RouteMarkType>(type);
-
-  FromJSONObject(node, "title", data.m_title);
-  FromJSONObject(node, "subtitle", data.m_subTitle);
-
-  FromJSONObject(node, "x", data.m_position.x);
-  FromJSONObject(node, "y", data.m_position.y);
-
-  FromJSONObject(node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
-
-  return data;
-}
-
 std::string SerializeRoutePoints(std::vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
-  auto pointsNode = base::NewJSONArray();
+  std::vector<route_points_json::RoutePointJson> pointsJson;
+  pointsJson.reserve(points.size());
   for (auto const & p : points)
-  {
-    auto pointNode = base::NewJSONObject();
-    SerializeRoutePoint(pointNode.get(), p);
-    json_array_append_new(pointsNode.get(), pointNode.release());
-  }
-  std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(pointsNode.get(), JSON_COMPACT));
-  return std::string(buffer.get());
+    pointsJson.push_back(route_points_json::ToRoutePointJson(p));
+
+  std::string buffer;
+  if (auto const error = glz::write_json(pointsJson, buffer); error)
+    MYTHROW(RootException, (glz::format_error(error)));
+  return buffer;
 }
 
 std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
 {
-  try
-  {
-    base::Json root(data.c_str());
-
-    if (root.get() == nullptr || !json_is_array(root.get()))
-      return {};
-
-    size_t const sz = json_array_size(root.get());
-    if (sz == 0)
-      return {};
-
-    std::vector<RouteMarkData> result;
-    result.reserve(sz);
-    for (size_t i = 0; i < sz; ++i)
-    {
-      auto pointNode = json_array_get(root.get(), i);
-      if (pointNode == nullptr)
-        continue;
-
-      auto point = DeserializeRoutePoint(pointNode);
-      if (point.m_position.EqualDxDy(m2::PointD::Zero(), mercator::kPointEqualityEps))
-        continue;
-
-      result.push_back(std::move(point));
-    }
-
-    if (result.size() < 2)
-      return {};
-
-    return result;
-  }
-  catch (base::Json::Exception const &)
-  {
+  std::vector<route_points_json::RoutePointJson> pointsJson;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(pointsJson, data); error || pointsJson.empty())
     return {};
+
+  std::vector<RouteMarkData> result;
+  result.reserve(pointsJson.size());
+  for (auto const & pointJson : pointsJson)
+  {
+    auto point = route_points_json::ToRouteMarkData(pointJson);
+    if (point.m_position.EqualDxDy(m2::PointD::Zero(), mercator::kPointEqualityEps))
+      continue;
+
+    result.push_back(std::move(point));
   }
+
+  if (result.size() < 2)
+    return {};
+
+  return result;
 }
 
 VehicleType GetVehicleType(RouterType routerType)

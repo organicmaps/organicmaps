@@ -180,7 +180,6 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
     geometry  # mercator::YToLat
     coding
-    cppjansson
     glaze::glaze
     $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
     $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>

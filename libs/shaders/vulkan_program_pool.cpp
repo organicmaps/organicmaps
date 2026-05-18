@@ -108,7 +108,7 @@ std::map<uint8_t, ReflectionData> ReadReflectionFile(std::string const & filenam
     coding::DeserializerJson des(jsonStr);
     des(reflectionFile);
   }
-  catch (base::Json::Exception const & e)
+  catch (coding::JsonException const & e)
   {
     LOG(LERROR, ("Error deserialization reflection file :", e.what()));
     return {};

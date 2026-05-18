@@ -5,7 +5,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
 
 #include <algorithm>
 
@@ -83,24 +83,11 @@ GetTextById::GetTextById(string const & jsonBuffer, string const & localeName) :
     return;
   }
 
-  base::Json root(jsonBuffer.c_str());
-  if (root.get() == nullptr)
+  if (auto const error = glz::read_json(m_localeTexts, jsonBuffer); error)
   {
-    ASSERT(false, ("Cannot parse the json file."));
+    ASSERT(false, ("Cannot parse the json file.", glz::format_error(error, jsonBuffer)));
     return;
   }
-
-  char const * key = nullptr;
-  json_t * value = nullptr;
-  json_object_foreach(root.get(), key, value)
-  {
-    ASSERT(key, ());
-    ASSERT(value, ());
-    char const * const valueStr = json_string_value(value);
-    ASSERT(valueStr, ());
-    m_localeTexts[key] = valueStr;
-  }
-  ASSERT_EQUAL(m_localeTexts.size(), json_object_size(root.get()), ());
 }
 
 string GetTextById::operator()(string const & textId) const
