@@ -127,6 +127,10 @@ struct Subroute
 {
   void AddStyle(SubrouteStyle const & style);
 
+  // Alternative-route subroutes are rendered with a sub-1 alpha multiplier; the active route
+  // keeps the default 1.0. Used to skip alts when navigation is active.
+  bool IsAlternative() const { return m_alphaMul < 1.0f; }
+
   df::RouteType m_routeType;
   m2::PolylineD m_polyline;
   std::vector<double> m_turns;

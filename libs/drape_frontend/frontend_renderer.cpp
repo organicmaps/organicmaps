@@ -600,6 +600,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::RemoveAlternativeSubroutes:
+  {
+    m_routeRenderer->RemoveAlternativeSubroutes();
+    break;
+  }
+
   case Message::Type::FollowRoute:
   {
     ref_ptr<FollowRouteMessage> const msg = message;
