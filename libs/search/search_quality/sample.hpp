@@ -5,8 +5,6 @@
 
 #include "base/string_utils.hpp"
 
-#include "cppjansson/cppjansson.hpp"
-
 #include <optional>
 #include <string>
 #include <vector>
@@ -55,7 +53,7 @@ struct Sample
   };
 
   bool DeserializeFromJSON(std::string const & jsonStr);
-  base::JSONPtr SerializeToJSON() const;
+  std::string SerializeToJSON() const;
 
   static bool DeserializeFromJSONLines(std::string const & lines, std::vector<Sample> & samples);
   static void SerializeToJSONLines(std::vector<Sample> const & samples, std::string & lines);
@@ -63,9 +61,6 @@ struct Sample
   bool operator<(Sample const & rhs) const;
 
   bool operator==(Sample const & rhs) const;
-
-  void DeserializeFromJSONImpl(json_t * root);
-  void SerializeToJSONImpl(json_t & root) const;
 
   void FillSearchParams(search::SearchParams & params) const;
 
@@ -92,14 +87,6 @@ struct Sample
   //   data, the sample is NOT useless.
   bool m_useless = false;
 };
-
-void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance & relevance);
-void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance relevance);
-void FromJSONObject(json_t * root, std::string const & field, Sample::Result::Relevance & relevance);
-void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance);
-
-void FromJSON(json_t * root, Sample::Result & result);
-base::JSONPtr ToJSON(Sample::Result const & result);
 
 std::string DebugPrint(Sample::Result::Relevance r);
 

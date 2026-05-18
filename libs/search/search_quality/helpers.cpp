@@ -18,14 +18,22 @@
 #include <limits>
 #include <utility>
 
-#include "defines.hpp"
+#include <glaze/json.hpp>
 
-#include "cppjansson/cppjansson.hpp"
+#include "defines.hpp"
 
 namespace search
 {
 namespace search_quality
 {
+namespace helpers_json
+{
+struct Coord
+{
+  double coord = 0.0;
+};
+}  // namespace helpers_json
+
 namespace
 {
 uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
@@ -46,18 +54,17 @@ void CheckLocale()
 
   double coord;
   {
-    base::Json root(kJson.c_str());
-    FromJSONObject(root.get(), "coord", coord);
+    helpers_json::Coord root;
+    auto const error = glz::read_json(root, kJson);
+    CHECK(!error, (glz::format_error(error, kJson)));
+    coord = root.coord;
   }
 
   std::string line;
   {
-    auto root = base::NewJSONObject();
-    ToJSONObject(*root, "coord", coord);
-
-    std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT));
-
-    line.append(buffer.get());
+    helpers_json::Coord root{.coord = coord};
+    auto const error = glz::write_json(root, line);
+    CHECK(!error, (glz::format_error(error)));
   }
 
   CHECK_EQUAL(line, kJson, (kErrorMsg));
