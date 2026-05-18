@@ -93,8 +93,11 @@ public class Factory
         final List<String> callbacks = new ArrayList<>(data.mPoints.length);
         for (RoutePoint point : data.mPoints)
         {
+          final String pointName = point.mIsMyPosition && point.mName.isEmpty()
+                                     ? target.getString(app.organicmaps.sdk.R.string.core_my_position)
+                                     : point.mName;
           routePoints.add(MapObject.createMapObject(point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.API_POINT,
-                                                    point.mName, "", point.mLat, point.mLon));
+                                                    pointName, "", point.mLat, point.mLon));
           callbacks.add(point.mCallback);
         }
         RoutingController.get().prepare(routePoints, data.mRouterType, data.mOptimizeRoutePoints,

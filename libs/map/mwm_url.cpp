@@ -32,6 +32,7 @@ namespace
 {
 std::string_view constexpr kCenterLatLon = "cll";
 std::string_view constexpr kAppName = "appname";
+std::string_view constexpr kVersion = "v";
 
 namespace map
 {
@@ -41,7 +42,6 @@ std::string_view constexpr kName = "n";
 std::string_view constexpr kId = "id";
 std::string_view constexpr kStyle = "s";
 std::string_view constexpr kBackUrl = "backurl";
-std::string_view constexpr kVersion = "v";
 std::string_view constexpr kBalloonAction = "balloonaction";
 }  // namespace map
 
@@ -51,9 +51,6 @@ std::string_view constexpr kSourceLatLon = "sll";
 std::string_view constexpr kDestLatLon = "dll";
 std::string_view constexpr kSourceName = "saddr";
 std::string_view constexpr kDestName = "daddr";
-std::string_view constexpr kLatLon = "ll";
-std::string_view constexpr kName = "n";
-std::string_view constexpr kVersion = "v";
 std::string_view constexpr kRouteType = "type";
 std::string_view constexpr kOptimize = "optimize";
 std::string_view constexpr kRouteTypeVehicle = "vehicle";
@@ -379,15 +376,9 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       if (!correctParams || !destinationFound)
         return m_requestType = UrlType::Incorrect;
 
-      if (originFound)
-      {
-        m_routePoints.push_back(std::move(origin));
-      }
-      else
-      {
+      if (!originFound)
         origin.m_isMyPosition = true;
-        m_routePoints.push_back(std::move(origin));
-      }
+      m_routePoints.push_back(std::move(origin));
 
       for (auto & waypoint : waypoints)
       {
@@ -420,17 +411,13 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       // parser. This lets v2 evolve without changing legacy validation semantics.
       size_t legacyRouteParamIndex = 0;
       bool legacyRouteTypeSeen = false;
-      bool usesModernSyntax = false;
       bool usesLegacySyntax = false;
       bool correctOrder = true;
-      url.ForEachParam([&legacyRouteParamIndex, &legacyRouteTypeSeen, &usesModernSyntax, &usesLegacySyntax,
-                        &correctOrder, this](auto const & key, auto const & value)
-      {
-        ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesModernSyntax, usesLegacySyntax,
-                        correctOrder);
-      });
+      url.ForEachParam([&legacyRouteParamIndex, &legacyRouteTypeSeen, &usesLegacySyntax, &correctOrder, this](
+                           auto const & key, auto const & value)
+      { ParseRouteParam(key, value, legacyRouteParamIndex, legacyRouteTypeSeen, usesLegacySyntax, correctOrder); });
 
-      if (!correctOrder || m_routingType.empty() || !usesLegacySyntax || usesModernSyntax)
+      if (!correctOrder || m_routingType.empty() || !usesLegacySyntax)
         return m_requestType = UrlType::Incorrect;
 
       if (legacyRouteParamIndex != 4 || !legacyRouteTypeSeen || m_routePoints.size() != 2)
@@ -611,8 +598,7 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
 }
 
 void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value, size_t & legacyRouteParamIndex,
-                                   bool & legacyRouteTypeSeen, bool & usesModernSyntax, bool & usesLegacySyntax,
-                                   bool & correctOrder)
+                                   bool & legacyRouteTypeSeen, bool & usesLegacySyntax, bool & correctOrder)
 {
   using namespace route;
 
@@ -668,34 +654,6 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
     return;
   }
 
-  if (key == kLatLon)
-  {
-    if (usesLegacySyntax)
-    {
-      correctOrder = false;
-      return;
-    }
-    usesModernSyntax = true;
-    if (!parseRouteLatLon(key, value))
-      correctOrder = false;
-    return;
-  }
-
-  if (key == kName)
-  {
-    // In the multi-stop syntax labels are attached to the immediately preceding
-    // ll parameter. This mirrors the existing map API and avoids a second set of
-    // numbered waypoint fields.
-    if (usesLegacySyntax || m_routePoints.empty())
-    {
-      correctOrder = false;
-      return;
-    }
-    usesModernSyntax = true;
-    m_routePoints.back().m_name = value;
-    return;
-  }
-
   std::array<std::string_view, 4> constexpr kLegacyRouteParams = {kSourceLatLon, kSourceName, kDestLatLon, kDestName};
   bool const isLegacyParam = key == kSourceLatLon || key == kSourceName || key == kDestLatLon || key == kDestName;
   if (!isLegacyParam)
@@ -704,7 +662,7 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
     return;
   }
 
-  if (usesModernSyntax || legacyRouteTypeSeen || legacyRouteParamIndex >= kLegacyRouteParams.size() ||
+  if (legacyRouteTypeSeen || legacyRouteParamIndex >= kLegacyRouteParams.size() ||
       key != kLegacyRouteParams[legacyRouteParamIndex])
   {
     correctOrder = false;

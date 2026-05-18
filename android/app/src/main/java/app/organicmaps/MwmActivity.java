@@ -14,7 +14,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -1103,7 +1102,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
-    Framework.nativeSetRoutePointCallbackListener(this::openRoutePointCallback);
     MwmApplication.from(getApplicationContext()).getIsolinesManager().attach(this::onIsolinesStateChanged);
     LocationState.nativeSetListener(this);
     MwmApplication.from(this).getLocationHelper().addListener(this);
@@ -1121,7 +1119,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LocationState.nativeRemoveListener();
     // Attached unconditionally in onStart()
     RoutingController.get().detach();
-    Framework.nativeSetRoutePointCallbackListener(null);
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     Utils.keepScreenOn(false, getWindow());
 
@@ -1130,6 +1127,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mSkipParsedBackUrlOnStop = false;
     else if (!TextUtils.isEmpty(backUrl))
       Utils.openUri(this, Uri.parse(backUrl), null);
+  }
+
+  void skipParsedBackUrlOnNextStop()
+  {
+    mSkipParsedBackUrlOnStop = true;
   }
 
   @CallSuper
@@ -1838,28 +1840,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
-  }
-
-  private void openRoutePointCallback(@NonNull String callback)
-  {
-    if (TextUtils.isEmpty(callback))
-      return;
-
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse(callback));
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    intent.addCategory(Intent.CATEGORY_BROWSABLE);
-
-    try
-    {
-      mSkipParsedBackUrlOnStop = true;
-      startActivity(intent);
-    }
-    catch (ActivityNotFoundException e)
-    {
-      mSkipParsedBackUrlOnStop = false;
-      Logger.e(TAG, "Failed to open route point callback: " + callback, e);
-    }
   }
 
   @Override
