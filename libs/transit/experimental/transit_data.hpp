@@ -11,10 +11,9 @@
 #include <cstring>
 #include <map>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
-
-#include "cppjansson/cppjansson.hpp"
 
 namespace transit
 {
@@ -23,15 +22,15 @@ namespace experimental
 using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>;
 using EdgeIdToFeatureId = std::unordered_map<EdgeId, uint32_t, EdgeIdHasher>;
 // Functions for parsing one line of line-by-line json and creating corresponding item in container.
-void Read(base::Json const & obj, std::vector<Network> & networks);
-void Read(base::Json const & obj, std::vector<Route> & routes);
-void Read(base::Json const & obj, std::vector<Line> & lines);
-void Read(base::Json const & obj, std::vector<LineMetadata> & linesMetadata);
-void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping);
-void Read(base::Json const & obj, std::vector<Shape> & shapes);
-void Read(base::Json const & obj, std::vector<Edge> & edges, EdgeIdToFeatureId & edgeFeatureIds);
-void Read(base::Json const & obj, std::vector<Transfer> & transfers);
-void Read(base::Json const & obj, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping);
+void Read(std::string_view json, std::vector<Network> & networks);
+void Read(std::string_view json, std::vector<Route> & routes);
+void Read(std::string_view json, std::vector<Line> & lines);
+void Read(std::string_view json, std::vector<LineMetadata> & linesMetadata);
+void Read(std::string_view json, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping);
+void Read(std::string_view json, std::vector<Shape> & shapes);
+void Read(std::string_view json, std::vector<Edge> & edges, EdgeIdToFeatureId & edgeFeatureIds);
+void Read(std::string_view json, std::vector<Transfer> & transfers);
+void Read(std::string_view json, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping);
 
 /// \brief The class contains all the information to make TRANSIT_FILE_TAG section.
 class TransitData

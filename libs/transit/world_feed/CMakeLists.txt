@@ -17,6 +17,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
+    glaze::glaze
     generator       # routing::transit::DeserializeFromJson
     transit
     drape_frontend  # df::ToDrapeColor, df::LoadTransitColors

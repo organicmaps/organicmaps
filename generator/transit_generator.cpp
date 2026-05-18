@@ -162,13 +162,10 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
     LOG(LCRITICAL, ("Can't open", transitJsonPath, e.what()));
   }
 
-  base::Json root(jsonBuffer.c_str());
-  CHECK(root.get() != nullptr, ("Cannot parse the json file:", transitJsonPath));
-
   data.Clear();
   try
   {
-    data.DeserializeFromJson(root, mapping);
+    data.DeserializeFromJson(jsonBuffer, mapping);
   }
   catch (RootException const & e)
   {
