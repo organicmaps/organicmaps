@@ -694,6 +694,14 @@ private:
   bool m_deactivateFollowing;
 };
 
+class RemoveAlternativeSubroutesMessage : public Message
+{
+public:
+  RemoveAlternativeSubroutesMessage() = default;
+
+  Type GetType() const override { return Type::RemoveAlternativeSubroutes; }
+};
+
 using FlushSubrouteMessage = FlushRenderDataMessage<drape_ptr<SubrouteData>, Message::Type::FlushSubroute>;
 using FlushSubrouteArrowsMessage =
     FlushRenderDataMessage<drape_ptr<SubrouteArrowsData>, Message::Type::FlushSubrouteArrows>;
