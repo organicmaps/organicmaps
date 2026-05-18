@@ -330,6 +330,8 @@ public class Framework
 
   public static native void nativeShowRouteTransit(int relId);
 
+  public static native void nativeSelectTrackCandidate(int candidateIndex);
+
   @Nullable
   public static native String nativeGetActiveTransitRouteRef();
 

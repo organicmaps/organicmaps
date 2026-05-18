@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.util.Distance;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public final class Track extends MapObject
 {
@@ -20,6 +23,8 @@ public final class Track extends MapObject
   private ElevationInfo mElevationInfo;
   @Nullable
   private TrackStatistics mTrackStatistics;
+  @Nullable
+  private final List<TrackSelectionCandidate> mCandidates;
 
   // Called from JNI.
   @Keep
@@ -34,6 +39,7 @@ public final class Track extends MapObject
     mName = name;
     mLength = length;
     mColor = color;
+    mCandidates = null;
   }
 
   // Called from JNI.
@@ -42,7 +48,8 @@ public final class Track extends MapObject
   private Track(long categoryId, long id, boolean isRelationTrack, String title, @Nullable String secondaryTitle,
                 @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
                 @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
-                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon)
+                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon,
+                @Nullable TrackSelectionCandidate[] candidates)
   {
     super(TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode, wikiArticle,
           osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
@@ -52,6 +59,7 @@ public final class Track extends MapObject
     mColor = color;
     mName = title;
     mLength = length;
+    mCandidates = (candidates != null) ? Arrays.asList(candidates) : null;
   }
 
   public long getTrackId()
@@ -139,6 +147,17 @@ public final class Track extends MapObject
   public double getElevationActivePointDistance()
   {
     return nativeGetElevationActivePointDistance(mId);
+  }
+
+  @Nullable
+  public List<TrackSelectionCandidate> getCandidates()
+  {
+    return mCandidates != null ? Collections.unmodifiableList(mCandidates) : null;
+  }
+
+  public boolean hasMultipleCandidates()
+  {
+    return mCandidates != null && mCandidates.size() > 1;
   }
 
   public void update(@NonNull String name, @ColorInt int color, @NonNull String description)
