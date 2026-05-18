@@ -69,7 +69,7 @@ target_link_libraries(${PROJECT_NAME}
     platform
     coding
     mwm_diff
-    cppjansson
+    glaze::glaze
 )
 
 omim_add_test_subdirectory(storage_tests)
