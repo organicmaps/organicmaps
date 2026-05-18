@@ -47,10 +47,6 @@
   path = 3party/pugixml/pugixml
   url = https://github.com/zeux/pugixml.git
   branch = master
-[submodule "3party/jansson/jansson"]
-  path = 3party/jansson/jansson
-  url = https://github.com/akheron/jansson.git
-  branch = master
 [submodule "3party/gflags"]
   path = 3party/gflags
   url = https://github.com/gflags/gflags
@@ -91,4 +87,3 @@
   path = tools/python/twine
   url = https://github.com/organicmaps/twine.git
   branch = organicmaps
-
