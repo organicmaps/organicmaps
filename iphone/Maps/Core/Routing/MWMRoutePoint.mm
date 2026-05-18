@@ -45,7 +45,7 @@
   if (self)
   {
     _point = point.m_org;
-    _title = @(point.m_name.c_str());
+    _title = point.m_isMyPosition && point.m_name.empty() ? L(@"core_my_position") : @(point.m_name.c_str());
     _subtitle = @"";
     _callback = @(point.m_callback.c_str());
     _isMyPosition = point.m_isMyPosition;

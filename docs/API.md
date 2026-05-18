@@ -29,7 +29,7 @@ Optional parameters:
 - `mode=drive|walk|bike|transit` (`drive` is the default). For easier migration from Google Maps URLs, `travelmode=driving|walking|bicycling|transit` is accepted as an alias.
 - `dir_action=navigate` on `/v2/dir` is accepted as a Google Maps-style alias for `/v2/nav`.
 - `optimize=true` to allow Organic Maps to reorder intermediate stops; otherwise URL order is preserved.
-- `ref_name=...` for the calling app title and `callback=...` for a global return URL.
+- `ref_name=...` for the calling app title (`appname` equivalent) and `callback=...` for a global return URL.
 - Future extension parameters such as `api=1`, `avoid=...`, `ref=...`, and `callback_label=...` are accepted without failing the whole route.
 
 Example:
@@ -52,6 +52,6 @@ The previous route format remains supported for backward compatibility:
 om://route?v=1&sll=50.183933,8.942871&saddr=Start%20Point&dll=49.998912,8.278198&daddr=End%20Point&type=vehicle
 ```
 
-Legacy route links also accept the common `appname=...` and `cll=lat,lon` parameters. Use v2 links for caller callbacks: legacy route links do not read `callback=...` or `backurl=...`.
+Legacy route links also accept the common `appname=...` and `cll=lat,lon` parameters. Use v2 links for caller callbacks: legacy route links ignore `callback=...` and `backurl=...`.
 
 Do not mix the legacy `sll`/`saddr`/`dll`/`daddr` parameters with the v2 `/v2/dir` or `/v2/nav` syntax.

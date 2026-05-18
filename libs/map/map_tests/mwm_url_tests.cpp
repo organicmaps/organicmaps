@@ -108,6 +108,16 @@ UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
   TEST_ALMOST_EQUAL_ABS(test.GetRouteStartDirection().y, 0.0, kEps, ());
 }
 
+UNIT_TEST(RouteApiV2ExplicitOriginNavigationBuildsPreview)
+{
+  ParsedMapApi test("om://v2/nav?origin=1,1&destination=2,2");
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
+  TEST(!test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_org, mercator::FromLatLon(1, 1), ());
+  TEST(test.ShouldStartRouteNavigation(), ());
+}
+
 UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
 {
   ParsedMapApi empty("om://v2/dir?origin=1,1&waypoints=&destination=2,2");
@@ -208,6 +218,10 @@ UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
   ParsedMapApi car("om://v2/dir?destination=2,2&mode=car");
   TEST_EQUAL(car.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(car.GetRoutingType(), "vehicle", ());
+
+  ParsedMapApi driving("om://v2/dir?destination=2,2&mode=driving");
+  TEST_EQUAL(driving.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(driving.GetRoutingType(), "vehicle", ());
 
   ParsedMapApi walking("om://v2/dir?destination=2,2&mode=walking");
   TEST_EQUAL(walking.GetRequestType(), UrlType::Route, ());
