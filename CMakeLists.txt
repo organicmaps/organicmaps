@@ -192,15 +192,6 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
 
   find_package(expat CONFIG REQUIRED)
 
-  find_package(jansson CONFIG QUIET)
-  if (NOT jansson_FOUND)
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(PKG_JANSSON REQUIRED IMPORTED_TARGET jansson)
-    if (NOT TARGET jansson::jansson)
-      add_library(jansson::jansson ALIAS PkgConfig::PKG_JANSSON)
-    endif()
-  endif()
-
   find_package(pugixml REQUIRED)
   find_package(utf8cpp REQUIRED)
   find_package(Boost REQUIRED)
