@@ -8,10 +8,13 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
 
 #include <algorithm>
 #include <cstdint>
+#include <optional>
+#include <set>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -20,29 +23,55 @@ namespace generator
 using base::GeoObjectId;
 using std::pair, std::string, std::unordered_map, std::vector;
 
+namespace brands_json
+{
+using FeatureToBrand = std::unordered_map<std::string, uint32_t>;
+
+struct Brands
+{
+  FeatureToBrand nodes;
+  FeatureToBrand ways;
+  FeatureToBrand relations;
+};
+
+struct Translation
+{
+  std::optional<std::vector<std::string>> en;
+};
+
+using Translations = std::unordered_map<std::string, Translation>;
+}  // namespace brands_json
+
 DECLARE_EXCEPTION(ParsingError, RootException);
 
-static void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type type,
+static bool ReadJson(string const & jsonBuffer, char const * filename, auto & result)
+{
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(result, jsonBuffer); error)
+  {
+    LOG(LERROR, ("Cannot parse", filename, glz::format_error(error, jsonBuffer)));
+    return false;
+  }
+
+  return true;
+}
+
+static void ParseFeatureToBrand(brands_json::FeatureToBrand const & featureToBrand, GeoObjectId::Type type,
                                 vector<pair<GeoObjectId, uint32_t>> & result)
 {
-  auto arr = base::GetJSONOptionalField(root, field);
-  if (arr == nullptr)
-    return;
-
-  char const * key;
-  json_t * value;
-  json_object_foreach(arr, key, value)
+  for (auto const & [key, brandId] : featureToBrand)
   {
     result.emplace_back();
     uint64_t id;
     if (!strings::to_uint64(key, id))
       MYTHROW(ParsingError, ("Incorrect OSM id:", key));
     result.back().first = GeoObjectId(type, id);
-    FromJSON(value, result.back().second);
+    result.back().second = brandId;
   }
 }
 
-void ParseTranslations(json_t * root, std::set<string> const & keys, unordered_map<uint32_t, string> & idToKey)
+void ParseTranslations(brands_json::Translations const & translations, std::set<string> const & keys,
+                       unordered_map<uint32_t, string> & idToKey)
 {
   string const empty;
   auto getKey = [&](string & translation) -> string const &
@@ -58,15 +87,12 @@ void ParseTranslations(json_t * root, std::set<string> const & keys, unordered_m
     return empty;
   };
 
-  char const * key;
-  json_t * value;
-  json_object_foreach(root, key, value)
+  for (auto const & [key, value] : translations)
   {
-    vector<string> enTranslations;
-    if (!FromJSONObjectOptional(value, "en", enTranslations))
+    if (!value.en)
       continue;
 
-    for (auto & translation : enTranslations)
+    for (auto translation : *value.en)
     {
       auto const & indexKey = getKey(translation);
       if (!indexKey.empty())
@@ -98,17 +124,13 @@ bool LoadBrands(string const & brandsFilename, string const & translationsFilena
   vector<pair<GeoObjectId, uint32_t>> objects;
   try
   {
-    base::Json root(jsonBuffer.c_str());
-    CHECK(root.get() != nullptr, ("Cannot parse the json file:", brandsFilename));
+    brands_json::Brands parsedBrands;
+    if (!ReadJson(jsonBuffer, brandsFilename.c_str(), parsedBrands))
+      return false;
 
-    ParseFeatureToBrand(root.get(), "nodes", GeoObjectId::Type::ObsoleteOsmNode, objects);
-    ParseFeatureToBrand(root.get(), "ways", GeoObjectId::Type::ObsoleteOsmWay, objects);
-    ParseFeatureToBrand(root.get(), "relations", GeoObjectId::Type::ObsoleteOsmRelation, objects);
-  }
-  catch (base::Json::Exception const &)
-  {
-    LOG(LERROR, ("Cannot create base::Json from", brandsFilename));
-    return false;
+    ParseFeatureToBrand(parsedBrands.nodes, GeoObjectId::Type::ObsoleteOsmNode, objects);
+    ParseFeatureToBrand(parsedBrands.ways, GeoObjectId::Type::ObsoleteOsmWay, objects);
+    ParseFeatureToBrand(parsedBrands.relations, GeoObjectId::Type::ObsoleteOsmRelation, objects);
   }
   catch (ParsingError const & e)
   {
@@ -129,15 +151,12 @@ bool LoadBrands(string const & brandsFilename, string const & translationsFilena
   unordered_map<uint32_t, string> idToKey;
   try
   {
-    base::Json root(jsonBuffer.c_str());
-    CHECK(root.get() != nullptr, ("Cannot parse the json file:", translationsFilename));
+    brands_json::Translations translations;
+    if (!ReadJson(jsonBuffer, translationsFilename.c_str(), translations))
+      return false;
+
     auto const & keys = indexer::GetDefaultBrands().GetKeys();
-    ParseTranslations(root.get(), keys, idToKey);
-  }
-  catch (base::Json::Exception const &)
-  {
-    LOG(LERROR, ("Cannot create base::Json from", translationsFilename));
-    return false;
+    ParseTranslations(translations, keys, idToKey);
   }
   catch (ParsingError const & e)
   {
