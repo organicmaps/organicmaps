@@ -1108,6 +1108,18 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowTrackRect(JNIEnv * e
   frm()->ShowTrack(static_cast<kml::TrackId>(track));
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSelectTrackCandidate(JNIEnv *, jclass, jint index)
+{
+  if (!frm()->HasPlacePageInfo())
+    return;
+  auto const & candidates = frm()->GetCurrentPlacePageInfo().GetTrackCandidates();
+  auto const idx = static_cast<size_t>(index);
+  if (idx >= candidates.size())
+    return;
+  auto const & c = candidates[idx];
+  frm()->SelectTrackCandidate(c.m_trackId, c.m_relationId);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
 {
   frm()->SaveRoute();
