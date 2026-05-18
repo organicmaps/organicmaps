@@ -1,7 +1,6 @@
 #include "search/search_quality/sample.hpp"
 
 #include "search/search_params.hpp"
-#include "search/search_quality/helpers_json.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
@@ -10,15 +9,178 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <glaze/json.hpp>
+
 #include <algorithm>
-#include <memory>
 #include <sstream>
 
 namespace search
 {
-using namespace base;
+namespace sample_json
+{
+struct Point
+{
+  double x = 0.0;
+  double y = 0.0;
+};
+
+struct Rect
+{
+  double minx = 0.0;
+  double miny = 0.0;
+  double maxx = 0.0;
+  double maxy = 0.0;
+};
+
+struct Result
+{
+  Point position;
+  std::string name;
+  std::string houseNumber;
+  std::vector<std::string> types;
+  std::string relevancy;
+};
+
+struct Sample
+{
+  std::string query;
+  std::string locale;
+  std::optional<Point> position;
+  Rect viewport;
+  std::optional<std::vector<Result>> results;
+  std::optional<std::vector<std::string>> related_queries;
+  std::optional<bool> useless;
+};
+}  // namespace sample_json
+
 namespace
 {
+sample_json::Point ToJson(m2::PointD const & point)
+{
+  return {.x = point.x, .y = point.y};
+}
+
+m2::PointD FromJson(sample_json::Point const & point)
+{
+  return {point.x, point.y};
+}
+
+sample_json::Rect ToJson(m2::RectD const & rect)
+{
+  return {.minx = rect.minX(), .miny = rect.minY(), .maxx = rect.maxX(), .maxy = rect.maxY()};
+}
+
+m2::RectD FromJson(sample_json::Rect const & rect)
+{
+  return {rect.minx, rect.miny, rect.maxx, rect.maxy};
+}
+
+std::string ToJson(Sample::Result::Relevance relevance)
+{
+  using Relevance = Sample::Result::Relevance;
+  switch (relevance)
+  {
+  case Relevance::Harmful: return "harmful";
+  case Relevance::Irrelevant: return "irrelevant";
+  case Relevance::Relevant: return "relevant";
+  case Relevance::Vital: return "vital";
+  }
+  return {};
+}
+
+bool FromJson(std::string const & relevance, Sample::Result::Relevance & result)
+{
+  if (relevance == "harmful")
+  {
+    result = Sample::Result::Relevance::Harmful;
+    return true;
+  }
+  if (relevance == "irrelevant")
+  {
+    result = Sample::Result::Relevance::Irrelevant;
+    return true;
+  }
+  if (relevance == "relevant")
+  {
+    result = Sample::Result::Relevance::Relevant;
+    return true;
+  }
+  if (relevance == "vital")
+  {
+    result = Sample::Result::Relevance::Vital;
+    return true;
+  }
+  return false;
+}
+
+sample_json::Result ToJson(Sample::Result const & result)
+{
+  return {.position = ToJson(result.m_pos),
+          .name = strings::ToUtf8(result.m_name),
+          .houseNumber = result.m_houseNumber,
+          .types = result.m_types,
+          .relevancy = ToJson(result.m_relevance)};
+}
+
+bool FromJson(sample_json::Result const & json, Sample::Result & result)
+{
+  result.m_pos = FromJson(json.position);
+  result.m_name = strings::MakeUniString(json.name);
+  result.m_houseNumber = json.houseNumber;
+  result.m_types = json.types;
+  return FromJson(json.relevancy, result.m_relevance);
+}
+
+sample_json::Sample ToJson(Sample const & sample)
+{
+  sample_json::Sample json;
+  json.query = strings::ToUtf8(sample.m_query);
+  json.locale = sample.m_locale;
+  if (sample.m_pos)
+    json.position = ToJson(*sample.m_pos);
+  json.viewport = ToJson(sample.m_viewport);
+  json.results = std::vector<sample_json::Result>();
+  json.results->reserve(sample.m_results.size());
+  for (auto const & result : sample.m_results)
+    json.results->push_back(ToJson(result));
+  json.related_queries = std::vector<std::string>();
+  json.related_queries->reserve(sample.m_relatedQueries.size());
+  for (auto const & query : sample.m_relatedQueries)
+    json.related_queries->push_back(strings::ToUtf8(query));
+  if (sample.m_useless)
+    json.useless = sample.m_useless;
+  return json;
+}
+
+bool FromJson(sample_json::Sample const & json, Sample & sample)
+{
+  sample.m_query = strings::MakeUniString(json.query);
+  sample.m_locale = json.locale;
+  sample.m_pos = json.position ? std::make_optional(FromJson(*json.position)) : std::nullopt;
+  sample.m_viewport = FromJson(json.viewport);
+  sample.m_results.clear();
+  if (json.results)
+  {
+    sample.m_results.reserve(json.results->size());
+    for (auto const & resultJson : *json.results)
+    {
+      Sample::Result result;
+      if (!FromJson(resultJson, result))
+        return false;
+      sample.m_results.push_back(std::move(result));
+    }
+  }
+  sample.m_relatedQueries.clear();
+  if (json.related_queries)
+  {
+    sample.m_relatedQueries.reserve(json.related_queries->size());
+    for (auto const & query : *json.related_queries)
+      sample.m_relatedQueries.push_back(strings::MakeUniString(query));
+  }
+  sample.m_useless = json.useless.value_or(false);
+  return true;
+}
+
 bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
 {
   if (lhs.minX() != rhs.minX())
@@ -83,24 +245,33 @@ bool Sample::Result::operator==(Sample::Result const & rhs) const
 
 bool Sample::DeserializeFromJSON(std::string const & jsonStr)
 {
-  try
+  sample_json::Sample sampleJson;
+  glz::opts constexpr opts{.error_on_unknown_keys = false};
+  if (auto const error = glz::read<opts>(sampleJson, jsonStr); error)
   {
-    base::Json root(jsonStr.c_str());
-    DeserializeFromJSONImpl(root.get());
-    return true;
+    LOG(LWARNING, ("Can't parse sample:", glz::format_error(error, jsonStr), jsonStr));
+    return false;
   }
-  catch (base::Json::Exception const & e)
+
+  if (!FromJson(sampleJson, *this))
   {
-    LOG(LWARNING, ("Can't parse sample:", e.Msg(), jsonStr));
+    LOG(LWARNING, ("Can't parse sample: unknown relevance", jsonStr));
+    return false;
   }
-  return false;
+
+  return true;
 }
 
-base::JSONPtr Sample::SerializeToJSON() const
+std::string Sample::SerializeToJSON() const
 {
-  auto json = base::NewJSONObject();
-  SerializeToJSONImpl(*json);
-  return json;
+  std::string buffer;
+  auto json = ToJson(*this);
+  if (auto const error = glz::write_json(json, buffer); error)
+  {
+    LOG(LWARNING, ("Can't serialize sample:", glz::format_error(error)));
+    return {};
+  }
+  return buffer;
 }
 
 bool Sample::operator<(Sample const & rhs) const
@@ -150,33 +321,9 @@ void Sample::SerializeToJSONLines(std::vector<Sample> const & samples, std::stri
 {
   for (auto const & sample : samples)
   {
-    std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(sample.SerializeToJSON().get(), JSON_COMPACT));
-    lines.append(buffer.get());
+    lines.append(sample.SerializeToJSON());
     lines.push_back('\n');
   }
-}
-
-void Sample::DeserializeFromJSONImpl(json_t * root)
-{
-  FromJSONObject(root, "query", m_query);
-  FromJSONObject(root, "locale", m_locale);
-  FromJSONObjectOptional(root, "position", m_pos);
-  FromJSONObject(root, "viewport", m_viewport);
-  FromJSONObjectOptional(root, "results", m_results);
-  FromJSONObjectOptional(root, "related_queries", m_relatedQueries);
-  FromJSONObjectOptionalField(root, "useless", m_useless);
-}
-
-void Sample::SerializeToJSONImpl(json_t & root) const
-{
-  ToJSONObject(root, "query", m_query);
-  ToJSONObject(root, "locale", m_locale);
-  ToJSONObject(root, "position", m_pos);
-  ToJSONObject(root, "viewport", m_viewport);
-  ToJSONObject(root, "results", m_results);
-  ToJSONObject(root, "related_queries", m_relatedQueries);
-  if (m_useless)
-    ToJSONObject(root, "useless", m_useless);
 }
 
 void Sample::FillSearchParams(search::SearchParams & params) const
@@ -190,68 +337,6 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   params.m_suggestsEnabled = false;
   params.m_needHighlighting = false;
   params.m_useDebugInfo = true;  // for RankingInfo printing
-}
-
-void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance & relevance)
-{
-  std::string r;
-  FromJSONObject(root, field, r);
-  if (r == "harmful")
-    relevance = search::Sample::Result::Relevance::Harmful;
-  else if (r == "irrelevant")
-    relevance = search::Sample::Result::Relevance::Irrelevant;
-  else if (r == "relevant")
-    relevance = search::Sample::Result::Relevance::Relevant;
-  else if (r == "vital")
-    relevance = search::Sample::Result::Relevance::Vital;
-  else
-    CHECK(false, ("Unknown relevance:", r));
-}
-
-void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance relevance)
-{
-  using Relevance = Sample::Result::Relevance;
-
-  std::string r;
-  switch (relevance)
-  {
-  case Relevance::Harmful: r = "harmful"; break;
-  case Relevance::Irrelevant: r = "irrelevant"; break;
-  case Relevance::Relevant: r = "relevant"; break;
-  case Relevance::Vital: r = "vital"; break;
-  }
-
-  json_object_set_new(&root, field, json_string(r.c_str()));
-}
-
-void FromJSONObject(json_t * root, std::string const & field, Sample::Result::Relevance & relevance)
-{
-  FromJSONObject(root, field.c_str(), relevance);
-}
-
-void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance)
-{
-  ToJSONObject(root, field.c_str(), relevance);
-}
-
-void FromJSON(json_t * root, Sample::Result & result)
-{
-  FromJSONObject(root, "position", result.m_pos);
-  FromJSONObject(root, "name", result.m_name);
-  FromJSONObject(root, "houseNumber", result.m_houseNumber);
-  FromJSONObject(root, "types", result.m_types);
-  FromJSONObject(root, "relevancy", result.m_relevance);
-}
-
-base::JSONPtr ToJSON(Sample::Result const & result)
-{
-  auto root = base::NewJSONObject();
-  ToJSONObject(*root, "position", result.m_pos);
-  ToJSONObject(*root, "name", result.m_name);
-  ToJSONObject(*root, "houseNumber", result.m_houseNumber);
-  ToJSONObject(*root, "types", result.m_types);
-  ToJSONObject(*root, "relevancy", result.m_relevance);
-  return root;
 }
 
 std::string DebugPrint(Sample::Result::Relevance r)
