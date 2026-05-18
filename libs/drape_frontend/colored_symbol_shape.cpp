@@ -38,6 +38,100 @@ glsl::vec2 ShiftNormal(glsl::vec2 const & n, ColoredSymbolViewParams const & par
 
   return result;
 }
+
+using VertexBufferT = buffer_vector<gpu::ColoredSymbolVertex, 48>;
+
+// Emits a triangular tail (fill + outline) pointing from the nearest body edge of a
+// RoundedRectangle back to its pivot. The tail tip lands at -params.m_offset in body-local
+// coords. Fill is inserted at |outlineStart| (body-fill section) and outline is appended
+// (outline section) so the caller's reorder yields: body outline → tail outline → body
+// fill → tail fill. No-op when offset is zero, the tail is too narrow, or the tip is
+// degenerate. Outline triangles are wound clockwise to match the GL FrontFace=CW setting.
+void EmitTail(ColoredSymbolViewParams const & params, VertexBufferT & buffer, size_t & outlineStart,
+              bool hasOutlineGeometry, glsl::vec3 const & position, gpu::ColoredSymbolVertex::TTexCoord const & uv,
+              gpu::ColoredSymbolVertex::TTexCoord const & uvOutline, float v, float halfWidth, float halfHeight)
+{
+  if (params.m_offset.x == 0.0f && params.m_offset.y == 0.0f)
+    return;
+
+  glsl::vec2 const tip(-params.m_offset.x, -params.m_offset.y);
+  float const tipLen = std::sqrt(tip.x * tip.x + tip.y * tip.y);
+  if (tipLen <= 1e-3f)
+    return;
+
+  glsl::vec2 const dir = tip / tipLen;
+  glsl::vec2 const perp(-dir.y, dir.x);
+
+  // Intersect the dir ray with the body's outer rectangle to find the attachment edge.
+  float const scaleX = std::abs(dir.x) > 1e-5f ? halfWidth / std::abs(dir.x) : 1e9f;
+  float const scaleY = std::abs(dir.y) > 1e-5f ? halfHeight / std::abs(dir.y) : 1e9f;
+  float const edgeT = std::min(scaleX, scaleY);
+  glsl::vec2 const edgeCenter = dir * edgeT;
+
+  // Keep the base inside the straight edge of the rounded rect (avoid the corner arcs).
+  float const edgeHalfLen =
+      scaleX < scaleY ? halfHeight - params.m_radiusInPixels : halfWidth - params.m_radiusInPixels;
+  float const halfBase = std::max(
+      0.0f, std::min(0.5f * std::min(halfWidth, halfHeight), std::max(0.0f, edgeHalfLen) - params.m_outlineWidth));
+  if (halfBase <= 0.5f)
+    return;
+
+  using V = gpu::ColoredSymbolVertex;
+  auto norm = [&params](float x, float y) { return ShiftNormal(glsl::vec2(x, y), params); };
+
+  glsl::vec2 const baseA = edgeCenter + perp * halfBase;
+  glsl::vec2 const baseB = edgeCenter - perp * halfBase;
+  float const ow = params.m_outlineWidth;
+  // Pull the fill base slightly into the body so it hides the body outline at the junction.
+  glsl::vec2 const inset = -dir * (ow + 1.0f);
+  glsl::vec2 const baseAFill = baseA + inset;
+  glsl::vec2 const baseBFill = baseB + inset;
+
+  // Tail fill triangle — inserted into the body-fill section.
+  V const fillVerts[3] = {
+      V(position, V::TNormal(norm(tip.x, tip.y), v, 0.0f), uv),
+      V(position, V::TNormal(norm(baseAFill.x, baseAFill.y), v, 0.0f), uv),
+      V(position, V::TNormal(norm(baseBFill.x, baseBFill.y), v, 0.0f), uv),
+  };
+  buffer.insert(buffer.begin() + outlineStart, std::begin(fillVerts), std::end(fillVerts));
+  outlineStart += 3;
+
+  if (ow < 1e-5f || !hasOutlineGeometry)
+    return;
+
+  // Outward perpendicular of each slanted side (away from triangle interior).
+  glsl::vec2 const sideA = tip - baseA;
+  float const sideALen = std::sqrt(sideA.x * sideA.x + sideA.y * sideA.y);
+  glsl::vec2 sideANormal(-sideA.y / sideALen, sideA.x / sideALen);
+  if (sideANormal.x * perp.x + sideANormal.y * perp.y < 0.0f)
+    sideANormal = -sideANormal;
+
+  glsl::vec2 const sideB = tip - baseB;
+  float const sideBLen = std::sqrt(sideB.x * sideB.x + sideB.y * sideB.y);
+  glsl::vec2 sideBNormal(-sideB.y / sideBLen, sideB.x / sideBLen);
+  if (sideBNormal.x * perp.x + sideBNormal.y * perp.y > 0.0f)
+    sideBNormal = -sideBNormal;
+
+  glsl::vec2 const outerBaseA = baseA + sideANormal * ow;
+  glsl::vec2 const outerBaseB = baseB + sideBNormal * ow;
+
+  // Pin the outline apex to the inner tip (= pivot in pixel space). A true miter would push
+  // the apex along -dir by ow/sin(half-apex-angle), which is large for narrow tails (high vs
+  // + small base) and visibly drifts past the route point. With outerTip == tip the outline
+  // tapers to the pivot, keeping the apex anchored in model coordinates.
+  glsl::vec2 const outerTip = tip;
+
+  // Each side renders as a single triangle (degenerate edge collapses cleanly at the tip).
+  // Perimeter CW in screen (y-down): side A = baseA → tip → outerBaseA.
+  buffer.push_back(V(position, V::TNormal(norm(baseA.x, baseA.y), v, 0.0f), uvOutline));
+  buffer.push_back(V(position, V::TNormal(norm(outerTip.x, outerTip.y), v, 0.0f), uvOutline));
+  buffer.push_back(V(position, V::TNormal(norm(outerBaseA.x, outerBaseA.y), v, 0.0f), uvOutline));
+
+  // Side B perimeter CW: baseB → outerBaseB → tip.
+  buffer.push_back(V(position, V::TNormal(norm(baseB.x, baseB.y), v, 0.0f), uvOutline));
+  buffer.push_back(V(position, V::TNormal(norm(outerBaseB.x, outerBaseB.y), v, 0.0f), uvOutline));
+  buffer.push_back(V(position, V::TNormal(norm(outerTip.x, outerTip.y), v, 0.0f), uvOutline));
+}
 }  // namespace
 
 class DynamicSquareHandle : public dp::SquareHandle
@@ -108,7 +202,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_point, m_params.m_tileCenter, kShapeCoordScalar));
   glsl::vec3 const position = glsl::vec3(pt, m_params.m_depth);
 
-  buffer_vector<V, 48> buffer;
+  VertexBufferT buffer;
   size_t outlineStart = 0;
   bool hasOutlineGeometry = false;
 
@@ -268,13 +362,16 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
       buffer.push_back(V(position, V::TNormal(-r * kSqrt2, 0.0, r, 0.0f), uv2));
       buffer.push_back(V(position, V::TNormal(0.0, -r * kSqrt2, r, 0.0f), uv2));
     }
+
+    if (m_params.m_drawTail)
+      EmitTail(m_params, buffer, outlineStart, hasOutlineGeometry, position, uv, uvOutline, v, halfWidth, halfHeight);
   }
 
   // Outlined symbols currently rely on draw order when depth test is disabled.
   // Emit outline first and body second so fill color is preserved in the interior.
   if (hasOutlineGeometry && !m_params.m_depthTestEnabled)
   {
-    buffer_vector<V, 48> reordered;
+    VertexBufferT reordered;
     reordered.insert(reordered.end(), buffer.begin() + outlineStart, buffer.end());
     reordered.insert(reordered.end(), buffer.begin(), buffer.begin() + outlineStart);
     buffer = std::move(reordered);
