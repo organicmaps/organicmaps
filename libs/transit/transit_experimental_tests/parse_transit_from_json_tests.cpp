@@ -18,7 +18,7 @@ template <typename... Args>
 void FillContainer(std::vector<std::string> const & lineByLineJsons, Args &&... args)
 {
   for (auto const & line : lineByLineJsons)
-    Read(base::Json(line.c_str()), std::forward<Args>(args)...);
+    Read(line, std::forward<Args>(args)...);
 }
 
 UNIT_TEST(ReadJson_Network)
