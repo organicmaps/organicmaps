@@ -38,20 +38,43 @@
       android:layout_weight="1"
       android:orientation="vertical">
 
-      <TextView
-        android:id="@+id/tv__title"
-        android:textAlignment="viewStart"
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:fontFamily="@string/robotoMedium"
-        android:breakStrategy="high_quality"
-        android:hyphenationFrequency="fullFast"
-        android:maxLines="@integer/pp_title_lines"
-        android:textAppearance="@style/MwmTextAppearance.Title"
-        tools:background="#C0800000"
-        tools:ignore="UnusedAttribute"
-        tools:text="Title" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+          android:id="@+id/tv__title"
+          android:textAlignment="viewStart"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:ellipsize="end"
+          android:fontFamily="@string/robotoMedium"
+          android:breakStrategy="high_quality"
+          android:hyphenationFrequency="fullFast"
+          android:maxLines="@integer/pp_title_lines"
+          android:textAppearance="@style/MwmTextAppearance.Title"
+          tools:background="#C0800000"
+          tools:ignore="UnusedAttribute"
+          tools:text="Title" />
+
+        <ImageView
+          android:id="@+id/iv__title_chevron"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:minWidth="48dp"
+          android:minHeight="48dp"
+          android:padding="@dimen/margin_quarter"
+          android:scaleType="centerInside"
+          android:src="@drawable/ic_chevron_down_thin"
+          android:contentDescription="@string/select_option"
+          android:visibility="gone"
+          tools:ignore="UnusedAttribute" />
+
+      </LinearLayout>
 
       <TextView
         android:id="@+id/tv__secondary_title"

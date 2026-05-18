@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.util.Distance;
+import java.util.Arrays;
+import java.util.List;
 
 public final class Track extends MapObject
 {
@@ -20,6 +22,8 @@ public final class Track extends MapObject
   private ElevationInfo mElevationInfo;
   @Nullable
   private TrackStatistics mTrackStatistics;
+  @NonNull
+  private final List<TrackSelectionCandidate> mCandidates;
 
   // Called from JNI.
   @Keep
@@ -34,6 +38,7 @@ public final class Track extends MapObject
     mName = name;
     mLength = length;
     mColor = color;
+    mCandidates = List.of();
   }
 
   // Called from JNI.
@@ -42,7 +47,8 @@ public final class Track extends MapObject
   private Track(long categoryId, long id, boolean isRelationTrack, String title, @Nullable String secondaryTitle,
                 @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
                 @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
-                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon)
+                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon,
+                @Nullable TrackSelectionCandidate[] candidates)
   {
     super(TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode, wikiArticle,
           osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
@@ -52,6 +58,7 @@ public final class Track extends MapObject
     mColor = color;
     mName = title;
     mLength = length;
+    mCandidates = (candidates != null) ? List.copyOf(Arrays.asList(candidates)) : List.of();
   }
 
   public long getTrackId()
@@ -139,6 +146,17 @@ public final class Track extends MapObject
   public double getElevationActivePointDistance()
   {
     return nativeGetElevationActivePointDistance(mId);
+  }
+
+  @NonNull
+  public List<TrackSelectionCandidate> getCandidates()
+  {
+    return mCandidates;
+  }
+
+  public boolean hasMultipleCandidates()
+  {
+    return mCandidates.size() > 1;
   }
 
   public void update(@NonNull String name, @ColorInt int color, @NonNull String description)
