@@ -208,6 +208,7 @@ public:
   }
 
   Callbacks & GetCallbacksForTests() { return m_callbacks; }
+  static std::vector<RouteMarkData> DeserializeRoutePointsForTesting(std::string const & data);
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
