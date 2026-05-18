@@ -27,7 +27,7 @@
 
 #include "defines.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
 
 #include <algorithm>
 #include <sstream>
@@ -1109,33 +1109,33 @@ int64_t Storage::ParseIndexAndGetDataVersion(std::string const & index) const
   try
   {
     // [ {"start app version" : data version}, ... ]
-    base::Json const json(index.c_str());
-    auto root = json.get();
+    glz::generic_u64 root;
+    if (auto const error = glz::read_json(root, index); error)
+      return 0;
 
-    if (root == nullptr || !json_is_array(root))
+    auto const * array = root.get_if<glz::generic_u64::array_t>();
+    if (array == nullptr)
       return 0;
 
     /// @todo Get correct value somehow ..
     int64_t const appVersion = 21042001;
     int64_t dataVersion = 0;
 
-    size_t const count = json_array_size(root);
-    for (size_t i = 0; i < count; ++i)
+    for (auto const & item : *array)
     {
       // Make safe parsing here to avoid download errors.
-      auto const it = json_object_iter(json_array_get(root, i));
-      if (it)
-      {
-        auto const key = json_object_iter_key(it);
-        auto const val = json_object_iter_value(it);
+      auto const * object = item.get_if<glz::generic_u64::object_t>();
+      if (object == nullptr || object->empty())
+        continue;
 
-        int appVer;
-        if (key && val && json_is_number(val) && strings::to_int(key, appVer))
-        {
-          int64_t const dataVer = json_integer_value(val);
-          if (appVersion >= appVer && dataVersion < dataVer)
-            dataVersion = dataVer;
-        }
+      auto const & [key, val] = *object->begin();
+
+      int appVer;
+      if (val.is_number() && strings::to_int(key, appVer))
+      {
+        int64_t const dataVer = val.as<int64_t>();
+        if (appVersion >= appVer && dataVersion < dataVer)
+          dataVersion = dataVer;
       }
     }
 
