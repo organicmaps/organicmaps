@@ -559,6 +559,11 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   }
 }
 
+void RoutingManager::ClearAlternativeRoutes()
+{
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAlternativeSubroutes);
+}
+
 void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments,
                                          m2::PointD const & startPt, double baseDistance, GetMwmIdFn const & getMwmIdFn,
                                          RoadWarningsCollection & roadWarnings)
@@ -724,11 +729,15 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
         *m_transitReadManager, getMwmId, m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
   }
 
-  for (size_t i = 0; i < result.m_routes.size(); ++i)
+  // In follow (navigation) mode only the active route is drawn — alternatives and ETA balloons
+  // would clutter the moving map and the ETA is shown in the navigation UI instead.
+  bool const isFollowing = m_routingSession.IsFollowing();
+  if (!isFollowing)
   {
-    if (i != result.m_activeIdx)
-      InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, transitRouteDisplay,
-                        roadWarnings);
+    for (size_t i = 0; i < result.m_routes.size(); ++i)
+      if (i != result.m_activeIdx)
+        InsertSingleRoute(result.m_routes[i], false /* isActive */, 0.0 /* depthOffset */, transitRouteDisplay,
+                          roadWarnings);
   }
   // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
@@ -857,6 +866,8 @@ void RoutingManager::FollowRoute()
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROAD_WARNING);
   HideRoutePoint(RouteMarkType::Start);
   SetPointsFollowingMode(true /* enabled */);
+
+  ClearAlternativeRoutes();
 
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
 }

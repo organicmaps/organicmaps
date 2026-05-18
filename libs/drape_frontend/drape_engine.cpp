@@ -575,6 +575,15 @@ void DrapeEngine::RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowin
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::RemoveAlternativeSubroutes()
+{
+  // UberHighSingleton so this is processed before any pending High-priority UpdateMapStyle
+  // message. Otherwise UpdateContextDependentResources would iterate m_subroutes while it
+  // still has alternatives and re-issue AddSubroute for them — defeating the clear.
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<RemoveAlternativeSubroutesMessage>(),
+                                  MessagePriority::UberHighSingleton);
+}
+
 void DrapeEngine::DeactivateRouteFollowing()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<DeactivateRouteFollowingMessage>(),
