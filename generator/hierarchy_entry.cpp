@@ -9,12 +9,13 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <glaze/json.hpp>
+
 #include <algorithm>
+#include <optional>
 #include <sstream>
 #include <tuple>
 #include <unordered_map>
-
-#include "cppjansson/cppjansson.hpp"
 
 namespace
 {
@@ -34,6 +35,26 @@ std::string GetRussianName(StringUtf8Multilang const & str)
 
 namespace generator
 {
+namespace hierarchy_json
+{
+struct Center
+{
+  double x = 0.0;
+  double y = 0.0;
+};
+
+struct Entry
+{
+  std::string id;
+  std::optional<std::string> parentId;
+  size_t depth = 0;
+  std::string type;
+  std::string name;
+  std::string country;
+  Center center;
+};
+}  // namespace hierarchy_json
+
 bool operator==(HierarchyEntry const & lhs, HierarchyEntry const & rhs)
 {
   return AlmostEqualAbs(lhs.m_center, rhs.m_center, 1e-7) &&
@@ -43,20 +64,20 @@ bool operator==(HierarchyEntry const & lhs, HierarchyEntry const & rhs)
 
 std::string DebugPrint(HierarchyEntry const & entry)
 {
-  auto obj = base::NewJSONObject();
-  ToJSONObject(*obj, "id", DebugPrint(entry.m_id));
+  hierarchy_json::Entry json;
+  json.id = DebugPrint(entry.m_id);
   if (entry.m_parentId)
-    ToJSONObject(*obj, "parentId", DebugPrint(*entry.m_parentId));
-  ToJSONObject(*obj, "depth", entry.m_depth);
-  ToJSONObject(*obj, "type", classif().GetReadableObjectName(entry.m_type));
-  ToJSONObject(*obj, "name", entry.m_name);
-  ToJSONObject(*obj, "country", entry.m_country);
+    json.parentId = DebugPrint(*entry.m_parentId);
+  json.depth = entry.m_depth;
+  json.type = classif().GetReadableObjectName(entry.m_type);
+  json.name = entry.m_name;
+  json.country = entry.m_country;
+  json.center = {.x = entry.m_center.x, .y = entry.m_center.y};
 
-  auto center = base::NewJSONObject();
-  ToJSONObject(*center, "x", entry.m_center.x);
-  ToJSONObject(*center, "y", entry.m_center.y);
-  ToJSONObject(*obj, "center", center);
-  return DumpToString(obj);
+  std::string result;
+  if (auto const error = glz::write_json(json, result); error)
+    CHECK(false, (glz::format_error(error)));
+  return result;
 }
 
 namespace hierarchy

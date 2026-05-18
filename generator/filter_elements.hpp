@@ -43,8 +43,6 @@
 #include <unordered_set>
 #include <vector>
 
-#include "cppjansson/cppjansson.hpp"
-
 namespace generator
 {
 // This is a helper class for the FilterElements class.
@@ -81,10 +79,6 @@ public:
   bool NeedSkip(OsmElement const & element) const;
 
 private:
-  static bool ParseSection(json_t * json, FilterData & fdata);
-  static bool ParseIds(json_t * json, FilterData & fdata);
-  static bool ParseTags(json_t * json, FilterData & fdata);
-
   bool NeedSkip(OsmElement const & element, FilterData const & fdata) const;
   bool ParseString(std::string const & str);
 

@@ -251,7 +251,7 @@ target_link_libraries(${PROJECT_NAME}
     storage
     descriptions
     indexer
-    cppjansson
+    glaze::glaze
     expat::expat
     tess2
     ${CMAKE_DL_LIBS} # dladdr from boost::stacktrace
