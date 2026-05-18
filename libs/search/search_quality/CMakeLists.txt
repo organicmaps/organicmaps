@@ -3,8 +3,6 @@ project(search_quality)
 set(SRC
   helpers.cpp
   helpers.hpp
-  helpers_json.cpp
-  helpers_json.hpp
   matcher.cpp
   matcher.hpp
   sample.cpp
@@ -16,6 +14,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     search_tests_support  # TestSearchEngine in helpers.cpp
+    glaze::glaze
     search
     indexer
 )
