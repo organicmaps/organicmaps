@@ -1053,7 +1053,6 @@ private:
   std::string m_router;
   bool m_hadRouter;
 };
-
 class RoutingManagerTest
 {
 public:
@@ -1112,7 +1111,6 @@ protected:
       m_manager.CheckLocationForRouting(gps);
     }
   }
-
   static RouteMarkData MakePoint(RouteMarkType type, double lat, double lon, std::string callback = {},
                                  size_t intermediateIndex = 0)
   {
