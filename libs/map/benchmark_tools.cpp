@@ -16,14 +16,44 @@
 
 #include "base/file_name_utils.hpp"
 
+#include <glaze/json.hpp>
+
 #include <algorithm>
 #include <atomic>
 #include <chrono>
+#include <cstdint>
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
 
-#include "cppjansson/cppjansson.hpp"
+namespace benchmark_json
+{
+struct BenchmarkCenterJson
+{
+  double lat = 0.0;
+  double lon = 0.0;
+};
+
+struct BenchmarkStepJson
+{
+  std::string actionType;
+  int64_t time = 0;
+  std::optional<BenchmarkCenterJson> center;
+  int64_t zoomLevel = -1;
+};
+
+struct BenchmarkScenarioJson
+{
+  std::string name;
+  std::vector<BenchmarkStepJson> steps;
+};
+
+struct BenchmarkDataJson
+{
+  std::vector<BenchmarkScenarioJson> scenarios;
+};
+}  // namespace benchmark_json
 
 namespace
 {
@@ -102,65 +132,44 @@ void RunGraphicsBenchmark(Framework * framework)
 
   std::shared_ptr<BenchmarkHandle> handle = std::make_shared<BenchmarkHandle>();
 
-  // Parse scenarios.
   std::vector<m2::PointD> points;
-  try
+  benchmark_json::BenchmarkDataJson benchmarkJson;
   {
-    base::Json root(benchmarkData.c_str());
-    json_t * scenariosNode = json_object_get(root.get(), "scenarios");
-    if (scenariosNode == nullptr || !json_is_array(scenariosNode))
+    glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+    if (auto const error = glz::read<opts>(benchmarkJson, benchmarkData); error)
       return;
-    size_t const sz = json_array_size(scenariosNode);
-    handle->m_scenariosToRun.resize(sz);
-    for (size_t i = 0; i < sz; ++i)
+  }
+
+  // Parse scenarios.
+  handle->m_scenariosToRun.reserve(benchmarkJson.scenarios.size());
+  for (auto const & scenarioJson : benchmarkJson.scenarios)
+  {
+    ScenarioManager::ScenarioData scenarioData;
+    scenarioData.m_name = scenarioJson.name;
+    scenarioData.m_scenario.reserve(scenarioJson.steps.size());
+
+    for (auto const & stepJson : scenarioJson.steps)
     {
-      auto scenarioElem = json_array_get(scenariosNode, i);
-      if (scenarioElem == nullptr)
-        return;
-      FromJSONObject(scenarioElem, "name", handle->m_scenariosToRun[i].m_name);
-      json_t * stepsNode = json_object_get(scenarioElem, "steps");
-      if (stepsNode != nullptr && json_is_array(stepsNode))
+      if (stepJson.actionType == "waitForTime")
       {
-        size_t const stepsCount = json_array_size(stepsNode);
-        auto & scenario = handle->m_scenariosToRun[i].m_scenario;
-        scenario.reserve(stepsCount);
-        for (size_t j = 0; j < stepsCount; ++j)
-        {
-          auto stepElem = json_array_get(stepsNode, j);
-          if (stepElem == nullptr)
-            return;
-          std::string actionType;
-          FromJSONObject(stepElem, "actionType", actionType);
-          if (actionType == "waitForTime")
-          {
-            json_int_t timeInSeconds = 0;
-            FromJSONObject(stepElem, "time", timeInSeconds);
-            scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-                new ScenarioManager::WaitForTimeAction(std::chrono::seconds(timeInSeconds))));
-          }
-          else if (actionType == "centerViewport")
-          {
-            json_t * centerNode = json_object_get(stepElem, "center");
-            if (centerNode == nullptr)
-              return;
-            double lat = 0.0, lon = 0.0;
-            FromJSONObject(centerNode, "lat", lat);
-            FromJSONObject(centerNode, "lon", lon);
-            json_int_t zoomLevel = -1;
-            FromJSONObject(stepElem, "zoomLevel", zoomLevel);
-            m2::PointD const pt = mercator::FromLatLon(lat, lon);
-            points.push_back(pt);
-            scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-                new ScenarioManager::CenterViewportAction(pt, static_cast<int>(zoomLevel))));
-          }
-        }
+        scenarioData.m_scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
+            new ScenarioManager::WaitForTimeAction(std::chrono::seconds(stepJson.time))));
+      }
+      else if (stepJson.actionType == "centerViewport")
+      {
+        if (!stepJson.center)
+          return;
+
+        m2::PointD const pt = mercator::FromLatLon(stepJson.center->lat, stepJson.center->lon);
+        points.push_back(pt);
+        scenarioData.m_scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
+            new ScenarioManager::CenterViewportAction(pt, static_cast<int>(stepJson.zoomLevel))));
       }
     }
+
+    handle->m_scenariosToRun.push_back(std::move(scenarioData));
   }
-  catch (base::Json::Exception const & e)
-  {
-    return;
-  }
+
   if (handle->m_scenariosToRun.empty())
     return;
 

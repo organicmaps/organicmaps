@@ -100,7 +100,7 @@ bool Serialize(std::string const & fileName, DataType const & data)
     ser(data);
     return true;
   }
-  catch (base::Json::Exception & ex)
+  catch (coding::JsonException & ex)
   {
     LOG(LERROR, ("Serialization to json failed, file name", fileName, ", reason:", ex.Msg()));
   }
@@ -122,7 +122,7 @@ bool Deserialize(std::string const & fileName, DataType & data)
     des(data);
     return true;
   }
-  catch (base::Json::Exception & ex)
+  catch (coding::JsonException & ex)
   {
     LOG(LERROR, ("Deserialization from json failed, file name", fileName, ", reason:", ex.Msg()));
   }

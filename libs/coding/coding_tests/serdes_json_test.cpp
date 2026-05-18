@@ -44,7 +44,7 @@ bool TestSerDes(T const & value)
     coding::DeserializerJson des(jsonStr);
     des(deserializedValue);
   }
-  catch (base::Json::Exception const & exception)
+  catch (coding::JsonException const & exception)
   {
     LOG(LWARNING, ("Exception while parsing json string, reason:", exception.what(), "json:", jsonStr));
     return false;
