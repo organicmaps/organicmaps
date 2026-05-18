@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <iterator>
 #include <set>
+#include <string_view>
 
 #include "defines.hpp"
 
@@ -156,7 +157,7 @@ void ReadItems(uint32_t start, uint32_t end, std::string const & name, NonOwning
 }  // namespace
 
 // DeserializerFromJson ---------------------------------------------------------------------------
-DeserializerFromJson::DeserializerFromJson(json_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
+DeserializerFromJson::DeserializerFromJson(JsonValue * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
   : m_node(node)
   , m_osmIdToFeatureIds(osmIdToFeatureIds)
 {}
@@ -166,15 +167,15 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   // @todo(bykoianko) Instead of having a special operator() method for m2::PointD class it's
   // necessary to add Point class to transit_types.hpp and process it in DeserializerFromJson with
   // regular method.
-  json_t * item = nullptr;
+  JsonValue * item = nullptr;
   if (name == nullptr)
     item = m_node;  // Array item case
   else
-    item = base::GetJSONObligatoryField(m_node, name);
+    item = GetJsonObligatoryField(m_node, name);
 
-  CHECK(json_is_object(item), ("Item is not a json object:", name));
-  FromJSONObject(item, "x", p.x);
-  FromJSONObject(item, "y", p.y);
+  CHECK(item->is_object(), ("Item is not a json object:", name));
+  FromJsonValue(*GetJsonObligatoryField(item, "x"), p.x);
+  FromJsonValue(*GetJsonObligatoryField(item, "y"), p.y);
 }
 
 void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name)
@@ -220,9 +221,13 @@ void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
 }
 
 // GraphData --------------------------------------------------------------------------------------
-void GraphData::DeserializeFromJson(base::Json const & root, OsmIdToFeatureIdsMap const & mapping)
+void GraphData::DeserializeFromJson(std::string_view json, OsmIdToFeatureIdsMap const & mapping)
 {
-  DeserializerFromJson deserializer(root.get(), mapping);
+  JsonValue root;
+  if (auto const error = glz::read_json(root, json); error)
+    MYTHROW(RootException, (glz::format_error(error, json)));
+
+  DeserializerFromJson deserializer(&root, mapping);
   Visit(deserializer);
 
   // Removes equivalent edges from |m_edges|. If there are several equivalent edges only

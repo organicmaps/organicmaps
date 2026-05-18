@@ -277,9 +277,7 @@ unique_ptr<GraphData> CreateGraphFromJson()
   mapping[base::GeoObjectId(105)] = vector<FeatureId>({15});
   mapping[base::GeoObjectId(106)] = vector<FeatureId>({16});
 
-  base::Json root(jsonBuffer.c_str());
-  CHECK(root.get() != nullptr, ("Cannot parse the json."));
-  graph->DeserializeFromJson(root, mapping);
+  graph->DeserializeFromJson(jsonBuffer, mapping);
   return graph;
 }
 

@@ -24,7 +24,7 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
     base
     coding
-    cppjansson
+    glaze::glaze
     geometry
     indexer
 )

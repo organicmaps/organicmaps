@@ -5,17 +5,160 @@
 #include "transit/transit_version.hpp"
 
 #include "base/assert.hpp"
+#include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <glaze/json.hpp>
+
 #include <algorithm>
 #include <fstream>
+#include <optional>
+#include <string_view>
 #include <tuple>
 
 namespace transit
 {
 namespace experimental
 {
+DECLARE_EXCEPTION(JsonException, RootException);
+
+namespace json
+{
+struct Point
+{
+  double x = 0.0;
+  double y = 0.0;
+};
+
+struct ShapeLink
+{
+  TransitId id = kInvalidTransitId;
+  uint32_t start_index = 0;
+  uint32_t end_index = 0;
+};
+
+struct FrequencyInterval
+{
+  uint64_t time_interval = 0;
+  Frequency frequency = 0;
+};
+
+struct DateInterval
+{
+  uint32_t dates_interval = 0;
+  std::vector<FrequencyInterval> time_intervals;
+};
+
+struct ExceptionInterval
+{
+  uint32_t exception = 0;
+  std::vector<FrequencyInterval> time_intervals;
+};
+
+struct Schedule
+{
+  Frequency def_frequency = 0;
+  std::vector<DateInterval> intervals;
+  std::vector<ExceptionInterval> exceptions;
+};
+
+struct Network
+{
+  TransitId id = kInvalidTransitId;
+  std::string title;
+};
+
+struct Route
+{
+  TransitId id = kInvalidTransitId;
+  TransitId network_id = kInvalidTransitId;
+  std::string color;
+  std::string type;
+  std::string title;
+};
+
+struct Line
+{
+  TransitId id = kInvalidTransitId;
+  TransitId route_id = kInvalidTransitId;
+  ShapeLink shape;
+  std::string title;
+  IdList stops_ids;
+  Schedule schedule;
+};
+
+struct ShapeSegment
+{
+  int order = 0;
+  uint32_t start_index = 0;
+  uint32_t end_index = 0;
+};
+
+struct LineMetadata
+{
+  TransitId id = kInvalidTransitId;
+  std::vector<ShapeSegment> shape_segments;
+};
+
+struct TimeTableItem
+{
+  TransitId line_id = kInvalidTransitId;
+  std::vector<uint64_t> intervals;
+};
+
+struct Stop
+{
+  std::optional<OsmId> osm_id;
+  std::optional<FeatureId> feature_id;
+  std::optional<TransitId> id;
+  Point point;
+  std::string title;
+  std::vector<TimeTableItem> timetable;
+  IdList transfer_ids;
+};
+
+struct Shape
+{
+  TransitId id = kInvalidTransitId;
+  std::vector<Point> points;
+};
+
+struct Edge
+{
+  TransitId stop_id_from = kInvalidTransitId;
+  TransitId stop_id_to = kInvalidTransitId;
+  EdgeWeight weight = 0;
+  std::optional<TransitId> line_id;
+  FeatureId feature_id = kInvalidFeatureId;
+  std::optional<ShapeLink> shape;
+};
+
+struct Transfer
+{
+  TransitId id = kInvalidTransitId;
+  Point point;
+  IdList stops_ids;
+};
+
+struct Gate
+{
+  struct Weight
+  {
+    TransitId stop_id = kInvalidTransitId;
+    uint32_t time_to_stop = 0;
+  };
+
+  std::optional<OsmId> osm_id;
+  std::optional<FeatureId> feature_id;
+  std::optional<TransitId> id;
+  std::vector<Weight> weights;
+  bool exit = false;
+  bool entrance = false;
+  Point point;
+};
+}  // namespace json
+
 template <class E>
 void ReadItems(uint32_t start, uint32_t end, std::string const & entityName, NonOwningReaderSource & src,
                std::vector<E> & entities)
@@ -74,233 +217,104 @@ struct CheckSortedVisitor
   }
 };
 
-TransitId GetIdFromJson(json_t * obj)
+template <typename T>
+T ReadJson(std::string_view source)
 {
-  TransitId id;
-  FromJSONObject(obj, "id", id);
-  return id;
+  T result;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(result, source); error)
+    MYTHROW(JsonException, (glz::format_error(error, source)));
+  return result;
 }
 
-std::vector<TimeFromGateToStop> GetWeightsFromJson(json_t * obj)
+m2::PointD ToPoint(json::Point const & point)
 {
-  json_t * arr = base::GetJSONObligatoryField(obj, "weights");
-  CHECK(json_is_array(arr), ());
+  return {point.x, point.y};
+}
 
-  size_t const count = json_array_size(arr);
+ShapeLink ToShapeLink(json::ShapeLink const & shapeLink)
+{
+  return {shapeLink.id, shapeLink.start_index, shapeLink.end_index};
+}
+
+FrequencyIntervals ToFrequencyIntervals(std::vector<json::FrequencyInterval> const & intervals)
+{
+  FrequencyIntervals frequencyIntervals;
+
+  for (auto const & interval : intervals)
+    frequencyIntervals.AddInterval(TimeInterval(interval.time_interval), interval.frequency);
+
+  return frequencyIntervals;
+}
+
+std::vector<TimeFromGateToStop> ToWeights(std::vector<json::Gate::Weight> const & weightsJson)
+{
   std::vector<TimeFromGateToStop> weights;
-  weights.reserve(count);
+  weights.reserve(weightsJson.size());
 
-  for (size_t i = 0; i < count; ++i)
-  {
-    json_t * item = json_array_get(arr, i);
-
-    TimeFromGateToStop weight;
-    FromJSONObject(item, "stop_id", weight.m_stopId);
-    FromJSONObject(item, "time_to_stop", weight.m_timeSeconds);
-    weights.emplace_back(weight);
-  }
+  for (auto const & weightJson : weightsJson)
+    weights.emplace_back(weightJson.stop_id, weightJson.time_to_stop);
 
   CHECK(!weights.empty(), ());
   return weights;
 }
 
-template <class T>
-std::vector<T> GetVectorFromJson(json_t * obj, std::string const & field, bool obligatory = true)
+std::vector<m2::PointD> ToPoints(std::vector<json::Point> const & pointsJson)
 {
-  json_t * arr = base::GetJSONOptionalField(obj, field);
-  if (!arr)
-  {
-    if (obligatory)
-      CHECK(false, ("Obligatory field", field, "is absent."));
-
-    return {};
-  }
-
-  CHECK(json_is_array(arr), ());
-
-  size_t const count = json_array_size(arr);
-  std::vector<T> elements;
-  elements.reserve(count);
-
-  for (size_t i = 0; i < count; ++i)
-  {
-    json_t * item = json_array_get(arr, i);
-    T element = 0;
-    FromJSON(item, element);
-    elements.emplace_back(element);
-  }
-
-  return elements;
-}
-
-m2::PointD GetPointFromJson(json_t * obj)
-{
-  CHECK(json_is_object(obj), ());
-
-  m2::PointD point;
-  FromJSONObject(obj, "x", point.x);
-  FromJSONObject(obj, "y", point.y);
-  return point;
-}
-
-std::vector<m2::PointD> GetPointsFromJson(json_t * obj)
-{
-  json_t * arr = base::GetJSONObligatoryField(obj, "points");
-  CHECK(json_is_array(arr), ());
-
   std::vector<m2::PointD> points;
-  size_t const count = json_array_size(arr);
-  points.reserve(count);
+  points.reserve(pointsJson.size());
 
-  for (size_t i = 0; i < count; ++i)
-  {
-    json_t * item = json_array_get(arr, i);
-    points.emplace_back(GetPointFromJson(item));
-  }
+  for (auto const & pointJson : pointsJson)
+    points.push_back(ToPoint(pointJson));
 
   return points;
 }
 
-TimeTable GetTimeTableFromJson(json_t * obj)
+TimeTable ToTimeTable(std::vector<json::TimeTableItem> const & timetableJson)
 {
-  json_t * arr = base::GetJSONOptionalField(obj, "timetable");
-  if (!arr)
-    return TimeTable{};
-
-  CHECK(json_is_array(arr), ());
-
   TimeTable timetable;
 
-  for (size_t i = 0; i < json_array_size(arr); ++i)
+  for (auto const & item : timetableJson)
   {
-    json_t * item = json_array_get(arr, i);
-    CHECK(json_is_object(item), ());
+    std::vector<TimeInterval> intervals;
+    intervals.reserve(item.intervals.size());
+    for (auto const & rawValue : item.intervals)
+      intervals.push_back(TimeInterval(rawValue));
 
-    TransitId lineId;
-    FromJSONObject(item, "line_id", lineId);
-
-    std::vector<TimeInterval> timeIntervals;
-
-    auto const & rawValues = GetVectorFromJson<uint64_t>(item, "intervals");
-    timeIntervals.reserve(rawValues.size());
-    for (auto const & rawValue : rawValues)
-      timeIntervals.push_back(TimeInterval(rawValue));
-
-    timetable[lineId] = timeIntervals;
+    timetable[item.line_id] = std::move(intervals);
   }
 
   return timetable;
 }
 
-Translations GetTranslationsFromJson(json_t * obj, std::string const & field)
-{
-  json_t * arr = base::GetJSONObligatoryField(obj, field);
-  CHECK(json_is_array(arr), ());
-  Translations translations;
-
-  for (size_t i = 0; i < json_array_size(arr); ++i)
-  {
-    json_t * item = json_array_get(arr, i);
-    CHECK(json_is_object(item), ());
-    std::string lang;
-    std::string text;
-    FromJSONObject(item, "lang", lang);
-    FromJSONObject(item, "text", text);
-    CHECK(translations.emplace(lang, text).second, ());
-  }
-
-  return translations;
-}
-
-ShapeLink GetShapeLinkFromJson(json_t * obj)
-{
-  json_t * shapeLinkObj = base::GetJSONObligatoryField(obj, "shape");
-  CHECK(json_is_object(shapeLinkObj), ());
-
-  ShapeLink shapeLink;
-  FromJSONObject(shapeLinkObj, "id", shapeLink.m_shapeId);
-  FromJSONObject(shapeLinkObj, "start_index", shapeLink.m_startIndex);
-  FromJSONObject(shapeLinkObj, "end_index", shapeLink.m_endIndex);
-
-  return shapeLink;
-}
-
-FrequencyIntervals GetFrequencyIntervals(json_t * obj, std::string const & field)
-{
-  json_t * arrTimeIntervals = base::GetJSONObligatoryField(obj, field);
-  size_t const countTimeIntervals = json_array_size(arrTimeIntervals);
-  FrequencyIntervals frequencyIntervals;
-
-  for (size_t i = 0; i < countTimeIntervals; ++i)
-  {
-    json_t * itemTimeIterval = json_array_get(arrTimeIntervals, i);
-
-    uint64_t rawTime = 0;
-    FromJSONObject(itemTimeIterval, "time_interval", rawTime);
-
-    Frequency frequency = 0;
-    FromJSONObject(itemTimeIterval, "frequency", frequency);
-
-    frequencyIntervals.AddInterval(TimeInterval(rawTime), frequency);
-  }
-
-  return frequencyIntervals;
-}
-
-Schedule GetScheduleFromJson(json_t * obj)
+Schedule ToSchedule(json::Schedule const & scheduleJson)
 {
   Schedule schedule;
+  schedule.SetDefaultFrequency(scheduleJson.def_frequency);
 
-  json_t * scheduleObj = base::GetJSONObligatoryField(obj, "schedule");
+  for (auto const & interval : scheduleJson.intervals)
+    schedule.AddDatesInterval(DatesInterval(interval.dates_interval), ToFrequencyIntervals(interval.time_intervals));
 
-  Frequency defaultFrequency = 0;
-  FromJSONObject(scheduleObj, "def_frequency", defaultFrequency);
-  schedule.SetDefaultFrequency(defaultFrequency);
-
-  if (json_t * arrIntervals = base::GetJSONOptionalField(scheduleObj, "intervals"); arrIntervals)
-  {
-    for (size_t i = 0; i < json_array_size(arrIntervals); ++i)
-    {
-      json_t * item = json_array_get(arrIntervals, i);
-      uint32_t rawData = 0;
-      FromJSONObject(item, "dates_interval", rawData);
-
-      schedule.AddDatesInterval(DatesInterval(rawData), GetFrequencyIntervals(item, "time_intervals"));
-    }
-  }
-
-  if (json_t * arrExceptions = base::GetJSONOptionalField(scheduleObj, "exceptions"); arrExceptions)
-  {
-    for (size_t i = 0; i < json_array_size(arrExceptions); ++i)
-    {
-      json_t * item = json_array_get(arrExceptions, i);
-      uint32_t rawData = 0;
-      FromJSONObject(item, "exception", rawData);
-
-      schedule.AddDateException(DateException(rawData), GetFrequencyIntervals(item, "time_intervals"));
-    }
-  }
+  for (auto const & exception : scheduleJson.exceptions)
+    schedule.AddDateException(DateException(exception.exception), ToFrequencyIntervals(exception.time_intervals));
 
   return schedule;
 }
 
-std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj, OsmIdToFeatureIdsMap const & mapping)
+template <typename Json>
+std::tuple<OsmId, FeatureId, TransitId> CalculateIds(Json const & obj, OsmIdToFeatureIdsMap const & mapping)
 {
-  OsmId osmId = kInvalidOsmId;
-  FeatureId featureId = kInvalidFeatureId;
-  TransitId id = kInvalidTransitId;
+  OsmId osmId = obj.osm_id.value_or(kInvalidOsmId);
+  FeatureId featureId = obj.feature_id.value_or(kInvalidFeatureId);
+  TransitId id = obj.id.value_or(kInvalidTransitId);
 
   // Osm id is present in subway items and is absent in all other public transport items.
-  FromJSONObjectOptionalField(obj.get(), "osm_id", osmId);
-  FromJSONObjectOptionalField(obj.get(), "id", id);
-
   if (osmId == 0)
   {
     osmId = kInvalidOsmId;
   }
   else
   {
-    FromJSONObjectOptionalField(obj.get(), "feature_id", featureId);
     base::GeoObjectId const geoId(osmId);
     auto const it = mapping.find(geoId);
     if (it != mapping.cend())
@@ -321,108 +335,60 @@ std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj, Osm
   return {osmId, featureId, id};
 }
 
-void Read(base::Json const & obj, std::vector<Network> & networks)
+void Read(std::string_view source, std::vector<Network> & networks)
 {
-  std::string title;
-  FromJSONObject(obj.get(), "title", title);
-  networks.emplace_back(GetIdFromJson(obj.get()), title);
+  auto const obj = ReadJson<json::Network>(source);
+  networks.emplace_back(obj.id, obj.title);
 }
 
-void Read(base::Json const & obj, std::vector<Route> & routes)
+void Read(std::string_view source, std::vector<Route> & routes)
 {
-  TransitId const id = GetIdFromJson(obj.get());
-  TransitId networkId;
-  std::string routeType;
-  std::string color;
-  std::string title;
-
-  FromJSONObject(obj.get(), "network_id", networkId);
-  FromJSONObject(obj.get(), "color", color);
-  FromJSONObject(obj.get(), "type", routeType);
-  FromJSONObject(obj.get(), "title", title);
-
-  routes.emplace_back(id, networkId, routeType, title, color);
+  auto const obj = ReadJson<json::Route>(source);
+  routes.emplace_back(obj.id, obj.network_id, obj.type, obj.title, obj.color);
 }
 
-void Read(base::Json const & obj, std::vector<Line> & lines)
+void Read(std::string_view source, std::vector<Line> & lines)
 {
-  TransitId const id = GetIdFromJson(obj.get());
-  TransitId routeId;
-  FromJSONObject(obj.get(), "route_id", routeId);
-  ShapeLink const shapeLink = GetShapeLinkFromJson(obj.get());
-  std::string title;
-  FromJSONObject(obj.get(), "title", title);
-
-  IdList const & stopIds = GetVectorFromJson<TransitId>(obj.get(), "stops_ids");
-  Schedule const & schedule = GetScheduleFromJson(obj.get());
-
-  lines.emplace_back(id, routeId, shapeLink, title, stopIds, schedule);
+  auto const obj = ReadJson<json::Line>(source);
+  lines.emplace_back(obj.id, obj.route_id, ToShapeLink(obj.shape), obj.title, obj.stops_ids, ToSchedule(obj.schedule));
 }
 
-void Read(base::Json const & obj, std::vector<LineMetadata> & linesMetadata)
+void Read(std::string_view source, std::vector<LineMetadata> & linesMetadata)
 {
-  TransitId const id = GetIdFromJson(obj.get());
+  auto const obj = ReadJson<json::LineMetadata>(source);
 
-  json_t * arr = base::GetJSONObligatoryField(obj.get(), "shape_segments");
-
-  CHECK(json_is_array(arr), ());
-
-  size_t const count = json_array_size(arr);
   LineSegmentsOrder segmentsOrder;
-  segmentsOrder.reserve(count);
+  segmentsOrder.reserve(obj.shape_segments.size());
 
-  for (size_t i = 0; i < count; ++i)
+  for (auto const & segment : obj.shape_segments)
   {
-    json_t * item = json_array_get(arr, i);
-
-    LineSegmentOrder lineSegmentOrder;
-    FromJSONObject(item, "order", lineSegmentOrder.m_order);
-    FromJSONObject(item, "start_index", lineSegmentOrder.m_segment.m_startIdx);
-    FromJSONObject(item, "end_index", lineSegmentOrder.m_segment.m_endIdx);
-    segmentsOrder.emplace_back(lineSegmentOrder);
+    LineSegmentOrder lineSegmentOrder({segment.start_index, segment.end_index}, segment.order);
+    segmentsOrder.push_back(lineSegmentOrder);
   }
 
-  linesMetadata.emplace_back(id, segmentsOrder);
+  linesMetadata.emplace_back(obj.id, segmentsOrder);
 }
 
-void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping)
+void Read(std::string_view source, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping)
 {
+  auto const obj = ReadJson<json::Stop>(source);
   auto const & [osmId, featureId, id] = CalculateIds(obj, mapping);
 
-  std::string title;
-  FromJSONObject(obj.get(), "title", title);
-  TimeTable const timetable = GetTimeTableFromJson(obj.get());
-  m2::PointD const point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
-  IdList const & transferIds = GetVectorFromJson<TransitId>(obj.get(), "transfer_ids", false /* obligatory */);
-
-  stops.emplace_back(id, featureId, osmId, title, timetable, point, transferIds);
+  stops.emplace_back(id, featureId, osmId, obj.title, ToTimeTable(obj.timetable), ToPoint(obj.point), obj.transfer_ids);
 }
 
-void Read(base::Json const & obj, std::vector<Shape> & shapes)
+void Read(std::string_view source, std::vector<Shape> & shapes)
 {
-  TransitId const id = GetIdFromJson(obj.get());
-  std::vector<m2::PointD> const polyline = GetPointsFromJson(obj.get());
-  shapes.emplace_back(id, polyline);
+  auto const obj = ReadJson<json::Shape>(source);
+  shapes.emplace_back(obj.id, ToPoints(obj.points));
 }
 
-void Read(base::Json const & obj, std::vector<Edge> & edges, EdgeIdToFeatureId & edgeFeatureIds)
+void Read(std::string_view source, std::vector<Edge> & edges, EdgeIdToFeatureId & edgeFeatureIds)
 {
-  TransitId stopFrom = kInvalidTransitId;
-  TransitId stopTo = kInvalidTransitId;
-
-  FromJSONObject(obj.get(), "stop_id_from", stopFrom);
-  FromJSONObject(obj.get(), "stop_id_to", stopTo);
-  EdgeWeight weight;
-  FromJSONObject(obj.get(), "weight", weight);
-
-  TransitId lineId = 0;
+  auto const obj = ReadJson<json::Edge>(source);
+  TransitId lineId = obj.line_id.value_or(0);
   ShapeLink shapeLink;
   bool isTransfer = false;
-
-  FromJSONObjectOptionalField(obj.get(), "line_id", lineId);
-
-  TransitId featureId = kInvalidFeatureId;
-  FromJSONObject(obj.get(), "feature_id", featureId);
 
   if (lineId == 0)
   {
@@ -431,35 +397,26 @@ void Read(base::Json const & obj, std::vector<Edge> & edges, EdgeIdToFeatureId &
   }
   else
   {
-    shapeLink = GetShapeLinkFromJson(obj.get());
+    CHECK(obj.shape, ("Shape is required for non-transfer edge."));
+    shapeLink = ToShapeLink(*obj.shape);
   }
 
-  edges.emplace_back(stopFrom, stopTo, weight, lineId, isTransfer, shapeLink);
-  edgeFeatureIds.emplace(EdgeId(stopFrom, stopTo, lineId), featureId);
+  edges.emplace_back(obj.stop_id_from, obj.stop_id_to, obj.weight, lineId, isTransfer, shapeLink);
+  edgeFeatureIds.emplace(EdgeId(obj.stop_id_from, obj.stop_id_to, lineId), obj.feature_id);
 }
 
-void Read(base::Json const & obj, std::vector<Transfer> & transfers)
+void Read(std::string_view source, std::vector<Transfer> & transfers)
 {
-  TransitId const id = GetIdFromJson(obj.get());
-  m2::PointD const & point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
-  IdList const & stopIds = GetVectorFromJson<TransitId>(obj.get(), "stops_ids");
-  transfers.emplace_back(id, point, stopIds);
+  auto const obj = ReadJson<json::Transfer>(source);
+  transfers.emplace_back(obj.id, ToPoint(obj.point), obj.stops_ids);
 }
 
-void Read(base::Json const & obj, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping)
+void Read(std::string_view source, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping)
 {
+  auto const obj = ReadJson<json::Gate>(source);
   auto const & [osmId, featureId, id] = CalculateIds(obj, mapping);
 
-  std::vector<TimeFromGateToStop> const weights = GetWeightsFromJson(obj.get());
-
-  bool isEntrance = false;
-  bool isExit = false;
-  FromJSONObject(obj.get(), "entrance", isEntrance);
-  FromJSONObject(obj.get(), "exit", isExit);
-
-  m2::PointD const point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
-
-  gates.emplace_back(id, featureId, osmId, isEntrance, isExit, weights, point);
+  gates.emplace_back(id, featureId, osmId, obj.entrance, obj.exit, ToWeights(obj.weights), ToPoint(obj.point));
 }
 
 template <typename... Args>
@@ -479,16 +436,14 @@ void ReadData(std::string const & path, Args &&... args)
       if (line.empty())
         continue;
 
-      base::Json jsonObject(line);
-      CHECK(jsonObject.get() != nullptr, ("Error parsing json from line:", line));
-      Read(jsonObject, std::forward<Args>(args)...);
+      Read(line, std::forward<Args>(args)...);
     }
   }
   catch (std::ifstream::failure const & se)
   {
     LOG(LERROR, ("Exception reading line-by-line json from file", path, se.what()));
   }
-  catch (base::Json::Exception const & je)
+  catch (RootException const & je)
   {
     LOG(LERROR, ("Exception parsing json", path, je.what()));
   }
