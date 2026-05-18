@@ -8,10 +8,27 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
 
 namespace storage
 {
+namespace countries_json
+{
+struct CountryNode
+{
+  int64_t v = -1;
+  CountryId id;
+  std::vector<std::string> old;
+  std::vector<std::string> country_name_synonyms;
+  std::vector<std::string> affiliations;
+  uint64_t top_city_geo_id = 0;
+  std::vector<uint64_t> top_countries_geo_ids;
+  int s = 0;
+  std::string sha1_base64;
+  std::vector<CountryNode> g;
+};
+}  // namespace countries_json
+
 // Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
@@ -252,60 +269,44 @@ CountryTree::Node const * CountryTree::FindFirstLeaf(CountryId const & key) cons
   return nullptr;
 }
 
-MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & parent, StoreCountries & store)
+MwmSubtreeAttrs LoadGroupImpl(size_t depth, countries_json::CountryNode const & node, CountryId const & parent,
+                              StoreCountries & store)
 {
-  CountryId id;
-  FromJSONObject(node, "id", id);
+  CountryId id = node.id;
 
   {
-    std::vector<std::string> strings;
-    FromJSONObjectOptionalField(node, "old", strings);
-    for (auto & v : strings)
+    for (auto v : node.old)
       store.InsertOldCountry(id, std::move(v));
 
-    strings.clear();
-    FromJSONObjectOptionalField(node, "country_name_synonyms", strings);
-    for (auto & v : strings)
+    for (auto v : node.country_name_synonyms)
       store.InsertCountryNameSynonym(id, std::move(v));
 
-    strings.clear();
-    FromJSONObjectOptionalField(node, "affiliations", strings);
-    for (auto & v : strings)
+    for (auto v : node.affiliations)
       store.InsertAffiliation(id, std::move(v));
 
-    uint64_t geoObjectId = 0;
-    FromJSONObjectOptionalField(node, "top_city_geo_id", geoObjectId);
-    if (geoObjectId != 0)
-      store.InsertMwmTopCityGeoId(id, geoObjectId);
+    if (node.top_city_geo_id != 0)
+      store.InsertMwmTopCityGeoId(id, node.top_city_geo_id);
 
-    std::vector<uint64_t> topCountryIds;
-    FromJSONObjectOptionalField(node, "top_countries_geo_ids", topCountryIds);
-    if (!topCountryIds.empty())
-      store.InsertTopCountryGeoIds(id, topCountryIds);
+    if (!node.top_countries_geo_ids.empty())
+      store.InsertTopCountryGeoIds(id, node.top_countries_geo_ids);
   }
 
-  int nodeSize;
-  FromJSONObjectOptionalField(node, "s", nodeSize);
+  int nodeSize = node.s;
   ASSERT_LESS_OR_EQUAL(0, nodeSize, ());
 
-  std::string nodeHash;
-  FromJSONObjectOptionalField(node, "sha1_base64", nodeHash);
-
   // We expect that mwm and routing files should be less than 2GB.
-  Country * addedNode = store.InsertToCountryTree(id, nodeSize, nodeHash, depth, parent);
+  Country * addedNode = store.InsertToCountryTree(id, nodeSize, node.sha1_base64, depth, parent);
 
   MwmCounter mwmCounter = 0;
   MwmSize mwmSize = 0;
-  std::vector<json_t *> children;
-  FromJSONObjectOptionalField(node, "g", children);
-  if (children.empty())
+  if (node.g.empty())
   {
     mwmCounter = 1;  // It's a leaf. Any leaf contains one mwm.
     mwmSize = nodeSize;
   }
   else
   {
-    for (json_t * child : children)
+    for (auto const & child : node.g)
     {
       MwmSubtreeAttrs const childAttr = LoadGroupImpl(depth + 1, child, id, store);
       mwmCounter += childAttr.first;
@@ -319,18 +320,10 @@ MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & par
   return std::make_pair(mwmCounter, mwmSize);
 }
 
-bool LoadCountriesImpl(json_t * root, StoreCountries & store)
+bool LoadCountriesImpl(countries_json::CountryNode const & root, StoreCountries & store)
 {
-  try
-  {
-    LoadGroupImpl(0 /* depth */, root, kInvalidCountryId, store);
-    return true;
-  }
-  catch (base::Json::Exception const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-    return false;
-  }
+  LoadGroupImpl(0 /* depth */, root, kInvalidCountryId, store);
+  return true;
 }
 
 int64_t LoadCountriesFromBuffer(std::string const & jsonBuffer, CountryTree & countries, CountriesInfo & countriesInfo)
@@ -339,19 +332,18 @@ int64_t LoadCountriesFromBuffer(std::string const & jsonBuffer, CountryTree & co
   countriesInfo.Clear();
 
   int64_t version = -1;
-  try
+  countries_json::CountryNode root;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(root, jsonBuffer); error)
   {
-    base::Json root(jsonBuffer.c_str());
-    FromJSONObject(root.get(), "v", version);
+    LOG(LWARNING, (glz::format_error(error, jsonBuffer)));
+    return version;
+  }
 
-    StoreCountries store(countries, countriesInfo);
-    if (!LoadCountriesImpl(root.get(), store))
-      return -1;
-  }
-  catch (base::Json::Exception const & e)
-  {
-    LOG(LWARNING, (e.Msg()));
-  }
+  version = root.v;
+  StoreCountries store(countries, countriesInfo);
+  if (!LoadCountriesImpl(root, store))
+    return -1;
   return version;
 }
 

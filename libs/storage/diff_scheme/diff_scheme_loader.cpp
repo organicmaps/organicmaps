@@ -5,44 +5,61 @@
 
 #include "base/logging.hpp"
 
+#include <glaze/json.hpp>
+
 #include <memory>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
-
-#include "cppjansson/cppjansson.hpp"
+#include <vector>
 
 #include "private.h"
+
+namespace storage::diffs_json
+{
+struct LocalMap
+{
+  std::string name;
+  uint64_t version = 0;
+};
+
+struct LocalMapsRequest
+{
+  std::vector<LocalMap> mwms;
+  uint64_t max_version = 0;
+};
+
+struct DiffResponse
+{
+  std::string name;
+  int64_t size = -1;
+};
+
+struct DiffListResponse
+{
+  std::vector<DiffResponse> mwms;
+};
+}  // namespace storage::diffs_json
 
 namespace
 {
 using namespace storage::diffs;
 
-char const kMaxVersionKey[] = "max_version";
-char const kMwmsKey[] = "mwms";
-char const kNameKey[] = "name";
-char const kSizeKey[] = "size";
-char const kVersionKey[] = "version";
-
 auto const kTimeoutInSeconds = 5.0;
 
 std::string SerializeCheckerData(LocalMapsInfo const & info)
 {
-  auto mwmsArrayNode = base::NewJSONArray();
+  storage::diffs_json::LocalMapsRequest request;
+  request.mwms.reserve(info.m_localMaps.size());
   for (auto const & nameAndVersion : info.m_localMaps)
-  {
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, kNameKey, nameAndVersion.first);
-    ToJSONObject(*node, kVersionKey, nameAndVersion.second);
-    json_array_append_new(mwmsArrayNode.get(), node.release());
-  }
+    request.mwms.push_back({.name = nameAndVersion.first, .version = nameAndVersion.second});
+  request.max_version = info.m_currentDataVersion;
 
-  auto const root = base::NewJSONObject();
-  json_object_set_new(root.get(), kMwmsKey, mwmsArrayNode.release());
-  ToJSONObject(*root, kMaxVersionKey, info.m_currentDataVersion);
-  std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT));
-  return buffer.get();
+  std::string buffer;
+  if (auto const error = glz::write_json(request, buffer); error)
+    LOG(LERROR, ("Diff request serialization failed:", glz::format_error(error)));
+  return buffer;
 }
 
 NameDiffInfoMap DeserializeResponse(std::string const & response, LocalMapsInfo::NameVersionMap const & nameVersionMap)
@@ -53,16 +70,12 @@ NameDiffInfoMap DeserializeResponse(std::string const & response, LocalMapsInfo:
     return {};
   }
 
-  base::Json const json(response.c_str());
-  if (json.get() == nullptr)
+  storage::diffs_json::DiffListResponse diffList;
+  glz::opts constexpr opts{.error_on_unknown_keys = false};
+  if (auto const error = glz::read<opts>(diffList, response); error)
     return {};
 
-  auto const root = json_object_get(json.get(), kMwmsKey);
-  if (root == nullptr || !json_is_array(root))
-    return {};
-
-  auto const count = json_array_size(root);
-  if (count == 0 || count != nameVersionMap.size())
+  if (diffList.mwms.empty() || diffList.mwms.size() != nameVersionMap.size())
   {
     LOG(LERROR, ("Diff list size in response must be equal to mwm list size in request."));
     return {};
@@ -70,32 +83,20 @@ NameDiffInfoMap DeserializeResponse(std::string const & response, LocalMapsInfo:
 
   NameDiffInfoMap diffs;
 
-  for (size_t i = 0; i < count; ++i)
+  for (auto const & diffJson : diffList.mwms)
   {
-    auto const node = json_array_get(root, i);
-
-    if (!node)
-    {
-      LOG(LERROR, ("Incorrect server response."));
-      return {};
-    }
-
-    std::string name;
-    FromJSONObject(node, kNameKey, name);
-    int64_t size;
-    FromJSONObject(node, kSizeKey, size);
     // Invalid size. The diff is not available.
-    if (size < 0)
+    if (diffJson.size < 0)
       continue;
 
-    if (nameVersionMap.find(name) == nameVersionMap.end())
+    if (nameVersionMap.find(diffJson.name) == nameVersionMap.end())
     {
-      LOG(LERROR, ("Incorrect country name in response:", name));
+      LOG(LERROR, ("Incorrect country name in response:", diffJson.name));
       return {};
     }
 
-    DiffInfo info(size, nameVersionMap.at(name));
-    diffs.emplace(std::move(name), std::move(info));
+    DiffInfo info(diffJson.size, nameVersionMap.at(diffJson.name));
+    diffs.emplace(diffJson.name, std::move(info));
   }
 
   return diffs;
