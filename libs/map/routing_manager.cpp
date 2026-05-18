@@ -713,6 +713,15 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
   {
+    // Place each balloon up or down based on the midpoint's latitude relative to the others:
+    // the northern midpoint (larger mercator y) gets the up balloon, the southern one goes down.
+    // +y in drape vertex-normal space is downward, so (0, -N) lifts the body above the pivot.
+    float constexpr kAltMarkOffsetPx = 50.0f;
+    double avgY = 0.0;
+    for (auto const & info : infos)
+      avgY += info.m_pt.y;
+    avgY /= static_cast<double>(infos.size());
+
     auto es = m_bmManager->GetEditSession();
     for (auto const & info : infos)
     {
@@ -720,6 +729,8 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
       mark->SetEta(info.m_eta);
       mark->SetRouteIdx(info.m_idx);
       mark->SetIsActive(info.m_isActive);
+      float const sign = (info.m_pt.y >= avgY) ? -1.0f : 1.0f;
+      mark->SetPixelOffset({0.0f, sign * kAltMarkOffsetPx});
     }
   });
 }

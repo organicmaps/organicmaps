@@ -3,6 +3,8 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "platform/localization.hpp"
 
 #include <algorithm>
@@ -46,11 +48,11 @@ int constexpr kMinSpeedCameraTitleZoom = 13;
 
 // RouteAltMark constants — ETA balloon (rounded rect) drawn on each route variant. Sized to be
 // legible at typical zoom levels; white background with dark text for readability over the route line.
-float constexpr kRouteAltMarkTextSize = 16.0f;
-float constexpr kRouteAltMarkTextMargin = 12.0f;
+float constexpr kRouteAltMarkTextSize = 10.0f;
+float constexpr kRouteAltMarkTextMargin = 6.0f;
 float constexpr kRouteAltMarkRadius = 12.0f;
-float constexpr kRouteAltMarkOutlineWidth = 2.5f;
-int constexpr kMinRouteAltMarkZoom = 9;
+float constexpr kRouteAltMarkOutlineWidth = 2.0f;
+int constexpr kMinRouteAltMarkZoom = 7;
 
 // Direct colors — theme color constants (e.g. "RouteMarkInterBg") resolve unpredictably across themes
 // so we hard-code the balloon palette to keep the ETA text readable on any background.
@@ -738,6 +740,32 @@ void RouteAltMark::SetRouteIdx(size_t idx)
     return;
   SetDirty();
   m_routeIdx = idx;
+}
+
+void RouteAltMark::SetPixelOffset(m2::PointF const & offsetPx)
+{
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  m2::PointF const offsetVs = offsetPx * vs;
+  bool const hasOffset = offsetPx.x != 0.0f || offsetPx.y != 0.0f;
+  SetDirty();
+  m_pixelOffsetPx = offsetPx;
+  for (auto & kv : m_textBg.m_zoomInfo)
+  {
+    kv.second.m_offset = offsetVs;
+    kv.second.m_drawTail = hasOffset;
+  }
+}
+
+drape_ptr<df::UserPointMark::SymbolOffsets> RouteAltMark::GetSymbolOffsets() const
+{
+  if (m_pixelOffsetPx.x == 0.0f && m_pixelOffsetPx.y == 0.0f)
+    return nullptr;
+  // m_titleDecl uses dp::Center anchor, which makes TitleDecl::m_primaryOffset a no-op
+  // in CalculateTextOffsets — the symbol offset is what shifts the text. Match the body's
+  // vs-scaled pixel offset so the ETA text follows the balloon.
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  auto offsets = make_unique_dp<SymbolOffsets>(scales::UPPER_STYLE_SCALE, m_pixelOffsetPx * vs);
+  return offsets;
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> RouteAltMark::GetTitleDecl() const
