@@ -106,6 +106,21 @@ UNIT_TEST(RouteApiV2HttpsDirWithEncodedWaypointsSeparatorAndBikeMode)
   TEST(!test.ShouldStartRouteNavigation(), ());
 }
 
+UNIT_TEST(RouteApiV2RejectsTooManyWaypoints)
+{
+  string urlString = "om://v2/dir?origin=1,1&destination=2,2&waypoints=";
+  for (size_t i = 0; i < 101; ++i)
+  {
+    if (i != 0)
+      urlString += "|";
+    urlString += std::to_string(10 + i * 0.001) + "," + std::to_string(20 + i * 0.001);
+  }
+
+  TEST(url::Url(urlString).IsValid(), ());
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Incorrect, ());
+}
+
 UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 {
   string const urlString =
