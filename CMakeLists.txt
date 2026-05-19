@@ -201,6 +201,7 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
     endif()
   endif()
 
+  find_package(glaze REQUIRED)
   find_package(pugixml REQUIRED)
   find_package(utf8cpp REQUIRED)
   find_package(Boost REQUIRED)
