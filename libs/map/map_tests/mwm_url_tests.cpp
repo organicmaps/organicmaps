@@ -134,7 +134,6 @@ UNIT_TEST(RouteApiV2HttpsDirAcceptsCurrentLocationOrigin)
   TEST_EQUAL(kebab.GetRequestType(), UrlType::Route, ());
   TEST(kebab.GetRoutePoints()[0].m_isMyPosition, ());
 }
-
 UNIT_TEST(RouteApiV2RejectsTooManyWaypoints)
 {
   string urlString = "om://v2/dir?origin=1,1&destination=2,2&waypoints=";

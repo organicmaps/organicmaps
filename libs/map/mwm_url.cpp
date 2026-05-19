@@ -611,6 +611,9 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
   if (!dirAction.empty() && dirAction != "navigate")
     LOG(LWARNING, ("Unsupported route action:", dirAction));
   m_startRouteNavigation = url.GetPath() == kPathNav || dirAction == "navigate";
+  // Navigation always starts at the current position, even if an explicit origin is malformed.
+  if (m_startRouteNavigation)
+    origin = std::string(kOriginCurrentLocation);
   if (!ParseRouteMode(mode, m_routingType) || !ParseRoutePoint(std::string(kDestination), destination, finish))
     return false;
   if (hasHeading && !ParseOriginHeading(heading, m_startDirection))
