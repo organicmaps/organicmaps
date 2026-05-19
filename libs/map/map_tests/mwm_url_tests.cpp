@@ -88,11 +88,11 @@ UNIT_TEST(RouteApiV2MultipleStopsPreview)
   TEST(!test.ShouldStartRouteNavigation(), ());
 }
 
-UNIT_TEST(RouteApiV2HttpsDirWithWaypointsAndBikeMode)
+UNIT_TEST(RouteApiV2HttpsDirWithEncodedWaypointsSeparatorAndBikeMode)
 {
   string const urlString =
       "https://omaps.app/v2/dir?destination=47.38568,8.566878"
-      "&waypoints=47.395084,8.552692|47.3890,8.5580&mode=bike";
+      "&waypoints=47.395084,8.552692%7C47.3890,8.5580&mode=bike";
   TEST(url::Url(urlString).IsValid(), ());
 
   ParsedMapApi test(urlString);
@@ -162,7 +162,6 @@ UNIT_TEST(RouteApiV2IgnoresFragmentParameters)
   ParsedMapApi fragmentOnly("om://v2/dir#destination=1,1");
   TEST_EQUAL(fragmentOnly.GetRequestType(), UrlType::Incorrect, ());
 }
-
 UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 {
   string const urlString =
