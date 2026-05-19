@@ -312,7 +312,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         else if (key == kWaypoints)
         {
           size_t rawIndex = 0;
-          for (auto const & waypoint : SplitRouteList(rawValue, true /* decodeItems */))
+          for (auto const & waypoint : SplitRouteList(value))
           {
             if (waypoint.empty())
             {
