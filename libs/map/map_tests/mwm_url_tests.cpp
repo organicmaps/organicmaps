@@ -88,6 +88,24 @@ UNIT_TEST(RouteApiV2MultipleStopsPreview)
   TEST(!test.ShouldStartRouteNavigation(), ());
 }
 
+UNIT_TEST(RouteApiV2HttpsDirWithEncodedWaypointsSeparatorAndBikeMode)
+{
+  string const urlString =
+      "https://omaps.app/v2/dir?destination=47.38568,8.566878"
+      "&waypoints=47.395084,8.552692%7C47.3890,8.5580&mode=bike";
+  TEST(url::Url(urlString).IsValid(), ());
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(47.395084, 8.552692), ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_org, mercator::FromLatLon(47.3890, 8.5580), ());
+  TEST_EQUAL(test.GetRoutePoints()[3].m_org, mercator::FromLatLon(47.38568, 8.566878), ());
+  TEST_EQUAL(test.GetRoutingType(), "bicycle", ());
+  TEST(!test.ShouldStartRouteNavigation(), ());
+}
+
 UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 {
   string const urlString =
