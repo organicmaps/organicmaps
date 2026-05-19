@@ -310,11 +310,13 @@ void UserEventStream::ApplyAnimations()
 {
   if (m_animationSystem.AnimationExists(Animation::Object::MapPlane))
   {
+    ScreenBase const & current = GetCurrentScreen();
     ScreenBase screen;
-    if (m_animationSystem.GetScreen(GetCurrentScreen(), screen))
+    if (m_animationSystem.GetScreen(current, screen) && screen != current)
+    {
       m_navigator.SetFromScreen(screen);
-
-    m_modelViewChanged = true;
+      m_modelViewChanged = true;
+    }
   }
 
   /// @todo (By VNG): NormalizeScreenOriginX is disabled — it causes full tile invalidation because
