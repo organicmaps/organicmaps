@@ -3,6 +3,7 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
+#include "map/routing_mark.hpp"
 
 #include "ge0/geo_url_parser.hpp"
 #include "ge0/parser.hpp"
@@ -375,6 +376,12 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 
       if (!correctParams || !destinationFound)
         return m_requestType = UrlType::Incorrect;
+
+      if (waypoints.size() > RoutePointsLayout::kMaxIntermediatePointsCount)
+      {
+        LOG(LWARNING, ("Route API v2 has too many waypoints:", waypoints.size()));
+        return m_requestType = UrlType::Incorrect;
+      }
 
       if (!originFound)
         origin.m_isMyPosition = true;
