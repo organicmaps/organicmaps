@@ -14,6 +14,7 @@
   <color name="bg_primary">#1E2226</color>
   <color name="bg_cards">#FF3C4044</color>
   <color name="bg_panel">@color/bg_window</color>
+  <color name="notes_fade_start">#003C4044</color>
   <color name="bg_primary_dark">#14181C</color>
 
   <color name="bg_menu">#CC2D3237</color>

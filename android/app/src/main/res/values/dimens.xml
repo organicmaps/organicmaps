@@ -48,6 +48,9 @@
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
   <dimen name="place_page_top_button">40dp</dimen>
+
+  <dimen name="notes_html_compact_height">70dp</dimen>
+  <dimen name="notes_fade_height">28dp</dimen>
   <dimen name="place_page_icon_background_size">56dp</dimen>
   <dimen name="place_page_icon_size">40dp</dimen>
   <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.0</item>

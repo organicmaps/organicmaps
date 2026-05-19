@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:parentTag="app.organicmaps.widget.placepage.sections.ExpandableNotesView">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      android:id="@+id/tv__notes"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearance"
+      android:visibility="gone"
+      tools:text="Long, long text Long, long text Long, long text Long, long text Long, long text "/>
+
+    <ViewStub
+      android:id="@+id/wv__notes_stub"
+      android:layout="@layout/place_page_notes_webview"
+      android:inflatedId="@+id/wv__notes"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+
+    <View
+      android:id="@+id/notes_fade_overlay"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/notes_fade_height"
+      android:layout_gravity="bottom"
+      android:background="@drawable/notes_fade"
+      android:clickable="false"
+      android:focusable="false"
+      android:visibility="gone" />
+  </FrameLayout>
+
+  <TextView
+    android:id="@+id/notes_more_region"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="start|center_vertical"
+    android:paddingTop="@dimen/margin_quarter"
+    android:paddingBottom="@dimen/margin_quarter"
+    android:text="@string/category_desc_more"
+    android:textAppearance="?android:attr/textAppearance"
+    android:textColor="?attr/colorAccent"
+    android:visibility="gone"/>
+
+</merge>

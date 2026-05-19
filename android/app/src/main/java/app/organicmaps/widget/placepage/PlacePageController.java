@@ -79,61 +79,59 @@ public class PlacePageController
   // Enabled after the sheet reaches COLLAPSED; prevents dismiss during initial open animation.
   private boolean mEasyDismissEnabled;
   private int mDistanceToTop;
+  private float mPlacePageCornerRadius;
 
   private ValueAnimator mCustomPeekHeightAnimator;
   private PlacePageListener mPlacePageListener;
   private Dialog mAlertDialog;
 
-  private final Observer<Integer> mPlacePageDistanceToTopObserver = new Observer<>() {
-    private float mPlacePageCornerRadius;
+  private final Observer<Integer> mPlacePageDistanceToTopObserver = distanceToTop ->
+  {
+    if (mCurrentWindowInsets == null)
+      return;
 
-    // This updates mPlacePageStatusBarBackground visibility and mPlacePage corner radius
-    // effectively handling when place page fills the screen vertically
-    @Override
-    public void onChanged(Integer distanceToTop)
+    final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+    if (mCoordinator.getHeight() - mPlacePageContainer.getHeight() < topInset)
     {
-      // This callback may be called before insets are updated when resuming the app
-      if (mCurrentWindowInsets == null)
-        return;
-
-      final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-      // Only animate the status bar background if the place page can reach it
-      if (mCoordinator.getHeight() - mPlacePageContainer.getHeight() < topInset)
+      final int animationStartHeight = topInset * 3;
+      int newHeight = 0;
+      if (distanceToTop < animationStartHeight)
+        newHeight = Math.min(topInset * (animationStartHeight - distanceToTop) / 100, topInset);
+      if (newHeight > 0)
       {
-        final int animationStartHeight = topInset * 3;
-        int newHeight = 0;
-        if (distanceToTop < animationStartHeight)
-          newHeight = Math.min(topInset * (animationStartHeight - distanceToTop) / 100, topInset);
-        if (newHeight > 0)
-        {
-          mPlacePageStatusBarBackground.setTranslationY(distanceToTop - newHeight);
-          if (!UiUtils.isVisible(mPlacePageStatusBarBackground))
-            onScreenFilled();
-        }
-        else if (UiUtils.isVisible(mPlacePageStatusBarBackground))
-          onScreenUnfilled();
+        mPlacePageStatusBarBackground.setTranslationY(distanceToTop - newHeight);
+        if (!UiUtils.isVisible(mPlacePageStatusBarBackground))
+          onScreenFilled();
       }
-    }
-
-    private void onScreenFilled()
-    {
-      UiUtils.show(mPlacePageStatusBarBackground);
-      // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
-      if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
-      {
-        mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
-        bg.setCornerSize(0);
-      }
-    }
-
-    private void onScreenUnfilled()
-    {
-      UiUtils.hide(mPlacePageStatusBarBackground);
-      // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
-      if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
-        bg.setCornerSize(mPlacePageCornerRadius);
+      else if (UiUtils.isVisible(mPlacePageStatusBarBackground))
+        onScreenUnfilled();
     }
   };
+
+  private void onScreenFilled()
+  {
+    UiUtils.show(mPlacePageStatusBarBackground);
+    // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
+    if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
+    {
+      mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
+      bg.setCornerSize(0);
+    }
+  }
+
+  private void onScreenUnfilled()
+  {
+    UiUtils.hide(mPlacePageStatusBarBackground);
+    // LiveData observer fires before the layout pass that creates MaterialShapeDrawable.
+    if (mPlacePage.getBackground() instanceof MaterialShapeDrawable bg)
+    {
+      // onScreenUnfilled can fire before any onScreenFilled cached the radius (sheet-state
+      // callback / layout listener), so seed it here on first run.
+      if (mPlacePageCornerRadius == 0f)
+        mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
+      bg.setCornerSize(mPlacePageCornerRadius);
+    }
+  }
 
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
@@ -150,6 +148,9 @@ public class PlacePageController
             mEasyDismissEnabled = false;
           else if (PlacePageUtils.isCollapsedState(newState))
             mEasyDismissEnabled = true;
+
+          if (!PlacePageUtils.isExpandedState(newState))
+            onScreenUnfilled();
 
           if (PlacePageUtils.isHiddenState(newState))
           {
@@ -227,6 +228,19 @@ public class PlacePageController
 
       return windowInsets;
     });
+
+    mPlacePageContainer.addOnLayoutChangeListener(
+        (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+          final int newHeight = bottom - top;
+          final int oldHeight = oldBottom - oldTop;
+          if (newHeight >= oldHeight)
+            return;
+          if (mCurrentWindowInsets == null || !UiUtils.isVisible(mPlacePageStatusBarBackground))
+            return;
+          final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+          if (mCoordinator.getHeight() - newHeight >= topInset)
+            onScreenUnfilled();
+        });
 
     ViewCompat.requestApplyInsets(mPlacePage);
     // if landscape then layout contains pp_bottom_container

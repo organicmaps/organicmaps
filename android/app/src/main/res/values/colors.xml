@@ -62,6 +62,7 @@
   <color name="bg_primary">#006C35</color>
   <color name="bg_cards">@android:color/white</color>
   <color name="bg_panel">@color/bg_window</color>
+  <color name="notes_fade_start">#00FFFFFF</color>
   <color name="bg_primary_dark">#197841</color>
 
   <color name="bg_dialog_translucent">#BB000000</color>
