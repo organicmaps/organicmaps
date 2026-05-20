@@ -162,6 +162,41 @@ std::vector<std::string> SplitRouteList(std::string_view value, bool decodeItems
   return result;
 }
 
+std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view value)
+{
+  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
+
+  if (value.find('|') != std::string_view::npos)
+    return SplitRouteList(value, true /* decodeItems */);
+
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t delimiter = std::string_view::npos;
+    size_t delimiterSize = 0;
+    for (auto const encodedPipe : kEncodedPipes)
+    {
+      size_t const encodedDelimiter = value.find(encodedPipe, from);
+      if (encodedDelimiter != std::string::npos && (delimiter == std::string::npos || encodedDelimiter < delimiter))
+      {
+        delimiter = encodedDelimiter;
+        delimiterSize = 3;
+      }
+    }
+
+    if (delimiter == std::string::npos)
+    {
+      result.push_back(url::UrlDecode(value.substr(from)));
+      break;
+    }
+
+    result.push_back(url::UrlDecode(value.substr(from, delimiter - from)));
+    from = delimiter + delimiterSize;
+  }
+  return result;
+}
+
 template <typename FnT>
 void ForEachRawParam(std::string_view rawUrl, FnT && fn)
 {
@@ -331,7 +366,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypointNames)
         {
-          waypointNames = SplitRouteList(rawValue, true /* decodeItems */);
+          waypointNames = SplitRouteListWithEncodedSeparators(rawValue);
         }
         else if (key == kWaypointCallbacks)
         {
