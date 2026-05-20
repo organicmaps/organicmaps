@@ -1435,27 +1435,39 @@ world  +
         baseball  -
         basketball  -
         beachvolleyball  -
+        boules  -
         bowls  -
         chess  -
         climbing  -
         cricket  -
         curling  -
+        cycling  -
         diving  -
         equestrian  -
         field_hockey  -
+        four_square  -
         futsal  -
         golf  -
         gymnastics  -
         handball  -
+        horse_racing  -
         ice_hockey  -
+        karting  -
+        motocross  -
+        motor  -
         multi  -
+        netball  -
         padel  -
         pelota  -
+        pickleball  -
+        rugby_union  -
+        running  -
         scuba_diving  -
         shooting  -
         skateboard  -
         skiing  -
         soccer  -
+        softball  -
         swimming  -
         table_tennis  -
         tennis  -

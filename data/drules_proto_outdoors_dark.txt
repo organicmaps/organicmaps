@@ -132005,11 +132005,82 @@ cont {
   }
 }
 cont {
+  name: "sport-boules"
+  element {
+    scale: 17
+    symbol {
+      name: "boules-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "boules-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "boules-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "boules-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+}
+cont {
   name: "sport-bowls"
   element {
     scale: 17
     symbol {
-      name: "pitch-m"
+      name: "boules-m"
       priority: 1350
       min_distance: 10
     }
@@ -132026,7 +132097,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-m"
+      name: "boules-m"
       priority: 1350
       min_distance: 10
     }
@@ -132043,7 +132114,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-m"
+      name: "boules-m"
       priority: 1350
       min_distance: 10
     }
@@ -132060,7 +132131,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "pitch-m"
+      name: "boules-m"
       priority: 1350
       min_distance: 10
     }
@@ -132360,6 +132431,77 @@ cont {
   }
 }
 cont {
+  name: "sport-cycling"
+  element {
+    scale: 17
+    symbol {
+      name: "cycling-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "cycling-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "cycling-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "cycling-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+}
+cont {
   name: "sport-diving"
   element {
     scale: 17
@@ -132569,6 +132711,77 @@ cont {
         is_optional: true
       }
       priority: -8600
+    }
+  }
+}
+cont {
+  name: "sport-four_square"
+  element {
+    scale: 17
+    symbol {
+      name: "boules-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "boules-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "boules-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "boules-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
     }
   }
 }
@@ -132857,6 +133070,77 @@ cont {
   }
 }
 cont {
+  name: "sport-horse_racing"
+  element {
+    scale: 17
+    symbol {
+      name: "equestrian-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "equestrian-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "equestrian-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "equestrian-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+}
+cont {
   name: "sport-ice_hockey"
   element {
     scale: 17
@@ -132928,6 +133212,219 @@ cont {
   }
 }
 cont {
+  name: "sport-karting"
+  element {
+    scale: 17
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+}
+cont {
+  name: "sport-motocross"
+  element {
+    scale: 17
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+}
+cont {
+  name: "sport-motor"
+  element {
+    scale: 17
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "motor-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+}
+cont {
   name: "sport-multi"
   element {
     scale: 17
@@ -132995,6 +133492,77 @@ cont {
         is_optional: true
       }
       priority: -8700
+    }
+  }
+}
+cont {
+  name: "sport-netball"
+  element {
+    scale: 17
+    symbol {
+      name: "basketball-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "basketball-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "basketball-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "basketball-m"
+      priority: 1350
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8650
     }
   }
 }
@@ -133126,6 +133694,219 @@ cont {
     scale: 20
     symbol {
       name: "pelota-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+}
+cont {
+  name: "sport-pickleball"
+  element {
+    scale: 17
+    symbol {
+      name: "padel-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "padel-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "padel-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "padel-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+}
+cont {
+  name: "sport-rugby_union"
+  element {
+    scale: 17
+    symbol {
+      name: "australian-football-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "australian-football-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "australian-football-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "australian-football-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+}
+cont {
+  name: "sport-running"
+  element {
+    scale: 17
+    symbol {
+      name: "pitch-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "pitch-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "pitch-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "pitch-m"
       priority: 1400
       min_distance: 10
     }
@@ -133492,6 +134273,77 @@ cont {
         is_optional: true
       }
       priority: -8700
+    }
+  }
+}
+cont {
+  name: "sport-softball"
+  element {
+    scale: 17
+    symbol {
+      name: "baseball-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "baseball-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "baseball-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "baseball-m"
+      priority: 1400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 10921638
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
     }
   }
 }
