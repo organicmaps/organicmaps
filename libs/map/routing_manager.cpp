@@ -24,6 +24,7 @@
 
 #include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"  // kPointEqualityEps
+#include "geometry/parametrized_segment.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -906,6 +907,50 @@ bool RoutingManager::SwapActiveAlternative(size_t idx)
   { hasWarnings = InsertRoute(result); });
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : RouterResultCode::NoError, storage::CountriesSet());
   return true;
+}
+
+bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel)
+{
+  // Alts aren't drawn during navigation and the active route shouldn't be tap-swappable.
+  if (!IsRoutingActive() || m_routingSession.IsFollowing() || !m_routingSession.IsRouteValid())
+    return false;
+
+  // Pixel-radius for the tap area. Matches the visual half-width the routes are drawn with;
+  // closer than this and we treat the tap as hitting that polyline.
+  double constexpr kTapPixels = 16.0;
+  double const tapMerc = kTapPixels * mercatorPerPixel;
+  double const tapMercSq = tapMerc * tapMerc;
+  m2::RectD const tapRect(mercator, tapMerc, tapMerc);
+
+  int targetIdx = -1;
+  double bestSq = tapMercSq;
+  m_routingSession.RouteCall([&](routing::RoutesResult const & result)
+  {
+    for (size_t i = 0; i < result.m_routes.size(); ++i)
+    {
+      if (i == result.m_activeIdx)
+        continue;
+
+      auto const & segs = result.m_routes[i].GetRouteSegments();
+      for (size_t j = 1; j < segs.size(); ++j)
+      {
+        auto const & p1 = segs[j - 1].GetJunction().GetPoint();
+        auto const & p2 = segs[j].GetJunction().GetPoint();
+        if (!m2::RectD(p1, p2).Intersect(tapRect))
+          continue;
+
+        m2::ParametrizedSegment<m2::PointD> seg(p1, p2);
+        double const distSq = seg.SquaredDistanceToPoint(mercator);
+        if (distSq < bestSq)
+        {
+          bestSq = distSq;
+          targetIdx = i;
+        }
+      }
+    }
+  });
+
+  return targetIdx >= 0 ? SwapActiveAlternative(targetIdx) : false;
 }
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)

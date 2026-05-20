@@ -168,6 +168,11 @@ public:
   /// Returns false if the index is out of range or already active. Re-renders the drape so
   /// the newly-active variant is highlighted and the previously-active becomes the alternative.
   bool SwapActiveAlternative(size_t idx);
+
+  /// \brief Hit-tests |mercator| against the alternative-route polylines. If one is closer than
+  /// a tap-area threshold (kTapPixels * |mercatorPerPixel|), swaps it to active and returns true.
+  /// No-op when navigation is active (alts aren't drawn then) or there are no alternatives.
+  bool TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel);
   void GetRouteFollowingInfo(routing::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
 
   TransitRouteInfo GetTransitRouteInfo() const;
