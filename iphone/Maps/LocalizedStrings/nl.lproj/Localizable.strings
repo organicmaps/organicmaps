@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Gesproken taal";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Open de app Instellingen en ga naar Toegankelijkheid → VoiceOver → Spraak → Stem om een stem van hogere kwaliteit te downloaden.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Test gesproken aanwijzingen (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automatisch zoomen";

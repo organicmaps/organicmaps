@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "För att hämta en röst med högre kvalitet, öppna appen Inställningar och gå till Hjälpmedel → VoiceOver → Tal → Röst.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automatisk zoom";

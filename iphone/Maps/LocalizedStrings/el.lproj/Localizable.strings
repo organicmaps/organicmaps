@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Γλώσσα φωνής";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Για να κατεβάσετε μια φωνή υψηλότερης ποιότητας, ανοίξτε την εφαρμογή Ρυθμίσεις και μεταβείτε στην Προσβασιμότητα → VoiceOver → Ομιλία → Φωνή.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Δοκιμή φωνητικών οδηγιών (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Αυτόματη μεγέθυνση";

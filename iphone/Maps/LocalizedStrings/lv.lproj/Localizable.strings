@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Balss valoda";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Lai lejupielādētu augstākas kvalitātes balsi, atveriet lietotni Iestatījumi un dodieties uz Pieejamība → VoiceOver → Runa → Balss.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Pārbaudīt balss norādes (TTS, teksta pārvēršana runā)";
 "pref_map_auto_zoom" = "Automātisks mērogs";

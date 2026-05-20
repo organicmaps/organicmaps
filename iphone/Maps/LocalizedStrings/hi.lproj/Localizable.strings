@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "आवाज की भाषा";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "बेहतर गुणवत्ता वाली आवाज़ डाउनलोड करने के लिए, सेटिंग्स ऐप खोलें और एक्सेसिबिलिटी → VoiceOver → स्पीच → वॉइस पर जाएँ।";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "ध्वनि निर्देशों का परीक्षण करें (टीटीएस, टेक्स्ट-टू-स्पीच)";
 "pref_map_auto_zoom" = "ऑटो ज़ूम";

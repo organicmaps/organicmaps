@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "音声言語";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "高品質の音声をダウンロードするには、「設定」アプリを開き、アクセシビリティ → VoiceOver → 読み上げ → 声 に移動します。";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "音声案内をテストする（TTS、Text-To-Speech）";
 "pref_map_auto_zoom" = "自動ズーム";

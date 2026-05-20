@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ພາສາຂອງສຽງ";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "ເພື່ອດາວໂຫຼດສຽງຄຸນນະພາບສູງກວ່າ, ເປີດແອັບ ການຕັ້ງຄ່າ ແລ້ວໄປທີ່ ການເຂົ້າເຖິງ → VoiceOver → ການເວົ້າ → ສຽງ.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)";
 "pref_map_auto_zoom" = "ຊູມອັດຕະໂນມັດ";

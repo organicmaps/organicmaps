@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "لغة الصوت";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "لتنزيل صوت بجودة أعلى، افتح تطبيق الإعدادات وانتقل إلى تسهيلات الاستخدام → VoiceOver → الكلام → الصوت.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "اختبار الاتجاهات الصوتية (TTS، تحويل النص إلى كلام)";
 "pref_map_auto_zoom" = "تكبير تلقائي";

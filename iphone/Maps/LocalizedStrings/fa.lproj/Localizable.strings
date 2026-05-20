@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "زبان صوت";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "برای دانلود صدای باکیفیت‌تر، برنامه تنظیمات را باز کنید و به دسترس‌پذیری → VoiceOver → گفتار → صدا بروید.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "تست مسیرهای صوتی (TTS، تبدیل متن به گفتار)";
 "pref_map_auto_zoom" = "بزرگنمایی خودکار";

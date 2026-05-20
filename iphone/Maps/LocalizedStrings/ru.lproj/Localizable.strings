@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Язык подсказок";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Чтобы загрузить голос более высокого качества, откройте приложение Настройки и перейдите в Универсальный доступ → VoiceOver → Речь → Голос.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Протестировать голосовые подсказки (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Автозум";
