@@ -107,11 +107,7 @@ bool RouteBase::IsGoodAlt(std::vector<RouteSegment> const & origin) const
 m2::RectD RouteBase::GetLimitRect() const
 {
   m2::RectD rect;
-  if (m_routeSegments.empty() || m_subrouteAttrs.empty())
-    return rect;
-  rect.Add(m_subrouteAttrs.front().GetStart().GetPoint());
-  for (auto const & s : m_routeSegments)
-    rect.Add(s.GetJunction().GetPoint());
+  ForEachPoint([&rect](geometry::PointWithAltitude const & p) { rect.Add(p.GetPoint()); });
   return rect;
 }
 
@@ -141,15 +137,11 @@ RouteBase::SubrouteAttrs const & RouteBase::GetSubrouteAttrs(size_t subrouteIdx)
 
 void RouteBase::GetAltitudes(geometry::Altitudes & altitudes) const
 {
-  altitudes.clear();
-
   CHECK(!m_subrouteAttrs.empty(), ());
 
+  altitudes.clear();
   altitudes.reserve(m_routeSegments.size() + 1);
-  altitudes.push_back(m_subrouteAttrs.front().GetStart().GetAltitude());
-
-  for (auto const & s : m_routeSegments)
-    altitudes.push_back(s.GetJunction().GetAltitude());
+  ForEachPoint([&altitudes](geometry::PointWithAltitude const & p) { altitudes.push_back(p.GetAltitude()); });
 }
 
 traffic::SpeedGroup RouteBase::GetTraffic(size_t segmentIdx) const
@@ -209,9 +201,7 @@ void Route::RebuildFollowedPolyline()
 
   std::vector<m2::PointD> pts;
   pts.reserve(m_routeSegments.size() + 1);
-  pts.push_back(m_subrouteAttrs.front().GetStart().GetPoint());
-  for (auto const & s : m_routeSegments)
-    pts.push_back(s.GetJunction().GetPoint());
+  ForEachPoint([&pts](geometry::PointWithAltitude const & p) { pts.push_back(p.GetPoint()); });
 
   FollowedPolyline(pts.begin(), pts.end()).Swap(m_poly);
   UpdatePolySubrouteIdx();

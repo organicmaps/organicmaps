@@ -52,7 +52,7 @@ public:
   DummyRouter(size_t & buildCounter, vector<turns::TurnItem> const & turns = kTestTurnsReachOnly)
     : m_buildCount(buildCounter)
   {
-    m_route = Route(kTestRoute.begin(), kTestRoute.end());
+    m_route.SetGeometry(kTestRoute.begin(), kTestRoute.end());
     if (!turns.empty())
       FillSubroutesInfo(m_route, turns);
   }
@@ -96,7 +96,8 @@ public:
                                   RoutesResult & result) override
   {
     TEST_LESS(m_returnCodesIdx, m_returnCodes.size(), ());
-    Route route(m_route.begin(), m_route.end());
+    Route route;
+    route.SetGeometry(m_route.begin(), m_route.end());
     FillSubroutesInfo(route);
     result.MakeFrom(GetName(), std::move(route));
     return m_returnCodes[m_returnCodesIdx++];

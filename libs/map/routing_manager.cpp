@@ -580,7 +580,7 @@ void RoutingManager::ClearAlternativeRoutes()
 }
 
 void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments,
-                                         m2::PointD const & startPt, double baseDistance, GetMwmIdFn const & getMwmIdFn,
+                                         m2::PointD const & startPt, double baseDistance,
                                          RoadWarningsCollection & roadWarnings)
 {
   auto const isWarnedType = [](RoutingOptions::Road roadType)
@@ -609,7 +609,7 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
       {
         startDistance = currentDistance;
         auto const featureId =
-            FeatureID(getMwmIdFn(segments[i].GetSegment().GetMwmId()), segments[i].GetSegment().GetFeatureId());
+            FeatureID(GetMwmId(segments[i].GetSegment().GetMwmId()), segments[i].GetSegment().GetFeatureId());
         auto const markPoint = i == 0 ? startPt : segments[i - 1].GetJunction().GetPoint();
         roadWarnings[currentType].push_back(RoadInfo(markPoint, featureId));
       }
@@ -663,14 +663,20 @@ double GetRouteTotalDistanceMeters(routing::RouteBase const & route)
 /// Falls back to the first/last junction when the route is degenerate.
 m2::PointD GetRouteMidpoint(routing::RouteBase const & route)
 {
-  auto const & segs = route.GetRouteSegments();
-  if (segs.empty())
-    return {};
-
   double const halfM = 0.5 * GetRouteTotalDistanceMeters(route);
-  for (auto const & s : segs)
-    if (s.GetDistFromBeginningMeters() >= halfM)
-      return s.GetJunction().GetPoint();
+
+  auto const & segs = route.GetRouteSegments();
+  for (size_t i = 0; i < segs.size(); ++i)
+  {
+    double const end = segs[i].GetDistFromBeginningMeters();
+    if (end < halfM)
+      continue;
+    double const start = (i == 0) ? 0.0 : segs[i - 1].GetDistFromBeginningMeters();
+    double const t = (end > start) ? (halfM - start) / (end - start) : 0.0;
+    auto const & a = (i == 0) ? route.GetSubrouteAttrs(0).GetStart().GetPoint() : segs[i - 1].GetJunction().GetPoint();
+    auto const & b = segs[i].GetJunction().GetPoint();
+    return a + (b - a) * t;
+  }
   return segs.back().GetJunction().GetPoint();
 }
 
@@ -691,15 +697,15 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
   };
   std::vector<AltMarkInfo> infos;
   infos.reserve(result.m_routes.size());
+
   for (size_t i = 0; i < result.m_routes.size(); ++i)
   {
     auto const & r = result.m_routes[i];
     if (!r.IsValid())
       continue;
-    infos.push_back(
-        {GetRouteMidpoint(r),
-         platform::Duration(static_cast<unsigned long>(std::max(0.0, r.GetTotalTimeSec()))).GetHoursMinutesString(), i,
-         i == result.m_activeIdx});
+
+    infos.push_back({GetRouteMidpoint(r), platform::Duration(std::lround(r.GetTotalTimeSec())).GetHoursMinutesString(),
+                     i, i == result.m_activeIdx});
   }
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, infos = std::move(infos)]()
@@ -726,6 +732,11 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
   });
 }
 
+MwmSet::MwmId RoutingManager::GetMwmId(routing::NumMwmId numMwmId) const
+{
+  return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId));
+}
+
 bool RoutingManager::InsertRoute(RoutesResult const & result)
 {
   if (!m_drapeEngine || result.m_routes.empty())
@@ -736,15 +747,15 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
 
   RoadWarningsCollection roadWarnings;
 
-  auto const getMwmId = [this](routing::NumMwmId numMwmId)
-  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
-
   bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
   std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   if (isTransitRoute)
   {
-    transitRouteDisplay = std::make_shared<TransitRouteDisplay>(
-        *m_transitReadManager, getMwmId, m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
+    // clang-format off
+    transitRouteDisplay = std::make_shared<TransitRouteDisplay>(*m_transitReadManager,
+          [this](routing::NumMwmId numMwmId) { return GetMwmId(numMwmId); },
+          m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
+    // clang-format on
   }
 
   // In follow (navigation) mode only the active route is drawn — alternatives and ETA balloons
@@ -761,7 +772,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
 
-  if (!isFollowing)
+  if (!isFollowing && m_currentRouterType != RouterType::Ruler)
     CreateRouteAltMarks(result);
 
   {
@@ -788,9 +799,6 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 {
   if (!route.IsValid())
     return;
-
-  auto const getMwmId = [this](routing::NumMwmId numMwmId)
-  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
 
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
 
@@ -854,7 +862,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     }
 
     if (isActive)
-      CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
+      CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
@@ -921,22 +929,25 @@ bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, doubl
       if (i == result.m_activeIdx)
         continue;
 
-      auto const & segs = result.m_routes[i].GetRouteSegments();
-      for (size_t j = 1; j < segs.size(); ++j)
+      std::optional<m2::PointD> prev;
+      result.m_routes[i].ForEachPoint([&](geometry::PointWithAltitude const & p)
       {
-        auto const & p1 = segs[j - 1].GetJunction().GetPoint();
-        auto const & p2 = segs[j].GetJunction().GetPoint();
-        if (!m2::RectD(p1, p2).Intersect(tapRect))
-          continue;
-
-        m2::ParametrizedSegment<m2::PointD> seg(p1, p2);
-        double const distSq = seg.SquaredDistanceToPoint(mercator);
-        if (distSq < bestSq)
+        if (prev)
         {
-          bestSq = distSq;
-          targetIdx = i;
+          auto const & p2 = p.GetPoint();
+          if (m2::RectD(*prev, p2).IsIntersect(tapRect))
+          {
+            m2::ParametrizedSegment<m2::PointD> seg(*prev, p2);
+            double const distSq = seg.SquaredDistanceToPoint(mercator);
+            if (distSq < bestSq)
+            {
+              bestSq = distSq;
+              targetIdx = i;
+            }
+          }
         }
-      }
+        prev = p.GetPoint();
+      });
     }
   });
 
