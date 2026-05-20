@@ -295,6 +295,8 @@ private:
   };
   using RoadWarningsCollection = std::map<routing::RoutingOptions::Road, std::vector<RoadInfo>>;
 
+  MwmSet::MwmId GetMwmId(routing::NumMwmId numMwmId) const;
+
   // \brief Render every route in |result| via drape subroutes. The active alternative
   // (result.m_activeIdx) is drawn with normal styling; the rest are dimmed.
   // \return true if there are road warnings on the active route.
@@ -306,9 +308,8 @@ private:
                          std::shared_ptr<TransitRouteDisplay> const & transitRouteDisplay,
                          RoadWarningsCollection & roadWarnings);
 
-  using GetMwmIdFn = std::function<MwmSet::MwmId(routing::NumMwmId numMwmId)>;
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                           double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
+                           double baseDistance, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.

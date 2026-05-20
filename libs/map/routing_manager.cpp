@@ -590,7 +590,7 @@ void RoutingManager::ClearAlternativeRoutes()
 }
 
 void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments,
-                                         m2::PointD const & startPt, double baseDistance, GetMwmIdFn const & getMwmIdFn,
+                                         m2::PointD const & startPt, double baseDistance,
                                          RoadWarningsCollection & roadWarnings)
 {
   auto const isWarnedType = [](RoutingOptions::Road roadType)
@@ -619,7 +619,7 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
       {
         startDistance = currentDistance;
         auto const featureId =
-            FeatureID(getMwmIdFn(segments[i].GetSegment().GetMwmId()), segments[i].GetSegment().GetFeatureId());
+            FeatureID(GetMwmId(segments[i].GetSegment().GetMwmId()), segments[i].GetSegment().GetFeatureId());
         auto const markPoint = i == 0 ? startPt : segments[i - 1].GetJunction().GetPoint();
         roadWarnings[currentType].push_back(RoadInfo(markPoint, featureId));
       }
@@ -736,6 +736,11 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
   });
 }
 
+MwmSet::MwmId RoutingManager::GetMwmId(routing::NumMwmId numMwmId) const
+{
+  return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId));
+}
+
 bool RoutingManager::InsertRoute(RoutesResult const & result)
 {
   if (!m_drapeEngine || result.m_routes.empty())
@@ -746,15 +751,15 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
 
   RoadWarningsCollection roadWarnings;
 
-  auto const getMwmId = [this](routing::NumMwmId numMwmId)
-  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
-
   bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
   std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   if (isTransitRoute)
   {
-    transitRouteDisplay = std::make_shared<TransitRouteDisplay>(
-        *m_transitReadManager, getMwmId, m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
+    // clang-format off
+    transitRouteDisplay = std::make_shared<TransitRouteDisplay>(*m_transitReadManager,
+          [this](routing::NumMwmId numMwmId) { return GetMwmId(numMwmId); },
+          m_callbacks.m_stringsBundleGetter, m_bmManager, m_transitSymbolSizes);
+    // clang-format on
   }
 
   // In follow (navigation) mode only the active route is drawn — alternatives and ETA balloons
@@ -798,9 +803,6 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 {
   if (!route.IsValid())
     return;
-
-  auto const getMwmId = [this](routing::NumMwmId numMwmId)
-  { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId)); };
 
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
 
@@ -864,7 +866,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     }
 
     if (isActive)
-      CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, getMwmId, roadWarnings);
+      CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));

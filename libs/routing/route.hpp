@@ -350,14 +350,11 @@ public:
 
   Route() = default;
 
-  // Used in tests only.
-  template <class TIter>
-  Route(TIter beg, TIter end) : m_poly(beg, end)
-  {}
-
   /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments + first subroute
   /// start are used to (re)build the FollowedPolyline for follow-time matching.
   explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
+
+  Route(Route const & rhs) = default;
 
   template <class TIter>
   void SetGeometry(TIter beg, TIter end)
