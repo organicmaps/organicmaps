@@ -805,8 +805,9 @@ std::string RoutingSession::GetTurnNotificationsLocale() const
 void RoutingSession::RouteCall(RouteCallback const & callback) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK(m_lastResult, ());
-  callback(*m_lastResult);
+  // May be nullptr after RoutingManager::SetDrapeEngine (restoring OGL context?).
+  if (m_lastResult)
+    callback(*m_lastResult);
 }
 
 void RoutingSession::EmitCloseRoutingEvent() const
