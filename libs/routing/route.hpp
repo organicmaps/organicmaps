@@ -325,6 +325,17 @@ public:
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
+  template <class FnT>
+  void ForEachPoint(FnT && fn) const
+  {
+    if (!m_subrouteAttrs.empty())
+    {
+      fn(m_subrouteAttrs.front().GetStart());
+      for (auto const & s : m_routeSegments)
+        fn(s.GetJunction());
+    }
+  }
+
 protected:
   void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
 
@@ -350,14 +361,11 @@ public:
 
   Route() = default;
 
-  // Used in tests only.
-  template <class TIter>
-  Route(TIter beg, TIter end) : m_poly(beg, end)
-  {}
-
   /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments + first subroute
   /// start are used to (re)build the FollowedPolyline for follow-time matching.
   explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
+
+  Route(Route const & rhs) = default;
 
   template <class TIter>
   void SetGeometry(TIter beg, TIter end)
@@ -425,8 +433,7 @@ public:
   /// \param turn is information about the nearest turn.
   void GetNearestTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
-  /// \returns information about turn from RouteSegment according to current iterator
-  /// set with MoveIterator() method. If it's not possible returns nullopt.
+  /// \returns Information about turn from RouteSegment according to current iterator set with MoveIterator() method.
   turns::TurnItem GetCurrentIteratorTurn() const;
 
   /// \brief Returns first non-empty name info of a street starting from segIdx.

@@ -1,16 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "routing/routing_tests/tools.hpp"
-
-#include "routing/async_router.hpp"
+#include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
-
-#include "geometry/point2d.hpp"
-
-#include "platform/platform.hpp"
-
-#include "base/timer.hpp"
 
 #include <condition_variable>
 #include <memory>
@@ -38,7 +30,8 @@ public:
                                   bool adjustToPrevRoute, RouterDelegate const & delegate,
                                   RoutesResult & result) override
   {
-    Route route(checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
+    Route route;
+    route.SetGeometry(checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
     result.MakeFrom(GetName(), std::move(route));
     return m_result;
   }
