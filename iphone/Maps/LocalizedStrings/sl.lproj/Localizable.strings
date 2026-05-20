@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jezik glasu";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Če želite prenesti glas višje kakovosti, odprite aplikacijo Nastavitve in pojdite v Dostopnost → VoiceOver → Govor → Glas.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)";
 "pref_map_auto_zoom" = "Samodejna povečava";

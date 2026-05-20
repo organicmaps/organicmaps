@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Stemtaal";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Om 'n stem van hoër gehalte af te laai, maak die Instellings-toep oop en gaan na Toeganklikheid → VoiceOver → Spraak → Stem.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Toets Stemmingsaanwysings (TTS, Teks-na-spraak)";
 "pref_map_auto_zoom" = "Outomatiese zoem";

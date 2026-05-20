@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lingwa tal-vuċi";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Biex tniżżel vuċi ta' kwalità ogħla, iftaħ l-app Settings u mur Aċċessibbiltà → VoiceOver → Diskors → Vuċi.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Ittestja id-Direzzjonijiet tal-vuċi (TTS, Test għad-diskors)";
 "pref_map_auto_zoom" = "Iżżumja awtomatikament";

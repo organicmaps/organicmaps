@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lugha ya Sauti";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Ili kupakua sauti ya ubora wa juu, fungua programu ya Mipangilio na uende kwenye Ufikivu → VoiceOver → Matamshi → Sauti.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)";
 "pref_map_auto_zoom" = "Kuzoom kiotomatiki";

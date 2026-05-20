@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "語音語言";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "若要下載更高品質的語音，請打開「設定」App，然後前往「輔助使用」→「VoiceOver」→「語音」→「聲音」。";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "測試語音指令（TTS，文字轉語音系統）";
 "pref_map_auto_zoom" = "自動縮放";

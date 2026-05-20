@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jazyk hlasu";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Chcete-li stáhnout hlas ve vyšší kvalitě, otevřete aplikaci Nastavení a přejděte do Zpřístupnění → VoiceOver → Řeč → Hlas.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Otestovat hlasové pokyny (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automatické zvětšení";

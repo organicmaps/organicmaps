@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ภาษาสำหรับเสียง";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "หากต้องการดาวน์โหลดเสียงคุณภาพสูงขึ้น ให้เปิดแอปการตั้งค่า แล้วไปที่ การช่วยการเข้าถึง → VoiceOver → การพูด → เสียง";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "ทดสอบเส้นทางด้วยเสียง (TTS, การอ่านออกเสียงข้อความ)";
 "pref_map_auto_zoom" = "ซูมอัตโนมัติ";

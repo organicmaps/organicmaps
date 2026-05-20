@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Limba ghidului vocal";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Pentru a descărca o voce de calitate superioară, deschideți aplicația Configurări și accesați Accesibilitate → VoiceOver → Vorbire → Voce.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testarea indicațiilor vocale (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automat";

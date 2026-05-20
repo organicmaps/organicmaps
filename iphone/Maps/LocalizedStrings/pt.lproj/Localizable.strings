@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Idioma da voz";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Para descarregar uma voz de maior qualidade, abra a app Definições e aceda a Acessibilidade → VoiceOver → Fala → Voz.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testa as direcções de voz (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Ampliação automática";

@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Sprache für Sprachanweisungen";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Um eine Stimme mit höherer Qualität zu laden, öffne die App Einstellungen und gehe zu Bedienungshilfen → VoiceOver → Sprachausgabe → Stimme.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Sprachanweisungen testen (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Auto-Zoom";

@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Balso instrukcijų kalba";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Norėdami atsisiųsti aukštesnės kokybės balsą, atidarykite programą Nustatymai ir eikite į Prieinamumas → VoiceOver → Kalba → Balsas.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Išbandyti balso instrukcijas (kalbos sintezę)";
 "pref_map_auto_zoom" = "Automatinis mastelis";

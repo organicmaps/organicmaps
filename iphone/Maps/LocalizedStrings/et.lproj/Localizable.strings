@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Hääljuhiste keel";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Kõrgema kvaliteediga hääle allalaadimiseks ava rakendus Seaded ja mine jaotisse Juurdepääsetavus → VoiceOver → Kõne → Hääl.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testi hääljuhised (Kõnesüntees, TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automaatne suum";

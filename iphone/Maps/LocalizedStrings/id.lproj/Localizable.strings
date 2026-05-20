@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Bahasa Suara";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Untuk mengunduh suara berkualitas lebih tinggi, buka app Pengaturan dan buka Aksesibilitas → VoiceOver → Ucapan → Suara.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Menguji petunjuk suara (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Perbesar otomatis";
