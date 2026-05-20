@@ -155,24 +155,38 @@ bool ParseRoutePoint(std::string const & key, std::string const & value, RoutePo
   return true;
 }
 
-std::vector<std::string> SplitRouteList(std::string_view value)
+
+std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view value)
 {
+  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
   std::vector<std::string> result;
   size_t from = 0;
   while (from <= value.size())
   {
-    size_t const delimiter = value.find('|', from);
+    size_t delimiter = value.find('|', from);
+    size_t delimiterSize = delimiter == std::string_view::npos ? 0 : 1;
+    for (auto const encodedPipe : kEncodedPipes)
+    {
+      size_t const encodedDelimiter = value.find(encodedPipe, from);
+      if (encodedDelimiter != std::string_view::npos &&
+          (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+      {
+        delimiter = encodedDelimiter;
+        delimiterSize = encodedPipe.size();
+      }
+    }
+
     if (delimiter == std::string_view::npos)
     {
-      result.emplace_back(value.substr(from));
+      result.push_back(url::UrlDecode(value.substr(from)));
       break;
     }
-    result.emplace_back(value.substr(from, delimiter - from));
-    from = delimiter + 1;
+
+    result.push_back(url::UrlDecode(value.substr(from, delimiter - from)));
+    from = delimiter + delimiterSize;
   }
   return result;
 }
-
 
 template <typename FnT>
 void ForEachRawParam(std::string_view rawUrl, FnT && fn)
@@ -563,8 +577,8 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
   RoutePoint start, finish;
   std::vector<std::string> waypoints, names, callbacks;
 
-  // Decode each value once before splitting so literal and encoded pipes are both delimiters.
-  // A literal pipe in a value must be double-encoded to remain part of the value.
+  // Split literal and encoded separators in the raw list before decoding each item once.
+  // A separator that belongs to an item must be double-encoded.
   // Collect first so each recognized parameter consistently uses its last occurrence.
   ForEachRawParam(rawUrl, [&](auto const & key, auto const & rawValue)
   {
@@ -589,11 +603,11 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kMode || key == kTravelMode)
       mode = value;
     else if (key == kWaypoints)
-      waypoints = SplitRouteList(value);
+      waypoints = SplitRouteListWithEncodedSeparators(rawValue);
     else if (key == kWaypointNames)
-      names = SplitRouteList(value);
+      names = SplitRouteListWithEncodedSeparators(rawValue);
     else if (key == kWaypointCallbacks)
-      callbacks = SplitRouteList(value);
+      callbacks = SplitRouteListWithEncodedSeparators(rawValue);
     else if (key == kDirAction)
       dirAction = value;
     else if (key == kOptimize)
