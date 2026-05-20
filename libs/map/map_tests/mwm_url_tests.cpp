@@ -237,6 +237,37 @@ UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
   TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next", ());
 }
 
+UNIT_TEST(RouteApiV2SplitsWaypointNamesByEncodedSeparators)
+{
+  string const urlString =
+      "om://v2/nav?origin=1,1&destination=5,5&waypoints=2,2%7C3,3%7C4,4"
+      "&waypoint_names=Anna%2520Schmidt%7CBauer%2520GmbH%7cM%25C3%25BCller%2520Family";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 5, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_name, "Anna%20Schmidt", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_name, "Bauer%20GmbH", ());
+  TEST_EQUAL(test.GetRoutePoints()[3].m_name, "M%C3%BCller%20Family", ());
+  TEST(test.ShouldStartRouteNavigation(), ());
+
+  ParsedMapApi escaped(
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
+      "&waypoint_names=C%2B%2B%20Cafe%7CDiscount%2020%25");
+  TEST_EQUAL(escaped.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(escaped.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(escaped.GetRoutePoints()[1].m_name, "C++ Cafe", ());
+  TEST_EQUAL(escaped.GetRoutePoints()[2].m_name, "Discount 20%", ());
+
+  ParsedMapApi rawSeparators(
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2|3,3"
+      "&waypoint_names=A%7CB|C");
+  TEST_EQUAL(rawSeparators.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(rawSeparators.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(rawSeparators.GetRoutePoints()[1].m_name, "A|B", ());
+  TEST_EQUAL(rawSeparators.GetRoutePoints()[2].m_name, "C", ());
+}
+
 UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
 {
   string const urlString =
