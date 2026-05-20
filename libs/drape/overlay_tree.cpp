@@ -469,11 +469,8 @@ void OverlayTree::Select(m2::PointD glbPoint, TOverlayContainer & result) const
   ScreenBase const & screen = GetModelView();
 
   glbPoint.x = mercator::NearestWrapX(glbPoint.x, screen.GetOrg().x);
-  m2::PointD const pxPoint = screen.GtoP(glbPoint);
-
-  double const kSearchRectHalfSize = 10.0;
-  m2::RectD rect(pxPoint, pxPoint);
-  rect.Inflate(kSearchRectHalfSize, kSearchRectHalfSize);
+  double constexpr kSearchRectHalfSize = 10.0;
+  m2::RectD const rect(screen.GtoP(glbPoint), kSearchRectHalfSize, kSearchRectHalfSize);
 
   /// @todo Why we can't call Select(rect) here?
   /// Why we don't check handle->IsVisible(), like in Select(rect)?
