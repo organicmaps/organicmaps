@@ -2261,10 +2261,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     auto r = m_selectionShape->GetSelectionGeometryBoundingBox();
     r.Scale(kBoundingBoxScale);
 
-    m2::RectD pixelRect;
-    pixelRect.Add(screen.PtoP3d(screen.GtoP(r.LeftTop())));
-    pixelRect.Add(screen.PtoP3d(screen.GtoP(r.RightBottom())));
-
+    m2::RectD const pixelRect(screen.PtoP3d(screen.GtoP(r.LeftTop())), screen.PtoP3d(screen.GtoP(r.RightBottom())));
     rect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
     targetRect.Inflate(pixelRect.SizeX(), pixelRect.SizeY());
   }
