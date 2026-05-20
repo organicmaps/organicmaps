@@ -51,6 +51,11 @@ public:
     , m_maxY(std::max(p1.y, p2.y))
   {}
 
+  Rect(Point<T> const & p, T dx, T dy) : m_minX(p.x - dx), m_minY(p.y - dy), m_maxX(p.x + dx), m_maxY(p.y + dy)
+  {
+    ASSERT(dx >= 0 && dy >= 0, ());
+  }
+
   template <typename U>
   explicit Rect(Rect<U> const & src) : m_minX(src.minX())
                                      , m_minY(src.minY())
