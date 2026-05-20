@@ -1,7 +1,7 @@
 {
     "data_format": 1,
     "data_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/taginfo.json",
-    "data_updated": "20251115T095528Z",
+    "data_updated": "20260520T160731Z",
     "project": {
         "name": "Organic Maps",
         "description": "Free Android & iOS offline maps app for travelers, tourists, hikers, and cyclists",
@@ -336,7 +336,7 @@
             "description": "amenity=food_court",
             "key": "amenity",
             "value": "food_court",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/restaurant-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/food-m.svg"
         },
         {
             "description": "amenity=fountain",
@@ -355,6 +355,12 @@
             "key": "amenity",
             "value": "gambling",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gambling-m.svg"
+        },
+        {
+            "description": "amenity=hookah_lounge",
+            "key": "amenity",
+            "value": "hookah_lounge",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tobacco-m.svg"
         },
         {
             "description": "amenity=hospital",
@@ -1110,7 +1116,7 @@
             "description": "attraction=amusement_ride",
             "key": "attraction",
             "value": "amusement_ride",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "attraction=animal",
@@ -1122,37 +1128,37 @@
             "description": "attraction=big_wheel",
             "key": "attraction",
             "value": "big_wheel",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "attraction=bumper_car",
             "key": "attraction",
             "value": "bumper_car",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "attraction=carousel",
             "key": "attraction",
             "value": "carousel",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "attraction=historic",
             "key": "attraction",
             "value": "historic",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "attraction=maze",
             "key": "attraction",
             "value": "maze",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "attraction=roller_coaster",
             "key": "attraction",
             "value": "roller_coaster",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/attraction-m.svg"
         },
         {
             "description": "barrier=block",
@@ -1621,7 +1627,7 @@
             "description": "historic=city_gate",
             "key": "historic",
             "value": "city_gate",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/city_gate-m.svg"
         },
         {
             "description": "historic=cross",
@@ -2240,6 +2246,18 @@
             "key": "natural",
             "value": "volcano",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volcano-m.svg"
+        },
+        {
+            "description": "natural=volcano + volcano:status=active",
+            "key": "natural",
+            "value": "volcano",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volcano-active-m.svg"
+        },
+        {
+            "description": "natural=volcano + volcano:status=active",
+            "key": "volcano:status",
+            "value": "active",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volcano-active-m.svg"
         },
         {
             "description": "office=*",
@@ -3352,10 +3370,28 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/petting_zoo-m.svg"
         },
         {
+            "description": "waterway=access_point",
+            "key": "waterway",
+            "value": "access_point",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waterway-access_point-m.svg"
+        },
+        {
             "description": "waterway=waterfall",
             "key": "waterway",
             "value": "waterfall",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waterfall-m.svg"
+        },
+        {
+            "description": "xmas:feature=market",
+            "key": "xmas:feature",
+            "value": "market",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/christmas_market-m.svg"
+        },
+        {
+            "description": "xmas:feature=tree",
+            "key": "xmas:feature",
+            "value": "tree",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/christmas_tree-m.svg"
         }
     ]
 }
