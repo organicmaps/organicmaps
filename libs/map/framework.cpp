@@ -2191,6 +2191,13 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     return;
   }
 
+  // Same swap when the tap lands on an alternative route's polyline rather than its balloon.
+  if (!buildInfo.m_isLongTap &&
+      m_routingManager.TryTapOnAlternativeRoute(buildInfo.m_mercator, m_currentModelView.GetScale()))
+  {
+    return;
+  }
+
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
   bool isRoutePoint = placePageInfo.IsRoutePoint();
 
