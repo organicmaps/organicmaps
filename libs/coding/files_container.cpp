@@ -1,5 +1,6 @@
 #include "coding/files_container.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"

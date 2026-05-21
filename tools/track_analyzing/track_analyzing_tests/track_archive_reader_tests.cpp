@@ -1,12 +1,12 @@
 #include "testing/testing.hpp"
 
 #include "track_analyzing/temporary_file.hpp"
-#include "track_analyzing/track_archive_reader.hpp"
+#include "track_analyzing/track.hpp"
 
 #include "tracking/archival_file.hpp"
 #include "tracking/archival_reporter.hpp"
-#include "tracking/archive.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/hex.hpp"
 #include "coding/zip_creator.hpp"
 
