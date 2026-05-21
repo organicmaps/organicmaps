@@ -85,6 +85,13 @@ struct NameParamsOut
   std::string_view primary, secondary;
   std::string transliterated;
 
+  // StringUtf8Multilang code of the language actually selected for primary/secondary. Drives
+  // HarfBuzz OpenType `locl` substitutions downstream. kEnglishCode is reported for the
+  // transliterated fallback (target script is Latin). kUnsupportedLanguageCode means no name
+  // was found at all.
+  int8_t primaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+  int8_t secondaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+
   /// Call this fuction to get primary name when allowTranslit == true.
   std::string_view GetPrimary() const { return (!primary.empty() ? primary : std::string_view(transliterated)); }
 
@@ -92,6 +99,7 @@ struct NameParamsOut
   {
     primary = secondary = {};
     transliterated.clear();
+    primaryLang = secondaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   }
 };
 
