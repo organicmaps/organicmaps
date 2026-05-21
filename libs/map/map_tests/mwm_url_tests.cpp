@@ -169,10 +169,16 @@ UNIT_TEST(RouteApiV2AllowsEmptyWaypoints)
       "&waypoint_callbacks=app%3A%2F%2F1|app%3A%2F%2F2|app%3A%2F%2F3&destination=3,3");
   TEST_EQUAL(gap.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(gap.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(gap.GetRoutePoints()[1].m_org, mercator::FromLatLon(1.5, 1.5), ());
   TEST_EQUAL(gap.GetRoutePoints()[1].m_name, "A", ());
   TEST_EQUAL(gap.GetRoutePoints()[1].m_callback, "app://1", ());
+  TEST_EQUAL(gap.GetRoutePoints()[2].m_org, mercator::FromLatLon(2.5, 2.5), ());
   TEST_EQUAL(gap.GetRoutePoints()[2].m_name, "C", ());
   TEST_EQUAL(gap.GetRoutePoints()[2].m_callback, "app://3", ());
+  TEST_NOT_EQUAL(gap.GetRoutePoints()[1].m_name, "B", ());
+  TEST_NOT_EQUAL(gap.GetRoutePoints()[1].m_callback, "app://2", ());
+  TEST_NOT_EQUAL(gap.GetRoutePoints()[2].m_name, "B", ());
+  TEST_NOT_EQUAL(gap.GetRoutePoints()[2].m_callback, "app://2", ());
 }
 
 UNIT_TEST(RouteApiV2CurrentPositionKeepsOriginFields)
@@ -235,6 +241,19 @@ UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
   TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
   TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
   TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next", ());
+}
+
+UNIT_TEST(RouteApiV2SplitsWaypointCallbacksByEncodedSeparators)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fone%7Capp%3A%2F%2Ftwo";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://one", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://two", ());
 }
 
 UNIT_TEST(RouteApiV2SplitsWaypointNamesByEncodedSeparators)

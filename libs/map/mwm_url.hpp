@@ -94,31 +94,31 @@ public:
 
   std::vector<RoutePoint> const & GetRoutePoints() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_routePoints;
   }
 
   bool ShouldOptimizeRoutePoints() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_optimizeRoutePoints;
   }
 
   bool ShouldStartRouteNavigation() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_startRouteNavigation;
   }
 
   m2::PointD const & GetRouteStartDirection() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_startDirection;
   }
 
   std::string const & GetRoutingType() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
+    CHECK_EQUAL(m_requestType, UrlType::Route, ("Expected Route API"));
     return m_routingType;
   }
 
