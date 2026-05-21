@@ -1,5 +1,4 @@
 #include "drape/gl_extensions_list.hpp"
-#include "drape/gl_functions.hpp"
 
 #include "base/assert.hpp"
 
@@ -22,12 +21,6 @@ bool GLExtensionsList::IsSupported(ExtensionName extName) const
 {
   ASSERT_LESS(extName, ExtensionCount, ("Not all used extensions are checked"));
   return m_supportedMap[extName];
-}
-
-void GLExtensionsList::CheckExtension(ExtensionName enumName, std::string const & extName)
-{
-  ASSERT_LESS(enumName, ExtensionCount, ());
-  m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
 }
 
 void GLExtensionsList::SetExtension(ExtensionName enumName, bool isSupported)

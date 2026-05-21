@@ -63,11 +63,6 @@ ref_ptr<FramebufferTexture> Framebuffer::DepthStencil::GetTexture() const
   return make_ref(m_texture);
 }
 
-Framebuffer::Framebuffer() : m_colorFormat(TextureFormat::RGBA8)
-{
-  ApplyOwnDepthStencil();
-}
-
 Framebuffer::Framebuffer(TextureFormat colorFormat) : m_colorFormat(colorFormat)
 {
   ApplyOwnDepthStencil();

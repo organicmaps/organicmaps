@@ -236,19 +236,6 @@ void MeshObject::UpdateIndexBuffer(ref_ptr<dp::GraphicsContext> context, std::ve
   m_impl->UpdateIndexBuffer(context);
 }
 
-void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount,
-                                      uint32_t startVertex) const
-{
-  CHECK(m_impl != nullptr, ());
-  CHECK(!m_buffers.empty(), ());
-  auto const & buffer = m_buffers[0];
-  auto const vertexNum = buffer->GetSizeInBytes() / buffer->GetStrideInBytes();
-  CHECK_LESS(startVertex, vertexNum, ());
-  CHECK_LESS_OR_EQUAL(startVertex + vertexCount, vertexNum, ());
-
-  m_impl->DrawPrimitives(context, vertexCount, startVertex);
-}
-
 void MeshObject::DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount,
                                              uint32_t startIndex) const
 {

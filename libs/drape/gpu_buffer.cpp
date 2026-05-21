@@ -115,7 +115,7 @@ void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOff
   if (IsMapBufferSupported())
   {
     ASSERT(gpuPtr != nullptr, ());
-    memcpy((uint8_t *)gpuPtr + byteOffset, data, byteCount);
+    memcpy(static_cast<uint8_t *>(gpuPtr) + byteOffset, data, byteCount);
   }
   else
   {

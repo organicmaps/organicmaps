@@ -62,9 +62,9 @@ void AttributeProvider::Advance(uint32_t vertexCount)
     for (size_t i = 0; i < GetStreamCount(); ++i)
     {
       BindingInfo const & info = m_streams[i].m_binding;
-      uint32_t offset = vertexCount * info.GetElementSize();
-      void * rawPointer = m_streams[i].m_data.get();
-      m_streams[i].m_data = make_ref((void *)(((uint8_t *)rawPointer) + offset));
+      uint32_t const offset = vertexCount * info.GetElementSize();
+      auto * rawPointer = static_cast<uint8_t *>(m_streams[i].m_data.get());
+      m_streams[i].m_data = make_ref<void>(rawPointer + offset);
     }
   }
 

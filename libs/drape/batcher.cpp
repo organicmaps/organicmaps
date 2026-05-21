@@ -1,13 +1,9 @@
 #include "drape/batcher.hpp"
 #include "drape/batcher_helpers.hpp"
-#include "drape/cpu_buffer.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
-
-#include <utility>
 
 namespace dp
 {
@@ -241,10 +237,10 @@ void Batcher::FinalizeBucket(ref_ptr<GraphicsContext> context, RenderState const
 
 void Batcher::Flush(ref_ptr<GraphicsContext> context)
 {
-  ASSERT(m_flushInterface != NULL, ());
+  ASSERT(m_flushInterface, ());
   std::for_each(m_buckets.begin(), m_buckets.end(), [this, context](TBuckets::value_type & bucket)
   {
-    ASSERT(bucket.second != nullptr, ());
+    ASSERT(bucket.second, ());
     bucket.second->GetBuffer()->Preflush(context);
     m_flushInterface(bucket.first, std::move(bucket.second));
   });
