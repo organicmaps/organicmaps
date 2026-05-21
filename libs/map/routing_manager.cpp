@@ -1201,6 +1201,15 @@ void RoutingManager::ReplaceRoutePoints(std::vector<RouteMarkData> points, bool 
   }
 }
 
+void RoutingManager::AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints)
+{
+  for (auto & routePoint : routePoints)
+    AddRoutePoint(std::move(routePoint), false /* reorderIntermediatePoints */);
+
+  if (reorderIntermediatePoints)
+    ReorderIntermediatePoints();
+}
+
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());

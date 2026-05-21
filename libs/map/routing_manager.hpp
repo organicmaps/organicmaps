@@ -231,6 +231,7 @@ public:
   bool OptimizeRoutePoints();
   /// Replaces a complete itinerary. Array order defines start, intermediate indexes, and finish.
   void ReplaceRoutePoints(std::vector<RouteMarkData> points, bool optimize = false);
+  void AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints = true);
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   /// Attach only while a UI can open links. Attaching delivers the latest pending stop callback.

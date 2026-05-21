@@ -1321,6 +1321,25 @@ UNIT_CLASS_TEST(RoutingManagerTest, DoesNotMaterializeOriginCallbackOnStartMark)
   TEST_EQUAL(routePoints[1].m_callback, "app://finish", ());
 }
 
+UNIT_CLASS_TEST(RoutingManagerTest, AddsRoutePointsInBatch)
+{
+  std::vector<RouteMarkData> points;
+  points.push_back(MakePoint(RouteMarkType::Start, 1.0, 1.0, "app://start"));
+  points.push_back(MakePoint(RouteMarkType::Intermediate, 1.5, 1.5, "app://stop", 0));
+  points.push_back(MakePoint(RouteMarkType::Finish, 2.0, 2.0, "app://finish"));
+
+  m_manager.AddRoutePoints(std::move(points), false /* reorderIntermediatePoints */);
+
+  auto const routePoints = m_manager.GetRoutePoints();
+  TEST_EQUAL(routePoints.size(), 3, ());
+  TEST_EQUAL(static_cast<int>(routePoints[0].m_pointType), static_cast<int>(RouteMarkType::Start), ());
+  TEST_EQUAL(routePoints[0].m_callback, "app://start", ());
+  TEST_EQUAL(static_cast<int>(routePoints[1].m_pointType), static_cast<int>(RouteMarkType::Intermediate), ());
+  TEST_EQUAL(routePoints[1].m_callback, "app://stop", ());
+  TEST_EQUAL(static_cast<int>(routePoints[2].m_pointType), static_cast<int>(RouteMarkType::Finish), ());
+  TEST_EQUAL(routePoints[2].m_callback, "app://finish", ());
+}
+
 UNIT_CLASS_TEST(RoutingManagerTest, LoadsRoutePointsWithoutCallbackField)
 {
   auto const start = mercator::FromLatLon(1.0, 1.0);

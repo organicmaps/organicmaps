@@ -161,6 +161,7 @@ UNIT_TEST(RouteApiV2IgnoresFragmentParameters)
   ParsedMapApi fragmentOnly("om://v2/dir#destination=1,1");
   TEST_EQUAL(fragmentOnly.GetRequestType(), UrlType::Incorrect, ());
 }
+
 UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 {
   string const urlString =
@@ -404,6 +405,24 @@ UNIT_TEST(RouteApiV2SplitsWaypointNamesByLiteralSeparators)
   TEST_EQUAL(encodedSeparators.GetRoutePoints().size(), 4, ());
   TEST_EQUAL(encodedSeparators.GetRoutePoints()[1].m_name, "Anna", ());
   TEST_EQUAL(encodedSeparators.GetRoutePoints()[2].m_name, "Bauer", ());
+}
+
+UNIT_TEST(RouteApiV2EscapesInvalidPercentsInCallbacks)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&origin_callback=app%3A%2F%2Forigin%3Fprogress%3D100%25"
+      "&destination=4,4&destination_callback=app%3A%2F%2Ffinish%3Ftoken%3Dab%252Fcd"
+      "&waypoints=2,2|3,3&waypoint_callbacks=app%3A%2F%2Fstop%3Fprogress%3D50%25|app%3A%2F%2Fnext%3Ftoken%3Dab%252Fcd"
+      "&callback=app%3A%2F%2Fback%3Fprogress%3D100%25";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin?progress=100%25", ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop?progress=50%25", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next?token=ab%2Fcd", ());
+  TEST_EQUAL(test.GetRoutePoints()[3].m_callback, "app://finish?token=ab%2Fcd", ());
+  TEST_EQUAL(test.GetGlobalBackUrl(), "app://back?progress=100%25", ());
 }
 
 UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)

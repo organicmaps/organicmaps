@@ -188,12 +188,29 @@ std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view va
   return result;
 }
 
+bool IsHexDigit(char c)
+{
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f');
+}
+
+std::string EscapeInvalidPercentSigns(std::string_view value)
+{
+  std::string result;
+  result.reserve(value.size());
+  for (size_t i = 0; i < value.size(); ++i)
+    if (value[i] == '%' && (i + 2 >= value.size() || !IsHexDigit(value[i + 1]) || !IsHexDigit(value[i + 2])))
+      result += "%25";
+    else
+      result += value[i];
+  return result;
+}
+
 template <typename FnT>
 void ForEachRawParam(std::string_view rawUrl, FnT && fn)
 {
   // Keep values raw here so route-list parsers can distinguish real separators from encoded content.
   size_t start = rawUrl.find_first_of("?#");
-  if (start == std::string_view::npos)
+  if (start == std::string_view::npos || rawUrl[start] == '#')
     return;
 
   for (++start; start < rawUrl.size();)
@@ -210,6 +227,9 @@ void ForEachRawParam(std::string_view rawUrl, FnT && fn)
       else
         fn(url::UrlDecode(rawUrl.substr(start, end - start)), std::string_view());
     }
+
+    if (end != rawUrl.size() && rawUrl[end] == '#')
+      break;
 
     start = end + 1;
   }
@@ -593,9 +613,9 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kDestinationName)
       finish.m_name = value;
     else if (key == kOriginCallback)
-      start.m_callback = value;
+      start.m_callback = EscapeInvalidPercentSigns(value);
     else if (key == kDestinationCallback)
-      finish.m_callback = value;
+      finish.m_callback = EscapeInvalidPercentSigns(value);
     else if (key == kOriginHeading)
     {
       heading = value;
@@ -608,7 +628,11 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kWaypointNames)
       names = SplitRouteListWithEncodedSeparators(rawValue);
     else if (key == kWaypointCallbacks)
+    {
       callbacks = SplitRouteListWithEncodedSeparators(rawValue);
+      for (auto & callback : callbacks)
+        callback = EscapeInvalidPercentSigns(callback);
+    }
     else if (key == kDirAction)
       dirAction = value;
     else if (key == kOptimize)
@@ -616,7 +640,7 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kRefName)
       m_appName = value;
     else if (key == kCallback)
-      m_globalBackUrl = value;
+      m_globalBackUrl = EscapeInvalidPercentSigns(value);
     else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
       LOG(LWARNING, ("Route API v2 parameter is not applied:", key, value));
     else
