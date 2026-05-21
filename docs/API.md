@@ -9,8 +9,8 @@ Use v2 route links for multi-stop routes and navigation-app integrations:
 - `om://v2/dir?...` previews/builds a route.
 - `om://v2/nav?...` builds the route and starts navigation after it is ready
   when routing from the current position. If `origin=lat,lon` supplies an
-  explicit start point, Organic Maps previews the route and lets the user start
-  it manually.
+  explicit start point, Organic Maps previews the route instead of starting
+  navigation automatically.
 
 Required parameter:
 
@@ -19,7 +19,9 @@ Required parameter:
 Optional parameters:
 
 - `origin=lat,lon`; when omitted, Organic Maps routes from the current position.
-  Use the omitted-origin form for automatic `/v2/nav` start.
+  Use the omitted-origin form for automatic `/v2/nav` start. Explicit
+  coordinates are treated as route-planning points even when they are close to
+  the user's current position.
 - `origin_heading=degrees` to prefer the initial road direction from the origin. Degrees are clockwise from north:
   `0` north, `90` east, `180` south, `270` west.
 - `waypoints=lat,lon|lat,lon|...` for intermediate stops in URL order.
@@ -32,10 +34,16 @@ Optional parameters:
 - `ref_name=...` for the calling app title (`appname` equivalent) and `callback=...` for a global return URL.
 - Future extension parameters such as `api=1`, `avoid=...`, `ref=...`, and `callback_label=...` are accepted without failing the whole route.
 
-Example:
+Explicit-origin preview example:
 
 ```text
-om://v2/nav?origin=52.5200,13.4050&origin_name=Warehouse%20Berlin&destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612,13.4150&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
+om://v2/dir?origin=52.5200,13.4050&origin_name=Warehouse%20Berlin&destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
+```
+
+Current-position navigation example:
+
+```text
+om://v2/nav?destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
 ```
 
 Equivalent HTTPS form:
