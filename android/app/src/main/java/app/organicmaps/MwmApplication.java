@@ -155,10 +155,15 @@ public class MwmApplication extends Application implements Application.ActivityL
       return;
 
     final Activity topActivity = getTopActivity();
+    if (topActivity == null)
+    {
+      Logger.w(TAG, "Route point callback is skipped because no activity is visible");
+      return;
+    }
+
     if (topActivity instanceof MwmActivity)
       ((MwmActivity) topActivity).skipParsedBackUrlOnNextStop();
-
-    Utils.openUri(this, Uri.parse(callback), null);
+    Utils.openUri(topActivity, Uri.parse(callback), null);
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
