@@ -18,9 +18,9 @@ function GenerateStringResource() {
   args=${@:6}
   include=translated
 
-  if [[ $format == apple* ]]
+  if [[ $format == apple* || $format == qt* ]]
   then
-    # Apple strings file should fallback to English in case of missing translation.
+    # Apple and Qt strings files should fallback to English in case of missing translation.
     include=all
   fi
 
@@ -66,6 +66,9 @@ GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-ma
 GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps ""
 GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings"
 GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart ""
+
+# Generate Qt desktop strings
+GenerateStringResource "strings.txt" qt/translations qt "" "" "-r"
 
 # Generate Android types strings
 GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml

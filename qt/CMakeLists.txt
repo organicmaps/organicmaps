@@ -67,6 +67,43 @@ omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 
+find_program(OMIM_LRELEASE_EXECUTABLE
+  NAMES lrelease lrelease-qt6 lrelease6
+  HINTS
+    "$ENV{QT_PATH}/bin"
+    "${Qt6_DIR}/../../../bin"
+    /opt/homebrew/bin
+    /opt/homebrew/opt/qt@6/bin
+    /usr/local/opt/qt@6/bin
+)
+if (NOT OMIM_LRELEASE_EXECUTABLE)
+  message(FATAL_ERROR "lrelease is required to build Qt desktop translations")
+endif()
+
+file(GLOB_RECURSE QT_TRANSLATION_TS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/translations/*/omim.ts")
+set(QT_TRANSLATION_QM)
+foreach(ts ${QT_TRANSLATION_TS})
+  get_filename_component(lang_dir "${ts}" DIRECTORY)
+  get_filename_component(lang "${lang_dir}" NAME)
+  set(qm "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations/omim_${lang}.qm")
+  add_custom_command(
+    OUTPUT "${qm}"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations"
+    COMMAND ${CMAKE_COMMAND}
+      -D "LRELEASE=${OMIM_LRELEASE_EXECUTABLE}"
+      -D "TS=${ts}"
+      -D "QM=${qm}"
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/strict_lrelease.cmake"
+    DEPENDS "${ts}" "${CMAKE_CURRENT_SOURCE_DIR}/strict_lrelease.cmake"
+    COMMENT "Compiling Qt translation ${lang}"
+    VERBATIM
+  )
+  list(APPEND QT_TRANSLATION_QM "${qm}")
+endforeach()
+
+add_custom_target(desktop_translations ALL DEPENDS ${QT_TRANSLATION_QM})
+add_dependencies(${PROJECT_NAME} desktop_translations)
+
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     generator  # For borders::LoadBorders
@@ -94,6 +131,26 @@ set(BUNDLE_EXECUTABLE ${BUNDLE_NAME})
 set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app)
 set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
+
+if (PLATFORM_MAC)
+  set(QT_TRANSLATION_BUNDLE_QM)
+  foreach(qm ${QT_TRANSLATION_QM})
+    get_filename_component(qm_name "${qm}" NAME)
+    set(bundle_qm "${RESOURCES_FOLDER}/translations/${qm_name}")
+    add_custom_command(
+      OUTPUT "${bundle_qm}"
+      COMMAND ${CMAKE_COMMAND} -E make_directory "${RESOURCES_FOLDER}/translations"
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different "${qm}" "${bundle_qm}"
+      DEPENDS "${qm}"
+      COMMENT "Copying Qt translation ${qm_name} to app bundle"
+      VERBATIM
+    )
+    list(APPEND QT_TRANSLATION_BUNDLE_QM "${bundle_qm}")
+  endforeach()
+
+  add_custom_target(desktop_bundle_translations ALL DEPENDS ${QT_TRANSLATION_BUNDLE_QM})
+  add_dependencies(${PROJECT_NAME} desktop_bundle_translations)
+endif()
 
 function(copy_resources)
   execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
@@ -133,6 +190,8 @@ copy_resources(
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/)
+install(DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations/"
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/data/translations)
 
 if (PLATFORM_LINUX)
   install(FILES ${OMIM_ROOT}/packaging/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
