@@ -6,6 +6,8 @@
 #include "drape/glyph_manager.hpp"
 #include "drape/harfbuzz_shaping.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "base/file_name_utils.hpp"
 
 #include "qt_tstfrm/test_main_loop.hpp"
@@ -591,6 +593,38 @@ UNIT_TEST(GlyphManager_GlyphReadinessTracking)
   mng.MarkGlyphReady(k1);
   mng.MarkGlyphReady(k2);
   TEST(mng.AreGlyphsReady(both), ("repeated marks are idempotent"));
+}
+
+// Pins the int8_t lang plumbing end-to-end: kUnsupportedLanguageCode must shape without
+// crashing (the lang<0 short-circuit in ToHarfbuzzLanguage), and the lang argument must
+// actually reach the OpenType `locl` lookup. The latter is verified against bundled Roboto,
+// which suppresses the "fi" ligature under Turkish to preserve the dotted-i: English/default
+// shapes "fi" as a single ligature glyph, Turkish shapes it as two glyphs (f + i). A regression
+// that dropped the lang argument would yield the same glyph stream for both inputs.
+UNIT_TEST(ShapeText_LangParameterPlumbing)
+{
+  auto mng = MakeGlyphManager();
+
+  auto const tr = StringUtf8Multilang::GetLangIndex("tr");
+  TEST_NOT_EQUAL(tr, StringUtf8Multilang::kUnsupportedLanguageCode, ());
+
+  // kUnsupportedLanguageCode must not crash and must produce the same glyph stream as a
+  // valid lang for plain ASCII without locl-sensitive sequences.
+  auto const noLang = mng.ShapeText("Hello", StringUtf8Multilang::kUnsupportedLanguageCode);
+  auto const en = mng.ShapeText("Hello", "en");
+  TEST(!noLang.m_glyphs.empty(), ());
+  TEST_EQUAL(noLang.m_glyphs.size(), en.m_glyphs.size(), ());
+  for (size_t i = 0; i < noLang.m_glyphs.size(); ++i)
+  {
+    TEST_EQUAL(noLang.m_glyphs[i].m_key.m_fontIndex, en.m_glyphs[i].m_key.m_fontIndex, (i));
+    TEST_EQUAL(noLang.m_glyphs[i].m_key.m_glyphId, en.m_glyphs[i].m_key.m_glyphId, (i));
+  }
+
+  // Turkish `locl` in Roboto blocks the fi ligature. English/default keeps it.
+  auto const fiEn = mng.ShapeText("fi", "en");
+  auto const fiTr = mng.ShapeText("fi", tr);
+  TEST_EQUAL(fiEn.m_glyphs.size(), 1, ("English keeps the fi ligature"));
+  TEST_EQUAL(fiTr.m_glyphs.size(), 2, ("Turkish must suppress the fi ligature"));
 }
 
 }  // namespace glyph_mng_tests
