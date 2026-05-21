@@ -57,6 +57,14 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
                               bool auxCaptionExists)
 {
+  if (auto const & info = f.GetID().m_mwmId.GetInfo())
+  {
+    LangsBufferT mwmLangs;
+    info->GetRegionData().GetLanguages(mwmLangs);
+    if (!mwmLangs.empty())
+      m_mwmRegionLang = mwmLangs.front();
+  }
+
   feature::NameParamsOut out;
   // TODO(pastk) : remove forced secondary text for all lines and set it via styles for major roads and rivers only.
   // ATM even minor paths/streams/etc use secondary which makes their pathtexts take much more space.
@@ -65,6 +73,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
     // Get both primary and secondary/aux names.
     f.GetPreferredNames(true /* allowTranslit */, deviceLang, out);
     m_auxText = out.secondary;
+    m_auxTextLang = out.secondaryLang;
   }
   else
   {
@@ -72,6 +81,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
     f.GetReadableName(true /* allowTranslit */, deviceLang, out);
   }
   m_mainText = out.GetPrimary();
+  m_mainTextLang = out.primaryLang;
   ASSERT(m_auxText.empty() || !m_mainText.empty(), ("auxText without mainText"));
 
   uint8_t constexpr kLongCaptionsMaxZoom = 4;
@@ -80,6 +90,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
   {
     m_mainText.clear();
     m_auxText.clear();
+    m_mainTextLang = m_auxTextLang = StringUtf8Multilang::kUnsupportedLanguageCode;
     return;
   }
 
@@ -98,7 +109,10 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
     // styles.
     m_houseNumberText = f.GetHouseNumber();
     if (!m_houseNumberText.empty() && !m_mainText.empty() && m_houseNumberText.find(m_mainText) != std::string::npos)
+    {
       m_mainText.clear();
+      m_mainTextLang = StringUtf8Multilang::kUnsupportedLanguageCode;
+    }
   }
 }
 
