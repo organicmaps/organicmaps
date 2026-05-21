@@ -247,10 +247,9 @@ void RelationTrackBuilder::ForEachMetadata(std::function<void(Metadata &&)> cons
 
   for (uint32_t const relID : ft->GetRelations())
   {
-    if (!sett.MatchHikingOrCycling(ft->ReadRelationType(relID)))
+    auto rel = ft->ReadRelation(relID);
+    if (!sett.MatchHikingOrCycling(rel.GetType()))
       continue;
-
-    auto const rel = ft->ReadRelation<feature::RouteRelationBase>(relID);
 
     Metadata info;
     info.m_relationId = {m_fid.m_mwmId, relID};
@@ -367,10 +366,7 @@ bool RelationTrackBuilder::TryAppendFromMwm(MwmSet::MwmId const & mwmId, uint32_
 std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t relID)
 {
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
-  auto ft = guard.GetFeatureByIndex(m_fid.m_index);
-  ASSERT(ft, ());
-
-  auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
+  auto const rel = guard.GetRelation(relID);
 
   df::TransitInfo info;
   info.m_color = rel.GetColor();
@@ -521,10 +517,8 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
 std::optional<df::SelectionInfo> RelationTrackBuilder::BuildSelectionInfo(uint32_t relID)
 {
   FeaturesLoaderGuard guard(m_dataSource, m_fid.m_mwmId);
-  auto ft = guard.GetFeatureByIndex(m_fid.m_index);
-  ASSERT(ft, ());
+  auto const rel = guard.GetRelation(relID);
 
-  auto const rel = ft->ReadRelation<feature::RouteRelation>(relID);
   auto members = LoadMemberGeometries(rel, guard, RelationID(m_fid.m_mwmId, relID));
   if (members.empty())
     return std::nullopt;
