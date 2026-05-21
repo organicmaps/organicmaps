@@ -24,6 +24,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -229,6 +230,20 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView distanceView = mTransitFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+
+    // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges).
+    mTransitFrame.setClickable(true);
+    mTransitFrame.setOnClickListener(v -> showTransitDetailsSheet());
+  }
+
+  private void showTransitDetailsSheet()
+  {
+    if (!(mContext instanceof FragmentActivity activity))
+      return;
+    if (activity.getSupportFragmentManager().findFragmentByTag(TransitDetailsBottomSheetFragment.TAG) != null)
+      return;
+    new TransitDetailsBottomSheetFragment().show(activity.getSupportFragmentManager(),
+                                                 TransitDetailsBottomSheetFragment.TAG);
   }
 
   @SuppressLint("SetTextI18n")
