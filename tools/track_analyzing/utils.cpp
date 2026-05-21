@@ -6,17 +6,17 @@
 
 #include "platform/platform.hpp"
 
-#include "base/file_name_utils.hpp"
+#include "coding/file_reader.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include <cstdint>
-
-using namespace routing;
-using namespace std;
+#include "base/file_name_utils.hpp"
 
 namespace track_analyzing
 {
+using namespace routing;
+using namespace std;
+
 double CalcSubtrackLength(MatchedTrack::const_iterator begin, MatchedTrack::const_iterator end, Geometry & geometry)
 {
   double length = 0.0;
