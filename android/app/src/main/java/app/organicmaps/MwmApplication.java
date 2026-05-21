@@ -41,6 +41,8 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
@@ -57,6 +59,9 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Nullable
   private WeakReference<Activity> mTopActivity;
+
+  @NonNull
+  private final Queue<String> mPendingRoutePointCallbacks = new ArrayDeque<>();
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -157,13 +162,25 @@ public class MwmApplication extends Application implements Application.ActivityL
     final Activity topActivity = getTopActivity();
     if (topActivity == null)
     {
-      Logger.w(TAG, "Route point callback is skipped because no activity is visible");
+      Logger.w(TAG, "Route point callback is queued because no activity is visible");
+      mPendingRoutePointCallbacks.add(callback);
       return;
     }
 
-    if (topActivity instanceof MwmActivity)
-      ((MwmActivity) topActivity).skipParsedBackUrlOnNextStop();
-    Utils.openUri(topActivity, Uri.parse(callback), null);
+    openRoutePointCallback(topActivity, callback);
+  }
+
+  private static void openRoutePointCallback(@NonNull Activity activity, @NonNull String callback)
+  {
+    final boolean launched = Utils.openUri(activity, Uri.parse(callback), null);
+    if (launched && activity instanceof MwmActivity)
+      ((MwmActivity) activity).skipParsedBackUrlOnNextStop();
+  }
+
+  private void flushPendingRoutePointCallbacks(@NonNull Activity activity)
+  {
+    while (!mPendingRoutePointCallbacks.isEmpty())
+      openRoutePointCallback(activity, mPendingRoutePointCallbacks.remove());
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
@@ -195,6 +212,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
     getSensorHelper().setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
     mTopActivity = new WeakReference<>(activity);
+    flushPendingRoutePointCallbacks(activity);
   }
 
   @Override

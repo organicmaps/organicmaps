@@ -139,6 +139,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteM
   // Last passed point will be considered as start point.
   data.m_pointType = RouteMarkType::Start;
   data.m_intermediateIndex = 0;
+  data.m_callback.clear();
   if (data.m_isMyPosition)
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
@@ -1125,6 +1126,15 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
 
   markData.m_isVisible = !markData.m_isMyPosition;
   routePoints.AddRoutePoint(std::move(markData));
+
+  if (reorderIntermediatePoints)
+    ReorderIntermediatePoints();
+}
+
+void RoutingManager::AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints)
+{
+  for (auto & routePoint : routePoints)
+    AddRoutePoint(std::move(routePoint), false /* reorderIntermediatePoints */);
 
   if (reorderIntermediatePoints)
     ReorderIntermediatePoints();

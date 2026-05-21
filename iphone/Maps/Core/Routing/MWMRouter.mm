@@ -27,11 +27,23 @@ using namespace routing;
 
 namespace
 {
+NSURL * RoutePointCallbackURL(NSString * callbackString)
+{
+  NSURL * url = [NSURL URLWithString:callbackString];
+  if (url)
+    return url;
+
+  NSMutableCharacterSet * allowed = [NSMutableCharacterSet alphanumericCharacterSet];
+  [allowed addCharactersInString:@"-._~:/?#[]@!$&'()*+,;=%"];
+  NSString * encoded = [callbackString stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+  return encoded ? [NSURL URLWithString:encoded] : nil;
+}
+
 void OpenRoutePointCallback(std::string const & callback)
 {
   NSString * callbackString = @(callback.c_str());
   dispatch_async(dispatch_get_main_queue(), ^{
-    NSURL * url = [NSURL URLWithString:callbackString];
+    NSURL * url = RoutePointCallbackURL(callbackString);
     if (!url)
       return;
 
