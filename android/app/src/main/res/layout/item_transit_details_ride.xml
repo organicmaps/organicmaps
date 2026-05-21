@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Spacing comes from each row's marginTop only (no item vertical padding) for an even rhythm. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
+
+  <TextView
+    android:id="@+id/board_at"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:textAppearance="?fontBody1"
+    android:textColor="?android:attr/textColorPrimary"
+    tools:text="Board at Sadovaya"/>
+
+  <LinearLayout
+    android:id="@+id/ride_summary_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_half"
+    android:background="?clickableBackground"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <app.organicmaps.routing.TransitStepView
+      android:id="@+id/line_badge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/routing_transit_step_min_height"
+      android:textSize="@dimen/text_size_body_1"
+      android:textColor="@android:color/white"
+      android:paddingStart="@dimen/margin_quarter"
+      android:paddingEnd="@dimen/margin_quarter"/>
+
+    <TextView
+      android:id="@+id/ride_subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_half_plus"
+      android:drawablePadding="@dimen/margin_eighth"
+      android:textAppearance="?fontBody2"
+      android:textColor="?secondary"
+      tools:text="4 stops · 8 min"
+      tools:drawableEnd="@drawable/ic_expand_more"/>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/intermediate_stops"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_half"
+    android:visibility="gone"
+    android:textAppearance="?fontBody2"
+    android:textColor="?secondary"
+    tools:visibility="visible"
+    tools:text="Frunzenskaya · Sportivnaya · Vorobyovy Gory"/>
+
+  <TextView
+    android:id="@+id/exit_at"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:textAppearance="?fontBody1"
+    android:textColor="?android:attr/textColorPrimary"
+    tools:text="Exit at Tekstilshiki"/>
+</LinearLayout>
