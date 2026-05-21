@@ -162,6 +162,8 @@ public:
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
+  std::string const & GetApiId() const { return m_apiId; }
+  bool HasApiId() const { return !m_apiId.empty(); }
   void SetApiUrl(std::string const & url) { m_apiUrl = url; }
   std::string const & GetApiUrl() const { return m_apiUrl; }
 
