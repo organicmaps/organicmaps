@@ -6,6 +6,7 @@
   android:id="@+id/transit_panel"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:foreground="?attr/selectableItemBackground"
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
   android:paddingBottom="@dimen/margin_half"
