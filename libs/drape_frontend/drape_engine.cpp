@@ -10,6 +10,9 @@
 
 #include "indexer/map_style_reader.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include <unordered_map>
@@ -35,6 +38,12 @@ DrapeEngine::DrapeEngine(Params && params)
   SetFontScaleFactor(params.m_fontsScaleFactor);
 
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
+
+  // DrapeGui is a process-wide singleton; call unconditionally so a recreated engine under an
+  // unsupported locale cannot inherit a previous engine's UI lang. GetLangIndex returns
+  // kUnsupportedLanguageCode for unknown locales, which short-circuits to HB_LANGUAGE_INVALID
+  // in the shaper -- no locl hint, same outcome as before for these cases.
+  gui::DrapeGui::Instance().SetUILang(StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()));
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();

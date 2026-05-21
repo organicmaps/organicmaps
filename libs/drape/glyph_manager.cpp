@@ -646,24 +646,26 @@ struct GlyphManager::Impl
   // hb_language_from_string (a string-keyed lookup in HB's global language table) on the
   // common path. HB language pointers are stable singletons so a value cached today is valid
   // forever. ShapeText is the only caller and is single-threaded by contract.
+  //
+  // Negative codes (e.g. kUnsupportedLanguageCode == -1) mean "no language hint" -- return
+  // HB_LANGUAGE_INVALID. We deliberately avoid hb_language_get_default() because it calls
+  // setlocale(LC_CTYPE, nullptr) on first use, which is not thread-safe and would pick up
+  // the OS locale (unrelated to map data).
   hb_language_t ToHarfbuzzLanguage(int8_t lang)
   {
-    auto const resolve = [](int8_t code) -> hb_language_t
-    {
-      auto const svLang = StringUtf8Multilang::GetLangByCode(code);
-      auto const hb = hb_language_from_string(svLang.data(), static_cast<int>(svLang.size()));
-      return hb == HB_LANGUAGE_INVALID ? hb_language_get_default() : hb;
-    };
-
-    // Out-of-range codes (e.g. kUnsupportedLanguageCode == -1) bypass the cache.
     if (lang < 0 || static_cast<size_t>(lang) >= m_languageCache.size())
-      return resolve(lang);
+      return HB_LANGUAGE_INVALID;
 
     auto const idx = static_cast<size_t>(lang);
     if (auto const cached = m_languageCache[idx]; cached != HB_LANGUAGE_INVALID)
       return cached;
 
-    auto const hb = resolve(lang);
+    auto const svLang = StringUtf8Multilang::GetLangByCode(lang);
+    auto const hb = hb_language_from_string(svLang.data(), static_cast<int>(svLang.size()));
+    // Reserved-slot codes return an empty svLang and hb_language_from_string yields
+    // HB_LANGUAGE_INVALID for them. The cache uses HB_LANGUAGE_INVALID as the "unset" sentinel
+    // (see the hit check above), so those rare codes re-resolve on every call -- acceptable
+    // because reserved slots are never produced by the name selectors that drive this path.
     m_languageCache[idx] = hb;
     return hb;
   }

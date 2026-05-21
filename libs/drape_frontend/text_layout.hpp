@@ -49,7 +49,7 @@ class StraightTextLayout : public TextLayout
 
 public:
   StraightTextLayout(std::string_view text, float fontSize, ref_ptr<dp::TextureManager> textures, dp::Anchor anchor,
-                     bool forceNoWrap);
+                     bool forceNoWrap, int8_t lang);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            gpu::TTextStaticVertexBuffer & staticBuffer) const;
@@ -96,7 +96,7 @@ class PathTextLayout : public TextLayout
 
 public:
   PathTextLayout(m2::PointD const & tileCenter, std::string const & text, float fontSize,
-                 ref_ptr<dp::TextureManager> textures);
+                 ref_ptr<dp::TextureManager> textures, int8_t lang);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            dp::TextureManager::ColorRegion const & outlineRegion,
