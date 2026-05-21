@@ -11,6 +11,8 @@
 #include "geometry/point2d.hpp"
 
 #include <algorithm>
+#include <unordered_set>
+#include <utility>
 
 namespace routing
 {
@@ -78,6 +80,28 @@ void RouteBase::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 double RouteBase::GetTotalTimeSec() const
 {
   return m_routeSegments.empty() ? 0.0 : m_routeSegments.back().GetTimeFromBeginningSec();
+}
+
+bool RouteBase::IsGoodAlt(std::vector<RouteSegment> const & origin) const
+{
+  // (mwmId, featureId) pairs of the origin route.
+  std::unordered_set<uint64_t> originFeatures;
+  originFeatures.reserve(origin.size());
+  auto const key = [](RouteSegment const & s)
+  {
+    auto const & seg = s.GetSegment();
+    return (static_cast<uint64_t>(seg.GetMwmId()) << 32) | seg.GetFeatureId();
+  };
+
+  for (auto const & s : origin)
+    if (s.GetSegment().IsRealSegment())
+      originFeatures.insert(key(s));
+
+  for (auto const & s : m_routeSegments)
+    if (s.GetSegment().IsRealSegment() && originFeatures.find(key(s)) == originFeatures.end())
+      return true;
+
+  return false;
 }
 
 m2::RectD RouteBase::GetLimitRect() const
