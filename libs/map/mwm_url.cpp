@@ -191,6 +191,7 @@ std::vector<std::string> SplitRouteListWithEncodedSeparators(std::string_view va
 template <typename FnT>
 void ForEachRawParam(std::string_view rawUrl, FnT && fn)
 {
+  // Keep values raw here so route-list parsers can distinguish real separators from encoded content.
   size_t start = rawUrl.find_first_of("?#");
   if (start == std::string_view::npos)
     return;
