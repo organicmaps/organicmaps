@@ -98,6 +98,10 @@ class TrackColorPickerFragment : BottomSheetDialogFragment() {
 
         updateLayoutForOrientation(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {

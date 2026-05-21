@@ -97,34 +97,33 @@ class RoundSlider @JvmOverloads constructor(context: Context, attrs: AttributeSe
         canvas.drawCircle(thumbX, thumbY, thumbRadius, thumbStrokePaint)
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-                isTracking = true
-                parent?.requestDisallowInterceptTouchEvent(true)
-                updateFromTouch(event.x)
-                return true
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-                updateFromTouch(event.x)
-                return true
-            }
-
-            MotionEvent.ACTION_UP -> {
-                isTracking = false
-                performClick()
-                parent?.requestDisallowInterceptTouchEvent(false)
-                return true
-            }
-
-            MotionEvent.ACTION_CANCEL -> {
-                isTracking = false
-                parent?.requestDisallowInterceptTouchEvent(false)
-                return true
-            }
+    override fun onTouchEvent(event: MotionEvent): Boolean = when (event.actionMasked) {
+        MotionEvent.ACTION_DOWN -> {
+            isTracking = true
+            parent?.requestDisallowInterceptTouchEvent(true)
+            updateFromTouch(event.x)
+            true
         }
-        return super.onTouchEvent(event)
+
+        MotionEvent.ACTION_MOVE -> {
+            updateFromTouch(event.x)
+            true
+        }
+
+        MotionEvent.ACTION_UP -> {
+            isTracking = false
+            performClick()
+            parent?.requestDisallowInterceptTouchEvent(false)
+            true
+        }
+
+        MotionEvent.ACTION_CANCEL -> {
+            isTracking = false
+            parent?.requestDisallowInterceptTouchEvent(false)
+            true
+        }
+
+        else -> super.onTouchEvent(event)
     }
 
     private fun updateFromTouch(x: Float) {

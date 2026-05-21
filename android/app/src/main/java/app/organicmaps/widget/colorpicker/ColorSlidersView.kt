@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -15,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
+import androidx.core.widget.doAfterTextChanged
 import app.organicmaps.R
 import app.organicmaps.util.ThemeUtils
 
@@ -81,8 +81,11 @@ class ColorSlidersView @JvmOverloads constructor(
         blueSlider.onValueChangedListener = sliderListener
     }
 
+    private fun isUserAdjusting() =
+        redSlider.isTracking || greenSlider.isTracking || blueSlider.isTracking || isEditingHex
+
     fun setColor(@ColorInt color: Int) {
-        if (redSlider.isTracking || greenSlider.isTracking || blueSlider.isTracking || isEditingHex) return
+        if (isUserAdjusting()) return
         val r = Color.red(color)
         val g = Color.green(color)
         val b = Color.blue(color)
@@ -247,30 +250,24 @@ class ColorSlidersView @JvmOverloads constructor(
                 topMargin = resources.getDimensionPixelSize(R.dimen.color_picker_hex_row_margin_top)
             },
         )
-        input.addTextChangedListener(
-            object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable?) {
-                    if (updatingFromCode) return
-                    val hex = s?.toString() ?: return
-                    if (hex.length != 6) return
-                    val parsed = hex.toLongOrNull(16) ?: return
-                    isEditingHex = true
-                    try {
-                        red = ((parsed shr 16) and 0xFF).toInt()
-                        green = ((parsed shr 8) and 0xFF).toInt()
-                        blue = (parsed and 0xFF).toInt()
-                        updateUI(updateSliders = true)
-                        onColorChangedListener?.onColorChanged(getColor())
-                    } finally {
-                        isEditingHex = false
-                    }
-                }
-            },
-        )
+        input.doAfterTextChanged(::applyHexInput)
 
         return input to row
+    }
+
+    private fun applyHexInput(editable: Editable?) {
+        if (updatingFromCode) return
+        val parsed = editable?.toString()?.takeIf { it.length == 6 }?.toLongOrNull(16) ?: return
+        isEditingHex = true
+        try {
+            red = ((parsed shr 16) and 0xFF).toInt()
+            green = ((parsed shr 8) and 0xFF).toInt()
+            blue = (parsed and 0xFF).toInt()
+            updateUI(updateSliders = true)
+            onColorChangedListener?.onColorChanged(getColor())
+        } finally {
+            isEditingHex = false
+        }
     }
 
     private enum class Channel(@StringRes val labelRes: Int) {

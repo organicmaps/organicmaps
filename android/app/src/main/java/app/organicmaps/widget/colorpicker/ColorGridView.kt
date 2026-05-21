@@ -119,34 +119,33 @@ class ColorGridView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-                isTracking = true
-                parent?.requestDisallowInterceptTouchEvent(true)
-                selectFromTouch(event.x, event.y)
-                return true
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-                selectFromTouch(event.x, event.y)
-                return true
-            }
-
-            MotionEvent.ACTION_UP -> {
-                isTracking = false
-                performClick()
-                parent?.requestDisallowInterceptTouchEvent(false)
-                return true
-            }
-
-            MotionEvent.ACTION_CANCEL -> {
-                isTracking = false
-                parent?.requestDisallowInterceptTouchEvent(false)
-                return true
-            }
+    override fun onTouchEvent(event: MotionEvent): Boolean = when (event.actionMasked) {
+        MotionEvent.ACTION_DOWN -> {
+            isTracking = true
+            parent?.requestDisallowInterceptTouchEvent(true)
+            selectFromTouch(event.x, event.y)
+            true
         }
-        return super.onTouchEvent(event)
+
+        MotionEvent.ACTION_MOVE -> {
+            selectFromTouch(event.x, event.y)
+            true
+        }
+
+        MotionEvent.ACTION_UP -> {
+            isTracking = false
+            performClick()
+            parent?.requestDisallowInterceptTouchEvent(false)
+            true
+        }
+
+        MotionEvent.ACTION_CANCEL -> {
+            isTracking = false
+            parent?.requestDisallowInterceptTouchEvent(false)
+            true
+        }
+
+        else -> super.onTouchEvent(event)
     }
 
     private fun selectFromTouch(x: Float, y: Float) {

@@ -164,35 +164,34 @@ class SpectrumColorView @JvmOverloads constructor(
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-                isTracking = true
-                parent?.requestDisallowInterceptTouchEvent(true)
-                updateFromTouch(event.x, event.y)
-                return true
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-                updateFromTouch(event.x, event.y)
-                return true
-            }
-
-            MotionEvent.ACTION_UP -> {
-                updateFromTouch(event.x, event.y)
-                isTracking = false
-                performClick()
-                parent?.requestDisallowInterceptTouchEvent(false)
-                return true
-            }
-
-            MotionEvent.ACTION_CANCEL -> {
-                isTracking = false
-                parent?.requestDisallowInterceptTouchEvent(false)
-                return true
-            }
+    override fun onTouchEvent(event: MotionEvent): Boolean = when (event.actionMasked) {
+        MotionEvent.ACTION_DOWN -> {
+            isTracking = true
+            parent?.requestDisallowInterceptTouchEvent(true)
+            updateFromTouch(event.x, event.y)
+            true
         }
-        return super.onTouchEvent(event)
+
+        MotionEvent.ACTION_MOVE -> {
+            updateFromTouch(event.x, event.y)
+            true
+        }
+
+        MotionEvent.ACTION_UP -> {
+            updateFromTouch(event.x, event.y)
+            isTracking = false
+            performClick()
+            parent?.requestDisallowInterceptTouchEvent(false)
+            true
+        }
+
+        MotionEvent.ACTION_CANCEL -> {
+            isTracking = false
+            parent?.requestDisallowInterceptTouchEvent(false)
+            true
+        }
+
+        else -> super.onTouchEvent(event)
     }
 
     private fun updateFromTouch(x: Float, y: Float) {
