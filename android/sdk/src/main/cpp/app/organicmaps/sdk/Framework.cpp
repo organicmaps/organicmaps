@@ -1411,6 +1411,54 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * e
   frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeAddRoutePoints(
+    JNIEnv * env, jclass, jobjectArray titles, jobjectArray subtitles, jobjectArray callbacks, jintArray pointTypes,
+    jintArray intermediateIndices, jbooleanArray isMyPositions, jdoubleArray lats, jdoubleArray lons,
+    jboolean reorderIntermediatePoints)
+{
+  jsize const size = env->GetArrayLength(titles);
+  CHECK_EQUAL(size, env->GetArrayLength(subtitles), ());
+  CHECK_EQUAL(size, env->GetArrayLength(callbacks), ());
+  CHECK_EQUAL(size, env->GetArrayLength(pointTypes), ());
+  CHECK_EQUAL(size, env->GetArrayLength(intermediateIndices), ());
+  CHECK_EQUAL(size, env->GetArrayLength(isMyPositions), ());
+  CHECK_EQUAL(size, env->GetArrayLength(lats), ());
+  CHECK_EQUAL(size, env->GetArrayLength(lons), ());
+
+  jint * rawPointTypes = env->GetIntArrayElements(pointTypes, nullptr);
+  jint * rawIntermediateIndices = env->GetIntArrayElements(intermediateIndices, nullptr);
+  jboolean * rawIsMyPositions = env->GetBooleanArrayElements(isMyPositions, nullptr);
+  jdouble * rawLats = env->GetDoubleArrayElements(lats, nullptr);
+  jdouble * rawLons = env->GetDoubleArrayElements(lons, nullptr);
+
+  std::vector<RouteMarkData> routePoints;
+  routePoints.reserve(size);
+  for (jsize i = 0; i < size; ++i)
+  {
+    RouteMarkData data;
+    jni::TScopedLocalRef const title(env, env->GetObjectArrayElement(titles, i));
+    jni::TScopedLocalRef const subtitle(env, env->GetObjectArrayElement(subtitles, i));
+    jni::TScopedLocalRef const callback(env, env->GetObjectArrayElement(callbacks, i));
+    data.m_title = title.get() == nullptr ? "" : jni::ToNativeString(env, static_cast<jstring>(title.get()));
+    data.m_subTitle = subtitle.get() == nullptr ? "" : jni::ToNativeString(env, static_cast<jstring>(subtitle.get()));
+    data.m_callback = callback.get() == nullptr ? "" : jni::ToNativeString(env, static_cast<jstring>(callback.get()));
+    data.m_pointType = static_cast<RouteMarkType>(rawPointTypes[i]);
+    data.m_intermediateIndex = static_cast<size_t>(rawIntermediateIndices[i]);
+    data.m_isMyPosition = static_cast<bool>(rawIsMyPositions[i]);
+    data.m_position = m2::PointD(mercator::FromLatLon(rawLats[i], rawLons[i]));
+
+    routePoints.push_back(std::move(data));
+  }
+
+  env->ReleaseIntArrayElements(pointTypes, rawPointTypes, JNI_ABORT);
+  env->ReleaseIntArrayElements(intermediateIndices, rawIntermediateIndices, JNI_ABORT);
+  env->ReleaseBooleanArrayElements(isMyPositions, rawIsMyPositions, JNI_ABORT);
+  env->ReleaseDoubleArrayElements(lats, rawLats, JNI_ABORT);
+  env->ReleaseDoubleArrayElements(lons, rawLons, JNI_ABORT);
+
+  frm()->GetRoutingManager().AddRoutePoints(std::move(routePoints), reorderIntermediatePoints);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoutePoints();
