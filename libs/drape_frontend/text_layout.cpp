@@ -279,7 +279,7 @@ dp::TGlyphs TextLayout::GetGlyphs() const
 }
 
 StraightTextLayout::StraightTextLayout(std::string_view text, float fontSize, ref_ptr<dp::TextureManager> textures,
-                                       dp::Anchor anchor, bool forceNoWrap)
+                                       dp::Anchor anchor, bool forceNoWrap, int8_t lang)
 {
   /// @todo Support multiline texts (e.g. in Bookmarks).
   auto iBreak = text.find_first_of("\r\n");
@@ -287,7 +287,7 @@ StraightTextLayout::StraightTextLayout(std::string_view text, float fontSize, re
     text = text.substr(0, iBreak);
 
   m_textSizeRatio = fontSize * static_cast<float>(VisualParams::Instance().GetFontScale()) / dp::kBaseFontSizePixels;
-  m_shapedGlyphs = textures->ShapeSingleTextLine(text, &m_glyphRegions);
+  m_shapedGlyphs = textures->ShapeSingleTextLine(text, lang, &m_glyphRegions);
 
   // TODO(AB): Use ICU's BreakIterator to split text properly in different languages without spaces.
   // TODO(AB): Implement SplitText for RTL languages.
@@ -378,7 +378,7 @@ void StraightTextLayout::CacheDynamicGeometry(glsl::vec2 const & pixelOffset,
 }
 
 PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, std::string const & text, float fontSize,
-                               ref_ptr<dp::TextureManager> textureManager)
+                               ref_ptr<dp::TextureManager> textureManager, int8_t lang)
   : m_tileCenter(tileCenter)
 {
   ASSERT_EQUAL(std::string::npos, text.find('\n'), ("Multiline text is not expected", text));
@@ -387,7 +387,7 @@ PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, std::string const 
   m_textSizeRatio = fontSize * fontScale / dp::kBaseFontSizePixels;
 
   // TODO(AB): StraightTextLayout used a logic to split a longer string into two strings.
-  m_shapedGlyphs = textureManager->ShapeSingleTextLine(text, &m_glyphRegions);
+  m_shapedGlyphs = textureManager->ShapeSingleTextLine(text, lang, &m_glyphRegions);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,

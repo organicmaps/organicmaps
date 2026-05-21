@@ -110,6 +110,10 @@ struct PathTextViewParams : CommonOverlayViewParams
   std::string m_mainText;
   std::string m_auxText;
   double m_baseGtoPScale = 1.0;
+  // StringUtf8Multilang code of m_mainText for HarfBuzz `locl` shaping. The concatenated
+  // "main + aux" path-text is shaped under this single tag (aux is the minority case and
+  // typically shares main's script). kUnsupportedLanguageCode means "no locl hint".
+  int8_t m_lang = StringUtf8Multilang::kUnsupportedLanguageCode;
 
   std::string ConcatRenderText() const
   {
