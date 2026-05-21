@@ -209,6 +209,7 @@ public:
 
   Callbacks & GetCallbacksForTests() { return m_callbacks; }
   static std::vector<RouteMarkData> DeserializeRoutePointsForTesting(std::string const & data);
+  std::vector<RouteMarkData> GetRoutePointsToSaveForTesting() const { return GetRoutePointsToSave(); }
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
@@ -230,6 +231,7 @@ public:
   /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without
   /// both endpoints.
   bool OptimizeRoutePoints();
+  void AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints = true);
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   void SetRoutePointCallback(RoutePointCallback && callback);

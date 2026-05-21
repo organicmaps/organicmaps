@@ -227,8 +227,9 @@ public class Utils
    * @param context the app context
    * @param uri the URI to open.
    * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
+   * @return true if the URI launch was handed to Android.
    */
-  public static void openUri(@NonNull Context context, @NonNull Uri uri, @Nullable Integer failMessage)
+  public static boolean openUri(@NonNull Context context, @NonNull Uri uri, @Nullable Integer failMessage)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
@@ -238,12 +239,14 @@ public class Utils
     try
     {
       context.startActivity(intent);
+      return true;
     }
     catch (ActivityNotFoundException | SecurityException e)
     {
       if (failMessage != null)
         Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
       Logger.w(TAG, "Failed to open URI", e);
+      return false;
     }
   }
 

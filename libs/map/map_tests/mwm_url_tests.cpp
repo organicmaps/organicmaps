@@ -121,6 +121,19 @@ UNIT_TEST(RouteApiV2RejectsTooManyWaypoints)
   TEST_EQUAL(test.GetRequestType(), UrlType::Incorrect, ());
 }
 
+UNIT_TEST(RouteApiV2IgnoresFragmentParameters)
+{
+  ParsedMapApi test("om://v2/dir?destination=1,1#destination=2,2&mode=walking&origin=3,3");
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 2, ());
+  TEST(test.GetRoutePoints()[0].m_isMyPosition, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_org, mercator::FromLatLon(1, 1), ());
+  TEST_EQUAL(test.GetRoutingType(), "vehicle", ());
+
+  ParsedMapApi fragmentOnly("om://v2/dir#destination=1,1");
+  TEST_EQUAL(fragmentOnly.GetRequestType(), UrlType::Incorrect, ());
+}
+
 UNIT_TEST(RouteApiV2NavigationUsesCurrentPositionByDefault)
 {
   string const urlString =
@@ -230,6 +243,24 @@ UNIT_TEST(RouteApiV2CallbacksAndBikeMode)
   TEST_EQUAL(test.GetGlobalBackUrl(), "app://back", ());
 }
 
+UNIT_TEST(RouteApiV2EscapesInvalidPercentsInCallbacks)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&origin_callback=app%3A%2F%2Forigin%3Fprogress%3D100%25"
+      "&destination=4,4&destination_callback=app%3A%2F%2Ffinish%3Ftoken%3Dab%252Fcd"
+      "&waypoints=2,2|3,3&waypoint_callbacks=app%3A%2F%2Fstop%3Fprogress%3D50%25|app%3A%2F%2Fnext%3Ftoken%3Dab%252Fcd"
+      "&callback=app%3A%2F%2Fback%3Fprogress%3D100%25";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(test.GetRoutePoints()[0].m_callback, "app://origin?progress=100%25", ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://stop?progress=50%25", ());
+  TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next?token=ab%2Fcd", ());
+  TEST_EQUAL(test.GetRoutePoints()[3].m_callback, "app://finish?token=ab%2Fcd", ());
+  TEST_EQUAL(test.GetGlobalBackUrl(), "app://back?progress=100%25", ());
+}
+
 UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
 {
   string const urlString =
@@ -309,6 +340,22 @@ UNIT_TEST(RouteApiV2AcceptsGoogleMapsDirectionAliases)
   ParsedMapApi walking("om://v2/dir?destination=2,2&mode=walking");
   TEST_EQUAL(walking.GetRequestType(), UrlType::Route, ());
   TEST_EQUAL(walking.GetRoutingType(), "pedestrian", ());
+
+  ParsedMapApi transit("om://v2/dir?destination=2,2&mode=transit");
+  TEST_EQUAL(transit.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(transit.GetRoutingType(), "transit", ());
+
+  ParsedMapApi travelmodeDriving("om://v2/dir?destination=2,2&travelmode=driving");
+  TEST_EQUAL(travelmodeDriving.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(travelmodeDriving.GetRoutingType(), "vehicle", ());
+
+  ParsedMapApi travelmodeWalking("om://v2/dir?destination=2,2&travelmode=walking");
+  TEST_EQUAL(travelmodeWalking.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(travelmodeWalking.GetRoutingType(), "pedestrian", ());
+
+  ParsedMapApi travelmodeTransit("om://v2/dir?destination=2,2&travelmode=transit");
+  TEST_EQUAL(travelmodeTransit.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(travelmodeTransit.GetRoutingType(), "transit", ());
 }
 
 UNIT_TEST(RouteApiV2HandlesMixedSignsAndAnyParameterOrder)
