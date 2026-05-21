@@ -1,5 +1,6 @@
 #include "coding/files_container.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
@@ -68,6 +69,14 @@ FilesContainerR::TReader FilesContainerR::GetReader(Tag const & tag) const
   TagInfo const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", GetFileName(), tag));
+  return m_source.SubReader(p->m_offset, p->m_size);
+}
+
+FilesContainerR::TReader FilesContainerR::GetReaderSafe(Tag const & tag) const
+{
+  TagInfo const * p = GetInfo(tag);
+  if (!p)
+    return {};
   return m_source.SubReader(p->m_offset, p->m_size);
 }
 

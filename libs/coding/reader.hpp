@@ -105,6 +105,7 @@ protected:
   std::shared_ptr<TReader> m_p;
 
 public:
+  ReaderPtr() = default;
   template <typename TReaderDerived>
   ReaderPtr(std::unique_ptr<TReaderDerived> p) : m_p(std::move(p))
   {}
@@ -140,6 +141,7 @@ class ModelReaderPtr : public ReaderPtr<ModelReader>
   using TBase = ReaderPtr<ModelReader>;
 
 public:
+  ModelReaderPtr() = default;
   template <typename TReaderDerived>
   ModelReaderPtr(std::unique_ptr<TReaderDerived> p) : TBase(std::move(p))
   {}

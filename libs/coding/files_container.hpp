@@ -1,10 +1,7 @@
 #pragma once
 
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
-
-#include "base/assert.hpp"
-#include "base/macros.hpp"
+#include "coding/reader.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -96,6 +93,8 @@ public:
   explicit FilesContainerR(TReader const & file);
 
   TReader GetReader(Tag const & tag) const;
+  TReader GetReaderSafe(Tag const & tag) const;
+
   std::unique_ptr<MemoryRegion> GetMemoryRegion(Tag const & tag) const;
 
   template <typename F>
