@@ -238,6 +238,12 @@ public class Framework
                                                 boolean isMyPosition, double lat, double lon,
                                                 boolean reorderIntermediatePoints);
 
+  public static native void nativeAddRoutePoints(@NonNull String[] titles, @NonNull String[] subtitles,
+                                                 @NonNull String[] callbacks, @NonNull int[] pointTypes,
+                                                 @NonNull int[] intermediateIndices, @NonNull boolean[] isMyPositions,
+                                                 @NonNull double[] lats, @NonNull double[] lons,
+                                                 boolean reorderIntermediatePoints);
+
   public static native void nativeRemoveRoutePoints();
 
   public static native void nativeRemoveRoutePoint(@NonNull RouteMarkType markType, int intermediateIndex);
