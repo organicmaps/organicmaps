@@ -24,6 +24,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -288,7 +289,24 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+
+    // Tapping the summary strip reveals the per-leg breakdown (board/exit stops + line badges).
+    mTransitTime.setForeground(
+        ContextCompat.getDrawable(
+            mContext, UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.selectableItemBackground)));
+    mTransitTime.setClickable(true);
+    mTransitTime.setOnClickListener(v -> showTransitDetailsSheet());
     notifyVisibilityChanged();
+  }
+
+  private void showTransitDetailsSheet()
+  {
+    if (!(mContext instanceof FragmentActivity activity))
+      return;
+    if (activity.getSupportFragmentManager().findFragmentByTag(TransitDetailsBottomSheetFragment.TAG) != null)
+      return;
+    new TransitDetailsBottomSheetFragment().show(activity.getSupportFragmentManager(),
+                                                 TransitDetailsBottomSheetFragment.TAG);
   }
 
   @SuppressLint("SetTextI18n")
@@ -298,6 +316,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     updateSaveButton();
     UiUtils.hide(mError, mActionFrame, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
     showStartButton(false);
+    mTransitTime.setOnClickListener(null);
+    mTransitTime.setClickable(false);
+    mTransitTime.setForeground(null);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
     if (points.length > 2)
