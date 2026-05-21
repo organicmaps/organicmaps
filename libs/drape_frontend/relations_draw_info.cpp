@@ -25,19 +25,20 @@ dp::Color constexpr kDefaultRouteColor{128, 0, 128};  // purple
 bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
 {
   for (uint32_t relID : ft.GetRelations())
-    if (m_sett.MatchHikingOrCycling(ft.ReadRelationType(relID)))
+    if (m_sett.MatchHikingOrCycling(ft.ReadRelation(relID).GetType()))
       return true;
   return false;
 }
 
 void RelationsDrawInfo::Init(FeatureType & ft)
 {
-  using RR = feature::RouteRelationBase;
+  if (m_sett.IsEmpty())
+    return;
 
   buffer_vector<std::pair<std::string, int>, 4> refs;
   for (uint32_t relID : ft.GetRelations())
   {
-    auto const rel = ft.ReadRelation<RR>(relID);
+    auto rel = ft.ReadRelation(relID);
     if (m_sett.MatchHikingOrCycling(rel.GetType()) || (m_sett.PT && rel.IsPTRoute()))
     {
       auto clr = rel.GetColor();
@@ -62,7 +63,7 @@ void RelationsDrawInfo::Init(FeatureType & ft)
 
     if (m_sett.PT)
     {
-      auto const & r = rel.GetRef();
+      auto const & r = rel.GetRel().GetRef();
       if (!r.empty())
       {
         // Get prefix integer value to sort by.
