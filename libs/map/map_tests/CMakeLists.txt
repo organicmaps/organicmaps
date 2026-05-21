@@ -2,6 +2,7 @@ project(map_tests)
 
 set(SRC
   address_tests.cpp
+  api_mark_tests.cpp
   bookmarks_test.cpp
   chart_generator_tests.cpp
   check_mwms.cpp
