@@ -15,7 +15,10 @@ SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & 
   , m_header(header)
   , m_relTable(relTable)
   , m_metaDeserializer(metaDeserializer)
-{}
+{
+  if (m_relTable)
+    m_relsReader = m_cont.GetReader(RELATIONS_FILE_TAG);
+}
 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
 {
@@ -32,33 +35,24 @@ SharedLoadInfo::Reader SharedLoadInfo::GetTrianglesReader(size_t ind) const
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
 }
 
-template <class RelT>
-RelT SharedLoadInfo::ReadRelation(uint32_t id) const
+RelationReader SharedLoadInfo::ReadRelation(uint32_t id) const
 {
-  auto reader = m_cont.GetReader(RELATIONS_FILE_TAG);
-  ReaderSource src(reader);
-  src.Skip(m_relTable->GetFeatureOffset(id));
-
-  RelT res;
-
-  if constexpr (std::is_same_v<RelT, RouteRelation>)
-    if (m_version < DatSectionHeader::Version::V2)
-    {
-      res.RouteRelationBase::Read(src);
-      return res;
-    }
-
-  res.Read(src);
-  return res;
+  ASSERT(m_relsReader, ());
+  return feature::RelationReader(*m_relsReader, m_relTable->GetFeatureOffset(id));
 }
 
-template RouteRelationType SharedLoadInfo::ReadRelation<RouteRelationType>(uint32_t id) const;
-template RouteRelationBase SharedLoadInfo::ReadRelation<RouteRelationBase>(uint32_t id) const;
-template RouteRelation SharedLoadInfo::ReadRelation<RouteRelation>(uint32_t id) const;
-
-RouteRelation SharedLoadInfo::GetRelation(uint32_t index) const
+RouteRelation SharedLoadInfo::GetRelation(uint32_t id) const
 {
-  return ReadRelation<RouteRelation>(index);
+  ASSERT(m_relsReader, ());
+  ReaderSource src(*m_relsReader);
+  src.Skip(m_relTable->GetFeatureOffset(id));
+
+  RouteRelation res;
+  if (m_version < DatSectionHeader::Version::V2)
+    res.RouteRelationBase::Read(src);
+  else
+    res.Read(src);
+  return res;
 }
 
 }  // namespace feature
