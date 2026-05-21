@@ -239,11 +239,11 @@ public class Utils
     {
       context.startActivity(intent);
     }
-    catch (ActivityNotFoundException e)
+    catch (ActivityNotFoundException | SecurityException e)
     {
       if (failMessage != null)
         Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
-      Logger.e(TAG, "ActivityNotFoundException", e);
+      Logger.e(TAG, "Failed to open URI", e);
     }
   }
 
