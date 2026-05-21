@@ -383,8 +383,12 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   if (code == RouterResultCode::NoError || code == RouterResultCode::HasWarnings)
   {
+    // Evaluate the alt vs. the original BEFORE moving |route| into |result| — MakeFrom would
+    // strand any reference into route.m_routeSegments. Reject duplicates that share every feature.
+    bool const keepAlt = (altCode == RouterResultCode::NoError || altCode == RouterResultCode::HasWarnings) &&
+                         altRoute.IsValid() && altRoute.IsGoodAlt(route.GetRouteSegments());
     result.MakeFrom(GetName(), std::move(route));
-    if ((altCode == RouterResultCode::NoError || altCode == RouterResultCode::HasWarnings) && altRoute.IsValid())
+    if (keepAlt)
       result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(altRoute)));
   }
 

@@ -287,6 +287,10 @@ public:
   // A route is "valid" (for display purposes) when it has at least one segment and a starting subroute.
   bool IsValid() const { return !m_routeSegments.empty() && !m_subrouteAttrs.empty(); }
 
+  /// \returns true if |this| route has at least one segment whose (mwmId, featureId) is not present
+  /// in |origin|. Used to reject an alternative route that fully overlaps the original by feature.
+  bool IsGoodAlt(std::vector<RouteSegment> const & origin) const;
+
   double GetTotalTimeSec() const;
 
   /// \brief Mercator bounding rect of the route's points, derived from segments + first subroute start.
