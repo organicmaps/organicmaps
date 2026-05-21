@@ -105,9 +105,9 @@ void Info::SetFromFeatureType(FeatureType & ft)
 
   for (uint32_t id : ft.GetRelations())
   {
-    auto const rel = ft.ReadRelation<feature::RouteRelationBase>(id);
+    auto rel = ft.ReadRelation(id);
     if (rel.IsPTRoute())
-      m_routes.emplace_back(id, rel);
+      m_routes.emplace_back(id, rel.GetRel());
   }
 
   base::SortUnique(m_routes, [](RouteRef const & l, RouteRef const & r)
