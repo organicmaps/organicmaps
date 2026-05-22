@@ -43459,6 +43459,31 @@ en = Auth failed: invalid login or password
 tags = qt
 en = Auth failed: %@
 
+[desktop_place_page]
+comment = Place page dialog window title
+tags = qt
+en = Place Page
+
+[desktop_place_page_bookmarked]
+comment = Place page dialog window title when the place is a bookmark
+tags = qt
+en = Place Page (bookmarked)
+
+[desktop_place_routes]
+comment = Place page row label listing public transit routes serving this stop
+tags = qt
+en = Routes
+
+[desktop_place_opening_hours]
+comment = Place page row label showing business hours
+tags = qt
+en = Opening hours
+
+[desktop_place_coordinates]
+comment = Place page row label showing latitude and longitude
+tags = qt
+en = Coordinates
+
 [[3d touch strings]]
 
 [route]

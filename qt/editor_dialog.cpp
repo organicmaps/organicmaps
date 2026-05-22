@@ -1,5 +1,7 @@
 #include "qt/editor_dialog.hpp"
 
+#include "qt/qt_common/translations.hpp"
+
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature_utils.hpp"
 
@@ -50,7 +52,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
   // Names.
   if (emo.IsNameEditable())
   {
-    grid->addWidget(new QLabel(QString("Name:")), row, 0);
+    grid->addWidget(new QLabel(qt::Tr("name") + ":"), row, 0);
 
     QGridLayout * namesGrid = new QGridLayout();
     int namesRow = 0;
@@ -142,7 +144,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDi
     connect(buttonBox, &QDialogButtonBox::accepted, this, &EditorDialog::OnSave);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     // Delete button should send custom int return value from dialog.
-    QPushButton * deletePOIButton = new QPushButton("Delete POI");
+    QPushButton * deletePOIButton = new QPushButton(qt::Tr("editor_remove_place_button"));
     QSignalMapper * signalMapper = new QSignalMapper();
     connect(deletePOIButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
     signalMapper->setMapping(deletePOIButton, QDialogButtonBox::DestructiveRole);
