@@ -34,6 +34,7 @@
         <file>guides.png</file>
         <file>settings-routing.png</file>
         <file>borders_selection.png</file>
+        <file>hamburger.png</file>
     </qresource>
     <qresource prefix="/ui">
         <file>logo.png</file>

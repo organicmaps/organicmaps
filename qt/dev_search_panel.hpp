@@ -21,7 +21,7 @@ namespace qt
 {
 class DrawWidget;
 
-class SearchPanel : public QWidget
+class DevSearchPanel : public QWidget
 {
   DrawWidget * m_pDrawWidget;
   QTableWidget * m_pTable;
@@ -43,7 +43,7 @@ class SearchPanel : public QWidget
   Q_OBJECT
 
 public:
-  SearchPanel(DrawWidget * drawWidget, QWidget * parent);
+  DevSearchPanel(DrawWidget * drawWidget, QWidget * parent);
 
   static std::string GetCurrentInputLocale();
 
