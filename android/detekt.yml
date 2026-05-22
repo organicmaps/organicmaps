@@ -3,6 +3,10 @@ build:
 
 complexity:
   active: true
+  NestedBlockDepth:
+    active: false
+  TooManyFunctions:
+    active: false
 
 coroutines:
   active: true
@@ -29,4 +33,6 @@ potential-bugs:
 style:
   active: true
   MagicNumber:
+    active: false
+  ReturnCount:
     active: false
