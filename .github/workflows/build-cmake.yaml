@@ -107,6 +107,7 @@ jobs:
               libxrandr-dev \
               ninja-build \
               qt6-base-dev \
+              qt6-l10n-tools \
               qt6-positioning-dev \
 
       - name: Install build tools and dependencies (macOS)

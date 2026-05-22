@@ -75,6 +75,7 @@ find_program(OMIM_LRELEASE_EXECUTABLE
     /opt/homebrew/bin
     /opt/homebrew/opt/qt@6/bin
     /usr/local/opt/qt@6/bin
+    /usr/lib/qt6/bin
 )
 if (NOT OMIM_LRELEASE_EXECUTABLE)
   message(FATAL_ERROR "lrelease is required to build Qt desktop translations")
