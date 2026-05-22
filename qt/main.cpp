@@ -210,8 +210,6 @@ int main(int argc, char * argv[])
 
     qt::common::SetDefaultSurfaceFormat(QApplication::platformName());
 
-    FrameworkParams frameworkParams;
-
 #ifdef BUILD_DESIGNER
     QString mapcssFilePath;
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
@@ -235,10 +233,9 @@ int main(int argc, char * argv[])
       msgBox.exec();
       return returnCode;
     }
-
 #endif  // BUILD_DESIGNER
 
-    Framework framework(frameworkParams);
+    Framework framework({} /* params */, false /* loadMaps */);
     framework.SetupMeasurementSystem();
 
     auto const syncNightMode = [&framework]()
@@ -247,12 +244,14 @@ int main(int argc, char * argv[])
         qt::common::ApplySystemNightMode(framework);
     };
     syncNightMode();
+
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                                                                  ,
                      mapcssFilePath
 #endif  // BUILD_DESIGNER
     );
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
     if (auto * styleHints = QGuiApplication::styleHints(); styleHints != nullptr)
     {
@@ -260,7 +259,8 @@ int main(int argc, char * argv[])
                        [syncNightMode](Qt::ColorScheme) mutable { syncNightMode(); });
     }
 #endif
-    w.show();
+
+    framework.LoadMapsAsync([&w]() { w.show(); });
     returnCode = QApplication::exec();
   }
 
