@@ -629,6 +629,8 @@ line|z13-[highway=pedestrian],
 line|z16-[highway=platform],
 line|z13-[highway=ford]
 {color: @pedestrian;opacity: 1;}
+/* cyclewaytag rules are invisible activation rules for the Cycling layer.
+   cyclewayline side/direction metadata is intentionally not rendered yet. */
 line|z11-12[highway=cycleway],
 line|z11-13[highway=path][bicycle=designated]::cycleline,
 line|z11-14[highway=footway][bicycle=designated]::cycleline,

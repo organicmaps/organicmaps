@@ -655,6 +655,38 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
+        {"cycleway:left", "lane"},
+        {"cycleway:left:separation", "kerb"},
+        {"highway", "secondary"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "secondary"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewayline", "left"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewaytag", "track"})), ());
+    TEST(!params.IsTypeExist(GetType({"cyclewaytag", "lane"})), ());
+  }
+
+  {
+    Tags const tags = {
+        {"cycleway", "buffered_lane"},
+        {"highway", "secondary"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 4, (params));
+    TEST(params.IsTypeExist(GetType({"highway", "secondary"})), ());
+    TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewayline", "both"})), ());
+    TEST(params.IsTypeExist(GetType({"cyclewaytag", "lane"})), ());
+  }
+
+  {
+    Tags const tags = {
         {"cycleway:both", "shared_lane"},
         {"highway", "primary"},
     };

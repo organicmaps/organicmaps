@@ -612,6 +612,8 @@ line|z18-[highway=pedestrian][tunnel?],
 
 /* 8.4 Cycleway 18-22 ZOOM */
 
+/* cyclewaytag rules are invisible activation rules for the Cycling layer.
+   cyclewayline side/direction metadata is intentionally not rendered yet. */
 line|z11-17[highway=cycleway][!tunnel],
 line|z11-17[highway=path][bicycle=designated],
 line|z11-17[highway=footway][bicycle=designated],

@@ -1159,7 +1159,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         bool hasCyclewayLine = true;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
           SetCyclewayType(CachedTypes::CyclewayTrack);
-        else if (value == "lane" || value == "opposite_lane")
+        else if (value == "lane" || value == "opposite_lane" || value == "buffered_lane")
           SetCyclewayType(CachedTypes::CyclewayLane);
         else if (value == "shared_lane")
           SetCyclewayType(CachedTypes::CyclewaySharedLane);
@@ -1295,6 +1295,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         AddParam(cyclewayType);
       if (!IsBicycleDesignatedHighway(vType))
       {
+        // Side/direction metadata for future offset rendering. Current map styles
+        // intentionally draw only the aggregate cyclewaytag overlay.
         for (auto const lineType : cyclewayLineTypes)
           AddParam(lineType);
       }

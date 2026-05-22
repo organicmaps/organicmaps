@@ -108,6 +108,8 @@ line|z12-[highway=path][bicycle=designated]::cycleline,
 {color: @cycleway; opacity: 1;}
 line|z13-[highway=footway][bicycle=designated]::cycleline,
 {color: @cycleway; opacity: 0.8;}
+/* cyclewaytag rules are invisible activation rules for the Cycling layer.
+   cyclewayline side/direction metadata is intentionally not rendered yet. */
 line|z11-[cyclewaytag=track],
 line|z13-[cyclewaytag=lane],
 line|z13-[cyclewaytag=shared_lane]

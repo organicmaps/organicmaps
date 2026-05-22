@@ -67,35 +67,65 @@ enum class BicycleLineKind
   Cycleway
 };
 
+class BicycleLineTypes
+{
+public:
+  BicycleLineTypes()
+  {
+    auto const & c = classif();
+    m_cycleway = c.GetTypeByPath({"highway", "cycleway"});
+    m_path = c.GetTypeByPath({"highway", "path"});
+    m_pathBicycle = c.GetTypeByPath({"highway", "path", "bicycle"});
+    m_footway = c.GetTypeByPath({"highway", "footway"});
+    m_footwayBicycle = c.GetTypeByPath({"highway", "footway", "bicycle"});
+    m_highwayTrack = c.GetTypeByPath({"highway", "track"});
+    m_track = c.GetTypeByPath({"cyclewaytag", "track"});
+    m_lane = c.GetTypeByPath({"cyclewaytag", "lane"});
+    m_sharedLane = c.GetTypeByPath({"cyclewaytag", "shared_lane"});
+    m_yesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
+    m_residential = c.GetTypeByPath({"highway", "residential"});
+    m_livingStreet = c.GetTypeByPath({"highway", "living_street"});
+  }
+
+  uint32_t m_cycleway = 0;
+  uint32_t m_path = 0;
+  uint32_t m_pathBicycle = 0;
+  uint32_t m_footway = 0;
+  uint32_t m_footwayBicycle = 0;
+  uint32_t m_highwayTrack = 0;
+  uint32_t m_track = 0;
+  uint32_t m_lane = 0;
+  uint32_t m_sharedLane = 0;
+  uint32_t m_yesBicycle = 0;
+  uint32_t m_residential = 0;
+  uint32_t m_livingStreet = 0;
+};
+
 BicycleLineKind GetBicycleLineKind(FeatureType & f)
 {
-  auto const types = feature::TypesHolder(f);
-  auto const & c = classif();
+  auto const featureTypes = feature::TypesHolder(f);
+  BicycleLineTypes const bicycleTypes;
 
-  static uint32_t const kCycleway = c.GetTypeByPath({"highway", "cycleway"});
-  static uint32_t const kPathBicycle = c.GetTypeByPath({"highway", "path", "bicycle"});
-  static uint32_t const kFootwayBicycle = c.GetTypeByPath({"highway", "footway", "bicycle"});
-  static uint32_t const kTrack = c.GetTypeByPath({"cyclewaytag", "track"});
-  static uint32_t const kLane = c.GetTypeByPath({"cyclewaytag", "lane"});
-  static uint32_t const kSharedLane = c.GetTypeByPath({"cyclewaytag", "shared_lane"});
-  static uint32_t const kYesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
-  static uint32_t const kResidential = c.GetTypeByPath({"highway", "residential"});
-  static uint32_t const kLivingStreet = c.GetTypeByPath({"highway", "living_street"});
-
-  if (types.Has(kCycleway) || types.Has(kPathBicycle) || types.Has(kFootwayBicycle))
+  if (featureTypes.Has(bicycleTypes.m_cycleway) || featureTypes.Has(bicycleTypes.m_pathBicycle) ||
+      featureTypes.Has(bicycleTypes.m_footwayBicycle))
     return BicycleLineKind::Cycleway;
-  if (types.Has(kTrack))
+  if (featureTypes.Has(bicycleTypes.m_track))
     return BicycleLineKind::Track;
-  if (types.Has(kLane))
+  if (featureTypes.Has(bicycleTypes.m_lane))
     return BicycleLineKind::Lane;
-  if (types.Has(kSharedLane))
+  if (featureTypes.Has(bicycleTypes.m_sharedLane))
     return BicycleLineKind::SharedLane;
 
   // Generic fallback for older maps that lack specific cycleway hwtags:
   // residential roads are assumed to be shared, others are assumed to have lanes.
-  if (types.Has(kYesBicycle))
+  if (featureTypes.Has(bicycleTypes.m_yesBicycle))
   {
-    if (types.Has(kResidential) || types.Has(kLivingStreet))
+    // bicycle=yes is an access tag on paths/tracks/footways, not cycling infrastructure.
+    if (featureTypes.Has(bicycleTypes.m_path) || featureTypes.Has(bicycleTypes.m_footway) ||
+        featureTypes.Has(bicycleTypes.m_highwayTrack))
+      return BicycleLineKind::None;
+
+    if (featureTypes.Has(bicycleTypes.m_residential) || featureTypes.Has(bicycleTypes.m_livingStreet))
       return BicycleLineKind::SharedLane;
     return BicycleLineKind::Lane;
   }
@@ -119,6 +149,8 @@ bool IsBicycleLineVisibleAtZoom(BicycleLineKind kind, int zoomLevel)
 
 bool IsBicycleActivationRule(BicycleLineKind kind, LineRuleProto const & lineRule)
 {
+  // MapCSS 0.1px cyclewaytag rules only activate this C++ Cycling-layer overlay.
+  // Actual visible widths, caps and dash patterns are applied in ApplyBicycleLineStyle().
   return kind != BicycleLineKind::None && lineRule.width() > 0.0 && lineRule.width() <= kBicycleActivationLineWidth;
 }
 
@@ -132,6 +164,8 @@ void SetLinePattern(double visScale, LineViewParams & params, std::initializer_l
 
 bool ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams & params)
 {
+  // Keep Cycling-layer cycleway infrastructure visuals here until offset cyclewayline
+  // rendering can be expressed by the style system.
   params.m_join = dp::RoundJoin;
 
   switch (kind)
@@ -152,9 +186,9 @@ bool ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams
     SetLinePattern(visScale, params, {5.6, 4.2});
     return true;
   case BicycleLineKind::SharedLane:
-    params.m_width = static_cast<float>(std::max(1.2 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(1.8 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
-    SetLinePattern(visScale, params, {0.1, 3.3});
+    SetLinePattern(visScale, params, {1.8, 3.3});
     return true;
   case BicycleLineKind::None: return false;
   }
