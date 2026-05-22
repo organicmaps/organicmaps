@@ -108,8 +108,11 @@ void Navigator::DoDrag(m2::PointD const & pt)
 
   ShrinkInto(m_StartScreen, df::GetWorldRect());
 
-  double dx = pt.x - m_StartPt1.x;
-  double dy = pt.y - m_StartPt1.y;
+  // Touch points are in P3d (viewport) space; Move() expects a 2D-pixel-rect delta.
+  m2::PointD const startPt2d = m_StartScreen.P3dtoP(m_StartPt1);
+  m2::PointD const endPt2d = m_StartScreen.P3dtoP(pt);
+  double dx = endPt2d.x - startPt2d.x;
+  double dy = endPt2d.y - startPt2d.y;
 
   // X is unconstrained (world wraps horizontally) — only test Y drag against pole boundaries.
   {
@@ -160,45 +163,46 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, 
                           m2::PointD const & oldPt2, bool skipMinScaleAndBordersCheck, bool doRotateScreen,
                           ScreenBase & screen)
 {
-  m2::PointD const center3d = oldPt1;
-  m2::PointD const center2d = screen.P3dtoP(center3d);
-  m2::PointD const centerG = screen.PtoG(center2d);
-  m2::PointD const offset = center2d - center3d;
-  math::Matrix<double, 3, 3> const newM =
-      screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset, newPt1 + offset,
-                                                      newPt2 + offset, doRotateScreen, true);
+  // Project each old/new viewport touch through P3dtoP before CalcTransform;
+  // perspective is non-uniform, so the 2D similarity should be built from map-plane points for both fingers.
+  m2::PointD const oldP1 = screen.P3dtoP(oldPt1);
+  m2::PointD const oldP2 = screen.P3dtoP(oldPt2);
+  m2::PointD const newP1 = screen.P3dtoP(newPt1);
+  m2::PointD const newP2 = screen.P3dtoP(newPt2);
+  m2::PointD const centerG = screen.PtoG(oldP1);
+
   ScreenBase tmp = screen;
-  tmp.SetGtoPMatrix(newM);
+  tmp.SetGtoPMatrix(screen.GtoPMatrix() * ScreenBase::CalcTransform(oldP1, oldP2, newP1, newP2, doRotateScreen, true));
 
   if (!CheckMaxScale(tmp))
   {
     if (doRotateScreen)
-    {
-      math::Matrix<double, 3, 3> const tmpM =
-          screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset, newPt1 + offset,
-                                                          newPt2 + offset, doRotateScreen, false);
-      tmp.SetGtoPMatrix(tmpM);
-    }
+      tmp.SetGtoPMatrix(screen.GtoPMatrix() *
+                        ScreenBase::CalcTransform(oldP1, oldP2, newP1, newP2, doRotateScreen, false));
     else
-    {
       return false;
-    }
   }
 
+  // SetGtoPMatrix re-derives m_Scale and (via UpdateDependentParameters) may flip
+  // m_PixelRect / m_3dAngleX under auto-perspective, which leaves finger 1's geo
+  // point slightly off newPt1. MatchGandP3d re-pins it. Using newPt1 (not oldPt1)
+  // keeps the geo point under the moving finger.
   if (tmp.isPerspective())
-    tmp.MatchGandP3d(centerG, center3d);
-
-  if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
-    return false;
+    tmp.MatchGandP3d(centerG, newPt1);
 
   m2::RectD const & worldR = df::GetWorldRect();
 
-  if (!skipMinScaleAndBordersCheck && !CheckBorders(tmp))
+  if (!skipMinScaleAndBordersCheck)
   {
-    if (CanShrinkInto(tmp, worldR))
-      ShrinkInto(tmp, worldR);
-    else
+    if (!CheckMinScale(tmp))
       return false;
+
+    if (!CheckBorders(tmp))
+    {
+      if (!CanShrinkInto(tmp, worldR))
+        return false;
+      ShrinkInto(tmp, worldR);
+    }
   }
 
   // ShrinkInto may slightly overshoot Y bounds due to floating-point rounding.
