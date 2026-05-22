@@ -1649,7 +1649,6 @@ amenity|recycling|container
 *waterway|access_point
 *natural|volcano|active
 *building|construction
-*roller_coaster|track
 *cyclewaytag|track
 *cyclewaytag|lane
 *cyclewaytag|shared_lane
@@ -1658,3 +1657,4 @@ amenity|recycling|container
 *cyclewayline|right
 *cyclewayline|forward
 *cyclewayline|backward
+*roller_coaster|track
