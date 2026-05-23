@@ -37,13 +37,13 @@ Optional parameters:
 Explicit-origin preview example:
 
 ```text
-om://v2/dir?origin=52.5200,13.4050&origin_name=Warehouse%20Berlin&destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
+om://v2/dir?origin=52.5200,13.4050&origin_name=Warehouse%20Berlin&destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612,13.4150&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
 ```
 
 Current-position navigation example:
 
 ```text
-om://v2/nav?destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
+om://v2/nav?destination=52.5163,13.3777&destination_name=Warehouse%20Berlin%20(Return)&waypoints=52.5304,13.3850|52.5450,13.3920|52.5612,13.4150&waypoint_names=Anna%20Schmidt|Bauer%20GmbH|M%C3%BCller%20Family&mode=drive&avoid=tolls&ref_name=DeliveryCo%20Driver&callback=delivery%3A%2F%2Fjob%2F4521%2Freturn
 ```
 
 Equivalent HTTPS form:
