@@ -9,8 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) MWMMarkID bookmarkId;
 @property(nonatomic, readonly) MWMMarkGroupID bookmarkGroupId;
 @property(nonatomic, readonly, nullable) NSString * externalTitle;
-@property(nonatomic, readonly, nullable) NSString * bookmarkDescription;
-@property(nonatomic, readonly, nullable) NSString * bookmarkCategory;
+@property(nonatomic, readonly) NSString * bookmarkDescription;
+@property(nonatomic, readonly) NSString * bookmarkCategory;
 @property(nonatomic, readonly) BOOL isHtmlDescription;
 @property(nonatomic, readonly) MWMBookmarkColor color;
 
