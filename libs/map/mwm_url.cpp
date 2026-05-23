@@ -256,6 +256,18 @@ bool LooksLikeEncodedCallbackStart(std::string_view value)
   return false;
 }
 
+bool HasQueryBeforeDelimiter(std::string_view value, size_t from, size_t delimiter)
+{
+  for (size_t i = from; i < delimiter; ++i)
+  {
+    if (value[i] == '?')
+      return true;
+    if (i + 2 < delimiter && value[i] == '%' && value[i + 1] == '3' && (value[i + 2] == 'F' || value[i + 2] == 'f'))
+      return true;
+  }
+  return false;
+}
+
 std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value, size_t expectedItems)
 {
   constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
@@ -289,6 +301,20 @@ std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string
 
     if (expectedItems > 1 && encodedDelimiterCandidates.size() >= expectedItems - 1)
     {
+      bool candidateInsideQuery = false;
+      for (size_t i = 0, from = 0; encodedSeparators == expectedItems - 1 && i < expectedItems - 1; ++i)
+      {
+        size_t const delimiter = encodedDelimiterCandidates[i];
+        candidateInsideQuery = candidateInsideQuery || HasQueryBeforeDelimiter(value, from, delimiter);
+        from = delimiter + 3;
+      }
+
+      if (candidateInsideQuery)
+      {
+        result.push_back(DecodeRouteCallback(value));
+        return result;
+      }
+
       size_t from = 0;
       for (size_t i = 0; i < expectedItems - 1; ++i)
       {
