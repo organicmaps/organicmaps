@@ -21,6 +21,7 @@
 #include "base/string_utils.hpp"
 
 #include <array>
+#include <cctype>
 #include <cmath>
 #include <string_view>
 #include <tuple>
@@ -219,11 +220,48 @@ std::string DecodeRouteCallback(std::string_view rawValue)
   return EscapeInvalidPercentSigns(url::UrlDecode(EscapeInvalidPercentSigns(rawValue)));
 }
 
+bool LooksLikeEncodedCallbackStart(std::string_view value)
+{
+  std::string scheme;
+  for (size_t i = 0; i < value.size();)
+  {
+    if (value[i] == '|')
+      return false;
+
+    if (value[i] == ':' || (i + 2 < value.size() && value[i] == '%' && value[i + 1] == '3' &&
+                            (value[i + 2] == 'A' || value[i + 2] == 'a')))
+      return !scheme.empty();
+
+    if (i + 2 < value.size() && value[i] == '%' && (value[i + 1] == '7') &&
+        (value[i + 2] == 'C' || value[i + 2] == 'c'))
+      return false;
+
+    unsigned char const ch = static_cast<unsigned char>(value[i]);
+    if (std::isalnum(ch) || value[i] == '+' || value[i] == '-' || value[i] == '.')
+    {
+      scheme.push_back(value[i]);
+      ++i;
+      continue;
+    }
+
+    if (value[i] == '%' && i + 2 < value.size() && IsHexDigit(value[i + 1]) && IsHexDigit(value[i + 2]))
+    {
+      scheme.clear();
+      i += 3;
+      continue;
+    }
+
+    return false;
+  }
+  return false;
+}
+
 std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value, size_t expectedItems)
 {
   constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
 
   std::vector<std::string> result;
+  std::vector<size_t> encodedDelimiterCandidates;
   if (value.find('|') == std::string_view::npos)
   {
     size_t encodedSeparators = 0;
@@ -244,7 +282,22 @@ std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string
         break;
 
       ++encodedSeparators;
+      if (LooksLikeEncodedCallbackStart(value.substr(delimiter + 3)))
+        encodedDelimiterCandidates.push_back(delimiter);
       from = delimiter + 3;
+    }
+
+    if (expectedItems > 1 && encodedDelimiterCandidates.size() >= expectedItems - 1)
+    {
+      size_t from = 0;
+      for (size_t i = 0; i < expectedItems - 1; ++i)
+      {
+        size_t const delimiter = encodedDelimiterCandidates[i];
+        result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
+        from = delimiter + 3;
+      }
+      result.push_back(DecodeRouteCallback(value.substr(from)));
+      return result;
     }
 
     if (expectedItems <= 1 || encodedSeparators != expectedItems - 1)
