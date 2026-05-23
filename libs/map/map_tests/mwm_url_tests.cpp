@@ -304,6 +304,19 @@ UNIT_TEST(RouteApiV2PreservesSingleWaypointCallbackWithEncodedPipe)
   TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
 }
 
+UNIT_TEST(RouteApiV2PreservesNestedEncodedUrlInSingleWaypointCallback)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&destination=4,4&waypoints=2,2%7C3,3"
+      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fnext%3Dfirst%7Capp%3A%2F%2Fnested";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 4, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?next=first|app://nested", ());
+  TEST(test.GetRoutePoints()[2].m_callback.empty(), ());
+}
+
 UNIT_TEST(RouteApiV2SplitsWaypointCallbacksByEncodedSeparators)
 {
   string const urlString =
