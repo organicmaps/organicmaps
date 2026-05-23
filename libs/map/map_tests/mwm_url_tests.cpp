@@ -292,6 +292,18 @@ UNIT_TEST(RouteApiV2PreservesEncodedPipesInWaypointCallbacks)
   TEST_EQUAL(test.GetRoutePoints()[2].m_callback, "app://next", ());
 }
 
+UNIT_TEST(RouteApiV2PreservesSingleWaypointCallbackWithEncodedPipe)
+{
+  string const urlString =
+      "om://v2/dir?origin=1,1&destination=3,3&waypoints=2,2"
+      "&waypoint_callbacks=app%3A%2F%2Fdone%3Fstate%3Da%7Cb";
+
+  ParsedMapApi test(urlString);
+  TEST_EQUAL(test.GetRequestType(), UrlType::Route, ());
+  TEST_EQUAL(test.GetRoutePoints().size(), 3, ());
+  TEST_EQUAL(test.GetRoutePoints()[1].m_callback, "app://done?state=a|b", ());
+}
+
 UNIT_TEST(RouteApiV2SplitsWaypointCallbacksByEncodedSeparators)
 {
   string const urlString =
