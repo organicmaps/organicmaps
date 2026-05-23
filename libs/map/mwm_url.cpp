@@ -205,6 +205,47 @@ std::string EscapeInvalidPercentSigns(std::string_view value)
   return result;
 }
 
+std::string DecodeRouteCallback(std::string_view rawValue)
+{
+  return url::UrlDecode(EscapeInvalidPercentSigns(rawValue));
+}
+
+std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value)
+{
+  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
+
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t delimiter = value.find('|', from);
+    size_t delimiterSize = delimiter == std::string_view::npos ? 0 : 1;
+    if (delimiter == std::string_view::npos)
+    {
+      for (auto const encodedPipe : kEncodedPipes)
+      {
+        size_t const encodedDelimiter = value.find(encodedPipe, from);
+        if (encodedDelimiter != std::string_view::npos &&
+            (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+        {
+          delimiter = encodedDelimiter;
+          delimiterSize = 3;
+        }
+      }
+    }
+
+    if (delimiter == std::string_view::npos)
+    {
+      result.push_back(DecodeRouteCallback(value.substr(from)));
+      break;
+    }
+
+    result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
+    from = delimiter + delimiterSize;
+  }
+  return result;
+}
+
 template <typename FnT>
 void ForEachRawParam(std::string_view rawUrl, FnT && fn)
 {
@@ -613,9 +654,9 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kDestinationName)
       finish.m_name = value;
     else if (key == kOriginCallback)
-      start.m_callback = EscapeInvalidPercentSigns(value);
+      start.m_callback = DecodeRouteCallback(rawValue);
     else if (key == kDestinationCallback)
-      finish.m_callback = EscapeInvalidPercentSigns(value);
+      finish.m_callback = DecodeRouteCallback(rawValue);
     else if (key == kOriginHeading)
     {
       heading = value;
@@ -628,11 +669,7 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kWaypointNames)
       names = SplitRouteListWithEncodedSeparators(rawValue);
     else if (key == kWaypointCallbacks)
-    {
-      callbacks = SplitRouteListWithEncodedSeparators(rawValue);
-      for (auto & callback : callbacks)
-        callback = EscapeInvalidPercentSigns(callback);
-    }
+      callbacks = SplitRouteCallbackListWithEncodedSeparators(rawValue);
     else if (key == kDirAction)
       dirAction = value;
     else if (key == kOptimize)
@@ -640,7 +677,7 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kRefName)
       m_appName = value;
     else if (key == kCallback)
-      m_globalBackUrl = EscapeInvalidPercentSigns(value);
+      m_globalBackUrl = DecodeRouteCallback(rawValue);
     else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
       LOG(LWARNING, ("Route API v2 parameter is not applied:", key, value));
     else
