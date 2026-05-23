@@ -72,6 +72,7 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"lt:regional", RoadShieldType::Generic_Blue},
     {"lv:national", RoadShieldType::Generic_Red},
     {"lv:regional", RoadShieldType::Generic_Blue},
+    {"nz:sh", RoadShieldType::Generic_Red},
     {"pl:national", RoadShieldType::Generic_Red},
     {"pl:regional", RoadShieldType::Generic_Orange},
     {"pl:local", RoadShieldType::Generic_White},
@@ -617,6 +618,36 @@ public:
     return RoadShield(RoadShieldType::Default, rawText);
   }
 };
+
+/// @todo network = AU:...:NH also Green.
+class AustraliaRoadShieldParser : public SimpleRoadShieldParser
+{
+public:
+  explicit AustraliaRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Green},
+                                              {"A", RoadShieldType::Generic_Green},
+                                              {"B", RoadShieldType::Generic_Green},
+                                              {"C", RoadShieldType::Generic_Green}})
+  {}
+};
+
+class NZRoadShieldParser : public RoadShieldParser
+{
+public:
+  explicit NZRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+
+  RoadShield ParseRoadShield(std::string_view rawText) const override
+  {
+    if (rawText.starts_with("SH"))  // State Highway
+    {
+      auto num = rawText.substr(2);
+      strings::Trim(num);
+      return RoadShield(RoadShieldType::Generic_Red, num);
+    }
+    return RoadShield(RoadShieldType::Default, rawText);
+  }
+};
+
 }  // namespace
 
 RoadShieldsSetT GetRoadShields(FeatureType & f)
@@ -670,6 +701,10 @@ RoadShieldsSetT GetRoadShields(std::string_view mwmName, std::string const & roa
     return MexicoRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Cyprus")
     return CyprusRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Australia")
+    return AustraliaRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "NZ" || mwmName.starts_with("New Zealand"))
+    return NZRoadShieldParser(roadNumber).GetRoadShields();
 
   return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
