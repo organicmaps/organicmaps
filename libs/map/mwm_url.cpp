@@ -210,11 +210,41 @@ std::string DecodeRouteCallback(std::string_view rawValue)
   return url::UrlDecode(EscapeInvalidPercentSigns(rawValue));
 }
 
-std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value)
+std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value, size_t expectedItems)
 {
   constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
 
   std::vector<std::string> result;
+  if (value.find('|') == std::string_view::npos)
+  {
+    size_t encodedSeparators = 0;
+    for (size_t from = 0; from < value.size();)
+    {
+      size_t delimiter = std::string_view::npos;
+      for (auto const encodedPipe : kEncodedPipes)
+      {
+        size_t const encodedDelimiter = value.find(encodedPipe, from);
+        if (encodedDelimiter != std::string_view::npos &&
+            (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+        {
+          delimiter = encodedDelimiter;
+        }
+      }
+
+      if (delimiter == std::string_view::npos)
+        break;
+
+      ++encodedSeparators;
+      from = delimiter + 3;
+    }
+
+    if (expectedItems <= 1 || encodedSeparators != expectedItems - 1)
+    {
+      result.push_back(DecodeRouteCallback(value));
+      return result;
+    }
+  }
+
   size_t from = 0;
   while (from <= value.size())
   {
@@ -638,6 +668,7 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
   std::string dirAction;
   RoutePoint start, finish;
   std::vector<std::string> waypoints, names, callbacks;
+  std::string waypointCallbacksRaw;
 
   // Split literal and encoded separators in the raw list before decoding each item once.
   // A separator that belongs to an item must be double-encoded.
@@ -669,7 +700,7 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     else if (key == kWaypointNames)
       names = SplitRouteListWithEncodedSeparators(rawValue);
     else if (key == kWaypointCallbacks)
-      callbacks = SplitRouteCallbackListWithEncodedSeparators(rawValue);
+      waypointCallbacksRaw = rawValue;
     else if (key == kDirAction)
       dirAction = value;
     else if (key == kOptimize)
@@ -700,6 +731,8 @@ bool ParsedMapApi::ParseRouteV2(url::Url const & url, std::string const & rawUrl
     start.m_isMyPosition = true;
   else if (!ParseRoutePoint(std::string(kOrigin), origin, start))
     return false;
+  if (!waypointCallbacksRaw.empty())
+    callbacks = SplitRouteCallbackListWithEncodedSeparators(waypointCallbacksRaw, waypoints.size());
   m_routePoints.push_back(std::move(start));
   for (size_t i = 0; i < waypoints.size(); ++i)
   {
