@@ -219,11 +219,41 @@ std::string DecodeRouteCallback(std::string_view rawValue)
   return EscapeInvalidPercentSigns(url::UrlDecode(EscapeInvalidPercentSigns(rawValue)));
 }
 
-std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value)
+std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value, size_t expectedItems)
 {
   constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
 
   std::vector<std::string> result;
+  if (value.find('|') == std::string_view::npos)
+  {
+    size_t encodedSeparators = 0;
+    for (size_t from = 0; from < value.size();)
+    {
+      size_t delimiter = std::string_view::npos;
+      for (auto const encodedPipe : kEncodedPipes)
+      {
+        size_t const encodedDelimiter = value.find(encodedPipe, from);
+        if (encodedDelimiter != std::string_view::npos &&
+            (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+        {
+          delimiter = encodedDelimiter;
+        }
+      }
+
+      if (delimiter == std::string_view::npos)
+        break;
+
+      ++encodedSeparators;
+      from = delimiter + 3;
+    }
+
+    if (expectedItems <= 1 || encodedSeparators != expectedItems - 1)
+    {
+      result.push_back(DecodeRouteCallback(value));
+      return result;
+    }
+  }
+
   size_t from = 0;
   while (from <= value.size())
   {
@@ -366,6 +396,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
       std::vector<WaypointWithRawIndex> waypoints;
       std::vector<std::string> waypointNames;
       std::vector<std::string> waypointCallbacks;
+      std::string waypointCallbacksRaw;
       bool originFound = false;
       bool destinationFound = false;
       bool correctParams = true;
@@ -432,7 +463,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypointCallbacks)
         {
-          waypointCallbacks = SplitRouteCallbackListWithEncodedSeparators(rawValue);
+          waypointCallbacksRaw = rawValue;
         }
         else if (key == kMode || key == kTravelMode)
         {
@@ -479,6 +510,9 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         LOG(LWARNING, ("Route API v2 has too many waypoints:", waypoints.size()));
         return m_requestType = UrlType::Incorrect;
       }
+
+      if (!waypointCallbacksRaw.empty())
+        waypointCallbacks = SplitRouteCallbackListWithEncodedSeparators(waypointCallbacksRaw, waypoints.size());
 
       if (!originFound)
         origin.m_isMyPosition = true;
