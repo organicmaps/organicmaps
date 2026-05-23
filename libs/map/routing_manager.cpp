@@ -1166,10 +1166,7 @@ bool RoutingManager::OptimizeRoutePoints()
 void RoutingManager::AddRoutePoints(std::vector<RouteMarkData> && routePoints, bool reorderIntermediatePoints)
 {
   for (auto & routePoint : routePoints)
-    AddRoutePoint(std::move(routePoint), false /* reorderIntermediatePoints */);
-
-  if (reorderIntermediatePoints)
-    ReorderIntermediatePoints();
+    AddRoutePoint(std::move(routePoint), reorderIntermediatePoints);
 }
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
