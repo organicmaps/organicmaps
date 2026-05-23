@@ -214,6 +214,47 @@ std::string EscapeInvalidPercentSigns(std::string_view value)
   return result;
 }
 
+std::string DecodeRouteCallback(std::string_view rawValue)
+{
+  return EscapeInvalidPercentSigns(url::UrlDecode(EscapeInvalidPercentSigns(rawValue)));
+}
+
+std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string_view value)
+{
+  constexpr std::array<std::string_view, 2> kEncodedPipes = {{"%7C", "%7c"}};
+
+  std::vector<std::string> result;
+  size_t from = 0;
+  while (from <= value.size())
+  {
+    size_t delimiter = value.find('|', from);
+    size_t delimiterSize = delimiter == std::string_view::npos ? 0 : 1;
+    if (delimiter == std::string_view::npos)
+    {
+      for (auto const encodedPipe : kEncodedPipes)
+      {
+        size_t const encodedDelimiter = value.find(encodedPipe, from);
+        if (encodedDelimiter != std::string_view::npos &&
+            (delimiter == std::string_view::npos || encodedDelimiter < delimiter))
+        {
+          delimiter = encodedDelimiter;
+          delimiterSize = 3;
+        }
+      }
+    }
+
+    if (delimiter == std::string_view::npos)
+    {
+      result.push_back(DecodeRouteCallback(value.substr(from)));
+      break;
+    }
+
+    result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
+    from = delimiter + delimiterSize;
+  }
+  return result;
+}
+
 template <typename FnT>
 void ForEachRawParam(std::string_view rawUrl, FnT && fn)
 {
@@ -343,7 +384,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kOriginCallback)
         {
-          origin.m_callback = EscapeInvalidPercentSigns(value);
+          origin.m_callback = DecodeRouteCallback(rawValue);
         }
         else if (key == kOriginHeading)
         {
@@ -364,7 +405,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kDestinationCallback)
         {
-          destination.m_callback = EscapeInvalidPercentSigns(value);
+          destination.m_callback = DecodeRouteCallback(rawValue);
         }
         else if (key == kWaypoints)
         {
@@ -391,9 +432,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kWaypointCallbacks)
         {
-          waypointCallbacks = SplitRouteListWithEncodedSeparators(rawValue);
-          for (auto & callback : waypointCallbacks)
-            callback = EscapeInvalidPercentSigns(callback);
+          waypointCallbacks = SplitRouteCallbackListWithEncodedSeparators(rawValue);
         }
         else if (key == kMode || key == kTravelMode)
         {
@@ -420,7 +459,7 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
         }
         else if (key == kCallback)
         {
-          m_globalBackUrl = EscapeInvalidPercentSigns(value);
+          m_globalBackUrl = DecodeRouteCallback(rawValue);
         }
         else if (key == kApi || key == kRef || key == kCallbackLabel || key == kAvoid)
         {
