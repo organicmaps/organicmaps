@@ -301,10 +301,11 @@ std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string
 
     if (expectedItems > 1 && encodedDelimiterCandidates.size() >= expectedItems - 1)
     {
+      size_t const delimiterCandidatesOffset = encodedDelimiterCandidates.size() - (expectedItems - 1);
       bool candidateInsideQuery = false;
       for (size_t i = 0, from = 0; encodedSeparators == expectedItems - 1 && i < expectedItems - 1; ++i)
       {
-        size_t const delimiter = encodedDelimiterCandidates[i];
+        size_t const delimiter = encodedDelimiterCandidates[delimiterCandidatesOffset + i];
         candidateInsideQuery = candidateInsideQuery || HasQueryBeforeDelimiter(value, from, delimiter);
         from = delimiter + 3;
       }
@@ -318,7 +319,7 @@ std::vector<std::string> SplitRouteCallbackListWithEncodedSeparators(std::string
       size_t from = 0;
       for (size_t i = 0; i < expectedItems - 1; ++i)
       {
-        size_t const delimiter = encodedDelimiterCandidates[i];
+        size_t const delimiter = encodedDelimiterCandidates[delimiterCandidatesOffset + i];
         result.push_back(DecodeRouteCallback(value.substr(from, delimiter - from)));
         from = delimiter + 3;
       }
