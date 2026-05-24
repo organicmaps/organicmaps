@@ -152,7 +152,14 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
       position:optionalPosition
       doneBlock:^{
         if ([MWMFrameworkHelper canEditMapAtViewportCenter])
-          [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
+        {
+          // Snapshot the position now: by the time the user picks a category the viewport may
+          // have drifted (location follow, layout changes) and the recheck inside CreateMapObject
+          // would land on a different — possibly unloaded — MWM.
+          m2::PointD const position = GetFramework().GetViewportCenter();
+          NSValue * sender = [NSValue valueWithBytes:&position objCType:@encode(m2::PointD)];
+          [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:sender];
+        }
         else
           [ownerController.alertController presentIncorrectFeauturePositionAlert];
 

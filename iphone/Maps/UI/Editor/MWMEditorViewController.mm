@@ -1126,6 +1126,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     auto const type = *(m_mapObject.GetTypes().begin());
     auto const readableType = classif().GetReadableObjectName(type);
     [dvc setSelectedCategory:readableType];
+    [dvc setCreatedPosition:m_mapObject.GetMercator()];
   }
   else if ([segue.identifier isEqualToString:kAdditionalNamesEditorSegue])
   {
