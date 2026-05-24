@@ -1,5 +1,5 @@
 @import("colors.mapcss");
-@import("../include/defaults_new.mapcss");
+@import("../include/defaults.mapcss");
 @import("../include/Basemap.mapcss");
 @import("../include/Basemap_label.mapcss");
 @import("../include/Roads.mapcss");
