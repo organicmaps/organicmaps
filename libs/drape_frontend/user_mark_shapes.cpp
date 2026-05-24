@@ -132,7 +132,8 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
     CHECK(renderInfo.m_titleDecl, ());
     auto const & titleDecl = renderInfo.m_titleDecl->operator[](0);
     auto const textMetrics = textures->ShapeSingleTextLine(titleDecl.m_primaryText, nullptr);
-    auto const fontScale = static_cast<float>(VisualParams::Instance().GetFontScale());
+    auto const & vparams = VisualParams::Instance();
+    auto const fontScale = static_cast<float>(vparams.GetFontScale() * vparams.GetVisualScale());
     float const textRatio = titleDecl.m_primaryTextFont.m_size * fontScale / dp::kBaseFontSizePixels;
 
     sizeInc.x = textMetrics.m_lineWidthInPixels * textRatio;
