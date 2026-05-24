@@ -2259,6 +2259,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   {
     DeactivateMapSelection();
 
+    // This re-check guards against any synchronous callback that tears down routing mid-handler.
+    if (!m_routingManager.IsRoutingActive())
+      return;
+
     // Continue route to the point
     RouteMarkData data;
     data.m_title = placePageInfo.GetTitle();
@@ -2273,7 +2277,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     else
       data.m_position = buildInfo.m_mercator;
 
-    m_routingManager.ContinueRouteToPoint(std::move(data));
+    if (!m_routingManager.ContinueRouteToPoint(std::move(data)))
+      return;
 
     // Refresh route
     m_routingManager.RemoveRoute(false /* deactivateFollowing */);
