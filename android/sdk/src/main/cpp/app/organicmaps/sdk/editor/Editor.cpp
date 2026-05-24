@@ -10,6 +10,8 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
@@ -333,11 +335,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, 
   CHECK(fr->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType,
+                                                                            jdouble lat, jdouble lon)
 {
   ::Framework * fr = frm();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
-  CHECK(fr->CreateMapObject(fr->GetViewportCenter(), type, g_editableMapObject),
+  CHECK(fr->CreateMapObject(mercator::FromLatLon(lat, lon), type, g_editableMapObject),
         ("Couldn't create mapobject, wrong coordinates of missing mwm"));
 }
 

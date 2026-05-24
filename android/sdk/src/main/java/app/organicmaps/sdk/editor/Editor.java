@@ -156,15 +156,18 @@ public final class Editor
   public static native void nativeAddToRecentCategories(@NonNull String type);
 
   /**
-   * Creates new object on the map. Places it in the center of current viewport.
+   * Creates new object on the map at the given lat/lon. Capture the point with
+   * {@link Framework#nativeGetScreenRectCenter()} at the moment the user confirms
+   * the position; do not pass live viewport coordinates here, otherwise the point
+   * can drift between the position check and creation.
    * {@link Framework#nativeIsDownloadedMapAtScreenCenter()} should be called before
    * to check whether new feature can be created on the map.
    */
-  public static void createMapObject(FeatureCategory category)
+  public static void createMapObject(FeatureCategory category, double lat, double lon)
   {
-    nativeCreateMapObject(category.getType());
+    nativeCreateMapObject(category.getType(), lat, lon);
   }
-  public static native void nativeCreateMapObject(@NonNull String type);
+  public static native void nativeCreateMapObject(@NonNull String type, double lat, double lon);
   public static native void nativeCreateNote(String text);
   public static native void nativePlaceDoesNotExist(@NonNull String comment);
   public static native void nativeRollbackMapObject();
