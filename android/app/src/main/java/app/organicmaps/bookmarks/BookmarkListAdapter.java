@@ -68,11 +68,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       return (!mDataSource.getData().getAnnotation().isEmpty() || !mDataSource.getData().getDescription().isEmpty());
     }
 
-    void invalidate()
-    {
-      mDataSource.invalidate();
-    }
-
     public abstract int getSectionsCount();
     public abstract boolean isEditable(int sectionIndex);
     public abstract boolean hasTitle(int sectionIndex);
@@ -82,7 +77,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public abstract int getItemsType(int sectionIndex);
     public abstract long getBookmarkId(@NonNull SectionPosition pos);
     public abstract long getTrackId(@NonNull SectionPosition pos);
-    public abstract void onDelete(@NonNull SectionPosition pos);
   }
 
   private static class CategorySectionsDataSource extends SectionsDataSource
@@ -165,15 +159,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
 
     @Override
-    public void onDelete(@NonNull SectionPosition pos)
-    {
-      // we must invalidate datasource before calculate sections
-      invalidate();
-
-      calculateSections();
-    }
-
-    @Override
     public long getBookmarkId(@NonNull SectionPosition pos)
     {
       return getCategory().getBookmarkIdByPosition(pos.getItemIndex());
@@ -231,12 +216,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public int getItemsType(int sectionIndex)
     {
       return TYPE_BOOKMARK;
-    }
-
-    @Override
-    public void onDelete(@NonNull SectionPosition pos)
-    {
-      mSearchResults.remove(pos.getItemIndex());
     }
 
     @Override
@@ -324,27 +303,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       return TYPE_TRACK;
     }
 
-    @Override
-    public void onDelete(@NonNull SectionPosition pos)
-    {
-      if (isDescriptionSection(pos.getSectionIndex()))
-        throw new IllegalArgumentException("Delete failed. Invalid section index.");
-
-      int blockIndex = pos.getSectionIndex() - (hasDescription() ? 1 : 0);
-      SortedBlock block = mSortedBlocks.get(blockIndex);
-      if (block.isBookmarksBlock())
-      {
-        block.getBookmarkIds().remove(pos.getItemIndex());
-        if (block.getBookmarkIds().isEmpty())
-          mSortedBlocks.remove(blockIndex);
-        return;
-      }
-
-      block.getTrackIds().remove(pos.getItemIndex());
-      if (block.getTrackIds().isEmpty())
-        mSortedBlocks.remove(blockIndex);
-    }
-
     public long getBookmarkId(@NonNull SectionPosition pos)
     {
       return getSortedBlock(pos.getSectionIndex()).getBookmarkIds().get(pos.getItemIndex());
@@ -370,6 +328,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mSectionsDataSource = new SortedSectionsDataSource(mDataSource, mSortedResults);
     else
       mSectionsDataSource = new CategorySectionsDataSource(mDataSource);
+  }
+
+  void refreshDataSource()
+  {
+    mDataSource.invalidate();
+    refreshSections();
   }
 
   private SectionPosition getSectionPosition(int position)
@@ -523,13 +487,32 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return itemCount;
   }
 
-  void onDelete(int position)
+  void removeDeletedItem(long itemId, int type)
   {
-    SectionPosition sp = getSectionPosition(position);
-    mSectionsDataSource.onDelete(sp);
-    // In case of the search results editing reset cached sorted blocks.
-    if (isSearchResults())
+    if (mSearchResults != null)
+    {
+      if (type == TYPE_BOOKMARK)
+        mSearchResults.remove(Long.valueOf(itemId));
+      // The cached sorted snapshot is hidden while search results are shown. Drop it because it
+      // can contain the deleted bookmark or track and would be reused after search is closed.
       mSortedResults = null;
+      return;
+    }
+
+    if (mSortedResults == null)
+      return;
+
+    for (int i = 0; i < mSortedResults.size(); ++i)
+    {
+      SortedBlock block = mSortedResults.get(i);
+      final List<Long> ids = type == TYPE_BOOKMARK ? block.getBookmarkIds() : block.getTrackIds();
+      if (!ids.remove(Long.valueOf(itemId)))
+        continue;
+
+      if (block.getBookmarkIds().isEmpty() && block.getTrackIds().isEmpty())
+        mSortedResults.remove(i);
+      return;
+    }
   }
 
   boolean isSearchResults()
