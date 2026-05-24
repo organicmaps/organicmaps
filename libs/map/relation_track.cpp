@@ -6,7 +6,9 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/point_coding.hpp"
@@ -399,6 +401,9 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
     if (!id.m_mwmId.IsAlive())
       return;
 
+    auto const & isStation = ftypes::IsRailwayStationChecker::Instance();
+    auto const & isStop = ftypes::IsPublicTransportStopChecker::Instance();
+
     auto const visit = [&](FeaturesLoaderGuard & g)
     {
       auto const r = g.GetRelation(id.m_index);
@@ -407,10 +412,16 @@ std::optional<df::TransitInfo> RelationTrackBuilder::BuildTransitInfo(uint32_t r
       for (uint32_t const ftIdx : r.GetMembers())
       {
         auto stopFt = g.GetFeatureByIndex(ftIdx);
-        if (!stopFt || stopFt->GetGeomType() != feature::GeomType::Point)
-          continue;
+        ASSERT(stopFt, ());
+        switch (stopFt->GetGeomType())
+        {
+        case feature::GeomType::Line: continue;
+        case feature::GeomType::Area:  // skip platforms
+          if (!isStation(*stopFt) && !isStop(*stopFt))
+            continue;
+        }
 
-        auto const ftCenter = stopFt->GetCenter();
+        auto const ftCenter = feature::GetCenter(*stopFt);
         df::TransitInfo::Stop stop;
         stop.m_featureId = stopFt->GetID();
         stop.m_pos = ftCenter;
