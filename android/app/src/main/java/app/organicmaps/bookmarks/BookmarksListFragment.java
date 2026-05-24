@@ -434,26 +434,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @Override
   public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
   {
-    if (mLastSortTimestamp != timestamp)
-      return;
-    mLastSortTimestamp = 0;
-
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSortedResults(sortedBlocks);
-    adapter.notifyDataSetChanged();
-
-    updateSortingProgressBar();
+    applySortedResults(sortedBlocks, timestamp);
   }
 
   @Override
   public void onBookmarksSortingCancelled(long timestamp)
   {
-    if (mLastSortTimestamp != timestamp)
+    applySortedResults(null, timestamp);
+  }
+
+  private void applySortedResults(@Nullable SortedBlock[] sortedBlocks, long timestamp)
+  {
+    if (mLastSortTimestamp == 0 || mLastSortTimestamp != timestamp)
       return;
     mLastSortTimestamp = 0;
 
     BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSortedResults(null);
+    adapter.setSortedResults(sortedBlocks);
     adapter.notifyDataSetChanged();
 
     updateSortingProgressBar();
@@ -754,8 +751,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onDeleteTrackSelected(long trackId)
   {
-    BookmarkManager.INSTANCE.deleteTrack(trackId);
-    getBookmarkListAdapter().notifyDataSetChanged();
+    deleteBookmarkListItem(trackId, BookmarkListAdapter.TYPE_TRACK,
+                           () -> BookmarkManager.INSTANCE.deleteTrack(trackId));
   }
 
   private void onShareActionSelected()
@@ -803,10 +800,22 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     if (mSelectedItemId == -1)
       return;
-    BookmarkManager.INSTANCE.deleteBookmark(mSelectedItemId);
-    getBookmarkListAdapter().notifyDataSetChanged();
+    final long bookmarkId = mSelectedItemId;
+    deleteBookmarkListItem(bookmarkId, BookmarkListAdapter.TYPE_BOOKMARK,
+                           () -> BookmarkManager.INSTANCE.deleteBookmark(bookmarkId));
+  }
+
+  private void deleteBookmarkListItem(long itemId, int type, @NonNull Runnable deleteAction)
+  {
+    final BookmarkListAdapter adapter = getBookmarkListAdapter();
+    adapter.removeDeletedItem(itemId, type);
+    deleteAction.run();
+    adapter.refreshDataSource();
+    adapter.notifyDataSetChanged();
     if (mSearchMode)
       mNeedUpdateSorting = true;
+    mSelectedItemId = -1;
+    mSelectedItemType = -1;
     updateSearchVisibility();
     updateRecyclerVisibility();
   }
