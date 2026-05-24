@@ -247,9 +247,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
   return symbol;
 }
 
-// This should be tested if the routing algorithm can handle this
-size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 100;
-
 RoutePointsLayout::RoutePointsLayout(BookmarkManager & manager)
   : m_manager(manager)
   , m_editSession(manager.GetEditSession())

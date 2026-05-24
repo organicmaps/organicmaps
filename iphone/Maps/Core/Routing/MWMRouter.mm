@@ -342,7 +342,9 @@ using namespace routing;
   }
 
   RouteMarkData pt = point.routeMarkData;
-  GetFramework().GetRoutingManager().ContinueRouteToPoint(std::move(pt));
+  if (!GetFramework().GetRoutingManager().ContinueRouteToPoint(std::move(pt)))
+    return;
+
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
   [self rebuildWithBestRouter:NO];
 }

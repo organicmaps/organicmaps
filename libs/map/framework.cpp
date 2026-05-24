@@ -2220,7 +2220,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     else
       data.m_position = buildInfo.m_mercator;
 
-    m_routingManager.ContinueRouteToPoint(std::move(data));
+    if (!m_routingManager.ContinueRouteToPoint(std::move(data)))
+      return;
 
     // Refresh route
     m_routingManager.RemoveRoute(false /* deactivateFollowing */);

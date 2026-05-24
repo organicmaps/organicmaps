@@ -28,6 +28,7 @@
 
 #include "coding/file_writer.hpp"
 
+#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
@@ -1039,15 +1040,25 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData, bool reorderInterm
     ReorderIntermediatePoints();
 }
 
-void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
+bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());
   ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
   RoutePointsLayout routePoints(*m_bmManager);
 
+  if (routePoints.GetRoutePointsCount() >= RoutePointsLayout::kMaxIntermediatePointsCount + 2)
+  {
+    LOG(LWARNING, ("Cannot continue route: route points limit reached."));
+    return false;
+  }
+
   // Finish point is now Intermediate point
   RouteMarkPoint * finishMarkData = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
-  CHECK(finishMarkData, ());
+  if (finishMarkData == nullptr)
+  {
+    LOG(LWARNING, ("Cannot continue route: finish point is missing."));
+    return false;
+  }
   finishMarkData->SetRoutePointType(RouteMarkType::Intermediate);
   finishMarkData->SetIntermediateIndex(routePoints.GetRoutePointsCount() - 2);
 
@@ -1061,6 +1072,7 @@ void RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
   markData.m_intermediateIndex = routePoints.GetRoutePointsCount() - 1;
   markData.m_isVisible = !markData.m_isMyPosition;
   routePoints.AddRoutePoint(std::move(markData));
+  return true;
 }
 
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
@@ -1153,15 +1165,16 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
 
 void RoutingManager::ReorderIntermediatePoints()
 {
+  RoutePointsLayout routePoints(*m_bmManager);
+  size_t const reserveCount = routePoints.GetRoutePointsCount();
+
   std::vector<RouteMarkPoint *> prevPoints;
   std::vector<m2::PointD> prevPositions;
-  prevPoints.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
-  prevPositions.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
-  RoutePointsLayout routePoints(*m_bmManager);
+  prevPoints.reserve(reserveCount);
+  prevPositions.reserve(reserveCount);
 
   RouteMarkPoint * addedPoint = nullptr;
   m2::PointD addedPosition;
-
   for (auto const & p : routePoints.GetRoutePoints())
   {
     CHECK(p, ());
