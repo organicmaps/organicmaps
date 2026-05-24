@@ -662,7 +662,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
       case Editor:
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
-          startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
+        {
+          // Snapshot the position now: by the time the user picks a category the viewport may
+          // have drifted (location follow, layout changes) and the recheck inside the JNI
+          // create call would land on a different — possibly unloaded — MWM.
+          final double[] editorCenter = Framework.nativeGetScreenRectCenter();
+          FeatureCategoryActivity.start(MwmActivity.this, editorCenter[0], editorCenter[1]);
+        }
         else
         {
           dismissAlertDialog();
