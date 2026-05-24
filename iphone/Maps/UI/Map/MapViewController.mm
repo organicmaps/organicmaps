@@ -11,6 +11,7 @@
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNetworkPolicy+UI.h"
+#import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageProtocol.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -43,6 +44,8 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 NSString * const kSettingsSegue = @"Map2Settings";
+// Mirrors kMapToCategorySelectorSegue in MWMMapViewControlsManager.mm.
+NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }  // namespace
 
 @interface NSValueWrapper : NSObject
@@ -830,6 +833,13 @@ NSString * const kSettingsSegue = @"Map2Settings";
     MWMDownloadMapsViewController * dvc = segue.destinationViewController;
     NSNumber * mode = sender;
     dvc.mode = (MWMMapDownloaderMode)mode.integerValue;
+  }
+  else if ([segue.identifier isEqualToString:kCategorySelectorSegue])
+  {
+    MWMObjectsCategorySelectorController * dvc = segue.destinationViewController;
+    m2::PointD position;
+    [(NSValue *)sender getValue:&position];
+    [dvc setCreatedPosition:position];
   }
 }
 
