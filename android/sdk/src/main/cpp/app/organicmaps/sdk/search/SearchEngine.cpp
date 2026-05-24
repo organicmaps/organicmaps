@@ -2,7 +2,6 @@
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
 
-#include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/place_page_info.hpp"
 #include "map/viewport_search_params.hpp"
@@ -52,9 +51,6 @@ jmethodID g_popularityConstructor;
 jmethodID g_mapResultsMethod;
 jclass g_mapResultClass;
 jmethodID g_mapResultCtor;
-
-jmethodID g_updateBookmarksResultsId;
-jmethodID g_endBookmarksResultsId;
 
 bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 {
@@ -196,26 +192,6 @@ void OnMapSearchResults(storage::DownloaderSearchResults const & results, long l
                       results.m_endMarker);
 }
 
-void OnBookmarksSearchResults(search::BookmarksSearchParams::Results results,
-                              search::BookmarksSearchParams::Status status, long long timestamp)
-{
-  // Ignore results from obsolete searches.
-  if (g_queryTimestamp > timestamp)
-    return;
-
-  JNIEnv * env = jni::GetEnv();
-
-  g_framework->NativeFramework()->GetBookmarkManager().FilterInvalidBookmarks(results);
-  jni::ScopedLocalRef<jlongArray> jResults(env, env->NewLongArray(static_cast<jsize>(results.size())));
-  std::vector<jlong> const tmp(results.cbegin(), results.cend());
-  env->SetLongArrayRegion(jResults.get(), 0, static_cast<jsize>(tmp.size()), tmp.data());
-
-  auto const method = (status == search::BookmarksSearchParams::Status::InProgress) ? g_updateBookmarksResultsId
-                                                                                    : g_endBookmarksResultsId;
-
-  env->CallVoidMethod(g_javaListener, method, jResults.get(), static_cast<jlong>(timestamp));
-}
-
 }  // namespace
 
 extern "C"
@@ -252,9 +228,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
                                         "([Lapp/organicmaps/sdk/search/MapSearchListener$Result;JZ)V");
   g_mapResultClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/MapSearchListener$Result");
   g_mapResultCtor = jni::GetConstructorID(env, g_mapResultClass, "(Ljava/lang/String;Ljava/lang/String;)V");
-
-  g_updateBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
-  g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
@@ -315,19 +288,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(
 
   if (g_framework->NativeFramework()->GetSearchAPI().SearchInDownloader(std::move(params)))
     g_queryTimestamp = timestamp;
-}
-
-JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchInBookmarks(JNIEnv * env, jclass clazz,
-                                                                                           jbyteArray query,
-                                                                                           jlong catId, jlong timestamp)
-{
-  search::BookmarksSearchParams params{jni::ToNativeString(env, query), static_cast<kml::MarkGroupId>(catId),
-                                       std::bind(&OnBookmarksSearchResults, _1, _2, timestamp)};
-
-  bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchInBookmarks(std::move(params));
-  if (searchStarted)
-    g_queryTimestamp = timestamp;
-  return searchStarted;
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)

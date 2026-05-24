@@ -1,9 +1,11 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkInfo.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/BookmarkListSession.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-#include "app/organicmaps/sdk/util/Distance.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -36,15 +38,6 @@ jmethodID g_onPreparedFileForSharingMethod;
 jmethodID g_onElevationActivePointChangedMethod;
 jmethodID g_onElevationCurrentPositionChangedMethod;
 
-jclass g_sortedBlockClass;
-jmethodID g_sortedBlockConstructor;
-jclass g_longClass;
-jmethodID g_longConstructor;
-jmethodID g_onBookmarksSortingCompleted;
-jmethodID g_onBookmarksSortingCancelled;
-jmethodID g_bookmarkInfoConstructor;
-jclass g_bookmarkInfoClass;
-
 void PrepareClassRefs(JNIEnv * env)
 {
   if (g_bookmarkManagerClass)
@@ -64,30 +57,6 @@ void PrepareClassRefs(JNIEnv * env)
       jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksFileLoaded", "(ZLjava/lang/String;Z)V");
   g_onPreparedFileForSharingMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                                                       "(Lapp/organicmaps/sdk/bookmarks/data/BookmarkSharingResult;)V");
-
-  g_longClass = jni::GetGlobalClassRef(env, "java/lang/Long");
-  g_longConstructor = jni::GetConstructorID(env, g_longClass, "(J)V");
-  g_sortedBlockClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/SortedBlock");
-  g_sortedBlockConstructor =
-      jni::GetConstructorID(env, g_sortedBlockClass, "(Ljava/lang/String;[Ljava/lang/Long;[Ljava/lang/Long;)V");
-
-  g_onBookmarksSortingCompleted = jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksSortingCompleted",
-                                                   "([Lapp/organicmaps/sdk/bookmarks/data/SortedBlock;J)V");
-  g_onBookmarksSortingCancelled = jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksSortingCancelled", "(J)V");
-  g_bookmarkInfoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/BookmarkInfo");
-  g_bookmarkInfoConstructor = jni::GetConstructorID(env, g_bookmarkInfoClass,
-                                                    "("
-                                                    "J"                   // categoryId
-                                                    "J"                   // bookmarkId
-                                                    "Ljava/lang/String;"  // title
-                                                    "Ljava/lang/String;"  // description
-                                                    "Ljava/lang/String;"  // featureType
-                                                    "I"                   // color
-                                                    "I"                   // iconType
-                                                    "Lapp/organicmaps/sdk/bookmarks/data/ParcelablePointD;"  // coords
-                                                    "D"                                                      // scale
-                                                    "Ljava/lang/String;"                                     // address
-                                                    ")V");
 
   g_onElevationCurrentPositionChangedMethod =
       jni::GetMethodID(env, bookmarkManagerInstance, "onElevationCurrentPositionChanged", "()V");
@@ -116,6 +85,7 @@ void OnBookmarksChanged(JNIEnv * env)
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksChangedMethod);
+  OnBookmarkListSessionsChanged(env);
   jni::HandleJavaException(env);
 }
 
@@ -183,44 +153,6 @@ void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const
   jni::HandleJavaException(env);
 }
 
-void OnCategorySortingResults(JNIEnv * env, long long timestamp,
-                              BookmarkManager::SortedBlocksCollection && sortedBlocks,
-                              BookmarkManager::SortParams::Status status)
-{
-  ASSERT(g_bookmarkManagerClass, ());
-  ASSERT(g_sortedBlockClass, ());
-  ASSERT(g_sortedBlockConstructor, ());
-
-  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
-
-  if (status == BookmarkManager::SortParams::Status::Cancelled)
-  {
-    env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksSortingCancelled, static_cast<jlong>(timestamp));
-    jni::HandleJavaException(env);
-    return;
-  }
-
-  jni::TScopedLocalObjectArrayRef blocksRef(
-      env, jni::ToJavaArray(env, g_sortedBlockClass, sortedBlocks,
-                            [](JNIEnv * env, BookmarkManager::SortedBlock const & block)
-  {
-    jni::TScopedLocalRef blockNameRef(env, jni::ToJavaString(env, block.m_blockName));
-
-    jni::TScopedLocalObjectArrayRef marksRef(
-        env, jni::ToJavaArray(env, g_longClass, block.m_markIds, [](JNIEnv * env, kml::MarkId const & markId)
-    { return env->NewObject(g_longClass, g_longConstructor, static_cast<jlong>(markId)); }));
-
-    jni::TScopedLocalObjectArrayRef tracksRef(
-        env, jni::ToJavaArray(env, g_longClass, block.m_trackIds, [](JNIEnv * env, kml::TrackId const & trackId)
-    { return env->NewObject(g_longClass, g_longConstructor, static_cast<jlong>(trackId)); }));
-
-    return env->NewObject(g_sortedBlockClass, g_sortedBlockConstructor, blockNameRef.get(), marksRef.get(),
-                          tracksRef.get());
-  }));
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksSortingCompleted, blocksRef.get(),
-                      static_cast<jlong>(timestamp));
-  jni::HandleJavaException(env);
-}
 }  // namespace
 
 extern "C"
@@ -358,22 +290,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeUpd
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarkInfo(JNIEnv * env, jobject,
                                                                                                 jlong bmkId)
 {
-  auto const bookmark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
+  auto const * bookmark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
   if (!bookmark)
     return nullptr;
 
-  auto title = jni::ToJavaString(env, bookmark->GetPreferredName());
-  auto description = jni::ToJavaString(env, bookmark->GetDescription());
-  auto featureType = jni::ToJavaString(env, kml::GetLocalizedFeatureType(bookmark->GetData().m_featureTypes));
-  auto color = static_cast<jint>(kml::kColorIndexMap[base::E2I(bookmark->GetColor())]);
-  auto iconType = static_cast<jint>(bookmark->GetData().m_icon);
-  auto coords = jni::GetNewParcelablePointD(env, bookmark->GetPivot());
-  auto scale = static_cast<jdouble>(bookmark->GetScale());
-  auto address = jni::ToJavaString(env, frm()->GetAddressAtPoint(bookmark->GetPivot()).FormatAddress());
-
-  return env->NewObject(g_bookmarkInfoClass, g_bookmarkInfoConstructor, static_cast<jlong>(bookmark->GetGroupId()),
-                        static_cast<jlong>(bmkId), title, description, featureType, color, iconType, coords, scale,
-                        address);
+  return CreateBookmarkInfo(env, *bookmark);
 }
 
 static uint32_t shift(uint32_t v, uint8_t bitCount)
@@ -383,21 +304,12 @@ static uint32_t shift(uint32_t v, uint8_t bitCount)
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetTrack(JNIEnv * env, jobject,
                                                                                          jlong trackId,
-                                                                                         jclass trackClazz)
+                                                                                         jclass /* trackClazz */)
 {
-  // Track(long trackId, long categoryId, boolean isRelationTrack, String name, String lengthString, int color)
-  static jmethodID const cId =
-      jni::GetConstructorID(env, trackClazz, "(JJZLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;I)V");
-  auto const kmlTrackId = static_cast<kml::TrackId>(trackId);
-  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(kmlTrackId);
+  auto const * track = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
+  ASSERT(track, ("Track must not be null with id:", trackId));
 
-  ASSERT(nTrack, ("Track must not be null with id:)", trackId));
-
-  auto const isRelationTrack = static_cast<jboolean>(kmlTrackId == kml::kTempRelationTrackId);
-  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()), isRelationTrack,
-                        jni::ToJavaString(env, nTrack->GetName()),
-                        ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
-                        nTrack->GetColor(0).GetARGB());
+  return CreateTrack(env, *track);
 }
 
 JNIEXPORT jboolean JNICALL
@@ -496,21 +408,6 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_n
   auto const ids = bm.GetChildrenCategories(static_cast<kml::MarkGroupId>(parentId));
 
   return ToJavaBookmarkCategories(env, ids);
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetSortedCategory(
-    JNIEnv * env, jobject, jlong catId, jint sortingType, jboolean hasMyPosition, jdouble lat, jdouble lon,
-    jlong timestamp)
-{
-  auto & bm = frm()->GetBookmarkManager();
-  BookmarkManager::SortParams sortParams;
-  sortParams.m_groupId = static_cast<kml::MarkGroupId>(catId);
-  sortParams.m_sortingType = static_cast<BookmarkManager::SortingType>(sortingType);
-  sortParams.m_hasMyPosition = static_cast<bool>(hasMyPosition);
-  sortParams.m_myPosition = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
-  sortParams.m_onResults = bind(&OnCategorySortingResults, env, timestamp, _1, _2);
-
-  bm.GetSortedCategory(sortParams);
 }
 
 constexpr static uint8_t ExtractByte(uint32_t number, uint8_t byteIdx)

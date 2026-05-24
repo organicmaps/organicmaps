@@ -5,7 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.sdk.content.DataSource;
 import java.util.List;
 
-public class CategoryDataSource extends RecyclerView.AdapterDataObserver implements DataSource<BookmarkCategory>
+public class CategoryDataSource
+    extends RecyclerView.AdapterDataObserver implements DataSource<BookmarkCategory>, DataChangedListener
 {
   @NonNull
   private BookmarkCategory mCategory;

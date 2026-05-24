@@ -4,6 +4,10 @@
   android:id="@+id/placeholder_loading"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="?android:attr/colorBackground"
+  android:alpha="0.85"
+  android:clickable="true"
+  android:focusable="true"
   android:gravity="center"
   android:orientation="vertical">
   <ProgressBar

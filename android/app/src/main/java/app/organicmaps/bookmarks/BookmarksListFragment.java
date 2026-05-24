@@ -28,16 +28,15 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSession;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListSnapshot;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
 import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
-import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.sdk.bookmarks.data.Track;
-import app.organicmaps.sdk.search.BookmarkSearchListener;
-import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -56,8 +55,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter>
-    implements BookmarkManager.BookmarksSharingListener, BookmarkManager.BookmarksSortingListener,
-               BookmarkManager.BookmarksLoadingListener, BookmarkSearchListener,
+    implements BookmarkManager.BookmarksSharingListener, BookmarkManager.BookmarksLoadingListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface,
                BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
@@ -72,6 +70,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
   private static final String EXTRA_SELECTED_ITEM_ID = "selected_item_id";
   private static final String EXTRA_SELECTED_ITEM_TYPE = "selected_item_type";
+  private static final String EXTRA_SEARCH_MODE = "search_mode";
+  private static final String EXTRA_SEARCH_QUERY = "search_query";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
   private final ActivityResultLauncher<Intent> startBookmarkListForResult = registerForActivityResult(
@@ -83,15 +83,18 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SearchToolbarController mToolbarController;
-  private long mLastQueryTimestamp = 0;
-  private long mLastSortTimestamp = 0;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private CategoryDataSource mCategoryDataSource;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private BookmarkListSession mBookmarkListSession;
   private long mSelectedItemId = -1;
   private int mSelectedItemType = -1;
   private boolean mSearchMode = false;
+  private boolean mSearchResults = false;
   private boolean mNeedUpdateSorting = true;
+  private boolean mSortingInProgress = false;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ViewGroup mSearchContainer;
@@ -110,6 +113,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   };
   @Nullable
   private Bundle mSavedInstanceState;
+  @Nullable
+  private String mRestoredQuery;
 
   @NonNull
   private final MenuProvider mMenuProvider = new MenuProvider() {
@@ -121,7 +126,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       itemSearch.setVisible(visible);
 
       final MenuItem itemMore = menu.findItem(R.id.bookmarks_more);
-      if (mLastSortTimestamp != 0)
+      if (mSortingInProgress)
         itemMore.setActionView(R.layout.toolbar_menu_progressbar);
     }
 
@@ -159,11 +164,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     super.onCreate(savedInstanceState);
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
+    // showDefault() is deferred to onViewCreatedInternal() because it queries BookmarkManager
+    // and the category may not exist yet if bookmarks are still loading asynchronously.
+    mBookmarkListSession = new BookmarkListSession(category.getId());
 
     if (savedInstanceState != null)
     {
       mSelectedItemId = savedInstanceState.getLong(EXTRA_SELECTED_ITEM_ID, -1);
       mSelectedItemType = savedInstanceState.getInt(EXTRA_SELECTED_ITEM_TYPE, -1);
+      mSearchMode = savedInstanceState.getBoolean(EXTRA_SEARCH_MODE, false);
+      mRestoredQuery = savedInstanceState.getString(EXTRA_SEARCH_QUERY);
     }
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
@@ -175,6 +185,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     super.onSaveInstanceState(outState);
     outState.putLong(EXTRA_SELECTED_ITEM_ID, mSelectedItemId);
     outState.putInt(EXTRA_SELECTED_ITEM_TYPE, mSelectedItemType);
+    outState.putBoolean(EXTRA_SEARCH_MODE, mSearchMode);
+    if (mToolbarController != null)
+      outState.putString(EXTRA_SEARCH_QUERY, mToolbarController.getQuery());
+    else
+      outState.putString(EXTRA_SEARCH_QUERY, mRestoredQuery);
   }
 
   @NonNull
@@ -189,8 +204,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   protected ConcatAdapter createAdapter()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
-    return new ConcatAdapter(initAndGetCollectionAdapter(category.getId()),
-                             new BookmarkListAdapter(mCategoryDataSource));
+    BookmarkListAdapter adapter = new BookmarkListAdapter();
+    adapter.setHasStableIds(true);
+    adapter.setSession(mBookmarkListSession);
+    return new ConcatAdapter(initAndGetCollectionAdapter(category.getId()), adapter);
   }
 
   @NonNull
@@ -254,16 +271,20 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
         getRecyclerView(), new WindowInsetUtils.ScrollableContentInsetsListener(getRecyclerView(), mFabViewOnMap));
 
     updateLoadingPlaceholder(view, false);
+
+    mBookmarkListSession.showDefault();
+    mBookmarkListSession.setListener(this::onBookmarkListSnapshotChanged);
+    applySnapshot(mBookmarkListSession.getLatestSnapshot());
+    restoreSearchState();
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    SearchEngine.INSTANCE.addBookmarkListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
-    BookmarkManager.INSTANCE.addSortingListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
+    BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoryDataSource);
   }
 
   @Override
@@ -273,33 +294,40 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
       return;
 
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.notifyDataSetChanged();
+    mCategoryDataSource.invalidate();
+    updateActionBarTitle();
+    applySnapshot(mBookmarkListSession.getLatestSnapshot());
     updateSorting();
     updateSearchVisibility();
     updateRecyclerVisibility();
   }
 
   @Override
-  public void onPause()
+  public void onDestroyView()
   {
-    super.onPause();
+    mBookmarkListSession.setListener(null);
+    super.onDestroyView();
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    SearchEngine.INSTANCE.removeBookmarkListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
-    BookmarkManager.INSTANCE.removeSortingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
+    BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(mCategoryDataSource);
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    mBookmarkListSession.close();
+    super.onDestroy();
   }
 
   private void configureBookmarksListAdapter()
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.registerAdapterDataObserver(mCategoryDataSource);
     adapter.setOnClickListener((v, position) -> onItemClick(position));
     adapter.setOnLongClickListener((v, position) -> onItemMore(position));
     adapter.setMoreListener((v, position) -> onItemMore(position));
@@ -331,18 +359,70 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     getRecyclerView().addOnScrollListener(mRecyclerListener);
   }
 
+  private void restoreSearchState()
+  {
+    updateSearchVisibility();
+    if (mRestoredQuery == null || mRestoredQuery.isEmpty())
+      return;
+
+    mToolbarController.setQuery(mRestoredQuery);
+    mRestoredQuery = null;
+  }
+
+  private void updateActionBarTitle()
+  {
+    ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+    if (actionBar != null)
+      actionBar.setTitle(mCategoryDataSource.getData().getName());
+  }
+
+  private void onBookmarkListSnapshotChanged(@NonNull BookmarkListSnapshot snapshot)
+  {
+    if (!isAdded())
+      return;
+
+    applySnapshot(snapshot);
+  }
+
+  private void applySnapshot(@NonNull BookmarkListSnapshot snapshot)
+  {
+    BookmarkListAdapter adapter = getBookmarkListAdapter();
+    adapter.setSnapshot(snapshot, mSearchResults);
+    adapter.notifyDataSetChanged();
+
+    mCategoryDataSource.invalidate();
+    updateActionBarTitle();
+
+    if (mSearchResults)
+      mSortingInProgress = false;
+    else if (!snapshot.isLoading())
+      mSortingInProgress = false;
+
+    mToolbarController.showProgress(mSearchResults && mToolbarController.hasQuery() && snapshot.isLoading());
+    updateSortingProgressBar();
+
+    // Show the loading overlay on top of the existing list while search/sort is in progress,
+    // but only when there are rows underneath — otherwise the empty-list placeholder is shown instead.
+    View view = getView();
+    if (view != null)
+      updateLoadingPlaceholder(view, snapshot.isLoading() && snapshot.size() > 0);
+
+    updateRecyclerVisibility();
+  }
+
   private void updateRecyclerVisibility()
   {
-    if (isEmptySearchResults())
+    boolean loading = mBookmarkListSession.getLatestSnapshot().isLoading();
+
+    if (!loading)
     {
-      requirePlaceholder().setContent(R.string.search_not_found, R.string.search_not_found_query);
-    }
-    else if (isEmpty())
-    {
-      requirePlaceholder().setContent(R.string.bookmarks_empty_list_title, R.string.bookmarks_empty_list_message);
+      if (isEmptySearchResults())
+        requirePlaceholder().setContent(R.string.search_not_found, R.string.search_not_found_query);
+      else if (isEmpty())
+        requirePlaceholder().setContent(R.string.bookmarks_empty_list_title, R.string.bookmarks_empty_list_message);
     }
 
-    boolean isEmptyRecycler = isEmpty() || isEmptySearchResults();
+    boolean isEmptyRecycler = (isEmpty() || isEmptySearchResults()) && !loading;
 
     showPlaceholder(isEmptyRecycler);
 
@@ -372,48 +452,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   public void runSearch(@NonNull String query)
   {
-    SearchEngine.INSTANCE.cancel();
-
-    mLastQueryTimestamp = System.nanoTime();
-    if (SearchEngine.INSTANCE.searchInBookmarks(query, mCategoryDataSource.getData().getId(), mLastQueryTimestamp))
-    {
-      mToolbarController.showProgress(true);
-    }
-  }
-
-  @Override
-  public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
-  {
-    if (!isAdded() || !mToolbarController.hasQuery() || mLastQueryTimestamp != timestamp)
-      return;
-    updateSearchResults(bookmarkIds);
-  }
-
-  @Override
-  public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
-  {
-    if (!isAdded() || !mToolbarController.hasQuery() || mLastQueryTimestamp != timestamp)
-      return;
-    mLastQueryTimestamp = 0;
-    mToolbarController.showProgress(false);
-    updateSearchResults(bookmarkIds);
-  }
-
-  private void updateSearchResults(@Nullable long[] bookmarkIds)
-  {
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSearchResults(bookmarkIds);
-    adapter.notifyDataSetChanged();
-    updateRecyclerVisibility();
+    mSearchResults = true;
+    mSortingInProgress = false;
+    mBookmarkListSession.search(query);
   }
 
   public void cancelSearch()
   {
-    mLastQueryTimestamp = 0;
-    SearchEngine.INSTANCE.cancel();
+    mSearchResults = false;
     mToolbarController.showProgress(false);
-    updateSearchResults(null);
-    updateSorting();
+    applyBaseMode();
   }
 
   public void activateSearch()
@@ -428,42 +476,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     mSearchMode = false;
     BookmarkManager.INSTANCE.setNotificationsEnabled(false);
+    if (mToolbarController.hasQuery())
+      mToolbarController.clear();
+    else
+      cancelSearch();
     updateSearchVisibility();
-  }
-
-  @Override
-  public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
-  {
-    if (mLastSortTimestamp != timestamp)
-      return;
-    mLastSortTimestamp = 0;
-
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSortedResults(sortedBlocks);
-    adapter.notifyDataSetChanged();
-
-    updateSortingProgressBar();
-  }
-
-  @Override
-  public void onBookmarksSortingCancelled(long timestamp)
-  {
-    if (mLastSortTimestamp != timestamp)
-      return;
-    mLastSortTimestamp = 0;
-
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSortedResults(null);
-    adapter.notifyDataSetChanged();
-
-    updateSortingProgressBar();
   }
 
   @Override
   public void onSort(@BookmarkCategory.SortingType int sortingType)
   {
-    mLastSortTimestamp = System.nanoTime();
-
     final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
     if (!hasMyPosition && sortingType == BookmarkCategory.SortingType.BY_DISTANCE)
@@ -474,9 +496,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final double lon = hasMyPosition ? loc.getLongitude() : 0;
 
     category.setLastSortingType(sortingType);
-    BookmarkManager.INSTANCE.getSortedCategory(category.getId(), sortingType, hasMyPosition, lat, lon,
-                                               mLastSortTimestamp);
-
+    mSearchResults = false;
+    mNeedUpdateSorting = false;
+    mSortingInProgress = true;
+    mBookmarkListSession.sort(sortingType, hasMyPosition, lat, lon);
     updateSortingProgressBar();
   }
 
@@ -495,12 +518,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @Override
   public void onResetSorting()
   {
-    mLastSortTimestamp = 0;
     mCategoryDataSource.getData().resetLastSortingType();
-
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSortedResults(null);
-    adapter.notifyDataSetChanged();
+    mNeedUpdateSorting = false;
+    mSortingInProgress = false;
+    if (!mSearchResults)
+      mBookmarkListSession.showDefault();
+    updateSortingProgressBar();
   }
 
   private void updateSorting()
@@ -509,37 +532,32 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return;
     mNeedUpdateSorting = false;
 
-    // Do nothing in case of sorting has already started and we are waiting for results.
-    if (mLastSortTimestamp != 0)
+    if (mSearchResults || mSortingInProgress)
       return;
 
-    if (!mCategoryDataSource.getData().hasLastSortingType())
-      return;
-
-    int currentType = getLastAvailableSortingType();
-    if (currentType >= 0)
-      onSort(currentType);
+    applyBaseMode();
   }
 
   private void forceUpdateSorting()
   {
-    mLastSortTimestamp = 0;
     mNeedUpdateSorting = true;
+    mSortingInProgress = false;
     updateSorting();
   }
 
   private void resetSearchAndSort()
   {
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.setSortedResults(null);
-    adapter.setSearchResults(null);
-    adapter.notifyDataSetChanged();
-
     if (mSearchMode)
     {
-      cancelSearch();
       deactivateSearch();
     }
+    else
+    {
+      mSearchResults = false;
+      mToolbarController.showProgress(false);
+      mBookmarkListSession.showDefault();
+    }
+
     forceUpdateSorting();
     updateRecyclerVisibility();
   }
@@ -592,6 +610,21 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void updateSortingProgressBar()
   {
     requireActivity().invalidateOptionsMenu();
+  }
+
+  private void applyBaseMode()
+  {
+    int currentType = getLastAvailableSortingType();
+    if (currentType >= 0)
+    {
+      onSort(currentType);
+      return;
+    }
+
+    mNeedUpdateSorting = false;
+    mSortingInProgress = false;
+    mBookmarkListSession.showDefault();
+    updateSortingProgressBar();
   }
 
   public void onItemClick(int position)
@@ -755,7 +788,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void onDeleteTrackSelected(long trackId)
   {
     BookmarkManager.INSTANCE.deleteTrack(trackId);
-    getBookmarkListAdapter().notifyDataSetChanged();
   }
 
   private void onShareActionSelected()
@@ -775,13 +807,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     final BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mSelectedItemId);
     if (info == null)
       return;
-    BookmarkListAdapter adapter = getBookmarkListAdapter();
     EditBookmarkFragment.editBookmark(info.getCategoryId(), info.getBookmarkId(), requireActivity(),
                                       getChildFragmentManager(), (bookmarkId, movedFromCategory) -> {
                                         if (movedFromCategory)
                                           resetSearchAndSort();
-                                        else
-                                          adapter.notifyDataSetChanged();
                                       });
   }
 
@@ -794,8 +823,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                                    getChildFragmentManager(), (trackId, movedFromCategory) -> {
                                      if (movedFromCategory)
                                        resetSearchAndSort();
-                                     else
-                                       getBookmarkListAdapter().notifyDataSetChanged();
                                    });
   }
 
@@ -804,9 +831,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (mSelectedItemId == -1)
       return;
     BookmarkManager.INSTANCE.deleteBookmark(mSelectedItemId);
-    getBookmarkListAdapter().notifyDataSetChanged();
-    if (mSearchMode)
-      mNeedUpdateSorting = true;
     updateSearchVisibility();
     updateRecyclerVisibility();
   }
@@ -894,9 +918,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void handleActivityResult()
   {
-    getBookmarkListAdapter().notifyDataSetChanged();
-    ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-    actionBar.setTitle(mCategoryDataSource.getData().getName());
+    mCategoryDataSource.invalidate();
+    updateActionBarTitle();
+    applySnapshot(mBookmarkListSession.getLatestSnapshot());
+    forceUpdateSorting();
   }
 
   @Override

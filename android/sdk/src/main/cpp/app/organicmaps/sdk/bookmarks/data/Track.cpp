@@ -5,6 +5,32 @@
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/TrackStatistics.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
+#include "app/organicmaps/sdk/util/Distance.hpp"
+
+#include "map/track.hpp"
+
+#include "kml/type_utils.hpp"
+
+#include "platform/distance.hpp"
+
+jobject CreateTrack(JNIEnv * env, Track const & track)
+{
+  static jmethodID const ctorId = jni::GetConstructorID(env, g_trackClazz,
+                                                        "("
+                                                        "J"                                    // id
+                                                        "J"                                    // categoryId
+                                                        "Z"                                    // isRelationTrack
+                                                        "Ljava/lang/String;"                   // title
+                                                        "Lapp/organicmaps/sdk/util/Distance;"  // length
+                                                        "I"                                    // color
+                                                        ")V");
+
+  auto const isRelationTrack = static_cast<jboolean>(track.GetId() == kml::kTempRelationTrackId);
+  return env->NewObject(g_trackClazz, ctorId, static_cast<jlong>(track.GetId()), static_cast<jlong>(track.GetGroupId()),
+                        isRelationTrack, jni::ToJavaString(env, track.GetName()),
+                        ToJavaDistance(env, platform::Distance::CreateFormatted(track.GetLengthMeters())),
+                        track.GetColor(0).GetARGB());
+}
 
 jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
                     jni::TScopedLocalRef const & routingPointInfo)

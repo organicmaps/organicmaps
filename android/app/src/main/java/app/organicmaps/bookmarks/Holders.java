@@ -18,7 +18,7 @@ import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkListRow;
 import app.organicmaps.sdk.bookmarks.data.IconClickListener;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.util.UiUtils;
@@ -27,6 +27,7 @@ import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.recycler.DividerBehavior;
 import app.organicmaps.widget.recycler.RecyclerClickListener;
 import app.organicmaps.widget.recycler.RecyclerLongClickListener;
+import java.util.Objects;
 
 public class Holders
 {
@@ -321,8 +322,7 @@ public class Holders
       mView = itemView;
     }
 
-    abstract void bind(@NonNull SectionPosition position,
-                       @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource);
+    abstract void bind(@NonNull BookmarkListRow row, @Nullable CharSequence sectionTitle);
 
     void setOnClickListener(@Nullable RecyclerClickListener listener)
     {
@@ -366,10 +366,9 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull SectionPosition position, @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
+    void bind(@NonNull BookmarkListRow row, @Nullable CharSequence sectionTitle)
     {
-      final long bookmarkId = sectionsDataSource.getBookmarkId(position);
-      BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
+      BookmarkInfo bookmark = Objects.requireNonNull(row.getBookmark());
       mName.setText(bookmark.getName());
       final Location loc = MwmApplication.from(mIcon.getContext()).getLocationHelper().getSavedLocation();
 
@@ -417,10 +416,9 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull SectionPosition position, @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
+    void bind(@NonNull BookmarkListRow row, @Nullable CharSequence sectionTitle)
     {
-      final long trackId = sectionsDataSource.getTrackId(position);
-      Track track = BookmarkManager.INSTANCE.getTrack(trackId);
+      Track track = Objects.requireNonNull(row.getTrack());
       mName.setText(track.getName());
       mDistance.setText(new StringBuilder()
                             .append(mDistance.getContext().getString(R.string.length))
@@ -455,9 +453,9 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull SectionPosition position, @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
+    void bind(@NonNull BookmarkListRow row, @Nullable CharSequence sectionTitle)
     {
-      mView.setText(sectionsDataSource.getTitle(position.getSectionIndex(), mView.getResources()));
+      mView.setText(sectionTitle);
     }
 
     @Override
@@ -476,7 +474,7 @@ public class Holders
     @NonNull
     private final TextView mDescText;
 
-    DescriptionViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
+    DescriptionViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mDescText = itemView.findViewById(R.id.text);
@@ -484,17 +482,15 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull SectionPosition position, @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
+    void bind(@NonNull BookmarkListRow row, @Nullable CharSequence sectionTitle)
     {
-      mTitle.setText(sectionsDataSource.getCategory().getName());
-      bindDescription(sectionsDataSource.getCategory());
+      mTitle.setText(row.getTitle());
+      bindDescription(row);
     }
 
-    private void bindDescription(@NonNull BookmarkCategory category)
+    private void bindDescription(@NonNull BookmarkListRow row)
     {
-      String desc = TextUtils.isEmpty(category.getAnnotation()) ? category.getDescription() : category.getAnnotation();
-
-      String formattedDesc = desc.replace("\n", "<br>");
+      String formattedDesc = Objects.requireNonNull(row.getDescription()).replace("\n", "<br>");
       Spanned spannedDesc = Utils.fromHtml(formattedDesc);
       mDescText.setText(spannedDesc);
 

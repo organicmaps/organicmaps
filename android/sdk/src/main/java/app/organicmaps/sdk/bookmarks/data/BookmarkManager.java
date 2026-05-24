@@ -43,9 +43,6 @@ public enum BookmarkManager {
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
   @NonNull
-  private final List<BookmarksSortingListener> mSortingListeners = new ArrayList<>();
-
-  @NonNull
   private final List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
 
   @Nullable
@@ -68,16 +65,6 @@ public enum BookmarkManager {
   public void removeLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
-  }
-
-  public void addSortingListener(@NonNull BookmarksSortingListener listener)
-  {
-    mSortingListeners.add(listener);
-  }
-
-  public void removeSortingListener(@NonNull BookmarksSortingListener listener)
-  {
-    mSortingListeners.remove(listener);
   }
 
   public void addSharingListener(@NonNull BookmarksSharingListener listener)
@@ -129,26 +116,6 @@ public enum BookmarkManager {
     mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingFinished();
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  private void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
-  {
-    for (BookmarksSortingListener listener : mSortingListeners)
-      listener.onBookmarksSortingCompleted(sortedBlocks, timestamp);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  private void onBookmarksSortingCancelled(long timestamp)
-  {
-    for (BookmarksSortingListener listener : mSortingListeners)
-      listener.onBookmarksSortingCancelled(timestamp);
   }
 
   // Called from JNI.
@@ -537,12 +504,6 @@ public enum BookmarkManager {
     nativeSetNotificationsEnabled(enabled);
   }
 
-  public void getSortedCategory(long catId, @BookmarkCategory.SortingType int sortingType, boolean hasMyPosition,
-                                double lat, double lon, long timestamp)
-  {
-    nativeGetSortedCategory(catId, sortingType, hasMyPosition, lat, lon, timestamp);
-  }
-
   @NonNull
   public List<BookmarkCategory> getChildrenCategories(long catId)
   {
@@ -619,9 +580,6 @@ public enum BookmarkManager {
 
   private static native void nativeSetNotificationsEnabled(boolean enabled);
 
-  private native void nativeGetSortedCategory(long catId, @BookmarkCategory.SortingType int sortingType,
-                                              boolean hasMyPosition, double lat, double lon, long timestamp);
-
   private static native void nativeSetElevationCurrentPositionChangedListener();
 
   public static native void nativeRemoveElevationCurrentPositionChangedListener();
@@ -640,12 +598,6 @@ public enum BookmarkManager {
     default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
     default void onBookmarksFileImportSuccessful() {}
     default void onBookmarksFileImportFailed() {}
-  }
-
-  public interface BookmarksSortingListener
-  {
-    void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp);
-    default void onBookmarksSortingCancelled(long timestamp){};
   }
 
   public interface BookmarksSharingListener

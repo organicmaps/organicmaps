@@ -19,6 +19,7 @@ extern JavaVM * GetJVM()
 // Caching is necessary to create class from native threads.
 jclass g_mapObjectClazz;
 jclass g_bookmarkClazz;
+jclass g_bookmarkInfoClazz;
 jclass g_trackClazz;
 jclass g_trackStatisticsClazz;
 jclass g_httpClientClazz;
@@ -60,6 +61,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM * jvm, void *)
   g_trackClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Track");
   g_trackStatisticsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/TrackStatistics");
   g_bookmarkClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Bookmark");
+  g_bookmarkInfoClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/BookmarkInfo");
   g_httpClientClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient");
   g_httpParamsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient$Params");
   g_platformSocketClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/location/PlatformSocket");
@@ -89,6 +91,7 @@ JNIEXPORT void JNI_OnUnload(JavaVM *, void *)
   JNIEnv * env = jni::GetEnv();
   env->DeleteGlobalRef(g_mapObjectClazz);
   env->DeleteGlobalRef(g_bookmarkClazz);
+  env->DeleteGlobalRef(g_bookmarkInfoClazz);
   env->DeleteGlobalRef(g_trackClazz);
   env->DeleteGlobalRef(g_trackStatisticsClazz);
   env->DeleteGlobalRef(g_httpClientClazz);
