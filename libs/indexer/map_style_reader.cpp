@@ -27,6 +27,8 @@ std::string GetStyleRulesFamily(MapStyle mapStyle)
   case MapStyleVehicleLight: return "vehicle";
   case MapStyleOutdoorsLight:
   case MapStyleOutdoorsDark: return "outdoors";
+  case MapStyleCyclingLight:
+  case MapStyleCyclingDark: return "cycling";
   case MapStyleMerged: return "merged";
 
   case MapStyleCount: break;
@@ -56,10 +58,12 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
   {
   case MapStyleDefaultDark:
   case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark: return kSuffixDark;
+  case MapStyleOutdoorsDark:
+  case MapStyleCyclingDark: return kSuffixDark;
   case MapStyleDefaultLight:
   case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight: return kSuffixLight;
+  case MapStyleOutdoorsLight:
+  case MapStyleCyclingLight: return kSuffixLight;
   case MapStyleMerged: return {};
 
   case MapStyleCount: break;

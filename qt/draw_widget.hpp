@@ -82,6 +82,7 @@ public:
   void SetMapStyleToDefault();
   void SetMapStyleToVehicle();
   void SetMapStyleToOutdoors();
+  void SetMapStyleToCycling();
 
 protected:
   /// @name Overriden from MapWidget.

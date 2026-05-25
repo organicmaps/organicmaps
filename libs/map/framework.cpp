@@ -3169,6 +3169,10 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
     desiredStyle = MapStyleOutdoorsLight;
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
     desiredStyle = MapStyleOutdoorsDark;
+  else if (query == "?clight" || query == "mapstyle:cycling_light")
+    desiredStyle = MapStyleCyclingLight;
+  else if (query == "?cdark" || query == "mapstyle:cycling_dark")
+    desiredStyle = MapStyleCyclingDark;
 
   if (desiredStyle != MapStyleCount)
   {

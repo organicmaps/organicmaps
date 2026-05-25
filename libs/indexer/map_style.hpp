@@ -11,6 +11,8 @@ enum MapStyle
   MapStyleVehicleDark = 4,
   MapStyleOutdoorsLight = 5,
   MapStyleOutdoorsDark = 6,
+  MapStyleCyclingLight = 7,
+  MapStyleCyclingDark = 8,
   // Add new map style here
 
   // Specifies number of MapStyle enum values, must be last

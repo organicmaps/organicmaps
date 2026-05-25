@@ -62,12 +62,22 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
     default: return NO;
     }
   }(style);
+  auto const isCycling = ^BOOL(MapStyle style) {
+    switch (style)
+    {
+    case MapStyleCyclingLight:
+    case MapStyleCyclingDark: return YES;
+    default: return NO;
+    }
+  }(style);
   auto const newStyle = ^MapStyle(MWMTheme theme) {
     switch (theme)
     {
-    case MWMThemeDay: return isOutdoor ? MapStyleOutdoorsLight : MapStyleDefaultLight;
+    case MWMThemeDay:
+      return isCycling ? MapStyleCyclingLight : (isOutdoor ? MapStyleOutdoorsLight : MapStyleDefaultLight);
     case MWMThemeVehicleDay: return MapStyleVehicleLight;
-    case MWMThemeNight: return isOutdoor ? MapStyleOutdoorsDark : MapStyleDefaultDark;
+    case MWMThemeNight:
+      return isCycling ? MapStyleCyclingDark : (isOutdoor ? MapStyleOutdoorsDark : MapStyleDefaultDark);
     case MWMThemeVehicleNight: return MapStyleVehicleDark;
     case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleDefaultLight;
     }

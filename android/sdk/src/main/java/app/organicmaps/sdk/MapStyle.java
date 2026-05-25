@@ -9,7 +9,9 @@ public enum MapStyle
   VehicleClear(3),
   VehicleDark(4),
   OutdoorsClear(5),
-  OutdoorsDark(6);
+  OutdoorsDark(6),
+  CyclingClear(7),
+  CyclingDark(8);
 
   MapStyle(int value)
   {
