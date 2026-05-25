@@ -132,6 +132,8 @@ public enum ThemeSwitcher
   {
     if (RoutingController.get().isVehicleNavigation())
       return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
+    else if (Framework.nativeIsCyclingLayerEnabled())
+      return dark ? MapStyle.CyclingDark : MapStyle.CyclingClear;
     else if (Framework.nativeIsOutdoorsLayerEnabled())
       return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
     else

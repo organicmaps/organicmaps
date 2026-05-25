@@ -732,6 +732,12 @@ void DrawWidget::SetMapStyleToOutdoors()
   SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleOutdoorsDark : MapStyle::MapStyleOutdoorsLight);
 }
 
+void DrawWidget::SetMapStyleToCycling()
+{
+  auto const style = m_framework.GetMapStyle();
+  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleCyclingDark : MapStyle::MapStyleCyclingLight);
+}
+
 m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
 {
   return m_framework.P3dtoG(pt);

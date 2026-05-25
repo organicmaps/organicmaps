@@ -931,7 +931,13 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
       m_pDrawWidget->SetMapStyleToDefault();
     break;
   case HIKING: frm.SetHikingEnabled(enable); break;
-  case CYCLING: frm.SetCyclingEnabled(enable); break;
+  case CYCLING:
+    frm.SetCyclingEnabled(enable);
+    if (enable)
+      m_pDrawWidget->SetMapStyleToCycling();
+    else
+      m_pDrawWidget->SetMapStyleToDefault();
+    break;
   }
 }
 

@@ -232,7 +232,20 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (void)setCyclingEnabled:(BOOL)enable
 {
-  GetFramework().SetCyclingEnabled(enable);
+  auto & f = GetFramework();
+  switch (f.GetMapStyle())
+  {
+  case MapStyleDefaultLight:
+  case MapStyleVehicleLight:
+  case MapStyleOutdoorsLight:
+  case MapStyleCyclingLight: f.SetMapStyle(enable ? MapStyleCyclingLight : MapStyleDefaultLight); break;
+  case MapStyleDefaultDark:
+  case MapStyleVehicleDark:
+  case MapStyleOutdoorsDark:
+  case MapStyleCyclingDark: f.SetMapStyle(enable ? MapStyleCyclingDark : MapStyleDefaultDark); break;
+  default: break;
+  }
+  f.SetCyclingEnabled(enable);
   [NSNotificationCenter.defaultCenter postNotificationName:didChangeMapOverlay object:nil];
 }
 
