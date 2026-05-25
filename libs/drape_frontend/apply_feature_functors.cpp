@@ -171,24 +171,24 @@ bool ApplyBicycleLineStyle(BicycleLineKind kind, double visScale, LineViewParams
   switch (kind)
   {
   case BicycleLineKind::Cycleway:
-    params.m_width = static_cast<float>(std::max(2.4 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(2.0 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
     params.m_pattern.clear();
     return true;
   case BicycleLineKind::Track:
-    params.m_width = static_cast<float>(std::max(2.4 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(1.9 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
     params.m_pattern.clear();
     return true;
   case BicycleLineKind::Lane:
-    params.m_width = static_cast<float>(std::max(1.8 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(1.5 * visScale, 1.0));
     params.m_cap = dp::ButtCap;
-    SetLinePattern(visScale, params, {5.6, 4.2});
+    SetLinePattern(visScale, params, {6.4, 4.8});
     return true;
   case BicycleLineKind::SharedLane:
-    params.m_width = static_cast<float>(std::max(1.8 * visScale, 1.0));
+    params.m_width = static_cast<float>(std::max(1.35 * visScale, 1.0));
     params.m_cap = dp::RoundCap;
-    SetLinePattern(visScale, params, {1.8, 3.3});
+    SetLinePattern(visScale, params, {1.2, 4.2});
     return true;
   case BicycleLineKind::None: return false;
   }
