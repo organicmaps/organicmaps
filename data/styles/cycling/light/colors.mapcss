@@ -1,2 +1,7 @@
 /* Keep here changes of the base map style file only. */
 @import("../../default/light/colors.mapcss");
+
+/* Single cycling accent: vivid cyan-blue. Line treatments (solid / dashed /
+   dotted / casing) carry the infrastructure type — color stays constant so
+   "blue means cycling" reads instantly. */
+@cycleway: #1E88E5;
