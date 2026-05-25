@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) BOOL showAddPlace;
 @property(nonatomic, readonly) BOOL showEditPlace;
+@property(nonatomic, readonly) BOOL canEditPlace;
 
 @property(nonatomic, readonly) PlacePageOSMContributionState state;
 

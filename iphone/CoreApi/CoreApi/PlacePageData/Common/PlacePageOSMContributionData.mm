@@ -18,6 +18,7 @@
 
     BOOL shouldShowAddPlace = rawData.ShouldShowAddPlace() || rawData.ShouldShowAddBusiness();
     BOOL shouldShowEditPlace = rawData.ShouldShowEditPlace();
+    BOOL canEditPlace = rawData.CanEditPlace();
     switch (mapAttributes.nodeStatus)
     {
     case MWMMapNodeStatusUndefined:
@@ -25,6 +26,7 @@
       _state = PlacePageOSMContributionStateCanAddOrEditPlace;
       _showAddPlace = shouldShowAddPlace;
       _showEditPlace = shouldShowEditPlace;
+      _canEditPlace = canEditPlace;
       break;
     case MWMMapNodeStatusDownloading:
     case MWMMapNodeStatusApplying:
@@ -33,11 +35,12 @@
     case MWMMapNodeStatusNotDownloaded:
     case MWMMapNodeStatusOnDiskOutOfDate:
     case MWMMapNodeStatusPartly:
-      BOOL needsToUpdateMap = !rawData.CanEditPlace();
+      BOOL needsToUpdateMap = !canEditPlace;
       _state = needsToUpdateMap ? PlacePageOSMContributionStateShouldUpdateMap
                                 : PlacePageOSMContributionStateCanAddOrEditPlace;
       _showAddPlace = !needsToUpdateMap && shouldShowAddPlace;
       _showEditPlace = !needsToUpdateMap && shouldShowEditPlace;
+      _canEditPlace = canEditPlace;
       break;
     }
     return self;
