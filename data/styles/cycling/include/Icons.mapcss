@@ -1,2 +1,50 @@
 /* Keep here changes of the base map style file only. */
 @import("../../default/include/Icons.mapcss");
+
+/* ~~~~ CYCLING POI OVERRIDES ~~~~~
+   Promote what a cyclist needs (water, bike shops). Push back what is just
+   noise for a cyclist (fuel, car parking, charging stations, car-related
+   shops). Source-order cascade: these rules follow the @import and win. */
+
+/* --- PROMOTE: drinking water z16 → z13 using the smaller icon variant.
+   Critical for touring cyclists; default doesn't show it until you're
+   nearly on top of it. */
+node|z13-15[amenity=drinking_water],
+area|z13-15[amenity=drinking_water]
+{icon-image: drinking-water-s.svg;}
+node|z13-[amenity=drinking_water],
+area|z13-[amenity=drinking_water],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+/* --- PROMOTE: shop=bicycle z16 → z14 (text only at z14-15; icon stays at
+   z16 since no smaller variant exists). */
+node|z14-[shop=bicycle],
+area|z14-[shop=bicycle],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+/* --- SUPPRESS: amenity=fuel z14-16 (cyclists rarely need petrol stations;
+   they remain visible at z17+ for genuine emergencies). */
+node|z14-16[amenity=fuel],
+area|z14-16[amenity=fuel],
+{icon-image: none; text: none;}
+
+/* --- SUPPRESS: car charging stations z14-15 (default promotes these as
+   highway services). */
+node|z14-15[amenity=charging_station][motorcar?],
+area|z14-15[amenity=charging_station][motorcar?],
+{icon-image: none; text: none;}
+
+/* --- SUPPRESS: car parking z16-17 (a cyclist parks their bike, not a car;
+   amenity=bicycle_parking stays at default z17+). */
+node|z16-17[amenity=parking],
+area|z16-17[amenity=parking],
+{icon-image: none; text: none;}
+
+/* --- SUPPRESS: car-only shops at z16-17 (still visible from z18+ when the
+   cyclist is right there). Skip shop=car_repair / tyres since their default
+   visibility range (z15-) would make a non-contiguous gap. */
+node|z16-17[shop=car],
+area|z16-17[shop=car],
+node|z16-17[shop=car_parts],
+area|z16-17[shop=car_parts],
+{icon-image: none; text: none;}
