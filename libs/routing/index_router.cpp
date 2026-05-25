@@ -274,6 +274,12 @@ void IndexRouter::ClearState()
   m_dataSource.FreeHandles();
 }
 
+void IndexRouter::SwapAltRouteToActive()
+{
+  std::swap(m_lastRoute, m_lastAltRoute);
+  std::swap(m_lastFakeEdges, m_lastAltFakeEdges);
+}
+
 bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
@@ -366,6 +372,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         SCOPE_GUARD(restoreNormal, [&]
         {
           m_estimator->SetStrategy(EdgeEstimator::Strategy::Normal);
+          // Save the Shortest route's adjust-cache.
+          m_lastAltRoute = std::move(m_lastRoute);
+          m_lastAltFakeEdges = std::move(m_lastFakeEdges);
+          // Restore the Normal cache.
           m_lastRoute = std::move(savedLastRoute);
           m_lastFakeEdges = std::move(savedLastFakeEdges);
         });
@@ -390,7 +400,16 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                          altRoute.IsValid() && altRoute.IsGoodAlt(route.GetRouteSegments());
     result.MakeFrom(GetName(), std::move(route));
     if (keepAlt)
+    {
       result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(altRoute)));
+    }
+    else
+    {
+      // Alt isn't surfaced to the user — drop its adjust-cache so a stale state can't be
+      // promoted by a stray SwapAltRouteToActive.
+      m_lastAltRoute.reset();
+      m_lastAltFakeEdges.reset();
+    }
   }
 
   return code;

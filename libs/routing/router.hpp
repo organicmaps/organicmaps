@@ -74,6 +74,11 @@ public:
 
   virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                            EdgeProj & proj) = 0;
+
+  /// Swap the saved last-route state with the alternative's saved state. Called when the user
+  /// picks an alternative variant so a subsequent AdjustRoute (off-route rebuild) adjusts to
+  /// the selected route rather than the original primary. Default: no-op.
+  virtual void SwapAltRouteToActive() {}
 };
 
 }  // namespace routing

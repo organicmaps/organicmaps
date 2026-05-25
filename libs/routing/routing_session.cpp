@@ -581,6 +581,8 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   m_route = route;
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
+  if (m_router)
+    m_router->SwapAltRouteToActive();
   return true;
 }
 

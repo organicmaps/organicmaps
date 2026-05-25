@@ -193,6 +193,13 @@ void AsyncRouter::ClearState()
   ResetDelegate();
 }
 
+void AsyncRouter::SwapAltRouteToActive()
+{
+  lock_guard ul(m_guard);
+  if (m_router)
+    m_router->SwapAltRouteToActive();
+}
+
 // static
 void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 {
