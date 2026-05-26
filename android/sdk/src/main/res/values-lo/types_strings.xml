@@ -570,6 +570,7 @@
     <string name="type.historic.castle.shiro">ປາສາດຍີ່ປຸ່ນ</string>
     <string name="type.historic.castle.stately">ປາສາດໃຫຍ່</string>
     <string name="type.historic.city_gate">ປະຕູເມືອງ</string>
+    <string name="type.man_made.ceremonial_gate">ປະຕູພິທີ</string>
     <string name="type.historic.citywalls">ກຳແພງເມືອງ</string>
     <string name="type.historic.fort">ປ້ອມ</string>
     <string name="type.historic.gallows">ຕະແລງແກງ</string>

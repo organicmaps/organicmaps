@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "ປາສາດຍີ່ປຸ່ນ";
 "type.historic.castle.stately" = "ປາສາດໃຫຍ່";
 "type.historic.city_gate" = "ປະຕູເມືອງ";
+"type.man_made.ceremonial_gate" = "ປະຕູພິທີ";
 "type.historic.citywalls" = "ກຳແພງເມືອງ";
 "type.historic.fort" = "ປ້ອມ";
 "type.historic.gallows" = "ຕະແລງແກງ";

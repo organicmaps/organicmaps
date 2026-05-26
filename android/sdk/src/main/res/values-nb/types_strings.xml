@@ -514,6 +514,7 @@
     <string name="type.historic.castle.shiro">Japanske borger</string>
     <string name="type.historic.castle.stately">Slott</string>
     <string name="type.historic.city_gate">Byport</string>
+    <string name="type.man_made.ceremonial_gate">Seremoniell port</string>
     <string name="type.historic.citywalls">Bymur</string>
     <string name="type.historic.fort">Fort</string>
     <string name="type.historic.gallows">Galge</string>

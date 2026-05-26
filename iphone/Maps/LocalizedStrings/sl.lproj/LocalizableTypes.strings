@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japonski grad";
 "type.historic.castle.stately" = "Veličasten grad";
 "type.historic.city_gate" = "Mestna vrata";
+"type.man_made.ceremonial_gate" = "Obredna vrata";
 "type.historic.citywalls" = "Mestno obzidje";
 "type.historic.fort" = "Utrdba";
 "type.historic.gallows" = "Vislice";

@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Castell japonès";
 "type.historic.castle.stately" = "Castell";
 "type.historic.city_gate" = "Porta de la ciutat";
+"type.man_made.ceremonial_gate" = "Porta cerimonial";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Forca";

@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Castelul japonez";
 "type.historic.castle.stately" = "Castel";
 "type.historic.city_gate" = "Poarta orașului";
+"type.man_made.ceremonial_gate" = "Poarta Ceremonială";
 "type.historic.citywalls" = "Zidurile orașului";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Spânzurătoare";

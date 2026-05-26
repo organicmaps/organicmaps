@@ -562,6 +562,7 @@
     <string name="type.historic.castle.shiro">טירה יפנית</string>
     <string name="type.historic.castle.stately">טירה מפוארת</string>
     <string name="type.historic.city_gate">שער העיר</string>
+    <string name="type.man_made.ceremonial_gate">שער טקסי</string>
     <string name="type.historic.citywalls">חומת העיר</string>
     <string name="type.historic.fort">מִבצָר</string>
     <string name="type.historic.gallows">גרדום</string>

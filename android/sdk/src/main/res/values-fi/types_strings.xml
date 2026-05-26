@@ -554,6 +554,7 @@
     <string name="type.historic.castle.shiro">Japanilainen linna</string>
     <string name="type.historic.castle.stately">Arvokas linna</string>
     <string name="type.historic.city_gate">Kaupungin portti</string>
+    <string name="type.man_made.ceremonial_gate">Seremoniallinen portti</string>
     <string name="type.historic.citywalls">Kaupungin muuri</string>
     <string name="type.historic.fort">Linnake</string>
     <string name="type.historic.gallows">Hirsipuu</string>

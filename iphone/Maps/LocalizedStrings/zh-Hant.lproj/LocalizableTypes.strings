@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "城";
 "type.historic.castle.stately" = "法式城堡";
 "type.historic.city_gate" = "城門";
+"type.man_made.ceremonial_gate" = "禮儀門";
 "type.historic.citywalls" = "城牆";
 "type.historic.fort" = "歷史要塞";
 "type.historic.gallows" = "絞架";

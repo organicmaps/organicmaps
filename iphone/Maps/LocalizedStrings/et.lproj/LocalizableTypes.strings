@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Jaapani kindlusloss";
 "type.historic.castle.stately" = "Suur härrastemaja";
 "type.historic.city_gate" = "Linnavärav";
+"type.man_made.ceremonial_gate" = "Tseremoniaalne värav";
 "type.historic.citywalls" = "Linnamüür";
 "type.historic.fort" = "Kindlus";
 "type.historic.gallows" = "Võllas";

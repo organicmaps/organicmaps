@@ -5,6 +5,7 @@
     <string name="type.cuisine.uzbek">ਉਜ਼ਬੇਕ</string>
 
     <!-- SECTION: Types: Historic -->
+    <string name="type.man_made.ceremonial_gate">ਸਮਾਰੋਹਕ ਦਰਵਾਜ਼ਾ</string>
     <string name="type.leisure.track">ਖੇਡ ਟਰੈਕ</string>
     <string name="type.leisure.track.area">ਖੇਡ ਟਰੈਕ</string>
     <string name="type.natural.volcano.active">ਸਰਗਰਮ ਜਵਾਲਾਮੁਖੀ</string>

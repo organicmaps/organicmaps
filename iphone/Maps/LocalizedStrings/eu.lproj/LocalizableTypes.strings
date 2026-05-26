@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japoniar gaztelu";
 "type.historic.castle.stately" = "Gaztelua";
 "type.historic.city_gate" = "Portale";
+"type.man_made.ceremonial_gate" = "Ekitaldi-ate";
 "type.historic.citywalls" = "Hiri harresia";
 "type.historic.fort" = "Gotorlekua";
 "type.historic.gallows" = "Urkamendia";

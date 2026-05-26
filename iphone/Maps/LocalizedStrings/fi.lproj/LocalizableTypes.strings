@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japanilainen linna";
 "type.historic.castle.stately" = "Arvokas linna";
 "type.historic.city_gate" = "Kaupungin portti";
+"type.man_made.ceremonial_gate" = "Seremoniallinen portti";
 "type.historic.citywalls" = "Kaupungin muuri";
 "type.historic.fort" = "Linnake";
 "type.historic.gallows" = "Hirsipuu";

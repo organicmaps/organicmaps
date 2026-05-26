@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">日本城堡</string>
     <string name="type.historic.castle.stately">庄严城堡</string>
     <string name="type.historic.city_gate">城门</string>
+    <string name="type.man_made.ceremonial_gate">礼仪之门</string>
     <string name="type.historic.citywalls">城墙</string>
     <string name="type.historic.fort">历史要塞</string>
     <string name="type.historic.gallows">绞架</string>

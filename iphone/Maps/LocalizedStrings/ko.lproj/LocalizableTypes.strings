@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "일본의 성";
 "type.historic.castle.stately" = "성";
 "type.historic.city_gate" = "성문";
+"type.man_made.ceremonial_gate" = "의식의 문";
 "type.historic.citywalls" = "도시의 벽";
 "type.historic.fort" = "요새";
 "type.historic.gallows" = "교수대";

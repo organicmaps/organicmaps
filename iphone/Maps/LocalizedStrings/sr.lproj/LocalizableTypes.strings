@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Јапански каштел";
 "type.historic.castle.stately" = "Замак";
 "type.historic.city_gate" = "Градска капија";
+"type.man_made.ceremonial_gate" = "Церемонијска капија";
 "type.historic.citywalls" = "Градски зид";
 "type.historic.fort" = "Утврђење";
 "type.historic.gallows" = "Вешала";

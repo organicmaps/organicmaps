@@ -554,6 +554,7 @@
     <string name="type.historic.castle.shiro">Japonský hrad</string>
     <string name="type.historic.castle.stately">Zámok</string>
     <string name="type.historic.city_gate">Mestská brána</string>
+    <string name="type.man_made.ceremonial_gate">Slávnostná brána</string>
     <string name="type.historic.citywalls">Mestský múr</string>
     <string name="type.historic.fort">Pevnosť</string>
     <string name="type.historic.gallows">Šibenica</string>

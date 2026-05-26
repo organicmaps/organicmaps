@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">Japonų pilis</string>
     <string name="type.historic.castle.stately">Iškilminga pilis</string>
     <string name="type.historic.city_gate">Miesto vartai</string>
+    <string name="type.man_made.ceremonial_gate">Ceremonijų vartai</string>
     <string name="type.historic.citywalls">Miesto siena</string>
     <string name="type.historic.fort">Fortas</string>
     <string name="type.historic.gallows">Kartuvės</string>

@@ -557,6 +557,7 @@
     <string name="type.historic.castle.shiro">Japanskt slott</string>
     <string name="type.historic.castle.stately">Slott</string>
     <string name="type.historic.city_gate">Stadsport</string>
+    <string name="type.man_made.ceremonial_gate">Ceremoniell port</string>
     <string name="type.historic.citywalls">Stadsmur</string>
     <string name="type.historic.fort">Fort</string>
     <string name="type.historic.gallows">Galge</string>

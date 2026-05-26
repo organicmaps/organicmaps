@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japanskt slott";
 "type.historic.castle.stately" = "Slott";
 "type.historic.city_gate" = "Stadsport";
+"type.man_made.ceremonial_gate" = "Ceremoniell port";
 "type.historic.citywalls" = "Stadsmur";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Galge";

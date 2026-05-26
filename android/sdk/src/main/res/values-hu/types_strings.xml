@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">Siró (japán várkastély)</string>
     <string name="type.historic.castle.stately">Kastély</string>
     <string name="type.historic.city_gate">Városkapu</string>
+    <string name="type.man_made.ceremonial_gate">Szertartásos kapu</string>
     <string name="type.historic.citywalls">Városfal</string>
     <string name="type.historic.fort">Erőd</string>
     <string name="type.historic.gallows">Akasztófa</string>

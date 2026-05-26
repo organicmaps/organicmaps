@@ -569,6 +569,7 @@
     <string name="type.historic.castle.shiro">Castillo xaponés</string>
     <string name="type.historic.castle.stately">Castillo</string>
     <string name="type.historic.city_gate">Portón da cidade</string>
+    <string name="type.man_made.ceremonial_gate">Porta Cerimonial</string>
     <string name="type.historic.citywalls">Muralla</string>
     <string name="type.historic.fort">Forte</string>
     <string name="type.historic.gallows">Forca</string>

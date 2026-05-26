@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Ngome ya Kijapani";
 "type.historic.castle.stately" = "Ngome";
 "type.historic.city_gate" = "Lango la jiji";
+"type.man_made.ceremonial_gate" = "Langoni la Sherehe";
 "type.historic.citywalls" = "Ukuta wa jiji";
 "type.historic.fort" = "Ngome";
 "type.historic.gallows" = "Kunyongea";

@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">Japanische Burg</string>
     <string name="type.historic.castle.stately">Schloss</string>
     <string name="type.historic.city_gate">Stadttor</string>
+    <string name="type.man_made.ceremonial_gate">Zeremonielles Tor</string>
     <string name="type.historic.citywalls">Stadtmauer</string>
     <string name="type.historic.fort">Fort</string>
     <string name="type.historic.gallows">Galgen</string>

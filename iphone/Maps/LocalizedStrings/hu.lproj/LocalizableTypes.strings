@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Siró (japán várkastély)";
 "type.historic.castle.stately" = "Kastély";
 "type.historic.city_gate" = "Városkapu";
+"type.man_made.ceremonial_gate" = "Szertartásos kapu";
 "type.historic.citywalls" = "Városfal";
 "type.historic.fort" = "Erőd";
 "type.historic.gallows" = "Akasztófa";

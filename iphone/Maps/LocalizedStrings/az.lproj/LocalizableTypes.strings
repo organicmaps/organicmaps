@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Yapon qalası";
 "type.historic.castle.stately" = "Qala";
 "type.historic.city_gate" = "Şəhər qapısı";
+"type.man_made.ceremonial_gate" = "Mərasim qapısı";
 "type.historic.citywalls" = "Şəhər Divarı";
 "type.historic.fort" = "Qala";
 "type.historic.gallows" = "Dar ağacı";

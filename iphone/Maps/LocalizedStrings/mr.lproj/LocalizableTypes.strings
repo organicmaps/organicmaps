@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "जपानी किल्ला";
 "type.historic.castle.stately" = "किल्ला";
 "type.historic.city_gate" = "शहराचा दरवाजा";
+"type.man_made.ceremonial_gate" = "समारंभिक द्वार";
 "type.historic.citywalls" = "शहराची भिंत";
 "type.historic.fort" = "दुर्ग";
 "type.historic.gallows" = "फाशी";

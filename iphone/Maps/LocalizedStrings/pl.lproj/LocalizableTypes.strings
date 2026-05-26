@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japoński zamek";
 "type.historic.castle.stately" = "Zamek";
 "type.historic.city_gate" = "Brama miejska";
+"type.man_made.ceremonial_gate" = "Brama ceremonialna";
 "type.historic.citywalls" = "Mur miejski";
 "type.historic.fort" = "Historyczny fort";
 "type.historic.gallows" = "Szubienica";

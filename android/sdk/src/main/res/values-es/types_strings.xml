@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">Castillo japonés</string>
     <string name="type.historic.castle.stately">Castillo</string>
     <string name="type.historic.city_gate">Portón de la ciudad</string>
+    <string name="type.man_made.ceremonial_gate">Puerta ceremonial</string>
     <string name="type.historic.citywalls">Muralla</string>
     <string name="type.historic.fort">Fuerte</string>
     <string name="type.historic.gallows">Horca</string>

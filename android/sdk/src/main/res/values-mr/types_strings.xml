@@ -469,6 +469,7 @@
     <string name="type.historic.castle.shiro">जपानी किल्ला</string>
     <string name="type.historic.castle.stately">किल्ला</string>
     <string name="type.historic.city_gate">शहराचा दरवाजा</string>
+    <string name="type.man_made.ceremonial_gate">समारंभिक द्वार</string>
     <string name="type.historic.citywalls">शहराची भिंत</string>
     <string name="type.historic.fort">दुर्ग</string>
     <string name="type.historic.gallows">फाशी</string>
