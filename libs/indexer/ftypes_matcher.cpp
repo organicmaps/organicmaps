@@ -448,6 +448,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"leisure", "nature_reserve"},
       {"leisure", "park"},
       {"leisure", "water_park"},
+      {"man_made", "ceremonial_gate"},
       {"man_made", "lighthouse"},
       {"man_made", "windmill"},
       {"natural", "beach"},

@@ -4265,6 +4265,50 @@ vi:Cổng thành
 zh-Hans:城门
 zh-Hant:城門
 
+man_made-ceremonial_gate|@category_tourism
+en:Ceremonial Gate
+ar:بوابة الاحتفالات
+be:Цырыманіяльная брама
+bg:Церемониална порта
+ca:Porta cerimonial
+cs:Obřadní brána
+da:Ceremoniel port
+de:Zeremonielles Tor
+el:Τελετουργική πύλη
+es:Puerta ceremonial
+et:Tseremoniaalne värav
+eu:Ekitaldi-ate
+fa:دروازهٔ تشریفاتی
+fi:Seremoniallinen portti
+fr:Porte de cérémonie
+he:שער טקסי
+hi:समारोहिक द्वार
+hu:Szertartásos kapu
+id:Gerbang Upacara
+it:Cancello cerimoniale
+ja:セレモニアルゲート
+ko:의식의 문
+lt:Ceremonijų vartai
+lv:Ceremonijas vārti
+mr:समारंभिक द्वार
+nb:Seremoniell port
+nl:Ceremoniële poort
+pl:Brama ceremonialna
+pt:Portão Cerimonial
+ro:Poarta Ceremonială
+ru:Церемониальные ворота
+sk:Slávnostná brána
+sl:Obredna vrata
+sr:Церемонијска капија
+sv:Ceremoniell port
+sw:Langoni la Sherehe
+th:ประตูพิธีการ
+tr:Tören Kapısı
+uk:Церемоніальна брама
+vi:Cổng lễ nghi
+zh-Hans:礼仪之门
+zh-Hant:禮儀門
+
 historic-citywalls|@category_tourism
 en:City Wall
 ar:جدار المدينة
