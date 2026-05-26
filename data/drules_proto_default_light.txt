@@ -55452,6 +55452,145 @@ cont {
   }
 }
 cont {
+  name: "man_made-ceremonial_gate"
+  element {
+    scale: 13
+    symbol {
+      name: "city_gate-s"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "city_gate-s"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "city_gate-m"
+      priority: 5200
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "city_gate-m"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "city_gate-m"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "city_gate-m"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "city_gate-m"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "city_gate-m"
+      priority: 5200
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4800
+    }
+  }
+}
+cont {
   name: "man_made-chimney"
   element {
     scale: 16
