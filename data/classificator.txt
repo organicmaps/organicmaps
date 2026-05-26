@@ -731,6 +731,7 @@ world  +
         breakwater  -
         bridge  -
         cairn  -
+        ceremonial_gate  -
         chimney  -
         communications_tower  -
         crane  -

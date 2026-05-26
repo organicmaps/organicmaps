@@ -1650,3 +1650,4 @@ amenity|recycling|container
 *natural|volcano|active
 *building|construction
 *roller_coaster|track
+*man_made|ceremonial_gate
