@@ -1,2 +1,11 @@
 /* Keep here changes of the base map style file only. */
 @import("../../default/include/Basemap_label.mapcss");
+
+/* Suppress addr:housenumber labels. They add dense noise at the same zooms
+   where cycling infrastructure appears, and a cyclist navigates by route
+   rather than by street address.
+   ::* is required: a declaration block applies to a single ::object-id only,
+   so listing ::default and ::int_name as separate selectors would suppress
+   the first one and leave the other rendered. */
+node|z16-[addr:housenumber][addr:street]::*,
+{text: none;}
