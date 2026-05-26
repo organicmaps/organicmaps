@@ -2335,7 +2335,6 @@ amenity-vending_machine-excrement_bags              # icon z18- (also has captio
 amenity-vending_machine-food                        # icon z18- (also has caption(optional) z18-)
 amenity-vending_machine-newspapers                  # icon z18- (also has caption(optional) z18-)
 amenity-vending_machine-sweets                      # icon z18- (also has caption(optional) z18-)
-building-address                                    # caption z16-
 === -9970
 
 amenity-bench                                       # icon z18- (also has caption(optional) z19-)
