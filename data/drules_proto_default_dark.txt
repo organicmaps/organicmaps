@@ -22413,6 +22413,169 @@ cont {
   }
 }
 cont {
+  name: "cyclewaytag-lane"
+  element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+}
+cont {
+  name: "cyclewaytag-shared_lane"
+  element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+    }
+  }
+}
+cont {
+  name: "cyclewaytag-track"
+  element {
+    scale: 11
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "emergency-assembly_point"
   element {
     scale: 18
@@ -24675,6 +24838,26 @@ cont {
 cont {
   name: "highway-cycleway"
   element {
+    scale: 11
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 13
     lines {
       width: 0.9
@@ -24792,6 +24975,26 @@ cont {
 }
 cont {
   name: "highway-cycleway-bridge"
+  element {
+    scale: 11
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 13
     lines {
@@ -24970,6 +25173,26 @@ cont {
 }
 cont {
   name: "highway-cycleway-tunnel"
+  element {
+    scale: 11
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 13
     lines {
@@ -25372,6 +25595,44 @@ cont {
 }
 cont {
   name: "highway-footway-bicycle"
+  element {
+    scale: 11
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -28997,6 +29258,35 @@ cont {
 }
 cont {
   name: "highway-path-bicycle"
+  element {
+    scale: 11
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 4251860295
+      priority: 170
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 14
     lines {

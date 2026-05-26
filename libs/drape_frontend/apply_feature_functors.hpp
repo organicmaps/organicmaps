@@ -158,6 +158,7 @@ public:
 private:
   void ProcessRule(LineRuleProto const & lineRule);
 
+  RelationsDrawSettings m_relsSettings;
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;
   std::vector<m2::SharedSpline> m_clippedSplines;
