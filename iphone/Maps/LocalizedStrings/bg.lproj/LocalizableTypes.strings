@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Японски замък";
 "type.historic.castle.stately" = "Замък";
 "type.historic.city_gate" = "Градска порта";
+"type.man_made.ceremonial_gate" = "Церемониална порта";
 "type.historic.citywalls" = "Градска стена";
 "type.historic.fort" = "Форт";
 "type.historic.gallows" = "Бесилка";

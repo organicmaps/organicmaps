@@ -552,6 +552,7 @@
     <string name="type.historic.castle.shiro">Japonski grad</string>
     <string name="type.historic.castle.stately">Veličasten grad</string>
     <string name="type.historic.city_gate">Mestna vrata</string>
+    <string name="type.man_made.ceremonial_gate">Obredna vrata</string>
     <string name="type.historic.citywalls">Mestno obzidje</string>
     <string name="type.historic.fort">Utrdba</string>
     <string name="type.historic.gallows">Vislice</string>

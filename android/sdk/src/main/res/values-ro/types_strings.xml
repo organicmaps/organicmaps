@@ -517,6 +517,7 @@
     <string name="type.historic.castle.shiro">Castelul japonez</string>
     <string name="type.historic.castle.stately">Castel</string>
     <string name="type.historic.city_gate">Poarta orașului</string>
+    <string name="type.man_made.ceremonial_gate">Poarta Ceremonială</string>
     <string name="type.historic.citywalls">Zidurile orașului</string>
     <string name="type.historic.fort">Fort</string>
     <string name="type.historic.gallows">Spânzurătoare</string>

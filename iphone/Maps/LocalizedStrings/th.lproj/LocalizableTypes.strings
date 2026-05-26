@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "ปราสาทญี่ปุ่น";
 "type.historic.castle.stately" = "ปราสาท";
 "type.historic.city_gate" = "ประตูเมือง";
+"type.man_made.ceremonial_gate" = "ประตูพิธีการ";
 "type.historic.citywalls" = "กำแพงเมือง";
 "type.historic.fort" = "ป้อม";
 "type.historic.gallows" = "Gallows";

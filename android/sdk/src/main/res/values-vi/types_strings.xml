@@ -504,6 +504,7 @@
     <string name="type.historic.castle.shiro">Lâu đài nhật bản</string>
     <string name="type.historic.castle.stately">Pháo đài</string>
     <string name="type.historic.city_gate">Cổng thành</string>
+    <string name="type.man_made.ceremonial_gate">Cổng lễ nghi</string>
     <string name="type.historic.citywalls">Tường thành</string>
     <string name="type.historic.fort">Pháo đài</string>
     <string name="type.historic.gallows">Giá treo cổ</string>

@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">Japon Kalesi</string>
     <string name="type.historic.castle.stately">Görkemli Şato</string>
     <string name="type.historic.city_gate">Şehir Kapısı</string>
+    <string name="type.man_made.ceremonial_gate">Tören Kapısı</string>
     <string name="type.historic.citywalls">Şehir Duvarı</string>
     <string name="type.historic.fort">Kale</string>
     <string name="type.historic.gallows">Darağacı</string>

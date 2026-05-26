@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "قلعه ژاپنی";
 "type.historic.castle.stately" = "گردشگری";
 "type.historic.city_gate" = "دروازه شهر";
+"type.man_made.ceremonial_gate" = "دروازهٔ تشریفاتی";
 "type.historic.citywalls" = "دیوار شهر";
 "type.historic.fort" = "دژ";
 "type.historic.gallows" = "چوبه دار";

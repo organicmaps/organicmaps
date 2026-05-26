@@ -548,6 +548,7 @@
     <string name="type.historic.castle.shiro">Castelo japonês</string>
     <string name="type.historic.castle.stately">Château</string>
     <string name="type.historic.city_gate">Portas da cidade</string>
+    <string name="type.man_made.ceremonial_gate">Portão Cerimonial</string>
     <string name="type.historic.citywalls">Muralha</string>
     <string name="type.historic.fort">Forte</string>
     <string name="type.historic.gallows">Forca</string>

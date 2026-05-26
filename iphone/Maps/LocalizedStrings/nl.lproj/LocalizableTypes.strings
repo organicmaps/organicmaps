@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japans kasteel";
 "type.historic.castle.stately" = "Landhuis";
 "type.historic.city_gate" = "Stadspoort";
+"type.man_made.ceremonial_gate" = "Ceremoniële poort";
 "type.historic.citywalls" = "Stadsmuur";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Galg";

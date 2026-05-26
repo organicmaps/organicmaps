@@ -574,6 +574,7 @@
     <string name="type.historic.castle.shiro">Japanese Castle</string>
     <string name="type.historic.castle.stately">Stately Castle</string>
     <string name="type.historic.city_gate">City Gate</string>
+    <string name="type.man_made.ceremonial_gate">Ceremonial Gate</string>
     <string name="type.historic.citywalls">City Wall</string>
     <string name="type.historic.fort">Fort</string>
     <string name="type.historic.gallows">Gallows</string>

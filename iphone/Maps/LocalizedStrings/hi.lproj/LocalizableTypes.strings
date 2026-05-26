@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japanese Castle";
 "type.historic.castle.stately" = "Stately Castle";
 "type.historic.city_gate" = "City Gate";
+"type.man_made.ceremonial_gate" = "समारोहिक द्वार";
 "type.historic.citywalls" = "शहर की दीवार";
 "type.historic.fort" = "किला";
 "type.historic.gallows" = "Gallows";

@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "טירה יפנית";
 "type.historic.castle.stately" = "טירה מפוארת";
 "type.historic.city_gate" = "שער העיר";
+"type.man_made.ceremonial_gate" = "שער טקסי";
 "type.historic.citywalls" = "חומת העיר";
 "type.historic.fort" = "מִבצָר";
 "type.historic.gallows" = "גרדום";

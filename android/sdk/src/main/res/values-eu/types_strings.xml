@@ -564,6 +564,7 @@
     <string name="type.historic.castle.shiro">Japoniar gaztelu</string>
     <string name="type.historic.castle.stately">Gaztelua</string>
     <string name="type.historic.city_gate">Portale</string>
+    <string name="type.man_made.ceremonial_gate">Ekitaldi-ate</string>
     <string name="type.historic.citywalls">Hiri harresia</string>
     <string name="type.historic.fort">Gotorlekua</string>
     <string name="type.historic.gallows">Urkamendia</string>

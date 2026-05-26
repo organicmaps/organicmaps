@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japanskur kastali";
 "type.historic.castle.stately" = "Kastalasetur";
 "type.historic.city_gate" = "Borgarhlið";
+"type.man_made.ceremonial_gate" = "Hátíðleg hlið";
 "type.historic.citywalls" = "Borgarmúr";
 "type.historic.fort" = "Virki";
 "type.historic.gallows" = "Gálgar";

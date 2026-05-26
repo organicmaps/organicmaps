@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
     <string name="type.historic.castle.stately">Κάστρο έπαυλης</string>
     <string name="type.historic.city_gate">Πύλη της πόλης</string>
+    <string name="type.man_made.ceremonial_gate">Τελετουργική πύλη</string>
     <string name="type.historic.citywalls">Τείχος της πόλης</string>
     <string name="type.historic.fort">Οχυρό</string>
     <string name="type.historic.gallows">Αγχόνη</string>

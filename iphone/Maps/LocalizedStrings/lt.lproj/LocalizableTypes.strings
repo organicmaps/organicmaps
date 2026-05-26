@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japonų pilis";
 "type.historic.castle.stately" = "Iškilminga pilis";
 "type.historic.city_gate" = "Miesto vartai";
+"type.man_made.ceremonial_gate" = "Ceremonijų vartai";
 "type.historic.citywalls" = "Miesto siena";
 "type.historic.fort" = "Fortas";
 "type.historic.gallows" = "Kartuvės";

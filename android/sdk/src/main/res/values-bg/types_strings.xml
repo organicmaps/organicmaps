@@ -454,6 +454,7 @@
     <string name="type.historic.castle.shiro">Японски замък</string>
     <string name="type.historic.castle.stately">Замък</string>
     <string name="type.historic.city_gate">Градска порта</string>
+    <string name="type.man_made.ceremonial_gate">Церемониална порта</string>
     <string name="type.historic.citywalls">Градска стена</string>
     <string name="type.historic.fort">Форт</string>
     <string name="type.historic.gallows">Бесилка</string>

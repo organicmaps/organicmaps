@@ -504,6 +504,7 @@
     <string name="type.historic.castle.shiro">일본의 성</string>
     <string name="type.historic.castle.stately">성</string>
     <string name="type.historic.city_gate">성문</string>
+    <string name="type.man_made.ceremonial_gate">의식의 문</string>
     <string name="type.historic.citywalls">도시의 벽</string>
     <string name="type.historic.fort">요새</string>
     <string name="type.historic.gallows">교수대</string>

@@ -571,6 +571,7 @@
     <string name="type.historic.castle.shiro">Japanskur kastali</string>
     <string name="type.historic.castle.stately">Kastalasetur</string>
     <string name="type.historic.city_gate">Borgarhlið</string>
+    <string name="type.man_made.ceremonial_gate">Hátíðleg hlið</string>
     <string name="type.historic.citywalls">Borgarmúr</string>
     <string name="type.historic.fort">Virki</string>
     <string name="type.historic.gallows">Gálgar</string>

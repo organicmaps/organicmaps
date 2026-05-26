@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Lâu đài nhật bản";
 "type.historic.castle.stately" = "Pháo đài";
 "type.historic.city_gate" = "Cổng thành";
+"type.man_made.ceremonial_gate" = "Cổng lễ nghi";
 "type.historic.citywalls" = "Tường thành";
 "type.historic.fort" = "Pháo đài";
 "type.historic.gallows" = "Giá treo cổ";

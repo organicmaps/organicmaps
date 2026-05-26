@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Castillo xaponés";
 "type.historic.castle.stately" = "Castillo";
 "type.historic.city_gate" = "Portón da cidade";
+"type.man_made.ceremonial_gate" = "Porta Cerimonial";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Forte";
 "type.historic.gallows" = "Forca";

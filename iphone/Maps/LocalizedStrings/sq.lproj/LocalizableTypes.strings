@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Kështjellë japoneze";
 "type.historic.castle.stately" = "Kështjellë madhështore";
 "type.historic.city_gate" = "Porta e qytetit";
+"type.man_made.ceremonial_gate" = "Porta ceremoniale";
 "type.historic.citywalls" = "Muret e qytetit";
 "type.historic.fort" = "Fortesë";
 "type.historic.gallows" = "Gijotinë";

@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Istana Jepang";
 "type.historic.castle.stately" = "Kastel";
 "type.historic.city_gate" = "Gerbang kota";
+"type.man_made.ceremonial_gate" = "Gerbang Upacara";
 "type.historic.citywalls" = "Tembok Kota";
 "type.historic.fort" = "Benteng";
 "type.historic.gallows" = "Tiang gantungan";

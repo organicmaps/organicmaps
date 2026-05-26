@@ -572,6 +572,7 @@
     <string name="type.historic.castle.shiro">قلعة يابانية</string>
     <string name="type.historic.castle.stately">شاتو</string>
     <string name="type.historic.city_gate">بوابة المدينة</string>
+    <string name="type.man_made.ceremonial_gate">بوابة الاحتفالات</string>
     <string name="type.historic.citywalls">جدار المدينة</string>
     <string name="type.historic.fort">حصن</string>
     <string name="type.historic.gallows">مشنقة</string>

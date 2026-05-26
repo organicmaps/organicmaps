@@ -549,6 +549,7 @@
     <string name="type.historic.castle.shiro">Yapon qalası</string>
     <string name="type.historic.castle.stately">Qala</string>
     <string name="type.historic.city_gate">Şəhər qapısı</string>
+    <string name="type.man_made.ceremonial_gate">Mərasim qapısı</string>
     <string name="type.historic.citywalls">Şəhər Divarı</string>
     <string name="type.historic.fort">Qala</string>
     <string name="type.historic.gallows">Dar ağacı</string>

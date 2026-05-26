@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Ճապոնական ամրոց";
 "type.historic.castle.stately" = "Շքեղ ամրոց";
 "type.historic.city_gate" = "Քաղաքի դարպաս";
+"type.man_made.ceremonial_gate" = "Արարողակարգային դարպաս";
 "type.historic.citywalls" = "Քաղաքի պարիսպ";
 "type.historic.fort" = "Ֆորտ";
 "type.historic.gallows" = "Կախաղան";

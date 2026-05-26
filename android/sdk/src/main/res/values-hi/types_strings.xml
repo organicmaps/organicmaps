@@ -334,6 +334,7 @@
     <string name="type.historic.castle.defensive">गढ़</string>
     <string name="type.historic.castle.fortress">किले</string>
     <string name="type.historic.castle.palace">महल</string>
+    <string name="type.man_made.ceremonial_gate">समारोहिक द्वार</string>
     <string name="type.historic.citywalls">शहर की दीवार</string>
     <string name="type.historic.fort">किला</string>
     <string name="type.historic.memorial">शहीद स्मारक</string>

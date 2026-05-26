@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japon Kalesi";
 "type.historic.castle.stately" = "Görkemli Şato";
 "type.historic.city_gate" = "Şehir Kapısı";
+"type.man_made.ceremonial_gate" = "Tören Kapısı";
 "type.historic.citywalls" = "Şehir Duvarı";
 "type.historic.fort" = "Kale";
 "type.historic.gallows" = "Darağacı";

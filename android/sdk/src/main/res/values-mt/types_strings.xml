@@ -5,6 +5,7 @@
     <string name="type.cuisine.uzbek">Użbeka</string>
 
     <!-- SECTION: Types: Historic -->
+    <string name="type.man_made.ceremonial_gate">Bieb ċerimonjali</string>
     <string name="type.leisure.track">Korsa sportiva</string>
     <string name="type.leisure.track.area">Korsa sportiva</string>
     <string name="type.natural.volcano.active">Volkan attiv</string>

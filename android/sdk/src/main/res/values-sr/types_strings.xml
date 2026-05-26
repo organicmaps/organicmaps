@@ -566,6 +566,7 @@
     <string name="type.historic.castle.shiro">Јапански каштел</string>
     <string name="type.historic.castle.stately">Замак</string>
     <string name="type.historic.city_gate">Градска капија</string>
+    <string name="type.man_made.ceremonial_gate">Церемонијска капија</string>
     <string name="type.historic.citywalls">Градски зид</string>
     <string name="type.historic.fort">Утврђење</string>
     <string name="type.historic.gallows">Вешала</string>

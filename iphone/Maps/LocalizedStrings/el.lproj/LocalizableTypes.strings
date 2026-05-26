@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Ιαπωνικό κάστρο";
 "type.historic.castle.stately" = "Κάστρο έπαυλης";
 "type.historic.city_gate" = "Πύλη της πόλης";
+"type.man_made.ceremonial_gate" = "Τελετουργική πύλη";
 "type.historic.citywalls" = "Τείχος της πόλης";
 "type.historic.fort" = "Οχυρό";
 "type.historic.gallows" = "Αγχόνη";

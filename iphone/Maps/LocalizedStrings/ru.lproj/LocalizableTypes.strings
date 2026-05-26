@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Замки Японии";
 "type.historic.castle.stately" = "Шато";
 "type.historic.city_gate" = "Городские ворота";
+"type.man_made.ceremonial_gate" = "Церемониальные ворота";
 "type.historic.citywalls" = "Городская стена";
 "type.historic.fort" = "Форт";
 "type.historic.gallows" = "Виселица";

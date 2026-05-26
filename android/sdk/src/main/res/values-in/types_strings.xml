@@ -499,6 +499,7 @@
     <string name="type.historic.castle.shiro">Istana Jepang</string>
     <string name="type.historic.castle.stately">Kastel</string>
     <string name="type.historic.city_gate">Gerbang kota</string>
+    <string name="type.man_made.ceremonial_gate">Gerbang Upacara</string>
     <string name="type.historic.citywalls">Tembok Kota</string>
     <string name="type.historic.fort">Benteng</string>
     <string name="type.historic.gallows">Tiang gantungan</string>

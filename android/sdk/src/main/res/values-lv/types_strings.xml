@@ -45,6 +45,7 @@
     <string name="type.highway.bus_stop">Pietura</string>
 
     <!-- SECTION: Types: Historic -->
+    <string name="type.man_made.ceremonial_gate">Ceremonijas vārti</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
     <string name="type.leisure.track">Skrejceļš</string>

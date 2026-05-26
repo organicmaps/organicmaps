@@ -570,6 +570,7 @@
     <string name="type.historic.castle.shiro">Castell japonès</string>
     <string name="type.historic.castle.stately">Castell</string>
     <string name="type.historic.city_gate">Porta de la ciutat</string>
+    <string name="type.man_made.ceremonial_gate">Porta cerimonial</string>
     <string name="type.historic.citywalls">Muralla</string>
     <string name="type.historic.fort">Fort</string>
     <string name="type.historic.gallows">Forca</string>

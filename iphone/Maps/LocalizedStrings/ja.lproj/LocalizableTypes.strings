@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "日本の城";
 "type.historic.castle.stately" = "城";
 "type.historic.city_gate" = "城門";
+"type.man_made.ceremonial_gate" = "セレモニアルゲート";
 "type.historic.citywalls" = "城壁";
 "type.historic.fort" = "歴史的な要塞";
 "type.historic.gallows" = "絞首台";

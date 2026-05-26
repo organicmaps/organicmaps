@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Японський замок";
 "type.historic.castle.stately" = "Шато";
 "type.historic.city_gate" = "Міська брама";
+"type.man_made.ceremonial_gate" = "Церемоніальна брама";
 "type.historic.citywalls" = "Міська стіна";
 "type.historic.fort" = "Форт";
 "type.historic.gallows" = "Шибениця";

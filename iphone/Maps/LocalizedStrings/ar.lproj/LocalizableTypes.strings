@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "قلعة يابانية";
 "type.historic.castle.stately" = "شاتو";
 "type.historic.city_gate" = "بوابة المدينة";
+"type.man_made.ceremonial_gate" = "بوابة الاحتفالات";
 "type.historic.citywalls" = "جدار المدينة";
 "type.historic.fort" = "حصن";
 "type.historic.gallows" = "مشنقة";

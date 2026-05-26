@@ -644,6 +644,7 @@
 "type.historic.castle.shiro" = "Japonský hrad";
 "type.historic.castle.stately" = "Zámek";
 "type.historic.city_gate" = "Městská brána";
+"type.man_made.ceremonial_gate" = "Obřadní brána";
 "type.historic.citywalls" = "Městská zeď";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Šibenice";
