@@ -1,7 +1,7 @@
 {
     "data_format": 1,
     "data_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/taginfo.json",
-    "data_updated": "20260520T160731Z",
+    "data_updated": "20260527T193011Z",
     "project": {
         "name": "Organic Maps",
         "description": "Free Android & iOS offline maps app for travelers, tourists, hikers, and cyclists",
@@ -2012,6 +2012,12 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cairn-m.svg"
         },
         {
+            "description": "man_made=ceremonial_gate",
+            "key": "man_made",
+            "value": "ceremonial_gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/city_gate-m.svg"
+        },
+        {
             "description": "man_made=chimney",
             "key": "man_made",
             "value": "chimney",
@@ -2989,6 +2995,12 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archery-m.svg"
         },
         {
+            "description": "sport=athletics",
+            "key": "sport",
+            "value": "athletics",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
+        },
+        {
             "description": "sport=australian_football",
             "key": "sport",
             "value": "australian_football",
@@ -3019,6 +3031,18 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volleyball-m.svg"
         },
         {
+            "description": "sport=boules",
+            "key": "sport",
+            "value": "boules",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/boules-m.svg"
+        },
+        {
+            "description": "sport=bowls",
+            "key": "sport",
+            "value": "bowls",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/boules-m.svg"
+        },
+        {
             "description": "sport=chess",
             "key": "sport",
             "value": "chess",
@@ -3043,6 +3067,12 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/curling-m.svg"
         },
         {
+            "description": "sport=cycling",
+            "key": "sport",
+            "value": "cycling",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cycling-m.svg"
+        },
+        {
             "description": "sport=diving",
             "key": "sport",
             "value": "diving",
@@ -3059,6 +3089,12 @@
             "key": "sport",
             "value": "field_hockey",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hockey-m.svg"
+        },
+        {
+            "description": "sport=four_square",
+            "key": "sport",
+            "value": "four_square",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/boules-m.svg"
         },
         {
             "description": "sport=futsal",
@@ -3079,10 +3115,40 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/handball-m.svg"
         },
         {
+            "description": "sport=horse_racing",
+            "key": "sport",
+            "value": "horse_racing",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/equestrian-m.svg"
+        },
+        {
             "description": "sport=ice_hockey",
             "key": "sport",
             "value": "ice_hockey",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hockey-m.svg"
+        },
+        {
+            "description": "sport=karting",
+            "key": "sport",
+            "value": "karting",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motor-m.svg"
+        },
+        {
+            "description": "sport=motocross",
+            "key": "sport",
+            "value": "motocross",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motor-m.svg"
+        },
+        {
+            "description": "sport=motor",
+            "key": "sport",
+            "value": "motor",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motor-m.svg"
+        },
+        {
+            "description": "sport=netball",
+            "key": "sport",
+            "value": "netball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/basketball-m.svg"
         },
         {
             "description": "sport=padel",
@@ -3095,6 +3161,24 @@
             "key": "sport",
             "value": "pelota",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pelota-m.svg"
+        },
+        {
+            "description": "sport=pickleball",
+            "key": "sport",
+            "value": "pickleball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/padel-m.svg"
+        },
+        {
+            "description": "sport=rugby_union",
+            "key": "sport",
+            "value": "rugby_union",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/australian-football-m.svg"
+        },
+        {
+            "description": "sport=running",
+            "key": "sport",
+            "value": "running",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
         },
         {
             "description": "sport=scuba_diving",
@@ -3125,6 +3209,12 @@
             "key": "sport",
             "value": "soccer",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/soccer-m.svg"
+        },
+        {
+            "description": "sport=softball",
+            "key": "sport",
+            "value": "softball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/baseball-m.svg"
         },
         {
             "description": "sport=swimming",
