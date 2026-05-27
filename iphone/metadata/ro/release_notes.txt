@@ -1,26 +1,22 @@
-- NOU! atingeți o stație de transport public pentru a evidenția întregul traseu pe hartă, ca în stilul de hartă Transit.
-- NOU! rutele de transport public pe distanțe lungi și alte relații OpenStreetMap sunt acum conectate peste granițele hărții într-o singură linie continuă.
-- Date OpenStreetMap actualizate la data de 3 mai.
-- Vietnamul și Malaezia sunt acum împărțite în regiuni mai mici care pot fi descărcate separat.
-- Hong Kong, Macao și Hainan sunt acum separate de Guangdong, cu frontierele învecinate actualizate.
-- Liniile de contur actualizate pentru Indonezia, Malaezia, Tanzania, Thailanda și Vietnam.
-- Adăugat un buton de înregistrare a traseului la panoul de informații din navigație.
-- Adăugat noi tipuri OpenStreetMap: vulcani cu stare activă, puncte de acces la căile navigabile, șenile, saloane de narghilea și clădiri în construcție.
-- S-a adăugat "Lookout" ca sinonim de căutare pentru punctele de belvedere și "pkwy" ca sinonim de stradă din SUA.
-- Culorile zonelor pietonale sunt ușor mai închise pentru o mai bună lizibilitate.
-- Etichetele marcajelor de pe hartă nu se mai suprapun.
-- Textul pe mai multe linii este acum tăiat curat, iar numele străzilor nu mai conțin duplicate.
-- Rutare: rutele reluate elimină acum punctele intermediare pe lângă care ați trecut deja.
-- S-a rezolvat problema utilizării unei liste greșite de marcaje în versiunile TestFlight.
-- Fixat importul de fișiere KMB.
-- Actualizate traducerile corectate pentru categorii, sinonime de căutare și șiruri UI. Au fost adăugate traduceri pentru descrierile New South Wales și Northern Territory.
-- Stabilitate și performanță îmbunătățite, inclusiv modelarea fonturilor, salvarea în cache a glifurilor și decuparea liniilor de traseu.
-- Am îmbunătățit graficul de elevație pentru trasee și rute.
-- Butoanele din meniul de navigare au devenit mai mari pentru acțiuni precum TTS, setări și înregistrarea pistelor.
-- Am rafinat animația secțiunii de descriere extensibilă de pe pagina locului.
-- Pagina de informații despre loc nu se mai închide atunci când se termină scrutarea graficului de elevație, nu mai ricoșează neașteptat și păstrează titlul vizibil în timpul editării cu tastatura deschisă.
-- S-a remediat blocarea la ștergerea unei piese sau a unui marcaj care nu mai există.
+• Descrierile textuale și HTML ale traseelor sunt acum acceptate, la fel ca descrierile pentru marcaje. Apăsați pictograma creion pentru a adăuga o descriere.
+• Date cartografice OpenStreetMap la data de 27 mai 2026
+• Text-to-Speech (TTS) alege acum cea mai bună voce instalată pentru limba respectivă (Enhanced / Premium). Consultați setările Organic Maps pentru a afla cum puteți descărca o voce de calitate superioară.
+• S-au adăugat indicatoare rutiere pentru Australia și Noua Zeelandă
+• S-au adăugat pictograme pentru locuri de petanque, ciclism și sporturi cu motor
+• S-au adăugat porți ceremoniale, tobogane cu apă, parcuri de distracții și montagne russe
+• Gesturi cu degetul îmbunătățite pentru controlul hărții în vizualizarea în perspectivă în timpul modului de navigație
+• S-a remediat o eroare de redenumire a traseului în care noul nume nu era actualizat corespunzător
+• CarPlay: s-a remediat butonul de recentrare
+• S-au remediat rutele de transport public pentru stații și alte obiecte din zonă
+• S-a remediat blocarea la adăugarea unui marcaj pe un traseu de drumeție sau ciclism
+• S-a remediat redarea limitelor de viteză pentru radarele de viteză
+• S-a remediat micșorarea antimeridiană cu mai mult de o copie a lumii
+• Afișare mai precisă a adreselor străzilor și caselor
+• S-au remediat animațiile inutile ale hărții
+• Îmbunătățiri de stabilitate și performanță
 
-## Platform Support
+## Traduceri
 
-- Datorită modificărilor din TestFlight și App Store, această versiune acceptă numai iOS 15 și versiunile ulterioare. iOS 12, iOS 13 și iOS 14 nu mai sunt acceptate.
+• S-au îmbunătățit traducerile în franceză, italiană, spaniolă, ucraineană și catalană
+• S-au actualizat traducerile pentru mai multe denumiri de țări și regiuni, s-au remediat sinonimele de căutare pentru `leisure=track`
+• S-au corectat traducerile pentru `disused:bridge` și `disused:tunnel`

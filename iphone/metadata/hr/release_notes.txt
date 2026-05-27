@@ -1,26 +1,22 @@
-- NOVO! Dodirnite stajalište javnog prijevoza kako biste istaknuli cijelu rutu na karti, kao u stilu karte Transit.
-- NOVO! Rute javnog prijevoza na duge relacije i druge OpenStreetMap relacije sada su povezane preko granica karata u jednu neprekinutu liniju.
-- Podaci OpenStreetMap ažurirani do 3. svibnja.
-- Vijetnam i Malezija sada su podijeljeni na manje regije koje se mogu zasebno preuzeti.
-- Hong Kong, Makao i Hainan sada su odvojeni od Guangdonga, a susjedne su granice ažurirane.
-- Ažurirane su izohipse za Indoneziju, Maleziju, Tanzaniju, Tajland i Vijetnam.
-- Dodan je gumb za snimanje staze u informativni panel za vrijeme navigacije.
-- Dodani su novi tipovi iz OpenStreetMapa: vulkani s aktivnim statusom, pristupne točke vodenim putevima, klizne rampe, lokali za shisha i zgrade u izgradnji.
-- Dodan je "Lookout" kao sinonim za pretraživanje vidikovaca i "pkwy" kao sinonim za američke ceste.
-- Boje pješačkih zona su nešto tamnije radi bolje čitljivosti.
-- Oznake oznaka na karti se više ne preklapaju.
-- Višoredni tekst sada se uredno skraćuje, a nazivi ulica više ne sadrže duplikate.
-- Uspostavljanje rute: nastavljene rute sada uklanjaju međustanice koje ste već prošli.
-- Ispravljena je pogreška pri korištenju pogrešne liste oznaka u verzijama za TestFlight.
-- Ispravljen je uvoz KMB datoteka.
-- Ažurirani su lektorirani prijevodi za kategorije, sinonime za pretraživanje i tekstove korisničkog sučelja. Dodani su prijevodi za opise Novog Južnog Walesa i Sjevernog Teritorija.
-- Poboljšana je stabilnost i performanse, uključujući oblikovanje fonta, keširanje znakova i obrezivanje linija ruta.
-- Poboljšan je grafikon nadmorske visine za staze i rute.
-- Povećana su gumba u izborniku za navigaciju za radnje kao što su TTS, postavke i snimanje staze.
-- Poboljšana je animacija odjeljka s opisom koji se može proširiti na stranici mjesta.
-- Stranica s informacijama o mjestu više se ne zatvara kada završi pomicanje grafikona nadmorske visine, više se ne zatvara i otvara neočekivano te zadržava naslov vidljivim dok se uređuje s otvoritom tipkovnicom.
-- Ispravljeni su padovi pri brisanju staze ili oznake koja više ne postoji.
+• Tekstualni i HTML opisi staza sada su podržani, na isti način kao i opisi za oznake. Pritisnite ikonu olovke da biste dodali opis.
+• Podaci karata OpenStreetMap od 27. svibnja 2026.
+• Tekst u govor (TTS) sada odabire najbolji instalirani glas za jezik (Enhanced / Premium). Pogledajte postavke aplikacije Organic Maps kako biste preuzeli glasove veće kvalitete.
+• Dodani su znakovi za ceste u Australiji i Novom Zelandu
+• Dodane su ikone za boćanje, biciklizam i mjesta za motorsport
+• Dodana su svečana vrata, vodeni tobogani, tematski parkovi i rolerkosteri
+• Poboljšane geste prstima za upravljanje kartom u perspektivnom prikazu tijekom navigacije
+• Ispravljena greška pri preimenovanju staze kada se novo ime nije ispravno ažuriralo
+• CarPlay: ispravljen gumb za vraćanje u središte
+• Ispravljene rute javnog prijevoza za stanice i druge objekte u području
+• Ispravljen pad aplikacije pri dodavanju oznake na pješačkoj ili biciklističkoj ruti
+• Ispravljen prikaz ograničenja brzine za kamere za nadzor brzine
+• Ispravljen odzoom pri antimeridijanskom prikazu s više od jedne svjetske kopije
+• Točniji prikaz adresa ulica i kuća
+• Ispravljene nepotrebne animacije karte
+• Poboljšanja stabilnosti i performansi
 
-## Podrška za platforme
+## Prijevodi
 
-- Zbog promjena u sustavima TestFlight i App Store, ovo izdanje podržava samo iOS 15 i novije verzije. iOS 12, iOS 13 i iOS 14 više nisu podržani.
+• Poboljšani prijevodi na francuski, talijanski, španjolski, ukrajinski i katalonski
+• Ažurirani prijevodi za nekoliko naziva zemalja i regija, ispravljeni sinonimi za pretraživanje za `leisure=track`
+• Ispravljeni prijevodi za `disused:bridge` i `disused:tunnel`

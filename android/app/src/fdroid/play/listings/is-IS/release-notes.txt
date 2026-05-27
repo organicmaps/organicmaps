@@ -1,9 +1,9 @@
-• Smelltu á strætóstoppustöð og veldu leiðarnúmer til að sýna leiðir á kortinu
-• Merki bókamerkja skarast ekki lengur á kortinu
-• Ferskur OpenStreetMap-gagnasafn frá 3. maí, með nýjum hlutategundum
-• Bætt hæðarlínurit fyrir slóðir og leiðir
-• Minni kortanálganir fyrir Víetnam, Malasíu, Hong Kong, Makaó og Hainan
-• Bætt notendaviðmót og hreyfimyndir
-• Uppfærðar hæðarlínur fyrir Indónesíu, Malasíu, Tansaníu, Taíland og Víetnam
-• Villuleiðréttingar og frammistöðubætingar
+• NÝTT! Bættu texta- eða HTML-lýsingu við feril með blýantstákninu
+• NÝTT! Veldu hvaða lit sem er fyrir ferla
+• Vegaskildir fyrir Ástralíu og Nýja-Sjáland
+• Rétt letur birtist nú fyrir kóresku, kínversku og japönsku eftir tungumáli tækisins
+• Bætt við táknum fyrir pétanque, hjólreiðar og mótorsportstaði
+• Bætt við hátíðahliðum, vatnsrennibrautum, skemmtigörðum og rússíbönum
+• Lagaðar almenningssamgönguleiðir við stöðvar og svæði
+• OpenStreetMap gögn frá 27. maí
 …meira á omaps.org/news

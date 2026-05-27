@@ -1,7 +1,9 @@
-• Nhấn vào một trạm xe buýt và chọn số tuyến để làm nổi bật các tuyến trên bản đồ
-• Các nhãn dấu trang không còn chồng chéo lên nhau trên bản đồ
-• Dữ liệu OpenStreetMap mới nhất tính đến ngày 3 tháng 5, bao gồm các loại đối tượng mới
-• Cải thiện bản đồ độ cao cho các tuyến đường và lộ trình
-• Dung lượng tải bản đồ nhỏ hơn cho Việt Nam, Malaysia, Hồng Kông, Ma Cao và Hải Nam
-• Giao diện người dùng và hiệu ứng chuyển động được tinh chỉnh
+• MỚI! Nhấn biểu tượng bút chì để thêm mô tả văn bản hoặc HTML cho đường đi
+• MỚI! Chọn màu bất kỳ cho đường đi
+• Thêm biểu tượng số hiệu đường cho Úc và New Zealand
+• Người dùng Hàn, Trung, Nhật sẽ thấy phông chữ phù hợp theo ngôn ngữ thiết bị
+• Thêm biểu tượng cho bi sắt, đạp xe và đua xe
+• Thêm cổng nghi lễ, máng trượt nước, công viên chủ đề và tàu lượn siêu tốc
+• Sửa tuyến giao thông công cộng cho ga và khu vực
+• Dữ liệu OSM đến 27/5
 …xem thêm tại omaps.org/news

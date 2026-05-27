@@ -1,7 +1,8 @@
-• Gusa kituo cha usafiri wa umma na uchague nambari za njia ili kuonyesha njia kwenye ramani
-• Lebo za alamisho hazipishani tena kwenye ramani
-• Data mpya ya OpenStreetMap kuanzia Mei 3, ikiwa na aina mpya za vitu
-• Chati za juu zilizoboreshwa kwa njia na kozi
-• Upakuaji wa ramani ndogo kwa ajili ya Vietnam, Malaysia, Hong Kong, Macau, na Hainan
-• Kiolesura na uhuishaji vilivyoboreshwa
-…maelezo zaidi katika omaps.org/news
+• MPYA! Ongeza maelezo ya maandishi/HTML kwenye njia kwa ikoni ya penseli
+• MPYA! Chagua rangi yoyote ya njia
+• Alama za barabara za Australia na New Zealand zimeongezwa
+• Fonti sahihi kwa Kikorea, Kichina na Kijapani kulingana na eneo la kifaa
+• Ikoni/maeneo mapya: boules, baiskeli, michezo ya magari, milango ya sherehe, miteremko ya maji, mbuga na roller coaster
+• Njia za usafiri wa umma kwa vituo na maeneo zimerekebishwa
+• Data ya OpenStreetMap ya Mei 27
+…zaidi kwenye omaps.org/news

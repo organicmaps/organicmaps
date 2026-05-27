@@ -1,8 +1,9 @@
-• Dodirnite stanicu javnog prijevoza i odaberite brojeve linija da biste istaknuli rute na mapi
-• Oznake oznaka više se ne preklapaju na mapi
-• Svježi OpenStreetMap podaci od 3. maja, s novim tipovima objekata
-• Poboljšani grafikoni nadmorske visine za staze i rute
-• Manje preuzimanja karata za Vijetnam, Maleziju, Hong Kong, Makao i Hainan
-• Unapređen korisnički interfejs i animacije
-• Ažurirane konturne linije za Indoneziju, Maleziju, Tanzaniju, Tajland i Vijetnam
+• NOVO! Dodirnite ikonu olovke za tekstualni ili HTML opis staze
+• NOVO! Odaberite bilo koju boju za staze
+• Dodane oznake cesta za Australiju i Novi Zeland
+• Ispravni fontovi za korejski, kineski i japanski prema jeziku uređaja
+• Dodane ikone za boćanje, biciklizam i motosport
+• Dodane svečane kapije, vodeni tobogani, tematski parkovi i rolerkosteri
+• Ispravljene rute javnog prijevoza za stanice i druge površinske objekte
+• OSM podaci od 27. maja
 …više na omaps.org/news

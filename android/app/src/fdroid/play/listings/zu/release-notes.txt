@@ -1,7 +1,8 @@
-• Thinta isitima sokuthutha somphakathi bese ukhetha izinombolo zemigudu ukuze ugqamise imigudu emephini
-• Amalebula wamabookmark awasehlangani emephini
-• Idatha entsha ye-OpenStreetMap kusukela mhla ziyi-3 kuMeyi, enezinhlobo ezintsha zezinto
-• Amashadi wokuphakama athuthukisiwe wemigqa nemizila
-• Ukudawuniloda kwemephu okuncane kweVietnam, iMalaysia, iHong Kong, iMacau, neHainan
-• Uhlangothi lokusebenza nolunye uhlelo lokunyakaza oluthuthukisiwe
+• OKUSHA! Cindezela isithonjana sepensela ukuze ungeze incazelo yombhalo noma ye-HTML emkhondweni
+• OKUSHA! Khetha noma yimuphi umbala wemikhondo
+• Kwengezwe izimpawu zemigwaqo zase-Australia naseNew Zealand
+• Abasebenzisa isiKorea, isiShayina nesiJapane sebebona amafonti afanele ulimi lwedivayisi
+• Kwengezwe izithonjana ze-boules, amabhayisikili nemidlalo yezimoto
+• Kulungiswe imizila yezithuthi zomphakathi
+• Idatha ye-OpenStreetMap yangoMeyi 27
 …okuningi ku-omaps.org/news

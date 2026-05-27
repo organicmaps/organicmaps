@@ -1,7 +1,8 @@
-• Toca una parada de transport públic i selecciona els números de ruta per ressaltar les rutes al mapa
-• Les etiquetes dels marcadors ja no es superposen al mapa
-• Dades fresques d'OpenStreetMap a data de 3 de maig, amb nous tipus d'objecte
-• Gràfics d'altitud millorats per a rutes i trajectes
-• Descàrregues de mapes més petites per a Vietnam, Malàisia, Hong Kong, Macau i Hainan
-• Interfície d'usuari i animacions refinades
+• Nou: afegeix descripcions de text o HTML als recorreguts amb la icona del llapis
+• Nou: tria qualsevol color per als recorreguts
+• Escuts de carretera d'Austràlia i Nova Zelanda
+• Tipus de lletra correctes per al coreà, el xinès i el japonès
+• Més icones i llocs: petanca, ciclisme, esports de motor, portes, tobogans, parcs temàtics i muntanyes russes
+• Rutes de transport públic corregides
+• Dades d'OpenStreetMap del 27 de maig
 …més a omaps.org/ca/news

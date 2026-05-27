@@ -1,8 +1,9 @@
-• Tutul halte angkutan umum lan pilih nomer rute kanggo nandhani rute ing peta
-• Label bookmark ora tumpang tindih maneh ing peta
-• Data OpenStreetMap anyar per 3 Mei, karo jinis obyek anyar
-• Peta elevasi trek lan rute sing luwih apik
-• Undhuhan peta sing luwih cilik kanggo Vietnam, Malaysia, Hong Kong, Macau, lan Hainan
-• Antarmuka lan animasi sing luwih alus
-• Garis kontur sing wis dianyari kanggo Indonesia, Malaysia, Tanzania, Thailand, lan Vietnam
-…luwih lengkap ing omaps.org/news
+• ANYAR! Tutul ikon potlot kanggo nambah katrangan teks utawa HTML ing trek
+• ANYAR! Pilih warna apa wae kanggo trek
+• Tandha dalan Australia lan Selandia Anyar ditambah
+• Pangguna Korea, Cina, lan Jepang entuk font sing trep miturut basa piranti
+• Ikon papan boules, sepeda, lan motorsport ditambah
+• Gapura upacara, seluncur banyu, taman hiburan, lan roller coaster ditambah
+• Rute angkutan umum kanggo stasiun lan area didandani
+• Data OpenStreetMap nganti 27 Mei
+…liyane ing omaps.org/news

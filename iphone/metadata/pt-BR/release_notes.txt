@@ -1,26 +1,22 @@
-- NOVO! Toque em uma parada de transporte público para destacar a rota inteira no mapa, como no estilo de mapa Transit.
-- NOVO! As rotas de transporte público de longa distância e outras relações do OpenStreetMap agora estão conectadas através das bordas do mapa em uma linha contínua.
-- Dados do OpenStreetMap atualizados a partir de 3 de maio.
-- O Vietnã e a Malásia agora estão divididos em regiões menores que podem ser baixadas separadamente.
-- Hong Kong, Macau e Hainan agora estão separados de Guangdong, com as fronteiras vizinhas atualizadas.
-- Linhas de contorno atualizadas para Indonésia, Malásia, Tanzânia, Tailândia e Vietnã.
-- Adicionado um botão de gravação de trilha ao painel de informações na navegação.
-- Adição de novos tipos de OpenStreetMap: vulcões com status ativo, pontos de acesso a hidrovias, rampas de lançamento, salões de narguilé e edifícios em construção.
-- Adicionado "Lookout" como sinônimo de pesquisa para pontos de vista e "pkwy" como sinônimo de rua dos EUA.
-- As cores das áreas de pedestres estão um pouco mais escuras para melhor legibilidade.
-- Os rótulos dos marcadores no mapa não se sobrepõem mais.
-- O texto com várias linhas agora é recortado de forma limpa, e os nomes das ruas não contêm mais duplicatas.
-- Roteamento: as rotas retomadas agora removem os pontos intermediários pelos quais o usuário já passou.
-- Foi corrigida a lista errada de favoritos que estava sendo usada nas compilações do TestFlight.
-- Correção da importação de arquivos KMB.
-- Atualizadas as traduções revisadas para categorias, sinônimos de pesquisa e cadeias de caracteres da interface do usuário. Adicionadas traduções para as descrições de New South Wales e Northern Territory.
-- Melhoria na estabilidade e no desempenho, incluindo modelagem de fontes, cache de glifos e recorte de linhas de rotas.
-- Aprimoramos o gráfico de elevação para trilhas e rotas.
-- Aumentamos o tamanho dos botões do menu de navegação para ações como TTS, configurações e gravação de trilhas.
-- Aprimoramos a animação da seção de descrição expansível na página do local.
-- A página de informações do local não fecha mais quando a limpeza do gráfico de elevação termina, não salta mais inesperadamente e mantém o título visível durante a edição com o teclado aberto.
-- Correção de falhas ao excluir uma trilha ou marcador que não existe mais.
+• Agora são suportadas descrições de texto e HTML para trilhas, da mesma forma que as descrições para marcadores. Toque no ícone do lápis para adicionar uma descrição.
+• Dados do OpenStreetMap em 27 de maio de 2026
+• A conversão de texto em fala (TTS) agora seleciona a melhor voz instalada para o idioma (Enhanced / Premium). Consulte as configurações do Organic Maps para saber como baixar uma voz de melhor qualidade.
+• Adicionados sinais de trânsito da Austrália e da Nova Zelândia
+• Adicionados ícones para locais de bocha, ciclismo e esportes motorizados
+• Adicionados portais cerimoniais, toboáguas, parques temáticos e montanhas-russas
+• Melhorados os gestos com os dedos para controle do mapa na visualização em perspectiva durante o modo Navegação
+• Corrigido um bug na renomeação de trilhas em que o novo nome não era atualizado corretamente
+• CarPlay: corrigido o botão de recentrar
+• Corrigidas as rotas de transporte público para estações e outros objetos da área
+• Corrigida a falha ao adicionar um marcador em uma rota de caminhada ou ciclismo
+• Corrigida a renderização dos limites de velocidade para radares
+• Corrigido o zoom out antimeridiano com mais de uma cópia do mundo
+• Exibição mais precisa de endereços de ruas e casas
+• Corrigidas animações desnecessárias no mapa
+• Melhorias de estabilidade e desempenho
 
-## Suporte à plataforma
+## Traduções
 
-- Devido a alterações no TestFlight e na App Store, esta versão é compatível apenas com o iOS 15 e posterior. O iOS 12, o iOS 13 e o iOS 14 não são mais compatíveis.
+• Melhorias nas traduções para francês, italiano, espanhol, ucraniano e catalão
+• Atualizadas as traduções para vários nomes de países e regiões; corrigidos sinônimos de pesquisa para `leisure=track`
+• Corrigidas as traduções para `disused:bridge` e `disused:tunnel`

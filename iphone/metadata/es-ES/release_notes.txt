@@ -1,26 +1,22 @@
-- ¡NUEVO! Toque una parada de transporte público para resaltar toda la ruta en el mapa, como en el estilo de mapa Transit.
-- ¡NUEVO! Las rutas de transporte público de larga distancia y otras relaciones de OpenStreetMap se conectan ahora a través de los bordes del mapa en una línea continua.
-- Datos de OpenStreetMap actualizados a partir del 3 de mayo.
-- Vietnam y Malasia se dividen ahora en regiones más pequeñas que pueden descargarse por separado.
-- Hong Kong, Macao y Hainan están ahora separados de Guangdong, con las fronteras vecinas actualizadas.
-- Actualizadas las curvas de nivel de Indonesia, Malasia, Tanzania, Tailandia y Vietnam.
-- Añadido un botón de grabación de pistas al panel de información de navegación.
-- Añadidos nuevos tipos de OpenStreetMap: volcanes con estado activo, puntos de acceso a vías navegables, varaderos, salones de narguile y edificios en construcción.
-- Añadido "Lookout" como sinónimo de búsqueda de miradores, y "pkwy" como sinónimo de calle estadounidense.
-- Los colores de las zonas peatonales son ligeramente más oscuros para una mejor legibilidad.
-- Las etiquetas de los marcadores en el mapa ya no se solapan.
-- El texto de varias líneas se recorta ahora limpiamente, y los nombres de las calles ya no contienen duplicados.
-- Rutas: las rutas reanudadas eliminan ahora los puntos intermedios por los que ya ha pasado.
-- Corregida la lista de marcadores errónea que se utilizaba en las compilaciones de TestFlight.
-- Corregida la importación de archivos KMB.
-- Actualizadas las traducciones revisadas de categorías, sinónimos de búsqueda y cadenas de interfaz de usuario. Añadidas traducciones para las descripciones de Nueva Gales del Sur y Territorio del Norte.
-- Mejorada la estabilidad y el rendimiento, incluyendo la forma de las fuentes, el almacenamiento en caché de los glifos y el recorte de las líneas de ruta.
-- Mejorado el gráfico de elevación para pistas y rutas.
-- Hechos más grandes los botones del menú de navegación para acciones como TTS, ajustes y grabación de pistas.
-- Refinada la animación de la sección de descripción expandible en la página de lugar.
-- La página de información del lugar ya no se cierra cuando finaliza el barrido del gráfico de elevación, ya no rebota inesperadamente y mantiene el título visible mientras se edita con el teclado abierto.
-- Se han corregido los bloqueos al borrar una pista o un marcador que ya no existe.
+• Ahora se admiten descripciones de texto y HTML para los tracks, al igual que las descripciones de los marcadores. Pulsa el icono del lápiz para añadir una descripción.
+• Datos cartográficos de OpenStreetMap a fecha de 27 de mayo de 2026
+• La función de texto a voz (TTS) ahora selecciona la mejor voz instalada para el idioma (Mejorada / Premium). Consulta la configuración de Organic Maps para saber cómo descargar una voz de mayor calidad.
+• Se han añadido señales de tráfico de Australia y Nueva Zelanda
+• Se han añadido iconos para lugares de petanca, ciclismo y deportes de motor
+• Se han añadido puertas ceremoniales, toboganes acuáticos, parques temáticos y montañas rusas
+• Se han mejorado los gestos con los dedos para el control del mapa en la vista en perspectiva durante el modo de navegación.
+• Se ha corregido un error al renombrar tracks en el que el nuevo nombre no se actualizaba correctamente.
+• CarPlay: se ha corregido el botón de recentrar.
+• Se han corregido las rutas de transporte público para estaciones y otros objetos de la zona.
+• Se ha corregido un fallo al añadir un marcador en una ruta de senderismo o ciclismo.
+• Se ha corregido la visualización de los límites de velocidad para los radares.
+• Se ha corregido el alejamiento del zoom antimeridiano con más de una copia del mundo.
+• Visualización más precisa de direcciones de calles y viviendas.
+• Se han corregido animaciones innecesarias en el mapa.
+• Mejoras de estabilidad y rendimiento.
 
-## Soporte de plataformas
+## Traducciones
 
-- Debido a cambios en TestFlight y en la App Store, esta versión sólo es compatible con iOS 15 y posteriores. iOS 12, iOS 13 e iOS 14 ya no son compatibles.
+• Se han mejorado las traducciones al francés, italiano, español, ucraniano y catalán.
+• Se han actualizado las traducciones de varios nombres de países y regiones, y se han corregido los sinónimos de búsqueda para `leisure=track`.
+• Se han corregido las traducciones para `disused:bridge` y `disused:tunnel`.

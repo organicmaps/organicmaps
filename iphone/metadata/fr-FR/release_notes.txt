@@ -1,26 +1,22 @@
-- NOUVEAU ! Appuyez sur un arrêt de transport en commun pour mettre en surbrillance l'itinéraire complet sur la carte, comme dans le style de carte « Transit ».
-- NOUVEAU ! Les itinéraires de transport en commun longue distance et autres relations OpenStreetMap sont désormais reliés au-delà des limites de la carte en une ligne continue.
-- Données OpenStreetMap mises à jour au 3 mai.
-- Le Vietnam et la Malaisie sont désormais divisés en régions plus petites pouvant être téléchargées séparément.
-- Hong Kong, Macao et Hainan sont désormais séparés du Guangdong, et les frontières voisines ont été mises à jour.
-- Mise à jour des courbes de niveau pour l'Indonésie, la Malaisie, la Tanzanie, la Thaïlande et le Vietnam.
-- Ajout d'un bouton d'enregistrement de parcours dans le panneau d'informations de navigation.
-- Ajout de nouveaux types OpenStreetMap : volcans en activité, points d'accès aux voies navigables, cales de halage, salons de narguilé et bâtiments en construction.
-- Ajout de « Lookout » comme synonyme de recherche pour les points de vue, et de « pkwy » comme synonyme de rue aux États-Unis.
-- Les couleurs des zones piétonnes sont légèrement plus foncées pour une meilleure lisibilité.
-- Les libellés des signets sur la carte ne se chevauchent plus.
-- Le texte sur plusieurs lignes est désormais correctement tronqué, et les noms de rue ne contiennent plus de doublons.
-- Calcul d'itinéraire : les itinéraires repris suppriment désormais les points intermédiaires que vous avez déjà dépassés.
-- Correction de l'utilisation d'une liste de signets erronée dans les versions TestFlight.
-- Correction de l'importation de fichiers KMB.
-- Mise à jour des traductions relues pour les catégories, les synonymes de recherche et les chaînes de l'interface utilisateur. Ajout de traductions pour les descriptions de la Nouvelle-Galles du Sud et du Territoire du Nord.
-- Amélioration de la stabilité et des performances, notamment au niveau de la mise en forme des polices, de la mise en cache des glyphes et du découpage des lignes d'itinéraire.
-- Amélioration du graphique d'altitude pour les tracés et les itinéraires.
-- Agrandissement des boutons du menu de navigation pour des actions telles que la synthèse vocale, les paramètres et l'enregistrement de tracé.
-- Amélioration de l'animation de la section de description extensible sur la page du lieu.
-- La page d'informations sur le lieu ne se ferme plus lorsque le défilement du graphique d'altitude prend fin, ne rebondit plus de manière inattendue et conserve le titre visible pendant la modification lorsque le clavier est ouvert.
-- Correction des plantages lors de la suppression d’un tracé ou d’un signet qui n’existe plus.
+• Les descriptions textuelles et HTML des tracés sont désormais prises en charge, de la même manière que les descriptions des signets. Appuyez sur l'icône en forme de crayon pour ajouter une description.
+• Données cartographiques OpenStreetMap au 27 mai 2026
+• La synthèse vocale (TTS) sélectionne désormais la meilleure voix installée pour la langue (Enhanced / Premium). Consultez les paramètres d'Organic Maps pour savoir comment télécharger une voix de meilleure qualité.
+• Ajout des panneaux routiers pour l'Australie et la Nouvelle-Zélande
+• Ajout d'icônes pour les lieux dédiés à la pétanque, au cyclisme et aux sports mécaniques
+• Ajout des portes cérémonielles, des toboggans aquatiques, des parcs d'attractions et des montagnes russes
+• Amélioration des gestes tactiles pour le contrôle de la carte en vue en perspective en mode Navigation
+• Correction d'un bug de renommage de tracé où le nouveau nom n'était pas correctement mis à jour
+• CarPlay : correction du bouton de recentrage
+• Correction des itinéraires de transports en commun pour les gares et autres objets de zone
+• Correction d'un plantage lors de l'ajout d'un signet sur un itinéraire de randonnée ou de cyclisme
+• Correction de l'affichage des limitations de vitesse pour les radars
+• Correction du zoom arrière anti-méridien avec plusieurs copies du monde
+• Affichage plus précis des adresses de rue et des numéros de maison
+• Correction d'animations cartographiques inutiles
+• Améliorations de la stabilité et des performances
 
-## Prise en charge des plateformes
+## Traductions
 
-- En raison de modifications apportées à TestFlight et à l’App Store, cette version ne prend en charge que iOS 15 et les versions ultérieures. iOS 12, iOS 13 et iOS 14 ne sont plus pris en charge.
+• Amélioration des traductions en français, italien, espagnol, ukrainien et catalan
+• Mise à jour des traductions pour plusieurs noms de pays et de régions, correction des synonymes de recherche pour `leisure=track`
+• Correction des traductions pour `disused:bridge` et `disused:tunnel`

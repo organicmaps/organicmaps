@@ -1,26 +1,22 @@
-- NEU! Tippen Sie auf eine Haltestelle des öffentlichen Nahverkehrs, um die gesamte Route auf der Karte hervorzuheben, wie im Transit-Kartenstil.
-- NEU! Fernverkehrsstrecken des öffentlichen Nahverkehrs und andere OpenStreetMap-Relationen werden nun über Kartengrenzen hinweg zu einer durchgehenden Linie verbunden.
-- OpenStreetMap-Daten aktualisiert zum 3. Mai.
-- Vietnam und Malaysia sind nun in kleinere Regionen unterteilt, die separat heruntergeladen werden können.
-- Hongkong, Macau und Hainan sind nun von Guangdong getrennt, wobei die angrenzenden Grenzen aktualisiert wurden.
-- Aktualisierte Höhenlinien für Indonesien, Malaysia, Tansania, Thailand und Vietnam.
-- Dem Info-Fenster während der Navigation wurde eine Schaltfläche zur Streckenaufzeichnung hinzugefügt.
-- Neue OpenStreetMap-Typen hinzugefügt: Vulkane mit aktivem Status, Zugangspunkte zu Wasserwegen, Slipanlagen, Shisha-Lounges und im Bau befindliche Gebäude.
-- „Lookout“ wurde als Suchsynonym für Aussichtspunkte und „pkwy“ als Synonym für US-Straßen hinzugefügt.
-- Die Farben für Fußgängerbereiche sind zur besseren Lesbarkeit etwas dunkler.
-- Lesezeichenbeschriftungen auf der Karte überlappen sich nicht mehr.
-- Mehrzeiliger Text wird nun sauber abgeschnitten, und Straßennamen enthalten keine Duplikate mehr.
-- Routenführung: Bei fortgesetzten Routen werden nun Zwischenpunkte entfernt, die Sie bereits passiert haben.
-- Es wurde behoben, dass in TestFlight-Builds die falsche Lesezeichenliste verwendet wurde.
-- Der Import von KMB-Dateien wurde korrigiert.
-- Die überarbeiteten Übersetzungen für Kategorien, Suchsynonyme und UI-Strings wurden aktualisiert. Es wurden Übersetzungen für die Beschreibungen von New South Wales und dem Northern Territory hinzugefügt.
-- Die Stabilität und Leistung wurden verbessert, einschließlich Schriftgestaltung, Glyphen-Caching und Routenlinien-Beschneidung.
-- Das Höhenprofil für Tracks und Routen wurde verbessert.
-- Die Menüschaltflächen während der Navigation wurden für Aktionen wie TTS, Einstellungen und Streckenaufzeichnung vergrößert.
-- Die Animation des ausklappbaren Beschreibungsbereichs auf der Ortsseite wurde verfeinert.
-- Die Ortsinformationsseite schließt sich nicht mehr, wenn das Scrollen im Höhenprofil endet, springt nicht mehr unerwartet zurück und behält den Titel sichtbar, während die Bearbeitung bei geöffneter Tastatur erfolgt.
-- Abstürze beim Löschen einer Strecke oder eines Lesezeichens, die bzw. das nicht mehr existiert, wurden behoben.
+• Track-Text und HTML-Beschreibungen werden nun unterstützt, genau wie Beschreibungen für Lesezeichen. Klicke auf das Bleistift-Symbol, um eine Beschreibung hinzuzufügen.
+• OpenStreetMap-Kartendaten vom 27. Mai 2026
+• Die Text-to-Speech-Funktion (TTS) wählt nun die beste installierte Stimme für die jeweilige Sprache aus (Enhanced / Premium). Informationen zum Herunterladen einer Stimme in höherer Qualität finden Sie in den Einstellungen von Organic Maps.
+• Straßenschilder für Australien und Neuseeland hinzugefügt
+• Symbole für Boule-, Rad- und Motorsportorte hinzugefügt
+• Zeremonientore, Wasserrutschen, Freizeitparks und Achterbahnen hinzugefügt
+• Verbesserte Fingergesten zur Kartensteuerung in der perspektivischen Ansicht im Navigationsmodus
+• Fehler beim Umbenennen von Tracks behoben, bei dem der neue Name nicht korrekt aktualisiert wurde
+• CarPlay: Schaltfläche zum Zentrieren behoben
+• Routen des öffentlichen Nahverkehrs für Bahnhöfe und andere Objekte in der Umgebung behoben
+• Absturz beim Hinzufügen eines Lesezeichens auf einer Wander- oder Radroute behoben
+• Darstellung von Geschwindigkeitsbegrenzungen für Radarkontrollen behoben
+• Antimeridian-Zoom-out bei mehr als einer Weltkopie behoben
+• Genauere Anzeige von Straßen- und Hausadressen
+• Unnötige Kartenanimationen wurden behoben
+• Verbesserungen bei Stabilität und Leistung
 
-## Plattformunterstützung
+## Übersetzungen
 
-- Aufgrund von Änderungen bei TestFlight und im App Store unterstützt diese Version nur noch iOS 15 und höher. iOS 12, iOS 13 und iOS 14 werden nicht mehr unterstützt.
+• Verbesserte Übersetzungen für Französisch, Italienisch, Spanisch, Ukrainisch und Katalanisch
+• Aktualisierte Übersetzungen für mehrere Länder- und Regionsnamen, Suchsynonyme für `leisure=track` wurden korrigiert
+• Übersetzungen für `disused:bridge` und `disused:tunnel` wurden korrigiert

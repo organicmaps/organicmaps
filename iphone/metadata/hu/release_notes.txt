@@ -1,26 +1,22 @@
-- ÚJ! Érintsen meg egy tömegközlekedési megállót, hogy a teljes útvonalat kiemelje a térképen, mint a Tranzit térkép stílusban.
-- ÚJ! a távolsági tömegközlekedési útvonalak és más OpenStreetMap kapcsolatok mostantól a térkép határain keresztül egyetlen összefüggő vonalba kapcsolódnak.
-- Az OpenStreetMap adatok május 3-án frissültek.
-- Vietnam és Malajzia mostantól kisebb régiókra van felosztva, amelyek külön-külön letölthetők.
-- Hongkong, Makaó és Hainan mostantól elkülönül Guangdongtól, a szomszédos határok frissítve.
-- Frissített kontúrvonalak Indonézia, Malajzia, Tanzánia, Thaiföld és Vietnam esetében.
-- A navigációs információs panelhez hozzáadtunk egy pályafelvétel gombot.
-- Új OpenStreetMap-típusok hozzáadása: aktív státuszú vulkánok, víziút-hozzáférési pontok, csúszópályák, vízipipa-szalonok és építés alatt álló épületek.
-- Hozzáadta a "Lookout" szót a kilátópontok keresési szinonimájaként, és a "pkwy" szót az amerikai utcák szinonimájaként.
-- A gyalogosövezetek színei kissé sötétebbek a jobb olvashatóság érdekében.
-- A térképen lévő könyvjelzőcímkék már nem fedik egymást.
-- A többsoros szöveg mostantól tisztán levágásra kerül, és az utcanevek többé nem tartalmaznak duplikátumokat.
-- Útvonaltervezés: a folytatásos útvonalak mostantól eltávolítják a már áthaladt közbenső pontokat.
-- Javítva a TestFlight-építésekben használt rossz könyvjelzőlista.
-- Javítottuk a KMB fájl importálását.
-- Frissítettük a kategóriák, keresési szinonimák és UI karakterláncok lektorált fordításait. Új Dél-Wales és Észak-Terület leírásainak fordításai hozzáadva.
-- Javítottuk a stabilitást és a teljesítményt, beleértve a betűtípus-formázást, a glifák gyorsítótárazását és az útvonalvonalak levágását.
-- Javítottuk a pályák és útvonalak magassági diagramját.
-- A navigációs menü gombjai nagyobbak lettek az olyan műveletekhez, mint a TTS, a beállítások és a pálya felvétele.
-- Finomítottuk a helyoldalon a bővíthető leírás rész animációját.
-- A helyinformációs oldal többé nem záródik be, amikor a magassági diagram súrolása véget ér, többé nem pattog váratlanul, és nyitott billentyűzettel történő szerkesztés közben is látható marad a cím.
-- Javítottuk a már nem létező pálya vagy könyvjelző törlésénél fellépő összeomlásokat.
+• A nyomvonalak szöveges és HTML leírásai mostantól támogatottak, ugyanúgy, mint a könyvjelzők leírásai. A leírás hozzáadásához nyomja meg a ceruza ikont.
+• OpenStreetMap-térképadatok 2026. május 27-i állapot szerint
+• A szöveg-beszéd (TTS) funkció mostantól a nyelvhez legjobban illő, telepített hangot választja ki (Enhanced / Premium). A jobb minőségű hang letöltéséről az Organic Maps beállításaiban olvashat.
+• Hozzáadva Ausztrália és Új-Zéland útjelző táblái
+• Hozzáadva a petanque, kerékpározás és motorsport helyszíneinek ikonjai
+• Hozzáadva a szertartási kapuk, vízi csúszdák, vidámparkok és hullámvasutak
+• Javítottuk az ujjmozdulatokat a térkép vezérléséhez perspektívikus nézetben navigációs módban
+• Javítottuk a nyomvonal átnevezési hibáját, amelynek következtében az új név nem frissült megfelelően
+• CarPlay: javítottuk a középre állítás gombot
+• Javítottuk a tömegközlekedési útvonalakat az állomások és más területi objektumok esetében
+• Javítottuk a túra- vagy kerékpárútvonalon könyvjelző hozzáadásakor fellépő összeomlást
+• Javítottuk a sebességmérő kamerák sebességkorlátozásainak megjelenítését
+• Javítottuk az antimeridián kicsinyítést több világmásolat esetén
+• Pontosabb utca- és házcímek megjelenítése
+• Javítva a felesleges térképanimációk
+• Stabilitási és teljesítményjavítások
 
-## Platformtámogatás
+## Fordítások
 
-- A TestFlight és az App Store változásai miatt ez a kiadás csak az iOS 15 és újabb operációs rendszereket támogatja. iOS 12, iOS 13 és iOS 14 már nem támogatott.
+• Javítva a francia, olasz, spanyol, ukrán és katalán fordítások
+• Frissítve több ország- és régiónév fordítása, javítva a `leisure=track` szinonimáinak keresése
+• Javítva a `disused:bridge` és `disused:tunnel` fordításai

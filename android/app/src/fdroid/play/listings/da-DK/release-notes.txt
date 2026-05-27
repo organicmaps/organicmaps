@@ -1,8 +1,8 @@
-• Tryk på et stoppested for offentlig transport, og vælg rutenumre for at fremhæve ruter på kortet
-• Bogmærkeetiketter overlapper ikke længere på kortet
-• Friske OpenStreetMap-data fra 3. maj med nye objekttyper
-• Forbedrede højdekurver for spor og ruter
-• Mindre kortdownloads for Vietnam, Malaysia, Hong Kong, Macau og Hainan
-• Raffineret brugergrænseflade og animationer
-• Opdaterede konturlinjer for Indonesien, Malaysia, Tanzania, Thailand og Vietnam
+• NYT! Tryk på blyanten for at føje en tekst- eller HTML-beskrivelse til et spor
+• NYT! Vælg en valgfri farve til spor
+• Nye rutenummerskilte for Australien og New Zealand
+• Korrekte skrifttyper til koreansk, kinesisk og japansk efter enhedens sprog
+• Nye ikoner for petanque, cykling og motorsport
+• Rettet ruter for offentlig transport ved stationer og andre områder
+• OpenStreetMap-data pr. 27. maj
 …mere på omaps.org/news

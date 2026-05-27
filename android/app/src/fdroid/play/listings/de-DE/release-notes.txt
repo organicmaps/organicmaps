@@ -1,7 +1,8 @@
-• Tippen Sie auf eine Haltestelle der öffentlichen Verkehrsmittel und wählen Sie die Routennummern aus, um die Routen auf der Karte zu markieren.
-• Lesezeichenbeschriftungen überschneiden sich nicht mehr auf der Karte
-• Frische OpenStreetMap-Daten ab dem 3. Mai, mit neuen Objekttypen
-• Verbesserte Höhendiagramme für Tracks und Routen
-• Kleinere Karten-Downloads für Vietnam, Malaysia, Hongkong, Macau und Hainan
-• Verbesserte Benutzeroberfläche und Animationen
+• NEU: Tracks mit Text- oder HTML-Beschreibung versehen
+• NEU: Tracks in jeder Farbe einfärben
+• Straßenschilder für Australien und Neuseeland
+• Korrekte Schriften für Koreanisch, Chinesisch und Japanisch je nach Gerätesprache
+• Neue Icons und Kartenobjekte: Boule, Radsport, Motorsport, Zeremonietore, Wasserrutschen, Freizeitparks, Achterbahnen
+• ÖPNV-Routen für Bahnhöfe und Flächen korrigiert
+• OpenStreetMap-Daten vom 27. Mai
 …mehr unter omaps.org/de/news

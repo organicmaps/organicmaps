@@ -1,26 +1,22 @@
-- NOVO! tapnite postajališče javnega prevoza, da na zemljevidu označite celotno pot, tako kot v slogu zemljevida Transit.
-- NOVO! daljinske poti javnega prevoza in druge relacije OpenStreetMap so zdaj čez meje zemljevida povezane v eno neprekinjeno linijo.
-- Podatki OpenStreetMap posodobljeni na dan 3. maja.
-- Vietnam in Malezija sta zdaj razdeljena na manjši regiji, ki ju je mogoče prenesti ločeno.
-- Hongkong, Macao in Hainan so zdaj ločeni od Guangdong, sosednje meje pa so posodobljene.
-- Posodobljene obrisne črte za Indonezijo, Malezijo, Tanzanijo, Tajsko in Vietnam.
-- Na informacijsko ploščo v navigaciji je dodan gumb za snemanje skladbe.
-- Dodane nove vrste OpenStreetMap: vulkani z aktivnim statusom, dostopne točke do vodnih poti, zdrsi, saloni za vodne pijače in stavbe v gradnji.
-- Dodan je izraz "Lookout" kot sinonim za iskanje razglednih točk in "pkwy" kot sinonim za ameriške ulice.
-- Barve območij za pešce so nekoliko temnejše zaradi boljše čitljivosti.
-- Označbe zaznamkov na zemljevidu se ne prekrivajo več.
-- Večvrstično besedilo je zdaj čisto obrezano, imena ulic pa ne vsebujejo več podvajanj.
-- Usmerjanje: obnovljene poti zdaj odstranijo vmesne točke, ki ste jih že prevozili.
-- Odpravljen napačen seznam zaznamkov, ki se je uporabljal v sestavah TestFlight.
-- Popravljen uvoz datotek KMB.
-- Posodobljeni popravljeni prevodi za kategorije, sinonime iskanja in nize uporabniškega vmesnika. Dodani prevodi za opise za Novi Južni Wales in Severno ozemlje.
-- Izboljšana stabilnost in zmogljivost, vključno z oblikovanjem pisave, predpomnjenjem glifov in obrezovanjem linij poti.
-- Izboljšana višinska karta za proge in poti.
-- Povečani gumbi menija v navigaciji za dejanja, kot so TTS, nastavitve in snemanje poti.
-- Izboljšana animacija raztegljivega dela z opisom na strani kraja.
-- Stran z informacijami o kraju se ne zapre več, ko se konča brisanje višinskega diagrama, ne odbija več nepričakovano in ohranja naslov viden med urejanjem z odprto tipkovnico.
-- Odpravljeno sesutje pri brisanju sledi ali zaznamka, ki ne obstaja več.
+• Zdaj so podprti besedilni in HTML opisi poti, enako kot opisi za zaznamke. Za dodajanje opisa pritisnite ikono svinčnika.
+• Podatki zemljevida OpenStreetMap z dne 27. maja 2026
+• Prevajanje besedila v govor (TTS) zdaj izbere najboljši nameščen glas za jezik (Enhanced / Premium). V nastavitvah Organic Maps si oglejte, kako prenesti glas višje kakovosti.
+• Dodani so prometni znaki za Avstralijo in Novo Zelandijo
+• Dodane so ikone za igrišča za balinanje, kolesarjenje in motošport
+• Dodana so obredna vrata, vodni tobogani, tematski parki in vlakci smrti
+• Izboljšani prstni gesti za upravljanje zemljevida v perspektivnem pogledu med navigacijskim načinom
+• Popravljena napaka pri preimenovanju poti, pri kateri se novo ime ni pravilno posodobilo
+• CarPlay: popravljen gumb za ponovno osredotočenje
+• Popravljene poti javnega prevoza za postaje in druge objekte v območju
+• Popravljen sesutje pri dodajanju zaznamka na pohodniški ali kolesarski poti
+• Popravljeno prikazovanje omejitev hitrosti za radarje
+• Popravljeno pomanjšanje antimeridiana z več kot eno kopijo sveta
+• Natančnejši prikaz naslovov ulic in hiš
+• Popravljene nepotrebne animacije zemljevida
+• Izboljšave stabilnosti in zmogljivosti
 
-## Podpora za platforme
+## Prevajanje
 
-- Zaradi sprememb v programu TestFlight in trgovini App Store ta izdaja podpira samo iOS 15 in novejše. iOS 12, iOS 13 in iOS 14 niso več podprti.
+• Izboljšani prevodi v francoščino, italijanščino, španščino, ukrajinščino in katalonščino
+• Posodobljeni prevodi za imena več držav in regij, popravljeni sinonimi za iskanje `leisure=track`
+• Popravljeni prevodi za `disused:bridge` in `disused:tunnel`

@@ -1,7 +1,7 @@
-• Egin tap garraio publikoaren geltoki batean eta hautatu ibilbide-zenbakiak mapako ibilbideak nabarmentzeko
-• Markagailu-etiketek ez dute gehiago maparen gainean gainjartzen.
-• Maiatzaren 3ko OpenStreetMap datu freskoak, objektu mota berriekin
-• Ibilbide eta ibilbideen altuera-grafiko hobetuak
-• Vietnam, Malaysia, Hong Kong, Makao eta Hainannerako mapa-deskargak txikiagoak
-• UI dotoretua eta animazioak
-…gehiago omaps.org/eu/news-en
+• BERRIA! Gehitu testu edo HTML deskribapena arrastoei arkatzaren ikonoarekin
+• BERRIA! Aukeratu edozein kolore arrastoetarako
+• Australiako eta Zeelanda Berriko errepide-zenbakien ikurrak gehitu dira
+• Letra-tipo egokiak koreerarako, txinerarako eta japonierarako
+• Ikono gehiago: petanka, txirrindularitza eta motor-kirolak; leku gehiago: ate zeremonialak, ur-txirristak, parke tematikoak eta errusiar mendiak
+• OpenStreetMap datuak: maiatzaren 27a
+…gehiago: omaps.org/eu/news-en

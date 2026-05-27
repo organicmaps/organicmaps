@@ -1,7 +1,9 @@
-• Stuknij przystanek transportu publicznego i wybierz numery tras, aby zaznaczyć trasy na mapie.
-• Etykiety zakładek nie nakładają się już na mapę
-• Świeże dane OpenStreetMap na dzień 3 maja, z nowymi typami obiektów
-• Ulepszone wykresy wysokości dla ścieżek i tras
-• Mniejsze mapy do pobrania dla Wietnamu, Malezji, Hongkongu, Makau i Hainan
-• Udoskonalony interfejs użytkownika i animacje
+• NOWOŚĆ! Dodawaj opis tekstowy lub HTML do śladu ikoną ołówka
+• NOWOŚĆ! Wybieraj dowolny kolor śladów
+• Dodano oznaczenia dróg w Australii i Nowej Zelandii
+• Lepsze czcionki dla koreańskiego, chińskiego i japońskiego
+• Dodano ikony miejsc związanych z grą w bule, kolarstwem i sportami motorowymi
+• Dodano bramy ceremonialne, zjeżdżalnie, parki rozrywki i kolejki górskie
+• Poprawiono trasy transportu publicznego przy stacjach i innych obszarach
+• Dane OSM z 27 maja
 …więcej na omaps.org/pl/news

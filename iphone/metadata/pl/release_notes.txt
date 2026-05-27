@@ -1,26 +1,22 @@
-- NOWOŚĆ: proszę dotknąć przystanku transportu publicznego, aby podświetlić całą trasę na mapie, tak jak w stylu mapy Transit.
-- NOWOŚĆ! Długodystansowe trasy transportu publicznego i inne relacje OpenStreetMap są teraz połączone ponad granicami mapy w jedną ciągłą linię.
-- Dane OpenStreetMap zaktualizowane na dzień 3 maja.
-- Wietnam i Malezja są teraz podzielone na mniejsze regiony, które można pobrać osobno.
-- Hongkong, Makau i Hainan są teraz oddzielone od Guangdong, a sąsiednie granice zostały zaktualizowane.
-- Zaktualizowano linie konturowe dla Indonezji, Malezji, Tanzanii, Tajlandii i Wietnamu.
-- Dodano przycisk nagrywania trasy do panelu informacyjnego w nawigacji.
-- Dodano nowe typy OpenStreetMap: wulkany o statusie aktywnym, punkty dostępu do dróg wodnych, pochylnie, salony z sziszą i budynki w budowie.
-- Dodano "Lookout" jako synonim wyszukiwania punktów widokowych i "pkwy" jako synonim ulicy w USA.
-- Kolory obszarów dla pieszych są nieco ciemniejsze dla lepszej czytelności.
-- Etykiety zakładek na mapie nie nakładają się już na siebie.
-- Tekst wielowierszowy jest teraz czysto przycinany, a nazwy ulic nie zawierają już duplikatów.
-- Trasowanie: wznowione trasy usuwają teraz punkty pośrednie, które już Państwo minęli.
-- Naprawiono nieprawidłową listę zakładek używaną w kompilacjach TestFlight.
-- Naprawiono import plików KMB.
-- Zaktualizowano tłumaczenia dla kategorii, synonimów wyszukiwania i ciągów interfejsu użytkownika. Dodano tłumaczenia dla opisów Nowej Południowej Walii i Terytorium Północnego.
-- Poprawiono stabilność i wydajność, w tym kształtowanie czcionek, buforowanie glifów i przycinanie linii tras.
-- Ulepszono wykres wysokości dla ścieżek i tras.
-- Powiększono przyciski menu nawigacyjnego dla działań takich jak TTS, ustawienia i nagrywanie trasy.
-- Poprawiono animację rozwijanej sekcji opisu na stronie miejsca.
-- Strona z informacjami o miejscu nie zamyka się już po zakończeniu przewijania wykresu wysokości, nie odbija się już nieoczekiwanie i zachowuje widoczny tytuł podczas edycji z otwartą klawiaturą.
-- Naprawiono awarie podczas usuwania ścieżki lub zakładki, która już nie istnieje.
+• Obsługiwane są teraz opisy tekstowe i HTML śladów, tak samo jak opisy zakładek. Naciśnij ikonę ołówka, aby dodać opis.
+• Dane map OpenStreetMap na dzień 27 maja 2026 r.
+• Funkcja zamiany tekstu na mowę (TTS) wybiera teraz najlepszy zainstalowany głos dla danego języka (Enhanced / Premium). Zobacz ustawienia Organic Maps, aby dowiedzieć się, jak pobrać głos o wyższej jakości.
+• Dodano znaki drogowe Australii i Nowej Zelandii
+• Dodano ikony miejsc związanych z bule, kolarstwem i sportami motorowymi
+• Dodano bramy ceremonialne, zjeżdżalnie wodne, parki rozrywki i kolejki górskie
+• Ulepszono gesty palców do sterowania mapą w widoku perspektywicznym w trybie nawigacji
+• Naprawiono błąd zmiany nazwy śladu, w wyniku którego nowa nazwa nie była poprawnie aktualizowana
+• CarPlay: naprawiono przycisk ponownego centrowania
+• Naprawiono trasy transportu publicznego dla stacji i innych obiektów obszarowych
+• Naprawiono awarię podczas dodawania zakładki na trasie pieszej lub rowerowej
+• Naprawiono renderowanie ograniczeń prędkości dla fotoradarów
+• Naprawiono oddalanie przy antymeridianie w przypadku więcej niż jednej kopii świata
+• Bardziej dokładne wyświetlanie adresów ulic i domów
+• Naprawiono niepotrzebne animacje mapy
+• Poprawki stabilności i wydajności
 
-## Obsługa platformy
+## Tłumaczenia
 
-- Ze względu na zmiany w TestFlight i App Store, ta wersja obsługuje tylko iOS 15 i nowsze. iOS 12, iOS 13 i iOS 14 nie są już obsługiwane.
+• Ulepszono tłumaczenia na język francuski, włoski, hiszpański, ukraiński i kataloński
+• Zaktualizowano tłumaczenia nazw kilku krajów i regionów, poprawiono synonimy wyszukiwania dla `leisure=track`
+• Poprawiono tłumaczenia dla `disused:bridge` i `disused:tunnel`

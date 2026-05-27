@@ -1,7 +1,9 @@
-• Toca unha parada de transporte público e selecciona os números de liña para destacar as rutas no mapa
-• As etiquetas dos marcadores xa non se solapan no mapa
-• Datos frescos de OpenStreetMap a 3 de maio, con novos tipos de obxectos
-• Melloras nos gráficos de elevación para traxectorias e rutas
-• Descargas de mapas máis pequenas para Vietnam, Malaisia, Hong Kong, Macau e Hainan
-• Interfaz de usuario refinada e animacións
+• NOVO! Toca o lapis para engadir texto ou HTML aos traxectos
+• NOVO! Escolle calquera cor para os traxectos
+• Engadidos sinais viarios de Australia e Nova Zelandia
+• Fontes correctas para coreano, chinés e xaponés segundo o dispositivo
+• Novas iconas: petanca, ciclismo e deportes de motor
+• Máis lugares: arcos cerimoniais, tobogáns acuáticos, parques temáticos e montañas rusas
+• Corrixidas rutas de transporte público en estacións e áreas
+• Datos OSM do 27 de maio
 …máis en omaps.org/gl/news

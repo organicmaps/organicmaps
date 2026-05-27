@@ -1,26 +1,22 @@
-- NOVETAT! Toca una parada de transport públic per ressaltar tota la ruta al mapa, com en l'estil de mapa Transit.
-- NOVETAT! Les rutes de transport públic de llarga distància i altres relacions d'OpenStreetMap ara es connecten a través de les fronteres del mapa en una sola línia contínua.
-- Dades d'OpenStreetMap actualitzades a 3 de maig.
-- Vietnam i Malàisia ara estan dividits en regions més petites que es poden descarregar per separat.
-- Hong Kong, Macau i Hainan ara estan separats de Guangdong, i s'han actualitzat les fronteres veïnes.
-- S'han actualitzat les isòbates d'Indonèsia, Malàisia, Tanzània, Tailàndia i Vietnam.
-- S'ha afegit un botó per gravar una ruta al panell d'informació de la navegació.
-- S'han afegit nous tipus d'OpenStreetMap: volcans amb estat actiu, punts d'accés a vies navegables, rampes d'embarcament, salons de xala i edificis en construcció.
-- S'ha afegit «Lookout» com a sinònim de cerca per a miradors i «pkwy» com a sinònim de carrer dels EUA.
-- Els colors de les zones per a vianants són una mica més foscos per millorar la llegibilitat.
-- Les etiquetes de les marques de pàgina al mapa ja no es superposen.
-- El text de diverses línies ara es retalla correctament i els noms dels carrers ja no contenen duplicats.
-- Rutes: les rutes reanomenades ara eliminen els punts intermedis que ja heu passat.
-- S'ha corregit l'ús de la llista de marcadors incorrecta en les compilacions de TestFlight.
-- S'ha corregit la importació de fitxers KMB.
-- S'han actualitzat les traduccions revisades per a les categories, els sinònims de cerca i les cadenes d'interfície d'usuari. S'han afegit traduccions per a les descripcions de Nova Gal·les del Sud i del Territori del Nord.
-- S'ha millorat l'estabilitat i el rendiment, incloent-hi el modelatge de fonts, l'emmagatzematge en memòria cau de glifs i el retallat de línies de ruta.
-- S'ha millorat el gràfic d'altitud per a rutes i traçats.
-- S'han fet més grans els botons del menú de navegació per a accions com ara la lectura en veu alta (TTS), la configuració i la gravació de rutes.
-- S'ha perfeccionat l'animació de la secció de descripció desplegable a la pàgina del lloc.
-- La pàgina d'informació del lloc ja no es tanca quan acaba el desplaçament per la gràfica d'altitud, ja no fa rebots inesperats i manté el títol visible mentre s'edita amb el teclat obert.
-- S'han corregit els bloquejos en esborrar una pista o un marcador que ja no existeixen.
+• Ara s'admeten descripcions en text i HTML per a les traces, igual que les descripcions per als marcadors. Premeu la icona del llapis per afegir-hi una descripció.
+• Dades d'OpenStreetMap a data del 27 de maig de 2026
+• El text a veu (TTS) ara tria la millor veu instal·lada per a la llengua (Enhanced / Premium). Consulteu la configuració d'Organic Maps per saber com descarregar una veu de més qualitat.
+• S'han afegit rètols de carretera d'Austràlia i Nova Zelanda
+• S'han afegit icones per a llocs de petanca, ciclisme i esports de motor
+• S'han afegit portes cerimonials, tobogans aquàtics, parcs temàtics i muntanyes russes
+• Millorats els gestos amb el dit per al control del mapa en la vista de perspectiva durant el mode de navegació
+• S'ha corregit un error de canvi de nom de traça pel qual el nom nou no s'actualitzava correctament
+• CarPlay: s'ha corregit el botó de recentrar
+• S'han corregit les rutes de transport públic per a estacions i altres objectes de la zona
+• S'ha corregit un bloqueig en afegir un marcador a una ruta de senderisme o ciclisme
+• S'ha corregit la visualització dels límits de velocitat per a les càmeres de velocitat
+• S'ha corregit el deszoom antimeridià amb més d'una còpia mundial
+• Visualització més precisa d'adreces de carrer i de casa
+• S'han corregit animacions innecessàries del mapa
+• Millores d'estabilitat i rendiment
 
-## Suport de plataformes
+## Traduccions
 
-- A causa dels canvis a TestFlight i a l'App Store, aquesta versió només és compatible amb iOS 15 o posterior. Ja no es dona suport a iOS 12, iOS 13 i iOS 14.
+• Millorades les traduccions al francès, italià, espanyol, ucraïnès i català
+• Actualitzades les traduccions de diversos noms de països i regions, i corregits els sinònims de cerca per a `leisure=track`
+• Corregides les traduccions de `disused:bridge` i `disused:tunnel`

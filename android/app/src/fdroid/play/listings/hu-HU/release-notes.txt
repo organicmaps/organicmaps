@@ -1,7 +1,9 @@
-• Érintse meg a tömegközlekedési megállóhelyet, és válassza ki az útvonalszámokat az útvonalak kiemeléséhez a térképen.
-• A könyvjelző címkék már nem fedik egymást a térképen
-• Friss OpenStreetMap adatok május 3-tól, új objektumtípusokkal
-• Javított magassági diagramok a pályákhoz és útvonalakhoz
-• Kisebb térképek letöltése Vietnam, Malajzia, Hongkong, Makaó és Hainan számára
-• Finomított felhasználói felület és animációk
-…még több az omaps.org/hu/news oldalon
+• ÚJ! A ceruza ikonnal szöveges vagy HTML-leírás adható a nyomvonalakhoz
+• ÚJ! Bármilyen szín választható a nyomvonalakhoz
+• Új ausztrál és új-zélandi útjelzések
+• Helyes betűtípusok koreai, kínai és japán nyelvű készülékeken
+• Új ikonok: pétanque, kerékpározás, motorsport
+• Új helyek: díszkapuk, vízicsúszdák, vidámparkok, hullámvasutak
+• Javított tömegközlekedési útvonalak állomásoknál és területeknél
+• OSM-adatok: május 27.
+…továbbiak: omaps.org/hu/news

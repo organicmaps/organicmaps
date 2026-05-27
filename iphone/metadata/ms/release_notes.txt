@@ -1,26 +1,22 @@
-- BARU! Ketik hentian pengangkutan awam untuk menyerlahkan keseluruhan laluan di peta, seperti dalam gaya peta Transit.
-- BARU! Laluan pengangkutan awam jarak jauh dan hubungan OpenStreetMap lain kini disambungkan merentasi sempadan peta menjadi satu garisan berterusan.
-- Data OpenStreetMap dikemas kini sehingga 3 Mei.
-- Vietnam dan Malaysia kini dibahagikan kepada wilayah yang lebih kecil yang boleh dimuat turun secara berasingan.
-- Hong Kong, Macau, dan Hainan kini dipisahkan daripada Guangdong, dengan sempadan jiran dikemas kini.
-- Garis kontur dikemas kini untuk Indonesia, Malaysia, Tanzania, Thailand, dan Vietnam.
-- Ditambah butang rakaman jejak ke panel maklumat navigasi.
-- Ditambah jenis OpenStreetMap baru: gunung berapi dengan status aktif, titik akses laluan air, jalan selam, ruang rehat hookah, dan bangunan sedang dibina.
-- Menambah "Lookout" sebagai sinonim carian untuk tempat pemerhatian, dan "pkwy" sebagai sinonim jalan AS.
-- Warna kawasan pejalan kaki sedikit lebih gelap untuk kebolehbacaan yang lebih baik.
-- Label penanda halaman pada peta tidak lagi bertindih.
-- Teks berbilang baris kini dipotong dengan kemas, dan nama jalan tidak lagi mengandungi duplikat.
-- Penjejakan: laluan yang disambung semula kini membuang titik perantaraan yang telah anda lalui.
-- Membetulkan isu senarai penanda buku yang salah digunakan dalam binaan TestFlight.
-- Membetulkan import fail KMB.
-- Mengemas kini terjemahan yang telah disemak untuk kategori, sinonim carian, dan rentetan UI. Menambah terjemahan untuk keterangan New South Wales dan Northern Territory.
-- Meningkatkan kestabilan dan prestasi, termasuk pembentukan fon, pengeksanan glif, dan pemangkasan garisan laluan.
-- Meningkatkan carta ketinggian untuk jejak dan laluan.
-- Membesarkan butang pada menu navigasi untuk tindakan seperti TTS, tetapan, dan rakaman jejak.
-- Memperhalusi animasi bahagian keterangan boleh mengembangkan pada halaman tempat.
-- Halaman maklumat tempat tidak lagi tertutup apabila pengguliran carta ketinggian selesai, tidak lagi terbuang secara tidak dijangka, dan mengekalkan tajuk dapat dilihat semasa menyunting dengan papan kekunci terbuka.
-- Membaiki pepijat yang menyebabkan aplikasi terhenti semasa memadam trek atau penanda buku yang tidak wujud lagi.
+• Teks trek dan deskripsi HTML kini disokong, sama seperti deskripsi untuk penanda buku. Tekan ikon pensel untuk menambah deskripsi.
+• Data peta OpenStreetMap setakat 27 Mei 2026
+• Teks ke Ucapan (TTS) kini memilih suara terbaik yang dipasang untuk bahasa tersebut (Enhanced / Premium). Lihat tetapan Organic Maps untuk cara memuat turun suara berkualiti lebih tinggi.
+• Ditambah papan tanda jalan Australia dan New Zealand
+• Ditambah ikon untuk boules, berbasikal, dan tempat sukan permotoran
+• Ditambah gerbang upacara, gelongsor air, taman tema, dan roller coaster
+• Peningkatan isyarat jari untuk kawalan peta dalam paparan perspektif semasa Mod Navigasi
+• Dibaiki pepijat penamaan semula trek yang menyebabkan nama baharu tidak dikemas kini dengan betul
+• CarPlay: dibetulkan butang pusat semula
+• Dibaiki laluan pengangkutan awam untuk stesen dan objek kawasan lain
+• Dibaiki kerosakan semasa menambah penanda buku pada laluan mendaki atau berbasikal
+• Dibaiki paparan had laju untuk kamera laju
+• Dibaiki zum keluar antimeridian dengan lebih daripada satu salinan dunia
+• Paparan alamat jalan dan rumah yang lebih tepat
+• Dibaiki animasi peta yang tidak perlu
+• Penambahbaikan kestabilan dan prestasi
 
-## Sokongan Platform
+## Terjemahan
 
-- Disebabkan perubahan pada TestFlight dan App Store, keluaran ini hanya menyokong iOS 15 dan ke atas. iOS 12, iOS 13, dan iOS 14 tidak lagi disokong.
+• Penambahbaikan terjemahan Bahasa Perancis, Itali, Sepanyol, Ukraine, dan Catalonia
+• Kemas kini terjemahan untuk beberapa nama negara dan rantau, membetulkan sinonim carian untuk `leisure=track`
+• Pembetulan terjemahan untuk `disused:bridge` dan `disused:tunnel`

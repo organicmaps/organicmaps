@@ -1,7 +1,8 @@
-• Toccare una fermata del trasporto pubblico e selezionare i numeri di percorso per evidenziare i percorsi sulla mappa.
-• Le etichette dei segnalibri non si sovrappongono più sulla mappa
-• Dati OpenStreetMap aggiornati al 3 maggio, con nuovi tipi di oggetti
-• Grafici altimetrici migliorati per tracce e percorsi
-• Download di mappe più piccole per Vietnam, Malesia, Hong Kong, Macao e Hainan
-• Interfaccia utente e animazioni perfezionate
-…Maggiori informazioni su omaps.org/it/news
+• NOVITÀ! Tocca l'icona della matita per aggiungere descrizioni testuali o HTML alle tracce
+• NOVITÀ! Scegli qualsiasi colore per le tracce
+• Aggiunti scudi stradali per Australia e Nuova Zelanda
+• Font corretti per coreano, cinese e giapponese in base alla lingua del dispositivo
+• Nuove icone e luoghi: bocce, ciclismo, sport motoristici, parchi a tema e scivoli d'acqua
+• Corrette le linee del trasporto pubblico per stazioni e aree
+• Dati OpenStreetMap al 27 maggio
+Altro su omaps.org/it/news

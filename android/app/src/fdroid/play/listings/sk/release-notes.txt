@@ -1,8 +1,9 @@
-• Ťuknutím na zastávku verejnej dopravy a výberom čísla trasy zvýraznite trasy na mape
-• Označenia záložiek sa už na mape neprekrývajú
-• Čerstvé údaje OpenStreetMap k 3. máju s novými typmi objektov
-• Vylepšené grafy nadmorskej výšky pre trate a cesty
-• Menšie mapy na stiahnutie pre Vietnam, Malajziu, Hongkong, Macao a Hainan
-• Vylepšené používateľské rozhranie a animácie
-• Aktualizované obrysy pre Indonéziu, Malajziu, Tanzániu, Thajsko a Vietnam
+• NOVÉ! Ikonou ceruzky pridáte k trase textový alebo HTML opis
+• NOVÉ! Vyberte si ľubovoľnú farbu trás
+• Pridané cestné štíty Austrálie a Nového Zélandu
+• Správne písma pre kórejčinu, čínštinu a japončinu podľa jazyka zariadenia
+• Nové ikony pre petang, cyklistiku a motoršport
+• Pridané slávnostné brány, tobogany, zábavné parky a horské dráhy
+• Opravené trasy verejnej dopravy pre stanice a plošné objekty
+• Dáta OpenStreetMap k 27. máju
 …viac na omaps.org/news
