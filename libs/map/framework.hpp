@@ -663,6 +663,18 @@ public:
   void EnterBackground();
   void EnterForeground();
 
+  // Android splits EnterBackground into an urgent persist pass before
+  // task-kill (from ActivityLifecycleCallbacks) and a deferred resource
+  // release pass behind ProcessLifecycleOwner's 700 ms debounce. Together
+  // they equal EnterBackground; iOS/Qt keep calling the compound.
+  void PersistStateBeforeBackground();
+  void ReleaseBackgroundResources();
+
+  // Wakes only the freshly-created drape engine on engine (re)creation.
+  // UsageStats/Traffic already got their foreground signal from
+  // ProcessLifecycleOwner, but the engine was still null when that fired.
+  void OnDrapeEngineEnterForeground();
+
   /// Set the localized strings bundle
   void AddString(std::string const & name, std::string const & value) { m_stringsBundle.SetString(name, value); }
 
