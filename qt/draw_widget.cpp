@@ -2,9 +2,7 @@
 
 #include "qt/create_feature_dialog.hpp"
 #include "qt/editor_dialog.hpp"
-#include "qt/place_page_dialog_common.hpp"
-#include "qt/place_page_dialog_developer.hpp"
-#include "qt/place_page_dialog_user.hpp"
+#include "qt/mainwindow.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
@@ -37,6 +35,7 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMenu>
 
@@ -657,63 +656,49 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
 void DrawWidget::ShowPlacePage()
 {
   place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
+  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+    mw->ShowPlacePage(info);
+}
 
-  std::unique_ptr<QDialog> placePageDialog = nullptr;
-  bool developerMode;
-  if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
-    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info, m_framework);
+void DrawWidget::RoutePointFromPlace(RouteMarkType type, m2::PointD const & mercator)
+{
+  SetRoutePointAddMode(type);
+  SubmitRoutingPoint(mercator, true);
+  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+    mw->HidePlacePage();
+}
+
+void DrawWidget::RouteAlongTrack(kml::TrackId trackId)
+{
+  m_guideTracks.clear();
+  m_guideTracks[trackId].push_back(m_framework.GetBookmarkManager().GetTrack(trackId)->GetGeometry());
+  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+    mw->HidePlacePage();
+}
+
+void DrawWidget::EditPlace(FeatureID const & featureId)
+{
+  osm::EditableMapObject emo;
+  if (m_framework.GetEditableMapObject(featureId, emo))
+  {
+    EditorDialog dlg(this, emo);
+    int const result = dlg.exec();
+    if (result == QDialog::Accepted)
+    {
+      m_framework.SaveEditedMapObject(emo);
+      m_framework.UpdatePlacePageInfoForCurrentSelection();
+    }
+    else if (result == QDialogButtonBox::DestructiveRole)
+    {
+      m_framework.DeleteFeature(featureId);
+    }
+  }
   else
-    placePageDialog = std::make_unique<PlacePageDialogUser>(this, info);
-
-  switch (placePageDialog->exec())
   {
-  case place_page_dialog::EditPlace:
-  {
-    osm::EditableMapObject emo;
-    if (m_framework.GetEditableMapObject(info.GetID(), emo))
-    {
-      EditorDialog dlg(this, emo);
-      int const result = dlg.exec();
-      if (result == QDialog::Accepted)
-      {
-        m_framework.SaveEditedMapObject(emo);
-        m_framework.UpdatePlacePageInfoForCurrentSelection();
-      }
-      else if (result == QDialogButtonBox::DestructiveRole)
-      {
-        m_framework.DeleteFeature(info.GetID());
-      }
-    }
-    else
-    {
-      LOG(LERROR, ("Error while trying to edit feature."));
-    }
+    LOG(LERROR, ("Error while trying to edit feature."));
   }
-  break;
-  case place_page_dialog::RouteFrom:
-    SetRoutePointAddMode(RouteMarkType::Start);
-    SubmitRoutingPoint(info.GetMercator(), true);
-    break;
-  case place_page_dialog::AddStop:
-    SetRoutePointAddMode(RouteMarkType::Intermediate);
-    SubmitRoutingPoint(info.GetMercator(), true);
-    break;
-  case place_page_dialog::RouteTo:
-    SetRoutePointAddMode(RouteMarkType::Finish);
-    SubmitRoutingPoint(info.GetMercator(), true);
-    break;
-  case place_page_dialog::RouteAlong:
-  {
-    ASSERT(info.IsTrack(), ());
-    m_guideTracks.clear();
-    auto const trackID = info.GetTrackId();
-    m_guideTracks[trackID].push_back(m_framework.GetBookmarkManager().GetTrack(trackID)->GetGeometry());
-    break;
-  }
-  default: break;
-  }
-
-  m_framework.DeactivateMapSelection();
+  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+    mw->HidePlacePage();
 }
 
 void DrawWidget::SetRuler(bool enabled)

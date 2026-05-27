@@ -1,42 +1,57 @@
 #include "qt/place_page_dialog_common.hpp"
 
-#include <QtWidgets/QPushButton>
+#include "qt/draw_widget.hpp"
+
+#include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
+
+#include "indexer/feature_decl.hpp"
+
+#include "kml/types.hpp"
+
+#include <QtGui/QIcon>
+#include <QtWidgets/QToolBar>
 
 namespace place_page_dialog
 {
-void addCommonButtons(QDialog * this_, QDialogButtonBox * dbb, bool shouldShowEditPlace)
+QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info)
 {
-  dbb->setCenterButtons(true);
+  QToolBar * toolBar = new QToolBar(parent);
+  toolBar->setIconSize(QSize(20, 20));
 
-  QPushButton * fromButton = new QPushButton("Route From");
-  fromButton->setIcon(QIcon(":/navig64/point-start.png"));
-  fromButton->setAutoDefault(false);
-  this_->connect(fromButton, &QAbstractButton::clicked, this_, [this_] { this_->done(RouteFrom); });
-  dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
+  m2::PointD const mercator = info.GetMercator();
 
-  QPushButton * addStopButton = new QPushButton("Add Stop");
-  addStopButton->setIcon(QIcon(":/navig64/point-intermediate.png"));
-  addStopButton->setAutoDefault(false);
-  this_->connect(addStopButton, &QAbstractButton::clicked, this_, [this_] { this_->done(AddStop); });
-  dbb->addButton(addStopButton, QDialogButtonBox::ActionRole);
+  QAction * fromAction = toolBar->addAction(QIcon(":/navig64/point-start.png"), "Route From");
+  fromAction->setToolTip("Route From");
+  QObject::connect(fromAction, &QAction::triggered, parent,
+                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Start, mercator); });
 
-  QPushButton * routeToButton = new QPushButton("Route To");
-  routeToButton->setIcon(QIcon(":/navig64/point-finish.png"));
-  routeToButton->setAutoDefault(false);
-  this_->connect(routeToButton, &QAbstractButton::clicked, this_, [this_] { this_->done(RouteTo); });
-  dbb->addButton(routeToButton, QDialogButtonBox::ActionRole);
+  QAction * stopAction = toolBar->addAction(QIcon(":/navig64/point-intermediate.png"), "Add Stop");
+  stopAction->setToolTip("Add Stop");
+  QObject::connect(stopAction, &QAction::triggered, parent,
+                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Intermediate, mercator); });
 
-  QPushButton * closeButton = new QPushButton("Close");
-  closeButton->setDefault(true);
-  this_->connect(closeButton, &QAbstractButton::clicked, this_, [this_] { this_->done(place_page_dialog::Close); });
-  dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
+  QAction * toAction = toolBar->addAction(QIcon(":/navig64/point-finish.png"), "Route To");
+  toAction->setToolTip("Route To");
+  QObject::connect(toAction, &QAction::triggered, parent,
+                   [drawWidget, mercator] { drawWidget->RoutePointFromPlace(RouteMarkType::Finish, mercator); });
 
-  if (shouldShowEditPlace)
+  if (info.IsTrack())
   {
-    QPushButton * editButton = new QPushButton("Edit Place");
-    this_->connect(editButton, &QAbstractButton::clicked, this_,
-                   [this_] { this_->done(place_page_dialog::EditPlace); });
-    dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
+    kml::TrackId const trackId = info.GetTrackId();
+    QAction * alongAction = toolBar->addAction("Route Along Track");
+    QObject::connect(alongAction, &QAction::triggered, parent,
+                     [drawWidget, trackId] { drawWidget->RouteAlongTrack(trackId); });
   }
+
+  if (info.ShouldShowEditPlace())
+  {
+    FeatureID const featureId = info.GetID();
+    QAction * editAction = toolBar->addAction("Edit Place");
+    QObject::connect(editAction, &QAction::triggered, parent,
+                     [drawWidget, featureId] { drawWidget->EditPlace(featureId); });
+  }
+
+  return toolBar;
 }
 }  // namespace place_page_dialog
