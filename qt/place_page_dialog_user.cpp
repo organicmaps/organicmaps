@@ -6,11 +6,12 @@
 #include "indexer/validate_and_format_contacts.hpp"
 #include "map/place_page_info.hpp"
 
-#include <QtWidgets/QDialog>
-#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 
 #include <string>
@@ -54,11 +55,23 @@ public:
   }
 };
 
-PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info const & info) : QDialog(parent)
+PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info)
+  : QWidget(parent)
 {
   auto const & title = info.GetTitle();
 
-  QVBoxLayout * layout = new QVBoxLayout();
+  QVBoxLayout * layout = new QVBoxLayout(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+
+  layout->addWidget(place_page_dialog::createActionToolBar(this, drawWidget, info));
+
+  QScrollArea * scrollArea = new QScrollArea(this);
+  scrollArea->setWidgetResizable(true);
+  scrollArea->setFrameShape(QFrame::NoFrame);
+  scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  QWidget * content = new QWidget(scrollArea);
+  QVBoxLayout * contentLayout = new QVBoxLayout(content);
+
   {
     QVBoxLayout * header = new QVBoxLayout();
 
@@ -83,12 +96,12 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       header->addWidget(addressLabel);
     }
 
-    layout->addLayout(header);
+    contentLayout->addLayout(header);
   }
 
   {
     QHLine * line = new QHLine();
-    layout->addWidget(line);
+    contentLayout->addWidget(line);
   }
 
   {
@@ -256,24 +269,10 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     data->setColumnStretch(0, 0);
     data->setColumnStretch(1, 1);
 
-    layout->addLayout(data);
+    contentLayout->addLayout(data);
   }
 
-  layout->addStretch();
-
-  {
-    QHLine * line = new QHLine();
-    layout->addWidget(line);
-  }
-
-  {
-    QDialogButtonBox * dbb = new QDialogButtonBox();
-    place_page_dialog::addCommonButtons(this, dbb, info.ShouldShowEditPlace());
-    layout->addWidget(dbb, Qt::AlignCenter);
-  }
-
-  setLayout(layout);
-
-  auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
-  setWindowTitle(ppTitle.c_str());
+  contentLayout->addStretch();
+  scrollArea->setWidget(content);
+  layout->addWidget(scrollArea);
 }

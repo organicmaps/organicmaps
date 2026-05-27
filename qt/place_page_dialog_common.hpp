@@ -1,19 +1,22 @@
 #pragma once
 
-#include <QtWidgets/QDialog>
-#include <QtWidgets/QDialogButtonBox>
+class QToolBar;
+class QWidget;
+
+namespace place_page
+{
+class Info;
+}
+
+namespace qt
+{
+class DrawWidget;
+}
 
 namespace place_page_dialog
 {
-enum PressedButton : int
-{
-  Close = QDialog::Rejected,
-  RouteFrom,
-  AddStop,
-  RouteTo,
-  RouteAlong,
-  EditPlace
-};
-
-void addCommonButtons(QDialog * this_, QDialogButtonBox * dbb, bool shouldShowEditPlace);
+// Builds a toolbar with route + edit actions wired to `drawWidget`.
+// Action handlers capture only the values they need from `info`, so the
+// returned toolbar stays valid even after `info` is invalidated.
+QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info);
 }  // namespace place_page_dialog

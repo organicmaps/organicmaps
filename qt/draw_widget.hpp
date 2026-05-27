@@ -9,6 +9,7 @@
 
 #include "search/result.hpp"
 
+#include "indexer/feature_decl.hpp"
 #include "indexer/map_style.hpp"
 
 #include <QtWidgets/QRubberBand>
@@ -70,6 +71,12 @@ public:
   void FollowRoute();
   void ClearRoute();
   void OnRouteRecommendation(RoutingManager::Recommendation recommendation);
+
+  // Actions invoked from the place-page dock widget. Each one ends the
+  // current place-page workflow (hides the dock + drops the selection).
+  void RoutePointFromPlace(RouteMarkType type, m2::PointD const & mercator);
+  void RouteAlongTrack(kml::TrackId trackId);
+  void EditPlace(FeatureID const & featureId);
 
   void RefreshDrawingRules();
   void SetMapStyleToDefault();
