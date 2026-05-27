@@ -78,6 +78,8 @@ public class Framework
 
   public static native void nativePokeSearchInViewport();
 
+  public static native void nativeSaveViewport();
+
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 

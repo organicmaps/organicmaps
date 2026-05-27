@@ -416,9 +416,10 @@ public:
   /// in follow routing mode or resets it to the default value.
   void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
 
-private:
   /// Depends on initialized Drape engine.
   void SaveViewport();
+
+private:
   /// Depends on initialized Drape engine.
   void LoadViewport();
 

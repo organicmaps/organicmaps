@@ -1087,6 +1087,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNI
   frm()->GetSearchAPI().PokeSearchInViewport();
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveViewport(JNIEnv *, jclass)
+{
+  frm()->SaveViewport();
+}
+
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)
 {
   m2::PointD const center = frm()->GetViewportCenter();
