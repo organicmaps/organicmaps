@@ -4,6 +4,8 @@
 #include "qt/draw_widget.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
+#include "qt/place_page_dialog_developer.hpp"
+#include "qt/place_page_dialog_user.hpp"
 #include "qt/popup_menu_holder.hpp"
 #include "qt/preferences_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
@@ -11,6 +13,9 @@
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 #include "qt/search_panel.hpp"
+
+#include "map/framework.hpp"
+#include "map/place_page_info.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -135,6 +140,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   CreateCountryStatusControls();
   CreateNavigationBar();
   CreateSearchBarAndPanel();
+  CreatePlacePagePanel();
 
   QString caption = QCoreApplication::applicationName();
 
@@ -618,9 +624,9 @@ void MainWindow::OnClearSelection()
 void MainWindow::OnSearchButtonClicked()
 {
   if (m_pSearchAction->isChecked())
-    m_Docks[0]->show();
+    m_Docks[kSearchDock]->show();
   else
-    m_Docks[0]->hide();
+    m_Docks[kSearchDock]->hide();
 }
 
 void MainWindow::OnLoginMenuItem()
@@ -817,9 +823,49 @@ void MainWindow::ShowUpdateDialog()
 
 void MainWindow::CreateSearchBarAndPanel()
 {
-  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), nullptr);
+  CreatePanelImpl(kSearchDock, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), nullptr);
 
-  m_Docks[0]->setWidget(new SearchPanel(m_pDrawWidget, m_Docks[0]));
+  m_Docks[kSearchDock]->setWidget(new SearchPanel(m_pDrawWidget, m_Docks[kSearchDock]));
+}
+
+void MainWindow::CreatePlacePagePanel()
+{
+  CreatePanelImpl(kPlacePageDock, Qt::LeftDockWidgetArea, tr("Place Page"), QKeySequence(), nullptr);
+
+  // Deactivate map selection whenever the panel is hidden (X button on dock, action button, etc.).
+  connect(m_Docks[kPlacePageDock], &QDockWidget::visibilityChanged, this, [this](bool visible)
+  {
+    if (!visible)
+      GetFramework().DeactivateMapSelection();
+  });
+}
+
+void MainWindow::ShowPlacePage(place_page::Info const & info)
+{
+  QDockWidget * dock = m_Docks[kPlacePageDock];
+
+  bool developerMode = false;
+  settings::TryGet(settings::kDeveloperMode, developerMode);
+
+  QWidget * widget = developerMode ? static_cast<QWidget *>(new PlacePageDialogDeveloper(dock, m_pDrawWidget, info))
+                                   : static_cast<QWidget *>(new PlacePageDialogUser(dock, m_pDrawWidget, info));
+
+  std::string title("Place Page");
+  if (info.IsBookmark())
+    title += developerMode ? " (Bookmark)" : " (bookmarked)";
+  else if (info.IsTrack())
+    title += " (Track)";
+  dock->setWindowTitle(QString::fromStdString(title));
+
+  // setWidget takes ownership and deletes the previous widget.
+  dock->setWidget(widget);
+  dock->show();
+  dock->raise();
+}
+
+void MainWindow::HidePlacePage()
+{
+  m_Docks[kPlacePageDock]->hide();
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name, QKeySequence const & hotkey,

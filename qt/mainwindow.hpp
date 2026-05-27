@@ -20,6 +20,11 @@ class QDockWidget;
 class QLabel;
 class QPushButton;
 
+namespace place_page
+{
+class Info;
+}
+
 namespace search
 {
 class Result;
@@ -35,9 +40,18 @@ class MainWindow
   : public QMainWindow
   , location::LocationObserver
 {
+public:
+  // Indices into m_Docks.
+  enum DockIndex : size_t
+  {
+    kSearchDock = 0,
+    kPlacePageDock = 1,
+    kDockCount
+  };
+
+private:
   DrawWidget * m_pDrawWidget = nullptr;
-  // TODO(mgsergio): Make indexing more informative.
-  std::array<QDockWidget *, 1> m_Docks;
+  std::array<QDockWidget *, kDockCount> m_Docks;
 
   QPushButton * m_downloadButton = nullptr;
   QPushButton * m_retryButton = nullptr;
@@ -87,6 +101,11 @@ public:
 #endif
   );
 
+  // Replaces the place-page dock's contents with a fresh widget for `info`
+  // (Developer or User variant depending on settings::kDeveloperMode) and shows the dock.
+  void ShowPlacePage(place_page::Info const & info);
+  void HidePlacePage();
+
 protected:
   Framework & GetFramework() const;
 
@@ -98,6 +117,7 @@ protected:
                        char const * slot);
   void CreateNavigationBar();
   void CreateSearchBarAndPanel();
+  void CreatePlacePagePanel();
   void CreateCountryStatusControls();
 
   void SetLayerEnabled(LayerType type, bool enable);
