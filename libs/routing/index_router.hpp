@@ -38,6 +38,7 @@ class TrafficCache;
 namespace routing
 {
 class IndexGraph;
+class RoutingOptions;
 class IndexGraphStarter;
 
 class IndexRouter : public IRouter
@@ -109,7 +110,10 @@ private:
                                                   std::vector<Segment> & subroute);
 
   RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                    RouterDelegate const & delegate, Route & route);
+                                    RouterDelegate const & delegate, Route & route,
+                                    RoutingOptions const * routingOptions = nullptr);
+  RouterResultCode CalculatePublicBicycleRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                               RouterDelegate const & delegate, Route & route);
   RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
                                      RouterDelegate const & delegate, std::shared_ptr<AStarProgress> const & progress,
                                      IndexGraphStarter & graph, std::vector<Segment> & subroute,
@@ -118,7 +122,7 @@ private:
   RouterResultCode AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                RouterDelegate const & delegate, Route & route);
 
-  std::unique_ptr<WorldGraph> MakeWorldGraph();
+  std::unique_ptr<WorldGraph> MakeWorldGraph(RoutingOptions const * routingOptions = nullptr);
 
   using EdgeProjectionT = IRoadGraph::EdgeProjectionT;
   class PointsOnEdgesSnapping
@@ -269,6 +273,7 @@ private:
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
+  DataSource & m_indexDataSource;
   MwmDataSource m_dataSource;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
@@ -276,6 +281,7 @@ private:
   CountryRectFn const m_countryRectFn;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
+  traffic::TrafficCache const & m_trafficCache;
   std::shared_ptr<TrafficStash> m_trafficStash;
   FeaturesRoadGraphBase m_roadGraph;
 

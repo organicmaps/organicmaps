@@ -26,6 +26,7 @@
     <string name="editor_category_unsuitable_text">Organic Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step-by-step instructions.</string>
     <string name="button_layer_subway">Metro</string>
     <string name="avoid_motorways">Avoid motorways</string>
+    <string name="public_bike_sharing">Public Bike-Sharing</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>

@@ -107,6 +107,53 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
   }
 }
 
+UNIT_TEST(SubrouteAttrsCopyPreservesVehicleType)
+{
+  Route::SubrouteAttrs const bicycleSubroute(
+      geometry::PointWithAltitude(kTestGeometry[1], geometry::kDefaultAltitudeMeters),
+      geometry::PointWithAltitude(kTestGeometry[3], geometry::kDefaultAltitudeMeters), 1, 3, VehicleType::Bicycle);
+
+  Route::SubrouteAttrs const shiftedSubroute(bicycleSubroute, 10);
+
+  TEST_EQUAL(shiftedSubroute.GetBeginSegmentIdx(), 10, ());
+  TEST_EQUAL(shiftedSubroute.GetEndSegmentIdx(), 12, ());
+  TEST_EQUAL(shiftedSubroute.GetVehicleType(), VehicleType::Bicycle, ());
+}
+
+UNIT_TEST(PublicBikeSharingSubroutesPreserveLegTypes)
+{
+  Route route("public-bicycle-route", 0 /* route id */);
+
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom(kTestSegments, kTestGeometry, kTestTurns, {}, routeSegments);
+  FillSegmentInfo(kTestTimes, routeSegments);
+  route.SetRouteSegments(std::move(routeSegments));
+  route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
+
+  route.SetCurrentSubrouteIdx(0);
+  route.SetSubroteAttrs(vector<Route::SubrouteAttrs>{
+      {geometry::PointWithAltitude(kTestGeometry[1], geometry::kDefaultAltitudeMeters),
+       geometry::PointWithAltitude(kTestGeometry[3], geometry::kDefaultAltitudeMeters), 0, 2, VehicleType::Pedestrian},
+      {geometry::PointWithAltitude(kTestGeometry[3], geometry::kDefaultAltitudeMeters),
+       geometry::PointWithAltitude(kTestGeometry[4], geometry::kDefaultAltitudeMeters), 2, 3, VehicleType::Bicycle},
+      {geometry::PointWithAltitude(kTestGeometry[4], geometry::kDefaultAltitudeMeters),
+       geometry::PointWithAltitude(kTestGeometry[5], geometry::kDefaultAltitudeMeters), 3, 5,
+       VehicleType::Pedestrian}});
+
+  TEST_EQUAL(route.GetSubrouteCount(), 3, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(0).GetVehicleType(), VehicleType::Pedestrian, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(1).GetVehicleType(), VehicleType::Bicycle, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(2).GetVehicleType(), VehicleType::Pedestrian, ());
+
+  vector<RouteSegment> segments;
+  route.GetSubrouteInfo(0, segments);
+  TEST_EQUAL(segments.size(), 2, ());
+  route.GetSubrouteInfo(1, segments);
+  TEST_EQUAL(segments.size(), 1, ());
+  route.GetSubrouteInfo(2, segments);
+  TEST_EQUAL(segments.size(), 2, ());
+}
+
 UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
 {
   // |curTurn.m_index| is an index of the point of |curTurn| at polyline |route.m_poly|.

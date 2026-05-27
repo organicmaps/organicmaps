@@ -14,12 +14,20 @@ using RoadType = RoutingOptions::RoadType;
 class RoutingOptionsTests
 {
 public:
-  RoutingOptionsTests() { m_savedOptions = RoutingOptions::LoadCarOptionsFromSettings(); }
+  RoutingOptionsTests()
+    : m_savedCarOptions(RoutingOptions::LoadCarOptionsFromSettings())
+    , m_savedBicycleOptions(RoutingOptions::LoadBicycleOptionsFromSettings())
+  {}
 
-  ~RoutingOptionsTests() { RoutingOptions::SaveCarOptionsToSettings(m_savedOptions); }
+  ~RoutingOptionsTests()
+  {
+    RoutingOptions::SaveCarOptionsToSettings(m_savedCarOptions);
+    RoutingOptions::SaveBicycleOptionsToSettings(m_savedBicycleOptions);
+  }
 
 private:
-  RoutingOptions m_savedOptions;
+  RoutingOptions m_savedCarOptions;
+  RoutingOptions m_savedBicycleOptions;
 };
 
 RoutingOptions CreateOptions(std::vector<RoutingOptions::Road> const & include)
@@ -62,6 +70,8 @@ UNIT_TEST(RoutingOptionTest)
   Checker({RoutingOptions::Road::Dirty});
   Checker({RoutingOptions::Road::Toll});
   Checker({RoutingOptions::Road::Dirty, RoutingOptions::Road::Motorway});
+  Checker({RoutingOptions::Road::PublicBicycle});
+  Checker({RoutingOptions::Road::PublicBicycle, RoutingOptions::Road::Dirty});
   Checker({});
 }
 
@@ -74,5 +84,30 @@ UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
   RoutingOptions fromSettings = RoutingOptions::LoadCarOptionsFromSettings();
 
   TEST_EQUAL(options.GetOptions(), fromSettings.GetOptions(), ());
+}
+
+UNIT_CLASS_TEST(RoutingOptionsTests, BicycleOptionsAreStoredSeparatelyFromCarOptions)
+{
+  RoutingOptions const carOptions = CreateOptions({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway});
+  RoutingOptions const bicycleOptions =
+      CreateOptions({RoutingOptions::Road::PublicBicycle, RoutingOptions::Road::Dirty});
+
+  RoutingOptions::SaveCarOptionsToSettings(carOptions);
+  RoutingOptions::SaveBicycleOptionsToSettings(bicycleOptions);
+
+  TEST_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(), carOptions.GetOptions(), ());
+  TEST_EQUAL(RoutingOptions::LoadBicycleOptionsFromSettings().GetOptions(), bicycleOptions.GetOptions(), ());
+
+  RoutingOptions const updatedCarOptions = CreateOptions({RoutingOptions::Road::Ferry});
+  RoutingOptions::SaveCarOptionsToSettings(updatedCarOptions);
+
+  TEST_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(), updatedCarOptions.GetOptions(), ());
+  TEST_EQUAL(RoutingOptions::LoadBicycleOptionsFromSettings().GetOptions(), bicycleOptions.GetOptions(), ());
+
+  RoutingOptions const updatedBicycleOptions = CreateOptions({RoutingOptions::Road::PublicBicycle});
+  RoutingOptions::SaveBicycleOptionsToSettings(updatedBicycleOptions);
+
+  TEST_EQUAL(RoutingOptions::LoadCarOptionsFromSettings().GetOptions(), updatedCarOptions.GetOptions(), ());
+  TEST_EQUAL(RoutingOptions::LoadBicycleOptionsFromSettings().GetOptions(), updatedBicycleOptions.GetOptions(), ());
 }
 }  // namespace

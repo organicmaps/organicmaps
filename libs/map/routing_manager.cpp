@@ -85,6 +85,20 @@ std::string const kRoutePointsFile = "route_points.dat";
 
 uint32_t constexpr kInvalidTransactionId = 0;
 
+RouterType GetRouterTypeForSubroute(Route::SubrouteAttrs const & subrouteAttrs, RouterType fallbackRouterType)
+{
+  switch (subrouteAttrs.GetVehicleType())
+  {
+  case VehicleType::Pedestrian: return RouterType::Pedestrian;
+  case VehicleType::Transit: return RouterType::Transit;
+  case VehicleType::Bicycle: return RouterType::Bicycle;
+  case VehicleType::Car: return RouterType::Vehicle;
+  case VehicleType::Count: return fallbackRouterType;
+  }
+
+  UNREACHABLE();
+}
+
 void FillTurnsDistancesForRendering(std::vector<RouteSegment> const & segments, double baseDistance,
                                     std::vector<double> & turns)
 {
@@ -724,13 +738,15 @@ bool RoutingManager::InsertRoute(Route const & route)
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
-    auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
+    auto const & subrouteAttrs = route.GetSubrouteAttrs(subrouteIndex);
+    auto const startPt = subrouteAttrs.GetStart().GetPoint();
+    auto const routerType = GetRouterTypeForSubroute(subrouteAttrs, m_currentRouterType);
     auto subroute = CreateDrapeSubroute(segments, startPt, distance,
-                                        static_cast<double>(subroutesCount - subrouteIndex - 1), m_currentRouterType);
+                                        static_cast<double>(subroutesCount - subrouteIndex - 1), routerType);
     if (!subroute)
       continue;
     distance = segments.back().GetDistFromBeginningMerc();
-    switch (m_currentRouterType)
+    switch (routerType)
     {
     case RouterType::Vehicle:
     {

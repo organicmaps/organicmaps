@@ -3,6 +3,7 @@
 #include "map/framework.hpp"
 
 #include "routing/router.hpp"
+#include "routing/routing_options.hpp"
 
 #include "platform/settings.hpp"
 
@@ -134,6 +135,12 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
     m_routerType->insertItem(static_cast<int>(RouterType::Transit), "transit");
     m_routerType->insertItem(static_cast<int>(RouterType::Ruler), "ruler");
     form->addRow("Choose router:", m_routerType);
+    QObject::connect(m_routerType, qOverload<int>(&QComboBox::currentIndexChanged), this,
+                     [this](int) { UpdateBicycleOptionsVisibility(); });
+
+    m_publicBikeSharingLabel = new QLabel("Public Bike-Sharing:", frame);
+    m_publicBikeSharingCheckbox = new QCheckBox({}, frame);
+    form->addRow(m_publicBikeSharingLabel, m_publicBikeSharingCheckbox);
 
     m_showTurnsCheckbox = new QCheckBox({}, frame);
     form->addRow("Show turns:", m_showTurnsCheckbox);
@@ -197,6 +204,14 @@ bool RoutingSettings::SaveSettings()
   settings::Set(kUseDebugGuideSettings, m_useDebugGuideCheckbox->isChecked());
   settings::Set(kUseCachedRoutingSettings, m_saveSessionCheckbox->isChecked());
   settings::Set(kRouterTypeCachedSettings, m_routerType->currentIndex());
+
+  routing::RoutingOptions bicycleOptions = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
+  if (m_publicBikeSharingCheckbox->isChecked())
+    bicycleOptions.Add(routing::RoutingOptions::Road::PublicBicycle);
+  else
+    bicycleOptions.Remove(routing::RoutingOptions::Road::PublicBicycle);
+  routing::RoutingOptions::SaveBicycleOptionsToSettings(bicycleOptions);
+
   return ValidateAndSaveCoordsFromInput();
 }
 
@@ -214,6 +229,10 @@ void RoutingSettings::LoadSettings()
   settings::TryGet(kRouterTypeCachedSettings, routerType);
   m_routerType->setCurrentIndex(routerType);
 
+  routing::RoutingOptions bicycleOptions = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
+  m_publicBikeSharingCheckbox->setChecked(bicycleOptions.Has(routing::RoutingOptions::Road::PublicBicycle));
+  UpdateBicycleOptionsVisibility();
+
   bool showTurns = false;
   settings::TryGet(kShowTurnsSettings, showTurns);
   m_showTurnsCheckbox->setChecked(showTurns);
@@ -225,6 +244,13 @@ void RoutingSettings::LoadSettings()
   bool saveSession = false;
   settings::TryGet(kUseCachedRoutingSettings, saveSession);
   m_saveSessionCheckbox->setChecked(saveSession);
+}
+
+void RoutingSettings::UpdateBicycleOptionsVisibility()
+{
+  bool const isBicycleRouter = m_routerType->currentIndex() == static_cast<int>(routing::RouterType::Bicycle);
+  m_publicBikeSharingLabel->setVisible(isBicycleRouter);
+  m_publicBikeSharingCheckbox->setVisible(isBicycleRouter);
 }
 
 void RoutingSettings::ShowModal()

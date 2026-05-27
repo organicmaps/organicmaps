@@ -2,6 +2,7 @@
 
 #include "routing/base/astar_progress.hpp"
 
+#include "routing/bike_sharing_heuristic.hpp"
 #include "routing/car_directions.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
@@ -40,6 +41,7 @@
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
@@ -48,6 +50,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <array>
 #include <deque>
 #include <iterator>
 #include <map>
@@ -180,6 +183,116 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
 
   return false;
 }
+
+RoutingOptions GetBicycleOptionsWithoutPublicBicycle()
+{
+  RoutingOptions options = RoutingOptions::LoadBicycleOptionsFromSettings();
+  options.Remove(RoutingOptions::Road::PublicBicycle);
+  return options;
+}
+
+bool IsPublicBicycleWalkRouteTooLong(Route const & route)
+{
+  return route.GetTotalDistanceMeters() > kPublicBicycleMaxWalkRadiusM;
+}
+
+void AppendLeg(Route const & leg, bool isLastLeg, VehicleType vehicleType, std::vector<m2::PointD> & geometry,
+               std::vector<RouteSegment> & segments, std::vector<Route::SubrouteAttrs> & subroutes)
+{
+  auto const & poly = leg.GetPoly();
+  CHECK_GREATER(poly.GetSize(), 0, ());
+
+  size_t const beginSegmentIdx = segments.size();
+  size_t const turnIndexOffset = geometry.empty() ? 0 : geometry.size() - 1;
+  double const distanceOffsetM = segments.empty() ? 0.0 : segments.back().GetDistFromBeginningMeters();
+  double const distanceOffsetMerc = segments.empty() ? 0.0 : segments.back().GetDistFromBeginningMerc();
+  double const timeOffsetS = segments.empty() ? 0.0 : segments.back().GetTimeFromBeginningSec();
+
+  for (size_t i = 0; i < poly.GetSize(); ++i)
+  {
+    if (!geometry.empty() && i == 0)
+      continue;
+    geometry.push_back(poly.GetPoint(i));
+  }
+
+  auto legSegments = leg.GetRouteSegments();
+  for (size_t i = 0; i < legSegments.size(); ++i)
+  {
+    if (!isLastLeg && legSegments[i].GetTurn().IsTurnReachedYourDestination())
+      legSegments[i].ClearTurn();
+
+    legSegments[i].OffsetTurnIndex(base::asserted_cast<uint32_t>(turnIndexOffset));
+    legSegments[i].SetDistancesAndTime(distanceOffsetM + legSegments[i].GetDistFromBeginningMeters(),
+                                       distanceOffsetMerc + legSegments[i].GetDistFromBeginningMerc(),
+                                       timeOffsetS + legSegments[i].GetTimeFromBeginningSec());
+    segments.push_back(std::move(legSegments[i]));
+  }
+
+  for (auto const & subroute : leg.GetSubroutes())
+  {
+    subroutes.emplace_back(subroute.GetStart(), subroute.GetFinish(), beginSegmentIdx + subroute.GetBeginSegmentIdx(),
+                           beginSegmentIdx + subroute.GetEndSegmentIdx(), vehicleType);
+  }
+}
+
+void BuildMergedRoute(std::vector<Route> const & legs, std::vector<VehicleType> const & legVehicleTypes, Route & route)
+{
+  CHECK(!legs.empty(), ());
+  CHECK_EQUAL(legs.size(), legVehicleTypes.size(), ());
+
+  std::vector<m2::PointD> geometry;
+  std::vector<RouteSegment> segments;
+  std::vector<Route::SubrouteAttrs> subroutes;
+
+  for (size_t i = 0; i < legs.size(); ++i)
+    AppendLeg(legs[i], i + 1 == legs.size(), legVehicleTypes[i], geometry, segments, subroutes);
+
+  route.SetCurrentSubrouteIdx(0);
+  route.SetRouteSegments(std::move(segments));
+  route.SetGeometry(geometry.begin(), geometry.end());
+  route.SetSubroteAttrs(std::move(subroutes));
+}
+
+struct BicycleRentalStationPair
+{
+  BicycleRentalStation const * m_startStation = nullptr;
+  BicycleRentalStation const * m_finishStation = nullptr;
+  double m_walkDistanceM = 0.0;
+};
+
+std::vector<BicycleRentalStationPair> GetBestCompatibleStationPairs(
+    std::vector<BicycleRentalStation> const & startStations, std::vector<BicycleRentalStation> const & finishStations,
+    m2::PointD const & start, m2::PointD const & finish)
+{
+  std::vector<BicycleRentalStationPair> stationPairs;
+  stationPairs.reserve(startStations.size() * finishStations.size());
+
+  for (auto const & startStation : startStations)
+  {
+    for (auto const & finishStation : finishStations)
+    {
+      if (startStation.m_point == finishStation.m_point)
+        continue;
+
+      if (!AreBicycleRentalStationsCompatible(startStation, finishStation))
+        continue;
+
+      stationPairs.push_back({&startStation, &finishStation,
+                              mercator::DistanceOnEarth(start, startStation.m_point) +
+                                  mercator::DistanceOnEarth(finish, finishStation.m_point)});
+    }
+  }
+
+  std::sort(stationPairs.begin(), stationPairs.end(),
+            [](BicycleRentalStationPair const & lhs, BicycleRentalStationPair const & rhs)
+  { return lhs.m_walkDistanceM < rhs.m_walkDistanceM; });
+
+  size_t constexpr kMaxStationPairs = kPublicBicycleMaxStationsPerSide * kPublicBicycleMaxStationsPerSide;
+  if (stationPairs.size() > kMaxStationPairs)
+    stationPairs.resize(kMaxStationPairs);
+
+  return stationPairs;
+}
 }  // namespace
 
 // IndexRouter::BestEdgeComparator ----------------------------------------------------------------
@@ -235,12 +348,14 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
+  , m_indexDataSource(dataSource)
   , m_dataSource(dataSource, numMwmIds)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
   , m_numMwmIds(std::move(numMwmIds))
   , m_numMwmTree(std::move(numMwmTree))
+  , m_trafficCache(trafficCache)
   , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
   , m_roadGraph(m_dataSource,
                 vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Transit
@@ -327,6 +442,12 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   {
     SCOPE_GUARD(featureRoadGraphClear, [this] { ClearState(); });
 
+    if (m_vehicleType == VehicleType::Bicycle &&
+        RoutingOptions::LoadBicycleOptionsFromSettings().Has(RoutingOptions::Road::PublicBicycle))
+    {
+      return CalculatePublicBicycleRoute(checkpoints, startDirection, delegate, route);
+    }
+
     if (adjustToPrevRoute && m_lastRoute && m_lastFakeEdges && finalPoint == m_lastRoute->GetFinish())
     {
       double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
@@ -350,6 +471,99 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                  e.what()));
     return RouterResultCode::InternalError;
   }
+}
+
+RouterResultCode IndexRouter::CalculatePublicBicycleRoute(Checkpoints const & checkpoints,
+                                                          m2::PointD const & startDirection,
+                                                          RouterDelegate const & delegate, Route & route)
+{
+  auto makePedestrianRouter = [this]()
+  {
+    return IndexRouter(VehicleType::Pedestrian, m_loadAltitudes, m_countryParentNameGetterFn, m_countryFileFn,
+                       m_countryRectFn, m_numMwmIds, m_numMwmTree, m_trafficCache, m_indexDataSource);
+  };
+
+  auto calculatePedestrianRoute =
+      [&](Checkpoints const & legCheckpoints, m2::PointD const & legStartDirection, Route & legRoute)
+  {
+    auto pedestrianRouter = makePedestrianRouter();
+    return pedestrianRouter.CalculateRoute(legCheckpoints, legStartDirection, false /* adjustToPrevRoute */, delegate,
+                                           legRoute);
+  };
+
+  auto const & start = checkpoints.GetPointFrom();
+  auto const & finish = checkpoints.GetFinish();
+  auto const startStations =
+      GetNearestStations(FindBicycleRentals(m_dataSource, start, kPublicBicycleMaxWalkRadiusM), start);
+  auto const finishStations =
+      GetNearestStations(FindBicycleRentals(m_dataSource, finish, kPublicBicycleMaxWalkRadiusM), finish);
+
+  if (startStations.empty() || finishStations.empty())
+    return RouterResultCode::RouteNotFound;
+
+  auto const stationPairs = GetBestCompatibleStationPairs(startStations, finishStations, start, finish);
+  if (stationPairs.empty())
+    return RouterResultCode::RouteNotFound;
+
+  RouterResultCode lastError = RouterResultCode::RouteNotFound;
+  for (auto const & stationPair : stationPairs)
+  {
+    auto const & startStation = *stationPair.m_startStation;
+    auto const & finishStation = *stationPair.m_finishStation;
+
+    Route walkToBikeRoute("public-bicycle-walk-to-bike", 0 /* routeId */);
+    lastError = calculatePedestrianRoute(Checkpoints(start, startStation.m_point), startDirection, walkToBikeRoute);
+    if (lastError == RouterResultCode::Cancelled)
+      return lastError;
+    if (lastError != RouterResultCode::NoError)
+      continue;
+    if (IsPublicBicycleWalkRouteTooLong(walkToBikeRoute))
+    {
+      lastError = RouterResultCode::RouteNotFound;
+      continue;
+    }
+
+    CheckpointsGeometry bikeCheckpoints;
+    bikeCheckpoints.push_back(startStation.m_point);
+    for (size_t i = checkpoints.GetPassedIdx() + 1; i < checkpoints.GetNumSubroutes(); ++i)
+      bikeCheckpoints.push_back(checkpoints.GetPoint(i));
+    bikeCheckpoints.push_back(finishStation.m_point);
+
+    Route bikeRoute("public-bicycle-bike", 0 /* routeId */);
+    {
+      RoutingOptions const options = GetBicycleOptionsWithoutPublicBicycle();
+      lastError = DoCalculateRoute(Checkpoints(std::move(bikeCheckpoints)), m2::PointD::Zero() /* startDirection */,
+                                   delegate, bikeRoute, &options);
+    }
+    if (lastError == RouterResultCode::Cancelled)
+      return lastError;
+    if (lastError != RouterResultCode::NoError)
+      continue;
+
+    Route walkFromBikeRoute("public-bicycle-walk-from-bike", 0 /* routeId */);
+    lastError = calculatePedestrianRoute(Checkpoints(finishStation.m_point, finish),
+                                         m2::PointD::Zero() /* startDirection */, walkFromBikeRoute);
+    if (lastError == RouterResultCode::Cancelled)
+      return lastError;
+    if (lastError != RouterResultCode::NoError)
+      continue;
+    if (IsPublicBicycleWalkRouteTooLong(walkFromBikeRoute))
+    {
+      lastError = RouterResultCode::RouteNotFound;
+      continue;
+    }
+
+    std::vector<Route> legs;
+    legs.push_back(std::move(walkToBikeRoute));
+    legs.push_back(std::move(bikeRoute));
+    legs.push_back(std::move(walkFromBikeRoute));
+    std::vector<VehicleType> const legVehicleTypes = {VehicleType::Pedestrian, VehicleType::Bicycle,
+                                                      VehicleType::Pedestrian};
+    BuildMergedRoute(legs, legVehicleTypes, route);
+    return RouterResultCode::NoError;
+  }
+
+  return lastError;
 }
 
 std::vector<Segment> IndexRouter::GetBestOutgoingSegments(m2::PointD const & checkpoint, WorldGraph & graph)
@@ -486,12 +700,13 @@ void IndexRouter::AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom
 }
 
 RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                               RouterDelegate const & delegate, Route & route)
+                                               RouterDelegate const & delegate, Route & route,
+                                               RoutingOptions const * routingOptions)
 {
   m_lastRoute.reset();
 
   TrafficStash::Guard guard(m_trafficStash);
-  std::unique_ptr<WorldGraph> graph = MakeWorldGraph();
+  std::unique_ptr<WorldGraph> graph = MakeWorldGraph(routingOptions);
 
   std::vector<Segment> segments;
 
@@ -1041,14 +1256,20 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   return RouterResultCode::NoError;
 }
 
-std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
+std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph(RoutingOptions const * routingOptions)
 {
-  // Use saved routing options for all types (car, bicycle, pedestrian).
-  RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  RoutingOptions savedRoutingOptions;
+  if (routingOptions == nullptr)
+  {
+    savedRoutingOptions = (m_vehicleType == VehicleType::Bicycle) ? RoutingOptions::LoadBicycleOptionsFromSettings()
+                                                                  : RoutingOptions::LoadCarOptionsFromSettings();
+    routingOptions = &savedRoutingOptions;
+  }
+
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);
-  LOG(LINFO, ("Avoid next roads:", routingOptions));
+  LOG(LINFO, ("Avoid next roads:", *routingOptions));
 
   auto crossMwmGraph = std::make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
@@ -1056,14 +1277,14 @@ std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType, m_loadAltitudes,
-      m_vehicleModelFactory, m_estimator, m_dataSource, routingOptions, m_currentTimeGetter);
+      m_vehicleModelFactory, m_estimator, m_dataSource, *routingOptions, m_currentTimeGetter);
 
   if (m_vehicleType != VehicleType::Transit)
   {
     auto graph =
         std::make_unique<SingleVehicleWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader), m_estimator,
                                                   MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
-    graph->SetRoutingOptions(routingOptions);
+    graph->SetRoutingOptions(*routingOptions);
     return graph;
   }
 
