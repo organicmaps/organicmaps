@@ -162,6 +162,7 @@ protected:
   TViewportChangedFn m_viewportChangedFn;
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
+  double m_fontScaleFactor = 1.0;
 
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
@@ -705,6 +706,8 @@ public:
   void SetMapLanguageCode(std::string const & langCode);
 
   void SetLargeFontsSize(bool isLargeSize);
+  // Multiplied on top of the SetLargeFontsSize (Large Fonts) factor.
+  void SetFontScaleFactor(double scaleFactor);
   bool LoadLargeFontsSize();
 
   bool LoadAutoZoom();

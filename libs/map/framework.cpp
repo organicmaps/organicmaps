@@ -1740,7 +1740,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto const isolinesEnabled = m_isolinesManager.IsEnabled();
 
   auto const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
-  auto const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
+  auto const fontsScaleFactor = (LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0) * m_fontScaleFactor;
 
   auto const tileBackgroundMode = dp::BackgroundMode::Default;  // Load from config here if needed.
 
@@ -2768,7 +2768,7 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
 bool Framework::LoadLargeFontsSize()
 {
-  bool isLargeSize;
+  bool isLargeSize = false;
   return settings::Get(kLargeFontsSize, isLargeSize) && isLargeSize;
 }
 
@@ -2776,11 +2776,30 @@ void Framework::SetLargeFontsSize(bool isLargeSize)
 {
   settings::Set(kLargeFontsSize, isLargeSize);
 
-  double const scaleFactor = isLargeSize ? kLargeFontsScaleFactor : 1.0;
+  double const resultScaleFactor = (isLargeSize ? kLargeFontsScaleFactor : 1.0) * m_fontScaleFactor;
 
-  ASSERT(m_drapeEngine, ());
-  m_drapeEngine->SetFontScaleFactor(scaleFactor);
+  if (!m_drapeEngine)
+    return;
 
+  m_drapeEngine->SetFontScaleFactor(resultScaleFactor);
+  Invalidate();
+}
+
+void Framework::SetFontScaleFactor(double scaleFactor)
+{
+  if (m_fontScaleFactor == scaleFactor)
+    return;
+  m_fontScaleFactor = scaleFactor;
+
+  if (!m_drapeEngine)
+    return;
+
+  bool isLargeSize = false;
+  UNUSED_VALUE(settings::Get(kLargeFontsSize, isLargeSize));
+
+  auto const resultScaleFactor = (isLargeSize ? kLargeFontsScaleFactor : 1.0) * m_fontScaleFactor;
+
+  m_drapeEngine->SetFontScaleFactor(resultScaleFactor);
   Invalidate();
 }
 
