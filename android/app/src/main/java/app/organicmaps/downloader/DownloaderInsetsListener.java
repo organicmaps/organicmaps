@@ -44,11 +44,12 @@ final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
 
     mToolbar.setPadding(safeInsets.left, safeInsets.top, safeInsets.right, mToolbar.getPaddingBottom());
 
-    boolean isAnyButtonVisible = UiUtils.isVisible(mFab) || UiUtils.isVisible(mButton);
+    final boolean isActionButtonVisible = UiUtils.isVisible(mButton);
+    final boolean isAnyButtonVisible = UiUtils.isVisible(mFab) || isActionButtonVisible;
     if (isAnyButtonVisible)
       applyInsetsToButtons(safeInsets);
 
-    applyInsetsToRecyclerView(safeInsets, isAnyButtonVisible);
+    applyInsetsToRecyclerView(safeInsets, isActionButtonVisible);
 
     // have to consume all insets here, so child views won't handle them again
     return WindowInsetsCompat.CONSUMED;
@@ -78,9 +79,9 @@ final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
     mButton.requestLayout();
   }
 
-  private void applyInsetsToRecyclerView(Insets insets, boolean isAnyButtonVisible)
+  private void applyInsetsToRecyclerView(Insets insets, boolean isActionButtonVisible)
   {
-    int bottomInset = isAnyButtonVisible ? 0 : insets.bottom;
+    int bottomInset = isActionButtonVisible ? 0 : insets.bottom;
 
     mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(),
                              mRecyclerView.getPaddingRight(), bottomInset);
