@@ -10,6 +10,8 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
@@ -19,6 +21,8 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <chrono>
+#include <future>
 #include <set>
 #include <vector>
 
@@ -293,25 +297,23 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeHasSomethingToUp
   return Editor::Instance().HaveMapEditsOrNotesToUpload();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
+JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
                                                                           jstring appVersion, jstring appId)
 {
-  // TODO: Handle upload status in callback
-  Editor::Instance().UploadChanges(
-      jni::ToNativeString(env, token),
-      {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
-       {"bundle_id", jni::ToNativeString(env, appId)}},
-      nullptr);
-}
+  std::promise<Editor::UploadResult> promise;
+  auto future = promise.get_future();
 
-JNIEXPORT jlongArray Java_app_organicmaps_sdk_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz)
-{
-  auto const stats = Editor::Instance().GetStats();
-  jlongArray result = env->NewLongArray(3);
-  jlong buf[] = {static_cast<jlong>(stats.m_edits.size()), static_cast<jlong>(stats.m_uploadedCount),
-                 stats.m_lastUploadTimestamp};
-  env->SetLongArrayRegion(result, 0, 3, buf);
-  return result;
+  if (!Editor::Instance().UploadChanges(
+          jni::ToNativeString(env, token),
+          {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+           {"bundle_id", jni::ToNativeString(env, appId)}},
+          [&promise](Editor::UploadResult result) { promise.set_value(result); }))
+    promise.set_value(Editor::UploadResult::NothingToUpload);
+
+  auto status = future.wait_for(std::chrono::minutes(5));
+  if (status == std::future_status::timeout)
+    return static_cast<jint>(Editor::UploadResult::Error);
+  return static_cast<jint>(future.get());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
@@ -333,11 +335,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, 
   CHECK(fr->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType,
+                                                                            jdouble lat, jdouble lon)
 {
   ::Framework * fr = frm();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
-  CHECK(fr->CreateMapObject(fr->GetViewportCenter(), type, g_editableMapObject),
+  CHECK(fr->CreateMapObject(mercator::FromLatLon(lat, lon), type, g_editableMapObject),
         ("Couldn't create mapobject, wrong coordinates of missing mwm"));
 }
 

@@ -1,0 +1,9 @@
+• Kies stap- en fietspaaie om hul hoogtediagramme te sien
+• Korrekte kaartomvatting by die antimeridiaan (±180° lengtegraad)
+• Verander alle boekmerk- en roetekleure in 'n kategorie gelyktydig
+• Verbeterde soektog na huisnommers, meer Amerikaanse adresse word nou gedek
+• OSM-data vanaf 4 April
+• Beplande voorkomsmodus in Instellings
+• Deling van boekmerke/roetes met ander toepassings is reggestel
+• Oplaai van kaartwysigings na OSM is reggestel
+…meer by omaps.org/news

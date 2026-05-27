@@ -4,9 +4,6 @@
   <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_progress">8dp</dimen>
 
-  <!-- Altitude chart -->
-  <dimen name="altitude_chart_image_width">328dp</dimen>
-
   <!--About Fragment -->
   <dimen name="about_max_button_width">550dp</dimen>
   <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.50</item>

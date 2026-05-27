@@ -236,6 +236,8 @@
     <string name="pref_map_auto_zoom">Iżżumja awtomatikament</string>
     <string name="placepage_distance">Distanza</string>
     <string name="search_show_on_map">Uri fuq il-mappa</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Websajt</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -288,6 +290,8 @@
     <string name="downloader_delete_map">Ħassar il-Mappa</string>
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Aġġorna l-Mappa</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Servizzi ta\' Lokalizzazzjoni ta\' Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Iddetermina malajr il-post approssimattiv tiegħek billi tuża Bluetooth, WiFi, jew netwerk mobbli</string>
     <!-- Text for routing error dialog -->
@@ -330,6 +334,10 @@
     <string name="blue_gray">Blu Griż</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Dehra</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Ċar</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Skur</string>
     <!-- Settings "Appearance" category: "Scheduled" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_scheduled">Ċar mill-għodwa sal-għaxija</string>
     <!-- Tex label above the Donate button -->
@@ -363,6 +371,8 @@
     <string name="clear_search">Neħħi l-kronoloġija tat-tiftix</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Artiklu minn wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Il-Lokazzjoni Tiegħek</string>
@@ -415,6 +425,7 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Mhux imdaħħal</string>
     <string name="login_osm">Illoggja f’ OpenStreetMap</string>
+    <string name="password">Password</string>
     <string name="forgot_password">Insejt il-password tiegħek?</string>
     <string name="logout">Oħroġ</string>
     <string name="edit_place">Editja l-Post</string>
@@ -462,7 +473,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Dejta tal-OpenStreetMap maħluqa mill-komunita’ fl-%s. Sir af aktar dwar kif teditja u taġġorna l-mappa f’ OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) huwa proġett komunitarju biex tinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mapep fil-mapep organiċi u xogħlijiet simili għall-Wikipedija. Tista ’żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta’ utenti madwar id-dinja kollha. \nIngħaqad mal-komunita’ u għen biex issir mappa aħjar għal kulħadd!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) huwa proġett komunitarju biex jinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mappa fl-Organic Maps, u jaħdem b\'mod simili għal Wikipedia. Tista\' żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta\' utenti madwar id-dinja. Ingħaqad mal-komunità u għin biex toħloq mappa aħjar għal kulħadd!</string>
     <string name="login_to_make_edits_visible">Oħloq kont OpenStreetMap jew idħol biex tippubblika l-editjar tal-mapep tiegħek fid-dinja.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d ta\' %2$d</string>
@@ -491,6 +502,13 @@
     <string name="downloader_no_downloaded_maps_title">Ma niżżilt l-ebda mapep</string>
     <string name="downloader_no_downloaded_maps_message">Niżżel mapep biex tfittex u tinnaviga mingħajr l-użu tal-Internet.</string>
     <string name="current_location_unknown_error_title">Il-post attwali mhux magħruf.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+    <string name="day">d</string>
+    <string name="second">s</string>
     <string name="placepage_more_button">Aktar</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Editja l-Bookmark</string>
@@ -513,6 +531,8 @@
     <string name="error_enter_correct_vk_page">Daħħal isem l-utent jew indirizz tal-web validu ta\' VK</string>
     <string name="error_enter_correct_line_page">Daħħal ID tal-LINJA jew indirizz tal-web validu</string>
     <string name="placepage_add_place_button">Żid post f’ OpenStreetMap</string>
+    <string name="osm_note_hint">Jew, bħala alternattiva, ħalli nota lill-komunità ta\' OpenStreetMap sabiex xi ħadd ieħor ikun jista\' iżid jew jissistema post hawn.</string>
+    <string name="osm_note_toast">Nota se tintbagħat lil OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Tixtieq tibgħatha lill-utenti kollha?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -542,7 +562,7 @@
     <string name="enable_logging">Attiva l-illoggjar</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Feedback Ġenerali</string>
-    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet tal-vuċi. Ħafna tagħmir tal-Android jużaw Google TTS, inti tista tniżżel jew taġġornah minn Google Play</string>
+    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet bil-vuċi. Ħafna apparati Android jużaw Google TTS, tista\' tniżżlu jew taġġornah minn Google Play</string>
     <string name="prefs_languages_information_off">Għal xi lingwi, se jkollok bżonn tinstalla sintetizzatur tad-diskors jew pakkett tal-lingwa addizzjonali mill-App Store (Google Play, Galaxy Store, App Gallery, FDroid).\nIftaħ is-settings tat-tagħmir → Language and input → Speech → Text to speech output.\nHawnhekk tista’ timmaniġġja s-settings għas-sinteżi tad-diskors (pereżempju, niżżel il-pakkett tal-lingwa għall-użu offline) u agħżel magna oħra minn kitba għal diskors.</string>
     <string name="prefs_languages_information_off_link">Għal aktar informazzjoni jekk jogħġbok iċċekkja din il-gwida.</string>
     <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>
@@ -555,6 +575,7 @@
     <string name="button_plan">Pjan</string>
     <string name="placepage_remove_stop">Neħħi l-Waqfa</string>
     <string name="placepage_add_stop">Żid Waqfa</string>
+    <string name="saved">Salvat</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Illoggja f’ OpenStreetMap biex awtomatikament ittella’ l-editjar kollu tal-mappa tiegħek. Tgħallem aktar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hawn</a>.</string>
     <string name="dialog_error_storage_title">Problema tal-aċċess għall-ħażna</string>
@@ -606,11 +627,18 @@
     <string name="privacy_policy">Politika dwar il-privatezza</string>
     <string name="terms_of_use">Termini tal-użu</string>
     <string name="button_layer_traffic">Traffiku</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Mixi</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Ċikliżmu</string>
+    <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Stili u Saffi tal-Mapep</string>
     <string name="bookmarks_empty_list_title">Din il-lista hija vojta</string>
     <string name="bookmarks_empty_list_message">Biex iżżid bookmark, għafas post fuq il-mappa u mbagħad għafas is-simbolu tal-istilla</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Ibdel il-kulur tal-bookmarks kollha</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Ibdel il-kulur tat-tracks kollha</string>
     <string name="category_desc_more">…aktar</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esporta KMZ</string>
@@ -634,6 +662,11 @@
     <string name="power_managment_setting_never">Qatt</string>
     <string name="power_managment_setting_auto">Meta l-batterija tkun baxxa</string>
     <string name="power_managment_setting_manual_max">Dejjem</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Ismijiet tal-bookmark fuq il-mappa</string>
+    <string name="bookmarks_text_placement_description">Jekk hemm wisq bookmarkijiet, l-esibizzjoni tal-ismijiet tagħhom fuq il-mappa tista\' tnaqqas il-veloċità tal-app.</string>
+    <string name="show_to_the_right">Uri fuq il-lemin</string>
+    <string name="show_at_the_bottom">Uri fil-qiegħ</string>
     <string name="enable_logging_warning_message">Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.</string>
     <string name="driving_options_title">Għażliet tar-rotta</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -663,6 +696,7 @@
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netwerk: %s</string>
     <string name="trip_finished">Wasalt!</string>
+    <string name="ok">OK</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Issortja…</string>
     <!-- Android, title, max 20-22 symbols -->
@@ -683,11 +717,19 @@
     <string name="moreyear_ago_sorttype">Aktar minn sena ilu</string>
     <string name="near_me_sorttype">Ħdejja</string>
     <string name="others_sorttype">Oħrajn</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Magħluq issa</string>
+    <string name="opens_tomorrow_at">Jiftaħ għada fil-%s</string>
+    <string name="opens_dayoftheweek_at">Jiftaħ %1$s fl-%2$s</string>
+    <string name="opens_at">Jiftaħ f \' %s</string>
+    <string name="closes_at">Jagħlaq f ’ %s</string>
+    <string name="editor_add_select_category_all_subtitle">Kategoriji kollha</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ikel</string>
     <string name="tourist_places">Siti</string>
     <string name="museums">Mużewijiet</string>
+    <string name="parks">Parkijiet</string>
     <string name="swim_places">Għawm</string>
     <string name="mountains">Muntanji</string>
     <string name="animals">Annimali</string>
@@ -733,6 +775,8 @@
     <string name="change_map_locale">Lingwa tal-mappa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Informazzjoni tal-mappa minn OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Grazzi talli użajtu l-mapep tagħna mibnija mill-komunita’!</string>
     <!-- App tip #01 -->
@@ -770,7 +814,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Għati Permess</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Barra</string>
+    <string name="button_layer_outdoor">Fil-beraħ</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Brawżer tal-web mhux disponibbli</string>
     <string name="volume">Volum</string>
@@ -780,6 +824,7 @@
     <string name="pref_tts_open_system_settings">Settings tas-sistema tas-sinteżi tad-diskors</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Is-settings tas-Sinteżi tad-diskors ma nstabux, żgur li t-tagħmir tiegħek jappoġġjah?</string>
+    <string name="drive_through">Drive-through</string>
     <string name="clear_the_search">Neħħi t-tiftixa</string>
     <string name="zoom_in">Iżżumja ’l ġewwa</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -790,6 +835,8 @@
     <string name="view_menu">Ara l-Menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Iftaħ f’ Applikazzjoni Oħra</string>
+    <!-- To indicate if the place proposed self service… -->
+    <string name="self_service">Self-service</string>
     <string name="select_option">Agħżel l-għażla</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Sedili barra</string>
@@ -797,10 +844,14 @@
     <string name="power_save_dialog_summary">Għan-navigazzjoni l-aktar preċiża, nirrakkomandaw li titfi l-mod tal-iffrankar tal-enerġija fl-issettjar tal-batterija tal-mowbajl.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Rekord Track</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Waqqaf ir-reġistrazzjoni tal-korsa</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Irrekordjar tat-Traċċa</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Waqqaf Mingħajr ma\' Tissejvja</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Kompli Rrekordja</string>
+    <string name="continue_recording">Kompli rrekordja</string>
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">Issejvja fil-Bookmarks u l-Korsiji?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
@@ -814,6 +865,10 @@
     <string name="nav_auto">Auto fin-navigazzjoni</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segwi s-sistema</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Iqassam il-Traċċa</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Ħassar %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -822,4 +877,22 @@
     <string name="login_osm_browser">Login billi tuża l-browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Użat riċentement</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Il-kulur tal-bookmarks inbidel</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Il-kulur tat-tracks inbidel</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spettru</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Sliders</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">AĦMAR</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">AĦDAR</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">ĦAMRANI</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Kulur Hex sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grilja</string>
 </resources>

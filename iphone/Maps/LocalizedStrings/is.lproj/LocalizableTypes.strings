@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Heimilisfang";
+"type.building.construction" = "Bygging í byggingu";
 "type.building.has_parts" = "Bygging";
 "type.building_part" = "Bygging";
 "type.building.garage" = "Verkstæði";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Miðjarðarhafs";
 "type.cuisine.mexican" = "Mexíkanskt";
 "type.cuisine.moroccan" = "Marokkanskt";
-"type.cuisine.noodles" = "Núðlur";
+"type.cuisine.noodle" = "Núðlur";
 "type.cuisine.oriental" = "Austur-asískt";
 "type.cuisine.pancake" = "Pönnukökur";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Kryddpylsur";
 "type.cuisine.savory_pancakes" = "Girnilegar pönnukökur";
 "type.cuisine.seafood" = "Sjávarréttir";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba-núðlur";
 "type.cuisine.spanish" = "Spænskt";
 "type.cuisine.steak_house" = "Steikhús";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Trjáröð";
 "type.natural.vineyard" = "Vínekra";
 "type.natural.volcano" = "Eldfjall";
+"type.natural.volcano.active" = "Virkur eldfjall";
 "type.natural.water" = "Vatn";
 "type.natural.wetland" = "Votlendi";
 "type.natural.wetland.bog" = "Fen";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Grashokkí";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Baskneskt Pelota";
+"type.sport.boules" = "Boules";
+"type.sport.cycling" = "Hjólreiðar";
+"type.sport.four_square" = "Fjórir ferningar";
+"type.sport.horse_racing" = "Veðhlaup";
+"type.sport.karting" = "Gokart";
+"type.sport.motocross" = "Motokross";
+"type.sport.motor" = "Vélaakstursíþrótt";
+"type.sport.netball" = "Netbolti";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ruðningur";
+"type.sport.running" = "Hlaup";
+"type.sport.softball" = "Softbolti";
 "type.tourism" = "Ferðamennska";
 "type.tourism.aquarium" = "Fiskabúr";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Sögustaður";
 "type.attraction.maze" = "Völundarhús";
 "type.attraction.roller_coaster" = "Rússíbani";
+"type.roller_coaster.track" = "Rússíbani";
 "type.attraction.water_slide" = "Vatnsrennibraut";
 "type.tourism.attraction.specified" = "Aðdráttarafl";
 "type.tourism.camp_site" = "Tjaldsvæði";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Hraðahindrun";
 "type.traffic_calming.hump" = "Hraðahindrun";
 "type.waterway" = "Siglingaleið";
+"type.waterway.access_point" = "Aðgengispunktur vatnaleiðar";
 "type.waterway.canal" = "Skipaskurður";
 "type.waterway.canal.tunnel" = "Skipaskurðsgöng";
 "type.waterway.fish_pass" = "Fiskastigi";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Úrsmiður";
 "type.xmas_feature.market" = "Jólamarkaður";
 "type.xmas_feature.tree" = "Jólatré";
+"type.amenity.hookah_lounge" = "Vatnspípubar";

@@ -16,10 +16,12 @@ public class WikiArticleActivity extends BaseToolbarActivity
     return WikiArticleFragment.class;
   }
 
-  public static void start(@NonNull Context context, @NonNull String title, @NonNull String wikiArticle)
+  public static void start(@NonNull Context context, @NonNull String title, @NonNull String wikiArticle,
+                           @NonNull String wikiUrl)
   {
     Intent intent = new Intent(context, WikiArticleActivity.class)
                         .putExtra(WikiArticleFragment.EXTRA_WIKI_ARTICLE, wikiArticle)
+                        .putExtra(WikiArticleFragment.EXTRA_WIKI_URL, wikiUrl)
                         .putExtra(EXTRA_TITLE, title);
     context.startActivity(intent);
   }

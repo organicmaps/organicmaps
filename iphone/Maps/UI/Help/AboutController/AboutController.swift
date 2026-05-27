@@ -28,7 +28,6 @@ final class AboutController: MWMViewController {
   private var donationView: DonationView?
   private let osmView = OSMView()
   private let infoTableView = UITableView(frame: .zero, style: .plain)
-  private var infoTableViewHeightAnchor: NSLayoutConstraint?
   private let socialMediaHeaderLabel = UILabel()
   private let socialMediaCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
   private lazy var socialMediaCollectionViewHeighConstraint = socialMediaCollectionView.heightAnchor.constraint(equalToConstant: .zero)
@@ -253,14 +252,11 @@ private extension AboutController {
       termsOfUseAndPrivacyPolicyView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
     ])
     donationView?.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = donationView != nil
-
-    view.layoutIfNeeded()
-    updateCollection()
   }
 
   func updateCollection() {
     socialMediaCollectionView.collectionViewLayout.invalidateLayout()
-    // On devices with the iOS 12 the actual collectionView layout update not always occurs during the current layout update cycle.
+    // The actual collectionView layout update may not occur during the current layout update cycle.
     // So constraints update should be performed on the next layout update cycle.
     DispatchQueue.main.async {
       self.socialMediaCollectionViewHeighConstraint.constant = self.socialMediaCollectionView.collectionViewLayout.collectionViewContentSize.height

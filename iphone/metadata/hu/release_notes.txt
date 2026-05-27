@@ -1,27 +1,56 @@
-• OSM térképadatok február 16-i állapota
-• Wikipédia adatok február 1-i állapota
-• A fekete túra- és kerékpárútvonalak mostantól láthatók sötét módban
-• További autós szolgáltatások hozzáadva: javítás, szerviz és alkatrészek
-• OSM böngésző hitelesítés hozzáadva
-• Kerékpáros hozzáférés javítva egyes úttípusokon
-• Átlagsebesség-számítás javítva
-• Kategóriák keresési rangsorolásának javítása
-• Üzbég konyha hozzáadva
-• Drótkötélpályák (zip lines) hozzáadva a térképhez
-• Wikimedia linkek javítása, amelyek címében „?” szerepel
-• GPX fájlok elemzésének javítása, amelyek koordinátáiban „+” szerepel
+## Térkép
 
-### Fordítások
+- ÚJ! A térkép most már helyesen jelenik meg az antimeridiánnál húzás és forgatás közben
+- Az OpenStreetMap adatok frissítése április 4-i állapot szerint
+- A Wikipedia adatok frissítése április 1-i állapot szerint
+- Ikonokat adtunk hozzá ételudvarokhoz és városkapukhoz
+- Ruházati üzletek alkategóriáinak hozzáadása: női, férfi, gyermek, esküvői, sport, fehérnemű, valamint irodai ruházat
+- Javítottuk a sydney-i metróvonalak színeit
+- Javítottuk a nyitvatartási idők megjelenítését azoknál a helyeknél, ahol napkelte-/napnyugta-eltolás van
 
-• Dupla városnevek eltávolítása egyes térképrégiókban
-• Héber hangutasítások javítása
-• Koreai elírások javítása
-• Orosz keresési szinonimák hozzáadva
-• Német hangutasítások javítása
-• Hiányzó fordítás javítása a használaton kívüli vasúti alagúthoz
-• Országnév fordításának javítása román nyelven
-• Laoszi és örmény fordítások hozzáadva
-• Hiányzó örmény fordítások hozzáadva
-• Fordítások frissítése a Weblate közreműködőitől
+## Útvonaltervezés és navigáció
 
-Köszönjük mindenkinek, aki hozzájárul, adományoz és támogatja az Organic Maps-et! Építsük együtt a legjobb térképeket!
+- ÚJ! Érintse meg a kerékpáros vagy túraútvonalat a kiválasztáshoz és a magassági diagram megtekintéséhez
+- Javítottuk a túra- és kerékpáros útvonalak többszínű megjelenítését
+- A kerékpáros navigáció alacsony sebességnél mostantól az iránytű irányát használja
+- Javítva lett egy rendszerhiba, amely egyes regionális határok közelében történő útvonaltervezéskor jelentkezett
+- Mostantól akkor is elindíthat érvényes útvonalat, ha a rendszer további térképek letöltésére szólít fel
+
+## Könyvjelzők és nyomvonalak
+
+- ÚJ! Egy kategórián belül egyszerre módosíthatja az összes könyvjelző és nyomvonal színét
+- Kiigazítottuk a magasságnyereség és -veszteség becslését a nyomvonal-grafikonokon, hogy jobban illeszkedjen más alkalmazásokhoz
+- Javítottuk a táblázatokkal és képekkel ellátott HTML-tartalom megjelenítését a könyvjelzők részleteiben
+- Függőleges elválasztókat adtunk hozzá a többszakaszos nyomvonalakhoz a magassági grafikonon
+- Javítottuk a pontok kiválasztását a magassági grafikonon az interpolált pontok esetében
+- Javítottuk a GPS-nyomvonal rögzítését, amelynél pontok maradtak ki a szakaszok között
+- Javítottuk a GeoJSON importálását
+- Javítottuk a nyomvonalak exportálásakor fellépő összeomlást
+
+## Keresés
+
+- Jobb keresés az USA-ban, kétmillió további címmel, amelyeket a TIGER népszámlálási adatokból nyertünk ki
+- Frissített keresési kategóriák: hozzáadtuk a „Bread” kifejezést a pékségekhez, a „Shawarma” konyhát, valamint további szinonimajavításokat
+- Javítottuk a házszám szerinti címkeresést
+- Hozzáadtuk az amerikai utcanevek szinonimáit: highway, hwy, freeway, fwy
+- Javítottuk a keresési eredményeket, amikor a város- és államnevek megegyeznek
+
+## Szerkesztő / OpenStreetMap
+
+- Mostantól új helyet adhat hozzá az OpenStreetMap-hez, miután kiválasztotta a jelenlegi pozícióját a térképen
+- Javítottuk a szerkesztő célkeresztjének eltolódását az „Add Place” gomb megnyomásakor
+- Növeltük a gombok érintési területét az „Add Place” navigációs sávban
+
+## Felhasználói felület és felhasználói élmény
+
+- Javított modális gesztusok: rögzítés a legközelebbi lépéshez, bezárás a szélén történő elmozduláskor és az előző állapot visszaállítása újbóli megnyitáskor
+- Javítottuk a nyári időszámítás kezelését az időzónáknál
+
+## Stabilitás és lokalizáció
+
+- Javítottuk a stabilitást és a teljesítményt, csökkentettük az akkumulátor-fogyasztást
+- Frissítettük a fordításokat
+
+## Platformtámogatás
+
+- A TestFlight és az App Store változásai miatt ez a kiadás csak az iOS 15-öt és az azt követő verziókat támogatja. Az iOS 12, 13 és 14 már nem támogatott.

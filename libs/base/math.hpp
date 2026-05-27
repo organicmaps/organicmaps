@@ -129,7 +129,7 @@ T PowUint(T x, uint64_t n)
 }
 
 template <typename T>
-T Pow2(T x)
+T constexpr Pow2(T x)
 {
   return x * x;
 }

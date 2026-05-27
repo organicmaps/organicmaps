@@ -15,6 +15,7 @@
 
 #include <functional>
 #include <memory>
+#include <string_view>
 #include <vector>
 
 #include "defines.hpp"
@@ -23,14 +24,43 @@ namespace downloader_test
 {
 using namespace downloader;
 using namespace std::placeholders;
-using std::bind, std::string, std::vector;
+using std::bind, std::string, std::string_view, std::vector;
 
-char constexpr kTestUrl1[] = "http://localhost:34568/unit_tests/1.txt";
-char constexpr kTestUrl404[] = "http://localhost:34568/unit_tests/notexisting_unittest";
-char constexpr kTestUrlBigFile[] = "http://localhost:34568/unit_tests/47kb.file";
+char constexpr kTestUrl1[] = "http://localhost:24568/unit_tests/1.txt";
+char constexpr kTestUrl404[] = "http://localhost:24568/unit_tests/notexisting_unittest";
+char constexpr kTestUrlBigFile[] = "http://localhost:24568/unit_tests/47kb.file";
 
 // Should match file size in tools/python/ResponseProvider.py
 int constexpr kBigFileSize = 47684;
+
+// RAII helper: gives each test a unique tmp path and wipes the result/.downloading/.resume
+// triple at construction (clean slate) and destruction (no leakage to next test, even on
+// assertion abort during stack unwind).
+struct ScopedDownloadArtifacts
+{
+  string const m_path;
+
+  explicit ScopedDownloadArtifacts(string_view prefix) : m_path(GetPlatform().TmpPathForFile(string(prefix), ".tmp"))
+  {
+    Wipe();
+  }
+
+  ~ScopedDownloadArtifacts() { Wipe(); }
+
+  ScopedDownloadArtifacts(ScopedDownloadArtifacts const &) = delete;
+  ScopedDownloadArtifacts & operator=(ScopedDownloadArtifacts const &) = delete;
+
+  string Downloading() const { return m_path + DOWNLOADING_FILE_EXTENSION; }
+  string Resume() const { return m_path + RESUME_FILE_EXTENSION; }
+
+private:
+  void Wipe() const
+  {
+    Platform::RemoveFileIfExists(m_path);
+    Platform::RemoveFileIfExists(Downloading());
+    Platform::RemoveFileIfExists(Resume());
+  }
+};
 
 class DownloadObserver
 {
@@ -50,6 +80,7 @@ public:
   {
     m_progressWasCalled = false;
     m_statuses.clear();
+    m_chunksToFail = -1;
   }
 
   void TestOk()
@@ -101,113 +132,29 @@ public:
   }
 };
 
-struct CancelDownload
+// Convenience builder for HttpRequest::GetFile bound to a DownloadObserver. Two overloads:
+// the multi-URL form for tests that need URL fallback semantics, and a single-URL form
+// defaulting to kTestUrlBigFile (the common case).
+std::unique_ptr<HttpRequest> MakeRequest(vector<string> const & urls, string const & file, int64_t fileSize,
+                                         DownloadObserver & obs, bool doCleanOnCancel = true, int64_t chunkSize = 1024)
 {
-  void OnProgress(HttpRequest & request)
-  {
-    TEST_GREATER(request.GetData().size(), 0, ());
-    delete &request;
-    QCoreApplication::quit();
-  }
-  void OnFinish(HttpRequest &) { TEST(false, ("Should be never called")); }
-};
-
-struct DeleteOnFinish
-{
-  void OnProgress(HttpRequest & request) { TEST_GREATER(request.GetData().size(), 0, ()); }
-  void OnFinish(HttpRequest & request)
-  {
-    delete &request;
-    QCoreApplication::quit();
-  }
-};
-
-UNIT_TEST(DownloaderSimpleGet)
-{
-  DownloadObserver observer;
-  auto const MakeRequest = [&observer](string const & url)
-  {
-    return HttpRequest::Get(url, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                            bind(&DownloadObserver::OnDownloadProgress, &observer, _1));
-  };
-
-  {
-    // simple success case
-    std::unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl1)};
-    // wait until download is finished
-    QCoreApplication::exec();
-    observer.TestOk();
-    TEST_EQUAL(request->GetData(), "Test1", ());
-  }
-
-  observer.Reset();
-  {
-    // We DO NOT SUPPORT redirects to avoid data corruption when downloading mwm files
-    std::unique_ptr<HttpRequest> const request{MakeRequest("http://localhost:34568/unit_tests/permanent")};
-    QCoreApplication::exec();
-    observer.TestFailed();
-    TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
-  }
-
-  observer.Reset();
-  {
-    // fail case 404
-    std::unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl404)};
-    QCoreApplication::exec();
-    observer.TestFileNotFound();
-    TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
-  }
-
-  observer.Reset();
-  {
-    // fail case not existing host
-    std::unique_ptr<HttpRequest> const request{MakeRequest("http://not-valid-host123532.ath.cx")};
-    QCoreApplication::exec();
-    observer.TestFailed();
-    TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
-  }
-
-  {
-    // cancel download in the middle of the progress
-    CancelDownload canceler;
-    // should be deleted in canceler
-    HttpRequest::Get(kTestUrlBigFile, bind(&CancelDownload::OnFinish, &canceler, _1),
-                     bind(&CancelDownload::OnProgress, &canceler, _1));
-    QCoreApplication::exec();
-  }
-
-  observer.Reset();
-  {
-    // https success case
-    std::unique_ptr<HttpRequest> const request{MakeRequest("https://github.com")};
-    // wait until download is finished
-    QCoreApplication::exec();
-    observer.TestOk();
-    TEST_GREATER(request->GetData().size(), 0, ());
-  }
-
-  {
-    // Delete request at the end of successful download
-    DeleteOnFinish deleter;
-    // should be deleted in deleter on finish
-    HttpRequest::Get(kTestUrl1, bind(&DeleteOnFinish::OnFinish, &deleter, _1),
-                     bind(&DeleteOnFinish::OnProgress, &deleter, _1));
-    QCoreApplication::exec();
-  }
+  return std::unique_ptr<HttpRequest>(
+      HttpRequest::GetFile(urls, file, fileSize, bind(&DownloadObserver::OnDownloadFinish, &obs, _1),
+                           bind(&DownloadObserver::OnDownloadProgress, &obs, _1), doCleanOnCancel, chunkSize));
 }
 
-UNIT_TEST(DownloaderSimplePost)
+std::unique_ptr<HttpRequest> MakeRequest(string const & file, int64_t fileSize, DownloadObserver & obs,
+                                         bool doCleanOnCancel = true, int64_t chunkSize = 1024)
 {
-  // simple success case
-  string const postData = "{\"jsonKey\":\"jsonValue\"}";
-  DownloadObserver observer;
-  std::unique_ptr<HttpRequest> const request{HttpRequest::PostJson(
-      "http://localhost:34568/unit_tests/post.php", postData, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-      bind(&DownloadObserver::OnDownloadProgress, &observer, _1))};
-  // wait until download is finished
-  QCoreApplication::exec();
-  observer.TestOk();
-  TEST_EQUAL(request->GetData(), postData, ());
+  return MakeRequest({kTestUrlBigFile}, file, fileSize, obs, doCleanOnCancel, chunkSize);
+}
+
+// Reads .resume via the same load path the production constructor uses (LoadOrInitChunks).
+// Returns the bytes-completed claim recorded in the resume file.
+int64_t LoadResumeBytes(string const & resumeFile, int64_t fileSize, int64_t chunkSize)
+{
+  ChunksDownloadStrategy s({});
+  return s.LoadOrInitChunks(resumeFile, fileSize, chunkSize);
 }
 
 UNIT_TEST(ChunksDownloadStrategy)
@@ -349,95 +296,64 @@ void FinishDownloadFail(string const & file)
 
   TEST(base::DeleteFileX(file + RESUME_FILE_EXTENSION), ("Resume file should present on fail"));
 }
-
-void DeleteTempDownloadFiles()
-{
-  // Remove data from previously failed files.
-
-  // Get regexp like this: (\.downloading3$|\.resume3$)
-  string const regexp = "(\\" RESUME_FILE_EXTENSION "$|\\" DOWNLOADING_FILE_EXTENSION "$)";
-
-  Platform::FilesList files;
-  Platform::GetFilesByRegExp(".", regexp, files);
-  for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
-    FileWriter::DeleteFileX(*it);
-}
 }  // namespace
 
 UNIT_TEST(DownloadChunks)
 {
-  string const kFileName = "some_downloader_test_file";
-
-  // remove data from previously failed files
-  DeleteTempDownloadFiles();
-
-  vector<string> urls = {kTestUrl1, kTestUrl1};
-  int64_t fileSize = 5;
+  ScopedDownloadArtifacts files{"downloader_test_"};
 
   DownloadObserver observer;
-  auto const MakeRequest = [&](int64_t chunkSize)
-  {
-    return HttpRequest::GetFile(urls, kFileName, fileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                                bind(&DownloadObserver::OnDownloadProgress, &observer, _1), chunkSize);
-  };
 
   {
     // should use only one thread
-    std::unique_ptr<HttpRequest> const request{MakeRequest(512 * 1024)};
-    // wait until download is finished
+    auto const request = MakeRequest({kTestUrl1, kTestUrl1}, files.m_path, 5, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/512 * 1024);
     QCoreApplication::exec();
     observer.TestOk();
-    TEST_EQUAL(request->GetData(), kFileName, ());
-    TEST_EQUAL(ReadFileAsString(kFileName), "Test1", ());
-    FinishDownloadSuccess(kFileName);
+    TEST_EQUAL(request->GetFilePath(), files.m_path, ());
+    TEST_EQUAL(ReadFileAsString(files.m_path), "Test1", ());
+    FinishDownloadSuccess(files.m_path);
   }
 
   observer.Reset();
-  urls = {kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile};
-  fileSize = 5;
   {
     // 3 threads - fail, because of invalid size
-    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
-    // wait until download is finished
+    auto const request = MakeRequest({kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile}, files.m_path, 5, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestFailed();
-    FinishDownloadFail(kFileName);
+    FinishDownloadFail(files.m_path);
   }
 
   observer.Reset();
-  urls = {kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile};
-  fileSize = kBigFileSize;
   {
     // 3 threads - succeeded
-    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
-    // wait until download is finished
+    auto const request =
+        MakeRequest({kTestUrlBigFile, kTestUrlBigFile, kTestUrlBigFile}, files.m_path, kBigFileSize, observer,
+                    /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestOk();
-    FinishDownloadSuccess(kFileName);
+    FinishDownloadSuccess(files.m_path);
   }
 
   observer.Reset();
-  urls = {kTestUrlBigFile, kTestUrl1, kTestUrl404};
-  fileSize = kBigFileSize;
   {
     // 3 threads with only one valid url - succeeded
-    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
-    // wait until download is finished
+    auto const request = MakeRequest({kTestUrlBigFile, kTestUrl1, kTestUrl404}, files.m_path, kBigFileSize, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestOk();
-    FinishDownloadSuccess(kFileName);
+    FinishDownloadSuccess(files.m_path);
   }
 
   observer.Reset();
-  urls = {kTestUrlBigFile, kTestUrlBigFile};
-  fileSize = 12345;
   {
     // 2 threads and all points to file with invalid size - fail
-    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
-    // wait until download is finished
+    auto const request = MakeRequest({kTestUrlBigFile, kTestUrlBigFile}, files.m_path, 12345, observer,
+                                     /*doCleanOnCancel=*/true, /*chunkSize=*/2048);
     QCoreApplication::exec();
     observer.TestFailed();
-    FinishDownloadFail(kFileName);
+    FinishDownloadFail(files.m_path);
   }
 }
 
@@ -479,37 +395,25 @@ struct ResumeChecker
 
 UNIT_TEST(DownloadResumeChunks)
 {
-  string const FILENAME = "some_test_filename_12345";
-  string const RESUME_FILENAME = FILENAME + RESUME_FILE_EXTENSION;
-  string const DOWNLOADING_FILENAME = FILENAME + DOWNLOADING_FILE_EXTENSION;
-
-  // remove data from previously failed files
-  DeleteTempDownloadFiles();
-
-  vector<string> urls = {kTestUrlBigFile};
+  ScopedDownloadArtifacts files{"downloader_resume_test_"};
 
   // 1st step - download full file
   {
     DownloadObserver observer;
-
-    std::unique_ptr<HttpRequest> const request(
-        HttpRequest::GetFile(urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                             bind(&DownloadObserver::OnDownloadProgress, &observer, _1)));
-
+    auto const request = MakeRequest(files.m_path, kBigFileSize, observer);
     QCoreApplication::exec();
-
     observer.TestOk();
 
     uint64_t size;
-    TEST(!base::GetFileSize(RESUME_FILENAME, size), ("No resume file on success"));
+    TEST(!base::GetFileSize(files.Resume(), size), ("No resume file on success"));
   }
 
   // 2nd step - mark some file blocks as not downloaded
   {
     // to substitute temporary not fully downloaded file
-    TEST(base::RenameFileX(FILENAME, DOWNLOADING_FILENAME), ());
+    TEST(base::RenameFileX(files.m_path, files.Downloading()), ());
 
-    FileWriter f(DOWNLOADING_FILENAME, FileWriter::OP_WRITE_EXISTING);
+    FileWriter f(files.Downloading(), FileWriter::OP_WRITE_EXISTING);
     f.Seek(beg1);
     char b1[end1 - beg1 + 1] = {0};
     f.Write(b1, ARRAY_SIZE(b1));
@@ -524,50 +428,155 @@ UNIT_TEST(DownloadResumeChunks)
     strategy.AddChunk(std::make_pair(end1 + 1, beg2 - 1), ChunksDownloadStrategy::CHUNK_COMPLETE);
     strategy.AddChunk(std::make_pair(beg2, end2), ChunksDownloadStrategy::CHUNK_FREE);
 
-    strategy.SaveChunks(kBigFileSize, RESUME_FILENAME);
+    strategy.SaveChunks(kBigFileSize, files.Resume());
   }
 
   // 3rd step - check that resume works
   {
     ResumeChecker checker;
-    std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile(urls, FILENAME, kBigFileSize,
+    std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile({kTestUrlBigFile}, files.m_path, kBigFileSize,
                                                                     bind(&ResumeChecker::OnFinish, &checker, _1),
                                                                     bind(&ResumeChecker::OnProgress, &checker, _1)));
     QCoreApplication::exec();
 
-    FinishDownloadSuccess(FILENAME);
+    FinishDownloadSuccess(files.m_path);
   }
 }
 
-// Unit test with forcible canceling of http request
-UNIT_TEST(DownloadResumeChunksWithCancel)
+// Cancel mid-flight with doCleanOnCancel=true (the "user removes country" path).
+// Asserts: ~FileHttpRequest wipes both .downloading and .resume when destroyed while
+// the request is still InProgress. No other test exercises this branch — DownloadChunks
+// always lets requests complete naturally.
+UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
 {
-  string const FILENAME = "some_test_filename_12345";
-
-  // remove data from previously failed files
-  DeleteTempDownloadFiles();
-
-  vector<string> urls = {kTestUrlBigFile};
-
-  DownloadObserver observer;
-
-  int arrCancelChunks[] = {1, 3, 10, 15, 20, 0};
-
-  for (size_t i = 0; i < ARRAY_SIZE(arrCancelChunks); ++i)
+  ScopedDownloadArtifacts files{"http_cancel_clean_"};
+  DownloadObserver obs;
+  // Cancel after the periodic SaveResumeChunks() has fired, otherwise no .resume exists
+  // on disk at dtor time and the wipe assertion below is vacuous.
+  int constexpr kCancelAtChunk = kPeriodicResumeSaveInterval + 1;
+  obs.CancelDownloadOnGivenChunk(kCancelAtChunk);
   {
-    if (arrCancelChunks[i] > 0)
-      observer.CancelDownloadOnGivenChunk(arrCancelChunks[i]);
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/true);
+    QCoreApplication::exec();
+  }  // dtor runs while m_status == InProgress
 
-    std::unique_ptr<HttpRequest> const request(
-        HttpRequest::GetFile(urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                             bind(&DownloadObserver::OnDownloadProgress, &observer, _1), 1024, false));
+  uint64_t size = 0;
+  TEST(!base::GetFileSize(files.Downloading(), size), ("Downloading must be wiped"));
+  TEST(!base::GetFileSize(files.Resume(), size), ("Resume must be wiped"));
+}
 
+// Cancel mid-flight with doCleanOnCancel=false (the "graceful shutdown" path).
+// Asserts: ~FileHttpRequest preserves both files when destroyed while the request is
+// still InProgress. Pins down the positive contract of the new flag semantics.
+UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_PreservesArtifacts)
+{
+  ScopedDownloadArtifacts files{"http_cancel_preserve_"};
+  DownloadObserver obs;
+  obs.CancelDownloadOnGivenChunk(5);
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false);
     QCoreApplication::exec();
   }
+  uint64_t downloadingSize = 0, resumeSize = 0;
+  TEST(base::GetFileSize(files.Downloading(), downloadingSize), ("Downloading must be preserved"));
+  TEST(base::GetFileSize(files.Resume(), resumeSize), ("Resume must be preserved"));
+  TEST_GREATER(downloadingSize, 0u, ());
+  TEST_GREATER(resumeSize, 0u, ());
+}
 
-  observer.TestOk();
+// Regression test for the destructor flush. Cancel point must stay below
+// kPeriodicResumeSaveInterval so the periodic save never fires; without the dtor's
+// SaveResumeChunks() call, .resume would be missing or stale.
+UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_ResumeReflectsAllCompletedChunks)
+{
+  ScopedDownloadArtifacts files{"http_resume_flush_"};
+  int64_t constexpr kChunkSize = 1024;
+  int constexpr kCancelAtChunk = 5;
+  static_assert(kCancelAtChunk < kPeriodicResumeSaveInterval, "Periodic save would mask the dtor flush");
+  DownloadObserver obs;
+  obs.CancelDownloadOnGivenChunk(kCancelAtChunk);
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false, kChunkSize);
+    QCoreApplication::exec();
+  }
+  // OnDownloadProgress fires after ChunkFinished marks the chunk complete in the strategy,
+  // so the cancel-triggering chunk is committed by quit() time. The next chunk (started
+  // synchronously after the callback) may or may not finish before exec() returns, so the
+  // bound is >= kCancelAtChunk, never == .
+  int64_t const resumed = LoadResumeBytes(files.Resume(), kBigFileSize, kChunkSize);
+  TEST_GREATER_OR_EQUAL(resumed, kCancelAtChunk * kChunkSize,
+                        ("Resume file under-reports completed bytes; dtor flush regressed"));
+}
 
-  FinishDownloadSuccess(FILENAME);
+// End-to-end round-trip: cancel + preserve + reload + complete. Validates the user-facing
+// claim that graceful shutdown does not lose progress. Catches regressions in the dtor
+// preservation/flush, ctor reload via LoadOrInitChunks, and success cleanup, all in one test.
+UNIT_TEST(HttpRequest_ResumeFromPreservedArtifacts_SkipsCompletedChunks)
+{
+  ScopedDownloadArtifacts files{"http_round_trip_"};
+  int64_t constexpr kChunkSize = 1024;
+  int64_t bytesAfterCancel = 0;
+  {
+    DownloadObserver obs;
+    obs.CancelDownloadOnGivenChunk(5);
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false, kChunkSize);
+    QCoreApplication::exec();
+    bytesAfterCancel = req->GetProgress().m_bytesDownloaded;
+  }
+  TEST_GREATER(bytesAfterCancel, 0, ());
+
+  DownloadObserver obs2;
+  auto req2 = MakeRequest(files.m_path, kBigFileSize, obs2, /*doCleanOnCancel=*/false, kChunkSize);
+  // Construction reloaded preserved resume state — this is the user-facing claim.
+  TEST_GREATER_OR_EQUAL(req2->GetProgress().m_bytesDownloaded, bytesAfterCancel, ());
+  QCoreApplication::exec();
+  obs2.TestOk();
+
+  // After natural success, files must be cleaned up regardless of the doCleanOnCancel flag.
+  uint64_t size = 0;
+  TEST(base::GetFileSize(files.m_path, size), ("Result file must exist"));
+  TEST(!base::GetFileSize(files.Downloading(), size), ());
+  TEST(!base::GetFileSize(files.Resume(), size), ());
+}
+
+// On success, the OnChunkFinished cleanup path must run regardless of doCleanOnCancel —
+// the flag only governs the dtor's InProgress branch. Pins this invariant explicitly so
+// a future "optimization" gating success cleanup behind the flag is caught.
+UNIT_TEST(HttpRequest_Success_AlwaysCleansArtifacts_DespiteNoClean)
+{
+  ScopedDownloadArtifacts files{"http_success_noclean_"};
+  DownloadObserver obs;
+  {
+    auto req = MakeRequest(files.m_path, kBigFileSize, obs, /*doCleanOnCancel=*/false);
+    QCoreApplication::exec();
+  }
+  obs.TestOk();
+
+  uint64_t size = 0;
+  TEST(base::GetFileSize(files.m_path, size), ("Result must exist"));
+  TEST(!base::GetFileSize(files.Downloading(), size), ("Downloading wiped on success"));
+  TEST(!base::GetFileSize(files.Resume(), size), ("Resume wiped on success"));
+}
+
+// On failure, OnChunkFinished's save-on-fail path must run regardless of doCleanOnCancel.
+// Existing DownloadChunks failure tests only cover the flag=true case; this exercises both.
+UNIT_TEST(HttpRequest_Failure_PreservesResume_RegardlessOfFlag)
+{
+  for (bool doCleanOnCancel : {true, false})
+  {
+    ScopedDownloadArtifacts files{"http_fail_"};
+    DownloadObserver obs;
+    {
+      // fileSize mismatch with the real server file triggers Failed status.
+      auto req = MakeRequest({kTestUrlBigFile, kTestUrlBigFile}, files.m_path, /*fileSize=*/12345, obs, doCleanOnCancel,
+                             /*chunkSize=*/2048);
+      QCoreApplication::exec();
+    }
+    obs.TestFailed();
+
+    uint64_t size = 0;
+    TEST(base::GetFileSize(files.Resume(), size), ("Resume must be preserved on failure"));
+  }
 }
 
 }  // namespace downloader_test

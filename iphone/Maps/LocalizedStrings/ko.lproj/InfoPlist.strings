@@ -28,10 +28,10 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "백그라운드에서 현재 위치를 정의하는 것은 완전히 앱의 기능을 즐길 수 있도록 해줍니다. 이는 로 경로를 따르고 최근 여행 경로를 저장하는 옵션에 사용됩니다.";
+"NSLocationAlwaysUsageDescription" = "백그라운드에서 위치를 감지하는 것은 앱의 모든 기능을 온전히 이용하는 데 필요합니다. 내비게이션과 최근 이동한 트랙 저장에 사용됩니다.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "현재 위치를 정의하는 것은 경로를 따르고 최근 여행한 경로를 저장하는 옵션에서 사용됩니다.";
+"NSLocationWhenInUseUsageDescription" = "현재 위치를 확인하는 것은 내비게이션과 최근 이동한 트랙 저장에 필요합니다.";
 
 /* Login to OSM button text */
 "login_osm_credentials" = "비밀번호로 로그인";

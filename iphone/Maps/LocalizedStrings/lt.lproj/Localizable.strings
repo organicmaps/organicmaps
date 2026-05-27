@@ -8,7 +8,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Šalinti";
-"download_maps" = "Atsiųsti žemėlapius";
+"download_maps" = "Atsisiųsti žemėlapius";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Atsiunčiama…";
@@ -229,6 +229,9 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Balso instrukcijų kalba";
+
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Norėdami atsisiųsti aukštesnės kokybės balsą, atidarykite programą Nustatymai ir eikite į Prieinamumas → VoiceOver → Kalba → Balsas.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Išbandyti balso instrukcijas (kalbos sintezę)";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Kelionės dviračiu";
 "button_layer_subway" = "Metro";
 "layers_title" = "Žemėlapio stiliai ir sluoksniai";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Keisti visų žymų spalvą";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Keisti visų trasų spalvą";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Eksportuoti KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Neseniai naudotas";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Žymų spalva pakeista";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Trasų spalva pakeista";

@@ -38,7 +38,6 @@ public:
     drape_ptr<FramebufferTexture> m_texture;
   };
 
-  Framebuffer();
   explicit Framebuffer(TextureFormat colorFormat);
   Framebuffer(TextureFormat colorFormat, bool depthEnabled, bool stencilEnabled);
   ~Framebuffer() override;

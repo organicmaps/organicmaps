@@ -3,17 +3,22 @@
 #include "drape_frontend/batcher_bucket.hpp"
 
 #include "geometry/rect2d.hpp"
-#include "geometry/screenbase.hpp"
 
 #include "base/matrix.hpp"
 
 #include <string>
 
+class ScreenBase;
+
 namespace df
 {
 struct TileKey
 {
-  TileKey();
+  static constexpr int kNoCoord = -1;
+  static constexpr uint8_t kNoZoom = 0;
+  static m2::PointI NoCoordinates() { return {kNoCoord, kNoCoord}; }
+
+  TileKey() : m_x(kNoCoord), m_y(kNoCoord), m_zoomLevel(kNoZoom), m_generation(0), m_userMarksGeneration(0) {}
   TileKey(int x, int y, uint8_t zoomLevel);
   TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGeneration);
 
@@ -30,9 +35,21 @@ struct TileKey
 
   m2::RectD GetGlobalRect(bool clipByDataMaxZoom = true) const;
 
+  /// Returns the tile rect wrapped to [-180, 180] X range for data queries.
+  /// The Y range is unchanged. Used when querying the feature index for wrapped tiles.
+  m2::RectD GetWrappedDataRect(bool clipByDataMaxZoom = true) const;
+
   math::Matrix<float, 4, 4> GetTileBasedModelView(ScreenBase const & screen) const;
 
   m2::PointI GetTileCoords() const;
+
+  /// Returns a TileKey with X wrapped to the canonical range for this zoom level.
+  /// Used to map extended tiles back to their canonical equivalents for index lookups.
+  TileKey GetCanonicalTileKey() const;
+
+  /// Returns the X offset between the extended tile center and the wrapped tile center.
+  /// 0 for canonical tiles, +-360 for extended tiles past the antimeridian.
+  double GetTileXOffset(bool clipByDataMaxZoom = true) const;
 
   uint64_t GetHashValue(BatcherBucket bucket) const;
 

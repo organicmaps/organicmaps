@@ -25,13 +25,13 @@
     <string name="type.amenity.atm">Банкомат</string>
     <string name="type.amenity.bank">Банка</string>
     <string name="type.amenity.bar">Бар</string>
-    <string name="type.amenity.bbq">Грил барбекю</string>
+    <string name="type.amenity.bbq">Грил</string>
     <string name="type.amenity.bench">Пейка</string>
     <string name="type.amenity.bicycle_parking">Паркинг за колела</string>
     <string name="type.amenity.bicycle_rental">Колела под наем</string>
     <string name="type.amenity.bicycle_repair_station">Сервиз на колела</string>
     <string name="type.amenity.biergarten">Бирария</string>
-    <string name="type.amenity.brothel">Бардак</string>
+    <string name="type.amenity.brothel">Бордей</string>
     <string name="type.amenity.bureau_de_change">Валутен обмен</string>
     <string name="type.amenity.bus_station">Автобусна гара</string>
     <string name="type.amenity.cafe">Кафене</string>
@@ -43,7 +43,7 @@
     <string name="type.amenity.gambling">Хазарт</string>
     <string name="type.leisure.adult_gaming_centre">Център за игри за възрастни</string>
     <string name="type.leisure.amusement_arcade">Аркада</string>
-    <string name="type.amenity.charging_station">Зарядна остановка</string>
+    <string name="type.amenity.charging_station">Зарядна станция</string>
     <string name="type.amenity.charging_station.bicycle">Станция за зареждане на велосипеди</string>
     <string name="type.amenity.charging_station.motorcar">Станция за зареждане на автомобили</string>
     <string name="type.amenity.childcare">Ясла</string>
@@ -67,7 +67,7 @@
     <string name="type.amenity.fast_food">Бързо хранене</string>
     <string name="type.amenity.ferry_terminal">Ферибот</string>
     <string name="type.amenity.fire_station">Пожарна</string>
-    <string name="type.amenity.food_court">Двор за хранене</string>
+    <string name="type.amenity.food_court">Зона за хранене</string>
     <string name="type.amenity.fountain">Фонтан</string>
     <string name="type.amenity.fuel">Бензиностанция</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -108,7 +108,7 @@
     <string name="type.amenity.parking_space.private">Частно място за спиране</string>
     <string name="type.amenity.parking_space.underground">Подземно място за спиране</string>
     <string name="type.amenity.parking_space.disabled">Паркомясто за инвалиди</string>
-    <string name="type.amenity.payment_terminal">Разплащателна остановка</string>
+    <string name="type.amenity.payment_terminal">Терминал за плащане</string>
     <string name="type.amenity.pharmacy">Аптека</string>
     <string name="type.amenity.place_of_worship">Светилище</string>
     <string name="type.amenity.place_of_worship.buddhist">Будистки храм</string>
@@ -171,8 +171,8 @@
     <string name="type.amenity.waste_basket">Кошче за отпадък</string>
     <string name="type.amenity.waste_disposal">Кофа</string>
     <string name="type.amenity.waste_transfer_station">Средище за извозване на отпадък</string>
-    <string name="type.amenity.water_point">Остановка за пълнене на водни хранилища</string>
-    <string name="type.amenity.water_point.drinking_water_no">Остановка за пълнене на водни хранилища</string>
+    <string name="type.amenity.water_point">Място за пълнене на водни резервоари</string>
+    <string name="type.amenity.water_point.drinking_water_no">Място за пълнене на водни резервоари</string>
     <string name="type.barrier">Бариера</string>
     <string name="type.barrier.block">Блокова преграда</string>
     <string name="type.barrier.bollard">Колчета</string>
@@ -247,8 +247,9 @@
     <string name="type.cuisine.cake">Торта</string>
     <string name="type.cuisine.chicken">Пилешко</string>
     <string name="type.cuisine.deli">Деликатеси</string>
-    <string name="type.cuisine.noodles">Азиатски спагети</string>
+    <string name="type.cuisine.noodle">Азиатски спагети</string>
     <string name="type.cuisine.pasta">Паста</string>
+    <string name="type.cuisine.shawarma">Шаурма</string>
     <string name="type.cuisine.uzbek">Узбекска</string>
     <string name="type.emergency.assembly_point">Авариен сборен пункт</string>
     <string name="type.emergency.fire_hydrant">Пожарен кран</string>
@@ -462,7 +463,7 @@
     <string name="type.historic.memorial.plaque">Паметна плоча</string>
     <string name="type.historic.memorial.sculpture">Скулптура</string>
     <string name="type.historic.memorial.statue">Статуя</string>
-    <string name="type.historic.memorial.stolperstein">Cпънка</string>
+    <string name="type.historic.memorial.stolperstein">Щолперщайн</string>
     <string name="type.historic.stone">Исторически камък</string>
     <string name="type.historic.memorial.war_memorial">Военен паметник</string>
     <string name="type.historic.mine">Историческа мина</string>
@@ -496,6 +497,8 @@
     <string name="type.sport.yoga">Йога</string>
     <string name="type.leisure.swimming_pool">Басейн</string>
     <string name="type.leisure.swimming_pool.private">Басейн</string>
+    <string name="type.leisure.track">Спортна писта</string>
+    <string name="type.leisure.track.area">Спортна писта</string>
     <string name="type.man_made.silo">Складова кула</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Комуникационна кула</string>
@@ -547,6 +550,7 @@
     <string name="type.natural.tree_row">Ред дървета</string>
     <string name="type.natural.vineyard">Лозе</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Активен вулкан</string>
     <string name="type.natural.water">Воден басейн</string>
     <string name="type.natural.wetland">Влажна зона</string>
     <string name="type.natural.wetland.bog">Торфено блато</string>
@@ -568,7 +572,7 @@
     <string name="type.place.country">Страна</string>
     <string name="type.place.county">Графство</string>
     <string name="type.place.farm">Ферма</string>
-    <string name="type.place.hamlet">Cело</string>
+    <string name="type.place.hamlet">Махала</string>
     <string name="type.place.island">Остров</string>
     <string name="type.place.islet">Острови</string>
     <string name="type.place.isolated_dwelling">Изолирано жилище</string>
@@ -760,6 +764,18 @@
     <string name="type.sport.field_hockey">Хокей на трева</string>
     <string name="type.sport.badminton">Бадминтон</string>
     <string name="type.sport.pelota">Баска пелота</string>
+    <string name="type.sport.boules">Петанк</string>
+    <string name="type.sport.cycling">Колоездене</string>
+    <string name="type.sport.four_square">Четири квадрата</string>
+    <string name="type.sport.horse_racing">Конни надбягвания</string>
+    <string name="type.sport.karting">Картинг</string>
+    <string name="type.sport.motocross">Мотокрос</string>
+    <string name="type.sport.motor">Моторни спортове</string>
+    <string name="type.sport.netball">Нетбол</string>
+    <string name="type.sport.pickleball">Пиклбол</string>
+    <string name="type.sport.rugby_union">Ръгби юнион</string>
+    <string name="type.sport.running">Бягане</string>
+    <string name="type.sport.softball">Софтбол</string>
     <string name="type.tourism.aquarium">Аквариум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Планинска хижа</string>
@@ -772,6 +788,7 @@
     <string name="type.attraction.historic">Историческа атракция</string>
     <string name="type.attraction.maze">Лабиринт</string>
     <string name="type.attraction.roller_coaster">Въртележка</string>
+    <string name="type.roller_coaster.track">Въртележка</string>
     <string name="type.attraction.water_slide">Водна пързалка</string>
     <string name="type.tourism.attraction.specified">Забележителност</string>
     <!-- A rentable countryside vacation house. -->
@@ -788,6 +805,7 @@
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Хижа-заслон</string>
     <string name="type.tourism.zoo.petting">Зоопарк за домашни любимци</string>
+    <string name="type.waterway.access_point">Точка за достъп до водния път</string>
     <string name="type.waterway.fish_pass">Стълба за риба</string>
     <string name="type.waterway.dam">Язовир</string>
     <string name="type.natural.water.ditch">Отводнителна канавка</string>
@@ -837,4 +855,5 @@
     <string name="type.craft.watchmaker">Часовникар</string>
     <string name="type.xmas_feature.market">Коледен пазар</string>
     <string name="type.xmas_feature.tree">Коледна елха</string>
+    <string name="type.amenity.hookah_lounge">Наргиле бар</string>
 </resources>

@@ -4,7 +4,8 @@
 
 #include "drape/color.hpp"
 #include "drape/drape_global.hpp"
-#include "drape/stipple_pen_resource.hpp"
+#include "drape/rainbow_colors.hpp"
+#include "drape/stipple_pen_resource.hpp"  // for PenPatternT
 
 #include "kml/type_utils.hpp"
 
@@ -86,6 +87,10 @@ struct LineViewParams : CommonViewParams
   dp::PenPatternT m_pattern;
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
+
+  /// Optional rainbow mode: colors for a multi-stripe overlay.
+  /// When non-empty, LineShape allocates a color strip texture in Prepare().
+  dp::RainbowColors m_rainbowColors;
 };
 
 struct TextViewParams : CommonOverlayViewParams
@@ -105,6 +110,25 @@ struct PathTextViewParams : CommonOverlayViewParams
   std::string m_mainText;
   std::string m_auxText;
   double m_baseGtoPScale = 1.0;
+
+  std::string ConcatRenderText() const
+  {
+    if (!m_auxText.empty())
+    {
+      if (m_mainText.size() > m_auxText.size())
+      {
+        if (m_mainText.find(m_auxText) != std::string::npos)
+          return m_mainText;
+      }
+      else
+      {
+        if (m_auxText.find(m_mainText) != std::string::npos)
+          return m_auxText;
+      }
+      return m_mainText + "   " + m_auxText;
+    }
+    return m_mainText;
+  }
 };
 
 struct PathSymbolViewParams : CommonViewParams

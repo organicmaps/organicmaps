@@ -237,6 +237,7 @@
     <string name="type.building">ອາຄານ</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">ທີ່ຢູ່</string>
+    <string name="type.building.construction">ອາຄານທີ່ກໍາລັງກໍ່ສ້າງ</string>
     <string name="type.building.has_parts">ອາຄານ</string>
     <string name="type.building_part">ອາຄານ</string>
     <string name="type.building.garage">ໂຮງລົດ</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">ເມດິເຕີເຣນຽນ</string>
     <string name="type.cuisine.mexican">ເມັກຊິໂກ</string>
     <string name="type.cuisine.moroccan">ໂມຣັອກໂກ</string>
-    <string name="type.cuisine.noodles">ເຝີ/ໝີ່</string>
+    <string name="type.cuisine.noodle">ເຝີ/ໝີ່</string>
     <string name="type.cuisine.oriental">ອາຊີຕາເວັນອອກ</string>
     <string name="type.cuisine.pancake">ແພນເຄັກ</string>
     <string name="type.cuisine.pasta">ພັດສະຕ້າ</string>
@@ -753,6 +754,7 @@
     <string name="type.natural.tree_row">ແຖວຕົ້ນໄມ້</string>
     <string name="type.natural.vineyard">ສວນອະງຸ່ນ</string>
     <string name="type.natural.volcano">ພູໄຟ</string>
+    <string name="type.natural.volcano.active">ພູເຂົາໄຟທີ່ເຄື່ອນໄຫວ</string>
     <string name="type.natural.water">ແຫຼ່ງນ້ຳ</string>
     <string name="type.natural.wetland">ດິນຊຸ່ມນ້ຳ</string>
     <string name="type.natural.wetland.bog">ໜອງບຶງ</string>
@@ -1289,6 +1291,18 @@
     <string name="type.sport.field_hockey">ຮອກກີ້</string>
     <string name="type.sport.badminton">ດອກປີກໄກ່</string>
     <string name="type.sport.pelota">ເປໂລຕ້າ</string>
+    <string name="type.sport.boules">ກິລາໂບລ</string>
+    <string name="type.sport.cycling">ການຂີ່ລົດຖີບ</string>
+    <string name="type.sport.four_square">ໂຟສະແຄວ</string>
+    <string name="type.sport.horse_racing">ການແຂ່ງມ້າ</string>
+    <string name="type.sport.karting">ກິລາໂກກາດ</string>
+    <string name="type.sport.motocross">ໂມໂຕຄຣອສ</string>
+    <string name="type.sport.motor">ມໍເຕີສະປໍດ</string>
+    <string name="type.sport.netball">ເນັດບອລ</string>
+    <string name="type.sport.pickleball">ພິກເກິນບອລ</string>
+    <string name="type.sport.rugby_union">ລັກບີ້</string>
+    <string name="type.sport.running">ການແລ່ນ</string>
+    <string name="type.sport.softball">ຊອບບອລ</string>
     <string name="type.tourism">ການທ່ອງທ່ຽວ</string>
     <string name="type.tourism.aquarium">ສະຖານທີ່ສະແດງສັດນ້ຳ</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1308,6 +1322,7 @@
     <string name="type.attraction.historic">ສະຖານທີ່ທ່ອງທ່ຽວທາງປະຫວັດສາດ</string>
     <string name="type.attraction.maze">ທາງວົງກົດ</string>
     <string name="type.attraction.roller_coaster">ລົດໄຟເຫາະ</string>
+    <string name="type.roller_coaster.track">ລົດໄຟເຫາະ</string>
     <string name="type.attraction.water_slide">ສະໄລເດີນ້ຳ</string>
     <string name="type.tourism.attraction.specified">ສະຖານທີ່ທ່ອງທ່ຽວ</string>
     <string name="type.tourism.camp_site">ສະຖານທີ່ຕັ້ງແຄ້ມ</string>
@@ -1339,6 +1354,7 @@
     <string name="type.traffic_calming.bump">ລູກລະນາດ</string>
     <string name="type.traffic_calming.hump">ເນີນຫຼຸດຄວາມໄວ</string>
     <string name="type.waterway">ທາງນ້ຳ</string>
+    <string name="type.waterway.access_point">ຈຸດເຂົ້າເຖິງທາງນ້ຳ</string>
     <string name="type.waterway.canal">ຄອງ</string>
     <string name="type.waterway.canal.tunnel">ອຸມົງຄອງນ້ຳ</string>
     <string name="type.waterway.fish_pass">ທາງປາຜ່ານ</string>
@@ -1428,4 +1444,5 @@
     <string name="type.craft.watchmaker">ຊ່າງແປງໂມງ</string>
     <string name="type.xmas_feature.market">ຕະຫຼາດຄຣິສມາດ</string>
     <string name="type.xmas_feature.tree">ຕົ້ນຄຣິສມາດ</string>
+    <string name="type.amenity.hookah_lounge">ຮ້ານສູບຢາ</string>
 </resources>

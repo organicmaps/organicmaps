@@ -141,12 +141,15 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarkGroup *)categoryForBookmarkId:(MWMMarkID)bookmarkId;
 - (MWMBookmarkGroup *)categoryForTrackId:(MWMTrackID)trackId;
 - (NSString *)descriptionForBookmarkId:(MWMMarkID)bookmarkId;
+- (NSString *)descriptionForTrackId:(MWMTrackID)trackId;
 - (void)updateBookmark:(MWMMarkID)bookmarkId
             setGroupId:(MWMMarkGroupID)groupId
                  title:(NSString *)title
                  color:(MWMBookmarkColor)color
            description:(NSString *)description;
 
+- (void)setCategory:(MWMMarkGroupID)groupId bookmarksColor:(MWMBookmarkColor)color;
+- (void)setCategory:(MWMMarkGroupID)groupId tracksColor:(MWMBookmarkColor)color;
 - (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(MWMBookmarkColor)color;
 
 - (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId;
@@ -154,7 +157,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
-              title:(NSString *)title;
+              title:(NSString *)title
+        description:(NSString *)description;
 
 - (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color;
 
@@ -168,7 +172,7 @@ NS_SWIFT_NAME(BookmarksManager)
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype)new __attribute__((unavailable("call +manager instead")));
 
-- (void)setElevationActivePoint:(CLLocationCoordinate2D)point distance:(double)distance trackId:(uint64_t)trackId;
+- (void)setElevationActivePointDistance:(double)distance trackId:(uint64_t)trackId;
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;
 - (void)resetElevationActivePointChanged;
 - (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;

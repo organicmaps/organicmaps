@@ -1,10 +1,9 @@
-• OSM-data per den 16 februari, Wikipedia per den 1 februari
-• Svarta vandrings- och cykelleder är nu synliga i mörkt tema
-• Lade till ziplines och fler biltjänster: reparation, service och delar
-• Fixade cykelruttning och beräkning av medelhastighet
-• Förbättrad kategorisökning
-• Uzbekiskt kök
-• Expanderbara öppettider
-• Visa och använd MSL-höjd för inspelade spår på Android 14+
-• Fixade import av KML, KMZ, GPX, GeoJSON från WhatsApp
-…mer på omaps.org/news
+• Välj vandrings- och cykelleder för att se deras höjddiagram
+• Korrekt kartanpassning vid antimeridianen (±180° longitud)
+• Ändra alla bokmärkes- och spårfärger i en kategori på en gång
+• Bättre sökning efter husnummer, fler amerikanska adresser täckta
+• OSM-data från och med den 4 april
+• Schemalagt utseendeläge i Inställningar
+• Fixat delning av bokmärken/spår till andra appar
+• Fixat uppladdning av kartredigeringar till OSM
+…mer på omaps.org/sv/news

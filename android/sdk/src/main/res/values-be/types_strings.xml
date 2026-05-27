@@ -237,6 +237,7 @@
     <string name="type.building">Будынак</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адрас</string>
+    <string name="type.building.construction">Будынак у стадыі будаўніцтва</string>
     <string name="type.building.has_parts">Будынак</string>
     <string name="type.building_part">Будынак</string>
     <string name="type.building.garage">Гараж</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Міжземнаморская</string>
     <string name="type.cuisine.mexican">Мексіканская</string>
     <string name="type.cuisine.moroccan">Мараканская</string>
-    <string name="type.cuisine.noodles">Локшына</string>
+    <string name="type.cuisine.noodle">Локшына</string>
     <string name="type.cuisine.oriental">Усходнеазіяцкая</string>
     <string name="type.cuisine.pancake">Блінніца</string>
     <string name="type.cuisine.pasta">Паста</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Каўбасная</string>
     <string name="type.cuisine.savory_pancakes">Несалодкія бліны</string>
     <string name="type.cuisine.seafood">Морапрадукты</string>
+    <string name="type.cuisine.shawarma">Шаўрма</string>
     <string name="type.cuisine.soba">Соба</string>
     <string name="type.cuisine.spanish">Іспанская</string>
     <string name="type.cuisine.steak_house">Стэйк-хаус</string>
@@ -363,7 +365,7 @@
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Ратавальнік</string>
     <!-- A mountain rescue base for search and rescue activities. -->
-    <string name="type.emergency.mountain_rescue">ГорныГ ратавальны пункт</string>
+    <string name="type.emergency.mountain_rescue">Горны ратавальны пункт</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Уваход</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -753,6 +755,7 @@
     <string name="type.natural.tree_row">Шэраг дрэў</string>
     <string name="type.natural.vineyard">Вінаграднік</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Актыўны вулкан</string>
     <string name="type.natural.water">Вадаём</string>
     <string name="type.natural.wetland">Балоцістая мясцовасць</string>
     <string name="type.natural.wetland.bog">Тарфянік</string>
@@ -1302,6 +1305,18 @@
     <string name="type.sport.field_hockey">Хакей на траве</string>
     <string name="type.sport.badminton">Бадмінтон</string>
     <string name="type.sport.pelota">Баскская пелота</string>
+    <string name="type.sport.boules">Боўлс</string>
+    <string name="type.sport.cycling">Веласпорт</string>
+    <string name="type.sport.four_square">Чатыры квадраты</string>
+    <string name="type.sport.horse_racing">Конныя скачкі</string>
+    <string name="type.sport.karting">Картынг</string>
+    <string name="type.sport.motocross">Мотакрос</string>
+    <string name="type.sport.motor">Аўтаспорт</string>
+    <string name="type.sport.netball">Нетбол</string>
+    <string name="type.sport.pickleball">Піклбол</string>
+    <string name="type.sport.rugby_union">Рэгбі-юніён</string>
+    <string name="type.sport.running">Бег</string>
+    <string name="type.sport.softball">Софтбол</string>
     <string name="type.tourism">Турызм</string>
     <string name="type.tourism.aquarium">Акварыум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1321,6 +1336,7 @@
     <string name="type.attraction.historic">Гістарычная славутасць</string>
     <string name="type.attraction.maze">Лабірынт</string>
     <string name="type.attraction.roller_coaster">Амерыканскія горкі</string>
+    <string name="type.roller_coaster.track">Амерыканскія горкі</string>
     <string name="type.attraction.water_slide">Водная горка</string>
     <string name="type.tourism.attraction.specified">Славутасць</string>
     <string name="type.tourism.camp_site">Кемпінг</string>
@@ -1352,6 +1368,7 @@
     <string name="type.traffic_calming.bump">Затор</string>
     <string name="type.traffic_calming.hump">Ляжачы паліцэйскі</string>
     <string name="type.waterway">Водны шлях</string>
+    <string name="type.waterway.access_point">Пункт доступу да вадаёма</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Канальны тунэль</string>
     <string name="type.waterway.fish_pass">Рыбаход</string>
@@ -1438,4 +1455,5 @@
     <string name="type.craft.watchmaker">Гадзіннікавы майстар</string>
     <string name="type.xmas_feature.market">Калядны кірмаш</string>
     <string name="type.xmas_feature.tree">Калядная ёлка</string>
+    <string name="type.amenity.hookah_lounge">Кальянная</string>
 </resources>

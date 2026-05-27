@@ -211,87 +211,35 @@ UNIT_TEST(SimpleScale)
   test.RunTest();
 }
 
-UNIT_TEST(SetCenter_TrackVisibleViewport_False_UsesGeometricScreenCenter)
+UNIT_TEST(SetCenter_AlignsToVisibleViewportCenter)
 {
-  // Simulates "Add Place" triggered from a search result with an explicit coordinate.
-  UserEventStreamTest test(false);
-
+  // With an asymmetric visible viewport (e.g. host UI panel covering bottom 30%),
+  // SetCenter must place the geographic target at the visible-viewport center
+  // regardless of trackVisibleViewport. The flag only controls whether the engine
+  // continues to follow the viewport when it changes later.
   uint32_t const kW = 1000, kH = 1000;
   m2::RectD const kVisibleViewport(0.0, 0.0, static_cast<double>(kW), 700.0);
-
-  test.AddResizeEvent(kW, kH);
-  test.AddSetVisibleViewport(kVisibleViewport);
-  test.SetRect(m2::RectD(-100.0, -100.0, 100.0, 100.0));
-  test.RunTest();
-
   m2::PointD const kTarget(0.0, 0.0);
-  test.AddSetCenter(kTarget, df::kDoNotChangeZoom, false /* trackVisibleViewport */);
-  test.RunTest();
-
-  ScreenBase const & screen = test.GetScreen();
-  m2::PointD const pixelPos = screen.GtoP(kTarget);
-
-  double const kEps = 1.0;  // 1 pixel tolerance
-  double const expectedX = kW * 0.5;
-  double const expectedY = kH * 0.5;
-  TEST(std::fabs(pixelPos.x - expectedX) < kEps, (pixelPos.x, "expected", expectedX));
-  TEST(std::fabs(pixelPos.y - expectedY) < kEps, (pixelPos.y, "expected", expectedY));
-}
-
-UNIT_TEST(SetCenter_TrackVisibleViewport_True_UsesVisibleViewportCenter)
-{
-  // Normal navigation (no explicit position): trackVisibleViewport=true
-  UserEventStreamTest test(false);
-
-  uint32_t const kW = 1000, kH = 1000;
-  m2::RectD const kVisibleViewport(0.0, 0.0, static_cast<double>(kW), 700.0);
-
-  test.AddResizeEvent(kW, kH);
-  test.AddSetVisibleViewport(kVisibleViewport);
-  test.SetRect(m2::RectD(-100.0, -100.0, 100.0, 100.0));
-  test.RunTest();
-
-  m2::PointD const kTarget(0.0, 0.0);
-  test.AddSetCenter(kTarget, df::kDoNotChangeZoom, true /* trackVisibleViewport */);
-  test.RunTest();
-
-  ScreenBase const & screen = test.GetScreen();
-  m2::PointD const pixelPos = screen.GtoP(kTarget);
-
   double const kEps = 1.0;
   m2::PointD const viewportCenter = kVisibleViewport.Center();
-  TEST(std::fabs(pixelPos.x - viewportCenter.x) < kEps, (pixelPos.x, "expected", viewportCenter.x));
-  TEST(std::fabs(pixelPos.y - viewportCenter.y) < kEps, (pixelPos.y, "expected", viewportCenter.y));
-}
 
-UNIT_TEST(SetCenter_TrackVisibleViewport_DifferentResults_WithAsymmetricViewport)
-{
-  // Regression guard: with an asymmetric visible viewport (UI panel present),
-  // trackVisibleViewport=false and trackVisibleViewport=true
-  uint32_t const kW = 1000, kH = 1000;
-  m2::RectD const kVisibleViewport(0.0, 0.0, static_cast<double>(kW), 700.0);
-  m2::PointD const kTarget(0.0, 0.0);
+  for (bool trackVisibleViewport : {false, true})
+  {
+    UserEventStreamTest test(false);
+    test.AddResizeEvent(kW, kH);
+    test.AddSetVisibleViewport(kVisibleViewport);
+    test.SetRect(m2::RectD(-100.0, -100.0, 100.0, 100.0));
+    test.RunTest();
 
-  UserEventStreamTest testFalse(false);
-  testFalse.AddResizeEvent(kW, kH);
-  testFalse.AddSetVisibleViewport(kVisibleViewport);
-  testFalse.SetRect(m2::RectD(-100.0, -100.0, 100.0, 100.0));
-  testFalse.RunTest();
-  testFalse.AddSetCenter(kTarget, df::kDoNotChangeZoom, false);
-  testFalse.RunTest();
-  m2::PointD const pixelFalse = testFalse.GetScreen().GtoP(kTarget);
+    test.AddSetCenter(kTarget, df::kDoNotChangeZoom, trackVisibleViewport);
+    test.RunTest();
 
-  UserEventStreamTest testTrue(false);
-  testTrue.AddResizeEvent(kW, kH);
-  testTrue.AddSetVisibleViewport(kVisibleViewport);
-  testTrue.SetRect(m2::RectD(-100.0, -100.0, 100.0, 100.0));
-  testTrue.RunTest();
-  testTrue.AddSetCenter(kTarget, df::kDoNotChangeZoom, true);
-  testTrue.RunTest();
-  m2::PointD const pixelTrue = testTrue.GetScreen().GtoP(kTarget);
-
-  double const yDiff = std::fabs(pixelFalse.y - pixelTrue.y);
-  TEST(yDiff > 100.0, (yDiff, "Expected ~150px difference in Y due to 300px bottom panel"));
+    m2::PointD const pixelPos = test.GetScreen().GtoP(kTarget);
+    TEST(std::fabs(pixelPos.x - viewportCenter.x) < kEps,
+         (pixelPos.x, "expected", viewportCenter.x, "trackVisibleViewport", trackVisibleViewport));
+    TEST(std::fabs(pixelPos.y - viewportCenter.y) < kEps,
+         (pixelPos.y, "expected", viewportCenter.y, "trackVisibleViewport", trackVisibleViewport));
+  }
 }
 
 #endif

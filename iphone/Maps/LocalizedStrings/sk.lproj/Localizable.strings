@@ -194,7 +194,7 @@
 
 /* Length of track in cell that describes route */
 "length" = "Dĺžka";
-"share_my_location" = "Zdieľať moje umiestnenie";
+"share_my_location" = "Zdieľať moju polohu";
 "prefs_group_route" = "Navigácia";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
@@ -229,6 +229,9 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Nastavenia jazyka povelov";
+
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Ak si chcete stiahnuť hlas vo vyššej kvalite, otvorte apku Nastavenia a prejdite do Prístupnosť → VoiceOver → Reč → Hlas.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testovanie hlasových pokynov (TTS, Text-To-Speech)";
@@ -558,7 +561,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Prevádzkovateľ: %@";
 "editor_category_unsuitable_title" = "Nemôžete nájsť vhodnú kategóriu?";
-"editor_category_unsuitable_text" = "Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Pozrite si náš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">príručku</a>, kde nájdete podrobné pokyny krok za krokom.";
+"editor_category_unsuitable_text" = "Organic Maps umožňuje pridávať iba jednoduché kategórie bodov, čo znamená, že nie sú k dispozícii mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie prosím pridávajte priamo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Podrobné pokyny krok za krokom nájdete v našom <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">návode</a>.";
 "downloader_no_downloaded_maps_title" = "Neprevzali ste žiadne mapy";
 "downloader_no_downloaded_maps_message" = "Prevziať mapy na nájdenie pozície a navigovanie off-line.";
 "current_location_unknown_error_title" = "Súčasná pozícia je neznáma.";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Cyklistika";
 "button_layer_subway" = "Metro";
 "layers_title" = "Štýly a vrstvy mapy";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Zmeniť farbu všetkých záložiek";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Zmeniť farbu všetkých trás";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportovať KMZ";
@@ -1029,7 +1038,7 @@
 "icloud_disabled_message" = "Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Povolenie stránky";
+"enable" = "Povoliť";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Zálohovanie";
@@ -1100,8 +1109,8 @@
 "routes_update_maps_text" = "Na zobrazenie trás je potrebné aktualizovať mapy.";
 
 /* Subway exits for public transport marks on the map */
-"core_exit" = "Ukončiť";
-"core_entrance" = "Vchod | vjazd";
+"core_exit" = "Výstup";
+"core_entrance" = "Vchod";
 "subway_data_unavailable" = "Mapa metra nie je dostupná";
 
 /* Settings/Highlight downloaded regions on the map */
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nedávno použité";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Farba záložiek bola zmenená";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Farba trás bola zmenená";

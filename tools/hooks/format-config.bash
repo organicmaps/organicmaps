@@ -37,6 +37,33 @@ SWIFTFORMAT_TARGETS=(
   "iphone"
 )
 
+KTLINT_TARGETS=(
+  "android/app/src|*.kt"
+  "android/libs/api/src|*.kt"
+  "android/libs/branding/src|*.kt"
+  "android/libs/car/src|*.kt"
+  "android/libs/downloader/src|*.kt"
+  "android/libs/googleassistant/src|*.kt"
+  "android/libs/routing/src|*.kt"
+  "android/libs/utils/src|*.kt"
+  "android/sdk/src|*.kt"
+  "android/sdk/car/src|*.kt"
+  "android/sdk/location/core/src|*.kt"
+  "android/sdk/location/gms/foss/src|*.kt"
+  "android/sdk/location/gms/google/src|*.kt"
+  "android/sdk/maps/world/src|*.kt"
+  "android/sdk/widgets/lanes/src|*.kt"
+  "android/sdk/widgets/speedlimit/src|*.kt"
+)
+
+resolve_ktlint() {
+  if command -v ktlint >/dev/null 2>&1; then
+    echo "ktlint"
+    return 0
+  fi
+  return 1
+}
+
 # Resolve a clang-format binary, preferring a versioned one.
 resolve_clang_format() {
   local binary

@@ -11,14 +11,14 @@
     <string name="type.aeroway.terminal">Aerogare de passageiros</string>
     <string name="type.amenity">Amenidades</string>
     <string name="type.amenity.atm">Caixa eletrônico</string>
-    <string name="type.amenity.bar">Drinqueria</string>
+    <string name="type.amenity.bar">Bar</string>
     <string name="type.amenity.bench">Banco</string>
     <string name="type.amenity.bicycle_parking">Bicicletário</string>
     <string name="type.amenity.bicycle_parking.covered">Estacionamento de bicicletas coberto</string>
     <string name="type.amenity.bicycle_rental">Aluguel de bicicletas</string>
     <string name="type.amenity.bicycle_repair_station">Oficina de conserto de bicicletas</string>
-    <string name="type.amenity.biergarten">Cervejaria ao ar livre</string>
-    <string name="type.amenity.love_hotel">Hotel</string>
+    <string name="type.amenity.biergarten">Jardim de cerveja</string>
+    <string name="type.amenity.love_hotel">Hotel para casais</string>
     <string name="type.amenity.bus_station">Rodoviária</string>
     <string name="type.amenity.car_rental">Aluguel de automóveis</string>
     <string name="type.amenity.motorcycle_rental">Aluguel de motocicletas</string>
@@ -100,6 +100,7 @@
     <string name="type.barrier.toll_booth">Cabine de pedágio</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Endereço</string>
+    <string name="type.building.construction">Edifício em construção</string>
     <string name="type.craft">Artesanato</string>
     <string name="type.craft.blacksmith">Serralheiro</string>
     <string name="type.craft.caterer">Serviço de bufê</string>
@@ -122,7 +123,7 @@
     <string name="type.cuisine.ice_cream">Sorvete</string>
     <string name="type.cuisine.italian_pizza">Italiana, pizza</string>
     <string name="type.cuisine.kebab">Espetinho</string>
-    <string name="type.cuisine.noodles">Macarrão</string>
+    <string name="type.cuisine.noodle">Macarrão</string>
     <string name="type.cuisine.pancake">Panquecas</string>
     <string name="type.cuisine.pizza">Pizza</string>
     <string name="type.cuisine.sausage">Linguiças</string>
@@ -240,8 +241,8 @@
     <string name="type.leisure.playground">Parquinho</string>
     <string name="type.leisure.sports_centre">Centro esportivo</string>
     <string name="type.sport.climbing">Ginásio de escalada</string>
-    <string name="type.leisure.track">Pista para esportes não motorizados</string>
-    <string name="type.leisure.track.area">Pista para esportes não motorizados</string>
+    <string name="type.leisure.track">Pista para esportes</string>
+    <string name="type.leisure.track.area">Pista para esportes</string>
     <string name="type.leisure.beach_resort">Resort de praia</string>
     <string name="type.man_made.breakwater">Molhe</string>
     <string name="type.man_made.cairn">Moledro ou mariola</string>
@@ -485,6 +486,18 @@
     <string name="type.sport.table_tennis">Tênis de mesa</string>
     <string name="type.sport.tennis">Quadra de tênis</string>
     <string name="type.sport.padel">Pádel</string>
+    <string name="type.sport.boules">Bocha</string>
+    <string name="type.sport.cycling">Ciclismo</string>
+    <string name="type.sport.four_square">Quatro quadrados</string>
+    <string name="type.sport.horse_racing">Corridas de cavalos</string>
+    <string name="type.sport.karting">Kart</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Esportes motorizados</string>
+    <string name="type.sport.netball">Netebol</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby</string>
+    <string name="type.sport.running">Corrida</string>
+    <string name="type.sport.softball">Softbol</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Alojamento na montanha</string>
     <string name="type.tourism.apartment">Apartamento de temporada</string>
@@ -502,6 +515,7 @@
     <string name="type.tourism.zoo.petting">Fazendinha</string>
     <string name="type.traffic_calming.bump">Quebra-molas</string>
     <string name="type.traffic_calming.hump">Quebra-molas longo</string>
+    <string name="type.waterway.access_point">Ponto de acesso à hidrovia</string>
     <string name="type.waterway.dam">Represa</string>
     <string name="type.waterway.waterfall">Cachoeira</string>
     <string name="type.waterway.weir">Açude</string>
@@ -525,9 +539,9 @@
     <string name="type.leisure.sports_hall">Salão de esportes</string>
     <string name="type.sport.diving">Mergulho</string>
     <string name="type.man_made.crane">Guindaste</string>
-    <string name="type.barrier.wicket_gate">Portão Maldito</string>
+    <string name="type.barrier.wicket_gate">Portão de passagem</string>
     <string name="type.barrier.yes">Barreira</string>
-    <string name="type.building.guardhouse">Guarda</string>
+    <string name="type.building.guardhouse">Guarita</string>
     <string name="type.office.security">Escritório de Segurança</string>
     <string name="type.shop.lighting">Loja de iluminação</string>
     <string name="type.barrier.debris">Destroços</string>
@@ -538,4 +552,5 @@
     <string name="type.man_made.monitoring_station.water_level">Estação de monitoramento do nível de água</string>
     <string name="type.man_made.monitoring_station.weather">Estação de monitoramento meteorológico</string>
     <string name="type.amenity.student_accommodation">Acomodação para estudantes</string>
+    <string name="type.amenity.hookah_lounge">Lounge de narguilé</string>
 </resources>

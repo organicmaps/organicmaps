@@ -98,7 +98,7 @@
 "category_transport" = "Transporte";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "Gás";
+"category_fuel" = "Combustível";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Estacionamento";
@@ -229,6 +229,9 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Idioma de voz";
+
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Para baixar uma voz de maior qualidade, abra o app Ajustes e acesse Acessibilidade → VoiceOver → Fala → Voz.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testar Instruções de Voz (TTS, Text-To-Speech)";
@@ -535,7 +538,7 @@
 "message_invalid_feature_position" = "Nenhum objeto pode ser localizado aqui";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Dados do OpenStreetMap criados pela comunidade a partir de %@. Saiba mais sobre como editar e atualizar o mapa em OpenStreetMap.org";
+"osm_presentation" = "Dados do OpenStreetMap criados pela comunidade em %@. Saiba mais sobre como editar e atualizar o mapa em OpenStreetMap.org";
 "login_to_make_edits_visible" = "Crie uma conta no OpenStreetMap ou faça login para publicar suas edições de mapas para o mundo.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Ciclismo";
 "button_layer_subway" = "Metrô";
 "layers_title" = "Estilos e camadas de mapas";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Alterar a cor de todos os favoritos";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Alterar a cor de todas as trilhas";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportar KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Recentes";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Cor dos favoritos alterada";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Cor das trilhas alterada";

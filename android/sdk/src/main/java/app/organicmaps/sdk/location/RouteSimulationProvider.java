@@ -5,7 +5,6 @@ import android.location.Location;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.routing.JunctionInfo;
-import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 

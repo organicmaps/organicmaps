@@ -166,15 +166,15 @@ void RemoveDuplicatingLinear(std::vector<RankerResult> & results)
 
 bool IsCountryOrCity(ftypes::LocalityType type)
 {
-  using namespace ftypes;
-
   switch (type)
   {
-  case LocalityType::Country:
-  case LocalityType::City:
-  case LocalityType::Town: return true;
+    using enum ftypes::LocalityType;
+  case Country:  // fallthrough
+  case City:     // fallthrough
+  case Town: return true;
+  default: return false;
   }
-  return false;
+  UNREACHABLE();
 }
 
 }  // namespace
@@ -395,15 +395,6 @@ private:
     return ft;
   }
 
-  bool GetExactAddress(FeatureType & ft, m2::PointD const & center, ReverseGeocoder::Address & addr) const
-  {
-    if (m_reverseGeocoder.GetExactAddress(ft, addr, true /* placeAsStreet */))
-      return true;
-
-    m_reverseGeocoder.GetNearbyAddress(center, 0.0 /* maxDistanceM */, addr, true /* placeAsStreet */);
-    return addr.IsValid();
-  }
-
   // For the best performance, incoming ids should be sorted by id.first (mwm file id).
   std::unique_ptr<FeatureType> LoadFeature(FeatureID const & id, m2::PointD & center, std::string & name,
                                            std::string & country)
@@ -444,7 +435,7 @@ private:
         return ft;
 
       ReverseGeocoder::Address addr;
-      if (GetExactAddress(*ft, center, addr))
+      if (m_reverseGeocoder.GetFeatureAddress(*ft, addr))
       {
         std::unique_ptr<FeatureType> streetFeature;
 
@@ -514,6 +505,35 @@ private:
       auto errorsMade = scores.m_errorsMade;
       bool isAltOrOldName = scores.m_isAltOrOldName;
       auto matchedLength = scores.m_matchedLength;
+
+      // Check if the feature's postcode matches the postcode tokens in the query.
+      // This distinguishes "Nero with postcode G4 9HS" from "Nero near postcode G4 9HS area".
+      if (!preInfo.m_postcodeRange.Empty())
+      {
+        auto const & innerRange = preInfo.InnermostTokenRange();
+        bool const postcodeOverlapsInnerRange =
+            innerRange.Begin() < preInfo.m_postcodeRange.End() && preInfo.m_postcodeRange.Begin() < innerRange.End();
+
+        if (!postcodeOverlapsInnerRange)
+        {
+          auto const postcode = ft.GetMetadata(feature::Metadata::FMD_POSTCODE);
+          if (!postcode.empty())
+          {
+            TokenSlice const slice(m_params, preInfo.m_postcodeRange);
+            NameScores pcScores;
+            UpdateNameScores(postcode, StringUtf8Multilang::kDefaultCode, slice, pcScores);
+
+            /// @todo Still not sure, put min (like for matched Streets/Cities below) or max (like LLM advises) here :)
+            // nameScore = std::max(pcScores.m_nameScore, nameScore);
+            errorsMade += pcScores.m_errorsMade;
+            matchedLength += pcScores.m_matchedLength;
+          }
+        }
+      }
+
+      /// @note! All calls to ft.GetMetadata() or similar getters is UB after this moment.
+      /// updateDependScore -> LoadFeature calls inside, which may replace m_loader and invalidate ft
+      /// loader state (like m_loadInfo->m_metaDeserializer).
 
       auto const updateScoreForFeature = [&](FeatureType & ft, Model::Type type)
       {

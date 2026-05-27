@@ -18,7 +18,7 @@
 "type.aeroway.apron" = "Plataforma de estacionamiento de aviones";
 "type.aeroway.gate" = "Puerta de embarque";
 "type.aeroway.helipad" = "Helipuerto";
-"type.aeroway.runway" = "Pista de despegue";
+"type.aeroway.runway" = "Pista";
 "type.aeroway.taxiway" = "Pista de rodaje";
 "type.aeroway.terminal" = "Terminal";
 "type.amenity" = "Infraestructura";
@@ -27,7 +27,7 @@
 "type.amenity.bank" = "Banco";
 "type.amenity.bar" = "Bar";
 "type.amenity.bbq" = "Barbacoa";
-"type.amenity.bench" = "Asiento";
+"type.amenity.bench" = "Banco";
 "type.amenity.bicycle_parking" = "Estacionamiento de bicicletas";
 "type.amenity.bicycle_parking.covered" = "Estacionamiento de bicicletas techado";
 "type.amenity.bicycle_rental" = "Renta de bicicletas";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Dirección";
+"type.building.construction" = "Edificio en construcción";
 "type.building.has_parts" = "Edificio";
 "type.building_part" = "Edificio";
 "type.building.garage" = "Garaje";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterránea";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquí";
-"type.cuisine.noodles" = "Fideos";
+"type.cuisine.noodle" = "Fideos";
 "type.cuisine.oriental" = "Oriental";
 "type.cuisine.pancake" = "Tortitas";
 "type.cuisine.pasta" = "Pastas";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Salchichas";
 "type.cuisine.savory_pancakes" = "Tortitas saladas";
 "type.cuisine.seafood" = "Mariscos";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba (fideos japoneses)";
 "type.cuisine.spanish" = "Española";
 "type.cuisine.steak_house" = "Asador";
@@ -767,7 +769,7 @@
 "type.leisure.golf_course" = "Campo de golf";
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Espacio para hackers";
-"type.leisure.ice_rink" = "Pisa de patinaje";
+"type.leisure.ice_rink" = "Pista de patinaje";
 "type.leisure.marina" = "Puerto o amarradero";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Asientos al aire libre";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Fila de árboles";
 "type.natural.vineyard" = "Viña";
 "type.natural.volcano" = "Volcán";
+"type.natural.volcano.active" = "Volcán activo";
 "type.natural.water" = "Cuerpo de agua";
 "type.natural.wetland" = "Terreno pantanoso";
 "type.natural.wetland.bog" = "Turbera";
@@ -919,7 +922,7 @@
 "type.place.island" = "Isla";
 "type.place.islet" = "Islote";
 "type.place.isolated_dwelling" = "Vivienda aislada";
-"type.place.locality" = "Localidad";
+"type.place.locality" = "Paraje";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
 "type.place.quarter" = "Barrio";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hockey sobre césped";
 "type.sport.badminton" = "Bádminton";
 "type.sport.pelota" = "Pelota vasca";
+"type.sport.boules" = "Petanca";
+"type.sport.cycling" = "Ciclismo";
+"type.sport.four_square" = "Cuatro cuadrados";
+"type.sport.horse_racing" = "Carreras de caballos";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Deportes de motor";
+"type.sport.netball" = "Netbol";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby";
+"type.sport.running" = "Carrera a pie";
+"type.sport.softball" = "Sóftbol";
 "type.tourism" = "Turismo";
 "type.tourism.aquarium" = "Acuario";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Atracción histórica";
 "type.attraction.maze" = "Laberinto";
 "type.attraction.roller_coaster" = "Montaña rusa";
+"type.roller_coaster.track" = "Montaña rusa";
 "type.attraction.water_slide" = "Tobogán acuático";
 "type.tourism.attraction.specified" = "Atracción turística";
 "type.tourism.camp_site" = "Paraje de campamento";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Topes";
 "type.traffic_calming.hump" = "Lomo";
 "type.waterway" = "Curso de agua";
+"type.waterway.access_point" = "Punto de acceso a vías navegables";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Escalera de peces";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Relojero";
 "type.xmas_feature.market" = "Mercado navideño";
 "type.xmas_feature.tree" = "Árbol de Navidad";
+"type.amenity.hookah_lounge" = "Lounge de narguile";

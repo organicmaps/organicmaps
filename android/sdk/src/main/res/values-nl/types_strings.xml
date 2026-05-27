@@ -11,7 +11,7 @@
     <string name="type.aerialway.drag_lift">Sleeplift</string>
     <string name="type.aerialway.gondola">Gondelbaan</string>
     <string name="type.aerialway.mixed_lift">Gecombineerde kabelbaan</string>
-    <string name="type.aerialway.station">Kabelwagenstation</string>
+    <string name="type.aerialway.station">Kabelbaanstation</string>
     <string name="type.aeroway">Luchtvaartinfrastructuur</string>
     <string name="type.aeroway.aerodrome">Vliegveld</string>
     <string name="type.aeroway.aerodrome.international">Vliegveld</string>
@@ -41,7 +41,7 @@
     <string name="type.amenity.car_rental">Autoverhuur</string>
     <string name="type.amenity.motorcycle_rental">Motorverhuur</string>
     <string name="type.amenity.car_sharing">Autodelen</string>
-    <string name="type.amenity.car_wash">Wasserette</string>
+    <string name="type.amenity.car_wash">Autowasstraat</string>
     <string name="type.amenity.casino">Casino</string>
     <string name="type.amenity.gambling">Gokken</string>
     <string name="type.leisure.adult_gaming_centre">Gamingcentrum voor volwassenen</string>
@@ -85,7 +85,7 @@
     <string name="type.amenity.internet_cafe">Internetcafé</string>
     <string name="type.amenity.kindergarten">Kleuterschool</string>
     <string name="type.amenity.library">Bibliotheek</string>
-    <string name="type.amenity.loading_dock">Laad-dock</string>
+    <string name="type.amenity.loading_dock">Laaddock</string>
     <string name="type.amenity.luggage_locker">Baggage Kluis</string>
     <string name="type.amenity.marketplace">Markt</string>
     <string name="type.amenity.motorcycle_parking">Parking Motorfietsen</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Gebouw</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adres</string>
+    <string name="type.building.construction">Gebouw in aanbouw</string>
     <string name="type.building.has_parts">Gebouw</string>
     <string name="type.building_part">Gebouw</string>
     <string name="type.building.garage">Garage</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Mediterraans</string>
     <string name="type.cuisine.mexican">Mexicaans</string>
     <string name="type.cuisine.moroccan">Marokkaans</string>
-    <string name="type.cuisine.noodles">Noedels</string>
+    <string name="type.cuisine.noodle">Noedels</string>
     <string name="type.cuisine.oriental">Oosters</string>
     <string name="type.cuisine.pancake">Pannenkoek</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Worst</string>
     <string name="type.cuisine.savory_pancakes">Hartige pannenkoeken</string>
     <string name="type.cuisine.seafood">Vis en zeevruchten</string>
+    <string name="type.cuisine.shawarma">Shoarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Spaans</string>
     <string name="type.cuisine.steak_house">Steakhouse</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Bomenrij</string>
     <string name="type.natural.vineyard">Wijngaard</string>
     <string name="type.natural.volcano">Vulkaan</string>
+    <string name="type.natural.volcano.active">Actieve vulkaan</string>
     <string name="type.natural.water">Waterlichaam</string>
     <string name="type.natural.wetland">Moerasland</string>
     <string name="type.natural.wetland.bog">Moeras</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Veldhockey</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Baskische peloton</string>
+    <string name="type.sport.boules">Jeu de boules</string>
+    <string name="type.sport.cycling">Wielrennen</string>
+    <string name="type.sport.four_square">Vier vierkanten</string>
+    <string name="type.sport.horse_racing">Paardenrennen</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motorcross</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netbal</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby union</string>
+    <string name="type.sport.running">Hardlopen</string>
+    <string name="type.sport.softball">Softbal</string>
     <string name="type.tourism">Tourisme</string>
     <string name="type.tourism.aquarium">Aquarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Historische attractie</string>
     <string name="type.attraction.maze">Doolhof</string>
     <string name="type.attraction.roller_coaster">Achtbaan</string>
+    <string name="type.roller_coaster.track">Achtbaan</string>
     <string name="type.attraction.water_slide">Waterglijbaan</string>
     <string name="type.tourism.attraction.specified">Attractie</string>
     <string name="type.tourism.camp_site">Kampeerterrein</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Verkeersdrempel</string>
     <string name="type.traffic_calming.hump">Verkeersheuvel</string>
     <string name="type.waterway">Waterweg</string>
+    <string name="type.waterway.access_point">Toegangspunt waterweg</string>
     <string name="type.waterway.canal">Kanaal</string>
     <string name="type.waterway.canal.tunnel">Kanaal</string>
     <string name="type.waterway.fish_pass">Vistrap</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Horlogemaker</string>
     <string name="type.xmas_feature.market">Kerstmarkt</string>
     <string name="type.xmas_feature.tree">Kerstboom</string>
+    <string name="type.amenity.hookah_lounge">Shisha bar</string>
 </resources>

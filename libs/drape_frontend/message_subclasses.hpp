@@ -14,6 +14,7 @@
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/render_node.hpp"
 #include "drape_frontend/route_shape.hpp"
+#include "drape_frontend/selection_info.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -578,6 +579,39 @@ public:
 
 private:
   int const m_recacheId;
+};
+
+/// Posted from the main thread to the render (frontend) thread. Carries pre-built polylines
+/// and a color to be highlighted as an overlay on top of the current selection, replacing any
+/// previously highlighted lines.
+class SetSelectionLinesMessage : public Message
+{
+public:
+  explicit SetSelectionLinesMessage(SelectionInfo && info) : m_info(std::move(info)) {}
+
+  Type GetType() const override { return Type::SetSelectionLines; }
+
+  SelectionInfo & MoveInfo() { return m_info; }
+
+private:
+  SelectionInfo m_info;
+};
+
+/// Posted from the frontend thread to the backend (resource upload) thread. Carries the same
+/// polylines plus a recacheId tagged from SelectionShape so stale flushes can be discarded.
+class BuildSelectionLinesMessage : public Message
+{
+public:
+  BuildSelectionLinesMessage(SelectionInfo && info, int recacheId) : m_info(std::move(info)), m_recacheId(recacheId) {}
+
+  Type GetType() const override { return Type::BuildSelectionLines; }
+
+  SelectionInfo const & GetInfo() const { return m_info; }
+  int GetRecacheId() const { return m_recacheId; }
+
+private:
+  SelectionInfo m_info;
+  int m_recacheId;
 };
 
 class AddSubrouteMessage : public Message
@@ -1154,6 +1188,44 @@ public:
 };
 
 using FlushTransitSchemeMessage = FlushRenderDataMessage<TransitRenderData, Message::Type::FlushTransitScheme>;
+
+/// Posted from the main thread to drape to display a single relation's transit view
+/// (polylines + stops + labels) on the transit scheme layer. Replaces any existing route
+/// transit; the map dim is driven by the existing m_transitSchemeEnabled flag.
+class ShowRouteTransitMessage : public Message
+{
+public:
+  explicit ShowRouteTransitMessage(TransitInfo && info) : m_info(std::move(info)) {}
+
+  Type GetType() const override { return Type::ShowRouteTransit; }
+
+  TransitInfo const & GetInfo() const { return m_info; }
+
+private:
+  TransitInfo m_info;
+};
+
+/// Posted from the main thread to drape to drop the currently shown route transit data.
+class HideRouteTransitMessage : public Message
+{
+public:
+  Type GetType() const override { return Type::HideRouteTransit; }
+};
+
+/// Posted from the backend to the frontend to update TransitSchemeRenderer's min visible zoom.
+/// Driven by TransitInfo::m_minZoomLevel passed in via ShowRouteTransitMessage.
+class SetTransitSchemeMinZoomMessage : public Message
+{
+public:
+  explicit SetTransitSchemeMinZoomMessage(int zoomLevel) : m_zoomLevel(zoomLevel) {}
+
+  Type GetType() const override { return Type::SetTransitSchemeMinZoom; }
+
+  int GetZoomLevel() const { return m_zoomLevel; }
+
+private:
+  int m_zoomLevel;
+};
 
 class DrapeApiAddLinesMessage : public Message
 {

@@ -85,7 +85,6 @@ struct BuildInfo
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   bool m_isGeometrySelectionAllowed = false;
   bool m_needAnimationOnSelection = true;
-  std::string m_postcode;
 };
 
 class Info : public osm::MapObject
@@ -98,6 +97,7 @@ public:
   bool IsFeature() const { return m_featureID.IsValid(); }
   bool IsBookmark() const;
   bool IsTrack() const { return m_trackId != kml::kInvalidTrackId; }
+  bool IsRelationTrack() const { return m_trackId == kml::kTempRelationTrackId; }
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
@@ -218,6 +218,19 @@ public:
 
   std::string FormatRouteRefs() const;
 
+  struct RouteRef
+  {
+    std::string m_ref, m_from, m_to;
+    int m_iRef;  // used for int-like sort
+    uint32_t m_relID;
+    feature::RouteRelationBase::Type m_type;
+    dp::Color m_color;  // kEmptyColor if the relation has no color tag
+
+    RouteRef(uint32_t relID, feature::RouteRelationBase const & rel);
+  };
+
+  std::vector<RouteRef> const & GetRoutes() const { return m_routes; }
+
 private:
   std::string FormatSubtitle(bool withTypes, bool withMainType) const;
   std::string GetBookmarkName();
@@ -289,15 +302,6 @@ private:
   OpeningMode m_openingMode = OpeningMode::Preview;
 
   df::SelectionShape::ESelectedObject m_selectedObject = df::SelectionShape::ESelectedObject::OBJECT_EMPTY;
-
-  struct RouteRef
-  {
-    std::string m_ref;
-    int m_iRef;  // used for int-like sort
-    uint32_t m_relID;
-
-    RouteRef(std::string const & ref, uint32_t relID);
-  };
 
   std::vector<RouteRef> m_routes;
 };

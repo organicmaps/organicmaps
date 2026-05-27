@@ -2,9 +2,9 @@
 <resources>
 
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">כתובת/שכונה</string>
-    <string name="type.addr_interpolation.even">כתובת/שכונה</string>
-    <string name="type.addr_interpolation.odd">כתובת/שכונה</string>
+    <string name="type.addr_interpolation">כתובת/בלוק</string>
+    <string name="type.addr_interpolation.even">כתובת/בלוק</string>
+    <string name="type.addr_interpolation.odd">כתובת/בלוק</string>
     <string name="type.aerialway.cable_car">רכבל</string>
     <string name="type.aerialway.chair_lift">רכבל סקי</string>
     <string name="type.aerialway.drag_lift">מעלית גרר לסקי</string>
@@ -81,7 +81,7 @@
     <string name="type.amenity.kindergarten">גן ילדים</string>
     <string name="type.amenity.library">ספרייה</string>
     <string name="type.amenity.loading_dock">מתחם העמסה</string>
-    <string name="type.amenity.marketplace">זירת מסחר</string>
+    <string name="type.amenity.marketplace">שוק</string>
     <string name="type.amenity.motorcycle_parking">חניית אופנועים</string>
     <string name="type.amenity.nightclub">מועדון לילה</string>
     <string name="type.amenity.nursing_home">בית אבות</string>
@@ -229,6 +229,7 @@
     <string name="type.building">מבנה</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">כתובת</string>
+    <string name="type.building.construction">בניין בבנייה</string>
     <string name="type.building.has_parts">מבנה</string>
     <string name="type.building_part">מבנה</string>
     <string name="type.building.garage">מחסן/חנייה</string>
@@ -318,7 +319,7 @@
     <string name="type.cuisine.mediterranean">מטבח ים-תיכוני</string>
     <string name="type.cuisine.mexican">מטבח מקסיקני</string>
     <string name="type.cuisine.moroccan">מטבח מרוקאי</string>
-    <string name="type.cuisine.noodles">אטריות</string>
+    <string name="type.cuisine.noodle">אטריות</string>
     <string name="type.cuisine.oriental">מטבח מזרחי</string>
     <string name="type.cuisine.pancake">פנקייק</string>
     <string name="type.cuisine.pasta">פסטה</string>
@@ -334,6 +335,7 @@
     <string name="type.cuisine.sausage">נקניק</string>
     <string name="type.cuisine.savory_pancakes">חביתיות מתובלות</string>
     <string name="type.cuisine.seafood">מאכלי ים</string>
+    <string name="type.cuisine.shawarma">שוארמה</string>
     <string name="type.cuisine.soba">אטריות סובה</string>
     <string name="type.cuisine.spanish">מטבח ספרדי</string>
     <string name="type.cuisine.steak_house">סטקייה</string>
@@ -659,6 +661,8 @@
     <string name="type.leisure.stadium">אצטדיון</string>
     <string name="type.leisure.swimming_pool">בריכת שחייה</string>
     <string name="type.leisure.swimming_pool.private">בריכת שחייה פרטית</string>
+    <string name="type.leisure.track">מסלול ספורט</string>
+    <string name="type.leisure.track.area">מסלול ספורט</string>
     <string name="type.leisure.water_park">פארק מים</string>
     <string name="type.leisure.beach_resort">אתר נופש על החוף</string>
     <string name="type.man_made">מלאכותי-מעשה ידי אדם</string>
@@ -737,6 +741,7 @@
     <string name="type.natural.tree_row">שורת עצים</string>
     <string name="type.natural.vineyard">כרם</string>
     <string name="type.natural.volcano">הר געש</string>
+    <string name="type.natural.volcano.active">הר געש פעיל</string>
     <string name="type.natural.water">מים</string>
     <string name="type.natural.wetland">ביצה</string>
     <string name="type.natural.wetland.bog">ביצת כבול</string>
@@ -1023,6 +1028,18 @@
     <string name="type.sport.field_hockey">הדש יקוה</string>
     <string name="type.sport.badminton">תיצונ</string>
     <string name="type.sport.pelota">תיקסאב הטלפ</string>
+    <string name="type.sport.boules">פטאנק</string>
+    <string name="type.sport.cycling">רכיבה על אופניים</string>
+    <string name="type.sport.four_square">ארבע משבצות</string>
+    <string name="type.sport.horse_racing">מרוצי סוסים</string>
+    <string name="type.sport.karting">קארטינג</string>
+    <string name="type.sport.motocross">מוטוקרוס</string>
+    <string name="type.sport.motor">ספורט מוטורי</string>
+    <string name="type.sport.netball">נטבול</string>
+    <string name="type.sport.pickleball">פיקלבול</string>
+    <string name="type.sport.rugby_union">רוגבי 15</string>
+    <string name="type.sport.running">ריצה</string>
+    <string name="type.sport.softball">סופטבול</string>
     <string name="type.tourism">תיירות</string>
     <string name="type.tourism.aquarium">אַקוַרִיוּם</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1040,6 +1057,7 @@
     <string name="type.attraction.historic">אטרקצייה היסטורית</string>
     <string name="type.attraction.maze">מָבוֹך</string>
     <string name="type.attraction.roller_coaster">רכבת הרים</string>
+    <string name="type.roller_coaster.track">רכבת הרים</string>
     <string name="type.attraction.water_slide">מגלשת מים</string>
     <string name="type.tourism.attraction.specified">אטרקצייה תיירותית</string>
     <string name="type.tourism.camp_site">אתר מחנאות</string>
@@ -1068,6 +1086,7 @@
     <string name="type.tourism.zoo.petting">פינת חי</string>
     <string name="type.traffic_calming.hump">פס האטה</string>
     <string name="type.waterway">נתיב מים</string>
+    <string name="type.waterway.access_point">נקודת גישה לנתיב מים</string>
     <string name="type.waterway.canal">תעלת מים</string>
     <string name="type.waterway.canal.tunnel">תעלת מים תת קרקעית</string>
     <string name="type.waterway.fish_pass">סולם דגים</string>
@@ -1117,4 +1136,5 @@
     <string name="type.craft.watchmaker">שָׁעָן</string>
     <string name="type.xmas_feature.market">שוק חג המולד</string>
     <string name="type.xmas_feature.tree">עץ חג המולד</string>
+    <string name="type.amenity.hookah_lounge">בר נרגילה</string>
 </resources>

@@ -64,7 +64,7 @@ private:
   std::array<UiDataBuffer, 2> m_uiDataBuffer;
   size_t m_updateIndex = 0;
 
-  glsl::mat4 m_projection;
+  glsl::mat4 m_projection{0.0f};
 
   std::mutex m_bufferMutex;
   std::mutex m_textureMutex;

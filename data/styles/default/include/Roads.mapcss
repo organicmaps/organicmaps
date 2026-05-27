@@ -1409,6 +1409,21 @@ line|z15-[railway=funicular],
 line|z17-[railway=funicular],
 {opacity: 1;}
 
+/* 9.7 Roller Coaster */
+line|z15-[roller_coaster=track],
+{color: @railway_tourism; width: 0.7; opacity: 0.7;}
+line|z16-[roller_coaster=track],
+{width: 0.8; opacity: 0.8;}
+line|z17-[roller_coaster=track],
+{width: 1; opacity: 1;}
+
+line|z15-[attraction=water_slide],
+{color: @ferry; width: 0.7; opacity: 0.7;}
+line|z16-[attraction=water_slide],
+{width: 0.8; opacity: 0.8;}
+line|z17-[attraction=water_slide],
+{width: 1; opacity: 1;}
+
 /* 10.PISTE 12-22 ZOOM */
 
 line|z12-[aerialway=cable_car],

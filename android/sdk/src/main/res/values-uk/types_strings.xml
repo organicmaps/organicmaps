@@ -19,7 +19,7 @@
     <string name="type.aeroway.gate">Вихід на посадку</string>
     <string name="type.aeroway.helipad">Майданчик для гелікоптерів</string>
     <string name="type.aeroway.runway">Злітно-посадкова смуга</string>
-    <string name="type.aeroway.taxiway">Рульова дорiжка</string>
+    <string name="type.aeroway.taxiway">Рульова доріжка</string>
     <string name="type.aeroway.terminal">Термінал</string>
     <string name="type.amenity">Об’єкти інфраструктури</string>
     <string name="type.amenity.arts_centre">Центр мистецтв</string>
@@ -66,7 +66,7 @@
     <string name="type.amenity.driving_school">Автошкола</string>
     <string name="type.amenity.exhibition_centre">Виставковий центр</string>
     <string name="type.amenity.money_transfer">Грошовий переказ</string>
-    <string name="type.amenity.music_school">Музична школа ім</string>
+    <string name="type.amenity.music_school">Музична школа</string>
     <string name="type.amenity.language_school">Мовна школа</string>
     <string name="type.office.diplomatic">Посольство</string>
     <string name="type.amenity.fast_food">Фастфуд</string>
@@ -80,7 +80,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Християнський цвинтар</string>
     <string name="type.amenity.hospital">Лікарня</string>
-    <string name="type.amenity.hunting_stand">Мисливська башта</string>
+    <string name="type.amenity.hunting_stand">Мисливська вежа</string>
     <string name="type.amenity.ice_cream">Морозиво</string>
     <string name="type.amenity.internet_cafe">Інтернет-кафе</string>
     <string name="type.amenity.kindergarten">Дитячий садок</string>
@@ -145,7 +145,7 @@
     <string name="type.recycling.glass_bottles">Склотара</string>
     <string name="type.recycling.paper">Папір</string>
     <string name="type.recycling.plastic">Пластик</string>
-    <string name="type.recycling.plastic_bottles">Пластикові бутилки</string>
+    <string name="type.recycling.plastic_bottles">Пластикові пляшки</string>
     <string name="type.recycling.scrap_metal">Металобрухт</string>
     <string name="type.recycling.small_appliances">Електровідходи</string>
     <string name="type.recycling.cardboard">Картон</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Будівля</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адреса</string>
+    <string name="type.building.construction">Будівля в стадії будівництва</string>
     <string name="type.building.has_parts">Будівля</string>
     <string name="type.building_part">Будівля</string>
     <string name="type.building.garage">Гараж</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Середземноморська кухня</string>
     <string name="type.cuisine.mexican">Мексиканська кухня</string>
     <string name="type.cuisine.moroccan">Марокканська кухня</string>
-    <string name="type.cuisine.noodles">Вермішель</string>
+    <string name="type.cuisine.noodle">Вермішель</string>
     <string name="type.cuisine.oriental">Східна кухня</string>
     <string name="type.cuisine.pancake">Млинцева</string>
     <string name="type.cuisine.pasta">Паста</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Сосисочна</string>
     <string name="type.cuisine.savory_pancakes">Пікантні оладки</string>
     <string name="type.cuisine.seafood">Морська їжа</string>
+    <string name="type.cuisine.shawarma">Шаурма</string>
     <string name="type.cuisine.soba">Соба</string>
     <string name="type.cuisine.spanish">Іспанська кухня</string>
     <string name="type.cuisine.steak_house">Стейк-хаус</string>
@@ -368,7 +370,7 @@
     <string name="type.entrance">Вхід</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Головний вхід</string>
-    <string name="type.entrance.exit">Виходьте.</string>
+    <string name="type.entrance.exit">Вихід</string>
     <string name="type.fee.yes">$</string>
     <string name="type.fee.no">Безкоштовно</string>
     <string name="type.healthcare.laboratory">Медична лабораторія</string>
@@ -603,7 +605,7 @@
     <string name="type.landuse">Землевикористання</string>
     <string name="type.landuse.allotments">Земельні ділянки</string>
     <string name="type.landuse.basin">Резервуар</string>
-    <string name="type.landuse.brownfield">Земля для будiвництва</string>
+    <string name="type.landuse.brownfield">Земля для будівництва</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Цвинтар</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -623,7 +625,7 @@
     <string name="type.landuse.forest.mixed">Змішаний ліс</string>
     <string name="type.landuse.garages">Гаражі</string>
     <string name="type.landuse.grass">Газон</string>
-    <string name="type.landuse.greenfield">Земля для будiвництва</string>
+    <string name="type.landuse.greenfield">Земля для будівництва</string>
     <string name="type.landuse.greenhouse_horticulture">Теплиці</string>
     <string name="type.landuse.industrial">Промзона</string>
     <string name="type.landuse.landfill">Звалище</string>
@@ -632,7 +634,7 @@
     <string name="type.landuse.orchard">Сад</string>
     <string name="type.landuse.quarry">Кар\'єр</string>
     <string name="type.landuse.railway">Залізничні споруди</string>
-    <string name="type.landuse.recreation_ground">База вiдпочинку</string>
+    <string name="type.landuse.recreation_ground">База відпочинку</string>
     <string name="type.landuse.reservoir">Водоймище</string>
     <string name="type.landuse.residential">Житлова зона</string>
     <string name="type.landuse.retail">Зона торгівлі</string>
@@ -728,7 +730,7 @@
     <string name="type.natural.cliff">Урвище</string>
     <string name="type.natural.earth_bank">Обрив</string>
     <string name="type.man_made.embankment">Насип</string>
-    <string name="type.natural.coastline">Берегова лiнiя</string>
+    <string name="type.natural.coastline">Берегова лінія</string>
     <string name="type.natural.desert">Пустиня</string>
     <string name="type.natural.geyser">Гейзер</string>
     <string name="type.natural.glacier">Льодовик</string>
@@ -746,7 +748,7 @@
     <string name="type.natural.orchard">Сад</string>
     <string name="type.natural.peak">Гора</string>
     <string name="type.natural.saddle">Сідловина</string>
-    <string name="type.natural.rock">Камiнь</string>
+    <string name="type.natural.rock">Камінь</string>
     <string name="type.natural.scrub">Зарості</string>
     <string name="type.natural.spring">Джерело</string>
     <string name="type.natural.spring.drinking_water_no">Джерело</string>
@@ -754,10 +756,11 @@
     <string name="type.natural.tree_row">Ряд дерев</string>
     <string name="type.natural.vineyard">Виноградник</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Діючий вулкан</string>
     <string name="type.natural.water">Водоймище</string>
     <string name="type.natural.wetland">Болотиста місцевість</string>
     <string name="type.natural.wetland.bog">Торф\'яне болото</string>
-    <string name="type.natural.wetland.marsh">Болотиста мiсцевiсть</string>
+    <string name="type.natural.wetland.marsh">Болотиста місцевість</string>
     <string name="type.noexit">Тупик</string>
     <string name="type.office">Офіс</string>
     <string name="type.office.architect">Архітектурне бюро</string>
@@ -793,7 +796,7 @@
     <string name="type.place.isolated_dwelling">Хутір</string>
     <string name="type.place.locality">Місце</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
-    <string name="type.place.quarter">Мiкрорайон</string>
+    <string name="type.place.quarter">Мікрорайон</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
     <string name="type.place.neighbourhood">Сусідство</string>
     <string name="type.place.ocean">Океан</string>
@@ -1177,7 +1180,7 @@
     <string name="type.shop.department_store">Універмаг</string>
     <string name="type.shop.doityourself">Будівельний магазин</string>
     <string name="type.shop.dry_cleaning">Хімчистка</string>
-    <string name="type.shop.electronics">Електротехнiка</string>
+    <string name="type.shop.electronics">Електротехніка</string>
     <string name="type.shop.erotic">Секс-шоп</string>
     <string name="type.shop.fabric">Магазин тканин</string>
     <string name="type.shop.farm">Магазин фермерських продуктів</string>
@@ -1229,11 +1232,11 @@
     <string name="type.shop.second_hand">Магазин секонд-хенду</string>
     <string name="type.shop.shoes">Магазин взуття</string>
     <string name="type.shop.sports">Спортивні товари</string>
-    <string name="type.shop.stationery">Канцелярськi товари</string>
+    <string name="type.shop.stationery">Канцелярські товари</string>
     <string name="type.shop.supermarket">Супермаркет</string>
     <string name="type.shop.tattoo">Тату-салон</string>
     <string name="type.shop.tea">Чайна крамниця</string>
-    <string name="type.shop.ticket">Квитковий кiоск</string>
+    <string name="type.shop.ticket">Квитковий кіоск</string>
     <string name="type.shop.toys">Магазин іграшок</string>
     <string name="type.shop.travel_agency">Турагентство</string>
     <string name="type.shop.tyres">Магазин шин</string>
@@ -1284,12 +1287,12 @@
     <string name="type.sport.golf">Гольф</string>
     <string name="type.sport.gymnastics">Гімнастика</string>
     <string name="type.sport.handball">Гандбол</string>
-    <string name="type.sport.multi">Рiзноманiтнi типи спорту</string>
+    <string name="type.sport.multi">Різноманітні типи спорту</string>
     <!-- Used to tag a scuba diving site. -->
     <string name="type.sport.scuba_diving">Місце для дайвінгу</string>
     <string name="type.sport.shooting">Стрільба</string>
     <string name="type.sport.skateboard">Скейтбординг</string>
-    <string name="type.sport.skiing">Лижi</string>
+    <string name="type.sport.skiing">Лижі</string>
     <string name="type.sport.soccer">Футбол</string>
     <string name="type.sport.swimming">Плавання</string>
     <string name="type.sport.table_tennis">Настільний теніс</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Хокей на траві</string>
     <string name="type.sport.badminton">Бадмінтон</string>
     <string name="type.sport.pelota">Баскська пелота</string>
+    <string name="type.sport.boules">Петанк</string>
+    <string name="type.sport.cycling">Велоспорт</string>
+    <string name="type.sport.four_square">Чотири квадрати</string>
+    <string name="type.sport.horse_racing">Кінні перегони</string>
+    <string name="type.sport.karting">Картинг</string>
+    <string name="type.sport.motocross">Мотокрос</string>
+    <string name="type.sport.motor">Автомотоспорт</string>
+    <string name="type.sport.netball">Нетбол</string>
+    <string name="type.sport.pickleball">Піклбол</string>
+    <string name="type.sport.rugby_union">Регбі-15</string>
+    <string name="type.sport.running">Біг</string>
+    <string name="type.sport.softball">Софтбол</string>
     <string name="type.tourism">Туризм</string>
     <string name="type.tourism.aquarium">Акваріум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Історична пам\'ятка</string>
     <string name="type.attraction.maze">Лабіринт</string>
     <string name="type.attraction.roller_coaster">Американські гірки</string>
+    <string name="type.roller_coaster.track">Американські гірки</string>
     <string name="type.attraction.water_slide">Водна гірка</string>
     <string name="type.tourism.attraction.specified">Пам’ятне місце</string>
     <string name="type.tourism.camp_site">Кемпінг</string>
@@ -1349,10 +1365,11 @@
     <string name="type.tourism.wilderness_hut">Хатка для туристів</string>
     <string name="type.tourism.zoo">Зоопарк</string>
     <string name="type.tourism.zoo.petting">Контактний зоопарк</string>
-    <string name="type.traffic_calming">Лежачий полiцейський</string>
-    <string name="type.traffic_calming.bump">Лежачий полiцейський</string>
-    <string name="type.traffic_calming.hump">Лежачий полiцейський</string>
+    <string name="type.traffic_calming">Лежачий поліцейський</string>
+    <string name="type.traffic_calming.bump">Лежачий поліцейський</string>
+    <string name="type.traffic_calming.hump">Лежачий поліцейський</string>
     <string name="type.waterway">Водяний шлях</string>
+    <string name="type.waterway.access_point">Пункт доступу до водного шляху</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Канал</string>
     <string name="type.waterway.fish_pass">Рибохід</string>
@@ -1361,8 +1378,8 @@
     <string name="type.natural.water.ditch">Дренажна канава</string>
     <string name="type.waterway.ditch.tunnel">Водопропускна труба</string>
     <string name="type.waterway.dock">Причал</string>
-    <string name="type.waterway.drain">Водовiдвiд</string>
-    <string name="type.natural.water.drain">Водовiдвiд</string>
+    <string name="type.waterway.drain">Водовідвід</string>
+    <string name="type.natural.water.drain">Водовідвід</string>
     <string name="type.waterway.drain.tunnel">Водопропускна труба</string>
     <string name="type.waterway.lock_gate">Шлюз</string>
     <string name="type.waterway.river">Річка</string>
@@ -1373,12 +1390,12 @@
     <string name="type.waterway.stream.tunnel">Струмок</string>
     <string name="type.waterway.waterfall">Водоспад</string>
     <string name="type.waterway.weir">Гребля</string>
-    <string name="type.wheelchair">Iнвалiдний вiзок</string>
+    <string name="type.wheelchair">Інвалідний візок</string>
     <string name="type.wheelchair.limited">Частково обладнано для інвалідів</string>
     <string name="type.wheelchair.no">Не обладнано для інвалідів</string>
     <string name="type.wheelchair.yes">Обладнано для інвалідів</string>
     <string name="type.aerialway.j.bar">Бугельний витяг</string>
-    <string name="type.aerialway.magic_carpet">Стрiчковий конвеєр</string>
+    <string name="type.aerialway.magic_carpet">Стрічковий конвеєр</string>
     <string name="type.aerialway.platter">Бугельний витяг</string>
     <string name="type.aerialway.rope_tow">Бугельний витяг</string>
     <string name="type.aerialway.t.bar">Бугельний витяг</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Годинникар</string>
     <string name="type.xmas_feature.market">Різдвяний ярмарок</string>
     <string name="type.xmas_feature.tree">Різдвяна ялинка</string>
+    <string name="type.amenity.hookah_lounge">Кальянна</string>
 </resources>

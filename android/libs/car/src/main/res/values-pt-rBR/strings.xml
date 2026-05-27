@@ -17,7 +17,7 @@
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Mercados</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">Gás</string>
+    <string name="category_fuel">Combustível</string>
     <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
     <string name="category_toilet">Banheiro</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
@@ -59,6 +59,7 @@
     <string name="avoid_ferry">Evitar balsas</string>
     <string name="avoid_motorways">Evitar rodovias</string>
     <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
+    <string name="trip_finished">Você chegou!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Classificar marcadores</string>
     <!-- Android -->

@@ -7,9 +7,7 @@ class SelectedSingleCell: Cell {
     contentView.addSubview(selectedBgView)
     selectedBgView.alignToSuperview(UIEdgeInsets(top: 4, left: 4, bottom: -4, right: -4))
     selectedBgView.layer.cornerRadius = 8
-    if #available(iOS 13.0, *) {
-      selectedBgView.layer.cornerCurve = .continuous
-    }
+    selectedBgView.layer.cornerCurve = .continuous
     super.addSubviews()
   }
 

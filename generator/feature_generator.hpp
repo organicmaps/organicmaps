@@ -4,8 +4,6 @@
 
 #include "coding/file_writer.hpp"
 
-#include <cstdint>
-#include <limits>
 #include <string>
 #include <vector>
 

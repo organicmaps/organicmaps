@@ -1,9 +1,9 @@
-• OSM andmed seisuga 16. veebruar, Vikipeedia seisuga 1. veebruar
-• Mustad matka- ja jalgrattarajad on nüüd tumedas teemas nähtavad
-• Lisatud köisraudteed ja rohkem autoteenuseid: remont, hooldus ja varuosad
-• Parandatud jalgratta marsruutimine ja keskmise kiiruse arvutamine
-• Täiustatud kategooriaotsing
-• Usbeki köök
-• Laiendatavad lahtiolekuajad
-• Kuva ja kasuta MSL kõrgust salvestatud radade jaoks Android 14+
-…rohkem aadressil omaps.org/news
+• Valige matkarajad ja jalgrattamarsruudid, et näha nende kõrgusdiagramme
+• Korralik kaardimähis antimeridiaanil (±180° pikkuskraadi)
+• Kõikide kategooriate järjehoidjate ja radade värvide muutmine korraga
+• Parem majanumbrite otsing, rohkem USA aadresse kaetud
+• OSMi andmed seisuga 4. aprill
+• Planeeritud ilmumisrežiim seadetes
+• Parandatud järjehoidjate/jälgede jagamine teistele rakendustele
+• Parandatud kaardi redigeerimise üleslaadimine OSM-i
+…rohkem aadressil omaps.org/et/news

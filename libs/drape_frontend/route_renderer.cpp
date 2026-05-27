@@ -1,4 +1,5 @@
 #include "drape_frontend/route_renderer.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -151,6 +152,22 @@ std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double scr
   std::vector<ArrowBorders> newArrowBorders;
   newArrowBorders.reserve(kAverageArrowsCount);
   auto const & polyline = subroute->m_polyline;
+
+  auto const intersectsScreen = [&screenRect, &polyline](double startDistance, double endDistance)
+  {
+    auto p1 = polyline.GetPointByDistance(startDistance);
+    if (screenRect.IsPointInside(p1))
+      return true;
+    auto p2 = polyline.GetPointByDistance(endDistance);
+    if (screenRect.IsPointInside(p2))
+      return true;
+
+    return false;
+    /// @todo Reasonable or overhead?
+    // int code1 = 0, code2 = 0;
+    // return m2::Intersect(screenRect, p1, p2, code1, code2);
+  };
+
   for (size_t i = 0; i < turns.size(); i++)
   {
     ArrowBorders arrowBorders;
@@ -164,19 +181,8 @@ std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double scr
       continue;
     }
 
-    m2::PointD pt = polyline.GetPointByDistance(arrowBorders.m_startDistance);
-    if (screenRect.IsPointInside(pt))
-    {
+    if (intersectsScreen(arrowBorders.m_startDistance, arrowBorders.m_endDistance))
       newArrowBorders.push_back(arrowBorders);
-      continue;
-    }
-
-    pt = polyline.GetPointByDistance(arrowBorders.m_endDistance);
-    if (screenRect.IsPointInside(pt))
-    {
-      newArrowBorders.push_back(arrowBorders);
-      continue;
-    }
   }
 
   // Merge intersected borders and clip them.
@@ -235,10 +241,14 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen, PrepareRouteAr
 
     if (zoom < kArrowAppearingZoomLevel)
     {
+      subrouteInfo.m_arrowsPrepareInProgress = false;
       subrouteInfo.m_arrowsData.reset();
       subrouteInfo.m_arrowBorders.clear();
       continue;
     }
+
+    if (subrouteInfo.m_arrowsPrepareInProgress)
+      continue;
 
     // Calculate arrow borders.
     double dist = kInvalidDistance;
@@ -247,10 +257,11 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen, PrepareRouteAr
 
     // We run asynchronous task to calculate new positions of route arrows.
     auto const subrouteId = subrouteInfo.m_subrouteId;
-    auto const screenRect = screen.ClipRect();
+    auto const screenRect = AdjustedScreen(screen, subrouteInfo.m_subroute->m_polyline.Front()).GetClipRect();
     auto const screenScale = screen.GetScale();
     auto const subrouteLength = subrouteInfo.m_length;
     auto subroute = subrouteInfo.m_subroute;
+    subrouteInfo.m_arrowsPrepareInProgress = true;
     dp::DrapeRoutine::RunSequential([subrouteId, screenRect, screenScale, halfWidth, subroute = std::move(subroute),
                                      subrouteLength, dist, prepareCallback]()
     {
@@ -271,6 +282,7 @@ void RouteRenderer::CacheRouteArrows(ScreenBase const & screen, dp::DrapeID subr
     return;
 
   auto & subrouteInfo = *it;
+  subrouteInfo.m_arrowsPrepareInProgress = false;
 
   double zoom = 0.0;
   float halfWidth = 0.0;
@@ -324,7 +336,7 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
     double const distDelta = segmentLen / circlesCount;
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      m2::PointD const pt = polyline.GetPointByDistance(d);
+      m2::PointD const pt = AdjustPointForViewport(polyline.GetPointByDistance(d), screen);
       m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator,
                                  pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))
@@ -436,11 +448,13 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
   auto const & style = subrouteInfo.m_subroute->m_style[styleIndex];
 
+  // Shift route into the wrapped world copy nearest to the current viewport.
+  AdjustedScreen adjScreen(screen, subrouteData->m_pivot);
+
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteData->m_pivot, kShapeCoordScalar);
-  params.m_modelView = glsl::make_mat4(mv.m_data);
+  params.m_modelView = glsl::make_mat4(adjScreen.GetShapeModelView().m_data);
   params.m_color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   params.m_routeParams = glsl::vec4(currentHalfWidth, screenHalfWidth, dist, trafficShown ? 1.0f : 0.0f);
 
@@ -469,7 +483,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   mng->GetParamsSetter()->Apply(context, prg, params);
 
   // Render buckets.
-  auto const & clipRect = screen.ClipRect();
+  auto const clipRect = adjScreen.GetClipRect();
   CHECK_EQUAL(subrouteData->m_renderProperty.m_buckets.size(), subrouteData->m_renderProperty.m_boundingBoxes.size(),
               ());
   for (size_t i = 0; i < subrouteData->m_renderProperty.m_buckets.size(); ++i)
@@ -490,11 +504,13 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   dp::RenderState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
   float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
+  // Shift arrows into the wrapped world copy nearest to the current viewport.
+  AdjustedScreen adjScreen(screen, subrouteInfo.m_arrowsData->m_pivot);
+
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot, kShapeCoordScalar);
-  params.m_modelView = glsl::make_mat4(mv.m_data);
+  params.m_modelView = glsl::make_mat4(adjScreen.GetShapeModelView().m_data);
   auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   params.m_arrowHalfWidth = arrowHalfWidth;
 
@@ -507,7 +523,7 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(context, prg, params);
 
-  auto const & clipRect = screen.ClipRect();
+  auto const clipRect = adjScreen.GetClipRect();
   CHECK_EQUAL(subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(),
               subrouteInfo.m_arrowsData->m_renderProperty.m_boundingBoxes.size(), ());
   for (size_t i = 0; i < subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(); ++i)
@@ -535,7 +551,7 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot, kShapeCoordScalar);
+  auto const mv = AdjustedScreen(screen, subrouteInfo.m_markersData->m_pivot).GetShapeModelView();
   params.m_modelView = glsl::make_mat4(mv.m_data);
   params.m_routeParams = glsl::vec4(currentHalfWidth, dist, 0.0f, 0.0f);
   params.m_angleCosSin =

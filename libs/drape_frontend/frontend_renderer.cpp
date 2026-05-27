@@ -25,8 +25,6 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/any_rect2d.hpp"
-
 #include "platform/trace.hpp"
 
 #include "base/assert.hpp"
@@ -44,7 +42,6 @@
 #include <limits>
 #include <memory>
 #include <thread>
-#include <utility>
 
 namespace df
 {
@@ -58,6 +55,12 @@ double constexpr kVSyncInterval = 0.06;
 double constexpr kVSyncIntervalMetalVulkan = 0.03;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
+
+bool IsTextUserMarkState(dp::RenderState const & state)
+{
+  auto const program = state.GetProgram<gpu::Program>();
+  return program == gpu::Program::Text || program == gpu::Program::TextOutlined;
+}
 
 template <typename ToDo>
 bool RemoveGroups(ToDo && filter, std::vector<drape_ptr<RenderGroup>> & groups, ref_ptr<dp::OverlayTree> tree)
@@ -151,6 +154,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_transitSchemeRenderer(new TransitSchemeRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
   , m_overlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
+  , m_searchMarkTextOverlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
   , m_enablePerspectiveInNavigation(false)
   , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
@@ -231,8 +235,10 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
   for (auto const & tileKey : m_notFinishedTiles)
     notFinishedTileRects.push_back(tileKey.GetGlobalRect());
 
-  for (RenderLayer & layer : m_layers)
+  for (size_t i = 0; i < m_layers.size(); ++i)
   {
+    auto const tree = GetOverlayTree(static_cast<DepthLayer>(i));
+    auto & layer = m_layers[i];
     for (auto & group : layer.m_renderGroups)
     {
       if (!group->IsPendingOnDelete())
@@ -245,7 +251,7 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
         if (tileRect.IsIntersect(screenRect))
           canBeDeleted = !HasIntersection(tileRect, notFinishedTileRects);
       }
-      layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, GetCurrentZoom(), make_ref(m_overlayTree));
+      layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, GetCurrentZoom(), tree);
     }
   }
 }
@@ -487,6 +493,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         AddUserEvent(make_unique_dp<SetRectEvent>(bbox, true /* rotate */, kDoNotChangeZoom, true /* isAnim */,
                                                   true /* useVisibleViewport */, nullptr /* parallelAnimCreator */));
       }
+    }
+    break;
+  }
+
+  case Message::Type::SetSelectionLines:
+  {
+    ref_ptr<SetSelectionLinesMessage> msg = message;
+    if (m_selectionShape != nullptr)
+    {
+      // Drop any previously highlighted lines so a new route highlight replaces the old one.
+      // Bumps the recache id, which also invalidates any still-in-flight builds.
+      m_selectionShape->ResetSelectionGeometry();
+      m_commutator->PostMessage(
+          ThreadsCommutator::ResourceUploadThread,
+          make_unique_dp<BuildSelectionLinesMessage>(std::move(msg->MoveInfo()), m_selectionShape->GetRecacheId()),
+          MessagePriority::Normal);
     }
     break;
   }
@@ -772,7 +794,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           zoom = scales::GetAddNewPlaceScale();
         AddUserEvent(make_unique_dp<SetCenterEvent>(
             pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(), zoom, true /* isAnim */,
-            !pt /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+            true /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
       }
       else
       {
@@ -788,6 +810,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(msg->GetRect()));
     m_myPositionController->SetVisibleViewport(msg->GetRect());
     m_myPositionController->UpdatePosition();
+    gui::DrapeGui::Instance().SetVisibleViewport(msg->GetRect());
     // PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
     break;
   }
@@ -821,6 +844,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::ClearAllTransitSchemeData:
   {
     m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));
+    break;
+  }
+
+  case Message::Type::SetTransitSchemeMinZoom:
+  {
+    ref_ptr<SetTransitSchemeMinZoomMessage> msg = message;
+    m_transitSchemeRenderer->SetMinZoomLevel(msg->GetZoomLevel());
     break;
   }
 
@@ -1025,6 +1055,13 @@ void FrontendRenderer::UpdateAll()
     layer.m_isDirty = false;
   }
 
+  // The render groups (and their owned OverlayHandles) just got destroyed; the overlay
+  // trees still hold non-owning ref_ptrs into that freed memory. Clear them so a
+  // SelectObject message arriving before the next BuildOverlayTree does not iterate
+  // dangling handles (manifests as __cxa_pure_virtual in OverlayHandle::GetPixelRect).
+  m_overlayTree->Clear();
+  m_searchMarkTextOverlayTree->Clear();
+
   // Must be recreated on map style changing.
   CHECK(m_context != nullptr, ());
   m_transitBackground = make_unique_dp<ScreenQuadRenderer>(m_context);
@@ -1123,10 +1160,10 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
     // Remove tiles to invalidate from screen.
     auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
     { return tiles.find(group->GetTileKey()) != tiles.end(); };
-    for (RenderLayer & layer : m_layers)
+    for (size_t i = 0; i < m_layers.size(); ++i)
     {
-      RemoveGroups(eraseFunction, layer.m_renderGroups, make_ref(m_overlayTree));
-      layer.m_isDirty = true;
+      RemoveGroups(eraseFunction, m_layers[i].m_renderGroups, GetOverlayTree(static_cast<DepthLayer>(i)));
+      m_layers[i].m_isDirty = true;
     }
 
     // Remove tiles to invalidate from backend renderer.
@@ -1194,8 +1231,10 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state, drape_ptr
 
 void FrontendRenderer::RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate)
 {
-  for (RenderLayer & layer : m_layers)
+  for (size_t i = 0; i < m_layers.size(); ++i)
   {
+    auto const tree = GetOverlayTree(static_cast<DepthLayer>(i));
+    auto & layer = m_layers[i];
     RemoveGroups([&predicate, &layer](drape_ptr<RenderGroup> const & group)
     {
       if (predicate(group))
@@ -1205,7 +1244,7 @@ void FrontendRenderer::RemoveRenderGroupsLater(TRenderGroupRemovePredicate const
         return group->CanBeDeleted();
       }
       return false;
-    }, layer.m_renderGroups, make_ref(m_overlayTree));
+    }, layer.m_renderGroups, tree);
   }
 }
 
@@ -1250,6 +1289,8 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   if (m_overlayTree->IsNeedUpdate())
     BuildOverlayTree(screen);
+  if (m_searchMarkTextOverlayTree->IsNeedUpdate())
+    UpdateSearchMarkTextOverlay(screen);
 
   dp::TOverlayContainer selectResult;
 
@@ -1323,6 +1364,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       dp::TOverlayContainer selectResult;
       if (m_overlayTree->IsNeedUpdate())
         BuildOverlayTree(modelView);
+      // Expect that msg->GetPosition() is in canonical mercator coordinates.
       m_overlayTree->Select(msg->GetPosition(), selectResult);
       for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
@@ -1675,7 +1717,7 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
   TRACE_SECTION("[drape] RenderUserMarksLayer");
-  auto & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
+  auto const & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
   if (renderGroups.empty())
     return;
 
@@ -1683,13 +1725,20 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
   DEBUG_LABEL(m_context, "User Marks: " + DebugPrint(layerId));
   m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
-  for (drape_ptr<RenderGroup> & group : renderGroups)
+  for (drape_ptr<RenderGroup> const & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 
 void FrontendRenderer::RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
   TRACE_SECTION("[drape] RenderNonDisplaceableUserMarksLayer");
+  if (layerId == DepthLayer::SearchMarkLayer)
+  {
+    UpdateSearchMarkTextOverlay(modelView);
+    RenderUserMarksLayer(modelView, layerId);
+    return;
+  }
+
   auto & layer = m_layers[static_cast<size_t>(layerId)];
   layer.Sort(nullptr);
   for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
@@ -1800,7 +1849,10 @@ void FrontendRenderer::RenderFrame()
   if (!isActiveFrame)
   {
     if (m_frameData.m_inactiveFramesCounter == 0)
+    {
       m_overlayTree->InvalidateOnNextFrame();
+      m_searchMarkTextOverlayTree->InvalidateOnNextFrame();
+    }
     m_frameData.m_inactiveFramesCounter++;
   }
   else
@@ -1809,7 +1861,7 @@ void FrontendRenderer::RenderFrame()
   }
 
   bool const canSuspend = m_frameData.m_inactiveFramesCounter > FrameData::kMaxInactiveFrames;
-  m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
+  m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate() || m_searchMarkTextOverlayTree->IsNeedUpdate();
   if (canSuspend)
   {
 #if defined(OMIM_OS_DESKTOP)
@@ -1881,6 +1933,42 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
   if (m_transitSchemeRenderer->IsSchemeVisible(GetCurrentZoom()) && !HasTransitRouteData())
     m_transitSchemeRenderer->CollectOverlays(make_ref(m_overlayTree), modelView);
   EndUpdateOverlayTree();
+}
+
+void FrontendRenderer::UpdateSearchMarkTextOverlay(ScreenBase const & modelView)
+{
+  auto const tree = make_ref(m_searchMarkTextOverlayTree);
+  auto & layer = m_layers[static_cast<size_t>(DepthLayer::SearchMarkLayer)];
+
+  if (tree->Frame())
+    tree->StartOverlayPlacing(modelView, GetCurrentZoom());
+
+  layer.Sort(tree);
+  for (auto & group : layer.m_renderGroups)
+  {
+    if (IsTextUserMarkState(group->GetState()))
+    {
+      if (tree->IsNeedUpdate())
+        group->CollectOverlay(tree);
+      else
+        group->Update(modelView);
+    }
+    else
+    {
+      group->SetOverlayVisibility(true);
+      group->Update(modelView);
+    }
+  }
+
+  if (tree->IsNeedUpdate())
+    tree->EndOverlayPlacing();
+}
+
+ref_ptr<dp::OverlayTree> FrontendRenderer::GetOverlayTree(DepthLayer layerId) const
+{
+  if (layerId == DepthLayer::SearchMarkLayer)
+    return make_ref(m_searchMarkTextOverlayTree);
+  return make_ref(m_overlayTree);
 }
 
 void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket)
@@ -1978,10 +2066,18 @@ bool FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 
 void FrontendRenderer::UpdateDisplacementEnabled()
 {
+  // Do not change displacing for m_searchMarkTextOverlayTree here.
   if (m_choosePositionMode)
-    m_overlayTree->SetDisplacementEnabled(GetCurrentZoom() < scales::GetAddNewPlaceScale());
+  {
+    bool const enableDisplacement = GetCurrentZoom() < scales::GetAddNewPlaceScale();
+    m_overlayTree->SetDisplacementEnabled(enableDisplacement);
+    // m_searchMarkTextOverlayTree->SetDisplacementEnabled(enableDisplacement);
+  }
   else
+  {
     m_overlayTree->SetDisplacementEnabled(true);
+    // m_searchMarkTextOverlayTree->SetDisplacementEnabled(true);
+  }
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
@@ -1996,8 +2092,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   bool isMyPosition = false;
 
-  m2::PointD const pxPoint2d = screen.P3dtoP(pt);
-  m2::PointD mercator = screen.PtoG(pxPoint2d);
+  m2::PointD mercator = PtoGWrap(screen.P3dtoP(pt), screen);
 
   // Long tap should show/hide the interface. There is no need to detect tapped features.
   if (isLongTap)
@@ -2008,7 +2103,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 
   if (m_myPositionController->IsModeHasPosition())
   {
-    m2::PointD const pixelPos = screen.PtoP3d(screen.GtoP(m_myPositionController->Position()));
+    m2::PointD const pixelPos = screen.PtoP3d(GtoPWrap(m_myPositionController->Position(), screen));
     isMyPosition = selectRect.IsPointInside(pixelPos);
     if (isMyPosition)
       mercator = m_myPositionController->Position();
@@ -2260,8 +2355,11 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
            (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX || key.m_y < result.m_minTileY ||
             key.m_y >= result.m_maxTileY || base::IsExist(tilesToDelete, key));
   };
-  for (RenderLayer & layer : m_layers)
-    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
+  for (size_t i = 0; i < m_layers.size(); ++i)
+  {
+    m_layers[i].m_isDirty |=
+        RemoveGroups(removePredicate, m_layers[i].m_renderGroups, GetOverlayTree(static_cast<DepthLayer>(i)));
+  }
 
   RemoveRenderGroupsLater([this](drape_ptr<RenderGroup> const & group)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
@@ -2294,6 +2392,8 @@ void FrontendRenderer::OnContextDestroy()
   m_overlayTree->SetSelectedFeature(FeatureID());
   m_overlayTree->SetDebugRectRenderer(nullptr);
   m_overlayTree->Clear();
+  m_searchMarkTextOverlayTree->SetDebugRectRenderer(nullptr);
+  m_searchMarkTextOverlayTree->Clear();
 
   m_guiRenderer.reset();
   m_selectionShape.reset();
@@ -2356,6 +2456,8 @@ void FrontendRenderer::OnContextCreate()
 
   m_overlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
   m_overlayTree->SetVisualScale(VisualParams::Instance().GetVisualScale());
+  m_searchMarkTextOverlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
+  m_searchMarkTextOverlayTree->SetVisualScale(VisualParams::Instance().GetVisualScale());
 
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(m_context);
@@ -2389,6 +2491,7 @@ void FrontendRenderer::OnContextCreate()
 void FrontendRenderer::OnRenderingEnabled()
 {
   m_overlayTree->InvalidateOnNextFrame();
+  m_searchMarkTextOverlayTree->InvalidateOnNextFrame();
 
 #ifndef DRAPE_MEASURER_BENCHMARK
   DrapeMeasurer::Instance().Start();
@@ -2570,8 +2673,11 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
            (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
            (group->IsUserMark() && (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));
   };
-  for (RenderLayer & layer : m_layers)
-    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
+  for (size_t i = 0; i < m_layers.size(); ++i)
+  {
+    m_layers[i].m_isDirty |=
+        RemoveGroups(removePredicate, m_layers[i].m_renderGroups, GetOverlayTree(static_cast<DepthLayer>(i)));
+  }
 
   if (m_forceUpdateScene || m_forceUpdateUserMarks || m_lastReadedModelView != modelView)
   {
@@ -2650,14 +2756,24 @@ void FrontendRenderer::SearchInNonDisplaceableUserMarksLayer(ScreenBase const & 
                                                              dp::TOverlayContainer & result)
 {
   auto & layer = m_layers[static_cast<size_t>(layerId)];
-  layer.Sort(nullptr);
+  if (layerId == DepthLayer::SearchMarkLayer)
+    UpdateSearchMarkTextOverlay(modelView);
+  else
+    layer.Sort(nullptr);
+
   for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
   {
-    group->SetOverlayVisibility(true);
-    group->Update(modelView);
+    if (layerId != DepthLayer::SearchMarkLayer)
+    {
+      group->SetOverlayVisibility(true);
+      group->Update(modelView);
+    }
     group->ForEachOverlay(
         [&modelView, &result, selectionRect = m2::RectF(selectionRect)](ref_ptr<dp::OverlayHandle> const & h)
     {
+      if (!h->IsVisible())
+        return;
+
       dp::OverlayHandle::Rects shapes;
       h->GetPixelShape(modelView, modelView.isPerspective(), shapes);
       for (m2::RectF const & shape : shapes)
@@ -2692,10 +2808,8 @@ void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
 // static
 m2::AnyRectD TapInfo::GetDefaultTapRect(m2::PointD const & mercator, ScreenBase const & screen)
 {
-  m2::AnyRectD result;
-  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(mercator), halfSize, result);
-  return result;
+  double const r = VisualParams::Instance().GetTouchRectRadius() * screen.GetScale();
+  return m2::AnyRectD(mercator, screen.GetAngleD(), m2::RectD(-r, -r, r, r));
 }
 
 // static
@@ -2703,13 +2817,13 @@ m2::AnyRectD TapInfo::GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase
 {
   static int constexpr kBmTouchPixelIncrease = 20;
 
-  m2::AnyRectD result;
   double const bmAddition = kBmTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
   double const halfSize = VisualParams::Instance().GetTouchRectRadius();
   double const pxWidth = halfSize;
   double const pxHeight = halfSize + bmAddition;
-  screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, bmAddition), pxWidth, pxHeight, result);
-  return result;
+
+  // No need in GtoPWrap since screen.GetTouchRect makes PtoG inside :)
+  return screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, bmAddition), pxWidth, pxHeight);
 }
 
 // static
@@ -2717,11 +2831,11 @@ m2::AnyRectD TapInfo::GetRoutingPointTapRect(m2::PointD const & mercator, Screen
 {
   static int constexpr kRoutingPointTouchPixelIncrease = 20;
 
-  m2::AnyRectD result;
-  double const bmAddition = kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
-  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(mercator), halfSize + bmAddition, result);
-  return result;
+  double const r = (kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale() +
+                    VisualParams::Instance().GetTouchRectRadius()) *
+                   screen.GetScale();
+
+  return m2::AnyRectD(mercator, screen.GetAngleD(), m2::RectD(-r, -r, r, r));
 }
 
 // static

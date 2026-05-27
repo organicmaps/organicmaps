@@ -45,10 +45,17 @@ public:
 public:
   Spline() = default;
   explicit Spline(size_t reservedSize);
-  explicit Spline(std::vector<PointD> const & path);
-  explicit Spline(std::vector<PointD> && path);
+  explicit Spline(std::vector<PointD> path);
 
   void AddPoint(PointD const & pt);
+  /// Variant for callers that already know the direction and length of the
+  /// new segment (e.g. clip-from-source-spline). The caller guarantees:
+  ///   - the spline is non-empty;
+  ///   - |dir| is the unit vector from the current m_position.back() to pt;
+  ///   - |len| is the Euclidean distance from m_position.back() to pt
+  ///     and is strictly positive (no degenerate zero-length segments).
+  /// Skips the sqrt + normalize that the single-arg overload pays.
+  void AddPoint(PointD const & pt, PointD const & dir, double len);
   void ReplacePoint(PointD const & pt);
   bool IsProlonging(PointD const & pt) const;
 
@@ -59,25 +66,10 @@ public:
 
   iterator GetPoint(double step) const;
 
-  template <typename TFunctor>
-  void ForEachNode(iterator const & begin, iterator const & end, TFunctor const & f) const
-  {
-    ASSERT(begin.BeginAgain() == false, ());
-    ASSERT(end.BeginAgain() == false, ());
-
-    f(begin.m_pos);
-
-    for (size_t i = begin.GetIndex() + 1; i <= end.GetIndex(); ++i)
-      f(m_position[i]);
-
-    f(end.m_pos);
-  }
-
   bool IsEmpty() const;
   bool IsValid() const;
 
   double GetLength() const;
-  double GetLastLength() const;
   /// @return for (i) -> (i + 1) section.
   std::pair<PointD, double> GetTangentAndLength(size_t i) const;
 
@@ -97,7 +89,7 @@ protected:
 class SplineEx : public Spline
 {
 public:
-  explicit SplineEx(size_t reservedSize = 2);
+  explicit SplineEx(size_t reservedSize = 2) : Spline(reservedSize) {}
 
   std::vector<double> const & GetLengths() const { return m_length; }
   std::vector<PointD> const & GetDirections() const { return m_direction; }
@@ -107,18 +99,20 @@ class SharedSpline
 {
 public:
   SharedSpline() = default;
-  explicit SharedSpline(std::vector<PointD> const & path);
-  explicit SharedSpline(std::vector<PointD> && path);
+  explicit SharedSpline(std::vector<PointD> path) : m_spline(std::make_shared<Spline>(std::move(path))) {}
+  SharedSpline(std::unique_ptr<Spline> p) : m_spline(std::move(p)) {}
 
-  bool IsNull() const;
-  void Reset(Spline * spline);
-  // void Reset(std::vector<PointD> const & path);
+  bool IsNull() const { return m_spline == nullptr; }
 
   Spline::iterator CreateIterator() const;
 
-  Spline * operator->();
-  Spline const * operator->() const;
-  Spline const * Get() const;
+  Spline const & operator*() const { return *Get(); }
+  Spline const * operator->() const { return Get(); }
+  Spline const * Get() const
+  {
+    ASSERT(!IsNull(), ());
+    return m_spline.get();
+  }
 
   SharedSpline Equidistant(double dist) const;
 

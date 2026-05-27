@@ -32,8 +32,10 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
         self.set_status(payload.response_code())
         for h in payload.headers():
             self.add_header(h, payload.headers()[h])
-        self.add_header("Content-Length", payload.length())
-        self.write(payload.message())
+        # HTTP 204/304 must not include a message body (RFC 7230 §3.3).
+        if payload.response_code() not in (204, 304):
+            self.add_header("Content-Length", payload.length())
+            self.write(payload.message())
     
     
     def prepare_headers(self):
@@ -64,6 +66,15 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
             self.dispatch_response(Payload(self.request.body))
         else:
             self.dispatch_response(payload)
+
+    put = post
+
+    def head(self, param):
+        payload = self.response_provider.response_for_url_and_headers(self.request.uri, self.headers)
+        self.set_status(payload.response_code())
+        for h in payload.headers():
+            self.add_header(h, payload.headers()[h])
+        self.add_header("Content-Length", payload.length())
 
 
     @staticmethod

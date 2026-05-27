@@ -64,9 +64,7 @@
                         return;
 
                       if (image)
-                      {
                         completion(image, nil);
-                      }
                       else
                       {
                         NSURLSessionTask * dataTask = [self.urlSession

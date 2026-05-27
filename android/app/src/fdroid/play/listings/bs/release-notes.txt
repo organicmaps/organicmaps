@@ -1,0 +1,9 @@
+• OSM podaci o mapama od 10. marta, podaci s Wikipedije od 1. marta
+• Detaljnije izohipse za kineske pokrajine
+• Dodani redovi stabala, kožne radnje i radnje koje prodaju vjerske proizvode
+• Dodana podrška za uslovna ograničenja brzine
+• Tanzanija podijeljena na manje regija
+• Poboljšan prikaz radnog vremena objekata
+• Ispravljeno nekoliko padova aplikacije
+• Poboljšani prijevodi naziva aplikacija i zemalja
+…više na omaps.org/news

@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Vengti keltų</string>
     <string name="avoid_motorways">Vengti greitkelių</string>
     <string name="unable_to_calc_alert_title">Nepavyko apskaičiuoti maršruto</string>
+    <string name="trip_finished">Jūs pasiekėte kelionės tikslą!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Rikiuoti žymes</string>
     <!-- Android -->

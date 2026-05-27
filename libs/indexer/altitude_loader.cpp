@@ -6,14 +6,10 @@
 #include "coding/succinct_mapper.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
-#include "base/thread.hpp"
 
 #include "defines.hpp"
 
 #include <algorithm>
-
-#include "3party/succinct/mapper.hpp"
 
 namespace feature
 {
@@ -32,6 +28,8 @@ void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src, T
 }
 }  // namespace
 
+/// @todo Pass FileContainerR here instead of MwmValue.
+/// m_countryFileName is used for debug prints only (can use or resolve from filePath).
 AltitudeLoaderBase::AltitudeLoaderBase(MwmValue const & mwmValue)
 {
   m_countryFileName = mwmValue.GetCountryFileName();

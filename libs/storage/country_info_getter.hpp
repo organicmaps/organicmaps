@@ -77,7 +77,7 @@ public:
   // Returns vector of countries file names without extension for
   // countries belonging to |rect|. When |rough| is equal to true, the
   // method is much faster but the result is less precise.
-  std::vector<CountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
+  std::vector<CountryId> GetRegionsCountryIdByRect(m2::RectD rect, bool rough) const;
 
   // Returns a list of country ids by a |pt| in mercator.
   // |closestCoutryIds| is filled with country ids of mwms that cover |pt| or are close to it
@@ -169,7 +169,7 @@ protected:
 
   mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_polyCache;
   mutable base::Cache<uint32_t, std::vector<m2::PointD>> m_trgCache;
-  mutable std::mutex m_polyMutex, m_trgMutex;
+  mutable std::mutex m_readerMutex;
 };
 
 // This class allows users to get info about very simply rectangular

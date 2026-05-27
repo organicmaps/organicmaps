@@ -1,6 +1,7 @@
 protocol PlacePageHeaderPresenterProtocol: AnyObject {
   var objectType: PlacePageObjectType { get }
   var canEditTitle: Bool { get }
+  var canShare: Bool { get }
 
   func configure()
   func onClosePress()
@@ -47,6 +48,7 @@ class PlacePageHeaderPresenter {
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
   var canEditTitle: Bool { objectType == .bookmark || objectType == .track }
+  var canShare: Bool { objectType == .POI || objectType == .bookmark || objectType == .track }
 
   func configure() {
     view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)

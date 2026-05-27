@@ -45,4 +45,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/PlacePageOSMContributionData.h>
 #import <CoreApi/PlacePagePhone.h>
 #import <CoreApi/PlacePagePreviewData.h>
+#import <CoreApi/PlacePageRoute.h>
 #import <CoreApi/PlacePageTrackData.h>
+#import <CoreApi/RouteElevationPreviewData.h>

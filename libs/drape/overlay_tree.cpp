@@ -3,6 +3,8 @@
 #include "drape/constants.hpp"
 #include "drape/debug_renderer.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <algorithm>
 
 namespace dp
@@ -21,18 +23,18 @@ namespace
 class HandleComparator
 {
 public:
-  explicit HandleComparator(bool enableMask) : m_enableMask(enableMask) {}
+  explicit HandleComparator(bool enableMask) /* : m_enableMask(enableMask) */ {}
 
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const { return IsGreater(l, r); }
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
-    bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
-    if (displayFlagLeft > displayFlagRight)
-      return true;
+    // bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
+    // bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
+    // if (displayFlagLeft > displayFlagRight)
+    //   return true;
 
-    if (displayFlagLeft == displayFlagRight)
+    // if (displayFlagLeft == displayFlagRight)
     {
       uint64_t const priorityLeft = l->GetPriority();
       uint64_t const priorityRight = r->GetPriority();
@@ -56,17 +58,18 @@ public:
 
   bool IsEqual(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
-    bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
+    // bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
+    // bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
 
-    if (displayFlagLeft == displayFlagRight)
-      return l->GetPriority() == r->GetPriority();
+    // if (displayFlagLeft == displayFlagRight)
+    //   return l->GetPriority() == r->GetPriority();
+    // return false;
 
-    return false;
+    return l->GetPriority() == r->GetPriority();
   }
 
-private:
-  bool m_enableMask;
+  // private:
+  //   bool m_enableMask;
 };
 }  // namespace
 
@@ -461,9 +464,11 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
   return false;
 }
 
-void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
+void OverlayTree::Select(m2::PointD glbPoint, TOverlayContainer & result) const
 {
   ScreenBase const & screen = GetModelView();
+
+  glbPoint.x = mercator::NearestWrapX(glbPoint.x, screen.GetOrg().x);
   m2::PointD const pxPoint = screen.GtoP(glbPoint);
 
   double const kSearchRectHalfSize = 10.0;
@@ -482,7 +487,8 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   ScreenBase const & screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    ASSERT(h->GetOverlayID().IsValid(), ());
+    // BuildFromRouteTransit elements with _possible_ empty FeatureID. Text shapes have valid FeatureID.
+    // ASSERT(h->GetOverlayID().IsValid(), ());
 
     if (!h->HasLinearFeatureShape() && h->IsVisible())
     {

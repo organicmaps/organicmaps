@@ -2,7 +2,6 @@
 
 #include "indexer/dat_section_header.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/route_relation.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/geometry_coding.hpp"
@@ -17,6 +16,7 @@ class MetadataDeserializer;
 namespace feature
 {
 class FeaturesOffsetsTable;
+class RouteRelation;
 
 // This info is created once per FeaturesVector.
 class SharedLoadInfo
@@ -31,7 +31,12 @@ public:
   Reader GetGeometryReader(size_t ind) const;
   Reader GetTrianglesReader(size_t ind) const;
 
-  RouteRelationBase ReadRelation(uint32_t id) const;
+  /// @param[in] RelT Can be RouteRelationBase (fast) or RouteRelation (with members).
+  template <class RelT>
+  RelT ReadRelation(uint32_t id) const;
+
+  /// Convenience: read full RouteRelation (with members) at relation index @p index.
+  RouteRelation GetRelation(uint32_t index) const;
 
   serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
   {

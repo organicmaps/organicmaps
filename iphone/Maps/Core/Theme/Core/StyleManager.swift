@@ -22,7 +22,7 @@
   }
 
   func update() {
-    for window in UIApplication.shared.windows {
+    for window in UIApplication.shared.allConnectedWindows {
       updateView(window.rootViewController?.view)
     }
 
@@ -40,10 +40,6 @@
       if let listener = container.value {
         listener.applyTheme()
       }
-    }
-
-    if #available(iOS 13, *) {} else {
-      UISearchBarRenderer.setAppearance()
     }
   }
 

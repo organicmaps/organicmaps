@@ -14,6 +14,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
     "("
     "J"                                               // categoryId
     "J"                                               // trackId
+    "Z"                                               // isRelationTrack
     "Ljava/lang/String;"                              // title
     "Ljava/lang/String;"                              // secondaryTitle
     "Ljava/lang/String;"                              // subtitle
@@ -38,6 +39,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
   jobject mapObject = env->NewObject(g_trackClazz, ctorId,
     static_cast<jlong>(track->GetGroupId()),
     static_cast<jlong>(trackId),
+    static_cast<jboolean>(info.IsRelationTrack()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondaryTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()),
@@ -78,13 +80,15 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetStatist
   return ToJavaTrackStatistics(env, frm()->GetBookmarkManager().GetTrack(id)->GetStatistics());
 }
 
-JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevationActivePointCoordinates(JNIEnv * env,
-                                                                                                         jclass,
-                                                                                                         jlong trackId)
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevationActivePointCoordinates(
+    JNIEnv * env, jclass, jlong trackId)
 {
   auto const & trackInfo = frm()->GetBookmarkManager().GetTrackSelectionInfo(trackId);
   auto const latlon = mercator::ToLatLon(trackInfo.m_trackPoint);
-  return ToJavaElevationInfoPoint(env, latlon);
+  jdoubleArray result = env->NewDoubleArray(2);
+  jdouble coords[] = {latlon.m_lat, latlon.m_lon};
+  env->SetDoubleArrayRegion(result, 0, 2, coords);
+  return result;
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetParams(JNIEnv * env, jclass, jlong id,

@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
 #include "platform/platform.hpp"
@@ -8,14 +9,16 @@
 
 UNIT_TEST(KMZ_UnzipTest)
 {
+  /// @todo Should put somewhere in core? (like in BookmarkManager::PrepareToSaveBookmarks).
+  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
+
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
   TEST_EQUAL(1, filePaths.size(), ());
-  std::string const filePath = filePaths[0];
-  TEST(!filePath.empty(), ());
-  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
-
+  auto const & filePath = filePaths[0];
   TEST(filePath.ends_with("doc.kml"), (filePath));
+
+  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
 
   auto const kmlData = LoadKmlFile(filePath, FileType::Kml);
   TEST(kmlData != nullptr, ());
@@ -42,18 +45,26 @@ UNIT_TEST(KMZ_UnzipTest)
 
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
+  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
+
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  std::vector<std::string> expectedFileNames = {
+  SCOPE_GUARD(filesGuard, [&filePaths]()
+  {
+    for (auto const & path : filePaths)
+      base::DeleteFileX(path);
+  });
+
+  base::StringIL expectedFileNames = {
       "BACRNKMZfilesCampgrounds 26may2022 green and tree icon",
       "BACRNKMZfilesIndoor Accommodations 26may2022 placemark purple and bed icon",
       "BACRNKMZfilesRoute 1 Canada - West-East Daily Segments",
       "BACRNKMZfilesRoute 2 Canada - West-East Daily Segments",
       "BACRNKMZfilesRoute Connector Canada - West-East Daily Segments",
-      "BACRNKMZdoc"
-
+      "BACRNKMZdoc",
   };
   TEST_EQUAL(expectedFileNames.size(), filePaths.size(), ());
+
   for (auto const & filePath : filePaths)
   {
     auto matched = false;

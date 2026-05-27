@@ -14,6 +14,7 @@
 #include "map/routing_mark.hpp"
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
+#include "map/selection_processor.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 #include "map/traffic_manager.hpp"
@@ -50,8 +51,6 @@
 #include "platform/platform.hpp"
 #include "platform/products.hpp"
 
-#include "routing/router.hpp"
-
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -62,6 +61,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -70,30 +70,10 @@ namespace osm
 class EditableMapObject;
 }
 
-namespace search
-{
-struct EverywhereSearchParams;
-struct ViewportSearchParams;
-}  // namespace search
-
 namespace storage
 {
 class CountryInfoReader;
-struct DownloaderSearchParams;
 }  // namespace storage
-
-namespace routing
-{
-namespace turns
-{
-class Settings;
-}
-}  // namespace routing
-
-namespace platform
-{
-class NetworkPolicy;
-}
 
 namespace descriptions
 {
@@ -120,6 +100,7 @@ class Framework
   , private power_management::PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
+  friend class SelectionProcessor;
 
 #ifdef FIXED_LOCATION
   class FixedPosition
@@ -327,7 +308,8 @@ private:
   void DeactivateHotelSearchMark();
 
 public:
-  void DeactivateMapSelection();
+  /// @return true if a transit route selection was recovered (PP re-activated).
+  bool DeactivateMapSelection();
   void DeactivateMapSelectionCircle(bool restoreViewport);
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
@@ -483,10 +465,31 @@ private:
   TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
 
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
+  SelectionProcessor m_selectionProcessor;
+
+  struct RouteTransitSelection
+  {
+    FeatureID m_featureId;
+    uint32_t m_relID = 0;
+  };
+
+  std::optional<RouteTransitSelection> m_routeTransitSelection;
 
 public:
   // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
+
+  // Highlights a public-transport route line on the map, using the current place page's feature
+  // to locate the relation. The current place page (stop) remains open.
+  void SelectRoute(uint32_t relID);
+
+  // Builds a TransitInfo (lines + stops) for @p relID relative to the current place page's feature
+  // and shows it on the transit scheme layer (with the usual map dim).
+  void ShowRouteTransit(uint32_t relID);
+  // Returns the ref string of the currently selected transit route, or empty if none.
+  std::string GetActiveTransitRouteRef() const;
+  // Is called on PT PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
+  void HideRouteTransitIfNeeded();
 
   // Cancels all searches, stops location follow and then selects
   // search result.
@@ -506,11 +509,11 @@ public:
   bool GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
                             platform::Distance & distance, double & azimut);
 
-  /// @name Manipulating with model view
-  m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
-  m2::PointD P3dtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(m_currentModelView.P3dtoP(p)); }
-  m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
-  m2::PointD GtoP3d(m2::PointD const & p) const { return m_currentModelView.PtoP3d(m_currentModelView.GtoP(p)); }
+  /// @name For Desktop only.
+  /// @{
+  m2::PointD PtoG(m2::PointD const & p) const;
+  m2::PointD P3dtoG(m2::PointD const & p) const;
+  /// @}
 
   /// Show all model by it's world rect.
   void ShowAll();
@@ -524,11 +527,8 @@ public:
   m2::RectD GetCurrentViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
 
-  /// - Check minimal visible scale according to downloaded countries.
-  void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true, bool useVisibleViewport = false);
+  void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);
   void ShowRect(m2::AnyRectD const & rect, bool animation = true, bool useVisibleViewport = false);
-
-  void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 
   void SetViewportListener(TViewportChangedFn const & fn);
 
@@ -599,8 +599,6 @@ public:
   ms::LatLon GetParsedCenterLatLon() const;
   url_scheme::InAppFeatureHighlightRequest GetInAppFeatureHighlightRequest() const;
 
-  using FeatureMatcher = std::function<bool(FeatureType & ft)>;
-
 private:
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
@@ -613,17 +611,10 @@ private:
 
   static bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
-  void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
-  /// @param customTitle, if not empty, overrides any other calculated name.
-  void FillPointInfo(place_page::Info & info, m2::PointD const & mercator, std::string const & customTitle = {},
-                     FeatureMatcher && matcher = nullptr) const;
-  void FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD const & mercator,
-                               std::string const & customTitle = {}) const;
-  void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator, place_page::Info & info) const;
-
+  /// Tries to build a temporary track from a route relation associated with the feature.
+  /// If successful, fills outInfo as a track selection and returns true.
+  bool TryBuildRelationTrack(FeatureID const & fid, m2::PointD const & mercator, place_page::Info & outInfo);
   void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
-
-  void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;
@@ -634,16 +625,14 @@ private:
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
   void FillTrackInfo(Track const & track, m2::PointD const & trackPoint, place_page::Info & info) const;
-  void SetPlacePageLocation(place_page::Info & info);
-  void FillDescriptions(FeatureType & ft, place_page::Info & info) const;
+
+  SelectionProcessor const & GetSelectionProcessor() const { return m_selectionProcessor; }
 
 public:
   search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
-  /// Get "best for the user" feature at given point even if it's invisible on the screen.
-  /// Ignores coastlines and prefers buildings over other area features.
-  /// @returns invalid FeatureID if no feature was found at the given mercator point.
-  FeatureID GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher && matcher = nullptr) const;
+  /// Delegates to SelectionProcessor::GetFeatureAtPoint.
+  FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;
 
   /// @param[in] scale Pass GetUpperScale (for countries) or GetUpperWorldScale (for World map).
   template <typename TFn>

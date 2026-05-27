@@ -112,6 +112,8 @@ final class PlacePageOSMContributionViewController: UIViewController {
     case .canAddOrEditPlace:
       addPlaceButton.isHidden = !buttonsData.showAddPlace
       editPlaceButton.isHidden = !buttonsData.showEditPlace
+      addPlaceButton.isEnabled = buttonsData.canEditPlace
+      editPlaceButton.isEnabled = buttonsData.canEditPlace
       updateMapButton.isHidden = true
     case .shouldUpdateMap:
       addPlaceButton.isHidden = true

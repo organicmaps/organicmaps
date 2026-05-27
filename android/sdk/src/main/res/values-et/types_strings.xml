@@ -85,7 +85,7 @@
     <string name="type.amenity.internet_cafe">Internetikohvik</string>
     <string name="type.amenity.kindergarten">Lasteaed</string>
     <string name="type.amenity.library">Raamatukogu</string>
-    <string name="type.amenity.loading_dock">Laoestakaad</string>
+    <string name="type.amenity.loading_dock">Laadimisdokk</string>
     <string name="type.amenity.luggage_locker">Pagasihoid</string>
     <string name="type.amenity.marketplace">Turg</string>
     <string name="type.amenity.motorcycle_parking">Mootorrataste parkla</string>
@@ -237,13 +237,14 @@
     <string name="type.building">Hoone</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Aadress</string>
+    <string name="type.building.construction">Ehitatav hoone</string>
     <string name="type.building.has_parts">Hoone</string>
     <string name="type.building_part">Hooneosa</string>
     <string name="type.building.garage">Garaaž</string>
     <string name="type.building.train_station">Jaamahoone</string>
     <string name="type.building.warehouse">Ladu</string>
     <string name="type.cemetery.grave">Haud</string>
-    <string name="type.craft">Käsitöömeister</string>
+    <string name="type.craft">Käsitöö</string>
     <string name="type.craft.beekeeper">Mesinik</string>
     <string name="type.craft.blacksmith">Sepp</string>
     <string name="type.craft.brewery">Väikepruulikoda</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Vahemere</string>
     <string name="type.cuisine.mexican">Mehhiko</string>
     <string name="type.cuisine.moroccan">Maroko</string>
-    <string name="type.cuisine.noodles">Nuudliroad</string>
+    <string name="type.cuisine.noodle">Nuudliroad</string>
     <string name="type.cuisine.oriental">Kaug-Ida</string>
     <string name="type.cuisine.pancake">Pannkoogid</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Vorstid</string>
     <string name="type.cuisine.savory_pancakes">Soolased pannkoogid</string>
     <string name="type.cuisine.seafood">Mereannid</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Jaapani soba-nuudlid</string>
     <string name="type.cuisine.spanish">Hispaania</string>
     <string name="type.cuisine.steak_house">Liharestoran</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Puude rida</string>
     <string name="type.natural.vineyard">Viinamarjaistandus</string>
     <string name="type.natural.volcano">Vulkaan</string>
+    <string name="type.natural.volcano.active">Aktiivne vulkaan</string>
     <string name="type.natural.water">Veekogu</string>
     <string name="type.natural.wetland">Märgala</string>
     <string name="type.natural.wetland.bog">Raba</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Maahoki</string>
     <string name="type.sport.badminton">Sulgpall</string>
     <string name="type.sport.pelota">Baski pelota</string>
+    <string name="type.sport.boules">Petank</string>
+    <string name="type.sport.cycling">Jalgrattasport</string>
+    <string name="type.sport.four_square">Neli ruutu</string>
+    <string name="type.sport.horse_racing">Hobuste võiduajamine</string>
+    <string name="type.sport.karting">Kardisõit</string>
+    <string name="type.sport.motocross">Motokross</string>
+    <string name="type.sport.motor">Mootorisport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi</string>
+    <string name="type.sport.running">Jooks</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turism</string>
     <string name="type.tourism.aquarium">Akvaarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Ajalooline vaatamisväärsus</string>
     <string name="type.attraction.maze">Labürint</string>
     <string name="type.attraction.roller_coaster">Ameerika mäed</string>
+    <string name="type.roller_coaster.track">Ameerika mäed</string>
     <string name="type.attraction.water_slide">Vesiliug</string>
     <string name="type.tourism.attraction.specified">Turismiatraktsioon</string>
     <string name="type.tourism.camp_site">Kämpinguala</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Kiirusepiiraja</string>
     <string name="type.traffic_calming.hump">Liikluskünnis</string>
     <string name="type.waterway">Veetee</string>
+    <string name="type.waterway.access_point">Veetee juurdepääsupunkt</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal tunnelis</string>
     <string name="type.waterway.fish_pass">Kalatrepp</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Kellassepp</string>
     <string name="type.xmas_feature.market">Jõuluturg</string>
     <string name="type.xmas_feature.tree">Jõulupuu</string>
+    <string name="type.amenity.hookah_lounge">Vesipiibu kohvik</string>
 </resources>

@@ -1,44 +1,30 @@
 """
-This is a simple web-server that does very few things. It is necessary for
-the downloader tests.
+A simple HTTP server used by the C++ downloader/http_client tests.
 
-Here is the logic behind the initialization:
-Because several instances of the test can run simultaneously on the Build
-machine, we have to take this into account and not start another server if
-one is already running. However, there is a chance that a server will not
-terminate correctly, and will still hold the port, so we will not be able
-to initialize another server.
+Started by start_server.py (which waits for a real HTTP probe to succeed)
+and stopped by stop_server.py (which issues /kill). The server self-destructs
+LIFESPAN seconds after the last request as a safety net in case the test run
+is aborted before stop_server.py runs.
 
-So before initializing the server, we check if any processes are using the port
-that we want to use. If we find such a process, we assume that it might be
-working, and wait for about 10 seconds for it to start serving. If it does not,
-we kill it.
-
-Next, we check the name of our process and see if there are other processes
-with the same name. If there are, we assume that they might start serving any
-moment. So we iterate over the ones that have PID lower than ours, and wait
-for them to start serving. If a process doesn't serve, we kill it.
-
-If we have killed (or someone has) all the processes with PIDs lower than ours,
-we try to start serving. If we succeed, we kill all other processes with the
-same name as ours. If we don't someone else will kill us.
-
+Only one instance may run at a time on PORT. If the port is already bound
+(e.g. a leftover server from a previous run), startup fails fast and
+start_server.py surfaces the error with the captured log for diagnosis.
 """
-
 
 
 from __future__ import print_function
 
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
+from socketserver import ThreadingMixIn
 from ResponseProvider import Payload
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
-from SiblingKiller import SiblingKiller
 from threading import Timer
-from config import LIFESPAN, PING_TIMEOUT, PORT
+from config import LIFESPAN, PORT
 import os
 import socket
+import sys
 import threading
 import traceback
 
@@ -56,7 +42,8 @@ except:
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
 
 
-class InternalServer(HTTPServer):
+class InternalServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
 
     def kill_me(self):
         self.shutdown()
@@ -97,28 +84,20 @@ class TestServer:
     def __init__(self):
 
         self.may_serve = False
+        self.server = None
 
         pid = os.getpid()
         logging.info(f"Init server. Pid: {pid}")
 
-        self.server = None
-
-        killer = SiblingKiller(PORT, PING_TIMEOUT)
-        killer.kill_siblings()
-        if killer.allow_serving():
-            try:
-                self.init_server()
-                logging.info(f"Started server with pid: {pid}")
-                self.may_serve = True
-
-            except socket.error:
-                logging.info("Failed to start the server: Port is in use")
-            except Exception as e:
-                logging.debug(e)
-                logging.info("Failed to start serving for unknown reason")
-                traceback.print_exc()
-        else:
-            logging.info(f"Not allowed to start serving for process: {pid}")
+        try:
+            self.init_server()
+            logging.info(f"Started server with pid: {pid}")
+            self.may_serve = True
+        except socket.error as e:
+            logging.error(f"Failed to bind port {PORT}: {e}")
+        except Exception as e:
+            logging.error(f"Failed to start serving: {e}")
+            traceback.print_exc()
 
     def init_server(self):
 
@@ -171,11 +150,14 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
 
     def init_vars(self):
         self.response_provider = ResponseProvider(self)
+        # Every request must extend the server's lifespan. Previously only
+        # do_POST reset the timer, so long GET-only test runs could die at
+        # the LIFESPAN boundary on slow CI.
+        self.server.reset_selfdestruct_timer()
 
 
     def do_POST(self):
         self.init_vars()
-        self.server.reset_selfdestruct_timer()
         headers = self.prepare_headers()
         payload = self.response_provider.response_for_url_and_headers(self.path, headers)
         if payload.response_code() >= 300:
@@ -184,6 +166,17 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
         else:
             self.dispatch_response(payload)
 
+    do_PUT = do_POST
+
+    def do_HEAD(self):
+        headers = self.prepare_headers()
+        self.init_vars()
+        payload = self.response_provider.response_for_url_and_headers(self.path, headers)
+        self.send_response(payload.response_code())
+        for h in payload.headers():
+            self.send_header(h, payload.headers()[h])
+        self.send_header("Content-Length", payload.length())
+        self.end_headers()
 
     def do_GET(self):
         headers = self.prepare_headers()
@@ -210,4 +203,6 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
 if __name__ == '__main__':
 
     server = TestServer()
+    if not server.may_serve:
+        sys.exit(1)
     server.start_serving()

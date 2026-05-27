@@ -83,6 +83,7 @@
     <string name="avoid_ferry">הימנע ממעבורות</string>
     <string name="avoid_motorways">הימנע מכבישים מהירים</string>
     <string name="unable_to_calc_alert_title">לא ניתן לחשב מסלול</string>
+    <string name="trip_finished">הגעת!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">מיון סימניות</string>
     <!-- Android -->
@@ -100,7 +101,7 @@
     <string name="downloader_loading_ios">מוריד</string>
     <string name="download_map_title">הורד את מפת העולם</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">מפות אורגניות ב-Android Auto זקוקות להרשאת מיקום כדי לעבוד ביעילות</string>
+    <string name="aa_request_permission_activity_text">Organic Maps ב-Android Auto זקוק להרשאות מיקום כדי לפעול ביעילות</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">הענק הרשאות</string>
 </resources>

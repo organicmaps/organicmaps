@@ -27,7 +27,6 @@ set(SRC
   http_payload.hpp
   http_request.cpp
   http_request.hpp
-  http_thread_callback.hpp
   http_uploader.hpp
   http_uploader_background.hpp
   local_country_file.cpp
@@ -72,16 +71,19 @@ if (PLATFORM_IPHONE)
   append(SRC
     background_downloader_ios.h
     background_downloader_ios.mm
+    connection_status_apple.mm
     gui_thread_apple.mm
-    http_thread_apple.h
-    http_thread_apple.mm
     http_client_apple.mm
+    http_session_manager.h
+    http_session_manager.mm
     http_uploader_apple.mm
-    http_user_agent_ios.mm
+    http_uploader_background.hpp
+    http_uploader_background.mm
     localization.mm
     locale.mm
     network_policy_ios.h
     network_policy_ios.mm
+    platform_ios.h
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
@@ -125,9 +127,8 @@ else() # neither iPhone nor Android
   if (${PLATFORM_WIN})
     append(SRC
       gui_thread_qt.cpp
-      http_client_curl.cpp
-      http_thread_qt.cpp
-      http_thread_qt.hpp
+      http_client_qt.cpp
+      http_client_qt.hpp
       http_uploader_background_dummy.cpp
       http_uploader_dummy.cpp
       locale_std.cpp
@@ -136,10 +137,9 @@ else() # neither iPhone nor Android
     )
   elseif(${PLATFORM_MAC})
     append(SRC
+      connection_status_apple.mm
       gui_thread_apple.mm
       http_client_apple.mm
-      http_thread_apple.h
-      http_thread_apple.mm
       http_uploader_apple.mm
       http_uploader_background_dummy.cpp
       locale.mm
@@ -153,9 +153,8 @@ else() # neither iPhone nor Android
   elseif(${PLATFORM_LINUX})
     append(SRC
       gui_thread_qt.cpp
-      http_client_curl.cpp
-      http_thread_qt.cpp
-      http_thread_qt.hpp
+      http_client_qt.cpp
+      http_client_qt.hpp
       http_uploader_dummy.cpp
       http_uploader_background_dummy.cpp
       locale_std.cpp
@@ -181,7 +180,6 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
     geometry  # mercator::YToLat
     coding
-    cppjansson
     glaze::glaze
     $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
     $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
@@ -189,7 +187,7 @@ target_link_libraries(${PROJECT_NAME}
     $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
     $<$<BOOL:${PLATFORM_MAC}>:
       -framework\ Foundation
-      -framework\ SystemConfiguration
+      -framework\ Network
       -framework\ CFNetwork
       -framework\ Security  # SecPKCS12Import
       >

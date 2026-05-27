@@ -105,26 +105,49 @@ void Info::SetFromFeatureType(FeatureType & ft)
 
   for (uint32_t id : ft.GetRelations())
   {
-    auto const rel = ft.ReadRelation(id);
-    auto const type = rel.GetType();
-
-    using RR = feature::RouteRelationBase;
-    if (type == RR::Type::Bus || type == RR::Type::Tram || type == RR::Type::Trolleybus)
-      m_routes.push_back(RouteRef(rel.GetRef(), id));
+    auto const rel = ft.ReadRelation<feature::RouteRelationBase>(id);
+    if (rel.IsPTRoute())
+      m_routes.emplace_back(id, rel);
   }
 
   base::SortUnique(m_routes, [](RouteRef const & l, RouteRef const & r)
   {
     if (l.m_iRef == r.m_iRef)
-      return l.m_ref < r.m_ref;
+      return std::tie(l.m_ref, l.m_from, l.m_to) < std::tie(r.m_ref, r.m_from, r.m_to);
     return l.m_iRef < r.m_iRef;
-  }, [](RouteRef const & l, RouteRef const & r) { return l.m_ref == r.m_ref; });
+  }, [](RouteRef const & l, RouteRef const & r) {
+    return std::tie(l.m_ref, l.m_from, l.m_to) == std::tie(r.m_ref, r.m_from, r.m_to);
+  });
 }
 
-Info::RouteRef::RouteRef(std::string const & ref, uint32_t relID) : m_ref(ref), m_relID(relID)
+Info::RouteRef::RouteRef(uint32_t relID, feature::RouteRelationBase const & rel)
+  : m_ref(rel.GetRef())
+  , m_from(rel.GetParam(feature::RouteRelationBase::FromIdx))
+  , m_to(rel.GetParam(feature::RouteRelationBase::ToIdx))
+  , m_iRef(0)
+  , m_relID(relID)
+  , m_type(rel.GetType())
+  , m_color(rel.GetColor())
 {
-  char * stop;
-  m_iRef = std::strtol(m_ref.c_str(), &stop, 10);
+  if (!m_ref.empty())
+  {
+    // May be "S10" or "12A".
+    /// @todo Sort by prefix if it is different (unlikely).
+    auto it = base::FindIf(m_ref, &strings::IsASCIIDigit<char>);
+    if (it != m_ref.end())
+    {
+      auto const [_, ec] = std::from_chars(std::to_address(it), std::to_address(m_ref.end()), m_iRef, 10);
+      if (ec != std::errc())
+        m_iRef = 0;
+    }
+  }
+  else
+  {
+    if (auto name = rel.GetDefaultName(); !name.empty())
+      m_ref = name;
+  }
+
+  // Set max _possible_ value to be placed at the end.
   if (m_iRef == 0)
     m_iRef = 1000000;
 }
@@ -466,11 +489,17 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
 std::string Info::FormatRouteRefs() const
 {
   std::string res;
+  std::string_view last;
   for (auto const & r : m_routes)
   {
-    if (!res.empty())
-      res += feature::kFieldsSeparator;
-    res += r.m_ref;
+    // routes are sorted by ref
+    if (r.m_ref != last)
+    {
+      if (!res.empty())
+        res += feature::kFieldsSeparator;
+      res += r.m_ref;
+      last = r.m_ref;
+    }
   }
   return res;
 }

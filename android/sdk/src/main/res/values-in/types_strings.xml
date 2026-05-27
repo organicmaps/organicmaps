@@ -9,13 +9,13 @@
     <string name="type.aeroway.aerodrome">Bandar udara</string>
     <string name="type.aeroway.aerodrome.international">Bandar udara</string>
     <string name="type.aeroway.helipad">Landasan helikopter</string>
-    <string name="type.amenity">Ruang berfasilitas</string>
+    <string name="type.amenity">Fasilitas</string>
     <string name="type.amenity.arts_centre">Pusat kesenian</string>
     <string name="type.amenity.bbq">Panggangan barbekyu</string>
     <string name="type.amenity.bench">Bangku panjang</string>
     <string name="type.amenity.bicycle_parking">Parkir Sepeda</string>
     <string name="type.amenity.bicycle_rental">Penyewaan Sepeda</string>
-    <string name="type.amenity.brothel">Hiburan</string>
+    <string name="type.amenity.brothel">Bordil</string>
     <string name="type.amenity.bureau_de_change">Pertukaran valuta</string>
     <string name="type.amenity.bus_station">Stasiun bus</string>
     <string name="type.amenity.cafe">Kafe</string>
@@ -23,7 +23,7 @@
     <string name="type.amenity.motorcycle_rental">Penyewaan Sepeda Motor</string>
     <string name="type.amenity.car_sharing">Berbagi mobil</string>
     <string name="type.amenity.car_wash">Cuci Mobil</string>
-    <string name="type.amenity.casino">Hiburan</string>
+    <string name="type.amenity.casino">Kasino</string>
     <string name="type.amenity.gambling">Berjudi</string>
     <string name="type.leisure.adult_gaming_centre">Pusat Permainan Dewasa</string>
     <string name="type.leisure.amusement_arcade">Arkade</string>
@@ -34,7 +34,7 @@
     <string name="type.amenity.cinema">Bioskop</string>
     <string name="type.leisure.bowling_alley">Arena Bowling</string>
     <string name="type.amenity.clinic">Klinik</string>
-    <string name="type.amenity.college">Kampus</string>
+    <string name="type.amenity.college">Perguruan tinggi</string>
     <string name="type.amenity.community_centre">Pusat komunitas</string>
     <string name="type.amenity.compressed_air">Udara terkompresi</string>
     <string name="type.amenity.conference_centre">Pusat konferensi</string>
@@ -59,7 +59,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Pemakaman</string>
     <string name="type.amenity.hospital">Rumahsakit</string>
-    <string name="type.amenity.hunting_stand">Lokasi berburu</string>
+    <string name="type.amenity.hunting_stand">Pos berburu</string>
     <string name="type.amenity.ice_cream">Kios Es Krim</string>
     <string name="type.amenity.internet_cafe">Kafe Internet</string>
     <string name="type.amenity.kindergarten">Taman kanak-kanak</string>
@@ -178,6 +178,7 @@
     <string name="type.building">Gedung</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Alamat</string>
+    <string name="type.building.construction">Bangunan dalam pembangunan</string>
     <string name="type.building.has_parts">Gedung</string>
     <string name="type.building_part">Gedung</string>
     <string name="type.building.garage">Garasi</string>
@@ -266,7 +267,7 @@
     <string name="type.cuisine.mediterranean">Masakan mediterania</string>
     <string name="type.cuisine.mexican">Masakan meksiko</string>
     <string name="type.cuisine.moroccan">Masakan maroko</string>
-    <string name="type.cuisine.noodles">Bakmi</string>
+    <string name="type.cuisine.noodle">Bakmi</string>
     <string name="type.cuisine.oriental">Masakan oriental</string>
     <string name="type.cuisine.pancake">Panekuk</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -282,6 +283,7 @@
     <string name="type.cuisine.sausage">Sosis</string>
     <string name="type.cuisine.savory_pancakes">Panekuk gurih</string>
     <string name="type.cuisine.seafood">Hidangan laut</string>
+    <string name="type.cuisine.shawarma">Syawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Masakan spanyol</string>
     <string name="type.cuisine.steak_house">Restoran_steik</string>
@@ -562,6 +564,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Kolam renang</string>
     <string name="type.leisure.swimming_pool.private">Kolam renang</string>
+    <string name="type.leisure.track">Lintasan olahraga</string>
+    <string name="type.leisure.track.area">Lintasan olahraga</string>
     <string name="type.leisure.water_park">Taman air</string>
     <string name="type.man_made.chimney">Cerobong asap pabrik</string>
     <string name="type.man_made.lighthouse">Mercusuar</string>
@@ -623,6 +627,7 @@
     <string name="type.natural.tree_row">Baris pohon</string>
     <string name="type.natural.vineyard">Kebun anggur</string>
     <string name="type.natural.volcano">Gunung berapi</string>
+    <string name="type.natural.volcano.active">Gunung Berapi Aktif</string>
     <string name="type.natural.water">Perairan</string>
     <string name="type.natural.wetland">Area lahan basah</string>
     <string name="type.natural.wetland.bog">Rawa gambut</string>
@@ -1115,6 +1120,18 @@
     <string name="type.sport.field_hockey">Hoki Lapangan</string>
     <string name="type.sport.badminton">Bulu tangkis</string>
     <string name="type.sport.pelota">Basque pelota</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Bersepeda</string>
+    <string name="type.sport.four_square">Empat kotak</string>
+    <string name="type.sport.horse_racing">Pacuan kuda</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Olahraga otomotif</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugbi</string>
+    <string name="type.sport.running">Lari</string>
+    <string name="type.sport.softball">Sofbol</string>
     <string name="type.tourism.aquarium">Akuarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Penginapan gunung</string>
@@ -1131,6 +1148,7 @@
     <string name="type.attraction.historic">Atraksi bersejarah</string>
     <string name="type.attraction.maze">Labirin</string>
     <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.roller_coaster.track">Roller Coaster</string>
     <string name="type.attraction.water_slide">Seluncuran Air</string>
     <string name="type.tourism.attraction.specified">Atraksi</string>
     <string name="type.tourism.camp_site">Perkemahan</string>
@@ -1153,6 +1171,7 @@
     <string name="type.tourism.wilderness_hut">Pondok Alam Liar</string>
     <string name="type.tourism.zoo">Kebun binatang</string>
     <string name="type.tourism.zoo.petting">Kebun Binatang</string>
+    <string name="type.waterway.access_point">Titik Akses Jalur Air</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Tangga ikan</string>
@@ -1206,4 +1225,5 @@
     <string name="type.craft.watchmaker">Pembuat jam tangan</string>
     <string name="type.xmas_feature.market">Pasar Natal</string>
     <string name="type.xmas_feature.tree">Pohon Natal</string>
+    <string name="type.amenity.hookah_lounge">Kafe Shisha</string>
 </resources>

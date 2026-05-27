@@ -237,6 +237,7 @@
     <string name="type.building">Bygging</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Heimilisfang</string>
+    <string name="type.building.construction">Bygging í byggingu</string>
     <string name="type.building.has_parts">Bygging</string>
     <string name="type.building_part">Bygging</string>
     <string name="type.building.garage">Verkstæði</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Miðjarðarhafs</string>
     <string name="type.cuisine.mexican">Mexíkanskt</string>
     <string name="type.cuisine.moroccan">Marokkanskt</string>
-    <string name="type.cuisine.noodles">Núðlur</string>
+    <string name="type.cuisine.noodle">Núðlur</string>
     <string name="type.cuisine.oriental">Austur-asískt</string>
     <string name="type.cuisine.pancake">Pönnukökur</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -754,6 +755,7 @@
     <string name="type.natural.tree_row">Trjáröð</string>
     <string name="type.natural.vineyard">Vínekra</string>
     <string name="type.natural.volcano">Eldfjall</string>
+    <string name="type.natural.volcano.active">Virkur eldfjall</string>
     <string name="type.natural.water">Vatn</string>
     <string name="type.natural.wetland">Votlendi</string>
     <string name="type.natural.wetland.bog">Fen</string>
@@ -1303,6 +1305,18 @@
     <string name="type.sport.field_hockey">Grashokkí</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Baskneskt Pelota</string>
+    <string name="type.sport.boules">Boules</string>
+    <string name="type.sport.cycling">Hjólreiðar</string>
+    <string name="type.sport.four_square">Fjórir ferningar</string>
+    <string name="type.sport.horse_racing">Veðhlaup</string>
+    <string name="type.sport.karting">Gokart</string>
+    <string name="type.sport.motocross">Motokross</string>
+    <string name="type.sport.motor">Vélaakstursíþrótt</string>
+    <string name="type.sport.netball">Netbolti</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ruðningur</string>
+    <string name="type.sport.running">Hlaup</string>
+    <string name="type.sport.softball">Softbolti</string>
     <string name="type.tourism">Ferðamennska</string>
     <string name="type.tourism.aquarium">Fiskabúr</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1336,7 @@
     <string name="type.attraction.historic">Sögustaður</string>
     <string name="type.attraction.maze">Völundarhús</string>
     <string name="type.attraction.roller_coaster">Rússíbani</string>
+    <string name="type.roller_coaster.track">Rússíbani</string>
     <string name="type.attraction.water_slide">Vatnsrennibraut</string>
     <string name="type.tourism.attraction.specified">Aðdráttarafl</string>
     <string name="type.tourism.camp_site">Tjaldsvæði</string>
@@ -1353,6 +1368,7 @@
     <string name="type.traffic_calming.bump">Hraðahindrun</string>
     <string name="type.traffic_calming.hump">Hraðahindrun</string>
     <string name="type.waterway">Siglingaleið</string>
+    <string name="type.waterway.access_point">Aðgengispunktur vatnaleiðar</string>
     <string name="type.waterway.canal">Skipaskurður</string>
     <string name="type.waterway.canal.tunnel">Skipaskurðsgöng</string>
     <string name="type.waterway.fish_pass">Fiskastigi</string>
@@ -1442,4 +1458,5 @@
     <string name="type.craft.watchmaker">Úrsmiður</string>
     <string name="type.xmas_feature.market">Jólamarkaður</string>
     <string name="type.xmas_feature.tree">Jólatré</string>
+    <string name="type.amenity.hookah_lounge">Vatnspípubar</string>
 </resources>

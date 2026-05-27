@@ -6,7 +6,7 @@
 
   <item android:id="@android:id/mask">
     <shape>
-      <corners android:radius="10dp" />
+      <corners android:radius="@dimen/corner_radius_medium" />
       <solid android:color="#FFFFFFFF" />
     </shape>
   </item>

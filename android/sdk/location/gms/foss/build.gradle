@@ -1,0 +1,28 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace = 'app.organicmaps.sdk.location.gms'
+  // enableKotlin = true  // see app/build.gradle
+
+  sourceSets {
+    main {
+      java {
+        srcDir(new File(project(':sdk:location:gms:google').projectDir, 'src/main/java/'))
+      }
+    }
+  }
+}
+
+dependencies {
+  implementation project(':sdk')
+  implementation project(':sdk:location:core')
+
+  implementation libs.androidx.annotation
+  // This is the microG project's re-implementation which is permissible on
+  // F-droid because it's Apache-2.0.
+  implementation libs.microg.gms.location
+}

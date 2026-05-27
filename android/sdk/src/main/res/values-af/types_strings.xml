@@ -134,7 +134,7 @@
     <string name="type.recycling.shoes">Skoene</string>
     <string name="type.recycling.green_waste">Groen-/organiese afval</string>
     <string name="type.recycling.cartons">Drankverpakking</string>
-    <string name="type.amenity.restaurant">Restourant</string>
+    <string name="type.amenity.restaurant">Restaurant</string>
     <string name="type.amenity.sanitary_dump_station">Opgaartenkstortstasie</string>
     <string name="type.amenity.school">Skool</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->
@@ -210,6 +210,7 @@
     <string name="type.building">Gebou</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adres</string>
+    <string name="type.building.construction">Gebou in aanbou</string>
     <string name="type.building.has_parts">Gebou</string>
     <string name="type.building_part">Gebou</string>
     <string name="type.building.garage">Motorhawe</string>
@@ -298,7 +299,7 @@
     <string name="type.cuisine.mediterranean">Mediterreens</string>
     <string name="type.cuisine.mexican">Meksikaans</string>
     <string name="type.cuisine.moroccan">Marokkaans</string>
-    <string name="type.cuisine.noodles">Noedels</string>
+    <string name="type.cuisine.noodle">Noedels</string>
     <string name="type.cuisine.oriental">Oosters</string>
     <string name="type.cuisine.pancake">Pannekoek</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -704,6 +705,7 @@
     <string name="type.natural.tree_row">Boomry</string>
     <string name="type.natural.vineyard">Wingerd</string>
     <string name="type.natural.volcano">Vulkaan</string>
+    <string name="type.natural.volcano.active">Aktiewe vulkaan</string>
     <string name="type.natural.water">Water</string>
     <string name="type.natural.wetland">Moerasland</string>
     <string name="type.natural.wetland.bog">Vlei</string>
@@ -1234,6 +1236,18 @@
     <string name="type.sport.field_hockey">Hokkie</string>
     <string name="type.sport.badminton">Pluimbal</string>
     <string name="type.sport.pelota">Baskiese peloton</string>
+    <string name="type.sport.boules">Boule</string>
+    <string name="type.sport.cycling">Fietsry</string>
+    <string name="type.sport.four_square">Vierkantbal</string>
+    <string name="type.sport.horse_racing">Perdewedrenne</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netbal</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugbyunie</string>
+    <string name="type.sport.running">Hardloop</string>
+    <string name="type.sport.softball">Sagtebal</string>
     <string name="type.tourism">Toerisme</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Berg lodge</string>
@@ -1250,6 +1264,7 @@
     <string name="type.attraction.historic">Historiese aantrekkingskrag</string>
     <string name="type.attraction.maze">Doolhof</string>
     <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.roller_coaster.track">Roller Coaster</string>
     <string name="type.attraction.water_slide">Waterglybaan</string>
     <string name="type.tourism.attraction.specified">Attraksie</string>
     <string name="type.tourism.camp_site">Kampeerterrein</string>
@@ -1279,6 +1294,7 @@
     <string name="type.traffic_calming.bump">Verkeersdrempel</string>
     <string name="type.traffic_calming.hump">Verkeersheuwel</string>
     <string name="type.waterway">Waterweg</string>
+    <string name="type.waterway.access_point">Toegangspunt tot waterweg</string>
     <string name="type.waterway.canal">Kanaal</string>
     <string name="type.waterway.canal.tunnel">Kanaal</string>
     <string name="type.waterway.fish_pass">Vistrap</string>

@@ -175,7 +175,7 @@
 "type.amenity.public_bath" = "Bany públic";
 "type.amenity.shower" = "Dutxa";
 "type.amenity.stripclub" = "Club de striptease";
-"type.amenity.taxi" = "Desocupada de taxis";
+"type.amenity.taxi" = "Parada de taxis";
 "type.amenity.telephone" = "Telèfon";
 "type.amenity.theatre" = "Teatre";
 "type.amenity.toilets" = "Vàter";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adreça";
+"type.building.construction" = "Edifici en construcció";
 "type.building.has_parts" = "Edifici";
 "type.building_part" = "Edifici";
 "type.building.garage" = "Garatge";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterrània";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquina";
-"type.cuisine.noodles" = "Fideus xinesos";
+"type.cuisine.noodle" = "Fideus xinesos";
 "type.cuisine.oriental" = "Cuina de l’Àsia oriental";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Salsitxa";
 "type.cuisine.savory_pancakes" = "Creps salades";
 "type.cuisine.seafood" = "Marisc";
+"type.cuisine.shawarma" = "Xauarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Espanyola";
 "type.cuisine.steak_house" = "Restaurant de carn";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Estadi";
 "type.leisure.swimming_pool" = "Piscina";
 "type.leisure.swimming_pool.private" = "Piscina";
-"type.leisure.track" = "Sender";
-"type.leisure.track.area" = "Sender";
+"type.leisure.track" = "Pista esportiva";
+"type.leisure.track.area" = "Pista esportiva";
 "type.leisure.water_park" = "Parc aquàtic";
 "type.leisure.beach_resort" = "Complex turístic platger";
 "type.man_made" = "Artificial";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Fila d’arbres";
 "type.natural.vineyard" = "Vinyar";
 "type.natural.volcano" = "Volcà";
+"type.natural.volcano.active" = "Volcà actiu";
 "type.natural.water" = "Aigua";
 "type.natural.wetland" = "Zona humida";
 "type.natural.wetland.bog" = "Torbera";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hoquei sobre herba";
 "type.sport.badminton" = "Bàdminton";
 "type.sport.pelota" = "Pilota basca";
+"type.sport.boules" = "Petanca";
+"type.sport.cycling" = "Ciclisme";
+"type.sport.four_square" = "Quatre quadrats";
+"type.sport.horse_racing" = "Curses de cavalls";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocròs";
+"type.sport.motor" = "Esports de motor";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugbi a quinze";
+"type.sport.running" = "Cursa a peu";
+"type.sport.softball" = "Softbol";
 "type.tourism" = "Turisme";
 "type.tourism.aquarium" = "Aquari";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Atracció històrica";
 "type.attraction.maze" = "Laberint";
 "type.attraction.roller_coaster" = "Muntanya russa";
+"type.roller_coaster.track" = "Muntanya russa";
 "type.attraction.water_slide" = "Tobogan aquàtic";
 "type.tourism.attraction.specified" = "Atracció";
 "type.tourism.camp_site" = "Paratge d’acampada";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Rebaixador de trànsit";
 "type.traffic_calming.hump" = "Rebaixador de trànsit";
 "type.waterway" = "Via aquàtica";
+"type.waterway.access_point" = "Punt d'accés a la via navegable";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Pas de peix";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Rellotger";
 "type.xmas_feature.market" = "Mercat de Nadal";
 "type.xmas_feature.tree" = "Arbre de Nadal";
+"type.amenity.hookah_lounge" = "Bar de xixa";

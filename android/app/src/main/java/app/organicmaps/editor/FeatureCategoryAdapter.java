@@ -12,6 +12,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.editor.data.FeatureCategory;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.recycler.DividerBehavior;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -168,7 +169,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       return mCategories.length + 1;
   }
 
-  protected class FeatureViewHolder extends RecyclerView.ViewHolder
+  protected class FeatureViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
   {
     @NonNull
     private final TextView mName;
@@ -195,9 +196,21 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       boolean showCondition = mSelectedCategory != null && category.getType().equals(mSelectedCategory.getType());
       UiUtils.showIf(showCondition, mSelected);
     }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return false;
+    }
+
+    @Override
+    public boolean skipDivider()
+    {
+      return true;
+    }
   }
 
-  public static class SectionHeaderViewHolder extends RecyclerView.ViewHolder
+  public static class SectionHeaderViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
   {
     @NonNull
     private final TextView mTitle;
@@ -215,9 +228,15 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       else
         mTitle.setText(R.string.editor_add_select_category_all_subtitle);
     }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return true;
+    }
   }
 
-  protected static class FooterViewHolder extends RecyclerView.ViewHolder
+  protected static class FooterViewHolder extends RecyclerView.ViewHolder implements DividerBehavior
   {
     private final TextInputEditText mNoteEditText;
     private final View mSendNoteButton;
@@ -249,6 +268,18 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
           mNoteEditText.setSelection(pendingNoteText.length());
       }
       mSendNoteButton.setEnabled(pendingNoteText != null && !pendingNoteText.trim().isEmpty());
+    }
+
+    @Override
+    public boolean useFullWidthDivider()
+    {
+      return false;
+    }
+
+    @Override
+    public boolean skipDivider()
+    {
+      return true;
     }
   }
 }

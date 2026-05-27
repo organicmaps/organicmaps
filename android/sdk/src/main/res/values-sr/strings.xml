@@ -30,6 +30,8 @@
     <string name="mi">ми</string>
     <!-- A unit of measure -->
     <string name="ft">стопа</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Да би се приказале руте, мапе морају бити ажуриране.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Излаз</string>
     <string name="core_entrance">Улаз</string>

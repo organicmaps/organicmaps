@@ -14,6 +14,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressEmail()
   func didPressOpenInApp(from sourceView: UIView)
   func didCopy(_ content: String)
+  func didSelectPublicTransportRoute(scrollAnchor: UIView)
 }
 
 class PlacePageInfoViewController: UIViewController {
@@ -55,9 +56,14 @@ class PlacePageInfoViewController: UIViewController {
   private var driveThroughView: InfoItemView?
   private var networkView: InfoItemView?
   private var routeRefsView: InfoItemView?
+  /// Relation id of the route most recently picked from the refs popup, or nil.
+  /// Used to render exactly one selected row in the popup.
+  private var selectedRouteRelId: UInt32?
+  private weak var routesSelectorViewController: RoutesSelectorViewController?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
+
   var coordinatesFormatId: Int {
     get { UserDefaults.standard.integer(forKey: Constants.coordFormatIdKey) }
     set { UserDefaults.standard.set(newValue, forKey: Constants.coordFormatIdKey) }
@@ -79,6 +85,13 @@ class PlacePageInfoViewController: UIViewController {
     setupViews()
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    // When adaptivePresentationStyle returns .none, the presented view controller loses its parent trait collection relationship,
+    // and the user interface style should be updated manually.
+    routesSelectorViewController?.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+  }
+
   // MARK: private
 
   private func setupViews() {
@@ -95,8 +108,26 @@ class PlacePageInfoViewController: UIViewController {
       cuisineView = createInfoItem(cuisine, icon: UIImage(resource: .icPlacepageCuisine))
     }
 
-    if let routeRefs = placePageInfoData.routeRefs {
-      routeRefsView = createInfoItem(routeRefs, icon: UIImage(resource: .icPlacepageBus))
+    if let routes = placePageInfoData.routes, !routes.isEmpty {
+      // Routes can repeat the same ref with different from/to (e.g. inbound/outbound directions
+      // of the same line). Collapse them in the primary row — the popup still shows all entries.
+      var seen = Set<String>()
+      let uniqueRefs = routes.compactMap { seen.insert($0.ref).inserted ? $0.ref : nil }
+      routeRefsView = createInfoItem(uniqueRefs.joined(separator: " • "),
+                                     icon: UIImage.icPlacepageBus,
+                                     tapIconHandler: { [weak self] in
+                                       self?.showRoutesSelector()
+                                     },
+                                     style: .link,
+                                     accessoryImage: UIImage.icPlacepageChange,
+                                     tapHandler: { [weak self] in
+                                       self?.showRoutesSelector()
+                                     },
+                                     accessoryImageTapHandler: { [weak self] in
+                                       self?.showRoutesSelector()
+                                     })
+      selectedRouteRelId = routes.first { $0.ref == FrameworkHelper.activeTransitRouteRef() }?.relId
+      updateRouteRefsLabel()
     }
 
     // @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
@@ -308,15 +339,13 @@ class PlacePageInfoViewController: UIViewController {
                                      longPressHandler: { [weak self] in
                                        self?.copyCoordinatesToPasteboard()
                                      })
-    if #available(iOS 14.0, *) {
-      let menu = UIMenu(children: coordFormats.enumerated().map { index, format in
-        UIAction(title: format, handler: { [weak self] _ in
-          self?.setCoordinatesSelected(formatId: index)
-          self?.copyCoordinatesToPasteboard()
-        })
+    let menu = UIMenu(children: coordFormats.enumerated().map { index, format in
+      UIAction(title: format, handler: { [weak self] _ in
+        self?.setCoordinatesSelected(formatId: index)
+        self?.copyCoordinatesToPasteboard()
       })
-      coordinatesView?.setAccessoryMenu(menu)
-    }
+    })
+    coordinatesView?.setAccessoryMenu(menu)
   }
 
   private func setCoordinatesSelected(formatId: Int) {
@@ -330,6 +359,71 @@ class PlacePageInfoViewController: UIViewController {
     guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
     let coordinates: String = coordFormats[coordinatesFormatId]
     delegate?.didCopy(coordinates)
+  }
+
+  private func showRoutesSelector() {
+    guard let routeRefsView, let routes = placePageInfoData.routes else { return }
+    if routes.count == 1 {
+      selectRoute(routes[0])
+    } else {
+      let viewController = RoutesSelectorViewController(routes: routes,
+                                                        selectedRouteRelId: selectedRouteRelId,
+                                                        routeSelectedHandler: { [weak self] route in
+                                                          self?.dismiss(animated: true, completion: { [weak self] in
+                                                            self?.selectRoute(route)
+                                                          })
+                                                        })
+      viewController.modalPresentationStyle = .popover
+      viewController.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
+      viewController.popoverPresentationController?.sourceView = routeRefsView
+      viewController.popoverPresentationController?.sourceRect = routeRefsView.bounds
+      viewController.popoverPresentationController?.permittedArrowDirections = .any
+      viewController.popoverPresentationController?.delegate = viewController
+      routesSelectorViewController = viewController
+      present(viewController, animated: true)
+    }
+  }
+
+  private func selectRoute(_ route: PlacePageRoute) {
+    FrameworkHelper.showRouteTransit(route.relId)
+    selectedRouteRelId = route.relId
+    updateRouteRefsLabel()
+    if let routeRefsView {
+      delegate?.didSelectPublicTransportRoute(scrollAnchor: routeRefsView)
+    }
+  }
+
+  /// Rebuilds the primary refs string, bolding and underlining the selected route's ref.
+  /// Inherits the current label's font and color as the baseline style.
+  /// Routes that share a ref are collapsed (the popup still shows all entries).
+  private func updateRouteRefsLabel() {
+    guard let label = routeRefsView?.textLabel, let routes = placePageInfoData.routes else { return }
+    let baseFont = label.font ?? UIFont.systemFont(ofSize: 16)
+    let baseColor = label.textColor ?? UIColor.black
+    let boldFont = UIFont.boldSystemFont(ofSize: baseFont.pointSize)
+    let baseAttrs: [NSAttributedString.Key: Any] = [.font: baseFont, .foregroundColor: baseColor]
+    let selectedRouteRef = selectedRouteRelId.flatMap { selectedRelId in
+      routes.first { $0.relId == selectedRelId }?.ref
+    }
+
+    var seen = Set<String>()
+    let result = NSMutableAttributedString()
+    for route in routes {
+      guard seen.insert(route.ref).inserted else { continue }
+      if result.length > 0 {
+        result.append(NSAttributedString(string: " • ", attributes: baseAttrs))
+      }
+      let start = result.length
+      result.append(NSAttributedString(string: route.ref, attributes: baseAttrs))
+      if route.ref == selectedRouteRef {
+        let range = NSRange(location: start, length: (route.ref as NSString).length)
+        result.addAttributes([
+          .font: boldFont,
+          .underlineStyle: NSUnderlineStyle.single.rawValue,
+        ], range: range)
+      }
+    }
+    label.attributedText = result
   }
 
   private func setupOpenWithAppView() {

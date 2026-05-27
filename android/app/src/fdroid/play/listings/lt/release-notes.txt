@@ -1,9 +1,8 @@
-• OSM duomenys nuo vasario 16 d., Vikipedija nuo vasario 1 d.
-• Juodi pėsčiųjų ir dviračių maršrutai dabar matomi tamsioje temoje
-• Pridėtos lynų trasos ir daugiau automobilių paslaugų: remontas, aptarnavimas ir dalys
-• Pataisytas dviračių maršruto parinkimas ir vidutinio greičio skaičiavimas
-• Patobulinta kategorijų paieška
-• Uzbekų virtuvė
-• Išplečiamos darbo valandos
-• Rodyti ir naudoti MSL aukštį įrašytiems maršrutams „Android 14+“
-…daugiau omaps.org/news
+• Pasirinkite pėsčiųjų ir dviračių maršrutus, kad pamatytumėte jų aukščio diagramas
+• Tinkamas žemėlapio apvedimas ties antimeridianu (±180° ilgumos)
+• Vienu metu pakeiskite visas žymeklių ir trasų spalvas kategorijoje
+• Geresnė namų numerių paieška, aprėpiama daugiau JAV adresų
+• OSM duomenys nuo balandžio 4 d.
+• Suplanuotos išvaizdos režimas nustatymuose
+• Ištaisytas žymeklių ir takelių bendrinimas su kitomis programomis
+…daugiau adresu omaps.org/lt/news

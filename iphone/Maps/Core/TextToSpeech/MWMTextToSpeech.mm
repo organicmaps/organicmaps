@@ -42,6 +42,19 @@ std::vector<std::pair<std::string, std::string>> availableLanguages()
   return result;
 }
 
+AVSpeechSynthesisVoice * bestAvailableVoice(NSString * locale)
+{
+  AVSpeechSynthesisVoice * bestVoice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
+  for (AVSpeechSynthesisVoice * voice in [AVSpeechSynthesisVoice speechVoices])
+  {
+    if (![voice.language isEqualToString:locale])
+      continue;
+    if (!bestVoice || voice.quality > bestVoice.quality)
+      bestVoice = voice;
+  }
+  return bestVoice;
+}
+
 using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
@@ -72,6 +85,7 @@ using Observers = NSHashTable<Observer>;
 + (void)applicationDidBecomeActive
 {
   auto tts = [self tts];
+  tts->_availableLanguages = availableLanguages();
   tts.speechSynthesizer = nil;
   tts.speechVoice = nil;
 }
@@ -212,7 +226,7 @@ using Observers = NSHashTable<Observer>;
   AVSpeechSynthesisVoice * voice = nil;
   for (NSString * loc in candidateLocales)
   {
-    voice = [AVSpeechSynthesisVoice voiceWithLanguage:loc];
+    voice = bestAvailableVoice(loc);
     if (voice)
       break;
   }

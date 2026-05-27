@@ -34,6 +34,7 @@
 		3DEE1AE821F7091100054A91 /* battery_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1AE621F7091100054A91 /* battery_tracker.hpp */; };
 		3DF528EB238BFFC1000ED0D5 /* downloader_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */; };
 		3DFACF312432421C00A29A94 /* background_downloader_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF2F2432421C00A29A94 /* background_downloader_ios.mm */; };
+		AB8CB2D5558742AD860212F4 /* connection_status_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8A16141224C1989C8F965 /* connection_status_apple.mm */; };
 		3DFACF322432421C00A29A94 /* background_downloader_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF302432421C00A29A94 /* background_downloader_ios.h */; };
 		44486DC42A1F9AC800A5DD6C /* utm_mgrs_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */; };
 		44CAB5F62A1F926800819330 /* utm_mgrs_utils_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */; };
@@ -70,9 +71,6 @@
 		675343B51A3F5D5A00A0A8C3 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753438A1A3F5D5900A0A8C3 /* constants.hpp */; };
 		675343B61A3F5D5A00A0A8C3 /* http_request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753438B1A3F5D5900A0A8C3 /* http_request.cpp */; };
 		675343B71A3F5D5A00A0A8C3 /* http_request.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753438C1A3F5D5900A0A8C3 /* http_request.hpp */; };
-		675343B81A3F5D5A00A0A8C3 /* http_thread_apple.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753438D1A3F5D5900A0A8C3 /* http_thread_apple.h */; };
-		675343B91A3F5D5A00A0A8C3 /* http_thread_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6753438E1A3F5D5900A0A8C3 /* http_thread_apple.mm */; };
-		675343BA1A3F5D5A00A0A8C3 /* http_thread_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753438F1A3F5D5A00A0A8C3 /* http_thread_callback.hpp */; };
 		675343C21A3F5D5A00A0A8C3 /* location.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343971A3F5D5A00A0A8C3 /* location.hpp */; };
 		675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439E1A3F5D5A00A0A8C3 /* platform_unix_impl.cpp */; };
 		675343CA1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753439F1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp */; };
@@ -88,7 +86,6 @@
 		678338961C6DE59200FD6263 /* apk_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341001C58C4C9002CF0D9 /* apk_test.cpp */; };
 		678338971C6DE59200FD6263 /* country_file_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341011C58C4C9002CF0D9 /* country_file_tests.cpp */; };
 		678338981C6DE59200FD6263 /* get_text_by_id_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341021C58C4C9002CF0D9 /* get_text_by_id_tests.cpp */; };
-		678338991C6DE59200FD6263 /* jansson_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341031C58C4C9002CF0D9 /* jansson_test.cpp */; };
 		6783389A1C6DE59200FD6263 /* language_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341041C58C4C9002CF0D9 /* language_test.cpp */; };
 		6783389B1C6DE59200FD6263 /* local_country_file_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341051C58C4C9002CF0D9 /* local_country_file_tests.cpp */; };
 		6783389C1C6DE59200FD6263 /* location_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675341061C58C4C9002CF0D9 /* location_test.cpp */; };
@@ -129,7 +126,6 @@
 		FAA8388D26BB4841002E54C6 /* test_socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675E889F1DB7B0F200F8EBDA /* test_socket.hpp */; };
 		FAA8388E26BB4849002E54C6 /* writable_dir_changer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FFB1C60BD6500EDE56A /* writable_dir_changer.cpp */; };
 		FAA8388F26BB484C002E54C6 /* writable_dir_changer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FFC1C60BD6500EDE56A /* writable_dir_changer.hpp */; };
-		FAA8389126BB48E9002E54C6 /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389026BB48E9002E54C6 /* libcppjansson.a */; };
 		FAA8389326BB48EF002E54C6 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389226BB48EF002E54C6 /* libbase.a */; };
 		FAA8389526BB48F4002E54C6 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389426BB48F4002E54C6 /* libcoding.a */; };
 		FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389626BB4906002E54C6 /* minizip.framework */; };
@@ -170,6 +166,7 @@
 		3DEE1AE621F7091100054A91 /* battery_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = battery_tracker.hpp; sourceTree = "<group>"; };
 		3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_defines.hpp; sourceTree = "<group>"; };
 		3DFACF2F2432421C00A29A94 /* background_downloader_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = background_downloader_ios.mm; sourceTree = "<group>"; };
+		2EA8A16141224C1989C8F965 /* connection_status_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = connection_status_apple.mm; sourceTree = "<group>"; };
 		3DFACF302432421C00A29A94 /* background_downloader_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background_downloader_ios.h; sourceTree = "<group>"; };
 		40D4697623FAB8D00030476C /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
 		44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utm_mgrs_utils_tests.cpp; sourceTree = "<group>"; };
@@ -207,7 +204,6 @@
 		675341001C58C4C9002CF0D9 /* apk_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = apk_test.cpp; sourceTree = "<group>"; };
 		675341011C58C4C9002CF0D9 /* country_file_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_file_tests.cpp; sourceTree = "<group>"; };
 		675341021C58C4C9002CF0D9 /* get_text_by_id_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = get_text_by_id_tests.cpp; sourceTree = "<group>"; };
-		675341031C58C4C9002CF0D9 /* jansson_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jansson_test.cpp; sourceTree = "<group>"; };
 		675341041C58C4C9002CF0D9 /* language_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = language_test.cpp; sourceTree = "<group>"; };
 		675341051C58C4C9002CF0D9 /* local_country_file_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_country_file_tests.cpp; sourceTree = "<group>"; };
 		675341061C58C4C9002CF0D9 /* location_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = location_test.cpp; sourceTree = "<group>"; };
@@ -221,9 +217,6 @@
 		6753438A1A3F5D5900A0A8C3 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
 		6753438B1A3F5D5900A0A8C3 /* http_request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_request.cpp; sourceTree = "<group>"; };
 		6753438C1A3F5D5900A0A8C3 /* http_request.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_request.hpp; sourceTree = "<group>"; };
-		6753438D1A3F5D5900A0A8C3 /* http_thread_apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_thread_apple.h; sourceTree = "<group>"; };
-		6753438E1A3F5D5900A0A8C3 /* http_thread_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_thread_apple.mm; sourceTree = "<group>"; };
-		6753438F1A3F5D5A00A0A8C3 /* http_thread_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_thread_callback.hpp; sourceTree = "<group>"; };
 		675343951A3F5D5A00A0A8C3 /* location_service/location_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = location_service/location_service.cpp; sourceTree = "<group>"; };
 		675343961A3F5D5A00A0A8C3 /* location_service/location_service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = location_service/location_service.hpp; sourceTree = "<group>"; };
 		675343971A3F5D5A00A0A8C3 /* location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = location.hpp; sourceTree = "<group>"; };
@@ -267,7 +260,6 @@
 		ED965B462CDA4EC00049E39E /* duration_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = duration_tests.cpp; sourceTree = "<group>"; };
 		F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_storage_base.cpp; sourceTree = "<group>"; };
 		F6DF73571EC9EAE700D8BA0B /* string_storage_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string_storage_base.hpp; sourceTree = "<group>"; };
-		FAA8389026BB48E9002E54C6 /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389226BB48EF002E54C6 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389426BB48F4002E54C6 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389626BB4906002E54C6 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -301,7 +293,6 @@
 				FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */,
 				FAA8389526BB48F4002E54C6 /* libcoding.a in Frameworks */,
 				FAA8389326BB48EF002E54C6 /* libbase.a in Frameworks */,
-				FAA8389126BB48E9002E54C6 /* libcppjansson.a in Frameworks */,
 				678338A81C6DE5E300FD6263 /* libplatform.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,7 +307,6 @@
 				FAA8389626BB4906002E54C6 /* minizip.framework */,
 				FAA8389426BB48F4002E54C6 /* libcoding.a */,
 				FAA8389226BB48EF002E54C6 /* libbase.a */,
-				FAA8389026BB48E9002E54C6 /* libcppjansson.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -331,7 +321,6 @@
 				675341001C58C4C9002CF0D9 /* apk_test.cpp */,
 				675341011C58C4C9002CF0D9 /* country_file_tests.cpp */,
 				675341021C58C4C9002CF0D9 /* get_text_by_id_tests.cpp */,
-				675341031C58C4C9002CF0D9 /* jansson_test.cpp */,
 				675341041C58C4C9002CF0D9 /* language_test.cpp */,
 				675341051C58C4C9002CF0D9 /* local_country_file_tests.cpp */,
 				675341061C58C4C9002CF0D9 /* location_test.cpp */,
@@ -422,9 +411,6 @@
 				6753438B1A3F5D5900A0A8C3 /* http_request.cpp */,
 				333A416E21C3E13B00AF26F6 /* http_session_manager.h */,
 				333A416D21C3E13A00AF26F6 /* http_session_manager.mm */,
-				6753438D1A3F5D5900A0A8C3 /* http_thread_apple.h */,
-				6753438E1A3F5D5900A0A8C3 /* http_thread_apple.mm */,
-				6753438F1A3F5D5A00A0A8C3 /* http_thread_callback.hpp */,
 				3D318A052021DD8B007B2607 /* http_uploader.hpp */,
 				3D318A042021DD8A007B2607 /* http_uploader_apple.mm */,
 				D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */,
@@ -448,6 +434,7 @@
 				671C62041AE9014C00076BD0 /* measurement_utils.cpp */,
 				56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */,
 				56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */,
+				2EA8A16141224C1989C8F965 /* connection_status_apple.mm */,
 				67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */,
 				67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */,
 				3DE8B98E1DEC3115000E6083 /* network_policy.hpp */,
@@ -526,7 +513,6 @@
 			files = (
 				675343B71A3F5D5A00A0A8C3 /* http_request.hpp in Headers */,
 				6741250B1B4C00CC00A3E828 /* country_file.hpp in Headers */,
-				675343B81A3F5D5A00A0A8C3 /* http_thread_apple.h in Headers */,
 				EB60B4DE204C175700E4953B /* network_policy_ios.h in Headers */,
 				56EB1EDF1C6B6E6C0022D831 /* mwm_traits.hpp in Headers */,
 				675343C21A3F5D5A00A0A8C3 /* location.hpp in Headers */,
@@ -541,7 +527,6 @@
 				67AB92DD1B7B3D7300AB5194 /* mwm_version.hpp in Headers */,
 				675343CA1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp in Headers */,
 				675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */,
-				675343BA1A3F5D5A00A0A8C3 /* http_thread_callback.hpp in Headers */,
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
 				3DFACF322432421C00A29A94 /* background_downloader_ios.h in Headers */,
 				3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */,
@@ -738,8 +723,8 @@
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
 				675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */,
 				675343CE1A3F5D5A00A0A8C3 /* preferred_languages.cpp in Sources */,
-				675343B91A3F5D5A00A0A8C3 /* http_thread_apple.mm in Sources */,
 				3DFACF312432421C00A29A94 /* background_downloader_ios.mm in Sources */,
+				AB8CB2D5558742AD860212F4 /* connection_status_apple.mm in Sources */,
 				1669C8402A30DCD200530AD1 /* distance.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -752,7 +737,6 @@
 				ED49D7442CEE43A4004AF27E /* meta_config_tests.cpp in Sources */,
 				ED49D7452CEE43A4004AF27E /* products_tests.cpp in Sources */,
 				678338961C6DE59200FD6263 /* apk_test.cpp in Sources */,
-				678338991C6DE59200FD6263 /* jansson_test.cpp in Sources */,
 				ED965B482CDA575B0049E39E /* duration.cpp in Sources */,
 				6783389C1C6DE59200FD6263 /* location_test.cpp in Sources */,
 				678338981C6DE59200FD6263 /* get_text_by_id_tests.cpp in Sources */,
@@ -863,17 +847,14 @@
 				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 				);
 				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 				);
 				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/jansson/src",
 					"$(QT_PATH)/include",
 				);
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (

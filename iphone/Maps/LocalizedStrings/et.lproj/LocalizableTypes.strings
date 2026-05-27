@@ -87,7 +87,7 @@
 "type.amenity.internet_cafe" = "Internetikohvik";
 "type.amenity.kindergarten" = "Lasteaed";
 "type.amenity.library" = "Raamatukogu";
-"type.amenity.loading_dock" = "Laoestakaad";
+"type.amenity.loading_dock" = "Laadimisdokk";
 "type.amenity.luggage_locker" = "Pagasihoid";
 "type.amenity.marketplace" = "Turg";
 "type.amenity.motorcycle_parking" = "Mootorrataste parkla";
@@ -249,13 +249,14 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Aadress";
+"type.building.construction" = "Ehitatav hoone";
 "type.building.has_parts" = "Hoone";
 "type.building_part" = "Hooneosa";
 "type.building.garage" = "Garaaž";
 "type.building.train_station" = "Jaamahoone";
 "type.building.warehouse" = "Ladu";
 "type.cemetery.grave" = "Haud";
-"type.craft" = "Käsitöömeister";
+"type.craft" = "Käsitöö";
 "type.craft.beekeeper" = "Mesinik";
 "type.craft.blacksmith" = "Sepp";
 "type.craft.brewery" = "Väikepruulikoda";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Vahemere";
 "type.cuisine.mexican" = "Mehhiko";
 "type.cuisine.moroccan" = "Maroko";
-"type.cuisine.noodles" = "Nuudliroad";
+"type.cuisine.noodle" = "Nuudliroad";
 "type.cuisine.oriental" = "Kaug-Ida";
 "type.cuisine.pancake" = "Pannkoogid";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Vorstid";
 "type.cuisine.savory_pancakes" = "Soolased pannkoogid";
 "type.cuisine.seafood" = "Mereannid";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Jaapani soba-nuudlid";
 "type.cuisine.spanish" = "Hispaania";
 "type.cuisine.steak_house" = "Liharestoran";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Puude rida";
 "type.natural.vineyard" = "Viinamarjaistandus";
 "type.natural.volcano" = "Vulkaan";
+"type.natural.volcano.active" = "Aktiivne vulkaan";
 "type.natural.water" = "Veekogu";
 "type.natural.wetland" = "Märgala";
 "type.natural.wetland.bog" = "Raba";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Maahoki";
 "type.sport.badminton" = "Sulgpall";
 "type.sport.pelota" = "Baski pelota";
+"type.sport.boules" = "Petank";
+"type.sport.cycling" = "Jalgrattasport";
+"type.sport.four_square" = "Neli ruutu";
+"type.sport.horse_racing" = "Hobuste võiduajamine";
+"type.sport.karting" = "Kardisõit";
+"type.sport.motocross" = "Motokross";
+"type.sport.motor" = "Mootorisport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi";
+"type.sport.running" = "Jooks";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turism";
 "type.tourism.aquarium" = "Akvaarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Ajalooline vaatamisväärsus";
 "type.attraction.maze" = "Labürint";
 "type.attraction.roller_coaster" = "Ameerika mäed";
+"type.roller_coaster.track" = "Ameerika mäed";
 "type.attraction.water_slide" = "Vesiliug";
 "type.tourism.attraction.specified" = "Turismiatraktsioon";
 "type.tourism.camp_site" = "Kämpinguala";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Kiirusepiiraja";
 "type.traffic_calming.hump" = "Liikluskünnis";
 "type.waterway" = "Veetee";
+"type.waterway.access_point" = "Veetee juurdepääsupunkt";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal tunnelis";
 "type.waterway.fish_pass" = "Kalatrepp";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Kellassepp";
 "type.xmas_feature.market" = "Jõuluturg";
 "type.xmas_feature.tree" = "Jõulupuu";
+"type.amenity.hookah_lounge" = "Vesipiibu kohvik";

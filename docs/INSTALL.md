@@ -181,6 +181,23 @@ sudo apk add \
 brew install cmake ninja qt@6
 ```
 
+#### Note: Homebrew (Linuxbrew) Qt6 on Linux with NVIDIA
+
+Installing Qt6 via Homebrew (Linuxbrew) on a Linux machine that uses the
+NVIDIA proprietary graphics driver is **not recommended**. Linuxbrew's Qt6 is
+built with a `DT_RPATH` entry that forces its bundled Mesa `libGL.so.1` to be
+loaded at runtime, bypassing the system libglvnd dispatcher. The app silently
+falls back to software rendering (`llvmpipe`) and then crashes in
+`qtoglcontextfactory.cpp` when creating an offscreen GL surface.
+
+Prefer the distribution's Qt6 packages listed in the sections above. If
+Linuxbrew's Qt6 must be used, preload the system libGL at runtime:
+
+```bash
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 ./OMaps   # Debian/Ubuntu
+LD_PRELOAD=/usr/lib64/libGL.so.1 ./OMaps                  # Fedora/RHEL
+```
+
 ### Windows
 
 We haven't compiled Organic Maps on Windows *natively* in a long time, though it is possible.
@@ -287,6 +304,8 @@ ctest -L "omim-test" -E "base_tests|coding_tests" --output-on-failure
 
 Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
 
+To skip building tests, configure with `-DBUILD_TESTING=OFF`.
+
 ### Test Coverage
 
 To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.
@@ -371,7 +390,7 @@ echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 ```
 
 If you have Qt installed in an unusual directory, use `QT_PATH` variable (`SET (QT_PATH "your-path-to-qt")`). You can skip building tests
-with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
+with `-DBUILD_TESTING=OFF`. You would need 1.5 GB of memory
 to compile the `stats` module.
 
 The `build_omim.sh` script basically runs these commands:

@@ -34,7 +34,7 @@
     <string name="type.amenity.bicycle_repair_station">Kerékpárjavító állomás</string>
     <string name="type.amenity.biergarten">Sörkert</string>
     <string name="type.amenity.brothel">Bordélyház</string>
-    <string name="type.amenity.love_hotel">Szeretőszálló</string>
+    <string name="type.amenity.love_hotel">Szerelmi szálló</string>
     <string name="type.amenity.bureau_de_change">Pénzváltó</string>
     <string name="type.amenity.bus_station">Buszállomás</string>
     <string name="type.amenity.cafe">Kávézó</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Épület</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Cím</string>
+    <string name="type.building.construction">Építés alatt álló épület</string>
     <string name="type.building.has_parts">Épület</string>
     <string name="type.building_part">Épületrész</string>
     <string name="type.building.garage">Garázs</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Mediterrán</string>
     <string name="type.cuisine.mexican">Mexikói</string>
     <string name="type.cuisine.moroccan">Marokkói</string>
-    <string name="type.cuisine.noodles">Tészta (noodle)</string>
+    <string name="type.cuisine.noodle">Tészta (noodle)</string>
     <string name="type.cuisine.oriental">Kelet-ázsiai</string>
     <string name="type.cuisine.pancake">Palacsinta</string>
     <string name="type.cuisine.pasta">Olasz tészta (pasta)</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Kolbász</string>
     <string name="type.cuisine.savory_pancakes">Sós palacsinta</string>
     <string name="type.cuisine.seafood">Tenger gyümölcsei</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Szo-ba</string>
     <string name="type.cuisine.spanish">Spanyol</string>
     <string name="type.cuisine.steak_house">Steak ház</string>
@@ -674,7 +676,7 @@
     <string name="type.leisure.swimming_pool">Úszómedence</string>
     <string name="type.leisure.swimming_pool.private">Úszómedence</string>
     <string name="type.leisure.track">Futópálya</string>
-    <string name="type.leisure.track.area">Versenypálya</string>
+    <string name="type.leisure.track.area">Futópálya</string>
     <string name="type.leisure.water_park">Aquapark</string>
     <string name="type.leisure.beach_resort">Fürdőhely, vízparti strand</string>
     <string name="type.man_made">Építmény</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Fasor</string>
     <string name="type.natural.vineyard">Szőlőskert</string>
     <string name="type.natural.volcano">Vulkán</string>
+    <string name="type.natural.volcano.active">Aktív vulkán</string>
     <string name="type.natural.water">Vizek</string>
     <string name="type.natural.wetland">Vizes terület</string>
     <string name="type.natural.wetland.bog">Láp</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Gyeplabda</string>
     <string name="type.sport.badminton">Tollaslabda</string>
     <string name="type.sport.pelota">Baszk pelota</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Kerékpározás</string>
+    <string name="type.sport.four_square">Négy négyzet</string>
+    <string name="type.sport.horse_racing">Lóverseny</string>
+    <string name="type.sport.karting">Gokart</string>
+    <string name="type.sport.motocross">Motokrossz</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rögbi</string>
+    <string name="type.sport.running">Futás</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turizmus</string>
     <string name="type.tourism.aquarium">Akvárium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Történelmi látványosság</string>
     <string name="type.attraction.maze">Labirintus</string>
     <string name="type.attraction.roller_coaster">Hullámvasút</string>
+    <string name="type.roller_coaster.track">Hullámvasút</string>
     <string name="type.attraction.water_slide">Vízicsúszda</string>
     <string name="type.tourism.attraction.specified">Látnivaló</string>
     <string name="type.tourism.camp_site">Kemping</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Fekvőrendőr</string>
     <string name="type.traffic_calming.hump">Hosszú fekvőrendőr</string>
     <string name="type.waterway">Vízfolyás</string>
+    <string name="type.waterway.access_point">Víziút hozzáférési pont</string>
     <string name="type.waterway.canal">Csatorna</string>
     <string name="type.waterway.canal.tunnel">Csatornaalagút</string>
     <string name="type.waterway.fish_pass">Hallépcső</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Órás</string>
     <string name="type.xmas_feature.market">Karácsonyi piac</string>
     <string name="type.xmas_feature.tree">Karácsonyfa</string>
+    <string name="type.amenity.hookah_lounge">Vízipipa bár</string>
 </resources>

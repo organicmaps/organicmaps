@@ -1,3 +1,4 @@
+#include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -15,13 +16,11 @@
 #include <Foundation/NSPathUtilities.h>
 #include <IOKit/IOKitLib.h>
 
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/sysctl.h>
 
 #include <dispatch/dispatch.h>
-
-#import <SystemConfiguration/SystemConfiguration.h>
-#import <netinet/in.h>
 
 Platform::Platform()
 {
@@ -134,6 +133,10 @@ Platform::Platform()
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
+
+  // Kick off the connection-status monitor at launch; its first asynchronous
+  // callback should arrive long before any UI code queries IsConnected().
+  ConnectionStatus();
 }
 
 std::string Platform::DeviceName() const
@@ -146,27 +149,7 @@ std::string Platform::DeviceModel() const
   return {};
 }
 
-Platform::EConnectionType Platform::ConnectionStatus()
-{
-  struct sockaddr_in zero;
-  memset(&zero, 0, sizeof(zero));
-  zero.sin_len = sizeof(zero);
-  zero.sin_family = AF_INET;
-  SCNetworkReachabilityRef reachability =
-      SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, reinterpret_cast<const struct sockaddr *>(&zero));
-  if (!reachability)
-    return EConnectionType::CONNECTION_NONE;
-  SCNetworkReachabilityFlags flags;
-  bool const gotFlags = SCNetworkReachabilityGetFlags(reachability, &flags);
-  CFRelease(reachability);
-  if (!gotFlags || ((flags & kSCNetworkReachabilityFlagsReachable) == 0))
-    return EConnectionType::CONNECTION_NONE;
-  SCNetworkReachabilityFlags userActionRequired =
-      kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsInterventionRequired;
-  if ((flags & userActionRequired) == userActionRequired)
-    return EConnectionType::CONNECTION_NONE;
-  return EConnectionType::CONNECTION_WIFI;
-}
+// Platform::ConnectionStatus() lives in connection_status_apple.mm (shared with iOS).
 
 // static
 Platform::ChargingStatus Platform::GetChargingStatus()
@@ -188,9 +171,6 @@ time_t Platform::GetFileCreationTime(std::string const & path)
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return st.st_birthtimespec.tv_sec;
-
-  LOG(LERROR, ("GetFileCreationTime stat failed for", path, "with error", strerror(errno)));
-  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }
 
@@ -200,8 +180,14 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return st.st_mtimespec.tv_sec;
-
-  LOG(LERROR, ("GetFileModificationTime stat failed for", path, "with error", strerror(errno)));
-  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
+}
+
+// static
+bool Platform::SetFileModificationTime(std::string const & path, time_t modTime)
+{
+  struct timespec times[2] = {};
+  times[0].tv_nsec = UTIME_OMIT;  // access time: unchanged
+  times[1].tv_sec = modTime;      // modification time
+  return utimensat(AT_FDCWD, path.c_str(), times, 0) == 0;
 }

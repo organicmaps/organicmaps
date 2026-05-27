@@ -117,6 +117,8 @@ struct LanguageCellStrategy : BaseCellStategy
 
   NSString * TitleForHeader() const override { return L(@"pref_tts_language_title"); }
 
+  NSString * TitleForFooter() const override { return L(@"pref_tts_download_voices_description"); }
+
   void SelectCell(UITableView * tableView, NSIndexPath * indexPath, MWMTTSSettingsViewController * controller) override
   {
     NSInteger const row = indexPath.row;

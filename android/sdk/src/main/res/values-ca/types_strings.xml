@@ -165,7 +165,7 @@
     <string name="type.amenity.public_bath">Bany públic</string>
     <string name="type.amenity.shower">Dutxa</string>
     <string name="type.amenity.stripclub">Club de striptease</string>
-    <string name="type.amenity.taxi">Desocupada de taxis</string>
+    <string name="type.amenity.taxi">Parada de taxis</string>
     <string name="type.amenity.telephone">Telèfon</string>
     <string name="type.amenity.theatre">Teatre</string>
     <string name="type.amenity.toilets">Vàter</string>
@@ -235,6 +235,7 @@
     <string name="type.building">Edifici</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adreça</string>
+    <string name="type.building.construction">Edifici en construcció</string>
     <string name="type.building.has_parts">Edifici</string>
     <string name="type.building_part">Edifici</string>
     <string name="type.building.garage">Garatge</string>
@@ -325,7 +326,7 @@
     <string name="type.cuisine.mediterranean">Mediterrània</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquina</string>
-    <string name="type.cuisine.noodles">Fideus xinesos</string>
+    <string name="type.cuisine.noodle">Fideus xinesos</string>
     <string name="type.cuisine.oriental">Cuina de l’Àsia oriental</string>
     <string name="type.cuisine.pancake">Pancake</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -341,6 +342,7 @@
     <string name="type.cuisine.sausage">Salsitxa</string>
     <string name="type.cuisine.savory_pancakes">Creps salades</string>
     <string name="type.cuisine.seafood">Marisc</string>
+    <string name="type.cuisine.shawarma">Xauarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Espanyola</string>
     <string name="type.cuisine.steak_house">Restaurant de carn</string>
@@ -670,8 +672,8 @@
     <string name="type.leisure.stadium">Estadi</string>
     <string name="type.leisure.swimming_pool">Piscina</string>
     <string name="type.leisure.swimming_pool.private">Piscina</string>
-    <string name="type.leisure.track">Sender</string>
-    <string name="type.leisure.track.area">Sender</string>
+    <string name="type.leisure.track">Pista esportiva</string>
+    <string name="type.leisure.track.area">Pista esportiva</string>
     <string name="type.leisure.water_park">Parc aquàtic</string>
     <string name="type.leisure.beach_resort">Complex turístic platger</string>
     <string name="type.man_made">Artificial</string>
@@ -751,6 +753,7 @@
     <string name="type.natural.tree_row">Fila d’arbres</string>
     <string name="type.natural.vineyard">Vinyar</string>
     <string name="type.natural.volcano">Volcà</string>
+    <string name="type.natural.volcano.active">Volcà actiu</string>
     <string name="type.natural.water">Aigua</string>
     <string name="type.natural.wetland">Zona humida</string>
     <string name="type.natural.wetland.bog">Torbera</string>
@@ -1300,6 +1303,18 @@
     <string name="type.sport.field_hockey">Hoquei sobre herba</string>
     <string name="type.sport.badminton">Bàdminton</string>
     <string name="type.sport.pelota">Pilota basca</string>
+    <string name="type.sport.boules">Petanca</string>
+    <string name="type.sport.cycling">Ciclisme</string>
+    <string name="type.sport.four_square">Quatre quadrats</string>
+    <string name="type.sport.horse_racing">Curses de cavalls</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocròs</string>
+    <string name="type.sport.motor">Esports de motor</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugbi a quinze</string>
+    <string name="type.sport.running">Cursa a peu</string>
+    <string name="type.sport.softball">Softbol</string>
     <string name="type.tourism">Turisme</string>
     <string name="type.tourism.aquarium">Aquari</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1319,6 +1334,7 @@
     <string name="type.attraction.historic">Atracció històrica</string>
     <string name="type.attraction.maze">Laberint</string>
     <string name="type.attraction.roller_coaster">Muntanya russa</string>
+    <string name="type.roller_coaster.track">Muntanya russa</string>
     <string name="type.attraction.water_slide">Tobogan aquàtic</string>
     <string name="type.tourism.attraction.specified">Atracció</string>
     <string name="type.tourism.camp_site">Paratge d’acampada</string>
@@ -1349,6 +1365,7 @@
     <string name="type.traffic_calming.bump">Rebaixador de trànsit</string>
     <string name="type.traffic_calming.hump">Rebaixador de trànsit</string>
     <string name="type.waterway">Via aquàtica</string>
+    <string name="type.waterway.access_point">Punt d\'accés a la via navegable</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Túnel de canal</string>
     <string name="type.waterway.fish_pass">Pas de peix</string>
@@ -1432,4 +1449,5 @@
     <string name="type.craft.watchmaker">Rellotger</string>
     <string name="type.xmas_feature.market">Mercat de Nadal</string>
     <string name="type.xmas_feature.tree">Arbre de Nadal</string>
+    <string name="type.amenity.hookah_lounge">Bar de xixa</string>
 </resources>

@@ -108,7 +108,8 @@ public:
 class TestState : public TestPlace
 {
 public:
-  TestState(m2::PointD const & center, std::string const & name, std::string const & lang);
+  TestState(m2::PointD const & center, std::string const & name, std::string const & shortName,
+            std::string const & lang);
 };
 
 // A feature that is big enough for World.mwm but is not a locality.

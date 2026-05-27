@@ -235,6 +235,7 @@
     <string name="type.building">Edificio</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Dirección</string>
+    <string name="type.building.construction">Edificio en construción</string>
     <string name="type.building.has_parts">Edificio</string>
     <string name="type.building_part">Edificio</string>
     <string name="type.building.garage">Garaxe</string>
@@ -325,7 +326,7 @@
     <string name="type.cuisine.mediterranean">Mediterránea</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquí</string>
-    <string name="type.cuisine.noodles">Fideos</string>
+    <string name="type.cuisine.noodle">Fideos</string>
     <string name="type.cuisine.oriental">Oriental</string>
     <string name="type.cuisine.pancake">Tortitas</string>
     <string name="type.cuisine.pasta">Pastas</string>
@@ -750,6 +751,7 @@
     <string name="type.natural.tree_row">Fila de árbores</string>
     <string name="type.natural.vineyard">Viña</string>
     <string name="type.natural.volcano">Volcán</string>
+    <string name="type.natural.volcano.active">Volcán activo</string>
     <string name="type.natural.water">Corpo de auga</string>
     <string name="type.natural.wetland">Terrea pantanoso</string>
     <string name="type.natural.wetland.bog">Turbera</string>
@@ -1298,6 +1300,18 @@
     <string name="type.sport.field_hockey">Hóckey sobre céspede</string>
     <string name="type.sport.badminton">Bádminton</string>
     <string name="type.sport.pelota">Pelota vasca</string>
+    <string name="type.sport.boules">Petanca</string>
+    <string name="type.sport.cycling">Ciclismo</string>
+    <string name="type.sport.four_square">Catro cadrados</string>
+    <string name="type.sport.horse_racing">Carreiras de cabalos</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Deportes de motor</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby</string>
+    <string name="type.sport.running">Carreira</string>
+    <string name="type.sport.softball">Sóftbol</string>
     <string name="type.tourism">Turismo</string>
     <string name="type.tourism.aquarium">Acuario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1317,6 +1331,7 @@
     <string name="type.attraction.historic">Atracción histórica</string>
     <string name="type.attraction.maze">Labirinto</string>
     <string name="type.attraction.roller_coaster">Montaña rusa</string>
+    <string name="type.roller_coaster.track">Montaña rusa</string>
     <string name="type.attraction.water_slide">Tobogán acuático</string>
     <string name="type.tourism.attraction.specified">Atracción turística</string>
     <string name="type.tourism.camp_site">Paraxe de campamento</string>
@@ -1347,6 +1362,7 @@
     <string name="type.traffic_calming.bump">Banda redutora</string>
     <string name="type.traffic_calming.hump">Resalte</string>
     <string name="type.waterway">Curso de auga</string>
+    <string name="type.waterway.access_point">Punto de acceso á vía navegable</string>
     <string name="type.waterway.canal">Canle</string>
     <string name="type.waterway.canal.tunnel">Túnel de canle</string>
     <string name="type.waterway.fish_pass">Escaleira de peces</string>

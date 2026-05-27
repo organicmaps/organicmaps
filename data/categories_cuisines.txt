@@ -598,7 +598,7 @@ zh-Hans:烤肉
 zh-Hant:烤肉
 sr:Кебаб|Kebab
 
-cuisine-noodles
+cuisine-noodle
 en:Noodles
 ru:Лапшичная|Лапша
 bg:Нудъли|Юфка

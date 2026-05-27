@@ -6,6 +6,17 @@ import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Outline;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
@@ -14,11 +25,19 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,6 +46,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentFactory;
@@ -63,15 +84,19 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
+import app.organicmaps.sdk.widget.placepage.RouteInfo;
 import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.utils.Graphics;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
+import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
+import app.organicmaps.widget.colorpicker.TrackColorPickerViewModel;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageNotesFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
@@ -81,17 +106,19 @@ import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class PlacePageView extends Fragment
     implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
                ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener,
-               BookmarkColorDialogFragment.OnBookmarkColorChangeListener
+               BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
+               TrackColorPickerFragment.OnTrackColorChangeListener
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
-  private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String NOTES_FRAGMENT_TAG = "NOTES_FRAGMENT_TAG";
   private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String TRACK_RECORDING_FRAGMENT_TAG = "TRACK_RECORDING_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
@@ -143,10 +170,15 @@ public class PlacePageView extends Fragment
   private View mRouteRef;
   private TextView mTvRouteRef;
   private ImageView mIvRouteRef;
+  @Nullable
+  private RouteInfo[] mRoutes;
+  @Nullable
+  private PopupWindow mRoutesPopup;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
   private View mEditTopSpace;
+  private View mDetailsTopSpace;
   private ImageView mColorIcon;
   private TextView mTvCategory;
   private ImageView mEditBookmark;
@@ -154,6 +186,9 @@ public class PlacePageView extends Fragment
   private TextView mTvOsmDescription;
   private MaterialButton mShareButton;
   private MaterialButton closeButton;
+
+  @Nullable
+  private Observer<String> mTrackRecordingObserver;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
@@ -192,6 +227,18 @@ public class PlacePageView extends Fragment
   private MapObject mMapObject;
 
   private static void refreshMetadataOrHide(@Nullable String metadata, @NonNull View metaLayout,
+                                            @NonNull TextView metaTv)
+  {
+    if (!TextUtils.isEmpty(metadata))
+    {
+      metaLayout.setVisibility(VISIBLE);
+      metaTv.setText(metadata);
+    }
+    else
+      metaLayout.setVisibility(GONE);
+  }
+
+  private static void refreshMetadataOrHide(@Nullable CharSequence metadata, @NonNull View metaLayout,
                                             @NonNull TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
@@ -316,7 +363,7 @@ public class PlacePageView extends Fragment
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
     mRouteRef = mFrame.findViewById(R.id.ll__place_route_ref);
-    mRouteRef.setOnClickListener(this);
+    mFrame.findViewById(R.id.ll__place_route_ref_content).setOnClickListener(this);
     mTvRouteRef = mFrame.findViewById(R.id.tv__place_route_ref);
     mIvRouteRef = mFrame.findViewById(R.id.iv__place_route_ref);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
@@ -326,6 +373,7 @@ public class PlacePageView extends Fragment
     mAddPlace = mFrame.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
+    mDetailsTopSpace = mFrame.findViewById(R.id.details_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
@@ -357,6 +405,8 @@ public class PlacePageView extends Fragment
   public void onStop()
   {
     super.onStop();
+    if (mRoutesPopup != null && mRoutesPopup.isShowing())
+      mRoutesPopup.dismiss();
     mViewModel.getMapObject().removeObserver(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
@@ -417,10 +467,10 @@ public class PlacePageView extends Fragment
                        mMapObject.hasPhoneNumber());
   }
 
-  private void updateBookmarkView()
+  private void updateNotesView()
   {
-    updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment,
-                       mMapObject.isBookmark());
+    updateViewFragment(PlacePageNotesFragment.class, NOTES_FRAGMENT_TAG, R.id.place_page_notes_fragment,
+                       mMapObject.isBookmark() || mMapObject.isTrack());
   }
 
   private void updateTrackView()
@@ -508,9 +558,11 @@ public class PlacePageView extends Fragment
     else if (mMapObject.isTrackRecording())
     {
       TrackRecording trackRecording = (TrackRecording) mMapObject;
-      trackRecording.getTrackRecordingPPDescription().observe(requireActivity(), s -> {
-        UiUtils.setTextAndHideIfEmpty(mTvTitle, trackRecording.getTrackRecordingPPDescription().getValue());
-      });
+      final var liveData = trackRecording.getTrackRecordingPPDescription();
+      if (mTrackRecordingObserver != null)
+        liveData.removeObserver(mTrackRecordingObserver);
+      mTrackRecordingObserver = s -> UiUtils.setTextAndHideIfEmpty(mTvTitle, s);
+      liveData.observe(getViewLifecycleOwner(), mTrackRecordingObserver);
       UiUtils.hide(mAvDirection, mTvDistance);
     }
   }
@@ -518,13 +570,16 @@ public class PlacePageView extends Fragment
   void refreshCategoryPreview()
   {
     View categoryContainer = mFrame.findViewById(R.id.category_container);
+    boolean showCategory;
     if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_background_size,
                                             requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
-      mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
+      showCategory = !track.isRelationTrack();
+      if (showCategory)
+        mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
     }
     else if (mMapObject.isBookmark())
     {
@@ -537,62 +592,67 @@ public class PlacePageView extends Fragment
         mColorIcon.setImageDrawable(circle);
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
       }
+      showCategory = true;
     }
-    UiUtils.showIf(mMapObject.isTrack() || mMapObject.isBookmark(), categoryContainer);
+    else
+      showCategory = false;
+    UiUtils.showIf(showCategory, categoryContainer);
   }
 
   void showColorDialog()
   {
-    final Bundle args = new Bundle();
     final FragmentManager manager = getChildFragmentManager();
-    final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
 
     if (mMapObject.isTrack())
     {
       final Track track = (Track) mMapObject;
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(track.getColor()));
+      final Bundle args = new Bundle();
+      args.putInt(TrackColorPickerViewModel.EXTRA_INITIAL_COLOR, track.getColor());
+      final TrackColorPickerFragment fragment = new TrackColorPickerFragment();
+      fragment.setArguments(args);
+      fragment.show(manager, null);
     }
     else if (mMapObject.isBookmark())
     {
+      final Bundle args = new Bundle();
       final Bookmark bookmark = (Bookmark) mMapObject;
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
+      final BookmarkColorDialogFragment dialogFragment = new BookmarkColorDialogFragment();
+      dialogFragment.setArguments(args);
+      dialogFragment.show(manager, null);
     }
+  }
 
-    dialogFragment.setArguments(args);
-    dialogFragment.show(manager, null);
+  @Override
+  public void onTrackColorSet(int color)
+  {
+    if (mMapObject == null || !mMapObject.isTrack())
+      return;
+    final Track track = (Track) mMapObject;
+    if (track.getColor() == color)
+      return;
+    track.setColor(color);
+    Drawable circle =
+        Graphics.drawCircle(color, R.dimen.place_page_icon_background_size, requireContext().getResources());
+    mColorIcon.setImageDrawable(circle);
   }
 
   @Override
   public void onBookmarkColorSet(int colorPos)
   {
-    if (mMapObject == null)
+    if (mMapObject == null || !mMapObject.isBookmark())
       return;
-    if (mMapObject.isTrack())
-    {
-      final Track track = (Track) mMapObject;
-      int from = track.getColor();
-      int to = PredefinedColors.getColor(colorPos);
-      if (from == to)
-        return;
-      track.setColor(to);
-      Drawable circle =
-          Graphics.drawCircle(to, R.dimen.place_page_icon_background_size, requireContext().getResources());
-      mColorIcon.setImageDrawable(circle);
-    }
-    else if (mMapObject.isBookmark())
-    {
-      final Bookmark bookmark = (Bookmark) mMapObject;
-      int from = bookmark.getIcon().argb();
-      int to = PredefinedColors.getColor(colorPos);
-      if (from == to)
-        return;
-      bookmark.setIconColor(to);
-      Drawable circle =
-          Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
-                                      R.dimen.place_page_icon_size, requireContext());
-      mColorIcon.setImageDrawable(circle);
-    }
+    final Bookmark bookmark = (Bookmark) mMapObject;
+    int from = bookmark.getIcon().argb();
+    int to = PredefinedColors.getColor(colorPos);
+    if (from == to)
+      return;
+    bookmark.setIconColor(to);
+    Drawable circle =
+        Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
+                                    R.dimen.place_page_icon_size, requireContext());
+    mColorIcon.setImageDrawable(circle);
   }
 
   private void showCategoryList()
@@ -718,7 +778,8 @@ public class PlacePageView extends Fragment
                           mTvOutdoorSeating);
 
     // showTaxiOffer(mapObject);
-    refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedRouteRefs(), mRouteRef, mTvRouteRef);
+    mRoutes = Framework.nativeGetActiveObjectRoutes();
+    refreshMetadataOrHide(formatRouteRefs(mRoutes, Framework.nativeGetActiveTransitRouteRef()), mRouteRef, mTvRouteRef);
     if (mRouteRef.getVisibility() == VISIBLE)
     {
       if (mMapObject.isTramStop())
@@ -754,13 +815,15 @@ public class PlacePageView extends Fragment
           UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation) || UiUtils.isVisible(mAddPlace),
           mEditTopSpace);
     }
-    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton, mFrame.findViewById(R.id.ll__place_open_in));
-    UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_open_in));
+    final boolean isTrackOrRecording = mMapObject.isTrack() || mMapObject.isTrackRecording();
+    final boolean isRelationTrack = mMapObject.isTrack() && ((Track) mMapObject).isRelationTrack();
+    UiUtils.hideIf(mMapObject.isTrackRecording() || isRelationTrack, mShareButton);
+    UiUtils.hideIf(isTrackOrRecording, mFrame.findViewById(R.id.ll__place_open_in), mDetailsTopSpace);
     updateLinksView();
     updateOpeningHoursView();
     updateProductsView();
     updateWikipediaView();
-    updateBookmarkView();
+    updateNotesView();
     updatePhoneView();
     updateTrackView();
     updateTrackRecordingView();
@@ -884,6 +947,161 @@ public class PlacePageView extends Fragment
       showBookmarkEditFragment();
     else if (id == R.id.tv__category)
       showCategoryList();
+    else if (id == R.id.ll__place_route_ref_content)
+      showRoutesPopup(v);
+  }
+
+  @NonNull
+  private static CharSequence formatRouteRefs(@Nullable RouteInfo[] routes, @Nullable String selectedRef)
+  {
+    if (routes == null || routes.length == 0)
+      return "";
+    // Routes can repeat the same ref with different from/to (e.g. inbound/outbound directions
+    // of the same line). Collapse them in the primary row — the popup still shows all entries.
+    final HashSet<String> seen = new HashSet<>(routes.length);
+    final SpannableStringBuilder sb = new SpannableStringBuilder();
+    for (RouteInfo r : routes)
+    {
+      if (!seen.add(r.getRef()))
+        continue;
+      if (sb.length() > 0)
+        sb.append(" • ");
+      final int start = sb.length();
+      sb.append(r.getRef());
+      if (r.getRef().equals(selectedRef))
+      {
+        sb.setSpan(new StyleSpan(Typeface.BOLD), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sb.setSpan(new UnderlineSpan(), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+    }
+    return sb;
+  }
+
+  private void showRoutesPopup(@NonNull View anchor)
+  {
+    if (mRoutes == null || mRoutes.length == 0)
+      return;
+
+    final Context context = requireContext();
+    final String[] labels = new String[mRoutes.length];
+    for (int i = 0; i < mRoutes.length; i++)
+      labels[i] = mRoutes[i].formatLabel();
+
+    final int padH =
+        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
+    final int padV =
+        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
+
+    // Resolve theme colors.
+    final int defaultTextColor = ThemeUtils.getColor(context, android.R.attr.textColorPrimary);
+    final int bgColor = ThemeUtils.getColor(context, R.attr.cardBackground);
+
+    // Popup shape parameters.
+    final Resources res = context.getResources();
+    final float radius = res.getDimension(R.dimen.corner_radius_medium);
+    final float arrowWidth = res.getDimension(R.dimen.routes_popup_arrow_width);
+    final float arrowHeight = res.getDimension(R.dimen.routes_popup_arrow_height);
+
+    // Dismiss any existing popup (prevent stacking on rapid taps).
+    if (mRoutesPopup != null && mRoutesPopup.isShowing())
+      mRoutesPopup.dismiss();
+
+    final int margin = (int) res.getDimension(R.dimen.routes_popup_margin);
+    final int popupWidth = anchor.getWidth() - 2 * margin;
+    if (popupWidth <= 0)
+      return;
+
+    // Predict popup direction: show below when there is more space below the anchor.
+    final int[] anchorLoc = new int[2];
+    anchor.getLocationOnScreen(anchorLoc);
+    final Rect displayFrame = new Rect();
+    anchor.getWindowVisibleDisplayFrame(displayFrame);
+    final int spaceAbove = anchorLoc[1] - displayFrame.top;
+    final int spaceBelow = displayFrame.bottom - anchorLoc[1] - anchor.getHeight();
+    final boolean arrowOnTop = spaceBelow > spaceAbove;
+
+    // Rounded background with an arrow pointing toward the anchor.
+    final ArrowPopupBackground bgDrawable =
+        new ArrowPopupBackground(bgColor, ContextCompat.getColor(context, R.color.black_12), radius, arrowWidth,
+                                 arrowHeight, res.getDimension(R.dimen.routes_popup_shadow_offset), arrowOnTop);
+
+    // Build the list view.
+    final ListView listView = new ListView(context);
+    listView.setDivider(null);
+    listView.setDividerHeight(0);
+    listView.setAdapter(new ArrayAdapter<>(context, 0, labels) {
+      @NonNull
+      @Override
+      public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+      {
+        TextView tv = (TextView) convertView;
+        if (tv == null)
+        {
+          tv = new TextView(context);
+          tv.setPadding(padH, padV, padH, padV);
+          TextViewCompat.setTextAppearance(tv, androidx.appcompat.R.style.TextAppearance_AppCompat_Body1);
+        }
+        tv.setText(labels[position]);
+        if (mRoutes == null || position >= mRoutes.length)
+          return tv;
+        final RouteInfo r = mRoutes[position];
+        if (r.hasColor())
+        {
+          tv.setBackgroundColor(ColorUtils.blendARGB(r.getColor(), Color.WHITE, 0.75f));
+          // Pastel background stays light in both themes — keep text readable on it.
+          tv.setTextColor(Color.BLACK);
+        }
+        else
+        {
+          tv.setBackgroundColor(Color.TRANSPARENT);
+          tv.setTextColor(defaultTextColor);
+        }
+        return tv;
+      }
+    });
+    listView.setOutlineProvider(new ViewOutlineProvider() {
+      @Override
+      public void getOutline(View view, Outline outline)
+      {
+        outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+      }
+    });
+    listView.setClipToOutline(true);
+
+    // Measure content height capped to available space.
+    final int maxHeight = (arrowOnTop ? spaceBelow : spaceAbove) - margin;
+    if (maxHeight <= 0)
+      return;
+    listView.measure(View.MeasureSpec.makeMeasureSpec(popupWidth, View.MeasureSpec.AT_MOST),
+                     View.MeasureSpec.makeMeasureSpec(maxHeight - (int) arrowHeight, View.MeasureSpec.AT_MOST));
+    final int popupHeight = listView.getMeasuredHeight() + (int) arrowHeight;
+    if (popupHeight <= 0)
+      return;
+
+    final PopupWindow popup = new PopupWindow(listView, popupWidth, popupHeight);
+    popup.setBackgroundDrawable(bgDrawable);
+    popup.setElevation(res.getDimension(R.dimen.routes_popup_elevation));
+    popup.setFocusable(true);
+    popup.setOutsideTouchable(true);
+    popup.setAnimationStyle(android.R.style.Animation_Dialog);
+
+    listView.setOnItemClickListener((parent, view, position, id) -> {
+      final RouteInfo r = mRoutes[position];
+      mTvRouteRef.setText(formatRouteRefs(mRoutes, r.getRef()));
+      Framework.nativeShowRouteTransit(r.getRelId());
+      popup.dismiss();
+    });
+
+    // Clamp popupX to screen bounds.
+    final int popupX =
+        Math.max(displayFrame.left + margin, Math.min(anchorLoc[0] + margin, displayFrame.right - popupWidth - margin));
+    final int popupY;
+    if (arrowOnTop)
+      popupY = anchorLoc[1] + anchor.getHeight() + margin;
+    else
+      popupY = anchorLoc[1] - popupHeight - margin;
+    popup.showAtLocation(anchor, Gravity.NO_GRAVITY, popupX, popupY);
+    mRoutesPopup = popup;
   }
 
   private void showBigDirection()
@@ -1121,5 +1339,105 @@ public class PlacePageView extends Fragment
 
     void onPlacePageRequestToggleState();
     void onPlacePageRequestClose();
+  }
+
+  /**
+   * Rounded rectangle background with a triangular arrow on one side,
+   * plus a soft shadow behind the arrow to match the popup's elevation shadow.
+   */
+  private static final class ArrowPopupBackground extends Drawable
+  {
+    private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint mShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Path mPath = new Path();
+    private final RectF mRectF = new RectF();
+    private final float mRadius;
+    private final float mArrowWidth;
+    private final float mArrowHeight;
+    private final float mShadowDy;
+    private final boolean mArrowOnTop;
+
+    ArrowPopupBackground(int bgColor, int shadowColor, float radius, float arrowWidth, float arrowHeight,
+                         float shadowDy, boolean arrowOnTop)
+    {
+      mRadius = radius;
+      mArrowWidth = arrowWidth;
+      mArrowHeight = arrowHeight;
+      mShadowDy = shadowDy;
+      mArrowOnTop = arrowOnTop;
+      mPaint.setColor(bgColor);
+      mShadowPaint.setColor(shadowColor);
+    }
+
+    @Override
+    public void draw(@NonNull Canvas canvas)
+    {
+      final Rect b = getBounds();
+      final float cx = b.exactCenterX();
+      final float arrowBase = mArrowOnTop ? b.top + mArrowHeight : b.bottom - mArrowHeight;
+      final float arrowTip = mArrowOnTop ? b.top : b.bottom;
+      final float shadowTip = mArrowOnTop ? b.top - mShadowDy : b.bottom + mShadowDy;
+
+      // Body: rounded rectangle.
+      if (mArrowOnTop)
+        mRectF.set(b.left, arrowBase, b.right, b.bottom);
+      else
+        mRectF.set(b.left, b.top, b.right, arrowBase);
+      mPath.reset();
+      mPath.addRoundRect(mRectF, mRadius, mRadius, Path.Direction.CW);
+      canvas.drawPath(mPath, mPaint);
+
+      // Arrow shadow.
+      mPath.reset();
+      mPath.moveTo(cx - mArrowWidth / 2 - mShadowDy, arrowBase);
+      mPath.lineTo(cx, shadowTip);
+      mPath.lineTo(cx + mArrowWidth / 2 + mShadowDy, arrowBase);
+      mPath.close();
+      canvas.drawPath(mPath, mShadowPaint);
+
+      // Arrow triangle.
+      mPath.reset();
+      mPath.moveTo(cx - mArrowWidth / 2, arrowBase);
+      mPath.lineTo(cx, arrowTip);
+      mPath.lineTo(cx + mArrowWidth / 2, arrowBase);
+      mPath.close();
+      canvas.drawPath(mPath, mPaint);
+    }
+
+    @Override
+    public boolean getPadding(@NonNull Rect padding)
+    {
+      if (mArrowOnTop)
+        padding.set(0, (int) mArrowHeight, 0, 0);
+      else
+        padding.set(0, 0, 0, (int) mArrowHeight);
+      return true;
+    }
+
+    @Override
+    public void getOutline(@NonNull Outline outline)
+    {
+      final Rect b = getBounds();
+      if (mArrowOnTop)
+        outline.setRoundRect(b.left, (int) (b.top + mArrowHeight), b.right, b.bottom, mRadius);
+      else
+        outline.setRoundRect(b.left, b.top, b.right, (int) (b.bottom - mArrowHeight), mRadius);
+    }
+
+    @Override
+    public void setAlpha(int alpha)
+    {
+      mPaint.setAlpha(alpha);
+    }
+    @Override
+    public void setColorFilter(@Nullable ColorFilter cf)
+    {
+      mPaint.setColorFilter(cf);
+    }
+    @Override
+    public int getOpacity()
+    {
+      return PixelFormat.TRANSLUCENT;
+    }
   }
 }

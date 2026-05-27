@@ -1,9 +1,9 @@
 #import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
-typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWMRoadTypeFerry, MWMRoadTypeMotorway };
+@class RouteElevationPreviewData;
 
-typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
+typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWMRoadTypeFerry, MWMRoadTypeMotorway };
 
 @interface MWMRouter : NSObject
 
@@ -60,7 +60,8 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 + (void)rebuildWithBestRouter:(BOOL)bestRouter;
 
 + (BOOL)hasRouteAltitude;
-+ (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
++ (void)saveRouteAsTrack;
++ (nullable RouteElevationPreviewData *)routeElevationProfileData;
 
 + (void)saveRouteIfNeeded;
 + (void)restoreRouteIfNeeded;

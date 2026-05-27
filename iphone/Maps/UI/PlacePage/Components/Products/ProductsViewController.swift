@@ -83,13 +83,13 @@ final class ProductsViewController: UIViewController {
   private func setupSubtitleButtons() {
     leadingSubtitleButton.setTitle(viewModel.leadingSubtitle, for: .normal)
     leadingSubtitleButton.backgroundColor = .clear
-    leadingSubtitleButton.setTitleColor(.linkBlue(), for: .normal)
+    leadingSubtitleButton.setTitleColor(.linkBlue, for: .normal)
     leadingSubtitleButton.translatesAutoresizingMaskIntoConstraints = false
     leadingSubtitleButton.addTarget(self, action: #selector(leadingSubtitleButtonDidTap), for: .touchUpInside)
 
     trailingSubtitleButton.setTitle(viewModel.trailingSubtitle, for: .normal)
     trailingSubtitleButton.backgroundColor = .clear
-    trailingSubtitleButton.setTitleColor(.linkBlue(), for: .normal)
+    trailingSubtitleButton.setTitleColor(.linkBlue, for: .normal)
     trailingSubtitleButton.translatesAutoresizingMaskIntoConstraints = false
     trailingSubtitleButton.addTarget(self, action: #selector(trailingSubtitleButtonDidTap), for: .touchUpInside)
   }

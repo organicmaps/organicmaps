@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Vyhnout se trajektům</string>
     <string name="avoid_motorways">Vyhnout se dálnicím</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
+    <string name="trip_finished">Přijeli jste!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Třídit záložky</string>
     <!-- Android -->

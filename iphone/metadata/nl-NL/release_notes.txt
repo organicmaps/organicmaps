@@ -1,27 +1,56 @@
-• OSM-kaartgegevens van 16 februari
-• Wikipedia-gegevens van 1 februari
-• Zwarte wandel- en fietsroutes zijn nu zichtbaar in het donkere thema
-• Meer auto-services toegevoegd: reparatie, onderhoud en onderdelen
-• OSM-browserauthenticatie toegevoegd
-• Fietstoegang op sommige wegtypen gecorrigeerd
-• Berekening van gemiddelde snelheid gecorrigeerd
-• Zoekranking voor categorieën verbeterd
-• Oezoe-keuken toegevoegd
-• Tokkelbanen toegevoegd op de kaart
-• Wikimedia-links met "?" in de titel gecorrigeerd
-• Parsen van GPX-bestanden met "+" in coördinaten gecorrigeerd
+## Kaart
 
-### Vertalingen
+- NIEUW! Correcte kaartovergang bij de antimeridiaan tijdens het slepen en draaien
+- OpenStreetMap-gegevens bijgewerkt per 4 april
+- Wikipedia-gegevens bijgewerkt per 1 april
+- Pictogrammen toegevoegd voor foodcourts en stadspoorten
+- Subcategorieën voor kledingwinkels toegevoegd: dames, heren, kinderen, bruiloft, sport, ondergoed en kantoorkleding
+- Kleuren van de metrolijnen in Sydney gecorrigeerd
+- Weergave van openingstijden gecorrigeerd voor plaatsen met verschuivingen in zonsopgang/zonsondergang
 
-• Dubbele stadsnamen in sommige kaartregio's verwijderd
-• Hebreeuwse spraakbegeleiding gecorrigeerd
-• Koreaanse typefouten gecorrigeerd
-• Russische zoeksynoniemen toegevoegd
-• Duitse spraakbegeleiding verbeterd
-• Ontbrekende vertaling voor buiten gebruik gestelde spoortunnel gecorrigeerd
-• Landvertaling in het Roemeens gecorrigeerd
-• Laotiaanse en Armeense vertalingen toegevoegd
-• Ontbrekende Armeense vertalingen toegevoegd
-• Vertalingen van Weblate-bijdragers bijgewerkt
+## Routebepaling en navigatie
 
-Bedankt aan iedereen die bijdraagt, doneert en Organic Maps steunt! Laten we samen de beste kaarten bouwen!
+- NIEUW! Tik op een fiets- of wandelroute om deze te selecteren en de hoogtekaart te bekijken
+- Verbeterde meerkleurige weergave voor wandel- en fietsroutes
+- Fietsnavigatie maakt nu gebruik van kompasrichting bij lage snelheden
+- Systeemfout bij het plannen van routes in de buurt van bepaalde regionale grenzen verholpen
+- Je kunt nu een geldige route starten, zelfs wanneer je wordt gevraagd om extra kaarten te downloaden
+
+## Bladwijzers en routes
+
+- NIEUW! Wijzig alle bladwijzer- en trackkleuren in een categorie in één keer
+- De schatting van hoogtewinst en -verlies op trackgrafieken is aangepast om beter aan te sluiten bij andere apps
+- Verbeterde weergave van HTML-inhoud met tabellen en afbeeldingen in bladwijzerdetails
+- Verticale scheidingslijnen toegevoegd voor tracks met meerdere segmenten in de hoogtekaart
+- Puntenselectie in de hoogtekaart voor geïnterpoleerde punten verholpen
+- Probleem verholpen waarbij GPS-trackopname punten tussen segmenten oversloeg
+- GeoJSON-import verholpen
+- Crash bij het exporteren van tracks verholpen
+
+## Zoeken
+
+- Betere zoekfunctie in de VS, met twee miljoen extra adressen geparst uit TIGER Census-gegevens
+- Bijgewerkte zoekcategorieën: "Bread" toegevoegd voor bakkerijen, "Shawarma" voor de keuken, en andere verbeteringen in synoniemen
+- Verbeterd zoeken op huisnummer
+- Amerikaanse synoniemen voor straatnaam toegevoegd: highway, hwy, freeway, fwy
+- Zoekresultaten gerepareerd wanneer stads- en staatsnamen hetzelfde zijn
+
+## Editor / OpenStreetMap
+
+- Je kunt nu een nieuwe plaats toevoegen aan OpenStreetMap nadat je je huidige positie op de kaart hebt geselecteerd
+- De verkeerde uitlijning van het kruisje in de editor bij het indrukken van "Plaats toevoegen" is verholpen
+- Het aanraakgebied van knoppen in de navigatiebalk "Plaats toevoegen" is vergroot
+
+## UI en UX
+
+- Verbeterde modale gebaren: uitlijnen op de dichtstbijzijnde stap, sluiten bij pannen langs de rand en de vorige status herstellen bij heropenen
+- De afhandeling van zomertijd voor tijdzones is verholpen
+
+## Stabiliteit en lokalisatie
+
+- Verbeterde stabiliteit en prestaties, lager batterijverbruik
+- Vertaalbestanden bijgewerkt
+
+## Platformondersteuning
+
+- Vanwege wijzigingen in TestFlight en de App Store ondersteunt deze release alleen iOS 15 en hoger. iOS 12, 13 en 14 worden niet langer ondersteund.

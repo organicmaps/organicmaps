@@ -131,6 +131,7 @@ public:
 
     void Reset() { m_info.reset(); }
     bool IsNull() const { return m_info == nullptr; }
+    /// @todo I suppose that m_info->GetStatus() == MwmInfo::STATUS_REGISTERED is better and more precise.
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
     bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
 
@@ -398,6 +399,7 @@ public:
   std::unique_ptr<HouseToStreetTable> m_house2street, m_house2place;
 
 public:
+  MwmValue(ModelReaderPtr const & reader, platform::LocalCountryFile const & localFile);
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   ~MwmValue();
 

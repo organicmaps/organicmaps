@@ -17,7 +17,6 @@
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/robust_orientation.hpp"
-#include "geometry/smoothing.hpp"
 
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
@@ -704,68 +703,35 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
                                                    RelationsDrawSettings const & relsSettings)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
+  , m_builder(params)
 {
-  m_spline.Reset(new m2::Spline(f.GetPointsCount()));
-
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
 }
 
-void ApplyLineFeatureGeometry::operator()(m2::PointD const & point)
+void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline)
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  ++m_readCount;
+  m_readCount += m_f.GetPointsCount();
 #endif
 
-  if (m_spline->IsEmpty())
-  {
-    m_spline->AddPoint(point);
-    m_lastAddedPoint = point;
-  }
-  else if (m_params.IsSimplifyLines() &&
-           ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_params.m_minSegmentSqrLength) ||
-            m_spline->IsProlonging(point)))
-  {
-    m_spline->ReplacePoint(point);
-  }
-  else
-  {
-    m_spline->AddPoint(point);
-    m_lastAddedPoint = point;
-  }
+  m_builder.Build(m_f, zoomLevel, isIsoline);
 }
 
 void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)
 {
   ASSERT(!lineRules.empty(), ());
   ASSERT(HasGeometry(), ());
+  ASSERT(!isIsoline || lineRules.size() == 1, ());
 
-  if (!isIsoline)
-  {
-    // A line crossing the tile several times will be split in several parts.
-    // TODO(pastk) : use feature's pre-calculated limitRect when possible.
-    m_clippedSplines = m2::ClipSplineByRect(m_params.m_tileRect, m_spline);
-  }
-  else
-  {
-    // Isolines smoothing.
-    ASSERT_EQUAL(lineRules.size(), 1, ());
-    m2::GuidePointsForSmooth guidePointsForSmooth;
-    std::vector<std::vector<m2::PointD>> clippedPaths;
-    auto extTileRect = m_params.m_tileRect;
-    extTileRect.Scale(1.6);  // same as Inflate(0.3*szX, 0.3*szY)
-    m2::ClipPathByRectBeforeSmooth(extTileRect, m_spline->GetPath(), guidePointsForSmooth, clippedPaths);
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+  size_t const builtSize = m_builder.GetPathSize();
+#endif
 
-    if (clippedPaths.empty())
-      return;
-
-    m2::SmoothPaths(guidePointsForSmooth, 4 /* newPointsPerSegmentCount */, m2::kCentripetalAlpha, clippedPaths);
-
-    ASSERT(m_clippedSplines.empty(), ());
-    std::function<void(m2::SharedSpline &&)> inserter = base::MakeBackInsertFunctor(m_clippedSplines);
-    for (auto & path : clippedPaths)
-      m2::ClipPathByRect(m_params.m_tileRect, std::move(path), inserter);
-  }
+  // Builds clipped splines from the (possibly simplified) feature path.
+  // Directions/lengths are computed only on the splines actually returned —
+  // see ClipSplinesBuilder::Release.
+  m_clippedSplines = m_builder.Release(isIsoline);
 
   if (m_clippedSplines.empty())
     return;
@@ -774,7 +740,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
     ProcessRule(*r);
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(m_spline->GetSize()));
+  LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(builtSize));
 #endif
 }
 
@@ -811,18 +777,31 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     for (auto const & spline : m_clippedSplines)
       m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
 
-    // Place multiple color lines with offset.
-    params.m_width = 3 * visScale;  // std::max(4.0f, params.m_width / 2);
-    params.m_depth += 10;
-
-    m_relsInfo.ForEachColorWithOffset(params.m_width, [&params, this](double pxOffset, dp::Color color)
+    // Place rainbow color stripes using a color strip texture on the same geometry.
+    if (m_relsInfo.HasColors())
     {
-      params.m_color = color;
+      float const stripeWidth = 3 * visScale;
+      auto const colors = m_relsInfo.GetColors();
+
+      LineViewParams rParams;
+      rParams.m_tileCenter = params.m_tileCenter;
+      rParams.m_color = colors[0];  // Fallback color for caps/joins.
+      rParams.m_cap = params.m_cap;
+      rParams.m_join = params.m_join;
+      rParams.m_pattern = params.m_pattern;
+      rParams.m_width = stripeWidth * static_cast<float>(colors.size());
+      rParams.m_depth = params.m_depth + 10;
+      rParams.m_depthTestEnabled = params.m_depthTestEnabled;
+      rParams.m_depthLayer = params.m_depthLayer;
+      rParams.m_minVisibleScale = params.m_minVisibleScale;
+      rParams.m_rank = params.m_rank;
+      rParams.m_baseGtoPScale = m_params.m_currentScaleGtoP;
+      rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
+      rParams.m_rainbowColors = colors;
 
       for (auto const & spline : m_clippedSplines)
-        m_params.m_insertShape(
-            make_unique_dp<LineShape>(spline.Equidistant(pxOffset / m_params.m_currentScaleGtoP), params));
-    });
+        m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));
+    }
   }
 }
 
@@ -859,7 +838,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_titleDecl.m_secondaryOptional = false;
   textParams.m_startOverlayRank = dp::OverlayRank1;
 
-  auto const textMetrics = texMng->ShapeSingleTextLine(dp::kBaseFontSizePixels, roadNumber, nullptr);
+  auto const textMetrics = texMng->ShapeSingleTextLine(roadNumber, nullptr);
   float const textRatio = font.m_size * fontScale / dp::kBaseFontSizePixels;
   float const textWidthInPixels = textMetrics.m_lineWidthInPixels * textRatio;
   float const textHeightInPixels = textMetrics.m_maxLineHeightInPixels * textRatio;

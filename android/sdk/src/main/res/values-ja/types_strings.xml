@@ -12,7 +12,7 @@
     <string name="type.aerialway.gondola">ゴンドラ</string>
     <string name="type.aerialway.mixed_lift">混合リフト</string>
     <string name="type.aerialway.station">ケーブルカー駅</string>
-    <string name="type.aeroway">空路</string>
+    <string name="type.aeroway">航空インフラ</string>
     <string name="type.aeroway.aerodrome">空港</string>
     <string name="type.aeroway.aerodrome.international">空港</string>
     <string name="type.aeroway.apron">エプロン</string>
@@ -21,7 +21,7 @@
     <string name="type.aeroway.runway">滑走路</string>
     <string name="type.aeroway.taxiway">誘導路</string>
     <string name="type.aeroway.terminal">空港ターミナルビル</string>
-    <string name="type.amenity">アメニティー</string>
+    <string name="type.amenity">設備</string>
     <string name="type.amenity.arts_centre">芸術センター</string>
     <string name="type.amenity.bank">銀行</string>
     <string name="type.amenity.bar">居酒屋</string>
@@ -33,7 +33,7 @@
     <string name="type.amenity.biergarten">ビアガーデン</string>
     <string name="type.amenity.brothel">売春宿</string>
     <string name="type.amenity.bureau_de_change">外貨両替所</string>
-    <string name="type.amenity.bus_station">バスステーション</string>
+    <string name="type.amenity.bus_station">バスターミナル</string>
     <string name="type.amenity.cafe">カフェ</string>
     <string name="type.amenity.car_rental">レンタカー</string>
     <string name="type.amenity.motorcycle_rental">レンタルバイク</string>
@@ -206,6 +206,7 @@
     <string name="type.building">建物</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">住所</string>
+    <string name="type.building.construction">建設中の建物</string>
     <string name="type.building.has_parts">建物</string>
     <string name="type.building_part">建物</string>
     <string name="type.building.garage">車庫</string>
@@ -294,7 +295,7 @@
     <string name="type.cuisine.mediterranean">地中海料理</string>
     <string name="type.cuisine.mexican">メキシコ料理</string>
     <string name="type.cuisine.moroccan">モロッコ料理</string>
-    <string name="type.cuisine.noodles">麺類</string>
+    <string name="type.cuisine.noodle">麺類</string>
     <string name="type.cuisine.oriental">東洋料理</string>
     <string name="type.cuisine.pancake">ホットケーキ</string>
     <string name="type.cuisine.pasta">パスタ</string>
@@ -310,6 +311,7 @@
     <string name="type.cuisine.sausage">ソーセージ</string>
     <string name="type.cuisine.savory_pancakes">おいしいホットケーキ</string>
     <string name="type.cuisine.seafood">シーフード</string>
+    <string name="type.cuisine.shawarma">シャワルマ</string>
     <string name="type.cuisine.soba">そば</string>
     <string name="type.cuisine.spanish">スペイン料理</string>
     <string name="type.cuisine.steak_house">ステーキハウス</string>
@@ -705,6 +707,7 @@
     <string name="type.natural.tree_row">並木</string>
     <string name="type.natural.vineyard">ブドウ園</string>
     <string name="type.natural.volcano">火山</string>
+    <string name="type.natural.volcano.active">活火山</string>
     <string name="type.natural.water">水地</string>
     <string name="type.natural.wetland">湿地帯</string>
     <string name="type.natural.wetland.bog">泥炭地</string>
@@ -1236,6 +1239,18 @@
     <string name="type.sport.field_hockey">フィールドホッケー</string>
     <string name="type.sport.badminton">バドミントン</string>
     <string name="type.sport.pelota">バスクペロタ</string>
+    <string name="type.sport.boules">ペタンク</string>
+    <string name="type.sport.cycling">サイクリング</string>
+    <string name="type.sport.four_square">フォースクエア</string>
+    <string name="type.sport.horse_racing">競馬</string>
+    <string name="type.sport.karting">カート</string>
+    <string name="type.sport.motocross">モトクロス</string>
+    <string name="type.sport.motor">モータースポーツ</string>
+    <string name="type.sport.netball">ネットボール</string>
+    <string name="type.sport.pickleball">ピックルボール</string>
+    <string name="type.sport.rugby_union">ラグビーユニオン</string>
+    <string name="type.sport.running">ランニング</string>
+    <string name="type.sport.softball">ソフトボール</string>
     <string name="type.tourism">観光</string>
     <string name="type.tourism.aquarium">水族館</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1253,6 +1268,7 @@
     <string name="type.attraction.historic">歴史的アトラクション</string>
     <string name="type.attraction.maze">迷路</string>
     <string name="type.attraction.roller_coaster">ジェットコースター</string>
+    <string name="type.roller_coaster.track">ジェットコースター</string>
     <string name="type.attraction.water_slide">ウォータースライド</string>
     <string name="type.tourism.attraction.specified">アトラクション</string>
     <string name="type.tourism.camp_site">キャンプ場</string>
@@ -1283,6 +1299,7 @@
     <string name="type.traffic_calming.bump">スピードバンプ</string>
     <string name="type.traffic_calming.hump">スピードハンプ</string>
     <string name="type.waterway">水域</string>
+    <string name="type.waterway.access_point">水路アクセスポイント</string>
     <string name="type.waterway.canal">運河</string>
     <string name="type.waterway.canal.tunnel">運河</string>
     <string name="type.waterway.fish_pass">魚道</string>
@@ -1343,4 +1360,5 @@
     <string name="type.craft.watchmaker">ウォッチメーカー</string>
     <string name="type.xmas_feature.market">クリスマス・マーケット</string>
     <string name="type.xmas_feature.tree">クリスマスツリー</string>
+    <string name="type.amenity.hookah_lounge">シーシャラウンジ</string>
 </resources>

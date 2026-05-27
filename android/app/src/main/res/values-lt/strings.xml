@@ -8,7 +8,7 @@
     <string name="cancel">Atsisakyti</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Šalinti</string>
-    <string name="download_maps">Atsiųsti žemėlapius</string>
+    <string name="download_maps">Atsisiųsti žemėlapius</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">Atsiuntimas nepavyko. Bakstelėkite, kad būtų pabandyta dar kartą.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
@@ -371,6 +371,8 @@
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipedija</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Straipsnis iš wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Vikiteka</string>
     <string name="p2p_your_location">Jūsų vieta</string>
@@ -629,6 +631,8 @@
     <string name="bookmarks_empty_list_message">Jeigu norite pridėti žymę, bakstelėkite vietą žemėlapyje, o tada – žvaigždutės piktogramą</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Keisti visų žymų spalvą</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Keisti visų trasų spalvą</string>
     <string name="category_desc_more">…daugiau</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksportuoti KMZ</string>
@@ -707,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Virš metų senumo</string>
     <string name="near_me_sorttype">Netoliese</string>
     <string name="others_sorttype">Kitkas</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Dabar uždaryta</string>
+    <string name="opens_tomorrow_at">Atsidaro rytoj %s</string>
+    <string name="opens_dayoftheweek_at">Atsidaro %1$s %2$s</string>
+    <string name="opens_at">Atsidaro %s</string>
+    <string name="closes_at">Užsidaro %s</string>
     <string name="editor_add_select_category_all_subtitle">Visos kategorijos</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -871,4 +881,22 @@
     <string name="login_osm_browser">Prisijungimas naudojant naršyklę</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Neseniai naudotas</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Žymų spalva pakeista</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Trasų spalva pakeista</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektras</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Slankmačiai</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">RAUDONA</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ŽALIA</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLUE</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB šešioliktainė spalva #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Tinklelis</string>
 </resources>

@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Bahasa Suara";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Untuk mengunduh suara berkualitas lebih tinggi, buka app Pengaturan dan buka Aksesibilitas → VoiceOver → Ucapan → Suara.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Menguji petunjuk suara (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Perbesar otomatis";
@@ -644,12 +647,18 @@
 "terms_of_use" = "Ketentuan penggunaan";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Pendakian";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
 "button_layer_cycling" = "Bersepeda";
 "button_layer_subway" = "Kereta bawah tanah";
 "layers_title" = "Gaya dan Lapisan Peta";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Ubah warna semua bookmark";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Ubah warna semua trek";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Ekspor KMZ";
@@ -993,13 +1002,13 @@
 "whats_new_auto_update_button_later" = "Perbarui secara manual nanti";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Menghapus Trek";
+"placepage_delete_track_button" = "Hapus Trek";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Apakah Anda yakin ingin menghapus trek ini?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Nama Lagu";
+"placepage_track_name_hint" = "Nama Trek";
 
 /* move track or bookmark from the list button text */
 "move" = "Pindah";
@@ -1102,7 +1111,7 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Keluar";
 "core_entrance" = "Tempat masuk";
-"subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
+"subway_data_unavailable" = "Peta metro tidak tersedia";
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Wilayah unduhan berwarna ungu";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Baru-baru ini digunakan";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Warna bookmark diubah";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Warna trek diubah";

@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Kompátkelők elkerülése</string>
     <string name="avoid_motorways">Autópályák elkerülése</string>
     <string name="unable_to_calc_alert_title">Nem lehet kiszámítani az útvonalat</string>
+    <string name="trip_finished">Megérkezett!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Könyvjelzők rendezése</string>
     <!-- Android -->

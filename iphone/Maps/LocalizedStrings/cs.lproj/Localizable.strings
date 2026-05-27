@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jazyk hlasu";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Chcete-li stáhnout hlas ve vyšší kvalitě, otevřete aplikaci Nastavení a přejděte do Zpřístupnění → VoiceOver → Řeč → Hlas.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Otestovat hlasové pokyny (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automatické zvětšení";
@@ -558,7 +561,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operátor: %@";
 "editor_category_unsuitable_title" = "Nemůžete najít vhodnou kategorii?";
-"editor_category_unsuitable_text" = "Organické mapy umožňují přidávat pouze jednoduché kategorie bodů, tedy žádná města, silnice, jezera, obrysy budov atd. Takové kategorie prosím přidávejte přímo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Podrobné pokyny krok za krokem najdete v našem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">průvodci</a>.";
+"editor_category_unsuitable_text" = "Organic Maps umožňuje přidávat pouze jednoduché bodové kategorie, to znamená žádná města, silnice, jezera, obrysy budov atd. Tyto kategorie prosím přidávejte přímo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Podrobný návod krok za krokem najdete v našem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">průvodci</a>.";
 "downloader_no_downloaded_maps_title" = "Nemáte stažené žádné mapy";
 "downloader_no_downloaded_maps_message" = "Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.";
 "current_location_unknown_error_title" = "Současná poloha nezjištěna.";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Cyklistika";
 "button_layer_subway" = "Metro";
 "layers_title" = "Styly a vrstvy mapy";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Změnit barvu všech značek";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Změnit barvu všech tras";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportovat KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nedávno použité";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Barva značek byla změněna";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Barva tras byla změněna";

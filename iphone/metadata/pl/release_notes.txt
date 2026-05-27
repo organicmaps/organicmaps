@@ -1,27 +1,56 @@
-• Dane mapy OSM z 16 lutego
-• Dane Wikipedii z 1 lutego
-• Czarne szlaki piesze i rowerowe są teraz widoczne w ciemnym motywie
-• Dodano więcej usług samochodowych: naprawa, serwis i części
-• Dodano uwierzytelnianie przeglądarki OSM
-• Poprawiono dostęp dla rowerów na niektórych typach dróg
-• Poprawiono obliczanie średniej prędkości
-• Ulepszono ranking wyszukiwania dla kategorii
-• Dodano kuchnię uzbecką
-• Dodano zjazdy tyrolskie (zip lines) na mapie
-• Naprawiono linki Wikimedia ze znakiem „?” w tytule
-• Naprawiono parsowanie plików GPX ze znakiem „+” we współrzędnych
+## Mapa
 
-### Tłumaczenia
+- NOWOŚĆ! Prawidłowe zawijanie mapy na antymeridianie podczas przeciągania i obracania
+- Dane OpenStreetMap zaktualizowane na dzień 4 kwietnia
+- Dane Wikipedii zaktualizowane na dzień 1 kwietnia
+- Dodano ikony dla stref gastronomicznych i bram miejskich
+- Dodano podkategorie sklepów odzieżowych: damskie, męskie, dziecięce, ślubne, sportowe, bielizna oraz typy biurowe
+- Poprawiono kolory linii metra w Sydney
+- Poprawiono wyświetlanie godzin otwarcia dla miejsc z przesunięciem wschodu/zachodu słońca
 
-• Usunięto zduplikowane nazwy miast w niektórych regionach mapy
-• Poprawiono hebrajskie wskazówki głosowe
-• Poprawiono koreańskie literówki
-• Dodano rosyjskie synonimy wyszukiwania
-• Ulepszono niemieckie wskazówki głosowe
-• Poprawiono brakujące tłumaczenie dla nieczynnego tunelu kolejowego
-• Poprawiono tłumaczenie kraju w języku rumuńskim
-• Dodano tłumaczenia na laotański i ormiański
-• Dodano brakujące tłumaczenia ormiańskie
-• Zaktualizowano tłumaczenia od współpracowników Weblate
+## Wyznaczanie tras i nawigacja
 
-Dziękujemy wszystkim, którzy pomagają, przekazują darowizny i wspierają Organic Maps! Zbudujmy razem najlepsze mapy!
+- NOWOŚĆ! Dotknij trasy rowerowej lub pieszej, aby ją wybrać i wyświetlić wykres wysokości
+- Ulepszone wielokolorowe renderowanie tras pieszych i rowerowych
+- Nawigacja rowerowa wykorzystuje teraz kierunek kompasu przy niskich prędkościach
+- Naprawiono błąd systemowy podczas planowania tras w pobliżu niektórych granic regionalnych
+- Teraz możesz rozpocząć prawidłową trasę nawet wtedy, gdy pojawi się monit o pobranie dodatkowych map
+
+## Zakładki i trasy
+
+- NOWOŚĆ! Zmiana wszystkich kolorów zakładek i tras w danej kategorii jednocześnie
+- Dostosowano przybliżone wartości przyrostu i spadku wysokości na wykresach tras, aby lepiej pasowały do innych aplikacji
+- Ulepszono wyświetlanie treści HTML z tabelami i obrazami w szczegółach zakładek
+- Dodano pionowe separatory dla tras wieloetapowych na wykresie wysokości
+- Naprawiono wybór punktów na wykresie wysokości dla punktów interpolowanych
+- Naprawiono utratę punktów podczas rejestrowania trasy GPS między segmentami
+- Naprawiono import GeoJSON
+- Naprawiono awarię podczas eksportowania tras
+
+## Wyszukiwanie
+
+- Lepsze wyszukiwanie w USA dzięki dwóm milionom dodatkowych adresów pobranych z danych spisu ludności TIGER
+- Zaktualizowano kategorie wyszukiwania: dodano „Bread” dla piekarni, kuchnię „Shawarma” oraz inne ulepszenia synonimów
+- Ulepszono wyszukiwanie adresów z numerami domów
+- Dodano synonimy ulic w USA: highway, hwy, freeway, fwy
+- Naprawiono wyniki wyszukiwania, gdy nazwy miast i stanów są takie same
+
+## Edytor / OpenStreetMap
+
+- Teraz możesz dodać nowe miejsce do OpenStreetMap po zaznaczeniu swojej aktualnej pozycji na mapie
+- Naprawiono nieprawidłowe ustawienie krzyżyka edytora po naciśnięciu przycisku „Dodaj miejsce”
+- Zwiększono obszar dotykowy przycisków na pasku nawigacyjnym „Dodaj miejsce”
+
+## Interfejs użytkownika i doświadczenie użytkownika
+
+- Ulepszono gesty modalne: przyciąganie do najbliższego kroku, zamykanie po przesunięciu do krawędzi oraz przywracanie poprzedniego stanu po ponownym otwarciu
+- Naprawiono obsługę czasu letniego dla stref czasowych
+
+## Stabilność i lokalizacja
+
+- Poprawiono stabilność i wydajność, zmniejszono zużycie baterii
+- Zaktualizowano tłumaczenia
+
+## Obsługa platform
+
+- Ze względu na zmiany w TestFlight i App Store, ta wersja obsługuje wyłącznie iOS 15 i nowsze. iOS 12, 13 i 14 nie są już obsługiwane.

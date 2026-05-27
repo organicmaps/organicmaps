@@ -7,12 +7,12 @@
     <string name="type.addr_interpolation.odd">Адрес/Блок</string>
     <string name="type.aerialway">Канатная дорога</string>
     <string name="type.aerialway.cable_car">Канатная дорога</string>
-    <string name="type.aerialway.chair_lift">Кресельная канатная дорога</string>
-    <string name="type.aerialway.drag_lift">Бугельная канатная дорога</string>
+    <string name="type.aerialway.chair_lift">Кресельный подъёмник</string>
+    <string name="type.aerialway.drag_lift">Бугельный подъёмник</string>
     <string name="type.aerialway.gondola">Канатная дорога</string>
     <string name="type.aerialway.mixed_lift">Канатная дорога</string>
     <string name="type.aerialway.station">Канатная дорога</string>
-    <string name="type.aeroway">Аэрокосмическая инфраструктура</string>
+    <string name="type.aeroway">Инфраструктура воздушного пространства</string>
     <string name="type.aeroway.aerodrome">Аэропорт</string>
     <string name="type.aeroway.aerodrome.international">Международный аэропорт</string>
     <string name="type.aeroway.apron">Перрон</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Здание</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адрес</string>
+    <string name="type.building.construction">Строящееся здание</string>
     <string name="type.building.has_parts">Здание</string>
     <string name="type.building_part">Здание</string>
     <string name="type.building.garage">Гараж</string>
@@ -274,7 +275,7 @@
     <string name="type.cuisine.argentinian">Аргентинская кухня</string>
     <string name="type.cuisine.asian">Азиатская кухня</string>
     <string name="type.cuisine.austrian">Австрийская кухня</string>
-    <string name="type.cuisine.bagel">Бeйглы</string>
+    <string name="type.cuisine.bagel">Бейглы</string>
     <string name="type.cuisine.balkan">Балканская кухня</string>
     <string name="type.cuisine.barbecue">Барбекю</string>
     <string name="type.cuisine.bavarian">Баварская кухня</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Средиземноморская кухня</string>
     <string name="type.cuisine.mexican">Мексиканская кухня</string>
     <string name="type.cuisine.moroccan">Марокканская кухня</string>
-    <string name="type.cuisine.noodles">Лапшичная</string>
+    <string name="type.cuisine.noodle">Лапшичная</string>
     <string name="type.cuisine.oriental">Восточная кухня</string>
     <string name="type.cuisine.pancake">Блинная</string>
     <string name="type.cuisine.pasta">Паста</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Сосисочная</string>
     <string name="type.cuisine.savory_pancakes">Несладкие блинчики</string>
     <string name="type.cuisine.seafood">Морепродукты</string>
+    <string name="type.cuisine.shawarma">Шаурма</string>
     <string name="type.cuisine.soba">Соба</string>
     <string name="type.cuisine.spanish">Испанская кухня</string>
     <string name="type.cuisine.steak_house">Стейк-хаус</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Ряд деревьев</string>
     <string name="type.natural.vineyard">Виноградник</string>
     <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.volcano.active">Действующий вулкан</string>
     <string name="type.natural.water">Водоём</string>
     <string name="type.natural.wetland">Болотистая местность</string>
     <string name="type.natural.wetland.bog">Торфяное болото</string>
@@ -843,8 +846,8 @@
     <string name="type.railway.construction">Строящаяся железная дорога</string>
     <string name="type.railway.crossing">Пешеходный переход</string>
     <string name="type.railway.disused">Неиспользуемая железная дорога</string>
-    <string name="type.railway.disused.bridge">Заброшенный железнодорожный мост</string>
-    <string name="type.railway.disused.tunnel">Недействующий железнодорожный туннель</string>
+    <string name="type.railway.disused.bridge">Неиспользуемый железнодорожный мост</string>
+    <string name="type.railway.disused.tunnel">Неиспользуемый железнодорожный туннель</string>
     <string name="type.railway.funicular">Фуникулер</string>
     <string name="type.railway.funicular.bridge">Фуникулер</string>
     <string name="type.railway.funicular.tunnel">Фуникулер</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Хоккей на траве</string>
     <string name="type.sport.badminton">Бадминтон</string>
     <string name="type.sport.pelota">Баскская пелота</string>
+    <string name="type.sport.boules">Петанк</string>
+    <string name="type.sport.cycling">Велоспорт</string>
+    <string name="type.sport.four_square">Четыре квадрата</string>
+    <string name="type.sport.horse_racing">Конные скачки</string>
+    <string name="type.sport.karting">Картинг</string>
+    <string name="type.sport.motocross">Мотокросс</string>
+    <string name="type.sport.motor">Автомотоспорт</string>
+    <string name="type.sport.netball">Нетбол</string>
+    <string name="type.sport.pickleball">Пиклбол</string>
+    <string name="type.sport.rugby_union">Регби-15</string>
+    <string name="type.sport.running">Бег</string>
+    <string name="type.sport.softball">Софтбол</string>
     <string name="type.tourism">Туризм</string>
     <string name="type.tourism.aquarium">Аквариум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Исторический аттракцион</string>
     <string name="type.attraction.maze">Лабиринт</string>
     <string name="type.attraction.roller_coaster">Американские горки</string>
+    <string name="type.roller_coaster.track">Американские горки</string>
     <string name="type.attraction.water_slide">Водная горка</string>
     <string name="type.tourism.attraction.specified">Достопримечательность</string>
     <string name="type.tourism.camp_site">Кемпинг</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Лежачий полицейский</string>
     <string name="type.traffic_calming.hump">Лежачий полицейский</string>
     <string name="type.waterway">Водный путь</string>
+    <string name="type.waterway.access_point">Точка доступа к водным путям</string>
     <string name="type.waterway.canal">Канал</string>
     <string name="type.waterway.canal.tunnel">Канал</string>
     <string name="type.waterway.fish_pass">Рыбоход</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Часовщик</string>
     <string name="type.xmas_feature.market">Рождественский рынок</string>
     <string name="type.xmas_feature.tree">Новогодняя ёлка</string>
+    <string name="type.amenity.hookah_lounge">Кальянная</string>
 </resources>

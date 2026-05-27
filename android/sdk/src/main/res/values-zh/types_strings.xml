@@ -37,8 +37,8 @@
     <string name="type.amenity.love_hotel">情侣酒店</string>
     <string name="type.amenity.bureau_de_change">货币兑换</string>
     <string name="type.amenity.bus_station">公交车站</string>
-    <string name="type.amenity.cafe">咖啡馆่</string>
-    <string name="type.amenity.car_rental">汽车出租์</string>
+    <string name="type.amenity.cafe">咖啡馆</string>
+    <string name="type.amenity.car_rental">汽车出租</string>
     <string name="type.amenity.motorcycle_rental">摩托车租赁</string>
     <string name="type.amenity.car_sharing">拼车点</string>
     <string name="type.amenity.car_wash">洗车</string>
@@ -237,6 +237,7 @@
     <string name="type.building">建筑物</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">地址</string>
+    <string name="type.building.construction">在建建筑</string>
     <string name="type.building.has_parts">建筑物</string>
     <string name="type.building_part">建筑物</string>
     <string name="type.building.garage">独立1车库</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">地中海菜</string>
     <string name="type.cuisine.mexican">墨西哥菜</string>
     <string name="type.cuisine.moroccan">摩洛哥菜</string>
-    <string name="type.cuisine.noodles">面</string>
+    <string name="type.cuisine.noodle">面</string>
     <string name="type.cuisine.oriental">东方菜</string>
     <string name="type.cuisine.pancake">煎饼</string>
     <string name="type.cuisine.pasta">意大利面</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">火腿</string>
     <string name="type.cuisine.savory_pancakes">咸味煎饼</string>
     <string name="type.cuisine.seafood">海鲜</string>
+    <string name="type.cuisine.shawarma">沙威玛</string>
     <string name="type.cuisine.soba">荞麦面</string>
     <string name="type.cuisine.spanish">西班牙菜</string>
     <string name="type.cuisine.steak_house">牛排馆</string>
@@ -673,8 +675,8 @@
     <string name="type.leisure.stadium">体育场</string>
     <string name="type.leisure.swimming_pool">游泳池</string>
     <string name="type.leisure.swimming_pool.private">游泳池</string>
-    <string name="type.leisure.track">賽道</string>
-    <string name="type.leisure.track.area">賽道</string>
+    <string name="type.leisure.track">赛道</string>
+    <string name="type.leisure.track.area">赛道</string>
     <string name="type.leisure.water_park">水上乐园</string>
     <string name="type.leisure.beach_resort">海滨度假区</string>
     <string name="type.man_made">人造要素</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">树列</string>
     <string name="type.natural.vineyard">葡萄园</string>
     <string name="type.natural.volcano">火山</string>
+    <string name="type.natural.volcano.active">活火山</string>
     <string name="type.natural.water">水体</string>
     <string name="type.natural.wetland">湿地</string>
     <string name="type.natural.wetland.bog">泥炭地</string>
@@ -1171,7 +1174,7 @@
     <string name="type.shop.confectionery">糖果店</string>
     <string name="type.shop.convenience">便利店</string>
     <string name="type.shop.copyshop">复印店</string>
-    <string name="type.shop.cosmetics">化妝品店</string>
+    <string name="type.shop.cosmetics">化妆品店</string>
     <string name="type.shop.curtain">窗帘</string>
     <string name="type.shop.deli">熟食店</string>
     <string name="type.shop.department_store">百货商场</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">曲棍球</string>
     <string name="type.sport.badminton">羽毛球</string>
     <string name="type.sport.pelota">巴斯克回力球</string>
+    <string name="type.sport.boules">地掷球</string>
+    <string name="type.sport.cycling">自行车运动</string>
+    <string name="type.sport.four_square">四方格</string>
+    <string name="type.sport.horse_racing">赛马</string>
+    <string name="type.sport.karting">卡丁车</string>
+    <string name="type.sport.motocross">摩托车越野赛</string>
+    <string name="type.sport.motor">赛车运动</string>
+    <string name="type.sport.netball">无挡板篮球</string>
+    <string name="type.sport.pickleball">匹克球</string>
+    <string name="type.sport.rugby_union">联合式橄榄球</string>
+    <string name="type.sport.running">跑步</string>
+    <string name="type.sport.softball">垒球</string>
     <string name="type.tourism">旅游要素</string>
     <string name="type.tourism.aquarium">水族馆</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">历史景点</string>
     <string name="type.attraction.maze">迷宫</string>
     <string name="type.attraction.roller_coaster">过山车</string>
+    <string name="type.roller_coaster.track">过山车</string>
     <string name="type.attraction.water_slide">水上滑梯</string>
     <string name="type.tourism.attraction.specified">景点</string>
     <string name="type.tourism.camp_site">宿营场地</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">减速带</string>
     <string name="type.traffic_calming.hump">减速丘</string>
     <string name="type.waterway">航道要素</string>
+    <string name="type.waterway.access_point">水道入口</string>
     <string name="type.waterway.canal">运河</string>
     <string name="type.waterway.canal.tunnel">运河</string>
     <string name="type.waterway.fish_pass">鱼梯</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">钟表匠</string>
     <string name="type.xmas_feature.market">圣诞市场</string>
     <string name="type.xmas_feature.tree">圣诞树</string>
+    <string name="type.amenity.hookah_lounge">水烟馆</string>
 </resources>

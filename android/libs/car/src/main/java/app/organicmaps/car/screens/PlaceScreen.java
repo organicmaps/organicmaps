@@ -46,14 +46,6 @@ import java.util.Objects;
 
 public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback, RoutingController.Container
 {
-  // TODO: Should be removed when NavigationScreen is moved to the lib
-  public interface NavigationScreenBuilder
-  {
-    @NonNull
-    BaseMapScreen build(@NonNull CarContext context, @NonNull OrganicMaps organicMapsContext,
-                        @NonNull Renderer surfaceRenderer);
-  }
-
   public static final Router ROUTER = Router.Vehicle;
 
   @Nullable
@@ -66,8 +58,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @NonNull
   private final OnBackPressedCallback mOnBackPressedCallback;
 
-  @NonNull
-  private final NavigationScreenBuilder mNavigationScreenBuilder;
+  private final boolean mIsDebug;
 
   private PlaceScreen(@NonNull Builder builder)
   {
@@ -75,7 +66,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     mMapObject = builder.mMapObject;
     mRoutingController = RoutingController.get();
     mOnBackPressedCallback = new OnBackPressedCallback(getCarContext(), this);
-    mNavigationScreenBuilder = builder.mNavigationScreenBuilder;
+    mIsDebug = builder.mIsDebug;
   }
 
   @NonNull
@@ -299,7 +290,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     {
       getScreenManager().popToRoot();
       getScreenManager().push(
-          mNavigationScreenBuilder.build(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer()));
+          new NavigationScreen.Builder(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer())
+              .setDebugMode(mIsDebug)
+              .build());
     }
   }
 
@@ -362,23 +355,29 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     private final OrganicMaps mOrganicMapsContext;
     @NonNull
     private final Renderer mSurfaceRenderer;
-    @NonNull
-    private final NavigationScreenBuilder mNavigationScreenBuilder;
     @Nullable
     private MapObject mMapObject;
+    private boolean mIsDebug;
 
     public Builder(@NonNull final CarContext carContext, @NonNull OrganicMaps organicMapsContext,
-                   @NonNull final Renderer surfaceRenderer, @NonNull NavigationScreenBuilder navigationScreenBuilder)
+                   @NonNull final Renderer surfaceRenderer)
     {
       mCarContext = carContext;
       mOrganicMapsContext = organicMapsContext;
       mSurfaceRenderer = surfaceRenderer;
-      mNavigationScreenBuilder = navigationScreenBuilder;
     }
 
+    @NonNull
     public Builder setMapObject(@Nullable MapObject mapObject)
     {
       mMapObject = mapObject;
+      return this;
+    }
+
+    @NonNull
+    public Builder setDebugMode(boolean isDebug)
+    {
+      mIsDebug = isDebug;
       return this;
     }
 

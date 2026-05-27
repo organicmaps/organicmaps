@@ -3,9 +3,30 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <glaze/json.hpp>
+
 #include <algorithm>
 #include <fstream>
 #include <iterator>
+#include <optional>
+
+namespace generator::filter_elements_json
+{
+using TagsRule = std::unordered_map<std::string, std::string>;
+
+struct Section
+{
+  std::vector<int64_t> ids;
+  std::vector<TagsRule> tags;
+};
+
+struct Config
+{
+  std::optional<Section> node;
+  std::optional<Section> way;
+  std::optional<Section> relation;
+};
+}  // namespace generator::filter_elements_json
 
 namespace
 {
@@ -27,6 +48,40 @@ public:
 private:
   std::vector<T> m_vec;
 };
+
+bool ParseIds(std::vector<int64_t> const & ids, generator::FilterData & fdata)
+{
+  for (auto const id : ids)
+  {
+    if (id < 0)
+      return false;
+
+    fdata.AddSkippedId(static_cast<uint64_t>(id));
+  }
+
+  return true;
+}
+
+bool ParseTags(std::vector<generator::filter_elements_json::TagsRule> const & rules, generator::FilterData & fdata)
+{
+  for (auto const & rule : rules)
+  {
+    generator::FilterData::Tags tags;
+    tags.reserve(rule.size());
+    for (auto const & [key, value] : rule)
+      tags.emplace_back(key, value);
+
+    if (!tags.empty())
+      fdata.AddSkippedTags(tags);
+  }
+
+  return true;
+}
+
+bool ParseSection(generator::filter_elements_json::Section const & section, generator::FilterData & fdata)
+{
+  return ParseIds(section.ids, fdata) && ParseTags(section.tags, fdata);
+}
 }  // namespace
 
 namespace generator
@@ -74,77 +129,6 @@ bool FilterData::NeedSkipWithTags(Tags const & tags) const
   return false;
 }
 
-bool FilterElements::ParseSection(json_t * json, FilterData & fdata)
-{
-  if (!json_is_object(json))
-    return false;
-
-  char const * key = nullptr;
-  json_t * value = nullptr;
-  json_object_foreach(json, key, value)
-  {
-    if (std::strcmp("ids", key) == 0 && !ParseIds(value, fdata))
-      return false;
-    else if (std::strcmp("tags", key) == 0 && !ParseTags(value, fdata))
-      return false;
-  }
-
-  return true;
-}
-
-bool FilterElements::ParseIds(json_t * json, FilterData & fdata)
-{
-  if (!json_is_array(json))
-    return false;
-
-  size_t const sz = json_array_size(json);
-  for (size_t i = 0; i < sz; ++i)
-  {
-    auto const * o = json_array_get(json, i);
-    if (!json_is_integer(o))
-      return false;
-
-    auto const val = json_integer_value(o);
-    if (val < 0)
-      return false;
-
-    fdata.AddSkippedId(static_cast<uint64_t>(val));
-  }
-
-  return true;
-}
-
-bool FilterElements::ParseTags(json_t * json, FilterData & fdata)
-{
-  if (!json_is_array(json))
-    return false;
-
-  size_t const sz = json_array_size(json);
-  for (size_t i = 0; i < sz; ++i)
-  {
-    auto * o = json_array_get(json, i);
-    if (!json_is_object(o))
-      return false;
-
-    char const * key = nullptr;
-    json_t * value = nullptr;
-    FilterData::Tags tags;
-    json_object_foreach(o, key, value)
-    {
-      if (!json_is_string(value))
-        return false;
-
-      auto const val = json_string_value(value);
-      tags.emplace_back(key, val);
-    }
-
-    if (!tags.empty())
-      fdata.AddSkippedTags(tags);
-  }
-
-  return true;
-}
-
 FilterElements::FilterElements(std::string const & filename) : m_filename(filename)
 {
   std::ifstream stream(m_filename);
@@ -181,25 +165,20 @@ bool FilterElements::NeedSkip(OsmElement const & element, FilterData const & fda
 
 bool FilterElements::ParseString(std::string const & str)
 {
-  base::Json json(str);
-  if (!json_is_object(json.get()))
-    return false;
-
-  char const * key = nullptr;
-  json_t * value = nullptr;
-  json_object_foreach(json.get(), key, value)
+  filter_elements_json::Config config;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(config, str); error)
   {
-    bool res = true;
-    if (std::strcmp("node", key) == 0)
-      res = ParseSection(value, m_nodes);
-    else if (std::strcmp("way", key) == 0)
-      res = ParseSection(value, m_ways);
-    else if (std::strcmp("relation", key) == 0)
-      res = ParseSection(value, m_relations);
-
-    if (!res)
-      return false;
+    LOG(LERROR, ("Cannot parse filter config", m_filename, glz::format_error(error, str)));
+    return false;
   }
+
+  if (config.node && !ParseSection(*config.node, m_nodes))
+    return false;
+  if (config.way && !ParseSection(*config.way, m_ways))
+    return false;
+  if (config.relation && !ParseSection(*config.relation, m_relations))
+    return false;
 
   return true;
 }

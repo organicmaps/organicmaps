@@ -5,14 +5,14 @@
     <string name="type.addr_interpolation">地址/區塊</string>
     <string name="type.addr_interpolation.even">地址/區塊</string>
     <string name="type.addr_interpolation.odd">地址/區塊</string>
-    <string name="type.aerialway">纜車要素</string>
+    <string name="type.aerialway">架空索道</string>
     <string name="type.aerialway.cable_car">纜車</string>
-    <string name="type.aerialway.chair_lift">纜車</string>
-    <string name="type.aerialway.drag_lift">纜車要素</string>
-    <string name="type.aerialway.gondola">循環式索道</string>
-    <string name="type.aerialway.mixed_lift">纜車</string>
+    <string name="type.aerialway.chair_lift">吊椅式纜車</string>
+    <string name="type.aerialway.drag_lift">拖牽式纜車</string>
+    <string name="type.aerialway.gondola">吊艙式纜車</string>
+    <string name="type.aerialway.mixed_lift">混合式纜車</string>
     <string name="type.aerialway.station">纜車站</string>
-    <string name="type.aeroway">機場要素</string>
+    <string name="type.aeroway">空域基礎設施</string>
     <string name="type.aeroway.aerodrome">機場</string>
     <string name="type.aeroway.aerodrome.international">機場</string>
     <string name="type.aeroway.apron">機場停機坪</string>
@@ -20,7 +20,7 @@
     <string name="type.aeroway.helipad">直升機場</string>
     <string name="type.aeroway.runway">機場跑道</string>
     <string name="type.aeroway.taxiway">滑行道</string>
-    <string name="type.aeroway.terminal">航站楼</string>
+    <string name="type.aeroway.terminal">航站大廈</string>
     <string name="type.amenity">設施</string>
     <string name="type.amenity.arts_centre">藝術中心</string>
     <string name="type.amenity.atm">自動櫃員機</string>
@@ -237,6 +237,7 @@
     <string name="type.building">建築物</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">地址</string>
+    <string name="type.building.construction">興建中的建築</string>
     <string name="type.building.has_parts">建築物</string>
     <string name="type.building_part">建築物</string>
     <string name="type.building.garage">車庫</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">地中海料理</string>
     <string name="type.cuisine.mexican">墨西哥料理</string>
     <string name="type.cuisine.moroccan">摩洛哥料理</string>
-    <string name="type.cuisine.noodles">麵食</string>
+    <string name="type.cuisine.noodle">麵食</string>
     <string name="type.cuisine.oriental">東方料理</string>
     <string name="type.cuisine.pancake">煎餅</string>
     <string name="type.cuisine.pasta">義大利麵</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">火腿</string>
     <string name="type.cuisine.savory_pancakes">鹹味煎餅</string>
     <string name="type.cuisine.seafood">海鮮</string>
+    <string name="type.cuisine.shawarma">沙威瑪</string>
     <string name="type.cuisine.soba">蕎麥面</string>
     <string name="type.cuisine.spanish">西班牙料理</string>
     <string name="type.cuisine.steak_house">牛排館</string>
@@ -600,7 +602,7 @@
     <string name="type.junction">交叉口</string>
     <string name="type.junction.circular">環形交叉口</string>
     <string name="type.junction.roundabout">環形交叉口</string>
-    <string name="type.landuse">土地利用要素</string>
+    <string name="type.landuse">土地利用</string>
     <string name="type.landuse.allotments">市民農園</string>
     <string name="type.landuse.basin">水庫</string>
     <string name="type.landuse.brownfield">廢棄的工業用地</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">樹列</string>
     <string name="type.natural.vineyard">葡萄園</string>
     <string name="type.natural.volcano">火山</string>
+    <string name="type.natural.volcano.active">活火山</string>
     <string name="type.natural.water">水體</string>
     <string name="type.natural.wetland">沼澤</string>
     <string name="type.natural.wetland.bog">泥炭地</string>
@@ -1171,7 +1174,7 @@
     <string name="type.shop.confectionery">糕餅店</string>
     <string name="type.shop.convenience">便利店</string>
     <string name="type.shop.copyshop">復印店</string>
-    <string name="type.shop.cosmetics">化妆品</string>
+    <string name="type.shop.cosmetics">化妝品</string>
     <string name="type.shop.curtain">窗簾</string>
     <string name="type.shop.deli">熟食店</string>
     <string name="type.shop.department_store">百貨公司</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">曲棍球</string>
     <string name="type.sport.badminton">羽毛球</string>
     <string name="type.sport.pelota">巴斯克回力球</string>
+    <string name="type.sport.boules">地擲球</string>
+    <string name="type.sport.cycling">自行車運動</string>
+    <string name="type.sport.four_square">四方格</string>
+    <string name="type.sport.horse_racing">賽馬</string>
+    <string name="type.sport.karting">卡丁車</string>
+    <string name="type.sport.motocross">摩托車越野賽</string>
+    <string name="type.sport.motor">賽車運動</string>
+    <string name="type.sport.netball">無擋板籃球</string>
+    <string name="type.sport.pickleball">匹克球</string>
+    <string name="type.sport.rugby_union">聯合式橄欖球</string>
+    <string name="type.sport.running">跑步</string>
+    <string name="type.sport.softball">壘球</string>
     <string name="type.tourism">旅遊設施</string>
     <string name="type.tourism.aquarium">水族館</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">歷史景點</string>
     <string name="type.attraction.maze">迷宮</string>
     <string name="type.attraction.roller_coaster">雲霄飛車</string>
+    <string name="type.roller_coaster.track">雲霄飛車</string>
     <string name="type.attraction.water_slide">水滑梯</string>
     <string name="type.tourism.attraction.specified">景點</string>
     <string name="type.tourism.camp_site">露營</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">減速帶</string>
     <string name="type.traffic_calming.hump">減速丘</string>
     <string name="type.waterway">水道</string>
+    <string name="type.waterway.access_point">水道存取點</string>
     <string name="type.waterway.canal">運河</string>
     <string name="type.waterway.canal.tunnel">運河</string>
     <string name="type.waterway.fish_pass">魚梯</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">鐘錶匠</string>
     <string name="type.xmas_feature.market">聖誕市場</string>
     <string name="type.xmas_feature.tree">聖誕樹</string>
+    <string name="type.amenity.hookah_lounge">水煙館</string>
 </resources>

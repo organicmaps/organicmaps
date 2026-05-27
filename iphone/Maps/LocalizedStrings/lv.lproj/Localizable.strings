@@ -178,7 +178,7 @@
 "bookmark_share_email_subject" = "Hei, apskatiet manu grāmatzīmi Organic Maps kartē!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!";
+"my_position_share_email_subject" = "Hei, apskati manu pašreizējo atrašanās vietu kartē „Organic Maps”!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-pasts";
@@ -229,6 +229,9 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Balss valoda";
+
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Lai lejupielādētu augstākas kvalitātes balsi, atveriet lietotni Iestatījumi un dodieties uz Pieejamība → VoiceOver → Runa → Balss.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Pārbaudīt balss norādes (TTS, teksta pārvēršana runā)";
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Kartes stili un slāņi";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Mainīt visu grāmatzīmju krāsu";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Mainīt visu maršrutu krāsu";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Izgūt KMZ formātā";
 
@@ -950,8 +959,8 @@
 "button_layer_outdoor" = "Aktīvā atpūta";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Izgūt visus pēdojumus un grāmatzīmes";
-"drive_through" = "Caurbrauktuve caur";
+"bookmarks_export" = "Eksportēt visas trases un grāmatzīmes";
+"drive_through" = "Caurbrauktuve";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Saite uz ēdienkarti";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nesen izmantots";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Grāmatzīmju krāsa mainīta";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Maršrutu krāsa mainīta";

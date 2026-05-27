@@ -1,0 +1,15 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace = 'app.organicmaps.sdk.location'
+  // enableKotlin = true  // see app/build.gradle
+}
+
+dependencies {
+  implementation libs.androidx.annotation
+  implementation libs.androidx.core
+}

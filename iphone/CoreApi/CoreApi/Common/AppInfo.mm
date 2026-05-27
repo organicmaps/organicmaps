@@ -1,14 +1,8 @@
 #import "AppInfo.h"
-#import "MWMCommon.h"
 
-#include "platform/platform_ios.h"
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
-
-#include <sys/utsname.h>
-
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 @interface AppInfo ()
 
@@ -66,23 +60,6 @@
   if (!_deviceModel)
     _deviceModel = @(GetPlatform().DeviceModel().c_str());
   return _deviceModel;
-}
-
-- (MWMOpenGLDriver)openGLDriver
-{
-  utsname systemInfo;
-  uname(&systemInfo);
-  NSString * machine = @(systemInfo.machine);
-  if (platform::kDeviceModelsBeforeMetalDriver[machine] != nil)
-    return MWMOpenGLDriverRegular;
-  if (platform::kDeviceModelsWithiOS10MetalDriver[machine] != nil)
-  {
-    if (isIOSVersionLessThan(10))
-      return MWMOpenGLDriverRegular;
-    else if (isIOSVersionLessThanString(@"10.3"))
-      return MWMOpenGLDriverMetalPre103;
-  }
-  return MWMOpenGLDriverMetal;
 }
 
 @end

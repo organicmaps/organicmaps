@@ -5,14 +5,13 @@ import android.content.res.Configuration;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.car.screens.INavigationScreen;
+import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.util.CurrentCountryChangedListener;
@@ -27,8 +26,8 @@ import app.organicmaps.sdk.car.renderer.RendererFactory;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationState;
+import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 
@@ -42,6 +41,7 @@ public abstract class CarAppSessionBase
   protected final OrganicMaps mOrganicMapsContext;
   @Nullable
   protected final SessionInfo mSessionInfo;
+  protected final boolean mIsDebug;
   @NonNull
   protected final ScreenManager mScreenManager;
   @NonNull
@@ -55,10 +55,11 @@ public abstract class CarAppSessionBase
   @Nullable
   protected DisplayManager mDisplayManager;
 
-  public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @Nullable SessionInfo sessionInfo)
+  public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @Nullable SessionInfo sessionInfo, boolean isDebug)
   {
     mOrganicMapsContext = organicMapsContext;
     mSessionInfo = sessionInfo;
+    mIsDebug = isDebug;
     mScreenManager = getCarContext().getCarService(ScreenManager.class);
     mCurrentCountryChangedListener = new CurrentCountryChangedListener();
     getLifecycle().addObserver(this);
@@ -145,11 +146,6 @@ public abstract class CarAppSessionBase
 
   protected abstract boolean isCarScreenUsed();
 
-  @NonNull
-  protected abstract BaseMapScreen buildNavigationScreen(@NonNull CarContext context,
-                                                         @NonNull OrganicMaps organicMapsContext,
-                                                         @NonNull Renderer surfaceRenderer);
-
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
@@ -173,10 +169,10 @@ public abstract class CarAppSessionBase
       Framework.nativeDeactivatePopup();
       return;
     }
-    final PlaceScreen placeScreen =
-        new PlaceScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, this::buildNavigationScreen)
-            .setMapObject(mapObject)
-            .build();
+    final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer)
+                                        .setDebugMode(mIsDebug)
+                                        .setMapObject(mapObject)
+                                        .build();
     mScreenManager.popToRoot();
     mScreenManager.push(placeScreen);
   }
@@ -204,16 +200,16 @@ public abstract class CarAppSessionBase
 
     if (isNavigating && routingController.getLastRouterType() == PlaceScreen.ROUTER && hasNavigatingScreen)
     {
-      mScreenManager.popTo(INavigationScreen.MARKER);
+      mScreenManager.popTo(NavigationScreen.MARKER);
       return;
     }
 
     if (routingController.isPlanning() || isNavigating || routingController.hasSavedRoute())
     {
-      final PlaceScreen placeScreen =
-          new PlaceScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, this::buildNavigationScreen)
-              .setMapObject(routingController.getEndPoint())
-              .build();
+      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mOrganicMapsContext, mSurfaceRenderer)
+                                          .setMapObject(routingController.getEndPoint())
+                                          .setDebugMode(mIsDebug)
+                                          .build();
       mScreenManager.popToRoot();
       mScreenManager.push(placeScreen);
     }
@@ -223,7 +219,7 @@ public abstract class CarAppSessionBase
   {
     for (final Screen screen : mScreenManager.getScreenStack())
     {
-      if (INavigationScreen.MARKER.equals(screen.getMarker()))
+      if (NavigationScreen.MARKER.equals(screen.getMarker()))
         return true;
     }
     return false;

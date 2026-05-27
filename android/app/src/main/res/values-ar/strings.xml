@@ -49,12 +49,12 @@
     <!-- The button that opens system location settings -->
     <string name="location_settings">إعدادات الموقع</string>
     <string name="close">إغلاق</string>
-    <string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
+    <string name="unsupported_phone">يتطلب التطبيق OpenGL مع تسريع الأجهزة. لسوء الحظ، جهازك غير مدعوم.</string>
     <string name="download">تنزيل</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنةلناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق</string>
+    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة أولاً في بطاقة SD/تخزين USB لاستخدام التطبيق.</string>
     <string name="download_resources">قبل البدء في استخدام التطبيق، يرجى تنزيل خريطة نظرة عامة على العالم على جهازك.\nسيستخدم %s من مساحة التخزين.</string>
     <string name="download_resources_continue">الذهاب الى الخريطة</string>
     <string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن\nالمتابعة الى الخريطة.</string>
@@ -109,7 +109,7 @@
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
     <string name="category_transport">مواصلات</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">وقود الحافلات</string>
+    <string name="category_fuel">وقود</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">مرافق ركن السيارات</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
@@ -371,6 +371,8 @@
     <string name="clear_search">مسح سجل البحث</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">ويكيبيديا</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">مقالة من wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">مشاعات ويكيميديا</string>
     <string name="p2p_your_location">موقعك</string>
@@ -471,7 +473,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %s. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) هو مشروع مجتمعي لبناء خريطة مجانية ومفتوحة. إنه المصدر الرئيسي لبيانات الخرائط في الخرائط العضوية ويعمل على غرار ويكيبيديا. يمكنك إضافة الأماكن أو تعديلها وتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) هو مشروع مجتمعي يهدف إلى إنشاء خريطة مجانية ومفتوحة. وهو المصدر الرئيسي لبيانات الخرائط في Organic Maps ويعمل بشكل مشابه لـويكيبيديا. يمكنك إضافة أو تعديل الأماكن لتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!</string>
     <string name="login_to_make_edits_visible">أنشئ حساباً على OpenStreetMap أو سجّل الدخول لنشر تعديلاتك على الخريطة للعالم.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d من%2$d</string>
@@ -486,7 +488,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">ملاحظة لمتطوعي OpenStreetMap (اختياري)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">وصف الأخطاء على الخريطة أو الأشياء التي لا يمكن تحريرها باستخدام الخرائط العضوية</string>
+    <string name="editor_note_hint">يرجى وصف الأخطاء الموجودة على الخريطة أو العناصر التي لا يمكن تعديلها عبر البريد الإلكتروني Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">يتم تحميل تعديلاتك على قاعدة البيانات العامة <a href="https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap">OpenStreetMap</a>. يرجى عدم إضافة معلومات شخصية أو محمية بحقوق الطبع والنشر.</string>
     <string name="editor_more_about_osm">المزيد عن خريطة الشارع المفتوحة</string>
@@ -496,7 +498,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">المشغل: %s</string>
     <string name="editor_category_unsuitable_title">لا يمكن العثور على فئة مناسبة؟</string>
-    <string name="editor_category_unsuitable_text">تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps تسمح بإضافة فئات النقاط البسيطة فقط، وهذا يعني عدم إضافة المدن والطرق والبحيرات وخطوط المباني، إلخ. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليلنا</a> للحصول على إرشادات تفصيلية خطوة بخطوة.</string>
     <string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
     <string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
     <string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
@@ -560,7 +562,7 @@
     <string name="enable_logging">تفعيل التسجيل</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">تعقيب عام</string>
-    <string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play</string>
+    <string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد Google TTS، ويمكنك تنزيله أو تحديثه من متجر Google Play</string>
     <string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid).\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا (على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنت).</string>
     <string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
@@ -638,6 +640,8 @@
     <string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">تغيير لون جميع الإشارات المرجعية</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">تغيير لون جميع المسارات</string>
     <string name="category_desc_more">…المزيد</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">تصدير KMZ</string>
@@ -716,6 +720,12 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">مغلق الآن</string>
+    <string name="opens_tomorrow_at">يُفتتح غداً في %s</string>
+    <string name="opens_dayoftheweek_at">يفتح %1$s في %2$s</string>
+    <string name="opens_at">يفتح في %s</string>
+    <string name="closes_at">يغلق في %s</string>
     <string name="editor_add_select_category_all_subtitle">جميع الفئات</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -801,9 +811,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف</string>
+    <string name="car_used_on_the_phone_screen">أنت تستخدم الآن Organic Maps على شاشة الهاتف</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">أنت الآن تستخدم الخرائط العضوية على شاشة السيارة</string>
+    <string name="car_used_on_the_car_screen">أنت تستخدم الآن Organic Maps على شاشة السيارة</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">أنت متصل بـ Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -811,13 +821,13 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">إلى شاشة السيارة</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">تحتاج الخرائط العضوية إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعارات الموجودة على هاتفك.</string>
+    <string name="aa_location_permissions_request">Organic Maps تحتاج إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعار على هاتفك.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">هذا التطبيق يحتاج إلى إذنك</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">جولة على الأقدام</string>
+    <string name="button_layer_outdoor">الأنشطة الخارجية</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">متصفح الويب غير متوفر</string>
     <string name="volume">مستوى الصوت</string>
@@ -827,7 +837,7 @@
     <string name="pref_tts_open_system_settings">إعدادات تركيب الكلام النظام</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">لم يتم العثور على إعدادات تركيب الكلام، هل أنت متأكد من أن جهازك يدعمها؟</string>
-    <string name="drive_through">الشراء من السيارة</string>
+    <string name="drive_through">خدمة من السيارة</string>
     <string name="clear_the_search">مسح البحث</string>
     <string name="zoom_in">تكبير</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -880,4 +890,22 @@
     <string name="login_osm_browser">تسجيل الدخول باستخدام المتصفح</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">مستخدمة مؤخراً</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">تم تغيير لون الإشارات المرجعية</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">تم تغيير لون المسارات</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">الطيف</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">منزلقات</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">أحمر</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">أخضر</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">أزرق</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex Color #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">الشبكة</string>
 </resources>

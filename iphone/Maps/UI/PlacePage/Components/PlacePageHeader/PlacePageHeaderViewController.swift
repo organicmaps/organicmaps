@@ -11,10 +11,12 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 final class PlacePageHeaderViewController: UIViewController {
   private enum Constants {
     static let editImageRect = CGRect(x: 0, y: -2, width: 14, height: 14)
+    static let titleTrailingInsetEditing: CGFloat = 22
   }
 
   @IBOutlet private var headerView: PlacePageHeaderView!
   @IBOutlet private var titleTextView: UITextView!
+  @IBOutlet private var titleTextViewTrailingConstraint: NSLayoutConstraint!
   @IBOutlet private var clearTitleTextButton: CircleImageButton!
   @IBOutlet private var subtitleLabel: UILabel!
   @IBOutlet private var expandView: UIView!
@@ -48,6 +50,7 @@ final class PlacePageHeaderViewController: UIViewController {
     }
     closeButton.setImage(UIImage(resource: .icClose))
     shareButton.setImage(UIImage(resource: .icShare))
+    shareButton.isHidden = !(presenter?.canShare ?? true)
 
     cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
@@ -74,15 +77,9 @@ final class PlacePageHeaderViewController: UIViewController {
 
     subtitleLabel.font = StyleManager.shared.theme!.fonts.medium16
 
-    if presenter?.objectType == .track {
+    if presenter?.objectType == .track, presenter?.canShare == true {
       configureTrackSharingMenu()
     }
-  }
-
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    updateTitleEditingStyle()
   }
 
   @objc private func onExpandPressed(sender _: UITapGestureRecognizer) {
@@ -143,15 +140,17 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   private func updateTitleEditingStyle() {
+    titleTextViewTrailingConstraint.constant = isEditingTitle ? Constants.titleTrailingInsetEditing : 0
+
     let titleAttributes: [NSAttributedString.Key: Any] = [
       .font: StyleManager.shared.theme!.fonts.medium20,
-      .foregroundColor: UIColor.blackPrimaryText(),
+      .foregroundColor: UIColor.blackPrimaryText,
     ]
     let editImage = NSTextAttachment()
     editImage.image = UIImage(resource: .ic24PxEdit)
     editImage.bounds = Constants.editImageRect
     let editString = NSMutableAttributedString(attachment: editImage)
-    editString.addAttributes([.foregroundColor: UIColor.linkBlue()],
+    editString.addAttributes([.foregroundColor: UIColor.linkBlue],
                              range: NSRange(location: 0, length: editString.length))
 
     let titleString = NSMutableAttributedString(string: titleText ?? "", attributes: titleAttributes)
@@ -164,45 +163,26 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   func showShareTrackMenu() {
-    if #available(iOS 14.0, *) {
-      // The menu will be shown by the shareButton itself
-    } else {
-      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      alert.addAction(UIAlertAction(title: L("export_file"), style: .default) { [weak self] _ in
-        guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
-      })
-      alert.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default) { [weak self] _ in
-        guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
-      })
-      alert.addAction(UIAlertAction(title: L("export_file_geojson"), style: .default) { [weak self] _ in
-        guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
-      })
-      present(alert, animated: true, completion: nil)
-    }
+    // The menu will be shown by the shareButton itself
   }
 
   private func configureTrackSharingMenu() {
-    if #available(iOS 14.0, *) {
-      let menu = UIMenu(title: "", image: nil, children: [
-        UIAction(title: L("export_file"), image: nil, handler: { [weak self] _ in
-          guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
-        }),
-        UIAction(title: L("export_file_gpx"), image: nil, handler: { [weak self] _ in
-          guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
-        }),
-        UIAction(title: L("export_file_geojson"), image: nil, handler: { [weak self] _ in
-          guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
-        }),
-      ])
-      shareButton.menu = menu
-      shareButton.showsMenuAsPrimaryAction = true
-    }
+    let menu = UIMenu(title: "", image: nil, children: [
+      UIAction(title: L("export_file"), image: nil, handler: { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
+      }),
+      UIAction(title: L("export_file_gpx"), image: nil, handler: { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
+      }),
+      UIAction(title: L("export_file_geojson"), image: nil, handler: { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
+      }),
+    ])
+    shareButton.menu = menu
+    shareButton.showsMenuAsPrimaryAction = true
   }
 }
 
@@ -227,7 +207,7 @@ extension PlacePageHeaderViewController: UITextViewDelegate {
     clearTitleTextButton.isHidden = true
     cancelButton.isHidden = true
     closeButton.isHidden = false
-    shareButton.isHidden = false
+    shareButton.isHidden = !(presenter?.canShare ?? true)
 
     isEditingTitle = false
     let cleanedText = textView.text

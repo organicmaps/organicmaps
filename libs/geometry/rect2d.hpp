@@ -3,7 +3,6 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/internal/message.hpp"
 
 #include <algorithm>
 #include <limits>
@@ -256,6 +255,24 @@ public:
     m_maxY = newMaxY;
 
     return true;
+  }
+
+  // Squared distance from |p|. Zero when |p| is inside.
+  double SquaredDistance(Point<T> const & p) const
+  {
+    double dx = 0.0;
+    if (p.x < m_minX)
+      dx = m_minX - p.x;
+    else if (p.x > m_maxX)
+      dx = p.x - m_maxX;
+
+    double dy = 0.0;
+    if (p.y < m_minY)
+      dy = m_minY - p.y;
+    else if (p.y > m_maxY)
+      dy = p.y - m_maxY;
+
+    return dx * dx + dy * dy;
   }
 
   bool operator==(m2::Rect<T> const & r) const

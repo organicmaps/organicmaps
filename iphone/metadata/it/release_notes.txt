@@ -1,27 +1,56 @@
-• Dati mappa OSM al 16 febbraio
-• Dati Wikipedia al 1 febbraio
-• I percorsi escursionistici e ciclabili neri sono ora visibili nel tema scuro
-• Aggiunti più servizi per auto: riparazione, assistenza e ricambi
-• Aggiunta autenticazione browser OSM
-• Risolto l'accesso alle biciclette su alcuni tipi di strade
-• Risolto il calcolo della velocità media
-• Migliorato il posizionamento della ricerca per le categorie
-• Aggiunta cucina uzbeka
-• Aggiunte teleferiche (zip line) sulla mappa
-• Risolti i link Wikimedia con "?" nel titolo
-• Risolta l'analisi dei file GPX con "+" nelle coordinate
+## Mappa
 
-### Traduzioni
+- NOVITÀ! La mappa ora viene visualizzata correttamente all'antimeridiano durante il trascinamento e la rotazione
+- Dati OpenStreetMap aggiornati al 4 aprile
+- Dati Wikipedia aggiornati al 1° aprile
+- Aggiunte icone per aree ristoro e porte della città
+- Aggiunte sottocategorie dei negozi di abbigliamento: donna, uomo, bambino, matrimonio, sport, intimo e abbigliamento da ufficio
+- Corretti i colori delle linee della metropolitana di Sydney
+- Corretta la visualizzazione degli orari di apertura per i luoghi con offset di alba/tramonto
 
-• Rimossi nomi di città duplicati in alcune regioni della mappa
-• Risolte le indicazioni vocali in ebraico
-• Risolti errori di battitura in coreano
-• Aggiunti sinonimi di ricerca in russo
-• Migliorate le indicazioni vocali in tedesco
-• Risolto traduzione mancante per tunnel ferroviario in disuso
-• Risolto traduzione del paese in rumeno
-• Aggiunte traduzioni in laotiano e armeno
-• Aggiunte traduzioni armene mancanti
-• Aggiornate le traduzioni dai collaboratori di Weblate
+## Percorsi e navigazione
 
-Grazie a tutti coloro che contribuiscono, donano e supportano Organic Maps! Costruiamo insieme le mappe migliori!
+- NOVITÀ! Tocca un percorso ciclabile o escursionistico per selezionarlo e visualizzarne il grafico altimetrico
+- Migliorata la resa cromatica multicolore per i percorsi escursionistici e ciclabili
+- La navigazione in bicicletta ora utilizza la direzione della bussola a basse velocità
+- Risolto un errore di sistema durante la pianificazione di percorsi in prossimità di alcuni confini regionali
+- Ora è possibile avviare un percorso valido anche quando viene richiesto di scaricare mappe aggiuntive
+
+## Segnalibri e tracciati
+
+- NOVITÀ! Modifica contemporaneamente tutti i colori dei segnalibri e delle tracce in una categoria
+- Modificata l'approssimazione del dislivello positivo e negativo nei grafici delle tracce per allinearla meglio ad altre app
+- Visualizzazione migliorata dei contenuti HTML con tabelle e immagini nei dettagli dei segnalibri
+- Aggiunti separatori verticali per le tracce a più segmenti nel grafico dell'altitudine
+- Risolto il problema della selezione dei punti nel grafico dell'altitudine per i punti interpolati
+- Risolto il problema della registrazione della traccia GPS che perdeva punti tra i segmenti
+- Risolto il problema dell'importazione GeoJSON
+- Risolto un crash durante l'esportazione delle tracce
+
+## Ricerca
+
+- Ricerca migliorata negli Stati Uniti, con due milioni di indirizzi aggiuntivi analizzati dai dati del censimento TIGER
+- Categorie di ricerca aggiornate: aggiunti "Bread" per le panetterie, "Shawarma" come cucina e altri miglioramenti ai sinonimi
+- Ricerca per numero civico migliorata
+- Aggiunti sinonimi per le strade negli Stati Uniti: highway, hwy, freeway, fwy
+- Risolti i risultati di ricerca quando i nomi di città e stato coincidono
+
+## Editor / OpenStreetMap
+
+- Ora è possibile aggiungere un nuovo luogo su OpenStreetMap dopo aver selezionato la propria posizione attuale sulla mappa
+- Risolto il disallineamento del mirino dell'editor quando si preme "Aggiungi luogo"
+- Aumentata l'area tattile dei pulsanti nella barra di navigazione "Aggiungi luogo"
+
+## Interfaccia utente e esperienza utente
+
+- Migliorati i gesti modali: aggancio al passaggio più vicino, chiusura durante lo scorrimento sul bordo e ripristino dello stato precedente alla riapertura
+- Risolta la gestione dell'ora legale per i fusi orari
+
+## Stabilità e localizzazione
+
+- Migliorate stabilità e prestazioni, ridotto il consumo della batteria
+- Traduzioni aggiornate
+
+## Supporto piattaforme
+
+- A causa delle modifiche apportate a TestFlight e all'App Store, questa versione supporta solo iOS 15 e versioni successive. iOS 12, 13 e 14 non sono più supportati.

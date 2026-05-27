@@ -22,8 +22,9 @@ m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMeters
   ASSERT_GREATER(cosL, 0.0, ());
 
   double const lonDegreeOffset = lonMetersR * Bounds::kDegreesInMeter / cosL;
-  double const minLon = max(-180.0, lon - lonDegreeOffset);
-  double const maxLon = min(180.0, lon + lonDegreeOffset);
+  // Don't clamp longitude — allow extended coordinates past the antimeridian.
+  double const minLon = lon - lonDegreeOffset;
+  double const maxLon = lon + lonDegreeOffset;
 
   return {FromLatLon(minLat, minLon), FromLatLon(maxLat, maxLon)};
 }
@@ -42,7 +43,8 @@ m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetersR, double latMeters
   ASSERT_GREATER(cosL, 0.0, ());
 
   double const lonDegreeOffset = lonMetersR * Bounds::kDegreesInMeter / cosL;
-  double const newLon = min(180.0, max(-180.0, lon + lonDegreeOffset));
+  // Don't clamp longitude — allow extended coordinates past the antimeridian.
+  double const newLon = lon + lonDegreeOffset;
 
   return FromLatLon(newLat, newLon);
 }
@@ -81,11 +83,6 @@ double LatToY(double lat)
   return ClampY(res);
 }
 
-m2::RectD MetersToXY(double lon, double lat, double metersR)
-{
-  return MetersToXY(lon, lat, metersR, metersR);
-}
-
 m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY, double sizeX, double sizeY)
 {
   ASSERT_GREATER_OR_EQUAL(sizeX, 0, ());
@@ -102,11 +99,6 @@ m2::RectD RectByCenterXYAndSizeInMeters(m2::PointD const & center, double size)
 m2::RectD RectByCenterXYAndOffset(m2::PointD const & center, double offset)
 {
   return {ClampX(center.x - offset), ClampY(center.y - offset), ClampX(center.x + offset), ClampY(center.y + offset)};
-}
-
-m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
-{
-  return RectByCenterXYAndSizeInMeters(FromLatLon(lat, lon), size);
 }
 
 m2::RectD FromLatLon(m2::RectD const & rect)

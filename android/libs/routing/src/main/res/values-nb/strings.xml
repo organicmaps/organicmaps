@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Oppdater kart</string>
     <string name="downloader_mwm_migration_dialog">For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.</string>
+    <string name="navigation_stop_button">Stopp</string>
     <string name="ok">Ok</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

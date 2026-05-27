@@ -1,5 +1,6 @@
 #include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/render_state_extension.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -13,7 +14,6 @@
 #include "drape/utils/vertex_decl.hpp"
 
 #include <algorithm>
-#include <utility>
 
 namespace df
 {
@@ -84,7 +84,7 @@ public:
     {
       if (IsBillboard())
       {
-        m2::PointD const pxPivot(screen.GtoP(m2::PointD(m_pivot)));
+        m2::PointD const pxPivot = GetPixelPivot(screen);
         m2::PointD const pxPivotPerspective(screen.PtoP3d(pxPivot, -m_pivotZ));
 
         m2::RectD pxRectPerspective = GetPixelRect(screen, false);
@@ -96,7 +96,7 @@ public:
       return GetPixelRectPerspective(screen);
     }
 
-    m2::PointD pivot(screen.GtoP(m2::PointD(m_pivot)) + m2::PointD(m_offset));
+    m2::PointD pivot(GetPixelPivot(screen) + m2::PointD(m_offset));
     double x = pivot.x;
     double y = pivot.y;
     if (m_anchor & dp::Left)
@@ -132,6 +132,17 @@ public:
   bool IsBound() const override { return !m_isOptional; }
 
 private:
+  m2::PointD GetPixelPivot(ScreenBase const & screen) const
+  {
+    // Tile-base coordinates already have valid alignment via the tile offset and tile-based identity.
+    m2::PointD wrapPivot(m_pivot);
+    if (GetOverlayID().m_tileCoords == TileKey::NoCoordinates())
+      wrapPivot = df::AdjustPointForViewport(wrapPivot, screen);
+
+    return screen.GtoP(wrapPivot);
+  }
+
+private:
   m2::PointF m_pivot;
   m2::PointF m_offset;
   m2::PointF m_size;
@@ -147,7 +158,7 @@ TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params
                      uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
-  , m_tileCoords(tileKey.GetTileCoords())
+  , m_tile(tileKey)
   , m_symbolAnchor(symbolAnchor)
   , m_symbolOffset(symbolOffset)
   , m_textIndex(textIndex)
@@ -160,7 +171,7 @@ TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params
                      dp::Anchor symbolAnchor, uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
-  , m_tileCoords(tileKey.GetTileCoords())
+  , m_tile(tileKey)
   , m_symbolSizes(symbolSizes)
   , m_symbolAnchor(symbolAnchor)
   , m_symbolOffset(symbolOffset)
@@ -314,11 +325,11 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context, Straigh
 
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
-  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tile.coords, m_textIndex);
   drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(
-      overlayId, layout.GetGlyphs(), m_params.m_titleDecl.m_anchor, glsl::ToVec2(m_basePoint),
-      glsl::vec2(pixelSize.x, pixelSize.y), finalOffset, GetOverlayPriority(), textures, isOptional,
-      std::move(dynamicBuffer), m_params.m_minVisibleScale, true);
+      overlayId, layout.GetGlyphs(), m_params.m_titleDecl.m_anchor,
+      glsl::vec2(m_basePoint.x + m_tile.xOffset, m_basePoint.y), glsl::vec2(pixelSize.x, pixelSize.y), finalOffset,
+      GetOverlayPriority(), textures, isOptional, std::move(dynamicBuffer), m_params.m_minVisibleScale, true);
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
@@ -366,11 +377,11 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context, Stra
 
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
-  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tile.coords, m_textIndex);
   drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(
-      overlayId, layout.GetGlyphs(), m_params.m_titleDecl.m_anchor, glsl::ToVec2(m_basePoint),
-      glsl::vec2(pixelSize.x, pixelSize.y), finalOffset, GetOverlayPriority(), textures, isOptional,
-      std::move(dynamicBuffer), m_params.m_minVisibleScale, true);
+      overlayId, layout.GetGlyphs(), m_params.m_titleDecl.m_anchor,
+      glsl::vec2(m_basePoint.x + m_tile.xOffset, m_basePoint.y), glsl::vec2(pixelSize.x, pixelSize.y), finalOffset,
+      GetOverlayPriority(), textures, isOptional, std::move(dynamicBuffer), m_params.m_minVisibleScale, true);
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);

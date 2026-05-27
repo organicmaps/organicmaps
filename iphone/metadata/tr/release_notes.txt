@@ -1,27 +1,56 @@
-• 16 Şubat itibarıyla OSM harita verileri
-• 1 Şubat itibarıyla Wikipedia verileri
-• Siyah yürüyüş ve bisiklet rotaları artık karanlık temada görülebiliyor
-• Daha fazla araç hizmeti eklendi: onarım, servis ve parça
-• OSM tarayıcı kimlik doğrulaması eklendi
-• Bazı yol türlerinde bisiklet erişimi düzeltildi
-• Ortalama hız hesaplaması düzeltildi
-• Kategoriler için arama sıralaması iyileştirildi
-• Özbek mutfağı eklendi
-• Haritaya teleferikler (zip lines) eklendi
-• Başlığında "?" bulunan Wikimedia bağlantıları düzeltildi
-• Koordinatlarda "+" bulunan GPX dosyalarının ayrıştırılması düzeltildi
+## Harita
 
-### Çeviriler
+- YENİ! Sürükleme ve döndürme sırasında harita artık antimeridyende doğru şekilde sarılıyor
+- OpenStreetMap verileri 4 Nisan itibarıyla güncellendi
+- Wikipedia verileri 1 Nisan itibarıyla güncellendi
+- Yemek alanları ve şehir kapıları için simgeler eklendi
+- Giyim mağazası alt kategorileri eklendi: kadın, erkek, çocuk, düğün, spor, iç giyim ve ofis giyimi
+- Sidney metro hattı renkleri düzeltildi
+- Güneş doğumu/batımı farkı olan yerler için çalışma saatleri gösterimi düzeltildi
 
-• Bazı harita bölgelerinde yinelenen şehir adları kaldırıldı
-• İbranice sesli yönlendirmeler düzeltildi
-• Korece yazım hataları düzeltildi
-• Rusça arama eşanlamlıları eklendi
-• Almanca sesli yönlendirmeler iyileştirildi
-• Kullanılmayan demiryolu tüneli için eksik çeviri düzeltildi
-• Rumence ülke çevirisi düzeltildi
-• Laosca ve Ermenice çeviriler eklendi
-• Eksik Ermenice çeviriler eklendi
-• Weblate katkıda bulunanlardan çeviriler güncellendi
+## Rota Planlama ve Navigasyon
 
-Organic Maps'e katkıda bulunan, bağış yapan ve destekleyen herkese teşekkürler! En iyi haritaları birlikte oluşturalım!
+- YENİ! Bir bisiklet veya yürüyüş rotasına dokunarak seçin ve yükseklik grafiğini görüntüleyin
+- Yürüyüş ve bisiklet rotaları için çok renkli görüntüleme iyileştirildi
+- Bisiklet navigasyonu artık düşük hızlarda pusula yönünü kullanıyor
+- Bazı bölge sınırlarının yakınında rota planlarken ortaya çıkan bir sistem hatası düzeltildi
+- Artık ek haritaları indirmeniz istendiğinde bile geçerli bir rotaya başlayabilirsiniz
+
+## Yer İşaretleri ve İzler
+
+- YENİ! Bir kategorideki tüm yer işareti ve iz renklerini tek seferde değiştirin
+- Diğer uygulamalarla daha iyi uyum sağlaması için iz grafiklerindeki yükseklik kazancı ve kaybı tahminleri ayarlandı
+- Yer işareti ayrıntılarında tablolar ve resimler içeren HTML içeriğinin görüntülenmesi iyileştirildi
+- Yükseklik grafiğinde çok segmentli izler için dikey ayırıcılar eklendi
+- Yükseklik grafiğinde enterpolasyonlu noktaların seçimi düzeltildi
+- GPS iz kaydında segmentler arasında noktaların düşmesi sorunu düzeltildi
+- GeoJSON içe aktarma sorunu düzeltildi
+- İzleri dışa aktarırken meydana gelen çökme sorunu düzeltildi
+
+## Arama
+
+- TIGER Nüfus Sayımı verilerinden ayrıştırılan iki milyon ek adresle ABD'de daha iyi arama
+- Güncellenen arama kategorileri: fırınlar için "Bread", "Shawarma" mutfağı ve diğer eşanlamlı iyileştirmeler eklendi
+- Ev numarası adres araması iyileştirildi
+- ABD sokak eşanlamlıları eklendi: highway, hwy, freeway, fwy
+- Şehir ve eyalet adları aynı olduğunda arama sonuçları düzeltildi
+
+## Düzenleyici / OpenStreetMap
+
+- Artık harita üzerinde mevcut konumunuzu seçtikten sonra OpenStreetMap'e yeni bir yer ekleyebilirsiniz
+- "Yer Ekle" düğmesine basıldığında düzenleyicideki artı işaretinin yanlış hizalanması sorunu düzeltildi
+- "Yer Ekle" gezinme çubuğundaki düğmelerin dokunma alanı genişletildi
+
+## Kullanıcı Arayüzü ve Kullanıcı Deneyimi
+
+- Modal hareketler iyileştirildi: en yakın adıma kaydırma, kenardan kaydırmada kapatma ve yeniden açıldığında önceki durumun geri yüklenmesi
+- Saat dilimleri için yaz saati uygulaması işleme sorunu düzeltildi
+
+## Kararlılık ve Yerelleştirme
+
+- Kararlılık ve performans iyileştirildi, pil tüketimi azaltıldı
+- Çeviriler güncellendi
+
+## Platform Desteği
+
+- TestFlight ve App Store'daki değişiklikler nedeniyle, bu sürüm yalnızca iOS 15 ve sonraki sürümleri desteklemektedir. iOS 12, 13 ve 14 artık desteklenmemektedir.

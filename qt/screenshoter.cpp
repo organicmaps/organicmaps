@@ -230,7 +230,7 @@ void Screenshoter::ProcessNextRect()
   CHECK(rect.IsValid(), ());
 
   ChangeState(State::WaitPosition);
-  m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */, false /* useVisibleViewport */);
+  m_framework.ShowRect(rect, false /* animation */, false /* useVisibleViewport */);
   WaitPosition();
 }
 

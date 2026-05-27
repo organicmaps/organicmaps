@@ -4,40 +4,65 @@
 
 namespace
 {
-jobject CreateElevationPoint(JNIEnv * env, ElevationInfo::Point const & point)
+jclass GetElevationPointClass(JNIEnv * env)
 {
   static jclass const pointClass =
       jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  // public Point(double distance, int altitude, double latitude, double longitude)
-  static jmethodID const pointCtorId = jni::GetConstructorID(env, pointClass, "(DIDD)V");
-  return env->NewObject(
-      pointClass, pointCtorId, static_cast<jdouble>(point.m_distance), static_cast<jint>(point.m_point.GetAltitude()),
-      static_cast<jdouble>(point.m_point.GetPoint().x), static_cast<jdouble>(point.m_point.GetPoint().y));
+  return pointClass;
 }
 
-jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & points)
+jobject CreateElevationPoint(JNIEnv * env, double distance, int altitude)
 {
-  CHECK(!points.empty(), ("Elevation points must be non empty!"));
-  static jclass const pointClass =
-      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  return jni::ToJavaArray(env, pointClass, points, [](JNIEnv * env, ElevationInfo::Point const & item)
-  { return CreateElevationPoint(env, item); });
+  // public Point(double distance, int altitude)
+  static jmethodID const pointCtorId = jni::GetConstructorID(env, GetElevationPointClass(env), "(DI)V");
+  return env->NewObject(GetElevationPointClass(env), pointCtorId, static_cast<jdouble>(distance),
+                        static_cast<jint>(altitude));
+}
+
+jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo const & info)
+{
+  std::vector<std::pair<double, int>> allPoints;
+  info.ForEachPoint([&](double d, geometry::Altitude a) { allPoints.emplace_back(d, a); });
+
+  CHECK(!allPoints.empty(), ("Elevation points must be non empty!"));
+  return jni::ToJavaArray(env, GetElevationPointClass(env), allPoints,
+                          [](JNIEnv * env, std::pair<double, int> const & item)
+  { return CreateElevationPoint(env, item.first, item.second); });
+}
+
+jdoubleArray ToSegmentDistancesArray(JNIEnv * env, ElevationInfo const & info)
+{
+  auto const & lines = info.GetLines();
+  if (lines.empty())
+    return env->NewDoubleArray(0);
+
+  std::vector<double> breaks;
+  breaks.reserve(lines.size() - 1);
+  double const totalLength = info.GetLength();
+  double cumulativeOffset = 0;
+  for (size_t i = 0; i < lines.size(); ++i)
+  {
+    if (i > 0 && cumulativeOffset > 0 && cumulativeOffset < totalLength)
+      breaks.emplace_back(cumulativeOffset);
+    if (!lines[i].empty())
+      cumulativeOffset += lines[i].back().m_distance;
+  }
+
+  jdoubleArray result = env->NewDoubleArray(static_cast<jsize>(breaks.size()));
+  if (!breaks.empty())
+    env->SetDoubleArrayRegion(result, 0, static_cast<jsize>(breaks.size()), breaks.data());
+  return result;
 }
 }  // namespace
 
-jobject ToJavaElevationInfoPoint(JNIEnv * env, ms::LatLon const & latlon)
-{
-  static jclass const clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  static jmethodID const ctorId = jni::GetConstructorID(env, clazz, "(DIDD)V");
-  return env->NewObject(clazz, ctorId, 0.0, 0, latlon.m_lat, latlon.m_lon);
-}
-
 jobject ToJavaElevationInfo(JNIEnv * env, ElevationInfo const & info)
 {
-  // public ElevationInfo(@NonNull Point[] points, int difficulty);
-  static jmethodID const ctorId =
-      jni::GetConstructorID(env, g_elevationInfoClazz, "([Lapp/organicmaps/sdk/bookmarks/data/ElevationInfo$Point;I)V");
+  // public ElevationInfo(@NonNull Point[] points, int difficulty, @NonNull double[] segmentDistances)
+  static jmethodID const ctorId = jni::GetConstructorID(
+      env, g_elevationInfoClazz, "([Lapp/organicmaps/sdk/bookmarks/data/ElevationInfo$Point;I[D)V");
 
-  jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info.GetPoints()));
-  return env->NewObject(g_elevationInfoClazz, ctorId, jPoints.get(), static_cast<jint>(info.GetDifficulty()));
+  jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info));
+  jni::TScopedLocalRef jSegDist(env, ToSegmentDistancesArray(env, info));
+  return env->NewObject(g_elevationInfoClazz, ctorId, jPoints.get(), static_cast<jint>(info.GetDifficulty()),
+                        jSegDist.get());
 }

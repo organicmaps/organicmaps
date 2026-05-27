@@ -174,10 +174,15 @@ add_library(icuuc
   icu/icu4c/source/common/uvector.cpp
   icu/icu4c/source/common/uvectr32.cpp
   icu/icu4c/source/common/uvectr64.h
-  icu/icu4c/source/common/wintz.cpp
   icu/icu4c/source/common/wintz.h
   icu/icu4c/source/stubdata/stubdata.cpp
 )
+
+# wintz.cpp is the Windows-only timezone implementation; on non-Windows it
+# compiles to an empty .o and triggers a "no symbols" ranlib warning.
+if (PLATFORM_WIN)
+  target_sources(icuuc PRIVATE icu/icu4c/source/common/wintz.cpp)
+endif()
 
 target_include_directories(icuuc
   PUBLIC

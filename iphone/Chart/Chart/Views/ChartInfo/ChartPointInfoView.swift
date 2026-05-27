@@ -43,7 +43,7 @@ final class ChartPointInfoView: UIView {
 
   override var backgroundColor: UIColor? {
     didSet {
-      maskLayer.fillColor = backgroundColor?.cgColor
+      updateColors()
     }
   }
 
@@ -61,6 +61,8 @@ final class ChartPointInfoView: UIView {
 
     stackView.alignment = .leading
     stackView.axis = .vertical
+
+    translatesAutoresizingMaskIntoConstraints = false
     stackView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(stackView)
 
@@ -85,6 +87,16 @@ final class ChartPointInfoView: UIView {
   @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+    updateColors()
+  }
+
+  private func updateColors() {
+    maskLayer.fillColor = backgroundColor?.resolvedColor(with: traitCollection).cgColor
   }
 
   func set(x _: CGFloat, label: String, points: [ChartLineInfo]) {

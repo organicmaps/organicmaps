@@ -1,9 +1,9 @@
-• Dữ liệu OSM tính đến ngày 16 tháng 2, Wikipedia tính đến ngày 1 tháng 2
-• Các tuyến đường đi bộ và đi xe đạp màu đen hiện có thể nhìn thấy trong giao diện tối
-• Đã thêm đường trượt zip và nhiều dịch vụ ô tô hơn: sửa chữa, bảo dưỡng và phụ tùng
-• Đã sửa lỗi định tuyến xe đạp và tính toán tốc độ trung bình
-• Cải thiện tìm kiếm danh mục
-• Ẩm thực Uzbekistan
-• Giờ mở cửa có thể mở rộng
-• Hiển thị và sử dụng độ cao MSL cho các bản ghi trên Android 14+
+• Chọn các tuyến đường đi bộ và đạp xe để xem biểu đồ độ cao
+• Hiển thị bản đồ chính xác tại kinh tuyến đối diện (±180°)
+• Thay đổi màu tất cả dấu trang và bản ghi trong danh mục cùng lúc
+• Tìm kiếm số nhà tốt hơn, bao gồm nhiều địa chỉ tại Mỹ hơn
+• Dữ liệu OSM tính đến ngày 4 tháng 4
+• Chế độ giao diện theo lịch trong Cài đặt
+• Sửa lỗi chia sẻ dấu trang/bản ghi sang ứng dụng khác
+• Sửa lỗi tải lên chỉnh sửa bản đồ lên OSM
 …xem thêm tại omaps.org/news

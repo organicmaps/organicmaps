@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Vapurdan kaçın</string>
     <string name="avoid_motorways">Otobandan kaçın</string>
     <string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
+    <string name="trip_finished">Vardınız!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Yer imlerini sırala</string>
     <!-- Android -->

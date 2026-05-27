@@ -4,10 +4,19 @@
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">ตำแหน่งของฉัน</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">สถานที่ของฉัน</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">พื้นที่จัดเก็บข้อมูลส่วนตัวภายใน</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">พื้นที่จัดเก็บข้อมูลที่ใช้ร่วมกันภายใน</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">การ์ด SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">พื้นที่จัดเก็บข้อมูลที่ใช้ร่วมกันภายนอก</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
     <string name="postal_code">รหัสไปรษณีย์</string>
@@ -21,6 +30,8 @@
     <string name="mi">ไมล์</string>
     <!-- A unit of measure -->
     <string name="ft">ฟุต</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">เพื่อแสดงเส้นทาง แผนที่ต้องได้รับการอัปเดต</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">ออก</string>
     <string name="core_entrance">ทางเข้า</string>

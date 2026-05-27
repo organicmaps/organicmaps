@@ -1,7 +1,7 @@
 extension UITableViewCell {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      setStyle(.tableCell)
+      setStyle(.tableViewCell)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
@@ -37,10 +37,14 @@ class UITableViewCellRenderer {
     }
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
-      control.backgroundView = UIImageView(image: backgroundColor.getImage())
+      let bgView = UIView()
+      bgView.backgroundColor = backgroundColor
+      control.backgroundView = bgView
     }
     if let backgroundColorSelected = style.backgroundColorSelected {
-      control.selectedBackgroundView = UIImageView(image: backgroundColorSelected.getImage())
+      let selView = UIView()
+      selView.backgroundColor = backgroundColorSelected
+      control.selectedBackgroundView = selView
     }
   }
 }

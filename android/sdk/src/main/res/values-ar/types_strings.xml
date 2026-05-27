@@ -5,11 +5,11 @@
     <string name="type.addr_interpolation">العنوان / البلوك</string>
     <string name="type.addr_interpolation.even">العنوان / البلوك</string>
     <string name="type.addr_interpolation.odd">العنوان / البلوك</string>
-    <string name="type.aerialway">طريق جوي</string>
+    <string name="type.aerialway">وسيلة نقل معلّقة</string>
     <string name="type.aerialway.cable_car">تلفريك</string>
     <string name="type.aerialway.chair_lift">مصعد مقعدي</string>
     <string name="type.aerialway.drag_lift">مصعد الجر</string>
-    <string name="type.aerialway.gondola">غندول</string>
+    <string name="type.aerialway.gondola">تلفريك</string>
     <string name="type.aerialway.mixed_lift">مصعد مشترك</string>
     <string name="type.aerialway.station">محطة تلفريك</string>
     <string name="type.aeroway">بنية الطيران</string>
@@ -237,6 +237,7 @@
     <string name="type.building">مبنى</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">العنوان</string>
+    <string name="type.building.construction">مبنى قيد الإنشاء</string>
     <string name="type.building.has_parts">مبنى</string>
     <string name="type.building_part">مبنى</string>
     <string name="type.building.garage">مرآب</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">مطبخ البحر المتوسط</string>
     <string name="type.cuisine.mexican">مطبخ مكسيكي</string>
     <string name="type.cuisine.moroccan">مطبخ مغربي</string>
-    <string name="type.cuisine.noodles">نودلز</string>
+    <string name="type.cuisine.noodle">نودلز</string>
     <string name="type.cuisine.oriental">مطبخ شرقي</string>
     <string name="type.cuisine.pancake">بان كيك</string>
     <string name="type.cuisine.pasta">معكرونة</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">سجق</string>
     <string name="type.cuisine.savory_pancakes">بان كيك السافوري</string>
     <string name="type.cuisine.seafood">مأكولات بحرية</string>
+    <string name="type.cuisine.shawarma">الشاورما</string>
     <string name="type.cuisine.soba">سوبا</string>
     <string name="type.cuisine.spanish">مطبخ إسباني</string>
     <string name="type.cuisine.steak_house">شرائح اللحم</string>
@@ -673,8 +675,8 @@
     <string name="type.leisure.stadium">ملعب</string>
     <string name="type.leisure.swimming_pool">مسبح</string>
     <string name="type.leisure.swimming_pool.private">مسبح خاص</string>
-    <string name="type.leisure.track">مسار</string>
-    <string name="type.leisure.track.area">مسار</string>
+    <string name="type.leisure.track">مضمار</string>
+    <string name="type.leisure.track.area">مضمار</string>
     <string name="type.leisure.water_park">مدينة مائية</string>
     <string name="type.leisure.beach_resort">منتجع شاطئي</string>
     <string name="type.man_made">مُنشأ بشري</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">صف شجر</string>
     <string name="type.natural.vineyard">حقل عنب</string>
     <string name="type.natural.volcano">بركان</string>
+    <string name="type.natural.volcano.active">بركان نشط</string>
     <string name="type.natural.water">ماء</string>
     <string name="type.natural.wetland">منطقة رطبة</string>
     <string name="type.natural.wetland.bog">رخاخ</string>
@@ -1275,6 +1278,18 @@
     <string name="type.sport.field_hockey">هوكي الميدان</string>
     <string name="type.sport.badminton">ريشة الطائرة</string>
     <string name="type.sport.pelota">باسك بيلوتا</string>
+    <string name="type.sport.boules">بولز</string>
+    <string name="type.sport.cycling">ركوب الدراجات</string>
+    <string name="type.sport.four_square">أربع مربعات</string>
+    <string name="type.sport.horse_racing">سباق الخيل</string>
+    <string name="type.sport.karting">كارتينغ</string>
+    <string name="type.sport.motocross">موتوكروس</string>
+    <string name="type.sport.motor">رياضات المحركات</string>
+    <string name="type.sport.netball">كرة الشبكة</string>
+    <string name="type.sport.pickleball">بيكل بول</string>
+    <string name="type.sport.rugby_union">رغبي الاتحاد</string>
+    <string name="type.sport.running">الجري</string>
+    <string name="type.sport.softball">الكرة اللينة</string>
     <string name="type.tourism.aquarium">حوض سمك</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">لودج الجبل</string>
@@ -1291,6 +1306,7 @@
     <string name="type.attraction.historic">جاذبية تاريخية</string>
     <string name="type.attraction.maze">المتاهة</string>
     <string name="type.attraction.roller_coaster">قطار الملاهي الدوارة</string>
+    <string name="type.roller_coaster.track">قطار الملاهي الدوارة</string>
     <string name="type.attraction.water_slide">منزلق مائي</string>
     <string name="type.tourism.attraction.specified">مكان جذاب</string>
     <string name="type.tourism.camp_site">مخيّم</string>
@@ -1319,6 +1335,7 @@
     <string name="type.tourism.zoo.petting">حديقة الحيوان الملاعبة</string>
     <string name="type.traffic_calming">تهدئة سير السيارات</string>
     <string name="type.traffic_calming.bump">مطبة</string>
+    <string name="type.waterway.access_point">نقطة وصول الممر المائي</string>
     <string name="type.waterway.canal">قناة</string>
     <string name="type.waterway.canal.tunnel">نفق قناة</string>
     <string name="type.waterway.fish_pass">سلم سمك</string>
@@ -1377,4 +1394,5 @@
     <string name="type.craft.watchmaker">صانع الساعات</string>
     <string name="type.xmas_feature.market">سوق الكريسماس</string>
     <string name="type.xmas_feature.tree">شجرة الكريسماس</string>
+    <string name="type.amenity.hookah_lounge">مقهى شيشة</string>
 </resources>

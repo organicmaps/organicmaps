@@ -18,7 +18,7 @@
     <string name="type.aeroway.apron">Plataforma de estacionamiento de aviones</string>
     <string name="type.aeroway.gate">Puerta de embarque</string>
     <string name="type.aeroway.helipad">Helipuerto</string>
-    <string name="type.aeroway.runway">Pista de despegue</string>
+    <string name="type.aeroway.runway">Pista</string>
     <string name="type.aeroway.taxiway">Pista de rodaje</string>
     <string name="type.aeroway.terminal">Terminal</string>
     <string name="type.amenity">Infraestructura</string>
@@ -27,7 +27,7 @@
     <string name="type.amenity.bank">Banco</string>
     <string name="type.amenity.bar">Bar</string>
     <string name="type.amenity.bbq">Barbacoa</string>
-    <string name="type.amenity.bench">Asiento</string>
+    <string name="type.amenity.bench">Banco</string>
     <string name="type.amenity.bicycle_parking">Aparcamiento de bicicletas</string>
     <string name="type.amenity.bicycle_parking.covered">Aparcamiento de bicicletas cubierto</string>
     <string name="type.amenity.bicycle_rental">Alquiler de bicicletas</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Edificio</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Dirección</string>
+    <string name="type.building.construction">Edificio en construcción</string>
     <string name="type.building.has_parts">Edificio</string>
     <string name="type.building_part">Edificio</string>
     <string name="type.building.garage">Garaje</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Mediterránea</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquí</string>
-    <string name="type.cuisine.noodles">Fideos</string>
+    <string name="type.cuisine.noodle">Fideos</string>
     <string name="type.cuisine.oriental">Oriental</string>
     <string name="type.cuisine.pancake">Tortitas</string>
     <string name="type.cuisine.pasta">Pastas</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Salchichas</string>
     <string name="type.cuisine.savory_pancakes">Tortitas saladas</string>
     <string name="type.cuisine.seafood">Mariscos</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Soba (fideos japoneses)</string>
     <string name="type.cuisine.spanish">Española</string>
     <string name="type.cuisine.steak_house">Asador</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Fila de árboles</string>
     <string name="type.natural.vineyard">Viña</string>
     <string name="type.natural.volcano">Volcán</string>
+    <string name="type.natural.volcano.active">Volcán activo</string>
     <string name="type.natural.water">Cuerpo de agua</string>
     <string name="type.natural.wetland">Terreno pantanoso</string>
     <string name="type.natural.wetland.bog">Turbera</string>
@@ -791,7 +794,7 @@
     <string name="type.place.island">Isla</string>
     <string name="type.place.islet">Islote</string>
     <string name="type.place.isolated_dwelling">Vivienda aislada</string>
-    <string name="type.place.locality">Localidad</string>
+    <string name="type.place.locality">Paraje</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Barrio</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Hockey sobre césped</string>
     <string name="type.sport.badminton">Bádminton</string>
     <string name="type.sport.pelota">Pelota vasca</string>
+    <string name="type.sport.boules">Petanca</string>
+    <string name="type.sport.cycling">Ciclismo</string>
+    <string name="type.sport.four_square">Cuatro cuadrados</string>
+    <string name="type.sport.horse_racing">Carreras de caballos</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Deportes de motor</string>
+    <string name="type.sport.netball">Netbol</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby</string>
+    <string name="type.sport.running">Carrera a pie</string>
+    <string name="type.sport.softball">Sóftbol</string>
     <string name="type.tourism">Turismo</string>
     <string name="type.tourism.aquarium">Acuario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Atracción histórica</string>
     <string name="type.attraction.maze">Laberinto</string>
     <string name="type.attraction.roller_coaster">Montaña rusa</string>
+    <string name="type.roller_coaster.track">Montaña rusa</string>
     <string name="type.attraction.water_slide">Tobogán acuático</string>
     <string name="type.tourism.attraction.specified">Atracción turística</string>
     <string name="type.tourism.camp_site">Paraje de campamento</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Banda reductora</string>
     <string name="type.traffic_calming.hump">Resalte</string>
     <string name="type.waterway">Curso de agua</string>
+    <string name="type.waterway.access_point">Punto de acceso a la vía navegable</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Túnel de canal</string>
     <string name="type.waterway.fish_pass">Escalera de peces</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Relojero</string>
     <string name="type.xmas_feature.market">Mercado navideño</string>
     <string name="type.xmas_feature.tree">Árbol de Navidad</string>
+    <string name="type.amenity.hookah_lounge">Lounge de narguile</string>
 </resources>

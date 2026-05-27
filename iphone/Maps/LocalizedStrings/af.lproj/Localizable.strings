@@ -107,7 +107,7 @@
 "category_shopping" = "Inkopies";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Second Hand";
+"category_secondhand" = "Tweedehandse";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Hotel";
@@ -201,7 +201,7 @@
 "pref_zoom_title" = "Knoppies + en - op die kaart";
 
 /* Generic «Off» string */
-"off" = "Off";
+"off" = "Af";
 
 /* Generic «On» string */
 "on" = "Aan";
@@ -222,16 +222,19 @@
 "pref_tts_enable_title" = "Steminstruksies";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "Announce Street Names";
+"pref_tts_street_names_title" = "Kondig straatname aan";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+"pref_tts_street_names_description" = "Wanneer dit geaktiveer is, sal die naam van die straat of die uitgang waarop jy moet afdraai, hardop uitgespreek word.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Stemtaal";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Om 'n stem van hoër gehalte af te laai, maak die Instellings-toep oop en gaan na Toeganklikheid → VoiceOver → Spraak → Stem.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Test Voice Directions (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Toets Stemmingsaanwysings (TTS, Teks-na-spraak)";
 "pref_map_auto_zoom" = "Outomatiese zoem";
 "placepage_distance" = "Afstand";
 "search_show_on_map" = "Bekyk op kaart";
@@ -359,13 +362,13 @@
 "version" = "Organic Maps weergawe: %@";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "Appearance";
+"pref_appearance_title" = "Uitsien";
 
 /* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "Light";
+"pref_appearance_light" = "Lig";
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "Dark";
+"pref_appearance_dark" = "Donker";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Ander";
@@ -558,7 +561,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operateur: %@";
 "editor_category_unsuitable_title" = "Kan u nie 'n geskikte kategorie vind nie?";
-"editor_category_unsuitable_text" = "Organiese kaarte laat toe om slegs eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomlynings, ens. Voeg asseblief sulke kategorieë direk by <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Gaan ons <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> na vir gedetailleerde stap-vir-stap-instruksies.";
+"editor_category_unsuitable_text" = "Organic Maps laat slegs toe om eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomtrekke, ens. nie. Voeg asseblief sulke kategorieë direk by <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kyk na ons <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> vir gedetailleerde stap-vir-stap instruksies.";
 "downloader_no_downloaded_maps_title" = "U het geen kaarte afgelaai nie";
 "downloader_no_downloaded_maps_message" = "Laai kaarte af om die ligging te soek en vanlyn te navigeer.";
 "current_location_unknown_error_title" = "Huidige ligging is onbekend.";
@@ -622,7 +625,7 @@
 "button_plan" = "Beplan";
 "placepage_remove_stop" = "Verwyder stop";
 "placepage_add_stop" = "Voeg tussenstop toe";
-"saved" = "Saved";
+"saved" = "Gespaar";
 "error_enter_correct_name" = "Voer asb. ’n korrekte naam in";
 "bookmark_lists" = "Lyste";
 
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Moltrein";
 "layers_title" = "Kaartstyle en -lae";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Verander die kleur van alle boekmerke";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Verander die kleur van alle spore";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Voer KMZ uit";
 
@@ -678,22 +687,22 @@
 "power_managment_setting_manual_max" = "Altyd";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Boekmerkname op die kaart";
+"bookmarks_text_placement_description" = "As daar te veel boekmerke is, kan die vertoning van hul name op die kaart die app vertraag.";
+"show_to_the_right" = "Wys aan die regterkant";
+"show_at_the_bottom" = "Wys onderaan";
 "enable_logging_warning_message" = "Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.";
 "driving_options_title" = "Ompadopsies";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Avoid tolls";
+"avoid_tolls" = "Vermy tolgelde";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Vermy grondpaaie";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Vermy veerbootkruisings";
-"avoid_motorways" = "Avoid freeways";
+"avoid_motorways" = "Vermy snelweë";
 "unable_to_calc_alert_title" = "Kan nie ’n roete bereken nie";
 "unable_to_calc_alert_subtitle" = "’n Roete kon nie gevind word nie. Dit kan deur ’n ompadopsies of onvolledige OpenStreetMap-data veroorsaak word. Verander u omwegopsies en probeer weer.";
 "define_to_avoid_btn" = "Definieer paaie om te vermy";
@@ -804,7 +813,7 @@
 "traffic_update_app_message" = "Die toepassing moet bygewerk word om verkeersdata te vertoon.";
 "log_file_size" = "Loglêergrootte: %@";
 "planning_route_remove_title" = "Sleep hier om te verwyder";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Vervang Stop";
 "start_from_my_position" = "Begin vanaf";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -827,10 +836,10 @@
 "tags_loading_error_subtitle" = "’n Fout het voorgekom toe etikette gelaai word, probeer weer";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Regs";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Onderkant";
 "trip_start" = "Kom ons gaan";
 "pick_destination" = "Bestemming";
 "follow_my_position" = "Hersentreer";
@@ -905,46 +914,46 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* App Tip #00 */
-"app_tip_00" = "Thank you for using our community-built maps!";
+"app_tip_00" = "Dankie dat u ons gemeenskapsgeboude kaarte gebruik!";
 
 /* App tip #01 */
-"app_tip_01" = "With your donations and support, we can create the best maps in the World!";
+"app_tip_01" = "Met jou skenkings en ondersteuning kan ons die beste kaarte in die wêreld skep!";
 
 /* App tip #02 */
-"app_tip_02" = "Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!";
+"app_tip_02" = "Hou jy van ons app? Doner asseblief om die ontwikkeling te ondersteun! Hou jy nog nie daarvan nie? Laat weet ons asseblief hoekom, en ons sal dit regstel!";
 
 /* App tip #03 */
-"app_tip_03" = "If you know a software developer, you can ask him or her to implement a feature that you need.";
+"app_tip_03" = "As jy 'n sagtewareontwikkelaar ken, kan jy hom of haar vra om 'n funksie te implementeer wat jy nodig het.";
 
 /* App tip #04 */
 "app_tip_04" = "Tik enige plek op die kaart om enigiets te kies. Tik lank om te versteek en om die koppelvlak terug te wys.";
 
 /* App tip #05 */
-"app_tip_05" = "Did you know that your current location on the map can be selected?";
+"app_tip_05" = "Het jy geweet dat jou huidige ligging op die kaart gekies kan word?";
 
 /* App tip #06 */
-"app_tip_06" = "You can help to translate our app into your language.";
+"app_tip_06" = "Jy kan help om ons app in jou taal te vertaal.";
 
 /* App tip #07 */
-"app_tip_07" = "Our app is developed by a few enthusiasts and the community.";
+"app_tip_07" = "Ons app is ontwikkel deur 'n paar entoesiaste en die gemeenskap.";
 
 /* App tip #08 */
-"app_tip_08" = "You can easily fix and improve the map data.";
+"app_tip_08" = "Jy kan maklik die kaartdata regstel en verbeter.";
 
 /* App tip #09 */
-"app_tip_09" = "Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.";
+"app_tip_09" = "Ons hoofdoel is om vinnige, privaatheidsgerigte, maklik-om-te-gebruik kaarte te bou wat jy sal liefhê.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "You are now using Organic Maps on the phone screen";
+"car_used_on_the_phone_screen" = "Jy gebruik nou Organic Maps op die foon se skerm";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "You are now using Organic Maps on the car screen";
+"car_used_on_the_car_screen" = "Jy gebruik nou Organic Maps op die motor se skerm";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continue on the phone";
+"car_continue_on_the_phone" = "Gaan voort op die foon";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
-"car_continue_in_the_car" = "To the car screen";
+"car_continue_in_the_car" = "Na die kar se skerm";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Stap";
@@ -1097,7 +1106,7 @@
 "ft" = "vt.";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Om roetes te vertoon, moet die kaarte opgedateer word.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Uitgang";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Onlangs gebruik";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Boekmerkkleur is verander";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Spoorkleur is verander";

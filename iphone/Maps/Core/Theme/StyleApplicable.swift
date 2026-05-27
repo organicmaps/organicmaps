@@ -2,7 +2,6 @@ protocol StyleApplicable: AnyObject {
   var styleName: String { get set }
   var isStyleApplied: Bool { get set }
 
-  func setStyleName(_ styleName: String)
   func setStyleNameAndApply(_ styleName: String)
   func setStyle(_ style: StyleStringRepresentable)
   func setStyleAndApply(_ style: StyleStringRepresentable)
@@ -11,10 +10,6 @@ protocol StyleApplicable: AnyObject {
 }
 
 extension StyleApplicable {
-  func setStyleName(_ styleName: String) {
-    self.styleName = styleName
-  }
-
   func setStyleNameAndApply(_ styleName: String) {
     self.styleName = styleName
     applyTheme()

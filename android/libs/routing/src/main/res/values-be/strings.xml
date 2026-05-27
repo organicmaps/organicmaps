@@ -3,13 +3,13 @@
 
     <!-- SECTION: Other translations -->
     <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Маршруты можна пракладваць толькі ў межах карты аднаго рэгіёна.</string>
+    <string name="routing_failed_cross_mwm_building">Маршруты можна пракладваць толькі ў межах мапы аднаго рэгіёна.</string>
     <!-- Item in context menu. -->
-    <string name="downloader_update_map">Абнавіць карту</string>
+    <string name="downloader_update_map">Абнавіць мапу</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Спампаваць усе карты на вашым маршруце</string>
+    <string name="routing_download_maps_along">Спампаваць усе мапы на вашым маршруце</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Каб пракласці маршрут, трэба спампаваць і абнавіць усе карты на шляху руху.</string>
+    <string name="routing_requires_all_map">Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на шляху руху.</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_check_gps">Праверце сігнал GPS</string>
@@ -31,12 +31,13 @@
     <string name="dialog_routing_system_error">Памылка сістэмы</string>
     <string name="dialog_routing_application_error">Не ўдалося пракласці маршрут з-за памылкі праграмы.</string>
     <string name="dialog_routing_try_again">Паспрабуйце зноў</string>
-    <string name="dialog_routing_download_and_build_cross_route">Спампаваць карту і пракласці лепшы маршрут праз некалькі карт?</string>
-    <string name="dialog_routing_download_cross_route">Спампаваць дадатковыя карты, каб пракласці лепшы маршрут, які перасякае межы гэтай карты.</string>
+    <string name="dialog_routing_download_and_build_cross_route">Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?</string>
+    <string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="downloader_update_maps">Абнавіць карты</string>
-    <string name="downloader_mwm_migration_dialog">Каб стварыць маршрут, вам трэба абнавіць усе карты і потым пракласці маршрут зноў.</string>
+    <string name="downloader_update_maps">Абнавіць мапы</string>
+    <string name="downloader_mwm_migration_dialog">Каб стварыць маршрут, вам трэба абнавіць усе мапы і потым пракласці маршрут зноў.</string>
+    <string name="navigation_stop_button">Спыніць</string>
     <string name="ok">Ок</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

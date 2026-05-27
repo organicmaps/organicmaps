@@ -49,6 +49,8 @@ set(SRC
   batchers_pool.hpp
   circles_pack_shape.cpp
   circles_pack_shape.hpp
+  clip_splines_builder.cpp
+  clip_splines_builder.hpp
   color_constants.cpp
   color_constants.hpp
   colored_symbol_shape.cpp
@@ -171,6 +173,7 @@ set(SRC
   screen_operations.hpp
   screen_quad_renderer.cpp
   screen_quad_renderer.hpp
+  selection_info.hpp
   selection_shape.cpp
   selection_shape.hpp
   selection_shape_generator.cpp
@@ -218,6 +221,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
+    glaze::glaze
     editor
     drape
     indexer

@@ -3,22 +3,30 @@
 #include "indexer/feature.hpp"
 #include "indexer/map_style_reader.hpp"
 
+#include "platform/settings.hpp"
+
 namespace df
 {
+void RelationsDrawSettings::Load()
+{
+  hiking = settings::IsEnabled(kHikingEnabledKey);
+  cycling = settings::IsEnabled(kCyclingEnabledKey);
+}
+
+bool RelationsDrawSettings::MatchHikingOrCycling(feature::RouteRelationBase::Type type) const
+{
+  using RR = feature::RouteRelationBase;
+  return ((hiking && (type == RR::Type::Foot || type == RR::Type::Hiking)) ||
+          (cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)));
+}
 
 dp::Color constexpr kDefaultRouteColor{128, 0, 128};  // purple
 
 bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
 {
-  using RR = feature::RouteRelationBase;
-
   for (uint32_t relID : ft.GetRelations())
-  {
-    auto const rel = ft.ReadRelation(relID);
-    if ((m_sett.hiking && (rel.GetType() == RR::Type::Foot || rel.GetType() == RR::Type::Hiking)) ||
-        (m_sett.cycling && (rel.GetType() == RR::Type::Bicycle || rel.GetType() == RR::Type::MTB)))
+    if (m_sett.MatchHikingOrCycling(ft.ReadRelationType(relID)))
       return true;
-  }
   return false;
 }
 
@@ -29,11 +37,8 @@ void RelationsDrawInfo::Init(FeatureType & ft)
   buffer_vector<std::pair<std::string, int>, 4> refs;
   for (uint32_t relID : ft.GetRelations())
   {
-    auto const rel = ft.ReadRelation(relID);
-    auto const type = rel.GetType();
-    if ((m_sett.hiking && (type == RR::Type::Foot || type == RR::Type::Hiking)) ||
-        (m_sett.cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)) ||
-        (m_sett.PT && (type == RR::Type::Bus || type == RR::Type::Tram || type == RR::Type::Trolleybus)))
+    auto const rel = ft.ReadRelation<RR>(relID);
+    if (m_sett.MatchHikingOrCycling(rel.GetType()) || (m_sett.PT && rel.IsPTRoute()))
     {
       auto clr = rel.GetColor();
       if (clr == kEmptyColor)
@@ -81,7 +86,11 @@ void RelationsDrawInfo::Init(FeatureType & ft)
   }
 
   // Most used color first.
-  std::sort(m_colors.begin(), m_colors.end(), [](auto const & r1, auto const & r2) { return r1.second > r2.second; });
+  // Use stable sort to keep equal Relations order (less relID).
+  /// @todo For the nice order (consistent with the neighbor Ways) they should be sorted somehow by geom criteria
+  /// (say from North/West to South/East), independently from the actual Way's direction.
+  std::stable_sort(m_colors.begin(), m_colors.end(),
+                   [](auto const & r1, auto const & r2) { return r1.second > r2.second; });
 
   if (m_sett.PT && !refs.empty())
   {

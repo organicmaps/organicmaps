@@ -1,27 +1,56 @@
-• OSM-kortdata fra 16. februar
-• Wikipedia-data fra 1. februar
-• Sorte vandre- og cykelruter er nu synlige i det mørke tema
-• Tilføjet flere biltjenester: reparation, service og reservedele
-• Tilføjet OSM-browsergodkendelse
-• Rettet cykeladgang på nogle vejtyper
-• Rettet beregning af gennemsnitshastighed
-• Forbedret søgerangering for kategorier
-• Tilføjet usbekisk køkken
-• Tilføjet svævebaner på kortet
-• Rettet Wikimedia-links med "?" i titlen
-• Rettet parsing af GPX-filer med "+" i koordinater
+## Kort
 
-### Oversættelser
+- NYT! Korrekt kortinddeling ved antimeridianen ved trækning og rotation
+- OpenStreetMap-data opdateret pr. 4. april
+- Wikipedia-data opdateret pr. 1. april
+- Ikoner for madområder og byporte tilføjet
+- Underkategorier for tøjbutikker tilføjet: kvinder, mænd, børn, bryllup, sport, undertøj samt kontortøj
+- Farverne på Sydney-metroens linjer rettet
+- Visning af åbningstider rettet for steder med forskydning i solopgang/solnedgang
 
-• Fjernet dublerede bynavne i nogle kortregioner
-• Rettet hebraiske stemmevejledninger
-• Rettet koreanske tastefejl
-• Tilføjet russiske søgesynonymer
-• Forbedret tyske stemmevejledninger
-• Rettet manglende oversættelse for nedlagt jernbanetunnel
-• Rettet landeoversættelse på rumænsk
-• Tilføjet laotiske og armenske oversættelser
-• Tilføjet manglende armenske oversættelser
-• Opdateret oversættelser fra Weblate-bidragydere
+## Ruteplanlægning og navigation
 
-Tak til alle, der bidrager, donerer og støtter Organic Maps! Lad os bygge de bedste kort sammen!
+- NYT! Tryk på en cykel- eller vandrerute for at vælge den og se dens højdekurve
+- Forbedret flerfarvet gengivelse af vandre- og cykelruter
+- Cykelnavigation bruger nu kompasretning ved lave hastigheder
+- Rettet en systemfejl ved planlægning af ruter nær visse regionale grænser
+- Du kan nu starte en gyldig rute, selv når du bliver bedt om at downloade yderligere kort
+
+## Bogmærker og ruter
+
+- NYT! Skift alle bogmærke- og sporfarver i en kategori på én gang
+- Justeret tilnærmelse af højdeforskel på sporgrafer for bedre at matche andre apps
+- Forbedret visning af HTML-indhold med tabeller og billeder i bogmærkedetaljer
+- Tilføjet lodrette adskillere for spor med flere segmenter i højdekurven
+- Rettet punktvalg i højdekurven for interpolerede punkter
+- Rettet GPS-sporoptagelse, der udelod punkter mellem segmenter
+- Rettet GeoJSON-import
+- Rettet et nedbrud ved eksport af spor
+
+## Søgning
+
+- Bedre søgning i USA med to millioner ekstra adresser hentet fra TIGER-folketællingsdata
+- Opdaterede søgekategorier: tilføjet "Bread" for bagerier, "Shawarma" for madretter og andre forbedringer af synonymer
+- Forbedret søgning efter husnummer
+- Tilføjet amerikanske synonymer for gader: highway, hwy, freeway, fwy
+- Rettet søgeresultater, når by- og delstatsnavne er de samme
+
+## Editor / OpenStreetMap
+
+- Du kan nu tilføje et nyt sted til OpenStreetMap efter at have valgt din aktuelle position på kortet
+- Rettet fejl i redigeringskrydsets placering, når der trykkes på "Tilføj sted"
+- Øget berøringsområdet for knapperne i navigationsbjælken "Tilføj sted"
+
+## Brugergrænseflade og brugeroplevelse
+
+- Forbedrede modalgestus: fastgør til nærmeste trin, luk ved kantpanorering og gendan den tidligere tilstand, når den genåbnes
+- Rettet håndtering af sommertid for tidszoner
+
+## Stabilitet og lokalisering
+
+- Forbedret stabilitet og ydeevne, reduceret batteriforbrug
+- Opdaterede oversættelser
+
+## Platformsunderstøttelse
+
+- På grund af ændringer i TestFlight og App Store understøtter denne udgivelse kun iOS 15 og nyere. iOS 12, 13 og 14 understøttes ikke længere.

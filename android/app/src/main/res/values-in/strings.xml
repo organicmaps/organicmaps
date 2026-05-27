@@ -236,6 +236,8 @@
     <string name="pref_map_auto_zoom">Perbesar otomatis</string>
     <string name="placepage_distance">Jarak</string>
     <string name="search_show_on_map">Tampilkan pada peta</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Situs Web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -367,6 +369,12 @@
     <string name="search_history_title">Riwayat Pencarian</string>
     <string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
     <string name="clear_search">Bersihkan riwayat pencarian</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Artikel dari wikipedia.org</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Lokasi Anda</string>
     <string name="p2p_start">Mulai</string>
     <string name="p2p_from_here">Dari</string>
@@ -480,7 +488,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Catatan untuk relawan OpenStreetMap (opsional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit dengan Peta Organik</string>
+    <string name="editor_note_hint">Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit melalui Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Hasil editan Anda akan diunggah ke database <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> publik. Mohon untuk tidak menambahkan informasi pribadi atau informasi yang memiliki hak cipta.</string>
     <string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
@@ -608,6 +616,8 @@
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="terms_of_use">Ketentuan penggunaan</string>
     <string name="button_layer_traffic">Lalu lintas</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Pendakian</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Bersepeda</string>
     <string name="button_layer_subway">Kereta bawah tanah</string>
@@ -616,6 +626,8 @@
     <string name="bookmarks_empty_list_message">Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Ubah warna semua bookmark</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Ubah warna semua trek</string>
     <string name="category_desc_more">…selengkapnya</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Ekspor KMZ</string>
@@ -694,6 +706,12 @@
     <string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
     <string name="near_me_sorttype">Dekat dengan saya</string>
     <string name="others_sorttype">Lainnya</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Sekarang Tutup</string>
+    <string name="opens_tomorrow_at">Dibuka besok pada pukul %s</string>
+    <string name="opens_dayoftheweek_at">Membuka %1$s di %2$s</string>
+    <string name="opens_at">Dibuka di %s</string>
+    <string name="closes_at">Ditutup pada %s</string>
     <string name="editor_add_select_category_all_subtitle">Semua kategori</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -748,6 +766,8 @@
     <string name="splash_subtitle">Data peta dari OpenStreetMap</string>
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/id/</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Terima kasih telah menggunakan peta buatan komunitas kami!</string>
     <!-- App tip #01 -->
@@ -848,4 +868,22 @@
     <string name="login_osm_browser">Masuk menggunakan Browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Baru-baru ini digunakan</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Warna bookmark diubah</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Warna trek diubah</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektrum</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Penggeser</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">MERAH</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">HIJAU</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BIRU</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Warna Heksa sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Kisi</string>
 </resources>

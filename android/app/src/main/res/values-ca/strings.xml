@@ -371,6 +371,8 @@
     <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Viquipèdia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Article de wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">La vostra ubicació</string>
@@ -469,7 +471,7 @@
     <string name="placepage_add_business_button">Afegeix un negoci</string>
     <string name="message_invalid_feature_position">No s’ha trobat cap objecte aquí</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Dades de l’OpenStreetMap creades per la comunitat a partir de %s. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org</string>
+    <string name="osm_presentation">Dades de l’OpenStreetMap creades per la comunitat a data de %s. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a Organic Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d\'usuaris de tot el món.\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!</string>
     <string name="login_to_make_edits_visible">Creeu un compte d\'OpenStreetMap o inicieu sessió per publicar les vostres edicions de mapes al món.</string>
@@ -486,7 +488,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per als voluntaris d\'OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Descriu errors al mapa o què no es pot editar amb Mapes orgànics</string>
+    <string name="editor_note_hint">Descriviu els errors al mapa o les coses que no es poden editar amb Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
     <string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
@@ -632,6 +634,8 @@
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Canvia el color de tots els marcadors</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Canvia el color de tots els recorreguts</string>
     <string name="category_desc_more">…més</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exporta KMZ</string>
@@ -655,6 +659,11 @@
     <string name="power_managment_setting_never">Mai</string>
     <string name="power_managment_setting_auto">Automàtic</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Noms de marcadors al mapa</string>
+    <string name="bookmarks_text_placement_description">Si hi ha massa marcadors, mostrar-ne els noms al mapa pot alentir l\'aplicació.</string>
+    <string name="show_to_the_right">Mostra a la dreta</string>
+    <string name="show_at_the_bottom">Mostra a la part inferior</string>
     <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -705,6 +714,12 @@
     <string name="moreyear_ago_sorttype">Fa més d’un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Ara és tancat</string>
+    <string name="opens_tomorrow_at">Obre demà a les %s</string>
+    <string name="opens_dayoftheweek_at">Obre el %1$s a les %2$s</string>
+    <string name="opens_at">Obre a les %s</string>
+    <string name="closes_at">Tanca a les %s</string>
     <string name="editor_add_select_category_all_subtitle">Totes les categories</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -790,9 +805,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">El nostre objectiu principal és crear mapes ràpids, centrats en la privadesa i fàcils d\'utilitzar que us encantaran.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Ara esteu utilitzant els Organic Maps a la pantalla del telèfon</string>
+    <string name="car_used_on_the_phone_screen">Ara esteu utilitzant Organic Maps a la pantalla del telèfon</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Ara esteu utilitzant els Organic Maps a la pantalla del cotxe</string>
+    <string name="car_used_on_the_car_screen">Ara esteu utilitzant Organic Maps a la pantalla del cotxe</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Us heu connectat a Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -857,6 +872,10 @@
     <string name="nav_auto">Auto a la navegació</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segueix el sistema</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Comparteix la pista</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Esborrar %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -865,4 +884,22 @@
     <string name="login_osm_browser">Inicieu la sessió mitjançant el navegador</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Usats recentment</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">El color dels marcadors ha canviat</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">El color dels recorreguts ha canviat</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Espectre</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Desplaçadors</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">VERMELL</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERD</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLAU</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Color Hex sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Graella</string>
 </resources>

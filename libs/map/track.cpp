@@ -5,7 +5,8 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
-#include "geometry/rect_intersect.hpp"
+
+#include <algorithm>
 
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
@@ -28,6 +29,7 @@ std::vector<Track::Lengths> Track::GetLengthsImpl() const
   std::vector<Lengths> lengths;
   for (auto const & line : m_data.m_geometry.m_lines)
   {
+    ASSERT(!line.empty(), ());
     Lengths lineLengths;
     lineLengths.emplace_back(distance);
     for (size_t j = 1; j < line.size(); ++j)
@@ -76,6 +78,7 @@ std::string Track::GetName() const
 
 void Track::SetName(std::string const & name)
 {
+  m_isDirty = true;
   kml::SetDefaultStr(m_data.m_name, name);
 }
 
@@ -84,12 +87,17 @@ std::string Track::GetDescription() const
   return GetPreferredBookmarkStr(m_data.m_description);
 }
 
+void Track::SetDescription(std::string const & description)
+{
+  m_isDirty = true;
+  kml::SetDefaultStr(m_data.m_description, description);
+}
+
 void Track::SetData(kml::TrackData const & data)
 {
   m_isDirty = true;
   m_data = data;
 
-  m_trackStatistics.reset();
   m_elevationInfo.reset();
   m_interactionData.reset();
 }
@@ -103,7 +111,10 @@ m2::RectD Track::GetLimitRect() const
 
 double Track::GetLengthMeters() const
 {
-  return GetStatistics().m_length;
+  if (!m_interactionData)
+    CacheDataForInteraction();
+  auto const & lengths = m_interactionData->m_lengths;
+  return lengths.empty() ? 0 : lengths.back().back();
 }
 
 double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
@@ -114,9 +125,11 @@ double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
   return lineLengths[ptIndex];
 }
 
-void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo & info) const
+void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo & info) const
 {
-  if (m_interactionData && !m_interactionData->m_limitRect.IsIntersect(touchRect))
+  // Caller sets info.m_squareDist to the max allowed squared distance (mercator). Any segment
+  // whose closest point is strictly closer replaces the current best.
+  if (m_interactionData && m_interactionData->m_limitRect.SquaredDistance(tapPoint) >= info.m_squareDist)
     return;
 
   for (size_t lineIndex = 0; lineIndex < m_data.m_geometry.m_lines.size(); ++lineIndex)
@@ -124,14 +137,9 @@ void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo 
     auto const & line = m_data.m_geometry.m_lines[lineIndex];
     for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
-      auto pt1 = line[ptIndex].GetPoint();
-      auto pt2 = line[ptIndex + 1].GetPoint();
-      if (!m2::Intersect(touchRect, pt1, pt2))
-        continue;
-
-      m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
-      auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
-      auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
+      m2::ParametrizedSegment<m2::PointD> seg(line[ptIndex].GetPoint(), line[ptIndex + 1].GetPoint());
+      auto const closestPoint = seg.ClosestPointTo(tapPoint);
+      auto const squaredDist = closestPoint.SquaredLength(tapPoint);
       if (squaredDist >= info.m_squareDist)
         continue;
 
@@ -202,6 +210,47 @@ void Track::Detach()
   m_groupID = kml::kInvalidMarkGroupId;
 }
 
+m2::PointD Track::GetPoint(double distanceInMeters) const
+{
+  if (!m_interactionData)
+    CacheDataForInteraction();
+
+  auto const & lengths = m_interactionData->m_lengths;
+  ASSERT(!lengths.empty(), ());
+
+  for (size_t lineIndex = 0; lineIndex < lengths.size(); ++lineIndex)
+  {
+    auto const & lineLengths = lengths[lineIndex];
+    ASSERT(!lineLengths.empty(), ());
+
+    if (distanceInMeters > lineLengths.back())
+      continue;
+
+    if (distanceInMeters <= lineLengths.front())
+      return m_data.m_geometry.m_lines[lineIndex].front().GetPoint();
+
+    auto const it = std::upper_bound(lineLengths.begin(), lineLengths.end(), distanceInMeters);
+    if (it == lineLengths.end())
+      return m_data.m_geometry.m_lines[lineIndex].back().GetPoint();
+
+    ASSERT(it != lineLengths.begin(), ());
+    size_t const ptIdx = std::distance(lineLengths.begin(), it) - 1;
+
+    auto const & line = m_data.m_geometry.m_lines[lineIndex];
+    auto const segLen = lineLengths[ptIdx + 1] - lineLengths[ptIdx];
+    if (segLen < 1e-9)
+      return line[ptIdx].GetPoint();
+
+    double const f = (distanceInMeters - lineLengths[ptIdx]) / segLen;
+    auto const & p1 = line[ptIdx].GetPoint();
+    auto const & p2 = line[ptIdx + 1].GetPoint();
+    return p1 + (p2 - p1) * f;
+  }
+
+  // Distance beyond last line — return last point.
+  return m_data.m_geometry.m_lines.back().back().GetPoint();
+}
+
 kml::MultiGeometry::LineT Track::GetGeometry() const
 {
   kml::MultiGeometry::LineT geometry;
@@ -211,11 +260,24 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
-TrackStatistics const & Track::GetStatistics() const
+TrackStatistics Track::GetStatistics() const
 {
-  if (!m_trackStatistics)
-    m_trackStatistics = TrackStatistics(m_data.m_geometry);
-  return *m_trackStatistics;
+  TrackStatistics ts;
+  ts.m_length = GetLengthMeters();
+  ts.CalculateDuration(m_data.m_geometry);
+
+  if (auto const * ei = GetElevationInfo())
+  {
+    // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
+    auto const threshold =
+        (m_data.m_id == kml::kTempRelationTrackId) ? ElevationInfo::kDefThresholdMWM : ElevationInfo::kDefThresholdGPS;
+    auto const altInfo = ei->CalculateAltitudesInfo(threshold);
+    ts.m_ascent = altInfo.GetTotalAscent();
+    ts.m_descent = altInfo.GetTotalDescent();
+    ts.m_minElevation = altInfo.m_minAltitude;
+    ts.m_maxElevation = altInfo.m_maxAltitude;
+  }
+  return ts;
 }
 
 ElevationInfo const * Track::GetElevationInfo() const
@@ -223,11 +285,20 @@ ElevationInfo const * Track::GetElevationInfo() const
   if (!HasAltitudes())
     return nullptr;
   if (!m_elevationInfo)
+  {
     m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
+
+    // Relation tracks from MWM have cleaner altitude data than raw GPS tracks.
+    if (m_data.m_id != kml::kTempRelationTrackId)
+      m_elevationInfo->SmoothSlopeOutliers();
+    m_elevationInfo->Simplify();
+  }
   return &(*m_elevationInfo);
 }
 
 double Track::GetDurationInSeconds() const
 {
-  return GetStatistics().m_duration;
+  TrackStatistics ts;
+  ts.CalculateDuration(m_data.m_geometry);
+  return ts.m_duration;
 }

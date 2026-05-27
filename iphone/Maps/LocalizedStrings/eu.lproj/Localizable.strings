@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ahots hizkuntza";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Kalitate handiagoko ahotsa deskargatzeko, ireki Ezarpenak aplikazioa eta joan Irisgarritasuna → VoiceOver → Ahotsa → Ahotsa.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Probatu ahots bidezko jarraibideak (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automatikoa";
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Metroa";
 "layers_title" = "Maparen estiloak eta geruzak";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Aldatu markagailu guztien kolorea";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Aldatu ibilbide guztien kolorea";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esportatu KMZ";
 
@@ -770,7 +779,7 @@
 "migration_no_space_message" = "Leku gehiago behar duzu deskargatzeko. Ezabatu beharrezkoak ez diren datuak.";
 "editor_sharing_title" = "Organic Maps mapak hobetu ditut";
 "editor_detailed_description_hint" = "Iruzkin zehatza";
-"editor_detailed_description" = "Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.";
+"editor_detailed_description" = "Zure proposatutako mapen aldaketak OpenStreetMap komunitateari bidaliko zaizkio. Mesedez, azaldu Organic Maps-en editatu ezin diren bestelako xehetasun guztiak.";
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
 "location_services_disabled_header" = "Kokapen zerbitzuak desaktibatuta daude";
 "location_services_disabled_message" = "Aktibatu geokokapenerako sarbidea gailuaren ezarpenetan";
@@ -804,7 +813,7 @@
 "traffic_update_app_message" = "Trafiko datuak bistaratzeko, aplikazioa eguneratu behar duzu.";
 "log_file_size" = "Erregistro fitxategiaren tamaina: %@";
 "planning_route_remove_title" = "Arrastatu hona kentzeko";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Ordeztu geldialdia";
 "start_from_my_position" = "Hasi hemendik";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -827,10 +836,10 @@
 "tags_loading_error_subtitle" = "Errore bat gertatu da etiketak kargatzean. Saiatu berriro";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Eskubidea";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Behealdea";
 "trip_start" = "Goazen";
 "pick_destination" = "Helmuga";
 "follow_my_position" = "Berriz zentratu";
@@ -1014,7 +1023,7 @@
 "map" = "Mapa";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "Akatsen txostena bidali nahi diezu garatzaileei?\nGure erabiltzaileengan oinarritzen gara Organic Maps-ek ez baitu automatikoki akatsen informaziorik biltzen. Eskerrik asko aldez aurretik Maps organikoak laguntzeagatik!";
+"bugreport_alert_message" = "Akatsen txostena bidali nahi diezu garatzaileei?\nGure erabiltzaileengan oinarritzen gara Organic Maps-ek ez baitu automatikoki akatsen informaziorik biltzen. Eskerrik asko aldez aurretik Organic Maps laguntzeagatik!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Gaitu iCloud sinkronizazioa";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Orain dela gutxi erabilitakoa";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Markagailuen kolorea aldatu da";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Ibilbideen kolorea aldatu da";

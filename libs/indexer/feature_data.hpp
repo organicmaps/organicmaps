@@ -36,7 +36,7 @@ enum class HeaderGeomType : uint8_t
   PointEx = 3U << 5  /// point feature (addinfo = house)
 };
 
-static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;  // 8, because there should be no features with 0 types
+static constexpr size_t kMaxTypesCount = HEADER_MASK_TYPE + 1;  // 8, because there should be no features with 0 types
 
 enum Layer : int8_t
 {
@@ -74,16 +74,7 @@ public:
     m_types[m_size++] = type;
   }
 
-  void SafeAdd(uint32_t type)
-  {
-    if (!Has(type))
-    {
-      if (m_size < kMaxTypesCount)
-        Add(type);
-      else
-        LOG(LWARNING, ("Type could not be added, MaxTypesCount exceeded"));
-    }
-  }
+  void SafeAdd(uint32_t type);
 
   GeomType GetGeomType() const { return m_geomType; }
 
@@ -132,6 +123,15 @@ public:
 
   /// Sort types by it's specification (more detailed type goes first). Should be used in client app.
   void SortBySpec();
+
+  /// Sort types for comparison: useless types go to the end, tie-broken by type value
+  /// so the order is deterministic (plain std::sort, not stable_sort like the functions above).
+  void SortToCompare();
+  /// @pre Both holders are pre-sorted by SortToCompare.
+  /// @return true iff the 'useful' (Score < 2) prefix matches element-wise; trailing
+  /// useless types (cuisine, psurface, wheelchair, fee, ...) are ignored. See the
+  /// matching-aliasing caveat on framework.cpp's FillPointInfoForBookmark.
+  bool EqualUsefulSorted(TypesHolder const & other) const;
 
   bool Equals(TypesHolder const & other) const;
 

@@ -6,10 +6,15 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace 'app.organicmaps.routing'
+  // enableKotlin = true  // see app/build.gradle
 }
 
 dependencies {
   implementation project(':sdk')
+  implementation project(':libs:branding')
 
   implementation libs.androidx.annotation
+  implementation libs.androidx.appcompat.resources
+  implementation libs.androidx.core
+  implementation libs.androidx.lifecycle
 }

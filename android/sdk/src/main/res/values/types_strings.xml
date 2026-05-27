@@ -237,6 +237,7 @@
     <string name="type.building">Building</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Address</string>
+    <string name="type.building.construction">Building under construction</string>
     <string name="type.building.has_parts">Building</string>
     <string name="type.building_part">Building</string>
     <string name="type.building.garage">Garage</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Mediterranean</string>
     <string name="type.cuisine.mexican">Mexican</string>
     <string name="type.cuisine.moroccan">Moroccan</string>
-    <string name="type.cuisine.noodles">Noodles</string>
+    <string name="type.cuisine.noodle">Noodles</string>
     <string name="type.cuisine.oriental">East Asian</string>
     <string name="type.cuisine.pancake">Pancake</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Sausage</string>
     <string name="type.cuisine.savory_pancakes">Savory Pancakes</string>
     <string name="type.cuisine.seafood">Seafood</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Spanish</string>
     <string name="type.cuisine.steak_house">Steak House</string>
@@ -786,6 +788,7 @@
     <string name="type.natural.tree_row">Tree Row</string>
     <string name="type.natural.vineyard">Vineyard</string>
     <string name="type.natural.volcano">Volcano</string>
+    <string name="type.natural.volcano.active">Active Volcano</string>
     <string name="type.natural.water">Water</string>
     <string name="type.natural.wetland">Wetland</string>
     <string name="type.natural.wetland.bog">Bog</string>
@@ -1335,6 +1338,18 @@
     <string name="type.sport.field_hockey">Field Hockey</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Basque Pelota</string>
+    <string name="type.sport.boules">Boules</string>
+    <string name="type.sport.cycling">Cycling</string>
+    <string name="type.sport.four_square">Four Square</string>
+    <string name="type.sport.horse_racing">Horse Racing</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby Union</string>
+    <string name="type.sport.running">Running</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Tourism</string>
     <string name="type.tourism.aquarium">Aquarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1354,6 +1369,7 @@
     <string name="type.attraction.historic">Historic attraction</string>
     <string name="type.attraction.maze">Maze</string>
     <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.roller_coaster.track">Roller Coaster</string>
     <string name="type.attraction.water_slide">Water Slide</string>
     <string name="type.tourism.attraction.specified">Attraction</string>
     <string name="type.tourism.camp_site">Campground</string>
@@ -1385,6 +1401,7 @@
     <string name="type.traffic_calming.bump">Traffic Bump</string>
     <string name="type.traffic_calming.hump">Traffic Hump</string>
     <string name="type.waterway">Waterway</string>
+    <string name="type.waterway.access_point">Waterway Access Point</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Canal Tunnel</string>
     <string name="type.waterway.fish_pass">Fish Pass</string>
@@ -1474,4 +1491,5 @@
     <string name="type.craft.watchmaker">Watchmaker</string>
     <string name="type.xmas_feature.market">Christmas Market</string>
     <string name="type.xmas_feature.tree">Christmas Tree</string>
+    <string name="type.amenity.hookah_lounge">Hookah Lounge</string>
 </resources>

@@ -371,6 +371,8 @@
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipedi</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">wikipedia.org\'dan makale</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Konumunuz</string>
@@ -486,7 +488,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap gönüllülerine not (isteğe bağlı)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Haritadaki hataları veya Organik Haritalar ile düzenlenemeyen şeyleri tanımlayın</string>
+    <string name="editor_note_hint">Organic Maps ile haritadaki hataları veya düzenlenemeyen öğeleri açıklayın</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veri tabanına yüklenir. Lütfen kişisel ya da telif hakkıyla korunan bilgi eklemeyin.</string>
     <string name="editor_more_about_osm">OpenStreetMap ile ilgili ek bilgi</string>
@@ -628,6 +630,8 @@
     <string name="bookmarks_empty_list_message">Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Tüm yer imlerinin rengini değiştir</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Tüm izlerin rengini değiştir</string>
     <string name="category_desc_more">…daha fazla</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ Olarak Dışa Aktar</string>
@@ -706,6 +710,12 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Şu anda kapalı</string>
+    <string name="opens_tomorrow_at">Açılış yarın %s</string>
+    <string name="opens_dayoftheweek_at">Açılış %1$s %2$s</string>
+    <string name="opens_at">Açılış %s</string>
+    <string name="closes_at">Kapanış %s</string>
     <string name="editor_add_select_category_all_subtitle">Tüm kategoriler</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -726,9 +736,9 @@
     <string name="search_in_the_list">Listede ara</string>
     <string name="religious_places">Dini yerler</string>
     <string name="select_list">Liste seç</string>
-    <string name="button_layer_isolines">Arazi</string>
+    <string name="button_layer_isolines">İzohipsler</string>
     <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede kullanılamaz</string>
+    <string name="isolines_location_error_dialog">İzohipsler henüz bu bölgede kullanılamaz</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
@@ -870,4 +880,22 @@
     <string name="login_osm_browser">Tarayıcı kullanarak giriş yapın</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Son Kullanılanlar</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Yer imi rengi değiştirildi</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">İz rengi değiştirildi</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektrum</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Sürgüler</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">KIRMIZI</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">YEŞİL</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">MAVİ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Onaltılı Renk #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Izgara</string>
 </resources>

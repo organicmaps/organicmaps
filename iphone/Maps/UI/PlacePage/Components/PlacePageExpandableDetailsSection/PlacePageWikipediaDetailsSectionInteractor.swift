@@ -1,7 +1,6 @@
 protocol WikiDescriptionViewControllerDelegate: AnyObject {
   func didPressWikipedia()
   func didPressMore()
-  func didCopy(_ content: String)
 }
 
 final class PlacePageWikipediaDetailsSectionInteractor: PlacePageExpandableDetailsSectionInteractor {

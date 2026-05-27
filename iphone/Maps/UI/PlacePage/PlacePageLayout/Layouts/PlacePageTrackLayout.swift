@@ -42,7 +42,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     guard trackData.trackInfo.hasElevationInfo, trackData.elevationProfileData != nil else {
       return nil
     }
-    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor)
+    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
   }()
 
   private lazy var actionBarViewController: ActionBarViewController = {
@@ -70,8 +70,8 @@ class PlacePageTrackLayout: IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
 
-    viewControllers.append(editTrackViewController)
-    if let trackData = placePageData.trackData {
+    if placePageData.objectType == .track {
+      viewControllers.append(editTrackViewController)
       editTrackViewController.view.isHidden = false
       editTrackInteractor?.data = .track(trackData)
     }

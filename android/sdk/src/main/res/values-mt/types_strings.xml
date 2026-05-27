@@ -5,7 +5,23 @@
     <string name="type.cuisine.uzbek">Użbeka</string>
 
     <!-- SECTION: Types: Historic -->
+    <string name="type.leisure.track">Korsa sportiva</string>
+    <string name="type.leisure.track.area">Korsa sportiva</string>
+    <string name="type.natural.volcano.active">Volkan attiv</string>
     <string name="type.railway.disused.tunnel">Mina tal-ferrovija mitluqa</string>
     <string name="type.shop.leather">Ħanut tal-oġġetti tal-ġilda</string>
     <string name="type.shop.religion">Ħanut tal-oġġetti reliġjużi</string>
+    <string name="type.sport.boules">Boċċi</string>
+    <string name="type.sport.cycling">Ċikliżmu</string>
+    <string name="type.sport.four_square">Erba\' kwadri</string>
+    <string name="type.sport.horse_racing">Tiġrijiet taż-żwiemel</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Sport bil-mutur</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby union</string>
+    <string name="type.sport.running">Ġiri</string>
+    <string name="type.sport.softball">Softball</string>
+    <string name="type.waterway.access_point">Punt ta\' Aċċess għall-Kors tal-Ilma</string>
 </resources>

@@ -32,9 +32,8 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="dOW-mN-UY7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="1AN-vR-DQz"/>
                     <constraint firstItem="dOW-mN-UY7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2c4-Gb-L9l"/>
-                    <constraint firstItem="dOW-mN-UY7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8dG-pP-sP7"/>
-                    <constraint firstAttribute="bottom" secondItem="dOW-mN-UY7" secondAttribute="bottom" id="9fl-qo-ABB"/>
                     <constraint firstAttribute="trailing" secondItem="dOW-mN-UY7" secondAttribute="trailing" id="Ynu-yn-sk2"/>
                 </constraints>
             </tableViewCellContentView>

@@ -83,6 +83,7 @@
     <string name="avoid_ferry">여객선 횡단길 피하기</string>
     <string name="avoid_motorways">고속도로 피하기</string>
     <string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
+    <string name="trip_finished">도착했습니다!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">북마크 분류하기</string>
     <!-- Android -->
@@ -100,7 +101,7 @@
     <string name="downloader_loading_ios">다운로드 중</string>
     <string name="download_map_title">세계 개요 지도 다운로드</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">안드로이드 오토의 오가닉 맵이 효과적으로 작동하려면 위치 권한이 필요합니다.</string>
+    <string name="aa_request_permission_activity_text">Organic Maps Android Auto에서 이 앱이 제대로 작동하려면 위치 권한이 필요합니다</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">권한 부여</string>
 </resources>

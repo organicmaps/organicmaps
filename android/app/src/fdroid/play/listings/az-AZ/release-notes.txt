@@ -1,8 +1,8 @@
-• 16 fevral tarixli OSM məlumatları, 1 fevral tarixli Vikipediya
-• Qara yürüyüş və velosiped marşrutları indi qaranlıq rejimdə görünür
-• Kanat yolları və daha çox avtomobil xidmətləri əlavə edildi: təmir, xidmət və ehtiyat hissələri
-• Velosiped marşrutlaşdırılması və orta sürət hesablanması düzəldildi
-• Kateqoriya axtarışı təkmilləşdirildi
-• Özbək mətbəxi
-• Genişləndirilə bilən iş saatları
-…daha ətraflı omaps.org/news
+• Yüksəklik qrafiklərini görmək üçün yürüş və velosiped marşrutlarını seçin
+• Antimeridian (±180° uzunluq) üzrə xəritənin düzgün bükülməsi
+• Bir kateqoriyada bütün nişan və iz rənglərini eyni anda dəyişdirin
+• Ev nömrələri üçün daha yaxşı axtarış, daha çox ABŞ ünvanı əhatə olunur
+• 4 aprel tarixli OSM məlumatları
+• Parametrlərdə planlaşdırılmış görünüş rejimi
+• Nişan/izlərin digər tətbiqlərlə paylaşılmasında problem aradan qaldırıldı
+…omaps.org/news saytında daha çox

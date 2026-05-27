@@ -4,6 +4,7 @@
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Posisi Saya</string>
     <!-- Default bookmark list name -->
@@ -34,7 +35,7 @@
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Keluar</string>
     <string name="core_entrance">Tempat masuk</string>
-    <string name="subway_data_unavailable">Peta bawah tanah tidak tersedia</string>
+    <string name="subway_data_unavailable">Peta metro tidak tersedia</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Wilayah unduhan berwarna ungu</string>
 

@@ -16,7 +16,7 @@
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
-    <string name="search_map">Procurar mapa</string>
+    <string name="search_map">Procurar no mapa</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Atualmente todos os serviços de localização para este dispositivo ou aplicativo estão desativados. Por favor ative-os em configurações.</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -75,7 +75,7 @@
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Mercados</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">Gás</string>
+    <string name="category_fuel">Combustível</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
     <string name="category_secondhand">De segunda mão</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
@@ -112,7 +112,7 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">O download do país está atualmente em progresso.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem mapas offline instalados? Baixe aqui: https://omaps.app/get</string>
+    <string name="my_position_share_sms">Confira minha localização atual no Organic Maps! %1$s ou %2$s Não tem mapas offline? Baixe aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Ei, dê uma olhada no meu pin no Organic Maps!</string>
     <!-- Subject for emailed position -->
@@ -323,7 +323,7 @@
     <string name="placepage_add_business_button">Adicionar uma empresa</string>
     <string name="message_invalid_feature_position">Nenhum objeto pode ser localizado aqui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Dados do OpenStreetMap criados pela comunidade a partir de %s. Saiba mais sobre como editar e atualizar o mapa em OpenStreetMap.org</string>
+    <string name="osm_presentation">Dados do OpenStreetMap criados pela comunidade em %s. Saiba mais sobre como editar e atualizar o mapa em OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">O OpenStreetMap (OSM) é um projeto comunitário aberto para construir um mapa gratuito. O OSM é a principal fonte de dados de mapas do Organic Maps e funciona de forma semelhante à Wikipédia. Você pode adicionar ou editar lugares e eles ficam disponíveis para milhões de usuários no mundo todo.\nJunte-se à comunidade e ajude a criar um mapa melhor para todos!</string>
     <string name="login_to_make_edits_visible">Crie uma conta no OpenStreetMap ou faça login para publicar suas edições de mapas para o mundo.</string>
@@ -447,6 +447,8 @@
     <string name="button_layer_hiking">Caminhadas</string>
     <string name="button_layer_subway">Metrô</string>
     <string name="bookmarks_empty_list_message">Para adicionar um favorito, toque no mapa e então toque no ícone de estrela</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Alterar a cor de todas as trilhas</string>
     <string name="delete_list">Deletar lista</string>
     <string name="speedcams_alert_title">Câmeras de trânsito</string>
     <string name="place_description_title">Descrição do lugar</string>
@@ -491,6 +493,10 @@
     <string name="moremonth_ago_sorttype">Há mais de um mês</string>
     <string name="moreyear_ago_sorttype">Há mais de um ano</string>
     <string name="near_me_sorttype">Próximo de mim</string>
+    <string name="opens_tomorrow_at">Abre amanhã em %s</string>
+    <string name="opens_dayoftheweek_at">Abre %1$s em %2$s</string>
+    <string name="opens_at">Abre em %s</string>
+    <string name="closes_at">Encerra às %s</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Alimentos</string>
@@ -624,4 +630,10 @@
     <string name="login_osm_credentials">Login com senha</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_browser">Fazer login usando o navegador</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Cor das trilhas alterada</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Controles deslizantes</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grade</string>
 </resources>

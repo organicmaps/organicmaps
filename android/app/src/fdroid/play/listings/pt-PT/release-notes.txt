@@ -1,9 +1,8 @@
-• Dados OSM de 16 de fevereiro, Wikipédia de 1 de fevereiro
-• Percursos pedestres e de bicicleta pretos agora visíveis no tema escuro
-• Adicionados slide e mais serviços automóveis: reparação, serviço e peças
-• Corrigido o encaminhamento de bicicletas e cálculo da velocidade média
-• Pesquisa de categorias melhorada
-• Cozinha uzbeque
-• Horários de funcionamento expansíveis
-• Mostrar e usar a altitude MSL para trilhos gravados no Android 14+
-…mais em omaps.org/news
+• Selecionar percursos pedestres e de bicicleta para ver os respectivos mapas de elevação
+• Ajustamento correto do mapa no antimeridiano (±180° de longitude)
+• Alterar todas as cores dos marcadores e dos percursos numa categoria de uma só vez
+• Melhor pesquisa de números de casas, mais endereços dos EUA abrangidos
+• Dados OSM a partir de 4 de abril
+• Modo de aparecimento programado nas Definições
+• Corrigida a partilha de marcadores/trajectos com outras aplicações
+…mais em omaps.org/pt/news

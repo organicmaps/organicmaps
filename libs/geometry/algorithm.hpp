@@ -3,9 +3,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include <array>
-#include <type_traits>
-#include <utility>
+#include "base/assert.hpp"
+
 #include <vector>
 
 namespace m2
@@ -55,65 +54,36 @@ private:
 class CalculateBoundingBox
 {
 public:
-  void operator()(PointD const & p);
+  void operator()(PointD const & p) { m_boundingBox.Add(p); }
   RectD GetResult() const { return m_boundingBox; }
 
 private:
   RectD m_boundingBox;
 };
 
-namespace impl
+template <typename TCalculator, typename TCollection>
+auto ApplyCalculatorTrg(TCollection const & collection, TCalculator && calc)
 {
-template <typename TCalculator, typename TIterator>
-m2::PointD ApplyPointOnSurfaceCalculator(TIterator begin, TIterator end, TCalculator && calc)
-{
-  std::array<m2::PointD, 3> triangle;
-  while (begin != end)
-  {
-    for (auto i = 0; i < 3; ++i)
-    {
-      // Cannot use ASSERT_NOT_EQUAL, due to absence of an approbriate DebugPrint.
-      ASSERT(begin != end, ("Not enough points to calculate point on surface"));
-      triangle[i] = *begin++;
-    }
-    calc(triangle[0], triangle[1], triangle[2]);
-  }
+  ASSERT(collection.size() % 3 == 0, ());
+  for (size_t i = 0; i < collection.size(); i += 3)
+    calc(collection[i], collection[i + 1], collection[i + 2]);
   return calc.GetResult();
-}
-
-template <typename TCalculator, typename TIterator>
-auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc) -> decltype(calc.GetResult())
-{
-  for (; begin != end; ++begin)
-    calc(*begin);
-  return calc.GetResult();
-}
-
-template <typename TCalculator, typename TIterator>
-auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, std::true_type const &)
-    -> decltype(calc.GetResult())
-{
-  return impl::ApplyPointOnSurfaceCalculator(begin, end, std::forward<TCalculator>(calc));
-}
-
-template <typename TCalculator, typename TIterator>
-auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, std::false_type const &)
-    -> decltype(calc.GetResult())
-{
-  return impl::ApplyCalculator(begin, end, std::forward<TCalculator>(calc));
-}
-}  // namespace impl
-
-template <typename TCalculator, typename TIterator>
-auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc) -> decltype(calc.GetResult())
-{
-  return impl::SelectImplementation(begin, end, std::forward<TCalculator>(calc),
-                                    std::is_same<CalculatePointOnSurface, std::remove_reference_t<TCalculator>>());
 }
 
 template <typename TCalculator, typename TCollection>
-auto ApplyCalculator(TCollection && collection, TCalculator && calc) -> decltype(calc.GetResult())
+auto ApplyCalculatorPoly(TCollection const & collection, TCalculator && calc)
 {
-  return ApplyCalculator(std::begin(collection), std::end(collection), std::forward<TCalculator>(calc));
+  for (auto const & p : collection)
+    calc(p);
+  return calc.GetResult();
 }
+
+/// Returns the linearly-interpolated point at |targetDistance| along the polyline formed by
+/// |points|, given pre-computed cumulative |distances| where distances[i] is the cumulative
+/// length from points[0] to points[i + 1]. For |targetDistance| outside [0, distances.back()]
+/// the corresponding endpoint is returned.
+/// REQUIRES: distances.size() + 1 == points.size() and |distances| is non-decreasing.
+PointD InterpolatePointAtDistance(std::vector<double> const & distances, std::vector<PointD> const & points,
+                                  double targetDistance);
+
 }  // namespace m2

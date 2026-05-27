@@ -57,6 +57,7 @@ set(SRC
   segment2d.cpp
   segment2d.hpp
   simplification.hpp
+  spatial_hash_grid.hpp
   smoothing.cpp
   smoothing.hpp
   spline.cpp

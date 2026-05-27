@@ -5,6 +5,7 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/classificator_loader.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -17,6 +18,11 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/timer.hpp"
+
+#include "std/target_os.hpp"
+
+#include <utf8.h>  // utf8::is_valid
 
 #include <array>
 #include <cstring>  // strlen
@@ -30,9 +36,39 @@ namespace bookmarks_test
 {
 using namespace std;
 
-using Runner = Platform::ThreadRunner;
-
 static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
+
+/// Redirects SettingsDir to a temporary test directory so that bookmark files
+/// don't pollute the default data/bookmarks/. The directory is cleaned up on destruction.
+class ScopedBookmarksDir
+{
+public:
+  ScopedBookmarksDir()
+  {
+    auto & platform = GetPlatform();
+    m_origSettingsDir = platform.SettingsDir();
+    m_testSettingsDir = base::JoinPath(platform.WritableDir(), "test_bookmarks");
+    TEST(Platform::MkDirRecursively(base::JoinPath(m_testSettingsDir, "bookmarks")), ());
+    platform.SetSettingsDir(m_testSettingsDir);
+  }
+
+  ~ScopedBookmarksDir()
+  {
+    GetPlatform().SetSettingsDir(m_origSettingsDir);
+    Platform::RmDirRecursively(m_testSettingsDir);
+  }
+
+private:
+  string m_origSettingsDir;
+  string m_testSettingsDir;
+};
+
+class BookmarksTestFixture : public Platform::ThreadRunner
+{
+  ScopedBookmarksDir m_dir;
+};
+
+using Runner = BookmarksTestFixture;
 
 char const * kmlString =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -213,15 +249,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
-  string const dir = GetBookmarksDirectory();
-  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
-  SCOPE_GUARD(dirDeleter, [&]()
-  {
-    if (delDirOnExit)
-      (void)Platform::RmDir(dir);
-  });
   string const ext = ".kmb";
-  string const fileName = base::JoinPath(dir, "UnitTestBookmarks" + ext);
+  string const fileName = base::JoinPath(GetBookmarksDirectory(), "UnitTestBookmarks" + ext);
   SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(fileName); });
 
   BookmarkManager bmManager(BM_CALLBACKS);
@@ -285,33 +314,20 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 
 namespace
 {
-void DeleteCategoryFiles(vector<string> const & arrFiles)
-{
-  string const path = GetBookmarksDirectory();
-  string const extension = ".kmb";
-  for (auto const & fileName : arrFiles)
-    FileWriter::DeleteFileX(base::JoinPath(path, fileName + extension));
-}
-
+// Same as in Framework::BuildPlacePageInfo.
 UserMark const * GetMark(Framework & fm, m2::PointD const & pt)
 {
-  m2::AnyRectD rect;
-  fm.GetTouchRect(fm.GtoP(pt), 20, rect);
-
-  return fm.GetBookmarkManager().FindNearestUserMark(rect);
+  double constexpr kEps = 1.0E-7;
+  m2::AnyRectD const rect(pt, ang::AngleD(0.0), m2::RectD(-kEps, -kEps, kEps, kEps));
+  return fm.GetBookmarkManager().FindNearestUserMark([&rect](UserMark::Type) { return rect; },
+                                                     [](UserMark::Type) { return false; });
 }
 
 Bookmark const * GetBookmark(Framework & fm, m2::PointD const & pt)
 {
   auto const * mark = GetMark(fm, pt);
-  ASSERT(mark, ());
-  ASSERT(mark->GetMarkType() == UserMark::BOOKMARK, ());
+  TEST(mark && mark->GetMarkType() == UserMark::BOOKMARK, ());
   return dynamic_cast<Bookmark const *>(mark);
-}
-
-Bookmark const * GetBookmarkPxPoint(Framework & fm, m2::PointD const & pt)
-{
-  return GetBookmark(fm, fm.PtoG(pt));
 }
 
 bool IsValidBookmark(Framework & fm, m2::PointD const & pt)
@@ -323,6 +339,7 @@ bool IsValidBookmark(Framework & fm, m2::PointD const & pt)
 
 UNIT_TEST(Bookmarks_Timestamp)
 {
+  ScopedBookmarksDir scopedDir;
   Framework fm(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
 
@@ -367,12 +384,11 @@ UNIT_TEST(Bookmarks_Timestamp)
 
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2, ());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
-
-  DeleteCategoryFiles(arrCat);
 }
 
 UNIT_TEST(Bookmarks_ChangeColorForImportedBookmark)
 {
+  ScopedBookmarksDir scopedDir;
   Framework fm(kFrameworkParams);
   BookmarkManager & bmManager = fm.GetBookmarkManager();
   bmManager.EnableTestMode(true);
@@ -394,6 +410,7 @@ UNIT_TEST(Bookmarks_ChangeColorForImportedBookmark)
 
 UNIT_TEST(Bookmarks_Getting)
 {
+  ScopedBookmarksDir scopedDir;
   Framework fm(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
   fm.OnSize(800, 400);
@@ -432,14 +449,12 @@ UNIT_TEST(Bookmarks_Getting)
 
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 3, ());
 
-  TEST(IsValidBookmark(fm, m2::PointD(40, 20)), ());
-  Bookmark const * mark = GetBookmark(fm, m2::PointD(40, 20));
+  Bookmark const * mark = GetBookmark(fm, m2::PointD(41, 20));
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat2", ());
 
   TEST(!IsValidBookmark(fm, m2::PointD(0, 0)), ());
   TEST(!IsValidBookmark(fm, m2::PointD(800, 400)), ());
 
-  TEST(IsValidBookmark(fm, m2::PointD(41, 40)), ());
   mark = GetBookmark(fm, m2::PointD(41, 40));
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat3", ());
 
@@ -461,8 +476,6 @@ UNIT_TEST(Bookmarks_Getting)
   TEST_EQUAL(bmManager.GetUserMarkIds(mark->GetGroupId()).size(), 2, ());
   bmManager.GetEditSession().DeleteBookmark(mark->GetId());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat3).size(), 1, ());
-
-  DeleteCategoryFiles(arrCat);
 }
 
 namespace
@@ -545,14 +558,392 @@ UNIT_TEST(Bookmarks_UniqueFileName)
   TEST_EQUAL(gen, FILENAME, ());
 }
 
+namespace
+{
+// Builds a UTF-8 string overshooting BOTH NAME_MAX flavors (bytes and UTF-16
+// units) so the name fails on every target platform.
+string MakeLongUtf8Name(string_view seed, size_t minBytes = 800, size_t minCodepoints = 280)
+{
+  size_t const seedCodepoints = strings::Utf8Length(seed);
+  string out;
+  out.reserve(minBytes + seed.size());
+  size_t codepoints = 0;
+  while (out.size() < minBytes || codepoints < minCodepoints)
+  {
+    out.append(seed);
+    codepoints += seedCodepoints;
+  }
+  return out;
+}
+
+// Mirrors the platform-specific NAME_MAX semantics enforced by
+// TruncateToValidFileName: UTF-16 code units on Apple, UTF-8 bytes elsewhere.
+size_t MeasureFileNameLength(string const & s)
+{
+#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_MAC)
+  return strings::ToUtf16(s).size();
+#else
+  return s.size();
+#endif
+}
+
+bool SaveBookmarkUsingCorePipeline(string const & categoryName)
+{
+  string const filePath = GenerateValidAndUniqueFilePath(categoryName, FileType::Kml);
+
+  kml::FileData kmlData;
+  kml::SetDefaultStr(kmlData.m_categoryData.m_name, categoryName);
+
+  try
+  {
+    if (!SaveKmlFileSafe(kmlData, filePath, FileType::Kml))
+      return false;
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("SaveKmlFileSafe threw on long file name (basename bytes:",
+                   filePath.size() - GetBookmarksDirectory().size() - 1, "):", ex.what()));
+    return false;
+  }
+  return Platform::IsFileExistsByFullPath(filePath);
+}
+}  // namespace
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_ShortNameUntouched)
+{
+  TEST_EQUAL(TruncateToValidFileName(""), "", ());
+  TEST_EQUAL(TruncateToValidFileName("hello"), "hello", ());
+  TEST_EQUAL(TruncateToValidFileName("Bookmarks"), "Bookmarks", ());
+  TEST_EQUAL(TruncateToValidFileName("Очень короткое название"), "Очень короткое название", ());
+  TEST_EQUAL(TruncateToValidFileName("地圖"), "地圖", ());
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_AsciiClampedToLimit)
+{
+  string const longName(500, 'a');
+  string const truncated = TruncateToValidFileName(longName);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(longName.starts_with(truncated), ("must be a prefix of the input"));
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_CyrillicRespectsLimit)
+{
+  string longCyrillic;
+  while (longCyrillic.size() < 1000)
+    longCyrillic.append("Очень длинное имя ");
+  string const truncated = TruncateToValidFileName(longCyrillic);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(::utf8::is_valid(truncated.begin(), truncated.end()), ("UTF-8 must remain well-formed"));
+  TEST(longCyrillic.starts_with(truncated), ());
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_ChineseRespectsLimit)
+{
+  string longChinese;
+  while (longChinese.size() < 1000)
+    longChinese.append("地圖標籤旅行路線");
+  string const truncated = TruncateToValidFileName(longChinese);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(::utf8::is_valid(truncated.begin(), truncated.end()), ());
+  TEST_EQUAL(truncated.size() % 3, 0, ("CJK glyphs are 3 bytes -- must not split"));
+}
+
+// 4-byte UTF-8 emoji = supplementary-plane codepoint = surrogate pair (2
+// UTF-16 units). Verifies the truncator counts surrogate pairs correctly on
+// Apple and bytes correctly elsewhere.
+UNIT_TEST(Bookmarks_TruncateToValidFileName_EmojiKeepsCodepointBoundaries)
+{
+  string longEmoji;
+  for (int i = 0; i < 300; ++i)
+    longEmoji.append("🗺");
+  string const truncated = TruncateToValidFileName(longEmoji);
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+  TEST(::utf8::is_valid(truncated.begin(), truncated.end()), ());
+  TEST_EQUAL(truncated.size() % 4, 0, ("4-byte UTF-8 codepoint must not be split"));
+}
+
+UNIT_TEST(Bookmarks_TruncateToValidFileName_ExactlyAtLimit)
+{
+  string const exact(kMaxFileNameLength, 'a');  // ASCII -- bytes == UTF-16 units.
+  TEST_EQUAL(TruncateToValidFileName(exact), exact, ("at-the-limit input must pass through"));
+}
+
+// Verifies the byte-count fast path doesn't cause spurious truncation: a name
+// whose byte count exceeds the limit but whose UTF-16 unit count fits must be
+// returned unchanged on Apple (where the limit is in UTF-16 units). On
+// byte-counted platforms the same input legitimately needs truncation.
+UNIT_TEST(Bookmarks_TruncateToValidFileName_NoUnnecessaryTruncation)
+{
+  // 150 Cyrillic codepoints = 300 UTF-8 bytes = 150 UTF-16 units. Over the
+  // byte limit, under the UTF-16-unit limit.
+  string name;
+  for (int i = 0; i < 150; ++i)
+    name.append("я");
+  TEST_GREATER(name.size(), kMaxFileNameLength, ("byte fast-path must not short-circuit"));
+
+  string const truncated = TruncateToValidFileName(name);
+  if (MeasureFileNameLength(name) <= kMaxFileNameLength)
+    TEST_EQUAL(truncated, name, ("input fits the platform's NAME_MAX -- must not be truncated"));
+  else
+    TEST_LESS_OR_EQUAL(MeasureFileNameLength(truncated), kMaxFileNameLength, ());
+}
+
+// Exercises the SaveBookmarks file-name path with names that overflow NAME_MAX
+// on at least one target platform. Each test uses ScopedBookmarksDir.
+
+UNIT_TEST(Bookmarks_SaveLongFileName_ASCII)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("a")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Cyrillic)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("Очень длинное название трека ")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Chinese)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("地圖標籤旅行路線")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Arabic)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("علامة طويلة جدا ")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Emoji)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("🗺️📍🚶‍♂️")), ());
+}
+
+UNIT_TEST(Bookmarks_SaveLongFileName_Mixed)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("Trip 旅行 Поход 🥾 ")), ());
+}
+
+// Destination basename hits exactly NAME_MAX; the ".tmp<thread_id>" suffix
+// added by WriteToTempAndRenameToFile pushes open() over.
+UNIT_TEST(Bookmarks_SaveLongFileName_BoundaryAtNameMax)
+{
+  ScopedBookmarksDir scopedDir;
+  TEST(SaveBookmarkUsingCorePipeline(MakeLongUtf8Name("a", 251, 251)), ());
+}
+
+// Production uses autoSave=true, so a too-long name throws from EditSession's
+// destructor (implicitly noexcept) -> std::terminate. To keep the test binary
+// alive we disable autoSave and call SaveBookmarks in a try/catch; the
+// underlying file-name pipeline is identical.
+UNIT_CLASS_TEST(Runner, Bookmarks_SaveLongCategoryName_ThroughBookmarkManager)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const longName = MakeLongUtf8Name("Очень длинное имя категории закладок ");
+  auto const catId = bmManager.CreateBookmarkCategory(longName, false /* autoSave */);
+  {
+    auto editSession = bmManager.GetEditSession();
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, "pt");
+    auto const bmId = editSession.CreateBookmark(std::move(bm))->GetId();
+    editSession.AttachBookmark(bmId, catId);
+  }
+
+  try
+  {
+    bmManager.SaveBookmarks({catId});
+  }
+  catch (std::exception const & ex)
+  {
+    TEST(false, ("SaveBookmarks threw on long category name:", ex.what()));
+  }
+
+  string const filePath = bmManager.GetCategoryFileName(catId);
+  TEST(!filePath.empty(), ("BookmarkManager did not assign a file name on save"));
+  TEST(Platform::IsFileExistsByFullPath(filePath), ("Bookmarks file was not created on disk:", filePath));
+}
+
+// Two categories whose names share a 200-byte prefix and differ only after
+// truncate to the same on-disk basename. GenerateUniqueFileName must
+// disambiguate with a numeric suffix, and the in-file <name> elements must
+// retain the FULL original strings (truncation only affects the file path).
+UNIT_CLASS_TEST(Runner, Bookmarks_TruncatedFileName_CategoryCollision)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const sharedPrefix(kMaxFileNameLength, 'A');
+  string const nameA = sharedPrefix + " category Alpha";
+  string const nameB = sharedPrefix + " category Beta";
+
+  auto const saveCategoryWithMarker = [&](string const & name)
+  {
+    auto const cat = bmManager.CreateBookmarkCategory(name, false /* autoSave */);
+    {
+      auto session = bmManager.GetEditSession();
+      kml::BookmarkData bm;
+      bm.m_point = m2::PointD(0.0, 0.0);
+      kml::SetDefaultStr(bm.m_name, "pt");
+      auto const bmId = session.CreateBookmark(std::move(bm))->GetId();
+      session.AttachBookmark(bmId, cat);
+    }
+    bmManager.SaveBookmarks({cat});
+    return cat;
+  };
+
+  auto const catA = saveCategoryWithMarker(nameA);
+  auto const catB = saveCategoryWithMarker(nameB);
+
+  string const pathA = bmManager.GetCategoryFileName(catA);
+  string const pathB = bmManager.GetCategoryFileName(catB);
+
+  TEST_NOT_EQUAL(pathA, pathB, ("colliding names must produce distinct file paths"));
+  TEST(Platform::IsFileExistsByFullPath(pathA), (pathA));
+  TEST(Platform::IsFileExistsByFullPath(pathB), (pathB));
+
+  auto const dataA = LoadKmlFile(pathA, FileType::Kml);
+  auto const dataB = LoadKmlFile(pathB, FileType::Kml);
+  TEST(dataA != nullptr, (pathA));
+  TEST(dataB != nullptr, (pathB));
+  TEST_EQUAL(kml::GetDefaultStr(dataA->m_categoryData.m_name), nameA, ());
+  TEST_EQUAL(kml::GetDefaultStr(dataB->m_categoryData.m_name), nameB, ());
+}
+
+// Same collision shape as above, but both categories are saved in a single
+// SaveBookmarks({catA, catB}) batch -- this is what NotifyChanges does at
+// bookmark_manager.cpp:625 when multiple new categories become dirty in one
+// change-tracker tick. PrepareToSaveBookmarks must not pick the same path for
+// two iterations, even though neither file is on disk yet at picking time.
+UNIT_CLASS_TEST(Runner, Bookmarks_TruncatedFileName_BatchedCollision)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  string const sharedPrefix(kMaxFileNameLength, 'B');
+  string const nameA = sharedPrefix + " Alpha";
+  string const nameB = sharedPrefix + " Beta";
+
+  auto const catA = bmManager.CreateBookmarkCategory(nameA, false /* autoSave */);
+  auto const catB = bmManager.CreateBookmarkCategory(nameB, false /* autoSave */);
+  for (auto const cat : {catA, catB})
+  {
+    auto session = bmManager.GetEditSession();
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, "pt");
+    auto const bmId = session.CreateBookmark(std::move(bm))->GetId();
+    session.AttachBookmark(bmId, cat);
+  }
+
+  bmManager.SaveBookmarks({catA, catB});
+
+  string const pathA = bmManager.GetCategoryFileName(catA);
+  string const pathB = bmManager.GetCategoryFileName(catB);
+  TEST_NOT_EQUAL(pathA, pathB, ("batched save must produce distinct file paths"));
+  TEST(Platform::IsFileExistsByFullPath(pathA), (pathA));
+  TEST(Platform::IsFileExistsByFullPath(pathB), (pathB));
+
+  auto const dataA = LoadKmlFile(pathA, FileType::Kml);
+  auto const dataB = LoadKmlFile(pathB, FileType::Kml);
+  TEST(dataA != nullptr, (pathA));
+  TEST(dataB != nullptr, (pathB));
+  TEST_EQUAL(kml::GetDefaultStr(dataA->m_categoryData.m_name), nameA, ());
+  TEST_EQUAL(kml::GetDefaultStr(dataB->m_categoryData.m_name), nameB, ());
+}
+
+// Truncation only applies to the on-disk basename; the in-file <name>
+// elements (category + bookmark + track) must round-trip the full UTF-8 input.
+UNIT_CLASS_TEST(Runner, Bookmarks_LongName_FullNamePreservedInKml)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  // Use a non-whitespace separator: KML/GPX readers normalise trailing
+  // whitespace inside text elements, which would mask the round-trip check.
+  string const longCatName = MakeLongUtf8Name("Очень длинное название категории.");
+  string const longBookmarkName = MakeLongUtf8Name("Очень длинное название точки.");
+  string const longTrackName = MakeLongUtf8Name("Очень длинное название трека.");
+
+  auto const catId = bmManager.CreateBookmarkCategory(longCatName, false /* autoSave */);
+  {
+    auto session = bmManager.GetEditSession();
+
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, longBookmarkName);
+    auto const bmId = session.CreateBookmark(std::move(bm))->GetId();
+    session.AttachBookmark(bmId, catId);
+
+    kml::TrackData trackData;
+    trackData.m_name = kml::LocalizableString{{kml::kDefaultLangCode, longTrackName}};
+    trackData.m_layers.push_back(kml::TrackLayer());
+    trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+    trackData.m_geometry.AddTimestamps({});
+    auto const trackId = session.CreateTrack(std::move(trackData))->GetId();
+    session.AttachTrack(trackId, catId);
+  }
+
+  bmManager.SaveBookmarks({catId});
+
+  string const path = bmManager.GetCategoryFileName(catId);
+  string const stem = base::FilenameWithoutExt(base::FileNameFromFullPath(path));
+  TEST_LESS_OR_EQUAL(MeasureFileNameLength(stem), kMaxFileNameLength, ("file basename must be truncated:", stem));
+
+  auto const data = LoadKmlFile(path, FileType::Kml);
+  TEST(data != nullptr, (path));
+  TEST_EQUAL(kml::GetDefaultStr(data->m_categoryData.m_name), longCatName, ());
+  TEST_EQUAL(data->m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data->m_bookmarksData.front().m_name), longBookmarkName, ());
+  TEST_EQUAL(data->m_tracksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data->m_tracksData.front().m_name), longTrackName, ());
+}
+
+// The file-basename truncation lives upstream of every serializer, so KML,
+// KMB, and GPX exports must all retain the full <name> regardless of how long
+// the input is.
+UNIT_TEST(Bookmarks_LongName_FullNamePreservedInExportFormats)
+{
+  ScopedBookmarksDir scopedDir;
+  string const longCatName = MakeLongUtf8Name("Поход в горы.");
+  string const longBookmarkName = MakeLongUtf8Name("Точка интереса.");
+
+  kml::FileData src;
+  kml::SetDefaultStr(src.m_categoryData.m_name, longCatName);
+  {
+    kml::BookmarkData bm;
+    bm.m_point = m2::PointD(0.0, 0.0);
+    kml::SetDefaultStr(bm.m_name, longBookmarkName);
+    src.m_bookmarksData.push_back(std::move(bm));
+  }
+
+  for (auto const fileType : {FileType::Kml, FileType::Kmb, FileType::Gpx})
+  {
+    string const path = GenerateValidAndUniqueFilePath(longCatName, fileType);
+    TEST(SaveKmlFileSafe(src, path, fileType), (DebugPrint(fileType)));
+    TEST(Platform::IsFileExistsByFullPath(path), (DebugPrint(fileType), path));
+
+    auto const loaded = LoadKmlFile(path, fileType);
+    TEST(loaded != nullptr, (DebugPrint(fileType), path));
+    TEST_EQUAL(kml::GetDefaultStr(loaded->m_categoryData.m_name), longCatName, (DebugPrint(fileType)));
+    TEST_EQUAL(loaded->m_bookmarksData.size(), 1, (DebugPrint(fileType)));
+    TEST_EQUAL(kml::GetDefaultStr(loaded->m_bookmarksData.front().m_name), longBookmarkName, (DebugPrint(fileType)));
+  }
+}
+
 UNIT_TEST(Bookmarks_AddingMoving)
 {
+  ScopedBookmarksDir scopedDir;
   Framework fm(kFrameworkParams);
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
-  m2::PointD constexpr globalPoint = m2::PointD(40, 20);
-  m2::PointD const pixelPoint = fm.GtoP(globalPoint);
+  m2::PointD constexpr globalPoint(40, 20);
 
   BookmarkManager & bmManager = fm.GetBookmarkManager();
   bmManager.EnableTestMode(true);
@@ -565,7 +956,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   kml::SetDefaultStr(bm1.m_name, "name");
   bm1.m_point = globalPoint;
   auto const * pBm1 = bmManager.GetEditSession().CreateBookmark(std::move(bm1), cat1);
-  Bookmark const * mark = GetBookmarkPxPoint(fm, pixelPoint);
+  Bookmark const * mark = GetBookmark(fm, globalPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
 
   kml::BookmarkData bm2;
@@ -574,7 +965,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   bm2.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
   auto const * pBm11 = bmManager.GetEditSession().CreateBookmark(std::move(bm2), cat1);
   TEST_EQUAL(pBm1->GetGroupId(), pBm11->GetGroupId(), ());
-  mark = GetBookmarkPxPoint(fm, pixelPoint);
+  mark = GetBookmark(fm, globalPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
   TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "name2", ());
   TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
@@ -587,17 +978,16 @@ UNIT_TEST(Bookmarks_AddingMoving)
   auto const * pBm2 = bmManager.GetEditSession().CreateBookmark(std::move(bm3), cat2);
   TEST_NOT_EQUAL(pBm1->GetGroupId(), pBm2->GetGroupId(), ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
-  mark = GetBookmarkPxPoint(fm, pixelPoint);
+  mark = GetBookmark(fm, globalPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2, ("Bookmark wasn't moved from one category to another"));
   TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "name2", ());
   TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
-
-  DeleteCategoryFiles(arrCat);
 }
 
 UNIT_TEST(Bookmarks_Sorting)
 {
+  ScopedBookmarksDir scopedDir;
   Framework fm({} /* params */, false /* loadMaps */);
   fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("World"));
 
@@ -617,11 +1007,8 @@ UNIT_TEST(Bookmarks_Sorting)
     for (auto const & readableType : readableTypes)
     {
       auto const type = c.GetTypeByReadableObjectName(readableType);
-      if (c.IsTypeValid(type))
-      {
-        auto const typeInd = c.GetIndexForType(type);
-        bmData.m_featureTypes.push_back(typeInd);
-      }
+      TEST(type != Classificator::INVALID_TYPE, ());
+      bmData.m_featureTypes.push_back(type);
     }
   };
 
@@ -943,6 +1330,15 @@ UNIT_TEST(Bookmarks_Sorting)
   }
 }
 
+UNIT_TEST(Bookmarks_GetBookmarkMatchInfo)
+{
+  classificator::Load();
+  auto const & cl = classif();
+
+  uint32_t const type = cl.GetTypeByPath({"aeroway", "aerodrome", "international"});
+  TEST(GetBookmarkMatchInfo(type) == BookmarkMatchInfo(kml::BookmarkIcon::Airport, BookmarkBaseType::None), ());
+}
+
 namespace
 {
 char const * kmlString2 =
@@ -1002,9 +1398,6 @@ UNIT_CLASS_TEST(Runner, BookmarkCategory_EmptyName)
   bmManager.GetEditSession().SetCategoryName(catId, "xxx");
 
   TEST(bmManager.SaveBookmarkCategory(catId), ());
-
-  vector<string> const arrFiles = {"Bookmarks", "xxx"};
-  DeleteCategoryFiles(arrFiles);
 }
 
 namespace
@@ -1399,9 +1792,6 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   TEST(kmlData2 != nullptr, ());
   TEST_EQUAL(kmlData2->m_bookmarksData.size(), 1, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData2->m_bookmarksData.front().m_name), "name 3", ());
-
-  TEST(base::DeleteFileX(fileName), ());
-  TEST(base::DeleteFileX(fileName2), ());
 }
 
 UNIT_CLASS_TEST(Runner, ExportAll)
@@ -1558,26 +1948,68 @@ UNIT_CLASS_TEST(Runner, ExportSingleGpx)
   bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Gpx);
 }
 
-UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
+UNIT_CLASS_TEST(Runner, Bookmarks_MM_BrokenFile)
 {
   string const fileName = GetPlatform().TestsDataPathForFile("test_data/broken_bookmarks.kmb.test");
   auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
   TEST(kmlData == nullptr, ());
 }
 
+UNIT_CLASS_TEST(Runner, Tracks_MM)
+{
+  // Both fixtures are gx:MultiTrack exports captured inside MapsMe with three segments of
+  // 5 / 4 / 4 points. The "withts" variant carries per-point capture times; the "nots" variant
+  // omits them. The per-segment size assertions below guard the V11 timestamp-distribution path
+  // in TrackDataV9MM::ConvertToLatestVersion against regressions.
+  std::vector<size_t> const kExpectedLineSizes = {5, 4, 4};
+
+  {
+    string const fileName = GetPlatform().TestsDataPathForFile("test_data/track_MM_nots.kmb.test");
+    auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
+    TEST(kmlData && kmlData->m_tracksData.size() == 1, ());
+
+    auto const & geometry = kmlData->m_tracksData.front().m_geometry;
+    TEST_EQUAL(geometry.m_lines.size(), kExpectedLineSizes.size(), ());
+    TEST_EQUAL(geometry.m_timestamps.size(), kExpectedLineSizes.size(), ());
+    for (size_t i = 0; i < kExpectedLineSizes.size(); ++i)
+    {
+      TEST_EQUAL(geometry.m_lines[i].size(), kExpectedLineSizes[i], ("line", i));
+      TEST(geometry.m_timestamps[i].empty(), ("line", i, "should have no per-point times"));
+    }
+    TEST(!geometry.HasTimestamps(), ());
+  }
+  {
+    string const fileName = GetPlatform().TestsDataPathForFile("test_data/track_MM_withts.kmb.test");
+    auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
+    TEST(kmlData && kmlData->m_tracksData.size() == 1, ());
+
+    auto const & geometry = kmlData->m_tracksData.front().m_geometry;
+    TEST_EQUAL(geometry.m_lines.size(), kExpectedLineSizes.size(), ());
+    TEST_EQUAL(geometry.m_timestamps.size(), kExpectedLineSizes.size(), ());
+
+    // Each segment carries exactly one timestamp per point, and timestamps increase
+    // monotonically by a second both within a segment and across the flattened sequence — confirming that
+    // the deserializer split the flat V11 timestamps vector across lines in the right order.
+    time_t timestamp = base::StringToTimestamp("2026-04-20T00:00:00Z");
+    for (size_t i = 0; i < kExpectedLineSizes.size(); ++i)
+    {
+      TEST_EQUAL(geometry.m_lines[i].size(), kExpectedLineSizes[i], ("line", i));
+      TEST_EQUAL(geometry.m_timestamps[i].size(), kExpectedLineSizes[i], ("timestamps", i));
+      for (size_t j = 0; j < geometry.m_timestamps[i].size(); ++j)
+      {
+        TEST_EQUAL(geometry.m_timestamps[i][j], timestamp, ("line", i, "point", j));
+        timestamp += 1;
+      }
+    }
+  }
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
-  auto const dir = GetBookmarksDirectory();
-  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
-  SCOPE_GUARD(dirDeleter, [&]()
-  {
-    if (delDirOnExit)
-      (void)Platform::RmDir(dir);
-  });
 
-  std::string const filePath = base::JoinPath(dir, "file" + std::string{kKmlExtension});
+  std::string const filePath = base::JoinPath(GetBookmarksDirectory(), "file" + std::string{kKmlExtension});
   BookmarkManager::KMLDataCollection kmlDataCollection;
   kmlDataCollection.emplace_back(filePath, LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml));
 
@@ -1623,6 +2055,25 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0),
                                      geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}};
   TEST_EQUAL(line, expectedLine, ());
+}
+
+// Regression test for the iOS crash in MWMPlacePageManager addBookmark: when adding a bookmark on
+// a track that doesn't belong to any user category (e.g. an OSM relation track). The iOS bridge
+// would pass groupId == 0 to CreateBookmark, which then aborts in GetBmCategory. The fallback path
+// relies on HasBmCategory rejecting invalid ids and on LastEditedBMCategory always returning a
+// valid category — pin both contracts here.
+UNIT_TEST(Bookmarks_LastEditedCategoryIsAlwaysValid)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  TEST(!bmManager.HasBmCategory(0), ("0 is the iOS Obj-C default for groupId and must be invalid"));
+  TEST(!bmManager.HasBmCategory(kml::kInvalidMarkGroupId), ());
+
+  auto const lastEdited = fm.LastEditedBMCategory();
+  TEST(bmManager.HasBmCategory(lastEdited), ("LastEditedBMCategory must always return a valid category"));
 }
 
 }  // namespace bookmarks_test

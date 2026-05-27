@@ -219,7 +219,7 @@
     <string name="type.cuisine.mediterranean">भूमध्य व्यंजन</string>
     <string name="type.cuisine.mexican">मैक्सिकन व्यंजन</string>
     <string name="type.cuisine.moroccan">मोरक्कन व्यंजन</string>
-    <string name="type.cuisine.noodles">नूडल्स</string>
+    <string name="type.cuisine.noodle">नूडल्स</string>
     <string name="type.cuisine.oriental">प्राच्य व्यंजन</string>
     <string name="type.cuisine.pancake">पैनकेक</string>
     <string name="type.cuisine.pasta">पास्ता</string>
@@ -234,6 +234,7 @@
     <string name="type.cuisine.sausage">सॉसेज</string>
     <string name="type.cuisine.savory_pancakes">दिलकश पेनकेक्स</string>
     <string name="type.cuisine.seafood">समुद्री भोजन</string>
+    <string name="type.cuisine.shawarma">शवर्मा</string>
     <string name="type.cuisine.soba">सोबा</string>
     <string name="type.cuisine.spanish">स्पेनिश व्यंजन</string>
     <string name="type.cuisine.steak_house">स्टेक (माँस का कबाब)</string>
@@ -378,6 +379,8 @@
     <string name="type.leisure.sauna">सॉना</string>
     <string name="type.sport.yoga">योग</string>
     <string name="type.leisure.stadium">क्रीडांगन</string>
+    <string name="type.leisure.track">स्पोर्ट्स ट्रैक</string>
+    <string name="type.leisure.track.area">स्पोर्ट्स ट्रैक</string>
     <string name="type.leisure.water_park">वाटर पार्क</string>
     <string name="type.man_made.breakwater">तरंगरोध</string>
     <string name="type.man_made.cairn">स्तूप</string>
@@ -426,6 +429,7 @@
     <string name="type.natural.strait">जलसंधि</string>
     <string name="type.natural.vineyard">द्राक्षाक्षेत्र</string>
     <string name="type.natural.volcano">ज्वालामुखी</string>
+    <string name="type.natural.volcano.active">सक्रिय ज्वालामुखी</string>
     <string name="type.natural.water">जल निकाय</string>
     <string name="type.natural.wetland">आर्द्रभूमि</string>
     <string name="type.natural.wetland.marsh">कच्छभूमि</string>
@@ -635,6 +639,18 @@
     <string name="type.sport.ice_hockey">आइस हॉकी</string>
     <string name="type.sport.field_hockey">मैदानी हॉकी</string>
     <string name="type.sport.badminton">बैडमिंटन</string>
+    <string name="type.sport.boules">बूल्स</string>
+    <string name="type.sport.cycling">साइकिल चलाना</string>
+    <string name="type.sport.four_square">फोर स्क्वायर</string>
+    <string name="type.sport.horse_racing">घुड़दौड़</string>
+    <string name="type.sport.karting">कार्टिंग</string>
+    <string name="type.sport.motocross">मोटोक्रॉस</string>
+    <string name="type.sport.motor">मोटरस्पोर्ट</string>
+    <string name="type.sport.netball">नेटबॉल</string>
+    <string name="type.sport.pickleball">पिकलबॉल</string>
+    <string name="type.sport.rugby_union">रग्बी यूनियन</string>
+    <string name="type.sport.running">दौड़ना</string>
+    <string name="type.sport.softball">सॉफ्टबॉल</string>
     <string name="type.tourism">पर्यटन</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">माउंटेन लॉज</string>
@@ -648,6 +664,7 @@
     <string name="type.attraction.historic">ऐतिहासिक आकर्षण</string>
     <string name="type.attraction.maze">भूलभुलैया</string>
     <string name="type.attraction.roller_coaster">रोलर कॉस्टर</string>
+    <string name="type.roller_coaster.track">रोलर कॉस्टर</string>
     <string name="type.attraction.water_slide">पानी की स्लाइड</string>
     <string name="type.tourism.attraction.specified">पर्यटन स्थल</string>
     <string name="type.tourism.caravan_site">कारवां स्थल</string>
@@ -663,6 +680,7 @@
     <string name="type.tourism.picnic_site">पिकनिक स्थल</string>
     <string name="type.tourism.viewpoint">दृष्टिकोण</string>
     <string name="type.tourism.zoo">चिड़ियाघर</string>
+    <string name="type.waterway.access_point">जलमार्ग पहुँच बिंदु</string>
     <string name="type.waterway.canal">नहर</string>
     <string name="type.waterway.canal.tunnel">नहर</string>
     <string name="type.waterway.dam">बाँध</string>
@@ -705,4 +723,5 @@
     <string name="type.craft.watchmaker">घड़ीसाज़</string>
     <string name="type.xmas_feature.market">क्रिसमस का बाजार</string>
     <string name="type.xmas_feature.tree">क्रिसमस ट्री</string>
+    <string name="type.amenity.hookah_lounge">हुक्का लाउंज</string>
 </resources>

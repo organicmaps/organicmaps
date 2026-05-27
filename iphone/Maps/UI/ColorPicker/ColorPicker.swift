@@ -1,6 +1,6 @@
 enum ColorPickerType {
-  case defaultColorPicker(UIColor)
-  case bookmarkColorPicker(BookmarkColor)
+  case defaultColorPicker(UIColor?)
+  case bookmarkColorPicker(BookmarkColor?)
 }
 
 final class ColorPicker: NSObject {
@@ -21,10 +21,14 @@ final class ColorPicker: NSObject {
 
     switch pickerType {
     case .defaultColorPicker(let color):
-      if #available(iOS 14.0, *), !ProcessInfo.processInfo.isiOSAppOnMac {
+      if !ProcessInfo.processInfo.isiOSAppOnMac {
         colorPickerViewController = defaultColorPickerViewController(with: color)
       } else {
-        colorPickerViewController = bookmarksColorPickerViewController(with: BookmarkColor.bookmarkColor(from: color) ?? .none)
+        var selectedColor: BookmarkColor?
+        if let color {
+          selectedColor = BookmarkColor.bookmarkColor(from: color)
+        }
+        colorPickerViewController = bookmarksColorPickerViewController(with: selectedColor)
       }
     case .bookmarkColorPicker(let bookmarkColor):
       colorPickerViewController = bookmarksColorPickerViewController(with: bookmarkColor)
@@ -34,20 +38,28 @@ final class ColorPicker: NSObject {
 
   // MARK: - Private
 
-  @available(iOS 14.0, *)
-  private func defaultColorPickerViewController(with selectedColor: UIColor) -> UIViewController {
+  private func defaultColorPickerViewController(with selectedColor: UIColor?) -> UIViewController {
     let colorPickerController = UIColorPickerViewController()
     colorPickerController.supportsAlpha = false
-    colorPickerController.selectedColor = selectedColor
+    if let selectedColor {
+      colorPickerController.selectedColor = selectedColor
+    }
     colorPickerController.delegate = self
+    colorPickerController.presentationController?.delegate = self
     return colorPickerController
   }
 
-  private func bookmarksColorPickerViewController(with selectedColor: BookmarkColor) -> UIViewController {
+  private func bookmarksColorPickerViewController(with selectedColor: BookmarkColor?) -> UIViewController {
     let bookmarksColorViewController = BookmarkColorViewController(bookmarkColor: selectedColor)
     bookmarksColorViewController.delegate = self
     // The navigation controller is used for getting the navigation item with the title and the close button.
     return UINavigationController(rootViewController: bookmarksColorViewController)
+  }
+
+  private func commitSelection(_ color: UIColor) {
+    guard let onUpdateColorHandler else { return }
+    self.onUpdateColorHandler = nil
+    onUpdateColorHandler(color)
   }
 }
 
@@ -55,23 +67,26 @@ final class ColorPicker: NSObject {
 
 extension ColorPicker: BookmarkColorViewControllerDelegate {
   func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
-    onUpdateColorHandler?(bookmarkColor.color)
-    onUpdateColorHandler = nil
+    commitSelection(bookmarkColor.color)
     viewController.dismiss(animated: true)
   }
 }
 
 // MARK: - UIColorPickerViewControllerDelegate
 
-@available(iOS 14.0, *)
 extension ColorPicker: UIColorPickerViewControllerDelegate {
   func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-    onUpdateColorHandler?(viewController.selectedColor.sRGBColor)
-    onUpdateColorHandler = nil
-    viewController.dismiss(animated: true, completion: nil)
+    commitSelection(viewController.selectedColor.sRGBColor)
   }
+}
 
-  func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-    onUpdateColorHandler?(viewController.selectedColor.sRGBColor)
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension ColorPicker: UIAdaptivePresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    guard let colorPickerViewController = presentationController.presentedViewController as? UIColorPickerViewController else {
+      return
+    }
+    commitSelection(colorPickerViewController.selectedColor.sRGBColor)
   }
 }

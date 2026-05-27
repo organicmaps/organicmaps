@@ -1,27 +1,56 @@
-• Données cartographiques OSM du 16 février
-• Données Wikipédia du 1er février
-• Les itinéraires de randonnée et de vélo noirs sont désormais visibles dans le thème sombre
-• Ajout de plus de services automobiles : réparation, entretien et pièces
-• Ajout de l'authentification par navigateur OSM
-• Correction de l'accès aux vélos sur certains types de routes
-• Correction du calcul de la vitesse moyenne
-• Amélioration du classement de recherche pour les catégories
-• Ajout de la cuisine ouzbèke
-• Ajout des tyroliennes sur la carte
-• Correction des liens Wikimedia avec "?" dans le titre
-• Correction de l'analyse des fichiers GPX avec "+" dans les coordonnées
+## Carte
 
-### Traductions
+- NOUVEAU ! Ajustement correct de la carte au niveau de l'antiméridien lors du glissement et de la rotation
+- Données OpenStreetMap mises à jour au 4 avril
+- Données Wikipédia mises à jour au 1er avril
+- Ajout d'icônes pour les aires de restauration et les portes de la ville
+- Ajout de sous-catégories pour les magasins de vêtements : femmes, hommes, enfants, mariage, sport, sous-vêtements, ainsi que les types de bureaux
+- Correction des couleurs des lignes de métro de Sydney
+- Correction de l'affichage des horaires d'ouverture pour les lieux présentant des décalages de lever/coucher du soleil
 
-• Suppression des noms de villes en double dans certaines régions de la carte
-• Correction des instructions vocales en hébreu
-• Correction de coquilles en coréen
-• Ajout de synonymes de recherche en russe
-• Amélioration des instructions vocales en allemand
-• Correction de la traduction manquante pour le tunnel ferroviaire désaffecté
-• Correction de la traduction du pays en roumain
-• Ajout des traductions en lao et arménien
-• Ajout de traductions arméniennes manquantes
-• Mise à jour des traductions des contributeurs Weblate
+## Itinéraires et navigation
 
-Merci à tous ceux qui contribuent, font des dons et soutiennent Organic Maps ! Construisons ensemble les meilleures cartes !
+- NOUVEAU ! Appuyez sur un itinéraire cyclable ou de randonnée pour le sélectionner et afficher son profil altimétrique
+- Amélioration du rendu multicolore pour les itinéraires de randonnée et cyclables
+- La navigation cyclable utilise désormais le cap de la boussole à basse vitesse
+- Correction d'une erreur système lors de la planification d'itinéraires à proximité de certaines frontières régionales
+- Vous pouvez désormais démarrer un itinéraire valide même lorsqu'on vous invite à télécharger des cartes supplémentaires
+
+## Favoris et tracés
+
+- NOUVEAU ! Modifiez simultanément toutes les couleurs des signets et des tracés d'une catégorie
+- Ajustement de l'estimation du dénivelé positif et négatif sur les graphiques de tracés pour une meilleure correspondance avec d'autres applications
+- Amélioration de l'affichage du contenu HTML avec des tableaux et des images dans les détails des signets
+- Ajout de séparateurs verticaux pour les tracés à segments multiples dans le graphique d'altitude
+- Correction de la sélection des points dans le graphique d'altitude pour les points interpolés
+- Correction de l'enregistrement des tracés GPS qui omettait des points entre les segments
+- Correction de l'importation GeoJSON
+- Correction d'un plantage lors de l'exportation des tracés
+
+## Recherche
+
+- Amélioration de la recherche aux États-Unis, avec deux millions d'adresses supplémentaires extraites des données du recensement TIGER
+- Mise à jour des catégories de recherche : ajout de « Pain » pour les boulangeries, de « Shawarma » pour la cuisine, et d'autres améliorations au niveau des synonymes
+- Amélioration de la recherche d'adresses par numéro de maison
+- Ajout de synonymes pour les rues aux États-Unis : highway, hwy, freeway, fwy
+- Correction des résultats de recherche lorsque les noms de ville et d'État sont identiques
+
+## Éditeur / OpenStreetMap
+
+- Vous pouvez désormais ajouter un nouveau lieu à OpenStreetMap après avoir sélectionné votre position actuelle sur la carte
+- Correction du décalage du réticule de l'éditeur lorsque l'on appuie sur « Ajouter un lieu »
+- Augmentation de la zone tactile des boutons dans la barre de navigation « Ajouter un lieu »
+
+## Interface utilisateur et expérience utilisateur
+
+- Gestes modaux améliorés : alignement sur l'étape la plus proche, fermeture lors d'un panoramique sur le bord et restauration de l'état précédent lors de la réouverture
+- Correction de la gestion de l'heure d'été pour les fuseaux horaires
+
+## Stabilité et localisation
+
+- Amélioration de la stabilité et des performances, réduction de la consommation de batterie
+- Mise à jour des traductions
+
+## Prise en charge des plateformes
+
+- En raison de changements apportés à TestFlight et à l'App Store, cette version ne prend en charge que iOS 15 et les versions ultérieures. iOS 12, 13 et 14 ne sont plus pris en charge.

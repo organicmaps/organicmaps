@@ -38,6 +38,8 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::SelectObject: return "SelectObject";
   case Message::Type::CheckSelectionGeometry: return "CheckSelectionGeometry";
   case Message::Type::FlushSelectionGeometry: return "FlushSelectionGeometry";
+  case Message::Type::SetSelectionLines: return "SetSelectionLines";
+  case Message::Type::BuildSelectionLines: return "BuildSelectionLines";
   case Message::Type::AddSubroute: return "AddSubroute";
   case Message::Type::RemoveSubroute: return "RemoveSubroute";
   case Message::Type::PrepareSubrouteArrows: return "PrepareSubrouteArrows";
@@ -97,6 +99,9 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::ClearAllTransitSchemeData: return "ClearAllTransitSchemeData";
   case Message::Type::RegenerateTransitScheme: return "RegenerateTransitScheme";
   case Message::Type::FlushTransitScheme: return "FlushTransitScheme";
+  case Message::Type::ShowRouteTransit: return "ShowRouteTransit";
+  case Message::Type::HideRouteTransit: return "HideRouteTransit";
+  case Message::Type::SetTransitSchemeMinZoom: return "SetTransitSchemeMinZoom";
   case Message::Type::ShowDebugInfo: return "ShowDebugInfo";
   case Message::Type::NotifyRenderThread: return "NotifyRenderThread";
   case Message::Type::NotifyGraphicsReady: return "NotifyGraphicsReady";

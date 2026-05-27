@@ -1,0 +1,9 @@
+• Tschernai rutas d'excursiun e da velo per vesair diagrams d'autezza
+• Visualisaziun correcta da la carta a l'antimeridian (±180°)
+• Midai colurs da segnapostas e percurs en ina categoria
+• Meglier retschertga per numers da chasa, dapli adressas US
+• Datas OSM dal 4 d'avrigl
+• Modus d'appariziun planisà en las configuraziuns
+• Corregì la partiziun da segnapostas/percurs ad autras apps
+• Corregì il transferiment da modificaziuns ad OSM
+…dapli sin omaps.org/news

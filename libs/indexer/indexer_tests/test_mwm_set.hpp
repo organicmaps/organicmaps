@@ -2,16 +2,12 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include <memory>
-
-using platform::CountryFile;
-using platform::LocalCountryFile;
 
 namespace tests
 {

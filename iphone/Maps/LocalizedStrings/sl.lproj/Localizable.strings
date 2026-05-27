@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jezik glasu";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Če želite prenesti glas višje kakovosti, odprite aplikacijo Nastavitve in pojdite v Dostopnost → VoiceOver → Govor → Glas.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)";
 "pref_map_auto_zoom" = "Samodejna povečava";
@@ -353,7 +356,7 @@
 "blue_gray" = "Modro siva";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Informacije";
 
 /* Prints version number in About dialog */
 "version" = "Različica Organic Maps: %@";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Kolesarjenje";
 "button_layer_subway" = "Podzemna železnica";
 "layers_title" = "Slogi in plasti zemljevida";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Spremeni barvo vseh zaznamkov";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Spremeni barvo vseh sledi";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Izvozi KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nedavno uporabljeno";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Barva zaznamkov je spremenjena";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Barva sledi je spremenjena";

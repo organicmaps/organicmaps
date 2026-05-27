@@ -5,11 +5,11 @@
 "type.addr_interpolation" = "العنوان / البلوك";
 "type.addr_interpolation.even" = "العنوان / البلوك";
 "type.addr_interpolation.odd" = "العنوان / البلوك";
-"type.aerialway" = "طريق جوي";
+"type.aerialway" = "وسيلة نقل معلّقة";
 "type.aerialway.cable_car" = "تلفريك";
 "type.aerialway.chair_lift" = "مصعد مقعدي";
 "type.aerialway.drag_lift" = "مصعد الجر";
-"type.aerialway.gondola" = "غندول";
+"type.aerialway.gondola" = "تلفريك";
 "type.aerialway.mixed_lift" = "مصعد مشترك";
 "type.aerialway.station" = "محطة تلفريك";
 "type.aeroway" = "بنية الطيران";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "العنوان";
+"type.building.construction" = "مبنى قيد الإنشاء";
 "type.building.has_parts" = "مبنى";
 "type.building_part" = "مبنى";
 "type.building.garage" = "مرآب";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "مطبخ البحر المتوسط";
 "type.cuisine.mexican" = "مطبخ مكسيكي";
 "type.cuisine.moroccan" = "مطبخ مغربي";
-"type.cuisine.noodles" = "نودلز";
+"type.cuisine.noodle" = "نودلز";
 "type.cuisine.oriental" = "مطبخ شرقي";
 "type.cuisine.pancake" = "بان كيك";
 "type.cuisine.pasta" = "معكرونة";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "سجق";
 "type.cuisine.savory_pancakes" = "بان كيك السافوري";
 "type.cuisine.seafood" = "مأكولات بحرية";
+"type.cuisine.shawarma" = "الشاورما";
 "type.cuisine.soba" = "سوبا";
 "type.cuisine.spanish" = "مطبخ إسباني";
 "type.cuisine.steak_house" = "شرائح اللحم";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "ملعب";
 "type.leisure.swimming_pool" = "مسبح";
 "type.leisure.swimming_pool.private" = "مسبح خاص";
-"type.leisure.track" = "مسار";
-"type.leisure.track.area" = "مسار";
+"type.leisure.track" = "مضمار";
+"type.leisure.track.area" = "مضمار";
 "type.leisure.water_park" = "مدينة مائية";
 "type.leisure.beach_resort" = "منتجع شاطئي";
 "type.man_made" = "مُنشأ بشري";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "صف شجر";
 "type.natural.vineyard" = "حقل عنب";
 "type.natural.volcano" = "بركان";
+"type.natural.volcano.active" = "بركان نشط";
 "type.natural.water" = "ماء";
 "type.natural.wetland" = "منطقة رطبة";
 "type.natural.wetland.bog" = "رخاخ";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "هوكي الميدان";
 "type.sport.badminton" = "ريشة الطائرة";
 "type.sport.pelota" = "باسك بيلوتا";
+"type.sport.boules" = "بولز";
+"type.sport.cycling" = "ركوب الدراجات";
+"type.sport.four_square" = "أربع مربعات";
+"type.sport.horse_racing" = "سباق الخيل";
+"type.sport.karting" = "كارتينغ";
+"type.sport.motocross" = "موتوكروس";
+"type.sport.motor" = "رياضات المحركات";
+"type.sport.netball" = "كرة الشبكة";
+"type.sport.pickleball" = "بيكل بول";
+"type.sport.rugby_union" = "رغبي الاتحاد";
+"type.sport.running" = "الجري";
+"type.sport.softball" = "الكرة اللينة";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "حوض سمك";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "جاذبية تاريخية";
 "type.attraction.maze" = "المتاهة";
 "type.attraction.roller_coaster" = "قطار الملاهي الدوارة";
+"type.roller_coaster.track" = "قطار الملاهي الدوارة";
 "type.attraction.water_slide" = "منزلق مائي";
 "type.tourism.attraction.specified" = "مكان جذاب";
 "type.tourism.camp_site" = "مخيّم";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "مطبة";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "نقطة وصول الممر المائي";
 "type.waterway.canal" = "قناة";
 "type.waterway.canal.tunnel" = "نفق قناة";
 "type.waterway.fish_pass" = "سلم سمك";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "صانع الساعات";
 "type.xmas_feature.market" = "سوق الكريسماس";
 "type.xmas_feature.tree" = "شجرة الكريسماس";
+"type.amenity.hookah_lounge" = "مقهى شيشة";

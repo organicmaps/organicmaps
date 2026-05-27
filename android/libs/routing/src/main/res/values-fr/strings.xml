@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Mettre à jour les cartes</string>
     <string name="downloader_mwm_migration_dialog">Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l\'itinéraire.</string>
+    <string name="navigation_stop_button">Arrêter</string>
     <string name="ok">Ok</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

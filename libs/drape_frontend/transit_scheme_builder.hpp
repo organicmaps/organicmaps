@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/selection_info.hpp"
+
 #include "drape/batcher.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/render_state.hpp"
@@ -17,8 +19,7 @@
 
 namespace df
 {
-extern int const kTransitSchemeMinZoomLevel;
-extern float const kTransitLineHalfWidth;
+float constexpr kTransitLineHalfWidth = 0.64f;
 extern std::array<float, 20> const kTransitLinesWidthInPixel;
 
 struct TransitRenderData
@@ -157,6 +158,12 @@ public:
 
   void Clear();
   void Clear(MwmSet::MwmId const & mwmId);
+
+  /// Builds render data for a single relation's transit view (lines + stops markers).
+  /// @param mwmId Always empty for now — used as a sentinel bucket key so Clear(MwmId{}) can drop it later.
+  /// Implementation must not touch the m_schemes cache used by the mwm-scale UpdateSchemes path.
+  void BuildFromRouteTransit(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
+                             TransitInfo const & info, ref_ptr<dp::TextureManager> textures);
 
 private:
   struct MwmSchemeData

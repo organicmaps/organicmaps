@@ -1,9 +1,7 @@
 #pragma once
-#include "drape/color.hpp"
+#include "drape/rainbow_colors.hpp"
 
 #include "indexer/route_relation.hpp"
-
-#include "base/buffer_vector.hpp"
 
 #include <string>
 
@@ -13,9 +11,17 @@ namespace df
 {
 struct RelationsDrawSettings
 {
+  static std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
+  static std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
+
   bool hiking : 1 = false;
   bool cycling : 1 = false;
   bool PT : 1 = false;
+
+  void Load();
+
+  bool IsEmpty() const { return !hiking && !cycling && !PT; }
+  bool MatchHikingOrCycling(feature::RouteRelationBase::Type type) const;
 };
 
 class RelationsDrawInfo
@@ -57,6 +63,17 @@ public:
 
       fn(pxOffset, m_colors[i].first);
     }
+  }
+
+  bool HasColors() const { return !m_colors.empty(); }
+
+  dp::RainbowColors GetColors() const
+  {
+    dp::RainbowColors result;
+    result.reserve(m_colors.size());
+    for (auto const & [color, freq] : m_colors)
+      result.push_back(color);
+    return result;
   }
 
   dp::Color GetTextColor() const;

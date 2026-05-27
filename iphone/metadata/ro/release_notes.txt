@@ -1,27 +1,56 @@
-• Datele hărții OSM din 16 februarie
-• Datele Wikipedia din 1 februarie
-• Traseele de drumeție și ciclism negre sunt acum vizibile în tema întunecată
-• S-au adăugat mai multe servicii auto: reparații, service și piese
-• S-a adăugat autentificarea browser-ului OSM
-• S-a corectat accesul bicicletelor pe unele tipuri de drumuri
-• S-a corectat calculul vitezei medii
-• S-a îmbunătățit clasamentul de căutare pentru categorii
-• S-a adăugat bucătăria uzbecă
-• S-au adăugat tiroliene pe hartă
-• S-au corectat legăturile Wikimedia cu „?” în titlu
-• S-a corectat analiza fișierelor GPX cu „+” în coordonate
+## Hartă
 
-### Traduceri
+- NOU! Afișare corectă a hărții la antimeridian atunci când trageți și rotiți
+- Date OpenStreetMap actualizate la 4 aprilie
+- Date Wikipedia actualizate la 1 aprilie
+- S-au adăugat pictograme pentru zone de restaurante și porți de oraș
+- S-au adăugat subcategorii pentru magazinele de îmbrăcăminte: femei, bărbați, copii, nunți, sport, lenjerie intimă și îmbrăcăminte de birou
+- S-au corectat culorile liniilor de metrou din Sydney
+- S-a corectat afișarea orelor de deschidere pentru locurile cu decalaje de răsărit/apus
 
-• S-au eliminat numele de orașe duplicate în unele regiuni ale hărții
-• S-au corectat indicațiile vocale în ebraică
-• S-au corectat greșelile de tipar în coreeană
-• S-au adăugat sinonime de căutare în rusă
-• S-au îmbunătățit indicațiile vocale în germană
-• S-a corectat traducerea lipsă pentru tunelul feroviar dezafectat
-• S-a corectat traducerea țării în română
-• S-au adăugat traduceri în laoțiană și armeană
-• S-au adăugat traduceri lipsă în armeană
-• S-au actualizat traducerile de la colaboratorii Weblate
+## Trasee și navigare
 
-Mulțumim tuturor celor care contribuie, donează și susțin Organic Maps! Să construim împreună cele mai bune hărți!
+- NOU! Atingeți un traseu de ciclism sau drumeție pentru a-l selecta și a vizualiza graficul de altitudine
+- Redare multicoloră îmbunătățită pentru traseele de drumeție și ciclism
+- Navigarea pentru ciclism utilizează acum orientarea busolei la viteze mici
+- S-a remediat o eroare de sistem la planificarea traseelor în apropierea unor granițe regionale
+- Acum puteți începe un traseu valid chiar și atunci când vi se solicită să descărcați hărți suplimentare
+
+## Marcaje și trasee
+
+- NOU! Schimbați simultan toate culorile marcajelor și traseelor dintr-o categorie
+- Aproximarea câștigului și pierderii de altitudine pe graficele traseelor a fost ajustată pentru a se potrivi mai bine cu alte aplicații
+- Afișarea conținutului HTML cu tabele și imagini în detaliile marcajelor a fost îmbunătățită
+- S-au adăugat separatoare verticale pentru traseele cu mai multe segmente în graficul de altitudine
+- S-a remediat selectarea punctelor în graficul de altitudine pentru punctele interpolate
+- S-a remediat pierderea punctelor între segmente la înregistrarea traseului GPS
+- S-a remediat importul GeoJSON
+- S-a remediat o blocare la exportarea traseelor
+
+## Căutare
+
+- Căutare îmbunătățită în SUA, cu două milioane de adrese suplimentare extrase din datele recensământului TIGER
+- Categorii de căutare actualizate: s-a adăugat „Bread” pentru brutării, bucătăria „Shawarma” și alte îmbunătățiri ale sinonimelor
+- Căutare îmbunătățită a adreselor cu număr de casă
+- S-au adăugat sinonime pentru străzi din SUA: highway, hwy, freeway, fwy
+- S-au remediat rezultatele căutării atunci când numele orașului și al statului sunt identice
+
+## Editor / OpenStreetMap
+
+- Acum puteți adăuga un loc nou în OpenStreetMap după ce selectați poziția curentă pe hartă
+- S-a remediat alinierea incorectă a reticulului editorului la apăsarea butonului „Adăugați un loc”
+- S-a mărit zona tactilă a butoanelor din bara de navigare „Adăugați un loc”
+
+## Interfață și experiență utilizator
+
+- Gesturi modale îmbunătățite: aliniere la pasul cel mai apropiat, închidere la deplasarea pe margine și restabilirea stării anterioare la redeschidere
+- S-a remediat gestionarea orei de vară pentru fusurile orare
+
+## Stabilitate și localizare
+
+- Stabilitate și performanță îmbunătățite, consum redus de baterie
+- Traduceri actualizate
+
+## Suport pentru platforme
+
+- Datorită modificărilor din TestFlight și App Store, această versiune suportă doar iOS 15 și versiuni ulterioare. iOS 12, 13 și 14 nu mai sunt suportate.

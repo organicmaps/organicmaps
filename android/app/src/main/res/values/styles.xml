@@ -38,7 +38,7 @@
   <style name="MwmWidget.MapButton.Square">
     <item name="android:backgroundTint">?menuBackground</item>
     <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">10dp</item>
+    <item name="cornerSize">@dimen/corner_radius_medium</item>
   </style>
 
   <style name="MwmWidget.Button">
@@ -115,6 +115,18 @@
   <style name="ShapeAppearanceOverlay.Button.Round" parent="">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSize">50%</item>
+  </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+    <item name="cornerSize">@dimen/corner_radius_small</item>
+  </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+    <item name="cornerSize">@dimen/corner_radius_medium</item>
+  </style>
+
+  <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+    <item name="cornerSize">@dimen/corner_radius_large</item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
@@ -330,14 +342,12 @@
     parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheetDialog</item>
     <item name="enableEdgeToEdge">true</item>
-    <item name="android:navigationBarColor">@android:color/transparent</item>
-    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
   <style name="MwmWidget.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
     <item name="backgroundTint">?cardBackground</item>
     <item name="elevationOverlayEnabled">false</item>
-    <item name="shapeAppearance">@style/ShapeAppearance.Material3.LargeComponent</item>
+    <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
   </style>
 
   <style name="MwmWidget.BottomSheet" parent="MwmWidget.BottomSheetDialog">
@@ -347,7 +357,7 @@
 
   <style name="MwmWidget.BottomSheet.Rounded" parent="">
     <item name="backgroundTint">?cardBackground</item>
-    <item name="shapeAppearance">@style/ShapeAppearance.Material3.LargeComponent</item>
+    <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
   </style>
 
   <style name="FAB" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
@@ -355,14 +365,8 @@
     <item name="android:minWidth">30dp</item>
     <item name="android:paddingTop">7dp</item>
     <item name="android:paddingBottom">7dp</item>
-    <item name="android:paddingStart" >
-      12dp
-    </item>
-    <item name="android:paddingEnd" >
-      12dp
-    </item>
-    <item name="android:paddingLeft">12dp</item>
-    <item name="android:paddingRight">12dp</item>
+    <item name="android:paddingStart">12dp</item>
+    <item name="android:paddingEnd">12dp</item>
     <item name="iconPadding">4dp</item>
     <item name="iconSize">20dp</item>
     <item name="iconTint">?accentButtonTextColor</item>

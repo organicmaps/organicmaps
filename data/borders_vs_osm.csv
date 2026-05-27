@@ -14,8 +14,8 @@ US_Tennessee_East	4	Tennessee
 US_Tennessee_East	4	TN
 US_Tennessee_West	4	Tennessee
 US_Tennessee_West	4	TN
-Malaysia	4	Terengganu / ترڠڬانو
-Vietnam	4	Tỉnh Hà Nam
+Malaysia_West	4	Terengganu / ترڠڬانو
+Vietnam_North	4	Tỉnh Hà Nam
 Azerbaijan	4	Abşeron rayonu
 Indonesia_West	4	Aceh
 Brazil_North Region_West	4	Acre
@@ -27,10 +27,10 @@ Mexico_Central_West	4	Aguascalientes
 Philippines_Mindanao	4	Agusan Del Sur
 Jordan	4	Ajloun
 Norway_Central	4	Akershus
-Vietnam	4	Tỉnh Hà Tĩnh
-Vietnam	4	Tỉnh Hòa Bình
-Vietnam	4	Tỉnh Hải Dương
-Vietnam	4	Tỉnh Hưng Yên
+Vietnam_North	4	Tỉnh Hà Tĩnh
+Vietnam_North	4	Tỉnh Hòa Bình
+Vietnam_North	4	Tỉnh Hải Dương
+Vietnam_North	4	Tỉnh Hưng Yên
 Ethiopia	4	Addis Abeba
 Algeria_Central	4	Adrar ⴰⴷⵔⴰⵔ أدرار
 Portugal_Islands	4	Ilhéu dos Rosais
@@ -62,8 +62,8 @@ US_Illinois_Springfield	4	IL
 US_Illinois_Rockford	4	Illinois
 US_Illinois_Rockford	4	IL
 Algeria_Central	4	Illizi ⵉⵍⵍⵉⵣⵉ إلـيـزي
-Vietnam	4	Tỉnh Hậu Giang
-Vietnam	4	Tỉnh Khánh Hòa
+Vietnam_South	4	Tỉnh Hậu Giang
+Vietnam_South	4	Tỉnh Khánh Hòa
 Yemen	4	Al Bayḑā’
 Sudan_East	4	Al Baḩr al Aḩmar
 Yemen	4	Al Mahrah
@@ -75,8 +75,8 @@ Yemen	4	Al Jawf
 Qatar	4	Al Jumaliyah
 Qatar	4	Al Khawr
 US_Michigan_Grand Rapids	4	Little Traverse Bay Bands Of Odawa Reservation
-Vietnam	4	Tỉnh Kon Tum
-Vietnam	4	Tỉnh Lai Châu
+Vietnam_South	4	Tỉnh Kon Tum
+Vietnam_North	4	Tỉnh Lai Châu
 Yemen	4	Al Maḩwīt
 Qatar	4	Al Wakrah
 Djibouti	4	Ali Sabieh
@@ -107,9 +107,9 @@ Philippines_Luzon_Manila	4	Catanduanes
 Colombia_West	4	Cauca
 Philippines_Luzon_North	4	Cavite
 Philippines_Luzon_Manila	4	Cavite
-Vietnam	4	Tỉnh Long An
-Vietnam	4	Tỉnh Lào Cai
-Vietnam	4	Tỉnh Lâm Đồng
+Vietnam_South	4	Tỉnh Long An
+Vietnam_North	4	Tỉnh Lào Cai
+Vietnam_South	4	Tỉnh Lâm Đồng
 Yemen	4	Al Ḩudaydah
 Syria	4	Al-Hasakah
 US_Alabama_Birmingham	4	Alabama
@@ -131,12 +131,12 @@ Portugal_Porto	4	Centro
 Portugal_Viseu	4	Centro
 Portugal_South	4	Centro
 Equatorial Guinea	4	Centro Sur
-Vietnam	4	Tỉnh Lạng Sơn
-Vietnam	4	Tỉnh Nam Định
-Vietnam	4	Tỉnh Nghệ An
-Vietnam	4	Tỉnh Ninh Bình
-Vietnam	4	Tỉnh Ninh Thuận
-Vietnam	4	Tỉnh Phú Thọ
+Vietnam_North	4	Tỉnh Lạng Sơn
+Vietnam_North	4	Tỉnh Nam Định
+Vietnam_North	4	Tỉnh Nghệ An
+Vietnam_North	4	Tỉnh Ninh Bình
+Vietnam_South	4	Tỉnh Ninh Thuận
+Vietnam_North	4	Tỉnh Phú Thọ
 Philippines_Luzon_Manila	4	Albay
 Canada_Alberta_North	4	Alberta
 Canada_Alberta_South	4	Alberta
@@ -153,10 +153,10 @@ Algeria_Coast	2	Algérie ⵍⵣⵣⴰⵢⴻⵔ الجزائر
 Saint Martin	2	Anguilla
 Anguilla	2	Anguilla
 Turkey_Central Anatolia Region_Ankara	4	Ankara
-Vietnam	4	Tỉnh Phú Yên
-Vietnam	4	Tỉnh Quảng Bình
-Vietnam	4	Tỉnh Quảng Nam
-Vietnam	4	Tỉnh Quảng Ngãi
+Vietnam_South	4	Tỉnh Phú Yên
+Vietnam_North	4	Tỉnh Quảng Bình
+Vietnam_South	4	Tỉnh Quảng Nam
+Vietnam_South	4	Tỉnh Quảng Ngãi
 Jordan	4	Amman
 India_Maharashtra	4	Ankisha
 Algeria_Coast	4	Annaba - عنابة‎
@@ -197,10 +197,10 @@ Peru_South	4	Apurímac
 Colombia_North	4	Cesar
 Spain_Ceuta	4	Ceuta
 Argentina_Northwest	4	Chaco
-Vietnam	4	Tỉnh Quảng Trị
-Vietnam	4	Tỉnh Sơn La
-Vietnam	4	Tỉnh Thanh Hóa
-Vietnam	4	Tỉnh Thái Bình
+Vietnam_North	4	Tỉnh Quảng Trị
+Vietnam_North	4	Tỉnh Sơn La
+Vietnam_North	4	Tỉnh Thanh Hóa
+Vietnam_North	4	Tỉnh Thái Bình
 Jordan	4	Aqaba
 France_Aquitaine_Lot-et-Garonne	4	Aquitaine-Limousin-Poitou-Charentes
 France_Limousin	4	Aquitaine-Limousin-Poitou-Charentes
@@ -214,9 +214,9 @@ France_Aquitaine_Pyrenees-Atlantiques	4	Aquitaine-Limousin-Poitou-Charentes
 France_Poitou-Charentes_Charente-Maritime	4	Aquitaine-Limousin-Poitou-Charentes
 Qatar	4	Ar Rayyan
 Mongolia	4	Border Darkhan-Uul - Selenge
-Vietnam	4	Tỉnh Thái Nguyên
-Vietnam	4	Tỉnh Thừa Thiên - Huế
-Vietnam	4	Tỉnh Tiền Giang
+Vietnam_North	4	Tỉnh Thái Nguyên
+Vietnam_North	4	Tỉnh Thừa Thiên - Huế
+Vietnam_South	4	Tỉnh Tiền Giang
 Syria	4	Ar-Raqqah
 Romania_West	4	Arad
 Spain_Aragon	4	Aragón
@@ -224,8 +224,8 @@ Namibia	4	Arandis
 Namibia	4	Aranos7
 Colombia_East	4	Arauca
 China_Hubei	4	Border Henan - Hubei
-Vietnam	4	Tỉnh Trà Vinh
-Vietnam	4	Tỉnh Tuyên Quang
+Vietnam_South	4	Tỉnh Trà Vinh
+Vietnam_North	4	Tỉnh Tuyên Quang
 Colombia_North	4	Archipiélago de San Andrés, Providencia y Santa Catalina
 Turkey_Eastern Anatolia Region	4	Ardahan
 Palestine	4	Area A
@@ -261,20 +261,20 @@ India_Arunachal Pradesh	4	Arunachal Pradesh
 India_West Bengal	2	Border India - Bangladesh
 Bangladesh	2	Border India - Bangladesh
 Uzbekistan	2	Border Kyrgyzstan - Uzbekistan
-Vietnam	4	Tỉnh Tây Ninh
-Vietnam	4	Tỉnh Vĩnh Long
-Vietnam	4	Tỉnh Vĩnh Phúc
-Vietnam	4	Tỉnh Yên Bái
-Vietnam	4	Tỉnh Điện Biên
-Vietnam	4	Tỉnh Đắk Lắk
+Vietnam_South	4	Tỉnh Tây Ninh
+Vietnam_South	4	Tỉnh Vĩnh Long
+Vietnam_North	4	Tỉnh Vĩnh Phúc
+Vietnam_North	4	Tỉnh Yên Bái
+Vietnam_North	4	Tỉnh Điện Biên
+Vietnam_South	4	Tỉnh Đắk Lắk
 Syria	4	As-Suwayda
 Qatar	4	Ash Shamal
 Ghana	4	Ashanti Region
 Australia_Western Australia	4	Ashmore and Cartier Islands
 India_Assam	4	Assam
-Vietnam	4	Tỉnh Đắk Nông
-Vietnam	4	Tỉnh Đồng Nai
-Vietnam	4	Tỉnh Đồng Tháp
+Vietnam_South	4	Tỉnh Đắk Nông
+Vietnam_South	4	Tỉnh Đồng Nai
+Vietnam_South	4	Tỉnh Đồng Tháp
 Japan_Kanto_Ibaraki	4	茨城県
 China_Guizhou	4	贵州省
 Azerbaijan	4	Astara rayonu
@@ -677,7 +677,7 @@ Algeria_Coast	4	Béjaïa
 Morocco_Doukkala-Abda	4	Béni Mellal-Khénifra ⴰⵢⵜ ⵎⵍⵍⴰⵍ-ⵅⵏⵉⴼⵕⴰ بني ملال-خنيفرة
 Morocco_Southern	4	Béni Mellal-Khénifra ⴰⵢⵜ ⵎⵍⵍⴰⵍ-ⵅⵏⵉⴼⵕⴰ بني ملال-خنيفرة
 Benin	2	Bénin
-Vietnam	4	Bạc Liêu
+Vietnam_South	4	Bạc Liêu
 Ethiopia	4	Bīnshangul-Gumuz Kilil
 Azerbaijan	4	Bərdə rayonu
 Philippines_Luzon_North	4	Cagayan
@@ -752,7 +752,7 @@ Paraguay	4	Canindeyú
 Burundi	4	Cankuzo
 Spain_Cantabria	4	Cantabria
 New Zealand South_Canterbury	4	Canterbury
-Vietnam	4	Cao Bằng
+Vietnam_North	4	Cao Bằng
 Algeria_Coast	4	Mascara - معسكر
 Zimbabwe	4	Mashonaland Central
 Zimbabwe	4	Mashonaland East
@@ -958,7 +958,7 @@ Angola	4	Cunene
 Peru_South	4	Cusco
 Congo-Brazzaville	4	Cuvette
 Congo-Brazzaville	4	Cuvette-Ouest
-Vietnam	4	Cà Mau
+Vietnam_South	4	Cà Mau
 Azerbaijan	4	Cəlilabad rayonu
 Romania_South	4	Călărași
 Indonesia_Jawa Tengah	4	Daerah Istimewa Yogyakarta
@@ -2070,7 +2070,7 @@ Jersey	4	Janvrin's Tomb
 Papua New Guinea	4	Jiwaka
 Uzbekistan	4	Jizzax Viloyati
 Singapore	4	Johor
-Malaysia	4	Johor
+Malaysia_West	4	Johor
 South Sudan	4	Jonglei
 Sudan_West	4	Jonub Darfur
 Mauritius	4	Île Gombrani
@@ -2134,7 +2134,7 @@ Congo-Kinshasa_West	4	Kinshasa
 Kiribati	2	Kiribati
 Turkey_Black Sea Region	4	Karabük
 Equatorial Guinea	4	Kié-Ntem
-Vietnam	4	Kiên Giang
+Vietnam_South	4	Kiên Giang
 Lithuania_West	4	Klaipėdos apskritis
 Turkey_Marmara Region_Istanbul	4	Kocaeli
 Turkey_Marmara Region_Bursa	4	Kocaeli
@@ -2180,8 +2180,8 @@ Turkey_Central Anatolia Region_Kayseri	4	Kayseri
 Uganda	4	Kayunga
 Nigeria_South	4	Kebbi
 Nigeria_North	4	Kebbi
-Malaysia	4	Kedah / قدح
-Malaysia	4	Kelantan / کلنتن دار النعيم
+Malaysia_West	4	Kedah / قدح
+Malaysia_West	4	Kelantan / کلنتن دار النعيم
 Malta	4	Kemmuna
 US_Kentucky_Louisville	4	Kentucky
 US_Kentucky_Louisville	4	KY
@@ -2259,7 +2259,7 @@ Italy_Lazio	4	Lazio
 Morocco_Western Sahara	4	Laâyoune-Sakia El Hamra ⵍⵄⵢⵓⵏ-ⵙⴰⵇⵢⴰ ⵍⵃⴰⵎⵔⴰ العيون-الساقية الحمراء
 Mauritius	4	Île Plate
 Congo-Brazzaville	4	Kouilou
-Malaysia	4	Kuala Lumpur
+Malaysia_West	4	Kuala Lumpur
 Panama	4	Kuna de Madugandí
 Panama	4	Kuna de Wargandí
 Afghanistan	4	Kunar
@@ -2305,7 +2305,7 @@ Cote dIvoire	4	Lagunes
 Kenya	4	Laikipia
 Philippines_Luzon_North	4	La Union
 Dominican Republic	4	La Vega
-Malaysia	4	Labuan
+Malaysia_East	4	Labuan
 East Timor	4	Liquiçá
 Uganda	4	Lira
 Portugal_South	4	Lisboa
@@ -2354,7 +2354,7 @@ Angola	4	Lunda Sul
 Azerbaijan	4	Lənkəran rayonu
 Azerbaijan	4	Lənkəran İnzibati Ərazisi
 Algeria_Central	4	M'Sila - المسيلة
-Malaysia	4	Putrajaya
+Malaysia_West	4	Putrajaya
 Zambia	4	Lusaka Province
 Switzerland_Central	4	Luzern
 Finland_Western Finland_Jyvaskyla	4	Länsi-Suomi
@@ -2403,7 +2403,6 @@ Angola	4	Malanje
 Turkey_Eastern Anatolia Region	4	Malatya
 Malawi	2	Malawi
 Singapore	2	Malaysia
-Malaysia	2	Malaysia
 Uruguay	4	Maldonado
 Mali	2	Mali
 Malta	2	Malta
@@ -2457,7 +2456,7 @@ US_Maryland_and_DC	4	Maryland
 US_Maryland_and_DC	4	MD
 Liberia	4	Maryland County
 Azerbaijan	4	Neftçala rayonu
-Malaysia	4	Negeri Sembilan
+Malaysia_West	4	Negeri Sembilan
 Dominican Republic	4	María Trinidad Sánchez
 Azerbaijan	4	Masallı rayonu
 Nicaragua	4	Masaya
@@ -2520,7 +2519,7 @@ Maldives	4	Medhu-Uthuru Province
 India_Meghalaya	4	Meghalaya
 Romania_South_West	4	Mehedinți
 Canada_Newfoundland_South	2	Île Verte
-Malaysia	4	Melaka
+Malaysia_West	4	Melaka
 Spain_Melilla	4	Melilla
 Argentina_Cuyo	4	Mendoza
 Turkey_Mediterranean Region	4	Mersin İli
@@ -3006,9 +3005,9 @@ US_Pennsylvania_Pittsburgh	4	Pennsylvania
 US_Pennsylvania_Pittsburgh	4	PA
 US_Pennsylvania_Scranton	4	Pennsylvania
 US_Pennsylvania_Scranton	4	PA
-Malaysia	4	Perak / ڨيرق
+Malaysia_West	4	Perak / ڨيرق
 Dominican Republic	4	Peravia
-Malaysia	4	Perlis
+Malaysia_West	4	Perlis
 Brazil_Northeast Region_West	4	Pernambuco
 Brazil_Northeast Region_East	4	Pernambuco
 Brazil_Rio Grande do Norte	4	Pernambuco
@@ -3024,7 +3023,7 @@ Nigeria_South	4	Oyo
 Azerbaijan	4	Oğuz rayonu
 Uzbekistan	2	Oʻzbekiston
 Uganda	4	Pader
-Malaysia	4	Pahang
+Malaysia_West	4	Pahang
 Cambodia	4	Pailin
 Afghanistan	4	Paktia
 Afghanistan	4	Paktika
@@ -3107,14 +3106,14 @@ Poland_Greater Poland Voivodeship	2	Polska
 Poland_Lesser Poland Voivodeship	2	Polska
 Poland_Lower Silesian Voivodeship	2	Polska
 Poland_Silesian Voivodeship	2	Polska
-Malaysia	4	Pulau Bidong
-Malaysia	4	Pulau Burung
+Malaysia_West	4	Pulau Bidong
+Malaysia_West	4	Pulau Burung
 Philippines_Mindanao	4	Saguing
 French Polynesia	2	Polynésie française, Îles du Vent (eaux territoriales)
 Congo-Brazzaville	4	Pool
-Malaysia	4	Pulau Rusukan Besar
-Malaysia	4	Pulau Rusukan Kecil
-Malaysia	4	Pulau Susu Dara Kecil
+Malaysia_East	4	Pulau Rusukan Besar
+Malaysia_East	4	Pulau Rusukan Kecil
+Malaysia_West	4	Pulau Susu Dara Kecil
 Burkina Faso	4	Sahel
 Dominica	4	Saint Andrew Parish
 Dominica	4	Saint David Parish
@@ -3132,8 +3131,8 @@ Romania_South	4	Prahova
 Cambodia	4	Preah Sihanouk
 Cambodia	4	Preah Vihear
 Paraguay	4	Presidente Hayes
-Malaysia	4	Pulau Tenggol
-Malaysia	4	Pulau Tikus
+Malaysia_West	4	Pulau Tenggol
+Malaysia_West	4	Pulau Tikus
 India_Punjab	4	Punjab
 Peru_South	4	Puno
 Costa Rica	4	Puntarenas
@@ -3149,7 +3148,7 @@ France_Provence-Alpes-Cote dAzur_Maritime Alps	4	Provence-Alpes-Côte d'Azur
 France_Rhone-Alpes_Drome	4	Provence-Alpes-Côte d'Azur
 France_Provence-Alpes-Cote dAzur_Bouches-du-Rhone	4	Provence-Alpes-Côte d'Azur
 France_Provence-Alpes-Cote dAzur_Var	4	Provence-Alpes-Côte d'Azur
-Vietnam	4	Provinz Tỉnh Quảng Ninh
+Vietnam_North	4	Provinz Tỉnh Quảng Ninh
 Madagascar	4	Préfecture de police de Nosy Be
 Sao Tome and Principe	4	Príncipe Province
 India_Andhra Pradesh	4	Puducherry
@@ -3162,19 +3161,19 @@ US_Puerto Rico	4	PR
 United States Virgin Islands	4	Puerto Rico
 United States Virgin Islands	4	PR
 Italy_Apulia	4	Puglia
-Malaysia	4	Pulau Aman
-Malaysia	4	Pulau Betong
-Malaysia	4	Pulau Daat
-Malaysia	4	Pulau Gedung
-Malaysia	4	Pulau Gemia
-Malaysia	4	Pulau Jerejak
-Malaysia	4	Pulau Kapas
-Malaysia	4	Pulau Kendi
-Malaysia	4	Pulau Kuraman
-Malaysia	4	Pulau Papan
-Malaysia	4	Pulau Pinang
-Malaysia	4	Pulau Rhu
-Malaysia	4	Pulau Rimau
+Malaysia_West	4	Pulau Aman
+Malaysia_West	4	Pulau Betong
+Malaysia_West	4	Pulau Daat
+Malaysia_West	4	Pulau Gedung
+Malaysia_West	4	Pulau Gemia
+Malaysia_West	4	Pulau Jerejak
+Malaysia_West	4	Pulau Kapas
+Malaysia_West	4	Pulau Kendi
+Malaysia_East	4	Pulau Kuraman
+Malaysia_West	4	Pulau Papan
+Malaysia_West	4	Pulau Pinang
+Malaysia_West	4	Pulau Rhu
+Malaysia_West	4	Pulau Rimau
 Uzbekistan	4	Qashqadaryo Viloyati
 Greece_Decentralized Administration of West Greece	2	Territorial waters of Greece - Strofades
 Azerbaijan	4	Qax rayonu
@@ -3313,7 +3312,7 @@ Burundi	4	Ruyigi
 Yemen	4	Sa'dah
 Germany_Saarland	4	Saarland
 Azerbaijan	4	Saatlı rayonu
-Malaysia	4	Sabah
+Malaysia_East	4	Sabah
 Sri Lanka	4	Sabaragamuwa Province
 Dominica	4	Saint Paul Parish
 Azerbaijan	4	Sabirabad rayonu
@@ -3408,7 +3407,7 @@ UK_Scotland_North	4	Scotland
 Isle of Man	4	Scotland
 UK_Northern Ireland	4	Scotland
 UK_Scotland_South	4	Scotland
-Malaysia	4	Selangor
+Malaysia_West	4	Selangor
 Guernsey	4	Selle Rocque
 Uganda	4	Sembabule
 Eritrea	4	Semienawi Kayih Bahri
@@ -3435,7 +3434,7 @@ Afghanistan	4	Sar-e Pol
 Somalia	4	Shabeellaha Dhexe
 Suriname	4	Saramacca
 Philippines_Mindanao	4	Sarangani
-Malaysia	4	Sarawak
+Malaysia_East	4	Sarawak
 Italy_Sardinia	4	Sardigna/Sardegna
 Guernsey	4	Sark
 Canada_Saskatchewan_North	4	Saskatchewan
@@ -3489,7 +3488,7 @@ Mexico_Chihuahua	4	Sinaloa
 Mexico_Sonora	4	Sinaloa
 Singapore	2	Singapura
 Indonesia_West	2	Singapura
-Malaysia	2	Singapura
+Malaysia_West	2	Singapura
 Tanzania_Central	4	Singida
 Liberia	4	Sinoe County
 Turkey_Black Sea Region	4	Sinop
@@ -3574,7 +3573,7 @@ Vanuatu	4	Tafea
 Papua New Guinea	4	Southern Highlands
 Mali	4	Ségou
 Algeria_Coast	4	Sétif - سطيف‎
-Vietnam	4	Sóc Trăng
+Vietnam_South	4	Sóc Trăng
 Sweden_Malardalen	4	Södermanlands län
 Norway_North Trondelag	4	Sør-Trøndelag
 Norway_South Trondelag	4	Sør-Trøndelag
@@ -3687,11 +3686,11 @@ The Bahamas	2	The Bahamas
 Turks and Caicos Islands	2	The Bahamas
 Jersey	4	The Islet
 Switzerland_Eastern	4	Thurgau
-Vietnam	4	Thành phố Cần Thơ
-Vietnam	4	Thành phố Hà Nội
-Vietnam	4	Thành phố Hồ Chí Minh
-Vietnam	4	Thành phố Hải Phòng
-Vietnam	4	Thành phố Đà Nẵng
+Vietnam_South	4	Thành phố Cần Thơ
+Vietnam_North	4	Thành phố Hà Nội
+Vietnam_South	4	Thành phố Hồ Chí Minh
+Vietnam_North	4	Thành phố Hải Phòng
+Vietnam_South	4	Thành phố Đà Nẵng
 Germany_Thuringia	4	Thüringen
 Algeria_Coast	4	Tiaret - تيارت
 Chad	4	Tibesti Region
@@ -3736,18 +3735,18 @@ Italy_Trentino-Alto Adige Sudtirol	4	Trentino-Alto Adige/Südtirol
 Slovakia_Region of Trencin	4	Trenčiansky kraj
 Trinidad and Tobago	2	Trinidad and Tobago
 India_Tripura	4	Tripura
-Vietnam	4	Tỉnh An Giang
-Vietnam	4	Tỉnh Bà Rịa – Vũng Tàu
-Vietnam	4	Tỉnh Bình Dương
-Vietnam	4	Tỉnh Bình Phước
-Vietnam	4	Tỉnh Bình Thuận
-Vietnam	4	Tỉnh Bình Định
-Vietnam	4	Tỉnh Bắc Giang
-Vietnam	4	Tỉnh Bắc Kạn
-Vietnam	4	Tỉnh Bắc Ninh
-Vietnam	4	Tỉnh Bến Tre
-Vietnam	4	Tỉnh Gia Lai
-Vietnam	4	Tỉnh Hà Giang
+Vietnam_South	4	Tỉnh An Giang
+Vietnam_South	4	Tỉnh Bà Rịa – Vũng Tàu
+Vietnam_South	4	Tỉnh Bình Dương
+Vietnam_South	4	Tỉnh Bình Phước
+Vietnam_South	4	Tỉnh Bình Thuận
+Vietnam_South	4	Tỉnh Bình Định
+Vietnam_North	4	Tỉnh Bắc Giang
+Vietnam_North	4	Tỉnh Bắc Kạn
+Vietnam_North	4	Tỉnh Bắc Ninh
+Vietnam_South	4	Tỉnh Bến Tre
+Vietnam_South	4	Tỉnh Gia Lai
+Vietnam_North	4	Tỉnh Hà Giang
 Saint Helena Ascension and Tristan da Cunha	4	Tristan da Cunha
 Slovakia_Region of Trnava	4	Trnavský kraj
 Norway_Northern	4	Troms
@@ -4040,7 +4039,8 @@ Kenya	4	Vihiga
 Cuba	4	Villa Clara
 Lithuania_East	4	Vilniaus apskritis
 Fiji	2	Viti
-Vietnam	2	Việt Nam
+Vietnam_North	2	Việt Nam
+Vietnam_South	2	Việt Nam
 Belgium_West Flanders	4	Vlaanderen
 Belgium_East Flanders	4	Vlaanderen
 Belgium_Antwerp	4	Vlaanderen
@@ -4371,6 +4371,11 @@ Japan_Chugoku Region_Okayama	4	岡山県
 Japan_Tohoku_Iwate	4	岩手県
 Japan_Chugoku Region_Shimane	4	島根県
 China_Guangdong	4	广东省
+China_Hainan	2	中国
+Hong Kong	2	中国
+Hong Kong	4	香港特別行政區
+Macau	2	中国
+Macau	4	澳門特別行政區
 Japan_Chugoku Region_Hiroshima	4	広島県
 Japan_Shikoku Region_Tokushima	4	徳島県
 Japan_Shikoku Region_Ehime	4	愛媛県
@@ -4394,7 +4399,7 @@ China_Shanghai	4	浙江省
 China_Jiangsu	4	秦山岛
 Japan_Kanto_Gunma	4	群馬県
 Philippines_Luzon_North	4	海南省
-China_Guangdong	4	海南省
+China_Hainan	4	海南省
 China_Hubei	4	湖北省
 China_Hunan	4	湖南省
 Japan_Shikoku Region_Kyoto	4	滋賀県

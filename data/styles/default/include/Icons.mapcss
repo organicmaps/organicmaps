@@ -119,6 +119,11 @@ node|z15-[natural=volcano],
 node|z17-[natural=volcano],
 {font-size: 11;}
 
+node|z12-14[natural=volcano][volcano:status=active],
+{icon-image: volcano-active-s.svg; font-size: 10;}
+node|z15-[natural=volcano][volcano:status=active],
+{icon-image: volcano-active-m.svg;}
+
 node|z13[natural=peak][name],
 {icon-image: peak-xs.svg; font-size: 9;}
 node|z14[natural=peak][name],
@@ -730,7 +735,7 @@ node|z17-[attraction=maze],
 node|z17-[attraction=historic],
 node|z17-[attraction=big_wheel],
 node|z17-[attraction=bumper_car],
-{icon-image: playground-m.svg;icon-min-distance: 24;}
+{icon-image: attraction-m.svg;icon-min-distance: 24;}
 
 node|z15-[amenity=community_centre],
 area|z15-[amenity=community_centre],
@@ -856,7 +861,9 @@ area|z15-[amenity=bar],
 node|z15-[amenity=pub],
 area|z15-[amenity=pub],
 node|z15-[amenity=biergarten],
-area|z15-[amenity=biergarten]
+area|z15-[amenity=biergarten],
+node|z15-[amenity=hookah_lounge],
+area|z15-[amenity=hookah_lounge]
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 node|z15[amenity=cafe],
@@ -864,9 +871,9 @@ area|z15[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 12;}
 node|z15[amenity=restaurant],
 area|z15[amenity=restaurant],
-node|z15[amenity=food_court],
-area|z15[amenity=food_court]
 {icon-image: restaurant-m.svg;icon-min-distance: 28;}
+node|z15[amenity=food_court],
+{icon-image: food-m.svg;icon-min-distance: 28;}
 node|z15[amenity=fast_food],
 area|z15[amenity=fast_food],
 {icon-image: fastfood-m.svg;icon-min-distance: 28;}
@@ -878,15 +885,18 @@ area|z15[amenity=pub],
 node|z15[amenity=biergarten],
 area|z15[amenity=biergarten]
 {icon-image: pub-m.svg;icon-min-distance: 28;}
+node|z15[amenity=hookah_lounge],
+area|z15[amenity=hookah_lounge]
+{icon-image: tobacco-m.svg;icon-min-distance: 28;}
 
 node|z16-[amenity=cafe],
 area|z16-[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 12;}
 node|z16-[amenity=restaurant],
 area|z16-[amenity=restaurant],
-node|z16-[amenity=food_court],
-area|z16-[amenity=food_court]
 {icon-image: restaurant-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=food_court],
+{icon-image: food-m.svg;icon-min-distance: 12;}
 node|z16-[amenity=fast_food],
 area|z16-[amenity=fast_food],
 {icon-image: fastfood-m.svg;icon-min-distance: 12;}
@@ -898,6 +908,9 @@ area|z16-[amenity=pub],
 node|z16-[amenity=biergarten],
 area|z16-[amenity=biergarten]
 {icon-image: pub-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=hookah_lounge],
+area|z16-[amenity=hookah_lounge]
+{icon-image: tobacco-m.svg;icon-min-distance: 12;}
 
 
 /* 5.AMENITY (infrastructure) */
@@ -1433,6 +1446,45 @@ area|z17-[sport=badminton]
 node|z17-[sport=pelota],
 area|z17-[sport=pelota]
 {icon-image: pelota-m.svg;}
+node|z17-[sport=pickleball],
+area|z17-[sport=pickleball]
+{icon-image: padel-m.svg;}
+node|z17-[sport=netball],
+area|z17-[sport=netball]
+{icon-image: basketball-m.svg;}
+node|z17-[sport=softball],
+area|z17-[sport=softball]
+{icon-image: baseball-m.svg;}
+node|z17-[sport=horse_racing],
+area|z17-[sport=horse_racing]
+{icon-image: equestrian-m.svg;}
+node|z17-[sport=rugby_union],
+area|z17-[sport=rugby_union]
+{icon-image: australian-football-m.svg;}
+node|z17-[sport=cycling],
+area|z17-[sport=cycling]
+{icon-image: cycling-m.svg;}
+node|z17-[sport=motor],
+area|z17-[sport=motor],
+node|z17-[sport=motocross],
+area|z17-[sport=motocross],
+node|z17-[sport=karting],
+area|z17-[sport=karting]
+{icon-image: motor-m.svg;}
+node|z17-[sport=boules],
+area|z17-[sport=boules],
+node|z17-[sport=bowls],
+area|z17-[sport=bowls],
+node|z17-[sport=four_square],
+area|z17-[sport=four_square]
+{icon-image: boules-m.svg;}
+
+/* TODO: Update icons */
+node|z17-[sport=athletics],
+area|z17-[sport=athletics],
+node|z17-[sport=running],
+area|z17-[sport=running]
+{icon-image: pitch-m.svg;}
 
 node|z18-[sport],
 area|z18-[sport],
@@ -1613,6 +1665,8 @@ node|z16-[highway=ford],
 
 node|z16-[leisure=slipway],
 {icon-image: slipway-m.svg;}
+node|z16-[waterway=access_point],
+{icon-image: waterway-access_point-m.svg;}
 
 node|z14-[man_made=communications_tower],
 {icon-image: mast-s.svg;}

@@ -57,12 +57,6 @@ final class PlacePagePreviewViewController: UIViewController {
     }
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    updateViews()
-  }
-
   func updateViews() {
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
@@ -72,13 +66,13 @@ final class PlacePagePreviewViewController: UIViewController {
       let subtitleString = NSMutableAttributedString()
 //      if placePagePreviewData.isPopular {
 //        subtitleString.append(NSAttributedString(string: L("popular_place"),
-//                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
+//                                                 attributes: [.foregroundColor : UIColor.linkBlue,
 //                                                              .font : UIFont.regular14()]))
 //      }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
-                                                 attributes: [.foregroundColor: UIColor.blackSecondaryText(),
+                                                 attributes: [.foregroundColor: UIColor.blackSecondaryText,
                                                               .font: UIFont.emojiRegular14()]))
 
         subtitleLabel.attributedText = subtitleString
@@ -237,7 +231,7 @@ final class PlacePagePreviewViewController: UIViewController {
     if details != nil {
       let detailsString = NSAttributedString(string: " • " + details!,
                                              attributes: [NSAttributedString.Key.font: UIFont.regular14(),
-                                                          NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()])
+                                                          NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText])
       attributedString.append(detailsString)
     }
     scheduleLabel.attributedText = attributedString

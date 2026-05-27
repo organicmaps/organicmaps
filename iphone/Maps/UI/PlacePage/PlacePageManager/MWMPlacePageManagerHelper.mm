@@ -54,7 +54,6 @@
 - (void)avoidDirty;
 - (void)avoidFerry;
 - (void)avoidToll;
-- (void)openElevationDifficultPopup:(PlacePageData *)data;
 
 @end
 
@@ -254,11 +253,6 @@
 + (void)avoidToll
 {
   [[MWMMapViewControlsManager manager].placePageManager avoidToll];
-}
-
-+ (void)openElevationDifficultPopup:(PlacePageData *)data
-{
-  [[MWMMapViewControlsManager manager].placePageManager openElevationDifficultPopup:data];
 }
 
 @end

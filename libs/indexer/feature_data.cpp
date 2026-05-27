@@ -43,6 +43,22 @@ TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType(
   f.ForEachType([this](uint32_t type) { Add(type); });
 }
 
+void TypesHolder::SafeAdd(uint32_t type)
+{
+  // Reject Classificator::INVALID_TYPE: it can leak in via EditableMapObject::ApplyJournalEntry
+  // when an edit references a renamed/removed classifier path.
+  if (type == Classificator::INVALID_TYPE)
+    return;
+
+  if (!Has(type))
+  {
+    if (m_size < kMaxTypesCount)
+      Add(type);
+    else
+      LOG(LWARNING, ("Type could not be added, MaxTypesCount exceeded"));
+  }
+}
+
 bool TypesHolder::HasWithSubclass(uint32_t type) const
 {
   uint8_t const level = ftype::GetLevel(type);
@@ -108,6 +124,12 @@ public:
   {
     // Put "very common" types to the end of possible PP-description types.
     std::stable_sort(cont.begin(), cont.end(), [this](uint32_t t1, uint32_t t2) { return Score(t1) < Score(t2); });
+  }
+
+  bool IsUseful(uint32_t t) const
+  {
+    // "building" is ok
+    return Score(t) < 2;
   }
 
 private:
@@ -200,6 +222,47 @@ void TypesHolder::SortBySpec()
     // Score - less is better.
     return checker.Score(t1) < checker.Score(t2);
   });
+}
+
+void TypesHolder::SortToCompare()
+{
+  auto const & checker = UselessTypesChecker::Instance();
+  std::sort(begin(), end(), [&checker](uint32_t t1, uint32_t t2)
+  {
+    auto const s1 = checker.Score(t1);
+    auto const s2 = checker.Score(t2);
+    if (s1 != s2)
+      return s1 < s2;
+    return t1 < t2;
+  });
+}
+
+bool TypesHolder::EqualUsefulSorted(TypesHolder const & other) const
+{
+  auto const & checker = UselessTypesChecker::Instance();
+  size_t i = 0;
+  for (; i < Size() && i < other.Size(); ++i)
+  {
+    bool const ul = checker.IsUseful(m_types[i]);
+    if (ul != checker.IsUseful(other.m_types[i]))
+      return false;
+
+    if (!ul)
+    {
+      ASSERT(i > 0, ("Show VNG this case!", *this, other));
+      return i > 0;
+    }
+
+    if (m_types[i] != other.m_types[i])
+      return false;
+  }
+
+  if (i < Size() && checker.IsUseful(m_types[i]))
+    return false;
+  if (i < other.Size() && checker.IsUseful(other.m_types[i]))
+    return false;
+
+  return i > 0;
 }
 
 std::vector<std::string> TypesHolder::ToObjectNames() const

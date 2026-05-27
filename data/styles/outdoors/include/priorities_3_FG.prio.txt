@@ -115,6 +115,7 @@ railway-rail-tourism-tunnel::dash                   # line::dash z15- (also has 
 # highway-primary-tunnel                            # line(casing) z14- (also has line z8-, pathtext z10-, shield::shield z10-)
 # === 289
 
+attraction-water_slide                              # line z15-
 railway-rail-branch                                 # line z10- (also has line::dash z15-)
 railway-rail-branch-bridge                          # line z10- (also has line::bridgeblack z16-, line::bridgewhite z13-, line::dash z15-)
 railway-rail-branch-tunnel                          # line z10- (also has line::dash z15-, line(casing) z14-)
@@ -127,6 +128,7 @@ railway-rail-main-tunnel                            # line z10- (also has line::
 railway-rail-tourism                                # line z10- (also has line::dash z15-, pathtext z14-)
 railway-rail-tourism-bridge                         # line z10- (also has line::bridgeblack z16-, line::bridgewhite z13-, line::dash z15-, pathtext z14-)
 railway-rail-tourism-tunnel                         # line z10- (also has line::dash z15-, line(casing) z14-, pathtext z14-)
+roller_coaster-track                                # line z15-
 === 280
 
 # railway-rail-branch-tunnel                        # line(casing) z14- (also has line z10-, line::dash z15-)
@@ -409,6 +411,7 @@ railway-subway-bridge::bridgeblack                  # line::bridgeblack z16- (al
 === 140
 
 building                                            # area z14- (also has caption z16-)
+building-construction                               # area z14- (also has caption z16-)
 building-garage                                     # area z14- (also has caption z16-)
 building-guardhouse                                 # area z14- (also has icon z17-, caption z16, caption(optional) z17-)
 building-has_parts                                  # area z14- (also has caption z16-)

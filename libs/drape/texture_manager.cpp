@@ -20,6 +20,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/container/flat_set.hpp>
+
 namespace dp
 {
 namespace
@@ -29,11 +31,11 @@ uint32_t constexpr kStippleTextureWidth = 512;  /// @todo Should be equal with k
 uint32_t constexpr kMinStippleTextureHeight = 64;
 uint32_t constexpr kMinColorTextureSize = 32;
 uint32_t constexpr kGlyphsTextureSize = 1024;
-size_t constexpr kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 
 // Reserved for elements like RuleDrawer or other LineShapes.
 uint32_t constexpr kReservedPatterns = 10;
-size_t constexpr kReservedColors = 20;
+// Extra slots for dynamically allocated colors (rainbow strips, etc.).
+size_t constexpr kReservedColors = 1024;
 
 // TODO(AB): Investigate if it can be set to 1.0.
 float constexpr kGlyphAreaMultiplier = 1.2f;
@@ -68,8 +70,6 @@ m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = static_cast<uint32_t>(floor(sqrt(colorsCount + kReservedColors)));
-  // No problem if assert will fire here. Just color texture will be 2x bigger :)
-  ASSERT_LESS_OR_EQUAL(sz, kMinColorTextureSize, (colorsCount));
   uint32_t colorTextureSize = std::max(std::bit_ceil(sz), kMinColorTextureSize);
 
   colorTextureSize *= ColorTexture::GetColorSizeInPixels();
@@ -400,53 +400,82 @@ void TextureManager::GetRegionBase(ref_ptr<Texture> tex, BaseRegion & region, Te
     m_nothingToUpload.clear();
 }
 
-uint32_t TextureManager::GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs,
-                                                     GlyphGroup const & group)
+TextureManager::GlyphGroup & TextureManager::FindAndUpdateGlyphsGroup(
+    text::TextMetrics::GlyphMetricsBuffer const & glyphs)
 {
-  uint32_t count = 0;
-  auto const end = group.m_glyphKeys.end();
+  // Build the dedup'd input set once. Reused for both group selection (via countNotIn) and
+  // for merging into the chosen group's m_glyphKeys below -- replacing the previous
+  // thread_local set in this function plus the caller's separate "mark used glyphs" loop.
+  boost::container::flat_set<GlyphFontAndId> uniqueKeys;
+  uniqueKeys.reserve(glyphs.size());
   for (auto const & glyph : glyphs)
-    if (group.m_glyphKeys.find(glyph.m_key) == end)
-      ++count;
+    uniqueKeys.insert(glyph.m_key);
 
-  return count;
-}
-
-size_t TextureManager::FindHybridGlyphsGroup(std::vector<text::GlyphMetrics> const & glyphs)
-{
-  if (m_glyphGroups.empty())
+  auto const countNotIn = [&uniqueKeys](GlyphGroup const & g)
   {
-    m_glyphGroups.emplace_back();
-    return 0;
-  }
+    uint32_t count = 0;
+    for (auto const & key : uniqueKeys)
+      if (!g.m_glyphKeys.contains(key))
+        ++count;
+    return count;
+  };
 
-  GlyphGroup & group = m_glyphGroups.back();
-  bool hasEnoughSpace = true;
-
-  // TODO(AB): exclude spaces and repeated glyphs if necessary to get a precise size.
-  if (group.m_texture)
-    hasEnoughSpace = group.m_texture->HasEnoughSpace(static_cast<uint32_t>(glyphs.size()));
-
-  // If we have got the only texture (in most cases it is), we can omit checking of glyphs usage.
-  if (hasEnoughSpace)
+  // kNeedNewGroup means "no existing group fits; allocate a fresh texture and append a group".
+  // Doing this in two passes (decide first, mutate second) keeps m_glyphGroups invariant -- every
+  // entry has a non-null m_texture -- if AllocateGlyphTexture throws bad_alloc.
+  static constexpr size_t kNeedNewGroup = std::numeric_limits<size_t>::max();
+  size_t const chosenIndex = [&]() -> size_t
   {
-    size_t const glyphsCount = group.m_glyphKeys.size() + glyphs.size();
-    if (m_glyphGroups.size() == 1 && glyphsCount < m_maxGlypsCount)
-      return 0;
-  }
+    if (m_glyphGroups.empty())
+      return kNeedNewGroup;
 
-  // Looking for a texture which can fit all glyphs.
-  for (size_t i = 0; i < m_glyphGroups.size() - 1; i++)
-    if (GetNumberOfGlyphsNotInGroup(glyphs, m_glyphGroups[i]) == 0)
-      return i;
+    GlyphGroup & group = m_glyphGroups.back();
+    // Invariant: every group is created with a texture (see kNeedNewGroup branch below).
+    ASSERT(group.m_texture, ("Every glyph group must own a texture"));
 
-  // Check if we can fit all glyphs in the last hybrid texture.
-  uint32_t const unfoundChars = GetNumberOfGlyphsNotInGroup(glyphs, group);
-  uint32_t const newCharsCount = static_cast<uint32_t>(group.m_glyphKeys.size()) + unfoundChars;
-  if (newCharsCount >= m_maxGlypsCount || !group.m_texture->HasEnoughSpace(unfoundChars))
+    uint32_t const unfoundChars = countNotIn(group);
+    bool const hasEnoughSpace = group.m_texture->HasEnoughSpace(unfoundChars);
+
+    // If we have got the only texture (in most cases it is), we can omit checking of glyphs usage.
+    if (hasEnoughSpace)
+    {
+      size_t const glyphsCount = group.m_glyphKeys.size() + unfoundChars;
+      if (m_glyphGroups.size() == 1 && glyphsCount < m_maxGlypsCount)
+        return 0;
+    }
+
+    // Looking for a texture which can fit all glyphs.
+    for (size_t i = 0; i < m_glyphGroups.size() - 1; i++)
+      if (countNotIn(m_glyphGroups[i]) == 0)
+        return i;
+
+    // Check if we can fit all glyphs in the last hybrid texture.
+    uint32_t const newCharsCount = static_cast<uint32_t>(group.m_glyphKeys.size()) + unfoundChars;
+    if (newCharsCount >= m_maxGlypsCount || !hasEnoughSpace)
+      return kNeedNewGroup;
+    return m_glyphGroups.size() - 1;
+  }();
+
+  size_t const finalIndex = [&]
+  {
+    if (chosenIndex != kNeedNewGroup)
+      return chosenIndex;
+    // Allocate first; if it throws, m_glyphGroups stays unchanged so the next call still finds
+    // a consistent state. emplace_back can only throw before assigning m_texture (the move into
+    // the new GlyphGroup is noexcept), so a partial group with a null m_texture cannot persist.
+    auto texture = AllocateGlyphTexture();
     m_glyphGroups.emplace_back();
+    m_glyphGroups.back().m_texture = texture;
+    return m_glyphGroups.size() - 1;
+  }();
 
-  return m_glyphGroups.size() - 1;
+  GlyphGroup & chosen = m_glyphGroups[finalIndex];
+  // Merge the dedup'd input keys into the chosen group. std::set::insert(begin, end) is O(N
+  // log M) for the unsorted case; uniqueKeys iterates in key order so insertion is closer to
+  // O(N + M) when the new keys land at the tail. Either way, no work duplicated against the
+  // selection pass.
+  chosen.m_glyphKeys.insert(uniqueKeys.begin(), uniqueKeys.end());
+  return chosen;
 }
 
 void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & params)
@@ -512,7 +541,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   m_maxGlypsCount = static_cast<uint32_t>(ceil(kGlyphAreaCoverage * textureSquare / averageGlyphSquare));
 
   std::string_view constexpr kSpace{" "};
-  m_spaceGlyph = m_glyphManager->ShapeText(kSpace, dp::kBaseFontSizePixels, "en").m_glyphs.front().m_key;
+  m_spaceGlyph = m_glyphManager->ShapeText(kSpace, "en").m_glyphs.front().m_key;
 
   LOG(LDEBUG, ("Glyphs texture size =", kGlyphsTextureSize, "with max glyphs count =", m_maxGlypsCount));
 
@@ -648,7 +677,31 @@ void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
   GetRegionBase(make_ref(m_colorTexture), region, ColorKey(color));
 }
 
-text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std::string_view utf8,
+std::optional<TextureManager::RainbowRegion> TextureManager::GetRainbowRegion(RainbowColors const & colors)
+{
+  CHECK(m_isInitialized, ());
+  ASSERT(!colors.empty(), ());
+
+  // Allocate a contiguous strip of color texels (always fresh, not cached).
+  m2::PointF firstCenter, lastCenter;
+  ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
+  if (!colorTex->ReserveStrip(colors, firstCenter, lastCenter))
+    return std::nullopt;  // Atlas full — caller falls back to single color.
+
+  m_nothingToUpload.clear();
+
+  // For edge-to-edge mapping (equal stripe widths with GL_NEAREST),
+  // offset by half a texel outward from the first/last centers.
+  float const halfTexelU = 0.5f * ColorTexture::GetColorSizeInPixels() / static_cast<float>(m_colorTexture->GetWidth());
+
+  RainbowRegion result;
+  result.m_texture = colorTex;
+  result.m_uvLeft = glsl::vec2(firstCenter.x - halfTexelU, firstCenter.y);
+  result.m_uvRight = glsl::vec2(lastCenter.x + halfTexelU, lastCenter.y);
+  return result;
+}
+
+text::TextMetrics TextureManager::ShapeSingleTextLine(std::string_view utf8,
                                                       TGlyphsBuffer * glyphRegions)  // TODO(AB): Better name?
 {
   ASSERT(!utf8.empty(), ());
@@ -658,20 +711,12 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
   std::lock_guard lock(m_calcGlyphsMutex);
 
   // TODO(AB): Fix hard-coded lang.
-  auto textMetrics = m_glyphManager->ShapeText(utf8, fontPixelHeight, "en");
+  auto textMetrics = m_glyphManager->ShapeText(utf8, "en");
 
   auto const & glyphs = textMetrics.m_glyphs;
 
-  size_t const hybridGroupIndex = FindHybridGlyphsGroup(glyphs);
-  ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
-  GlyphGroup & group = m_glyphGroups[hybridGroupIndex];
-
-  // Mark used glyphs.
-  for (auto const & glyph : glyphs)
-    group.m_glyphKeys.insert(glyph.m_key);
-
-  if (!group.m_texture)
-    group.m_texture = AllocateGlyphTexture();
+  // FindAndUpdateGlyphsGroup guarantees the returned group already has a non-null texture.
+  GlyphGroup & group = FindAndUpdateGlyphsGroup(glyphs);
 
   if (glyphRegions)
     glyphRegions->reserve(glyphs.size());
@@ -679,7 +724,7 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
   for (auto const & glyph : glyphs)
   {
     bool newResource = false;
-    auto fontTexture = static_cast<FontTexture *>(group.m_texture.get())->MapResource(glyph.m_key, newResource);
+    auto fontTexture = ref_ptr<FontTexture>(group.m_texture)->MapResource(glyph.m_key, newResource);
     hasNewResources |= newResource;
 
     if (glyphRegions)
@@ -698,8 +743,7 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
   return textMetrics;
 }
 
-TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(float fontPixelHeight, std::string_view utf8,
-                                                                    char const * delimiters,
+TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(std::string_view utf8, char const * delimiters,
                                                                     TMultilineGlyphsBuffer & multilineGlyphRegions)
 {
   TShapedTextLines textLines;
@@ -710,7 +754,7 @@ TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(float fontPi
 
     multilineGlyphRegions.emplace_back();
 
-    textLines.emplace_back(ShapeSingleTextLine(fontPixelHeight, line, &multilineGlyphRegions.back()));
+    textLines.emplace_back(ShapeSingleTextLine(line, &multilineGlyphRegions.back()));
   });
 
   return textLines;
@@ -765,11 +809,6 @@ ref_ptr<Texture> TextureManager::GetSMAASearchTexture() const
 {
   CHECK(m_isInitialized, ());
   return make_ref(m_smaaSearchTexture);
-}
-
-constexpr size_t TextureManager::GetInvalidGlyphGroup()
-{
-  return kInvalidGlyphGroup;
 }
 
 ref_ptr<HWTextureAllocator> TextureManager::GetTextureAllocator() const

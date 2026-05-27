@@ -57,6 +57,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
 
+  private static final String EXTRA_SELECTED_CATEGORY = "selected_category";
+
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
 
   @Nullable
@@ -107,6 +109,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+
+    if (savedInstanceState != null)
+      mSelectedCategory = Utils.getParcelable(savedInstanceState, EXTRA_SELECTED_CATEGORY, BookmarkCategory.class);
 
     onPrepareControllers(view);
     getAdapter().setOnClickListener(this);
@@ -172,6 +177,14 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     super.onDestroyView();
     BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(mCategoriesAdapterObserver);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    if (mSelectedCategory != null)
+      outState.putParcelable(EXTRA_SELECTED_CATEGORY, mSelectedCategory);
   }
 
   protected final void showBottomMenu(@NonNull BookmarkCategory item)

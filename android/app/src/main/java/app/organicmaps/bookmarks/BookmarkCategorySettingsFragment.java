@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
@@ -19,8 +20,10 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.colorpicker.TrackColorPickerFragment;
 import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,9 +31,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class BookmarkCategorySettingsFragment
-    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener
+    extends BaseMwmToolbarFragment implements BookmarkColorDialogFragment.OnBookmarkColorChangeListener,
+                                              TrackColorPickerFragment.OnTrackColorChangeListener
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
+
+  @NonNull
+  private final DataChangedListener mCategoriesListener = this::onCategoriesChanged;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -43,6 +50,22 @@ public class BookmarkCategorySettingsFragment
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private TextInputEditText mEditCategoryNameView;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mColorBookmarksBtn;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mColorTracksBtn;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mColorSectionDivider;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mColorSectionSpacer;
 
   @NonNull
   private final MenuProvider mMenuProvider = new MenuProvider() {
@@ -71,6 +94,20 @@ public class BookmarkCategorySettingsFragment
     final Bundle args = requireArguments();
     mCategory = Objects.requireNonNull(
         Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesListener);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(mCategoriesListener);
   }
 
   @Nullable
@@ -111,8 +148,28 @@ public class BookmarkCategorySettingsFragment
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
 
-    View colorRow = root.findViewById(R.id.color_row);
-    colorRow.setOnClickListener(v -> showColorPicker());
+    mColorBookmarksBtn = root.findViewById(R.id.color_bookmarks_btn);
+    mColorBookmarksBtn.setOnClickListener(v -> showBookmarkColorPicker());
+    mColorTracksBtn = root.findViewById(R.id.color_tracks_btn);
+    mColorTracksBtn.setOnClickListener(v -> showTrackColorPicker());
+    mColorSectionDivider = root.findViewById(R.id.color_section_divider);
+    mColorSectionSpacer = root.findViewById(R.id.color_section_spacer);
+
+    updateColorButtonsVisibility();
+  }
+
+  private void updateColorButtonsVisibility()
+  {
+    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mCategory.getId());
+    final int bookmarksCount = category.getBookmarksCount();
+    final int tracksCount = category.getTracksCount();
+
+    mColorBookmarksBtn.setVisibility(bookmarksCount > 0 ? View.VISIBLE : View.GONE);
+    mColorTracksBtn.setVisibility(tracksCount > 0 ? View.VISIBLE : View.GONE);
+
+    final boolean hasContent = bookmarksCount > 0 || tracksCount > 0;
+    mColorSectionDivider.setVisibility(hasContent ? View.VISIBLE : View.GONE);
+    mColorSectionSpacer.setVisibility(hasContent ? View.VISIBLE : View.GONE);
   }
 
   private void onEditDoneClicked()
@@ -185,7 +242,7 @@ public class BookmarkCategorySettingsFragment
     InputUtils.showKeyboard(textView);
   }
 
-  private void showColorPicker()
+  private void showBookmarkColorPicker()
   {
     final Bundle args = new Bundle();
     args.putInt(BookmarkColorDialogFragment.ICON_COLOR, BookmarkManager.INSTANCE.getLastEditedColor());
@@ -194,9 +251,28 @@ public class BookmarkCategorySettingsFragment
     dialogFragment.show(getChildFragmentManager(), BookmarkColorDialogFragment.class.getName());
   }
 
+  private void showTrackColorPicker()
+  {
+    new TrackColorPickerFragment().show(getChildFragmentManager(), null);
+  }
+
   @Override
   public void onBookmarkColorSet(int color)
   {
-    mCategory.setCategoryColor(color);
+    mCategory.setCategoryBookmarksColor(color);
+    Toast.makeText(requireContext(), R.string.toast_bookmarks_color_changed, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void onTrackColorSet(int color)
+  {
+    mCategory.setCategoryTracksCustomColor(color);
+    Toast.makeText(requireContext(), R.string.toast_tracks_color_changed, Toast.LENGTH_SHORT).show();
+  }
+
+  private void onCategoriesChanged()
+  {
+    if (getView() != null)
+      updateColorButtonsVisibility();
   }
 }

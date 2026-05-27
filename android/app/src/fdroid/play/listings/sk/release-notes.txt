@@ -1,9 +1,9 @@
-• Dáta OSM k 16. februáru, Wikipedia k 1. februáru
-• Čierne turistické a cyklistické trasy sú teraz viditeľné v tmavej téme
-• Pridané lanové dráhy a ďalšie autoservisy: opravy, servis a diely
-• Opravené cyklistické trasovanie a výpočet priemernej rýchlosti
-• Vylepšené vyhľadávanie kategórií
-• Uzbecká kuchyňa
-• Rozbaľovacie otváracie hodiny
-• Zobraziť a používať nadmorskú výšku MSL pre zaznamenané trasy v systéme Android 14+
+• Výberom turistických a cyklistických trás zobrazíte ich grafy prevýšenia
+• Správne zabalenie mapy na antimeridiáne (±180° zemepisnej dĺžky)
+• Zmena všetkých farieb záložiek a trás v kategórii naraz
+• Lepšie vyhľadávanie čísel domov, pokrytie väčšieho počtu amerických adries
+• Údaje OSM k 4. aprílu
+• Režim plánovaného zobrazenia v Nastaveniach
+• Opravené zdieľanie záložiek/stôp do iných aplikácií
+• Opravené nahrávanie úprav mapy do OSM
 …viac na omaps.org/news

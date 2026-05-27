@@ -31,12 +31,13 @@
     <string name="dialog_routing_system_error">Системна помилка</string>
     <string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
     <string name="dialog_routing_try_again">Спробуйте знову</string>
-    <string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
+    <string name="dialog_routing_download_and_build_cross_route">Бажаєте завантажити мапу та побудувати оптимальний маршрут через декілька регіонів?</string>
     <string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Оновити мапи</string>
     <string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>
+    <string name="navigation_stop_button">Стоп</string>
     <string name="ok">Ок</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

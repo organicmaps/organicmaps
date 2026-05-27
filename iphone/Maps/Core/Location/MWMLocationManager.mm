@@ -497,10 +497,12 @@ void setShowLocationAlert(BOOL needShow)
 
 // Delegate's method didChangeAuthorizationStatus is used to handle the authorization status when the application
 // finishes launching or user changes location access in the application settings.
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager
 {
-  LOG(LWARNING, ("CLLocationManagerDelegate: Authorization status has changed to", DebugPrint(status)));
-  switch (status)
+  LOG(LWARNING,
+      ("CLLocationManagerDelegate: Authorization status has changed to", DebugPrint(manager.authorizationStatus)));
+  switch (manager.authorizationStatus)
   {
   case kCLAuthorizationStatusAuthorizedWhenInUse:
   case kCLAuthorizationStatusAuthorizedAlways: [self startUpdatingLocationFor:manager]; break;
@@ -568,7 +570,7 @@ void setShowLocationAlert(BOOL needShow)
   if ([CLLocationManager locationServicesEnabled])
   {
     CLLocationManager * locationManager = self.locationManager;
-    switch (CLLocationManager.authorizationStatus)
+    switch (locationManager.authorizationStatus)
     {
     case kCLAuthorizationStatusAuthorizedWhenInUse:
     case kCLAuthorizationStatusAuthorizedAlways:

@@ -1,5 +1,6 @@
 package app.organicmaps.util;
 
+import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -127,6 +128,12 @@ public final class WindowInsetUtils
     }
   }
 
+  /**
+   * Inset listener that <b>overwrites</b> the view's padding with the requested inset values.
+   * Any padding set via XML or code is silently replaced on each dispatch. For views that carry
+   * meaningful baseline padding, use {@link BaselinePaddingInsetsListener} instead — it captures
+   * the original padding on first dispatch and <em>adds</em> insets to it.
+   */
   public static final class PaddingInsetsListener implements OnApplyWindowInsetsListener
   {
     private final int insetsTypeMask;
@@ -154,17 +161,37 @@ public final class WindowInsetUtils
 
     public static PaddingInsetsListener allSides()
     {
-      return new PaddingInsetsListener(true, true, true, true);
+      return allSides(TYPE_SAFE_DRAWING);
+    }
+
+    public static PaddingInsetsListener allSides(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, true, true, true, true);
     }
 
     public static PaddingInsetsListener excludeTop()
     {
-      return new PaddingInsetsListener(false, true, true, true);
+      return excludeTop(TYPE_SAFE_DRAWING);
+    }
+
+    public static PaddingInsetsListener excludeTop(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, false, true, true, true);
     }
 
     public static PaddingInsetsListener excludeBottom()
     {
-      return new PaddingInsetsListener(true, false, true, true);
+      return excludeBottom(TYPE_SAFE_DRAWING);
+    }
+
+    public static PaddingInsetsListener excludeBottom(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, true, false, true, true);
+    }
+
+    public static PaddingInsetsListener onlyBottom(int insetsTypeMask)
+    {
+      return new PaddingInsetsListener(insetsTypeMask, false, true, false, false);
     }
 
     @NonNull
@@ -176,76 +203,63 @@ public final class WindowInsetUtils
                    right ? insets.right : v.getPaddingRight(), bottom ? insets.bottom : v.getPaddingBottom());
       return windowInsets;
     }
+  }
 
-    public static class Builder
+  /**
+   * Window-inset listener that captures the view's initial padding on first dispatch and
+   * applies <em>baseline + inset</em> on every subsequent dispatch. Use this for bespoke
+   * listeners whose views already carry meaningful padding from XML — reading
+   * {@code view.getPaddingBottom()} inside the lambda would otherwise accumulate insets
+   * across repeated dispatches (rotation, keyboard show/hide, etc.).
+   */
+  public static final class BaselinePaddingInsetsListener implements OnApplyWindowInsetsListener
+  {
+    private final int insetsTypeMask;
+    private final boolean top;
+    private final boolean bottom;
+    private final boolean left;
+    private final boolean right;
+    private final Rect baseline = new Rect();
+    private boolean baselineCaptured;
+
+    public BaselinePaddingInsetsListener(int insetsTypeMask, boolean top, boolean bottom, boolean left, boolean right)
     {
-      private int mInsetsTypeMask = TYPE_SAFE_DRAWING;
-      private boolean mTop;
-      private boolean mBottom;
-      private boolean mLeft;
-      private boolean mRight;
+      this.insetsTypeMask = insetsTypeMask;
+      this.top = top;
+      this.bottom = bottom;
+      this.left = left;
+      this.right = right;
+    }
 
-      public Builder setInsetsTypeMask(int insetsTypeMask)
-      {
-        mInsetsTypeMask = insetsTypeMask;
-        return this;
-      }
+    public BaselinePaddingInsetsListener(boolean top, boolean bottom, boolean left, boolean right)
+    {
+      this(TYPE_SAFE_DRAWING, top, bottom, left, right);
+    }
 
-      public Builder setAllSides()
-      {
-        mTop = true;
-        mBottom = true;
-        mLeft = true;
-        mRight = true;
-        return this;
-      }
+    public static BaselinePaddingInsetsListener excludeBottom()
+    {
+      return new BaselinePaddingInsetsListener(true, false, true, true);
+    }
 
-      public Builder setExcludeTop()
-      {
-        mTop = false;
-        mBottom = true;
-        mLeft = true;
-        mRight = true;
-        return this;
-      }
+    public static BaselinePaddingInsetsListener onlyBottom()
+    {
+      return new BaselinePaddingInsetsListener(false, true, false, false);
+    }
 
-      public Builder setExcludeBottom()
+    @NonNull
+    @Override
+    public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
+    {
+      if (!baselineCaptured)
       {
-        mTop = true;
-        mBottom = false;
-        mLeft = true;
-        mRight = true;
-        return this;
+        baseline.set(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), v.getPaddingBottom());
+        baselineCaptured = true;
       }
-
-      public Builder setTop(boolean top)
-      {
-        mTop = top;
-        return this;
-      }
-
-      public Builder setBottom(boolean bottom)
-      {
-        mBottom = bottom;
-        return this;
-      }
-
-      public Builder setLeft(boolean left)
-      {
-        mLeft = left;
-        return this;
-      }
-
-      public Builder setRight(boolean right)
-      {
-        mRight = right;
-        return this;
-      }
-
-      public PaddingInsetsListener build()
-      {
-        return new PaddingInsetsListener(mInsetsTypeMask, mTop, mBottom, mLeft, mRight);
-      }
+      final Insets insets = windowInsets.getInsets(insetsTypeMask);
+      v.setPadding(left ? baseline.left + insets.left : baseline.left, top ? baseline.top + insets.top : baseline.top,
+                   right ? baseline.right + insets.right : baseline.right,
+                   bottom ? baseline.bottom + insets.bottom : baseline.bottom);
+      return windowInsets;
     }
   }
 }

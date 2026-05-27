@@ -7,11 +7,8 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 class FilesContainerBase
@@ -99,6 +96,7 @@ public:
   explicit FilesContainerR(TReader const & file);
 
   TReader GetReader(Tag const & tag) const;
+  std::unique_ptr<MemoryRegion> GetMemoryRegion(Tag const & tag) const;
 
   template <typename F>
   void ForEachTag(F && f) const
@@ -110,113 +108,8 @@ public:
   uint64_t GetFileSize() const { return m_source.Size(); }
   std::string const & GetFileName() const { return m_source.GetName(); }
 
-  std::pair<uint64_t, uint64_t> GetAbsoluteOffsetAndSize(Tag const & tag) const;
-
 private:
   TReader m_source;
-};
-
-namespace detail
-{
-class MappedFile
-{
-public:
-  MappedFile() = default;
-  ~MappedFile() { Close(); }
-
-  void Open(std::string const & fName);
-  void Close();
-
-  class Handle
-  {
-  public:
-    Handle() = default;
-
-    Handle(char const * base, char const * alignBase, uint64_t size, uint64_t origSize)
-      : m_base(base)
-      , m_origBase(alignBase)
-      , m_size(size)
-      , m_origSize(origSize)
-    {}
-
-    Handle(Handle && h) { Assign(std::move(h)); }
-
-    Handle & operator=(Handle && h)
-    {
-      Assign(std::move(h));
-      return *this;
-    }
-
-    ~Handle();
-
-    void Assign(Handle && h);
-
-    void Unmap();
-
-    bool IsValid() const { return (m_base != 0); }
-    uint64_t GetSize() const { return m_size; }
-
-    template <typename T>
-    T const * GetData() const
-    {
-      ASSERT_EQUAL(m_size % sizeof(T), 0, ());
-      return reinterpret_cast<T const *>(m_base);
-    }
-
-    template <typename T>
-    size_t GetDataCount() const
-    {
-      ASSERT_EQUAL(m_size % sizeof(T), 0, ());
-      return (m_size / sizeof(T));
-    }
-
-  private:
-    void Reset();
-
-    char const * m_base = nullptr;
-    char const * m_origBase = nullptr;
-    uint64_t m_size = 0;
-    uint64_t m_origSize = 0;
-
-    DISALLOW_COPY(Handle);
-  };
-
-  Handle Map(uint64_t offset, uint64_t size, std::string const & tag) const;
-
-private:
-#ifdef OMIM_OS_WINDOWS
-  void * m_hFile = (void *)-1;
-  void * m_hMapping = (void *)-1;
-#else
-  int m_fd = -1;
-#endif
-
-  DISALLOW_COPY(MappedFile);
-};
-}  // namespace detail
-
-class FilesMappingContainer : public FilesContainerBase
-{
-public:
-  using Handle = detail::MappedFile::Handle;
-
-  /// Do nothing by default, call Open to attach to file.
-  FilesMappingContainer() = default;
-  explicit FilesMappingContainer(std::string const & fName);
-
-  ~FilesMappingContainer();
-
-  void Open(std::string const & fName);
-  void Close();
-
-  Handle Map(Tag const & tag) const;
-  FileReader GetReader(Tag const & tag) const;
-
-  std::string const & GetName() const { return m_name; }
-
-private:
-  std::string m_name;
-  detail::MappedFile m_file;
 };
 
 class FilesContainerW : public FilesContainerBase

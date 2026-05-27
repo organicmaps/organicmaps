@@ -1,14 +1,3 @@
-@objc
-enum TrackRecordingState: Int, Equatable {
-  case inactive
-  case active
-}
-
-enum TrackRecordingAction {
-  case start
-  case stopAndSave(name: String)
-}
-
 enum LocationError: Error {
   case locationIsProhibited
 }
@@ -107,6 +96,10 @@ final class TrackRecordingManager: NSObject {
 
   func isActive() -> Bool {
     recordingState == .active
+  }
+
+  func start() {
+    start(completion: nil)
   }
 
   func start(completion: ((StartTrackRecordingResult) -> Void)? = nil) {

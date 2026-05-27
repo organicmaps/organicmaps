@@ -21,6 +21,7 @@ class AbsentRegionsFinder
 public:
   AbsentRegionsFinder(CountryFileGetterFn countryFileGetter, LocalFileCheckerFn localFileChecker,
                       std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource);
+  ~AbsentRegionsFinder();
 
   // Creates new thread |m_routerThread| and starts routing in it.
   RouterResultCode GenerateAbsentRegions(Checkpoints const & checkpoints, RouterDelegate const & delegate);

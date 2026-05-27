@@ -37,6 +37,7 @@ set(SRC
   screen_test.cpp
   segment2d_tests.cpp
   simplification_test.cpp
+  spatial_hash_grid_test.cpp
   spline_test.cpp
   test_regions.hpp
   transformations_test.cpp

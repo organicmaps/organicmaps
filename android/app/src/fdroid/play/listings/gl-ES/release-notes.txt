@@ -1,9 +1,8 @@
-• Datos de OSM a 16 de febreiro, Wikipedia a 1 de febreiro
-• As rutas de sendeirismo e ciclismo negras agora son visibles no tema escuro
-• Engadíronse tirolinas e máis servizos para automóbiles: reparación, servizo e pezas
-• Corrixiuse o enrutamento de bicicletas e o cálculo da velocidade media
-• Busca de categorías mellorada
-• Cociña uzbeka
-• Horarios de apertura expandibles
-• Mostrar e usar a altitude MSL para rutas gravadas en Android 14+
-…máis en omaps.org/news
+• Selecciona rutas de sendeirismo e ciclismo para ver os seus perfís de altitude
+• Enrolamento do mapa axeitado no antimeridiano (lonxitude ±180°)
+• Cambio de todas as cores de marcadores e rutas nunha categoría de vez
+• Mellor busca de números de casa, con máis enderezos de EE. UU. cubertos
+• Datos de OSM do 4 de abril
+• Modo de aparición programada na configuración
+• Corrixiuse o compartido de marcadores/rutas con outras aplicacións
+…máis en omaps.org/gl/news

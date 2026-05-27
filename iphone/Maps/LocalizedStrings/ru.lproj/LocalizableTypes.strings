@@ -7,12 +7,12 @@
 "type.addr_interpolation.odd" = "Адрес/Блок";
 "type.aerialway" = "Канатная дорога";
 "type.aerialway.cable_car" = "Канатная дорога";
-"type.aerialway.chair_lift" = "Кресельная канатная дорога";
-"type.aerialway.drag_lift" = "Бугельная канатная дорога";
+"type.aerialway.chair_lift" = "Кресельный подъёмник";
+"type.aerialway.drag_lift" = "Бугельный подъёмник";
 "type.aerialway.gondola" = "Канатная дорога";
 "type.aerialway.mixed_lift" = "Канатная дорога";
 "type.aerialway.station" = "Канатная дорога";
-"type.aeroway" = "Аэрокосмическая инфраструктура";
+"type.aeroway" = "Инфраструктура воздушного пространства";
 "type.aeroway.aerodrome" = "Аэропорт";
 "type.aeroway.aerodrome.international" = "Международный аэропорт";
 "type.aeroway.apron" = "Перрон";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Адрес";
+"type.building.construction" = "Строящееся здание";
 "type.building.has_parts" = "Здание";
 "type.building_part" = "Здание";
 "type.building.garage" = "Гараж";
@@ -287,7 +288,7 @@
 "type.cuisine.argentinian" = "Аргентинская кухня";
 "type.cuisine.asian" = "Азиатская кухня";
 "type.cuisine.austrian" = "Австрийская кухня";
-"type.cuisine.bagel" = "Бeйглы";
+"type.cuisine.bagel" = "Бейглы";
 "type.cuisine.balkan" = "Балканская кухня";
 "type.cuisine.barbecue" = "Барбекю";
 "type.cuisine.bavarian" = "Баварская кухня";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Средиземноморская кухня";
 "type.cuisine.mexican" = "Мексиканская кухня";
 "type.cuisine.moroccan" = "Марокканская кухня";
-"type.cuisine.noodles" = "Лапшичная";
+"type.cuisine.noodle" = "Лапшичная";
 "type.cuisine.oriental" = "Восточная кухня";
 "type.cuisine.pancake" = "Блинная";
 "type.cuisine.pasta" = "Паста";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Сосисочная";
 "type.cuisine.savory_pancakes" = "Несладкие блинчики";
 "type.cuisine.seafood" = "Морепродукты";
+"type.cuisine.shawarma" = "Шаурма";
 "type.cuisine.soba" = "Соба";
 "type.cuisine.spanish" = "Испанская кухня";
 "type.cuisine.steak_house" = "Стейк-хаус";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Ряд деревьев";
 "type.natural.vineyard" = "Виноградник";
 "type.natural.volcano" = "Вулкан";
+"type.natural.volcano.active" = "Действующий вулкан";
 "type.natural.water" = "Водоём";
 "type.natural.wetland" = "Болотистая местность";
 "type.natural.wetland.bog" = "Торфяное болото";
@@ -977,8 +980,8 @@
 "type.railway.construction" = "Строящаяся железная дорога";
 "type.railway.crossing" = "Пешеходный переход";
 "type.railway.disused" = "Неиспользуемая железная дорога";
-"type.railway.disused.bridge" = "Заброшенный железнодорожный мост";
-"type.railway.disused.tunnel" = "Недействующий железнодорожный туннель";
+"type.railway.disused.bridge" = "Неиспользуемый железнодорожный мост";
+"type.railway.disused.tunnel" = "Неиспользуемый железнодорожный туннель";
 "type.railway.funicular" = "Фуникулер";
 "type.railway.funicular.bridge" = "Фуникулер";
 "type.railway.funicular.tunnel" = "Фуникулер";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Хоккей на траве";
 "type.sport.badminton" = "Бадминтон";
 "type.sport.pelota" = "Баскская пелота";
+"type.sport.boules" = "Петанк";
+"type.sport.cycling" = "Велоспорт";
+"type.sport.four_square" = "Четыре квадрата";
+"type.sport.horse_racing" = "Конные скачки";
+"type.sport.karting" = "Картинг";
+"type.sport.motocross" = "Мотокросс";
+"type.sport.motor" = "Автомотоспорт";
+"type.sport.netball" = "Нетбол";
+"type.sport.pickleball" = "Пиклбол";
+"type.sport.rugby_union" = "Регби-15";
+"type.sport.running" = "Бег";
+"type.sport.softball" = "Софтбол";
 "type.tourism" = "Туризм";
 "type.tourism.aquarium" = "Аквариум";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Исторический аттракцион";
 "type.attraction.maze" = "Лабиринт";
 "type.attraction.roller_coaster" = "Американские горки";
+"type.roller_coaster.track" = "Американские горки";
 "type.attraction.water_slide" = "Водная горка";
 "type.tourism.attraction.specified" = "Достопримечательность";
 "type.tourism.camp_site" = "Кемпинг";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Лежачий полицейский";
 "type.traffic_calming.hump" = "Лежачий полицейский";
 "type.waterway" = "Водный путь";
+"type.waterway.access_point" = "Точка доступа к водным путям";
 "type.waterway.canal" = "Канал";
 "type.waterway.canal.tunnel" = "Канал";
 "type.waterway.fish_pass" = "Рыбоход";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Часовщик";
 "type.xmas_feature.market" = "Рождественский рынок";
 "type.xmas_feature.tree" = "Новогодняя ёлка";
+"type.amenity.hookah_lounge" = "Кальянная";

@@ -8,11 +8,8 @@
 
 #include "geometry/screenbase.hpp"
 
-#include "base/stl_helpers.hpp"
-
 #include <algorithm>
 #include <sstream>
-#include <utility>
 
 namespace df
 {
@@ -83,10 +80,7 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
   frameValues.SetTo(m_params);
 
   // Set tile-based model-view matrix.
-  {
-    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
-    m_params.m_modelView = glsl::make_mat4(mv.m_data);
-  }
+  m_params.m_modelView = glsl::make_mat4(GetTileKey().GetTileBasedModelView(screen).m_data);
 
   auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   if (program == gpu::Program::TextOutlined || program3d == gpu::Program::TextOutlinedBillboard)

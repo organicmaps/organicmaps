@@ -60,11 +60,7 @@ final class PlaceholderView: UIView {
     if let activityIndicator = activityIndicator {
       activityIndicator.hidesWhenStopped = true
       activityIndicator.startAnimating()
-      if #available(iOS 13.0, *) {
-        activityIndicator.style = .medium
-      } else {
-        activityIndicator.style = .gray
-      }
+      activityIndicator.style = .medium
     }
 
     titleLabel.text = title

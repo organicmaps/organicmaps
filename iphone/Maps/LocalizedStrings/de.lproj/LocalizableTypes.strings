@@ -47,7 +47,7 @@
 "type.leisure.adult_gaming_centre" = "Gaming-Zentrum für Erwachsene";
 "type.leisure.amusement_arcade" = "Arkade";
 "type.amenity.charging_station" = "Ladestation";
-"type.amenity.charging_station.bicycle" = "Fahrrad Ladestation";
+"type.amenity.charging_station.bicycle" = "Fahrrad-Ladestation";
 "type.amenity.charging_station.motorcar" = "Kfz-Ladestation";
 "type.amenity.childcare" = "Kindertagesstätte";
 "type.amenity.cinema" = "Kino";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresse";
+"type.building.construction" = "Gebäude im Bau";
 "type.building.has_parts" = "Gebäude";
 "type.building_part" = "Gebäude";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterran";
 "type.cuisine.mexican" = "Mexikanisch";
 "type.cuisine.moroccan" = "Marokkanisch";
-"type.cuisine.noodles" = "Nudeln";
+"type.cuisine.noodle" = "Nudeln";
 "type.cuisine.oriental" = "Orientalisch";
 "type.cuisine.pancake" = "Pfannkuchen";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Wurst";
 "type.cuisine.savory_pancakes" = "Herzhafte Pfannkuchen";
 "type.cuisine.seafood" = "Meeresfrüchte";
+"type.cuisine.shawarma" = "Schawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanisch";
 "type.cuisine.steak_house" = "Steakhaus";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Baumreihe";
 "type.natural.vineyard" = "Weinberg";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Aktiver Vulkan";
 "type.natural.water" = "Wasserfläche";
 "type.natural.wetland" = "Feuchtgebiet";
 "type.natural.wetland.bog" = "Moor";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Feldhockey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pelota Vasca";
+"type.sport.boules" = "Boule";
+"type.sport.cycling" = "Radsport";
+"type.sport.four_square" = "Vier-Felder-Ball";
+"type.sport.horse_racing" = "Pferderennen";
+"type.sport.karting" = "Kartsport";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby Union";
+"type.sport.running" = "Laufen";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Tourismus";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Historische Attraktion";
 "type.attraction.maze" = "Labyrinth";
 "type.attraction.roller_coaster" = "Achterbahn";
+"type.roller_coaster.track" = "Achterbahn";
 "type.attraction.water_slide" = "Wasserrutsche";
 "type.tourism.attraction.specified" = "Sehenswürdigkeit";
 "type.tourism.camp_site" = "Campingplatz";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "kurze Bodenwelle";
 "type.traffic_calming.hump" = "lange Bodenwelle";
 "type.waterway" = "Wasserweg";
+"type.waterway.access_point" = "Wasserstraße Zugangspunkt";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fischtreppe";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Uhrmacher";
 "type.xmas_feature.market" = "Weihnachtsmarkt";
 "type.xmas_feature.tree" = "Weihnachtsbaum";
+"type.amenity.hookah_lounge" = "Shisha-Bar";

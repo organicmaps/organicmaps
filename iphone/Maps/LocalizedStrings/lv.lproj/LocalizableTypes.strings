@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Address";
+"type.building.construction" = "Building under construction";
 "type.building.has_parts" = "Building";
 "type.building_part" = "Building";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexican";
 "type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "Noodles";
+"type.cuisine.noodle" = "Noodles";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Sausage";
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
 "type.cuisine.seafood" = "Seafood";
+"type.cuisine.shawarma" = "Šaurma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanish";
 "type.cuisine.steak_house" = "Steak House";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Stadium";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Skrejceļš";
+"type.leisure.track.area" = "Skrejceļš";
 "type.leisure.water_park" = "Water Park";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Tree Row";
 "type.natural.vineyard" = "Vineyard";
 "type.natural.volcano" = "Volcano";
+"type.natural.volcano.active" = "Aktīvais vulkāns";
 "type.natural.water" = "Water";
 "type.natural.wetland" = "Wetland";
 "type.natural.wetland.bog" = "Bog";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Field Hockey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Basque Pelota";
+"type.sport.boules" = "Petanks";
+"type.sport.cycling" = "Riteņbraukšana";
+"type.sport.four_square" = "Četri kvadrāti";
+"type.sport.horse_racing" = "Zirgu skriešanās sacīkstes";
+"type.sport.karting" = "Kartings";
+"type.sport.motocross" = "Motokross";
+"type.sport.motor" = "Motosports";
+"type.sport.netball" = "Netbols";
+"type.sport.pickleball" = "Piklbols";
+"type.sport.rugby_union" = "Regbijs-15";
+"type.sport.running" = "Skriešana";
+"type.sport.softball" = "Softbols";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Vēsturiska atrakcija";
 "type.attraction.maze" = "Labirints";
 "type.attraction.roller_coaster" = "Amerikāņu kalniņi";
+"type.roller_coaster.track" = "Amerikāņu kalniņi";
 "type.attraction.water_slide" = "Ūdens slīdkalniņš";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Campground";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Piekļuves punkts pie ūdensceļiem";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Fish Pass";
@@ -1578,7 +1595,7 @@
 "type.amenity.boat_rental" = "Laivu noma";
 "type.shop.telecommunication" = "Telekomunikāciju veikals";
 "type.leisure.indoor_play" = "Spēļu centrs";
-"type.tourism.camp_pitch" = "Kempings Spot";
+"type.tourism.camp_pitch" = "Kempinga vieta";
 "type.railway.miniature" = "Miniatūras dzelzceļš";
 "type.amenity.kneipp_water_cure" = "Kneipa ūdens kūre";
 "type.area_highway.traffic_island" = "Satiksmes sala";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Pulksteņmeistars";
 "type.xmas_feature.market" = "Ziemassvētku tirdziņš";
 "type.xmas_feature.tree" = "Ziemassvētku eglīte";
+"type.amenity.hookah_lounge" = "Ūdenspīpes bārs";

@@ -1,27 +1,56 @@
-• Dados do mapa OSM de 16 de fevereiro
-• Dados da Wikipedia de 1 de fevereiro
-• As rotas de caminhada e ciclismo pretas são agora visíveis no tema escuro
-• Adicionados mais serviços automóveis: reparação, serviço e peças
-• Adicionada autenticação do navegador OSM
-• Corrigido o acesso de bicicletas em alguns tipos de estradas
-• Corrigido o cálculo da velocidade média
-• Melhorada a classificação de pesquisa para categorias
-• Adicionada cozinha uzbeque
-• Adicionados slides (zip lines) no mapa
-• Corrigidos links da Wikimedia com "?" no título
-• Corrigida a análise de ficheiros GPX com "+" nas coordenadas
+## Mapa
 
-### Traduções
+- NOVIDADE! Ajustamento correto do mapa no antimeridiano ao arrastar e rodar
+- Dados do OpenStreetMap atualizados a 4 de abril
+- Dados da Wikipédia atualizados a 1 de abril
+- Adicionados ícones para praças de alimentação e portões da cidade
+- Adicionadas subcategorias de lojas de vestuário: mulher, homem, criança, casamento, desporto, roupa interior, além de tipos de escritório
+- Corrigidas as cores das linhas do metro de Sydney
+- Corrigida a exibição do horário de funcionamento para locais com desvios de nascer/pôr do sol
 
-• Removidos nomes de cidades duplicados em algumas regiões do mapa
-• Corrigidas as indicações de voz em hebraico
-• Corrigidos erros de digitação em coreano
-• Adicionados sinónimos de pesquisa em russo
-• Melhoradas as indicações de voz em alemão
-• Corrigida tradução em falta para túnel ferroviário desativado
-• Corrigida tradução do país em romeno
-• Adicionadas traduções em laociano e arménio
-• Adicionadas traduções arménias em falta
-• Traduções atualizadas dos colaboradores do Weblate
+## Roteamento e Navegação
 
-Obrigado a todos os que contribuem, doam e apoiam o Organic Maps! Vamos construir os melhores mapas juntos!
+- NOVIDADE! Toque numa rota de ciclismo ou caminhada para a selecionar e visualizar o seu gráfico de elevação
+- Melhoria na renderização multicolorida para rotas de caminhada e ciclismo
+- A navegação de ciclismo utiliza agora a orientação da bússola a baixas velocidades
+- Corrigido um erro de sistema ao planear rotas perto de algumas fronteiras regionais
+- Agora pode iniciar uma rota válida mesmo quando solicitado a descarregar mapas adicionais
+
+## Favoritos e Percursos
+
+- NOVIDADE! Altere todas as cores de marcadores e percursos de uma categoria de uma só vez
+- Ajustada a aproximação do ganho e perda de altitude nos gráficos de percursos para corresponder melhor a outras aplicações
+- Melhorada a exibição de conteúdo HTML com tabelas e imagens nos detalhes dos marcadores
+- Adicionados separadores verticais para percursos com vários segmentos no gráfico de elevação
+- Corrigida a seleção de pontos no gráfico de elevação para pontos interpolados
+- Corrigida a perda de pontos na gravação de percursos por GPS entre segmentos
+- Corrigida a importação de GeoJSON
+- Corrigida uma falha ao exportar percursos
+
+## Pesquisa
+
+- Pesquisa melhorada nos EUA, com dois milhões de endereços adicionais extraídos dos dados do Censo TIGER
+- Categorias de pesquisa atualizadas: adicionado «Pão» para padarias, cozinha «Shawarma» e outras melhorias de sinónimos
+- Pesquisa de endereços por número de porta melhorada
+- Adicionados sinónimos de rua nos EUA: highway, hwy, freeway, fwy
+- Corrigidos os resultados de pesquisa quando os nomes da cidade e do estado são iguais
+
+## Editor / OpenStreetMap
+
+- Agora pode adicionar um novo local ao OpenStreetMap após selecionar a sua posição atual no mapa
+- Corrigido o desalinhamento da cruz do editor ao premir «Adicionar local»
+- Aumentada a área tátil dos botões na barra de navegação «Adicionar local»
+
+## IU e UX
+
+- Gestos modais melhorados: alinhamento com o passo mais próximo, fecho ao deslizar pela borda e restauração do estado anterior ao reabrir
+- Corrigido o tratamento do horário de verão para fusos horários
+
+## Estabilidade e Localização
+
+- Estabilidade e desempenho melhorados, consumo de bateria reduzido
+- Traduções atualizadas
+
+## Suporte de Plataforma
+
+- Devido a alterações no TestFlight e na App Store, esta versão suporta apenas o iOS 15 e versões posteriores. O iOS 12, 13 e 14 já não são suportados.

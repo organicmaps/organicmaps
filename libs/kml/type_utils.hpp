@@ -59,6 +59,7 @@ MarkGroupId constexpr kInvalidMarkGroupId = std::numeric_limits<MarkGroupId>::ma
 MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
 MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
+TrackId constexpr kTempRelationTrackId = kInvalidTrackId - 1;
 CompilationId constexpr kInvalidCompilationId = std::numeric_limits<CompilationId>::max();
 
 inline uint64_t ToSecondsSinceEpoch(Timestamp const & time)
@@ -125,14 +126,22 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
                                     std::string const & languageNorm);
 std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types);
 
+// m_collectionIndex is mutable because it is filled during serialization.
+/// @todo Not good design to store intermediate ser/des index inside data.
+
 #define DECLARE_COLLECTABLE(IndexType, ...)            \
-  IndexType m_collectionIndex;                         \
+  mutable IndexType m_collectionIndex;                 \
   template <typename Collector>                        \
   void Collect(Collector & collector)                  \
   {                                                    \
     collector.Collect(m_collectionIndex, __VA_ARGS__); \
   }                                                    \
-  void ClearCollectionIndex()                          \
+  template <typename Collector>                        \
+  void Collect(Collector & collector) const            \
+  {                                                    \
+    collector.Collect(m_collectionIndex, __VA_ARGS__); \
+  }                                                    \
+  void ClearCollectionIndex() const                    \
   {                                                    \
     m_collectionIndex.clear();                         \
   }

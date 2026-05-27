@@ -39,7 +39,10 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
-    SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRectIn3d().Center())));
+    // Pivot at the visible-viewport center so the crosshair coincides with the
+    // pixel that UserEventStream::OnSetCenter aligns the geographic target to.
+    // DrapeGui's visible viewport is seeded on first resize, so it is always valid here.
+    SetPivot(glsl::ToVec2(m2::PointF(DrapeGui::Instance().GetVisibleViewport().Center())));
     return TBase::Update(screen);
   }
 };

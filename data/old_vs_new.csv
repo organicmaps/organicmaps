@@ -715,7 +715,8 @@ USA_California	US_California_Sacramento_Stockton
 Vatican	Italy_Lazio
 Venezuela	Venezuela_North
 Venezuela	Venezuela_South
-Vietnam	Vietnam
+Vietnam	Vietnam_North
+Vietnam	Vietnam_South
 Wallis and Futuna	Wallis and Futuna
 Clarion Island	Mexico_California
 Clipperton Island	Costa Rica
@@ -750,6 +751,9 @@ China	China_Hunan
 China	China_Guizhou
 China	China_Guangxi
 China	China_Guangdong
+China_Guangdong	China_Hainan
+China_Guangdong	Hong Kong
+China_Guangdong	Macau
 China	China_Yunnan
 China	China_Hubei
 China	China_Jilin
@@ -809,7 +813,8 @@ Japan_Hokkaido	Japan_Hokkaido Region_Sapporo
 Japan_Hokkaido	Japan_Hokkaido Region_North
 Japan_Hokkaido	Japan_Hokkaido Region_East
 Malawi	Malawi
-Malaysia	Malaysia
+Malaysia	Malaysia_East
+Malaysia	Malaysia_West
 Djibouti	Djibouti
 Dominica	Dominica
 Dominica	Caribbees

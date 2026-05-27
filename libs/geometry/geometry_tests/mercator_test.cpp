@@ -4,7 +4,6 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/math.hpp"
 
 UNIT_TEST(Mercator_Grid)
 {
@@ -78,4 +77,43 @@ UNIT_TEST(Mercator_ErrorToRadius)
 UNIT_TEST(Mercator_Sample1)
 {
   LOG(LINFO, (mercator::XToLon(27.531491200000001385), mercator::YToLat(64.392864299248202542)));
+}
+
+UNIT_TEST(Mercator_WrapX)
+{
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(185.0), -175.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-185.0), 175.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(0.0), 0.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-180.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(180.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(540.0), -180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::WrapX(-540.0), -180.0, 1e-10, ());
+}
+
+UNIT_TEST(Mercator_NearestWrapX)
+{
+  // No adjustment needed (within 180 of reference).
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(10.0, 0.0), 10.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, -170.0), -170.0, 1e-10, ());
+
+  // Wrap westward: point is > 180 east of reference.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(170.0, -20.0), -190.0, 1e-10, ());
+
+  // Wrap eastward: point is > 180 west of reference.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, 20.0), 190.0, 1e-10, ());
+
+  // Exactly at 180 boundary — no adjustment (strict inequality).
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(180.0, 0.0), 180.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-180.0, 0.0), -180.0, 1e-10, ());
+
+  // Extended screen origin (past antimeridian, single wrap).
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-175.0, 350.0), 185.0, 1e-10, ());
+
+  // Extended screen origin requiring two wraps.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-170.0, 500.0), 550.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(170.0, -500.0), -550.0, 1e-10, ());
+
+  // Edge case: max normalization range boundary.
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(-180.0, 540.0), 540.0, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(mercator::NearestWrapX(180.0, -540.0), -540.0, 1e-10, ());
 }

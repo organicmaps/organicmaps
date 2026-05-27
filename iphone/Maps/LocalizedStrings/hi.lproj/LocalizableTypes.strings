@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "पता";
+"type.building.construction" = "Building under construction";
 "type.building.has_parts" = "भवन";
 "type.building_part" = "भवन";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "भूमध्य व्यंजन";
 "type.cuisine.mexican" = "मैक्सिकन व्यंजन";
 "type.cuisine.moroccan" = "मोरक्कन व्यंजन";
-"type.cuisine.noodles" = "नूडल्स";
+"type.cuisine.noodle" = "नूडल्स";
 "type.cuisine.oriental" = "प्राच्य व्यंजन";
 "type.cuisine.pancake" = "पैनकेक";
 "type.cuisine.pasta" = "पास्ता";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "सॉसेज";
 "type.cuisine.savory_pancakes" = "दिलकश पेनकेक्स";
 "type.cuisine.seafood" = "समुद्री भोजन";
+"type.cuisine.shawarma" = "शवर्मा";
 "type.cuisine.soba" = "सोबा";
 "type.cuisine.spanish" = "स्पेनिश व्यंजन";
 "type.cuisine.steak_house" = "स्टेक (माँस का कबाब)";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "क्रीडांगन";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "स्पोर्ट्स ट्रैक";
+"type.leisure.track.area" = "स्पोर्ट्स ट्रैक";
 "type.leisure.water_park" = "वाटर पार्क";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Tree Row";
 "type.natural.vineyard" = "द्राक्षाक्षेत्र";
 "type.natural.volcano" = "ज्वालामुखी";
+"type.natural.volcano.active" = "सक्रिय ज्वालामुखी";
 "type.natural.water" = "जल निकाय";
 "type.natural.wetland" = "आर्द्रभूमि";
 "type.natural.wetland.bog" = "Bog";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "मैदानी हॉकी";
 "type.sport.badminton" = "बैडमिंटन";
 "type.sport.pelota" = "Basque Pelota";
+"type.sport.boules" = "बूल्स";
+"type.sport.cycling" = "साइकिल चलाना";
+"type.sport.four_square" = "फोर स्क्वायर";
+"type.sport.horse_racing" = "घुड़दौड़";
+"type.sport.karting" = "कार्टिंग";
+"type.sport.motocross" = "मोटोक्रॉस";
+"type.sport.motor" = "मोटरस्पोर्ट";
+"type.sport.netball" = "नेटबॉल";
+"type.sport.pickleball" = "पिकलबॉल";
+"type.sport.rugby_union" = "रग्बी यूनियन";
+"type.sport.running" = "दौड़ना";
+"type.sport.softball" = "सॉफ्टबॉल";
 "type.tourism" = "पर्यटन";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "ऐतिहासिक आकर्षण";
 "type.attraction.maze" = "भूलभुलैया";
 "type.attraction.roller_coaster" = "रोलर कॉस्टर";
+"type.roller_coaster.track" = "रोलर कॉस्टर";
 "type.attraction.water_slide" = "पानी की स्लाइड";
 "type.tourism.attraction.specified" = "पर्यटन स्थल";
 "type.tourism.camp_site" = "Campground";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "जलमार्ग पहुँच बिंदु";
 "type.waterway.canal" = "नहर";
 "type.waterway.canal.tunnel" = "नहर";
 "type.waterway.fish_pass" = "Fish Pass";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "घड़ीसाज़";
 "type.xmas_feature.market" = "क्रिसमस का बाजार";
 "type.xmas_feature.tree" = "क्रिसमस ट्री";
+"type.amenity.hookah_lounge" = "हुक्का लाउंज";

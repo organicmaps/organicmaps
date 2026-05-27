@@ -48,8 +48,16 @@ DrapeEngine::DrapeEngine(Params && params)
   {
     // If the screen rect setting in follow and rotate mode is missing or invalid, it could cause
     // invalid animations, so the follow and rotate mode should be discarded.
+    // Only validate Y bounds — X is unconstrained (world wraps horizontally at the antimeridian).
     m2::AnyRectD rect;
-    if (!(Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect())))
+    bool valid = Get("ScreenClipRect", rect);
+    if (valid)
+    {
+      m2::RectD const gr = rect.GetGlobalRect();
+      m2::RectD const & wr = df::GetWorldRect();
+      valid = (gr.minY() >= wr.minY() && gr.maxY() <= wr.maxY());
+    }
+    if (!valid)
       mode = Follow;
   }
 
@@ -119,7 +127,6 @@ DrapeEngine::~DrapeEngine()
   m_frontend.reset();
   m_backend.reset();
 
-  gui::DrapeGui::Instance().Destroy();
   m_textureManager->Release();
 }
 
@@ -545,6 +552,14 @@ void DrapeEngine::DeselectObject(bool restoreViewport)
       make_unique_dp<SelectObjectMessage>(SelectObjectMessage::DismissTag(), restoreViewport), MessagePriority::Normal);
 }
 
+void DrapeEngine::SetSelectionLines(SelectionInfo && info)
+{
+  if (info.m_lines.empty())
+    return;
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetSelectionLinesMessage>(std::move(info)), MessagePriority::Normal);
+}
+
 dp::DrapeID DrapeEngine::AddSubroute(SubrouteConstPtr subroute)
 {
   dp::DrapeID const id = GenerateDrapeID();
@@ -786,6 +801,20 @@ void DrapeEngine::UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::ShowRouteTransit(TransitInfo && info)
+{
+  if (info.IsEmpty())
+    return;
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<ShowRouteTransitMessage>(std::move(info)), MessagePriority::Normal);
+}
+
+void DrapeEngine::HideRouteTransit()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<HideRouteTransitMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::EnableIsolines(bool enable)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -867,7 +896,8 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
     renderInfo->m_depth = mark->GetDepth();
     renderInfo->m_customDepth = true;
   }
-  renderInfo->m_depthLayer = mark->GetDepthLayerEx(m_bookmarksTextPlacement);
+  renderInfo->m_depthLayer = mark->GetDepthLayer();
+  renderInfo->m_titleDepthLayer = mark->GetDepthLayerEx(m_bookmarksTextPlacement);
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
   renderInfo->m_isVisible = mark->IsVisible();
@@ -889,7 +919,6 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_isMarkAboveText = mark->IsMarkAboveText();
   renderInfo->m_symbolOpacity = mark->GetSymbolOpacity();
   renderInfo->m_isSymbolSelectable = mark->IsSymbolSelectable();
-  renderInfo->m_isNonDisplaceable = mark->IsNonDisplaceable();
   return renderInfo;
 }
 

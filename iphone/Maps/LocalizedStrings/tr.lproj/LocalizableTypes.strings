@@ -11,7 +11,7 @@
 "type.aerialway.drag_lift" = "Kayak Teleferiği";
 "type.aerialway.gondola" = "Telekabin";
 "type.aerialway.mixed_lift" = "Karışık Teleferik";
-"type.aerialway.station" = "Havayolu İstasyonu";
+"type.aerialway.station" = "Teleferik İstasyonu";
 "type.aeroway" = "Hava Sahası Alt Yapısı";
 "type.aeroway.aerodrome" = "Havaalanı";
 "type.aeroway.aerodrome.international" = "Uluslararası Havalimanı";
@@ -82,7 +82,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Hristiyan Mezarlığı";
 "type.amenity.hospital" = "Hastane";
-"type.amenity.hunting_stand" = "Avlanma Alanı";
+"type.amenity.hunting_stand" = "Avlanma Kulübesi";
 "type.amenity.ice_cream" = "Dondurma";
 "type.amenity.internet_cafe" = "İnternet Kafe";
 "type.amenity.kindergarten" = "Anaokulu";
@@ -189,7 +189,7 @@
 "type.amenity.vending_machine.drinks" = "İçecek Dağıtıcı";
 "type.amenity.vending_machine.food" = "Yiyecek Dağıtıcı";
 "type.amenity.vending_machine.newspapers" = "Gazete Dağıtıcı";
-"type.amenity.vending_machine.parking_tickets" = "Otopark Fişi";
+"type.amenity.vending_machine.parking_tickets" = "Parkmetre";
 "type.amenity.vending_machine.public_transport_tickets" = "Bilet Dağıtıcı";
 "type.amenity.vending_machine.sweets" = "Şekerleme Dağıtıcı";
 "type.amenity.vending_machine.excrement_bags" = "Dışkı Torbası Dağıtıcı";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adres";
+"type.building.construction" = "İnşa halindeki bina";
 "type.building.has_parts" = "Bina";
 "type.building_part" = "Bina";
 "type.building.garage" = "Garaj";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Akdeniz Mutfağı";
 "type.cuisine.mexican" = "Meksika Mutfağı";
 "type.cuisine.moroccan" = "Fas Mutfağı";
-"type.cuisine.noodles" = "Erişte";
+"type.cuisine.noodle" = "Erişte";
 "type.cuisine.oriental" = "Uzak Doğu Mutfağı";
 "type.cuisine.pancake" = "Gözleme";
 "type.cuisine.pasta" = "Makarna";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Sucuk";
 "type.cuisine.savory_pancakes" = "Açma";
 "type.cuisine.seafood" = "Deniz Ürünleri";
+"type.cuisine.shawarma" = "Şavurma";
 "type.cuisine.soba" = "Erişte";
 "type.cuisine.spanish" = "İspanyol Mutfağı";
 "type.cuisine.steak_house" = "Biftekçi";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Ağaç Sırası";
 "type.natural.vineyard" = "Bağ";
 "type.natural.volcano" = "Volkan";
+"type.natural.volcano.active" = "Aktif Volkan";
 "type.natural.water" = "Su";
 "type.natural.wetland" = "Sulak Alan";
 "type.natural.wetland.bog" = "Turbalık";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Çim Hokeyi";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Bask pelotası";
+"type.sport.boules" = "Bocce";
+"type.sport.cycling" = "Bisiklet sporu";
+"type.sport.four_square" = "Dört kare";
+"type.sport.horse_racing" = "At yarışı";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motor sporları";
+"type.sport.netball" = "Netbol";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi";
+"type.sport.running" = "Koşu";
+"type.sport.softball" = "Softbol";
 "type.tourism" = "Turizm";
 "type.tourism.aquarium" = "Akvaryum";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Tarihi cazibe merkezi";
 "type.attraction.maze" = "Labirent";
 "type.attraction.roller_coaster" = "Lunapark hız treni";
+"type.roller_coaster.track" = "Lunapark hız treni";
 "type.attraction.water_slide" = "Su Kaydırağı";
 "type.tourism.attraction.specified" = "Görülecek Yerler";
 "type.tourism.camp_site" = "Kamp Alanı";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Hız Kesici (Kasis)";
 "type.traffic_calming.hump" = "Hız Kesici (Kasis)";
 "type.waterway" = "Su Yolu";
+"type.waterway.access_point" = "Su Yolu Erişim Noktası";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Balık Geçidi";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Saatçi";
 "type.xmas_feature.market" = "Noel Pazarı";
 "type.xmas_feature.tree" = "Noel Ağacı";
+"type.amenity.hookah_lounge" = "Nargile salonu";

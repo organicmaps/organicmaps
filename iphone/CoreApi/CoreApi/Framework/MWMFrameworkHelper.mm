@@ -136,6 +136,16 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DeactivateMapSelection();
 }
 
++ (void)showRouteTransit:(uint32_t)relId
+{
+  GetFramework().ShowRouteTransit(relId);
+}
+
++ (NSString *)activeTransitRouteRef
+{
+  return @(GetFramework().GetActiveTransitRouteRef().c_str());
+}
+
 + (void)switchMyPositionMode
 {
   GetFramework().SwitchMyPositionNextMode();
@@ -200,11 +210,6 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (void)showTrack:(MWMTrackID)trackId
 {
   GetFramework().ShowTrack(trackId);
-}
-
-+ (void)saveRouteAsTrack
-{
-  GetFramework().SaveRoute();
 }
 
 + (void)updatePlacePageData

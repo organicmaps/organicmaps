@@ -1,21 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="cancel">Futa</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Tafuta</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Kwa sasa umezima huduma zote za eneo kwa kifaa hiki au programu hii. Tafadhali ziwashe katika Mipangilio.</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Upakuaji umeshindikana</string>
+    <string name="close">Funga</string>
+    <string name="download">Pakua</string>
+    <string name="download_resources">Kabla ya kuanza kutumia programu, tafadhali pakua ramani ya muhtasari wa dunia kwenye kifaa chako.  Itatumia %s ya hifadhi.</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Alamisho</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Mipangilio</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Sehemu ya kula</string>
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Migahawani</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Mafuta</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Maegesho</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hoteli</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Choo</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kwa RV</string>
 
     <!-- SECTION: Other translations -->
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">Data ya OpenStreetMap: %s</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Modo ya Usiku</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Imewezwa</string>
+    <!-- Generic «On» string -->
+    <string name="on">Wakati</string>
     <!-- Generic «Auto» string -->
     <string name="auto">Auto</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Majengo ya 3D</string>
+    <!-- Text in menu -->
+    <string name="help">Msaada</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Ramani</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Pakua ramani</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Jaribu tena</string>
 
     <!-- SECTION: Strings for downloading map from search -->
+    <string name="categories">Vipengele</string>
+    <string name="search_not_found">Lo, hakuna matokeo yaliyopatikana.</string>
+    <string name="search_history_text">Tazama utafutaji wako wa hivi karibuni.</string>
+    <string name="p2p_start">Anza</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Siku nzima (masaa 24)</string>
+    <string name="editor_time_open">Fungua</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Imefungwa leo</string>
+    <string name="opens_in">Inafunguka katika %s</string>
+    <string name="closes_in">Inakaribia kwa %s</string>
+    <string name="closed">Imefungwa</string>
+    <string name="minute">kidogo</string>
+    <string name="big_font">Ongeza ukubwa wa lebo za ramani</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kipakua Ramani</string>
@@ -28,6 +83,7 @@
     <string name="avoid_ferry">Epuka vivuko vya feri</string>
     <string name="avoid_motorways">Epuka barabara</string>
     <string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
+    <string name="trip_finished">Umefika!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ainisha alamisho</string>
     <!-- Android -->
@@ -43,8 +99,9 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Inapakua</string>
+    <string name="download_map_title">Pakua ramani ya muhtasari wa dunia</string>
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
     <!-- Grant Permissions button. -->
-    <string name="aa_grant_permissions">Ruhusa za ruzuku</string>
+    <string name="aa_grant_permissions">Toa ruhusa</string>
 </resources>

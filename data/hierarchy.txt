@@ -667,6 +667,8 @@ Macedonia;Q221;mk;mk
 Madagascar;Q1019;mg
 Malawi;Q1020;mw;en,ny
 Malaysia;Q833;my;en
+ Malaysia_East;Q833-East
+ Malaysia_West;Q833-West
 Maldives;Q826;mv;dv
 Mali;Q912;ml;fr
 Malta;Q233;mt;en,mt
@@ -736,7 +738,10 @@ People's Republic of China;Q148;cn;zh
  China_Guangdong;Q15175
  China_Guangxi;Q15176
  China_Guizhou;Q47097
+ China_Hainan;Q42200
  China_Hebei;Q21208
+ Hong Kong;Q8646
+ Macau;Q14773
  China_Heilongjiang;Q19206
  China_Henan;Q43684
  China_Hubei;Q46862
@@ -1300,6 +1305,8 @@ Venezuela;Q717;ve;es
  Venezuela_North;Q717-North
  Venezuela_South;Q717-South
 Vietnam;Q881;vn;vi
+ Vietnam_North;Q881-North
+ Vietnam_South;Q881-South
 Yemen;Q805;ye;ar
 Zambia;Q953;zm;en
 Zimbabwe;Q954;zw;en,sn,nd

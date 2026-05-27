@@ -22,7 +22,6 @@ static void * kContext = &kContext;
 {
   self.delegate = delegate;
   self.textView.text = text;
-  self.textView.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
   self.textView.placeholder = placeholder;
 }
 

@@ -12,15 +12,14 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <glaze/json.hpp>
+
 #include <algorithm>
 #include <cmath>
 #include <iosfwd>
 #include <limits>
-#include <memory>
 #include <optional>
 #include <tuple>
-
-#include "cppjansson/cppjansson.hpp"
 
 namespace
 {
@@ -59,111 +58,153 @@ void AddToRegionsIfMatches(C & container, transit::TransitId idForAdd, transit::
       container[region].emplace(idForAdd);
 }
 
-void WriteJson(json_t * node, std::ofstream & output)
+using JsonValue = glz::generic_u64;
+
+JsonValue MakeJSONObject()
 {
-  std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(node, JSON_COMPACT));
-  std::string record(buffer.get());
+  JsonValue value;
+  value.data = JsonValue::object_t{};
+  return value;
+}
+
+JsonValue MakeJSONArray()
+{
+  JsonValue value;
+  value.data = JsonValue::array_t{};
+  return value;
+}
+
+template <typename T>
+JsonValue ToJsonValue(T value)
+{
+  return JsonValue(value);
+}
+
+JsonValue ToJsonValue(std::string const & value)
+{
+  return JsonValue(value);
+}
+
+template <typename T>
+void Set(JsonValue & object, char const * field, T && value)
+{
+  CHECK(object.is_object(), ());
+  object[field] = ToJsonValue(std::forward<T>(value));
+}
+
+void Set(JsonValue & object, char const * field, JsonValue value)
+{
+  CHECK(object.is_object(), ());
+  object[field] = std::move(value);
+}
+
+void Append(JsonValue & array, JsonValue value)
+{
+  CHECK(array.is_array(), ());
+  array.get_array().push_back(std::move(value));
+}
+
+void WriteJson(JsonValue const & node, std::ofstream & output)
+{
+  std::string record;
+  auto const error = glz::write_json(node, record);
+  CHECK(!error, (glz::format_error(error)));
   output << record << std::endl;
 }
 
-base::JSONPtr PointToJson(m2::PointD const & point)
+JsonValue PointToJson(m2::PointD const & point)
 {
-  auto coords = base::NewJSONObject();
-  ToJSONObject(*coords, "x", point.x);
-  ToJSONObject(*coords, "y", point.y);
+  auto coords = MakeJSONObject();
+  Set(coords, "x", point.x);
+  Set(coords, "y", point.y);
   return coords;
 }
 
-base::JSONPtr ShapeLinkToJson(transit::ShapeLink const & shapeLink)
+JsonValue ShapeLinkToJson(transit::ShapeLink const & shapeLink)
 {
-  auto node = base::NewJSONObject();
-  ToJSONObject(*node, "id", shapeLink.m_shapeId);
-  ToJSONObject(*node, "start_index", shapeLink.m_startIndex);
-  ToJSONObject(*node, "end_index", shapeLink.m_endIndex);
+  auto node = MakeJSONObject();
+  Set(node, "id", shapeLink.m_shapeId);
+  Set(node, "start_index", shapeLink.m_startIndex);
+  Set(node, "end_index", shapeLink.m_endIndex);
   return node;
 }
 
-base::JSONPtr FrequenciesToJson(std::map<::transit::TimeInterval, ::transit::Frequency> const & frequencyIntervals)
+JsonValue FrequenciesToJson(std::map<::transit::TimeInterval, ::transit::Frequency> const & frequencyIntervals)
 {
-  auto timeIntervalsArr = base::NewJSONArray();
+  auto timeIntervalsArr = MakeJSONArray();
 
   for (auto const & [timeInterval, frequency] : frequencyIntervals)
   {
-    auto tiNode = base::NewJSONObject();
-    ToJSONObject(*tiNode, "time_interval", timeInterval.GetRaw());
-    ToJSONObject(*tiNode, "frequency", frequency);
-    json_array_append_new(timeIntervalsArr.get(), tiNode.release());
+    auto tiNode = MakeJSONObject();
+    Set(tiNode, "time_interval", timeInterval.GetRaw());
+    Set(tiNode, "frequency", frequency);
+    Append(timeIntervalsArr, std::move(tiNode));
   }
 
   return timeIntervalsArr;
 }
 
-base::JSONPtr ScheduleToJson(transit::Schedule const & schedule)
+JsonValue ScheduleToJson(transit::Schedule const & schedule)
 {
-  auto scheduleNode = base::NewJSONObject();
-  ToJSONObject(*scheduleNode, "def_frequency", schedule.GetFrequency());
+  auto scheduleNode = MakeJSONObject();
+  Set(scheduleNode, "def_frequency", schedule.GetFrequency());
 
   if (auto const & intervals = schedule.GetServiceIntervals(); !intervals.empty())
   {
-    auto dateIntervalsArr = base::NewJSONArray();
+    auto dateIntervalsArr = MakeJSONArray();
 
     for (auto const & [datesInterval, frequencyIntervals] : intervals)
     {
-      auto diNode = base::NewJSONObject();
-      ToJSONObject(*diNode, "dates_interval", datesInterval.GetRaw());
+      auto diNode = MakeJSONObject();
+      Set(diNode, "dates_interval", datesInterval.GetRaw());
 
-      json_object_set_new(diNode.get(), "time_intervals",
-                          FrequenciesToJson(frequencyIntervals.GetFrequencies()).release());
-      json_array_append_new(dateIntervalsArr.get(), diNode.release());
+      Set(diNode, "time_intervals", FrequenciesToJson(frequencyIntervals.GetFrequencies()));
+      Append(dateIntervalsArr, std::move(diNode));
     }
 
-    json_object_set_new(scheduleNode.get(), "intervals", dateIntervalsArr.release());
+    Set(scheduleNode, "intervals", std::move(dateIntervalsArr));
   }
 
   if (auto const & exceptions = schedule.GetServiceExceptions(); !exceptions.empty())
   {
-    auto exceptionsArr = base::NewJSONArray();
+    auto exceptionsArr = MakeJSONArray();
 
     for (auto const & [exception, frequencyIntervals] : exceptions)
     {
-      auto exNode = base::NewJSONObject();
-      ToJSONObject(*exNode, "exception", exception.GetRaw());
+      auto exNode = MakeJSONObject();
+      Set(exNode, "exception", exception.GetRaw());
 
-      json_object_set_new(exNode.get(), "time_intervals",
-                          FrequenciesToJson(frequencyIntervals.GetFrequencies()).release());
-      json_array_append_new(exceptionsArr.get(), exNode.release());
+      Set(exNode, "time_intervals", FrequenciesToJson(frequencyIntervals.GetFrequencies()));
+      Append(exceptionsArr, std::move(exNode));
     }
 
-    json_object_set_new(scheduleNode.get(), "exceptions", exceptionsArr.release());
+    Set(scheduleNode, "exceptions", std::move(exceptionsArr));
   }
 
   return scheduleNode;
 }
 
 template <class T>
-base::JSONPtr VectorToJson(std::vector<T> const & items)
+JsonValue VectorToJson(std::vector<T> const & items)
 {
-  auto arr = base::NewJSONArray();
+  auto arr = MakeJSONArray();
 
   for (auto const & item : items)
-  {
-    auto node = base::NewJSONInt(item);
-    json_array_append_new(arr.get(), node.release());
-  }
+    Append(arr, ToJsonValue(item));
 
   return arr;
 }
 
-[[maybe_unused]] base::JSONPtr TranslationsToJson(transit::Translations const & translations)
+[[maybe_unused]] JsonValue TranslationsToJson(transit::Translations const & translations)
 {
-  auto translationsArr = base::NewJSONArray();
+  auto translationsArr = MakeJSONArray();
 
   for (auto const & [lang, text] : translations)
   {
-    auto translationJson = base::NewJSONObject();
-    ToJSONObject(*translationJson, "lang", lang);
-    ToJSONObject(*translationJson, "text", text);
-    json_array_append_new(translationsArr.get(), translationJson.release());
+    auto translationJson = MakeJSONObject();
+    Set(translationJson, "lang", lang);
+    Set(translationJson, "text", text);
+    Append(translationsArr, std::move(translationJson));
   }
 
   return translationsArr;
@@ -1425,11 +1466,11 @@ void Networks::Write(IdSet const & ids, std::ofstream & stream) const
   {
     auto const & networkTitle = m_data.find(networkId)->second;
 
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", networkId);
-    ToJSONObject(*node, "title", networkTitle);
+    auto node = MakeJSONObject();
+    Set(node, "id", networkId);
+    Set(node, "title", networkTitle);
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1438,14 +1479,14 @@ void Routes::Write(IdSet const & ids, std::ofstream & stream) const
   for (auto routeId : ids)
   {
     auto const & route = m_data.find(routeId)->second;
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", routeId);
-    ToJSONObject(*node, "network_id", route.m_networkId);
-    ToJSONObject(*node, "color", route.m_color);
-    ToJSONObject(*node, "type", route.m_routeType);
-    ToJSONObject(*node, "title", route.m_title);
+    auto node = MakeJSONObject();
+    Set(node, "id", routeId);
+    Set(node, "network_id", route.m_networkId);
+    Set(node, "color", route.m_color);
+    Set(node, "type", route.m_routeType);
+    Set(node, "title", route.m_title);
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1454,17 +1495,17 @@ void Lines::Write(std::unordered_map<TransitId, LineSegmentInRegion> const & ids
   for (auto const & [lineId, data] : ids)
   {
     auto const & line = m_data.find(lineId)->second;
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", lineId);
-    ToJSONObject(*node, "route_id", line.m_routeId);
-    json_object_set_new(node.get(), "shape", ShapeLinkToJson(data.m_shapeLink).release());
-    ToJSONObject(*node, "title", line.m_title);
+    auto node = MakeJSONObject();
+    Set(node, "id", lineId);
+    Set(node, "route_id", line.m_routeId);
+    Set(node, "shape", ShapeLinkToJson(data.m_shapeLink));
+    Set(node, "title", line.m_title);
 
     // Save only stop ids inside current region.
-    json_object_set_new(node.get(), "stops_ids", VectorToJson(data.m_stopIds).release());
-    json_object_set_new(node.get(), "schedule", ScheduleToJson(line.m_schedule).release());
+    Set(node, "stops_ids", VectorToJson(data.m_stopIds));
+    Set(node, "schedule", ScheduleToJson(line.m_schedule));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1478,23 +1519,23 @@ void LinesMetadata::Write(std::unordered_map<TransitId, LineSegmentInRegion> con
       continue;
 
     auto const & lineMetaData = it->second;
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", lineId);
+    auto node = MakeJSONObject();
+    Set(node, "id", lineId);
 
-    auto segmentsOnShape = base::NewJSONArray();
+    auto segmentsOnShape = MakeJSONArray();
 
     for (auto const & lineSegmentOrder : lineMetaData)
     {
-      auto segmentData = base::NewJSONObject();
-      ToJSONObject(*segmentData, "order", lineSegmentOrder.m_order);
-      ToJSONObject(*segmentData, "start_index", lineSegmentOrder.m_segment.m_startIdx);
-      ToJSONObject(*segmentData, "end_index", lineSegmentOrder.m_segment.m_endIdx);
-      json_array_append_new(segmentsOnShape.get(), segmentData.release());
+      auto segmentData = MakeJSONObject();
+      Set(segmentData, "order", lineSegmentOrder.m_order);
+      Set(segmentData, "start_index", lineSegmentOrder.m_segment.m_startIdx);
+      Set(segmentData, "end_index", lineSegmentOrder.m_segment.m_endIdx);
+      Append(segmentsOnShape, std::move(segmentData));
     }
 
-    json_object_set_new(node.get(), "shape_segments", segmentsOnShape.release());
+    Set(node, "shape_segments", std::move(segmentsOnShape));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1503,16 +1544,16 @@ void Shapes::Write(IdSet const & ids, std::ofstream & stream) const
   for (auto shapeId : ids)
   {
     auto const & shape = m_data.find(shapeId)->second;
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", shapeId);
-    auto pointsArr = base::NewJSONArray();
+    auto node = MakeJSONObject();
+    Set(node, "id", shapeId);
+    auto pointsArr = MakeJSONArray();
 
     for (auto const & point : shape.m_points)
-      json_array_append_new(pointsArr.get(), PointToJson(point).release());
+      Append(pointsArr, PointToJson(point));
 
-    json_object_set_new(node.get(), "points", pointsArr.release());
+    Set(node, "points", std::move(pointsArr));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1521,31 +1562,31 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
   for (auto stopId : ids)
   {
     auto const & stop = m_data.find(stopId)->second;
-    auto node = base::NewJSONObject();
+    auto node = MakeJSONObject();
 
-    ToJSONObject(*node, "id", stopId);
+    Set(node, "id", stopId);
 
     if (stop.m_osmId != 0)
     {
-      ToJSONObject(*node, "osm_id", stop.m_osmId);
+      Set(node, "osm_id", stop.m_osmId);
 
       if (stop.m_featureId != 0)
-        ToJSONObject(*node, "feature_id", stop.m_featureId);
+        Set(node, "feature_id", stop.m_featureId);
     }
 
-    json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
+    Set(node, "point", PointToJson(stop.m_point));
 
     if (!stop.m_title.empty())
-      ToJSONObject(*node, "title", stop.m_title);
+      Set(node, "title", stop.m_title);
 
     if (!stop.m_timetable.empty())
     {
-      auto timeTableArr = base::NewJSONArray();
+      auto timeTableArr = MakeJSONArray();
 
       for (auto const & [lineId, timeIntervals] : stop.m_timetable)
       {
-        auto lineTimetableItem = base::NewJSONObject();
-        ToJSONObject(*lineTimetableItem, "line_id", lineId);
+        auto lineTimetableItem = MakeJSONObject();
+        Set(lineTimetableItem, "line_id", lineId);
 
         std::vector<size_t> rawValues;
         rawValues.reserve(timeIntervals.size());
@@ -1553,17 +1594,17 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
         for (auto const & timeInterval : timeIntervals)
           rawValues.push_back(timeInterval.GetRaw());
 
-        json_object_set_new(lineTimetableItem.get(), "intervals", VectorToJson(rawValues).release());
-        json_array_append_new(timeTableArr.get(), lineTimetableItem.release());
+        Set(lineTimetableItem, "intervals", VectorToJson(rawValues));
+        Append(timeTableArr, std::move(lineTimetableItem));
       }
 
-      json_object_set_new(node.get(), "timetable", timeTableArr.release());
+      Set(node, "timetable", std::move(timeTableArr));
     }
 
     if (!stop.m_transferIds.empty())
-      json_object_set_new(node.get(), "transfer_ids", VectorToJson(stop.m_transferIds).release());
+      Set(node, "transfer_ids", VectorToJson(stop.m_transferIds));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1572,21 +1613,21 @@ void Edges::Write(IdEdgeSet const & ids, std::ofstream & stream) const
   for (auto const & edgeId : ids)
   {
     auto const & edge = m_data.find(edgeId)->second;
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "line_id", edgeId.m_lineId);
-    ToJSONObject(*node, "stop_id_from", edgeId.m_fromStopId);
-    ToJSONObject(*node, "stop_id_to", edgeId.m_toStopId);
+    auto node = MakeJSONObject();
+    Set(node, "line_id", edgeId.m_lineId);
+    Set(node, "stop_id_from", edgeId.m_fromStopId);
+    Set(node, "stop_id_to", edgeId.m_toStopId);
 
     CHECK_NOT_EQUAL(edge.m_featureId, std::numeric_limits<uint32_t>::max(),
                     (edgeId.m_lineId, edgeId.m_fromStopId, edgeId.m_toStopId));
-    ToJSONObject(*node, "feature_id", edge.m_featureId);
+    Set(node, "feature_id", edge.m_featureId);
 
     CHECK_GREATER(edge.m_weight, 0, (edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
-    ToJSONObject(*node, "weight", edge.m_weight);
+    Set(node, "weight", edge.m_weight);
 
-    json_object_set_new(node.get(), "shape", ShapeLinkToJson(edge.m_shapeLink).release());
+    Set(node, "shape", ShapeLinkToJson(edge.m_shapeLink));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1595,17 +1636,17 @@ void EdgesTransfer::Write(IdEdgeTransferSet const & ids, std::ofstream & stream)
   for (auto const & edgeTransferId : ids)
   {
     auto const & edgeData = m_data.find(edgeTransferId)->second;
-    auto node = base::NewJSONObject();
+    auto node = MakeJSONObject();
 
-    ToJSONObject(*node, "stop_id_from", edgeTransferId.m_fromStopId);
-    ToJSONObject(*node, "stop_id_to", edgeTransferId.m_toStopId);
-    ToJSONObject(*node, "weight", edgeData.m_weight);
+    Set(node, "stop_id_from", edgeTransferId.m_fromStopId);
+    Set(node, "stop_id_to", edgeTransferId.m_toStopId);
+    Set(node, "weight", edgeData.m_weight);
 
     CHECK_NOT_EQUAL(edgeData.m_featureId, std::numeric_limits<uint32_t>::max(),
                     (edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId));
-    ToJSONObject(*node, "feature_id", edgeData.m_featureId);
+    Set(node, "feature_id", edgeData.m_featureId);
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1615,12 +1656,12 @@ void Transfers::Write(IdSet const & ids, std::ofstream & stream) const
   {
     auto const & transfer = m_data.find(transferId)->second;
 
-    auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", transferId);
-    json_object_set_new(node.get(), "point", PointToJson(transfer.m_point).release());
-    json_object_set_new(node.get(), "stops_ids", VectorToJson(transfer.m_stopsIds).release());
+    auto node = MakeJSONObject();
+    Set(node, "id", transferId);
+    Set(node, "point", PointToJson(transfer.m_point));
+    Set(node, "stops_ids", VectorToJson(transfer.m_stopsIds));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 
@@ -1632,29 +1673,29 @@ void Gates::Write(IdSet const & ids, std::ofstream & stream) const
     if (gate.m_weights.empty())
       continue;
 
-    auto node = base::NewJSONObject();
+    auto node = MakeJSONObject();
     if (gate.m_osmId == 0)
-      ToJSONObject(*node, "id", gateId);
+      Set(node, "id", gateId);
     else
-      ToJSONObject(*node, "osm_id", gate.m_osmId);
+      Set(node, "osm_id", gate.m_osmId);
 
-    auto weightsArr = base::NewJSONArray();
+    auto weightsArr = MakeJSONArray();
 
     for (auto const & weight : gate.m_weights)
     {
-      auto weightJson = base::NewJSONObject();
-      ToJSONObject(*weightJson, "stop_id", weight.m_stopId);
-      ToJSONObject(*weightJson, "time_to_stop", weight.m_timeSeconds);
-      json_array_append_new(weightsArr.get(), weightJson.release());
+      auto weightJson = MakeJSONObject();
+      Set(weightJson, "stop_id", weight.m_stopId);
+      Set(weightJson, "time_to_stop", weight.m_timeSeconds);
+      Append(weightsArr, std::move(weightJson));
     }
 
-    json_object_set_new(node.get(), "weights", weightsArr.release());
-    ToJSONObject(*node, "exit", gate.m_isExit);
-    ToJSONObject(*node, "entrance", gate.m_isEntrance);
+    Set(node, "weights", std::move(weightsArr));
+    Set(node, "exit", gate.m_isExit);
+    Set(node, "entrance", gate.m_isEntrance);
 
-    json_object_set_new(node.get(), "point", PointToJson(gate.m_point).release());
+    Set(node, "point", PointToJson(gate.m_point));
 
-    WriteJson(node.get(), stream);
+    WriteJson(node, stream);
   }
 }
 

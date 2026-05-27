@@ -371,6 +371,8 @@
     <string name="clear_search">Baleirar historial de procuras</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Artigo de wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">A súa localización</string>
@@ -469,7 +471,7 @@
     <string name="placepage_add_business_button">Engadir organización</string>
     <string name="message_invalid_feature_position">Non se pode situar ningún obxecto aquí</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Datos de OpenStreetMap creados pola comunidade a partir de %s. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org</string>
+    <string name="osm_presentation">Datos de OpenStreetMap creados pola comunidade a data de %s. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) é un proxecto comunitario para construír un mapa libre e aberto. É a principal fonte de datos cartográficos de Organic Maps e funciona de forma similar a Wikipedia. Vostede pode engadir ou editar lugares e estes pasan a estar dispoñibles para millóns de usuarios de todo o mundo. \nÚnase á comunidade e axude a crear un mapa mellor para todos!</string>
     <string name="login_to_make_edits_visible">Cre unha conta OpenStreetMap ou inicie sesión para publicar as súas edicións de mapas en todo o mundo.</string>
@@ -529,6 +531,7 @@
     <string name="error_enter_correct_vk_page">Introducir unha dirección web ou un nome de conta de VK válidos</string>
     <string name="error_enter_correct_line_page">Introducir unha dirección web ou IDE de LINE válidos</string>
     <string name="placepage_add_place_button">Engadir lugar a OpenStreetMap</string>
+    <string name="osm_note_hint">Ou, alternativamente, deixa unha nota á comunidade de OpenStreetMap para que alguén poida engadir ou corrixir un lugar aquí.</string>
     <string name="osm_note_toast">A nota enviarase a OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Quere envialo a todos os usuarios?</string>
@@ -618,12 +621,18 @@
     <string name="privacy_policy">Normativa de privacidade</string>
     <string name="terms_of_use">Condiciones de uso</string>
     <string name="button_layer_traffic">Tráfico</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Sendeirismo</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos e capas do mapa</string>
     <string name="bookmarks_empty_list_title">Esta lista está baleira</string>
     <string name="bookmarks_empty_list_message">Para engadir un marcador, toque un lugar no mapa e despois toque a icona da estrela</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Cambiar a cor de todos os marcadores</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Cambiar a cor de todos os traxectos</string>
     <string name="category_desc_more">…máis</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportar KMZ</string>
@@ -647,6 +656,11 @@
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Cando queda pouca enerxía</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Nomes de marcadores no mapa</string>
+    <string name="bookmarks_text_placement_description">Se hai demasiados marcadores, amosar os seus nomes no mapa pode ralentizar a aplicación.</string>
+    <string name="show_to_the_right">Mostrar á dereita</string>
+    <string name="show_at_the_bottom">Mostrar na parte inferior</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.</string>
     <string name="driving_options_title">Opcións de encamiñamento</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -697,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Fai máis dun ano</string>
     <string name="near_me_sorttype">Preto de min</string>
     <string name="others_sorttype">Outros</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Pechado agora</string>
+    <string name="opens_tomorrow_at">Abre mañá a Ábreas %s</string>
+    <string name="opens_dayoftheweek_at">o %1$s ás %2$s</string>
+    <string name="opens_at">Abre a Ábreas %s</string>
+    <string name="closes_at">Pecha ás %s</string>
     <string name="editor_add_select_category_all_subtitle">Todas as categorías</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -714,12 +734,12 @@
     <string name="parkings">Estacionamento</string>
     <string name="fuel_places">Gasolineiras</string>
     <string name="medicine">Medicina</string>
-    <string name="search_in_the_list">Buscar nos lista</string>
+    <string name="search_in_the_list">Buscar na lista</string>
     <string name="religious_places">Lugares sacros</string>
     <string name="select_list">Seleccionar lista</string>
-    <string name="button_layer_isolines">Alturas</string>
+    <string name="button_layer_isolines">Curvas de nivel</string>
     <string name="isolines_activation_error_dialog">Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada</string>
-    <string name="isolines_location_error_dialog">A altitude de relevo aínda non está dispoñible nesta rexión</string>
+    <string name="isolines_location_error_dialog">As curvas de nivel aínda non están dispoñibles nesta zona</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -798,7 +818,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permisos</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Sendeirismo</string>
+    <string name="button_layer_outdoor">Ao aire libre</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">A navegador web non está dispoñible</string>
     <string name="volume">Volume</string>
@@ -807,7 +827,7 @@
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Configuración de síntese de voz do sistema</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-    <string name="pref_tts_no_system_tts">Non se atoparon as configuracións de sínteses de voz. Sabe se o seu dispositivo admítea?</string>
+    <string name="pref_tts_no_system_tts">Non se atoparon os axustes de síntese de voz. Está seguro de que o seu dispositivo admite esta función?</string>
     <string name="drive_through">Servizo desde o coche</string>
     <string name="clear_the_search">Borrar procura</string>
     <string name="zoom_in">Achegar</string>
@@ -831,6 +851,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Deter gravación de traxecto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Grabación de ruta</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Deter sen gardar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar gravación</string>
@@ -847,6 +869,10 @@
     <string name="nav_auto">Auto en navegación</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Seguir o sistema</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Compartir pista</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Eliminar %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -855,4 +881,22 @@
     <string name="login_osm_browser">Inicio de sesión usando o navegador</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Últimos empregados</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">A cor dos marcadores cambiou</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">A cor dos traxectos cambiou</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Espectro</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Deslizadores</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">VERMELLO</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERDE</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">AZUL</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Cor Hex sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Reixa</string>
 </resources>

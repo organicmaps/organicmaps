@@ -5,14 +5,14 @@
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";
-"type.aerialway" = "纜車要素";
+"type.aerialway" = "架空索道";
 "type.aerialway.cable_car" = "纜車";
-"type.aerialway.chair_lift" = "纜車";
-"type.aerialway.drag_lift" = "纜車要素";
-"type.aerialway.gondola" = "循環式索道";
-"type.aerialway.mixed_lift" = "纜車";
+"type.aerialway.chair_lift" = "吊椅式纜車";
+"type.aerialway.drag_lift" = "拖牽式纜車";
+"type.aerialway.gondola" = "吊艙式纜車";
+"type.aerialway.mixed_lift" = "混合式纜車";
 "type.aerialway.station" = "纜車站";
-"type.aeroway" = "機場要素";
+"type.aeroway" = "空域基礎設施";
 "type.aeroway.aerodrome" = "機場";
 "type.aeroway.aerodrome.international" = "機場";
 "type.aeroway.apron" = "機場停機坪";
@@ -20,7 +20,7 @@
 "type.aeroway.helipad" = "直升機場";
 "type.aeroway.runway" = "機場跑道";
 "type.aeroway.taxiway" = "滑行道";
-"type.aeroway.terminal" = "航站楼";
+"type.aeroway.terminal" = "航站大廈";
 "type.amenity" = "設施";
 "type.amenity.arts_centre" = "藝術中心";
 "type.amenity.atm" = "自動櫃員機";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "地址";
+"type.building.construction" = "興建中的建築";
 "type.building.has_parts" = "建築物";
 "type.building_part" = "建築物";
 "type.building.garage" = "車庫";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "地中海料理";
 "type.cuisine.mexican" = "墨西哥料理";
 "type.cuisine.moroccan" = "摩洛哥料理";
-"type.cuisine.noodles" = "麵食";
+"type.cuisine.noodle" = "麵食";
 "type.cuisine.oriental" = "東方料理";
 "type.cuisine.pancake" = "煎餅";
 "type.cuisine.pasta" = "義大利麵";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "火腿";
 "type.cuisine.savory_pancakes" = "鹹味煎餅";
 "type.cuisine.seafood" = "海鮮";
+"type.cuisine.shawarma" = "沙威瑪";
 "type.cuisine.soba" = "蕎麥面";
 "type.cuisine.spanish" = "西班牙料理";
 "type.cuisine.steak_house" = "牛排館";
@@ -713,7 +715,7 @@
 "type.junction" = "交叉口";
 "type.junction.circular" = "環形交叉口";
 "type.junction.roundabout" = "環形交叉口";
-"type.landuse" = "土地利用要素";
+"type.landuse" = "土地利用";
 "type.landuse.allotments" = "市民農園";
 "type.landuse.basin" = "水庫";
 "type.landuse.brownfield" = "廢棄的工業用地";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "樹列";
 "type.natural.vineyard" = "葡萄園";
 "type.natural.volcano" = "火山";
+"type.natural.volcano.active" = "活火山";
 "type.natural.water" = "水體";
 "type.natural.wetland" = "沼澤";
 "type.natural.wetland.bog" = "泥炭地";
@@ -1309,7 +1312,7 @@
 "type.shop.confectionery" = "糕餅店";
 "type.shop.convenience" = "便利店";
 "type.shop.copyshop" = "復印店";
-"type.shop.cosmetics" = "化妆品";
+"type.shop.cosmetics" = "化妝品";
 "type.shop.curtain" = "窗簾";
 "type.shop.deli" = "熟食店";
 "type.shop.department_store" = "百貨公司";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "曲棍球";
 "type.sport.badminton" = "羽毛球";
 "type.sport.pelota" = "巴斯克回力球";
+"type.sport.boules" = "地擲球";
+"type.sport.cycling" = "自行車運動";
+"type.sport.four_square" = "四方格";
+"type.sport.horse_racing" = "賽馬";
+"type.sport.karting" = "卡丁車";
+"type.sport.motocross" = "摩托車越野賽";
+"type.sport.motor" = "賽車運動";
+"type.sport.netball" = "無擋板籃球";
+"type.sport.pickleball" = "匹克球";
+"type.sport.rugby_union" = "聯合式橄欖球";
+"type.sport.running" = "跑步";
+"type.sport.softball" = "壘球";
 "type.tourism" = "旅遊設施";
 "type.tourism.aquarium" = "水族館";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "歷史景點";
 "type.attraction.maze" = "迷宮";
 "type.attraction.roller_coaster" = "雲霄飛車";
+"type.roller_coaster.track" = "雲霄飛車";
 "type.attraction.water_slide" = "水滑梯";
 "type.tourism.attraction.specified" = "景點";
 "type.tourism.camp_site" = "露營";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "減速帶";
 "type.traffic_calming.hump" = "減速丘";
 "type.waterway" = "水道";
+"type.waterway.access_point" = "水道存取點";
 "type.waterway.canal" = "運河";
 "type.waterway.canal.tunnel" = "運河";
 "type.waterway.fish_pass" = "魚梯";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "鐘錶匠";
 "type.xmas_feature.market" = "聖誕市場";
 "type.xmas_feature.tree" = "聖誕樹";
+"type.amenity.hookah_lounge" = "水煙館";

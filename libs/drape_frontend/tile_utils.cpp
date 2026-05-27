@@ -5,7 +5,6 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 
 namespace df
 {
@@ -21,12 +20,8 @@ CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
   result.m_minTileY = static_cast<int>(floor(rect.minY() / rectSize));
   result.m_maxTileY = static_cast<int>(ceil(rect.maxY() / rectSize));
 
-  if (processTile != nullptr)
-  {
-    for (int tileY = result.m_minTileY; tileY < result.m_maxTileY; ++tileY)
-      for (int tileX = result.m_minTileX; tileX < result.m_maxTileX; ++tileX)
-        processTile(tileX, tileY);
-  }
+  if (processTile)
+    result.ForEach(processTile);
 
   return result;
 }

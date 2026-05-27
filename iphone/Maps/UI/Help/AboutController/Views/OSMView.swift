@@ -1,7 +1,6 @@
 final class OSMView: UIView {
   private let OSMImageView = UIImageView()
   private let OSMTextLabel = UILabel()
-  private var mapDate: String?
 
   var didTapHandler: (() -> Void)?
 
@@ -19,16 +18,9 @@ final class OSMView: UIView {
     layoutViews()
   }
 
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    guard let mapDate, traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-    OSMTextLabel.attributedText = attributedString(for: mapDate)
-  }
-
   // MARK: - Public
 
   func setMapDate(_ mapDate: String) {
-    self.mapDate = mapDate
     OSMTextLabel.attributedText = attributedString(for: mapDate)
   }
 
@@ -78,7 +70,7 @@ final class OSMView: UIView {
     let osmLink = "OpenStreetMap.org"
     let attributedString = NSMutableAttributedString(string: String(format: L("osm_presentation"), date.trimmingCharacters(in: .punctuationCharacters)),
                                                      attributes: [.font: UIFont.regular14(),
-                                                                  .foregroundColor: StyleManager.shared.theme!.colors.blackPrimaryText])
+                                                                  .foregroundColor: UIColor.blackPrimaryText])
     let linkRange = attributedString.mutableString.range(of: osmLink)
     attributedString.addAttribute(.link, value: "https://www.openstreetmap.org/", range: linkRange)
 

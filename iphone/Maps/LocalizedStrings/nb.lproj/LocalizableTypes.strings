@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresse";
+"type.building.construction" = "Bygning under oppføring";
 "type.building.has_parts" = "Bygning";
 "type.building_part" = "Bygning";
 "type.building.garage" = "Garasje";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Middelhavsmat";
 "type.cuisine.mexican" = "Meksikansk mat";
 "type.cuisine.moroccan" = "Marokkansk mat";
-"type.cuisine.noodles" = "Nudler";
+"type.cuisine.noodle" = "Nudler";
 "type.cuisine.oriental" = "Orientalsk mat";
 "type.cuisine.pancake" = "Pannekake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Pølse";
 "type.cuisine.savory_pancakes" = "Fylte pannekaker";
 "type.cuisine.seafood" = "Sjømat";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spansk mat";
 "type.cuisine.steak_house" = "Biffrestaurant";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Svømmebasseng";
 "type.leisure.swimming_pool.private" = "Svømmebasseng";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Løpebane";
+"type.leisure.track.area" = "Løpebane";
 "type.leisure.water_park" = "Vannpark";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Trerekke";
 "type.natural.vineyard" = "Vingård";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Aktiv vulkan";
 "type.natural.water" = "Vann";
 "type.natural.wetland" = "Våtmarksområde";
 "type.natural.wetland.bog" = "Myr";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Landhockey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Baskisk pelota";
+"type.sport.boules" = "Boule";
+"type.sport.cycling" = "Sykling";
+"type.sport.four_square" = "Fire kvadrater";
+"type.sport.horse_racing" = "Hesteveddeløp";
+"type.sport.karting" = "Gokart";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby";
+"type.sport.running" = "Løping";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turisme";
 "type.tourism.aquarium" = "Akvarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Historisk attraksjon";
 "type.attraction.maze" = "Labyrint";
 "type.attraction.roller_coaster" = "Berg- og dalbane";
+"type.roller_coaster.track" = "Berg- og dalbane";
 "type.attraction.water_slide" = "Vannrutsjebane";
 "type.tourism.attraction.specified" = "Attraksjon";
 "type.tourism.camp_site" = "Campingplass";
@@ -1476,7 +1492,7 @@
 "type.tourism.hotel" = "Hotell";
 "type.tourism.information" = "Turistinformasjon";
 "type.tourism.information.board" = "Informasjonstavle";
-"type.tourism.information.guidepost" = "Guidepost";
+"type.tourism.information.guidepost" = "Veiviser";
 "type.tourism.information.map" = "Turistkart";
 "type.tourism.information.office" = "Turistkontor";
 "type.tourism.information.visitor_centre" = "Besøkssenter";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Adkomstpunkt for vannvei";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Fiskestige";
@@ -1541,7 +1558,7 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
-"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.snow_park" = "Snøpark";
 "type.piste_type.hike" = "Tursti i snø";
 "type.piste_type.connection" = "Pisteforbindelse";
 "type.piste_type.skitour" = "Skitour-stien";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Urmaker";
 "type.xmas_feature.market" = "Julemarked";
 "type.xmas_feature.tree" = "Juletre";
+"type.amenity.hookah_lounge" = "Vannpipebar";

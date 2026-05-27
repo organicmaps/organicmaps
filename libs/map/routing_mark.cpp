@@ -9,24 +9,32 @@
 
 namespace
 {
-static std::string const kRouteMarkPrimaryText = "RouteMarkPrimaryText";
-static std::string const kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOutline";
-static std::string const kRouteMarkSecondaryText = "RouteMarkSecondaryText";
-static std::string const kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
+df::ColorConstant constexpr kRouteMarkPrimaryText = "RouteMarkPrimaryText";
+df::ColorConstant constexpr kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOutline";
+df::ColorConstant constexpr kRouteMarkSecondaryText = "RouteMarkSecondaryText";
+df::ColorConstant constexpr kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
 
-static std::string const kTransitMarkPrimaryText = "TransitMarkPrimaryText";
-static std::string const kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTextOutline";
-static std::string const kTransitMarkSecondaryText = "TransitMarkSecondaryText";
-static std::string const kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
+df::ColorConstant constexpr kTransitMarkPrimaryText = "TransitMarkPrimaryText";
+df::ColorConstant constexpr kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTextOutline";
+df::ColorConstant constexpr kTransitMarkSecondaryText = "TransitMarkSecondaryText";
+df::ColorConstant constexpr kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
 
-float const kRouteMarkPrimaryTextSize = 10.5f;
-float const kRouteMarkSecondaryTextSize = 10.0f;
-float const kRouteMarkSecondaryOffsetY = 2.0f;
-float const kTransitMarkTextSize = 12.0f;
+float constexpr kRouteMarkPrimaryTextSize = 10.5f;
+float constexpr kRouteMarkSecondaryTextSize = 10.0f;
+float constexpr kRouteMarkSecondaryOffsetY = 2.0f;
+float constexpr kTransitMarkTextSize = 12.0f;
 
-static std::string const kSpeedCameraMarkText = "SpeedCameraMarkText";
-static std::string const kSpeedCameraMarkBg = "SpeedCameraMarkBg";
-static std::string const kSpeedCameraMarkOutline = "SpeedCameraMarkOutline";
+df::ColorConstant constexpr kRouteMarkInterBg = "RouteMarkInterBg";
+df::ColorConstant constexpr kRouteMarkInterOutline = "RouteMarkInterOutline";
+df::ColorConstant constexpr kRouteMarkInterText = "RouteMarkInterText";
+
+float constexpr kRouteMarkInterTextSize = 11.0f;
+float constexpr kRouteMarkInterRadius = 10.0f;
+float constexpr kRouteMarkInterOutlineWidth = 2.0f;
+
+df::ColorConstant constexpr kSpeedCameraMarkText = "SpeedCameraMarkText";
+df::ColorConstant constexpr kSpeedCameraMarkBg = "SpeedCameraMarkBg";
+df::ColorConstant constexpr kSpeedCameraMarkOutline = "SpeedCameraMarkOutline";
 
 float constexpr kSpeedCameraMarkTextSize = 11.0f;
 float constexpr kSpeedCameraMarkTextMargin = 1.5f;
@@ -152,19 +160,51 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
 
 drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const
 {
-  if (m_followingMode)
+  bool const isIntermediate = m_markData.m_pointType == RouteMarkType::Intermediate;
+  if (m_followingMode && !isIntermediate)
     return nullptr;
 
   auto titles = make_unique_dp<TitlesInfo>();
-  titles->push_back(m_titleDecl);
+
+  if (isIntermediate)
+  {
+    dp::TitleDecl numberDecl;
+    numberDecl.m_primaryText = std::to_string(m_markData.m_intermediateIndex + 1);
+    numberDecl.m_primaryTextFont.m_color = df::GetColorConstant(kRouteMarkInterText);
+    numberDecl.m_primaryTextFont.m_size = kRouteMarkInterTextSize;
+    numberDecl.m_anchor = dp::Center;
+    numberDecl.m_forceNoWrap = true;
+    titles->push_back(std::move(numberDecl));
+  }
+
+  if (!m_followingMode)
+    titles->push_back(m_titleDecl);
+
   return titles;
 }
 
 drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RouteMarkPoint::GetColoredSymbols() const
 {
-  auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
-  coloredSymbol->m_isSymbolStub = true;
-  return coloredSymbol;
+  if (m_markData.m_pointType == RouteMarkType::Intermediate)
+  {
+    auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+
+    df::ColoredSymbolViewParams params;
+    params.m_color = df::GetColorConstant(kRouteMarkInterBg);
+    params.m_shape = df::ColoredSymbolViewParams::Shape::Circle;
+    params.m_radiusInPixels = kRouteMarkInterRadius * vs;
+    params.m_outlineColor = df::GetColorConstant(kRouteMarkInterOutline);
+    params.m_outlineWidth = kRouteMarkInterOutlineWidth * vs;
+
+    auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
+    coloredSymbol->m_zoomInfo[1] = params;
+    // Don't set m_addTextSize: it sizes the circle to fit titles[0], but then
+    // GenerateTextShapes sees symbolSize=0 (isTextBg path skips the update),
+    // so the address title below can't offset past the circle.
+    return coloredSymbol;
+  }
+
+  return nullptr;
 }
 
 void RouteMarkPoint::SetFollowingMode(bool enabled)
@@ -183,14 +223,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
   {
   case RouteMarkType::Start: name = "route-point-start"; break;
   case RouteMarkType::Finish: name = "route-point-finish"; break;
-  case RouteMarkType::Intermediate:
-  {
-    /// @todo Draw RouteMarkPoint icons dynamically like SpeedCameraMark.
-    if (m_markData.m_intermediateIndex < 19)
-      name = "route-point-" + std::to_string(m_markData.m_intermediateIndex + 1);
-    else
-      name = "route-point-20";
-  }
+  case RouteMarkType::Intermediate: return nullptr;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, name));
@@ -313,6 +346,37 @@ void RoutePointsLayout::RemoveIntermediateRoutePoints()
 {
   m_editSession.DeleteUserMarks<RouteMarkPoint>(UserMark::Type::ROUTING, [](RouteMarkPoint const * mark)
   { return mark->GetRoutePointType() == RouteMarkType::Intermediate; });
+}
+
+bool RoutePointsLayout::RemovePassedRoutePoints()
+{
+  auto const & markIds = m_manager.GetUserMarkIds(UserMark::Type::ROUTING);
+  if (!base::IsExistIf(markIds,
+                       [this](kml::MarkId markId) { return m_manager.GetMark<RouteMarkPoint>(markId)->IsPassed(); }))
+    return false;
+
+  m_editSession.DeleteUserMarks<RouteMarkPoint>(UserMark::Type::ROUTING,
+                                                [](RouteMarkPoint const * mark) { return mark->IsPassed(); });
+
+  // Re-index remaining intermediate points after removing passed ones.
+  std::vector<RouteMarkPoint *> remaining;
+  for (auto markId : markIds)
+  {
+    auto const * mark = m_manager.GetMark<RouteMarkPoint>(markId);
+    if (mark->GetRoutePointType() == RouteMarkType::Intermediate)
+    {
+      ASSERT(!mark->IsPassed(), ());
+      remaining.push_back(m_editSession.GetMarkForEdit<RouteMarkPoint>(markId));
+    }
+  }
+
+  std::sort(remaining.begin(), remaining.end(), [](RouteMarkPoint * a, RouteMarkPoint * b)
+  { return a->GetIntermediateIndex() < b->GetIntermediateIndex(); });
+
+  for (size_t i = 0; i < remaining.size(); ++i)
+    remaining[i]->SetIntermediateIndex(i);
+
+  return true;
 }
 
 bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,

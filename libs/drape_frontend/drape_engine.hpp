@@ -11,6 +11,7 @@
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/scenario_manager.hpp"
+#include "drape_frontend/selection_info.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
@@ -169,6 +170,10 @@ public:
                     bool isAnim, bool isGeometrySelectionAllowed, bool isSelectionShapeVisible);
   void DeselectObject(bool restoreViewport);
 
+  /// Highlights @p lines as overlay geometry on top of the current selection, using @p color.
+  /// Replaces any previously highlighted lines. No-op if no selection is active.
+  void SetSelectionLines(SelectionInfo && info);
+
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom, bool isArrowGlued);
@@ -212,6 +217,11 @@ public:
   void UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos);
   void ClearTransitSchemeCache(MwmSet::MwmId const & mwmId);
   void ClearAllTransitSchemeCache();
+
+  /// Shows a single route's transit view (lines + stops) on the transit scheme layer.
+  /// Replaces any previously shown route transit. No-op if the info is empty.
+  void ShowRouteTransit(TransitInfo && info);
+  void HideRouteTransit();
 
   void EnableIsolines(bool enable);
 

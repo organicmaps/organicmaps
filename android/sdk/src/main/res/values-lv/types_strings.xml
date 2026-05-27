@@ -30,6 +30,7 @@
     <string name="type.amenity.pub">Krogs</string>
 
     <!-- SECTION: Types: Recycling -->
+    <string name="type.cuisine.shawarma">Šaurma</string>
     <string name="type.cuisine.uzbek">Uzbeku</string>
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Glābējs</string>
@@ -46,10 +47,13 @@
     <!-- SECTION: Types: Historic -->
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
+    <string name="type.leisure.track">Skrejceļš</string>
+    <string name="type.leisure.track.area">Skrejceļš</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Gāzes deglis</string>
+    <string name="type.natural.volcano.active">Aktīvais vulkāns</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Apkaime</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
@@ -62,19 +66,33 @@
     <string name="type.shop.leather">Ādas izstrādājumu veikals</string>
     <string name="type.shop.pasta">Makaronu veikals</string>
     <string name="type.shop.religion">Reliģisko piederumu veikals</string>
+    <string name="type.sport.boules">Petanks</string>
+    <string name="type.sport.cycling">Riteņbraukšana</string>
+    <string name="type.sport.four_square">Četri kvadrāti</string>
+    <string name="type.sport.horse_racing">Zirgu skriešanās sacīkstes</string>
+    <string name="type.sport.karting">Kartings</string>
+    <string name="type.sport.motocross">Motokross</string>
+    <string name="type.sport.motor">Motosports</string>
+    <string name="type.sport.netball">Netbols</string>
+    <string name="type.sport.pickleball">Piklbols</string>
+    <string name="type.sport.rugby_union">Regbijs-15</string>
+    <string name="type.sport.running">Skriešana</string>
+    <string name="type.sport.softball">Softbols</string>
     <string name="type.attraction.amusement_ride">Atrakciju brauciens</string>
     <string name="type.attraction.carousel">Karuselis</string>
     <string name="type.attraction.historic">Vēsturiska atrakcija</string>
     <string name="type.attraction.maze">Labirints</string>
     <string name="type.attraction.roller_coaster">Amerikāņu kalniņi</string>
+    <string name="type.roller_coaster.track">Amerikāņu kalniņi</string>
     <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
+    <string name="type.waterway.access_point">Piekļuves punkts pie ūdensceļiem</string>
     <string name="type.barrier.jersey_barrier">Bloks</string>
     <string name="type.barrier.debris">Gruveši</string>
     <string name="type.barrier.log">Baļķu barjera</string>
     <string name="type.amenity.boat_rental">Laivu noma</string>
     <string name="type.shop.telecommunication">Telekomunikāciju veikals</string>
     <string name="type.leisure.indoor_play">Spēļu centrs</string>
-    <string name="type.tourism.camp_pitch">Kempings Spot</string>
+    <string name="type.tourism.camp_pitch">Kempinga vieta</string>
     <string name="type.railway.miniature">Miniatūras dzelzceļš</string>
     <string name="type.amenity.kneipp_water_cure">Kneipa ūdens kūre</string>
     <string name="type.area_highway.traffic_island">Satiksmes sala</string>
@@ -85,4 +103,5 @@
     <string name="type.craft.watchmaker">Pulksteņmeistars</string>
     <string name="type.xmas_feature.market">Ziemassvētku tirdziņš</string>
     <string name="type.xmas_feature.tree">Ziemassvētku eglīte</string>
+    <string name="type.amenity.hookah_lounge">Ūdenspīpes bārs</string>
 </resources>

@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Αποφυγή πορθμείων</string>
     <string name="avoid_motorways">Αποφυγή αυτοκινητόδρομων</string>
     <string name="unable_to_calc_alert_title">Δεν ήταν δυνατός ο υπολογισμός διαδρομής</string>
+    <string name="trip_finished">Μόλις φτάσατε!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ταξινόμηση σελιδ/κτών</string>
     <!-- Android -->
@@ -100,7 +101,7 @@
     <string name="downloader_loading_ios">Κατέβασμα</string>
     <string name="download_map_title">Κατεβάστε τον παγκόσμιο χάρτη επισκόπησης</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Οι οργανικοί χάρτες στο Android Auto χρειάζονται δικαιώματα τοποθεσίας για να λειτουργούν αποτελεσματικά</string>
+    <string name="aa_request_permission_activity_text">Organic Maps στο Android Auto απαιτεί δικαιώματα πρόσβασης στην τοποθεσία για να λειτουργεί αποτελεσματικά</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Να επιτραπεί</string>
 </resources>

@@ -1,9 +1,8 @@
-• OSM adatok: február 16., Wikipédia: február 1.
-• A fekete túra- és kerékpárutak mostantól láthatók a sötét témában
-• Kötélpályák és több autószerviz hozzáadva: javítás, szerviz és alkatrészek
-• Kerékpáros útvonaltervezés és átlagsebesség-számítás javítva
-• Javított kategóriakeresés
-• Üzbég konyha
-• Kibővíthető nyitvatartási idők
-• MSL magasság megjelenítése és használata rögzített nyomvonalakhoz Android 14+ rendszeren
-…több az omaps.org/news oldalon
+• Válassza ki a túra- és kerékpáros útvonalakat, hogy megnézze a magassági diagramjaikat.
+• A térkép megfelelő megjelenítése az antimeridiánnál (±180° hosszúság)
+• Egyszerre megváltoztathatja az összes könyvjelző és nyomvonal színét egy kategóriában.
+• Jobb keresés a házszámokra, több amerikai cím lefedése
+• OSM-adatok április 4-től
+• Ütemezett megjelenési mód a Beállításokban
+• Javított könyvjelzők/nyomvonalak megosztása más alkalmazásokkal
+…még több az omaps.org/hu/news oldalon

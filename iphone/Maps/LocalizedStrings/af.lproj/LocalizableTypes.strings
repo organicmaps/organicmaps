@@ -157,7 +157,7 @@
 "type.recycling.shoes" = "Skoene";
 "type.recycling.green_waste" = "Groen-/organiese afval";
 "type.recycling.cartons" = "Drankverpakking";
-"type.amenity.restaurant" = "Restourant";
+"type.amenity.restaurant" = "Restaurant";
 "type.amenity.sanitary_dump_station" = "Opgaartenkstortstasie";
 "type.amenity.school" = "Skool";
 
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adres";
+"type.building.construction" = "Gebou in aanbou";
 "type.building.has_parts" = "Gebou";
 "type.building_part" = "Gebou";
 "type.building.garage" = "Motorhawe";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterreens";
 "type.cuisine.mexican" = "Meksikaans";
 "type.cuisine.moroccan" = "Marokkaans";
-"type.cuisine.noodles" = "Noedels";
+"type.cuisine.noodle" = "Noedels";
 "type.cuisine.oriental" = "Oosters";
 "type.cuisine.pancake" = "Pannekoek";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Wors";
 "type.cuisine.savory_pancakes" = "Pikante pannekoeke";
 "type.cuisine.seafood" = "Seekos";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spaans";
 "type.cuisine.steak_house" = "Braairestourant";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Boomry";
 "type.natural.vineyard" = "Wingerd";
 "type.natural.volcano" = "Vulkaan";
+"type.natural.volcano.active" = "Aktiewe vulkaan";
 "type.natural.water" = "Water";
 "type.natural.wetland" = "Moerasland";
 "type.natural.wetland.bog" = "Vlei";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hokkie";
 "type.sport.badminton" = "Pluimbal";
 "type.sport.pelota" = "Baskiese peloton";
+"type.sport.boules" = "Boule";
+"type.sport.cycling" = "Fietsry";
+"type.sport.four_square" = "Vierkantbal";
+"type.sport.horse_racing" = "Perdewedrenne";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netbal";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugbyunie";
+"type.sport.running" = "Hardloop";
+"type.sport.softball" = "Sagtebal";
 "type.tourism" = "Toerisme";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Historiese aantrekkingskrag";
 "type.attraction.maze" = "Doolhof";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Waterglybaan";
 "type.tourism.attraction.specified" = "Attraksie";
 "type.tourism.camp_site" = "Kampeerterrein";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Verkeersdrempel";
 "type.traffic_calming.hump" = "Verkeersheuwel";
 "type.waterway" = "Waterweg";
+"type.waterway.access_point" = "Toegangspunt tot waterweg";
 "type.waterway.canal" = "Kanaal";
 "type.waterway.canal.tunnel" = "Kanaal";
 "type.waterway.fish_pass" = "Vistrap";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Watchmaker";
 "type.xmas_feature.market" = "Kersmark";
 "type.xmas_feature.tree" = "Kersboom";
+"type.amenity.hookah_lounge" = "Hookah Lounge";

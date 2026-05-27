@@ -371,6 +371,8 @@
     <string name="clear_search">Hreinsa leitarferil</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Grein frá wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Staðsetning þín</string>
@@ -629,6 +631,8 @@
     <string name="bookmarks_empty_list_message">Til að bæta við bókamerki, skaltu ýta á stað á kortinu og ýta síðan á stjörnutáknið</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Breyta lit allra bókamerkja</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Breyta lit allra ferla</string>
     <string name="category_desc_more">…meira</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Flytja út KMZ</string>
@@ -707,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Fyrir meira en ári síðan</string>
     <string name="near_me_sorttype">Nálægt mér</string>
     <string name="others_sorttype">Annað</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Lokað núna</string>
+    <string name="opens_tomorrow_at">Opnar á morgun kl. %s</string>
+    <string name="opens_dayoftheweek_at">Opnar %1$s kl. %2$s</string>
+    <string name="opens_at">Opnar %s</string>
+    <string name="closes_at">Lokar %s</string>
     <string name="editor_add_select_category_all_subtitle">Allir flokkar</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -868,7 +878,25 @@
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Innskráning með lykilorði</string>
     <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Innskráning með vafrara</string>
+    <string name="login_osm_browser">Innskráning með vafra</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nýlega notað</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Lit bókamerkja breytt</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Litur ferla breytt</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Litróf</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Rennarar</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">RAUTT</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">GRÆNN</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLÁTT</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB hex-litur #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Rist</string>
 </resources>

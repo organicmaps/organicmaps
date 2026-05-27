@@ -610,9 +610,9 @@ void Framework::ExecuteMapApiRequest()
   return m_work.ExecuteMapApiRequest();
 }
 
-void Framework::DeactivatePopup()
+bool Framework::DeactivatePopup()
 {
-  m_work.DeactivateMapSelection();
+  return m_work.DeactivateMapSelection();
 }
 
 void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
@@ -1263,99 +1263,60 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
   return CreateJunctionInfoArray(env, result);
 }
 
-JNIEXPORT jintArray Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass,
-                                                                                            jint width, jint height,
-                                                                                            jobject routeAltitudeLimits)
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
 {
-  RoutingManager::DistanceAltitude altitudes;
-  if (!frm()->GetRoutingManager().GetRouteAltitudesAndDistancesM(altitudes))
+  ElevationInfo ei;
+  if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
   {
     LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
   }
 
-  altitudes.Simplify();
+  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
 
-  std::vector<uint8_t> imageRGBAData;
-  if (!altitudes.GenerateRouteAltitudeChart(width, height, imageRGBAData))
+  static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
+
+  jsize const size = static_cast<jsize>(ei.GetSize());
+
+  jdoubleArray jDistances = env->NewDoubleArray(size);
+  CHECK(jDistances, ());
+  jintArray jElevs = env->NewIntArray(size);
+  CHECK(jElevs, ());
+
+  jdouble * distances = env->GetDoubleArrayElements(jDistances, nullptr);
+  jint * elevations = env->GetIntArrayElements(jElevs, nullptr);
+
+  size_t i = 0;
+  ei.ForEachPoint([&](double dist, geometry::Altitude alt)
   {
-    LOG(LWARNING, ("Can't generate route altitude image."));
-    return nullptr;
-  }
+    distances[i] = dist;
+    elevations[i] = static_cast<jint>(alt);
+    ++i;
+  });
 
-  uint32_t totalAscent, totalDescent;
-  altitudes.CalculateAscentDescent(totalAscent, totalDescent);
+  env->ReleaseDoubleArrayElements(jDistances, distances, 0);
+  env->ReleaseIntArrayElements(jElevs, elevations, 0);
 
-  // Android platform code has specific result string formatting, so make conversion here.
-  using namespace measurement_utils;
-  auto units = Units::Metric;
-  if (settings::Get(settings::kMeasurementUnits, units) && units == Units::Imperial)
-  {
-    totalAscent = measurement_utils::MetersToFeet(totalAscent);
-    totalDescent = measurement_utils::MetersToFeet(totalDescent);
-  }
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(altInfo.GetTotalAscent()),
+                        static_cast<jint>(altInfo.GetTotalDescent()), static_cast<jint>(altInfo.m_minAltitude),
+                        static_cast<jint>(altInfo.m_maxAltitude));
+}
 
-  jni::TScopedLocalRef const totalAscentString(env, jni::ToJavaString(env, ToStringPrecision(totalAscent, 0)));
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,
+                                                                                     jdouble distanceMeters)
+{
+  if (frm()->GetDrapeEngine() == nullptr)
+    return;
+  if (auto const pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters))
+    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(), false,
+                                          false, true);
+}
 
-  jni::TScopedLocalRef const totalDescentString(env, jni::ToJavaString(env, ToStringPrecision(totalDescent, 0)));
-
-  // Passing route limits.
-  // Do not use jni::GetGlobalClassRef, because this class is used only to init static fieldId vars.
-  static jclass const routeAltitudeLimitsClass = env->GetObjectClass(routeAltitudeLimits);
-  ASSERT(routeAltitudeLimitsClass, ());
-
-  static jfieldID const totalAscentField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscent", "I");
-  ASSERT(totalAscentField, ());
-  env->SetIntField(routeAltitudeLimits, totalAscentField, static_cast<jint>(totalAscent));
-
-  static jfieldID const totalDescentField = env->GetFieldID(routeAltitudeLimitsClass, "totalDescent", "I");
-  ASSERT(totalDescentField, ());
-  env->SetIntField(routeAltitudeLimits, totalDescentField, static_cast<jint>(totalDescent));
-
-  static jfieldID const totalAscentStringField =
-      env->GetFieldID(routeAltitudeLimitsClass, "totalAscentString", "Ljava/lang/String;");
-  ASSERT(totalAscentStringField, ());
-  env->SetObjectField(routeAltitudeLimits, totalAscentStringField, totalAscentString.get());
-
-  static jfieldID const totalDescentStringField =
-      env->GetFieldID(routeAltitudeLimitsClass, "totalDescentString", "Ljava/lang/String;");
-  ASSERT(totalDescentStringField, ());
-  env->SetObjectField(routeAltitudeLimits, totalDescentStringField, totalDescentString.get());
-
-  static jfieldID const isMetricUnitsField = env->GetFieldID(routeAltitudeLimitsClass, "isMetricUnits", "Z");
-  ASSERT(isMetricUnitsField, ());
-  env->SetBooleanField(routeAltitudeLimits, isMetricUnitsField, units == Units::Metric);
-
-  size_t const imageRGBADataSize = imageRGBAData.size();
-  ASSERT_NOT_EQUAL(imageRGBADataSize, 0,
-                   ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
-
-  size_t const pxlCount = width * height;
-  if (maps::kAltitudeChartBPP * pxlCount != imageRGBADataSize)
-  {
-    LOG(LWARNING,
-        ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBADataSize));
-    return nullptr;
-  }
-
-  jintArray imageRGBADataArray = env->NewIntArray(static_cast<jsize>(pxlCount));
-  ASSERT(imageRGBADataArray, ());
-  jint * arrayElements = env->GetIntArrayElements(imageRGBADataArray, 0);
-  ASSERT(arrayElements, ());
-
-  for (size_t i = 0; i < pxlCount; ++i)
-  {
-    size_t const shiftInBytes = i * maps::kAltitudeChartBPP;
-    // Type of |imageRGBAData| elements is uint8_t. But uint8_t is promoted to unsinged int in code below before
-    // shifting. So there's no data lost in code below.
-    arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */
-                     | (imageRGBAData[shiftInBytes] << 16)     /* red */
-                     | (imageRGBAData[shiftInBytes + 1] << 8)  /* green */
-                     | (imageRGBAData[shiftInBytes + 2]);      /* blue */
-  }
-  env->ReleaseIntArrayElements(imageRGBADataArray, arrayElements, 0);
-
-  return imageRGBADataArray;
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)
+{
+  if (frm()->GetDrapeEngine() != nullptr)
+    frm()->GetDrapeEngine()->DeselectObject(false);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env, jclass, jstring countryId,
@@ -1392,9 +1353,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsList
     g_loadRouteHandler = nullptr;
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
 {
-  return g_framework->DeactivatePopup();
+  return static_cast<jboolean>(g_framework->DeactivatePopup());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass,
@@ -1643,12 +1604,46 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormat
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedRouteRefs(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectRoutes(JNIEnv * env, jclass)
 {
   if (!frm()->HasPlacePageInfo())
-    return {};
+    return nullptr;
 
-  return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatRouteRefs());
+  auto const & routes = g_framework->GetPlacePageInfo().GetRoutes();
+  if (routes.empty())
+    return nullptr;
+
+  static jclass const routeInfoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/widget/placepage/RouteInfo");
+  // RouteInfo(String ref, String from, String to, int type, int relId, int argbColor)
+  static jmethodID const routeInfoCtor =
+      jni::GetConstructorID(env, routeInfoClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;III)V");
+
+  auto const count = static_cast<jsize>(routes.size());
+  jobjectArray const result = env->NewObjectArray(count, routeInfoClass, nullptr);
+  for (jsize i = 0; i < count; ++i)
+  {
+    auto const & r = routes[i];
+    jni::TScopedLocalRef ref(env, jni::ToJavaString(env, r.m_ref));
+    jni::TScopedLocalRef from(env, jni::ToJavaString(env, r.m_from));
+    jni::TScopedLocalRef to(env, jni::ToJavaString(env, r.m_to));
+    // ARGB with alpha==0 (i.e. plain 0) signals "no color" — Java falls back to defaults.
+    jni::TScopedLocalRef item(
+        env, env->NewObject(routeInfoClass, routeInfoCtor, ref.get(), from.get(), to.get(), static_cast<jint>(r.m_type),
+                            static_cast<jint>(r.m_relID), static_cast<jint>(r.m_color.GetARGB())));
+    env->SetObjectArrayElement(result, i, item.get());
+  }
+  return result;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowRouteTransit(JNIEnv *, jclass, jint relId)
+{
+  frm()->ShowRouteTransit(static_cast<uint32_t>(relId));
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveTransitRouteRef(JNIEnv * env, jclass)
+{
+  auto const ref = frm()->GetActiveTransitRouteRef();
+  return ref.empty() ? nullptr : jni::ToJavaString(env, ref);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top,

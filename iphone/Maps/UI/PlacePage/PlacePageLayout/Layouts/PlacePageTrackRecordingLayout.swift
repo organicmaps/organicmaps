@@ -26,8 +26,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     guard let trackData = placePageData.trackData else {
       return nil
     }
-    return ElevationProfileBuilder.build(trackData: trackData,
-                                         delegate: interactor)
+    return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor, presentationStyle: .track)
   }()
 
   private lazy var actionBarViewController: ActionBarViewController = {

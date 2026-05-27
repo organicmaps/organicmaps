@@ -47,10 +47,6 @@
   path = 3party/pugixml/pugixml
   url = https://github.com/zeux/pugixml.git
   branch = master
-[submodule "3party/jansson/jansson"]
-  path = 3party/jansson/jansson
-  url = https://github.com/akheron/jansson.git
-  branch = master
 [submodule "3party/gflags"]
   path = 3party/gflags
   url = https://github.com/gflags/gflags
@@ -81,8 +77,8 @@
   branch = master
 [submodule "3party/glaze"]
   path = 3party/glaze
-  url = https://github.com/organicmaps/glaze
-  branch = organicmaps
+  url = https://github.com/stephenberry/glaze
+  branch = main
 [submodule "3party/fast_float"]
   path = 3party/fast_float
   url = https://github.com/fastfloat/fast_float.git
@@ -91,4 +87,3 @@
   path = tools/python/twine
   url = https://github.com/organicmaps/twine.git
   branch = organicmaps
-

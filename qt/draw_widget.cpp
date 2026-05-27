@@ -117,21 +117,12 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
     auto const routerType = routingManager.GetLastUsedRouter();
     if (routerType == routing::RouterType::Pedestrian || routerType == routing::RouterType::Bicycle)
     {
-      RoutingManager::DistanceAltitude da;
-      if (!routingManager.GetRouteAltitudesAndDistancesM(da))
+      ElevationInfo ei;
+      if (!routingManager.GetRouteElevationInfo(ei))
         return;
 
-      for (int iter = 0; iter < 2; ++iter)
-      {
-        LOG(LINFO, ("Altitudes", iter == 0 ? "before" : "after", "simplify:"));
-        LOG_SHORT(LDEBUG, (da));
-
-        uint32_t totalAscent, totalDescent;
-        da.CalculateAscentDescent(totalAscent, totalDescent);
-        LOG_SHORT(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
-
-        da.Simplify();
-      }
+      auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+      LOG(LINFO, ("Ascent:", altInfo.GetTotalAscent(), "Descent:", altInfo.GetTotalDescent()));
     }
   });
 
@@ -585,6 +576,12 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
   else
     point.m_position = pointIsMercator ? pt : P2G(pt);
 
+  // Fill title/subtitle from the nearest feature and address, like Android/iOS do.
+  if (auto const fid = m_framework.GetFeatureAtPoint(point.m_position); fid.IsValid())
+    m_framework.GetDataSource().ReadFeature([&](FeatureType & ft) { point.m_title = ft.GetReadableName(); }, fid);
+  auto const addr = m_framework.GetAddressAtPoint(point.m_position);
+  point.m_subTitle = addr.FormatAddress();
+
   rm.AddRoutePoint(std::move(point));
 
   if (rm.GetRoutePoints().size() >= 2)
@@ -612,9 +609,8 @@ void DrawWidget::FollowRoute()
 {
   auto & routingManager = m_framework.GetRoutingManager();
 
-  /// @DebugNote
-  /// Uncomment to debug TTS.
-  // routingManager.SetTurnNotificationsLocale("es");
+  routingManager.SetTurnNotificationsLocale("en");
+  /// @DebugNote Uncomment to Debug TTS.
   // routingManager.EnableTurnNotifications(true);
 
   auto const points = routingManager.GetRoutePoints();
@@ -665,7 +661,7 @@ void DrawWidget::ShowPlacePage()
   std::unique_ptr<QDialog> placePageDialog = nullptr;
   bool developerMode;
   if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
-    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info);
+    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info, m_framework);
   else
     placePageDialog = std::make_unique<PlacePageDialogUser>(this, info);
 

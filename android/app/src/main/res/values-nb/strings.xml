@@ -170,7 +170,7 @@
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.</string>
     <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">Nedlasting av land pågår nå.</string>
+    <string name="downloading_is_active">Kartnedlasting pågår nå.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Hei, se posisjonen min på Organic Maps! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
@@ -369,6 +369,12 @@
     <string name="search_history_title">Søkehistorikk</string>
     <string name="search_history_text">Vis de siste søkene raskt.</string>
     <string name="clear_search">Tøm søkehistorikk</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Artikkel fra wikipedia.org</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Din beliggenhet</string>
     <string name="p2p_start">Start</string>
     <string name="p2p_from_here">Fra</string>
@@ -622,6 +628,8 @@
     <string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Endre farge på alle bokmerker</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Endre farge på alle spor</string>
     <string name="category_desc_more">…mer</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksporter KMZ</string>
@@ -700,6 +708,12 @@
     <string name="moreyear_ago_sorttype">Mer enn ett år siden</string>
     <string name="near_me_sorttype">Nær meg</string>
     <string name="others_sorttype">Andre</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Lukket nå</string>
+    <string name="opens_tomorrow_at">Åpner i morgen klokka %s</string>
+    <string name="opens_dayoftheweek_at">Åpner %1$s klokka %2$s</string>
+    <string name="opens_at">Åpner klokka %s</string>
+    <string name="closes_at">Stenger %s</string>
     <string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -752,6 +766,8 @@
     <string name="change_map_locale">Kart-språk</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Kartdata fra OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Takk for at du bruker kartene vi har laget i fellesskap!</string>
     <!-- App tip #01 -->
@@ -849,7 +865,25 @@
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Logg inn med passord</string>
     <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Innlogging ved hjelp av nettleser</string>
+    <string name="login_osm_browser">Logg inn med nettleser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Nylig brukt</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Bokmerkefarge endret</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Sporfarge endret</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektrum</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Glidebrytere</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">RØD</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">GRØNN</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLÅ</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex Color #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Rutenett</string>
 </resources>

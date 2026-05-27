@@ -98,7 +98,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `openlr/` -
 - `packaging/` - packaging specs for various distributions.
 - `platform/` - platform abstraction classes: file paths, http requests, location services.
-- `pyhelpers/` -
 - `qt_tstfrm/` - widgets for visual testing.
 - `routing_common/` -
 - `routing/` - in-app routing engine.

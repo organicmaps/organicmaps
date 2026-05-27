@@ -1156,3 +1156,10 @@ Tanzania_Southern Highlands	50000.0
 Tanzania_Offshore Islands	50000.0
 Tanzania_Lake	50000.0
 Tanzania_Western	50000.0
+Malaysia_East	50000.0
+Malaysia_West	50000.0
+Vietnam_North	50000.0
+Vietnam_South	50000.0
+China_Hainan	50000.0
+Hong Kong	50000.0
+Macau	50000.0

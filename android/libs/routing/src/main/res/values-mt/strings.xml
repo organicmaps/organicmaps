@@ -37,6 +37,8 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Aġġorna l-Mapep</string>
     <string name="downloader_mwm_migration_dialog">Biex toħloq rotta, trid taġġorna l-mapep kollha u mbagħad terġa ’tippjana r-rotta.</string>
+    <string name="navigation_stop_button">Waqqaf</string>
+    <string name="ok">OK</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="transit_not_found">In-navigazzjoni tas-subway f’ dan ir-reġjun għadha mhix disponibbli</string>

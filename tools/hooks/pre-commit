@@ -59,6 +59,53 @@ if [ -n "$SWIFT_FILES" ]; then
   fi
 fi
 
+# --- ktlint ------------------------------------------------------------------
+KTLINT_REGEX=$(build_path_regex KTLINT_TARGETS)
+KTLINT_FILES=$(echo "$STAGED_FILES" | grep -E "$KTLINT_REGEX" || true)
+
+if [ -n "$KTLINT_FILES" ]; then
+  if KTLINT=$(resolve_ktlint); then
+    echo "pre-commit: using ktlint $($KTLINT --version)"
+
+    # Collect existing files for a single JVM invocation (~2s total instead of ~2s per file).
+    KTLINT_ARGS=()
+    while IFS= read -r FILE; do
+      [ -f "$FILE" ] && KTLINT_ARGS+=("$FILE")
+    done <<< "$KTLINT_FILES"
+
+    if [ ${#KTLINT_ARGS[@]} -gt 0 ]; then
+      # ktlint has no --dry-run; hash files before/after to skip re-staging
+      # when ktlint made no changes (avoids spurious "reformatted" lines and
+      # avoids re-staging unrelated worktree state when nothing was changed).
+      KTLINT_HASHES=()
+      for i in "${!KTLINT_ARGS[@]}"; do
+        KTLINT_HASHES[$i]=$(git hash-object "${KTLINT_ARGS[$i]}")
+      done
+
+      set +e
+      "$KTLINT" --editorconfig="$REPO_ROOT/android/.editorconfig" --format "${KTLINT_ARGS[@]}"
+      kt_rc=$?
+      set -e
+
+      for i in "${!KTLINT_ARGS[@]}"; do
+        AFTER=$(git hash-object "${KTLINT_ARGS[$i]}")
+        if [ "${KTLINT_HASHES[$i]}" != "$AFTER" ]; then
+          echo "ktlint: reformatted ${KTLINT_ARGS[$i]}"
+          git add "${KTLINT_ARGS[$i]}"
+          REFORMATTED=1
+        fi
+      done
+
+      if [ $kt_rc -ne 0 ]; then
+        echo "ktlint: unfixable violations above — fix manually and re-commit."
+        exit 1
+      fi
+    fi
+  else
+    echo "Warning: ktlint not found, skipping Kotlin files."
+  fi
+fi
+
 # -----------------------------------------------------------------------------
 # Fail if reformatting eliminated all staged changes (would create an empty commit).
 if [ "$REFORMATTED" -eq 1 ]; then

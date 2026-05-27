@@ -1,27 +1,56 @@
-• OSM map data as of February 16
-• Wikipedia data as of February 1
-• Black hiking and cycling routes are now visible in the dark theme
-• Added more car services: repair, service, and parts
-• Added OSM browser authentication
-• Fixed bicycle access on some road types
-• Fixed average speed calculation
-• Improved search ranking for categories
-• Added Uzbek cuisine
-• Added zip lines on the map
-• Fixed Wikimedia links with "?" in the title
-• Fixed parsing of GPX files with "+" in coordinates
+## Map
 
-### Translations
+- NEW! Proper map wrapping at the antimeridian when dragging and rotating
+- OpenStreetMap data updated as of April 4
+- Wikipedia data updated as of April 1
+- Added icons for food courts and city gates
+- Added clothing shop subcategories: women, men, children, wedding, sports, underwear, plus office types
+- Fixed Sydney subway line colors
+- Fixed opening hours display for places with sunrise/sunset offsets
 
-• Removed duplicate city names in some map regions
-• Fixed Hebrew voice directions
-• Fixed Korean typos
-• Added Russian search synonyms
-• Improved German voice directions
-• Fixed missing translation for disused railway tunnel
-• Fixed country translation in Romanian
-• Added Lao and Armenian translations
-• Added missing Armenian translations
-• Updated translations from Weblate contributors
+## Routing and Navigation
 
-Thanks to everyone who is contributing, donating and supporting Organic Maps! Let's build the best maps together!
+- NEW! Tap a cycling or hiking route to select it and view its elevation chart
+- Improved multi-color rendering for hiking and cycling routes
+- Cycling navigation now uses compass heading at low speeds
+- Fixed a system error when planning routes near some regional borders
+- You can now start a valid route even when prompted to download additional maps
+
+## Bookmarks and Tracks
+
+- NEW! Change all bookmark and track colors in a category at once
+- Adjusted elevation gain and loss approximation on track graphs to better match other apps
+- Improved display of HTML content with tables and images in bookmark details
+- Added vertical separators for multi-segment tracks in the elevation chart
+- Fixed point selection in the elevation chart for interpolated points
+- Fixed GPS track recording dropping points between segments
+- Fixed GeoJSON import
+- Fixed a crash when exporting tracks
+
+## Search
+
+- Better search in the USA, with two million additional addresses parsed from TIGER Census data
+- Updated search categories: added "Bread" for bakeries, "Shawarma" cuisine, and other synonym improvements
+- Improved house-number address search
+- Added US street synonyms: highway, hwy, freeway, fwy
+- Fixed search results when city and state names are the same
+
+## Editor / OpenStreetMap
+
+- You can now add a new place to OpenStreetMap after selecting your current position on the map
+- Fixed editor crosshair misalignment when pressing "Add Place"
+- Increased the touch area of buttons in the "Add Place" navigation bar
+
+## UI and UX
+
+- Improved modal gestures: snap to the nearest step, close on edge pan, and restore the previous state when reopened
+- Fixed daylight saving time handling for time zones
+
+## Stability and Localization
+
+- Improved stability and performance, reduced battery usage
+- Updated translations
+
+## Platform Support
+
+- Due to changes in TestFlight and the App Store, this release supports only iOS 15 and later. iOS 12, 13, and 14 are no longer supported.

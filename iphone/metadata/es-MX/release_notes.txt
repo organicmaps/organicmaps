@@ -1,27 +1,56 @@
-• Datos de mapas OSM del 16 de febrero
-• Datos de Wikipedia del 1 de febrero
-• Las rutas de senderismo y ciclismo de color negro ahora son visibles en el tema oscuro
-• Se agregaron más servicios para automóviles: reparación, servicio y refacciones
-• Se agregó autenticación del navegador OSM
-• Se corrigió el acceso de bicicletas en algunos tipos de caminos
-• Se corrigió el cálculo de la velocidad promedio
-• Se mejoró la clasificación de búsqueda por categorías
-• Se agregó cocina uzbeka
-• Se agregaron tirolesas en el mapa
-• Se corrigieron enlaces de Wikimedia con "?" en el título
-• Se corrigió el análisis de archivos GPX con "+" en las coordenadas
+## Mapa
 
-### Traducciones
+- ¡NUEVO! Ajuste adecuado del mapa en el antimeridiano al arrastrar y rotar
+- Datos de OpenStreetMap actualizados al 4 de abril
+- Datos de Wikipedia actualizados al 1 de abril
+- Se han añadido íconos para zonas de comida y puertas de la ciudad
+- Se han añadido subcategorías de tiendas de ropa: mujer, hombre, niño, boda, deportes, ropa interior y tipos de oficina
+- Se han corregido los colores de las líneas del metro de Sídney
+- Se ha corregido la visualización de los horarios de apertura para lugares con diferencias horarias de amanecer/atardecer
 
-• Se eliminaron nombres de ciudades duplicados en algunas regiones del mapa
-• Se corrigieron las indicaciones de voz en hebreo
-• Se corrigieron errores tipográficos en coreano
-• Se agregaron sinónimos de búsqueda en ruso
-• Se mejoraron las indicaciones de voz en alemán
-• Se corrigió la traducción faltante para túnel ferroviario en desuso
-• Se corrigió la traducción del país en rumano
-• Se agregaron traducciones al laosiano y armenio
-• Se agregaron traducciones armenias faltantes
-• Se actualizaron las traducciones de los colaboradores de Weblate
+## Rutas y navegación
 
-¡Gracias a todos los que contribuyen, donan y apoyan a Organic Maps! ¡Construyamos los mejores mapas juntos!
+- ¡NUEVO! Toca una ruta de ciclismo o senderismo para seleccionarla y ver su gráfico de elevación
+- Se ha mejorado la representación multicolor de las rutas de senderismo y ciclismo
+- La navegación en bicicleta ahora utiliza el rumbo de la brújula a bajas velocidades
+- Se ha corregido un error del sistema al planificar rutas cerca de algunas fronteras regionales
+- Ahora puedes iniciar una ruta válida incluso cuando se te solicite descargar mapas adicionales
+
+## Marcadores y rutas
+
+- ¡NUEVO! Cambia todos los colores de marcadores y trazas de una categoría a la vez
+- Se ha ajustado la aproximación del desnivel positivo y negativo en los gráficos de trazas para que coincida mejor con otras aplicaciones
+- Se ha mejorado la visualización de contenido HTML con tablas e imágenes en los detalles de los marcadores
+- Se han añadido separadores verticales para los registros de múltiples segmentos en el gráfico de elevación.
+- Se ha corregido la selección de puntos en el gráfico de elevación para los puntos interpolados.
+- Se ha corregido la pérdida de puntos en el registro de trazas GPS entre segmentos.
+- Se ha corregido la importación de GeoJSON.
+- Se ha corregido un fallo al exportar registros.
+
+## Búsqueda
+
+- Mejor búsqueda en EE. UU., con dos millones de direcciones adicionales extraídas de los datos del censo TIGER.
+- Categorías de búsqueda actualizadas: se ha añadido «Pan» para panaderías, «Shawarma» para la cocina de este tipo y otras mejoras en sinónimos
+- Se ha mejorado la búsqueda de direcciones por número de casa
+- Se han añadido sinónimos de calles en EE. UU.: highway, hwy, freeway, fwy
+- Se han corregido los resultados de búsqueda cuando los nombres de la ciudad y el estado son iguales
+
+## Editor / OpenStreetMap
+
+- Ahora puedes agregar un nuevo lugar a OpenStreetMap después de seleccionar tu posición actual en el mapa
+- Se ha corregido la desalineación del punto de mira del editor al presionar «Agregar lugar»
+- Se ha aumentado el área táctil de los botones en la barra de navegación «Agregar lugar»
+
+## Interfaz de usuario y experiencia de usuario
+
+- Gestos modales mejorados: ajustarse al paso más cercano, cerrar al desplazar por el borde y restaurar el estado anterior al volver a abrir
+- Se ha corregido el manejo del horario de verano para las zonas horarias
+
+## Estabilidad y localización
+
+- Se ha mejorado la estabilidad y el rendimiento, y se ha reducido el consumo de batería
+- Se han actualizado las traducciones
+
+## Compatibilidad con plataformas
+
+- Debido a cambios en TestFlight y la App Store, esta versión solo es compatible con iOS 15 y versiones posteriores. Ya no se admiten iOS 12, 13 y 14.

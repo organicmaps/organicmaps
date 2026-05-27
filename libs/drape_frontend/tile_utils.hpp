@@ -15,6 +15,17 @@ struct CoverageResult
   int m_maxTileX = 0;
   int m_minTileY = 0;
   int m_maxTileY = 0;
+
+  bool IsOneTile() const { return m_minTileX + 1 == m_maxTileX && m_minTileY + 1 == m_maxTileY; }
+  size_t GetTilesCount() const { return size_t(m_maxTileX - m_minTileX) * size_t(m_maxTileY - m_minTileY); }
+
+  template <class FnT>
+  void ForEach(FnT && fn) const
+  {
+    for (int tileY = m_minTileY; tileY < m_maxTileY; ++tileY)
+      for (int tileX = m_minTileX; tileX < m_maxTileX; ++tileX)
+        fn(tileX, tileY);
+  }
 };
 
 // This function determines the tiles coverage in specified zoom level.

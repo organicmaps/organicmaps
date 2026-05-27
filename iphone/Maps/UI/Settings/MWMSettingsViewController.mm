@@ -176,9 +176,9 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   NSString * nightMode = nil;
   switch ([MWMSettings theme])
   {
-  case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
+  case MWMThemeVehicleDay:
   case MWMThemeDay: nightMode = L(@"pref_appearance_light"); break;
-  case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
+  case MWMThemeVehicleNight:
   case MWMThemeNight: nightMode = L(@"pref_appearance_dark"); break;
   case MWMThemeAuto: nightMode = L(@"auto"); break;
   }
@@ -258,6 +258,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
                     MWMActivityViewController * shareController = [MWMActivityViewController
                         shareControllerForURL:url
                                       message:L(@"share_bookmarks_email_body")
+                                  displayName:nil
                             completionHandler:^(UIActivityType _Nullable activityType, BOOL completed,
                                                 NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
                               [self setICloudSynchronizationEnablingAlertIsShown];

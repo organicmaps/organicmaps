@@ -1,8 +1,10 @@
 #pragma once
 
 #include "drape/color.hpp"
+#include "drape/glsl_types.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
+#include "drape/rainbow_colors.hpp"
 #include "drape/stipple_pen_resource.hpp"  // for PenPatternT
 #include "drape/texture.hpp"
 
@@ -13,6 +15,7 @@
 #include <atomic>
 #include <map>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -94,6 +97,14 @@ public:
 
   using ColorRegion = BaseRegion;
 
+  /// A strip of N adjacent colors in the color atlas, with UVs spanning the full strip edge-to-edge.
+  struct RainbowRegion
+  {
+    ref_ptr<Texture> m_texture;
+    glsl::vec2 m_uvLeft;   ///< UV for the left edge of the strip (first color).
+    glsl::vec2 m_uvRight;  ///< UV for the right edge of the strip (last color).
+  };
+
   struct Params
   {
     std::string m_resPostfix;
@@ -119,14 +130,16 @@ public:
 
   void GetStippleRegion(PenPatternT const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
+  /// @return nullopt if the color atlas is full (caller should fall back to a single color).
+  std::optional<RainbowRegion> GetRainbowRegion(RainbowColors const & colors);
 
   using TMultilineText = buffer_vector<strings::UniString, 4>;
   using TGlyphsBuffer = buffer_vector<GlyphRegion, 128>;
   using TMultilineGlyphsBuffer = buffer_vector<TGlyphsBuffer, 4>;
 
   using TShapedTextLines = buffer_vector<text::TextMetrics, 4>;
-  text::TextMetrics ShapeSingleTextLine(float fontPixelHeight, std::string_view utf8, TGlyphsBuffer * glyphRegions);
-  TShapedTextLines ShapeMultilineText(float fontPixelHeight, std::string_view utf8, char const * delimiters,
+  text::TextMetrics ShapeSingleTextLine(std::string_view utf8, TGlyphsBuffer * glyphRegions);
+  TShapedTextLines ShapeMultilineText(std::string_view utf8, char const * delimiters,
                                       TMultilineGlyphsBuffer & multilineGlyphRegions);
 
   // This method must be called only on Frontend renderer's thread.
@@ -173,13 +186,12 @@ private:
   ref_ptr<Texture> AllocateGlyphTexture();
   void GetRegionBase(ref_ptr<Texture> tex, BaseRegion & region, Texture::Key const & key);
 
-  size_t FindHybridGlyphsGroup(std::vector<text::GlyphMetrics> const & glyphs);
-
-  static uint32_t GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs, GlyphGroup const & group);
+  // Picks (or creates) the hybrid glyph group that should hold `glyphs` and merges the
+  // deduplicated input keys into the chosen group's m_glyphKeys. The returned reference is
+  // valid until the next mutation of m_glyphGroups.
+  GlyphGroup & FindAndUpdateGlyphsGroup(text::TextMetrics::GlyphMetricsBuffer const & glyphs);
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
-
-  static constexpr size_t GetInvalidGlyphGroup();
 
 private:
   bool m_isInitialized = false;

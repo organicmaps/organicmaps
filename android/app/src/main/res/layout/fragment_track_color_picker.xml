@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Toolbar with title and close button -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_half">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:text="@string/choose_color"
+            android:textAppearance="@style/MwmTextAppearance.Title.Toolbar" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="@dimen/place_page_top_button"
+            android:layout_height="@dimen/place_page_top_button"
+            android:layout_gravity="end|center_vertical"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cancel"
+            android:scaleType="center"
+            android:src="@drawable/ic_close"
+            app:tint="?iconTint" />
+
+    </FrameLayout>
+
+    <!-- Tab switcher: Grid | Spectrum | Sliders -->
+    <app.organicmaps.widget.colorpicker.PillSegmentedControl
+        android:id="@+id/tab_toggle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base" />
+
+    <!-- Content: orientation switches between vertical (portrait) and horizontal (landscape) -->
+    <LinearLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_base">
+
+        <!-- Color picker views -->
+        <ViewFlipper
+            android:id="@+id/view_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <app.organicmaps.widget.colorpicker.ColorGridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base" />
+
+            <app.organicmaps.widget.colorpicker.SpectrumColorView
+                android:id="@+id/spectrum_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base" />
+
+            <app.organicmaps.widget.colorpicker.ColorSlidersView
+                android:id="@+id/sliders_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base" />
+
+        </ViewFlipper>
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/margin_base"
+            android:layout_marginTop="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:background="?dividerHorizontal" />
+
+        <!-- Preview + presets -->
+        <LinearLayout
+            android:id="@+id/presets_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base"
+            android:gravity="top"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/margin_base"
+            android:paddingEnd="@dimen/margin_base">
+
+            <ImageView
+                android:id="@+id/color_preview"
+                android:layout_width="@dimen/color_preview_square_size"
+                android:layout_height="@dimen/color_preview_square_size"
+                android:importantForAccessibility="no" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/presets_scroll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <app.organicmaps.widget.colorpicker.FlowLayout
+                    android:id="@+id/presets_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_half"
+                    android:paddingEnd="@dimen/margin_half" />
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

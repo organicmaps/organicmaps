@@ -11,8 +11,10 @@
   <include layout="@layout/place_page_shadow_gap" />
 
   <LinearLayout
+    android:id="@+id/ll__place_route_ref_content"
     style="@style/PlacePageItemFrame"
     android:tag="route_ref"
+      android:paddingEnd="@dimen/margin_half"
     android:visibility="visible"
     tools:background="#40FF00FF"
     tools:visibility="visible">
@@ -25,9 +27,20 @@
     <TextView
       android:id="@+id/tv__place_route_ref"
       android:textAlignment="viewStart"
-      android:layout_width="match_parent"
+        android:layout_width="0dp"
       android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:ellipsize="end"
       android:textAppearance="@style/MwmTextAppearance.PlacePage"
-      tools:text="Route references" />
+        tools:text="42 • 47 • M1 • 15 • 23" />
+
+      <ImageView
+          android:id="@+id/iv__place_route_ref_arrow"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:rotation="-90"
+          app:srcCompat="@drawable/ic_down"
+          app:tint="?iconTint" />
   </LinearLayout>
 </LinearLayout>

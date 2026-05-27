@@ -5,7 +5,7 @@
 "type.addr_interpolation" = "Adresa/Blok";
 "type.addr_interpolation.even" = "Adresa/Blok";
 "type.addr_interpolation.odd" = "Adresa/Blok";
-"type.aerialway" = "Zračni put";
+"type.aerialway" = "Žičara";
 "type.aerialway.cable_car" = "Žičara";
 "type.aerialway.chair_lift" = "Žičara sa sjedalima";
 "type.aerialway.drag_lift" = "Vučno dizalo";
@@ -14,14 +14,14 @@
 "type.aerialway.station" = "Stanica žičare";
 "type.aeroway" = "Infrastruktura zračnog prostora";
 "type.aeroway.aerodrome" = "Zračna luka";
-"type.aeroway.aerodrome.international" = "Internacionala zračna luka";
-"type.aeroway.apron" = "Pregača";
+"type.aeroway.aerodrome.international" = "Međunarodna zračna luka";
+"type.aeroway.apron" = "Stajanka";
 "type.aeroway.gate" = "Vrata";
-"type.aeroway.helipad" = "Helipodrom";
+"type.aeroway.helipad" = "Helidrom";
 "type.aeroway.runway" = "Pista";
 "type.aeroway.taxiway" = "Rulna staza";
 "type.aeroway.terminal" = "Terminal";
-"type.amenity" = "Ugodnost";
+"type.amenity" = "Sadržaji";
 "type.amenity.arts_centre" = "Umjetnički centar";
 "type.amenity.atm" = "ATM";
 "type.amenity.bank" = "Banka";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Address";
+"type.building.construction" = "Building under construction";
 "type.building.has_parts" = "Building";
 "type.building_part" = "Building";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexican";
 "type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "Rezanci";
+"type.cuisine.noodle" = "Rezanci";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Sausage";
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
 "type.cuisine.seafood" = "Seafood";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanish";
 "type.cuisine.steak_house" = "Steak House";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Stadium";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Sportska staza";
+"type.leisure.track.area" = "Sportska staza";
 "type.leisure.water_park" = "Water Park";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Tree Row";
 "type.natural.vineyard" = "Vineyard";
 "type.natural.volcano" = "Volcano";
+"type.natural.volcano.active" = "Aktivni vulkan";
 "type.natural.water" = "Water";
 "type.natural.wetland" = "Wetland";
 "type.natural.wetland.bog" = "Bog";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Field Hockey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Basque Pelota";
+"type.sport.boules" = "Boćanje";
+"type.sport.cycling" = "Biciklizam";
+"type.sport.four_square" = "Četiri kvadrata";
+"type.sport.horse_racing" = "Konjske utrke";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Automoto sport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi union";
+"type.sport.running" = "Trčanje";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Historic attraction";
 "type.attraction.maze" = "Maze";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Water Slide";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Campground";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Pristupna točka plovnom putu";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Fish Pass";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Watchmaker";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
+"type.amenity.hookah_lounge" = "Hookah Lounge";

@@ -152,6 +152,19 @@ bool IsExist(Cont const & c, T const & t)
   return std::find(std::cbegin(c), end, t) != end;
 }
 
+template <typename Cont, class FnT>
+bool IsExistIf(Cont const & c, FnT && fn)
+{
+  auto const end = std::cend(c);
+  return std::find_if(std::cbegin(c), end, std::ref(fn)) != end;
+}
+
+template <typename Cont, typename T>
+bool BinarySearch(Cont const & c, T const & t)
+{
+  return std::binary_search(std::cbegin(c), std::cend(c), t);
+}
+
 template <class MapT, class K, class V>
 auto EmplaceOrAssign(MapT & theMap, K && k, V && v)
 {
@@ -465,4 +478,10 @@ consteval bool HasUniqueElements(Container container)
   std::sort(container.begin(), container.end());
   return std::adjacent_find(container.begin(), container.end()) == container.end();
 }
+
+// Required to use std::string_view as a search key for std::unordered_map::find().
+struct StringHash : public std::hash<std::string_view>
+{
+  using is_transparent = void;
+};
 }  // namespace base

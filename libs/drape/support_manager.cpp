@@ -54,6 +54,13 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
     m_maxLineWidth = std::max(props.limits.lineWidthRange[0], props.limits.lineWidthRange[1]);
     m_maxTextureSize = props.limits.maxImageDimension2D;
     m_maxTextureArrayLayers = props.limits.maxImageArrayLayers;
+
+    // Samsung Exynos Mali-G6xx/G7xx Vulkan drivers crash in vkCreateImage when
+    // creating texture 2d arrays with arrayLayers=64 for tile background rendering.
+    // Affected SoCs: s5e9955 (Mali-G720), s5e8845 (Mali-G615), Android 13-16.
+    // Disable texture arrays to force SimpleTexturePool fallback.
+    if (m_rendererName.starts_with("Mali-G6") || m_rendererName.starts_with("Mali-G7"))
+      m_maxTextureArrayLayers = 1;
   }
   LOG(LINFO, ("Max line width =", m_maxLineWidth, "| Max texture size =", m_maxTextureSize,
               "| Max texture array layers =", m_maxTextureArrayLayers));

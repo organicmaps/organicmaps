@@ -55,4 +55,14 @@ UNIT_TEST(RoadShields_Smoke)
   shields = GetRoadShields("Estonia", "ee:national/27;ee:local/7841171");
   TEST_EQUAL(shields.size(), 1, ());
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Orange, ());
+
+  shields = GetRoadShields("NZ", "SH 26");
+  TEST_EQUAL(shields.size(), 1, ());
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, ());
+  TEST_EQUAL(shields[0].m_name, "26", ());
+
+  shields = GetRoadShields("New Zealand North_Auckland", "NZ:SH/26");
+  TEST_EQUAL(shields.size(), 1, ());
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, ());
+  TEST_EQUAL(shields[0].m_name, "26", ());
 }

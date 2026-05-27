@@ -55,7 +55,6 @@ private:
   mutable std::mutex m_dedicatedStagingBufferMutex;
   bool m_usePersistentStagingBuffer = false;
   mutable std::vector<VkBufferImageCopy> m_copyRegions;
-  uint32_t m_reservationId = 0;
   bool m_isMutable = false;
 };
 }  // namespace vulkan

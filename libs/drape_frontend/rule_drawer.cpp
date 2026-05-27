@@ -11,8 +11,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_style_reader.hpp"
 
-#include "platform/settings.hpp"
-
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
 
@@ -173,8 +171,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   {
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
-    m_relsSettings.hiking = settings::IsEnabled(kHikingEnabledKey);
-    m_relsSettings.cycling = settings::IsEnabled(kCyclingEnabledKey);
+    m_relsSettings.Load();
   }
 
   m_applyParams.m_insertShape = [this](drape_ptr<MapShape> && shape)
@@ -317,11 +314,12 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
+  bool const isIsoline = m_isIsoline(f);
   ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
-  f.ForEachPoint(applyGeom, m_zoomLevel);
+  applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
 
   if (applyGeom.HasGeometry())
-    applyGeom.ProcessLineRules(s.m_lineRules, m_isIsoline(f));
+    applyGeom.ProcessLineRules(s.m_lineRules, isIsoline);
 
   if (s.m_pathtextRule || s.m_shieldRule)
   {
@@ -412,8 +410,7 @@ void RuleDrawer::operator()(FeatureType & f)
   // (has correspondent Relation references). Otherwise, we get routes torn to separate pieces
   // (e.g. highway=path is visible from z15, but highway=secondary from z13 in a regular Map style).
   bool forceOutdoorStyle = false;
-  if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line &&
-      (m_relsSettings.hiking || m_relsSettings.cycling))
+  if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
   {
     RelationsDrawInfo drawInfo(m_relsSettings);
     if (drawInfo.HasHikingOrCycling(f))

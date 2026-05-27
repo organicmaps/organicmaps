@@ -134,6 +134,9 @@ AsyncRouter::~AsyncRouter()
   {
     lock_guard ul(m_guard);
 
+    // Delete AbsentRegionsFinder _before_ the delegate.
+    m_absentRegionsFinder.reset();
+
     ResetDelegate();
 
     m_threadExit = true;

@@ -4,6 +4,7 @@
 #include "drape_frontend/tile_utils.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/screenbase.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -18,9 +19,17 @@ uint32_t constexpr GetMask(uint8_t bitsCount)
   ASSERT(bitsCount > 0 && bitsCount < 32, (bitsCount));
   return (uint32_t(1) << bitsCount) - 1;
 }
-}  // namespace
 
-TileKey::TileKey() : m_x(-1), m_y(-1), m_zoomLevel(0), m_generation(0), m_userMarksGeneration(0) {}
+/// Wraps tile X to canonical range for a given zoom level.
+/// Canonical range: [floor(-numTiles/2), floor(-numTiles/2) + numTiles).
+int WrapTileX(int x, uint8_t zoomLevel)
+{
+  ASSERT(zoomLevel > 0, ());
+  int const numTiles = 1 << (zoomLevel - 1);
+  int const minX = -((numTiles + 1) / 2);  // floor(-numTiles / 2.0)
+  return ((x - minX) % numTiles + numTiles) % numTiles + minX;
+}
+}  // namespace
 
 TileKey::TileKey(int x, int y, uint8_t zoomLevel)
   : m_x(x)
@@ -80,7 +89,7 @@ bool TileKey::EqualStrict(TileKey const & other) const
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom /* = true */) const
 {
   int const zoomLevel = clipByDataMaxZoom ? ClipTileZoomByMaxDataZoom(m_zoomLevel) : m_zoomLevel;
-  ASSERT_GREATER(zoomLevel, 0, ());
+  ASSERT(zoomLevel > 0, ());
   double const worldSizeDivisor = 1 << (zoomLevel - 1);
   // Mercator SizeX and SizeY are equal.
   double const rectSize = mercator::Bounds::kRangeX / worldSizeDivisor;
@@ -91,9 +100,34 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom /* = true */) const
   return m2::RectD(startX, startY, startX + rectSize, startY + rectSize);
 }
 
+m2::RectD TileKey::GetWrappedDataRect(bool clipByDataMaxZoom /* = true */) const
+{
+  m2::RectD rect = GetGlobalRect(clipByDataMaxZoom);
+  // If the rect overlaps the canonical data range [-180, 180], use it directly —
+  // the feature index will find data in the intersection.
+  if (rect.minX() < mercator::Bounds::kMaxX && rect.maxX() > mercator::Bounds::kMinX)
+    return rect;
+  // For tiles completely outside the canonical range, wrap minX into [-180, 180)
+  // so the data query covers the equivalent geographic area.
+  double const startX = mercator::WrapX(rect.minX());
+  return m2::RectD(startX, rect.minY(), startX + rect.SizeX(), rect.maxY());
+}
+
 m2::PointI TileKey::GetTileCoords() const
 {
-  return m2::PointI(m_x, m_y);
+  // Wrap X to canonical range so that OverlayIDs match across world copies
+  // at the antimeridian. All callers use this exclusively for OverlayID construction.
+  return m2::PointI(WrapTileX(m_x, m_zoomLevel), m_y);
+}
+
+TileKey TileKey::GetCanonicalTileKey() const
+{
+  return TileKey(WrapTileX(m_x, m_zoomLevel), m_y, m_zoomLevel);
+}
+
+double TileKey::GetTileXOffset(bool clipByDataMaxZoom /* = true */) const
+{
+  return GetGlobalRect(clipByDataMaxZoom).Center().x - GetWrappedDataRect(clipByDataMaxZoom).Center().x;
 }
 
 uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
@@ -117,12 +151,15 @@ uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
 
   // Transform [-b, b] coordinates range -> [0, 2b] positive coordinates range.
   int constexpr kCoordsOffset = 1 << (kCoordsBits - 1);
-  CHECK(abs(m_x) <= kCoordsOffset, (m_x));
+  // Wrap X to canonical range: with antimeridian panning m_x can be outside the
+  // 20-bit field, but extended world copies share data identity with the canonical tile.
+  int const canonicalX = WrapTileX(m_x, m_zoomLevel);
+  CHECK(abs(canonicalX) <= kCoordsOffset, (canonicalX, m_x, m_zoomLevel));
   CHECK(abs(m_y) <= kCoordsOffset, (m_y));
-  auto const x = static_cast<uint64_t>(m_x + kCoordsOffset) & kCoordsMask;
+  auto const x = static_cast<uint64_t>(canonicalX + kCoordsOffset) & kCoordsMask;
   auto const y = static_cast<uint64_t>(m_y + kCoordsOffset) & kCoordsMask;
 
-  CHECK(m_zoomLevel <= kZoomMask, (m_zoomLevel));
+  ASSERT(m_zoomLevel > 0 && m_zoomLevel <= kZoomMask, (m_zoomLevel));
   uint64_t const zoom = static_cast<uint64_t>(m_zoomLevel) & kZoomMask;
 
   auto const umg = static_cast<uint64_t>(m_userMarksGeneration % kGenerationMod);

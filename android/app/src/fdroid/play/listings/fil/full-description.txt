@@ -1,0 +1,51 @@
+Ang Organic Maps ay isang mabilis, detalyadong offline na mapa at GPS navigation app para sa paglalakbay, hiking, trekking, at cycling adventures. Magplano, mag-import, at magrekord ng mga ruta, at mag-enjoy ng tuloy-tuloy na gabay nang hindi nauubos ang iyong baterya o nang hindi gumagamit ng internet. Tuklasin ang mga lugar at mag-navigate nang ligtas sa iyong mga outdoor adventures at paglalakbay sa buong mundo. Nag-aalok ang app ng walang limitasyong pag-download ng mapa at pag-update tuwing dalawang linggo. Batay sa OpenStreetMap, gawa ng mga boluntaryo, prayoridad ang privacy, 100% offline, at 100% libre.
+
+<b>OFFLINE:</b>
+
+Gumagana ang app nang 100% offline — kasama na ang paghahanap at pag-navigate. Maaari kang mag-explore ng mapa at mag-navigate nang walang internet connection, na makakatipid sa mobile data at roaming fees. At dahil walang background data transfers, mas matagal tumagal ang baterya mo.
+
+<b>Mabilis:</b>
+
+Ang pag-zoom, paghahanap, at pagkalkula ng ruta ay talagang mabilis.
+
+<b>Detalyado at Na-update:</b>
+
+Ang mga mapa ay sagana sa detalye at ina-update nang dalawang beses sa isang buwan upang ipakita ang aktwal na kalagayan. Hindi tulad ng maraming kilalang kakumpitensya, kasama rito ang mga label ng gusali, bangko, mga daanan sa pag-hiking, at iba pang kapaki-pakinabang na impormasyon.
+
+<b>BATAY SA OPENSTREETMAP:</b>
+
+Ang OpenStreetMap ay isang world map na parang wiki na binuo at pinananatili ng milyun-milyong boluntaryo — mga lokal na pinakamakakilala sa kanilang mga lugar. Ang pagsisikap na ito ng komunidad ay nagreresulta sa napaka-detalyadong mga mapa, na madalas mas tumpak kaysa sa mga komersyal na mapa sa mga rehiyong hindi gaanong na-map. Ina-update ng Organic Maps ang datos nito mula sa OpenStreetMap tuwing dalawang linggo, kaya't nananatiling bago at maaasahan ang iyong mga mapa. At kung may mapansin kang nawawala, maaari mo itong idagdag sa OpenStreetMap at tumulong na mapabuti ang mapa para sa lahat.
+
+<b>UNA ANG PRIVACY:</b>
+
+Hindi kami nangongolekta ng anumang datos o identifier. Ibig sabihin, walang panganib ng pagtagas ng datos at walang istorbo gaya ng mga ad o maingay na notification — puro lang malinis at pribadong karanasan sa mapa.
+
+<b>MAHALAGANG MGA TAMPOK</b>
+
+<b>TUKLASIN ANG MGA LUGAR:</b>
+
+Maghanap gamit ang address, pangalan, o kategorya, tuklasin ang milyun-milyong POI, at tingnan ang detalyadong impormasyon gaya ng oras ng pagbubukas, mga artikulo sa Wikipedia, accessibility para sa wheelchair, at iba pang kapaki-pakinabang na detalye.
+
+<b>GPS NA NAVIGASYON:</b>
+
+Mag-enjoy ng tinuturong direksyon, hakbang-hakbang. Lumikha ng mga ruta para sa paglalakad, pag-hiking, pagbibisikleta, o pagmamaneho — kabilang ang mga ruta sa pagitan ng mga lungsod, bansa, at maramihang waypoint. Hanapin ang pinakamagagandang ruta para sa iyong mga biyahe sa metro at araw-araw na byahe. Suportado ang Android Auto.
+
+<b>MGA RUTA PARA SA HIKING AT PAGBIBISIKLETA SA BUONG MUNDO:</b>
+
+I-enable ang mga espesyal na layer ng mapa para matuklasan ang mga sikat na ruta ng hiking at pagsisiklod sa buong mundo, na lahat ay hango sa OpenStreetMap. Lumipat-lipat sa mga layer para makita ang makukulay na ruta ng bisikleta at MTB, pati na rin ang mga opisyal na daanan para sa hiking.
+
+<b>PAMPUBLIKONG TRANSPORTASYON:</b>
+
+Makita ang mga numero ng ruta ng publikong sasakyan sa mga hintuan. Ang live na iskedyul ng transportasyon at pagba-rute ay kasalukuyang dine-develop.
+
+<b>MGA ISTILO NG MAPA:</b>
+
+Pumili ng mga layer ng mapa na akma sa iyong aktibidad — Panlabas, Mga Kontur na Linya, Pag-hiking, Pag-bisikleta, o Metro/Subway.
+
+<b>TAGAREKORD NG RUTA:</b>
+
+I-record, i-import, i-export, at ibahagi ang iyong mga ruta at mga paboritong lugar. Sinusuportahan ang mga format na KML, KMZ, GPX, at GeoJSON.
+
+<b>MGA ARTIKULO NG WIKIPEDIA:</b>
+
+Galugarin ang mga artikulo ng Wikipedia para sa mga lugar na natutuklasan mo sa mapa. I-type ang "?wiki" sa paghahanap para mahanap ang lahat ng lugar na may artikulo sa Wikipedia.

@@ -26,7 +26,7 @@
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Khí đốt</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
-    <string name="category_parking">đỗ xe</string>
+    <string name="category_parking">Đỗ xe</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Khách sạn</string>
     <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
@@ -66,6 +66,8 @@
     <string name="editor_time_open">Mở cửa</string>
     <string name="twentyfour_seven">ngày và đêm</string>
     <string name="day_off_today">Nghỉ hôm nay</string>
+    <string name="opens_in">Mở trong %s</string>
+    <string name="closes_in">Đóng trong %s</string>
     <string name="closed">Đã đóng</string>
     <string name="minute">phút</string>
     <string name="big_font">Tăng kích cỡ phông chữ trên bản đồ</string>
@@ -81,6 +83,7 @@
     <string name="avoid_ferry">Tránh bến phà</string>
     <string name="avoid_motorways">Tránh xa lộ</string>
     <string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
+    <string name="trip_finished">Bạn đã tới nơi!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sắp xếp dấu trang</string>
     <!-- Android -->
@@ -96,8 +99,9 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Tải xuống</string>
+    <string name="download_map_title">Tải xuống bản đồ tổng quan thế giới</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Bản đồ không phải trả tiền trong Android Auto cần có quyền truy cập vị trí để hoạt động hiệu quả</string>
+    <string name="aa_request_permission_activity_text">Organic Maps trên Android Auto cần quyền truy cập vị trí để hoạt động hiệu quả</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Cấp quyền</string>
 </resources>

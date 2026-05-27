@@ -1,27 +1,56 @@
-• Údaje mapy OSM k 16. februáru
-• Údaje Wikipédie k 1. februáru
-• Čierne turistické a cyklistické trasy sú teraz viditeľné v tmavom režime
-• Pridané ďalšie služby pre autá: opravy, servis a diely
-• Pridané overovanie prehliadača OSM
-• Opravený prístup bicyklov na niektorých typoch ciest
-• Opravený výpočet priemernej rýchlosti
-• Vylepšené hodnotenie vyhľadávania pre kategórie
-• Pridaná uzbecká kuchyňa
-• Pridané lanové dráhy (zip lines) na mapu
-• Opravené odkazy Wikimedia s „?“ v názve
-• Opravené parsovanie súborov GPX s „+“ v súradniciach
+## Mapa
 
-### Preklady
+- NOVINKA! Správne zalamovanie mapy na antimeridiáne pri ťahaní a otáčaní
+- Dáta OpenStreetMap aktualizované k 4. aprílu
+- Dáta Wikipédie aktualizované k 1. aprílu
+- Pridané ikony pre stravovacie zariadenia a mestské brány
+- Pridané podkategórie obchodov s odevmi: dámske, pánske, detské, svadobné, športové, spodná bielizeň a kancelárske typy
+- Opravené farby liniek metra v Sydney
+- Opravené zobrazenie otváracích hodín pre miesta s posunom východu/západu slnka
 
-• Odstránené duplicitné názvy miest v niektorých regiónoch mapy
-• Opravené hebrejské hlasové pokyny
-• Opravené kórejské preklepy
-• Pridané ruské synonymá vyhľadávania
-• Vylepšené nemecké hlasové pokyny
-• Opravený chýbajúci preklad pre nepoužívaný železničný tunel
-• Opravený preklad krajiny v rumunčine
-• Pridané laoské a arménske preklady
-• Pridané chýbajúce arménske preklady
-• Aktualizované preklady od prispievateľov Weblate
+## Trasy a navigácia
 
-Ďakujeme všetkým, ktorí prispievajú, darujú a podporujú Organic Maps! Poďme spoločne vytvoriť tie najlepšie mapy!
+- NOVINKA! Ťuknutím na cyklistickú alebo turistickú trasu ju vyberiete a zobrazíte jej výškový profil
+- Vylepšené viacfarebné zobrazenie turistických a cyklistických trás
+- Cyklistická navigácia teraz pri nízkych rýchlostiach používa smer kompasu
+- Opravená systémová chyba pri plánovaní trás v blízkosti niektorých regionálnych hraníc
+- Teraz môžete začať platnú trasu aj v prípade, že sa zobrazí výzva na stiahnutie ďalších máp
+
+## Záložky a trasy
+
+- NOVINKA! Zmeňte farby všetkých záložiek a trás v kategórii naraz
+- Upravené približné hodnoty prevýšenia a klesania na grafoch trás, aby lepšie zodpovedali iným aplikáciám
+- Vylepšené zobrazenie HTML obsahu s tabuľkami a obrázkami v podrobnostiach záložiek
+- Pridané vertikálne oddeľovače pre viacsegmentové trasy v grafe nadmorskej výšky
+- Opravený výber bodov v grafe nadmorskej výšky pre interpolované body
+- Opravené vypadávanie bodov medzi segmentmi pri zaznamenávaní GPS trasy
+- Opravený import GeoJSON
+- Opravená chyba spôsobujúca pád aplikácie pri exportovaní trás
+
+## Vyhľadávanie
+
+- Lepšie vyhľadávanie v USA s dvoma miliónmi dodatočných adries získaných z údajov sčítania ľudu TIGER
+- Aktualizované kategórie vyhľadávania: pridané „Bread“ pre pekárne, kuchyňa „Shawarma“ a ďalšie vylepšenia synoným
+- Vylepšené vyhľadávanie adries podľa čísla domu
+- Pridané synonymá pre ulice v USA: highway, hwy, freeway, fwy
+- Opravené výsledky vyhľadávania, keď sú názvy miest a štátov rovnaké
+
+## Editor / OpenStreetMap
+
+- Teraz môžete pridať nové miesto do OpenStreetMap po výbere vašej aktuálnej polohy na mape
+- Opravené nesprávne zarovnanie kríža v editore pri stlačení tlačidla „Pridať miesto“
+- Zväčšená dotyková plocha tlačidiel v navigačnej lište „Pridať miesto“
+
+## UI a UX
+
+- Vylepšené modálne gestá: prichytenie k najbližšiemu kroku, zatvorenie pri posúvaní po okraji a obnovenie predchádzajúceho stavu pri opätovnom otvorení
+- Opravené spracovanie letného času pre časové pásma
+
+## Stabilita a lokalizácia
+
+- Vylepšená stabilita a výkon, znížená spotreba batérie
+- Aktualizované preklady
+
+## Podpora platforiem
+
+- V dôsledku zmien v TestFlight a App Store táto verzia podporuje iba iOS 15 a novšie. iOS 12, 13 a 14 už nie sú podporované.

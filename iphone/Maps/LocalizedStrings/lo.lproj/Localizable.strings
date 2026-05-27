@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ພາສາຂອງສຽງ";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "ເພື່ອດາວໂຫຼດສຽງຄຸນນະພາບສູງກວ່າ, ເປີດແອັບ ການຕັ້ງຄ່າ ແລ້ວໄປທີ່ ການເຂົ້າເຖິງ → VoiceOver → ການເວົ້າ → ສຽງ.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)";
 "pref_map_auto_zoom" = "ຊູມອັດຕະໂນມັດ";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "ການຂີ່ລົດຖີບ";
 "button_layer_subway" = "ລົດໄຟໃຕ້ດິນ";
 "layers_title" = "ຮູບແບບແຜນທີ່ ແລະ ເລເຢີ້";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "ປ່ຽນສີຂອງບຸກມາກທັງໝົດ";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "ປ່ຽນສີຂອງເສັ້ນທາງທັງໝົດ";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "ສົ່ງອອກ KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "ໃຊ້ບໍ່ດົນມານີ້";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "ສີຂອງບຸກມາກໄດ້ປ່ຽນແລ້ວ";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "ສີຂອງເສັ້ນທາງໄດ້ປ່ຽນແລ້ວ";

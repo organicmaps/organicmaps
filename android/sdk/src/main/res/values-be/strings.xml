@@ -31,7 +31,7 @@
     <!-- A unit of measure -->
     <string name="ft">фут</string>
     <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
-    <string name="routes_update_maps_text">Aбнaвіце карты, каб убачыць маршруты</string>
+    <string name="routes_update_maps_text">Абнавіце мапы, каб убачыць маршруты</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Выхад</string>
     <string name="core_entrance">Уваход</string>

@@ -205,9 +205,11 @@ TestCountry::TestCountry(m2::PointD const & center, std::string const & name, st
   // Default rank for Country with population ~ 1.0E7
 }
 
-TestState::TestState(m2::PointD const & center, string const & name, string const & lang)
+TestState::TestState(m2::PointD const & center, string const & name, string const & shortName, string const & lang)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "state"}))
-{}
+{
+  m_names.AddString(StringUtf8Multilang::kAltNameCode, shortName);
+}
 
 TestSea::TestSea(m2::PointD const & center, std::string const & name, std::string const & lang)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "sea"}))

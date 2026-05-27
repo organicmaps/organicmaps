@@ -1,0 +1,103 @@
+enum NavigationDashboard {
+  struct ViewModel: Equatable {
+    var transportOptions: [MWMRouterType]
+    var routePoints: RoutePoints
+    var routerType: MWMRouterType
+    var entity: MWMNavigationDashboardEntity
+    var trackRecordingState: TrackRecordingState
+    var routingOptions: RoutingOptions
+    var routeElevationPreviewData: RouteElevationPreviewData?
+    var navigationInfo: NavigationInfo
+    var estimates: NSAttributedString
+    var dashboardState: MWMNavigationDashboardState
+    var presentationStep: NavigationDashboardModalPresentationStep {
+      didSet {
+        if presentationStep != .hidden {
+          latestVisiblePresentationStep = presentationStep
+        }
+      }
+    }
+
+    var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep
+    var progress: CGFloat
+    var navigationSearchState: NavigationSearchState?
+    var canSaveRouteAsTrack: Bool
+    var errorMessage: String?
+  }
+
+  struct NavigationInfo: Equatable {
+    var state: MWMNavigationInfoViewState
+    var availableArea: CGRect
+  }
+}
+
+extension NavigationDashboard.ViewModel {
+  static var initial: Self {
+    NavigationDashboard.ViewModel(
+      transportOptions: MWMRouterType.allCases,
+      routePoints: .empty,
+      routerType: MWMRouter.type(),
+      entity: MWMNavigationDashboardEntity(),
+      trackRecordingState: TrackRecordingManager.shared.recordingState,
+      routingOptions: RoutingOptions(),
+      routeElevationPreviewData: nil,
+      navigationInfo: .hidden,
+      estimates: NSAttributedString(),
+      dashboardState: .hidden,
+      presentationStep: .hidden,
+      latestVisiblePresentationStep: isiPad ? .regular : .compact,
+      progress: 0,
+      navigationSearchState: nil,
+      canSaveRouteAsTrack: false,
+      errorMessage: nil
+    )
+  }
+
+  var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
+
+  var startButtonState: StartRouteButton.State {
+    if routePoints.count < 2 ||
+      routePoints.start == nil ||
+      routePoints.finish == nil ||
+      dashboardState == .error {
+      return .disabled
+    }
+    if progress < 1 {
+      return .loading
+    }
+    if routerType == .ruler ||
+      routerType == .publicTransport {
+      return .disabled
+    }
+    return .enabled
+  }
+
+  var estimatesState: EstimatesView.State {
+    if dashboardState == .error, let errorMessage {
+      return .error(errorMessage)
+    }
+    if progress < 1 {
+      return .loading
+    }
+    return .estimates(estimates)
+  }
+}
+
+extension NavigationDashboard.NavigationInfo {
+  static let hidden = NavigationDashboard.NavigationInfo(
+    state: .hidden,
+    availableArea: MapViewController.shared()?.navigationInfoArea.areaFrame ?? .screenBounds
+  )
+}
+
+extension CGRect {
+  static var screenBounds: CGRect {
+    UIScreen.main.bounds
+  }
+}
+
+extension RoutingOptions {
+  var enabledOptionsCount: Int {
+    [avoidToll, avoidDirty, avoidFerry, avoidMotorway].filter { $0 }.count
+  }
+}

@@ -83,6 +83,7 @@
     <string name="avoid_ferry">जल मार्ग टाळा</string>
     <string name="avoid_motorways">मोटरवे टाळा</string>
     <string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
+    <string name="trip_finished">तुम्ही पोचलात!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">खूणपत्रे क्रमाने लावा</string>
     <!-- Android -->
@@ -100,7 +101,7 @@
     <string name="downloader_loading_ios">डाउनलोड करत आहे</string>
     <string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto मधील ऑरगॅनिक नकाशे प्रभावीपणे कार्य करण्यासाठी स्थान परवानगी आवश्यक आहे</string>
+    <string name="aa_request_permission_activity_text">Organic Maps Android Auto मध्ये प्रभावीपणे कार्य करण्यासाठी स्थान परवानग्या आवश्यक आहेत</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">परवानग्या द्या</string>
 </resources>

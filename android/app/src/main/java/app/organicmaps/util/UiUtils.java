@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
@@ -21,14 +20,11 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
-import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -231,28 +227,20 @@ public final class UiUtils
   public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)
   {
     final Window window = activity.getWindow();
-
-    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R)
+    final View decorView = window.getDecorView();
+    final WindowInsetsControllerCompat wic =
+        Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+    if (fullscreen)
     {
-      // On older versions of Android there is layout issue on exit from fullscreen mode.
-      // For such versions we use old-style fullscreen mode.
-      // See https://github.com/organicmaps/organicmaps/pull/8551 for details
-      if (fullscreen)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      else
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      wic.hide(WindowInsetsCompat.Type.systemBars());
+      wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
     }
     else
     {
-      final View decorView = window.getDecorView();
-      WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
-      if (fullscreen)
-      {
-        wic.hide(WindowInsetsCompat.Type.systemBars());
-        wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-      }
-      else
-        wic.show(WindowInsetsCompat.Type.systemBars());
+      wic.show(WindowInsetsCompat.Type.systemBars());
+      // On R+, show() already triggers inset dispatch. Only pre-R needs manual request.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
+        decorView.requestApplyInsets();
     }
   }
 
@@ -260,33 +248,10 @@ public final class UiUtils
   {
     final Window window = activity.getWindow();
     final View decorView = window.getDecorView();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-    {
-      // It should not be possible for Window insets controller to be null
-      WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
-      if (wic.isAppearanceLightStatusBars() != isLight)
-        wic.setAppearanceLightStatusBars(isLight);
-    }
-    else
-    {
-      @ColorInt
-      final int color =
-          isLight ? ResourcesCompat.getColor(activity.getResources(), R.color.bg_statusbar_translucent, null)
-                  : Color.TRANSPARENT;
-      window.setStatusBarColor(color);
-    }
-  }
-
-  public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
-  {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-    view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(), view.getPaddingEnd(), systemInsets.bottom);
-  }
-
-  public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)
-  {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-    view.setPadding(systemInsets.left, systemInsets.top, systemInsets.right, view.getPaddingBottom());
+    // It should not be possible for Window insets controller to be null
+    WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+    if (wic.isAppearanceLightStatusBars() != isLight)
+      wic.setAppearanceLightStatusBars(isLight);
   }
 
   public static void setupNavigationIcon(@NonNull Toolbar toolbar, @NonNull View.OnClickListener listener)

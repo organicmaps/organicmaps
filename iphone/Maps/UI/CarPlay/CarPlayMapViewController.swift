@@ -12,9 +12,6 @@ final class CarPlayMapViewController: MWMViewController {
   private var isCameraOnRoute: Bool = false
   private var viewPortState: CPViewPortState = .default
   private var isSpeedCamBlinking: Bool = false
-  private var isLeftWheelCar: Bool {
-    speedInfoView.frame.origin.x > view.frame.midX
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -100,8 +97,8 @@ final class CarPlayMapViewController: MWMViewController {
     currentSpeedLabel.text = speedMeasure.valueAsString
 
     if isCameraOnRoute {
-      speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed().cgColor
-      speedCamImageView.tintColor = UIColor.speedLimitRed()
+      speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed.cgColor
+      speedCamImageView.tintColor = .speedLimitRed
 
       // self.speedCamLimitMps comes from SpeedCamManager and is based on
       // the nearest speed camera info when it is close enough.
@@ -110,30 +107,30 @@ final class CarPlayMapViewController: MWMViewController {
         BlinkSpeedCamLimit(blink: true)
         let speedCamLimitMeasure = Measure(asSpeed: speedCamLimitMps)
         speedCamLimitLabel.text = speedCamLimitMeasure.valueAsString
-        speedCamLimitLabel.textColor = UIColor.speedLimitDarkGray()
+        speedCamLimitLabel.textColor = .speedLimitDarkGray
 
-        currentSpeedLabel.textColor = UIColor.white
+        currentSpeedLabel.textColor = UIColor.whitePrimary
         if speedCamLimitMps >= currentSpeedMps {
-          currentSpeedView.backgroundColor = UIColor.speedLimitGreen()
+          currentSpeedView.backgroundColor = .speedLimitGreen
         } else {
-          currentSpeedView.backgroundColor = UIColor.speedLimitRed()
+          currentSpeedView.backgroundColor = .speedLimitRed
         }
       } else {
         BlinkSpeedCamLimit(blink: false)
         speedCamLimitLabel.alpha = 0.0
-        speedCamImageView.tintColor = UIColor.speedLimitRed()
+        speedCamImageView.tintColor = .speedLimitRed
         speedCamImageView.alpha = 1.0
 
-        currentSpeedLabel.textColor = UIColor.speedLimitDarkGray()
-        currentSpeedView.backgroundColor = UIColor.speedLimitWhite()
+        currentSpeedLabel.textColor = .speedLimitDarkGray
+        currentSpeedView.backgroundColor = .speedLimitWhite
       }
     } else { // !isCameraOnRoute
       BlinkSpeedCamLimit(blink: false)
-      currentSpeedLabel.textColor = UIColor.speedLimitDarkGray()
+      currentSpeedLabel.textColor = .speedLimitDarkGray
       if let speedLimitMps = speedLimitMps {
         speedCamImageView.alpha = 0.0
         let speedLimitMeasure = Measure(asSpeed: speedLimitMps)
-        speedCamLimitLabel.textColor = UIColor.speedLimitDarkGray()
+        speedCamLimitLabel.textColor = .speedLimitDarkGray
         // speedLimitMps == 0 means unlimited speed.
         if speedLimitMeasure.value == 0 {
           speedCamLimitLabel.text = "🚀" // "∞"
@@ -141,17 +138,17 @@ final class CarPlayMapViewController: MWMViewController {
           speedCamLimitLabel.text = speedLimitMeasure.valueAsString
         }
         speedCamLimitLabel.alpha = 1.0
-        speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed().cgColor
+        speedCamLimitContainer.layer.borderColor = UIColor.speedLimitRed.cgColor
         if currentSpeedMps > speedLimitMps {
-          currentSpeedLabel.textColor = UIColor.speedLimitRed()
+          currentSpeedLabel.textColor = .speedLimitRed
         }
       } else {
-        speedCamImageView.tintColor = UIColor.speedLimitLightGray()
+        speedCamImageView.tintColor = .speedLimitLightGray
         speedCamImageView.alpha = 1.0
         speedCamLimitLabel.alpha = 0.0
-        speedCamLimitContainer.layer.borderColor = UIColor.speedLimitLightGray().cgColor
+        speedCamLimitContainer.layer.borderColor = UIColor.speedLimitLightGray.cgColor
       }
-      currentSpeedView.backgroundColor = UIColor.speedLimitWhite()
+      currentSpeedView.backgroundColor = .speedLimitWhite
     }
   }
 

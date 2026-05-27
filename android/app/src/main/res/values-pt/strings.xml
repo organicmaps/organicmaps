@@ -22,7 +22,7 @@
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Pesquisar</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
-    <string name="search_map">Pesquisar mapa</string>
+    <string name="search_map">Pesquisar no mapa</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Atualmente tem todos os serviços de localização para este dispositivo ou aplicação desativados. Por favor ative-os nas definições do sistema.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -172,7 +172,7 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">O descarregamento do país está a ser feito neste momento.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Veja onde estou agora. Abra a hiperligação: %1$s ou %2$s Não tem um mapa offline instalado? Descarregue em https://omaps.app/get</string>
+    <string name="my_position_share_sms">Veja a minha localização atual em Organic Maps! %1$s ou %2$s Não tem mapas offline? Descarregue aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps!</string>
     <!-- Subject for emailed position -->
@@ -371,6 +371,8 @@
     <string name="clear_search">Limpar histórico de pesquisas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipédia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Artigo da wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Localização atual</string>
@@ -469,7 +471,7 @@
     <string name="placepage_add_business_button">Adicionar uma organização</string>
     <string name="message_invalid_feature_position">Nenhum objeto pode ser posicionado aqui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Dados do OpenStreetMap criados pela comunidade a partir de %s. Sabe mais sobre como editar e atualizar o mapa em OpenStreetMap.org</string>
+    <string name="osm_presentation">Dados do OpenStreetMap criados pela comunidade em %s. Sabe mais sobre como editar e atualizar o mapa em OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">O OpenStreetMap.org (OSM) é um projeto comunitário aberto para construir um mapa gratuito. O OSM é a principal fonte de dados de mapas do Organic Maps e funciona de forma semelhante à Wikipedia. Pode adicionar ou editar locais e estes ficam disponíveis para milhões de utilizadores no mundo todo.\nJunte-se à comunidade e ajude a criar um mapa melhor para todos!</string>
     <string name="login_to_make_edits_visible">Crie uma conta OpenStreetMap ou inicie sessão para publicar as suas edições de mapas para o mundo.</string>
@@ -630,6 +632,8 @@
     <string name="bookmarks_empty_list_message">Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Alterar a cor de todos os favoritos</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Alterar a cor de todos os trajetos</string>
     <string name="category_desc_more">…mais</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportar KMZ</string>
@@ -708,6 +712,12 @@
     <string name="moreyear_ago_sorttype">Mais de um ano atrás</string>
     <string name="near_me_sorttype">Perto de mim</string>
     <string name="others_sorttype">Outros</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Fechado agora</string>
+    <string name="opens_tomorrow_at">Abre amanhã às %s</string>
+    <string name="opens_dayoftheweek_at">Abre %1$s às %2$s</string>
+    <string name="opens_at">Abre às %s</string>
+    <string name="closes_at">Fecha às %s</string>
     <string name="editor_add_select_category_all_subtitle">Todas as categorias</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -872,4 +882,22 @@
     <string name="login_osm_browser">Inicie sessão utilizando o browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recentes</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Cor dos favoritos alterada</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Cor dos trajetos alterada</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Espectro</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Deslizadores</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">VERMELHO</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERDE</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">AZUL</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Cor hexadecimal sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grelha</string>
 </resources>

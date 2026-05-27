@@ -268,23 +268,16 @@ time_t Platform::GetFileCreationTime(std::string const & path)
   if (0 == statx(AT_FDCWD, path.c_str(), 0, STATX_BTIME, &st))
   {
     // Orbstack on MacOS returns zero birth time, see https://github.com/orbstack/orbstack/issues/2064
-    if (st.stx_btime.tv_sec != 0)
+    if ((st.stx_mask & STATX_BTIME) && st.stx_btime.tv_sec != 0)
       return st.stx_btime.tv_sec;
-
-    LOG(LWARNING, ("statx returned zero birth time for", path,
-                   ", using the earliest time from access, modification or status change instead."));
+    // Filesystem does not expose birth time; fall back to the earliest of access/mod/ctime.
     return std::min(st.stx_atime.tv_sec, std::min(st.stx_mtime.tv_sec, st.stx_ctime.tv_sec));
   }
-
-  LOG(LERROR, ("GetFileCreationTime statx failed for", path, "with error", strerror(errno)));
 #else
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return std::min(st.st_atim.tv_sec, st.st_mtim.tv_sec);
-
-  LOG(LERROR, ("GetFileCreationTime stat failed for", path, "with error", strerror(errno)));
 #endif
-  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }
 
@@ -294,8 +287,14 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return st.st_mtim.tv_sec;
-
-  LOG(LERROR, ("GetFileModificationTime stat failed for", path, "with error", strerror(errno)));
-  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
+}
+
+// static
+bool Platform::SetFileModificationTime(std::string const & path, time_t modTime)
+{
+  struct timespec times[2] = {};
+  times[0].tv_nsec = UTIME_OMIT;  // access time: unchanged
+  times[1].tv_sec = modTime;      // modification time
+  return utimensat(AT_FDCWD, path.c_str(), times, 0) == 0;
 }

@@ -338,10 +338,8 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
     std::vector<std::string> types;
     types.reserve(bookmarkData.m_featureTypes.size());
     auto const & c = classif();
-    if (!c.HasTypesMapping())
-      MYTHROW(SerializerKml::SerializeException, ("Types mapping is not loaded."));
-    for (auto const & t : bookmarkData.m_featureTypes)
-      types.push_back(c.GetReadableObjectName(c.GetTypeForIndex(t)));
+    for (auto const type : bookmarkData.m_featureTypes)
+      types.push_back(c.GetReadableObjectName(type));
 
     SaveStringsArray(writer, types, "featureTypes", kIndent6);
   }
@@ -1030,6 +1028,18 @@ void KmlParser::Pop(std::string_view tag)
       lines.pop_back();
       m_geometry.m_timestamps.pop_back();
     }
+    else
+    {
+      // KML does not require <when> timestamps to be ordered, but downstream time
+      // metadata code assumes they are monotonic non-decreasing. Drop broken
+      // timestamps rather than the track -- geometry is preserved.
+      auto & timestamps = m_geometry.m_timestamps.back();
+      if (!std::is_sorted(timestamps.begin(), timestamps.end()))
+      {
+        LOG(LWARNING, ("Non-monotonic timestamps in track, dropping them"));
+        timestamps.clear();
+      }
+    }
   }
   else if (IsProcessTrackCoord())
   {
@@ -1073,10 +1083,7 @@ void KmlParser::CharData(std::string & value)
         auto const timestamp = base::StringToTimestamp(value);
         ASSERT(timestamp != base::INVALID_TIME_STAMP, (value));
 
-        auto & cont = timestamps.back();
-        if (!cont.empty())
-          ASSERT_LESS_OR_EQUAL(cont.back(), timestamp, ());
-        cont.emplace_back(timestamp);
+        timestamps.back().emplace_back(timestamp);
       }
       else if (IsCoord(currTag))
       {
@@ -1371,15 +1378,10 @@ void KmlParser::CharData(std::string & value)
           uint32_t i;
           if (prevTag == "mwm:featureTypes")
           {
-            auto const & c = classif();
-            if (!c.HasTypesMapping())
-              MYTHROW(DeserializerKml::DeserializeException, ("Types mapping is not loaded."));
-            auto const type = c.GetTypeByReadableObjectName(value);
-            if (c.IsTypeValid(type))
-            {
-              auto const typeInd = c.GetIndexForType(type);
-              m_featureTypes.push_back(typeInd);
-            }
+            auto const & cl = classif();
+            auto const type = cl.GetTypeByReadableObjectName(value);
+            if (type != Classificator::INVALID_TYPE && type != cl.GetStubType())
+              m_featureTypes.push_back(type);
           }
           else if (prevTag == "mwm:boundTracks" && strings::to_uint(value, i))
           {

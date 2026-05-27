@@ -1,10 +1,9 @@
 enum GlobalStyleSheet: String, CaseIterable {
   case tableView = "TableView"
-  case tableCell = "TableCell"
   case tableViewCell = "MWMTableViewCell"
   case defaultTableViewCell
+  case noStyleTableViewCell
   case tableViewHeaderFooterView = "TableViewHeaderFooterView"
-  case searchOnMapSearchBar
   case searchBar = "SearchBar"
   case navigationBar = "NavigationBar"
   case navigationBarItem = "NavigationBarItem"
@@ -45,7 +44,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case flatPrimaryTransButton = "FlatPrimaryTransButton"
   case flatRedTransButton = "FlatRedTransButton"
   case flatRedTransButtonBig = "FlatRedTransButtonBig"
-  case flatRedButton = "FlatRedButton"
+  case flatRedButtonBig
   case moreButton = "MoreButton"
   case editButton = "EditButton"
   case rateAppButton = "RateAppButton"
@@ -59,7 +58,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case gray = "MWMGray"
   case separator = "MWMSeparator"
   case white = "MWMWhite"
-  case datePickerView = "DatePickerView"
   case valueStepperView = "ValueStepperView"
   case grabber
   case modalSheetBackground
@@ -72,138 +70,130 @@ enum GlobalStyleSheet: String, CaseIterable {
 }
 
 extension GlobalStyleSheet: IStyleSheet {
-  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
+  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
     switch self {
     case .tableView:
       return .add { s in
-        s.backgroundColor = colors.white
-        s.separatorColor = colors.blackDividers
+        s.backgroundColor = .whitePrimary
+        s.separatorColor = .blackDividers
         s.exclusions = [String(describing: UIDatePicker.self)]
       }
-    case .tableCell:
-      return .add { s in
-        s.backgroundColor = colors.white
-        s.fontColor = colors.blackPrimaryText
-        s.tintColor = colors.linkBlue
-        s.fontColorDetailed = colors.blackSecondaryText
-        s.backgroundColorSelected = colors.pressBackground
-        s.exclusions = [String(describing: UIDatePicker.self), "_UIActivityUserDefaultsActivityCell"]
-      }
     case .tableViewCell:
-      return .addFrom(Self.tableCell) { _ in
+      return .add { s in
+        s.backgroundColor = .whitePrimary
+        s.fontColor = .blackPrimaryText
+        s.tintColor = .linkBlue
+        s.fontColorDetailed = .blackSecondaryText
+        s.backgroundColorSelected = .pressBackground
+        s.exclusions = [String(describing: UIDatePicker.self), "_UIActivityUserDefaultsActivityCell"]
       }
     case .defaultTableViewCell:
       return .add { s in
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
+      }
+    case .noStyleTableViewCell:
+      return .add { _ in
+        // configure table view cell manually
       }
     case .tableViewHeaderFooterView:
       return .add { s in
         s.font = fonts.medium14
-        s.fontColor = colors.blackSecondaryText
-      }
-    case .searchOnMapSearchBar:
-      return .add { s in
-        if #available(iOS 26.0, *) {
-          s.backgroundColor = .lightGray.withAlphaComponent(alpha20)
-        } else {
-          s.backgroundColor = colors.pressBackground
-          s.barTintColor = colors.clear
-          s.fontColor = colors.blackPrimaryText
-          s.fontColorDetailed = UIColor.white
-          s.tintColor = colors.blackSecondaryText
-        }
+        s.fontColor = .blackSecondaryText
       }
     case .searchBar:
       return .add { s in
-        s.backgroundColor = colors.white
-        s.barTintColor = colors.primary
-        s.fontColor = colors.blackPrimaryText
-        s.fontColorDetailed = UIColor.white
-        s.tintColor = colors.blackSecondaryText
+        if #available(iOS 26.0, *) {
+        } else {
+          s.backgroundColor = .whitePrimary
+          s.barTintColor = .greenPrimary
+          s.fontColor = .blackPrimaryText
+          s.fontColorDetailed = UIColor.white
+          s.tintColor = .blackSecondaryText
+        }
       }
     case .navigationBar:
       return .add { s in
-        s.barTintColor = colors.primary
-        s.tintColor = colors.whitePrimaryText
+        s.barTintColor = .greenPrimary
+        s.tintColor = .whitePrimaryText
         s.backgroundImage = UIImage()
         s.shadowImage = UIImage()
         s.font = fonts.header
-        s.fontColor = colors.whitePrimaryText
+        s.fontColor = .whitePrimaryText
       }
     case .navigationBarItem:
       return .add { s in
         s.font = fonts.regular18
-        s.fontColor = colors.whitePrimaryText
+        s.fontColor = .whitePrimaryText
         s.fontColorDisabled = UIColor.lightGray
-        s.fontColorHighlighted = colors.whitePrimaryTextHighlighted
-        s.tintColor = colors.whitePrimaryText
+        s.fontColorHighlighted = .whitePrimaryTextHighlighted
+        s.tintColor = .whitePrimaryText
       }
     case .checkmark:
       return .add { s in
-        s.onTintColor = colors.linkBlue
-        s.offTintColor = colors.blackHintText
+        s.onTintColor = .linkBlue
+        s.offTintColor = .blackHintText
       }
     case .switch:
       return .add { s in
-        s.onTintColor = colors.linkBlue
+        s.onTintColor = .linkBlue
       }
     case .pageControl:
       return .add { s in
-        s.pageIndicatorTintColor = colors.blackHintText
-        s.currentPageIndicatorTintColor = colors.blackSecondaryText
-        s.backgroundColor = colors.white
+        s.pageIndicatorTintColor = .blackHintText
+        s.currentPageIndicatorTintColor = .blackSecondaryText
+        s.backgroundColor = .whitePrimary
       }
     case .starRatingView:
       return .add { s in
-        s.onTintColor = colors.ratingYellow
-        s.offTintColor = colors.blackDividers
+        s.onTintColor = .ratingYellow
+        s.offTintColor = .blackDividers
       }
     case .difficultyView:
       return .add { s in
-        s.colors = [colors.blackSecondaryText, colors.ratingGreen, colors.ratingYellow, colors.ratingRed]
-        s.offTintColor = colors.blackSecondaryText
-        s.backgroundColor = colors.clear
+        s.colors = [.blackSecondaryText, .ratingGreen, .ratingYellow, .ratingRed]
+        s.offTintColor = .blackSecondaryText
+        s.backgroundColor = .clear
       }
     case .divider:
       return .add { s in
-        s.backgroundColor = colors.blackDividers
+        s.backgroundColor = .blackDividers
       }
     case .solidDivider:
       return .add { s in
-        s.backgroundColor = colors.solidDividers
+        s.backgroundColor = .solidDividers
       }
     case .background:
       return .add { s in
-        s.backgroundColor = colors.white
-        s.backgroundColorSelected = colors.pressBackground
+        s.backgroundColor = .whitePrimary
+        s.backgroundColorSelected = .pressBackground
       }
     case .pressBackground:
       return .add { s in
-        s.backgroundColor = colors.pressBackground
+        s.backgroundColor = .pressBackground
       }
     case .primaryBackground:
       return .add { s in
-        s.backgroundColor = colors.primary
+        s.backgroundColor = .greenPrimary
       }
     case .secondaryBackground:
       return .add { s in
-        s.backgroundColor = colors.secondary
+        s.backgroundColor = .greenSecondary
       }
     case .menuBackground:
       return .add { s in
-        s.backgroundColor = colors.menuBackground
+        s.backgroundColor = .menuBackground
       }
     case .bottomTabBarButton:
       return .add { s in
-        s.backgroundColor = colors.tabBarButtonBackground
-        s.tintColor = colors.blackSecondaryText
+        s.backgroundColor = .tabBarButtonBackground
+        s.tintColor = .blackSecondaryText
         s.coloring = MWMButtonColoring.black
         s.cornerRadius = .buttonDefault
         s.imageContainerInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        s.shadowColor = UIColor(0, 0, 0, alpha20)
+        s.shadowColor = .shadow
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
-        s.onTintColor = .red
+        s.onTintColor = .redPrimary
       }
     case .trackRecordingWidgetButton:
       return .addFrom(Self.bottomTabBarButton) { s in
@@ -212,82 +202,82 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .blackOpaqueBackground:
       return .add { s in
-        s.backgroundColor = colors.blackOpaque
+        s.backgroundColor = .blackOpaque
       }
     case .blueBackground:
       return .add { s in
-        s.backgroundColor = colors.linkBlue
+        s.backgroundColor = .linkBlue
       }
     case .fadeBackground:
       return .add { s in
-        s.backgroundColor = colors.fadeBackground
+        s.backgroundColor = .fadeBackground
       }
     case .errorBackground:
       return .add { s in
-        s.backgroundColor = colors.errorPink
+        s.backgroundColor = .errorPink
       }
     case .blackStatusBarBackground:
       return .add { s in
-        s.backgroundColor = colors.blackStatusBarBackground
+        s.backgroundColor = .blackStatusBarBackground
       }
     case .presentationBackground:
       return .add { s in
-        s.backgroundColor = UIColor.black.withAlphaComponent(alpha40)
+        s.backgroundColor = UIColor.black.withAlphaComponent(0.4)
       }
     case .clearBackground:
       return .add { s in
-        s.backgroundColor = colors.clear
+        s.backgroundColor = .clear
       }
     case .border:
       return .add { s in
-        s.backgroundColor = colors.border
+        s.backgroundColor = .border
       }
     case .tabView:
       return .add { s in
-        s.backgroundColor = colors.white
-        s.barTintColor = colors.white
-        s.tintColor = colors.linkBlue
-        s.fontColor = colors.blackSecondaryText
-        s.fontColorHighlighted = colors.linkBlue
+        s.backgroundColor = .whitePrimary
+        s.barTintColor = .whitePrimary
+        s.tintColor = .linkBlue
+        s.fontColor = .blackSecondaryText
+        s.fontColorHighlighted = .linkBlue
         s.font = fonts.medium14
       }
     case .dialogView:
       return .add { s in
         s.cornerRadius = .buttonDefault
         s.shadowRadius = 2
-        s.shadowColor = UIColor(0, 0, 0, alpha26)
+        s.shadowColor = .shadow
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
         s.clip = true
       }
     case .alertView:
       return .add { s in
         s.cornerRadius = .modalSheet
         s.shadowRadius = 6
-        s.shadowColor = UIColor(0, 0, 0, alpha20)
+        s.shadowColor = .shadow
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 3)
-        s.backgroundColor = colors.alertBackground
+        s.backgroundColor = .alertBackground
         s.clip = true
       }
     case .alertViewTextFieldContainer:
       return .add { s in
-        s.borderColor = colors.blackDividers
+        s.borderColor = .blackDividers
         s.borderWidth = 0.5
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
       }
     case .alertViewTextField:
       return .add { s in
         s.font = fonts.regular14
-        s.fontColor = colors.blackPrimaryText
-        s.tintColor = colors.blackSecondaryText
+        s.fontColor = .blackPrimaryText
+        s.tintColor = .blackSecondaryText
       }
     case .searchStatusBarView:
       return .add { s in
-        s.backgroundColor = colors.primary
+        s.backgroundColor = .greenPrimary
         s.shadowRadius = 2
-        s.shadowColor = colors.blackDividers
+        s.shadowColor = .blackDividers
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 0)
       }
@@ -296,39 +286,39 @@ extension GlobalStyleSheet: IStyleSheet {
         s.font = fonts.medium14
         s.cornerRadius = .buttonDefault
         s.clip = true
-        s.fontColor = colors.whitePrimaryText
+        s.fontColor = .whitePrimaryText
         s.coloring = .whiteText
-        s.tintColor = colors.whitePrimaryText
-        s.backgroundColor = colors.linkBlue
-        s.fontColorHighlighted = colors.whitePrimaryTextHighlighted
-        s.fontColorDisabled = colors.whitePrimaryTextHighlighted
-        s.backgroundColorHighlighted = colors.linkBlueHighlighted
+        s.tintColor = .whitePrimaryText
+        s.backgroundColor = .linkBlue
+        s.fontColorHighlighted = .whitePrimaryTextHighlighted
+        s.fontColorDisabled = .whitePrimaryTextHighlighted
+        s.backgroundColorHighlighted = .linkBlueHighlighted
       }
     case .flatNormalButtonBig:
       return .addFrom(Self.flatNormalButton) { s in
         s.font = fonts.semibold16
         s.cornerRadius = .buttonDefaultBig
-        s.backgroundColor = colors.linkBlue
-        s.backgroundColorDisabled = colors.linkBlueHighlighted
+        s.backgroundColor = .linkBlue
+        s.backgroundColorDisabled = .linkBlueHighlighted
       }
     case .crowdfundingButton:
       return .addFrom(Self.flatNormalButtonBig) { s in
         s.font = fonts.semibold16
         s.fontColor = UIColor(fromHexString: "500000")
         s.cornerRadius = .buttonDefaultBig
-        s.backgroundColor = colors.ratingYellow
+        s.backgroundColor = .ratingYellow
       }
     case .flatNormalTransButton:
       return .add { s in
         s.font = fonts.medium14
         s.cornerRadius = .buttonDefault
         s.clip = true
-        s.fontColor = colors.linkBlue
-        s.tintColor = colors.linkBlue
-        s.backgroundColor = colors.clear
-        s.fontColorHighlighted = colors.linkBlueHighlighted
-        s.fontColorDisabled = colors.blackHintText
-        s.backgroundColorHighlighted = colors.clear
+        s.fontColor = .linkBlue
+        s.tintColor = .linkBlue
+        s.backgroundColor = .clear
+        s.fontColorHighlighted = .linkBlueHighlighted
+        s.fontColorDisabled = .blackHintText
+        s.backgroundColorHighlighted = .clear
       }
     case .flatNormalTransButtonBig:
       return .addFrom(Self.flatNormalTransButton) { s in
@@ -339,146 +329,137 @@ extension GlobalStyleSheet: IStyleSheet {
         s.font = fonts.medium15
         s.cornerRadius = .buttonDefaultBig
         s.clip = true
-        s.fontColor = colors.linkBlue
-        s.tintColor = colors.linkBlue
-        s.backgroundColor = colors.pressBackground
-        s.fontColorHighlighted = colors.linkBlueHighlighted
-        s.fontColorDisabled = colors.blackSecondaryText
-        s.tintColorDisabled = colors.blackSecondaryText
-        s.backgroundColorHighlighted = colors.blackDividers
+        s.fontColor = .linkBlue
+        s.tintColor = .linkBlue
+        s.backgroundColor = .pressBackground
+        s.fontColorHighlighted = .linkBlueHighlighted
+        s.fontColorDisabled = .blackSecondaryText
+        s.tintColorDisabled = .blackSecondaryText
+        s.backgroundColorHighlighted = .blackDividers
       }
     case .flatGrayTransButton:
       return .add { s in
         s.font = fonts.medium14
-        s.fontColor = colors.blackSecondaryText
-        s.backgroundColor = colors.clear
-        s.fontColorHighlighted = colors.linkBlueHighlighted
+        s.fontColor = .blackSecondaryText
+        s.backgroundColor = .clear
+        s.fontColorHighlighted = .linkBlueHighlighted
       }
     case .flatPrimaryTransButton:
       return .add { s in
-        s.fontColor = colors.blackPrimaryText
-        s.backgroundColor = colors.clear
-        s.fontColorHighlighted = colors.linkBlueHighlighted
+        s.fontColor = .blackPrimaryText
+        s.backgroundColor = .clear
+        s.fontColorHighlighted = .linkBlueHighlighted
       }
     case .flatRedTransButton:
       return .add { s in
         s.font = fonts.medium14
-        s.fontColor = colors.red
-        s.backgroundColor = colors.clear
-        s.fontColorHighlighted = colors.red
+        s.fontColor = .redPrimary
+        s.backgroundColor = .clear
+        s.fontColorHighlighted = .redPrimary
       }
     case .flatRedTransButtonBig:
       return .add { s in
         s.font = fonts.regular17
-        s.fontColor = colors.red
-        s.backgroundColor = colors.clear
-        s.fontColorHighlighted = colors.red
+        s.fontColor = .redPrimary
+        s.backgroundColor = .clear
+        s.fontColorHighlighted = .redPrimary
       }
-    case .flatRedButton:
+    case .flatRedButtonBig:
       return .add { s in
-        s.font = fonts.medium14
-        s.cornerRadius = .buttonDefault
-        s.fontColor = colors.whitePrimaryText
-        s.backgroundColor = colors.buttonRed
-        s.fontColorHighlighted = colors.buttonRedHighlighted
+        s.font = fonts.semibold16
+        s.cornerRadius = .buttonDefaultBig
+        s.fontColor = .whitePrimaryText
+        s.backgroundColor = .buttonRed
+        s.fontColorHighlighted = .buttonRedHighlighted
       }
     case .moreButton:
       return .add { s in
-        s.fontColor = colors.linkBlue
-        s.fontColorHighlighted = colors.linkBlueHighlighted
-        s.backgroundColor = colors.clear
+        s.fontColor = .linkBlue
+        s.fontColorHighlighted = .linkBlueHighlighted
+        s.backgroundColor = .clear
         s.font = fonts.regular16
       }
     case .editButton:
       return .add { s in
         s.font = fonts.regular14
-        s.fontColor = colors.linkBlue
+        s.fontColor = .linkBlue
         s.cornerRadius = .buttonDefault
-        s.borderColor = colors.linkBlue
+        s.borderColor = .linkBlue
         s.borderWidth = 1
-        s.fontColorHighlighted = colors.linkBlueHighlighted
-        s.backgroundColor = colors.clear
+        s.fontColorHighlighted = .linkBlueHighlighted
+        s.backgroundColor = .clear
       }
     case .rateAppButton:
       return .add { s in
         s.font = fonts.medium17
-        s.fontColor = colors.linkBlue
-        s.fontColorHighlighted = colors.white
-        s.borderColor = colors.linkBlue
+        s.fontColor = .linkBlue
+        s.fontColorHighlighted = .whitePrimary
+        s.borderColor = .linkBlue
         s.cornerRadius = .buttonDefault
         s.borderWidth = 1
-        s.backgroundColor = colors.clear
-        s.backgroundColorHighlighted = colors.linkBlue
+        s.backgroundColor = .clear
+        s.backgroundColorHighlighted = .linkBlue
       }
     case .termsOfUseLinkText:
       return .add { s in
         s.font = fonts.regular16
-        s.fontColor = colors.blackPrimaryText
+        s.fontColor = .blackPrimaryText
 
         s.linkAttributes = [NSAttributedString.Key.font: fonts.regular16,
-                            NSAttributedString.Key.foregroundColor: colors.linkBlue,
+                            NSAttributedString.Key.foregroundColor: UIColor.linkBlue,
                             NSAttributedString.Key.underlineColor: UIColor.clear]
         s.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
       }
     case .termsOfUseGrayButton:
       return .add { s in
         s.font = fonts.medium10
-        s.fontColor = colors.blackSecondaryText
-        s.fontColorHighlighted = colors.blackHintText
+        s.fontColor = .blackSecondaryText
+        s.fontColorHighlighted = .blackHintText
       }
     case .badge:
       return .add { s in
         s.round = true
-        s.backgroundColor = colors.downloadBadgeBackground
+        s.backgroundColor = .downloadBadgeBackground
       }
     case .blue:
       return .add { s in
-        s.tintColor = colors.linkBlue
+        s.tintColor = .linkBlue
         s.coloring = MWMButtonColoring.blue
       }
     case .black:
       return .add { s in
-        s.tintColor = colors.blackSecondaryText
+        s.tintColor = .blackSecondaryText
         s.coloring = MWMButtonColoring.black
       }
     case .red:
       return .add { s in
-        s.tintColor = colors.red
+        s.tintColor = .redPrimary
         s.coloring = MWMButtonColoring.red
       }
     case .other:
       return .add { s in
-        s.tintColor = colors.white
+        s.tintColor = .whitePrimary
         s.coloring = MWMButtonColoring.other
       }
     case .gray:
       return .add { s in
-        s.tintColor = colors.blackHintText
+        s.tintColor = .blackHintText
         s.coloring = MWMButtonColoring.gray
       }
     case .separator:
       return .add { s in
-        s.tintColor = colors.blackDividers
+        s.tintColor = .blackDividers
         s.coloring = MWMButtonColoring.black
       }
     case .white:
       return .add { s in
-        s.tintColor = colors.white
+        s.tintColor = .whitePrimary
         s.coloring = MWMButtonColoring.white
-      }
-    case .datePickerView:
-      return .add { s in
-        s.backgroundColor = colors.white
-        s.fontColor = colors.blackPrimaryText
-        s.fontColorSelected = colors.whitePrimaryText
-        s.backgroundColorSelected = colors.linkBlue
-        s.backgroundColorHighlighted = colors.linkBlueHighlighted
-        s.fontColorDisabled = colors.blackSecondaryText
       }
     case .valueStepperView:
       return .add { s in
         s.font = fonts.regular16
-        s.fontColor = colors.blackPrimaryText
+        s.fontColor = .blackPrimaryText
         s.coloring = MWMButtonColoring.blue
       }
     case .grabber:
@@ -487,7 +468,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .modalSheetBackground:
       return .add { s in
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
         s.shadowColor = UIColor.black
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.shadowOpacity = 0.3
@@ -498,7 +479,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .modalSheetContent:
       return .addFrom(Self.modalSheetBackground) { s in
-        s.backgroundColor = colors.clear
+        s.backgroundColor = .clear
         s.clip = true
       }
     case .sideMenuBackground:
@@ -517,7 +498,7 @@ extension GlobalStyleSheet: IStyleSheet {
     case .toastLabel:
       return .add { s in
         s.font = fonts.regular16
-        s.fontColor = colors.whitePrimaryText
+        s.fontColor = .whitePrimaryText
         s.textAlignment = .center
       }
     }

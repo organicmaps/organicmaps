@@ -30,16 +30,12 @@ RenderStateExtension::RenderStateExtension(DepthLayer depthLayer) : m_depthLayer
 
 bool RenderStateExtension::Less(ref_ptr<dp::BaseRenderStateExtension> other) const
 {
-  ASSERT(dynamic_cast<RenderStateExtension const *>(other.get()) != nullptr, ());
-  auto const renderState = static_cast<RenderStateExtension const *>(other.get());
-  return m_depthLayer < renderState->m_depthLayer;
+  return m_depthLayer < ref_ptr<RenderStateExtension>(other)->m_depthLayer;
 }
 
 bool RenderStateExtension::Equal(ref_ptr<dp::BaseRenderStateExtension> other) const
 {
-  ASSERT(dynamic_cast<RenderStateExtension const *>(other.get()) != nullptr, ());
-  auto const renderState = static_cast<RenderStateExtension const *>(other.get());
-  return m_depthLayer == renderState->m_depthLayer;
+  return m_depthLayer == ref_ptr<RenderStateExtension>(other)->m_depthLayer;
 }
 
 DepthLayer GetDepthLayer(dp::RenderState const & state)

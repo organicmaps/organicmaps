@@ -83,10 +83,10 @@ struct TransitRouteInfo
 struct TransitTitle
 {
   TransitTitle() = default;
-  TransitTitle(std::string const & text, df::ColorConstant const & color) : m_text(text), m_color(color) {}
+  TransitTitle(std::string const & text, std::string color) : m_text(text), m_color(std::move(color)) {}
 
   std::string m_text;
-  df::ColorConstant m_color;
+  std::string m_color;
 };
 
 struct TransitMarkInfo
@@ -102,13 +102,13 @@ struct TransitMarkInfo
   m2::PointD m_point;
   std::vector<TransitTitle> m_titles;
   std::string m_symbolName;
-  df::ColorConstant m_color;
+  std::string m_color;
   FeatureID m_featureId;
 };
 
 struct SubrouteParams
 {
-  df::ColorConstant m_lastColor;
+  std::string m_lastColor;
   m2::PointD m_lastDir;
   ::transit::TransitId m_lastLineId = ::transit::kInvalidTransitId;
   df::SubrouteMarker m_marker;

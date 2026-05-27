@@ -3,7 +3,7 @@ package app.organicmaps.search;
 import android.app.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.OnApplyWindowInsetsListener;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -27,8 +27,13 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     mListener = listener;
     // We only want to detect a click on the input and not allow editing.
     disableQueryEditing();
+  }
 
-    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), PaddingInsetsListener.excludeTop());
+  @NonNull
+  @Override
+  protected OnApplyWindowInsetsListener provideToolbarInsetsListener()
+  {
+    return PaddingInsetsListener.excludeTop();
   }
 
   @Override

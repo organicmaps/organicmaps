@@ -99,6 +99,11 @@ bool IsStreetSynonymPrefix(strings::UniString const & s);
 bool IsStreetSynonymWithMisprints(strings::UniString const & s);
 bool IsStreetSynonymPrefixWithMisprints(strings::UniString const & s);
 
+/// Checks if |s| is a street type synonym ("street", "avenue", "road", "улица", etc.)
+/// or a cardinal direction ("north", "south", "west", "east", etc.).
+/// These tokens are never standalone street names — they are always modifiers.
+bool IsStreetSynonymOrAffixOnly(strings::UniString const & s);
+
 /// Normalizes both str and substr, and then returns true if substr is found in str.
 /// Used in native platform code for search in localized strings (cuisines, categories, strings etc.).
 bool ContainsNormalized(std::string const & str, std::string const & substr);

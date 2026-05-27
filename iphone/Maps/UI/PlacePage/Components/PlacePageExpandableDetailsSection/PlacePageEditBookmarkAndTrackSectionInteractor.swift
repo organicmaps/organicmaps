@@ -69,7 +69,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       description = bookmarkData.bookmarkDescription
       isHtmlDescription = bookmarkData.isHtmlDescription
     case .track(let trackData):
-      iconColor = trackData.color ?? UIColor.buttonRed()
+      iconColor = trackData.color ?? .buttonRed
       category = trackData.trackCategory
       description = trackData.trackDescription
       isHtmlDescription = false
@@ -93,7 +93,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
         self?.update(color: color)
       }
     case .track(let trackData):
-      ColorPicker.shared.present(from: view, pickerType: .defaultColorPicker(trackData.color ?? .buttonRed())) { [weak self] color in
+      ColorPicker.shared.present(from: view, pickerType: .defaultColorPicker(trackData.color ?? .buttonRed)) { [weak self] color in
         self?.update(color: color)
       }
     }
@@ -111,7 +111,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       groupId = trackData.groupId
       groupName = trackData.trackCategory
     }
-    let groupViewController = SelectBookmarkGroupViewController(groupName: groupName ?? "", groupId: groupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupId: groupId)
     let navigationController = UINavigationController(rootViewController: groupViewController)
     groupViewController.delegate = self
     presenter.view?.present(navigationController, animated: true, completion: nil)

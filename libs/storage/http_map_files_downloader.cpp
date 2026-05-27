@@ -3,6 +3,9 @@
 #include "storage/downloader.hpp"
 
 #include "platform/downloader_defines.hpp"
+#include "platform/platform.hpp"
+
+#include "defines.hpp"
 
 #include <functional>
 
@@ -18,7 +21,7 @@ public:
     m_status = downloader::DownloadStatus::Failed;
   }
 
-  virtual std::string const & GetData() const { return m_filePath; }
+  virtual std::string const & GetFilePath() const { return m_filePath; }
 
 private:
   std::string m_filePath;
@@ -57,9 +60,13 @@ void HttpMapFilesDownloader::Download()
     queuedCountry.OnStartDownloading();
 
     using namespace std::placeholders;
+    // doCleanOnCancel=false: keep .downloading and .resume on destruction so a graceful
+    // app shutdown mid-download does not lose progress. Storage::DeleteCountryFilesFromDownloader
+    // wipes them explicitly when the user actually removes the country.
     m_request.reset(downloader::HttpRequest::GetFile(
         urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
-        std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));
+        std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1),
+        false /* doCleanOnCancel */));
   }
   else
   {
@@ -92,6 +99,17 @@ void HttpMapFilesDownloader::Clear()
   CHECK_THREAD_CHECKER(m_checker, ());
 
   MapFilesDownloader::Clear();
+
+  // Wipe in-flight artifacts before tearing down m_request, since the dtor preserves them
+  // (doCleanOnCancel=false). Clear() is "throw everything away" — leaving .downloading and
+  // .resume on disk would orphan files that nothing else cleans up.
+  if (m_request && !m_queue.IsEmpty())
+  {
+    auto const path = m_queue.GetFirstCountry().GetFileDownloadPath();
+    Platform::RemoveFileIfExists(path);
+    Platform::RemoveFileIfExists(path + DOWNLOADING_FILE_EXTENSION);
+    Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
+  }
 
   m_request.reset();
   m_queue.Clear();

@@ -103,12 +103,12 @@ uint32_t RulesHolder::GetBgColor(int scale) const
   return m_bgColors[scale];
 }
 
-uint32_t RulesHolder::GetColor(std::string const & name) const
+uint32_t RulesHolder::GetColor(std::string_view name) const
 {
   auto const it = m_colors.find(name);
   if (it == m_colors.end())
   {
-    LOG(LWARNING, ("Requested color '" + name + "' is not found"));
+    LOG(LWARNING, ("Requested color", name, "is not found"));
     return 0;
   }
   return it->second;

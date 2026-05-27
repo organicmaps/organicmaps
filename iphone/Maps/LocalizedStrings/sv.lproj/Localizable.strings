@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "För att hämta en röst med högre kvalitet, öppna appen Inställningar och gå till Hjälpmedel → VoiceOver → Tal → Röst.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automatisk zoom";
@@ -575,7 +578,7 @@
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "Redigera bokmärke";
 "placepage_personal_notes_hint" = "Personlig anteckning (text eller html)";
-"editor_comment_hint" = "kommentar…";
+"editor_comment_hint" = "Kommentar…";
 "editor_reset_edits_message" = "Återställ alla lokala ändringar?";
 "editor_reset_edits_button" = "Återställ";
 "editor_remove_place_message" = "Ta bort en tillagd plats?";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Cykling";
 "button_layer_subway" = "Tunnelbana";
 "layers_title" = "Kartstilar och lager";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Ändra färg på alla bokmärken";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Ändra färg på alla spår";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportera KMZ";
@@ -884,7 +893,7 @@
 "dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller mål närmare en tunnelbanestation";
 "button_layer_isolines" = "Terräng";
 "isolines_activation_error_dialog" = "Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område";
-"isolines_location_error_dialog" = "Höjningslinjer är ännu inte tillgängligt i den här regionen";
+"isolines_location_error_dialog" = "Höjdkurvor är ännu inte tillgängliga i det här området";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Backe";
 "elevation_profile_min_elevation" = "Min. höjd";
@@ -1115,7 +1124,13 @@
 "login_osm_credentials" = "Logga in med lösenord";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Logga in med hjälp av webbläsare";
+"login_osm_browser" = "Logga in med hjälp av en webbläsare";
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Senast använda";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Bokmärkesfärg ändrad";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Spårfärg ändrad";

@@ -1,6 +1,5 @@
 #include "routing_manager.hpp"
 
-#include "map/chart_generator.hpp"
 #include "map/routing_mark.hpp"
 
 #include "routing/absent_regions_finder.hpp"
@@ -18,22 +17,57 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 
+#include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"  // kPointEqualityEps
-#include "geometry/simplification.hpp"
 
 #include "coding/file_writer.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <glaze/json.hpp>
+
 #include <map>
 
 using namespace routing;
+
+namespace route_points_json
+{
+struct RoutePointJson
+{
+  int type = 0;
+  std::string title;
+  std::string subtitle;
+  double x = 0.0;
+  double y = 0.0;
+  bool replaceWithMyPosition = false;
+};
+
+RoutePointJson ToRoutePointJson(RouteMarkData const & data)
+{
+  return {.type = static_cast<int>(data.m_pointType),
+          .title = data.m_title,
+          .subtitle = data.m_subTitle,
+          .x = data.m_position.x,
+          .y = data.m_position.y,
+          .replaceWithMyPosition = data.m_replaceWithMyPositionAfterRestart};
+}
+
+RouteMarkData ToRouteMarkData(RoutePointJson const & point)
+{
+  RouteMarkData data;
+  data.m_pointType = static_cast<RouteMarkType>(point.type);
+  data.m_title = point.title;
+  data.m_subTitle = point.subtitle;
+  data.m_position = {point.x, point.y};
+  data.m_replaceWithMyPositionAfterRestart = point.replaceWithMyPosition;
+  return data;
+}
+}  // namespace route_points_json
+
 namespace
 {
 std::string_view constexpr kRouterTypeKey = "router";
@@ -100,88 +134,42 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, std::vector<RouteM
   return data;
 }
 
-void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
-{
-  ASSERT(node != nullptr, ());
-  ToJSONObject(*node, "type", static_cast<int>(data.m_pointType));
-  ToJSONObject(*node, "title", data.m_title);
-  ToJSONObject(*node, "subtitle", data.m_subTitle);
-  ToJSONObject(*node, "x", data.m_position.x);
-  ToJSONObject(*node, "y", data.m_position.y);
-  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
-}
-
-RouteMarkData DeserializeRoutePoint(json_t * node)
-{
-  ASSERT(node != nullptr, ());
-  RouteMarkData data;
-
-  int type = 0;
-  FromJSONObject(node, "type", type);
-  data.m_pointType = static_cast<RouteMarkType>(type);
-
-  FromJSONObject(node, "title", data.m_title);
-  FromJSONObject(node, "subtitle", data.m_subTitle);
-
-  FromJSONObject(node, "x", data.m_position.x);
-  FromJSONObject(node, "y", data.m_position.y);
-
-  FromJSONObject(node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
-
-  return data;
-}
-
 std::string SerializeRoutePoints(std::vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
-  auto pointsNode = base::NewJSONArray();
+  std::vector<route_points_json::RoutePointJson> pointsJson;
+  pointsJson.reserve(points.size());
   for (auto const & p : points)
-  {
-    auto pointNode = base::NewJSONObject();
-    SerializeRoutePoint(pointNode.get(), p);
-    json_array_append_new(pointsNode.get(), pointNode.release());
-  }
-  std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(pointsNode.get(), JSON_COMPACT));
-  return std::string(buffer.get());
+    pointsJson.push_back(route_points_json::ToRoutePointJson(p));
+
+  std::string buffer;
+  if (auto const error = glz::write_json(pointsJson, buffer); error)
+    MYTHROW(RootException, (glz::format_error(error)));
+  return buffer;
 }
 
 std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
 {
-  try
-  {
-    base::Json root(data.c_str());
-
-    if (root.get() == nullptr || !json_is_array(root.get()))
-      return {};
-
-    size_t const sz = json_array_size(root.get());
-    if (sz == 0)
-      return {};
-
-    std::vector<RouteMarkData> result;
-    result.reserve(sz);
-    for (size_t i = 0; i < sz; ++i)
-    {
-      auto pointNode = json_array_get(root.get(), i);
-      if (pointNode == nullptr)
-        continue;
-
-      auto point = DeserializeRoutePoint(pointNode);
-      if (point.m_position.EqualDxDy(m2::PointD::Zero(), mercator::kPointEqualityEps))
-        continue;
-
-      result.push_back(std::move(point));
-    }
-
-    if (result.size() < 2)
-      return {};
-
-    return result;
-  }
-  catch (base::Json::Exception const &)
-  {
+  std::vector<route_points_json::RoutePointJson> pointsJson;
+  glz::opts constexpr opts{.error_on_unknown_keys = false, .error_on_missing_keys = false};
+  if (auto const error = glz::read<opts>(pointsJson, data); error || pointsJson.empty())
     return {};
+
+  std::vector<RouteMarkData> result;
+  result.reserve(pointsJson.size());
+  for (auto const & pointJson : pointsJson)
+  {
+    auto point = route_points_json::ToRouteMarkData(pointJson);
+    if (point.m_position.EqualDxDy(m2::PointD::Zero(), mercator::kPointEqualityEps))
+      continue;
+
+    result.push_back(std::move(point));
   }
+
+  if (result.size() < 2)
+    return {};
+
+  return result;
 }
 
 VehicleType GetVehicleType(RouterType routerType)
@@ -893,6 +881,25 @@ void RoutingManager::RemoveIntermediateRoutePoints()
   routePoints.RemoveIntermediateRoutePoints();
 }
 
+void RoutingManager::RemovePassedRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(*m_bmManager);
+  if (!routePoints.RemovePassedRoutePoints())
+    return;
+
+  // If the passed Start was removed, add a new one at the current position.
+  if (routePoints.GetRoutePoint(RouteMarkType::Start) == nullptr)
+  {
+    RouteMarkData startPt;
+    startPt.m_pointType = RouteMarkType::Start;
+    startPt.m_isMyPosition = true;
+    startPt.m_isVisible = false;
+    startPt.m_position = m_bmManager->MyPositionMark().GetPivot();
+    routePoints.AddRoutePoint(std::move(startPt));
+  }
+}
+
 void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
                                     RouteMarkType targetType, size_t targetIntermediateIndex)
 {
@@ -992,6 +999,12 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
+
+  // Remove already passed intermediate points so they don't affect the new route.
+  // https://github.com/organicmaps/organicmaps/issues/7939
+  // https://github.com/organicmaps/organicmaps/issues/9592
+  // https://github.com/organicmaps/organicmaps/issues/11256
+  RemovePassedRoutePoints();
 
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)
@@ -1197,103 +1210,29 @@ bool RoutingManager::HasRouteAltitude() const
   return m_loadAltitudes && m_routingSession.HasRouteAltitude();
 }
 
-bool RoutingManager::GetRouteAltitudesAndDistancesM(DistanceAltitude & da) const
+bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
 {
-  return m_routingSession.GetRouteAltitudesAndDistancesM(da.m_distances, da.m_altitudes);
-}
-
-void RoutingManager::DistanceAltitude::Simplify(double altitudeDeviation)
-{
-  class IterT
-  {
-    DistanceAltitude const & m_da;
-    size_t m_ind = 0;
-
-  public:
-    IterT(DistanceAltitude const & da, bool isBeg) : m_da(da) { m_ind = isBeg ? 0 : m_da.GetSize(); }
-
-    IterT(IterT const & rhs) = default;
-    IterT & operator=(IterT const & rhs)
-    {
-      m_ind = rhs.m_ind;
-      return *this;
-    }
-
-    bool operator!=(IterT const & rhs) const { return m_ind != rhs.m_ind; }
-
-    IterT & operator++()
-    {
-      ++m_ind;
-      return *this;
-    }
-    IterT operator+(size_t inc) const
-    {
-      IterT res = *this;
-      res.m_ind += inc;
-      return res;
-    }
-    int64_t operator-(IterT const & rhs) const { return int64_t(m_ind) - int64_t(rhs.m_ind); }
-
-    m2::PointD operator*() const { return {m_da.m_distances[m_ind], double(m_da.m_altitudes[m_ind])}; }
-  };
-
-  std::vector<m2::PointD> out;
-
-  // 1. Deviation from approximated altitude.
-  //  double constexpr eps = 1.415; // ~sqrt(2)
-  //  struct DeviationFromApproxY
-  //  {
-  //    double operator()(m2::PointD const & a, m2::PointD const & b, m2::PointD const & x) const
-  //    {
-  //      double f = (x.x - a.x) / (b.x - a.x);
-  //      ASSERT(0 <= f && f <= 1, (f));  // distance is an icreasing function
-  //      double const approxY = (1 - f) * a.y + f * b.y;
-  //      return fabs(approxY - x.y);
-  //    }
-  //  } distFn;
-  //  SimplifyNearOptimal(20 /* maxFalseLookAhead */, IterT(*this, true), IterT(*this, false),
-  //                      eps, distFn, AccumulateSkipSmallTrg(distFn, out, eps));
-
-  // 2. Default square distance from segment.
-  SimplifyDefault(IterT(*this, true), IterT(*this, false), math::Pow2(altitudeDeviation), out);
-
-  size_t const count = out.size();
-  m_distances.resize(count);
-  m_altitudes.resize(count);
-  for (size_t i = 0; i < count; ++i)
-  {
-    m_distances[i] = out[i].x;
-    m_altitudes[i] = geometry::Altitude(out[i].y);
-  }
-}
-
-bool RoutingManager::DistanceAltitude::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                                                  std::vector<uint8_t> & imageRGBAData) const
-{
-  if (GetSize() == 0)
+  auto const * route = m_routingSession.GetRoute();
+  if (!route || !route->IsValid() || !route->HaveAltitudes())
     return false;
 
-  return maps::GenerateChart(width, height, m_distances, m_altitudes, GetStyleReader().GetCurrentStyle(),
-                             imageRGBAData);
+  geometry::Altitudes altitudes;
+  route->GetAltitudes(altitudes);
+
+  ei.Assign(route->GetSegDistanceMeters(), altitudes);
+  ei.Simplify();
+  return true;
 }
 
-void RoutingManager::DistanceAltitude::CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM) const
+std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
-  totalAscentM = 0;
-  totalDescentM = 0;
-  for (size_t i = 1; i < m_altitudes.size(); i++)
-  {
-    int16_t const delta = m_altitudes[i] - m_altitudes[i - 1];
-    if (delta > 0)
-      totalAscentM += delta;
-    else
-      totalDescentM += -delta;
-  }
-}
+  auto const * route = m_routingSession.GetRoute();
+  if (!route || !route->IsValid())
+    return std::nullopt;
 
-std::string DebugPrint(RoutingManager::DistanceAltitude const & da)
-{
-  return DebugPrint(da.m_altitudes);
+  auto const & distances = route->GetSegDistanceMeters();
+  auto const & points = route->GetPoly().GetPoints();
+  return m2::InterpolatePointAtDistance(distances, points, distanceMeters);
 }
 
 void RoutingManager::SetRouter(RouterType type)

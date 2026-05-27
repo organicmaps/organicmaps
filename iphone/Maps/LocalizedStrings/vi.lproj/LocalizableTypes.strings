@@ -35,7 +35,7 @@
 "type.amenity.biergarten" = "Vườn bia";
 "type.amenity.brothel" = "Giải trí";
 "type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.bureau_de_change" = "Tỉ giá hiện tại";
+"type.amenity.bureau_de_change" = "Quầy đổi tiền";
 "type.amenity.bus_station" = "Trạm xe buýt";
 "type.amenity.cafe" = "Cà phê";
 "type.amenity.car_rental" = "Ô tô";
@@ -81,7 +81,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Bãi tha ma";
-"type.amenity.hospital" = "Bệnhviện";
+"type.amenity.hospital" = "Bệnh viện";
 "type.amenity.hunting_stand" = "Điểm săn bắn";
 "type.amenity.ice_cream" = "Quầy kem";
 "type.amenity.internet_cafe" = "Quán Internet";
@@ -119,7 +119,7 @@
 "type.amenity.parking_space.underground" = "Chỗ để xe";
 "type.amenity.parking_space.disabled" = "Chỗ đậu xe dành cho người khuyết tật";
 "type.amenity.payment_terminal" = "Thiết bị thanh toán";
-"type.amenity.pharmacy" = "3Hiệu thuốc";
+"type.amenity.pharmacy" = "Nhà thuốc";
 "type.amenity.place_of_worship" = "Chùa";
 "type.amenity.place_of_worship.buddhist" = "Đền";
 "type.amenity.place_of_worship.christian" = "Chùa";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Địa chỉ";
+"type.building.construction" = "Tòa nhà đang xây dựng";
 "type.building.has_parts" = "Tòa nhà";
 "type.building_part" = "Tòa nhà";
 "type.building.garage" = "Gara";
@@ -277,7 +278,7 @@
 "type.craft.photographer" = "Thợ chụp ảnh";
 "type.shop.camera" = "Cửa hàng máy ảnh";
 "type.craft.plumber" = "Thợ đường ống";
-"type.craft.sawmill" = "Sumel";
+"type.craft.sawmill" = "Xưởng cưa";
 "type.craft.shoemaker" = "Sửa giày";
 "type.craft.winery" = "Nhà máy rượu";
 "type.craft.tailor" = "Thợ may";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Ẩm thực địa trung hải";
 "type.cuisine.mexican" = "Ẩm thực mexico";
 "type.cuisine.moroccan" = "Ẩm thực ma-rốc";
-"type.cuisine.noodles" = "Mì";
+"type.cuisine.noodle" = "Mì";
 "type.cuisine.oriental" = "Ẩm thực phương đông";
 "type.cuisine.pancake" = "Bánh kếp";
 "type.cuisine.pasta" = "Mỳ ống";
@@ -356,9 +357,10 @@
 "type.cuisine.sausage" = "Xúc xích";
 "type.cuisine.savory_pancakes" = "Bánh kếp rau thơm";
 "type.cuisine.seafood" = "Hải sản";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Mì soba";
 "type.cuisine.spanish" = "Ẩm thực tây ban nha";
-"type.cuisine.steak_house" = "Steak house";
+"type.cuisine.steak_house" = "Nhà hàng bít tết";
 "type.cuisine.sushi" = "Sushi";
 "type.cuisine.tapas" = "Tapas";
 "type.cuisine.tea" = "Trà";
@@ -635,8 +637,8 @@
 "type.historic.castle.defensive" = "Lâu đài";
 "type.historic.castle.fortified_church" = "Nhà thờ kiên cố";
 "type.historic.castle.fortress" = "Pháo đài";
-"type.historic.castle.hillfort" = "Hillfort";
-"type.historic.castle.kremlin" = "Kremli";
+"type.historic.castle.hillfort" = "Pháo đài trên đồi";
+"type.historic.castle.kremlin" = "Kremlin";
 "type.historic.castle.manor" = "Trang viên";
 "type.historic.castle.palace" = "Cung điện";
 "type.historic.castle.shiro" = "Lâu đài nhật bản";
@@ -658,9 +660,9 @@
 "type.historic.monument" = "Tượng đài";
 "type.historic.pillory" = "Thuốc viên";
 "type.historic.ruins" = "Phế tích";
-"type.historic.ship" = "Diểm tham quan";
+"type.historic.ship" = "Tàu lịch sử";
 "type.historic.tank" = "Xe tăng lịch sử";
-"type.historic.tomb" = "Diểm tham quan";
+"type.historic.tomb" = "Mộ";
 
 /* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Thập tự";
@@ -759,7 +761,7 @@
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Nơi cho chó đi dạo";
 "type.leisure.escape_game" = "Escape Room";
-"type.leisure.fitness_centre" = "Phòng Tập";
+"type.leisure.fitness_centre" = "Trung tâm thể hình";
 "type.leisure.fitness_station" = "Trạm tập thể hình";
 "type.leisure.dance" = "Vũ trường";
 "type.leisure.garden" = "Điểm khảo cổ";
@@ -788,14 +790,14 @@
 "type.leisure.stadium" = "Sân vận động";
 "type.leisure.swimming_pool" = "Bể bơi";
 "type.leisure.swimming_pool.private" = "Bể bơi";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
-"type.leisure.water_park" = "Công Viên Nước";
+"type.leisure.track" = "Đường đua thể thao";
+"type.leisure.track.area" = "Đường đua thể thao";
+"type.leisure.water_park" = "Công viên nước";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
 "type.man_made.breakwater" = "Breakwater";
 "type.man_made.cairn" = "Cairn";
-"type.man_made.chimney" = "Ống Khói Nhà Máy";
+"type.man_made.chimney" = "Ống khói nhà máy";
 "type.man_made.cutline" = "Cutline";
 "type.man_made.survey_point" = "Survey Point";
 "type.man_made.flagpole" = "Flagpole";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Hàng cây";
 "type.natural.vineyard" = "Vườn nho";
 "type.natural.volcano" = "Núi lửa";
+"type.natural.volcano.active" = "Núi lửa đang hoạt động";
 "type.natural.water" = "Thủy vực";
 "type.natural.wetland" = "Khu vực đầm lầy";
 "type.natural.wetland.bog" = "Đầm lầy toan";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Khúc côn cầu";
 "type.sport.badminton" = "Cầu lông";
 "type.sport.pelota" = "Pơ mu Basque";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Đua xe đạp";
+"type.sport.four_square" = "Bốn ô vuông";
+"type.sport.horse_racing" = "Đua ngựa";
+"type.sport.karting" = "Đua xe go-kart";
+"type.sport.motocross" = "Mô tô địa hình";
+"type.sport.motor" = "Thể thao động cơ";
+"type.sport.netball" = "Bóng lưới";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby";
+"type.sport.running" = "Chạy bộ";
+"type.sport.softball" = "Bóng mềm";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Bể nuôi cá";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Điểm tham quan lịch sử";
 "type.attraction.maze" = "mê cung";
 "type.attraction.roller_coaster" = "Tàu lượn siêu tốc";
+"type.roller_coaster.track" = "Tàu lượn siêu tốc";
 "type.attraction.water_slide" = "Trượt nước";
 "type.tourism.attraction.specified" = "Hấp dẫn";
 "type.tourism.camp_site" = "Cắm trại";
@@ -1470,7 +1486,7 @@
 
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Nha nghi";
-"type.tourism.gallery" = "Diểm tham quan";
+"type.tourism.gallery" = "Phòng trưng bày nghệ thuật";
 "type.tourism.guest_house" = "Nhà khách";
 "type.tourism.hostel" = "Nhà trọ";
 "type.tourism.hotel" = "Khách sạn";
@@ -1485,7 +1501,7 @@
 "type.tourism.museum" = "Bảo tàng";
 "type.tourism.picnic_site" = "Điểm cắm trại";
 "type.leisure.resort" = "Khu nghỉ dưỡng";
-"type.tourism.theme_park" = "Diểm tham quan";
+"type.tourism.theme_park" = "Công viên chủ đề";
 "type.tourism.viewpoint" = "Điểm nhìn";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Điểm tiếp cận đường thủy";
 "type.waterway.canal" = "Kênh";
 "type.waterway.canal.tunnel" = "Kênh";
 "type.waterway.fish_pass" = "Thang cá";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Thợ đồng hồ";
 "type.xmas_feature.market" = "Chợ Giáng sinh";
 "type.xmas_feature.tree" = "Cây Giáng sinh";
+"type.amenity.hookah_lounge" = "Quán shisha";

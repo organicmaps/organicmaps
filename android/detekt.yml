@@ -1,0 +1,38 @@
+build:
+  maxIssues: 0
+
+complexity:
+  active: true
+  NestedBlockDepth:
+    active: false
+  TooManyFunctions:
+    active: false
+
+coroutines:
+  active: true
+
+exceptions:
+  active: true
+
+naming:
+  active: true
+  VariableNaming:
+    active: true
+    variablePattern: '(?!m[A-Z])[a-z][A-Za-z0-9]*'
+    privateVariablePattern: '(_)?(?!m[A-Z])[a-z][A-Za-z0-9]*'
+  FunctionParameterNaming:
+    active: true
+    parameterPattern: '(?!m[A-Z])[a-z][A-Za-z0-9]*'
+
+performance:
+  active: true
+
+potential-bugs:
+  active: true
+
+style:
+  active: true
+  MagicNumber:
+    active: false
+  ReturnCount:
+    active: false

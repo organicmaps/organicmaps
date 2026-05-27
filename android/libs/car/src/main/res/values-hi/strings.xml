@@ -49,18 +49,31 @@
     <string name="pref_map_3d_buildings_title">3डी इमारतें</string>
     <!-- Text in menu -->
     <string name="help">सहायता</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">नक्शे</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">नक्शा डाउनलोड करें</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">दोबारा प्रयास करें</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="categories">श्रेणियाँ</string>
     <string name="search_not_found">उफ़, कोई परिणाम नहीं मिला.</string>
+    <string name="search_history_text">अपनी हालिया खोजें देखें।</string>
     <string name="p2p_start">जाएँ</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">पूरा दिन (24 घंटे)</string>
     <string name="editor_time_open">खुला</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">आज बंद</string>
     <string name="opens_in">%s में खुल जाएगा</string>
     <string name="closes_in">%s में बंद हो जाता है</string>
     <string name="closed">बंद</string>
     <string name="minute">मिनट</string>
     <string name="big_font">मानचित्र लेबल के लिए आकार बढ़ाएँ</string>
     <string name="transliteration_title">लैटिन में लिप्यंतरण</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">नक्शा डाउनलोडर</string>
     <string name="driving_options_title">रूटिंग विकल्प</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">पथकर को टालना</string>
@@ -70,13 +83,25 @@
     <string name="avoid_ferry">नौकाओं से बचें</string>
     <string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
     <string name="unable_to_calc_alert_title">मार्ग की गणना करने में असमर्थ</string>
+    <string name="trip_finished">आप पहुँच गए हैं!</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">बुकमार्क सॉर्ट करें</string>
+    <!-- Android -->
+    <string name="by_default">डिफ़ॉल्ट रूप से</string>
+    <!-- Android -->
+    <string name="by_type">प्रकार के अनुसार</string>
+    <!-- Android -->
+    <string name="by_distance">दूरी के अनुसार</string>
+    <!-- Android -->
+    <string name="by_date">दिनांक के अनुसार</string>
     <!-- Android -->
     <string name="by_name">नाम द्वारा</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
+    <string name="downloader_loading_ios">डाउनलोड हो रहा है</string>
     <string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">एंड्रॉइड ऑटो में ऑर्गेनिक मैप्स को प्रभावी ढंग से काम करने के लिए स्थान अनुमति की आवश्यकता होती है</string>
+    <string name="aa_request_permission_activity_text">Organic Maps Android Auto में प्रभावी ढंग से काम करने के लिए इसे स्थान अनुमतियों की आवश्यकता होती है</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">अनुमतियाँ प्रदान करें</string>
 </resources>

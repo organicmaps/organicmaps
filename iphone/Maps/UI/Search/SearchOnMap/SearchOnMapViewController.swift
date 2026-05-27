@@ -93,7 +93,7 @@ final class SearchOnMapViewController: UIViewController {
 
   override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
-    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+    if ProcessInfo.processInfo.isiOSAppOnMac {
       updateFrameOfPresentedViewInContainerView()
     }
   }
@@ -293,7 +293,7 @@ final class SearchOnMapViewController: UIViewController {
     let maxTop = presentationStepsController.maxAvailableFrame.origin.y
     let alpha = (1 - (currentTop - maxTop) / Constants.dimViewThreshold) * Constants.dimAlpha
     let isCloseToTop = currentTop - maxTop < Constants.dimViewThreshold
-    let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+    let isPortrait = view.window?.windowScene?.interfaceOrientation.isPortrait ?? true
     let shouldDim = isCloseToTop && isPortrait
     UIView.animate(withDuration: kFastAnimationDuration) {
       dimView.alpha = shouldDim ? alpha : 0

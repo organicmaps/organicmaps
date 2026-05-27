@@ -224,10 +224,14 @@ public:
   static bool GetFileSizeByFullPath(std::string const & filePath, uint64_t & size);
   //@}
 
-  /// @return 0 in case of failure.
+  /// @return 0 if the file does not exist or cannot be stat'd.
+  /// On Linux, when the underlying filesystem does not expose birth time, returns the earliest
+  /// of atime/mtime/ctime as a fallback (see Orbstack issue #2064).
   static time_t GetFileCreationTime(std::string const & path);
-  /// @return 0 in case of failure.
+  /// @return 0 if the file does not exist or cannot be stat'd.
   static time_t GetFileModificationTime(std::string const & path);
+  /// @return true on success.
+  static bool SetFileModificationTime(std::string const & path, time_t modTime);
 
   /// Used to check available free storage space for downloading.
   enum TStorageStatus
@@ -334,3 +338,4 @@ private:
 
 std::string DebugPrint(Platform::EError err);
 std::string DebugPrint(Platform::ChargingStatus status);
+std::string DebugPrint(Platform::EConnectionType connectionType);

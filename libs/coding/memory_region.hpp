@@ -1,33 +1,28 @@
 #pragma once
 
-#include "coding/files_container.hpp"
+#include "coding/mmap_reader.hpp"
 
 #include "base/macros.hpp"
 
-#include <cstdint>
-#include <utility>
 #include <vector>
-
-class MemoryRegion
-{
-public:
-  virtual ~MemoryRegion() = default;
-
-  virtual uint64_t Size() const = 0;
-  virtual uint8_t const * ImmutableData() const = 0;
-};
 
 class MappedMemoryRegion : public MemoryRegion
 {
 public:
-  explicit MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle)) {}
+  MappedMemoryRegion(uint8_t const * ptr, size_t size, std::shared_ptr<MmapReader::MmapData> handle)
+    : m_ptr(ptr)
+    , m_size(size)
+    , m_handle(std::move(handle))
+  {}
 
   // MemoryRegion overrides:
-  uint64_t Size() const override { return m_handle.GetSize(); }
-  uint8_t const * ImmutableData() const override { return m_handle.GetData<uint8_t>(); }
+  uint64_t Size() const override { return m_size; }
+  uint8_t const * ImmutableData() const override { return m_ptr; }
 
 private:
-  FilesMappingContainer::Handle m_handle;
+  uint8_t const * m_ptr;
+  size_t m_size;
+  std::shared_ptr<MmapReader::MmapData> m_handle;
 
   DISALLOW_COPY(MappedMemoryRegion);
 };

@@ -9,21 +9,11 @@ extension FileType {
     case .gpx: return "gpx"
     case .geoJson: return "geojson"
     case .json: return "json"
+    @unknown default:
+      fatalError("Unexpected FileType: \(self)")
     }
   }
 
-  var typeIdentifier: String {
-    switch self {
-    case .kml: return "com.google.earth.kml"
-    case .kmz: return "com.google.earth.kmz"
-    case .kmb: return "app.organicmaps.kmb"
-    case .gpx: return "com.topografix.gpx"
-    case .geoJson: return "public.geojson"
-    case .json: return "public.json"
-    }
-  }
-
-  @available(iOS 14.0, *)
   var utType: UTType {
     UTType(filenameExtension: fileExtension)!
   }

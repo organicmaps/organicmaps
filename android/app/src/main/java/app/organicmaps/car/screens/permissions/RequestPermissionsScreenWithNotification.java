@@ -23,7 +23,7 @@ import app.organicmaps.car.AndroidAutoService;
 import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.screens.BaseScreen;
-import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.util.concurrent.ExecutorService;

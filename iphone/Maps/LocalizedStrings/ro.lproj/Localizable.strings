@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Limba ghidului vocal";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Pentru a descărca o voce de calitate superioară, deschideți aplicația Configurări și accesați Accesibilitate → VoiceOver → Vorbire → Voce.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testarea indicațiilor vocale (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automat";
@@ -353,7 +356,7 @@
 "blue_gray" = "Gri albăstriu";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Informații";
 
 /* Prints version number in About dialog */
 "version" = "Versiunea Organic Maps: %@";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Ciclism";
 "button_layer_subway" = "Metrou";
 "layers_title" = "Stiluri și straturi de hartă";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Schimbă culoarea tuturor marcajelor";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Schimbă culoarea tuturor traseelor";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Export KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Folosite recent";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Culoarea marcajelor a fost schimbată";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Culoarea traseelor a fost schimbată";

@@ -25,6 +25,7 @@ set(SRC
   pointers_tests.cpp
   static_texture_tests.cpp
   stipple_pen_tests.cpp
+  text_metrics_cache_bench.cpp
   texture_of_colors_tests.cpp
   testing_graphics_context.hpp
   uniform_value_tests.cpp
@@ -39,9 +40,15 @@ target_compile_definitions(${PROJECT_NAME}
 
 if (WITH_SYSTEM_PROVIDED_3PARTY)
   find_package(GTest REQUIRED)
-  target_link_libraries(${PROJECT_NAME} GTest::gtest)
+  target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest)
 else()
   add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../../../3party/googletest" "${CMAKE_CURRENT_BINARY_DIR}/googletest")
+  # Same treatment as for libs under 3party/CMakeLists.txt: undo -ffinite-math-only
+  # (gtest uses inf for ULP math) and silence the char8_t -> char32_t cast in
+  # gtest-printers.h (Clang 19+ flags it).
+  target_compile_options(gtest PRIVATE
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fno-finite-math-only>
+    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-character-conversion>)
   target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
 endif()
 

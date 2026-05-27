@@ -2,6 +2,9 @@
 <resources>
 
     <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Moja poloha</string>
     <!-- Default bookmark list name -->
@@ -30,8 +33,8 @@
     <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
     <string name="routes_update_maps_text">Na zobrazenie trás je potrebné aktualizovať mapy.</string>
     <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Ukončiť</string>
-    <string name="core_entrance">Vchod | vjazd</string>
+    <string name="core_exit">Výstup</string>
+    <string name="core_entrance">Vchod</string>
     <string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Fialové stiahnuté regióny</string>

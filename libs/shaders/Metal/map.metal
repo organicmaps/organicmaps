@@ -281,18 +281,17 @@ typedef struct
 typedef struct
 {
   float4 position [[position]];
-  float4 color;
+  float2 colorTexCoord;
   float2 maskTexCoord;
+  float opacity;
   //float2 halfLength;
 } DashedLineFragment_T;
 
 vertex DashedLineFragment_T vsDashedLine(const DashedLineVertex_T in [[stage_in]],
-                                         constant Uniforms_T & uniforms [[buffer(1)]],
-                                         texture2d<float> u_colorTex [[texture(0)]],
-                                         sampler u_colorTexSampler [[sampler(0)]])
+                                         constant Uniforms_T & uniforms [[buffer(1)]])
 {
   DashedLineFragment_T out;
-  
+
   float2 normal = in.a_normal.xy;
   float halfWidth = length(normal);
   float2 transformedAxisPos = (float4(in.a_position.xy, 0.0, 1.0) * uniforms.u_modelView).xy;
@@ -301,35 +300,30 @@ vertex DashedLineFragment_T vsDashedLine(const DashedLineVertex_T in [[stage_in]
     transformedAxisPos = CalcLineTransformedAxisPos(transformedAxisPos, in.a_position.xy + normal,
                                                     uniforms.u_modelView, halfWidth);
   }
-  
+
   float uOffset = min(length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView) * in.a_maskTexCoord.x, 1.0);
   out.maskTexCoord = float2(in.a_maskTexCoord.y + uOffset * in.a_maskTexCoord.z, in.a_maskTexCoord.w);
-  
+
   //out.halfLength = float2(sign(in.a_normal.z) * halfWidth, abs(in.a_normal.z));
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
-  
+
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
 
-  float4 color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoord);
-  color.a *= uniforms.u_opacity;
-  out.color = color;
+  // Pass raw UV to fragment shader for per-fragment sampling (needed for rainbow color strips).
+  out.colorTexCoord = in.a_colorTexCoord;
+  out.opacity = uniforms.u_opacity;
   return out;
 }
 
 fragment float4 fsDashedLine(const DashedLineFragment_T in [[stage_in]],
-                             texture2d<float> u_maskTex [[texture(0)]],
-                             sampler u_maskTexSampler [[sampler(0)]])
+                             texture2d<float> u_colorTex [[texture(0)]],
+                             sampler u_colorTexSampler [[sampler(0)]],
+                             texture2d<float> u_maskTex [[texture(1)]],
+                             sampler u_maskTexSampler [[sampler(1)]])
 {
-  // Disabled too agressive AA-like blurring of edges,
-  // see https://github.com/organicmaps/organicmaps/issues/6583.
-  //constexpr float kAntialiasingPixelsCount = 2.5;
-  
-  float4 color = in.color;
+  float4 color = u_colorTex.sample(u_colorTexSampler, in.colorTexCoord);
+  color.a *= in.opacity;
   color.a *= u_maskTex.sample(u_maskTexSampler, in.maskTexCoord).a;
-  
-  //float currentW = abs(in.halfLength.x);
-  //float diff = in.halfLength.y - currentW;
-  //color.a *= mix(0.3, 1.0, saturate(diff / kAntialiasingPixelsCount));
   return color;
 }
 

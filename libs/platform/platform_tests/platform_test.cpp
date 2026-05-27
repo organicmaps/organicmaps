@@ -312,3 +312,29 @@ UNIT_TEST(GetFileCreationTime_GetFileModificationTime)
   auto const modificationTime = Platform::GetFileModificationTime(fileName);
   TEST_GREATER_OR_EQUAL(modificationTime, creationTime, ());
 }
+
+UNIT_TEST(SetFileModificationTime)
+{
+  std::string_view constexpr kContent{"HOHOHO"};
+  std::string const fileName = GetPlatform().WritablePathForFile(TEST_FILE_NAME);
+  {
+    FileWriter testFile(fileName);
+    testFile.Write(kContent.data(), kContent.size());
+  }
+  SCOPE_GUARD(removeTestFile, bind(&base::DeleteFileX, fileName));
+
+  time_t const targetTime = 1700000000;  // 2023-11-14
+  TEST(Platform::SetFileModificationTime(fileName, targetTime), ());
+  TEST_EQUAL(Platform::GetFileModificationTime(fileName), targetTime, ());
+}
+
+UNIT_TEST(GetFileCreationTime_GetFileModificationTime_MissingFile)
+{
+  std::string const missing = GetPlatform().WritablePathForFile("this-file-definitely-does-not-exist.xyz");
+  // Ensure it's gone before we assert, without logging noise for the common case.
+  if (Platform::IsFileExistsByFullPath(missing))
+    base::DeleteFileX(missing);
+
+  TEST_EQUAL(Platform::GetFileCreationTime(missing), 0, ());
+  TEST_EQUAL(Platform::GetFileModificationTime(missing), 0, ());
+}

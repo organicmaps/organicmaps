@@ -3,21 +3,27 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/circles_pack_shape.hpp"
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/drape_measurer.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape_generator.hpp"
+
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
+
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "shaders/program_params.hpp"
-
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
+
+#include "shaders/program_params.hpp"
 
 #include "platform/platform.hpp"
 
@@ -25,12 +31,11 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <utility>
-
-using namespace std::placeholders;
 
 namespace df
 {
+using namespace std::placeholders;
+
 BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
@@ -118,6 +123,12 @@ void BackendRenderer::RecacheChoosePositionMark()
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(m_context, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
+}
+
+void BackendRenderer::ClearRouteTransitData()
+{
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<ClearTransitSchemeDataMessage>(MwmSet::MwmId{}), MessagePriority::Normal);
 }
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
@@ -520,6 +531,35 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::ShowRouteTransit:
+  {
+    ref_ptr<ShowRouteTransitMessage> msg = message;
+    CHECK(m_context != nullptr, ());
+    // Wipe the previous route's render data on the frontend renderer before pushing the new
+    // build. The recacheId-based cleanup in TransitSchemeRenderer::PrepareRenderData uses the
+    // OLD m_lastRecacheId, so the type flushed first in a new batch retains its prior data
+    // (e.g. stop title overlays linger after switching to another route).
+    ClearRouteTransitData();
+    // Propagate the route's preferred min visible zoom to the renderer's scheme-visible gate.
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<SetTransitSchemeMinZoomMessage>(msg->GetInfo().m_minZoomLevel),
+                              MessagePriority::Normal);
+    // Use a default-constructed (invalid) MwmId as a sentinel key so the frontend renderer can
+    // drop only the route's render data via Clear(MwmId{}) when hiding.
+    m_transitBuilder->BuildFromRouteTransit(m_context, MwmSet::MwmId{}, msg->GetInfo(), m_texMng);
+    break;
+  }
+
+  case Message::Type::HideRouteTransit:
+  {
+    ClearRouteTransitData();
+    // Restore the renderer's default min zoom so a subsequent subway-scheme view starts clean.
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<SetTransitSchemeMinZoomMessage>(kTransitSchemeMinZoomLevel),
+                              MessagePriority::Normal);
+    break;
+  }
+
   case Message::Type::EnableTransitScheme:
   {
     ref_ptr<EnableTransitSchemeMessage> msg = message;
@@ -597,14 +637,47 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::CheckSelectionGeometry:
   {
     ref_ptr<CheckSelectionGeometryMessage> msg = message;
+
+    // Read polyline points from metaline manager or mwm.
+    std::vector<m2::PointD> points;
+    auto spline = m_metalineManager->GetMetaline(msg->GetFeature());
+    if (spline.IsNull())
+    {
+      m_readManager->GetMapDataProvider().ReadFeatures([&points](FeatureType & ft)
+      {
+        if (ft.GetGeomType() == feature::GeomType::Line)
+          assign_range(points, ft.GetPoints(scales::GetUpperScale()));
+      }, {msg->GetFeature()});
+    }
+    else
+      points = spline->GetPath();
+
     auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(
-        m_context, msg->GetFeature(), m_texMng, make_ref(m_metalineManager), m_readManager->GetMapDataProvider());
+        m_context, points, SelectionShapeGenerator::GetSelectionColor(), m_texMng);
     if (renderNode && renderNode->GetBoundingBox().IsValid())
     {
       m_commutator->PostMessage(
           ThreadsCommutator::RenderThread,
           make_unique_dp<FlushSelectionGeometryMessage>(std::move(renderNode), msg->GetRecacheId()),
           MessagePriority::Normal);
+    }
+    break;
+  }
+
+  case Message::Type::BuildSelectionLines:
+  {
+    ref_ptr<BuildSelectionLinesMessage> msg = message;
+    auto const & info = msg->GetInfo();
+    for (auto const & points : info.m_lines)
+    {
+      auto renderNode = SelectionShapeGenerator::GenerateSelectionGeometry(m_context, points, info.m_color, m_texMng);
+      if (renderNode && renderNode->GetBoundingBox().IsValid())
+      {
+        m_commutator->PostMessage(
+            ThreadsCommutator::RenderThread,
+            make_unique_dp<FlushSelectionGeometryMessage>(std::move(renderNode), msg->GetRecacheId()),
+            MessagePriority::Normal);
+      }
     }
     break;
   }

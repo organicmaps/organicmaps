@@ -188,6 +188,12 @@
     <item name="android:textColor">?colorAccent</item>
   </style>
 
+  <style name="MwmTextAppearance.BookmarkSettings" parent="MwmTextAppearance.Body1" />
+
+  <style name="MwmTextAppearance.BookmarkSettings.Accent">
+    <item name="android:textColor">?colorAccent</item>
+  </style>
+
   <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body3">
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@color/white_secondary</item>

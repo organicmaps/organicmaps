@@ -18,6 +18,22 @@
     <!-- Settings button in system menu -->
     <string name="settings">Postavke</string>
 
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Gdje jesti</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Prehrambene namirnice</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Benzin</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkiranje</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toalet</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Sadržaji za kampere</string>
+
     <!-- SECTION: Other translations -->
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">OpenStreetMap podaci: %s</string>
@@ -44,6 +60,7 @@
     <string name="categories">Kategorije</string>
     <string name="search_not_found">Ups, nema rezultata.</string>
     <string name="search_history_text">Pogledaj svoje nedavne pretrage.</string>
+    <string name="p2p_start">Početak</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Cijeli dan (24 sata)</string>
     <string name="editor_time_open">Otvoreno</string>
@@ -52,6 +69,9 @@
     <string name="opens_in">Otvara za %s</string>
     <string name="closes_in">Zatvara za %s</string>
     <string name="closed">Zatvoreno</string>
+    <string name="minute">min</string>
+    <string name="big_font">Povećajte veličinu oznaka na karti</string>
+    <string name="transliteration_title">Transliterirati u latinično pismo</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Preuzimač karti</string>
     <string name="driving_options_title">Opcije za određivanje rute</string>
@@ -63,6 +83,7 @@
     <string name="avoid_ferry">Izbjegni trajekte</string>
     <string name="avoid_motorways">Izbjegni autoputeve</string>
     <string name="unable_to_calc_alert_title">Nije moguće izračunati rutu</string>
+    <string name="trip_finished">Stigli ste!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Razvrstaj zabilješke</string>
     <!-- Android -->

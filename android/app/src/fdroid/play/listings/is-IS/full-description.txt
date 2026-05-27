@@ -1,0 +1,61 @@
+Organic Maps er hraðvirkt, nákvæmt kort- og GPS leiðsagnarforrit án nettengingar fyrir ferðalög, gönguferðir, fjallgöngur og hjólreiðaævintýri. Skipuleggðu, flytðu inn og skráðu leiðir og njóttu hnökralausrar leiðsagnar án þess að tæma rafhlöðuna eða nota nettengingu. Kannaðu staði og sigldu örugglega í útivistarævintýrum þínum og ferðalögum um heiminn. Forritið býður upp á ótakmarkaðan niðurhal kort og uppfærslur á tveggja vikna fresti. Búið til af sjálfboðaliðum, byggt á OpenStreetMap, með persónuvernd í fyrsta sæti, 100% án nettengingar og 100% ókeypis.
+
+<b>ÁN NETTENGINGAR:</b>
+
+Forritið virkar 100% án nettengingar — þar með talið leit og leiðsögn. Þú getur skoðað kortið og ratað án nettengingar, sem sparar þér farsímagögn og gjaldeyri fyrir gagnaumferð. Og þar sem engin bakgrunnsflutningur gagna fer fram, endist rafhlaðan mun lengur.
+
+<b>FLJÓT:</b>
+
+Að stækka kort, leita og reikna leiðir gengur verulega hratt fyrir sig.
+
+<b>NÁKVÆMT & UPPFÆRT:</b>
+
+Kortin eru rík af smáatriðum og uppfærð tvisvar í mánuði til að endurspegla raunverulegar aðstæður. Ólíkt mörgum þekktum keppinautum innihalda þau byggingamerkingar, bekki, gönguleiðir og aðrar gagnlegar upplýsingar.
+
+<b>BYGGT Á OPENSTREETMAP:</b>
+
+OpenStreetMap er heimakort í wiki-stíl sem er byggt og viðhaldið af milljónum sjálfboðaliða — heimamanna sem þekkja svæðin sín best. Þessi samfélagslega viðleitni skilar mjög nákvæmum kortum, oft nákvæmari en þau sem eru í atvinnuskyni í minna kortlagðum héruðum. Organic Maps uppfærir gögnin sín úr OpenStreetMap á tveggja vikna fresti, sem heldur kortunum þínum ferskum og áreiðanlegum. Og ef þú tekur eftir einhverju sem vantar geturðu bætt því við OpenStreetMap og hjálpað til við að bæta kortið fyrir alla.
+
+<b>PERSÓNUVERND FYRST:</b>
+
+Við söfnum engum gögnum né auðkennum. Þetta þýðir að engin hætta er á gagnaleka og engar truflanir eins og auglýsingar eða hávaðarík tilkynningakerfi — bara hrein og persónuleg kortaupplifun.
+
+<b>MIKILVÆGIR EIGINLEIKAR</b>
+
+<b>KANNA STAÐI:</b>
+
+Leitaðu eftir heimilisfangi, nafni eða flokki, uppgötvaðu milljónir áhugaverðra staða (POI) og skoðaðu ítarlegar upplýsingar eins og opnunartíma, greinar á Wikipedia, aðgengi fyrir hjólastóla og aðrar gagnlegar upplýsingar.
+
+<b>GPS-LEIÐSÖGN:</b>
+
+Njóttu talstýrðra, skref-fyrir-skref leiðbeininga. Búðu til göngu-, gönguferða-, hjóla- eða akstursleiðir — þar á meðal leiðir milli borga, landa og margra áfangastaða. Finndu bestu leiðirnar fyrir neðanjarðarlestarferðir þínar og daglega ferðalög. Android Auto er studdur.
+
+<b>GÖNGU- OG HJÓLALEIÐIR FRÁ HEIMINUM ALLS:</b>
+
+Virkjaðu sérstaka kortalaga til að uppgötva vinsælar göngu- og hjólaleiðir um allan heim, allar sóttar úr OpenStreetMap. Skiptu á milli laga til að sjá lituðu hjóla- og fjallahjólaleiðirnar, sem og opinberar gönguleiðir.
+
+<b>ALMENNINGSSAMGÖNGUR:</b>
+
+Sjáðu númer almenningssamgangna á viðkomustöðvum. Upplýsingar um almenningssamgöngur í rauntíma og leiðir eru nú í þróun.
+
+<b>KORTASTÍLAR:</b>
+
+Veldu kortalög sem henta þinni athöfn — Útivist, Línurótar, Gönguferðir, Hjólreiðar eða Neðanjarðarlest.
+
+<b>SLÓÐARITARI:</b>
+
+Skráðu, flytðu inn, flytðu út og deildu leiðum þínum og uppáhaldsstöðum. Styður KML-, KMZ-, GPX- og GeoJSON-snið.
+
+<b>GREINAR Á WIKIPEDIA:</b>
+
+Kannaðu greinar á Wikipédíu um staði sem þú finnur á kortinu. Sláðu inn "?wiki" í leitarreitinn til að finna alla staði sem hafa grein á Wikipédíu.
+
+<b>KORTARITILL:</b>
+
+Leggðu lið við OpenStreetMap með því að bæta við stöðum sem vantar eða breyta kortinu beint úr Organic Maps.
+
+<b>DÖKKUR HAMUR:</b>
+
+Skiptu yfir í dökkum stíl til að horfa þægilega á kortið á nóttunni.
+
+Reyndu appið — það er 100% ókeypis, án auglýsinga, hratt og fullkomlega aftengt netinu. Upplifðu áreiðanlega GPS-leiðsögn fyrir gönguferðir, hjólreiðar, fjallgöngur og ferðalög hvar sem er í heiminum! Njóttu hratts, áreiðanlegs og persónulegs kortaupplifunar og deildu henni með öðrum!

@@ -5,14 +5,14 @@
     <!-- PointsInDifferentMWM -->
     <string name="routing_failed_cross_mwm_building">Могат да се създават само маршрути, които са изцяло в рамките на картата на един регион.</string>
     <!-- Item in context menu. -->
-    <string name="downloader_update_map">Обнояване на карта</string>
+    <string name="downloader_update_map">Обновяване на карта</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Изтегляне на всички карти по вашия маршрут</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.</string>
 
     <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_check_gps">Приверете GPS сигнала</string>
+    <string name="dialog_routing_check_gps">Проверете GPS сигнала</string>
     <string name="dialog_routing_error_location_not_found">Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани.</string>
     <string name="dialog_routing_location_turn_wifi">Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.</string>
     <string name="dialog_routing_location_turn_on">Активиране на услугите за местоположение</string>
@@ -37,6 +37,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="downloader_update_maps">Обновяване на карти</string>
     <string name="downloader_mwm_migration_dialog">За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.</string>
+    <string name="navigation_stop_button">Спри</string>
     <string name="ok">Ок</string>
 
     <!-- SECTION: Bookmark types used for sorting -->

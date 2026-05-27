@@ -455,7 +455,7 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
   }
 
   // Thread-safe, because GetNearbyStreets/Places use only constant checkers from the ReverseGeocoder.
-  search::ReverseGeocoder reverseGeocoder(dataSource);
+  search::ReverseGeocoderBase reverseGeocoder;
   std::vector<std::unique_ptr<search::MwmContext>> contexts(threadsCount);
 
   std::atomic<uint32_t> address = 0;

@@ -7,13 +7,9 @@
 
 #include <functional>
 #include <map>
-#include <set>
-#include <string>
-#include <vector>
 
 namespace df
 {
-using MarksIDGroups = std::map<kml::MarkGroupId, drape_ptr<IDCollections>>;
 using MarksIndex = std::map<TileKey, drape_ptr<MarksIDGroups>>;
 
 class UserMarkGenerator
@@ -41,19 +37,10 @@ private:
   ref_ptr<IDCollections> GetIdCollection(TileKey const & tileKey, kml::MarkGroupId groupId);
   void CleanIndex();
 
-  int GetNearestLineIndexZoom(int zoom) const;
+  template <class SourceT, class LevelsT>
+  SourceT GetIndexSource(TileKey const & tileKey, LevelsT const & levels) const;
 
-  ref_ptr<MarksIDGroups> GetUserMarksGroups(TileKey const & tileKey);
-  ref_ptr<MarksIDGroups> GetUserLinesGroups(TileKey const & tileKey);
-
-  void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                      MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
-                      dp::Batcher & batcher) const;
-  void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                      MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
-                      dp::Batcher & batcher) const;
-
-  std::unordered_set<kml::MarkGroupId> m_groupsVisibility;
+  UserGroupsVisibilitySet m_groupsVisibility;
   MarksIDGroups m_groups;
 
   UserMarksRenderCollection m_marks;

@@ -371,6 +371,8 @@
     <string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Βικιπέδια</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Άρθρο από wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Κοινά της Wikimedia</string>
     <string name="p2p_your_location">Η τοποθεσία σας</string>
@@ -471,7 +473,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Δεδομένα OpenStreetMap που δημιουργήθηκαν από την κοινότητα στις %s. Μάθετε περισσότερα για τον τρόπο επεξεργασίας και ενημέρωσης του χάρτη στο OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">Το OpenStreetMap.org (OSM) είναι ένα κοινοτικό έργο για τη δημιουργία ενός ελεύθερου και ανοικτού χάρτη. Είναι η κύρια πηγή δεδομένων χάρτη στους Οργανικούς Χάρτες και λειτουργεί παρόμοια με τη Wikipedia. Μπορείτε να προσθέσετε ή να επεξεργαστείτε τοποθεσίες και αυτές γίνονται διαθέσιμες σε εκατομμύρια χρήστες σε όλο τον κόσμο.\nΕνταχθείτε στην κοινότητα και βοηθήστε να φτιάξουμε έναν καλύτερο χάρτη για όλους!</string>
+    <string name="login_osm_presentation">Το OpenStreetMap.org (OSM) είναι ένα κοινοτικό έργο με στόχο τη δημιουργία ενός δωρεάν και ανοιχτού χάρτη. Αποτελεί την κύρια πηγή δεδομένων χαρτών στο Organic Maps και λειτουργεί παρόμοια με τη Wikipedia. Μπορείτε να προσθέσετε ή να επεξεργαστείτε τοποθεσίες, οι οποίες θα γίνουν διαθέσιμες σε εκατομμύρια χρήστες σε όλο τον κόσμο.\nΓίνετε μέλος της κοινότητας και βοηθήστε στη δημιουργία ενός καλύτερου χάρτη για όλους!</string>
     <string name="login_to_make_edits_visible">Δημιουργήστε έναν λογαριασμό OpenStreetMap ή συνδεθείτε για να δημοσιεύσετε τις επεξεργασίες του χάρτη σας στον κόσμο.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -496,7 +498,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Χειριστής: %s</string>
     <string name="editor_category_unsuitable_title">Δεν μπορείτε να βρείτε την κατάλληλη κατηγορία;</string>
-    <string name="editor_category_unsuitable_text">Οι Οργανικοί Χάρτες επιτρέπουν την προσθήκη απλών κατηγοριών σημείων μόνο, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ελέγξτε τον <a href="https://organicmaps.app/faq/editing/advanced-map-editing">οδηγό μας</a> για λεπτομερείς οδηγίες βήμα προς βήμα.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps επιτρέπει την προσθήκη μόνο απλών κατηγοριών σημείων, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ανατρέξτε <a href="https://organicmaps.app/faq/editing/advanced-map-editing">στον οδηγό</a> μας για λεπτομερείς οδηγίες βήμα προς βήμα.</string>
     <string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
     <string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
     <string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
@@ -627,6 +629,8 @@
     <string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Αλλαγή χρώματος όλων των σελιδοδεικτών</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Αλλαγή χρώματος όλων των διαδρομών</string>
     <string name="category_desc_more">…περισσότερα</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Εξαγωγή KMZ</string>
@@ -705,6 +709,12 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Κλειστό τώρα</string>
+    <string name="opens_tomorrow_at">Ανοίγει αύριο στις %s</string>
+    <string name="opens_dayoftheweek_at">Ανοίγει %1$s στις %2$s</string>
+    <string name="opens_at">Ανοίγει στις %s</string>
+    <string name="closes_at">Κλείνει στις %s</string>
     <string name="editor_add_select_category_all_subtitle">Όλες οι κατηγορίες</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -869,4 +879,22 @@
     <string name="login_osm_browser">Σύνδεση μέσω προγράμματος περιήγησης</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Πρόσφατα χρησιμοποιημένα</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Το χρώμα των σελιδοδεικτών άλλαξε</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Το χρώμα των διαδρομών άλλαξε</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Φάσμα</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Ολισθητήρες</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ΚΟΚΚΙΝΟ</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ΠΡΑΣΙΝΟ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLUE</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Εξάγωνο χρώμα sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Πλέγμα</string>
 </resources>

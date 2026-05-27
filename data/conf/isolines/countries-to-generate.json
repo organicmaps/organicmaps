@@ -1562,6 +1562,30 @@
             }
         },
         {
+            "key": "China_Hainan",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Hong Kong",
+            "value": {
+                "profileName": "high",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Macau",
+            "value": {
+                "profileName": "high",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
             "key": "China_Guizhou",
             "value": {
                 "profileName": "small",
@@ -3915,9 +3939,17 @@
             }
         },
         {
+            "key": "Indonesia_Central",
+            "value": {
+                "profileName": "extra_small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
             "key": "Indonesia_East",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -3950,6 +3982,14 @@
             "key": "Indonesia_Nusa Tenggara",
             "value": {
                 "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Indonesia_West",
+            "value": {
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5036,6 +5076,22 @@
         },
         {
             "key": "Malawi",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Malaysia_East",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Malaysia_West",
             "value": {
                 "profileName": "normal",
                 "tileCoordsSubset": [],
@@ -7475,9 +7531,65 @@
             }
         },
         {
+            "key": "Tanzania_Central",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Tanzania_Coastal",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Tanzania_Lake",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Tanzania_Northern",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Tanzania_Offshore Islands",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Tanzania_Southern Highlands",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Tanzania_Western",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
             "key": "Thailand_Central",
             "value": {
-                "profileName": "extra_small",
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7485,7 +7597,7 @@
         {
             "key": "Thailand_North",
             "value": {
-                "profileName": "extra_small",
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7493,7 +7605,7 @@
         {
             "key": "Thailand_South",
             "value": {
-                "profileName": "small",
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -9664,6 +9776,22 @@
             "key": "Venezuela_South",
             "value": {
                 "profileName": "poor",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Vietnam_North",
+            "value": {
+                "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Vietnam_South",
+            "value": {
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }

@@ -1,10 +1,10 @@
-• OSM-data pr. 16. februar, Wikipedia pr. 1. februar
-• Sorte vandre- og cykelruter er nu synlige i mørkt tema
-• Tilføjet svævebaner og flere biltjenester: reparation, service og reservedele
-• Rettet cykelruteplanlægning og beregning af gennemsnitshastighed
-• Forbedret kategorisøgning
-• Usbekisk køkken
-• Udvidelige åbningstider
-• Vis og brug MSL-højde for optagede spor på Android 14+
-• Rettet import af KML, KMZ, GPX, GeoJSON fra WhatsApp
+• Vælg vandre- og cykelruter for at se deres højdekurver
+• Korrekt kortindpakning ved antimeridianen (±180° længdegrad)
+• Skift alle bogmærke- og sporfarver i en kategori på én gang
+• Bedre søgning efter husnumre, flere amerikanske adresser dækket
+• OSM-data fra den 4. april
+• Planlagt udseende i Indstillinger
+• Fikseret deling af bogmærker/spor til andre apps
+• Rettet upload af kortredigeringer til OSM
+• Tilføjet nyligt anvendt kategorihistorik i kortredigeringen
 …mere på omaps.org/news

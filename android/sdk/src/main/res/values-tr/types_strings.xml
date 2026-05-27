@@ -11,7 +11,7 @@
     <string name="type.aerialway.drag_lift">Kayak Teleferiği</string>
     <string name="type.aerialway.gondola">Telekabin</string>
     <string name="type.aerialway.mixed_lift">Karışık Teleferik</string>
-    <string name="type.aerialway.station">Havayolu İstasyonu</string>
+    <string name="type.aerialway.station">Teleferik İstasyonu</string>
     <string name="type.aeroway">Hava Sahası Alt Yapısı</string>
     <string name="type.aeroway.aerodrome">Havaalanı</string>
     <string name="type.aeroway.aerodrome.international">Uluslararası Havalimanı</string>
@@ -80,7 +80,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Hristiyan Mezarlığı</string>
     <string name="type.amenity.hospital">Hastane</string>
-    <string name="type.amenity.hunting_stand">Avlanma Alanı</string>
+    <string name="type.amenity.hunting_stand">Avlanma Kulübesi</string>
     <string name="type.amenity.ice_cream">Dondurma</string>
     <string name="type.amenity.internet_cafe">İnternet Kafe</string>
     <string name="type.amenity.kindergarten">Anaokulu</string>
@@ -181,7 +181,7 @@
     <string name="type.amenity.vending_machine.drinks">İçecek Dağıtıcı</string>
     <string name="type.amenity.vending_machine.food">Yiyecek Dağıtıcı</string>
     <string name="type.amenity.vending_machine.newspapers">Gazete Dağıtıcı</string>
-    <string name="type.amenity.vending_machine.parking_tickets">Otopark Fişi</string>
+    <string name="type.amenity.vending_machine.parking_tickets">Parkmetre</string>
     <string name="type.amenity.vending_machine.public_transport_tickets">Bilet Dağıtıcı</string>
     <string name="type.amenity.vending_machine.sweets">Şekerleme Dağıtıcı</string>
     <string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Bina</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adres</string>
+    <string name="type.building.construction">İnşa halindeki bina</string>
     <string name="type.building.has_parts">Bina</string>
     <string name="type.building_part">Bina</string>
     <string name="type.building.garage">Garaj</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Akdeniz Mutfağı</string>
     <string name="type.cuisine.mexican">Meksika Mutfağı</string>
     <string name="type.cuisine.moroccan">Fas Mutfağı</string>
-    <string name="type.cuisine.noodles">Erişte</string>
+    <string name="type.cuisine.noodle">Erişte</string>
     <string name="type.cuisine.oriental">Uzak Doğu Mutfağı</string>
     <string name="type.cuisine.pancake">Gözleme</string>
     <string name="type.cuisine.pasta">Makarna</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Sucuk</string>
     <string name="type.cuisine.savory_pancakes">Açma</string>
     <string name="type.cuisine.seafood">Deniz Ürünleri</string>
+    <string name="type.cuisine.shawarma">Şavurma</string>
     <string name="type.cuisine.soba">Erişte</string>
     <string name="type.cuisine.spanish">İspanyol Mutfağı</string>
     <string name="type.cuisine.steak_house">Biftekçi</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Ağaç Sırası</string>
     <string name="type.natural.vineyard">Bağ</string>
     <string name="type.natural.volcano">Volkan</string>
+    <string name="type.natural.volcano.active">Aktif Volkan</string>
     <string name="type.natural.water">Su</string>
     <string name="type.natural.wetland">Sulak Alan</string>
     <string name="type.natural.wetland.bog">Turbalık</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Çim Hokeyi</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Bask pelotası</string>
+    <string name="type.sport.boules">Bocce</string>
+    <string name="type.sport.cycling">Bisiklet sporu</string>
+    <string name="type.sport.four_square">Dört kare</string>
+    <string name="type.sport.horse_racing">At yarışı</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Motor sporları</string>
+    <string name="type.sport.netball">Netbol</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi</string>
+    <string name="type.sport.running">Koşu</string>
+    <string name="type.sport.softball">Softbol</string>
     <string name="type.tourism">Turizm</string>
     <string name="type.tourism.aquarium">Akvaryum</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Tarihi cazibe merkezi</string>
     <string name="type.attraction.maze">Labirent</string>
     <string name="type.attraction.roller_coaster">Lunapark hız treni</string>
+    <string name="type.roller_coaster.track">Lunapark hız treni</string>
     <string name="type.attraction.water_slide">Su Kaydırağı</string>
     <string name="type.tourism.attraction.specified">Görülecek Yerler</string>
     <string name="type.tourism.camp_site">Kamp Alanı</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
     <string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>
     <string name="type.waterway">Su Yolu</string>
+    <string name="type.waterway.access_point">Su Yolu Erişim Noktası</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Balık Geçidi</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Saatçi</string>
     <string name="type.xmas_feature.market">Noel Pazarı</string>
     <string name="type.xmas_feature.tree">Noel Ağacı</string>
+    <string name="type.amenity.hookah_lounge">Nargile salonu</string>
 </resources>

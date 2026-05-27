@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresse";
+"type.building.construction" = "Bâtiment en construction";
 "type.building.has_parts" = "Bâtiment";
 "type.building_part" = "Bâtiment";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Cuisine méditerranéenne";
 "type.cuisine.mexican" = "Cuisine mexicaine";
 "type.cuisine.moroccan" = "Cuisine marocaine";
-"type.cuisine.noodles" = "Nouilles";
+"type.cuisine.noodle" = "Nouilles";
 "type.cuisine.oriental" = "Cuisine orientale";
 "type.cuisine.pancake" = "Crêpe";
 "type.cuisine.pasta" = "Pâtes";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Saucisse";
 "type.cuisine.savory_pancakes" = "Crêpes salées";
 "type.cuisine.seafood" = "Fruits de mer";
+"type.cuisine.shawarma" = "Chawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Cuisine espagnole";
 "type.cuisine.steak_house" = "Grillades";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Rangée d'arbres";
 "type.natural.vineyard" = "Vignoble";
 "type.natural.volcano" = "Volcan";
+"type.natural.volcano.active" = "Volcan actif";
 "type.natural.water" = "Étendue d'eau";
 "type.natural.wetland" = "Zone humide";
 "type.natural.wetland.bog" = "Tourbière";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hockey sur gazon";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pelote basque";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Cyclisme";
+"type.sport.four_square" = "Quatre carrés";
+"type.sport.horse_racing" = "Courses hippiques";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Sport mécanique";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby à XV";
+"type.sport.running" = "Course à pied";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Tourisme";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Attraction historique";
 "type.attraction.maze" = "Labyrinthe";
 "type.attraction.roller_coaster" = "Les montagnes russes";
+"type.roller_coaster.track" = "Les montagnes russes";
 "type.attraction.water_slide" = "Toboggan aquatique";
 "type.tourism.attraction.specified" = "Attraction";
 "type.tourism.camp_site" = "Camping";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Ralentisseur";
 "type.traffic_calming.hump" = "Ralentisseur";
 "type.waterway" = "Voie navigable";
+"type.waterway.access_point" = "Point d'accès à la voie d'eau";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Tunnel du canal";
 "type.waterway.fish_pass" = "Échelle à poissons";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Horloger";
 "type.xmas_feature.market" = "Marché de Noël";
 "type.xmas_feature.tree" = "Arbre de Noël";
+"type.amenity.hookah_lounge" = "Bar à chicha";

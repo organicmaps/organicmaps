@@ -7,6 +7,8 @@ enum ChartAnimation: TimeInterval {
 }
 
 public class ChartView: UIView {
+  private static let selectedPointCaptureRadius: CGFloat = 22
+
   let chartsContainerView = ExpandedTouchView()
   let chartPreviewView = ChartPreviewView()
   let yAxisView = ChartYAxisView()
@@ -86,7 +88,7 @@ public class ChartView: UIView {
 
   override public var backgroundColor: UIColor? {
     didSet {
-      chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
+      chartInfoView.tooltipBackgroundColor = backgroundColor?.resolvedColor(with: traitCollection) ?? .white
     }
   }
 
@@ -162,8 +164,10 @@ public class ChartView: UIView {
     segmentLinesView.lineColor = gridColor
 
     tapGR = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
+    tapGR.require(toFail: chartInfoView.selectionGestureRecognizer)
     chartsContainerView.addGestureRecognizer(tapGR)
     panGR = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+    panGR.delegate = self
     chartsContainerView.addGestureRecognizer(panGR)
     pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(onPinch(_:)))
     chartsContainerView.addGestureRecognizer(pinchGR)
@@ -279,6 +283,7 @@ public class ChartView: UIView {
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
+    guard chartData != nil else { return }
     let t = sender.translation(in: chartsContainerView)
     if sender.state == .began {
       panStartPoint = xAxisView.lowerBound
@@ -317,7 +322,9 @@ public class ChartView: UIView {
     }
 
     let padding = round((upper - lower) / 10)
-    lower = chartData.formatter.yAxisLowerBound(from: max(0, lower - padding))
+    let paddedLower = lower - padding
+    let adjustedLower = lower >= 0 ? max(0, paddedLower) : paddedLower
+    lower = chartData.formatter.yAxisLowerBound(from: adjustedLower)
     upper = chartData.formatter.yAxisUpperBound(from: upper + padding)
     let steps = chartData.formatter.yAxisSteps(lowerBound: lower, upperBound: upper)
 
@@ -339,6 +346,22 @@ public class ChartView: UIView {
     }
     segmentLinesView.setViewport(minX: xAxisView.lowerBound, maxX: xAxisView.upperBound)
   }
+
+  private var isChartZoomed: Bool {
+    guard let chartData else { return false }
+    return xAxisView.lowerBound > 0 || xAxisView.upperBound < chartData.pointsCount - 1
+  }
+
+  private func shouldStartSelecting(at pointX: CGFloat) -> Bool {
+    guard chartData != nil, chartInfoView.bounds.width > 0 else { return false }
+    if !isChartZoomed {
+      return true
+    }
+
+    let clampedPointX = max(chartInfoView.bounds.minX, min(chartInfoView.bounds.maxX, pointX))
+    let selectedPointX = chartInfoView.infoX * chartInfoView.bounds.width
+    return abs(clampedPointX - selectedPointX) <= Self.selectedPointCaptureRadius
+  }
 }
 
 extension ChartView: ChartPreviewViewDelegate {
@@ -359,8 +382,8 @@ extension ChartView: ChartInfoViewDelegate {
     onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
 
-  func chartInfoView(_: ChartInfoView, didCaptureInfoView captured: Bool) {
-    panGR.isEnabled = !captured
+  func chartInfoView(_: ChartInfoView, shouldStartSelectingAtPoint pointX: CGFloat) -> Bool {
+    shouldStartSelecting(at: pointX)
   }
 
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])? {
@@ -384,5 +407,14 @@ extension ChartView: ChartInfoViewDelegate {
     }
 
     return (label, result)
+  }
+}
+
+extension ChartView: UIGestureRecognizerDelegate {
+  override public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    guard gestureRecognizer === panGR else { return true }
+    guard isChartZoomed else { return false }
+    let pointX = gestureRecognizer.location(in: chartInfoView).x
+    return !shouldStartSelecting(at: pointX)
   }
 }

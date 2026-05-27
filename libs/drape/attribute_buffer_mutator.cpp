@@ -2,12 +2,7 @@
 
 namespace dp
 {
-AttributeBufferMutator::~AttributeBufferMutator()
-{
-  SharedBufferManager & mng = SharedBufferManager::Instance();
-  for (auto & [buffer, _] : m_array)
-    mng.FreeSharedBuffer(std::move(buffer));
-}
+AttributeBufferMutator::~AttributeBufferMutator() = default;
 
 void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateRegion region, ref_ptr<void> data)
 {

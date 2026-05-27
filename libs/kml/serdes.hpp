@@ -116,7 +116,7 @@ private:
   Timestamp m_timestamp;
   m2::PointD m_org;
   uint8_t m_viewportScale;
-  std::vector<uint32_t> m_featureTypes;
+  ClassifierTypes m_featureTypes;
   LocalizableString m_customName;
   std::vector<LocalId> m_boundTracks;
   LocalId m_localId;

@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lingua per la voce";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Per scaricare una voce di qualità superiore, apri l'app Impostazioni e vai in Accessibilità → VoiceOver → Voce → Voce.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Prova le indicazioni vocali (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automatico";
@@ -453,7 +456,7 @@
 "search_not_found_query" = "Scarica la regione in cui stai effettuando la ricerca oppure prova ad aggiungere il nome di una città/villaggio vicino.";
 "search_history_title" = "Cronologia delle ricerche";
 "search_history_text" = "Visualizza le ricerche recenti.";
-"clear_search" = "Elimina сronologia ricerche";
+"clear_search" = "Elimina cronologia ricerche";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Metropolitana";
 "layers_title" = "Stili e livelli della mappa";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Cambia il colore di tutti i preferiti";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Cambia il colore di tutte le tracce";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esporta KMZ";
 
@@ -804,7 +813,7 @@
 "traffic_update_app_message" = "Per visualizzare i dati sul traffico, l'applicazione deve essere aggiornata.";
 "log_file_size" = "Dimensione del file di log: %@";
 "planning_route_remove_title" = "Trascina qui per rimuovere";
-"placepage_replace_stop" = "Sostituire l'arresto";
+"placepage_replace_stop" = "Sostituisci la fermata";
 "start_from_my_position" = "Parti da";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Usati di recente";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Colore dei preferiti modificato";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Colore delle tracce modificato";

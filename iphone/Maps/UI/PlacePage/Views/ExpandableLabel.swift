@@ -1,6 +1,17 @@
-enum ExpandableText {
+enum ExpandableText: Equatable {
   case html(NSAttributedString)
   case plain(String)
+
+  static func == (lhs: ExpandableText, rhs: ExpandableText) -> Bool {
+    switch (lhs, rhs) {
+    case (.html(let lhsText), .html(let rhsText)):
+      return lhsText.isEqual(to: rhsText)
+    case (.plain(let lhsText), .plain(let rhsText)):
+      return lhsText == rhsText
+    default:
+      return false
+    }
+  }
 }
 
 final class ExpandableLabel: UIView {
@@ -13,47 +24,28 @@ final class ExpandableLabel: UIView {
   }
 
   private let stackView = UIStackView()
+  private let textContainerView = UIView()
   private let textView = UITextView()
   private let expandView = ExpandView()
+  private let tapGestureRecognizer = UITapGestureRecognizer()
   private var contentInsets: UIEdgeInsets = Constants.defaultContentInsets
-  private var textHeightConstraint: NSLayoutConstraint!
+  private var textContainerHeightConstraint: NSLayoutConstraint!
+  private var textViewHeightConstraint: NSLayoutConstraint!
   private var isExpanded = false
   private var sourceAttributedText: NSAttributedString?
   private var isMeasuring = false
   private var oldWidth: CGFloat = 0
+  private var font = UIFont.regular14()
+  private var textStyle: TextColorStyleSheet = .blackPrimary
+  private var expandStyle: TextColorStyleSheet = .linkBlue
+  private var expandText = L("text_more_button")
 
   // MARK: - Public properties
 
   var didTap: TapHandler?
-
-  var font = UIFont.regular14() {
-    didSet {
-      textView.font = font
-      expandView.label.font = font
-      setNeedsLayout()
-    }
-  }
-
-  var textStyle: TextColorStyleSheet = .blackPrimary {
-    didSet {
-      textView.setStyle(textStyle)
-    }
-  }
-
-  var expandStyle: TextColorStyleSheet = .linkBlue {
-    didSet {
-      expandView.label.setStyle(expandStyle)
-    }
-  }
-
-  var expandText = L("text_more_button") {
-    didSet {
-      expandView.label.text = expandText
-    }
-  }
-
   var expandableText: ExpandableText? {
     didSet {
+      guard expandableText != oldValue else { return }
       oldWidth = 0
       applyExpandableText()
       setNeedsLayout()
@@ -77,10 +69,15 @@ final class ExpandableLabel: UIView {
   // MARK: - Private methods
 
   private func setupView() {
+    clipsToBounds = true
+
     stackView.distribution = .fillProportionally
     stackView.axis = .vertical
     stackView.alignment = .fill
     stackView.clipsToBounds = true
+
+    textContainerView.backgroundColor = .clear
+    textContainerView.clipsToBounds = false
 
     textView.textContainer.lineFragmentPadding = 0
     textView.isScrollEnabled = false
@@ -92,7 +89,9 @@ final class ExpandableLabel: UIView {
     textView.setStyle(textStyle)
     textView.setContentHuggingPriority(.defaultHigh, for: .vertical)
     textView.backgroundColor = .clear
+    textView.isSelectable = true
     textView.dataDetectorTypes = [.link, .phoneNumber]
+    textView.clipsToBounds = false
 
     expandView.isHidden = true
     expandView.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -101,8 +100,10 @@ final class ExpandableLabel: UIView {
     expandView.label.setStyle(expandStyle)
     expandView.label.text = expandText
 
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
-    addGestureRecognizer(tapGesture)
+    tapGestureRecognizer.addTarget(self, action: #selector(onTap))
+    tapGestureRecognizer.cancelsTouchesInView = false
+    tapGestureRecognizer.delegate = self
+    addGestureRecognizer(tapGestureRecognizer)
 
     applyExpandableText()
     layoutView()
@@ -110,12 +111,23 @@ final class ExpandableLabel: UIView {
 
   private func layoutView() {
     addSubview(stackView)
-    stackView.addArrangedSubview(textView)
+    stackView.addArrangedSubview(textContainerView)
     stackView.addArrangedSubview(expandView)
     stackView.alignToSuperview(contentInsets)
 
-    textHeightConstraint = textView.heightAnchor.constraint(equalToConstant: Constants.htmlCompactHeight)
-    textHeightConstraint.isActive = true
+    textContainerView.addSubview(textView)
+    textView.translatesAutoresizingMaskIntoConstraints = false
+
+    textContainerHeightConstraint = textContainerView.heightAnchor.constraint(equalToConstant: Constants.htmlCompactHeight)
+    textViewHeightConstraint = textView.heightAnchor.constraint(equalToConstant: Constants.htmlCompactHeight)
+
+    NSLayoutConstraint.activate([
+      textView.topAnchor.constraint(equalTo: textContainerView.topAnchor),
+      textView.leadingAnchor.constraint(equalTo: textContainerView.leadingAnchor),
+      textView.trailingAnchor.constraint(equalTo: textContainerView.trailingAnchor),
+      textContainerHeightConstraint,
+      textViewHeightConstraint,
+    ])
   }
 
   private func updateCollapsedState() {
@@ -124,10 +136,13 @@ final class ExpandableLabel: UIView {
 
     let fullHeight = measureFullHeight(for: measuringWidth)
     let collapsedHeight = measureCollapsedHeight(for: measuringWidth)
-    let shouldCollapse = !isExpanded && fullHeight > collapsedHeight
+    let canExpand = fullHeight > collapsedHeight
+    let shouldCollapse = !isExpanded && canExpand
 
-    textHeightConstraint.constant = shouldCollapse ? collapsedHeight : fullHeight
+    textViewHeightConstraint.constant = fullHeight
+    textContainerHeightConstraint.constant = shouldCollapse ? collapsedHeight : fullHeight
     expandView.isHidden = !shouldCollapse
+    textView.isUserInteractionEnabled = isExpanded || !canExpand
   }
 
   private func measureFullHeight(for width: CGFloat) -> CGFloat {
@@ -219,9 +234,47 @@ final class ExpandableLabel: UIView {
   }
 }
 
+extension ExpandableLabel: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    guard gestureRecognizer === tapGestureRecognizer else { return true }
+    return !isTouchOnInteractiveText(touch)
+  }
+
+  func gestureRecognizer(_: UIGestureRecognizer,
+                         shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
+    true
+  }
+
+  /// Keep link taps inside UITextView and use the outer tap only for expand/collapse.
+  private func isTouchOnInteractiveText(_ touch: UITouch) -> Bool {
+    guard textView.isUserInteractionEnabled else { return false }
+
+    let location = touch.location(in: textView)
+    guard textView.bounds.contains(location) else { return false }
+
+    let adjustedLocation = CGPoint(x: location.x - textView.textContainerInset.left,
+                                   y: location.y - textView.textContainerInset.top)
+    var fraction: CGFloat = 0
+    let glyphIndex = textView.layoutManager.glyphIndex(for: adjustedLocation,
+                                                       in: textView.textContainer,
+                                                       fractionOfDistanceThroughGlyph: &fraction)
+    guard fraction <= 1 else { return false }
+
+    let glyphRect = textView.layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1),
+                                                        in: textView.textContainer)
+    guard glyphRect.contains(adjustedLocation) else { return false }
+
+    let characterIndex = textView.layoutManager.characterIndexForGlyph(at: glyphIndex)
+    guard characterIndex < textView.textStorage.length else { return false }
+
+    let attributes = textView.textStorage.attributes(at: characterIndex, effectiveRange: nil)
+    return attributes[.link] != nil
+  }
+}
+
 private final class ExpandView: UIView {
   private enum Constants {
-    static let gradientOverlapHeight: CGFloat = 24
+    static let gradientOverlapHeight: CGFloat = 28
   }
 
   let label = UILabel()
@@ -254,12 +307,12 @@ private final class ExpandView: UIView {
   func updateAppearance() {
     gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
     gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-    let color = UIColor.white()
+    let color = UIColor.whitePrimary
     gradientLayer.colors = [
       color.withAlphaComponent(0).cgColor,
       color.cgColor,
     ]
-    gradientLayer.locations = [0, 1]
+    gradientLayer.locations = [0, 0.8]
   }
 
   private func setupView() {

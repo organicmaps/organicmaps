@@ -6,6 +6,8 @@
 
 #include "base/math.hpp"
 
+#include <cmath>
+
 namespace mercator
 {
 // Use to compare/match lat lon coordinates.
@@ -54,6 +56,27 @@ inline double ClampY(double d)
   return math::Clamp(d, Bounds::kMinY, Bounds::kMaxY);
 }
 
+/// Wraps X (longitude) into [-180, 180) via modular arithmetic.
+/// Unlike ClampX which snaps to the boundary, WrapX preserves the
+/// geographic position across the antimeridian: WrapX(185) = -175.
+inline double WrapX(double x)
+{
+  x = std::fmod(x - Bounds::kMinX, Bounds::kRangeX);
+  return (x < 0.0 ? x + Bounds::kRangeX : x) + Bounds::kMinX;
+}
+
+/// Returns x adjusted to be within 180 degrees of refX.
+/// Picks the nearest world copy across the antimeridian.
+/// Uses a loop to handle screen origins more than 360 degrees from the feature.
+inline double NearestWrapX(double x, double refX)
+{
+  while (x - refX > 180.0)
+    x -= 360.0;
+  while (x - refX < -180.0)
+    x += 360.0;
+  return x;
+}
+
 void ClampPoint(m2::PointD & pt);
 
 double YToLat(double y);
@@ -80,7 +103,10 @@ inline double MercatorToMeters(double mercator)
 /// @name Get rect for center point (lon, lat) and dimensions in meters.
 /// @return mercator rect.
 m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMetersR);
-m2::RectD MetersToXY(double lon, double lat, double metersR);
+inline m2::RectD MetersToXY(double lon, double lat, double metersR)
+{
+  return MetersToXY(lon, lat, metersR, metersR);
+}
 
 m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY, double sizeX, double sizeY);
 
@@ -99,7 +125,10 @@ inline m2::PointD FromLatLon(ms::LatLon const & point)
   return FromLatLon(point.m_lat, point.m_lon);
 }
 
-m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size);
+inline m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
+{
+  return MetersToXY(lon, lat, size);
+}
 
 inline ms::LatLon ToLatLon(m2::PointD const & point)
 {

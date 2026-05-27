@@ -1,19 +1,17 @@
 #include "geometry/spline.hpp"
 #include "geometry/line2d.hpp"
 
-#include "base/logging.hpp"
-
 #include <numeric>
 
 namespace m2
 {
-Spline::Spline(std::vector<PointD> const & path) : m_position(path)
+Spline::Spline(std::vector<PointD> path) : m_position(std::move(path))
 {
-  InitDirections();
-}
-
-Spline::Spline(std::vector<PointD> && path) : m_position(std::move(path))
-{
+  // Splines must have at least 2 points to be meaningful: a single-point
+  // spline has no segments, no direction, no length. Construct an empty
+  // Spline with the size_t ctor and AddPoint() if you need to build
+  // incrementally.
+  ASSERT_GREATER(m_position.size(), 1, ());
   InitDirections();
 }
 
@@ -21,8 +19,6 @@ Spline::Spline(size_t reservedSize)
 {
   Reserve(reservedSize);
 }
-
-SplineEx::SplineEx(size_t reservedSize) : Spline(reservedSize) {}
 
 void Spline::Reserve(size_t sz)
 {
@@ -49,6 +45,15 @@ void Spline::AddPoint(PointD const & pt)
     m_direction.push_back(dir / len);
   }
 
+  m_position.push_back(pt);
+}
+
+void Spline::AddPoint(PointD const & pt, PointD const & dir, double len)
+{
+  ASSERT(!IsEmpty(), ());
+  ASSERT_GREATER(len, 0, ());
+  m_length.push_back(len);
+  m_direction.push_back(dir);
   m_position.push_back(pt);
 }
 
@@ -120,12 +125,6 @@ Spline::iterator Spline::GetPoint(double step) const
 double Spline::GetLength() const
 {
   return std::accumulate(m_length.begin(), m_length.end(), 0.0);
-}
-
-double Spline::GetLastLength() const
-{
-  ASSERT(!m_length.empty(), ());
-  return m_length.back();
 }
 
 std::pair<PointD, double> Spline::GetTangentAndLength(size_t i) const
@@ -297,25 +296,6 @@ void Spline::iterator::AdvanceForward(double step)
   m_avrDir += m_pos;
 }
 
-SharedSpline::SharedSpline(std::vector<PointD> const & path) : m_spline(std::make_shared<Spline>(path)) {}
-
-SharedSpline::SharedSpline(std::vector<PointD> && path) : m_spline(std::make_shared<Spline>(std::move(path))) {}
-
-bool SharedSpline::IsNull() const
-{
-  return m_spline == nullptr;
-}
-
-void SharedSpline::Reset(Spline * spline)
-{
-  m_spline.reset(spline);
-}
-
-// void SharedSpline::Reset(std::vector<PointD> const & path)
-//{
-//   m_spline.reset(new Spline(path));
-// }
-
 Spline::iterator SharedSpline::CreateIterator() const
 {
   Spline::iterator result;
@@ -323,31 +303,13 @@ Spline::iterator SharedSpline::CreateIterator() const
   return result;
 }
 
-Spline * SharedSpline::operator->()
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
-
-Spline const * SharedSpline::operator->() const
-{
-  return Get();
-}
-
-Spline const * SharedSpline::Get() const
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
-
 SharedSpline SharedSpline::Equidistant(double dist) const
 {
   if (fabs(dist) < 1.0E-6)  // kMwmPointAccuracy * 0.1
     return *this;
 
-  SharedSpline res;
-  res.Reset(new Spline());
-  m_spline->Equidistant(dist, *res.m_spline);
+  auto res = std::make_unique<Spline>();
+  m_spline->Equidistant(dist, *res);
   return res;
 }
 

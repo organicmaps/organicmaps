@@ -19,9 +19,6 @@
 
 #include "drape/pointers.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
-
 #include "base/thread_checker.hpp"
 
 #include <chrono>
@@ -29,6 +26,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -189,13 +187,13 @@ public:
   // @return polyline of the route.
   routing::FollowedPolyline const & GetRoutePolyline() const
   {
-    return m_routingSession.GetRouteForTests()->GetFollowedPolyline();
+    return m_routingSession.GetRoute()->GetFollowedPolyline();
   }
   // @return generated turns on the route.
   std::vector<routing::turns::TurnItem> GetTurnsOnRouteForTests() const
   {
     std::vector<routing::turns::TurnItem> turns;
-    m_routingSession.GetRouteForTests()->GetTurnsForTesting(turns);
+    m_routingSession.GetRoute()->GetTurnsForTesting(turns);
     return turns;
   }
 
@@ -216,6 +214,7 @@ public:
   void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
+  void RemovePassedRoutePoints();
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
   void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
                       size_t targetIntermediateIndex);
@@ -246,40 +245,12 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
 
-  struct DistanceAltitude
-  {
-    std::vector<double> m_distances;
-    geometry::Altitudes m_altitudes;
-
-    size_t GetSize() const
-    {
-      ASSERT_EQUAL(m_distances.size(), m_altitudes.size(), ());
-      return m_distances.size();
-    }
-
-    // Default altitudeDeviation ~ sqrt(2).
-    void Simplify(double altitudeDeviation = 1.415);
-
-    /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
-    /// \param width is width of chart shall be generated in pixels.
-    /// \param height is height of chart shall be generated in pixels.
-    /// \param imageRGBAData is bits of result image in RGBA.
-    /// \returns If there is valid route info and the chart was generated returns true
-    /// and false otherwise. If the method returns true it is guaranteed that the size of
-    /// |imageRGBAData| is not zero.
-    bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData) const;
-
-    /// \param totalAscent is total ascent of the route in meters.
-    /// \param totalDescent is total descent of the route in meters.
-    void CalculateAscentDescent(uint32_t & totalAscentM, uint32_t & totalDescentM) const;
-
-    friend std::string DebugPrint(DistanceAltitude const & da);
-  };
-
-  /// \brief Fills altitude of current route points and distance in meters form the beginning
-  /// of the route point based on the route in RoutingSession.
   /// \return False if current route is invalid or doesn't have altitudes.
-  bool GetRouteAltitudesAndDistancesM(DistanceAltitude & da) const;
+  bool GetRouteElevationInfo(ElevationInfo & ei) const;
+
+  /// \brief Interpolates a point along the current route polyline at the given distance from start.
+  /// \return Nullopt if the route is invalid.
+  std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
   uint32_t OpenRoutePointsTransaction();
   void ApplyRoutePointsTransaction(uint32_t transactionId);

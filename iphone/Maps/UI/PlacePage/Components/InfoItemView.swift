@@ -18,7 +18,6 @@ final class InfoItemView: UIView {
   typealias TapHandler = () -> Void
 
   private let contentStackView = UIStackView()
-  private var textLabelLeadingConstraint: NSLayoutConstraint!
 
   let iconButton = UIButton()
   let textLabel = InsetsLabel()
@@ -180,7 +179,6 @@ final class InfoItemView: UIView {
     updateTextLabelLayout()
   }
 
-  @available(iOS 14.0, *)
   func setAccessoryMenu(_ menu: UIMenu) {
     accessoryButton.menu = menu
     accessoryButton.showsMenuAsPrimaryAction = true

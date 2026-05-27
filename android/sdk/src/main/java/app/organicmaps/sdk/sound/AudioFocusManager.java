@@ -6,15 +6,19 @@ import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.media.AudioAttributesCompat;
+import androidx.media.AudioFocusRequestCompat;
+import androidx.media.AudioManagerCompat;
 import app.organicmaps.sdk.util.log.Logger;
 
-abstract class AudioFocusManager
+final class AudioFocusManager
 {
   public interface OnAudioFocusLost
   {
     void onAudioFocusLost();
   }
 
+  // Keep in sync with audioAttributesCompat in the constructor below.
   public static final AudioAttributes AUDIO_ATTRIBUTES =
       new AudioAttributes.Builder()
           .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
@@ -24,29 +28,33 @@ abstract class AudioFocusManager
   private static final String TAG = AudioFocusManager.class.getSimpleName();
 
   @NonNull
-  protected final AudioManager mAudioManager;
+  private final AudioManager mAudioManager;
   @NonNull
   private final OnAudioFocusLost mOnAudioFocusLost;
-  protected boolean mPlaybackAllowed = false;
+  @NonNull
+  private final AudioFocusRequestCompat mAudioFocusRequest;
+  private boolean mPlaybackAllowed = false;
 
-  protected AudioFocusManager(@NonNull Context context, @NonNull OnAudioFocusLost onAudioFocusLost)
+  public AudioFocusManager(@NonNull Context context, @NonNull OnAudioFocusLost onAudioFocusLost)
   {
     mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     mOnAudioFocusLost = onAudioFocusLost;
+    // Keep in sync with AUDIO_ATTRIBUTES above.
+    final AudioAttributesCompat audioAttributesCompat =
+        new AudioAttributesCompat.Builder()
+            .setUsage(AudioAttributesCompat.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
+            .setContentType(AudioAttributesCompat.CONTENT_TYPE_SPEECH)
+            .build();
+    mAudioFocusRequest = new AudioFocusRequestCompat.Builder(AudioManagerCompat.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+                             .setAudioAttributes(audioAttributesCompat)
+                             .setOnAudioFocusChangeListener(this::onAudioFocusChange)
+                             .build();
   }
 
-  @NonNull
-  public static AudioFocusManager create(@NonNull Context context, @NonNull OnAudioFocusLost onAudioFocusLost)
+  public boolean requestAudioFocus()
   {
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
-      return new AudioFocusManagerImpl(context, onAudioFocusLost);
-    else
-      return new AudioFocusManagerImplLegacy(context, onAudioFocusLost);
-  }
-
-  public final boolean requestAudioFocus()
-  {
-    mPlaybackAllowed = requestAudioFocusImpl();
+    final int result = AudioManagerCompat.requestAudioFocus(mAudioManager, mAudioFocusRequest);
+    mPlaybackAllowed = result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
     if (!mPlaybackAllowed)
     {
       Logger.w(TAG, "Audio focus request failed");
@@ -63,9 +71,9 @@ abstract class AudioFocusManager
     return mPlaybackAllowed;
   }
 
-  public final void releaseAudioFocus()
+  public void releaseAudioFocus()
   {
-    releaseAudioFocusImpl();
+    AudioManagerCompat.abandonAudioFocusRequest(mAudioManager, mAudioFocusRequest);
     mPlaybackAllowed = false;
     mAudioManager.setMode(AudioManager.MODE_NORMAL);
   }
@@ -84,12 +92,9 @@ abstract class AudioFocusManager
                                                   : mAudioManager.isBluetoothScoOn();
   }
 
-  protected abstract boolean requestAudioFocusImpl();
-  protected abstract void releaseAudioFocusImpl();
-
-  protected void onAudioFocusChange(int focusChange)
+  private void onAudioFocusChange(int focusChange)
   {
-    Logger.w(TAG, "Unexpected audio focus change: " + focusChange);
+    Logger.i(TAG, "Audio focus change: " + focusChange);
     if (focusChange == AudioManager.AUDIOFOCUS_GAIN || focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
         || focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
     {

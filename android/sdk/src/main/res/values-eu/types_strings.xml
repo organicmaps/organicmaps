@@ -231,6 +231,7 @@
     <string name="type.building">Eraikina</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Helbidea</string>
+    <string name="type.building.construction">Eraikitzen ari den eraikina</string>
     <string name="type.building.has_parts">Eraikina</string>
     <string name="type.building_part">Eraikina</string>
     <string name="type.building.garage">Garajea</string>
@@ -321,7 +322,7 @@
     <string name="type.cuisine.mediterranean">Sukaldaritza mediterraneoa</string>
     <string name="type.cuisine.mexican">Mexikoko sukaldea</string>
     <string name="type.cuisine.moroccan">Marokoko sukaldaritza</string>
-    <string name="type.cuisine.noodles">Fideoak</string>
+    <string name="type.cuisine.noodle">Fideoak</string>
     <string name="type.cuisine.oriental">Ekialdeko sukaldaritza</string>
     <string name="type.cuisine.pancake">Krepeak</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -337,6 +338,7 @@
     <string name="type.cuisine.sausage">Saltxitxak</string>
     <string name="type.cuisine.savory_pancakes">Krepe gaziak</string>
     <string name="type.cuisine.seafood">Itsaskiak</string>
+    <string name="type.cuisine.shawarma">Xawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Espainiar sukaldaritza</string>
     <string name="type.cuisine.steak_house">Txu</string>
@@ -677,7 +679,7 @@
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Petrolio edo gas putzua</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
-    <string name="type.man_made.flare">Gas zuzia|Gas sugarra</string>
+    <string name="type.man_made.flare">Gas zuzia</string>
     <string name="type.man_made.water_tap">Ura hartzea</string>
     <string name="type.man_made.water_tap.drinking_water_no">Ura hartzea</string>
     <string name="type.man_made.water_tower">Ur depositua</string>
@@ -727,6 +729,7 @@
     <string name="type.natural.tree_row">Zuhaitz ilara</string>
     <string name="type.natural.vineyard">Mahasti</string>
     <string name="type.natural.volcano">Sumendi</string>
+    <string name="type.natural.volcano.active">Sumendi aktiboa</string>
     <string name="type.natural.water">Ur-masa</string>
     <string name="type.natural.wetland">Lur paduratsua</string>
     <string name="type.natural.wetland.bog">Zohikaztegi</string>
@@ -1225,6 +1228,18 @@
     <string name="type.sport.field_hockey">Belar hockey</string>
     <string name="type.sport.badminton">Badmintona</string>
     <string name="type.sport.pelota">Euskal pilota</string>
+    <string name="type.sport.boules">Petanka</string>
+    <string name="type.sport.cycling">Txirrindularitza</string>
+    <string name="type.sport.four_square">Lau karratu</string>
+    <string name="type.sport.horse_racing">Zaldi-lasterketak</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokrosa</string>
+    <string name="type.sport.motor">Motor-kirola</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Errugbia</string>
+    <string name="type.sport.running">Korrika</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turismoa</string>
     <string name="type.tourism.aquarium">Aquariuma</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1244,6 +1259,7 @@
     <string name="type.attraction.historic">Atrakzio historikoa</string>
     <string name="type.attraction.maze">Labirintoa</string>
     <string name="type.attraction.roller_coaster">Errusiar mendia</string>
+    <string name="type.roller_coaster.track">Errusiar mendia</string>
     <string name="type.attraction.water_slide">Ur Txirrista</string>
     <string name="type.tourism.attraction.specified">Erakarpen turistikoa</string>
     <string name="type.tourism.camp_site">Kanpalekua</string>
@@ -1266,6 +1282,7 @@
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Kabina</string>
     <string name="type.tourism.zoo.petting">Maskota-zooa</string>
+    <string name="type.waterway.access_point">Ur-bideetarako sarbide-puntu</string>
     <string name="type.waterway.fish_pass">Arrainen eskailera</string>
     <string name="type.natural.water.ditch">Drainatze Zanga</string>
     <string name="type.waterway.ditch.tunnel">Zuloa</string>
@@ -1306,7 +1323,7 @@
     <string name="type.barrier.log">Enbor hesia</string>
     <string name="type.amenity.boat_rental">Itsasontz</string>
     <string name="type.shop.telecommunication">Telekomunikazioen denda</string>
-    <string name="type.leisure.indoor_play">Play Center</string>
+    <string name="type.leisure.indoor_play">Jolasgunea</string>
     <string name="type.tourism.camp_pitch">Kanpin-lekua</string>
     <string name="type.railway.miniature">Miniaturazko trenbidea</string>
     <string name="type.amenity.kneipp_water_cure">Kneipp Ur Sendapena</string>
@@ -1318,4 +1335,5 @@
     <string name="type.craft.watchmaker">Erlojugilea</string>
     <string name="type.xmas_feature.market">Gabonetako Merkatua</string>
     <string name="type.xmas_feature.tree">Gabonetako zuhaitza</string>
+    <string name="type.amenity.hookah_lounge">Nargile-taberna</string>
 </resources>

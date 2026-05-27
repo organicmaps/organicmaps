@@ -12,12 +12,13 @@
 #include "base/geo_object_id.hpp"
 #include "base/visitor.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
 
 #include <cstdint>
 #include <cstring>
 #include <map>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <vector>
 
@@ -26,11 +27,65 @@ namespace routing
 namespace transit
 {
 using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>;
+using JsonValue = glz::generic_u64;
+
+inline JsonValue * GetJsonOptionalField(JsonValue * root, char const * field)
+{
+  CHECK(root != nullptr, ());
+  auto * object = root->get_if<JsonValue::object_t>();
+  if (object == nullptr)
+    return nullptr;
+
+  auto const it = object->find(field);
+  if (it == object->end())
+    return nullptr;
+  return &it->second;
+}
+
+inline JsonValue * GetJsonObligatoryField(JsonValue * root, char const * field)
+{
+  auto * value = GetJsonOptionalField(root, field);
+  CHECK(value != nullptr, ("Obligatory field", field, "is absent."));
+  return value;
+}
+
+template <typename T, std::enable_if_t<std::is_integral_v<T> && !std::is_same_v<T, bool>, int> = 0>
+void FromJsonValue(JsonValue const & root, T & result)
+{
+  CHECK(root.is_number(), ("Object must contain a json number."));
+  result = root.as<T>();
+}
+
+template <typename T, std::enable_if_t<std::is_enum_v<T>, int> = 0>
+void FromJsonValue(JsonValue const & root, T & result)
+{
+  std::underlying_type_t<T> value;
+  FromJsonValue(root, value);
+  result = static_cast<T>(value);
+}
+
+inline void FromJsonValue(JsonValue const & root, double & result)
+{
+  CHECK(root.is_number(), ("Object must contain a json number."));
+  result = root.as<double>();
+}
+
+inline void FromJsonValue(JsonValue const & root, bool & result)
+{
+  CHECK(root.is_boolean(), ("Object must contain a boolean value."));
+  result = root.get_boolean();
+}
+
+inline void FromJsonValue(JsonValue const & root, std::string & result)
+{
+  CHECK(root.is_string(), ("The field must contain a json string."));
+  result = root.get_string();
+}
 
 class DeserializerFromJson
 {
 public:
-  DeserializerFromJson(json_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
+  DeserializerFromJson(JsonValue * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
 
   template <typename T>
   typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
@@ -59,17 +114,17 @@ public:
   template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)
   {
-    auto * arr = base::GetJSONOptionalField(m_node, name);
+    auto * arr = GetJsonOptionalField(m_node, name);
     if (arr == nullptr)
       return;
 
-    if (!json_is_array(arr))
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
-    size_t const sz = json_array_size(arr);
+    auto * array = arr->get_if<JsonValue::array_t>();
+    CHECK(array != nullptr, ("The field", name, "must contain a json array."));
+    size_t const sz = array->size();
     vs.resize(sz);
     for (size_t i = 0; i < sz; ++i)
     {
-      DeserializerFromJson arrayItem(json_array_get(arr, i), m_osmIdToFeatureIds);
+      DeserializerFromJson arrayItem(&(*array)[i], m_osmIdToFeatureIds);
       arrayItem(vs[i]);
     }
   }
@@ -79,9 +134,9 @@ public:
                           !std::is_same<T, Stop::WrappedStopId>::value>::type
   operator()(T & t, char const * name = nullptr)
   {
-    if (name != nullptr && json_is_object(m_node))
+    if (name != nullptr && m_node->is_object())
     {
-      json_t * dictNode = base::GetJSONOptionalField(m_node, name);
+      JsonValue * dictNode = GetJsonOptionalField(m_node, name);
       if (dictNode == nullptr)
         return;  // No such field in json.
 
@@ -100,11 +155,11 @@ private:
     if (name == nullptr)
     {
       // |name| is not set in case of array items
-      FromJSON(m_node, t);
+      FromJsonValue(*m_node, t);
       return;
     }
 
-    json_t * field = base::GetJSONOptionalField(m_node, name);
+    JsonValue * field = GetJsonOptionalField(m_node, name);
     if (field == nullptr)
     {
       // No optional field |name| at |m_node|. In that case the default value should be set to |t|.
@@ -112,10 +167,10 @@ private:
       // |DeserializerFromJson|. And the value (|t|) is not changed at this method.
       return;
     }
-    FromJSON(field, t);
+    FromJsonValue(*field, t);
   }
 
-  json_t * m_node;
+  JsonValue * m_node;
   OsmIdToFeatureIdsMap const & m_osmIdToFeatureIds;
 };
 
@@ -123,7 +178,7 @@ private:
 class GraphData
 {
 public:
-  void DeserializeFromJson(base::Json const & root, OsmIdToFeatureIdsMap const & mapping);
+  void DeserializeFromJson(std::string_view json, OsmIdToFeatureIdsMap const & mapping);
   /// \note This method changes only |m_header| and fills it with correct offsets.
   void Serialize(Writer & writer);
   void DeserializeAll(Reader & reader);

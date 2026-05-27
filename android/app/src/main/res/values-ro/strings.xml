@@ -371,6 +371,10 @@
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Articol de pe wikipedia.org</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Poziția ta</string>
     <string name="p2p_start">Pornește</string>
     <string name="p2p_from_here">De la</string>
@@ -430,6 +434,7 @@
     <!-- Editable House Number text field (in address block). -->
     <string name="house_number">Număr</string>
     <string name="details">Detalii</string>
+    <string name="social_media">Rețele sociale</string>
     <string name="building">Clădire</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Adaugă o stradă</string>
@@ -623,6 +628,8 @@
     <string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Schimbă culoarea tuturor marcajelor</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Schimbă culoarea tuturor traseelor</string>
     <string name="category_desc_more">…mai mult</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Export KMZ</string>
@@ -701,6 +708,12 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Închis acum</string>
+    <string name="opens_tomorrow_at">Deschide mâine la %s</string>
+    <string name="opens_dayoftheweek_at">Deschide %1$s la %2$s</string>
+    <string name="opens_at">Deschide la %s</string>
+    <string name="closes_at">Închide la %s</string>
     <string name="editor_add_select_category_all_subtitle">Toate categoriile</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -753,6 +766,8 @@
     <string name="change_map_locale">Limbă hartă</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
     <!-- App tip #01 -->
@@ -841,6 +856,8 @@
     <string name="nav_auto">Auto în navigație</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Urmează sistemul</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Partajează traseul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
 
@@ -851,4 +868,22 @@
     <string name="login_osm_browser">Conectare folosind browserul</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Folosite recent</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Culoarea marcajelor a fost schimbată</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Culoarea traseelor a fost schimbată</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spectru</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Glisoare</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ROȘU</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERDE</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">ALBASTRU</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Culoare Hex sRGB #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grilă</string>
 </resources>

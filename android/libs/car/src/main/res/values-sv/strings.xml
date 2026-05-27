@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Undvik färjetrafik</string>
     <string name="avoid_motorways">Undvik motorvägen</string>
     <string name="unable_to_calc_alert_title">Det går inte att hitta rutt</string>
+    <string name="trip_finished">Du är framme!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Sortera bokmärken</string>
     <!-- Android -->

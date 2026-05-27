@@ -11,6 +11,8 @@
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/macros.hpp"
@@ -227,7 +229,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     {
       m_needTrackCenter = false;
       ref_ptr<TouchEvent> touchEvent = make_ref(e);
-      breakAnim = ProcessTouch(*touchEvent.get());
+      breakAnim = ProcessTouch(*touchEvent);
     }
     break;
     case UserEvent::EventType::Rotate:
@@ -308,12 +310,25 @@ void UserEventStream::ApplyAnimations()
 {
   if (m_animationSystem.AnimationExists(Animation::Object::MapPlane))
   {
+    ScreenBase const & current = GetCurrentScreen();
     ScreenBase screen;
-    if (m_animationSystem.GetScreen(GetCurrentScreen(), screen))
+    if (m_animationSystem.GetScreen(current, screen) && screen != current)
+    {
       m_navigator.SetFromScreen(screen);
-
-    m_modelViewChanged = true;
+      m_modelViewChanged = true;
+    }
   }
+
+  /// @todo (By VNG): NormalizeScreenOriginX is disabled — it causes full tile invalidation because
+  /// the origin jump changes all tile X keys at once. Double precision is sufficient for
+  /// any practical amount of horizontal scrolling. Revisit if precision issues arise.
+  // ScreenBase screen = m_navigator.Screen();
+  // NormalizeScreenOriginX(screen);
+  // if (screen != m_navigator.Screen())
+  //{
+  //   m_navigator.SetFromScreen(screen);
+  //   m_modelViewChanged = true;
+  // }
 }
 
 ScreenBase const & UserEventStream::GetCurrentScreen() const
@@ -391,8 +406,6 @@ bool UserEventStream::OnMove(ref_ptr<MoveEvent> moveEvent)
   auto const & rect = screen.PixelRectIn3d();
   screen.Move(factorX * rect.SizeX(), -factorY * rect.SizeY());
 
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
-
   return SetScreen(screen, moveEvent->IsAnim());
 }
 
@@ -410,16 +423,13 @@ bool UserEventStream::OnSetRect(ref_ptr<SetRectEvent> rectEvent)
 
 bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 {
-  m2::PointD const & center = centerEvent->GetCenter();
+  m2::PointD center = centerEvent->GetCenter();
   auto const zoom = centerEvent->GetZoom();
   auto const scaleFactor = centerEvent->GetScaleFactor();
 
-  bool const trackViewport = centerEvent->TrackVisibleViewport();
+  center.x = mercator::NearestWrapX(center.x, GetCurrentScreen().GetOrg().x);
 
-  m2::PointD const pixelTarget =
-      trackViewport ? m_visibleViewport.Center() : GetCurrentScreen().PixelRectIn3d().Center();
-
-  if (trackViewport)
+  if (centerEvent->TrackVisibleViewport())
   {
     m_needTrackCenter = true;
     m_trackedCenter = center;
@@ -430,20 +440,18 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   if (zoom != kDoNotChangeZoom)
   {
     screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
-    screen.MatchGandP3d(center, pixelTarget);
+    screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
   else if (scaleFactor > 0.0)
   {
     screen.SetOrg(center);
-    ApplyScale(pixelTarget, scaleFactor, screen);
+    ApplyScale(m_visibleViewport.Center(), scaleFactor, screen);
   }
   else
   {
     GetTargetScreen(screen);
-    screen.MatchGandP3d(center, pixelTarget);
+    screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
-
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   return SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetParallelAnimCreator());
 }
@@ -467,7 +475,6 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
   {
     GetTargetScreen(screen);
     screen.MatchGandP3d(m_trackedCenter, m_visibleViewport.Center());
-    ShrinkAndScaleInto(screen, df::GetWorldRect());
     return SetScreen(screen, true /* isAnim */);
   }
   else if (hasOffset)
@@ -487,8 +494,6 @@ bool UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
   ScreenBase screen;
   GetTargetScreen(screen);
   screen.Move(-distanceX, -distanceY);
-
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
 
   if (m_listener)
     m_listener->OnScrolled({-distanceX, -distanceY});
@@ -517,6 +522,14 @@ bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator co
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
                               TAnimationCreator const & parallelAnimCreator)
 {
+  // For animated transitions, choose the shortest horizontal path across the antimeridian.
+  if (isAnim)
+  {
+    double const offset = mercator::NearestWrapX(rect.Center().x, GetCurrentScreen().GetOrg().x) - rect.Center().x;
+    if (offset != 0.0)
+      rect.Offset(offset, 0.0);
+  }
+
   CheckMinGlobalRect(rect, kDefault3dScale);
   CheckMinMaxVisibleScale(rect, zoom, kDefault3dScale);
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
@@ -620,6 +633,8 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   if (isAnim && !InterruptFollowAnimations(false /* force */))
     return false;
 
+  m2::PointD const adjustedUserPos = AdjustPointForViewport(userPos, GetCurrentScreen());
+
   ScreenBase const & currentScreen = GetCurrentScreen();
   ScreenBase screen = currentScreen;
 
@@ -630,11 +645,9 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   }
   else
   {
-    screen.SetFromParams(userPos, -azimuth, isAutoScale ? autoScale : GetScreenScale(preferredZoomLevel));
+    screen.SetFromParams(adjustedUserPos, -azimuth, isAutoScale ? autoScale : GetScreenScale(preferredZoomLevel));
   }
-  screen.MatchGandP3d(userPos, pixelPos);
-
-  ShrinkAndScaleInto(screen, df::GetWorldRect());
+  screen.MatchGandP3d(adjustedUserPos, pixelPos);
 
   if (isAnim)
   {
@@ -644,13 +657,13 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
                                               (currentScreen.GetScale() + screen.GetScale()) / 2.0);
     if (moveDuration > kMaxAnimationTimeSec)
     {
-      // Run pretty move animation if we are far from userPos.
-      anim = GetPrettyFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
+      // Run pretty move animation if we are far from adjustedUserPos.
+      anim = GetPrettyFollowAnimation(currentScreen, adjustedUserPos, screen.GetScale(), -azimuth, pixelPos);
     }
     else
     {
       // Run follow-and-rotate animation.
-      anim = GetFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos, isAutoScale);
+      anim = GetFollowAnimation(currentScreen, adjustedUserPos, screen.GetScale(), -azimuth, pixelPos, isAutoScale);
     }
 
     if (preferredZoomLevel != kDoNotChangeZoom)

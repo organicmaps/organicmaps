@@ -19,7 +19,11 @@
     <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor">?colorPrimary</item>
+    <item name="android:windowTranslucentNavigation">false</item>
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
+    <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+    <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardBackground">@color/bg_cards</item>
     <item name="titleDialogTheme">@color/black_primary</item>

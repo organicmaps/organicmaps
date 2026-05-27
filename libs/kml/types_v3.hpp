@@ -62,7 +62,7 @@ struct BookmarkDataV3
   // Bookmark's description.
   LocalizableString m_description;
   // Bound feature's types.
-  std::vector<uint32_t> m_featureTypes;
+  ClassifierTypes m_featureTypes;
   // Custom bookmark's name.
   LocalizableString m_customName;
   // Bookmark's color.

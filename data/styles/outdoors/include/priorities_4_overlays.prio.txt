@@ -308,6 +308,7 @@ man_made-communications_tower                       # icon z12- (also has captio
 man_made-lighthouse                                 # icon z11- (also has caption(optional) z14-)
 natural-peak                                        # icon z10- (also has caption(optional) z11-)
 natural-volcano                                     # icon z10- (also has caption(optional) z13-)
+natural-volcano-active                              # icon z10- (also has caption(optional) z13-)
 === 5400
 
 amenity-theatre                                     # icon z14- (also has caption(optional) z14-)
@@ -318,7 +319,7 @@ leisure-water_park                                  # icon z16- (also has captio
 shop-mall                                           # icon z14- (also has caption(optional) z14-)
 tourism-aquarium                                    # icon z16- (also has caption(optional) z16-)
 tourism-museum                                      # icon z13- (also has caption(optional) z13-)
-tourism-theme_park                                  # icon z14- (also has caption(optional) z14-)
+tourism-theme_park                                  # icon z14- (also has caption(optional) z14-, area z16-)
 tourism-zoo                                         # icon z13- (also has caption(optional) z13-)
 === 5200
 
@@ -409,6 +410,7 @@ amenity-bar                                         # icon z15- (also has captio
 === 4000
 
 amenity-biergarten                                  # icon z15- (also has caption(optional) z15-)
+amenity-hookah_lounge                               # icon z15- (also has caption(optional) z15-)
 amenity-pub                                         # icon z15- (also has caption(optional) z15-)
 === 3950
 
@@ -1044,6 +1046,7 @@ sport-badminton                                     # icon z17- (also has captio
 sport-baseball                                      # icon z17- (also has caption(optional) z17-)
 sport-basketball                                    # icon z17- (also has caption(optional) z17-)
 sport-beachvolleyball                               # icon z17- (also has caption(optional) z17-)
+sport-boules                                        # icon z17- (also has caption(optional) z17-)
 sport-climbing                                      # icon z17- (also has caption(optional) z17-)
 sport-field_hockey                                  # icon z17- (also has caption(optional) z17-)
 sport-golf                                          # icon z17- (also has caption(optional) z17-)
@@ -1052,8 +1055,12 @@ sport-handball                                      # icon z17- (also has captio
 sport-ice_hockey                                    # icon z17- (also has caption(optional) z17-)
 sport-padel                                         # icon z17- (also has caption(optional) z17-)
 sport-pelota                                        # icon z17- (also has caption(optional) z17-)
+sport-pickleball                                    # icon z17- (also has caption(optional) z17-)
+sport-rugby_union                                   # icon z17- (also has caption(optional) z17-)
+sport-running                                       # icon z17- (also has caption(optional) z17-)
 sport-skateboard                                    # icon z17- (also has caption(optional) z17-)
 sport-skiing                                        # icon z17- (also has caption(optional) z17-)
+sport-softball                                      # icon z17- (also has caption(optional) z17-)
 sport-swimming                                      # icon z17- (also has caption(optional) z17-)
 sport-table_tennis                                  # icon z17- (also has caption(optional) z17-)
 sport-tennis                                        # icon z17- (also has caption(optional) z17-)
@@ -1069,9 +1076,16 @@ sport-bowls                                         # icon z17- (also has captio
 sport-chess                                         # icon z17- (also has caption(optional) z17-)
 sport-cricket                                       # icon z17- (also has caption(optional) z17-)
 sport-curling                                       # icon z17- (also has caption(optional) z17-)
+sport-cycling                                       # icon z17- (also has caption(optional) z17-)
 sport-diving                                        # icon z17- (also has caption(optional) z17-)
 sport-equestrian                                    # icon z17- (also has caption(optional) z17-)
+sport-four_square                                   # icon z17- (also has caption(optional) z17-)
 sport-futsal                                        # icon z17- (also has caption(optional) z17-)
+sport-horse_racing                                  # icon z17- (also has caption(optional) z17-)
+sport-karting                                       # icon z17- (also has caption(optional) z17-)
+sport-motocross                                     # icon z17- (also has caption(optional) z17-)
+sport-motor                                         # icon z17- (also has caption(optional) z17-)
+sport-netball                                       # icon z17- (also has caption(optional) z17-)
 sport-scuba_diving                                  # icon z17- (also has caption(optional) z17-)
 sport-shooting                                      # icon z17- (also has caption(optional) z17-)
 === 1350
@@ -1250,6 +1264,7 @@ power-substation                                    # icon z17- (also has captio
 === 240
 
 building                                            # caption z16- (also has area z14-)
+building-construction                               # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
 building-guardhouse                                 # icon z17- and caption z16 (also has caption(optional) z17-, area z14-)
 building-has_parts                                  # caption z16- (also has area z14-)
@@ -1305,6 +1320,7 @@ power-generator                                     # icon z17-
 power-generator-gas                                 # icon z17-
 power-generator-hydro                               # icon z17-
 power-generator-wind                                # icon z13- (also has caption(optional) z16-)
+waterway-access_point                               # icon z16-
 === 120
 
 amenity-parking-lane-private                        # icon z19- (also has caption(optional) z19-, area z17-)
@@ -1503,6 +1519,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # man_made-lighthouse                               # caption(optional) z14- (also has icon z11-)
 # natural-peak                                      # caption(optional) z11- (also has icon z10-)
 # natural-volcano                                   # caption(optional) z13- (also has icon z10-)
+# natural-volcano-active                            # caption(optional) z13- (also has icon z10-)
 # === -4600
 
 # amenity-theatre                                   # caption(optional) z14- (also has icon z14-)
@@ -1513,7 +1530,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-mall                                         # caption(optional) z14- (also has icon z14-)
 # tourism-aquarium                                  # caption(optional) z16- (also has icon z16-)
 # tourism-museum                                    # caption(optional) z13- (also has icon z13-)
-# tourism-theme_park                                # caption(optional) z14- (also has icon z14-)
+# tourism-theme_park                                # caption(optional) z14- (also has icon z14-, area z16-)
 # tourism-zoo                                       # caption(optional) z13- (also has icon z13-)
 # === -4800
 
@@ -1602,6 +1619,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -6000
 
 # amenity-biergarten                                # caption(optional) z15- (also has icon z15-)
+# amenity-hookah_lounge                             # caption(optional) z15- (also has icon z15-)
 # amenity-pub                                       # caption(optional) z15- (also has icon z15-)
 # === -6050
 
@@ -2043,6 +2061,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-baseball                                    # caption(optional) z17- (also has icon z17-)
 # sport-basketball                                  # caption(optional) z17- (also has icon z17-)
 # sport-beachvolleyball                             # caption(optional) z17- (also has icon z17-)
+# sport-boules                                      # caption(optional) z17- (also has icon z17-)
 # sport-climbing                                    # caption(optional) z17- (also has icon z17-)
 # sport-field_hockey                                # caption(optional) z17- (also has icon z17-)
 # sport-golf                                        # caption(optional) z17- (also has icon z17-)
@@ -2051,8 +2070,12 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-ice_hockey                                  # caption(optional) z17- (also has icon z17-)
 # sport-padel                                       # caption(optional) z17- (also has icon z17-)
 # sport-pelota                                      # caption(optional) z17- (also has icon z17-)
+# sport-pickleball                                  # caption(optional) z17- (also has icon z17-)
+# sport-rugby_union                                 # caption(optional) z17- (also has icon z17-)
+# sport-running                                     # caption(optional) z17- (also has icon z17-)
 # sport-skateboard                                  # caption(optional) z17- (also has icon z17-)
 # sport-skiing                                      # caption(optional) z17- (also has icon z17-)
+# sport-softball                                    # caption(optional) z17- (also has icon z17-)
 # sport-swimming                                    # caption(optional) z17- (also has icon z17-)
 # sport-table_tennis                                # caption(optional) z17- (also has icon z17-)
 # sport-tennis                                      # caption(optional) z17- (also has icon z17-)
@@ -2068,9 +2091,16 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-chess                                       # caption(optional) z17- (also has icon z17-)
 # sport-cricket                                     # caption(optional) z17- (also has icon z17-)
 # sport-curling                                     # caption(optional) z17- (also has icon z17-)
+# sport-cycling                                     # caption(optional) z17- (also has icon z17-)
 # sport-diving                                      # caption(optional) z17- (also has icon z17-)
 # sport-equestrian                                  # caption(optional) z17- (also has icon z17-)
+# sport-four_square                                 # caption(optional) z17- (also has icon z17-)
 # sport-futsal                                      # caption(optional) z17- (also has icon z17-)
+# sport-horse_racing                                # caption(optional) z17- (also has icon z17-)
+# sport-karting                                     # caption(optional) z17- (also has icon z17-)
+# sport-motocross                                   # caption(optional) z17- (also has icon z17-)
+# sport-motor                                       # caption(optional) z17- (also has icon z17-)
+# sport-netball                                     # caption(optional) z17- (also has icon z17-)
 # sport-scuba_diving                                # caption(optional) z17- (also has icon z17-)
 # sport-shooting                                    # caption(optional) z17- (also has icon z17-)
 # === -8650

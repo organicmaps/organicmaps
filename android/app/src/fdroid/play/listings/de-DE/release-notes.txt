@@ -1,9 +1,8 @@
-• OSM-Daten vom 16. Februar, Wikipedia vom 1. Februar
-• Schwarze Wander- und Radwege sind jetzt im dunklen Design sichtbar
-• Seilrutschen und weitere Autodienste hinzugefügt: Reparatur, Service und Teile
-• Fahrrad-Routing und Durchschnittsgeschwindigkeitsberechnung korrigiert
-• Verbesserte Kategoriesuche
-• Usbekische Küche
-• Erweiterbare Öffnungszeiten
-• Anzeige und Verwendung der MSL-Höhe für aufgezeichnete Tracks auf Android 14+
-…mehr auf omaps.org/news
+• Wählen Sie Wander- und Radrouten aus, um deren Höhendiagramme anzuzeigen.
+• Korrekter Kartenumbruch am Antimeridian (±180° Längengrad)
+• Ändern Sie alle Lesezeichen- und Trackfarben in einer Kategorie auf einmal
+• Bessere Suche nach Hausnummern, mehr US-Adressen abgedeckt
+• OSM-Daten mit Stand vom 4. April
+• Geplanter Darstellungsmodus in den Einstellungen
+• Die Freigabe von Lesezeichen/Tracks für andere Anwendungen wurde behoben
+…mehr unter omaps.org/de/news

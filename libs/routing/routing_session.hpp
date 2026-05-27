@@ -73,17 +73,12 @@ public:
 
   void SetState(SessionState state);
 
-  /// \returns true if altitude information along |m_route| is available and
-  /// false otherwise.
+  /// \returns true if altitude information along |m_route| is available and false otherwise.
   bool HasRouteAltitude() const;
   bool IsRouteId(uint64_t routeId) const;
   bool IsRouteValid() const;
 
-  /// \brief copies distance from route beginning to ends of route segments in meters and
-  /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
-  /// \returns true if there is valid route information. If the route is not valid returns false.
-  bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
-                                      geometry::Altitudes & routeAltitudesM) const;
+  Route const * GetRoute() const;
 
   /// \brief returns points of route junctions.
   /// \returns true if there is valid route information. If the route is not valid returns false.
@@ -159,7 +154,6 @@ public:
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
   SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
-  std::shared_ptr<Route> GetRouteForTests() const { return m_route; }
   void SetGuidesForTests(GuidesTracks guides) { m_router->SetGuidesTracks(std::move(guides)); }
 
   double GetCompletionPercent() const;

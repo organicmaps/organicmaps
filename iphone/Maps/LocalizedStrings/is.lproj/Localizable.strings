@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Tungumál raddar";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Til að sækja rödd í meiri gæðum skaltu opna Stillingar-forritið og fara í Aðgengi → VoiceOver → Tal → Rödd.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Prófa raddleiðsögn (TTS, texti-í-tal)";
 "pref_map_auto_zoom" = "Sjálfvirkur aðdráttur";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Hjólreiðar";
 "button_layer_subway" = "Neðanjarðarlest";
 "layers_title" = "Stílar landakorta og þekjur";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Breyta lit allra bókamerkja";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Breyta lit allra ferla";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Flytja út KMZ";
@@ -1115,7 +1124,13 @@
 "login_osm_credentials" = "Innskráning með lykilorði";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Innskráning með vafrara";
+"login_osm_browser" = "Innskráning með vafra";
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Nýlega notað";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Lit bókamerkja breytt";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Litur ferla breytt";

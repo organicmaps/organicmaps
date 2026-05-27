@@ -22,15 +22,7 @@ class ChartLineView: UIView {
       maxX = chartLine.values.count - 1
       minY = chartLine.minY
       maxY = chartLine.maxY
-      switch chartLine.type {
-      case .line:
-        shapeLayer.strokeColor = chartLine.color.cgColor
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineJoin = .round
-      case .lineArea:
-        shapeLayer.strokeColor = UIColor.clear.cgColor
-        shapeLayer.fillColor = chartLine.color.cgColor
-      }
+      updateLineColors()
       shapeLayer.lineWidth = lineWidth
       updateGraph()
     }
@@ -74,6 +66,20 @@ class ChartLineView: UIView {
     updateGraph(animationStyle: animationStyle)
   }
 
+  private func updateLineColors() {
+    guard let chartLine else { return }
+    let resolvedColor = chartLine.color.resolvedColor(with: traitCollection).cgColor
+    switch chartLine.type {
+    case .line:
+      shapeLayer.strokeColor = resolvedColor
+      shapeLayer.fillColor = UIColor.clear.cgColor
+      shapeLayer.lineJoin = .round
+    case .lineArea:
+      shapeLayer.strokeColor = UIColor.clear.cgColor
+      shapeLayer.fillColor = resolvedColor
+    }
+  }
+
   private func updateGraph(animationStyle: ChartAnimation = .none) {
     let p = isPreview ? chartLine.previewPath : chartLine.path
     guard let realPath = p.copy() as? UIBezierPath else { return }
@@ -109,5 +115,11 @@ class ChartLineView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     updateGraph()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+    updateLineColors()
   }
 }

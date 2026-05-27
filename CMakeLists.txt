@@ -123,15 +123,6 @@ if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   endif()
 endif()
 
-if (NOT SKIP_TESTS)
-  enable_testing()
-  # Enables ctest -T memcheck with valgrind
-  include(CTest)
-  if (COVERAGE_REPORT)
-    include(OmimCoverage)
-  endif ()
-endif()
-
 if (NOT PYTHON_VERSION)
   # FDroid build server has 3.5.3 Python installed.
   set(PYTHON_VERSION 3.5)
@@ -145,7 +136,7 @@ find_package(Threads REQUIRED)
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   list(APPEND qt_components Core Network)
-  if (NOT SKIP_QT_GUI OR NOT SKIP_TESTS OR PYBINDINGS)
+  if (NOT SKIP_QT_GUI OR BUILD_TESTING)
     list(APPEND qt_components Widgets)
   endif()
   if (NOT SKIP_QT_GUI)
@@ -159,6 +150,22 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
     message(FATAL_ERROR "Unsupported Qt version: ${Qt6Widgets_VERSION}, the minimum required is ${MINIMUM_REQUIRED_QT_VERSION}")
   else()
     message(STATUS "Found Qt version: ${Qt6Widgets_VERSION}")
+  endif()
+
+  if (PLATFORM_LINUX AND Qt6_DIR MATCHES "/\\.?linuxbrew/")
+    message(WARNING
+      "Qt6 was found under Homebrew (Linuxbrew) at ${Qt6_DIR}.\n"
+      "Linuxbrew's Qt6 libraries embed a DT_RPATH that forces Linuxbrew's bundled "
+      "Mesa libGL.so.1 to be loaded at runtime, bypassing the system libglvnd dispatcher. "
+      "On systems with the NVIDIA proprietary driver this silently falls back to software "
+      "rendering (llvmpipe) and then crashes in qtoglcontextfactory.cpp when creating "
+      "an offscreen GL surface.\n"
+      "Recommended: install Qt6 from your distribution "
+      "(e.g. 'apt install qt6-base-dev qt6-positioning-dev', "
+      "'dnf install qt6-qtbase-devel qt6-qtpositioning-devel') and reconfigure.\n"
+      "Workaround: run the binary with LD_PRELOAD pointing at the system libGL, e.g. "
+      "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 (Debian/Ubuntu) or "
+      "LD_PRELOAD=/usr/lib64/libGL.so.1 (Fedora/RHEL).")
   endif()
 endif()
 
@@ -184,9 +191,13 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
   find_package(gflags REQUIRED)
 
   find_package(expat CONFIG REQUIRED)
-  find_package(jansson CONFIG REQUIRED)
+
   find_package(pugixml REQUIRED)
   find_package(utf8cpp REQUIRED)
+  find_package(Boost REQUIRED)
+  if (BUILD_TESTING)
+    find_package(GTest REQUIRED)
+  endif()
 endif()
 
 find_package(ZLIB REQUIRED)

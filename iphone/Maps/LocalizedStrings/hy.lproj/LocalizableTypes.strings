@@ -15,11 +15,11 @@
 "type.aeroway" = "Օդային ենթակառուցվածք";
 "type.aeroway.aerodrome" = "Օդանավակայան";
 "type.aeroway.aerodrome.international" = "Միջազգային օդանավակայան";
-"type.aeroway.apron" = "Օդանավակայանի կայանատեղի";
-"type.aeroway.gate" = "Ելք";
+"type.aeroway.apron" = "Օդանավերի կայանման հարթակ";
+"type.aeroway.gate" = "Ելքի դարպաս";
 "type.aeroway.helipad" = "Ուղղաթիռի հրապարակ";
 "type.aeroway.runway" = "Թռիչքուղի";
-"type.aeroway.taxiway" = "Գնացուղի";
+"type.aeroway.taxiway" = "Օդանավերի շարժուղի";
 "type.aeroway.terminal" = "Տերմինալ";
 "type.amenity" = "Ծառայություններ";
 "type.amenity.arts_centre" = "Արվեստի կենտրոն";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Հասցե";
+"type.building.construction" = "Կառուցվող շենք";
 "type.building.has_parts" = "Շենք";
 "type.building_part" = "Շենք";
 "type.building.garage" = "Ավտոտնակ";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Միջերկրածովյան";
 "type.cuisine.mexican" = "Մեքսիկական";
 "type.cuisine.moroccan" = "Մարոկկոյական";
-"type.cuisine.noodles" = "Լապշա";
+"type.cuisine.noodle" = "Լապշա";
 "type.cuisine.oriental" = "Արևելաասիական";
 "type.cuisine.pancake" = "Նրբաբլիթներ";
 "type.cuisine.pasta" = "Պաստա";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Նրբերշիկներ";
 "type.cuisine.savory_pancakes" = "Չուղղված նրբաբլիթներ";
 "type.cuisine.seafood" = "Ծովամթերք";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Սոբա";
 "type.cuisine.spanish" = "Իսպանական";
 "type.cuisine.steak_house" = "Սթեյք հաուս";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Ծառաշարք";
 "type.natural.vineyard" = "Խաղողի այգի";
 "type.natural.volcano" = "Հրաբուխ";
+"type.natural.volcano.active" = "Գործող հրաբխ";
 "type.natural.water" = "Ջուր";
 "type.natural.wetland" = "Խոնավ տարածք";
 "type.natural.wetland.bog" = "Տորֆաճահիճ";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Մականախաղ";
 "type.sport.badminton" = "Բադմինտոն";
 "type.sport.pelota" = "Բասկյան պելոտա";
+"type.sport.boules" = "Բուլ";
+"type.sport.cycling" = "Հեծանվասպորտ";
+"type.sport.four_square" = "Չորս քառակուսի";
+"type.sport.horse_racing" = "Ձիարշավ";
+"type.sport.karting" = "Քարթինգ";
+"type.sport.motocross" = "Մոտոկրոս";
+"type.sport.motor" = "Մոտոսպորտ";
+"type.sport.netball" = "Նեթբոլ";
+"type.sport.pickleball" = "Փիքլբոլ";
+"type.sport.rugby_union" = "Ռեգբի-15";
+"type.sport.running" = "Վազք";
+"type.sport.softball" = "Սոֆթբոլ";
 "type.tourism" = "Զբոսաշրջություն";
 "type.tourism.aquarium" = "Ակվարիում";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Պատմական վայր";
 "type.attraction.maze" = "Լաբիրինթոս";
 "type.attraction.roller_coaster" = "Ամերիկյան բլուրներ";
+"type.roller_coaster.track" = "Ամերիկյան բլուրներ";
 "type.attraction.water_slide" = "Ջրային սահուղի";
 "type.tourism.attraction.specified" = "Տեսարժան վայր";
 "type.tourism.camp_site" = "Ճամբարային տեղ";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Արհեստական անհարթություն";
 "type.traffic_calming.hump" = "Արհեստական թմբիկ";
 "type.waterway" = "Ջրային ուղի";
+"type.waterway.access_point" = "Ջրային ճանապարհի մուտքի կետ";
 "type.waterway.canal" = "Ջրանցք";
 "type.waterway.canal.tunnel" = "Ջրանցքի թունել";
 "type.waterway.fish_pass" = "Ձկնանցարան";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Ժամագործ";
 "type.xmas_feature.market" = "Սուրբ Ծննդյան տոնավաճառ";
 "type.xmas_feature.tree" = "Տոնածառ";
+"type.amenity.hookah_lounge" = "Նարգիլե բար";

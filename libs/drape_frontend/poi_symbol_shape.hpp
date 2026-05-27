@@ -30,5 +30,6 @@ private:
   PoiSymbolViewParams const m_params;
   m2::PointI const m_tileCoords;
   uint32_t const m_textIndex;
+  double const m_tileXOffset;
 };
 }  // namespace df

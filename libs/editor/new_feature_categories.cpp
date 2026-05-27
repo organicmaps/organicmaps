@@ -28,6 +28,7 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
     }
     m_types.emplace_back(clType);
   }
+  std::sort(m_types.begin(), m_types.end());
 }
 
 NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other) noexcept
@@ -88,9 +89,9 @@ NewFeatureCategories::TypeNames NewFeatureCategories::GetRecentCategories() cons
   TypeNames recentlyUsedCategories;
   if (!settings::Get(kRecentlyUsedCategoriesSettingsKey, current) || current.empty())
     return {};
-  strings::Tokenize(current, ";", [&recentlyUsedCategories](std::string_view s)
+  strings::Tokenize(current, ";", [this, &recentlyUsedCategories](std::string_view s)
   {
-    if (!s.empty())
+    if (!s.empty() && std::binary_search(m_types.begin(), m_types.end(), s, std::less<>{}))
       recentlyUsedCategories.emplace_back(s);
   });
   if (recentlyUsedCategories.size() > kMaxRecentlyUsedCategoriesCount)

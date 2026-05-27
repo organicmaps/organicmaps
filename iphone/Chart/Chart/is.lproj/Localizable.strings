@@ -7,7 +7,7 @@
 
 /********** Uncategorized **********/
 
-"you" = "You";
+"you" = "Þú";
 
 
 /********** gps strings **********/
@@ -17,4 +17,4 @@
 "login_osm_credentials" = "Innskráning með lykilorði";
 
 /* Login to OSM button text */
-"login_osm_browser" = "Innskráning með vafrara";
+"login_osm_browser" = "Innskráning með vafra";

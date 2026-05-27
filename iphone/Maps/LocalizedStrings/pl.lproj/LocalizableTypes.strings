@@ -25,7 +25,7 @@
 "type.amenity.arts_centre" = "Centrum sztuki";
 "type.amenity.atm" = "Bankomat";
 "type.amenity.bank" = "Bank";
-"type.amenity.bar" = "Bar alkoholowy";
+"type.amenity.bar" = "Bar";
 "type.amenity.bbq" = "Grill";
 "type.amenity.bench" = "Ławka";
 "type.amenity.bicycle_parking" = "Parking dla rowerów";
@@ -118,7 +118,7 @@
 "type.amenity.parking_space.private" = "Miejsce parkingowe";
 "type.amenity.parking_space.underground" = "Miejsce parkingowe";
 "type.amenity.parking_space.disabled" = "Miejsce parkingowe dla niepełnosprawnych";
-"type.amenity.payment_terminal" = "Wpłatomat";
+"type.amenity.payment_terminal" = "Terminal płatniczy";
 "type.amenity.pharmacy" = "Apteka";
 "type.amenity.place_of_worship" = "Świątynia";
 "type.amenity.place_of_worship.buddhist" = "Świątynia buddyjska";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adres";
+"type.building.construction" = "Budynek w budowie";
 "type.building.has_parts" = "Budynek";
 "type.building_part" = "Budynek";
 "type.building.garage" = "Garaż";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Kuchnia śródziemnomorska";
 "type.cuisine.mexican" = "Kuchnia meksykańska";
 "type.cuisine.moroccan" = "Kuchnia marokańska";
-"type.cuisine.noodles" = "Noodle";
+"type.cuisine.noodle" = "Noodle";
 "type.cuisine.oriental" = "Kuchnia orientalna";
 "type.cuisine.pancake" = "Naleśniki";
 "type.cuisine.pasta" = "Makarony";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Kiełbasiarnia";
 "type.cuisine.savory_pancakes" = "Wytrawne naleśniki";
 "type.cuisine.seafood" = "Owoce morza";
+"type.cuisine.shawarma" = "Szawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Kuchnia hiszpańska";
 "type.cuisine.steak_house" = "Steki";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Basen";
 "type.leisure.swimming_pool.private" = "Basen";
-"type.leisure.track" = "Ścieżka";
-"type.leisure.track.area" = "Ścieżka";
+"type.leisure.track" = "Tor sportowy";
+"type.leisure.track.area" = "Tor sportowy";
 "type.leisure.water_park" = "Park wodny";
 "type.leisure.beach_resort" = "Kurort przy plaży";
 "type.man_made" = "Stworzone przez człowieka";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Rząd drzew";
 "type.natural.vineyard" = "Winnica";
 "type.natural.volcano" = "Wulkan";
+"type.natural.volcano.active" = "Aktywny wulkan";
 "type.natural.water" = "Akwen";
 "type.natural.wetland" = "Tereny podmokłe";
 "type.natural.wetland.bog" = "Torfowisko";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hokej na trawie";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pelota baskijska";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Kolarstwo";
+"type.sport.four_square" = "Cztery kwadraty";
+"type.sport.horse_racing" = "Wyścigi konne";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Sporty motorowe";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby union";
+"type.sport.running" = "Bieganie";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turystyka";
 "type.tourism.aquarium" = "Akwarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Atrakcja historyczna";
 "type.attraction.maze" = "Labirynt";
 "type.attraction.roller_coaster" = "Kolejka górska";
+"type.roller_coaster.track" = "Kolejka górska";
 "type.attraction.water_slide" = "Zjeżdżalnia wodna";
 "type.tourism.attraction.specified" = "Atrakcja turystyczna";
 "type.tourism.camp_site" = "Kamping";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Krótki próg zwalniający";
 "type.traffic_calming.hump" = "Długi próg zwalniający";
 "type.waterway" = "Droga wodna";
+"type.waterway.access_point" = "Punkt dostępu do drogi wodnej";
 "type.waterway.canal" = "Kanał";
 "type.waterway.canal.tunnel" = "Kanał";
 "type.waterway.fish_pass" = "Przepławka";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Zegarmistrz";
 "type.xmas_feature.market" = "Jarmark bożonarodzeniowy";
 "type.xmas_feature.tree" = "Choinka";
+"type.amenity.hookah_lounge" = "Shisha bar";

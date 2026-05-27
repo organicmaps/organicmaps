@@ -371,6 +371,8 @@
     <string name="clear_search">Poista hakuhistoria</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Artikkeli osoitteesta wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Sijaintisi</string>
@@ -626,6 +628,8 @@
     <string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Vaihda kaikkien kirjanmerkkien väri</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Vaihda kaikkien reittien väri</string>
     <string name="category_desc_more">…lisää</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Vie KMZ</string>
@@ -704,6 +708,12 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Suljettu nyt</string>
+    <string name="opens_tomorrow_at">Aukeaa huomenna kello %s</string>
+    <string name="opens_dayoftheweek_at">Aukeaa %1$s kello %2$s</string>
+    <string name="opens_at">Aukeaa kello %s</string>
+    <string name="closes_at">Sulkeutuu kello %s</string>
     <string name="editor_add_select_category_all_subtitle">Kaikki kategoriat</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -855,7 +865,7 @@
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Järjestelmän oletus</string>
     <!-- Title of the bottom sheet when sharing the track -->
-    <string name="share_track">Jaa rata</string>
+    <string name="share_track">Jaa reitti</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Poista %s?</string>
 
@@ -866,4 +876,22 @@
     <string name="login_osm_browser">Sisäänkirjautuminen selaimella</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Äskettäin käytetty</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Kirjanmerkkien väri vaihdettu</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Reittien väri vaihdettu</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spektri</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Liukusäätimet</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">PUNAINEN</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VIHREÄ</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLUE</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB Hex-väri #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Ruudukko</string>
 </resources>

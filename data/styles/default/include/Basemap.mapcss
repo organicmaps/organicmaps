@@ -460,6 +460,7 @@ area|z15-[leisure=resort],
 area|z15-[landuse=retail],
 area|z16-[amenity=marketplace],
 area|z16-[leisure=water_park],
+area|z16-[tourism=theme_park],
 area|z15-[highway=rest_area],
 area|z14-[highway=services],
 {fill-opacity: 1; fill-color: @leisure;}
@@ -592,6 +593,10 @@ area|z17-[building],
 area|z17-[building:part],
 area|z17-[waterway=dam],
 {fill-color: @building1;casing-width: 1;casing-color: @building_border1;}
+
+/* Building under construction is rendered like landuse=construction (industrial). */
+area|z14-[building=construction],
+{fill-color: @industrial; fill-opacity: 1; casing-width: 0;}
 
 
 /* 8.3 Barriers, cliffs */

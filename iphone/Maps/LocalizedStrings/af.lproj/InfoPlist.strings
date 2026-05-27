@@ -28,10 +28,10 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Om die ligging in die agtergrond op te spoor, is nodig om die funksionaliteit van die app ten volle te geniet. Dit word gebruik vir navigasie en om jou onlangs gereisde roete te stoor.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Om jou ligging te bepaal is nodig vir navigasie en om jou onlangs gereisde roete te stoor.";
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Aanmelding met wagwoord";

@@ -231,7 +231,7 @@ UNIT_TEST(MultilangString_RemoveString)
     // No extra languages or other data damage.
     str.ForEach([&](uint8_t lang, auto const &)
     {
-      TEST(base::FindIf(strings, [&lang](auto const & s) { return s.first == lang; }) != strings.end(), ());
+      TEST(base::IsExistIf(strings, [&lang](auto const & s) { return s.first == lang; }), ());
       TEST(codesToRemove.find(lang) == codesToRemove.end(), ());
     });
   };

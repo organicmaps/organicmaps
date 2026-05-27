@@ -3,6 +3,7 @@ import UIKit
 final class EditTrackViewController: MWMTableViewController {
   private enum Sections: Int {
     case info
+    case description
     case delete
     case count
   }
@@ -17,9 +18,10 @@ final class EditTrackViewController: MWMTableViewController {
 
   private var editingCompleted: (Bool) -> Void
 
-  private var placePageData: PlacePageData?
   private let trackId: MWMTrackID
+  private var noteCell: MWMNoteCell?
   private var trackTitle: String?
+  private var trackDescription: String?
   private var trackGroupTitle: String?
   private var trackGroupId = FrameworkHelper.invalidCategoryId()
   private var trackColor: UIColor
@@ -33,6 +35,7 @@ final class EditTrackViewController: MWMTableViewController {
     let track = bookmarksManager.track(withId: trackId)
     trackTitle = track.trackName
     trackColor = track.trackColor
+    trackDescription = bookmarksManager.description(forTrackId: trackId)
 
     let category = bookmarksManager.category(forTrackId: trackId)
     trackGroupId = category.categoryId
@@ -66,6 +69,7 @@ final class EditTrackViewController: MWMTableViewController {
 
     tableView.registerNib(cell: BookmarkTitleCell.self)
     tableView.registerNib(cell: MWMButtonCell.self)
+    tableView.registerNib(cell: MWMNoteCell.self)
 
     addToBookmarksManagerObserverList()
   }
@@ -80,7 +84,7 @@ final class EditTrackViewController: MWMTableViewController {
     switch Sections(rawValue: section) {
     case .info:
       return InfoSectionRows.count.rawValue
-    case .delete:
+    case .description, .delete:
       return 1
     default:
       fatalError()
@@ -110,6 +114,15 @@ final class EditTrackViewController: MWMTableViewController {
         return cell
       default:
         fatalError()
+      }
+    case .description:
+      if let noteCell {
+        return noteCell
+      } else {
+        let cell = tableView.dequeueReusableCell(cell: MWMNoteCell.self, indexPath: indexPath)
+        cell.config(with: self, noteText: trackDescription ?? "", placeholder: L("placepage_personal_notes_hint"))
+        noteCell = cell
+        return cell
       }
     case .delete:
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
@@ -151,7 +164,11 @@ final class EditTrackViewController: MWMTableViewController {
 
   @objc private func onSave() {
     view.endEditing(true)
-    BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, color: trackColor, title: trackTitle ?? "")
+    BookmarksManager.shared().updateTrack(trackId,
+                                          setGroupId: trackGroupId,
+                                          color: trackColor,
+                                          title: trackTitle ?? "",
+                                          description: trackDescription ?? "")
     editingCompleted(true)
     goBack()
   }
@@ -169,7 +186,7 @@ final class EditTrackViewController: MWMTableViewController {
   }
 
   private func openGroupPicker() {
-    let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupId: trackGroupId)
     groupViewController.delegate = self
     let navigationController = UINavigationController(rootViewController: groupViewController)
     present(navigationController, animated: true, completion: nil)
@@ -179,6 +196,18 @@ final class EditTrackViewController: MWMTableViewController {
 extension EditTrackViewController: BookmarkTitleCellDelegate {
   func didFinishEditingTitle(_ title: String) {
     trackTitle = title
+  }
+}
+
+extension EditTrackViewController: MWMNoteCellDelegate {
+  func cell(_: MWMNoteCell, didChangeSizeAndText _: String) {
+    UIView.setAnimationsEnabled(false)
+    tableView.refresh()
+    UIView.setAnimationsEnabled(true)
+  }
+
+  func cell(_: MWMNoteCell, didFinishEditingWithText text: String) {
+    trackDescription = text
   }
 }
 
@@ -193,8 +222,9 @@ extension EditTrackViewController: MWMButtonCellDelegate {
     case .info:
       break
     case .delete:
+      cell.isUserInteractionEnabled = false
+      // goBack() is called by onTrackDeleted observer.
       bookmarksManager.deleteTrack(trackId)
-      goBack()
     default:
       fatalError("Invalid section")
     }
@@ -233,6 +263,12 @@ extension EditTrackViewController: BookmarksObserver {
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
     if trackGroupId == groupId {
+      goBack()
+    }
+  }
+
+  func onTrackDeleted(_ deletedTrackId: MWMTrackID) {
+    if trackId == deletedTrackId {
       goBack()
     }
   }

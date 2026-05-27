@@ -101,6 +101,7 @@
 "Guyana": "Guyana",
 "Haiti": "Haiti",
 "Honduras": "Honduras",
+"Hong Kong": "Hong Kong",
 "Hungary": "Hungary",
 "Iceland": "Iceland",
 "India": "India",
@@ -138,6 +139,7 @@
 "Liechtenstein": "Liechtenstein",
 "Lithuania": "Lithuania",
 "Luxembourg": "Luxembourg",
+"Macau": "Macau",
 "Macedonia": "Republic of\"",
 "Madagascar": "Madagascar",
 "Malawi": "Malawi",
@@ -258,5 +260,7 @@
 "Zambia": "Zambia",
 "Zimbabwe": "Zimbabwe",
 "Alabama": "Alabama",
-"Monaco Description": "Monaco"
+"Monaco Description": "Monaco",
+"China_Hainan":"Hainan",
+"China_Guangdong":"Guangdong"
 }

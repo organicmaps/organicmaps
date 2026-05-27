@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Llengua de la veu";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Per baixar una veu de més qualitat, obre l'app Configuració i ves a Accessibilitat → VoiceOver → Parla → Veu.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Prova les indicacions de veu (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automàtic";
@@ -535,7 +538,7 @@
 "message_invalid_feature_position" = "No s’ha trobat cap objecte aquí";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Dades de l’OpenStreetMap creades per la comunitat a partir de %@. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org";
+"osm_presentation" = "Dades de l’OpenStreetMap creades per la comunitat a data de %@. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org";
 "login_to_make_edits_visible" = "Creeu un compte d'OpenStreetMap o inicieu sessió per publicar les vostres edicions de mapes al món.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Estils i capes del mapa";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Canvia el color de tots els marcadors";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Canvia el color de tots els recorreguts";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exporta KMZ";
 
@@ -678,10 +687,10 @@
 "power_managment_setting_manual_max" = "Sempre";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Noms de marcadors al mapa";
+"bookmarks_text_placement_description" = "Si hi ha massa marcadors, mostrar-ne els noms al mapa pot alentir l'aplicació.";
+"show_to_the_right" = "Mostra a la dreta";
+"show_at_the_bottom" = "Mostra a la part inferior";
 "enable_logging_warning_message" = "Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.";
 "driving_options_title" = "Opcions d’encaminament";
 
@@ -804,7 +813,7 @@
 "traffic_update_app_message" = "Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.";
 "log_file_size" = "Mida del fitxer de registre: %@";
 "planning_route_remove_title" = "Arrossegueu-lo aquí per a eliminar-lo";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Substituir Stop";
 "start_from_my_position" = "Comença des de";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -827,10 +836,10 @@
 "tags_loading_error_subtitle" = "S'ha produït un error en carregar les etiquetes, torneu-ho a intentar";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Dret";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Baix";
 "trip_start" = "Som-hi";
 "pick_destination" = "Destinació";
 "follow_my_position" = "Centra";
@@ -935,10 +944,10 @@
 "app_tip_09" = "El nostre objectiu principal és crear mapes ràpids, centrats en la privadesa i fàcils d'utilitzar que us encantaran.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Ara esteu utilitzant els Organic Maps a la pantalla del telèfon";
+"car_used_on_the_phone_screen" = "Ara esteu utilitzant Organic Maps a la pantalla del telèfon";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Ara esteu utilitzant els Organic Maps a la pantalla del cotxe";
+"car_used_on_the_car_screen" = "Ara esteu utilitzant Organic Maps a la pantalla del cotxe";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Passa al telèfon";
@@ -1105,7 +1114,7 @@
 "subway_data_unavailable" = "El mapa del metro no està disponible";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Regions descarregades liles";
+"show_downloaded_regions" = "Regions descarregades en lila";
 
 
 /********** gps strings **********/
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Usats recentment";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "El color dels marcadors ha canviat";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "El color dels recorreguts ha canviat";

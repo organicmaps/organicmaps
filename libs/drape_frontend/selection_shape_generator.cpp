@@ -10,9 +10,6 @@
 #include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "indexer/feature.hpp"
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -25,7 +22,6 @@ namespace df
 namespace
 {
 std::string const kTrackSelectedSymbolName = "track_marker_selected";
-df::ColorConstant const kSelectionColor = "Selection";
 float const kLeftSide = 1.0f;
 float const kCenter = 0.0f;
 float const kRightSide = -1.0f;
@@ -115,6 +111,12 @@ void GenerateJoinsTriangles(glsl::vec3 const & pivot, std::vector<glsl::vec2> co
 }  // namespace
 
 // static
+dp::Color SelectionShapeGenerator::GetSelectionColor()
+{
+  return df::GetColorConstant("Selection");
+}
+
+// static
 drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<dp::GraphicsContext> context,
                                                                        ref_ptr<dp::TextureManager> mng)
 {
@@ -123,7 +125,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<d
   auto const etalonSector = static_cast<float>(2.0 * math::pi / kTriangleCount);
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(df::GetColorConstant(df::kSelectionColor), color);
+  mng->GetColorRegion(GetSelectionColor(), color);
   auto const colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<MarkerVertex, kTriangleCount> buffer;
@@ -211,27 +213,10 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateTrackSelectionMarker(ref_
 
 // static
 drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr<dp::GraphicsContext> context,
-                                                                         FeatureID const & feature,
-                                                                         ref_ptr<dp::TextureManager> mng,
-                                                                         ref_ptr<MetalineManager> metalineMng,
-                                                                         MapDataProvider & mapDataProvider)
+                                                                         std::vector<m2::PointD> const & points,
+                                                                         dp::Color const & lineColor,
+                                                                         ref_ptr<dp::TextureManager> mng)
 {
-  // Get spline from metaline manager or read from mwm.
-  std::vector<m2::PointD> points;
-  auto spline = metalineMng->GetMetaline(feature);
-  if (spline.IsNull())
-  {
-    mapDataProvider.ReadFeatures([&points](FeatureType & ft)
-    {
-      if (ft.GetGeomType() == feature::GeomType::Line)
-        assign_range(points, ft.GetPoints(scales::GetUpperScale()));
-    }, {feature});
-  }
-  else
-  {
-    points = spline->GetPath();
-  }
-
   // Generate line geometry.
   if (points.size() < 2)
     return nullptr;
@@ -242,7 +227,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
   m2::PointD const pivot = rect.Center();
 
   dp::TextureManager::ColorRegion color;
-  mng->GetColorRegion(df::GetColorConstant(df::kSelectionColor), color);
+  mng->GetColorRegion(lineColor, color);
   auto const colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   // Construct segments.

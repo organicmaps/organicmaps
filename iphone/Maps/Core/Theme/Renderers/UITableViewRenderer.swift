@@ -14,7 +14,9 @@ class UITableViewRenderer: UIViewRenderer {
   class func render(_ control: UITableView, style: Style) {
     super.render(control, style: style)
     if let backgroundColor = style.backgroundColor {
-      control.backgroundView = UIImageView(image: backgroundColor.getImage())
+      let bgView = UIView()
+      bgView.backgroundColor = backgroundColor
+      control.backgroundView = bgView
     }
     if let separatorColor = style.separatorColor {
       control.separatorColor = separatorColor

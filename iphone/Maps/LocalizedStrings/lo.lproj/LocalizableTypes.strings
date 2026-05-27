@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "ທີ່ຢູ່";
+"type.building.construction" = "ອາຄານທີ່ກໍາລັງກໍ່ສ້າງ";
 "type.building.has_parts" = "ອາຄານ";
 "type.building_part" = "ອາຄານ";
 "type.building.garage" = "ໂຮງລົດ";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "ເມດິເຕີເຣນຽນ";
 "type.cuisine.mexican" = "ເມັກຊິໂກ";
 "type.cuisine.moroccan" = "ໂມຣັອກໂກ";
-"type.cuisine.noodles" = "ເຝີ/ໝີ່";
+"type.cuisine.noodle" = "ເຝີ/ໝີ່";
 "type.cuisine.oriental" = "ອາຊີຕາເວັນອອກ";
 "type.cuisine.pancake" = "ແພນເຄັກ";
 "type.cuisine.pasta" = "ພັດສະຕ້າ";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "ໄສ້ກອກ";
 "type.cuisine.savory_pancakes" = "ແພນເຄັກຄາວ";
 "type.cuisine.seafood" = "ອາຫານທະເລ";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "ໂຊບະ";
 "type.cuisine.spanish" = "ສະເປນ";
 "type.cuisine.steak_house" = "ຮ້ານສະເຕັກ";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "ແຖວຕົ້ນໄມ້";
 "type.natural.vineyard" = "ສວນອະງຸ່ນ";
 "type.natural.volcano" = "ພູໄຟ";
+"type.natural.volcano.active" = "ພູເຂົາໄຟທີ່ເຄື່ອນໄຫວ";
 "type.natural.water" = "ແຫຼ່ງນ້ຳ";
 "type.natural.wetland" = "ດິນຊຸ່ມນ້ຳ";
 "type.natural.wetland.bog" = "ໜອງບຶງ";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "ຮອກກີ້";
 "type.sport.badminton" = "ດອກປີກໄກ່";
 "type.sport.pelota" = "ເປໂລຕ້າ";
+"type.sport.boules" = "ກິລາໂບລ";
+"type.sport.cycling" = "ການຂີ່ລົດຖີບ";
+"type.sport.four_square" = "ໂຟສະແຄວ";
+"type.sport.horse_racing" = "ການແຂ່ງມ້າ";
+"type.sport.karting" = "ກິລາໂກກາດ";
+"type.sport.motocross" = "ໂມໂຕຄຣອສ";
+"type.sport.motor" = "ມໍເຕີສະປໍດ";
+"type.sport.netball" = "ເນັດບອລ";
+"type.sport.pickleball" = "ພິກເກິນບອລ";
+"type.sport.rugby_union" = "ລັກບີ້";
+"type.sport.running" = "ການແລ່ນ";
+"type.sport.softball" = "ຊອບບອລ";
 "type.tourism" = "ການທ່ອງທ່ຽວ";
 "type.tourism.aquarium" = "ສະຖານທີ່ສະແດງສັດນ້ຳ";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "ສະຖານທີ່ທ່ອງທ່ຽວທາງປະຫວັດສາດ";
 "type.attraction.maze" = "ທາງວົງກົດ";
 "type.attraction.roller_coaster" = "ລົດໄຟເຫາະ";
+"type.roller_coaster.track" = "ລົດໄຟເຫາະ";
 "type.attraction.water_slide" = "ສະໄລເດີນ້ຳ";
 "type.tourism.attraction.specified" = "ສະຖານທີ່ທ່ອງທ່ຽວ";
 "type.tourism.camp_site" = "ສະຖານທີ່ຕັ້ງແຄ້ມ";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "ລູກລະນາດ";
 "type.traffic_calming.hump" = "ເນີນຫຼຸດຄວາມໄວ";
 "type.waterway" = "ທາງນ້ຳ";
+"type.waterway.access_point" = "ຈຸດເຂົ້າເຖິງທາງນ້ຳ";
 "type.waterway.canal" = "ຄອງ";
 "type.waterway.canal.tunnel" = "ອຸມົງຄອງນ້ຳ";
 "type.waterway.fish_pass" = "ທາງປາຜ່ານ";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "ຊ່າງແປງໂມງ";
 "type.xmas_feature.market" = "ຕະຫຼາດຄຣິສມາດ";
 "type.xmas_feature.tree" = "ຕົ້ນຄຣິສມາດ";
+"type.amenity.hookah_lounge" = "ຮ້ານສູບຢາ";

@@ -37,8 +37,8 @@
 "type.amenity.love_hotel" = "情侣酒店";
 "type.amenity.bureau_de_change" = "货币兑换";
 "type.amenity.bus_station" = "公交车站";
-"type.amenity.cafe" = "咖啡馆่";
-"type.amenity.car_rental" = "汽车出租์";
+"type.amenity.cafe" = "咖啡馆";
+"type.amenity.car_rental" = "汽车出租";
 "type.amenity.motorcycle_rental" = "摩托车租赁";
 "type.amenity.car_sharing" = "拼车点";
 "type.amenity.car_wash" = "洗车";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "地址";
+"type.building.construction" = "在建建筑";
 "type.building.has_parts" = "建筑物";
 "type.building_part" = "建筑物";
 "type.building.garage" = "独立1车库";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "地中海菜";
 "type.cuisine.mexican" = "墨西哥菜";
 "type.cuisine.moroccan" = "摩洛哥菜";
-"type.cuisine.noodles" = "面";
+"type.cuisine.noodle" = "面";
 "type.cuisine.oriental" = "东方菜";
 "type.cuisine.pancake" = "煎饼";
 "type.cuisine.pasta" = "意大利面";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "火腿";
 "type.cuisine.savory_pancakes" = "咸味煎饼";
 "type.cuisine.seafood" = "海鲜";
+"type.cuisine.shawarma" = "沙威玛";
 "type.cuisine.soba" = "荞麦面";
 "type.cuisine.spanish" = "西班牙菜";
 "type.cuisine.steak_house" = "牛排馆";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "体育场";
 "type.leisure.swimming_pool" = "游泳池";
 "type.leisure.swimming_pool.private" = "游泳池";
-"type.leisure.track" = "賽道";
-"type.leisure.track.area" = "賽道";
+"type.leisure.track" = "赛道";
+"type.leisure.track.area" = "赛道";
 "type.leisure.water_park" = "水上乐园";
 "type.leisure.beach_resort" = "海滨度假区";
 "type.man_made" = "人造要素";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "树列";
 "type.natural.vineyard" = "葡萄园";
 "type.natural.volcano" = "火山";
+"type.natural.volcano.active" = "活火山";
 "type.natural.water" = "水体";
 "type.natural.wetland" = "湿地";
 "type.natural.wetland.bog" = "泥炭地";
@@ -1309,7 +1312,7 @@
 "type.shop.confectionery" = "糖果店";
 "type.shop.convenience" = "便利店";
 "type.shop.copyshop" = "复印店";
-"type.shop.cosmetics" = "化妝品店";
+"type.shop.cosmetics" = "化妆品店";
 "type.shop.curtain" = "窗帘";
 "type.shop.deli" = "熟食店";
 "type.shop.department_store" = "百货商场";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "曲棍球";
 "type.sport.badminton" = "羽毛球";
 "type.sport.pelota" = "巴斯克回力球";
+"type.sport.boules" = "地掷球";
+"type.sport.cycling" = "自行车运动";
+"type.sport.four_square" = "四方格";
+"type.sport.horse_racing" = "赛马";
+"type.sport.karting" = "卡丁车";
+"type.sport.motocross" = "摩托车越野赛";
+"type.sport.motor" = "赛车运动";
+"type.sport.netball" = "无挡板篮球";
+"type.sport.pickleball" = "匹克球";
+"type.sport.rugby_union" = "联合式橄榄球";
+"type.sport.running" = "跑步";
+"type.sport.softball" = "垒球";
 "type.tourism" = "旅游要素";
 "type.tourism.aquarium" = "水族馆";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "历史景点";
 "type.attraction.maze" = "迷宫";
 "type.attraction.roller_coaster" = "过山车";
+"type.roller_coaster.track" = "过山车";
 "type.attraction.water_slide" = "水上滑梯";
 "type.tourism.attraction.specified" = "景点";
 "type.tourism.camp_site" = "宿营场地";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "减速带";
 "type.traffic_calming.hump" = "减速丘";
 "type.waterway" = "航道要素";
+"type.waterway.access_point" = "水道入口";
 "type.waterway.canal" = "运河";
 "type.waterway.canal.tunnel" = "运河";
 "type.waterway.fish_pass" = "鱼梯";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "钟表匠";
 "type.xmas_feature.market" = "圣诞市场";
 "type.xmas_feature.tree" = "圣诞树";
+"type.amenity.hookah_lounge" = "水烟馆";

@@ -327,6 +327,12 @@ public class MapObject implements PlacePageData
     return mRoutePointInfo;
   }
 
+  @NonNull
+  public String getDescription()
+  {
+    return "";
+  }
+
   @OpeningMode
   public int getOpeningMode()
   {

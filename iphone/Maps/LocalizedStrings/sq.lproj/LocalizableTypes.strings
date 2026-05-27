@@ -31,7 +31,7 @@
 "type.amenity.bicycle_parking" = "Parkim biçikletash";
 "type.amenity.bicycle_parking.covered" = "Parkim i mbuluar";
 "type.amenity.bicycle_rental" = "Marrje biçikletash me qira";
-"type.amenity.bicycle_repair_station" = "Stacion riparimi";
+"type.amenity.bicycle_repair_station" = "Stacion riparimi biçikletash";
 "type.amenity.biergarten" = "Birrari";
 "type.amenity.brothel" = "Shtëpi publike";
 "type.amenity.love_hotel" = "Hotel dashurie";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresë";
+"type.building.construction" = "Ndërtesë në ndërtim";
 "type.building.has_parts" = "Ndërtesë";
 "type.building_part" = "Ndërtesë";
 "type.building.garage" = "Garazh";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mesdhetare";
 "type.cuisine.mexican" = "Meksikane";
 "type.cuisine.moroccan" = "Marokene";
-"type.cuisine.noodles" = "Nudëll";
+"type.cuisine.noodle" = "Nudëll";
 "type.cuisine.oriental" = "Aziatike Lindore";
 "type.cuisine.pancake" = "Pankake";
 "type.cuisine.pasta" = "Makarna";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Salsiçe";
 "type.cuisine.savory_pancakes" = "Pankake të kripura";
 "type.cuisine.seafood" = "Ushqim deti";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanjolle";
 "type.cuisine.steak_house" = "Steak House";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Stadium";
 "type.leisure.swimming_pool" = "Pishinë";
 "type.leisure.swimming_pool.private" = "Pishinë";
-"type.leisure.track" = "Shteg fushe";
-"type.leisure.track.area" = "Shteg fushe";
+"type.leisure.track" = "Pistë sportive";
+"type.leisure.track.area" = "Pistë sportive";
 "type.leisure.water_park" = "Park ujor";
 "type.leisure.beach_resort" = "Resort plazhi";
 "type.man_made" = "E bërë nga njeriu";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Rresht pemësh";
 "type.natural.vineyard" = "Vresht";
 "type.natural.volcano" = "Vullkan";
+"type.natural.volcano.active" = "Vullkan aktiv";
 "type.natural.water" = "Ujë";
 "type.natural.wetland" = "Zonë ligatinore";
 "type.natural.wetland.bog" = "Mocal";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hokej në fushë";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pelota Baske";
+"type.sport.boules" = "Bul";
+"type.sport.cycling" = "Çiklizëm";
+"type.sport.four_square" = "Four square";
+"type.sport.horse_racing" = "Garat e kuajve";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motorsport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Ragbi";
+"type.sport.running" = "Vrapim";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turizëm";
 "type.tourism.aquarium" = "Akuarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Atraksion historik";
 "type.attraction.maze" = "Labirint";
 "type.attraction.roller_coaster" = "Roler koster";
+"type.roller_coaster.track" = "Roler koster";
 "type.attraction.water_slide" = "Rrëshqitëse uji";
 "type.tourism.attraction.specified" = "Atraksion";
 "type.tourism.camp_site" = "Kamping";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Kurriz artificial";
 "type.traffic_calming.hump" = "Kurriz i gjerë";
 "type.waterway" = "Rrugë ujore";
+"type.waterway.access_point" = "Pika e aksesit në rrugën ujore";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Tunel kanali";
 "type.waterway.fish_pass" = "Kalim peshqish";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Orëndreqës";
 "type.xmas_feature.market" = "Treg Krishtlindjesh";
 "type.xmas_feature.tree" = "Pema e Krishtlindjeve";
+"type.amenity.hookah_lounge" = "Shisha bar";

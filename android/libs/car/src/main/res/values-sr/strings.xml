@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Избегавај трајекте</string>
     <string name="avoid_motorways">Избегавај аутопутеве</string>
     <string name="unable_to_calc_alert_title">Није могуће израчунати руту</string>
+    <string name="trip_finished">Стигли сте!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сортирање маркера</string>
     <!-- Android -->

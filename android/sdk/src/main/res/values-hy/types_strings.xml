@@ -15,11 +15,11 @@
     <string name="type.aeroway">Օդային ենթակառուցվածք</string>
     <string name="type.aeroway.aerodrome">Օդանավակայան</string>
     <string name="type.aeroway.aerodrome.international">Միջազգային օդանավակայան</string>
-    <string name="type.aeroway.apron">Օդանավակայանի կայանատեղի</string>
-    <string name="type.aeroway.gate">Ելք</string>
+    <string name="type.aeroway.apron">Օդանավերի կայանման հարթակ</string>
+    <string name="type.aeroway.gate">Ելքի դարպաս</string>
     <string name="type.aeroway.helipad">Ուղղաթիռի հրապարակ</string>
     <string name="type.aeroway.runway">Թռիչքուղի</string>
-    <string name="type.aeroway.taxiway">Գնացուղի</string>
+    <string name="type.aeroway.taxiway">Օդանավերի շարժուղի</string>
     <string name="type.aeroway.terminal">Տերմինալ</string>
     <string name="type.amenity">Ծառայություններ</string>
     <string name="type.amenity.arts_centre">Արվեստի կենտրոն</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Շենք</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Հասցե</string>
+    <string name="type.building.construction">Կառուցվող շենք</string>
     <string name="type.building.has_parts">Շենք</string>
     <string name="type.building_part">Շենք</string>
     <string name="type.building.garage">Ավտոտնակ</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Միջերկրածովյան</string>
     <string name="type.cuisine.mexican">Մեքսիկական</string>
     <string name="type.cuisine.moroccan">Մարոկկոյական</string>
-    <string name="type.cuisine.noodles">Լապշա</string>
+    <string name="type.cuisine.noodle">Լապշա</string>
     <string name="type.cuisine.oriental">Արևելաասիական</string>
     <string name="type.cuisine.pancake">Նրբաբլիթներ</string>
     <string name="type.cuisine.pasta">Պաստա</string>
@@ -753,6 +754,7 @@
     <string name="type.natural.tree_row">Ծառաշարք</string>
     <string name="type.natural.vineyard">Խաղողի այգի</string>
     <string name="type.natural.volcano">Հրաբուխ</string>
+    <string name="type.natural.volcano.active">Գործող հրաբխ</string>
     <string name="type.natural.water">Ջուր</string>
     <string name="type.natural.wetland">Խոնավ տարածք</string>
     <string name="type.natural.wetland.bog">Տորֆաճահիճ</string>
@@ -1301,6 +1303,18 @@
     <string name="type.sport.field_hockey">Մականախաղ</string>
     <string name="type.sport.badminton">Բադմինտոն</string>
     <string name="type.sport.pelota">Բասկյան պելոտա</string>
+    <string name="type.sport.boules">Բուլ</string>
+    <string name="type.sport.cycling">Հեծանվասպորտ</string>
+    <string name="type.sport.four_square">Չորս քառակուսի</string>
+    <string name="type.sport.horse_racing">Ձիարշավ</string>
+    <string name="type.sport.karting">Քարթինգ</string>
+    <string name="type.sport.motocross">Մոտոկրոս</string>
+    <string name="type.sport.motor">Մոտոսպորտ</string>
+    <string name="type.sport.netball">Նեթբոլ</string>
+    <string name="type.sport.pickleball">Փիքլբոլ</string>
+    <string name="type.sport.rugby_union">Ռեգբի-15</string>
+    <string name="type.sport.running">Վազք</string>
+    <string name="type.sport.softball">Սոֆթբոլ</string>
     <string name="type.tourism">Զբոսաշրջություն</string>
     <string name="type.tourism.aquarium">Ակվարիում</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1320,6 +1334,7 @@
     <string name="type.attraction.historic">Պատմական վայր</string>
     <string name="type.attraction.maze">Լաբիրինթոս</string>
     <string name="type.attraction.roller_coaster">Ամերիկյան բլուրներ</string>
+    <string name="type.roller_coaster.track">Ամերիկյան բլուրներ</string>
     <string name="type.attraction.water_slide">Ջրային սահուղի</string>
     <string name="type.tourism.attraction.specified">Տեսարժան վայր</string>
     <string name="type.tourism.camp_site">Ճամբարային տեղ</string>
@@ -1351,6 +1366,7 @@
     <string name="type.traffic_calming.bump">Արհեստական անհարթություն</string>
     <string name="type.traffic_calming.hump">Արհեստական թմբիկ</string>
     <string name="type.waterway">Ջրային ուղի</string>
+    <string name="type.waterway.access_point">Ջրային ճանապարհի մուտքի կետ</string>
     <string name="type.waterway.canal">Ջրանցք</string>
     <string name="type.waterway.canal.tunnel">Ջրանցքի թունել</string>
     <string name="type.waterway.fish_pass">Ձկնանցարան</string>
@@ -1440,4 +1456,5 @@
     <string name="type.craft.watchmaker">Ժամագործ</string>
     <string name="type.xmas_feature.market">Սուրբ Ծննդյան տոնավաճառ</string>
     <string name="type.xmas_feature.tree">Տոնածառ</string>
+    <string name="type.amenity.hookah_lounge">Նարգիլե բար</string>
 </resources>

@@ -60,7 +60,7 @@ void PowerManager::Load()
     NotifySubscribers(m_subscribers, m_config.m_scheme);
     return;
   }
-  catch (base::Json::Exception & ex)
+  catch (coding::JsonException & ex)
   {
     LOG(LERROR, ("Cannot deserialize power manager data from file. Exception:", ex.Msg()));
   }
@@ -200,7 +200,7 @@ bool PowerManager::Save()
       ser(m_config);
       return true;
     }
-    catch (base::Json::Exception & ex)
+    catch (coding::JsonException & ex)
     {
       LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
     }

@@ -46,7 +46,6 @@ class Style: ExpressibleByDictionaryLiteral {
     case colors
     case images
     case exclusions
-    case unknown
 
     case gridColor
     case previewSelectorColor
@@ -69,12 +68,6 @@ class Style: ExpressibleByDictionaryLiteral {
   }
 
   subscript(keyname: Key) -> Value { params[keyname] ?? nil }
-
-  func append(_ style: Style) {
-    params.merge(style.params) { a, _ -> Style.Value in
-      return a
-    }
-  }
 
   func append(_ styles: [Style]) {
     for style in styles {

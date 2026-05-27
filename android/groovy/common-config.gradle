@@ -25,3 +25,51 @@ android {
     }
   }
 }
+
+afterEvaluate {
+  if (android.enableKotlin) {
+    configurations {
+      ktlint
+      detekt
+    }
+
+    dependencies {
+      ktlint libs.ktlint.cli
+      detekt libs.detekt.cli
+    }
+
+    def ktSources = fileTree('src') { include '**/*.kt' }
+    def editorConfig = file("${rootProject.rootDir}/.editorconfig")
+    def detektConfig = file("${rootProject.rootDir}/detekt.yml")
+
+    tasks.register('ktlintCheck', JavaExec) {
+      description = 'Check Kotlin code style with ktlint.'
+      group = 'verification'
+      classpath = configurations.ktlint
+      mainClass = 'com.pinterest.ktlint.Main'
+      args = ['--editorconfig=' + editorConfig.absolutePath, 'src/**/*.kt']
+      inputs.files(ktSources)
+      inputs.file(editorConfig)
+    }
+
+    tasks.register('ktlintFormat', JavaExec) {
+      description = 'Format Kotlin code with ktlint.'
+      group = 'formatting'
+      classpath = configurations.ktlint
+      mainClass = 'com.pinterest.ktlint.Main'
+      args = ['--editorconfig=' + editorConfig.absolutePath, '--format', 'src/**/*.kt']
+      inputs.files(ktSources)
+      inputs.file(editorConfig)
+    }
+
+    tasks.register('detektCheck', JavaExec) {
+      description = 'Run detekt static analysis on Kotlin code.'
+      group = 'verification'
+      classpath = configurations.detekt
+      mainClass = 'io.gitlab.arturbosch.detekt.cli.Main'
+        args = ['--build-upon-default-config', '--input', 'src', '--config', detektConfig.absolutePath]
+      inputs.files(ktSources)
+      inputs.file(detektConfig)
+    }
+  }
+}

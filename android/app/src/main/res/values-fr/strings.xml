@@ -168,7 +168,7 @@
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">Votre position n\'a pas encore été déterminée</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-    <string name="cant_change_this_setting">Désolé, les paramètres de stockage des cartes sont présentement désactivés.</string>
+    <string name="cant_change_this_setting">Désolé, les paramètres de stockage des cartes sont actuellement désactivés.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Le téléchargement de la carte est en cours.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
@@ -230,7 +230,7 @@
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Teste les instructions vocales (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Vérifie le volume ou les paramètres de synthèse vocale du système si tu n\'entends pas la voix maintenant.</string>
+    <string name="pref_tts_playing_test_voice">Vérifiez le volume ou les paramètres de synthèse vocale du système si vous n\'entendez pas la voix maintenant.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Non disponible</string>
     <string name="pref_map_auto_zoom">Zoom automatique</string>
@@ -293,7 +293,7 @@
     <!-- Preference title -->
     <string name="google_play_services">Services de localisation de Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Détermine rapidement ta position approximative via Bluetooth, WiFi ou le réseau mobile</string>
+    <string name="pref_use_google_play">Détermine rapidement votre position approximative via Bluetooth, WiFi ou le réseau mobile</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Pas assez d\'espace</string>
     <!-- location service disabled -->
@@ -363,7 +363,7 @@
     <string name="hide">Masquer</string>
     <string name="categories">Catégories</string>
     <string name="history">Historique</string>
-    <string name="search_not_found">Désolé, je n\'ai rien trouvé.</string>
+    <string name="search_not_found">Oups, aucun résultat trouvé.</string>
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d\'ajouter le nom d\'une ville ou d\'un village proche.</string>
     <string name="search_history_title">Historique de recherche</string>
@@ -371,6 +371,8 @@
     <string name="clear_search">Effacer l\'historique de recherche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipédia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Article de wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Votre emplacement</string>
@@ -399,7 +401,7 @@
     <string name="editor_example_values">Exemple de valeurs</string>
     <string name="editor_correct_mistake">Corriger l\'erreur</string>
     <string name="editor_add_select_location">Sélectionnez un lieu</string>
-    <string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreetMap de réparer l\'erreur.</string>
+    <string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreetMap de corriger l\'erreur.</string>
     <string name="editor_report_problem_desription_2">Ou faites-le vous-même sur https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Envoyer</string>
     <string name="editor_report_problem_title">Problème</string>
@@ -421,7 +423,7 @@
     <string name="register_at_openstreetmap">S\'inscrire sur OpenStreetMap</string>
     <string name="login">Connexion</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
-    <string name="not_signed_in">Non connecté•e</string>
+    <string name="not_signed_in">Non connecté(e)</string>
     <string name="login_osm">Se connecter à OpenStreetMap</string>
     <string name="password">Mot de passe</string>
     <string name="forgot_password">Mot de passe oublié ?</string>
@@ -469,7 +471,7 @@
     <string name="placepage_add_business_button">Ajouter une entreprise</string>
     <string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org.</string>
+    <string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consultez le site OpenStreetMap.org.</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C\'est la principale source de données cartographiques d\'Organic Maps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d\'utilisateurs dans le monde entier.\nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !</string>
     <string name="login_to_make_edits_visible">Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de cartes dans le monde entier.</string>
@@ -488,15 +490,15 @@
     <!-- Hint of the input field in the OSM note section of the editor -->
     <string name="editor_note_hint">Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec Organic Maps.</string>
     <!-- Information about OSM at the top of the editing page -->
-    <string name="editor_about_osm">Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d\'informations personnelles ou protégées par le droit d\'auteur.</string>
+    <string name="editor_about_osm">Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:About_OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d\'informations personnelles ou protégées par le droit d\'auteur.</string>
     <string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
     <string name="editor_osm_history">Votre historique d\'édition</string>
     <string name="editor_osm_notes">Vos notes sur les données cartographiques</string>
     <string name="editor_operator">Opérateur</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Opérateur : %s</string>
-    <string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
+    <string name="editor_category_unsuitable_title">Vous ne trouvez pas de catégorie appropriée ?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultez notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
     <string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
     <string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
     <string name="current_location_unknown_error_title">L\'emplacement actuel est inconnu.</string>
@@ -529,7 +531,7 @@
     <string name="error_enter_correct_vk_page">Saisissez une adresse web, un nom de compte VK valide</string>
     <string name="error_enter_correct_line_page">Entrez une adresse web ou un ID de LINE valide</string>
     <string name="placepage_add_place_button">Ajouter un lieu sur OpenStreetMap</string>
-    <string name="osm_note_hint">Ou alors laissez une note à la communauté OpenStreetMap pour que quelqu\'un d\'autre puisse ajouter ou réparer un endroit ici.</string>
+    <string name="osm_note_hint">Ou alors laissez une note à la communauté OpenStreetMap pour que quelqu\'un d\'autre puisse ajouter ou corriger un endroit ici.</string>
     <string name="osm_note_toast">Votre note sera envoyée à OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Souhaitez-vous l’envoyer à tous les utilisateurs ?</string>
@@ -573,9 +575,9 @@
     <string name="button_plan">Planifier</string>
     <string name="placepage_remove_stop">Supprimer l\'arrêt</string>
     <string name="placepage_add_stop">Ajouter un arrêt</string>
-    <string name="saved">Sauvé</string>
+    <string name="saved">Enregistré</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
+    <string name="alert_reauth_message">Connectez-vous à OpenStreetMap pour télécharger automatiquement toutes vos modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
     <string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
     <string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
@@ -630,6 +632,8 @@
     <string name="bookmarks_empty_list_message">Pour ajouter un signet, appuyez sur un lieu sur la carte, puis appuyez sur l\'icône étoile</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Changer la couleur de tous les signets</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Changer la couleur de tous les tracés</string>
     <string name="category_desc_more">…plus</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exporter KMZ</string>
@@ -708,6 +712,12 @@
     <string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
     <string name="near_me_sorttype">Près de moi</string>
     <string name="others_sorttype">Autres</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Fermé actuellement</string>
+    <string name="opens_tomorrow_at">Ouvre demain à %s</string>
+    <string name="opens_dayoftheweek_at">Ouvre le %1$s à %2$s</string>
+    <string name="opens_at">Ouvre à %s</string>
+    <string name="closes_at">Ferme à %s</string>
     <string name="editor_add_select_category_all_subtitle">Toutes les catégories</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -730,7 +740,7 @@
     <string name="select_list">Sélectionner une liste</string>
     <string name="button_layer_isolines">Terrain</string>
     <string name="isolines_activation_error_dialog">Pour activer et utiliser la couche topographique, mettez à jour ou téléchargez la carte de l\'endroit désiré</string>
-    <string name="isolines_location_error_dialog">Les lignes d\'élévation ne sont pas encore disponibles dans cette région</string>
+    <string name="isolines_location_error_dialog">Les courbes de niveau ne sont pas encore disponibles dans cette région</string>
     <string name="elevation_profile_ascent">Montée</string>
     <string name="elevation_profile_descent">Descente</string>
     <string name="elevation_profile_min_elevation">Min. élévation</string>
@@ -769,7 +779,7 @@
     <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/fr/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
-    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/FR:About_OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
@@ -803,9 +813,9 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Afficher dans la voiture</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps a besoin d\'un accès à la localisation. Lorsque c\'est sûr, vérifie la notification sur ton téléphone.</string>
+    <string name="aa_location_permissions_request">Organic Maps a besoin d\'un accès à la localisation. Lorsque c\'est sûr, vérifiez la notification sur votre téléphone.</string>
     <!-- Notification title for permission request from AA. -->
-    <string name="aa_request_permission_notification">Cette application a besoin de ta permission</string>
+    <string name="aa_request_permission_notification">Cette application a besoin de votre permission</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Accorder l\'accès</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -818,7 +828,7 @@
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Paramètres du système de synthèse vocale</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-    <string name="pref_tts_no_system_tts">Les paramètres de la synthèse vocale n\'ont pas été trouvés, es-tu sûr que ton appareil la prend en charge ?</string>
+    <string name="pref_tts_no_system_tts">Les paramètres de la synthèse vocale n\'ont pas été trouvés, êtes-vous sûr que votre appareil la prend en charge ?</string>
     <string name="drive_through">Au volant</string>
     <string name="clear_the_search">Efface la recherche</string>
     <string name="zoom_in">Zoom avant</string>
@@ -836,7 +846,7 @@
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Places en terrasse</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
-    <string name="power_save_dialog_summary">Pour une navigation plus précise, nous te recommandons de désactiver le mode d\'économie d\'énergie dans les paramètres de la batterie du téléphone.</string>
+    <string name="power_save_dialog_summary">Pour une navigation plus précise, nous vous recommandons de désactiver le mode d\'économie d\'énergie dans les paramètres de la batterie du téléphone.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Enregistrer la trace</string>
     <!-- Prompt for stopping a track recording. -->
@@ -857,7 +867,7 @@
     <string name="edit_track">Modifier le trace</string>
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto dans la navigation</string>
+    <string name="nav_auto">Auto pendant la navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Suivre le système</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -872,4 +882,22 @@
     <string name="login_osm_browser">Se connecter à l\'aide d\'un navigateur</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Récemment utilisées</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Couleur des signets modifiée</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Couleur des tracés modifiée</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Spectre</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Glissières</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ROUGE</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">VERT</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">BLEU</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">Couleur hexagonale sRGB</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Grille</string>
 </resources>

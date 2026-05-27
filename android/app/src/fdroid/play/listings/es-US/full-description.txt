@@ -1,0 +1,59 @@
+Organic Maps es una aplicación rápida y detallada de mapas sin conexión y navegación GPS para viajes, caminatas, senderismo y aventuras en bicicleta. Planifica, importa y registra rutas, y disfruta de una guía fluida sin agotar la batería ni necesitar conexión a Internet. Explora lugares y navega con seguridad durante tus aventuras al aire libre y tus viajes por todo el mundo. La aplicación ofrece descargas ilimitadas de mapas y actualizaciones quincenales. Basada en OpenStreetMap, creada por voluntarios, con la privacidad como prioridad, 100 % sin conexión y 100 % gratuita.
+
+<b>SIN CONEXIÓN:</b>
+
+La aplicación funciona 100 % sin conexión, incluyendo la búsqueda y la navegación. Puedes explorar el mapa y navegar sin conexión a Internet, ahorrando en datos móviles y tarifas de roaming. Y al no haber transferencias de datos en segundo plano, tu batería dura mucho más.
+
+<b>RÁPIDA:</b>
+
+El zoom, la búsqueda y el cálculo de rutas funcionan notablemente rápido.
+
+<b>DETALLADA Y ACTUALIZADA:</b>
+
+Los mapas son muy detallados y se actualizan dos veces al mes para reflejar las condiciones del mundo real. A diferencia de muchos competidores conocidos, incluyen nombres de edificios, bancos, senderos y otra información útil.
+
+<b>BASADA EN OPENSTREETMAP:</b>
+
+OpenStreetMap es un mapa mundial de estilo wiki creado y mantenido por millones de voluntarios, gente local que conoce mejor sus zonas. Este esfuerzo comunitario da como resultado mapas muy detallados, a menudo más precisos que los comerciales en regiones menos cartografiadas. Organic Maps actualiza sus datos de OpenStreetMap cada dos semanas, lo que mantiene tus mapas actualizados y confiables. Y si notas que falta algo, puedes agregarlo a OpenStreetMap y ayudar a mejorar el mapa para todos.
+
+<b>LA PRIVACIDAD ES LO PRIMERO:</b>
+
+No recopilamos ningún dato ni identificador. Esto significa que no hay riesgo de fugas de datos ni distracciones como anuncios o notificaciones molestas, solo una experiencia de mapas limpia y privada.
+
+<b>CARACTERÍSTICAS IMPORTANTES</b>
+
+<b>EXPLORA LUGARES:</b>
+
+Busca por dirección, nombre o categoría, descubre millones de puntos de interés y consulta información detallada como horarios de apertura, artículos de Wikipedia, accesibilidad para sillas de ruedas y otros detalles útiles.
+
+<b>NAVEGACIÓN GPS:</b>
+
+Disfruta de indicaciones paso a paso con guía de voz. Crea rutas a pie, de senderismo, en bicicleta o en auto, incluyendo rutas entre ciudades, países y múltiples puntos de referencia. Encuentra las mejores rutas para tus viajes en metro y desplazamientos diarios. Compatible con Android Auto.
+
+<b>RUTAS DE SENDERISMO Y CICLISMO DE TODO EL MUNDO:</b>
+
+Activa capas de mapas especiales para descubrir rutas populares de senderismo y ciclismo en todo el mundo, todas ellas procedentes de OpenStreetMap. Cambia entre capas para ver rutas de bicicleta y MTB en color, así como senderos oficiales de senderismo.
+
+<b>TRANSPORTE PÚBLICO:</b>
+
+Consulta los números de las rutas de transporte público en las paradas. Los horarios de transporte en tiempo real y el cálculo de rutas están actualmente en desarrollo.
+
+<b>ESTILOS DE MAPA:</b>
+
+Elige capas de mapa que se adapten a tu actividad: Aire libre, Curvas de nivel, Senderismo, Ciclismo o Metro/Subterráneo.
+
+<b>GRABADOR DE RUTAS:</b>
+
+Graba, importa, exporta y comparte tus rutas y lugares favoritos. Compatible con los formatos KML, KMZ, GPX y GeoJSON.
+
+<b>ARTÍCULOS DE WIKIPEDIA:</b>
+
+Explora artículos de Wikipedia sobre los lugares que descubras en el mapa. Escribe «?wiki» en la búsqueda para encontrar todos los lugares con artículos de Wikipedia.
+
+<b>EDITOR DE MAPAS:</b>
+
+Contribuye a OpenStreetMap añadiendo lugares que falten o editando el mapa directamente desde Organic Maps.
+
+<b>MODO OSCURO:</b>
+
+Cambia a un tema oscuro para una visualización cómoda por la noche.

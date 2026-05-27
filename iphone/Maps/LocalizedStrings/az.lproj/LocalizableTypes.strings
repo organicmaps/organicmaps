@@ -8,7 +8,7 @@
 "type.aerialway" = "Teleferik";
 "type.aerialway.cable_car" = "Teleferik";
 "type.aerialway.chair_lift" = "Kreslo lifti";
-"type.aerialway.drag_lift" = "Bugle teleferik";
+"type.aerialway.drag_lift" = "Bügel lifti";
 "type.aerialway.gondola" = "Qondol";
 "type.aerialway.mixed_lift" = "Teleferik";
 "type.aerialway.station" = "Hava yolu stansiyası";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Address";
+"type.building.construction" = "İnşa edilən bina";
 "type.building.has_parts" = "Bina";
 "type.building_part" = "Bina";
 "type.building.garage" = "Qaraj";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Aralıq dənizi mətbəxi";
 "type.cuisine.mexican" = "Meksika mətbəxi";
 "type.cuisine.moroccan" = "Mərakeş mətbəxi";
-"type.cuisine.noodles" = "Əriştə";
+"type.cuisine.noodle" = "Əriştə";
 "type.cuisine.oriental" = "Uzaq Şərq mətbəxi";
 "type.cuisine.pancake" = "Müşahidə";
 "type.cuisine.pasta" = "Makaron";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Kolbasa";
 "type.cuisine.savory_pancakes" = "Açılış";
 "type.cuisine.seafood" = "Dəniz məhsulları";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Əriştə";
 "type.cuisine.spanish" = "Ispan mətbəxi";
 "type.cuisine.steak_house" = "Steakhouse";
@@ -626,9 +628,9 @@
 "type.historic" = "Tarix";
 "type.historic.aircraft" = "Tarixi Təyyarə";
 "type.historic.anchor" = "Tarixi Çapa";
-"type.historic.archaeological_site" = "Qorunan ərazi";
+"type.historic.archaeological_site" = "Arxeoloji sahə";
 "type.historic.battlefield" = "Döyüş Meydanı";
-"type.historic.boundary_stone" = "Landmark";
+"type.historic.boundary_stone" = "Sərhəd daşı";
 "type.historic.cannon" = "Top";
 "type.historic.castle" = "Möhkəmləndirilmiş qala";
 "type.historic.castle.castrum" = "Kastra";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Üzgüçülük hovuzu";
 "type.leisure.swimming_pool.private" = "Üzgüçülük hovuzu";
-"type.leisure.track" = "Uçuş zolağı";
-"type.leisure.track.area" = "Uçuş zolağı";
+"type.leisure.track" = "İdman treki";
+"type.leisure.track.area" = "İdman treki";
 "type.leisure.water_park" = "Su parkı";
 "type.leisure.beach_resort" = "Çimərlik kurort";
 "type.man_made" = "İnsan istehsalı";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Ağac cərgəsi";
 "type.natural.vineyard" = "Bond";
 "type.natural.volcano" = "Vulkan";
+"type.natural.volcano.active" = "Fəal vulkan";
 "type.natural.water" = "Su təchizatı";
 "type.natural.wetland" = "Bataqlıq";
 "type.natural.wetland.bog" = "Bataqlıq";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Otüstü xokkey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Bask pelota";
+"type.sport.boules" = "Bul";
+"type.sport.cycling" = "Velosiped idmanı";
+"type.sport.four_square" = "Dörd kvadrat";
+"type.sport.horse_racing" = "At yarışı";
+"type.sport.karting" = "Kartinq";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motor idmanı";
+"type.sport.netball" = "Netbol";
+"type.sport.pickleball" = "Piklbol";
+"type.sport.rugby_union" = "Reqbi ittifaqı";
+"type.sport.running" = "Qaçış";
+"type.sport.softball" = "Softbol";
 "type.tourism" = "Turizm";
 "type.tourism.aquarium" = "Akvarium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Tarixi cazibə";
 "type.attraction.maze" = "Labirent";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Su Slayd";
 "type.tourism.attraction.specified" = "Attraksionlar";
 "type.tourism.camp_site" = "Düşərgə sahəsi";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Sürət Qırıcı (Rip)";
 "type.traffic_calming.hump" = "Sürət Qırıcı (Rip)";
 "type.waterway" = "Su yolu";
+"type.waterway.access_point" = "Su yolu giriş nöqtəsi";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Balıq keçidi";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Watchmaker";
 "type.xmas_feature.market" = "Milad bazarı";
 "type.xmas_feature.tree" = "Milad ağacı";
+"type.amenity.hookah_lounge" = "Hookah Lounge";

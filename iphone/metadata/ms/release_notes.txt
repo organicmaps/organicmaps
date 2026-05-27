@@ -1,27 +1,56 @@
-• Data peta OSM per 16 Februari
-• Data Wikipedia per 1 Februari
-• Laluan mendaki dan berbasikal hitam kini kelihatan dalam tema gelap
-• Menambah lebih banyak perkhidmatan kereta: pembaikan, servis dan alat ganti
-• Menambah pengesahan penyemak imbas OSM
-• Memperbaiki akses basikal pada beberapa jenis jalan
-• Memperbaiki pengiraan kelajuan purata
-• Meningkatkan kedudukan carian untuk kategori
-• Menambah masakan Uzbekistan
-• Menambah zip line pada peta
-• Memperbaiki pautan Wikimedia dengan "?" dalam tajuk
-• Memperbaiki penghuraian fail GPX dengan "+" dalam koordinat
+## Peta
 
-### Terjemahan
+- BARU! Peta kini dipaparkan dengan betul merentasi antimeridian semasa diseret dan diputar
+- Data OpenStreetMap dikemas kini setakat 4 April
+- Data Wikipedia dikemas kini setakat 1 April
+- Ditambah ikon untuk medan selera dan pintu gerbang bandar
+- Ditambah subkategori kedai pakaian: wanita, lelaki, kanak-kanak, perkahwinan, sukan, pakaian dalam, serta pakaian pejabat
+- Dibaiki warna laluan kereta bawah tanah Sydney
+- Dibaiki paparan waktu buka untuk tempat dengan perbezaan waktu matahari terbit/terbenam
 
-• Mengalih keluar nama bandar pendua di beberapa kawasan peta
-• Memperbaiki arahan suara Ibrani
-• Memperbaiki kesilapan taip Korea
-• Menambah sinonim carian Rusia
-• Meningkatkan arahan suara Jerman
-• Memperbaiki terjemahan yang hilang untuk terowong kereta api yang tidak digunakan
-• Memperbaiki terjemahan negara dalam bahasa Romania
-• Menambah terjemahan Laos dan Armenia
-• Menambah terjemahan Armenia yang hilang
-• Mengemas kini terjemahan daripada penyumbang Weblate
+## Perutean dan Navigasi
 
-Terima kasih kepada semua yang menyumbang, menderma dan menyokong Organic Maps! Mari bina peta terbaik bersama-sama!
+- BARU! Ketik laluan berbasikal atau mendaki untuk memilihnya dan melihat carta ketinggiannya
+- Paparan pelbagai warna untuk laluan mendaki dan berbasikal dipertingkatkan
+- Navigasi berbasikal kini menggunakan arah kompas pada kelajuan rendah
+- Ralat sistem semasa merancang laluan berhampiran beberapa sempadan wilayah telah dibaiki
+- Anda kini boleh memulakan laluan yang sah walaupun diminta memuat turun peta tambahan
+
+## Penanda Buku dan Jejak
+
+- BARU! Tukar semua warna penanda buku dan jejak dalam satu kategori sekaligus
+- Anggaran kenaikan dan penurunan ketinggian pada graf jejak dilaraskan supaya lebih sepadan dengan aplikasi lain
+- Paparan kandungan HTML dengan jadual dan imej dalam butiran penanda buku dipertingkatkan
+- Ditambah pemisah menegak untuk jejak berbilang segmen dalam carta ketinggian
+- Dibaiki pemilihan titik dalam carta ketinggian untuk titik yang diinterpolasi
+- Dibaiki rakaman jejak GPS yang kehilangan titik di antara segmen
+- Dibaiki import GeoJSON
+- Dibaiki ranap semasa mengeksport jejak
+
+## Carian
+
+- Carian di Amerika Syarikat dipertingkatkan, dengan dua juta alamat tambahan yang dihuraikan daripada data Banci TIGER
+- Kategori carian dikemas kini: "Roti" ditambah untuk kedai roti, "Shawarma" untuk masakan, serta penambahbaikan sinonim lain
+- Carian alamat nombor rumah dipertingkatkan
+- Ditambah sinonim jalan di AS: highway, hwy, freeway, fwy
+- Dibaiki keputusan carian apabila nama bandar dan negeri adalah sama
+
+## Editor / OpenStreetMap
+
+- Anda kini boleh menambah tempat baharu ke OpenStreetMap selepas memilih kedudukan semasa anda pada peta
+- Dibaiki ketidakselarasan garis silang penyunting apabila menekan "Tambah Tempat"
+- Kawasan sentuhan butang dalam bar navigasi "Tambah Tempat" diperbesar
+
+## UI dan UX
+
+- Gestur modal dipertingkatkan: lekap pada langkah terdekat, tutup apabila menggeser dari tepi, dan pulihkan keadaan sebelumnya apabila dibuka semula
+- Dibaiki pengendalian waktu penjimatan siang untuk zon waktu
+
+## Kestabilan dan Penyetempatan
+
+- Kestabilan dan prestasi dipertingkatkan, penggunaan bateri dikurangkan
+- Terjemahan dikemas kini
+
+## Sokongan Platform
+
+- Disebabkan perubahan pada TestFlight dan App Store, keluaran ini hanya menyokong iOS 15 dan yang lebih baharu. iOS 12, 13, dan 14 tidak lagi disokong.

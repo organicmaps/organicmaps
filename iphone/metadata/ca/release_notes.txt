@@ -1,27 +1,56 @@
-• Dades del mapa OSM del 16 de febrer
-• Dades de la Viquipèdia de l'1 de febrer
-• Les rutes de senderisme i ciclisme negres ara són visibles al tema fosc
-• S'han afegit més serveis per a cotxes: reparació, servei i recanvis
-• S'ha afegit l'autenticació del navegador OSM
-• S'ha corregit l'accés de bicicletes en alguns tipus de carreteres
-• S'ha corregit el càlcul de la velocitat mitjana
-• Millora del rànquing de cerca per categories
-• S'ha afegit cuina uzbeka
-• S'han afegit tirolines al mapa
-• S'han corregit els enllaços de Wikimedia amb "?" al títol
-• S'ha corregit l'anàlisi de fitxers GPX amb "+" a les coordenades
+## Mapa
 
-### Traduccions
+- NOVETAT! Adaptació correcta del mapa a l'antimeridià en arrossegar i girar
+- Dades d'OpenStreetMap actualitzades a 4 d'abril
+- Dades de la Viquipèdia actualitzades a 1 d'abril
+- S'han afegit icones per a zones de restauració i portes de la ciutat
+- S'han afegit subcategories per a botigues de roba: dona, home, nen, núvia, esport, roba interior i tipus d'oficina
+- S'han corregit els colors de les línies de metro de Sydney
+- S'ha corregit la visualització dels horaris d'obertura per a llocs amb desplaçaments en l'alba/el capvespre
 
-• S'han eliminat noms de ciutats duplicats en algunes regions del mapa
-• S'han corregit les indicacions de veu en hebreu
-• S'han corregit errors tipogràfics en coreà
-• S'han afegit sinònims de cerca en rus
-• Millora de les indicacions de veu en alemany
-• S'ha corregit la traducció que faltava per al túnel ferroviari en desús
-• S'ha corregit la traducció del país en romanès
-• S'han afegit traduccions al laosià i a l'armeni
-• S'han afegit traduccions armènies que faltaven
-• S'han actualitzat les traduccions dels col·laboradors de Weblate
+## Rutes i navegació
 
-Gràcies a tothom que contribueix, fa donacions i dóna suport a Organic Maps! Construïm els millors mapes junts!
+- NOVETAT! Toca una ruta de bicicleta o de senderisme per seleccionar-la i veure'n el gràfic d'altitud
+- Millorat el renderitzat multicolor per a les rutes de senderisme i bicicleta
+- La navegació per bicicleta ara utilitza el rumb de la brúixola a velocitats baixes
+- S'ha corregit un error del sistema en planificar rutes a prop d'algunes fronteres regionals
+- Ara pots començar una ruta vàlida fins i tot quan se't demani que descarreguis mapes addicionals
+
+## Marcadors i Traçats
+
+- NOVETAT! Canvieu tots els colors dels marcadors i les rutes d'una categoria alhora
+- S'ha ajustat l'aproximació del desnivell positiu i negatiu als gràfics de ruta perquè coincideixi millor amb altres aplicacions
+- Millorada la visualització de contingut HTML amb taules i imatges als detalls dels marcadors
+- S'han afegit separadors verticals per a les rutes de diversos segments al gràfic d'altitud
+- S'ha corregit la selecció de punts al gràfic d'altitud per als punts interpolats
+- S'ha corregit la pèrdua de punts en la gravació de la ruta GPS entre segments
+- S'ha corregit la importació de GeoJSON
+- S'ha corregit un bloqueig en exportar rutes
+
+## Cerca
+
+- Millora de la cerca als EUA, amb dos milions d'adreces addicionals processades a partir de les dades del cens TIGER
+- S'han actualitzat les categories de cerca: s'ha afegit "Pa" per a fleques, cuina "shawarma" i altres millores de sinònims
+- Millorada la cerca d'adreces amb número de casa
+- S'han afegit sinònims de carrers dels EUA: highway, hwy, freeway, fwy
+- S'han corregit els resultats de cerca quan el nom de la ciutat i de l'estat és el mateix
+
+## Editor / OpenStreetMap
+
+- Ara podeu afegir un lloc nou a OpenStreetMap després de seleccionar la vostra posició actual al mapa
+- S'ha corregit el desalineament del punt de mira de l'editor en prémer «Afegeix lloc»
+- S'ha augmentat la superfície tàctil dels botons de la barra de navegació «Afegeix lloc»
+
+## UI i UX
+
+- Millorats els gestos modals: ajustament al pas més proper, tancament en desplaçar-se per la vora i restauració de l'estat anterior en tornar-lo a obrir
+- S'ha corregit el tractament de l'horari d'estiu per a les zones horàries
+
+## Estabilitat i localització
+
+- Millorada l'estabilitat i el rendiment, i reduït el consum de bateria
+- Actualitzades les traduccions
+
+## Suport de plataformes
+
+- A causa dels canvis a TestFlight i l'App Store, aquesta versió només és compatible amb iOS 15 o posterior. Ja no es dona suport a iOS 12, 13 i 14.

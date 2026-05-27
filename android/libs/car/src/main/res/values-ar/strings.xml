@@ -24,7 +24,7 @@
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">بقالية</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">وقود الحافلات</string>
+    <string name="category_fuel">وقود</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">مرافق ركن السيارات</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
@@ -83,6 +83,7 @@
     <string name="avoid_ferry">تجنب استخدام العبّارات</string>
     <string name="avoid_motorways">تجنب الطريق السريع</string>
     <string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
+    <string name="trip_finished">لقد وصلت!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">رتّب العلامات المرجعية</string>
     <!-- Android -->
@@ -100,7 +101,7 @@
     <string name="downloader_loading_ios">جاري التنزيل</string>
     <string name="download_map_title">تنزيل الخريطة العامة للعالم</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">تحتاج الخرائط العضوية في أندرويد أوتو إلى أذونات الموقع للعمل بفعالية</string>
+    <string name="aa_request_permission_activity_text">Organic Maps في Android Auto تحتاج إلى أذونات الموقع لتعمل بفعالية</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
 </resources>

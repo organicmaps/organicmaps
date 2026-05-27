@@ -21,16 +21,6 @@
       </FileRef>
    </Group>
    <Group
-      location = "container:../libs/pyhelpers"
-      name = "pyhelpers">
-      <FileRef
-         location = "group:pair.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:vector_uint8.hpp">
-      </FileRef>
-   </Group>
-   <Group
       location = "container:"
       name = "3party">
       <FileRef
@@ -53,9 +43,6 @@
       </FileRef>
       <FileRef
          location = "container:harfbuzz/harfbuzz.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:jansson/jansson.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:minizip/minizip.xcodeproj">
@@ -90,9 +77,6 @@
    </FileRef>
    <FileRef
       location = "container:coding/coding.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:cppjansson/cppjansson.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:descriptions/descriptions.xcodeproj">
@@ -165,9 +149,6 @@
    </FileRef>
    <FileRef
       location = "group:../iphone/CoreApi/CoreApi.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../iphone/DatePicker/DatePicker.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../iphone/Maps/Maps.xcodeproj">

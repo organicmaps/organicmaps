@@ -7,11 +7,37 @@
 #include <algorithm>
 #include <functional>
 #include <iterator>
+#include <optional>
 
 #include "font_constants.hpp"
 
 namespace dp
 {
+namespace
+{
+// Single row-flow advance for a glyph cell of the given size. Mutates the cursor in place;
+// returns the cell's top-left position (or std::nullopt if no row contains it). Shared by
+// PackGlyph (real placement) and CanBePacked (dry run on local state) so the row-wrap rule
+// -- in particular resetting yStep when wrapping to a new row -- stays in lock-step.
+std::optional<m2::PointU> AdvanceCursor(uint32_t width, uint32_t height, uint32_t & cursorX, uint32_t & cursorY,
+                                        uint32_t & yStep, m2::PointU const & size)
+{
+  if (cursorX + width > size.x)
+  {
+    cursorX = 0;
+    cursorY += yStep;
+    yStep = 0;
+  }
+  if (cursorY + height > size.y)
+    return std::nullopt;
+
+  m2::PointU const placedAt{cursorX, cursorY};
+  cursorX += width;
+  yStep = std::max(height, yStep);
+  return placedAt;
+}
+}  // namespace
+
 GlyphPacker::GlyphPacker(m2::PointU const & size) : m_size(size) {}
 
 bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
@@ -19,23 +45,14 @@ bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
   ASSERT_LESS(width, m_size.x, ());
   ASSERT_LESS(height, m_size.y, ());
 
-  if (m_cursor.x + width > m_size.x)
-  {
-    m_cursor.x = 0;
-    m_cursor.y += m_yStep;
-    m_yStep = 0;
-  }
-
-  if (m_cursor.y + height > m_size.y)
+  auto const placed = AdvanceCursor(width, height, m_cursor.x, m_cursor.y, m_yStep, m_size);
+  if (!placed)
   {
     m_isFull = true;
     return false;
   }
 
-  rect = m2::RectU(m_cursor.x, m_cursor.y, m_cursor.x + width, m_cursor.y + height);
-
-  m_cursor.x += width;
-  m_yStep = std::max(height, m_yStep);
+  rect = m2::RectU(placed->x, placed->y, placed->x + width, placed->y + height);
   return true;
 }
 
@@ -43,21 +60,10 @@ bool GlyphPacker::CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t hei
 {
   uint32_t x = m_cursor.x;
   uint32_t y = m_cursor.y;
-  uint32_t step = m_yStep;
-  for (uint32_t i = 0; i < glyphsCount; i++)
-  {
-    if (x + width > m_size.x)
-    {
-      x = 0;
-      y += step;
-    }
-
-    if (y + height > m_size.y)
+  uint32_t yStep = m_yStep;
+  for (uint32_t i = 0; i < glyphsCount; ++i)
+    if (!AdvanceCursor(width, height, x, y, yStep, m_size))
       return false;
-
-    x += width;
-    step = std::max(height, step);
-  }
   return true;
 }
 
@@ -85,14 +91,6 @@ GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng) : m_p
   ASSERT(m_mng != nullptr, ());
 }
 
-GlyphIndex::~GlyphIndex()
-{
-  std::lock_guard lock(m_mutex);
-  for (auto & [rect, glyph] : m_pendingNodes)
-    glyph.m_image.Destroy();
-  m_pendingNodes.clear();
-}
-
 std::vector<ref_ptr<Texture::ResourceInfo>> GlyphIndex::MapResources(TGlyphs const & keys, bool & hasNewResources)
 {
   std::vector<ref_ptr<Texture::ResourceInfo>> info;
@@ -110,6 +108,11 @@ std::vector<ref_ptr<Texture::ResourceInfo>> GlyphIndex::MapResources(TGlyphs con
   return info;
 }
 
+// Threading: m_index is accessed without m_mutex because the only caller, TextureManager
+// (ShapeSingleTextLine and friends), serialises calls through its own m_calcGlyphsMutex.
+// m_mutex is taken below only for the cross-thread queue m_pendingNodes, which UploadResources
+// drains on the render thread. If a future caller breaks the m_calcGlyphsMutex serialisation,
+// the unordered_map lookup/emplace becomes UB.
 ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphFontAndId const & key, bool & newResource)
 {
   newResource = false;
@@ -119,12 +122,10 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphFontAndId const & ke
   newResource = true;
 
   constexpr bool kUseSdf = true;
-  GlyphImage glyphImage = m_mng->GetGlyphImage(key, dp::kBaseFontSizePixels, kUseSdf);
+  GlyphImage glyphImage = m_mng->GetGlyphImage(key, kUseSdf);
   m2::RectU r;
   if (!m_packer.PackGlyph(glyphImage.m_width, glyphImage.m_height, r))
   {
-    glyphImage.Destroy();
-
     LOG(LWARNING, ("Glyphs packer could not pack a glyph with fontIndex =", key.m_fontIndex, "glyphId =", key.m_glyphId,
                    "w =", glyphImage.m_width, "h =", glyphImage.m_height, "packerSize =", m_packer.GetSize()));
 
@@ -204,8 +205,7 @@ void GlyphIndex::UploadResources(ref_ptr<GraphicsContext> context, ref_ptr<Textu
     m2::PointU const zeroPoint = rect.LeftBottom();
     uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
     texture->UploadData(context, zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(srcMemory));
-
-    glyph.m_image.Destroy();
   }
+  // pendingNodes is local; m_image's deleter returns each pooled buffer on scope exit.
 }
 }  // namespace dp

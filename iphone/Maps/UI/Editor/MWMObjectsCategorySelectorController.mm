@@ -19,7 +19,9 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
                                                     UITableViewDelegate,
                                                     UITableViewDataSource,
                                                     MWMKeyboardObserver>
-{}
+{
+  m2::PointD m_createdPosition;
+}
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(nonatomic) UISearchController * searchViewController;
@@ -60,6 +62,11 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 - (void)setSelectedCategory:(std::string const &)type
 {
   self.selectedType = @(type.c_str());
+}
+
+- (void)setCreatedPosition:(m2::PointD const &)position
+{
+  m_createdPosition = position;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -130,18 +137,10 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   }
   else
   {
-    UIColor * textColor;
-    if (@available(iOS 13.0, *))
-    {
-      textColor = [[UIColor alloc] initWithDynamicProvider:^UIColor *(UITraitCollection * traitCollection) {
-        return traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? UIColor.whitePrimaryText
-                                                                              : UIColor.blackPrimaryText;
-      }];
-    }
-    else
-    {
-      textColor = UIColor.blackPrimaryText;
-    }
+    UIColor * textColor = [[UIColor alloc] initWithDynamicProvider:^UIColor *(UITraitCollection * traitCollection) {
+      return traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? UIColor.whitePrimaryText
+                                                                            : UIColor.blackPrimaryText;
+    }];
     NSMutableAttributedString * mutableAttributedText =
         [[NSMutableAttributedString alloc] initWithAttributedString:attributedText];
     [mutableAttributedText
@@ -208,9 +207,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   EditableMapObject emo;
   auto & f = GetFramework();
   auto const type = classif().GetTypeByReadableObjectName(self.selectedType.UTF8String);
-  if (!f.CreateMapObject(f.GetViewportCenter(), type, emo))
-    NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is "
-                    @"always called before!");
+  CHECK(f.CreateMapObject(m_createdPosition, type, emo), ());
   return emo;
 }
 

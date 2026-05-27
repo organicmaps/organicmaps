@@ -1,8 +1,7 @@
 #import <CoreApi/AppInfo.h>
 #import <CoreApi/Framework.h>
-#import <CoreApi/MWMCommon.h>
 #import <CoreSpotlight/CoreSpotlight.h>
-#import <MobileCoreServices/MobileCoreServices.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
 
@@ -10,7 +9,7 @@
 
 + (void)addCategoriesToSpotlight
 {
-  if (isIOSVersionLessThan(9) || ![CSSearchableIndex isIndexingAvailable])
+  if (![CSSearchableIndex isIndexingAvailable])
     return;
 
   NSString * localeLanguageId = [[AppInfo sharedInfo] languageId];
@@ -23,8 +22,7 @@
 
   for (auto const & categoryKey : categoriesKeys)
   {
-    CSSearchableItemAttributeSet * attrSet =
-        [[CSSearchableItemAttributeSet alloc] initWithItemContentType:static_cast<NSString *>(kUTTypeItem)];
+    CSSearchableItemAttributeSet * attrSet = [[CSSearchableItemAttributeSet alloc] initWithContentType:UTTypeItem];
 
     NSString * categoryName = nil;
     NSMutableDictionary<NSString *, NSString *> * localizedStrings = [@{} mutableCopy];

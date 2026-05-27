@@ -224,6 +224,7 @@
     <string name="type.building">Rakennus</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Osoite</string>
+    <string name="type.building.construction">Rakenteilla oleva rakennus</string>
     <string name="type.building.has_parts">Rakennus</string>
     <string name="type.building_part">Rakennus</string>
     <string name="type.building.garage">Autotalli</string>
@@ -313,7 +314,7 @@
     <string name="type.cuisine.mediterranean">Välimeren keittiö</string>
     <string name="type.cuisine.mexican">Meksikolainen keittiö</string>
     <string name="type.cuisine.moroccan">Marokkolainen keittiö</string>
-    <string name="type.cuisine.noodles">Nuudelit</string>
+    <string name="type.cuisine.noodle">Nuudelit</string>
     <string name="type.cuisine.oriental">Itämainen keittiö</string>
     <string name="type.cuisine.pancake">Lettu</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -328,7 +329,8 @@
     <string name="type.cuisine.sandwich">Voileipä</string>
     <string name="type.cuisine.sausage">Makkara</string>
     <string name="type.cuisine.savory_pancakes">Suolaiset letut</string>
-    <string name="type.cuisine.seafood">Meren elävät</string>
+    <string name="type.cuisine.seafood">Merenelävät</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Sobanuudeli</string>
     <string name="type.cuisine.spanish">Espanjalainen keittiö</string>
     <string name="type.cuisine.steak_house">Pihviravintola</string>
@@ -408,7 +410,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Moottoritietunneli</string>
     <string name="type.highway.motorway_junction">Poistumistie</string>
-    <string name="type.highway.motorway_link">Mottoritieramppi</string>
+    <string name="type.highway.motorway_link">Moottoritieramppi</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Silta</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -645,6 +647,8 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Uima-allas</string>
     <string name="type.leisure.swimming_pool.private">Uima-allas</string>
+    <string name="type.leisure.track">Urheilurata</string>
+    <string name="type.leisure.track.area">Urheilurata</string>
     <string name="type.leisure.water_park">Vesipuisto</string>
     <string name="type.man_made.chimney">Tehtaan piippu</string>
     <string name="type.man_made.flagpole">Lipputanko</string>
@@ -711,6 +715,7 @@
     <string name="type.natural.tree_row">Puurivi</string>
     <string name="type.natural.vineyard">Viinitila</string>
     <string name="type.natural.volcano">Tulivuori</string>
+    <string name="type.natural.volcano.active">Aktiivinen tulivuori</string>
     <string name="type.natural.water">Vettä</string>
     <string name="type.natural.wetland">Soistuva maa</string>
     <string name="type.natural.wetland.bog">Suo</string>
@@ -1208,6 +1213,18 @@
     <string name="type.sport.field_hockey">Maahockey</string>
     <string name="type.sport.badminton">Sulkapallo</string>
     <string name="type.sport.pelota">Baskimaan pelota</string>
+    <string name="type.sport.boules">Petankki</string>
+    <string name="type.sport.cycling">Pyöräily</string>
+    <string name="type.sport.four_square">Neljä ruutua</string>
+    <string name="type.sport.horse_racing">Hevoskilpailut</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Moottoriurheilu</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby union</string>
+    <string name="type.sport.running">Juoksu</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turismi</string>
     <string name="type.tourism.aquarium">Akvaario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1225,6 +1242,7 @@
     <string name="type.attraction.historic">Historiallinen nähtävyys</string>
     <string name="type.attraction.maze">Sokkelo</string>
     <string name="type.attraction.roller_coaster">Vuoristorata</string>
+    <string name="type.roller_coaster.track">Vuoristorata</string>
     <string name="type.attraction.water_slide">Vesiliukumäki</string>
     <string name="type.tourism.attraction.specified">Nähtävyys</string>
     <string name="type.tourism.camp_site">Retkeily</string>
@@ -1253,6 +1271,7 @@
     <string name="type.tourism.zoo.petting">Lemmikkieläintarha</string>
     <string name="type.traffic_calming.bump">Hidastetöyssy</string>
     <string name="type.waterway">Vesiväylä</string>
+    <string name="type.waterway.access_point">Vesiväylän liittymispiste</string>
     <string name="type.waterway.canal">Kanaali</string>
     <string name="type.waterway.canal.tunnel">Kanaali</string>
     <string name="type.waterway.fish_pass">Kalatikkaat</string>
@@ -1329,4 +1348,5 @@
     <string name="type.craft.watchmaker">Kelloseppä</string>
     <string name="type.xmas_feature.market">Joulumarkkinat</string>
     <string name="type.xmas_feature.tree">Joulukuusi</string>
+    <string name="type.amenity.hookah_lounge">Vesipiippubaari</string>
 </resources>

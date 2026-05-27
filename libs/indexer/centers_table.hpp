@@ -6,7 +6,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -56,11 +55,9 @@ public:
 
   uint64_t Count() const { return m_map->Count(); }
 
-  // Loads CentersTable instance. Note that |reader| must be alive
-  // until the destruction of loaded table. Returns nullptr if
-  // CentersTable can't be loaded.
-  static std::unique_ptr<CentersTable> LoadV0(Reader & reader, serial::GeometryCodingParams const & codingParams);
-
+  /// Loads CentersTable instance.
+  /// @note reader must be alive until the destruction of loaded table.
+  /// @return nullptr if CentersTable can't be loaded.
   static std::unique_ptr<CentersTable> LoadV1(Reader & reader);
 
 private:
@@ -83,10 +80,6 @@ public:
   void WriteBlock(Writer & w, std::vector<m2::PointU>::const_iterator begin,
                   std::vector<m2::PointU>::const_iterator end) const;
   void Freeze(Writer & writer) const;
-
-  void SetGeometryCodingParamsV0ForTests(serial::GeometryCodingParams const & codingParams);
-  void PutV0ForTests(uint32_t featureId, m2::PointD const & center);
-  void FreezeV0ForTests(Writer & writer) const;
 
 private:
   serial::GeometryCodingParams m_codingParams;

@@ -68,7 +68,6 @@ class MapsGenerationDAG(DAG):
                 sd.StageCoastline(),
                 sd.StagePreprocess(),
                 sd.StageFeatures(),
-                sd.StageDownloadDescriptions(),
             ),
         )
 

@@ -31,6 +31,10 @@ class MapObject;
 // Lazy feature loader. Loads needed data and caches it.
 class FeatureType
 {
+  // Test-only friend: lets MockTestFeature populate m_points / m_limitRect /
+  // m_header / m_parsed directly without going through a real .mwm load.
+  friend class MockTestFeature;
+
   FeatureType() = default;
 
 public:
@@ -135,15 +139,22 @@ public:
   m2::PointD const & GetPoint(size_t i) const;
 
   template <typename TFunctor>
+  void ForEachSegment(TFunctor && f, int scale)
+  {
+    ParseGeometry(scale);
+
+    for (size_t i = 1; i < m_points.size(); ++i)
+      f(m_points[i - 1], m_points[i]);
+  }
+
+  template <typename TFunctor>
   void ForEachTriangle(TFunctor && f, int scale)
   {
     ParseTriangles(scale);
 
-    for (size_t i = 0; i < m_triangles.size();)
-    {
+    ASSERT(m_triangles.size() % 3 == 0, ());
+    for (size_t i = 0; i < m_triangles.size(); i += 3)
       f(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
-      i += 3;
-    }
   }
   //@}
 
@@ -197,7 +208,12 @@ public:
   using RelationIDsV = feature::ShortArray;
   RelationIDsV const & GetRelations();
 
-  feature::RouteRelationBase ReadRelation(uint32_t id);
+  /// Fast function to for preliminary filtering by type.
+  feature::RouteRelationBase::Type ReadRelationType(uint32_t id);
+
+  /// @param[in] RelT Can be RouteRelationBase (fast) or RouteRelation (with members).
+  template <class RelT>
+  RelT ReadRelation(uint32_t id);
 
 private:
   struct ParsedFlags

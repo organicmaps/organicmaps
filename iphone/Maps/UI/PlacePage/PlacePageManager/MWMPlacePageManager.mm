@@ -194,8 +194,15 @@ using namespace storage;
   auto & bmManager = f.GetBookmarkManager();
   auto & info = f.GetCurrentPlacePageInfo();
   kml::MarkGroupId categoryId = f.LastEditedBMCategory();
-  if (info.IsTrack() && categoryId != data.trackData.groupId)
-    categoryId = data.trackData.groupId;
+  // For a track that already lives in a user category, save the new bookmark in the same category.
+  // Tracks without an owning category (e.g. OSM relation tracks) expose groupId == 0 here, which is
+  // not a valid MarkGroupId and would abort GetBmCategory — fall back to LastEditedBMCategory then.
+  if (info.IsTrack())
+  {
+    auto const trackGroupId = static_cast<kml::MarkGroupId>(data.trackData.groupId);
+    if (trackGroupId != categoryId && bmManager.HasBmCategory(trackGroupId))
+      categoryId = trackGroupId;
+  }
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
@@ -227,9 +234,7 @@ using namespace storage;
 
 - (void)removeBookmark:(PlacePageData *)data
 {
-  auto & f = GetFramework();
-  f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
-  [MWMFrameworkHelper updateAfterDeleteBookmark];
+  [[MWMBookmarksManager sharedManager] deleteBookmark:data.bookmarkData.bookmarkId];
 }
 
 - (void)updateTrack:(PlacePageData *)data
@@ -238,14 +243,17 @@ using namespace storage;
            category:(MWMMarkGroupID)category
 {
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
-  [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:title];
+  [bookmarksManager updateTrack:data.trackData.trackId
+                     setGroupId:category
+                          color:color
+                          title:title
+                    description:data.trackData.trackDescription];
   [MWMFrameworkHelper updatePlacePageData];
 }
 
 - (void)removeTrack:(PlacePageData *)data
 {
-  auto & f = GetFramework();
-  f.GetBookmarkManager().GetEditSession().DeleteTrack(data.trackData.trackId);
+  [[MWMBookmarksManager sharedManager] deleteTrack:data.trackData.trackId];
 }
 
 - (void)call:(PlacePagePhone *)phone
@@ -361,12 +369,6 @@ using namespace storage;
 - (void)openEmail:(PlacePageData *)data
 {
   [MailComposer sendEmailWithSubject:nil body:nil toRecipients:@[data.infoData.email] attachmentFileURL:nil];
-}
-
-- (void)openElevationDifficultPopup:(PlacePageData *)data
-{
-  auto difficultyPopup = [ElevationDetailsBuilder buildWithData:data];
-  [[MapViewController sharedController] presentViewController:difficultyPopup animated:YES completion:nil];
 }
 
 #pragma mark - AvailableArea / PlacePageArea

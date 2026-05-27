@@ -11,6 +11,7 @@
 
 #include <utility>
 
+#include <fcntl.h>
 #include <ifaddrs.h>
 
 #include <mach/mach.h>
@@ -18,16 +19,13 @@
 #include <net/if.h>
 #include <net/if_dl.h>
 
-#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
 #include <sys/xattr.h>
 
 #import <CoreFoundation/CFURL.h>
-#import <SystemConfiguration/SystemConfiguration.h>
 #import <UIKit/UIKit.h>
-#import <netinet/in.h>
 
 #include <memory>
 #include <sstream>
@@ -36,7 +34,7 @@
 
 Platform::Platform()
 {
-  m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+  m_isTablet = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
 
   NSBundle * bundle = NSBundle.mainBundle;
   NSString * path = [bundle resourcePath];
@@ -65,6 +63,10 @@ Platform::Platform()
 
   LOG(LINFO, ("Device:", device.model.UTF8String, "SystemName:", device.systemName.UTF8String,
               "SystemVersion:", device.systemVersion.UTF8String));
+
+  // Kick off the connection-status monitor at launch; its first asynchronous
+  // callback should arrive long before any UI code queries IsConnected().
+  ConnectionStatus();
 }
 
 // static
@@ -155,9 +157,7 @@ std::string Platform::DeviceModel() const
   utsname systemInfo;
   uname(&systemInfo);
   NSString * deviceModel = @(systemInfo.machine);
-  if (auto m = platform::kDeviceModelsBeforeMetalDriver[deviceModel])
-    deviceModel = m;
-  else if (auto m = platform::kDeviceModelsWithiOS10MetalDriver[deviceModel])
+  if (auto m = platform::kDeviceModelsWithiOS10MetalDriver[deviceModel])
     deviceModel = m;
   else if (auto m = platform::kDeviceModelsWithMetalDriver[deviceModel])
     deviceModel = m;
@@ -187,30 +187,7 @@ int32_t Platform::IntVersion() const
   return (int32_t)(year - 2000) * 10000 + month * 100 + day;
 }
 
-Platform::EConnectionType Platform::ConnectionStatus()
-{
-  struct sockaddr_in zero;
-  bzero(&zero, sizeof(zero));
-  zero.sin_len = sizeof(zero);
-  zero.sin_family = AF_INET;
-  SCNetworkReachabilityRef reachability =
-      SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)&zero);
-  if (!reachability)
-    return EConnectionType::CONNECTION_NONE;
-  SCNetworkReachabilityFlags flags;
-  bool const gotFlags = SCNetworkReachabilityGetFlags(reachability, &flags);
-  CFRelease(reachability);
-  if (!gotFlags || ((flags & kSCNetworkReachabilityFlagsReachable) == 0))
-    return EConnectionType::CONNECTION_NONE;
-  SCNetworkReachabilityFlags userActionRequired =
-      kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsInterventionRequired;
-  if ((flags & userActionRequired) == userActionRequired)
-    return EConnectionType::CONNECTION_NONE;
-  if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
-    return EConnectionType::CONNECTION_WWAN;
-  else
-    return EConnectionType::CONNECTION_WIFI;
-}
+// Platform::ConnectionStatus() lives in connection_status_apple.mm (shared with macOS).
 
 Platform::ChargingStatus Platform::GetChargingStatus()
 {
@@ -268,6 +245,15 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   if (0 == stat(path.c_str(), &st))
     return st.st_mtimespec.tv_sec;
   return 0;
+}
+
+// static
+bool Platform::SetFileModificationTime(std::string const & path, time_t modTime)
+{
+  struct timespec times[2] = {};
+  times[0].tv_nsec = UTIME_OMIT;  // access time: unchanged
+  times[1].tv_sec = modTime;      // modification time
+  return utimensat(AT_FDCWD, path.c_str(), times, 0) == 0;
 }
 
 ////////////////////////////////////////////////////////////////////////

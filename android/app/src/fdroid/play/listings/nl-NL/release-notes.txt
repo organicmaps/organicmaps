@@ -1,10 +1,9 @@
-• OSM-data per 16 februari, Wikipedia per 1 februari
-• Zwarte wandel- en fietsroutes zijn nu zichtbaar in het donkere thema
-• Tokkelbanen en meer autodiensten toegevoegd: reparatie, onderhoud en onderdelen
-• Fietsroutering en berekening gemiddelde snelheid opgelost
-• Verbeterde categoriezoekfunctie
-• Oezbeekse keuken
-• Uitbreidbare openingstijden
-• Toon en gebruik MSL-hoogte voor tracks opgenomen op Android 14+
-• Import van KML, KMZ, GPX, GeoJSON vanuit WhatsApp opgelost
-…meer op omaps.org/news
+• Selecteer wandel- en fietsroutes om hun hoogtekaarten te bekijken
+• Juiste kaartweergave bij de antimeridiaan (±180° lengtegraad)
+• Verander alle bookmark- en trackkleuren in een categorie in één keer
+• Beter zoeken naar huisnummers, meer Amerikaanse adressen gedekt
+• OSM-gegevens vanaf 4 april
+• Geplande weergavemodus in Instellingen
+• Delen van bladwijzers/tracks met andere apps is opgelost
+• Uploaden van kaartbewerkingen naar OSM is opgelost
+…meer op omaps.org/nl/news

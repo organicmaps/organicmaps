@@ -40,11 +40,11 @@ def getCommitMessage() {
 android {
   namespace = 'app.organicmaps'
 
-  if (googleFirebaseServicesEnabled) {
-    enableKotlin = true
-  } else {
-    enableKotlin = false
-  }
+  // Kotlin is enabled for the app module so new code can be written in Kotlin
+  // and existing Java classes can be migrated incrementally. Other modules keep
+  // it disabled by default (see groovy/common-config.gradle) and can opt in by
+  // uncommenting the `enableKotlin = true` stub in their own build.gradle.
+  enableKotlin = true
 
   buildFeatures {
     dataBinding = true
@@ -236,15 +236,12 @@ dependencies {
   googleImplementation project(':sdk:maps:world')
   huaweiImplementation project(':sdk:maps:world')
 
-  coreLibraryDesugaring libs.android.tools.desugaring
+  webImplementation project(':sdk:location:gms:google')
+  googleImplementation project(':sdk:location:gms:google')
+  huaweiImplementation project(':sdk:location:gms:google')
+  fdroidImplementation project(':sdk:location:gms:foss')
 
-  // Google Play Location Services
-  webImplementation libs.google.gms.location
-  googleImplementation libs.google.gms.location
-  huaweiImplementation libs.google.gms.location
-  // This is the microG project's re-implementation which is permissible on
-  // F-droid because it's Apache-2.0.
-  fdroidImplementation libs.microg.gms.location
+  coreLibraryDesugaring libs.android.tools.desugaring
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
@@ -253,9 +250,8 @@ dependencies {
     implementation libs.google.firebase.crashlytics.ndk
   }
 
-  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
+  // Workaround for a duplicate-classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
-  // We don't use Kotlin, but some dependencies are actively using it.
   // See https://stackoverflow.com/a/75719642
   implementation libs.androidx.core
   implementation libs.androidx.annotation
@@ -364,8 +360,12 @@ tasks.register("prepareGoogleReleaseListing") {
     final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
     final sourceFiles = fileTree(dir: sourceDir,
         include: '**/*.txt', exclude: "**/*-${targetFlavor}.txt")
+    // Locales that exist in F-Droid listings but are not supported by Google Play.
+    final googleUnsupportedLocales = ['as', 'bo', 'bs', 'jv', 'mai', 'mi', 'or', 'ug', 'uz']
     sourceFiles.each { File sourceFile ->
       final locale = sourceFile.parentFile.getName()
+      if (locale in googleUnsupportedLocales)
+        return
       final targetLocaleDir = new File(targetDir, locale)
       if (!targetLocaleDir.isDirectory())
         targetLocaleDir.mkdirs()
@@ -397,22 +397,34 @@ huaweiPublish {
       deployType = 'draft' // Requires manual confirmation in Huawei AppGallery Connect.
       def releaseDescriptions = []
       def localeOverride = [
-          'am'   : 'am-ET',
+          'am'   : 'am_ET',
+          'as'   : 'as_IN',
           'gu'   : 'gu_IN',
           'iw-IL': 'he_IL',
           'kn-IN': 'kn_IN',
+//          'mai'  : 'mai_Deva_IN',
+          'mi'   : 'mi_NZ',
           'ml-IN': 'ml_IN',
           'mn-MN': 'mn_MN',
           'mr-IN': 'mr_IN',
+          'or'   : 'or_IN',
+//          'pa-IN' : 'pa_Guru_IN',
+          'sw'   : 'sw_TZ',
           'ta-IN': 'ta_IN',
           'te-IN': 'te_IN',
+          'ug'   : 'ug_CN',
       ]
       def files = fileTree(dir: "$projectDir/src/fdroid/play/listings",
           include: '**/release-notes.txt')
       files.each { File file ->
         def locale = file.parentFile.getName()
-        if (locale == 'hy-AM') {
-          return // Armenian locale is not supported by Huawei AppGallery, skip it.
+        if (locale in ['af', 'en-AU', 'en-CA', 'en-IN', 'en-SG', 'en-ZA',
+            'es-US', 'fa-AE', 'fa-AF', 'fr-CA', 'hy-AM', 'is-IS', 'ky-KG',
+            'ms-MY', 'rm', 'sq', 'zu',
+            'ta-IN', 'te-IN',  // Not supported in Huawei
+            'mai', 'pa',       // Excluded temporarily due to "max language length > 8" error when publishing
+            ]) {
+          return // These locales are not supported by Huawei AppGallery, skip them.
         }
         def path = file.getPath()
         locale = localeOverride.get(locale, locale)

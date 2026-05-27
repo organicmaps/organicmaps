@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Forðast ferjur</string>
     <string name="avoid_motorways">Forðast hraðbrautir</string>
     <string name="unable_to_calc_alert_title">Tókst ekki að reikna leið</string>
+    <string name="trip_finished">Þú hefur náð á áfangastað!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Raða bókamerkjum</string>
     <!-- Android -->

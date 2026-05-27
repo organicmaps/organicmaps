@@ -1,9 +1,8 @@
-• OSM datuak otsailaren 16koak, Wikipedia otsailaren 1ekoak
-• Ibilbide beltzak eta bizikleta ibilbideak orain ikusgai daude gai ilunean
-• Tirolinak eta auto zerbitzu gehiago gehitu dira: konponketa, zerbitzua eta piezak
-• Bizikleta bideratzea eta batez besteko abiaduraren kalkulua konpondu dira
-• Kategoria bilaketa hobetua
-• Uzbekistango sukaldaritza
-• Ordutegi zabalgarriak
-• Erakutsi eta erabili MSL altitudea Android 14+ gailuetan grabatutako ibilbideetarako
-…gehiago omaps.org/news helbidean
+• Ibilbide eta txirrindularitza-bideak hautatu haien altuera-grafikoak ikusteko
+• Mapa egoki birbanatzea antimeridianoan (±180° longitudeari dagokionez)
+• Kategoria berean, gogokoen eta ibilbideen kolore guztiak aldi berean aldatu
+• Etxe-zenbakien bilaketa hobea, AEBetako helbide gehiagorekin
+• Apirilaren 4ko OSM datuak
+• Agertzeko modua programatzeko aukera Ezarpenetan
+• Gogokoen/ibilbideen beste aplikazioekin partekatzea konpondu
+…gehiago omaps.org/eu/news-en

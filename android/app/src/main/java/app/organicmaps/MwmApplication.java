@@ -4,8 +4,11 @@ import static app.organicmaps.sdk.location.LocationState.LOCATION_TAG;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +20,6 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
-import app.organicmaps.location.LocationProviderFactoryImpl;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Map;
@@ -41,9 +43,6 @@ public class MwmApplication extends Application implements Application.ActivityL
 {
   @NonNull
   private static final String TAG = MwmApplication.class.getSimpleName();
-
-  @NonNull
-  private final LocationProviderFactoryImpl mLocationProviderFactory = new LocationProviderFactoryImpl();
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -104,12 +103,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   @NonNull
-  public LocationProviderFactoryImpl getLocationProviderFactory()
-  {
-    return mLocationProviderFactory;
-  }
-
-  @NonNull
   public static MwmApplication from(@NonNull Context context)
   {
     return (MwmApplication) context.getApplicationContext();
@@ -131,11 +124,10 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
     mOrganicMaps = new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
-                                   BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME,
-                                   BuildConfig.FILE_PROVIDER_AUTHORITY, mLocationProviderFactory);
+                                   BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
 
     DownloaderNotifier.createNotificationChannel(this);
-    NavigationService.createNotificationChannel(this);
+    initNavigationService();
     TrackRecordingService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
@@ -233,5 +225,17 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Stopping location in the background");
       getLocationHelper().stop();
     }
+  }
+
+  private void initNavigationService()
+  {
+    NavigationService.createNotificationChannel(this);
+    NavigationService.setOrganicMaps(getOrganicMaps());
+
+    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
+    final Intent contentIntent = new Intent(this, MwmActivity.class);
+    final PendingIntent pendingIntent =
+        PendingIntent.getActivity(this, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    NavigationService.setOpenAppPendingIntent(pendingIntent);
   }
 }

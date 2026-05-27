@@ -31,7 +31,7 @@
     <string name="type.amenity.bicycle_parking">Parkim biçikletash</string>
     <string name="type.amenity.bicycle_parking.covered">Parkim i mbuluar</string>
     <string name="type.amenity.bicycle_rental">Marrje biçikletash me qira</string>
-    <string name="type.amenity.bicycle_repair_station">Stacion riparimi</string>
+    <string name="type.amenity.bicycle_repair_station">Stacion riparimi biçikletash</string>
     <string name="type.amenity.biergarten">Birrari</string>
     <string name="type.amenity.brothel">Shtëpi publike</string>
     <string name="type.amenity.love_hotel">Hotel dashurie</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Ndërtesë</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresë</string>
+    <string name="type.building.construction">Ndërtesë në ndërtim</string>
     <string name="type.building.has_parts">Ndërtesë</string>
     <string name="type.building_part">Ndërtesë</string>
     <string name="type.building.garage">Garazh</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Mesdhetare</string>
     <string name="type.cuisine.mexican">Meksikane</string>
     <string name="type.cuisine.moroccan">Marokene</string>
-    <string name="type.cuisine.noodles">Nudëll</string>
+    <string name="type.cuisine.noodle">Nudëll</string>
     <string name="type.cuisine.oriental">Aziatike Lindore</string>
     <string name="type.cuisine.pancake">Pankake</string>
     <string name="type.cuisine.pasta">Makarna</string>
@@ -673,8 +674,8 @@
     <string name="type.leisure.stadium">Stadium</string>
     <string name="type.leisure.swimming_pool">Pishinë</string>
     <string name="type.leisure.swimming_pool.private">Pishinë</string>
-    <string name="type.leisure.track">Shteg fushe</string>
-    <string name="type.leisure.track.area">Shteg fushe</string>
+    <string name="type.leisure.track">Pistë sportive</string>
+    <string name="type.leisure.track.area">Pistë sportive</string>
     <string name="type.leisure.water_park">Park ujor</string>
     <string name="type.leisure.beach_resort">Resort plazhi</string>
     <string name="type.man_made">E bërë nga njeriu</string>
@@ -754,6 +755,7 @@
     <string name="type.natural.tree_row">Rresht pemësh</string>
     <string name="type.natural.vineyard">Vresht</string>
     <string name="type.natural.volcano">Vullkan</string>
+    <string name="type.natural.volcano.active">Vullkan aktiv</string>
     <string name="type.natural.water">Ujë</string>
     <string name="type.natural.wetland">Zonë ligatinore</string>
     <string name="type.natural.wetland.bog">Mocal</string>
@@ -1297,6 +1299,18 @@
     <string name="type.sport.field_hockey">Hokej në fushë</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Pelota Baske</string>
+    <string name="type.sport.boules">Bul</string>
+    <string name="type.sport.cycling">Çiklizëm</string>
+    <string name="type.sport.four_square">Four square</string>
+    <string name="type.sport.horse_racing">Garat e kuajve</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi</string>
+    <string name="type.sport.running">Vrapim</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turizëm</string>
     <string name="type.tourism.aquarium">Akuarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1316,6 +1330,7 @@
     <string name="type.attraction.historic">Atraksion historik</string>
     <string name="type.attraction.maze">Labirint</string>
     <string name="type.attraction.roller_coaster">Roler koster</string>
+    <string name="type.roller_coaster.track">Roler koster</string>
     <string name="type.attraction.water_slide">Rrëshqitëse uji</string>
     <string name="type.tourism.attraction.specified">Atraksion</string>
     <string name="type.tourism.camp_site">Kamping</string>
@@ -1347,6 +1362,7 @@
     <string name="type.traffic_calming.bump">Kurriz artificial</string>
     <string name="type.traffic_calming.hump">Kurriz i gjerë</string>
     <string name="type.waterway">Rrugë ujore</string>
+    <string name="type.waterway.access_point">Pika e aksesit në rrugën ujore</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Tunel kanali</string>
     <string name="type.waterway.fish_pass">Kalim peshqish</string>
@@ -1436,4 +1452,5 @@
     <string name="type.craft.watchmaker">Orëndreqës</string>
     <string name="type.xmas_feature.market">Treg Krishtlindjesh</string>
     <string name="type.xmas_feature.tree">Pema e Krishtlindjeve</string>
+    <string name="type.amenity.hookah_lounge">Shisha bar</string>
 </resources>

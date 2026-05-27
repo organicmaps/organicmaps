@@ -6,18 +6,12 @@
 
 struct TrackStatistics
 {
-  using Points = kml::MultiGeometry::LineT;
-  using Timestamps = kml::MultiGeometry::TimeT;
-
-  TrackStatistics();
-  explicit TrackStatistics(kml::MultiGeometry const & geometry);
-
-  double m_length;
-  double m_duration;
-  double m_ascent;
-  double m_descent;
-  geometry::Altitude m_minElevation;
-  geometry::Altitude m_maxElevation;
+  double m_length = 0;
+  double m_duration = 0;
+  double m_ascent = 0;
+  double m_descent = 0;
+  geometry::Altitude m_minElevation = geometry::kDefaultAltitudeMeters;
+  geometry::Altitude m_maxElevation = geometry::kDefaultAltitudeMeters;
 
   std::string GetFormattedLength() const;
   std::string GetFormattedDuration() const;
@@ -26,13 +20,14 @@ struct TrackStatistics
   std::string GetFormattedMinElevation() const;
   std::string GetFormattedMaxElevation() const;
 
+  /// Calculates duration from timestamps in geometry.
+  void CalculateDuration(kml::MultiGeometry const & geometry);
+
+  /// Incrementally adds a GPS point (for live track recording).
   void AddGpsInfoPoint(location::GpsInfo const & point);
 
 private:
-  void AddPoints(Points const & points);
-  void AddTimestamps(Timestamps const & timestamps);
-  bool HasNoPoints() const;
-
-  geometry::PointWithAltitude m_previousPoint;
-  double m_previousTimestamp;
+  m2::PointD m_previousPoint;
+  geometry::Altitude m_previousAltitude = geometry::kInvalidAltitude;
+  double m_previousTimestamp = -1;
 };

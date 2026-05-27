@@ -673,7 +673,7 @@ void Geocoder::InitLayer(Model::Type type, TokenRange const & tokenRange, Featur
 }
 
 void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filter, size_t const maxNumLocalities,
-                                      std::vector<Locality> & preLocalities)
+                                      std::vector<Locality> & preLocalities, bool keepNonOverlapping)
 {
   // todo(@m) "food moscow" should be a valid categorial request.
   if (m_params.IsCategorialRequest())
@@ -696,7 +696,7 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
 
   LocalityScorerDelegate delegate(*m_context, m_params, belongsToMatchedRegion, m_cancellable);
   LocalityScorer scorer(m_params, m_params.m_pivot.Center(), delegate);
-  scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
+  scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities, keepNonOverlapping);
 }
 
 void Geocoder::CacheWorldLocalities()
@@ -735,7 +735,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
   std::vector<Locality> preLocalities;
 
   CBV filter = m_localitiesCaches.m_countries.Get(*m_context);
-  FillLocalityCandidates(ctx, filter, kMaxNumCountries, preLocalities);
+  FillLocalityCandidates(ctx, filter, kMaxNumCountries, preLocalities, true /* keepNonOverlapping */);
   for (auto & l : preLocalities)
   {
     auto ft = m_context->GetFeature(l.GetFeatureIndex());
@@ -749,7 +749,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
   }
 
   filter = m_localitiesCaches.m_states.Get(*m_context);
-  FillLocalityCandidates(ctx, filter, kMaxNumStates, preLocalities);
+  FillLocalityCandidates(ctx, filter, kMaxNumStates, preLocalities, true /* keepNonOverlapping */);
   for (auto & l : preLocalities)
   {
     auto ft = m_context->GetFeature(l.GetFeatureIndex());
@@ -1190,6 +1190,23 @@ void Geocoder::ProcessStreets(BaseContext & ctx, CentersFilter const & centers, 
   std::vector<PredictionT> predictions;
   StreetsMatcher::Go(ctx, streets, *m_filter, m_params, predictions);
 
+  // Skip overly generic 1-token street predictions that cause combinatorial explosion
+  // in ClusterizeStreets (which reads centers for ALL matching features).
+  // Street synonyms ("avenue", "road") and directions ("west", "north") match many streets
+  // but are never standalone street names, so use a lower threshold for them.
+  size_t constexpr kMaxFeaturesForSynonym = 100;
+  size_t constexpr kMaxFeaturesForSingleToken = 3000;
+  base::EraseIf(predictions, [&](PredictionT const & p)
+  {
+    if (p.GetNumTokens() != 1)
+      return false;
+    auto const count = p.m_features.PopCount();
+    auto const & token = m_params.GetToken(p.m_tokenRange.Begin()).GetOriginal();
+    if (IsStreetSynonymOrAffixOnly(token) && count > kMaxFeaturesForSynonym)
+      return true;
+    return count > kMaxFeaturesForSingleToken;
+  });
+
   // Iterating from best to worst predictions here. Make "Relaxed" results for the best probability.
   for (size_t i = 0; i < predictions.size(); ++i)
   {
@@ -1472,6 +1489,9 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
 
     bool const looksLikeHouseNumber =
         house_numbers::LooksLikeHouseNumber(layers.back().m_subQuery, layers.back().m_lastTokenIsPrefix);
+
+    /// @todo "HouseNumber BuildingName Street" (e.g., "8 Born house 1st April st") doesn't work
+    /// because the HN token poisons the feature intersection (HN isn't in name index).
     if (filtered.IsEmpty() && !looksLikeHouseNumber)
       break;
 
@@ -1530,9 +1550,25 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
       }
 
       layer.m_type = static_cast<Model::Type>(i);
-      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(layer.m_type), TokenRange(curToken, endToken));
+
+      // When a building is matched by name (e.g., "Born house") and the next unused token
+      // is a house number (e.g., "8"), extend the building range to include it.
+      // This handles "BuildingName HouseNumber Street" patterns like "Born house 8 1st April st".
+      size_t adjustedEnd = endToken;
+      if (i == Model::TYPE_BUILDING && !layer.m_sortedFeatures->empty() && endToken < numTokens &&
+          !ctx.IsTokenUsed(endToken))
+      {
+        auto const & nextToken = m_params.GetToken(endToken).GetOriginal();
+        if (house_numbers::LooksLikeHouseNumber(nextToken, m_params.IsPrefixToken(endToken)))
+        {
+          adjustedEnd = endToken + 1;
+          layer.m_tokenRange = TokenRange(curToken, adjustedEnd);
+        }
+      }
+
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(layer.m_type), TokenRange(curToken, adjustedEnd));
       if (IsLayerSequenceSane(layers))
-        MatchPOIsAndBuildings(ctx, endToken, filter);
+        MatchPOIsAndBuildings(ctx, adjustedEnd, filter);
     }
   }
 }
@@ -1829,6 +1865,9 @@ void Geocoder::EmitResult(BaseContext & ctx, FeatureID const & id, Model::Type t
 
   if (geoParts)
     info.m_geoParts = *geoParts;
+
+  if (!m_postcodes.IsEmpty())
+    info.m_postcodeRange = m_postcodes.m_tokenRange;
 
   info.m_allTokensUsed = allTokensUsed;
   info.m_exactMatch = exactMatch;

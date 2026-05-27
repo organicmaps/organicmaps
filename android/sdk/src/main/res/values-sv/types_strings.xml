@@ -24,7 +24,7 @@
     <string name="type.amenity.atm">Bankomat</string>
     <string name="type.amenity.bank">Bank</string>
     <string name="type.amenity.bar">Bar</string>
-    <string name="type.amenity.bbq">Grill för barbecue</string>
+    <string name="type.amenity.bbq">Grillplats</string>
     <string name="type.amenity.bench">Bänk</string>
     <string name="type.amenity.bicycle_parking">Cykelparkering</string>
     <string name="type.amenity.bicycle_rental">Cykeluthyrning</string>
@@ -39,7 +39,7 @@
     <string name="type.amenity.car_sharing">Samåkning</string>
     <string name="type.amenity.car_wash">Biltvätt</string>
     <string name="type.amenity.casino">Kasino</string>
-    <string name="type.amenity.gambling">Spelande</string>
+    <string name="type.amenity.gambling">Hasardspel</string>
     <string name="type.leisure.adult_gaming_centre">Spelcenter för vuxna</string>
     <string name="type.leisure.amusement_arcade">Arkad</string>
     <string name="type.amenity.charging_station">Laddstation</string>
@@ -59,7 +59,7 @@
     <string name="type.amenity.drinking_water">Dricksvatten</string>
     <string name="type.drinking_water.yes">Dricksvatten</string>
     <string name="type.amenity.driving_school">Körskola</string>
-    <string name="type.amenity.exhibition_centre">Mässa</string>
+    <string name="type.amenity.exhibition_centre">Utställningscentrum</string>
     <string name="type.amenity.money_transfer">Pengaöverföring</string>
     <string name="type.amenity.music_school">Musikskola</string>
     <string name="type.amenity.language_school">Språkskola</string>
@@ -76,7 +76,7 @@
     <string name="type.amenity.grave_yard.christian">Begravningsplats</string>
     <string name="type.amenity.hospital">Sjukhus</string>
     <string name="type.amenity.hunting_stand">Jakttorn</string>
-    <string name="type.amenity.ice_cream">Glasstånd</string>
+    <string name="type.amenity.ice_cream">Glassstånd</string>
     <string name="type.amenity.internet_cafe">Internetkafé</string>
     <string name="type.amenity.kindergarten">Förskola</string>
     <string name="type.amenity.library">Bibliotek</string>
@@ -224,6 +224,7 @@
     <string name="type.building">Byggnad</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adress</string>
+    <string name="type.building.construction">Byggnad under uppförande</string>
     <string name="type.building.has_parts">Byggnad</string>
     <string name="type.building_part">Byggnad</string>
     <string name="type.building.garage">Garage</string>
@@ -313,7 +314,7 @@
     <string name="type.cuisine.mediterranean">Medelhavsmat</string>
     <string name="type.cuisine.mexican">Mexikansk mat</string>
     <string name="type.cuisine.moroccan">Marockansk mat</string>
-    <string name="type.cuisine.noodles">Nudlar</string>
+    <string name="type.cuisine.noodle">Nudlar</string>
     <string name="type.cuisine.oriental">Orientalisk mat</string>
     <string name="type.cuisine.pancake">Pannkaka</string>
     <string name="type.cuisine.pasta">Pasta</string>
@@ -329,6 +330,7 @@
     <string name="type.cuisine.sausage">Korv</string>
     <string name="type.cuisine.savory_pancakes">Fyllda pannkakor</string>
     <string name="type.cuisine.seafood">Skaldjur</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.soba">Sobanudlar</string>
     <string name="type.cuisine.spanish">Spansk mat</string>
     <string name="type.cuisine.steak_house">Stekhus</string>
@@ -734,6 +736,7 @@
     <string name="type.natural.tree_row">Trädrad</string>
     <string name="type.natural.vineyard">Vingård</string>
     <string name="type.natural.volcano">Vulkan</string>
+    <string name="type.natural.volcano.active">Aktiv vulkan</string>
     <string name="type.natural.water">Vatten</string>
     <string name="type.natural.wetland">Sumpmarken</string>
     <string name="type.natural.wetland.bog">Myr</string>
@@ -1260,6 +1263,18 @@
     <string name="type.sport.field_hockey">Landhockey</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Baskisk pelota</string>
+    <string name="type.sport.boules">Boule</string>
+    <string name="type.sport.cycling">Cykling</string>
+    <string name="type.sport.four_square">Fyra rutor</string>
+    <string name="type.sport.horse_racing">Hästkapplöpning</string>
+    <string name="type.sport.karting">Gokart</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Motorsport</string>
+    <string name="type.sport.netball">Nätboll</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby</string>
+    <string name="type.sport.running">Löpning</string>
+    <string name="type.sport.softball">Softboll</string>
     <string name="type.tourism">Turism</string>
     <string name="type.tourism.aquarium">Akvarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1279,6 +1294,7 @@
     <string name="type.attraction.historic">Historisk sevärdhet</string>
     <string name="type.attraction.maze">Labyrint</string>
     <string name="type.attraction.roller_coaster">Berg- och dalbana</string>
+    <string name="type.roller_coaster.track">Berg- och dalbana</string>
     <string name="type.attraction.water_slide">Vattenrutschbana</string>
     <string name="type.tourism.attraction.specified">Attraktion</string>
     <string name="type.tourism.camp_site">Campingplats</string>
@@ -1291,7 +1307,7 @@
     <string name="type.tourism.hotel">Hotell</string>
     <string name="type.tourism.information">Turistinformation</string>
     <string name="type.tourism.information.board">Informationstavla</string>
-    <string name="type.tourism.information.guidepost">Vägledning</string>
+    <string name="type.tourism.information.guidepost">Vägvisare</string>
     <string name="type.tourism.information.map">Turistkarta</string>
     <string name="type.tourism.information.office">Turistcenter</string>
     <string name="type.tourism.information.visitor_centre">Besökscentrum</string>
@@ -1308,6 +1324,7 @@
     <string name="type.traffic_calming.bump">Fartgupp</string>
     <string name="type.traffic_calming.hump">Fartbula</string>
     <string name="type.waterway">Vattendrag</string>
+    <string name="type.waterway.access_point">Accesspunkt för vattenväg</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Fiskstege</string>
@@ -1385,4 +1402,5 @@
     <string name="type.craft.watchmaker">Urmakare</string>
     <string name="type.xmas_feature.market">Julmarknad</string>
     <string name="type.xmas_feature.tree">Julgran</string>
+    <string name="type.amenity.hookah_lounge">Shishabar</string>
 </resources>

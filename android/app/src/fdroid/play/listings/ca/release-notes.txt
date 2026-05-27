@@ -1,9 +1,8 @@
-• Dades d'OSM a 16 de febrer, Viquipèdia a 1 de febrer
-• Les rutes de senderisme i ciclisme negres ara són visibles en el tema fosc
-• S'han afegit tirolines i més serveis per a automòbils: reparació, manteniment i peces
-• S'ha corregit l'encaminament de bicicletes i el càlcul de la velocitat mitjana
-• Cerca de categories millorada
-• Cuina uzbeka
-• Horaris d'obertura desplegables
-• Mostra i utilitza l'altitud MSL per a rutes enregistrades a Android 14+
-…més a omaps.org/news
+• Seleccioneu rutes de senderisme i ciclisme per veure'n els perfils d'altitud
+• Adaptació correcta del mapa a l'antimeridià (llargitud ±180°)
+• Canvi de tots els colors dels marcadors i els traçats d'una categoria alhora
+• Millora de la cerca de números de casa, amb més adreces dels EUA cobertes
+• Dades d'OSM a data de 4 d'abril
+• Mode d'aparença programada a la configuració
+• S'ha solucionat la compartició de marcadors/traçats amb altres aplicacions
+…i més a omaps.org/ca/news

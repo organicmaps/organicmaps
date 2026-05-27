@@ -28,10 +28,10 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Definirea locației curente în fundal este necesară pentru a vă bucura pe deplin de funcționalitatea aplicației. Acest lucru este utilizat în opțiunile de urmărire a traseului și salvare a căii parcurse recent.";
+"NSLocationAlwaysUsageDescription" = "Detectarea locației în fundal este necesară pentru a beneficia pe deplin de funcționalitatea aplicației. Este folosită pentru navigație și pentru salvarea traseului parcurs recent.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Definirea locației curente este folosită în opțiunile de urmărire a traseului și salvarea rutelor recente.";
+"NSLocationWhenInUseUsageDescription" = "Determinarea locației dvs. este necesară pentru navigare și pentru salvarea traseului parcurs recent.";
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Autentificare cu parolă";

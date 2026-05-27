@@ -12,7 +12,7 @@
 "type.aerialway.gondola" = "Telecabine";
 "type.aerialway.mixed_lift" = "Teleférico híbrido";
 "type.aerialway.station" = "Estação de teleférico";
-"type.aeroway" = "Via aérea";
+"type.aeroway" = "Infraestrutura do espaço aéreo";
 "type.aeroway.aerodrome" = "Aeroporto ou aeródromo";
 "type.aeroway.aerodrome.international" = "Aeroporto internacional";
 "type.aeroway.apron" = "Plataforma de estacionamento de aviões";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Morada";
+"type.building.construction" = "Edifício em construção";
 "type.building.has_parts" = "Edifício";
 "type.building_part" = "Edifício";
 "type.building.garage" = "Garagem";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Cozinha mediterrânea";
 "type.cuisine.mexican" = "Cozinha mexicana";
 "type.cuisine.moroccan" = "Cozinha marroquina";
-"type.cuisine.noodles" = "Massa asiática";
+"type.cuisine.noodle" = "Massa asiática";
 "type.cuisine.oriental" = "Cozinha oriental";
 "type.cuisine.pancake" = "Crepes";
 "type.cuisine.pasta" = "Massa";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Salsichas";
 "type.cuisine.savory_pancakes" = "Tortas salgadas";
 "type.cuisine.seafood" = "Frutos do mar";
+"type.cuisine.shawarma" = "Xauarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Cozinha espanhola";
 "type.cuisine.steak_house" = "Churrasqueira";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Estádio";
 "type.leisure.swimming_pool" = "Piscina";
 "type.leisure.swimming_pool.private" = "Piscina";
-"type.leisure.track" = "Trilha";
-"type.leisure.track.area" = "Área de trilha";
+"type.leisure.track" = "Pista para desportos";
+"type.leisure.track.area" = "Pista para desportos";
 "type.leisure.water_park" = "Parque aquático";
 "type.leisure.beach_resort" = "Resort à beira mar";
 "type.man_made" = "Construção humana";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Linha de árvores";
 "type.natural.vineyard" = "Vinhedo";
 "type.natural.volcano" = "Vulcão";
+"type.natural.volcano.active" = "Vulcão ativo";
 "type.natural.water" = "Corpo de água";
 "type.natural.wetland" = "Zona úmida";
 "type.natural.wetland.bog" = "Pântano";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hóquei em campo";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Pelota basca";
+"type.sport.boules" = "Petanca";
+"type.sport.cycling" = "Ciclismo";
+"type.sport.four_square" = "Quatro quadrados";
+"type.sport.horse_racing" = "Corridas de cavalos";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Desporto motorizado";
+"type.sport.netball" = "Netebol";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Râguebi";
+"type.sport.running" = "Corrida";
+"type.sport.softball" = "Softbol";
 "type.tourism" = "Turismo";
 "type.tourism.aquarium" = "Aquário";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Atração histórica";
 "type.attraction.maze" = "Labirinto";
 "type.attraction.roller_coaster" = "Montanha-russa";
+"type.roller_coaster.track" = "Montanha-russa";
 "type.attraction.water_slide" = "Escorrega aquático";
 "type.tourism.attraction.specified" = "Atração turística";
 "type.tourism.camp_site" = "Parque de campismo";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Lomba";
 "type.traffic_calming.hump" = "Lomba longa";
 "type.waterway" = "Curso de água";
+"type.waterway.access_point" = "Ponto de acesso à via navegável";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Escada de peixes";
@@ -1582,10 +1599,11 @@
 "type.railway.miniature" = "Caminho de ferro em miniatura";
 "type.amenity.kneipp_water_cure" = "Cura pela água Kneipp";
 "type.area_highway.traffic_island" = "Ilha de tráfego";
-"type.man_made.monitoring_station" = "Estação de controlo";
+"type.man_made.monitoring_station" = "Estação de monitorização";
 "type.man_made.monitoring_station.water_level" = "Estação de monitorização do nível da água";
 "type.man_made.monitoring_station.weather" = "Estação de monitorização meteorológica";
 "type.amenity.student_accommodation" = "Alojamento para estudantes";
 "type.craft.watchmaker" = "Relojoeiro";
 "type.xmas_feature.market" = "Mercado de Natal";
 "type.xmas_feature.tree" = "Árvore de Natal";
+"type.amenity.hookah_lounge" = "Bar de narguilé";

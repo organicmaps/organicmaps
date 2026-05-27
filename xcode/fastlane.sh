@@ -55,6 +55,7 @@ upload_metadata() {
         --skip_app_version_update=true \
         --skip_screenshots \
         --precheck_include_in_app_purchases=false \
+        --ignore_language_directory_validation=true \
         --automatic_release=false
 }
 
@@ -69,6 +70,7 @@ upload_screenshots() {
         --skip_metadata \
         --sync_screenshots=true \
         --precheck_include_in_app_purchases=false \
+        --ignore_language_directory_validation=true \
         --automatic_release=false
 }
 

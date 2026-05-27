@@ -28,10 +28,10 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "La localisation actuelle en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est utilisée dans les options de navigation et d'enregistrement de votre chemin récemment parcouru.";
+"NSLocationAlwaysUsageDescription" = "La détection de votre position en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est utilisée pour la navigation et pour enregistrer votre trajet récent.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "La définition de lemplacement actuel est utilisée dans certaines fonctions comme le suivi dun trajet et la sauvegarde des trajets récemment effectués.";
+"NSLocationWhenInUseUsageDescription" = "La détection de votre position est nécessaire pour la navigation et pour enregistrer votre trajet récent.";
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Connexion avec mot de passe";

@@ -1,16 +1,14 @@
 #include "qt_tstfrm/test_main_loop.hpp"
 
+#include "base/logging.hpp"
+
 #include <QtCore/QTimer>
 #include <QtGui/QOffscreenSurface>
 #include <QtGui/QOpenGLContext>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
 
-#include "base/scope_guard.hpp"
-
-#include <cstring>
 #include <memory>
-#include <vector>
 
 namespace
 {
@@ -27,11 +25,9 @@ private:
 };
 }  // namespace
 
-void RunTestLoop(char const * testName, testing::RenderFunction && fn, bool autoExit)
+void RunTestLoop(std::string testName, testing::RenderFunction && fn, bool autoExit)
 {
-  std::vector<char> buf(strlen(testName) + 1);
-  strcpy(buf.data(), testName);
-  char * raw = buf.data();
+  char * raw = testName.data();
 
   int argc = 1;
   QApplication app(argc, &raw);
@@ -40,17 +36,15 @@ void RunTestLoop(char const * testName, testing::RenderFunction && fn, bool auto
     QTimer::singleShot(3000, &app, SLOT(quit()));
 
   auto widget = std::make_unique<MyWidget>(std::move(fn));
-  widget->setWindowTitle(testName);
+  widget->setWindowTitle(testName.c_str());
   widget->show();
 
   app.exec();
 }
 
-void RunTestInOpenGLOffscreenEnvironment(char const * testName, testing::TestFunction const & fn)
+void RunTestInOpenGLOffscreenEnvironment(std::string testName, testing::TestFunction const & fn)
 {
-  std::vector<char> buf(strlen(testName) + 1);
-  strcpy(buf.data(), testName);
-  char * raw = buf.data();
+  char * raw = testName.data();
 
   int argc = 1;
   QApplication app(argc, &raw);
@@ -75,12 +69,19 @@ void RunTestInOpenGLOffscreenEnvironment(char const * testName, testing::TestFun
   auto context = std::make_unique<QOpenGLContext>();
   context->setFormat(fmt);
   context->create();
-  context->makeCurrent(surface.get());
 
-  if (fn)
-    fn();
+  if (context->isValid())
+  {
+    context->makeCurrent(surface.get());
 
-  context->doneCurrent();
+    if (fn)
+      fn();
+
+    context->doneCurrent();
+  }
+  else
+    LOG(LWARNING, ("OpenGL context is not available, skipping OGL render"));
+
   surface->destroy();
 
   QTimer::singleShot(0, &app, SLOT(quit()));

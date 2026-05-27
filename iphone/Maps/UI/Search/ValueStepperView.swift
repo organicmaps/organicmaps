@@ -26,8 +26,6 @@ final class ValueStepperView: UIControl {
   let plusButton = MWMButton(type: .custom)
   let valueLabel = UILabel()
 
-  private var viewConstraints: [NSLayoutConstraint]!
-
   override init(frame: CGRect) {
     super.init(frame: frame)
     configure()

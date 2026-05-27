@@ -81,3 +81,12 @@ tasks.register("lintAllModules") {
         println "✅ Merged lint report written to: $mergedReport"
     }
 }
+
+tasks.register("detektCheckAll") {
+    group = "verification"
+    description = "Run detekt on all Kotlin-enabled modules"
+
+    dependsOn(subprojects.collectMany { p ->
+        p.tasks.matching { it.name == "detektCheck" }
+    })
+}

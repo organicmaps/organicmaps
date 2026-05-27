@@ -66,6 +66,8 @@
     <string name="editor_time_open">เปิด</string>
     <string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
     <string name="day_off_today">วันนี้ปิด</string>
+    <string name="opens_in">เปิดใน %s</string>
+    <string name="closes_in">ปิดใน %s</string>
     <string name="closed">ปิด</string>
     <string name="minute">น.</string>
     <string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
@@ -81,6 +83,7 @@
     <string name="avoid_ferry">เลี่ยงการข้ามฟากด้วยเรือ</string>
     <string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
     <string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
+    <string name="trip_finished">คุณมาถึงแล้ว!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">เรียงบุ๊กมาร์ก</string>
     <!-- Android -->
@@ -96,8 +99,9 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">การดาวน์โหลด</string>
+    <string name="download_map_title">ดาวน์โหลดแผนที่ภาพรวมของโลก</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">แผนที่ทั่วไปใน Android Auto ต้องได้รับอนุญาตจากตำแหน่งจึงจะทำงานได้อย่างมีประสิทธิภาพ</string>
+    <string name="aa_request_permission_activity_text">Organic Maps ใน Android Auto ต้องการสิทธิ์การเข้าถึงตำแหน่งเพื่อทำงานอย่างมีประสิทธิภาพ</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">ให้สิทธิ์</string>
 </resources>

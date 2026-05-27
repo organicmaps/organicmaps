@@ -7,7 +7,6 @@ class AvailableMapsDataSource {
 
   private var sections: [String]?
   private var sectionsContent: [String: [String]]?
-  private var nearbySection: [String]?
 
   private var searching = false
   private lazy var searchDataSource: IDownloaderDataSource = SearchMapsDataSource()

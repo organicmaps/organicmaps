@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -141,13 +140,6 @@ public class StorageUtils
   {
     if (!createDirectory(path))
       throw new IOException("Can't create directory " + path);
-  }
-
-  @NonNull
-  public static Uri getUriForFilePath(@NonNull Context context, @NonNull String path)
-  {
-    return FileProvider.getUriForFile(context.getApplicationContext(), Config.getFileProviderAuthority(),
-                                      new File(path));
   }
 
   static private boolean copyFile(InputStream from, OutputStream to) throws IOException

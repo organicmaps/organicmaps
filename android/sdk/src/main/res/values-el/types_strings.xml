@@ -7,10 +7,10 @@
     <string name="type.addr_interpolation.odd">Διεύθυνση/Τετράγωνο</string>
     <string name="type.aerialway">Τελεφερίκ</string>
     <string name="type.aerialway.cable_car">Τελεφερίκ</string>
-    <string name="type.aerialway.chair_lift">Τελεφερίκ</string>
-    <string name="type.aerialway.drag_lift">Τελεφερίκ</string>
-    <string name="type.aerialway.gondola">Τελεφερίκ</string>
-    <string name="type.aerialway.mixed_lift">Τελεφερίκ</string>
+    <string name="type.aerialway.chair_lift">Αναβατήρας καρεκλών</string>
+    <string name="type.aerialway.drag_lift">Συρόμενος αναβατήρας</string>
+    <string name="type.aerialway.gondola">Γόνδολα</string>
+    <string name="type.aerialway.mixed_lift">Συνδυασμένος αναβατήρας</string>
     <string name="type.aerialway.station">Σταθμός τελεφερίκ</string>
     <string name="type.aeroway">Υποδομή εναέριου χώρου</string>
     <string name="type.aeroway.aerodrome">Αεροδρόμιο</string>
@@ -237,6 +237,7 @@
     <string name="type.building">Κτίριο</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Διεύθυνση</string>
+    <string name="type.building.construction">Κτίριο υπό κατασκευή</string>
     <string name="type.building.has_parts">Κτίριο</string>
     <string name="type.building_part">Κτίριο</string>
     <string name="type.building.garage">Γκαράζ</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Μεσογειακή</string>
     <string name="type.cuisine.mexican">Μεξικάνικη</string>
     <string name="type.cuisine.moroccan">Μαροκινή</string>
-    <string name="type.cuisine.noodles">Χυλοπίτες</string>
+    <string name="type.cuisine.noodle">Χυλοπίτες</string>
     <string name="type.cuisine.oriental">Άπω Ανατολής</string>
     <string name="type.cuisine.pancake">Τηγανίτα</string>
     <string name="type.cuisine.pasta">Ζυμαρικά</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Λουκάνικο</string>
     <string name="type.cuisine.savory_pancakes">Αλμυρές τηγανίτες</string>
     <string name="type.cuisine.seafood">Θαλασσινά</string>
+    <string name="type.cuisine.shawarma">Σαουαρμά</string>
     <string name="type.cuisine.soba">Σόμπα (λεπτά μακαρόνια)</string>
     <string name="type.cuisine.spanish">Ισπανική</string>
     <string name="type.cuisine.steak_house">Μπριζολάδικο</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Σειρά δέντρων</string>
     <string name="type.natural.vineyard">Αμπελώνας</string>
     <string name="type.natural.volcano">Ηφαίστειο</string>
+    <string name="type.natural.volcano.active">Ενεργό ηφαίστειο</string>
     <string name="type.natural.water">Νερό</string>
     <string name="type.natural.wetland">Υγρότοπος</string>
     <string name="type.natural.wetland.bog">Βάλτος</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Χόκεϊ επί χόρτου</string>
     <string name="type.sport.badminton">Αντιπτέριση</string>
     <string name="type.sport.pelota">Βασκική πελότα</string>
+    <string name="type.sport.boules">Πετάνκ</string>
+    <string name="type.sport.cycling">Ποδηλασία</string>
+    <string name="type.sport.four_square">Τέσσερα τετράγωνα</string>
+    <string name="type.sport.horse_racing">Ιπποδρομίες</string>
+    <string name="type.sport.karting">Καρτ</string>
+    <string name="type.sport.motocross">Μοτοκρός</string>
+    <string name="type.sport.motor">Μηχανοκίνητος αθλητισμός</string>
+    <string name="type.sport.netball">Νέτμπολ</string>
+    <string name="type.sport.pickleball">Πίκλμπολ</string>
+    <string name="type.sport.rugby_union">Ράγκμπι γιούνιον</string>
+    <string name="type.sport.running">Τρέξιμο</string>
+    <string name="type.sport.softball">Σόφτμπολ</string>
     <string name="type.tourism">Τουρισμός</string>
     <string name="type.tourism.aquarium">Ενυδρείο</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Ιστορικό αξιοθέατο</string>
     <string name="type.attraction.maze">Λαβύρινθος</string>
     <string name="type.attraction.roller_coaster">Τρενάκι του λούνα παρκ</string>
+    <string name="type.roller_coaster.track">Τρενάκι του λούνα παρκ</string>
     <string name="type.attraction.water_slide">Νεροτσουλήθρα</string>
     <string name="type.tourism.attraction.specified">Αξιοθέατο</string>
     <string name="type.tourism.camp_site">Κάμπινγκ</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Μικρότερο σαμαράκι δρόμου</string>
     <string name="type.traffic_calming.hump">Σαμαράκι δρόμου</string>
     <string name="type.waterway">Υδάτινη οδός</string>
+    <string name="type.waterway.access_point">Σημείο πρόσβασης σε υδατοδρόμιο</string>
     <string name="type.waterway.canal">Κανάλι</string>
     <string name="type.waterway.canal.tunnel">Σήραγγα καναλιού</string>
     <string name="type.waterway.fish_pass">Σκάλα ψαριών</string>
@@ -1437,4 +1454,5 @@
     <string name="type.craft.watchmaker">Ωρολογοποιός</string>
     <string name="type.xmas_feature.market">Χριστουγεννιάτικη αγορά</string>
     <string name="type.xmas_feature.tree">Χριστουγεννιάτικο δέντρο</string>
+    <string name="type.amenity.hookah_lounge">Ναργιλέ μπαρ</string>
 </resources>

@@ -16,6 +16,7 @@ on:
       - NOTICE
       - README.md
       - android/**
+      - data/organic_maps_emoji/**
       - data/strings/**
       - docs/**
       - generator/**
@@ -26,7 +27,6 @@ on:
       - platform/*_mac*
       - platform/*qt*
       - platform/*_win*
-      - pyhelpers/**
       - qt*/**
       - skin_generator/**
       - tools/**
@@ -37,7 +37,7 @@ jobs:
     name: Build iOS
     runs-on: macos-26
     env:
-      DEVELOPER_DIR: /Applications/Xcode_26.2.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_26.4.app/Contents/Developer
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -55,6 +55,12 @@ jobs:
       actions: write  # To delete unnecessary cache.
 
     steps:
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+
+      - name: Show current version of Xcode
+        run: xcodebuild -version
+
       - name: Checkout sources
         uses: actions/checkout@v6
 

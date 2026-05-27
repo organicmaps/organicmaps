@@ -83,6 +83,7 @@
     <string name="avoid_ferry">Evita ferris</string>
     <string name="avoid_motorways">Evita autopistes</string>
     <string name="unable_to_calc_alert_title">No s’ha pogut calcular la ruta</string>
+    <string name="trip_finished">Heu arribat!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordena els marcadors</string>
     <!-- Android -->
@@ -100,7 +101,7 @@
     <string name="downloader_loading_ios">S’està baixant</string>
     <string name="download_map_title">Baixa el mapa general del món</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">L’Organic Maps a l’Android Auto necessita permissos d’ubicació per a funcionar eficaçment</string>
+    <string name="aa_request_permission_activity_text">L’Organic Maps a l’Android Auto necessita permisos d’ubicació per a funcionar eficaçment</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Concedeix permisos</string>
 </resources>

@@ -98,7 +98,7 @@
 "category_transport" = "مواصلات";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "وقود الحافلات";
+"category_fuel" = "وقود";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "مرافق ركن السيارات";
@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "لغة الصوت";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "لتنزيل صوت بجودة أعلى، افتح تطبيق الإعدادات وانتقل إلى تسهيلات الاستخدام → VoiceOver → الكلام → الصوت.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "اختبار الاتجاهات الصوتية (TTS، تحويل النص إلى كلام)";
 "pref_map_auto_zoom" = "تكبير تلقائي";
@@ -356,7 +359,7 @@
 "info" = "المعلومات";
 
 /* Prints version number in About dialog */
-"version" = "إصدار الخرائط العضوية: %@";
+"version" = "Organic Maps الإصدار: %@";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "المظهر";
@@ -558,7 +561,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "المشغل: %@";
 "editor_category_unsuitable_title" = "لا يمكن العثور على فئة مناسبة؟";
-"editor_category_unsuitable_text" = "تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. راجع موقعنا <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.";
+"editor_category_unsuitable_text" = "Organic Maps تسمح بإضافة فئات النقاط البسيطة فقط، وهذا يعني عدم إضافة المدن والطرق والبحيرات وخطوط المباني، إلخ. يرجى إضافة هذه الفئات مباشرة إلى <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. راجع <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">دليلنا</a> للحصول على إرشادات تفصيلية خطوة بخطوة.";
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.";
 "current_location_unknown_error_title" = "الموقع الحالي غير معروف.";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "ركوب الدراجات";
 "button_layer_subway" = "مترو الانفاق";
 "layers_title" = "أنماط الخريطة وطبقاتها";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "تغيير لون جميع الإشارات المرجعية";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "تغيير لون جميع المسارات";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "تصدير KMZ";
@@ -745,7 +754,7 @@
 /* Place Page opening hours text */
 "closed_now" = "مغلق الآن";
 "opens_tomorrow_at" = "يُفتتح غداً في %@";
-"opens_dayoftheweek_at" = "فتح %1$$@ في %2$$@";
+"opens_dayoftheweek_at" = "يفتح %1$@ في %2$@";
 "opens_at" = "يفتح في %@";
 "closes_at" = "يغلق في %@";
 "add_opening_hours" = "أضف ساعات العمل";
@@ -782,7 +791,7 @@
 "location_services_disabled_on_device_2" = "2. حدد الخصوصية";
 "location_services_disabled_on_device_3" = "3. حدد خدمات الموقع";
 "location_services_disabled_on_device_4" = "4. قم بتشغيل خدمات الموقع";
-"location_services_disabled_on_device_additional_message" = "أو استمر في استخدام الخرائط العضوية بدون الموقع";
+"location_services_disabled_on_device_additional_message" = "أو استمر في استخدام Organic Maps بدون تحديد الموقع";
 "book_button" = "حجز";
 "placepage_call_button" = "اتصال";
 "placepage_bookmark_name_hint" = "اسم العلامة المرجعية";
@@ -840,7 +849,7 @@
 "keyboard_availability_alert" = "لوحة الكتابة غير متاحة أثناء القيادة";
 "dialog_routing_change_start_carplay" = "لا يمكن رسم طريق من موقعك الحالي";
 "dialog_routing_change_end_carplay" = "لا يمكن رسم طريق لجهة الوصول. يرجي اختيار مكان آخر";
-"dialog_routing_check_gps_carplay" = "لا يوجد إشارة نظام تحديد المواقع الجغرافية. يرجى الانتقال لمنطقة مفتوح";
+"dialog_routing_check_gps_carplay" = "لا توجد إشارة لنظام تحديد المواقع الجغرافية. يرجى الانتقال إلى منطقة مفتوحة";
 "dialog_routing_unable_locate_route_carplay" = "لا يمكن رسم طريق. يرجى تحديد أماكن أخرى على الطريق";
 "dialog_routing_download_files_carplay" = "كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك";
 "dialog_routing_system_error_carplay" = "حدث خطأ. يرجى إعادة تشغيل التطبيق";
@@ -935,10 +944,10 @@
 "app_tip_09" = "هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف";
+"car_used_on_the_phone_screen" = "أنت تستخدم الآن Organic Maps على شاشة الهاتف";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "أنت الآن تستخدم الخرائط العضوية على شاشة السيارة";
+"car_used_on_the_car_screen" = "أنت تستخدم الآن Organic Maps على شاشة السيارة";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "تواصل على الهاتف";
@@ -947,11 +956,11 @@
 "car_continue_in_the_car" = "إلى شاشة السيارة";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "جولة على الأقدام";
+"button_layer_outdoor" = "الأنشطة الخارجية";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "تصدير كافة الإشارات المرجعية والمسارات";
-"drive_through" = "الشراء من السيارة";
+"drive_through" = "خدمة من السيارة";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "رابط القائمة";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "مستخدمة مؤخراً";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "تم تغيير لون الإشارات المرجعية";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "تم تغيير لون المسارات";

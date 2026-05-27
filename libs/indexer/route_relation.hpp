@@ -28,7 +28,41 @@ public:
     Train,
     Tram,
     Trolleybus,
+
+    Ferry,
+    Subway,
+    ShareTaxi,  // Маршрутка :)
+    LightRail,
+    Aerialway,
+    Funicular,
+    Monorail,
+
+    // This type is stored as 1 byte, so keep the order! and append to the end.
   };
+
+  static std::string_view ToString(Type t)
+  {
+    switch (t)
+    {
+    case Type::Foot: return "Foot";
+    case Type::Hiking: return "Hiking";
+    case Type::Bicycle: return "Bicycle";
+    case Type::MTB: return "MTB";
+    case Type::Bus: return "Bus";
+    case Type::Train: return "Train";
+    case Type::Tram: return "Tram";
+    case Type::Trolleybus: return "Trolleybus";
+    case Type::Ferry: return "Ferry";
+    case Type::Subway: return "Subway";
+    case Type::ShareTaxi: return "ShareTaxi";
+    case Type::LightRail: return "LightRail";
+    case Type::Aerialway: return "Aerialway";
+    case Type::Funicular: return "Funicular";
+    case Type::Monorail: return "Monorail";
+    }
+    UNREACHABLE();
+  }
+
   enum IdxAndFlags : uint8_t
   {
     CycleNetworkIdx = 0,
@@ -45,15 +79,18 @@ public:
 
   static constexpr dp::Color kEmptyColor = dp::Color::Transparent();
 
+public:
+  RouteRelationBase() = default;
+
   void SetParam(std::string_view s, IdxAndFlags idx) { m_params[idx] = s; }
   std::string_view GetParam(IdxAndFlags idx) const { return m_params[idx]; }
 
+  std::string_view GetDefaultName() const { return m_name.GetDefaultString(); }
   Type GetType() const { return m_type; }
+  bool IsPTRoute() const { return m_type >= Type::Bus && m_type <= Type::Monorail; }
   dp::Color GetColor() const { return m_color; }
   std::string const & GetRef() const { return m_ref; }
   std::string const & GetNetwork() const { return m_network; }
-
-  RouteRelationBase() = default;
 
   /// @todo Can optimize by storing color as an index in a palette (1 byte).
 
@@ -121,6 +158,19 @@ protected:
   friend class RelationBuilder;
 };
 
+/// For fast Route type loading.
+struct RouteRelationType
+{
+  using Type = RouteRelationBase::Type;
+  Type m_type;
+
+  template <class TSource>
+  void Read(TSource & src)
+  {
+    m_type = static_cast<Type>(ReadPrimitiveFromSource<uint8_t>(src));
+  }
+};
+
 using ShortArray = buffer_vector<uint32_t, 2>;
 
 class RouteRelation : public RouteRelationBase
@@ -142,11 +192,13 @@ public:
 
     uint32_t const sz = ReadVarUint<uint32_t>(src);
     m_ftMembers.resize(sz);
-    uint32_t prev = 0;
+    int32_t prev = 0;
     for (size_t i = 0; i < sz; ++i)
     {
-      prev += ReadVarUint<uint32_t>(src);
-      m_ftMembers[i] = prev;
+      int32_t const delta = ReadVarInt<int32_t>(src);
+      ASSERT(prev >= -delta, ());
+      prev += delta;
+      m_ftMembers[i] = base::asserted_cast<uint32_t>(prev);
     }
 
     uint8_t const flags = ReadPrimitiveFromSource<uint8_t>(src);
@@ -157,6 +209,25 @@ public:
     if (flags & HasParents)
       ReadVarUInt32SortedShortArray(src, m_relParents);
   }
+
+  /// @param[in]  idx Can be negative, 0 is first, -1 is last.
+  uint32_t GetMember(int idx) const
+  {
+    int const sz = static_cast<int>(m_ftMembers.size());
+    if (idx >= 0)
+    {
+      ASSERT_LESS(idx, sz, ());
+      return m_ftMembers[idx];
+    }
+    else
+    {
+      idx += sz;
+      ASSERT_GREATER(idx, -1, ());
+      return m_ftMembers[idx];
+    }
+  }
+
+  std::vector<uint32_t> const & GetMembers() const { return m_ftMembers; }
 
 private:
   std::vector<uint32_t> m_ftMembers;

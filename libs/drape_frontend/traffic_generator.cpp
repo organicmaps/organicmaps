@@ -184,7 +184,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
     if (TrafficRenderer::CanBeRenderedAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
     {
       std::vector<TrafficLineStaticVertex> staticGeometry;
-      GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), finalDepth, staticGeometry);
+      GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetWrappedDataRect().Center(), finalDepth, staticGeometry);
       if (staticGeometry.empty())
         continue;
 
@@ -202,7 +202,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
           (tileKey.m_zoomLevel > kGenerateCirclesZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
 
       std::vector<TrafficCircleStaticVertex> circlesGeometry;
-      GenerateSegment(g.m_roadClass, colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCircles,
+      GenerateSegment(g.m_roadClass, colorRegion, g.m_polyline, tileKey.GetWrappedDataRect().Center(), generateCircles,
                       finalDepth, vOffset, minU, isLeftHand, staticGeometry, circlesGeometry);
       if (staticGeometry.empty())
         continue;

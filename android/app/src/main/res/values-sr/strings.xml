@@ -371,6 +371,8 @@
     <string name="clear_search">Обриши историју претраге</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Википедија</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Чланак са wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Викимедијина остава</string>
     <string name="p2p_your_location">Ваша локација</string>
@@ -529,6 +531,8 @@
     <string name="error_enter_correct_vk_page">Унесите исправно VK корисничко име или веб адресу</string>
     <string name="error_enter_correct_line_page">Унесите исправан LINE ID или веб адресу</string>
     <string name="placepage_add_place_button">Додај место на OpenStreetMap</string>
+    <string name="osm_note_hint">Или, као алтернативу, оставите поруку заједници OpenStreetMap како би неко други могао да дода или исправи неку локацију овде.</string>
+    <string name="osm_note_toast">Напомена ће бити послата OpenStreetMap-у</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Да ли желите да поделите са свим другим корисницима?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -571,6 +575,7 @@
     <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
+    <string name="saved">Сачувано</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
@@ -616,12 +621,18 @@
     <string name="privacy_policy">Политика приватности</string>
     <string name="terms_of_use">Услови коришћења</string>
     <string name="button_layer_traffic">Саобраћај</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Планинарење</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Бициклизам</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилови мапе и слојеви</string>
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
     <string name="bookmarks_empty_list_message">Да бисте додали маркер, кратко додирните место на мапи, а онда додирните иконицу са звездом</string>
     <!-- Button to change the color of all bookmarks in the current list -->
     <string name="change_all_bookmarks_color">Промени боју свих обележивача</string>
+    <!-- Button to change the color of all tracks in the current list -->
+    <string name="change_all_tracks_color">Промени боју свих путања</string>
     <string name="category_desc_more">…више</string>
     <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Експортуј KMZ</string>
@@ -645,6 +656,11 @@
     <string name="power_managment_setting_never">Никад</string>
     <string name="power_managment_setting_auto">Када је батерија при крају</string>
     <string name="power_managment_setting_manual_max">Увек</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Имена обележивача на мапи</string>
+    <string name="bookmarks_text_placement_description">Ако има превише обележивача, приказивање њихових имена на мапи може успорити апликацију.</string>
+    <string name="show_to_the_right">Прикажи десно</string>
+    <string name="show_at_the_bottom">Прикажи на дну</string>
     <string name="enable_logging_warning_message">Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.</string>
     <string name="driving_options_title">Опције рутирања</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -695,6 +711,12 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Затворено сада</string>
+    <string name="opens_tomorrow_at">Отвара се сутра у %s</string>
+    <string name="opens_dayoftheweek_at">Отвара се %1$s у %2$s</string>
+    <string name="opens_at">Отвара се у %s</string>
+    <string name="closes_at">Затвара се у %s</string>
     <string name="editor_add_select_category_all_subtitle">Све категорије</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -790,7 +812,7 @@
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Organic Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
     <!-- Notification title for permission request from AA. -->
-    <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
+    <string name="aa_request_permission_notification">Ова апликација треба вашу дозволу</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Одобри дозволе</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -827,7 +849,9 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Заустави снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Заустави без снимања</string>
+    <string name="track_recording_title">Снимање путање</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Заустави без чувања</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Настави снимање</string>
     <!-- Title for the alert when saving a track recording. -->
@@ -843,6 +867,10 @@
     <string name="nav_auto">Аутоматски у навигацији</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Прати систем</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Подели стазу</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Избриши %s?</string>
 
     <!-- SECTION: gps strings -->
     <!-- Login to OSM button text -->
@@ -851,4 +879,22 @@
     <string name="login_osm_browser">Пријава преко прегледача</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Недавно коришћено</string>
+    <!-- Toast message shown when bookmark colors are changed in category settings -->
+    <string name="toast_bookmarks_color_changed">Боја обележивача је промењена</string>
+    <!-- Toast message shown when track colors are changed in category settings -->
+    <string name="toast_tracks_color_changed">Боја путања је промењена</string>
+    <!-- Tab label for the spectrum color picker mode -->
+    <string name="color_picker_spectrum">Спектар</string>
+    <!-- Tab label for the RGB sliders color picker mode -->
+    <string name="color_picker_sliders">Слајдери</string>
+    <!-- Label for the red channel slider in the color picker -->
+    <string name="color_picker_red">ЦРВЕНА</string>
+    <!-- Label for the green channel slider in the color picker -->
+    <string name="color_picker_green">ЗЕЛЕНА</string>
+    <!-- Label for the blue channel slider in the color picker -->
+    <string name="color_picker_blue">ПЛАВА</string>
+    <!-- Label for the hex color input field in the color picker -->
+    <string name="color_picker_hex_label">sRGB хексадецимална боја #</string>
+    <!-- Tab label for the grid color picker mode -->
+    <string name="color_picker_grid">Решетка</string>
 </resources>

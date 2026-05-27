@@ -554,13 +554,6 @@
       </intent-filter>
     </service>
 
-    <service
-        android:name=".routing.NavigationService"
-        android:foregroundServiceType="location|mediaPlayback"
-        android:exported="false"
-        android:enabled="true"
-        android:stopWithTask="false"/>
-
     <service android:name=".location.TrackRecordingService"
       android:foregroundServiceType="location"
       android:exported="false"

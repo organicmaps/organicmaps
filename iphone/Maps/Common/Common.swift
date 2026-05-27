@@ -1,7 +1,7 @@
 import Foundation
 
 var isiPad: Bool {
-  if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+  if ProcessInfo.processInfo.isiOSAppOnMac {
     return true
   }
   return UIDevice.current.userInterfaceIdiom == .pad
@@ -35,11 +35,6 @@ func iPhoneSpecific(_ f: () -> Void) {
 
 func toString(_ cls: AnyClass) -> String {
   String(describing: cls)
-}
-
-func statusBarHeight() -> CGFloat {
-  let statusBarSize = UIApplication.shared.statusBarFrame.size
-  return min(statusBarSize.height, statusBarSize.width)
 }
 
 func LOG(_ level: LogLevel,

@@ -1,27 +1,56 @@
-• Dữ liệu bản đồ OSM tính đến ngày 16 tháng 2
-• Dữ liệu Wikipedia tính đến ngày 1 tháng 2
-• Các tuyến đường đi bộ và đi xe đạp màu đen hiện có thể nhìn thấy trong giao diện tối
-• Đã thêm nhiều dịch vụ ô tô hơn: sửa chữa, bảo dưỡng và phụ tùng
-• Đã thêm xác thực trình duyệt OSM
-• Đã sửa lỗi truy cập xe đạp trên một số loại đường
-• Đã sửa lỗi tính toán tốc độ trung bình
-• Cải thiện xếp hạng tìm kiếm cho các danh mục
-• Đã thêm ẩm thực Uzbekistan
-• Đã thêm đường trượt zip (zip lines) trên bản đồ
-• Đã sửa các liên kết Wikimedia có dấu "?" trong tiêu đề
-• Đã sửa lỗi phân tích tệp GPX có dấu "+" trong tọa độ
+## Bản đồ
 
-### Bản dịch
+- MỚI! Bản đồ nay hiển thị đúng khi kéo và xoay qua đường đổi ngày
+- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 4 tháng 4
+- Dữ liệu Wikipedia được cập nhật tính đến ngày 1 tháng 4
+- Thêm biểu tượng cho khu ẩm thực và cổng thành phố
+- Thêm các danh mục con cho cửa hàng quần áo: nữ, nam, trẻ em, cưới, thể thao, đồ lót và trang phục công sở
+- Sửa màu các tuyến tàu điện ngầm ở Sydney
+- Sửa hiển thị giờ mở cửa cho các địa điểm có chênh lệch giờ mặt trời mọc/lặn
 
-• Đã xóa tên thành phố trùng lặp ở một số khu vực bản đồ
-• Đã sửa hướng dẫn bằng giọng nói tiếng Do Thái
-• Đã sửa lỗi chính tả tiếng Hàn
-• Đã thêm từ đồng nghĩa tìm kiếm tiếng Nga
-• Cải thiện hướng dẫn bằng giọng nói tiếng Đức
-• Đã sửa bản dịch còn thiếu cho đường hầm đường sắt không còn sử dụng
-• Đã sửa bản dịch quốc gia bằng tiếng Romania
-• Đã thêm bản dịch tiếng Lào và tiếng Armenia
-• Đã thêm các bản dịch tiếng Armenia còn thiếu
-• Đã cập nhật bản dịch từ những người đóng góp trên Weblate
+## Lập lộ trình và điều hướng
 
-Cảm ơn tất cả mọi người đã đóng góp, quyên góp và ủng hộ Organic Maps! Hãy cùng nhau xây dựng những bản đồ tốt nhất!
+- MỚI! Nhấn vào lộ trình đạp xe hoặc đi bộ để chọn và xem biểu đồ độ cao
+- Cải thiện hiển thị đa màu cho lộ trình đi bộ và đạp xe
+- Điều hướng đạp xe nay sử dụng hướng la bàn ở tốc độ thấp
+- Sửa lỗi hệ thống khi lập lộ trình gần một số biên giới khu vực
+- Giờ đây bạn có thể bắt đầu một lộ trình hợp lệ ngay cả khi được yêu cầu tải thêm bản đồ
+
+## Dấu trang và Bản ghi
+
+- MỚI! Thay đổi màu của tất cả dấu trang và bản ghi trong một danh mục cùng lúc
+- Điều chỉnh ước tính độ cao tăng và giảm trên biểu đồ bản ghi để phù hợp hơn với các ứng dụng khác
+- Cải thiện hiển thị nội dung HTML có bảng và hình ảnh trong chi tiết dấu trang
+- Thêm các vạch phân cách dọc cho bản ghi nhiều đoạn trong biểu đồ độ cao
+- Sửa lỗi chọn điểm trong biểu đồ độ cao đối với các điểm nội suy
+- Sửa lỗi ghi bản ghi GPS bị mất điểm giữa các đoạn
+- Sửa lỗi nhập GeoJSON
+- Sửa lỗi ứng dụng bị treo khi xuất bản ghi
+
+## Tìm kiếm
+
+- Tìm kiếm tốt hơn tại Hoa Kỳ, với hai triệu địa chỉ bổ sung được phân tích từ dữ liệu điều tra dân số TIGER
+- Cập nhật danh mục tìm kiếm: thêm "Bread" cho tiệm bánh, "Shawarma" cho ẩm thực, cùng các cải tiến khác về từ đồng nghĩa
+- Cải thiện tìm kiếm địa chỉ theo số nhà
+- Thêm các từ đồng nghĩa đường phố tại Hoa Kỳ: highway, hwy, freeway, fwy
+- Sửa lỗi kết quả tìm kiếm khi tên thành phố và bang trùng nhau
+
+## Trình chỉnh sửa / OpenStreetMap
+
+- Giờ đây bạn có thể thêm một địa điểm mới vào OpenStreetMap sau khi chọn vị trí hiện tại của mình trên bản đồ
+- Sửa lỗi lệch tâm ngắm khi nhấn "Thêm địa điểm"
+- Tăng diện tích chạm của các nút trong thanh điều hướng "Thêm địa điểm"
+
+## Giao diện người dùng và trải nghiệm người dùng
+
+- Cải thiện cử chỉ trong cửa sổ phương thức: tự động căn vào bước gần nhất, đóng khi vuốt từ mép và khôi phục trạng thái trước đó khi mở lại
+- Sửa lỗi xử lý giờ mùa hè cho các múi giờ
+
+## Ổn định và bản địa hóa
+
+- Cải thiện độ ổn định và hiệu suất, giảm mức tiêu thụ pin
+- Cập nhật bản dịch
+
+## Hỗ trợ nền tảng
+
+- Do những thay đổi trong TestFlight và App Store, bản phát hành này chỉ hỗ trợ iOS 15 trở lên. iOS 12, 13 và 14 không còn được hỗ trợ.

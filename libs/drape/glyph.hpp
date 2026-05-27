@@ -1,9 +1,9 @@
 #pragma once
 
-#include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/shared_buffer_manager.hpp"
 
+#include <cstdint>
 #include <tuple>  // std::tie
 
 namespace dp
@@ -16,28 +16,23 @@ struct GlyphImage
     , m_height(h)
     , m_data(std::move(d))
   {}
-  ~GlyphImage() { ASSERT(!m_data, ("Probably you forgot to call Destroy()")); }
   GlyphImage(GlyphImage const &) = delete;
   GlyphImage & operator=(GlyphImage const &) = delete;
   GlyphImage(GlyphImage &&) noexcept = default;
   GlyphImage & operator=(GlyphImage &&) noexcept = default;
 
-  void Destroy()
-  {
-    if (m_data)
-      SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_data));
-  }
+  // m_data's deleter returns the underlying buffer to SharedBufferManager's pool.
 
-  uint32_t m_width;
-  uint32_t m_height;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
 
   SharedBufferManager::shared_buffer_ptr_t m_data;
 };
 
 struct GlyphFontAndId
 {
-  int16_t m_fontIndex;
-  uint16_t m_glyphId;
+  int16_t m_fontIndex = 0;
+  uint16_t m_glyphId = 0;
 
   // Required only for buffer_vector's internal T m_static[N];
   GlyphFontAndId() = default;
@@ -52,6 +47,17 @@ struct GlyphFontAndId
   bool operator<(GlyphFontAndId const & other) const
   {
     return std::tie(m_fontIndex, m_glyphId) < std::tie(other.m_fontIndex, other.m_glyphId);
+  }
+};
+
+// Perfect 32-bit hash: the two 16-bit fields are packed without collisions across the full
+// (fontIndex, glyphId) key space. m_fontIndex is widened through uint16_t first so a negative
+// value (e.g. kInvalidFont == -1) doesn't sign-extend into the upper bits before the shift.
+struct GlyphFontAndIdHash
+{
+  size_t operator()(GlyphFontAndId const & k) const noexcept
+  {
+    return (static_cast<uint32_t>(static_cast<uint16_t>(k.m_fontIndex)) << 16) | static_cast<uint32_t>(k.m_glyphId);
   }
 };
 

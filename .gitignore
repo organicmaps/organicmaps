@@ -143,8 +143,9 @@ iphone/Maps/app.omaps/
 *.autosave
 
 # CMake
-cmake-build-*
+/cmake-build-*
 build/
+/build*/
 
 qt/res/Info.plist
 

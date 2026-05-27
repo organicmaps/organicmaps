@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:orientation="vertical"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content" >
 
   <include layout="@layout/place_page_shadow_gap" />
 
@@ -19,77 +19,80 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/margin_base"
-      android:layout_marginTop="@dimen/margin_quarter"
+      android:layout_alignTop="@+id/schedule_preview_container"
+      android:layout_alignBottom="@+id/schedule_preview_container"
       app:srcCompat="@drawable/ic_operating_hours"
       app:tint="?iconTint" />
 
-    <TextView
-      android:id="@+id/oh_today_label"
+    <LinearLayout
+      android:id="@+id/schedule_preview_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
-      android:layout_marginBottom="0dp"
+      android:minHeight="24dp"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_toStartOf="@+id/dropdown_icon"
       android:layout_toEndOf="@id/icon"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage"
-      tools:text="@string/today"
-      android:text="@string/today"
-      tools:visibility="visible" />
+      android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/oh_today_open_time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
-      android:layout_marginEnd="32dp"
-      android:layout_alignParentEnd="true"
-      android:layout_toStartOf="@id/dropdown_icon"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage"
-      tools:text="@string/twentyfour_seven"
-      android:text="@string/twentyfour_seven"
-      android:textAlignment="viewEnd"
-      tools:visibility="visible" />
+      <TextView
+        android:id="@+id/tv__schedule_preview_open_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/MwmTextAppearance.PlacePage"
+        tools:text="Open" />
+
+      <TextView
+        android:id="@+id/tv__schedule_preview_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:text="Imagine, just imagine that this text is very very long, like sooo much long" />
+    </LinearLayout>
 
     <ImageView
       android:id="@+id/dropdown_icon"
       android:layout_width="30dp"
       android:layout_height="30dp"
       android:layout_alignParentEnd="true"
-      android:layout_marginTop="1dp"
       android:layout_marginEnd="@dimen/neg_margin_quarter"
+      android:layout_alignTop="@+id/schedule_preview_container"
+      android:layout_alignBottom="@+id/schedule_preview_container"
       app:srcCompat="@drawable/ic_down"
       app:tint="?iconTint"
       tools:visibility="visible" />
 
-    <TextView
-      android:id="@+id/oh_nonbusiness_time"
+    <RelativeLayout
+      android:id="@+id/dropdown_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_width="wrap_content"
-      android:layout_below="@id/oh_today_label"
-      android:layout_alignStart="@id/oh_today_label"
-      android:layout_alignEnd="@id/oh_today_open_time"
-      android:layout_alignParentEnd="false"
-      android:textAlignment="viewEnd"
-      android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:visibility="gone"
-      tools:visibility="visible" />
+      android:layout_below="@id/schedule_preview_container"
+      android:layout_alignStart="@id/icon">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rw__full_opening_hours"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignStart="@id/oh_nonbusiness_time"
-      android:layout_below="@id/oh_nonbusiness_time"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      android:layout_marginTop="8dp"/>
+      <TextView
+        android:id="@+id/tv__single_line_opening_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:text="Very very ugly timetable format with very very very long text..." />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rw__full_opening_hours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </RelativeLayout>
 
   </RelativeLayout>
-
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-  </LinearLayout>
 
 </LinearLayout>

@@ -115,7 +115,6 @@ public:
   void Reset();
 
   // Should be called inside draw callback in Render() method
-  void DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex) const;
   void DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount,
                                    uint32_t startIndex) const;
 

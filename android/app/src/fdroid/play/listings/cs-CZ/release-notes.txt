@@ -1,10 +1,9 @@
-• Data OSM k 16. únoru, Wikipedia k 1. únoru
-• Černé turistické a cyklistické trasy jsou nyní viditelné v tmavém motivu
-• Přidány lanové dráhy a další autoservisy: opravy, servis a díly
-• Opraveno routování pro kola a výpočet průměrné rychlosti
-• Vylepšené vyhledávání kategorií
-• Uzbecká kuchyně
-• Rozbalitelná otevírací doba
-• Zobrazení a použití nadmořské výšky MSL pro zaznamenané trasy na Android 14+
-• Opraven import KML, KMZ, GPX, GeoJSON z WhatsApp
-…více na omaps.org/news
+• Výběrem pěších a cyklistických tras zobrazíte jejich výškové profily.
+• Správné zabalení mapy na antimeridiánu (±180° zeměpisné délky)
+• Změna všech barev záložek a tras v kategorii najednou
+• Lepší vyhledávání čísel domů, pokryto více adres v USA
+• Data OSM ke dni 4. dubna
+• Režim plánovaného vzhledu v Nastavení
+• Opraveno sdílení záložek/stop do jiných aplikací
+• Opraveno nahrávání úprav mapy do OSM
+…více na omaps.org/cs/news

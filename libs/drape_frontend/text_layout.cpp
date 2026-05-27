@@ -278,13 +278,16 @@ dp::TGlyphs TextLayout::GetGlyphs() const
   return glyphs;
 }
 
-StraightTextLayout::StraightTextLayout(std::string const & text, float fontSize, ref_ptr<dp::TextureManager> textures,
+StraightTextLayout::StraightTextLayout(std::string_view text, float fontSize, ref_ptr<dp::TextureManager> textures,
                                        dp::Anchor anchor, bool forceNoWrap)
 {
-  ASSERT_EQUAL(std::string::npos, text.find('\n'), ("Multiline text is not expected", text));
+  /// @todo Support multiline texts (e.g. in Bookmarks).
+  auto iBreak = text.find_first_of("\r\n");
+  if (iBreak != std::string_view::npos)
+    text = text.substr(0, iBreak);
 
   m_textSizeRatio = fontSize * static_cast<float>(VisualParams::Instance().GetFontScale()) / dp::kBaseFontSizePixels;
-  m_shapedGlyphs = textures->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
+  m_shapedGlyphs = textures->ShapeSingleTextLine(text, &m_glyphRegions);
 
   // TODO(AB): Use ICU's BreakIterator to split text properly in different languages without spaces.
   // TODO(AB): Implement SplitText for RTL languages.
@@ -384,7 +387,7 @@ PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, std::string const 
   m_textSizeRatio = fontSize * fontScale / dp::kBaseFontSizePixels;
 
   // TODO(AB): StraightTextLayout used a logic to split a longer string into two strings.
-  m_shapedGlyphs = textureManager->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
+  m_shapedGlyphs = textureManager->ShapeSingleTextLine(text, &m_glyphRegions);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,

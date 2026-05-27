@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "زبان صوت";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "برای دانلود صدای باکیفیت‌تر، برنامه تنظیمات را باز کنید و به دسترس‌پذیری → VoiceOver → گفتار → صدا بروید.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "تست مسیرهای صوتی (TTS، تبدیل متن به گفتار)";
 "pref_map_auto_zoom" = "بزرگنمایی خودکار";
@@ -651,6 +654,12 @@
 "button_layer_subway" = "مترو";
 "layers_title" = "سبک ها و لایه های نقشه";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "تغییر رنگ همه نشانک‌ها";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "تغییر رنگ همه مسیرها";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "صادرات KMZ";
 
@@ -679,9 +688,9 @@
 
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "نام‌ها را روی نقشه نشانه‌گذاری کنید";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_description" = "اگر نشانک‌ها زیاد باشند، نمایش نام آن‌ها روی نقشه ممکن است باعث کند شدن برنامه شود.";
+"show_to_the_right" = "نمایش به سمت راست";
+"show_at_the_bottom" = "در پایین نمایش دهید";
 "enable_logging_warning_message" = "این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.";
 "driving_options_title" = "گزینه‌های رانندگی";
 
@@ -782,7 +791,7 @@
 "location_services_disabled_on_device_2" = "2. Privacy را انتخاب کنید";
 "location_services_disabled_on_device_3" = "3. Location Services را انتخاب کنید";
 "location_services_disabled_on_device_4" = "4. Location Services را روشن کنید";
-"location_services_disabled_on_device_additional_message" = "یا به استفاده از نقشه های ارگانیک بدون موقعیت مکانی ادامه دهید";
+"location_services_disabled_on_device_additional_message" = "یا به استفاده از Organic Maps بدون موقعیت مکانی ادامه دهید";
 "book_button" = "رزرو";
 "placepage_call_button" = "تماس";
 "placepage_bookmark_name_hint" = "نام نشانک";
@@ -804,7 +813,7 @@
 "traffic_update_app_message" = "برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.";
 "log_file_size" = "اندازه فایل گزارش: %@";
 "planning_route_remove_title" = "برای حذف اینجا بکشید";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "جایگزین Stop";
 "start_from_my_position" = "شروع از";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -827,10 +836,10 @@
 "tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "درست";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "پایین";
 "trip_start" = "برویم";
 "pick_destination" = "مقصد";
 "follow_my_position" = "نشان دادن مجدد در مرکز";
@@ -935,10 +944,10 @@
 "app_tip_09" = "هدف اصلی ما ساختن نقشه هایی سریع، متمرکز بر حریم خصوصی و با کاربری آسان است که شما عاشق آن خواهید شد.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید";
+"car_used_on_the_phone_screen" = "شما اکنون در حال استفاده از Organic Maps بر روی صفحهٔ تلفن همراه هستید";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید";
+"car_used_on_the_car_screen" = "شما اکنون در حال استفاده از Organic Maps بر روی صفحهٔ خودرو هستید";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "با تلفن ادامه دهید";
@@ -1014,7 +1023,7 @@
 "map" = "نقشه";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "آیا می خواهید یک گزارش اشکال برای توسعه دهندگان ارسال کنید؟\nما به کاربران خود تکیه می کنیم زیرا نقشه های ارگانیک هیچ گونه اطلاعات خطا را به طور خودکار جمع آوری نمی کند. پیشاپیش از شما برای حمایت از نقشه های ارگانیک سپاسگزاریم!";
+"bugreport_alert_message" = "آیا مایلید گزارش باگ را برای توسعه‌دهندگان ارسال کنید؟ ما به کاربران خود اتکا می‌کنیم زیرا Organic Maps هیچ‌گونه اطلاعات خطایی را به‌طور خودکار جمع‌آوری نمی‌کند. پیشاپیش از حمایت شما از Organic Maps سپاسگزاریم!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "همگام سازی iCloud را فعال کنید";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "به‌تازگی استفاده شده";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "رنگ نشانک‌ها تغییر کرد";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "رنگ مسیرها تغییر کرد";

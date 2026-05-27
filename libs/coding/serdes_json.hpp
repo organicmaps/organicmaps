@@ -6,16 +6,16 @@
 #include "base/exception.hpp"
 #include "base/scope_guard.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include <glaze/json.hpp>
 
 #include <array>
 #include <chrono>
 #include <cstdint>
-#include <cstdlib>
-#include <cstring>
 #include <deque>
+#include <limits>
 #include <map>
 #include <memory>
+#include <string>
 #include <type_traits>
 #include <unordered_set>
 #include <utility>
@@ -23,6 +23,10 @@
 
 namespace coding
 {
+using JsonValue = glz::generic_u64;
+
+DECLARE_EXCEPTION(JsonException, RootException);
+
 namespace traits
 {
 namespace impl
@@ -69,29 +73,149 @@ using EnableIfVectorOrDeque =
 template <typename T>
 using EnableIfNotVectorOrDeque = std::enable_if_t<!traits::is_dynamic_sequence<T>::value>;
 
+namespace detail
+{
+inline JsonValue MakeJSONObject()
+{
+  JsonValue value;
+  value.data = JsonValue::object_t{};
+  return value;
+}
+
+inline JsonValue MakeJSONArray()
+{
+  JsonValue value;
+  value.data = JsonValue::array_t{};
+  return value;
+}
+
+inline void ThrowJsonError(std::string const & message)
+{
+  MYTHROW(JsonException, (message));
+}
+
+inline JsonValue const * GetOptionalField(JsonValue const * root, char const * field)
+{
+  if (root == nullptr || !root->is_object())
+    MYTHROW(JsonException, ("Bad json object while parsing", field));
+
+  auto const & object = root->get_object();
+  auto const it = object.find(field);
+  if (it == object.end())
+    return nullptr;
+  return &it->second;
+}
+
+inline JsonValue * GetOptionalField(JsonValue * root, char const * field)
+{
+  return const_cast<JsonValue *>(GetOptionalField(const_cast<JsonValue const *>(root), field));
+}
+
+inline JsonValue const * GetObligatoryField(JsonValue const * root, char const * field)
+{
+  JsonValue const * value = GetOptionalField(root, field);
+  if (value == nullptr)
+    MYTHROW(JsonException, ("Obligatory field", field, "is absent."));
+  return value;
+}
+
+inline JsonValue * GetObligatoryField(JsonValue * root, char const * field)
+{
+  return const_cast<JsonValue *>(GetObligatoryField(const_cast<JsonValue const *>(root), field));
+}
+
+template <typename T, std::enable_if_t<std::is_integral_v<T> && !std::is_same_v<T, bool>, int> = 0>
+void ReadPrimitive(JsonValue const & root, T & result)
+{
+  if (!root.is_number())
+    MYTHROW(JsonException, ("Object must contain a json number."));
+
+  result = root.as<T>();
+}
+
+inline void ReadPrimitive(JsonValue const & root, double & result)
+{
+  if (!root.is_number())
+    MYTHROW(JsonException, ("Object must contain a json number."));
+
+  result = root.as<double>();
+}
+
+inline void ReadPrimitive(JsonValue const & root, bool & result)
+{
+  if (!root.is_boolean())
+    MYTHROW(JsonException, ("Object must contain a boolean value."));
+
+  result = root.get_boolean();
+}
+
+inline void ReadPrimitive(JsonValue const & root, std::string & result)
+{
+  if (!root.is_string())
+    MYTHROW(JsonException, ("The field must contain a json string."));
+
+  result = root.get_string();
+}
+
+template <typename T, std::enable_if_t<std::is_integral_v<T> && !std::is_same_v<T, bool>, int> = 0>
+JsonValue ToJsonValue(T value)
+{
+  return JsonValue(value);
+}
+
+inline JsonValue ToJsonValue(double value)
+{
+  return JsonValue(value);
+}
+
+inline JsonValue ToJsonValue(bool value)
+{
+  return JsonValue(value);
+}
+
+inline JsonValue ToJsonValue(std::string const & value)
+{
+  return JsonValue(value);
+}
+
+inline JsonValue ToJsonValue(char const * value)
+{
+  return JsonValue(value);
+}
+}  // namespace detail
+
 template <typename Sink>
 class SerializerJson
 {
 public:
   explicit SerializerJson(Sink & sink) : m_sink(sink) {}
 
-  virtual ~SerializerJson()
+  virtual ~SerializerJson() noexcept(false)
   {
-    std::unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(m_json.get(), 0));
-    m_sink.Write(buffer.get(), strlen(buffer.get()));
+    std::string buffer;
+    if (auto const error = glz::write_json(m_json, buffer); error)
+      MYTHROW(JsonException, ("Failed to write JSON", glz::format_error(error)));
+
+    m_sink.Write(buffer.data(), buffer.size());
   }
 
   template <typename T>
   void ToJsonObjectOrValue(T const & value, char const * name)
   {
+    JsonValue json = detail::ToJsonValue(value);
     if (name != nullptr)
     {
-      ToJSONObject(*m_json, name, value);
+      if (!m_json.is_object())
+        MYTHROW(JsonException, ("Current JSON context must be an object."));
+      m_json[name] = std::move(json);
     }
-    else if (json_is_array(m_json))
+    else if (m_json.is_array())
     {
-      auto json = ToJSON(value);
-      json_array_append_new(m_json.get(), json.release());
+      m_json.get_array().push_back(std::move(json));
+    }
+    else if (m_json.is_null())
+    {
+      m_json = std::move(json);
     }
     else
     {
@@ -112,13 +236,13 @@ public:
   template <typename R, EnableIfNotIterable<R> * = nullptr, EnableIfNotEnum<R> * = nullptr>
   void operator()(R const & r, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
+    NewScopeWith(detail::MakeJSONObject(), name, [this, &r] { r.Visit(*this); });
   }
 
   template <typename T, EnableIfIterable<T> * = nullptr>
   void operator()(T const & src, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONArray(), name, [this, &src]
+    NewScopeWith(detail::MakeJSONArray(), name, [this, &src]
     {
       for (auto const & v : src)
         (*this)(v);
@@ -128,7 +252,7 @@ public:
   template <typename R>
   void operator()(std::unique_ptr<R> const & r, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &r]
+    NewScopeWith(detail::MakeJSONObject(), name, [this, &r]
     {
       CHECK(r, ());
       r->Visit(*this);
@@ -138,7 +262,7 @@ public:
   template <typename R>
   void operator()(std::shared_ptr<R> const & r, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &r]
+    NewScopeWith(detail::MakeJSONObject(), name, [this, &r]
     {
       CHECK(r, ());
       r->Visit(*this);
@@ -158,7 +282,7 @@ public:
 
   void operator()(m2::PointD const & p, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &p]
+    NewScopeWith(detail::MakeJSONObject(), name, [this, &p]
     {
       (*this)(p.x, "x");
       (*this)(p.y, "y");
@@ -167,7 +291,7 @@ public:
 
   void operator()(ms::LatLon const & ll, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &ll]
+    NewScopeWith(detail::MakeJSONObject(), name, [this, &ll]
     {
       (*this)(ll.m_lat, "lat");
       (*this)(ll.m_lon, "lon");
@@ -177,7 +301,7 @@ public:
   template <typename Key, typename Value>
   void operator()(std::pair<Key, Value> const & p, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &p]
+    NewScopeWith(detail::MakeJSONObject(), name, [this, &p]
     {
       (*this)(p.first, "key");
       (*this)(p.second, "value");
@@ -192,36 +316,36 @@ public:
 
 protected:
   template <typename Fn>
-  void NewScopeWith(base::JSONPtr json_object, char const * name, Fn && fn)
+  void NewScopeWith(JsonValue jsonObject, char const * name, Fn && fn)
   {
-    base::JSONPtr safe_json = std::move(m_json);
-    m_json = std::move(json_object);
+    JsonValue previous = std::move(m_json);
+    m_json = std::move(jsonObject);
 
-    auto rollback = [this, &safe_json, name]()
+    auto rollback = [this, &previous, name]()
     {
-      if (safe_json == nullptr)
+      if (previous.is_null())
         return;
 
-      if (json_is_array(safe_json))
-        json_array_append_new(safe_json.get(), m_json.release());
-      else if (json_is_object(safe_json))
-        json_object_set_new(safe_json.get(), name, m_json.release());
+      if (previous.is_array())
+        previous.get_array().push_back(std::move(m_json));
+      else if (previous.is_object())
+        previous[name] = std::move(m_json);
 
-      m_json = std::move(safe_json);
+      m_json = std::move(previous);
     };
     SCOPE_GUARD(rollbackJson, rollback);
 
     fn();
   }
 
-  base::JSONPtr m_json = nullptr;
+  JsonValue m_json;
   Sink & m_sink;
 };
 
 class DeserializerJson
 {
 public:
-  using Exception = base::Json::Exception;
+  using Exception = JsonException;
 
   template <typename Source,
             typename std::enable_if<!std::is_convertible<Source, std::string>::value, Source>::type * = nullptr>
@@ -230,23 +354,20 @@ public:
     auto const size = static_cast<size_t>(source.Size());
     std::string src(size, '\0');
     source.Read(static_cast<void *>(&src[0]), size);
-    m_jsonObject.ParseFrom(src);
-    m_json = m_jsonObject.get();
+    ParseFrom(src);
   }
 
-  explicit DeserializerJson(std::string const & source) : m_jsonObject(source), m_json(m_jsonObject.get()) {}
+  explicit DeserializerJson(std::string const & source) { ParseFrom(source); }
 
-  explicit DeserializerJson(char const * buffer) : m_jsonObject(buffer), m_json(m_jsonObject.get()) {}
-
-  explicit DeserializerJson(json_t * json) : m_json(json) {}
+  explicit DeserializerJson(char const * buffer) { ParseFrom(buffer); }
 
   template <typename T>
   void FromJsonObjectOrValue(T & s, char const * name)
   {
     if (name != nullptr)
-      FromJSONObject(m_json, name, s);
+      detail::ReadPrimitive(*detail::GetObligatoryField(m_json, name), s);
     else
-      FromJSON(m_json, s);
+      detail::ReadPrimitive(*m_json, s);
   }
 
   void operator()(bool & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
@@ -262,16 +383,16 @@ public:
   template <typename T, EnableIfVectorOrDeque<T> * = nullptr>
   void operator()(T & dest, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
+    auto * array = m_json->get_if<JsonValue::array_t>();
+    if (array == nullptr)
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
-    if (!json_is_array(m_json))
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
-
-    dest.resize(json_array_size(m_json));
+    dest.resize(array->size());
     for (size_t index = 0; index < dest.size(); ++index)
     {
-      json_t * context = SaveContext();
-      m_json = json_array_get(context, index);
+      JsonValue * context = SaveContext();
+      m_json = &(*array)[index];
       (*this)(dest[index]);
       RestoreContext(context);
     }
@@ -282,18 +403,17 @@ public:
   template <typename T, class H = std::hash<T>>
   void operator()(std::unordered_set<T, H> & dest, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
+    auto * array = m_json->get_if<JsonValue::array_t>();
+    if (array == nullptr)
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
-    if (!json_is_array(m_json))
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
-
-    T tmp;
-    size_t const size = json_array_size(m_json);
-    dest.reserve(size);
-    for (size_t index = 0; index < size; ++index)
+    dest.reserve(array->size());
+    for (auto const & item : *array)
     {
-      json_t * context = SaveContext();
-      m_json = json_array_get(context, index);
+      T tmp;
+      JsonValue * context = SaveContext();
+      m_json = const_cast<JsonValue *>(&item);
       (*this)(tmp);
       dest.insert(tmp);
       RestoreContext(context);
@@ -305,21 +425,18 @@ public:
   template <typename T, size_t N>
   void operator()(std::array<T, N> & dst, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
+    auto * array = m_json->get_if<JsonValue::array_t>();
+    if (array == nullptr)
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
-    if (!json_is_array(m_json))
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
-
-    if (N != json_array_size(m_json))
-    {
-      MYTHROW(base::Json::Exception,
-              ("The field", name, "must contain a json array of size", N, "but size is", json_array_size(m_json)));
-    }
+    if (N != array->size())
+      MYTHROW(JsonException, ("The field", name, "must contain a json array of size", N, "but size is", array->size()));
 
     for (size_t index = 0; index < N; ++index)
     {
-      json_t * context = SaveContext();
-      m_json = json_array_get(context, index);
+      JsonValue * context = SaveContext();
+      m_json = const_cast<JsonValue *>(&(*array)[index]);
       (*this)(dst[index]);
       RestoreContext(context);
     }
@@ -330,16 +447,15 @@ public:
   template <typename Key, typename T>
   void operator()(std::map<Key, T> & dst, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
+    auto * array = m_json->get_if<JsonValue::array_t>();
+    if (array == nullptr)
+      MYTHROW(JsonException, ("The field", name, "must contain a json array."));
 
-    if (!json_is_array(m_json))
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
-
-    size_t const size = json_array_size(m_json);
-    for (size_t index = 0; index < size; ++index)
+    for (auto const & item : *array)
     {
-      json_t * context = SaveContext();
-      m_json = json_array_get(context, index);
+      JsonValue * context = SaveContext();
+      m_json = const_cast<JsonValue *>(&item);
       std::pair<Key, T> tmp;
       (*this)(tmp);
       dst.insert(tmp);
@@ -352,7 +468,7 @@ public:
   template <typename Key, typename Value>
   void operator()(std::pair<Key, Value> & dst, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
     (*this)(dst.first, "key");
     (*this)(dst.second, "value");
     RestoreContext(outerContext);
@@ -361,7 +477,7 @@ public:
   template <typename R, EnableIfNotEnum<R> * = nullptr, EnableIfNotVectorOrDeque<R> * = nullptr>
   void operator()(R & r, char const * name = nullptr)
   {
-    json_t * context = SaveContext(name);
+    JsonValue * context = SaveContext(name);
     r.Visit(*this);
     RestoreContext(context);
   }
@@ -369,7 +485,7 @@ public:
   template <typename R>
   void operator()(std::unique_ptr<R> & r, char const * name = nullptr)
   {
-    json_t * context = SaveContext(name);
+    JsonValue * context = SaveContext(name);
     if (!r)
       r = std::make_unique<R>();
     r->Visit(*this);
@@ -379,7 +495,7 @@ public:
   template <typename R>
   void operator()(std::shared_ptr<R> & r, char const * name = nullptr)
   {
-    json_t * context = SaveContext(name);
+    JsonValue * context = SaveContext(name);
     if (!r)
       r = std::make_shared<R>();
     r->Visit(*this);
@@ -389,10 +505,9 @@ public:
   void operator()(std::chrono::system_clock::time_point & dst, char const * name = nullptr)
   {
     uint64_t t = 0;
-    FromJSONObject(m_json, name, t);
+    FromJsonObjectOrValue(t, name);
 
     std::chrono::system_clock::time_point::duration d(t);
-
     dst = std::chrono::system_clock::time_point(d);
   }
 
@@ -401,13 +516,13 @@ public:
   {
     using UnderlyingType = std::underlying_type_t<T>;
     UnderlyingType res;
-    FromJSONObject(m_json, name, res);
+    FromJsonObjectOrValue(res, name);
     t = static_cast<T>(res);
   }
 
   void operator()(m2::PointD & p, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
     (*this)(p.x, "x");
     (*this)(p.y, "y");
     RestoreContext(outerContext);
@@ -415,7 +530,7 @@ public:
 
   void operator()(ms::LatLon & ll, char const * name = nullptr)
   {
-    json_t * outerContext = SaveContext(name);
+    JsonValue * outerContext = SaveContext(name);
     (*this)(ll.m_lat, "lat");
     (*this)(ll.m_lon, "lon");
     RestoreContext(outerContext);
@@ -424,8 +539,7 @@ public:
   template <typename Optional>
   void operator()(Optional & opt, Optional const & defaultValue, char const * name = nullptr)
   {
-    auto json = base::GetJSONOptionalField(m_json, name);
-    if (!json)
+    if (detail::GetOptionalField(m_json, name) == nullptr)
     {
       opt = defaultValue;
       return;
@@ -435,21 +549,29 @@ public:
   }
 
 protected:
-  json_t * SaveContext(char const * name = nullptr)
+  void ParseFrom(std::string const & source)
   {
-    json_t * context = m_json;
+    if (auto const error = glz::read_json(m_jsonObject, source); error)
+      MYTHROW(JsonException, (glz::format_error(error, source)));
+
+    m_json = &m_jsonObject;
+  }
+
+  JsonValue * SaveContext(char const * name = nullptr)
+  {
+    JsonValue * context = m_json;
     if (name)
-      m_json = base::GetJSONObligatoryField(context, name);
+      m_json = detail::GetObligatoryField(context, name);
     return context;
   }
 
-  void RestoreContext(json_t * context)
+  void RestoreContext(JsonValue * context)
   {
     if (context)
       m_json = context;
   }
 
-  base::Json m_jsonObject;
-  json_t * m_json = nullptr;
+  JsonValue m_jsonObject;
+  JsonValue * m_json = nullptr;
 };
 }  // namespace coding

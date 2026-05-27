@@ -1,10 +1,8 @@
-• OSM-tiedot 16. helmikuuta, Wikipedia 1. helmikuuta
-• Mustat vaellus- ja pyöräilyreitit näkyvät nyt tummassa teemassa
-• Lisätty köysiradat ja lisää autopalveluita: korjaus, huolto ja varaosat
-• Korjattu pyöräilyreititys ja keskinopeuden laskenta
-• Parannettu kategoriahaku
-• Uzbekistanilainen keittiö
-• Laajennettavat aukioloajat
-• Näytä ja käytä MSL-korkeutta tallennetuille reiteille Android 14+ -laitteissa
-• Korjattu KML, KMZ, GPX, GeoJSON -tuonti WhatsAppista
+• Valitse patikointi- ja pyöräilyreitit nähdäksesi niiden korkeuskäyrät.
+• Oikea kartan kääriminen antimeridiaanin kohdalla (±180° pituusastetta).
+• Vaihda kaikkien luokkaan kuuluvien kirjanmerkkien ja reittien värejä kerralla.
+• Parempi talonumeroiden haku, enemmän Yhdysvaltain osoitteita katettu.
+• OSM-tiedot huhtikuun 4. päivästä alkaen
+• Ajastettu näyttötila asetuksissa
+• Kirjanmerkkien ja jälkien jakaminen muihin sovelluksiin korjattu
 …lisää osoitteessa omaps.org/news

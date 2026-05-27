@@ -74,19 +74,25 @@ function(omim_add_library library)
 endfunction()
 
 function(omim_add_tool_subdirectory subdir)
-  if (NOT SKIP_TOOLS)
-    add_subdirectory(${subdir})
-  else()
-    message("SKIP_TOOLS: Skipping subdirectory ${subdir}")
+  # Tools are command-line desktop binaries — never useful on iOS or Android.
+  if (PLATFORM_IPHONE OR PLATFORM_ANDROID)
+    return()
   endif()
+  if (SKIP_TOOLS)
+    message("SKIP_TOOLS: Skipping subdirectory ${subdir}")
+    return()
+  endif()
+  add_subdirectory(${subdir})
 endfunction()
 
-function(omim_add_pybindings_subdirectory subdir)
-  if (PYBINDINGS)
-    add_subdirectory(${subdir})
-  else()
-    message("Skipping pybindings subdirectory ${subdir}")
-  endif()
+# Wrapper for the 3party target_embed_metal_shader_libraries() that always
+# declares a build-order dependency on the embedded metallib(s). The Xcode
+# branch in 3party/CMake-MetalShaderSupport sets XCODE_EMBED_RESOURCES but does
+# not call add_dependencies(), so the .metallib may not exist yet when the
+# embed phase runs. PLATFORM_MAC only — caller is expected to guard.
+function(omim_target_embed_metal_shader_libraries target)
+  target_embed_metal_shader_libraries(${target} ${ARGN})
+  add_dependencies(${target} ${ARGN})
 endfunction()
 
 function(omim_link_libraries target)

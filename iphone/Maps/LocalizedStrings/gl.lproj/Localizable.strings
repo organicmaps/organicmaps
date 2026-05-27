@@ -73,7 +73,7 @@
 "cancel_download" = "Cancelar descarga";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Escribir apunta";
+"leave_a_review" = "Deixar unha reseña";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Si";
@@ -229,6 +229,9 @@
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Idioma de voz";
+
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Para descargar unha voz de maior calidade, abre a app Axustes e vai a Accesibilidade → VoiceOver → Fala → Voz.";
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Probar indicacións de voz (TTS, Text-To-Speech)";
@@ -535,7 +538,7 @@
 "message_invalid_feature_position" = "Non se pode situar ningún obxecto aquí";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Datos de OpenStreetMap creados pola comunidade a partir de %@. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org";
+"osm_presentation" = "Datos de OpenStreetMap creados pola comunidade a data de %@. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org";
 "login_to_make_edits_visible" = "Cre unha conta OpenStreetMap ou inicie sesión para publicar as súas edicións de mapas en todo o mundo.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -644,12 +647,18 @@
 "terms_of_use" = "Condiciones de uso";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Sendeirismo";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "Ciclismo";
 "button_layer_subway" = "Metro";
 "layers_title" = "Estilos e capas do mapa";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Cambiar a cor de todos os marcadores";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Cambiar a cor de todos os traxectos";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportar KMZ";
@@ -678,10 +687,10 @@
 "power_managment_setting_manual_max" = "Sempre";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Nomes de marcadores no mapa";
+"bookmarks_text_placement_description" = "Se hai demasiados marcadores, amosar os seus nomes no mapa pode ralentizar a aplicación.";
+"show_to_the_right" = "Mostrar á dereita";
+"show_at_the_bottom" = "Mostrar na parte inferior";
 "enable_logging_warning_message" = "Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.";
 "driving_options_title" = "Opcións de encamiñamento";
 
@@ -804,7 +813,7 @@
 "traffic_update_app_message" = "Para mostrar os datos de tráfico, debe actualizar a aplicación.";
 "log_file_size" = "Tamaño do arquivo de rexistro: %@";
 "planning_route_remove_title" = "Arrastre aquí para eliminar";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Substituír Stop";
 "start_from_my_position" = "Empezar desde";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -827,10 +836,10 @@
 "tags_loading_error_subtitle" = "Produciuse un erro ao cargar as etiquetas";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Dereito";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
+"bottom" = "Parte inferior";
 "trip_start" = "Imos";
 "pick_destination" = "Destino";
 "follow_my_position" = "Centrar";
@@ -854,7 +863,7 @@
 "carplay_roundabout_exit" = "%@ saída";
 
 /* iOS */
-"sort_default" = "Orde predeterminado";
+"sort_default" = "Ordenar por defecto";
 "sort_type" = "Ordenar por tipo";
 "sort_distance" = "Ordenar por distancia";
 "sort_date" = "Ordenar por data";
@@ -877,14 +886,14 @@
 "parkings" = "Estacionamento";
 "fuel_places" = "Gasolineiras";
 "medicine" = "Medicina";
-"search_in_the_list" = "Buscar nos lista";
+"search_in_the_list" = "Buscar na lista";
 "religious_places" = "Lugares sacros";
 "transit_not_found" = "Navegación en metro aínda non dispoñible nesta rexión";
 "dialog_pedestrian_route_is_long_header" = "Non se atopou ningún roteiro de metro";
 "dialog_pedestrian_route_is_long_message" = "Elixa un punto de inicio ou fin de roteiro máis próximo a unha estación de metro";
-"button_layer_isolines" = "Alturas";
+"button_layer_isolines" = "Curvas de nivel";
 "isolines_activation_error_dialog" = "Para usar as curvas de nivel, actualice ou descargue o mapa da área desexada";
-"isolines_location_error_dialog" = "A altitude de relevo aínda non está dispoñible nesta rexión";
+"isolines_location_error_dialog" = "As curvas de nivel aínda non están dispoñibles nesta zona";
 "elevation_profile_ascent" = "Ascenso";
 "elevation_profile_descent" = "Descenso";
 "elevation_profile_min_elevation" = "Elevación mín.";
@@ -947,7 +956,7 @@
 "car_continue_in_the_car" = "Á pantalla do coche";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Sendeirismo";
+"button_layer_outdoor" = "Ao aire libre";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Exportar todos os marcadores e traxectos";
@@ -996,7 +1005,7 @@
 "placepage_delete_track_button" = "Eliminar traxecto";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Confirma que quere eliminar este traxecto?";
+"placepage_delete_track_confirmation_alert_message" = "Está seguro de que quere eliminar este traxecto?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nome do traxecto";
@@ -1062,10 +1071,10 @@
 "recover_all" = "Recuperar todo";
 
 /* OpenStreetMap contribution section on the PlacePage. */
-"contribute_to_osm" = "Contribute to OpenStreetMap";
-"contribute_to_osm_add_place" = "Add Place";
-"contribute_to_osm_update_map" = "Update the Map to Contribute";
-"contribute_to_osm_update_map_description" = "You need to update the %@ map to the latest version before you can contribute to the OpenStreetMap data";
+"contribute_to_osm" = "Contribúe a OpenStreetMap";
+"contribute_to_osm_add_place" = "Engadir lugar";
+"contribute_to_osm_update_map" = "Actualizar o mapa para contribuír";
+"contribute_to_osm_update_map_description" = "Necesitas actualizar o %@ mapa á última versión antes de poder contribuír aos datos de OpenStreetMap";
 
 
 /********** Uncategorized **********/
@@ -1097,7 +1106,7 @@
 "ft" = "pé";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Para amosar as rutas, os mapas deben actualizarse.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Saída";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Últimos empregados";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "A cor dos marcadores cambiou";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "A cor dos traxectos cambiou";

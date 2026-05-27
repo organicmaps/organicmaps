@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresa";
+"type.building.construction" = "Budova vo výstavbe";
 "type.building.has_parts" = "Budova";
 "type.building_part" = "Budova";
 "type.building.garage" = "Garáž";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Stredomorská kuchyňa";
 "type.cuisine.mexican" = "Mexická kuchyňa";
 "type.cuisine.moroccan" = "Marocká kuchyňa";
-"type.cuisine.noodles" = "Rezance";
+"type.cuisine.noodle" = "Rezance";
 "type.cuisine.oriental" = "Orientálna kuchyňa";
 "type.cuisine.pancake" = "Lievance";
 "type.cuisine.pasta" = "Cestoviny";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Klobása";
 "type.cuisine.savory_pancakes" = "Palacinky na slano";
 "type.cuisine.seafood" = "Morské plody";
+"type.cuisine.shawarma" = "Šawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Španielska kuchyňa";
 "type.cuisine.steak_house" = "Steak house";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Stromoradie";
 "type.natural.vineyard" = "Vinohrad";
 "type.natural.volcano" = "Sopka";
+"type.natural.volcano.active" = "Aktívna sopka";
 "type.natural.water" = "Voda";
 "type.natural.wetland" = "Oblasť mokradí";
 "type.natural.wetland.bog" = "Rašelinisko";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Pozemný hokej";
 "type.sport.badminton" = "Bedminton";
 "type.sport.pelota" = "Baskická pelota";
+"type.sport.boules" = "Pétanque";
+"type.sport.cycling" = "Cyklistika";
+"type.sport.four_square" = "Štyri štvorce";
+"type.sport.horse_racing" = "Dostihy";
+"type.sport.karting" = "Motokáry";
+"type.sport.motocross" = "Motokros";
+"type.sport.motor" = "Motoristický šport";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby";
+"type.sport.running" = "Beh";
+"type.sport.softball" = "Softbal";
 "type.tourism" = "Turistika";
 "type.tourism.aquarium" = "Akvárium";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Historická atrakcia";
 "type.attraction.maze" = "Bludisko";
 "type.attraction.roller_coaster" = "Horská dráha";
+"type.roller_coaster.track" = "Horská dráha";
 "type.attraction.water_slide" = "Vodná šmýkačka";
 "type.tourism.attraction.specified" = "Atrakcia";
 "type.tourism.camp_site" = "Kemp";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Spomaľovací prah";
 "type.traffic_calming.hump" = "Spomaľovací prah";
 "type.waterway" = "Vodný tok";
+"type.waterway.access_point" = "Prístupový bod k vodnej ceste";
 "type.waterway.canal" = "Kanál";
 "type.waterway.canal.tunnel" = "Tunel v kanáli";
 "type.waterway.fish_pass" = "Rybovod";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Hodinár";
 "type.xmas_feature.market" = "Vianočný trh";
 "type.xmas_feature.tree" = "Vianočný stromček";
+"type.amenity.hookah_lounge" = "Shisha bar";

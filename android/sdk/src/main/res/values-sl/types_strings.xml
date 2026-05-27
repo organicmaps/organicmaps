@@ -232,6 +232,7 @@
     <string name="type.building">Stavba</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Naslov</string>
+    <string name="type.building.construction">Stavba v gradnji</string>
     <string name="type.building.has_parts">Stavba</string>
     <string name="type.building_part">Stavba</string>
     <string name="type.building.garage">Garaža</string>
@@ -313,7 +314,7 @@
     <string name="type.cuisine.mediterranean">Sredozemska</string>
     <string name="type.cuisine.mexican">Mehiška</string>
     <string name="type.cuisine.moroccan">Maroška</string>
-    <string name="type.cuisine.noodles">Rezanci</string>
+    <string name="type.cuisine.noodle">Rezanci</string>
     <string name="type.cuisine.oriental">Vzhodnoazijska</string>
     <string name="type.cuisine.pancake">Palačinka</string>
     <string name="type.cuisine.pasta">Testenine</string>
@@ -328,6 +329,7 @@
     <string name="type.cuisine.sausage">Klobasa</string>
     <string name="type.cuisine.savory_pancakes">Slane palačinke</string>
     <string name="type.cuisine.seafood">Morska hrana</string>
+    <string name="type.cuisine.shawarma">Shawarma</string>
     <string name="type.cuisine.spanish">Španska</string>
     <string name="type.cuisine.steak_house">Zrezkarna</string>
     <string name="type.cuisine.sushi">Suši</string>
@@ -724,6 +726,7 @@
     <string name="type.natural.tree_row">Drevored</string>
     <string name="type.natural.vineyard">Vinograd</string>
     <string name="type.natural.volcano">Vulkan</string>
+    <string name="type.natural.volcano.active">Aktivni vulkan</string>
     <string name="type.natural.water">Voda</string>
     <string name="type.natural.wetland">Mokrišče</string>
     <string name="type.natural.wetland.bog">Barje</string>
@@ -1257,6 +1260,18 @@
     <string name="type.sport.ice_hockey">Hokej na ledu</string>
     <string name="type.sport.field_hockey">Hokej na travi</string>
     <string name="type.sport.pelota">Baskovska pelota</string>
+    <string name="type.sport.boules">Balinanje</string>
+    <string name="type.sport.cycling">Kolesarstvo</string>
+    <string name="type.sport.four_square">Štirje kvadrati</string>
+    <string name="type.sport.horse_racing">Konjske dirke</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Avto-moto šport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi</string>
+    <string name="type.sport.running">Tek</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Turizem</string>
     <string name="type.tourism.aquarium">Akvarij</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1276,6 +1291,7 @@
     <string name="type.attraction.historic">Zgodovinska znamenitost</string>
     <string name="type.attraction.maze">Labirint</string>
     <string name="type.attraction.roller_coaster">Vlak smrti</string>
+    <string name="type.roller_coaster.track">Vlak smrti</string>
     <string name="type.attraction.water_slide">Vodni tobogan</string>
     <string name="type.tourism.attraction.specified">Znamenitost</string>
     <string name="type.tourism.camp_site">Kamp</string>
@@ -1304,6 +1320,7 @@
     <string name="type.traffic_calming.bump">Grbina</string>
     <string name="type.traffic_calming.hump">Grbina</string>
     <string name="type.waterway">Vodotok</string>
+    <string name="type.waterway.access_point">Dostopna točka do plovnih poti</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.tunnel">Kanalski predor</string>
     <string name="type.waterway.fish_pass">Ribja steza</string>

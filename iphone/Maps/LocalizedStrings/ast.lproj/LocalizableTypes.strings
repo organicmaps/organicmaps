@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Señes";
+"type.building.construction" = "Building under construction";
 "type.building.has_parts" = "Building";
 "type.building_part" = "Building";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "Noodles";
+"type.cuisine.noodle" = "Noodles";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Sausage";
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
 "type.cuisine.seafood" = "Seafood";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanish";
 "type.cuisine.steak_house" = "Steak House";
@@ -788,8 +790,8 @@
 "type.leisure.stadium" = "Estadiu";
 "type.leisure.swimming_pool" = "Swimming Pool";
 "type.leisure.swimming_pool.private" = "Swimming Pool";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Pista deportiva";
+"type.leisure.track.area" = "Pista deportiva";
 "type.leisure.water_park" = "Parque acuáticu";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Tree Row";
 "type.natural.vineyard" = "Vineyard";
 "type.natural.volcano" = "Volcano";
+"type.natural.volcano.active" = "Active Volcano";
 "type.natural.water" = "Agua";
 "type.natural.wetland" = "Wetland";
 "type.natural.wetland.bog" = "Bog";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Ḥoquei sobre verde";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Basque Pelota";
+"type.sport.boules" = "Boles";
+"type.sport.cycling" = "Ciclismu";
+"type.sport.four_square" = "Cuatro cuadros";
+"type.sport.horse_racing" = "Carreres de caballos";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Deportes de motor";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby union";
+"type.sport.running" = "Carrera";
+"type.sport.softball" = "Softbol";
 "type.tourism" = "Turismu";
 "type.tourism.aquarium" = "Acuariu";
 
@@ -1455,7 +1470,7 @@
 "type.tourism.artwork.sculpture" = "Sculpture";
 "type.tourism.artwork.statue" = "Statue";
 "type.tourism.attraction" = "Atraición";
-"type.attraction.amusement_ride" = "Barraca";
+"type.attraction.amusement_ride" = "Atracción";
 "type.attraction.animal" = "Animal Enclosure";
 "type.attraction.bumper_car" = "Bumper Car";
 "type.attraction.big_wheel" = "Big Wheel";
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Historic attraction";
 "type.attraction.maze" = "Maze";
 "type.attraction.roller_coaster" = "Roller Coaster";
+"type.roller_coaster.track" = "Roller Coaster";
 "type.attraction.water_slide" = "Water Slide";
 "type.tourism.attraction.specified" = "Atraición";
 "type.tourism.camp_site" = "Campground";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Traffic Bump";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "Waterway";
+"type.waterway.access_point" = "Waterway Access Point";
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Fish Pass";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Watchmaker";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
+"type.amenity.hookah_lounge" = "Hookah Lounge";

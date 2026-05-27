@@ -35,7 +35,7 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
 
   @objc
   func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
-    backgroundColor = UIColor.white()
+    backgroundColor = .whitePrimary
 
     self.delegate = delegate
 
@@ -51,7 +51,7 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     textLabel?.numberOfLines = 0
     textLabel?.lineBreakMode = .byWordWrapping
 
-    switchButton.onTintColor = UIColor.linkBlue()
+    switchButton.onTintColor = .linkBlue
     switchButton.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
     accessoryView = switchButton
   }

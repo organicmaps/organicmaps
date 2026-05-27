@@ -30,16 +30,13 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams
   , m_tileCoords(tileKey.GetTileCoords())
   , m_baseTextIndex(baseTextIndex)
 {
-  m_context = std::make_shared<PathTextContext>(m_spline);
+  m_context = std::make_shared<PathTextContext>(m_spline, tileKey.GetTileXOffset());
 }
 
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
 {
-  char constexpr kSpaces[] = "   ";
-  auto layout = make_unique_dp<PathTextLayout>(
-      m_params.m_tileCenter,
-      m_params.m_auxText.empty() ? m_params.m_mainText : m_params.m_mainText + kSpaces + m_params.m_auxText,
-      m_params.m_textFont.m_size, textures);
+  auto layout = make_unique_dp<PathTextLayout>(m_params.m_tileCenter, m_params.ConcatRenderText(),
+                                               m_params.m_textFont.m_size, textures);
 
   if (0 == layout->GetGlyphCount())
   {

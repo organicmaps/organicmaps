@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Äänen kieli";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Voit ladata laadukkaamman äänen avaamalla Asetukset-apin ja siirtymällä kohtaan Käyttöapu → VoiceOver → Puhe → Ääni.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Testaa puheohjeita (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automaattinen zoomaus";
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Karttatyylit ja tasot";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Vaihda kaikkien kirjanmerkkien väri";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Vaihda kaikkien reittien väri";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Vie KMZ";
 
@@ -996,7 +1005,7 @@
 "placepage_delete_track_button" = "Poista reitti";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Haluatko varmasti poistaa tämän kappaleen?";
+"placepage_delete_track_confirmation_alert_message" = "Haluatko varmasti poistaa tämän reitin?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Reitin nimi";
@@ -1075,7 +1084,7 @@
 "core_my_position" = "Sijaintini";
 
 /* Default bookmark list name */
-"core_my_places" = "Paikkani";
+"core_my_places" = "Omat paikat";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "WiFi";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Äskettäin käytetty";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Kirjanmerkkien väri vaihdettu";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Reittien väri vaihdettu";

@@ -11,7 +11,8 @@
   <include
     layout="@layout/altitude_chart_panel"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:layout_weight="0" />
 
   <include
     layout="@layout/routing_bottom_panel_transit"

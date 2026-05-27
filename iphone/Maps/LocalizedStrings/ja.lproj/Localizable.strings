@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "音声言語";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "高品質の音声をダウンロードするには、「設定」アプリを開き、アクセシビリティ → VoiceOver → 読み上げ → 声 に移動します。";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "音声案内をテストする（TTS、Text-To-Speech）";
 "pref_map_auto_zoom" = "自動ズーム";
@@ -558,7 +561,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "運営者: %@";
 "editor_category_unsuitable_title" = "適切なカテゴリーが見つからない？";
-"editor_category_unsuitable_text" = "つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ガイド</a>のステップバイステップの詳細な手順をチェックする。";
+"editor_category_unsuitable_text" = "Organic Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ガイド</a>をご確認ください。";
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
 "current_location_unknown_error_title" = "現在地は不明です。";
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "サイクリング";
 "button_layer_subway" = "地下鉄";
 "layers_title" = "マップのスタイルとレイヤー";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "すべてのブックマークの色を変更";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "すべてのトラックの色を変更";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZをエクスポートする";
@@ -782,7 +791,7 @@
 "location_services_disabled_on_device_2" = "2.プライバシーを選択する";
 "location_services_disabled_on_device_3" = "3.位置情報サービスを選択する";
 "location_services_disabled_on_device_4" = "4.位置情報サービスをオンにする";
-"location_services_disabled_on_device_additional_message" = "または、位置情報なしでオーガニック・マップを使い続ける";
+"location_services_disabled_on_device_additional_message" = "または、位置情報を使用せずにOrganic Mapsを引き続きご利用ください";
 "book_button" = "予約";
 "placepage_call_button" = "電話をかける";
 "placepage_bookmark_name_hint" = "ブックマーク名";
@@ -938,7 +947,7 @@
 "car_used_on_the_phone_screen" = "端末の画面でOrganic Mapsを使用している";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "あなたは今、車の画面でオーガニック・マップを使用している";
+"car_used_on_the_car_screen" = "現在、車の画面でOrganic Mapsをご利用中です";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "電話で続ける";
@@ -1075,7 +1084,7 @@
 "core_my_position" = "現在地";
 
 /* Default bookmark list name */
-"core_my_places" = "マイロケーション";
+"core_my_places" = "マイプレイス";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "無線LAN";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "最近使用";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "ブックマークの色が変更されました";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "トラックの色が変更されました";

@@ -16,7 +16,6 @@ protocol BottomMenuInteractorProtocol: AnyObject {
 }
 
 class BottomMenuInteractor {
-  weak var presenter: BottomMenuPresenterProtocol?
   private weak var viewController: UIViewController?
   private weak var mapViewController: MapViewController?
   private weak var delegate: BottomMenuDelegate?

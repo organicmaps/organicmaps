@@ -80,6 +80,7 @@ public class RoutingController
   @Nullable
   private TransitRouteInfo mCachedTransitRouteInfo;
 
+  private boolean mRouteSaved;
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
 
@@ -275,6 +276,7 @@ public class RoutingController
 
     Logger.d(TAG, "build");
     mLastBuildProgress = 0;
+    mRouteSaved = false;
 
     setBuildState(BuildState.BUILDING);
     if (mContainer != null)
@@ -304,6 +306,16 @@ public class RoutingController
   public void deleteSavedRoute()
   {
     Framework.nativeDeleteSavedRoutePoints();
+  }
+
+  public boolean isRouteSaved()
+  {
+    return mRouteSaved;
+  }
+
+  public void setRouteSaved()
+  {
+    mRouteSaved = true;
   }
 
   public void rebuildLastRoute()
@@ -348,6 +360,8 @@ public class RoutingController
     // and then app crashes. So, the previous route will be restored on the next app launch.
     saveRoute();
 
+    // Clear stale elevation preview marker.
+    Framework.nativeRouteRemoveElevationActivePoint();
     setState(State.NAVIGATION);
 
     cancelPlanning(false);
@@ -442,6 +456,8 @@ public class RoutingController
     setBuildState(BuildState.NONE);
     setState(State.NONE);
 
+    // Clear stale elevation preview marker.
+    Framework.nativeRouteRemoveElevationActivePoint();
     applyRemovingIntermediatePointsTransaction();
     if (deleteSavedRoute)
       Framework.nativeDeleteSavedRoutePoints();

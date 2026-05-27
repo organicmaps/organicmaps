@@ -237,6 +237,7 @@
     <string name="type.building">Bâtiment</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresse</string>
+    <string name="type.building.construction">Bâtiment en construction</string>
     <string name="type.building.has_parts">Bâtiment</string>
     <string name="type.building_part">Bâtiment</string>
     <string name="type.building.garage">Garage</string>
@@ -327,7 +328,7 @@
     <string name="type.cuisine.mediterranean">Cuisine méditerranéenne</string>
     <string name="type.cuisine.mexican">Cuisine mexicaine</string>
     <string name="type.cuisine.moroccan">Cuisine marocaine</string>
-    <string name="type.cuisine.noodles">Nouilles</string>
+    <string name="type.cuisine.noodle">Nouilles</string>
     <string name="type.cuisine.oriental">Cuisine orientale</string>
     <string name="type.cuisine.pancake">Crêpe</string>
     <string name="type.cuisine.pasta">Pâtes</string>
@@ -343,6 +344,7 @@
     <string name="type.cuisine.sausage">Saucisse</string>
     <string name="type.cuisine.savory_pancakes">Crêpes salées</string>
     <string name="type.cuisine.seafood">Fruits de mer</string>
+    <string name="type.cuisine.shawarma">Chawarma</string>
     <string name="type.cuisine.soba">Soba</string>
     <string name="type.cuisine.spanish">Cuisine espagnole</string>
     <string name="type.cuisine.steak_house">Grillades</string>
@@ -754,6 +756,7 @@
     <string name="type.natural.tree_row">Rangée d\'arbres</string>
     <string name="type.natural.vineyard">Vignoble</string>
     <string name="type.natural.volcano">Volcan</string>
+    <string name="type.natural.volcano.active">Volcan actif</string>
     <string name="type.natural.water">Étendue d\'eau</string>
     <string name="type.natural.wetland">Zone humide</string>
     <string name="type.natural.wetland.bog">Tourbière</string>
@@ -1303,6 +1306,18 @@
     <string name="type.sport.field_hockey">Hockey sur gazon</string>
     <string name="type.sport.badminton">Badminton</string>
     <string name="type.sport.pelota">Pelote basque</string>
+    <string name="type.sport.boules">Pétanque</string>
+    <string name="type.sport.cycling">Cyclisme</string>
+    <string name="type.sport.four_square">Quatre carrés</string>
+    <string name="type.sport.horse_racing">Courses hippiques</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motocross</string>
+    <string name="type.sport.motor">Sport mécanique</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Rugby à XV</string>
+    <string name="type.sport.running">Course à pied</string>
+    <string name="type.sport.softball">Softball</string>
     <string name="type.tourism">Tourisme</string>
     <string name="type.tourism.aquarium">Aquarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1322,6 +1337,7 @@
     <string name="type.attraction.historic">Attraction historique</string>
     <string name="type.attraction.maze">Labyrinthe</string>
     <string name="type.attraction.roller_coaster">Les montagnes russes</string>
+    <string name="type.roller_coaster.track">Les montagnes russes</string>
     <string name="type.attraction.water_slide">Toboggan aquatique</string>
     <string name="type.tourism.attraction.specified">Attraction</string>
     <string name="type.tourism.camp_site">Camping</string>
@@ -1353,6 +1369,7 @@
     <string name="type.traffic_calming.bump">Ralentisseur</string>
     <string name="type.traffic_calming.hump">Ralentisseur</string>
     <string name="type.waterway">Voie navigable</string>
+    <string name="type.waterway.access_point">Point d\'accès à la voie d\'eau</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Tunnel du canal</string>
     <string name="type.waterway.fish_pass">Échelle à poissons</string>
@@ -1442,4 +1459,5 @@
     <string name="type.craft.watchmaker">Horloger</string>
     <string name="type.xmas_feature.market">Marché de Noël</string>
     <string name="type.xmas_feature.tree">Arbre de Noël</string>
+    <string name="type.amenity.hookah_lounge">Bar à chicha</string>
 </resources>

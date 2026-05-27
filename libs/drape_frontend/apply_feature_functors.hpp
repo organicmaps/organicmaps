@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/clip_splines_builder.hpp"
 #include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/stylist.hpp"
@@ -147,20 +148,19 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings);
+  void BuildGeometry(int zoomLevel, bool isIsoline);
 
-  void operator()(m2::PointD const & point);
-  bool HasGeometry() const { return m_spline->IsValid(); }
+  bool HasGeometry() const { return m_builder.HasGeometry(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
 
-  std::vector<m2::SharedSpline> MoveClippedSplines() const { return std::move(m_clippedSplines); }
+  std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);
 
   RelationsDrawInfo m_relsInfo;
-  m2::SharedSpline m_spline;
+  ClipSplinesBuilder m_builder;
   std::vector<m2::SharedSpline> m_clippedSplines;
-  m2::PointD m_lastAddedPoint;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   int m_readCount = 0;

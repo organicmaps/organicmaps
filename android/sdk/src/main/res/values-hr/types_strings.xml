@@ -5,20 +5,20 @@
     <string name="type.addr_interpolation">Adresa/Blok</string>
     <string name="type.addr_interpolation.even">Adresa/Blok</string>
     <string name="type.addr_interpolation.odd">Adresa/Blok</string>
-    <string name="type.aerialway">Zračni put</string>
+    <string name="type.aerialway">Žičara</string>
     <string name="type.aerialway.cable_car">Žičara</string>
     <string name="type.aerialway.chair_lift">Žičara sa sjedalima</string>
     <string name="type.aerialway.drag_lift">Vučno dizalo</string>
     <string name="type.aerialway.station">Stanica žičare</string>
     <string name="type.aeroway">Infrastruktura zračnog prostora</string>
     <string name="type.aeroway.aerodrome">Zračna luka</string>
-    <string name="type.aeroway.aerodrome.international">Internacionala zračna luka</string>
-    <string name="type.aeroway.apron">Pregača</string>
+    <string name="type.aeroway.aerodrome.international">Međunarodna zračna luka</string>
+    <string name="type.aeroway.apron">Stajanka</string>
     <string name="type.aeroway.gate">Vrata</string>
-    <string name="type.aeroway.helipad">Helipodrom</string>
+    <string name="type.aeroway.helipad">Helidrom</string>
     <string name="type.aeroway.runway">Pista</string>
     <string name="type.aeroway.taxiway">Rulna staza</string>
-    <string name="type.amenity">Ugodnost</string>
+    <string name="type.amenity">Sadržaji</string>
     <string name="type.amenity.arts_centre">Umjetnički centar</string>
     <string name="type.amenity.bank">Banka</string>
     <string name="type.amenity.bbq">Roštilj</string>
@@ -75,7 +75,7 @@
     <!-- SECTION: Types: Recycling -->
     <string name="type.barrier.block">Blok</string>
     <string name="type.craft.photographer">Fotograf</string>
-    <string name="type.cuisine.noodles">Rezanci</string>
+    <string name="type.cuisine.noodle">Rezanci</string>
     <string name="type.cuisine.uzbek">Uzbečka</string>
     <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
 
@@ -87,7 +87,10 @@
     <string name="type.landuse.cemetery">Groblje</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kršćansko groblje</string>
+    <string name="type.leisure.track">Sportska staza</string>
+    <string name="type.leisure.track.area">Sportska staza</string>
     <string name="type.man_made.silo">Silos</string>
+    <string name="type.natural.volcano.active">Aktivni vulkan</string>
     <string name="type.power.generator.gas">Plinska elektrana</string>
     <string name="type.power.generator.hydro">Hidroelektrana</string>
     <string name="type.power.plant">Elektrana</string>
@@ -114,6 +117,19 @@
     <string name="type.shop.clothes.women">Ženska odjeća</string>
     <string name="type.shop.leather">Trgovina kožnom galanterijom</string>
     <string name="type.shop.religion">Trgovina vjerskim predmetima</string>
+    <string name="type.sport.boules">Boćanje</string>
+    <string name="type.sport.cycling">Biciklizam</string>
+    <string name="type.sport.four_square">Četiri kvadrata</string>
+    <string name="type.sport.horse_racing">Konjske utrke</string>
+    <string name="type.sport.karting">Karting</string>
+    <string name="type.sport.motocross">Motokros</string>
+    <string name="type.sport.motor">Automoto sport</string>
+    <string name="type.sport.netball">Netball</string>
+    <string name="type.sport.pickleball">Pickleball</string>
+    <string name="type.sport.rugby_union">Ragbi union</string>
+    <string name="type.sport.running">Trčanje</string>
+    <string name="type.sport.softball">Softball</string>
+    <string name="type.waterway.access_point">Pristupna točka plovnom putu</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>
     <string name="type.amenity.boat_rental">Iznajmljivanje čamaca</string>

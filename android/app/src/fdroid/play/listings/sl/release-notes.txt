@@ -1,9 +1,9 @@
-• Podatki OSM z dne 16. februarja, Wikipedija z dne 1. februarja
-• Črne pohodniške in kolesarske poti so zdaj vidne v temni temi
-• Dodane so zip linije in več avtomobilskih storitev: popravilo, servis in deli
-• Popravljeno usmerjanje koles in izračun povprečne hitrosti
-• Izboljšano iskanje kategorij
-• Uzbekistanska kuhinja
-• Razširljiv odpiralni čas
-• Prikaz in uporaba nadmorske višine MSL za posnete sledi v sistemu Android 14+
+• Izberite pohodniške in kolesarske poti, da si ogledate njihove grafe nadmorske višine
+• Pravilno zavijanje zemljevida na antimeridianu (±180° zemljepisne dolžine)
+• Spremenite vse barve zaznamkov in sledi v kategoriji naenkrat
+• Boljše iskanje hišnih številk, več zajetih ameriških naslovov
+• Podatki OSM od 4. aprila
+• Način načrtovanega videza v nastavitvah
+• Popravljena delitev zaznamkov/sledi z drugimi aplikacijami
+• Popravljeno nalaganje popravkov zemljevidov v OSM
 …več na omaps.org/news

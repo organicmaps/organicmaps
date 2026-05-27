@@ -3,17 +3,23 @@
 
 #include "qt/qt_common/text_dialog.hpp"
 
+#include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 #include <string>
 
-PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info) : QDialog(parent)
+PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info,
+                                                   Framework & framework)
+  : QDialog(parent)
+  , m_framework(framework)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   QGridLayout * grid = new QGridLayout();
@@ -56,6 +62,11 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     grid->addWidget(new QLabel("Bookmark"), row, 0);
     grid->addWidget(new QLabel("Yes"), row++, 1);
   }
+  else if (info.IsRelationTrack())
+  {
+    grid->addWidget(new QLabel("Track from Relation"), row, 0);
+    grid->addWidget(new QLabel("Yes"), row++, 1);
+  }
 
   if (info.IsMyPosition())
   {
@@ -81,13 +92,26 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
 
   using PropID = osm::MapObject::MetadataID;
 
-  // Route refs
-  if (auto routes = info.FormatRouteRefs(); !routes.empty())
-    addEntry("Routes", routes);
+  // Route refs — pick a route from the combo to show its transit view.
+  if (auto const & routes = info.GetRoutes(); !routes.empty())
+  {
+    grid->addWidget(new QLabel("Routes"), row, 0);
 
-  // Opening hours fragment
-  if (auto openingHours = info.GetOpeningHours(); !openingHours.empty())
-    addEntry(DebugPrint(PropID::FMD_OPEN_HOURS), std::string(openingHours));
+    QComboBox * routesCombo = new QComboBox();
+    // Placeholder so opening the dialog does not auto-select (and trigger) the first route.
+    routesCombo->setPlaceholderText("Select a route…");
+    for (auto const & r : routes)
+    {
+      QString const text = QString::fromStdString(r.m_ref);
+      QString const tip = QString::fromStdString(r.m_from + (r.m_to.empty() ? "" : " → " + r.m_to));
+      routesCombo->addItem(text, QVariant::fromValue<uint32_t>(r.m_relID));
+      routesCombo->setItemData(routesCombo->count() - 1, tip, Qt::ToolTipRole);
+    }
+    connect(routesCombo, QOverload<int>::of(&QComboBox::activated), this, [this, routesCombo](int idx)
+    { m_framework.ShowRouteTransit(routesCombo->itemData(idx).value<uint32_t>()); });
+
+    grid->addWidget(routesCombo, row++, 1);
+  }
 
   // Cuisine fragment
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())

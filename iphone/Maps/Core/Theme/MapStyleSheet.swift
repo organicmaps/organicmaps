@@ -19,31 +19,31 @@ enum MapStyleSheet: String, CaseIterable {
 }
 
 extension MapStyleSheet: IStyleSheet {
-  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
+  func styleResolverFor(fonts: IFonts) -> Theme.StyleResolver {
     switch self {
     case .mapMenuButtonDisabled:
       return .add { s in
-        s.fontColor = colors.blackSecondaryText
+        s.fontColor = .blackSecondaryText
         s.font = fonts.regular10
-        s.backgroundColor = colors.clear
-        s.borderColor = colors.clear
+        s.backgroundColor = .clear
+        s.borderColor = .clear
         s.borderWidth = 0
         s.cornerRadius = .buttonDefault
       }
     case .mapMenuButtonEnabled:
       return .add { s in
-        s.fontColor = colors.linkBlue
+        s.fontColor = .linkBlue
         s.font = fonts.regular10
-        s.backgroundColor = colors.linkBlue
-        s.borderColor = colors.linkBlue
+        s.backgroundColor = .linkBlue
+        s.borderColor = .linkBlue
         s.borderWidth = 3
         s.cornerRadius = .buttonDefault
       }
     case .mapStreetNameBackgroundView:
       return .add { s in
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
         s.shadowRadius = 2
-        s.shadowColor = UIColor(0, 0, 0, alpha26)
+        s.shadowColor = .shadow
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
       }
@@ -89,16 +89,16 @@ extension MapStyleSheet: IStyleSheet {
       }
     case .mapFirstTurnView:
       return .add { s in
-        s.backgroundColor = colors.linkBlue
+        s.backgroundColor = .linkBlue
         s.cornerRadius = .buttonSmall
         s.shadowRadius = 2
-        s.shadowColor = colors.blackHintText
+        s.shadowColor = .blackHintText
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 2)
       }
     case .mapSecondTurnView:
       return .addFrom(Self.mapFirstTurnView) { s in
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
       }
     case .mapAutoupdateView:
       return .add { s in
@@ -106,16 +106,16 @@ extension MapStyleSheet: IStyleSheet {
         s.shadowRadius = 6
         s.cornerRadius = .buttonSmall
         s.shadowOpacity = 1
-        s.backgroundColor = colors.white
+        s.backgroundColor = .whitePrimary
       }
     case .mapGuidesNavigationBar:
       return .add { s in
-        s.barTintColor = colors.white
-        s.tintColor = colors.linkBlue
+        s.barTintColor = .whitePrimary
+        s.tintColor = .linkBlue
         s.backgroundImage = UIImage()
         s.shadowImage = UIImage()
         s.font = fonts.regular18
-        s.fontColor = colors.blackPrimaryText
+        s.fontColor = .blackPrimaryText
       }
     }
   }

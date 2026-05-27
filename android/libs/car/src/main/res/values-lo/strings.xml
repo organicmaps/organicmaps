@@ -67,6 +67,7 @@
     <string name="avoid_ferry">ເລ່ຽງເຮືອຂ້າມຟາກ</string>
     <string name="avoid_motorways">ເລ່ຽງທາງດ່ວນ</string>
     <string name="unable_to_calc_alert_title">ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້</string>
+    <string name="trip_finished">ທ່ານມາຮອດແລ້ວ!</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">ຈັດລຽງບຸກມາກ</string>
     <!-- Android -->

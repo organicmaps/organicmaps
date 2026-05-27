@@ -1,6 +1,6 @@
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMCircularProgress.h"
-#import "NSString+Categories.h"
+#import "NSString+Ranges.h"
 
 #import <CoreApi/MWMCommon.h>
 #import <CoreApi/MWMFrameworkHelper.h>

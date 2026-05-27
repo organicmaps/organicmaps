@@ -13,7 +13,6 @@
 
 #include <functional>
 #include <map>
-#include <mutex>
 #include <optional>
 #include <set>
 #include <string>
@@ -38,7 +37,6 @@ public:
   bool IsMarkAboveText() const override;
   float GetSymbolOpacity() const override;
   bool IsSymbolSelectable() const override { return true; }
-  bool IsNonDisplaceable() const override { return true; }
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);

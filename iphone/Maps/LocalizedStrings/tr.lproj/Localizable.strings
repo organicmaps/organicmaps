@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ses Dili";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Daha yüksek kaliteli bir ses indirmek için Ayarlar uygulamasını açın ve Erişilebilirlik → VoiceOver → Konuşma → Ses bölümüne gidin.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Sesli Yönlendirmeleri Sına (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Kendiliğinden yaklaştır";
@@ -651,6 +654,12 @@
 "button_layer_subway" = "Metro";
 "layers_title" = "Harita Stilleri ve Katmanlar";
 
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Tüm yer imlerinin rengini değiştir";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Tüm izlerin rengini değiştir";
+
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ Olarak Dışa Aktar";
 
@@ -882,9 +891,9 @@
 "transit_not_found" = "Metro navigasyonu henüz bu bölgede kullanılamaz";
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
-"button_layer_isolines" = "Arazi";
+"button_layer_isolines" = "İzohipsler";
 "isolines_activation_error_dialog" = "Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin";
-"isolines_location_error_dialog" = "Arazi katmanı henüz bu bölgede kullanılamaz";
+"isolines_location_error_dialog" = "İzohipsler henüz bu bölgede kullanılamaz";
 "elevation_profile_ascent" = "Tırmanış";
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Son Kullanılanlar";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Yer imi rengi değiştirildi";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "İz rengi değiştirildi";

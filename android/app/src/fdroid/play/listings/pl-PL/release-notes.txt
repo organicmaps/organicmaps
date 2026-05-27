@@ -1,10 +1,9 @@
-• Dane OSM z 16 lutego, Wikipedia z 1 lutego
-• Czarne szlaki piesze i rowerowe są teraz widoczne w ciemnym motywie
-• Dodano tyrolki i więcej usług samochodowych: naprawa, serwis i części
-• Poprawiono wyznaczanie tras rowerowych i obliczanie średniej prędkości
-• Ulepszone wyszukiwanie kategorii
-• Kuchnia uzbecka
-• Rozwijane godziny otwarcia
-• Pokaż i używaj wysokości MSL dla nagranych śladów na Androidzie 14+
-• Naprawiono import KML, KMZ, GPX, GeoJSON z WhatsAppa
-…więcej na omaps.org/news
+• Wybierz trasy piesze i rowerowe, aby wyświetlić ich wykresy wysokości
+• Prawidłowe zawijanie mapy na antymeridianie (±180° długości geograficznej)
+• Jednoczesna zmiana kolorów wszystkich zakładek i tras w danej kategorii
+• Lepsze wyszukiwanie numerów domów, więcej adresów w USA
+• Dane OSM na dzień 4 kwietnia
+• Zaplanowany tryb wyglądu w Ustawieniach
+• Naprawiono udostępnianie zakładek/ścieżek innym aplikacjom
+• Naprawiono przesyłanie zmian mapy do OSM.
+…więcej na omaps.org/pl/news

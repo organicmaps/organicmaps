@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lenguaje de voz";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "Para descargar una voz de mayor calidad, abre la app Configuración y ve a Accesibilidad → VoiceOver → Voz → Voz.";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Prueba de instrucciones de voz (TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Zoom automático";
@@ -535,7 +538,7 @@
 "message_invalid_feature_position" = "Ningún objeto puede ser localizado aquí";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a partir de %@. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
+"osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a fecha de %@. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
 "login_to_make_edits_visible" = "Crea una cuenta OpenStreetMap o inicia sesión para publicar tus ediciones de mapas en todo el mundo.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "Ciclismo";
 "button_layer_subway" = "Metro";
 "layers_title" = "Estilos de mapa y capas";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "Cambiar el color de todos los marcadores";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "Cambiar el color de todos los trayectos";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportar KMZ";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "Recientes";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "Color de los marcadores cambiado";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "Color de los trayectos cambiado";

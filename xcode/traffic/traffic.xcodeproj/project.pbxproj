@@ -42,7 +42,6 @@
 		67BECB671DDA466800FC4E99 /* traffic_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = traffic_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67BECB7F1DDA46A100FC4E99 /* traffic_info_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_info_test.cpp; sourceTree = "<group>"; };
 		67BECB8A1DDA478800FC4E99 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
-		67BECB941DDA4AC800FC4E99 /* bindings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bindings.cpp; sourceTree = "<group>"; };
 		FAFD413F26BBE3FC00D1DE1B /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414126BBE3FC00D1DE1B /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414326BBE88000D1DE1B /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +92,6 @@
 				67BECB591DDA440100FC4E99 /* common-release.xcconfig */,
 				67BECB5A1DDA449C00FC4E99 /* traffic */,
 				67BECB7E1DDA467A00FC4E99 /* traffic_tests */,
-				67BECB8F1DDA47E400FC4E99 /* pytraffic */,
 				67BECB4B1DDA43AF00FC4E99 /* Products */,
 				67BECB831DDA474400FC4E99 /* Frameworks */,
 			);
@@ -148,15 +146,6 @@
 				FAFD414126BBE3FC00D1DE1B /* libcoding.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		67BECB8F1DDA47E400FC4E99 /* pytraffic */ = {
-			isa = PBXGroup;
-			children = (
-				67BECB941DDA4AC800FC4E99 /* bindings.cpp */,
-			);
-			name = pytraffic;
-			path = ../../libs/traffic/pytraffic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

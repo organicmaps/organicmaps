@@ -91,6 +91,7 @@ public class PlacePageProductsFragment extends Fragment
   {
     Utils.openUrl(requireActivity(), product.link);
     Framework.nativeDidSelectProduct(product.title, product.link);
+    Framework.nativeDidShowDonationPage();
     /// @todo Call Framework.nativeDidCloseProductsPopup(SELECT_PRODUCT); ?
   }
 

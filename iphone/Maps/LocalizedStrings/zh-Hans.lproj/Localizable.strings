@@ -230,6 +230,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
 
+/* Settings «Navigation» category: «Voice language» footer */
+"pref_tts_download_voices_description" = "要下载更高质量的语音，请打开“设置”App，然后前往“辅助功能”→“VoiceOver”→“语音”→“声音”。";
+
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "测试语音指令（TTS，文本转语音系统）";
 "pref_map_auto_zoom" = "自动缩放";
@@ -611,7 +614,7 @@
 "mobile_data_description" = "要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。";
 "mobile_data_option_never" = "从不使用";
 "mobile_data_option_ask" = "总是询问";
-"traffic_update_maps_text" = "诺要显示交通数据，必须更新地图。";
+"traffic_update_maps_text" = "若要显示交通数据，必须更新地图。";
 "big_font" = "增大地图上的字体大小";
 
 /* "traffic" as in "road congestion" */
@@ -650,6 +653,12 @@
 "button_layer_cycling" = "骑行";
 "button_layer_subway" = "地铁";
 "layers_title" = "地图样式和图层";
+
+/* Button to change the color of all bookmarks in the current list */
+"change_all_bookmarks_color" = "更改所有书签颜色";
+
+/* Button to change the color of all tracks in the current list */
+"change_all_tracks_color" = "更改所有轨迹颜色";
 
 /* Menu title for exporting a file in the default KMZ format */
 "export_file" = "导出为 KMZ";
@@ -801,7 +810,7 @@
 "general_settings" = "常规设置";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "诺要显示交通数据，必须更新应用。";
+"traffic_update_app_message" = "若要显示交通数据，必须更新应用。";
 "log_file_size" = "日志文件大小：%@";
 "planning_route_remove_title" = "拖拽到此处以移除";
 "placepage_replace_stop" = "更换停机坪";
@@ -812,7 +821,7 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "这里";
-"downloader_hide_screen" = "隱藏屏幕";
+"downloader_hide_screen" = "隐藏屏幕";
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "正在下載 %@…";
 "downloader_applying" = "正在应用 %@…";
@@ -1119,3 +1128,9 @@
 
 /* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
 "editor_add_select_category_recent_subtitle" = "最近使用";
+
+/* Toast message shown when bookmark colors are changed in category settings */
+"toast_bookmarks_color_changed" = "书签颜色已更改";
+
+/* Toast message shown when track colors are changed in category settings */
+"toast_tracks_color_changed" = "轨迹颜色已更改";

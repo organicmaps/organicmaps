@@ -1,0 +1,8 @@
+• Selecciona rutas de senderismo y ciclismo para ver sus gráficos de altitud
+• Ajuste adecuado del mapa en el antimeridiano (±180° de longitud)
+• Cambiar todos los colores de marcadores y trazas de una categoría a la vez
+• Mejor búsqueda de números de casa, más direcciones de EE. UU. cubiertas
+• Datos de OSM a fecha del 4 de abril
+• Modo de apariencia programada en Ajustes
+• Corregido el uso compartido de marcadores/trazas con otras aplicaciones
+…más en omaps.org/news

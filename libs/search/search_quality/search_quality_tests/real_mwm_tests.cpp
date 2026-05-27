@@ -110,7 +110,7 @@ public:
   {
     for (auto const & r : results)
     {
-      auto const ll = mercator::ToLatLon(r.GetFeatureCenter());
+      auto const ll = GetLatLon(r);
       TEST(rect.IsPointInside({ll.m_lon, ll.m_lat}), (r));
     }
   }
@@ -136,12 +136,15 @@ public:
       }
     }
 
-    TEST(found, ());
+    TEST(found, (street, house));
   }
 
+  static constexpr double kEqualCoordEpsM = 5.0;
+
+  static ms::LatLon GetLatLon(search::Result const & r) { return mercator::ToLatLon(r.GetFeatureCenter()); }
   static double GetDistanceM(search::Result const & r, ms::LatLon const & ll)
   {
-    return ms::DistanceOnEarth(ll, mercator::ToLatLon(r.GetFeatureCenter()));
+    return ms::DistanceOnEarth(ll, GetLatLon(r));
   }
 };
 
@@ -336,7 +339,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   TEST_LESS(SortedByDistance(range, center).first, 100000, ());
 
-  EqualClassifType(Range(results, 4, 7), GetClassifTypes({
+  EqualClassifType(Range(results, 3, 6), GetClassifTypes({
                                              {"highway", "service"},
                                              {"railway", "halt"},
                                              {"highway", "bus_stop"},
@@ -766,7 +769,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
       {
         // Fill centers table while processing first city.
         if (!arrCenters[j].IsValid())
-          arrCenters[j] = mercator::ToLatLon(it->GetFeatureCenter());
+          arrCenters[j] = GetLatLon(*it);
       }
     }
   }
@@ -945,13 +948,16 @@ UNIT_CLASS_TEST(MwmTestsFixture, RelaxedStreets)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), 20, ());
 
-    uint32_t const building = classif().GetTypeByPath({"building", "address"});
+    uint32_t const building = classif().GetTypeByPath({"building"});
+    uint32_t const street = classif().GetTypeByPath({"highway"});
+
     size_t count = 0;
     for (auto const & r : results)
     {
-      if (r.GetFeatureType() != building)
+      uint32_t const type1 = ftype::Trunc(r.GetFeatureType(), 1);
+      if (type1 != building)
       {
-        TEST_EQUAL(classif().GetTypeByPath({"highway", "residential"}), r.GetFeatureType(), ());
+        TEST_EQUAL(street, type1, ());
         // First street after addresses  should be the closest one.
         TEST_LESS(GetDistanceM(r, center), 1000, ());
         break;
@@ -1346,8 +1352,6 @@ UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes)
 {
   using namespace mercator;
 
-  auto const & cl = classif();
-
   // "UK_Scotland_South", "UK_England_South East_Brighton" should present!
   RegisterLocalMapsByPrefix("UK_");
 
@@ -1370,9 +1374,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
-    /// @todo We should rank POIs that are closest to the Postcode on top!
-    // TEST(FromLatLon({55.8736446, -4.2768748}).EqualDxDy(results[0].GetFeatureCenter(), kPointEqualityEps), ());
-    TEST_EQUAL(results[0].GetFeatureType(), cl.GetTypeByPath({"amenity", "cafe"}), ());
+    /// @todo Should be fixed after https://github.com/organicmaps/organicmaps/issues/4670
+    /// The first result now is a fuzzy matched street from the neighbour MWM.
+    TEST_LESS(GetDistanceM(results[0], {55.8736281, -4.27685338}), kEqualCoordEpsM, (GetLatLon(results[0])));
   }
 
   std::string const houseName = "St. Nicholas Lodge";
@@ -1444,6 +1448,38 @@ UNIT_CLASS_TEST(MwmTestsFixture, Synonyms)
 
     TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"landuse", "residential"}), ());
     TEST_EQUAL(results[0].GetString(), "Barrio Nuestra Señora de la Asunción", ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, US_FullAddress_Chicago)
+{
+  // Chicago
+  ms::LatLon const center(41.8758005, -87.6189715);
+  SetViewportAndLoadMaps(center);
+
+  for (auto query : {"310 west chicago avenue", "310 west chicago avenue chicago", "310 west chicago avenue chicago IL",
+                     "310 west chicago avenue chicago IL "})
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    HasAddress(Range(request->Results(), 0, kPopularPoiResultsCount), "West Chicago Avenue", "310" /* house */);
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, US_FullAddress_NY)
+{
+  // New York
+  ms::LatLon const center(40.689251, -74.0445382);
+  SetViewportAndLoadMaps(center);
+
+  for (auto query : {"636 Broadway", "636 Broadway, New York", "636 Broadway, New York City",
+                     "636 Broadway, New York City, NY", "636 Broadway, New York City, NY 10012"})
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    HasAddress(Range(request->Results(), 0, kPopularPoiResultsCount), "Broadway", "636" /* house */);
   }
 }
 

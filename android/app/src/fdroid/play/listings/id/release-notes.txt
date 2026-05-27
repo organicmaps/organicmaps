@@ -1,9 +1,9 @@
-• Data OSM per 16 Februari, Wikipedia per 1 Februari
-• Rute pendakian dan bersepeda hitam kini terlihat dalam tema gelap
-• Menambahkan flying fox dan lebih banyak layanan mobil: perbaikan, servis, dan suku cadang
-• Perutean sepeda dan perhitungan kecepatan rata-rata diperbaiki
-• Pencarian kategori ditingkatkan
-• Masakan Uzbekistan
-• Jam buka yang dapat diperluas
-• Tampilkan dan gunakan ketinggian MSL untuk trek yang direkam di Android 14+
-…selengkapnya di omaps.org/news
+• Pilih rute pendakian dan bersepeda untuk melihat grafik ketinggiannya
+• Tampilan peta yang benar di antimeridian (±180° bujur)
+• Mengubah semua warna penanda dan lintasan dalam satu kategori sekaligus
+• Pencarian nomor rumah yang lebih baik, lebih banyak alamat AS yang tercakup
+• Data OSM per tanggal 4 April
+• Mode tampilan terjadwal di Pengaturan
+• Berbagi penanda/trek ke aplikasi lain telah diperbaiki
+• Pengunggahan pengeditan peta ke OSM telah diperbaiki
+…selengkapnya di omaps.org/id/news

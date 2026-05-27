@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Dirección";
+"type.building.construction" = "Edificio en construción";
 "type.building.has_parts" = "Edificio";
 "type.building_part" = "Edificio";
 "type.building.garage" = "Garaxe";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterránea";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquí";
-"type.cuisine.noodles" = "Fideos";
+"type.cuisine.noodle" = "Fideos";
 "type.cuisine.oriental" = "Oriental";
 "type.cuisine.pancake" = "Tortitas";
 "type.cuisine.pasta" = "Pastas";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Salchichas";
 "type.cuisine.savory_pancakes" = "Tortitas salgadas";
 "type.cuisine.seafood" = "Mariscos";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Española";
 "type.cuisine.steak_house" = "Asador";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Fila de árbores";
 "type.natural.vineyard" = "Viña";
 "type.natural.volcano" = "Volcán";
+"type.natural.volcano.active" = "Volcán activo";
 "type.natural.water" = "Corpo de auga";
 "type.natural.wetland" = "Terrea pantanoso";
 "type.natural.wetland.bog" = "Turbera";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hóckey sobre céspede";
 "type.sport.badminton" = "Bádminton";
 "type.sport.pelota" = "Pelota vasca";
+"type.sport.boules" = "Petanca";
+"type.sport.cycling" = "Ciclismo";
+"type.sport.four_square" = "Catro cadrados";
+"type.sport.horse_racing" = "Carreiras de cabalos";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Deportes de motor";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby";
+"type.sport.running" = "Carreira";
+"type.sport.softball" = "Sóftbol";
 "type.tourism" = "Turismo";
 "type.tourism.aquarium" = "Acuario";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Atracción histórica";
 "type.attraction.maze" = "Labirinto";
 "type.attraction.roller_coaster" = "Montaña rusa";
+"type.roller_coaster.track" = "Montaña rusa";
 "type.attraction.water_slide" = "Tobogán acuático";
 "type.tourism.attraction.specified" = "Atracción turística";
 "type.tourism.camp_site" = "Paraxe de campamento";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Banda redutora";
 "type.traffic_calming.hump" = "Resalte";
 "type.waterway" = "Curso de auga";
+"type.waterway.access_point" = "Punto de acceso á vía navegable";
 "type.waterway.canal" = "Canle";
 "type.waterway.canal.tunnel" = "Túnel de canle";
 "type.waterway.fish_pass" = "Escaleira de peces";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Watchmaker";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
+"type.amenity.hookah_lounge" = "Hookah Lounge";

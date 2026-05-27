@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "पत्ता";
+"type.building.construction" = "बांधकाम सुरू असलेली इमारत";
 "type.building.has_parts" = "इमारत";
 "type.building_part" = "इमारत";
 "type.building.garage" = "गराज";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexican";
 "type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "नूडल्स";
+"type.cuisine.noodle" = "नूडल्स";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "पास्ता";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Sausage";
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
 "type.cuisine.seafood" = "मासळी जेवण";
+"type.cuisine.shawarma" = "शोरमा";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Spanish";
 "type.cuisine.steak_house" = "Steak House";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "झाडाची रांग";
 "type.natural.vineyard" = "द्राक्षमळा";
 "type.natural.volcano" = "ज्वालामुखी";
+"type.natural.volcano.active" = "सक्रिय ज्वालामुखी";
 "type.natural.water" = "पाणवठा";
 "type.natural.wetland" = "ओलिताची जमीन";
 "type.natural.wetland.bog" = "ओलिताची जमीन";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Field Hockey";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Basque Pelota";
+"type.sport.boules" = "बूल्स";
+"type.sport.cycling" = "सायकल चालवणे";
+"type.sport.four_square" = "फोर स्क्वेअर";
+"type.sport.horse_racing" = "घोड्यांची शर्यत";
+"type.sport.karting" = "कार्टिंग";
+"type.sport.motocross" = "मोटोक्रॉस";
+"type.sport.motor" = "मोटरस्पोर्ट";
+"type.sport.netball" = "नेटबॉल";
+"type.sport.pickleball" = "पिकलबॉल";
+"type.sport.rugby_union" = "रग्बी";
+"type.sport.running" = "धावणे";
+"type.sport.softball" = "सॉफ्टबॉल";
 "type.tourism" = "पर्यटन";
 "type.tourism.aquarium" = "मत्स्यालय";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "ऐतिहासिक आकर्षण";
 "type.attraction.maze" = "चक्रव्यूह";
 "type.attraction.roller_coaster" = "रोलर कोस्टर";
+"type.roller_coaster.track" = "रोलर कोस्टर";
 "type.attraction.water_slide" = "वॉटर स्लाइड";
 "type.tourism.attraction.specified" = "आकर्षण";
 "type.tourism.camp_site" = "शिबिरवास(कॅम्पिंग)";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "वाहतूक गतिरोधक";
 "type.traffic_calming.hump" = "Traffic Hump";
 "type.waterway" = "जलमार्ग";
+"type.waterway.access_point" = "जलमार्ग प्रवेश बिंदू";
 "type.waterway.canal" = "कालवा";
 "type.waterway.canal.tunnel" = "कालवा";
 "type.waterway.fish_pass" = "मासे शिडी";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "वॉचमेकर";
 "type.xmas_feature.market" = "ख्रिसमस मार्केट";
 "type.xmas_feature.tree" = "ख्रिसमस ट्री";
+"type.amenity.hookah_lounge" = "हुक्का पार्लर";

@@ -7,10 +7,10 @@
 "type.addr_interpolation.odd" = "Διεύθυνση/Τετράγωνο";
 "type.aerialway" = "Τελεφερίκ";
 "type.aerialway.cable_car" = "Τελεφερίκ";
-"type.aerialway.chair_lift" = "Τελεφερίκ";
-"type.aerialway.drag_lift" = "Τελεφερίκ";
-"type.aerialway.gondola" = "Τελεφερίκ";
-"type.aerialway.mixed_lift" = "Τελεφερίκ";
+"type.aerialway.chair_lift" = "Αναβατήρας καρεκλών";
+"type.aerialway.drag_lift" = "Συρόμενος αναβατήρας";
+"type.aerialway.gondola" = "Γόνδολα";
+"type.aerialway.mixed_lift" = "Συνδυασμένος αναβατήρας";
 "type.aerialway.station" = "Σταθμός τελεφερίκ";
 "type.aeroway" = "Υποδομή εναέριου χώρου";
 "type.aeroway.aerodrome" = "Αεροδρόμιο";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Διεύθυνση";
+"type.building.construction" = "Κτίριο υπό κατασκευή";
 "type.building.has_parts" = "Κτίριο";
 "type.building_part" = "Κτίριο";
 "type.building.garage" = "Γκαράζ";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Μεσογειακή";
 "type.cuisine.mexican" = "Μεξικάνικη";
 "type.cuisine.moroccan" = "Μαροκινή";
-"type.cuisine.noodles" = "Χυλοπίτες";
+"type.cuisine.noodle" = "Χυλοπίτες";
 "type.cuisine.oriental" = "Άπω Ανατολής";
 "type.cuisine.pancake" = "Τηγανίτα";
 "type.cuisine.pasta" = "Ζυμαρικά";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Λουκάνικο";
 "type.cuisine.savory_pancakes" = "Αλμυρές τηγανίτες";
 "type.cuisine.seafood" = "Θαλασσινά";
+"type.cuisine.shawarma" = "Σαουαρμά";
 "type.cuisine.soba" = "Σόμπα (λεπτά μακαρόνια)";
 "type.cuisine.spanish" = "Ισπανική";
 "type.cuisine.steak_house" = "Μπριζολάδικο";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Σειρά δέντρων";
 "type.natural.vineyard" = "Αμπελώνας";
 "type.natural.volcano" = "Ηφαίστειο";
+"type.natural.volcano.active" = "Ενεργό ηφαίστειο";
 "type.natural.water" = "Νερό";
 "type.natural.wetland" = "Υγρότοπος";
 "type.natural.wetland.bog" = "Βάλτος";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Χόκεϊ επί χόρτου";
 "type.sport.badminton" = "Αντιπτέριση";
 "type.sport.pelota" = "Βασκική πελότα";
+"type.sport.boules" = "Πετάνκ";
+"type.sport.cycling" = "Ποδηλασία";
+"type.sport.four_square" = "Τέσσερα τετράγωνα";
+"type.sport.horse_racing" = "Ιπποδρομίες";
+"type.sport.karting" = "Καρτ";
+"type.sport.motocross" = "Μοτοκρός";
+"type.sport.motor" = "Μηχανοκίνητος αθλητισμός";
+"type.sport.netball" = "Νέτμπολ";
+"type.sport.pickleball" = "Πίκλμπολ";
+"type.sport.rugby_union" = "Ράγκμπι γιούνιον";
+"type.sport.running" = "Τρέξιμο";
+"type.sport.softball" = "Σόφτμπολ";
 "type.tourism" = "Τουρισμός";
 "type.tourism.aquarium" = "Ενυδρείο";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Ιστορικό αξιοθέατο";
 "type.attraction.maze" = "Λαβύρινθος";
 "type.attraction.roller_coaster" = "Τρενάκι του λούνα παρκ";
+"type.roller_coaster.track" = "Τρενάκι του λούνα παρκ";
 "type.attraction.water_slide" = "Νεροτσουλήθρα";
 "type.tourism.attraction.specified" = "Αξιοθέατο";
 "type.tourism.camp_site" = "Κάμπινγκ";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Μικρότερο σαμαράκι δρόμου";
 "type.traffic_calming.hump" = "Σαμαράκι δρόμου";
 "type.waterway" = "Υδάτινη οδός";
+"type.waterway.access_point" = "Σημείο πρόσβασης σε υδατοδρόμιο";
 "type.waterway.canal" = "Κανάλι";
 "type.waterway.canal.tunnel" = "Σήραγγα καναλιού";
 "type.waterway.fish_pass" = "Σκάλα ψαριών";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Ωρολογοποιός";
 "type.xmas_feature.market" = "Χριστουγεννιάτικη αγορά";
 "type.xmas_feature.tree" = "Χριστουγεννιάτικο δέντρο";
+"type.amenity.hookah_lounge" = "Ναργιλέ μπαρ";

@@ -1,27 +1,56 @@
-• Podaci OSM karte od 16. veljače
-• Podaci Wikipedije od 1. veljače
-• Crne pješačke i biciklističke rute sada su vidljive u tamnoj temi
-• Dodano više usluga za automobile: popravak, servis i dijelovi
-• Dodana autentifikacija preglednika OSM
-• Ispravljen pristup biciklima na nekim vrstama cesta
-• Ispravljen izračun prosječne brzine
-• Poboljšano rangiranje pretraživanja za kategorije
-• Dodana uzbečka kuhinja
-• Dodane zip linije na kartu
-• Ispravljene Wikimedia poveznice s "?" u naslovu
-• Ispravljeno parsiranje GPX datoteka s "+" u koordinatama
+## Karta
 
-### Prijevodi
+- NOVO! Ispravno prelamanje karte na antimeridijanu pri povlačenju i rotiranju
+- Podaci OpenStreetMapa ažurirani do 4. travnja
+- Podaci Wikipedije ažurirani do 1. travnja
+- Dodane su ikone za zone hrane i gradska vrata
+- Dodane su podkategorije za trgovine odjećom: ženska, muška, dječja, vjenčana, sportska, donje rublje i uredska odjeća
+- Ispravljene su boje linija podzemne željeznice u Sydneyju
+- Ispravljen je prikaz radnog vremena za lokacije s pomakom izlaska/zalaska sunca
 
-• Uklonjeni dupli nazivi gradova u nekim regijama karte
-• Ispravljene glasovne upute na hebrejskom
-• Ispravljene korejske tipfeleri
-• Dodani ruski sinonimi za pretraživanje
-• Poboljšane njemačke glasovne upute
-• Ispravljen nedostajući prijevod za napušteni željeznički tunel
-• Ispravljen prijevod zemlje na rumunjskom
-• Dodani prijevodi na laoski i armenski
-• Dodani nedostajući armenski prijevodi
-• Ažurirani prijevodi suradnika Weblate-a
+## Usmjeravanje i navigacija
 
-Hvala svima koji doprinose, doniraju i podržavaju Organic Maps! Izgradimo najbolje karte zajedno!
+- NOVO! Dodirnite biciklističku ili pješačku rutu kako biste je odabrali i vidjeli njezin visinski profil
+- Poboljšano je višebojno prikazivanje pješačkih i biciklističkih ruta
+- Navigacija za bicikliranje sada koristi smjer kompasa pri malim brzinama
+- Ispravljena je sistemska pogreška pri planiranju ruta u blizini nekih regionalnih granica
+- Sada možete započeti valjanu rutu čak i kada se od vas traži da preuzmete dodatne karte
+
+## Oznake i tragovi
+
+- NOVO! Promijenite sve boje oznaka i tragova u kategoriji odjednom
+- Prilagođena je aproksimacija uspona i spusta na grafikonima tragova kako bi bolje odgovarala drugim aplikacijama
+- Poboljšan je prikaz HTML sadržaja s tablicama i slikama u detaljima oznaka
+- Dodani su vertikalni razdjelnici za višesegmentne tragove na grafikonu nadmorske visine
+- Popravljen je odabir točaka na grafikonu nadmorske visine za interpolirane točke
+- Popravljen je gubitak točaka pri snimanju GPS traga između segmenata
+- Popravljen je uvoz GeoJSON datoteka
+- Popravljen je pad aplikacije pri izvozu tragova
+
+## Pretraživanje
+
+- Bolje pretraživanje u SAD-u, s dva milijuna dodatnih adresa izdvojenih iz podataka popisa stanovništva TIGER
+- Ažurirane kategorije pretraživanja: dodani su "Kruh" za pekare, kuhinja "Shawarma" i druga poboljšanja sinonima
+- Poboljšano je pretraživanje adresa s kućnim brojem
+- Dodani su sinonimi za američke ulice: highway, hwy, freeway, fwy
+- Ispravljeni su rezultati pretraživanja kada su nazivi grada i države isti
+
+## Uređivač / OpenStreetMap
+
+- Sada možete dodati novo mjesto na OpenStreetMap nakon odabira svoje trenutačne pozicije na karti
+- Ispravljeno je neusklađivanje nišana u uređivaču pri pritisku na "Dodaj mjesto"
+- Povećano je dodirno područje gumba u navigacijskoj traci "Dodaj mjesto"
+
+## Korisničko sučelje i korisničko iskustvo
+
+- Poboljšane modalne geste: prijanjanje uz najbliži korak, zatvaranje pri povlačenju uz rub i vraćanje prethodnog stanja pri ponovnom otvaranju
+- Ispravljeno je rukovanje ljetnim vremenom za vremenske zone
+
+## Stabilnost i lokalizacija
+
+- Poboljšane stabilnost i performanse, smanjena je potrošnja baterije
+- Ažurirani prijevodi
+
+## Podrška za platforme
+
+- Zbog promjena u TestFlightu i App Storeu, ovo izdanje podržava samo iOS 15 i novije verzije. iOS 12, 13 i 14 više nisu podržani.

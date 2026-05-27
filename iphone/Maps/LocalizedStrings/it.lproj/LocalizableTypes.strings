@@ -8,7 +8,7 @@
 "type.aerialway" = "Impianto a fune";
 "type.aerialway.cable_car" = "Teleferica";
 "type.aerialway.chair_lift" = "Seggiovia";
-"type.aerialway.drag_lift" = "Ski-lift";
+"type.aerialway.drag_lift" = "Sciovia";
 "type.aerialway.gondola" = "Cabinovia";
 "type.aerialway.mixed_lift" = "Impianto misto";
 "type.aerialway.station" = "Stazione";
@@ -82,7 +82,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Cimitero cristiano";
 "type.amenity.hospital" = "Ospedale";
-"type.amenity.hunting_stand" = "Torre di caccio";
+"type.amenity.hunting_stand" = "Torre di caccia";
 "type.amenity.ice_cream" = "Gelateria";
 "type.amenity.internet_cafe" = "Cybercaffè";
 "type.amenity.kindergarten" = "Scuola materna";
@@ -249,6 +249,7 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Indirizzo";
+"type.building.construction" = "Edificio in costruzione";
 "type.building.has_parts" = "Edificio";
 "type.building_part" = "Edificio";
 "type.building.garage" = "Garage";
@@ -340,7 +341,7 @@
 "type.cuisine.mediterranean" = "Cucina mediterranea";
 "type.cuisine.mexican" = "Cucina messicana";
 "type.cuisine.moroccan" = "Cucina marocchina";
-"type.cuisine.noodles" = "Noodles";
+"type.cuisine.noodle" = "Noodles";
 "type.cuisine.oriental" = "Cucina orientale";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -356,6 +357,7 @@
 "type.cuisine.sausage" = "Salsicce";
 "type.cuisine.savory_pancakes" = "Pancake salati";
 "type.cuisine.seafood" = "Frutti di mare";
+"type.cuisine.shawarma" = "Shawarma";
 "type.cuisine.soba" = "Soba";
 "type.cuisine.spanish" = "Cucina spagnola";
 "type.cuisine.steak_house" = "Bisteccheria";
@@ -882,6 +884,7 @@
 "type.natural.tree_row" = "Fila di alberi";
 "type.natural.vineyard" = "Vigneto";
 "type.natural.volcano" = "Vulcano";
+"type.natural.volcano.active" = "Vulcano attivo";
 "type.natural.water" = "Corpo d'acqua";
 "type.natural.wetland" = "Terreno paludoso";
 "type.natural.wetland.bog" = "Torbiera";
@@ -1293,7 +1296,7 @@
 "type.shop.caravan" = "Vendita camper";
 "type.shop.carpet" = "Tappeti";
 "type.shop.chemist" = "Negozio di detersivi";
-"type.shop.chocolate" = "Choccolateria";
+"type.shop.chocolate" = "Cioccolateria";
 "type.shop.clothes" = "Negozio di abbigliamento";
 "type.shop.clothes.children" = "Negozio di abbigliamento per bambini";
 "type.shop.clothes.fashion" = "Boutique di moda";
@@ -1306,7 +1309,7 @@
 "type.shop.clothes.women" = "Abbigliamento donna";
 "type.shop.coffee" = "Negozio di caffè";
 "type.shop.computer" = "Negozio di computer";
-"type.shop.confectionery" = "Pasticceria";
+"type.shop.confectionery" = "Negozio di dolciumi";
 "type.shop.convenience" = "Minimarket";
 "type.shop.copyshop" = "Copisteria";
 "type.shop.cosmetics" = "Cosmetici";
@@ -1354,7 +1357,7 @@
 "type.shop.outdoor" = "Attrezzatura sportiva";
 "type.shop.outpost" = "Punto di raccolta";
 "type.shop.pasta" = "Negozio di pasta";
-"type.shop.pastry" = "Pasticcino";
+"type.shop.pastry" = "Pasticceria";
 "type.shop.pawnbroker" = "Pegni";
 "type.shop.pet" = "Negozio di animali";
 "type.shop.pet_grooming" = "Toelettatura per animali domestici";
@@ -1443,6 +1446,18 @@
 "type.sport.field_hockey" = "Hockey su prato";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Palla basca";
+"type.sport.boules" = "Bocce";
+"type.sport.cycling" = "Ciclismo";
+"type.sport.four_square" = "Quattro quadrati";
+"type.sport.horse_racing" = "Corse di cavalli";
+"type.sport.karting" = "Karting";
+"type.sport.motocross" = "Motocross";
+"type.sport.motor" = "Sport motoristici";
+"type.sport.netball" = "Netball";
+"type.sport.pickleball" = "Pickleball";
+"type.sport.rugby_union" = "Rugby a 15";
+"type.sport.running" = "Corsa";
+"type.sport.softball" = "Softball";
 "type.tourism" = "Turismo";
 "type.tourism.aquarium" = "Acquario";
 
@@ -1463,6 +1478,7 @@
 "type.attraction.historic" = "Attrazione storica";
 "type.attraction.maze" = "Labirinto";
 "type.attraction.roller_coaster" = "Montagne russe";
+"type.roller_coaster.track" = "Montagne russe";
 "type.attraction.water_slide" = "Scivolo d'acqua";
 "type.tourism.attraction.specified" = "Attrattiva";
 "type.tourism.camp_site" = "Campeggio";
@@ -1496,6 +1512,7 @@
 "type.traffic_calming.bump" = "Dosso";
 "type.traffic_calming.hump" = "Dosso";
 "type.waterway" = "Via d'acqua";
+"type.waterway.access_point" = "Punto di accesso alle vie d'acqua";
 "type.waterway.canal" = "Canale";
 "type.waterway.canal.tunnel" = "Canale";
 "type.waterway.fish_pass" = "Passaggio per pesci";
@@ -1589,3 +1606,4 @@
 "type.craft.watchmaker" = "Orologiaio";
 "type.xmas_feature.market" = "Mercatino di Natale";
 "type.xmas_feature.tree" = "Albero di Natale";
+"type.amenity.hookah_lounge" = "Shisha bar";
