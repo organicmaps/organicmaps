@@ -1,7 +1,8 @@
-• Pieskarieties sabiedriskā transporta pieturai un izvēlieties maršruta numurus, lai kartē izceltu maršrutus.
-• Grāmatzīmju etiķetes kartē vairs nepārklājas
-• Svaigi OpenStreetMap dati no 3. maija ar jauniem objektu tipiem
-• Uzlabotas trases un maršrutu augstuma diagrammas
-• Vjetnamas, Malaizijas, Honkongas, Makao un Hainaņas mazāka izmēra karšu lejupielādes
-• Pilnveidota lietotāja saskarne un animācijas
+• Jaunums! Pēdojumiem var pievienot teksta vai HTML aprakstu un izvēlēties jebkuru krāsu
+• Pievienotas Austrālijas un Jaunzēlandes ceļu numuru zīmes
+• Pareizi fonti korejiešu, ķīniešu un japāņu valodai
+• Jaunas ikonas petankam, riteņbraukšanai un motosportam
+• Pievienoti svinīgie vārti, ūdensslīdkalniņi, atrakciju parki un amerikāņu kalniņi
+• Laboti sabiedriskā transporta maršruti stacijām un teritorijām
+• OSM dati: 27. maijs
 …vairāk vietnē omaps.org/news

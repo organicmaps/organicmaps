@@ -1,7 +1,9 @@
-• Atingeți o stație de transport public și selectați numere de traseu pentru a evidenția traseele pe hartă
-• Etichetele marcajelor nu se mai suprapun pe hartă
-• Date proaspete OpenStreetMap din 3 mai, cu noi tipuri de obiecte
-• Grafice de elevație îmbunătățite pentru trasee și rute
-• Descărcări de hărți mai mici pentru Vietnam, Malaezia, Hong Kong, Macao și Hainan
-• UI și animații rafinate
-…mai multe la omaps.org/news
+• NOU! Apasă pe creion pentru a adăuga descrieri text sau HTML la trasee
+• NOU! Alege orice culoare pentru trasee
+• Indicatoare rutiere pentru Australia și Noua Zeelandă
+• Fonturi corecte pentru coreeană, chineză și japoneză, după limba dispozitivului
+• Pictograme noi: petanque, ciclism, sporturi cu motor
+• Porți ceremoniale, tobogane acvatice, parcuri tematice și montagne russe
+• Rute de transport public corectate pentru stații și zone
+• Date OSM din 27 mai
+…mai multe pe omaps.org/news

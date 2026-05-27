@@ -1,7 +1,8 @@
-• Harita üzerinde rotaları vurgulamak için bir toplu taşıma durağına dokunun ve rota numaralarını seçin
-• Yer imi etiketleri artık haritada üst üste gelmiyor
-• Yeni nesne türleriyle birlikte 3 Mayıs itibarıyla yeni OpenStreetMap verileri
-• Parkurlar ve rotalar için geliştirilmiş yükseklik grafikleri
-• Vietnam, Malezya, Hong Kong, Makao ve Hainan için daha küçük harita indirmeleri
-• Geliştirilmiş kullanıcı arayüzü ve animasyonlar
-…daha fazlası omaps.org/tr/news adresinde
+• YENİ! İzlere metin veya HTML açıklaması eklemek için kalem simgesine dokunun
+• YENİ! İzler için istediğiniz rengi seçin
+• Avustralya ve Yeni Zelanda yol numarası levhaları eklendi
+• Korece, Çince ve Japonca için cihaz diline uygun yazı tipleri eklendi
+• Bocce, bisiklet, motor sporları, tören kapısı, su kaydırağı, tema parkı ve lunapark hız treni yerleri eklendi
+• İstasyonlar ve alan nesneleri için toplu taşıma rotaları düzeltildi
+• OSM verileri: 27 Mayıs
+…daha fazlası omaps.org/tr/news

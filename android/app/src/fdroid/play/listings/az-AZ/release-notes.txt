@@ -1,7 +1,9 @@
-• Nəqliyyat dayanacağına toxunun və xəritədə marşrutları vurğulamaq üçün marşrut nömrələrini seçin
-• Xəritədə yer imləri etiketləri artıq üst-üstə düşmür
-• 3 may tarixinə olan yeni obyekt növləri ilə təzə OpenStreetMap məlumatları
-• Yollar və marşrutlar üçün yüksəklik cədvəllərinin təkmilləşdirilməsi
-• Vyetnam, Malayziya, Honq Konq, Makao və Xaynan üçün xəritə yükləmələrinin həcminin kiçildilməsi
-• Təkmilləşdirilmiş istifadəçi interfeysi və animasiyalar
-…daha çox omaps.org/news saytında
+• YENİ! Trekə mətn və ya HTML təsviri əlavə etmək üçün qələm ikonuna toxunun
+• YENİ! Treklər üçün istənilən rəngi seçin
+• Avstraliya və Yeni Zelandiya yol nişanları əlavə edildi
+• Koreyalı, çinli və yapon istifadəçilər cihaz dilinə uyğun şriftlər görəcəklər
+• Petank, velosiped və avtoidman məkanları üçün ikonlar əlavə edildi
+• Mərasim qapıları, su sürüşgəcləri, əyləncə parkları və rollerkosterlər əlavə edildi
+• İctimai nəqliyyat marşrutları düzəldildi
+• OSM: 27 may
+…daha çox: omaps.org/news

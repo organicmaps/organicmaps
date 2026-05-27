@@ -1,26 +1,22 @@
-- MỚI! Nhấn vào một trạm giao thông công cộng để làm nổi bật toàn bộ lộ trình trên bản đồ, giống như trong kiểu bản đồ Transit.
-- MỚI! Các tuyến giao thông công cộng đường dài và các mối quan hệ OpenStreetMap khác hiện được kết nối qua các ranh giới bản đồ thành một đường liên tục.
-- Dữ liệu OpenStreetMap được cập nhật tính đến ngày 3 tháng 5.
-- Việt Nam và Malaysia hiện đã được chia thành các khu vực nhỏ hơn có thể tải xuống riêng biệt.
-- Hong Kong, Macau và Hainan hiện đã được tách khỏi Quảng Đông, với các đường biên giới lân cận được cập nhật.
-- Cập nhật đường đồng mức cho Indonesia, Malaysia, Tanzania, Thái Lan và Việt Nam.
-- Đã thêm nút ghi lại đường đi vào bảng thông tin trong quá trình điều hướng.
-- Đã thêm các loại OpenStreetMap mới: núi lửa đang hoạt động, điểm tiếp cận đường thủy, đường trượt, phòng hút hookah và các tòa nhà đang xây dựng.
-- Đã thêm “Lookout” làm từ đồng nghĩa trong tìm kiếm cho các điểm quan sát, và “pkwy” làm từ đồng nghĩa cho đường phố ở Mỹ.
-- Màu sắc của khu vực dành cho người đi bộ được làm tối hơn một chút để dễ đọc hơn.
-- Các nhãn Bookmark trên bản đồ không còn chồng chéo lên nhau nữa.
-- Văn bản nhiều dòng hiện được cắt gọn gàng, và tên đường phố không còn chứa các bản sao trùng lặp.
-- Tính năng định tuyến: các lộ trình tiếp tục hiện sẽ loại bỏ các điểm trung gian mà bạn đã đi qua.
-- Đã sửa lỗi sử dụng danh sách dấu trang sai trong các bản dựng TestFlight.
-- Đã sửa lỗi nhập tệp KMB.
-- Đã cập nhật các bản dịch đã được hiệu đính cho các danh mục, từ đồng nghĩa tìm kiếm và chuỗi văn bản giao diện người dùng. Đã thêm bản dịch cho các mô tả về New South Wales và Northern Territory.
-- Đã cải thiện độ ổn định và hiệu suất, bao gồm định dạng phông chữ, lưu trữ ký tự và cắt đường dẫn.
-- Đã cải thiện biểu đồ độ cao cho các đường đi và lộ trình.
-- Đã làm lớn các nút menu trong quá trình điều hướng cho các thao tác như TTS, cài đặt và ghi lại đường đi.
-- Đã tinh chỉnh hiệu ứng động của phần mô tả có thể mở rộng trên trang địa điểm.
-- Trang thông tin địa điểm không còn đóng lại khi kết thúc thao tác vuốt biểu đồ độ cao, không còn bị giật bất ngờ và giữ tiêu đề hiển thị trong khi chỉnh sửa với bàn phím mở.
-- Đã khắc phục sự cố treo ứng dụng khi xóa một track hoặc bookmark không còn tồn tại.
+• Giờ đây, văn bản và mô tả HTML của đường mòn đã được hỗ trợ, giống như mô tả cho dấu trang. Nhấn vào biểu tượng bút chì để thêm mô tả.
+• Dữ liệu bản đồ OpenStreetMap tính đến ngày 27 tháng 5 năm 2026
+• Chức năng Chuyển văn bản thành giọng nói (TTS) nay sẽ chọn giọng nói tốt nhất đã cài đặt cho ngôn ngữ đó (Enhanced / Premium). Xem cài đặt Organic Maps để biết cách tải xuống giọng nói chất lượng cao hơn.
+• Thêm biểu tượng đường bộ cho Úc và New Zealand
+• Thêm biểu tượng cho các địa điểm chơi boules, đạp xe và thể thao mô tô
+• Thêm cổng nghi lễ, đường trượt nước, công viên giải trí và tàu lượn siêu tốc
+• Cải thiện cử chỉ ngón tay để điều khiển bản đồ trong chế độ xem phối cảnh khi ở chế độ Điều hướng
+• Sửa lỗi đổi tên đường đi khiến tên mới không được cập nhật đúng cách
+• CarPlay: sửa nút điều chỉnh lại vị trí trung tâm
+• Sửa các tuyến giao thông công cộng cho các trạm và các đối tượng khu vực khác
+• Sửa lỗi treo máy khi thêm dấu trang trên tuyến đường đi bộ hoặc đạp xe
+• Sửa lỗi hiển thị giới hạn tốc độ cho camera giám sát tốc độ
+• Sửa lỗi thu nhỏ bản đồ theo hướng ngược kinh tuyến khi có nhiều hơn một bản sao thế giới
+• Hiển thị địa chỉ đường phố và nhà chính xác hơn
+• Sửa các hiệu ứng động không cần thiết trên bản đồ
+• Cải thiện độ ổn định và hiệu suất
 
-## Hỗ trợ nền tảng
+## Dịch thuật
 
-- Do những thay đổi trong TestFlight và App Store, phiên bản này chỉ hỗ trợ iOS 15 trở lên. iOS 12, iOS 13 và iOS 14 không còn được hỗ trợ.
+• Cải thiện bản dịch tiếng Pháp, Ý, Tây Ban Nha, Ukraina, Catalan
+• Cập nhật bản dịch cho tên một số quốc gia và khu vực, sửa các từ đồng nghĩa tìm kiếm cho `leisure=track`
+• Sửa bản dịch cho `disused:bridge` và `disused:tunnel`

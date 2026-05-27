@@ -1,26 +1,22 @@
-- NOVINKA! Ťuknutím na zastávku verejnej dopravy sa na mape zvýrazní celá trasa, podobne ako v štýle tranzitnej mapy.
-- NOVINKA! diaľkové trasy verejnej dopravy a iné vzťahy OpenStreetMap sú teraz spojené cez hranice mapy do jednej súvislej línie.
-- Údaje OpenStreetMap aktualizované k 3. máju.
-- Vietnam a Malajzia sú teraz rozdelené na menšie regióny, ktoré sa dajú stiahnuť samostatne.
-- Hongkong, Macao a Hainan sú teraz oddelené od Guangdongu, pričom susedné hranice sú aktualizované.
-- Aktualizované obrysové čiary pre Indonéziu, Malajziu, Tanzániu, Thajsko a Vietnam.
-- Na informačný panel v navigácii bolo pridané tlačidlo nahrávania skladby.
-- Pridané nové typy OpenStreetMap: sopky s aktívnym stavom, prístupové body k vodným cestám, sklzy, salóny pre vodné fajky a budovy vo výstavbe.
-- Pridané "Lookout" ako synonymum pre vyhľadávanie vyhliadkových bodov a "pkwy" ako synonymum pre americké ulice.
-- Farby pešej zóny sú mierne tmavšie pre lepšiu čitateľnosť.
-- Označenia záložiek na mape sa už neprekrývajú.
-- Viacriadkový text je teraz čisto orezaný a názvy ulíc už neobsahujú duplikáty.
-- Trasovanie: obnovené trasy teraz odstraňujú medziľahlé body, ktoré ste už prešli.
-- Opravený nesprávny zoznam záložiek, ktorý sa používal v zostavách TestFlight.
-- Opravený import súborov KMB.
-- Aktualizované korektúry prekladov kategórií, synoným vyhľadávania a reťazcov používateľského rozhrania. Pridané preklady pre popisy Nového Južného Walesu a Severného teritória.
-- Vylepšená stabilita a výkon vrátane tvarovania písma, ukladania glyfov do medzipamäte a orezávania riadkov trasy.
-- Vylepšená tabuľka prevýšenia pre trate a trasy.
-- Zväčšené tlačidlá v navigačnom menu pre akcie, ako sú TTS, nastavenia a nahrávanie tratí.
-- Vylepšená animácia rozbaľovacej časti popisu na stránke miesta.
-- Stránka s informáciami o mieste sa už nezatvára, keď sa skončí premazávanie výškového grafu, už sa neočakávane nesklápa a počas úprav s otvorenou klávesnicou zostáva viditeľný názov.
-- Opravené pády pri odstraňovaní stopy alebo záložky, ktorá už neexistuje.
+• Teraz sú podporované textové a HTML popisy trás, rovnako ako popisy záložiek. Stlačte ikonu ceruzky, aby ste pridali popis.
+• Mapové údaje OpenStreetMap k 27. máju 2026
+• Funkcia Text-to-Speech (TTS) teraz vyberá najlepší nainštalovaný hlas pre daný jazyk (Enhanced / Premium). Pozrite si nastavenia Organic Maps, kde nájdete informácie o tom, ako stiahnuť hlas vyššej kvality.
+• Pridané dopravné značky pre Austráliu a Nový Zéland
+• Pridané ikony pre miesta venované petangu, cyklistike a motoristickým športom
+• Pridané slávnostné brány, tobogány, zábavné parky a horské dráhy
+• Vylepšené gestá prstov na ovládanie mapy v perspektívnom zobrazení počas režimu navigácie
+• Opravená chyba pri premenúvaní trasy, pri ktorej sa nový názov správne neaktualizoval
+• CarPlay: opravené tlačidlo na opätovné vycentrovanie
+• Opravené trasy verejnej dopravy pre stanice a iné objekty v oblasti
+• Opravené zlyhanie pri pridávaní záložky na turistickú alebo cyklistickú trasu
+• Opravené zobrazenie rýchlostných obmedzení pre radary
+• Opravené oddialenie mapy pri antimeridiáne pri viac ako jednej kópii sveta
+• Presnejšie zobrazenie adries ulíc a domov
+• Opravené zbytočné animácie na mape
+• Vylepšenia stability a výkonu
 
-## Podpora platforiem
+## Preklady
 
-- Kvôli zmenám v programe TestFlight a obchode App Store podporuje táto verzia len systém iOS 15 a novší. iOS 12, iOS 13 a iOS 14 už nie sú podporované.
+• Vylepšené preklady do francúzštiny, taliančiny, španielčiny, ukrajinčiny a katalánčiny
+• Aktualizované preklady názvov viacerých krajín a regiónov, opravené synonymá pre vyhľadávanie `leisure=track`
+• Opravené preklady pre `disused:bridge` a `disused:tunnel`

@@ -1,7 +1,8 @@
-• Ketuk pemberhentian angkutan umum dan pilih nomor rute untuk menyorot rute pada peta
-• Label penanda tidak lagi tumpang tindih pada peta
-• Data OpenStreetMap terbaru per tanggal 3 Mei, dengan tipe objek baru
-• Grafik elevasi yang lebih baik untuk trek dan rute
-• Unduhan peta yang lebih kecil untuk Vietnam, Malaysia, Hong Kong, Makau, dan Hainan
-• UI dan animasi yang disempurnakan
-…selengkapnya di omaps.org/id/news
+• BARU! Tekan ikon pensil untuk menambah deskripsi teks/HTML ke trek
+• BARU! Pilih warna apa pun untuk trek
+• Ditambahkan rambu nomor jalan Australia dan Selandia Baru
+• Font Korea, Tionghoa, dan Jepang kini sesuai setelan bahasa perangkat
+• Ditambahkan ikon tempat boule, bersepeda, dan motorsport; gerbang seremonial, seluncuran air, taman hiburan, roller coaster
+• Rute transportasi umum diperbaiki untuk stasiun dan area lain
+• Data OpenStreetMap per 27 Mei
+…lebih lanjut di omaps.org/id/news

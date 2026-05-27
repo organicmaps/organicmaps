@@ -1,7 +1,9 @@
-• Ketuk hentian pengangkutan awam dan pilih nombor laluan untuk menandakan laluan pada peta
-• Label penanda halaman tidak lagi bertindih pada peta
-• Data OpenStreetMap terkini setakat 3 Mei, dengan jenis objek baharu
-• Carta ketinggian yang dipertingkatkan untuk trek dan laluan
-• Muat turun peta yang lebih kecil untuk Vietnam, Malaysia, Hong Kong, Macau, dan Hainan
-• Antaramuka dan animasi yang dipertingkatkan
-…lebih lanjut di omaps.org/news
+• BARU! Ketik ikon pensel untuk menambah huraian teks atau HTML pada trek
+• BARU! Pilih sebarang warna untuk trek
+• Ditambah penanda jalan Australia dan New Zealand
+• Fon Korea, Cina dan Jepun kini betul mengikut bahasa peranti
+• Ditambah ikon boules, berbasikal dan sukan bermotor
+• Ditambah gerbang upacara, gelongsor air, taman tema dan roller coaster
+• Laluan pengangkutan awam untuk stesen dan kawasan lain dibaiki
+• Data OpenStreetMap setakat 27 Mei
+…lagi di omaps.org/news

@@ -1,7 +1,8 @@
-• Bakstelėkite viešojo transporto stotelę ir pasirinkite maršruto numerius, kad žemėlapyje paryškintumėte maršrutus
-• Žymeklių etiketės žemėlapyje nebepersidengia
-• Nauji "OpenStreetMap" duomenys nuo gegužės 3 d. su naujais objektų tipais
-• Patobulintos trasų ir maršrutų aukščio diagramos
-• Mažesni Vietnamo, Malaizijos, Honkongo, Makao ir Hainano žemėlapių atsisiuntimai
-• Patobulinta vartotojo sąsaja ir animacijos
-…daugiau - omaps.org/lt/news
+• NAUJA! Pridėkite tekstinį arba HTML aprašą prie trasos palietę pieštuko piktogramą
+• NAUJA! Pasirinkite bet kokią trasų spalvą
+• Pridėti Australijos ir Naujosios Zelandijos kelių numerių skydeliai
+• Korėjiečių, kinų ir japonų naudotojai matys tinkamus šriftus pagal įrenginio kalbą
+• Pridėtos petankės, dviračių sporto ir motosporto vietų piktogramos
+• Pataisyti viešojo transporto maršrutai stotims ir kitiems plotiniams objektams
+• OSM duomenys iki gegužės 27 d.
+…daugiau: omaps.org/lt/news

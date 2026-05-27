@@ -1,26 +1,22 @@
-- YENİ! Transit harita stilinde olduğu gibi, haritadaki tüm rotayı vurgulamak için bir toplu taşıma durağına dokunun.
-- YENİ! Uzun mesafeli toplu taşıma rotaları ve diğer OpenStreetMap ilişkileri artık harita sınırları boyunca tek bir kesintisiz çizgiye bağlanıyor.
-- OpenStreetMap verileri 3 Mayıs itibariyle güncellendi.
-- Vietnam ve Malezya artık ayrı olarak indirilebilen daha küçük bölgelere ayrılmıştır.
-- Hong Kong, Makao ve Hainan artık Guangdong'dan ayrılmış ve komşu sınırlar güncellenmiştir.
-- Endonezya, Malezya, Tanzanya, Tayland ve Vietnam için kontur çizgileri güncellendi.
-- Navigasyon içi bilgi paneline bir iz kayıt düğmesi eklendi.
-- Yeni OpenStreetMap türleri eklendi: aktif durumdaki yanardağlar, su yolu erişim noktaları, kızaklar, nargile salonları ve inşaat halindeki binalar.
-- Manzara noktaları için arama eşanlamlısı olarak "Lookout" ve ABD cadde eşanlamlısı olarak "pkwy" eklendi.
-- Yaya bölgesi renkleri daha iyi okunabilirlik için biraz daha koyulaştırıldı.
-- Haritadaki yer imi etiketleri artık üst üste gelmiyor.
-- Çok satırlı metinler artık temiz bir şekilde kırpılıyor ve sokak adları artık yinelemeler içermiyor.
-- Yönlendirme: yeniden başlatılan rotalar artık daha önce geçtiğiniz ara noktaları kaldırıyor.
-- TestFlight derlemelerinde kullanılan yanlış yer imi listesi düzeltildi.
-- KMB dosya içe aktarımı düzeltildi.
-- Kategoriler, arama eşanlamlıları ve kullanıcı arayüzü dizeleri için düzeltme çevirileri güncellendi. New South Wales ve Northern Territory açıklamaları için çeviriler eklendi.
-- Yazı tipi şekillendirme, glif önbelleğe alma ve rota çizgisi kırpma dahil olmak üzere kararlılık ve performans iyileştirildi.
-- Parkurlar ve rotalar için yükseklik grafiği iyileştirildi.
-- TTS, ayarlar ve parça kaydı gibi eylemler için gezinti içi menü düğmeleri daha büyük hale getirildi.
-- Yer sayfasındaki genişletilebilir açıklama bölümünün animasyonu iyileştirildi.
-- Yer bilgileri sayfası artık yükseklik grafiği tarama işlemi sona erdiğinde kapanmıyor, artık beklenmedik şekilde sekmiyor ve klavye açıkken düzenleme yaparken başlığı görünür tutuyor.
-- Artık var olmayan bir parça veya yer imi silinirken yaşanan çökmeler düzeltildi.
+• Yer imleri için açıklamalarla aynı şekilde, parkur metinleri ve HTML açıklamaları artık desteklenmektedir. Açıklama eklemek için kalem simgesine basın.
+• 27 Mayıs 2026 tarihli OpenStreetMap harita verileri
+• Metin Okuma (TTS) artık dil için en iyi yüklü sesi seçer (Geliştirilmiş / Premium). Daha yüksek kaliteli bir sesi nasıl indireceğiniz konusunda Organic Maps ayarlarına bakın.
+• Avustralya ve Yeni Zelanda yol levhaları eklendi
+• Boules, bisiklet ve motor sporları mekanları için simgeler eklendi
+• Tören kapıları, su kaydırakları, tema parkları ve roller coaster'lar eklendi
+• Navigasyon modunda perspektif görünümde harita kontrolü için parmak hareketleri iyileştirildi
+• Yeni adın düzgün bir şekilde güncellenmemesine neden olan parkur yeniden adlandırma hatası düzeltildi
+• CarPlay: yeniden merkezleme düğmesi düzeltildi
+• İstasyonlar ve diğer alan nesneleri için toplu taşıma rotaları düzeltildi
+• Yürüyüş veya bisiklet rotasına yer imi eklerken meydana gelen çökme sorunu düzeltildi
+• Hız kameraları için hız sınırlarının görüntülenmesi düzeltildi
+• Birden fazla dünya kopyası olduğunda antimeridyen uzaklaştırma sorunu düzeltildi
+• Sokak ve ev adreslerinin daha doğru görüntülenmesi
+• Gereksiz harita animasyonları düzeltildi
+• Kararlılık ve performans iyileştirmeleri
 
-## Platform Desteği
+## Çeviriler
 
-- TestFlight ve App Store'daki değişiklikler nedeniyle, bu sürüm yalnızca iOS 15 ve sonraki sürümleri desteklemektedir. iOS 12, iOS 13 ve iOS 14 artık desteklenmemektedir.
+• Fransızca, İtalyanca, İspanyolca, Ukraynaca ve Katalanca çeviriler iyileştirildi
+• Birkaç ülke ve bölge adının çevirileri güncellendi, `leisure=track` için arama eşanlamlıları düzeltildi
+• `disused:bridge` ve `disused:tunnel` için çeviriler düzeltildi

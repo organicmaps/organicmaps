@@ -1,8 +1,8 @@
-• Tik 'n openbare vervoerstop en kies roetenommers om roetes op die kaart uit te lig
-• Boekmerk-etikette lê nie meer oor mekaar op die kaart nie
-• Vars OpenStreetMap-data vanaf 3 Mei, met nuwe voorwerpsoorte
-• Verbeterde hoogtekaarte vir roetes en trajekte
-• Kleiner kaartaflaaie vir Viëtnam, Maleisië, Hongkong, Macau en Hainan
-• Verfynde UI en animasies
-• Opgedateerde kontuurlyne vir Indonesië, Maleisië, Tanzanië, Thailand en Viëtnam
+• NUUT! Tik op die potloodikoon om 'n teks- of HTML-beskrywing by 'n spoor te voeg
+• NUUT! Kies enige kleur vir spore
+• Padskilde vir Australië en Nieu-Seeland bygevoeg
+• Koreaanse, Chinese en Japannese gebruikers sien nou korrekte lettertipes volgens toesteltaal
+• Ikone vir boules-, fietsry- en motorsportplekke bygevoeg
+• Seremoniële poorte, waterglybane, pretparke en tuimeltreine bygevoeg
+• OSM-data vanaf 27 Mei
 …meer by omaps.org/af/news

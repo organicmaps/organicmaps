@@ -1,8 +1,9 @@
-• Tapnite postajališče javnega prevoza in izberite številke poti, da na zemljevidu označite poti.
-• Oznake zaznamkov se na zemljevidu ne prekrivajo več
-• Sveži podatki OpenStreetMap od 3. maja z novimi vrstami objektov
-• Izboljšane karte nadmorske višine za proge in poti
-• Manjši prenosi zemljevidov za Vietnam, Malezijo, Hongkong, Macao in Hainan
-• Izpopolnjen uporabniški vmesnik in animacije
-• Posodobljene obrisne črte za Indonezijo, Malezijo, Tanzanijo, Tajsko in Vietnam
+• NOVO! Z ikono svinčnika dodajte besedilni ali HTML opis sledi
+• NOVO! Poljubna barva za sledi
+• Dodane oznake cest za Avstralijo in Novo Zelandijo
+• Pisave za korejščino, kitajščino in japonščino sledijo jeziku naprave
+• Dodane ikone za balinišča, kolesarstvo in motošport
+• Dodana slavnostna vrata, vodni tobogani, tematski parki in vlakci smrti
+• Popravljene linije javnega prevoza pri postajah in drugih območjih
+• Podatki OSM: 27. maj
 …več na omaps.org/news

@@ -1,26 +1,22 @@
-- NYTT! Trykk på et stoppested for kollektivtransport for å markere hele ruten på kartet, som i Transit-kartstilen.
-- NYTT! Langdistanseruter for kollektivtransport og andre OpenStreetMap-relasjoner er nå koblet sammen på tvers av kartgrensene til én sammenhengende linje.
-- OpenStreetMap-dataene er oppdatert fra og med 3. mai.
-- Vietnam og Malaysia er nå delt inn i mindre regioner som kan lastes ned separat.
-- Hongkong, Macao og Hainan er nå adskilt fra Guangdong, og nabogrensene er oppdatert.
-- Oppdaterte konturlinjer for Indonesia, Malaysia, Tanzania, Thailand og Vietnam.
-- Lagt til en knapp for sporopptak i infopanelet i navigasjonen.
-- Lagt til nye OpenStreetMap-typer: vulkaner med aktiv status, adkomstpunkter til vannveier, skipsleier, vannpipe-lounger og bygninger under bygging.
-- Lagt til "Lookout" som et søkesynonym for utsiktspunkter, og "pkwy" som et amerikansk gatesynonym.
-- Fargene på fotgjengerområdene er litt mørkere for bedre lesbarhet.
-- Bokmerkeetiketter på kartet overlapper ikke lenger hverandre.
-- Tekst på flere linjer klippes nå rent, og gatenavn inneholder ikke lenger duplikater.
-- Ruteplanlegging: Ruter som gjenopptas, fjerner nå mellomliggende punkter som du allerede har passert.
-- Feil bokmerkeliste ble ikke lenger brukt i TestFlight-versjoner.
-- Fikset import av KMB-filer.
-- Oppdaterte korrekturleste oversettelser for kategorier, søkesynonymer og brukergrensesnittstrenger. Lagt til oversettelser for beskrivelser av New South Wales og Northern Territory.
-- Forbedret stabilitet og ytelse, inkludert skriftforming, caching av glyfer og klipping av rutelinjer.
-- Forbedret høydegrafen for spor og ruter.
-- Større menyknapper i navigasjonsmenyen for handlinger som TTS, innstillinger og sporopptak.
-- Forbedret animasjonen av den utvidbare beskrivelsesdelen på stedssiden.
-- Siden med stedsinformasjon lukkes ikke lenger når høydeskrubbingen avsluttes, den spretter ikke lenger uventet, og tittelen forblir synlig mens du redigerer med tastaturet åpent.
-- Fikset krasj når du sletter et spor eller et bokmerke som ikke lenger eksisterer.
+• Tekst- og HTML-beskrivelser for spor støttes nå, på samme måte som beskrivelser for bokmerker. Trykk på blyantikonet for å legge til en beskrivelse.
+• OpenStreetMap-kartdata per 27. mai 2026
+• Tekst-til-tale (TTS) velger nå den beste installerte stemmen for språket (Enhanced / Premium). Se innstillingene i Organic Maps for å finne ut hvordan du laster ned en stemme av høyere kvalitet.
+• Lagt til veiskilt for Australia og New Zealand
+• Lagt til ikoner for boules, sykling og motorsportsteder
+• Lagt til seremonielle porter, vannsklier, fornøyelsesparker og berg-og-dal-baner
+• Forbedrede fingerbevegelser for kartkontroll i perspektivvisning under navigasjonsmodus
+• Løst en feil ved omdøping av spor der det nye navnet ikke ble oppdatert riktig
+• CarPlay: løst sentreringsknappen
+• Løst ruter for offentlig transport for stasjoner og andre områdeobjekter
+• Løst krasj ved laging av et bokmerke på en tur- eller sykkelrute
+• Løst visning av fartsgrenser for fotobokser
+• Løst zoom-ut mot antimeridian med mer enn én verdenskopi
+• Mer nøyaktig visning av gate- og husadresser
+• Løst unødvendige kartanimasjoner
+• Stabilitets- og ytelsesforbedringer
 
-## Plattformstøtte
+## Oversettelser
 
-- På grunn av endringer i TestFlight og App Store støtter denne utgivelsen kun iOS 15 og nyere. iOS 12, iOS 13 og iOS 14 støttes ikke lenger.
+• Forbedrede oversettelser til fransk, italiensk, spansk, ukrainsk og katalansk
+• Oppdaterte oversettelser for flere land- og regionnavn, løst synonymer for søk etter `leisure=track`
+• Korrigert oversettelser for `disused:bridge` og `disused:tunnel`

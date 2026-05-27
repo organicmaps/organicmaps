@@ -1,6 +1,9 @@
-• Jamoat transporti bekatini bosing va xaritada yo'nalishlarni ajratib ko'rsatish uchun yo'nalish raqamlarini tanlang
-• Xaritadagi belgi yorliqlari endi bir-birini qoplamaydi
-• 3 may holatiga ko'ra yangi OpenStreetMap ma'lumotlari, yangi obyekt turlari bilan
-• Yo'laklar va marshrutlar uchun balandlik diagrammalari yaxshilandi
-• Vetnam, Malayziya, Gonkong, Makao va Xaynan uchun xarita yuklamalari kichikroq
-…batafsil ma'lumot uchun omaps.org/news
+• YANGI! Trekka matn yoki HTML tavsif qo'shish uchun qalamni bosing
+• YANGI! Treklar uchun istalgan rangni tanlang
+• Avstraliya va Yangi Zelandiya yo'l qalqonlari qo'shildi
+• Koreys, xitoy va yapon shriftlari qurilma tiliga moslandi
+• Boules, velosport va avtosport joylari ikonkalari qo'shildi
+• Darvozalar, suv slaydlari, tematik bog'lar va roller-kosterlar qo'shildi
+• Bekat va hudud obyektlarida jamoat transporti yo'nalishlari tuzatildi
+• OSM ma'lumotlari: 27-may
+…batafsil: omaps.org/news

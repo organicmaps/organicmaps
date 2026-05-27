@@ -1,7 +1,8 @@
-• I-tap ang hintuan ng pampublikong sasakyan at piliin ang mga numero ng ruta upang i-highlight ang mga ruta sa mapa
-• Ang mga label ng bookmark ay hindi na nagsasapawan sa mapa
-• Bagong data ng OpenStreetMap noong Mayo 3, na may mga bagong uri ng bagay
-• Pinahusay na mga elevation chart para sa mga track at ruta
-• Mas maliliit na pag-download ng mapa para sa Vietnam, Malaysia, Hong Kong, Macau, at Hainan
-• Pinong UI at mga animation
+• BAGO! Magdagdag ng text/HTML na paglalarawan sa track gamit ang icon na lapis
+• BAGO! Pumili ng anumang kulay para sa mga track
+• Idinagdag ang road shields ng Australia at New Zealand
+• Tamang font ayon sa device locale para sa Korean, Chinese, at Japanese
+• Mga bagong icon: boules, cycling, motorsport, gates, water slides, theme parks, roller coasters
+• Inayos ang ruta ng pampublikong transportasyon sa mga istasyon at area object
+• OSM data hanggang Mayo 27
 …higit pa sa omaps.org/news

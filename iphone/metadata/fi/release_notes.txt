@@ -1,26 +1,22 @@
-- UUTUUS! Napauta julkisen liikenteen pysäkkiä korostaaksesi koko reitin kartalla, kuten Transit-karttatyylissä.
-- UUTUUS! pitkän matkan joukkoliikennereitit ja muut OpenStreetMap-suhteet yhdistetään nyt karttarajojen yli yhdeksi yhtenäiseksi viivaksi.
-- OpenStreetMap-tiedot päivitetty 3. toukokuuta.
-- Vietnam ja Malesia on nyt jaettu pienempiin alueisiin, jotka voi ladata erikseen.
-- Hongkong, Macao ja Hainan on nyt erotettu Guangdongista, ja naapurimaiden rajat on päivitetty.
-- Päivitetty Indonesian, Malesian, Tansanian, Thaimaan ja Vietnamin ääriviivat.
-- Navigoinnin infopaneeliin on lisätty radan tallennuspainike.
-- Lisätty uusia OpenStreetMap-tyyppejä: tulivuoria, joilla on aktiivinen tila, vesiväylien liittymispisteitä, liukumäkiä, vesipiippuhuoneita ja rakenteilla olevia rakennuksia.
-- Lisätty "Lookout" näköalapaikkojen hakusynonyymiksi ja "pkwy" yhdysvaltalaisen kadun synonyymiksi.
-- Jalankulkualueiden värit ovat hieman tummemmat luettavuuden parantamiseksi.
-- Kirjanmerkkien merkinnät kartalla eivät enää ole päällekkäisiä.
-- Monirivinen teksti leikataan nyt siististi, eivätkä kadunnimet enää sisällä kaksoiskappaleita.
-- Reititys: jatketut reitit poistavat nyt välipisteet, jotka olet jo ohittanut.
-- Korjattu väärän kirjanmerkkiluettelon käyttäminen TestFlight-rakennuksissa.
-- Korjattu KMB-tiedoston tuonti.
-- Päivitetty luokkien, hakusynonyymien ja käyttöliittymämerkkijonojen oikolukukäännökset. Lisätty käännökset New South Walesin ja Northern Territoryn kuvauksille.
-- Parannettu vakautta ja suorituskykyä, mukaan lukien fontin muotoilu, glyfien välimuistiin tallentaminen ja reittiviivojen leikkaaminen.
-- Parannettu ratojen ja reittien korkeuskäyriä.
-- Navigointivalikon painikkeista on tehty suurempia esimerkiksi TTS:n, asetusten ja radan tallennuksen kaltaisia toimintoja varten.
-- Paikkasivun laajennettavan kuvausosan animaatiota on parannettu.
-- Paikkatietosivu ei enää sulkeudu, kun korkeuskartan pyyhkäisy päättyy, se ei enää pomppaa odottamatta ja pitää otsikon näkyvissä, kun sitä muokataan näppäimistön ollessa auki.
-- Korjattu kaatumisia, kun poistettiin raita tai kirjanmerkki, jota ei enää ole olemassa.
+• Jälkien teksti- ja HTML-kuvauksia tuetaan nyt samalla tavalla kuin kirjanmerkkien kuvauksia. Lisää kuvaus painamalla kynäkuvaketta.
+• OpenStreetMap-karttatiedot 27. toukokuuta 2026
+• Teksti puheeksi (TTS) valitsee nyt parhaan asennetun äänen kielelle (Enhanced / Premium). Katso Organic Maps -asetuksista, miten voit ladata korkealaatuisemman äänen.
+• Lisätty Australian ja Uuden-Seelannin tienviitat
+• Lisätty kuvakkeet petankki-, pyöräily- ja moottoriurheilupaikoille
+• Lisätty seremonialliset portit, vesiliukumäet, teemapuistot ja vuoristoradat
+• Parannettu sormiliikkeiden hallintaa perspektiivinäkymässä navigointitilassa
+• Korjattu jäljen nimenmuutoksen virhe, jossa uusi nimi ei päivittynyt oikein
+• CarPlay: korjattu keskity-painike
+• Korjattu joukkoliikenteen reitit asemille ja muille alueobjekteille
+• Korjattu kaatuminen, kun lisättiin kirjanmerkki vaellus- tai pyöräilyreitille
+• Korjattu nopeusrajoitusten näyttö nopeusvalvontakameroille
+• Korjattu antimeridiaaninen loitontaminen, kun käytössä on useampi kuin yksi maailmankopio
+• Tarkempi katujen ja talojen osoitteiden näyttö
+• Korjattu tarpeettomat kartta-animaatiot
+• Vakauden ja suorituskyvyn parannukset
 
-## Alustatuki
+## Käännökset
 
-- TestFlightissa ja App Storessa tapahtuneiden muutosten vuoksi tämä julkaisu tukee vain iOS 15:tä ja uudempia. iOS 12, iOS 13 ja iOS 14 eivät ole enää tuettuja.
+• Parannettuja ranskan, italian, espanjan, ukrainan ja katalaanin käännöksiä
+• Päivitettyjä käännöksiä useille maa- ja aluenimille, korjattu `leisure=track`-hakusynonyymejä
+• Korjattuja käännöksiä `disused:bridge` ja `disused:tunnel`

@@ -1,9 +1,9 @@
-• Tap a public transport stop and select route numbers to highlight routes on the map
-• Bookmark labels no longer overlap on the map
-• Fresh OpenStreetMap data as of May 3, with new object types
-• Improved elevation charts for tracks and routes
-• Smaller map downloads for Vietnam, Malaysia, Hong Kong, Macau, and Hainan
-• Refined UI and animations
-• Updated contour lines for Indonesia, Malaysia, Tanzania, Thailand, and Vietnam
-• Bug fixes and performance improvements
+• NEW! Press the pencil icon to add a text or HTML description to a track
+• NEW! Choose any color for tracks
+• Added Australia and New Zealand road shields
+• Korean, Chinese, and Japanese users will now see proper fonts based on device locale
+• Added icons for boules, cycling, and motorsport places
+• Added ceremonial gates, water slides, theme parks, and roller coasters
+• Fixed public transport routes for stations and other area objects
+• OSM data as of May 27
 …more at omaps.org/news

@@ -1,7 +1,8 @@
-• Toque numa paragem de transportes públicos e selecione os números dos percursos para realçar os percursos no mapa
-• As etiquetas dos marcadores já não se sobrepõem no mapa
-• Dados frescos do OpenStreetMap a partir de 3 de maio, com novos tipos de objectos
-• Gráficos de elevação melhorados para trajectos e rotas
-• Descarregamento de mapas mais pequenos para o Vietname, Malásia, Hong Kong, Macau e Hainan
-• Interface de utilizador e animações aperfeiçoadas
+• NOVO! Toque no ícone do lápis para adicionar descrição em texto ou HTML a um trajeto
+• NOVO! Escolha qualquer cor para trajetos
+• Escudos de estradas da Austrália e Nova Zelândia
+• Tipos de letra corretos para coreano, chinês e japonês conforme o idioma do dispositivo
+• Ícones para petanca, ciclismo e desportos motorizados
+• Corrigidos percursos de transportes públicos em estações e outras áreas
+• Dados do OpenStreetMap de 27 de maio
 …mais em omaps.org/pt/news

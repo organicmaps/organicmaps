@@ -1,7 +1,9 @@
-• Koputage ühistranspordipeatust ja valige marsruudi numbrid, et kaardil marsruute esile tõsta.
-• Järjehoidja sildid ei kattu enam kaardil
-• Värsked OpenStreetMapi andmed alates 3. maist, uute objektitüüpidega
-• Paremad kõrguskaardid radade ja marsruutide jaoks
-• Väiksemate kaartide allalaadimine Vietnami, Malaisia, Hongkongi, Aomeni ja Hainani jaoks.
-• Täiustatud kasutajaliides ja animatsioonid
-…lisateave omaps.org/et/news
+• UUS! Lisa pliiatsiikooniga rajale teksti- või HTML-kirjeldus
+• UUS! Vali radadele mis tahes värv
+• Lisatud Austraalia ja Uus-Meremaa teetähised
+• Korea, Hiina ja Jaapani kasutajatel on nüüd õiged fondid
+• Lisatud ikoonid petangi-, jalgratta- ja mootorispordipaikadele
+• Lisatud tseremoniaalsed väravad, vesiliud, teemapargid ja Ameerika mäed
+• Parandatud ühistranspordiliinid jaamades ja muudel aladel
+• OSM-andmed seisuga 27. mai
+…rohkem omaps.org/et/news
