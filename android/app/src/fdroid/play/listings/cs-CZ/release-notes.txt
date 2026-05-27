@@ -1,9 +1,9 @@
-• Výběrem pěších a cyklistických tras zobrazíte jejich výškové profily.
-• Správné zabalení mapy na antimeridiánu (±180° zeměpisné délky)
-• Změna všech barev záložek a tras v kategorii najednou
-• Lepší vyhledávání čísel domů, pokryto více adres v USA
-• Data OSM ke dni 4. dubna
-• Režim plánovaného vzhledu v Nastavení
-• Opraveno sdílení záložek/stop do jiných aplikací
-• Opraveno nahrávání úprav mapy do OSM
+• NOVINKA: Přes ikonu tužky lze k trase přidat textový nebo HTML popis
+• NOVINKA: Trasy mohou mít libovolnou barvu
+• Přidány silniční štíty pro Austrálii a Nový Zéland
+• Korejština, čínština a japonština mají správná písma podle jazyka zařízení
+• Přidány ikony pro pétanque, cyklistiku a motorsport
+• Přidány slavnostní brány, tobogány, zábavní parky a horské dráhy
+• Opraveny trasy MHD u stanic a plošných objektů
+• Data OpenStreetMap k 27. květnu
 …více na omaps.org/cs/news

@@ -1,56 +1,22 @@
-## Karta
+• Spårtext och HTML-beskrivningar stöds nu, på samma sätt som beskrivningar för bokmärken. Tryck på pennikonen för att lägga till en beskrivning.
+• OpenStreetMap-kartdata per den 27 maj 2026
+• Text-till-tal (TTS) väljer nu den bästa installerade rösten för språket (Enhanced / Premium). Se inställningarna i Organic Maps för information om hur du laddar ner en röst av högre kvalitet.
+• Vägskyltar för Australien och Nya Zeeland har lagts till
+• Ikoner för boules, cykling och motorsportplatser har lagts till
+• Ceremoniella portar, vattenrutschbanor, nöjesparker och berg-och-dalbanor har lagts till
+• Förbättrade fingergester för kartkontroll i perspektivvy under navigationsläge
+• Fixat ett fel vid omdöpning av spår där det nya namnet inte uppdaterades korrekt
+• CarPlay: fixat knappen för att centrera om
+• Fixat kollektivtrafikrutter för stationer och andra områdesobjekt
+• Fixat krasch vid tillägg av ett bokmärke på en vandrings- eller cykelrutt
+• Fixat visning av hastighetsbegränsningar för hastighetskameror
+• Fixat zoomning bort från antimeridianen med mer än en världskopia
+• Mer exakt visning av gatu- och husadresser
+• Fixade onödiga kartanimationer
+• Stabilitets- och prestandaförbättringar
 
-- NYTT! Korrekt kartanpassning vid antimeridianen vid dragning och rotation
-- OpenStreetMap-data uppdaterade per den 4 april
-- Wikipedia-data uppdaterade per den 1 april
-- Ikoner för matställen och stadsportar har lagts till
-- Underkategorier för klädbutiker har lagts till: dam, herr, barn, bröllop, sport, underkläder samt kontorskläder
-- Färgerna på tunnelbanelinjerna i Sydney har korrigerats
-- Visningen av öppettider för platser med avvikelser för soluppgång/solnedgång har korrigerats
+## Översättningar
 
-## Ruttplanering och navigering
-
-- NYTT! Tryck på en cykel- eller vandringsrutt för att välja den och visa höjddiagrammet
-- Förbättrad flerfärgsrendering för vandrings- och cykelrutter
-- Cykelnavigeringen använder nu kompassriktning vid låga hastigheter
-- Systemfel vid ruttplanering nära vissa regionsgränser har åtgärdats
-- Du kan nu starta en giltig rutt även när du uppmanas att ladda ner ytterligare kartor
-
-## Bokmärken och spår
-
-- NYTT! Ändra alla bokmärkes- och spårfärger i en kategori på en gång
-- Justerad uppskattning av höjdökning och höjdförlust på spårdiagram för att bättre matcha andra appar
-- Förbättrad visning av HTML-innehåll med tabeller och bilder i bokmärkesdetaljer
-- Vertikala avgränsare har lagts till för spår med flera segment i höjddiagrammet
-- Punktvalet i höjddiagrammet för interpolerade punkter har åtgärdats
-- GPS-spårinspelningen som tappade punkter mellan segment har åtgärdats
-- GeoJSON-import har åtgärdats
-- En krasch vid export av spår har åtgärdats
-
-## Sökning
-
-- Bättre sökning i USA, med två miljoner ytterligare adresser som hämtats från TIGER-folkräkningsdata
-- Uppdaterade sökkategorier: lagt till "Bread" för bagerier, "Shawarma" för mat och andra synonymförbättringar
-- Förbättrad sökning efter husnummer
-- Lagt till amerikanska synonymer för gator: highway, hwy, freeway, fwy
-- Fixat sökresultat när stads- och delstatsnamn är desamma
-
-## Redigerare / OpenStreetMap
-
-- Du kan nu lägga till en ny plats i OpenStreetMap efter att ha valt din aktuella position på kartan
-- Fixat feljustering av redigerarens hårkors när du trycker på "Lägg till plats"
-- Ökat tryckområdet för knapparna i navigeringsfältet "Lägg till plats"
-
-## UI och UX
-
-- Förbättrade modala gester: snäpp till närmaste steg, stäng vid kantpanorering och återställ tidigare tillstånd när du öppnar igen
-- Fixat hantering av sommartid för tidszoner
-
-## Stabilitet och lokalisering
-
-- Förbättrad stabilitet och prestanda, minskad batteriförbrukning
-- Uppdaterade översättningar
-
-## Plattformsstöd
-
-- På grund av ändringar i TestFlight och App Store stöder denna version endast iOS 15 och senare. iOS 12, 13 och 14 stöds inte längre.
+• Förbättrade översättningar till franska, italienska, spanska, ukrainska och katalanska
+• Uppdaterade översättningar för flera lands- och regionsnamn, fixade synonymer för sökning efter `leisure=track`
+• Korrigerade översättningar för `disused:bridge` och `disused:tunnel`

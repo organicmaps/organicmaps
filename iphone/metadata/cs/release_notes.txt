@@ -1,56 +1,22 @@
-## Mapa
+• Nyní jsou podporovány textové a HTML popisy tras, stejně jako popisy záložek. Stisknutím ikony tužky přidáte popis.
+• Mapová data OpenStreetMap k 27. květnu 2026
+• Funkce Text-to-Speech (TTS) nyní vybírá nejlepší nainstalovaný hlas pro daný jazyk (Enhanced / Premium). Informace o tom, jak stáhnout hlas vyšší kvality, najdete v nastavení Organic Maps.
+• Přidány silniční značky pro Austrálii a Nový Zéland
+• Přidány ikony pro místa určená pro pétanque, cyklistiku a motoristické sporty
+• Přidány slavnostní brány, vodní skluzavky, zábavní parky a horské dráhy
+• Vylepšena gesta prstů pro ovládání mapy v perspektivním zobrazení během režimu navigace
+• Opravena chyba při přejmenování trasy, kdy se nový název správně neaktualizoval
+• CarPlay: opraveno tlačítko pro opětovné vycentrování
+• Opraveny trasy veřejné dopravy pro stanice a další objekty v oblasti
+• Opravena chyba způsobující pád aplikace při přidávání záložky na turistickou nebo cyklistickou trasu
+• Opraveno vykreslování rychlostních limitů u radarů
+• Opraveno oddálení mapy u antimeridiánu při použití více než jedné kopie světa
+• Přesnější zobrazení adres ulic a domů
+• Opraveny zbytečné animace mapy
+• Vylepšení stability a výkonu
 
-- NOVINKA! Správné přetáčení mapy na protilehlém poledníku při přetahování a otáčení
-- Data OpenStreetMap aktualizována k 4. dubnu
-- Data Wikipedie aktualizována k 1. dubnu
-- Přidány ikony pro food courty a městské brány
-- Přidány podkategorie obchodů s oblečením: dámské, pánské, dětské, svatební, sportovní, spodní prádlo a kancelářské
-- Opraveny barvy linek metra v Sydney
-- Opraveno zobrazení otevíracích hodin pro místa s posunem východu/západu slunce
+## Překlady
 
-## Trasy a navigace
-
-- NOVINKA! Klepnutím na cyklistickou nebo turistickou trasu ji vyberete a zobrazíte její výškový graf
-- Vylepšené vícebarevné zobrazení turistických a cyklistických tras
-- Cyklistická navigace nyní při nízkých rychlostech používá azimut kompasu
-- Opravena systémová chyba při plánování tras v blízkosti některých regionálních hranic
-- Nyní můžete zahájit platnou trasu i v případě, že budete vyzváni ke stažení dalších map
-
-## Záložky a trasy
-
-- NOVINKA! Změňte najednou všechny barvy záložek a tras v dané kategorii
-- Upravili jsme aproximace převýšení a klesání na grafech tras, aby lépe odpovídaly jiným aplikacím
-- Vylepšili jsme zobrazení HTML obsahu s tabulkami a obrázky v detailech záložek
-- Přidány svislé oddělovače pro víceúsekové trasy v grafu nadmořské výšky
-- Opraven výběr bodů v grafu nadmořské výšky pro interpolované body
-- Opraveno vynechávání bodů při záznamu trasy GPS mezi úseky
-- Opraven import GeoJSON
-- Opravena chyba způsobující pád aplikace při exportu tras
-
-## Vyhledávání
-
-- Lepší vyhledávání v USA díky dvěma milionům dalších adres získaných z dat sčítání lidu TIGER
-- Aktualizované kategorie vyhledávání: přidáno „Bread“ pro pekárny, „Shawarma“ pro kuchyni a další vylepšení synonym
-- Vylepšené vyhledávání adres podle čísla domu
-- Přidána synonyma pro ulice v USA: highway, hwy, freeway, fwy
-- Opraveny výsledky vyhledávání, když jsou názvy měst a států stejné
-
-## Editor / OpenStreetMap
-
-- Nyní můžete přidat nové místo do OpenStreetMap po výběru své aktuální polohy na mapě
-- Opraveno nesprávné zarovnání křížku editoru při stisknutí tlačítka „Přidat místo“
-- Zvětšena dotyková plocha tlačítek v navigační liště „Přidat místo“
-
-## UI a UX
-
-- Vylepšená gesta v modálních oknech: přichycení k nejbližšímu kroku, zavření při posunu k okraji a obnovení předchozího stavu při opětovném otevření
-- Opraveno zpracování letního času pro časová pásma
-
-## Stabilita a lokalizace
-
-- Vylepšena stabilita a výkon, snížena spotřeba baterie
-- Aktualizovány překlady
-
-## Podpora platforem
-
-- Vzhledem ke změnám v TestFlight a App Store podporuje tato verze pouze iOS 15 a novější. iOS 12, 13 a 14 již nejsou podporovány.
+• Vylepšeny překlady do francouzštiny, italštiny, španělštiny, ukrajinštiny a katalánštiny
+• Aktualizovány překlady názvů několika zemí a regionů, opraveny synonyma pro vyhledávání `leisure=track`
+• Opraveny překlady pro `disused:bridge` a `disused:tunnel`

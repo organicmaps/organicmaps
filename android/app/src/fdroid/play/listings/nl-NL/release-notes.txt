@@ -1,9 +1,8 @@
-• Selecteer wandel- en fietsroutes om hun hoogtekaarten te bekijken
-• Juiste kaartweergave bij de antimeridiaan (±180° lengtegraad)
-• Verander alle bookmark- en trackkleuren in een categorie in één keer
-• Beter zoeken naar huisnummers, meer Amerikaanse adressen gedekt
-• OSM-gegevens vanaf 4 april
-• Geplande weergavemodus in Instellingen
-• Delen van bladwijzers/tracks met andere apps is opgelost
-• Uploaden van kaartbewerkingen naar OSM is opgelost
-…meer op omaps.org/nl/news
+• NIEUW! Voeg via het potloodicoon tekst- of HTML-beschrijvingen toe aan tracks
+• NIEUW! Kies elke kleur voor tracks
+• Wegnummerborden toegevoegd voor Australië en Nieuw-Zeeland
+• Lettertypen voor Koreaans, Chinees en Japans volgen nu de apparaattaal
+• Nieuwe iconen en objecten: jeu-de-boules, fietsen, motorsport, ceremoniële poorten, waterglijbanen, pretparken en achtbanen
+• OV-routes bij stations en andere gebieden verbeterd
+• OpenStreetMap-gegevens van 27 mei
+…meer: omaps.org/nl/news

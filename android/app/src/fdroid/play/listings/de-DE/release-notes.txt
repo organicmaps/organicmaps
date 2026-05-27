@@ -1,8 +1,8 @@
-• Wählen Sie Wander- und Radrouten aus, um deren Höhendiagramme anzuzeigen.
-• Korrekter Kartenumbruch am Antimeridian (±180° Längengrad)
-• Ändern Sie alle Lesezeichen- und Trackfarben in einer Kategorie auf einmal
-• Bessere Suche nach Hausnummern, mehr US-Adressen abgedeckt
-• OSM-Daten mit Stand vom 4. April
-• Geplanter Darstellungsmodus in den Einstellungen
-• Die Freigabe von Lesezeichen/Tracks für andere Anwendungen wurde behoben
+• NEU: Tracks mit Text- oder HTML-Beschreibung versehen
+• NEU: Tracks in jeder Farbe einfärben
+• Straßenschilder für Australien und Neuseeland
+• Korrekte Schriften für Koreanisch, Chinesisch und Japanisch je nach Gerätesprache
+• Neue Icons und Kartenobjekte: Boule, Radsport, Motorsport, Zeremonietore, Wasserrutschen, Freizeitparks, Achterbahnen
+• ÖPNV-Routen für Bahnhöfe und Flächen korrigiert
+• OpenStreetMap-Daten vom 27. Mai
 …mehr unter omaps.org/de/news

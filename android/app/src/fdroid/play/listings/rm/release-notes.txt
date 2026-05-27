@@ -1,9 +1,8 @@
-• Tschernai rutas d'excursiun e da velo per vesair diagrams d'autezza
-• Visualisaziun correcta da la carta a l'antimeridian (±180°)
-• Midai colurs da segnapostas e percurs en ina categoria
-• Meglier retschertga per numers da chasa, dapli adressas US
-• Datas OSM dal 4 d'avrigl
-• Modus d'appariziun planisà en las configuraziuns
-• Corregì la partiziun da segnapostas/percurs ad autras apps
-• Corregì il transferiment da modificaziuns ad OSM
+• NOVITAD! Tutgai l'icuna dal rispli per agiuntar text/HTML ad in percurs
+• NOVITAD! Tschernai ina culur tenor gust per ils percurs
+• Segns da via per l'Australia e la Nova Zelanda
+• Scrittiras correctas per corean, chinais e giapunais
+• Novas icunas e lieus: bocce, velo, motorsport, parcs tematics, tobogans d'aua e montagnas russas
+• Corregì rutas dal transport public per staziuns ed areals
+• Datas d'OpenStreetMap dals 27 da matg
 …dapli sin omaps.org/news

@@ -1,8 +1,8 @@
-• Selecione rotas de caminhada e ciclismo para ver seus gráficos de elevação
-• Ajuste correto do mapa no antimeridiano (±180° de longitude)
-• Altere todas as cores de marcadores e trilhas em uma categoria de uma só vez
-• Melhor busca por números de casas, mais endereços dos EUA cobertos
-• Dados do OSM a partir de 4 de abril
-• Modo de aparência programada em Configurações
-• Corrigido o compartilhamento de marcadores/trilhas com outros aplicativos
+• NOVO! Toque no ícone de lápis para adicionar descrição em texto ou HTML a uma trilha
+• NOVO! Escolha qualquer cor para trilhas
+• Escudos de rodovias da Austrália e Nova Zelândia
+• Fontes corretas para coreano, chinês e japonês conforme o idioma do aparelho
+• Ícones para bocha, ciclismo e automobilismo
+• Corrigidas rotas de transporte público em estações e outras áreas
+• Dados do OpenStreetMap de 27 de maio
 …mais em omaps.org/pt-BR/news

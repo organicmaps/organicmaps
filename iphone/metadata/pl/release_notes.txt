@@ -1,56 +1,22 @@
-## Mapa
+• Obsługiwane są teraz opisy tekstowe i HTML śladów, tak samo jak opisy zakładek. Naciśnij ikonę ołówka, aby dodać opis.
+• Dane map OpenStreetMap na dzień 27 maja 2026 r.
+• Funkcja zamiany tekstu na mowę (TTS) wybiera teraz najlepszy zainstalowany głos dla danego języka (Enhanced / Premium). Zobacz ustawienia Organic Maps, aby dowiedzieć się, jak pobrać głos o wyższej jakości.
+• Dodano znaki drogowe Australii i Nowej Zelandii
+• Dodano ikony miejsc związanych z bule, kolarstwem i sportami motorowymi
+• Dodano bramy ceremonialne, zjeżdżalnie wodne, parki rozrywki i kolejki górskie
+• Ulepszono gesty palców do sterowania mapą w widoku perspektywicznym w trybie nawigacji
+• Naprawiono błąd zmiany nazwy śladu, w wyniku którego nowa nazwa nie była poprawnie aktualizowana
+• CarPlay: naprawiono przycisk ponownego centrowania
+• Naprawiono trasy transportu publicznego dla stacji i innych obiektów obszarowych
+• Naprawiono awarię podczas dodawania zakładki na trasie pieszej lub rowerowej
+• Naprawiono renderowanie ograniczeń prędkości dla fotoradarów
+• Naprawiono oddalanie przy antymeridianie w przypadku więcej niż jednej kopii świata
+• Bardziej dokładne wyświetlanie adresów ulic i domów
+• Naprawiono niepotrzebne animacje mapy
+• Poprawki stabilności i wydajności
 
-- NOWOŚĆ! Prawidłowe zawijanie mapy na antymeridianie podczas przeciągania i obracania
-- Dane OpenStreetMap zaktualizowane na dzień 4 kwietnia
-- Dane Wikipedii zaktualizowane na dzień 1 kwietnia
-- Dodano ikony dla stref gastronomicznych i bram miejskich
-- Dodano podkategorie sklepów odzieżowych: damskie, męskie, dziecięce, ślubne, sportowe, bielizna oraz typy biurowe
-- Poprawiono kolory linii metra w Sydney
-- Poprawiono wyświetlanie godzin otwarcia dla miejsc z przesunięciem wschodu/zachodu słońca
+## Tłumaczenia
 
-## Wyznaczanie tras i nawigacja
-
-- NOWOŚĆ! Dotknij trasy rowerowej lub pieszej, aby ją wybrać i wyświetlić wykres wysokości
-- Ulepszone wielokolorowe renderowanie tras pieszych i rowerowych
-- Nawigacja rowerowa wykorzystuje teraz kierunek kompasu przy niskich prędkościach
-- Naprawiono błąd systemowy podczas planowania tras w pobliżu niektórych granic regionalnych
-- Teraz możesz rozpocząć prawidłową trasę nawet wtedy, gdy pojawi się monit o pobranie dodatkowych map
-
-## Zakładki i trasy
-
-- NOWOŚĆ! Zmiana wszystkich kolorów zakładek i tras w danej kategorii jednocześnie
-- Dostosowano przybliżone wartości przyrostu i spadku wysokości na wykresach tras, aby lepiej pasowały do innych aplikacji
-- Ulepszono wyświetlanie treści HTML z tabelami i obrazami w szczegółach zakładek
-- Dodano pionowe separatory dla tras wieloetapowych na wykresie wysokości
-- Naprawiono wybór punktów na wykresie wysokości dla punktów interpolowanych
-- Naprawiono utratę punktów podczas rejestrowania trasy GPS między segmentami
-- Naprawiono import GeoJSON
-- Naprawiono awarię podczas eksportowania tras
-
-## Wyszukiwanie
-
-- Lepsze wyszukiwanie w USA dzięki dwóm milionom dodatkowych adresów pobranych z danych spisu ludności TIGER
-- Zaktualizowano kategorie wyszukiwania: dodano „Bread” dla piekarni, kuchnię „Shawarma” oraz inne ulepszenia synonimów
-- Ulepszono wyszukiwanie adresów z numerami domów
-- Dodano synonimy ulic w USA: highway, hwy, freeway, fwy
-- Naprawiono wyniki wyszukiwania, gdy nazwy miast i stanów są takie same
-
-## Edytor / OpenStreetMap
-
-- Teraz możesz dodać nowe miejsce do OpenStreetMap po zaznaczeniu swojej aktualnej pozycji na mapie
-- Naprawiono nieprawidłowe ustawienie krzyżyka edytora po naciśnięciu przycisku „Dodaj miejsce”
-- Zwiększono obszar dotykowy przycisków na pasku nawigacyjnym „Dodaj miejsce”
-
-## Interfejs użytkownika i doświadczenie użytkownika
-
-- Ulepszono gesty modalne: przyciąganie do najbliższego kroku, zamykanie po przesunięciu do krawędzi oraz przywracanie poprzedniego stanu po ponownym otwarciu
-- Naprawiono obsługę czasu letniego dla stref czasowych
-
-## Stabilność i lokalizacja
-
-- Poprawiono stabilność i wydajność, zmniejszono zużycie baterii
-- Zaktualizowano tłumaczenia
-
-## Obsługa platform
-
-- Ze względu na zmiany w TestFlight i App Store, ta wersja obsługuje wyłącznie iOS 15 i nowsze. iOS 12, 13 i 14 nie są już obsługiwane.
+• Ulepszono tłumaczenia na język francuski, włoski, hiszpański, ukraiński i kataloński
+• Zaktualizowano tłumaczenia nazw kilku krajów i regionów, poprawiono synonimy wyszukiwania dla `leisure=track`
+• Poprawiono tłumaczenia dla `disused:bridge` i `disused:tunnel`

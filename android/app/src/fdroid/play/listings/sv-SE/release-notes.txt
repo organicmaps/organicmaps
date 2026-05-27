@@ -1,9 +1,8 @@
-• Välj vandrings- och cykelleder för att se deras höjddiagram
-• Korrekt kartanpassning vid antimeridianen (±180° longitud)
-• Ändra alla bokmärkes- och spårfärger i en kategori på en gång
-• Bättre sökning efter husnummer, fler amerikanska adresser täckta
-• OSM-data från och med den 4 april
-• Schemalagt utseendeläge i Inställningar
-• Fixat delning av bokmärken/spår till andra appar
-• Fixat uppladdning av kartredigeringar till OSM
+• NYTT! Lägg till text- eller HTML-beskrivning till spår via pennikonen
+• NYTT! Välj valfri färg för spår
+• Nya vägnummer för Australien och Nya Zeeland
+• Bättre teckensnitt för koreanska, kinesiska och japanska
+• Nya ikoner och platser: boule, cykling, motorsport, portar, vattenrutschbanor och nöjesparker
+• Kollektivtrafikrutter för stationer och områdesobjekt har fixats
+• OpenStreetMap-data från 27 maj
 …mer på omaps.org/sv/news

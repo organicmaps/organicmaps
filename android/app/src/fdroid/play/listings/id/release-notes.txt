@@ -1,9 +1,8 @@
-• Pilih rute pendakian dan bersepeda untuk melihat grafik ketinggiannya
-• Tampilan peta yang benar di antimeridian (±180° bujur)
-• Mengubah semua warna penanda dan lintasan dalam satu kategori sekaligus
-• Pencarian nomor rumah yang lebih baik, lebih banyak alamat AS yang tercakup
-• Data OSM per tanggal 4 April
-• Mode tampilan terjadwal di Pengaturan
-• Berbagi penanda/trek ke aplikasi lain telah diperbaiki
-• Pengunggahan pengeditan peta ke OSM telah diperbaiki
-…selengkapnya di omaps.org/id/news
+• BARU! Tekan ikon pensil untuk menambah deskripsi teks/HTML ke trek
+• BARU! Pilih warna apa pun untuk trek
+• Ditambahkan rambu nomor jalan Australia dan Selandia Baru
+• Font Korea, Tionghoa, dan Jepang kini sesuai setelan bahasa perangkat
+• Ditambahkan ikon tempat boule, bersepeda, dan motorsport; gerbang seremonial, seluncuran air, taman hiburan, roller coaster
+• Rute transportasi umum diperbaiki untuk stasiun dan area lain
+• Data OpenStreetMap per 27 Mei
+…lebih lanjut di omaps.org/id/news

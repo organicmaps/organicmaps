@@ -1,8 +1,9 @@
-• Yüksəklik qrafiklərini görmək üçün yürüş və velosiped marşrutlarını seçin
-• Antimeridian (±180° uzunluq) üzrə xəritənin düzgün bükülməsi
-• Bir kateqoriyada bütün nişan və iz rənglərini eyni anda dəyişdirin
-• Ev nömrələri üçün daha yaxşı axtarış, daha çox ABŞ ünvanı əhatə olunur
-• 4 aprel tarixli OSM məlumatları
-• Parametrlərdə planlaşdırılmış görünüş rejimi
-• Nişan/izlərin digər tətbiqlərlə paylaşılmasında problem aradan qaldırıldı
-…omaps.org/news saytında daha çox
+• YENİ! Trekə mətn və ya HTML təsviri əlavə etmək üçün qələm ikonuna toxunun
+• YENİ! Treklər üçün istənilən rəngi seçin
+• Avstraliya və Yeni Zelandiya yol nişanları əlavə edildi
+• Koreyalı, çinli və yapon istifadəçilər cihaz dilinə uyğun şriftlər görəcəklər
+• Petank, velosiped və avtoidman məkanları üçün ikonlar əlavə edildi
+• Mərasim qapıları, su sürüşgəcləri, əyləncə parkları və rollerkosterlər əlavə edildi
+• İctimai nəqliyyat marşrutları düzəldildi
+• OSM: 27 may
+…daha çox: omaps.org/news

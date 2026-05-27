@@ -1,56 +1,22 @@
-## Kart
+• Tekst- og HTML-beskrivelser for spor støttes nå, på samme måte som beskrivelser for bokmerker. Trykk på blyantikonet for å legge til en beskrivelse.
+• OpenStreetMap-kartdata per 27. mai 2026
+• Tekst-til-tale (TTS) velger nå den beste installerte stemmen for språket (Enhanced / Premium). Se innstillingene i Organic Maps for å finne ut hvordan du laster ned en stemme av høyere kvalitet.
+• Lagt til veiskilt for Australia og New Zealand
+• Lagt til ikoner for boules, sykling og motorsportsteder
+• Lagt til seremonielle porter, vannsklier, fornøyelsesparker og berg-og-dal-baner
+• Forbedrede fingerbevegelser for kartkontroll i perspektivvisning under navigasjonsmodus
+• Løst en feil ved omdøping av spor der det nye navnet ikke ble oppdatert riktig
+• CarPlay: løst sentreringsknappen
+• Løst ruter for offentlig transport for stasjoner og andre områdeobjekter
+• Løst krasj ved laging av et bokmerke på en tur- eller sykkelrute
+• Løst visning av fartsgrenser for fotobokser
+• Løst zoom-ut mot antimeridian med mer enn én verdenskopi
+• Mer nøyaktig visning av gate- og husadresser
+• Løst unødvendige kartanimasjoner
+• Stabilitets- og ytelsesforbedringer
 
-- NYTT! Kartet vises nå korrekt over antimeridianen når du drar og roterer
-- OpenStreetMap-data oppdatert per 4. april
-- Wikipedia-data oppdatert per 1. april
-- Ikoner for matområder og byporter er lagt til
-- Underkategorier for klesbutikker er lagt til: dame, herre, barn, bryllup, sport, undertøy og kontorklær
-- Fargene på T-banelinjene i Sydney er rettet
-- Visningen av åpningstider for steder med avvik i soloppgang/solnedgang er rettet
+## Oversettelser
 
-## Ruteplanlegging og navigasjon
-
-- NYTT! Trykk på en sykkel- eller tursti for å velge den og se høydekurven
-- Forbedret flerfargegjengivelse for tur- og sykkelruter
-- Sykkelnavigasjonen bruker nå kompassretning ved lave hastigheter
-- En systemfeil ved ruteplanlegging nær enkelte regiongrenser er rettet
-- Du kan nå starte en gyldig rute selv når du blir bedt om å laste ned flere kart
-
-## Bokmerker og spor
-
-- NYTT! Endre alle fargene for bokmerker og spor i en kategori samtidig
-- Beregningen av høydeøkning og -tap på sporgrafer er justert for å passe bedre med andre apper
-- Forbedret visning av HTML-innhold med tabeller og bilder i bokmerkedetaljer
-- Lagt til vertikale skillelinjer for spor med flere segmenter i høydediagrammet
-- Punktvalg i høydediagrammet for interpolerte punkter er rettet
-- Problemet med at GPS-sporopptak mistet punkter mellom segmenter er rettet
-- GeoJSON-import er rettet
-- Et krasj ved eksport av spor er rettet
-
-## Søk
-
-- Bedre søk i USA, med to millioner ekstra adresser hentet fra TIGER-folketellingsdata
-- Oppdaterte søkekategorier: lagt til «Bread» for bakerier, «Shawarma» som kjøkken og andre synonymforbedringer
-- Forbedret søk etter husnummer
-- Lagt til amerikanske gatenavnssynonymer: highway, hwy, freeway, fwy
-- Søkeresultater når by- og delstatsnavn er like, er rettet
-
-## Editor / OpenStreetMap
-
-- Du kan nå legge til et nytt sted i OpenStreetMap etter å ha valgt din nåværende posisjon på kartet
-- Feiljustering av redigeringskrysset når du trykker på «Legg til sted», er rettet
-- Berøringsområdet for knappene i navigasjonsfeltet «Legg til sted» er økt
-
-## Brukergrensesnitt og brukeropplevelse
-
-- Forbedrede modale bevegelser: fest til nærmeste trinn, lukk ved panorering fra kanten og gjenopprett forrige tilstand når du åpner på nytt
-- Håndtering av sommertid for tidssoner er rettet
-
-## Stabilitet og lokalisering
-
-- Forbedret stabilitet og ytelse, redusert batteriforbruk
-- Oppdaterte oversettelser
-
-## Plattformstøtte
-
-- På grunn av endringer i TestFlight og App Store støtter denne utgivelsen kun iOS 15 og nyere. iOS 12, 13 og 14 støttes ikke lenger.
+• Forbedrede oversettelser til fransk, italiensk, spansk, ukrainsk og katalansk
+• Oppdaterte oversettelser for flere land- og regionnavn, løst synonymer for søk etter `leisure=track`
+• Korrigert oversettelser for `disused:bridge` og `disused:tunnel`

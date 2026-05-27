@@ -1,56 +1,22 @@
-## Mappa
+• Sono ora supportate le descrizioni testuali e HTML dei tracciati, allo stesso modo delle descrizioni per i segnalibri. Premere l'icona a forma di matita per aggiungere una descrizione.
+• Dati cartografici OpenStreetMap aggiornati al 27 maggio 2026
+• La sintesi vocale (TTS) ora seleziona la voce installata migliore per la lingua (Enhanced / Premium). Consulta le impostazioni di Organic Maps per sapere come scaricare una voce di qualità superiore.
+• Aggiunti i cartelli stradali per Australia e Nuova Zelanda
+• Aggiunte icone per luoghi dedicati alle bocce, al ciclismo e agli sport motoristici
+• Aggiunti portali cerimoniali, scivoli acquatici, parchi a tema e montagne russe
+• Migliorati i gesti con le dita per il controllo della mappa nella vista prospettica durante la modalità Navigazione
+• Risolto un bug nella rinominazione dei tracciati in cui il nuovo nome non veniva aggiornato correttamente
+• CarPlay: risolto il pulsante di ricentraggio
+• Risolti i percorsi dei trasporti pubblici per le stazioni e altri oggetti dell'area
+• Risolto il crash durante l'aggiunta di un segnalibro su un percorso escursionistico o ciclabile
+• Risolto il rendering dei limiti di velocità per gli autovelox
+• Risolto lo zoom indietro antimeridiano con più di una copia del mondo
+• Visualizzazione più accurata degli indirizzi stradali e delle abitazioni
+• Risolte animazioni inutili della mappa
+• Miglioramenti alla stabilità e alle prestazioni
 
-- NOVITÀ! La mappa ora viene visualizzata correttamente all'antimeridiano durante il trascinamento e la rotazione
-- Dati OpenStreetMap aggiornati al 4 aprile
-- Dati Wikipedia aggiornati al 1° aprile
-- Aggiunte icone per aree ristoro e porte della città
-- Aggiunte sottocategorie dei negozi di abbigliamento: donna, uomo, bambino, matrimonio, sport, intimo e abbigliamento da ufficio
-- Corretti i colori delle linee della metropolitana di Sydney
-- Corretta la visualizzazione degli orari di apertura per i luoghi con offset di alba/tramonto
+## Traduzioni
 
-## Percorsi e navigazione
-
-- NOVITÀ! Tocca un percorso ciclabile o escursionistico per selezionarlo e visualizzarne il grafico altimetrico
-- Migliorata la resa cromatica multicolore per i percorsi escursionistici e ciclabili
-- La navigazione in bicicletta ora utilizza la direzione della bussola a basse velocità
-- Risolto un errore di sistema durante la pianificazione di percorsi in prossimità di alcuni confini regionali
-- Ora è possibile avviare un percorso valido anche quando viene richiesto di scaricare mappe aggiuntive
-
-## Segnalibri e tracciati
-
-- NOVITÀ! Modifica contemporaneamente tutti i colori dei segnalibri e delle tracce in una categoria
-- Modificata l'approssimazione del dislivello positivo e negativo nei grafici delle tracce per allinearla meglio ad altre app
-- Visualizzazione migliorata dei contenuti HTML con tabelle e immagini nei dettagli dei segnalibri
-- Aggiunti separatori verticali per le tracce a più segmenti nel grafico dell'altitudine
-- Risolto il problema della selezione dei punti nel grafico dell'altitudine per i punti interpolati
-- Risolto il problema della registrazione della traccia GPS che perdeva punti tra i segmenti
-- Risolto il problema dell'importazione GeoJSON
-- Risolto un crash durante l'esportazione delle tracce
-
-## Ricerca
-
-- Ricerca migliorata negli Stati Uniti, con due milioni di indirizzi aggiuntivi analizzati dai dati del censimento TIGER
-- Categorie di ricerca aggiornate: aggiunti "Bread" per le panetterie, "Shawarma" come cucina e altri miglioramenti ai sinonimi
-- Ricerca per numero civico migliorata
-- Aggiunti sinonimi per le strade negli Stati Uniti: highway, hwy, freeway, fwy
-- Risolti i risultati di ricerca quando i nomi di città e stato coincidono
-
-## Editor / OpenStreetMap
-
-- Ora è possibile aggiungere un nuovo luogo su OpenStreetMap dopo aver selezionato la propria posizione attuale sulla mappa
-- Risolto il disallineamento del mirino dell'editor quando si preme "Aggiungi luogo"
-- Aumentata l'area tattile dei pulsanti nella barra di navigazione "Aggiungi luogo"
-
-## Interfaccia utente e esperienza utente
-
-- Migliorati i gesti modali: aggancio al passaggio più vicino, chiusura durante lo scorrimento sul bordo e ripristino dello stato precedente alla riapertura
-- Risolta la gestione dell'ora legale per i fusi orari
-
-## Stabilità e localizzazione
-
-- Migliorate stabilità e prestazioni, ridotto il consumo della batteria
-- Traduzioni aggiornate
-
-## Supporto piattaforme
-
-- A causa delle modifiche apportate a TestFlight e all'App Store, questa versione supporta solo iOS 15 e versioni successive. iOS 12, 13 e 14 non sono più supportati.
+• Migliorate le traduzioni in francese, italiano, spagnolo, ucraino e catalano
+• Aggiornate le traduzioni per diversi nomi di paesi e regioni, corretti i sinonimi di ricerca per `leisure=track`
+• Corrette le traduzioni per `disused:bridge` e `disused:tunnel`

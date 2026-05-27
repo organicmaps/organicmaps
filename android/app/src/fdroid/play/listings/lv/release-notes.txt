@@ -1,9 +1,8 @@
-• Izvēlieties pārgājienu un riteņbraukšanas maršrutus, lai skatītu to augstuma diagrammas
-• Pareiza kartes iesaiņošana pie antimeridiāna (±180° garuma)
-• Mainīt visas grāmatzīmju un trases krāsas kategorijā uzreiz
-• Labāka māju numuru meklēšana, aptverts vairāk ASV adrešu
-• OSM dati no 4. aprīļa
-• Plānotais izskata režīms iestatījumos
-• Novērsta grāmatzīmju/trašu koplietošana ar citām lietotnēm
-• Fiksēta karšu rediģējumu augšupielāde OSM
+• Jaunums! Pēdojumiem var pievienot teksta vai HTML aprakstu un izvēlēties jebkuru krāsu
+• Pievienotas Austrālijas un Jaunzēlandes ceļu numuru zīmes
+• Pareizi fonti korejiešu, ķīniešu un japāņu valodai
+• Jaunas ikonas petankam, riteņbraukšanai un motosportam
+• Pievienoti svinīgie vārti, ūdensslīdkalniņi, atrakciju parki un amerikāņu kalniņi
+• Laboti sabiedriskā transporta maršruti stacijām un teritorijām
+• OSM dati: 27. maijs
 …vairāk vietnē omaps.org/news
