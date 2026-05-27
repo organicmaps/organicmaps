@@ -1,56 +1,22 @@
-## Kort
+• Tekst- og HTML-beskrivelser af spor understøttes nu på samme måde som beskrivelser for bogmærker. Tryk på blyantikonet for at tilføje en beskrivelse.
+• OpenStreetMap-kortdata pr. 27. maj 2026
+• Tekst-til-tale (TTS) vælger nu den bedste installerede stemme til sproget (Enhanced / Premium). Se indstillingerne i Organic Maps for at se, hvordan du downloader en stemme i højere kvalitet.
+• Tilføjet vejskilte for Australien og New Zealand
+• Tilføjet ikoner for boules, cykling og motorsportssteder
+• Tilføjet ceremonielle porte, vandrutsbaner, forlystelsesparker og rutsjebaner
+• Forbedrede fingergestus til kortstyring i perspektivvisning under navigationsmodus
+• Rettet en fejl ved omdøbning af spor, hvor det nye navn ikke blev opdateret korrekt
+• CarPlay: rettet knappen til at centrere kortet
+• Rettet ruter for offentlig transport for stationer og andre områdeobjekter
+• Rettet nedbrud ved tilføjelse af et bogmærke på en vandre- eller cykelrute
+• Rettet visning af hastighedsgrænser for hastighedskameraer
+• Rettet zoom-ud ved antimeridian med mere end én verdenskopi
+• Mere nøjagtig visning af gade- og husadresser
+• Rettet unødvendige kortanimationer
+• Stabilitets- og ydeevneforbedringer
 
-- NYT! Korrekt kortinddeling ved antimeridianen ved trækning og rotation
-- OpenStreetMap-data opdateret pr. 4. april
-- Wikipedia-data opdateret pr. 1. april
-- Ikoner for madområder og byporte tilføjet
-- Underkategorier for tøjbutikker tilføjet: kvinder, mænd, børn, bryllup, sport, undertøj samt kontortøj
-- Farverne på Sydney-metroens linjer rettet
-- Visning af åbningstider rettet for steder med forskydning i solopgang/solnedgang
+## Oversættelser
 
-## Ruteplanlægning og navigation
-
-- NYT! Tryk på en cykel- eller vandrerute for at vælge den og se dens højdekurve
-- Forbedret flerfarvet gengivelse af vandre- og cykelruter
-- Cykelnavigation bruger nu kompasretning ved lave hastigheder
-- Rettet en systemfejl ved planlægning af ruter nær visse regionale grænser
-- Du kan nu starte en gyldig rute, selv når du bliver bedt om at downloade yderligere kort
-
-## Bogmærker og ruter
-
-- NYT! Skift alle bogmærke- og sporfarver i en kategori på én gang
-- Justeret tilnærmelse af højdeforskel på sporgrafer for bedre at matche andre apps
-- Forbedret visning af HTML-indhold med tabeller og billeder i bogmærkedetaljer
-- Tilføjet lodrette adskillere for spor med flere segmenter i højdekurven
-- Rettet punktvalg i højdekurven for interpolerede punkter
-- Rettet GPS-sporoptagelse, der udelod punkter mellem segmenter
-- Rettet GeoJSON-import
-- Rettet et nedbrud ved eksport af spor
-
-## Søgning
-
-- Bedre søgning i USA med to millioner ekstra adresser hentet fra TIGER-folketællingsdata
-- Opdaterede søgekategorier: tilføjet "Bread" for bagerier, "Shawarma" for madretter og andre forbedringer af synonymer
-- Forbedret søgning efter husnummer
-- Tilføjet amerikanske synonymer for gader: highway, hwy, freeway, fwy
-- Rettet søgeresultater, når by- og delstatsnavne er de samme
-
-## Editor / OpenStreetMap
-
-- Du kan nu tilføje et nyt sted til OpenStreetMap efter at have valgt din aktuelle position på kortet
-- Rettet fejl i redigeringskrydsets placering, når der trykkes på "Tilføj sted"
-- Øget berøringsområdet for knapperne i navigationsbjælken "Tilføj sted"
-
-## Brugergrænseflade og brugeroplevelse
-
-- Forbedrede modalgestus: fastgør til nærmeste trin, luk ved kantpanorering og gendan den tidligere tilstand, når den genåbnes
-- Rettet håndtering af sommertid for tidszoner
-
-## Stabilitet og lokalisering
-
-- Forbedret stabilitet og ydeevne, reduceret batteriforbrug
-- Opdaterede oversættelser
-
-## Platformsunderstøttelse
-
-- På grund af ændringer i TestFlight og App Store understøtter denne udgivelse kun iOS 15 og nyere. iOS 12, 13 og 14 understøttes ikke længere.
+• Forbedrede oversættelser til fransk, italiensk, spansk, ukrainsk og catalansk
+• Opdaterede oversættelser for flere lande- og regionsnavne, rettet synonymer i søgningen for `leisure=track`
+• Rettede oversættelser for `disused:bridge` og `disused:tunnel`

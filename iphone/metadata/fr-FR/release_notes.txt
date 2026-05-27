@@ -1,56 +1,22 @@
-## Carte
+• Les descriptions textuelles et HTML des tracés sont désormais prises en charge, de la même manière que les descriptions des signets. Appuyez sur l'icône en forme de crayon pour ajouter une description.
+• Données cartographiques OpenStreetMap au 27 mai 2026
+• La synthèse vocale (TTS) sélectionne désormais la meilleure voix installée pour la langue (Enhanced / Premium). Consultez les paramètres d'Organic Maps pour savoir comment télécharger une voix de meilleure qualité.
+• Ajout des panneaux routiers pour l'Australie et la Nouvelle-Zélande
+• Ajout d'icônes pour les lieux dédiés à la pétanque, au cyclisme et aux sports mécaniques
+• Ajout des portes cérémonielles, des toboggans aquatiques, des parcs d'attractions et des montagnes russes
+• Amélioration des gestes tactiles pour le contrôle de la carte en vue en perspective en mode Navigation
+• Correction d'un bug de renommage de tracé où le nouveau nom n'était pas correctement mis à jour
+• CarPlay : correction du bouton de recentrage
+• Correction des itinéraires de transports en commun pour les gares et autres objets de zone
+• Correction d'un plantage lors de l'ajout d'un signet sur un itinéraire de randonnée ou de cyclisme
+• Correction de l'affichage des limitations de vitesse pour les radars
+• Correction du zoom arrière anti-méridien avec plusieurs copies du monde
+• Affichage plus précis des adresses de rue et des numéros de maison
+• Correction d'animations cartographiques inutiles
+• Améliorations de la stabilité et des performances
 
-- NOUVEAU ! Ajustement correct de la carte au niveau de l'antiméridien lors du glissement et de la rotation
-- Données OpenStreetMap mises à jour au 4 avril
-- Données Wikipédia mises à jour au 1er avril
-- Ajout d'icônes pour les aires de restauration et les portes de la ville
-- Ajout de sous-catégories pour les magasins de vêtements : femmes, hommes, enfants, mariage, sport, sous-vêtements, ainsi que les types de bureaux
-- Correction des couleurs des lignes de métro de Sydney
-- Correction de l'affichage des horaires d'ouverture pour les lieux présentant des décalages de lever/coucher du soleil
+## Traductions
 
-## Itinéraires et navigation
-
-- NOUVEAU ! Appuyez sur un itinéraire cyclable ou de randonnée pour le sélectionner et afficher son profil altimétrique
-- Amélioration du rendu multicolore pour les itinéraires de randonnée et cyclables
-- La navigation cyclable utilise désormais le cap de la boussole à basse vitesse
-- Correction d'une erreur système lors de la planification d'itinéraires à proximité de certaines frontières régionales
-- Vous pouvez désormais démarrer un itinéraire valide même lorsqu'on vous invite à télécharger des cartes supplémentaires
-
-## Favoris et tracés
-
-- NOUVEAU ! Modifiez simultanément toutes les couleurs des signets et des tracés d'une catégorie
-- Ajustement de l'estimation du dénivelé positif et négatif sur les graphiques de tracés pour une meilleure correspondance avec d'autres applications
-- Amélioration de l'affichage du contenu HTML avec des tableaux et des images dans les détails des signets
-- Ajout de séparateurs verticaux pour les tracés à segments multiples dans le graphique d'altitude
-- Correction de la sélection des points dans le graphique d'altitude pour les points interpolés
-- Correction de l'enregistrement des tracés GPS qui omettait des points entre les segments
-- Correction de l'importation GeoJSON
-- Correction d'un plantage lors de l'exportation des tracés
-
-## Recherche
-
-- Amélioration de la recherche aux États-Unis, avec deux millions d'adresses supplémentaires extraites des données du recensement TIGER
-- Mise à jour des catégories de recherche : ajout de « Pain » pour les boulangeries, de « Shawarma » pour la cuisine, et d'autres améliorations au niveau des synonymes
-- Amélioration de la recherche d'adresses par numéro de maison
-- Ajout de synonymes pour les rues aux États-Unis : highway, hwy, freeway, fwy
-- Correction des résultats de recherche lorsque les noms de ville et d'État sont identiques
-
-## Éditeur / OpenStreetMap
-
-- Vous pouvez désormais ajouter un nouveau lieu à OpenStreetMap après avoir sélectionné votre position actuelle sur la carte
-- Correction du décalage du réticule de l'éditeur lorsque l'on appuie sur « Ajouter un lieu »
-- Augmentation de la zone tactile des boutons dans la barre de navigation « Ajouter un lieu »
-
-## Interface utilisateur et expérience utilisateur
-
-- Gestes modaux améliorés : alignement sur l'étape la plus proche, fermeture lors d'un panoramique sur le bord et restauration de l'état précédent lors de la réouverture
-- Correction de la gestion de l'heure d'été pour les fuseaux horaires
-
-## Stabilité et localisation
-
-- Amélioration de la stabilité et des performances, réduction de la consommation de batterie
-- Mise à jour des traductions
-
-## Prise en charge des plateformes
-
-- En raison de changements apportés à TestFlight et à l'App Store, cette version ne prend en charge que iOS 15 et les versions ultérieures. iOS 12, 13 et 14 ne sont plus pris en charge.
+• Amélioration des traductions en français, italien, espagnol, ukrainien et catalan
+• Mise à jour des traductions pour plusieurs noms de pays et de régions, correction des synonymes de recherche pour `leisure=track`
+• Correction des traductions pour `disused:bridge` et `disused:tunnel`

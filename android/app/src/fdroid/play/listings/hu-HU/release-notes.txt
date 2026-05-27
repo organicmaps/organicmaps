@@ -1,8 +1,9 @@
-• Válassza ki a túra- és kerékpáros útvonalakat, hogy megnézze a magassági diagramjaikat.
-• A térkép megfelelő megjelenítése az antimeridiánnál (±180° hosszúság)
-• Egyszerre megváltoztathatja az összes könyvjelző és nyomvonal színét egy kategóriában.
-• Jobb keresés a házszámokra, több amerikai cím lefedése
-• OSM-adatok április 4-től
-• Ütemezett megjelenési mód a Beállításokban
-• Javított könyvjelzők/nyomvonalak megosztása más alkalmazásokkal
-…még több az omaps.org/hu/news oldalon
+• ÚJ! A ceruza ikonnal szöveges vagy HTML-leírás adható a nyomvonalakhoz
+• ÚJ! Bármilyen szín választható a nyomvonalakhoz
+• Új ausztrál és új-zélandi útjelzések
+• Helyes betűtípusok koreai, kínai és japán nyelvű készülékeken
+• Új ikonok: pétanque, kerékpározás, motorsport
+• Új helyek: díszkapuk, vízicsúszdák, vidámparkok, hullámvasutak
+• Javított tömegközlekedési útvonalak állomásoknál és területeknél
+• OSM-adatok: május 27.
+…továbbiak: omaps.org/hu/news

@@ -1,8 +1,8 @@
-• Chagua njia za matembezi na baiskeli ili kuona chati zao za mwinuko
-• Mpangilio sahihi wa ramani kwenye mstari wa kinyume cha mwelekeo (±180° urefu)
-• Badilisha rangi zote za alamisho na njia katika kategoria kwa pamoja
-• Utafutaji bora wa nambari za nyumba, anwani zaidi za Marekani zimejumuishwa
-• Data ya OSM ya tarehe 4 Aprili
-• Hali ya kuonekana iliyopangwa katika Mipangilio
-• Imerekebishwa ushiriki wa alamisho/njia na programu zingine
-…zaidi katika omaps.org/news
+• MPYA! Ongeza maelezo ya maandishi/HTML kwenye njia kwa ikoni ya penseli
+• MPYA! Chagua rangi yoyote ya njia
+• Alama za barabara za Australia na New Zealand zimeongezwa
+• Fonti sahihi kwa Kikorea, Kichina na Kijapani kulingana na eneo la kifaa
+• Ikoni/maeneo mapya: boules, baiskeli, michezo ya magari, milango ya sherehe, miteremko ya maji, mbuga na roller coaster
+• Njia za usafiri wa umma kwa vituo na maeneo zimerekebishwa
+• Data ya OpenStreetMap ya Mei 27
+…zaidi kwenye omaps.org/news

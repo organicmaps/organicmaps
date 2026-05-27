@@ -1,8 +1,9 @@
-• Valitse patikointi- ja pyöräilyreitit nähdäksesi niiden korkeuskäyrät.
-• Oikea kartan kääriminen antimeridiaanin kohdalla (±180° pituusastetta).
-• Vaihda kaikkien luokkaan kuuluvien kirjanmerkkien ja reittien värejä kerralla.
-• Parempi talonumeroiden haku, enemmän Yhdysvaltain osoitteita katettu.
-• OSM-tiedot huhtikuun 4. päivästä alkaen
-• Ajastettu näyttötila asetuksissa
-• Kirjanmerkkien ja jälkien jakaminen muihin sovelluksiin korjattu
-…lisää osoitteessa omaps.org/news
+• UUTTA! Lisää reittiin teksti- tai HTML-kuvaus kynäkuvaketta painamalla
+• UUTTA! Valitse reiteille haluamasi väri
+• Lisätty Australian ja Uuden-Seelannin tienumerokilvet
+• Korean, kiinan ja japanin fontit valitaan laitteen kielen mukaan
+• Uudet kuvakkeet petankki-, pyöräily- ja moottoriurheilukohteille
+• Lisätty juhlaportit, vesiliukumäet, huvipuistot ja vuoristoradat
+• Korjattu asemien ja muiden aluekohteiden joukkoliikennereitit
+• OpenStreetMap-data 27.5. asti
+…lisää: omaps.org/news

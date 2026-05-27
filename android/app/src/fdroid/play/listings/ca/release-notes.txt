@@ -1,8 +1,8 @@
-• Seleccioneu rutes de senderisme i ciclisme per veure'n els perfils d'altitud
-• Adaptació correcta del mapa a l'antimeridià (llargitud ±180°)
-• Canvi de tots els colors dels marcadors i els traçats d'una categoria alhora
-• Millora de la cerca de números de casa, amb més adreces dels EUA cobertes
-• Dades d'OSM a data de 4 d'abril
-• Mode d'aparença programada a la configuració
-• S'ha solucionat la compartició de marcadors/traçats amb altres aplicacions
-…i més a omaps.org/ca/news
+• Nou: afegeix descripcions de text o HTML als recorreguts amb la icona del llapis
+• Nou: tria qualsevol color per als recorreguts
+• Escuts de carretera d'Austràlia i Nova Zelanda
+• Tipus de lletra correctes per al coreà, el xinès i el japonès
+• Més icones i llocs: petanca, ciclisme, esports de motor, portes, tobogans, parcs temàtics i muntanyes russes
+• Rutes de transport públic corregides
+• Dades d'OpenStreetMap del 27 de maig
+…més a omaps.org/ca/news

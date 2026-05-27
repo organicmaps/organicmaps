@@ -1,9 +1,9 @@
-• Odaberite planinarske i biciklističke staze za pregled njihovih visinskih profila
-• Ispravno presavijanje karte na antimeridijanu (±180° geografske dužine)
-• Promjena boja svih oznaka i tragova u jednoj kategoriji odjednom
-• Bolja pretraga kućnih brojeva, pokriveno je više američkih adresa
-• OSM podaci od 4. travnja
-• Planirani način prikaza u postavkama
-• Ispravljeno dijeljenje oznaka/tragova s drugim aplikacijama
-• Ispravljeno učitavanje izmjena karte u OSM
+• NOVO! Dodajte tekstualni ili HTML opis staze pomoću ikone olovke
+• NOVO! Odaberite bilo koju boju za staze
+• Dodane cestovne oznake za Australiju i Novi Zeland
+• Ispravni fontovi za korejski, kineski i japanski prema jeziku uređaja
+• Dodane ikone za boćališta, biciklistička i motosportska mjesta
+• Dodani svečani lukovi, vodeni tobogani, zabavni parkovi i vlakovi smrti
+• Popravljene rute javnog prijevoza za postaje i druge površinske objekte
+• OSM podaci od 27. svibnja
 …više na omaps.org/news
