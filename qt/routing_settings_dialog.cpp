@@ -1,5 +1,7 @@
 #include "qt/routing_settings_dialog.hpp"
 
+#include "qt/qt_common/translations.hpp"
+
 #include "map/framework.hpp"
 
 #include "routing/router.hpp"
@@ -101,7 +103,7 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
   : QDialog(parent)
   , m_framework(framework)
 {
-  setWindowTitle("Routing settings");
+  setWindowTitle(Tr("desktop_routing_settings"));
   QVBoxLayout * layout = new QVBoxLayout(this);
 
   {

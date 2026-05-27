@@ -43089,6 +43089,401 @@ vi = Vùng đã tải về màu tím
 zh-Hans = 紫色已下载区域
 zh-Hant = 紫色已下載區域
 
+[[Qt desktop strings]]
+
+[desktop_preferences]
+tags = qt
+en = Preferences
+
+[desktop_preferences_ellipsis]
+tags = qt
+en = Preferences...
+
+[desktop_about]
+tags = qt
+en = About
+
+[desktop_about_ellipsis]
+tags = qt
+en = About...
+
+[desktop_exit]
+tags = qt
+en = Exit
+
+[desktop_upload_edits]
+tags = qt
+en = Upload Edits
+
+[desktop_welcome_to]
+tags = qt
+en = Welcome to %@
+
+[desktop_looking_for_position]
+tags = qt
+en = Looking for position...
+
+[desktop_navigation_bar]
+tags = qt
+en = Navigation Bar
+
+[desktop_public_transport]
+tags = qt
+en = Public transport
+
+[desktop_bookmarks_tooltip]
+tags = qt
+en = Show bookmarks and tracks; use ALT + RMB to add a bookmark
+
+[desktop_start_point]
+tags = qt
+en = Start point
+
+[desktop_intermediate_point]
+tags = qt
+en = Intermediate point
+
+[desktop_finish_point]
+tags = qt
+en = Finish point
+
+[desktop_route_point_tooltip]
+tags = qt
+en = Select mode and use SHIFT + LMB to set point
+
+[desktop_follow_route]
+tags = qt
+en = Follow route
+
+[desktop_follow_route_tooltip]
+tags = qt
+en = Build route and use ALT + LMB to emulate current position
+
+[desktop_clear_route]
+tags = qt
+en = Clear route
+
+[desktop_routing_settings]
+tags = qt
+en = Routing settings
+
+[desktop_create_feature]
+tags = qt
+en = Create Feature
+
+[desktop_create_feature_tooltip]
+tags = qt
+en = Push to select position, next push to create Feature
+
+[desktop_roads_selection_mode]
+tags = qt
+en = Roads selection mode
+
+[desktop_city_boundaries_selection_mode]
+tags = qt
+en = City boundaries selection mode
+
+[desktop_city_roads_selection_mode]
+tags = qt
+en = City roads selection mode
+
+[desktop_cross_mwm_segments_selection_mode]
+tags = qt
+en = Cross MWM segments selection mode
+
+[desktop_mwms_borders_selection_mode]
+tags = qt
+en = MWMs borders selection mode
+
+[desktop_selection_mode_tooltip]
+tags = qt
+en = Select mode and use RMB to define selection box
+
+[desktop_offline_search]
+tags = qt
+en = Offline Search
+
+[desktop_ruler]
+tags = qt
+en = Ruler
+
+[desktop_ruler_tooltip]
+tags = qt
+en = Check this button and use ALT + LMB to set points
+
+[desktop_build_style]
+tags = qt
+en = Build style
+
+[desktop_recalculate_geometry_index]
+tags = qt
+en = Recalculate geometry index
+
+[desktop_debug_style]
+tags = qt
+en = Debug style
+
+[desktop_get_statistics]
+tags = qt
+en = Get statistics
+
+[desktop_run_tests]
+tags = qt
+en = Run tests
+
+[desktop_build_phone_package]
+tags = qt
+en = Build phone package
+
+[desktop_retry_downloading]
+tags = qt
+en = Retry downloading
+
+[desktop_system_of_measurement]
+tags = qt
+en = System of measurement
+
+[desktop_metric]
+tags = qt
+en = Metric
+
+[desktop_imperial_foot]
+tags = qt
+en = Imperial (foot)
+
+[desktop_use_larger_font_on_map]
+tags = qt
+en = Use larger font on the map
+
+[desktop_transliterate_to_latin]
+tags = qt
+en = Transliterate to Latin
+
+[desktop_developer_mode]
+tags = qt
+en = Developer Mode
+
+[desktop_night_mode]
+tags = qt
+en = Night Mode
+
+[desktop_enable_auto_regeneration_geometry_index]
+tags = qt
+en = Enable auto regeneration of geometry index
+
+[desktop_search_everywhere]
+tags = qt
+en = Everywhere
+
+[desktop_search_viewport]
+tags = qt
+en = Viewport
+
+[desktop_category_request]
+tags = qt
+en = Category request
+
+[desktop_unuploaded_edits_delete_map]
+tags = qt
+en = Some map edits are not uploaded yet. Are you sure you want to delete map anyway?
+
+[desktop_country]
+tags = qt
+en = Country
+
+[desktop_status]
+tags = qt
+en = Status
+
+[desktop_size]
+tags = qt
+en = Size
+
+[desktop_matched_by]
+tags = qt
+en = Matched by
+
+[desktop_rank]
+tags = qt
+en = Rank
+
+[desktop_locale_label]
+tags = qt
+en = locale:
+
+[desktop_search_query_label]
+tags = qt
+en = search query:
+
+[desktop_geographical_regions]
+tags = qt
+en = Geographical Regions
+
+[desktop_update_or_delete_region]
+tags = qt
+en = Do you want to update or delete %@?
+
+[desktop_update]
+tags = qt
+en = Update
+
+[desktop_delete_region]
+tags = qt
+en = Do you want to delete %@?
+
+[desktop_click_to_download]
+tags = qt
+en = Click to download
+
+[desktop_installed_click_to_delete]
+tags = qt
+en = Installed (click to delete)
+
+[desktop_out_of_date_click_to_update_or_delete]
+tags = qt
+en = Out of date (click to update or delete)
+
+[desktop_downloading_ellipsis]
+tags = qt
+en = Downloading ...
+
+[desktop_applying_ellipsis]
+tags = qt
+en = Applying ...
+
+[desktop_marked_for_download]
+tags = qt
+en = Marked for download
+
+[desktop_open_bookmark_files]
+tags = qt
+en = Open KML, KMZ, GPX, JSON, GeoJSON...
+
+[desktop_bookmark_files_filter]
+tags = qt
+en = KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)
+
+[desktop_select_bookmark_category_to_export]
+tags = qt
+en = Select one of the bookmark categories to export.
+
+[desktop_selected_item_not_bookmark_category]
+tags = qt
+en = Selected item is not a bookmark category.
+
+[desktop_export_gpx_caption]
+tags = qt
+en = Export GPX...
+
+[desktop_gpx_filter]
+tags = qt
+en = GPX files (*.gpx)
+
+[desktop_export_geojson_caption]
+tags = qt
+en = Export GeoJSON...
+
+[desktop_geojson_filter]
+tags = qt
+en = GeoJSON files (*.geojson);JSON files (*.json)
+
+[desktop_export_kmz_caption]
+tags = qt
+en = Export KMZ...
+
+[desktop_kmz_filter]
+tags = qt
+en = KMZ files (*.kmz)
+
+[desktop_bookmarks_exported]
+tags = qt
+en = Bookmarks successfully exported.
+
+[desktop_bookmarks_export_error]
+tags = qt
+en = Could not export bookmarks: %@
+
+[desktop_cannot_delete_last_category]
+tags = qt
+en = Could not delete the last category.
+
+[desktop_select_bookmark_item_to_delete]
+tags = qt
+en = Select category, bookmark or track to delete.
+
+[desktop_no_name]
+tags = qt
+en = No name
+
+[desktop_loading_in_progress]
+tags = qt
+en = Loading in progress...
+
+[desktop_mwms_borders_selection_settings]
+tags = qt
+en = MWMs borders selection settings
+
+[desktop_get_borders_from_packed_polygon]
+tags = qt
+en = Get borders from packed_polygon.bin
+
+[desktop_get_borders_from_poly_files]
+tags = qt
+en = Get borders from *.poly files
+
+[desktop_show_borders_with_vertices]
+tags = qt
+en = Show borders with vertices
+
+[desktop_show_just_borders]
+tags = qt
+en = Show just borders
+
+[desktop_show_bounding_box]
+tags = qt
+en = Show bounding box
+
+[desktop_enter_login]
+tags = qt
+en = Please enter Login
+
+[desktop_enter_password]
+tags = qt
+en = Please enter Password
+
+[desktop_auth_failed_invalid_login_or_password]
+tags = qt
+en = Auth failed: invalid login or password
+
+[desktop_auth_failed]
+tags = qt
+en = Auth failed: %@
+
+[desktop_place_page]
+comment = Place page dialog window title
+tags = qt
+en = Place Page
+
+[desktop_place_page_bookmarked]
+comment = Place page dialog window title when the place is a bookmark
+tags = qt
+en = Place Page (bookmarked)
+
+[desktop_place_routes]
+comment = Place page row label listing public transit routes serving this stop
+tags = qt
+en = Routes
+
+[desktop_place_opening_hours]
+comment = Place page row label showing business hours
+tags = qt
+en = Opening hours
+
+[desktop_place_coordinates]
+comment = Place page row label showing latitude and longitude
+tags = qt
+en = Coordinates
+
 [[3d touch strings]]
 
 [route]

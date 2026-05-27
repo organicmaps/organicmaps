@@ -1,4 +1,5 @@
 #include "qt/mwms_borders_selection.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "base/assert.hpp"
 
@@ -11,7 +12,7 @@ namespace qt
 {
 MwmsBordersSelection::MwmsBordersSelection(QWidget * parent) : QDialog(parent)
 {
-  setWindowTitle("Mwms borders selection settings");
+  setWindowTitle(Tr("desktop_mwms_borders_selection_settings"));
 
   auto * grid = new QGridLayout;
   grid->addWidget(CreateSourceChoosingGroup(), 0, 0);
@@ -79,8 +80,8 @@ QGroupBox * MwmsBordersSelection::CreateSourceChoosingGroup()
 {
   auto * groupBox = new QGroupBox();
 
-  m_radioBordersFromPackedPolygon = new QRadioButton(tr("Get borders from packed_polygon.bin"));
-  m_radioBordersFromData = new QRadioButton(tr("Get borders from *.poly files"));
+  m_radioBordersFromPackedPolygon = new QRadioButton(Tr("desktop_get_borders_from_packed_polygon"));
+  m_radioBordersFromData = new QRadioButton(Tr("desktop_get_borders_from_poly_files"));
 
   m_radioBordersFromPackedPolygon->setChecked(true);
 
@@ -97,9 +98,9 @@ QGroupBox * MwmsBordersSelection::CreateViewTypeGroup()
 {
   auto * groupBox = new QGroupBox();
 
-  m_radioWithPoints = new QRadioButton(tr("Show borders with vertices"));
-  m_radioJustBorders = new QRadioButton(tr("Show just borders"));
-  m_radioBoundingBox = new QRadioButton(tr("Show bounding box"));
+  m_radioWithPoints = new QRadioButton(Tr("desktop_show_borders_with_vertices"));
+  m_radioJustBorders = new QRadioButton(Tr("desktop_show_just_borders"));
+  m_radioBoundingBox = new QRadioButton(Tr("desktop_show_bounding_box"));
 
   m_radioWithPoints->setChecked(true);
 

@@ -21,6 +21,8 @@ set(SRC
   spinner.hpp
   text_dialog.cpp
   text_dialog.hpp
+  translations.cpp
+  translations.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})

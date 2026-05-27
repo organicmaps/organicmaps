@@ -4,6 +4,7 @@
 #include "qt/screenshoter.hpp"
 
 #include "qt/qt_common/helpers.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "map/framework.hpp"
 
@@ -133,6 +134,9 @@ int main(int argc, char * argv[])
   else
     LOG(LCRITICAL, ("Invalid log level:", FLAGS_log_abort_level));
 
+  if (!FLAGS_lang.empty())
+    (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
+
   Q_INIT_RESOURCE(resources_common);
 
   InitializeFinalize mainGuard;
@@ -146,6 +150,8 @@ int main(int argc, char * argv[])
 #else
   QApplication::setApplicationName("Organic Maps");
 #endif
+  auto qtTranslator = qt::InstallTranslator(app, FLAGS_lang.empty() ? languages::GetCurrentOrig() : FLAGS_lang);
+  UNUSED_VALUE(qtTranslator);
 
 #ifdef DEBUG
   static bool constexpr developerMode = true;
@@ -167,7 +173,8 @@ int main(int argc, char * argv[])
       reader.ReadAsString(buffer);
     }
     RemovePTagsWithNonMatchedLanguages(languages::GetCurrentTwine(), buffer);
-    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
+    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr,
+                              {qt::Tr("accept"), qt::Tr("decline")});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
@@ -176,9 +183,6 @@ int main(int argc, char * argv[])
   if (eulaAccepted)  // User has accepted EULA
   {
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
-
-    if (!FLAGS_lang.empty())
-      (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
 
     if (!FLAGS_kml_path.empty() || !FLAGS_points.empty() || !FLAGS_rects.empty())
     {

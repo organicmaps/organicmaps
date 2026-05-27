@@ -1,5 +1,6 @@
 #include "qt/about.hpp"
 #include "qt/html_processor.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -22,7 +23,7 @@ AboutDialog::AboutDialog(QWidget * parent)
 {
   QIcon icon(":/ui/logo.png");
   setWindowIcon(icon);
-  setWindowTitle(QMenuBar::tr("About"));
+  setWindowTitle(qt::Tr("desktop_about"));
 
   QLabel * labelIcon = new QLabel();
   labelIcon->setPixmap(icon.pixmap(128));
@@ -31,7 +32,7 @@ AboutDialog::AboutDialog(QWidget * parent)
 
   QVBoxLayout * versionBox = new QVBoxLayout();
   versionBox->addWidget(new QLabel(QCoreApplication::applicationName()));
-  QLabel * versionLabel = new QLabel("Version: " + QString::fromStdString(platform.Version()));
+  QLabel * versionLabel = new QLabel(qt::Tr("version") + ": " + QString::fromStdString(platform.Version()));
   versionLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
   versionBox->addWidget(versionLabel);
   // TODO: insert maps data version.

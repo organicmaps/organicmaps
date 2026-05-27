@@ -1,4 +1,5 @@
 #include "qt/update_dialog.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "storage/downloader_search_params.hpp"
 #include "storage/storage_defines.hpp"
@@ -52,7 +53,7 @@ size_t const kIrrelevantPos = numeric_limits<int32_t>::max() - 1;
 bool DeleteNotUploadedEditsConfirmation()
 {
   QMessageBox msb;
-  msb.setText("Some map edits are not uploaded yet. Are you sure you want to delete map anyway?");
+  msb.setText(qt::Tr("desktop_unuploaded_edits_delete_map"));
   msb.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
   msb.setDefaultButton(QMessageBox::Cancel);
   return QMessageBox::Yes == msb.exec();
@@ -68,14 +69,15 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
 {
   setWindowModality(Qt::WindowModal);
 
-  QPushButton * closeButton = new QPushButton(QObject::tr("Close"), this);
+  QPushButton * closeButton = new QPushButton(Tr("close"), this);
   closeButton->setDefault(true);
   connect(closeButton, &QAbstractButton::clicked, this, &UpdateDialog::OnCloseClick);
 
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(KNumberOfColumns);
   QStringList columnLabels;
-  columnLabels << tr("Country") << tr("Status") << tr("Size") << tr("Matched by") << tr("Rank");
+  columnLabels << Tr("desktop_country") << Tr("desktop_status") << Tr("desktop_size") << Tr("desktop_matched_by")
+               << Tr("desktop_rank");
   m_tree->setHeaderLabels(columnLabels);
 
   m_tree->setColumnHidden(KColumnIndexPositionInRanking, true);
@@ -91,12 +93,12 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   horizontalLayout->addStretch();
   horizontalLayout->addWidget(closeButton);
 
-  QLabel * localeLabel = new QLabel(tr("locale:"));
+  QLabel * localeLabel = new QLabel(Tr("desktop_locale_label"));
   QLineEdit * localeEdit = new QLineEdit(this);
   localeEdit->setText(m_locale.c_str());
   connect(localeEdit, &QLineEdit::textChanged, this, &UpdateDialog::OnLocaleTextChanged);
 
-  QLabel * queryLabel = new QLabel(tr("search query:"));
+  QLabel * queryLabel = new QLabel(Tr("desktop_search_query_label"));
   QLineEdit * queryEdit = new QLineEdit(this);
   connect(queryEdit, &QLineEdit::textChanged, this, &UpdateDialog::OnQueryTextChanged);
 
@@ -113,7 +115,7 @@ UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
   verticalLayout->addLayout(horizontalLayout);
   setLayout(verticalLayout);
 
-  setWindowTitle(tr("Geographical Regions"));
+  setWindowTitle(Tr("desktop_geographical_regions"));
   resize(900, 600);
 
   // We want to receive all download progress and result events.
@@ -152,10 +154,10 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
     // Map is already downloaded, so ask user about deleting.
     QMessageBox ask(this);
     ask.setIcon(QMessageBox::Question);
-    ask.setText(tr("Do you want to update or delete %1?").arg(countryId.c_str()));
-    QPushButton * const btnUpdate = ask.addButton(tr("Update"), QMessageBox::ActionRole);
-    QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-    QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+    ask.setText(Tr("desktop_update_or_delete_region").arg(countryId.c_str()));
+    QPushButton * const btnUpdate = ask.addButton(Tr("desktop_update"), QMessageBox::ActionRole);
+    QPushButton * const btnDelete = ask.addButton(Tr("delete"), QMessageBox::ActionRole);
+    QPushButton * const btnCancel = ask.addButton(Tr("cancel"), QMessageBox::NoRole);
     UNUSED_VALUE(btnCancel);
 
     ask.exec();
@@ -177,9 +179,9 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
     // Map is already downloaded, so ask user about deleting.
     QMessageBox ask(this);
     ask.setIcon(QMessageBox::Question);
-    ask.setText(tr("Do you want to delete %1?").arg(countryId.c_str()));
-    QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-    QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+    ask.setText(Tr("desktop_delete_region").arg(countryId.c_str()));
+    QPushButton * const btnDelete = ask.addButton(Tr("delete"), QMessageBox::ActionRole);
+    QPushButton * const btnCancel = ask.addButton(Tr("cancel"), QMessageBox::NoRole);
     UNUSED_VALUE(btnCancel);
 
     ask.exec();
@@ -379,38 +381,38 @@ void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, CountryId co
   {
   case NodeStatus::NotDownloaded:
     ASSERT(size.second > 0, (countryId));
-    statusString = tr("Click to download");
+    statusString = Tr("desktop_click_to_download");
     rowColor = COLOR_NOTDOWNLOADED;
     break;
 
   case NodeStatus::OnDisk:
   case NodeStatus::Partly:
-    statusString = tr("Installed (click to delete)");
+    statusString = Tr("desktop_installed_click_to_delete");
     rowColor = COLOR_ONDISK;
     break;
 
   case NodeStatus::OnDiskOutOfDate:
-    statusString = tr("Out of date (click to update or delete)");
+    statusString = Tr("desktop_out_of_date_click_to_update_or_delete");
     rowColor = COLOR_OUTOFDATE;
     break;
 
   case NodeStatus::Error:
-    statusString = tr("Download has failed");
+    statusString = Tr("country_status_download_failed");
     rowColor = COLOR_DOWNLOADFAILED;
     break;
 
   case NodeStatus::Downloading:
-    statusString = tr("Downloading ...");
+    statusString = Tr("desktop_downloading_ellipsis");
     rowColor = COLOR_INPROGRESS;
     break;
 
   case NodeStatus::Applying:
-    statusString = tr("Applying ...");
+    statusString = Tr("desktop_applying_ellipsis");
     rowColor = COLOR_INPROGRESS;
     break;
 
   case NodeStatus::InQueue:
-    statusString = tr("Marked for download");
+    statusString = Tr("desktop_marked_for_download");
     rowColor = COLOR_INQUEUE;
     break;
 

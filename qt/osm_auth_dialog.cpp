@@ -1,4 +1,5 @@
 #include "qt/osm_auth_dialog.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "editor/osm_auth.hpp"
 
@@ -16,7 +17,6 @@ namespace qt
 {
 char const * kTokenKeySetting = "OsmTokenKey";
 char const * kTokenSecretSetting = "OsmTokenSecret";
-char const * kLoginDialogTitle = "OpenStreetMap Login";
 char const * kOsmLoginSetting = "OsmLogin";
 char const * kOauthTokenSetting = "OsmOauthToken";
 
@@ -28,7 +28,7 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   QVBoxLayout * vLayout = new QVBoxLayout(parent);
 
   QHBoxLayout * loginRow = new QHBoxLayout();
-  loginRow->addWidget(new QLabel(tr("Username/email:")));
+  loginRow->addWidget(new QLabel(Tr("email_or_username") + ":"));
   QLineEdit * loginLineEdit = new QLineEdit();
   loginLineEdit->setObjectName("login");
   if (!isLoginDialog)
@@ -39,7 +39,7 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   vLayout->addLayout(loginRow);
 
   QHBoxLayout * passwordRow = new QHBoxLayout();
-  passwordRow->addWidget(new QLabel(tr("Password:")));
+  passwordRow->addWidget(new QLabel(Tr("password") + ":"));
   QLineEdit * passwordLineEdit = new QLineEdit();
   passwordLineEdit->setEchoMode(QLineEdit::Password);
   passwordLineEdit->setObjectName("password");
@@ -48,12 +48,12 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   passwordRow->addWidget(passwordLineEdit);
   vLayout->addLayout(passwordRow);
 
-  QPushButton * actionButton = new QPushButton(isLoginDialog ? tr("Login") : tr("Logout"));
+  QPushButton * actionButton = new QPushButton(isLoginDialog ? Tr("login") : Tr("logout"));
   actionButton->setObjectName("button");
   actionButton->setDefault(true);
   connect(actionButton, &QAbstractButton::clicked, this, &OsmAuthDialog::OnAction);
 
-  QPushButton * closeButton = new QPushButton(tr("Close"));
+  QPushButton * closeButton = new QPushButton(Tr("close"));
   connect(closeButton, &QAbstractButton::clicked, this, &QWidget::close);
 
   QHBoxLayout * buttonsLayout = new QHBoxLayout();
@@ -62,7 +62,7 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   vLayout->addLayout(buttonsLayout);
 
   setLayout(vLayout);
-  setWindowTitle(tr(kLoginDialogTitle));
+  setWindowTitle(Tr("login_osm"));
 }
 
 OsmAuthDialog::~OsmAuthDialog()
@@ -75,21 +75,21 @@ void SwitchToLogin(QDialog * dlg)
 {
   dlg->findChild<QLineEdit *>("login")->setEnabled(true);
   dlg->findChild<QLineEdit *>("password")->setEnabled(true);
-  dlg->findChild<QPushButton *>("button")->setText(dlg->tr("Login"));
+  dlg->findChild<QPushButton *>("button")->setText(Tr("login"));
 }
 
 void SwitchToLogout(QDialog * dlg)
 {
   dlg->findChild<QLineEdit *>("login")->setEnabled(false);
   dlg->findChild<QLineEdit *>("password")->setEnabled(false);
-  dlg->findChild<QPushButton *>("button")->setText(dlg->tr("Logout"));
-  dlg->setWindowTitle(dlg->tr(kLoginDialogTitle));
+  dlg->findChild<QPushButton *>("button")->setText(Tr("logout"));
+  dlg->setWindowTitle(Tr("login_osm"));
 }
 
 void OsmAuthDialog::OnAction()
 {
   auto actionButton = findChild<QPushButton *>("button");
-  bool const isLoginDialog = actionButton->text() == tr("Login");
+  bool const isLoginDialog = actionButton->text() == Tr("login");
   if (!isLoginDialog)
   {
     settings::Set(kOauthTokenSetting, std::string());
@@ -102,7 +102,7 @@ void OsmAuthDialog::OnAction()
 
   if (login.empty())
   {
-    setWindowTitle("Please enter Login");
+    setWindowTitle(Tr("desktop_enter_login"));
     return;
   }
 
@@ -110,7 +110,7 @@ void OsmAuthDialog::OnAction()
 
   if (password.empty())
   {
-    setWindowTitle("Please enter Password");
+    setWindowTitle(Tr("desktop_enter_password"));
     return;
   }
 
@@ -134,12 +134,12 @@ void OsmAuthDialog::OnAction()
         runOnMainThread = [this]() { SwitchToLogout(this); };
       }
       else
-        runOnMainThread = [this]() { setWindowTitle("Auth failed: invalid login or password"); };
+        runOnMainThread = [this]() { setWindowTitle(Tr("desktop_auth_failed_invalid_login_or_password")); };
     }
     catch (std::exception const & ex)
     {
-      auto const title = std::string("Auth failed: ") + ex.what();
-      runOnMainThread = [this, title]() { setWindowTitle(title.c_str()); };
+      auto const title = Tr("desktop_auth_failed").arg(ex.what());
+      runOnMainThread = [this, title]() { setWindowTitle(title); };
     }
     QMetaObject::invokeMethod(this, [actionButton, runOnMainThread = std::move(runOnMainThread)]()
     {
