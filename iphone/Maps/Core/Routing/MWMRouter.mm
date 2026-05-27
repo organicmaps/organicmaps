@@ -665,7 +665,19 @@ using namespace routing;
 
 + (BOOL)hasActiveDrivingOptions
 {
-  return [MWMRoutingOptions new].hasOptions && self.type != MWMRouterTypeRuler;
+  MWMRoutingOptions * options = [MWMRoutingOptions new];
+  switch (self.type)
+  {
+  case MWMRouterTypeVehicle:
+    return options.avoidToll || options.avoidDirty || options.avoidFerry || options.avoidMotorway;
+  case MWMRouterTypeBicycle:
+    return options.avoidToll || options.avoidDirty || options.avoidFerry || options.avoidMotorway ||
+           options.publicBicycle;
+  case MWMRouterTypePedestrian:
+  case MWMRouterTypePublicTransport:
+  case MWMRouterTypeRuler: return NO;
+  }
+  return NO;
 }
 
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type

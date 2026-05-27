@@ -19,8 +19,9 @@ public:
     Ferry = 1u << 3,
     Dirty = 1u << 4,
     Steps = 1u << 5,
+    PublicBicycle = 1u << 6,
 
-    Max = (1u << 5) + 1
+    Max = (1u << 6) + 1
   };
 
   using RoadType = std::underlying_type_t<Road>;
@@ -30,6 +31,9 @@ public:
 
   static RoutingOptions LoadCarOptionsFromSettings();
   static void SaveCarOptionsToSettings(RoutingOptions options);
+
+  static RoutingOptions LoadBicycleOptionsFromSettings();
+  static void SaveBicycleOptionsToSettings(RoutingOptions options);
 
   void Add(Road type);
   void Remove(Road type);

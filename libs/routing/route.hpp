@@ -136,6 +136,12 @@ public:
     m_turn.m_pedestrianTurn = turns::PedestrianDirection::None;
   }
 
+  void OffsetTurnIndex(uint32_t offset)
+  {
+    if (!m_turn.IsTurnNone())
+      m_turn.m_index += offset;
+  }
+
   void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
 
   turns::lanes::LanesInfo & GetTurnLanes() { return m_turn.m_lanes; }
@@ -236,11 +242,12 @@ public:
     SubrouteAttrs() = default;
 
     SubrouteAttrs(geometry::PointWithAltitude const & start, geometry::PointWithAltitude const & finish,
-                  size_t beginSegmentIdx, size_t endSegmentIdx)
+                  size_t beginSegmentIdx, size_t endSegmentIdx, VehicleType vehicleType = VehicleType::Count)
       : m_start(start)
       , m_finish(finish)
       , m_beginSegmentIdx(beginSegmentIdx)
       , m_endSegmentIdx(endSegmentIdx)
+      , m_vehicleType(vehicleType)
     {
       CHECK_LESS_OR_EQUAL(beginSegmentIdx, endSegmentIdx, ());
     }
@@ -250,6 +257,7 @@ public:
       , m_finish(subroute.m_finish)
       , m_beginSegmentIdx(beginSegmentIdx)
       , m_endSegmentIdx(beginSegmentIdx + subroute.GetSize())
+      , m_vehicleType(subroute.m_vehicleType)
     {}
 
     geometry::PointWithAltitude const & GetStart() const { return m_start; }
@@ -257,6 +265,7 @@ public:
 
     size_t GetBeginSegmentIdx() const { return m_beginSegmentIdx; }
     size_t GetEndSegmentIdx() const { return m_endSegmentIdx; }
+    VehicleType GetVehicleType() const { return m_vehicleType; }
 
     size_t GetSize() const { return m_endSegmentIdx - m_beginSegmentIdx; }
 
@@ -269,6 +278,8 @@ public:
 
     // Non inclusive index of the last subroute segment in the whole route.
     size_t m_endSegmentIdx = 0;
+
+    VehicleType m_vehicleType = VehicleType::Count;
   };
 
   RouteBase() = default;

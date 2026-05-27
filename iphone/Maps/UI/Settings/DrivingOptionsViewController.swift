@@ -5,6 +5,9 @@ class DrivingOptionsViewController: MWMTableViewController {
   @IBOutlet var unpavedRoadsCell: SettingsTableViewSwitchCell!
   @IBOutlet var ferryCrossingsCell: SettingsTableViewSwitchCell!
   @IBOutlet var motorwaysCell: SettingsTableViewSwitchCell!
+  @IBOutlet var publicBikeSharingCell: SettingsTableViewSwitchCell!
+
+  private var isBicycleRouter: Bool { MWMRouter.type() == .bicycle }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -13,6 +16,21 @@ class DrivingOptionsViewController: MWMTableViewController {
     unpavedRoadsCell.isOn = options.avoidDirty
     ferryCrossingsCell.isOn = options.avoidFerry
     motorwaysCell.isOn = options.avoidMotorway
+
+    if isBicycleRouter {
+      publicBikeSharingCell.isOn = options.publicBicycle
+      publicBikeSharingCell.isHidden = false
+    } else {
+      publicBikeSharingCell.isHidden = true
+    }
+  }
+
+  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if !isBicycleRouter, tableView.indexPath(for: publicBikeSharingCell) == indexPath {
+      return 0
+    } else {
+      return UITableView.automaticDimension
+    }
   }
 }
 
@@ -26,6 +44,10 @@ extension DrivingOptionsViewController: SettingsTableViewSwitchCellDelegate {
       options.avoidFerry = cell.isOn
     } else if cell == motorwaysCell {
       options.avoidMotorway = cell.isOn
+    } else if cell == publicBikeSharingCell {
+      options.publicBicycle = cell.isOn
+    } else {
+      return
     }
 
     options.save()

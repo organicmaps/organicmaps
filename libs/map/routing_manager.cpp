@@ -90,6 +90,20 @@ std::string const kRoutePointsFile = "route_points.dat";
 
 uint32_t constexpr kInvalidTransactionId = 0;
 
+RouterType GetRouterTypeForSubroute(Route::SubrouteAttrs const & subrouteAttrs, RouterType fallbackRouterType)
+{
+  switch (subrouteAttrs.GetVehicleType())
+  {
+  case VehicleType::Pedestrian: return RouterType::Pedestrian;
+  case VehicleType::Transit: return RouterType::Transit;
+  case VehicleType::Bicycle: return RouterType::Bicycle;
+  case VehicleType::Car: return RouterType::Vehicle;
+  case VehicleType::Count: return fallbackRouterType;
+  }
+
+  UNREACHABLE();
+}
+
 void FillTurnsDistancesForRendering(std::vector<RouteSegment> const & segments, double baseDistance,
                                     std::vector<double> & turns)
 {

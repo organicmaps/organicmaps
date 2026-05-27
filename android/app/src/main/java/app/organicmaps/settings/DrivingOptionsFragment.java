@@ -112,6 +112,15 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.Dirty));
     CompoundButton.OnCheckedChangeListener dirtyBtnListener = new ToggleRoutingOptionListener(RoadType.Dirty);
     dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
+
+    View publicBikeSharingContainer = root.findViewById(R.id.public_bike_sharing_container);
+    publicBikeSharingContainer.setVisibility(View.VISIBLE);
+
+    SwitchCompat publicBikeSharingBtn = root.findViewById(R.id.public_bike_sharing_btn);
+    publicBikeSharingBtn.setChecked(RoutingOptions.hasOption(RoadType.PublicBicycle));
+    CompoundButton.OnCheckedChangeListener publicBikeSharingBtnListener =
+        new ToggleRoutingOptionListener(RoadType.PublicBicycle);
+    publicBikeSharingBtn.setOnCheckedChangeListener(publicBikeSharingBtnListener);
   }
 
   private static class ToggleRoutingOptionListener implements CompoundButton.OnCheckedChangeListener
