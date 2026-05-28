@@ -721,6 +721,7 @@
     <string name="opens_at">Açılır %s</string>
     <string name="closes_at">Bağlanır %s</string>
     <string name="editor_add_select_category_all_subtitle">Bütün kateqoriyalar</string>
+    <string name="placepage_replace_stop">Duruşu əvəz et</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Qida</string>

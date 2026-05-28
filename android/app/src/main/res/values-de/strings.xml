@@ -723,6 +723,7 @@
     <string name="opens_at">Öffnet um %s</string>
     <string name="closes_at">Schließt um %s</string>
     <string name="editor_add_select_category_all_subtitle">Alle Kategorien</string>
+    <string name="placepage_replace_stop">Stopp ersetzen</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Essen</string>
