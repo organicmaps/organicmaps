@@ -59,8 +59,8 @@
     android:layout_height="match_parent" />
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/place_page_container_fragment"
+    android:name="app.organicmaps.widget.placepage.PlacePageController"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:name="app.organicmaps.widget.placepage.PlacePageController" />
+    android:layout_height="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
