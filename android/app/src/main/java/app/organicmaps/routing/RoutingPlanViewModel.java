@@ -8,12 +8,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class RoutingPlanViewModel extends ViewModel
 {
   private final MutableLiveData<Integer> mRoutingBottomDistanceToTop = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> mShowRoutingBottomsheet = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> isPlacePageactive = new MutableLiveData<>();
-  private final MutableLiveData<Integer> menuUpdateTrigger = new MutableLiveData<>(0);
-  private final MutableLiveData<int[]> buildProgress = new MutableLiveData<>();
-  private final MutableLiveData<Integer> drivingOptionsCount = new MutableLiveData<>(0);
-  private final MutableLiveData<Boolean> drivingOptionsErrorTrigger = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> mShowRoutingBottomSheet = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> mIsPlacePageActive = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mMenuUpdateTrigger = new MutableLiveData<>(0);
+  private final MutableLiveData<int[]> mBuildProgress = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mDrivingOptionsCount = new MutableLiveData<>(0);
+  private final MutableLiveData<Boolean> mDrivingOptionsErrorTrigger = new MutableLiveData<>();
   private int mBottomSheetState = BottomSheetBehavior.STATE_COLLAPSED;
 
   public int getBottomSheetState()
@@ -28,22 +28,22 @@ public class RoutingPlanViewModel extends ViewModel
 
   public LiveData<Boolean> getIsPlacePageActive()
   {
-    return isPlacePageactive;
+    return mIsPlacePageActive;
   }
 
-  public void setIsPlacePageActive(Boolean isPlacePageactive)
+  public void setIsPlacePageActive(boolean active)
   {
-    this.isPlacePageactive.setValue(isPlacePageactive);
+    mIsPlacePageActive.setValue(active);
   }
 
-  public LiveData<Boolean> getShowRoutingBottomsheet()
+  public LiveData<Boolean> getShowRoutingBottomSheet()
   {
-    return mShowRoutingBottomsheet;
+    return mShowRoutingBottomSheet;
   }
 
-  public void setShowRoutingBottomsheet(Boolean showRoutingBottomsheet)
+  public void setShowRoutingBottomSheet(boolean show)
   {
-    this.mShowRoutingBottomsheet.setValue(showRoutingBottomsheet);
+    mShowRoutingBottomSheet.setValue(show);
   }
 
   public LiveData<Integer> getRoutingBottomDistanceToTop()
@@ -51,50 +51,50 @@ public class RoutingPlanViewModel extends ViewModel
     return mRoutingBottomDistanceToTop;
   }
 
-  public void setRoutingBottomDistanceToTop(Integer routingBottomDistanceToTop)
+  public void setRoutingBottomDistanceToTop(int distance)
   {
-    mRoutingBottomDistanceToTop.setValue(routingBottomDistanceToTop);
+    mRoutingBottomDistanceToTop.setValue(distance);
   }
 
   public LiveData<Integer> getMenuUpdateTrigger()
   {
-    return menuUpdateTrigger;
+    return mMenuUpdateTrigger;
   }
 
   public void triggerMenuUpdate()
   {
-    Integer current = menuUpdateTrigger.getValue();
-    menuUpdateTrigger.setValue(current == null ? 1 : current + 1);
+    Integer current = mMenuUpdateTrigger.getValue();
+    mMenuUpdateTrigger.setValue(current == null ? 1 : current + 1);
   }
 
   // This is a workaround to update the progress and will be removed when the routing types are made segmented buttons
   public LiveData<int[]> getBuildProgress()
   {
-    return buildProgress;
+    return mBuildProgress;
   }
 
   public void setBuildProgress(int progress, int routerOrdinal)
   {
-    buildProgress.setValue(new int[] {progress, routerOrdinal});
+    mBuildProgress.setValue(new int[] {progress, routerOrdinal});
   }
 
   public LiveData<Integer> getDrivingOptionsCount()
   {
-    return drivingOptionsCount;
+    return mDrivingOptionsCount;
   }
 
-  public void setDrivingOptionsCount(Integer count)
+  public void setDrivingOptionsCount(int count)
   {
-    drivingOptionsCount.setValue(count);
+    mDrivingOptionsCount.setValue(count);
   }
 
   public LiveData<Boolean> getDrivingOptionsErrorTrigger()
   {
-    return drivingOptionsErrorTrigger;
+    return mDrivingOptionsErrorTrigger;
   }
 
   public void triggerDrivingOptionsError()
   {
-    drivingOptionsErrorTrigger.setValue(true);
+    mDrivingOptionsErrorTrigger.setValue(true);
   }
 }

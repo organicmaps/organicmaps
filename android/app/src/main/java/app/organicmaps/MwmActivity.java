@@ -933,7 +933,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onRestoreInstanceState(savedInstanceState);
     if (mRoutingPlanViewModel != null
-        && Boolean.TRUE.equals(mRoutingPlanViewModel.getShowRoutingBottomsheet().getValue()))
+        && Boolean.TRUE.equals(mRoutingPlanViewModel.getShowRoutingBottomSheet().getValue()))
     {
       setRoutingBottomSheetActive(true);
       mRoutingBottomSheetShown = true;
@@ -1339,7 +1339,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       setRoutingBottomSheetActive(false);
-      mRoutingPlanViewModel.setShowRoutingBottomsheet(false);
+      mRoutingPlanViewModel.setShowRoutingBottomSheet(false);
       mRoutingBottomSheetShown = false;
       if (completionListener != null)
         completionListener.run();

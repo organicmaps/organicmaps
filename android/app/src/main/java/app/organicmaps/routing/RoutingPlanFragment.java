@@ -167,7 +167,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setInsets();
     setupBottomSheetBehavior();
 
-    mViewModel.getShowRoutingBottomsheet().observe(getViewLifecycleOwner(), mShowRoutingBottomSheetObserver);
+    mViewModel.getShowRoutingBottomSheet().observe(getViewLifecycleOwner(), mShowRoutingBottomSheetObserver);
     mViewModel.getIsPlacePageActive().observe(getViewLifecycleOwner(), mIsPlacePageActiveObserver);
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
@@ -241,7 +241,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       boolean actionFrameShown = showAddStartOrFinishFrame(controller);
       if (!actionFrameShown)
         hideActionFrame();
-      mViewModel.setShowRoutingBottomsheet(!actionFrameShown);
+      mViewModel.setShowRoutingBottomSheet(!actionFrameShown);
     }
   }
 
@@ -269,7 +269,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   public void showSheet(boolean show)
   {
-    boolean showSheet = mViewModel != null && Boolean.TRUE.equals(mViewModel.getShowRoutingBottomsheet().getValue());
+    boolean showSheet = mViewModel != null && Boolean.TRUE.equals(mViewModel.getShowRoutingBottomSheet().getValue());
     if (show && showSheet)
     {
       UiUtils.show(mButtonsLayout, mFrame);

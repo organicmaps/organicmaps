@@ -72,7 +72,7 @@ public class MapButtonsController extends Fragment
 
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
-  private RoutingPlanViewModel mRoutingViewmodel;
+  private RoutingPlanViewModel mRoutingPlanViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
   private SearchPageViewModel mSearchPageViewModel;
 
@@ -97,7 +97,7 @@ public class MapButtonsController extends Fragment
   {
     final FragmentActivity activity = requireActivity();
     mMapButtonClickListener = (MwmActivity) activity;
-    mRoutingViewmodel = new ViewModelProvider(activity).get(RoutingPlanViewModel.class);
+    mRoutingPlanViewModel = new ViewModelProvider(activity).get(RoutingPlanViewModel.class);
     mPlacePageViewModel = new ViewModelProvider(activity).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
     mSearchPageViewModel = new ViewModelProvider(activity).get(SearchPageViewModel.class);
@@ -359,7 +359,7 @@ public class MapButtonsController extends Fragment
   {
     if (RoutingController.get().isNavigating() || mContentHeight == 0)
       return;
-    final boolean pp = Boolean.TRUE.equals(mRoutingViewmodel.getIsPlacePageActive().getValue());
+    final boolean pp = Boolean.TRUE.equals(mRoutingPlanViewModel.getIsPlacePageActive().getValue());
     // don't apply move in landscape
     if (!shouldActivate == pp || getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
       return;
@@ -454,7 +454,8 @@ public class MapButtonsController extends Fragment
   {
     super.onStart();
     final var viewLifecycleOwner = getViewLifecycleOwner();
-    mRoutingViewmodel.getRoutingBottomDistanceToTop().observe(viewLifecycleOwner, mRoutingBottomDistanceToTopObserver);
+    mRoutingPlanViewModel.getRoutingBottomDistanceToTop().observe(viewLifecycleOwner,
+                                                                  mRoutingBottomDistanceToTopObserver);
     mPlacePageViewModel.getPlacePageDistanceToTop().observe(viewLifecycleOwner, mPlacePageDistanceToTopObserver);
     mMapButtonsViewModel.getBottomButtonsHidden().observe(viewLifecycleOwner, mBottomButtonHiddenObserver);
     mMapButtonsViewModel.getButtonsHidden().observe(viewLifecycleOwner, mButtonHiddenObserver);
