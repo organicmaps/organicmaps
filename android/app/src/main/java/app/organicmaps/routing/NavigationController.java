@@ -123,20 +123,22 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     });
   }
 
+  // Height the search sheet must clear when expanded over the navigation top frame: the always
+  // shown street-name frame plus the taller of the turn/speed column or the lanes strip (the two
+  // overlap rather than stack, so take the max). The turn/speed column is only laid out below the
+  // street frame in portrait.
   private int computeNavContentHeight()
   {
-    int height = mStreetFrame.getHeight();
-    int a = 0, lanesHeight = 0;
+    int turnAndSpeedHeight = 0;
     if (mFrame.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
     {
       if (UiUtils.isVisible(mNextTurnContainer))
-        a += mNextTurnContainer.getHeight();
+        turnAndSpeedHeight += mNextTurnContainer.getHeight();
       if (UiUtils.isVisible(mSpeedLimit))
-        a += mSpeedLimit.getHeight();
+        turnAndSpeedHeight += mSpeedLimit.getHeight();
     }
-    if (UiUtils.isVisible(mLanesView))
-      lanesHeight += mLanesView.getHeight();
-    return height + Math.max(a, lanesHeight);
+    final int lanesHeight = UiUtils.isVisible(mLanesView) ? mLanesView.getHeight() : 0;
+    return mStreetFrame.getHeight() + Math.max(turnAndSpeedHeight, lanesHeight);
   }
 
   private void updateVehicle(@NonNull RoutingInfo info)
