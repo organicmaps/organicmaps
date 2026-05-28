@@ -162,7 +162,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     mRoutingSheetContainer = view.findViewById(R.id.routing_sheet_container);
     closeButton = mRoutingTypesContainer.findViewById(R.id.back);
-    closeButton.setOnClickListener(v -> requireActivity().onBackPressed());
+    closeButton.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
     setInsets();
     setupBottomSheetBehavior();
