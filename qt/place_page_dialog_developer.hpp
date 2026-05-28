@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtWidgets/QWidget>
+#include "qt/place_page_dialog_common.hpp"
 
 namespace place_page
 {
@@ -12,13 +12,10 @@ namespace qt
 class DrawWidget;
 }
 
-class PlacePageDialogDeveloper : public QWidget
+class PlacePageDialogDeveloper : public PlacePageDialogCommon
 {
   Q_OBJECT
 
 public:
   PlacePageDialogDeveloper(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info);
-
-private:
-  qt::DrawWidget * m_drawWidget;
 };
