@@ -1478,9 +1478,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mRoutingPlanViewModel.triggerMenuUpdate();
   }
 
-  @Override
-  public void showSearchForRoutePoint()
-  {}
   public boolean showRoutingDisclaimer()
   {
     if (Config.isRoutingDisclaimerAccepted())

@@ -32,6 +32,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.search.SearchActivity;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.DrivingOptionsFragment;
 import app.organicmaps.util.UiUtils;
@@ -520,7 +521,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public void onSearchRoutePoint(@NonNull RouteMarkType pointType)
   {
     RoutingController.get().waitForPoiPick(pointType);
-    mRoutingPlanController.showSearchForRoutePoint();
+    SearchActivity.start(requireActivity(), "");
   }
 
   @Override
