@@ -25,6 +25,7 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.util.UiUtils;
@@ -79,7 +80,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     ArrayList<RouteMarkData> newRoutePoints = mManageRouteAdapter.getRoutePoints();
 
     // Make sure that the new route contains at least 2 points (start and destination).
-    assert (newRoutePoints.size() >= 2);
+    Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 
     // Remove all existing route points.
     Framework.nativeRemoveRoutePoints();

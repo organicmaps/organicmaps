@@ -71,8 +71,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private int mBottomButtonsMaxHeight;
   private int mPeekHeightMargins;
   private View mButtonsLayout;
-  private int topInset;
-  private View closeButton;
+  private int mTopInset;
 
   private final ActivityResultLauncher<Intent> startDrivingOptionsForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
@@ -106,6 +105,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public void onAttach(@NonNull Context context)
   {
     super.onAttach(context);
+    if (!(context instanceof MapButtonsController.MapButtonClickListener)
+        || !(context instanceof RoutingPlanController))
+      throw new IllegalStateException("Host activity must implement the routing plan callbacks");
     mMapButtonClickListener = (MapButtonsController.MapButtonClickListener) context;
     mRoutingPlanController = (RoutingPlanController) context;
   }
@@ -159,7 +161,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mBookmarkBtn.setOnClickListener(
         v -> mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.bookmarks));
 
-    closeButton = mRoutingTypesContainer.findViewById(R.id.back);
+    final View closeButton = mRoutingTypesContainer.findViewById(R.id.back);
     closeButton.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
     setInsets();
@@ -188,8 +190,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       final int leftInset = mCurrentWindowInsets.left;
       final int rightInset = mCurrentWindowInsets.right;
       final int bottomInset = mCurrentWindowInsets.bottom;
-      topInset = mCurrentWindowInsets.top;
-      mRoutingRoot.setPadding(leftInset, topInset, rightInset, 0);
+      mTopInset = mCurrentWindowInsets.top;
+      mRoutingRoot.setPadding(leftInset, mTopInset, rightInset, 0);
       mActionFrame.setPadding(0, 0, rightInset, bottomInset);
       mButtonsLayout.setPadding(0, 0, 0, bottomInset);
       return ViewCompat.onApplyWindowInsets(v, insets);
@@ -213,7 +215,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       @Override
       public void onSlide(@NonNull View bottomSheet, float slideOffset)
       {
-        mViewModel.setRoutingBottomDistanceToTop(bottomSheet.getTop() + topInset);
+        mViewModel.setRoutingBottomDistanceToTop(bottomSheet.getTop() + mTopInset);
       }
     });
   }
@@ -317,7 +319,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final int newPeekHeight =
         mRoutingTypesContainer.getHeight() + mRoutingDetails.getHeight() + mBottomButtonsMaxHeight + mPeekHeightMargins;
     mSheetBehavior.setPeekHeight(newPeekHeight);
-    final int newDistanceTop = mFrame.getTop() + topInset;
+    final int newDistanceTop = mFrame.getTop() + mTopInset;
     mViewModel.setRoutingBottomDistanceToTop(newDistanceTop);
   }
 
@@ -397,8 +399,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       return;
     }
 
-    final boolean showStartButton = !RoutingController.get().isRulerRouterType();
-    mRoutingBottomMenuController.setStartButton(showStartButton);
+    // Ruler routes returned early above, so the start button is always shown at this point.
+    mRoutingBottomMenuController.setStartButton(true);
     mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
   }
 
