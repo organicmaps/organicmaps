@@ -31941,7 +31941,7 @@ zh-Hans = 拖拽到此处以移除
 zh-Hant = 拖曳到此處以移除
 
 [placepage_replace_stop]
-tags = apple-maps
+tags = android-app,apple-maps
 en = Replace Stop
 af = Vervang Stop
 ar = استبدال التوقف
