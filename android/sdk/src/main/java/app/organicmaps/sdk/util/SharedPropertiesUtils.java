@@ -1,6 +1,6 @@
 package app.organicmaps.sdk.util;
 
-import static app.organicmaps.sdk.util.Config.HAS_DRIVING_OPTIONS_COUNT;
+import static app.organicmaps.sdk.util.Config.KEY_DRIVING_OPTIONS_COUNT;
 import static app.organicmaps.sdk.util.Config.KEY_PREF_STATISTICS;
 
 import android.content.Context;
@@ -33,11 +33,11 @@ public final class SharedPropertiesUtils
 
   public static int getDrivingOptionsCount()
   {
-    return mPrefs.getInt(HAS_DRIVING_OPTIONS_COUNT, 0);
+    return mPrefs.getInt(KEY_DRIVING_OPTIONS_COUNT, 0);
   }
   public static void setDrivingOptionsCount(int count)
   {
-    mPrefs.edit().putInt(HAS_DRIVING_OPTIONS_COUNT, count).apply();
+    mPrefs.edit().putInt(KEY_DRIVING_OPTIONS_COUNT, count).apply();
   }
   public static boolean isStatisticsEnabled()
   {
