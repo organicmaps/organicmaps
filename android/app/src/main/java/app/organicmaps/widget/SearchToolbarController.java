@@ -33,6 +33,9 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @NonNull
   private final TextInputEditText mQuery;
   private boolean mFromCategory = false;
+  // Pending listener that shows the keyboard once the window gains focus (see activate()).
+  @Nullable
+  private ViewTreeObserver.OnWindowFocusChangeListener mShowKeyboardOnFocus;
   @NonNull
   private final View mProgress;
   @NonNull
@@ -179,23 +182,34 @@ public class SearchToolbarController extends ToolbarController implements View.O
       InputUtils.showKeyboard(mQuery);
       return;
     }
-    mQuery.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
-      @Override
-      public void onWindowFocusChanged(boolean hasFocus)
+    // The window may not have focus yet (e.g. the sheet is still animating in), in which case the
+    // IME request would be dropped. Defer it until the window gains focus, keeping a single pending
+    // listener so it can't leak across repeated activate()/deactivate() calls.
+    removeShowKeyboardOnFocusListener();
+    mShowKeyboardOnFocus = hasFocus ->
+    {
+      if (hasFocus)
       {
-        if (hasFocus)
-        {
-          mQuery.getViewTreeObserver().removeOnWindowFocusChangeListener(this);
-          InputUtils.showKeyboard(mQuery);
-        }
+        removeShowKeyboardOnFocusListener();
+        InputUtils.showKeyboard(mQuery);
       }
-    });
+    };
+    mQuery.getViewTreeObserver().addOnWindowFocusChangeListener(mShowKeyboardOnFocus);
   }
 
   public void deactivate()
   {
+    removeShowKeyboardOnFocusListener();
     InputUtils.hideKeyboard(mQuery);
     InputUtils.removeFocusEditTextHack(mQuery);
+  }
+
+  private void removeShowKeyboardOnFocusListener()
+  {
+    if (mShowKeyboardOnFocus == null)
+      return;
+    mQuery.getViewTreeObserver().removeOnWindowFocusChangeListener(mShowKeyboardOnFocus);
+    mShowKeyboardOnFocus = null;
   }
 
   public void showProgress(boolean show)
