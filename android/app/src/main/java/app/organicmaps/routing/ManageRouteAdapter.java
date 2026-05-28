@@ -2,6 +2,7 @@ package app.organicmaps.routing;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,11 +24,11 @@ import java.util.Collections;
 
 public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.ManageRouteViewHolder>
 {
-  Context mContext;
-  ArrayList<RouteMarkData> mRoutePoints;
-  ManageRouteListener mManageRouteListener;
-  static int TYPE_POINT = 0;
-  static int TYPE_ADD_BUTTON = 1;
+  private final Context mContext;
+  private final ArrayList<RouteMarkData> mRoutePoints;
+  private final ManageRouteListener mManageRouteListener;
+  static final int TYPE_POINT = 0;
+  static final int TYPE_ADD_BUTTON = 1;
   public interface ManageRouteListener
   {
     void startDrag(RecyclerView.ViewHolder viewHolder);
@@ -62,6 +63,12 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
   @Override
   public void onBindViewHolder(@NonNull ManageRouteViewHolder holder, int position)
   {
+    // Reset the view state customized by the Add-Stop row below, so a recycled holder can never carry the
+    // accent title, hidden drag handle or Add-Stop click listener into a real route point row.
+    holder.mImageViewDrag.setVisibility(View.VISIBLE);
+    holder.mTextViewTitle.setTextColor(holder.mDefaultTitleColors);
+    holder.itemView.setOnClickListener(null);
+
     int iconId;
     if (position == mRoutePoints.size())
     {
@@ -130,7 +137,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
   {
     final int draggedItemIndex = draggedItem.getAbsoluteAdapterPosition();
     final int targetIndex = targetItem.getAbsoluteAdapterPosition();
-    if (draggedItemIndex == targetIndex && targetIndex == mRoutePoints.size()) // Dragged to same spot. Do nothing.
+    if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
       return;
     Collections.swap(mRoutePoints, draggedItemIndex, targetIndex);
     updateRoutePointsData();
@@ -147,42 +154,6 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
     updateRoutePointsData();
     notifyItemRemoved(viewHolder.getAbsoluteAdapterPosition());
   }
-  /// TODO for blue my location icon
-  //  public void setMyLocationAsStartingPoint(MapObject myLocation)
-  //  {
-  //    String latLonString = StringUtils.formatUsingUsLocale("%.6f, %.6f", myLocation.getLat(), myLocation.getLon());
-  //
-  //    // Replace route point in first position with 'My Position".
-  //    mRoutePoints.set(0, new RouteMarkData(latLonString, "", RouteMarkType.Start, 0, true, true, false,
-  //                                          myLocation.getLat(), myLocation.getLon()));
-  //
-  //    // Update data.
-  //    updateRoutePointsData();
-  //
-  //    // Update adapter.
-  //    notifyItemChanged(0);
-  //
-  //    // Show 'My location' crosshair button.
-  //    if (mManageRouteListener != null)
-  //      mManageRouteListener.showMyLocationIcon(true);
-  //  }
-  //
-  //  private void updateMyLocationIcon()
-  //  {
-  //    boolean containsMyLocationPoint = false;
-  //
-  //    for (RouteMarkData routePoint : mRoutePoints)
-  //    {
-  //      if (routePoint.mIsMyPosition)
-  //      {
-  //        containsMyLocationPoint = true;
-  //        break;
-  //      }
-  //    }
-  //
-  //    if (mManageRouteListener != null)
-  //      mManageRouteListener.showMyLocationIcon(!containsMyLocationPoint);
-  //  }
 
   private void updateRoutePointsData()
   {
@@ -222,6 +193,10 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
     @NonNull
     public final ImageView mImageViewDrag;
 
+    // Captured at creation so onBindViewHolder can restore the normal title color after the Add-Stop accent.
+    @NonNull
+    public final ColorStateList mDefaultTitleColors;
+
     ManageRouteViewHolder(@NonNull View itemView)
     {
       super(itemView);
@@ -230,6 +205,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
       mTextViewTitle = itemView.findViewById(R.id.title);
       mImageViewDelete = itemView.findViewById(R.id.delete_icon);
       mImageViewDrag = itemView.findViewById(R.id.drag_icon);
+      mDefaultTitleColors = mTextViewTitle.getTextColors();
     }
   }
 }
