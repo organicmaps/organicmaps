@@ -75,8 +75,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNextTurnImage = turnFrame.findViewById(R.id.turn);
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
 
-    addWindowsInsets(mTopFrame);
-
     mNextNextTurnFrame = mTopFrame.findViewById(R.id.nav_next_next_turn_frame);
     mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);
 

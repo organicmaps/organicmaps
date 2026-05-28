@@ -31,6 +31,10 @@ class MapButtonsViewModel : ViewModel() {
     private val _trackRecorderState = MutableLiveData(TrackRecorder.nativeIsTrackRecordingEnabled())
     val trackRecorderState: LiveData<Boolean> = _trackRecorderState
 
+    // Height of the top header (routing plan / navigation frame) the search sheet must clear when expanded.
+    private val _topHeaderHeight = MutableLiveData(0)
+    val topHeaderHeight: LiveData<Int> = _topHeaderHeight
+
     fun setButtonsHidden(buttonsHidden: Boolean) {
         _buttonsHidden.value = buttonsHidden
     }
@@ -61,5 +65,9 @@ class MapButtonsViewModel : ViewModel() {
 
     fun setTrackRecorderState(state: Boolean) {
         _trackRecorderState.value = state
+    }
+
+    fun setTopHeaderHeight(height: Int) {
+        _topHeaderHeight.value = height
     }
 }
