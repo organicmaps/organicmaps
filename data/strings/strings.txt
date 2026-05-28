@@ -23342,6 +23342,10 @@ vi = Thêm điểm dừng
 zh-Hans = 添加经停点
 zh-Hant = 新增中途點
 
+[drag_to_reorder]
+tags = android-app
+en = Reorder
+
 [saved]
 tags = android-app,apple-maps
 en = Saved
