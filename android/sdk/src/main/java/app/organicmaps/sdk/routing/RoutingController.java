@@ -378,9 +378,7 @@ public class RoutingController
     if (mContainer != null)
       mContainer.onAddedStop();
     resetToPlanningStateIfNavigating();
-    mWaitingPoiPickType = null;
-    isPoiPickReplaceStop = false;
-    mReplaceStopIndex = -1;
+    resetPoiPickState();
   }
 
   public void addStop(@NonNull MapObject mapObject)
@@ -390,7 +388,7 @@ public class RoutingController
     if (mContainer != null)
       mContainer.onAddedStop();
     resetToPlanningStateIfNavigating();
-    mWaitingPoiPickType = null;
+    resetPoiPickState();
   }
 
   public void removeStop(@NonNull MapObject mapObject)
@@ -470,7 +468,7 @@ public class RoutingController
   {
     Logger.d(TAG, "cancelInternal");
 
-    mWaitingPoiPickType = null;
+    resetPoiPickState();
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -616,6 +614,15 @@ public class RoutingController
   {
     mReplaceStopIndex = index;
     isPoiPickReplaceStop = true;
+  }
+
+  // Clears the pending POI-pick selection in one place. The replace-stop index/flag must be cleared together
+  // with the waiting type, otherwise a cancelled replace leaks its index into the next, unrelated pick.
+  private void resetPoiPickState()
+  {
+    mWaitingPoiPickType = null;
+    isPoiPickReplaceStop = false;
+    mReplaceStopIndex = -1;
   }
 
   public boolean isWaitingPoiPick()
@@ -917,7 +924,7 @@ public class RoutingController
       showRoutePlan();
     }
 
-    mWaitingPoiPickType = null;
+    resetPoiPickState();
   }
 
   @Nullable
