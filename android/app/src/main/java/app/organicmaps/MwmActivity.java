@@ -115,6 +115,7 @@ import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.SearchFragment;
 import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
+import app.organicmaps.search.SearchRequest;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.util.SharingUtils;
@@ -425,14 +426,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showSearch(String query)
   {
-    mSearchPageViewModel.setSearchEnabled(true, query);
+    showSearch(query, null, false);
   }
 
   // used by deep links, e.g. from the search widget
   public void showSearch(String query, @Nullable String locale, boolean isSearchOnMap)
   {
-    mSearchPageViewModel.setInitialLocale(locale);
-    showSearch(query);
+    final SearchRequest.Mode mode = isSearchOnMap ? SearchRequest.Mode.MAP_ONLY : SearchRequest.Mode.SHEET;
+    mSearchPageViewModel.setSearchEnabled(true, new SearchRequest(query, locale, mode));
   }
 
   public void showEditor()
