@@ -150,9 +150,12 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
   public void deleteRoutePoint(RecyclerView.ViewHolder viewHolder)
   {
-    mRoutePoints.remove(viewHolder.getAbsoluteAdapterPosition());
+    final int position = viewHolder.getAbsoluteAdapterPosition();
+    mRoutePoints.remove(position);
     updateRoutePointsData();
-    notifyItemRemoved(viewHolder.getAbsoluteAdapterPosition());
+    notifyItemRemoved(position);
+    // Remaining points may need renumbered icons or updated delete-button visibility after the removal.
+    notifyItemRangeChanged(0, getItemCount());
   }
 
   private void updateRoutePointsData()
@@ -174,6 +177,14 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
   public ArrayList<RouteMarkData> getRoutePoints()
   {
     return mRoutePoints;
+  }
+
+  // Resync the existing adapter with the native route points, keeping the same adapter/touch-helper instances.
+  public void setRoutePoints(@NonNull RouteMarkData[] routePoints)
+  {
+    mRoutePoints.clear();
+    mRoutePoints.addAll(Arrays.asList(routePoints));
+    notifyDataSetChanged();
   }
 
   static class ManageRouteViewHolder extends RecyclerView.ViewHolder

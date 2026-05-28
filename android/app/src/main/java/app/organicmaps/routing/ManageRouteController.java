@@ -99,18 +99,9 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
 
   public void refresh()
   {
-    // Re-create adapter or refresh data?
-    // ManageRouteAdapter doesn't have a specific update method for external data, but we can re-create it or add a
-    // method. Re-creating is safer for now to ensure sync with nativeGetRoutePoints().
-    RecyclerView manageRouteList = mContainer.findViewById(R.id.manage_route_list);
-    mManageRouteAdapter = new ManageRouteAdapter(mContext, Framework.nativeGetRoutePoints(), this);
-    manageRouteList.setAdapter(mManageRouteAdapter);
-    // Re-attach touch helper? It's attached to RecyclerView, not Adapter. Adapter is changed.
-    // ManageRouteItemTouchHelperCallback holds reference to Adapter.
-    // We need to update callback or re-create touch helper.
-    mTouchHelper.attachToRecyclerView(null); // Detach old
-    mTouchHelper = new ItemTouchHelper(new ManageRouteItemTouchHelperCallback(mManageRouteAdapter, this));
-    mTouchHelper.attachToRecyclerView(manageRouteList);
+    // Resync the existing adapter with the native route points. Reusing the same adapter and touch helper
+    // preserves the scroll position and never tears down an in-progress drag.
+    mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
   }
 
   @Override
@@ -123,7 +114,6 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
   public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
     mManageRouteAdapter.deleteRoutePoint(viewHolder);
-    mManageRouteAdapter.notifyDataSetChanged();
     onRouteOrderChanged();
   }
   @Override
