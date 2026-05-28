@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.util.SparseArray;
 import android.view.View;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -160,15 +159,6 @@ class TabAdapter extends FragmentPagerAdapter
   void setTabSelectedListener(OnTabSelectedListener listener)
   {
     mTabSelectedListener = listener;
-  }
-
-  @Nullable
-  public Fragment getFragmentForTab(Tab tab)
-  {
-    final int idx = mClasses.indexOf(tab.getFragmentClass());
-    if (idx < 0)
-      return null;
-    return mFragments.get(idx);
   }
 
   @Override

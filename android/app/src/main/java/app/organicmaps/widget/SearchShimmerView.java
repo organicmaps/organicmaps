@@ -94,14 +94,6 @@ public class SearchShimmerView extends FrameLayout
       bar.stopAnimating();
   }
 
-  /**
-   * Returns {@code true} when the shimmer effect is supported on this device (API 28+).
-   */
-  public static boolean isSupported()
-  {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
-  }
-
   @Override
   protected void onDetachedFromWindow()
   {
