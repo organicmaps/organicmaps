@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmApplication;
@@ -88,8 +89,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         }
       });
 
-  private final Observer<Boolean> mShowRoutingBottomSheetObserver = this::showSheet;
-  private final Observer<Boolean> mIsPlacePageActiveObserver = s -> showSheet(s == null || !s);
+  // Single source of truth for the sheet's visibility: planning wants it AND no place page is covering it.
+  private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
   private final Observer<Integer> mMenuUpdateObserver = trigger -> updateMenuInternal();
   private final Observer<int[]> mBuildProgressObserver = progress ->
   {
@@ -167,8 +168,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setInsets();
     setupBottomSheetBehavior();
 
-    mViewModel.getShowRoutingBottomSheet().observe(getViewLifecycleOwner(), mShowRoutingBottomSheetObserver);
-    mViewModel.getIsPlacePageActive().observe(getViewLifecycleOwner(), mIsPlacePageActiveObserver);
+    mSheetVisible.addSource(mViewModel.getShowRoutingBottomSheet(), show -> updateSheetVisible());
+    mSheetVisible.addSource(mViewModel.getIsPlacePageActive(), active -> updateSheetVisible());
+    mSheetVisible.observe(getViewLifecycleOwner(), this::showSheet);
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
     mViewModel.getDrivingOptionsCount().observe(getViewLifecycleOwner(), mDrivingOptionsCountObserver);
@@ -267,13 +269,22 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     return false;
   }
 
-  public void showSheet(boolean show)
+  private void updateSheetVisible()
   {
-    boolean showSheet = mViewModel != null && Boolean.TRUE.equals(mViewModel.getShowRoutingBottomSheet().getValue());
-    if (show && showSheet)
+    final boolean show = Boolean.TRUE.equals(mViewModel.getShowRoutingBottomSheet().getValue());
+    final boolean placePageActive = Boolean.TRUE.equals(mViewModel.getIsPlacePageActive().getValue());
+    mSheetVisible.setValue(show && !placePageActive);
+  }
+
+  private void showSheet(boolean show)
+  {
+    if (show)
     {
       UiUtils.show(mButtonsLayout, mFrame);
       mFrame.post(() -> {
+        // The view may be destroyed before this runs; bail out instead of touching a detached sheet.
+        if (getView() == null)
+          return;
         mSheetBehavior.setHideable(false);
         final int state = mViewModel.getBottomSheetState();
         mSheetBehavior.setState(state == BottomSheetBehavior.STATE_HIDDEN ? BottomSheetBehavior.STATE_COLLAPSED
