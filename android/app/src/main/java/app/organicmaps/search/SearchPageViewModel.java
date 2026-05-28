@@ -11,17 +11,18 @@ public class SearchPageViewModel extends ViewModel
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
   private final MutableLiveData<Integer> mSearchPageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mHistoryRefreshRequest = new MutableLiveData<>(0);
-  // This `mSearchPageLastState` mutable variable stores the current state of the BottomSheet when it is not hidden.
-  // When its hidden it contains the last state before hiding.
+  // Stores the BottomSheet's last non-hidden state. Dragging the sheet to hidden keeps this value so
+  // it can be restored later; explicitly disabling search via setSearchEnabled(false) resets it to
+  // STATE_HIDDEN.
   private final MutableLiveData<Integer> mSearchPageLastState = new MutableLiveData<>(BottomSheetBehavior.STATE_HIDDEN);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
   private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
   private boolean mKeyboardVisible = false;
-  private String mSearchQuery = null;
 
+  // Pending search to run, set by the entry point before enabling search and consumed once by the
+  // search fragment. Null when there is nothing new to start.
   @Nullable
-  private String mInitialLocale = null;
-  private boolean mInitialSearchOnMap = false;
+  private SearchRequest mPendingRequest;
 
   private boolean mHiddenByPlacePage = false;
 
@@ -77,29 +78,25 @@ public class SearchPageViewModel extends ViewModel
   }
 
   @Nullable
-  public String getSearchQuery()
+  public SearchRequest getPendingRequest()
   {
-    return mSearchQuery;
+    return mPendingRequest;
   }
 
-  public void setSearchQuery(@Nullable String query)
+  public void clearPendingRequest()
   {
-    mSearchQuery = query;
+    mPendingRequest = null;
   }
 
-  public void setSearchEnabled(boolean enabled, @Nullable String query)
+  public void setSearchEnabled(boolean enabled, @Nullable SearchRequest request)
   {
-    // Set query before firing LiveData so observers read the correct value synchronously.
-    mSearchQuery = query;
+    // Store the pending request before firing LiveData so observers read it synchronously.
+    mPendingRequest = enabled ? request : null;
+    mHiddenByPlacePage = false;
     if (!enabled)
     {
-      mHiddenByPlacePage = false;
       mSearchPageLastState.setValue(BottomSheetBehavior.STATE_HIDDEN);
       mKeyboardVisible = false;
-    }
-    else
-    {
-      mHiddenByPlacePage = false;
     }
     mSearchEnabled.setValue(enabled);
   }
@@ -123,27 +120,6 @@ public class SearchPageViewModel extends ViewModel
   public void setKeyboardVisible(boolean visible)
   {
     mKeyboardVisible = visible;
-  }
-
-  @Nullable
-  public String getInitialLocale()
-  {
-    return mInitialLocale;
-  }
-
-  public void setInitialLocale(@Nullable String locale)
-  {
-    mInitialLocale = locale;
-  }
-
-  public boolean isInitialSearchOnMap()
-  {
-    return mInitialSearchOnMap;
-  }
-
-  public void setInitialSearchOnMap(boolean isSearchOnMap)
-  {
-    mInitialSearchOnMap = isSearchOnMap;
   }
 
   public boolean isHiddenByPlacePage()

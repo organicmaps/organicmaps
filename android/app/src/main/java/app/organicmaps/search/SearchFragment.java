@@ -93,24 +93,26 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       {
         if (mToolbarController.hasQuery())
           mToolbarController.clear();
-        mSearchViewModel.setSearchQuery(null);
         SearchEngine.INSTANCE.cancel();
         SearchEngine.INSTANCE.setQuery("");
         return;
       }
 
-      final String query = mSearchViewModel.getSearchQuery();
+      final SearchRequest request = mSearchViewModel.getPendingRequest();
+      final String query = request != null ? request.query : null;
       if (query == null || query.isEmpty())
         return;
 
       mSearchAdapter.clear();
       stopSearch();
 
+      // setQuery() fires the text watcher, which runs the search synchronously; runSearch() consumes
+      // the pending request (locale/mode). When the query already matches the toolbar the watcher
+      // won't fire, so run it directly.
       if (query.equals(getQuery()))
         runSearch();
       else
         setQuery(query, false);
-      mSearchViewModel.setSearchQuery(null);
     }
   };
   private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
@@ -487,13 +489,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       }
     }
 
-    String locale = mSearchViewModel.getInitialLocale();
-    if (locale == null)
-      locale = Language.getKeyboardLocale(requireContext());
-    mSearchViewModel.setInitialLocale(null);
-
-    boolean isSearchOnMap = mSearchViewModel.isInitialSearchOnMap();
-    mSearchViewModel.setInitialSearchOnMap(false);
+    final SearchRequest request = mSearchViewModel.getPendingRequest();
+    // Locale and map-only mode apply only to this initial query; consume the request so later manual
+    // edits fall back to the keyboard locale and the default map+table search.
+    String locale =
+        (request != null && request.locale != null) ? request.locale : Language.getKeyboardLocale(requireContext());
+    boolean isSearchOnMap = request != null && request.mode == SearchRequest.Mode.MAP_ONLY;
+    mSearchViewModel.clearPendingRequest();
 
     SearchEngine.INSTANCE.setQuery(getQuery());
     boolean started =
