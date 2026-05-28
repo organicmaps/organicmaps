@@ -68,6 +68,10 @@ class MapButtonsViewModel : ViewModel() {
     }
 
     fun setTopHeaderHeight(height: Int) {
-        _topHeaderHeight.value = height
+        // Layout listeners call this on every pass; skip redundant updates so the search sheet's
+        // expanded offset is recomputed only when the height actually changes.
+        if (_topHeaderHeight.value != height) {
+            _topHeaderHeight.value = height
+        }
     }
 }
