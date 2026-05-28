@@ -373,7 +373,6 @@ public class RoutingController
   public void replaceStop(@NonNull MapObject mapObject)
   {
     RouteMarkType type = mWaitingPoiPickType != null ? mWaitingPoiPickType : RouteMarkType.Intermediate;
-    Logger.d("details", type + " " + mapObject + " " + mReplaceStopIndex + " " + mWaitingPoiPickType);
     replaceRoutePoint(type, mapObject, mReplaceStopIndex);
     build();
     if (mContainer != null)
