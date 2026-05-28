@@ -20,13 +20,8 @@ final class PlacePageExpandableDetailsSectionPresenter {
     var viewModel = previousViewModel
     switch response {
     case .expandText:
-      switch viewModel.expandedState {
-      case .collapsed:
+      if case .collapsed = viewModel.expandedState {
         viewModel.expandedState = .expanded
-      case .expanded:
-        viewModel.expandedState = .collapsed
-      case .hidden:
-        break
       }
     case .updateTitle(let string):
       viewModel.title = string

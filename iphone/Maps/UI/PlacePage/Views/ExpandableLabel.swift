@@ -235,40 +235,14 @@ final class ExpandableLabel: UIView {
 }
 
 extension ExpandableLabel: UIGestureRecognizerDelegate {
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive _: UITouch) -> Bool {
     guard gestureRecognizer === tapGestureRecognizer else { return true }
-    return !isTouchOnInteractiveText(touch)
+    return !isExpanded
   }
 
   func gestureRecognizer(_: UIGestureRecognizer,
                          shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
     true
-  }
-
-  /// Keep link taps inside UITextView and use the outer tap only for expand/collapse.
-  private func isTouchOnInteractiveText(_ touch: UITouch) -> Bool {
-    guard textView.isUserInteractionEnabled else { return false }
-
-    let location = touch.location(in: textView)
-    guard textView.bounds.contains(location) else { return false }
-
-    let adjustedLocation = CGPoint(x: location.x - textView.textContainerInset.left,
-                                   y: location.y - textView.textContainerInset.top)
-    var fraction: CGFloat = 0
-    let glyphIndex = textView.layoutManager.glyphIndex(for: adjustedLocation,
-                                                       in: textView.textContainer,
-                                                       fractionOfDistanceThroughGlyph: &fraction)
-    guard fraction <= 1 else { return false }
-
-    let glyphRect = textView.layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1),
-                                                        in: textView.textContainer)
-    guard glyphRect.contains(adjustedLocation) else { return false }
-
-    let characterIndex = textView.layoutManager.characterIndexForGlyph(at: glyphIndex)
-    guard characterIndex < textView.textStorage.length else { return false }
-
-    let attributes = textView.textStorage.attributes(at: characterIndex, effectiveRange: nil)
-    return attributes[.link] != nil
   }
 }
 
