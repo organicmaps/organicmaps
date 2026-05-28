@@ -51,8 +51,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mDrivingOptionsBtn;
   private View mFrame;
   private View mRoutingRoot;
-  @SuppressWarnings("unused")
-  private View mRoutingSheetContainer;
   private RadioGroup mRouterTypes;
   private View mProgressFrame;
   private WheelProgressView mProgressVehicle;
@@ -161,7 +159,6 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mBookmarkBtn.setOnClickListener(
         v -> mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.bookmarks));
 
-    mRoutingSheetContainer = view.findViewById(R.id.routing_sheet_container);
     closeButton = mRoutingTypesContainer.findViewById(R.id.back);
     closeButton.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
