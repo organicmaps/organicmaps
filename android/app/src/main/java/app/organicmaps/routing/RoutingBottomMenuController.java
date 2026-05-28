@@ -52,6 +52,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
 {
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
   private static final String STATE_ERROR = "error";
+  // Dimming applied to the save button once the route has been saved (it stays disabled until rebuilt).
+  private static final float SAVE_BUTTON_DISABLED_ALPHA = 0.5f;
 
   @NonNull
   private final Activity mContext;
@@ -230,9 +232,16 @@ final class RoutingBottomMenuController implements View.OnClickListener
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
-    mSaveButton.setEnabled(true);
+    setSaveButtonEnabled(true);
     notifyVisibilityChanged();
     refreshManageRoute();
+  }
+
+  // Keeps the enabled flag and the dimming in sync so a saved (disabled) button is always restored on rebuild.
+  private void setSaveButtonEnabled(boolean enabled)
+  {
+    mSaveButton.setEnabled(enabled);
+    mSaveButton.setAlpha(enabled ? 1.0f : SAVE_BUTTON_DISABLED_ALPHA);
   }
 
   void refreshManageRoute()
@@ -554,9 +563,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
       Framework.nativeRouteRemoveElevationActivePoint();
       Framework.nativeSaveRoute();
       RoutingController.get().setRouteSaved();
-      View saveButton = v.findViewById(R.id.btn__save);
-      saveButton.setEnabled(false);
-      saveButton.setAlpha(0.05f);
+      setSaveButtonEnabled(false);
     }
   }
 }
