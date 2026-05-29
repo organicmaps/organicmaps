@@ -507,6 +507,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       return;
     }
 
+    // A map-only (viewport) search places results on the map but delivers no list results, so there
+    // is no list loading UI to drive here — showing the progress/shimmer would never be cleared.
+    if (isSearchOnMap)
+      return;
+
     mSearchRunning = true;
     mToolbarController.showProgress(true);
 
