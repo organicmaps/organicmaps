@@ -32,14 +32,17 @@ m2::SplineEx BuildRounded(std::vector<m2::PointD> const & pts)
 
 UNIT_TEST(Rounding_Spline)
 {
-  df::VisualParams::Init(1.0, 1024);  // RoundCorner reads GetVisualScale().
+  df::VisualParams::Init(1.0, 1024);  // AddPointAndRound reads GetVisualScale().
 
+  // For rounded corners we assert smoothness and that rounding added points, but not the exact count:
+  // the number of arc steps is ceil(turn / kValidPathSplineTurn), which is FP/platform-dependent when
+  // the turn is an exact multiple of the step (e.g. 90 or 45 deg), so the total can differ by +-1.
   m2::SplineEx spline1;
   df::AddPointAndRound(spline1, m2::PointD(0, 200));
   df::AddPointAndRound(spline1, m2::PointD(0, 0));
   df::AddPointAndRound(spline1, m2::PointD(200, 0));
   TEST(IsSmooth(spline1), ());
-  TEST(spline1.GetSize() == 8, ());
+  TEST_GREATER(spline1.GetSize(), 7, ());  // The 90 deg corner is rounded.
 
   m2::SplineEx spline2;
   df::AddPointAndRound(spline2, m2::PointD(-200, 0));
@@ -47,28 +50,28 @@ UNIT_TEST(Rounding_Spline)
   df::AddPointAndRound(spline2, m2::PointD(200, 200));
   df::AddPointAndRound(spline2, m2::PointD(400, 200));
   TEST(IsSmooth(spline2), ());
-  TEST(spline2.GetSize() == 8, ());
+  TEST_GREATER(spline2.GetSize(), 7, ());  // Both 45 deg corners are rounded.
 
   m2::SplineEx spline3;
   df::AddPointAndRound(spline3, m2::PointD(200, 100));
   df::AddPointAndRound(spline3, m2::PointD(0, 0));
   df::AddPointAndRound(spline3, m2::PointD(200, 0));
   TEST(!IsSmooth(spline3), ());
-  TEST(spline3.GetSize() == 3, ());
+  TEST_EQUAL(spline3.GetSize(), 3, ());
 
   m2::SplineEx spline4;
   df::AddPointAndRound(spline4, m2::PointD(-200, 5));
   df::AddPointAndRound(spline4, m2::PointD(0, 0));
   df::AddPointAndRound(spline4, m2::PointD(200, 5));
   TEST(IsSmooth(spline4), ());
-  TEST(spline4.GetSize() == 3, ());
+  TEST_EQUAL(spline4.GetSize(), 3, ());
 
   m2::SplineEx spline5;
   df::AddPointAndRound(spline5, m2::PointD(200, 5));
   df::AddPointAndRound(spline5, m2::PointD(0, 0));
   df::AddPointAndRound(spline5, m2::PointD(200, -5));
   TEST(!IsSmooth(spline5), ());
-  TEST(spline5.GetSize() == 3, ());
+  TEST_EQUAL(spline5.GetSize(), 3, ());
 }
 
 namespace
@@ -114,7 +117,9 @@ void DrawCase(QPainter & painter, QRectF const & cell, RoundingCase const & c)
   double const ox = cell.left() + margin;
   double const oy = cell.top() + header + margin;
   auto const toScreen = [&](m2::PointD const & p)
-  { return QPointF(ox + (p.x - bbox.minX()) * scale, oy + (bbox.maxY() - p.y) * scale); };  // flip Y (screen grows down)
+  {
+    return QPointF(ox + (p.x - bbox.minX()) * scale, oy + (bbox.maxY() - p.y) * scale);
+  };  // flip Y (screen grows down)
 
   painter.setPen(QPen(QColor(210, 210, 210)));
   painter.setBrush(Qt::NoBrush);
@@ -172,23 +177,10 @@ void RenderRoundingCases(QPaintDevice * device)
 }  // namespace
 
 // Visual inspection of AddPointAndRound corner rounding (see drape_tests/glyph_mng_tests for the pattern).
-// On headless machines run with QT_QPA_PLATFORM=offscreen. The asserts below also make it a real test.
+// Draw test cases from Rounding_Spline.
 UNIT_TEST(Rounding_Spline_Visual)
 {
-  df::VisualParams::Init(1.0, 1024);  // RoundCorner reads GetVisualScale().
-
-  // Verified reference cases (mirror Rounding_Spline) that are also drawn below.
-  auto const corner = BuildRounded({{0, 200}, {0, 0}, {200, 0}});
-  TEST(IsSmooth(corner), ());
-  TEST(corner.GetSize() == 8, ());
-
-  auto const gentle = BuildRounded({{-200, 5}, {0, 0}, {200, 5}});
-  TEST(IsSmooth(gentle), ());
-  TEST(gentle.GetSize() == 3, ());  // Below 15 deg: left untouched.
-
-  auto const acute = BuildRounded({{200, 100}, {0, 0}, {200, 0}});
-  TEST(!IsSmooth(acute), ());
-  TEST(acute.GetSize() == 3, ());  // Too sharp: rounding gives up.
+  df::VisualParams::Init(1.0, 1024);  // AddPointAndRound reads GetVisualScale().
 
   RunTestLoop("PathText AddPointAndRound corner rounding", &RenderRoundingCases, true /* autoExit; false to inspect */);
 }
