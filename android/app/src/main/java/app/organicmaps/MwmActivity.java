@@ -1246,11 +1246,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return Boolean.TRUE.equals(mMapButtonsViewModel.getFullscreen().getValue());
   }
 
-  // Keep the navigation bar fully transparent and let its icons follow the theme:
-  // setAppearanceLightNavigationBars switches dark/light icons so the bar stays legible
-  // over the map in both light and dark modes (drawn behind the bar edge-to-edge).
+  // Light navigation-bar icons can only be requested from API 26 (O). Below that, a transparent bar
+  // would leave the default light icons invisible over a light map, so keep the system default there
+  // (EdgeToEdge's scrim). From API 26 the bar is transparent and its icons follow the theme.
   private void makeNavigationBarTransparentInLightMode()
   {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+      return;
     final boolean isLightMode = !app.organicmaps.sdk.util.Utils.isDarkMode(this);
     final Window window = getWindow();
     window.setNavigationBarColor(Color.TRANSPARENT);
