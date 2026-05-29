@@ -42,6 +42,7 @@ FileData::FileData(std::string const & fileName, Op op) : m_FileName(fileName), 
 {
   char const * const modes[] = {"rb", "wb", "r+b", "ab"};
 
+  errno = 0;
   m_File = fopen(fileName.c_str(), modes[static_cast<int>(op)]);
   if (m_File)
   {
@@ -64,6 +65,8 @@ FileData::FileData(std::string const & fileName, Op op) : m_FileName(fileName), 
   // if we're here - something bad is happened
   if (m_Op != Op::READ)
     MYTHROW(Writer::OpenException, (GetErrorProlog()));
+  else if (errno == EMFILE || errno == ENFILE)
+    MYTHROW(Reader::TooManyFilesException, (GetErrorProlog()));
   else
     MYTHROW(Reader::OpenException, (GetErrorProlog()));
 }
