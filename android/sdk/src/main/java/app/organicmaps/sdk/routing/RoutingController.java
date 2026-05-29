@@ -864,8 +864,7 @@ public class RoutingController
   {
     Logger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
 
-    // Repeating tap on Taxi icon should trigger the route building always,
-    // because it may be "No internet connection, try later" case
+    // Nothing to rebuild when the already selected router type is tapped again.
     if (router == mLastRouterType)
       return;
 
