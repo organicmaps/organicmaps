@@ -15,8 +15,8 @@ namespace dp
 void ApplyDepthStencilStateForMetal(ref_ptr<GraphicsContext> context)
 {
   ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
-  id<MTLDepthStencilState> state = metalContext->GetDepthStencilState();
-  [metalContext->GetCommandEncoder() setDepthStencilState:state];
+  // Routed through the context so a redundant depth-stencil change is skipped (see ApplyPipelineState).
+  metalContext->ApplyDepthStencilState(metalContext->GetDepthStencilState());
 }
 
 void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, bool blendingEnabled)
@@ -28,6 +28,11 @@ void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuPro
 
 void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state)
 {
+  // TODO/REVIEW(graphics): textures and samplers are re-bound on every draw (~2% of CPU in profiling).
+  // They could be deduplicated like the pipeline / depth-stencil state by caching the last-bound
+  // texture and sampler per (shader stage, binding index) in MetalBaseContext and skipping unchanged
+  // binds. Left as-is for now: it needs a per-slot cache plus invalidation wherever textures are bound
+  // outside this function, and a reset on encoder recreation -- worth a graphics engineer's pass.
   ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
   ref_ptr<dp::metal::MetalGpuProgram> p = program;
   id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();

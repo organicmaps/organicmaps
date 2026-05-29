@@ -405,7 +405,7 @@ void MetalBaseContext::FinishCurrentEncoding()
   [m_currentCommandEncoder popDebugGroup];
   [m_currentCommandEncoder endEncoding];
   m_currentCommandEncoder = nil;
-  m_lastPipelineState = nil;
+  ResetLastAppliedState();  // New encoder starts with no state bound.
 }
 
 void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearColor,
@@ -418,9 +418,34 @@ void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearCo
 
 void MetalBaseContext::ApplyPipelineState(id<MTLRenderPipelineState> state)
 {
+  // PERF/REVIEW(graphics): skip redundant pipeline-state changes. Metal encoder state is sticky within
+  // an encoder, so re-setting the already-bound pipeline is wasted work (and triggers a full Metal API
+  // Validation pass when validation is enabled). This is safe because the cache is reset (a) when the
+  // encoder is recreated, via FinishCurrentEncoding -> ResetLastAppliedState, and (b) after the only
+  // other code that binds a pipeline directly on the encoder, MetalCleaner::RenderQuad. If a new code
+  // path calls [encoder setRenderPipelineState:] directly, it MUST call ResetLastAppliedState too.
+  if (state == m_lastPipelineState)
+    return;
   m_lastPipelineState = state;
   if (state != nil)
     [GetCommandEncoder() setRenderPipelineState:state];
+}
+
+void MetalBaseContext::ApplyDepthStencilState(id<MTLDepthStencilState> state)
+{
+  // PERF/REVIEW(graphics): same redundant-state-change elimination as ApplyPipelineState; the cache
+  // invalidation rules are identical (encoder recreation + MetalCleaner).
+  if (state == m_lastDepthStencilState)
+    return;
+  m_lastDepthStencilState = state;
+  if (state != nil)
+    [GetCommandEncoder() setDepthStencilState:state];
+}
+
+void MetalBaseContext::ResetLastAppliedState()
+{
+  m_lastPipelineState = nil;
+  m_lastDepthStencilState = nil;
 }
 
 bool MetalBaseContext::HasAppliedPipelineState() const

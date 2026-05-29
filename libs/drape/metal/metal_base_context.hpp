@@ -75,6 +75,12 @@ public:
   bool HasAppliedPipelineState() const;
   void ResetPipelineStatesCache();
 
+  // Applies the depth-stencil state, skipping the call if it is already bound (see ApplyPipelineState).
+  void ApplyDepthStencilState(id<MTLDepthStencilState> state);
+  // Drops the "last applied" pipeline / depth-stencil cache so the next Apply* re-applies. Call after
+  // setting state directly on the encoder (MetalCleaner) or when the encoder is recreated.
+  void ResetLastAppliedState();
+
   MTLRenderPassDescriptor * GetRenderPassDescriptor() const;
 
 protected:
@@ -97,6 +103,7 @@ protected:
   id<MTLCommandBuffer> m_frameCommandBuffer;
   id<MTLRenderCommandEncoder> m_currentCommandEncoder;
   id<MTLRenderPipelineState> m_lastPipelineState;
+  id<MTLDepthStencilState> m_lastDepthStencilState;
 
   MetalCleaner m_cleaner;
 

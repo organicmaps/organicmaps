@@ -41,6 +41,10 @@ public:
 
     id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
 
+    // TODO/REVIEW(graphics): the vertex and index buffers are re-bound on every RenderRange call. When
+    // the same VAO is drawn consecutively (e.g. the outline and fill passes of text) this is redundant
+    // and could be skipped by caching the last-bound buffer per index in MetalBaseContext. Left as-is:
+    // needs invalidation since MetalCleaner (index 0) and mesh objects also setVertexBuffer directly.
     uint32_t bufferIndex = 0;
     for (auto & buffer : m_vertexArrayBuffer->m_staticBuffers)
     {

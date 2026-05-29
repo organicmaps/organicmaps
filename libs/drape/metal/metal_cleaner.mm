@@ -59,6 +59,12 @@ void MetalCleaner::RenderQuad(ref_ptr<MetalBaseContext> metalContext, id<MTLRend
 
   [encoder setVertexBuffer:m_buffer offset:0 atIndex:0];
   [encoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
+
+  // REVIEW(graphics): the cleaner binds a pipeline (above) and a depth-stencil state (in the Clear*
+  // callers) directly on the encoder, bypassing MetalBaseContext::ApplyPipelineState /
+  // ApplyDepthStencilState. Invalidate their "last applied" cache so the next Apply* re-applies the
+  // real state instead of skipping it as already-bound.
+  metalContext->ResetLastAppliedState();
 }
 
 void MetalCleaner::ClearDepth(ref_ptr<MetalBaseContext> context, id<MTLRenderCommandEncoder> encoder)
