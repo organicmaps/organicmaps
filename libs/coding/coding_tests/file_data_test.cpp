@@ -1,14 +1,22 @@
 #include "testing/testing.hpp"
 
 #include "coding/internal/file_data.hpp"
+#include "coding/reader.hpp"  // For Reader exceptions.
 #include "coding/writer.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
-#include <cstring>  // strlen
+#include <algorithm>  // std::min
+#include <cstring>    // strlen
 #include <fstream>
+#include <memory>
 #include <string>
 #include <vector>
+
+#ifndef OMIM_OS_WINDOWS
+#include <sys/resource.h>  // getrlimit / setrlimit
+#endif
 
 namespace file_data_test
 {
@@ -249,5 +257,42 @@ UNIT_TEST(File_StdGetLine)
     TEST(base::DeleteFileX(fName), ());
   }
 }
+
+#ifndef OMIM_OS_WINDOWS
+UNIT_TEST(FileData_TooManyOpenFiles)
+{
+  std::string const name = "test_too_many_files.file";
+  MakeFile(name);
+  SCOPE_GUARD(deleteFile, [&name]() { (void)base::DeleteFileX(name); });
+
+  rlimit limitOrig;
+  TEST_EQUAL(getrlimit(RLIMIT_NOFILE, &limitOrig), 0, ());
+  SCOPE_GUARD(restoreLimit, [&limitOrig]() { setrlimit(RLIMIT_NOFILE, &limitOrig); });
+
+  // Lower the soft limit so a bounded number of opens exhausts it. Existing descriptors stay valid;
+  // only new opens beyond the limit fail. Never raise above the hard limit.
+  rlimit limitLow = limitOrig;
+  limitLow.rlim_cur = std::min<rlim_t>(32, limitOrig.rlim_max);
+  TEST_EQUAL(setrlimit(RLIMIT_NOFILE, &limitLow), 0, ());
+
+  // FileData is non-copyable/non-movable, so keep the open descriptors alive via unique_ptr.
+  std::vector<std::unique_ptr<base::FileData>> handles;
+  try
+  {
+    // Must hit EMFILE/ENFILE within rlim_cur opens; a few extra iterations are just a safety cap.
+    for (rlim_t i = 0; i < limitLow.rlim_cur + 8; ++i)
+      handles.emplace_back(std::make_unique<base::FileData>(name, base::FileData::Op::READ));
+    TEST(false, ("Expected to exhaust file descriptors, but all opens succeeded."));
+  }
+  catch (Reader::TooManyFilesException const &)
+  {
+    // Expected.
+  }
+  catch (Reader::OpenException const & ex)
+  {
+    TEST(false, ("Expected TooManyFilesException on fd exhaustion, got OpenException:", ex.what()));
+  }
+}
+#endif
 
 }  // namespace file_data_test
