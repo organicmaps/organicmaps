@@ -58,6 +58,7 @@ public class MapButtonsController extends Fragment
   FloatingActionButton mTrackRecordingStatusButton;
   @Nullable
   private MyPositionButton mNavMyPosition;
+  private View mMainMenuFrame;
   private SearchWheel mSearchWheel;
   private BadgeDrawable mBadgeDrawable;
   @Nullable
@@ -100,6 +101,7 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+    mMainMenuFrame = activity.findViewById(R.id.menu_frame);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
@@ -333,6 +335,9 @@ public class MapButtonsController extends Fragment
   {
     if (mContentHeight == 0)
       return;
+
+    if (UiUtils.isVisible(mMainMenuFrame) && mMainMenuFrame.getTop() > 0)
+      translationY = Math.min(translationY, mMainMenuFrame.getTop());
 
     // Move the buttons containers to follow the place page
     if (mInnerRightButtonsFrame != null
