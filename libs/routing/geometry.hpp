@@ -106,6 +106,8 @@ public:
   /// Used in client-app only for the final route preparation.
   virtual Maxspeed GetSavedMaxspeed(uint32_t featureId);
 
+  virtual bool IsTunnel(uint32_t featureId);
+
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
   /// @param[in] handle should be alive, its caller responsibility to check it.
@@ -143,6 +145,8 @@ public:
   ms::LatLon const & GetPoint(RoadPoint const & rp) { return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId()); }
 
   Maxspeed GetSavedMaxspeed(uint32_t featureId) { return m_loader->GetSavedMaxspeed(featureId); }
+
+  bool IsTunnel(uint32_t featureId) { return m_loader->IsTunnel(featureId); }
 
 private:
   /// @todo Use LRU cache?

@@ -91,6 +91,12 @@ public:
 
   Maxspeed GetSavedMaxspeed(uint32_t featureId) override { return m_attrsGetter.m_maxSpeeds.GetMaxspeed(featureId); }
 
+  bool IsTunnel(uint32_t featureId) override
+  {
+    auto feature = m_source.GetOriginalFeature(featureId);
+    return IsTunnelChecker::Instance()(*feature);
+  }
+
 private:
   VehicleModelPtrT m_vehicleModel;
   RoadAttrsGetter m_attrsGetter;
@@ -308,6 +314,11 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 }
 
 Maxspeed GeometryLoader::GetSavedMaxspeed(uint32_t featureId)
+{
+  UNREACHABLE();
+}
+
+bool GeometryLoader::IsTunnel(uint32_t featureId)
 {
   UNREACHABLE();
 }

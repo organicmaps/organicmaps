@@ -184,6 +184,9 @@ public:
   /// Merge lanes info from segregated 'from' into this if needed.
   void MergeLanes(RouteSegment & from);
 
+  bool IsTunnel() const { return m_isTunnel; }
+  void SetIsTunnel(bool isTunnel) { m_isTunnel = isTunnel; }
+
 private:
   Segment m_segment;
 
@@ -200,6 +203,9 @@ private:
 
   /// Speed limit of |m_segment| if any.
   Maxspeed m_speedLimit;
+
+  /// True if the segment is a tunnel.
+  bool m_isTunnel;
 
   /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in meters.
   double m_distFromBeginningMeters = 0.0;
@@ -389,6 +395,9 @@ public:
 
   /// \brief Returns current speed limit
   SpeedInUnits GetCurrentSpeedLimit() const;
+
+  /// \brief Returns true if the user is in tunnel now.
+  bool IsInTunnel() const;
 
   /// \brief Return name info of a street according to the next turn.
   void GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
