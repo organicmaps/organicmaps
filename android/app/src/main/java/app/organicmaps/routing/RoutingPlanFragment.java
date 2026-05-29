@@ -95,11 +95,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       updateBuildProgress(progress[0], Router.values()[progress[1]]);
   };
   private final Observer<Integer> mDrivingOptionsCountObserver = this::updateBadgeCount;
-  private final Observer<Boolean> mDrivingOptionsErrorObserver = error ->
-  {
-    if (error != null && error)
-      onDrivingOptionsBuildError();
-  };
+  private final Observer<Void> mDrivingOptionsErrorObserver = e -> onDrivingOptionsBuildError();
 
   @Override
   public void onAttach(@NonNull Context context)
@@ -173,7 +169,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
     mViewModel.getDrivingOptionsCount().observe(getViewLifecycleOwner(), mDrivingOptionsCountObserver);
-    mViewModel.getDrivingOptionsErrorTrigger().observe(getViewLifecycleOwner(), mDrivingOptionsErrorObserver);
+    mViewModel.getDrivingOptionsError().observe(getViewLifecycleOwner(), mDrivingOptionsErrorObserver);
 
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
