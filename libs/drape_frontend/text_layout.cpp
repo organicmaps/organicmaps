@@ -437,6 +437,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
                          0.0f);
 
   ASSERT_EQUAL(m_glyphRegions.size(), m_shapedGlyphs.m_glyphs.size(), ());
+  m2::PointD prevTangent;
   for (size_t i = 0; i < m_glyphRegions.size(); ++i)
   {
     auto const & glyph = m_shapedGlyphs.m_glyphs[i];
@@ -444,7 +445,6 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     float const xAdvance = glyph.m_xAdvance * m_textSizeRatio;
 
     m2::PointD const baseVector = penIter.m_pos - pxPivot;
-    m2::PointD const currentTangent = penIter.m_avrDir.Normalize();
 
     constexpr float kEps = 1e-5f;
     if (fabs(xAdvance) > kEps)
@@ -470,10 +470,11 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     if (i > 0)
     {
-      auto const dotProduct = static_cast<float>(m2::DotProduct(currentTangent, newTangent));
+      auto const dotProduct = static_cast<float>(m2::DotProduct(prevTangent, newTangent));
       if (dotProduct < kValidSplineTurn)
         return false;
     }
+    prevTangent = newTangent;
   }
   return true;
 }
