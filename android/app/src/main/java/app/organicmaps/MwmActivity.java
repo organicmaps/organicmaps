@@ -718,7 +718,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (isFullscreen())
       exitFullscreen();
-    closeFloatingToolbarsAndPanels(false);
+    closeFloatingToolbarsAndPanels();
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
     ChoosePositionMode.set(mode, isBusiness, applyPosition);
@@ -864,7 +864,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void closeFloatingToolbarsAndPanels(boolean clearSearchText)
+  private void closeFloatingToolbarsAndPanels()
   {
     closePositionChooser();
     closeFloatingPanels();
@@ -1533,7 +1533,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    closeFloatingToolbarsAndPanels(true);
+    closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     if (mRoutingPlanInplaceController == null)
@@ -1562,7 +1562,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationStarted()
   {
-    closeFloatingToolbarsAndPanels(true);
+    closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
@@ -1583,7 +1583,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlanningCancelled()
   {
-    closeFloatingToolbarsAndPanels(true);
+    closeFloatingToolbarsAndPanels();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
   }
@@ -1591,7 +1591,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlanningStarted()
   {
-    closeFloatingToolbarsAndPanels(true);
+    closeFloatingToolbarsAndPanels();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();
   }
@@ -1599,7 +1599,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onResetToPlanningState()
   {
-    closeFloatingToolbarsAndPanels(true);
+    closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
