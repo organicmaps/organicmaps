@@ -11,7 +11,7 @@
     tools:background="@color/black_primary"
     tools:layout_width="600dp"
     android:layout_height="match_parent"
-    android:layout_gravity="bottom|center_horizontal"
+    android:layout_gravity="bottom|start"
     android:clipToOutline="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 

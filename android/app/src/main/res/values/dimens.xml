@@ -45,8 +45,6 @@
 
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_input_height">48dp</dimen>
-  <dimen name="search_recycler_bottom_padding">80dp</dimen>
-
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
   <dimen name="place_page_top_button">40dp</dimen>

@@ -177,24 +177,22 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void activate()
   {
     mQuery.requestFocus();
-    if (mQuery.hasWindowFocus())
-    {
-      InputUtils.showKeyboard(mQuery);
-      return;
-    }
-    // The window may not have focus yet (e.g. the sheet is still animating in), in which case the
-    // IME request would be dropped. Defer it until the window gains focus, keeping a single pending
-    // listener so it can't leak across repeated activate()/deactivate() calls.
     removeShowKeyboardOnFocusListener();
     mShowKeyboardOnFocus = hasFocus ->
     {
       if (hasFocus)
       {
         removeShowKeyboardOnFocusListener();
+        mQuery.requestFocus();
         InputUtils.showKeyboard(mQuery);
       }
     };
     mQuery.getViewTreeObserver().addOnWindowFocusChangeListener(mShowKeyboardOnFocus);
+    if (mQuery.hasWindowFocus())
+    {
+      removeShowKeyboardOnFocusListener();
+      InputUtils.showKeyboard(mQuery);
+    }
   }
 
   public void deactivate()

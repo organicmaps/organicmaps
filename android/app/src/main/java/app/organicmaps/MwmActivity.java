@@ -129,6 +129,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -264,6 +265,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       restoreRoutingUI(MapButtonsController.LayoutMode.navigation);
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+    else if (mSearchPageViewModel.getSearchEnabled().getValue() == null)
+    {
+      if (mSearchPageViewModel.isSearchPersistedActive())
+      {
+        mSearchPageViewModel.setSearchPageLastState(mSearchPageViewModel.getPersistedSheetState());
+        showSearch(mSearchPageViewModel.getPersistedQuery());
+      }
+    }
 
     if (TrackRecorder.nativeIsTrackRecordingEnabled() && !startTrackRecording())
     {
@@ -519,7 +528,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
     setContentView(R.layout.activity_map);
-
     makeNavigationBarTransparentInLightMode();
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
@@ -935,6 +943,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     RoutingController.get().onSaveState();
 
+    Integer sheetState = mSearchPageViewModel.getSearchPageLastState().getValue();
+    boolean isSearchActive = Boolean.TRUE.equals(mSearchPageViewModel.getSearchEnabled().getValue())
+                          && sheetState != null && sheetState != BottomSheetBehavior.STATE_HIDDEN;
+    String query = isSearchActive ? SearchEngine.INSTANCE.getCachedSearchBarQuery() : null;
+    mSearchPageViewModel.persistSearchState(isSearchActive, query != null ? query : "",
+                                            isSearchActive ? sheetState : BottomSheetBehavior.STATE_HIDDEN);
+
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
     else
@@ -1202,7 +1217,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSwitchFullScreenMode()
   {
-    if (mPanelAnimator != null && mPanelAnimator.isVisible())
+    if ((mPanelAnimator != null && mPanelAnimator.isVisible())
+        || mSearchPageViewModel.getSearchEnabled().getValue() == Boolean.TRUE)
       return;
 
     Boolean searchEnabled = mSearchPageViewModel.getSearchEnabled().getValue();

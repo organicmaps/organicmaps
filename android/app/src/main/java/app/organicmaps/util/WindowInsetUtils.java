@@ -199,8 +199,9 @@ public final class WindowInsetUtils
     public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
     {
       final Insets insets = windowInsets.getInsets(insetsTypeMask);
+      int newBottom = bottom ? insets.bottom : v.getPaddingBottom();
       v.setPadding(left ? insets.left : v.getPaddingLeft(), top ? insets.top : v.getPaddingTop(),
-                   right ? insets.right : v.getPaddingRight(), bottom ? insets.bottom : v.getPaddingBottom());
+                   right ? insets.right : v.getPaddingRight(), newBottom);
       return windowInsets;
     }
   }

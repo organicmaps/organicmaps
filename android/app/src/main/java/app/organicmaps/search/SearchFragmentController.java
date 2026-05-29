@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -105,12 +107,16 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   private ViewGroup mCoordinator;
   private WindowInsetsCompat mCurrentWindowInsets;
   private int mTopHeaderHeight = 0;
+  // 0 means IME not visible; positive value is the elapsedRealtime() when it became visible.
+  private long mImeVisibleSince = 0;
+  private static final long IME_DISMISS_MIN_DURATION_MS = 500;
   private View mMapView;
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState)
         {
+          updateMapTouchListener(newState);
           if (PlacePageUtils.isSettlingState(newState))
             return;
           if (PlacePageUtils.isDraggingState(newState))
@@ -151,6 +157,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   private int mTouchSlop = 0;
 
   private int mMinCollapsedPeekHeight = 0;
+  private int mLandscapeDesignMargin = 0;
   private final Observer<Integer> mTopHeaderHeightObserver = height ->
   {
     mTopHeaderHeight = height != null ? height : 0;
@@ -161,7 +168,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     public void onChanged(Integer height)
     {
       if (height != null && height > 0)
-        mBottomSheetBehavior.setPeekHeight(Math.max(height, mMinCollapsedPeekHeight));
+        mBottomSheetBehavior.setPeekHeight(Math.max(height, mMinCollapsedPeekHeight) + navBarHeight());
     }
   };
   private final View.OnTouchListener mMapTouchListener = new View.OnTouchListener() {
@@ -215,6 +222,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
     int tabsHeight = getResources().getDimensionPixelSize(R.dimen.tabs_height);
     mMinCollapsedPeekHeight = actionBarSize + tabsHeight;
+    mLandscapeDesignMargin = getResources().getDimensionPixelSize(R.dimen.margin_half);
 
     float topRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
     ShapeAppearanceModel shape = ShapeAppearanceModel.builder()
@@ -248,12 +256,47 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
+      int navH = navBarHeight();
+      Integer toolbarH = mViewModel.getToolbarHeight().getValue();
+      if (toolbarH != null && toolbarH > 0)
+        mBottomSheetBehavior.setPeekHeight(Math.max(toolbarH, mMinCollapsedPeekHeight) + navH);
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
-      mViewModel.setKeyboardVisible(imeVisible);
+      long now = SystemClock.elapsedRealtime();
+
+      if (imeVisible)
+      {
+        if (mImeVisibleSince == 0)
+          mImeVisibleSince = now;
+        mViewModel.setKeyboardVisible(true);
+      }
+      else
+      {
+        if (mImeVisibleSince > 0 && (now - mImeVisibleSince) >= IME_DISMISS_MIN_DURATION_MS)
+        {
+          int sheetState = mBottomSheetBehavior.getState();
+          if (sheetState == BottomSheetBehavior.STATE_EXPANDED || sheetState == BottomSheetBehavior.STATE_HALF_EXPANDED
+              || sheetState == BottomSheetBehavior.STATE_COLLAPSED)
+            mViewModel.setKeyboardVisible(false);
+        }
+        mImeVisibleSince = 0;
+      }
+
       updateExpandedOffset();
       if (imeVisible && mViewModel.getSearchEnabled().getValue() != null && mViewModel.getSearchEnabled().getValue()
           && !mViewModel.isHiddenByPlacePage())
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+      if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      {
+        Insets sysInsets =
+            insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+        int newMargin = Math.max(mLandscapeDesignMargin, sysInsets.left);
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mSearchPageContainer.getLayoutParams();
+        if (lp.getMarginStart() != newMargin)
+        {
+          lp.setMarginStart(newMargin);
+          mSearchPageContainer.setLayoutParams(lp);
+        }
+      }
       // Explicitly dispatch insets into the bottom sheet's content tree so that
       // child views (e.g. tab RecyclerViews created lazily by ViewPager) receive them.
       ViewCompat.dispatchApplyWindowInsets(mSearchPageContainer, insets);
@@ -264,8 +307,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mMapView = requireActivity().findViewById(R.id.map);
     if (mMapView != null)
     {
-      mMapView.setOnTouchListener(mMapTouchListener);
-      mMapView.setClickable(true);
+      updateMapTouchListener(mBottomSheetBehavior.getState());
     }
   }
 
@@ -277,7 +319,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     if (mMapView != null)
     {
       mMapView.setOnTouchListener(null);
-      mMapView.setClickable(false);
       mMapView = null;
     }
   }
@@ -300,13 +341,39 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mBottomSheetBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
   }
 
+  private int navBarHeight()
+  {
+    if (mCurrentWindowInsets == null)
+      return 0;
+    return mCurrentWindowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
+      ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+      : 0;
+  }
+
   private void updateExpandedOffset()
   {
     if (mBottomSheetBehavior == null || mSearchPageContainer == null)
       return;
-    int topInset =
-        mCurrentWindowInsets != null ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
-    mBottomSheetBehavior.setExpandedOffset(topInset + mTopHeaderHeight);
+    int topInset = 0;
+    if (mCurrentWindowInsets != null)
+    {
+      int systemBarsTop = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      int cutoutTop = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top;
+      topInset = Math.max(systemBarsTop, cutoutTop);
+    }
+    int expandedOffset = topInset + mTopHeaderHeight;
+    mBottomSheetBehavior.setExpandedOffset(expandedOffset);
+    mViewModel.setExpandedOffset(expandedOffset);
+  }
+
+  private void updateMapTouchListener(int state)
+  {
+    if (mMapView == null)
+      return;
+    if (state == BottomSheetBehavior.STATE_HIDDEN)
+      mMapView.setOnTouchListener(null);
+    else
+      mMapView.setOnTouchListener(mMapTouchListener);
   }
 
   /**
@@ -318,12 +385,16 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   {
     float screenWidthDp = dm.widthPixels / dm.density;
 
-    // Apply 60% width restriction only on screens wide enough (600dp+)
-    // This ensures content doesn't get clipped on smaller devices in landscape
+    // Apply width restriction only on screens wide enough (600dp+)
+    // This ensures content doesn't get clipped on smaller devices in landscape.
+    // Use the same ratio as the place page bottom sheet for visual consistency.
     if (screenWidthDp >= 600)
     {
+      TypedValue tv = new TypedValue();
+      getResources().getValue(R.fraction.place_page_bottom_sheet_width_ratio, tv, true);
+      float ratio = tv.getFloat();
       ViewGroup.LayoutParams lp = mSearchPageContainer.getLayoutParams();
-      lp.width = (int) (dm.widthPixels * 0.6f);
+      lp.width = (int) (dm.widthPixels * ratio);
       mSearchPageContainer.setLayoutParams(lp);
     }
   }

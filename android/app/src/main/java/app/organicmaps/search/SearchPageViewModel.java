@@ -4,11 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class SearchPageViewModel extends ViewModel
 {
+  private static final String KEY_SEARCH_ACTIVE = "search_active";
+  private static final String KEY_SEARCH_QUERY = "search_query";
+  private static final String KEY_SEARCH_STATE = "search_sheet_state";
+
+  private final SavedStateHandle mSavedState;
+
+  public SearchPageViewModel(@NonNull SavedStateHandle savedStateHandle)
+  {
+    mSavedState = savedStateHandle;
+  }
+
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mExpandedOffset = new MutableLiveData<>(0);
   private final MutableLiveData<Integer> mSearchPageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mHistoryRefreshRequest = new MutableLiveData<>(0);
   // Stores the BottomSheet's last stable non-hidden state (set from onStateChanged). Used to restore
@@ -47,6 +60,17 @@ public class SearchPageViewModel extends ViewModel
   public void setSearchPageDistanceToTop(int top)
   {
     mSearchPageDistanceToTop.setValue(top);
+  }
+
+  @NonNull
+  public LiveData<Integer> getExpandedOffset()
+  {
+    return mExpandedOffset;
+  }
+
+  public void setExpandedOffset(int offset)
+  {
+    mExpandedOffset.setValue(offset);
   }
 
   @NonNull
@@ -136,5 +160,31 @@ public class SearchPageViewModel extends ViewModel
     if (mSearchEnabled.getValue() != null && !mSearchEnabled.getValue())
       return;
     mHiddenByPlacePage = hidden;
+  }
+
+  /** Snapshots search state into SavedStateHandle so the framework can restore it after process death. */
+  public void persistSearchState(boolean active, @NonNull String query, int sheetState)
+  {
+    mSavedState.set(KEY_SEARCH_ACTIVE, active);
+    mSavedState.set(KEY_SEARCH_QUERY, query);
+    mSavedState.set(KEY_SEARCH_STATE, sheetState);
+  }
+
+  public boolean isSearchPersistedActive()
+  {
+    return Boolean.TRUE.equals(mSavedState.get(KEY_SEARCH_ACTIVE));
+  }
+
+  @NonNull
+  public String getPersistedQuery()
+  {
+    String query = mSavedState.get(KEY_SEARCH_QUERY);
+    return query != null ? query : "";
+  }
+
+  public int getPersistedSheetState()
+  {
+    Integer state = mSavedState.get(KEY_SEARCH_STATE);
+    return state != null ? state : BottomSheetBehavior.STATE_EXPANDED;
   }
 }
