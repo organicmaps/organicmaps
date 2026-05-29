@@ -12,61 +12,8 @@ namespace
 {
 double const kValidPathSplineTurn = 15 * math::pi / 180;
 double const kCosTurn = cos(kValidPathSplineTurn);
-double const kSinTurn = sin(kValidPathSplineTurn);
 double const kRoundStep = 23;
 int const kMaxStepsCount = 7;
-
-bool RoundCorner(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3, int leftStepsCount,
-                 std::vector<m2::PointD> & roundedCorner)
-{
-  roundedCorner.clear();
-
-  double p1p2Length = (p2 - p1).Length();
-  double const p2p3Length = (p3 - p2).Length();
-
-  auto const dir1 = (p2 - p1) / p1p2Length;
-  auto const dir2 = (p3 - p2) / p2p3Length;
-
-  if (IsValidSplineTurn(dir1, dir2))
-    return false;
-
-  double const vs = df::VisualParams::Instance().GetVisualScale();
-  double const kMinCornerDist = 1.0;
-  if ((p3 - p1).SquaredLength() < kMinCornerDist * vs)
-  {
-    roundedCorner.push_back(p1);
-    return false;
-  }
-  m2::PointD const np1 =
-      p2 - dir1 * std::min(kRoundStep * vs, p1p2Length - p1p2Length / std::max(leftStepsCount - 1, 2));
-  p1p2Length = (p2 - np1).Length();
-  double const cosCorner = m2::DotProduct(-dir1, dir2);
-  double const sinCorner = fabs(m2::CrossProduct(-dir1, dir2));
-
-  double const p2p3IntersectionLength = (p1p2Length * kSinTurn) / (kSinTurn * cosCorner + kCosTurn * sinCorner);
-
-  if (p2p3IntersectionLength >= p2p3Length)
-  {
-    roundedCorner.push_back(np1);
-    return false;
-  }
-  else
-  {
-    m2::PointD const p = p2 + dir2 * p2p3IntersectionLength;
-    roundedCorner.push_back(np1);
-    roundedCorner.push_back(p);
-    return !IsValidSplineTurn((p - np1).Normalize(), dir2);
-  }
-}
-
-void ReplaceLastCorner(std::vector<m2::PointD> const & roundedCorner, m2::SplineEx & spline)
-{
-  if (roundedCorner.empty())
-    return;
-  spline.ReplacePoint(roundedCorner.front());
-  for (size_t i = 1, sz = roundedCorner.size(); i < sz; ++i)
-    spline.AddPoint(roundedCorner[i]);
-}
 }  // namespace
 
 bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2)
@@ -76,6 +23,12 @@ bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & nor
   return dotProduct > kCosTurn || fabs(dotProduct - kCosTurn) < kEps;
 }
 
+// Append pt to the pixel-space spline, rounding the previous corner with a circular-arc fillet when the
+// turn is sharper than kValidPathSplineTurn. The arc is tangent to both segments and turns its tangent
+// uniformly, so ceil(turn / kValidPathSplineTurn) equal angular steps is the minimal set of points that
+// keeps every sub-turn within the limit the glyph layout (CacheDynamicGeometry) accepts. Very acute
+// corners (> kMaxStepsCount * kValidPathSplineTurn) are left sharp so the layout drops text spanning
+// them instead of bending it around a large arc unrelated to the road.
 void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
 {
   if (spline.GetSize() < 2)
@@ -84,22 +37,62 @@ void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
     return;
   }
 
-  auto const dir1 = spline.GetDirections().back();
-  auto const dir2 = (pt - spline.GetPath().back()).Normalize();
+  m2::PointD const p2 = spline.GetPath().back();
+  m2::PointD const dir1 = spline.GetDirections().back();
+  m2::PointD const seg2 = pt - p2;
+  if (seg2.IsAlmostZero())  // same as Spline::AddPoint
+    return;
+
+  double const len2 = seg2.Length();
+  m2::PointD const dir2 = seg2 / len2;
 
   double const dotProduct = m2::DotProduct(dir1, dir2);
-  if (dotProduct < kCosTurn)
+  if (dotProduct >= kCosTurn)  // Gentle enough: keep the original vertex.
   {
-    int leftStepsCount = static_cast<int>(acos(dotProduct) / kValidPathSplineTurn);
-    std::vector<m2::PointD> roundedCorner;
-    while (leftStepsCount > 0 && leftStepsCount <= kMaxStepsCount &&
-           RoundCorner(spline.GetPath()[spline.GetSize() - 2], spline.GetPath().back(), pt, leftStepsCount--,
-                       roundedCorner))
-    {
-      ReplaceLastCorner(roundedCorner, spline);
-    }
-    ReplaceLastCorner(roundedCorner, spline);
+    spline.AddPoint(pt, dir2, len2);
+    return;
   }
+
+  double const turn = acos(std::clamp(dotProduct, -1.0, 1.0));
+  if (turn > kMaxStepsCount * kValidPathSplineTurn)  // Too acute: leave it sharp.
+  {
+    spline.AddPoint(pt, dir2, len2);
+    return;
+  }
+
+  double const vs = df::VisualParams::Instance().GetVisualScale();
+  double const len1 = spline.GetLengths().back();
+  double const cut = std::min(kRoundStep * vs, 0.5 * std::min(len1, len2));
+
+  m2::PointD const a = p2 - dir1 * cut;  // Tangent point on the incoming segment.
+  spline.ReplacePoint(a);                // Replace the sharp corner with the fillet.
+
+  // Generate the arc by rotating the radius vector (a - center) around the arc center in equal steps.
+  int const steps = std::max(1, static_cast<int>(ceil(turn / kValidPathSplineTurn)));
+  double const sign = m2::CrossProduct(dir1, dir2) >= 0.0 ? 1.0 : -1.0;  // Turn direction (left/right).
+  double const radius = cut * tan(0.5 * (math::pi - turn));
+  m2::PointD const center = a + m2::PointD(-dir1.y, dir1.x) * (sign * radius);
+  double const stepAngle = sign * turn / steps;
+  double const cosA = cos(stepAngle);
+  double const sinA = sin(stepAngle);
+  m2::PointD radial = a - center;
+  for (int i = 0; i < steps; ++i)
+  {
+    radial = m2::PointD(radial.x * cosA - radial.y * sinA, radial.x * sinA + radial.y * cosA);
+    spline.AddPoint(center + radial);  // Last iteration lands on p2 + dir2 * cut by construction.
+  }
+
+  // Quadratic Bezier alternative, kept for comparison. A Bezier turns its tangent non-uniformly, so it
+  // must be oversampled (step ~0.6 of the limit) to stay within it -- roughly twice the points.
+  // m2::PointD const b = p2 + dir2 * cut;  // tangent point on the outgoing segment
+  // int const bezierSteps = std::max(2, static_cast<int>(ceil(turn / (kValidPathSplineTurn * 0.6))));
+  // for (int i = 1; i <= bezierSteps; ++i)
+  // {
+  //   double const t = static_cast<double>(i) / bezierSteps;
+  //   double const u = 1.0 - t;
+  //   spline.AddPoint(a * (u * u) + p2 * (2.0 * u * t) + b * (t * t));  // quadratic Bezier a -> p2 -> b
+  // }
+
   spline.AddPoint(pt);
 }
 
