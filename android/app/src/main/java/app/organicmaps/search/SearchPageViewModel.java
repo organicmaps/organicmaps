@@ -11,9 +11,9 @@ public class SearchPageViewModel extends ViewModel
   private final MutableLiveData<Integer> mSearchPageDistanceToTop = new MutableLiveData<>();
   private final MutableLiveData<Integer> mSearchPageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mHistoryRefreshRequest = new MutableLiveData<>(0);
-  // Stores the BottomSheet's last non-hidden state. Dragging the sheet to hidden keeps this value so
-  // it can be restored later; explicitly disabling search via setSearchEnabled(false) resets it to
-  // STATE_HIDDEN.
+  // Stores the BottomSheet's last stable non-hidden state (set from onStateChanged). Used to restore
+  // the sheet after the place page temporarily hides it. Disabling search — including the user
+  // dragging the sheet to hidden, which triggers the hidden callback — resets it to STATE_HIDDEN.
   private final MutableLiveData<Integer> mSearchPageLastState = new MutableLiveData<>(BottomSheetBehavior.STATE_HIDDEN);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
   private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
@@ -68,6 +68,10 @@ public class SearchPageViewModel extends ViewModel
 
   public void setSearchPageLastState(@BottomSheetBehavior.State int state)
   {
+    // Ignore transient states: BottomSheetBehavior.setState() rejects DRAGGING/SETTLING, so storing
+    // one would crash when the sheet is later restored from it.
+    if (state == BottomSheetBehavior.STATE_DRAGGING || state == BottomSheetBehavior.STATE_SETTLING)
+      return;
     mSearchPageLastState.setValue(state);
   }
 
