@@ -60,15 +60,16 @@ m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen, bool perspective) 
 
 bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const
 {
+  // Already checked before in ForEachInRect.
+  // GetExtendedPixelRect(screen).IsIntersect(h->GetExtendedPixelRect(screen))
+
   Rects const & ar1 = GetExtendedPixelShape(screen);
   Rects const & ar2 = h->GetExtendedPixelShape(screen);
-
-  for (size_t i = 0; i < ar1.size(); ++i)
-  {
-    for (size_t j = 0; j < ar2.size(); ++j)
-      if (ar1[i].IsIntersect(ar2[j]))
+  for (auto const & l : ar1)
+    for (auto const & r : ar2)
+      if (l.IsIntersect(r))
         return true;
-  }
+
   return false;
 }
 
