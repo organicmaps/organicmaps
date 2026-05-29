@@ -19,4 +19,3 @@
   <include layout="@layout/item_search_shimmer" />
   <include layout="@layout/item_search_shimmer" />
 </LinearLayout>
-
