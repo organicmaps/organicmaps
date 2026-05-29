@@ -488,6 +488,41 @@ uint32_t BookmarkColor(BookmarkData const & bookmarkData)
   return kInvalidColor;
 }
 
+std::string MakeGpxOsmPropertyTag(std::string_view key)
+{
+  std::string tag(key);
+  std::replace(tag.begin(), tag.end(), ':', '_');
+  return tag;
+}
+
+// Helper to know if there are OSM properties to export.
+bool HasOsmProperties(BookmarkData const & bookmarkData)
+{
+  for (auto const & [key, value] : bookmarkData.m_properties)
+    if (!value.empty() && ShouldExportOsmProperty(key))
+      return true;
+  return false;
+}
+
+void SaveOsmProperties(Writer & writer, BookmarkData const & bookmarkData)
+{
+  writer << kIndent4 << "<omaps>\n";
+
+  for (auto const & [key, value] : bookmarkData.m_properties)
+  {
+    if (value.empty() || !ShouldExportOsmProperty(key))
+      continue;
+
+    auto const tag = MakeGpxOsmPropertyTag(key);
+
+    writer << kIndent6 << "<" << tag << ">";
+    SaveStringWithCDATA(writer, value);
+    writer << "</" << tag << ">\n";
+  }
+
+  writer << kIndent4 << "</omaps>\n";
+}
+
 void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
@@ -508,12 +543,23 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
     SaveStringWithCDATA(writer, *description);
     writer << "</desc>\n";
   }
-  if (auto const color = BookmarkColor(bookmarkData); color != kInvalidColor)
+
+  auto const color = BookmarkColor(bookmarkData);
+  bool const hasColor = color != kInvalidColor;
+  bool const hasOsmProperties = HasOsmProperties(bookmarkData);
+
+  if (hasColor || hasOsmProperties)
   {
     writer << kIndent2 << "<extensions>\n";
-    writer << kIndent4 << "<xsi:gpx><color>#";
-    SaveColorToARGB(writer, color);
-    writer << "</color></xsi:gpx>\n";
+    if (hasColor)
+    {
+      writer << kIndent4 << "<xsi:gpx><color>#";
+      SaveColorToARGB(writer, color);
+      writer << "</color></xsi:gpx>\n";
+    }
+    if (hasOsmProperties)
+      SaveOsmProperties(writer, bookmarkData);
+
     writer << kIndent2 << "</extensions>\n";
   }
   writer << "</wpt>\n";

@@ -494,4 +494,51 @@ UNIT_TEST(MapGarminColor)
   TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb5b721ff), ());
 }
 
+UNIT_TEST(Gpx_SavesOsmBookmarkProperties)
+{
+  kml::FileData fileData;
+  kml::BookmarkData bookmarkData;
+
+  bookmarkData.m_point = mercator::FromLatLon(37.8546481, -122.071516);
+  kml::SetDefaultStr(bookmarkData.m_name, "Test bookmark");
+  bookmarkData.m_properties = {
+      {"osm_id", "123456"},       {"osm_type", "node"},           {"addr:street", "Ellis Street"},
+      {"addr:housenumber", "63"}, {"addr:city", "San Francisco"}, {"addr:postcode", "94102"},
+      {"addr:country", "USA"}};
+
+  fileData.m_bookmarksData.push_back(std::move(bookmarkData));
+
+  auto const gpx = Serialize(fileData);
+
+  TEST(gpx.find("<omaps>") != std::string::npos, (gpx));
+  TEST(gpx.find("<osm_id>") != std::string::npos, (gpx));
+  TEST(gpx.find("123456") != std::string::npos, (gpx));
+  TEST(gpx.find("<osm_type>") != std::string::npos, (gpx));
+  TEST(gpx.find("node") != std::string::npos, (gpx));
+  TEST(gpx.find("<addr_street>") != std::string::npos, (gpx));
+  TEST(gpx.find("Ellis Street") != std::string::npos, (gpx));
+  TEST(gpx.find("<addr_housenumber>") != std::string::npos, (gpx));
+  TEST(gpx.find("<addr_city>") != std::string::npos, (gpx));
+  TEST(gpx.find("<addr_postcode>") != std::string::npos, (gpx));
+  TEST(gpx.find("<addr_country>") != std::string::npos, (gpx));
+}
+
+UNIT_TEST(Gpx_DoesNotSaveEmptyOsmBookmarkProperties)
+{
+  kml::FileData fileData;
+  kml::BookmarkData bookmarkData;
+
+  bookmarkData.m_point = mercator::FromLatLon(37.8546481, -122.071516);
+  kml::SetDefaultStr(bookmarkData.m_name, "Test bookmark");
+  bookmarkData.m_properties = {{"osm_id", ""}, {"addr:street", ""}};
+
+  fileData.m_bookmarksData.push_back(std::move(bookmarkData));
+
+  auto const gpx = Serialize(fileData);
+
+  TEST(gpx.find("<omaps>") == std::string::npos, (gpx));
+  TEST(gpx.find("<osm_id>") == std::string::npos, (gpx));
+  TEST(gpx.find("<addr_street>") == std::string::npos, (gpx));
+}
+
 }  // namespace gpx_tests

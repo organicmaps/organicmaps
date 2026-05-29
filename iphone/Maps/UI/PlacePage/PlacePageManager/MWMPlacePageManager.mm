@@ -207,8 +207,13 @@ using namespace storage;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
   bmData.m_point = location_helpers::ToMercator(data.locationCoordinate);
+
   if (info.IsFeature())
+  {
     SaveFeatureTypes(info.GetTypes(), bmData);
+    SaveFeatureProperties(f, info, bmData);
+  }
+
   auto editSession = bmManager.GetEditSession();
   auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
 

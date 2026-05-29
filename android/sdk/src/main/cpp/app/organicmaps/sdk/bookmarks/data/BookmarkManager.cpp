@@ -297,7 +297,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
 
   if (info.IsFeature())
+  {
     SaveFeatureTypes(info.GetTypes(), bmData);
+    SaveFeatureProperties(*frm(), info, bmData);
+  }
 
   auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(std::move(bmData), lastEditedCategory);
 
