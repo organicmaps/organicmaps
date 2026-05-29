@@ -281,8 +281,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     {
       UiUtils.show(mButtonsLayout, mFrame);
       mFrame.post(() -> {
-        // The view may be destroyed before this runs; bail out instead of touching a detached sheet.
-        if (getView() == null)
+        // The view may be destroyed, or visibility may have flipped back to hidden (e.g. a place page
+        // opened), before this runs; bail out instead of reopening the sheet over whatever is on top.
+        if (getView() == null || !Boolean.TRUE.equals(mSheetVisible.getValue()))
           return;
         mSheetBehavior.setHideable(false);
         final int state = mViewModel.getBottomSheetState();
