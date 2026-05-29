@@ -232,9 +232,15 @@ final class RoutingBottomMenuController implements View.OnClickListener
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
-    setSaveButtonEnabled(true);
+    updateSaveButton();
     notifyVisibilityChanged();
     refreshManageRoute();
+  }
+
+  // Reflect the current route's saved state on the save button, consistently across every route-details view.
+  private void updateSaveButton()
+  {
+    setSaveButtonEnabled(!RoutingController.get().isRouteSaved());
   }
 
   // Keeps the enabled flag and the dimming in sync so a saved (disabled) button is always restored on rebuild.
@@ -261,6 +267,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     refreshManageRoute();
+    updateSaveButton();
     View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mActionFrame, mTimeElevationLine, mTimeVehicle);
@@ -284,6 +291,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
     refreshManageRoute();
+    updateSaveButton();
     UiUtils.hide(mError, mActionFrame, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
     showStartButton(false);
     hideAltitudeChartAndRoutingDetails();
