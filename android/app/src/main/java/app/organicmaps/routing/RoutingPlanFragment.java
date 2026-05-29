@@ -31,11 +31,10 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
+import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
-import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.settings.DrivingOptionsActivity;
-import app.organicmaps.settings.DrivingOptionsFragment;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.RoutingToolbarButton;
 import app.organicmaps.widget.WheelProgressView;
@@ -78,11 +77,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         if (activityResult.getResultCode() == android.app.Activity.RESULT_OK)
         {
           RoutingController.get().rebuildLastRoute();
-          Intent data = activityResult.getData();
-          if (data == null)
-            return;
-          int count = data.getIntExtra(DrivingOptionsFragment.DRIVING_OPTIONS_COUNT, 0);
-          mViewModel.setDrivingOptionsCount(count);
+          mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
         }
       });
 
@@ -174,7 +169,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
 
-    updateBadgeCount(SharedPropertiesUtils.getDrivingOptionsCount());
+    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
     mRoutingContainer.addOnLayoutChangeListener(this);
   }
 
@@ -490,7 +485,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
-    updateBadgeCount(SharedPropertiesUtils.getDrivingOptionsCount());
+    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
   }
 
   private void showAddStartFrame()

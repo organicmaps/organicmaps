@@ -1,7 +1,6 @@
 package app.organicmaps.settings;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
-import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,7 +24,6 @@ import java.util.Set;
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
   public static final String BUNDLE_ROAD_TYPES = "road_types";
-  public static final String DRIVING_OPTIONS_COUNT = "Driving_Options_Count";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
   @Nullable
@@ -81,11 +78,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     }
     else
     {
-      final int checkedCount = RoutingOptions.getActiveRoadTypes().size();
-      SharedPropertiesUtils.setDrivingOptionsCount(checkedCount);
-      Intent resultIntent = new Intent();
-      resultIntent.putExtra(DRIVING_OPTIONS_COUNT, checkedCount);
-      requireActivity().setResult(Activity.RESULT_OK, resultIntent);
+      // The toggles already updated RoutingOptions; just signal a change so the caller rebuilds the route.
+      requireActivity().setResult(Activity.RESULT_OK);
     }
 
     return super.onBackPressed();

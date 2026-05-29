@@ -110,7 +110,6 @@ import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.PowerManagment;
-import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
@@ -585,7 +584,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
      */
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
-    updateDrivingOptionCount(SharedPropertiesUtils.getDrivingOptionsCount());
+    updateDrivingOptionCount();
   }
 
   @NonNull
@@ -649,9 +648,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initPositionChooser();
   }
 
-  private void updateDrivingOptionCount(int count)
+  private void updateDrivingOptionCount()
   {
-    mRoutingPlanViewModel.setDrivingOptionsCount(count);
+    mRoutingPlanViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
   }
 
   private void initPositionChooser()
@@ -1031,7 +1030,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     MwmApplication.from(getApplicationContext()).getIsolinesManager().attach(this::onIsolinesStateChanged);
-    updateDrivingOptionCount(SharedPropertiesUtils.getDrivingOptionsCount());
+    updateDrivingOptionCount();
     LocationState.nativeSetListener(this);
     MwmApplication.from(this).getLocationHelper().addListener(this);
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
@@ -2133,7 +2132,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     forceCloseSearchFragment();
     closePlacePage();
     RoutingOptions.addOption(roadType);
-    //    rebuildLastRouteInternal();
+    rebuildLastRoute();
+    updateDrivingOptionCount();
   }
 
   @Override
