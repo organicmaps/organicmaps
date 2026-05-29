@@ -1202,7 +1202,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSwitchFullScreenMode()
   {
-    if (mPanelAnimator != null && mPanelAnimator.isVisible())
+    if ((mPanelAnimator != null && mPanelAnimator.isVisible())
+        || mSearchPageViewModel.getSearchEnabled().getValue() == Boolean.TRUE)
       return;
 
     Boolean searchEnabled = mSearchPageViewModel.getSearchEnabled().getValue();

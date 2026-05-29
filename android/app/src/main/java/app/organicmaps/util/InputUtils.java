@@ -68,8 +68,6 @@ public class InputUtils
   {
     if (input == null)
       return;
-    // Show immediately when the window already has focus (normal open); otherwise fall back to a
-    // short delay so the IME manager doesn't silently discard the request before focus arrives.
     if (input.hasWindowFocus())
       showKeyboardSync(input);
     else

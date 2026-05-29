@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -105,12 +106,16 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   private ViewGroup mCoordinator;
   private WindowInsetsCompat mCurrentWindowInsets;
   private int mTopHeaderHeight = 0;
+  // 0 means IME not visible; positive value is the elapsedRealtime() when it became visible.
+  private long mImeVisibleSince = 0;
+  private static final long IME_DISMISS_MIN_DURATION_MS = 500;
   private View mMapView;
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState)
         {
+          updateMapTouchListener(newState);
           if (PlacePageUtils.isSettlingState(newState))
             return;
           if (PlacePageUtils.isDraggingState(newState))
@@ -249,7 +254,26 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
-      mViewModel.setKeyboardVisible(imeVisible);
+      long now = SystemClock.elapsedRealtime();
+
+      if (imeVisible)
+      {
+        if (mImeVisibleSince == 0)
+          mImeVisibleSince = now;
+        mViewModel.setKeyboardVisible(true);
+      }
+      else
+      {
+        if (mImeVisibleSince > 0 && (now - mImeVisibleSince) >= IME_DISMISS_MIN_DURATION_MS)
+        {
+          int sheetState = mBottomSheetBehavior.getState();
+          if (sheetState == BottomSheetBehavior.STATE_EXPANDED || sheetState == BottomSheetBehavior.STATE_HALF_EXPANDED
+              || sheetState == BottomSheetBehavior.STATE_COLLAPSED)
+            mViewModel.setKeyboardVisible(false);
+        }
+        mImeVisibleSince = 0;
+      }
+
       updateExpandedOffset();
       if (imeVisible && mViewModel.getSearchEnabled().getValue() != null && mViewModel.getSearchEnabled().getValue()
           && !mViewModel.isHiddenByPlacePage())
@@ -264,8 +288,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mMapView = requireActivity().findViewById(R.id.map);
     if (mMapView != null)
     {
-      mMapView.setOnTouchListener(mMapTouchListener);
-      mMapView.setClickable(true);
+      updateMapTouchListener(mBottomSheetBehavior.getState());
     }
   }
 
@@ -277,7 +300,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     if (mMapView != null)
     {
       mMapView.setOnTouchListener(null);
-      mMapView.setClickable(false);
       mMapView = null;
     }
   }
@@ -304,9 +326,24 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   {
     if (mBottomSheetBehavior == null || mSearchPageContainer == null)
       return;
-    int topInset =
-        mCurrentWindowInsets != null ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
+    int topInset = 0;
+    if (mCurrentWindowInsets != null)
+    {
+      int systemBarsTop = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      int cutoutTop = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top;
+      topInset = Math.max(systemBarsTop, cutoutTop);
+    }
     mBottomSheetBehavior.setExpandedOffset(topInset + mTopHeaderHeight);
+  }
+
+  private void updateMapTouchListener(int state)
+  {
+    if (mMapView == null)
+      return;
+    if (state == BottomSheetBehavior.STATE_HIDDEN)
+      mMapView.setOnTouchListener(null);
+    else
+      mMapView.setOnTouchListener(mMapTouchListener);
   }
 
   /**
