@@ -21,5 +21,3 @@
     android:layout_height="10dp"
     android:layout_marginTop="@dimen/margin_quarter" />
 </LinearLayout>
-
-
