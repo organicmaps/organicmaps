@@ -320,9 +320,9 @@ private:
   // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
                            double baseDistance, RoadWarningsCollection & roadWarnings);
-  // Point warnings (gate/lift_gate): barrier features sitting exactly on a route vertex.
-  void CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
-                                RoadWarningsCollection & roadWarnings);
+  // Point warnings (gate/lift_gate): barrier nodes precomputed on the routing thread and stored in
+  // the route (see routing::RouteBase::GetWarnings); here we just map them to mark types.
+  void CollectRoadPointWarnings(routing::RouteBase const & route, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.

@@ -40,6 +40,24 @@ SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 
 using RouteJunctions = std::vector<geometry::PointWithAltitude>;
 
+/// \brief A point-like warning sitting exactly on a route vertex, e.g. a barrier node
+/// (barrier=gate / barrier=lift_gate). Computed on the routing thread (see IndexRouter::RedressRoute)
+/// and consumed by the UI layer, which maps |m_type| to its own warning kind.
+/// |m_type| is a classificator type id (see classif()); the routing layer stays UI-agnostic.
+struct RouteWarning
+{
+  RouteWarning() = default;
+  RouteWarning(m2::PointD const & point, FeatureID const & featureId, uint32_t type)
+    : m_point(point)
+    , m_featureId(featureId)
+    , m_type(type)
+  {}
+
+  m2::PointD m_point;
+  FeatureID m_featureId;
+  uint32_t m_type = 0;
+};
+
 /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
 /// For every Segment is kept some attributes in the structure SegmentInfo.
 class RouteSegment final
@@ -342,6 +360,10 @@ public:
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
+  // Point-like warnings (barrier nodes) sitting on route vertices, computed during routing.
+  void SetWarnings(std::vector<RouteWarning> && warnings) { m_warnings = std::move(warnings); }
+  std::vector<RouteWarning> const & GetWarnings() const { return m_warnings; }
+
   template <class FnT>
   void ForEachPoint(FnT && fn) const
   {
@@ -366,6 +388,9 @@ protected:
 
   // Mwms which are crossed by the route where speed cameras are prohibited.
   std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
+
+  // Point-like warnings (barrier nodes) sitting on route vertices.
+  std::vector<RouteWarning> m_warnings;
 
   // Pivot for the alternative-route ETA balloon — midpoint of the longest segment span.
   std::optional<m2::PointD> m_diffMidpoint;
