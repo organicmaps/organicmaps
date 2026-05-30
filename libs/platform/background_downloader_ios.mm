@@ -187,10 +187,12 @@ static constexpr NSTimeInterval kTimeoutIntervalInSeconds = 10;
 
 - (void)clear
 {
-  for (TaskInfo * info in self.tasks)
+  // Fast enumeration over an NSDictionary yields its keys, not its values: self.tasks is keyed by
+  // task identifier and restoredTasks by URL path. Iterate allValues to cancel the task objects.
+  for (TaskInfo * info in self.tasks.allValues)
     [info.task cancel];
 
-  for (NSURLSessionTask * restoredTask in self.restoredTasks)
+  for (NSURLSessionTask * restoredTask in self.restoredTasks.allValues)
     [restoredTask cancel];
 
   [self.tasks removeAllObjects];
