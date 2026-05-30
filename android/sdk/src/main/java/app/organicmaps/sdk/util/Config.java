@@ -47,6 +47,9 @@ public final class Config
   private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
 
   public static final String KEY_PREF_LAST_SEARCHED_TAB = "LastSearchTab";
+  public static final String KEY_PREF_SEARCH_ACTIVE = "SearchActive";
+  public static final String KEY_PREF_SEARCH_QUERY = "SearchQuery";
+  public static final String KEY_PREF_SEARCH_SHEET_STATE = "SearchSheetState";
 
   /**
    * The total number of app launches.

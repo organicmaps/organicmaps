@@ -278,11 +278,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mResults.setAdapter(mSearchAdapter);
 
     pager.setClipToPadding(false);
-    ViewCompat.setOnApplyWindowInsetsListener(mResults, (v, insets) -> {
-      int bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
-      v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
-      return insets;
-    });
     // Store insets and dispatch to tab fragment RecyclerViews.
     // Padding the ViewPager itself is wrong — it shortens the tab fragment layout
     // without giving those RecyclerViews their own scrollable bottom padding.

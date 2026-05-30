@@ -166,7 +166,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     public void onChanged(Integer height)
     {
       if (height != null && height > 0)
-        mBottomSheetBehavior.setPeekHeight(Math.max(height, mMinCollapsedPeekHeight));
+        mBottomSheetBehavior.setPeekHeight(Math.max(height, mMinCollapsedPeekHeight) + navBarHeight());
     }
   };
   private final View.OnTouchListener mMapTouchListener = new View.OnTouchListener() {
@@ -253,6 +253,12 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
+      int navH = navBarHeight();
+      mSearchPageContainer.setPadding(mSearchPageContainer.getPaddingLeft(), mSearchPageContainer.getPaddingTop(),
+                                      mSearchPageContainer.getPaddingRight(), navH);
+      Integer toolbarH = mViewModel.getToolbarHeight().getValue();
+      if (toolbarH != null && toolbarH > 0)
+        mBottomSheetBehavior.setPeekHeight(Math.max(toolbarH, mMinCollapsedPeekHeight) + navH);
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
       long now = SystemClock.elapsedRealtime();
 
@@ -320,6 +326,15 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   {
     super.onStop();
     mBottomSheetBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
+  }
+
+  private int navBarHeight()
+  {
+    if (mCurrentWindowInsets == null)
+      return 0;
+    return mCurrentWindowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
+      ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+      : 0;
   }
 
   private void updateExpandedOffset()

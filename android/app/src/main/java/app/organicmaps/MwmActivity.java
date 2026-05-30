@@ -17,6 +17,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.Location;
@@ -129,6 +130,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -264,6 +266,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       restoreRoutingUI(MapButtonsController.LayoutMode.navigation);
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+    else if (mSearchPageViewModel.getSearchEnabled().getValue() == null)
+    {
+      SharedPreferences prefs = MwmApplication.prefs(this);
+      if (prefs.getBoolean(Config.KEY_PREF_SEARCH_ACTIVE, false))
+      {
+        int sheetState = prefs.getInt(Config.KEY_PREF_SEARCH_SHEET_STATE, BottomSheetBehavior.STATE_EXPANDED);
+        mSearchPageViewModel.setSearchPageLastState(sheetState);
+        showSearch(prefs.getString(Config.KEY_PREF_SEARCH_QUERY, ""));
+      }
+    }
 
     if (TrackRecorder.nativeIsTrackRecordingEnabled() && !startTrackRecording())
     {
@@ -934,6 +946,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     RoutingController.get().onSaveState();
+
+    Integer sheetState = mSearchPageViewModel.getSearchPageLastState().getValue();
+    SharedPreferences.Editor editor = MwmApplication.prefs(this).edit();
+    if (Boolean.TRUE.equals(mSearchPageViewModel.getSearchEnabled().getValue()) && sheetState != null
+        && sheetState != BottomSheetBehavior.STATE_HIDDEN)
+    {
+      String query = SearchEngine.INSTANCE.getCachedSearchBarQuery();
+      editor.putBoolean(Config.KEY_PREF_SEARCH_ACTIVE, true)
+          .putString(Config.KEY_PREF_SEARCH_QUERY, query != null ? query : "")
+          .putInt(Config.KEY_PREF_SEARCH_SHEET_STATE, sheetState);
+    }
+    else
+    {
+      editor.putBoolean(Config.KEY_PREF_SEARCH_ACTIVE, false);
+    }
+    editor.apply();
 
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
