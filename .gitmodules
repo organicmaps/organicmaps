@@ -87,3 +87,6 @@
   path = tools/python/twine
   url = https://github.com/organicmaps/twine.git
   branch = organicmaps
+[submodule "3party/BLAKE3"]
+	path = 3party/BLAKE3
+	url = https://github.com/BLAKE3-team/BLAKE3

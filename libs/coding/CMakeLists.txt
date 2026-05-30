@@ -4,6 +4,8 @@ set(SRC
   base64.cpp
   base64.hpp
   bit_streams.hpp
+  blake3.cpp
+  blake3.hpp
   buffer_reader.hpp
   buffered_file_writer.cpp
   buffered_file_writer.hpp
@@ -100,6 +102,8 @@ target_link_libraries(${PROJECT_NAME}
     ICU::i18n # For transliteration.
     minizip
     ZLIB::ZLIB
+  PRIVATE
+    BLAKE3::blake3
 )
 
 omim_add_test_subdirectory(coding_tests)

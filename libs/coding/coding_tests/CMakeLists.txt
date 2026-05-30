@@ -3,6 +3,7 @@ project(coding_tests)
 set(SRC
   base64_test.cpp
   bit_streams_test.cpp
+  blake3_test.cpp
   bwt_coder_tests.cpp
   bwt_tests.cpp
   compressed_bit_vector_test.cpp
