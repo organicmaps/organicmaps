@@ -100,7 +100,7 @@ UNIT_TEST(BLAKE3_File_And_Truncation)
   // Full base64 digest.
   TEST_EQUAL(Blake3::CalculateBase64(path), base64::Encode(memView), ());
 
-  // Truncated (compact) digest used in countries.txt: 9 bytes -> 12 base64 chars, no padding.
+  // Truncated (compact) digest used in countries.json: 9 bytes -> 12 base64 chars, no padding.
   size_t constexpr kShortBytes = 9;
   std::string const shortB64 = Blake3::CalculateBase64(path, kShortBytes);
   TEST_EQUAL(shortB64, base64::Encode(memView.substr(0, kShortBytes)), ());

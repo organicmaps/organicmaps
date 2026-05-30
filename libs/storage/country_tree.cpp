@@ -29,7 +29,7 @@ struct CountryNode
 };
 }  // namespace countries_json
 
-// Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
+// Mwm subtree attributes. They can be calculated based on information contained in countries.json.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
 using MwmSubtreeAttrs = std::pair<MwmCounter, MwmSize>;
@@ -97,7 +97,7 @@ public:
     ASSERT(!countryId.empty(), ());
 
     /// @todo Possible 1 -> many entries in case if we unite regions.
-    /// Current countries.txt example is "Caribisch Nederland".
+    /// Current countries.json example is "Caribisch Nederland".
     m_info.m_mwmToOld.emplace(countryId, std::move(oldId));
   }
 

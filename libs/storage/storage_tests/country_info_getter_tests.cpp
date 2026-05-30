@@ -208,7 +208,7 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
   TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kRectCompareEpsilon), ());
 }
 
-// This is a test for consistency between data/countries.txt and data/packed_polygons.bin.
+// This is a test for consistency between data/countries.json and data/packed_polygons.bin.
 UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 {
   auto reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());

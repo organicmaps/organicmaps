@@ -450,7 +450,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt). "
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.json). "
                         "File must be located in data directory."));
         return EXIT_FAILURE;
       }
@@ -493,7 +493,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt). "
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.json). "
                         "File must be located in data directory."));
         return EXIT_FAILURE;
       }

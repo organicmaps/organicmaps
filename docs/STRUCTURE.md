@@ -17,7 +17,7 @@
 - `conf/isolines/` - per-country isoline profiles.
 - `vulkan_shaders/` -
 
-- `countries.txt` - map files hierarchy and checksums.
+- `countries.json` - map files hierarchy and checksums.
 - `countries_meta.txt` - country/region languages and driving sides.
 - `hierarchy.txt` - countries/map regions hierarchy, languages used and Wikidata IDs.
 

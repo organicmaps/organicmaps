@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Recalculate per-map integrity hashes in a countries.txt file.
+Recalculate per-map integrity hashes in a countries.json file.
 
-For every node in countries.txt that has a corresponding <id>.mwm file in the
+For every node in countries.json that has a corresponding <id>.mwm file in the
 given directory, (re)compute its BLAKE3 hash (truncated, base64) and store it in
 the node's "h" field. Any legacy "sha1_base64" field is removed.
 
 This covers both use cases:
-  * migrate an old countries.txt (SHA-1 "sha1_base64") to BLAKE3 "h";
+  * migrate an old countries.json (SHA-1 "sha1_base64") to BLAKE3 "h";
   * recalculate / add BLAKE3 "h" values for a freshly built set of mwm files.
 
 The hash length and algorithm match the client (coding::Blake3::CalculateMwmBase64)
@@ -16,12 +16,12 @@ rewritten with the generator's formatting (json.dump(ensure_ascii=False,
 indent=1)), so only the hash lines change.
 
 Examples:
-  # In place, countries.txt sitting next to the mwm files:
+  # In place, countries.json sitting next to the mwm files:
   python update_countries_hashes.py --mwm /maps/250101
 
   # Explicit input/output:
   python update_countries_hashes.py --mwm /maps/250101 \\
-      --countries data/countries.txt -o data/countries.txt
+      --countries data/countries.json -o data/countries.json
 """
 
 import argparse
@@ -61,7 +61,7 @@ def update_tree(node, mwm_dir, num_bytes, stats):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Recalculate/migrate per-map integrity hashes in countries.txt to BLAKE3."
+        description="Recalculate/migrate per-map integrity hashes in countries.json to BLAKE3."
     )
     parser.add_argument(
         "--mwm",
@@ -72,12 +72,12 @@ def main():
     )
     parser.add_argument(
         "--countries",
-        help="Path to the input countries.txt (default: <mwm>/countries.txt)",
+        help="Path to the input countries.json (default: <mwm>/countries.json)",
     )
     parser.add_argument(
         "-o",
         "--output",
-        help="Output path (default: overwrite the input countries.txt)",
+        help="Output path (default: overwrite the input countries.json)",
     )
     parser.add_argument(
         "--hash-bytes",
@@ -87,7 +87,7 @@ def main():
     )
     args = parser.parse_args()
 
-    countries_path = args.countries or os.path.join(args.mwm, "countries.txt")
+    countries_path = args.countries or os.path.join(args.mwm, "countries.json")
     output_path = args.output or countries_path
 
     with open(countries_path, encoding="utf-8") as f:
