@@ -2,6 +2,9 @@
 
 #include "map/bookmark_manager.hpp"
 
+#include "routing/router.hpp"           // routing::RouterType
+#include "routing/routing_options.hpp"  // routing::RoutingOptions
+
 #include <functional>
 #include <string>
 
@@ -205,7 +208,11 @@ enum class RoadWarningMarkType : uint8_t
   Toll = 0,
   Ferry = 1,
   Dirty = 2,
-  Count = 3
+  Steps = 3,
+  // Point-like warnings (placed on a single route vertex, not a road span).
+  Gate = 4,
+  LiftGate = 5,
+  Count = 6
 };
 
 class RoadWarningMark : public UserMark
@@ -243,3 +250,17 @@ private:
 };
 
 std::string DebugPrint(RoadWarningMarkType type);
+
+// Whether a warning of |type| is shown on a route of |router|. Steps occur only on
+// pedestrian/bicycle routes, lift gates are reported for cars only, gates and ferries for all.
+bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router);
+
+// Picks the linear warning to show for a route segment given its road types and the router type.
+// Returns RoadWarningMarkType::Count if there is nothing to warn about. Router-type filtering is
+// applied first, so Steps (pedestrian/bicycle) wins over Dirty (car) on unpaved steps instead of
+// being silently dropped.
+RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::RouterType router);
+
+// True for warnings backed by a car driving-option the user can toggle (Toll/Ferry/Dirty), i.e.
+// the ones that should surface the "driving options" affordance. Steps/gate/lift_gate are not.
+bool IsAvoidableRoadWarning(RoadWarningMarkType type);

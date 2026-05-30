@@ -276,7 +276,9 @@ public:
 private:
   void SetRouterImpl(routing::RouterType type);
 
-  /// \returns true if the route has warnings.
+  /// Renders all road-warning marks for the route.
+  /// \returns true if the route has an avoidable warning (toll/ferry/dirty) on a car route, i.e. one
+  /// that should surface the "driving options" affordance (RouterResultCode::HasWarnings).
   bool InsertRoute(routing::Route const & route);
 
   struct RoadInfo
@@ -289,11 +291,15 @@ private:
     FeatureID m_featureId;
     double m_distance = 0.0;
   };
-  using RoadWarningsCollection = std::map<routing::RoutingOptions::Road, std::vector<RoadInfo>>;
+  using RoadWarningsCollection = std::map<RoadWarningMarkType, std::vector<RoadInfo>>;
 
   using GetMwmIdFn = std::function<MwmSet::MwmId(routing::NumMwmId numMwmId)>;
+  // Linear warnings (toll/ferry/dirty/steps): a span of the route sharing the same road type.
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
                            double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
+  // Point warnings (gate/lift_gate): barrier features sitting exactly on a route vertex.
+  void CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
+                                GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   /// \returns false if the location could not be matched to the route and should be matched to the

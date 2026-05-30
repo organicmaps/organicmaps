@@ -31,6 +31,9 @@ public:
     RoadWarningFirstDirty,
     RoadWarningFirstToll,
     RoadWarningFirstFerry,
+    RoadWarningFirstSteps,
+    RoadWarningFirstGate,
+    RoadWarningFirstLiftGate,
   };
 
   enum Type : uint32_t
