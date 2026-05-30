@@ -90,7 +90,7 @@ bool BuildWorldRoads(std::string const & mwmFilePath, std::string const & roadsF
   FilesContainerW cont(mwmFilePath, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(ROUTING_WORLD_FILE_TAG);
 
-  /// @todo Default ctor loads countries.txt from data folder.
+  /// @todo Default ctor loads countries.json from data folder.
   /// But this is a "previous build" countries list!
   storage::Storage storage;
   std::shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);

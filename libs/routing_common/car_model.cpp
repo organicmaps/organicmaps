@@ -140,7 +140,7 @@ CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParent
   using namespace car_model;
   using std::make_shared;
 
-  // Names must be the same with country names from countries.txt
+  // Names must be the same with country names from countries.json
   m_models[""] = make_shared<CarModel>();
 
   m_models["Austria"] = make_shared<CarModel>(NoPassThroughLivingStreet());

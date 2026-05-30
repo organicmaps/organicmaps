@@ -61,7 +61,7 @@ Separate sets for `styles/vehicle/` (navigation mode) and color themes in `light
 After editing, run `tools/unix/generate_drules.sh` and commit generated files separately.
 
 ## Map data files
-- `countries.txt` -- map file hierarchy and checksums
+- `countries.json` -- map file hierarchy and checksums
 - `countries_meta.txt` -- country/region languages and driving sides
 - `borders/` -- 1156 country/region border polygons
 - `minsk-pass.mwm` -- small test map

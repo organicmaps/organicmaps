@@ -82,6 +82,6 @@ UNIT_TEST(CountriesNamesTest)
     }
 
     // If this test fails, most likely somebody added fake place=country object into OSM.
-    TEST(found, ("Cannot find countries.txt record for country feature:", ft->DebugString()));
+    TEST(found, ("Cannot find countries.json record for country feature:", ft->DebugString()));
   });
 }

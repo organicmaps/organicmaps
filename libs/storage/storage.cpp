@@ -472,7 +472,7 @@ namespace
 /// @return True if _really_ obsolete for regions which were not renamed after split.
 bool IsRealObsolete(LocalFilePtr const & lf)
 {
-  /// @todo "Old version" should be somewhere in countries.txt, but needs a deep refactoring.
+  /// @todo "Old version" should be somewhere in countries.json, but needs a deep refactoring.
   std::pair<std::string_view, int64_t> constexpr arr[] = {{"China_Guangdong", 260415}};
   for (auto const & e : arr)
     if (lf->GetCountryName() == e.first)

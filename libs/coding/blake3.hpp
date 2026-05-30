@@ -15,7 +15,7 @@ namespace coding
 //
 // BLAKE3 is an extendable-output function: any prefix of the 32-byte digest is
 // itself a valid shorter hash. The *Base64 helpers can therefore emit a
-// truncated digest (e.g. 9 bytes) for compact storage in countries.txt.
+// truncated digest (e.g. 9 bytes) for compact storage in countries.json.
 class Blake3
 {
 public:

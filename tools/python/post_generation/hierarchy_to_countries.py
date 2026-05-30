@@ -1,4 +1,4 @@
-# Produces countries.txt from hierarchy.txt
+# Produces countries.json from hierarchy.txt
 #
 # Hierarchy.txt format:
 #
@@ -20,7 +20,7 @@ import re
 
 from blake3 import blake3
 
-# Length in bytes of the per-map integrity hash written to countries.txt.
+# Length in bytes of the per-map integrity hash written to countries.json.
 # A BLAKE3 digest can be safely truncated (any prefix is itself a valid hash).
 # 9 bytes -> 12 base64 chars without padding.
 # Must match coding::Blake3::CalculateMwmBase64 in libs/coding/blake3.cpp.
