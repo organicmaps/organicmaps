@@ -60,8 +60,6 @@ set(SRC
   reader_writer_ops.hpp
   serdes_binary_header.hpp
   serdes_json.hpp
-  sha1.cpp
-  sha1.hpp
   simple_dense_coding.cpp
   simple_dense_coding.hpp
   sparse_vector.hpp

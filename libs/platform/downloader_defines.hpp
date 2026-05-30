@@ -14,7 +14,7 @@ enum class DownloadStatus
   Completed,
   Failed,
   FileNotFound,
-  FailedSHA,
+  FailedIntegrityCheck,
 };
 
 inline std::string DebugPrint(DownloadStatus status)
@@ -25,7 +25,7 @@ inline std::string DebugPrint(DownloadStatus status)
   case DownloadStatus::Completed: return "Completed";
   case DownloadStatus::Failed: return "Failed";
   case DownloadStatus::FileNotFound: return "File not found";
-  case DownloadStatus::FailedSHA: return "Failed SHA check";
+  case DownloadStatus::FailedIntegrityCheck: return "Failed integrity check";
   }
   UNREACHABLE();
 }

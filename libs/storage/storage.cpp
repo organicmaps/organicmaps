@@ -14,9 +14,9 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "coding/blake3.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/sha1.hpp"
 
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
@@ -755,26 +755,26 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
   {
     /// @todo Can/Should be combined with ApplyDiff routine when we will restore it.
     /// While this is simple and working solution, I think that Downloader component
-    /// should make this kind of checks (taking expecting SHA as input). But now it's
+    /// should make this kind of checks (taking the expected hash as input). But now it's
     /// not so simple as it may seem ..
 
     GetPlatform().RunTask(Platform::Thread::File,
-                          [path = GetFileDownloadPath(countryId, fileType), sha1 = GetCountryFile(countryId).GetSha1(),
+                          [path = GetFileDownloadPath(countryId, fileType), hash = GetCountryFile(countryId).GetHash(),
                            fn = std::move(finishFn)]()
     {
       DownloadStatus status = DownloadStatus::Completed;
 
-      if (coding::SHA1::CalculateBase64(path) != sha1)
+      if (coding::Blake3::CalculateMwmBase64(path) != hash)
       {
         base::DeleteFileX(path);
-        status = DownloadStatus::FailedSHA;
-        LOG(LERROR, ("SHA check error for", path));
+        status = DownloadStatus::FailedIntegrityCheck;
+        LOG(LERROR, ("Integrity check error for", path));
       }
 
       GetPlatform().RunTask(Platform::Thread::Gui, [fn = std::move(fn), status]()
       {
         if (status == DownloadStatus::Completed)
-          LOG(LDEBUG, ("Successful SHA check"));
+          LOG(LDEBUG, ("Successful integrity check"));
 
         fn(status);
       });
@@ -1003,7 +1003,7 @@ void Storage::RegisterLocalFile(platform::LocalCountryFile const & localFile)
   uint64_t const size = ptr->GetSize(MapFileType::Map);
   LOG(LINFO, ("Found file:", countryId, "in directory:", ptr->GetDirectory(), "with size:", size));
 
-  /// Funny, but ptr->GetCountryFile() has valid name only. Size and sha1 are not initialized.
+  /// Funny, but ptr->GetCountryFile() has valid name only. Size and hash are not initialized.
   /// @todo Store only name (CountryId) in LocalCountryFile instead of CountryFile?
   if (m_currentVersion == ptr->GetVersion() && size != GetCountryFile(countryId).GetRemoteSize())
     LOG(LERROR, ("Inconsistent MWM and version for", *ptr));

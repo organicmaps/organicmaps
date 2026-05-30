@@ -24,7 +24,7 @@ struct CountryNode
   uint64_t top_city_geo_id = 0;
   std::vector<uint64_t> top_countries_geo_ids;
   int s = 0;
-  std::string sha1_base64;
+  std::string h;
   std::vector<CountryNode> g;
 };
 }  // namespace countries_json
@@ -51,12 +51,12 @@ public:
       base::SortUnique(entry.second);
   }
 
-  Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, std::string const & mapSha1, size_t depth,
+  Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, std::string const & mapHash, size_t depth,
                                 CountryId const & parent)
   {
     Country country(id, parent);
     if (mapSize)
-      country.SetFile(platform::CountryFile{id, mapSize, mapSha1});
+      country.SetFile(platform::CountryFile{id, mapSize, mapHash});
     return &m_countries.AddAtDepth(depth, std::move(country));
   }
 
@@ -295,7 +295,7 @@ MwmSubtreeAttrs LoadGroupImpl(size_t depth, countries_json::CountryNode const & 
   ASSERT_LESS_OR_EQUAL(0, nodeSize, ());
 
   // We expect that mwm and routing files should be less than 2GB.
-  Country * addedNode = store.InsertToCountryTree(id, nodeSize, node.sha1_base64, depth, parent);
+  Country * addedNode = store.InsertToCountryTree(id, nodeSize, node.h, depth, parent);
 
   MwmCounter mwmCounter = 0;
   MwmSize mwmSize = 0;
