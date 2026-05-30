@@ -15,9 +15,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
-#include "indexer/feature.hpp"
-#include "indexer/feature_data.hpp"
-#include "indexer/scales.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -37,6 +35,7 @@
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -197,6 +196,44 @@ VehicleType GetVehicleType(RouterType routerType)
   }
   UNREACHABLE();
 }
+
+// Maps a barrier point-feature classificator type (stored in routing::Route::GetWarnings) to a UI
+// warning mark type. Mirrors ftypes::IsWayChecker; this is the single place to extend when adding
+// a new barrier warning kind.
+class BarrierWarningChecker : public ftypes::BaseChecker
+{
+public:
+  BarrierWarningChecker()
+  {
+    Classificator const & c = classif();
+    std::pair<char const *, RoadWarningMarkType> const types[] = {
+        {"gate", RoadWarningMarkType::Gate},
+        {"lift_gate", RoadWarningMarkType::LiftGate},
+    };
+
+    m_marks.Reserve(std::size(types));
+    for (auto const & e : types)
+    {
+      uint32_t const type = c.GetTypeByPath({"barrier", e.first});
+      m_types.push_back(type);
+      m_marks.Insert(type, e.second);
+    }
+    m_marks.FinishBuilding();
+  }
+
+  DECLARE_CHECKER_INSTANCE(BarrierWarningChecker);
+
+  /// @returns RoadWarningMarkType::Count if |type| is not a known barrier warning.
+  RoadWarningMarkType GetWarningType(uint32_t type) const
+  {
+    if (auto const * res = m_marks.Find(ftype::Trunc(type, 2)))
+      return *res;
+    return RoadWarningMarkType::Count;
+  }
+
+private:
+  base::SmallMap<uint32_t, RoadWarningMarkType> m_marks;
+};
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
                                             double baseDistance, double baseDepth, routing::RouterType routerType)
@@ -609,80 +646,17 @@ void RoutingManager::CollectRoadWarnings(std::vector<routing::RouteSegment> cons
     roadWarnings[lastWarn].back().m_distance = segments.back().GetDistFromBeginningMeters() - startDistance;
 }
 
-void RoutingManager::CollectRoadPointWarnings(std::vector<routing::RouteSegment> const & segments,
-                                              m2::PointD const & startPt, RoadWarningsCollection & roadWarnings)
+void RoutingManager::CollectRoadPointWarnings(RouteBase const & route, RoadWarningsCollection & roadWarnings)
 {
-  bool const gateShown = IsWarningShownFor(RoadWarningMarkType::Gate, m_currentRouterType);
-  bool const liftGateShown = IsWarningShownFor(RoadWarningMarkType::LiftGate, m_currentRouterType);
-  if (!gateShown && !liftGateShown)
-    return;
-
-  // Group route vertices by the MWM they belong to, so we can scan each MWM only once.
-  // Fake segments (e.g. route ends) have no real MWM id, so they are skipped here.
-  std::map<MwmSet::MwmId, std::vector<m2::PointD>> verticesByMwm;
-  bool addedStart = false;
-  for (auto const & segment : segments)
+  // The heavy barrier lookup already ran on the routing thread (IndexRouter::RedressRoute);
+  // here we just translate the stored barrier types into UI mark types and filter by router type.
+  auto const & checker = BarrierWarningChecker::Instance();
+  for (auto const & warning : route.GetWarnings())
   {
-    if (!segment.GetSegment().IsRealSegment())
+    auto const markType = checker.GetWarningType(warning.m_type);
+    if (markType == RoadWarningMarkType::Count || !IsWarningShownFor(markType, m_currentRouterType))
       continue;
-    auto & vertices = verticesByMwm[GetMwmId(segment.GetSegment().GetMwmId())];
-    if (!addedStart)
-    {
-      vertices.push_back(startPt);
-      addedStart = true;
-    }
-    vertices.push_back(segment.GetJunction().GetPoint());
-  }
-
-  auto const & cl = classif();
-  uint32_t const gateType = cl.GetTypeByPath({"barrier", "gate"});
-  uint32_t const liftGateType = cl.GetTypeByPath({"barrier", "lift_gate"});
-
-  auto const classifyBarrier = [&](FeatureType & ft) -> std::optional<RoadWarningMarkType>
-  {
-    feature::TypesHolder const types(ft);
-    if (gateShown && types.Has(gateType))
-      return RoadWarningMarkType::Gate;
-    if (liftGateShown && types.Has(liftGateType))
-      return RoadWarningMarkType::LiftGate;
-    return std::nullopt;
-  };
-
-  DataSource const & dataSource = m_callbacks.m_dataSourceGetter();
-  for (auto const & [mwmId, vertices] : verticesByMwm)
-  {
-    if (!mwmId.IsAlive())
-      continue;
-
-    // Bounding box of this MWM's part of the route; barrier features outside it can't match a vertex.
-    m2::RectD rect;
-    for (auto const & v : vertices)
-      rect.Add(v);
-    rect.Inflate(mercator::kPointEqualityEps, mercator::kPointEqualityEps);
-
-    dataSource.ForEachInRectForMWM([&](FeatureType & ft)
-    {
-      if (ft.GetGeomType() != feature::GeomType::Point)
-        return;
-
-      auto const markType = classifyBarrier(ft);
-      if (!markType)
-        return;
-
-      // The barrier feature must sit exactly on one of the route vertices.
-      auto const center = ft.GetCenter();
-      if (!base::AnyOf(vertices,
-                       [&center](m2::PointD const & v) { return center.EqualDxDy(v, mercator::kPointEqualityEps); }))
-        return;
-
-      auto const featureId = ft.GetID();
-      auto & marks = roadWarnings[*markType];
-      // The same barrier can be reached from two subroutes sharing an intermediate point.
-      if (base::AnyOf(marks, [&featureId](RoadInfo const & ri) { return ri.m_featureId == featureId; }))
-        return;
-
-      marks.push_back(RoadInfo(center, featureId));
-    }, rect, scales::GetUpperScale(), mwmId);
+    roadWarnings[markType].push_back(RoadInfo(warning.m_point, warning.m_featureId));
   }
 }
 
@@ -910,10 +884,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     }
 
     if (isActive)
-    {
       CollectRoadWarnings(segments, startPt, subroute->m_baseDistance, roadWarnings);
-      CollectRoadPointWarnings(segments, startPt, roadWarnings);
-    }
 
     auto const subrouteId =
         m_drapeEngine.SafeCallWithResult(&df::DrapeEngine::AddSubroute, df::SubrouteConstPtr(subroute.release()));
@@ -921,6 +892,11 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
     m_drapeSubroutes.push_back(subrouteId);
   }
+
+  // Point warnings (barrier nodes) are precomputed on the routing thread (IndexRouter::RedressRoute)
+  // and stored in the route; read them once (route-global, not per-subroute) for the active route.
+  if (isActive)
+    CollectRoadPointWarnings(route, roadWarnings);
 }
 
 void RoutingManager::FollowRoute()
